@@ -152,8 +152,7 @@
     }
 }
 
-@layer components {
-    /* ─── BACKGROUND GRID ─── */
+/* ─── BACKGROUND GRID ─── */
     body::before {
         content: '';
         position: fixed;
@@ -172,7 +171,7 @@
         top: 0;
         left: 0;
         right: 0;
-       z-index: 100;
+        z-index: 100;
         background: rgba(10, 14, 26, 0.85);
         backdrop-filter: blur(16px);
         border-bottom: 1px solid var(--color-border);
@@ -579,6 +578,7 @@
     pre {
         padding: 1.25rem 1.5rem;
         overflow-x: auto;
+        white-space: pre;
         font-family: var(--font-mono);
         font-size: 12.5px;
         line-height: 1.7;
@@ -1142,4 +1142,3 @@
     .text-sm {
         font-size: 13px;
     }
-}

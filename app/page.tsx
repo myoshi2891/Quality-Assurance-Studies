@@ -467,29 +467,29 @@ export default function Home() {
                                     >PYTHON / pytest</span
                                 >
                             </div>
-                            <pre><span className="cm"># テスト対象 (src/calculator.py)</span>
-<span className="kw">def</span> <span className="fn">divide</span>(a: <span className="cls">float</span>, b: <span className="cls">float</span>) -&gt; <span className="cls">float</span>:
-    <span className="kw">if</span> b == <span className="num">0</span>:
-        <span className="kw">raise</span> <span className="cls">ValueError</span>(<span className="str">"0で割ることはできません"</span>)
-    <span className="kw">return</span> a / b
+                            <pre dangerouslySetInnerHTML={{ __html: `<span class="cm"># テスト対象 (src/calculator.py)</span>
+<span class="kw">def</span> <span class="fn">divide</span>(a: <span class="cls">float</span>, b: <span class="cls">float</span>) -&gt; <span class="cls">float</span>:
+    <span class="kw">if</span> b == <span class="num">0</span>:
+        <span class="kw">raise</span> <span class="cls">ValueError</span>(<span class="str">"0で割ることはできません"</span>)
+    <span class="kw">return</span> a / b
 
-<span className="cm"># ユニットテスト (tests/test_calculator.py)</span>
-<span className="kw">import</span> pytest
-<span className="kw">from</span> src.calculator <span className="kw">import</span> divide
+<span class="cm"># ユニットテスト (tests/test_calculator.py)</span>
+<span class="kw">import</span> pytest
+<span class="kw">from</span> src.calculator <span class="kw">import</span> divide
 
-<span className="kw">class</span> <span className="cls">TestDivide</span>:
-    <span className="kw">def</span> <span className="fn">test_通常の除算</span>(<span className="dec">self</span>):
-        <span className="cm"># Arrange</span>
-        a, b = <span className="num">10</span>, <span className="num">2</span>
-        <span className="cm"># Act</span>
+<span class="kw">class</span> <span class="cls">TestDivide</span>:
+    <span class="kw">def</span> <span class="fn">test_通常の除算</span>(<span class="dec">self</span>):
+        <span class="cm"># Arrange</span>
+        a, b = <span class="num">10</span>, <span class="num">2</span>
+        <span class="cm"># Act</span>
         result = divide(a, b)
-        <span className="cm"># Assert</span>
-        <span className="kw">assert</span> result == <span className="num">5.0</span>
+        <span class="cm"># Assert</span>
+        <span class="kw">assert</span> result == <span class="num">5.0</span>
 
-    <span className="kw">def</span> <span className="fn">test_ゼロ除算は例外を発生</span>(<span className="dec">self</span>):
-        <span className="kw">with</span> pytest.raises(<span className="cls">ValueError</span>,
-                match=<span className="str">"0で割ることはできません"</span>):
-            divide(<span className="num">10</span>, <span className="num">0</span>)</pre>
+    <span class="kw">def</span> <span class="fn">test_ゼロ除算は例外を発生</span>(<span class="dec">self</span>):
+        <span class="kw">with</span> pytest.raises(<span class="cls">ValueError</span>,
+                match=<span class="str">"0で割ることはできません"</span>):
+            divide(<span class="num">10</span>, <span class="num">0</span>)` }} />
                         </div>
                     </div>
                 </div>
@@ -703,11 +703,11 @@ export default function Home() {
                                     >例: 年齢入力 (0-120)</span
                                 >
                             </div>
-                            <pre><span className="cm"># 有効クラス: 0 ≤ age ≤ 120</span>
-<span className="cm"># 無効クラス: age &lt; 0 または age &gt; 120</span>
-有効クラスの代表値: <span className="num">60</span>  <span className="cm"># → 正常</span>
-無効クラス1の代表値: <span className="num">-1</span> <span className="cm"># → エラー</span>
-無効クラス2の代表値: <span className="num">121</span><span className="cm"># → エラー</span></pre>
+                            <pre dangerouslySetInnerHTML={{ __html: `<span class="cm"># 有効クラス: 0 ≤ age ≤ 120</span>
+<span class="cm"># 無効クラス: age &lt; 0 または age &gt; 120</span>
+有効クラスの代表値: <span class="num">60</span>  <span class="cm"># → 正常</span>
+無効クラス1の代表値: <span class="num">-1</span> <span class="cm"># → エラー</span>
+無効クラス2の代表値: <span class="num">121</span><span class="cm"># → エラー</span>` }} />
                         </div>
                     </div>
                     <div
@@ -732,13 +732,13 @@ export default function Home() {
                                     >例: 年齢入力 (0-120)</span
                                 >
                             </div>
-                            <pre>境界値テストケース:
-  <span className="num">-1</span>  → 無効（境界の外）
-  <span className="num">0</span>   → <span className="kw">有効</span>（最小値）
-  <span className="num">1</span>   → <span className="kw">有効</span>（最小値+1）
-  <span className="num">119</span> → <span className="kw">有効</span>（最大値-1）
-  <span className="num">120</span> → <span className="kw">有効</span>（最大値）
-  <span className="num">121</span> → 無効（境界の外）</pre>
+                            <pre dangerouslySetInnerHTML={{ __html: `境界値テストケース:
+  <span class="num">-1</span>  → 無効（境界の外）
+  <span class="num">0</span>   → <span class="kw">有効</span>（最小値）
+  <span class="num">1</span>   → <span class="kw">有効</span>（最小値+1）
+  <span class="num">119</span> → <span class="kw">有効</span>（最大値-1）
+  <span class="num">120</span> → <span class="kw">有効</span>（最大値）
+  <span class="num">121</span> → 無効（境界の外）` }} />
                         </div>
                     </div>
                     <div
@@ -808,13 +808,11 @@ export default function Home() {
                                     >注文状態遷移</span
                                 >
                             </div>
-                            <pre>
-[新規] --支払い--&gt; [承認待ち]
-[承認待ち] --承認--&gt; [処理中]
-[処理中] --発送--&gt; [配送中]
-[配送中] --受取確認--&gt; [完了]
-[*] --キャンセル--&gt; [キャンセル済]</pre
-                            >
+                            <pre>{`[新規] --支払い--> [承認待ち]
+[承認待ち] --承認--> [処理中]
+[処理中] --発送--> [配送中]
+[配送中] --受取確認--> [完了]
+[*] --キャンセル--> [キャンセル済]`}</pre>
                         </div>
                     </div>
                 </div>
@@ -953,31 +951,31 @@ export default function Home() {
                             >PYTHON / pytest + FastAPI — API結合テスト</span
                         >
                     </div>
-                    <pre><span className="kw">import</span> pytest
-<span className="kw">from</span> fastapi.testclient <span className="kw">import</span> TestClient
-<span className="kw">from</span> app.main <span className="kw">import</span> app
+                    <pre dangerouslySetInnerHTML={{ __html: `<span class="kw">import</span> pytest
+<span class="kw">from</span> fastapi.testclient <span class="kw">import</span> TestClient
+<span class="kw">from</span> app.main <span class="kw">import</span> app
 
-client = <span className="cls">TestClient</span>(app)
+client = <span class="cls">TestClient</span>(app)
 
-<span className="kw">class</span> <span className="cls">TestOrderAPI</span>:
-    <span className="kw">def</span> <span className="fn">test_注文作成_正常系</span>(<span className="dec">self</span>, test_db):
-        <span className="cm"># Arrange — テスト用DBへ接続済み</span>
-        payload = &#123;<span className="str">"product_id"</span>: <span className="num">1</span>, <span className="str">"quantity"</span>: <span className="num">2</span>, <span className="str">"user_id"</span>: <span className="num">42</span>&#125;
+<span class="kw">class</span> <span class="cls">TestOrderAPI</span>:
+    <span class="kw">def</span> <span class="fn">test_注文作成_正常系</span>(<span class="dec">self</span>, test_db):
+        <span class="cm"># Arrange — テスト用DBへ接続済み</span>
+        payload = {<span class="str">"product_id"</span>: <span class="num">1</span>, <span class="str">"quantity"</span>: <span class="num">2</span>, <span class="str">"user_id"</span>: <span class="num">42</span>}
 
-        <span className="cm"># Act — 実際のHTTPリクエスト送信（DBにも書き込む）</span>
-        response = client.post(<span className="str">"/api/orders"</span>, json=payload)
+        <span class="cm"># Act — 実際のHTTPリクエスト送信（DBにも書き込む）</span>
+        response = client.post(<span class="str">"/api/orders"</span>, json=payload)
 
-        <span className="cm"># Assert</span>
-        <span className="kw">assert</span> response.status_code == <span className="num">201</span>
+        <span class="cm"># Assert</span>
+        <span class="kw">assert</span> response.status_code == <span class="num">201</span>
         data = response.json()
-        <span className="kw">assert</span> data[<span className="str">"status"</span>] == <span className="str">"pending"</span>
-        <span className="kw">assert</span> data[<span className="str">"total_price"</span>] &gt; <span className="num">0</span>
+        <span class="kw">assert</span> data[<span class="str">"status"</span>] == <span class="str">"pending"</span>
+        <span class="kw">assert</span> data[<span class="str">"total_price"</span>] > <span class="num">0</span>
 
-    <span className="kw">def</span> <span className="fn">test_在庫不足_409エラー</span>(<span className="dec">self</span>, test_db):
-        payload = &#123;<span className="str">"product_id"</span>: <span className="num">999</span>, <span className="str">"quantity"</span>: <span className="num">9999</span>&#125;
-        response = client.post(<span className="str">"/api/orders"</span>, json=payload)
-        <span className="kw">assert</span> response.status_code == <span className="num">409</span>
-        <span className="kw">assert</span> <span className="str">"在庫不足"</span> <span className="kw">in</span> response.json()[<span className="str">"detail"</span>]</pre>
+    <span class="kw">def</span> <span class="fn">test_在庫不足_409エラー</span>(<span class="dec">self</span>, test_db):
+        payload = {<span class="str">"product_id"</span>: <span class="num">999</span>, <span class="str">"quantity"</span>: <span class="num">9999</span>}
+        response = client.post(<span class="str">"/api/orders"</span>, json=payload)
+        <span class="kw">assert</span> response.status_code == <span class="num">409</span>
+        <span class="kw">assert</span> <span class="str">"在庫不足"</span> <span class="kw">in</span> response.json()[<span class="str">"detail"</span>]` }} />
                 </div>
                 <div className="text-[13px] text-text-muted mt-2">
                     参照:
@@ -1144,33 +1142,33 @@ client = <span className="cls">TestClient</span>(app)
                             >TYPESCRIPT / Playwright — ECサイト購入フロー E2E</span
                         >
                     </div>
-                    <pre><span className="kw">import</span> &#123; test, expect &#125; <span className="kw">from</span> <span className="str">'@playwright/test'</span>;
+                    <pre dangerouslySetInnerHTML={{ __html: `<span class="kw">import</span> { test, expect } <span class="kw">from</span> <span class="str">'@playwright/test'</span>;
 
-test(<span className="str">'ユーザーが商品を購入できる'</span>, <span className="kw">async</span> (&#123; page &#125;) =&gt; &#123;
-  <span className="cm">// 1. ログイン</span>
-  <span className="kw">await</span> page.goto(<span className="str">'https://staging.example.com/login'</span>);
-  <span className="kw">await</span> page.fill(<span className="str">'[data-testid="email"]'</span>, <span className="str">'user@example.com'</span>);
-  <span className="kw">await</span> page.fill(<span className="str">'[data-testid="password"]'</span>, <span className="str">'password123'</span>);
-  <span className="kw">await</span> page.click(<span className="str">'[data-testid="login-btn"]'</span>);
-  <span className="kw">await</span> expect(page).toHaveURL(<span className="str">'/dashboard'</span>);
+test(<span class="str">'ユーザーが商品を購入できる'</span>, <span class="kw">async</span> ({ page }) => {
+  <span class="cm">// 1. ログイン</span>
+  <span class="kw">await</span> page.goto(<span class="str">'https://staging.example.com/login'</span>);
+  <span class="kw">await</span> page.fill(<span class="str">'[data-testid="email"]'</span>, <span class="str">'user@example.com'</span>);
+  <span class="kw">await</span> page.fill(<span class="str">'[data-testid="password"]'</span>, <span class="str">'password123'</span>);
+  <span class="kw">await</span> page.click(<span class="str">'[data-testid="login-btn"]'</span>);
+  <span class="kw">await</span> expect(page).toHaveURL(<span class="str">'/dashboard'</span>);
 
-  <span className="cm">// 2. 商品選択</span>
-  <span className="kw">await</span> page.goto(<span className="str">'/products/laptop-001'</span>);
-  <span className="kw">await</span> page.click(<span className="str">'[data-testid="add-to-cart"]'</span>);
+  <span class="cm">// 2. 商品選択</span>
+  <span class="kw">await</span> page.goto(<span class="str">'/products/laptop-001'</span>);
+  <span class="kw">await</span> page.click(<span class="str">'[data-testid="add-to-cart"]'</span>);
 
-  <span className="cm">// 3. カート確認</span>
-  <span className="kw">await</span> page.goto(<span className="str">'/cart'</span>);
-  <span className="kw">await</span> expect(page.locator(<span className="str">'[data-testid="cart-item"]'</span>)).toHaveCount(<span className="num">1</span>);
+  <span class="cm">// 3. カート確認</span>
+  <span class="kw">await</span> page.goto(<span class="str">'/cart'</span>);
+  <span class="kw">await</span> expect(page.locator(<span class="str">'[data-testid="cart-item"]'</span>)).toHaveCount(<span class="num">1</span>);
 
-  <span className="cm">// 4. 決済（テスト用カード）</span>
-  <span className="kw">await</span> page.click(<span className="str">'[data-testid="checkout-btn"]'</span>);
-  <span className="kw">await</span> page.fill(<span className="str">'[data-testid="card-number"]'</span>, <span className="str">'4242 4242 4242 4242'</span>);
-  <span className="kw">await</span> page.click(<span className="str">'[data-testid="pay-btn"]'</span>);
+  <span class="cm">// 4. 決済（テスト用カード）</span>
+  <span class="kw">await</span> page.click(<span class="str">'[data-testid="checkout-btn"]'</span>);
+  <span class="kw">await</span> page.fill(<span class="str">'[data-testid="card-number"]'</span>, <span class="str">'4242 4242 4242 4242'</span>);
+  <span class="kw">await</span> page.click(<span class="str">'[data-testid="pay-btn"]'</span>);
 
-  <span className="cm">// 5. 完了確認</span>
-  <span className="kw">await</span> expect(page.locator(<span className="str">'h1'</span>)).toContainText(<span className="str">'注文完了'</span>);
-  <span className="kw">await</span> expect(page.locator(<span className="str">'[data-testid="order-id"]'</span>)).toBeVisible();
-&#125;);</pre>
+  <span class="cm">// 5. 完了確認</span>
+  <span class="kw">await</span> expect(page.locator(<span class="str">'h1'</span>)).toContainText(<span class="str">'注文完了'</span>);
+  <span class="kw">await</span> expect(page.locator(<span class="str">'[data-testid="order-id"]'</span>)).toBeVisible();
+});` }} />
                 </div>
             </section>
 
