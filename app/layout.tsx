@@ -1,6 +1,28 @@
 import type { Metadata } from 'next';
+import { Noto_Sans_JP, JetBrains_Mono, DM_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '../components/Header';
+
+const notoSansJP = Noto_Sans_JP({
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-body',
+});
+
+const jetBrainsMono = JetBrains_Mono({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-mono',
+});
+
+const dmSans = DM_Sans({
+  weight: ['300', '400', '500', '700', '800'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-display',
+});
 
 export const metadata: Metadata = {
   title: 'QA Studies & AI Test Guide',
@@ -13,18 +35,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&family=DM+Sans:wght@300;400;500;700;800&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable}`}>
       <body>
         <Header />
-        {children}
+        <main>{children}</main>
       </body>
     </html>
   );

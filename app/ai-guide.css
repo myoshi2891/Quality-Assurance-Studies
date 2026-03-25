@@ -8,7 +8,7 @@
 .ai-vs-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: var(--r);
+    border-radius: var(--radius-DEFAULT, 12px);
     padding: 1.25rem;
 }
 
@@ -127,7 +127,7 @@
 .metric-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: var(--r-sm);
+    border-radius: var(--radius-sm, 8px);
     padding: 0.9rem;
 }
 
@@ -295,7 +295,7 @@
 .cert-meta-item {
     background: #0c0f1d;
     border: 1px solid var(--color-border);
-    border-radius: var(--r-sm);
+    border-radius: var(--radius-sm, 8px);
     padding: 0.5rem 0.75rem;
 }
 
@@ -353,7 +353,7 @@
 .prompt-example {
     background: #050810;
     border: 1px solid rgba(139, 92, 246, 0.25);
-    border-radius: var(--r-sm);
+    border-radius: var(--radius-sm, 8px);
     padding: 1rem 1.25rem;
     font-family: var(--font-mono);
     font-size: 12px;
@@ -386,14 +386,6 @@
 
 .prompt-good {
     color: var(--color-accent-green);
-}
-
-.ai-vs-box {
-    grid-template-columns: 1fr;
-}
-
-.matrix-cell {
-    width: 110px;
 }
 
 /* ========================================

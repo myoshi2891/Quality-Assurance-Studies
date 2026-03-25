@@ -4,29 +4,29 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## プロジェクト概要
 
-「現代ソフトウェアテスト完全ガイド 2025」— ISTQB 準拠の QA 学習用単一ページ静的サイト。
+「現代ソフトウェアテスト完全ガイド 2025」— ISTQB 準拠の QA 学習用静的サイト。
 
-**スタック**: Vite + Tailwind CSS v4 + TypeScript（strict）
-
-> このプロジェクトは Vite を使用しています。グローバルの CLAUDE.md にある「Don't use vite」ルールはここには適用されません。
+**スタック**: Next.js (App Router) + Tailwind CSS v4 + TypeScript（strict）
 
 ## コマンド
 
 ```sh
-bun install          # 依存関係インストール
-bun run dev          # 開発サーバー起動（HMR あり）
-bun run build        # 本番ビルド（dist/ へ出力）
-bun run preview      # ビルド成果物をローカルプレビュー
+npm install          # 依存関係インストール
+npm run dev          # 開発サーバー起動（HMR あり）
+npm run build        # 本番ビルド（.next/ へ出力）
+npm start            # ビルド成果物をプロダクションモードで起動
+npm run lint         # ESLint 実行
 ```
 
 ## アーキテクチャ
 
-現在、ソースファイルは 2 つのみ:
+Next.js App Router 構成:
 
-- `index.html` — ページ全体のマークアップ（セクション単位でコメント区切り）
-- `input.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / components / utilities` でコンポーネントスタイルを記述
-
-JavaScript/TypeScript ソースファイルは存在しない（将来追加する場合は `<script type="module" src="./main.ts">` で `index.html` からインポートする）。
+- `app/layout.tsx` — ルートレイアウト（メタデータ、グローバルフォント設定）
+- `app/globals.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / components / utilities` でコンポーネントスタイルを記述
+- `app/page.tsx` — ホームページ
+- `app/ai-test-guide/page.tsx` — AI テストガイドページ
+- `components/` — 共有 React コンポーネント（Header など）
 
 ### Tailwind v4 テーマ構造
 

@@ -970,7 +970,7 @@ footer a {
 }
 
 /* ── ANIMATIONS ── */
-@keyframes fadeUp {
+@keyframes fade-up {
     from {
         opacity: 0;
         transform: translateY(18px);
@@ -981,7 +981,7 @@ footer a {
     }
 }
 .hero-content {
-    animation: fadeUp 0.7s ease forwards;
+    animation: fade-up 0.7s ease forwards;
 }
 
 @media (max-width: 768px) {
