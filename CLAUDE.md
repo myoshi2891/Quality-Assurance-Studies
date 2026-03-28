@@ -26,6 +26,9 @@ Next.js App Router 構成:
 - `app/globals.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / components / utilities` でコンポーネントスタイルを記述
 - `app/page.tsx` — ホームページ
 - `app/ai-test-guide/page.tsx` — AI テストガイドページ
+- `app/ai-guide.css` — AI テストガイド固有スタイル
+- `app/unit-testing-guide/page.tsx` — ユニットテスト完全ガイドページ
+- `app/unit-testing.css` — ユニットテストガイド固有スタイル
 - `components/` — 共有 React コンポーネント（Header など）
 
 ### Tailwind v4 テーマ構造

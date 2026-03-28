@@ -9,6 +9,7 @@ export default function Header() {
       <div className="nav-links flex-1 flex gap-1 overflow-x-auto no-scrollbar">
         <Link href="/">ホーム</Link>
         <Link href="/ai-test-guide">AIテストガイド</Link>
+        <Link href="/unit-testing-guide">ユニットテストガイド</Link>
         {/* ai-genAI-guide.html 内の目次リンクとして使われていたものはページ内リンクとして各ページ内で処理します */}
       </div>
       <span className="nav-badge hidden sm:inline-block">
