@@ -1,0 +1,509 @@
+.ai-vs-box {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.ai-vs-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 1.25rem;
+}
+
+.ai-vs-card.traditional {
+    border-color: rgba(96, 165, 250, 0.2);
+}
+
+.ai-vs-card.ai-based {
+    border-color: rgba(139, 92, 246, 0.3);
+}
+
+.ai-vs-card h4 {
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.ai-vs-card .tag-line {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 0.85rem;
+}
+
+.hl-hal {
+    color: #f87171;
+}
+
+.step-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.step-item {
+    display: flex;
+    gap: 1.1rem;
+    padding: 1.1rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.step-item:last-child {
+    border-bottom: none;
+}
+
+.step-n {
+    flex-shrink: 0;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    background: rgba(139, 92, 246, 0.1);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    color: var(--color-accent-purple);
+    margin-top: 2px;
+}
+
+.step-body h4 {
+    font-family: var(--font-display);
+    font-size: 0.92rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--color-text-primary);
+}
+
+.step-body p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+}
+
+/* ========================================
+   ステップ要素（新クラス: page.tsx 用）
+   ======================================== */
+
+.step-num-circle {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 700;
+    background: rgba(79, 209, 197, 0.1);
+    border: 1px solid rgba(79, 209, 197, 0.3);
+    color: var(--color-accent-cyan);
+    margin-top: 2px;
+}
+
+.step-content h4 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+    color: var(--color-text-primary);
+}
+
+.step-content p {
+    font-size: 13.5px;
+    color: var(--color-text-secondary);
+    line-height: 1.75;
+}
+
+.metric-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm, 8px);
+    padding: 0.9rem;
+}
+
+.metric-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-accent-yellow);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.metric-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 3px;
+}
+
+.metric-desc {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    line-height: 1.6;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    gap: 0.7rem;
+}
+
+.matrix-wrap {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.matrix-grid {
+    display: grid;
+    grid-template-columns: auto 1fr 1fr;
+    grid-template-rows: auto 1fr 1fr;
+    gap: 2px;
+}
+
+.matrix-cell {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    width: 140px;
+    height: 80px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    text-align: center;
+}
+
+.matrix-cell.header {
+    background: transparent;
+    border: none;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+}
+
+.matrix-cell.tp {
+    background: rgba(74, 222, 128, 0.12);
+    border-color: rgba(74, 222, 128, 0.3);
+    color: var(--color-accent-green);
+}
+
+.matrix-cell.tn {
+    background: rgba(74, 222, 128, 0.08);
+    border-color: rgba(74, 222, 128, 0.2);
+    color: var(--color-accent-green);
+}
+
+.matrix-cell.fp {
+    background: rgba(248, 113, 113, 0.1);
+    border-color: rgba(248, 113, 113, 0.3);
+    color: var(--color-accent-red);
+}
+
+.matrix-cell.fn {
+    background: rgba(251, 191, 36, 0.08);
+    border-color: rgba(251, 191, 36, 0.3);
+    color: var(--color-accent-yellow);
+}
+
+.matrix-val {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+}
+
+.matrix-lbl {
+    font-size: 10px;
+    opacity: 0.7;
+}
+
+.cert-row {
+    display: flex;
+    gap: 1rem;
+    align-items: stretch;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.cert-row:last-child {
+    border-bottom: none;
+}
+
+.cert-dot-col {
+    flex-shrink: 0;
+    width: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    padding-top: 4px;
+}
+
+.cert-dot {
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+}
+
+.cert-dot-lbl {
+    font-family: var(--font-mono);
+    font-size: 9px;
+    color: var(--color-text-muted);
+    writing-mode: vertical-rl;
+    letter-spacing: 0.1em;
+}
+
+.cert-body h4 {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 5px;
+}
+
+.cert-body p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+}
+
+.cert-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-top: 0.65rem;
+}
+
+.cert-meta {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    gap: 0.5rem;
+    margin-top: 0.75rem;
+}
+
+.cert-meta-item {
+    background: #0c0f1d;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm, 8px);
+    padding: 0.5rem 0.75rem;
+}
+
+.cert-meta-item .k {
+    font-size: 11px;
+    color: var(--color-text-muted);
+}
+
+.cert-meta-item .v {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-primary);
+}
+
+.hal-bar-wrap {
+    margin: 0.75rem 0;
+}
+
+.hal-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.4rem;
+}
+
+.hal-bar-label {
+    font-size: 12px;
+    width: 90px;
+    flex-shrink: 0;
+    color: var(--color-text-secondary);
+}
+
+.hal-bar-track {
+    flex: 1;
+    height: 10px;
+    background: #0c0f1d;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.hal-bar-fill {
+    height: 100%;
+    border-radius: 5px;
+    transition: width 0.6s ease;
+}
+
+.hal-bar-pct {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    width: 36px;
+    text-align: right;
+    color: var(--color-text-secondary);
+}
+
+.prompt-example {
+    background: #050810;
+    border: 1px solid rgba(139, 92, 246, 0.25);
+    border-radius: var(--radius-sm, 8px);
+    padding: 1rem 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    line-height: 1.7;
+    margin: 0.75rem 0;
+}
+
+.prompt-role {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+}
+
+.prompt-system {
+    color: var(--color-accent-blue);
+}
+
+.prompt-user {
+    color: var(--color-accent-green);
+}
+
+.prompt-assistant {
+    color: var(--color-accent-purple);
+}
+
+.prompt-bad {
+    color: var(--color-accent-red);
+}
+
+.prompt-good {
+    color: var(--color-accent-green);
+}
+
+/* ========================================
+   バッジ（旧クラス: sample.html 互換用）
+   ======================================== */
+
+.badge.b-ai {
+    background: rgba(183, 148, 244, 0.12);
+    color: var(--color-accent-purple);
+    border: 1px solid rgba(183, 148, 244, 0.3);
+}
+
+.badge.b-gen {
+    background: rgba(79, 209, 197, 0.12);
+    color: var(--color-accent-cyan);
+    border: 1px solid rgba(79, 209, 197, 0.3);
+}
+
+.badge.b-ml {
+    background: rgba(99, 179, 237, 0.12);
+    color: var(--color-accent-blue);
+    border: 1px solid rgba(99, 179, 237, 0.3);
+}
+
+.badge.b-sec {
+    background: rgba(252, 129, 129, 0.12);
+    color: var(--color-accent-red);
+    border: 1px solid rgba(252, 129, 129, 0.3);
+}
+
+.badge.b-warn {
+    background: rgba(246, 224, 94, 0.12);
+    color: var(--color-accent-yellow);
+    border: 1px solid rgba(246, 224, 94, 0.3);
+}
+
+.badge.b-good {
+    background: rgba(104, 211, 145, 0.12);
+    color: var(--color-accent-green);
+    border: 1px solid rgba(104, 211, 145, 0.3);
+}
+
+.badge.b-orange {
+    background: rgba(246, 173, 85, 0.12);
+    color: var(--color-accent-orange);
+    border: 1px solid rgba(246, 173, 85, 0.3);
+}
+
+/* ========================================
+   テキスト色ユーティリティ
+   ======================================== */
+
+.text-primary {
+    color: var(--color-text-primary);
+}
+
+/* ========================================
+   Tailwind 任意値クラス（フォールバック）
+   ======================================== */
+
+/* サイズ調整 */
+.w-\[22px\] {
+    width: 22px !important;
+}
+
+.h-\[22px\] {
+    height: 22px !important;
+}
+
+/* テキストサイズ */
+.text-\[10px\] {
+    font-size: 10px !important;
+}
+
+.text-\[11px\] {
+    font-size: 11px !important;
+}
+
+.text-\[12px\] {
+    font-size: 12px !important;
+}
+
+.text-\[13px\] {
+    font-size: 13px !important;
+}
+
+/* パディング */
+.py-\[0\.7rem\] {
+    padding-top: 0.7rem !important;
+    padding-bottom: 0.7rem !important;
+}
+
+/* ========================================
+   セクション内の見出し（h3）のスタイル
+   ======================================== */
+
+/* セクション内の h3 タグ（インラインスタイルの代替） */
+section h3 {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+/* 旧スタイル（sample.html 互換） */
+.mt4 {
+    margin-top: 2rem;
+}
+
+/* ========================================
+   コールアウトボックスの追加スタイル
+   ======================================== */
+
+/* コールアウト内の左ボーダー強調 */
+.callout-danger {
+    border-left: 3px solid var(--color-accent-red);
+}
+
+.callout-warn {
+    border-left: 3px solid var(--color-accent-yellow);
+}

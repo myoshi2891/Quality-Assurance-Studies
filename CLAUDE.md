@@ -1,106 +1,57 @@
+# CLAUDE.md
 
-Default to using Bun instead of Node.js.
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
-- Use `bun <file>` instead of `node <file>` or `ts-node <file>`
-- Use `bun test` instead of `jest` or `vitest`
-- Use `bun build <file.html|file.ts|file.css>` instead of `webpack` or `esbuild`
-- Use `bun install` instead of `npm install` or `yarn install` or `pnpm install`
-- Use `bun run <script>` instead of `npm run <script>` or `yarn run <script>` or `pnpm run <script>`
-- Use `bunx <package> <command>` instead of `npx <package> <command>`
-- Bun automatically loads .env, so don't use dotenv.
+## プロジェクト概要
 
-## APIs
+「現代ソフトウェアテスト完全ガイド 2025」— ISTQB 準拠の QA 学習用静的サイト。
 
-- `Bun.serve()` supports WebSockets, HTTPS, and routes. Don't use `express`.
-- `bun:sqlite` for SQLite. Don't use `better-sqlite3`.
-- `Bun.redis` for Redis. Don't use `ioredis`.
-- `Bun.sql` for Postgres. Don't use `pg` or `postgres.js`.
-- `WebSocket` is built-in. Don't use `ws`.
-- Prefer `Bun.file` over `node:fs`'s readFile/writeFile
-- Bun.$`ls` instead of execa.
+**スタック**: Next.js (App Router) + Tailwind CSS v4 + TypeScript（strict）
 
-## Testing
-
-Use `bun test` to run tests.
-
-```ts#index.test.ts
-import { test, expect } from "bun:test";
-
-test("hello world", () => {
-  expect(1).toBe(1);
-});
-```
-
-## Frontend
-
-Use HTML imports with `Bun.serve()`. Don't use `vite`. HTML imports fully support React, CSS, Tailwind.
-
-Server:
-
-```ts#index.ts
-import index from "./index.html"
-
-Bun.serve({
-  routes: {
-    "/": index,
-    "/api/users/:id": {
-      GET: (req) => {
-        return new Response(JSON.stringify({ id: req.params.id }));
-      },
-    },
-  },
-  // optional websocket support
-  websocket: {
-    open: (ws) => {
-      ws.send("Hello, world!");
-    },
-    message: (ws, message) => {
-      ws.send(message);
-    },
-    close: (ws) => {
-      // handle close
-    }
-  },
-  development: {
-    hmr: true,
-    console: true,
-  }
-})
-```
-
-HTML files can import .tsx, .jsx or .js files directly and Bun's bundler will transpile & bundle automatically. `<link>` tags can point to stylesheets and Bun's CSS bundler will bundle.
-
-```html#index.html
-<html>
-  <body>
-    <h1>Hello, world!</h1>
-    <script type="module" src="./frontend.tsx"></script>
-  </body>
-</html>
-```
-
-With the following `frontend.tsx`:
-
-```tsx#frontend.tsx
-import React from "react";
-import { createRoot } from "react-dom/client";
-
-// import .css files directly and it works
-import './index.css';
-
-const root = createRoot(document.body);
-
-export default function Frontend() {
-  return <h1>Hello, world!</h1>;
-}
-
-root.render(<Frontend />);
-```
-
-Then, run index.ts
+## コマンド
 
 ```sh
-bun --hot ./index.ts
+bun install          # 依存関係インストール
+bun run dev          # 開発サーバー起動（HMR あり）
+bun run build        # 本番ビルド（.next/ へ出力）
+bun start            # ビルド成果物をプロダクションモードで起動
+bun run lint         # ESLint 実行
 ```
 
-For more information, read the Bun API docs in `node_modules/bun-types/docs/**.mdx`.
+## アーキテクチャ
+
+Next.js App Router 構成:
+
+- `app/layout.tsx` — ルートレイアウト（メタデータ、グローバルフォント設定）
+- `app/globals.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / utilities` および プレーンセレクタでコンポーネントスタイルを記述
+- `app/page.tsx` — ホームページ
+- `app/ai-test-guide/page.tsx` — AI テストガイドページ
+- `app/ai-guide.css` — AI テストガイド固有スタイル
+- `app/unit-testing-guide/page.tsx` — ユニットテスト完全ガイドページ
+- `app/unit-testing.css` — ユニットテストガイド固有スタイル
+- `components/` — 共有 React コンポーネント（Header など）
+
+### Tailwind v4 テーマ構造
+
+`app/globals.css` の `@theme {}` で CSS カスタムプロパティを定義:
+
+- `--color-bg-*` — 背景色（primary / secondary / card）
+- `--color-text-*` — テキスト色（primary / secondary / muted）
+- `--color-accent-*` — アクセント色（blue / cyan / green / yellow / orange / red / purple / pink）
+- `--color-unit/integration/functional/e2e` — テストレイヤー別の識別色
+- `--font-display / --font-body / --font-mono` — フォントファミリー
+
+Tailwind のアルファ修飾子（`bg-accent-cyan/10` 等）が正しく動作しない場合に備え、`@layer utilities` にフォールバック CSS を定義済み。
+
+### CSS コンポーネントクラス
+
+プレーンセレクタで以下を定義（`@layer` を使わず、セレクタ順で優先度を制御）:
+
+| クラス | 用途 |
+|---|---|
+| `.card` / `.card-sm` | コンテンツカード |
+| `.badge-unit/int/func/e2e/sec/perf/a11y/istqb` | テスト種別バッジ |
+| `.code-block` / `.code-header` | コードブロック表示 |
+| `.callout-info/warn/good/danger` | 注釈ボックス |
+| `.pyramid-layer` / `.py-unit/int/func/e2e` | テストピラミッド図 |
+| `.tab-btn` / `.tab-panel` | タブ UI |

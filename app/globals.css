@@ -27,7 +27,7 @@
     --color-functional: #b794f4;
     --color-e2e: #f6ad55;
 
-    --font-display: 'Sora', 'Noto Sans JP', sans-serif;
+    --font-display: 'DM Sans', 'Noto Sans JP', sans-serif;
     --font-body: 'Noto Sans JP', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
 
@@ -152,8 +152,7 @@
     }
 }
 
-@layer components {
-    /* ─── BACKGROUND GRID ─── */
+/* ─── BACKGROUND GRID ─── */
     body::before {
         content: '';
         position: fixed;
@@ -167,21 +166,6 @@
     }
 
     /* ─── NAV ─── */
-    nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-       width z-index: 100;
-        background: rgba(10, 14, 26, 0.85);
-        backdrop-filter: blur(16px);
-        border-bottom: 1px solid var(--color-border);
-        padding: 0 2rem;
-        height: 60px;
-        display: flex;
-        align-items: center;
-        gap: 1.5rem;
-    }
     .nav-logo {
         font-family: var(--font-mono);
         font-size: 13px;
@@ -195,7 +179,7 @@
         display: flex;
         gap: 0.25rem;
         overflow-x: auto;
-        scrollbar-: none;
+        scrollbar-width: none;
         -ms-overflow-style: none;
         flex: 1;
     }
@@ -579,6 +563,7 @@
     pre {
         padding: 1.25rem 1.5rem;
         overflow-x: auto;
+        white-space: pre;
         font-family: var(--font-mono);
         font-size: 12.5px;
         line-height: 1.7;
@@ -1036,7 +1021,7 @@
     }
 
     /* ─── ANIMATIONS ─── */
-    @keyframes fadeUp {
+    @keyframes fade-up {
         from {
             opacity: 0;
             transform: translateY(20px);
@@ -1056,10 +1041,10 @@
         }
     }
     .hero-content {
-        animation: fadeUp 0.7s ease forwards;
+        animation: fade-up 0.7s ease forwards;
     }
     .hero-eyebrow {
-        animation: fadeUp 0.5s ease forwards;
+        animation: fade-up 0.5s ease forwards;
     }
 
     /* ─── RESPONSIVE ─── */
@@ -1142,4 +1127,3 @@
     .text-sm {
         font-size: 13px;
     }
-}
