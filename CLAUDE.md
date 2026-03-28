@@ -23,7 +23,7 @@ bun run lint         # ESLint 実行
 Next.js App Router 構成:
 
 - `app/layout.tsx` — ルートレイアウト（メタデータ、グローバルフォント設定）
-- `app/globals.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / components / utilities` でコンポーネントスタイルを記述
+- `app/globals.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / utilities` および プレーンセレクタでコンポーネントスタイルを記述
 - `app/page.tsx` — ホームページ
 - `app/ai-test-guide/page.tsx` — AI テストガイドページ
 - `app/ai-guide.css` — AI テストガイド固有スタイル
@@ -45,7 +45,7 @@ Tailwind のアルファ修飾子（`bg-accent-cyan/10` 等）が正しく動作
 
 ### CSS コンポーネントクラス
 
-`@layer components` で以下を定義（Tailwind ユーティリティより優先度が低い）:
+プレーンセレクタで以下を定義（`@layer` を使わず、セレクタ順で優先度を制御）:
 
 | クラス | 用途 |
 |---|---|

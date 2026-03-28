@@ -27,7 +27,7 @@ Before writing any code, read the source HTML and extract:
 
 1. **CSS Custom Properties** — List all `:root` variables (colors, fonts, radii, shadows)
 2. **Unique Component Classes** — Classes not present in `app/globals.css` (page-specific UI)
-3. **Font Families** — Check if fonts match `layout.tsx` (Noto Sans JP, JetBrains Mono, Sora). If the HTML uses different fonts (e.g., `Playfair Display`, `Plus Jakarta Sans`), note these as needing replacement with project fonts
+3. **Font Families** — Check if fonts match `layout.tsx` (Noto Sans JP, JetBrains Mono, DM Sans). `layout.tsx` assigns `--font-display` to DM Sans, `--font-body` to Noto Sans JP, `--font-mono` to JetBrains Mono. If the HTML uses different fonts (e.g., `Playfair Display`, `Plus Jakarta Sans`, `Sora`), note these as needing replacement with these project fonts
 4. **Animation Keyframes** — List all `@keyframes` names; rename camelCase to kebab-case
 5. **Sections / IDs** — Map the HTML structure to plan the page.tsx component tree
 
@@ -153,7 +153,8 @@ If a page-specific CSS file was created, also document it.
 
 ```bash
 rm -rf .next && bun run build
-# npm / pnpm 環境の場合: rm -rf .next && npm run build
+# npm 環境の場合:  rm -rf .next && npm run build
+# pnpm 環境の場合: rm -rf .next && pnpm run build
 ```
 
 Common build failures:
