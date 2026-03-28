@@ -33,7 +33,7 @@ Next.js App Router 構成:
 
 ### Tailwind v4 テーマ構造
 
-`input.css` の `@theme {}` で CSS カスタムプロパティを定義:
+`app/globals.css` の `@theme {}` で CSS カスタムプロパティを定義:
 
 - `--color-bg-*` — 背景色（primary / secondary / card）
 - `--color-text-*` — テキスト色（primary / secondary / muted）

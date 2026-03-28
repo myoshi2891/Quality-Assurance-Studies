@@ -27,7 +27,7 @@ Before writing any code, read the source HTML and extract:
 
 1. **CSS Custom Properties** — List all `:root` variables (colors, fonts, radii, shadows)
 2. **Unique Component Classes** — Classes not present in `app/globals.css` (page-specific UI)
-3. **Font Families** — Check if fonts match `layout.tsx` (Noto Sans JP, JetBrains Mono, DM Sans). If the HTML uses different fonts (e.g., `Playfair Display`, `Plus Jakarta Sans`), note these as needing replacement with project fonts
+3. **Font Families** — Check if fonts match `layout.tsx` (Noto Sans JP, JetBrains Mono, Sora). If the HTML uses different fonts (e.g., `Playfair Display`, `Plus Jakarta Sans`), note these as needing replacement with project fonts
 4. **Animation Keyframes** — List all `@keyframes` names; rename camelCase to kebab-case
 5. **Sections / IDs** — Map the HTML structure to plan the page.tsx component tree
 
@@ -69,7 +69,7 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | `--border2` | `--color-border-bright` | |
 | `--r` | `--radius-DEFAULT` | 12px |
 | `--rs` | `--radius-sm` | 8px |
-| `--font-display` (`Playfair Display`) | `--font-display` (DM Sans) | Font replacement |
+| `--font-display` (`Playfair Display`) | `--font-display` (Sora) | Font replacement |
 | `--font-body` (`Plus Jakarta Sans`) | `--font-body` (Noto Sans JP) | Font replacement |
 
 **Critical**: The project uses a **unified dark theme**. Light-theme HTML pages must be re-themed to match the dark color system. Do not attempt to preserve the original light color scheme.
@@ -92,7 +92,7 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | Responsive outside @media | `.box { grid-template-columns: 1fr; }` at root | Wrap in `@media (max-width: 768px) { ... }` |
 | KeyFrame naming | `@keyframes fadeUp` | `@keyframes fade-up` |
 | Undefined CSS vars | `var(--r)` | `var(--radius-DEFAULT, 12px)` |
-| Vendor scrollbar only | Only `::-webkit-scrollbar` | Also add `scrollbar-width: none;` for Firefox |
+| Vendor scrollbar only | Only `::-webkit-scrollbar` | Add `scrollbar-width: none` (Firefox) |
 
 ### Phase 4: Convert HTML to TSX
 
@@ -153,6 +153,7 @@ If a page-specific CSS file was created, also document it.
 
 ```bash
 rm -rf .next && bun run build
+# npm / pnpm 環境の場合: rm -rf .next && npm run build
 ```
 
 Common build failures:
@@ -169,7 +170,7 @@ Common build failures:
 - [ ] Cards, badges, callouts display correctly
 - [ ] Fonts load properly (display, body, mono)
 - [ ] Navigation shows new page link and works
-- [ ] Responsive layout at 768px and 600px breakpoints
+- [ ] Responsive layout at 768px and 640px breakpoints
 - [ ] No z-index conflicts with navigation (nav must stay on top)
 - [ ] Animations play correctly (fade-up, pulse-border)
 - [ ] Scrollbar styling matches (thin, styled thumb)

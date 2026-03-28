@@ -2,7 +2,7 @@ import '../unit-testing.css';
 
 export default function UnitTestingGuide() {
     return (
-        <>
+        <main>
             {/* ══════ HERO ══════ */}
             <section className="hero" id="top">
                 <div className="hero-content">
@@ -2693,6 +2693,6 @@ assert svc.is_ready() == True`,
                     © 2025 — Good code is proven by good tests. Test early, test often.
                 </p>
             </footer>
-        </>
+        </main>
     );
 }

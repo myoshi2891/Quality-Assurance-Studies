@@ -146,7 +146,7 @@
     border-radius: var(--radius-DEFAULT, 12px);
     padding: 1rem;
     box-shadow: var(--shadow-DEFAULT);
-    transition: all 0.2s;
+    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
     display: flex;
     flex-direction: column;
     gap: 5px;
@@ -219,7 +219,7 @@
     border-radius: var(--radius-DEFAULT, 12px);
     padding: 1rem;
     box-shadow: var(--shadow-DEFAULT);
-    transition: all 0.2s;
+    transition: border-color 0.2s, background-color 0.2s, transform 0.2s;
     display: flex;
     flex-direction: column;
     gap: 6px;
@@ -328,10 +328,10 @@
 }
 
 /* ── CODE HIGHLIGHT 追加色 ── */
-.hl-r { color: #f87171; }
-.hl-g { color: #68d391; }
-.hl-y { color: #fbbf24; }
-.hl-b { color: #60a5fa; }
+.hl-r { color: var(--color-accent-red, #f87171); }
+.hl-g { color: var(--color-accent-green, #68d391); }
+.hl-y { color: var(--color-accent-yellow, #fbbf24); }
+.hl-b { color: var(--color-accent-blue, #60a5fa); }
 
 /* ── ULINK (外部リンク) ── */
 .ulink {
@@ -379,5 +379,23 @@
 @media (max-width: 640px) {
     .anti-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+/* ── REDUCED MOTION ── */
+@media (prefers-reduced-motion: reduce) {
+    .pyr-layer,
+    .tdd-step,
+    .double-card,
+    .fw-card {
+        transition: none !important;
+    }
+    .tdd-step:hover,
+    .double-card:hover,
+    .fw-card:hover {
+        transform: none !important;
+    }
+    .cov-bar-fill {
+        transition: none !important;
     }
 }

@@ -1,6 +1,7 @@
 {
   "name": "qa_studies",
   "private": true,
+  "packageManager": "bun@1.3.5",
   "devDependencies": {
     "@tailwindcss/cli": "^4.2.2",
     "@types/node": "^25.5.0",
@@ -19,7 +20,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "eslint ."
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",

@@ -79,4 +79,4 @@ sample-docs
 .claude/settings.local.json
 
 .next
-archive
+/archive/
