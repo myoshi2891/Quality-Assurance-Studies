@@ -92,7 +92,7 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | Responsive outside @media | `.box { grid-template-columns: 1fr; }` at root | Wrap in `@media (max-width: 768px) { ... }` |
 | KeyFrame naming | `@keyframes fadeUp` | `@keyframes fade-up` |
 | Undefined CSS vars | `var(--r)` | `var(--radius-DEFAULT, 12px)` |
-| Vendor scrollbar only | Only `::-webkit-scrollbar` | Add `scrollbar-width: none` (Firefox) |
+| Vendor scrollbar only | `::-webkit-scrollbar` (WebKit) | Add `scrollbar-width: none` (Firefox) |
 
 ### Phase 4: Convert HTML to TSX
 
@@ -116,7 +116,7 @@ export default function PageName() {
 }
 ```
 
-5. **Do NOT add `<main>` wrapper** — `layout.tsx` already wraps `{children}` in `<main>`
+5. **Do NOT add `<main>` wrapper** — `layout.tsx` already wraps `{children}` in a `<div>` (app/layout.tsx)
 6. **Convert attributes**: `class` → `className`, `for` → `htmlFor`
 7. **Inline styles**: `style="font-family: var(--font-display)"` → `style={{ fontFamily: 'var(--font-display)' }}`
 8. **Self-closing tags**: `<img>` → `<img />`, `<br>` → `<br />`, `<hr>` → `<hr />`

@@ -398,4 +398,7 @@
     .cov-bar-fill {
         transition: none !important;
     }
+    .ulink {
+        transition: none;
+    }
 }

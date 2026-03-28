@@ -11,11 +11,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## コマンド
 
 ```sh
-npm install          # 依存関係インストール
-npm run dev          # 開発サーバー起動（HMR あり）
-npm run build        # 本番ビルド（.next/ へ出力）
-npm start            # ビルド成果物をプロダクションモードで起動
-npm run lint         # ESLint 実行
+bun install          # 依存関係インストール
+bun run dev          # 開発サーバー起動（HMR あり）
+bun run build        # 本番ビルド（.next/ へ出力）
+bun start            # ビルド成果物をプロダクションモードで起動
+bun run lint         # ESLint 実行
 ```
 
 ## アーキテクチャ
