@@ -29,6 +29,8 @@ Next.js App Router 構成:
 - `app/ai-guide.css` — AI テストガイド固有スタイル
 - `app/unit-testing-guide/page.tsx` — ユニットテスト完全ガイドページ
 - `app/unit-testing.css` — ユニットテストガイド固有スタイル
+- `app/integration-functional-testing-guide/page.tsx` — 統合/機能テスト完全ガイドページ
+- `app/integration-functional-testing-guide.css` — 統合/機能テストガイド固有スタイル
 - `components/` — 共有 React コンポーネント（Header など）
 
 ### Tailwind v4 テーマ構造
