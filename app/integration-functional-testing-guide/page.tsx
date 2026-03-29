@@ -605,19 +605,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             </div>
                             <pre
                                 dangerouslySetInnerHTML={{
-                                    __html: `<span class="kw">import</span> pytest
-<span class="kw">from</span> app.validators <span class="kw">import</span> validate_password
-
-<span class="dec">@pytest.mark.parametrize</span>(<span class="str">"pw,expected"</span>, [
-    <span class="cm"># 無効クラス1: 短すぎる</span>
-    (<span class="str">"abc12"</span>, <span class="cls">False</span>),   <span class="cm"># 5文字 → 無効</span>
-    <span class="cm"># 有効クラス</span>
-    (<span class="str">"Secure123!"</span>, <span class="cls">True</span>),  <span class="cm"># 10文字 → 有効</span>
-    <span class="cm"># 無効クラス2: 長すぎる</span>
-    (<span class="str">"a"</span> * <span class="num">25</span>, <span class="cls">False</span>),       <span class="cm"># 25文字 → 無効</span>
-])
-<span class="kw">def</span> <span class="fn">test_password_ep</span>(pw, expected):
-    <span class="kw">assert</span> <span class="fn">validate_password</span>(pw) == expected`,
+                                    __html: '<span class="kw">import</span> pytest\n<span class="kw">from</span> app.validators <span class="kw">import</span> validate_password\n\n<span class="dec">@pytest.mark.parametrize</span>(<span class="str">"pw,expected"</span>, [\n    <span class="cm"># 無効クラス1: 短すぎる</span>\n    (<span class="str">"abc12"</span>, <span class="cls">False</span>),   <span class="cm"># 5文字 → 無効</span>\n    <span class="cm"># 有効クラス</span>\n    (<span class="str">"Secure123!"</span>, <span class="cls">True</span>),  <span class="cm"># 10文字 → 有効</span>\n    <span class="cm"># 無効クラス2: 長すぎる</span>\n    (<span class="str">"a"</span> * <span class="num">25</span>, <span class="cls">False</span>),       <span class="cm"># 25文字 → 無効</span>\n])\n<span class="kw">def</span> <span class="fn">test_password_ep</span>(pw, expected):\n    <span class="kw">assert</span> <span class="fn">validate_password</span>(pw) == expected',
                                 }}
                             />
                         </div>
@@ -775,32 +763,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             </div>
                             <pre
                                 dangerouslySetInnerHTML={{
-                                    __html: `<span class="cm">// テスト対象: calculateDiscount(amount: number)</span>
-<span class="cm">// ルール: amount &lt; 100 → 0%, 100〜499 → 10%, 500以上 → 20%</span>
-
-<span class="fn">describe</span>(<span class="str">'calculateDiscount — 境界値分析'</span>, () => {
-  <span class="cm">// ── 境界①: 100 ──────────────────</span>
-  <span class="fn">it</span>(<span class="str">'99円 → 0%割引（境界-1）'</span>, () =>
-    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">99</span>)).<span class="fn">toBe</span>(<span class="num">0</span>)
-  );
-  <span class="fn">it</span>(<span class="str">'100円 → 10%割引（境界値）'</span>, () =>
-    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">100</span>)).<span class="fn">toBe</span>(<span class="num">10</span>)
-  );
-  <span class="fn">it</span>(<span class="str">'101円 → 10%割引（境界+1）'</span>, () =>
-    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">101</span>)).<span class="fn">toBe</span>(<span class="num">10.1</span>)
-  );
-
-  <span class="cm">// ── 境界②: 500 ──────────────────</span>
-  <span class="fn">it</span>(<span class="str">'499円 → 10%割引（境界-1）'</span>, () =>
-    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">499</span>)).<span class="fn">toBe</span>(<span class="num">49.9</span>)
-  );
-  <span class="fn">it</span>(<span class="str">'500円 → 20%割引（境界値）'</span>, () =>
-    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">500</span>)).<span class="fn">toBe</span>(<span class="num">100</span>)
-  );
-  <span class="fn">it</span>(<span class="str">'501円 → 20%割引（境界+1）'</span>, () =>
-    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">501</span>)).<span class="fn">toBe</span>(<span class="num">100.2</span>)
-  );
-});`,
+                                    __html: '<span class="cm">// テスト対象: calculateDiscount(amount: number)</span>\n<span class="cm">// ルール: amount &lt; 100 → 0%, 100〜499 → 10%, 500以上 → 20%</span>\n\n<span class="fn">describe</span>(<span class="str">\'calculateDiscount — 境界値分析\'</span>, () => {\n  <span class="cm">// ── 境界①: 100 ──────────────────</span>\n  <span class="fn">it</span>(<span class="str">\'99円 → 0%割引（境界-1）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">99</span>)).<span class="fn">toBe</span>(<span class="num">0</span>)\n  );\n  <span class="fn">it</span>(<span class="str">\'100円 → 10%割引（境界値）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">100</span>)).<span class="fn">toBe</span>(<span class="num">10</span>)\n  );\n  <span class="fn">it</span>(<span class="str">\'101円 → 10%割引（境界+1）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">101</span>)).<span class="fn">toBe</span>(<span class="num">10.1</span>)\n  );\n\n  <span class="cm">// ── 境界②: 500 ──────────────────</span>\n  <span class="fn">it</span>(<span class="str">\'499円 → 10%割引（境界-1）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">499</span>)).<span class="fn">toBe</span>(<span class="num">49.9</span>)\n  );\n  <span class="fn">it</span>(<span class="str">\'500円 → 20%割引（境界値）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">500</span>)).<span class="fn">toBe</span>(<span class="num">100</span>)\n  );\n  <span class="fn">it</span>(<span class="str">\'501円 → 20%割引（境界+1）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">501</span>)).<span class="fn">toBe</span>(<span class="num">100.2</span>)\n  );\n});',
                                 }}
                             />
                         </div>
@@ -960,18 +923,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             </div>
                             <pre
                                 dangerouslySetInnerHTML={{
-                                    __html: `<span class="dec">@pytest.mark.parametrize</span>(
-  <span class="str">"is_member,amount,expected_discount,free_ship"</span>, [
-    (<span class="cls">True</span>,  <span class="num">5000</span>, <span class="num">0.20</span>, <span class="cls">True</span>),  <span class="cm"># R1</span>
-    (<span class="cls">True</span>,  <span class="num">3000</span>, <span class="num">0.10</span>, <span class="cls">False</span>), <span class="cm"># R2</span>
-    (<span class="cls">False</span>, <span class="num">5000</span>, <span class="num">0.05</span>, <span class="cls">True</span>),  <span class="cm"># R3</span>
-    (<span class="cls">False</span>, <span class="num">3000</span>, <span class="num">0.00</span>, <span class="cls">False</span>), <span class="cm"># R4</span>
-])
-<span class="kw">def</span> <span class="fn">test_discount_rules</span>(is_member, amount,
-                         expected_discount, free_ship):
-    result = <span class="fn">calculate_order</span>(is_member, amount)
-    <span class="kw">assert</span> result.discount == expected_discount
-    <span class="kw">assert</span> result.free_shipping == free_ship`,
+                                    __html: '<span class="dec">@pytest.mark.parametrize</span>(\n  <span class="str">"is_member,amount,expected_discount,free_ship"</span>, [\n    (<span class="cls">True</span>,  <span class="num">5000</span>, <span class="num">0.20</span>, <span class="cls">True</span>),  <span class="cm"># R1</span>\n    (<span class="cls">True</span>,  <span class="num">3000</span>, <span class="num">0.10</span>, <span class="cls">False</span>), <span class="cm"># R2</span>\n    (<span class="cls">False</span>, <span class="num">5000</span>, <span class="num">0.05</span>, <span class="cls">True</span>),  <span class="cm"># R3</span>\n    (<span class="cls">False</span>, <span class="num">3000</span>, <span class="num">0.00</span>, <span class="cls">False</span>), <span class="cm"># R4</span>\n])\n<span class="kw">def</span> <span class="fn">test_discount_rules</span>(is_member, amount,\n                         expected_discount, free_ship):\n    result = <span class="fn">calculate_order</span>(is_member, amount)\n    <span class="kw">assert</span> result.discount == expected_discount\n    <span class="kw">assert</span> result.free_shipping == free_ship',
                                 }}
                             />
                         </div>
@@ -1133,17 +1085,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             </div>
                             <pre
                                 dangerouslySetInnerHTML={{
-                                    __html: `<span class="kw">def</span> <span class="fn">test_注文完了後_再支払不可</span>(order_service):
-    <span class="cm"># 注文を完了状態まで遷移</span>
-    order = order_service.<span class="fn">create_order</span>(items=[...])
-    order_service.<span class="fn">pay</span>(order.id)
-    order_service.<span class="fn">approve</span>(order.id)
-    order_service.<span class="fn">ship</span>(order.id)
-    order_service.<span class="fn">deliver</span>(order.id)
-
-    <span class="cm"># 完了状態からの不正遷移を確認</span>
-    <span class="kw">with</span> pytest.raises(<span class="cls">InvalidStateTransition</span>):
-        order_service.<span class="fn">pay</span>(order.id)  <span class="cm"># 無効遷移</span>`,
+                                    __html: '<span class="kw">def</span> <span class="fn">test_注文完了後_再支払不可</span>(order_service):\n    <span class="cm"># 注文を完了状態まで遷移</span>\n    order = order_service.<span class="fn">create_order</span>(items=[...])\n    order_service.<span class="fn">pay</span>(order.id)\n    order_service.<span class="fn">approve</span>(order.id)\n    order_service.<span class="fn">ship</span>(order.id)\n    order_service.<span class="fn">deliver</span>(order.id)\n\n    <span class="cm"># 完了状態からの不正遷移を確認</span>\n    <span class="kw">with</span> pytest.raises(<span class="cls">InvalidStateTransition</span>):\n        order_service.<span class="fn">pay</span>(order.id)  <span class="cm"># 無効遷移</span>',
                                 }}
                             />
                         </div>
@@ -1301,59 +1243,7 @@ export default function IntegrationFunctionalTestingGuide() {
                     </div>
                     <pre
                         dangerouslySetInnerHTML={{
-                            __html: `<span class="cm">"""
-コンポーネント統合テスト: APIエンドポイント + DB の連携検証
-- HTTPリクエストを実際に送信（TestClient経由）
-- テスト専用DBに実際に書き込む（インメモリSQLite）
-- ユニットテストとは違い、モックは使わない
-"""</span>
-<span class="kw">import</span> pytest
-<span class="kw">from</span> fastapi.testclient <span class="kw">import</span> TestClient
-<span class="kw">from</span> sqlalchemy <span class="kw">import</span> create_engine
-<span class="kw">from</span> app.main <span class="kw">import</span> app
-<span class="kw">from</span> app.database <span class="kw">import</span> Base, get_db
-
-<span class="cm"># ── テスト用 DB セットアップ ──</span>
-<span class="dec">@pytest.fixture</span>(scope=<span class="str">"function"</span>)
-<span class="kw">def</span> <span class="fn">test_db</span>():
-    engine = <span class="fn">create_engine</span>(<span class="str">"sqlite:///:memory:"</span>)
-    Base.metadata.<span class="fn">create_all</span>(engine)
-    <span class="kw">yield</span> engine
-    Base.metadata.<span class="fn">drop_all</span>(engine)
-
-<span class="dec">@pytest.fixture</span>
-<span class="kw">def</span> <span class="fn">client</span>(test_db):
-    app.dependency_overrides[get_db] = <span class="kw">lambda</span>: test_db
-    <span class="kw">with</span> <span class="cls">TestClient</span>(app) <span class="kw">as</span> c:
-        <span class="kw">yield</span> c
-    app.dependency_overrides = {}
-
-<span class="cm"># ── 統合テスト: POST /orders ──</span>
-<span class="kw">class</span> <span class="cls">TestOrderIntegration</span>:
-    <span class="kw">def</span> <span class="fn">test_注文作成_DBに正しく保存される</span>(<span class="dec">self</span>, client, test_db):
-        <span class="cm"># Act: HTTPリクエスト送信（実際のAPIを呼ぶ）</span>
-        res = client.<span class="fn">post</span>(<span class="str">"/api/orders"</span>, json={
-            <span class="str">"product_id"</span>: <span class="num">1</span>, <span class="str">"quantity"</span>: <span class="num">2</span>, <span class="str">"user_id"</span>: <span class="num">42</span>
-        })
-
-        <span class="cm"># Assert: HTTPレスポンス</span>
-        <span class="kw">assert</span> res.status_code == <span class="num">201</span>
-        data = res.<span class="fn">json</span>()
-        <span class="kw">assert</span> data[<span class="str">"status"</span>] == <span class="str">"pending"</span>
-        <span class="kw">assert</span> data[<span class="str">"total_price"</span>] > <span class="num">0</span>
-
-        <span class="cm"># Assert: DB実際のデータを確認（統合テストの核心）</span>
-        order_in_db = test_db.<span class="fn">query</span>(<span class="cls">Order</span>).<span class="fn">get</span>(data[<span class="str">"id"</span>])
-        <span class="kw">assert</span> order_in_db <span class="kw">is not</span> <span class="cls">None</span>
-        <span class="kw">assert</span> order_in_db.quantity == <span class="num">2</span>
-
-    <span class="kw">def</span> <span class="fn">test_在庫不足_409を返しDBは更新されない</span>(<span class="dec">self</span>, client, test_db):
-        res = client.<span class="fn">post</span>(<span class="str">"/api/orders"</span>, json={
-            <span class="str">"product_id"</span>: <span class="num">1</span>, <span class="str">"quantity"</span>: <span class="num">99999</span>
-        })
-        <span class="kw">assert</span> res.status_code == <span class="num">409</span>
-        <span class="cm"># DBは変更されていないことを確認</span>
-        <span class="kw">assert</span> test_db.<span class="fn">query</span>(<span class="cls">Order</span>).<span class="fn">count</span>() == <span class="num">0</span>`,
+                            __html: '<span class="cm">"""\nコンポーネント統合テスト: APIエンドポイント + DB の連携検証\n- HTTPリクエストを実際に送信（TestClient経由）\n- テスト専用DBに実際に書き込む（インメモリSQLite）\n- ユニットテストとは違い、モックは使わない\n"""</span>\n<span class="kw">import</span> pytest\n<span class="kw">from</span> fastapi.testclient <span class="kw">import</span> TestClient\n<span class="kw">from</span> sqlalchemy <span class="kw">import</span> create_engine\n<span class="kw">from</span> app.main <span class="kw">import</span> app\n<span class="kw">from</span> app.database <span class="kw">import</span> Base, get_db\n\n<span class="cm"># ── テスト用 DB セットアップ ──</span>\n<span class="dec">@pytest.fixture</span>(scope=<span class="str">"function"</span>)\n<span class="kw">def</span> <span class="fn">test_db</span>():\n    engine = <span class="fn">create_engine</span>(<span class="str">"sqlite:///:memory:"</span>)\n    Base.metadata.<span class="fn">create_all</span>(engine)\n    <span class="kw">yield</span> engine\n    Base.metadata.<span class="fn">drop_all</span>(engine)\n\n<span class="dec">@pytest.fixture</span>\n<span class="kw">def</span> <span class="fn">client</span>(test_db):\n    app.dependency_overrides[get_db] = <span class="kw">lambda</span>: test_db\n    <span class="kw">with</span> <span class="cls">TestClient</span>(app) <span class="kw">as</span> c:\n        <span class="kw">yield</span> c\n    app.dependency_overrides = {}\n\n<span class="cm"># ── 統合テスト: POST /orders ──</span>\n<span class="kw">class</span> <span class="cls">TestOrderIntegration</span>:\n    <span class="kw">def</span> <span class="fn">test_注文作成_DBに正しく保存される</span>(<span class="dec">self</span>, client, test_db):\n        <span class="cm"># Act: HTTPリクエスト送信（実際のAPIを呼ぶ）</span>\n        res = client.<span class="fn">post</span>(<span class="str">"/api/orders"</span>, json={\n            <span class="str">"product_id"</span>: <span class="num">1</span>, <span class="str">"quantity"</span>: <span class="num">2</span>, <span class="str">"user_id"</span>: <span class="num">42</span>\n        })\n\n        <span class="cm"># Assert: HTTPレスポンス</span>\n        <span class="kw">assert</span> res.status_code == <span class="num">201</span>\n        data = res.<span class="fn">json</span>()\n        <span class="kw">assert</span> data[<span class="str">"status"</span>] == <span class="str">"pending"</span>\n        <span class="kw">assert</span> data[<span class="str">"total_price"</span>] > <span class="num">0</span>\n\n        <span class="cm"># Assert: DB実際のデータを確認（統合テストの核心）</span>\n        order_in_db = test_db.<span class="fn">query</span>(<span class="cls">Order</span>).<span class="fn">get</span>(data[<span class="str">"id"</span>])\n        <span class="kw">assert</span> order_in_db <span class="kw">is not</span> <span class="cls">None</span>\n        <span class="kw">assert</span> order_in_db.quantity == <span class="num">2</span>\n\n    <span class="kw">def</span> <span class="fn">test_在庫不足_409を返しDBは更新されない</span>(<span class="dec">self</span>, client, test_db):\n        res = client.<span class="fn">post</span>(<span class="str">"/api/orders"</span>, json={\n            <span class="str">"product_id"</span>: <span class="num">1</span>, <span class="str">"quantity"</span>: <span class="num">99999</span>\n        })\n        <span class="kw">assert</span> res.status_code == <span class="num">409</span>\n        <span class="cm"># DBは変更されていないことを確認</span>\n        <span class="kw">assert</span> test_db.<span class="fn">query</span>(<span class="cls">Order</span>).<span class="fn">count</span>() == <span class="num">0</span>',
                         }}
                     />
                 </div>
@@ -1645,26 +1535,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             </div>
                             <pre
                                 dangerouslySetInnerHTML={{
-                                    __html: `<span class="cm">// Postman Tests タブ（Pre-requestで変数設定）</span>
-<span class="cm">// Step 1: ユーザー登録</span>
-<span class="kw">const</span> res = pm.response.<span class="fn">json</span>();
-pm.test(<span class="str">"登録成功: 201"</span>, () => {
-  pm.response.<span class="fn">to</span>.<span class="fn">have</span>.<span class="fn">status</span>(<span class="num">201</span>);
-});
-pm.test(<span class="str">"レスポンスにuserIdが含まれる"</span>, () => {
-  pm.<span class="fn">expect</span>(res).to.<span class="fn">have</span>.<span class="fn">property</span>(<span class="str">"userId"</span>);
-});
-<span class="cm">// 次のリクエスト（ログイン）に userId を渡す</span>
-pm.collectionVariables.<span class="fn">set</span>(<span class="str">"userId"</span>, res.userId);
-
-<span class="cm">// Step 2: ログイン → トークン取得</span>
-<span class="cm">// Step 3: 認証済みAPIでデータ取得</span>
-pm.test(<span class="str">"認証APIが正しいデータを返す"</span>, () => {
-  <span class="kw">const</span> data = pm.response.<span class="fn">json</span>();
-  pm.<span class="fn">expect</span>(data.userId).<span class="fn">to</span>.<span class="fn">equal</span>(
-    pm.collectionVariables.<span class="fn">get</span>(<span class="str">"userId"</span>)
-  );
-});`,
+                                    __html: '<span class="cm">// Postman Tests タブ（Pre-requestで変数設定）</span>\n<span class="cm">// Step 1: ユーザー登録</span>\n<span class="kw">const</span> res = pm.response.<span class="fn">json</span>();\npm.test(<span class="str">"登録成功: 201"</span>, () => {\n  pm.response.<span class="fn">to</span>.<span class="fn">have</span>.<span class="fn">status</span>(<span class="num">201</span>);\n});\npm.test(<span class="str">"レスポンスにuserIdが含まれる"</span>, () => {\n  pm.<span class="fn">expect</span>(res).to.<span class="fn">have</span>.<span class="fn">property</span>(<span class="str">"userId"</span>);\n});\n<span class="cm">// 次のリクエスト（ログイン）に userId を渡す</span>\npm.collectionVariables.<span class="fn">set</span>(<span class="str">"userId"</span>, res.userId);\n\n<span class="cm">// Step 2: ログイン → トークン取得</span>\n<span class="cm">// Step 3: 認証済みAPIでデータ取得</span>\npm.test(<span class="str">"認証APIが正しいデータを返す"</span>, () => {\n  <span class="kw">const</span> data = pm.response.<span class="fn">json</span>();\n  pm.<span class="fn">expect</span>(data.userId).<span class="fn">to</span>.<span class="fn">equal</span>(\n    pm.collectionVariables.<span class="fn">get</span>(<span class="str">"userId"</span>)\n  );\n});',
                                 }}
                             />
                         </div>
@@ -1691,29 +1562,7 @@ pm.test(<span class="str">"認証APIが正しいデータを返す"</span>, () =
                             </div>
                             <pre
                                 dangerouslySetInnerHTML={{
-                                    __html: `<span class="kw">import static</span> io.restassured.RestAssured.*;
-<span class="kw">import static</span> org.hamcrest.Matchers.*;
-
-<span class="dec">@Test</span>
-<span class="kw">public void</span> <span class="fn">test注文作成API_正常系</span>() {
-  <span class="cm">// Given: テストデータの準備</span>
-  String payload = <span class="str">"""
-    {"product_id": 1, "quantity": 2}
-  """</span>;
-
-  <span class="cm">// When + Then: BDDスタイルで検証</span>
-  <span class="fn">given</span>()
-    .header(<span class="str">"Authorization"</span>, <span class="str">"Bearer "</span> + token)
-    .contentType(<span class="str">"application/json"</span>)
-    .body(payload)
-  .<span class="fn">when</span>()
-    .<span class="fn">post</span>(<span class="str">"/api/orders"</span>)
-  .<span class="fn">then</span>()
-    .statusCode(<span class="num">201</span>)
-    .body(<span class="str">"status"</span>, equalTo(<span class="str">"pending"</span>))
-    .body(<span class="str">"total_price"</span>, greaterThan(<span class="num">0</span>))
-    .body(<span class="str">"order_id"</span>, notNullValue());
-}`,
+                                    __html: '<span class="kw">import static</span> io.restassured.RestAssured.*;\n<span class="kw">import static</span> org.hamcrest.Matchers.*;\n\n<span class="dec">@Test</span>\n<span class="kw">public void</span> <span class="fn">test注文作成API_正常系</span>() {\n  <span class="cm">// Given: テストデータの準備</span>\n  String payload = <span class="str">"""\n    {"product_id": 1, "quantity": 2}\n  """</span>;\n\n  <span class="cm">// When + Then: BDDスタイルで検証</span>\n  <span class="fn">given</span>()\n    .header(<span class="str">"Authorization"</span>, <span class="str">"Bearer "</span> + token)\n    .contentType(<span class="str">"application/json"</span>)\n    .body(payload)\n  .<span class="fn">when</span>()\n    .<span class="fn">post</span>(<span class="str">"/api/orders"</span>)\n  .<span class="fn">then</span>()\n    .statusCode(<span class="num">201</span>)\n    .body(<span class="str">"status"</span>, equalTo(<span class="str">"pending"</span>))\n    .body(<span class="str">"total_price"</span>, greaterThan(<span class="num">0</span>))\n    .body(<span class="str">"order_id"</span>, notNullValue());\n}',
                                 }}
                             />
                         </div>
@@ -1831,32 +1680,7 @@ pm.test(<span class="str">"認証APIが正しいデータを返す"</span>, () =
                             </div>
                             <pre
                                 dangerouslySetInnerHTML={{
-                                    __html: `<span class="kw">from</span> pact <span class="kw">import</span> Consumer, Provider
-
-<span class="cm"># ── コンシューマー（フロントエンド）側 ──</span>
-pact = <span class="cls">Consumer</span>(<span class="str">'Frontend'</span>).<span class="fn">has_pact_with</span>(
-    <span class="cls">Provider</span>(<span class="str">'UserAPI'</span>)
-)
-
-<span class="kw">def</span> <span class="fn">test_get_user_returns_expected_format</span>():
-    <span class="cm"># コンシューマーが期待する契約を定義</span>
-    (<span class="kw">pact</span>
-     .<span class="fn">given</span>(<span class="str">"ユーザーID=1が存在する"</span>)
-     .<span class="fn">upon_receiving</span>(<span class="str">"GET /users/1 リクエスト"</span>)
-     .<span class="fn">with_request</span>(<span class="str">"GET"</span>, <span class="str">"/users/1"</span>)
-     .<span class="fn">will_respond_with</span>(<span class="num">200</span>, body={
-         <span class="str">"id"</span>: <span class="num">1</span>,
-         <span class="str">"name"</span>: like(<span class="str">"string"</span>),  <span class="cm"># 型のみ検証</span>
-         <span class="str">"email"</span>: like(<span class="str">"string"</span>),
-     })
-    )
-
-    <span class="cm"># Pactが生成するモックサーバーでテスト</span>
-    <span class="kw">with</span> pact:
-        result = <span class="fn">get_user</span>(<span class="num">1</span>)
-        <span class="kw">assert</span> result[<span class="str">"id"</span>] == <span class="num">1</span>
-
-<span class="cm"># Pact ファイルが自動生成 → プロバイダーが検証に使用</span>`,
+                                    __html: '<span class="kw">from</span> pact <span class="kw">import</span> Consumer, Provider\n\n<span class="cm"># ── コンシューマー（フロントエンド）側 ──</span>\npact = <span class="cls">Consumer</span>(<span class="str">\'Frontend\'</span>).<span class="fn">has_pact_with</span>(\n    <span class="cls">Provider</span>(<span class="str">\'UserAPI\'</span>)\n)\n\n<span class="kw">def</span> <span class="fn">test_get_user_returns_expected_format</span>():\n    <span class="cm"># コンシューマーが期待する契約を定義</span>\n    (<span class="kw">pact</span>\n     .<span class="fn">given</span>(<span class="str">"ユーザーID=1が存在する"</span>)\n     .<span class="fn">upon_receiving</span>(<span class="str">"GET /users/1 リクエスト"</span>)\n     .<span class="fn">with_request</span>(<span class="str">"GET"</span>, <span class="str">"/users/1"</span>)\n     .<span class="fn">will_respond_with</span>(<span class="num">200</span>, body={\n         <span class="str">"id"</span>: <span class="num">1</span>,\n         <span class="str">"name"</span>: like(<span class="str">"string"</span>),  <span class="cm"># 型のみ検証</span>\n         <span class="str">"email"</span>: like(<span class="str">"string"</span>),\n     })\n    )\n\n    <span class="cm"># Pactが生成するモックサーバーでテスト</span>\n    <span class="kw">with</span> pact:\n        result = <span class="fn">get_user</span>(<span class="num">1</span>)\n        <span class="kw">assert</span> result[<span class="str">"id"</span>] == <span class="num">1</span>\n\n<span class="cm"># Pact ファイルが自動生成 → プロバイダーが検証に使用</span>',
                                 }}
                             />
                         </div>

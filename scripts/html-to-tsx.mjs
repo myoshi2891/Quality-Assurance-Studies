@@ -13,6 +13,11 @@ if (args.length < 2) {
 const inputPath = args[0];
 const pageName = args[1];
 
+if (!/^[A-Za-z0-9-]+$/.test(pageName)) {
+    console.error(`Error: Invalid page-name '${pageName}'. Only alphanumeric characters and hyphens are allowed.`);
+    process.exit(1);
+}
+
 let html;
 try {
     html = fs.readFileSync(inputPath, 'utf8');
@@ -21,13 +26,17 @@ try {
     process.exit(1);
 }
 
-const mainMatch = html.match(/<main>([\s\S]*?)<\/main>/);
-let mainContent = mainMatch ? mainMatch[1] : '';
+const mainMatch = html.match(/<main(?:\s+[^>]*)?>([\s\S]*?)<\/main>/);
+if (!mainMatch) {
+    console.error(`Error: Could not find <main> tag in ${inputPath}`);
+    process.exit(1);
+}
+let mainContent = mainMatch[1];
 
 // 1. Extract <pre> blocks to preserve them as raw HTML
 const preBlocks = [];
-mainContent = mainContent.replace(/<pre>([\s\S]*?)<\/pre>/g, (match, content) => {
-    preBlocks.push(content);
+mainContent = mainContent.replace(/<pre\b([^>]*)>([\s\S]*?)<\/pre>/g, (match, attrs, content) => {
+    preBlocks.push({ attrs, content });
     return `___PRE_BLOCK_${preBlocks.length - 1}___`;
 });
 
@@ -139,10 +148,8 @@ mainContent = mainContent.replace(/colspan="(\d+)"/g, 'colSpan={$1}');
 
 // Restore <pre> blocks using dangerouslySetInnerHTML
 mainContent = mainContent.replace(/___PRE_BLOCK_(\d+)___/g, (match, index) => {
-    let content = preBlocks[index];
-    // escape backticks and ${}
-    content = content.replace(/`/g, '\\`').replace(/\$/g, '\\$');
-    return `<pre dangerouslySetInnerHTML={{ __html: \`${content}\` }} />`;
+    const { attrs, content } = preBlocks[index];
+    return `<pre${attrs} dangerouslySetInnerHTML={{ __html: ${JSON.stringify(content)} }} />`;
 });
 
 // Generate Component Name (PascalCase)
