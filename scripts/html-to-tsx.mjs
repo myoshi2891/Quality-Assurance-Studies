@@ -1,19 +1,25 @@
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
 
-// Usage: node scripts/html-to-tsx.js <input.html> <page-name>
-// Example: node scripts/html-to-tsx.js integration-functional-testing-guide.html integration-functional-testing-guide
+// Usage: node scripts/html-to-tsx.mjs <input.html> <page-name>
+// Example: node scripts/html-to-tsx.mjs integration-functional-testing-guide.html integration-functional-testing-guide
 
 const args = process.argv.slice(2);
 if (args.length < 2) {
-    console.error("Usage: node scripts/html-to-tsx.js <input.html> <page-name>");
+    console.error("Usage: node scripts/html-to-tsx.mjs <input.html> <page-name>");
     process.exit(1);
 }
 
 const inputPath = args[0];
 const pageName = args[1];
 
-let html = fs.readFileSync(inputPath, 'utf8');
+let html;
+try {
+    html = fs.readFileSync(inputPath, 'utf8');
+} catch (error) {
+    console.error(`Error reading file ${inputPath}: ${error.message}`);
+    process.exit(1);
+}
 
 const mainMatch = html.match(/<main>([\s\S]*?)<\/main>/);
 let mainContent = mainMatch ? mainMatch[1] : '';
@@ -116,7 +122,10 @@ mainContent = mainContent.replace(/style="([^"]*)"/g, (match, styleString) => {
     const styleObj = {};
     styleString.split(';').forEach(declaration => {
         if (declaration.trim() === '') return;
-        const [property, value] = declaration.split(':').map(s => s.trim());
+        const idx = declaration.indexOf(':');
+        if (idx === -1) return;
+        const property = declaration.slice(0, idx).trim();
+        const value = declaration.slice(idx + 1).trim();
         if (property && value) {
             const camelProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
             styleObj[camelProperty] = value;
