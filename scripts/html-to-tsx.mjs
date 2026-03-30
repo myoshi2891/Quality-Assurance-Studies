@@ -36,7 +36,7 @@ let mainContent = mainMatch[1];
 // 1. Extract <pre> blocks to preserve them as raw HTML
 const preBlocks = [];
 mainContent = mainContent.replace(/<pre\b([^>]*)>([\s\S]*?)<\/pre>/g, (match, attrs, content) => {
-    let normalizedAttrs = attrs.replace(/class=/g, 'className=');
+    let normalizedAttrs = attrs.replace(/(?<!data-)class=/g, 'className=');
     normalizedAttrs = normalizedAttrs.replace(/style="([^"]*)"/g, (m, styleString) => {
         const styleObj = {};
         styleString.split(';').forEach(declaration => {
@@ -60,57 +60,64 @@ mainContent = mainContent.replace(/<pre\b([^>]*)>([\s\S]*?)<\/pre>/g, (match, at
 mainContent = mainContent.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;');
 
 // JSX conversions
-mainContent = mainContent.replace(/class=/g, 'className=');
-mainContent = mainContent.replace(/for=/g, 'htmlFor=');
+mainContent = mainContent.replace(/(?<!data-)class=/g, 'className=');
+mainContent = mainContent.replace(/(?<!data-)for=/g, 'htmlFor=');
 mainContent = mainContent.replace(/<!--/g, '{/*');
 mainContent = mainContent.replace(/-->/g, '*/}');
 mainContent = mainContent.replace(/<br>/g, '<br />');
 mainContent = mainContent.replace(/<hr>/g, '<hr />');
 mainContent = mainContent.replace(/<hr className="div">/g, '<hr className="divider" />');
 
-// Replace specific class names
-mainContent = mainContent.replace(/className="sh"/g, 'className="section-header"');
-mainContent = mainContent.replace(/className="sh-num"/g, 'className="section-num"');
-mainContent = mainContent.replace(/className="accent-rule"/g, 'className="accent-line"');
-mainContent = mainContent.replace(/className="tw"/g, 'className="table-wrapper"');
-mainContent = mainContent.replace(/className="tw mt/g, 'className="table-wrapper mt');
-mainContent = mainContent.replace(/className="stat-pill"/g, 'className="stat"');
-mainContent = mainContent.replace(/className="stat-v"/g, 'className="stat-num"');
-mainContent = mainContent.replace(/className="stat-l"/g, 'className="stat-label"');
-mainContent = mainContent.replace(/className="code-hdr"/g, 'className="code-header"');
-mainContent = mainContent.replace(/className="dots"/g, 'className="code-dots"');
-mainContent = mainContent.replace(/className="step-n"/g, 'className="step-num-circle"');
-mainContent = mainContent.replace(/className="step-body"/g, 'className="step-content"');
+// Replace specific class names within className or class attributes
+mainContent = mainContent.replace(/(className|class)="([^"]*)"/g, (match, attrName, attrValue) => {
+    let newVal = attrValue;
+    
+    // Specific class names
+    newVal = newVal.replace(/\bsh\b/g, 'section-header');
+    newVal = newVal.replace(/\bsh-num\b/g, 'section-num');
+    newVal = newVal.replace(/\baccent-rule\b/g, 'accent-line');
+    newVal = newVal.replace(/\btw\b/g, 'table-wrapper');
+    newVal = newVal.replace(/\bstat-pill\b/g, 'stat');
+    newVal = newVal.replace(/\bstat-v\b/g, 'stat-num');
+    newVal = newVal.replace(/\bstat-l\b/g, 'stat-label');
+    newVal = newVal.replace(/\bcode-hdr\b/g, 'code-header');
+    newVal = newVal.replace(/\bdots\b/g, 'code-dots');
+    newVal = newVal.replace(/\bstep-n\b/g, 'step-num-circle');
+    newVal = newVal.replace(/\bstep-body\b/g, 'step-content');
 
-// Replace badges
-mainContent = mainContent.replace(/b-sky/g, 'badge-int');
-mainContent = mainContent.replace(/b-teal/g, 'badge-int');
-mainContent = mainContent.replace(/b-amber/g, 'badge-e2e');
-mainContent = mainContent.replace(/b-red/g, 'badge-sec');
-mainContent = mainContent.replace(/b-green/g, 'bg-accent-green/10 text-[var(--color-accent-green)] border-[rgba(104,211,145,0.3)]'); 
-mainContent = mainContent.replace(/b-violet/g, 'badge-func');
-mainContent = mainContent.replace(/b-slate/g, 'badge-unit');
+    // Badges
+    newVal = newVal.replace(/\bb-sky\b/g, 'badge-int');
+    newVal = newVal.replace(/\bb-teal\b/g, 'badge-int');
+    newVal = newVal.replace(/\bb-amber\b/g, 'badge-e2e');
+    newVal = newVal.replace(/\bb-red\b/g, 'badge-sec');
+    newVal = newVal.replace(/\bb-green\b/g, 'bg-accent-green/10 text-[var(--color-accent-green)] border-[rgba(104,211,145,0.3)]'); 
+    newVal = newVal.replace(/\bb-violet\b/g, 'badge-func');
+    newVal = newVal.replace(/\bb-slate\b/g, 'badge-unit');
 
-// Callouts
-mainContent = mainContent.replace(/c-sky/g, 'callout-info');
-mainContent = mainContent.replace(/c-amber/g, 'callout-warn');
-mainContent = mainContent.replace(/c-red/g, 'callout-danger');
-mainContent = mainContent.replace(/c-green/g, 'callout-good');
-mainContent = mainContent.replace(/c-teal/g, 'callout-info');
-mainContent = mainContent.replace(/c-violet/g, 'callout-info');
+    // Callouts
+    newVal = newVal.replace(/\bc-sky\b/g, 'callout-info');
+    newVal = newVal.replace(/\bc-amber\b/g, 'callout-warn');
+    newVal = newVal.replace(/\bc-red\b/g, 'callout-danger');
+    newVal = newVal.replace(/\bc-green\b/g, 'callout-good');
+    newVal = newVal.replace(/\bc-teal\b/g, 'callout-info');
+    newVal = newVal.replace(/\bc-violet\b/g, 'callout-info');
 
-mainContent = mainContent.replace(/className="g2"/g, 'className="grid-2"');
-mainContent = mainContent.replace(/className="g2 mt/g, 'className="grid-2 mt');
-mainContent = mainContent.replace(/className="flex ia gap1 mt1/g, 'className="flex items-center gap-1 mt-1');
-mainContent = mainContent.replace(/className="flex ia gap1/g, 'className="flex items-center gap-1');
-mainContent = mainContent.replace(/className="flex ia/g, 'className="flex items-center');
-mainContent = mainContent.replace(/className="flex"/g, 'className="flex"');
-mainContent = mainContent.replace(/ gap1/g, ' gap-1');
-mainContent = mainContent.replace(/ gap2/g, ' gap-2');
-mainContent = mainContent.replace(/ mt1/g, ' mt-1');
-mainContent = mainContent.replace(/ mt2/g, ' mt-2');
-mainContent = mainContent.replace(/ mt3/g, ' mt-3');
-mainContent = mainContent.replace(/ mt4/g, ' mt-4');
+    // Grids & Flex
+    newVal = newVal.replace(/\bg2\b/g, 'grid-2');
+    newVal = newVal.replace(/\bflex ia gap1 mt1\b/g, 'flex items-center gap-1 mt-1');
+    newVal = newVal.replace(/\bflex ia gap1\b/g, 'flex items-center gap-1');
+    newVal = newVal.replace(/\bflex ia\b/g, 'flex items-center');
+
+    // Spacing
+    newVal = newVal.replace(/\bgap1\b/g, 'gap-1');
+    newVal = newVal.replace(/\bgap2\b/g, 'gap-2');
+    newVal = newVal.replace(/\bmt1\b/g, 'mt-1');
+    newVal = newVal.replace(/\bmt2\b/g, 'mt-2');
+    newVal = newVal.replace(/\bmt3\b/g, 'mt-3');
+    newVal = newVal.replace(/\bmt4\b/g, 'mt-4');
+
+    return `${attrName}="${newVal}"`;
+});
 
 const varMap = {
     '--navy': 'var(--color-bg-primary)',
@@ -173,8 +180,10 @@ if (!componentName) {
     componentName = 'DefaultPage';
 }
 
-const out = `import '../${pageName}.css';
+const cssExists = fs.existsSync(path.join('app', `${pageName}.css`));
+const cssImport = cssExists ? `import '../${pageName}.css';\n` : '';
 
+const out = `${cssImport}
 export default function ${componentName}() {
     return (
         <>
