@@ -27,7 +27,7 @@
                     );
                 pointer-events: none;
             }
-            body::after {
+            .page-int-sys::after {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -40,13 +40,13 @@
             }
 
             /* ── SCROLLBAR ── */
-            ::-webkit-scrollbar {
+            .page-int-sys ::-webkit-scrollbar {
                 width: 5px;
             }
-            ::-webkit-scrollbar-track {
+            .page-int-sys ::-webkit-scrollbar-track {
                 background: var(--color-bg-primary);
             }
-            ::-webkit-scrollbar-thumb {
+            .page-int-sys ::-webkit-scrollbar-thumb {
                 background: rgba(246, 173, 85, 0.4);
                 border-radius: 3px;
             }
@@ -506,11 +506,11 @@
                 border-collapse: collapse;
                 font-size: 13px;
             }
-            thead tr {
+            .page-int-sys table thead tr {
                 background: rgba(246, 173, 85, 0.07);
                 border-bottom: 1px solid var(--color-border-bright);
             }
-            th {
+            .page-int-sys table th {
                 padding: 9px 13px;
                 text-align: left;
                 font-family: var(--font-mono);
@@ -520,27 +520,27 @@
                 letter-spacing: 0.12em;
                 white-space: nowrap;
             }
-            td {
+            .page-int-sys table td {
                 padding: 9px 13px;
                 border-bottom: 1px solid var(--color-border);
                 color: var(--color-text-secondary);
                 vertical-align: top;
                 line-height: 1.6;
             }
-            tr:hover td {
+            .page-int-sys table tr:hover td {
                 background: rgba(246, 173, 85, 0.025);
             }
-            td strong {
+            .page-int-sys table td strong {
                 color: var(--color-text-primary);
                 font-weight: 600;
             }
-            td.g {
+            .page-int-sys table td.g {
                 color: var(--color-accent-green);
             }
-            td.w {
+            .page-int-sys table td.w {
                 color: var(--color-accent-yellow);
             }
-            td.r {
+            .page-int-sys table td.r {
                 color: var(--color-accent-red);
             }
 
@@ -852,49 +852,49 @@
             }
 
             /* ── GRID UTILS ── */
-            .g2 {
+            .page-int-sys .g2 {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
             }
             @media (max-width: 600px) {
-                .g2 {
+                .page-int-sys .g2 {
                     grid-template-columns: 1fr;
                 }
             }
-            .flex {
+            .page-int-sys .flex {
                 display: flex;
             }
-            .fw {
+            .page-int-sys .fw {
                 flex-wrap: wrap;
             }
-            .ia {
+            .page-int-sys .ia {
                 align-items: center;
             }
-            .gap1 {
+            .page-int-sys .gap1 {
                 gap: 0.5rem;
             }
-            .gap2 {
+            .page-int-sys .gap2 {
                 gap: 1rem;
             }
-            .mt1 {
+            .page-int-sys .mt1 {
                 margin-top: 0.5rem;
             }
-            .mt2 {
+            .page-int-sys .mt2 {
                 margin-top: 1rem;
             }
-            .mt3 {
+            .page-int-sys .mt3 {
                 margin-top: 1.5rem;
             }
-            .mt4 {
+            .page-int-sys .mt4 {
                 margin-top: 2rem;
             }
-            hr.div {
+            .page-int-sys hr.div {
                 border: none;
                 border-top: 1px solid var(--color-border);
                 margin: 1.5rem 0;
             }
-            .text-sm {
+            .page-int-sys .text-sm {
                 font-size: 12.5px;
                 color: var(--color-text-secondary);
             }

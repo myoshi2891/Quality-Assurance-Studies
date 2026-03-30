@@ -115,7 +115,6 @@ const classMap = {
     '\\.b-teal': '.badge-int',
     '\\.b-amber': '.badge-e2e',
     '\\.b-red': '.badge-sec',
-    '\\.b-green': '.bg-accent-green\\\\/10.text-\\\\[var\\\\(--color-accent-green\\\\)\\\\].border-\\\\[rgba\\\\(104,211,145,0.3\\\\)\\\\]',
     '\\.b-violet': '.badge-func',
     '\\.b-slate': '.badge-unit',
     // Callouts
@@ -129,9 +128,13 @@ const classMap = {
     '\\.g2': '.grid-2'
 };
 
-for (const [key, value] of Object.entries(classMap)) {
+const sortedClassMapEntries = Object.entries(classMap).sort((a, b) => b[0].length - a[0].length);
+for (const [key, value] of sortedClassMapEntries) {
     css = css.replace(new RegExp(`${key}\\\\b`, 'g'), value);
 }
+
+// Strip the orphaned .b-green rule as it is converted to tailwind utility classes in TSX
+css = css.replace(/\.b-green\s*\{[\s\S]*?\}/g, '');
 
 // Rename keyframes to kebab-case
 css = css.replace(/@keyframes fadeUp/g, '@keyframes fade-up');
