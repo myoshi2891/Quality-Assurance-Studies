@@ -50,7 +50,7 @@ mainContent = mainContent.replace(/<pre\b([^>]*)>([\s\S]*?)<\/pre>/g, (match, at
                 styleObj[camelProperty] = value;
             }
         });
-        return `style={{${Object.entries(styleObj).map(([k, v]) => `${k}: "${v}"`).join(', ')}}}`;
+        return `style={{${Object.entries(styleObj).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join(', ')}}}`;
     });
     preBlocks.push({ attrs: normalizedAttrs, content });
     return `___PRE_BLOCK_${preBlocks.length - 1}___`;
@@ -87,7 +87,7 @@ mainContent = mainContent.replace(/b-sky/g, 'badge-int');
 mainContent = mainContent.replace(/b-teal/g, 'badge-int');
 mainContent = mainContent.replace(/b-amber/g, 'badge-e2e');
 mainContent = mainContent.replace(/b-red/g, 'badge-sec');
-mainContent = mainContent.replace(/b-green/g, 'bg-accent-green\\/10 text-\\[var\\(--color-accent-green\\)\\] border-\\[rgba\\(104\\,211\\,145\\,0\\.3\\)\\]'); 
+mainContent = mainContent.replace(/b-green/g, 'bg-accent-green/10 text-[var(--color-accent-green)] border-[rgba(104,211,145,0.3)]'); 
 mainContent = mainContent.replace(/b-violet/g, 'badge-func');
 mainContent = mainContent.replace(/b-slate/g, 'badge-unit');
 
@@ -101,10 +101,10 @@ mainContent = mainContent.replace(/c-violet/g, 'callout-info');
 
 mainContent = mainContent.replace(/className="g2"/g, 'className="grid-2"');
 mainContent = mainContent.replace(/className="g2 mt/g, 'className="grid-2 mt');
-mainContent = mainContent.replace(/className="flex"/g, 'className="flex"');
-mainContent = mainContent.replace(/className="flex ia/g, 'className="flex items-center');
-mainContent = mainContent.replace(/className="flex ia gap1/g, 'className="flex items-center gap-1');
 mainContent = mainContent.replace(/className="flex ia gap1 mt1/g, 'className="flex items-center gap-1 mt-1');
+mainContent = mainContent.replace(/className="flex ia gap1/g, 'className="flex items-center gap-1');
+mainContent = mainContent.replace(/className="flex ia/g, 'className="flex items-center');
+mainContent = mainContent.replace(/className="flex"/g, 'className="flex"');
 mainContent = mainContent.replace(/ gap1/g, ' gap-1');
 mainContent = mainContent.replace(/ gap2/g, ' gap-2');
 mainContent = mainContent.replace(/ mt1/g, ' mt-1');
@@ -152,13 +152,12 @@ mainContent = mainContent.replace(/style="([^"]*)"/g, (match, styleString) => {
         const property = declaration.slice(0, idx).trim();
         const value = declaration.slice(idx + 1).trim();
         if (property && value) {
-            const camelProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-            styleObj[camelProperty] = value;
+        const camelProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+        styleObj[camelProperty] = value;
         }
-    });
-    return `style={{${Object.entries(styleObj).map(([k, v]) => `${k}: "${v}"`).join(', ')}}}`;
-});
-
+        });
+        return `style={{${Object.entries(styleObj).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join(', ')}}}`;
+        });
 // Replace old colspan with colSpan
 mainContent = mainContent.replace(/colspan="(\d+)"/g, 'colSpan={$1}');
 
@@ -172,8 +171,6 @@ mainContent = mainContent.replace(/___PRE_BLOCK_(\d+)___/g, (match, index) => {
 let componentName = pageName.split('-').filter(Boolean).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
 if (!componentName) {
     componentName = 'DefaultPage';
-} else if (/^\d/.test(componentName)) {
-    componentName = 'Page' + componentName;
 }
 
 const out = `import '../${pageName}.css';
