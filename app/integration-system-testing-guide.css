@@ -9,7 +9,7 @@
             
 
             /* ── BG TEXTURE ── */
-            body::before {
+            .page-int-sys::before {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -128,10 +128,10 @@
 
             /* ── LAYOUT ── */
             
-            section {
+            .page-int-sys section {
                 padding-top: 5rem;
             }
-            section + section {
+            .page-int-sys section + section {
                 border-top: 1px solid var(--color-border);
             }
 
@@ -453,7 +453,7 @@
                 color: var(--color-text-muted);
                 letter-spacing: 0.1em;
             }
-            pre {
+            .page-int-sys pre {
                 padding: 1.1rem 1.4rem;
                 overflow-x: auto;
                 font-family: var(--font-mono);
@@ -501,7 +501,7 @@
                 overflow-x: auto;
                 margin: 1.1rem 0;
             }
-            table {
+            .page-int-sys table {
                 width: 100%;
                 border-collapse: collapse;
                 font-size: 13px;
@@ -926,7 +926,7 @@
             }
 
             /* ── FOOTER ── */
-            footer {
+            .page-int-sys footer {
                 margin-top: 5rem;
                 padding: 2.5rem 1.5rem;
                 border-top: 1px solid var(--color-border);
@@ -935,7 +935,7 @@
                 font-size: 12px;
                 font-family: var(--font-mono);
             }
-            footer a {
+            .page-int-sys footer a {
                 color: var(--color-accent-yellow);
                 text-decoration: none;
             }

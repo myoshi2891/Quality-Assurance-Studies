@@ -138,10 +138,10 @@ css = css.replace(/@keyframes fadeUp/g, '@keyframes fade-up');
 css = css.replace(/animation: fadeUp/g, 'animation: fade-up');
 
 // Remove layout specific selectors that are handled by Next.js layout.tsx
-css = css.replace(/\*,\s*\*\:\:before,\s*\*\:\:after\s*\{[\s\S]*?\}/, '');
-css = css.replace(/html\s*\{[\s\S]*?\}/, '');
-css = css.replace(/body\s*\{[\s\S]*?\}/, '');
-css = css.replace(/main\s*\{[\s\S]*?\}/, '');
+css = css.replace(/\*,\s*\*\:\:before,\s*\*\:\:after\s*\{[\s\S]*?\}/g, '');
+css = css.replace(/html\s*\{[\s\S]*?\}/g, '');
+css = css.replace(/body\s*\{[\s\S]*?\}/g, '');
+css = css.replace(/main\s*\{[\s\S]*?\}/g, '');
 
 const outputDir = path.dirname(outputPath);
 if (!fs.existsSync(outputDir)) {
