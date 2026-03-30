@@ -13,8 +13,8 @@ if (args.length < 2) {
 const inputPath = args[0];
 const pageName = args[1];
 
-if (!/^[A-Za-z0-9-]+$/.test(pageName)) {
-    console.error(`Error: Invalid page-name '${pageName}'. Only alphanumeric characters and hyphens are allowed.`);
+if (!/^[A-Za-z][A-Za-z0-9-]*$/.test(pageName)) {
+    console.error(`Error: Invalid page-name '${pageName}'. Only alphanumeric characters and hyphens are allowed, and it must start with a letter.`);
     process.exit(1);
 }
 
@@ -36,7 +36,23 @@ let mainContent = mainMatch[1];
 // 1. Extract <pre> blocks to preserve them as raw HTML
 const preBlocks = [];
 mainContent = mainContent.replace(/<pre\b([^>]*)>([\s\S]*?)<\/pre>/g, (match, attrs, content) => {
-    preBlocks.push({ attrs, content });
+    let normalizedAttrs = attrs.replace(/class=/g, 'className=');
+    normalizedAttrs = normalizedAttrs.replace(/style="([^"]*)"/g, (m, styleString) => {
+        const styleObj = {};
+        styleString.split(';').forEach(declaration => {
+            if (declaration.trim() === '') return;
+            const idx = declaration.indexOf(':');
+            if (idx === -1) return;
+            const property = declaration.slice(0, idx).trim();
+            const value = declaration.slice(idx + 1).trim();
+            if (property && value) {
+                const camelProperty = property.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
+                styleObj[camelProperty] = value;
+            }
+        });
+        return `style={{${Object.entries(styleObj).map(([k, v]) => `${k}: "${v}"`).join(', ')}}}`;
+    });
+    preBlocks.push({ attrs: normalizedAttrs, content });
     return `___PRE_BLOCK_${preBlocks.length - 1}___`;
 });
 
@@ -153,7 +169,12 @@ mainContent = mainContent.replace(/___PRE_BLOCK_(\d+)___/g, (match, index) => {
 });
 
 // Generate Component Name (PascalCase)
-const componentName = pageName.split('-').map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+let componentName = pageName.split('-').filter(Boolean).map(part => part.charAt(0).toUpperCase() + part.slice(1)).join('');
+if (!componentName) {
+    componentName = 'DefaultPage';
+} else if (/^\d/.test(componentName)) {
+    componentName = 'Page' + componentName;
+}
 
 const out = `import '../${pageName}.css';
 

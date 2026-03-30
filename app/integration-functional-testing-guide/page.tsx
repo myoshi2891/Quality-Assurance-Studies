@@ -3,16 +3,15 @@ import '../integration-functional-testing-guide.css';
 export default function IntegrationFunctionalTestingGuide() {
     return (
         <>
+            
             <section className="hero" id="top">
                 <div className="hero-content">
-                    <span className="hero-eyebrow">
-                        インテグレーション & 機能テスト 完全ガイド 2025
-                    </span>
+                    <span className="hero-eyebrow"
+                        >インテグレーション & 機能テスト 完全ガイド 2025</span
+                    >
                     <h1>
-                        <span className="accent">INTEGRATION</span>
-                        <br />
-                        &amp; FUNCTIONAL
-                        <br />
+                        <span className="accent">INTEGRATION</span><br />
+                        &amp; FUNCTIONAL<br />
                         <span className="dim">TESTING</span>
                     </h1>
                     <p className="hero-sub">
@@ -23,22 +22,20 @@ export default function IntegrationFunctionalTestingGuide() {
                     </p>
                     <div className="hero-stats">
                         <div className="stat">
-                            <span className="stat-num">Level 2</span>
-                            <span className="stat-label">ISTQBテストレベル（統合）</span>
+                            <span className="stat-num">Level 2</span
+                            ><span className="stat-label">ISTQBテストレベル（統合）</span>
                         </div>
                         <div className="stat">
-                            <span className="stat-num">4</span>
-                            <span className="stat-label">主要ブラックボックス技法</span>
+                            <span className="stat-num">4</span
+                            ><span className="stat-label">主要ブラックボックス技法</span>
                         </div>
                         <div className="stat">
-                            <span className="stat-num">93%</span>
-                            <span className="stat-label">
-                                APIチームのコラボ課題比率（Postman 2025）
-                            </span>
+                            <span className="stat-num">93%</span
+                            ><span className="stat-label">APIチームのコラボ課題比率（Postman 2025）</span>
                         </div>
                         <div className="stat">
-                            <span className="stat-num">v4.0</span>
-                            <span className="stat-label">ISTQB CTFL 最新シラバス</span>
+                            <span className="stat-num">v4.0</span
+                            ><span className="stat-label">ISTQB CTFL 最新シラバス</span>
                         </div>
                     </div>
 
@@ -83,9 +80,8 @@ export default function IntegrationFunctionalTestingGuide() {
                             href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                             className="ulink"
                             target="_blank"
+                            >istqb.org — CTFL v4.0 公式ページ</a
                         >
-                            istqb.org — CTFL v4.0 公式ページ
-                        </a>
                     </div>
                 </div>
             </section>
@@ -117,9 +113,10 @@ export default function IntegrationFunctionalTestingGuide() {
                         <tbody>
                             <tr>
                                 <td>
-                                    <strong>コンポーネントテスト</strong>
-                                    <br />
-                                    <span className="badge badge-unit">Unit / Level 1</span>
+                                    <strong>コンポーネントテスト</strong><br /><span
+                                        className="badge badge-unit"
+                                        >Unit / Level 1</span
+                                    >
                                 </td>
                                 <td>個別コンポーネント</td>
                                 <td>関数・クラス・モジュール（単体）</td>
@@ -128,9 +125,10 @@ export default function IntegrationFunctionalTestingGuide() {
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>コンポーネント統合テスト</strong>
-                                    <br />
-                                    <span className="badge badge-int">Integration / Level 2a</span>
+                                    <strong>コンポーネント統合テスト</strong><br /><span
+                                        className="badge badge-int"
+                                        >Integration / Level 2a</span
+                                    >
                                 </td>
                                 <td>コンポーネント間インターフェース</td>
                                 <td>モジュール同士の連携・データフロー</td>
@@ -139,9 +137,10 @@ export default function IntegrationFunctionalTestingGuide() {
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>システム統合テスト</strong>
-                                    <br />
-                                    <span className="badge badge-int">Integration / Level 2b</span>
+                                    <strong>システム統合テスト</strong><br /><span
+                                        className="badge badge-int"
+                                        >Integration / Level 2b</span
+                                    >
                                 </td>
                                 <td>システム間インターフェース</td>
                                 <td>外部API・DB・マイクロサービス間連携</td>
@@ -150,9 +149,9 @@ export default function IntegrationFunctionalTestingGuide() {
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>システムテスト</strong>
-                                    <br />
-                                    <span className="badge badge-int">System / Level 3</span>
+                                    <strong>システムテスト</strong><br /><span className="badge badge-int"
+                                        >System / Level 3</span
+                                    >
                                 </td>
                                 <td>システム全体</td>
                                 <td>機能要件・非機能要件の充足性</td>
@@ -161,9 +160,9 @@ export default function IntegrationFunctionalTestingGuide() {
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>受入テスト</strong>
-                                    <br />
-                                    <span className="badge badge-func">Acceptance / Level 4</span>
+                                    <strong>受入テスト</strong><br /><span className="badge badge-func"
+                                        >Acceptance / Level 4</span
+                                    >
                                 </td>
                                 <td>ビジネス要件</td>
                                 <td>ユーザーストーリー・業務フローの充足</td>
@@ -180,9 +179,7 @@ export default function IntegrationFunctionalTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="difference">
                 <div className="section-header">
-                    <span className="section-num">
-                        STEP 01 — FUNCTIONAL vs INTEGRATION: KEY DIFFERENCES
-                    </span>
+                    <span className="section-num">STEP 01 — FUNCTIONAL vs INTEGRATION: KEY DIFFERENCES</span>
                     <h2>機能テスト vs 統合テスト — 核心的な違い</h2>
                     <div className="accent-line"></div>
                     <p>
@@ -191,58 +188,45 @@ export default function IntegrationFunctionalTestingGuide() {
                 </div>
 
                 <div className="grid-2">
-                    <div className="card" style={{ borderColor: 'rgba(129, 140, 248, 0.3)' }}>
+                    <div className="card" style={{borderColor: "rgba(129, 140, 248, 0.3)"}}>
                         <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginBottom: '0.85rem',
-                            }}
+                            style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.85rem"}}
                         >
-                            <h3 style={{ fontSize: '1rem', margin: '0' }}>
+                            <h3 style={{fontSize: "1rem", margin: "0"}}>
                                 ⬜ 機能テスト（Functional Testing）
                             </h3>
                             <span className="badge badge-func">Black Box</span>
                         </div>
                         <p>
-                            システムがビジネス要件・仕様書（SRS）に従って
-                            <strong style={{ color: 'var(--color-text-primary)' }}>
-                                正しく動作するか
-                            </strong>
-                            を、エンドユーザーの視点から検証する。内部実装を知らずに入力と出力のみに着目。
+                            システムがビジネス要件・仕様書（SRS）に従って<strong
+                                style={{color: "var(--color-text-primary)"}}
+                                >正しく動作するか</strong
+                            >を、エンドユーザーの視点から検証する。内部実装を知らずに入力と出力のみに着目。
                         </p>
                         <hr className="div" />
-                        <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>
+                        <div style={{fontSize: "13px", color: "var(--color-text-secondary)"}}>
                             <div>✓ 何が返るかをテスト（What）</div>
                             <div>✓ 内部構造は気にしない</div>
                             <div>✓ 仕様書から直接テストケースを設計</div>
                             <div>✓ モックで高速化可能</div>
                         </div>
                     </div>
-                    <div className="card" style={{ borderColor: 'rgba(56, 189, 248, 0.3)' }}>
+                    <div className="card" style={{borderColor: "rgba(56, 189, 248, 0.3)"}}>
                         <div
-                            style={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                                marginBottom: '0.85rem',
-                            }}
+                            style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.85rem"}}
                         >
-                            <h3 style={{ fontSize: '1rem', margin: '0' }}>
+                            <h3 style={{fontSize: "1rem", margin: "0"}}>
                                 ◈ 統合テスト（Integration Testing）
                             </h3>
                             <span className="badge badge-int">Grey Box</span>
                         </div>
                         <p>
-                            個別コンポーネントを結合した際に
-                            <strong style={{ color: 'var(--color-text-primary)' }}>
-                                シームレスに連携するか
-                            </strong>
-                            を検証する。インターフェース・データフロー・通信プロトコルが中心。
+                            個別コンポーネントを結合した際に<strong style={{color: "var(--color-text-primary)"}}
+                                >シームレスに連携するか</strong
+                            >を検証する。インターフェース・データフロー・通信プロトコルが中心。
                         </p>
                         <hr className="div" />
-                        <div style={{ fontSize: '13px', color: 'var(--color-text-secondary)' }}>
+                        <div style={{fontSize: "13px", color: "var(--color-text-secondary)"}}>
                             <div>✓ どのように連携するかをテスト（How）</div>
                             <div>✓ コンポーネント間の境界に着目</div>
                             <div>✓ 実際のDB・API接続を使用</div>
@@ -254,22 +238,12 @@ export default function IntegrationFunctionalTestingGuide() {
                 {/* Comparison details */}
                 <h3
                     className="mt4"
-                    style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '1rem',
-                        fontWeight: '700',
-                        marginBottom: '0.75rem',
-                    }}
+                    style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "700", marginBottom: "0.75rem"}}
                 >
                     API開発における境界線
                 </h3>
                 <div
-                    style={{
-                        background: 'var(--color-bg-card)',
-                        border: '1px solid var(--color-border)',
-                        borderRadius: 'var(--radius-DEFAULT, 12px)',
-                        padding: '1.2rem',
-                    }}
+                    style={{background: "var(--color-bg-card)", border: "1px solid var(--color-border)", borderRadius: "var(--radius-DEFAULT, 12px)", padding: "1.2rem"}}
                 >
                     <div className="comp-row">
                         <div className="comp-label">検証内容</div>
@@ -295,20 +269,15 @@ export default function IntegrationFunctionalTestingGuide() {
                     <div className="comp-row">
                         <div className="comp-label">実行速度</div>
                         <div className="comp-a">
-                            <strong style={{ color: 'var(--color-accent-green)' }}>高速</strong>
-                            （モックのため）
+                            <strong style={{color: "var(--color-accent-green)"}}>高速</strong>（モックのため）
                         </div>
                         <div className="comp-b">
-                            <strong style={{ color: 'var(--color-accent-orange)' }}>低速</strong>
-                            （実コンポーネント接続のため）
+                            <strong style={{color: "var(--color-accent-orange)"}}>低速</strong
+                            >（実コンポーネント接続のため）
                         </div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-label">
-                            発見できる
-                            <br />
-                            欠陥
-                        </div>
+                        <div className="comp-label">発見できる<br />欠陥</div>
                         <div className="comp-a">
                             <strong>機能テスト：</strong>
                             ロジックの誤り・バリデーションの抜け・エラーメッセージの不正確さ
@@ -325,16 +294,14 @@ export default function IntegrationFunctionalTestingGuide() {
                         href="https://totalshiftleft.ai/blog/functional-testing-vs-integration-testing"
                         className="ulink"
                         target="_blank"
+                        >totalshiftleft.ai — Functional vs Integration Testing 2026</a
                     >
-                        totalshiftleft.ai — Functional vs Integration Testing 2026
-                    </a>
                     <a
                         href="https://www.testim.io/blog/integration-testing-vs-functional-testing/"
                         className="ulink"
                         target="_blank"
+                        >testim.io — Integration Testing vs Functional Testing</a
                     >
-                        testim.io — Integration Testing vs Functional Testing
-                    </a>
                 </p>
             </section>
 
@@ -343,9 +310,7 @@ export default function IntegrationFunctionalTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="functional">
                 <div className="section-header">
-                    <span className="section-num">
-                        STEP 02 — ISTQB CTFL SECTION 2.3: FUNCTIONAL TESTING
-                    </span>
+                    <span className="section-num">STEP 02 — ISTQB CTFL SECTION 2.3: FUNCTIONAL TESTING</span>
                     <h2>機能テスト（Functional Testing）</h2>
                     <div className="accent-line"></div>
                     <p>
@@ -373,31 +338,25 @@ export default function IntegrationFunctionalTestingGuide() {
                         <span className="card-icon">⚡</span>
                         <h3>非機能テストとの違い</h3>
                         <p>
-                            機能テスト：「何を」するか（Correctness）
-                            <br />
-                            非機能テスト：「どのように」するか（Performance・Security・Usability）。両方が品質を決定する。
+                            機能テスト：「何を」するか（Correctness）<br />非機能テスト：「どのように」するか（Performance・Security・Usability）。両方が品質を決定する。
                         </p>
                     </div>
                 </div>
 
                 <div className="callout callout-info mt-3">
-                    <strong>機能テストで検証する3つの観点：</strong>
-                    <br />
+                    <strong>機能テストで検証する3つの観点：</strong><br />
                     <strong>1. 機能完全性（Completeness）</strong> —
-                    仕様に記述された全機能が実装されているか
-                    <br />
-                    <strong>2. 機能正確性（Correctness）</strong> — 各機能が仕様通りの結果を返すか
-                    <br />
+                    仕様に記述された全機能が実装されているか<br />
+                    <strong>2. 機能正確性（Correctness）</strong> —
+                    各機能が仕様通りの結果を返すか<br />
                     <strong>3. 機能適切性（Appropriateness）</strong> —
-                    機能がユーザーの目標達成に適切に貢献するか
-                    <br />
+                    機能がユーザーの目標達成に適切に貢献するか<br />
                     <a
                         href="https://www.istqb.com/certified-tester-foundation-level/"
                         className="ulink"
                         target="_blank"
+                        >istqb.com — CTFL v4.0 詳細</a
                     >
-                        istqb.com — CTFL v4.0 詳細
-                    </a>
                 </div>
             </section>
 
@@ -406,9 +365,9 @@ export default function IntegrationFunctionalTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="blackbox">
                 <div className="section-header">
-                    <span className="section-num">
-                        STEP 03 — ISTQB CTFL CHAPTER 4: BLACK-BOX TEST TECHNIQUES
-                    </span>
+                    <span className="section-num"
+                        >STEP 03 — ISTQB CTFL CHAPTER 4: BLACK-BOX TEST TECHNIQUES</span
+                    >
                     <h2>ブラックボックステスト設計技法</h2>
                     <div className="accent-line"></div>
                     <p>
@@ -428,33 +387,25 @@ export default function IntegrationFunctionalTestingGuide() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <strong>同値クラス分析（EP）</strong>
-                                </td>
+                                <td><strong>同値クラス分析（EP）</strong></td>
                                 <td>入力/出力を同一の動作を引き起こすグループに分割</td>
                                 <td>値の範囲・カテゴリによる入力検証</td>
                                 <td>クラス数 × 代表値1つ</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>境界値分析（BVA）</strong>
-                                </td>
+                                <td><strong>境界値分析（BVA）</strong></td>
                                 <td>同値クラスの境界付近の値に着目</td>
                                 <td>数値範囲・日付・文字数制限</td>
                                 <td>境界値 × 2〜3（境界の内外）</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>デシジョンテーブルテスト</strong>
-                                </td>
+                                <td><strong>デシジョンテーブルテスト</strong></td>
                                 <td>条件の組み合わせとアクションを表で管理</td>
                                 <td>複数条件が絡む複雑なビジネスルール</td>
                                 <td>条件数により2^n（縮小可能）</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>状態遷移テスト</strong>
-                                </td>
+                                <td><strong>状態遷移テスト</strong></td>
                                 <td>システムの状態とイベントによる遷移を検証</td>
                                 <td>ステータス管理・セッション・ワークフロー</td>
                                 <td>状態数 × 遷移数（全パス/有効パス）</td>
@@ -468,16 +419,14 @@ export default function IntegrationFunctionalTestingGuide() {
                         href="https://mastersoftwaretesting.com/testing-fundamentals/testing-techniques/black-box-testing"
                         className="ulink"
                         target="_blank"
+                        >mastersoftwaretesting.com — Black-Box Testing Complete Guide (Jan 2026)</a
                     >
-                        mastersoftwaretesting.com — Black-Box Testing Complete Guide (Jan 2026)
-                    </a>
                     <a
                         href="https://www.testdevlab.com/blog/types-of-black-box-testing-techniques"
                         className="ulink"
                         target="_blank"
+                        >testdevlab.com — Black Box Testing Techniques</a
                     >
-                        testdevlab.com — Black Box Testing Techniques
-                    </a>
                 </p>
             </section>
 
@@ -497,12 +446,7 @@ export default function IntegrationFunctionalTestingGuide() {
                 <div className="grid-2">
                     <div>
                         <h3
-                            style={{
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                fontFamily: 'var(--font-display)',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontSize: "0.95rem", fontWeight: "700", fontFamily: "var(--font-display)", marginBottom: "0.75rem"}}
                         >
                             EP の2つのクラス
                         </h3>
@@ -510,11 +454,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             <div className="step-item">
                                 <div
                                     className="step-num-circle"
-                                    style={{
-                                        background: 'rgba(74, 222, 128, 0.1)',
-                                        borderColor: 'rgba(74, 222, 128, 0.3)',
-                                        color: 'var(--color-accent-green)',
-                                    }}
+                                    style={{background: "rgba(74, 222, 128, 0.1)", borderColor: "rgba(74, 222, 128, 0.3)", color: "var(--color-accent-green)"}}
                                 >
                                     ✓
                                 </div>
@@ -528,11 +468,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             <div className="step-item">
                                 <div
                                     className="step-num-circle"
-                                    style={{
-                                        background: 'rgba(248, 113, 113, 0.1)',
-                                        borderColor: 'rgba(248, 113, 113, 0.3)',
-                                        color: 'var(--color-accent-red)',
-                                    }}
+                                    style={{background: "rgba(248, 113, 113, 0.1)", borderColor: "rgba(248, 113, 113, 0.3)", color: "var(--color-accent-red)"}}
                                 >
                                     ✗
                                 </div>
@@ -553,12 +489,7 @@ export default function IntegrationFunctionalTestingGuide() {
                     </div>
                     <div>
                         <h3
-                            style={{
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                fontFamily: 'var(--font-display)',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontSize: "0.95rem", fontWeight: "700", fontFamily: "var(--font-display)", marginBottom: "0.75rem"}}
                         >
                             実例：パスワード文字数（8〜20文字）
                         </h3>
@@ -596,18 +527,10 @@ export default function IntegrationFunctionalTestingGuide() {
                         </div>
                         <div className="code-block mt-2">
                             <div className="code-header">
-                                <div className="code-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                                <div className="code-dots"><span></span><span></span><span></span></div>
                                 <span className="code-lang">PYTHON / pytest — EP テストケース</span>
                             </div>
-                            <pre
-                                dangerouslySetInnerHTML={{
-                                    __html: '<span class="kw">import</span> pytest\n<span class="kw">from</span> app.validators <span class="kw">import</span> validate_password\n\n<span class="dec">@pytest.mark.parametrize</span>(<span class="str">"pw,expected"</span>, [\n    <span class="cm"># 無効クラス1: 短すぎる</span>\n    (<span class="str">"abc12"</span>, <span class="cls">False</span>),   <span class="cm"># 5文字 → 無効</span>\n    <span class="cm"># 有効クラス</span>\n    (<span class="str">"Secure123!"</span>, <span class="cls">True</span>),  <span class="cm"># 10文字 → 有効</span>\n    <span class="cm"># 無効クラス2: 長すぎる</span>\n    (<span class="str">"a"</span> * <span class="num">25</span>, <span class="cls">False</span>),       <span class="cm"># 25文字 → 無効</span>\n])\n<span class="kw">def</span> <span class="fn">test_password_ep</span>(pw, expected):\n    <span class="kw">assert</span> <span class="fn">validate_password</span>(pw) == expected',
-                                }}
-                            />
+                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"kw\">import</span> pytest\n<span class=\"kw\">from</span> app.validators <span class=\"kw\">import</span> validate_password\n\n<span class=\"dec\">@pytest.mark.parametrize</span>(<span class=\"str\">\"pw,expected\"</span>, [\n    <span class=\"cm\"># 無効クラス1: 短すぎる</span>\n    (<span class=\"str\">\"abc12\"</span>, <span class=\"cls\">False</span>),   <span class=\"cm\"># 5文字 → 無効</span>\n    <span class=\"cm\"># 有効クラス</span>\n    (<span class=\"str\">\"Secure123!\"</span>, <span class=\"cls\">True</span>),  <span class=\"cm\"># 10文字 → 有効</span>\n    <span class=\"cm\"># 無効クラス2: 長すぎる</span>\n    (<span class=\"str\">\"a\"</span> * <span class=\"num\">25</span>, <span class=\"cls\">False</span>),       <span class=\"cm\"># 25文字 → 無効</span>\n])\n<span class=\"kw\">def</span> <span class=\"fn\">test_password_ep</span>(pw, expected):\n    <span class=\"kw\">assert</span> <span class=\"fn\">validate_password</span>(pw) == expected" }} />
                         </div>
                     </div>
                 </div>
@@ -617,16 +540,14 @@ export default function IntegrationFunctionalTestingGuide() {
                         href="https://www.softwaretestinghelp.com/what-is-boundary-value-analysis-and-equivalence-partitioning/"
                         className="ulink"
                         target="_blank"
+                        >softwaretestinghelp.com — EP & BVA (May 2025)</a
                     >
-                        softwaretestinghelp.com — EP & BVA (May 2025)
-                    </a>
                     <a
                         href="https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis-vs-equivalence-partitioning/"
                         className="ulink"
                         target="_blank"
+                        >geeksforgeeks.org — BVA vs EP (Jul 2025)</a
                     >
-                        geeksforgeeks.org — BVA vs EP (Jul 2025)
-                    </a>
                 </p>
             </section>
 
@@ -640,13 +561,11 @@ export default function IntegrationFunctionalTestingGuide() {
                     <div className="accent-line"></div>
                     <p>
                         バグは境界付近に集中する。開発者が
-                        <code style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9em' }}>
-                            &gt; 10
-                        </code>
+                        <code style={{fontFamily: "var(--font-mono)", fontSize: "0.9em"}}>&gt; 10</code>
                         を
-                        <code style={{ fontFamily: 'var(--font-mono)', fontSize: '0.9em' }}>
-                            &gt;= 10
-                        </code>
+                        <code style={{fontFamily: "var(--font-mono)", fontSize: "0.9em"}}
+                            >&gt;= 10</code
+                        >
                         と書き間違えるなど、境界の内外で誤りが生じやすい。同値クラス分析の拡張として使用します。
                     </p>
                 </div>
@@ -654,12 +573,7 @@ export default function IntegrationFunctionalTestingGuide() {
                 <div className="grid-2">
                     <div>
                         <h3
-                            style={{
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                fontFamily: 'var(--font-display)',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontSize: "0.95rem", fontWeight: "700", fontFamily: "var(--font-display)", marginBottom: "0.75rem"}}
                         >
                             2値 vs 3値 境界値分析
                         </h3>
@@ -674,16 +588,12 @@ export default function IntegrationFunctionalTestingGuide() {
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <td>
-                                            <strong>2値BVA</strong>
-                                        </td>
+                                        <td><strong>2値BVA</strong></td>
                                         <td>最小値・最大値（境界上の値）</td>
                                         <td>リスクが低いケース</td>
                                     </tr>
                                     <tr>
-                                        <td>
-                                            <strong>3値BVA</strong>
-                                        </td>
+                                        <td><strong>3値BVA</strong></td>
                                         <td>境界-1・境界・境界+1</td>
                                         <td>リスクが高いケース（推奨）</td>
                                     </tr>
@@ -693,12 +603,7 @@ export default function IntegrationFunctionalTestingGuide() {
 
                         <h3
                             className="mt3"
-                            style={{
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                fontFamily: 'var(--font-display)',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontSize: "0.95rem", fontWeight: "700", fontFamily: "var(--font-display)", marginBottom: "0.75rem"}}
                         >
                             実例：年齢入力（16〜60歳）
                         </h3>
@@ -754,20 +659,12 @@ export default function IntegrationFunctionalTestingGuide() {
                     <div>
                         <div className="code-block mt-1">
                             <div className="code-header">
-                                <div className="code-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                                <div className="code-dots"><span></span><span></span><span></span></div>
                                 <span className="code-lang">TYPESCRIPT / Jest — 境界値テスト</span>
                             </div>
-                            <pre
-                                dangerouslySetInnerHTML={{
-                                    __html: '<span class="cm">// テスト対象: calculateDiscount(amount: number)</span>\n<span class="cm">// ルール: amount &lt; 100 → 0%, 100〜499 → 10%, 500以上 → 20%</span>\n\n<span class="fn">describe</span>(<span class="str">\'calculateDiscount — 境界値分析\'</span>, () => {\n  <span class="cm">// ── 境界①: 100 ──────────────────</span>\n  <span class="fn">it</span>(<span class="str">\'99円 → 0%割引（境界-1）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">99</span>)).<span class="fn">toBe</span>(<span class="num">0</span>)\n  );\n  <span class="fn">it</span>(<span class="str">\'100円 → 10%割引（境界値）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">100</span>)).<span class="fn">toBe</span>(<span class="num">10</span>)\n  );\n  <span class="fn">it</span>(<span class="str">\'101円 → 10%割引（境界+1）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">101</span>)).<span class="fn">toBe</span>(<span class="num">10.1</span>)\n  );\n\n  <span class="cm">// ── 境界②: 500 ──────────────────</span>\n  <span class="fn">it</span>(<span class="str">\'499円 → 10%割引（境界-1）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">499</span>)).<span class="fn">toBe</span>(<span class="num">49.9</span>)\n  );\n  <span class="fn">it</span>(<span class="str">\'500円 → 20%割引（境界値）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">500</span>)).<span class="fn">toBe</span>(<span class="num">100</span>)\n  );\n  <span class="fn">it</span>(<span class="str">\'501円 → 20%割引（境界+1）\'</span>, () =>\n    <span class="fn">expect</span>(<span class="fn">calculateDiscount</span>(<span class="num">501</span>)).<span class="fn">toBe</span>(<span class="num">100.2</span>)\n  );\n});',
-                                }}
-                            />
+                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">// テスト対象: calculateDiscount(amount: number)</span>\n<span class=\"cm\">// ルール: amount &lt; 100 → 0%, 100〜499 → 10%, 500以上 → 20%</span>\n\n<span class=\"fn\">describe</span>(<span class=\"str\">'calculateDiscount — 境界値分析'</span>, () => {\n  <span class=\"cm\">// ── 境界①: 100 ──────────────────</span>\n  <span class=\"fn\">it</span>(<span class=\"str\">'99円 → 0%割引（境界-1）'</span>, () =>\n    <span class=\"fn\">expect</span>(<span class=\"fn\">calculateDiscount</span>(<span class=\"num\">99</span>)).<span class=\"fn\">toBe</span>(<span class=\"num\">0</span>)\n  );\n  <span class=\"fn\">it</span>(<span class=\"str\">'100円 → 10%割引（境界値）'</span>, () =>\n    <span class=\"fn\">expect</span>(<span class=\"fn\">calculateDiscount</span>(<span class=\"num\">100</span>)).<span class=\"fn\">toBe</span>(<span class=\"num\">10</span>)\n  );\n  <span class=\"fn\">it</span>(<span class=\"str\">'101円 → 10%割引（境界+1）'</span>, () =>\n    <span class=\"fn\">expect</span>(<span class=\"fn\">calculateDiscount</span>(<span class=\"num\">101</span>)).<span class=\"fn\">toBe</span>(<span class=\"num\">10.1</span>)\n  );\n\n  <span class=\"cm\">// ── 境界②: 500 ──────────────────</span>\n  <span class=\"fn\">it</span>(<span class=\"str\">'499円 → 10%割引（境界-1）'</span>, () =>\n    <span class=\"fn\">expect</span>(<span class=\"fn\">calculateDiscount</span>(<span class=\"num\">499</span>)).<span class=\"fn\">toBe</span>(<span class=\"num\">49.9</span>)\n  );\n  <span class=\"fn\">it</span>(<span class=\"str\">'500円 → 20%割引（境界値）'</span>, () =>\n    <span class=\"fn\">expect</span>(<span class=\"fn\">calculateDiscount</span>(<span class=\"num\">500</span>)).<span class=\"fn\">toBe</span>(<span class=\"num\">100</span>)\n  );\n  <span class=\"fn\">it</span>(<span class=\"str\">'501円 → 20%割引（境界+1）'</span>, () =>\n    <span class=\"fn\">expect</span>(<span class=\"fn\">calculateDiscount</span>(<span class=\"num\">501</span>)).<span class=\"fn\">toBe</span>(<span class=\"num\">100.2</span>)\n  );\n});" }} />
                         </div>
-                        <div className="callout callout-info mt-2" style={{ fontSize: '12px' }}>
+                        <div className="callout callout-info mt-2" style={{fontSize: "12px"}}>
                             <strong>EP + BVA の黄金の組み合わせ：</strong>
                             EP で有効・無効クラスを特定 → BVA で各クラスの境界値を追加。
                             この2つを組み合わせることで、最小のテストケースで最大のカバレッジを達成できます。
@@ -780,16 +677,14 @@ export default function IntegrationFunctionalTestingGuide() {
                         href="https://toolsqa.com/software-testing/istqb/boundary-value-analysis/"
                         className="ulink"
                         target="_blank"
+                        >toolsqa.com — BVA ISTQB Guide</a
                     >
-                        toolsqa.com — BVA ISTQB Guide
-                    </a>
                     <a
                         href="https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis/"
                         className="ulink"
                         target="_blank"
+                        >geeksforgeeks.org — BVA (Jul 2025)</a
                     >
-                        geeksforgeeks.org — BVA (Jul 2025)
-                    </a>
                 </p>
             </section>
 
@@ -809,12 +704,7 @@ export default function IntegrationFunctionalTestingGuide() {
                 <div className="grid-2">
                     <div>
                         <h3
-                            style={{
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                fontFamily: 'var(--font-display)',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontSize: "0.95rem", fontWeight: "700", fontFamily: "var(--font-display)", marginBottom: "0.75rem"}}
                         >
                             デシジョンテーブルの構造
                         </h3>
@@ -847,7 +737,7 @@ export default function IntegrationFunctionalTestingGuide() {
                                 </div>
                             </div>
                         </div>
-                        <div className="callout callout-warn mt-2" style={{ fontSize: '12px' }}>
+                        <div className="callout callout-warn mt-2" style={{fontSize: "12px"}}>
                             <strong>縮小テクニック：</strong>
                             n=5 条件で 2^5=32 ルール → 不可能な組み合わせを排除 →
                             同一結果の行をマージ →
@@ -856,12 +746,7 @@ export default function IntegrationFunctionalTestingGuide() {
                     </div>
                     <div>
                         <h3
-                            style={{
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                fontFamily: 'var(--font-display)',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontSize: "0.95rem", fontWeight: "700", fontFamily: "var(--font-display)", marginBottom: "0.75rem"}}
                         >
                             実例：ECサイトの割引判定
                         </h3>
@@ -869,9 +754,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             <table className="dt">
                                 <thead>
                                     <tr>
-                                        <th className="dt-section" colSpan={1}>
-                                            条件 / アクション
-                                        </th>
+                                        <th className="dt-section" colSpan={1}>条件 / アクション</th>
                                         <th>R1</th>
                                         <th>R2</th>
                                         <th>R3</th>
@@ -893,7 +776,7 @@ export default function IntegrationFunctionalTestingGuide() {
                                         <td className="yes">Y</td>
                                         <td className="no">N</td>
                                     </tr>
-                                    <tr style={{ borderTop: '1px solid rgba(56, 189, 248, 0.3)' }}>
+                                    <tr style={{borderTop: "1px solid rgba(56, 189, 248, 0.3)"}}>
                                         <td className="act-label">→ 割引率</td>
                                         <td className="action-yes">20%</td>
                                         <td className="action-yes">10%</td>
@@ -912,20 +795,12 @@ export default function IntegrationFunctionalTestingGuide() {
                         </div>
                         <div className="code-block mt-2">
                             <div className="code-header">
-                                <div className="code-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                                <span className="code-lang">
-                                    PYTHON — デシジョンテーブルのパラメータ化テスト
-                                </span>
+                                <div className="code-dots"><span></span><span></span><span></span></div>
+                                <span className="code-lang"
+                                    >PYTHON — デシジョンテーブルのパラメータ化テスト</span
+                                >
                             </div>
-                            <pre
-                                dangerouslySetInnerHTML={{
-                                    __html: '<span class="dec">@pytest.mark.parametrize</span>(\n  <span class="str">"is_member,amount,expected_discount,free_ship"</span>, [\n    (<span class="cls">True</span>,  <span class="num">5000</span>, <span class="num">0.20</span>, <span class="cls">True</span>),  <span class="cm"># R1</span>\n    (<span class="cls">True</span>,  <span class="num">3000</span>, <span class="num">0.10</span>, <span class="cls">False</span>), <span class="cm"># R2</span>\n    (<span class="cls">False</span>, <span class="num">5000</span>, <span class="num">0.05</span>, <span class="cls">True</span>),  <span class="cm"># R3</span>\n    (<span class="cls">False</span>, <span class="num">3000</span>, <span class="num">0.00</span>, <span class="cls">False</span>), <span class="cm"># R4</span>\n])\n<span class="kw">def</span> <span class="fn">test_discount_rules</span>(is_member, amount,\n                         expected_discount, free_ship):\n    result = <span class="fn">calculate_order</span>(is_member, amount)\n    <span class="kw">assert</span> result.discount == expected_discount\n    <span class="kw">assert</span> result.free_shipping == free_ship',
-                                }}
-                            />
+                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"dec\">@pytest.mark.parametrize</span>(\n  <span class=\"str\">\"is_member,amount,expected_discount,free_ship\"</span>, [\n    (<span class=\"cls\">True</span>,  <span class=\"num\">5000</span>, <span class=\"num\">0.20</span>, <span class=\"cls\">True</span>),  <span class=\"cm\"># R1</span>\n    (<span class=\"cls\">True</span>,  <span class=\"num\">3000</span>, <span class=\"num\">0.10</span>, <span class=\"cls\">False</span>), <span class=\"cm\"># R2</span>\n    (<span class=\"cls\">False</span>, <span class=\"num\">5000</span>, <span class=\"num\">0.05</span>, <span class=\"cls\">True</span>),  <span class=\"cm\"># R3</span>\n    (<span class=\"cls\">False</span>, <span class=\"num\">3000</span>, <span class=\"num\">0.00</span>, <span class=\"cls\">False</span>), <span class=\"cm\"># R4</span>\n])\n<span class=\"kw\">def</span> <span class=\"fn\">test_discount_rules</span>(is_member, amount,\n                         expected_discount, free_ship):\n    result = <span class=\"fn\">calculate_order</span>(is_member, amount)\n    <span class=\"kw\">assert</span> result.discount == expected_discount\n    <span class=\"kw\">assert</span> result.free_shipping == free_ship" }} />
                         </div>
                     </div>
                 </div>
@@ -945,46 +820,38 @@ export default function IntegrationFunctionalTestingGuide() {
                 </div>
 
                 <h3
-                    style={{
-                        fontSize: '0.95rem',
-                        fontWeight: '700',
-                        fontFamily: 'var(--font-display)',
-                        marginBottom: '0.75rem',
-                    }}
+                    style={{fontSize: "0.95rem", fontWeight: "700", fontFamily: "var(--font-display)", marginBottom: "0.75rem"}}
                 >
                     実例：ECサイト注文ステータスの状態遷移
                 </h3>
                 <div className="state-diagram">
                     <div className="state-node">新規注文</div>
                     <span className="state-arrow">──</span>
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{textAlign: "center"}}>
                         <div className="state-label">支払完了</div>
                         <span className="state-arrow">→</span>
                     </div>
                     <div className="state-node">承認待ち</div>
                     <span className="state-arrow">──</span>
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{textAlign: "center"}}>
                         <div className="state-label">承認</div>
                         <span className="state-arrow">→</span>
                     </div>
                     <div className="state-node">処理中</div>
                     <span className="state-arrow">──</span>
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{textAlign: "center"}}>
                         <div className="state-label">発送</div>
                         <span className="state-arrow">→</span>
                     </div>
                     <div className="state-node">配送中</div>
                     <span className="state-arrow">──</span>
-                    <div style={{ textAlign: 'center' }}>
+                    <div style={{textAlign: "center"}}>
                         <div className="state-label">受取</div>
                         <span className="state-arrow">→</span>
                     </div>
                     <div
                         className="state-node"
-                        style={{
-                            borderColor: 'rgba(74, 222, 128, 0.4)',
-                            color: 'var(--color-accent-green)',
-                        }}
+                        style={{borderColor: "rgba(74, 222, 128, 0.4)", color: "var(--color-accent-green)"}}
                     >
                         完了
                     </div>
@@ -1003,58 +870,46 @@ export default function IntegrationFunctionalTestingGuide() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <strong>新規注文</strong>
-                                </td>
+                                <td><strong>新規注文</strong></td>
                                 <td>支払完了</td>
                                 <td>承認待ち</td>
                                 <td>有効な遷移を確認</td>
                                 <td className="g">✓ 有効</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>新規注文</strong>
-                                </td>
+                                <td><strong>新規注文</strong></td>
                                 <td>キャンセル</td>
                                 <td>キャンセル済</td>
                                 <td>キャンセル遷移を確認</td>
                                 <td className="g">✓ 有効</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>新規注文</strong>
-                                </td>
+                                <td><strong>新規注文</strong></td>
                                 <td>発送（スキップ）</td>
                                 <td>—</td>
                                 <td>不正遷移のエラーを確認</td>
-                                <td style={{ color: 'var(--color-accent-red)' }}>✗ 無効</td>
+                                <td style={{color: "var(--color-accent-red)"}}>✗ 無効</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>承認待ち</strong>
-                                </td>
+                                <td><strong>承認待ち</strong></td>
                                 <td>承認</td>
                                 <td>処理中</td>
                                 <td>正常承認フローを確認</td>
                                 <td className="g">✓ 有効</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>承認待ち</strong>
-                                </td>
+                                <td><strong>承認待ち</strong></td>
                                 <td>拒否</td>
                                 <td>キャンセル済</td>
                                 <td>拒否フローを確認</td>
                                 <td className="g">✓ 有効</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>完了</strong>
-                                </td>
+                                <td><strong>完了</strong></td>
                                 <td>支払（再実行）</td>
                                 <td>—</td>
                                 <td>完了後の操作不可を確認</td>
-                                <td style={{ color: 'var(--color-accent-red)' }}>✗ 無効</td>
+                                <td style={{color: "var(--color-accent-red)"}}>✗ 無効</td>
                             </tr>
                         </tbody>
                     </table>
@@ -1063,31 +918,21 @@ export default function IntegrationFunctionalTestingGuide() {
                 <div className="grid-2 mt-3">
                     <div>
                         <div className="callout callout-info">
-                            <strong>ISTQB 2つのカバレッジ基準：</strong>
-                            <br />
-                            <strong>① 全状態カバレッジ：</strong>
-                            全ての状態を最低1回通過する（最小限）
-                            <br />
-                            <strong>② 全遷移カバレッジ：</strong>全ての有効遷移を実行する（推奨）
-                            <br />
+                            <strong>ISTQB 2つのカバレッジ基準：</strong><br />
+                            <strong>① 全状態カバレッジ：</strong
+                            >全ての状態を最低1回通過する（最小限）<br />
+                            <strong>② 全遷移カバレッジ：</strong
+                            >全ての有効遷移を実行する（推奨）<br />
                             高リスクシステムでは無効遷移（ガード条件）のテストも必須。
                         </div>
                     </div>
                     <div>
                         <div className="code-block">
                             <div className="code-header">
-                                <div className="code-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                                <div className="code-dots"><span></span><span></span><span></span></div>
                                 <span className="code-lang">PYTHON — 状態遷移テスト</span>
                             </div>
-                            <pre
-                                dangerouslySetInnerHTML={{
-                                    __html: '<span class="kw">def</span> <span class="fn">test_注文完了後_再支払不可</span>(order_service):\n    <span class="cm"># 注文を完了状態まで遷移</span>\n    order = order_service.<span class="fn">create_order</span>(items=[...])\n    order_service.<span class="fn">pay</span>(order.id)\n    order_service.<span class="fn">approve</span>(order.id)\n    order_service.<span class="fn">ship</span>(order.id)\n    order_service.<span class="fn">deliver</span>(order.id)\n\n    <span class="cm"># 完了状態からの不正遷移を確認</span>\n    <span class="kw">with</span> pytest.raises(<span class="cls">InvalidStateTransition</span>):\n        order_service.<span class="fn">pay</span>(order.id)  <span class="cm"># 無効遷移</span>',
-                                }}
-                            />
+                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"kw\">def</span> <span class=\"fn\">test_注文完了後_再支払不可</span>(order_service):\n    <span class=\"cm\"># 注文を完了状態まで遷移</span>\n    order = order_service.<span class=\"fn\">create_order</span>(items=[...])\n    order_service.<span class=\"fn\">pay</span>(order.id)\n    order_service.<span class=\"fn\">approve</span>(order.id)\n    order_service.<span class=\"fn\">ship</span>(order.id)\n    order_service.<span class=\"fn\">deliver</span>(order.id)\n\n    <span class=\"cm\"># 完了状態からの不正遷移を確認</span>\n    <span class=\"kw\">with</span> pytest.raises(<span class=\"cls\">InvalidStateTransition</span>):\n        order_service.<span class=\"fn\">pay</span>(order.id)  <span class=\"cm\"># 無効遷移</span>" }} />
                         </div>
                     </div>
                 </div>
@@ -1109,16 +954,13 @@ export default function IntegrationFunctionalTestingGuide() {
                 </div>
 
                 <div className="grid-2">
-                    <div
-                        className="card"
-                        style={{ borderLeft: '3px solid var(--color-accent-blue)' }}
-                    >
+                    <div className="card" style={{borderLeft: "3px solid var(--color-accent-blue)"}}>
                         <h3>コンポーネント統合テスト (CIT)</h3>
                         <p>
                             ユニットテスト後に実施。個別モジュール間のインターフェース・データフロー・関数呼び出しを検証。開発者が主に実施。
                         </p>
                         <hr className="div" />
-                        <div style={{ fontSize: '12.5px', color: 'var(--color-text-secondary)' }}>
+                        <div style={{fontSize: "12.5px", color: "var(--color-text-secondary)"}}>
                             <div className="flex items-center gap-1 mt-1">
                                 ⚡ <span>主な欠陥：データ型の不一致・APIシグネチャの誤り</span>
                             </div>
@@ -1130,16 +972,13 @@ export default function IntegrationFunctionalTestingGuide() {
                             </div>
                         </div>
                     </div>
-                    <div
-                        className="card"
-                        style={{ borderLeft: '3px solid var(--color-accent-cyan)' }}
-                    >
+                    <div className="card" style={{borderLeft: "3px solid var(--color-accent-cyan)"}}>
                         <h3>システム統合テスト (SIT)</h3>
                         <p>
                             複数システム・外部API・マイクロサービス間の連携を検証。テスターが主に実施。本番に近い環境で実施する。
                         </p>
                         <hr className="div" />
-                        <div style={{ fontSize: '12.5px', color: 'var(--color-text-secondary)' }}>
+                        <div style={{fontSize: "12.5px", color: "var(--color-text-secondary)"}}>
                             <div className="flex items-center gap-1 mt-1">
                                 🌐 <span>主な欠陥：通信プロトコルの不一致・認証エラー</span>
                             </div>
@@ -1156,74 +995,49 @@ export default function IntegrationFunctionalTestingGuide() {
                 {/* Common Defects */}
                 <h3
                     className="mt4"
-                    style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '1rem',
-                        fontWeight: '700',
-                        marginBottom: '0.75rem',
-                    }}
+                    style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "700", marginBottom: "0.75rem"}}
                 >
                     統合テストで発見できる典型的な欠陥（ISTQB参照）
                 </h3>
                 <div className="card-grid">
                     <div className="card-sm">
                         <div
-                            style={{
-                                fontSize: '12px',
-                                fontWeight: '700',
-                                color: 'var(--color-accent-red)',
-                                marginBottom: '4px',
-                            }}
+                            style={{fontSize: "12px", fontWeight: "700", color: "var(--color-accent-red)", marginBottom: "4px"}}
                         >
                             データ問題
                         </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+                        <div style={{fontSize: "12px", color: "var(--color-text-secondary)"}}>
                             型の不一致（int vs
                             string）・NULL値の扱い・エンコーディング差異・日付フォーマットの違い
                         </div>
                     </div>
                     <div className="card-sm">
                         <div
-                            style={{
-                                fontSize: '12px',
-                                fontWeight: '700',
-                                color: 'var(--color-accent-orange)',
-                                marginBottom: '4px',
-                            }}
+                            style={{fontSize: "12px", fontWeight: "700", color: "var(--color-accent-orange)", marginBottom: "4px"}}
                         >
                             インターフェース問題
                         </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+                        <div style={{fontSize: "12px", color: "var(--color-text-secondary)"}}>
                             APIシグネチャの不一致・HTTPメソッドの誤り・必須フィールドの欠落・スキーマの非互換性
                         </div>
                     </div>
                     <div className="card-sm">
                         <div
-                            style={{
-                                fontSize: '12px',
-                                fontWeight: '700',
-                                color: 'var(--color-accent-purple)',
-                                marginBottom: '4px',
-                            }}
+                            style={{fontSize: "12px", fontWeight: "700", color: "var(--color-accent-purple)", marginBottom: "4px"}}
                         >
                             タイミング問題
                         </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+                        <div style={{fontSize: "12px", color: "var(--color-text-secondary)"}}>
                             タイムアウト・レースコンディション・非同期処理の結果が揃う前のアクセス
                         </div>
                     </div>
                     <div className="card-sm">
                         <div
-                            style={{
-                                fontSize: '12px',
-                                fontWeight: '700',
-                                color: 'var(--color-accent-blue)',
-                                marginBottom: '4px',
-                            }}
+                            style={{fontSize: "12px", fontWeight: "700", color: "var(--color-accent-blue)", marginBottom: "4px"}}
                         >
                             セキュリティ問題
                         </div>
-                        <div style={{ fontSize: '12px', color: 'var(--color-text-secondary)' }}>
+                        <div style={{fontSize: "12px", color: "var(--color-text-secondary)"}}>
                             認証トークンの未送信・権限の誤り・クロスサービスのデータ漏洩
                         </div>
                     </div>
@@ -1232,20 +1046,12 @@ export default function IntegrationFunctionalTestingGuide() {
                 {/* Code example */}
                 <div className="code-block mt-3">
                     <div className="code-header">
-                        <div className="code-dots">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <span className="code-lang">
-                            PYTHON / pytest + FastAPI — コンポーネント統合テスト実例
-                        </span>
+                        <div className="code-dots"><span></span><span></span><span></span></div>
+                        <span className="code-lang"
+                            >PYTHON / pytest + FastAPI — コンポーネント統合テスト実例</span
+                        >
                     </div>
-                    <pre
-                        dangerouslySetInnerHTML={{
-                            __html: '<span class="cm">"""\nコンポーネント統合テスト: APIエンドポイント + DB の連携検証\n- HTTPリクエストを実際に送信（TestClient経由）\n- テスト専用DBに実際に書き込む（インメモリSQLite）\n- ユニットテストとは違い、モックは使わない\n"""</span>\n<span class="kw">import</span> pytest\n<span class="kw">from</span> fastapi.testclient <span class="kw">import</span> TestClient\n<span class="kw">from</span> sqlalchemy <span class="kw">import</span> create_engine\n<span class="kw">from</span> app.main <span class="kw">import</span> app\n<span class="kw">from</span> app.database <span class="kw">import</span> Base, get_db\n\n<span class="cm"># ── テスト用 DB セットアップ ──</span>\n<span class="dec">@pytest.fixture</span>(scope=<span class="str">"function"</span>)\n<span class="kw">def</span> <span class="fn">test_db</span>():\n    engine = <span class="fn">create_engine</span>(<span class="str">"sqlite:///:memory:"</span>)\n    Base.metadata.<span class="fn">create_all</span>(engine)\n    <span class="kw">yield</span> engine\n    Base.metadata.<span class="fn">drop_all</span>(engine)\n\n<span class="dec">@pytest.fixture</span>\n<span class="kw">def</span> <span class="fn">client</span>(test_db):\n    app.dependency_overrides[get_db] = <span class="kw">lambda</span>: test_db\n    <span class="kw">with</span> <span class="cls">TestClient</span>(app) <span class="kw">as</span> c:\n        <span class="kw">yield</span> c\n    app.dependency_overrides = {}\n\n<span class="cm"># ── 統合テスト: POST /orders ──</span>\n<span class="kw">class</span> <span class="cls">TestOrderIntegration</span>:\n    <span class="kw">def</span> <span class="fn">test_注文作成_DBに正しく保存される</span>(<span class="dec">self</span>, client, test_db):\n        <span class="cm"># Act: HTTPリクエスト送信（実際のAPIを呼ぶ）</span>\n        res = client.<span class="fn">post</span>(<span class="str">"/api/orders"</span>, json={\n            <span class="str">"product_id"</span>: <span class="num">1</span>, <span class="str">"quantity"</span>: <span class="num">2</span>, <span class="str">"user_id"</span>: <span class="num">42</span>\n        })\n\n        <span class="cm"># Assert: HTTPレスポンス</span>\n        <span class="kw">assert</span> res.status_code == <span class="num">201</span>\n        data = res.<span class="fn">json</span>()\n        <span class="kw">assert</span> data[<span class="str">"status"</span>] == <span class="str">"pending"</span>\n        <span class="kw">assert</span> data[<span class="str">"total_price"</span>] > <span class="num">0</span>\n\n        <span class="cm"># Assert: DB実際のデータを確認（統合テストの核心）</span>\n        order_in_db = test_db.<span class="fn">query</span>(<span class="cls">Order</span>).<span class="fn">get</span>(data[<span class="str">"id"</span>])\n        <span class="kw">assert</span> order_in_db <span class="kw">is not</span> <span class="cls">None</span>\n        <span class="kw">assert</span> order_in_db.quantity == <span class="num">2</span>\n\n    <span class="kw">def</span> <span class="fn">test_在庫不足_409を返しDBは更新されない</span>(<span class="dec">self</span>, client, test_db):\n        res = client.<span class="fn">post</span>(<span class="str">"/api/orders"</span>, json={\n            <span class="str">"product_id"</span>: <span class="num">1</span>, <span class="str">"quantity"</span>: <span class="num">99999</span>\n        })\n        <span class="kw">assert</span> res.status_code == <span class="num">409</span>\n        <span class="cm"># DBは変更されていないことを確認</span>\n        <span class="kw">assert</span> test_db.<span class="fn">query</span>(<span class="cls">Order</span>).<span class="fn">count</span>() == <span class="num">0</span>',
-                        }}
-                    />
+                    <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">\"\"\"\nコンポーネント統合テスト: APIエンドポイント + DB の連携検証\n- HTTPリクエストを実際に送信（TestClient経由）\n- テスト専用DBに実際に書き込む（インメモリSQLite）\n- ユニットテストとは違い、モックは使わない\n\"\"\"</span>\n<span class=\"kw\">import</span> pytest\n<span class=\"kw\">from</span> fastapi.testclient <span class=\"kw\">import</span> TestClient\n<span class=\"kw\">from</span> sqlalchemy <span class=\"kw\">import</span> create_engine\n<span class=\"kw\">from</span> app.main <span class=\"kw\">import</span> app\n<span class=\"kw\">from</span> app.database <span class=\"kw\">import</span> Base, get_db\n\n<span class=\"cm\"># ── テスト用 DB セットアップ ──</span>\n<span class=\"dec\">@pytest.fixture</span>(scope=<span class=\"str\">\"function\"</span>)\n<span class=\"kw\">def</span> <span class=\"fn\">test_db</span>():\n    engine = <span class=\"fn\">create_engine</span>(<span class=\"str\">\"sqlite:///:memory:\"</span>)\n    Base.metadata.<span class=\"fn\">create_all</span>(engine)\n    <span class=\"kw\">yield</span> engine\n    Base.metadata.<span class=\"fn\">drop_all</span>(engine)\n\n<span class=\"dec\">@pytest.fixture</span>\n<span class=\"kw\">def</span> <span class=\"fn\">client</span>(test_db):\n    app.dependency_overrides[get_db] = <span class=\"kw\">lambda</span>: test_db\n    <span class=\"kw\">with</span> <span class=\"cls\">TestClient</span>(app) <span class=\"kw\">as</span> c:\n        <span class=\"kw\">yield</span> c\n    app.dependency_overrides = {}\n\n<span class=\"cm\"># ── 統合テスト: POST /orders ──</span>\n<span class=\"kw\">class</span> <span class=\"cls\">TestOrderIntegration</span>:\n    <span class=\"kw\">def</span> <span class=\"fn\">test_注文作成_DBに正しく保存される</span>(<span class=\"dec\">self</span>, client, test_db):\n        <span class=\"cm\"># Act: HTTPリクエスト送信（実際のAPIを呼ぶ）</span>\n        res = client.<span class=\"fn\">post</span>(<span class=\"str\">\"/api/orders\"</span>, json={\n            <span class=\"str\">\"product_id\"</span>: <span class=\"num\">1</span>, <span class=\"str\">\"quantity\"</span>: <span class=\"num\">2</span>, <span class=\"str\">\"user_id\"</span>: <span class=\"num\">42</span>\n        })\n\n        <span class=\"cm\"># Assert: HTTPレスポンス</span>\n        <span class=\"kw\">assert</span> res.status_code == <span class=\"num\">201</span>\n        data = res.<span class=\"fn\">json</span>()\n        <span class=\"kw\">assert</span> data[<span class=\"str\">\"status\"</span>] == <span class=\"str\">\"pending\"</span>\n        <span class=\"kw\">assert</span> data[<span class=\"str\">\"total_price\"</span>] > <span class=\"num\">0</span>\n\n        <span class=\"cm\"># Assert: DB実際のデータを確認（統合テストの核心）</span>\n        order_in_db = test_db.<span class=\"fn\">query</span>(<span class=\"cls\">Order</span>).<span class=\"fn\">get</span>(data[<span class=\"str\">\"id\"</span>])\n        <span class=\"kw\">assert</span> order_in_db <span class=\"kw\">is not</span> <span class=\"cls\">None</span>\n        <span class=\"kw\">assert</span> order_in_db.quantity == <span class=\"num\">2</span>\n\n    <span class=\"kw\">def</span> <span class=\"fn\">test_在庫不足_409を返しDBは更新されない</span>(<span class=\"dec\">self</span>, client, test_db):\n        res = client.<span class=\"fn\">post</span>(<span class=\"str\">\"/api/orders\"</span>, json={\n            <span class=\"str\">\"product_id\"</span>: <span class=\"num\">1</span>, <span class=\"str\">\"quantity\"</span>: <span class=\"num\">99999</span>\n        })\n        <span class=\"kw\">assert</span> res.status_code == <span class=\"num\">409</span>\n        <span class=\"cm\"># DBは変更されていないことを確認</span>\n        <span class=\"kw\">assert</span> test_db.<span class=\"fn\">query</span>(<span class=\"cls\">Order</span>).<span class=\"fn\">count</span>() == <span class=\"num\">0</span>" }} />
                 </div>
             </section>
 
@@ -1265,144 +1071,88 @@ export default function IntegrationFunctionalTestingGuide() {
 
                 <div className="strategy-wrap">
                     <div className="strategy-card">
-                        <div className="flex items-center gap-1" style={{ marginBottom: '0.6rem' }}>
-                            <span className="badge bg-accent-green\/10 text-\[var\(--color-accent-green\)\] border-\[rgba\(104\,211\,145\,0\.3\)\]">
-                                推奨
-                            </span>
+                        <div className="flex items-center gap-1" style={{marginBottom: "0.6rem"}}>
+                            <span className="badge bg-accent-green\/10 text-\[var\(--color-accent-green\)\] border-\[rgba\(104\,211\,145\,0\.3\)\]">推奨</span>
                             <div className="strategy-title">⬇ トップダウン統合</div>
                         </div>
-                        <span
-                            className="strategy-tag"
-                            style={{ color: 'var(--color-accent-green)' }}
+                        <span className="strategy-tag" style={{color: "var(--color-accent-green)"}}
+                            >Top-Down Integration</span
                         >
-                            Top-Down Integration
-                        </span>
-                        <div
-                            style={{
-                                fontSize: '13px',
-                                color: 'var(--color-text-secondary)',
-                                lineHeight: '1.7',
-                            }}
-                        >
-                            最上位コンポーネントから順に下位へ結合。下位未実装部分には
-                            <strong style={{ color: 'var(--color-text-primary)' }}>
-                                スタブ（Stub）
-                            </strong>
-                            を使用。
-                            <br />
-                            <div
-                                className="flex items-center gap-1 mt-1"
-                                style={{ fontSize: '12px' }}
-                            >
-                                <span style={{ color: 'var(--color-accent-green)' }}>✓</span>
-                                <span>主要なビジネスフローを早期に確認できる</span>
+                        <div style={{fontSize: "13px", color: "var(--color-text-secondary)", lineHeight: "1.7"}}>
+                            最上位コンポーネントから順に下位へ結合。下位未実装部分には<strong
+                                style={{color: "var(--color-text-primary)"}}
+                                >スタブ（Stub）</strong
+                            >を使用。<br />
+                            <div className="flex items-center gap-1 mt-1" style={{fontSize: "12px"}}>
+                                <span style={{color: "var(--color-accent-green)"}}>✓</span
+                                ><span>主要なビジネスフローを早期に確認できる</span>
                             </div>
-                            <div className="flex items-center gap-1" style={{ fontSize: '12px' }}>
-                                <span style={{ color: 'var(--color-accent-red)' }}>✗</span>
-                                <span>スタブの作成コストが高い</span>
+                            <div className="flex items-center gap-1" style={{fontSize: "12px"}}>
+                                <span style={{color: "var(--color-accent-red)"}}>✗</span
+                                ><span>スタブの作成コストが高い</span>
                             </div>
                         </div>
                     </div>
                     <div className="strategy-card">
-                        <div className="flex items-center gap-1" style={{ marginBottom: '0.6rem' }}>
+                        <div className="flex items-center gap-1" style={{marginBottom: "0.6rem"}}>
                             <span className="badge badge-int">実践向き</span>
                             <div className="strategy-title">⬆ ボトムアップ統合</div>
                         </div>
-                        <span
-                            className="strategy-tag"
-                            style={{ color: 'var(--color-accent-blue)' }}
+                        <span className="strategy-tag" style={{color: "var(--color-accent-blue)"}}
+                            >Bottom-Up Integration</span
                         >
-                            Bottom-Up Integration
-                        </span>
-                        <div
-                            style={{
-                                fontSize: '13px',
-                                color: 'var(--color-text-secondary)',
-                                lineHeight: '1.7',
-                            }}
-                        >
-                            最下位コンポーネントから順に上位へ結合。上位未実装部分には
-                            <strong style={{ color: 'var(--color-text-primary)' }}>
-                                ドライバ（Driver）
-                            </strong>
-                            を使用。
-                            <br />
-                            <div
-                                className="flex items-center gap-1 mt-1"
-                                style={{ fontSize: '12px' }}
-                            >
-                                <span style={{ color: 'var(--color-accent-green)' }}>✓</span>
-                                <span>低レベルの動作を早期に確認できる</span>
+                        <div style={{fontSize: "13px", color: "var(--color-text-secondary)", lineHeight: "1.7"}}>
+                            最下位コンポーネントから順に上位へ結合。上位未実装部分には<strong
+                                style={{color: "var(--color-text-primary)"}}
+                                >ドライバ（Driver）</strong
+                            >を使用。<br />
+                            <div className="flex items-center gap-1 mt-1" style={{fontSize: "12px"}}>
+                                <span style={{color: "var(--color-accent-green)"}}>✓</span
+                                ><span>低レベルの動作を早期に確認できる</span>
                             </div>
-                            <div className="flex items-center gap-1" style={{ fontSize: '12px' }}>
-                                <span style={{ color: 'var(--color-accent-red)' }}>✗</span>
-                                <span>UIなどの高レベル検証が後回しになる</span>
+                            <div className="flex items-center gap-1" style={{fontSize: "12px"}}>
+                                <span style={{color: "var(--color-accent-red)"}}>✗</span
+                                ><span>UIなどの高レベル検証が後回しになる</span>
                             </div>
                         </div>
                     </div>
                     <div className="strategy-card">
-                        <div className="flex items-center gap-1" style={{ marginBottom: '0.6rem' }}>
+                        <div className="flex items-center gap-1" style={{marginBottom: "0.6rem"}}>
                             <span className="badge badge-e2e">注意</span>
                             <div className="strategy-title">💥 ビッグバン統合</div>
                         </div>
-                        <span
-                            className="strategy-tag"
-                            style={{ color: 'var(--color-accent-orange)' }}
+                        <span className="strategy-tag" style={{color: "var(--color-accent-orange)"}}
+                            >Big Bang Integration</span
                         >
-                            Big Bang Integration
-                        </span>
-                        <div
-                            style={{
-                                fontSize: '13px',
-                                color: 'var(--color-text-secondary)',
-                                lineHeight: '1.7',
-                            }}
-                        >
-                            全コンポーネントを一度に結合してテスト。
-                            <br />
-                            <div
-                                className="flex items-center gap-1 mt-1"
-                                style={{ fontSize: '12px' }}
-                            >
-                                <span style={{ color: 'var(--color-accent-green)' }}>✓</span>
-                                <span>小規模プロジェクトでは迅速</span>
+                        <div style={{fontSize: "13px", color: "var(--color-text-secondary)", lineHeight: "1.7"}}>
+                            全コンポーネントを一度に結合してテスト。<br />
+                            <div className="flex items-center gap-1 mt-1" style={{fontSize: "12px"}}>
+                                <span style={{color: "var(--color-accent-green)"}}>✓</span
+                                ><span>小規模プロジェクトでは迅速</span>
                             </div>
-                            <div className="flex items-center gap-1" style={{ fontSize: '12px' }}>
-                                <span style={{ color: 'var(--color-accent-red)' }}>✗</span>
-                                <span>欠陥の原因特定が困難・リスク大</span>
+                            <div className="flex items-center gap-1" style={{fontSize: "12px"}}>
+                                <span style={{color: "var(--color-accent-red)"}}>✗</span
+                                ><span>欠陥の原因特定が困難・リスク大</span>
                             </div>
                         </div>
                     </div>
                     <div className="strategy-card">
-                        <div className="flex items-center gap-1" style={{ marginBottom: '0.6rem' }}>
+                        <div className="flex items-center gap-1" style={{marginBottom: "0.6rem"}}>
                             <span className="badge badge-int">現代的</span>
                             <div className="strategy-title">🔄 継続的統合（CI）</div>
                         </div>
-                        <span
-                            className="strategy-tag"
-                            style={{ color: 'var(--color-accent-cyan)' }}
+                        <span className="strategy-tag" style={{color: "var(--color-accent-cyan)"}}
+                            >Continuous Integration</span
                         >
-                            Continuous Integration
-                        </span>
-                        <div
-                            style={{
-                                fontSize: '13px',
-                                color: 'var(--color-text-secondary)',
-                                lineHeight: '1.7',
-                            }}
-                        >
-                            コードプッシュごとに自動的に統合・テスト。DevOpsの中核。
-                            <br />
-                            <div
-                                className="flex items-center gap-1 mt-1"
-                                style={{ fontSize: '12px' }}
-                            >
-                                <span style={{ color: 'var(--color-accent-green)' }}>✓</span>
-                                <span>問題の早期発見・自動化による効率化</span>
+                        <div style={{fontSize: "13px", color: "var(--color-text-secondary)", lineHeight: "1.7"}}>
+                            コードプッシュごとに自動的に統合・テスト。DevOpsの中核。<br />
+                            <div className="flex items-center gap-1 mt-1" style={{fontSize: "12px"}}>
+                                <span style={{color: "var(--color-accent-green)"}}>✓</span
+                                ><span>問題の早期発見・自動化による効率化</span>
                             </div>
-                            <div className="flex items-center gap-1" style={{ fontSize: '12px' }}>
-                                <span style={{ color: 'var(--color-accent-red)' }}>✗</span>
-                                <span>CI環境整備・テスト実行時間の最適化が必要</span>
+                            <div className="flex items-center gap-1" style={{fontSize: "12px"}}>
+                                <span style={{color: "var(--color-accent-red)"}}>✗</span
+                                ><span>CI環境整備・テスト実行時間の最適化が必要</span>
                             </div>
                         </div>
                     </div>
@@ -1425,12 +1175,7 @@ export default function IntegrationFunctionalTestingGuide() {
 
                 {/* API Testing Framework */}
                 <h3
-                    style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '1rem',
-                        fontWeight: '700',
-                        marginBottom: '0.75rem',
-                    }}
+                    style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "700", marginBottom: "0.75rem"}}
                 >
                     APIテストの4段階フレームワーク（2025年）
                 </h3>
@@ -1438,11 +1183,7 @@ export default function IntegrationFunctionalTestingGuide() {
                     <div className="step-item">
                         <div
                             className="step-num-circle"
-                            style={{
-                                background: 'rgba(74, 222, 128, 0.1)',
-                                borderColor: 'rgba(74, 222, 128, 0.3)',
-                                color: 'var(--color-accent-green)',
-                            }}
+                            style={{background: "rgba(74, 222, 128, 0.1)", borderColor: "rgba(74, 222, 128, 0.3)", color: "var(--color-accent-green)"}}
                         >
                             1
                         </div>
@@ -1456,11 +1197,7 @@ export default function IntegrationFunctionalTestingGuide() {
                     <div className="step-item">
                         <div
                             className="step-num-circle"
-                            style={{
-                                background: 'rgba(56, 189, 248, 0.1)',
-                                borderColor: 'rgba(56, 189, 248, 0.3)',
-                                color: 'var(--color-accent-blue)',
-                            }}
+                            style={{background: "rgba(56, 189, 248, 0.1)", borderColor: "rgba(56, 189, 248, 0.3)", color: "var(--color-accent-blue)"}}
                         >
                             2
                         </div>
@@ -1475,11 +1212,7 @@ export default function IntegrationFunctionalTestingGuide() {
                     <div className="step-item">
                         <div
                             className="step-num-circle"
-                            style={{
-                                background: 'rgba(245, 158, 11, 0.1)',
-                                borderColor: 'rgba(245, 158, 11, 0.3)',
-                                color: 'var(--color-accent-orange)',
-                            }}
+                            style={{background: "rgba(245, 158, 11, 0.1)", borderColor: "rgba(245, 158, 11, 0.3)", color: "var(--color-accent-orange)"}}
                         >
                             3
                         </div>
@@ -1493,11 +1226,7 @@ export default function IntegrationFunctionalTestingGuide() {
                     <div className="step-item">
                         <div
                             className="step-num-circle"
-                            style={{
-                                background: 'rgba(248, 113, 113, 0.1)',
-                                borderColor: 'rgba(248, 113, 113, 0.3)',
-                                color: 'var(--color-accent-red)',
-                            }}
+                            style={{background: "rgba(248, 113, 113, 0.1)", borderColor: "rgba(248, 113, 113, 0.3)", color: "var(--color-accent-red)"}}
                         >
                             4
                         </div>
@@ -1515,56 +1244,30 @@ export default function IntegrationFunctionalTestingGuide() {
                 <div className="grid-2 mt-3">
                     <div>
                         <h3
-                            style={{
-                                fontFamily: 'var(--font-display)',
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: "700", marginBottom: "0.75rem"}}
                         >
                             Postman — フロー統合テスト例
                         </h3>
                         <div className="code-block">
                             <div className="code-header">
-                                <div className="code-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                                <div className="code-dots"><span></span><span></span><span></span></div>
                                 <span className="code-lang">JavaScript / Postman Test Script</span>
                             </div>
-                            <pre
-                                dangerouslySetInnerHTML={{
-                                    __html: '<span class="cm">// Postman Tests タブ（Pre-requestで変数設定）</span>\n<span class="cm">// Step 1: ユーザー登録</span>\n<span class="kw">const</span> res = pm.response.<span class="fn">json</span>();\npm.test(<span class="str">"登録成功: 201"</span>, () => {\n  pm.response.<span class="fn">to</span>.<span class="fn">have</span>.<span class="fn">status</span>(<span class="num">201</span>);\n});\npm.test(<span class="str">"レスポンスにuserIdが含まれる"</span>, () => {\n  pm.<span class="fn">expect</span>(res).to.<span class="fn">have</span>.<span class="fn">property</span>(<span class="str">"userId"</span>);\n});\n<span class="cm">// 次のリクエスト（ログイン）に userId を渡す</span>\npm.collectionVariables.<span class="fn">set</span>(<span class="str">"userId"</span>, res.userId);\n\n<span class="cm">// Step 2: ログイン → トークン取得</span>\n<span class="cm">// Step 3: 認証済みAPIでデータ取得</span>\npm.test(<span class="str">"認証APIが正しいデータを返す"</span>, () => {\n  <span class="kw">const</span> data = pm.response.<span class="fn">json</span>();\n  pm.<span class="fn">expect</span>(data.userId).<span class="fn">to</span>.<span class="fn">equal</span>(\n    pm.collectionVariables.<span class="fn">get</span>(<span class="str">"userId"</span>)\n  );\n});',
-                                }}
-                            />
+                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">// Postman Tests タブ（Pre-requestで変数設定）</span>\n<span class=\"cm\">// Step 1: ユーザー登録</span>\n<span class=\"kw\">const</span> res = pm.response.<span class=\"fn\">json</span>();\npm.test(<span class=\"str\">\"登録成功: 201\"</span>, () => {\n  pm.response.<span class=\"fn\">to</span>.<span class=\"fn\">have</span>.<span class=\"fn\">status</span>(<span class=\"num\">201</span>);\n});\npm.test(<span class=\"str\">\"レスポンスにuserIdが含まれる\"</span>, () => {\n  pm.<span class=\"fn\">expect</span>(res).to.<span class=\"fn\">have</span>.<span class=\"fn\">property</span>(<span class=\"str\">\"userId\"</span>);\n});\n<span class=\"cm\">// 次のリクエスト（ログイン）に userId を渡す</span>\npm.collectionVariables.<span class=\"fn\">set</span>(<span class=\"str\">\"userId\"</span>, res.userId);\n\n<span class=\"cm\">// Step 2: ログイン → トークン取得</span>\n<span class=\"cm\">// Step 3: 認証済みAPIでデータ取得</span>\npm.test(<span class=\"str\">\"認証APIが正しいデータを返す\"</span>, () => {\n  <span class=\"kw\">const</span> data = pm.response.<span class=\"fn\">json</span>();\n  pm.<span class=\"fn\">expect</span>(data.userId).<span class=\"fn\">to</span>.<span class=\"fn\">equal</span>(\n    pm.collectionVariables.<span class=\"fn\">get</span>(<span class=\"str\">\"userId\"</span>)\n  );\n});" }} />
                         </div>
                     </div>
                     <div>
                         <h3
-                            style={{
-                                fontFamily: 'var(--font-display)',
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: "700", marginBottom: "0.75rem"}}
                         >
                             REST Assured — Java BDD スタイル
                         </h3>
                         <div className="code-block">
                             <div className="code-header">
-                                <div className="code-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
+                                <div className="code-dots"><span></span><span></span><span></span></div>
                                 <span className="code-lang">JAVA / REST Assured</span>
                             </div>
-                            <pre
-                                dangerouslySetInnerHTML={{
-                                    __html: '<span class="kw">import static</span> io.restassured.RestAssured.*;\n<span class="kw">import static</span> org.hamcrest.Matchers.*;\n\n<span class="dec">@Test</span>\n<span class="kw">public void</span> <span class="fn">test注文作成API_正常系</span>() {\n  <span class="cm">// Given: テストデータの準備</span>\n  String payload = <span class="str">"""\n    {"product_id": 1, "quantity": 2}\n  """</span>;\n\n  <span class="cm">// When + Then: BDDスタイルで検証</span>\n  <span class="fn">given</span>()\n    .header(<span class="str">"Authorization"</span>, <span class="str">"Bearer "</span> + token)\n    .contentType(<span class="str">"application/json"</span>)\n    .body(payload)\n  .<span class="fn">when</span>()\n    .<span class="fn">post</span>(<span class="str">"/api/orders"</span>)\n  .<span class="fn">then</span>()\n    .statusCode(<span class="num">201</span>)\n    .body(<span class="str">"status"</span>, equalTo(<span class="str">"pending"</span>))\n    .body(<span class="str">"total_price"</span>, greaterThan(<span class="num">0</span>))\n    .body(<span class="str">"order_id"</span>, notNullValue());\n}',
-                                }}
-                            />
+                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"kw\">import static</span> io.restassured.RestAssured.*;\n<span class=\"kw\">import static</span> org.hamcrest.Matchers.*;\n\n<span class=\"dec\">@Test</span>\n<span class=\"kw\">public void</span> <span class=\"fn\">test注文作成API_正常系</span>() {\n  <span class=\"cm\">// Given: テストデータの準備</span>\n  String payload = <span class=\"str\">\"\"\"\n    {\"product_id\": 1, \"quantity\": 2}\n  \"\"\"</span>;\n\n  <span class=\"cm\">// When + Then: BDDスタイルで検証</span>\n  <span class=\"fn\">given</span>()\n    .header(<span class=\"str\">\"Authorization\"</span>, <span class=\"str\">\"Bearer \"</span> + token)\n    .contentType(<span class=\"str\">\"application/json\"</span>)\n    .body(payload)\n  .<span class=\"fn\">when</span>()\n    .<span class=\"fn\">post</span>(<span class=\"str\">\"/api/orders\"</span>)\n  .<span class=\"fn\">then</span>()\n    .statusCode(<span class=\"num\">201</span>)\n    .body(<span class=\"str\">\"status\"</span>, equalTo(<span class=\"str\">\"pending\"</span>))\n    .body(<span class=\"str\">\"total_price\"</span>, greaterThan(<span class=\"num\">0</span>))\n    .body(<span class=\"str\">\"order_id\"</span>, notNullValue());\n}" }} />
                         </div>
                     </div>
                 </div>
@@ -1574,23 +1277,20 @@ export default function IntegrationFunctionalTestingGuide() {
                         href="https://www.thirstysprout.com/post/restful-api-testing"
                         className="ulink"
                         target="_blank"
+                        >thirstysprout.com — RESTful API Testing Guide 2025</a
                     >
-                        thirstysprout.com — RESTful API Testing Guide 2025
-                    </a>
                     <a
                         href="https://www.postman.com/templates/collections/integration-testing/"
                         className="ulink"
                         target="_blank"
+                        >postman.com — Integration Testing Template</a
                     >
-                        postman.com — Integration Testing Template
-                    </a>
                     <a
                         href="https://blog.testunity.com/choosing-the-right-api-testing-tool-postman-vs-rest-assured/"
                         className="ulink"
                         target="_blank"
+                        >testunity.com — Postman vs REST Assured (Oct 2025)</a
                     >
-                        testunity.com — Postman vs REST Assured (Oct 2025)
-                    </a>
                 </p>
             </section>
 
@@ -1599,9 +1299,7 @@ export default function IntegrationFunctionalTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="contract">
                 <div className="section-header">
-                    <span className="section-num">
-                        STEP 11 — CONTRACT TESTING (CONSUMER-DRIVEN)
-                    </span>
+                    <span className="section-num">STEP 11 — CONTRACT TESTING (CONSUMER-DRIVEN)</span>
                     <h2>コントラクトテスト — マイクロサービス時代の統合検証</h2>
                     <div className="accent-line"></div>
                     <p>
@@ -1612,18 +1310,13 @@ export default function IntegrationFunctionalTestingGuide() {
                 <div className="grid-2">
                     <div>
                         <h3
-                            style={{
-                                fontFamily: 'var(--font-display)',
-                                fontSize: '0.95rem',
-                                fontWeight: '700',
-                                marginBottom: '0.75rem',
-                            }}
+                            style={{fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: "700", marginBottom: "0.75rem"}}
                         >
                             コントラクトテストとは？
                         </h3>
                         <div className="callout callout-info">
-                            <strong>定義：</strong>
-                            APIプロバイダーとコンシューマーの間で「契約（Contract）」を定義し、
+                            <strong>定義：</strong
+                            >APIプロバイダーとコンシューマーの間で「契約（Contract）」を定義し、
                             それぞれが独立して契約に準拠しているかを検証するテスト手法。
                             フル統合環境が不要なため、CI/CDパイプラインに統合しやすい。
                         </div>
@@ -1631,11 +1324,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             <div className="step-item">
                                 <div
                                     className="step-num-circle"
-                                    style={{
-                                        background: 'rgba(45, 212, 191, 0.1)',
-                                        borderColor: 'rgba(45, 212, 191, 0.3)',
-                                        color: 'var(--color-accent-cyan)',
-                                    }}
+                                    style={{background: "rgba(45, 212, 191, 0.1)", borderColor: "rgba(45, 212, 191, 0.3)", color: "var(--color-accent-cyan)"}}
                                 >
                                     C
                                 </div>
@@ -1649,11 +1338,7 @@ export default function IntegrationFunctionalTestingGuide() {
                             <div className="step-item">
                                 <div
                                     className="step-num-circle"
-                                    style={{
-                                        background: 'rgba(45, 212, 191, 0.1)',
-                                        borderColor: 'rgba(45, 212, 191, 0.3)',
-                                        color: 'var(--color-accent-cyan)',
-                                    }}
+                                    style={{background: "rgba(45, 212, 191, 0.1)", borderColor: "rgba(45, 212, 191, 0.3)", color: "var(--color-accent-cyan)"}}
                                 >
                                     P
                                 </div>
@@ -1669,50 +1354,33 @@ export default function IntegrationFunctionalTestingGuide() {
                     <div>
                         <div className="code-block mt-1">
                             <div className="code-header">
-                                <div className="code-dots">
-                                    <span></span>
-                                    <span></span>
-                                    <span></span>
-                                </div>
-                                <span className="code-lang">
-                                    PYTHON / Pact — コントラクトテスト
-                                </span>
+                                <div className="code-dots"><span></span><span></span><span></span></div>
+                                <span className="code-lang">PYTHON / Pact — コントラクトテスト</span>
                             </div>
-                            <pre
-                                dangerouslySetInnerHTML={{
-                                    __html: '<span class="kw">from</span> pact <span class="kw">import</span> Consumer, Provider\n\n<span class="cm"># ── コンシューマー（フロントエンド）側 ──</span>\npact = <span class="cls">Consumer</span>(<span class="str">\'Frontend\'</span>).<span class="fn">has_pact_with</span>(\n    <span class="cls">Provider</span>(<span class="str">\'UserAPI\'</span>)\n)\n\n<span class="kw">def</span> <span class="fn">test_get_user_returns_expected_format</span>():\n    <span class="cm"># コンシューマーが期待する契約を定義</span>\n    (<span class="kw">pact</span>\n     .<span class="fn">given</span>(<span class="str">"ユーザーID=1が存在する"</span>)\n     .<span class="fn">upon_receiving</span>(<span class="str">"GET /users/1 リクエスト"</span>)\n     .<span class="fn">with_request</span>(<span class="str">"GET"</span>, <span class="str">"/users/1"</span>)\n     .<span class="fn">will_respond_with</span>(<span class="num">200</span>, body={\n         <span class="str">"id"</span>: <span class="num">1</span>,\n         <span class="str">"name"</span>: like(<span class="str">"string"</span>),  <span class="cm"># 型のみ検証</span>\n         <span class="str">"email"</span>: like(<span class="str">"string"</span>),\n     })\n    )\n\n    <span class="cm"># Pactが生成するモックサーバーでテスト</span>\n    <span class="kw">with</span> pact:\n        result = <span class="fn">get_user</span>(<span class="num">1</span>)\n        <span class="kw">assert</span> result[<span class="str">"id"</span>] == <span class="num">1</span>\n\n<span class="cm"># Pact ファイルが自動生成 → プロバイダーが検証に使用</span>',
-                                }}
-                            />
+                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"kw\">from</span> pact <span class=\"kw\">import</span> Consumer, Provider\n\n<span class=\"cm\"># ── コンシューマー（フロントエンド）側 ──</span>\npact = <span class=\"cls\">Consumer</span>(<span class=\"str\">'Frontend'</span>).<span class=\"fn\">has_pact_with</span>(\n    <span class=\"cls\">Provider</span>(<span class=\"str\">'UserAPI'</span>)\n)\n\n<span class=\"kw\">def</span> <span class=\"fn\">test_get_user_returns_expected_format</span>():\n    <span class=\"cm\"># コンシューマーが期待する契約を定義</span>\n    (<span class=\"kw\">pact</span>\n     .<span class=\"fn\">given</span>(<span class=\"str\">\"ユーザーID=1が存在する\"</span>)\n     .<span class=\"fn\">upon_receiving</span>(<span class=\"str\">\"GET /users/1 リクエスト\"</span>)\n     .<span class=\"fn\">with_request</span>(<span class=\"str\">\"GET\"</span>, <span class=\"str\">\"/users/1\"</span>)\n     .<span class=\"fn\">will_respond_with</span>(<span class=\"num\">200</span>, body={\n         <span class=\"str\">\"id\"</span>: <span class=\"num\">1</span>,\n         <span class=\"str\">\"name\"</span>: like(<span class=\"str\">\"string\"</span>),  <span class=\"cm\"># 型のみ検証</span>\n         <span class=\"str\">\"email\"</span>: like(<span class=\"str\">\"string\"</span>),\n     })\n    )\n\n    <span class=\"cm\"># Pactが生成するモックサーバーでテスト</span>\n    <span class=\"kw\">with</span> pact:\n        result = <span class=\"fn\">get_user</span>(<span class=\"num\">1</span>)\n        <span class=\"kw\">assert</span> result[<span class=\"str\">\"id\"</span>] == <span class=\"num\">1</span>\n\n<span class=\"cm\"># Pact ファイルが自動生成 → プロバイダーが検証に使用</span>" }} />
                         </div>
                     </div>
                 </div>
 
                 <div className="callout callout-info mt-3">
-                    <strong>従来の統合テスト vs コントラクトテスト：</strong>
-                    <br />
+                    <strong>従来の統合テスト vs コントラクトテスト：</strong><br />
                     従来の統合テスト：全サービスを起動する大規模な環境が必要 →
-                    遅い・不安定・コストが高い
-                    <br />
+                    遅い・不安定・コストが高い<br />
                     コントラクトテスト：各サービスが独立して実行可能 →
-                    高速・安定・CIに組み込みやすい
-                    <br />
-                    コントラクトテストは統合テストを<strong>置き換えるものではなく、補完</strong>
-                    するもの。両方が必要です。
-                    <br />
-                    <a
+                    高速・安定・CIに組み込みやすい<br />
+                    コントラクトテストは統合テストを<strong>置き換えるものではなく、補完</strong>するもの。両方が必要です。
+                    <br /><a
                         href="https://www.testingmind.com/contract-testing-an-introduction-and-guide/"
                         className="ulink"
                         target="_blank"
+                        >testingmind.com — Contract Testing Complete Guide 2026</a
                     >
-                        testingmind.com — Contract Testing Complete Guide 2026
-                    </a>
                     <a
                         href="https://knowledge.businesscompassllc.com/api-test-automation-with-rest-assured-postman-and-pact/"
                         className="ulink"
                         target="_blank"
+                        >businesscompassllc.com — Pact Contract Testing (Jan 2026)</a
                     >
-                        businesscompassllc.com — Pact Contract Testing (Jan 2026)
-                    </a>
                 </div>
             </section>
 
@@ -1730,12 +1398,7 @@ export default function IntegrationFunctionalTestingGuide() {
                 </div>
 
                 <h3
-                    style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '0.95rem',
-                        fontWeight: '700',
-                        marginBottom: '0.75rem',
-                    }}
+                    style={{fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: "700", marginBottom: "0.75rem"}}
                 >
                     APIテスト・統合テストツール
                 </h3>
@@ -1791,9 +1454,7 @@ export default function IntegrationFunctionalTestingGuide() {
                         <div className="tool-desc">
                             外部APIのモックサーバー。統合テスト中に不安定な外部依存を安定したモックに置き換えられる。Java・Standalone版あり。
                         </div>
-                        <span className="badge bg-accent-green\/10 text-\[var\(--color-accent-green\)\] border-\[rgba\(104\,211\,145\,0\.3\)\]">
-                            モックサーバー
-                        </span>
+                        <span className="badge bg-accent-green\/10 text-\[var\(--color-accent-green\)\] border-\[rgba\(104\,211\,145\,0\.3\)\]">モックサーバー</span>
                     </div>
                     <div className="tool-card">
                         <div className="tool-name">🟣 Specmatic</div>
@@ -1806,12 +1467,7 @@ export default function IntegrationFunctionalTestingGuide() {
 
                 <h3
                     className="mt4"
-                    style={{
-                        fontFamily: 'var(--font-display)',
-                        fontSize: '0.95rem',
-                        fontWeight: '700',
-                        marginBottom: '0.75rem',
-                    }}
+                    style={{fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: "700", marginBottom: "0.75rem"}}
                 >
                     ツール選定ガイド
                 </h3>
@@ -1826,44 +1482,32 @@ export default function IntegrationFunctionalTestingGuide() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td>
-                                    <strong>チーム内に非エンジニアがいる</strong>
-                                </td>
+                                <td><strong>チーム内に非エンジニアがいる</strong></td>
                                 <td>Postman / Katalon</td>
                                 <td>GUIで操作でき、技術知識不要</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>Javaチームのコード駆動テスト</strong>
-                                </td>
+                                <td><strong>Javaチームのコード駆動テスト</strong></td>
                                 <td>REST Assured + JUnit 5</td>
                                 <td>BDDスタイル・既存ビルドに統合容易</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>マイクロサービスの互換性保証</strong>
-                                </td>
+                                <td><strong>マイクロサービスの互換性保証</strong></td>
                                 <td>Pact / Specmatic</td>
                                 <td>コントラクトベースで早期検出</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>API・パフォーマンス・モックを一元化</strong>
-                                </td>
+                                <td><strong>API・パフォーマンス・モックを一元化</strong></td>
                                 <td>Karate DSL</td>
                                 <td>1ツールで全てカバー</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>Pythonエコシステム</strong>
-                                </td>
+                                <td><strong>Pythonエコシステム</strong></td>
                                 <td>pytest + httpx / requests</td>
                                 <td>フィクスチャで複雑な環境管理が容易</td>
                             </tr>
                             <tr>
-                                <td>
-                                    <strong>外部APIの不安定性を排除したい</strong>
-                                </td>
+                                <td><strong>外部APIの不安定性を排除したい</strong></td>
                                 <td>WireMock / Mockoon</td>
                                 <td>外部依存をモック化して安定したテスト</td>
                             </tr>
@@ -1876,23 +1520,20 @@ export default function IntegrationFunctionalTestingGuide() {
                         href="https://www.stackhawk.com/blog/top-api-testing-tools/"
                         className="ulink"
                         target="_blank"
+                        >stackhawk.com — 11 Best API Testing Tools 2026</a
                     >
-                        stackhawk.com — 11 Best API Testing Tools 2026
-                    </a>
                     <a
                         href="https://www.baserock.ai/blog/api-integration-testing-tool"
                         className="ulink"
                         target="_blank"
+                        >baserock.ai — Best API Integration Testing Tools 2025</a
                     >
-                        baserock.ai — Best API Integration Testing Tools 2025
-                    </a>
                     <a
                         href="https://nordicapis.com/10-tools-for-api-contract-testing/"
                         className="ulink"
                         target="_blank"
+                        >nordicapis.com — 10 Contract Testing Tools</a
                     >
-                        nordicapis.com — 10 Contract Testing Tools
-                    </a>
                 </p>
             </section>
 
@@ -1920,13 +1561,9 @@ export default function IntegrationFunctionalTestingGuide() {
                                 <td>ISTQB公式</td>
                                 <td>ISTQB公式サイト</td>
                                 <td>
-                                    <a
-                                        href="https://istqb.org/"
-                                        className="ref-url"
-                                        target="_blank"
+                                    <a href="https://istqb.org/" className="ref-url" target="_blank"
+                                        >https://istqb.org/</a
                                     >
-                                        https://istqb.org/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1937,9 +1574,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a
                                     >
-                                        https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1950,9 +1586,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/</a
                                     >
-                                        https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1963,9 +1598,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
                                     >
-                                        https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1976,18 +1610,17 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://glossary.istqb.org/en_US/search?term="
                                         className="ref-url"
                                         target="_blank"
+                                        >https://glossary.istqb.org/en_US/search?term=</a
                                     >
-                                        https://glossary.istqb.org/en_US/search?term=
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>ISTQB公式</td>
                                 <td>JSTQB（日本語版）</td>
                                 <td>
-                                    <a href="https://jstqb.jp/" className="ref-url" target="_blank">
-                                        https://jstqb.jp/
-                                    </a>
+                                    <a href="https://jstqb.jp/" className="ref-url" target="_blank"
+                                        >https://jstqb.jp/</a
+                                    >
                                 </td>
                             </tr>
                             <tr>
@@ -1998,9 +1631,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide</a
                                     >
-                                        https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2011,9 +1643,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.istqb.com/certified-tester-foundation-level/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.istqb.com/certified-tester-foundation-level/</a
                                     >
-                                        https://www.istqb.com/certified-tester-foundation-level/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2024,9 +1655,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://totalshiftleft.ai/blog/functional-testing-vs-integration-testing"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://totalshiftleft.ai/blog/functional-testing-vs-integration-testing</a
                                     >
-                                        https://totalshiftleft.ai/blog/functional-testing-vs-integration-testing
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2037,9 +1667,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.testim.io/blog/integration-testing-vs-functional-testing/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.testim.io/blog/integration-testing-vs-functional-testing/</a
                                     >
-                                        https://www.testim.io/blog/integration-testing-vs-functional-testing/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2053,9 +1682,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://mastersoftwaretesting.com/testing-fundamentals/testing-techniques/black-box-testing"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://mastersoftwaretesting.com/testing-fundamentals/testing-techniques/black-box-testing</a
                                     >
-                                        https://mastersoftwaretesting.com/testing-fundamentals/testing-techniques/black-box-testing
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2066,9 +1694,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.testdevlab.com/blog/types-of-black-box-testing-techniques"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.testdevlab.com/blog/types-of-black-box-testing-techniques</a
                                     >
-                                        https://www.testdevlab.com/blog/types-of-black-box-testing-techniques
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2079,9 +1706,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.softwaretestinghelp.com/what-is-boundary-value-analysis-and-equivalence-partitioning/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.softwaretestinghelp.com/what-is-boundary-value-analysis-and-equivalence-partitioning/</a
                                     >
-                                        https://www.softwaretestinghelp.com/what-is-boundary-value-analysis-and-equivalence-partitioning/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2092,9 +1718,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis-vs-equivalence-partitioning/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis-vs-equivalence-partitioning/</a
                                     >
-                                        https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis-vs-equivalence-partitioning/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2105,9 +1730,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://toolsqa.com/software-testing/istqb/boundary-value-analysis/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://toolsqa.com/software-testing/istqb/boundary-value-analysis/</a
                                     >
-                                        https://toolsqa.com/software-testing/istqb/boundary-value-analysis/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2118,9 +1742,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis/</a
                                     >
-                                        https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2131,9 +1754,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing</a
                                     >
-                                        https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2147,9 +1769,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.thirstysprout.com/post/restful-api-testing"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.thirstysprout.com/post/restful-api-testing</a
                                     >
-                                        https://www.thirstysprout.com/post/restful-api-testing
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2160,9 +1781,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.postman.com/templates/collections/integration-testing/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.postman.com/templates/collections/integration-testing/</a
                                     >
-                                        https://www.postman.com/templates/collections/integration-testing/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2173,9 +1793,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://blog.testunity.com/choosing-the-right-api-testing-tool-postman-vs-rest-assured/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://blog.testunity.com/choosing-the-right-api-testing-tool-postman-vs-rest-assured/</a
                                     >
-                                        https://blog.testunity.com/choosing-the-right-api-testing-tool-postman-vs-rest-assured/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2186,9 +1805,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.speakeasy.com/api-design/testing"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.speakeasy.com/api-design/testing</a
                                     >
-                                        https://www.speakeasy.com/api-design/testing
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2199,9 +1817,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.testingmind.com/contract-testing-an-introduction-and-guide/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.testingmind.com/contract-testing-an-introduction-and-guide/</a
                                     >
-                                        https://www.testingmind.com/contract-testing-an-introduction-and-guide/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2212,9 +1829,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://nordicapis.com/10-tools-for-api-contract-testing/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://nordicapis.com/10-tools-for-api-contract-testing/</a
                                     >
-                                        https://nordicapis.com/10-tools-for-api-contract-testing/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2228,9 +1844,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://knowledge.businesscompassllc.com/api-test-automation-with-rest-assured-postman-and-pact/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://knowledge.businesscompassllc.com/api-test-automation-with-rest-assured-postman-and-pact/</a
                                     >
-                                        https://knowledge.businesscompassllc.com/api-test-automation-with-rest-assured-postman-and-pact/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2241,9 +1856,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.stackhawk.com/blog/top-api-testing-tools/"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.stackhawk.com/blog/top-api-testing-tools/</a
                                     >
-                                        https://www.stackhawk.com/blog/top-api-testing-tools/
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2254,9 +1868,8 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://www.baserock.ai/blog/api-integration-testing-tool"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://www.baserock.ai/blog/api-integration-testing-tool</a
                                     >
-                                        https://www.baserock.ai/blog/api-integration-testing-tool
-                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -2269,15 +1882,15 @@ export default function IntegrationFunctionalTestingGuide() {
                                         href="https://medium.com/@fulminoussoftwares/best-practices-for-testing-web-applications-in-2025-6d8f7f6460b9"
                                         className="ref-url"
                                         target="_blank"
+                                        >https://medium.com/@fulminoussoftwares/best-practices-for-testing-web-applications-in-2025-6d8f7f6460b9</a
                                     >
-                                        https://medium.com/@fulminoussoftwares/best-practices-for-testing-web-applications-in-2025-6d8f7f6460b9
-                                    </a>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </section>
+        
         </>
     );
 }
