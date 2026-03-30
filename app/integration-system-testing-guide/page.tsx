@@ -1,9 +1,10 @@
+import Header from '../../components/Header';
 import '../integration-system-testing-guide.css';
 
 export default function IntegrationSystemTestingGuide() {
     return (
-        <>
-            
+        <div className="page-int-sys">
+            <Header className="page-int-sys" />
             <section className="hero" id="top">
                 <div className="hero-content">
                     <div className="hero-rule">
@@ -1844,7 +1845,6 @@ export default function IntegrationSystemTestingGuide() {
                     </table>
                 </div>
             </section>
-        
-        </>
+        </div>
     );
 }

@@ -1,8 +1,12 @@
 import Link from 'next/link';
 
-export default function Header() {
+interface HeaderProps {
+  className?: string;
+}
+
+export default function Header({ className }: HeaderProps) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-[#0a0e1a]/85 backdrop-blur-[16px] border-b border-[rgba(99,179,237,0.12)] px-8 h-[60px] flex items-center gap-6">
+    <nav className={`fixed top-0 left-0 right-0 z-50 bg-[#0a0e1a]/85 backdrop-blur-[16px] border-b border-[rgba(99,179,237,0.12)] px-8 h-[60px] flex items-center gap-6 ${className || ''}`}>
       <Link href="/" className="nav-logo hover:opacity-80 transition-opacity">
         QA_STUDIES
       </Link>

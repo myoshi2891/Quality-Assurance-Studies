@@ -21,7 +21,7 @@ try {
     process.exit(1);
 }
 
-const styleMatch = html.match(/<style>([\s\S]*?)<\/style>/);
+const styleMatch = html.match(/<style\b[^>]*>([\s\S]*?)<\/style>/i);
 if (!styleMatch) {
   console.error('No <style> found in the input HTML');
   process.exit(1);
@@ -95,6 +95,42 @@ const varMap = {
 
 for (const [key, value] of Object.entries(varMap)) {
   css = css.split(key).join(value);
+}
+
+// Rename classes to match html-to-tsx.mjs
+const classMap = {
+    '\\.sh': '.section-header',
+    '\\.sh-num': '.section-num',
+    '\\.accent-rule': '.accent-line',
+    '\\.tw': '.table-wrapper',
+    '\\.stat-pill': '.stat',
+    '\\.stat-v': '.stat-num',
+    '\\.stat-l': '.stat-label',
+    '\\.code-hdr': '.code-header',
+    '\\.dots': '.code-dots',
+    '\\.step-n': '.step-num-circle',
+    '\\.step-body': '.step-content',
+    // Badges
+    '\\.b-sky': '.badge-int',
+    '\\.b-teal': '.badge-int',
+    '\\.b-amber': '.badge-e2e',
+    '\\.b-red': '.badge-sec',
+    '\\.b-green': '.bg-accent-green\\\\/10.text-\\\\[var\\\\(--color-accent-green\\\\)\\\\].border-\\\\[rgba\\\\(104,211,145,0.3\\\\)\\\\]',
+    '\\.b-violet': '.badge-func',
+    '\\.b-slate': '.badge-unit',
+    // Callouts
+    '\\.c-sky': '.callout-info',
+    '\\.c-amber': '.callout-warn',
+    '\\.c-red': '.callout-danger',
+    '\\.c-green': '.callout-good',
+    '\\.c-teal': '.callout-info',
+    '\\.c-violet': '.callout-info',
+    // Grids & Flex
+    '\\.g2': '.grid-2'
+};
+
+for (const [key, value] of Object.entries(classMap)) {
+    css = css.replace(new RegExp(`${key}\\\\b`, 'g'), value);
 }
 
 // Rename keyframes to kebab-case
