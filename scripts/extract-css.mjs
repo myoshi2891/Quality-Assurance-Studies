@@ -98,7 +98,11 @@ for (const [key, value] of Object.entries(varMap)) {
   css = css.split(key).join(value);
 }
 
-// Helper to escape special characters for RegExp
+/**
+ * Produce a version of the input safe to embed in a regular expression by escaping RegExp metacharacters.
+ * @param {string} string - The string to escape.
+ * @returns {string} The input string with RegExp metacharacters escaped.
+ */
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

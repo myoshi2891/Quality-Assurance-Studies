@@ -1,6 +1,15 @@
 import Header from '../../components/Header';
 import '../unit-testing.css';
 
+/**
+ * Renders the "Unit Testing (単体テスト) Complete Guide 2025" page in Japanese.
+ *
+ * The component outputs a multi-section, presentational React page covering unit-testing concepts
+ * (ISTQB principles, AAA, FIRST, TDD, test doubles, coverage, naming, anti-patterns, frameworks,
+ * CI/CD and references) with code examples and link references.
+ *
+ * @returns The rendered React element for the unit testing guide page.
+ */
 export default function UnitTestingGuide() {
     return (
         <>

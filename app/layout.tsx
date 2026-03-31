@@ -29,6 +29,12 @@ export const metadata: Metadata = {
   description: 'AIシステムのテストおよびQAに関する学習リソース',
 };
 
+/**
+ * Root layout component that applies global font CSS variables and wraps the app's page content.
+ *
+ * @param children - The page content to render inside the document body
+ * @returns A React element representing the top-level HTML document (html[lang="ja"] > body) with configured font CSS variables applied to the html element
+ */
 export default function RootLayout({
   children,
 }: {

@@ -7,6 +7,12 @@ interface HeaderProps {
   className?: string;
 }
 
+/**
+ * Renders the top navigation bar with route-aware active link highlighting.
+ *
+ * @param className - Optional additional CSS class names appended to the nav container
+ * @returns A JSX element representing the top navigation bar
+ */
 export default function Header({ className }: HeaderProps) {
   const pathname = usePathname();
 

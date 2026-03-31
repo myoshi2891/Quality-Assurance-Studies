@@ -2,6 +2,17 @@ import Link from 'next/link';
 import Header from '../../components/Header';
 import '../ai-guide.css';
 
+/**
+ * Renders the ISTQB CT-AI and CT-GenAI comprehensive guide page for 2025.
+ *
+ * The component returns a static, content-rich JSX layout including a Header,
+ * a main element with a 12-step guide (AI foundations, ML workflow, metrics,
+ * quality characteristics, testing techniques, hallucination & bias, GenAI
+ * testing, prompt engineering, RAG testing, security, tools, certifications,
+ * and references), and a footer with certification links.
+ *
+ * @returns The JSX element for the full guide page including header, main content, and footer.
+ */
 export default function AITestGuide() {
   return (
     <>

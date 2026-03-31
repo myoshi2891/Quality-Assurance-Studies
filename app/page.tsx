@@ -1,6 +1,11 @@
 import Link from 'next/link';
 import Header from '../components/Header';
 
+/**
+ * Render the 2025 "Modern Software Testing" landing and reference guide page aligned with ISTQB CTFL v4.0.
+ *
+ * @returns The React element tree for the landing/guide page
+ */
 export default function Home() {
   return (
     <>
