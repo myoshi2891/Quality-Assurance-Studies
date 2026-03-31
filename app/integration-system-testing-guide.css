@@ -941,7 +941,7 @@
             }
 
             /* ── ANIMATIONS ── */
-            @keyframes fade-up {
+            @keyframes int-sys-fade-up {
                 from {
                     opacity: 0;
                     transform: translateY(18px);
@@ -952,5 +952,5 @@
                 }
             }
             .page-int-sys .hero-content {
-                animation: fade-up 0.7s ease forwards;
+                animation: int-sys-fade-up 0.7s ease forwards;
             }
