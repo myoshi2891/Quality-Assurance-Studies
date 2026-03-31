@@ -29,6 +29,14 @@ export const metadata: Metadata = {
   description: 'AIシステムのテストおよびQAに関する学習リソース',
 };
 
+/**
+ * Provides the application's root HTML layout with configured fonts and Japanese language.
+ *
+ * Renders an <html lang="ja"> element with the project's font CSS variables applied and wraps `children` inside the document body.
+ *
+ * @param children - Page content to render inside the layout's body
+ * @returns The root HTML structure for application pages
+ */
 export default function RootLayout({
   children,
 }: {
