@@ -46,3 +46,9 @@ Use `bun` to manage dependencies and run scripts.
 - **Styling Approach:** Tailwind CSS utility classes are the primary styling mechanism.
 - **Content Language:** The main content and documentation are written in Japanese. Always preserve this localized context when updating or adding new content.
 - **Educational Tone:** The codebase serves an educational purpose. Code additions should be well-documented and follow the structured, step-by-step explanatory format present in existing pages like `app/page.tsx` and `app/ai-test-guide/page.tsx`.
+- **HTML Migration Workflow:** When migrating static HTML pages to Next.js:
+    1. Use `scripts/extract-css.mjs` to extract and map CSS variables.
+    2. Use `scripts/html-to-tsx.mjs` to convert HTML to JSX.
+    3. Manually fix any CSS specificity or scoping issues (ensure all styles are scoped under a page-specific class).
+    4. Move the original HTML file to the `archive/` directory.
+    5. Update `components/Header.tsx` navigation and `CLAUDE.md` architecture.
