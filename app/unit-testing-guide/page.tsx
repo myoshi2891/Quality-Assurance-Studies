@@ -1,8 +1,11 @@
+import Header from '../../components/Header';
 import '../unit-testing.css';
 
 export default function UnitTestingGuide() {
     return (
-        <main>
+        <>
+            <Header />
+            <main>
             {/* ══════ HERO ══════ */}
             <section className="hero" id="top">
                 <div className="hero-content">
@@ -2694,5 +2697,6 @@ assert svc.is_ready() == True`,
                 </p>
             </footer>
         </main>
+        </>
     );
 }

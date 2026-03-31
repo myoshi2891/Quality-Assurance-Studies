@@ -1,9 +1,10 @@
+import Header from '../../components/Header';
 import '../integration-functional-testing-guide.css';
 
 export default function IntegrationFunctionalTestingGuide() {
     return (
         <>
-            
+            <Header />
             <section className="hero" id="top">
                 <div className="hero-content">
                     <span className="hero-eyebrow"
