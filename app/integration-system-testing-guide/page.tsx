@@ -11,7 +11,8 @@ export default function IntegrationSystemTestingGuide() {
                         <span>ISTQB CTFL v4.0 — INTEGRATION & SYSTEM TESTING 2025</span>
                     </div>
                     <h1>
-                        <em>Integration</em> &amp;<br />
+                        <em>Integration</em> &amp;
+                        <br />
                         System Testing
                         <small>ISTQB CTFL v4.0 準拠 | 初学者から実践者まで完全網羅</small>
                     </h1>
@@ -23,20 +24,20 @@ export default function IntegrationSystemTestingGuide() {
 
                     <div className="hero-stats">
                         <div className="stat-gem">
-                            <span className="stat-num">Level 2–3</span
-                            ><span className="stat-label">ISTQBテストレベル</span>
+                            <span className="stat-num">Level 2–3</span>
+                            <span className="stat-label">ISTQBテストレベル</span>
                         </div>
                         <div className="stat-gem">
-                            <span className="stat-num">7+</span
-                            ><span className="stat-label">主要システムテスト種別</span>
+                            <span className="stat-num">7+</span>
+                            <span className="stat-label">主要システムテスト種別</span>
                         </div>
                         <div className="stat-gem">
-                            <span className="stat-num">v4.0.1</span
-                            ><span className="stat-label">ISTQB CTFL最新シラバス</span>
+                            <span className="stat-num">v4.0.1</span>
+                            <span className="stat-label">ISTQB CTFL最新シラバス</span>
                         </div>
                         <div className="stat-gem">
-                            <span className="stat-num">60%</span
-                            ><span className="stat-label">欠陥の結合フェーズ発見率</span>
+                            <span className="stat-num">60%</span>
+                            <span className="stat-label">欠陥の結合フェーズ発見率</span>
                         </div>
                     </div>
 
@@ -77,18 +78,21 @@ export default function IntegrationSystemTestingGuide() {
                         統合テストは「複数のコンポーネント間のインターフェースと相互作用を検証する」テストレベル。
                         システムテストは「完全に統合されたシステムが指定された要件を満たしているかを検証する」テストレベル。
                         両者は連続した防衛線として機能し、ユニットテストでは発見できない欠陥を捕捉します。
-                        <br /><a
+                        <br />
+                        <a
                             href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                             className="ulink"
                             target="_blank"
-                            >istqb.org — CTFL v4.0 公式ページ</a
                         >
+                            istqb.org — CTFL v4.0 公式ページ
+                        </a>
                         <a
                             href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
                             className="ulink"
                             target="_blank"
-                            >シラバス v4.0.1 PDF (公式)</a
                         >
+                            シラバス v4.0.1 PDF (公式)
+                        </a>
                     </div>
                 </div>
             </section>
@@ -98,9 +102,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="integration">
                 <div className="section-header">
-                    <span className="section-header-num"
-                        >STEP 01 — ISTQB CTFL SECTION 2.2.2: INTEGRATION TESTING</span
-                    >
+                    <span className="section-header-num">
+                        STEP 01 — ISTQB CTFL SECTION 2.2.2: INTEGRATION TESTING
+                    </span>
                     <h2>インテグレーションテスト（統合テスト）</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -110,16 +114,30 @@ export default function IntegrationSystemTestingGuide() {
 
                 {/* CIT vs SIT */}
                 <h3
-                    style={{fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.85rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.85rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     2種類の統合テスト
                 </h3>
                 <div className="grid-2">
-                    <div className="card" style={{borderLeft: "3px solid var(--color-accent-yellow)"}}>
+                    <div
+                        className="card"
+                        style={{ borderLeft: '3px solid var(--color-accent-yellow)' }}
+                    >
                         <div
-                            style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem"}}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: '0.75rem',
+                            }}
                         >
-                            <h3 style={{fontSize: "1rem", margin: "0"}}>
+                            <h3 style={{ fontSize: '1rem', margin: '0' }}>
                                 コンポーネント統合テスト（CIT）
                             </h3>
                             <span className="badge b-gold">Level 2a</span>
@@ -128,27 +146,41 @@ export default function IntegrationSystemTestingGuide() {
                             ユニットテスト後に実施。同一システム内の複数コンポーネント間のインターフェース・呼び出し・データフローを検証。開発者またはテスターが実施。
                         </p>
                         <hr className="div" />
-                        <div style={{fontSize: "12.5px", color: "var(--color-text-secondary)"}}>
+                        <div style={{ fontSize: '12.5px', color: 'var(--color-text-secondary)' }}>
                             <div>✦ 対象：モジュール間API・関数呼び出し・ライブラリ連携</div>
                             <div className="mt-1">✦ 環境：インメモリDB・テスト用コンテナ</div>
-                            <div className="mt-1">✦ 主な欠陥：型の不一致・NULLハンドリングの誤り</div>
+                            <div className="mt-1">
+                                ✦ 主な欠陥：型の不一致・NULLハンドリングの誤り
+                            </div>
                         </div>
                     </div>
-                    <div className="card" style={{borderLeft: "3px solid var(--color-accent-green)"}}>
+                    <div
+                        className="card"
+                        style={{ borderLeft: '3px solid var(--color-accent-green)' }}
+                    >
                         <div
-                            style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.75rem"}}
+                            style={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                                marginBottom: '0.75rem',
+                            }}
                         >
-                            <h3 style={{fontSize: "1rem", margin: "0"}}>システム統合テスト（SIT）</h3>
+                            <h3 style={{ fontSize: '1rem', margin: '0' }}>
+                                システム統合テスト（SIT）
+                            </h3>
                             <span className="badge b-sage">Level 2b</span>
                         </div>
                         <p>
                             異なるシステム・外部API・マイクロサービス・サードパーティサービス間の連携を検証。テスターまたはQAチームが実施。本番に近い環境が必要。
                         </p>
                         <hr className="div" />
-                        <div style={{fontSize: "12.5px", color: "var(--color-text-secondary)"}}>
+                        <div style={{ fontSize: '12.5px', color: 'var(--color-text-secondary)' }}>
                             <div>✦ 対象：外部API・決済ゲートウェイ・メッセージキュー</div>
                             <div className="mt-1">✦ 環境：ステージング・Docker Compose</div>
-                            <div className="mt-1">✦ 主な欠陥：通信プロトコルの不一致・タイムアウト</div>
+                            <div className="mt-1">
+                                ✦ 主な欠陥：通信プロトコルの不一致・タイムアウト
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -156,7 +188,13 @@ export default function IntegrationSystemTestingGuide() {
                 {/* Defect types */}
                 <h3
                     className="mt-4"
-                    style={{fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.85rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.85rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     統合テストで発見される代表的な欠陥
                 </h3>
@@ -172,37 +210,49 @@ export default function IntegrationSystemTestingGuide() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>インターフェース不一致</strong></td>
+                                <td>
+                                    <strong>インターフェース不一致</strong>
+                                </td>
                                 <td>API シグネチャの引数の型・順序が異なる</td>
                                 <td className="r">高</td>
                                 <td>コントラクトテスト・API統合テスト</td>
                             </tr>
                             <tr>
-                                <td><strong>データ変換エラー</strong></td>
+                                <td>
+                                    <strong>データ変換エラー</strong>
+                                </td>
                                 <td>int → string の暗黙変換・日付フォーマット差異</td>
                                 <td className="w">中〜高</td>
                                 <td>データフロー検証・境界値テスト</td>
                             </tr>
                             <tr>
-                                <td><strong>NULL・例外伝播</strong></td>
+                                <td>
+                                    <strong>NULL・例外伝播</strong>
+                                </td>
                                 <td>下位サービスの例外が上位で適切にハンドリングされない</td>
                                 <td className="r">高</td>
                                 <td>エラーケーステスト</td>
                             </tr>
                             <tr>
-                                <td><strong>タイミング問題</strong></td>
+                                <td>
+                                    <strong>タイミング問題</strong>
+                                </td>
                                 <td>非同期処理の競合・タイムアウト設定の不整合</td>
                                 <td className="w">中〜高</td>
                                 <td>並行実行テスト・ストレステスト</td>
                             </tr>
                             <tr>
-                                <td><strong>認証・権限エラー</strong></td>
+                                <td>
+                                    <strong>認証・権限エラー</strong>
+                                </td>
                                 <td>サービス間のAPIキー未送信・JWT期限切れ</td>
                                 <td className="r">高</td>
                                 <td>セキュリティ統合テスト</td>
                             </tr>
                             <tr>
-                                <td><strong>エンコーディング差異</strong></td>
+                                <td>
+                                    <strong>エンコーディング差異</strong>
+                                </td>
                                 <td>文字コード（UTF-8 vs Shift-JIS）の不一致による文字化け</td>
                                 <td className="w">中</td>
                                 <td>国際化テスト</td>
@@ -214,12 +264,20 @@ export default function IntegrationSystemTestingGuide() {
                 {/* Code example */}
                 <div className="code-block mt-3">
                     <div className="code-header">
-                        <div className="code-dots"><span></span><span></span><span></span></div>
-                        <span className="code-lang"
-                            >PYTHON / pytest + FastAPI — コンポーネント統合テスト</span
-                        >
+                        <div className="code-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+                        <span className="code-lang">
+                            PYTHON / pytest + FastAPI — コンポーネント統合テスト
+                        </span>
                     </div>
-                    <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">\"\"\"\n【統合テストの核心】\n- 実際のHTTPリクエストを送信（TestClient経由）\n- テスト専用DBに実際に接続・書き込みを行う\n- モックは使わない（ユニットテストとの違い）\n\"\"\"</span>\n<span class=\"kw\">import</span> pytest\n<span class=\"kw\">from</span> fastapi.testclient <span class=\"kw\">import</span> TestClient\n<span class=\"kw\">from</span> sqlalchemy <span class=\"kw\">import</span> create_engine\n<span class=\"kw\">from</span> app.main <span class=\"kw\">import</span> app\n<span class=\"kw\">from</span> app.models <span class=\"kw\">import</span> Base, Order\n\n<span class=\"dec\">@pytest.fixture</span>(scope=<span class=\"str\">\"function\"</span>)\n<span class=\"kw\">def</span> <span class=\"fn\">test_client</span>():\n    <span class=\"cm\"># テスト用インメモリDBに接続</span>\n    engine = <span class=\"fn\">create_engine</span>(<span class=\"str\">\"sqlite:///:memory:\"</span>)\n    Base.metadata.<span class=\"fn\">create_all</span>(engine)\n    app.state.db = engine\n    <span class=\"kw\">with</span> <span class=\"cls\">TestClient</span>(app) <span class=\"kw\">as</span> client:\n        <span class=\"kw\">yield</span> client, engine\n    Base.metadata.<span class=\"fn\">drop_all</span>(engine)\n\n<span class=\"kw\">class</span> <span class=\"cls\">TestOrderIntegration</span>:\n    <span class=\"kw\">def</span> <span class=\"fn\">test_注文作成_DBに保存され正しいレスポンスを返す</span>(<span class=\"dec\">self</span>, test_client):\n        client, engine = test_client\n\n        <span class=\"cm\"># Act: 実際のAPIエンドポイントを呼ぶ</span>\n        res = client.<span class=\"fn\">post</span>(<span class=\"str\">\"/api/v1/orders\"</span>, json={\n            <span class=\"str\">\"product_id\"</span>: <span class=\"num\">1</span>,\n            <span class=\"str\">\"quantity\"</span>: <span class=\"num\">3</span>,\n            <span class=\"str\">\"user_id\"</span>: <span class=\"num\">42</span>\n        }, headers={<span class=\"str\">\"Authorization\"</span>: <span class=\"str\">\"Bearer test-token\"</span>})\n\n        <span class=\"cm\"># Assert 1: HTTPレスポンスの検証</span>\n        <span class=\"kw\">assert</span> res.status_code == <span class=\"num\">201</span>\n        body = res.<span class=\"fn\">json</span>()\n        <span class=\"kw\">assert</span> body[<span class=\"str\">\"status\"</span>] == <span class=\"str\">\"pending\"</span>\n\n        <span class=\"cm\"># Assert 2: DBの実際のデータを検証（統合テストの核心）</span>\n        <span class=\"kw\">with</span> engine.<span class=\"fn\">connect</span>() <span class=\"kw\">as</span> conn:\n            db_order = conn.<span class=\"fn\">execute</span>(\n                <span class=\"str\">\"SELECT * FROM orders WHERE id = ?\"</span>, (body[<span class=\"str\">\"id\"</span>],)\n            ).<span class=\"fn\">fetchone</span>()\n        <span class=\"kw\">assert</span> db_order <span class=\"kw\">is not</span> <span class=\"cls\">None</span>\n        <span class=\"kw\">assert</span> db_order.quantity == <span class=\"num\">3</span>\n        <span class=\"kw\">assert</span> db_order.user_id == <span class=\"num\">42</span>" }} />
+                    <pre
+                        dangerouslySetInnerHTML={{
+                            __html: '<span class="cm">"""\n【統合テストの核心】\n- 実際のHTTPリクエストを送信（TestClient経由）\n- テスト専用DBに実際に接続・書き込みを行う\n- モックは使わない（ユニットテストとの違い）\n"""</span>\n<span class="kw">import</span> pytest\n<span class="kw">from</span> fastapi.testclient <span class="kw">import</span> TestClient\n<span class="kw">from</span> sqlalchemy <span class="kw">import</span> create_engine\n<span class="kw">from</span> app.main <span class="kw">import</span> app\n<span class="kw">from</span> app.models <span class="kw">import</span> Base, Order\n\n<span class="dec">@pytest.fixture</span>(scope=<span class="str">"function"</span>)\n<span class="kw">def</span> <span class="fn">test_client</span>():\n    <span class="cm"># テスト用インメモリDBに接続</span>\n    engine = <span class="fn">create_engine</span>(<span class="str">"sqlite:///:memory:"</span>)\n    Base.metadata.<span class="fn">create_all</span>(engine)\n    app.state.db = engine\n    <span class="kw">with</span> <span class="cls">TestClient</span>(app) <span class="kw">as</span> client:\n        <span class="kw">yield</span> client, engine\n    Base.metadata.<span class="fn">drop_all</span>(engine)\n\n<span class="kw">class</span> <span class="cls">TestOrderIntegration</span>:\n    <span class="kw">def</span> <span class="fn">test_注文作成_DBに保存され正しいレスポンスを返す</span>(<span class="dec">self</span>, test_client):\n        client, engine = test_client\n\n        <span class="cm"># Act: 実際のAPIエンドポイントを呼ぶ</span>\n        res = client.<span class="fn">post</span>(<span class="str">"/api/v1/orders"</span>, json={\n            <span class="str">"product_id"</span>: <span class="num">1</span>,\n            <span class="str">"quantity"</span>: <span class="num">3</span>,\n            <span class="str">"user_id"</span>: <span class="num">42</span>\n        }, headers={<span class="str">"Authorization"</span>: <span class="str">"Bearer test-token"</span>})\n\n        <span class="cm"># Assert 1: HTTPレスポンスの検証</span>\n        <span class="kw">assert</span> res.status_code == <span class="num">201</span>\n        body = res.<span class="fn">json</span>()\n        <span class="kw">assert</span> body[<span class="str">"status"</span>] == <span class="str">"pending"</span>\n\n        <span class="cm"># Assert 2: DBの実際のデータを検証（統合テストの核心）</span>\n        <span class="kw">with</span> engine.<span class="fn">connect</span>() <span class="kw">as</span> conn:\n            db_order = conn.<span class="fn">execute</span>(\n                <span class="str">"SELECT * FROM orders WHERE id = ?"</span>, (body[<span class="str">"id"</span>],)\n            ).<span class="fn">fetchone</span>()\n        <span class="kw">assert</span> db_order <span class="kw">is not</span> <span class="cls">None</span>\n        <span class="kw">assert</span> db_order.quantity == <span class="num">3</span>\n        <span class="kw">assert</span> db_order.user_id == <span class="num">42</span>',
+                        }}
+                    />
                 </div>
                 <p className="text-sm mt-1">
                     参照:
@@ -227,8 +285,9 @@ export default function IntegrationSystemTestingGuide() {
                         href="https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide"
                         className="ulink"
                         target="_blank"
-                        >mastersoftwaretesting.com — ISTQB CTFL Complete Guide 2025</a
                     >
+                        mastersoftwaretesting.com — ISTQB CTFL Complete Guide 2025
+                    </a>
                 </p>
             </section>
 
@@ -247,7 +306,10 @@ export default function IntegrationSystemTestingGuide() {
                 </div>
 
                 <div className="strat-grid">
-                    <div className="strat-card" style={{borderTop: "2px solid var(--color-accent-red)"}}>
+                    <div
+                        className="strat-card"
+                        style={{ borderTop: '2px solid var(--color-accent-red)' }}
+                    >
                         <span className="strat-icon">💥</span>
                         <div className="strat-title">ビッグバン統合</div>
                         <span className="strat-tag b-danger">Big Bang</span>
@@ -260,15 +322,19 @@ export default function IntegrationSystemTestingGuide() {
                             <div className="con">✗ 大規模では非常にリスクが高い</div>
                         </div>
                     </div>
-                    <div className="strat-card" style={{borderTop: "2px solid var(--color-accent-blue)"}}>
+                    <div
+                        className="strat-card"
+                        style={{ borderTop: '2px solid var(--color-accent-blue)' }}
+                    >
                         <span className="strat-icon">⬇</span>
                         <div className="strat-title">トップダウン統合</div>
                         <span className="strat-tag b-info">Top-Down</span>
                         <div className="strat-body">
-                            最上位コンポーネントから順に下位へ。未実装の下位コンポーネントには<strong
-                                style={{color: "var(--color-text-primary)"}}
-                                >スタブ（Stub）</strong
-                            >を使用。
+                            最上位コンポーネントから順に下位へ。未実装の下位コンポーネントには
+                            <strong style={{ color: 'var(--color-text-primary)' }}>
+                                スタブ（Stub）
+                            </strong>
+                            を使用。
                         </div>
                         <div className="strat-pros-cons">
                             <div className="pro">✓ 主要ビジネスフローを早期確認</div>
@@ -276,15 +342,19 @@ export default function IntegrationSystemTestingGuide() {
                             <div className="con">✗ スタブ作成コストが高い</div>
                         </div>
                     </div>
-                    <div className="strat-card" style={{borderTop: "2px solid var(--color-accent-green)"}}>
+                    <div
+                        className="strat-card"
+                        style={{ borderTop: '2px solid var(--color-accent-green)' }}
+                    >
                         <span className="strat-icon">⬆</span>
                         <div className="strat-title">ボトムアップ統合</div>
                         <span className="strat-tag b-ok">Bottom-Up</span>
                         <div className="strat-body">
-                            最下位コンポーネントから順に上位へ。未実装の上位コンポーネントには<strong
-                                style={{color: "var(--color-text-primary)"}}
-                                >ドライバ（Driver）</strong
-                            >を使用。
+                            最下位コンポーネントから順に上位へ。未実装の上位コンポーネントには
+                            <strong style={{ color: 'var(--color-text-primary)' }}>
+                                ドライバ（Driver）
+                            </strong>
+                            を使用。
                         </div>
                         <div className="strat-pros-cons">
                             <div className="pro">✓ 低レベルの動作を早期に確認</div>
@@ -292,7 +362,10 @@ export default function IntegrationSystemTestingGuide() {
                             <div className="con">✗ UI検証が後回しになる</div>
                         </div>
                     </div>
-                    <div className="strat-card" style={{borderTop: "2px solid var(--color-accent-yellow)"}}>
+                    <div
+                        className="strat-card"
+                        style={{ borderTop: '2px solid var(--color-accent-yellow)' }}
+                    >
                         <span className="strat-icon">🔄</span>
                         <div className="strat-title">継続的統合（CI）</div>
                         <span className="strat-tag b-gold">Continuous Integration</span>
@@ -309,11 +382,13 @@ export default function IntegrationSystemTestingGuide() {
 
                 {/* Driver vs Stub */}
                 <div className="callout c-gold mt-3">
-                    <strong>スタブ（Stub）vs ドライバ（Driver）の違い：</strong><br />
-                    <strong>スタブ：</strong
-                    >まだ実装されていない<em>下位</em>コンポーネントの代替品。固定値を返すだけの簡易実装。トップダウン統合で使用。<br />
-                    <strong>ドライバ：</strong
-                    >まだ実装されていない<em>上位</em>コンポーネントの代替品。テスト対象を呼び出す呼び出し元のシミュレーター。ボトムアップ統合で使用。
+                    <strong>スタブ（Stub）vs ドライバ（Driver）の違い：</strong>
+                    <br />
+                    <strong>スタブ：</strong>まだ実装されていない<em>下位</em>
+                    コンポーネントの代替品。固定値を返すだけの簡易実装。トップダウン統合で使用。
+                    <br />
+                    <strong>ドライバ：</strong>まだ実装されていない<em>上位</em>
+                    コンポーネントの代替品。テスト対象を呼び出す呼び出し元のシミュレーター。ボトムアップ統合で使用。
                 </div>
             </section>
 
@@ -322,7 +397,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="system">
                 <div className="section-header">
-                    <span className="section-header-num">STEP 03 — ISTQB CTFL SECTION 2.2.3: SYSTEM TESTING</span>
+                    <span className="section-header-num">
+                        STEP 03 — ISTQB CTFL SECTION 2.2.3: SYSTEM TESTING
+                    </span>
                     <h2>システムテスト（System Testing）</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -357,35 +434,54 @@ export default function IntegrationSystemTestingGuide() {
                 {/* Functional vs Non-functional */}
                 <h3
                     className="mt-4"
-                    style={{fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.85rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.85rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     機能テスト vs 非機能テスト
                 </h3>
                 <div
-                    style={{background: "var(--color-bg-secondary)", border: "1px solid var(--border)", borderRadius: "var(--radius-DEFAULT, 12px)", overflow: "hidden"}}
+                    style={{
+                        background: 'var(--color-bg-secondary)',
+                        border: '1px solid var(--border)',
+                        borderRadius: 'var(--radius-DEFAULT, 12px)',
+                        overflow: 'hidden',
+                    }}
                 >
-                    <div className="comp-row" style={{background: "rgba(201, 168, 76, 0.07)"}}>
+                    <div className="comp-row" style={{ background: 'rgba(201, 168, 76, 0.07)' }}>
                         <div className="comp-cell">観点</div>
                         <div className="comp-cell">機能テスト（Functional）</div>
                         <div className="comp-cell">非機能テスト（Non-Functional）</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>問いかけ</strong></div>
+                        <div className="comp-cell">
+                            <strong>問いかけ</strong>
+                        </div>
                         <div className="comp-cell">「正しく動くか？」（What）</div>
                         <div className="comp-cell">「うまく動くか？」（How Well）</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>検証内容</strong></div>
+                        <div className="comp-cell">
+                            <strong>検証内容</strong>
+                        </div>
                         <div className="comp-cell">機能要件・ビジネスロジック・データ処理</div>
                         <div className="comp-cell">性能・セキュリティ・ユーザビリティ・信頼性</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>判定基準</strong></div>
+                        <div className="comp-cell">
+                            <strong>判定基準</strong>
+                        </div>
                         <div className="comp-cell">PASS / FAIL（二択）</div>
                         <div className="comp-cell">数値基準との比較（例: 応答 &lt; 2秒）</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>代表ツール</strong></div>
+                        <div className="comp-cell">
+                            <strong>代表ツール</strong>
+                        </div>
                         <div className="comp-cell">Selenium・Playwright・Postman</div>
                         <div className="comp-cell">JMeter・k6・OWASP ZAP・Lighthouse</div>
                     </div>
@@ -396,14 +492,16 @@ export default function IntegrationSystemTestingGuide() {
                         href="https://mastersoftwaretesting.com/testing-fundamentals/types-of-testing/functional-testing/system-testing"
                         className="ulink"
                         target="_blank"
-                        >mastersoftwaretesting.com — System Testing Complete Guide (Jan 2026)</a
                     >
+                        mastersoftwaretesting.com — System Testing Complete Guide (Jan 2026)
+                    </a>
                     <a
                         href="https://www.virtuosoqa.com/post/functional-vs-non-functional-testing"
                         className="ulink"
                         target="_blank"
-                        >virtuosoqa.com — Functional vs Non-Functional Testing</a
                     >
+                        virtuosoqa.com — Functional vs Non-Functional Testing
+                    </a>
                 </p>
             </section>
 
@@ -412,7 +510,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="smoke">
                 <div className="section-header">
-                    <span className="section-header-num">STEP 04 — SMOKE TESTING（スモークテスト）</span>
+                    <span className="section-header-num">
+                        STEP 04 — SMOKE TESTING（スモークテスト）
+                    </span>
                     <h2>スモークテスト — ビルドの「通過証」</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -434,10 +534,11 @@ export default function IntegrationSystemTestingGuide() {
                                 <div className="step-content">
                                     <h4>何をテストするか</h4>
                                     <p>
-                                        アプリが起動できるか・ログインできるか・主要ページが表示されるか。全機能ではなく<strong
-                                            style={{color: "var(--color-text-primary)"}}
-                                            >クリティカルパス</strong
-                                        >のみ対象。
+                                        アプリが起動できるか・ログインできるか・主要ページが表示されるか。全機能ではなく
+                                        <strong style={{ color: 'var(--color-text-primary)' }}>
+                                            クリティカルパス
+                                        </strong>
+                                        のみ対象。
                                     </p>
                                 </div>
                             </div>
@@ -463,80 +564,121 @@ export default function IntegrationSystemTestingGuide() {
                     </div>
                     <div>
                         <h3
-                            style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "600", marginBottom: "0.75rem", color: "var(--color-text-primary)"}}
+                            style={{
+                                fontFamily: 'var(--font-display)',
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                marginBottom: '0.75rem',
+                                color: 'var(--color-text-primary)',
+                            }}
                         >
                             スモークテストの典型的なチェックリスト
                         </h3>
                         <div
-                            style={{background: "var(--color-bg-secondary)", border: "1px solid var(--border)", borderRadius: "var(--radius-DEFAULT, 12px)", padding: "1rem"}}
+                            style={{
+                                background: 'var(--color-bg-secondary)',
+                                border: '1px solid var(--border)',
+                                borderRadius: 'var(--radius-DEFAULT, 12px)',
+                                padding: '1rem',
+                            }}
                         >
-                            <div className="step-list" style={{gap: "0"}}>
-                                <div className="step-item" style={{padding: "0.6rem 0"}}>
+                            <div className="step-list" style={{ gap: '0' }}>
+                                <div className="step-item" style={{ padding: '0.6rem 0' }}>
                                     <div
                                         className="step-num-circle"
-                                        style={{width: "22px", height: "22px", fontSize: "10px", borderRadius: "3px"}}
+                                        style={{
+                                            width: '22px',
+                                            height: '22px',
+                                            fontSize: '10px',
+                                            borderRadius: '3px',
+                                        }}
                                     >
                                         ✓
                                     </div>
                                     <div className="step-content">
-                                        <h4 style={{fontSize: "12px"}}>アプリケーション起動確認</h4>
-                                        <p style={{fontSize: "11.5px"}}>
+                                        <h4 style={{ fontSize: '12px' }}>
+                                            アプリケーション起動確認
+                                        </h4>
+                                        <p style={{ fontSize: '11.5px' }}>
                                             サービスが正常に起動し、エラーログが出ていない
                                         </p>
                                     </div>
                                 </div>
-                                <div className="step-item" style={{padding: "0.6rem 0"}}>
+                                <div className="step-item" style={{ padding: '0.6rem 0' }}>
                                     <div
                                         className="step-num-circle"
-                                        style={{width: "22px", height: "22px", fontSize: "10px", borderRadius: "3px"}}
+                                        style={{
+                                            width: '22px',
+                                            height: '22px',
+                                            fontSize: '10px',
+                                            borderRadius: '3px',
+                                        }}
                                     >
                                         ✓
                                     </div>
                                     <div className="step-content">
-                                        <h4 style={{fontSize: "12px"}}>認証機能</h4>
-                                        <p style={{fontSize: "11.5px"}}>
+                                        <h4 style={{ fontSize: '12px' }}>認証機能</h4>
+                                        <p style={{ fontSize: '11.5px' }}>
                                             正常なログイン・ログアウトが機能する
                                         </p>
                                     </div>
                                 </div>
-                                <div className="step-item" style={{padding: "0.6rem 0"}}>
+                                <div className="step-item" style={{ padding: '0.6rem 0' }}>
                                     <div
                                         className="step-num-circle"
-                                        style={{width: "22px", height: "22px", fontSize: "10px", borderRadius: "3px"}}
+                                        style={{
+                                            width: '22px',
+                                            height: '22px',
+                                            fontSize: '10px',
+                                            borderRadius: '3px',
+                                        }}
                                     >
                                         ✓
                                     </div>
                                     <div className="step-content">
-                                        <h4 style={{fontSize: "12px"}}>主要ページの表示</h4>
-                                        <p style={{fontSize: "11.5px"}}>
+                                        <h4 style={{ fontSize: '12px' }}>主要ページの表示</h4>
+                                        <p style={{ fontSize: '11.5px' }}>
                                             ホーム・一覧・詳細画面が正常に表示される
                                         </p>
                                     </div>
                                 </div>
-                                <div className="step-item" style={{padding: "0.6rem 0"}}>
+                                <div className="step-item" style={{ padding: '0.6rem 0' }}>
                                     <div
                                         className="step-num-circle"
-                                        style={{width: "22px", height: "22px", fontSize: "10px", borderRadius: "3px"}}
+                                        style={{
+                                            width: '22px',
+                                            height: '22px',
+                                            fontSize: '10px',
+                                            borderRadius: '3px',
+                                        }}
                                     >
                                         ✓
                                     </div>
                                     <div className="step-content">
-                                        <h4 style={{fontSize: "12px"}}>主要API稼働確認</h4>
-                                        <p style={{fontSize: "11.5px"}}>
+                                        <h4 style={{ fontSize: '12px' }}>主要API稼働確認</h4>
+                                        <p style={{ fontSize: '11.5px' }}>
                                             コア機能のAPIが200/201を返す
                                         </p>
                                     </div>
                                 </div>
-                                <div className="step-item" style={{padding: "0.6rem 0", border: "none"}}>
+                                <div
+                                    className="step-item"
+                                    style={{ padding: '0.6rem 0', border: 'none' }}
+                                >
                                     <div
                                         className="step-num-circle"
-                                        style={{width: "22px", height: "22px", fontSize: "10px", borderRadius: "3px"}}
+                                        style={{
+                                            width: '22px',
+                                            height: '22px',
+                                            fontSize: '10px',
+                                            borderRadius: '3px',
+                                        }}
                                     >
                                         ✓
                                     </div>
                                     <div className="step-content">
-                                        <h4 style={{fontSize: "12px"}}>DB接続確認</h4>
-                                        <p style={{fontSize: "11.5px"}}>
+                                        <h4 style={{ fontSize: '12px' }}>DB接続確認</h4>
+                                        <p style={{ fontSize: '11.5px' }}>
                                             データベースへの接続が成功している
                                         </p>
                                     </div>
@@ -546,10 +688,20 @@ export default function IntegrationSystemTestingGuide() {
 
                         <div className="code-block mt-2">
                             <div className="code-header">
-                                <div className="code-dots"><span></span><span></span><span></span></div>
-                                <span className="code-lang">スモークテスト自動化例 (Playwright)</span>
+                                <div className="code-dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <span className="code-lang">
+                                    スモークテスト自動化例 (Playwright)
+                                </span>
                             </div>
-                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">// smoke.spec.ts — CI/CDで毎コミット実行</span>\n<span class=\"fn\">test</span>.<span class=\"fn\">describe</span>(<span class=\"str\">\"スモークテスト\"</span>, () => {\n  <span class=\"fn\">test</span>(<span class=\"str\">\"ホームページが表示される\"</span>, <span class=\"kw\">async</span>({page}) => {\n    <span class=\"kw\">await</span> page.<span class=\"fn\">goto</span>(<span class=\"str\">\"/\"</span>);\n    <span class=\"kw\">await</span> <span class=\"fn\">expect</span>(page).toHaveTitle(<span class=\"str\">/My App/</span>);\n  });\n\n  <span class=\"fn\">test</span>(<span class=\"str\">\"ログインが成功する\"</span>, <span class=\"kw\">async</span>({page}) => {\n    <span class=\"kw\">await</span> page.<span class=\"fn\">goto</span>(<span class=\"str\">\"/login\"</span>);\n    <span class=\"kw\">await</span> page.<span class=\"fn\">fill</span>(<span class=\"str\">\"#email\"</span>, <span class=\"str\">\"test@example.com\"</span>);\n    <span class=\"kw\">await</span> page.<span class=\"fn\">fill</span>(<span class=\"str\">\"#password\"</span>, <span class=\"str\">\"test123\"</span>);\n    <span class=\"kw\">await</span> page.<span class=\"fn\">click</span>(<span class=\"str\">\"[type=submit]\"</span>);\n    <span class=\"kw\">await</span> <span class=\"fn\">expect</span>(page).toHaveURL(<span class=\"str\">\"/dashboard\"</span>);\n  });\n\n  <span class=\"fn\">test</span>(<span class=\"str\">\"ヘルスチェックAPIが応答する\"</span>, <span class=\"kw\">async</span>({request}) => {\n    <span class=\"kw\">const</span> res = <span class=\"kw\">await</span> request.<span class=\"fn\">get</span>(<span class=\"str\">\"/api/health\"</span>);\n    <span class=\"fn\">expect</span>(res.status()).<span class=\"fn\">toBe</span>(<span class=\"num\">200</span>);\n  });\n});" }} />
+                            <pre
+                                dangerouslySetInnerHTML={{
+                                    __html: '<span class="cm">// smoke.spec.ts — CI/CDで毎コミット実行</span>\n<span class="fn">test</span>.<span class="fn">describe</span>(<span class="str">"スモークテスト"</span>, () => {\n  <span class="fn">test</span>(<span class="str">"ホームページが表示される"</span>, <span class="kw">async</span>({page}) => {\n    <span class="kw">await</span> page.<span class="fn">goto</span>(<span class="str">"/"</span>);\n    <span class="kw">await</span> <span class="fn">expect</span>(page).toHaveTitle(<span class="str">/My App/</span>);\n  });\n\n  <span class="fn">test</span>(<span class="str">"ログインが成功する"</span>, <span class="kw">async</span>({page}) => {\n    <span class="kw">await</span> page.<span class="fn">goto</span>(<span class="str">"/login"</span>);\n    <span class="kw">await</span> page.<span class="fn">fill</span>(<span class="str">"#email"</span>, <span class="str">"test@example.com"</span>);\n    <span class="kw">await</span> page.<span class="fn">fill</span>(<span class="str">"#password"</span>, <span class="str">"test123"</span>);\n    <span class="kw">await</span> page.<span class="fn">click</span>(<span class="str">"[type=submit]"</span>);\n    <span class="kw">await</span> <span class="fn">expect</span>(page).toHaveURL(<span class="str">"/dashboard"</span>);\n  });\n\n  <span class="fn">test</span>(<span class="str">"ヘルスチェックAPIが応答する"</span>, <span class="kw">async</span>({request}) => {\n    <span class="kw">const</span> res = <span class="kw">await</span> request.<span class="fn">get</span>(<span class="str">"/api/health"</span>);\n    <span class="fn">expect</span>(res.status()).<span class="fn">toBe</span>(<span class="num">200</span>);\n  });\n});',
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
@@ -559,14 +711,16 @@ export default function IntegrationSystemTestingGuide() {
                         href="https://www.cloudbees.com/blog/the-smoke-sanity-and-regression-testing-triad"
                         className="ulink"
                         target="_blank"
-                        >cloudbees.com — Smoke, Sanity, Regression Testing Triad</a
                     >
+                        cloudbees.com — Smoke, Sanity, Regression Testing Triad
+                    </a>
                     <a
                         href="https://katalon.com/resources-center/blog/sanity-testing-vs-smoke-testing"
                         className="ulink"
                         target="_blank"
-                        >katalon.com — Sanity vs Smoke Testing Guide</a
                     >
+                        katalon.com — Sanity vs Smoke Testing Guide
+                    </a>
                 </p>
             </section>
 
@@ -575,7 +729,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="sanity">
                 <div className="section-header">
-                    <span className="section-header-num">STEP 05 — SANITY TESTING（サニティテスト）</span>
+                    <span className="section-header-num">
+                        STEP 05 — SANITY TESTING（サニティテスト）
+                    </span>
                     <h2>サニティテスト — ピンポイントの健全性確認</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -585,40 +741,61 @@ export default function IntegrationSystemTestingGuide() {
 
                 {/* Smoke vs Sanity comparison */}
                 <h3
-                    style={{fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.85rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.85rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     スモークテスト vs サニティテスト — 決定的な違い
                 </h3>
                 <div
-                    style={{background: "var(--color-bg-secondary)", border: "1px solid var(--border)", borderRadius: "var(--radius-DEFAULT, 12px)", overflow: "hidden"}}
+                    style={{
+                        background: 'var(--color-bg-secondary)',
+                        border: '1px solid var(--border)',
+                        borderRadius: 'var(--radius-DEFAULT, 12px)',
+                        overflow: 'hidden',
+                    }}
                 >
-                    <div className="comp-row" style={{background: "rgba(201, 168, 76, 0.07)"}}>
+                    <div className="comp-row" style={{ background: 'rgba(201, 168, 76, 0.07)' }}>
                         <div className="comp-cell">観点</div>
                         <div className="comp-cell">🔥 スモークテスト</div>
                         <div className="comp-cell">🧪 サニティテスト</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>目的</strong></div>
+                        <div className="comp-cell">
+                            <strong>目的</strong>
+                        </div>
                         <div className="comp-cell">ビルドが詳細テストに値するか判断</div>
                         <div className="comp-cell">特定の変更が意図通り動作するか確認</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>実施タイミング</strong></div>
+                        <div className="comp-cell">
+                            <strong>実施タイミング</strong>
+                        </div>
                         <div className="comp-cell">新ビルド受領直後（最初のステップ）</div>
                         <div className="comp-cell">バグ修正・小変更後</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>スコープ</strong></div>
+                        <div className="comp-cell">
+                            <strong>スコープ</strong>
+                        </div>
                         <div className="comp-cell">幅広く・浅く（Broad & Shallow）</div>
                         <div className="comp-cell">狭く・深く（Narrow & Deep）</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>ドキュメント</strong></div>
+                        <div className="comp-cell">
+                            <strong>ドキュメント</strong>
+                        </div>
                         <div className="comp-cell">スクリプト化（事前定義）</div>
                         <div className="comp-cell">多くは非スクリプト（テスターの判断）</div>
                     </div>
                     <div className="comp-row">
-                        <div className="comp-cell"><strong>実施者</strong></div>
+                        <div className="comp-cell">
+                            <strong>実施者</strong>
+                        </div>
                         <div className="comp-cell">開発者・テスター両方</div>
                         <div className="comp-cell">テスター・QAチーム</div>
                     </div>
@@ -629,14 +806,16 @@ export default function IntegrationSystemTestingGuide() {
                         href="https://www.browserstack.com/guide/sanity-testing-vs-smoke-testing"
                         className="ulink"
                         target="_blank"
-                        >browserstack.com — Sanity vs Smoke Testing (Dec 2025)</a
                     >
+                        browserstack.com — Sanity vs Smoke Testing (Dec 2025)
+                    </a>
                     <a
                         href="https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/"
                         className="ulink"
                         target="_blank"
-                        >softwaretestinghelp.com — Smoke vs Sanity Difference (May 2025)</a
                     >
+                        softwaretestinghelp.com — Smoke vs Sanity Difference (May 2025)
+                    </a>
                 </p>
 
                 <div className="callout c-sage mt-3">
@@ -644,12 +823,14 @@ export default function IntegrationSystemTestingGuide() {
                     サニティテストは「時間制約がある状況での合理的な妥協点」として位置付けられます。
                     フルリグレッションを実行する時間がない場合に、変更の影響範囲に限定して深くテストすることで
                     リスクを最小化します。ただし、サニティテストはリグレッションテストの代替ではなく補完です。
-                    <br /><a
+                    <br />
+                    <a
                         href="https://www.blazemeter.com/blog/functional-testing-types"
                         className="ulink"
                         target="_blank"
-                        >blazemeter.com — Functional Testing Types Guide</a
                     >
+                        blazemeter.com — Functional Testing Types Guide
+                    </a>
                 </div>
             </section>
 
@@ -658,7 +839,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="regression">
                 <div className="section-header">
-                    <span className="section-header-num">STEP 06 — REGRESSION TESTING（リグレッションテスト）</span>
+                    <span className="section-header-num">
+                        STEP 06 — REGRESSION TESTING（リグレッションテスト）
+                    </span>
                     <h2>リグレッションテスト — 「壊していない」の証明</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -669,7 +852,13 @@ export default function IntegrationSystemTestingGuide() {
                 <div className="grid-2">
                     <div>
                         <h3
-                            style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "600", marginBottom: "0.75rem", color: "var(--color-text-primary)"}}
+                            style={{
+                                fontFamily: 'var(--font-display)',
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                marginBottom: '0.75rem',
+                                color: 'var(--color-text-primary)',
+                            }}
                         >
                             リグレッションテストの3つの手法
                         </h3>
@@ -706,37 +895,49 @@ export default function IntegrationSystemTestingGuide() {
                             <strong>自動化が最優先：</strong>
                             リグレッションテストはCI/CDパイプラインへの自動化が最も費用対効果の高い投資です。
                             一度作成したテストスイートは毎コミット・毎リリースで繰り返し実行できます。
-                            <br /><a
+                            <br />
+                            <a
                                 href="https://qentelli.com/thought-leadership/insights/explained-smoke-testing-vs-sanity-testing-vs-regression-testing"
                                 className="ulink"
                                 target="_blank"
-                                >qentelli.com — Smoke/Sanity/Regression Comparison</a
                             >
+                                qentelli.com — Smoke/Sanity/Regression Comparison
+                            </a>
                         </div>
                     </div>
                     <div>
                         <div className="code-block mt-1">
                             <div className="code-header">
-                                <div className="code-dots"><span></span><span></span><span></span></div>
-                                <span className="code-lang"
-                                    >GitHub Actions — リグレッション自動化パイプライン</span
-                                >
+                                <div className="code-dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <span className="code-lang">
+                                    GitHub Actions — リグレッション自動化パイプライン
+                                </span>
                             </div>
-                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\"># .github/workflows/regression.yml</span>\n<span class=\"dec\">name</span>: Regression Tests\n\n<span class=\"dec\">on</span>:\n  push:    { branches: [main, release/*] }\n  schedule: [{ cron: <span class=\"str\">'0 2 * * *'</span> }]  <span class=\"cm\"># 毎日深夜に実行</span>\n\n<span class=\"dec\">jobs</span>:\n  <span class=\"fn\">regression</span>:\n    <span class=\"dec\">runs-on</span>: ubuntu-latest\n    <span class=\"dec\">services</span>:\n      <span class=\"fn\">postgres</span>:\n        <span class=\"dec\">image</span>: postgres:16\n        <span class=\"dec\">env</span>: { POSTGRES_PASSWORD: test }\n      <span class=\"fn\">redis</span>:\n        <span class=\"dec\">image</span>: redis:7\n\n    <span class=\"dec\">steps</span>:\n      - <span class=\"dec\">uses</span>: actions/checkout@v4\n      - <span class=\"dec\">run</span>: pip install -r requirements.txt\n      - <span class=\"dec\">name</span>: Run full regression suite\n        <span class=\"dec\">run</span>: |\n          pytest tests/regression/ \\\n            --cov=app \\\n            --cov-fail-under=<span class=\"num\">85</span> \\\n            --html=report.html \\\n            -v\n      - <span class=\"dec\">name</span>: Upload regression report\n        <span class=\"dec\">uses</span>: actions/upload-artifact@v4\n        <span class=\"dec\">with</span>:\n          <span class=\"dec\">name</span>: regression-report\n          <span class=\"dec\">path</span>: report.html" }} />
+                            <pre
+                                dangerouslySetInnerHTML={{
+                                    __html: '<span class="cm"># .github/workflows/regression.yml</span>\n<span class="dec">name</span>: Regression Tests\n\n<span class="dec">on</span>:\n  push:    { branches: [main, release/*] }\n  schedule: [{ cron: <span class="str">\'0 2 * * *\'</span> }]  <span class="cm"># 毎日深夜に実行</span>\n\n<span class="dec">jobs</span>:\n  <span class="fn">regression</span>:\n    <span class="dec">runs-on</span>: ubuntu-latest\n    <span class="dec">services</span>:\n      <span class="fn">postgres</span>:\n        <span class="dec">image</span>: postgres:16\n        <span class="dec">env</span>: { POSTGRES_PASSWORD: test }\n      <span class="fn">redis</span>:\n        <span class="dec">image</span>: redis:7\n\n    <span class="dec">steps</span>:\n      - <span class="dec">uses</span>: actions/checkout@v4\n      - <span class="dec">run</span>: pip install -r requirements.txt\n      - <span class="dec">name</span>: Run full regression suite\n        <span class="dec">run</span>: |\n          pytest tests/regression/ \\\n            --cov=app \\\n            --cov-fail-under=<span class="num">85</span> \\\n            --html=report.html \\\n            -v\n      - <span class="dec">name</span>: Upload regression report\n        <span class="dec">uses</span>: actions/upload-artifact@v4\n        <span class="dec">with</span>:\n          <span class="dec">name</span>: regression-report\n          <span class="dec">path</span>: report.html',
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
 
                 {/* Regression vs Retesting */}
                 <div className="callout c-info mt-3">
-                    <strong
-                        >リグレッションテスト vs
-                        再テスト（Retesting）の違い（ISTQB重要ポイント）：</strong
-                    ><br />
-                    <strong>再テスト（Retesting）：</strong
-                    >修正されたと報告された特定の欠陥が実際に修正されているかを確認。<br />
-                    <strong>リグレッションテスト：</strong
-                    >その修正が他の既存機能に悪影響を与えていないかを確認。<br />
+                    <strong>
+                        リグレッションテスト vs 再テスト（Retesting）の違い（ISTQB重要ポイント）：
+                    </strong>
+                    <br />
+                    <strong>再テスト（Retesting）：</strong>
+                    修正されたと報告された特定の欠陥が実際に修正されているかを確認。
+                    <br />
+                    <strong>リグレッションテスト：</strong>
+                    その修正が他の既存機能に悪影響を与えていないかを確認。
+                    <br />
                     ISTQBでは両者を明確に区別して定義しています。
                 </div>
             </section>
@@ -746,7 +947,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="nonfunctional">
                 <div className="section-header">
-                    <span className="section-header-num">STEP 07 — NON-FUNCTIONAL TESTING（非機能テスト）</span>
+                    <span className="section-header-num">
+                        STEP 07 — NON-FUNCTIONAL TESTING（非機能テスト）
+                    </span>
                     <h2>非機能テスト — 品質の「深さ」を測る</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -759,20 +962,24 @@ export default function IntegrationSystemTestingGuide() {
                     <strong>ISOソフトウェア品質モデル（ISO/IEC 25010）— 非機能品質特性：</strong>
                     パフォーマンス効率・互換性・ユーザビリティ・信頼性・セキュリティ・保守性・移植性。
                     これらは機能要件（仕様通りに動くか）とは独立した品質の軸であり、システムテストで集中的に検証します。
-                    <br /><a
+                    <br />
+                    <a
                         href="https://www.testrail.com/blog/non-functional-testing/"
                         className="ulink"
                         target="_blank"
-                        >testrail.com — Complete Guide to Non-Functional Testing (Jul 2025)</a
                     >
+                        testrail.com — Complete Guide to Non-Functional Testing (Jul 2025)
+                    </a>
                 </div>
 
-                <div style={{marginTop: "1.5rem"}}>
+                <div style={{ marginTop: '1.5rem' }}>
                     {/* Performance */}
                     <div className="nf-row">
                         <div className="nf-icon">⚡</div>
                         <div className="nf-body">
-                            <div className="nf-title">パフォーマンステスト（Performance Testing）</div>
+                            <div className="nf-title">
+                                パフォーマンステスト（Performance Testing）
+                            </div>
                             <div className="nf-desc">
                                 システムが特定の条件下でどの程度の速度・安定性・リソース効率で動作するかを測定。応答時間・スループット・エラー率が主な指標。
                             </div>
@@ -805,7 +1012,9 @@ export default function IntegrationSystemTestingGuide() {
                     <div className="nf-row">
                         <div className="nf-icon">👁️</div>
                         <div className="nf-body">
-                            <div className="nf-title">ユーザビリティテスト（Usability Testing）</div>
+                            <div className="nf-title">
+                                ユーザビリティテスト（Usability Testing）
+                            </div>
                             <div className="nf-desc">
                                 実際のユーザーがソフトウェアをどれほど直感的・効率的に使用できるかを評価。アクセシビリティ（WCAG）への対応も含む。定量・定性の両方で測定。
                             </div>
@@ -856,14 +1065,16 @@ export default function IntegrationSystemTestingGuide() {
                         href="https://aqua-cloud.io/non-functional-testing/"
                         className="ulink"
                         target="_blank"
-                        >aqua-cloud.io — Non-Functional Testing (Jan 2026)</a
                     >
+                        aqua-cloud.io — Non-Functional Testing (Jan 2026)
+                    </a>
                     <a
                         href="https://www.accelq.com/blog/non-functional-testing/"
                         className="ulink"
                         target="_blank"
-                        >accelq.com — Non-Functional Testing Guide (Dec 2025)</a
                     >
+                        accelq.com — Non-Functional Testing Guide (Dec 2025)
+                    </a>
                 </p>
             </section>
 
@@ -872,9 +1083,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="performance">
                 <div className="section-header">
-                    <span className="section-header-num"
-                        >STEP 08 — PERFORMANCE TESTING（パフォーマンステスト）</span
-                    >
+                    <span className="section-header-num">
+                        STEP 08 — PERFORMANCE TESTING（パフォーマンステスト）
+                    </span>
                     <h2>パフォーマンステスト — 負荷への耐性を数値で証明</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -884,43 +1095,55 @@ export default function IntegrationSystemTestingGuide() {
 
                 {/* Performance test types */}
                 <div className="card-grid">
-                    <div className="card" style={{borderTop: "2px solid var(--color-accent-green)"}}>
+                    <div
+                        className="card"
+                        style={{ borderTop: '2px solid var(--color-accent-green)' }}
+                    >
                         <span className="card-icon">📊</span>
                         <h3>ロードテスト（Load Testing）</h3>
                         <p>
                             想定される最大ユーザー数・トランザクション数を同時にシミュレート。システムが仕様通りのパフォーマンスを維持できるかを確認。
                         </p>
-                        <div className="callout c-sage mt-2" style={{fontSize: "12px"}}>
+                        <div className="callout c-sage mt-2" style={{ fontSize: '12px' }}>
                             例：ECサイトのセール時に5000人の同時アクセスに耐えられるか
                         </div>
                     </div>
-                    <div className="card" style={{borderTop: "2px solid var(--color-accent-yellow)"}}>
+                    <div
+                        className="card"
+                        style={{ borderTop: '2px solid var(--color-accent-yellow)' }}
+                    >
                         <span className="card-icon">💥</span>
                         <h3>ストレステスト（Stress Testing）</h3>
                         <p>
                             通常の限界を超えた負荷をかけ、システムの「破綻点」を特定。どのように失敗し、回復できるかを確認する。
                         </p>
-                        <div className="callout c-warn mt-2" style={{fontSize: "12px"}}>
+                        <div className="callout c-warn mt-2" style={{ fontSize: '12px' }}>
                             例：10,000人の同時アクセスでシステムはどう振る舞うか
                         </div>
                     </div>
-                    <div className="card" style={{borderTop: "2px solid var(--color-accent-red)"}}>
+                    <div
+                        className="card"
+                        style={{ borderTop: '2px solid var(--color-accent-red)' }}
+                    >
                         <span className="card-icon">⚡</span>
                         <h3>スパイクテスト（Spike Testing）</h3>
                         <p>
                             急激なトラフィック増加（スパイク）に対するシステムの応答を検証。短時間での大幅な負荷変動への対応力を測定。
                         </p>
-                        <div className="callout c-danger mt-2" style={{fontSize: "12px"}}>
+                        <div className="callout c-danger mt-2" style={{ fontSize: '12px' }}>
                             例：人気アーティストのチケット発売開始直後の瞬間的アクセス集中
                         </div>
                     </div>
-                    <div className="card" style={{borderTop: "2px solid var(--color-accent-blue)"}}>
+                    <div
+                        className="card"
+                        style={{ borderTop: '2px solid var(--color-accent-blue)' }}
+                    >
                         <span className="card-icon">⏱️</span>
                         <h3>エンデュランステスト（Soak Testing）</h3>
                         <p>
                             長時間（12〜72時間）にわたって負荷をかけ続け、メモリリーク・パフォーマンス劣化などを検出する。
                         </p>
-                        <div className="callout c-info mt-2" style={{fontSize: "12px"}}>
+                        <div className="callout c-info mt-2" style={{ fontSize: '12px' }}>
                             例：24時間連続稼働でメモリ使用量が増加し続けないか
                         </div>
                     </div>
@@ -929,7 +1152,13 @@ export default function IntegrationSystemTestingGuide() {
                 {/* Key metrics */}
                 <h3
                     className="mt-4"
-                    style={{fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.85rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.85rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     測定すべきパフォーマンス指標
                 </h3>
@@ -945,37 +1174,49 @@ export default function IntegrationSystemTestingGuide() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>応答時間（Response Time）</strong></td>
+                                <td>
+                                    <strong>応答時間（Response Time）</strong>
+                                </td>
                                 <td>ユーザーのリクエストから最初のバイトが返るまでの時間</td>
                                 <td className="g">&lt; 2秒（Webアプリ標準）</td>
                                 <td>JMeter・k6</td>
                             </tr>
                             <tr>
-                                <td><strong>スループット（Throughput）</strong></td>
+                                <td>
+                                    <strong>スループット（Throughput）</strong>
+                                </td>
                                 <td>単位時間あたりに処理できるリクエスト数（RPS/TPS）</td>
                                 <td>要件による</td>
                                 <td>Gatling・k6</td>
                             </tr>
                             <tr>
-                                <td><strong>エラー率（Error Rate）</strong></td>
+                                <td>
+                                    <strong>エラー率（Error Rate）</strong>
+                                </td>
                                 <td>全リクエスト中のエラーレスポンスの割合</td>
                                 <td className="g">&lt; 1%</td>
                                 <td>JMeter・Grafana</td>
                             </tr>
                             <tr>
-                                <td><strong>パーセンタイル（P95・P99）</strong></td>
+                                <td>
+                                    <strong>パーセンタイル（P95・P99）</strong>
+                                </td>
                                 <td>95%・99%のリクエストが完了する時間</td>
                                 <td className="w">P95 &lt; 3秒</td>
                                 <td>k6・DataDog</td>
                             </tr>
                             <tr>
-                                <td><strong>同時接続数（Concurrent Users）</strong></td>
+                                <td>
+                                    <strong>同時接続数（Concurrent Users）</strong>
+                                </td>
                                 <td>同時にシステムにアクセスしているユーザー数</td>
                                 <td>要件による</td>
                                 <td>LoadRunner・k6</td>
                             </tr>
                             <tr>
-                                <td><strong>CPU/メモリ使用率</strong></td>
+                                <td>
+                                    <strong>CPU/メモリ使用率</strong>
+                                </td>
                                 <td>負荷時のサーバーリソース消費量</td>
                                 <td className="g">CPU &lt; 80%</td>
                                 <td>Prometheus・Grafana</td>
@@ -986,10 +1227,18 @@ export default function IntegrationSystemTestingGuide() {
 
                 <div className="code-block mt-3">
                     <div className="code-header">
-                        <div className="code-dots"><span></span><span></span><span></span></div>
+                        <div className="code-dots">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
                         <span className="code-lang">k6 — ロードテストスクリプト（JavaScript）</span>
                     </div>
-                    <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">// load_test.js — k6でECサイトのロードテスト</span>\n<span class=\"kw\">import</span> http <span class=\"kw\">from</span> <span class=\"str\">'k6/http'</span>;\n<span class=\"kw\">import</span> { sleep, check } <span class=\"kw\">from</span> <span class=\"str\">'k6'</span>;\n<span class=\"kw\">import</span> { Rate } <span class=\"kw\">from</span> <span class=\"str\">'k6/metrics'</span>;\n\n<span class=\"kw\">const</span> errorRate = <span class=\"kw\">new</span> <span class=\"cls\">Rate</span>(<span class=\"str\">'error_rate'</span>);\n\n<span class=\"kw\">export const</span> options = {\n  stages: [\n    { duration: <span class=\"str\">'2m'</span>, target: <span class=\"num\">100</span> },  <span class=\"cm\">// 2分で100ユーザーに増加</span>\n    { duration: <span class=\"str\">'5m'</span>, target: <span class=\"num\">500</span> },  <span class=\"cm\">// 5分で500ユーザーへ</span>\n    { duration: <span class=\"str\">'3m'</span>, target: <span class=\"num\">500</span> },  <span class=\"cm\">// 3分間維持（ピーク負荷）</span>\n    { duration: <span class=\"str\">'2m'</span>, target: <span class=\"num\">0</span> },    <span class=\"cm\">// 2分でランプダウン</span>\n  ],\n  thresholds: {\n    http_req_duration: [<span class=\"str\">'p(95) < 2000'</span>], <span class=\"cm\">// P95は2秒以内</span>\n    error_rate:        [<span class=\"str\">'rate < 0.01'</span>],  <span class=\"cm\">// エラー率1%未満</span>\n    http_req_failed:   [<span class=\"str\">'rate < 0.01'</span>],\n  },\n};\n\n<span class=\"kw\">export default function</span> () {\n  <span class=\"cm\">// シナリオ: 商品一覧 → 詳細 → カート追加</span>\n  <span class=\"kw\">const</span> listRes = http.<span class=\"fn\">get</span>(<span class=\"str\">'https://staging.shop.com/products'</span>);\n  errorRate.<span class=\"fn\">add</span>(!<span class=\"fn\">check</span>(listRes, {\n    <span class=\"str\">'一覧: status 200'</span>: r => r.status === <span class=\"num\">200</span>,\n    <span class=\"str\">'一覧: 2秒以内'</span>: r => r.timings.duration < <span class=\"num\">2000</span>,\n  }));\n  <span class=\"fn\">sleep</span>(<span class=\"num\">1</span>);\n}" }} />
+                    <pre
+                        dangerouslySetInnerHTML={{
+                            __html: '<span class="cm">// load_test.js — k6でECサイトのロードテスト</span>\n<span class="kw">import</span> http <span class="kw">from</span> <span class="str">\'k6/http\'</span>;\n<span class="kw">import</span> { sleep, check } <span class="kw">from</span> <span class="str">\'k6\'</span>;\n<span class="kw">import</span> { Rate } <span class="kw">from</span> <span class="str">\'k6/metrics\'</span>;\n\n<span class="kw">const</span> errorRate = <span class="kw">new</span> <span class="cls">Rate</span>(<span class="str">\'error_rate\'</span>);\n\n<span class="kw">export const</span> options = {\n  stages: [\n    { duration: <span class="str">\'2m\'</span>, target: <span class="num">100</span> },  <span class="cm">// 2分で100ユーザーに増加</span>\n    { duration: <span class="str">\'5m\'</span>, target: <span class="num">500</span> },  <span class="cm">// 5分で500ユーザーへ</span>\n    { duration: <span class="str">\'3m\'</span>, target: <span class="num">500</span> },  <span class="cm">// 3分間維持（ピーク負荷）</span>\n    { duration: <span class="str">\'2m\'</span>, target: <span class="num">0</span> },    <span class="cm">// 2分でランプダウン</span>\n  ],\n  thresholds: {\n    http_req_duration: [<span class="str">\'p(95) < 2000\'</span>], <span class="cm">// P95は2秒以内</span>\n    error_rate:        [<span class="str">\'rate < 0.01\'</span>],  <span class="cm">// エラー率1%未満</span>\n    http_req_failed:   [<span class="str">\'rate < 0.01\'</span>],\n  },\n};\n\n<span class="kw">export default function</span> () {\n  <span class="cm">// シナリオ: 商品一覧 → 詳細 → カート追加</span>\n  <span class="kw">const</span> listRes = http.<span class="fn">get</span>(<span class="str">\'https://staging.shop.com/products\'</span>);\n  errorRate.<span class="fn">add</span>(!<span class="fn">check</span>(listRes, {\n    <span class="str">\'一覧: status 200\'</span>: r => r.status === <span class="num">200</span>,\n    <span class="str">\'一覧: 2秒以内\'</span>: r => r.timings.duration < <span class="num">2000</span>,\n  }));\n  <span class="fn">sleep</span>(<span class="num">1</span>);\n}',
+                        }}
+                    />
                 </div>
                 <p className="text-sm mt-1">
                     参照:
@@ -997,14 +1246,16 @@ export default function IntegrationSystemTestingGuide() {
                         href="https://www.frugaltesting.com/blog/what-is-non-functional-testing-types-importance-and-best-practices"
                         className="ulink"
                         target="_blank"
-                        >frugaltesting.com — Non-Functional Testing Guide</a
                     >
+                        frugaltesting.com — Non-Functional Testing Guide
+                    </a>
                     <a
                         href="https://www.testrail.com/blog/non-functional-testing/"
                         className="ulink"
                         target="_blank"
-                        >testrail.com — 51 Types of Non-Functional Testing (Jul 2025)</a
                     >
+                        testrail.com — 51 Types of Non-Functional Testing (Jul 2025)
+                    </a>
                 </p>
             </section>
 
@@ -1013,7 +1264,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="security">
                 <div className="section-header">
-                    <span className="section-header-num">STEP 09 — SECURITY TESTING（セキュリティテスト）</span>
+                    <span className="section-header-num">
+                        STEP 09 — SECURITY TESTING（セキュリティテスト）
+                    </span>
                     <h2>セキュリティテスト — 脅威からシステムを守る</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -1023,47 +1276,71 @@ export default function IntegrationSystemTestingGuide() {
 
                 {/* OWASP Top 10 excerpt */}
                 <h3
-                    style={{fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.85rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.85rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     OWASP Top 10 (2025) — 主要な脆弱性カテゴリ
                 </h3>
                 <div className="type-grid">
-                    <div className="type-card" style={{borderLeft: "3px solid var(--color-accent-red)"}}>
+                    <div
+                        className="type-card"
+                        style={{ borderLeft: '3px solid var(--color-accent-red)' }}
+                    >
                         <div className="type-name">A01 — アクセス制御の破壊</div>
                         <div className="type-when">Broken Access Control</div>
                         <div className="type-desc">
                             認証されていないユーザーが制限されたリソースにアクセスできる欠陥。
                         </div>
                     </div>
-                    <div className="type-card" style={{borderLeft: "3px solid var(--color-accent-red)"}}>
+                    <div
+                        className="type-card"
+                        style={{ borderLeft: '3px solid var(--color-accent-red)' }}
+                    >
                         <div className="type-name">A02 — 暗号化の失敗</div>
                         <div className="type-when">Cryptographic Failures</div>
                         <div className="type-desc">
                             機密データの平文保存・弱い暗号化アルゴリズムの使用。
                         </div>
                     </div>
-                    <div className="type-card" style={{borderLeft: "3px solid var(--color-accent-red)"}}>
+                    <div
+                        className="type-card"
+                        style={{ borderLeft: '3px solid var(--color-accent-red)' }}
+                    >
                         <div className="type-name">A03 — インジェクション</div>
                         <div className="type-when">Injection (SQL, NoSQL, OS)</div>
                         <div className="type-desc">
                             信頼できないデータがインタープリタに送信される脆弱性。SQLインジェクション等。
                         </div>
                     </div>
-                    <div className="type-card" style={{borderLeft: "3px solid var(--color-accent-yellow)"}}>
+                    <div
+                        className="type-card"
+                        style={{ borderLeft: '3px solid var(--color-accent-yellow)' }}
+                    >
                         <div className="type-name">A05 — セキュリティの設定ミス</div>
                         <div className="type-when">Security Misconfiguration</div>
                         <div className="type-desc">
                             デフォルト設定の使用・不要な機能の有効化・エラーメッセージの情報漏洩。
                         </div>
                     </div>
-                    <div className="type-card" style={{borderLeft: "3px solid var(--color-accent-yellow)"}}>
+                    <div
+                        className="type-card"
+                        style={{ borderLeft: '3px solid var(--color-accent-yellow)' }}
+                    >
                         <div className="type-name">A07 — 認証の失敗</div>
                         <div className="type-when">Identification & Auth Failures</div>
                         <div className="type-desc">
                             認証・セッション管理の実装ミスによる不正アクセスの可能性。
                         </div>
                     </div>
-                    <div className="type-card" style={{borderLeft: "3px solid var(--color-accent-blue)"}}>
+                    <div
+                        className="type-card"
+                        style={{ borderLeft: '3px solid var(--color-accent-blue)' }}
+                    >
                         <div className="type-name">A09 — ログと監視の失敗</div>
                         <div className="type-when">Security Logging Failures</div>
                         <div className="type-desc">
@@ -1075,7 +1352,13 @@ export default function IntegrationSystemTestingGuide() {
                 {/* Security test types */}
                 <h3
                     className="mt-4"
-                    style={{fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.85rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.85rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     主要なセキュリティテスト手法
                 </h3>
@@ -1091,31 +1374,41 @@ export default function IntegrationSystemTestingGuide() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td><strong>SAST（静的解析）</strong></td>
+                                <td>
+                                    <strong>SAST（静的解析）</strong>
+                                </td>
                                 <td>コードを実行せずにソースコードを解析して脆弱性を検出</td>
                                 <td className="g">開発中（シフトレフト）</td>
                                 <td>SonarQube・Snyk・Semgrep</td>
                             </tr>
                             <tr>
-                                <td><strong>DAST（動的解析）</strong></td>
+                                <td>
+                                    <strong>DAST（動的解析）</strong>
+                                </td>
                                 <td>実行中のアプリケーションに対して擬似的な攻撃を行う</td>
                                 <td className="w">システムテスト段階</td>
                                 <td>OWASP ZAP・Burp Suite</td>
                             </tr>
                             <tr>
-                                <td><strong>ペネトレーションテスト</strong></td>
+                                <td>
+                                    <strong>ペネトレーションテスト</strong>
+                                </td>
                                 <td>倫理的なハッカーが実際の攻撃をシミュレート</td>
                                 <td className="w">リリース前・定期的</td>
                                 <td>Metasploit・Kali Linux</td>
                             </tr>
                             <tr>
-                                <td><strong>脆弱性スキャン</strong></td>
+                                <td>
+                                    <strong>脆弱性スキャン</strong>
+                                </td>
                                 <td>既知の脆弱性を自動的にスキャン・検出</td>
                                 <td className="g">継続的（CI/CD統合）</td>
                                 <td>Nessus・OpenVAS・Trivy</td>
                             </tr>
                             <tr>
-                                <td><strong>依存関係スキャン</strong></td>
+                                <td>
+                                    <strong>依存関係スキャン</strong>
+                                </td>
                                 <td>使用するライブラリ・パッケージの既知脆弱性を検出</td>
                                 <td className="g">継続的（PR時）</td>
                                 <td>Dependabot・Snyk・OWASP DC</td>
@@ -1129,8 +1422,9 @@ export default function IntegrationSystemTestingGuide() {
                         href="https://www.frugaltesting.com/blog/what-is-non-functional-testing-types-importance-and-best-practices"
                         className="ulink"
                         target="_blank"
-                        >frugaltesting.com — Security Testing in Non-Functional Testing</a
                     >
+                        frugaltesting.com — Security Testing in Non-Functional Testing
+                    </a>
                 </p>
             </section>
 
@@ -1139,7 +1433,9 @@ export default function IntegrationSystemTestingGuide() {
 ════════════════════════════════════════ */}
             <section id="usability">
                 <div className="section-header">
-                    <span className="section-header-num">STEP 10 — USABILITY TESTING（ユーザビリティテスト）</span>
+                    <span className="section-header-num">
+                        STEP 10 — USABILITY TESTING（ユーザビリティテスト）
+                    </span>
                     <h2>ユーザビリティテスト — 「使いやすさ」の科学</h2>
                     <div className="gold-rule"></div>
                     <p>
@@ -1192,27 +1488,46 @@ export default function IntegrationSystemTestingGuide() {
                     </div>
                     <div>
                         <div className="callout c-sage">
-                            <strong>ユーザビリティテストの実施方法：</strong><br />
-                            <strong>1. モデレートテスト：</strong
-                            >テスターの見守りの中でユーザーがタスクを実行。即時フィードバックが可能。<br />
-                            <strong>2. アンモデレートテスト：</strong
-                            >ユーザーが独自にテストを実施。大規模・コスト効率が高い。<br />
-                            <strong>3. A/Bテスト：</strong
-                            >2つの異なるUI/UXを比較して優劣を判定。数値で客観的に評価。
+                            <strong>ユーザビリティテストの実施方法：</strong>
+                            <br />
+                            <strong>1. モデレートテスト：</strong>
+                            テスターの見守りの中でユーザーがタスクを実行。即時フィードバックが可能。
+                            <br />
+                            <strong>2. アンモデレートテスト：</strong>
+                            ユーザーが独自にテストを実施。大規模・コスト効率が高い。
+                            <br />
+                            <strong>3. A/Bテスト：</strong>
+                            2つの異なるUI/UXを比較して優劣を判定。数値で客観的に評価。
                         </div>
 
                         <h3
                             className="mt-3"
-                            style={{fontFamily: "var(--font-display)", fontSize: "0.95rem", fontWeight: "600", marginBottom: "0.65rem", color: "var(--color-text-primary)"}}
+                            style={{
+                                fontFamily: 'var(--font-display)',
+                                fontSize: '0.95rem',
+                                fontWeight: '600',
+                                marginBottom: '0.65rem',
+                                color: 'var(--color-text-primary)',
+                            }}
                         >
                             アクセシビリティ自動チェックの例
                         </h3>
                         <div className="code-block">
                             <div className="code-header">
-                                <div className="code-dots"><span></span><span></span><span></span></div>
-                                <span className="code-lang">Playwright + axe-core — WCAG自動検証</span>
+                                <div className="code-dots">
+                                    <span></span>
+                                    <span></span>
+                                    <span></span>
+                                </div>
+                                <span className="code-lang">
+                                    Playwright + axe-core — WCAG自動検証
+                                </span>
                             </div>
-                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"kw\">const</span> { checkA11y } = <span class=\"kw\">require</span>(<span class=\"str\">'axe-playwright'</span>);\n\n<span class=\"fn\">test</span>(<span class=\"str\">'ホームページがWCAG 2.1 AAに準拠している'</span>,\n  <span class=\"kw\">async</span> ({page}) => {\n    <span class=\"kw\">await</span> page.<span class=\"fn\">goto</span>(<span class=\"str\">'https://staging.example.com'</span>);\n    <span class=\"kw\">await</span> <span class=\"fn\">checkA11y</span>(page, <span class=\"cls\">null</span>, {\n      runOnly: {\n        type: <span class=\"str\">'tag'</span>,\n        values: [<span class=\"str\">'wcag2a'</span>, <span class=\"str\">'wcag2aa'</span>]\n      },\n      <span class=\"cm\">// カラーコントラスト・ARIAラベル・見出し構造等を自動検証</span>\n    });\n  }\n);" }} />
+                            <pre
+                                dangerouslySetInnerHTML={{
+                                    __html: '<span class="kw">const</span> { checkA11y } = <span class="kw">require</span>(<span class="str">\'axe-playwright\'</span>);\n\n<span class="fn">test</span>(<span class="str">\'ホームページがWCAG 2.1 AAに準拠している\'</span>,\n  <span class="kw">async</span> ({page}) => {\n    <span class="kw">await</span> page.<span class="fn">goto</span>(<span class="str">\'https://staging.example.com\'</span>);\n    <span class="kw">await</span> <span class="fn">checkA11y</span>(page, <span class="cls">null</span>, {\n      runOnly: {\n        type: <span class="str">\'tag\'</span>,\n        values: [<span class="str">\'wcag2a\'</span>, <span class="str">\'wcag2aa\'</span>]\n      },\n      <span class="cm">// カラーコントラスト・ARIAラベル・見出し構造等を自動検証</span>\n    });\n  }\n);',
+                                }}
+                            />
                         </div>
                     </div>
                 </div>
@@ -1222,14 +1537,16 @@ export default function IntegrationSystemTestingGuide() {
                         href="https://www.globalapptesting.com/blog/qa-testing-methodologies-and-techniques"
                         className="ulink"
                         target="_blank"
-                        >globalapptesting.com — QA Testing Methodologies 2025</a
                     >
+                        globalapptesting.com — QA Testing Methodologies 2025
+                    </a>
                     <a
                         href="https://aqua-cloud.io/software-testing-strategies/"
                         className="ulink"
                         target="_blank"
-                        >aqua-cloud.io — Software Testing Strategies 2025</a
                     >
+                        aqua-cloud.io — Software Testing Strategies 2025
+                    </a>
                 </p>
             </section>
 
@@ -1247,7 +1564,13 @@ export default function IntegrationSystemTestingGuide() {
                 </div>
 
                 <h3
-                    style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "600", marginBottom: "0.75rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.75rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     E2E・UIシステムテスト
                 </h3>
@@ -1278,7 +1601,13 @@ export default function IntegrationSystemTestingGuide() {
 
                 <h3
                     className="mt-3"
-                    style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "600", marginBottom: "0.75rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.75rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     API・統合テスト
                 </h3>
@@ -1310,7 +1639,13 @@ export default function IntegrationSystemTestingGuide() {
 
                 <h3
                     className="mt-3"
-                    style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "600", marginBottom: "0.75rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.75rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     パフォーマンス・負荷テスト
                 </h3>
@@ -1341,7 +1676,13 @@ export default function IntegrationSystemTestingGuide() {
 
                 <h3
                     className="mt-3"
-                    style={{fontFamily: "var(--font-display)", fontSize: "1rem", fontWeight: "600", marginBottom: "0.75rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.75rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     セキュリティ・品質管理
                 </h3>
@@ -1386,7 +1727,13 @@ export default function IntegrationSystemTestingGuide() {
 
                 {/* CI/CD Pipeline */}
                 <h3
-                    style={{fontFamily: "var(--font-display)", fontSize: "1.1rem", fontWeight: "600", marginBottom: "0.85rem", color: "var(--color-text-primary)"}}
+                    style={{
+                        fontFamily: 'var(--font-display)',
+                        fontSize: '1.1rem',
+                        fontWeight: '600',
+                        marginBottom: '0.85rem',
+                        color: 'var(--color-text-primary)',
+                    }}
                 >
                     CI/CDパイプラインにおけるテスト実行フロー
                 </h3>
@@ -1394,32 +1741,43 @@ export default function IntegrationSystemTestingGuide() {
                     <div className="defect-stage">コードプッシュ</div>
                     <div className="defect-arrow">→</div>
                     <div className="defect-stage">
-                        ユニットテスト<br /><span style={{fontSize: "10px", color: "var(--color-text-muted)"}}
-                            >&lt;2分</span
-                        >
+                        ユニットテスト
+                        <br />
+                        <span style={{ fontSize: '10px', color: 'var(--color-text-muted)' }}>
+                            &lt;2分
+                        </span>
                     </div>
                     <div className="defect-arrow">→</div>
                     <div className="defect-stage">
-                        スモークテスト<br /><span style={{fontSize: "10px", color: "var(--color-text-muted)"}}
-                            >&lt;5分</span
-                        >
+                        スモークテスト
+                        <br />
+                        <span style={{ fontSize: '10px', color: 'var(--color-text-muted)' }}>
+                            &lt;5分
+                        </span>
                     </div>
                     <div className="defect-arrow">→</div>
                     <div className="defect-stage">
-                        統合テスト<br /><span style={{fontSize: "10px", color: "var(--color-text-muted)"}}
-                            >&lt;15分</span
-                        >
+                        統合テスト
+                        <br />
+                        <span style={{ fontSize: '10px', color: 'var(--color-text-muted)' }}>
+                            &lt;15分
+                        </span>
                     </div>
                     <div className="defect-arrow">→</div>
                     <div className="defect-stage">
-                        システムテスト<br /><span style={{fontSize: "10px", color: "var(--color-text-muted)"}}
-                            >スケジュール実行</span
-                        >
+                        システムテスト
+                        <br />
+                        <span style={{ fontSize: '10px', color: 'var(--color-text-muted)' }}>
+                            スケジュール実行
+                        </span>
                     </div>
                     <div className="defect-arrow">→</div>
                     <div
                         className="defect-stage"
-                        style={{borderColor: "rgba(74, 222, 128, 0.5)", color: "var(--color-accent-green)"}}
+                        style={{
+                            borderColor: 'rgba(74, 222, 128, 0.5)',
+                            color: 'var(--color-accent-green)',
+                        }}
                     >
                         デプロイ
                     </div>
@@ -1475,17 +1833,20 @@ export default function IntegrationSystemTestingGuide() {
                 </div>
 
                 <div className="callout c-gold mt-3">
-                    <strong>ISTQB CTFL v4.0 の7つのテスト原則（おさらい）：</strong><br />
+                    <strong>ISTQB CTFL v4.0 の7つのテスト原則（おさらい）：</strong>
+                    <br />
                     ①テストは欠陥の存在を示すが、欠陥がないことは証明できない　
                     ②全数テストは不可能　 ③早期テストの重要性（シフトレフト）　
                     ④欠陥の集中（80/20の法則）　 ⑤殺虫剤のパラドックス（テストを更新し続ける）　
                     ⑥テストはコンテキスト依存　 ⑦欠陥不在の誤謬（バグゼロ≠品質保証）
-                    <br /><a
+                    <br />
+                    <a
                         href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                         className="ulink"
                         target="_blank"
-                        >istqb.org — CTFL v4.0 公式ページ</a
                     >
+                        istqb.org — CTFL v4.0 公式ページ
+                    </a>
                 </div>
             </section>
 
@@ -1513,9 +1874,13 @@ export default function IntegrationSystemTestingGuide() {
                                 <td>ISTQB公式</td>
                                 <td>ISTQB公式サイト</td>
                                 <td>
-                                    <a href="https://istqb.org/" className="ref-url" target="_blank"
-                                        >https://istqb.org/</a
+                                    <a
+                                        href="https://istqb.org/"
+                                        className="ref-url"
+                                        target="_blank"
                                     >
+                                        https://istqb.org/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1526,8 +1891,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a
                                     >
+                                        https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1538,8 +1904,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
                                     >
+                                        https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1550,8 +1917,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/</a
                                     >
+                                        https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1562,17 +1930,18 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://glossary.istqb.org/en_US/search?term="
                                         className="ref-url"
                                         target="_blank"
-                                        >https://glossary.istqb.org/en_US/search?term=</a
                                     >
+                                        https://glossary.istqb.org/en_US/search?term=
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td>ISTQB公式</td>
                                 <td>JSTQB（日本語版）</td>
                                 <td>
-                                    <a href="https://jstqb.jp/" className="ref-url" target="_blank"
-                                        >https://jstqb.jp/</a
-                                    >
+                                    <a href="https://jstqb.jp/" className="ref-url" target="_blank">
+                                        https://jstqb.jp/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1585,8 +1954,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide</a
                                     >
+                                        https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1597,8 +1967,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.istqb.com/certified-tester-foundation-level/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.istqb.com/certified-tester-foundation-level/</a
                                     >
+                                        https://www.istqb.com/certified-tester-foundation-level/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1609,8 +1980,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://casqb.org/en/blog-eng/istqb-ctfl-v4.0-syllabus-an-exciting-milestone-in-software-testing"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://casqb.org/en/blog-eng/istqb-ctfl-v4.0-syllabus-an-exciting-milestone-in-software-testing</a
                                     >
+                                        https://casqb.org/en/blog-eng/istqb-ctfl-v4.0-syllabus-an-exciting-milestone-in-software-testing
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1624,8 +1996,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://mastersoftwaretesting.com/testing-fundamentals/types-of-testing/functional-testing/system-testing"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://mastersoftwaretesting.com/testing-fundamentals/types-of-testing/functional-testing/system-testing</a
                                     >
+                                        https://mastersoftwaretesting.com/testing-fundamentals/types-of-testing/functional-testing/system-testing
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1636,8 +2009,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.perfecto.io/resources/types-of-testing"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.perfecto.io/resources/types-of-testing</a
                                     >
+                                        https://www.perfecto.io/resources/types-of-testing
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1648,8 +2022,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.browserstack.com/guide/types-of-testing"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.browserstack.com/guide/types-of-testing</a
                                     >
+                                        https://www.browserstack.com/guide/types-of-testing
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1662,8 +2037,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://dev.to/kevinwalker/best-practices-for-software-testing-in-2025-59c2"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://dev.to/kevinwalker/best-practices-for-software-testing-in-2025-59c2</a
                                     >
+                                        https://dev.to/kevinwalker/best-practices-for-software-testing-in-2025-59c2
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1674,8 +2050,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.cloudbees.com/blog/the-smoke-sanity-and-regression-testing-triad"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.cloudbees.com/blog/the-smoke-sanity-and-regression-testing-triad</a
                                     >
+                                        https://www.cloudbees.com/blog/the-smoke-sanity-and-regression-testing-triad
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1686,8 +2063,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://katalon.com/resources-center/blog/sanity-testing-vs-smoke-testing"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://katalon.com/resources-center/blog/sanity-testing-vs-smoke-testing</a
                                     >
+                                        https://katalon.com/resources-center/blog/sanity-testing-vs-smoke-testing
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1698,8 +2076,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.browserstack.com/guide/sanity-testing-vs-smoke-testing"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.browserstack.com/guide/sanity-testing-vs-smoke-testing</a
                                     >
+                                        https://www.browserstack.com/guide/sanity-testing-vs-smoke-testing
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1712,8 +2091,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/</a
                                     >
+                                        https://www.softwaretestinghelp.com/smoke-testing-and-sanity-testing-difference/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1724,8 +2104,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://qentelli.com/thought-leadership/insights/explained-smoke-testing-vs-sanity-testing-vs-regression-testing"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://qentelli.com/thought-leadership/insights/explained-smoke-testing-vs-sanity-testing-vs-regression-testing</a
                                     >
+                                        https://qentelli.com/thought-leadership/insights/explained-smoke-testing-vs-sanity-testing-vs-regression-testing
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1736,8 +2117,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.blazemeter.com/blog/functional-testing-types"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.blazemeter.com/blog/functional-testing-types</a
                                     >
+                                        https://www.blazemeter.com/blog/functional-testing-types
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1750,8 +2132,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.testrail.com/blog/non-functional-testing/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.testrail.com/blog/non-functional-testing/</a
                                     >
+                                        https://www.testrail.com/blog/non-functional-testing/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1762,8 +2145,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://aqua-cloud.io/non-functional-testing/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://aqua-cloud.io/non-functional-testing/</a
                                     >
+                                        https://aqua-cloud.io/non-functional-testing/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1774,8 +2158,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.accelq.com/blog/non-functional-testing/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.accelq.com/blog/non-functional-testing/</a
                                     >
+                                        https://www.accelq.com/blog/non-functional-testing/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1789,8 +2174,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.frugaltesting.com/blog/what-is-non-functional-testing-types-importance-and-best-practices"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.frugaltesting.com/blog/what-is-non-functional-testing-types-importance-and-best-practices</a
                                     >
+                                        https://www.frugaltesting.com/blog/what-is-non-functional-testing-types-importance-and-best-practices
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1801,8 +2187,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.geeksforgeeks.org/software-testing/software-testing-non-functional-testing/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.geeksforgeeks.org/software-testing/software-testing-non-functional-testing/</a
                                     >
+                                        https://www.geeksforgeeks.org/software-testing/software-testing-non-functional-testing/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1813,8 +2200,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.virtuosoqa.com/post/functional-vs-non-functional-testing"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.virtuosoqa.com/post/functional-vs-non-functional-testing</a
                                     >
+                                        https://www.virtuosoqa.com/post/functional-vs-non-functional-testing
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1825,8 +2213,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://aqua-cloud.io/software-testing-strategies/"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://aqua-cloud.io/software-testing-strategies/</a
                                     >
+                                        https://aqua-cloud.io/software-testing-strategies/
+                                    </a>
                                 </td>
                             </tr>
                             <tr>
@@ -1837,8 +2226,9 @@ export default function IntegrationSystemTestingGuide() {
                                         href="https://www.globalapptesting.com/blog/qa-testing-methodologies-and-techniques"
                                         className="ref-url"
                                         target="_blank"
-                                        >https://www.globalapptesting.com/blog/qa-testing-methodologies-and-techniques</a
                                     >
+                                        https://www.globalapptesting.com/blog/qa-testing-methodologies-and-techniques
+                                    </a>
                                 </td>
                             </tr>
                         </tbody>
