@@ -7,6 +7,14 @@ interface HeaderProps {
   className?: string;
 }
 
+/**
+ * Renders the top navigation header with a logo link, a set of route-aware page links, and a responsive badge.
+ *
+ * The header is fixed to the top of the viewport and appends any provided `className` to the root <nav> element.
+ *
+ * @param className - Optional additional CSS classes to apply to the root navigation element
+ * @returns The header JSX element containing the logo, navigation links (each marked active when its href matches the current pathname), and a badge shown on small screens and larger
+ */
 export default function Header({ className }: HeaderProps) {
   const pathname = usePathname();
 
