@@ -1,15 +1,6 @@
 import Header from '../../components/Header';
 import '../integration-functional-testing-guide.css';
 
-/**
- * Renders the full Japanese "インテグレーション & 機能テスト 完全ガイド 2025" page.
- *
- * The component outputs a complete article-style guide including the shared Header,
- * a hero section, and numbered sections covering overview, functional and integration
- * testing techniques, code examples, tools, and references.
- *
- * @returns The page's JSX fragment containing Header, hero, and all guide sections and examples.
- */
 export default function IntegrationFunctionalTestingGuide() {
     return (
         <>

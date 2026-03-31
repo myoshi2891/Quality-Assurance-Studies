@@ -1,13 +1,6 @@
 import Header from '../../components/Header';
 import '../unit-testing.css';
 
-/**
- * Renders a full-page Japanese unit testing guide composed of a Header and a main content area with STEP 01–11 sections, references, and footer.
- *
- * The guide is static JSX that presents principles, patterns, examples, code snippets, tables, and CI/CD guidance for unit testing (ISTQB CTFL v4.0 aligned). It has no runtime branching or external side effects beyond rendering links with safe target attributes.
- *
- * @returns A JSX element containing the complete unit testing guide page
- */
 export default function UnitTestingGuide() {
     return (
         <>
