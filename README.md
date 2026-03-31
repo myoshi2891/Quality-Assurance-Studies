@@ -37,6 +37,14 @@
   * **概要:** 直感的な操作性や、多様なユーザー（身体的制約を持つ方を含む）にとっての使いやすさを検証するテスト。
   * **目的・解決する課題:** 特定のユーザーがシステムを利用できなくなる事態を防ぎ、誰もが快適に使えるUI/UXを実現します。
 
+## 3. 開発ツール（Migration Tools）
+既存の静的 HTML ページを Next.js 環境へ安全に移行するためのスクリプト群です。
+
+* **CSS 抽出・変換 (`scripts/extract-css.mjs`)**
+  * HTML からスタイルブロックを抽出し、プロジェクトのデザイントークン（Tailwind v4 変数）へ自動マッピングします。
+* **HTML to JSX 変換 (`scripts/html-to-tsx.mjs`)**
+  * HTML 構造を JSX に変換し、属性の置換（`class` → `className` 等）やプロジェクト標準クラスへのリネームを行います。
+
 ## qa_studies
 
 To install dependencies:

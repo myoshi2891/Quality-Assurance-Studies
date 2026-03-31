@@ -33,7 +33,11 @@ Next.js App Router 構成:
 - `app/integration-functional-testing-guide.css` — 統合/機能テストガイド固有スタイル
 - `app/integration-system-testing-guide/page.tsx` — インテグレーション／システムテストガイドページ
 - `app/integration-system-testing-guide.css` — インテグレーション／システムテストガイド固有スタイル
-- `components/` — 共有 React コンポーネント（Header など）
+- `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート）
+- `scripts/` — 移行支援ツール
+    - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
+    - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
+- `archive/` — 移行済みの元 HTML ファイルの保管場所
 
 ### Tailwind v4 テーマ構造
 
