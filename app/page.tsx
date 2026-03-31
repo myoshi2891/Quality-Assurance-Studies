@@ -1,11 +1,6 @@
 import Link from 'next/link';
 import Header from '../components/Header';
 
-/**
- * Renders the "現代ソフトウェアテスト完全ガイド 2025" homepage as a single-page, sectioned guide.
- *
- * @returns The JSX element for the complete homepage layout, including the header, main content sections (top, overview, step1–step10, methodologies, BDD, nonfunctional, security, accessibility, ISTQB, references) and footer.
- */
 export default function Home() {
   return (
     <>

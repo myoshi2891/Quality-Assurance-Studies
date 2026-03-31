@@ -98,11 +98,7 @@ for (const [key, value] of Object.entries(varMap)) {
   css = css.split(key).join(value);
 }
 
-/**
- * Escape characters in a string that have special meaning in regular expressions.
- * @param {string} string - The input text to escape.
- * @returns {string} The input with regex metacharacters escaped with backslashes.
- */
+// Helper to escape special characters for RegExp
 function escapeRegExp(string) {
     return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
