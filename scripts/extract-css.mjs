@@ -98,40 +98,45 @@ for (const [key, value] of Object.entries(varMap)) {
   css = css.split(key).join(value);
 }
 
+// Helper to escape special characters for RegExp
+function escapeRegExp(string) {
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // Rename classes to match html-to-tsx.mjs
 const classMap = {
-    '\\.sh': '.section-header',
-    '\\.sh-num': '.section-num',
-    '\\.accent-rule': '.accent-line',
-    '\\.tw': '.table-wrapper',
-    '\\.stat-pill': '.stat',
-    '\\.stat-v': '.stat-num',
-    '\\.stat-l': '.stat-label',
-    '\\.code-hdr': '.code-header',
-    '\\.dots': '.code-dots',
-    '\\.step-n': '.step-num-circle',
-    '\\.step-body': '.step-content',
+    '.sh': '.section-header',
+    '.sh-num': '.section-header-num',
+    '.accent-rule': '.accent-line',
+    '.tw': '.table-wrapper',
+    '.stat-pill': '.stat',
+    '.stat-v': '.stat-num',
+    '.stat-l': '.stat-label',
+    '.code-hdr': '.code-header',
+    '.dots': '.code-dots',
+    '.step-n': '.step-num-circle',
+    '.step-body': '.step-content',
     // Badges
-    '\\.b-sky': '.badge-int',
-    '\\.b-teal': '.badge-int',
-    '\\.b-amber': '.badge-e2e',
-    '\\.b-red': '.badge-sec',
-    '\\.b-violet': '.badge-func',
-    '\\.b-slate': '.badge-unit',
+    '.b-sky': '.badge-int',
+    '.b-teal': '.badge-int',
+    '.b-amber': '.badge-e2e',
+    '.b-red': '.badge-sec',
+    '.b-violet': '.badge-func',
+    '.b-slate': '.badge-unit',
     // Callouts
-    '\\.c-sky': '.callout-info',
-    '\\.c-amber': '.callout-warn',
-    '\\.c-red': '.callout-danger',
-    '\\.c-green': '.callout-good',
-    '\\.c-teal': '.callout-info',
-    '\\.c-violet': '.callout-info',
+    '.c-sky': '.callout-info',
+    '.c-amber': '.callout-warn',
+    '.c-red': '.callout-danger',
+    '.c-green': '.callout-good',
+    '.c-teal': '.callout-info',
+    '.c-violet': '.callout-info',
     // Grids & Flex
-    '\\.g2': '.grid-2'
+    '.g2': '.grid-2'
 };
 
 const sortedClassMapEntries = Object.entries(classMap).sort((a, b) => b[0].length - a[0].length);
 for (const [key, value] of sortedClassMapEntries) {
-    css = css.replace(new RegExp(`${key}\\\\b`, 'g'), value);
+    css = css.replace(new RegExp(`${escapeRegExp(key)}\\b`, 'g'), value);
 }
 
 // Strip the orphaned .b-green rule as it is converted to tailwind utility classes in TSX
