@@ -189,7 +189,7 @@ Do NOT redefine these in page-specific CSS. Use them directly in TSX:
 | `.tab-nav` / `.tab-btn` / `.tab-panel` | Tab UI |
 | `.section-header` / `.section-num` / `.accent-line` | Section headings |
 | `.hero` / `.hero-eyebrow` / `.hero-sub` / `.hero-stats` | Hero section |
-| `.stat` / `.stat-num` / `--stat-label` | Statistics display |
+| `.stat` / `.stat-num` / `.stat-label` | Statistics display |
 | `.step-list` / `.step-item` / `.step-num-circle` / `.step-content` | Numbered step indicators |
 | `.table-wrapper` | Responsive table container |
 | `.tool-grid` / `.tool-card` / `.tool-name` / `.tool-desc` | Tool cards |
