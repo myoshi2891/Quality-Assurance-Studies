@@ -2,6 +2,15 @@ import Link from 'next/link';
 import Header from '../../components/Header';
 import '../ai-guide.css';
 
+/**
+ * Renders the complete static Japanese "ISTQB CT-AI & CT-GenAI 完全ガイド 2025" page as a Next.js/React component.
+ *
+ * The page includes a header and a multi-section main content body covering AI fundamentals, ML workflows and metrics,
+ * quality characteristics, testing techniques (metamorphic, adversarial, RAG, prompt injection, etc.), hallucination and bias,
+ * GenAI testing and prompt engineering, tools and frameworks, certification roadmap, and a references appendix.
+ *
+ * @returns The React element for the full static guide page.
+ */
 export default function AITestGuide() {
   return (
     <>
