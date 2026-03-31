@@ -21,16 +21,17 @@ try {
     process.exit(1);
 }
 
-const styleMatch = html.match(/<style\b[^>]*>([\s\S]*?)<\/style>/i);
-if (!styleMatch) {
+const styleMatches = Array.from(html.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi));
+if (styleMatches.length === 0) {
   console.error('No <style> found in the input HTML');
   process.exit(1);
 }
 
-let css = styleMatch[1];
+let css = styleMatches.map(m => m[1]).join('\n');
 
 // Remove :root definition as variables are mapped to tailwind themes
-css = css.replace(/:root\s*\{[\s\S]*?\}/, '');
+// Using strict whole-rule boundary to avoid matching inside other rules
+css = css.replace(/(?:^|\})\s*:root\s*\{[\s\S]*?\}/g, (match) => match.startsWith('}') ? '}' : '');
 
 // Map common CSS variables based on QA_Studies design system
 const varMap = {
@@ -134,17 +135,19 @@ for (const [key, value] of sortedClassMapEntries) {
 }
 
 // Strip the orphaned .b-green rule as it is converted to tailwind utility classes in TSX
-css = css.replace(/\.b-green\s*\{[\s\S]*?\}/g, '');
+// Using strict whole-rule boundary
+css = css.replace(/(?:^|\})\s*\.b-green\s*\{[\s\S]*?\}/g, (match) => match.startsWith('}') ? '}' : '');
 
 // Rename keyframes to kebab-case
 css = css.replace(/@keyframes fadeUp/g, '@keyframes fade-up');
 css = css.replace(/animation: fadeUp/g, 'animation: fade-up');
 
 // Remove layout specific selectors that are handled by Next.js layout.tsx
-css = css.replace(/\*,\s*\*\:\:before,\s*\*\:\:after\s*\{[\s\S]*?\}/g, '');
-css = css.replace(/html\s*\{[\s\S]*?\}/g, '');
-css = css.replace(/body\s*\{[\s\S]*?\}/g, '');
-css = css.replace(/main\s*\{[\s\S]*?\}/g, '');
+// Using strict boundaries to avoid matching inside longer selectors or property names
+css = css.replace(/(?:^|\})\s*\*,\s*\*\:\:before,\s*\*\:\:after\s*\{[\s\S]*?\}/g, (match) => match.startsWith('}') ? '}' : '');
+css = css.replace(/(?:^|\})\s*html\s*\{[\s\S]*?\}/g, (match) => match.startsWith('}') ? '}' : '');
+css = css.replace(/(?:^|\})\s*body\s*\{[\s\S]*?\}/g, (match) => match.startsWith('}') ? '}' : '');
+css = css.replace(/(?:^|\})\s*main\s*\{[\s\S]*?\}/g, (match) => match.startsWith('}') ? '}' : '');
 
 const outputDir = path.dirname(outputPath);
 if (!fs.existsSync(outputDir)) {
