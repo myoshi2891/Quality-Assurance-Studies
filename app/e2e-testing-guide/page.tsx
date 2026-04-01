@@ -1,9 +1,11 @@
+import Header from '../../components/Header';
 import '../e2e-testing-guide.css';
 
 export default function E2eTestingGuide() {
     return (
         <>
-            
+            <Header />
+            <main>
             <section className="hero" id="top">
                 <div className="hero-content">
                     <span className="hero-kicker"
@@ -2056,7 +2058,25 @@ export default function E2eTestingGuide() {
                     </table>
                 </div>
             </section>
-        
+
+                <footer>
+                    <p>
+                        E2Eテスト完全ガイド 2025 &nbsp;|&nbsp;
+                        <a
+                            href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
+                            target="_blank"
+                            >ISTQB CTFL v4.0</a
+                        >
+                        Section 2.2.3 準拠 &nbsp;|&nbsp;
+                        <a href="https://playwright.dev/" target="_blank">Playwright</a>・
+                        <a href="https://www.cypress.io/" target="_blank">Cypress</a>・
+                        <a href="https://www.selenium.dev/" target="_blank">Selenium</a> 2025年最新対応
+                    </p>
+                    <p style={{fontSize: "10px", color: "var(--color-text-muted)", marginTop: "0.4rem"}}>
+                        © 2025 — End-to-End testing is not just automation. It is the simulation of trust.
+                    </p>
+                </footer>
+            </main>
         </>
     );
 }
