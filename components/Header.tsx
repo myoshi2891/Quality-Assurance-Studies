@@ -33,7 +33,7 @@ export default function Header({ className }: HeaderProps) {
         <Link href="/unit-testing-guide" className={getLinkClassName('/unit-testing-guide')}>ユニットテストガイド</Link>
         <Link href="/integration-functional-testing-guide" className={getLinkClassName('/integration-functional-testing-guide')}>統合/機能テストガイド</Link>
         <Link href="/integration-system-testing-guide" className={getLinkClassName('/integration-system-testing-guide')}>統合/システムテストガイド</Link>
-        {/* ai-genAI-guide.html 内の目次リンクとして使われていたものはページ内リンクとして各ページ内で処理します */}
+        <Link href="/e2e-testing-guide" className={getLinkClassName('/e2e-testing-guide')}>E2Eテストガイド</Link>
       </div>
       <span className="nav-badge hidden sm:inline-block">
         Next.js SPA
