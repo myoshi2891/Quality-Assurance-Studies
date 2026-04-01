@@ -5,6 +5,7 @@ export default function IntegrationSystemTestingGuide() {
     return (
         <div className="page-int-sys">
             <Header className="page-int-sys" />
+            <main>
             <section className="hero" id="top">
                 <div className="hero-content">
                     <div className="hero-rule">
@@ -2235,6 +2236,7 @@ export default function IntegrationSystemTestingGuide() {
                     </table>
                 </div>
             </section>
+            </main>
         </div>
     );
 }

@@ -14,6 +14,7 @@ export default function IntegrationFunctionalTestingGuide() {
     return (
         <>
             <Header />
+            <main>
             <section className="hero" id="top">
                 <div className="hero-content">
                     <span className="hero-eyebrow">
@@ -2289,6 +2290,7 @@ export default function IntegrationFunctionalTestingGuide() {
                     </table>
                 </div>
             </section>
+            </main>
         </>
     );
 }
