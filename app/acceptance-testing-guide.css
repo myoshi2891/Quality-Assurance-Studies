@@ -68,19 +68,14 @@
                 background-color: var(--ivory);
                 color: var(--ink);
             }
-  .page-acc *,
-  .page-acc *::before,
-  .page-acc *::after {
+  .page-acc main *,
+  .page-acc main *::before,
+  .page-acc main *::after {
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
             }
             .page-acc {
-                background: var(--ivory);
-                color: var(--ink);
-                font-family: var(--font-body);
-                font-size: 15px;
-                line-height: 1.8;
                 overflow-x: hidden;
             }
 
@@ -106,7 +101,12 @@
             }
 
             /* ── LAYOUT ── */
-  .page-acc main {
+            .page-acc main {
+                background: var(--ivory);
+                color: var(--ink);
+                font-family: var(--font-body);
+                font-size: 15px;
+                line-height: 1.8;
                 max-width: 1060px;
                 margin: 0 auto;
                 padding: 0 1.5rem;
@@ -120,7 +120,7 @@
             }
 
             /* ── HERO ── */
-            .hero {
+            .page-acc main .hero {
                 min-height: 100vh;
                 display: flex;
                 flex-direction: column;
@@ -128,7 +128,7 @@
                 padding-top: 56px;
                 position: relative;
             }
-            .hero-kicker {
+            .page-acc main .hero-kicker {
                 display: inline-flex;
                 align-items: center;
                 gap: 8px;
@@ -143,12 +143,12 @@
                 border-radius: 4px;
                 margin-bottom: 1.75rem;
             }
-            .hero-kicker::before {
+            .page-acc main .hero-kicker::before {
                 content: '▸';
                 font-size: 9px;
             }
 
-            .hero h1 {
+            .page-acc main .hero h1 {
                 font-family: var(--font-display);
                 font-size: clamp(2.8rem, 6vw, 5.2rem);
                 font-weight: 700;
@@ -157,11 +157,11 @@
                 margin-bottom: 1.3rem;
                 letter-spacing: -0.015em;
             }
-            .hero h1 em {
+            .page-acc main .hero h1 em {
                 color: var(--terra);
                 font-style: italic;
             }
-            .hero h1 small {
+            .page-acc main .hero h1 small {
                 display: block;
                 font-size: 0.5em;
                 font-weight: 400;
@@ -171,7 +171,7 @@
                 font-family: var(--font-body);
             }
 
-            .hero-desc {
+            .page-acc main .hero-desc {
                 font-size: 1rem;
                 color: var(--ink2);
                 max-width: 640px;
@@ -180,13 +180,13 @@
             }
 
             /* STAT STRIP */
-            .hero-stats {
+            .page-acc main .hero-stats {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.75rem;
                 margin-bottom: 3rem;
             }
-            .stat-tile {
+            .page-acc main .stat-tile {
                 background: #fff;
                 border: 1px solid var(--border);
                 border-radius: var(--r);
@@ -197,23 +197,23 @@
                 box-shadow: var(--shadow);
                 transition: all 0.2s;
             }
-            .stat-tile:hover {
+            .page-acc main .stat-tile:hover {
                 box-shadow: var(--shadow2);
                 border-color: var(--border2);
             }
-            .stat-v {
+            .page-acc main .stat-v {
                 font-family: var(--font-mono);
                 font-size: 1.35rem;
                 font-weight: 700;
                 color: var(--terra);
             }
-            .stat-l {
+            .page-acc main .stat-l {
                 font-size: 11px;
                 color: var(--ink4);
             }
 
             /* TEST LEVEL LADDER */
-            .level-track {
+            .page-acc main .level-track {
                 margin: 2rem 0;
                 background: #fff;
                 border: 1px solid var(--border);
@@ -221,7 +221,7 @@
                 overflow: hidden;
                 box-shadow: var(--shadow);
             }
-            .level-item {
+            .page-acc main .level-item {
                 display: flex;
                 align-items: center;
                 gap: 1rem;
@@ -229,44 +229,44 @@
                 border-bottom: 1px solid var(--border);
                 transition: background 0.18s;
             }
-            .level-item:last-child {
+            .page-acc main .level-item:last-child {
                 border-bottom: none;
             }
-            .level-item:hover {
+            .page-acc main .level-item:hover {
                 background: var(--ivory2);
             }
-            .level-item.hl {
+            .page-acc main .level-item.hl {
                 background: var(--terra5);
             }
-            .level-num {
+            .page-acc main .level-num {
                 font-family: var(--font-mono);
                 font-size: 11px;
                 color: var(--ink4);
                 width: 22px;
                 flex-shrink: 0;
             }
-            .level-name {
+            .page-acc main .level-name {
                 font-weight: 700;
                 font-size: 13.5px;
                 flex: 1;
             }
-            .level-scope {
+            .page-acc main .level-scope {
                 font-size: 12px;
                 color: var(--ink3);
                 flex: 2;
             }
-            .level-item.hl .level-name {
+            .page-acc main .level-item.hl .level-name {
                 color: var(--terra);
             }
-            .level-item.hl .level-num {
+            .page-acc main .level-item.hl .level-num {
                 color: var(--terra2);
             }
 
             /* ── SECTION HEADERS ── */
-            .sh {
+            .page-acc main .sh {
                 margin-bottom: 2rem;
             }
-            .sh-num {
+            .page-acc main .sh-num {
                 font-family: var(--font-mono);
                 font-size: 10px;
                 font-weight: 700;
@@ -275,21 +275,21 @@
                 display: block;
                 margin-bottom: 0.4rem;
             }
-            .sh h2 {
+            .page-acc main .sh h2 {
                 font-family: var(--font-display);
                 font-size: clamp(1.8rem, 3.5vw, 2.6rem);
                 font-weight: 700;
                 line-height: 1.15;
                 color: var(--ink);
             }
-            .sh p {
+            .page-acc main .sh p {
                 color: var(--ink3);
                 margin-top: 0.6rem;
                 max-width: 680px;
                 line-height: 1.85;
                 font-size: 14.5px;
             }
-            .terra-rule {
+            .page-acc main .terra-rule {
                 width: 40px;
                 height: 2px;
                 border-radius: 1px;
@@ -298,7 +298,7 @@
             }
 
             /* ── BADGES ── */
-            .badge {
+            .page-acc main .badge {
                 display: inline-block;
                 padding: 2px 9px;
                 border-radius: 4px;
@@ -306,54 +306,54 @@
                 font-weight: 600;
                 font-family: var(--font-mono);
             }
-            .b-terra {
+            .page-acc main .b-terra {
                 background: var(--terra5);
                 color: var(--terra);
                 border: 1px solid var(--border3);
             }
-            .b-slate {
+            .page-acc main .b-slate {
                 background: var(--slate5);
                 color: var(--slate);
                 border: 1px solid rgba(61, 79, 92, 0.25);
             }
-            .b-sage {
+            .page-acc main .b-sage {
                 background: var(--sage5);
                 color: var(--sage);
                 border: 1px solid rgba(74, 103, 65, 0.25);
             }
-            .b-gold {
+            .page-acc main .b-gold {
                 background: var(--gold5);
                 color: var(--gold);
                 border: 1px solid rgba(154, 122, 48, 0.25);
             }
-            .b-ok {
+            .page-acc main .b-ok {
                 background: var(--sage5);
                 color: var(--ok);
                 border: 1px solid rgba(74, 122, 61, 0.3);
             }
-            .b-warn {
+            .page-acc main .b-warn {
                 background: var(--gold5);
                 color: var(--warn);
                 border: 1px solid rgba(154, 122, 48, 0.3);
             }
-            .b-err {
+            .page-acc main .b-err {
                 background: var(--terra5);
                 color: var(--err);
                 border: 1px solid var(--border3);
             }
-            .b-info {
+            .page-acc main .b-info {
                 background: var(--slate5);
                 color: var(--info);
                 border: 1px solid rgba(61, 95, 138, 0.25);
             }
-            .b-ink {
+            .page-acc main .b-ink {
                 background: var(--ivory2);
                 color: var(--ink3);
                 border: 1px solid var(--border);
             }
 
             /* ── CARDS ── */
-            .card {
+            .page-acc main .card {
                 background: #fff;
                 border: 1px solid var(--border);
                 border-radius: var(--r);
@@ -361,34 +361,34 @@
                 box-shadow: var(--shadow);
                 transition: all 0.22s;
             }
-            .card:hover {
+            .page-acc main .card:hover {
                 background: #fff;
                 box-shadow: var(--shadow2);
                 transform: translateY(-1px);
             }
-            .card h3 {
+            .page-acc main .card h3 {
                 font-family: var(--font-display);
                 font-size: 1.05rem;
                 font-weight: 600;
                 margin-bottom: 0.5rem;
                 color: var(--ink);
             }
-            .card p {
+            .page-acc main .card p {
                 font-size: 13px;
                 color: var(--ink3);
                 line-height: 1.75;
             }
-            .card-icon {
+            .page-acc main .card-icon {
                 font-size: 1.3rem;
                 display: block;
                 margin-bottom: 0.55rem;
             }
-            .card-grid {
+            .page-acc main .card-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
                 gap: 0.85rem;
             }
-            .card-sm {
+            .page-acc main .card-sm {
                 background: #fff;
                 border: 1px solid var(--border);
                 border-radius: var(--r-sm);
@@ -396,21 +396,21 @@
                 box-shadow: var(--shadow);
                 transition: all 0.2s;
             }
-            .card-sm:hover {
+            .page-acc main .card-sm:hover {
                 background: #fff;
                 box-shadow: var(--shadow2);
                 border-color: var(--border2);
             }
 
             /* ── CODE BLOCKS ── */
-            .code-block {
+            .page-acc main .code-block {
                 background: #1a1410;
                 border: 1px solid rgba(192, 85, 61, 0.15);
                 border-radius: var(--r);
                 overflow: hidden;
                 margin: 0.9rem 0;
             }
-            .code-hdr {
+            .page-acc main .code-hdr {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
@@ -418,31 +418,31 @@
                 background: rgba(255, 255, 255, 0.025);
                 border-bottom: 1px solid rgba(192, 85, 61, 0.1);
             }
-            .dots {
+            .page-acc main .dots {
                 display: flex;
                 gap: 5px;
             }
-            .dots span {
+            .page-acc main .dots span {
                 width: 10px;
                 height: 10px;
                 border-radius: 50%;
             }
-            .dots span:nth-child(1) {
+            .page-acc main .dots span:nth-child(1) {
                 background: #ff5f57;
             }
-            .dots span:nth-child(2) {
+            .page-acc main .dots span:nth-child(2) {
                 background: #febc2e;
             }
-            .dots span:nth-child(3) {
+            .page-acc main .dots span:nth-child(3) {
                 background: #28c840;
             }
-            .code-lang {
+            .page-acc main .code-lang {
                 font-family: var(--font-mono);
                 font-size: 10px;
                 color: var(--ink4);
                 letter-spacing: 0.1em;
             }
-            pre {
+            .page-acc main pre {
                 padding: 1.1rem 1.4rem;
                 overflow-x: auto;
                 font-family: var(--font-mono);
@@ -450,59 +450,59 @@
                 line-height: 1.75;
                 color: #d4c8b8;
             }
-            .kw {
+            .page-acc main .kw {
                 color: #c792ea;
             }
-            .fn {
+            .page-acc main .fn {
                 color: #82aaff;
             }
-            .str {
+            .page-acc main .str {
                 color: #c3e88d;
             }
-            .cm {
+            .page-acc main .cm {
                 color: #5a4e40;
                 font-style: italic;
             }
-            .cls {
+            .page-acc main .cls {
                 color: #ffcb6b;
             }
-            .num {
+            .page-acc main .num {
                 color: #f78c6c;
             }
-            .dec {
+            .page-acc main .dec {
                 color: #89ddff;
             }
-            .hl-g {
+            .page-acc main .hl-g {
                 color: #90d490;
             }
-            .hl-r {
+            .page-acc main .hl-r {
                 color: #f07070;
             }
-            .hl-y {
+            .page-acc main .hl-y {
                 color: #f0c050;
             }
-            .hl-b {
+            .page-acc main .hl-b {
                 color: #70b0f0;
             }
-            .hl-t {
+            .page-acc main .hl-t {
                 color: #c0553d;
             }
 
             /* ── TABLES ── */
-            .tw {
+            .page-acc main .tw {
                 overflow-x: auto;
                 margin: 1.1rem 0;
             }
-            table {
+            .page-acc main table {
                 width: 100%;
                 border-collapse: collapse;
                 font-size: 13px;
             }
-            thead tr {
+            .page-acc main thead tr {
                 background: var(--terra5);
                 border-bottom: 1px solid var(--border3);
             }
-            th {
+            .page-acc main th {
                 padding: 9px 13px;
                 text-align: left;
                 font-family: var(--font-mono);
@@ -512,33 +512,33 @@
                 letter-spacing: 0.12em;
                 white-space: nowrap;
             }
-            td {
+            .page-acc main td {
                 padding: 9px 13px;
                 border-bottom: 1px solid var(--border);
                 color: var(--ink3);
                 vertical-align: top;
                 line-height: 1.6;
             }
-            tr:hover td {
+            .page-acc main tr:hover td {
                 background: var(--ivory2);
             }
-            td strong {
+            .page-acc main td strong {
                 color: var(--ink);
                 font-weight: 600;
             }
-            td.g {
+            .page-acc main td.g {
                 color: var(--ok);
                 font-weight: 600;
             }
-            td.w {
+            .page-acc main td.w {
                 color: var(--warn);
             }
-            td.r {
+            .page-acc main td.r {
                 color: var(--err);
             }
 
             /* ── CALLOUTS ── */
-            .callout {
+            .page-acc main .callout {
                 border-left: 3px solid;
                 padding: 0.9rem 1.1rem;
                 border-radius: 0 var(--r-sm) var(--r-sm) 0;
@@ -546,45 +546,45 @@
                 font-size: 13.5px;
                 line-height: 1.75;
             }
-            .c-terra {
+            .page-acc main .c-terra {
                 border-color: var(--terra);
                 background: var(--terra5);
             }
-            .c-slate {
+            .page-acc main .c-slate {
                 border-color: var(--slate2);
                 background: var(--slate5);
             }
-            .c-sage {
+            .page-acc main .c-sage {
                 border-color: var(--sage2);
                 background: var(--sage5);
             }
-            .c-gold {
+            .page-acc main .c-gold {
                 border-color: var(--gold2);
                 background: var(--gold5);
             }
-            .c-err {
+            .page-acc main .c-err {
                 border-color: var(--err);
                 background: var(--terra5);
             }
-            .callout strong {
+            .page-acc main .callout strong {
                 color: var(--ink);
             }
 
             /* ── STEP LIST ── */
-            .step-list {
+            .page-acc main .step-list {
                 display: flex;
                 flex-direction: column;
             }
-            .step-item {
+            .page-acc main .step-item {
                 display: flex;
                 gap: 1rem;
                 padding: 1rem 0;
                 border-bottom: 1px solid var(--border);
             }
-            .step-item:last-child {
+            .page-acc main .step-item:last-child {
                 border-bottom: none;
             }
-            .step-num-circle {
+            .page-acc main .step-num-circle {
                 flex-shrink: 0;
                 width: 30px;
                 height: 30px;
@@ -600,27 +600,27 @@
                 color: var(--terra);
                 margin-top: 2px;
             }
-            .step-content h4 {
+            .page-acc main .step-content h4 {
                 font-family: var(--font-body);
                 font-size: 0.92rem;
                 font-weight: 700;
                 margin-bottom: 0.3rem;
                 color: var(--ink);
             }
-            .step-content p {
+            .page-acc main .step-content p {
                 font-size: 13px;
                 color: var(--ink3);
                 line-height: 1.75;
             }
 
             /* ── UAT TYPE CARDS ── */
-            .uat-grid {
+            .page-acc main .uat-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
                 gap: 0.85rem;
                 margin: 1rem 0;
             }
-            .uat-card {
+            .page-acc main .uat-card {
                 background: #fff;
                 border: 1px solid var(--border);
                 border-radius: var(--r);
@@ -632,35 +632,35 @@
                 gap: 6px;
                 border-top: 3px solid;
             }
-            .uat-card:hover {
+            .page-acc main .uat-card:hover {
                 background: #fff;
                 box-shadow: var(--shadow2);
                 transform: translateY(-1px);
             }
-            .uat-title {
+            .page-acc main .uat-title {
                 font-family: var(--font-display);
                 font-size: 0.95rem;
                 font-weight: 600;
                 color: var(--ink);
             }
-            .uat-abbr {
+            .page-acc main .uat-abbr {
                 font-family: var(--font-mono);
                 font-size: 10px;
                 display: block;
                 margin-bottom: 2px;
             }
-            .uat-who {
+            .page-acc main .uat-who {
                 font-size: 11px;
                 color: var(--ink4);
                 font-weight: 500;
                 margin-top: 3px;
             }
-            .uat-desc {
+            .page-acc main .uat-desc {
                 font-size: 12px;
                 color: var(--ink3);
                 line-height: 1.65;
             }
-            .uat-example {
+            .page-acc main .uat-example {
                 margin-top: 6px;
                 background: var(--ivory2);
                 border-radius: var(--r-sm);
@@ -669,14 +669,14 @@
                 color: var(--ink2);
                 line-height: 1.6;
             }
-            .uat-example::before {
+            .page-acc main .uat-example::before {
                 content: '例：';
                 font-weight: 600;
                 color: var(--terra);
             }
 
             /* ── PROCESS FLOW ── */
-            .proc-flow {
+            .page-acc main .proc-flow {
                 display: flex;
                 flex-wrap: wrap;
                 align-items: stretch;
@@ -688,20 +688,20 @@
                 overflow: hidden;
                 box-shadow: var(--shadow);
             }
-            .proc-step {
+            .page-acc main .proc-step {
                 flex: 1;
                 min-width: 140px;
                 padding: 1rem 0.75rem;
                 border-right: 1px solid var(--border);
                 transition: background 0.18s;
             }
-            .proc-step:last-child {
+            .page-acc main .proc-step:last-child {
                 border-right: none;
             }
-            .proc-step:hover {
+            .page-acc main .proc-step:hover {
                 background: var(--ivory2);
             }
-            .proc-num {
+            .page-acc main .proc-num {
                 font-family: var(--font-mono);
                 font-size: 10px;
                 font-weight: 700;
@@ -709,20 +709,20 @@
                 display: block;
                 margin-bottom: 0.3rem;
             }
-            .proc-title {
+            .page-acc main .proc-title {
                 font-size: 12.5px;
                 font-weight: 700;
                 color: var(--ink);
                 margin-bottom: 0.3rem;
             }
-            .proc-desc {
+            .page-acc main .proc-desc {
                 font-size: 11.5px;
                 color: var(--ink3);
                 line-height: 1.6;
             }
 
             /* ── CRITERIA CARD ── */
-            .criteria-box {
+            .page-acc main .criteria-box {
                 background: #fff;
                 border: 1px solid var(--border);
                 border-radius: var(--r);
@@ -730,14 +730,14 @@
                 box-shadow: var(--shadow);
                 margin: 0.75rem 0;
             }
-            .criteria-box h4 {
+            .page-acc main .criteria-box h4 {
                 font-family: var(--font-display);
                 font-size: 1rem;
                 font-weight: 600;
                 color: var(--ink);
                 margin-bottom: 0.65rem;
             }
-            .criteria-item {
+            .page-acc main .criteria-item {
                 display: flex;
                 align-items: flex-start;
                 gap: 0.6rem;
@@ -745,7 +745,7 @@
                 color: var(--ink2);
                 margin-bottom: 0.3rem;
             }
-            .criteria-item::before {
+            .page-acc main .criteria-item::before {
                 content: '◆';
                 color: var(--terra2);
                 font-size: 9px;
@@ -754,7 +754,7 @@
             }
 
             /* ── DEFECT LIFECYCLE ── */
-            .defect-flow {
+            .page-acc main .defect-flow {
                 display: flex;
                 flex-wrap: wrap;
                 align-items: center;
@@ -766,7 +766,7 @@
                 border-radius: var(--r);
                 box-shadow: var(--shadow);
             }
-            .d-stage {
+            .page-acc main .d-stage {
                 background: var(--ivory2);
                 border: 1px solid var(--border2);
                 border-radius: var(--r-sm);
@@ -775,29 +775,29 @@
                 font-size: 11px;
                 color: var(--ink2);
             }
-            .d-arrow {
+            .page-acc main .d-arrow {
                 color: var(--ink4);
                 font-size: 0.9rem;
                 padding: 0 0.2rem;
             }
-            .d-stage.fixed {
+            .page-acc main .d-stage.fixed {
                 background: var(--sage5);
                 border-color: rgba(74, 103, 65, 0.3);
                 color: var(--sage);
             }
-            .d-stage.closed {
+            .page-acc main .d-stage.closed {
                 background: var(--slate5);
                 border-color: rgba(61, 79, 92, 0.3);
                 color: var(--slate);
             }
 
             /* ── TOOL CARDS ── */
-            .tool-grid {
+            .page-acc main .tool-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
                 gap: 0.7rem;
             }
-            .tool-card {
+            .page-acc main .tool-card {
                 background: #fff;
                 border: 1px solid var(--border);
                 border-radius: var(--r);
@@ -808,39 +808,39 @@
                 flex-direction: column;
                 gap: 5px;
             }
-            .tool-card:hover {
+            .page-acc main .tool-card:hover {
                 background: #fff;
                 box-shadow: var(--shadow2);
                 border-color: var(--border2);
                 transform: translateY(-1px);
             }
-            .tool-name {
+            .page-acc main .tool-name {
                 font-weight: 700;
                 font-size: 13px;
                 color: var(--ink);
             }
-            .tool-desc {
+            .page-acc main .tool-desc {
                 font-size: 11.5px;
                 color: var(--ink3);
                 line-height: 1.6;
             }
 
             /* ── COMPARISON TABLE ── */
-            .comp-box {
+            .page-acc main .comp-box {
                 background: #fff;
                 border: 1px solid var(--border);
                 border-radius: var(--r);
                 overflow: hidden;
                 box-shadow: var(--shadow);
             }
-            .comp-row {
+            .page-acc main .comp-row {
                 display: flex;
                 border-bottom: 1px solid var(--border);
             }
-            .comp-row:last-child {
+            .page-acc main .comp-row:last-child {
                 border-bottom: none;
             }
-            .comp-row.header {
+            .page-acc main .comp-row.header {
                 background: var(--terra5);
                 font-family: var(--font-mono);
                 font-size: 10px;
@@ -848,22 +848,22 @@
                 color: var(--terra);
                 font-weight: 700;
             }
-            .comp-cell {
+            .page-acc main .comp-cell {
                 flex: 1;
                 padding: 0.75rem 1rem;
                 font-size: 12.5px;
                 color: var(--ink3);
             }
-            .comp-cell:not(:last-child) {
+            .page-acc main .comp-cell:not(:last-child) {
                 border-right: 1px solid var(--border);
             }
-            .comp-cell strong {
+            .page-acc main .comp-cell strong {
                 color: var(--ink);
                 font-weight: 600;
             }
 
             /* ── GHERKIN BLOCK ── */
-            .gherkin {
+            .page-acc main .gherkin {
                 background: #120e0a;
                 border: 1px solid rgba(192, 85, 61, 0.15);
                 border-radius: var(--r);
@@ -874,33 +874,33 @@
                 margin: 0.85rem 0;
                 color: #d4c8b8;
             }
-            .gh-feat {
+            .page-acc main .gh-feat {
                 color: #e0c078;
                 font-weight: 700;
             }
-            .gh-scen {
+            .page-acc main .gh-scen {
                 color: #f0d890;
                 font-weight: 600;
             }
-            .gh-given {
+            .page-acc main .gh-given {
                 color: #70b0f0;
             }
-            .gh-when {
+            .page-acc main .gh-when {
                 color: #c792ea;
             }
-            .gh-then {
+            .page-acc main .gh-then {
                 color: #90d490;
             }
-            .gh-param {
+            .page-acc main .gh-param {
                 color: #f07070;
             }
-            .gh-com {
+            .page-acc main .gh-com {
                 color: #8a7a68;
                 font-style: italic;
             }
 
             /* ── ATDD CYCLE ── */
-            .atdd-cycle {
+            .page-acc main .atdd-cycle {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -908,7 +908,7 @@
                 flex-wrap: wrap;
                 margin: 1.5rem 0;
             }
-            .atdd-node {
+            .page-acc main .atdd-node {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -924,25 +924,25 @@
                 padding: 10px;
                 transition: transform 0.2s;
             }
-            .atdd-node:hover {
+            .page-acc main .atdd-node:hover {
                 transform: scale(1.05);
             }
-            .n-red {
+            .page-acc main .n-red {
                 background: var(--terra5);
                 border-color: var(--terra);
                 color: var(--terra);
             }
-            .n-green {
+            .page-acc main .n-green {
                 background: var(--sage5);
                 border-color: var(--sage);
                 color: var(--sage);
             }
-            .n-blue {
+            .page-acc main .n-blue {
                 background: var(--slate5);
                 border-color: var(--slate);
                 color: var(--slate);
             }
-            .atdd-arrow {
+            .page-acc main .atdd-arrow {
                 color: var(--ink4);
                 font-size: 1.3rem;
                 padding: 0 0.4rem;
@@ -950,7 +950,7 @@
             }
 
             /* ── REF TABLE ── */
-            .ref-url {
+            .page-acc main .ref-url {
                 font-family: var(--font-mono);
                 font-size: 11px;
                 color: var(--info);
@@ -958,10 +958,10 @@
                 opacity: 0.8;
                 word-break: break-all;
             }
-            .ref-url:hover {
+            .page-acc main .ref-url:hover {
                 opacity: 1;
             }
-            .ulink {
+            .page-acc main .ulink {
                 display: inline-flex;
                 align-items: center;
                 gap: 3px;
@@ -973,90 +973,90 @@
                 opacity: 0.75;
                 transition: opacity 0.15s;
             }
-            .ulink:hover {
+            .page-acc main .ulink:hover {
                 opacity: 1;
             }
-            .ulink::before {
+            .page-acc main .ulink::before {
                 content: '↗';
                 font-size: 9px;
             }
 
             /* ── GRID UTILS ── */
-            .g2 {
+            .page-acc main .g2 {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
             }
             @media (max-width: 600px) {
-                .g2 {
+                .page-acc main .g2 {
                     grid-template-columns: 1fr;
                 }
             }
-            .flex {
+            .page-acc main .flex {
                 display: flex;
             }
-            .fw {
+            .page-acc main .fw {
                 flex-wrap: wrap;
             }
-            .ia {
+            .page-acc main .ia {
                 align-items: center;
             }
-            .gap1 {
+            .page-acc main .gap1 {
                 gap: 0.5rem;
             }
-            .gap2 {
+            .page-acc main .gap2 {
                 gap: 1rem;
             }
-            .mt1 {
+            .page-acc main .mt1 {
                 margin-top: 0.5rem;
             }
-            .mt2 {
+            .page-acc main .mt2 {
                 margin-top: 1rem;
             }
-            .mt3 {
+            .page-acc main .mt3 {
                 margin-top: 1.5rem;
             }
-            .mt4 {
+            .page-acc main .mt4 {
                 margin-top: 2rem;
             }
-            hr.div {
+            .page-acc main hr.div {
                 border: none;
                 border-top: 1px solid var(--border);
                 margin: 1.5rem 0;
             }
-            .text-sm {
+            .page-acc main .text-sm {
                 font-size: 12.5px;
                 color: var(--ink3);
             }
 
             /* ── CHECKLIST ── */
-            .checklist {
+            .page-acc main .checklist {
                 list-style: none;
                 display: flex;
                 flex-direction: column;
                 gap: 0.35rem;
             }
-            .checklist li {
+            .page-acc main .checklist li {
                 display: flex;
                 align-items: flex-start;
                 gap: 0.6rem;
                 font-size: 13px;
                 color: var(--ink2);
             }
-            .checklist li::before {
+            .page-acc main .checklist li::before {
                 content: '✓';
                 color: var(--ok);
                 font-weight: 700;
                 flex-shrink: 0;
                 margin-top: 1px;
             }
-            .checklist li.x::before {
+            .page-acc main .checklist li.x::before {
                 content: '✗';
                 color: var(--err);
             }
 
             /* ── FOOTER ── */
-            footer {
+            .page-acc main footer {
                 margin-top: 5rem;
                 padding: 2.5rem 1.5rem;
                 border-top: 1px solid var(--border);
@@ -1065,7 +1065,7 @@
                 font-size: 12px;
                 font-family: var(--font-mono);
             }
-            footer a {
+            .page-acc main footer a {
                 color: var(--terra);
                 text-decoration: none;
             }
@@ -1081,28 +1081,28 @@
                     transform: translateY(0);
                 }
             }
-            .hero-content {
+            .page-acc main .hero-content {
                 animation: fade-up 0.65s ease forwards;
             }
 
             @media (max-width: 768px) {
-                nav {
+                .page-acc main nav {
                     padding: 0 1rem;
                 }
-                .proc-flow {
+                .page-acc main .proc-flow {
                     flex-direction: column;
                 }
-                .proc-step {
+                .page-acc main .proc-step {
                     border-right: none;
                     border-bottom: 1px solid var(--border);
                 }
-                .proc-step:last-child {
+                .page-acc main .proc-step:last-child {
                     border-bottom: none;
                 }
-                .atdd-cycle {
+                .page-acc main .atdd-cycle {
                     flex-direction: column;
                 }
-                .atdd-arrow {
+                .page-acc main .atdd-arrow {
                     transform: rotate(90deg);
                 }
             }
