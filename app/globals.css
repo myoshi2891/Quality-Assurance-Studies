@@ -469,6 +469,22 @@
         line-height: 1.75;
     }
 
+    .first-letter-badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        background: var(--color-unit);
+        color: var(--color-bg-primary);
+        font-family: var(--font-mono);
+        font-size: 1.1rem;
+        font-weight: 800;
+        margin-right: 4px;
+        box-shadow: 0 2px 8px rgba(79, 209, 197, 0.3);
+    }
+
     /* ─── BADGES / TAGS ─── */
     .badge {
         display: inline-block;
