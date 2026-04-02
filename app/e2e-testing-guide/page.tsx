@@ -5,7 +5,7 @@ export default function E2eTestingGuide() {
     return (
         <>
             <Header />
-            <main>
+            <main className="page-e2e">
             <section className="hero" id="top">
                 <div className="hero-content">
                     <span className="hero-kicker"

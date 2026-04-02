@@ -75,9 +75,6 @@
                 margin: 0;
                 padding: 0;
             }
-            html {
-                scroll-behavior: smooth;
-            }
             .page-acc {
                 background: var(--ivory);
                 color: var(--ink);
@@ -117,7 +114,7 @@
   .page-acc section {
                 padding-top: 5rem;
             }
-            section + section {
+            .page-acc section + section {
                 border-top: 1px solid var(--border);
                 margin-top: 0.5rem;
             }
@@ -1074,7 +1071,7 @@
             }
 
             /* ── ANIMATIONS ── */
-            @keyframes fadeUp {
+            @keyframes fade-up {
                 from {
                     opacity: 0;
                     transform: translateY(16px);
@@ -1085,7 +1082,7 @@
                 }
             }
             .hero-content {
-                animation: fadeUp 0.65s ease forwards;
+                animation: fade-up 0.65s ease forwards;
             }
 
             @media (max-width: 768px) {
