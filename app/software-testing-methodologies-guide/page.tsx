@@ -32,42 +32,42 @@ export default function SoftwareTestingMethodologiesGuide() {
     <div className="method-map">
       <div className="mm-cell mm-c1">
         <span className="mm-icon">📐</span>
-        <div className="mm-title" style={{color: "var(--teal2)"}}>静的テスト</div>
+        <div className="mm-title text-[var(--teal2)]">静的テスト</div>
         <div className="mm-sub">レビュー・静的解析<br />コード実行なし</div>
       </div>
       <div className="mm-cell mm-c2">
         <span className="mm-icon">⚡</span>
-        <div className="mm-title" style={{color: "var(--color-accent-yellow)"}}>動的テスト</div>
+        <div className="mm-title text-[var(--color-accent-yellow)]">動的テスト</div>
         <div className="mm-sub">実行ベースの検証<br />入出力を確認</div>
       </div>
       <div className="mm-cell mm-c3">
         <span className="mm-icon">🔲</span>
-        <div className="mm-title" style={{color: "var(--violet2)"}}>ブラックボックス</div>
+        <div className="mm-title text-[var(--violet2)]">ブラックボックス</div>
         <div className="mm-sub">外部視点<br />仕様ベース</div>
       </div>
       <div className="mm-cell mm-c4">
         <span className="mm-icon">⬜</span>
-        <div className="mm-title" style={{color: "var(--coral2)"}}>ホワイトボックス</div>
+        <div className="mm-title text-[var(--coral2)]">ホワイトボックス</div>
         <div className="mm-sub">内部構造<br />コードベース</div>
       </div>
       <div className="mm-cell mm-r2c1">
         <span className="mm-icon">🎯</span>
-        <div className="mm-title" style={{color: "var(--color-accent-green)"}}>設計技法</div>
+        <div className="mm-title text-[var(--color-accent-green)]">設計技法</div>
         <div className="mm-sub">同値/境界値/デシジョン<br />状態遷移/ユースケース</div>
       </div>
       <div className="mm-cell mm-r2c2">
         <span className="mm-icon">🏗️</span>
-        <div className="mm-title" style={{color: "var(--teal2)"}}>テストレベル</div>
+        <div className="mm-title text-[var(--teal2)]">テストレベル</div>
         <div className="mm-sub">ユニット→統合<br />→システム→受入</div>
       </div>
       <div className="mm-cell mm-r2c3">
         <span className="mm-icon">🔄</span>
-        <div className="mm-title" style={{color: "var(--color-accent-yellow)"}}>SDLC統合</div>
+        <div className="mm-title text-[var(--color-accent-yellow)]">SDLC統合</div>
         <div className="mm-sub">ウォーターフォール<br />アジャイル/DevOps</div>
       </div>
       <div className="mm-cell">
         <span className="mm-icon">🤖</span>
-        <div className="mm-title" style={{color: "var(--violet2)"}}>AI × テスト</div>
+        <div className="mm-title text-[var(--violet2)]">AI × テスト</div>
         <div className="mm-sub">GenAI活用<br />自動生成/分析</div>
       </div>
     </div>
@@ -77,8 +77,8 @@ export default function SoftwareTestingMethodologiesGuide() {
       ISTQB CTFL v4.0.1 シラバスの章構成に沿って、Section 1（テストの基礎）→ Section 3（静的テスト）→ Section 4（テスト設計技法）→ Section 2（SDLC統合）の順に構成されています。
       試験対策にも、実務の参考書としても活用できます。
       <br />
-      <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank">istqb.org — CTFL v4.0 公式</a>
-      <a href="https://glossary.istqb.org/en_US/search?term=" className="ulink" target="_blank">ISTQBグロッサリー</a>
+      <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank" rel="noopener noreferrer">istqb.org — CTFL v4.0 公式</a>
+      <a href="https://glossary.istqb.org/en_US/search?term=" className="ulink" target="_blank" rel="noopener noreferrer">ISTQBグロッサリー</a>
     </div>
   </div>
 </section>
@@ -156,9 +156,9 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
   </div>
   <p className="text-sm mt-2">参照:
-    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank">istqb.org — CTFL v4.0</a>
-    <a href="https://www.softwaretestinghelp.com/principles-of-software-testing/" className="ulink" target="_blank">softwaretestinghelp.com — 7 Testing Principles</a>
-    <a href="https://glossary.istqb.org/en_US/search?term=pesticide+paradox" className="ulink" target="_blank">ISTQB Glossary — Pesticide Paradox</a>
+    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank" rel="noopener noreferrer">istqb.org — CTFL v4.0</a>
+    <a href="https://www.softwaretestinghelp.com/principles-of-software-testing/" className="ulink" target="_blank" rel="noopener noreferrer">softwaretestinghelp.com — 7 Testing Principles</a>
+    <a href="https://glossary.istqb.org/en_US/search?term=pesticide+paradox" className="ulink" target="_blank" rel="noopener noreferrer">ISTQB Glossary — Pesticide Paradox</a>
   </p>
 </section>
 
@@ -178,7 +178,7 @@ export default function SoftwareTestingMethodologiesGuide() {
 
   <div className="vs-grid">
     <div className="vs-col" style={{borderColor: "rgba(58,184,168,.3)"}}>
-      <h3 style={{color: "var(--teal2)"}}>📐 静的テスト（Static Testing）</h3>
+      <h3 className="text-[var(--teal2)]">📐 静的テスト（Static Testing）</h3>
       <p style={{fontSize: "13px", color: "var(--color-text-secondary)", marginBottom: ".85rem"}}>
         ソフトウェアを<strong>実行せずに</strong>欠陥を検出する。コード・ドキュメント・設計書・要件仕様書を直接分析する。
       </p>
@@ -196,7 +196,7 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
     <div className="vs-mid">⟷</div>
     <div className="vs-col" style={{borderColor: "var(--border2)"}}>
-      <h3 style={{color: "var(--color-accent-yellow)"}}>⚡ 動的テスト（Dynamic Testing）</h3>
+      <h3 className="text-[var(--color-accent-yellow)]">⚡ 動的テスト（Dynamic Testing）</h3>
       <p style={{fontSize: "13px", color: "var(--color-text-secondary)", marginBottom: ".85rem"}}>
         ソフトウェアを<strong>実際に実行して</strong>、入力に対する出力・挙動を検証する。テストケースに基づいて実行し結果を評価する。
       </p>
@@ -281,13 +281,34 @@ export default function SoftwareTestingMethodologiesGuide() {
     <div>
       <div className="code-block">
         <div className="code-header"><div className="code-dots"><span></span><span></span><span></span></div><span className="code-lang">静的解析 — ESLint設定例 (.eslintrc.js)</span></div>
-        <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">// 静的テストの自動化：ESLintでコード品質を担保</span>\nmodule.<span class=\"fn\">exports</span> = {\n  <span class=\"str\">\"extends\"</span>: [\n    <span class=\"str\">\"eslint:recommended\"</span>,\n    <span class=\"str\">\"plugin:security/recommended\"</span>  <span class=\"cm\">// セキュリティルール</span>\n  ],\n  <span class=\"str\">\"rules\"</span>: {\n    <span class=\"str\">\"no-unused-vars\"</span>: <span class=\"str\">\"error\"</span>,       <span class=\"cm\">// 未使用変数</span>\n    <span class=\"str\">\"no-eval\"</span>: <span class=\"str\">\"error\"</span>,              <span class=\"cm\">// eval()の禁止</span>\n    <span class=\"str\">\"eqeqeq\"</span>: <span class=\"str\">\"error\"</span>,              <span class=\"cm\">// === の強制</span>\n    <span class=\"str\">\"complexity\"</span>: [<span class=\"str\">\"warn\"</span>, <span class=\"num\">10</span>],    <span class=\"cm\">// 循環的複雑度</span>\n    <span class=\"str\">\"max-lines\"</span>: [<span class=\"str\">\"warn\"</span>, <span class=\"num\">300</span>],    <span class=\"cm\">// 1ファイル300行制限</span>\n  }\n};\n\n<span class=\"cm\">// CI/CDでの自動実行（GitHub Actions）</span>\n<span class=\"cm\"># .github/workflows/static-analysis.yml</span>\nsteps:\n  - <span class=\"dec\">run</span>: <span class=\"str\">npm run lint</span>       <span class=\"cm\"># ESLint</span>\n  - <span class=\"dec\">run</span>: <span class=\"str\">npx sonarcloud-scan</span> <span class=\"cm\"># SonarQube</span>" }} />
+        <pre>
+          <span className="cm">// 静的テストの自動化：ESLintでコード品質を担保</span>{'\n'}
+          module.<span className="fn">exports</span> = {'{'}{'\n'}
+          {'  '}<span className="str">"extends"</span>: [{'\n'}
+          {'    '}<span className="str">"eslint:recommended"</span>,{'\n'}
+          {'    '}<span className="str">"plugin:security/recommended"</span>  <span className="cm">// セキュリティルール</span>{'\n'}
+          {'  '}],{'\n'}
+          {'  '}<span className="str">"rules"</span>: {'{'}{'\n'}
+          {'    '}<span className="str">"no-unused-vars"</span>: <span className="str">"error"</span>,       <span className="cm">// 未使用変数</span>{'\n'}
+          {'    '}<span className="str">"no-eval"</span>: <span className="str">"error"</span>,              <span className="cm">// eval()の禁止</span>{'\n'}
+          {'    '}<span className="str">"eqeqeq"</span>: <span className="str">"error"</span>,              <span className="cm">// === の強制</span>{'\n'}
+          {'    '}<span className="str">"complexity"</span>: [<span className="str">"warn"</span>, <span className="num">10</span>],    <span className="cm">// 循環的複雑度</span>{'\n'}
+          {'    '}<span className="str">"max-lines"</span>: [<span className="str">"warn"</span>, <span className="num">300</span>],    <span className="cm">// 1ファイル300行制限</span>{'\n'}
+          {'  '}{'}'}{'\n'}
+          {'}'};{'\n'}
+          {'\n'}
+          <span className="cm">// CI/CDでの自動実行（GitHub Actions）</span>{'\n'}
+          <span className="cm"># .github/workflows/static-analysis.yml</span>{'\n'}
+          steps:{'\n'}
+          {'  '}- <span className="dec">run</span>: <span className="str">npm run lint</span>       <span className="cm"># ESLint</span>{'\n'}
+          {'  '}- <span className="dec">run</span>: <span className="str">npx sonarcloud-scan</span> <span className="cm"># SonarQube</span>
+        </pre>
       </div>
     </div>
   </div>
   <p className="text-sm mt-1">参照:
-    <a href="https://www.browserstack.com/guide/static-testing" className="ulink" target="_blank">browserstack.com — Static Testing Guide</a>
-    <a href="https://www.testdevlab.com/blog/static-testing-vs-dynamic-testing" className="ulink" target="_blank">testdevlab.com — Static vs Dynamic Testing</a>
+    <a href="https://www.browserstack.com/guide/static-testing" className="ulink" target="_blank" rel="noopener noreferrer">browserstack.com — Static Testing Guide</a>
+    <a href="https://www.testdevlab.com/blog/static-testing-vs-dynamic-testing" className="ulink" target="_blank" rel="noopener noreferrer">testdevlab.com — Static vs Dynamic Testing</a>
   </p>
 </section>
 
@@ -306,7 +327,7 @@ export default function SoftwareTestingMethodologiesGuide() {
   </div>
 
   <div className="card-grid">
-    <div className="card" style={{borderColor: "rgba(58,184,168,.3)"}}>
+    <div className="card border-[rgba(58,184,168,.3)]">
       <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: ".85rem"}}>
         <h3 style={{fontSize: "1.1rem", color: "var(--teal2)"}}>🔲 ブラックボックステスト</h3>
         <span className="badge badge-int">外部視点</span>
@@ -314,12 +335,12 @@ export default function SoftwareTestingMethodologiesGuide() {
       <p>内部コードを<strong>一切知らずに</strong>、外部の振る舞いのみを検証。ユーザー視点でビジネス仕様に対するテストを設計。</p>
       <hr className="divider" />
       <div style={{fontSize: "12.5px", color: "var(--color-text-secondary)"}}>
-        <strong style={{color: "var(--text)"}}>使用場面：</strong>機能テスト・受入テスト・UAT<br />
-        <strong style={{color: "var(--text)"}}>設計根拠：</strong>要件仕様書・ユーザーストーリー<br />
-        <strong style={{color: "var(--text)"}}>主な技法：</strong>同値クラス・境界値・デシジョンテーブル・状態遷移
+        <strong className="text-[var(--text)]">使用場面：</strong>機能テスト・受入テスト・UAT<br />
+        <strong className="text-[var(--text)]">設計根拠：</strong>要件仕様書・ユーザーストーリー<br />
+        <strong className="text-[var(--text)]">主な技法：</strong>同値クラス・境界値・デシジョンテーブル・状態遷移
       </div>
     </div>
-    <div className="card" style={{borderColor: "rgba(224,92,92,.3)"}}>
+    <div className="card border-[rgba(224,92,92,.3)]">
       <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: ".85rem"}}>
         <h3 style={{fontSize: "1.1rem", color: "var(--coral2)"}}>⬜ ホワイトボックステスト</h3>
         <span className="badge b-coral">内部視点</span>
@@ -327,12 +348,12 @@ export default function SoftwareTestingMethodologiesGuide() {
       <p>ソースコード・アーキテクチャ・実装詳細を<strong>完全に把握した上で</strong>テストを設計。全実行パス・論理フロー・条件分岐を網羅的に検査。</p>
       <hr className="divider" />
       <div style={{fontSize: "12.5px", color: "var(--color-text-secondary)"}}>
-        <strong style={{color: "var(--text)"}}>使用場面：</strong>ユニットテスト・コンポーネントテスト・静的解析<br />
-        <strong style={{color: "var(--text)"}}>設計根拠：</strong>ソースコード・設計書<br />
-        <strong style={{color: "var(--text)"}}>主な技法：</strong>命令網羅・分岐網羅・条件網羅・パス網羅
+        <strong className="text-[var(--text)]">使用場面：</strong>ユニットテスト・コンポーネントテスト・静的解析<br />
+        <strong className="text-[var(--text)]">設計根拠：</strong>ソースコード・設計書<br />
+        <strong className="text-[var(--text)]">主な技法：</strong>命令網羅・分岐網羅・条件網羅・パス網羅
       </div>
     </div>
-    <div className="card" style={{borderColor: "rgba(139,110,221,.3)"}}>
+    <div className="card border-[rgba(139,110,221,.3)]">
       <div style={{display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: ".85rem"}}>
         <h3 style={{fontSize: "1.1rem", color: "var(--violet2)"}}>🔳 グレーボックステスト</h3>
         <span className="badge badge-func">部分的知識</span>
@@ -340,8 +361,8 @@ export default function SoftwareTestingMethodologiesGuide() {
       <p>内部構造の<strong>「部分的な知識」</strong>を持ってテストケースを設計し、実行は外部インターフェース（UI・API）から行う。黒と白の中間的アプローチ。</p>
       <hr className="divider" />
       <div style={{fontSize: "12.5px", color: "var(--color-text-secondary)"}}>
-        <strong style={{color: "var(--text)"}}>使用場面：</strong>E2Eテスト・インテグレーションテスト・ペネトレーションテスト<br />
-        <strong style={{color: "var(--text)"}}>特徴：</strong>IASTツール・セキュリティテストとの相性が良い
+        <strong className="text-[var(--text)]">使用場面：</strong>E2Eテスト・インテグレーションテスト・ペネトレーションテスト<br />
+        <strong className="text-[var(--text)]">特徴：</strong>IASTツール・セキュリティテストとの相性が良い
       </div>
     </div>
   </div>
@@ -351,8 +372,8 @@ export default function SoftwareTestingMethodologiesGuide() {
     セキュリティとAPI検証にグレーボックス、UI検証にブラックボックス、クリティカルなビジネスロジックにホワイトボックスを
     バランスよく組み合わせた組織は、本番デプロイ前にクリティカルな欠陥を<strong>35%多く特定</strong>できることが実証されています。
     <br />
-    <a href="https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/" className="ulink" target="_blank">testlio.com — Black/White/Grey Box Testing</a>
-    <a href="https://www.testdevlab.com/blog/white-box-vs-black-box-vs-gray-box-testing" className="ulink" target="_blank">testdevlab.com</a>
+    <a href="https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/" className="ulink" target="_blank" rel="noopener noreferrer">testlio.com — Black/White/Grey Box Testing</a>
+    <a href="https://www.testdevlab.com/blog/white-box-vs-black-box-vs-gray-box-testing" className="ulink" target="_blank" rel="noopener noreferrer">testdevlab.com</a>
   </div>
 </section>
 
@@ -370,8 +391,8 @@ export default function SoftwareTestingMethodologiesGuide() {
   <div className="card-grid" style={{gridTemplateColumns: "repeat(auto-fill,minmax(280px,1fr))"}}>
 
     {/* EP */}
-    <div className="tech-card" style={{borderTopColor: "var(--color-accent-cyan)"}}>
-      <span className="tech-tag" style={{color: "var(--teal2)"}}>技法①  EQUIVALENCE PARTITIONING</span>
+    <div className="tech-card border-t-[var(--color-accent-cyan)]">
+      <span className="tech-tag text-[var(--teal2)]">技法①  EQUIVALENCE PARTITIONING</span>
       <div className="tech-title">同値クラス分析（同値分割）</div>
       <div className="tech-desc">
         入力データを「有効クラス」と「無効クラス」のグループに分類し、
@@ -381,14 +402,27 @@ export default function SoftwareTestingMethodologiesGuide() {
       <div className="tech-ex">年齢フィールド（有効:0〜120）→有効クラス代表「60」、無効クラス代表「-1」「121」</div>
       <div className="code-block mt-2">
         <div className="code-header"><div className="code-dots"><span></span><span></span><span></span></div><span className="code-lang">Python例</span></div>
-        <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\"># 年齢バリデーション関数のEP設計</span>\n<span class=\"cm\"># 有効クラス: 0 ≤ age ≤ 120 → 代表値: 60</span>\n<span class=\"cm\"># 無効クラス1: age < 0     → 代表値: -1</span>\n<span class=\"cm\"># 無効クラス2: age > 120   → 代表値: 121</span>\n<span class=\"kw\">def</span> <span class=\"fn\">test_年齢_有効クラス</span>():\n    <span class=\"kw\">assert</span> <span class=\"fn\">validate_age</span>(<span class=\"num\">60</span>) == <span class=\"cls\">True</span>\n\n<span class=\"kw\">def</span> <span class=\"fn\">test_年齢_無効クラス_負の数</span>():\n    <span class=\"kw\">assert</span> <span class=\"fn\">validate_age</span>(<span class=\"num\">-1</span>) == <span class=\"cls\">False</span>\n\n<span class=\"kw\">def</span> <span class=\"fn\">test_年齢_無効クラス_121超</span>():\n    <span class=\"kw\">assert</span> <span class=\"fn\">validate_age</span>(<span class=\"num\">121</span>) == <span class=\"cls\">False</span>" }} />
+        <pre>
+          <span className="cm"># 年齢バリデーション関数のEP設計</span>{'\n'}
+          <span className="cm"># 有効クラス: 0 ≤ age ≤ 120 → 代表値: 60</span>{'\n'}
+          <span className="cm"># 無効クラス1: age &lt; 0     → 代表値: -1</span>{'\n'}
+          <span className="cm"># 無効クラス2: age &gt; 120   → 代表値: 121</span>{'\n'}
+          <span className="kw">def</span> <span className="fn">test_年齢_有効クラス</span>():{'\n'}
+          {'    '}<span className="kw">assert</span> <span className="fn">validate_age</span>(<span className="num">60</span>) == <span className="cls">True</span>{'\n'}
+          {'\n'}
+          <span className="kw">def</span> <span className="fn">test_年齢_無効クラス_負の数</span>():{'\n'}
+          {'    '}<span className="kw">assert</span> <span className="fn">validate_age</span>(<span className="num">-1</span>) == <span className="cls">False</span>{'\n'}
+          {'\n'}
+          <span className="kw">def</span> <span className="fn">test_年齢_無効クラス_121超</span>():{'\n'}
+          {'    '}<span className="kw">assert</span> <span className="fn">validate_age</span>(<span className="num">121</span>) == <span className="cls">False</span>
+        </pre>
       </div>
       <span className="badge badge-int">CTFL 4.2.1</span>
     </div>
 
     {/* BVA */}
-    <div className="tech-card" style={{borderTopColor: "var(--color-accent-orange)"}}>
-      <span className="tech-tag" style={{color: "var(--color-accent-yellow)"}}>技法②  BOUNDARY VALUE ANALYSIS</span>
+    <div className="tech-card border-t-[var(--color-accent-orange)]">
+      <span className="tech-tag text-[var(--color-accent-yellow)]">技法②  BOUNDARY VALUE ANALYSIS</span>
       <div className="tech-title">境界値分析（BVA）</div>
       <div className="tech-desc">
         バグが最も発生しやすい<strong>境界の前後の値</strong>を重点的にテストする技法。
@@ -413,8 +447,8 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
 
     {/* DT */}
-    <div className="tech-card" style={{borderTopColor: "var(--color-accent-purple)"}}>
-      <span className="tech-tag" style={{color: "var(--violet2)"}}>技法③  DECISION TABLE TESTING</span>
+    <div className="tech-card border-t-[var(--color-accent-purple)]">
+      <span className="tech-tag text-[var(--violet2)]">技法③  DECISION TABLE TESTING</span>
       <div className="tech-title">デシジョンテーブルテスト</div>
       <div className="tech-desc">
         複数の入力条件の<strong>全ての組み合わせ</strong>をマトリクス形式で表現し、
@@ -436,8 +470,8 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
 
     {/* State Transition */}
-    <div className="tech-card" style={{borderTopColor: "var(--coral)"}}>
-      <span className="tech-tag" style={{color: "var(--coral2)"}}>技法④  STATE TRANSITION TESTING</span>
+    <div className="tech-card border-t-[var(--coral)]">
+      <span className="tech-tag text-[var(--coral2)]">技法④  STATE TRANSITION TESTING</span>
       <div className="tech-title">状態遷移テスト</div>
       <div className="tech-desc">
         システムが取り得る<strong>「状態」</strong>と、状態を変化させる<strong>「イベント/トリガー」</strong>の組み合わせを体系的にテストする技法。
@@ -446,14 +480,27 @@ export default function SoftwareTestingMethodologiesGuide() {
       <div className="tech-ex">注文システム：[新規]→支払い→[承認待ち]→承認→[処理中]→発送→[配送中]→受取→[完了]</div>
       <div className="code-block mt-2">
         <div className="code-header"><div className="code-dots"><span></span><span></span><span></span></div><span className="code-lang">状態遷移テスト設計</span></div>
-        <pre dangerouslySetInnerHTML={{ __html: "<span class=\"hl-t\">状態:</span> 新規 / 承認待ち / 処理中 / 配送中 / 完了 / キャンセル済\n<span class=\"hl-t\">トリガー:</span> 支払い / 承認 / 発送 / 受取確認 / キャンセル\n\n<span class=\"cm\"># テストケース1: 正常フロー（全状態を通過）</span>\n新規 → <span class=\"fn\">支払い</span> → 承認待ち → <span class=\"fn\">承認</span> → 処理中\n     → <span class=\"fn\">発送</span> → 配送中 → <span class=\"fn\">受取確認</span> → 完了\n\n<span class=\"cm\"># テストケース2: 処理中状態からのキャンセル（無効遷移）</span>\n処理中 → <span class=\"fn\">キャンセル</span> → <span class=\"hl-r\">エラー（不可能な遷移）</span>\n\n<span class=\"cm\"># テストケース3: 承認待ちからのキャンセル（有効）</span>\n承認待ち → <span class=\"fn\">キャンセル</span> → キャンセル済 ✓" }} />
+        <pre>
+          <span className="hl-t">状態:</span> 新規 / 承認待ち / 処理中 / 配送中 / 完了 / キャンセル済{'\n'}
+          <span className="hl-t">トリガー:</span> 支払い / 承認 / 発送 / 受取確認 / キャンセル{'\n'}
+          {'\n'}
+          <span className="cm"># テストケース1: 正常フロー（全状態を通過）</span>{'\n'}
+          新規 → <span className="fn">支払い</span> → 承認待ち → <span className="fn">承認</span> → 処理中{'\n'}
+          {'     '}→ <span className="fn">発送</span> → 配送中 → <span className="fn">受取確認</span> → 完了{'\n'}
+          {'\n'}
+          <span className="cm"># テストケース2: 処理中状態からのキャンセル（無効遷移）</span>{'\n'}
+          処理中 → <span className="fn">キャンセル</span> → <span className="hl-r">エラー（不可能な遷移）</span>{'\n'}
+          {'\n'}
+          <span className="cm"># テストケース3: 承認待ちからのキャンセル（有効）</span>{'\n'}
+          承認待ち → <span className="fn">キャンセル</span> → キャンセル済 ✓
+        </pre>
       </div>
       <span className="badge b-coral">CTFL 4.2.4</span>
     </div>
 
     {/* Use Case */}
-    <div className="tech-card" style={{borderTopColor: "var(--color-accent-green)"}}>
-      <span className="tech-tag" style={{color: "var(--color-accent-green)"}}>技法⑤  USE CASE TESTING</span>
+    <div className="tech-card border-t-[var(--color-accent-green)]">
+      <span className="tech-tag text-[var(--color-accent-green)]">技法⑤  USE CASE TESTING</span>
       <div className="tech-title">ユースケーステスト</div>
       <div className="tech-desc">
         ユーザーとシステムの相互作用（ユースケース）を単位として、
@@ -465,8 +512,8 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
 
     {/* Fuzz Testing */}
-    <div className="tech-card" style={{borderTopColor: "var(--color-accent-orange)"}}>
-      <span className="tech-tag" style={{color: "var(--color-accent-yellow)"}}>技法⑥  FUZZ TESTING</span>
+    <div className="tech-card border-t-[var(--color-accent-orange)]">
+      <span className="tech-tag text-[var(--color-accent-yellow)]">技法⑥  FUZZ TESTING</span>
       <div className="tech-title">ファジングテスト</div>
       <div className="tech-desc">
         予測不可能な<strong>ランダムデータ・異常値・不正入力</strong>をシステムに大量注入し、
@@ -480,10 +527,10 @@ export default function SoftwareTestingMethodologiesGuide() {
   </div>
 
   <p className="text-sm mt-3">参照:
-    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank">ISTQB CTFL v4.0 Section 4.2</a>
-    <a href="https://www.guru99.com/equivalence-partitioning-boundary-value-analysis.html" className="ulink" target="_blank">guru99.com — EP & BVA Guide</a>
-    <a href="https://www.softwaretestinghelp.com/decision-table-testing-technique/" className="ulink" target="_blank">softwaretestinghelp.com — Decision Table Testing</a>
-    <a href="https://www.lambdatest.com/blog/state-transition-testing/" className="ulink" target="_blank">lambdatest.com — State Transition Testing</a>
+    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank" rel="noopener noreferrer">ISTQB CTFL v4.0 Section 4.2</a>
+    <a href="https://www.guru99.com/equivalence-partitioning-boundary-value-analysis.html" className="ulink" target="_blank" rel="noopener noreferrer">guru99.com — EP & BVA Guide</a>
+    <a href="https://www.softwaretestinghelp.com/decision-table-testing-technique/" className="ulink" target="_blank" rel="noopener noreferrer">softwaretestinghelp.com — Decision Table Testing</a>
+    <a href="https://www.lambdatest.com/blog/state-transition-testing/" className="ulink" target="_blank" rel="noopener noreferrer">lambdatest.com — State Transition Testing</a>
   </p>
 </section>
 
@@ -547,7 +594,31 @@ export default function SoftwareTestingMethodologiesGuide() {
     <div>
       <div className="code-block">
         <div className="code-header"><div className="code-dots"><span></span><span></span><span></span></div><span className="code-lang">Python — カバレッジ例示コード</span></div>
-        <pre dangerouslySetInnerHTML={{ __html: "<span class=\"kw\">def</span> <span class=\"fn\">classify_bmi</span>(weight: <span class=\"cls\">float</span>, height: <span class=\"cls\">float</span>) -> <span class=\"cls\">str</span>:\n    <span class=\"kw\">if</span> height <= <span class=\"num\">0</span>:\n        <span class=\"kw\">raise</span> <span class=\"cls\">ValueError</span>(<span class=\"str\">\"身長は正の値必須\"</span>)\n    bmi = weight / (height ** <span class=\"num\">2</span>)\n    <span class=\"kw\">if</span> bmi < <span class=\"num\">18.5</span>:\n        <span class=\"kw\">return</span> <span class=\"str\">\"低体重\"</span>\n    <span class=\"kw\">elif</span> bmi < <span class=\"num\">25.0</span>:\n        <span class=\"kw\">return</span> <span class=\"str\">\"普通体重\"</span>\n    <span class=\"kw\">elif</span> bmi < <span class=\"num\">30.0</span>:\n        <span class=\"kw\">return</span> <span class=\"str\">\"過体重\"</span>\n    <span class=\"kw\">else</span>:\n        <span class=\"kw\">return</span> <span class=\"str\">\"肥満\"</span>\n\n<span class=\"cm\"># ── 分岐網羅（C1）テストケース ──────────────</span>\n<span class=\"kw\">def</span> <span class=\"fn\">test_bmi_branch_coverage</span>():\n    <span class=\"cm\"># 分岐1: height <= 0 → True</span>\n    <span class=\"kw\">with</span> pytest.raises(<span class=\"cls\">ValueError</span>): <span class=\"fn\">classify_bmi</span>(<span class=\"num\">60</span>, <span class=\"num\">0</span>)\n    <span class=\"cm\"># 分岐2〜5: bmiの各範囲 → False (4パターン)</span>\n    <span class=\"kw\">assert</span> <span class=\"fn\">classify_bmi</span>(<span class=\"num\">45</span>, <span class=\"num\">1.7</span>) == <span class=\"str\">\"低体重\"</span>    <span class=\"cm\"># bmi≈15.6</span>\n    <span class=\"kw\">assert</span> <span class=\"fn\">classify_bmi</span>(<span class=\"num\">60</span>, <span class=\"num\">1.7</span>) == <span class=\"str\">\"普通体重\"</span>  <span class=\"cm\"># bmi≈20.8</span>\n    <span class=\"kw\">assert</span> <span class=\"fn\">classify_bmi</span>(<span class=\"num\">75</span>, <span class=\"num\">1.7</span>) == <span class=\"str\">\"過体重\"</span>    <span class=\"cm\"># bmi≈26.0</span>\n    <span class=\"kw\">assert</span> <span class=\"fn\">classify_bmi</span>(<span class=\"num\">90</span>, <span class=\"num\">1.7</span>) == <span class=\"str\">\"肥満\"</span>      <span class=\"cm\"># bmi≈31.1</span>\n<span class=\"cm\"># → 分岐網羅率 100% 達成！</span>" }} />
+        <pre>
+          <span className="kw">def</span> <span className="fn">classify_bmi</span>(weight: <span className="cls">float</span>, height: <span className="cls">float</span>) -&gt; <span className="cls">str</span>:{'\n'}
+          {'    '}<span className="kw">if</span> height &lt;= <span className="num">0</span>:{'\n'}
+          {'        '}<span className="kw">raise</span> <span className="cls">ValueError</span>(<span className="str">"身長は正の値必須"</span>){'\n'}
+          {'    '}bmi = weight / (height ** <span className="num">2</span>){'\n'}
+          {'    '}<span className="kw">if</span> bmi &lt; <span className="num">18.5</span>:{'\n'}
+          {'        '}<span className="kw">return</span> <span className="str">"低体重"</span>{'\n'}
+          {'    '}<span className="kw">elif</span> bmi &lt; <span className="num">25.0</span>:{'\n'}
+          {'        '}<span className="kw">return</span> <span className="str">"普通体重"</span>{'\n'}
+          {'    '}<span className="kw">elif</span> bmi &lt; <span className="num">30.0</span>:{'\n'}
+          {'        '}<span className="kw">return</span> <span className="str">"過体重"</span>{'\n'}
+          {'    '}<span className="kw">else</span>:{'\n'}
+          {'        '}<span className="kw">return</span> <span className="str">"肥満"</span>{'\n'}
+          {'\n'}
+          <span className="cm"># ── 分岐網羅（C1）テストケース ──────────────</span>{'\n'}
+          <span className="kw">def</span> <span className="fn">test_bmi_branch_coverage</span>():{'\n'}
+          {'    '}<span className="cm"># 分岐1: height &lt;= 0 → True</span>{'\n'}
+          {'    '}<span className="kw">with</span> pytest.raises(<span className="cls">ValueError</span>): <span className="fn">classify_bmi</span>(<span className="num">60</span>, <span className="num">0</span>){'\n'}
+          {'    '}<span className="cm"># 分岐2〜5: bmiの各範囲 → False (4パターン)</span>{'\n'}
+          {'    '}<span className="kw">assert</span> <span className="fn">classify_bmi</span>(<span className="num">45</span>, <span className="num">1.7</span>) == <span className="str">"低体重"</span>    <span className="cm"># bmi≈15.6</span>{'\n'}
+          {'    '}<span className="kw">assert</span> <span className="fn">classify_bmi</span>(<span className="num">60</span>, <span className="num">1.7</span>) == <span className="str">"普通体重"</span>  <span className="cm"># bmi≈20.8</span>{'\n'}
+          {'    '}<span className="kw">assert</span> <span className="fn">classify_bmi</span>(<span className="num">75</span>, <span className="num">1.7</span>) == <span className="str">"過体重"</span>    <span className="cm"># bmi≈26.0</span>{'\n'}
+          {'    '}<span className="kw">assert</span> <span className="fn">classify_bmi</span>(<span className="num">90</span>, <span className="num">1.7</span>) == <span className="str">"肥満"</span>      <span className="cm"># bmi≈31.1</span>{'\n'}
+          <span className="cm"># → 分岐網羅率 100% 達成！</span>
+        </pre>
       </div>
     </div>
     <div>
@@ -583,9 +654,9 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
   </div>
   <p className="text-sm mt-2">参照:
-    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank">ISTQB CTFL v4.0 Section 4.3</a>
-    <a href="https://www.guru99.com/code-coverage.html" className="ulink" target="_blank">guru99.com — Code Coverage Complete Guide</a>
-    <a href="https://martinfowler.com/bliki/TestCoverage.html" className="ulink" target="_blank">martinfowler.com — Test Coverage</a>
+    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank" rel="noopener noreferrer">ISTQB CTFL v4.0 Section 4.3</a>
+    <a href="https://www.guru99.com/code-coverage.html" className="ulink" target="_blank" rel="noopener noreferrer">guru99.com — Code Coverage Complete Guide</a>
+    <a href="https://martinfowler.com/bliki/TestCoverage.html" className="ulink" target="_blank" rel="noopener noreferrer">martinfowler.com — Test Coverage</a>
   </p>
 </section>
 
@@ -640,8 +711,8 @@ export default function SoftwareTestingMethodologiesGuide() {
     機械的なテスト設計技法（EP・BVA等）では発見しにくい<strong>「想定外の動作」「UXの違和感」「ビジネスシナリオ特有の問題」</strong>を発見するのに最も効果的。
     探索的テストと自動化テストの組み合わせが2025年の最もROIの高いアプローチとして業界標準になっています。
     <br />
-    <a href="https://www.satisfice.com/exploratory-testing" className="ulink" target="_blank">satisfice.com — Exploratory Testing (James Bach)</a>
-    <a href="https://www.testingexcellence.com/exploratory-testing-charter/" className="ulink" target="_blank">testingexcellence.com — Testing Charter</a>
+    <a href="https://www.satisfice.com/exploratory-testing" className="ulink" target="_blank" rel="noopener noreferrer">satisfice.com — Exploratory Testing (James Bach)</a>
+    <a href="https://www.testingexcellence.com/exploratory-testing-charter/" className="ulink" target="_blank" rel="noopener noreferrer">testingexcellence.com — Testing Charter</a>
   </div>
 </section>
 
@@ -666,7 +737,7 @@ export default function SoftwareTestingMethodologiesGuide() {
       </thead>
       <tbody>
         <tr>
-          <td><strong style={{color: "var(--teal2)"}}>L1 ユニットテスト</strong><br /><span className="badge badge-int" style={{marginTop: "3px"}}>Component Testing</span></td>
+          <td><strong className="text-[var(--teal2)]">L1 ユニットテスト</strong><br /><span className="badge badge-int" style={{marginTop: "3px"}}>Component Testing</span></td>
           <td>コンポーネントテスト</td>
           <td>関数・クラス・メソッド</td>
           <td>開発者</td>
@@ -674,7 +745,7 @@ export default function SoftwareTestingMethodologiesGuide() {
           <td className="g">開発環境（高速）</td>
         </tr>
         <tr>
-          <td><strong style={{color: "var(--violet2)"}}>L2 統合テスト</strong><br /><span className="badge badge-func" style={{marginTop: "3px"}}>Integration Testing</span></td>
+          <td><strong className="text-[var(--violet2)]">L2 統合テスト</strong><br /><span className="badge badge-func" style={{marginTop: "3px"}}>Integration Testing</span></td>
           <td>コンポーネント統合テスト</td>
           <td>モジュール間インターフェース</td>
           <td>開発者・QA</td>
@@ -682,7 +753,7 @@ export default function SoftwareTestingMethodologiesGuide() {
           <td className="w">統合テスト環境</td>
         </tr>
         <tr>
-          <td><strong style={{color: "var(--color-accent-yellow)"}}>L3 システムテスト</strong><br /><span className="badge badge-e2e" style={{marginTop: "3px"}}>System Testing</span></td>
+          <td><strong className="text-[var(--color-accent-yellow)]">L3 システムテスト</strong><br /><span className="badge badge-e2e" style={{marginTop: "3px"}}>System Testing</span></td>
           <td>システムテスト</td>
           <td>システム全体の機能/非機能</td>
           <td>独立QAチーム</td>
@@ -690,7 +761,7 @@ export default function SoftwareTestingMethodologiesGuide() {
           <td className="w">ステージング環境</td>
         </tr>
         <tr>
-          <td><strong style={{color: "var(--coral2)"}}>L4 受入テスト</strong><br /><span className="badge b-coral" style={{marginTop: "3px"}}>Acceptance Testing</span></td>
+          <td><strong className="text-[var(--coral2)]">L4 受入テスト</strong><br /><span className="badge b-coral" style={{marginTop: "3px"}}>Acceptance Testing</span></td>
           <td>受入テスト</td>
           <td>ユーザーニーズ・ビジネス要件</td>
           <td>ユーザー・顧客・PO</td>
@@ -743,13 +814,46 @@ export default function SoftwareTestingMethodologiesGuide() {
     <div>
       <div className="code-block mt-1">
         <div className="code-header"><div className="code-dots"><span></span><span></span><span></span></div><span className="code-lang">テストレベルの実例（ECサイト）</span></div>
-        <pre dangerouslySetInnerHTML={{ __html: "<span class=\"hl-t\">// L1 ユニットテスト</span>\n<span class=\"cm\">// 「割引計算関数」単体を検証</span>\n<span class=\"kw\">function</span> <span class=\"fn\">test_会員割引10%の計算が正しい</span>() {\n    <span class=\"kw\">const</span> result = <span class=\"fn\">applyDiscount</span>(<span class=\"num\">1000</span>, <span class=\"str\">\"member\"</span>);\n    <span class=\"fn\">expect</span>(result).<span class=\"fn\">toBe</span>(<span class=\"num\">900</span>);\n}\n\n<span class=\"hl-v\">// L2 統合テスト</span>\n<span class=\"cm\">// 「注文API」がDBに正しく保存するか検証</span>\n<span class=\"kw\">async function</span> <span class=\"fn\">test_注文作成API_DBに正常保存</span>() {\n    <span class=\"kw\">const</span> res = <span class=\"kw\">await</span> <span class=\"fn\">POST</span>(<span class=\"str\">'/api/orders'</span>, cartData);\n    <span class=\"fn\">expect</span>(res.status).<span class=\"fn\">toBe</span>(<span class=\"num\">201</span>);\n    <span class=\"kw\">const</span> order = <span class=\"kw\">await</span> db.orders.<span class=\"fn\">findById</span>(res.body.id);\n    <span class=\"fn\">expect</span>(order.status).<span class=\"fn\">toBe</span>(<span class=\"str\">'pending'</span>);\n}\n\n<span class=\"hl-a\">// L3 システムテスト（Playwright）</span>\n<span class=\"cm\">// 「購入フロー全体」をE2Eで検証</span>\n<span class=\"kw\">async function</span> <span class=\"fn\">test_ユーザーが商品を購入できる</span>() {\n    <span class=\"kw\">await</span> page.<span class=\"fn\">goto</span>(<span class=\"str\">'/products/item-001'</span>);\n    <span class=\"kw\">await</span> page.<span class=\"fn\">click</span>(<span class=\"str\">'[data-testid=add-to-cart]'</span>);\n    <span class=\"kw\">await</span> page.<span class=\"fn\">goto</span>(<span class=\"str\">'/checkout'</span>);\n    <span class=\"kw\">await</span> page.<span class=\"fn\">fill</span>(<span class=\"str\">'[data-testid=card]'</span>, <span class=\"str\">'4242...'</span>);\n    <span class=\"kw\">await</span> page.<span class=\"fn\">click</span>(<span class=\"str\">'[data-testid=pay-btn]'</span>);\n    <span class=\"kw\">await</span> <span class=\"fn\">expect</span>(page.<span class=\"fn\">locator</span>(<span class=\"str\">'h1'</span>))\n        .<span class=\"fn\">toContainText</span>(<span class=\"str\">'注文完了'</span>);\n}\n\n<span class=\"hl-g\">// L4 受入テスト（UAT）</span>\n<span class=\"cm\">// 実際の購買担当者が業務フローを検証</span>\n<span class=\"cm\">// → Given-When-Then Gherkinシナリオで定義</span>\n<span class=\"cm\">// → Go/No-Goの承認を正式に記録・サインオフ</span>" }} />
+        <pre>
+          <span className="hl-t">// L1 ユニットテスト</span>{'\n'}
+          <span className="cm">// 「割引計算関数」単体を検証</span>{'\n'}
+          <span className="kw">function</span> <span className="fn">test_会員割引10%の計算が正しい</span>() {'{'}{'\n'}
+          {'    '}<span className="kw">const</span> result = <span className="fn">applyDiscount</span>(<span className="num">1000</span>, <span className="str">"member"</span>);{'\n'}
+          {'    '}<span className="fn">expect</span>(result).<span className="fn">toBe</span>(<span className="num">900</span>);{'\n'}
+          {'}'}{'\n'}
+          {'\n'}
+          <span className="hl-v">// L2 統合テスト</span>{'\n'}
+          <span className="cm">// 「注文API」がDBに正しく保存するか検証</span>{'\n'}
+          <span className="kw">async function</span> <span className="fn">test_注文作成API_DBに正常保存</span>() {'{'}{'\n'}
+          {'    '}<span className="kw">const</span> res = <span className="kw">await</span> <span className="fn">POST</span>(<span className="str">'/api/orders'</span>, cartData);{'\n'}
+          {'    '}<span className="fn">expect</span>(res.status).<span className="fn">toBe</span>(<span className="num">201</span>);{'\n'}
+          {'    '}<span className="kw">const</span> order = <span className="kw">await</span> db.orders.<span className="fn">findById</span>(res.body.id);{'\n'}
+          {'    '}<span className="fn">expect</span>(order.status).<span className="fn">toBe</span>(<span className="str">'pending'</span>);{'\n'}
+          {'}'}{'\n'}
+          {'\n'}
+          <span className="hl-a">// L3 システムテスト（Playwright）</span>{'\n'}
+          <span className="cm">// 「購入フロー全体」をE2Eで検証</span>{'\n'}
+          <span className="kw">async function</span> <span className="fn">test_ユーザーが商品を購入できる</span>() {'{'}{'\n'}
+          {'    '}<span className="kw">await</span> page.<span className="fn">goto</span>(<span className="str">'/products/item-001'</span>);{'\n'}
+          {'    '}<span className="kw">await</span> page.<span className="fn">click</span>(<span className="str">'[data-testid=add-to-cart]'</span>);{'\n'}
+          {'    '}<span className="kw">await</span> page.<span className="fn">goto</span>(<span className="str">'/checkout'</span>);{'\n'}
+          {'    '}<span className="kw">await</span> page.<span className="fn">fill</span>(<span className="str">'[data-testid=card]'</span>, <span className="str">'4242...'</span>);{'\n'}
+          {'    '}<span className="kw">await</span> page.<span className="fn">click</span>(<span className="str">'[data-testid=pay-btn]'</span>);{'\n'}
+          {'    '}<span className="kw">await</span> <span className="fn">expect</span>(page.<span className="fn">locator</span>(<span className="str">'h1'</span>)){'\n'}
+          {'        '}.<span className="fn">toContainText</span>(<span className="str">'注文完了'</span>);{'\n'}
+          {'}'}{'\n'}
+          {'\n'}
+          <span className="hl-g">// L4 受入テスト（UAT）</span>{'\n'}
+          <span className="cm">// 実際の購買担当者が業務フローを検証</span>{'\n'}
+          <span className="cm">// → Given-When-Then Gherkinシナリオで定義</span>{'\n'}
+          <span className="cm">// → Go/No-Goの承認を正式に記録・サインオフ</span>
+        </pre>
       </div>
     </div>
   </div>
   <p className="text-sm mt-2">参照:
-    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank">ISTQB CTFL v4.0 Section 2.2</a>
-    <a href="https://www.browserstack.com/guide/test-levels-in-software-testing" className="ulink" target="_blank">browserstack.com — Test Levels Guide</a>
+    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank" rel="noopener noreferrer">ISTQB CTFL v4.0 Section 2.2</a>
+    <a href="https://www.browserstack.com/guide/test-levels-in-software-testing" className="ulink" target="_blank" rel="noopener noreferrer">browserstack.com — Test Levels Guide</a>
   </p>
 </section>
 
@@ -861,8 +965,8 @@ export default function SoftwareTestingMethodologiesGuide() {
     </table>
   </div>
   <p className="text-sm mt-1">参照:
-    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank">ISTQB CTFL v4.0 Section 2.3</a>
-    <a href="https://www.softwaretestinghelp.com/types-of-software-testing/" className="ulink" target="_blank">softwaretestinghelp.com — 100+ Types of Software Testing</a>
+    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank" rel="noopener noreferrer">ISTQB CTFL v4.0 Section 2.3</a>
+    <a href="https://www.softwaretestinghelp.com/types-of-software-testing/" className="ulink" target="_blank" rel="noopener noreferrer">softwaretestinghelp.com — 100+ Types of Software Testing</a>
   </p>
 </section>
 
@@ -883,7 +987,7 @@ export default function SoftwareTestingMethodologiesGuide() {
   <div className="sdlc-grid">
     <div className="sdlc-card">
       <div className="sdlc-header" style={{background: "var(--teal3)"}}>
-        <div className="sdlc-name" style={{color: "var(--teal2)"}}>🔃 ウォーターフォール</div>
+        <div className="sdlc-name text-[var(--teal2)]">🔃 ウォーターフォール</div>
         <span className="badge badge-int">Sequential</span>
       </div>
       <div className="sdlc-body">
@@ -898,7 +1002,7 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
     <div className="sdlc-card">
       <div className="sdlc-header" style={{background: "rgba(232,163,74,.1)"}}>
-        <div className="sdlc-name" style={{color: "var(--color-accent-yellow)"}}>📐 Vモデル</div>
+        <div className="sdlc-name text-[var(--color-accent-yellow)]">📐 Vモデル</div>
         <span className="badge badge-e2e">V-Model</span>
       </div>
       <div className="sdlc-body">
@@ -913,7 +1017,7 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
     <div className="sdlc-card">
       <div className="sdlc-header" style={{background: "var(--violet3)"}}>
-        <div className="sdlc-name" style={{color: "var(--violet2)"}}>🔁 アジャイル（Scrum/Kanban）</div>
+        <div className="sdlc-name text-[var(--violet2)]">🔁 アジャイル（Scrum/Kanban）</div>
         <span className="badge badge-func">Iterative</span>
       </div>
       <div className="sdlc-body">
@@ -929,7 +1033,7 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
     <div className="sdlc-card">
       <div className="sdlc-header" style={{background: "var(--sage3)"}}>
-        <div className="sdlc-name" style={{color: "var(--color-accent-green)"}}>⚡ DevOps / CI/CD</div>
+        <div className="sdlc-name text-[var(--color-accent-green)]">⚡ DevOps / CI/CD</div>
         <span className="badge b-sage">Continuous</span>
       </div>
       <div className="sdlc-body">
@@ -944,7 +1048,7 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
     <div className="sdlc-card">
       <div className="sdlc-header" style={{background: "var(--coral3)"}}>
-        <div className="sdlc-name" style={{color: "var(--coral2)"}}>🌀 スパイラルモデル</div>
+        <div className="sdlc-name text-[var(--coral2)]">🌀 スパイラルモデル</div>
         <span className="badge b-coral">Risk-driven</span>
       </div>
       <div className="sdlc-body">
@@ -960,7 +1064,7 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
     <div className="sdlc-card">
       <div className="sdlc-header" style={{background: "rgba(139,110,221,.1)"}}>
-        <div className="sdlc-name" style={{color: "var(--violet2)"}}>🎯 RAD（Rapid Application Development）</div>
+        <div className="sdlc-name text-[var(--violet2)]">🎯 RAD（Rapid Application Development）</div>
         <span className="badge badge-func">Prototype-based</span>
       </div>
       <div className="sdlc-body">
@@ -982,7 +1086,7 @@ export default function SoftwareTestingMethodologiesGuide() {
     ① 全開発活動に対応するテスト活動がある　② テストの計画・設計は対応する開発活動が完了する前から開始できる　
     ③ テスターは開発成果物のレビューに関与することで欠陥を早期発見できる　④ 各テストレベルにはそのレベル固有の目標がある
     <br />
-    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank">ISTQB CTFL v4.0 Section 2.1</a>
+    <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ulink" target="_blank" rel="noopener noreferrer">ISTQB CTFL v4.0 Section 2.1</a>
   </div>
 </section>
 
@@ -1079,12 +1183,12 @@ export default function SoftwareTestingMethodologiesGuide() {
   <div className="shift-bar">
     <div className="shift-seg shift-left">
       <span className="shift-phase">← SHIFT LEFT</span>
-      <div className="shift-title" style={{color: "var(--teal2)"}}>要件定義</div>
+      <div className="shift-title text-[var(--teal2)]">要件定義</div>
       <div style={{fontSize: "11px", color: "var(--color-text-muted)"}}>受入基準定義<br />スリーアミーゴス</div>
     </div>
     <div className="shift-seg shift-left">
       <span className="shift-phase">← SHIFT LEFT</span>
-      <div className="shift-title" style={{color: "var(--teal2)"}}>設計</div>
+      <div className="shift-title text-[var(--teal2)]">設計</div>
       <div style={{fontSize: "11px", color: "var(--color-text-muted)"}}>静的レビュー<br />SAST設定</div>
     </div>
     <div className="shift-seg">
@@ -1094,22 +1198,22 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
     <div className="shift-seg">
       <span className="shift-phase">CI/CD</span>
-      <div className="shift-title" style={{color: "var(--color-accent-yellow)"}}>ビルド/テスト</div>
+      <div className="shift-title text-[var(--color-accent-yellow)]">ビルド/テスト</div>
       <div style={{fontSize: "11px", color: "var(--color-text-muted)"}}>自動化テスト<br />全レベル実行</div>
     </div>
     <div className="shift-seg">
       <span className="shift-phase">STAGING</span>
-      <div className="shift-title" style={{color: "var(--color-accent-yellow)"}}>ステージング</div>
+      <div className="shift-title text-[var(--color-accent-yellow)]">ステージング</div>
       <div style={{fontSize: "11px", color: "var(--color-text-muted)"}}>パフォーマンス<br />セキュリティ</div>
     </div>
     <div className="shift-seg shift-right">
       <span className="shift-phase">SHIFT RIGHT →</span>
-      <div className="shift-title" style={{color: "var(--violet2)"}}>本番デプロイ</div>
+      <div className="shift-title text-[var(--violet2)]">本番デプロイ</div>
       <div style={{fontSize: "11px", color: "var(--color-text-muted)"}}>A/Bテスト<br />フィーチャーフラグ</div>
     </div>
     <div className="shift-seg shift-right">
       <span className="shift-phase">SHIFT RIGHT →</span>
-      <div className="shift-title" style={{color: "var(--violet2)"}}>本番監視</div>
+      <div className="shift-title text-[var(--violet2)]">本番監視</div>
       <div style={{fontSize: "11px", color: "var(--color-text-muted)"}}>オブザーバビリティ<br />カオスエンジニアリング</div>
     </div>
   </div>
@@ -1125,7 +1229,7 @@ export default function SoftwareTestingMethodologiesGuide() {
         ✦ 設計ドキュメントの早期レビューで要件の齟齬を解消
       </div>
       <p className="text-sm mt-1">
-        <a href="https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai" className="ulink" target="_blank">blog.qasource.com — Shift-Left Testing 2025</a>
+        <a href="https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai" className="ulink" target="_blank" rel="noopener noreferrer">blog.qasource.com — Shift-Left Testing 2025</a>
       </p>
     </div>
     <div>
@@ -1138,8 +1242,8 @@ export default function SoftwareTestingMethodologiesGuide() {
         ✦ AIによる異常検知とアラート自動化
       </div>
       <p className="text-sm mt-1">
-        <a href="https://trendig.com/en/blog/software-testing-trends-2025/" className="ulink" target="_blank">trendig.com — Software Testing Trends 2025</a>
-        <a href="https://www.getxray.app/blog/top-2025-software-testing-trends" className="ulink" target="_blank">getxray.app — Top Testing Trends 2025</a>
+        <a href="https://trendig.com/en/blog/software-testing-trends-2025/" className="ulink" target="_blank" rel="noopener noreferrer">trendig.com — Software Testing Trends 2025</a>
+        <a href="https://www.getxray.app/blog/top-2025-software-testing-trends" className="ulink" target="_blank" rel="noopener noreferrer">getxray.app — Top Testing Trends 2025</a>
       </p>
     </div>
   </div>
@@ -1196,8 +1300,8 @@ export default function SoftwareTestingMethodologiesGuide() {
     Foundation Levelの延長として、LLMや生成AIをテストプロセス全体（要件分析・テスト設計・自動化・レポーティング・継続改善）に適用するスキルを認定する新しい専門資格です。
     90分・40問の試験で、GenAI活用の実践スキルを体系的に学べます。
     <br />
-    <a href="https://istqb.org/certifications/gen-ai/" className="ulink" target="_blank">istqb.org — CT-GenAI 公式ページ</a>
-    <a href="https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/" className="ulink" target="_blank">mend.io — Security Testing 2025</a>
+    <a href="https://istqb.org/certifications/gen-ai/" className="ulink" target="_blank" rel="noopener noreferrer">istqb.org — CT-GenAI 公式ページ</a>
+    <a href="https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/" className="ulink" target="_blank" rel="noopener noreferrer">mend.io — Security Testing 2025</a>
   </div>
 
   {/* OWASP LLM Top 10 */}
@@ -1206,15 +1310,15 @@ export default function SoftwareTestingMethodologiesGuide() {
     <table>
       <thead><tr><th>順位</th><th>リスク</th><th>テストアプローチ</th></tr></thead>
       <tbody>
-        <tr><td><strong style={{color: "var(--coral2)"}}>LLM01</strong></td><td><strong>プロンプトインジェクション</strong></td><td>悪意ある指示を注入してAIを誤動作させる試みをストレステスト</td></tr>
-        <tr><td><strong style={{color: "var(--coral2)"}}>LLM02</strong></td><td><strong>安全でない出力処理</strong></td><td>LLMの出力をサニタイズせずに実行・表示する脆弱性の検出</td></tr>
-        <tr><td><strong style={{color: "var(--color-accent-yellow)"}}>LLM03</strong></td><td><strong>トレーニングデータポイズニング</strong></td><td>学習データの汚染による偏った・有害な出力の検証</td></tr>
-        <tr><td><strong style={{color: "var(--color-accent-yellow)"}}>LLM06</strong></td><td><strong>機密情報の漏洩</strong></td><td>プロンプトからPII・APIキー等の機密情報が露出しないかを検証</td></tr>
+        <tr><td><strong className="text-[var(--coral2)]">LLM01</strong></td><td><strong>プロンプトインジェクション</strong></td><td>悪意ある指示を注入してAIを誤動作させる試みをストレステスト</td></tr>
+        <tr><td><strong className="text-[var(--coral2)]">LLM02</strong></td><td><strong>安全でない出力処理</strong></td><td>LLMの出力をサニタイズせずに実行・表示する脆弱性の検出</td></tr>
+        <tr><td><strong className="text-[var(--color-accent-yellow)]">LLM03</strong></td><td><strong>トレーニングデータポイズニング</strong></td><td>学習データの汚染による偏った・有害な出力の検証</td></tr>
+        <tr><td><strong className="text-[var(--color-accent-yellow)]">LLM06</strong></td><td><strong>機密情報の漏洩</strong></td><td>プロンプトからPII・APIキー等の機密情報が露出しないかを検証</td></tr>
         <tr><td><strong style={{color: "var(--color-text-secondary)"}}>LLM09</strong></td><td><strong>過度な依存</strong></td><td>AIが誤った情報を生成（ハルシネーション）した際のフォールバック確認</td></tr>
       </tbody>
     </table>
   </div>
-  <p className="text-sm mt-1">参照: <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" className="ulink" target="_blank">OWASP LLM Top 10</a></p>
+  <p className="text-sm mt-1">参照: <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" className="ulink" target="_blank" rel="noopener noreferrer">OWASP LLM Top 10</a></p>
 </section>
 
 {/* ══════════════════════════════════════
@@ -1270,9 +1374,9 @@ export default function SoftwareTestingMethodologiesGuide() {
     </div>
   </div>
   <p className="text-sm mt-2">参照:
-    <a href="https://testomat.io/blog/unit-testing-tools/" className="ulink" target="_blank">testomat.io — Unit Testing Tools 2025</a>
-    <a href="https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55" className="ulink" target="_blank">plainenglish.io — Playwright vs Cypress 2025</a>
-    <a href="https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa" className="ulink" target="_blank">medium.com — Modern SDET Toolkit 2026</a>
+    <a href="https://testomat.io/blog/unit-testing-tools/" className="ulink" target="_blank" rel="noopener noreferrer">testomat.io — Unit Testing Tools 2025</a>
+    <a href="https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55" className="ulink" target="_blank" rel="noopener noreferrer">plainenglish.io — Playwright vs Cypress 2025</a>
+    <a href="https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa" className="ulink" target="_blank" rel="noopener noreferrer">medium.com — Modern SDET Toolkit 2026</a>
   </p>
 </section>
 
@@ -1291,51 +1395,51 @@ export default function SoftwareTestingMethodologiesGuide() {
       <thead><tr><th>カテゴリ</th><th>タイトル</th><th>URL</th></tr></thead>
       <tbody>
         {/* ISTQB */}
-        <tr><td>ISTQB公式</td><td>ISTQB公式サイト（1.4M認定者・130カ国）</td><td><a href="https://istqb.org/" className="ref-url" target="_blank">https://istqb.org/</a></td></tr>
-        <tr><td>ISTQB公式</td><td>CTFL v4.0 — 全資格の前提となる基礎資格</td><td><a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ref-url" target="_blank">https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a></td></tr>
-        <tr><td>ISTQB公式</td><td>CTFL v4.0.1 シラバスPDF（最新版）</td><td><a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" className="ref-url" target="_blank">https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a></td></tr>
-        <tr><td>ISTQB公式</td><td>全資格一覧</td><td><a href="https://istqb.org/certifications/" className="ref-url" target="_blank">https://istqb.org/certifications/</a></td></tr>
-        <tr><td>ISTQB公式</td><td>CT-GenAI — 生成AIテスト資格（2025年新設）</td><td><a href="https://istqb.org/certifications/gen-ai/" className="ref-url" target="_blank">https://istqb.org/certifications/gen-ai/</a></td></tr>
-        <tr><td>ISTQB公式</td><td>CT-AI — AIテスト資格</td><td><a href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/" className="ref-url" target="_blank">https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/</a></td></tr>
-        <tr><td>ISTQB公式</td><td>ISTQBグロッサリー（用語集）</td><td><a href="https://glossary.istqb.org/en_US/search?term=" className="ref-url" target="_blank">https://glossary.istqb.org/en_US/search?term=</a></td></tr>
-        <tr><td>ISTQB公式</td><td>JSTQB（日本語版）</td><td><a href="https://jstqb.jp/" className="ref-url" target="_blank">https://jstqb.jp/</a></td></tr>
+        <tr><td>ISTQB公式</td><td>ISTQB公式サイト（1.4M認定者・130カ国）</td><td><a href="https://istqb.org/" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/</a></td></tr>
+        <tr><td>ISTQB公式</td><td>CTFL v4.0 — 全資格の前提となる基礎資格</td><td><a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a></td></tr>
+        <tr><td>ISTQB公式</td><td>CTFL v4.0.1 シラバスPDF（最新版）</td><td><a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a></td></tr>
+        <tr><td>ISTQB公式</td><td>全資格一覧</td><td><a href="https://istqb.org/certifications/" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/certifications/</a></td></tr>
+        <tr><td>ISTQB公式</td><td>CT-GenAI — 生成AIテスト資格（2025年新設）</td><td><a href="https://istqb.org/certifications/gen-ai/" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/certifications/gen-ai/</a></td></tr>
+        <tr><td>ISTQB公式</td><td>CT-AI — AIテスト資格</td><td><a href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/</a></td></tr>
+        <tr><td>ISTQB公式</td><td>ISTQBグロッサリー（用語集）</td><td><a href="https://glossary.istqb.org/en_US/search?term=" className="ref-url" target="_blank" rel="noopener noreferrer">https://glossary.istqb.org/en_US/search?term=</a></td></tr>
+        <tr><td>ISTQB公式</td><td>JSTQB（日本語版）</td><td><a href="https://jstqb.jp/" className="ref-url" target="_blank" rel="noopener noreferrer">https://jstqb.jp/</a></td></tr>
         {/* 7 Principles */}
-        <tr><td>テスト原則</td><td>7 Testing Principles — SoftwareTestingHelp</td><td><a href="https://www.softwaretestinghelp.com/principles-of-software-testing/" className="ref-url" target="_blank">https://www.softwaretestinghelp.com/principles-of-software-testing/</a></td></tr>
-        <tr><td>テスト原則</td><td>Pesticide Paradox — ISTQB Glossary</td><td><a href="https://glossary.istqb.org/en_US/search?term=pesticide+paradox" className="ref-url" target="_blank">https://glossary.istqb.org/en_US/search?term=pesticide+paradox</a></td></tr>
+        <tr><td>テスト原則</td><td>7 Testing Principles — SoftwareTestingHelp</td><td><a href="https://www.softwaretestinghelp.com/principles-of-software-testing/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.softwaretestinghelp.com/principles-of-software-testing/</a></td></tr>
+        <tr><td>テスト原則</td><td>Pesticide Paradox — ISTQB Glossary</td><td><a href="https://glossary.istqb.org/en_US/search?term=pesticide+paradox" className="ref-url" target="_blank" rel="noopener noreferrer">https://glossary.istqb.org/en_US/search?term=pesticide+paradox</a></td></tr>
         {/* Static Testing */}
-        <tr><td>静的テスト</td><td>Static Testing Guide — BrowserStack</td><td><a href="https://www.browserstack.com/guide/static-testing" className="ref-url" target="_blank">https://www.browserstack.com/guide/static-testing</a></td></tr>
-        <tr><td>静的テスト</td><td>Static vs Dynamic Testing — TestDevLab</td><td><a href="https://www.testdevlab.com/blog/static-testing-vs-dynamic-testing" className="ref-url" target="_blank">https://www.testdevlab.com/blog/static-testing-vs-dynamic-testing</a></td></tr>
+        <tr><td>静的テスト</td><td>Static Testing Guide — BrowserStack</td><td><a href="https://www.browserstack.com/guide/static-testing" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.browserstack.com/guide/static-testing</a></td></tr>
+        <tr><td>静的テスト</td><td>Static vs Dynamic Testing — TestDevLab</td><td><a href="https://www.testdevlab.com/blog/static-testing-vs-dynamic-testing" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.testdevlab.com/blog/static-testing-vs-dynamic-testing</a></td></tr>
         {/* BB/WB Techniques */}
-        <tr><td>設計技法</td><td>Equivalence Partitioning & BVA — Guru99</td><td><a href="https://www.guru99.com/equivalence-partitioning-boundary-value-analysis.html" className="ref-url" target="_blank">https://www.guru99.com/equivalence-partitioning-boundary-value-analysis.html</a></td></tr>
-        <tr><td>設計技法</td><td>Decision Table Testing — SoftwareTestingHelp</td><td><a href="https://www.softwaretestinghelp.com/decision-table-testing-technique/" className="ref-url" target="_blank">https://www.softwaretestinghelp.com/decision-table-testing-technique/</a></td></tr>
-        <tr><td>設計技法</td><td>State Transition Testing — LambdaTest</td><td><a href="https://www.lambdatest.com/blog/state-transition-testing/" className="ref-url" target="_blank">https://www.lambdatest.com/blog/state-transition-testing/</a></td></tr>
-        <tr><td>設計技法</td><td>Code Coverage Guide — Guru99</td><td><a href="https://www.guru99.com/code-coverage.html" className="ref-url" target="_blank">https://www.guru99.com/code-coverage.html</a></td></tr>
-        <tr><td>設計技法</td><td>Test Coverage — Martin Fowler</td><td><a href="https://martinfowler.com/bliki/TestCoverage.html" className="ref-url" target="_blank">https://martinfowler.com/bliki/TestCoverage.html</a></td></tr>
+        <tr><td>設計技法</td><td>Equivalence Partitioning & BVA — Guru99</td><td><a href="https://www.guru99.com/equivalence-partitioning-boundary-value-analysis.html" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.guru99.com/equivalence-partitioning-boundary-value-analysis.html</a></td></tr>
+        <tr><td>設計技法</td><td>Decision Table Testing — SoftwareTestingHelp</td><td><a href="https://www.softwaretestinghelp.com/decision-table-testing-technique/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.softwaretestinghelp.com/decision-table-testing-technique/</a></td></tr>
+        <tr><td>設計技法</td><td>State Transition Testing — LambdaTest</td><td><a href="https://www.lambdatest.com/blog/state-transition-testing/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.lambdatest.com/blog/state-transition-testing/</a></td></tr>
+        <tr><td>設計技法</td><td>Code Coverage Guide — Guru99</td><td><a href="https://www.guru99.com/code-coverage.html" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.guru99.com/code-coverage.html</a></td></tr>
+        <tr><td>設計技法</td><td>Test Coverage — Martin Fowler</td><td><a href="https://martinfowler.com/bliki/TestCoverage.html" className="ref-url" target="_blank" rel="noopener noreferrer">https://martinfowler.com/bliki/TestCoverage.html</a></td></tr>
         {/* BB/WB/GB */}
-        <tr><td>テスト手法</td><td>Black/White/Grey Box Testing — Testlio</td><td><a href="https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/" className="ref-url" target="_blank">https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/</a></td></tr>
-        <tr><td>テスト手法</td><td>White vs Black vs Grey Box — TestDevLab</td><td><a href="https://www.testdevlab.com/blog/white-box-vs-black-box-vs-gray-box-testing" className="ref-url" target="_blank">https://www.testdevlab.com/blog/white-box-vs-black-box-vs-gray-box-testing</a></td></tr>
-        <tr><td>テスト手法</td><td>Practical Guide: BB/WB/GB — DEV Community</td><td><a href="https://dev.to/matt_calder_e620d84cf0c14/black-box-vs-white-box-vs-grey-box-testing-a-practical-guide-i9d" className="ref-url" target="_blank">https://dev.to/matt_calder_e620d84cf0c14/black-box-vs-white-box-vs-grey-box-testing-a-practical-guide-i9d</a></td></tr>
+        <tr><td>テスト手法</td><td>Black/White/Grey Box Testing — Testlio</td><td><a href="https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/" className="ref-url" target="_blank" rel="noopener noreferrer">https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/</a></td></tr>
+        <tr><td>テスト手法</td><td>White vs Black vs Grey Box — TestDevLab</td><td><a href="https://www.testdevlab.com/blog/white-box-vs-black-box-vs-gray-box-testing" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.testdevlab.com/blog/white-box-vs-black-box-vs-gray-box-testing</a></td></tr>
+        <tr><td>テスト手法</td><td>Practical Guide: BB/WB/GB — DEV Community</td><td><a href="https://dev.to/matt_calder_e620d84cf0c14/black-box-vs-white-box-vs-grey-box-testing-a-practical-guide-i9d" className="ref-url" target="_blank" rel="noopener noreferrer">https://dev.to/matt_calder_e620d84cf0c14/black-box-vs-white-box-vs-grey-box-testing-a-practical-guide-i9d</a></td></tr>
         {/* Test Levels & Types */}
-        <tr><td>テストレベル</td><td>Test Levels Guide — BrowserStack</td><td><a href="https://www.browserstack.com/guide/test-levels-in-software-testing" className="ref-url" target="_blank">https://www.browserstack.com/guide/test-levels-in-software-testing</a></td></tr>
-        <tr><td>テストタイプ</td><td>100+ Types of Software Testing — SoftwareTestingHelp</td><td><a href="https://www.softwaretestinghelp.com/types-of-software-testing/" className="ref-url" target="_blank">https://www.softwaretestinghelp.com/types-of-software-testing/</a></td></tr>
+        <tr><td>テストレベル</td><td>Test Levels Guide — BrowserStack</td><td><a href="https://www.browserstack.com/guide/test-levels-in-software-testing" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.browserstack.com/guide/test-levels-in-software-testing</a></td></tr>
+        <tr><td>テストタイプ</td><td>100+ Types of Software Testing — SoftwareTestingHelp</td><td><a href="https://www.softwaretestinghelp.com/types-of-software-testing/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.softwaretestinghelp.com/types-of-software-testing/</a></td></tr>
         {/* Exploratory */}
-        <tr><td>経験ベース</td><td>Exploratory Testing — James Bach (Satisfice)</td><td><a href="https://www.satisfice.com/exploratory-testing" className="ref-url" target="_blank">https://www.satisfice.com/exploratory-testing</a></td></tr>
-        <tr><td>経験ベース</td><td>Testing Charter Guide — TestingExcellence</td><td><a href="https://www.testingexcellence.com/exploratory-testing-charter/" className="ref-url" target="_blank">https://www.testingexcellence.com/exploratory-testing-charter/</a></td></tr>
+        <tr><td>経験ベース</td><td>Exploratory Testing — James Bach (Satisfice)</td><td><a href="https://www.satisfice.com/exploratory-testing" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.satisfice.com/exploratory-testing</a></td></tr>
+        <tr><td>経験ベース</td><td>Testing Charter Guide — TestingExcellence</td><td><a href="https://www.testingexcellence.com/exploratory-testing-charter/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.testingexcellence.com/exploratory-testing-charter/</a></td></tr>
         {/* Shift Left/Right */}
-        <tr><td>シフト戦略</td><td>Shift-Left Testing with GenAI — QASource Blog</td><td><a href="https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai" className="ref-url" target="_blank">https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai</a></td></tr>
-        <tr><td>シフト戦略</td><td>Software Testing Trends 2025 — Trendig</td><td><a href="https://trendig.com/en/blog/software-testing-trends-2025/" className="ref-url" target="_blank">https://trendig.com/en/blog/software-testing-trends-2025/</a></td></tr>
-        <tr><td>シフト戦略</td><td>Top Testing Trends 2025 — Xray Blog</td><td><a href="https://www.getxray.app/blog/top-2025-software-testing-trends" className="ref-url" target="_blank">https://www.getxray.app/blog/top-2025-software-testing-trends</a></td></tr>
+        <tr><td>シフト戦略</td><td>Shift-Left Testing with GenAI — QASource Blog</td><td><a href="https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai" className="ref-url" target="_blank" rel="noopener noreferrer">https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai</a></td></tr>
+        <tr><td>シフト戦略</td><td>Software Testing Trends 2025 — Trendig</td><td><a href="https://trendig.com/en/blog/software-testing-trends-2025/" className="ref-url" target="_blank" rel="noopener noreferrer">https://trendig.com/en/blog/software-testing-trends-2025/</a></td></tr>
+        <tr><td>シフト戦略</td><td>Top Testing Trends 2025 — Xray Blog</td><td><a href="https://www.getxray.app/blog/top-2025-software-testing-trends" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.getxray.app/blog/top-2025-software-testing-trends</a></td></tr>
         {/* AI Testing */}
-        <tr><td>AIテスト</td><td>Security Testing 2025: AI & Cloud-Native — Mend.io</td><td><a href="https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/" className="ref-url" target="_blank">https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/</a></td></tr>
-        <tr><td>AIテスト</td><td>OWASP LLM Top 10</td><td><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" className="ref-url" target="_blank">https://owasp.org/www-project-top-10-for-large-language-model-applications/</a></td></tr>
+        <tr><td>AIテスト</td><td>Security Testing 2025: AI & Cloud-Native — Mend.io</td><td><a href="https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/</a></td></tr>
+        <tr><td>AIテスト</td><td>OWASP LLM Top 10</td><td><a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/" className="ref-url" target="_blank" rel="noopener noreferrer">https://owasp.org/www-project-top-10-for-large-language-model-applications/</a></td></tr>
         {/* E2E Tools */}
-        <tr><td>ツール</td><td>Playwright vs Cypress 2025 Benchmarks</td><td><a href="https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55" className="ref-url" target="_blank">https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55</a></td></tr>
-        <tr><td>ツール</td><td>Playwright vs Selenium vs Cypress — ThinkSys</td><td><a href="https://thinksys.com/qa-testing/playwright-vs-selenium-vs-cypress/" className="ref-url" target="_blank">https://thinksys.com/qa-testing/playwright-vs-selenium-vs-cypress/</a></td></tr>
-        <tr><td>ツール</td><td>Modern SDET Toolkit 2026 — Medium</td><td><a href="https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa" className="ref-url" target="_blank">https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa</a></td></tr>
-        <tr><td>ツール</td><td>Best Unit Testing Tools 2025 — Testomat.io</td><td><a href="https://testomat.io/blog/unit-testing-tools/" className="ref-url" target="_blank">https://testomat.io/blog/unit-testing-tools/</a></td></tr>
-        <tr><td>ツール</td><td>Best a11y Testing Tools 2025 — DEV Community</td><td><a href="https://dev.to/maria_bueno/2025-guide-best-10-accessibility-testing-tools-automated-41" className="ref-url" target="_blank">https://dev.to/maria_bueno/2025-guide-best-10-accessibility-testing-tools-automated-41</a></td></tr>
-        <tr><td>ツール</td><td>Axe Platform — Deque Systems</td><td><a href="https://www.deque.com/axe/" className="ref-url" target="_blank">https://www.deque.com/axe/</a></td></tr>
-        <tr><td>OWASP</td><td>OWASP Top 10:2025</td><td><a href="https://owasp.org/Top10/2025/" className="ref-url" target="_blank">https://owasp.org/Top10/2025/</a></td></tr>
+        <tr><td>ツール</td><td>Playwright vs Cypress 2025 Benchmarks</td><td><a href="https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55" className="ref-url" target="_blank" rel="noopener noreferrer">https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55</a></td></tr>
+        <tr><td>ツール</td><td>Playwright vs Selenium vs Cypress — ThinkSys</td><td><a href="https://thinksys.com/qa-testing/playwright-vs-selenium-vs-cypress/" className="ref-url" target="_blank" rel="noopener noreferrer">https://thinksys.com/qa-testing/playwright-vs-selenium-vs-cypress/</a></td></tr>
+        <tr><td>ツール</td><td>Modern SDET Toolkit 2026 — Medium</td><td><a href="https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa" className="ref-url" target="_blank" rel="noopener noreferrer">https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa</a></td></tr>
+        <tr><td>ツール</td><td>Best Unit Testing Tools 2025 — Testomat.io</td><td><a href="https://testomat.io/blog/unit-testing-tools/" className="ref-url" target="_blank" rel="noopener noreferrer">https://testomat.io/blog/unit-testing-tools/</a></td></tr>
+        <tr><td>ツール</td><td>Best a11y Testing Tools 2025 — DEV Community</td><td><a href="https://dev.to/maria_bueno/2025-guide-best-10-accessibility-testing-tools-automated-41" className="ref-url" target="_blank" rel="noopener noreferrer">https://dev.to/maria_bueno/2025-guide-best-10-accessibility-testing-tools-automated-41</a></td></tr>
+        <tr><td>ツール</td><td>Axe Platform — Deque Systems</td><td><a href="https://www.deque.com/axe/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.deque.com/axe/</a></td></tr>
+        <tr><td>OWASP</td><td>OWASP Top 10:2025</td><td><a href="https://owasp.org/Top10/2025/" className="ref-url" target="_blank" rel="noopener noreferrer">https://owasp.org/Top10/2025/</a></td></tr>
       </tbody>
     </table>
   </div>
