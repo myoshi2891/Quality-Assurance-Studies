@@ -29,6 +29,7 @@ export default function Header({ className }: HeaderProps) {
       </Link>
       <div className="nav-links flex-1 flex gap-1 overflow-x-auto no-scrollbar">
         <Link href="/" className={getLinkClassName('/')}>ホーム</Link>
+        <Link href="/software-testing-methodologies-guide" className={getLinkClassName('/software-testing-methodologies-guide')}>テスト手法ガイド</Link>
         <Link href="/ai-test-guide" className={getLinkClassName('/ai-test-guide')}>AIテストガイド</Link>
         <Link href="/unit-testing-guide" className={getLinkClassName('/unit-testing-guide')}>ユニットテストガイド</Link>
         <Link href="/integration-functional-testing-guide" className={getLinkClassName('/integration-functional-testing-guide')}>統合/機能テストガイド</Link>
@@ -42,3 +43,4 @@ export default function Header({ className }: HeaderProps) {
     </nav>
   );
 }
+
