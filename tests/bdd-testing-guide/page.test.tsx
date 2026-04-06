@@ -1,6 +1,6 @@
 import { describe, it, expect, afterEach } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
-import Page from './page';
+import Page from '../../app/bdd-testing-guide/page';
 
 afterEach(() => {
   cleanup();

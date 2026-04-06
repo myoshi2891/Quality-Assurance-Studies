@@ -1,12 +1,32 @@
 import '../bdd-testing-guide.css';
 
+export const LAST_UPDATED = '2026年4月6日';
+export const UPDATE_YEAR = LAST_UPDATED.match(/\d{4}/)?.[0] || '2025';
+
 export default function BddTestingGuidePage() {
+  const sections = [
+    { id: '1-bddとは何か', title: '1. BDDとは何か？' },
+    { id: '2-bddの歴史と背景', title: '2. BDDの歴史と背景' },
+    { id: '3-bdd-vs-tdd-vs-atdd', title: '3. BDD vs TDD vs ATDD' },
+    { id: '4-istqbにおけるbddの位置づけ', title: '4. ISTQBにおけるBDDの位置づけ' },
+    { id: '5-bddの3つのフェーズ', title: '5. BDDの3つのフェーズ' },
+    { id: '6-スリーアミーゴスthree-amigos', title: '6. スリーアミーゴス（Three Amigos）' },
+    { id: '7-gherkin言語の完全解説', title: '7. Gherkin言語の完全解説' },
+    { id: '8-実装ステップバイステップ', title: '8. 実装ステップバイステップ' },
+    { id: '9-主要bddツール比較-2025年', title: '9. 主要BDDツール比較 2025年' },
+    { id: '10-cicdパイプラインへの統合', title: '10. CI/CDパイプラインへの統合' },
+    { id: '11-ベストプラクティスとアンチパターン', title: '11. ベストプラクティスとアンチパターン' },
+    { id: '12-bdd導入のロードマップ', title: '12. BDD導入のロードマップ' },
+    { id: '13-2025年のbddトレンドと統計', title: '13. 2025年のBDDトレンドと統計' },
+    { id: '14-全参照url一覧', title: '14. 全参照URL一覧' }
+  ] as const;
+
   return (
-    <>
-      <section className="hero" id="top">
+    <div className="bdd-guide-page">
+      <section className="hero bdd-hero-bg" id="top">
         <div className="hero-content">
           <span className="hero-eyebrow">ISTQB CTFL v4.0 Section 4.5 準拠 | 初学者から実践者まで完全網羅</span>
-          <h1>BDD（ビヘイビア駆動開発）<br /><span>完全ガイド 2025</span></h1>
+          <h1>BDD（ビヘイビア駆動開発）<br /><span>完全ガイド {UPDATE_YEAR}</span></h1>
         </div>
       </section>
 
@@ -15,28 +35,19 @@ export default function BddTestingGuidePage() {
           <div className="card">
             <h2 className="text-xl font-bold mb-4">目次</h2>
             <ul className="list-disc pl-5 space-y-2">
-              <li><a href="#1-bddとは何か" className="text-accent hover:underline">1. BDDとは何か？</a></li>
-              <li><a href="#2-bddの歴史と背景" className="text-accent hover:underline">2. BDDの歴史と背景</a></li>
-              <li><a href="#3-bdd-vs-tdd-vs-atdd" className="text-accent hover:underline">3. BDD vs TDD vs ATDD</a></li>
-              <li><a href="#4-istqbにおけるbddの位置づけ" className="text-accent hover:underline">4. ISTQBにおけるBDDの位置づけ</a></li>
-              <li><a href="#5-bddの3つのフェーズ" className="text-accent hover:underline">5. BDDの3つのフェーズ</a></li>
-              <li><a href="#6-スリーアミーゴスthree-amigos" className="text-accent hover:underline">6. スリーアミーゴス（Three Amigos）</a></li>
-              <li><a href="#7-gherkin言語の完全解説" className="text-accent hover:underline">7. Gherkin言語の完全解説</a></li>
-              <li><a href="#8-実装ステップバイステップ" className="text-accent hover:underline">8. 実装ステップバイステップ</a></li>
-              <li><a href="#9-主要bddツール比較-2025年" className="text-accent hover:underline">9. 主要BDDツール比較 2025年</a></li>
-              <li><a href="#10-cicdパイプラインへの統合" className="text-accent hover:underline">10. CI/CDパイプラインへの統合</a></li>
-              <li><a href="#11-ベストプラクティスとアンチパターン" className="text-accent hover:underline">11. ベストプラクティスとアンチパターン</a></li>
-              <li><a href="#12-bdd導入のロードマップ" className="text-accent hover:underline">12. BDD導入のロードマップ</a></li>
-              <li><a href="#13-2025年のbddトレンドと統計" className="text-accent hover:underline">13. 2025年のBDDトレンドと統計</a></li>
-              <li><a href="#14-全参照url一覧" className="text-accent hover:underline">14. 全参照URL一覧</a></li>
+              {sections.map(sec => (
+                <li key={sec.id}>
+                  <a href={`#${sec.id}`} className="text-accent hover:underline">{sec.title}</a>
+                </li>
+              ))}
             </ul>
           </div>
         </section>
 
-        <section id="1-bddとは何か">
+        <section id={sections[0].id}>
           <div className="section-header">
             <span className="section-num">01</span>
-            <h2>1. BDDとは何か？</h2>
+            <h2>{sections[0].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">定義</h3>
@@ -65,10 +76,11 @@ BDD導入後:
           <h3 className="text-lg font-bold mt-6 mb-2">BDDの3つの核心原則</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">BDDの原則と説明</caption>
               <thead>
                 <tr>
-                  <th>原則</th>
-                  <th>説明</th>
+                  <th scope="col">原則</th>
+                  <th scope="col">説明</th>
                 </tr>
               </thead>
               <tbody>
@@ -89,10 +101,10 @@ BDD導入後:
           </div>
         </section>
 
-        <section id="2-bddの歴史と背景">
+        <section id={sections[1].id}>
           <div className="section-header">
             <span className="section-num">02</span>
-            <h2>2. BDDの歴史と背景</h2>
+            <h2>{sections[1].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">誕生の経緯</h3>
@@ -156,10 +168,10 @@ BDD導入後:
           <p><strong>解決策</strong>: テストを「システムがすべき振る舞い」として表現する</p>
         </section>
 
-        <section id="3-bdd-vs-tdd-vs-atdd">
+        <section id={sections[2].id}>
           <div className="section-header">
             <span className="section-num">03</span>
-            <h2>3. BDD vs TDD vs ATDD</h2>
+            <h2>{sections[2].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">3つの手法の比較</h3>
@@ -231,10 +243,10 @@ BDD導入後:
           </ul>
         </section>
 
-        <section id="4-istqbにおけるbddの位置づけ">
+        <section id={sections[3].id}>
           <div className="section-header">
             <span className="section-num">04</span>
-            <h2>4. ISTQBにおけるBDDの位置づけ</h2>
+            <h2>{sections[3].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">ISTQB CTFL v4.0 Section 4.5: コラボレーションベースのテストアプローチ</h3>
@@ -285,10 +297,10 @@ BDD導入後:
           </div>
         </section>
 
-        <section id="5-bddの3つのフェーズ">
+        <section id={sections[4].id}>
           <div className="section-header">
             <span className="section-num">05</span>
-            <h2>5. BDDの3つのフェーズ</h2>
+            <h2>{sections[4].title}</h2>
             <p>BDDには明確に定義された3つの反復サイクルがあります。</p>
           </div>
 
@@ -343,10 +355,10 @@ BDD導入後:
           </div>
         </section>
 
-        <section id="6-スリーアミーゴスthree-amigos">
+        <section id={sections[5].id}>
           <div className="section-header">
             <span className="section-num">06</span>
-            <h2>6. スリーアミーゴス（Three Amigos）</h2>
+            <h2>{sections[5].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">概要</h3>
@@ -431,10 +443,10 @@ BDD導入後:
           </ul>
         </section>
 
-        <section id="7-gherkin言語の完全解説">
+        <section id={sections[6].id}>
           <div className="section-header">
             <span className="section-num">07</span>
-            <h2>7. Gherkin言語の完全解説</h2>
+            <h2>{sections[6].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">Gherkinとは</h3>
@@ -612,10 +624,10 @@ Then（期待結果）: 期待される出力・結果を記述する
           </div>
         </section>
 
-        <section id="8-実装ステップバイステップ">
+        <section id={sections[7].id}>
           <div className="section-header">
             <span className="section-num">08</span>
-            <h2>8. 実装ステップバイステップ</h2>
+            <h2>{sections[7].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">Step 1: プロジェクトセットアップ（Python + Behave の例）</h3>
@@ -947,10 +959,10 @@ public class LoginSteps
           </div>
         </section>
 
-        <section id="9-主要bddツール比較-2025年">
+        <section id={sections[8].id}>
           <div className="section-header">
             <span className="section-num">09</span>
-            <h2>9. 主要BDDツール比較 2025年</h2>
+            <h2>{sections[8].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">ツール一覧</h3>
@@ -1076,10 +1088,10 @@ public class LoginSteps
           </ul>
         </section>
 
-        <section id="10-cicdパイプラインへの統合">
+        <section id={sections[9].id}>
           <div className="section-header">
             <span className="section-num">10</span>
-            <h2>10. CI/CDパイプラインへの統合</h2>
+            <h2>{sections[9].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">GitHub Actions（Python / Behave の例）</h3>
@@ -1199,10 +1211,10 @@ PRマージ
           </div>
         </section>
 
-        <section id="11-ベストプラクティスとアンチパターン">
+        <section id={sections[10].id}>
           <div className="section-header">
             <span className="section-num">11</span>
-            <h2>11. ベストプラクティスとアンチパターン</h2>
+            <h2>{sections[10].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">✅ ベストプラクティス</h3>
@@ -1326,10 +1338,10 @@ PRマージ
           </div>
         </section>
 
-        <section id="12-bdd導入のロードマップ">
+        <section id={sections[11].id}>
           <div className="section-header">
             <span className="section-num">12</span>
-            <h2>12. BDD導入のロードマップ</h2>
+            <h2>{sections[11].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">フェーズ別ロードマップ（3ヶ月計画）</h3>
@@ -1425,10 +1437,10 @@ Week 11-12:
           </div>
         </section>
 
-        <section id="13-2025年のbddトレンドと統計">
+        <section id={sections[12].id}>
           <div className="section-header">
             <span className="section-num">13</span>
-            <h2>13. 2025年のBDDトレンドと統計</h2>
+            <h2>{sections[12].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">採用統計</h3>
@@ -1512,10 +1524,10 @@ Week 11-12:
           </div>
         </section>
 
-        <section id="14-全参照url一覧">
+        <section id={sections[13].id}>
           <div className="section-header">
             <span className="section-num">14</span>
-            <h2>14. 全参照URL一覧</h2>
+            <h2>{sections[13].title}</h2>
           </div>
           
           <h3 className="text-lg font-bold mt-4 mb-2">ISTQB公式</h3>
@@ -1668,11 +1680,11 @@ Week 11-12:
           </div>
           
           <div className="mt-8 text-center text-sm text-muted">
-            <p>本ガイドは ISTQB CTFL v4.0.1 に準拠し、最終更新：2026年4月6日 の時点の情報を反映しています。</p>
+            <p>本ガイドは ISTQB CTFL v4.0.1 に準拠し、最終更新：{LAST_UPDATED} の時点の情報を反映しています。</p>
             <p className="mt-2">© 2025-2026 — BDD is not just testing. It's a conversation that never stops.</p>
           </div>
         </section>
       </main>
-    </>
+    </div>
   );
 }

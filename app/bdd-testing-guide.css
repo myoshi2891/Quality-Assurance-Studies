@@ -1,6 +1,6 @@
 /* app/bdd-testing-guide.css */
 
-.bdd-hero-bg::after {
+.bdd-guide-page .bdd-hero-bg::after {
     content: '';
     position: absolute;
     top: 20%;
@@ -11,18 +11,18 @@
     pointer-events: none;
 }
 
-.table-wrapper table {
+.bdd-guide-page .table-wrapper table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.table-wrapper th, .table-wrapper td {
+.bdd-guide-page .table-wrapper th, .bdd-guide-page .table-wrapper td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid var(--color-border);
 }
 
-.table-wrapper th {
+.bdd-guide-page .table-wrapper th {
     background: rgba(99, 179, 237, 0.05);
     color: var(--color-accent-blue);
     font-weight: 700;
