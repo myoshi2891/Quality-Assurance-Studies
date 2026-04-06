@@ -122,7 +122,7 @@ ATDD (最も広い)
 
 ### ISTQB CTFL v4.0 Section 4.5: コラボレーションベースのテストアプローチ
 
-ISTQBはCTFL v4.0において、BDDを **「コラボレーションベースのテストアプローチ」** の核心として定義しています。
+ISTQBはCTFL v4.0.1 Section 4.5において、BDDを **「コラボレーションベースのテストアプローチ」** の具体的な代表例として説明しています。
 
 ```
 ISTQB CTFL v4.0 の構成（BDD関連）:
@@ -911,8 +911,8 @@ public class LoginSteps
 
 ### 2025年のBDDツール市場動向
 
-- BDDツール市場規模（2024年）: **1億2000万ドル**
-- 予測市場規模（2033年）: **3億ドル**（CAGR ~10%）
+- BDDツール市場規模（2024年）: **11億ドル**
+- 予測市場規模（2033年）: **25億ドル**（CAGR ~12.5%）
 - 最も人気のツール（2025年）: **Cucumber** がシェア1位
 - 新興トレンド: **AI支援BDDシナリオ生成**（GitHub Copilot等）
 
@@ -1295,7 +1295,7 @@ Week 11-12:
 
 | タイトル | URL |
 |---------|-----|
-| Perforce — State of Continuous Testing Report 2025 | https://www.perforce.com/resources/perfecto/report-state-of-continuous-testing |
+| Perforce — Continuous Testing Resources | https://www.perforce.com/resources/perfecto |
 | Capgemini — World Quality Report 2024-25 | https://www.capgemini.com/insights/research-library/world-quality-report-2024-25/ |
 | Test Evolve — BDD Market Size | https://testevolve.com/ |
 
@@ -1335,3 +1335,4 @@ BDD成功の方程式:
 *本ガイドは ISTQB CTFL v4.0.1 Section 4.5 に準拠し、2025年4月時点の最新情報を反映しています。*
 
 *© 2025 — BDD is not just testing. It's a conversation that never stops.*
+ that never stops.*
