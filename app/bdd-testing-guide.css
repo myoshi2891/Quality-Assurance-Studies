@@ -1,0 +1,29 @@
+/* app/bdd-testing-guide.css */
+
+.bdd-hero-bg::after {
+    content: '';
+    position: absolute;
+    top: 20%;
+    right: -10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(183, 148, 244, 0.06) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.table-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table-wrapper th, .table-wrapper td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+.table-wrapper th {
+    background: rgba(99, 179, 237, 0.05);
+    color: var(--color-accent-blue);
+    font-weight: 700;
+}
