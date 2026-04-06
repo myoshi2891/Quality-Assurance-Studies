@@ -36,6 +36,7 @@ export default function Header({ className }: HeaderProps) {
         <Link href="/integration-system-testing-guide" className={getLinkClassName('/integration-system-testing-guide')}>統合/システムテストガイド</Link>
         <Link href="/e2e-testing-guide" className={getLinkClassName('/e2e-testing-guide')}>E2Eテストガイド</Link>
         <Link href="/acceptance-testing-guide" className={getLinkClassName('/acceptance-testing-guide')}>受入テストガイド</Link>
+        <Link href="/bdd-testing-guide" className={getLinkClassName('/bdd-testing-guide')}>BDDガイド</Link>
       </div>
       <span className="nav-badge hidden sm:inline-block">
         Next.js SPA

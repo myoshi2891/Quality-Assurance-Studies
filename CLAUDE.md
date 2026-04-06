@@ -37,6 +37,8 @@ Next.js App Router 構成:
 - `app/e2e-testing-guide.css` — E2Eテストガイド固有スタイル
 - `app/acceptance-testing-guide/page.tsx` — 受入テスト完全ガイドページ
 - `app/acceptance-testing-guide.css` — 受入テストガイド固有スタイル
+- `app/bdd-testing-guide/page.tsx` — BDD（ビヘイビア駆動開発）完全ガイドページ
+- `app/bdd-testing-guide.css` — BDDガイド固有スタイル
 - `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
 - `app/software-testing-methodologies-guide.css` — テスト手法ガイド固有スタイル
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート）
