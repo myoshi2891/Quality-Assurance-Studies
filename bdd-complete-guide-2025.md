@@ -32,7 +32,7 @@
 
 ### BDDが解決する問題
 
-ソフトウェアプロジェクト失敗の **56%はコミュニケーション不足** が原因です（Test Evolve調査）。
+ソフトウェアプロジェクト失敗の **56%はコミュニケーション不足** が原因です (PMI Pulse of the Profession, 2013)。
 
 ```
 従来の問題:
@@ -64,13 +64,11 @@ BDD導入後:
 |----|--------|
 | **2003年** | Dan North がTDD（テスト駆動開発）の限界を感じ始める |
 | **2004年** | Dan North が "Introducing BDD" を執筆し、BDDの概念を公表 |
-| **2007年** | Dan North が **Gherkin言語**（Given/When/Then形式）を正式化 |
-| **2008年** | Cucumber（最初の主要BDDツール）が Ruby向けにリリース |
+| **2006年** | Dan North が **Given/When/Then 形式** を考案（RBehave） |
+| **2008年** | Aslak Hellesøy が **Gherkin言語** と Cucumber を公開 |
 | **2010年** | SpecFlow（.NET向け）がリリース |
-| **2013年** | BDD がアジャイル開発のデファクトスタンダードに |
-| **2024年** | BDDテストツール市場が **1億2000万ドル**に到達 |
-| **2025年** | BDD採用率が **66%** に（State of Continuous Testing Report） |
-| **2033年** | BDDテストツール市場が **3億ドル**に達する見込み |
+| **2024年** | BDDテストツール市場が **11億ドル** に到達（Verified Market Reports） |
+| **2025年** | AIによるGherkinシナリオ生成が普及し、採用がさらに加速 |
 
 ### BDDを生み出した背景
 
@@ -129,9 +127,8 @@ ISTQBはCTFL v4.0において、BDDを **「コラボレーションベースの
 ```
 ISTQB CTFL v4.0 の構成（BDD関連）:
   Section 4.5 — Collaboration-based Test Approaches
-    ├── 4.5.1 User Story の作成
-    ├── 4.5.2 受入基準（Acceptance Criteria）の定義
-    └── 4.5.3 ATDD / BDD の適用
+    ├── 4.5.1 Collaborative User Story Writing
+    └── 4.5.2 Acceptance Criteria
 ```
 
 ### ISTQBが定義するBDDの価値
@@ -571,6 +568,7 @@ Feature: ユーザーログイン
 # features/steps/login_steps.py
 
 from behave import given, when, then
+from selenium.webdriver.common.by import By
 
 # ─── Given ステップ ──────────────────────────────
 @given('ログインページを開いている')
@@ -585,19 +583,19 @@ def step_open_login_page(context):
 # ─── When ステップ ──────────────────────────────
 @when('有効なメールアドレス "{email}" を入力する')
 def step_input_email(context, email):
-    email_field = context.browser.find_element("id", "email")
+    email_field = context.browser.find_element(By.ID, "email")
     email_field.clear()
     email_field.send_keys(email)
 
 @when('正しいパスワード "{password}" を入力する')
 def step_input_password(context, password):
-    password_field = context.browser.find_element("id", "password")
+    password_field = context.browser.find_element(By.ID, "password")
     password_field.clear()
     password_field.send_keys(password)
 
 @when('「ログイン」ボタンをクリックする')
 def step_click_login(context):
-    login_btn = context.browser.find_element("id", "login-btn")
+    login_btn = context.browser.find_element(By.ID, "login-btn")
     login_btn.click()
 
 # ─── Then ステップ ──────────────────────────────
@@ -607,12 +605,12 @@ def step_navigate_to_dashboard(context):
 
 @then('「ようこそ、{name}さん」と表示される')
 def step_show_welcome_message(context, name):
-    welcome_msg = context.browser.find_element("class", "welcome-message")
+    welcome_msg = context.browser.find_element(By.CLASS_NAME, "welcome-message")
     assert f"ようこそ、{name}さん" in welcome_msg.text
 
 @then('エラーメッセージ「{message}」が表示される')
 def step_show_error_message(context, message):
-    error_div = context.browser.find_element("class", "error-message")
+    error_div = context.browser.find_element(By.CLASS_NAME, "error-message")
     assert message in error_div.text
 
 @then('ログインページに留まる')
@@ -743,9 +741,13 @@ Then('「ようこそ、{string}さん」と表示される', async (name: strin
 
 // src/test/java/steps/LoginSteps.java
 import io.cucumber.java.ja.*;
-import io.cucumber.java.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.chrome.*;
+import io.cucumber.java.Before;
+import io.cucumber.java.After;
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import static org.junit.Assert.*;
 
 public class LoginSteps {
@@ -1214,12 +1216,12 @@ Week 11-12:
 
 | 統計 | 数値 | 出典 |
 |------|------|------|
-| BDD採用率 | **66%** | 2025 State of Continuous Testing Report (Perforce) |
-| TDDとBDDの併用率 | **58%** | 同上 |
-| BDDをアジャイルの必須ツールと考える割合 | **63%** | World Quality Report 2024-25 |
-| BDDチームのデプロイ頻度 | **一般チームの2倍** | Cucumber社調査 |
-| BDDツール市場（2024年） | **$120M** | Test Evolve調査 |
-| BDDツール市場予測（2033年） | **$300M** | 同上 |
+| BDD採用率（アジャイルチーム） | **26%** | State of Testing Report 2024 (PractiTest) |
+| TDD/BDDの組み込み率（組織全体） | **67%** | World Quality Report 2024-25 |
+| BDD実践チーム内のTDD併用率 | **58%** | BDD Practitioner Survey |
+| BDDチームのデプロイ頻度 | **一般チームの約2.5倍** | Cucumber社調査 |
+| BDDツール市場規模（2024年） | **11億ドル** | Verified Market Reports |
+| BDDツール市場予測（2033年） | **25億ドル** | 同上 |
 
 ### 2025年の主要トレンド
 
@@ -1293,8 +1295,8 @@ Week 11-12:
 
 | タイトル | URL |
 |---------|-----|
-| Perforce — State of Continuous Testing Report 2025 | https://www.perforce.com/resources/qac/state-continuous-testing-report |
-| Tricentis — World Quality Report 2024-25 | https://www.tricentis.com/resources/world-quality-report |
+| Perforce — State of Continuous Testing Report 2025 | https://www.perforce.com/resources/perfecto/report-state-of-continuous-testing |
+| Capgemini — World Quality Report 2024-25 | https://www.capgemini.com/insights/research-library/world-quality-report-2024-25/ |
 | Test Evolve — BDD Market Size | https://testevolve.com/ |
 
 ### ベストプラクティス
