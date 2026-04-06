@@ -1295,7 +1295,7 @@ Week 11-12:
 
 | タイトル | URL |
 |---------|-----|
-| Perforce — Continuous Testing Resources | https://www.perforce.com/resources/perfecto |
+
 | Capgemini — World Quality Report 2024-25 | https://www.capgemini.com/insights/research-library/world-quality-report-2024-25/ |
 | Test Evolve — BDD Market Size | https://testevolve.com/ |
 
@@ -1335,4 +1335,6 @@ BDD成功の方程式:
 *本ガイドは ISTQB CTFL v4.0.1 Section 4.5 に準拠し、2025年4月時点の最新情報を反映しています。*
 
 *© 2025 — BDD is not just testing. It's a conversation that never stops.*
+ that never stops.*
+© 2025 — BDD is not just testing. It's a conversation that never stops.*
  that never stops.*
