@@ -62,13 +62,20 @@ BDD導入後:
 
 | 年 | 出来事 |
 |----|--------|
-| **2003年** | Dan North がTDD（テスト駆動開発）の限界を感じ始める |
-| **2004年** | Dan North が "Introducing BDD" を執筆し、BDDの概念を公表 |
-| **2006年** | Dan North が **Given/When/Then 形式** を考案（RBehave） |
-| **2008年** | Aslak Hellesøy が **Gherkin言語** と Cucumber を公開 |
-| **2010年** | SpecFlow（.NET向け）がリリース |
-| **2024年** | BDDテストツール市場が **11億ドル** に到達（Verified Market Reports） |
+| **2003年** | Dan North が TDD（テスト駆動開発）の限界を感じ始める [^1] |
+| **2004年** | Dan North と Chris Matts が **Given/When/Then 形式** を考案 [^2] |
+| **2006年** | Dan North が "Introducing BDD" を執筆し、BDD を公に定式化 [^3] |
+| **2008年** | Aslak Hellesøy が **Gherkin言語** と Cucumber を公開 [^4] |
+| **2010年** | SpecFlow（.NET向け）がリリース [^5] |
+| **2024年** | BDDテストツール市場が **11億ドル** に到達 [^6] |
 | **2025年** | AIによるGherkinシナリオ生成が普及し、採用がさらに加速 |
+
+[^1]: Dan North - [The History of BDD](https://dannorth.net/introducing-bdd/)
+[^2]: [Origin of Given/When/Then (JBehave)](https://jbehave.org/history.html)
+[^3]: Dan North - ["Introducing BDD", Better Software Magazine, March 2006](https://dannorth.net/introducing-bdd/)
+[^4]: [Cucumber Release History](https://github.com/cucumber/cucumber-ruby/releases)
+[^5]: [SpecFlow History](https://specflow.org/)
+[^6]: [Verified Market Reports - BDD Testing Tool Market Size (2024)](https://www.verifiedmarketreports.com/)
 
 ### BDDを生み出した背景
 
@@ -1332,9 +1339,6 @@ BDD成功の方程式:
 
 ---
 
-*本ガイドは ISTQB CTFL v4.0.1 Section 4.5 に準拠し、2025年4月時点の最新情報を反映しています。*
+*本ガイドは ISTQB CTFL v4.0.1 に準拠し、最終更新：2026年4月6日 の時点の情報を反映しています。*
 
-*© 2025 — BDD is not just testing. It's a conversation that never stops.*
- that never stops.*
-© 2025 — BDD is not just testing. It's a conversation that never stops.*
- that never stops.*
+*© 2025-2026 — BDD is not just testing. It's a conversation that never stops.*
