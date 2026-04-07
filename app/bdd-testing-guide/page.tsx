@@ -110,10 +110,11 @@ BDD導入後:
           <h3 className="text-lg font-bold mt-4 mb-2">誕生の経緯</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">BDDの誕生の経緯</caption>
               <thead>
                 <tr>
-                  <th>年</th>
-                  <th>出来事</th>
+                  <th scope="col">年</th>
+                  <th scope="col">出来事</th>
                 </tr>
               </thead>
               <tbody>
@@ -177,12 +178,13 @@ BDD導入後:
           <h3 className="text-lg font-bold mt-4 mb-2">3つの手法の比較</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">3つの手法の比較</caption>
               <thead>
                 <tr>
-                  <th>観点</th>
-                  <th>TDD</th>
-                  <th>BDD</th>
-                  <th>ATDD</th>
+                  <th scope="col">観点</th>
+                  <th scope="col">TDD</th>
+                  <th scope="col">BDD</th>
+                  <th scope="col">ATDD</th>
                 </tr>
               </thead>
               <tbody>
@@ -269,10 +271,11 @@ BDD導入後:
           <h3 className="text-lg font-bold mt-6 mb-2">ISTQBの7原則とBDDの対応</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">ISTQBの7原則とBDDの対応</caption>
               <thead>
                 <tr>
-                  <th>ISTQB原則</th>
-                  <th>BDDでの実現方法</th>
+                  <th scope="col">ISTQB原則</th>
+                  <th scope="col">BDDでの実現方法</th>
                 </tr>
               </thead>
               <tbody>
@@ -365,12 +368,13 @@ BDD導入後:
           <p>スリーアミーゴスとは、BDDにおける <strong>「3つの異なる視点からの対話」</strong> を象徴するプラクティスです。</p>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">スリーアミーゴスの役割と関心事</caption>
               <thead>
                 <tr>
-                  <th>アミーゴ</th>
-                  <th>役割</th>
-                  <th>視点</th>
-                  <th>主な関心事</th>
+                  <th scope="col">アミーゴ</th>
+                  <th scope="col">役割</th>
+                  <th scope="col">視点</th>
+                  <th scope="col">主な関心事</th>
                 </tr>
               </thead>
               <tbody>
@@ -460,11 +464,12 @@ BDD導入後:
           <h3 className="text-lg font-bold mt-6 mb-2">Gherkinキーワード完全一覧</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">Gherkinキーワード完全一覧</caption>
               <thead>
                 <tr>
-                  <th>キーワード</th>
-                  <th>役割</th>
-                  <th>日本語対応</th>
+                  <th scope="col">キーワード</th>
+                  <th scope="col">役割</th>
+                  <th scope="col">日本語対応</th>
                 </tr>
               </thead>
               <tbody>
@@ -968,13 +973,14 @@ public class LoginSteps
           <h3 className="text-lg font-bold mt-4 mb-2">ツール一覧</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">主要BDDツール比較 2025年</caption>
               <thead>
                 <tr>
-                  <th>ツール</th>
-                  <th>言語</th>
-                  <th>構文</th>
-                  <th>特徴</th>
-                  <th>推奨場面</th>
+                  <th scope="col">ツール</th>
+                  <th scope="col">言語</th>
+                  <th scope="col">構文</th>
+                  <th scope="col">特徴</th>
+                  <th scope="col">推奨場面</th>
                 </tr>
               </thead>
               <tbody>
@@ -1394,11 +1400,12 @@ Week 11-12:
           <h3 className="text-lg font-bold mt-6 mb-2">成功の測定指標</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">成功の測定指標</caption>
               <thead>
                 <tr>
-                  <th>KPI</th>
-                  <th>基準値</th>
-                  <th>目標値（3ヶ月後）</th>
+                  <th scope="col">KPI</th>
+                  <th scope="col">基準値</th>
+                  <th scope="col">目標値（3ヶ月後）</th>
                 </tr>
               </thead>
               <tbody>
@@ -1446,11 +1453,12 @@ Week 11-12:
           <h3 className="text-lg font-bold mt-4 mb-2">採用統計</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">2025年の採用統計</caption>
               <thead>
                 <tr>
-                  <th>統計</th>
-                  <th>数値</th>
-                  <th>出典</th>
+                  <th scope="col">統計</th>
+                  <th scope="col">数値</th>
+                  <th scope="col">出典</th>
                 </tr>
               </thead>
               <tbody>
@@ -1533,10 +1541,11 @@ Week 11-12:
           <h3 className="text-lg font-bold mt-4 mb-2">ISTQB公式</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">参照URL一覧</caption>
               <thead>
                 <tr>
-                  <th>タイトル</th>
-                  <th>URL</th>
+                  <th scope="col">タイトル</th>
+                  <th scope="col">URL</th>
                 </tr>
               </thead>
               <tbody>
@@ -1552,10 +1561,11 @@ Week 11-12:
           <h3 className="text-lg font-bold mt-6 mb-2">BDD 基礎・概念</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">参照URL一覧</caption>
               <thead>
                 <tr>
-                  <th>タイトル</th>
-                  <th>URL</th>
+                  <th scope="col">タイトル</th>
+                  <th scope="col">URL</th>
                 </tr>
               </thead>
               <tbody>
@@ -1571,10 +1581,11 @@ Week 11-12:
           <h3 className="text-lg font-bold mt-6 mb-2">Gherkin 言語</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">参照URL一覧</caption>
               <thead>
                 <tr>
-                  <th>タイトル</th>
-                  <th>URL</th>
+                  <th scope="col">タイトル</th>
+                  <th scope="col">URL</th>
                 </tr>
               </thead>
               <tbody>
@@ -1590,10 +1601,11 @@ Week 11-12:
           <h3 className="text-lg font-bold mt-6 mb-2">ツール・フレームワーク</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">参照URL一覧</caption>
               <thead>
                 <tr>
-                  <th>タイトル</th>
-                  <th>URL</th>
+                  <th scope="col">タイトル</th>
+                  <th scope="col">URL</th>
                 </tr>
               </thead>
               <tbody>
@@ -1614,10 +1626,11 @@ Week 11-12:
           <h3 className="text-lg font-bold mt-6 mb-2">統計・トレンド</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">参照URL一覧</caption>
               <thead>
                 <tr>
-                  <th>タイトル</th>
-                  <th>URL</th>
+                  <th scope="col">タイトル</th>
+                  <th scope="col">URL</th>
                 </tr>
               </thead>
               <tbody>
@@ -1630,10 +1643,11 @@ Week 11-12:
           <h3 className="text-lg font-bold mt-6 mb-2">ベストプラクティス</h3>
           <div className="table-wrapper">
             <table>
+              <caption className="sr-only">参照URL一覧</caption>
               <thead>
                 <tr>
-                  <th>タイトル</th>
-                  <th>URL</th>
+                  <th scope="col">タイトル</th>
+                  <th scope="col">URL</th>
                 </tr>
               </thead>
               <tbody>
@@ -1663,11 +1677,12 @@ Week 11-12:
 
           <div className="table-wrapper mt-4">
             <table>
+              <caption className="sr-only">段階別のタスクと得られるもの</caption>
               <thead>
                 <tr>
-                  <th>段階</th>
-                  <th>やること</th>
-                  <th>得られるもの</th>
+                  <th scope="col">段階</th>
+                  <th scope="col">やること</th>
+                  <th scope="col">得られるもの</th>
                 </tr>
               </thead>
               <tbody>
