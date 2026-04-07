@@ -3,6 +3,13 @@ import '../bdd-testing-guide.css';
 export const LAST_UPDATED = '2026年4月6日';
 export const UPDATE_YEAR = LAST_UPDATED.match(/\d{4}/)?.[0] || '2025';
 
+/**
+ * Next.js page component that renders a static, full-featured Japanese guide to BDD.
+ *
+ * The page includes a hero header, a table of contents linking to 14 numbered sections (概念、歴史、Gherkin、実装例、ツール比較、CI/CD など)、numerous code examples and tables, and a final summary with the last-updated date.
+ *
+ * @returns A React element containing the complete BDD guide page JSX
+ */
 export default function BddTestingGuidePage() {
   const sections = [
     { id: '1-bddとは何か', title: '1. BDDとは何か？' },
