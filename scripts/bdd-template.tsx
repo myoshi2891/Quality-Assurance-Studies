@@ -3,6 +3,11 @@ import '../bdd-testing-guide.css';
 export const LAST_UPDATED = '2026年4月6日';
 export const UPDATE_YEAR = LAST_UPDATED.match(/\d{4}/)?.[0] || '2025';
 
+/**
+ * Renders a full-length BDD (Behavior-Driven Development) guide page with a hero, table of contents, and multiple detailed sections.
+ *
+ * @returns The JSX element containing the complete BDD guide page layout
+ */
 export default function BddTestingGuidePage() {
   const sections = [
     { id: '1-bddとは何か', title: '1. BDDとは何か？' },
