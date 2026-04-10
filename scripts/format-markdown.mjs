@@ -6,8 +6,8 @@ import { resolve } from 'path';
  * 1. Split concatenated links [text](url)[text](url) -> [text](url)\n[text](url)
  * 2. Process "---" separators (YAML front matter vs thematic breaks).
  * 3. Ensure headings (h1-h6) are preceded by a blank line (MD022).
- * 4. Normalize multiple blank lines to a single blank line.
- * 5. Ensure a single trailing newline (MD047).
+ * 4. Collapse 3+ consecutive newlines into exactly two (outside code/front matter).
+ * 5. Ensure exactly one trailing newline (MD047).
  */
 
 async function formatMarkdown(filePath) {
@@ -31,7 +31,22 @@ async function formatMarkdown(filePath) {
         let line = lines[i];
         const trimmed = line.trim();
 
-        // 1. Track fenced code blocks (robustly handle nested fences)
+        // 1. Preserve YAML front matter verbatim
+        if (i === 0 && trimmed === '---') {
+            frontMatterOpen = true;
+            processedLines.push(line);
+            continue;
+        }
+
+        if (frontMatterOpen) {
+            processedLines.push(line);
+            if (trimmed === '---') {
+                frontMatterOpen = false;
+            }
+            continue;
+        }
+
+        // 2. Track fenced code blocks (robustly handle nested fences)
         const openingFenceMatch = trimmed.match(/^(`{3,}|~{3,})/);
         if (!inFencedCodeBlock && openingFenceMatch) {
             const fence = openingFenceMatch[1];
@@ -55,21 +70,6 @@ async function formatMarkdown(filePath) {
                 }
             }
             processedLines.push(line);
-            continue;
-        }
-
-        // 2. Preserve YAML front matter verbatim
-        if (i === 0 && trimmed === '---') {
-            frontMatterOpen = true;
-            processedLines.push(line);
-            continue;
-        }
-
-        if (frontMatterOpen) {
-            processedLines.push(line);
-            if (trimmed === '---') {
-                frontMatterOpen = false;
-            }
             continue;
         }
 
