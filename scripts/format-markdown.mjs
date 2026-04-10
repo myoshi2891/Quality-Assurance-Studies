@@ -23,17 +23,34 @@ async function formatMarkdown(filePath) {
     const processedLines = [];
     let frontMatterOpen = false;
     let inFencedCodeBlock = false;
+    let activeFenceChar = '';
+    let activeFenceLen = 0;
     const removeHorizontalRules = false; // Default: preserve thematic breaks
 
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
         const trimmed = line.trim();
 
-        // 1. Track fenced code blocks to avoid formatting code
-        if (/^(```|~~~)/.test(trimmed)) {
-            inFencedCodeBlock = !inFencedCodeBlock;
-            processedLines.push(line);
-            continue;
+        // 1. Track fenced code blocks (robustly handle nested fences)
+        const fenceMatch = trimmed.match(/^(`{3,}|~{3,})/);
+        if (fenceMatch) {
+            const fence = fenceMatch[1];
+            const fenceChar = fence[0];
+            const fenceLen = fence.length;
+
+            if (!inFencedCodeBlock) {
+                inFencedCodeBlock = true;
+                activeFenceChar = fenceChar;
+                activeFenceLen = fenceLen;
+                processedLines.push(line);
+                continue;
+            } else if (fenceChar === activeFenceChar && fenceLen >= activeFenceLen) {
+                inFencedCodeBlock = false;
+                activeFenceChar = '';
+                activeFenceLen = 0;
+                processedLines.push(line);
+                continue;
+            }
         }
 
         if (inFencedCodeBlock) {
@@ -56,7 +73,16 @@ async function formatMarkdown(filePath) {
             continue;
         }
 
-        // 3. Split concatenated links (outside code blocks/front matter)
+        // 3. Collapse consecutive blank lines (outside protected areas)
+        if (
+            trimmed === '' &&
+            processedLines.length > 0 &&
+            processedLines[processedLines.length - 1].trim() === ''
+        ) {
+            continue;
+        }
+
+        // 4. Split concatenated links (outside code blocks/front matter)
         line = line.replace(/\)\[/g, ')\n[');
 
         if (trimmed === '---') {
@@ -67,7 +93,7 @@ async function formatMarkdown(filePath) {
             // Fall through to push(line) below
         }
 
-        // 4. Ensure blank line before headings (MD022)
+        // 5. Ensure blank line before headings (MD022)
         if (/^#{1,6}\s+/.test(line)) {
             if (processedLines.length > 0 && processedLines[processedLines.length - 1].trim() !== '') {
                 processedLines.push('');
@@ -77,9 +103,8 @@ async function formatMarkdown(filePath) {
         processedLines.push(line);
     }
 
-    // 4. Normalize spacing
+    // 6. Normalize spacing (already handled during line processing)
     let content = processedLines.join('\n');
-    content = content.replace(/\n{3,}/g, '\n\n');
 
     // 5. Ensure single trailing newline (preserve meaningful spaces)
     if (!content.endsWith('\n')) {
