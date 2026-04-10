@@ -2,12 +2,16 @@ import { readFile, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 
 /**
- * Markdown formatter script to:
- * 1. Split concatenated links [text](url)[text](url) -> [text](url)\n[text](url)
- * 2. Process "---" separators (YAML front matter vs thematic breaks).
- * 3. Ensure headings (h1-h6) are preceded by a blank line (MD022).
- * 4. Collapse 3+ consecutive newlines into exactly two (outside code/front matter).
- * 5. Ensure exactly one trailing newline (MD047).
+ * Format a Markdown file in-place to enforce link separation, heading spacing, blank-line normalization, and a single trailing newline.
+ *
+ * The formatter:
+ * - Splits concatenated links by inserting a newline between `)[` → `)\n[`.
+ * - Preserves YAML front matter and fenced code blocks verbatim.
+ * - Ensures headings (`#`–`######` followed by a space) are preceded by a blank line (MD022).
+ * - Collapses runs of three or more consecutive newlines into exactly two newlines (MD012).
+ * - Normalizes the end of the file to exactly one final newline (MD047).
+ *
+ * @param {string} filePath - Path to the Markdown file to format (will be overwritten).
  */
 
 async function formatMarkdown(filePath) {
