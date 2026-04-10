@@ -21,15 +21,29 @@ async function formatMarkdown(filePath) {
     // 2. Process line by line for separators and headings
     const lines = content.split(/\r?\n/);
     const processedLines = [];
+    let frontMatterOpen = false;
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
         const trimmed = line.trim();
 
-        // Skip horizontal rules that are likely separators
-        // (This assumes separators are on their own line as "---")
         if (trimmed === '---') {
-            continue;
+            // Check for YAML front matter boundaries
+            if (i === 0) {
+                frontMatterOpen = true;
+                processedLines.push(line);
+                continue;
+            } else if (frontMatterOpen) {
+                frontMatterOpen = false;
+                processedLines.push(line);
+                continue;
+            }
+
+            // Skip horizontal rules that are likely separators
+            // outside of front matter
+            if (!frontMatterOpen) {
+                continue;
+            }
         }
 
         // 3. Ensure blank line before headings
@@ -59,7 +73,7 @@ async function formatMarkdown(filePath) {
 
 const targetFile = process.argv[2];
 if (!targetFile) {
-  console.error('Usage: node format-markdown.mjs <file-path>');
+  console.error('Usage: bun scripts/format-markdown.mjs <file-path>');
   process.exit(1);
 }
 

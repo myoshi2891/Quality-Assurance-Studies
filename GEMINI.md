@@ -11,7 +11,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Building and Running
 
-Use `bun` exclusively to manage dependencies, run scripts, and execute node tools. Using `npm`, `yarn`, or `pnpm` is prohibited.
+依存関係の管理、スクリプトの実行、および node ツールの実行には、必ず `bun` のみを使用してください。`npm`、`yarn`、または `pnpm` の使用は禁止されています。
 
 - **Install dependencies:**
 
@@ -52,9 +52,9 @@ Use `bun` exclusively to manage dependencies, run scripts, and execute node tool
   - Verify compliance using: `bun x markdownlint-cli <file>`
   - Auto-format and fix common issues (e.g., heading spacing, links, trailing newlines) using: `bun scripts/format-markdown.mjs <file>`
 - **Educational Tone:** The codebase serves an educational purpose. Code additions should be well-documented and follow the structured, step-by-step explanatory format present in existing pages like `app/page.tsx` and `app/ai-test-guide/page.tsx`.
-- **HTML Migration Workflow:** When migrating static HTML pages to Next.js:
-    1. Use `scripts/extract-css.mjs` to extract and map CSS variables.
-    2. Use `scripts/html-to-tsx.mjs` to convert HTML to JSX.
-    3. Manually fix any CSS specificity or scoping issues (ensure all styles are scoped under a page-specific class).
-    4. Move the original HTML file to the `archive/` directory.
-    5. Update `components/Header.tsx` navigation and `CLAUDE.md` architecture.
+- **HTML Migration Workflow:** 静的 HTML ページを Next.js に移行する際のワークフロー:
+    1. `scripts/extract-css.mjs` を使用して、CSS 変数を抽出しマッピングします。
+    2. `scripts/html-to-tsx.mjs` を使用して、HTML を JSX に変換します。
+    3. CSS の詳細度やスコープの問題を手動で修正します（すべてのスタイルがページ固有のクラスの下にスコープされていることを確認してください）。
+    4. 元の HTML ファイルを `archive/` ディレクトリに移動します。
+    5. `components/Header.tsx` のナビゲーションと `CLAUDE.md` のアーキテクチャを更新します。
