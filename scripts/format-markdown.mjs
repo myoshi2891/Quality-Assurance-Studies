@@ -4,8 +4,8 @@ import { resolve } from 'path';
 /**
  * Markdown formatter script to:
  * 1. Split concatenated links [text](url)[text](url) -> [text](url)\n[text](url)
- * 2. Remove redundant "---" separators used between links.
- * 3. Ensure headings (##, ###) are preceded by a blank line (MD022).
+ * 2. Process "---" separators (YAML front matter vs thematic breaks).
+ * 3. Ensure headings (h1-h6) are preceded by a blank line (MD022).
  * 4. Normalize multiple blank lines to a single blank line.
  * 5. Ensure a single trailing newline (MD047).
  */
@@ -41,12 +41,10 @@ async function formatMarkdown(filePath) {
             }
 
             // Preservation logic for horizontal rules (thematic breaks)
-            if (!frontMatterOpen) {
-                if (removeHorizontalRules) {
-                    continue;
-                }
-                // Fall through to push(line) below
+            if (removeHorizontalRules) {
+                continue;
             }
+            // Fall through to push(line) below
         }
 
         // 3. Ensure blank line before headings (MD022)
