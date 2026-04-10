@@ -29,7 +29,7 @@ async function formatMarkdown(filePath) {
         let line = lines[i];
         const trimmed = line.trim();
 
-        // Track fenced code blocks to avoid formatting code
+        // 1. Track fenced code blocks to avoid formatting code
         if (/^(```|~~~)/.test(trimmed)) {
             inFencedCodeBlock = !inFencedCodeBlock;
             processedLines.push(line);
@@ -41,21 +41,25 @@ async function formatMarkdown(filePath) {
             continue;
         }
 
-        // Split concatenated links (outside code blocks)
+        // 2. Preserve YAML front matter verbatim
+        if (i === 0 && trimmed === '---') {
+            frontMatterOpen = true;
+            processedLines.push(line);
+            continue;
+        }
+
+        if (frontMatterOpen) {
+            processedLines.push(line);
+            if (trimmed === '---') {
+                frontMatterOpen = false;
+            }
+            continue;
+        }
+
+        // 3. Split concatenated links (outside code blocks/front matter)
         line = line.replace(/\)\[/g, ')\n[');
 
         if (trimmed === '---') {
-            // Check for YAML front matter boundaries
-            if (i === 0) {
-                frontMatterOpen = true;
-                processedLines.push(line);
-                continue;
-            } else if (frontMatterOpen) {
-                frontMatterOpen = false;
-                processedLines.push(line);
-                continue;
-            }
-
             // Preservation logic for horizontal rules (thematic breaks)
             if (removeHorizontalRules) {
                 continue;
@@ -63,7 +67,7 @@ async function formatMarkdown(filePath) {
             // Fall through to push(line) below
         }
 
-        // 3. Ensure blank line before headings (MD022)
+        // 4. Ensure blank line before headings (MD022)
         if (/^#{1,6}\s+/.test(line)) {
             if (processedLines.length > 0 && processedLines[processedLines.length - 1].trim() !== '') {
                 processedLines.push('');
