@@ -74,7 +74,7 @@ async function formatMarkdown(filePath) {
     }
 
     // 4. Normalize spacing
-    content = processedLines.join('\n');
+    let content = processedLines.join('\n');
     content = content.replace(/\n{3,}/g, '\n\n');
 
     // 5. Ensure single trailing newline (preserve meaningful spaces)
