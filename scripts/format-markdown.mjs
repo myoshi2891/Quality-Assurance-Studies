@@ -15,18 +15,34 @@ async function formatMarkdown(filePath) {
     const absolutePath = resolve(filePath);
     const rawContent = await readFile(absolutePath, 'utf8');
 
-    // 1. Split concatenated links
-    let content = rawContent.replace(/\)\[/g, ')\n[');
+    // 1. Normalize line endings to LF
+    const rawContentLF = rawContent.replace(/\r\n/g, '\n').replace(/\r/g, '\n');
 
-    // 2. Process line by line for separators and headings
-    const lines = content.split(/\r?\n/);
+    // 2. Process line by line for code blocks, separators, and headings
+    const lines = rawContentLF.split('\n');
     const processedLines = [];
     let frontMatterOpen = false;
+    let inFencedCodeBlock = false;
     const removeHorizontalRules = false; // Default: preserve thematic breaks
 
     for (let i = 0; i < lines.length; i++) {
-        const line = lines[i];
+        let line = lines[i];
         const trimmed = line.trim();
+
+        // Track fenced code blocks to avoid formatting code
+        if (/^(```|~~~)/.test(trimmed)) {
+            inFencedCodeBlock = !inFencedCodeBlock;
+            processedLines.push(line);
+            continue;
+        }
+
+        if (inFencedCodeBlock) {
+            processedLines.push(line);
+            continue;
+        }
+
+        // Split concatenated links (outside code blocks)
+        line = line.replace(/\)\[/g, ')\n[');
 
         if (trimmed === '---') {
             // Check for YAML front matter boundaries
@@ -61,8 +77,12 @@ async function formatMarkdown(filePath) {
     content = processedLines.join('\n');
     content = content.replace(/\n{3,}/g, '\n\n');
 
-    // 5. Ensure single trailing newline
-    content = content.trim() + '\n';
+    // 5. Ensure single trailing newline (preserve meaningful spaces)
+    if (!content.endsWith('\n')) {
+        content += '\n';
+    } else {
+        content = content.replace(/\n+$/, '\n');
+    }
 
     await writeFile(absolutePath, content, 'utf8');
     console.log(`Successfully formatted: ${filePath}`);
