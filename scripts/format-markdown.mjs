@@ -22,6 +22,7 @@ async function formatMarkdown(filePath) {
     const lines = content.split(/\r?\n/);
     const processedLines = [];
     let frontMatterOpen = false;
+    const removeHorizontalRules = false; // Default: preserve thematic breaks
 
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i];
@@ -39,15 +40,17 @@ async function formatMarkdown(filePath) {
                 continue;
             }
 
-            // Skip horizontal rules that are likely separators
-            // outside of front matter
+            // Preservation logic for horizontal rules (thematic breaks)
             if (!frontMatterOpen) {
-                continue;
+                if (removeHorizontalRules) {
+                    continue;
+                }
+                // Fall through to push(line) below
             }
         }
 
-        // 3. Ensure blank line before headings
-        if (/^#{2,3}\s+/.test(line)) {
+        // 3. Ensure blank line before headings (MD022)
+        if (/^#{1,6}\s+/.test(line)) {
             if (processedLines.length > 0 && processedLines[processedLines.length - 1].trim() !== '') {
                 processedLines.push('');
             }

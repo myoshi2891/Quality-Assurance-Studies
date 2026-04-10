@@ -48,9 +48,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - **Application Structure:** Uses the Next.js App Router (`app/` directory) for routing and page structure. Reusable UI components are placed in the `components/` directory.
 - **Styling Approach:** Tailwind CSS utility classes are the primary styling mechanism.
 - **Content Language:** The main content and documentation are written in Japanese. Always preserve this localized context when updating or adding new content.
-- **Markdown Conventions:** All markdown documents must comply with `.markdownlint.json`.
-  - Verify compliance using: `bun x markdownlint-cli <file>`
-  - Auto-format and fix common issues (e.g., heading spacing, links, trailing newlines) using: `bun scripts/format-markdown.mjs <file>`
+- **Markdown Conventions:** すべての Markdown ドキュメントは `.markdownlint.json` に準拠する必要があります。
+  - 準拠状況を確認するには、次を実行します: `bun x markdownlint-cli <file>`
+  - 一般的な問題（見出しのスペース、リンク、末尾の改行など）を自動整形して修正するには、次を実行します: `bun scripts/format-markdown.mjs <file>`
 - **Educational Tone:** The codebase serves an educational purpose. Code additions should be well-documented and follow the structured, step-by-step explanatory format present in existing pages like `app/page.tsx` and `app/ai-test-guide/page.tsx`.
 - **HTML Migration Workflow:** 静的 HTML ページを Next.js に移行する際のワークフロー:
     1. `scripts/extract-css.mjs` を使用して、CSS 変数を抽出しマッピングします。
