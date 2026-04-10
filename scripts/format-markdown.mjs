@@ -32,28 +32,28 @@ async function formatMarkdown(filePath) {
         const trimmed = line.trim();
 
         // 1. Track fenced code blocks (robustly handle nested fences)
-        const fenceMatch = trimmed.match(/^(`{3,}|~{3,})/);
-        if (fenceMatch) {
-            const fence = fenceMatch[1];
+        const openingFenceMatch = trimmed.match(/^(`{3,}|~{3,})/);
+        if (!inFencedCodeBlock && openingFenceMatch) {
+            const fence = openingFenceMatch[1];
             const fenceChar = fence[0];
             const fenceLen = fence.length;
-
-            if (!inFencedCodeBlock) {
-                inFencedCodeBlock = true;
-                activeFenceChar = fenceChar;
-                activeFenceLen = fenceLen;
-                processedLines.push(line);
-                continue;
-            } else if (fenceChar === activeFenceChar && fenceLen >= activeFenceLen) {
-                inFencedCodeBlock = false;
-                activeFenceChar = '';
-                activeFenceLen = 0;
-                processedLines.push(line);
-                continue;
-            }
+            inFencedCodeBlock = true;
+            activeFenceChar = fenceChar;
+            activeFenceLen = fenceLen;
+            processedLines.push(line);
+            continue;
         }
 
         if (inFencedCodeBlock) {
+            const closingFenceMatch = trimmed.match(/^(`{3,}|~{3,})\s*$/);
+            if (closingFenceMatch) {
+                const closingFence = closingFenceMatch[1];
+                if (closingFence[0] === activeFenceChar && closingFence.length >= activeFenceLen) {
+                    inFencedCodeBlock = false;
+                    activeFenceChar = '';
+                    activeFenceLen = 0;
+                }
+            }
             processedLines.push(line);
             continue;
         }
