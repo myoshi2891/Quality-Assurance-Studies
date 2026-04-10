@@ -1,6 +1,6 @@
 {
     "default": true,
-    "MD001": false,
+    "MD001": true,
     "MD002": true,
     "MD003": { "style": "atx" },
     "MD004": { "style": "consistent" },
@@ -16,7 +16,7 @@
     },
     "MD018": false,
     "MD019": false,
-    "MD022": false,
+    "MD022": true,
     "MD024": { "siblings_only": true },
     "MD025": { "front_matter_title": "" },
     "MD026": { "punctuation": ".,;:!。，；：" },
@@ -31,6 +31,7 @@
     "MD032": false,
     "MD033": {
         "allowed_elements": [
+            "a",
             "h1",
             "h2",
             "p",
@@ -48,7 +49,7 @@
     "MD034": false,
     "MD036": false,
     "MD038": true,
-    "MD040": false,
+    "MD040": true,
     "MD041": false,
     "MD042": false,
     "MD046": { "style": "fenced" },

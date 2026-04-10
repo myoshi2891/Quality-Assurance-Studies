@@ -1,7 +1,9 @@
 # Project Overview
+
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
 ## Core Technologies
+
 - **Framework:** Next.js 15 (App Router), React 19
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS v4, PostCSS
@@ -9,7 +11,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Building and Running
 
-Use `bun` to manage dependencies and run scripts.
+Use `bun` exclusively to manage dependencies, run scripts, and execute node tools. Using `npm`, `yarn`, or `pnpm` is prohibited.
 
 - **Install dependencies:**
 
@@ -42,9 +44,13 @@ Use `bun` to manage dependencies and run scripts.
   ```
 
 ## Development Conventions
+
 - **Application Structure:** Uses the Next.js App Router (`app/` directory) for routing and page structure. Reusable UI components are placed in the `components/` directory.
 - **Styling Approach:** Tailwind CSS utility classes are the primary styling mechanism.
 - **Content Language:** The main content and documentation are written in Japanese. Always preserve this localized context when updating or adding new content.
+- **Markdown Conventions:** All markdown documents must comply with `.markdownlint.json`.
+  - Verify compliance using: `bun x markdownlint-cli <file>`
+  - Auto-format and fix common issues (e.g., heading spacing, links, trailing newlines) using: `bun scripts/format-markdown.mjs <file>`
 - **Educational Tone:** The codebase serves an educational purpose. Code additions should be well-documented and follow the structured, step-by-step explanatory format present in existing pages like `app/page.tsx` and `app/ai-test-guide/page.tsx`.
 - **HTML Migration Workflow:** When migrating static HTML pages to Next.js:
     1. Use `scripts/extract-css.mjs` to extract and map CSS variables.
