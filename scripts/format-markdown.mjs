@@ -2,12 +2,16 @@ import { readFile, writeFile } from 'fs/promises';
 import { resolve } from 'path';
 
 /**
- * Markdown formatter script to:
- * 1. Split concatenated links [text](url)[text](url) -> [text](url)\n[text](url)
- * 2. Remove redundant "---" separators used between links.
- * 3. Ensure headings (##, ###) are preceded by a blank line (MD022).
- * 4. Normalize multiple blank lines to a single blank line.
- * 5. Ensure a single trailing newline (MD047).
+ * Format a Markdown file in-place to enforce project markdown style rules.
+ *
+ * Applies these formatting rules to the file at the given path:
+ * - Split concatenated inline links like `[text](url)[text](url)` into separate lines.
+ * - Remove lines consisting solely of `---` (treated as redundant separators).
+ * - Ensure level-2 and level-3 headings (`##`, `###`) are preceded by a single blank line when needed.
+ * - Collapse runs of three or more consecutive newlines into exactly two.
+ * - Trim trailing whitespace and ensure the file ends with a single newline.
+ *
+ * @param {string} filePath - Path to the Markdown file to format (will be resolved to an absolute path).
  */
 
 async function formatMarkdown(filePath) {
