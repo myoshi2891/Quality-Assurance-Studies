@@ -165,7 +165,7 @@ Chapter 5: 欠陥防止           ██████████  225分 (18.5%)
 3. テスト条件（Test Conditions）の定義
 4. リスクの識別・評価
 5. テストカバレッジの目標設定
-```text
+```
 
 #### ✏️ 1.2.2 テスト設計（Test Design）
 
@@ -266,7 +266,7 @@ Low-Level Test Case（詳細テストケース）
     - テスト用VPN設定
   テストデータ:
     - 本番同等の匿名化データ 1000件以上
-```text
+```
 
 #### 🔮 1.3.4 テストオラクル（Test Oracle）の決定
 
@@ -539,7 +539,7 @@ test_cases = [
     # EP5: age > 120 (無効)
     {"input": 121,  "expected": "ValueError", "type": "無効EP2"},
 ]
-```text
+```
 
 ##### 境界値分析（Boundary Value Analysis: BVA）
 
@@ -614,7 +614,7 @@ pairwise_tests = [
     {"OS": "Linux",   "Browser": "Safari",  "Lang": "JP"},
 ]
 # 6テストで全ペア（OS-Browser, OS-Lang, Browser-Lang）をカバー！
-```text
+```
 
 **学習目標（LO）:**
 - `TA-3.1.1 (K3)` ドメインテストを適用できる
@@ -683,7 +683,7 @@ Feature: ユーザー管理
     Given "田中太郎"がシステムに存在する
     When  "田中太郎"を削除する
     Then  "田中太郎"がユーザー一覧に表示されない
-```text
+```
 
 #### 3.2.2 状態遷移テスト（State Transition Testing）
 
@@ -739,7 +739,7 @@ test_transitions = [
     {"from": "決済済み", "event": "発送",      "expected": "配送中"},
     {"from": "配送中",  "event": "到着確認",   "expected": "完了"},
 ]
-```text
+```
 
 #### 3.2.3 シナリオベーステスト（Scenario-Based Testing）
 
@@ -831,7 +831,7 @@ test_cases = [
     # R4: F,F,F → 却下
     {"income": 200, "credit": 650, "years": 1, "expected": "rejected"},
 ]
-```text
+```
 
 #### 3.3.2 メタモルフィックテスト（Metamorphic Testing）
 
@@ -872,7 +872,7 @@ assert abs(dist_A_to_B - dist_B_to_A) < 0.01
 accuracy_1000 = train_and_evaluate(samples=1000)
 accuracy_2000 = train_and_evaluate(samples=2000)
 assert accuracy_2000 >= accuracy_1000 - 0.05  # 許容誤差5%
-```text
+```
 
 **メタモルフィックテストが特に有効なシステム:**
 - 機械学習・AIシステム
@@ -1197,7 +1197,7 @@ SUS スコア解釈:
   □ 完全性（全ての条件・例外が記述されているか）？
   □ 境界条件が明示されているか？
   □ 依存関係が文書化されているか？
-```text
+```
 
 ### 5.3 欠陥再発防止（Mitigating the Recurrence of Defects）
 
@@ -1475,6 +1475,14 @@ CTAL-TA v3.1 → v4.0 の主な変更:
 ## 🔗 参照URL一覧
 
 ### 🏛️ 公式ISTQB® リソース
+
+> [!NOTE]
+> **リンクメンテナンス**: `?sdm_process_download=...` 形式のURLは
+> ISTQB®サイトのリニューアル等で `download_id` が変更されることがあります。
+> CIジョブ **`link-check`**（または `scripts/check_links` スクリプト）を定期実行し、
+> 各URLへHTTPリクエストを送って非2xxレスポンスを検出・報告してください。
+> CI/link-check がアラートを出した場合は、ISTQB®公式サイトで最新URLを確認し、
+> このテーブルを更新してください。
 
 | リソース | URL |
 |---------|-----|
