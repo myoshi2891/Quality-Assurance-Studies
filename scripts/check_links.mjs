@@ -39,6 +39,15 @@ for (const arg of args) {
 const TIMEOUT_MS = parseInt(flags.timeout ?? "10000", 10);
 const CONCURRENCY = parseInt(flags.concurrency ?? "5", 10);
 
+if (!Number.isInteger(TIMEOUT_MS) || TIMEOUT_MS <= 0) {
+  console.error("Error: timeout must be a positive integer.");
+  process.exit(1);
+}
+if (!Number.isInteger(CONCURRENCY) || CONCURRENCY <= 0) {
+  console.error("Error: concurrency must be a positive integer.");
+  process.exit(1);
+}
+
 // 引数がなければカレントディレクトリの *.md を対象にする
 const targetFiles =
   fileArgs.length > 0
@@ -87,7 +96,7 @@ async function checkUrl(url) {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
-    const res = await fetch(url, {
+    let res = await fetch(url, {
       method: "HEAD",
       signal: controller.signal,
       redirect: "follow",
@@ -96,6 +105,19 @@ async function checkUrl(url) {
           "Mozilla/5.0 (compatible; link-checker/1.0; +https://github.com/QA-Studies)",
       },
     });
+    
+    if (res.status === 405 || res.status === 501) {
+      res = await fetch(url, {
+        method: "GET",
+        signal: controller.signal,
+        redirect: "follow",
+        headers: {
+          "User-Agent":
+            "Mozilla/5.0 (compatible; link-checker/1.0; +https://github.com/QA-Studies)",
+        },
+      });
+    }
+
     clearTimeout(timer);
     const ok = res.status >= 200 && res.status < 300;
     return { url, status: res.status, ok };
