@@ -1479,7 +1479,7 @@ CTAL-TA v3.1 → v4.0 の主な変更:
 > [!NOTE]
 > **リンクメンテナンス**: `?sdm_process_download=...` 形式のURLは
 > ISTQB®サイトのリニューアル等で `download_id` が変更されることがあります。
-> CIジョブ **`link-check`**（または `scripts/check_links` スクリプト）を定期実行し、
+> CIジョブ **`link-check`**（または `scripts/check_links.mjs` スクリプト）を定期実行し、
 > 各URLへHTTPリクエストを送って非2xxレスポンスを検出・報告してください。
 > CI/link-check がアラートを出した場合は、ISTQB®公式サイトで最新URLを確認し、
 > このテーブルを更新してください。

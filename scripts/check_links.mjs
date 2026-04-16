@@ -71,6 +71,12 @@ if (targetFiles.length === 0) {
  */
 function extractUrls(text) {
   const urlSet = new Set();
+  
+  // コードブロックとインラインコードを除去してサニタイズ
+  const sanitized = text
+    .replace(/```[\s\S]*?```/g, "")
+    .replace(/`[^`]*`/g, "");
+
   // Markdownリンク: [label](url)
   const mdLinkRe = /\[.*?\]\((https?:\/\/[^)\s]+)\)/g;
   // テーブルや裸URL: https://...
@@ -78,7 +84,7 @@ function extractUrls(text) {
 
   for (const re of [mdLinkRe, bareUrlRe]) {
     let m;
-    while ((m = re.exec(text)) !== null) {
+    while ((m = re.exec(sanitized)) !== null) {
       const url = (m[1] ?? m[0]).replace(/[.,;:!]$/, ""); // 末尾記号を除去
       urlSet.add(url);
     }
