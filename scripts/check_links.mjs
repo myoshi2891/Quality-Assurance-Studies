@@ -21,6 +21,17 @@
 import { readFileSync, readdirSync } from "fs";
 import { resolve, extname } from "path";
 
+/**
+ * Remove code block regions and inline code to sanitize text
+ * @param {string} text
+ * @returns {string}
+ */
+function stripCodeRegions(text) {
+  return text
+    .replace(/^(?:>\s*)*\s*(```|~~~)[^]*?\1/gm, "")
+    .replace(/`[^`]*`/g, "");
+}
+
 // ─── CLI 引数パース ────────────────────────────────────────────────────────────
 
 const args = process.argv.slice(2);
@@ -73,9 +84,7 @@ function extractUrls(text) {
   const urlSet = new Set();
   
   // コードブロックとインラインコードを除去してサニタイズ
-  const sanitized = text
-    .replace(/```[\s\S]*?```/g, "")
-    .replace(/`[^`]*`/g, "");
+  const sanitized = stripCodeRegions(text);
 
   // Markdownリンク: [label](url)
   const mdLinkRe = /\[.*?\]\((https?:\/\/[^)\s]+)\)/g;
@@ -169,6 +178,7 @@ async function checkAllUrls(urls) {
 (async () => {
   /** @type {Map<string, string[]>} url -> [files] */
   const urlToFiles = new Map();
+  let hadReadErrors = false;
 
   for (const file of targetFiles) {
     let text;
@@ -176,6 +186,7 @@ async function checkAllUrls(urls) {
       text = readFileSync(file, "utf-8");
     } catch {
       console.warn(`⚠️  Cannot read: ${file}`);
+      hadReadErrors = true;
       continue;
     }
     const urls = extractUrls(text);
@@ -210,6 +221,9 @@ async function checkAllUrls(urls) {
     console.log(
       "ℹ️  ?sdm_process_download=... URLが壊れている場合はISTQB®公式サイトで最新IDを確認してください。"
     );
+    process.exit(1);
+  } else if (hadReadErrors) {
+    console.log("\n❌ Read errors occurred during checking.");
     process.exit(1);
   } else {
     console.log("\n✅ All links are healthy.");

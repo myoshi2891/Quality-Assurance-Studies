@@ -1,6 +1,6 @@
 # 🏆 ISTQB® Certified Tester Agile Test Leadership at Scale (CT-ATLaS)
 
-## 完全学習ガイド【2025年最新版・初学者対応】
+## 完全学習ガイド【最新版・初学者対応】
 
 > **最終更新**: 2025年（ISTQB® 公式シラバス CT-ATLaS v2.0 準拠）  
 > **対象読者**: CTFL取得済みで、アジャイル組織における品質リーダーシップを高めたい方  

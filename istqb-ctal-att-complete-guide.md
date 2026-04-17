@@ -334,7 +334,7 @@ Feature: ユーザー認証
 5. ユースケース分析（Use Case Analysis）
    → アクター・主シナリオ・代替シナリオを整理
 
-5. SpecificationByExample（SBE / 実例仕様化）
+6. SpecificationByExample（SBE / 実例仕様化）
    → 抽象的な要件を具体的な例で説明
    抽象：「割引は正しく計算されること」
    実例：「100円の商品を10%OFFにすると90円になること」
