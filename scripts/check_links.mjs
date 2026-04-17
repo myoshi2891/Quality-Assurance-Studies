@@ -22,9 +22,9 @@ import { readFileSync, readdirSync } from "fs";
 import { resolve, extname } from "path";
 
 /**
- * Remove code block regions and inline code to sanitize text
- * @param {string} text
- * @returns {string}
+ * Sanitize Markdown by removing fenced code blocks and inline code.
+ * @param {string} text - Input Markdown text.
+ * @returns {string} The text with fenced code blocks and inline code removed.
  */
 function stripCodeRegions(text) {
   return text
@@ -75,10 +75,10 @@ if (targetFiles.length === 0) {
 // ─── URL 抽出 ─────────────────────────────────────────────────────────────────
 
 /**
- * Markdown テキストから HTTP/HTTPS URL を抽出します。
- * Markdownリンク `[text](url)` および裸URL を対象とします。
- * @param {string} text
- * @returns {string[]}
+ * Extract HTTP/HTTPS URLs from Markdown text, ignoring fenced code blocks and inline code.
+ * Targets Markdown link destinations and bare URLs; trailing punctuation such as .,;:! is removed and results are deduplicated.
+ * @param {string} text - The Markdown content to scan.
+ * @returns {string[]} An array of unique HTTP/HTTPS URLs found in the text.
  */
 function extractUrls(text) {
   const urlSet = new Set();
@@ -104,8 +104,18 @@ function extractUrls(text) {
 // ─── HTTP チェック ─────────────────────────────────────────────────────────────
 
 /**
- * @param {string} url
+ * Check a single HTTP/HTTPS URL for HTTP-level reachability.
+ *
+ * Attempts a `HEAD` request and retries with `GET` if the server responds with
+ * 405 or 501; the request is aborted after `TIMEOUT_MS` milliseconds.
+ *
+ * @param {string} url - The URL to check.
  * @returns {Promise<{url: string, status: number|null, ok: boolean, error?: string}>}
+ *   An object describing the result:
+ *   - `url`: the checked URL.
+ *   - `status`: the HTTP status code received, or `null` if no response was obtained.
+ *   - `ok`: `true` if the status is in the 200–299 range, `false` otherwise.
+ *   - `error` (optional): a text description when the check failed (e.g. `TIMEOUT (>${TIMEOUT_MS}ms)` or the fetch error message).
  */
 async function checkUrl(url) {
   const controller = new AbortController();
@@ -149,12 +159,21 @@ async function checkUrl(url) {
 }
 
 /**
- * 最大 CONCURRENCY 件を並列実行するプールで URL を検査します。
+ * Check a list of URLs using a worker pool limited to CONCURRENCY concurrent checks.
+ *
+ * @param {string[]} urls - The URLs to check.
+ * @returns {Array<{url: string, status: number|null, ok: boolean, error?: string}>} An array of per-URL result objects containing `url`; `status` (HTTP status code or `null` if unavailable); `ok` (`true` for 2xx responses, `false` otherwise); and an optional `error` message for timeouts or fetch failures.
  */
 async function checkAllUrls(urls) {
   const results = [];
   const queue = [...urls];
 
+  /**
+   * Continuously takes URLs from the shared `queue`, performs an HTTP reachability check for each,
+   * appends the check result to the shared `results` array, and logs a line summarizing the outcome.
+   *
+   * The worker runs until the `queue` is empty. Side effects: mutates `results` and writes status lines to console.
+   */
   async function worker() {
     while (queue.length > 0) {
       const url = queue.shift();
