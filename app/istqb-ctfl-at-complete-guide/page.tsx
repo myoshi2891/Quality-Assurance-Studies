@@ -1,11 +1,12 @@
 import Link from 'next/link';
 import Header from '../../components/Header';
+import '../istqb-ctfl-at-guide.css';
 
 export default function IstqbCtflAtCompleteGuidePage() {
     return (
         <>
             <Header />
-            <main className="container mx-auto px-4 py-8 max-w-5xl">
+            <main className="page-ctfl container mx-auto px-4 py-8 max-w-5xl">
                 <section id="top" className="hero"><div className="hero-content"><h1>🌿 ISTQB® Certified Tester Foundation Level Agile Tester (CTFL-AT)</h1></div></section>
 <h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">完全学習ガイド【最新版・初学者対応】</h2>
 <div className="callout callout-info">
@@ -40,58 +41,12 @@ export default function IstqbCtflAtCompleteGuidePage() {
 
 <h2 id="chapter-0" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🌟 Chapter 0: CTFL-AT 概要と資格ロードマップ</h2>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">0.1 この資格とは？</h3>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>┌──────────────────────────────────────────────────────────────────┐
-│               ISTQB® 認定資格ロードマップ（アジャイルストリーム）    │
-│                                                                  │
-│  [上位資格]                                                       │
-│   ┌──────────────────┐    ┌────────────────────────────────┐    │
-│   │ CTAL-ATT         │    │ CT-ATLaS                       │    │
-│   │ (Agile Technical │    │ (Agile Test Leadership         │    │
-│   │  Tester)         │    │  at Scale)                     │    │
-│   └────────┬─────────┘    └──────────────┬─────────────────┘    │
-│            │                             │                       │
-│            └─────────────┬───────────────┘                       │
-│                          ↑                                       │
-│   ┌──────────────────────────────────────────────────────┐      │
-│   │  CTFL-AT (Foundation Level Agile Tester) ← 本資格！   │      │
-│   └──────────────────────────────────────────────────────┘      │
-│                          ↑                                       │
-│   ┌──────────────────────────────────────────────────────┐      │
-│   │  CTFL v4.0 / 旧CTFL（前提資格：必須）                  │      │
-│   └──────────────────────────────────────────────────────┘      │
-│                                                                  │
-│  ⚠️ 重要な注意：                                                   │
-│  CTFL v4.0 にはアジャイルテストの内容が含まれているため、           │
-│  CTFL v4.0 取得者は CTFL-AT を取る必要がない可能性がある            │
-└──────────────────────────────────────────────────────────────────┘
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"┌──────────────────────────────────────────────────────────────────┐\n│               ISTQB® 認定資格ロードマップ（アジャイルストリーム）    │\n│                                                                  │\n│  [上位資格]                                                       │\n│   ┌──────────────────┐    ┌────────────────────────────────┐    │\n│   │ CTAL-ATT         │    │ CT-ATLaS                       │    │\n│   │ (Agile Technical │    │ (Agile Test Leadership         │    │\n│   │  Tester)         │    │  at Scale)                     │    │\n│   └────────┬─────────┘    └──────────────┬─────────────────┘    │\n│            │                             │                       │\n│            └─────────────┬───────────────┘                       │\n│                          ↑                                       │\n│   ┌──────────────────────────────────────────────────────┐      │\n│   │  CTFL-AT (Foundation Level Agile Tester) ← 本資格！   │      │\n│   └──────────────────────────────────────────────────────┘      │\n│                          ↑                                       │\n│   ┌──────────────────────────────────────────────────────┐      │\n│   │  CTFL v4.0 / 旧CTFL（前提資格：必須）                  │      │\n│   └──────────────────────────────────────────────────────┘      │\n│                                                                  │\n│  ⚠️ 重要な注意：                                                   │\n│  CTFL v4.0 にはアジャイルテストの内容が含まれているため、           │\n│  CTFL v4.0 取得者は CTFL-AT を取る必要がない可能性がある            │\n└──────────────────────────────────────────────────────────────────┘\n"}</code></pre>
 <p><strong>CTFL-AT（Certified Tester Foundation Level Agile Tester）</strong> は、アジャイルプロジェクトにおいて効果的に貢献するための基本的なテストスキルを提供する資格です。アジャイルマニフェストに基づくアジャイルソフトウェア開発の原則に沿ったアジャイルテストをカバーします。</p>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">0.2 試験概要</h3>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>╔══════════════════════════════════════════════════════════╗
-║              CTFL-AT 試験スペック                          ║
-╠════════════════════════════════╦═════════════════════════╣
-║  問題数                        ║  40問                    ║
-╠════════════════════════════════╬═════════════════════════╣
-║  合格点                        ║  26点（40点満点）         ║
-╠════════════════════════════════╬═════════════════════════╣
-║  合格率目標                     ║  65%                     ║
-╠════════════════════════════════╬═════════════════════════╣
-║  試験時間                       ║  60分                    ║
-║  （英語非母語者）                ║  (+25% = 75分)           ║
-╠════════════════════════════════╬═════════════════════════╣
-║  前提条件                       ║  CTFL（どのバージョンも可）║
-╠════════════════════════════════╬═════════════════════════╣
-║  最新シラバス                    ║  v1.0（2014年）          ║
-╠════════════════════════════════╬═════════════════════════╣
-║  各問の配点                     ║  1点（全問均等）           ║
-╚════════════════════════════════╩═════════════════════════╝
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"╔══════════════════════════════════════════════════════════╗\n║              CTFL-AT 試験スペック                          ║\n╠════════════════════════════════╦═════════════════════════╣\n║  問題数                        ║  40問                    ║\n╠════════════════════════════════╬═════════════════════════╣\n║  合格点                        ║  26点（40点満点）         ║\n╠════════════════════════════════╬═════════════════════════╣\n║  合格率目標                     ║  65%                     ║\n╠════════════════════════════════╬═════════════════════════╣\n║  試験時間                       ║  60分                    ║\n║  （英語非母語者）                ║  (+25% = 75分)           ║\n╠════════════════════════════════╬═════════════════════════╣\n║  前提条件                       ║  CTFL（どのバージョンも可）║\n╠════════════════════════════════╬═════════════════════════╣\n║  最新シラバス                    ║  v1.0（2014年）          ║\n╠════════════════════════════════╬═════════════════════════╣\n║  各問の配点                     ║  1点（全問均等）           ║\n╚════════════════════════════════╩═════════════════════════╝\n"}</code></pre>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">0.3 シラバス構成と学習時間</h3>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>Chapter 1: アジャイルソフトウェア開発        ██████     150分 (20.3%)
-Chapter 2: アジャイルテストの基本原則        ████       105分 (14.2%)
-Chapter 3: アジャイルテスト技法とツール      ████████████ 480分 (65.1%) ← 最重要
-                                            合計: 735分 (12.25時間)
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"Chapter 1: アジャイルソフトウェア開発        ██████     150分 (20.3%)\nChapter 2: アジャイルテストの基本原則        ████       105分 (14.2%)\nChapter 3: アジャイルテスト技法とツール      ████████████ 480分 (65.1%) ← 最重要\n                                            合計: 735分 (12.25時間)\n"}</code></pre>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">0.4 7つのビジネスアウトカム（Business Outcomes）</h3>
 <div className="table-wrapper"><table aria-label="Data table">
 <thead>
@@ -155,21 +110,7 @@ Chapter 3: アジャイルテスト技法とツール      ███████
 </tr>
 </tbody></table></div>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">0.6 CTFL v4.0 vs CTFL-AT の関係</h3>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>重要な注意：
-
-CTFL v4.0（2023年以降）の取得者：
-  → CTFL v4.0 にはアジャイルテストの内容が組み込まれている
-  → CTFL-AT の追加受験は必須ではない可能性がある
-  → ただし、CTAL-ATT や CT-ATLaS への進路は CTFL-AT でも可能
-
-旧CTFL（v3以前）の取得者：
-  → アジャイルテストの知識を証明したい場合に CTFL-AT が有効
-  → CTAL-ATT・CT-ATLaS へ進むための資格要件として有効
-
-推奨：
-  → 現在の資格バージョンと目指すキャリアに応じて判断する
-  → 詳細は ISTQB® 公式サイトで最新情報を確認する
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"重要な注意：\n\nCTFL v4.0（2023年以降）の取得者：\n  → CTFL v4.0 にはアジャイルテストの内容が組み込まれている\n  → CTFL-AT の追加受験は必須ではない可能性がある\n  → ただし、CTAL-ATT や CT-ATLaS への進路は CTFL-AT でも可能\n\n旧CTFL（v3以前）の取得者：\n  → アジャイルテストの知識を証明したい場合に CTFL-AT が有効\n  → CTAL-ATT・CT-ATLaS へ進むための資格要件として有効\n\n推奨：\n  → 現在の資格バージョンと目指すキャリアに応じて判断する\n  → 詳細は ISTQB® 公式サイトで最新情報を確認する\n"}</code></pre>
 <hr className="accent-line" />
 
 <h2 id="chapter-1" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🌱 Chapter 1: アジャイルソフトウェア開発（Agile Software Development）</h2>
@@ -179,404 +120,35 @@ CTFL v4.0（2023年以降）の取得者：
 
 <h3 id="section-1-1" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">1.1 アジャイルソフトウェア開発の基礎（The Fundamentals of Agile Software Development）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.1.1 アジャイルマニフェスト（Agile Manifesto）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>2001年、ソフトウェア開発の主要な軽量メソドロジーを代表する17人のエキスパートが
-共通の価値観と原則に合意し、「アジャイルソフトウェア開発マニフェスト」を発表した。
-
-アジャイルマニフェストの4つの価値（試験頻出！）：
-
-  ┌──────────────────────────────────────────────────────────┐
-  │          重要なもの（左）      vs    価値があるもの（右）  │
-  ├──────────────────────────────────────────────────────────┤
-  │  個人と対話       over  プロセスとツール                  │
-  │  (Individuals and interactions over processes and tools) │
-  │                                                          │
-  │  動くソフトウェア  over  包括的なドキュメント              │
-  │  (Working software over comprehensive documentation)     │
-  │                                                          │
-  │  顧客との協調     over  契約交渉                          │
-  │  (Customer collaboration over contract negotiation)      │
-  │                                                          │
-  │  変化への対応     over  計画に従うこと                    │
-  │  (Responding to change over following a plan)            │
-  └──────────────────────────────────────────────────────────┘
-
-⚠️ 重要：「右側のものも価値があるが、左側のものをより高く評価する」
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"2001年、ソフトウェア開発の主要な軽量メソドロジーを代表する17人のエキスパートが\n共通の価値観と原則に合意し、「アジャイルソフトウェア開発マニフェスト」を発表した。\n\nアジャイルマニフェストの4つの価値（試験頻出！）：\n\n  ┌──────────────────────────────────────────────────────────┐\n  │          重要なもの（左）      vs    価値があるもの（右）  │\n  ├──────────────────────────────────────────────────────────┤\n  │  個人と対話       over  プロセスとツール                  │\n  │  (Individuals and interactions over processes and tools) │\n  │                                                          │\n  │  動くソフトウェア  over  包括的なドキュメント              │\n  │  (Working software over comprehensive documentation)     │\n  │                                                          │\n  │  顧客との協調     over  契約交渉                          │\n  │  (Customer collaboration over contract negotiation)      │\n  │                                                          │\n  │  変化への対応     over  計画に従うこと                    │\n  │  (Responding to change over following a plan)            │\n  └──────────────────────────────────────────────────────────┘\n\n⚠️ 重要：「右側のものも価値があるが、左側のものをより高く評価する」\n"}</code></pre>
 <p><strong>アジャイルマニフェストの12の原則：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>1. 顧客満足を最優先とし、価値あるソフトウェアを継続的・早期に提供する
-2. 要件の変更を歓迎する（開発の後期であっても）
-3. 動作するソフトウェアを数週間から数ヶ月おきに頻繁にリリースする
-4. ビジネス関係者と開発者はプロジェクト全体を通じて毎日一緒に作業する
-5. やる気のある個人でプロジェクトを構成し、必要な環境・支援を与え、信頼する
-6. 情報伝達の最善の方法は対面での会話
-7. 動くソフトウェアが主要な進捗の尺度
-8. アジャイルプロセスは持続可能な開発を促進する
-9. 技術的な卓越性と優れた設計への継続的な注意がアジャイルを強化する
-10. シンプルさ（無駄な作業をできる限り省くこと）が本質
-11. 最良のアーキテクチャ・要件・設計は自己組織化チームから生まれる
-12. チームは定期的に、より効果的になる方法を振り返り、行動を調整する
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"1. 顧客満足を最優先とし、価値あるソフトウェアを継続的・早期に提供する\n2. 要件の変更を歓迎する（開発の後期であっても）\n3. 動作するソフトウェアを数週間から数ヶ月おきに頻繁にリリースする\n4. ビジネス関係者と開発者はプロジェクト全体を通じて毎日一緒に作業する\n5. やる気のある個人でプロジェクトを構成し、必要な環境・支援を与え、信頼する\n6. 情報伝達の最善の方法は対面での会話\n7. 動くソフトウェアが主要な進捗の尺度\n8. アジャイルプロセスは持続可能な開発を促進する\n9. 技術的な卓越性と優れた設計への継続的な注意がアジャイルを強化する\n10. シンプルさ（無駄な作業をできる限り省くこと）が本質\n11. 最良のアーキテクチャ・要件・設計は自己組織化チームから生まれる\n12. チームは定期的に、より効果的になる方法を振り返り、行動を調整する\n"}</code></pre>
 <p><strong>テスターとしてのアジャイルマニフェスト理解：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-python"># アジャイルマニフェストをテスト視点で理解する
-
-agile_manifesto_for_testers = {
-    "個人と対話": {
-        "意味": "チームメンバー間の直接コミュニケーションを重視",
-        "テスターへの影響": [
-            "開発者と毎日コミュニケーション",
-            "バグを早期に口頭で共有",
-            "チーム全体で品質に責任を持つ",
-        ]
-    },
-    "動くソフトウェア": {
-        "意味": "ドキュメントより実際に動くソフトを重視",
-        "テスターへの影響": [
-            "スプリントの最後に動作確認を実施",
-            "テスト仕様書より自動テストを重視",
-            "実際に動くコードをデモできることが完了の証明",
-        ]
-    },
-    "顧客との協調": {
-        "意味": "契約ではなく継続的な協力を重視",
-        "テスターへの影響": [
-            "受入基準を顧客と共に定義",
-            "デモでユーザーからフィードバックを取得",
-            "ユーザーストーリーの作成に参加",
-        ]
-    },
-    "変化への対応": {
-        "意味": "固定計画より変化への適応を重視",
-        "テスターへの影響": [
-            "テスト計画を柔軟に更新",
-            "リグレッションテストで変更による影響を確認",
-            "スプリント中の要件変更に素早く対応",
-        ]
-    }
-}
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-python">{"# アジャイルマニフェストをテスト視点で理解する\n\nagile_manifesto_for_testers = &amp;#123;\n    \"個人と対話\": &amp;#123;\n        \"意味\": \"チームメンバー間の直接コミュニケーションを重視\",\n        \"テスターへの影響\": [\n            \"開発者と毎日コミュニケーション\",\n            \"バグを早期に口頭で共有\",\n            \"チーム全体で品質に責任を持つ\",\n        ]\n    &amp;#125;,\n    \"動くソフトウェア\": &amp;#123;\n        \"意味\": \"ドキュメントより実際に動くソフトを重視\",\n        \"テスターへの影響\": [\n            \"スプリントの最後に動作確認を実施\",\n            \"テスト仕様書より自動テストを重視\",\n            \"実際に動くコードをデモできることが完了の証明\",\n        ]\n    &amp;#125;,\n    \"顧客との協調\": &amp;#123;\n        \"意味\": \"契約ではなく継続的な協力を重視\",\n        \"テスターへの影響\": [\n            \"受入基準を顧客と共に定義\",\n            \"デモでユーザーからフィードバックを取得\",\n            \"ユーザーストーリーの作成に参加\",\n        ]\n    &amp;#125;,\n    \"変化への対応\": &amp;#123;\n        \"意味\": \"固定計画より変化への適応を重視\",\n        \"テスターへの影響\": [\n            \"テスト計画を柔軟に更新\",\n            \"リグレッションテストで変更による影響を確認\",\n            \"スプリント中の要件変更に素早く対応\",\n        ]\n    &amp;#125;\n&amp;#125;\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.1.2 ホールチームアプローチ（Whole-Team Approach）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>ホールチームアプローチとは：
-  → プロジェクト成功に必要な知識とスキルを持つ全員が関与するアプローチ
-  → チームは比較的小規模（3〜9人が理想）
-  → 理想的には同じワークスペースを共有（コロケーション）
-
-チームの構成：
-  ├── 開発者（Developer）
-  ├── テスター（Tester）
-  ├── ビジネス代表者（Product Owner 等）
-  ├── スクラムマスター（Scrum Master）
-  └── その他の専門家
-
-ホールチームアプローチのメリット：
-  ✓ チーム内のコミュニケーションと協調の強化
-  ✓ チームの多様なスキルセットの有効活用
-  ✓ 品質をチーム全員の責任にする
-
-「Power of Three（三の力）」：
-  → テスター・開発者・ビジネス代表者が全ての機能議論に参加する概念
-  → 三者の視点が機能の品質を大きく向上させる
-
-アジャイルにおけるテスターの独立性：
-  伝統的アプローチ：テスターは独立したテストチームに所属
-  アジャイルアプローチ：テスターはデリバリーチームの一員
-  
-  ただし、完全に独立したテストチームを別途設けることも可能：
-    ✓ 特定のテストタイプ（セキュリティ・性能）のために独立チームを設ける
-    ✓ コードを書く開発者には依存しない独立したレビューが可能
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"ホールチームアプローチとは：\n  → プロジェクト成功に必要な知識とスキルを持つ全員が関与するアプローチ\n  → チームは比較的小規模（3〜9人が理想）\n  → 理想的には同じワークスペースを共有（コロケーション）\n\nチームの構成：\n  ├── 開発者（Developer）\n  ├── テスター（Tester）\n  ├── ビジネス代表者（Product Owner 等）\n  ├── スクラムマスター（Scrum Master）\n  └── その他の専門家\n\nホールチームアプローチのメリット：\n  ✓ チーム内のコミュニケーションと協調の強化\n  ✓ チームの多様なスキルセットの有効活用\n  ✓ 品質をチーム全員の責任にする\n\n「Power of Three（三の力）」：\n  → テスター・開発者・ビジネス代表者が全ての機能議論に参加する概念\n  → 三者の視点が機能の品質を大きく向上させる\n\nアジャイルにおけるテスターの独立性：\n  伝統的アプローチ：テスターは独立したテストチームに所属\n  アジャイルアプローチ：テスターはデリバリーチームの一員\n  \n  ただし、完全に独立したテストチームを別途設けることも可能：\n    ✓ 特定のテストタイプ（セキュリティ・性能）のために独立チームを設ける\n    ✓ コードを書く開発者には依存しない独立したレビューが可能\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.1.3 早期・頻繁なフィードバック（Early and Frequent Feedback）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルの短いイテレーションによる継続的フィードバック：
-
-従来のウォーターフォール：
-  [要件] → [設計] → [開発] → [テスト] → [リリース]
-     長い期間↑                               フィードバックが遅い
-
-アジャイル：
-  スプリント1  スプリント2  スプリント3  スプリント4
-  [計画→開発→テスト→デモ] → [計画→開発→テスト→デモ] → ...
-     ↑フィードバック↑         ↑フィードバック↑
-     毎スプリントで顧客の声を反映！
-
-早期・頻繁なフィードバックのメリット：
-  ✓ 誤解した要件を開発サイクルの早期に発見できる
-  ✓ 顧客機能要求を明確にして早期利用可能にする
-  ✓ 品質問題を（継続的インテグレーションで）早期に発見・特定・解決
-  ✓ アジャイルチームの生産性・デリバリー能力についての情報提供
-  ✓ 一定のプロジェクト勢いを保つ
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルの短いイテレーションによる継続的フィードバック：\n\n従来のウォーターフォール：\n  [要件] → [設計] → [開発] → [テスト] → [リリース]\n     長い期間↑                               フィードバックが遅い\n\nアジャイル：\n  スプリント1  スプリント2  スプリント3  スプリント4\n  [計画→開発→テスト→デモ] → [計画→開発→テスト→デモ] → ...\n     ↑フィードバック↑         ↑フィードバック↑\n     毎スプリントで顧客の声を反映！\n\n早期・頻繁なフィードバックのメリット：\n  ✓ 誤解した要件を開発サイクルの早期に発見できる\n  ✓ 顧客機能要求を明確にして早期利用可能にする\n  ✓ 品質問題を（継続的インテグレーションで）早期に発見・特定・解決\n  ✓ アジャイルチームの生産性・デリバリー能力についての情報提供\n  ✓ 一定のプロジェクト勢いを保つ\n"}</code></pre>
 <hr className="accent-line" />
 
 <h3 id="section-1-2" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">1.2 アジャイルアプローチの側面（Aspects of Agile Approaches）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.2.1 アジャイルソフトウェア開発アプローチ（試験頻出！）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>CTFL-AT で扱う3つの代表的なアジャイルアプローチ：
-
-┌──────────────────────────────────────────────────────────────┐
-│      XP vs Scrum vs Kanban の比較（試験頻出！）               │
-├──────────────────┬───────────────┬──────────────────────────┤
-│  XP              │  Scrum        │  Kanban                  │
-│ (eXtreme         │               │                          │
-│  Programming)    │               │                          │
-├──────────────────┼───────────────┼──────────────────────────┤
-│ 5つの価値        │ 3つの役割     │ 3つの機器                │
-│ ・通信           │ ・Scrum Master│ ・カンバンボード           │
-│ ・シンプルさ     │ ・Product Owner│ ・WIP制限                │
-│ ・フィードバック │ ・開発チーム  │ ・リードタイム            │
-│ ・勇気           │               │                          │
-│ ・尊重           │               │                          │
-├──────────────────┼───────────────┼──────────────────────────┤
-│ 13のプラクティス │ スプリント    │ イテレーションは任意      │
-│ ・ペアプログラミング│ (2〜4週間固定)│ アイテム単位でリリース   │
-│ ・TDD           │               │ タイムボックスは任意      │
-│ ・継続的インテグレーション│      │                          │
-│ ・etc.          │               │                          │
-├──────────────────┼───────────────┼──────────────────────────┤
-│ 開発技術を規定  │ 開発技術は    │ フローを可視化・最適化    │
-│ (テストファースト│ 規定しない    │ WIP制限によるプル方式     │
-│  等)            │               │                          │
-└──────────────────┴───────────────┴──────────────────────────┘
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"CTFL-AT で扱う3つの代表的なアジャイルアプローチ：\n\n┌──────────────────────────────────────────────────────────────┐\n│      XP vs Scrum vs Kanban の比較（試験頻出！）               │\n├──────────────────┬───────────────┬──────────────────────────┤\n│  XP              │  Scrum        │  Kanban                  │\n│ (eXtreme         │               │                          │\n│  Programming)    │               │                          │\n├──────────────────┼───────────────┼──────────────────────────┤\n│ 5つの価値        │ 3つの役割     │ 3つの機器                │\n│ ・通信           │ ・Scrum Master│ ・カンバンボード           │\n│ ・シンプルさ     │ ・Product Owner│ ・WIP制限                │\n│ ・フィードバック │ ・開発チーム  │ ・リードタイム            │\n│ ・勇気           │               │                          │\n│ ・尊重           │               │                          │\n├──────────────────┼───────────────┼──────────────────────────┤\n│ 13のプラクティス │ スプリント    │ イテレーションは任意      │\n│ ・ペアプログラミング│ (2〜4週間固定)│ アイテム単位でリリース   │\n│ ・TDD           │               │ タイムボックスは任意      │\n│ ・継続的インテグレーション│      │                          │\n│ ・etc.          │               │                          │\n├──────────────────┼───────────────┼──────────────────────────┤\n│ 開発技術を規定  │ 開発技術は    │ フローを可視化・最適化    │\n│ (テストファースト│ 規定しない    │ WIP制限によるプル方式     │\n│  等)            │               │                          │\n└──────────────────┴───────────────┴──────────────────────────┘\n"}</code></pre>
 <p><strong>Scrum の詳細（試験頻出！）：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>Scrum の主要要素：
-
-スプリント（Sprint）：
-  → 通常2〜4週間の固定長イテレーション
-  → 各スプリントの終わりにリリース可能なインクリメントを作成
-
-プロダクトバックログ（Product Backlog）：
-  → 製品アイテムの優先順位付きリスト
-  → プロダクトオーナーが管理・更新（バックログリファインメント）
-
-スプリントバックログ（Sprint Backlog）：
-  → 各スプリント開始時に選択する最優先アイテムのリスト
-  → チームがプロダクトバックログから「プル」（プッシュではない）
-
-Definition of Done（完成の定義）：
-  → スプリント完了の基準
-  → チームがバックログアイテムの理解を深める
-
-タイムボックス（Timeboxing）：
-  → スプリント内で完了できないタスクはプロダクトバックログに戻す
-
-透明性（Transparency）：
-  → デイリースクラムで毎日進捗を共有
-
-Scrum の3つの役割：
-  Scrum Master：スクラムプラクティスの実施確保・コーチ（チームリーダーではない）
-  Product Owner：顧客の代表・プロダクトバックログを生成・管理・優先順位付け
-  開発チーム：製品を開発・テスト・自己組織化・クロスファンクショナル
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"Scrum の主要要素：\n\nスプリント（Sprint）：\n  → 通常2〜4週間の固定長イテレーション\n  → 各スプリントの終わりにリリース可能なインクリメントを作成\n\nプロダクトバックログ（Product Backlog）：\n  → 製品アイテムの優先順位付きリスト\n  → プロダクトオーナーが管理・更新（バックログリファインメント）\n\nスプリントバックログ（Sprint Backlog）：\n  → 各スプリント開始時に選択する最優先アイテムのリスト\n  → チームがプロダクトバックログから「プル」（プッシュではない）\n\nDefinition of Done（完成の定義）：\n  → スプリント完了の基準\n  → チームがバックログアイテムの理解を深める\n\nタイムボックス（Timeboxing）：\n  → スプリント内で完了できないタスクはプロダクトバックログに戻す\n\n透明性（Transparency）：\n  → デイリースクラムで毎日進捗を共有\n\nScrum の3つの役割：\n  Scrum Master：スクラムプラクティスの実施確保・コーチ（チームリーダーではない）\n  Product Owner：顧客の代表・プロダクトバックログを生成・管理・優先順位付け\n  開発チーム：製品を開発・テスト・自己組織化・クロスファンクショナル\n"}</code></pre>
 <p><strong>Kanban の詳細：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>Kanban の3つの機器（Instruments）：
-
-カンバンボード（Kanban Board）：
-  バックログ | 開発中 | テスト中 | 完了
-  ──────────────────────────────────
-  [機能A]   |[機能B] | [機能C] |[機能D]
-  [機能E]   |        |         |
-  
-  → 各列は「ステーション」（関連する活動のセット）
-  → チケットが左から右へ流れる
-
-WIP制限（Work-in-Progress Limit）：
-  → 並行アクティブタスクの厳格な制限
-  → 各ステーションの最大チケット数で制御
-  → 空きができたら前のステーションからプル
-
-リードタイム（Lead Time）：
-  → タスクの平均リードタイムを最小化して継続的フローを最適化
-
-Scrum との主な違い：
-  スプリント/イテレーションは任意（Scrum では必須）
-  タイムボックスは任意
-  アイテム単位でリリース可能（Scrum ではスプリント単位）
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"Kanban の3つの機器（Instruments）：\n\nカンバンボード（Kanban Board）：\n  バックログ | 開発中 | テスト中 | 完了\n  ──────────────────────────────────\n  [機能A]   |[機能B] | [機能C] |[機能D]\n  [機能E]   |        |         |\n  \n  → 各列は「ステーション」（関連する活動のセット）\n  → チケットが左から右へ流れる\n\nWIP制限（Work-in-Progress Limit）：\n  → 並行アクティブタスクの厳格な制限\n  → 各ステーションの最大チケット数で制御\n  → 空きができたら前のステーションからプル\n\nリードタイム（Lead Time）：\n  → タスクの平均リードタイムを最小化して継続的フローを最適化\n\nScrum との主な違い：\n  スプリント/イテレーションは任意（Scrum では必須）\n  タイムボックスは任意\n  アイテム単位でリリース可能（Scrum ではスプリント単位）\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.2.2 協調的ユーザーストーリー作成（Collaborative User Story Creation）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>ユーザーストーリーとは：
-  → アジャイル開発で要件を捉えるツール
-  → 開発者・テスター・ビジネス代表者の視点から書かれる
-
-ユーザーストーリーの形式：
-  As a [ロール/ユーザータイプ]
-  I want [アクション/機能]
-  So that [得られる価値]
-
-3C コンセプト（ユーザーストーリーの3要素）：
-
-  Card（カード）：
-    → ユーザーストーリーを記述する物理的な媒体
-    → 要件・重要度・開発/テスト期間の見積もり・受入基準を識別
-    → プロダクトバックログで使用
-    
-  Conversation（会話）：
-    → ソフトウェアの使用方法を説明する会話
-    → 文書化または口頭で可能
-    → リリース計画フェーズで始まり、ストーリーのスケジュール時に継続
-    
-  Confirmation（確認）：
-    → 受入基準を使用してストーリーが「完了」したことを確認
-    → 複数のユーザーストーリーにまたがることもある
-    → ポジティブテストとネガティブテストの両方を使用
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"ユーザーストーリーとは：\n  → アジャイル開発で要件を捉えるツール\n  → 開発者・テスター・ビジネス代表者の視点から書かれる\n\nユーザーストーリーの形式：\n  As a [ロール/ユーザータイプ]\n  I want [アクション/機能]\n  So that [得られる価値]\n\n3C コンセプト（ユーザーストーリーの3要素）：\n\n  Card（カード）：\n    → ユーザーストーリーを記述する物理的な媒体\n    → 要件・重要度・開発/テスト期間の見積もり・受入基準を識別\n    → プロダクトバックログで使用\n    \n  Conversation（会話）：\n    → ソフトウェアの使用方法を説明する会話\n    → 文書化または口頭で可能\n    → リリース計画フェーズで始まり、ストーリーのスケジュール時に継続\n    \n  Confirmation（確認）：\n    → 受入基準を使用してストーリーが「完了」したことを確認\n    → 複数のユーザーストーリーにまたがることもある\n    → ポジティブテストとネガティブテストの両方を使用\n"}</code></pre>
 <p><strong>INVEST 技法（良いユーザーストーリーの基準）：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>INVEST = 良いユーザーストーリーの6つの基準：
-
-I - Independent（独立性）
-    → 他のストーリーへの依存が最小限
-    ✗ 悪い：「ユーザーはFBでもログインできる（Googleログイン後に）」
-    ✓ 良い：「ユーザーはGoogleでログインできる」
-
-N - Negotiable（交渉可能性）
-    → 詳細は開発者・テスター・POで交渉可能
-    → 実装方法はチームで議論できる余地がある
-
-V - Valuable（価値）
-    → ビジネスまたはユーザーに明確な価値がある
-    ✗ 悪い：「DBをPostgreSQLに移行する」（技術実装のみ）
-    ✓ 良い：「ユーザーは3秒以内に検索結果を受け取れる」
-
-E - Estimable（見積もり可能性）
-    → チームがストーリーポイントを付けられる程度に明確
-
-S - Small（小ささ）
-    → 1〜2スプリントで完了できるサイズ
-
-T - Testable（テスト可能性）← テスターにとって最重要！
-    → 合格/不合格の判断基準が明確
-    ✗ 悪い：「システムはユーザーフレンドリーであること」
-    ✓ 良い：「チェックアウトは4ステップ以下で完了できること」
-</code></pre>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-python"># ユーザーストーリー作成の実践例とテスターの貢献
-
-# オリジナルのユーザーストーリー（テスター参加前）
-original_story = """
-As a registered user,
-I want to search for products,
-So that I can find what I need quickly.
-"""
-
-# テスターが提案する質問（テスターの視点）
-tester_questions = [
-    # INVEST の T（テスト可能性）の確認
-    "「素早く」の具体的な基準は？（例：3秒以内）",
-    
-    # 境界値・異常系の確認
-    "検索キーワードが空の場合は？",
-    "検索キーワードに特殊文字を入れた場合は？",
-    "検索結果が0件の場合は？",
-    
-    # 非機能要件の確認
-    "同時に1000人が検索した場合の性能要件は？",
-    "部分一致・完全一致・あいまい検索は？",
-    
-    # エラー処理の確認
-    "商品が一時的に検索できない場合のエラー表示は？",
-]
-
-# テスターが提案する受入基準（改善後）
-acceptance_criteria = [
-    "✓ キーワード入力後3秒以内に検索結果が表示される",
-    "✓ 商品名・説明文を対象に部分一致検索ができる",
-    "✓ 結果は関連度の高い順に表示される（最大50件）",
-    "✓ 0件の場合は「検索結果がありません」メッセージを表示",
-    "✓ 空のキーワードでは検索が実行されない（エラーメッセージ表示）",
-    "✓ 100文字を超えるキーワードは入力できない",
-]
-
-print("テスターの貢献：曖昧な要件を具体的な受入基準に変換！")
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"INVEST = 良いユーザーストーリーの6つの基準：\n\nI - Independent（独立性）\n    → 他のストーリーへの依存が最小限\n    ✗ 悪い：「ユーザーはFBでもログインできる（Googleログイン後に）」\n    ✓ 良い：「ユーザーはGoogleでログインできる」\n\nN - Negotiable（交渉可能性）\n    → 詳細は開発者・テスター・POで交渉可能\n    → 実装方法はチームで議論できる余地がある\n\nV - Valuable（価値）\n    → ビジネスまたはユーザーに明確な価値がある\n    ✗ 悪い：「DBをPostgreSQLに移行する」（技術実装のみ）\n    ✓ 良い：「ユーザーは3秒以内に検索結果を受け取れる」\n\nE - Estimable（見積もり可能性）\n    → チームがストーリーポイントを付けられる程度に明確\n\nS - Small（小ささ）\n    → 1〜2スプリントで完了できるサイズ\n\nT - Testable（テスト可能性）← テスターにとって最重要！\n    → 合格/不合格の判断基準が明確\n    ✗ 悪い：「システムはユーザーフレンドリーであること」\n    ✓ 良い：「チェックアウトは4ステップ以下で完了できること」\n"}</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-python">{"# ユーザーストーリー作成の実践例とテスターの貢献\n\n# オリジナルのユーザーストーリー（テスター参加前）\noriginal_story = \"\"\"\nAs a registered user,\nI want to search for products,\nSo that I can find what I need quickly.\n\"\"\"\n\n# テスターが提案する質問（テスターの視点）\ntester_questions = [\n    # INVEST の T（テスト可能性）の確認\n    \"「素早く」の具体的な基準は？（例：3秒以内）\",\n    \n    # 境界値・異常系の確認\n    \"検索キーワードが空の場合は？\",\n    \"検索キーワードに特殊文字を入れた場合は？\",\n    \"検索結果が0件の場合は？\",\n    \n    # 非機能要件の確認\n    \"同時に1000人が検索した場合の性能要件は？\",\n    \"部分一致・完全一致・あいまい検索は？\",\n    \n    # エラー処理の確認\n    \"商品が一時的に検索できない場合のエラー表示は？\",\n]\n\n# テスターが提案する受入基準（改善後）\nacceptance_criteria = [\n    \"✓ キーワード入力後3秒以内に検索結果が表示される\",\n    \"✓ 商品名・説明文を対象に部分一致検索ができる\",\n    \"✓ 結果は関連度の高い順に表示される（最大50件）\",\n    \"✓ 0件の場合は「検索結果がありません」メッセージを表示\",\n    \"✓ 空のキーワードでは検索が実行されない（エラーメッセージ表示）\",\n    \"✓ 100文字を超えるキーワードは入力できない\",\n]\n\nprint(\"テスターの貢献：曖昧な要件を具体的な受入基準に変換！\")\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.2.3 レトロスペクティブ（Retrospectives）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>レトロスペクティブとは：
-  → スプリント/イテレーション終了後に実施するプロセス改善ミーティング
-  → アジャイルプロジェクトにおける継続的改善の機運
-
-レトロスペクティブの基本フォーマット（KPT）：
-
-  Keep（続けること）：
-    → うまくいっているので継続すべきこと
-    例：「デイリースタンドアップが15分以内に完了している」
-
-  Problem（問題点）：
-    → 課題・改善が必要なこと
-    例：「テスト環境のセットアップに時間がかかりすぎる」
-
-  Try（試すこと）：
-    → 次のスプリントで試してみること
-    例：「テスト環境をDockerで自動構築する」
-
-テスターのレトロスペクティブでの貢献：
-  ✓ テスト実行の問題点（フレイキーテスト・遅すぎるテスト等）を報告
-  ✓ 欠陥の傾向から開発プロセスの問題を指摘
-  ✓ テスト自動化の提案
-  ✓ テストアプローチの改善提案
-
-その他のレトロスペクティブ形式：
-  4Ls: Liked / Learned / Lacked / Longed For
-  Start / Stop / Continue
-  Mad / Sad / Glad
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"レトロスペクティブとは：\n  → スプリント/イテレーション終了後に実施するプロセス改善ミーティング\n  → アジャイルプロジェクトにおける継続的改善の機運\n\nレトロスペクティブの基本フォーマット（KPT）：\n\n  Keep（続けること）：\n    → うまくいっているので継続すべきこと\n    例：「デイリースタンドアップが15分以内に完了している」\n\n  Problem（問題点）：\n    → 課題・改善が必要なこと\n    例：「テスト環境のセットアップに時間がかかりすぎる」\n\n  Try（試すこと）：\n    → 次のスプリントで試してみること\n    例：「テスト環境をDockerで自動構築する」\n\nテスターのレトロスペクティブでの貢献：\n  ✓ テスト実行の問題点（フレイキーテスト・遅すぎるテスト等）を報告\n  ✓ 欠陥の傾向から開発プロセスの問題を指摘\n  ✓ テスト自動化の提案\n  ✓ テストアプローチの改善提案\n\nその他のレトロスペクティブ形式：\n  4Ls: Liked / Learned / Lacked / Longed For\n  Start / Stop / Continue\n  Mad / Sad / Glad\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.2.4 継続的インテグレーション（Continuous Integration）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>CI（継続的インテグレーション）とは：
-  → 開発者が頻繁にコードをメインブランチに統合
-  → 統合のたびに自動ビルド・自動テストを実行
-
-CI のステップ：
-  ① コードを書く
-  ② バージョン管理システム（Git等）にコミット
-  ③ 自動ビルドを実行
-  ④ 自動テストを実行（ユニット・統合テスト等）
-  ⑤ 結果をレポート
-  ⑥ 失敗したら即座に修正
-
-テスターへの CI の影響：
-  ✓ テストを自動化する必要がある（手動では追いつかない）
-  ✓ テストコードをソースコードと同様に管理する
-  ✓ 素早いフィードバックを提供するテストを書く
-  ✓ 遅いテスト（E2Eテスト）は夜間バッチに移行
-  ✓ フレイキーテスト（不安定なテスト）を排除する
-
-CI パイプラインの例（テスト視点）：
-
-  コードPush
-     ↓
-  コンパイル / ビルド（&lt; 1分）
-     ↓
-  ユニットテスト（&lt; 5分）← ここで失敗したら即通知
-     ↓
-  コードカバレッジ確認
-     ↓
-  統合テスト（&lt; 10分）
-     ↓
-  コードスキャン（静的解析）
-     ↓
-  ステージングデプロイ
-     ↓
-  E2Eスモークテスト
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"CI（継続的インテグレーション）とは：\n  → 開発者が頻繁にコードをメインブランチに統合\n  → 統合のたびに自動ビルド・自動テストを実行\n\nCI のステップ：\n  ① コードを書く\n  ② バージョン管理システム（Git等）にコミット\n  ③ 自動ビルドを実行\n  ④ 自動テストを実行（ユニット・統合テスト等）\n  ⑤ 結果をレポート\n  ⑥ 失敗したら即座に修正\n\nテスターへの CI の影響：\n  ✓ テストを自動化する必要がある（手動では追いつかない）\n  ✓ テストコードをソースコードと同様に管理する\n  ✓ 素早いフィードバックを提供するテストを書く\n  ✓ 遅いテスト（E2Eテスト）は夜間バッチに移行\n  ✓ フレイキーテスト（不安定なテスト）を排除する\n\nCI パイプラインの例（テスト視点）：\n\n  コードPush\n     ↓\n  コンパイル / ビルド（&lt; 1分）\n     ↓\n  ユニットテスト（&lt; 5分）← ここで失敗したら即通知\n     ↓\n  コードカバレッジ確認\n     ↓\n  統合テスト（&lt; 10分）\n     ↓\n  コードスキャン（静的解析）\n     ↓\n  ステージングデプロイ\n     ↓\n  E2Eスモークテスト\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.2.5 リリース計画とイテレーション計画（Release and Iteration Planning）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>2種類の計画：
-
-リリース計画（Release Planning）：
-  → 複数スプリント/イテレーションを跨ぐ中長期計画
-  → 製品リリースの目標と内容を定義
-  → 参加者：チーム全員 + ステークホルダー
-  
-  テスターのリリース計画での貢献：
-  ✓ 各機能のテスト工数の見積もり
-  ✓ 機能横断的なリスクの識別
-  ✓ テスト環境の要件定義
-  ✓ テスト自動化計画の策定
-
-イテレーション計画（Iteration/Sprint Planning）：
-  → 単一スプリントの計画
-  → プロダクトバックログから次のスプリントのアイテムを選択
-  → 参加者：開発チーム + Product Owner
-  
-  テスターのイテレーション計画での貢献：
-  ✓ ユーザーストーリーの「テスト可能性」の評価
-  ✓ 各ストーリーのテスト工数の見積もり
-  ✓ 受入基準の明確化
-  ✓ テストアプローチの確認
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"2種類の計画：\n\nリリース計画（Release Planning）：\n  → 複数スプリント/イテレーションを跨ぐ中長期計画\n  → 製品リリースの目標と内容を定義\n  → 参加者：チーム全員 + ステークホルダー\n  \n  テスターのリリース計画での貢献：\n  ✓ 各機能のテスト工数の見積もり\n  ✓ 機能横断的なリスクの識別\n  ✓ テスト環境の要件定義\n  ✓ テスト自動化計画の策定\n\nイテレーション計画（Iteration/Sprint Planning）：\n  → 単一スプリントの計画\n  → プロダクトバックログから次のスプリントのアイテムを選択\n  → 参加者：開発チーム + Product Owner\n  \n  テスターのイテレーション計画での貢献：\n  ✓ ユーザーストーリーの「テスト可能性」の評価\n  ✓ 各ストーリーのテスト工数の見積もり\n  ✓ 受入基準の明確化\n  ✓ テストアプローチの確認\n"}</code></pre>
 <hr className="accent-line" />
 
 <h2 id="chapter-2" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">⚖️ Chapter 2: アジャイルテストの基本原則・実践・プロセス</h2>
@@ -586,257 +158,29 @@ CI パイプラインの例（テスト視点）：
 
 <h3 id="section-2-1" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.1 従来型テストとアジャイルテストの違い（The Differences between Testing in Traditional and Agile Approaches）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.1 テストと開発活動（Testing and Development Activities）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>従来型（ウォーターフォール）:              アジャイル:
-
-  [要件定義]  ↑ 個別フェーズ              [スプリント1] ← テストと開発が並行
-  [設計]      ↑ 順番に実行               [スプリント2]    同じスプリント内
-  [実装]      ↑ テストは後半             [スプリント3]    で完結
-  [テスト]    ↑ 大量のテスト             [スプリント4]
-  [リリース]  ↑ リリース直前             [リリース]
-
-主な違い：
-┌──────────────────────────────────────────────────────────────┐
-│         従来型          vs          アジャイル               │
-├─────────────────────────┬────────────────────────────────────┤
-│ テストは開発後のフェーズ │ テストは開発と並行・継続的         │
-│ 要件は事前に詳細定義     │ 要件はイテレーション毎に精緻化     │
-│ テスターはテストチームに │ テスターはデリバリーチームの一員   │
-│ テスト計画は事前に詳細   │ テスト計画は適応的・継続的更新     │
-│ テストはリリース前に集中 │ テストは全スプリントで継続         │
-│ バグは別の人が修正       │ バグは即時に同チームで修正         │
-└─────────────────────────┴────────────────────────────────────┘
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"従来型（ウォーターフォール）:              アジャイル:\n\n  [要件定義]  ↑ 個別フェーズ              [スプリント1] ← テストと開発が並行\n  [設計]      ↑ 順番に実行               [スプリント2]    同じスプリント内\n  [実装]      ↑ テストは後半             [スプリント3]    で完結\n  [テスト]    ↑ 大量のテスト             [スプリント4]\n  [リリース]  ↑ リリース直前             [リリース]\n\n主な違い：\n┌──────────────────────────────────────────────────────────────┐\n│         従来型          vs          アジャイル               │\n├─────────────────────────┬────────────────────────────────────┤\n│ テストは開発後のフェーズ │ テストは開発と並行・継続的         │\n│ 要件は事前に詳細定義     │ 要件はイテレーション毎に精緻化     │\n│ テスターはテストチームに │ テスターはデリバリーチームの一員   │\n│ テスト計画は事前に詳細   │ テスト計画は適応的・継続的更新     │\n│ テストはリリース前に集中 │ テストは全スプリントで継続         │\n│ バグは別の人が修正       │ バグは即時に同チームで修正         │\n└─────────────────────────┴────────────────────────────────────┘\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.2 プロジェクト成果物（Project Work Products）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>従来型とアジャイルの主要な成果物の違い：
-
-テストドキュメント：
-  従来型：
-    - 詳細なテスト計画書（マスターテスト計画）
-    - テストケース仕様書
-    - テスト結果レポート
-    
-  アジャイル：
-    - 軽量なテスト戦略（スプリントテスト計画）
-    - 受入基準（ユーザーストーリーの一部）
-    - 自動化テストスクリプト（実行可能な仕様書として機能）
-    - テストダッシュボード（リアルタイム進捗確認）
-
-テスト実行の成果物：
-  従来型：
-    - 重量なテスト結果レポート
-    - 欠陥レポート（フォーマル手続き）
-    
-  アジャイル：
-    - 自動テストの実行結果
-    - タスクボード上の欠陥（バックログアイテム）
-    - バーンダウンチャート
-
-ポイント：アジャイルではドキュメントより「実行可能なテスト」を重視！
-  → テストコード自体がドキュメントとしての役割を果たす
-  → TDD/BDD のテストが「実行可能な仕様書」として機能する
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"従来型とアジャイルの主要な成果物の違い：\n\nテストドキュメント：\n  従来型：\n    - 詳細なテスト計画書（マスターテスト計画）\n    - テストケース仕様書\n    - テスト結果レポート\n    \n  アジャイル：\n    - 軽量なテスト戦略（スプリントテスト計画）\n    - 受入基準（ユーザーストーリーの一部）\n    - 自動化テストスクリプト（実行可能な仕様書として機能）\n    - テストダッシュボード（リアルタイム進捗確認）\n\nテスト実行の成果物：\n  従来型：\n    - 重量なテスト結果レポート\n    - 欠陥レポート（フォーマル手続き）\n    \n  アジャイル：\n    - 自動テストの実行結果\n    - タスクボード上の欠陥（バックログアイテム）\n    - バーンダウンチャート\n\nポイント：アジャイルではドキュメントより「実行可能なテスト」を重視！\n  → テストコード自体がドキュメントとしての役割を果たす\n  → TDD/BDD のテストが「実行可能な仕様書」として機能する\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.3 テストレベル（Test Levels）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>従来型 vs アジャイルのテストレベル：
-
-従来型（厳格なシーケンス）：
-  コンポーネントテスト → 統合テスト → システムテスト → 受入テスト
-
-アジャイル（全レベルを各イテレーションで実施）：
-  各スプリント内で：
-  ┌──────────────────────────────────────────┐
-  │  コンポーネントテスト（ユニットテスト/TDD）│
-  │  ↓ 毎日の CI で実行                      │
-  │  統合テスト                               │
-  │  ↓                                       │
-  │  システムテスト（スプリント内）            │
-  │  ↓                                       │
-  │  受入テスト（スプリントレビューで確認）    │
-  └──────────────────────────────────────────┘
-
-アジャイルにおけるテストレベルの特徴：
-  ✓ 全レベルを各スプリントで繰り返し実施
-  ✓ テストレベル間の境界が曖昧になる
-  ✓ テスト自動化が必須（手動では全レベルをカバーできない）
-  ✓ リグレッションテストが重要（変更の多い環境では常に必要）
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"従来型 vs アジャイルのテストレベル：\n\n従来型（厳格なシーケンス）：\n  コンポーネントテスト → 統合テスト → システムテスト → 受入テスト\n\nアジャイル（全レベルを各イテレーションで実施）：\n  各スプリント内で：\n  ┌──────────────────────────────────────────┐\n  │  コンポーネントテスト（ユニットテスト/TDD）│\n  │  ↓ 毎日の CI で実行                      │\n  │  統合テスト                               │\n  │  ↓                                       │\n  │  システムテスト（スプリント内）            │\n  │  ↓                                       │\n  │  受入テスト（スプリントレビューで確認）    │\n  └──────────────────────────────────────────┘\n\nアジャイルにおけるテストレベルの特徴：\n  ✓ 全レベルを各スプリントで繰り返し実施\n  ✓ テストレベル間の境界が曖昧になる\n  ✓ テスト自動化が必須（手動では全レベルをカバーできない）\n  ✓ リグレッションテストが重要（変更の多い環境では常に必要）\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.4 テストと構成管理（Testing and Configuration Management）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルにおける構成管理の重要性：
-
-理由：
-  → 短いスプリントで頻繁に変更が発生
-  → 複数のチームが同時に同じコードに変更を加える
-  → テストコードもソースコードと同様に管理が必要
-
-ベストプラクティス：
-  ✓ テストスクリプトをバージョン管理（Git）に含める
-  ✓ ブランチ戦略を確立する（Feature Branch等）
-  ✓ テスト環境の構成をコードで管理（IaC: Infrastructure as Code）
-  ✓ 自動ビルド・自動テストを CI/CD パイプラインに統合
-  ✓ ビルドとテストの結果を追跡・記録する
-
-構成管理ツール（アジャイルチームで使用）：
-  ✓ Git/GitHub/GitLab/Bitbucket（バージョン管理）
-  ✓ Jenkins/GitHub Actions/CircleCI（CI/CD）
-  ✓ Docker/Kubernetes（環境の標準化）
-  ✓ Jira/Backlog（タスク・欠陥管理）
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルにおける構成管理の重要性：\n\n理由：\n  → 短いスプリントで頻繁に変更が発生\n  → 複数のチームが同時に同じコードに変更を加える\n  → テストコードもソースコードと同様に管理が必要\n\nベストプラクティス：\n  ✓ テストスクリプトをバージョン管理（Git）に含める\n  ✓ ブランチ戦略を確立する（Feature Branch等）\n  ✓ テスト環境の構成をコードで管理（IaC: Infrastructure as Code）\n  ✓ 自動ビルド・自動テストを CI/CD パイプラインに統合\n  ✓ ビルドとテストの結果を追跡・記録する\n\n構成管理ツール（アジャイルチームで使用）：\n  ✓ Git/GitHub/GitLab/Bitbucket（バージョン管理）\n  ✓ Jenkins/GitHub Actions/CircleCI（CI/CD）\n  ✓ Docker/Kubernetes（環境の標準化）\n  ✓ Jira/Backlog（タスク・欠陥管理）\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.5 独立したテストの組織オプション（Organizational Options for Independent Testing）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルにおける独立テストの選択肢：
-
-オプション1：独立テストチームなし（最も一般的）
-  → テスターはデリバリーチームの一員
-  → 開発者と同じスプリントで作業
-  → 迅速なフィードバック、ただし独立性の低さがトレードオフ
-
-オプション2：スプリント終了後の独立テスト（少ない）
-  → 開発後に別チームがテストを実施
-  → 独立性は高いが、フィードバックが遅くなるリスク
-
-オプション3：専門テストチーム（特定の目的で使用）
-  → 性能テスト・セキュリティテストなど専門的なテスト
-  → 全チームに共有のサービスとして提供
-  → コードを書く開発者に依存しない独立したレビューが可能
-
-CTFL-AT のポイント：
-  アジャイルでは独立テストが全く不要というわけではない
-  → 用途に応じて適切なレベルの独立性を選択する
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルにおける独立テストの選択肢：\n\nオプション1：独立テストチームなし（最も一般的）\n  → テスターはデリバリーチームの一員\n  → 開発者と同じスプリントで作業\n  → 迅速なフィードバック、ただし独立性の低さがトレードオフ\n\nオプション2：スプリント終了後の独立テスト（少ない）\n  → 開発後に別チームがテストを実施\n  → 独立性は高いが、フィードバックが遅くなるリスク\n\nオプション3：専門テストチーム（特定の目的で使用）\n  → 性能テスト・セキュリティテストなど専門的なテスト\n  → 全チームに共有のサービスとして提供\n  → コードを書く開発者に依存しない独立したレビューが可能\n\nCTFL-AT のポイント：\n  アジャイルでは独立テストが全く不要というわけではない\n  → 用途に応じて適切なレベルの独立性を選択する\n"}</code></pre>
 <hr className="accent-line" />
 
 <h3 id="section-2-2" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.2 アジャイルプロジェクトにおけるテストの状況（Status of Testing in Agile Projects）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.2.1 テストの状況・進捗・製品品質のコミュニケーション</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルにおけるテスト状況の伝え方：
-
-デイリースタンドアップ（Daily Stand-up/Scrum）：
-  目的：チームで毎日進捗を共有する15分のミーティング
-  テスターが共有すること：
-  ✓ 昨日完了したテスト活動
-  ✓ 今日実施予定のテスト活動
-  ✓ テストを阻害している障害（ブロッカー）
-
-バーンダウンチャート（Burndown Chart）：
-  → スプリントの残業量を時系列で表示
-  → スクラムマスター（または同等の役割）が更新
-  
-  残タスク数
-    ↑
-  20|●
-  15| ●
-  10|  ●●
-   5|     ●●
-   0|_______●── → 日数
-  Day0  Day5  Day10
-
-テスト固有のメトリクス：
-  ✓ テストケース実行率（実行数/総数）
-  ✓ テスト合格率（合格数/実行数）
-  ✓ 欠陥検出率（スプリント毎の欠陥数トレンド）
-  ✓ テストカバレッジ（コードカバレッジ等）
-  ✓ 未解決の欠陥数（重要度別）
-
-スプリントレビュー（Sprint Review）：
-  → スプリント末に実施するデモ・レビューミーティング
-  → ステークホルダーへの製品品質の報告の場
-  テスターの役割：
-  ✓ テスト結果の概要報告
-  ✓ 発見された欠陥の説明
-  ✓ 受入基準の満足状況の確認
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルにおけるテスト状況の伝え方：\n\nデイリースタンドアップ（Daily Stand-up/Scrum）：\n  目的：チームで毎日進捗を共有する15分のミーティング\n  テスターが共有すること：\n  ✓ 昨日完了したテスト活動\n  ✓ 今日実施予定のテスト活動\n  ✓ テストを阻害している障害（ブロッカー）\n\nバーンダウンチャート（Burndown Chart）：\n  → スプリントの残業量を時系列で表示\n  → スクラムマスター（または同等の役割）が更新\n  \n  残タスク数\n    ↑\n  20|●\n  15| ●\n  10|  ●●\n   5|     ●●\n   0|_______●── → 日数\n  Day0  Day5  Day10\n\nテスト固有のメトリクス：\n  ✓ テストケース実行率（実行数/総数）\n  ✓ テスト合格率（合格数/実行数）\n  ✓ 欠陥検出率（スプリント毎の欠陥数トレンド）\n  ✓ テストカバレッジ（コードカバレッジ等）\n  ✓ 未解決の欠陥数（重要度別）\n\nスプリントレビュー（Sprint Review）：\n  → スプリント末に実施するデモ・レビューミーティング\n  → ステークホルダーへの製品品質の報告の場\n  テスターの役割：\n  ✓ テスト結果の概要報告\n  ✓ 発見された欠陥の説明\n  ✓ 受入基準の満足状況の確認\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.2.2 進化する手動・自動テストケースによるリグレッションリスク管理</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルのリグレッションテストの課題：
-
-問題：
-  → 毎スプリントで新機能が追加・変更される
-  → 変更のたびに既存機能が壊れるリスク（リグレッション）
-  → 手動テストでは全てをカバーする時間がない
-
-解決策：テスト自動化によるリグレッション管理
-
-  自動化すべきテスト（リグレッションスイート）：
-  ✓ 頻繁に実行されるスモークテスト
-  ✓ 重要機能の回帰テスト
-  ✓ ユニットテスト（TDDで作成）
-  ✓ APIテスト（インテグレーションテスト）
-
-  手動テストの優先領域：
-  ✓ 新機能の探索的テスト
-  ✓ ユーザビリティテスト
-  ✓ 複雑な業務シナリオのテスト
-  ✓ 自動化が難しいテスト
-
-テスト自動化の原則：
-  ✓ 安定した機能を自動化（頻繁に変わる部分は後で）
-  ✓ テストピラミッドに従う（ユニットテストを多く）
-  ✓ テストを CI/CD パイプラインに組み込む
-  ✓ フレイキーテスト（不安定なテスト）は即座に修正
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルのリグレッションテストの課題：\n\n問題：\n  → 毎スプリントで新機能が追加・変更される\n  → 変更のたびに既存機能が壊れるリスク（リグレッション）\n  → 手動テストでは全てをカバーする時間がない\n\n解決策：テスト自動化によるリグレッション管理\n\n  自動化すべきテスト（リグレッションスイート）：\n  ✓ 頻繁に実行されるスモークテスト\n  ✓ 重要機能の回帰テスト\n  ✓ ユニットテスト（TDDで作成）\n  ✓ APIテスト（インテグレーションテスト）\n\n  手動テストの優先領域：\n  ✓ 新機能の探索的テスト\n  ✓ ユーザビリティテスト\n  ✓ 複雑な業務シナリオのテスト\n  ✓ 自動化が難しいテスト\n\nテスト自動化の原則：\n  ✓ 安定した機能を自動化（頻繁に変わる部分は後で）\n  ✓ テストピラミッドに従う（ユニットテストを多く）\n  ✓ テストを CI/CD パイプラインに組み込む\n  ✓ フレイキーテスト（不安定なテスト）は即座に修正\n"}</code></pre>
 <hr className="accent-line" />
 
 <h3 id="section-2-3" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.3 アジャイルチームにおけるテスターの役割とスキル</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.3.1 アジャイルテスターのスキル（Agile Tester Skills）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルテスターに必要なスキル：
-
-技術スキル：
-  ✓ テスト自動化（Selenium/Playwright/pytest等）
-  ✓ テストスクリプトのプログラミング（Python/Java/JS等）
-  ✓ CI/CDの知識（GitHub Actions/Jenkins等）
-  ✓ API テスト（Postman/REST Assured等）
-  ✓ バージョン管理（Git）
-
-テストスキル：
-  ✓ ブラックボックス・ホワイトボックステスト技法
-  ✓ 探索的テスト
-  ✓ リスクベーステスト
-  ✓ 受入テスト（ATDD/BDD）
-
-コラボレーションスキル：
-  ✓ チームコミュニケーション（対面・非同期）
-  ✓ ユーザーストーリー作成への貢献
-  ✓ 開発者・POとの協調的な作業
-  ✓ フィードバックの効果的な提供
-
-アジャイルの理解：
-  ✓ アジャイルの価値と原則
-  ✓ スクラム/カンバンのプロセス
-  ✓ イテレーション計画への参加
-  ✓ レトロスペクティブへの参加
-
-テスターのマインドセット：
-  ✓ 品質はチーム全員の責任（「品質の門番」思考を捨てる）
-  ✓ 「バグを見つけること」より「バグを防ぐこと」を重視
-  ✓ ネガティブ思考（「何が間違いうるか？」）
-  ✓ 顧客目線で考える
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルテスターに必要なスキル：\n\n技術スキル：\n  ✓ テスト自動化（Selenium/Playwright/pytest等）\n  ✓ テストスクリプトのプログラミング（Python/Java/JS等）\n  ✓ CI/CDの知識（GitHub Actions/Jenkins等）\n  ✓ API テスト（Postman/REST Assured等）\n  ✓ バージョン管理（Git）\n\nテストスキル：\n  ✓ ブラックボックス・ホワイトボックステスト技法\n  ✓ 探索的テスト\n  ✓ リスクベーステスト\n  ✓ 受入テスト（ATDD/BDD）\n\nコラボレーションスキル：\n  ✓ チームコミュニケーション（対面・非同期）\n  ✓ ユーザーストーリー作成への貢献\n  ✓ 開発者・POとの協調的な作業\n  ✓ フィードバックの効果的な提供\n\nアジャイルの理解：\n  ✓ アジャイルの価値と原則\n  ✓ スクラム/カンバンのプロセス\n  ✓ イテレーション計画への参加\n  ✓ レトロスペクティブへの参加\n\nテスターのマインドセット：\n  ✓ 品質はチーム全員の責任（「品質の門番」思考を捨てる）\n  ✓ 「バグを見つけること」より「バグを防ぐこと」を重視\n  ✓ ネガティブ思考（「何が間違いうるか？」）\n  ✓ 顧客目線で考える\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.3.2 アジャイルチームにおけるテスターの役割（The Role of a Tester in an Agile Team）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>テスターの主要な活動（アジャイル全体を通じて）：
-
-イテレーション計画：
-  ✓ ユーザーストーリーのリスク識別
-  ✓ テスト工数の見積もり
-  ✓ 受入基準の明確化・テスト可能性の確認
-
-スプリント実行中：
-  ✓ ユーザーストーリーのテストケース作成
-  ✓ 機能テストの実行
-  ✓ 自動化テストの作成・メンテナンス
-  ✓ 開発者への即時フィードバック提供
-  ✓ 欠陥の報告・追跡
-
-スプリント終了時：
-  ✓ 受入テストの実施
-  ✓ スプリントレビューでの品質報告
-  ✓ レトロスペクティブへの参加
-
-継続的な活動：
-  ✓ テスト自動化スイートのメンテナンス
-  ✓ テスト環境の管理
-  ✓ 品質メトリクスの追跡・報告
-
-テスターの「コーチング」的な役割：
-  ✓ 開発者へのテスト技法の指導
-  ✓ PO/ビジネス代表者が受入基準を書く支援
-  ✓ チーム全体での品質意識向上の促進
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"テスターの主要な活動（アジャイル全体を通じて）：\n\nイテレーション計画：\n  ✓ ユーザーストーリーのリスク識別\n  ✓ テスト工数の見積もり\n  ✓ 受入基準の明確化・テスト可能性の確認\n\nスプリント実行中：\n  ✓ ユーザーストーリーのテストケース作成\n  ✓ 機能テストの実行\n  ✓ 自動化テストの作成・メンテナンス\n  ✓ 開発者への即時フィードバック提供\n  ✓ 欠陥の報告・追跡\n\nスプリント終了時：\n  ✓ 受入テストの実施\n  ✓ スプリントレビューでの品質報告\n  ✓ レトロスペクティブへの参加\n\n継続的な活動：\n  ✓ テスト自動化スイートのメンテナンス\n  ✓ テスト環境の管理\n  ✓ 品質メトリクスの追跡・報告\n\nテスターの「コーチング」的な役割：\n  ✓ 開発者へのテスト技法の指導\n  ✓ PO/ビジネス代表者が受入基準を書く支援\n  ✓ チーム全体での品質意識向上の促進\n"}</code></pre>
 <hr className="accent-line" />
 
 <h2 id="chapter-3" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🧰 Chapter 3: アジャイルテスト技法とツール（Agile Testing Methods, Techniques, and Tools）</h2>
@@ -846,564 +190,59 @@ CTFL-AT のポイント：
 
 <h3 id="section-3-1" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.1 アジャイルテスト手法（Agile Testing Methods）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.1.1 TDD・ATDD・BDD（試験頻出！）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>3つの開発駆動手法の比較：
-
-┌──────────────────────────────────────────────────────────────────┐
-│         TDD          │      ATDD        │      BDD              │
-├──────────────────────┼──────────────────┼──────────────────────┤
-│ テスト駆動開発       │ 受入テスト駆動   │ 振る舞い駆動開発      │
-│ (Test-Driven Dev.)  │ 開発             │ (Behavior-Driven Dev.)│
-│                      │ (Acceptance TDD) │                       │
-├──────────────────────┼──────────────────┼──────────────────────┤
-│ 開発者中心           │ チーム全体       │ チーム全体            │
-│ ユニットテスト       │ 受入テスト       │ シナリオベース         │
-│ コード品質向上       │ 機能要件の確認   │ 自然言語で仕様化       │
-├──────────────────────┼──────────────────┼──────────────────────┤
-│ Red→Green→Refactor  │ テストファースト  │ Given-When-Then       │
-│ サイクル             │ 受入テスト作成   │ Gherkin記法           │
-└──────────────────────┴──────────────────┴──────────────────────┘
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"3つの開発駆動手法の比較：\n\n┌──────────────────────────────────────────────────────────────────┐\n│         TDD          │      ATDD        │      BDD              │\n├──────────────────────┼──────────────────┼──────────────────────┤\n│ テスト駆動開発       │ 受入テスト駆動   │ 振る舞い駆動開発      │\n│ (Test-Driven Dev.)  │ 開発             │ (Behavior-Driven Dev.)│\n│                      │ (Acceptance TDD) │                       │\n├──────────────────────┼──────────────────┼──────────────────────┤\n│ 開発者中心           │ チーム全体       │ チーム全体            │\n│ ユニットテスト       │ 受入テスト       │ シナリオベース         │\n│ コード品質向上       │ 機能要件の確認   │ 自然言語で仕様化       │\n├──────────────────────┼──────────────────┼──────────────────────┤\n│ Red→Green→Refactor  │ テストファースト  │ Given-When-Then       │\n│ サイクル             │ 受入テスト作成   │ Gherkin記法           │\n└──────────────────────┴──────────────────┴──────────────────────┘\n"}</code></pre>
 <p><strong>TDD（テスト駆動開発）の詳細：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-python"># TDD のサイクル（Red-Green-Refactor）
-
-# ===== RED フェーズ：失敗するテストを書く =====
-def test_calculate_discount_for_premium_customer():
-    """プレミアム顧客は20%割引を受けられること"""
-    service = DiscountService()
-    # まだ DiscountService が存在しないのでこのテストは失敗する
-    result = service.calculate(price=1000, customer_type="premium")
-    assert result == 800  # 20%引き = 800円
-
-# ===== GREEN フェーズ：最小限のコードを書く =====
-class DiscountService:
-    def calculate(self, price: float, customer_type: str) -&gt; float:
-        if customer_type == "premium":
-            return price * 0.8  # 20%引き
-        return price
-
-# テスト実行 → PASS ✅
-
-# ===== REFACTOR フェーズ：コードを整理する =====
-class DiscountService:
-    DISCOUNT_RATES = {
-        "premium": 0.20,
-        "regular": 0.10,
-        "guest":   0.00,
-    }
-    
-    def calculate(self, price: float, customer_type: str) -&gt; float:
-        discount_rate = self.DISCOUNT_RATES.get(customer_type, 0.0)
-        return price * (1 - discount_rate)
-
-# テスト再実行 → まだ PASS ✅（リファクタリング成功）
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-python">{"# TDD のサイクル（Red-Green-Refactor）\n\n# ===== RED フェーズ：失敗するテストを書く =====\ndef test_calculate_discount_for_premium_customer():\n    \"\"\"プレミアム顧客は20%割引を受けられること\"\"\"\n    service = DiscountService()\n    # まだ DiscountService が存在しないのでこのテストは失敗する\n    result = service.calculate(price=1000, customer_type=\"premium\")\n    assert result == 800  # 20%引き = 800円\n\n# ===== GREEN フェーズ：最小限のコードを書く =====\nclass DiscountService:\n    def calculate(self, price: float, customer_type: str) -&gt; float:\n        if customer_type == \"premium\":\n            return price * 0.8  # 20%引き\n        return price\n\n# テスト実行 → PASS ✅\n\n# ===== REFACTOR フェーズ：コードを整理する =====\nclass DiscountService:\n    DISCOUNT_RATES = &amp;#123;\n        \"premium\": 0.20,\n        \"regular\": 0.10,\n        \"guest\":   0.00,\n    &amp;#125;\n    \n    def calculate(self, price: float, customer_type: str) -&gt; float:\n        discount_rate = self.DISCOUNT_RATES.get(customer_type, 0.0)\n        return price * (1 - discount_rate)\n\n# テスト再実行 → まだ PASS ✅（リファクタリング成功）\n"}</code></pre>
 <p><strong>ATDD（受入テスト駆動開発）の詳細：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>ATDD のワークフロー：
-
-  1. ユーザーストーリーを選択
-  2. 3 Amigos ミーティング（PO + Dev + Tester）で受入テストを事前作成
-  3. 受入テストを自動化
-  4. 開発者が受入テストをパスするようにコードを書く
-  5. 受入テストが全てパス → ストーリーが完了（Done）
-
-ATDD の利点：
-  ✓ 開発前に「完了の定義」が明確になる
-  ✓ 要件の誤解を早期に防ぐ
-  ✓ テストが「実行可能な仕様書」として機能する
-  ✓ チーム全員が同じ理解を持てる
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"ATDD のワークフロー：\n\n  1. ユーザーストーリーを選択\n  2. 3 Amigos ミーティング（PO + Dev + Tester）で受入テストを事前作成\n  3. 受入テストを自動化\n  4. 開発者が受入テストをパスするようにコードを書く\n  5. 受入テストが全てパス → ストーリーが完了（Done）\n\nATDD の利点：\n  ✓ 開発前に「完了の定義」が明確になる\n  ✓ 要件の誤解を早期に防ぐ\n  ✓ テストが「実行可能な仕様書」として機能する\n  ✓ チーム全員が同じ理解を持てる\n"}</code></pre>
 <p><strong>BDD（振る舞い駆動開発）の詳細：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-gherkin"># BDD のシナリオ（Gherkin 記法）
-Feature: ショッピングカート割引機能
-  登録ユーザーが購入する際に適切な割引が適用される
-
-  Scenario: プレミアム会員が商品を購入する
-    Given プレミアム会員 "yamada@example.com" がログインしている
-    And カートに "ノートPC（150,000円）" が1台ある
-    When 注文を確定する
-    Then 割引後の合計金額は 120,000円 である
-    And 注文確認メールが "yamada@example.com" に送信される
-
-  Scenario: 一般会員が商品を購入する
-    Given 一般会員 "tanaka@example.com" がログインしている
-    And カートに "ノートPC（150,000円）" が1台ある
-    When 注文を確定する
-    Then 割引後の合計金額は 135,000円 である
-
-  Scenario Outline: 各会員タイプの割引確認
-    Given &lt;会員タイプ&gt; 会員がログインしている
-    And カートに単価 &lt;単価&gt;円 の商品が1個ある
-    When 注文を確定する
-    Then 合計金額は &lt;合計&gt;円 である
-
-    Examples:
-      | 会員タイプ | 単価   | 合計   |
-      | プレミアム | 10000 | 8000  |
-      | 一般      | 10000 | 9000  |
-      | ゲスト    | 10000 | 10000 |
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-gherkin">{"# BDD のシナリオ（Gherkin 記法）\nFeature: ショッピングカート割引機能\n  登録ユーザーが購入する際に適切な割引が適用される\n\n  Scenario: プレミアム会員が商品を購入する\n    Given プレミアム会員 \"yamada@example.com\" がログインしている\n    And カートに \"ノートPC（150,000円）\" が1台ある\n    When 注文を確定する\n    Then 割引後の合計金額は 120,000円 である\n    And 注文確認メールが \"yamada@example.com\" に送信される\n\n  Scenario: 一般会員が商品を購入する\n    Given 一般会員 \"tanaka@example.com\" がログインしている\n    And カートに \"ノートPC（150,000円）\" が1台ある\n    When 注文を確定する\n    Then 割引後の合計金額は 135,000円 である\n\n  Scenario Outline: 各会員タイプの割引確認\n    Given &lt;会員タイプ&gt; 会員がログインしている\n    And カートに単価 &lt;単価&gt;円 の商品が1個ある\n    When 注文を確定する\n    Then 合計金額は &lt;合計&gt;円 である\n\n    Examples:\n      | 会員タイプ | 単価   | 合計   |\n      | プレミアム | 10000 | 8000  |\n      | 一般      | 10000 | 9000  |\n      | ゲスト    | 10000 | 10000 |\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.1.2 テストピラミッド（The Test Pyramid）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>テストピラミッド（Mike Cohn のモデル）：
-
-                ┌─────┐
-                │ UI  │  ← 少ない（遅い・コスト高）
-               ┌┴─────┴┐
-               │ Service│  ← 中程度
-              ┌┴────────┴┐
-              │   Unit   │  ← 多い（速い・コスト低）
-              └──────────┘
-
-各レベルの特徴：
-
-  Unit（ユニットテスト）：
-    → 個々の関数・クラスのテスト
-    → TDDで開発者が作成
-    → 実行時間：ミリ秒単位
-    → 多数（70%程度が理想）
-    
-  Service（サービス/APIテスト）：
-    → コンポーネント間の統合テスト
-    → APIレベルでのテスト
-    → 実行時間：秒単位
-    → 中程度（20%程度）
-    
-  UI（UIテスト/E2Eテスト）：
-    → ユーザーインターフェースを通じたEnd-to-Endテスト
-    → Selenium/Playwright等を使用
-    → 実行時間：分単位
-    → 少ない（10%程度）
-
-アンチパターン（避けるべき形）：
-
-  アイスクリームコーン：
-              ┌──────────┐
-              │    UI    │  ← 多すぎ！（遅い・高コスト）
-             ┌┴──────────┴┐
-             │  Service   │
-            ┌┴────────────┴┐
-            │     Unit     │  ← 少なすぎ！
-            └──────────────┘
-  
-  問題：UIテストが多すぎて CI が遅い・不安定になる
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"テストピラミッド（Mike Cohn のモデル）：\n\n                ┌─────┐\n                │ UI  │  ← 少ない（遅い・コスト高）\n               ┌┴─────┴┐\n               │ Service│  ← 中程度\n              ┌┴────────┴┐\n              │   Unit   │  ← 多い（速い・コスト低）\n              └──────────┘\n\n各レベルの特徴：\n\n  Unit（ユニットテスト）：\n    → 個々の関数・クラスのテスト\n    → TDDで開発者が作成\n    → 実行時間：ミリ秒単位\n    → 多数（70%程度が理想）\n    \n  Service（サービス/APIテスト）：\n    → コンポーネント間の統合テスト\n    → APIレベルでのテスト\n    → 実行時間：秒単位\n    → 中程度（20%程度）\n    \n  UI（UIテスト/E2Eテスト）：\n    → ユーザーインターフェースを通じたEnd-to-Endテスト\n    → Selenium/Playwright等を使用\n    → 実行時間：分単位\n    → 少ない（10%程度）\n\nアンチパターン（避けるべき形）：\n\n  アイスクリームコーン：\n              ┌──────────┐\n              │    UI    │  ← 多すぎ！（遅い・高コスト）\n             ┌┴──────────┴┐\n             │  Service   │\n            ┌┴────────────┴┐\n            │     Unit     │  ← 少なすぎ！\n            └──────────────┘\n  \n  問題：UIテストが多すぎて CI が遅い・不安定になる\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.1.3 テストクアドラント・テストレベル・テストタイプ（Testing Quadrants）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルテストクアドラント（Brian Marick のモデル）：
-
-                    技術向け（Technology Facing）
-                            |
-      Q2                    |                    Q3
-  受入テスト              |                探索的テスト
-  BDD シナリオ            |              ユーザビリティテスト
-  プロトタイプ             |              性能テスト
-  ────────────────────────────────────────────────────────
-  Q1                    |                    Q4
-  ユニットテスト          |                性能テスト
-  コンポーネントテスト      |              セキュリティテスト
-  TDD                   |              静的解析
-                        |
-                    ビジネス向け（Business Facing）
-
-各クアドラントの説明：
-
-Q1（技術向け・開発をサポート）：
-  → 自動化可能・コードレベル
-  → ユニットテスト・コンポーネントテスト
-  → 開発者が主体で TDD で作成
-
-Q2（ビジネス向け・開発をサポート）：
-  → 自動化可能・機能テスト
-  → BDDシナリオ・受入テスト・プロトタイプ
-  → テスター・PO・開発者が協力
-
-Q3（ビジネス向け・製品を批判）：
-  → 手動テスト重視
-  → 探索的テスト・ユーザビリティテスト・アルファ/ベータテスト
-
-Q4（技術向け・製品を批判）：
-  → 自動化ツールを使用
-  → 性能テスト・セキュリティテスト・信頼性テスト
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルテストクアドラント（Brian Marick のモデル）：\n\n                    技術向け（Technology Facing）\n                            |\n      Q2                    |                    Q3\n  受入テスト              |                探索的テスト\n  BDD シナリオ            |              ユーザビリティテスト\n  プロトタイプ             |              性能テスト\n  ────────────────────────────────────────────────────────\n  Q1                    |                    Q4\n  ユニットテスト          |                性能テスト\n  コンポーネントテスト      |              セキュリティテスト\n  TDD                   |              静的解析\n                        |\n                    ビジネス向け（Business Facing）\n\n各クアドラントの説明：\n\nQ1（技術向け・開発をサポート）：\n  → 自動化可能・コードレベル\n  → ユニットテスト・コンポーネントテスト\n  → 開発者が主体で TDD で作成\n\nQ2（ビジネス向け・開発をサポート）：\n  → 自動化可能・機能テスト\n  → BDDシナリオ・受入テスト・プロトタイプ\n  → テスター・PO・開発者が協力\n\nQ3（ビジネス向け・製品を批判）：\n  → 手動テスト重視\n  → 探索的テスト・ユーザビリティテスト・アルファ/ベータテスト\n\nQ4（技術向け・製品を批判）：\n  → 自動化ツールを使用\n  → 性能テスト・セキュリティテスト・信頼性テスト\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.1.4 テスターの役割（The Role of a Tester）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルチームでのテスターの役割（補足）：
-
-テスターが行うべきこと：
-  ✓ スプリント計画でテスト可能性を確認
-  ✓ 受入基準の作成をサポート
-  ✓ コードの変更を理解して影響を評価
-  ✓ 探索的テストで予期しない問題を発見
-  ✓ 欠陥をスプリント内で報告・追跡
-
-テスターが行うべきでないこと（よくある誤解の解消）：
-  ✗ 全テストを手動で実施しようとする（自動化すべき）
-  ✗ 品質を「チェック」するだけの存在でいる
-  ✗ 開発者から独立して孤立した作業をする
-  ✗ スプリント終了間際にまとめてテストする（早期に始める）
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルチームでのテスターの役割（補足）：\n\nテスターが行うべきこと：\n  ✓ スプリント計画でテスト可能性を確認\n  ✓ 受入基準の作成をサポート\n  ✓ コードの変更を理解して影響を評価\n  ✓ 探索的テストで予期しない問題を発見\n  ✓ 欠陥をスプリント内で報告・追跡\n\nテスターが行うべきでないこと（よくある誤解の解消）：\n  ✗ 全テストを手動で実施しようとする（自動化すべき）\n  ✗ 品質を「チェック」するだけの存在でいる\n  ✗ 開発者から独立して孤立した作業をする\n  ✗ スプリント終了間際にまとめてテストする（早期に始める）\n"}</code></pre>
 <hr className="accent-line" />
 
 <h3 id="section-3-2" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.2 品質リスク評価とテスト工数見積もり（Assessing Quality Risks and Estimating Test Effort）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.2.1 アジャイルプロジェクトにおける品質リスクの評価</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルでのリスクベーステスト：
-
-リスク識別のタイミング：
-  → リリース計画、イテレーション計画の両方で実施
-  → 全チームが参加（テスターだけでなく）
-
-リスク評価の方法：
-
-  定性的リスク評価：
-    → 影響度（Impact）× 発生確率（Likelihood）でリスクレベルを決定
-    
-    発生  │ 低  中  高
-    確率  ├────────────
-    低   │  L   L   M
-    中   │  L   M   H
-    高   │  M   H   H
-    
-    L=低リスク、M=中リスク、H=高リスク
-
-アジャイル特有のリスク要因：
-  ✓ 技術の複雑さ（新技術の使用）
-  ✓ チームスキル（スキルの不均一）
-  ✓ 既知の欠陥傾向（過去の欠陥データ）
-  ✓ 機能の複雑さ（多くの条件・状態）
-  ✓ 外部依存（サードパーティ API 等）
-  ✓ 変更の頻度（よく変わる部分は高リスク）
-
-リスクに基づくテスト優先順位：
-  高リスク → 多くのテスト + 早期テスト
-  中リスク → 標準的なテスト
-  低リスク → 最低限のテスト
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルでのリスクベーステスト：\n\nリスク識別のタイミング：\n  → リリース計画、イテレーション計画の両方で実施\n  → 全チームが参加（テスターだけでなく）\n\nリスク評価の方法：\n\n  定性的リスク評価：\n    → 影響度（Impact）× 発生確率（Likelihood）でリスクレベルを決定\n    \n    発生  │ 低  中  高\n    確率  ├────────────\n    低   │  L   L   M\n    中   │  L   M   H\n    高   │  M   H   H\n    \n    L=低リスク、M=中リスク、H=高リスク\n\nアジャイル特有のリスク要因：\n  ✓ 技術の複雑さ（新技術の使用）\n  ✓ チームスキル（スキルの不均一）\n  ✓ 既知の欠陥傾向（過去の欠陥データ）\n  ✓ 機能の複雑さ（多くの条件・状態）\n  ✓ 外部依存（サードパーティ API 等）\n  ✓ 変更の頻度（よく変わる部分は高リスク）\n\nリスクに基づくテスト優先順位：\n  高リスク → 多くのテスト + 早期テスト\n  中リスク → 標準的なテスト\n  低リスク → 最低限のテスト\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.2.2 イテレーション内容とリスクに基づくテスト工数の見積もり</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルでのテスト工数見積もり：
-
-プランニングポーカー（Planning Poker）：
-  → チームで相対的な大きさ（ストーリーポイント）を見積もる
-  → 使用カード：0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ?, ∞
-  → テスターも参加し、テストの複雑さを考慮した見積もりを提供
-
-ストーリーポイントとテスト工数の関係：
-  テスト工数 = ストーリーポイント × リスク係数 × チーム速度係数
-  
-  例：
-  機能A（5ポイント、高リスク）：
-    → テスト工数 = 5 × 1.5（高リスク）= 7.5ポイント相当
-    
-  機能B（3ポイント、低リスク）：
-    → テスト工数 = 3 × 0.5（低リスク）= 1.5ポイント相当
-
-テスト工数に影響する要因：
-  ✓ ユーザーストーリーの複雑さ
-  ✓ 既存テストケースの再利用可能性
-  ✓ テスト自動化の成熟度
-  ✓ テスト環境の安定性
-  ✓ チームのドメイン知識
-  ✓ リグレッションテストのスコープ
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルでのテスト工数見積もり：\n\nプランニングポーカー（Planning Poker）：\n  → チームで相対的な大きさ（ストーリーポイント）を見積もる\n  → 使用カード：0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ?, ∞\n  → テスターも参加し、テストの複雑さを考慮した見積もりを提供\n\nストーリーポイントとテスト工数の関係：\n  テスト工数 = ストーリーポイント × リスク係数 × チーム速度係数\n  \n  例：\n  機能A（5ポイント、高リスク）：\n    → テスト工数 = 5 × 1.5（高リスク）= 7.5ポイント相当\n    \n  機能B（3ポイント、低リスク）：\n    → テスト工数 = 3 × 0.5（低リスク）= 1.5ポイント相当\n\nテスト工数に影響する要因：\n  ✓ ユーザーストーリーの複雑さ\n  ✓ 既存テストケースの再利用可能性\n  ✓ テスト自動化の成熟度\n  ✓ テスト環境の安定性\n  ✓ チームのドメイン知識\n  ✓ リグレッションテストのスコープ\n"}</code></pre>
 <hr className="accent-line" />
 
 <h3 id="section-3-3" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.3 アジャイルプロジェクトにおける技法（Techniques in Agile Projects）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.3.1 受入基準・適切なカバレッジ・その他テスト情報</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>受入基準の書き方：
-
-フォーマット1: Gherkin (Given-When-Then)
-  Given [前提条件]
-  When  [操作・アクション]
-  Then  [期待結果]
-  And   [追加の期待結果]
-
-フォーマット2: チェックリスト形式
-  受入基準：
-  □ 条件1
-  □ 条件2
-  □ 条件3
-
-良い受入基準の特徴：
-  ✓ 明確（曖昧さがない）
-  ✓ テスト可能（Yes/No で判定できる）
-  ✓ 独立している（他の基準に依存しない）
-  ✓ 測定可能（「高速」でなく「3秒以内」）
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"受入基準の書き方：\n\nフォーマット1: Gherkin (Given-When-Then)\n  Given [前提条件]\n  When  [操作・アクション]\n  Then  [期待結果]\n  And   [追加の期待結果]\n\nフォーマット2: チェックリスト形式\n  受入基準：\n  □ 条件1\n  □ 条件2\n  □ 条件3\n\n良い受入基準の特徴：\n  ✓ 明確（曖昧さがない）\n  ✓ テスト可能（Yes/No で判定できる）\n  ✓ 独立している（他の基準に依存しない）\n  ✓ 測定可能（「高速」でなく「3秒以内」）\n"}</code></pre>
 <p><strong>受入基準の例（ログイン機能）：</strong></p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-gherkin">Feature: ユーザーログイン機能
-
-  # 正常系
-  Scenario: 有効な資格情報でログインできる
-    Given ユーザーが "user@example.com" で登録されている
-    When メールアドレス "user@example.com" とパスワード "Pass@123" を入力する
-    And ログインボタンをクリックする
-    Then ダッシュボードにリダイレクトされる
-    And "ようこそ、山田太郎さん" と表示される
-
-  # 異常系1
-  Scenario: 無効なパスワードでログインできない
-    Given ユーザーが "user@example.com" で登録されている
-    When メールアドレス "user@example.com" と誤ったパスワード "wrong" を入力する
-    And ログインボタンをクリックする
-    Then "メールアドレスまたはパスワードが正しくありません" と表示される
-    And ダッシュボードへのリダイレクトが行われない
-
-  # 異常系2（境界値）
-  Scenario: 5回連続で失敗するとアカウントがロックされる
-    Given ユーザーが "user@example.com" で登録されている
-    When 誤ったパスワードで5回ログインを試みる
-    Then "アカウントが一時的にロックされました" と表示される
-    And 30分後に自動的にロックが解除される
-
-  # 非機能要件
-  Scenario: ログイン処理は3秒以内に完了する
-    Given ユーザーが有効な資格情報を持っている
-    When ログインボタンをクリックする
-    Then 3秒以内にダッシュボードが表示される
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-gherkin">{"Feature: ユーザーログイン機能\n\n  # 正常系\n  Scenario: 有効な資格情報でログインできる\n    Given ユーザーが \"user@example.com\" で登録されている\n    When メールアドレス \"user@example.com\" と\n         パスワード \"Pass@123\" を入力する\n    And ログインボタンをクリックする\n    Then ダッシュボードにリダイレクトされる\n    And \"ようこそ、山田太郎さん\" と\n        表示される\n\n  # 異常系1\n  Scenario: 無効なパスワードでログインできない\n    Given ユーザーが \"user@example.com\" で登録されている\n    When メールアドレス \"user@example.com\" と\n         誤ったパスワード \"wrong\" を入力する\n    And ログインボタンをクリックする\n    Then 「メールアドレスまたはパスワードが\n         正しくありません」と表示される\n    And ダッシュボードへのリダイレクトが行われない\n\n  # 異常系2（境界値）\n  Scenario: 5回連続で失敗するとアカウントがロックされる\n    Given ユーザーが \"user@example.com\" で登録されている\n    When 誤ったパスワードで5回ログインを試みる\n    Then 「アカウントが一時的にロックされました」\n         と表示される\n    And 30分後に自動的にロックが解除される\n\n  # 非機能要件\n  Scenario: ログイン処理は3秒以内に完了する\n    Given ユーザーが有効な資格情報を持っている\n    When ログインボタンをクリックする\n    Then 3秒以内にダッシュボードが表示される\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.3.2 ATDD の適用（Applying Acceptance Test-Driven Development）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>ATDD を実際に適用するステップ：
-
-Step 1: ユーザーストーリーを選択
-  「登録ユーザーとして、商品をカートに追加したい」
-
-Step 2: 3 Amigos ミーティング
-  参加者：PO（田中）+ Dev（鈴木）+ Tester（佐藤）
-  議題：受入テストを事前に定義する
-
-Step 3: 受入テストの作成（会話から）
-  PO：「商品をカートに追加したらカウンターが更新されてほしい」
-  Tester：「もし在庫がなかったら？」
-  Dev：「エラーメッセージを表示できます」
-  → 受入テスト1：正常追加
-  → 受入テスト2：在庫切れ
-  → 受入テスト3：最大数量制限
-
-Step 4: 受入テストの自動化
-
-Step 5: 開発者がテストをパスするコードを書く
-
-Step 6: 全てのテストがパス → ストーリーが完了！
-
-3 Amigos（三人の会話）の効果：
-  ✓ 要件の誤解を事前に防ぐ
-  ✓ エッジケースを早期に発見
-  ✓ チーム全員が同じ理解を持つ
-  ✓ テストが「実行可能な仕様書」として機能
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"ATDD を実際に適用するステップ：\n\nStep 1: ユーザーストーリーを選択\n  「登録ユーザーとして、商品をカートに追加したい」\n\nStep 2: 3 Amigos ミーティング\n  参加者：PO（田中）+ Dev（鈴木）+ Tester（佐藤）\n  議題：受入テストを事前に定義する\n\nStep 3: 受入テストの作成（会話から）\n  PO：「商品をカートに追加したらカウンターが更新されてほしい」\n  Tester：「もし在庫がなかったら？」\n  Dev：「エラーメッセージを表示できます」\n  → 受入テスト1：正常追加\n  → 受入テスト2：在庫切れ\n  → 受入テスト3：最大数量制限\n\nStep 4: 受入テストの自動化\n\nStep 5: 開発者がテストをパスするコードを書く\n\nStep 6: 全てのテストがパス → ストーリーが完了！\n\n3 Amigos（三人の会話）の効果：\n  ✓ 要件の誤解を事前に防ぐ\n  ✓ エッジケースを早期に発見\n  ✓ チーム全員が同じ理解を持つ\n  ✓ テストが「実行可能な仕様書」として機能\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.3.3 機能・非機能のブラックボックステスト設計</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルプロジェクトでのブラックボックステスト技法：
-
-機能テスト（Functional Testing）：
-
-  同値分割法（Equivalence Partitioning：EP）：
-    年齢フィールドの例：
-    ├── 有効EP1：1〜120（有効）
-    ├── 無効EP2：0以下（無効）
-    └── 無効EP3：121以上（無効）
-
-  境界値分析（Boundary Value Analysis：BVA）：
-    年齢フィールド（1〜120）の境界値：
-    → 0（無効）、1（有効・最小）、120（有効・最大）、121（無効）
-
-  デシジョンテーブル（Decision Table）：
-    割引ルールのデシジョンテーブル：
-    ┌──────────┬───┬───┬───┬───┐
-    │条件      │R1 │R2 │R3 │R4 │
-    ├──────────┼───┼───┼───┼───┤
-    │プレミアム│ T │ T │ F │ F │
-    │100点以上 │ T │ F │ T │ F │
-    ├──────────┼───┼───┼───┼───┤
-    │30%引き   │ ✓ │   │   │   │
-    │20%引き   │   │ ✓ │ ✓ │   │
-    │割引なし  │   │   │   │ ✓ │
-    └──────────┴───┴───┴───┴───┘
-
-非機能テスト（Non-Functional Testing）：
-  → 性能・セキュリティ・ユーザビリティ等
-  → アジャイルでも非機能要件をユーザーストーリーに含める
-  → 受入基準に非機能要件を明記する
-  
-  例：「レスポンスタイムは95パーセンタイルで3秒以内」
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルプロジェクトでのブラックボックステスト技法：\n\n機能テスト（Functional Testing）：\n\n  同値分割法（Equivalence Partitioning：EP）：\n    年齢フィールドの例：\n    ├── 有効EP1：1〜120（有効）\n    ├── 無効EP2：0以下（無効）\n    └── 無効EP3：121以上（無効）\n\n  境界値分析（Boundary Value Analysis：BVA）：\n    年齢フィールド（1〜120）の境界値：\n    → 0（無効）、1（有効・最小）、120（有効・最大）、121（無効）\n\n  デシジョンテーブル（Decision Table）：\n    割引ルールのデシジョンテーブル：\n    ┌──────────┬───┬───┬───┬───┐\n    │条件      │R1 │R2 │R3 │R4 │\n    ├──────────┼───┼───┼───┼───┤\n    │プレミアム│ T │ T │ F │ F │\n    │100点以上 │ T │ F │ T │ F │\n    ├──────────┼───┼───┼───┼───┤\n    │30%引き   │ ✓ │   │   │   │\n    │20%引き   │   │ ✓ │ ✓ │   │\n    │割引なし  │   │   │   │ ✓ │\n    └──────────┴───┴───┴───┴───┘\n\n非機能テスト（Non-Functional Testing）：\n  → 性能・セキュリティ・ユーザビリティ等\n  → アジャイルでも非機能要件をユーザーストーリーに含める\n  → 受入基準に非機能要件を明記する\n  \n  例：「レスポンスタイムは95パーセンタイルで3秒以内」\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.3.4 探索的テストとアジャイルテスト（Exploratory Testing and Agile Testing）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>探索的テスト（Exploratory Testing）とは：
-  → 事前に詳細なテスト計画を作成せず、
-    学習・テスト設計・テスト実行を同時に行うテスト技法
-  → Elisabeth Hendrickson [Hendrickson13] が普及させた
-
-探索的テストがアジャイルで重要な理由：
-  ✓ アジャイルでは詳細な事前仕様が少ない
-  ✓ テスターの経験・直感・好奇心を活かせる
-  ✓ 形式的なテストでは見つからないバグを発見できる
-  ✓ 短時間でリスクの高い領域を重点的にテストできる
-
-テストチャーター（Test Charter）の使用：
-  構造：
-    EXPLORE  [テスト対象]
-    TO DISCOVER [目的/何を発見したいか]
-    USING    [リソース/技法/ツール]
-  
-  例：
-    EXPLORE  ログインフォームのパスワードフィールド
-    TO DISCOVER セキュリティ上の問題（SQLインジェクション等）
-    USING    OWASP ZAPとブラウザ開発者ツール（60分間）
-
-セッションベーステスト（Session-Based Test）：
-  → 探索的テストに構造と記録をもたらすフレームワーク
-  → 時間制限付き（例：60〜90分）のセッションで実施
-  → チャーターに沿って実施
-  → 結果を記録・報告
-
-時間ボックス化（Timeboxed）探索的テスト：
-  アジャイルへの適用：
-  → 各スプリントで一定時間の探索的テストを確保
-  → 新機能の探索・リスクの高い領域を重点的にテスト
-  → 発見事項をバックログ/イテレーションに反映
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"探索的テスト（Exploratory Testing）とは：\n  → 事前に詳細なテスト計画を作成せず、\n    学習・テスト設計・テスト実行を同時に行うテスト技法\n  → Elisabeth Hendrickson [Hendrickson13] が普及させた\n\n探索的テストがアジャイルで重要な理由：\n  ✓ アジャイルでは詳細な事前仕様が少ない\n  ✓ テスターの経験・直感・好奇心を活かせる\n  ✓ 形式的なテストでは見つからないバグを発見できる\n  ✓ 短時間でリスクの高い領域を重点的にテストできる\n\nテストチャーター（Test Charter）の使用：\n  構造：\n    EXPLORE  [テスト対象]\n    TO DISCOVER [目的/何を発見したいか]\n    USING    [リソース/技法/ツール]\n  \n  例：\n    EXPLORE  ログインフォームのパスワードフィールド\n    TO DISCOVER セキュリティ上の問題（SQLインジェクション等）\n    USING    OWASP ZAPとブラウザ開発者ツール（60分間）\n\nセッションベーステスト（Session-Based Test）：\n  → 探索的テストに構造と記録をもたらすフレームワーク\n  → 時間制限付き（例：60〜90分）のセッションで実施\n  → チャーターに沿って実施\n  → 結果を記録・報告\n\n時間ボックス化（Timeboxed）探索的テスト：\n  アジャイルへの適用：\n  → 各スプリントで一定時間の探索的テストを確保\n  → 新機能の探索・リスクの高い領域を重点的にテスト\n  → 発見事項をバックログ/イテレーションに反映\n"}</code></pre>
 <hr className="accent-line" />
 
 <h3 id="section-3-4" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.4 アジャイルプロジェクトにおけるツール（Tools in Agile Projects）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.4.1 タスク管理・追跡ツール（Task Management and Tracking Tools）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルで使用するタスク管理ツール：
-
-╔════════════════════════════════════════════════════════════╗
-║                    代表的なツール                            ║
-╠═══════════════════╦════════════════════════════════════════╣
-║ ツール名          ║ 特徴                                    ║
-╠═══════════════════╬════════════════════════════════════════╣
-║ Jira             ║ Atlassian製・スクラムボード・バックログ  ║
-║                  ║ 最も広く使われるアジャイルプロジェクト  ║
-║                  ║ 管理ツール                              ║
-╠═══════════════════╬════════════════════════════════════════╣
-║ Trello           ║ シンプルなカンバンボード・無料プラン    ║
-║                  ║ チームが小さい場合に適している          ║
-╠═══════════════════╬════════════════════════════════════════╣
-║ Azure DevOps     ║ Microsoft製・CI/CDとの統合が優秀        ║
-╠═══════════════════╬════════════════════════════════════════╣
-║ Backlog          ║ Nulab製・日本語対応が充実               ║
-╚═══════════════════╩════════════════════════════════════════╝
-
-テスター視点でのタスク管理ツールの使い方：
-  ✓ テストタスクをスプリントバックログに追加
-  ✓ 欠陥をバックログアイテムとして管理
-  ✓ テストの完了ステータスをリアルタイムで更新
-  ✓ バーンダウンチャートでテスト進捗を可視化
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルで使用するタスク管理ツール：\n\n╔════════════════════════════════════════════════════════════╗\n║                    代表的なツール                            ║\n╠═══════════════════╦════════════════════════════════════════╣\n║ ツール名          ║ 特徴                                    ║\n╠═══════════════════╬════════════════════════════════════════╣\n║ Jira             ║ Atlassian製・スクラムボード・バックログ  ║\n║                  ║ 最も広く使われるアジャイルプロジェクト  ║\n║                  ║ 管理ツール                              ║\n╠═══════════════════╬════════════════════════════════════════╣\n║ Trello           ║ シンプルなカンバンボード・無料プラン    ║\n║                  ║ チームが小さい場合に適している          ║\n╠═══════════════════╬════════════════════════════════════════╣\n║ Azure DevOps     ║ Microsoft製・CI/CDとの統合が優秀        ║\n╠═══════════════════╬════════════════════════════════════════╣\n║ Backlog          ║ Nulab製・日本語対応が充実               ║\n╚═══════════════════╩════════════════════════════════════════╝\n\nテスター視点でのタスク管理ツールの使い方：\n  ✓ テストタスクをスプリントバックログに追加\n  ✓ 欠陥をバックログアイテムとして管理\n  ✓ テストの完了ステータスをリアルタイムで更新\n  ✓ バーンダウンチャートでテスト進捗を可視化\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.4.2 コミュニケーション・情報共有ツール</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルチームのコミュニケーションツール：
-
-デジタルツール：
-  ✓ Slack/Microsoft Teams/Discord（チャット）
-  ✓ Confluence/Notion（ドキュメント・ウィキ）
-  ✓ Zoom/Google Meet（ビデオ会議）
-  ✓ Miro/Mural（オンラインホワイトボード）
-
-物理ツール（オフィス環境）：
-  ✓ スプリントボード（カンバンボード）
-  ✓ ホワイトボード（情報ラジエーター）
-  ✓ バーンダウンチャートの掲示
-
-情報ラジエーター（Information Radiator）：
-  → チームの状態を誰でも見えるように公開する場所
-  → 例：スプリントボード・バーンダウンチャート・欠陥トレンドグラフ
-  → 「ホールチームアプローチ」を支援する重要な仕組み
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"アジャイルチームのコミュニケーションツール：\n\nデジタルツール：\n  ✓ Slack/Microsoft Teams/Discord（チャット）\n  ✓ Confluence/Notion（ドキュメント・ウィキ）\n  ✓ Zoom/Google Meet（ビデオ会議）\n  ✓ Miro/Mural（オンラインホワイトボード）\n\n物理ツール（オフィス環境）：\n  ✓ スプリントボード（カンバンボード）\n  ✓ ホワイトボード（情報ラジエーター）\n  ✓ バーンダウンチャートの掲示\n\n情報ラジエーター（Information Radiator）：\n  → チームの状態を誰でも見えるように公開する場所\n  → 例：スプリントボード・バーンダウンチャート・欠陥トレンドグラフ\n  → 「ホールチームアプローチ」を支援する重要な仕組み\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.4.3 ソフトウェアビルド・配布ツール（Software Build and Distribution Tools）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>CI/CD ツール（テスト自動化と連携）：
-
-継続的インテグレーション（CI）ツール：
-  ✓ GitHub Actions（GitHub と統合）
-  ✓ Jenkins（オープンソース・高い柔軟性）
-  ✓ CircleCI（クラウドベース・高速）
-  ✓ GitLab CI/CD（GitLab に統合）
-
-テスト自動化フレームワーク：
-  ✓ Selenium / Playwright（ブラウザ自動化）
-  ✓ pytest / JUnit（ユニットテスト）
-  ✓ Cucumber / Behave（BDD）
-  ✓ Postman / REST Assured（APIテスト）
-  ✓ k6 / JMeter（性能テスト）
-
-テスターにとっての CI ツールの重要性：
-  ✓ テストコードをリポジトリにプッシュするたびに自動実行
-  ✓ テスト失敗を即座に通知（Slack等に通知）
-  ✓ テストカバレッジレポートを自動生成
-  ✓ テスト結果のトレンドを追跡
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"CI/CD ツール（テスト自動化と連携）：\n\n継続的インテグレーション（CI）ツール：\n  ✓ GitHub Actions（GitHub と統合）\n  ✓ Jenkins（オープンソース・高い柔軟性）\n  ✓ CircleCI（クラウドベース・高速）\n  ✓ GitLab CI/CD（GitLab に統合）\n\nテスト自動化フレームワーク：\n  ✓ Selenium / Playwright（ブラウザ自動化）\n  ✓ pytest / JUnit（ユニットテスト）\n  ✓ Cucumber / Behave（BDD）\n  ✓ Postman / REST Assured（APIテスト）\n  ✓ k6 / JMeter（性能テスト）\n\nテスターにとっての CI ツールの重要性：\n  ✓ テストコードをリポジトリにプッシュするたびに自動実行\n  ✓ テスト失敗を即座に通知（Slack等に通知）\n  ✓ テストカバレッジレポートを自動生成\n  ✓ テスト結果のトレンドを追跡\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.4.4 構成管理ツール（Configuration Management Tools）</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>バージョン管理ツール：
-  ✓ Git（最も広く使われる）
-  ✓ GitHub / GitLab / Bitbucket（Git ホスティング）
-
-テスターが Git で行うこと：
-  ✓ テストコード・テストデータをリポジトリに管理
-  ✓ テストスクリプトの変更履歴を追跡
-  ✓ フィーチャーブランチでのテスト開発
-  ✓ Pull Request でのテストコードレビュー
-
-テスト環境の構成管理：
-  ✓ Docker/Docker Compose（テスト環境のコンテナ化）
-  ✓ Terraform/Ansible（インフラのコード管理 = IaC）
-  ✓ テスト環境の設定をコードで管理して再現性を確保
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"バージョン管理ツール：\n  ✓ Git（最も広く使われる）\n  ✓ GitHub / GitLab / Bitbucket（Git ホスティング）\n\nテスターが Git で行うこと：\n  ✓ テストコード・テストデータをリポジトリに管理\n  ✓ テストスクリプトの変更履歴を追跡\n  ✓ フィーチャーブランチでのテスト開発\n  ✓ Pull Request でのテストコードレビュー\n\nテスト環境の構成管理：\n  ✓ Docker/Docker Compose（テスト環境のコンテナ化）\n  ✓ Terraform/Ansible（インフラのコード管理 = IaC）\n  ✓ テスト環境の設定をコードで管理して再現性を確保\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.4.5 テスト設計・実装・実行ツール</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>テスト管理ツール：
-  ✓ TestRail（テストケース管理）
-  ✓ Zephyr/Xray（Jira 統合のテスト管理）
-  ✓ Azure Test Plans（Azure DevOps 統合）
-
-UIテスト自動化：
-  ✓ Playwright（2025年最推奨・高速・安定）
-  ✓ Cypress（SPA向け・タイムトラベルデバッグ）
-  ✓ Selenium WebDriver（レガシー対応・広範囲）
-
-APIテスト：
-  ✓ Postman（GUI + Newman CLI）
-  ✓ REST Assured（Java）
-  ✓ requests + pytest（Python）
-
-ユニット/コンポーネントテスト：
-  ✓ Jest / Vitest（JavaScript/TypeScript）
-  ✓ pytest（Python）
-  ✓ JUnit 5（Java）
-  ✓ xUnit / NUnit（C#/.NET）
-
-モック・スタブ：
-  ✓ Mockito（Java）
-  ✓ unittest.mock / pytest-mock（Python）
-  ✓ Jest mock（JavaScript）
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"テスト管理ツール：\n  ✓ TestRail（テストケース管理）\n  ✓ Zephyr/Xray（Jira 統合のテスト管理）\n  ✓ Azure Test Plans（Azure DevOps 統合）\n\nUIテスト自動化：\n  ✓ Playwright（2025年最推奨・高速・安定）\n  ✓ Cypress（SPA向け・タイムトラベルデバッグ）\n  ✓ Selenium WebDriver（レガシー対応・広範囲）\n\nAPIテスト：\n  ✓ Postman（GUI + Newman CLI）\n  ✓ REST Assured（Java）\n  ✓ requests + pytest（Python）\n\nユニット/コンポーネントテスト：\n  ✓ Jest / Vitest（JavaScript/TypeScript）\n  ✓ pytest（Python）\n  ✓ JUnit 5（Java）\n  ✓ xUnit / NUnit（C#/.NET）\n\nモック・スタブ：\n  ✓ Mockito（Java）\n  ✓ unittest.mock / pytest-mock（Python）\n  ✓ Jest mock（JavaScript）\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.4.6 クラウドコンピューティングと仮想化ツール</h4>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>クラウド・仮想化ツールとアジャイルテスト：
-
-クラウドベースのテスト実行：
-  ✓ BrowserStack（実機ブラウザテスト）
-  ✓ Sauce Labs（クラウドテスト実行）
-  ✓ AWS Device Farm（モバイルテスト）
-
-コンテナ化によるテスト環境：
-  ✓ Docker（テスト環境の標準化）
-  ✓ Docker Compose（複数コンテナの管理）
-  ✓ Kubernetes（本番同等環境の構築）
-
-アジャイルテストにとってのメリット：
-  ✓ 環境の不一致を排除（「私のマシンでは動く」問題の解消）
-  ✓ テスト環境を素早くセットアップ・廃棄できる
-  ✓ 並列テスト実行でCI速度を向上
-  ✓ 本番環境に近いテスト環境を低コストで実現
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"クラウド・仮想化ツールとアジャイルテスト：\n\nクラウドベースのテスト実行：\n  ✓ BrowserStack（実機ブラウザテスト）\n  ✓ Sauce Labs（クラウドテスト実行）\n  ✓ AWS Device Farm（モバイルテスト）\n\nコンテナ化によるテスト環境：\n  ✓ Docker（テスト環境の標準化）\n  ✓ Docker Compose（複数コンテナの管理）\n  ✓ Kubernetes（本番同等環境の構築）\n\nアジャイルテストにとってのメリット：\n  ✓ 環境の不一致を排除（「私のマシンでは動く」問題の解消）\n  ✓ テスト環境を素早くセットアップ・廃棄できる\n  ✓ 並列テスト実行でCI速度を向上\n  ✓ 本番環境に近いテスト環境を低コストで実現\n"}</code></pre>
 <hr className="accent-line" />
 
 <h2 id="exam-tips" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">📝 試験対策・サンプル問題</h2>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">試験概要の再確認</h3>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>CTFL-AT 試験仕様：
-  問題数:    40問（各1点）
-  合格点:    26点（65%）
-  試験時間:  60分 / 非英語話者: +25% = 75分
-  問題形式:  多肢選択（1つまたは複数の正解を選ぶ）
-  
-  認知レベル別：
-    K1（記憶）: アジャイル用語・概念の定義を思い出す
-    K2（理解）: アジャイルの概念を説明・比較できる
-    K3（適用）: 実際のシナリオに知識を適用できる
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"CTFL-AT 試験仕様：\n  問題数:    40問（各1点）\n  合格点:    26点（65%）\n  試験時間:  60分 / 非英語話者: +25% = 75分\n  問題形式:  多肢選択（1つまたは複数の正解を選ぶ）\n  \n  認知レベル別：\n    K1（記憶）: アジャイル用語・概念の定義を思い出す\n    K2（理解）: アジャイルの概念を説明・比較できる\n    K3（適用）: 実際のシナリオに知識を適用できる\n"}</code></pre>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">章別重要度と出題数（推定）</h3>
 <div className="table-wrapper"><table aria-label="Data table">
 <thead>
@@ -1434,46 +273,7 @@ APIテスト：
 </tr>
 </tbody></table></div>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">必ず覚える重要概念</h3>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>✅ アジャイルマニフェストの4つの価値（必須！）：
-   個人と対話 over プロセスとツール
-   動くソフトウェア over 包括的ドキュメント
-   顧客との協調 over 契約交渉
-   変化への対応 over 計画に従うこと
-
-✅ ホールチームアプローチの3メリット：
-   コミュニケーション強化 / スキルセット活用 / 品質は全員の責任
-
-✅ XP / Scrum / Kanban の違い（試験頻出！）：
-   XP: 5価値 + 13プラクティス（TDD等の開発技術を規定）
-   Scrum: 3役割 + スプリント（開発技術は規定しない）
-   Kanban: ボード+WIP制限+リードタイム（イテレーション任意）
-
-✅ ユーザーストーリーの3C：
-   Card（カード）/ Conversation（会話）/ Confirmation（確認）
-
-✅ INVEST 基準：
-   Independent / Negotiable / Valuable / Estimable / Small / Testable
-
-✅ TDD vs ATDD vs BDD の違い：
-   TDD: 開発者中心・ユニットテスト・Red-Green-Refactor
-   ATDD: チーム全体・受入テストファースト・3 Amigos
-   BDD: チーム全体・Given-When-Then・Gherkin
-
-✅ テストピラミッドの3層（少→多）：
-   UI テスト（少）→ サービスレベル（中）→ ユニットテスト（多）
-
-✅ テストクアドラントの4象限：
-   Q1: 技術向け・自動（ユニットテスト・TDD）
-   Q2: ビジネス向け・自動（BDD・受入テスト）
-   Q3: ビジネス向け・手動（探索的・ユーザビリティ）
-   Q4: 技術向け・ツール（性能・セキュリティ）
-
-✅ 継続的インテグレーションの目的：
-   頻繁なコード統合・自動ビルド・自動テスト・早期フィードバック
-
-✅ 探索的テストの定義：
-   学習・テスト設計・テスト実行を同時並行で行うテスト手法
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"✅ アジャイルマニフェストの4つの価値（必須！）：\n   個人と対話 over プロセスとツール\n   動くソフトウェア over 包括的ドキュメント\n   顧客との協調 over 契約交渉\n   変化への対応 over 計画に従うこと\n\n✅ ホールチームアプローチの3メリット：\n   コミュニケーション強化 / スキルセット活用 / 品質は全員の責任\n\n✅ XP / Scrum / Kanban の違い（試験頻出！）：\n   XP: 5価値 + 13プラクティス（TDD等の開発技術を規定）\n   Scrum: 3役割 + スプリント（開発技術は規定しない）\n   Kanban: ボード+WIP制限+リードタイム（イテレーション任意）\n\n✅ ユーザーストーリーの3C：\n   Card（カード）/ Conversation（会話）/ Confirmation（確認）\n\n✅ INVEST 基準：\n   Independent / Negotiable / Valuable / Estimable / Small / Testable\n\n✅ TDD vs ATDD vs BDD の違い：\n   TDD: 開発者中心・ユニットテスト・Red-Green-Refactor\n   ATDD: チーム全体・受入テストファースト・3 Amigos\n   BDD: チーム全体・Given-When-Then・Gherkin\n\n✅ テストピラミッドの3層（少→多）：\n   UI テスト（少）→ サービスレベル（中）→ ユニットテスト（多）\n\n✅ テストクアドラントの4象限：\n   Q1: 技術向け・自動（ユニットテスト・TDD）\n   Q2: ビジネス向け・自動（BDD・受入テスト）\n   Q3: ビジネス向け・手動（探索的・ユーザビリティ）\n   Q4: 技術向け・ツール（性能・セキュリティ）\n\n✅ 継続的インテグレーションの目的：\n   頻繁なコード統合・自動ビルド・自動テスト・早期フィードバック\n\n✅ 探索的テストの定義：\n   学習・テスト設計・テスト実行を同時並行で行うテスト手法\n"}</code></pre>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">サンプル問題と解説</h3>
 <hr className="accent-line" />
 <p><strong>問1（K1 / Chapter 1 アジャイルマニフェスト）</strong></p>
@@ -1558,42 +358,7 @@ APIテスト：
 </ul>
 </details><hr className="accent-line" />
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">試験直前チェックリスト</h3>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>✅ Chapter 1 アジャイルソフトウェア開発:
-
-□ アジャイルマニフェストの4つの価値を左右ともに言える
-□ アジャイルマニフェストの12の原則の概要を理解している
-□ ホールチームアプローチの定義と3つのメリットを説明できる
-□ 早期・頻繁なフィードバックの4つのメリットを説明できる
-□ XP・Scrum・Kanban の特徴と違いを比較できる
-□ Scrum の3つの役割（Scrum Master・PO・開発チーム）を説明できる
-□ Kanban の3つの機器（ボード・WIP制限・リードタイム）を説明できる
-□ INVEST 基準の6要素を全て言える
-□ 3C コンセプト（Card・Conversation・Confirmation）を説明できる
-□ レトロスペクティブとCIの目的・効果を説明できる
-□ リリース計画とイテレーション計画の違いを説明できる
-
-✅ Chapter 2 アジャイルテストの基本原則:
-
-□ 従来型テストとアジャイルテストの主要な違いを5つ以上説明できる
-□ アジャイルでのテストドキュメントの位置づけを説明できる
-□ アジャイルにおける独立テストの3つのオプションを説明できる
-□ デイリースタンドアップでのテスターの貢献を説明できる
-□ バーンダウンチャートの読み方を説明できる
-□ アジャイルテスターに必要なスキルを分類できる
-
-✅ Chapter 3 アジャイルテスト技法とツール（最重要）:
-
-□ TDD・ATDD・BDD の違いを表で比較できる
-□ TDDのRed-Green-Refactorサイクルを順番に説明できる
-□ テストピラミッドの3層と各層の特徴を説明できる
-□ テストクアドラントの4象限と各象限の内容を説明できる
-□ INVEST のTがユーザーストーリーにとって重要な理由を説明できる
-□ 受入基準のGiven-When-Then形式でシナリオを書ける
-□ 探索的テストとテストチャーターの概念を説明できる
-□ 代表的なCI/CDツール・テスト自動化ツールを挙げられる
-□ リスクベーステストのリスクマトリクスを説明できる
-□ 機能テスト技法（EP・BVA）をアジャイルに適用できる
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"✅ Chapter 1 アジャイルソフトウェア開発:\n\n□ アジャイルマニフェストの4つの価値を左右ともに言える\n□ アジャイルマニフェストの12の原則の概要を理解している\n□ ホールチームアプローチの定義と3つのメリットを説明できる\n□ 早期・頻繁なフィードバックの4つのメリットを説明できる\n□ XP・Scrum・Kanban の特徴と違いを比較できる\n□ Scrum の3つの役割（Scrum Master・PO・開発チーム）を説明できる\n□ Kanban の3つの機器（ボード・WIP制限・リードタイム）を説明できる\n□ INVEST 基準の6要素を全て言える\n□ 3C コンセプト（Card・Conversation・Confirmation）を説明できる\n□ レトロスペクティブとCIの目的・効果を説明できる\n□ リリース計画とイテレーション計画の違いを説明できる\n\n✅ Chapter 2 アジャイルテストの基本原則:\n\n□ 従来型テストとアジャイルテストの主要な違いを5つ以上説明できる\n□ アジャイルでのテストドキュメントの位置づけを説明できる\n□ アジャイルにおける独立テストの3つのオプションを説明できる\n□ デイリースタンドアップでのテスターの貢献を説明できる\n□ バーンダウンチャートの読み方を説明できる\n□ アジャイルテスターに必要なスキルを分類できる\n\n✅ Chapter 3 アジャイルテスト技法とツール（最重要）:\n\n□ TDD・ATDD・BDD の違いを表で比較できる\n□ TDDのRed-Green-Refactorサイクルを順番に説明できる\n□ テストピラミッドの3層と各層の特徴を説明できる\n□ テストクアドラントの4象限と各象限の内容を説明できる\n□ INVEST のTがユーザーストーリーにとって重要な理由を説明できる\n□ 受入基準のGiven-When-Then形式でシナリオを書ける\n□ 探索的テストとテストチャーターの概念を説明できる\n□ 代表的なCI/CDツール・テスト自動化ツールを挙げられる\n□ リスクベーステストのリスクマトリクスを説明できる\n□ 機能テスト技法（EP・BVA）をアジャイルに適用できる\n"}</code></pre>
 <hr className="accent-line" />
 
 <h2 id="references" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">📚 参照URL一覧</h2>
@@ -1816,46 +581,7 @@ APIテスト：
 </tbody></table></div>
 <hr className="accent-line" />
 <h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🏁 まとめ：アジャイルテスターとして成功するための10の鉄則</h2>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>1. 🤝 チームの一員として品質に責任を持つ
-   → 「テストはテスターだけの仕事」という考えを捨てる
-   → 開発者・PO と積極的にコラボレーションする
-
-2. 📝 ユーザーストーリーを INVEST で評価する
-   → 特にT（Testable）: 受入基準が明確でテスト可能か確認
-   → テスト可能でない要件はその場で修正を提案する
-
-3. 🔴 テストファーストを実践する（TDD/ATDD）
-   → コードを書く前に失敗するテストを書く
-   → 3 Amigos で受入基準を開発前に定義する
-
-4. 🏗️ テストピラミッドに従う
-   → ユニットテスト70% / サービステスト20% / UIテスト10%
-   → アイスクリームコーン（UIテスト多すぎ）を避ける
-
-5. ⚡ CI/CD に自動テストを組み込む
-   → コミットのたびにテストが自動実行される仕組みを作る
-   → フレイキーテストは即座に修正する
-
-6. 🔍 探索的テストで予期しない問題を発見する
-   → テストチャーターで目的を明確にして時間制限内で実施
-   → 形式的なテストでは見つからないバグを発見する
-
-7. 📊 リスクベースでテストを優先する
-   → 全てを同じ深さでテストしようとしない
-   → 高リスク機能に集中してリソースを効率的に使う
-
-8. 🔄 レトロスペクティブで継続的に改善する
-   → テスト活動の問題点を率直に共有する
-   → 小さな改善を積み重ねてチームを成長させる
-
-9. 💬 効果的にコミュニケーションする
-   → バグを「攻撃」ではなく「情報」として伝える
-   → デイリースタンドアップでテストの進捗をシンプルに共有
-
-10. 📚 継続的に学び続ける
-    → アジャイルの世界は常に進化している
-    → 新しいツール・技法・プラクティスを積極的に試す
-</code></pre>
+<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"1. 🤝 チームの一員として品質に責任を持つ\n   → 「テストはテスターだけの仕事」という考えを捨てる\n   → 開発者・PO と積極的にコラボレーションする\n\n2. 📝 ユーザーストーリーを INVEST で評価する\n   → 特にT（Testable）: 受入基準が明確でテスト可能か確認\n   → テスト可能でない要件はその場で修正を提案する\n\n3. 🔴 テストファーストを実践する（TDD/ATDD）\n   → コードを書く前に失敗するテストを書く\n   → 3 Amigos で受入基準を開発前に定義する\n\n4. 🏗️ テストピラミッドに従う\n   → ユニットテスト70% / サービステスト20% / UIテスト10%\n   → アイスクリームコーン（UIテスト多すぎ）を避ける\n\n5. ⚡ CI/CD に自動テストを組み込む\n   → コミットのたびにテストが自動実行される仕組みを作る\n   → フレイキーテストは即座に修正する\n\n6. 🔍 探索的テストで予期しない問題を発見する\n   → テストチャーターで目的を明確にして時間制限内で実施\n   → 形式的なテストでは見つからないバグを発見する\n\n7. 📊 リスクベースでテストを優先する\n   → 全てを同じ深さでテストしようとしない\n   → 高リスク機能に集中してリソースを効率的に使う\n\n8. 🔄 レトロスペクティブで継続的に改善する\n   → テスト活動の問題点を率直に共有する\n   → 小さな改善を積み重ねてチームを成長させる\n\n9. 💬 効果的にコミュニケーションする\n   → バグを「攻撃」ではなく「情報」として伝える\n   → デイリースタンドアップでテストの進捗をシンプルに共有\n\n10. 📚 継続的に学び続ける\n    → アジャイルの世界は常に進化している\n    → 新しいツール・技法・プラクティスを積極的に試す\n"}</code></pre>
 <hr className="accent-line" />
 <div className="callout callout-info">
 <p><strong>📌 作成日</strong>: 2025年<br /><strong>📌 準拠資格</strong>: ISTQB CTFL-AT v1.0（シラバス 2014年版）<br /><strong>📌 次のステップ</strong>:</p>

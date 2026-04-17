@@ -611,6 +611,14 @@
         color: #e1e4e8;
     }
 
+    /* Wrap inline code properly so they do not force horizontal scroll */
+    :not(pre) > code {
+        white-space: pre-wrap;
+        word-break: break-all;
+        overflow-wrap: break-word;
+        border-radius: 4px;
+    }
+
     /* ─── STEP INDICATORS ─── */
     .step-list {
         display: flex;

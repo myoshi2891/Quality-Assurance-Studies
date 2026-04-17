@@ -12,10 +12,14 @@ const REPO_ROOT = path.resolve(__dirname, '..');
 const mdPath = path.resolve(REPO_ROOT, 'archive/istqb-ctfl-at-complete-guide.md');
 const tsxPath = path.resolve(REPO_ROOT, 'app/istqb-ctfl-at-complete-guide/page.tsx');
 
-// Ensure directory exists
-fs.mkdirSync(path.dirname(tsxPath), { recursive: true });
-
 let md;
+try {
+    fs.mkdirSync(path.dirname(tsxPath), { recursive: true });
+} catch (error) {
+    console.error(`Error creating directory for tsx file at ${tsxPath}:`, error);
+    process.exit(1);
+}
+
 try {
     md = fs.readFileSync(mdPath, 'utf8');
 } catch (error) {
@@ -23,8 +27,8 @@ try {
     process.exit(1);
 }
 
-// Parse markdown to HTML
-let html = marked.parse(md);
+// Parse markdown to HTML synchronously
+let html = marked.parse(md, { async: false });
 
 // Load with cheerio to manipulate DOM
 const $ = cheerio.load(html, { decodeEntities: false });
@@ -62,20 +66,35 @@ $('table').each((i, el) => {
     }
 });
 
+// Safely escape curly braces in all text nodes so JSX parser does not treat them as JS expressions
+$('*')
+    .contents()
+    .filter(function () {
+        return this.type === 'text';
+    })
+    .each(function () {
+        this.data = this.data.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;');
+    });
+
 // 3. Manipulate blockquotes -> callouts
 $('blockquote').each((i, el) => {
     $(el).replaceWith(`<div className="callout callout-info">${$(el).html()}</div>`);
 });
 
 // 4. Code blocks
-$('pre > code')
-    .parent()
-    .each((i, el) => {
-        $(el).attr(
-            'class',
-            'code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]',
-        );
-    });
+$('pre > code').each((i, codeEl) => {
+    // We must wrap the raw text in a JSX string literal so that React preserves newlines.
+    // e.g. {"Feature: \n  Background:"} instead of raw text Feature: \n Background:
+    const rawText = $(codeEl).text();
+    // Use JSON.stringify to safely escape quotes, newlines, etc., and wrap it in {} for JSX.
+    $(codeEl).text(`{${JSON.stringify(rawText)}}`);
+
+    // Add classes to the parent <pre>
+    $(codeEl).parent().attr(
+        'class',
+        'code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]',
+    );
+});
 
 // 5. Replace <hr>
 $('hr').each((i, el) => {
@@ -159,19 +178,23 @@ $('*').each((_, el) => {
     }
 });
 
-// Safely escape curly braces in valid text nodes only (do not touch code blocks)
-$('*')
-    .contents()
-    .filter(function () {
-        return (
-            this.type === 'text' &&
-            $(this).parent()[0].tagName !== 'code' &&
-            $(this).parent()[0].tagName !== 'pre'
-        );
-    })
-    .each(function () {
-        this.data = this.data.replace(/\{/g, '&#123;').replace(/\}/g, '&#125;');
-    });
+// Done with JSX brace escaping elsewhere.
+
+
+let hasLink = false;
+
+// Convert internal anchors to Link using Cheerio instead of brittle regex
+$('a').each((i, el) => {
+    const href = $(el).attr('href');
+    if (href && (href.startsWith('#') || href.startsWith('/'))) {
+        hasLink = true;
+        
+        // Change tag name from 'a' to 'Link' safely within Cheerio.
+        // Some verions of cheerio use el.tagName, others el.name. We cover both.
+        if (el.name) el.name = 'Link';
+        if (el.tagName) el.tagName = 'Link';
+    }
+});
 
 let outHtml = $('body').html();
 
@@ -182,28 +205,17 @@ outHtml = outHtml.replace(/<input([^>]*)\/?>/g, '<input$1 />'); // self close in
 outHtml = outHtml.replace(/<hr([^>]*)>/g, (match, attrs) => {
     return attrs.includes('/') ? match : `<hr${attrs} />`;
 });
-outHtml = outHtml.replace(/<img>/g, '<img />');
-
-// Convert internal anchors to next/link
-let hasLink = false;
-outHtml = outHtml.replace(
-    /<a([^>]*)href="([^"]+)"([^>]*)>([\s\S]*?)<\/a>/gi,
-    (match, before, href, after, content) => {
-        if (href.startsWith('#') || href.startsWith('/')) {
-            hasLink = true;
-            return `<Link${before}href="${href}"${after}>${content}</Link>`;
-        }
-        return match;
-    },
-);
+// Detect and self-close any img explicitly
+outHtml = outHtml.replace(/<img\b([^>]*?)(?<!\/)>/g, '<img$1 />');
 
 const finalTSX = `${hasLink ? "import Link from 'next/link';\n" : ''}import Header from '../../components/Header';
+import '../istqb-ctfl-at-guide.css';
 
 export default function IstqbCtflAtCompleteGuidePage() {
     return (
         <>
             <Header />
-            <main className="container mx-auto px-4 py-8 max-w-5xl">
+            <main className="page-ctfl container mx-auto px-4 py-8 max-w-5xl">
                 ${outHtml}
             </main>
         </>

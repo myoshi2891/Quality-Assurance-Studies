@@ -1,29 +1,274 @@
-/* app/bdd-testing-guide.css */
+/* ═══════════════════════════════════════════════
+   bdd-testing-guide ページ固有スタイル
+   ═══════════════════════════════════════════════ */
 
-.bdd-guide-page .bdd-hero-bg::after {
-    content: '';
-    position: absolute;
-    top: 20%;
-    right: -10%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(183, 148, 244, 0.06) 0%, transparent 60%);
-    pointer-events: none;
+/* ── HERO 拡張 ── */
+.bdd-guide-page .hero {
+    position: relative;
+    overflow: hidden;
+    padding: 8rem 2rem 5rem;
+    text-align: center;
+    min-height: 40vh;
+}
+
+.bdd-guide-page .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-accent-blue);
+    letter-spacing: 0.2em;
+    background: rgba(99, 179, 237, 0.12);
+    border: 1px solid rgba(99, 179, 237, 0.3);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px rgba(99, 179, 237, 0.4);
+    backdrop-filter: blur(5px);
+}
+
+.bdd-guide-page .hero h1 {
+    font-size: 3.5rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-primary);
+}
+
+.bdd-guide-page .hero h1 span {
+    color: var(--color-accent-blue);
+    background: linear-gradient(90deg, #63b3ed, #b794f4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 30px rgba(99, 179, 237, 0.5);
+    animation: glow-pulse-blue 3s ease-in-out infinite;
+}
+
+/* ── STATS CARDS & GRIDS ── */
+.bdd-guide-page .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+.bdd-guide-page .card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-DEFAULT);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.bdd-guide-page .card:hover {
+    border-color: var(--color-border-bright);
+    box-shadow: 0 0 20px rgba(99, 179, 237, 0.15);
+    transform: translateY(-2px);
+}
+
+/* ── STYLED LISTS & STEPS ── */
+.bdd-guide-page .step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.bdd-guide-page .step-item {
+    display: flex;
+    gap: 1rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 1rem;
+    border-radius: 8px;
+    border-left: 3px solid var(--color-accent-blue);
+    transition: background 0.2s;
+}
+
+.bdd-guide-page .step-item:hover {
+    background: rgba(99, 179, 237, 0.06);
+}
+
+.bdd-guide-page .step-num-circle {
+    min-width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(99, 179, 237, 0.15);
+    color: var(--color-accent-blue);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14px;
+    border: 1px solid rgba(99, 179, 237, 0.3);
+}
+
+.bdd-guide-page .step-content h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1.1rem;
+}
+
+.bdd-guide-page .step-content p {
+    margin: 0;
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+}
+
+/* ── CALLOUTS ── */
+.bdd-guide-page .callout {
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    margin: 1.5rem 0;
+    position: relative;
+    border-left: 4px solid;
+    background: var(--color-bg-card);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.bdd-guide-page .callout-info {
+    border-left-color: var(--color-accent-blue);
+    background: linear-gradient(90deg, rgba(99, 179, 237, 0.08) 0%, transparent 100%);
+}
+
+.bdd-guide-page .callout-info p {
+    margin: 0;
+}
+
+/* ── TABLES ── */
+.bdd-guide-page .table-wrapper {
+    overflow-x: auto;
+    margin: 2rem 0;
+    border-radius: 12px;
+    border: 1px solid var(--color-border);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
 .bdd-guide-page .table-wrapper table {
     width: 100%;
     border-collapse: collapse;
+    background: var(--color-bg-card);
 }
 
-.bdd-guide-page .table-wrapper th, .bdd-guide-page .table-wrapper td {
-    padding: 12px;
+.bdd-guide-page .table-wrapper th, 
+.bdd-guide-page .table-wrapper td {
+    padding: 14px 18px;
     text-align: left;
     border-bottom: 1px solid var(--color-border);
 }
 
 .bdd-guide-page .table-wrapper th {
-    background: rgba(99, 179, 237, 0.05);
+    background: rgba(99, 179, 237, 0.08);
     color: var(--color-accent-blue);
     font-weight: 700;
+    letter-spacing: 0.05em;
+    font-size: 0.9rem;
+}
+
+.bdd-guide-page .table-wrapper tr:last-child td {
+    border-bottom: none;
+}
+
+.bdd-guide-page .table-wrapper tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* ── CODE BLOCKS ── */
+.bdd-guide-page .code-block {
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    overflow: hidden;
+    background: #1e1e2e;
+    border: 1px solid rgba(255,255,255,0.1);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.bdd-guide-page .code-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    background: rgba(0,0,0,0.2);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.bdd-guide-page .code-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.bdd-guide-page .code-dots span {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #4a4a59;
+}
+
+.bdd-guide-page .code-dots span:nth-child(1) { background: #ff5f56; }
+.bdd-guide-page .code-dots span:nth-child(2) { background: #ffbd2e; }
+.bdd-guide-page .code-dots span:nth-child(3) { background: #27c93f; }
+
+.bdd-guide-page .code-lang {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: #8b8b9e;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.bdd-guide-page .code-block pre {
+    padding: 1.25rem;
+    margin: 0;
+    overflow-x: auto;
+    color: #c9cdd6;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* Syntax Highlighting overrides for BD  */
+.bdd-guide-page span.kw-feat { color: #f28b82; font-weight: 700; }
+.bdd-guide-page span.kw-scen { color: #81c995; font-weight: 700; }
+.bdd-guide-page span.kw-given { color: #fbbc04; font-weight: 700; }
+.bdd-guide-page span.kw-when { color: #8ab4f8; font-weight: 700; }
+.bdd-guide-page span.kw-then { color: #c58af9; font-weight: 700; }
+.bdd-guide-page span.str { color: #ce9178; }
+.bdd-guide-page span.cm { color: #6a9955; font-style: italic; }
+
+/* ── TYPOGRAPHY & SECTIONS ── */
+.bdd-guide-page .section-header {
+    margin: 4rem 0 2rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--color-border);
+    position: relative;
+}
+
+.bdd-guide-page .section-num {
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgba(99, 179, 237, 0.5);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.bdd-guide-page .section-header h2 {
+    font-size: 2.2rem;
+    margin: 0;
+    background: linear-gradient(90deg, #fff, #a0aec0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes glow-pulse-blue {
+    0%, 100% { text-shadow: 0 0 20px rgba(99, 179, 237, 0.4); }
+    50% { text-shadow: 0 0 40px rgba(99, 179, 237, 0.8); }
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .bdd-guide-page .hero h1 {
+        font-size: 2.5rem;
+    }
 }

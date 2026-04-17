@@ -13,9 +13,11 @@
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "autoprefixer": "^10.4.27",
+    "cheerio": "^1.2.0",
     "eslint": "^10.1.0",
     "eslint-config-next": "^16.2.1",
     "happy-dom": "^20.8.9",
+    "marked": "^18.0.1",
     "postcss": "^8.5.8",
     "tailwindcss": "^4.2.2"
   },
@@ -31,9 +33,6 @@
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",
-    "cheerio": "^1.2.0",
-    "dotenv": "^17.4.2",
-    "marked": "^18.0.1",
     "next": "^16.2.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"

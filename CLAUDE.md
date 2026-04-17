@@ -39,8 +39,8 @@ Next.js App Router 構成:
 - `app/acceptance-testing-guide.css` — 受入テストガイド固有スタイル
 - `app/bdd-testing-guide/page.tsx` — BDD（ビヘイビア駆動開発）完全ガイドページ
 - `app/bdd-testing-guide.css` — BDDガイド固有スタイル
-- `app/istqb-ctfl-at-complete-guide/page.tsx` — アジャイル(CTFL-AT)ガイドページ（※固有CSSファイルは持たず、全てTailwindユーティリティのみでスタイリング）
-- `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
+- `app/istqb-ctfl-at-guide.css` — アジャイル(CTFL-AT)ガイド固有スタイル
+- `app/istqb-ctfl-at-complete-guide/page.tsx` — アジャイル(CTFL-AT)ガイドページ
 - `app/software-testing-methodologies-guide.css` — テスト手法ガイド固有スタイル
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート）
 - `scripts/` — 移行支援ツール
