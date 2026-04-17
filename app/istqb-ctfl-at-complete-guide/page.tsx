@@ -1,11 +1,12 @@
+import Link from 'next/link';
 import Header from '../../components/Header';
 
-export default function ISTQB_CTFL_AT_Guide() {
+export default function IstqbCtflAtCompleteGuidePage() {
     return (
         <>
             <Header />
             <main className="container mx-auto px-4 py-8 max-w-5xl">
-                <section className="hero" id="top"><div className="hero-content"><h1>🌿 ISTQB® Certified Tester Foundation Level Agile Tester (CTFL-AT)</h1></div></section>
+                <section id="top" className="hero"><div className="hero-content"><h1>🌿 ISTQB® Certified Tester Foundation Level Agile Tester (CTFL-AT)</h1></div></section>
 <h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">完全学習ガイド【最新版・初学者対応】</h2>
 <div className="callout callout-info">
 <p><strong>最終更新</strong>: 2025年（ISTQB® 公式シラバス CTFL-AT v1.0 準拠）<br /><strong>対象読者</strong>: CTFL取得済みで、アジャイル開発における基本的テストスキルを習得したい方<br /><strong>参照元</strong>: ISTQB® 公式シラバス v2014（Foundation Level Extension Agile Tester）</p>
@@ -13,31 +14,31 @@ export default function ISTQB_CTFL_AT_Guide() {
 <hr className="accent-line" />
 <h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">📚 目次</h2>
 <ol className="list-decimal pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
-<li><a href="#chapter-0">CTFL-AT 概要と資格ロードマップ</a></li>
-<li><a href="#chapter-1">Chapter 1: アジャイルソフトウェア開発（Agile Software Development）</a><ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
-<li><a href="#section-1-1">1.1 アジャイルの基礎とアジャイルマニフェスト</a></li>
-<li><a href="#section-1-2">1.2 アジャイルアプローチの側面</a></li>
+<li><Link href="#chapter-0">CTFL-AT 概要と資格ロードマップ</Link></li>
+<li><Link href="#chapter-1">Chapter 1: アジャイルソフトウェア開発（Agile Software Development）</Link><ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
+<li><Link href="#section-1-1">1.1 アジャイルの基礎とアジャイルマニフェスト</Link></li>
+<li><Link href="#section-1-2">1.2 アジャイルアプローチの側面</Link></li>
 </ul>
 </li>
-<li><a href="#chapter-2">Chapter 2: アジャイルテストの基本原則・実践・プロセス</a><ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
-<li><a href="#section-2-1">2.1 従来型テストとアジャイルテストの違い</a></li>
-<li><a href="#section-2-2">2.2 アジャイルプロジェクトにおけるテストの状況</a></li>
-<li><a href="#section-2-3">2.3 アジャイルチームにおけるテスターの役割とスキル</a></li>
+<li><Link href="#chapter-2">Chapter 2: アジャイルテストの基本原則・実践・プロセス</Link><ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
+<li><Link href="#section-2-1">2.1 従来型テストとアジャイルテストの違い</Link></li>
+<li><Link href="#section-2-2">2.2 アジャイルプロジェクトにおけるテストの状況</Link></li>
+<li><Link href="#section-2-3">2.3 アジャイルチームにおけるテスターの役割とスキル</Link></li>
 </ul>
 </li>
-<li><a href="#chapter-3">Chapter 3: アジャイルテスト技法とツール</a><ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
-<li><a href="#section-3-1">3.1 アジャイルテスト手法（TDD・ATDD・BDD・テストピラミッド）</a></li>
-<li><a href="#section-3-2">3.2 品質リスク評価とテスト工数見積もり</a></li>
-<li><a href="#section-3-3">3.3 アジャイルプロジェクトにおける技法</a></li>
-<li><a href="#section-3-4">3.4 アジャイルプロジェクトにおけるツール</a></li>
+<li><Link href="#chapter-3">Chapter 3: アジャイルテスト技法とツール</Link><ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
+<li><Link href="#section-3-1">3.1 アジャイルテスト手法（TDD・ATDD・BDD・テストピラミッド）</Link></li>
+<li><Link href="#section-3-2">3.2 品質リスク評価とテスト工数見積もり</Link></li>
+<li><Link href="#section-3-3">3.3 アジャイルプロジェクトにおける技法</Link></li>
+<li><Link href="#section-3-4">3.4 アジャイルプロジェクトにおけるツール</Link></li>
 </ul>
 </li>
-<li><a href="#exam-tips">試験対策・サンプル問題</a></li>
-<li><a href="#references">参照URL一覧</a></li>
+<li><Link href="#exam-tips">試験対策・サンプル問題</Link></li>
+<li><Link href="#references">参照URL一覧</Link></li>
 </ol>
 <hr className="accent-line" />
-<p><a id="chapter-0"></a></p>
-<h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🌟 Chapter 0: CTFL-AT 概要と資格ロードマップ</h2>
+
+<h2 id="chapter-0" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🌟 Chapter 0: CTFL-AT 概要と資格ロードマップ</h2>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">0.1 この資格とは？</h3>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>┌──────────────────────────────────────────────────────────────────┐
 │               ISTQB® 認定資格ロードマップ（アジャイルストリーム）    │
@@ -92,11 +93,11 @@ Chapter 3: アジャイルテスト技法とツール      ███████
                                             合計: 735分 (12.25時間)
 </code></pre>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">0.4 7つのビジネスアウトカム（Business Outcomes）</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>#</th>
-<th>ビジネスアウトカム</th>
+<th scope="col">#</th>
+<th scope="col">ビジネスアウトカム</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -129,12 +130,12 @@ Chapter 3: アジャイルテスト技法とツール      ███████
 </tr>
 </tbody></table></div>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">0.5 認知レベル（K-Level）</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>レベル</th>
-<th>意味</th>
-<th>問題の特徴</th>
+<th scope="col">レベル</th>
+<th scope="col">意味</th>
+<th scope="col">問題の特徴</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -170,13 +171,13 @@ CTFL v4.0（2023年以降）の取得者：
   → 詳細は ISTQB® 公式サイトで最新情報を確認する
 </code></pre>
 <hr className="accent-line" />
-<p><a id="chapter-1"></a></p>
-<h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🌱 Chapter 1: アジャイルソフトウェア開発（Agile Software Development）</h2>
+
+<h2 id="chapter-1" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🌱 Chapter 1: アジャイルソフトウェア開発（Agile Software Development）</h2>
 <div className="callout callout-info">
 <p>150分 | アジャイルの基本概念</p>
 </div>
-<p><a id="section-1-1"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">1.1 アジャイルソフトウェア開発の基礎（The Fundamentals of Agile Software Development）</h3>
+
+<h3 id="section-1-1" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">1.1 アジャイルソフトウェア開発の基礎（The Fundamentals of Agile Software Development）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.1.1 アジャイルマニフェスト（Agile Manifesto）</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>2001年、ソフトウェア開発の主要な軽量メソドロジーを代表する17人のエキスパートが
 共通の価値観と原則に合意し、「アジャイルソフトウェア開発マニフェスト」を発表した。
@@ -218,40 +219,40 @@ CTFL v4.0（2023年以降）の取得者：
 <p><strong>テスターとしてのアジャイルマニフェスト理解：</strong></p>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-python"># アジャイルマニフェストをテスト視点で理解する
 
-agile_manifesto_for_testers = &#123;
-    "個人と対話": &#123;
+agile_manifesto_for_testers = {
+    "個人と対話": {
         "意味": "チームメンバー間の直接コミュニケーションを重視",
         "テスターへの影響": [
             "開発者と毎日コミュニケーション",
             "バグを早期に口頭で共有",
             "チーム全体で品質に責任を持つ",
         ]
-    &#125;,
-    "動くソフトウェア": &#123;
+    },
+    "動くソフトウェア": {
         "意味": "ドキュメントより実際に動くソフトを重視",
         "テスターへの影響": [
             "スプリントの最後に動作確認を実施",
             "テスト仕様書より自動テストを重視",
             "実際に動くコードをデモできることが完了の証明",
         ]
-    &#125;,
-    "顧客との協調": &#123;
+    },
+    "顧客との協調": {
         "意味": "契約ではなく継続的な協力を重視",
         "テスターへの影響": [
             "受入基準を顧客と共に定義",
             "デモでユーザーからフィードバックを取得",
             "ユーザーストーリーの作成に参加",
         ]
-    &#125;,
-    "変化への対応": &#123;
+    },
+    "変化への対応": {
         "意味": "固定計画より変化への適応を重視",
         "テスターへの影響": [
             "テスト計画を柔軟に更新",
             "リグレッションテストで変更による影響を確認",
             "スプリント中の要件変更に素早く対応",
         ]
-    &#125;
-&#125;
+    }
+}
 </code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.1.2 ホールチームアプローチ（Whole-Team Approach）</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>ホールチームアプローチとは：
@@ -304,8 +305,8 @@ agile_manifesto_for_testers = &#123;
   ✓ 一定のプロジェクト勢いを保つ
 </code></pre>
 <hr className="accent-line" />
-<p><a id="section-1-2"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">1.2 アジャイルアプローチの側面（Aspects of Agile Approaches）</h3>
+
+<h3 id="section-1-2" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">1.2 アジャイルアプローチの側面（Aspects of Agile Approaches）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">1.2.1 アジャイルソフトウェア開発アプローチ（試験頻出！）</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>CTFL-AT で扱う3つの代表的なアジャイルアプローチ：
 
@@ -577,13 +578,13 @@ CI パイプラインの例（テスト視点）：
   ✓ テストアプローチの確認
 </code></pre>
 <hr className="accent-line" />
-<p><a id="chapter-2"></a></p>
-<h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">⚖️ Chapter 2: アジャイルテストの基本原則・実践・プロセス</h2>
+
+<h2 id="chapter-2" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">⚖️ Chapter 2: アジャイルテストの基本原則・実践・プロセス</h2>
 <div className="callout callout-info">
 <p>105分 | 従来型テストとアジャイルテストの違い</p>
 </div>
-<p><a id="section-2-1"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.1 従来型テストとアジャイルテストの違い（The Differences between Testing in Traditional and Agile Approaches）</h3>
+
+<h3 id="section-2-1" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.1 従来型テストとアジャイルテストの違い（The Differences between Testing in Traditional and Agile Approaches）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.1 テストと開発活動（Testing and Development Activities）</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>従来型（ウォーターフォール）:              アジャイル:
 
@@ -701,8 +702,8 @@ CTFL-AT のポイント：
   → 用途に応じて適切なレベルの独立性を選択する
 </code></pre>
 <hr className="accent-line" />
-<p><a id="section-2-2"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.2 アジャイルプロジェクトにおけるテストの状況（Status of Testing in Agile Projects）</h3>
+
+<h3 id="section-2-2" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.2 アジャイルプロジェクトにおけるテストの状況（Status of Testing in Agile Projects）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.2.1 テストの状況・進捗・製品品質のコミュニケーション</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルにおけるテスト状況の伝え方：
 
@@ -770,8 +771,8 @@ CTFL-AT のポイント：
   ✓ フレイキーテスト（不安定なテスト）は即座に修正
 </code></pre>
 <hr className="accent-line" />
-<p><a id="section-2-3"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.3 アジャイルチームにおけるテスターの役割とスキル</h3>
+
+<h3 id="section-2-3" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.3 アジャイルチームにおけるテスターの役割とスキル</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.3.1 アジャイルテスターのスキル（Agile Tester Skills）</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルテスターに必要なスキル：
 
@@ -837,13 +838,13 @@ CTFL-AT のポイント：
   ✓ チーム全体での品質意識向上の促進
 </code></pre>
 <hr className="accent-line" />
-<p><a id="chapter-3"></a></p>
-<h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🧰 Chapter 3: アジャイルテスト技法とツール（Agile Testing Methods, Techniques, and Tools）</h2>
+
+<h2 id="chapter-3" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">🧰 Chapter 3: アジャイルテスト技法とツール（Agile Testing Methods, Techniques, and Tools）</h2>
 <div className="callout callout-info">
 <p>480分 | 最重要章</p>
 </div>
-<p><a id="section-3-1"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.1 アジャイルテスト手法（Agile Testing Methods）</h3>
+
+<h3 id="section-3-1" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.1 アジャイルテスト手法（Agile Testing Methods）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.1.1 TDD・ATDD・BDD（試験頻出！）</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>3つの開発駆動手法の比較：
 
@@ -884,11 +885,11 @@ class DiscountService:
 
 # ===== REFACTOR フェーズ：コードを整理する =====
 class DiscountService:
-    DISCOUNT_RATES = &#123;
+    DISCOUNT_RATES = {
         "premium": 0.20,
         "regular": 0.10,
         "guest":   0.00,
-    &#125;
+    }
     
     def calculate(self, price: float, customer_type: str) -&gt; float:
         discount_rate = self.DISCOUNT_RATES.get(customer_type, 0.0)
@@ -1039,8 +1040,8 @@ Q4（技術向け・製品を批判）：
   ✗ スプリント終了間際にまとめてテストする（早期に始める）
 </code></pre>
 <hr className="accent-line" />
-<p><a id="section-3-2"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.2 品質リスク評価とテスト工数見積もり（Assessing Quality Risks and Estimating Test Effort）</h3>
+
+<h3 id="section-3-2" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.2 品質リスク評価とテスト工数見積もり（Assessing Quality Risks and Estimating Test Effort）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.2.1 アジャイルプロジェクトにおける品質リスクの評価</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルでのリスクベーステスト：
 
@@ -1101,8 +1102,8 @@ Q4（技術向け・製品を批判）：
   ✓ リグレッションテストのスコープ
 </code></pre>
 <hr className="accent-line" />
-<p><a id="section-3-3"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.3 アジャイルプロジェクトにおける技法（Techniques in Agile Projects）</h3>
+
+<h3 id="section-3-3" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.3 アジャイルプロジェクトにおける技法（Techniques in Agile Projects）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.3.1 受入基準・適切なカバレッジ・その他テスト情報</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>受入基準の書き方：
 
@@ -1257,8 +1258,8 @@ Step 6: 全てのテストがパス → ストーリーが完了！
   → 発見事項をバックログ/イテレーションに反映
 </code></pre>
 <hr className="accent-line" />
-<p><a id="section-3-4"></a></p>
-<h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.4 アジャイルプロジェクトにおけるツール（Tools in Agile Projects）</h3>
+
+<h3 id="section-3-4" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">3.4 アジャイルプロジェクトにおけるツール（Tools in Agile Projects）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.4.1 タスク管理・追跡ツール（Task Management and Tracking Tools）</h4>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>アジャイルで使用するタスク管理ツール：
 
@@ -1389,8 +1390,8 @@ APIテスト：
   ✓ 本番環境に近いテスト環境を低コストで実現
 </code></pre>
 <hr className="accent-line" />
-<p><a id="exam-tips"></a></p>
-<h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">📝 試験対策・サンプル問題</h2>
+
+<h2 id="exam-tips" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">📝 試験対策・サンプル問題</h2>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">試験概要の再確認</h3>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>CTFL-AT 試験仕様：
   問題数:    40問（各1点）
@@ -1404,13 +1405,13 @@ APIテスト：
     K3（適用）: 実際のシナリオに知識を適用できる
 </code></pre>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">章別重要度と出題数（推定）</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>章</th>
-<th>テーマ</th>
-<th>出題数（推定）</th>
-<th>重要度</th>
+<th scope="col">章</th>
+<th scope="col">テーマ</th>
+<th scope="col">出題数（推定）</th>
+<th scope="col">重要度</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -1478,8 +1479,8 @@ APIテスト：
 <p><strong>問1（K1 / Chapter 1 アジャイルマニフェスト）</strong></p>
 <p>アジャイルマニフェストの4つの価値をそれぞれ対応する「より価値の低いもの」と正しくマッチングしたものはどれか？</p>
 <p>A) 個人と対話 → 契約交渉<br />B) 顧客との協調 → 契約交渉<br />C) 動くソフトウェア → 計画に従うこと<br />D) 変化への対応 → プロセスとツール  </p>
-<details>
-<summary>📌 解答を見る</summary><p><strong>正解: B</strong></p>
+<details className="p-4 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-[var(--radius-DEFAULT)] my-4">
+<summary className="cursor-pointer font-bold text-[var(--color-accent-blue)]">📌 解答を見る</summary><p><strong>正解: B</strong></p>
 <p>アジャイルマニフェストの4つの価値（左 over 右）：</p>
 <ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
 <li>個人と対話 over <strong>プロセスとツール</strong></li>
@@ -1491,8 +1492,8 @@ APIテスト：
 <p><strong>問2（K2 / Chapter 1 アジャイルアプローチ）</strong></p>
 <p>Scrum、XP、Kanban の特徴として最も正確に説明しているものはどれか？</p>
 <p>A) Scrum はTDDなどの特定の開発技術を規定している<br />B) XP はスプリントやイテレーションを必須としている<br />C) Kanban はタイムボックスとスプリントが任意である<br />D) Scrum の開発チームには必ずチームリーダーがいる  </p>
-<details>
-<summary>📌 解答を見る</summary><p><strong>正解: C</strong></p>
+<details className="p-4 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-[var(--radius-DEFAULT)] my-4">
+<summary className="cursor-pointer font-bold text-[var(--color-accent-blue)]">📌 解答を見る</summary><p><strong>正解: C</strong></p>
 <p>各選択肢の分析：</p>
 <ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
 <li>A): Scrum は開発技術（TDDなど）を規定しない（✗）</li>
@@ -1504,8 +1505,8 @@ APIテスト：
 <p><strong>問3（K3 / Chapter 1 ユーザーストーリー）</strong></p>
 <p>テスターがユーザーストーリー「ユーザーとして、商品検索で素早く結果を見たい」をレビューしています。INVEST 基準の観点から最も重要な問題は何か？</p>
 <p>A) ストーリーが大きすぎる（Small の違反）<br />B) ビジネス価値が不明確（Valuable の違反）<br />C) 「素早く」という基準が測定・テストできない（Testable の違反）<br />D) 開発者に依存している（Independent の違反）  </p>
-<details>
-<summary>📌 解答を見る</summary><p><strong>正解: C</strong></p>
+<details className="p-4 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-[var(--radius-DEFAULT)] my-4">
+<summary className="cursor-pointer font-bold text-[var(--color-accent-blue)]">📌 解答を見る</summary><p><strong>正解: C</strong></p>
 <p>INVEST の T（Testable/テスト可能性）の観点から：</p>
 <ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
 <li>「素早く」は主観的で、合格/不合格の判定基準がない</li>
@@ -1516,8 +1517,8 @@ APIテスト：
 <p><strong>問4（K2 / Chapter 3 テストピラミッド）</strong></p>
 <p>テストピラミッドについて正しい説明はどれか？</p>
 <p>A) UIテストがピラミッドの最下層で最も多く実施すべき<br />B) ユニットテストがピラミッドの最上層で最も高いコストをかけるべき<br />C) ユニットテストを最も多く持ち、UIテストを最も少なく持つことを推奨する<br />D) サービステストとUIテストは同数であるべき  </p>
-<details>
-<summary>📌 解答を見る</summary><p><strong>正解: C</strong></p>
+<details className="p-4 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-[var(--radius-DEFAULT)] my-4">
+<summary className="cursor-pointer font-bold text-[var(--color-accent-blue)]">📌 解答を見る</summary><p><strong>正解: C</strong></p>
 <p>テストピラミッド（下から上）：</p>
 <ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
 <li>ユニットテスト（最多・速い・安価）</li>
@@ -1534,8 +1535,8 @@ APIテスト：
 <li>TC3: TDDで書いた、入力バリデーション関数のユニットテスト</li>
 </ul>
 <p>A) TC1=Q2, TC2=Q4, TC3=Q1<br />B) TC1=Q3, TC2=Q4, TC3=Q1<br />C) TC1=Q2, TC2=Q3, TC3=Q2<br />D) TC1=Q1, TC2=Q3, TC3=Q4  </p>
-<details>
-<summary>📌 解答を見る</summary><p><strong>正解: B</strong></p>
+<details className="p-4 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-[var(--radius-DEFAULT)] my-4">
+<summary className="cursor-pointer font-bold text-[var(--color-accent-blue)]">📌 解答を見る</summary><p><strong>正解: B</strong></p>
 <p>分析：</p>
 <ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
 <li>TC1: ユーザビリティテスト（ナビゲーションが直感的かを確認）= <strong>Q3（ビジネス向け・手動）</strong></li>
@@ -1546,8 +1547,8 @@ APIテスト：
 <p><strong>問6（K2 / Chapter 2 テストと開発の違い）</strong></p>
 <p>アジャイルプロジェクトと従来型プロジェクトのテストの違いとして正しいものはどれか？</p>
 <p>A) アジャイルプロジェクトではテストドキュメントが全く不要<br />B) アジャイルプロジェクトでは全テストを開発者が実施する<br />C) アジャイルプロジェクトではテスターはデリバリーチームの一員として作業する<br />D) アジャイルプロジェクトではリグレッションテストは必要ない  </p>
-<details>
-<summary>📌 解答を見る</summary><p><strong>正解: C</strong></p>
+<details className="p-4 bg-[var(--color-bg-card)] border border-[var(--color-border)] rounded-[var(--radius-DEFAULT)] my-4">
+<summary className="cursor-pointer font-bold text-[var(--color-accent-blue)]">📌 解答を見る</summary><p><strong>正解: C</strong></p>
 <p>各選択肢の分析：</p>
 <ul className="list-disc pl-6 my-4 space-y-2 text-[var(--color-text-secondary)]">
 <li>A): テストドキュメントは必要（ただし軽量化・自動化）（✗）</li>
@@ -1594,14 +1595,14 @@ APIテスト：
 □ 機能テスト技法（EP・BVA）をアジャイルに適用できる
 </code></pre>
 <hr className="accent-line" />
-<p><a id="references"></a></p>
-<h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">📚 参照URL一覧</h2>
+
+<h2 id="references" className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">📚 参照URL一覧</h2>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">🏛️ 公式ISTQB® リソース</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>リソース</th>
-<th>URL</th>
+<th scope="col">リソース</th>
+<th scope="col">URL</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -1642,11 +1643,11 @@ APIテスト：
 </tr>
 </tbody></table></div>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">📢 試験プロバイダー</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>リソース</th>
-<th>URL</th>
+<th scope="col">リソース</th>
+<th scope="col">URL</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -1663,11 +1664,11 @@ APIテスト：
 </tr>
 </tbody></table></div>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">🎓 学習リソース</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>リソース</th>
-<th>URL</th>
+<th scope="col">リソース</th>
+<th scope="col">URL</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -1688,11 +1689,11 @@ APIテスト：
 </tr>
 </tbody></table></div>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">📖 関連資格</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>資格</th>
-<th>URL</th>
+<th scope="col">資格</th>
+<th scope="col">URL</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -1709,12 +1710,12 @@ APIテスト：
 </tr>
 </tbody></table></div>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">🔧 関連ツール・フレームワーク</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>カテゴリ</th>
-<th>リソース</th>
-<th>URL</th>
+<th scope="col">カテゴリ</th>
+<th scope="col">リソース</th>
+<th scope="col">URL</th>
 </tr>
 </thead>
 <tbody><tr>
@@ -1779,12 +1780,12 @@ APIテスト：
 </tr>
 </tbody></table></div>
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">📋 参考書籍</h3>
-<div className="table-wrapper"><table>
+<div className="table-wrapper"><table aria-label="Data table">
 <thead>
 <tr>
-<th>タイトル</th>
-<th>著者</th>
-<th>テーマ</th>
+<th scope="col">タイトル</th>
+<th scope="col">著者</th>
+<th scope="col">テーマ</th>
 </tr>
 </thead>
 <tbody><tr>
