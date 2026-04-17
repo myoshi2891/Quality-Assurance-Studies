@@ -34,6 +34,8 @@ async function formatMarkdown(filePath) {
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
         const trimmed = line.trim();
+        // Strip blockquote prefixes (e.g., "> ", ">> ") for fence detection
+        const lineWithoutBlockquote = line.replace(/^\s*(?:>\s?)+/, '').trim();
 
         // 1. Preserve YAML front matter verbatim
         if (i === 0 && trimmed === '---') {
@@ -51,7 +53,7 @@ async function formatMarkdown(filePath) {
         }
 
         // 2. Track fenced code blocks (robustly handle nested fences)
-        const openingFenceMatch = trimmed.match(/^(`{3,}|~{3,})/);
+        const openingFenceMatch = lineWithoutBlockquote.match(/^(`{3,}|~{3,})/);
         if (!inFencedCodeBlock && openingFenceMatch) {
             const fence = openingFenceMatch[1];
             const fenceChar = fence[0];
@@ -64,7 +66,7 @@ async function formatMarkdown(filePath) {
         }
 
         if (inFencedCodeBlock) {
-            const closingFenceMatch = trimmed.match(/^(`{3,}|~{3,})\s*$/);
+            const closingFenceMatch = lineWithoutBlockquote.match(/^(`{3,}|~{3,})\s*$/);
             if (closingFenceMatch) {
                 const closingFence = closingFenceMatch[1];
                 if (closingFence[0] === activeFenceChar && closingFence.length >= activeFenceLen) {
