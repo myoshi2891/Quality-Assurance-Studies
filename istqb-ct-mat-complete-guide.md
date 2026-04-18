@@ -280,7 +280,8 @@
 ### 6.1 モバイルアプリのテストレベル
 
 > テストピラミッド（モバイル版）
-
+>
+> ```text
 >           ╔═══════════╗
 >           ║  E2Eテスト ║  ← 少数・高コスト・遅い
 >           ║（統合・UI） ║
@@ -289,10 +290,12 @@
 >           ╠═══════════╣
 >           ║ ユニットテスト║  ← 多数・低コスト・速い
 >           ╚═══════════╝
+> ```
 
-> 
+>
 
 | テストレベル | 説明 | ツール例 |
+
 |------------|------|---------|
 | **ユニットテスト** | 個別の関数・クラスの動作確認 | JUnit(Android)、XCTest(iOS) |
 | **統合テスト** | コンポーネント間の連携確認 | Mockito、OHHTTPStubs |
@@ -306,27 +309,22 @@
 > ├── リスク評価
 > ├── テスト環境の選定（実機/エミュレータ/クラウド）
 > └── テスト工数・スケジュールの見積もり
-
 > フェーズ2: テスト分析（Test Analysis）
 > ├── 要件・仕様の分析
 > ├── テスト可能性の評価
 > └── テスト条件の特定
-
 > フェーズ3: テスト設計（Test Design）
 > ├── テストケースの設計
 > ├── テストデータの準備
 > └── テスト環境のセットアップ
-
 > フェーズ4: テスト実装（Test Implementation）
 > ├── テストスクリプトの作成（自動化）
 > ├── テストデータの投入
 > └── テスト環境の構築・検証
-
 > フェーズ5: テスト実行（Test Execution）
 > ├── テストケースの実行
 > ├── バグレポートの作成
 > └── 再テスト（バグ修正後）
-
 > フェーズ6: テスト完了（Test Completion）
 > ├── テストサマリーレポートの作成
 > ├── 教訓の記録
@@ -721,6 +719,7 @@ welcome_text = driver.find_element(AppiumBy.ID, "com.example:id/welcome_msg")
 assert "ようこそ" in welcome_text.text
 
 driver.quit()
+```
 
 ### 14.4 Espresso の基本的な使い方（Androidネイティブ）
 
@@ -751,6 +750,7 @@ class LoginActivityTest {
             .check(matches(isDisplayed()))
     }
 }
+```
 
 ### 14.5 XCUITest の基本的な使い方（iOSネイティブ）
 
@@ -786,6 +786,7 @@ class LoginUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["welcomeLabel"].exists)
     }
 }
+```
 
 ---
 
@@ -873,6 +874,7 @@ jobs:
           --app app/build/outputs/apk/debug/app-debug.apk \
           --test app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk \
           --device model=Pixel6,version=31
+```
 
 ---
 
