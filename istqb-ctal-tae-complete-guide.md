@@ -41,7 +41,6 @@
 
 テスト自動化：
   スクリプト → SUT（テスト対象システム）実行 → 結果を自動比較 → レポート自動生成
-```
 
 ---
 
@@ -77,7 +76,6 @@
 
 ❌ ROIを計算しないまま導入する
    → コストが効果を上回ることがある
-```
 
 | デメリット | 詳細 |
 |-----------|------|
@@ -107,7 +105,6 @@ Agile/Scrum におけるテスト自動化：
 DevOps / CI/CD におけるテスト自動化：
   コードPush → 自動ビルド → 自動テスト実行 → 自動デプロイ → 本番監視
   → テスト自動化がデプロイパイプラインの核心
-```
 
 #### 各SDLCモデルでの自動化戦略
 
@@ -148,7 +145,6 @@ APIサービス：
 組込みシステム：
   ├── ハードウェアIN → HIL（Hardware-in-the-Loop）
   └── シミュレーション → Hardware Simulator
-```
 
 ---
 
@@ -180,7 +176,6 @@ APIサービス：
   ✗ UIが頻繁に変わる開発初期段階のテスト
   ✗ ユーザビリティ・感情的評価が必要なテスト
   ✗ テスト環境が不安定
-```
 
 ---
 
@@ -209,7 +204,6 @@ APIサービス：
 ├─────────────────────────────────────────┤
 │         SUT（テスト対象）               │
 └─────────────────────────────────────────┘
-```
 
 #### テスト環境の種類
 
@@ -244,7 +238,6 @@ Step 4: POC（Proof of Concept）実施
 Step 5: 評価結果の比較・選定
 
 Step 6: 最終決定・承認
-```
 
 #### ツール評価基準（Evaluation Criteria）
 
@@ -285,7 +278,6 @@ class GoodUserService:
         self._db.insert(user)
         self._logger.info(f"User created: {user.id}")
         return user  # 作成したユーザーを返す → テストで確認可能！
-```
 
 #### 2.4.2 制御可能性（Controllability）
 
@@ -312,7 +304,6 @@ mock_gateway = MockPaymentGateway(always_success=True)
 service = GoodPaymentService(payment_gateway=mock_gateway)
 result = service.process_payment(100.00)
 assert result == True  # ✅ 制御可能なのでテスト可能
-```
 
 ---
 
@@ -366,7 +357,6 @@ gTAA（汎用テスト自動化アーキテクチャ）全体図：
 │                      SUT（テスト対象）                        │
 │    UI / API / Database / External Services                    │
 └─────────────────────────────────────────────────────────────┘
-```
 
 #### gTAA の各層の役割
 
@@ -405,7 +395,6 @@ gTAA（汎用テスト自動化アーキテクチャ）全体図：
   ✗ メンテナンス性が最悪（UI変更に弱い）
   ✗ 再利用性がない
   ✗ 大規模プロジェクトには不向き
-```
 
 #### 3.2.2 リニアスクリプト（Linear Scripting）
 
@@ -422,7 +411,6 @@ assert "Dashboard" in driver.title
 driver.quit()
 
 # 問題：SUTが変われば全部書き直し、再利用性なし
-```
 
 #### 3.2.3 構造化スクリプト（Structured Scripting）
 
@@ -442,7 +430,6 @@ def test_user_can_login():
     navigate_to(driver, "https://example.com/login")
     login(driver, "test@example.com", "password123")
     assert "Dashboard" in driver.title
-```
 
 #### 3.2.4 データ駆動テスト（Data-Driven Testing）
 
@@ -470,7 +457,6 @@ def test_login_with_various_data(email, password, expected, driver):
     assert expected in driver.page_source
 
 # メリット：テストロジックを変えずにデータだけ追加・変更できる
-```
 
 #### 3.2.5 キーワード駆動テスト（Keyword-Driven Testing）
 
@@ -489,7 +475,6 @@ def test_login_with_various_data(email, password, expected, driver):
 デメリット：カスタムキーワードの開発コストがかかる
 
 代表ツール：Robot Framework
-```
 
 ```robot
 *** Test Cases ***
@@ -500,7 +485,6 @@ User Can Login Successfully
     Click Button    id:login-btn
     Page Should Contain    Dashboard
     Close Browser
-```
 
 #### 3.2.6 BDD（振る舞い駆動開発）
 
@@ -519,7 +503,6 @@ Feature: ユーザーログイン
     Given ユーザーがログインページにいる
     When  "test@example.com" と誤ったパスワードを入力する
     Then  エラーメッセージ "パスワードが正しくありません" が表示される
-```
 
 ```python
 # BDD のステップ定義（Python/pytest-bdd）
@@ -538,7 +521,6 @@ def enter_credentials(driver, email, password):
 @then("ダッシュボードにリダイレクトされる")
 def redirected_to_dashboard(driver):
     assert "dashboard" in driver.current_url
-```
 
 ---
 
@@ -596,7 +578,6 @@ def test_invalid_login(driver):
     login.click_login()  # DashboardPageではなくLoginPageに留まる
     
     assert "パスワードが正しくありません" in login.get_error_message()
-```
 
 #### 3.3.2 SOLID原則のテスト自動化への適用
 
@@ -636,7 +617,6 @@ class MockBrowser(BrowserInterface):  # テスト用モック
 class LoginTest:
     def __init__(self, browser: BrowserInterface):  # インターフェースに依存
         self.browser = browser
-```
 
 #### 3.3.3 Factory Pattern（テストデータ生成）
 
@@ -680,7 +660,6 @@ def test_admin_can_access_admin_panel():
     # テストデータが簡単に生成できる！
     login_as(admin)
     assert admin_panel.is_visible()
-```
 
 ---
 
@@ -716,7 +695,6 @@ Phase 4: 評価（1週間）
 
 Phase 5: Go/No-Go 決定
   - 本格導入・拡大 or アプローチ変更
-```
 
 #### パイロット評価基準
 
@@ -744,7 +722,6 @@ Phase 5: Go/No-Go 決定
   │ ・ドキュメント不足│ ・ツールライセンス問題
 低い影響度
           低い発生確率    高い発生確率
-```
 
 | リスク | 発生確率 | 影響 | 対策 |
 |-------|---------|------|------|
@@ -786,7 +763,6 @@ def test_login_with_valid_credentials_should_redirect_to_dashboard(driver, login
         password="valid_password"
     )
     assert dashboard.is_loaded(), "ダッシュボードが読み込まれること"
-```
 
 #### 4.3.2 テストの独立性確保
 
@@ -835,7 +811,6 @@ class TestShoppingCart:
         # Assert
         assert response.status_code == 200
         assert response.json()["items_count"] == 0
-```
 
 #### 4.3.3 設定の外部化
 
@@ -862,7 +837,6 @@ test_data:
   admin_user:
     email: "admin@example.com"
     role: "admin"
-```
 
 ```python
 # 環境変数・設定ファイルから読み込む
@@ -880,7 +854,6 @@ def load_config(env: str = None) -> dict:
 # 機密情報は必ず環境変数で管理
 BASE_URL = load_config()["base_url"]
 API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
-```
 
 ---
 
@@ -933,7 +906,6 @@ API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
      │
      ▼
   Production Smoke Test
-```
 
 #### GitHub Actions での実装例
 
@@ -1034,7 +1006,6 @@ jobs:
           npx playwright test \
             --project=${{ matrix.browser }} \
             --workers=4
-```
 
 ---
 
@@ -1066,7 +1037,6 @@ jobs:
        "@playwright/test": "1.49.0"  // 固定！
      }
    }
-```
 
 ---
 
@@ -1119,7 +1089,6 @@ class TestUserAPI:
         
         assert response.status_code == 409
         assert "already exists" in response.json()["error"].lower()
-```
 
 #### 5.3.2 コントラクトテスト（Pact）
 
@@ -1148,7 +1117,6 @@ def test_get_user_returns_expected_schema():
     with pact:
         result = get_user(1)  # コンシューマーの実際の処理を呼ぶ
         assert result["id"] == 1
-```
 
 ---
 
@@ -1184,7 +1152,6 @@ def test_get_user_returns_expected_schema():
 │               │ ・投資回収期間（Break-even Point）         │
 │               │ ・手動テスト工数の削減率                   │
 └──────────────┴─────────────────────────────────────────┘
-```
 
 ### 6.2 ROI（投資対効果）の計算
 
@@ -1206,7 +1173,6 @@ ROI (%) = ((テスト自動化の節約額 - 自動化の総コスト) / 自動�
   └── 早期バグ発見：本番バグ修正コスト削減（推定）= 200万円
 
   1年間のROI = ((1,040万 + 200万 - 280万) / 280万) × 100 = 342% !!
-```
 
 ### 6.3 テスト結果のレポーティング
 
@@ -1242,13 +1208,11 @@ class TestLogin:
             name="ダッシュボード",
             attachment_type=allure.attachment_type.PNG
         )
-```
 
 ```bash
 # Allure レポートの生成・表示
 pytest tests/ --alluredir=allure-results
 allure serve allure-results
-```
 
 ---
 
@@ -1283,7 +1247,6 @@ allure serve allure-results
   - Kibana + Elasticsearch（ELKスタック）
   - Azure DevOps Dashboards
   - Allure TestOps
-```
 
 ---
 
@@ -1313,7 +1276,6 @@ TAS のバグ（偽陽性/偽陰性）：
   偽陰性（False Negative）:
     → SUT に問題があるのにテストが成功する（危険！）
     → バグが本番に流出する
-```
 
 ### 7.2 TAS 検証の技法
 
@@ -1344,7 +1306,6 @@ class TestWaitForElement:
             wait_for_element(mock_driver, "id", "non-existent", timeout=1)
         
         assert "1秒以内に要素が見つかりませんでした" in str(exc_info.value)
-```
 
 #### 7.2.2 TAS のコードレビュー観点
 
@@ -1376,7 +1337,6 @@ TAS コードレビューチェックリスト：
 
 □ 7. セキュリティ
      ✓ 機密情報がコードにハードコードされていないか
-```
 
 ---
 
@@ -1410,7 +1370,6 @@ Act（改善）:
   - 成功した改善を標準化
   - 失敗した施策の見直し
   - 次の改善サイクルへ
-```
 
 ### 8.2 テスト自動化の改善施策
 
@@ -1439,7 +1398,6 @@ def test_with_external_service(api_client):
     """外部サービスへの接続テスト（ネットワーク不安定を考慮）"""
     response = api_client.ping_external_service()
     assert response.status_code == 200
-```
 
 #### 8.2.2 テスト実行の最適化
 
@@ -1465,7 +1423,6 @@ def test_with_external_service(api_client):
 
 5. コンテナの事前ウォーミング
    docker-compose up -d  # テスト前にコンテナを起動しておく
-```
 
 #### 8.2.3 AI活用による自動化改善（2025年最新動向）
 
@@ -1489,7 +1446,6 @@ AIを活用したテスト自動化の改善（2025年トレンド）：
    効果: UIの視覚的な退行を自動検出
 
 活用例（GitHub Copilot でテストコード生成）：
-```
 
 ```python
 # GitHub Copilot / Claude に渡すプロンプト例
@@ -1510,7 +1466,6 @@ AIを活用したテスト自動化の改善（2025年トレンド）：
 APIエンドポイント: PATCH /api/users/{id}/profile
 """
 # → AIが自動でテストコードを生成してくれる
-```
 
 ---
 
@@ -1588,7 +1543,6 @@ APIエンドポイント: PATCH /api/users/{id}/profile
   試験時間  : 90分
   問題形式  : K2（理解）、K3（適用）、K4（分析・評価）
   前提資格  : ISTQB CTFL（Foundation Level）必須
-```
 
 ### 章別配点と重要度
 
@@ -1640,7 +1594,6 @@ APIエンドポイント: PATCH /api/users/{id}/profile
    - フレームワークの評価
    - リスクの早期発見
    - Go/No-Go 決定のための証拠収集
-```
 
 ### よく出る問題パターン
 
@@ -1663,7 +1616,6 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 4. 「testabilityを高めるには？」
    → Observability を高める（ログ・戻り値を充実させる）
    → Controllability を高める（依存性注入・環境切り替え）
-```
 
 ---
 
@@ -1730,7 +1682,6 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 10. 🤖 AIを積極活用する（2025年）
     → GitHub Copilot・Claude などでテスト生成の生産性を上げる
-```
 
 ---
 

@@ -614,8 +614,7 @@
     /* Wrap inline code properly so they do not force horizontal scroll */
     :not(pre) > code {
         white-space: pre-wrap;
-        word-break: break-all;
-        overflow-wrap: break-word;
+        overflow-wrap: anywhere;
         border-radius: 4px;
     }
 

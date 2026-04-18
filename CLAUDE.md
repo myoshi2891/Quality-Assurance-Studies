@@ -42,11 +42,20 @@ Next.js App Router 構成:
 - `app/istqb-ctfl-at-guide.css` — アジャイル(CTFL-AT)ガイド固有スタイル
 - `app/istqb-ctfl-at-complete-guide/page.tsx` — アジャイル(CTFL-AT)ガイドページ
 - `app/software-testing-methodologies-guide.css` — テスト手法ガイド固有スタイル
+- `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
 - `archive/` — 移行済みの元 HTML ファイルの保管場所
+
+## 開発規約
+
+### Markdown 標準化
+変換スクリプトに頼るのではなく、Markdown ソースファイル自体が標準的な仕様に準拠していることを最優先します。
+- 言語指定のないコードブロック（```）によるテキストの囲みは避け、引用（>）や適切な見出しを使用してください。
+- 表や図（Mermaid）はコードブロック内に閉じ込めず、Markdown 上で直接レンダリング可能な形で記述してください。
+- 共通の Markdown 整形ツール: `bun scripts/format-markdown.mjs <file>`
 
 ### Tailwind v4 テーマ構造
 

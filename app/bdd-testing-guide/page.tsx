@@ -361,7 +361,7 @@ BDD導入後:
 
           <h3 className="text-lg font-bold mt-8 mb-2">3フェーズのサイクル</h3>
           <div className="my-8 max-w-2xl mx-auto bg-[#1a2235] p-8 rounded-xl border border-[var(--color-border)] shadow-lg">
-            <svg viewBox="0 0 600 280" className="w-full h-auto drop-shadow-md">
+            <svg viewBox="0 0 600 280" className="w-full h-auto drop-shadow-md" role="img" aria-label="BDD の発見→定式化→自動化の反復サイクル">
               <defs>
                 <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
                   <polygon points="0 0, 10 3.5, 0 7" fill="#8ea3c3" />

@@ -12,6 +12,10 @@ const REPO_ROOT = path.resolve(__dirname, '..');
 const mdPath = path.resolve(REPO_ROOT, 'archive/istqb-ctfl-at-complete-guide.md');
 const tsxPath = path.resolve(REPO_ROOT, 'app/istqb-ctfl-at-complete-guide/page.tsx');
 
+let hasLink = false;
+let hasMermaid = false;
+const mermaidBlocks = new Map();
+
 let md;
 try {
     fs.mkdirSync(path.dirname(tsxPath), { recursive: true });
@@ -83,9 +87,22 @@ $('blockquote').each((i, el) => {
 
 // 4. Code blocks
 $('pre > code').each((i, codeEl) => {
+    // Check for mermaid blocks
+    if ($(codeEl).hasClass('language-mermaid')) {
+        hasMermaid = true;
+        // Revert HTML entities for curly braces added globally by the text content filter
+        const rawText = $(codeEl).text().replace(/&#123;/g, '{').replace(/&#125;/g, '}');
+        const escapedText = rawText.replace(/`/g, '\\`').replace(/\$/g, '\\$');
+        
+        const placeholderId = `MERMAID_PLACEHOLDER_${i}`;
+        mermaidBlocks.set(placeholderId, escapedText);
+        $(codeEl).parent().replaceWith(placeholderId);
+        return; // continue to next each
+    }
+
     // We must wrap the raw text in a JSX string literal so that React preserves newlines.
     // e.g. {"Feature: \n  Background:"} instead of raw text Feature: \n Background:
-    const rawText = $(codeEl).text();
+    const rawText = $(codeEl).text().replace(/&#123;/g, '{').replace(/&#125;/g, '}');
     // Use JSON.stringify to safely escape quotes, newlines, etc., and wrap it in {} for JSX.
     $(codeEl).text(`{${JSON.stringify(rawText)}}`);
 
@@ -181,8 +198,6 @@ $('*').each((_, el) => {
 // Done with JSX brace escaping elsewhere.
 
 
-let hasLink = false;
-
 // Convert internal anchors to Link using Cheerio instead of brittle regex
 $('a').each((i, el) => {
     const href = $(el).attr('href');
@@ -208,7 +223,12 @@ outHtml = outHtml.replace(/<hr([^>]*)>/g, (match, attrs) => {
 // Detect and self-close any img explicitly
 outHtml = outHtml.replace(/<img\b([^>]*?)(?<!\/)>/g, '<img$1 />');
 
-const finalTSX = `${hasLink ? "import Link from 'next/link';\n" : ''}import Header from '../../components/Header';
+// Restore mermaid blocks
+for (const [id, escapedText] of mermaidBlocks.entries()) {
+    outHtml = outHtml.replace(id, `<Mermaid chart={\`${escapedText}\`} />`);
+}
+
+const finalTSX = `${hasLink ? "import Link from 'next/link';\n" : ''}${hasMermaid ? "import Mermaid from '../../components/Mermaid';\n" : ''}import Header from '../../components/Header';
 import '../istqb-ctfl-at-guide.css';
 
 export default function IstqbCtflAtCompleteGuidePage() {
