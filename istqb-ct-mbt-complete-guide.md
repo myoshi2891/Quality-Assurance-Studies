@@ -1,6 +1,6 @@
 # 🧩 モデルベーステスト（MBT）完全ガイド
 
-### ISTQB CT-MBT (Certified Tester Model-Based Tester) 準拠
+## ISTQB CT-MBT (Certified Tester Model-Based Tester) 準拠
 
 > **対象読者:** MBT 初学者〜中級者  
 > **参考規格:** ISTQB CT-MBT v1.1 シラバス | 最新学術論文 | 業界ベストプラクティス（2025〜2026年）  
