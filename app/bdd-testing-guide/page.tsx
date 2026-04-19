@@ -712,24 +712,18 @@ mkdir features/steps
 {"\n"}
   <span className="kw">@smoke @positive</span>{"\n"}
   <span className="kw-scen">Scenario:</span> 正常なログイン{"\n"}
-    <span className="kw-when">When</span>  有効なメールアドレス <span className="str">"user@example.com"</span> {"\n"}
-          を入力する{"\n"}
-    <span className="kw-given">And</span>   正しいパスワード <span className="str">"Password123!"</span> {"\n"}
-          を入力する{"\n"}
+    <span className="kw-when">When</span>  有効なメールアドレス <span className="str">"user@example.com"</span> を入力する{"\n"}
+    <span className="kw-given">And</span>   正しいパスワード <span className="str">"Password123!"</span> を入力する{"\n"}
     <span className="kw-given">And</span>   「ログイン」ボタンをクリックする{"\n"}
     <span className="kw-then">Then</span>  ダッシュボードページに遷移する{"\n"}
     <span className="kw-given">And</span>   「ようこそ、田中さん」と表示される{"\n"}
 {"\n"}
   <span className="kw">@negative</span>{"\n"}
   <span className="kw-scen">Scenario:</span> 誤ったパスワードでのログイン失敗{"\n"}
-    <span className="kw-when">When</span>  有効なメールアドレス <span className="str">"user@example.com"</span> {"\n"}
-          を入力する{"\n"}
-    <span className="kw-given">And</span>   誤ったパスワード <span className="str">"WrongPassword"</span> {"\n"}
-          を入力する{"\n"}
+    <span className="kw-when">When</span>  有効なメールアドレス <span className="str">"user@example.com"</span> を入力する{"\n"}
+    <span className="kw-given">And</span>   誤ったパスワード <span className="str">"WrongPassword"</span> を入力する{"\n"}
     <span className="kw-given">And</span>   「ログイン」ボタンをクリックする{"\n"}
-    <span className="kw-then">Then</span>  エラーメッセージ{"\n"}
-          「パスワードが正しくありません」{"\n"}
-          が表示される{"\n"}
+    <span className="kw-then">Then</span>  エラーメッセージ「パスワードが正しくありません」が表示される{"\n"}
     <span className="kw-given">And</span>   ログインページに留まる{"\n"}
 {"\n"}
   <span className="kw">@security</span>{"\n"}
