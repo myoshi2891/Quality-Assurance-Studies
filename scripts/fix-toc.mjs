@@ -1,0 +1,77 @@
+import fs from 'fs';
+import path from 'path';
+
+/**
+ * Normalizes a string to a GitHub-compatible slug.
+ * @param {string} s 
+ * @returns {string}
+ */
+function slugify(s) {
+  return encodeURIComponent(
+    String(s)
+      .trim()
+      .toLowerCase()
+      .replace(/\s+/g, '-')
+      .replace(/[\]\[\!\"\#\$\%\&\'\(\)\*\+\,\.\/\:\;\<\=\>\?\@\\\^\_\{\|\}\~]/g, '')
+  );
+}
+
+/**
+ * Fixes Table of Contents anchors by matching headings in the document.
+ * @param {string} filePath 
+ */
+function fixTOC(filePath) {
+  if (!fs.existsSync(filePath)) {
+    console.error(`File not found: ${filePath}`);
+    return;
+  }
+
+  const content = fs.readFileSync(filePath, 'utf8');
+  const lines = content.split('\n');
+  const headings = lines
+    .filter(l => l.match(/^#{1,6}\s+/))
+    .map(l => l.replace(/^#{1,6}\s+/, '').trim());
+
+  let inTOC = false;
+  const newLines = lines.map((line, i) => {
+    // Check if we are inside TOC section
+    if (line.match(/^## .*目次/)) {
+      inTOC = true;
+    } else if (inTOC && line.startsWith('---')) {
+      inTOC = false;
+    }
+
+    if (inTOC) {
+      // Find TOC links like: [Title](#anchor) or 1. [Title](#anchor)
+      const match = line.match(/^(\s*\d*\.?\s*\[)(.*?)(\]\(#)(.*?)(\)\s*)$/);
+      if (match) {
+        const title = match[2];
+        const normalizedTitle = title.split('—')[0].trim(); // Handle "1. Title — Subtitle" format
+
+        // Find the best matching heading
+        let headingText = title;
+        for (const h of headings) {
+          if (h.includes(normalizedTitle) || normalizedTitle.includes(h)) {
+            headingText = h;
+            break;
+          }
+        }
+        
+        const newAnchor = slugify(headingText);
+        return `${match[1]}${title}${match[3]}${newAnchor}${match[5]}`;
+      }
+    }
+    return line;
+  });
+
+  fs.writeFileSync(filePath, newLines.join('\n'), 'utf8');
+  console.log(`Successfully fixed TOC for: ${filePath}`);
+}
+
+const args = process.argv.slice(2);
+if (args.length === 0) {
+  console.log('Usage: bun scripts/fix-toc.mjs <file1> <file2> ...');
+  process.exit(1);
+}
+
+args.forEach(fixTOC);

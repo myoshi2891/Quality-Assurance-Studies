@@ -108,25 +108,11 @@ flowchart TD
 
 ### 3.1 アプリの3種類
 
-> ┌─────────────────────────────────────────────────────────────────┐
-> │                     モバイルアプリの種類                          │
-> ├─────────────────┬───────────────────┬───────────────────────────┤
-> │  ネイティブアプリ │  ハイブリッドアプリ │   モバイルWebアプリ         │
-> │  (Native App)   │  (Hybrid App)     │   (Mobile Web App)         │
-> ├─────────────────┼───────────────────┼───────────────────────────┤
-> │ ・iOS: Swift/   │ ・React Native    │ ・HTML5/CSS/JS            │
-> │   Objective-C   │ ・Flutter         │ ・ブラウザで動作            │
-> │ ・Android:      │ ・Ionic           │ ・インストール不要           │
-> │   Kotlin/Java   │ ・Cordova         │                           │
-> ├─────────────────┼───────────────────┼───────────────────────────┤
-> │ ✅ 高パフォーマ  │ ✅ コード共有可能  │ ✅ クロスプラットフォーム    │
-> │    ンス          │ ✅ コスト削減     │ ✅ 更新容易                │
-> │ ✅ デバイス機能  │                   │                           │
-> │    フル活用      │                   │                           │
-> ├─────────────────┼───────────────────┼───────────────────────────┤
-> │ ❌ プラットフォ  │ ❌ ネイティブより  │ ❌ オフライン機能制限       │
-> │    ーム毎に開発  │    遅い場合あり   │ ❌ デバイス機能制限          │
-> └─────────────────┴───────────────────┴───────────────────────────┘
+> | モバイルアプリの種類 | 特徴・技術 | メリット | デメリット |
+> | --- | --- | --- | --- |
+> | **ネイティブアプリ (Native App)** | ・iOS: Swift/Objective-C<br>・Android: Kotlin/Java | ✅ 高パフォーマンス<br>✅ デバイス機能フル活用 | ❌ プラットフォーム毎に開発 |
+> | **ハイブリッドアプリ (Hybrid App)** | ・React Native<br>・Flutter<br>・Ionic<br>・Cordova | ✅ コード共有可能<br>✅ コスト削減 | ❌ ネイティブより遅い場合あり |
+> | **モバイルWebアプリ (Mobile Web App)** | ・HTML5/CSS/JS<br>・ブラウザで動作<br>・インストール不要 | ✅ クロスプラットフォーム<br>✅ 更新容易 | ❌ オフライン機能制限<br>❌ デバイス機能制限 |
 
 ### 3.2 モバイルアプリのアーキテクチャ
 
@@ -779,32 +765,21 @@ class LoginUITests: XCTestCase {
 
 ### 15.1 モバイルCI/CDパイプラインの全体像
 
-コードコミット
-    ↓
-┌─────────────────────────────────────────────────────┐
-│                  CI/CD パイプライン                    │
-│                                                     │
-│  1. ビルド（Build）                                   │
-│     └─ Android: Gradle / iOS: xcodebuild            │
-│  ↓                                                   │
-│  2. ユニットテスト                                     │
-│     └─ JUnit / XCTest                               │
-│  ↓                                                   │
-│  3. 静的解析                                          │
-│     └─ SonarQube / SwiftLint / Detekt               │
-│  ↓                                                   │
-│  4. UIテスト（自動）                                   │
-│     └─ Espresso / XCUITest / Appium                 │
-│  ↓                                                   │
-│  5. パフォーマンス・セキュリティテスト                   │
-│     └─ Firebase Test Lab / AWS Device Farm          │
-│  ↓                                                   │
-│  6. リリース判断（Quality Gate）                       │
-│     └─ テストカバレッジ・バグ数の閾値チェック            │
-└─────────────────────────────────────────────────────┘
-    ↓
-テスト合格 → ストア申請・デプロイ
-テスト失敗 → 開発者へ通知・修正
+```mermaid
+flowchart TD
+    Commit[コードコミット] --> Build[1. ビルド Build<br/>Android: Gradle / iOS: xcodebuild]
+    
+    subgraph Pipeline [CI/CD パイプライン]
+        Build --> UnitTest[2. ユニットテスト<br/>JUnit / XCTest]
+        UnitTest --> Static[3. 静的解析<br/>SonarQube / SwiftLint / Detekt]
+        Static --> UITest[4. UIテスト 自動<br/>Espresso / XCUITest / Appium]
+        UITest --> PerfSec[5. パフォーマンス・セキュリティテスト<br/>Firebase Test Lab / AWS Device Farm]
+        PerfSec --> Gate[6. リリース判断 Quality Gate<br/>テストカバレッジ・バグ数の閾値チェック]
+    end
+    
+    Gate -->|テスト合格| Deploy[ストア申請・デプロイ]
+    Gate -->|テスト失敗| Notify[開発者へ通知・修正]
+```
 
 ### 15.2 主要CI/CDツール
 
