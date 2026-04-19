@@ -50,10 +50,15 @@ if (h1.length) {
         if (current[0].tagName === 'blockquote') {
             const text = current.text();
             if (text.includes('最終更新')) {
-                current.replaceWith(`<div className="hero-sub">${current.html()}</div>`);
+                const replacement = $(`<div className="hero-sub">${current.html()}</div>`);
+                current.replaceWith(replacement);
+                heroContent.append(replacement.clone());
+            } else {
+                heroContent.append(current.clone());
             }
+        } else {
+            heroContent.append(current.clone());
         }
-        heroContent.append(current.clone());
         current.remove();
         current = next;
     }
