@@ -541,6 +541,8 @@ OUT点: 同値パーティション外の代表値
 ```python
 ```
 
+```python
+<!-- markdownlint-disable MD046 MD025 MD022 -->
 # 同値分割法でテストケースを設計するPythonの例
 def categorize_age(age):
     """年齢に基づいてカテゴリを返す"""
@@ -552,7 +554,9 @@ def categorize_age(age):
         return "成人"
     else:
         return "高齢者"
+```
 
+```python
 # テストケース設計（EPに基づく）
 test_cases = [
     # EP1: age < 0  (無効)
@@ -566,6 +570,7 @@ test_cases = [
     # EP5: age > 120 (無効)
     {"input": 121,  "expected": "ValueError", "type": "無効EP2"},
 ]
+```
 
 ##### 境界値分析（Boundary Value Analysis: BVA）
 
@@ -622,6 +627,7 @@ test_cases = [
 | 技法 | カバレッジ | テスト数 | 用途 |
 |------|-----------|---------|------|
 | **全組み合わせ** | 100% | 最多 | クリティカルシステム |
+<!-- markdownlint-disable MD031 MD025 MD022 -->
 | **ペアワイズ（2因子）** | 全ペア | 少ない | 一般的なWebアプリ |
 | **3因子組み合わせ** | 3変数全組み合わせ | 中程度 | 高信頼性システム |
 | **直交配列** | 統計的カバレッジ | 最少 | 大規模システム |
@@ -632,9 +638,14 @@ test_cases = [
 ```
 
 # ペアワイズテストの概念的な例
+```
+```python
 # パラメータ: OS(Win/Mac/Linux), Browser(Chrome/Firefox/Safari), Lang(EN/JP)
+```
+```
 # 全組み合わせ: 3×3×2 = 18通り
 # ペアワイズでは大幅に削減可能
+```
 
 pairwise_tests = [
     {"OS": "Windows", "Browser": "Chrome",  "Lang": "EN"},
@@ -644,17 +655,21 @@ pairwise_tests = [
     {"OS": "Linux",   "Browser": "Firefox", "Lang": "EN"},
     {"OS": "Linux",   "Browser": "Safari",  "Lang": "JP"},
 ]
+```
 # 6テストで全ペア（OS-Browser, OS-Lang, Browser-Lang）をカバー！
+```
 
 **学習目標（LO）:**
 - `TA-3.1.1 (K3)` ドメインテストを適用できる
 - `TA-3.1.2 (K3)` 組み合わせテストを適用できる
 - `TA-3.1.3 (K2)` ランダムテストの利点と制限を説明できる
+```
 
 #### 3.1.3 ランダムテスト（Random Testing）
 
 ```text
 ランダムテストとは？
+<!-- markdownlint-enable MD031 MD025 MD022 -->
 プログラムの入力空間から「ランダム」に値を選んでテスト
 
 利点:
@@ -662,6 +677,7 @@ pairwise_tests = [
   ✓ テスト設計の偏りを排除
   ✓ 大量のテストを自動生成可能（ファジング）
 
+<!-- markdownlint-disable MD001 -->
 制限:
   ✗ 重要な境界値を見逃す可能性
   ✗ 欠陥発見効率が低い場合がある
@@ -673,6 +689,7 @@ pairwise_tests = [
 
 ### 3.2 振る舞いベース技法（Behavior-Based Test Techniques）
 
+<!-- markdownlint-enable MD001 -->
 #### 3.2.1 CRUDテスト
 
 **CRUD** = Create / Read / Update / Delete
@@ -700,6 +717,7 @@ CRUD相互依存のテスト:
 ```gherkin
 ```
 
+```python
 # BDD形式でのCRUDテスト（Gherkin）
 Feature: ユーザー管理
 
@@ -717,6 +735,7 @@ Feature: ユーザー管理
     Given "田中太郎"がシステムに存在する
     When  "田中太郎"を削除する
     Then  "田中太郎"がユーザー一覧に表示されない
+```
 
 #### 3.2.2 状態遷移テスト（State Transition Testing）
 
@@ -757,6 +776,7 @@ Feature: ユーザー管理
 ```python
 ```
 
+```python
 # 状態遷移テストの実装例
 class OrderStateMachine:
     STATES = ['注文中', '決済済み', '配送中', '完了', 'キャンセル']
@@ -767,7 +787,9 @@ class OrderStateMachine:
         ('決済済み', '発送'): '配送中',
         ('配送中', '到着確認'): '完了',
     }
-    
+```
+
+```python
 # テストケース（1スイッチカバレッジ）
 test_transitions = [
     {"from": "注文中",  "event": "支払い完了", "expected": "決済済み"},
@@ -775,6 +797,7 @@ test_transitions = [
     {"from": "決済済み", "event": "発送",      "expected": "配送中"},
     {"from": "配送中",  "event": "到着確認",   "expected": "完了"},
 ]
+```
 
 #### 3.2.3 シナリオベーステスト（Scenario-Based Testing）
 
@@ -848,6 +871,7 @@ test_transitions = [
 ```python
 ```
 
+```python
 # デシジョンテーブルテストの実装
 def loan_approval(income, credit_score, years_employed):
     """
@@ -859,7 +883,9 @@ def loan_approval(income, credit_score, years_employed):
         return 'guarantor_required'
     else:
         return 'rejected'
+```
 
+```python
 # テストケース（全ルールカバレッジ）
 test_cases = [
     # R1: T,T,T → 審査通過
@@ -871,6 +897,7 @@ test_cases = [
     # R4: F,F,F → 却下
     {"income": 200, "credit": 650, "years": 1, "expected": "rejected"},
 ]
+```
 
 #### 3.3.2 メタモルフィックテスト（Metamorphic Testing）
 
@@ -897,20 +924,26 @@ test_cases = [
 ```python
 ```
 
+```python
 # 例1: 検索システム
 # MR: 検索クエリに同義語を追加しても、結果は減らないはず
 results_original = search("Python tutorial")
 results_extended = search("Python tutorial programming")
 assert len(results_extended) >= len(results_original) * 0.9
+```
 
+```python
 # 例2: 経路探索（最短経路）
 # MR: 出発地と目的地を逆にしても距離は同じ
 dist_A_to_B = shortest_path("A", "B")
 dist_B_to_A = shortest_path("B", "A")
 assert abs(dist_A_to_B - dist_B_to_A) < 0.01
+```
 
+```python
 # 例3: 機械学習モデル
 # MR: トレーニングデータを増やすと精度が下がらないはず
+<!-- markdownlint-enable MD046 MD025 MD022 -->
 accuracy_1000 = train_and_evaluate(samples=1000)
 accuracy_2000 = train_and_evaluate(samples=2000)
 assert accuracy_2000 >= accuracy_1000 - 0.05  # 許容誤差5%
@@ -924,6 +957,7 @@ assert accuracy_2000 >= accuracy_1000 - 0.05  # 許容誤差5%
 **学習目標（LO）:**
 - `TA-3.3.1 (K3)` デシジョンテーブルテストを適用できる
 - `TA-3.3.2 (K2)` メタモルフィックテストを説明できる
+```
 
 ---
 

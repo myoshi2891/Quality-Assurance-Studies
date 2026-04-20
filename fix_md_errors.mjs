@@ -51,14 +51,28 @@ async function fixMarkdown(filePath) {
 
   // Final pass to remove triple blank lines if any
   const finalResult = [];
+  let finalInCodeBlock = false;
   for (let i = 0; i < result.length; i++) {
-      if (result[i].trim() === '' && i > 0 && result[i-1].trim() === '' && i > 1 && result[i-2].trim() === '') {
+      const line = result[i];
+      if (line.includes('```')) {
+          finalInCodeBlock = !finalInCodeBlock;
+      }
+      if (!finalInCodeBlock && line.trim() === '' && i > 0 && result[i-1].trim() === '' && i > 1 && result[i-2].trim() === '') {
           continue;
       }
-      finalResult.push(result[i]);
+      finalResult.push(line);
   }
 
   await writeFile(filePath, finalResult.join('\n'), 'utf8');
 }
 
-fixMarkdown(process.argv[2]);
+const input = process.argv[2];
+if (!input) {
+  console.error('Usage: bun fix_md_errors.mjs <file>');
+  process.exit(1);
+}
+
+fixMarkdown(input).catch(err => {
+  console.error('Error processing markdown file:', err);
+  process.exit(1);
+});

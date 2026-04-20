@@ -61,7 +61,14 @@ function fixTOC(filePath) {
           }
         }
         
-        let newAnchor = slugify(headingText);
+        let newAnchor;
+        const inlineIdMatch = headingText.match(/\{#([A-Za-z0-9\-_]+)\}\s*$/);
+        if (inlineIdMatch) {
+          newAnchor = inlineIdMatch[1];
+          headingText = headingText.replace(/\{#([A-Za-z0-9\-_]+)\}\s*$/, '').trim();
+        } else {
+          newAnchor = slugify(headingText);
+        }
         
         // PRECEDENCE: Check for explicit anchor tag preceding the heading (skipping blank lines)
         if (headingIndex > 0) {

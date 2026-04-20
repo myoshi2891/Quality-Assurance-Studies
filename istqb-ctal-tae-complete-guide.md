@@ -2,8 +2,8 @@
 
 ## ISTQB CTAL-TAE v2.0 準拠 | 初学者から実践者まで
 
-> **対応資格**: ISTQB® Certified Tester Advanced Level – Test Automation Engineering (CTAL-TAE v2.0)  
-> **試験形式**: 40問 / 合格基準 43/66点（65%） / 90分  
+> **対応資格**: ISTQB® Certified Tester Advanced Level – Test Automation Engineering (CTAL-TAE v2.0)
+> **試験形式**: 40問 / 合格基準 43/66点（65%） / 90分
 > **前提資格**: ISTQB CTFL（Foundation Level）保有必須
 
 ---
@@ -12,7 +12,7 @@
 
 1. [テスト自動化の基礎と目的](#chapter-1-%E3%83%86%E3%82%B9%E3%83%88%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%AE%E5%9F%BA%E7%A4%8E%E3%81%A8%E7%9B%AE%E7%9A%84)
 2. [テスト自動化の準備](#chapter-2-%E3%83%86%E3%82%B9%E3%83%88%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%AE%E6%BA%96%E5%82%99)
-3. [テスト自動化アーキテクチャ（TAA / gTAA）](#%E3%83%86%E3%82%B9%E3%83%88%E8%87%AA%E5%8B%95%E5%8C%96%E3%82%A2%E3%83%BC%E3%82%AD%E3%83%86%E3%82%AF%E3%83%81%E3%83%A3%EF%BC%88taa--gtaa%EF%BC%89)
+3. [テスト自動化アーキテクチャ（TAA / gTAA）](#chapter-3)
 4. [テスト自動化の実装](#chapter-4-%E3%83%86%E3%82%B9%E3%83%88%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85)
 5. [テスト自動化の実装・デプロイ戦略（CI/CD統合）](#chapter-5-%E3%83%86%E3%82%B9%E3%83%88%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%AE%E5%AE%9F%E8%A3%85%E3%83%BB%E3%83%87%E3%83%97%E3%83%AD%E3%82%A4%E6%88%A6%E7%95%A5%EF%BC%88cicd%E7%B5%B1%E5%90%88%EF%BC%89)
 6. [テスト自動化のレポートとメトリクス](#chapter-6-%E3%83%86%E3%82%B9%E3%83%88%E8%87%AA%E5%8B%95%E5%8C%96%E3%81%AE%E3%83%AC%E3%83%9D%E3%83%BC%E3%83%88%E3%81%A8%E3%83%A1%E3%83%88%E3%83%AA%E3%82%AF%E3%82%B9)
@@ -277,15 +277,20 @@ SUT が自動化しやすい設計になっていることが重要です。
 > **定義**: テストが SUT の状態や出力を**観察・確認できる**度合い
 
 ```python
-```
+<!-- markdownlint-disable MD046 MD025 MD031 -->
 
+```python
+
+```python
 # 観測可能性が低い設計（悪い例）
 class BadUserService:
     def create_user(self, name: str, email: str):
         # DBに保存するが、確認手段がない
         self._db.insert({"name": name, "email": email})
         # 戻り値なし・ログなし → テストが確認できない！
+```
 
+```python
 # 観測可能性が高い設計（良い例）
 class GoodUserService:
     def create_user(self, name: str, email: str) -> User:
@@ -293,34 +298,43 @@ class GoodUserService:
         self._db.insert(user)
         self._logger.info(f"User created: {user.id}")
         return user  # 作成したユーザーを返す → テストで確認可能！
+```
+```
+```
 
 #### 2.4.2 制御可能性（Controllability）
 
 > **定義**: テストが SUT の状態を**制御・操作できる**度合い
 
 ```python
-```
 
+```python
 # 制御可能性が低い設計（悪い例）
 class BadPaymentService:
     def process_payment(self, amount: float) -> bool:
         # 実際の決済APIを常に呼ぶ → テスト環境で使えない！
         return real_stripe_api.charge(amount)
+```
 
-# 制御可能性が高い設計（良い例）  
+```python
+# 制御可能性が高い設計（良い例）
 class GoodPaymentService:
     def __init__(self, payment_gateway):
         # 依存性注入（DI）でモック差し替え可能！
         self._gateway = payment_gateway
+```
 
     def process_payment(self, amount: float) -> bool:
         return self._gateway.charge(amount)
 
+```python
 # テストで制御：
 mock_gateway = MockPaymentGateway(always_success=True)
 service = GoodPaymentService(payment_gateway=mock_gateway)
 result = service.process_payment(100.00)
 assert result == True  # ✅ 制御可能なのでテスト可能
+```
+```
 
 ---
 
@@ -338,6 +352,7 @@ CTAL-TAE v2.0 で定義される **gTAA（Generic Test Automation Architecture�
 gTAA（汎用テスト自動化アーキテクチャ）全体図：
 
 ┌─────────────────────────────────────────────────────────────┐
+<!-- markdownlint-enable MD046 MD025 MD031 -->
 │                    Test Management Layer                      │
 │            （テスト管理層 - 外部ツールとの統合）               │
 │     TestRail / Jira / Zephyr / Azure DevOps                  │
@@ -420,10 +435,9 @@ gTAA（汎用テスト自動化アーキテクチャ）全体図：
 #### 3.2.2 リニアスクリプト（Linear Scripting）
 
 ```python
-```
-
 # リニアスクリプトの例（手順を直接コーディング）
 from selenium import webdriver
+```
 
 driver = webdriver.Chrome()
 driver.get("https://example.com/login")
@@ -433,43 +447,47 @@ driver.find_element("id", "login-btn").click()
 assert "Dashboard" in driver.title
 driver.quit()
 
+```python
 # 問題：SUTが変われば全部書き直し、再利用性なし
+```
 
 #### 3.2.3 構造化スクリプト（Structured Scripting）
 
 ```python
-```
-
 # 関数で共通処理を分離（再利用性向上）
 def login(driver, email, password):
     driver.find_element("id", "email").send_keys(email)
     driver.find_element("id", "password").send_keys(password)
     driver.find_element("id", "login-btn").click()
+```
 
 def navigate_to(driver, url):
     driver.get(url)
 
+```python
 # テストケース
 def test_user_can_login():
     driver = webdriver.Chrome()
     navigate_to(driver, "https://example.com/login")
     login(driver, "test@example.com", "password123")
     assert "Dashboard" in driver.title
+```
 
 #### 3.2.4 データ駆動テスト（Data-Driven Testing）
 
 ```python
-```
-
 # テストデータをデータファイルから取得
 import pytest
 import csv
+```
 
+```python
 # テストデータをCSVで管理
 # login_data.csv:
 # email, password, expected_result
 # test@example.com, correct_pass, success
 # wrong@example.com, wrong_pass, failure
+```
 
 @pytest.mark.parametrize("email,password,expected", [
     ("test@example.com", "correct_pass", "Dashboard"),
@@ -483,7 +501,10 @@ def test_login_with_various_data(email, password, expected, driver):
     driver.find_element("id", "login-btn").click()
     assert expected in driver.page_source
 
+<!-- markdownlint-disable MD025 -->
 # メリット：テストロジックを変えずにデータだけ追加・変更できる
+<!-- markdownlint-enable MD025 -->
+<!-- markdownlint-enable MD025 MD001 MD046 -->
 
 #### 3.2.5 キーワード駆動テスト（Keyword-Driven Testing）
 
@@ -522,9 +543,11 @@ User Can Login Successfully
 ```gherkin
 ```
 
+```python
 # Gherkin 記法（ビジネス担当者も読める）
 Feature: ユーザーログイン
   背景としてシステムにはユーザーが登録されている
+```
 
   Scenario: 正しい資格情報でログインできる
     Given ユーザーがログインページにいる
@@ -538,10 +561,9 @@ Feature: ユーザーログイン
     Then  エラーメッセージ "パスワードが正しくありません" が表示される
 
 ```python
-```
-
 # BDD のステップ定義（Python/pytest-bdd）
 from pytest_bdd import given, when, then
+```
 
 @given("ユーザーがログインページにいる")
 def user_on_login_page(driver):
@@ -561,15 +583,16 @@ def redirected_to_dashboard(driver):
 
 ### 3.3 デザインパターンの適用
 
+<!-- markdownlint-disable MD046 MD009 MD025 -->
+
 #### 3.3.1 Page Object Model（POM）
 
 ```python
-```
-
 # pages/login_page.py
 class LoginPage:
     """ログインページの操作をカプセル化するPage Object"""
-    
+```
+
     def __init__(self, driver):
         self.driver = driver
         # セレクタをここに集約（変更箇所が1か所になる）
@@ -577,26 +600,27 @@ class LoginPage:
         self.PASSWORD_INPUT = ("id", "password")
         self.LOGIN_BUTTON   = ("id", "login-btn")
         self.ERROR_MESSAGE  = ("class", "error-msg")
-    
+
     def navigate(self):
         self.driver.get("https://example.com/login")
         return self
-    
+
     def enter_email(self, email: str):
         self.driver.find_element(*self.EMAIL_INPUT).send_keys(email)
         return self
-    
+
     def enter_password(self, password: str):
         self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
         return self
-    
+
     def click_login(self):
         self.driver.find_element(*self.LOGIN_BUTTON).click()
         return DashboardPage(self.driver)  # 次のページを返す
-    
+
     def get_error_message(self) -> str:
         return self.driver.find_element(*self.ERROR_MESSAGE).text
 
+```python
 # テストコード（クリーンで読みやすい！）
 def test_successful_login(driver):
     dashboard = (LoginPage(driver)
@@ -604,7 +628,8 @@ def test_successful_login(driver):
                  .enter_email("test@example.com")
                  .enter_password("password123")
                  .click_login())
-    
+```
+
     assert dashboard.is_displayed()
 
 def test_invalid_login(driver):
@@ -613,34 +638,37 @@ def test_invalid_login(driver):
              .enter_email("test@example.com")
              .enter_password("wrong_password"))
     login.click_login()  # DashboardPageではなくLoginPageに留まる
-    
+
     assert "パスワードが正しくありません" in login.get_error_message()
 
 #### 3.3.2 SOLID原則のテスト自動化への適用
 
 ```python
-```
-
 # S - Single Responsibility Principle（単一責任の原則）
 # 悪い例：1つのクラスが全部やる
 class BadTestClass:
     def test_everything(self):
         # DBに接続して、UIを操作して、APIを呼んで、レポートを書く
         # → 変更する理由が複数ある = SRP違反
+```
 
+```python
 # 良い例：役割を分離する
 class LoginPageObject:      # UIの操作のみ
 class LoginApiClient:       # APIの操作のみ
 class LoginTestDataBuilder: # テストデータの生成のみ
+```
 
+```python
 # D - Dependency Inversion Principle（依存性逆転の原則）
 # インターフェースに依存することで差し替え可能にする
 from abc import ABC, abstractmethod
+```
 
 class BrowserInterface(ABC):
     @abstractmethod
     def find_element(self, locator): pass
-    
+
     @abstractmethod
     def navigate(self, url): pass
 
@@ -652,20 +680,21 @@ class MockBrowser(BrowserInterface):  # テスト用モック
     def find_element(self, locator): ...
     def navigate(self, url): ...
 
+```python
 # テストは具体的なブラウザに依存しない
 class LoginTest:
     def __init__(self, browser: BrowserInterface):  # インターフェースに依存
         self.browser = browser
+```
 
 #### 3.3.3 Factory Pattern（テストデータ生成）
 
 ```python
-```
-
 # Factory Pattern でテストデータを生成
 from dataclasses import dataclass
 from typing import Optional
 import uuid
+```
 
 @dataclass
 class User:
@@ -676,7 +705,7 @@ class User:
 
 class UserFactory:
     """テスト用ユーザーを生成するファクトリ"""
-    
+
     @staticmethod
     def create_standard_user(name: Optional[str] = None) -> User:
         return User(
@@ -685,7 +714,7 @@ class UserFactory:
             email=f"test_{uuid.uuid4().hex[:8]}@example.com",
             role="user"
         )
-    
+
     @staticmethod
     def create_admin_user() -> User:
         return User(
@@ -695,12 +724,15 @@ class UserFactory:
             role="admin"
         )
 
+```python
 # 使用例
+<!-- markdownlint-enable MD046 MD009 MD025 -->
 def test_admin_can_access_admin_panel():
     admin = UserFactory.create_admin_user()
     # テストデータが簡単に生成できる！
     login_as(admin)
     assert admin_panel.is_visible()
+```
 
 ---
 
@@ -785,8 +817,6 @@ Phase 5: Go/No-Go 決定
 #### 4.3.1 コーディング規約
 
 ```python
-```
-
 # ❌ メンテナンス性が低いコード
 def test1():
     d = webdriver.Chrome()
@@ -796,7 +826,9 @@ def test1():
     d.find_element("xpath", "//div[@class='main-content']/form/button").click()
     assert "Dashboard" in d.title
     d.quit()
+```
 
+```python
 # ✅ メンテナンス性が高いコード
 # 命名規則: test_[対象]_[条件]_[期待結果]
 def test_login_with_valid_credentials_should_redirect_to_dashboard(driver, login_page):
@@ -810,6 +842,7 @@ def test_login_with_valid_credentials_should_redirect_to_dashboard(driver, login
         password="valid_password"
     )
     assert dashboard.is_loaded(), "ダッシュボードが読み込まれること"
+```
 
 #### 4.3.2 テストの独立性確保
 
@@ -818,45 +851,46 @@ import pytest
 
 class TestShoppingCart:
     """ショッピングカートのテスト - 各テストは独立している"""
-    
+
     @pytest.fixture(autouse=True)
     def setup_and_teardown(self, db, user_factory):
         """各テストの前後でクリーンアップ"""
         # Setup: テストユーザーを作成
         self.test_user = user_factory.create_standard_user()
         self.test_user_id = db.insert_user(self.test_user)
-        
+
         yield  # テスト実行
-        
+
         # Teardown: テストデータを削除
         db.delete_user(self.test_user_id)
         db.delete_cart(user_id=self.test_user_id)
-    
+
     def test_add_item_to_empty_cart(self, cart_api):
         """空のカートに商品を追加できる"""
         # Arrange
         item = {"product_id": "PROD-001", "quantity": 1}
-        
+
         # Act
         response = cart_api.add_item(user_id=self.test_user_id, item=item)
-        
+
         # Assert
         assert response.status_code == 201
         assert response.json()["items_count"] == 1
-    
+
     def test_remove_item_from_cart(self, cart_api):
         """カートから商品を削除できる"""
         # このテストは上のテストに依存しない（独立している）
         # Arrange: 事前にカートに商品を追加（APIで直接セットアップ）
-        cart_api.add_item(user_id=self.test_user_id, 
+        cart_api.add_item(user_id=self.test_user_id,
                          item={"product_id": "PROD-001", "quantity": 1})
-        
+
         # Act
-        response = cart_api.remove_item(user_id=self.test_user_id, 
+        response = cart_api.remove_item(user_id=self.test_user_id,
                                        product_id="PROD-001")
-        
+
         # Assert
         assert response.status_code == 200
+<!-- markdownlint-enable MD025 -->
         assert response.json()["items_count"] == 0
 
 ```
@@ -866,14 +900,16 @@ class TestShoppingCart:
 ```yaml
 ```
 
-# config/test_config.yaml
+```python
+#### config/test_config.yaml
 environments:
   staging:
     base_url: "https://staging.example.com"
     api_url: "https://api-staging.example.com"
     timeout: 30
     retry_count: 3
-  
+```
+
   production:
     base_url: "https://www.example.com"
     api_url: "https://api.example.com"
@@ -884,29 +920,30 @@ test_data:
   default_user:
     email: "test_user@example.com"
     role: "standard"
-  
+
   admin_user:
     email: "admin@example.com"
     role: "admin"
 
 ```python
-```
-
-# 環境変数・設定ファイルから読み込む
+#### 環境変数・設定ファイルから読み込む
 import os
 import yaml
 from functools import lru_cache
+```
 
 @lru_cache(maxsize=1)
 def load_config(env: str = None) -> dict:
     env = env or os.getenv("TEST_ENV", "staging")
     with open("config/test_config.yaml") as f:
         config = yaml.safe_load(f)
-    return config["environments"][env]
+    return config`["environments"][env]`
 
-# 機密情報は必ず環境変数で管理
+```python
+#### 機密情報は必ず環境変数で管理
 BASE_URL = load_config()["base_url"]
 API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
+```
 
 ---
 
@@ -967,8 +1004,11 @@ API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
 ```yaml
 ```
 
+```python
+###<!-- markdownlint-disable MD025 MD022 -->
 # .github/workflows/test_automation.yml
 name: テスト自動化パイプライン
+```
 
 on:
   push:
@@ -976,9 +1016,10 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '0 2 * * *'  # 毎日深夜2時にフルリグレッション実行
+    - cron: '0 2 ** *'  # 毎日深夜2時にフルリグレッション実行
 
 jobs:
+  ```yaml
   # === Step 1: ユニットテスト（高速） ===
   unit-tests:
     runs-on: ubuntu-latest
@@ -1000,6 +1041,7 @@ jobs:
       - name: カバレッジレポートをアップロード
         uses: codecov/codecov-action@v4
 
+  ```yaml
   # === Step 2: 統合テスト ===
   integration-tests:
     needs: unit-tests  # ユニットテスト成功後に実行
@@ -1019,6 +1061,7 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:test_pass@localhost/test_db
 
+  ```yaml
   # === Step 3: E2E スモークテスト ===
   e2e-smoke:
     needs: integration-tests
@@ -1046,7 +1089,9 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
+  ```yaml
   # === Step 4: フルE2Eリグレッション（夜間のみ） ===
+
   e2e-full-regression:
     if: github.event_name == 'schedule'
     runs-on: ubuntu-latest
@@ -1087,7 +1132,7 @@ jobs:
    # requirements.txt（Python）
    playwright==1.49.0      # バージョンを固定！
    pytest==8.3.4
-   
+
    # package.json（Node.js）
    {
      "dependencies": {
@@ -1104,66 +1149,67 @@ jobs:
 #### 5.3.1 APIテストの自動化
 
 ```python
-```
-
 # REST APIテストの実装例（pytest + requests）
 import pytest
 import requests
+```
 
 BASE_URL = "https://api-staging.example.com/v1"
 
 class TestUserAPI:
     """User API のテスト"""
-    
+
     @pytest.fixture
     def auth_headers(self, get_auth_token):
         return {"Authorization": f"Bearer {get_auth_token()}"}
-    
+
     def test_create_user_returns_201(self, auth_headers):
         """正常なユーザー作成でHTTP 201が返される"""
         payload = {
+
             "name": "Test User",
             "email": "testuser_xyz@example.com",
             "role": "user"
         }
-        
+
         response = requests.post(
             f"{BASE_URL}/users",
             json=payload,
             headers=auth_headers
         )
-        
+
         assert response.status_code == 201, f"Expected 201, got {response.status_code}"
-        
+
         body = response.json()
         assert "id" in body
         assert body["name"] == payload["name"]
         assert body["email"] == payload["email"]
         assert "created_at" in body
-    
+
     def test_create_user_with_duplicate_email_returns_409(self, auth_headers):
         """重複メールアドレスで409エラーが返される"""
         payload = {"name": "User A", "email": "duplicate@example.com", "role": "user"}
-        
+
         requests.post(f"{BASE_URL}/users", json=payload, headers=auth_headers)  # 1回目
         response = requests.post(f"{BASE_URL}/users", json=payload, headers=auth_headers)  # 2回目
-        
+
         assert response.status_code == 409
-        assert "already exists" in response.json()["error"].lower()
+
+        assert "already exists" in response.json()
+["error"].lower()
 
 #### 5.3.2 コントラクトテスト（Pact）
 
 ```python
-```
-
 # Pact を使ったコンシューマー駆動コントラクトテスト
 from pact import Consumer, Provider
+```
 
 pact = Consumer("フロントエンドAPI").has_pact_with(Provider("ユーザーAPI"))
 
 def test_get_user_returns_expected_schema():
     """APIのレスポンスが期待するスキーマに準拠することを確認"""
-    
+
     # コンシューマーが期待するレスポンスを定義
     (pact
      .given("ユーザーID=1が存在する")
@@ -1176,7 +1222,7 @@ def test_get_user_returns_expected_schema():
          "role": term(r"admin|user", "user"),  # パターン検証
      })
     )
-    
+
     with pact:
         result = get_user(1)  # コンシューマーの実際の処理を呼ぶ
         assert result["id"] == 1
@@ -1244,33 +1290,32 @@ ROI (%) = ((テスト自動化の節約額 - 自動化の総コスト) / 自動�
 ### 6.3 テスト結果のレポーティング
 
 ```python
-```
-
-# Allure レポートを使った高品質なレポート生成
+#### Allure レポートを使った高品質なレポート生成
 import allure
 import pytest
+```
 
 @allure.feature("ユーザー管理")
 @allure.story("ユーザーログイン")
 @allure.severity(allure.severity_level.CRITICAL)
 class TestLogin:
-    
+
     @allure.title("有効な資格情報でログイン成功")
     @allure.description("正しいメールアドレスとパスワードを入力した場合、ダッシュボードにリダイレクトされること")
     def test_successful_login(self, driver, login_page):
         with allure.step("ログインページを開く"):
             login_page.navigate()
-        
+
         with allure.step("有効な資格情報を入力"):
             login_page.enter_email("test@example.com")
             login_page.enter_password("valid_password")
-        
+
         with allure.step("ログインボタンをクリック"):
             dashboard = login_page.click_login()
-        
+
         with allure.step("ダッシュボードが表示されることを確認"):
             assert dashboard.is_loaded()
-        
+
         # スクリーンショットをレポートに添付
         allure.attach(
             driver.get_screenshot_as_png(),
@@ -1281,9 +1326,12 @@ class TestLogin:
 ```bash
 ```
 
-# Allure レポートの生成・表示
+```python
+<!-- markdownlint-disable MD046 -->
+#### Allure レポートの生成・表示
 pytest tests/ --alluredir=allure-results
 allure serve allure-results
+```
 
 ---
 
@@ -1294,21 +1342,21 @@ allure serve allure-results
 
 1. 日次テスト結果トレンド
    ────────────────────────────────
-   Pass: 85% ████████████████░░░ 
+   Pass: 85% ████████████████░░░
    Fail:  5% █░░░░░░░░░░░░░░░░░░
    Skip: 10% ██░░░░░░░░░░░░░░░░░
-   
+
 2. テスト実行時間のトレンド
    ────────────────────────────────
    ユニット: 2.1分（目標3分以内）✅
-   統合:    8.5分（目標10分以内）✅  
+   統合:    8.5分（目標10分以内）✅
    E2E:    24.3分（目標30分以内）✅
 
 3. フレイキーテストTOP10
    ────────────────────────────────
    1. test_checkout_flow ... 15%失敗率 🔴
    2. test_file_upload ..... 8%失敗率  🟡
-   
+
 4. カバレッジトレンド（過去30日）
    ────────────────────────────────
    コードカバレッジ：82% (+2%)
@@ -1331,7 +1379,7 @@ allure serve allure-results
 
 ### 7.1 TAS（Test Automation Solution）の検証とは？
 
-> **重要な概念**: TAS（テスト自動化ソリューション）自体にも欠陥がある！  
+> **重要な概念**: TAS（テスト自動化ソリューション）自体にも欠陥がある！
 > テスト自動化コードそのものをテストすること = **TAS の検証**
 
 ```text
@@ -1357,31 +1405,31 @@ TAS のバグ（偽陽性/偽陰性）：
 #### 7.2.1 ユニットテスト（テストコードのテスト）
 
 ```python
-```
-
-# テストヘルパー・ユーティリティ関数自体をテストする
+#### テストヘルパー・ユーティリティ関数自体をテストする
 import pytest
 from automation_framework.helpers import wait_for_element, retry
+```
 
 class TestWaitForElement:
     """wait_for_element ヘルパー関数の検証"""
-    
+
     def test_returns_element_when_found_immediately(self, mock_driver):
         """要素がすぐに見つかる場合に要素を返す"""
         mock_driver.find_element.return_value = MockWebElement("button")
-        
+
         result = wait_for_element(mock_driver, "id", "submit-btn", timeout=5)
-        
+
         assert result is not None
         assert result.tag_name == "button"
-    
+
     def test_raises_timeout_when_element_not_found(self, mock_driver):
         """タイムアウト内に要素が見つからない場合に例外を投げる"""
+
         mock_driver.find_element.side_effect = NoSuchElementException
-        
+
         with pytest.raises(TimeoutException) as exc_info:
             wait_for_element(mock_driver, "id", "non-existent", timeout=1)
-        
+
         assert "1秒以内に要素が見つかりませんでした" in str(exc_info.value)
 
 #### 7.2.2 TAS のコードレビュー観点
@@ -1457,24 +1505,30 @@ Act（改善）:
 #### 8.2.1 フレイキーテストの排除
 
 ```python
+#### フレイキーテスト撲滅のための戦略
 ```
 
-# フレイキーテスト撲滅のための戦略
-
+```python
+###<!-- markdownlint-disable MD025 -->
 # ❌ 悪い例：固定 sleep（フレイキーの原因）
 def bad_test(page):
     page.click("#load-button")
     time.sleep(3)  # ← 環境によって足りないことがある
     assert page.find("#result").is_visible()
+```
 
-# ✅ 良い例：条件ベースの待機
+```python
+#### ✅ 良い例：条件ベースの待機
 def good_test(page):
     page.click("#load-button")
     page.wait_for_selector("#result", state="visible")  # 要素が表示されるまで待つ
     assert page.find("#result").is_visible()
+```
 
-# ✅ リトライデコレータ（ネットワーク不安定など避けられない場合）
+```python
+#### ✅ リトライデコレータ（ネットワーク不安定など避けられない場合）
 import pytest
+```
 
 @pytest.mark.flaky(reruns=3, reruns_delay=2)  # 失敗時は最大3回リトライ
 def test_with_external_service(api_client):
@@ -1517,15 +1571,15 @@ AIを活用したテスト自動化の改善（2025年トレンド）：
 1. セルフヒーリングテスト
    ツール: Testsigma, Mabl, Functionize
    効果: UI変更時のセレクタ破損を自動修復
-   
+
 2. AIによるテストケース生成
    ツール: GitHub Copilot, ChatGPT API, Claude API
    効果: ユーザーストーリーから自動でテストコード生成
    → 作成時間を60〜70%削減
-   
+
 3. AIによる欠陥予測（Risk-based Testing）
    効果: 変更の影響を予測し、優先テストを自動選定
-   
+
 4. 視覚的AIテスト（Visual Testing）
    ツール: Applitools Eyes, Percy
    効果: UIの視覚的な退行を自動検出
@@ -1535,11 +1589,10 @@ AIを活用したテスト自動化の改善（2025年トレンド）：
 ```
 
 ```python
-```
-
-# GitHub Copilot / Claude に渡すプロンプト例
+#### GitHub Copilot / Claude に渡すプロンプト例
 """
 以下のユーザーストーリーに基づいてPythonのpytestテストを書いてください：
+```
 
 ユーザーストーリー：
   As a registered user,
@@ -1554,7 +1607,11 @@ AIを活用したテスト自動化の改善（2025年トレンド）：
 
 APIエンドポイント: PATCH /api/users/{id}/profile
 """
-# → AIが自動でテストコードを生成してくれる
+
+```python
+#### → AIが自動でテストコードを生成してくれる
+
+```
 
 ---
 
@@ -1780,8 +1837,8 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ---
 
-> **📌 最終更新日**: 2026年4月10日  
-> **📌 準拠資格**: ISTQB CTAL-TAE v2.0  
+> **📌 最終更新日**: 2026年4月10日
+> **📌 準拠資格**: ISTQB CTAL-TAE v2.0
 > **📌 次のステップ**: CT-TAS（Test Automation Strategy）資格も参照
 >
 > 🔗 公式リソース: https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/

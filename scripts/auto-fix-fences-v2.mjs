@@ -7,44 +7,35 @@ function fixFences(filePath) {
     const fixedLines = [];
     let inBlock = false;
     let blockStartLine = -1;
+    let fenceChar = '';
 
     for (let i = 0; i < lines.length; i++) {
         let line = lines[i];
-        const trimmedLine = line.trim();
+        
+        const fenceMatch = line.match(/^( {0,3})(```+|~~~+)(.*)$/);
 
-        // Check for indented or messy closing fences
-        // If it looks like a closing fence but has spaces or text after it
-        // and we ARE in a block.
-        if (inBlock && trimmedLine.startsWith('```') && !trimmedLine.match(/^```[a-z0-9]+$/i)) {
-             // If it's just ``` with some spaces or weirdness, make it exact
-             if (trimmedLine === '```' || trimmedLine.startsWith('``` ')) {
-                fixedLines.push('```');
-                inBlock = false;
-                continue;
-             }
-        }
-
-        if (line.startsWith('```')) {
+        if (fenceMatch) {
             if (inBlock) {
-                if (trimmedLine === '```') {
+                if (fenceMatch[2][0] === fenceChar[0] && fenceMatch[2].length >= fenceChar.length && fenceMatch[3].trim() === '') {
                     inBlock = false;
+                    fenceChar = '';
                 } else {
                     // New block starting without closing previous one
-                    fixedLines.push('```');
+                    fixedLines.push(fenceChar);
                     fixedLines.push('');
                     inBlock = true;
+                    fenceChar = fenceMatch[2];
                     blockStartLine = i + 1;
                 }
             } else {
                 inBlock = true;
+                fenceChar = fenceMatch[2];
                 blockStartLine = i + 1;
             }
         } else if (inBlock) {
             // Check if we hit a heading
             if (line.startsWith('#')) {
-                fixedLines.push('```');
-                fixedLines.push('');
-                inBlock = false;
+                console.warn(`Warning: Code block not closed before header at ${filePath}:${i + 1} - "${line}"`);
             }
         }
 
@@ -52,7 +43,7 @@ function fixFences(filePath) {
     }
 
     if (inBlock) {
-        fixedLines.push('```');
+        fixedLines.push(fenceChar || '```');
     }
 
     // Secondary pass to fix consecutive empty lines or other minor issues

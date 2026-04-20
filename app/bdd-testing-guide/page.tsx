@@ -33,7 +33,7 @@ export default function BddTestingGuidePage() {
     <>
       <Header />
       <div className="bdd-guide-page">
-      <section className="hero bdd-hero-bg" id="top">
+      <section className="hero" id="top">
         <div className="hero-content">
           <span className="hero-eyebrow">ISTQB CTFL v4.0 Section 4.5 準拠 | 初学者から実践者まで完全網羅</span>
           <h1>BDD（ビヘイビア駆動開発）<br /><span>完全ガイド {UPDATE_YEAR}</span></h1>

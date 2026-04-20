@@ -885,7 +885,7 @@ GraphWalkerモデル = 有向グラフ
 
 #### Step 2: モデルファイルの作成（JSON形式）
 
-```json
+```jsonc
 // src/test/resources/models/LoginModel.json
 {
   "name": "ログインモデル",
@@ -968,7 +968,7 @@ import org.graphwalker.java.annotation.Edge;
     value = "random(edge_coverage(100))",  // ランダムに探索し全エッジカバレッジ100%を達成
     start = "e_アプリ起動"
 )
-public interface LoginModel extends ExecutionContext {
+public interface LoginModel  {
 
     // ★頂点（Vertex）= 検証メソッド
     @Vertex

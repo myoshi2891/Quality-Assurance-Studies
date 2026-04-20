@@ -9,15 +9,23 @@ files.forEach(file => {
   const content = readFileSync(filePath, 'utf8');
   const lines = content.split('\n');
   let changed = false;
+  let inFence = lines[0] && (lines[0].trim().startsWith('```') || lines[0].trim().startsWith('~~~'));
 
   for (let i = 1; i < lines.length - 1; i++) {
-    // Current line is empty or just whitespace
-    if (lines[i].trim() === '') {
-      // Check if previous line starts with '>'
-      // and next line starts with '>'
-      if (lines[i - 1].trim().startsWith('>') && lines[i + 1].trim().startsWith('>')) {
-        lines[i] = '>';
-        changed = true;
+    if (lines[i].trim().startsWith('```') || lines[i].trim().startsWith('~~~')) {
+      inFence = !inFence;
+      continue;
+    }
+
+    if (!inFence) {
+      // Current line is empty or just whitespace
+      if (lines[i].trim() === '') {
+        // Check if previous line starts with '>'
+        // and next line starts with '>'
+        if (lines[i - 1].trim().startsWith('>') && lines[i + 1].trim().startsWith('>')) {
+          lines[i] = '>';
+          changed = true;
+        }
       }
     }
   }

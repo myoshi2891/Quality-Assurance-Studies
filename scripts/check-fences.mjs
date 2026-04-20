@@ -5,18 +5,32 @@ const filePath = process.argv[2];
 const content = fs.readFileSync(filePath, 'utf-8');
 const lines = content.split('\n');
 
+function getFence(line) {
+    const match = line.match(/^ {0,3}(`{3,}|~{3,})(.*)/);
+    if (!match) return null;
+    return {
+        marker: match[1],
+        info: match[2].trim()
+    };
+}
+
 let inBlock = false;
 let blockStartLine = -1;
+let fenceChar = '';
+let fenceLength = 0;
 
 for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    if (line.startsWith('```')) {
+    const fence = getFence(line);
+    if (fence) {
         if (!inBlock) {
             inBlock = true;
             blockStartLine = i + 1;
+            fenceChar = fence.marker[0];
+            fenceLength = fence.marker.length;
             console.log(`Block started at line ${blockStartLine}: ${line}`);
         } else {
-            if (line.trim() === '```') {
+            if (fence.marker[0] === fenceChar && fence.marker.length >= fenceLength && fence.info === '') {
                 inBlock = false;
                 console.log(`Block ended at line ${i + 1}`);
             } else {

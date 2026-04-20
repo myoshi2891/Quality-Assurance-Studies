@@ -41,6 +41,7 @@ flowchart TD
 
     GenAI --> Career["キャリアパス：<br/>CT-GenAI → CTAL-TA / CTAL-TTA / CTAL-TM → Expert Level"]
 ```
+
 ### 0.2 CT-GenAI が生まれた背景
 
 > なぜ今 CT-GenAI が必要なのか？
@@ -68,10 +69,12 @@ flowchart TD
 > | **前提条件** | CTFL（必須） |
 > | **最高認知レベル** | K3（K4は出題なし） |
 > | **学習時間**（公認研修） | 最低13.6時間（5章） |
+<!-- markdownlint-disable MD055 MD056 -->
 > | **正式リリース** | 2025年7月25日 |
 > 注：CT-AI（47点満点・K4まで）より試験は易しめ
 > ただし実践的プロンプト設計能力が問われる
 
+<!-- markdownlint-enable MD055 MD056 -->
 ### 0.4 チャプター別学習時間配分
 
 > Chapter 1: 生成AI入門                  ███         100分 ( 12.2%)
@@ -107,12 +110,14 @@ flowchart TD
 > | 段階 | 種類 | 特徴 |
 > | --- | --- | --- |
 > | **1 (古典)** | シンボリックAI (Symbolic AI) | ルールベース・記号と論理規則<br>専門家システム・チェスエンジン |
+<!-- markdownlint-disable MD055 MD056 -->
 > | **2 (発展)** | 古典的ML (Classical ML) | データ駆動・特徴選択が必要<br>欠陥分類・バグ予測に利用 |
 > | **3 (近代)** | 深層学習 (Deep Learning) | ニューラルネット・特徴を自動学習<br>画像・音声・テキスト処理 |
 > | **4 (現在)** | 生成AI (Generative AI) | 深層学習で新コンテンツを生成<br>テキスト・画像・コードを生成 |
 > ポイント：生成AIの最大の利点
 > → 追加のトレーニングフェーズなしに、事前学習済みモデルを
 > テストタスクに直接適用できる
+<!-- markdownlint-enable MD055 MD056 -->
 > ↕（ただしリスクも伴う → Chapter 3 で詳述）
 
 #### 1.1.2 生成AIとLLMの基礎（Basics of Generative AI and LLMs）
@@ -370,7 +375,8 @@ test_analysis_prompt = """
 マークダウン形式で、各セクションを明確に区切って回答してください。
 """
 
-# ───── 実際の使用例 ─────
+<!-- markdownlint-disable MD025 MD046 -->
+# #### 実際の使用例
 
 actual_prompt = test_analysis_prompt.format(
     project_description="Eコマースサイトのショッピングカート機能",
@@ -385,7 +391,7 @@ actual_prompt = test_analysis_prompt.format(
     """
 )
 
-# ───── 期待されるLLM出力 ─────
+# #### 期待されるLLM出力
 
 expected_output_structure = {
     "テスト条件": [
@@ -401,6 +407,7 @@ expected_output_structure = {
         "同一商品を複数追加した場合の扱いは？",
     ],
     "非機能要件": [
+<!-- markdownlint-disable MD001 -->
         "性能：大量商品追加時の応答時間",
         "セキュリティ：セッションIDなしでのカートアクセス防止",
     ],
@@ -412,6 +419,7 @@ expected_output_structure = {
 
 #### 2.2.2 生成AIによるテスト設計と実装（Test Design and Test Implementation）
 
+<!-- markdownlint-enable MD001 -->
 ```python
 # テストケース生成の実践プロンプト例
 
@@ -454,7 +462,7 @@ Feature: ログイン機能
 - PII（個人情報）を含まないこと
 """
 
-# ───── 自動化テストスクリプト生成プロンプト ─────
+# #### 自動化テストスクリプト生成プロンプト
 
 automation_script_prompt = """
 以下のGherkinシナリオを、Playwright（Python）で実装してください。
@@ -464,6 +472,7 @@ automation_script_prompt = """
 ## 実装要件
 
 - Page Object Model（POM）パターンを使用すること
+<!-- markdownlint-disable MD001 -->
 - data-testid属性でセレクターを特定すること
 - 適切なエラーハンドリングを含めること
 - 日本語コメントを追加すること
@@ -475,6 +484,7 @@ automation_script_prompt = """
 """
 
 #### 2.2.3 生成AIによる自動回帰テスト（Automated Regression Testing with GenAI）
+<!-- markdownlint-enable MD001 -->
 
 > GenAIによる回帰テスト自動化のユースケース：
 >
@@ -528,7 +538,8 @@ test_summary_prompt = """
 - 300字以内で要約すること
 """
 
-# ───── 欠陥レポート分析プロンプト ─────
+# #### 欠陥レポート分析プロンプト
+<!-- markdownlint-enable MD025 MD046 -->
 
 defect_analysis_prompt = """
 以下の欠陥レポートを分析してください：
