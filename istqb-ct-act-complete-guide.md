@@ -15,15 +15,15 @@
 
 ## 📚 目次
 
-1. [CT-AcT 概要と資格ロードマップ](#chapter-0)
-2. [Chapter 1: 導入と基礎（Introduction and Foundations）](#chapter-1)
-3. [Chapter 2: 受け入れ基準・受け入れテスト・経験ベースのプラクティス](#chapter-2)
-4. [Chapter 3: ビジネスプロセスとビジネスルールのモデリング](#chapter-3)
-5. [Chapter 4: 非機能要件の受け入れテスト](#chapter-4)
-6. [Chapter 5: 協調的な受け入れテスト（Collaborative Acceptance Testing）](#chapter-5)
-7. [試験対策・サンプル問題](#exam-tips)
-8. [主要ツール・フレームワーク一覧](#tools)
-9. [参照URL一覧](#references)
+1. [CT-AcT 概要と資格ロードマップ](#%F0%9F%8C%9F-chapter-0-ct-act-%E6%A6%82%E8%A6%81%E3%81%A8%E8%B3%87%E6%A0%BC%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97-chapter-0)
+2. [Chapter 1: 導入と基礎（Introduction and Foundations）](#%F0%9F%93%8B-chapter-1-%E5%B0%8E%E5%85%A5%E3%81%A8%E5%9F%BA%E7%A4%8E%EF%BC%88introduction-and-foundations%EF%BC%89-chapter-1)
+3. [Chapter 2: 受け入れ基準・受け入れテスト・経験ベースのプラクティス](#%F0%9F%93%9D-chapter-2-%E5%8F%97%E3%81%91%E5%85%A5%E3%82%8C%E5%9F%BA%E6%BA%96%E3%83%BB%E5%8F%97%E3%81%91%E5%85%A5%E3%82%8C%E3%83%86%E3%82%B9%E3%83%88%E3%83%BB%E7%B5%8C%E9%A8%93%E3%83%99%E3%83%BC%E3%82%B9%E3%81%AE%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B9-chapter-2)
+4. [Chapter 3: ビジネスプロセスとビジネスルールのモデリング](#%F0%9F%97%BA%EF%B8%8F-chapter-3-%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%A8%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E3%83%AB%E3%83%BC%E3%83%AB%E3%81%AE%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0-chapter-3)
+5. [Chapter 4: 非機能要件の受け入れテスト](#%F0%9F%9B%A1%EF%B8%8F-chapter-4-%E9%9D%9E%E6%A9%9F%E8%83%BD%E8%A6%81%E4%BB%B6%E3%81%AE%E5%8F%97%E3%81%91%E5%85%A5%E3%82%8C%E3%83%86%E3%82%B9%E3%83%88-chapter-4)
+6. [Chapter 5: 協調的な受け入れテスト（Collaborative Acceptance Testing）](#%F0%9F%A4%9D-chapter-5-%E5%8D%94%E8%AA%BF%E7%9A%84%E3%81%AA%E5%8F%97%E3%81%91%E5%85%A5%E3%82%8C%E3%83%86%E3%82%B9%E3%83%88%EF%BC%88collaborative-acceptance-testing%EF%BC%89-chapter-5)
+7. [試験対策・サンプル問題](#%F0%9F%93%9D-%E8%A9%A6%E9%A8%93%E5%AF%BE%E7%AD%96%E3%83%BB%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E5%95%8F%E9%A1%8C-exam-tips)
+8. [主要ツール・フレームワーク一覧](#%F0%9F%94%A7-%E4%B8%BB%E8%A6%81%E3%83%84%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF%E4%B8%80%E8%A6%A7-tools)
+9. [参照URL一覧](#%F0%9F%93%9A-%E5%8F%82%E7%85%A7url%E4%B8%80%E8%A6%A7-references)
 
 ---
 
@@ -1279,8 +1279,8 @@ C のみが：
 | ツール | 特徴 | 公式URL |
 |-------|------|---------|
 | **TestRail** | テスト管理・実行・レポートに特化 | https://www.testrail.com/ |
-| **Jira + Zephyr** | 欠陥管理とテスト管理の統合 | https://www.getxray.app/ |
-| **Azure DevOps** | MS 環境・CI/CD 連携 | https://azure.microsoft.com/products/devops |
+| **Jira + Zephyr** | 欠陥管理とテスト管理の統合 | https://marketplace.atlassian.com/apps/1213259/zephyr-test-management-and-automation-for-jira |
+| **Azure DevOps** | MS 環境・CI/CD 連携 | https://azure.microsoft.com/services/devops |
 | **Xray** | Jira 連携テスト管理 | https://www.getxray.app/ |
 | **qTest** | エンタープライズ向けテスト管理 | https://www.tricentis.com/products/qtest |
 

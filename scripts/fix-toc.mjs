@@ -48,16 +48,30 @@ function fixTOC(filePath) {
         const title = match[2];
         const normalizedTitle = title.split('—')[0].trim(); // Handle "1. Title — Subtitle" format
 
-        // Find the best matching heading
+        // Find the best matching heading and its index
         let headingText = title;
-        for (const h of headings) {
-          if (h.includes(normalizedTitle) || normalizedTitle.includes(h)) {
-            headingText = h;
+        let headingIndex = -1;
+        for (let j = 0; j < lines.length; j++) {
+          const hLine = lines[j];
+          if (hLine.match(/^#{1,6}\s+/) && 
+             (hLine.includes(normalizedTitle) || normalizedTitle.includes(hLine.replace(/^#{1,6}\s+/, '').trim()))) {
+            headingText = hLine.replace(/^#{1,6}\s+/, '').trim();
+            headingIndex = j;
             break;
           }
         }
         
-        const newAnchor = slugify(headingText);
+        let newAnchor = slugify(headingText);
+        
+        // PRECEDENCE: Check for explicit anchor tag immediately preceding the heading
+        if (headingIndex > 0) {
+          const prevLine = lines[headingIndex - 1];
+          const anchorMatch = prevLine.match(/<a id="(.*?)"><\/a>/);
+          if (anchorMatch) {
+            newAnchor = anchorMatch[1];
+          }
+        }
+
         return `${match[1]}${title}${match[3]}${newAnchor}${match[5]}`;
       }
     }

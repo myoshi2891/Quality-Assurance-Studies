@@ -45,6 +45,13 @@
     animation: glow-pulse-blue 3s ease-in-out infinite;
 }
 
+@media (prefers-reduced-motion: reduce) {
+    .bdd-guide-page .hero h1 span {
+        animation: none;
+        text-shadow: none;
+    }
+}
+
 /* ── STATS CARDS & GRIDS ── */
 .bdd-guide-page .card-grid {
     display: grid;

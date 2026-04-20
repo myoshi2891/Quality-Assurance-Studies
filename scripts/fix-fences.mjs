@@ -34,16 +34,10 @@ function fixFile(filePath) {
       }
     } else if (inBlock) {
       // If we see a heading or a blockquote while inside a code block, 
-      // it's highly likely the block should have been closed before it.
+      // it might be a missing closing fence or a valid nested structure.
+      // Log a warning instead of auto-closing.
       if (line.match(/^#{1,6} /) || line.match(/^> /)) {
-        // Backtrack to previous non-empty line and insert the closing fence
-        let j = newLines.length - 1;
-        while (j >= 0 && newLines[j].trim() === '') {
-          j--;
-        }
-        newLines.splice(j + 1, 0, fenceChar);
-        inBlock = false;
-        fenceChar = '';
+        console.warn(`[WARNING] Potential unclosed code block detected at line ${i + 1}: "${line}"`);
       }
     }
     newLines.push(line);

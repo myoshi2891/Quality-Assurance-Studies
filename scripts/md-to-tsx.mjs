@@ -71,7 +71,7 @@ $('table').each((i, el) => {
     $(el).find('thead th').attr('scope', 'col');
     $(el).find('tbody th').attr('scope', 'row');
     if (!$(el).find('caption').length && !$(el).attr('aria-label')) {
-        $(el).attr('aria-label', 'Data table');
+        $(el).attr('aria-label', 'データテーブル');
     }
 });
 
@@ -228,9 +228,9 @@ outHtml = outHtml.replace(/<hr([^>]*)>/g, (match, attrs) => {
 // Detect and self-close any img explicitly
 outHtml = outHtml.replace(/<img\b([^>]*?)(?<!\/)>/g, '<img$1 />');
 
-// Restore mermaid blocks
+// Restore mermaid blocks using a replacement function to avoid '$' pattern interpretation
 for (const [id, escapedText] of mermaidBlocks.entries()) {
-    outHtml = outHtml.replace(id, `<Mermaid chart={\`${escapedText}\`} />`);
+    outHtml = outHtml.replace(id, () => `<Mermaid chart={\`${escapedText}\`} />`);
 }
 
 const finalTSX = `${hasLink ? "import Link from 'next/link';\n" : ''}${hasMermaid ? "import Mermaid from '../../components/Mermaid';\n" : ''}import Header from '../../components/Header';

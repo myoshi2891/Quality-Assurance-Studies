@@ -1304,8 +1304,7 @@ PRマージ
 <span className="kw-when">When</span>  ユーザーが商品を購入する{"\n"}
 {"\n"}
 <span className="cm"># ❌ 命令的（技術の言葉）</span>{"\n"}
-<span className="kw-when">When</span>  ユーザーが /api/orders POST リクエストを送信し{"\n"}
-      ステータスコード 201 が返る</code></pre>
+<span className="kw-when">When</span>  ユーザーが /api/orders POST リクエストを送信し、ステータスコード 201 が返る</code></pre>
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 # 🤖 ISTQB® Certified Tester AI Testing (CT-AI)
 
-## 完全学習ガイド【2025年最新版・初学者対応】
+## 完全学習ガイド【最新版・初学者対応】
 
 > **最終更新**: 2025年（ISTQB® 公式シラバス CT-AI v1.0 準拠）  
 > **対象読者**: CTFL取得済みで、AIシステムのテストやテストへのAI活用を学びたい方  
@@ -10,20 +10,20 @@
 
 ## 📚 目次
 
-1. [CT-AI 概要と資格ロードマップ](#chapter-0)
-2. [Chapter 1: AIの概要（Introduction to AI）](#chapter-1)
-3. [Chapter 2: AIベースシステムの品質特性](#chapter-2)
-4. [Chapter 3: 機械学習（ML）概要](#chapter-3)
-5. [Chapter 4: ML データ](#chapter-4)
-6. [Chapter 5: ML 機能パフォーマンスメトリクス](#chapter-5)
-7. [Chapter 6: MLニューラルネットワークとテスト](#chapter-6)
-8. [Chapter 7: AIベースシステムテスト概要](#chapter-7)
-9. [Chapter 8: AI固有の品質特性のテスト](#chapter-8)
-10. [Chapter 9: AIベースシステムのテスト手法と技法](#chapter-9)
-11. [Chapter 10: AIベースシステムのテスト環境](#chapter-10)
-12. [Chapter 11: テストへのAI活用](#chapter-11)
-13. [試験対策・サンプル問題](#exam-tips)
-14. [参照URL一覧](#references)
+1. [CT-AI 概要と資格ロードマップ](#%F0%9F%8C%9F-chapter-0-ct-ai-%E6%A6%82%E8%A6%81%E3%81%A8%E8%B3%87%E6%A0%BC%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97)
+2. [Chapter 1: AIの概要（Introduction to AI）](#%F0%9F%A7%A0-chapter-1-ai%E3%81%AE%E6%A6%82%E8%A6%81%EF%BC%88introduction-to-ai%EF%BC%89)
+3. [Chapter 2: AIベースシステムの品質特性](#%E2%9A%A0%EF%B8%8F-chapter-2-ai%E3%83%99%E3%83%BC%E3%82%B9%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E5%93%81%E8%B3%AA%E7%89%B9%E6%80%A7%EF%BC%88quality-characteristics-for-ai-based-systems%EF%BC%89)
+4. [Chapter 3: 機械学習（ML）概要](#%F0%9F%94%AC-chapter-3-%E6%A9%9F%E6%A2%B0%E5%AD%A6%E7%BF%92%EF%BC%88ml%EF%BC%89%E6%A6%82%E8%A6%81%EF%BC%88machine-learning-overview%EF%BC%89)
+5. [Chapter 4: ML データ](#%F0%9F%92%BE-chapter-4-ml-%E3%83%87%E3%83%BC%E3%82%BF%EF%BC%88ml-data%EF%BC%89)
+6. [Chapter 5: ML 機能パフォーマンスメトリクス](#%F0%9F%93%8A-chapter-5-ml-%E6%A9%9F%E8%83%BD%E3%83%91%E3%83%95%E3%82%A9%E3%83%BC%E3%83%9E%E3%83%B3%E3%82%B9%E3%83%A1%E3%83%88%E3%83%AA%E3%82%AF%E3%82%B9%EF%BC%88ml-functional-performance-metrics%EF%BC%89)
+7. [Chapter 6: MLニューラルネットワークとテスト](#%F0%9F%A7%AE-chapter-6-ml%E3%83%8B%E3%83%A5%E3%83%BC%E3%83%A9%E3%83%AB%E3%83%8D%E3%83%83%E3%83%88%E3%83%AF%E3%83%BC%E3%82%AF%E3%81%A8%E3%83%86%E3%82%B9%E3%83%88%EF%BC%88ml-neural-networks-and-testing%EF%BC%89)
+8. [Chapter 7: AIベースシステムテスト概要](#%F0%9F%94%8D-chapter-7-ai%E3%83%99%E3%83%BC%E3%82%B9%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%83%86%E3%82%B9%E3%83%88%E6%A6%82%E8%A6%81%EF%BC%88testing-ai-based-systems-overview%EF%BC%89)
+9. [Chapter 8: AI固有の品質特性のテスト](#%F0%9F%9B%A1%EF%B8%8F-chapter-8-ai%E5%9B%BA%E6%9C%89%E3%81%AE%E5%93%81%E8%B3%AA%E7%89%B9%E6%80%A7%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88)
+10. [Chapter 9: AIベースシステムのテスト手法と技法](#%E2%9A%94%EF%B8%8F-chapter-9-ai%E3%83%99%E3%83%BC%E3%82%B9%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E6%89%8B%E6%B3%95%E3%81%A8%E6%8A%80%E6%B3%95)
+11. [Chapter 10: AIベースシステムのテスト環境](#%F0%9F%8F%97%EF%B8%8F-chapter-10-ai%E3%83%99%E3%83%BC%E3%82%B9%E3%82%B7%E3%82%B9%E3%83%86%E3%83%A0%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88%E7%92%B0%E5%A2%83%EF%BC%88test-environments%EF%BC%89)
+12. [Chapter 11: テストへのAI活用](#%F0%9F%A4%96-chapter-11-%E3%83%86%E3%82%B9%E3%83%88%E3%81%B8%E3%81%AEai%E6%B4%BB%E7%94%A8%EF%BC%88using-ai-for-testing%EF%BC%89)
+13. [試験対策・サンプル問題](#%F0%9F%93%9D-%E8%A9%A6%E9%A8%93%E5%AF%BE%E7%AD%96%E3%83%BB%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E5%95%8F%E9%A1%8C)
+14. [参照URL一覧](#%F0%9F%93%9A-%E5%8F%82%E7%85%A7url%E4%B8%80%E8%A6%A7)
 
 ---
 
@@ -53,23 +53,19 @@
 
 ### 0.2 CT-AI vs CT-GenAI の違い（2025年の新旧比較）
 
-> ┌──────────────────────────────────────────────────────────────────┐
-> │              CT-AI vs CT-GenAI の比較（重要！）                     │
-> ├────────────────────────┬─────────────────────────────────────────┤
-> │  CT-AI（2021）          │  CT-GenAI（2025）                       │
-> ├────────────────────────┼─────────────────────────────────────────┤
-> │ AIシステムをテストする   │ 生成AIを使ってテストする                  │
-> │ ML・ニューラルネット     │ LLM・プロンプトエンジニアリング            │
-> │ バイアス・倫理・XAI      │ RAG・エージェント・LLMOps                │
-> │ 混同行列・精度・再現率   │ ハルシネーション・プライバシー              │
-> │ メタモルフィックテスト   │ マルチモーダルプロンプト                   │
-> │ 対抗攻撃・データポイズニング│ テストケース自動生成（LLM）             │
-> └────────────────────────┴─────────────────────────────────────────┘
-> CT-AI は「製品の中のAIの品質保証」
-> CT-GenAI は「テストプロセスの中でAIを使う」
-> → どちらが必要かはプロジェクトの性質による
-> AIシステムを開発している → CT-AI が優先
-> テストプロセスにAIを導入 → CT-GenAI が優先
+| 比較項目 | CT-AI（2021） | CT-GenAI（2025） |
+|---|---|---|
+| **主な目的** | AIシステムをテストする | 生成AIを使ってテストする |
+| **主要技術** | ML・ニューラルネット | LLM・プロンプトエンジニアリング |
+| **トピック例** | バイアス・倫理・XAI | RAG・エージェント・LLMOps |
+| **評価指標** | 混同行列・精度・再現率 | ハルシネーション・プライバシー |
+| **テスト技法** | メタモルフィックテスト | マルチモーダルプロンプト |
+| **セキュリティ** | 対抗攻撃・データポイズニング | テストケース自動生成（LLM） |
+
+> **💡 どちらを優先すべきか？**
+>
+> - **AIシステムを開発・検証している** → **CT-AI** が優先
+> - **テストプロセスを効率化したい** → **CT-GenAI** が優先
 
 ### 0.3 試験概要（v1.0）
 
@@ -1310,7 +1306,7 @@ def detect_data_poisoning_via_eda(training_data: list) -> dict:
 > ✓ 複数の同時実験による干渉に注意
 > ✓ ネットワーク効果がある場合の対応
 
-### 9.5 メタモルフィックテスト（Metamorphic Testing）- 試験最頻出！
+### 9.4 メタモルフィックテスト（Metamorphic Testing）- 試験最頻出！
 
 > メタモルフィックテスト（MT）とは：
 > → 入力の変化と出力の期待する変化の「関係（メタモルフィック関係）」を
@@ -2049,7 +2045,7 @@ AIが苦手な活動：
 | 資格 | URL |
 |------|-----|
 | CTFL v4.0（前提資格） | https://istqb.org/certifications/certified-tester-foundation-level/ |
-| CT-GenAI（生成AIテスト） | https://istqb.org/certifications/certified-tester-testing-with-generative-ai-ct-genai/ |
+| CT-GenAI（生成AIテスト） | https://istqb.org/certifications/testing-with-generative-ai/ |
 | CTAL-TTA（テクニカルアナリスト） | https://istqb.org/certifications/certified-tester-advanced-level-technical-test-analyst-ctal-tta/ |
 
 ### 🔧 関連ツール・フレームワーク
@@ -2119,6 +2115,29 @@ AIが苦手な活動：
 
 > 9. 📐 適切なテスト技法を状況に応じて選択する
 >    → オラクル問題 → メタモルフィックテスト
+>    → バイアス確認 → デモグラフィックテスト
+>    → 新旧比較 → バック・ツー・バックテスト
+
+> 10. 🌱 AIの進化に継続的に学び続ける
+>     → AI技術は急速に進化している
+>     → CT-GenAIなど新しい資格も視野に入れる
+
+---
+
+> **📌 作成日**: 2025年  
+> **📌 準拠資格**: ISTQB CT-AI v1.0（2021年10月1日正式リリース）  
+> **📌 次のステップ**:
+> - CT-GenAI（Testing with Generative AI）で生成AIテストを習得
+> - CTAL-TTA でホワイトボックス・技術的テストの深掘り
+>
+> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/
+
+---
+
+> ⚠️ **免責事項**: 本ガイドはISTQB®が公認したトレーニング資料ではありません。
+> 公式シラバス・サンプル問題と合わせて使用してください。
+> 試験情報の最終確認は必ず公式サイト（istqb.org）で行ってください。
+��クテスト
 >    → バイアス確認 → デモグラフィックテスト
 >    → 新旧比較 → バック・ツー・バックテスト
 
