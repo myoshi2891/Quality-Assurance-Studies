@@ -43,7 +43,7 @@ flowchart TD
     end
 
     CTFL --> GenAI
-    GenAI --> AI
+    CTFL --> AI
 
     classDef note fill:#f9f,stroke:#333,stroke-width:2px;
     Note["CT-AI の2つの視点：<br/>①「AIシステムをテストする」 ← AI が対象（テスト対象がAI）<br/>②「テストにAIを使う」 ← AI が手段（AI でテストを支援）"]:::note

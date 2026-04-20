@@ -213,7 +213,7 @@ analysis_checklist = {
 }
 ```
 
-# テスト可能な受入基準を導き出す：
+テスト可能な受入基準を導き出す：
 ```python
 acceptance_criteria = [
     "Given プレミアム加入者がログインしている",
@@ -1407,7 +1407,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       
-      - name: Node.js のセットアップ
+      - name: Bun のセットアップ
         uses: oven-sh/setup-bun@v1
         with:
           bun-version: latest
@@ -1418,10 +1418,11 @@ jobs:
       - name: E2E スモークテスト実行
         run: |
           bunx playwright test \
-            --grep @smoke \
             --project=chromium \
-            --reporter=html
-        env:          BASE_URL: ${{ vars.STAGING_URL }}
+            --reporter=html \
+            --grep @smoke \
+        env:
+          BASE_URL: ${{ vars.STAGING_URL }}
       
       - name: テストレポートの保存（失敗時）
         if: failure()

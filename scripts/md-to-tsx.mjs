@@ -233,6 +233,9 @@ for (const [id, escapedText] of mermaidBlocks.entries()) {
     outHtml = outHtml.replace(id, () => `<Mermaid chart={\`${escapedText}\`} />`);
 }
 
+// Restore < and & placeholders for code blocks
+outHtml = outHtml.replace(/__LT_PLACEHOLDER__/g, '<').replace(/__AMP_PLACEHOLDER__/g, '&');
+
 const finalTSX = `${hasLink ? "import Link from 'next/link';\n" : ''}${hasMermaid ? "import Mermaid from '../../components/Mermaid';\n" : ''}import Header from '../../components/Header';
 import '../istqb-ctfl-at-guide.css';
 
