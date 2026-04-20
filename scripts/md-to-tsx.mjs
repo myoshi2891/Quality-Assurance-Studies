@@ -108,8 +108,9 @@ $('pre > code').each((i, codeEl) => {
     // We must wrap the raw text in a JSX string literal so that React preserves newlines.
     // e.g. {"Feature: \n  Background:"} instead of raw text Feature: \n Background:
     const rawText = $(codeEl).text().replace(/&#123;/g, '{').replace(/&#125;/g, '}');
+    const escapedRawText = rawText.replace(/</g, '__LT_PLACEHOLDER__').replace(/&/g, '__AMP_PLACEHOLDER__');
     // Use JSON.stringify to safely escape quotes, newlines, etc., and wrap it in {} for JSX.
-    $(codeEl).text(`{${JSON.stringify(rawText)}}`);
+    $(codeEl).text(`{${JSON.stringify(escapedRawText)}}`);
 
     // Add classes to the parent <pre>
     $(codeEl).parent().attr(
