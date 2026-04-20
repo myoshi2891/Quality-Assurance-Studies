@@ -41,6 +41,7 @@
 
 テスト自動化：
   スクリプト → SUT（テスト対象システム）実行 → 結果を自動比較 → レポート自動生成
+```
 
 ---
 
@@ -88,6 +89,8 @@
 
 ---
 
+```
+
 ### 1.4 SDLC（ソフトウェア開発ライフサイクル）とテスト自動化
 
 テスト自動化はどのSDLCモデルでも適用できますが、**アジャイル・DevOps環境で最も効果を発揮**します。
@@ -105,6 +108,8 @@ Agile/Scrum におけるテスト自動化：
 DevOps / CI/CD におけるテスト自動化：
   コードPush → 自動ビルド → 自動テスト実行 → 自動デプロイ → 本番監視
   → テスト自動化がデプロイパイプラインの核心
+
+```
 
 #### 各SDLCモデルでの自動化戦略
 
@@ -150,6 +155,8 @@ APIサービス：
 
 <a id="chapter-2"></a>
 
+```
+
 ## Chapter 2: テスト自動化の準備
 
 > CTAL-TAE v2.0 Section 2 | K3レベル（適用）
@@ -179,6 +186,8 @@ APIサービス：
 
 ---
 
+```
+
 ### 2.2 インフラ設定（Infrastructure Configuration）
 
 テスト自動化環境の構築に必要な要素：
@@ -204,6 +213,8 @@ APIサービス：
 ├─────────────────────────────────────────┤
 │         SUT（テスト対象）               │
 └─────────────────────────────────────────┘
+
+```
 
 #### テスト環境の種類
 
@@ -239,6 +250,8 @@ Step 5: 評価結果の比較・選定
 
 Step 6: 最終決定・承認
 
+```
+
 #### ツール評価基準（Evaluation Criteria）
 
 | 評価項目 | 説明 | 重み（例）|
@@ -264,6 +277,8 @@ SUT が自動化しやすい設計になっていることが重要です。
 > **定義**: テストが SUT の状態や出力を**観察・確認できる**度合い
 
 ```python
+```
+
 # 観測可能性が低い設計（悪い例）
 class BadUserService:
     def create_user(self, name: str, email: str):
@@ -284,6 +299,8 @@ class GoodUserService:
 > **定義**: テストが SUT の状態を**制御・操作できる**度合い
 
 ```python
+```
+
 # 制御可能性が低い設計（悪い例）
 class BadPaymentService:
     def process_payment(self, amount: float) -> bool:
@@ -358,6 +375,8 @@ gTAA（汎用テスト自動化アーキテクチャ）全体図：
 │    UI / API / Database / External Services                    │
 └─────────────────────────────────────────────────────────────┘
 
+```
+
 #### gTAA の各層の役割
 
 | 層名 | 役割 | 具体例 |
@@ -396,9 +415,13 @@ gTAA（汎用テスト自動化アーキテクチャ）全体図：
   ✗ 再利用性がない
   ✗ 大規模プロジェクトには不向き
 
+```
+
 #### 3.2.2 リニアスクリプト（Linear Scripting）
 
 ```python
+```
+
 # リニアスクリプトの例（手順を直接コーディング）
 from selenium import webdriver
 
@@ -415,6 +438,8 @@ driver.quit()
 #### 3.2.3 構造化スクリプト（Structured Scripting）
 
 ```python
+```
+
 # 関数で共通処理を分離（再利用性向上）
 def login(driver, email, password):
     driver.find_element("id", "email").send_keys(email)
@@ -434,6 +459,8 @@ def test_user_can_login():
 #### 3.2.4 データ駆動テスト（Data-Driven Testing）
 
 ```python
+```
+
 # テストデータをデータファイルから取得
 import pytest
 import csv
@@ -476,6 +503,8 @@ def test_login_with_various_data(email, password, expected, driver):
 
 代表ツール：Robot Framework
 
+```
+
 ```robot
 *** Test Cases ***
 User Can Login Successfully
@@ -486,9 +515,13 @@ User Can Login Successfully
     Page Should Contain    Dashboard
     Close Browser
 
+```
+
 #### 3.2.6 BDD（振る舞い駆動開発）
 
 ```gherkin
+```
+
 # Gherkin 記法（ビジネス担当者も読める）
 Feature: ユーザーログイン
   背景としてシステムにはユーザーが登録されている
@@ -505,6 +538,8 @@ Feature: ユーザーログイン
     Then  エラーメッセージ "パスワードが正しくありません" が表示される
 
 ```python
+```
+
 # BDD のステップ定義（Python/pytest-bdd）
 from pytest_bdd import given, when, then
 
@@ -529,6 +564,8 @@ def redirected_to_dashboard(driver):
 #### 3.3.1 Page Object Model（POM）
 
 ```python
+```
+
 # pages/login_page.py
 class LoginPage:
     """ログインページの操作をカプセル化するPage Object"""
@@ -582,6 +619,8 @@ def test_invalid_login(driver):
 #### 3.3.2 SOLID原則のテスト自動化への適用
 
 ```python
+```
+
 # S - Single Responsibility Principle（単一責任の原則）
 # 悪い例：1つのクラスが全部やる
 class BadTestClass:
@@ -621,6 +660,8 @@ class LoginTest:
 #### 3.3.3 Factory Pattern（テストデータ生成）
 
 ```python
+```
+
 # Factory Pattern でテストデータを生成
 from dataclasses import dataclass
 from typing import Optional
@@ -696,6 +737,8 @@ Phase 4: 評価（1週間）
 Phase 5: Go/No-Go 決定
   - 本格導入・拡大 or アプローチ変更
 
+```
+
 #### パイロット評価基準
 
 | 評価項目 | 目標値 | 測定方法 |
@@ -735,11 +778,15 @@ Phase 5: Go/No-Go 決定
 
 ---
 
+```
+
 ### 4.3 テスト自動化コードのメンテナンス性向上
 
 #### 4.3.1 コーディング規約
 
 ```python
+```
+
 # ❌ メンテナンス性が低いコード
 def test1():
     d = webdriver.Chrome()
@@ -812,9 +859,13 @@ class TestShoppingCart:
         assert response.status_code == 200
         assert response.json()["items_count"] == 0
 
+```
+
 #### 4.3.3 設定の外部化
 
 ```yaml
+```
+
 # config/test_config.yaml
 environments:
   staging:
@@ -839,6 +890,8 @@ test_data:
     role: "admin"
 
 ```python
+```
+
 # 環境変数・設定ファイルから読み込む
 import os
 import yaml
@@ -907,9 +960,13 @@ API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
      ▼
   Production Smoke Test
 
+```
+
 #### GitHub Actions での実装例
 
 ```yaml
+```
+
 # .github/workflows/test_automation.yml
 name: テスト自動化パイプライン
 
@@ -1040,11 +1097,15 @@ jobs:
 
 ---
 
+```
+
 ### 5.3 APIテストと契約テスト（Contract Testing）
 
 #### 5.3.1 APIテストの自動化
 
 ```python
+```
+
 # REST APIテストの実装例（pytest + requests）
 import pytest
 import requests
@@ -1093,6 +1154,8 @@ class TestUserAPI:
 #### 5.3.2 コントラクトテスト（Pact）
 
 ```python
+```
+
 # Pact を使ったコンシューマー駆動コントラクトテスト
 from pact import Consumer, Provider
 
@@ -1153,6 +1216,8 @@ def test_get_user_returns_expected_schema():
 │               │ ・手動テスト工数の削減率                   │
 └──────────────┴─────────────────────────────────────────┘
 
+```
+
 ### 6.2 ROI（投資対効果）の計算
 
 ```text
@@ -1174,9 +1239,13 @@ ROI (%) = ((テスト自動化の節約額 - 自動化の総コスト) / 自動�
 
   1年間のROI = ((1,040万 + 200万 - 280万) / 280万) × 100 = 342% !!
 
+```
+
 ### 6.3 テスト結果のレポーティング
 
 ```python
+```
+
 # Allure レポートを使った高品質なレポート生成
 import allure
 import pytest
@@ -1210,6 +1279,8 @@ class TestLogin:
         )
 
 ```bash
+```
+
 # Allure レポートの生成・表示
 pytest tests/ --alluredir=allure-results
 allure serve allure-results
@@ -1252,6 +1323,8 @@ allure serve allure-results
 
 <a id="chapter-7"></a>
 
+```
+
 ## Chapter 7: テスト自動化ソリューションの検証
 
 > CTAL-TAE v2.0 Section 7 | K3レベル（適用）
@@ -1277,11 +1350,15 @@ TAS のバグ（偽陽性/偽陰性）：
     → SUT に問題があるのにテストが成功する（危険！）
     → バグが本番に流出する
 
+```
+
 ### 7.2 TAS 検証の技法
 
 #### 7.2.1 ユニットテスト（テストコードのテスト）
 
 ```python
+```
+
 # テストヘルパー・ユーティリティ関数自体をテストする
 import pytest
 from automation_framework.helpers import wait_for_element, retry
@@ -1342,6 +1419,8 @@ TAS コードレビューチェックリスト：
 
 <a id="chapter-8"></a>
 
+```
+
 ## Chapter 8: 継続的改善
 
 > CTAL-TAE v2.0 Section 8 | K2レベル（理解）
@@ -1371,11 +1450,15 @@ Act（改善）:
   - 失敗した施策の見直し
   - 次の改善サイクルへ
 
+```
+
 ### 8.2 テスト自動化の改善施策
 
 #### 8.2.1 フレイキーテストの排除
 
 ```python
+```
+
 # フレイキーテスト撲滅のための戦略
 
 # ❌ 悪い例：固定 sleep（フレイキーの原因）
@@ -1424,6 +1507,8 @@ def test_with_external_service(api_client):
 5. コンテナの事前ウォーミング
    docker-compose up -d  # テスト前にコンテナを起動しておく
 
+```
+
 #### 8.2.3 AI活用による自動化改善（2025年最新動向）
 
 ```text
@@ -1447,7 +1532,11 @@ AIを活用したテスト自動化の改善（2025年トレンド）：
 
 活用例（GitHub Copilot でテストコード生成）：
 
+```
+
 ```python
+```
+
 # GitHub Copilot / Claude に渡すプロンプト例
 """
 以下のユーザーストーリーに基づいてPythonのpytestテストを書いてください：
@@ -1544,6 +1633,8 @@ APIエンドポイント: PATCH /api/users/{id}/profile
   問題形式  : K2（理解）、K3（適用）、K4（分析・評価）
   前提資格  : ISTQB CTFL（Foundation Level）必須
 
+```
+
 ### 章別配点と重要度
 
 | 章 | テーマ | 配点（点） | 重要度 |
@@ -1595,6 +1686,8 @@ APIエンドポイント: PATCH /api/users/{id}/profile
    - リスクの早期発見
    - Go/No-Go 決定のための証拠収集
 
+```
+
 ### よく出る問題パターン
 
 ```text
@@ -1620,6 +1713,8 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 ---
 
 <a id="references"></a>
+
+```
 
 ## 📚 参照URL一覧
 
@@ -1690,3 +1785,5 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 > **📌 次のステップ**: CT-TAS（Test Automation Strategy）資格も参照
 >
 > 🔗 公式リソース: https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/
+
+```

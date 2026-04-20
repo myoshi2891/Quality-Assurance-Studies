@@ -535,11 +535,11 @@ BDD導入後:
           <div className="code-block mt-2">
             <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
             <pre><code><span className="kw-feat">Feature:</span> ユーザーログイン機能{"\n"}
-  ユーザーとして{"\n"}
-  アカウントに安全にアクセスしたい{"\n"}
-  そうすることで個人データを保護できる{"\n"}
+{"  "}ユーザーとして{"\n"}
+{"  "}アカウントに安全にアクセスしたい{"\n"}
+{"  "}そうすることで個人データを保護できる{"\n"}
 {"\n"}
-  <span className="cm"># 以下にScenarioが続く</span></code></pre>
+{"  "}<span className="cm"># 以下にScenarioが続く</span></code></pre>
           </div>
 
           <h3 className="text-lg font-bold mt-8 mb-2">7.2 Scenario（シナリオ）</h3>
@@ -548,12 +548,12 @@ BDD導入後:
             <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
             <pre><code><span className="kw-feat">Feature:</span> ショッピングカート{"\n"}
 {"\n"}
-  <span className="kw-scen">Scenario:</span> 商品をカートに追加する{"\n"}
-    <span className="kw-given">Given</span> ユーザーがログイン済みである{"\n"}
-    <span className="kw-given">And</span>   商品一覧ページを開いている{"\n"}
-    <span className="kw-when">When</span>  「ワイヤレスイヤホン」の「カートに追加」をクリックする{"\n"}
-    <span className="kw-then">Then</span>  カートの商品数が <span className="str">"1"</span> 増える{"\n"}
-    <span className="kw-then">And</span>   「カートに追加しました」の通知が表示される</code></pre>
+{"  "}<span className="kw-scen">Scenario:</span> 商品をカートに追加する{"\n"}
+{"    "}<span className="kw-given">Given</span> ユーザーがログイン済みである{"\n"}
+{"    "}<span className="kw-given">And</span>   商品一覧ページを開いている{"\n"}
+{"    "}<span className="kw-when">When</span>  「ワイヤレスイヤホン」の「カートに追加」をクリックする{"\n"}
+{"    "}<span className="kw-then">Then</span>  カートの商品数が <span className="str">"1"</span> 増える{"\n"}
+{"    "}<span className="kw-then">And</span>   「カートに追加しました」の通知が表示される</code></pre>
           </div>
 
           <h3 className="text-lg font-bold mt-8 mb-2">7.3 Given / When / Then 詳細</h3>
@@ -580,17 +580,17 @@ Then（期待結果）: 期待される出力・結果を記述する
             <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
             <pre><code><span className="kw-feat">Feature:</span> 商品管理{"\n"}
 {"\n"}
-  <span className="kw-scen">Background:</span>{"\n"}
-    <span className="kw-given">Given</span> 管理者がログイン済みである{"\n"}
-    <span className="kw-given">And</span>   「商品管理」ページを開いている{"\n"}
+{"  "}<span className="kw-scen">Background:</span>{"\n"}
+{"    "}<span className="kw-given">Given</span> 管理者がログイン済みである{"\n"}
+{"    "}<span className="kw-given">And</span>   「商品管理」ページを開いている{"\n"}
 {"\n"}
-  <span className="kw-scen">Scenario:</span> 商品を追加する{"\n"}
-    <span className="kw-when">When</span>  「新規追加」をクリックして商品情報を入力する{"\n"}
-    <span className="kw-then">Then</span>  新しい商品が一覧に表示される{"\n"}
+{"  "}<span className="kw-scen">Scenario:</span> 商品を追加する{"\n"}
+{"    "}<span className="kw-when">When</span>  「新規追加」をクリックして商品情報を入力する{"\n"}
+{"    "}<span className="kw-then">Then</span>  新しい商品が一覧に表示される{"\n"}
 {"\n"}
-  <span className="kw-scen">Scenario:</span> 商品を削除する{"\n"}
-    <span className="kw-when">When</span>  商品を選択して「削除」をクリックする{"\n"}
-    <span className="kw-then">Then</span>  商品が一覧から消える</code></pre>
+{"  "}<span className="kw-scen">Scenario:</span> 商品を削除する{"\n"}
+{"    "}<span className="kw-when">When</span>  商品を選択して「削除」をクリックする{"\n"}
+{"    "}<span className="kw-then">Then</span>  商品が一覧から消える</code></pre>
           </div>
 
           <h3 className="text-lg font-bold mt-8 mb-2">7.5 Scenario Outline（シナリオアウトライン）</h3>
@@ -599,19 +599,19 @@ Then（期待結果）: 期待される出力・結果を記述する
             <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
             <pre><code><span className="kw-feat">Feature:</span> 年齢バリデーション{"\n"}
 {"\n"}
-  <span className="kw-scen">Scenario Outline:</span> 年齢入力の境界値テスト{"\n"}
-    <span className="kw-given">Given</span> ユーザー登録フォームを開いている{"\n"}
-    <span className="kw-when">When</span>  年齢フィールドに <span className="str">"&lt;年齢&gt;"</span> を入力する{"\n"}
-    <span className="kw-then">Then</span>  結果は <span className="str">"&lt;期待結果&gt;"</span> になる{"\n"}
+{"  "}<span className="kw-scen">Scenario Outline:</span> 年齢入力の境界値テスト{"\n"}
+{"    "}<span className="kw-given">Given</span> ユーザー登録フォームを開いている{"\n"}
+{"    "}<span className="kw-when">When</span>  年齢フィールドに <span className="str">"&lt;年齢&gt;"</span> を入力する{"\n"}
+{"    "}<span className="kw-then">Then</span>  結果は <span className="str">"&lt;期待結果&gt;"</span> になる{"\n"}
 {"\n"}
-    <span className="kw-scen">Examples:</span>{"\n"}
-      | 年齢 | 期待結果     |{"\n"}
-      | -1   | エラー表示   |{"\n"}
-      | 0    | 登録成功     |{"\n"}
-      | 17   | 登録成功     |{"\n"}
-      | 18   | 登録成功     |{"\n"}
-      | 120  | 登録成功     |{"\n"}
-      | 121  | エラー表示   |</code></pre>
+{"    "}<span className="kw-scen">Examples:</span>{"\n"}
+{"      "}| 年齢 | 期待結果     |{"\n"}
+{"      "}| -1   | エラー表示   |{"\n"}
+{"      "}| 0    | 登録成功     |{"\n"}
+{"      "}| 17   | 登録成功     |{"\n"}
+{"      "}| 18   | 登録成功     |{"\n"}
+{"      "}| 120  | 登録成功     |{"\n"}
+{"      "}| 121  | エラー表示   |</code></pre>
           </div>
 
           <h3 className="text-lg font-bold mt-8 mb-2">7.6 タグ（Tags）</h3>
@@ -621,30 +621,30 @@ Then（期待結果）: 期待される出力・結果を記述する
             <pre><code><span className="kw">@smoke @login</span>{"\n"}
 <span className="kw-feat">Feature:</span> ユーザー認証{"\n"}
 {"\n"}
-  <span className="kw">@positive @fast</span>{"\n"}
-  <span className="kw-scen">Scenario:</span> 正常ログイン{"\n"}
-    <span className="kw-given">Given</span> 有効なアカウントがある{"\n"}
-    <span className="kw-when">When</span>  正しいパスワードでログインする{"\n"}
-    <span className="kw-then">Then</span>  ダッシュボードに遷移する{"\n"}
+{"  "}<span className="kw">@positive @fast</span>{"\n"}
+{"  "}<span className="kw-scen">Scenario:</span> 正常ログイン{"\n"}
+{"    "}<span className="kw-given">Given</span> 有効なアカウントがある{"\n"}
+{"    "}<span className="kw-when">When</span>  正しいパスワードでログインする{"\n"}
+{"    "}<span className="kw-then">Then</span>  ダッシュボードに遷移する{"\n"}
 {"\n"}
-  <span className="kw">@negative @security</span>{"\n"}
-  <span className="kw-scen">Scenario:</span> 無効パスワードでのログイン{"\n"}
-    <span className="kw-given">Given</span> 有効なアカウントがある{"\n"}
-    <span className="kw-when">When</span>  間違ったパスワードでログインを試みる{"\n"}
-    <span className="kw-then">Then</span>  エラーメッセージが表示される</code></pre>
+{"  "}<span className="kw">@negative @security</span>{"\n"}
+{"  "}<span className="kw-scen">Scenario:</span> 無効パスワードでのログイン{"\n"}
+{"    "}<span className="kw-given">Given</span> 有効なアカウントがある{"\n"}
+{"    "}<span className="kw-when">When</span>  間違ったパスワードでログインを試みる{"\n"}
+{"    "}<span className="kw-then">Then</span>  エラーメッセージが表示される</code></pre>
           </div>
 
           <h3 className="text-lg font-bold mt-8 mb-2">7.7 Data Tables（データテーブル）</h3>
           <div className="code-block mt-2">
             <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
             <pre><code><span className="kw-scen">Scenario:</span> 複数商品を一度にカートに追加する{"\n"}
-  <span className="kw-given">Given</span> カートが空の状態である{"\n"}
-  <span className="kw-when">When</span>  以下の商品をカートに追加する:{"\n"}
-    | 商品名             | 数量 | 単価   |{"\n"}
-    | ワイヤレスイヤホン | 1    | 15000  |{"\n"}
-    | スマートウォッチ   | 2    | 25000  |{"\n"}
-    | 充電ケーブル       | 3    | 2000   |{"\n"}
-  <span className="kw-then">Then</span>  カートの合計金額は <span className="str">"71000"</span> 円になる</code></pre>
+{"  "}<span className="kw-given">Given</span> カートが空の状態である{"\n"}
+{"  "}<span className="kw-when">When</span>  以下の商品をカートに追加する:{"\n"}
+{"    "}| 商品名             | 数量 | 単価   |{"\n"}
+{"    "}| ワイヤレスイヤホン | 1    | 15000  |{"\n"}
+{"    "}| スマートウォッチ   | 2    | 25000  |{"\n"}
+{"    "}| 充電ケーブル       | 3    | 2000   |{"\n"}
+{"  "}<span className="kw-then">Then</span>  カートの合計金額は <span className="str">"71000"</span> 円になる</code></pre>
           </div>
 
           <h3 className="text-lg font-bold mt-8 mb-2">7.8 実際のシナリオ設計のベストプラクティス</h3>
@@ -652,11 +652,11 @@ Then（期待結果）: 期待される出力・結果を記述する
           <div className="code-block mt-2">
             <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
             <pre><code><span className="kw-scen">Scenario:</span> 在庫切れ商品の注文{"\n"}
-  <span className="kw-given">Given</span> ユーザーが商品「A」のページを開いている{"\n"}
-  <span className="kw-given">And</span>   商品「A」の在庫が <span className="str">"0"</span> 個である{"\n"}
-  <span className="kw-when">When</span>  「カートに追加」ボタンをクリックする{"\n"}
-  <span className="kw-then">Then</span>  「在庫切れ」のメッセージが表示される{"\n"}
-  <span className="kw-then">And</span>   カートに商品は追加されない</code></pre>
+{"  "}<span className="kw-given">Given</span> ユーザーが商品「A」のページを開いている{"\n"}
+{"  "}<span className="kw-given">And</span>   商品「A」の在庫が <span className="str">"0"</span> 個である{"\n"}
+{"  "}<span className="kw-when">When</span>  「カートに追加」ボタンをクリックする{"\n"}
+{"  "}<span className="kw-then">Then</span>  「在庫切れ」のメッセージが表示される{"\n"}
+{"  "}<span className="kw-then">And</span>   カートに商品は追加されない</code></pre>
           </div>
           
           <p className="mt-4 font-bold text-accent-red">❌ 悪いシナリオ（技術的すぎる）:</p>
@@ -664,9 +664,9 @@ Then（期待結果）: 期待される出力・結果を記述する
             <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
             <pre><code><span className="cm"># NG例: 実装の詳細を含めてはいけない</span>{"\n"}
 <span className="kw-scen">Scenario:</span> 在庫切れ{"\n"}
-  <span className="kw-given">Given</span> データベースのproduct_inventoryテーブルに quantity=0 のレコードがある{"\n"}
-  <span className="kw-when">When</span>  GET /api/products/123/add-to-cart へリクエストを送信する{"\n"}
-  <span className="kw-then">Then</span>  HTTPレスポンスが 409 Conflict で返る</code></pre>
+{"  "}<span className="kw-given">Given</span> データベースのproduct_inventoryテーブルに quantity=0 のレコードがある{"\n"}
+{"  "}<span className="kw-when">When</span>  GET /api/products/123/add-to-cart へリクエストを送信する{"\n"}
+{"  "}<span className="kw-then">Then</span>  HTTPレスポンスが 409 Conflict で返る</code></pre>
           </div>
         </section>
 
@@ -703,39 +703,39 @@ mkdir features/steps
             <pre><code><span className="cm"># features/login.feature</span>{"\n"}
 {"\n"}
 <span className="kw-feat">Feature:</span> ユーザーログイン{"\n"}
-  Webアプリケーションのユーザーとして{"\n"}
-  安全にログインしたい{"\n"}
-  そうすることで個人アカウントにアクセスできる{"\n"}
+{"  "}Webアプリケーションのユーザーとして{"\n"}
+{"  "}安全にログインしたい{"\n"}
+{"  "}そうすることで個人アカウントにアクセスできる{"\n"}
 {"\n"}
-  <span className="kw-scen">Background:</span>{"\n"}
-    <span className="kw-given">Given</span> ログインページを開いている{"\n"}
+{"  "}<span className="kw-scen">Background:</span>{"\n"}
+{"    "}<span className="kw-given">Given</span> ログインページを開いている{"\n"}
 {"\n"}
-  <span className="kw">@smoke @positive</span>{"\n"}
-  <span className="kw-scen">Scenario:</span> 正常なログイン{"\n"}
-    <span className="kw-when">When</span>  有効なメールアドレス <span className="str">"user@example.com"</span> を入力する{"\n"}
-    <span className="kw-given">And</span>   正しいパスワード <span className="str">"Password123!"</span> を入力する{"\n"}
-    <span className="kw-given">And</span>   「ログイン」ボタンをクリックする{"\n"}
-    <span className="kw-then">Then</span>  ダッシュボードページに遷移する{"\n"}
-    <span className="kw-given">And</span>   「ようこそ、田中さん」と表示される{"\n"}
+{"  "}<span className="kw">@smoke @positive</span>{"\n"}
+{"  "}<span className="kw-scen">Scenario:</span> 正常なログイン{"\n"}
+{"    "}<span className="kw-when">When</span>  有効なメールアドレス <span className="str">"user@example.com"</span> を入力する{"\n"}
+{"    "}<span className="kw-given">And</span>   正しいパスワード <span className="str">"Password123!"</span> を入力する{"\n"}
+{"    "}<span className="kw-given">And</span>   「ログイン」ボタンをクリックする{"\n"}
+{"    "}<span className="kw-then">Then</span>  ダッシュボードページに遷移する{"\n"}
+{"    "}<span className="kw-given">And</span>   「ようこそ、田中さん」と表示される{"\n"}
 {"\n"}
-  <span className="kw">@negative</span>{"\n"}
-  <span className="kw-scen">Scenario:</span> 誤ったパスワードでのログイン失敗{"\n"}
-    <span className="kw-when">When</span>  有効なメールアドレス <span className="str">"user@example.com"</span> を入力する{"\n"}
-    <span className="kw-given">And</span>   誤ったパスワード <span className="str">"WrongPassword"</span> を入力する{"\n"}
-    <span className="kw-given">And</span>   「ログイン」ボタンをクリックする{"\n"}
-    <span className="kw-then">Then</span>  エラーメッセージ「パスワードが正しくありません」が表示される{"\n"}
-    <span className="kw-given">And</span>   ログインページに留まる{"\n"}
+{"  "}<span className="kw">@negative</span>{"\n"}
+{"  "}<span className="kw-scen">Scenario:</span> 誤ったパスワードでのログイン失敗{"\n"}
+{"    "}<span className="kw-when">When</span>  有効なメールアドレス <span className="str">"user@example.com"</span> を入力する{"\n"}
+{"    "}<span className="kw-given">And</span>   誤ったパスワード <span className="str">"WrongPassword"</span> を入力する{"\n"}
+{"    "}<span className="kw-given">And</span>   「ログイン」ボタンをクリックする{"\n"}
+{"    "}<span className="kw-then">Then</span>  エラーメッセージ「パスワードが正しくありません」が表示される{"\n"}
+{"    "}<span className="kw-given">And</span>   ログインページに留まる{"\n"}
 {"\n"}
-  <span className="kw">@security</span>{"\n"}
-  <span className="kw-scen">Scenario Outline:</span> 連続失敗によるロックアウト{"\n"}
-    <span className="kw-when">When</span>  <span className="str">"&lt;回数&gt;"</span> 回連続してログインに失敗する{"\n"}
-    <span className="kw-then">Then</span>  <span className="str">"&lt;結果&gt;"</span> となる{"\n"}
+{"  "}<span className="kw">@security</span>{"\n"}
+{"  "}<span className="kw-scen">Scenario Outline:</span> 連続失敗によるロックアウト{"\n"}
+{"    "}<span className="kw-when">When</span>  <span className="str">"&lt;回数&gt;"</span> 回連続してログインに失敗する{"\n"}
+{"    "}<span className="kw-then">Then</span>  <span className="str">"&lt;結果&gt;"</span> となる{"\n"}
 {"\n"}
-    <span className="kw-scen">Examples:</span>{"\n"}
-      | 回数 | 結果                               |{"\n"}
-      | 3    | 警告メッセージが表示される         |{"\n"}
-      | 5    | アカウントが15分ロックされる       |{"\n"}
-      | 6    | ロック状態のエラーメッセージが出る |</code></pre>
+{"    "}<span className="kw-scen">Examples:</span>{"\n"}
+{"      "}| 回数 | 結果                               |{"\n"}
+{"      "}| 3    | 警告メッセージが表示される         |{"\n"}
+{"      "}| 5    | アカウントが15分ロックされる       |{"\n"}
+{"      "}| 6    | ロック状態のエラーメッセージが出る |</code></pre>
           </div>
 
           <h3 className="text-lg font-bold mt-6 mb-2">Step 3: ステップ定義の実装（Python）</h3>
@@ -1272,9 +1272,9 @@ PRマージ
               <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
               <pre><code><span className="cm"># ✅ ビジネス言語で記述</span>{"\n"}
 <span className="kw-scen">Scenario:</span> 会員割引の適用{"\n"}
-  <span className="kw-given">Given</span> ユーザーがプレミアム会員である{"\n"}
-  <span className="kw-when">When</span>  ¥10,000の商品を購入する{"\n"}
-  <span className="kw-then">Then</span>  合計金額が ¥9,000 になる（10%割引）</code></pre>
+{"  "}<span className="kw-given">Given</span> ユーザーがプレミアム会員である{"\n"}
+{"  "}<span className="kw-when">When</span>  ¥10,000の商品を購入する{"\n"}
+{"  "}<span className="kw-then">Then</span>  合計金額が ¥9,000 になる（10%割引）</code></pre>
             </div>
           </div>
 
@@ -1284,15 +1284,15 @@ PRマージ
               <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
               <pre><code><span className="cm"># ✅ 1つの振る舞いのみ</span>{"\n"}
 <span className="kw-scen">Scenario:</span> パスワードリセットメールの送信{"\n"}
-  <span className="kw-given">Given</span> 登録済みのメールアドレスがある{"\n"}
-  <span className="kw-when">When</span>  「パスワードを忘れた」からメールアドレスを入力する{"\n"}
-  <span className="kw-then">Then</span>  リセット用メールが5分以内に届く{"\n"}
+{"  "}<span className="kw-given">Given</span> 登録済みのメールアドレスがある{"\n"}
+{"  "}<span className="kw-when">When</span>  「パスワードを忘れた」からメールアドレスを入力する{"\n"}
+{"  "}<span className="kw-then">Then</span>  リセット用メールが5分以内に届く{"\n"}
 {"\n"}
 <span className="cm"># ❌ 複数の振る舞いを混在させない</span>{"\n"}
 <span className="kw-scen">Scenario:</span> ログインとプロフィール更新と注文{"\n"}
-  <span className="kw-given">Given</span> ユーザーがいる{"\n"}
-  <span className="kw-when">When</span>  ログインしてプロフィールを変更して商品を注文する{"\n"}
-  <span className="kw-then">Then</span>  全部うまくいく</code></pre>
+{"  "}<span className="kw-given">Given</span> ユーザーがいる{"\n"}
+{"  "}<span className="kw-when">When</span>  ログインしてプロフィールを変更して商品を注文する{"\n"}
+{"  "}<span className="kw-then">Then</span>  全部うまくいく</code></pre>
             </div>
           </div>
 
@@ -1314,10 +1314,10 @@ PRマージ
               <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
               <pre><code><span className="cm"># ✅ 共通前提はBackgroundに</span>{"\n"}
 <span className="kw-scen">Background:</span>{"\n"}
-  <span className="kw-given">Given</span> システムに以下の商品がある:{"\n"}
-    | 商品ID | 商品名       | 価格  |{"\n"}
-    | P001   | ノートPC     | 80000 |{"\n"}
-    | P002   | マウス       | 3000  |</code></pre>
+{"  "}<span className="kw-given">Given</span> システムに以下の商品がある:{"\n"}
+{"    "}| 商品ID | 商品名       | 価格  |{"\n"}
+{"    "}| P001   | ノートPC     | 80000 |{"\n"}
+{"    "}| P002   | マウス       | 3000  |</code></pre>
             </div>
           </div>
 
@@ -1364,13 +1364,13 @@ PRマージ
               <div className="code-header"><div className="code-dots"><span/><span/><span/></div><span className="code-lang">gherkin</span></div>
               <pre><code><span className="cm"># ❌ NG: シナリオAの後でしか動かない</span>{"\n"}
 <span className="kw-scen">Scenario:</span> 2. 商品をカートから削除する{"\n"}
-  <span className="cm"># ← シナリオ1「カートに追加」が先に実行されている前提</span>{"\n"}
+{"  "}<span className="cm"># ← シナリオ1「カートに追加」が先に実行されている前提</span>{"\n"}
 {"\n"}
 <span className="cm"># ✅ OK: 各シナリオが独立している</span>{"\n"}
 <span className="kw-scen">Scenario:</span> カートから商品を削除する{"\n"}
-  <span className="kw-given">Given</span> カートに「ノートPC」が追加されている{"\n"}
-  <span className="kw-when">When</span>  「ノートPC」の「削除」をクリックする{"\n"}
-  <span className="kw-then">Then</span>  カートから「ノートPC」が消える</code></pre>
+{"  "}<span className="kw-given">Given</span> カートに「ノートPC」が追加されている{"\n"}
+{"  "}<span className="kw-when">When</span>  「ノートPC」の「削除」をクリックする{"\n"}
+{"  "}<span className="kw-then">Then</span>  カートから「ノートPC」が消える</code></pre>
             </div>
           </div>
 

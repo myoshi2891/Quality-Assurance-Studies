@@ -237,7 +237,7 @@
 /* Syntax Highlighting overrides for BDD  */
 .bdd-guide-page span.kw-feat { color: #f28b82; font-weight: 700; }
 .bdd-guide-page span.kw-scen { color: #81c995; font-weight: 700; }
-.bdd-guide-page span.kw { color: #f28b82; font-weight: 700; }
+.bdd-guide-page span.kw { color: #f6ad55; font-weight: 700; }
 .bdd-guide-page span.kw-given { color: #fbbc04; font-weight: 700; }
 .bdd-guide-page span.kw-when { color: #8ab4f8; font-weight: 700; }
 .bdd-guide-page span.kw-then { color: #c58af9; font-weight: 700; }

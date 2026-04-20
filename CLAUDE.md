@@ -77,9 +77,6 @@ Tailwind のアルファ修飾子（`bg-accent-cyan/10` 等）が正しく動作
 
 | クラス | 用途 |
 |---|---|
-
-| クラス | 用途 |
-|---|---|
 | `.card` / `.card-sm` | コンテンツカード |
 | `.badge-unit/int/func/e2e/sec/perf/a11y/istqb` | テスト種別バッジ |
 | `.code-block` / `.code-header` | コードブロック表示 |

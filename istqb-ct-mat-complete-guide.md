@@ -108,11 +108,11 @@ flowchart TD
 
 ### 3.1 アプリの3種類
 
-> | モバイルアプリの種類 | 特徴・技術 | メリット | デメリット |
-> | --- | --- | --- | --- |
-> | **ネイティブアプリ (Native App)** | ・iOS: Swift/Objective-C<br>・Android: Kotlin/Java | ✅ 高パフォーマンス<br>✅ デバイス機能フル活用 | ❌ プラットフォーム毎に開発 |
-> | **ハイブリッドアプリ (Hybrid App)** | ・React Native<br>・Flutter<br>・Ionic<br>・Cordova | ✅ コード共有可能<br>✅ コスト削減 | ❌ ネイティブより遅い場合あり |
-> | **モバイルWebアプリ (Mobile Web App)** | ・HTML5/CSS/JS<br>・ブラウザで動作<br>・インストール不要 | ✅ クロスプラットフォーム<br>✅ 更新容易 | ❌ オフライン機能制限<br>❌ デバイス機能制限 |
+| モバイルアプリの種類 | 特徴・技術 | メリット | デメリット |
+| --- | --- | --- | --- |
+| **ネイティブアプリ (Native App)** | ・iOS: Swift/Objective-C<br>・Android: Kotlin/Java | ✅ 高パフォーマンス<br>✅ デバイス機能フル活用 | ❌ プラットフォーム毎に開発 |
+| **ハイブリッドアプリ (Hybrid App)** | ・React Native<br>・Flutter<br>・Ionic<br>・Cordova | ✅ コード共有可能<br>✅ コスト削減 | ❌ ネイティブより遅い場合あり |
+| **モバイルWebアプリ (Mobile Web App)** | ・HTML5/CSS/JS<br>・ブラウザで動作<br>・インストール不要 | ✅ クロスプラットフォーム<br>✅ 更新容易 | ❌ オフライン機能制限<br>❌ デバイス機能制限 |
 
 ### 3.2 モバイルアプリのアーキテクチャ
 

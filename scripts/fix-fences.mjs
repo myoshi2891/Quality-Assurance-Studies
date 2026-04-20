@@ -19,12 +19,14 @@ function fixFile(filePath) {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const fenceMatch = line.match(/^( {0,3})(```+|~~~+)/);
+    const fenceMatch = line.match(/^( {0,3})(```+|~~~+)(.*)$/);
 
     if (fenceMatch) {
       const currentFence = fenceMatch[2];
+      const rest = fenceMatch[3].trim();
       if (inBlock) {
-        if (currentFence.startsWith(fenceChar)) {
+        // Closing fence: must use same char, same or more length, and rest must be empty
+        if (currentFence[0] === fenceChar[0] && currentFence.length >= fenceChar.length && rest === '') {
           inBlock = false;
           fenceChar = '';
         }

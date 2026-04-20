@@ -220,8 +220,8 @@ let outHtml = $('body').html();
 
 // Simple fixes:
 outHtml = outHtml.replace(/<br>/g, '<br />'); // self close br
-// Using a better regex for <input>
-outHtml = outHtml.replace(/<input([^>]*)\/?>/g, '<input$1 />'); // self close input
+// Using a better regex for <input> that avoids double self-closing
+outHtml = outHtml.replace(/<input\b([^>]*?)(?<!\/)>/g, '<input$1 />'); // self close input if not already closed
 outHtml = outHtml.replace(/<hr([^>]*)>/g, (match, attrs) => {
     return attrs.includes('/') ? match : `<hr${attrs} />`;
 });

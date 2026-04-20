@@ -63,12 +63,17 @@ function fixTOC(filePath) {
         
         let newAnchor = slugify(headingText);
         
-        // PRECEDENCE: Check for explicit anchor tag immediately preceding the heading
+        // PRECEDENCE: Check for explicit anchor tag preceding the heading (skipping blank lines)
         if (headingIndex > 0) {
-          const prevLine = lines[headingIndex - 1];
-          const anchorMatch = prevLine.match(/<a id="(.*?)"><\/a>/);
-          if (anchorMatch) {
-            newAnchor = anchorMatch[1];
+          let searchIndex = headingIndex - 1;
+          while (searchIndex >= 0 && lines[searchIndex].trim() === '') {
+            searchIndex--;
+          }
+          if (searchIndex >= 0) {
+            const anchorMatch = lines[searchIndex].match(/<a id="(.*?)"><\/a>/);
+            if (anchorMatch) {
+              newAnchor = anchorMatch[1];
+            }
           }
         }
 
