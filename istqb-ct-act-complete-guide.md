@@ -927,7 +927,7 @@ UAT の全体プロセス：
 | SpecFlow | C# | .NET 向け BDD フレームワーク |
 | Behave | Python | Python の BDD フレームワーク |
 | JBehave | Java | Java の BDD フレームワーク |
-| Robot Frmwk | Python | キーワード駆動テスト |
+| Robot Framework | Python | キーワード駆動テスト |
 
 **テスト管理ツール：**
 
