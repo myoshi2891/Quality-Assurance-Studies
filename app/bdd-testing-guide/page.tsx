@@ -30,9 +30,7 @@ export default function BddTestingGuidePage() {
   ] as const;
 
   return (
-    <>
-
-      <div className="bdd-guide-page">
+    <div className="bdd-guide-page">
       <section className="hero" id="top">
         <div className="hero-content">
           <span className="hero-eyebrow">ISTQB CTFL v4.0 Section 4.5 準拠 | 初学者から実践者まで完全網羅</span>
@@ -1741,6 +1739,5 @@ Week 11-12:
         </section>
       </main>
     </div>
-    </>
   );
 }

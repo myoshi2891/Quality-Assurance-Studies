@@ -923,15 +923,13 @@ GraphWalkerモデル = 有向グラフ
           "name": "e_正常ログイン",
           "sourceVertexId": "v1",
           "targetVertexId": "v2",
-          "guard": "isValidCredential==true",
           "actions": ["isLoggedIn=true;"]
         },
         {
           "id": "e2",
           "name": "e_ログイン失敗",
           "sourceVertexId": "v1",
-          "targetVertexId": "v3",
-          "guard": "isValidCredential==false"
+          "targetVertexId": "v3"
         },
         {
           "id": "e3",
