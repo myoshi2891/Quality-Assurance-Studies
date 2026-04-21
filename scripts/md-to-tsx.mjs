@@ -112,9 +112,22 @@ $('pre > code').each((i, codeEl) => {
     // We must wrap the raw text in a JSX string literal so that React preserves newlines.
     // e.g. {"Feature: \n  Background:"} instead of raw text Feature: \n Background:
     const rawText = $(codeEl).text().replace(/&#123;/g, '{').replace(/&#125;/g, '}');
-    const escapedRawText = rawText.replace(/</g, '__LT_PLACEHOLDER__').replace(/&/g, '__AMP_PLACEHOLDER__');
+    
+    const ltToken = `__LT_${crypto.randomUUID().replace(/-/g, '')}__`;
+    const ampToken = `__AMP_${crypto.randomUUID().replace(/-/g, '')}__`;
+    
+    // Instead of hardcoded tokens, we safely stringify to escape, then use JSX braces
+    // so we don't accidentally replace raw code tags like `<script>` with __LT_PLACEHOLDER__
+    // Note: cheerio .text() gives unescaped text, so < inside code gets read as <.
+    // When stringified, it becomes literal <, which is fine inside JSX {"<script>"}.
+    // We just need to make sure we don't break JSON stringify.
+    const escapedRawText = rawText.replace(/</g, ltToken).replace(/&/g, ampToken);
     // Use JSON.stringify to safely escape quotes, newlines, etc., and wrap it in {} for JSX.
     $(codeEl).text(`{${JSON.stringify(escapedRawText)}}`);
+    
+    // We use a Map to track these explicitly so we can revert them later without collisons
+    codeBlocks.set(ltToken, '<');
+    codeBlocks.set(ampToken, '&');
 
     // Add classes to the parent <pre>
     $(codeEl).parent().attr(
@@ -238,17 +251,36 @@ for (const [id, escapedText] of mermaidBlocks.entries()) {
     outHtml = outHtml.replace(id, () => `<Mermaid chart={\`${escapedText}\`} />`);
 }
 
-// Restore < and & placeholders for code blocks
-outHtml = outHtml.replace(/__LT_PLACEHOLDER__/g, '<').replace(/__AMP_PLACEHOLDER__/g, '&');
+// Restore < and & placeholders for code blocks uniquely mapped
+for (const [id, restoreStr] of codeBlocks.entries()) {
+    // using regex with global flag to replace all occurrences if any
+    const regex = new RegExp(id, 'g');
+    outHtml = outHtml.replace(regex, restoreStr);
+}
 
 const finalTSX = `${hasLink ? "import Link from 'next/link';\n" : ''}${hasMermaid ? "import Mermaid from '../../components/Mermaid';\n" : ''}import Header from '../../components/Header';
-import '../istqb-ctfl-at-guide.css';
+import '../${cssName}';
 
-export default function IstqbCtflAtCompleteGuidePage() {
+export default function ${componentName}() {
     return (
-        <>
-            <Header />
-            <main className="page-ctfl container mx-auto px-4 py-8 max-w-5xl">
+        <main className="${pageClass} container mx-auto px-4 py-8 max-w-5xl">
+            ${outHtml}
+        </main>
+    );
+}
+`;
+
+try {
+    fs.writeFileSync(tsxPath, finalTSX);
+    console.log('Successfully created page.tsx');
+} catch (error) {
+    console.error(`Error writing tsx file at ${tsxPath}:`, error);
+    process.exit(1);
+}
+error);
+    process.exit(1);
+}
+>
                 ${outHtml}
             </main>
         </>

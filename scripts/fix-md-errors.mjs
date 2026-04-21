@@ -58,10 +58,18 @@ async function fixMarkdown(filePath) {
   // Final pass to remove triple blank lines if any
   const finalResult = [];
   let finalInCodeBlock = false;
+  let finalCurrentFence = '';
   for (let i = 0; i < result.length; i++) {
       const line = result[i];
-      if (line.includes('```')) {
-          finalInCodeBlock = !finalInCodeBlock;
+      const fenceMatch = line.match(/^(\s{0,3})(`{3,}|~{3,})(.*)$/);
+      if (fenceMatch) {
+          if (!finalInCodeBlock) {
+              finalInCodeBlock = true;
+              finalCurrentFence = fenceMatch[2];
+          } else if (fenceMatch[2][0] === finalCurrentFence[0] && fenceMatch[2].length >= finalCurrentFence.length && fenceMatch[3].trim() === '') {
+              finalInCodeBlock = false;
+              finalCurrentFence = '';
+          }
       }
       if (!finalInCodeBlock && line.trim() === '' && i > 0 && result[i-1].trim() === '' && i > 1 && result[i-2].trim() === '') {
           continue;
@@ -74,7 +82,8 @@ async function fixMarkdown(filePath) {
 
 const input = process.argv[2];
 if (!input) {
-  console.error('Usage: bun fix_md_errors.mjs <file>');
+  const scriptName = process.argv[1] ? require('path').basename(process.argv[1]) : 'fix-md-errors.mjs';
+  console.error(`Usage: bun scripts/${scriptName} <file>`);
   process.exit(1);
 }
 

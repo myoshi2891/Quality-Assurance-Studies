@@ -30,7 +30,7 @@ function fixFences(filePath) {
             }
         } else if (inBlock) {
             // Check if we hit a heading
-            if (line.startsWith('#')) {
+            if (/^#{1,6}\s/.test(line)) {
                 console.warn(`Warning: Code block not closed before header at ${filePath}:${i + 1} - "${line}"`);
             }
         }
@@ -39,7 +39,23 @@ function fixFences(filePath) {
     }
 
     if (inBlock) {
-        fixedLines.push(fenceChar || '```');
+        if (fixedLines.length > 0 && fixedLines[fixedLines.length - 1].trim() !== '') {
+            fixedLines.push('');
+        }
+        let closingFence = fenceChar;
+        if (!closingFence) {
+            // Check if there are other fences inside
+            const hasFences = fixedLines.slice(blockStartLine - 1).some(l => l.includes('```'));
+            if (hasFences) {
+                console.warn(`Warning: Unclosed block at ${filePath}:${blockStartLine} with mixed fences, skipping fallback`);
+                closingFence = ''; // do not append fallback to avoid gluing errors
+            } else {
+                closingFence = '```';
+            }
+        }
+        if (closingFence) {
+            fixedLines.push(closingFence);
+        }
     }
 
     // Secondary pass to fix consecutive empty lines or other minor issues
