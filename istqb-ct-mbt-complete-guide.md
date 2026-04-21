@@ -1018,7 +1018,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * MBTアダプタークラス
  * GraphWalkerが生成したパスに沿って、各メソッドが自動的に呼び出される
  */
-public class LoginTest implements LoginModel {
+public class LoginTest extends org.graphwalker.java.test.ExecutionContext implements LoginModel {
 
     private WebDriver driver;
     private static final String BASE_URL = "http://localhost:8080";
@@ -1042,7 +1042,7 @@ public class LoginTest implements LoginModel {
     public void runMBTTest() {
         // GraphWalkerがモデルを読み込み、自動的にテストパスを生成・実行
         new TestBuilder()
-            .addContext(new LoginTest())
+            .addContext(this)
             .execute();
     }
 

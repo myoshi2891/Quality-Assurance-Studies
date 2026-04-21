@@ -1,4 +1,4 @@
-import Header from '../../components/Header';
+
 import '../bdd-testing-guide.css';
 
 export const LAST_UPDATED = '2026年4月6日';
@@ -31,7 +31,7 @@ export default function BddTestingGuidePage() {
 
   return (
     <>
-      <Header />
+
       <div className="bdd-guide-page">
       <section className="hero" id="top">
         <div className="hero-content">

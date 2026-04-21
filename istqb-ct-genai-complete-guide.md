@@ -107,10 +107,10 @@ flowchart TD
 #### 1.1.1 AIスペクトラム：シンボリックAI → 古典的ML → 深層学習 → 生成AI
 
 > AIの進化の4段階（試験頻出！）：
+<!-- markdownlint-disable MD055 MD056 -->
 > | 段階 | 種類 | 特徴 |
 > | --- | --- | --- |
 > | **1 (古典)** | シンボリックAI (Symbolic AI) | ルールベース・記号と論理規則<br>専門家システム・チェスエンジン |
-<!-- markdownlint-disable MD055 MD056 -->
 > | **2 (発展)** | 古典的ML (Classical ML) | データ駆動・特徴選択が必要<br>欠陥分類・バグ予測に利用 |
 > | **3 (近代)** | 深層学習 (Deep Learning) | ニューラルネット・特徴を自動学習<br>画像・音声・テキスト処理 |
 > | **4 (現在)** | 生成AI (Generative AI) | 深層学習で新コンテンツを生成<br>テキスト・画像・コードを生成 |
@@ -118,6 +118,7 @@ flowchart TD
 > → 追加のトレーニングフェーズなしに、事前学習済みモデルを
 > テストタスクに直接適用できる
 <!-- markdownlint-enable MD055 MD056 -->
+>
 > ↕（ただしリスクも伴う → Chapter 3 で詳述）
 
 #### 1.1.2 生成AIとLLMの基礎（Basics of Generative AI and LLMs）
@@ -349,7 +350,6 @@ key_concepts = {
 
 test_analysis_prompt = """
 あなたは10年の経験を持つシニアQAエンジニアです。
-```
 
 ## コンテキスト
 
@@ -374,10 +374,12 @@ test_analysis_prompt = """
 
 マークダウン形式で、各セクションを明確に区切って回答してください。
 """
+```
 
 <!-- markdownlint-disable MD025 MD046 -->
-# #### 実際の使用例
+#### 実際の使用例
 
+```python
 actual_prompt = test_analysis_prompt.format(
     project_description="Eコマースサイトのショッピングカート機能",
     user_story="""
@@ -390,9 +392,11 @@ actual_prompt = test_analysis_prompt.format(
     - カートのアイテム数はリアルタイムで表示される
     """
 )
+```
 
-# #### 期待されるLLM出力
+#### 期待されるLLM出力
 
+```python
 expected_output_structure = {
     "テスト条件": [
         "商品の追加（正常系）",

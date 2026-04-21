@@ -27,7 +27,7 @@
 
 ---
 
-## 🌟 Chapter 0: CT-AcT 概要と資格ロードマップ {#chapter-0}
+## 🌟 Chapter 0: CT-AcT 概要と資格ロードマップ <a id="chapter-0"></a>
 
 ### 0.1 この資格とは？
 
@@ -119,7 +119,7 @@ graph TB
 
 ---
 
-## 📋 Chapter 1: 導入と基礎（Introduction and Foundations） {#chapter-1}
+## 📋 Chapter 1: 導入と基礎（Introduction and Foundations） <a id="chapter-1"></a>
 
 ### 1.1 基本的な関係性（Fundamental Relationships）
 
@@ -234,7 +234,7 @@ graph TD
 
 ---
 
-## 📝 Chapter 2: 受け入れ基準・受け入れテスト・経験ベースのプラクティス {#chapter-2}
+## 📝 Chapter 2: 受け入れ基準・受け入れテスト・経験ベースのプラクティス <a id="chapter-2"></a>
 
 ### 2.1 受け入れ基準の作成（Writing Acceptance Criteria）
 
@@ -465,7 +465,7 @@ Feature: 商品の注文機能
 
 ---
 
-## 🗺️ Chapter 3: ビジネスプロセスとビジネスルールのモデリング {#chapter-3}
+## 🗺️ Chapter 3: ビジネスプロセスとビジネスルールのモデリング <a id="chapter-3"></a>
 
 ### 3.1 プロセスとルール（Processes and Rules）
 
@@ -608,7 +608,7 @@ stateDiagram-v2
 
 ---
 
-## 🛡️ Chapter 4: 非機能要件の受け入れテスト {#chapter-4}
+## 🛡️ Chapter 4: 非機能要件の受け入れテスト <a id="chapter-4"></a>
 
 ### 4.1 非機能特性と使用品質（Non-functional Characteristics and Quality in Use）
 
@@ -748,7 +748,7 @@ stateDiagram-v2
 
 ---
 
-## 🤝 Chapter 5: 協調的な受け入れテスト（Collaborative Acceptance Testing） {#chapter-5}
+## 🤝 Chapter 5: 協調的な受け入れテスト（Collaborative Acceptance Testing） <a id="chapter-5"></a>
 
 ### 5.1 コラボレーション（Collaboration）
 

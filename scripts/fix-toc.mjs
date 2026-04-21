@@ -83,6 +83,11 @@ function fixTOC(filePath) {
             }
           }
         }
+        
+        // If we generated a fallback slug and there's no existing anchor, inject one back into the markdown heading
+        if (!inlineIdMatch && headingIndex >= 0 && lines[headingIndex] && !lines[headingIndex].includes('{#') && !lines[headingIndex].includes('<a id=')) {
+            lines[headingIndex] = lines[headingIndex] + ` {#${newAnchor}}`;
+        }
 
         return `${match[1]}${title}${match[3]}${newAnchor}${match[5]}`;
       }

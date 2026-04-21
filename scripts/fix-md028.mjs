@@ -9,11 +9,24 @@ files.forEach(file => {
   const content = readFileSync(filePath, 'utf8');
   const lines = content.split('\n');
   let changed = false;
-  let inFence = lines[0] && (lines[0].trim().startsWith('```') || lines[0].trim().startsWith('~~~'));
+  let inFence = false;
+  let activeFenceChar = '';
+  let activeFenceLen = 0;
 
-  for (let i = 1; i < lines.length - 1; i++) {
-    if (lines[i].trim().startsWith('```') || lines[i].trim().startsWith('~~~')) {
-      inFence = !inFence;
+  for (let i = 0; i < lines.length - 1; i++) {
+    const line = lines[i].trim();
+    const fenceMatch = line.match(/^(`{3,}|~{3,})/);
+    
+    if (fenceMatch) {
+      if (!inFence) {
+        inFence = true;
+        activeFenceChar = fenceMatch[1][0];
+        activeFenceLen = fenceMatch[1].length;
+      } else {
+        if (fenceMatch[1][0] === activeFenceChar && fenceMatch[1].length >= activeFenceLen) {
+          inFence = false;
+        }
+      }
       continue;
     }
 

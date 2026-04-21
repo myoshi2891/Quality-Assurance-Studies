@@ -307,33 +307,26 @@ class GoodUserService:
 > **定義**: テストが SUT の状態を**制御・操作できる**度合い
 
 ```python
-
-```python
 # 制御可能性が低い設計（悪い例）
 class BadPaymentService:
     def process_payment(self, amount: float) -> bool:
         # 実際の決済APIを常に呼ぶ → テスト環境で使えない！
         return real_stripe_api.charge(amount)
-```
 
-```python
 # 制御可能性が高い設計（良い例）
 class GoodPaymentService:
     def __init__(self, payment_gateway):
         # 依存性注入（DI）でモック差し替え可能！
         self._gateway = payment_gateway
-```
 
     def process_payment(self, amount: float) -> bool:
         return self._gateway.charge(amount)
 
-```python
 # テストで制御：
 mock_gateway = MockPaymentGateway(always_success=True)
 service = GoodPaymentService(payment_gateway=mock_gateway)
 result = service.process_payment(100.00)
 assert result == True  # ✅ 制御可能なのでテスト可能
-```
 ```
 
 ---

@@ -7,10 +7,14 @@ import * as cheerio from 'cheerio';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const REPO_ROOT = path.resolve(__dirname, '..');
+const args = process.argv.slice(2);
+if (args.length < 2) {
+    console.error('Usage: bun scripts/md-to-tsx.mjs <source.md> <target/page.tsx>');
+    process.exit(1);
+}
 
-const mdPath = path.resolve(REPO_ROOT, 'archive/istqb-ctfl-at-complete-guide.md');
-const tsxPath = path.resolve(REPO_ROOT, 'app/istqb-ctfl-at-complete-guide/page.tsx');
+const mdPath = path.resolve(process.cwd(), args[0]);
+const tsxPath = path.resolve(process.cwd(), args[1]);
 
 let hasLink = false;
 let hasMermaid = false;

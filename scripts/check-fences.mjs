@@ -45,4 +45,5 @@ for (let i = 0; i < lines.length; i++) {
 
 if (inBlock) {
     console.log(`Error: Block started at line ${blockStartLine} is never closed.`);
+    process.exitCode = 1;
 }

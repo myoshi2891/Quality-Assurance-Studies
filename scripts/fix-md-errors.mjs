@@ -6,10 +6,12 @@ async function fixMarkdown(filePath) {
   const result = [];
 
   let inCodeBlock = false;
+  let currentFence = '';
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const isFence = line.trim().startsWith('```');
+    const fenceMatch = line.trim().match(/^(`{3,}|~{3,})/);
+    const isFence = !!fenceMatch;
     const isHeading = /^#{1,6}\s/.test(line.trim());
 
     if (isFence) {
@@ -20,14 +22,18 @@ async function fixMarkdown(filePath) {
         }
         result.push(line);
         inCodeBlock = true;
-        // Ensure blank line after opening fence if next line is not empty (Wait, MD031 is about surrounding, not internal)
-        // Actually MD031 is about blank lines OUTSIDE the block.
+        currentFence = fenceMatch[1];
       } else {
-        // Closing fence
-        result.push(line);
-        inCodeBlock = false;
-        if (i < lines.length - 1 && lines[i + 1].trim() !== '') {
-          result.push('');
+        // Only close if it matches the current fence
+        if (fenceMatch[1] === currentFence) {
+          result.push(line);
+          inCodeBlock = false;
+          currentFence = '';
+          if (i < lines.length - 1 && lines[i + 1].trim() !== '') {
+            result.push('');
+          }
+        } else {
+          result.push(line);
         }
       }
       continue;

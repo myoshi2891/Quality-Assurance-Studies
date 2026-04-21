@@ -538,11 +538,8 @@ OUT点: 同値パーティション外の代表値
 
 ```
 
-```python
-```
-
-```python
 <!-- markdownlint-disable MD046 MD025 MD022 -->
+```python
 # 同値分割法でテストケースを設計するPythonの例
 def categorize_age(age):
     """年齢に基づいてカテゴリを返す"""
@@ -554,9 +551,7 @@ def categorize_age(age):
         return "成人"
     else:
         return "高齢者"
-```
 
-```python
 # テストケース設計（EPに基づく）
 test_cases = [
     # EP1: age < 0  (無効)

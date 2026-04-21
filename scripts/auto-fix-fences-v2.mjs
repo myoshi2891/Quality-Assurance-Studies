@@ -20,12 +20,8 @@ function fixFences(filePath) {
                     inBlock = false;
                     fenceChar = '';
                 } else {
-                    // New block starting without closing previous one
-                    fixedLines.push(fenceChar);
-                    fixedLines.push('');
-                    inBlock = true;
-                    fenceChar = fenceMatch[2];
-                    blockStartLine = i + 1;
+                    // Mismatched inner fence: log warning instead of breaking block
+                    console.warn(`Warning: Mismatched inner fence at ${filePath}:${i + 1} - "${line}" inside block started at line ${blockStartLine}`);
                 }
             } else {
                 inBlock = true;
@@ -47,12 +43,57 @@ function fixFences(filePath) {
     }
 
     // Secondary pass to fix consecutive empty lines or other minor issues
-    const finalContent = fixedLines.join('\n')
-        .replace(/\n{3,}/g, '\n\n'); // Max 2 newlines
+    let inCode = false;
+    let currentFence = '';
+    const finalLines = [];
+    let consecutiveNewlines = 0;
+
+    for (let i = 0; i < fixedLines.length; i++) {
+        const line = fixedLines[i];
+        const fenceMatch = line.trim().match(/^(`{3,}|~{3,})/);
+
+        if (fenceMatch) {
+            if (!inCode) {
+                inCode = true;
+                currentFence = fenceMatch[1];
+            } else if (fenceMatch[1] === currentFence) {
+                inCode = false;
+                currentFence = '';
+            }
+        }
+
+        if (!inCode) {
+            if (line.trim() === '') {
+                consecutiveNewlines++;
+                if (consecutiveNewlines < 2) {
+                    finalLines.push(line);
+                }
+            } else {
+                consecutiveNewlines = 0;
+                finalLines.push(line);
+            }
+        } else {
+            consecutiveNewlines = 0;
+            finalLines.push(line);
+        }
+    }
+
+    const finalContent = finalLines.join('\n');
 
     fs.writeFileSync(filePath, finalContent);
     console.log(`Fixed fences in ${filePath}`);
 }
 
 const args = process.argv.slice(2);
-args.forEach(fixFences);
+if (args.length === 0) {
+    console.error('Usage: bun scripts/auto-fix-fences-v2.mjs <file...>');
+    process.exit(1);
+}
+
+args.forEach(filePath => {
+    if (!fs.existsSync(filePath)) {
+        console.error(`Error: File not found: ${filePath}`);
+        process.exit(1);
+    }
+    fixFences(filePath);
+});
