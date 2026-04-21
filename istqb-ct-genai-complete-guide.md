@@ -420,6 +420,7 @@ expected_output_structure = {
         "モバイルデバイスでのUI表示の問題",
     ]
 }
+```
 
 #### 2.2.2 生成AIによるテスト設計と実装（Test Design and Test Implementation）
 

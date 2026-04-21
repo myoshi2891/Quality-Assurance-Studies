@@ -10,7 +10,7 @@ async function fixMarkdown(filePath) {
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i];
-    const fenceMatch = line.trim().match(/^(`{3,}|~{3,})/);
+    const fenceMatch = line.match(/^(\s{0,3})(`{3,}|~{3,})(.*)$/);
     const isFence = !!fenceMatch;
     const isHeading = /^#{1,6}\s/.test(line.trim());
 
@@ -22,10 +22,10 @@ async function fixMarkdown(filePath) {
         }
         result.push(line);
         inCodeBlock = true;
-        currentFence = fenceMatch[1];
+        currentFence = fenceMatch[2];
       } else {
-        // Only close if it matches the current fence
-        if (fenceMatch[1] === currentFence) {
+        // Only close if it matches the current fence char/len and has empty info
+        if (fenceMatch[2][0] === currentFence[0] && fenceMatch[2].length >= currentFence.length && fenceMatch[3].trim() === '') {
           result.push(line);
           inCodeBlock = false;
           currentFence = '';

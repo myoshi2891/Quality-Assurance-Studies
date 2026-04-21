@@ -50,13 +50,13 @@ function fixFences(filePath) {
 
     for (let i = 0; i < fixedLines.length; i++) {
         const line = fixedLines[i];
-        const fenceMatch = line.trim().match(/^(`{3,}|~{3,})/);
+        const fenceMatch = line.match(/^( {0,3})(`{3,}|~{3,})(.*)$/);
 
         if (fenceMatch) {
             if (!inCode) {
                 inCode = true;
-                currentFence = fenceMatch[1];
-            } else if (fenceMatch[1] === currentFence) {
+                currentFence = fenceMatch[2];
+            } else if (fenceMatch[2][0] === currentFence[0] && fenceMatch[2].length >= currentFence.length && fenceMatch[3].trim() === '') {
                 inCode = false;
                 currentFence = '';
             }
