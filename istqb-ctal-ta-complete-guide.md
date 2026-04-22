@@ -10,23 +10,24 @@
 
 ## 📚 目次
 
-1. [CTAL-TA v4.0 概要](#chapter-0-ctal-ta-v40-概要)
-2. [Chapter 1: テストプロセスにおけるテストアナリストのタスク](#chapter-1-テストプロセスにおけるテストアナリストのタスク225分)
-3. [Chapter 2: リスクベーステストにおけるテストアナリストのタスク](#chapter-2-リスクベーステストにおけるテストアナリストのタスク90分)
-4. [Chapter 3: テスト分析とテスト設計](#chapter-3-テスト分析とテスト設計615分)
-5. [Chapter 4: 品質特性のテスト](#chapter-4-品質特性のテスト60分)
-6. [Chapter 5: ソフトウェア欠陥防止](#chapter-5-ソフトウェア欠陥防止225分)
-7. [試験対策・サンプル問題](#試験対策サンプル問題)
-8. [v3.1 → v4.0 主な変更点](#v31-v40-主な変更点)
-9. [参照URL一覧](#参照url一覧)
+1. [CTAL-TA v4.0 概要](#-chapter-0-ctal-ta-v40-概要)
+2. [Chapter 1: テストプロセスにおけるテストアナリストのタスク](#-chapter-1-テストプロセスにおけるテストアナリストのタスク225分)
+3. [Chapter 2: リスクベーステストにおけるテストアナリストのタスク](#-chapter-2-リスクベーステストにおけるテストアナリストのタスク90分)
+4. [Chapter 3: テスト分析とテスト設計](#-chapter-3-テスト分析とテスト設計615分)
+5. [Chapter 4: 品質特性のテスト](#-chapter-4-品質特性のテスト60分)
+6. [Chapter 5: ソフトウェア欠陥防止](#-chapter-5-ソフトウェア欠陥防止225分)
+7. [試験対策・サンプル問題](#-試験対策サンプル問題)
+8. [v3.1 → v4.0 主な変更点](#-v31--v40-主な変更点)
+9. [参照URL一覧](#-参照url一覧)
 
 ---
 
+<a id="-chapter-0-ctal-ta-v40-概要"></a>
 ## 🌟 Chapter 0: CTAL-TA v4.0 概要
 
 ### 0.1 この資格とは？
 
-```text
+```
 ┌─────────────────────────────────────────────────────────────┐
 │              ISTQB® 認定資格ロードマップ                        │
 │                                                             │
@@ -58,12 +59,13 @@
 | **非機能カバー** | ユーザビリティ・適応性・インストール可能性・相互運用性 |
 
 > 🆚 **テストアナリスト vs テクニカルテストアナリスト**
+>
 > - **TA**: ビジネス視点・ブラックボックス中心・機能テスト
 > - **TTA**: 技術視点・ホワイトボックス中心・パフォーマンス/セキュリティ
 
 ### 0.3 試験概要（v4.0）
 
-```text
+```
 ╔══════════════════════════════════════════════════════════╗
 ║              CTAL-TA v4.0 試験スペック                    ║
 ╠══════════════════════════════════════╦═══════════════════╣
@@ -98,7 +100,7 @@
 | **K2** | Understand（理解） | 概念を説明・分類する |
 | **K3** | Apply（適用） | 実際の状況に技法を適用する |
 
-```text
+```
 💡 試験対策ポイント:
 K3レベルが最も出題が多く、点数も高い。
 単純な暗記ではなく「実際のシナリオに技法を適用できるか」を問われる。
@@ -106,7 +108,7 @@ K3レベルが最も出題が多く、点数も高い。
 
 ### 0.5 シラバスのチャプター配分
 
-```text
+```
 Chapter 1: テストプロセス      ██████████ 225分 (18.5%)
 Chapter 2: リスクベース        ████        90分  (7.4%)
 Chapter 3: テスト分析・設計   ████████████████████ 615分 (50.6%) ← 最重要！
@@ -117,13 +119,14 @@ Chapter 5: 欠陥防止           ██████████  225分 (18.5%)
 
 ---
 
+<a id="-chapter-1-テストプロセスにおけるテストアナリストのタスク225分"></a>
 ## 📋 Chapter 1: テストプロセスにおけるテストアナリストのタスク（225分）
 
 ### 1.1 ソフトウェア開発ライフサイクル（SDLC）でのテスト
 
 テストアナリストはSDLCの**全フェーズ**に関与します。
 
-```text
+```
 ┌──────────────────────────────────────────────────────────────┐
 │                SDLC とテストアナリストの関与                     │
 │                                                              │
@@ -138,6 +141,7 @@ Chapter 5: 欠陥防止           ██████████  225分 (18.5%)
 ```
 
 **学習目標（LO）:**
+
 - `TA-1.1.1 (K2)` さまざまなSDLCモデルでのテストアナリストの役割を説明できる
 
 ### 1.2 テスト活動への関与
@@ -146,7 +150,7 @@ Chapter 5: 欠陥防止           ██████████  225分 (18.5%)
 
 #### 🔍 1.2.1 テスト分析（Test Analysis）
 
-```text
+```
 テスト分析とは？
 「何をテストするか」を決める活動
 
@@ -169,7 +173,7 @@ Chapter 5: 欠陥防止           ██████████  225分 (18.5%)
 
 #### ✏️ 1.2.2 テスト設計（Test Design）
 
-```text
+```
 テスト設計とは？
 「どのようにテストするか」を決める活動
 
@@ -182,7 +186,7 @@ Chapter 5: 欠陥防止           ██████████  225分 (18.5%)
 
 #### 🔧 1.2.3 テスト実装（Test Implementation）
 
-```text
+```
 テスト実装とは？
 テストケースを「実行可能な形」にする活動
 
@@ -194,7 +198,7 @@ High-Level TC  →  Low-Level TC  →  テストスクリプト
 
 #### ▶️ 1.2.4 テスト実行（Test Execution）
 
-```text
+```
 テスト実行での TA の役割:
 ┌────────────────────────────────────┐
 │ ✓ テスト環境のセットアップ確認       │
@@ -207,6 +211,7 @@ High-Level TC  →  Low-Level TC  →  テストスクリプト
 ```
 
 **学習目標（LO）:**
+
 - `TA-1.2.1 (K2)` テスト分析と設計の違いを説明できる
 - `TA-1.2.2 (K2)` テスト実装とテスト実行の活動を説明できる
 
@@ -214,7 +219,7 @@ High-Level TC  →  Low-Level TC  →  テストスクリプト
 
 #### 📄 1.3.1 ハイレベル vs ローレベル テストケース
 
-```text
+```
 High-Level Test Case（概念テストケース）
 ─────────────────────────────────────────
 テストID: TC-001
@@ -272,7 +277,7 @@ Low-Level Test Case（詳細テストケース）
 
 **テストオラクル** = 期待結果を決定するための情報源
 
-```text
+```
 テストオラクルの種類:
 
 1. 仕様書オラクル       → 要求仕様書が基準
@@ -286,7 +291,7 @@ Low-Level Test Case（詳細テストケース）
 
 #### 💾 1.3.5 テストデータ要件
 
-```text
+```
 テストデータの分類:
 
 ┌─────────────────────────────────────────┐
@@ -302,13 +307,14 @@ Low-Level Test Case（詳細テストケース）
 ```
 
 **テストデータの課題:**
+
 - **プライバシー**: GDPR等の規制対応（本番データの直接使用不可）
 - **代表性**: 実際の使用パターンを反映
 - **独立性**: テストケース間のデータ依存を排除
 
 #### ⌨️ 1.3.6 キーワード駆動テストによるスクリプト開発
 
-```text
+```
 キーワード駆動テスト（Keyword-Driven Testing）の構造:
 
 Keyword      | Object        | Data/Action
@@ -326,13 +332,14 @@ VerifyText   | PageTitle     | Dashboard
 
 ---
 
+<a id="-chapter-2-リスクベーステストにおけるテストアナリストのタスク90分"></a>
 ## ⚠️ Chapter 2: リスクベーステストにおけるテストアナリストのタスク（90分）
 
 ### 2.1 リスク分析（Risk Analysis）
 
 #### リスクの定義
 
-```text
+```
 リスク = 発生確率 × 影響度（損害）
 
 例:
@@ -351,7 +358,7 @@ VerifyText   | PageTitle     | Dashboard
 
 #### リスク識別のアプローチ
 
-```text
+```
 リスク識別手法:
 
 1. ブレインストーミング
@@ -372,7 +379,7 @@ VerifyText   | PageTitle     | Dashboard
 
 #### リスクマトリクスの作成
 
-```text
+```
         影響度（Impact）
           低  中  高
 発生 低  [ 1 ][ 2 ][ 3 ]
@@ -386,6 +393,7 @@ VerifyText   | PageTitle     | Dashboard
 ```
 
 **学習目標（LO）:**
+
 - `TA-2.1.1 (K2)` リスクレベルに基づいてリスクを分類できる
 - `TA-2.1.2 (K3)` 製品リスクの識別と評価に貢献できる
 
@@ -393,7 +401,7 @@ VerifyText   | PageTitle     | Dashboard
 
 #### テストアナリストによるリスクコントロール活動
 
-```text
+```
 リスクコントロールのサイクル:
 
 識別      →   分析      →   緩和策      →   モニタリング
@@ -404,7 +412,7 @@ VerifyText   | PageTitle     | Dashboard
 
 #### リスクに基づいたテスト優先順位付け
 
-```text
+```
 テスト優先順位付けの例:
 
 機能              リスクレベル  テスト工数  優先度
@@ -416,19 +424,21 @@ VerifyText   | PageTitle     | Dashboard
 ```
 
 **テストアナリストの責任:**
+
 - リスク評価結果をテストケースの優先順位に反映
 - リスクが高い領域への**テストカバレッジの増加**
 - リスク緩和を目的とした特定テスト技法の選択
 
 ---
 
+<a id="-chapter-3-テスト分析とテスト設計615分"></a>
 ## 🔬 Chapter 3: テスト分析とテスト設計（615分）
 
 > 💡 **試験の50%以上を占める最重要章！K3レベルの問題が多数出題**
 
 ### 3.0 テスト技法の全体像
 
-```text
+```
 CTAL-TA v4.0 テスト技法マップ
 
 ブラックボックス技法
@@ -462,7 +472,7 @@ CTAL-TA v4.0 テスト技法マップ
 
 ##### 同値分割法（Equivalence Partitioning: EP）
 
-```text
+```
 同値分割法の考え方:
 「同じ扱いを受ける入力値は、どれか1つをテストすれば十分」
 
@@ -478,7 +488,7 @@ CTAL-TA v4.0 テスト技法マップ
 
 **ON点とOFF点（v4.0で重要！）:**
 
-```text
+```
 境界 x ≥ 18 の場合:
 
   ───────┬──────────────────────
@@ -498,7 +508,7 @@ ON点: 18（境界値そのもの）
 
 **CTAL-TA v4.0での同値分割 深掘り:**
 
-```text
+```
 閉じた境界（Closed Border）: ≤ or ≥ を含む
   例: L ≤ 235（長さが235以下）
   → ON点: 235（境界上）、OFF点: 236（境界外）
@@ -543,7 +553,7 @@ test_cases = [
 
 ##### 境界値分析（Boundary Value Analysis: BVA）
 
-```text
+```
 2値境界テスト（2-value BVA）:
   境界値 + 境界のすぐ外側
 
@@ -563,7 +573,7 @@ test_cases = [
 
 **v4.0ポイント**: CTAL-TA v4.0では単なるBVAの適用ではなく、**多次元の境界（複数変数の組み合わせ境界）** も扱います。
 
-```text
+```
 多次元境界の例（圧力Pと温度Tの複合条件）:
   有効条件: P≥9 AND T≥90 AND T≤96
 
@@ -578,7 +588,7 @@ test_cases = [
 
 複数の入力パラメータが存在する場合、全組み合わせは膨大になります。組み合わせテストはこれを効率的に削減します。
 
-```text
+```
 組み合わせテストの目的:
 「すべての組み合わせ」→「重要な組み合わせのみ」
 
@@ -617,13 +627,14 @@ pairwise_tests = [
 ```
 
 **学習目標（LO）:**
+
 - `TA-3.1.1 (K3)` ドメインテストを適用できる
 - `TA-3.1.2 (K3)` 組み合わせテストを適用できる
 - `TA-3.1.3 (K2)` ランダムテストの利点と制限を説明できる
 
 #### 3.1.3 ランダムテスト（Random Testing）
 
-```text
+```
 ランダムテストとは？
 プログラムの入力空間から「ランダム」に値を選んでテスト
 
@@ -646,7 +657,7 @@ pairwise_tests = [
 
 **CRUD** = Create / Read / Update / Delete
 
-```text
+```
 CRUDテストの観点:
 
 操作        確認内容
@@ -687,7 +698,7 @@ Feature: ユーザー管理
 
 #### 3.2.2 状態遷移テスト（State Transition Testing）
 
-```text
+```
 状態遷移ダイアグラムの例（注文システム）:
 
     [注文作成]
@@ -743,7 +754,7 @@ test_transitions = [
 
 #### 3.2.3 シナリオベーステスト（Scenario-Based Testing）
 
-```text
+```
 シナリオベーステストとは？
 「実際のユーザーがどのように使うか」を基にテストを設計
 
@@ -767,6 +778,7 @@ test_transitions = [
 ```
 
 **学習目標（LO）:**
+
 - `TA-3.2.1 (K3)` CRUDテストを適用できる
 - `TA-3.2.2 (K3)` 状態遷移テストを適用できる
 - `TA-3.2.3 (K2)` シナリオベーステストを適用できる
@@ -777,7 +789,7 @@ test_transitions = [
 
 #### 3.3.1 デシジョンテーブルテスト（Decision Table Testing）
 
-```text
+```
 デシジョンテーブルとは？
 「複数の条件の組み合わせ」に対するシステムの振る舞いを表形式で整理
 
@@ -797,7 +809,7 @@ test_transitions = [
 
 **デシジョンテーブルのカバレッジ:**
 
-```text
+```
 最小限のカバレッジ: 全ルール（列）を1回以上実行
 完全カバレッジ: 全条件の全組み合わせ（2^n通り）
 
@@ -837,7 +849,7 @@ test_cases = [
 
 > **v4.0の新出トピック！** 特にAI/ML システムのテストで重要。
 
-```text
+```
 メタモルフィックテストとは？
 
 通常のテスト:
@@ -875,12 +887,14 @@ assert accuracy_2000 >= accuracy_1000 - 0.05  # 許容誤差5%
 ```
 
 **メタモルフィックテストが特に有効なシステム:**
+
 - 機械学習・AIシステム
 - 科学計算・シミュレーション
 - グラフィックス・画像処理
 - コンパイラ・変換ツール
 
 **学習目標（LO）:**
+
 - `TA-3.3.1 (K3)` デシジョンテーブルテストを適用できる
 - `TA-3.3.2 (K2)` メタモルフィックテストを説明できる
 
@@ -890,7 +904,7 @@ assert accuracy_2000 >= accuracy_1000 - 0.05  # 許容誤差5%
 
 #### 3.4.1 セッションベーステストのためのテストチャーター
 
-```text
+```
 テストチャーターとは？
 探索的テストセッションの「ガイドライン」
 
@@ -921,7 +935,7 @@ Notes（メモ）:
 
 #### 3.4.2 チェックリストベーステスト
 
-```text
+```
 チェックリストの活用例:
 
 セキュリティテスト用チェックリスト:
@@ -940,7 +954,7 @@ Notes（メモ）:
 
 #### 3.4.3 クラウドテスト（Crowd Testing）
 
-```text
+```
 クラウドテストとは？
 不特定多数のテスターに実機・実環境でテストを依頼するアプローチ
 
@@ -960,7 +974,7 @@ Notes（メモ）:
 
 #### 3.5.1 リスクを緩和するためのテスト技法選択
 
-```text
+```
 テスト技法とリスクの対応マップ:
 
 リスク種別                  推奨テスト技法
@@ -977,7 +991,7 @@ CRUD整合性                  CRUDテスト
 
 #### 3.5.2 テスト設計の自動化のメリットとリスク
 
-```text
+```
 自動テスト設計の利点:
   ✓ 組み合わせ生成の効率化（ペアワイズツール等）
   ✓ 大量テストケースの素早い生成
@@ -991,6 +1005,7 @@ CRUD整合性                  CRUDテスト
 ```
 
 **学習目標（LO）:**
+
 - `TA-3.4.1 (K3)` テストチャーターを作成できる
 - `TA-3.4.3 (K2)` クラウドテストを説明できる
 - `TA-3.5.1 (K3)` リスクに対して最適なテスト技法を選択できる
@@ -998,11 +1013,12 @@ CRUD整合性                  CRUDテスト
 
 ---
 
+<a id="-chapter-4-品質特性のテスト60分"></a>
 ## 🎨 Chapter 4: 品質特性のテスト（60分）
 
 ### ISO 25010 品質特性モデル（v4.0参照標準）
 
-```text
+```
 ISO/IEC 25010 ソフトウェア品質モデル
 
 製品品質特性:
@@ -1021,7 +1037,7 @@ ISO/IEC 25010 ソフトウェア品質モデル
 
 ### 4.1 機能テスト（Functional Testing）
 
-```text
+```
 機能テストの範囲:
 
 1. 機能的完全性（Functional Completeness）
@@ -1042,7 +1058,7 @@ ISO/IEC 25010 ソフトウェア品質モデル
 
 ### 4.2 ユーザビリティテスト（Usability Testing）
 
-```text
+```
 ユーザビリティテストの観点（ISO 9241-11参照）:
 
 有効性（Effectiveness）
@@ -1060,7 +1076,7 @@ ISO/IEC 25010 ソフトウェア品質モデル
 
 **SUS（System Usability Scale）スコアの目安:**
 
-```text
+```
 SUS スコア解釈:
   90〜100: Excellent（優秀）
   80〜89:  Good（良好）
@@ -1075,7 +1091,7 @@ SUS スコア解釈:
 
 > **v4.0で新しく追加された品質特性テスト**
 
-```text
+```
 柔軟性（Flexibility）＝ 適応性（Adaptability）+
                         インストール容易性（Installability）+
                         スケーラビリティ（Scalability）
@@ -1095,7 +1111,7 @@ SUS スコア解釈:
 
 ### 4.4 互換性テスト（Compatibility Testing）
 
-```text
+```
 互換性テストの種類:
 
 共存テスト（Co-existence Testing）:
@@ -1116,11 +1132,12 @@ SUS スコア解釈:
 
 ---
 
+<a id="-chapter-5-ソフトウェア欠陥防止225分"></a>
 ## 🛡️ Chapter 5: ソフトウェア欠陥防止（225分）
 
 ### 5.1 欠陥防止プラクティス（Defect Prevention Practices）
 
-```text
+```
 欠陥防止の考え方:
 
 「欠陥を見つけて直す」より「欠陥が入らないようにする」
@@ -1152,7 +1169,7 @@ SUS スコア解釈:
 
 #### 5.2.1 欠陥検出にモデルを活用
 
-```text
+```
 要求仕様のモデル化による欠陥防止:
 
 1. 状態遷移モデル（State Machine）
@@ -1170,7 +1187,7 @@ SUS スコア解釈:
 
 #### 5.2.2 レビュー技法の適用
 
-```text
+```
 レビュー技法の比較:
 
                  形式度  コスト  効果
@@ -1203,7 +1220,7 @@ SUS スコア解釈:
 
 #### 5.3.1 テスト結果分析による欠陥検出の改善
 
-```text
+```
 欠陥分析のアプローチ:
 
 欠陥トレンド分析:
@@ -1224,7 +1241,7 @@ SUS スコア解釈:
 
 #### 5.3.2 欠陥分類による根本原因分析
 
-```text
+```
 ODC（Orthogonal Defect Classification）フレームワーク:
 
 欠陥タイプ         説明                    根本原因への示唆
@@ -1238,7 +1255,7 @@ ODC（Orthogonal Defect Classification）フレームワーク:
 
 **根本原因分析（Root Cause Analysis）の手法:**
 
-```text
+```
 5-Why分析の例:
 
 問題: ユーザーログインが時々失敗する
@@ -1260,6 +1277,7 @@ Why5: 設定チェックリストが存在しなかった
 ```
 
 **学習目標（LO）:**
+
 - `TA-5.1.1 (K2)` 欠陥防止プラクティスを説明できる
 - `TA-5.2.1 (K2)` 欠陥検出にモデルを活用する方法を説明できる
 - `TA-5.2.2 (K3)` レビュー技法を適用できる
@@ -1268,11 +1286,12 @@ Why5: 設定チェックリストが存在しなかった
 
 ---
 
+<a id="-試験対策サンプル問題"></a>
 ## 📝 試験対策・サンプル問題
 
 ### 試験のポイント整理
 
-```text
+```
 CTAL-TA v4.0 試験 得点配分（推定）
 
 Chapter    問題数  ポイント  割合
@@ -1306,6 +1325,7 @@ D) 0, 10, 50, 100, 200
 **正解: A**
 
 2値BVAでは各境界に「境界値（ON点）」と「境界外の最近傍値（OFF点）」を使う。
+
 - 下限境界（x ≥ 10）: ON=10, OFF=9
 - 上限境界（x ≤ 100）: ON=100, OFF=101
 
@@ -1405,7 +1425,7 @@ D) CI/CDパイプラインの設定ミス
 
 ### 最終チェックリスト（試験前日）
 
-```text
+```
 試験直前チェックリスト ✅
 
 Chapter 1 (テストプロセス):
@@ -1444,9 +1464,10 @@ Chapter 5 (欠陥防止):
 
 ---
 
+<a id="-v31--v40-主な変更点"></a>
 ## 🔄 v3.1 → v4.0 主な変更点
 
-```text
+```
 CTAL-TA v3.1 → v4.0 の主な変更:
 
 【新規追加】
@@ -1472,61 +1493,54 @@ CTAL-TA v3.1 → v4.0 の主な変更:
 
 ---
 
+<a id="-参照url一覧"></a>
 ## 🔗 参照URL一覧
 
 ### 🏛️ 公式ISTQB® リソース
 
-> [!NOTE]
-> **リンクメンテナンス**: `?sdm_process_download=...` 形式のURLは
-> ISTQB®サイトのリニューアル等で `download_id` が変更されることがあります。
-> CIジョブ **`link-check`**（または `scripts/check_links.mjs` スクリプト）を定期実行し、
-> 各URLへHTTPリクエストを送って非2xxレスポンスを検出・報告してください。
-> CI/link-check がアラートを出した場合は、ISTQB®公式サイトで最新URLを確認し、
-> このテーブルを更新してください。
-
 | リソース | URL |
 |---------|-----|
-| CTAL-TA v4.0 認定ページ | https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/ |
-| CTAL-TA v4.0 シラバスPDF | https://istqb.org/?sdm_process_download=1&download_id=5745 |
-| サンプル試験問題 | https://istqb.org/?sdm_process_download=1&download_id=5749 |
-| サンプル試験解答 | https://istqb.org/?sdm_process_download=1&download_id=5759 |
-| リリースノート | https://istqb.org/?sdm_process_download=1&download_id=5762 |
-| v3.1→v4.0 LO比較表 | https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB_CTAL-TA_LO-new-vs-old-syllabus.pdf |
-| ISTQB® グロッサリー | https://glossary.istqb.org/en_US/search?term= |
-| FAQ（Test Analyst） | https://istqb.org/help/test-analyst/ |
+| CTAL-TA v4.0 認定ページ | <https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/> |
+| CTAL-TA v4.0 シラバスPDF | <https://istqb.org/?sdm_process_download=1&download_id=5745> |
+| サンプル試験問題 | <https://istqb.org/?sdm_process_download=1&download_id=5749> |
+| サンプル試験解答 | <https://istqb.org/?sdm_process_download=1&download_id=5759> |
+| リリースノート | <https://istqb.org/?sdm_process_download=1&download_id=5762> |
+| v3.1→v4.0 LO比較表 | <https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB_CTAL-TA_LO-new-vs-old-syllabus.pdf> |
+| ISTQB® グロッサリー | <https://glossary.istqb.org/en_US/search?term=> |
+| FAQ（Test Analyst） | <https://istqb.org/help/test-analyst/> |
 
 ### 📢 プレスリリース・ニュース
 
 | リソース | URL |
 |---------|-----|
-| v4.0 プレスリリース（2025/05/16） | https://test.istqb.org/istqb-certified-tester-advanced-level-test-analyst-ctal-ta-v4-0-press-release/ |
+| v4.0 プレスリリース（2025/05/16） | <https://test.istqb.org/istqb-certified-tester-advanced-level-test-analyst-ctal-ta-v4-0-press-release/> |
 
 ### 🎓 試験・研修プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| iSQI 試験情報（CTAL-TA v4.0） | https://isqi.org/ISTQB-Certified-Tester-Advanced-Level-Test-Analyst-CTAL-TA-v4.0/CT-AL-TA-v4.101 |
-| 試験プロバイダー検索 | https://istqb.org/exam-providers/ |
-| 研修プロバイダー検索 | https://istqb.org/training-providers/ |
-| ASTQB（米国）シラバスPDF | https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf |
+| iSQI 試験情報（CTAL-TA v4.0） | <https://isqi.org/ISTQB-Certified-Tester-Advanced-Level-Test-Analyst-CTAL-TA-v4.0/CT-AL-TA-v4.101> |
+| 試験プロバイダー検索 | <https://istqb.org/exam-providers/> |
+| 研修プロバイダー検索 | <https://istqb.org/training-providers/> |
+| ASTQB（米国）シラバスPDF | <https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf> |
 
 ### 📖 関連資格リンク
 
 | 資格 | URL |
 |------|-----|
-| CTFL v4.0（前提資格） | https://istqb.org/certifications/certified-tester-foundation-level/ |
-| CTAL-TTA（Technical Test Analyst） | https://istqb.org/certifications/certified-tester-advanced-level-technical-test-analyst-ctal-tta/ |
-| CTAL-TAE v2.0（Test Automation Engineer） | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
+| CTFL v4.0（前提資格） | <https://istqb.org/certifications/certified-tester-foundation-level/> |
+| CTAL-TTA（Technical Test Analyst） | <https://istqb.org/certifications/certified-tester-advanced-level-technical-test-analyst-ctal-tta/> |
+| CTAL-TAE v2.0（Test Automation Engineer） | <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/> |
 
 ### 📚 補足学習リソース
 
 | リソース | URL |
 |---------|-----|
-| 境界値分析・同値分割 解説 | https://www.softwaretestinghelp.com/what-is-boundary-value-analysis-and-equivalence-partitioning/ |
-| ISTQB 練習問題（EP/BVA） | https://www.softwaretestinghelp.com/istqb-exam-questions-equivalence-partitioning-boundary-value-analysis/ |
-| BVA vs EP（GeeksforGeeks） | https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis-vs-equivalence-partitioning/ |
-| ISTQB Test Analyst ガイド | https://www.istqb.guru/test-analyst/ |
-| Udemy CTAL-TA コース | https://www.udemy.com/course/istqb-test-analyst-advanced/ |
+| 境界値分析・同値分割 解説 | <https://www.softwaretestinghelp.com/what-is-boundary-value-analysis-and-equivalence-partitioning/> |
+| ISTQB 練習問題（EP/BVA） | <https://www.softwaretestinghelp.com/istqb-exam-questions-equivalence-partitioning-boundary-value-analysis/> |
+| BVA vs EP（GeeksforGeeks） | <https://www.geeksforgeeks.org/software-testing/software-testing-boundary-value-analysis-vs-equivalence-partitioning/> |
+| ISTQB Test Analyst ガイド | <https://www.istqb.guru/test-analyst/> |
+| Udemy CTAL-TA コース | <https://www.udemy.com/course/istqb-test-analyst-advanced/> |
 
 ### 📋 ISO標準
 
@@ -1539,7 +1553,7 @@ CTAL-TA v3.1 → v4.0 の主な変更:
 
 ## 🏁 まとめ
 
-```text
+```
 CTAL-TA v4.0 合格への道筋:
 
 STEP 1: 基礎固め（2週間）

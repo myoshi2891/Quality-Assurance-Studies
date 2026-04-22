@@ -27,16 +27,15 @@
 <a id="chapter-1"></a>
 
 ## Chapter 1: テスト自動化の基礎と目的
-
+>
 > CTAL-TAE v2.0 Section 1 | K2レベル（理解）
 
 ### 1.1 テスト自動化とは何か？
 
 **テスト自動化（Test Automation）** とは、ソフトウェアや専用ツールを使って、テストの実行・比較・報告などの作業を**自動的に行う**ことです。
 
-```text
+```
 手動テスト：
-
   人間 → テストケース実行 → 結果を目視確認 → バグ報告
 
 テスト自動化：
@@ -63,7 +62,7 @@
 
 > ⚠️ **重要**: テスト自動化は「銀の弾丸」ではない！失敗する組織の多くが過度な期待をもって導入する。
 
-```text
+```
 よくある失敗パターン：
 
 ❌ 全テストを自動化しようとする
@@ -94,9 +93,8 @@
 
 テスト自動化はどのSDLCモデルでも適用できますが、**アジャイル・DevOps環境で最も効果を発揮**します。
 
-```text
+```
 ウォーターフォールにおけるテスト自動化：
-
   要件定義 → 設計 → 開発 → [テスト自動化実行] → リリース
   → テスト自動化は主にシステムテスト・受入テスト段階で活用
 
@@ -124,7 +122,7 @@ DevOps / CI/CD におけるテスト自動化：
 
 SUT の種類によって、適切なテスト自動化アプローチが変わります。
 
-```text
+```
 SUT の種類と自動化アプローチ：
 
 Webアプリケーション：
@@ -155,7 +153,7 @@ APIサービス：
 <a id="chapter-2"></a>
 
 ## Chapter 2: テスト自動化の準備
-
+>
 > CTAL-TAE v2.0 Section 2 | K3レベル（適用）
 
 ### 2.1 テスト自動化の事前評価（Feasibility Analysis）
@@ -164,9 +162,8 @@ APIサービス：
 
 #### 自動化可否の判断基準
 
-```text
+```
 自動化に適しているテスト：
-
   ✓ 繰り返し実行される（回帰テスト）
   ✓ 安定した（変更が少ない）機能のテスト
   ✓ 大量データを使うテスト
@@ -188,7 +185,7 @@ APIサービス：
 
 テスト自動化環境の構築に必要な要素：
 
-```text
+```
 テスト自動化インフラスタック：
 
 ┌─────────────────────────────────────────┐
@@ -227,7 +224,7 @@ APIサービス：
 
 CTAL-TAE v2.0 では、ツール選定に**体系的な評価プロセス**を使うことを推奨しています。
 
-```text
+```
 ツール評価プロセス：
 
 Step 1: 要件定義
@@ -319,14 +316,14 @@ assert result == True  # ✅ 制御可能なのでテスト可能
 <a id="chapter-3"></a>
 
 ## Chapter 3: テスト自動化アーキテクチャ（TAA）
-
+>
 > CTAL-TAE v2.0 Section 3 | K3レベル（適用） — **試験の最重要章**
 
 ### 3.1 汎用テスト自動化アーキテクチャ（gTAA）
 
 CTAL-TAE v2.0 で定義される **gTAA（Generic Test Automation Architecture）** は、テスト自動化ソリューションの設計指針となるリファレンスモデルです。
 
-```text
+```
 gTAA（汎用テスト自動化アーキテクチャ）全体図：
 
 ┌─────────────────────────────────────────────────────────────┐
@@ -383,10 +380,9 @@ gTAA（汎用テスト自動化アーキテクチャ）全体図：
 
 #### 3.2.1 キャプチャ/再生（Capture & Playback）
 
-```text
+```
 仕組み：
   ① テスターが手動でUIを操作
-
   ② ツールが操作を記録（キャプチャ）
   ③ 記録したスクリプトを再生して自動実行
 
@@ -474,7 +470,7 @@ def test_login_with_various_data(email, password, expected, driver):
 
 #### 3.2.5 キーワード駆動テスト（Keyword-Driven Testing）
 
-```text
+```
 テーブル形式でテストを定義（プログラミング知識不要！）：
 
 | Action        | Target              | Value            |
@@ -687,14 +683,14 @@ def test_admin_can_access_admin_panel():
 <a id="chapter-4"></a>
 
 ## Chapter 4: テスト自動化の実装
-
+>
 > CTAL-TAE v2.0 Section 4 | K4レベル（分析・評価） — **試験の最大配点章**
 
 ### 4.1 テスト自動化パイロットプロジェクト
 
 本格導入前に**パイロット（試験的）プロジェクト**を実施して、フレームワークを評価します。
 
-```text
+```
 パイロットプロジェクトの流れ：
 
 Phase 1: スコープ定義（2週間）
@@ -732,7 +728,7 @@ Phase 5: Go/No-Go 決定
 
 ### 4.2 テスト自動化開発のリスクと対策
 
-```text
+```
 リスクマトリクス：
 
 高い影響度
@@ -887,14 +883,14 @@ API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
 <a id="chapter-5"></a>
 
 ## Chapter 5: テスト自動化の実装・デプロイ戦略（CI/CD統合）
-
+>
 > CTAL-TAE v2.0 Section 5 | K3レベル（適用）
 
 ### 5.1 CI/CDパイプラインへのテスト自動化統合
 
 テスト自動化の最大の価値は、**CI/CDパイプラインに組み込んで継続的に実行すること**にあります。
 
-```text
+```
 推奨パイプライン構成（GitHubフロー）：
 
 コードPush/PR
@@ -1040,7 +1036,7 @@ jobs:
 
 ### 5.2 設定管理（Configuration Management）
 
-```text
+```
 テスト自動化の設定管理のベストプラクティス：
 
 1. バージョン管理（Git）
@@ -1155,12 +1151,12 @@ def test_get_user_returns_expected_schema():
 <a id="chapter-6"></a>
 
 ## Chapter 6: テスト自動化のレポートとメトリクス
-
+>
 > CTAL-TAE v2.0 Section 6 | K3レベル（適用）
 
 ### 6.1 収集すべきメトリクス
 
-```text
+```
 テスト自動化メトリクスのカテゴリ：
 
 ┌──────────────────────────────────────────────────────────┐
@@ -1188,7 +1184,7 @@ def test_get_user_returns_expected_schema():
 
 ### 6.2 ROI（投資対効果）の計算
 
-```text
+```
 テスト自動化ROI計算式：
 
 ROI (%) = ((テスト自動化の節約額 - 自動化の総コスト) / 自動化の総コスト) × 100
@@ -1254,7 +1250,7 @@ allure serve allure-results
 
 ### 6.4 ダッシュボードの構築
 
-```text
+```
 推奨ダッシュボードコンポーネント：
 
 1. 日次テスト結果トレンド
@@ -1290,7 +1286,7 @@ allure serve allure-results
 <a id="chapter-7"></a>
 
 ## Chapter 7: テスト自動化ソリューションの検証
-
+>
 > CTAL-TAE v2.0 Section 7 | K3レベル（適用）
 
 ### 7.1 TAS（Test Automation Solution）の検証とは？
@@ -1298,7 +1294,7 @@ allure serve allure-results
 > **重要な概念**: TAS（テスト自動化ソリューション）自体にも欠陥がある！  
 > テスト自動化コードそのものをテストすること = **TAS の検証**
 
-```text
+```
 TASの欠陥と SUT の欠陥を区別することが重要：
 
 SUT のバグ：
@@ -1348,7 +1344,7 @@ class TestWaitForElement:
 
 #### 7.2.2 TAS のコードレビュー観点
 
-```text
+```
 TAS コードレビューチェックリスト：
 
 □ 1. テストの独立性
@@ -1383,12 +1379,12 @@ TAS コードレビューチェックリスト：
 <a id="chapter-8"></a>
 
 ## Chapter 8: 継続的改善
-
+>
 > CTAL-TAE v2.0 Section 8 | K2レベル（理解）
 
 ### 8.1 継続的改善の対象領域
 
-```text
+```
 テスト自動化の継続的改善サイクル（PDCA）：
 
 Plan（計画）:
@@ -1443,7 +1439,7 @@ def test_with_external_service(api_client):
 
 #### 8.2.2 テスト実行の最適化
 
-```text
+```
 テスト実行時間の短縮戦略：
 
 1. 並列実行
@@ -1469,7 +1465,7 @@ def test_with_external_service(api_client):
 
 #### 8.2.3 AI活用による自動化改善（2025年最新動向）
 
-```text
+```
 AIを活用したテスト自動化の改善（2025年トレンド）：
 
 1. セルフヒーリングテスト
@@ -1580,9 +1576,8 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ### 試験概要
 
-```text
+```
 試験情報：
-
   問題数    : 40問
   合格点    : 43点（総点66点）≈ 65%
   試験時間  : 90分
@@ -1605,9 +1600,8 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ### 必ず覚える重要概念
 
-```text
+```
 ✅ gTAA の4層（試験で必ず出る！）：
-
    1. Test Management Layer（テスト管理層）
    2. Test Definition Layer（テスト定義層）
    3. Test Execution Layer（テスト実行層）
@@ -1644,7 +1638,7 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ### よく出る問題パターン
 
-```text
+```
 出題パターン：
 
 1. 「次の状況でどの自動化アプローチが最適か？」
@@ -1673,35 +1667,34 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 | カテゴリ | タイトル | URL |
 |---------|---------|-----|
-| **ISTQB公式** | CTAL-TAE v2.0 公式ページ | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
-| **ISTQB公式** | ISTQB公式サイト | https://istqb.org/ |
-| **ISTQB公式** | ISTQBグロッサリー | https://glossary.istqb.org/en_US/search?term= |
-| **ISTQB公式** | CTFL v4.0（前提資格） | https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/ |
-| **試験学習** | CTAL-TAE v2.0 モック試験（無料） | https://mockexamnetwork.com/exams/istqb-automation/ |
-| **学習リソース** | ISTQB.Guru — CTAL-TAE ガイド | https://www.istqb.guru/test-automation-engineer/ |
-| **学習リソース** | Brightest — CTAL-TAE v2.0 詳細 | https://brightest.org/en/certifications/ISTQB-CTAL-Test-Automation-Engineering/ |
-| **Playwright** | Playwright 公式ドキュメント | https://playwright.dev/ |
-| **Selenium** | Selenium 公式ドキュメント | https://www.selenium.dev/documentation/ |
-| **Cypress** | Cypress 公式ドキュメント | https://docs.cypress.io/ |
-| **pytest** | pytest 公式ドキュメント | https://docs.pytest.org/ |
-| **Pact** | Pact コントラクトテスト | https://docs.pact.io/ |
-| **k6** | k6 パフォーマンステスト | https://grafana.com/docs/k6/latest/ |
-| **Allure** | Allure レポートフレームワーク | https://allurereport.org/ |
-| **WireMock** | WireMock モックサーバー | https://wiremock.org/docs/ |
-| **ベストプラクティス** | Google Testing Blog | https://testing.googleblog.com/ |
-| **ベストプラクティス** | Martin Fowler — Test Automation | https://martinfowler.com/articles/practical-test-pyramid.html |
-| **CI/CD** | GitHub Actions ドキュメント | https://docs.github.com/en/actions |
-| **BDD** | Cucumber/Gherkin 公式 | https://cucumber.io/docs/gherkin/ |
-| **AI×テスト** | ISTQB CT-GenAI（AIテスト資格） | https://istqb.org/certifications/gen-ai/ |
-| **デザインパターン** | Page Object Model — Selenium | https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/ |
+| **ISTQB公式** | CTAL-TAE v2.0 公式ページ | <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/> |
+| **ISTQB公式** | ISTQB公式サイト | <https://istqb.org/> |
+| **ISTQB公式** | ISTQBグロッサリー | <https://glossary.istqb.org/en_US/search?term=> |
+| **ISTQB公式** | CTFL v4.0（前提資格） | <https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/> |
+| **試験学習** | CTAL-TAE v2.0 モック試験（無料） | <https://mockexamnetwork.com/exams/istqb-automation/> |
+| **学習リソース** | ISTQB.Guru — CTAL-TAE ガイド | <https://www.istqb.guru/test-automation-engineer/> |
+| **学習リソース** | Brightest — CTAL-TAE v2.0 詳細 | <https://brightest.org/en/certifications/ISTQB-CTAL-Test-Automation-Engineering/> |
+| **Playwright** | Playwright 公式ドキュメント | <https://playwright.dev/> |
+| **Selenium** | Selenium 公式ドキュメント | <https://www.selenium.dev/documentation/> |
+| **Cypress** | Cypress 公式ドキュメント | <https://docs.cypress.io/> |
+| **pytest** | pytest 公式ドキュメント | <https://docs.pytest.org/> |
+| **Pact** | Pact コントラクトテスト | <https://docs.pact.io/> |
+| **k6** | k6 パフォーマンステスト | <https://grafana.com/docs/k6/latest/> |
+| **Allure** | Allure レポートフレームワーク | <https://allurereport.org/> |
+| **WireMock** | WireMock モックサーバー | <https://wiremock.org/docs/> |
+| **ベストプラクティス** | Google Testing Blog | <https://testing.googleblog.com/> |
+| **ベストプラクティス** | Martin Fowler — Test Automation | <https://martinfowler.com/articles/practical-test-pyramid.html> |
+| **CI/CD** | GitHub Actions ドキュメント | <https://docs.github.com/en/actions> |
+| **BDD** | Cucumber/Gherkin 公式 | <https://cucumber.io/docs/gherkin/> |
+| **AI×テスト** | ISTQB CT-GenAI（AIテスト資格） | <https://istqb.org/certifications/gen-ai/> |
+| **デザインパターン** | Page Object Model — Selenium | <https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/> |
 
 ---
 
 ## 🎯 まとめ：テスト自動化成功の10の鉄則
 
-```text
+```
 1. 📊 ROIを計算してから始める
-
    → 自動化すべきかを定量的に判断する
 
 2. 🏗️ アーキテクチャに投資する（gTAA）
@@ -1734,8 +1727,8 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ---
 
-> **📌 最終更新日**: 2026年4月10日  
+> **📌 最終更新日**: 2026年4月  
 > **📌 準拠資格**: ISTQB CTAL-TAE v2.0  
 > **📌 次のステップ**: CT-TAS（Test Automation Strategy）資格も参照
 >
-> 🔗 公式リソース: https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/
+> 🔗 公式リソース: <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/>

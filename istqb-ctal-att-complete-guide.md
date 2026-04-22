@@ -1,6 +1,6 @@
 # 🚀 ISTQB® Certified Tester Advanced Level – Agile Technical Tester (CTAL-ATT)
 
-## 完全学習ガイド【最新版・初学者対応】
+## 完全学習ガイド【2025年最新版・初学者対応】
 
 > **最終更新**: 2025年（ISTQB® 公式シラバス CTAL-ATT v1.1 準拠）  
 > **対象読者**: CTFL取得済みで、アジャイル開発における技術的テストスキルを高めたい方  
@@ -334,7 +334,7 @@ Feature: ユーザー認証
 5. ユースケース分析（Use Case Analysis）
    → アクター・主シナリオ・代替シナリオを整理
 
-6. SpecificationByExample（SBE / 実例仕様化）
+5. Specification by Example (SBE / 実例仕様化)
    → 抽象的な要件を具体的な例で説明
    抽象：「割引は正しく計算されること」
    実例：「100円の商品を10%OFFにすると90円になること」
@@ -796,7 +796,7 @@ class OrderService:
 **プロダクトバックログへのATDD導入分析（K4レベル）：**
 
 ```
-ATDDをプロダクトバックログに導入する際の分析観点：
+ATTDをプロダクトバックログに導入する際の分析観点：
 
 現状のバックログアイテムの問題パターン：
 
@@ -812,7 +812,7 @@ ATDDをプロダクトバックログに導入する際の分析観点：
     "ユーザー管理機能を実装する"（1スプリントで完了不可能）
     改善：複数の小さなストーリーに分割し、それぞれに受入テストを追加
 
-ATDDの導入ステップ：
+ATTDの導入ステップ：
   1. 既存のバックログアイテムを見直し、受入基準のないものを特定
   2. PO・Dev・QA の3 Amigos ミーティングを定期開催
   3. 各スプリントの開始前にそのスプリントのストーリーの受入テストを定義
@@ -1883,7 +1883,8 @@ D) 割り算メソッドのリファクタリングを行う
 **正解: C**
 
 TDD の Red-Green-Refactor サイクル：
-1. **Red**: **失敗するテスト**を書く ← 最初のステップ！
+
+1. **Red**: まず**失敗するテスト**を書く ← 最初のステップ！
 2. Green: テストを通過する**最小限のコード**を書く
 3. Refactor: コードを整理する
 
@@ -1909,6 +1910,7 @@ D) テストは独立したツールで実行できる必要がある
 **正解: C**
 
 FIRST の各要素：
+
 - F (Fast): テストは高速に実行される
 - **I (Independent): テストは他のテストに依存しない** ✅
 - R (Repeatable): 何度実行しても同じ結果になる
@@ -1957,6 +1959,7 @@ When POST /api/v1/orders が 201 ステータスを返す
 **正解: B**
 
 BDD のベストプラクティス：
+
 - **B): ビジネスの意図（振る舞い）を簡潔に表現** ✅
   → UI の詳細（URL、セレクタ）を含まない
   → 1つのステップに1つのことを書く
@@ -1984,11 +1987,13 @@ D) E2Eテスト → ユニットテスト → 統合テスト
 **正解: B**
 
 CI パイプラインの推奨順序：
+
 1. **ユニットテスト** (~2分): 高速、安定、コスト低 → 最初に実行
 2. **統合テスト** (~10分): 中速、コンポーネント間の連携確認
 3. **E2Eスモークテスト** (~15分): 遅い・コスト高 → 最後に実行
 
 この順序の理由（フェイルファスト原則）：
+
 - 遅くて不安定なE2Eテストを最初に実行すると、
   単純なコンパイルエラーでも長時間待たされる
 - ユニットテストを最初に実行して問題を早期発見する方が効率的
@@ -2108,66 +2113,66 @@ INVEST 基準の T（Testable / テスト可能性）に違反しています。
 
 | リソース | URL |
 |---------|-----|
-| **CTAL-ATT 認定ページ（公式）** | https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/ |
-| **CTAL-ATT シラバス v1.1 ダウンロード** | https://istqb.org/?sdm_process_download=1&download_id=3658 |
-| **サンプル試験問題 v1.3** | https://istqb.org/?sdm_process_download=1&download_id=3659 |
-| **サンプル試験解答 v1.3** | https://istqb.org/?sdm_process_download=1&download_id=3660 |
-| **CTAL-ATT 認定ガイドライン v1.0** | https://istqb.org/?sdm_process_download=1&download_id=3663 |
-| **CTAL-ATT 概要 v1.1（Overview）** | https://istqb.org/?sdm_process_download=1&download_id=3664 |
-| **試験構造とルール v1.2** | https://istqb.org/?sdm_process_download=1&download_id=3829 |
-| **ISTQBグロッサリー** | https://glossary.istqb.org/en_US/search?term= |
+| **CTAL-ATT 認定ページ（公式）** | <https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/> |
+| **CTAL-ATT シラバス v1.1 ダウンロード** | <https://istqb.org/?sdm_process_download=1&download_id=3658> |
+| **サンプル試験問題 v1.3** | <https://istqb.org/?sdm_process_download=1&download_id=3659> |
+| **サンプル試験解答 v1.3** | <https://istqb.org/?sdm_process_download=1&download_id=3660> |
+| **CTAL-ATT 認定ガイドライン v1.0** | <https://istqb.org/?sdm_process_download=1&download_id=3663> |
+| **CTAL-ATT 概要 v1.1（Overview）** | <https://istqb.org/?sdm_process_download=1&download_id=3664> |
+| **試験構造とルール v1.2** | <https://istqb.org/?sdm_process_download=1&download_id=3829> |
+| **ISTQBグロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
 
 ### 📢 試験プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| iSQI 試験情報（CTAL-ATT） | https://isqi.org/ISTQB-Certified-Tester-Agile-Technical-Tester-CTAL-ATT/CT-AL-ATT |
-| Brightest（試験・バッジ） | https://www.brightest.org/en/certifications/ISTQB-r-CTAL-Agile-Technical-Tester-1/ |
-| ANZTB（オーストラリア・NZ） | https://www.anztb.org/certification/ctal-att/ |
-| 試験プロバイダー検索 | https://istqb.org/exam-providers/ |
-| 研修プロバイダー検索 | https://istqb.org/training-providers/ |
+| iSQI 試験情報（CTAL-ATT） | <https://isqi.org/ISTQB-Certified-Tester-Agile-Technical-Tester-CTAL-ATT/CT-AL-ATT> |
+| Brightest（試験・バッジ） | <https://www.brightest.org/en/certifications/ISTQB-r-CTAL-Agile-Technical-Tester-1/> |
+| ANZTB（オーストラリア・NZ） | <https://www.anztb.org/certification/ctal-att/> |
+| 試験プロバイダー検索 | <https://istqb.org/exam-providers/> |
+| 研修プロバイダー検索 | <https://istqb.org/training-providers/> |
 
 ### 🎓 学習リソース
 
 | リソース | URL |
 |---------|-----|
-| ISTQB.Guru CTAL-ATT ガイド | https://www.istqb.guru/agile-technical-tester/ |
-| ISTQB.Guru ATT キャリア解説 | https://www.istqb.guru/your-guide-to-agile-technical-tester-certification/ |
-| Coveros CTAL-ATT トレーニング | https://training.coveros.com/ |
-| ILX Group ATT コース（米国） | https://www.ilxgroup.com/usa/training/istqb/ctal-att |
-| TSG Training ATT（英国） | https://tsg-training.co.uk/course/istqb-certified-tester-agile-technical-tester-ctal-att/ |
-| Udemy CTAL-ATT コース | https://www.udemy.com/course/istqb-advanced-agile-technical-tester-att/ |
-| Codecademy ATT 認定パス | https://www.codecademy.com/learn/ext-paths/istqb-r-certified-tester-advanced-level-agile-technical-tester-ctal-att |
+| ISTQB.Guru CTAL-ATT ガイド | <https://www.istqb.guru/agile-technical-tester/> |
+| ISTQB.Guru ATT キャリア解説 | <https://www.istqb.guru/your-guide-to-agile-technical-tester-certification/> |
+| Coveros CTAL-ATT トレーニング | <https://training.coveros.com/> |
+| ILX Group ATT コース（米国） | <https://www.ilxgroup.com/usa/training/istqb/ctal-att> |
+| TSG Training ATT（英国） | <https://tsg-training.co.uk/course/istqb-certified-tester-agile-technical-tester-ctal-att/> |
+| Udemy CTAL-ATT コース | <https://www.udemy.com/course/istqb-advanced-agile-technical-tester-att/> |
+| Codecademy ATT 認定パス | <https://www.codecademy.com/learn/ext-paths/istqb-r-certified-tester-advanced-level-agile-technical-tester-ctal-att> |
 
 ### 📖 関連資格
 
 | 資格 | URL |
 |------|-----|
-| CTFL v4.0（前提資格） | https://istqb.org/certifications/certified-tester-foundation-level/ |
-| CTAL-TTA（Technical Test Analyst） | https://istqb.org/certifications/certified-tester-advanced-level-technical-test-analyst-ctal-tta/ |
-| CTAL-TM v3.0（Test Management） | https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/ |
-| CTAL-TAE v2.0（Test Automation Engineering） | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
+| CTFL v4.0（前提資格） | <https://istqb.org/certifications/certified-tester-foundation-level/> |
+| CTAL-TTA（Technical Test Analyst） | <https://istqb.org/certifications/certified-tester-advanced-level-technical-test-analyst-ctal-tta/> |
+| CTAL-TM v3.0（Test Management） | <https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/> |
+| CTAL-TAE v2.0（Test Automation Engineering） | <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/> |
 
 ### 🔧 主要ツール・フレームワーク
 
 | カテゴリ | ツール | URL |
 |---------|-------|-----|
-| BDD | Cucumber/Gherkin 公式 | https://cucumber.io/docs/gherkin/ |
-| BDD | Behave（Python） | https://behave.readthedocs.io/ |
-| BDD | pytest-bdd | https://pytest-bdd.readthedocs.io/ |
-| TDD | Python unittest | https://docs.python.org/3/library/unittest.html |
-| TDD | pytest 公式 | https://docs.pytest.org/ |
-| TDD | JUnit 5（Java） | https://junit.org/junit5/ |
-| ミューテーション | Mutmut（Python） | https://mutmut.readthedocs.io/ |
-| CI/CD | GitHub Actions | https://docs.github.com/en/actions |
-| CI/CD | GitLab CI/CD | https://docs.gitlab.com/ee/ci/ |
-| サービス仮想化 | WireMock | https://wiremock.org/docs/ |
-| サービス仮想化 | MockServer | https://www.mock-server.com/ |
-| サービス仮想化 | Pact（契約テスト） | https://docs.pact.io/ |
-| パフォーマンス | k6 | https://grafana.com/docs/k6/latest/ |
-| コード品質 | SonarQube | https://docs.sonarqube.org/ |
-| テストオートメーション | Playwright | https://playwright.dev/ |
-| テストオートメーション | Robot Framework | https://robotframework.org/ |
+| BDD | Cucumber/Gherkin 公式 | <https://cucumber.io/docs/gherkin/> |
+| BDD | Behave（Python） | <https://behave.readthedocs.io/> |
+| BDD | pytest-bdd | <https://pytest-bdd.readthedocs.io/> |
+| TDD | Python unittest | <https://docs.python.org/3/library/unittest.html> |
+| TDD | pytest 公式 | <https://docs.pytest.org/> |
+| TDD | JUnit 5（Java） | <https://junit.org/junit5/> |
+| ミューテーション | Mutmut（Python） | <https://mutmut.readthedocs.io/> |
+| CI/CD | GitHub Actions | <https://docs.github.com/en/actions> |
+| CI/CD | GitLab CI/CD | <https://docs.gitlab.com/ee/ci/> |
+| サービス仮想化 | WireMock | <https://wiremock.org/docs/> |
+| サービス仮想化 | MockServer | <https://www.mock-server.com/> |
+| サービス仮想化 | Pact（契約テスト） | <https://docs.pact.io/> |
+| パフォーマンス | k6 | <https://grafana.com/docs/k6/latest/> |
+| コード品質 | SonarQube | <https://docs.sonarqube.org/> |
+| テストオートメーション | Playwright | <https://playwright.dev/> |
+| テストオートメーション | Robot Framework | <https://robotframework.org/> |
 
 ### 📋 参考書籍
 
@@ -2234,7 +2239,7 @@ INVEST 基準の T（Testable / テスト可能性）に違反しています。
 > - CTAL-TM v3.0（Test Management）でテスト管理スキルを習得
 > - CTAL-TAE v2.0（Test Automation Engineering）で自動化を極める
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/>
 
 ---
 

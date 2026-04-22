@@ -1,6 +1,6 @@
 # 🏆 ISTQB® Certified Tester Agile Test Leadership at Scale (CT-ATLaS)
 
-## 完全学習ガイド【最新版・初学者対応】
+## 完全学習ガイド【2025年最新版・初学者対応】
 
 > **最終更新**: 2025年（ISTQB® 公式シラバス CT-ATLaS v2.0 準拠）  
 > **対象読者**: CTFL取得済みで、アジャイル組織における品質リーダーシップを高めたい方  
@@ -201,28 +201,23 @@ CT-ATLaS が特に有益なロール：
 
 #### 従来型テスト管理 vs クオリティアシスタンス
 
-```
-┌────────────────────────────────────────────────────────────────┐
-│        伝統的テスト管理 vs クオリティアシスタンス の比較           │
-├────────────────────────────┬───────────────────────────────────┤
-│  伝統的テスト管理           │  クオリティアシスタンス             │
-├────────────────────────────┼───────────────────────────────────┤
-│ テストフェーズの管理を重視  │ フローと価値提供を最適化           │
-│ 欠陥の検出・報告に注力      │ 予防・自動化・可観測性に注力       │
-│ 最後にまとめてテスト        │ Built-in Quality を継続推進        │
-│ テスト管理者が制御          │ 自律チームを支援                   │
-│ テストサイロを維持          │ 組織全体にテストを埋め込む         │
-│ 権限による管理              │ サーバントリーダーシップ           │
-│ 個別チームへの指示          │ コミュニティイベントで協働         │
-└────────────────────────────┴───────────────────────────────────┘
+| 伝統的テスト管理 | クオリティアシスタンス |
+| :--- | :--- |
+| テストフェーズの管理を重視 | フローと価値提供を最適化 |
+| 欠陥の検出・報告に注力 | 予防・自動化・可観測性に注力 |
+| 最後にまとめてテスト | Built-in Quality を継続推進 |
+| テスト管理者が制御 | 自律チームを支援 |
+| テストサイロを維持 | 組織全体にテストを埋め込む |
+| 権限による管理 | サーバントリーダーシップ |
+| 個別チームへの指示 | コミュニティイベントで協働 |
 
 重要：クオリティアシスタンスでもテスト管理（規律）は依然必要！
 → 「テスト管理が不要」ではなく「アプローチが変わる」
-```
 
 **シフトレフトとシフトライト：**
 
 ```
+
 品質活動の範囲拡張（Shift Left & Shift Right）：
 
 シフトレフト（Shift Left）：
@@ -240,11 +235,13 @@ CT-ATLaS が特に有益なロール：
   ←── シフトレフト ──┬── シフトライト ──→
   要件 設計 開発 テスト│デプロイ 本番監視
                     現在
+
 ```
 
 ### 1.2 クオリティアシスタンスのための4つのスキル（Skills for Quality Assistance）
 
 ```
+
 アジャイルテストリーダーが持つべき4つの重要スキル：
 
 ┌──────────────────────────────────────────────────────────────┐
@@ -256,11 +253,13 @@ CT-ATLaS が特に有益なロール：
 │ 3. ファシリテーション  │ 4. トレーニング                       │
 │ (Facilitation)      │ (Training)                           │
 └─────────────────────┴────────────────────────────────────────┘
+
 ```
 
 #### スキル1: チェンジリーダーシップ（Change Leadership）
 
 ```
+
 チェンジリーダーシップとは：
   → 組織変革を成功に導くための重要なスキル
   → クオリティアシスタンスを組織のビジネスアジリティ改善
@@ -276,6 +275,7 @@ CT-ATLaS が特に有益なロール：
   ✗ 変革を「上からの指示」で押し付ける
   ✗ 失敗を責める文化を維持する
   ✗ 小さな成功を認めず、大きな変化だけを求める
+
 ```
 
 ```python
@@ -1479,6 +1479,7 @@ D) クオリティアシスタンスは、アジャイルプロジェクトの�
 **正解: C**
 
 クオリティアシスタンスの重要な特徴：
+
 - 自律チームを支援（自分で品質に責任を持てるようにする）
 - テストサイロを排除（組織全体にテストを埋め込む）
 
@@ -1515,6 +1516,7 @@ D) 約69%
 **正解: B（約47%）**
 
 計算：
+
 - 処理時間（価値時間）合計 = 3+2+8+4+1 = **18日**
 - 待機時間合計 = 7+5+4+2+1 = 19日
 - リードタイム合計 = 18+19 = **37日**
@@ -1541,6 +1543,7 @@ D) デプロイ頻度を下げて、1回あたりのリリースサイズを大�
 **正解: B**
 
 システム思考の観点：
+
 - 表面的な解決策（テストを増やす）が機能しない場合、根本的な原因がシステムに潜んでいる可能性
 - 因果ループ図（CLD）でシステムの相互作用を可視化することが次のステップ
 - 「なぜ欠陥が発生するのか？」の根本原因を理解してから解決策を設計
@@ -1568,6 +1571,7 @@ D) テストフェーズを完全に排除して開発速度を向上させる
 **正解: C**
 
 DevOpsを組織的テスト戦略に組み込む主な目的：
+
 - 継続的テスト（CI/CDパイプライン内）でフィードバックループを高速化
 - 本番環境でのモニタリング（シフトライト）で問題の早期発見
 - 品質を全体のデリバリープロセスに統合
@@ -1595,6 +1599,7 @@ D) テストを省略してリリース速度を優先する
 **正解: B**
 
 Team Topologies の観点から：
+
 - 専門チームが複雑なテスト（セキュリティ・性能）をサービスとして提供
 - ストリームアラインドチームは自律的に基本テストを実施
 - これにより継続的な品質フィードバックが可能になる
@@ -1659,59 +1664,59 @@ Team Topologies の観点から：
 
 | リソース | URL |
 |---------|-----|
-| **CT-ATLaS 認定ページ（公式）** | https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/ |
-| **CT-ATLaS シラバス v2.0 ダウンロード** | https://istqb.org/?sdm_process_download=1&download_id=3532 |
-| **CT-ATLaS Body of Knowledge v2.0** | https://istqb.org/?sdm_process_download=1&download_id=3533 |
-| **サンプル試験問題 v2.0** | https://istqb.org/?sdm_process_download=1&download_id=3535 |
-| **サンプル試験解答 v2.0** | https://istqb.org/?sdm_process_download=1&download_id=3538 |
-| **Hands-On Exercise** | https://istqb.org/?sdm_process_download=1&download_id=3549 |
-| **認定ガイドライン v2.0** | https://istqb.org/?sdm_process_download=1&download_id=3544 |
-| **リリースノート v2.0** | https://istqb.org/?sdm_process_download=1&download_id=3545 |
-| **試験構造とルール v1.2** | https://istqb.org/?sdm_process_download=1&download_id=3829 |
-| **ISTQBグロッサリー** | https://glossary.istqb.org/en_US/search?term= |
-| **CT-ATLaS v2.0 プレスリリース** | https://www.istqb.org/agile-test-leadership-at-scale-atlas-v20-press-release/ |
+| **CT-ATLaS 認定ページ（公式）** | <https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/> |
+| **CT-ATLaS シラバス v2.0 ダウンロード** | <https://istqb.org/?sdm_process_download=1&download_id=3532> |
+| **CT-ATLaS Body of Knowledge v2.0** | <https://istqb.org/?sdm_process_download=1&download_id=3533> |
+| **サンプル試験問題 v2.0** | <https://istqb.org/?sdm_process_download=1&download_id=3535> |
+| **サンプル試験解答 v2.0** | <https://istqb.org/?sdm_process_download=1&download_id=3538> |
+| **Hands-On Exercise** | <https://istqb.org/?sdm_process_download=1&download_id=3549> |
+| **認定ガイドライン v2.0** | <https://istqb.org/?sdm_process_download=1&download_id=3544> |
+| **リリースノート v2.0** | <https://istqb.org/?sdm_process_download=1&download_id=3545> |
+| **試験構造とルール v1.2** | <https://istqb.org/?sdm_process_download=1&download_id=3829> |
+| **ISTQBグロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
+| **CT-ATLaS v2.0 プレスリリース** | <https://www.istqb.org/agile-test-leadership-at-scale-atlas-v20-press-release/> |
 
 ### 📢 試験プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| iSQI 試験情報（CT-ATLaS） | https://isqi.org/ISTQB-Certified-Tester-Agile-Test-Leadership-at-Scale-CT-ATLaS/CT-ATLaS.1081 |
-| 試験プロバイダー検索 | https://istqb.org/exam-providers/ |
-| 研修プロバイダー検索 | https://istqb.org/training-providers/ |
+| iSQI 試験情報（CT-ATLaS） | <https://isqi.org/ISTQB-Certified-Tester-Agile-Test-Leadership-at-Scale-CT-ATLaS/CT-ATLaS.1081> |
+| 試験プロバイダー検索 | <https://istqb.org/exam-providers/> |
+| 研修プロバイダー検索 | <https://istqb.org/training-providers/> |
 
 ### 🎓 学習リソース
 
 | リソース | URL |
 |---------|-----|
-| ISTQB.Guru CT-ATLaS ガイド | https://www.istqb.guru/agile-test-leadership-at-scale/ |
-| GTB シラバスPDF（参照用） | https://www.gtb.de/wp-content/uploads/2024/08/ISTQB_CT-ATLaS_Syllabus_v2.0.pdf |
-| CSTB Body of Knowledge PDF | https://cstb.ca/wp-content/uploads/2025/01/ISTQB_CT-ATLaS_Body-of-Knowledge_v2.0_all_.pdf |
-| GTB サンプル試験問題PDF | https://www.gtb.de/wp-content/uploads/2024/08/ISTQB_CT-ATLaS_Sample-Exam-Questions_v2.0.pdf |
-| IDSTB（Indonesia）リソース | https://idstb.org/product/istqb-certified-tester-agile-test-leadership-at-scale/ |
-| Udemy CT-ATLaS コース | https://www.udemy.com/topic/istqb-agile-test-leadership/ |
+| ISTQB.Guru CT-ATLaS ガイド | <https://www.istqb.guru/agile-test-leadership-at-scale/> |
+| GTB シラバスPDF（参照用） | <https://www.gtb.de/wp-content/uploads/2024/08/ISTQB_CT-ATLaS_Syllabus_v2.0.pdf> |
+| CSTB Body of Knowledge PDF | <https://cstb.ca/wp-content/uploads/2025/01/ISTQB_CT-ATLaS_Body-of-Knowledge_v2.0_all_.pdf> |
+| GTB サンプル試験問題PDF | <https://www.gtb.de/wp-content/uploads/2024/08/ISTQB_CT-ATLaS_Sample-Exam-Questions_v2.0.pdf> |
+| IDSTB（Indonesia）リソース | <https://idstb.org/product/istqb-certified-tester-agile-test-leadership-at-scale/> |
+| Udemy CT-ATLaS コース | <https://www.udemy.com/topic/istqb-agile-test-leadership/> |
 
 ### 📖 関連資格
 
 | 資格 | URL |
 |------|-----|
-| CTFL v4.0（前提資格） | https://istqb.org/certifications/certified-tester-foundation-level/ |
-| CTAL-ATT（Agile Technical Tester） | https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/ |
-| CTAL-TM v3.0（Test Management） | https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/ |
-| CTAL-TAE v2.0（Test Automation Engineering） | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
+| CTFL v4.0（前提資格） | <https://istqb.org/certifications/certified-tester-foundation-level/> |
+| CTAL-ATT（Agile Technical Tester） | <https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/> |
+| CTAL-TM v3.0（Test Management） | <https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/> |
+| CTAL-TAE v2.0（Test Automation Engineering） | <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/> |
 
 ### 🔧 関連ツール・フレームワーク・標準
 
 | カテゴリ | リソース | URL |
 |---------|---------|-----|
-| アジャイルスケーリング | SAFe（Scaled Agile Framework） | https://scaledagileframework.com/ |
-| アジャイルスケーリング | LeSS（Large-Scale Scrum） | https://less.works/ |
-| アジャイルスケーリング | Scrum at Scale | https://www.scrumatscale.com/ |
-| チーム構造 | Team Topologies | https://teamtopologies.com/ |
-| テストプロセス成熟度 | TMMi Foundation | https://www.tmmifoundation.org/ |
-| リーン | Value Stream Mapping | https://en.wikipedia.org/wiki/Value_stream_mapping |
-| DevOps | DORA Metrics | https://dora.dev/ |
-| 品質コーチング | Agile Alliance | https://www.agilealliance.org/ |
-| コミュニティ | ISTQB Agile Alliance Guide | https://guide.agilealliance.org/ |
+| アジャイルスケーリング | SAFe（Scaled Agile Framework） | <https://scaledagileframework.com/> |
+| アジャイルスケーリング | LeSS（Large-Scale Scrum） | <https://less.works/> |
+| アジャイルスケーリング | Scrum at Scale | <https://www.scrumatscale.com/> |
+| チーム構造 | Team Topologies | <https://teamtopologies.com/> |
+| テストプロセス成熟度 | TMMi Foundation | <https://www.tmmifoundation.org/> |
+| リーン | Value Stream Mapping | <https://en.wikipedia.org/wiki/Value_stream_mapping> |
+| DevOps | DORA Metrics | <https://dora.dev/> |
+| 品質コーチング | Agile Alliance | <https://www.agilealliance.org/> |
+| コミュニティ | ISTQB Agile Alliance Guide | <https://guide.agilealliance.org/> |
 
 ### 📋 参考書籍
 
@@ -1775,12 +1780,13 @@ Team Topologies の観点から：
 > **📌 作成日**: 2025年  
 > **📌 準拠資格**: ISTQB CT-ATLaS v2.0（2023年9月29日正式リリース）  
 > **📌 次のステップ**:
+>
 > - CTAL-ATT（Agile Technical Tester）でアジャイル技術テストを深掘り
 > - CTAL-TM v3.0（Test Management）でテスト管理の基礎を強化
 > - CTAL-TAE v2.0（Test Automation Engineering）でテスト自動化を極める
 > - TMMi Professional でプロセス改善の専門資格も検討
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/>
 
 ---
 
