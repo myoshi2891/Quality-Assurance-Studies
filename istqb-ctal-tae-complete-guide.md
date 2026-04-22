@@ -1727,7 +1727,7 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ---
 
-> **📌 最終更新日**: 2025年  
+> **📌 最終更新日**: 2026年4月  
 > **📌 準拠資格**: ISTQB CTAL-TAE v2.0  
 > **📌 次のステップ**: CT-TAS（Test Automation Strategy）資格も参照
 >

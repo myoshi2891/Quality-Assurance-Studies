@@ -10,24 +10,24 @@
 
 ## 📚 目次
 
-1. [MBTとは何か？—概念と定義](#1-mbt%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B%EF%BC%9F%E2%80%94%E6%A6%82%E5%BF%B5%E3%81%A8%E5%AE%9A%E7%BE%A9)
-2. [なぜMBTが必要か？—動機とビジネス価値](#2-%E3%81%AA%E3%81%9Cmbt%E3%81%8C%E5%BF%85%E8%A6%81%E3%81%8B%EF%BC%9F%E2%80%94%E5%8B%95%E6%A9%9F%E3%81%A8%E3%83%93%E3%82%B8%E3%83%8D%E3%82%B9%E4%BE%A1%E5%80%A4)
-3. [MBTの全体プロセスと成果物](#3-mbt%E3%81%AE%E5%85%A8%E4%BD%93%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%E3%81%A8%E6%88%90%E6%9E%9C%E7%89%A9)
-4. [SDLCへのMBT統合](#4-sdlc%E3%81%B8%E3%81%AEmbt%E7%B5%B1%E5%90%88)
-5. [MBTモデリングの基礎](#5-mbt%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%AE%E5%9F%BA%E7%A4%8E)
-6. [MBTモデルの言語・記法](#6-mbt%E3%83%A2%E3%83%87%E3%83%AB%E3%81%AE%E8%A8%80%E8%AA%9E%E3%83%BB%E8%A8%98%E6%B3%95)
-7. [モデリングのグッドプラクティス](#7-%E3%83%A2%E3%83%87%E3%83%AA%E3%83%B3%E3%82%B0%E3%81%AE%E3%82%B0%E3%83%83%E3%83%89%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B9)
-8. [テストケース生成の選択基準（Selection Criteria）](#8-%E3%83%86%E3%82%B9%E3%83%88%E3%82%B1%E3%83%BC%E3%82%B9%E7%94%9F%E6%88%90%E3%81%AE%E9%81%B8%E6%8A%9E%E5%9F%BA%E6%BA%96%EF%BC%88selection-criteria%EF%BC%89)
-9. [MBTテストの実装と実行](#9-mbt%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E5%AE%9F%E8%A3%85%E3%81%A8%E5%AE%9F%E8%A1%8C)
-10. [テスト適応（Test Adaptation）活動](#10-%E3%83%86%E3%82%B9%E3%83%88%E9%81%A9%E5%BF%9C%EF%BC%88test-adaptation%EF%BC%89%E6%B4%BB%E5%8B%95)
-11. [MBTアプローチの評価と展開](#11-mbt%E3%82%A2%E3%83%97%E3%83%AD%E3%83%BC%E3%83%81%E3%81%AE%E8%A9%95%E4%BE%A1%E3%81%A8%E5%B1%95%E9%96%8B)
-12. [MBTと従来テスト設計技法の関係](#12-mbt%E3%81%A8%E5%BE%93%E6%9D%A5%E3%83%86%E3%82%B9%E3%83%88%E8%A8%AD%E8%A8%88%E6%8A%80%E6%B3%95%E3%81%AE%E9%96%A2%E4%BF%82)
-13. [MBTツール詳細比較](#13-mbt%E3%83%84%E3%83%BC%E3%83%AB%E8%A9%B3%E7%B4%B0%E6%AF%94%E8%BC%83)
-14. [GraphWalker実践チュートリアル](#14-graphwalker%E5%AE%9F%E8%B7%B5%E3%83%81%E3%83%A5%E3%83%BC%E3%83%88%E3%83%AA%E3%82%A2%E3%83%AB)
-15. [MBTの課題と解決策](#15-mbt%E3%81%AE%E8%AA%B2%E9%A1%8C%E3%81%A8%E8%A7%A3%E6%B1%BA%E7%AD%96)
-16. [AI・LLMとMBTの融合（2026年4月時点の最新動向）](#16-ai%E3%83%BBllm%E3%81%A8mbt%E3%81%AE%E8%9E%8D%E5%90%88%EF%BC%882026%E5%B9%B44%E6%9C%88%E6%99%82%E7%82%B9%E3%81%AE%E6%9C%80%E6%96%B0%E5%8B%95%E5%90%91%EF%BC%89)
-17. [ISTQB CT-MBT 試験対策](#17-istqb-ct-mbt-%E8%A9%A6%E9%A8%93%E5%AF%BE%E7%AD%96)
-18. [参考URL一覧](#18-%E5%8F%82%E8%80%83url%E4%B8%80%E8%A6%A7)
+1. [MBTとは何か？—概念と定義](#1-mbtとは何か概念と定義)
+2. [なぜMBTが必要か？—動機とビジネス価値](#2-なぜmbtが必要か動機とビジネス価値)
+3. [MBTの全体プロセスと成果物](#3-mbtの全体プロセスと成果物)
+4. [SDLCへのMBT統合](#4-sdlcへのmbt統合)
+5. [MBTモデリングの基礎](#5-mbtモデリングの基礎)
+6. [MBTモデルの言語・記法](#6-mbtモデルの言語記法)
+7. [モデリングのグッドプラクティス](#7-モデリングのグッドプラクティス)
+8. [テストケース生成の選択基準（Selection Criteria）](#8-テストケース生成の選択基準selection-criteria)
+9. [MBTテストの実装と実行](#9-mbtテストの実装と実行)
+10. [テスト適応（Test Adaptation）活動](#10-テスト適応test-adaptation活動)
+11. [MBTアプローチの評価と展開](#11-mbtアプローチの評価と展開)
+12. [MBTと従来テスト設計技法の関係](#12-mbtと従来テスト設計技法の関係)
+13. [MBTツール詳細比較](#13-mbtツール詳細比較)
+14. [GraphWalker実践チュートリアル](#14-graphwalker実践チュートリアル)
+15. [MBTの課題と解決策](#15-mbtの課題と解決策)
+16. [AI・LLMとMBTの融合（2026年4月時点の最新動向）](#16-aillmとmbtの融合2026年4月時点の最新動向)
+17. [ISTQB CT-MBT 試験対策](#17-istqb-ct-mbt-試験対策)
+18. [参考URL一覧](#18-参考url一覧)
 
 ---
 
@@ -51,6 +51,7 @@ flowchart LR
 ```
 
 **問題点:**
+
 - 設計者の経験・スキルに大きく依存
 - 再現性・一貫性の欠如
 - 要件変更時の保守コストが高い
@@ -67,6 +68,7 @@ flowchart LR
 ```
 
 **メリット:**
+
 - 自動・体系的なテストケース生成
 - 高いカバレッジ・再現性
 - モデル更新→テスト自動再生成
@@ -224,6 +226,7 @@ flowchart LR
    - MBTカバレッジレポートを共有
 
 ✅ **アジャイルでのMBTポイント:**  
+
 - 軽量なモデリングアプローチを選択する（ヘビーウェイトな形式手法は避ける）  
 - CI/CDパイプラインにMBTツールを組み込む  
 - モデルは「生きた文書」として継続的に更新する
@@ -233,6 +236,7 @@ flowchart LR
 **コードコミット → MBTモデル更新 → テストケース自動生成**
 ↓
 **CI/CD パイプライン**
+
 - MBTモデルの検証（model validation）
 - テストケース自動生成
 - 生成テストの実行（実機 or クラウド環境）
@@ -264,6 +268,7 @@ flowchart LR
 **FSM（Finite State Machine）**はMBTで最もよく使われるモデルです。
 
 **構成要素:**
+
 - **状態（State）:** システムが取りうる各状態（例：ログイン前、ログイン中、エラー）
 - **遷移（Transition）:** ある状態から別の状態への移動
 - **イベント（Event）:** 遷移を引き起こすトリガー（例：ボタンクリック）
@@ -482,6 +487,7 @@ CT-MBT シラバスでは、最も広く使われる6つのテスト選択基準
 **定義**: モデル内の全状態を少なくとも1回訪問すること
 
 **例（ログインFSM）**:
+
 - 状態: S0（初期）, S1（成功）, S2（エラー）, S3（ロック）
 - テストケース:
   - TC-1: S0 → S1（正常ログイン）         ✅ S0, S1 カバー
@@ -494,6 +500,7 @@ CT-MBT シラバスでは、最も広く使われる6つのテスト選択基準
 **定義**: モデル内の全遷移を少なくとも1回実行すること
 
 **FSMの全遷移**:
+
 - T1: S0 → S1 [PW正]
 - T2: S0 → S2 [PW誤1〜2回目]
 - T3: S0 → S3 [PW誤3回目]
@@ -509,6 +516,7 @@ CT-MBT シラバスでは、最も広く使われる6つのテスト選択基準
 **定義**: モデル内の全パスを実行すること
 
 **種類**:
+
 - **最短パスカバレッジ**
   - 開始から終了への最短経路のみ
 - **全パスカバレッジ（理論上）**
@@ -525,10 +533,12 @@ CT-MBT シラバスでは、最も広く使われる6つのテスト選択基準
 **例: 年齢確認ロジック（最低年齢18歳）**
 
 **入力値の同値クラス:**
+
 - クラス1（有効）: 18以上 → テスト値例: 18, 25, 65
 - クラス2（無効）: 18未満 → テスト値例: 0, 17, -1
 
 **境界値分析:**
+
 - 境界値: 17（無効上限）、18（有効下限）、19（有効内）
 - → 最低限 3ケースが必要
 
@@ -800,16 +810,19 @@ MBTツールの分類を以下に示します。
 **START**
 ↓
 **Q1: 予算はあるか？**
+
 - **NO** → GraphWalker or fMBT（OSS）
 - **YES** → Q2へ
 
 **Q2: 必要なモデル形式は？**
+
 - **有向グラフ/FSM** → GraphWalker
 - **UML図** → MBTsuite or IBM RTW
 - **状態チャート** → Yakindu or MATLAB
 - **ビジネスロジック** → TOSCA or Conformiq
 
 **Q3: 既存ツールとの統合は？**
+
 - **Selenium/Appium必要** → GraphWalker（Java統合が容易）
 - **Jenkins/CI/CD重視** → GraphWalker or fMBT
 - **SAP/ERP統合** → TOSCA or IBM RTW
@@ -823,6 +836,7 @@ MBTツールの分類を以下に示します。
 **GraphWalker**はオープンソースのMBTツールで、有向グラフ（Directed Graph）形式のモデルを読み込み、テストパスを自動生成します。
 
 **特徴:**
+
 - ✅ 無料・オープンソース（Apache License）
 - ✅ Java製・Maven統合が容易
 - ✅ オンライン/オフライン両モード対応
@@ -830,8 +844,8 @@ MBTツールの分類を以下に示します。
 - ✅ 豊富なパス生成アルゴリズム
 - ✅ Studio（GUI編集ツール）付属
 
-- 公式: https://graphwalker.github.io/
-- GitHub: https://github.com/GraphWalker/graphwalker-project
+- 公式: <https://graphwalker.github.io/>
+- GitHub: <https://github.com/GraphWalker/graphwalker-project>
 
 ### 14.2 GraphWalkerモデルの構成要素
 
@@ -1263,7 +1277,7 @@ GraphWalkerの主要なパス生成アルゴリズムを以下に示します。
 | 形式 | 選択式（多肢選択） |
 | 受験資格 | **CTFL（Foundation Level）認定保持者**が必須 |
 | 試験言語 | 英語（他言語対応地域あり） |
-| シラバスDL | https://www.istqb.org/?sdm_process_download=1&download_id=3562 |
+| シラバスDL | <https://www.istqb.org/?sdm_process_download=1&download_id=3562> |
 
 ### 17.2 シラバス章別ウェイトと重要項目
 
@@ -1348,10 +1362,10 @@ GraphWalkerの主要なパス生成アルゴリズムを以下に示します。
 >
 > Week 5: 模擬試験と弱点補強
 > ├── ISTQB公式 Sample Exam A（Questions + Answers）を解く
-> │   DL: https://istqb.org/?sdm_process_download=1&download_id=3564
+> │   DL: <https://istqb.org/?sdm_process_download=1&download_id=3564>
 > ├── 間違えた問題の該当シラバス箇所を再読
 > └── ASTQB Sample Exam も挑戦
-> │   URL: https://astqb.org/assets/documents/MBT-Exam-Sample-with-Model-Diagrams.pdf
+> │   URL: <https://astqb.org/assets/documents/MBT-Exam-Sample-with-Model-Diagrams.pdf>
 >
 > Week 6: 最終確認
 > ├── シラバスの章ごとのまとめノートを作成
@@ -1380,58 +1394,58 @@ GraphWalkerの主要なパス生成アルゴリズムを以下に示します。
 
 | 資料 | URL |
 |-----|-----|
-| CT-MBT 認定ページ（公式） | https://istqb.org/certifications/certified-tester-model-based-tester-ct-mbt/ |
-| CT-MBT Syllabus v1.1（DL） | https://www.istqb.org/?sdm_process_download=1&download_id=3562 |
-| CT-MBT Sample Exam A Questions（DL） | https://istqb.org/?sdm_process_download=1&download_id=3564 |
-| CT-MBT Sample Exam A Answers（DL） | https://istqb.org/?sdm_process_download=1&download_id=3565 |
-| ASTQB MBT Sample Exam（英語） | https://astqb.org/assets/documents/MBT-Exam-Sample-with-Model-Diagrams.pdf |
-| ISTQB 用語集（Glossary） | https://glossary.istqb.org/en_US/search?term= |
+| CT-MBT 認定ページ（公式） | <https://istqb.org/certifications/certified-tester-model-based-tester-ct-mbt/> |
+| CT-MBT Syllabus v1.1（DL） | <https://www.istqb.org/?sdm_process_download=1&download_id=3562> |
+| CT-MBT Sample Exam A Questions（DL） | <https://istqb.org/?sdm_process_download=1&download_id=3564> |
+| CT-MBT Sample Exam A Answers（DL） | <https://istqb.org/?sdm_process_download=1&download_id=3565> |
+| ASTQB MBT Sample Exam（英語） | <https://astqb.org/assets/documents/MBT-Exam-Sample-with-Model-Diagrams.pdf> |
+| ISTQB 用語集（Glossary） | <https://glossary.istqb.org/en_US/search?term=> |
 
 ### 🛠️ ツール公式サイト
 
 | ツール | URL |
 |-------|-----|
-| GraphWalker（公式） | https://graphwalker.github.io/ |
-| GraphWalker（GitHub） | https://github.com/GraphWalker/graphwalker-project |
-| fMBT（GitHub） | https://github.com/intel/fMBT |
-| MBTsuite | https://www.mbtoolbox.org/ |
-| Conformiq Designer | https://www.conformiq.com/ |
-| Tricentis TOSCA | https://www.tricentis.com/products/automate-continuous-testing-tosca |
-| Yakindu Statechart Tools | https://www.itemis.com/en/products/itemis-create/ |
-| MATLAB/Simulink Stateflow | https://www.mathworks.com/products/stateflow.html |
+| GraphWalker（公式） | <https://graphwalker.github.io/> |
+| GraphWalker（GitHub） | <https://github.com/GraphWalker/graphwalker-project> |
+| fMBT（GitHub） | <https://github.com/intel/fMBT> |
+| MBTsuite | <https://www.mbtoolbox.org/> |
+| Conformiq Designer | <https://www.conformiq.com/> |
+| Tricentis TOSCA | <https://www.tricentis.com/products/automate-continuous-testing-tosca> |
+| Yakindu Statechart Tools | <https://www.itemis.com/en/products/itemis-create/> |
+| MATLAB/Simulink Stateflow | <https://www.mathworks.com/products/stateflow.html> |
 
 ### 📚 学習リソース・技術記事
 
 | 資料 | URL |
 |-----|-----|
-| Model-Based Testing 完全概説（Grokipedia/2026） | https://grokipedia.com/page/Model-based_testing |
-| MBT概説（Testsigma/2025） | https://testsigma.com/blog/model-based-testing/ |
-| MBTガイド（LambdaTest） | https://www.lambdatest.com/learning-hub/model-based-testing |
-| MBTモダンガイド（PractiTest/2025） | https://www.practitest.com/resource-center/blog/model-based-testing-guide/ |
-| MBTツール比較（BrowserStack/2025） | https://www.browserstack.com/guide/model-based-testing-tool |
-| MBTツールTop10（Testsigma） | https://testsigma.com/blog/model-based-testing-tools/ |
-| MBTとテスト自動化（TestGrid/2025） | https://testgrid.io/blog/model-based-testing/ |
-| MBT NashTech Blog（2023） | https://blog.nashtechglobal.com/model-based-testing-an-approach-generating-test-cases-from-models-automatically/ |
+| Model-Based Testing 完全概説（Grokipedia/2026） | <https://grokipedia.com/page/Model-based_testing> |
+| MBT概説（Testsigma/2025） | <https://testsigma.com/blog/model-based-testing/> |
+| MBTガイド（LambdaTest） | <https://www.lambdatest.com/learning-hub/model-based-testing> |
+| MBTモダンガイド（PractiTest/2025） | <https://www.practitest.com/resource-center/blog/model-based-testing-guide/> |
+| MBTツール比較（BrowserStack/2025） | <https://www.browserstack.com/guide/model-based-testing-tool> |
+| MBTツールTop10（Testsigma） | <https://testsigma.com/blog/model-based-testing-tools/> |
+| MBTとテスト自動化（TestGrid/2025） | <https://testgrid.io/blog/model-based-testing/> |
+| MBT NashTech Blog（2023） | <https://blog.nashtechglobal.com/model-based-testing-an-approach-generating-test-cases-from-models-automatically/> |
 
 ### 📖 書籍・論文（学術）
 
 | 資料 | URL |
 |-----|-----|
-| "Model-Based Testing Essentials" O'Reilly（ISTQB公式参考書）| https://www.oreilly.com/library/view/model-based-testing-essentials/9781119130017/ |
-| ScienceDirect: MBT Overview | https://www.sciencedirect.com/topics/computer-science/model-based-testing |
-| GraphWalker産業事例論文（ACM/2021） | https://dl.acm.org/doi/10.1145/3452383.3452388 |
-| GraphWalker産業事例フルテキスト（arXiv/2021） | https://arxiv.org/pdf/2104.02152 |
-| IEEE: State Transition Testing カバレッジ基準 | https://ieeexplore.ieee.org/document/7052254/ |
-| ResearchGate: カバレッジ基準体系的レビュー | https://www.researchgate.net/publication/330047546 |
+| "Model-Based Testing Essentials" O'Reilly（ISTQB公式参考書）| <https://www.oreilly.com/library/view/model-based-testing-essentials/9781119130017/> |
+| ScienceDirect: MBT Overview | <https://www.sciencedirect.com/topics/computer-science/model-based-testing> |
+| GraphWalker産業事例論文（ACM/2021） | <https://dl.acm.org/doi/10.1145/3452383.3452388> |
+| GraphWalker産業事例フルテキスト（arXiv/2021） | <https://arxiv.org/pdf/2104.02152> |
+| IEEE: State Transition Testing カバレッジ基準 | <https://ieeexplore.ieee.org/document/7052254/> |
+| ResearchGate: カバレッジ基準体系的レビュー | <https://www.researchgate.net/publication/330047546> |
 
 ### 🎓 トレーニング・認定機関
 
 | 機関 | URL |
 |-----|-----|
-| ISTQB 試験プロバイダー検索 | https://istqb.org/exam-providers/?directory_type=exam-providers |
-| ISTQB トレーニングプロバイダー検索 | https://istqb.org/training-providers/?directory_type=training-providers |
-| Processworks CT-MBT コース | https://www.processworksgroup.com/course/ctfl-mbt/ |
-| ISTQB SCR（資格確認） | http://scr.istqb.org/ |
+| ISTQB 試験プロバイダー検索 | <https://istqb.org/exam-providers/?directory_type=exam-providers> |
+| ISTQB トレーニングプロバイダー検索 | <https://istqb.org/training-providers/?directory_type=training-providers> |
+| Processworks CT-MBT コース | <https://www.processworksgroup.com/course/ctfl-mbt/> |
+| ISTQB SCR（資格確認） | <http://scr.istqb.org/> |
 
 ---
 
@@ -1470,4 +1484,4 @@ GraphWalkerの主要なパス生成アルゴリズムを以下に示します。
 ---
 
 > 📌 **著者注記:** このガイドは ISTQB CT-MBT Syllabus v1.1、GraphWalker公式ドキュメント、ACM/IEEE 学術論文、および2025〜2026年の最新業界情報を基に作成されています。  
-> 試験情報は変更される可能性があるため、受験前に必ず公式サイト（https://istqb.org）で最新情報を確認してください。
+> 試験情報は変更される可能性があるため、受験前に必ず公式サイト（<https://istqb.org）で最新情報を確認してください。>

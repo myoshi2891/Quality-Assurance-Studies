@@ -33,7 +33,7 @@
 
 ### BDDが解決する問題
 
-ソフトウェアプロジェクト失敗の **56%はコミュニケーション不足** が原因です（Test Evolve調査）。
+ソフトウェアプロジェクト失敗の **56%はコミュニケーション不足** が原因です（PMI, 2013）。
 
 ```
 従来の問題:
@@ -756,6 +756,7 @@ import io.cucumber.java.ja.*;
 import io.cucumber.java.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.*;
+import java.time.Duration;
 import static org.junit.Assert.*;
 
 public class LoginSteps {
@@ -1310,7 +1311,9 @@ Week 11-12:
 |---------|-----|
 | Perforce — State of Continuous Testing Report 2025 | <https://www.perforce.com/resources/qac/state-continuous-testing-report> |
 | Tricentis — World Quality Report 2024-25 | <https://www.tricentis.com/resources/world-quality-report> |
-| Test Evolve — BDD Market Size | <https://testevolve.com/> |
+| PMI — Pulse of the Profession® 2013: The Essential Role of Communications（56%統計の一次ソース、p.4） | <https://www.pmi.org/-/media/pmi/documents/public/pdf/learning/thought-leadership/pulse/the-essential-role-of-communications.pdf> |
+| PMI — 2013 Pulse of the Profession 概要ページ | <https://www.pmi.org/learning/thought-leadership/pulse/the-high-cost-of-low-performance-2013> |
+| Test Evolve — BDD解説ブログ（BDDツール市場$120M統計） | <https://www.testevolve.com/blog/behavior-driven-development-bdd> |
 
 ### ベストプラクティス
 

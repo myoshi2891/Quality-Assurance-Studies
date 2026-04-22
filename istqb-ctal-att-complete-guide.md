@@ -205,7 +205,7 @@ S - Small（小ささ）
     → 1〜2スプリントで完了できるサイズ
     → 大きすぎるストーリーはエピックに分割する
 
-T - Testable（テスト可能性）← TTAにとって最重要！
+T - Testable（テスト可能性）← ATTにとって最重要！
     → 受入基準が明確に定義でき、合格/不合格を判定できる
     ✗ 悪い：「システムはユーザーフレンドリーであること」（主観的）
     ✓ 良い：「チェックアウトフローは4ステップ以下で完了できること」
@@ -334,7 +334,7 @@ Feature: ユーザー認証
 5. ユースケース分析（Use Case Analysis）
    → アクター・主シナリオ・代替シナリオを整理
 
-5. SpecificationByExample（SBE / 実例仕様化）
+5. Specification by Example (SBE / 実例仕様化)
    → 抽象的な要件を具体的な例で説明
    抽象：「割引は正しく計算されること」
    実例：「100円の商品を10%OFFにすると90円になること」
@@ -534,7 +534,7 @@ T - Timely（タイムリー）
     ✓ TDDのサイクルに従い、Red-Green-Refactorを繰り返す
 ```
 
-**TTA のTDD支援における役割：**
+**ATT のTDD支援における役割：**
 
 ```
 テスト技術者がTDDでできること：
@@ -2235,7 +2235,6 @@ INVEST 基準の T（Testable / テスト可能性）に違反しています。
 > **📌 作成日**: 2025年  
 > **📌 準拠資格**: ISTQB CTAL-ATT v1.1（2020年1月28日正式リリース）  
 > **📌 次のステップ**:
->
 > - CTAL-TTA（Technical Test Analyst）でホワイトボックス・非機能テストを深掘り
 > - CTAL-TM v3.0（Test Management）でテスト管理スキルを習得
 > - CTAL-TAE v2.0（Test Automation Engineering）で自動化を極める
