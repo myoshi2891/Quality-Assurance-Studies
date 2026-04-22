@@ -1022,7 +1022,7 @@ public class LoginTest extends org.graphwalker.java.test.ExecutionContext implem
     private static final String BASE_URL = "http://localhost:8080";
 
     // テスト変数（モデルのガード条件と同期）
-    private boolean isValidCredential = true;
+    private boolean isLoggedIn = true;
 
     @BeforeEach
     public void setUp() {
@@ -1094,7 +1094,7 @@ public class LoginTest extends org.graphwalker.java.test.ExecutionContext implem
 
     @Override
     public void e_正常ログイン() {
-        isValidCredential = true;
+        isLoggedIn = true;
         driver.findElement(By.id("username")).sendKeys("testuser@example.com");
         driver.findElement(By.id("password")).sendKeys("correctPassword");
         driver.findElement(By.id("loginBtn")).click();
@@ -1102,7 +1102,7 @@ public class LoginTest extends org.graphwalker.java.test.ExecutionContext implem
 
     @Override
     public void e_ログイン失敗() {
-        isValidCredential = false;
+        isLoggedIn = false;
         driver.findElement(By.id("username")).sendKeys("testuser@example.com");
         driver.findElement(By.id("password")).sendKeys("wrongPassword");
         driver.findElement(By.id("loginBtn")).click();

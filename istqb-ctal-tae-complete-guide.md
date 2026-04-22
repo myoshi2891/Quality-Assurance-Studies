@@ -77,6 +77,7 @@
 
 ❌ ROIを計算しないまま導入する
    → コストが効果を上回ることがある
+```
 
 | デメリット | 詳細 |
 |-----------|------|
@@ -88,8 +89,6 @@
 | **偽陽性/偽陰性のリスク** | フレイキーテストがチームの信頼を損なう |
 
 ---
-
-```
 
 ### 1.4 SDLC（ソフトウェア開発ライフサイクル）とテスト自動化
 
@@ -150,12 +149,11 @@ APIサービス：
 組込みシステム：
   ├── ハードウェアIN → HIL（Hardware-in-the-Loop）
   └── シミュレーション → Hardware Simulator
+```
 
 ---
 
 <a id="chapter-2"></a>
-
-```
 
 ## Chapter 2: テスト自動化の準備
 
@@ -621,7 +619,6 @@ def test_successful_login(driver):
                  .enter_email("test@example.com")
                  .enter_password("password123")
                  .click_login())
-```
 
     assert dashboard.is_displayed()
 
@@ -633,6 +630,7 @@ def test_invalid_login(driver):
     login.click_login()  # DashboardPageではなくLoginPageに留まる
 
     assert "パスワードが正しくありません" in login.get_error_message()
+```
 
 #### 3.3.2 SOLID原則のテスト自動化への適用
 
@@ -891,9 +889,6 @@ class TestShoppingCart:
 #### 4.3.3 設定の外部化
 
 ```yaml
-```
-
-```python
 #### config/test_config.yaml
 environments:
   staging:
@@ -901,7 +896,6 @@ environments:
     api_url: "https://api-staging.example.com"
     timeout: 30
     retry_count: 3
-```
 
   production:
     base_url: "https://www.example.com"
@@ -917,22 +911,21 @@ test_data:
   admin_user:
     email: "admin@example.com"
     role: "admin"
+```
 
 ```python
 #### 環境変数・設定ファイルから読み込む
 import os
 import yaml
 from functools import lru_cache
-```
 
 @lru_cache(maxsize=1)
 def load_config(env: str = None) -> dict:
     env = env or os.getenv("TEST_ENV", "staging")
     with open("config/test_config.yaml") as f:
         config = yaml.safe_load(f)
-    return config`["environments"][env]`
+    return config["environments"][env]
 
-```python
 #### 機密情報は必ず環境変数で管理
 BASE_URL = load_config()["base_url"]
 API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
@@ -995,13 +988,9 @@ API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
 #### GitHub Actions での実装例
 
 ```yaml
-```
-
-```python
 ###<!-- markdownlint-disable MD025 MD022 -->
 # .github/workflows/test_automation.yml
 name: テスト自動化パイプライン
-```
 
 on:
   push:
@@ -1012,7 +1001,6 @@ on:
     - cron: '0 2 * * *'  # 毎日深夜2時にフルリグレッション実行
 
 jobs:
-  ```yaml
   # === Step 1: ユニットテスト（高速） ===
   unit-tests:
     runs-on: ubuntu-latest
@@ -1034,7 +1022,6 @@ jobs:
       - name: カバレッジレポートをアップロード
         uses: codecov/codecov-action@v4
 
-  ```yaml
   # === Step 2: 統合テスト ===
   integration-tests:
     needs: unit-tests  # ユニットテスト成功後に実行
@@ -1054,7 +1041,6 @@ jobs:
         env:
           DATABASE_URL: postgresql://postgres:test_pass@localhost/test_db
 
-  ```yaml
   # === Step 3: E2E スモークテスト ===
   e2e-smoke:
     needs: integration-tests
@@ -1082,7 +1068,6 @@ jobs:
           path: playwright-report/
           retention-days: 7
 
-  ```yaml
   # === Step 4: フルE2Eリグレッション（夜間のみ） ===
 
   e2e-full-regression:
@@ -1101,6 +1086,7 @@ jobs:
           npx playwright test \
             --project=${{ matrix.browser }} \
             --workers=4
+```
 
 ---
 
@@ -1196,7 +1182,6 @@ class TestUserAPI:
 ```python
 # Pact を使ったコンシューマー駆動コントラクトテスト
 from pact import Consumer, Provider
-```
 
 pact = Consumer("フロントエンドAPI").has_pact_with(Provider("ユーザーAPI"))
 
@@ -1219,6 +1204,7 @@ def test_get_user_returns_expected_schema():
     with pact:
         result = get_user(1)  # コンシューマーの実際の処理を呼ぶ
         assert result["id"] == 1
+```
 
 ---
 
@@ -1359,12 +1345,11 @@ allure serve allure-results
   - Kibana + Elasticsearch（ELKスタック）
   - Azure DevOps Dashboards
   - Allure TestOps
+```
 
 ---
 
 <a id="chapter-7"></a>
-
-```
 
 ## Chapter 7: テスト自動化ソリューションの検証
 
@@ -1455,12 +1440,11 @@ TAS コードレビューチェックリスト：
 
 □ 7. セキュリティ
      ✓ 機密情報がコードにハードコードされていないか
+```
 
 ---
 
 <a id="chapter-8"></a>
-
-```
 
 ## Chapter 8: 継続的改善
 
@@ -1759,12 +1743,11 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 4. 「testabilityを高めるには？」
    → Observability を高める（ログ・戻り値を充実させる）
    → Controllability を高める（依存性注入・環境切り替え）
+```
 
 ---
 
 <a id="references"></a>
-
-```
 
 ## 📚 参照URL一覧
 

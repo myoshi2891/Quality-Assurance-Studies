@@ -737,9 +737,9 @@ def mitigate_hallucination_strategies() -> dict:
     }
     
     return strategies
+```
 
 #### 3.1.4 LLMの非決定論的動作の緩和（Mitigation of Non-Deterministic Behavior）
-```
 
 > LLMの非決定論的動作とは：
 > → 同じプロンプトを実行しても、毎回異なる出力が生成される
@@ -1644,4 +1644,3 @@ D) LLMが常に正しいテストケースを生成するため人間のレビ�
 > ⚠️ **免責事項**: 本ガイドはISTQB®が公認したトレーニング資料ではありません。
 > 公式シラバス・サンプル問題と合わせて使用してください。
 > 試験情報の最終確認は必ず公式サイト（istqb.org）で行ってください。
-�さい。
