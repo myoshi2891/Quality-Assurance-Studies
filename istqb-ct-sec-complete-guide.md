@@ -9,25 +9,25 @@
 > **前提資格**: ISTQB CTFL（Foundation Level）必須 + 実務経験3年以上
 > **最終更新**: 2025年（OWASP Top 10:2025 最新版反映）
 >
-> 🔗 **公式ページ**: https://istqb.org/certifications/certified-tester-security-tester-ct-sec/
+> 🔗 **公式ページ**: <https://istqb.org/certifications/certified-tester-security-tester-ct-sec/>
 
 ---
 
 ## 📚 目次
 
-1. [CT-SEC 概要と資格ロードマップ](#%F0%9F%8C%9F-chapter-0-ct-sec-%E6%A6%82%E8%A6%81%E3%81%A8%E8%B3%87%E6%A0%BC%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97-chapter-0)
-2. [Chapter 1: セキュリティテストの基礎（The Basis of Security Testing）](#%F0%9F%9B%A1%EF%B8%8F-chapter-1-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E5%9F%BA%E7%A4%8E%EF%BC%88the-basis-of-security-testing%EF%BC%89-chapter-1)
-3. [Chapter 2: セキュリティテストの目的・ゴール・戦略](#%F0%9F%8E%AF-chapter-2-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E7%9B%AE%E7%9A%84%E3%83%BB%E3%82%B4%E3%83%BC%E3%83%AB%E3%83%BB%E6%88%A6%E7%95%A5-chapter-2)
-4. [Chapter 3: セキュリティテストプロセス](#%F0%9F%94%84-chapter-3-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9-chapter-3)
-5. [Chapter 4: ソフトウェアライフサイクルにおけるセキュリティテスト](#%F0%9F%94%A9-chapter-4-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88-chapter-4)
-6. [Chapter 5: セキュリティメカニズムのテスト](#%E2%9A%99%EF%B8%8F-chapter-5-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%A1%E3%82%AB%E3%83%8B%E3%82%BA%E3%83%A0%E3%81%AE%E3%83%86%E3%82%B9%E3%83%88-chapter-5)
-7. [Chapter 6: セキュリティテストにおける人的要因](#%F0%9F%91%A5-chapter-6-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8B%E4%BA%BA%E7%9A%84%E8%A6%81%E5%9B%A0-chapter-6)
-8. [Chapter 7: セキュリティテストの評価と報告](#%F0%9F%93%8A-chapter-7-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E3%81%AE%E8%A9%95%E4%BE%A1%E3%81%A8%E5%A0%B1%E5%91%8A-chapter-7)
-9. [Chapter 8: セキュリティテストツール](#%F0%9F%94%A7-chapter-8-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E3%83%84%E3%83%BC%E3%83%AB-chapter-8)
-10. [Chapter 9: 標準と業界トレンド（OWASP Top 10:2025 対応）](#chapter-9-%E6%A8%99%E6%BA%96%E3%81%A8%E6%A5%AD%E7%95%8C%E3%83%88%E3%83%AC%E3%83%B3%E3%83%89%EF%BC%88owasp-top-102025-%E5%AF%BE%E5%BF%9C%EF%BC%89)
-11. [試験対策・サンプル問題](#%F0%9F%93%9D-%E8%A9%A6%E9%A8%93%E5%AF%BE%E7%AD%96%E3%83%BB%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E5%95%8F%E9%A1%8C-exam-tips)
-12. [主要ツール・フレームワーク比較表](#%F0%9F%94%A7-%E4%B8%BB%E8%A6%81%E3%83%84%E3%83%BC%E3%83%AB%E3%83%BB%E3%83%95%E3%83%AC%E3%83%BC%E3%83%A0%E3%83%AF%E3%83%BC%E3%82%AF%E6%AF%94%E8%BC%83%E8%A1%A8-tools)
-13. [参照URL一覧](#%F0%9F%93%9A-%E5%8F%82%E7%85%A7url%E4%B8%80%E8%A6%A7-references)
+1. [CT-SEC 概要と資格ロードマップ](#chapter-0)
+2. [Chapter 1: セキュリティテストの基礎（The Basis of Security Testing）](#chapter-1)
+3. [Chapter 2: セキュリティテストの目的・ゴール・戦略](#chapter-2)
+4. [Chapter 3: セキュリティテストプロセス](#chapter-3)
+5. [Chapter 4: ソフトウェアライフサイクルにおけるセキュリティテスト](#chapter-4)
+6. [Chapter 5: セキュリティメカニズムのテスト](#chapter-5)
+7. [Chapter 6: セキュリティテストにおける人的要因](#chapter-6)
+8. [Chapter 7: セキュリティテストの評価と報告](#chapter-7)
+9. [Chapter 8: セキュリティテストツール](#chapter-8)
+10. [Chapter 9: 標準と業界トレンド（OWASP Top 10:2025 対応）](#chapter-9)
+11. [試験対策・サンプル問題](#exam-tips)
+12. [主要ツール・フレームワーク比較表](#tools)
+13. [参照URL一覧](#references)
 
 ---
 
@@ -1782,6 +1782,7 @@ D) 攻撃者が通信を傍受して機密情報を取得した
 **正解: C**
 
 CIAトライアドとの対応：
+
 - A) 「不正にアカウントにアクセス」→ 機密性（Confidentiality）の侵害
 - B) 「データを改ざん」→ 完全性（Integrity）の侵害
 - C) 「アクセスできなくなった」→ 可用性（Availability）の侵害 ✅
@@ -1811,6 +1812,7 @@ D) 標準ベーステスト（Standards-Based Testing）
 脆弱性ベーステスト：既知の脆弱性（CVE・CWE等）のデータベースや過去の欠陥情報を基にテストを設計するアプローチ。
 
 各アプローチの特徴：
+
 - A) ポリシーベース：組織のセキュリティポリシーへの準拠確認
 - B) リスクベース：リスク評価結果（発生確率×影響度）を基に優先順位付け
 - C) 脆弱性ベース：CVE・過去のインシデント等の既知脆弱性パターンを基にテスト ✅
@@ -1838,6 +1840,7 @@ D) テスト実行フェーズに入ってから脆弱性として報告すべ�
 
 OWASP Top 10:2025のA06「Insecure Design（安全でない設計）」に該当します。
 秘密の質問は設計レベルの脆弱性で：
+
 - ペットの名前はSNSから推測可能
 - 実装がどれほど完璧でも設計自体が安全でない
 
@@ -1872,6 +1875,7 @@ IDOR（Insecure Direct Object Reference）の定義：
 OWASP Top 10:2025 A01「Broken Access Control」に該当します。
 
 他の選択肢：
+
 - A) SQLi：入力がSQL文として実行される（この例ではなし）
 - B) CSRF：攻撃者が被害者の認証済みセッションを悪用（この例ではなし）
 - D) XSS：スクリプトが注入される（この例ではなし）
@@ -1895,11 +1899,13 @@ D) フィッシングメールを見破れない従業員を解雇する証拠�
 **正解: B**
 
 フィッシングシミュレーションの主な目的：
+
 - 従業員のセキュリティ意識の評価（クリック率・報告率の測定）
 - 教育が必要な領域の特定
 - フォローアップトレーニングの提供
 
 重要な倫理原則：
+
 - フィッシングシミュレーションは教育目的であり、懲罰目的ではない
 - 失敗した従業員は追加トレーニングを受けるべき（解雇の根拠にしない）
 - 「Blame-Free Culture（責任追及なしの文化）」の醸成が重要
@@ -1926,6 +1932,7 @@ D) 低優先度（Low）：スケジュール修正（四半期内）
 **正解: B（高優先度：1週間以内）**
 
 CVSSv3.1 スコアの判定基準：
+
 - 0.0: None（なし）
 - 0.1〜3.9: Low（低）
 - 4.0〜6.9: Medium（中）
@@ -1996,38 +2003,38 @@ Critical（9.0以上）でないため、即時修正（24時間）は必要な�
 
 | ツール | 種類 | 特徴 | コスト | 公式URL |
 |-------|------|------|--------|---------|
-| **OWASP ZAP** | DAST/ペンテスト | Webアプリ向け・CI/CD統合容易 | 無料（OSS） | https://www.zaproxy.org/ |
-| **Burp Suite** | DAST/ペンテスト | 業界標準・プロキシ機能が強力 | Community版無料・Pro有料 | https://portswigger.net/burp |
-| **Nmap** | ネットワークスキャン | ポートスキャン・サービス検出 | 無料（OSS） | https://nmap.org/ |
-| **Metasploit** | エクスプロイト | 脆弱性エクスプロイトフレームワーク | Community版無料・Pro有料 | https://www.metasploit.com/ |
-| **Nessus** | 脆弱性スキャン | 高精度の自動スキャン | 商用（個人版無料） | https://www.tenable.com/products/nessus |
-| **OpenVAS** | 脆弱性スキャン | Nessusのオープンソース版 | 無料（OSS） | https://www.openvas.org/ |
-| **Nikto** | Webスキャン | Webサーバーの設定問題検出 | 無料（OSS） | https://cirt.net/Nikto2 |
-| **SQLmap** | SQLi テスト | SQL インジェクション自動検出 | 無料（OSS） | https://sqlmap.org/ |
-| **Wireshark** | ネットワーク解析 | パケットキャプチャ・解析 | 無料（OSS） | https://www.wireshark.org/ |
+| **OWASP ZAP** | DAST/ペンテスト | Webアプリ向け・CI/CD統合容易 | 無料（OSS） | <https://www.zaproxy.org/> |
+| **Burp Suite** | DAST/ペンテスト | 業界標準・プロキシ機能が強力 | Community版無料・Pro有料 | <https://portswigger.net/burp> |
+| **Nmap** | ネットワークスキャン | ポートスキャン・サービス検出 | 無料（OSS） | <https://nmap.org/> |
+| **Metasploit** | エクスプロイト | 脆弱性エクスプロイトフレームワーク | Community版無料・Pro有料 | <https://www.metasploit.com/> |
+| **Nessus** | 脆弱性スキャン | 高精度の自動スキャン | 商用（個人版無料） | <https://www.tenable.com/products/nessus> |
+| **OpenVAS** | 脆弱性スキャン | Nessusのオープンソース版 | 無料（OSS） | <https://www.openvas.org/> |
+| **Nikto** | Webスキャン | Webサーバーの設定問題検出 | 無料（OSS） | <https://cirt.net/Nikto2> |
+| **SQLmap** | SQLi テスト | SQL インジェクション自動検出 | 無料（OSS） | <https://sqlmap.org/> |
+| **Wireshark** | ネットワーク解析 | パケットキャプチャ・解析 | 無料（OSS） | <https://www.wireshark.org/> |
 
 ### SAST・SCAツール
 
 | ツール | 種類 | 対応言語 | コスト | 公式URL |
 |-------|------|---------|--------|---------|
-| **Checkmarx** | SAST | Java・C#・Python等 | 商用 | https://checkmarx.com/ |
-| **SonarQube** | SAST | 多言語 | Community版無料・商用あり | https://www.sonarsource.com/products/sonarqube/ |
-| **Fortify** | SAST | 多言語 | 商用 | https://www.opentext.com/products/fortify-static-code-analyzer |
-| **Semgrep** | SAST | 多言語 | Community版無料 | https://semgrep.dev/ |
-| **Bandit** | SAST | Python | 無料（OSS） | https://bandit.readthedocs.io/ |
-| **Snyk** | SCA+SAST | 多言語 | 無料プラン有・商用あり | https://snyk.io/ |
-| **OWASP Dependency-Check** | SCA | Java・.NET等 | 無料（OSS） | https://owasp.org/www-project-dependency-check/ |
-| **GitHub Dependabot** | SCA | 多言語 | 無料（GitHub統合） | https://docs.github.com/en/code-security/dependabot |
+| **Checkmarx** | SAST | Java・C#・Python等 | 商用 | <https://checkmarx.com/> |
+| **SonarQube** | SAST | 多言語 | Community版無料・商用あり | <https://www.sonarsource.com/products/sonarqube/> |
+| **Fortify** | SAST | 多言語 | 商用 | <https://www.opentext.com/products/fortify-static-code-analyzer> |
+| **Semgrep** | SAST | 多言語 | Community版無料 | <https://semgrep.dev/> |
+| **Bandit** | SAST | Python | 無料（OSS） | <https://bandit.readthedocs.io/> |
+| **Snyk** | SCA+SAST | 多言語 | 無料プラン有・商用あり | <https://snyk.io/> |
+| **OWASP Dependency-Check** | SCA | Java・.NET等 | 無料（OSS） | <https://owasp.org/www-project-dependency-check/> |
+| **GitHub Dependabot** | SCA | 多言語 | 無料（GitHub統合） | <https://docs.github.com/en/code-security/dependabot> |
 
 ### セキュリティテスト環境
 
 | ツール | 種類 | 特徴 | 公式URL |
 |-------|------|------|---------|
-| **Kali Linux** | セキュリティOS | ペンテスト専用ディストリビューション | https://www.kali.org/ |
-| **Parrot OS** | セキュリティOS | Kaliの軽量版代替 | https://www.parrotsec.org/ |
-| **DVWA** | 脆弱性あり練習環境 | Webアプリ脆弱性の学習用 | https://dvwa.co.uk/ |
-| **WebGoat** | 脆弱性あり練習環境 | OWASP 提供の学習環境 | https://owasp.org/www-project-webgoat/ |
-| **Hack The Box** | CTF・練習 | オンライン侵入テスト練習 | https://www.hackthebox.com/ |
+| **Kali Linux** | セキュリティOS | ペンテスト専用ディストリビューション | <https://www.kali.org/> |
+| **Parrot OS** | セキュリティOS | Kaliの軽量版代替 | <https://www.parrotsec.org/> |
+| **DVWA** | 脆弱性あり練習環境 | Webアプリ脆弱性の学習用 | <https://dvwa.co.uk/> |
+| **WebGoat** | 脆弱性あり練習環境 | OWASP 提供の学習環境 | <https://owasp.org/www-project-webgoat/> |
+| **Hack The Box** | CTF・練習 | オンライン侵入テスト練習 | <https://www.hackthebox.com/> |
 
 ---
 
@@ -2037,86 +2044,86 @@ Critical（9.0以上）でないため、即時修正（24時間）は必要な�
 
 | リソース | URL |
 |---------|-----|
-| **CT-SEC 認定ページ（公式）** | https://istqb.org/certifications/certified-tester-security-tester-ct-sec/ |
-| **CT-SEC シラバス v1.0 ダウンロード** | https://istqb.org/?sdm_process_download=1&download_id=3599 |
-| **サンプル試験問題 v1.1** | https://istqb.org/?sdm_process_download=1&download_id=3600 |
-| **サンプル試験解答 v1.1** | https://istqb.org/?sdm_process_download=1&download_id=3602 |
-| **試験構造とルール v1.2** | https://istqb.org/?sdm_process_download=1&download_id=3829 |
-| **ISTQB グロッサリー** | https://glossary.istqb.org/en_US/search?term= |
-| **CTFL v4.0（前提資格）** | https://istqb.org/certifications/certified-tester-foundation-level/ |
+| **CT-SEC 認定ページ（公式）** | <https://istqb.org/certifications/certified-tester-security-tester-ct-sec/> |
+| **CT-SEC シラバス v1.0 ダウンロード** | <https://istqb.org/?sdm_process_download=1&download_id=3599> |
+| **サンプル試験問題 v1.1** | <https://istqb.org/?sdm_process_download=1&download_id=3600> |
+| **サンプル試験解答 v1.1** | <https://istqb.org/?sdm_process_download=1&download_id=3602> |
+| **試験構造とルール v1.2** | <https://istqb.org/?sdm_process_download=1&download_id=3829> |
+| **ISTQB グロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
+| **CTFL v4.0（前提資格）** | <https://istqb.org/certifications/certified-tester-foundation-level/> |
 
 ### 🏛️ OWASP 公式リソース
 
 | リソース | URL |
 |---------|-----|
-| **OWASP Top 10:2025（最新）** | https://owasp.org/Top10/2025/ |
-| **OWASP Top 10:2021** | https://owasp.org/www-project-top-ten/ |
-| **OWASP Testing Guide v4.2** | https://owasp.org/www-project-web-security-testing-guide/ |
-| **OWASP Application Security Verification Standard (ASVS)** | https://owasp.org/www-project-application-security-verification-standard/ |
-| **OWASP Dependency-Check** | https://owasp.org/www-project-dependency-check/ |
-| **OWASP WebGoat（学習環境）** | https://owasp.org/www-project-webgoat/ |
-| **OWASP Mobile Top 10:2024** | https://owasp.org/www-project-mobile-top-10/ |
-| **OWASP API Security Top 10:2023** | https://owasp.org/www-project-api-security/ |
-| **OWASP Cheat Sheet Series** | https://cheatsheetseries.owasp.org/ |
-| **OWASP ZAP（ツール）** | https://www.zaproxy.org/ |
+| **OWASP Top 10:2025（最新）** | <https://owasp.org/Top10/2025/> |
+| **OWASP Top 10:2021** | <https://owasp.org/www-project-top-ten/> |
+| **OWASP Testing Guide v4.2** | <https://owasp.org/www-project-web-security-testing-guide/> |
+| **OWASP Application Security Verification Standard (ASVS)** | <https://owasp.org/www-project-application-security-verification-standard/> |
+| **OWASP Dependency-Check** | <https://owasp.org/www-project-dependency-check/> |
+| **OWASP WebGoat（学習環境）** | <https://owasp.org/www-project-webgoat/> |
+| **OWASP Mobile Top 10:2024** | <https://owasp.org/www-project-mobile-top-10/> |
+| **OWASP API Security Top 10:2023** | <https://owasp.org/www-project-api-security/> |
+| **OWASP Cheat Sheet Series** | <https://cheatsheetseries.owasp.org/> |
+| **OWASP ZAP（ツール）** | <https://www.zaproxy.org/> |
 
 ### 📢 試験プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| **iSQI 試験情報（CT-SEC）** | https://isqi.org/ISTQB-Certified-Tester-Security-Tester-CT-SEC |
-| **試験プロバイダー検索** | https://istqb.org/exam-providers/ |
-| **研修プロバイダー検索** | https://istqb.org/training-providers/ |
+| **iSQI 試験情報（CT-SEC）** | <https://isqi.org/ISTQB-Certified-Tester-Security-Tester-CT-SEC> |
+| **試験プロバイダー検索** | <https://istqb.org/exam-providers/> |
+| **研修プロバイダー検索** | <https://istqb.org/training-providers/> |
 
 ### 🎓 学習リソース
 
 | リソース | URL |
 |---------|-----|
-| **ISTQB.Guru CT-SEC ガイド** | https://www.istqb.guru/ |
-| **Udemy CT-SEC コース** | https://www.udemy.com/course/istqb-security-tester/ |
-| **TryHackMe（実践学習）** | https://tryhackme.com/ |
-| **Hack The Box（実践学習）** | https://www.hackthebox.com/ |
-| **PortSwigger Web Security Academy** | https://portswigger.net/web-security |
+| **ISTQB.Guru CT-SEC ガイド** | <https://www.istqb.guru/> |
+| **Udemy CT-SEC コース** | <https://www.udemy.com/course/istqb-security-tester/> |
+| **TryHackMe（実践学習）** | <https://tryhackme.com/> |
+| **Hack The Box（実践学習）** | <https://www.hackthebox.com/> |
+| **PortSwigger Web Security Academy** | <https://portswigger.net/web-security> |
 
 ### 📋 セキュリティ標準・フレームワーク
 
 | 標準 / リソース | 内容 | URL |
 |---------------|------|-----|
-| **ISO/IEC 27001:2022** | 情報セキュリティ管理システム | https://www.iso.org/standard/27001 |
-| **NIST CSF 2.0** | サイバーセキュリティフレームワーク | https://www.nist.gov/cyberframework |
-| **NIST SP 800-53** | セキュリティ・プライバシーコントロール | https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final |
-| **PCI DSS v4.0** | 支払いカードセキュリティ標準 | https://www.pcisecuritystandards.org/ |
-| **GDPR（EU規制）** | EU一般データ保護規則 | https://gdpr.eu/ |
-| **PTES** | ペネトレーションテスト実施標準 | http://www.pentest-standard.org/ |
-| **CIS Benchmarks** | OSハードニング標準 | https://www.cisecurity.org/cis-benchmarks |
-| **MITRE ATT&CK** | 攻撃者の戦術・技術データベース | https://attack.mitre.org/ |
-| **CVE List（脆弱性DB）** | 公知の脆弱性データベース | https://cve.mitre.org/ |
-| **NVD（国立脆弱性DB）** | CVSSスコア付き脆弱性DB | https://nvd.nist.gov/ |
+| **ISO/IEC 27001:2022** | 情報セキュリティ管理システム | <https://www.iso.org/standard/27001> |
+| **NIST CSF 2.0** | サイバーセキュリティフレームワーク | <https://www.nist.gov/cyberframework> |
+| **NIST SP 800-53** | セキュリティ・プライバシーコントロール | <https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final> |
+| **PCI DSS v4.0** | 支払いカードセキュリティ標準 | <https://www.pcisecuritystandards.org/> |
+| **GDPR（EU規制）** | EU一般データ保護規則 | <https://gdpr.eu/> |
+| **PTES** | ペネトレーションテスト実施標準 | <http://www.pentest-standard.org/> |
+| **CIS Benchmarks** | OSハードニング標準 | <https://www.cisecurity.org/cis-benchmarks> |
+| **MITRE ATT&CK** | 攻撃者の戦術・技術データベース | <https://attack.mitre.org/> |
+| **CVE List（脆弱性DB）** | 公知の脆弱性データベース | <https://cve.mitre.org/> |
+| **NVD（国立脆弱性DB）** | CVSSスコア付き脆弱性DB | <https://nvd.nist.gov/> |
 
 ### 🔧 ツール公式ドキュメント
 
 | ツール | URL |
 |-------|-----|
-| **Burp Suite** | https://portswigger.net/burp/documentation |
-| **OWASP ZAP** | https://www.zaproxy.org/docs/ |
-| **Nmap** | https://nmap.org/book/man.html |
-| **Metasploit** | https://docs.metasploit.com/ |
-| **Kali Linux** | https://www.kali.org/docs/ |
-| **Nessus** | https://docs.tenable.com/nessus/ |
-| **Snyk** | https://docs.snyk.io/ |
-| **Checkmarx** | https://checkmarx.com/resource/documents/ |
-| **SonarQube** | https://docs.sonarsource.com/sonarqube/ |
-| **Qualys SSL Labs** | https://www.ssllabs.com/ssltest/ |
-| **Have I Been Pwned** | https://haveibeenpwned.com/ |
+| **Burp Suite** | <https://portswigger.net/burp/documentation> |
+| **OWASP ZAP** | <https://www.zaproxy.org/docs/> |
+| **Nmap** | <https://nmap.org/book/man.html> |
+| **Metasploit** | <https://docs.metasploit.com/> |
+| **Kali Linux** | <https://www.kali.org/docs/> |
+| **Nessus** | <https://docs.tenable.com/nessus/> |
+| **Snyk** | <https://docs.snyk.io/> |
+| **Checkmarx** | <https://checkmarx.com/resource/documents/> |
+| **SonarQube** | <https://docs.sonarsource.com/sonarqube/> |
+| **Qualys SSL Labs** | <https://www.ssllabs.com/ssltest/> |
+| **Have I Been Pwned** | <https://haveibeenpwned.com/> |
 
 ### 📖 推奨書籍・レポート
 
 | リソース | URL |
 |---------|-----|
-| **IBM Cost of a Data Breach Report 2024** | https://www.ibm.com/reports/data-breach |
-| **Verizon DBIR 2024（データ侵害調査レポート）** | https://www.verizon.com/business/resources/reports/dbir/ |
-| **Veracode State of Software Security 2025** | https://www.veracode.com/state-of-software-security-report |
-| **Google SRE Book（信頼性エンジニアリング）** | https://sre.google/sre-book/table-of-contents/ |
+| **IBM Cost of a Data Breach Report 2024** | <https://www.ibm.com/reports/data-breach> |
+| **Verizon DBIR 2024（データ侵害調査レポート）** | <https://www.verizon.com/business/resources/reports/dbir/> |
+| **Veracode State of Software Security 2025** | <https://www.veracode.com/state-of-software-security-report> |
+| **Google SRE Book（信頼性エンジニアリング）** | <https://sre.google/sre-book/table-of-contents/> |
 
 ---
 
@@ -2170,12 +2177,13 @@ Critical（9.0以上）でないため、即時修正（24時間）は必要な�
 > **📌 準拠資格**: ISTQB CT-SEC v1.0（2016年リリース）
 > **📌 OWASP準拠**: OWASP Top 10:2025（最新版）
 > **📌 次のステップ**:
+>
 > - CEH（Certified Ethical Hacker）でペンテストスキルを深化
 > - OSCP（Offensive Security Certified Professional）で実践的ペンテストを習得
 > - CISSP（Certified Information Systems Security Professional）でマネジメントスキルを習得
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-security-tester-ct-sec/
-> 🔗 **OWASP Top 10:2025**: https://owasp.org/Top10/2025/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-security-tester-ct-sec/>
+> 🔗 **OWASP Top 10:2025**: <https://owasp.org/Top10/2025/>
 
 ---
 

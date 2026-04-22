@@ -9,7 +9,7 @@
 > **前提資格**: ISTQB CTFL（Foundation Level）保有必須
 > **最終更新**: 2025年（2025年1月3日新規リリース対応）
 >
-> 🔗 **公式ページ**: https://istqb.org/certifications/certified-tester-security-test-engineer/
+> 🔗 **公式ページ**: <https://istqb.org/certifications/certified-tester-security-test-engineer/>
 > 🆕 **2025年最新資格**: CT-SEC（2016年）をリニューアルした最新のセキュリティテスト専門資格
 
 ---
@@ -43,19 +43,19 @@
 
 ## 📚 目次
 
-1. [CT-STE 概要と資格ロードマップ](#%F0%9F%8C%9F-chapter-0-ct-ste-%E6%A6%82%E8%A6%81%E3%81%A8%E8%B3%87%E6%A0%BC%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97-chapter-0)
-2. [Chapter 1: セキュリティパラダイム（Security Paradigm）](#%F0%9F%94%90-chapter-1-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%91%E3%83%A9%E3%83%80%E3%82%A4%E3%83%A0%EF%BC%88security-paradigm%EF%BC%89-chapter-1)
-3. [Chapter 2: セキュリティテスト技法（Security Test Techniques）](#%F0%9F%94%AC-chapter-2-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E6%8A%80%E6%B3%95%EF%BC%88security-test-techniques%EF%BC%89-chapter-2)
-4. [Chapter 3: セキュリティテストプロセス（The Security Test Process）](#chapter-3-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E3%83%97%E3%83%AD%E3%82%BB%E3%82%B9%EF%BC%88the-security-test-process%EF%BC%89)
-5. [Chapter 4: 標準とベストプラクティス（Standards and Best Practices）](#chapter-4-%E6%A8%99%E6%BA%96%E3%81%A8%E3%83%99%E3%82%B9%E3%83%88%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B9%EF%BC%88standards-and-best-practices%EF%BC%89)
-6. [Chapter 5: 組織コンテキストへの適応](#%F0%9F%8F%A2-chapter-5-%E7%B5%84%E7%B9%94%E3%82%B3%E3%83%B3%E3%83%86%E3%82%AD%E3%82%B9%E3%83%88%E3%81%B8%E3%81%AE%E9%81%A9%E5%BF%9C-chapter-5)
-7. [Chapter 6: ソフトウェア開発ライフサイクルモデルへの適応](#%F0%9F%94%A7-chapter-6-%E3%82%BD%E3%83%95%E3%83%88%E3%82%A6%E3%82%A7%E3%82%A2%E9%96%8B%E7%99%BA%E3%83%A9%E3%82%A4%E3%83%95%E3%82%B5%E3%82%A4%E3%82%AF%E3%83%AB%E3%83%A2%E3%83%87%E3%83%AB%E3%81%B8%E3%81%AE%E9%81%A9%E5%BF%9C-chapter-6)
-8. [Chapter 7: ISMSの一部としてのセキュリティテスト](#%F0%9F%8F%9B%EF%B8%8F-chapter-7-isms%E3%81%AE%E4%B8%80%E9%83%A8%E3%81%A8%E3%81%97%E3%81%A6%E3%81%AE%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88-chapter-7)
-9. [Chapter 8: テスト結果の報告（Reporting Test Results）](#chapter-8-%E3%83%86%E3%82%B9%E3%83%88%E7%B5%90%E6%9E%9C%E3%81%AE%E5%A0%B1%E5%91%8A%EF%BC%88reporting-test-results%EF%BC%89)
-10. [Chapter 9: セキュリティテストツール（Security Test Tools）](#chapter-9-%E3%82%BB%E3%82%AD%E3%83%A5%E3%83%AA%E3%83%86%E3%82%A3%E3%83%86%E3%82%B9%E3%83%88%E3%83%84%E3%83%BC%E3%83%AB%EF%BC%88security-test-tools%EF%BC%89)
-11. [試験対策・サンプル問題](#%F0%9F%93%9D-%E8%A9%A6%E9%A8%93%E5%AF%BE%E7%AD%96%E3%83%BB%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E5%95%8F%E9%A1%8C-exam-tips)
-12. [主要ツール比較表](#%F0%9F%94%A7-%E4%B8%BB%E8%A6%81%E3%83%84%E3%83%BC%E3%83%AB%E6%AF%94%E8%BC%83%E8%A1%A8-tools)
-13. [参照URL一覧](#%F0%9F%93%9A-%E5%8F%82%E7%85%A7url%E4%B8%80%E8%A6%A7-references)
+1. [CT-STE 概要と資格ロードマップ](#chapter-0)
+2. [Chapter 1: セキュリティパラダイム（Security Paradigm）](#chapter-1)
+3. [Chapter 2: セキュリティテスト技法（Security Test Techniques）](#chapter-2)
+4. [Chapter 3: セキュリティテストプロセス（The Security Test Process）](#chapter-3)
+5. [Chapter 4: 標準とベストプラクティス（Standards and Best Practices）](#chapter-4)
+6. [Chapter 5: 組織コンテキストへの適応](#chapter-5)
+7. [Chapter 6: ソフトウェア開発ライフサイクルモデルへの適応](#chapter-6)
+8. [Chapter 7: ISMSの一部としてのセキュリティテスト](#chapter-7)
+9. [Chapter 8: テスト結果の報告（Reporting Test Results）](#chapter-8)
+10. [Chapter 9: セキュリティテストツール（Security Test Tools）](#chapter-9)
+11. [試験対策・サンプル問題](#exam-tips)
+12. [主要ツール比較表](#tools)
+13. [参照URL一覧](#references)
 
 ---
 
@@ -1590,6 +1590,7 @@ D) データC（高感度）を最優先、データB（中感度）、データ
 **正解: C**
 
 資産感度レベルの分類：
+
 - データA（施設住所・電話番号）：公開情報 → 低感度 → 最小限のテスト
 - データB（患者の診療記録）：個人の機密医療情報 → 高感度 → 最優先テスト
   → HIPAA・個人情報保護法の対象
@@ -1617,6 +1618,7 @@ D) 静的セキュリティテスト
 **正解: C（グレーボックステスト）**
 
 グレーボックステストの特徴：
+
 - 部分的な情報（認証情報・ユーザー権限レベル）を持った状態でテスト
 - この例では「認証済みユーザー」という部分的な情報を持って他ユーザーデータへのアクセスを試みている
 
@@ -1655,6 +1657,7 @@ D) Critical（9.0-10.0）
 **正解: C（High）**
 
 CVSS v3.1 の評価要素分析：
+
 - AV:N（ネットワーク経由、最も危険）
 - AC:L（低複雑度、攻撃が容易）
 - PR:N（権限不要）
@@ -1685,11 +1688,13 @@ D) リスク受容の承認権限はプロダクトマネージャーにある�
 **正解: B**
 
 Critical（9.0+）脆弱性に対するリスク受容の原則：
+
 - Critical/High 脆弱性の受容は通常、ISMS ポリシーで禁止されているか、
   少なくとも経営層の明示的な承認が必要
 - PCI DSS 等の規制要件がある場合は受容自体が不可能
 
 正しい対応：
+
 1. Critical 脆弱性の詳細をセキュリティレポートとして文書化
 2. リリースをブロックすることをプロダクトマネージャーに伝える
 3. 経営層・セキュリティリーダーに状況を報告
@@ -1750,33 +1755,33 @@ Critical（9.0+）脆弱性に対するリスク受容の原則：
 
 | ツール | 種類 | 対応言語 | CI/CD統合 | コスト | 公式URL |
 |-------|------|---------|----------|--------|---------|
-| **Checkmarx** | SAST | 多言語 | ✅ 対応 | 商用 | https://checkmarx.com/ |
-| **SonarQube** | SAST+品質 | 多言語 | ✅ 対応 | Community版無料 | https://www.sonarsource.com/ |
-| **Semgrep** | SAST | 多言語 | ✅ 対応 | Community版無料 | https://semgrep.dev/ |
-| **Bandit** | SAST | Python専用 | ✅ 対応 | 無料（OSS） | https://bandit.readthedocs.io/ |
-| **Snyk** | SCA+SAST | 多言語 | ✅ 対応 | 無料枠あり | https://snyk.io/ |
-| **OWASP Dep-Check** | SCA | Java/.NET等 | ✅ 対応 | 無料（OSS） | https://owasp.org/www-project-dependency-check/ |
-| **GitHub Dependabot** | SCA | 多言語 | GitHub統合 | 無料 | https://github.com/features/security |
+| **Checkmarx** | SAST | 多言語 | ✅ 対応 | 商用 | <https://checkmarx.com/> |
+| **SonarQube** | SAST+品質 | 多言語 | ✅ 対応 | Community版無料 | <https://www.sonarsource.com/> |
+| **Semgrep** | SAST | 多言語 | ✅ 対応 | Community版無料 | <https://semgrep.dev/> |
+| **Bandit** | SAST | Python専用 | ✅ 対応 | 無料（OSS） | <https://bandit.readthedocs.io/> |
+| **Snyk** | SCA+SAST | 多言語 | ✅ 対応 | 無料枠あり | <https://snyk.io/> |
+| **OWASP Dep-Check** | SCA | Java/.NET等 | ✅ 対応 | 無料（OSS） | <https://owasp.org/www-project-dependency-check/> |
+| **GitHub Dependabot** | SCA | 多言語 | GitHub統合 | 無料 | <https://github.com/features/security> |
 
 ### DAST・ペネトレーションテストツール
 
 | ツール | 種類 | 特徴 | コスト | 公式URL |
 |-------|------|------|--------|---------|
-| **OWASP ZAP** | DAST | CI/CD統合・初心者向け | 無料（OSS） | https://www.zaproxy.org/ |
-| **Burp Suite** | プロキシ/DAST | 業界標準・高機能 | Community版無料・Pro有料 | https://portswigger.net/ |
-| **Nmap** | ネットワークスキャン | ポートスキャン標準ツール | 無料（OSS） | https://nmap.org/ |
-| **Metasploit** | ペンテストFW | エクスプロイトFW | Community版無料 | https://www.metasploit.com/ |
-| **Nessus** | 脆弱性スキャン | 高精度スキャン | 商用（個人版無料） | https://www.tenable.com/products/nessus |
+| **OWASP ZAP** | DAST | CI/CD統合・初心者向け | 無料（OSS） | <https://www.zaproxy.org/> |
+| **Burp Suite** | プロキシ/DAST | 業界標準・高機能 | Community版無料・Pro有料 | <https://portswigger.net/> |
+| **Nmap** | ネットワークスキャン | ポートスキャン標準ツール | 無料（OSS） | <https://nmap.org/> |
+| **Metasploit** | ペンテストFW | エクスプロイトFW | Community版無料 | <https://www.metasploit.com/> |
+| **Nessus** | 脆弱性スキャン | 高精度スキャン | 商用（個人版無料） | <https://www.tenable.com/products/nessus> |
 
 ### クラウド・コンテナ・IaC セキュリティスキャナー
 
 | ツール | 種類 | 特徴 | コスト | 公式URL |
 |-------|------|------|--------|---------|
-| **Trivy** | コンテナスキャン | Docker/K8s脆弱性検出 | 無料（OSS） | https://trivy.dev/ |
-| **Checkov** | IaC スキャン | Terraform・CloudFormation | 無料（OSS） | https://www.checkov.io/ |
-| **tfsec** | IaC スキャン | Terraform 専用 | 無料（OSS） | https://tfsec.dev/ |
-| **Prowler** | クラウド設定 | AWS/Azure/GCP 監査 | 無料（OSS） | https://prowler.com/ |
-| **Scout Suite** | クラウドセキュリティ | マルチクラウド対応 | 無料（OSS） | https://github.com/nccgroup/ScoutSuite |
+| **Trivy** | コンテナスキャン | Docker/K8s脆弱性検出 | 無料（OSS） | <https://trivy.dev/> |
+| **Checkov** | IaC スキャン | Terraform・CloudFormation | 無料（OSS） | <https://www.checkov.io/> |
+| **tfsec** | IaC スキャン | Terraform 専用 | 無料（OSS） | <https://tfsec.dev/> |
+| **Prowler** | クラウド設定 | AWS/Azure/GCP 監査 | 無料（OSS） | <https://prowler.com/> |
+| **Scout Suite** | クラウドセキュリティ | マルチクラウド対応 | 無料（OSS） | <https://github.com/nccgroup/ScoutSuite> |
 
 ---
 
@@ -1786,86 +1791,86 @@ Critical（9.0+）脆弱性に対するリスク受容の原則：
 
 | リソース | URL |
 |---------|-----|
-| **CT-STE 認定ページ（公式）** | https://istqb.org/certifications/certified-tester-security-test-engineer/ |
-| **CT-STE シラバス v1.0.1 ダウンロード** | https://istqb.org/?sdm_process_download=1&download_id=5103 |
-| **サンプル試験問題 v1.0.1** | https://istqb.org/?sdm_process_download=1&download_id=5109 |
-| **サンプル試験解答 v1.0.1** | https://istqb.org/?sdm_process_download=1&download_id=5106 |
-| **CT-STE FAQ（公式）** | https://istqb.org/help/security-test-engineer-ste/ |
-| **CT-STE リリースプレスリリース（2025年2月）** | https://test.istqb.org/ct-security-test-engineer-launched/ |
-| **試験構造とルール v1.2** | https://istqb.org/?sdm_process_download=1&download_id=3829 |
-| **ISTQB グロッサリー** | https://glossary.istqb.org/en_US/search?term= |
-| **CTFL v4.0（前提資格）** | https://istqb.org/certifications/certified-tester-foundation-level/ |
+| **CT-STE 認定ページ（公式）** | <https://istqb.org/certifications/certified-tester-security-test-engineer/> |
+| **CT-STE シラバス v1.0.1 ダウンロード** | <https://istqb.org/?sdm_process_download=1&download_id=5103> |
+| **サンプル試験問題 v1.0.1** | <https://istqb.org/?sdm_process_download=1&download_id=5109> |
+| **サンプル試験解答 v1.0.1** | <https://istqb.org/?sdm_process_download=1&download_id=5106> |
+| **CT-STE FAQ（公式）** | <https://istqb.org/help/security-test-engineer-ste/> |
+| **CT-STE リリースプレスリリース（2025年2月）** | <https://test.istqb.org/ct-security-test-engineer-launched/> |
+| **試験構造とルール v1.2** | <https://istqb.org/?sdm_process_download=1&download_id=3829> |
+| **ISTQB グロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
+| **CTFL v4.0（前提資格）** | <https://istqb.org/certifications/certified-tester-foundation-level/> |
 
 ### 📢 試験プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| **iSQI 試験情報（CT-STE）** | https://isqi.org/ISTQB-Certified-Tester-Security-Test-Engineer-CT-STE/CT-STE.101 |
-| **Brightest（試験・バッジ）** | https://www.brightest.org/en/certifications/ISTQB-r-CT-Security-Test-Engineer/ |
-| **試験プロバイダー検索** | https://istqb.org/exam-providers/ |
-| **研修プロバイダー検索** | https://istqb.org/training-providers/ |
+| **iSQI 試験情報（CT-STE）** | <https://isqi.org/ISTQB-Certified-Tester-Security-Test-Engineer-CT-STE/CT-STE.101> |
+| **Brightest（試験・バッジ）** | <https://www.brightest.org/en/certifications/ISTQB-r-CT-Security-Test-Engineer/> |
+| **試験プロバイダー検索** | <https://istqb.org/exam-providers/> |
+| **研修プロバイダー検索** | <https://istqb.org/training-providers/> |
 
 ### 🎓 学習リソース
 
 | リソース | URL |
 |---------|-----|
-| **Udemy CT-STE 模擬試験（2026年対応）** | https://www.udemy.com/course/istqb-ct-ste-practice-tests-security-test-engineer-2026/ |
-| **ASTQB CT-STE シラバス PDF** | https://astqb.org/assets/documents/ISTQB_STE_v1.0.1-Syllabus.pdf |
+| **Udemy CT-STE 模擬試験（2026年対応）** | <https://www.udemy.com/course/istqb-ct-ste-practice-tests-security-test-engineer-2026/> |
+| **ASTQB CT-STE シラバス PDF** | <https://astqb.org/assets/documents/ISTQB_STE_v1.0.1-Syllabus.pdf> |
 
 ### 🏛️ OWASP 公式リソース
 
 | リソース | URL |
 |---------|-----|
-| **OWASP Top 10:2025（最新）** | https://owasp.org/Top10/2025/ |
-| **OWASP Testing Guide v4.2（WSTG）** | https://owasp.org/www-project-web-security-testing-guide/ |
-| **OWASP ASVS（アプリセキュリティ検証標準）** | https://owasp.org/www-project-application-security-verification-standard/ |
-| **OWASP API Security Top 10:2023** | https://owasp.org/www-project-api-security/ |
-| **OWASP Mobile Top 10:2024** | https://owasp.org/www-project-mobile-top-10/ |
-| **OWASP ZAP（ツール）** | https://www.zaproxy.org/ |
-| **OWASP Dependency-Check（ツール）** | https://owasp.org/www-project-dependency-check/ |
-| **OWASP Cheat Sheet Series** | https://cheatsheetseries.owasp.org/ |
+| **OWASP Top 10:2025（最新）** | <https://owasp.org/Top10/2025/> |
+| **OWASP Testing Guide v4.2（WSTG）** | <https://owasp.org/www-project-web-security-testing-guide/> |
+| **OWASP ASVS（アプリセキュリティ検証標準）** | <https://owasp.org/www-project-application-security-verification-standard/> |
+| **OWASP API Security Top 10:2023** | <https://owasp.org/www-project-api-security/> |
+| **OWASP Mobile Top 10:2024** | <https://owasp.org/www-project-mobile-top-10/> |
+| **OWASP ZAP（ツール）** | <https://www.zaproxy.org/> |
+| **OWASP Dependency-Check（ツール）** | <https://owasp.org/www-project-dependency-check/> |
+| **OWASP Cheat Sheet Series** | <https://cheatsheetseries.owasp.org/> |
 
 ### 📋 セキュリティ標準・フレームワーク
 
 | 標準 | 内容 | URL |
 |-----|------|-----|
-| **NIST SP 800-207** | Zero Trust Architecture（ゼロトラストの定義） | https://csrc.nist.gov/pubs/sp/800/207/final |
-| **NIST SP 800-207A** | ZTA マルチクラウド拡張版 | https://csrc.nist.gov/pubs/sp/800/207/a/final |
-| **NIST SP 800-115** | IT セキュリティテストと評価ガイド | https://csrc.nist.gov/pubs/sp/800/115/final |
-| **NIST SP 800-53 Rev5** | セキュリティ・プライバシーコントロール | https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final |
-| **NIST CSF 2.0** | Cybersecurity Framework | https://www.nist.gov/cyberframework |
-| **ISO/IEC 27001:2022** | ISMS（情報セキュリティ管理システム） | https://www.iso.org/standard/27001 |
-| **PCI DSS v4.0** | 支払いカードセキュリティ標準 | https://www.pcisecuritystandards.org/ |
-| **GDPR（EU規制）** | EU 一般データ保護規則 | https://gdpr.eu/ |
-| **MITRE ATT&CK** | 攻撃者戦術・技術データベース | https://attack.mitre.org/ |
-| **CVE（脆弱性データベース）** | 共通脆弱性識別子 | https://cve.mitre.org/ |
-| **NVD（CVSS スコア付き）** | 国立脆弱性データベース | https://nvd.nist.gov/ |
-| **PTES** | ペネトレーションテスト実施標準 | http://www.pentest-standard.org/ |
-| **CIS Benchmarks** | OS・ソフトウェアハードニング標準 | https://www.cisecurity.org/cis-benchmarks |
+| **NIST SP 800-207** | Zero Trust Architecture（ゼロトラストの定義） | <https://csrc.nist.gov/pubs/sp/800/207/final> |
+| **NIST SP 800-207A** | ZTA マルチクラウド拡張版 | <https://csrc.nist.gov/pubs/sp/800/207/a/final> |
+| **NIST SP 800-115** | IT セキュリティテストと評価ガイド | <https://csrc.nist.gov/pubs/sp/800/115/final> |
+| **NIST SP 800-53 Rev5** | セキュリティ・プライバシーコントロール | <https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final> |
+| **NIST CSF 2.0** | Cybersecurity Framework | <https://www.nist.gov/cyberframework> |
+| **ISO/IEC 27001:2022** | ISMS（情報セキュリティ管理システム） | <https://www.iso.org/standard/27001> |
+| **PCI DSS v4.0** | 支払いカードセキュリティ標準 | <https://www.pcisecuritystandards.org/> |
+| **GDPR（EU規制）** | EU 一般データ保護規則 | <https://gdpr.eu/> |
+| **MITRE ATT&CK** | 攻撃者戦術・技術データベース | <https://attack.mitre.org/> |
+| **CVE（脆弱性データベース）** | 共通脆弱性識別子 | <https://cve.mitre.org/> |
+| **NVD（CVSS スコア付き）** | 国立脆弱性データベース | <https://nvd.nist.gov/> |
+| **PTES** | ペネトレーションテスト実施標準 | <http://www.pentest-standard.org/> |
+| **CIS Benchmarks** | OS・ソフトウェアハードニング標準 | <https://www.cisecurity.org/cis-benchmarks> |
 
 ### 🔧 主要ツール
 
 | ツール | URL |
 |-------|-----|
-| **OWASP ZAP** | https://www.zaproxy.org/docs/ |
-| **Burp Suite** | https://portswigger.net/burp/documentation |
-| **Nmap** | https://nmap.org/book/ |
-| **Metasploit** | https://docs.metasploit.com/ |
-| **Snyk** | https://docs.snyk.io/ |
-| **Semgrep** | https://semgrep.dev/docs/ |
-| **Trivy** | https://trivy.dev/latest/docs/ |
-| **Checkov** | https://www.checkov.io/1.Welcome/What%20is%20Checkov.html |
-| **Kali Linux** | https://www.kali.org/docs/ |
-| **Qualys SSL Labs** | https://www.ssllabs.com/ssltest/ |
+| **OWASP ZAP** | <https://www.zaproxy.org/docs/> |
+| **Burp Suite** | <https://portswigger.net/burp/documentation> |
+| **Nmap** | <https://nmap.org/book/> |
+| **Metasploit** | <https://docs.metasploit.com/> |
+| **Snyk** | <https://docs.snyk.io/> |
+| **Semgrep** | <https://semgrep.dev/docs/> |
+| **Trivy** | <https://trivy.dev/latest/docs/> |
+| **Checkov** | <https://www.checkov.io/1.Welcome/What%20is%20Checkov.html> |
+| **Kali Linux** | <https://www.kali.org/docs/> |
+| **Qualys SSL Labs** | <https://www.ssllabs.com/ssltest/> |
 
 ### 📖 最新データ・レポート
 
 | リソース | URL |
 |---------|-----|
-| **IBM Cost of a Data Breach Report 2024** | https://www.ibm.com/reports/data-breach |
-| **Verizon DBIR 2024** | https://www.verizon.com/business/resources/reports/dbir/ |
-| **CISA Zero Trust Maturity Model** | https://www.cisa.gov/zero-trust-maturity-model |
-| **Unit 42 Global IR Report 2025** | https://www.paloaltonetworks.com/unit42/incident-response |
+| **IBM Cost of a Data Breach Report 2024** | <https://www.ibm.com/reports/data-breach> |
+| **Verizon DBIR 2024** | <https://www.verizon.com/business/resources/reports/dbir/> |
+| **CISA Zero Trust Maturity Model** | <https://www.cisa.gov/zero-trust-maturity-model> |
+| **Unit 42 Global IR Report 2025** | <https://www.paloaltonetworks.com/unit42/incident-response> |
 
 ---
 
@@ -1926,11 +1931,12 @@ Critical（9.0+）脆弱性に対するリスク受容の原則：
 > CT-SEC 取得者も CT-STE 取得には新たに試験が必要です。
 >
 > **📌 次のステップ**:
+>
 > - CT-STA（Security Test Analyst、2026年予定）でリスク分析・戦略スキルを習得
 > - CT-SEC（旧版）からの更新を検討中の方にも CT-STE を推奨
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-security-test-engineer/
-> 🔗 **OWASP Top 10:2025**: https://owasp.org/Top10/2025/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-security-test-engineer/>
+> 🔗 **OWASP Top 10:2025**: <https://owasp.org/Top10/2025/>
 
 ---
 

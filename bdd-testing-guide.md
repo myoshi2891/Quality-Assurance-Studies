@@ -6,20 +6,20 @@
 
 ## 目次
 
-1. [BDDとは何か？](#1-bdd%E3%81%A8%E3%81%AF%E4%BD%95%E3%81%8B%EF%BC%9F)
-2. [BDDの歴史と背景](#2-bdd%E3%81%AE%E6%AD%B4%E5%8F%B2%E3%81%A8%E8%83%8C%E6%99%AF)
+1. [BDDとは何か？](#1-bddとは何か)
+2. [BDDの歴史と背景](#2-bddの歴史と背景)
 3. [BDD vs TDD vs ATDD](#3-bdd-vs-tdd-vs-atdd)
-4. [ISTQBにおけるBDDの位置づけ](#4-istqb%E3%81%AB%E3%81%8A%E3%81%91%E3%82%8Bbdd%E3%81%AE%E4%BD%8D%E7%BD%AE%E3%81%A5%E3%81%91)
-5. [BDDの3つのフェーズ](#5-bdd%E3%81%AE3%E3%81%A4%E3%81%AE%E3%83%95%E3%82%A7%E3%83%BC%E3%82%BA)
-6. [スリーアミーゴス（Three Amigos）](#6-%E3%82%B9%E3%83%AA%E3%83%BC%E3%82%A2%E3%83%9F%E3%83%BC%E3%82%B4%E3%82%B9%EF%BC%88three-amigos%EF%BC%89)
-7. [Gherkin言語の完全解説](#7-gherkin%E8%A8%80%E8%AA%9E%E3%81%AE%E5%AE%8C%E5%85%A8%E8%A7%A3%E8%AA%AC)
-8. [実装ステップバイステップ](#8-%E5%AE%9F%E8%A3%85%E3%82%B9%E3%83%86%E3%83%83%E3%83%97%E3%83%90%E3%82%A4%E3%82%B9%E3%83%86%E3%83%83%E3%83%97)
-9. [主要BDDツール比較 2025年](#9-%E4%B8%BB%E8%A6%81bdd%E3%83%84%E3%83%BC%E3%83%AB%E6%AF%94%E8%BC%83-2025%E5%B9%B4)
-10. [CI/CDパイプラインへの統合](#10-cicd%E3%83%91%E3%82%A4%E3%83%97%E3%83%A9%E3%82%A4%E3%83%B3%E3%81%B8%E3%81%AE%E7%B5%B1%E5%90%88)
-11. [ベストプラクティスとアンチパターン](#11-%E3%83%99%E3%82%B9%E3%83%88%E3%83%97%E3%83%A9%E3%82%AF%E3%83%86%E3%82%A3%E3%82%B9%E3%81%A8%E3%82%A2%E3%83%B3%E3%83%81%E3%83%91%E3%82%BF%E3%83%BC%E3%83%B3)
-12. [BDD導入のロードマップ](#12-bdd%E5%B0%8E%E5%85%A5%E3%81%AE%E3%83%AD%E3%83%BC%E3%83%89%E3%83%9E%E3%83%83%E3%83%97)
-13. [2025年のBDDトレンドと統計](#13-2025%E5%B9%B4%E3%81%AEbdd%E3%83%88%E3%83%AC%E3%83%B3%E3%83%89%E3%81%A8%E7%B5%B1%E8%A8%88)
-14. [全参照URL一覧](#14-%E5%85%A8%E5%8F%82%E7%85%A7url%E4%B8%80%E8%A6%A7)
+4. [ISTQBにおけるBDDの位置づけ](#4-istqbにおけるbddの位置づけ)
+5. [BDDの3つのフェーズ](#5-bddの3つのフェーズ)
+6. [スリーアミーゴス（Three Amigos）](#6-スリーアミーゴスthree-amigos)
+7. [Gherkin言語の完全解説](#7-gherkin言語の完全解説)
+8. [実装ステップバイステップ](#8-実装ステップバイステップ)
+9. [主要BDDツール比較 2025年](#9-主要bddツール比較-2025年)
+10. [CI/CDパイプラインへの統合](#10-cicdパイプラインへの統合)
+11. [ベストプラクティスとアンチパターン](#11-ベストプラクティスとアンチパターン)
+12. [BDD導入のロードマップ](#12-bdd導入のロードマップ)
+13. [2025年のBDDトレンドと統計](#13-2025年のbddトレンドと統計)
+14. [全参照URL一覧](#14-全参照url一覧)
 
 ---
 
@@ -33,17 +33,19 @@
 
 ### BDDが解決する問題
 
-ソフトウェアプロジェクト失敗の **56%はコミュニケーション不足** が原因です (PMI Pulse of the Profession, 2013)。
+ソフトウェアプロジェクト失敗の **56%はコミュニケーション不足** が原因です（Test Evolve調査）。
 
-> 従来の問題:
-> ビジネス担当者 → 「機能Xが欲しい」
-> 開発者        → (仕様を誤解して実装)
-> テスター      → (要件を知らずにテスト設計)
-> ← バグ・手戻り・コスト増大 →
->
-> BDD導入後:
-> 全員が同じ「シナリオ」を読み、理解し、合意する
-> ← 共通言語で早期に要件を明確化 →
+```
+従来の問題:
+  ビジネス担当者 → 「機能Xが欲しい」
+  開発者        → (仕様を誤解して実装)
+  テスター      → (要件を知らずにテスト設計)
+  ← バグ・手戻り・コスト増大 →
+
+BDD導入後:
+  全員が同じ「シナリオ」を読み、理解し、合意する
+  ← 共通言語で早期に要件を明確化 →
+```
 
 ### BDDの3つの核心原則
 
@@ -61,20 +63,15 @@
 
 | 年 | 出来事 |
 |----|--------|
-| **2003年** | Dan North が TDD（テスト駆動開発）の限界を感じ始める [^1] |
-| **2004年** | Dan North と Chris Matts が **Given/When/Then 形式** を考案 [^2] |
-| **2006年** | Dan North が "Introducing BDD" を執筆し、BDD を公に定式化 [^3] |
-| **2008年** | Aslak Hellesøy が **Gherkin言語** と Cucumber を公開 [^4] |
-| **2010年** | SpecFlow（.NET向け）がリリース [^5] |
-| **2024年** | BDDテストツール市場が **11億ドル** に到達 [^6] |
-| **2025年** | AIによるGherkinシナリオ生成が普及し、採用がさらに加速 |
-
-[^1]: Dan North - [The History of BDD](https://dannorth.net/introducing-bdd/)
-[^2]: [Origin of Given/When/Then (JBehave)](https://jbehave.org/history.html)
-[^3]: Dan North - ["Introducing BDD", Better Software Magazine, March 2006](https://dannorth.net/introducing-bdd/)
-[^4]: [Cucumber Release History](https://github.com/cucumber/cucumber-ruby/releases)
-[^5]: [SpecFlow History](https://specflow.org/)
-[^6]: [Verified Market Reports - BDD Testing Tool Market Size (2024)](https://www.verifiedmarketreports.com/)
+| **2003年** | Dan North がTDD（テスト駆動開発）の限界を感じ始める |
+| **2004年** | Dan North が "Introducing BDD" を執筆し、BDDの概念を公表 |
+| **2007年** | Dan North が **Gherkin言語**（Given/When/Then形式）を正式化 |
+| **2008年** | Cucumber（最初の主要BDDツール）が Ruby向けにリリース |
+| **2010年** | SpecFlow（.NET向け）がリリース |
+| **2013年** | BDD がアジャイル開発のデファクトスタンダードに |
+| **2024年** | BDDテストツール市場が **1億2000万ドル**に到達 |
+| **2025年** | BDD採用率が **66%** に（State of Continuous Testing Report） |
+| **2033年** | BDDテストツール市場が **3億ドル**に達する見込み |
 
 ### BDDを生み出した背景
 
@@ -102,16 +99,18 @@ Dan Northは次の問題を観察しました：
 
 ### 関係性の図
 
-> ATDD (最も広い)
-> ↳ BDD (中間)
-> ↳ TDD (最も細かい)
->
-> 例:
-> ATDD: 「ユーザーは商品を購入できる」
-> BDD:  「Given カートに商品が入っている
-> When  支払いを確定する
-> Then  注文確認メールが送られる」
-> TDD:  「test_calculateOrderTotal_withDiscount_returns900()」
+```
+ATDD (最も広い)
+  ↳ BDD (中間)
+       ↳ TDD (最も細かい)
+
+例:
+  ATDD: 「ユーザーは商品を購入できる」
+  BDD:  「Given カートに商品が入っている
+          When  支払いを確定する
+          Then  注文確認メールが送られる」
+  TDD:  「test_calculateOrderTotal_withDiscount_returns900()」
+```
 
 ### どれを使うべきか？
 
@@ -126,12 +125,15 @@ Dan Northは次の問題を観察しました：
 
 ### ISTQB CTFL v4.0 Section 4.5: コラボレーションベースのテストアプローチ
 
-ISTQBはCTFL v4.0.1 Section 4.5において、BDDを **「コラボレーションベースのテストアプローチ」** の具体的な代表例として説明しています。
+ISTQBはCTFL v4.0において、BDDを **「コラボレーションベースのテストアプローチ」** の核心として定義しています。
 
-> ISTQB CTFL v4.0 の構成（BDD関連）:
-> Section 4.5 — Collaboration-based Test Approaches
-> ├── 4.5.1 Collaborative User Story Writing
-> └── 4.5.2 Acceptance Criteria
+```
+ISTQB CTFL v4.0 の構成（BDD関連）:
+  Section 4.5 — Collaboration-based Test Approaches
+    ├── 4.5.1 User Story の作成
+    ├── 4.5.2 受入基準（Acceptance Criteria）の定義
+    └── 4.5.3 ATDD / BDD の適用
+```
 
 ### ISTQBが定義するBDDの価値
 
@@ -163,6 +165,7 @@ BDDには明確に定義された3つの反復サイクルがあります。
 スリーアミーゴス（ビジネス担当者・開発者・テスター）が集まり、具体的な例を使って機能の振る舞いを議論します。
 
 **実施内容:**
+
 - ユーザーストーリーの精査
 - 「もし〜なら」という具体的な例の洗い出し
 - 境界条件・エッジケースの特定
@@ -179,6 +182,7 @@ BDDには明確に定義された3つの反復サイクルがあります。
 発見されたシナリオを、誰もが読める **Gherkin言語（Given/When/Then）** で文書化します。
 
 **実施内容:**
+
 - シナリオのGherkin記述
 - フィーチャーファイル（.feature）の作成
 - 全ステークホルダーによるレビュー・合意
@@ -194,6 +198,7 @@ BDDには明確に定義された3つの反復サイクルがあります。
 GherkinシナリオをCI/CDパイプラインで実行可能な自動テストコードに変換します。
 
 **実施内容:**
+
 - ステップ定義（Step Definitions）のコーディング
 - テスト実行・CI/CD統合
 - 失敗したシナリオの修正
@@ -204,10 +209,12 @@ GherkinシナリオをCI/CDパイプラインで実行可能な自動テスト�
 
 ### 3フェーズのサイクル
 
-> [発見] → [定式化] → [自動化]
-> ↑                      |
-> └──────────────────────┘
-> 継続的に反復
+```
+[発見] → [定式化] → [自動化]
+   ↑                      |
+   └──────────────────────┘
+        継続的に反復
+```
 
 ---
 
@@ -226,18 +233,22 @@ GherkinシナリオをCI/CDパイプラインで実行可能な自動テスト�
 ### スリーアミーゴスセッションの進め方
 
 **1. 準備（Before）**
+
 - ユーザーストーリーを事前共有
 - 各自が疑問・懸念事項を書き出す
 - 時間：15〜45分が理想
 
 **2. セッション中（During）**
 
-> PO:      「ユーザーがログイン失敗したらどうなりますか？」
-> テスター: 「3回失敗したらロックアウトすべきでは？」
-> 開発者:   「セッションの保持時間はどうしますか？」
-> 全員:     →「Given/When/Then」でシナリオに変換
+```
+PO:      「ユーザーがログイン失敗したらどうなりますか？」
+テスター: 「3回失敗したらロックアウトすべきでは？」
+開発者:   「セッションの保持時間はどうしますか？」
+全員:     →「Given/When/Then」でシナリオに変換
+```
 
 **3. アウトプット（After）**
+
 - 合意されたGherkinシナリオ
 - 残課題リスト
 - 技術的なTODO
@@ -247,12 +258,14 @@ GherkinシナリオをCI/CDパイプラインで実行可能な自動テスト�
 **ユーザーストーリー**: 「ユーザーとして、安全にログインしたい」
 
 **発見された具体例**:
+
 1. ✅ 正しいID/パスワードでログイン成功
 2. ❌ 間違ったパスワードでログイン失敗
 3. 🔒 5回失敗後にアカウントロック
 4. ⏰ 30分後に自動ロック解除
 
 **テスターが追加した視点**:
+
 - SQLインジェクション攻撃への耐性は？
 - 特殊文字を含むパスワードは？
 - 同時に2台からログインしたら？
@@ -302,6 +315,7 @@ Feature: ユーザーログイン機能
 ```
 
 **ポイント:**
+
 - 機能の「目的」と「価値」を記述する
 - ユーザーストーリー形式（As a / I want / So that）で書くことが多い
 - 1つの.featureファイルに1つのFeatureが基本
@@ -324,6 +338,7 @@ Feature: ショッピングカート
 ```
 
 **ルール:**
+
 - 1シナリオ = 1つの振る舞い
 - 他のシナリオに依存してはいけない（独立性）
 - 4〜8ステップが理想（多すぎると読みにくい）
@@ -332,20 +347,22 @@ Feature: ショッピングカート
 
 ### 7.3 Given / When / Then 詳細
 
-> Given（前提）: テストの初期状態を設定する
-> ├── システムの状態を記述する
-> ├── 「〜の状態で」「〜がある」
-> └── 例: "Given ユーザーが管理者権限を持っている"
->
-> When（操作）: テスト対象のアクションを記述する
-> ├── ユーザーが取る行動を1つだけ記述する
-> ├── 「〜したとき」「〜を実行したとき」
-> └── 例: "When ユーザーが「削除」ボタンをクリックする"
->
-> Then（期待結果）: 期待される出力・結果を記述する
-> ├── 観測可能な結果を記述する
-> ├── 「〜になるはずだ」「〜が表示される」
-> └── 例: "Then 削除確認のダイアログが表示される"
+```
+Given（前提）: テストの初期状態を設定する
+  ├── システムの状態を記述する
+  ├── 「〜の状態で」「〜がある」
+  └── 例: "Given ユーザーが管理者権限を持っている"
+
+When（操作）: テスト対象のアクションを記述する
+  ├── ユーザーが取る行動を1つだけ記述する
+  ├── 「〜したとき」「〜を実行したとき」
+  └── 例: "When ユーザーが「削除」ボタンをクリックする"
+
+Then（期待結果）: 期待される出力・結果を記述する
+  ├── 観測可能な結果を記述する
+  ├── 「〜になるはずだ」「〜が表示される」
+  └── 例: "Then 削除確認のダイアログが表示される"
+```
 
 **And / But（接続詞）:**
 
@@ -358,6 +375,7 @@ And   確認ダイアログで「OK」を選択する  ← 追加のWhen
 
 Then  データが削除される
 But   アクティブなデータは削除されない  ← 否定のThen
+```
 
 ---
 
@@ -379,6 +397,7 @@ Feature: 商品管理
   Scenario: 商品を削除する
     When  商品を選択して「削除」をクリックする
     Then  商品が一覧から消える
+```
 
 **使用場面**: 全シナリオで同じログイン状態・初期データが必要な場合
 
@@ -404,6 +423,7 @@ Feature: 年齢バリデーション
       | 18   | 登録成功     |
       | 120  | 登録成功     |
       | 121  | エラー表示   |
+```
 
 **生成されるテスト数**: Examples行の数 × 1シナリオ = 6テスト
 
@@ -428,6 +448,7 @@ Feature: ユーザー認証
     Given 有効なアカウントがある
     When  間違ったパスワードでログインを試みる
     Then  エラーメッセージが表示される
+```
 
 **タグの使い方:**
 
@@ -440,6 +461,7 @@ cucumber --tags @security
 
 # slowタグを除外して実行
 cucumber --tags "not @slow"
+```
 
 ---
 
@@ -456,6 +478,7 @@ Scenario: 複数商品を一度にカートに追加する
     | スマートウォッチ   | 2    | 25000  |
     | 充電ケーブル       | 3    | 2000   |
   Then  カートの合計金額は "71000" 円になる
+```
 
 ---
 
@@ -470,6 +493,7 @@ Scenario: 在庫切れ商品の注文
   When  「カートに追加」ボタンをクリックする
   Then  「在庫切れ」のメッセージが表示される
   And   カートに商品は追加されない
+```
 
 **❌ 悪いシナリオ（技術的すぎる）:**
 
@@ -479,6 +503,7 @@ Scenario: 在庫切れ
   Given データベースのproduct_inventoryテーブルに quantity=0 のレコードがある
   When  GET /api/products/123/add-to-cart へリクエストを送信する
   Then  HTTPレスポンスが 409 Conflict で返る
+```
 
 ---
 
@@ -503,6 +528,7 @@ mkdir features/steps
 # │   └── steps/
 # │       └── login_steps.py   ← ステップ定義
 # └── environment.py           ← フック設定
+```
 
 ---
 
@@ -545,6 +571,7 @@ Feature: ユーザーログイン
       | 3    | 警告メッセージが表示される         |
       | 5    | アカウントが15分ロックされる       |
       | 6    | ロック状態のエラーメッセージが出る |
+```
 
 ---
 
@@ -554,7 +581,6 @@ Feature: ユーザーログイン
 # features/steps/login_steps.py
 
 from behave import given, when, then
-from selenium.webdriver.common.by import By
 
 # ─── Given ステップ ──────────────────────────────
 @given('ログインページを開いている')
@@ -569,19 +595,19 @@ def step_open_login_page(context):
 # ─── When ステップ ──────────────────────────────
 @when('有効なメールアドレス "{email}" を入力する')
 def step_input_email(context, email):
-    email_field = context.browser.find_element(By.ID, "email")
+    email_field = context.browser.find_element("id", "email")
     email_field.clear()
     email_field.send_keys(email)
 
 @when('正しいパスワード "{password}" を入力する')
 def step_input_password(context, password):
-    password_field = context.browser.find_element(By.ID, "password")
+    password_field = context.browser.find_element("id", "password")
     password_field.clear()
     password_field.send_keys(password)
 
 @when('「ログイン」ボタンをクリックする')
 def step_click_login(context):
-    login_btn = context.browser.find_element(By.ID, "login-btn")
+    login_btn = context.browser.find_element("id", "login-btn")
     login_btn.click()
 
 # ─── Then ステップ ──────────────────────────────
@@ -591,17 +617,18 @@ def step_navigate_to_dashboard(context):
 
 @then('「ようこそ、{name}さん」と表示される')
 def step_show_welcome_message(context, name):
-    welcome_msg = context.browser.find_element(By.CLASS_NAME, "welcome-message")
+    welcome_msg = context.browser.find_element("class", "welcome-message")
     assert f"ようこそ、{name}さん" in welcome_msg.text
 
 @then('エラーメッセージ「{message}」が表示される')
 def step_show_error_message(context, message):
-    error_div = context.browser.find_element(By.CLASS_NAME, "error-message")
+    error_div = context.browser.find_element("class", "error-message")
     assert message in error_div.text
 
 @then('ログインページに留まる')
 def step_stay_on_login_page(context):
     assert "login" in context.browser.current_url
+```
 
 ---
 
@@ -637,6 +664,7 @@ def after_scenario(context, scenario):
 def after_all(context):
     """全テスト終了後に一度だけ実行"""
     print("テストスイート完了")
+```
 
 ---
 
@@ -663,6 +691,7 @@ behave --verbose
 
 # ドライラン（実行せずにステップを確認）
 behave --dry-run
+```
 
 ---
 
@@ -713,6 +742,7 @@ Then('「ようこそ、{string}さん」と表示される', async (name: strin
   await expect(page.locator('[data-testid="welcome-msg"]'))
     .toContainText(`ようこそ、${name}さん`);
 });
+```
 
 ---
 
@@ -723,13 +753,9 @@ Then('「ようこそ、{string}さん」と表示される', async (name: strin
 
 // src/test/java/steps/LoginSteps.java
 import io.cucumber.java.ja.*;
-import io.cucumber.java.Before;
-import io.cucumber.java.After;
-import java.time.Duration;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
+import io.cucumber.java.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.*;
 import static org.junit.Assert.*;
 
 public class LoginSteps {
@@ -765,6 +791,7 @@ public class LoginSteps {
         assertTrue(driver.getCurrentUrl().contains("dashboard"));
     }
 }
+```
 
 ---
 
@@ -817,6 +844,7 @@ public class LoginSteps
         _page.Url.Should().Contain("dashboard");
     }
 }
+```
 
 ---
 
@@ -839,54 +867,60 @@ public class LoginSteps
 
 **Cucumber（最推奨・汎用）**
 
-> 長所:
-> ✅ 最大のコミュニティ・豊富なプラグイン
-> ✅ Java, JS/TS, Ruby, Python等多言語対応
-> ✅ Gherkin構文で統一されている
-> ✅ CI/CDツールとの統合が容易
-> ✅ Cucumber Reportsで優れた可視化
->
-> 短所:
-> ❌ セットアップに時間がかかる
-> ❌ 大規模スイートでメンテナンスが複雑化
-> ❌ 並列実行にはCucumber Cloud（有料）が必要
->
-> 採用実績: Booking.com, Dell, ASOS
+```
+長所:
+  ✅ 最大のコミュニティ・豊富なプラグイン
+  ✅ Java, JS/TS, Ruby, Python等多言語対応
+  ✅ Gherkin構文で統一されている
+  ✅ CI/CDツールとの統合が容易
+  ✅ Cucumber Reportsで優れた可視化
+
+短所:
+  ❌ セットアップに時間がかかる
+  ❌ 大規模スイートでメンテナンスが複雑化
+  ❌ 並列実行にはCucumber Cloud（有料）が必要
+
+採用実績: Booking.com, Dell, ASOS
+```
 
 **SpecFlow（.NETのデファクト）**
 
-> 長所:
-> ✅ Visual Studio・Azure DevOpsとシームレスに統合
-> ✅ .NETエコシステムに特化した最適化
-> ✅ NUnit/xUnit/MSTestと連携
-> ✅ Living Documentation生成機能
->
-> 短所:
-> ❌ .NET以外のプロジェクトには不向き
-> ❌ 高度な機能はSpecFlow+（有料）が必要
->
-> 採用実績: 金融・医療系の.NETプロジェクト多数
+```
+長所:
+  ✅ Visual Studio・Azure DevOpsとシームレスに統合
+  ✅ .NETエコシステムに特化した最適化
+  ✅ NUnit/xUnit/MSTestと連携
+  ✅ Living Documentation生成機能
+
+短所:
+  ❌ .NET以外のプロジェクトには不向き
+  ❌ 高度な機能はSpecFlow+（有料）が必要
+
+採用実績: 金融・医療系の.NETプロジェクト多数
+```
 
 **Behave（Pythonの最適解）**
 
-> 長所:
-> ✅ セットアップが最もシンプル
-> ✅ pytestなどPythonエコシステムと親和性高
-> ✅ Gherkin構文をそのまま使用
-> ✅ Seleniumとの組み合わせが容易
->
-> 短所:
-> ❌ Cucumber比でコミュニティが小さい
-> ❌ 並列実行サポートが限定的
->
-> 採用実績: Django, Flask, FastAPIプロジェクト
+```
+長所:
+  ✅ セットアップが最もシンプル
+  ✅ pytestなどPythonエコシステムと親和性高
+  ✅ Gherkin構文をそのまま使用
+  ✅ Seleniumとの組み合わせが容易
+
+短所:
+  ❌ Cucumber比でコミュニティが小さい
+  ❌ 並列実行サポートが限定的
+
+採用実績: Django, Flask, FastAPIプロジェクト
+```
 
 ---
 
 ### 2025年のBDDツール市場動向
 
-- BDDツール市場規模（2024年）: **11億ドル**
-- 予測市場規模（2033年）: **25億ドル**（CAGR ~12.5%）
+- BDDツール市場規模（2024年）: **1億2000万ドル**
+- 予測市場規模（2033年）: **3億ドル**（CAGR ~10%）
 - 最も人気のツール（2025年）: **Cucumber** がシェア1位
 - 新興トレンド: **AI支援BDDシナリオ生成**（GitHub Copilot等）
 
@@ -951,6 +985,7 @@ jobs:
         with:
           name: failure-screenshots
           path: screenshots/
+```
 
 ---
 
@@ -994,22 +1029,25 @@ jobs:
         with:
           name: cucumber-report
           path: reports/
+```
 
 ---
 
 ### パイプライン構成の推奨パターン
 
-> コードプッシュ
-> ↓
-> [Stage 1] ユニットテスト（< 2分）
-> ↓
-> [Stage 2] BDDスモークテスト（< 10分）@smoke タグ
-> ↓  PRがブロックされる
-> PRマージ
-> ↓
-> [Stage 3] BDDフルスイート（< 30分）全タグ
-> ↓
-> [Stage 4] 本番デプロイ
+```
+コードプッシュ
+    ↓
+[Stage 1] ユニットテスト（< 2分）
+    ↓
+[Stage 2] BDDスモークテスト（< 10分）@smoke タグ
+    ↓  PRがブロックされる
+PRマージ
+    ↓
+[Stage 3] BDDフルスイート（< 30分）全タグ
+    ↓
+[Stage 4] 本番デプロイ
+```
 
 ---
 
@@ -1025,6 +1063,7 @@ Scenario: 会員割引の適用
   Given ユーザーがプレミアム会員である
   When  ¥10,000の商品を購入する
   Then  合計金額が ¥9,000 になる（10%割引）
+```
 
 **2. 1シナリオ = 1つの振る舞いに限定する**
 
@@ -1040,6 +1079,7 @@ Scenario: ログインとプロフィール更新と注文
   Given ユーザーがいる
   When  ログインしてプロフィールを変更して商品を注文する
   Then  全部うまくいく
+```
 
 **3. 宣言的に書く（実装詳細を排除）**
 
@@ -1050,6 +1090,7 @@ When  ユーザーが商品を購入する
 # ❌ 命令的（技術の言葉）
 When  ユーザーが /api/orders POST リクエストを送信し
       ステータスコード 201 が返る
+```
 
 **4. Background を適切に使う**
 
@@ -1060,6 +1101,7 @@ Background:
     | 商品ID | 商品名       | 価格  |
     | P001   | ノートPC     | 80000 |
     | P002   | マウス       | 3000  |
+```
 
 **5. タグで整理する**
 
@@ -1068,6 +1110,7 @@ Background:
 @regression  # PRマージ後に実行
 @slow        # 週次で実行
 @wip         # 開発中（CIでは除外）
+```
 
 ---
 
@@ -1081,6 +1124,7 @@ Given SQLで "SELECT * FROM users WHERE id=1" を実行する
 
 # ✅ OK: ビジネスロジックを書く
 Given ユーザーID「1」のアカウントが存在する
+```
 
 **2. 過度に技術的なアサーション**
 
@@ -1090,6 +1134,7 @@ Then HTTPレスポンスコードが 200 である
 
 # ✅ OK: ユーザーが見る結果を検証
 Then 注文完了画面が表示される
+```
 
 **3. シナリオ間の依存**
 
@@ -1103,8 +1148,10 @@ Scenario: カートから商品を削除する
   Given カートに「ノートPC」が追加されている
   When  「ノートPC」の「削除」をクリックする
   Then  カートから「ノートPC」が消える
+```
 
 **4. メンテナンスされないシナリオの放置**
+
 - 古くなったシナリオは削除または更新する
 - @wipタグで開発中のシナリオを管理する
 - 月次でシナリオを棚卸しする
@@ -1117,39 +1164,45 @@ Scenario: カートから商品を削除する
 
 **Month 1: 基礎確立**
 
-> Week 1-2:
-> □ BDDの 概念をチーム全員でトレーニング
-> □ スリーアミーゴスのやり方を学ぶ
-> □ Gherkin記述の練習（既存機能のシナリオ化）
->
-> Week 3-4:
-> □ ツール選定・環境構築
-> □ パイロットフィーチャーの選定（1機能）
-> □ 初めてのスリーアミーゴスセッション
+```
+Week 1-2:
+  □ BDDの概念をチーム全員でトレーニング
+  □ スリーアミーゴスのやり方を学ぶ
+  □ Gherkin記述の練習（既存機能のシナリオ化）
+
+Week 3-4:
+  □ ツール選定・環境構築
+  □ パイロットフィーチャーの選定（1機能）
+  □ 初めてのスリーアミーゴスセッション
+```
 
 **Month 2: 実践導入**
 
-> Week 5-6:
-> □ パイロットフィーチャーのシナリオ実装
-> □ ステップ定義のコーディング
-> □ ローカル環境でのテスト実行確認
->
-> Week 7-8:
-> □ CI/CDパイプラインへの統合
-> □ レポーティングの設定
-> □ チームフィードバック収集・改善
+```
+Week 5-6:
+  □ パイロットフィーチャーのシナリオ実装
+  □ ステップ定義のコーディング
+  □ ローカル環境でのテスト実行確認
+
+Week 7-8:
+  □ CI/CDパイプラインへの統合
+  □ レポーティングの設定
+  □ チームフィードバック収集・改善
+```
 
 **Month 3: スケールアップ**
 
-> Week 9-10:
-> □ 複数フィーチャーへのBDD拡大
-> □ スモーク / リグレッション タグ整理
-> □ 並列実行の設定
->
-> Week 11-12:
-> □ Living Documentation の公開
-> □ メトリクスの測定（カバレッジ・実行時間）
-> □ 次のクォーターの計画策定
+```
+Week 9-10:
+  □ 複数フィーチャーへのBDD拡大
+  □ スモーク / リグレッション タグ整理
+  □ 並列実行の設定
+
+Week 11-12:
+  □ Living Documentation の公開
+  □ メトリクスの測定（カバレッジ・実行時間）
+  □ 次のクォーターの計画策定
+```
 
 ---
 
@@ -1172,29 +1225,33 @@ Scenario: カートから商品を削除する
 
 | 統計 | 数値 | 出典 |
 |------|------|------|
-| BDD採用率（アジャイルチーム） | **26%** | State of Testing Report 2024 (PractiTest) |
-| TDD/BDDの組み込み率（組織全体） | **67%** | World Quality Report 2024-25 |
-| BDD実践チーム内のTDD併用率 | **58%** | BDD Practitioner Survey |
-| BDDチームのデプロイ頻度 | **一般チームの約2.5倍** | Cucumber社調査 |
-| BDDツール市場規模（2024年） | **11億ドル** | Verified Market Reports |
-| BDDツール市場予測（2033年） | **25億ドル** | 同上 |
+| BDD採用率 | **66%** | 2025 State of Continuous Testing Report (Perforce) |
+| TDDとBDDの併用率 | **58%** | 同上 |
+| BDDをアジャイルの必須ツールと考える割合 | **63%** | World Quality Report 2024-25 |
+| BDDチームのデプロイ頻度 | **一般チームの2倍** | Cucumber社調査 |
+| BDDツール市場（2024年） | **$120M** | Test Evolve調査 |
+| BDDツール市場予測（2033年） | **$300M** | 同上 |
 
 ### 2025年の主要トレンド
 
 **1. AI支援BDDシナリオ生成**
+
 - GitHub Copilot、ChatGPT等でGherkinシナリオを自動生成
 - 要件文書からシナリオを一括変換するツールが登場
 - ただし「人間のレビュー」は依然として必須
 
 **2. ノーコード/ローコードBDD**
+
 - ACCELQ等のプラットフォームでコーディング不要のBDD実装
 - ビジネス担当者が直接シナリオを管理できる環境
 
 **3. Living Documentation の高度化**
+
 - Pickles、SpecFlow+LivingDoc等でリアルタイム文書化
 - テスト結果と仕様書が自動同期
 
 **4. マイクロサービス対応BDD**
+
 - コントラクトテスト（Pact）とBDDの組み合わせ
 - サービス間の振る舞いをGherkinで記述
 
@@ -1206,63 +1263,63 @@ Scenario: カートから商品を削除する
 
 | タイトル | URL |
 |---------|-----|
-| ISTQB公式サイト | https://istqb.org/ |
-| CTFL v4.0 詳細ページ | https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/ |
-| CTFL v4.0.1 シラバスPDF | https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf |
-| ISTQBグロッサリー | https://glossary.istqb.org/en_US/search?term= |
-| JSTQB（日本語版） | https://jstqb.jp/ |
+| ISTQB公式サイト | <https://istqb.org/> |
+| CTFL v4.0 詳細ページ | <https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/> |
+| CTFL v4.0.1 シラバスPDF | <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf> |
+| ISTQBグロッサリー | <https://glossary.istqb.org/en_US/search?term=> |
+| JSTQB（日本語版） | <https://jstqb.jp/> |
 
 ### BDD 基礎・概念
 
 | タイトル | URL |
 |---------|-----|
-| Wikipedia — Behavior-driven development | https://en.wikipedia.org/wiki/Behavior-driven_development |
-| Cucumber公式 — BDD | https://cucumber.io/docs/bdd/ |
-| monday.com — BDD Essential Guide 2026 | https://monday.com/blog/rnd/behavior-driven-development/ |
-| qase.io — A beginner's guide to BDD | https://qase.io/blog/behavior-driven-development/ |
-| Synoverge — What is BDD? Complete Guide | https://www.synoverge.com/blog/what-is-bdd-complete-guide-to-behavior-driven-development/ |
+| Wikipedia — Behavior-driven development | <https://en.wikipedia.org/wiki/Behavior-driven_development> |
+| Cucumber公式 — BDD | <https://cucumber.io/docs/bdd/> |
+| monday.com — BDD Essential Guide 2026 | <https://monday.com/blog/rnd/behavior-driven-development/> |
+| qase.io — A beginner's guide to BDD | <https://qase.io/blog/behavior-driven-development/> |
+| Synoverge — What is BDD? Complete Guide | <https://www.synoverge.com/blog/what-is-bdd-complete-guide-to-behavior-driven-development/> |
 
 ### Gherkin 言語
 
 | タイトル | URL |
 |---------|-----|
-| Cucumber — Gherkin Reference（公式） | https://cucumber.io/docs/gherkin/reference/ |
-| BrowserStack — Gherkin and its role in BDD | https://www.browserstack.com/guide/gherkin-and-its-role-bdd-scenarios |
-| Testsigma — BDD with Gherkin | https://testsigma.com/blog/behavior-driven-development-bdd-with-gherkin/ |
-| Tutorialspoint — BDD Gherkin | https://www.tutorialspoint.com/behavior_driven_development/behavior_driven_development_gherkin.htm |
-| Jignect — Understanding BDD & Gherkin | https://jignect.tech/understanding-the-bdd-gherkin-language-main-rules-for-bdd-ui-scenarios/ |
+| Cucumber — Gherkin Reference（公式） | <https://cucumber.io/docs/gherkin/reference/> |
+| BrowserStack — Gherkin and its role in BDD | <https://www.browserstack.com/guide/gherkin-and-its-role-bdd-scenarios> |
+| Testsigma — BDD with Gherkin | <https://testsigma.com/blog/behavior-driven-development-bdd-with-gherkin/> |
+| Tutorialspoint — BDD Gherkin | <https://www.tutorialspoint.com/behavior_driven_development/behavior_driven_development_gherkin.htm> |
+| Jignect — Understanding BDD & Gherkin | <https://jignect.tech/understanding-the-bdd-gherkin-language-main-rules-for-bdd-ui-scenarios/> |
 
 ### ツール・フレームワーク
 
 | タイトル | URL |
 |---------|-----|
-| TestQuality — Gherkin BDD Cucumber Guide | https://testquality.com/gherkin-bdd-cucumber-guide-to-behavior-driven-development/ |
-| SoftwareTestingHelp — BDD Framework Tutorial | https://www.softwaretestinghelp.com/bdd-framework/ |
-| SoftwareTestingHelp — BDD Tools | https://www.softwaretestinghelp.com/behavior-driven-development-bdd-tools/ |
-| ACCELQ — Top 13 BDD Testing Tools 2026 | https://www.accelq.com/blog/bdd-testing-tools/ |
-| TheCTOClub — 13 Best BDD Tools 2026 | https://thectoclub.com/tools/best-bdd-testing-tools/ |
-| Test Automation Tools — Top 5 BDD Tools | https://testautomationtools.dev/bdd-testing-tools/ |
-| Qodex — SpecFlow vs Cucumber | https://qodex.ai/blog/specflow-vs-cucumber |
-| Testsigma — SpecFlow vs Cucumber | https://testsigma.com/blog/specflow-vs-cucumber/ |
-| Medium — Best BDD Framework 2024 | https://ambahera.medium.com/best-behavior-driven-development-bdd-framework-93089c377700 |
-| QAlified — What is a BDD framework | https://qalified.com/blog/what-is-bdd-framework/ |
+| TestQuality — Gherkin BDD Cucumber Guide | <https://testquality.com/gherkin-bdd-cucumber-guide-to-behavior-driven-development/> |
+| SoftwareTestingHelp — BDD Framework Tutorial | <https://www.softwaretestinghelp.com/bdd-framework/> |
+| SoftwareTestingHelp — BDD Tools | <https://www.softwaretestinghelp.com/behavior-driven-development-bdd-tools/> |
+| ACCELQ — Top 13 BDD Testing Tools 2026 | <https://www.accelq.com/blog/bdd-testing-tools/> |
+| TheCTOClub — 13 Best BDD Tools 2026 | <https://thectoclub.com/tools/best-bdd-testing-tools/> |
+| Test Automation Tools — Top 5 BDD Tools | <https://testautomationtools.dev/bdd-testing-tools/> |
+| Qodex — SpecFlow vs Cucumber | <https://qodex.ai/blog/specflow-vs-cucumber> |
+| Testsigma — SpecFlow vs Cucumber | <https://testsigma.com/blog/specflow-vs-cucumber/> |
+| Medium — Best BDD Framework 2024 | <https://ambahera.medium.com/best-behavior-driven-development-bdd-framework-93089c377700> |
+| QAlified — What is a BDD framework | <https://qalified.com/blog/what-is-bdd-framework/> |
 
 ### 統計・トレンド
 
 | タイトル | URL |
 |---------|-----|
-
-| Capgemini — World Quality Report 2024-25 | https://www.capgemini.com/insights/research-library/world-quality-report-2024-25/ |
-| Test Evolve — BDD Market Size | https://testevolve.com/ |
+| Perforce — State of Continuous Testing Report 2025 | <https://www.perforce.com/resources/qac/state-continuous-testing-report> |
+| Tricentis — World Quality Report 2024-25 | <https://www.tricentis.com/resources/world-quality-report> |
+| Test Evolve — BDD Market Size | <https://testevolve.com/> |
 
 ### ベストプラクティス
 
 | タイトル | URL |
 |---------|-----|
-| Cucumber — BDD Anti-patterns | https://cucumber.io/docs/guides/anti-patterns/ |
-| Cucumber — Writing Good Gherkin | https://cucumber.io/docs/bdd/better-gherkin/ |
-| automationpanda.com — Is BDD Dying? (2025) | https://automationpanda.com/2025/03/06/is-bdd-dying/ |
-| 303software.com — BDD Reality Check 2025 | https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework |
+| Cucumber — BDD Anti-patterns | <https://cucumber.io/docs/guides/anti-patterns/> |
+| Cucumber — Writing Good Gherkin | <https://cucumber.io/docs/bdd/better-gherkin/> |
+| automationpanda.com — Is BDD Dying? (2025) | <https://automationpanda.com/2025/03/06/is-bdd-dying/> |
+| 303software.com — BDD Reality Check 2025 | <https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework> |
 
 ---
 
@@ -1270,11 +1327,14 @@ Scenario: カートから商品を削除する
 
 BDDは単なるテスト手法ではなく、**チーム全体のコミュニケーションを変革する開発文化**です。
 
-> BDD成功の方程式:
-> スリーアミーゴス（対話）
-> × Gherkin（共通言語）
-> × 自動化（継続的実行）
-> = 高品質なソフトウェアの継続的デリバリー
+```
+BDD成功の方程式:
+
+  スリーアミーゴス（対話）
+    × Gherkin（共通言語）
+      × 自動化（継続的実行）
+        = 高品質なソフトウェアの継続的デリバリー
+```
 
 | 段階 | やること | 得られるもの |
 |------|---------|-------------|
@@ -1285,6 +1345,6 @@ BDDは単なるテスト手法ではなく、**チーム全体のコミュニケ
 
 ---
 
-*本ガイドは ISTQB CTFL v4.0.1 に準拠し、最終更新：2026年4月6日 の時点の情報を反映しています。*
+*本ガイドは ISTQB CTFL v4.0.1 Section 4.5 に準拠し、2025年4月時点の最新情報を反映しています。*
 
-*© 2025-2026 — BDD is not just testing. It's a conversation that never stops.*
+*© 2025 — BDD is not just testing. It's a conversation that never stops.*

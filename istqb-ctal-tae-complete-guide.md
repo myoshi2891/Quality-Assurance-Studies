@@ -2,8 +2,8 @@
 
 ## ISTQB CTAL-TAE v2.0 準拠 | 初学者から実践者まで
 
-> **対応資格**: ISTQB® Certified Tester Advanced Level – Test Automation Engineering (CTAL-TAE v2.0)
-> **試験形式**: 40問 / 合格基準 43/66点（65%） / 90分
+> **対応資格**: ISTQB® Certified Tester Advanced Level – Test Automation Engineering (CTAL-TAE v2.0)  
+> **試験形式**: 40問 / 合格基準 43/66点（65%） / 90分  
 > **前提資格**: ISTQB CTFL（Foundation Level）保有必須
 
 ---
@@ -19,22 +19,22 @@
 7. [テスト自動化ソリューションの検証](#chapter-7)
 8. [継続的改善](#chapter-8)
 9. [主要ツール・フレームワーク 2025年版](#tools)
-10. [試験対策チェックリスト](#prep)
-11. [参照URL一覧](#urls)
+10. [試験対策チェックリスト](#exam-tips)
+11. [参照URL一覧](#references)
 
 ---
 
 <a id="chapter-1"></a>
 
 ## Chapter 1: テスト自動化の基礎と目的
-
+>
 > CTAL-TAE v2.0 Section 1 | K2レベル（理解）
 
 ### 1.1 テスト自動化とは何か？
 
 **テスト自動化（Test Automation）** とは、ソフトウェアや専用ツールを使って、テストの実行・比較・報告などの作業を**自動的に行う**ことです。
 
-```text
+```
 手動テスト：
   人間 → テストケース実行 → 結果を目視確認 → バグ報告
 
@@ -61,17 +61,22 @@
 ### 1.3 テスト自動化のデメリット（Limitations）
 
 > ⚠️ **重要**: テスト自動化は「銀の弾丸」ではない！失敗する組織の多くが過度な期待をもって導入する。
->
-> **よくある失敗パターン：**
->
-> - ❌ **全テストを自動化しようとする**  
->   → メンテナンスコストが膨大になる
-> - ❌ **探索的テストを自動化しようとする**  
->   → AI以外では本質的に不可能
-> - ❌ **一度作れば永遠に使えると思う**  
->   → UIが変わるたびに修正が必要
-> - ❌ **ROIを計算しないまま導入する**  
->   → コストが効果を上回ることがある
+
+```
+よくある失敗パターン：
+
+❌ 全テストを自動化しようとする
+   → メンテナンスコストが膨大になる
+
+❌ 探索的テストを自動化しようとする
+   → AI以外では本質的に不可能
+
+❌ 一度作れば永遠に使えると思う
+   → UIが変わるたびに修正が必要
+
+❌ ROIを計算しないまま導入する
+   → コストが効果を上回ることがある
+```
 
 | デメリット | 詳細 |
 |-----------|------|
@@ -88,7 +93,7 @@
 
 テスト自動化はどのSDLCモデルでも適用できますが、**アジャイル・DevOps環境で最も効果を発揮**します。
 
-```text
+```
 ウォーターフォールにおけるテスト自動化：
   要件定義 → 設計 → 開発 → [テスト自動化実行] → リリース
   → テスト自動化は主にシステムテスト・受入テスト段階で活用
@@ -117,22 +122,27 @@ DevOps / CI/CD におけるテスト自動化：
 
 SUT の種類によって、適切なテスト自動化アプローチが変わります。
 
-```text
+```
 SUT の種類と自動化アプローチ：
+
 Webアプリケーション：
   ├── UIテスト → Selenium, Playwright, Cypress
   ├── APIテスト → REST Assured, Postman, requests
   └── パフォーマンステスト → JMeter, k6
+
 モバイルアプリ：
   ├── iOS/Android → Appium, XCUITest, Espresso
-  └── クロスプラットフォーム → Appium, D
+  └── クロスプラットフォーム → Appium, Detox
+
 デスクトップアプリ：
   ├── Windows → WinAppDriver, TestComplete
-  └── クロスプラットフォーム → PyAutoGUI, A
+  └── クロスプラットフォーム → PyAutoGUI, Appium
+
 APIサービス：
   ├── REST API → Postman, REST Assured, requests-mock
   ├── GraphQL → Postman, Cypress
   └── gRPC → grpcurl, BloomRPC
+
 組込みシステム：
   ├── ハードウェアIN → HIL（Hardware-in-the-Loop）
   └── シミュレーション → Hardware Simulator
@@ -143,7 +153,7 @@ APIサービス：
 <a id="chapter-2"></a>
 
 ## Chapter 2: テスト自動化の準備
-
+>
 > CTAL-TAE v2.0 Section 2 | K3レベル（適用）
 
 ### 2.1 テスト自動化の事前評価（Feasibility Analysis）
@@ -152,7 +162,7 @@ APIサービス：
 
 #### 自動化可否の判断基準
 
-```text
+```
 自動化に適しているテスト：
   ✓ 繰り返し実行される（回帰テスト）
   ✓ 安定した（変更が少ない）機能のテスト
@@ -175,8 +185,9 @@ APIサービス：
 
 テスト自動化環境の構築に必要な要素：
 
-```text
+```
 テスト自動化インフラスタック：
+
 ┌─────────────────────────────────────────┐
 │          CI/CD パイプライン              │
 │     (GitHub Actions / Jenkins)          │
@@ -213,16 +224,22 @@ APIサービス：
 
 CTAL-TAE v2.0 では、ツール選定に**体系的な評価プロセス**を使うことを推奨しています。
 
-```text
+```
 ツール評価プロセス：
+
 Step 1: 要件定義
   ↓ SUTのタイプ、チームスキル、予算、統合要件を明確化
+
 Step 2: ツール候補のリストアップ
   ↓ オープンソース vs 商用 / クラウド vs オンプレミス
+
 Step 3: 評価基準の設定（重み付け）
+
 Step 4: POC（Proof of Concept）実施
   ↓ 実際にSUTでツールを試す（パイロット）
+
 Step 5: 評価結果の比較・選定
+
 Step 6: 最終決定・承認
 ```
 
@@ -257,11 +274,8 @@ class BadUserService:
         # DBに保存するが、確認手段がない
         self._db.insert({"name": name, "email": email})
         # 戻り値なし・ログなし → テストが確認できない！
-```
 
-##### 観測可能性が高い設計（良い例）
-
-```python
+# 観測可能性が高い設計（良い例）
 class GoodUserService:
     def create_user(self, name: str, email: str) -> User:
         user = User(id=uuid4(), name=name, email=email)
@@ -281,7 +295,7 @@ class BadPaymentService:
         # 実際の決済APIを常に呼ぶ → テスト環境で使えない！
         return real_stripe_api.charge(amount)
 
-# 制御可能性が高い設計（良い例）
+# 制御可能性が高い設計（良い例）  
 class GoodPaymentService:
     def __init__(self, payment_gateway):
         # 依存性注入（DI）でモック差し替え可能！
@@ -302,15 +316,16 @@ assert result == True  # ✅ 制御可能なのでテスト可能
 <a id="chapter-3"></a>
 
 ## Chapter 3: テスト自動化アーキテクチャ（TAA）
-
+>
 > CTAL-TAE v2.0 Section 3 | K3レベル（適用） — **試験の最重要章**
 
 ### 3.1 汎用テスト自動化アーキテクチャ（gTAA）
 
 CTAL-TAE v2.0 で定義される **gTAA（Generic Test Automation Architecture）** は、テスト自動化ソリューションの設計指針となるリファレンスモデルです。
 
-```text
+```
 gTAA（汎用テスト自動化アーキテクチャ）全体図：
+
 ┌─────────────────────────────────────────────────────────────┐
 │                    Test Management Layer                      │
 │            （テスト管理層 - 外部ツールとの統合）               │
@@ -365,20 +380,23 @@ gTAA（汎用テスト自動化アーキテクチャ）全体図：
 
 #### 3.2.1 キャプチャ/再生（Capture & Playback）
 
-```text
+```
 仕組み：
   ① テスターが手動でUIを操作
   ② ツールが操作を記録（キャプチャ）
   ③ 記録したスクリプトを再生して自動実行
+
 例：Selenium IDE でのキャプチャ
   1. ログインページを開く
   2. ユーザー名フィールドにクリック → 自動記録
   3. "test@example.com" を入力 → 自動記録
   4. ログインボタンをクリック → 自動記録
   5. スクリプトとして保存・再生
+
 メリット：
   ✓ 技術スキルが不要
   ✓ 素早く作成できる
+
 デメリット：
   ✗ メンテナンス性が最悪（UI変更に弱い）
   ✗ 再利用性がない
@@ -398,6 +416,8 @@ driver.find_element("id", "password").send_keys("password123")
 driver.find_element("id", "login-btn").click()
 assert "Dashboard" in driver.title
 driver.quit()
+
+# 問題：SUTが変われば全部書き直し、再利用性なし
 ```
 
 #### 3.2.3 構造化スクリプト（Structured Scripting）
@@ -444,13 +464,13 @@ def test_login_with_various_data(email, password, expected, driver):
     driver.find_element("id", "password").send_keys(password)
     driver.find_element("id", "login-btn").click()
     assert expected in driver.page_source
-```
 
-##### メリット：テストロジックを変えずにデータだけ追加・変更できる
+# メリット：テストロジックを変えずにデータだけ追加・変更できる
+```
 
 #### 3.2.5 キーワード駆動テスト（Keyword-Driven Testing）
 
-```text
+```
 テーブル形式でテストを定義（プログラミング知識不要！）：
 
 | Action        | Target              | Value            |
@@ -463,6 +483,7 @@ def test_login_with_various_data(email, password, expected, driver):
 
 メリット：非エンジニアもテストを定義できる
 デメリット：カスタムキーワードの開発コストがかかる
+
 代表ツール：Robot Framework
 ```
 
@@ -515,16 +536,17 @@ def redirected_to_dashboard(driver):
     assert "dashboard" in driver.current_url
 ```
 
+---
+
 ### 3.3 デザインパターンの適用
 
 #### 3.3.1 Page Object Model（POM）
 
 ```python
 # pages/login_page.py
-...
 class LoginPage:
     """ログインページの操作をカプセル化するPage Object"""
-
+    
     def __init__(self, driver):
         self.driver = driver
         # セレクタをここに集約（変更箇所が1か所になる）
@@ -532,28 +554,26 @@ class LoginPage:
         self.PASSWORD_INPUT = ("id", "password")
         self.LOGIN_BUTTON   = ("id", "login-btn")
         self.ERROR_MESSAGE  = ("class", "error-msg")
-
+    
     def navigate(self):
         self.driver.get("https://example.com/login")
         return self
-
+    
     def enter_email(self, email: str):
         self.driver.find_element(*self.EMAIL_INPUT).send_keys(email)
         return self
-
+    
     def enter_password(self, password: str):
         self.driver.find_element(*self.PASSWORD_INPUT).send_keys(password)
         return self
-
+    
     def click_login(self):
         self.driver.find_element(*self.LOGIN_BUTTON).click()
         return DashboardPage(self.driver)  # 次のページを返す
-
+    
     def get_error_message(self) -> str:
         return self.driver.find_element(*self.ERROR_MESSAGE).text
-```
 
-```python
 # テストコード（クリーンで読みやすい！）
 def test_successful_login(driver):
     dashboard = (LoginPage(driver)
@@ -561,6 +581,7 @@ def test_successful_login(driver):
                  .enter_email("test@example.com")
                  .enter_password("password123")
                  .click_login())
+    
     assert dashboard.is_displayed()
 
 def test_invalid_login(driver):
@@ -569,6 +590,7 @@ def test_invalid_login(driver):
              .enter_email("test@example.com")
              .enter_password("wrong_password"))
     login.click_login()  # DashboardPageではなくLoginPageに留まる
+    
     assert "パスワードが正しくありません" in login.get_error_message()
 ```
 
@@ -582,19 +604,11 @@ class BadTestClass:
         # DBに接続して、UIを操作して、APIを呼んで、レポートを書く
         # → 変更する理由が複数ある = SRP違反
 
-# ✅ 良い例：役割を分離する
-
+# 良い例：役割を分離する
 class LoginPageObject:      # UIの操作のみ
-    ...
-
 class LoginApiClient:       # APIの操作のみ
-    ...
-
 class LoginTestDataBuilder: # テストデータの生成のみ
-    ...
-```
 
-```python
 # D - Dependency Inversion Principle（依存性逆転の原則）
 # インターフェースに依存することで差し替え可能にする
 from abc import ABC, abstractmethod
@@ -602,7 +616,7 @@ from abc import ABC, abstractmethod
 class BrowserInterface(ABC):
     @abstractmethod
     def find_element(self, locator): pass
-
+    
     @abstractmethod
     def navigate(self, url): pass
 
@@ -620,7 +634,7 @@ class LoginTest:
         self.browser = browser
 ```
 
-#### 3.3.2 Factory Pattern（テストデータ生成）
+#### 3.3.3 Factory Pattern（テストデータ生成）
 
 ```python
 # Factory Pattern でテストデータを生成
@@ -637,6 +651,7 @@ class User:
 
 class UserFactory:
     """テスト用ユーザーを生成するファクトリ"""
+    
     @staticmethod
     def create_standard_user(name: Optional[str] = None) -> User:
         return User(
@@ -645,6 +660,7 @@ class UserFactory:
             email=f"test_{uuid.uuid4().hex[:8]}@example.com",
             role="user"
         )
+    
     @staticmethod
     def create_admin_user() -> User:
         return User(
@@ -653,9 +669,7 @@ class UserFactory:
             email=f"admin_{uuid.uuid4().hex[:8]}@example.com",
             role="admin"
         )
-```
 
-```python
 # 使用例
 def test_admin_can_access_admin_panel():
     admin = UserFactory.create_admin_user()
@@ -669,33 +683,38 @@ def test_admin_can_access_admin_panel():
 <a id="chapter-4"></a>
 
 ## Chapter 4: テスト自動化の実装
-
+>
 > CTAL-TAE v2.0 Section 4 | K4レベル（分析・評価） — **試験の最大配点章**
 
 ### 4.1 テスト自動化パイロットプロジェクト
 
 本格導入前に**パイロット（試験的）プロジェクト**を実施して、フレームワークを評価します。
 
-```text
+```
 パイロットプロジェクトの流れ：
+
 Phase 1: スコープ定義（2週間）
   - 自動化する機能の選定（中程度の複雑さを選ぶ）
   - 成功基準の設定（テスト実行時間・安定性・メンテナンス容易性）
+
 Phase 2: 環境構築（1週間）
   - ツールのインストール・設定
   - CI/CD連携の試験的設定
+
 Phase 3: 実装（3〜4週間）
   - テストケースの自動化（10〜20件）
   - フレームワーク基盤の構築
+
 Phase 4: 評価（1週間）
   - 実行安定性の確認
   - メンテナンスコストの見積もり
   - ROI試算
+
 Phase 5: Go/No-Go 決定
   - 本格導入・拡大 or アプローチ変更
 ```
 
-#### 4.1.1 パイロット評価基準
+#### パイロット評価基準
 
 | 評価項目 | 目標値 | 測定方法 |
 |---------|--------|---------|
@@ -709,8 +728,9 @@ Phase 5: Go/No-Go 決定
 
 ### 4.2 テスト自動化開発のリスクと対策
 
-```text
+```
 リスクマトリクス：
+
 高い影響度
   │ 高優先度         │ 最優先対応
   │ ・環境依存の問題  │ ・フレイキーテスト多発
@@ -738,23 +758,18 @@ Phase 5: Go/No-Go 決定
 
 #### 4.3.1 コーディング規約
 
-##### ❌ メンテナンス性が低いコード
-
 ```python
+# ❌ メンテナンス性が低いコード
 def test1():
     d = webdriver.Chrome()
     d.get("https://example.com/login")
-...
     d.find_element("xpath", "//div[@class='main-content']/form/input[1]").send_keys("user@example.com")
     d.find_element("xpath", "//div[@class='main-content']/form/input[2]").send_keys("pass")
     d.find_element("xpath", "//div[@class='main-content']/form/button").click()
     assert "Dashboard" in d.title
     d.quit()
-```
 
-##### ✅ メンテナンス性が高いコード
-
-```python
+# ✅ メンテナンス性が高いコード
 # 命名規則: test_[対象]_[条件]_[期待結果]
 def test_login_with_valid_credentials_should_redirect_to_dashboard(driver, login_page):
     """
@@ -776,36 +791,43 @@ import pytest
 
 class TestShoppingCart:
     """ショッピングカートのテスト - 各テストは独立している"""
+    
     @pytest.fixture(autouse=True)
     def setup_and_teardown(self, db, user_factory):
         """各テストの前後でクリーンアップ"""
         # Setup: テストユーザーを作成
         self.test_user = user_factory.create_standard_user()
         self.test_user_id = db.insert_user(self.test_user)
+        
         yield  # テスト実行
+        
         # Teardown: テストデータを削除
         db.delete_user(self.test_user_id)
         db.delete_cart(user_id=self.test_user_id)
-
+    
     def test_add_item_to_empty_cart(self, cart_api):
         """空のカートに商品を追加できる"""
         # Arrange
         item = {"product_id": "PROD-001", "quantity": 1}
+        
         # Act
         response = cart_api.add_item(user_id=self.test_user_id, item=item)
+        
         # Assert
         assert response.status_code == 201
         assert response.json()["items_count"] == 1
-
+    
     def test_remove_item_from_cart(self, cart_api):
         """カートから商品を削除できる"""
         # このテストは上のテストに依存しない（独立している）
         # Arrange: 事前にカートに商品を追加（APIで直接セットアップ）
-        cart_api.add_item(user_id=self.test_user_id,
+        cart_api.add_item(user_id=self.test_user_id, 
                          item={"product_id": "PROD-001", "quantity": 1})
+        
         # Act
-        response = cart_api.remove_item(user_id=self.test_user_id,
+        response = cart_api.remove_item(user_id=self.test_user_id, 
                                        product_id="PROD-001")
+        
         # Assert
         assert response.status_code == 200
         assert response.json()["items_count"] == 0
@@ -821,23 +843,25 @@ environments:
     api_url: "https://api-staging.example.com"
     timeout: 30
     retry_count: 3
+  
   production:
     base_url: "https://www.example.com"
     api_url: "https://api.example.com"
     timeout: 60
     retry_count: 2
+
 test_data:
   default_user:
     email: "test_user@example.com"
     role: "standard"
+  
   admin_user:
     email: "admin@example.com"
     role: "admin"
 ```
 
-##### 環境変数・設定ファイルから読み込む
-
 ```python
+# 環境変数・設定ファイルから読み込む
 import os
 import yaml
 from functools import lru_cache
@@ -859,16 +883,16 @@ API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
 <a id="chapter-5"></a>
 
 ## Chapter 5: テスト自動化の実装・デプロイ戦略（CI/CD統合）
-
+>
 > CTAL-TAE v2.0 Section 5 | K3レベル（適用）
 
 ### 5.1 CI/CDパイプラインへのテスト自動化統合
 
 テスト自動化の最大の価値は、**CI/CDパイプラインに組み込んで継続的に実行すること**にあります。
 
-```text
-...
+```
 推奨パイプライン構成（GitHubフロー）：
+
 コードPush/PR
      │
      ▼
@@ -903,15 +927,16 @@ API_KEY = os.getenv("API_KEY")  # ❌ コードに書かない
      ▼
   Deploy to Production（承認後）
      │
-     Production Smoke Tests
-     ```
+     ▼
+  Production Smoke Test
+```
 
-     #### GitHub Actions での実装例
+#### GitHub Actions での実装例
 
-     ```yaml
-     # .github/workflows/test_automation.yml
-     ...
+```yaml
+# .github/workflows/test_automation.yml
 name: テスト自動化パイプライン
+
 on:
   push:
     branches: [main, develop]
@@ -919,6 +944,7 @@ on:
     branches: [main]
   schedule:
     - cron: '0 2 * * *'  # 毎日深夜2時にフルリグレッション実行
+
 jobs:
   # === Step 1: ユニットテスト（高速） ===
   unit-tests:
@@ -940,6 +966,7 @@ jobs:
             -v
       - name: カバレッジレポートをアップロード
         uses: codecov/codecov-action@v4
+
   # === Step 2: 統合テスト ===
   integration-tests:
     needs: unit-tests  # ユニットテスト成功後に実行
@@ -957,7 +984,8 @@ jobs:
         run: |
           pytest tests/integration/ -v --tb=short
         env:
-          DATABASE_URL: postgresql://postgres:test_pass@localhost/test_
+          DATABASE_URL: postgresql://postgres:test_pass@localhost/test_db
+
   # === Step 3: E2E スモークテスト ===
   e2e-smoke:
     needs: integration-tests
@@ -984,6 +1012,7 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
   # === Step 4: フルE2Eリグレッション（夜間のみ） ===
   e2e-full-regression:
     if: github.event_name == 'schedule'
@@ -1007,22 +1036,26 @@ jobs:
 
 ### 5.2 設定管理（Configuration Management）
 
-```text
+```
 テスト自動化の設定管理のベストプラクティス：
+
 1. バージョン管理（Git）
    - テストコード
    - 設定ファイル（機密情報以外）
    - テストデータ（匿名化済み）
-   - Dockerfiles / docker-compose.
+   - Dockerfiles / docker-compose.yml
+
 2. シークレット管理
    - CI/CDのSecrets機能を使用
    - HashiCorp Vault
    - AWS Secrets Manager
    ❌ コードにAPIキー・パスワードを書かない
+
 3. 依存関係の固定
    # requirements.txt（Python）
    playwright==1.49.0      # バージョンを固定！
    pytest==8.3.4
+   
    # package.json（Node.js）
    {
      "dependencies": {
@@ -1043,11 +1076,14 @@ import pytest
 import requests
 
 BASE_URL = "https://api-staging.example.com/v1"
+
 class TestUserAPI:
     """User API のテスト"""
+    
     @pytest.fixture
     def auth_headers(self, get_auth_token):
         return {"Authorization": f"Bearer {get_auth_token()}"}
+    
     def test_create_user_returns_201(self, auth_headers):
         """正常なユーザー作成でHTTP 201が返される"""
         payload = {
@@ -1055,22 +1091,28 @@ class TestUserAPI:
             "email": "testuser_xyz@example.com",
             "role": "user"
         }
+        
         response = requests.post(
             f"{BASE_URL}/users",
             json=payload,
             headers=auth_headers
         )
+        
         assert response.status_code == 201, f"Expected 201, got {response.status_code}"
+        
         body = response.json()
         assert "id" in body
         assert body["name"] == payload["name"]
         assert body["email"] == payload["email"]
-        assert "created_at" in 
+        assert "created_at" in body
+    
     def test_create_user_with_duplicate_email_returns_409(self, auth_headers):
         """重複メールアドレスで409エラーが返される"""
         payload = {"name": "User A", "email": "duplicate@example.com", "role": "user"}
+        
         requests.post(f"{BASE_URL}/users", json=payload, headers=auth_headers)  # 1回目
         response = requests.post(f"{BASE_URL}/users", json=payload, headers=auth_headers)  # 2回目
+        
         assert response.status_code == 409
         assert "already exists" in response.json()["error"].lower()
 ```
@@ -1082,8 +1124,10 @@ class TestUserAPI:
 from pact import Consumer, Provider
 
 pact = Consumer("フロントエンドAPI").has_pact_with(Provider("ユーザーAPI"))
+
 def test_get_user_returns_expected_schema():
     """APIのレスポンスが期待するスキーマに準拠することを確認"""
+    
     # コンシューマーが期待するレスポンスを定義
     (pact
      .given("ユーザーID=1が存在する")
@@ -1096,6 +1140,7 @@ def test_get_user_returns_expected_schema():
          "role": term(r"admin|user", "user"),  # パターン検証
      })
     )
+    
     with pact:
         result = get_user(1)  # コンシューマーの実際の処理を呼ぶ
         assert result["id"] == 1
@@ -1106,13 +1151,14 @@ def test_get_user_returns_expected_schema():
 <a id="chapter-6"></a>
 
 ## Chapter 6: テスト自動化のレポートとメトリクス
-
+>
 > CTAL-TAE v2.0 Section 6 | K3レベル（適用）
 
 ### 6.1 収集すべきメトリクス
 
-```text
+```
 テスト自動化メトリクスのカテゴリ：
+
 ┌──────────────────────────────────────────────────────────┐
 │              テスト自動化メトリクス                        │
 ├──────────────┬─────────────────────────────────────────┤
@@ -1138,27 +1184,30 @@ def test_get_user_returns_expected_schema():
 
 ### 6.2 ROI（投資対効果）の計算
 
-```text
+```
 テスト自動化ROI計算式：
+
 ROI (%) = ((テスト自動化の節約額 - 自動化の総コスト) / 自動化の総コスト) × 100
+
 例：
   自動化コスト：
   ├── フレームワーク開発：200時間 × 8,000円/時 = 160万円
   ├── テスト作成（100件）：100時間 × 8,000円 = 80万円
   └── 年間メンテナンス：50時間 × 8,000円 = 40万円
   合計コスト：280万円（初年度）
+
   自動化による節約：
   ├── 手動テスト削減：100件/スプリント × 2週間 × 30分/件 = 50時間/スプリント
   ├── 年間（26スプリント）：1,300時間 × 8,000円 = 1,040万円節約
   └── 早期バグ発見：本番バグ修正コスト削減（推定）= 200万円
+
   1年間のROI = ((1,040万 + 200万 - 280万) / 280万) × 100 = 342% !!
 ```
 
 ### 6.3 テスト結果のレポーティング
 
-#### Allure レポートを使った高品質なレポート生成
-
 ```python
+# Allure レポートを使った高品質なレポート生成
 import allure
 import pytest
 
@@ -1166,51 +1215,65 @@ import pytest
 @allure.story("ユーザーログイン")
 @allure.severity(allure.severity_level.CRITICAL)
 class TestLogin:
+    
     @allure.title("有効な資格情報でログイン成功")
     @allure.description("正しいメールアドレスとパスワードを入力した場合、ダッシュボードにリダイレクトされること")
     def test_successful_login(self, driver, login_page):
         with allure.step("ログインページを開く"):
             login_page.navigate()
+        
         with allure.step("有効な資格情報を入力"):
             login_page.enter_email("test@example.com")
             login_page.enter_password("valid_password")
+        
         with allure.step("ログインボタンをクリック"):
             dashboard = login_page.click_login()
+        
         with allure.step("ダッシュボードが表示されることを確認"):
             assert dashboard.is_loaded()
+        
         # スクリーンショットをレポートに添付
         allure.attach(
             driver.get_screenshot_as_png(),
             name="ダッシュボード",
             attachment_type=allure.attachment_type.PNG
-            )
-            ```
+        )
+```
 
-            ```bash
-            #### Allure レポートの生成・表示
-            pytest tests/ --alluredir=allure-results
-            allure serve allure-results
-            ```
+```bash
+# Allure レポートの生成・表示
+pytest tests/ --alluredir=allure-results
+allure serve allure-results
+```
+
+---
+
 ### 6.4 ダッシュボードの構築
-```text
+
+```
 推奨ダッシュボードコンポーネント：
+
 1. 日次テスト結果トレンド
    ────────────────────────────────
-   Pass: 85% ████████████████░░░
+   Pass: 85% ████████████████░░░ 
    Fail:  5% █░░░░░░░░░░░░░░░░░░
    Skip: 10% ██░░░░░░░░░░░░░░░░░
+   
 2. テスト実行時間のトレンド
    ────────────────────────────────
    ユニット: 2.1分（目標3分以内）✅
-   統合:    8.5分（目標10分以内）✅
+   統合:    8.5分（目標10分以内）✅  
    E2E:    24.3分（目標30分以内）✅
+
 3. フレイキーテストTOP10
    ────────────────────────────────
    1. test_checkout_flow ... 15%失敗率 🔴
    2. test_file_upload ..... 8%失敗率  🟡
+   
 4. カバレッジトレンド（過去30日）
    ────────────────────────────────
    コードカバレッジ：82% (+2%)
+
 推奨ツール：
   - Grafana + Prometheus（オープンソース）
   - Kibana + Elasticsearch（ELKスタック）
@@ -1223,23 +1286,26 @@ class TestLogin:
 <a id="chapter-7"></a>
 
 ## Chapter 7: テスト自動化ソリューションの検証
-
+>
 > CTAL-TAE v2.0 Section 7 | K3レベル（適用）
 
 ### 7.1 TAS（Test Automation Solution）の検証とは？
 
-> **重要な概念**: TAS（テスト自動化ソリューション）自体にも欠陥がある！
+> **重要な概念**: TAS（テスト自動化ソリューション）自体にも欠陥がある！  
 > テスト自動化コードそのものをテストすること = **TAS の検証**
 
-```text
+```
 TASの欠陥と SUT の欠陥を区別することが重要：
+
 SUT のバグ：
   └── 実際のシステムに問題がある
   → 本番では障害になる（ビジネスに影響）
+
 TAS のバグ（偽陽性/偽陰性）：
   偽陽性（False Positive）:
     → SUT に問題がないのにテストが失敗する
     → 開発チームが時間を無駄にする
+
   偽陰性（False Negative）:
     → SUT に問題があるのにテストが成功する（危険！）
     → バグが本番に流出する
@@ -1250,47 +1316,60 @@ TAS のバグ（偽陽性/偽陰性）：
 #### 7.2.1 ユニットテスト（テストコードのテスト）
 
 ```python
-#### テストヘルパー・ユーティリティ関数自体をテストする
+# テストヘルパー・ユーティリティ関数自体をテストする
 import pytest
 from automation_framework.helpers import wait_for_element, retry
 
 class TestWaitForElement:
     """wait_for_element ヘルパー関数の検証"""
+    
     def test_returns_element_when_found_immediately(self, mock_driver):
         """要素がすぐに見つかる場合に要素を返す"""
         mock_driver.find_element.return_value = MockWebElement("button")
+        
         result = wait_for_element(mock_driver, "id", "submit-btn", timeout=5)
+        
         assert result is not None
         assert result.tag_name == "button"
+    
     def test_raises_timeout_when_element_not_found(self, mock_driver):
         """タイムアウト内に要素が見つからない場合に例外を投げる"""
-        mock_driver.find_element.side_effect = NoSuchElementE
+        mock_driver.find_element.side_effect = NoSuchElementException
+        
         with pytest.raises(TimeoutException) as exc_info:
             wait_for_element(mock_driver, "id", "non-existent", timeout=1)
+        
         assert "1秒以内に要素が見つかりませんでした" in str(exc_info.value)
 ```
 
 #### 7.2.2 TAS のコードレビュー観点
 
-```text
+```
 TAS コードレビューチェックリスト：
+
 □ 1. テストの独立性
      ✓ テスト間で状態を共有していないか
      ✓ テストの実行順序に依存していないか
+
 □ 2. セレクタの安定性
      ✓ data-testid などの安定した属性を使っているか
      ✓ xpath の深いネストや動的なクラス名を使っていないか
+
 □ 3. 待機戦略
      ✓ 固定 sleep ではなく条件ベースの待機を使っているか
      ✓ 適切なタイムアウト設定があるか
+
 □ 4. アサーションの適切性
      ✓ 意味のあるアサーションメッセージがあるか
      ✓ 検証すべき項目を全てアサートしているか
+
 □ 5. テストデータの管理
      ✓ テストデータが他のテストと衝突しないか
      ✓ テスト後にデータがクリーンアップされるか
+
 □ 6. エラーハンドリング
      ✓ 失敗時に有用な情報（スクリーンショット等）を記録するか
+
 □ 7. セキュリティ
      ✓ 機密情報がコードにハードコードされていないか
 ```
@@ -1300,25 +1379,29 @@ TAS コードレビューチェックリスト：
 <a id="chapter-8"></a>
 
 ## Chapter 8: 継続的改善
-
-> CTAL-TAE v2.0 Section 8 | K2レベル
+>
+> CTAL-TAE v2.0 Section 8 | K2レベル（理解）
 
 ### 8.1 継続的改善の対象領域
 
-```text
+```
 テスト自動化の継続的改善サイクル（PDCA）：
+
 Plan（計画）:
   - 現状のメトリクス分析
   - 改善目標の設定
   - 改善施策の計画
+
 Do（実行）:
   - フレームワークのリファクタリング
   - 新しいツール・技法の試験的導入
   - テストスイートの最適化
+
 Check（確認）:
   - 改善前後のメトリクス比較
   - フレイキーテストの減少確認
   - 実行時間の短縮確認
+
 Act（改善）:
   - 成功した改善を標準化
   - 失敗した施策の見直し
@@ -1330,7 +1413,7 @@ Act（改善）:
 #### 8.2.1 フレイキーテストの排除
 
 ```python
-#### フレイキーテスト撲滅のための戦略
+# フレイキーテスト撲滅のための戦略
 
 # ❌ 悪い例：固定 sleep（フレイキーの原因）
 def bad_test(page):
@@ -1356,58 +1439,77 @@ def test_with_external_service(api_client):
 
 #### 8.2.2 テスト実行の最適化
 
-```text
+```
 テスト実行時間の短縮戦略：
+
 1. 並列実行
    pytest -n auto  # CPU数に合わせて並列実行
    npx playwright test --workers=4  # 4並列
+
 2. テストの選択的実行（変更影響分析）
    # 変更されたファイルに関連するテストのみ実行
-   pytest --co -q | grep "changed_module" | xargs 
+   pytest --co -q | grep "changed_module" | xargs pytest
+
 3. テストスイートの最適化
    - 重複テストの削除
    - 遅いテストの原因調査（pytest --durations=10）
    - 重いテストを夜間バッチへ移動
+
 4. テストデータの事前生成
    - DBシードを事前に実行してテスト開始時間を短縮
    - テストデータキャッシュの活用
+
 5. コンテナの事前ウォーミング
    docker-compose up -d  # テスト前にコンテナを起動しておく
 ```
 
 #### 8.2.3 AI活用による自動化改善（2025年最新動向）
 
-```text
+```
 AIを活用したテスト自動化の改善（2025年トレンド）：
+
 1. セルフヒーリングテスト
    ツール: Testsigma, Mabl, Functionize
    効果: UI変更時のセレクタ破損を自動修復
+   
 2. AIによるテストケース生成
    ツール: GitHub Copilot, ChatGPT API, Claude API
    効果: ユーザーストーリーから自動でテストコード生成
    → 作成時間を60〜70%削減
+   
 3. AIによる欠陥予測（Risk-based Testing）
    効果: 変更の影響を予測し、優先テストを自動選定
+   
 4. 視覚的AIテスト（Visual Testing）
    ツール: Applitools Eyes, Percy
    効果: UIの視覚的な退行を自動検出
+
 活用例（GitHub Copilot でテストコード生成）：
+```
 
-#### GitHub Copilot / Claude に渡すプロンプト例
-
-```text
+```python
+# GitHub Copilot / Claude に渡すプロンプト例
 """
 以下のユーザーストーリーに基づいてPythonのpytestテストを書いてください：
 
 ユーザーストーリー：
-...
+  As a registered user,
+  I want to update my profile name,
+  So that my account reflects my current name.
+
+受入基準：
+  1. 有効な名前（2-50文字）で更新できる
+  2. 空の名前では更新できない
+  3. 51文字以上の名前では更新できない
+  4. 更新成功後、新しい名前がプロフィールページに表示される
+
 APIエンドポイント: PATCH /api/users/{id}/profile
 """
+# → AIが自動でテストコードを生成してくれる
 ```
 
-#### → AIが自動でテストコードを生成してくれる
-
 ---
+
 <a id="tools"></a>
 
 ## 🔧 主要テスト自動化ツール・フレームワーク（2025年版）
@@ -1468,13 +1570,13 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ---
 
-<a id="prep"></a>
+<a id="exam-tips"></a>
 
 ## 📝 CTAL-TAE v2.0 試験対策チェックリスト
 
 ### 試験概要
 
-```text
+```
 試験情報：
   問題数    : 40問
   合格点    : 43点（総点66点）≈ 65%
@@ -1498,12 +1600,13 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ### 必ず覚える重要概念
 
-```text
+```
 ✅ gTAA の4層（試験で必ず出る！）：
    1. Test Management Layer（テスト管理層）
    2. Test Definition Layer（テスト定義層）
    3. Test Execution Layer（テスト実行層）
    4. Test Adaptation Layer（テスト適合層）
+
 ✅ テスト自動化アプローチ：
    - Capture & Playback（キャプチャ/再生）
    - Linear Scripting（リニアスクリプト）
@@ -1511,17 +1614,22 @@ APIエンドポイント: PATCH /api/users/{id}/profile
    - Data-Driven Testing（データ駆動）
    - Keyword-Driven Testing（キーワード駆動）
    - BDD（振る舞い駆動）
+
 ✅ テスト容易性の2要素：
    - Observability（観測可能性）
    - Controllability（制御可能性）
+
 ✅ TAS vs SUT の違い：
    - TAS: テスト自動化ソリューション（テストを実行するもの）
    - SUT: テスト対象システム（テストされるもの）
+
 ✅ 偽陽性 / 偽陰性：
    - False Positive（偽陽性）: バグがないのにテストが失敗
    - False Negative（偽陰性）: バグがあるのにテストが成功（危険！）
+
 ✅ ROI計算：
    ROI = (節約額 - コスト) / コスト × 100
+
 ✅ パイロットプロジェクトの目的：
    - フレームワークの評価
    - リスクの早期発見
@@ -1530,18 +1638,22 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 ### よく出る問題パターン
 
-```text
+```
 出題パターン：
+
 1. 「次の状況でどの自動化アプローチが最適か？」
    → キーワード: 非エンジニアがメンテ = キーワード駆動
    → キーワード: データパターンが多い = データ駆動
    → キーワード: BDD/受入基準がある = BDD
+
 2. 「gTAA のどの層に属するか？」
    → GUI操作 = Test Adaptation Layer
    → テストケース定義 = Test Definition Layer
-   → テスト実行エンジン = Test Execution L
+   → テスト実行エンジン = Test Execution Layer
+
 3. 「テスト自動化のリスクは何か？」
    → フレイキーテスト・メンテナンスコスト・ROI不足
+
 4. 「testabilityを高めるには？」
    → Observability を高める（ログ・戻り値を充実させる）
    → Controllability を高める（依存性注入・環境切り替え）
@@ -1555,59 +1667,68 @@ APIエンドポイント: PATCH /api/users/{id}/profile
 
 | カテゴリ | タイトル | URL |
 |---------|---------|-----|
-| **ISTQB公式** | CTAL-TAE v2.0 公式ページ | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
-| **ISTQB公式** | ISTQB公式サイト | https://istqb.org/ |
-| **ISTQB公式** | ISTQBグロッサリー | https://glossary.istqb.org/en_US/search?term= |
-| **ISTQB公式** | CTFL v4.0（前提資格） | https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/ |
-| **試験学習** | CTAL-TAE v2.0 モック試験（無料） | https://mockexamnetwork.com/exams/istqb-automation/ |
-| **学習リソース** | ISTQB.Guru — CTAL-TAE ガイド | https://www.istqb.guru/test-automation-engineer/ |
-| **学習リソース** | Brightest — CTAL-TAE v2.0 詳細 | https://brightest.org/en/certifications/ISTQB-CTAL-Test-Automation-Engineering/ |
-| **Playwright** | Playwright 公式ドキュメント | https://playwright.dev/ |
-| **Selenium** | Selenium 公式ドキュメント | https://www.selenium.dev/documentation/ |
-| **Cypress** | Cypress 公式ドキュメント | https://docs.cypress.io/ |
-| **pytest** | pytest 公式ドキュメント | https://docs.pytest.org/ |
-| **Pact** | Pact コントラクトテスト | https://docs.pact.io/ |
-| **k6** | k6 パフォーマンステスト | https://grafana.com/docs/k6/latest/ |
-| **Allure** | Allure レポートフレームワーク | https://allurereport.org/ |
-| **WireMock** | WireMock モックサーバー | https://wiremock.org/docs/ |
-| **ベストプラクティス** | Google Testing Blog | https://testing.googleblog.com/ |
-| **ベストプラクティス** | Martin Fowler — Test Automation | https://martinfowler.com/articles/practical-test-pyramid.html |
-| **CI/CD** | GitHub Actions ドキュメント | https://docs.github.com/en/actions |
-| **BDD** | Cucumber/Gherkin 公式 | https://cucumber.io/docs/gherkin/ |
-| **AI×テスト** | ISTQB CT-GenAI（AIテスト資格） | https://istqb.org/certifications/gen-ai/ |
+| **ISTQB公式** | CTAL-TAE v2.0 公式ページ | <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/> |
+| **ISTQB公式** | ISTQB公式サイト | <https://istqb.org/> |
+| **ISTQB公式** | ISTQBグロッサリー | <https://glossary.istqb.org/en_US/search?term=> |
+| **ISTQB公式** | CTFL v4.0（前提資格） | <https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/> |
+| **試験学習** | CTAL-TAE v2.0 モック試験（無料） | <https://mockexamnetwork.com/exams/istqb-automation/> |
+| **学習リソース** | ISTQB.Guru — CTAL-TAE ガイド | <https://www.istqb.guru/test-automation-engineer/> |
+| **学習リソース** | Brightest — CTAL-TAE v2.0 詳細 | <https://brightest.org/en/certifications/ISTQB-CTAL-Test-Automation-Engineering/> |
+| **Playwright** | Playwright 公式ドキュメント | <https://playwright.dev/> |
+| **Selenium** | Selenium 公式ドキュメント | <https://www.selenium.dev/documentation/> |
+| **Cypress** | Cypress 公式ドキュメント | <https://docs.cypress.io/> |
+| **pytest** | pytest 公式ドキュメント | <https://docs.pytest.org/> |
+| **Pact** | Pact コントラクトテスト | <https://docs.pact.io/> |
+| **k6** | k6 パフォーマンステスト | <https://grafana.com/docs/k6/latest/> |
+| **Allure** | Allure レポートフレームワーク | <https://allurereport.org/> |
+| **WireMock** | WireMock モックサーバー | <https://wiremock.org/docs/> |
+| **ベストプラクティス** | Google Testing Blog | <https://testing.googleblog.com/> |
+| **ベストプラクティス** | Martin Fowler — Test Automation | <https://martinfowler.com/articles/practical-test-pyramid.html> |
+| **CI/CD** | GitHub Actions ドキュメント | <https://docs.github.com/en/actions> |
+| **BDD** | Cucumber/Gherkin 公式 | <https://cucumber.io/docs/gherkin/> |
+| **AI×テスト** | ISTQB CT-GenAI（AIテスト資格） | <https://istqb.org/certifications/gen-ai/> |
+| **デザインパターン** | Page Object Model — Selenium | <https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/> |
 
 ---
 
 ## 🎯 まとめ：テスト自動化成功の10の鉄則
 
-```text
+```
 1. 📊 ROIを計算してから始める
    → 自動化すべきかを定量的に判断する
+
 2. 🏗️ アーキテクチャに投資する（gTAA）
    → 最初に設計に時間をかけることで長期コストを削減
+
 3. 🎯 自動化対象を厳選する（全テスト自動化は禁物）
    → 繰り返し実行・安定・高価値なテストを優先
+
 4. 🔒 テストの独立性を保つ
    → テスト間の依存をなくして並列実行を可能にする
+
 5. 📦 data-testid を使う（安定したセレクタ）
    → UIリファクタリングに強いテストを作る
+
 6. ⏱️ 固定 sleep を排除する
    → 条件ベースの待機でフレイキーテストを根絶
+
 7. 🔄 CI/CDに統合する
    → コードPushのたびに自動実行してフィードバックを最速化
+
 8. 📈 メトリクスを継続的に計測・改善する
    → フレイキー率・実行時間・カバレッジを追跡
+
 9. 🛡️ TAS自体も検証する
    → テストコードにも偽陽性・偽陰性が存在することを忘れない
+
 10. 🤖 AIを積極活用する（2025年）
     → GitHub Copilot・Claude などでテスト生成の生産性を上げる
 ```
 
 ---
 
-**作成者**: ISTQB® 認定学習支援チーム  
-**最終更新**: 2025年5月2日  
-**ライセンス**: CC BY-SA 4.0
-
-> ⚠️ **免責事項**: 本ガイドは学習補助を目的としており、合格を保証するものではありません。
-> 最新の公式シラバスと合わせて学習してください。
+> **📌 最終更新日**: 2025年  
+> **📌 準拠資格**: ISTQB CTAL-TAE v2.0  
+> **📌 次のステップ**: CT-TAS（Test Automation Strategy）資格も参照
+>
+> 🔗 公式リソース: <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/>

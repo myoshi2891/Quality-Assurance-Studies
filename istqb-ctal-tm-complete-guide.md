@@ -10,24 +10,24 @@
 
 ## 📚 目次
 
-1. [CTAL-TM v3.0 概要](#%F0%9F%8C%9F-chapter-0-ctal-tm-v30-%E6%A6%82%E8%A6%81)
-2. [Chapter 1: テスト活動の管理（Managing the Test Activities）](#%F0%9F%93%8B-chapter-1-%E3%83%86%E3%82%B9%E3%83%88%E6%B4%BB%E5%8B%95%E3%81%AE%E7%AE%A1%E7%90%86%EF%BC%88managing-the-test-activities%EF%BC%89)
+1. [CTAL-TM v3.0 概要](#chapter-0)
+2. [Chapter 1: テスト活動の管理（Managing the Test Activities）](#chapter-1)
    - [1.1 テストプロセス](#section-1-1)
    - [1.2 テストのコンテキスト](#section-1-2)
    - [1.3 リスクベーステスト](#section-1-3)
    - [1.4 プロジェクトテスト戦略](#section-1-4)
    - [1.5 テストプロセスの改善](#section-1-5)
    - [1.6 テストツール](#section-1-6)
-3. [Chapter 2: 製品の管理（Managing the Product）](#%F0%9F%93%8A-chapter-2-%E8%A3%BD%E5%93%81%E3%81%AE%E7%AE%A1%E7%90%86%EF%BC%88managing-the-product%EF%BC%89)
+3. [Chapter 2: 製品の管理（Managing the Product）](#chapter-2)
    - [2.1 テストメトリクス](#section-2-1)
    - [2.2 テスト見積もり](#section-2-2)
    - [2.3 欠陥管理](#section-2-3)
-4. [Chapter 3: チームの管理（Managing the Team）](#%F0%9F%91%A5-chapter-3-%E3%83%81%E3%83%BC%E3%83%A0%E3%81%AE%E7%AE%A1%E7%90%86%EF%BC%88managing-the-team%EF%BC%89)
+4. [Chapter 3: チームの管理（Managing the Team）](#chapter-3)
    - [3.1 テストチーム](#section-3-1)
    - [3.2 ステークホルダー関係](#section-3-2)
-5. [試験対策・サンプル問題](#%F0%9F%93%9D-%E8%A9%A6%E9%A8%93%E5%AF%BE%E7%AD%96%E3%83%BB%E3%82%B5%E3%83%B3%E3%83%97%E3%83%AB%E5%95%8F%E9%A1%8C)
-6. [v2012 → v3.0 主な変更点](#%F0%9F%94%84-v2012-%E2%86%92-v30-%E4%B8%BB%E3%81%AA%E5%A4%89%E6%9B%B4%E7%82%B9)
-7. [参照URL一覧](#%F0%9F%93%9A-%E5%8F%82%E7%85%A7url%E4%B8%80%E8%A6%A7)
+5. [試験対策・サンプル問題](#exam-tips)
+6. [v2012 → v3.0 主な変更点](#changes)
+7. [参照URL一覧](#references)
 
 ---
 
@@ -37,7 +37,7 @@
 
 ### 0.1 この資格とは？
 
-```text
+```
 ┌──────────────────────────────────────────────────────────────────┐
 │                ISTQB® 認定資格ロードマップ                          │
 │                                                                  │
@@ -54,14 +54,14 @@
 │        │                                                         │
 │  推奨実務経験：6ヶ月以上（ソフトウェアテスト or 開発）                 │
 └──────────────────────────────────────────────────────────────────┘
-```text
+```
 
 **CTAL-TM（Test Management）** は、ソフトウェアテスト管理の専門家を認定する国際資格です。
 2024年5月30日にリリースされた v3.0 は、12年ぶりの大幅改訂版です。
 
 ### 0.2 試験概要（v3.0）
 
-```text
+```
 ╔══════════════════════════════════════════════════════════╗
 ║              CTAL-TM v3.0 試験スペック                    ║
 ╠═══════════════════════════════════╦══════════════════════╣
@@ -84,24 +84,24 @@
 ╠═══════════════════════════════════╬══════════════════════╣
 ║  旧版（v2012）サンセット             ║  2025年5月30日（英語）║
 ╚═══════════════════════════════════╩══════════════════════╝
-```text
+```
 
 ### 0.3 チャプター別学習時間配分
 
-```text
+```
 Chapter 1: テスト活動の管理    ████████████████████████████████ 750分 (54.9%)  ← 最重要
 Chapter 2: 製品の管理          ████████████████  390分 (28.6%)
 Chapter 3: チームの管理        ██████████         225分 (16.5%)
                               合計: 1365分 (22.75時間)
-```text
+```
 
 ### 0.4 ドメイン別試験配点（推定）
 
-```text
+```
 Domain 1: Managing the Test Activities  ████████████████████████  ~52% / 26問
 Domain 2: Managing the Product         ████████████████           ~30% / 15問
 Domain 3: Managing the Team            ██████████                 ~18% /  9問
-```text
+```
 
 ### 0.5 認知レベル（K-Level）
 
@@ -146,7 +146,7 @@ CTAL-TM v3.0 の認定者は以下を達成できるとされています：
 
 テストプロセスは、テスト計画・テスト監視と制御・テスト完了の3つの主要活動で構成されます。
 
-```text
+```
 テストプロセスの全体像：
 
   ┌──────────────────────────────────────────────────────────┐
@@ -165,7 +165,7 @@ CTAL-TM v3.0 の認定者は以下を達成できるとされています：
   │              テスト完了（Test Completion）                 │
   │  完了基準確認 → 成果物アーカイブ → 教訓の記録             │
   └──────────────────────────────────────────────────────────┘
-```text
+```
 
 #### 1.1.1 テスト計画活動（Test Planning Activities）
 
@@ -173,7 +173,7 @@ CTAL-TM v3.0 の認定者は以下を達成できるとされています：
 
 **テスト計画で定義すべき主要要素：**
 
-```text
+```
 テスト計画の構成要素：
 
 1. テストスコープ（Test Scope）
@@ -198,7 +198,7 @@ CTAL-TM v3.0 の認定者は以下を達成できるとされています：
 
 7. リスクと軽減策（Risks & Mitigations）
    → プロジェクトリスク / 製品リスク / 対応策
-```text
+```
 
 **テスト計画の実践例：**
 
@@ -238,11 +238,11 @@ Project: ECサイト リニューアル v2.0
   - R1: 外部決済API仕様変更（高）→ 週次でAPI変更確認
   - R2: テスト環境不安定（中）→ Docker化で再現性確保
   - R3: テスターのスキル不足（低）→ 事前トレーニング実施
-```text
+```
 
 #### 1.1.2 テスト監視と制御活動（Test Monitoring and Control Activities）
 
-```text
+```
 テスト監視（Monitoring）= 現状把握
 テスト制御（Control）   = 逸脱時の是正措置
 
@@ -264,7 +264,7 @@ Project: ECサイト リニューアル v2.0
     ✓ 低優先度テストケースを削除
     ✓ 並列実行で効率化
     ✓ スコープの絞り込みをステークホルダーと合意
-```text
+```
 
 **監視の種類：**
 
@@ -277,7 +277,7 @@ Project: ECサイト リニューアル v2.0
 
 #### 1.1.3 テスト完了活動（Test Completion Activities）
 
-```text
+```
 テスト完了のチェックリスト：
 
 □ テスト完了基準（Exit Criteria）の達成確認
@@ -299,7 +299,7 @@ Project: ECサイト リニューアル v2.0
   5. 偏差と原因（計画との差異）
   6. 未テスト項目とその理由
   7. 今後の推奨事項
-```text
+```
 
 ---
 
@@ -311,7 +311,7 @@ Project: ECサイト リニューアル v2.0
 
 #### 1.2.1 テストステークホルダー（Test Stakeholders）
 
-```text
+```
 主要ステークホルダーマップ：
 
                    [経営者 / CTO]
@@ -335,13 +335,13 @@ Project: ECサイト リニューアル v2.0
   開発者:    「バグの早期フィードバック」
   製品オーナー: 「ビジネス価値の実現確認」
   テスト管理者: 「テスト活動の効果的な実行」
-```text
+```
 
 #### 1.2.2 ステークホルダーの知識の重要性（Importance of Stakeholders' Knowledge）
 
 テスト管理者は、各ステークホルダーの専門知識を**テスト活動に活用**する必要があります。
 
-```text
+```
 ステークホルダーの知識活用例：
 
 BA（ビジネスアナリスト）：
@@ -359,13 +359,13 @@ BA（ビジネスアナリスト）：
 ドメイン専門家（SME）：
   → 業務ルールの解釈 / エッジケースの発見
   → テストデータ設計に活用
-```text
+```
 
 #### 1.2.3 ハイブリッドSDLCにおけるテスト管理（Test Management in Hybrid Software Development Model）
 
 多くの現代組織は純粋なウォーターフォールでも純粋なアジャイルでもない、**ハイブリッドモデル**を採用しています。
 
-```text
+```
 ハイブリッドモデルの例：
 
   ウォーターフォール要素:        アジャイル要素:
@@ -384,7 +384,7 @@ BA（ビジネスアナリスト）：
 
   課題3: 欠陥管理のワークフローの差異
   対策: バックログアイテム（アジャイル）と正式欠陥票（ウォーターフォール）の橋渡し
-```text
+```
 
 #### 1.2.4 様々なSDLCモデルにおけるテスト管理活動
 
@@ -398,7 +398,7 @@ BA（ビジネスアナリスト）：
 
 #### 1.2.5 様々なテストレベルにおけるテスト管理活動
 
-```text
+```
 テストレベルとテスト管理の役割：
 
 コンポーネントテスト（ユニットテスト）：
@@ -420,11 +420,11 @@ BA（ビジネスアナリスト）：
   管理の焦点: ビジネスステークホルダーとの連携
   ツール: TestRail, Jira, 手動テスト
   成功基準: 製品オーナーのサインオフ
-```text
+```
 
 #### 1.2.6 様々なテストタイプにおけるテスト管理活動
 
-```text
+```
 テストタイプと管理の観点：
 
 機能テスト：
@@ -442,11 +442,11 @@ BA（ビジネスアナリスト）：
 確認テスト（Re-test）：
   目標: 欠陥が修正されたことの確認
   管理: 欠陥ステータスの追跡
-```text
+```
 
 #### 1.2.7 計画・監視・制御のためのテスト管理活動
 
-```text
+```
 テスト管理活動の統合フロー：
 
   プロジェクト開始
@@ -477,7 +477,7 @@ BA（ビジネスアナリスト）：
                  │  ・スケジュール変更
                  │  ・アプローチの見直し
                  └────────────────────┘
-```text
+```
 
 ---
 
@@ -491,7 +491,7 @@ BA（ビジネスアナリスト）：
 
 #### 1.3.1 リスク緩和活動としてのテスト（Testing as a Risk Mitigation Activity）
 
-```text
+```
 テストとリスクの関係：
 
   製品リスク（Product Risk）:
@@ -510,11 +510,11 @@ BA（ビジネスアナリスト）：
   2. 軽減（Mitigate）: テストを重点的に実施してリスクを低減
   3. 転嫁（Transfer）: 保険・外部委託でリスクを移転
   4. 受容（Accept）:   リスクを認識した上で受け入れる
-```text
+```
 
 #### 1.3.2 品質リスクの識別（Identification of Quality Risks）
 
-```text
+```
 品質リスク識別のアプローチ：
 
 1. ブレインストーミング（Brainstorming）
@@ -532,7 +532,7 @@ BA（ビジネスアナリスト）：
 
 5. ユーザーストーリーの分析
    受入基準から隠れたリスクを識別
-```text
+```
 
 **リスクカテゴリの例：**
 
@@ -581,11 +581,11 @@ risk_register = [
         "テスト強度":  "基本確認のみ",
     },
 ]
-```text
+```
 
 **リスクマトリクス（視覚的表現）：**
 
-```text
+```
         影響度（Impact）
           低(1) 中(3) 高(5)
 発生 低(1) [  1 ][  3 ][  5 ]
@@ -596,11 +596,11 @@ risk_register = [
   1-4:   🟢 低リスク
   5-14:  🟡 中リスク
   15-25: 🔴 高リスク
-```text
+```
 
 #### 1.3.4 適切なテストによる品質リスク緩和（Quality Risk Mitigation Through Appropriate Testing）
 
-```text
+```
 リスクレベルに応じたテスト戦略：
 
 高リスク機能（例: 決済処理）：
@@ -618,13 +618,13 @@ risk_register = [
   → 基本的な確認テスト
   → 探索的テストで補完
   → 他の機能のテスト実行でカバー
-```text
+```
 
 #### 1.3.5 リスクベーステストの技法（Techniques for Risk-Based Testing）
 
 CTAL-TM v3.0 では、以下のリスクベーステスト技法が紹介されています：
 
-```text
+```
 代表的なリスクベーステスト技法：
 
 1. HIPO（階層型入出力分析）
@@ -644,11 +644,11 @@ CTAL-TM v3.0 では、以下のリスクベーステスト技法が紹介され�
 
 6. 欠陥ベーステスト
    → 過去の欠陥データからリスクの高い箇所を特定
-```text
+```
 
 #### 1.3.6 リスクベーステストの成功メトリクスと困難（Success Metrics and Difficulties）
 
-```text
+```
 成功メトリクス：
   ✓ 高リスク領域での欠陥検出率
   ✓ リスクカバレッジ率（高リスクのテスト完了率）
@@ -666,7 +666,7 @@ CTAL-TM v3.0 では、以下のリスクベーステスト技法が紹介され�
   ✓ 定期的なリスク再評価（スプリントごと or フェーズごと）
   ✓ リスク受容基準の事前合意
   ✓ 残存リスクレポートの定期発行
-```text
+```
 
 ---
 
@@ -676,7 +676,7 @@ CTAL-TM v3.0 では、以下のリスクベーステスト技法が紹介され�
 
 #### 1.4.1 テストアプローチの選択（Choosing a Test Approach）
 
-```text
+```
 テストアプローチの種類（ISTQB® 分類）：
 
 1. 分析的アプローチ（Analytical Approach）
@@ -708,11 +708,11 @@ CTAL-TM v3.0 では、以下のリスクベーステスト技法が紹介され�
 7. 反応的アプローチ（Reactive Approach）
    └── 探索的テスト
    └── アドホックテスト
-```text
+```
 
 #### 1.4.2 組織のテスト戦略・プロジェクトコンテキストの分析（Analyzing the Organizational Test Strategy, Project Context and Other Aspects）
 
-```text
+```
 組織テスト戦略（Organizational Test Strategy）vs
 プロジェクトテスト戦略（Project Test Strategy）:
 
@@ -734,11 +734,11 @@ CTAL-TM v3.0 では、以下のリスクベーステスト技法が紹介され�
   ✓ 利用可能なリソース（人員・ツール・予算）
   ✓ 規制・コンプライアンス要件
   ✓ ステークホルダーの期待と優先順位
-```text
+```
 
 #### 1.4.3 テスト目標の定義（Definition of Test Objectives）
 
-```text
+```
 良いテスト目標の条件（SMART原則）：
 
 S - Specific（具体的）
@@ -765,7 +765,7 @@ T - Time-bound（期限付き）
   TM-OBJ-01: リリース日までに支払い機能の欠陥を全件解消する
   TM-OBJ-02: 主要ユーザーフロー（登録→検索→購入）の回帰テスト自動化率80%以上
   TM-OBJ-03: セキュリティテストで OWASP Top 10 の脆弱性がゼロであることを確認する
-```text
+```
 
 ---
 
@@ -775,7 +775,7 @@ T - Time-bound（期限付き）
 
 #### 1.5.1 テスト改善プロセス（IDEAL）モデル
 
-```text
+```
 IDEAL モデルの5フェーズ：
 
   I - Initiating（開始）
@@ -808,11 +808,11 @@ IDEAL モデルの5フェーズ：
   E: 主要回帰テストの80%を自動化。3ヶ月で達成目標
   A: まず30件のスモークテストを Playwright で自動化
   L: 自動化後の実行時間が40分→5分に短縮。次は統合テストへ
-```text
+```
 
 #### 1.5.2 モデルベーステストプロセス改善（Model-Based Test Process Improvement）
 
-```text
+```
 主要なテストプロセス改善モデル：
 
 TMMi（Testing Maturity Model Integration）：
@@ -830,11 +830,11 @@ TPI Next（Test Process Improvement）：
 
 ISO/IEC 33063（テストプロセス評価）：
   → 国際標準によるプロセス評価
-```text
+```
 
 #### 1.5.3 分析ベーステストプロセス改善アプローチ（Analytical-Based Test Process Improvement Approach）
 
-```text
+```
 分析ベース改善の手順：
 
 1. データ収集（Collect Data）
@@ -854,11 +854,11 @@ ISO/IEC 33063（テストプロセス評価）：
   分析: 要件定義時の入力ルールが曖昧
   改善: 要件レビュー時にバリデーションチェックリスト適用
   効果: 入力バリデーション系欠陥が翌月60%削減
-```text
+```
 
 #### 1.5.4 レトロスペクティブ（Retrospectives）
 
-```text
+```
 アジャイルレトロスペクティブのフォーマット（例）：
 
 ┌─────────────────────────────────────────────────┐
@@ -883,7 +883,7 @@ ISO/IEC 33063（テストプロセス評価）：
   ✓ 欠陥の早期発見率（シフトレフト効果）
   ✓ テスト自動化の安定性
   ✓ コミュニケーションの問題
-```text
+```
 
 ---
 
@@ -893,7 +893,7 @@ ISO/IEC 33063（テストプロセス評価）：
 
 #### 1.6.1 ツール導入のグッドプラクティス（Good Practices for Tool Introduction）
 
-```text
+```
 ツール導入の失敗パターンと対策：
 
 ❌ 失敗パターン:
@@ -917,7 +917,7 @@ ISO/IEC 33063（テストプロセス評価）：
   ステップ5: Go/No-Go判断
   ステップ6: 本格導入・教育
   ステップ7: 効果測定
-```text
+```
 
 #### 1.6.2 ツール決定の技術的・ビジネス的側面（Technical and Business Aspects for Tool Decisions）
 
@@ -932,7 +932,7 @@ ISO/IEC 33063（テストプロセス評価）：
 
 #### 1.6.3 選定プロセスとROI評価（Selection Process Considerations and Return on Investment Evaluation）
 
-```text
+```
 ツールROI計算式：
 
 ROI (%) = ((ツール導入による節約額 - ツールの総コスト) / ツールの総コスト) × 100
@@ -954,11 +954,11 @@ ROI (%) = ((ツール導入による節約額 - ツールの総コスト) / ツ�
 
   ROI = ((2,080万 + 300万 - 230万) / 230万) × 100 = 930% !!
   BreakEven: 約2ヶ月で投資回収
-```text
+```
 
 #### 1.6.4 ツールライフサイクル（Tool Lifecycle）
 
-```text
+```
 テストツールのライフサイクル：
 
   導入検討 → POC → パイロット → 本格展開 → 運用・保守 → 廃止・移行
@@ -985,11 +985,11 @@ ROI (%) = ((ツール導入による節約額 - ツールの総コスト) / ツ�
     → ベンダーサポート終了
     → メンテナンスコスト増大
     → より優れた代替ツールの出現
-```text
+```
 
 #### 1.6.5 ツールメトリクス（Tool Metrics）
 
-```text
+```
 テストツールの評価メトリクス：
 
 使用効率メトリクス：
@@ -1006,7 +1006,7 @@ ROIメトリクス：
   ✓ 手動テスト工数削減率
   ✓ 欠陥検出コスト
   ✓ Break-Even Point（投資回収ポイント）
-```text
+```
 
 ---
 
@@ -1024,7 +1024,7 @@ ROIメトリクス：
 
 #### 2.1.1 テスト管理活動のメトリクス（Metrics for Test Management Activities）
 
-```text
+```
 メトリクスのカテゴリ：
 
 ┌──────────────────────────────────────────────────────────────┐
@@ -1045,7 +1045,7 @@ ROIメトリクス：
 │ リスクメトリクス  │ リスクカバレッジ率、高リスク欠陥数             │
 │ (Risk)           │ 残存リスクレベル                             │
 └──────────────────┴───────────────────────────────────────────┘
-```text
+```
 
 **主要メトリクスの定義と計算式：**
 
@@ -1086,11 +1086,11 @@ metrics = TestMetrics()
 print(f"テスト実行率: {metrics.test_execution_rate(150, 200):.1f}%")  # 75.0%
 print(f"テスト合格率: {metrics.test_pass_rate(132, 150):.1f}%")      # 88.0%
 print(f"欠陥封じ込め効率: {metrics.defect_containment_efficiency(45, 3):.1f}%")  # 93.8%
-```text
+```
 
 #### 2.1.2 監視・制御・完了（Monitoring, Control and Completion）
 
-```text
+```
 バーンダウンチャートの見方（アジャイル）：
 
 残存テスト数
@@ -1115,11 +1115,11 @@ print(f"欠陥封じ込め効率: {metrics.defect_containment_efficiency(45, 3):
   ≥ 20%遅延  → 要注意（監視強化）
   ≥ 30%遅延  → 軽度対策（残業・並列実行）
   ≥ 50%遅延  → 重大対策（スコープ削減、人員追加）
-```text
+```
 
 #### 2.1.3 テスト報告（Test Reporting）
 
-```text
+```
 対象別テスト報告書の設計：
 
 経営層向けエグゼクティブレポート（1ページ）：
@@ -1145,7 +1145,7 @@ print(f"欠陥封じ込め効率: {metrics.defect_containment_efficiency(45, 3):
   ✓ リスクと推奨アクションをセットで伝える
   ✓ 良いニュースも悪いニュースも透明に伝える
   ✓ 過去トレンドと将来予測を両方示す
-```text
+```
 
 ---
 
@@ -1157,7 +1157,7 @@ print(f"欠陥封じ込め効率: {metrics.defect_containment_efficiency(45, 3):
 
 #### 2.2.1 テスト活動の見積もり対象（Estimating What Activities Testing Will Involve）
 
-```text
+```
 見積もりが必要なテスト活動の全体像：
 
 テスト計画・設計フェーズ：
@@ -1177,11 +1177,11 @@ print(f"欠陥封じ込め効率: {metrics.defect_containment_efficiency(45, 3):
   ├── 進捗報告
   ├── ステークホルダーとのコミュニケーション
   └── レトロスペクティブ・教訓の記録
-```text
+```
 
 #### 2.2.2 テスト工数に影響する要因（Factors Which May Influence Test Effort）
 
-```text
+```
 テスト工数に影響する主要要因：
 
 【製品要因（Product Factors）】
@@ -1219,13 +1219,13 @@ print(f"欠陥封じ込め効率: {metrics.defect_containment_efficiency(45, 3):
     ・ドメイン知識豊富なテスター
     ・経験豊富なチーム
     ・明確なコミュニケーション
-```text
+```
 
 #### 2.2.3 テスト見積もり技法の選択（Selection of Test Estimation Techniques）
 
 **主要な見積もり技法：**
 
-```text
+```
 1. エキスパートベース見積もり（Expert-Based Estimation）
 
    ワイドバンドデルファイ法（Wideband Delphi）：
@@ -1245,7 +1245,7 @@ print(f"欠陥封じ込め効率: {metrics.defect_containment_efficiency(45, 3):
    プランニングポーカー（アジャイル版）：
    使用するカード: 0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ?, ∞
    → フィボナッチ数列で不確実性を表現
-```text
+```
 
 ```python
 # 2. メトリクスベース見積もり（Metrics-Based Estimation）
@@ -1268,7 +1268,7 @@ estimated_hours  = estimated_tcs    * avg_hours_per_tc  # 360 × 2.0 = 720時間
 
 print(f"推定テストケース数: {estimated_tcs:.0f}")
 print(f"推定工数:         {estimated_hours:.0f}時間")
-```text
+```
 
 ```python
 # 3. 三点見積もり（Three-Point Estimation / PERT）
@@ -1297,7 +1297,7 @@ result = three_point_estimate(
 
 print(f"期待テスト工数: {result['期待値（平均）']:.1f}時間")
 # → 期待テスト工数: 53.3時間
-```text
+```
 
 **見積もり技法の比較：**
 
@@ -1317,7 +1317,7 @@ print(f"期待テスト工数: {result['期待値（平均）']:.1f}時間")
 
 #### 2.3.1 欠陥ライフサイクル（Defect Lifecycle）
 
-```text
+```
 標準的な欠陥ライフサイクル（ウォーターフォール）：
 
   [New/Open]
@@ -1347,11 +1347,11 @@ print(f"期待テスト工数: {result['期待値（平均）']:.1f}時間")
   ✓ 欠陥老齢化（Defect Aging）: 長期未解決の欠陥数
   ✓ 欠陥再オープン率（Reopen Rate）: 修正品質の指標
   ✓ 欠陥漏洩率（Defect Escape Rate）: 本番流出欠陥の割合
-```text
+```
 
 #### 2.3.2 クロスファンクショナル欠陥管理（Cross-Functional Defect Management）
 
-```text
+```
 クロスファンクショナル欠陥管理の課題と解決策：
 
 課題1: 優先度に関するコンフリクト
@@ -1376,11 +1376,11 @@ print(f"期待テスト工数: {result['期待値（平均）']:.1f}時間")
   修正作業         I        R/A      I           I
   確認テスト       R/A       C        I           I
   欠陥クローズ     R/A       I        I           I
-```text
+```
 
 #### 2.3.3 アジャイルチームの欠陥管理（Specifics of Defect Management in Agile Teams）
 
-```text
+```
 アジャイルにおける欠陥管理の特徴：
 
 ウォーターフォール:         アジャイル:
@@ -1408,11 +1408,11 @@ Definition of Done（完成の定義）にテストを含める例：
   □ 受入基準のテスト全合格
   □ リグレッションテスト合格
   □ 欠陥: Critical/High が 0件
-```text
+```
 
 #### 2.3.4 ハイブリッド開発での欠陥管理の課題（Defect Management Challenges in Hybrid Software Development）
 
-```text
+```
 ハイブリッド開発の欠陥管理課題：
 
 課題: フォーマルとインフォーマルの混在
@@ -1424,13 +1424,13 @@ Definition of Done（完成の定義）にテストを含める例：
     （ID, 重要度, 優先度, ステータス, 担当者, 期限）
   ✓ ゲートウェイミーティングでの欠陥レビュー
   ✓ 自動通知（Slack/Teams）でリアルタイム共有
-```text
+```
 
 #### 2.3.5 欠陥レポート情報（Defect Report Information）
 
 **良い欠陥レポートの構成：**
 
-```text
+```
 欠陥レポートテンプレート：
 
 ┌────────────────────────────────────────────────────────────┐
@@ -1466,11 +1466,11 @@ Definition of Done（完成の定義）にテストを含める例：
 │ 関連テストケース: TC-AUTH-003                                 │
 │ 関連要件:        REQ-AUTH-001                                │
 └────────────────────────────────────────────────────────────┘
-```text
+```
 
 #### 2.3.6 欠陥レポート情報によるプロセス改善（Defining Process Improvement Actions Using Defect Report Information）
 
-```text
+```
 欠陥分析から改善活動へ：
 
 ステップ1: 欠陥データの収集・分類
@@ -1506,7 +1506,7 @@ Definition of Done（完成の定義）にテストを含める例：
   I/O欠陥     → インターフェース仕様の明確化
   タイミング欠陥 → 並行処理設計のレビュー
   データ欠陥   → データ設計の見直し
-```text
+```
 
 ---
 
@@ -1522,7 +1522,7 @@ Definition of Done（完成の定義）にテストを含める例：
 
 #### 3.1.1 4つの能力領域における典型的なスキル（Typical Skills within Four Areas of Competence）
 
-```text
+```
 テストチームに必要な4つの能力領域：
 
 ┌──────────────────────────────────────────────────────────────┐
@@ -1548,11 +1548,11 @@ Definition of Done（完成の定義）にテストを含める例：
 │               │ チームワーク・協調性                            │
 │               │ ストレス管理・アダプタビリティ                   │
 └───────────────┴──────────────────────────────────────────────┘
-```text
+```
 
 #### 3.1.2 必要なテストチームメンバースキルの分析（Analyze Required Test Team Member Skills）
 
-```text
+```
 プロジェクトコンテキスト別の必要スキル：
 
 Webアプリケーションのシステムテスト：
@@ -1585,11 +1585,11 @@ Webアプリケーションのシステムテスト：
   ソフトスキル:
     - コミュニケーション力
     - 自律的な問題解決
-```text
+```
 
 #### 3.1.3 テストチームメンバースキルの評価（Assessing Test Team Member Skills）
 
-```text
+```
 スキル評価のアプローチ：
 
 1. スキルマトリクス（Skill Matrix）
@@ -1613,11 +1613,11 @@ Webアプリケーションのシステムテスト：
 
 4. 360度フィードバック
    → 同僚・上司・部下からの多面評価
-```text
+```
 
 #### 3.1.4 テストチームメンバースキルの開発（Developing Test Team Member Skills）
 
-```text
+```
 スキル開発戦略（70:20:10モデル）：
 
 70% - 実務経験（On-the-Job Learning）：
@@ -1653,11 +1653,11 @@ Webアプリケーションのシステムテスト：
   
   評価指標:
     → 6ヶ月後に自動化テスト30件の担当
-```text
+```
 
 #### 3.1.5 テストチームを管理するための管理スキル（Management Skills Required to Manage a Test Team）
 
-```text
+```
 テスト管理者に必要な管理スキル：
 
 リーダーシップスキル：
@@ -1688,11 +1688,11 @@ Webアプリケーションのシステムテスト：
   → テストは「テスターだけの仕事」ではない
   → 開発者、BA、デザイナー全員が品質に責任を持つ
   → テスト管理者はチームの品質文化をリードする
-```text
+```
 
 #### 3.1.6 テストチームのモチベーションと低下要因（Motivating or Demotivating Factors for a Test Team in Certain Situations）
 
-```text
+```
 モチベーション向上要因（Motivating Factors）：
 
 内発的動機（Intrinsic Motivation）：
@@ -1728,7 +1728,7 @@ Webアプリケーションのシステムテスト：
   ✓ 技術的なチャレンジ機会の提供（新ツール・技法）
   ✓ 定期的な1on1とキャリア面談
   ✓ チームの成果を経営層に可視化する
-```text
+```
 
 ---
 
@@ -1738,7 +1738,7 @@ Webアプリケーションのシステムテスト：
 
 #### 3.2.1 品質のコスト（Cost of Quality）
 
-```text
+```
 品質のコストモデル（PAF モデル）：
 
   品質コスト = 予防コスト + 評価コスト + 失敗コスト
@@ -1774,11 +1774,11 @@ Webアプリケーションのシステムテスト：
   本番環境での欠陥発見:           100x
 
 → テスト（評価コスト）への投資は外部失敗コストを劇的に削減する
-```text
+```
 
 #### 3.2.2 テストのコスト便益関係（Cost-Benefit Relationship of Testing）
 
-```text
+```
 テストのビジネスケースの作成：
 
 費用（Costs）：
@@ -1805,11 +1805,11 @@ ROI = (5,000万 - 450万) / 450万 × 100 = 1,011%
   2. 具体的な数字で示す
   3. 競合他社の品質問題事例を引用
   4. 投資しなかった場合のリスクシナリオも提示
-```text
+```
 
 **ステークホルダーとのコミュニケーション戦略：**
 
-```text
+```
 ステークホルダー別コミュニケーション：
 
 経営者（CEO/CTO）：
@@ -1831,7 +1831,7 @@ ROI = (5,000万 - 450万) / 450万 × 100 = 1,011%
   頻度: スプリントごと
   形式: スプリントレビュー
   内容: 品質の受入基準達成状況 / リリース判断
-```text
+```
 
 ---
 
@@ -1841,7 +1841,7 @@ ROI = (5,000万 - 450万) / 450万 × 100 = 1,011%
 
 ### 試験概要の再確認
 
-```text
+```
 CTAL-TM v3.0 試験仕様：
   問題数:    50問（シナリオベースの問題を含む）
   配点:      各問題は1〜2点（合計88点満点）
@@ -1854,7 +1854,7 @@ CTAL-TM v3.0 試験仕様：
     K4（分析）: 複雑なシナリオの分析・最適戦略の選択
     
   ★シナリオ形式が多い（1つのシナリオに複数問）
-```text
+```
 
 ### 章別重要度と配点
 
@@ -1875,7 +1875,7 @@ CTAL-TM v3.0 試験仕様：
 
 ### 必ず覚える重要概念
 
-```text
+```
 ✅ リスク管理の4つの対応策:
    回避（Avoid）/ 軽減（Mitigate）/ 転嫁（Transfer）/ 受容（Accept）
 
@@ -1909,7 +1909,7 @@ CTAL-TM v3.0 試験仕様：
    Chapter 1: Managing the Test Activities（750分・~52%）
    Chapter 2: Managing the Product（390分・~30%）
    Chapter 3: Managing the Team（225分・~18%）
-```text
+```
 
 ### サンプル問題と解説
 
@@ -1918,6 +1918,7 @@ CTAL-TM v3.0 試験仕様：
 **問1（K3 / Chapter 1.3 リスクベーステスト）**
 
 あなたは新しい決済システムのテスト管理者です。以下のリスクを識別しました：
+
 - R1: 外部APIとの統合エラー（発生確率:高、影響:高）
 - R2: UI の表示崩れ（発生確率:中、影響:低）
 - R3: DBのデータ不整合（発生確率:低、影響:高）
@@ -1936,6 +1937,7 @@ D) R1 → R3 → R4 → R2
 **正解: A**
 
 リスクスコア（発生確率 × 影響度）で評価：
+
 - R1: 高×高 = 最高リスク → 1位
 - R3: 低×高 = 中リスク → 2位（影響度が高いため）
 - R2: 中×低 = 中リスク → 3位
@@ -1963,6 +1965,7 @@ D) パイロット改善を実施してフィードバックを収集する
 **正解: B**
 
 IDEALモデルの各フェーズ：
+
 - I (Initiating): 改善の動機付け・スポンサーシップ確立 → A
 - **D (Diagnosing): 現状評価・ギャップ分析・課題特定 → B** ✅
 - E (Establishing): 改善計画の策定・優先順位付け → C
@@ -1976,6 +1979,7 @@ IDEALモデルの各フェーズ：
 **問3（K4 / Chapter 2.1 テストメトリクス）**
 
 プロジェクト終盤に以下のメトリクスデータが得られました：
+
 - テスト実行率: 95%（190/200テスト）
 - テスト合格率: 82%（156/190テスト）
 - 重大欠陥の残存数: 5件
@@ -2025,6 +2029,7 @@ D) 1,440時間
 **正解: B**
 
 計算手順：
+
 1. テストケース数 = 120件 × 3 = 360TC
 2. 基本工数 = 360TC × 2時間 = 720時間
 3. リスク調整後 = 720時間 × 1.2 = **864時間**
@@ -2052,6 +2057,7 @@ D) 外部失敗コスト（External Failure Cost）
 **正解: D**
 
 PAF モデルの分類：
+
 - 予防コスト: リリース前の欠陥防止活動（レビュー、トレーニング等）
 - 評価コスト: テスト・品質評価活動（テスト実行、監査等）
 - 内部失敗コスト: **テスト・開発中**に発見された欠陥の修正コスト
@@ -2065,7 +2071,7 @@ PAF モデルの分類：
 
 ### 試験直前チェックリスト
 
-```text
+```
 ✅ Chapter 1 チェックリスト:
 
 □ テスト計画の7要素（スコープ・目標・アプローチ・
@@ -2103,7 +2109,7 @@ PAF モデルの分類：
 □ テスト投資のROI計算ができる
 □ モチベーション向上・低下要因を3つずつ挙げられる
 □ ホールチームアプローチの概念を説明できる
-```text
+```
 
 ---
 
@@ -2111,7 +2117,7 @@ PAF モデルの分類：
 
 ## 🔄 v2012 → v3.0 主な変更点
 
-```text
+```
 CTAL-TM v2012 → v3.0 の主な変更：
 
 【名称変更】
@@ -2143,7 +2149,7 @@ CTAL-TM v2012 → v3.0 の主な変更：
   v2012: 7つの独立した章
   v3.0:  3つの大章（Activities / Product / Team）に統合
   → より実践的な「テスト管理者の3つの役割」を反映
-```text
+```
 
 ---
 
@@ -2155,61 +2161,61 @@ CTAL-TM v2012 → v3.0 の主な変更：
 
 | リソース | URL |
 |---------|-----|
-| **CTAL-TM v3.0 認定ページ** | https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/ |
-| **CTAL-TM v3.0 プレスリリース** | https://istqb.org/istqb-release-the-certified-tester-advanced-level-test-management-version-3-0-ctal-tm-v3-0-certification/ |
-| **CTAL-TM v3.0 シラバスPDF（ASTQB）** | https://astqb.org/assets/documents/ISTQB_CTAL-TM_Syllabus_v3.0.pdf |
-| **CTAL-TM v3.0 シラバスダウンロード** | https://istqb.org/sdm_downloads/istqb_ctal-tm_syllabus_v3-0/ |
-| **サンプル試験問題** | https://istqb.org/?sdm_process_download=1&download_id=3449 |
-| **サンプル試験解答** | https://istqb.org/?sdm_process_download=1&download_id=3451 |
-| **試験構造とルール** | https://istqb.org/?sdm_process_download=1&download_id=3829 |
-| **認定ガイドライン** | https://istqb.org/?sdm_process_download=1&download_id=3459 |
-| **ISTQBグロッサリー** | https://glossary.istqb.org/en_US/search?term= |
-| **FAQ（Test Management）** | https://istqb.org/help/test-management/ |
+| **CTAL-TM v3.0 認定ページ** | <https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/> |
+| **CTAL-TM v3.0 プレスリリース** | <https://istqb.org/istqb-release-the-certified-tester-advanced-level-test-management-version-3-0-ctal-tm-v3-0-certification/> |
+| **CTAL-TM v3.0 シラバスPDF（ASTQB）** | <https://astqb.org/assets/documents/ISTQB_CTAL-TM_Syllabus_v3.0.pdf> |
+| **CTAL-TM v3.0 シラバスダウンロード** | <https://istqb.org/sdm_downloads/istqb_ctal-tm_syllabus_v3-0/> |
+| **サンプル試験問題** | <https://istqb.org/?sdm_process_download=1&download_id=3449> |
+| **サンプル試験解答** | <https://istqb.org/?sdm_process_download=1&download_id=3451> |
+| **試験構造とルール** | <https://istqb.org/?sdm_process_download=1&download_id=3829> |
+| **認定ガイドライン** | <https://istqb.org/?sdm_process_download=1&download_id=3459> |
+| **ISTQBグロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
+| **FAQ（Test Management）** | <https://istqb.org/help/test-management/> |
 
 ### 📢 試験プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| iSQI 試験情報（CTAL-TM v3.0） | https://isqi.org/ISTQB-Certified-Tester-Advanced-Level-Test-Management-CTAL-TM-v3.0/CT-AL-TM-V3.127 |
-| 試験プロバイダー検索 | https://istqb.org/exam-providers/ |
-| 研修プロバイダー検索 | https://istqb.org/training-providers/ |
+| iSQI 試験情報（CTAL-TM v3.0） | <https://isqi.org/ISTQB-Certified-Tester-Advanced-Level-Test-Management-CTAL-TM-v3.0/CT-AL-TM-V3.127> |
+| 試験プロバイダー検索 | <https://istqb.org/exam-providers/> |
+| 研修プロバイダー検索 | <https://istqb.org/training-providers/> |
 
 ### 🎓 学習リソース
 
 | リソース | URL |
 |---------|-----|
-| ISTQB.Guru CTAL-TM v3.0 ガイド | https://www.istqb.guru/test-manager/ |
-| ISTQB.Guru TM v3.0 キャリア解説 | https://www.istqb.guru/lead-with-confidence-test-manager-istqb-tmv3/ |
-| Tesena（チェコ）v3.0変更点解説 | https://www.tesena.com/en/what-s-new-in-the-istqb-ctal-test-management-module/a-557/ |
-| Udemy CTAL-TM v3.0 コース | https://www.udemy.com/course/istqb-advanced-level-test-management-v30-sample-exams-2024/ |
-| Udemy CTAL-TM v3.0 / v2012 コース | https://www.udemy.com/course/istqb-advanced-level-test-manager-ctal/ |
+| ISTQB.Guru CTAL-TM v3.0 ガイド | <https://www.istqb.guru/test-manager/> |
+| ISTQB.Guru TM v3.0 キャリア解説 | <https://www.istqb.guru/lead-with-confidence-test-manager-istqb-tmv3/> |
+| Tesena（チェコ）v3.0変更点解説 | <https://www.tesena.com/en/what-s-new-in-the-istqb-ctal-test-management-module/a-557/> |
+| Udemy CTAL-TM v3.0 コース | <https://www.udemy.com/course/istqb-advanced-level-test-management-v30-sample-exams-2024/> |
+| Udemy CTAL-TM v3.0 / v2012 コース | <https://www.udemy.com/course/istqb-advanced-level-test-manager-ctal/> |
 
 ### 📖 関連資格
 
 | 資格 | URL |
 |------|-----|
-| CTFL v4.0（前提資格） | https://istqb.org/certifications/certified-tester-foundation-level/ |
-| CTAL-TA v4.0（Test Analyst） | https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/ |
-| CTAL-TTA（Technical Test Analyst） | https://istqb.org/certifications/certified-tester-advanced-level-technical-test-analyst-ctal-tta/ |
-| CTAL-TAE v2.0（Test Automation Engineering） | https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/ |
-| Expert Level Test Management | https://istqb.org/certifications/certified-tester-expert-level-test-management/ |
+| CTFL v4.0（前提資格） | <https://istqb.org/certifications/certified-tester-foundation-level/> |
+| CTAL-TA v4.0（Test Analyst） | <https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/> |
+| CTAL-TTA（Technical Test Analyst） | <https://istqb.org/certifications/certified-tester-advanced-level-technical-test-analyst-ctal-tta/> |
+| CTAL-TAE v2.0（Test Automation Engineering） | <https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/> |
+| Expert Level Test Management | <https://istqb.org/certifications/certified-tester-expert-level-test-management/> |
 
 ### 📋 関連標準・参考資料
 
 | 標準 / リソース | 内容 |
 |---------------|------|
-| TMMi Foundation | https://www.tmmifoundation.org/ |
+| TMMi Foundation | <https://www.tmmifoundation.org/> |
 | ISO/IEC 25010:2023 | ソフトウェア品質特性モデル（SQuaRE） |
 | IEEE 829 | テスト文書化標準 |
-| Google Testing Blog | https://testing.googleblog.com/ |
-| Martin Fowler テストピラミッド | https://martinfowler.com/articles/practical-test-pyramid.html |
-| OWASP Top 10 | https://owasp.org/www-project-top-ten/ |
+| Google Testing Blog | <https://testing.googleblog.com/> |
+| Martin Fowler テストピラミッド | <https://martinfowler.com/articles/practical-test-pyramid.html> |
+| OWASP Top 10 | <https://owasp.org/www-project-top-ten/> |
 
 ---
 
 ## 🏁 まとめ：テスト管理成功の10の鉄則
 
-```text
+```
 1. 📊 リスクで優先順位を決める
    → 感覚ではなくリスクスコア（確率×影響）で判断する
    → リスクの高い箇所に最大のテスト工数を投入する
@@ -2249,18 +2255,19 @@ CTAL-TM v2012 → v3.0 の主な変更：
 10. 🌐 コンテキストを理解してアプローチを適応させる
     → ウォーターフォール・アジャイル・ハイブリッドに応じて戦略を変える
     → 「唯一の正解」はない。コンテキストに合わせて判断する
-```text
+```
 
 ---
 
 > **📌 作成日**: 2025年  
 > **📌 準拠資格**: ISTQB CTAL-TM v3.0（2024年5月3日正式リリース）  
 > **📌 次のステップ**:
+>
 > - CTAL-TA v4.0（Test Analyst）で分析・設計スキルを強化
 > - CTAL-TAE v2.0（Test Automation Engineering）で自動化スキルを習得
 > - Expert Level Test Management でさらなる深化を目指す
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/>
 
 ---
 

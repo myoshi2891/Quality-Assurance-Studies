@@ -972,61 +972,61 @@ jobs:
 
 | 資料 | URL |
 |-----|-----|
-| CT-MAT 認定ページ | https://istqb.org/certifications/certified-tester-mobile-application-testing-ct-mat/ |
-| CT-MAT シラバス v1.0 ダウンロード | https://www.istqb.org/?sdm_process_download=1&download_id=3551 |
-| ISTQB 用語集 | https://glossary.istqb.org/en_US/search?term= |
-| ISTQB SCR（認定資格確認） | http://scr.istqb.org/ |
+| CT-MAT 認定ページ | <https://istqb.org/certifications/certified-tester-mobile-application-testing-ct-mat/> |
+| CT-MAT シラバス v1.0 ダウンロード | <https://www.istqb.org/?sdm_process_download=1&download_id=3551> |
+| ISTQB 用語集 | <https://glossary.istqb.org/en_US/search?term=> |
+| ISTQB SCR（認定資格確認） | <http://scr.istqb.org/> |
 
 ### 🔒 セキュリティ参考資料
 
 | 資料 | URL |
 |-----|-----|
-| OWASP Mobile Top 10（公式） | https://owasp.org/www-project-mobile-top-10/ |
-| OWASP Mobile Top 10（2024年版解説） | https://www.indusface.com/blog/owasp-mobile-top-10-2024/ |
-| OWASP MASVS（モバイルセキュリティ検証標準） | https://mas.owasp.org/MASVS/ |
-| OWASP Mobile Top 10 完全ガイド | https://thecyphere.com/blog/owasp-mobile-top-10/ |
+| OWASP Mobile Top 10（公式） | <https://owasp.org/www-project-mobile-top-10/> |
+| OWASP Mobile Top 10（2024年版解説） | <https://www.indusface.com/blog/owasp-mobile-top-10-2024/> |
+| OWASP MASVS（モバイルセキュリティ検証標準） | <https://mas.owasp.org/MASVS/> |
+| OWASP Mobile Top 10 完全ガイド | <https://thecyphere.com/blog/owasp-mobile-top-10/> |
 
 ### 🛠️ テストツール・フレームワーク
 
 | ツール | URL |
 |-------|-----|
-| Appium（公式） | https://appium.io/ |
-| Espresso（Google公式ドキュメント） | https://developer.android.com/training/testing/espresso |
-| XCUITest（Apple公式ドキュメント） | https://developer.apple.com/documentation/xctest |
-| Maestro（軽量CLIテストツール） | https://maestro.mobile.dev/ |
-| Detox（React Nativeテスト） | https://wix.github.io/Detox/ |
+| Appium（公式） | <https://appium.io/> |
+| Espresso（Google公式ドキュメント） | <https://developer.android.com/training/testing/espresso> |
+| XCUITest（Apple公式ドキュメント） | <https://developer.apple.com/documentation/xctest> |
+| Maestro（軽量CLIテストツール） | <https://maestro.mobile.dev/> |
+| Detox（React Nativeテスト） | <https://wix.github.io/Detox/> |
 
 ### ☁️ クラウドテストサービス
 
 | サービス | URL |
 |--------|-----|
-| BrowserStack | https://www.browserstack.com/ |
-| Firebase Test Lab | https://firebase.google.com/docs/test-lab |
-| AWS Device Farm | https://aws.amazon.com/device-farm/ |
-| Sauce Labs | https://saucelabs.com/ |
-| LambdaTest | https://www.lambdatest.com/ |
+| BrowserStack | <https://www.browserstack.com/> |
+| Firebase Test Lab | <https://firebase.google.com/docs/test-lab> |
+| AWS Device Farm | <https://aws.amazon.com/device-farm/> |
+| Sauce Labs | <https://saucelabs.com/> |
+| LambdaTest | <https://www.lambdatest.com/> |
 
 ### 📊 業界レポート・ベストプラクティス
 
 | 資料 | URL |
 |-----|-----|
-| モバイルテストベストプラクティス2025 | https://wezom.com/blog/mobile-app-testing-best-practices-in-2025-how-to-deliver-quality-apps |
-| モバイルテスト完全ガイド（appypie） | https://www.appypie.com/blog/mobile-app-testing |
-| モバイルテスト戦略（Testlio） | https://testlio.com/blog/mobile-app-testing-strategy/ |
-| モバイルパフォーマンステストガイド2026 | https://abstracta.us/blog/performance-testing/mobile-app-performance-testing/ |
-| Appium vs Espresso vs XCUITest 比較 | https://www.testriq.com/blog/post/top-mobile-testing-frameworks-compared-appium-espresso-xcuitest |
-| 20の必須テストケース | https://www.testriq.com/blog/post/checklist-20-essential-test-cases-for-mobile-apps |
-| Androidテストチェックリスト | https://www.globalapptesting.com/blog/android-mobile-app-testing-checklist |
-| DataReportal Digital 2026（モバイル統計） | https://datareportal.com/reports/digital-2026-global-overview-report |
+| モバイルテストベストプラクティス2025 | <https://wezom.com/blog/mobile-app-testing-best-practices-in-2025-how-to-deliver-quality-apps> |
+| モバイルテスト完全ガイド（appypie） | <https://www.appypie.com/blog/mobile-app-testing> |
+| モバイルテスト戦略（Testlio） | <https://testlio.com/blog/mobile-app-testing-strategy/> |
+| モバイルパフォーマンステストガイド2026 | <https://abstracta.us/blog/performance-testing/mobile-app-performance-testing/> |
+| Appium vs Espresso vs XCUITest 比較 | <https://www.testriq.com/blog/post/top-mobile-testing-frameworks-compared-appium-espresso-xcuitest> |
+| 20の必須テストケース | <https://www.testriq.com/blog/post/checklist-20-essential-test-cases-for-mobile-apps> |
+| Androidテストチェックリスト | <https://www.globalapptesting.com/blog/android-mobile-app-testing-checklist> |
+| DataReportal Digital 2026（モバイル統計） | <https://datareportal.com/reports/digital-2026-global-overview-report> |
 
 ### 🔧 追加参考資料
 
 | 資料 | URL |
 |-----|-----|
-| OWASP MobSF（静的解析ツール） | https://github.com/MobSF/Mobile-Security-Framework-MobSF |
-| Google Android Testing ガイド | https://developer.android.com/training/testing |
-| Apple Testing ガイド | https://developer.apple.com/testing/ |
-| Firebase Performance Monitoring | https://firebase.google.com/products/performance |
+| OWASP MobSF（静的解析ツール） | <https://github.com/MobSF/Mobile-Security-Framework-MobSF> |
+| Google Android Testing ガイド | <https://developer.android.com/training/testing> |
+| Apple Testing ガイド | <https://developer.apple.com/testing/> |
+| Firebase Performance Monitoring | <https://firebase.google.com/products/performance> |
 
 ---
 
