@@ -362,7 +362,7 @@ BDD導入後:
             <svg viewBox="0 0 600 280" className="w-full h-auto drop-shadow-md" role="img" aria-label="BDD の発見→定式化→自動化の反復サイクル">
               <defs>
                 <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                  <polygon points="0 0, 10 3.5, 0 7" fill="#8ea3c3" />
+                  <polygon points="0 0, 10 3.5, 0 7" fill="var(--color-text-secondary)" />
                 </marker>
                 <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
                   <feGaussianBlur stdDeviation="5" result="blur" />
@@ -371,28 +371,28 @@ BDD導入後:
               </defs>
 
               <g transform="translate(100, 80)">
-                <rect x="-60" y="-30" width="120" height="60" rx="8" fill="rgba(99, 179, 237, 0.15)" stroke="#63b3ed" strokeWidth="2" filter="url(#glow)" />
-                <text x="0" y="5" textAnchor="middle" fill="#e8f0fe" fontSize="16" fontWeight="bold">発見</text>
-                <text x="0" y="22" textAnchor="middle" fill="#8ea3c3" fontSize="12">Discovery</text>
+                <rect x="-60" y="-30" width="120" height="60" rx="8" fill="var(--color-accent-blue)" fillOpacity="0.15" stroke="var(--color-accent-blue)" strokeWidth="2" filter="url(#glow)" />
+                <text x="0" y="5" textAnchor="middle" fill="var(--color-text-primary)" fontSize="16" fontWeight="bold">発見</text>
+                <text x="0" y="22" textAnchor="middle" fill="var(--color-text-secondary)" fontSize="12">Discovery</text>
               </g>
 
               <g transform="translate(300, 80)">
-                <rect x="-60" y="-30" width="120" height="60" rx="8" fill="rgba(183, 148, 244, 0.15)" stroke="#b794f4" strokeWidth="2" filter="url(#glow)" />
-                <text x="0" y="5" textAnchor="middle" fill="#e8f0fe" fontSize="16" fontWeight="bold">定式化</text>
-                <text x="0" y="22" textAnchor="middle" fill="#8ea3c3" fontSize="12">Formulation</text>
+                <rect x="-60" y="-30" width="120" height="60" rx="8" fill="var(--color-accent-purple)" fillOpacity="0.15" stroke="var(--color-accent-purple)" strokeWidth="2" filter="url(#glow)" />
+                <text x="0" y="5" textAnchor="middle" fill="var(--color-text-primary)" fontSize="16" fontWeight="bold">定式化</text>
+                <text x="0" y="22" textAnchor="middle" fill="var(--color-text-secondary)" fontSize="12">Formulation</text>
               </g>
 
               <g transform="translate(500, 80)">
-                <rect x="-60" y="-30" width="120" height="60" rx="8" fill="rgba(104, 211, 145, 0.15)" stroke="#68d391" strokeWidth="2" filter="url(#glow)" />
-                <text x="0" y="5" textAnchor="middle" fill="#e8f0fe" fontSize="16" fontWeight="bold">自動化</text>
-                <text x="0" y="22" textAnchor="middle" fill="#8ea3c3" fontSize="12">Automation</text>
+                <rect x="-60" y="-30" width="120" height="60" rx="8" fill="var(--color-accent-green)" fillOpacity="0.15" stroke="var(--color-accent-green)" strokeWidth="2" filter="url(#glow)" />
+                <text x="0" y="5" textAnchor="middle" fill="var(--color-text-primary)" fontSize="16" fontWeight="bold">自動化</text>
+                <text x="0" y="22" textAnchor="middle" fill="var(--color-text-secondary)" fontSize="12">Automation</text>
               </g>
 
-              <line x1="170" y1="80" x2="230" y2="80" stroke="#8ea3c3" strokeWidth="2" strokeDasharray="5,5" markerEnd="url(#arrowhead)" />
-              <line x1="370" y1="80" x2="430" y2="80" stroke="#8ea3c3" strokeWidth="2" strokeDasharray="5,5" markerEnd="url(#arrowhead)" />
+              <line x1="170" y1="80" x2="230" y2="80" stroke="var(--color-text-secondary)" strokeWidth="2" strokeDasharray="5,5" markerEnd="url(#arrowhead)" />
+              <line x1="370" y1="80" x2="430" y2="80" stroke="var(--color-text-secondary)" strokeWidth="2" strokeDasharray="5,5" markerEnd="url(#arrowhead)" />
 
-              <path d="M 500,120 L 500,200 L 100,200 L 100,120" fill="none" stroke="#8ea3c3" strokeWidth="2" markerEnd="url(#arrowhead)" />
-              <text x="300" y="225" textAnchor="middle" fill="#8ea3c3" fontSize="14" fontWeight="bold">継続的に反復</text>
+              <path d="M 500,120 L 500,200 L 100,200 L 100,120" fill="none" stroke="var(--color-text-secondary)" strokeWidth="2" markerEnd="url(#arrowhead)" />
+              <text x="300" y="225" textAnchor="middle" fill="var(--color-text-secondary)" fontSize="14" fontWeight="bold">継続的に反復</text>
             </svg>
           </div>
         </section>

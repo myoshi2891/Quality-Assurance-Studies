@@ -258,29 +258,23 @@ for (const [id, restoreStr] of codeBlocks.entries()) {
     outHtml = outHtml.replace(regex, restoreStr);
 }
 
+const routeName = path.basename(path.dirname(tsxPath));
+const componentName = `${routeName
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map((part) => part[0].toUpperCase() + part.slice(1))
+    .join('')}Page`;
+const cssName = `${routeName}.css`;
+const pageClass = routeName;
+
 const finalTSX = `${hasLink ? "import Link from 'next/link';\n" : ''}${hasMermaid ? "import Mermaid from '../../components/Mermaid';\n" : ''}import Header from '../../components/Header';
 import '../${cssName}';
 
 export default function ${componentName}() {
     return (
-        <main className="${pageClass} container mx-auto px-4 py-8 max-w-5xl">
-            ${outHtml}
-        </main>
-    );
-}
-`;
-
-try {
-    fs.writeFileSync(tsxPath, finalTSX);
-    console.log('Successfully created page.tsx');
-} catch (error) {
-    console.error(`Error writing tsx file at ${tsxPath}:`, error);
-    process.exit(1);
-}
-error);
-    process.exit(1);
-}
->
+        <>
+            <Header />
+            <main className="${pageClass} container mx-auto px-4 py-8 max-w-5xl">
                 ${outHtml}
             </main>
         </>
@@ -295,3 +289,4 @@ try {
     console.error(`Error writing tsx file at ${tsxPath}:`, error);
     process.exit(1);
 }
+

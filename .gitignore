@@ -80,3 +80,15 @@ sample-docs
 
 .next
 /archive/
+
+# Markdown Formatting Scripts
+scripts/fix-md
+fix_spacing.mjs
+scripts/auto-fix-fences-v2.mjs
+scripts/check_links.mjs
+scripts/check-fences.mjs
+scripts/fix-fences.mjs
+scripts/fix-md-errors.mjs
+scripts/fix-md028.mjs
+scripts/fix-toc.mjs
+scripts/format-markdown.mjs

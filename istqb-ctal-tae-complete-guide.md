@@ -1009,7 +1009,7 @@ on:
   pull_request:
     branches: [main]
   schedule:
-    - cron: '0 2 ** *'  # 毎日深夜2時にフルリグレッション実行
+    - cron: '0 2 * * *'  # 毎日深夜2時にフルリグレッション実行
 
 jobs:
   ```yaml
