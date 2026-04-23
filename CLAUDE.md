@@ -49,7 +49,7 @@ Next.js App Router 構成:
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
-- `archive/` — 移行済みの元 HTML ファイルの保管場所
+- `/html-archive/` — 移行済みの元 HTML ファイルの保管場所
 
 ## 開発規約
 

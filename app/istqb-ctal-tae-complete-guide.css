@@ -55,10 +55,10 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                animation: pulse 4s ease-in-out infinite;
+                animation: ctal-tae-pulse 4s ease-in-out infinite;
             }
 
-            @keyframes pulse {
+            @keyframes ctal-tae-pulse {
                 0%,
                 100% {
                     transform: translate(-50%, -50%) scale(1);
@@ -86,10 +86,10 @@
                 border-radius: 2px;
                 letter-spacing: 2px;
                 margin-bottom: 24px;
-                animation: fade-in-down 0.6s ease both;
+                animation: ctal-tae-fade-in-down 0.6s ease both;
             }
 
-            @keyframes fade-in-down {
+            @keyframes ctal-tae-fade-in-down {
                 from {
                     opacity: 0;
                     transform: translateY(-20px);
@@ -100,7 +100,7 @@
                 }
             }
 
-            @keyframes fade-in-up {
+            @keyframes ctal-tae-fade-in-up {
                 from {
                     opacity: 0;
                     transform: translateY(30px);
@@ -118,7 +118,7 @@
                 line-height: 1.05;
                 letter-spacing: -1px;
                 margin-bottom: 20px;
-                animation: fade-in-up 0.8s 0.2s ease both;
+                animation: ctal-tae-fade-in-up 0.8s 0.2s ease both;
             }
 
             .ctal-tae-page .hero h1 span.accent-green {
@@ -133,7 +133,7 @@
                 color: var(--color-text-secondary);
                 max-width: 600px;
                 margin: 0 auto 40px;
-                animation: fade-in-up 0.8s 0.4s ease both;
+                animation: ctal-tae-fade-in-up 0.8s 0.4s ease both;
             }
 
             .ctal-tae-page .hero-meta {
@@ -141,7 +141,7 @@
                 flex-wrap: wrap;
                 gap: 12px;
                 justify-content: center;
-                animation: fade-in-up 0.8s 0.6s ease both;
+                animation: ctal-tae-fade-in-up 0.8s 0.6s ease both;
             }
 
             .ctal-tae-page .meta-chip {
@@ -312,7 +312,9 @@
             @media (max-width: 900px) {
                 .ctal-tae-page .grid-2,
                 .ctal-tae-page .grid-3,
-                .ctal-tae-page .grid-4 {
+                .ctal-tae-page .grid-4,
+                .ctal-tae-page .exam-grid,
+                .ctal-tae-page .ref-grid {
                     grid-template-columns: 1fr;
                 }
                 .ctal-tae-page .container {
@@ -843,12 +845,23 @@
             .ctal-tae-page .progress-fill {
                 height: 100%;
                 border-radius: 3px;
-                animation: grow-bar 1s ease-out both;
+                animation: ctal-tae-grow-bar 1s ease-out both;
             }
 
-            @keyframes grow-bar {
+            @keyframes ctal-tae-grow-bar {
                 from {
                     width: 0;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .ctal-tae-page *,
+                .ctal-tae-page *::before,
+                .ctal-tae-page *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
                 }
             }
 

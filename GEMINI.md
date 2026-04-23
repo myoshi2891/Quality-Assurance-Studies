@@ -60,7 +60,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
     1. `scripts/extract-css.mjs` を使用して、CSS 変数を抽出しマッピングします。
     2. `scripts/html-to-tsx.mjs` を使用して、HTML を JSX に変換します。
     3. CSS の詳細度やスコープの問題を手動で修正します（すべてのスタイルがページ固有のクラスの下にスコープされていることを確認してください）。
-    4. 元の HTML ファイルを `archive/` ディレクトリに移動します。
+    4. 元の HTML ファイルを `/html-archive/` ディレクトリに移動します。
     5. `components/Header.tsx` のナビゲーションと `CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します。
 
 ## Migrated Pages (Tracking)
