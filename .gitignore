@@ -79,8 +79,8 @@ sample-docs
 .claude/settings.local.json
 
 .next
-/archive/
-
+html-archive/
+md-archive/
 # Markdown Formatting Scripts
 scripts/fix-md
 fix_spacing.mjs
