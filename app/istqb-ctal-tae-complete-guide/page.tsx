@@ -1,8 +1,10 @@
 import '../istqb-ctal-tae-complete-guide.css';
+import Header from '@/components/Header';
 
 export default function IstqbCtalTaeCompleteGuide() {
     return (
         <>
+            <Header />
             
         {/* HERO */}
         <section className="hero">
