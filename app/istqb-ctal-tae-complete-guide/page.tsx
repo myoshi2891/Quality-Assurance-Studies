@@ -5,6 +5,7 @@ export default function IstqbCtalTaeCompleteGuide() {
     return (
         <>
             <Header />
+            <main className="ctal-tae-page">
             
         {/* NAV */}
         <nav className="sticky-nav">
@@ -145,8 +146,8 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>メリットとデメリット</h3>
                 <div className="grid-2">
-                    <div className="card">
-                        <div className="card-icon">✅</div>
+                    <div className="istqb-card">
+                        <div className="istqb-card-icon">✅</div>
                         <h4 style={{color: "var(--color-accent-green)"}}>自動化のメリット</h4>
                         <ul className="checklist">
                             <li>
@@ -163,8 +164,8 @@ export default function IstqbCtalTaeCompleteGuide() {
                             <li><strong>並列実行：</strong>複数環境で同時テスト実行</li>
                         </ul>
                     </div>
-                    <div className="card cyan">
-                        <div className="card-icon">⚠️</div>
+                    <div className="istqb-card cyan">
+                        <div className="istqb-card-icon">⚠️</div>
                         <h4 style={{color: "var(--color-accent-yellow)"}}>自動化のデメリット</h4>
                         <ul className="checklist">
                             <li>
@@ -276,7 +277,7 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>シフトレフト / シフトライトアプローチ</h3>
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>← シフトレフト (Shift-Left)</h4>
                         <p>
                             開発の初期段階（要件定義・コーディングフェーズ）からテスト活動を開始する手法です。コードを記述するのと並行して単体テストやAPIテストを自動化することで、欠陥がシステム全体に波及する前に最もコストが低い段階でバグを捕捉します。
@@ -301,7 +302,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             >
                         </div>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>→ シフトライト (Shift-Right)</h4>
                         <p>
                             リリース後の本番環境でのモニタリングやパフォーマンス計測を行い、実際のユーザー行動から得られたデータをテスト戦略にフィードバックする手法です。テスト環境では再現が困難なエッジケースや実際の運用負荷を評価します。
@@ -344,7 +345,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                 </p>
 
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>👁️ 観測可能性（Observability）</h4>
                         <p>
                             テストがSUTの状態や出力を<strong>観察・確認できる</strong>度合いです。UI要素に一意のID（data-testid）が付与されていること、エラーログが構造化されて出力されていることが重要です。
@@ -381,7 +382,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             >
                         </div>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>🎛️ 制御可能性（Controllability）</h4>
                         <p>
                             テストがSUTの状態を<strong>制御・操作できる</strong>度合いです。依存性注入（DI）でモックに差し替えられること、テスト用APIが存在することが求められます。
@@ -429,7 +430,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                 </div>
 
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4 style={{color: "var(--color-accent-red)"}}>📊 コスト項目</h4>
                         <ul className="checklist">
                             <li>
@@ -443,7 +444,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             <li><strong>分析時間：</strong>失敗原因調査のトリアージ</li>
                         </ul>
                     </div>
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4 style={{color: "var(--color-accent-green)"}}>📈 利益項目</h4>
                         <ul className="checklist">
                             <li>
@@ -623,7 +624,7 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>テスト自動化フレームワークアプローチ</h3>
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>🎬 Capture &amp; Playback</h4>
                         <p>
                             手動操作を記録して再生。技術スキル不要で素早く作成できる反面、メンテナンス性が最悪で大規模プロジェクトには不向き。
@@ -636,7 +637,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             UI変更のたびに全スクリプト再作成が必要になります。
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>📊 Data-Driven Testing</h4>
                         <p>
                             テストロジックとデータを分離。CSV/JSON/DBからデータを動的に読み込み、同一スクリプトで多様なデータパターンを検証可能。
@@ -661,7 +662,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             <span className="line">])</span>
                         </div>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>🔑 Keyword-Driven Testing</h4>
                         <p>
                             操作を「Login_User」「Add_To_Cart」のような人間が読めるキーワードに抽象化。非エンジニアもテストケースを構築可能になります。
@@ -675,7 +676,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             <span className="line">| Click Element| id:login | |</span>
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>🥒 BDD（振る舞い駆動開発）</h4>
                         <p>
                             Gherkin記法でビジネス担当者も読める仕様書兼テストを作成。Given-When-Thenの構造で要件との整合性を保ちます。
@@ -833,7 +834,7 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>テストコード品質のベストプラクティス</h3>
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>🏷️ 良い命名規則</h4>
                         <div className="code-block">
                             <span className="line"><span className="code-comment"># ❌ 悪い例</span></span>
@@ -877,7 +878,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             <span className="line"> <span className="code-string">"""</span></span>
                         </div>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>🔒 テストの独立性</h4>
                         <div className="code-block cyan">
                             <span className="line"
@@ -1131,14 +1132,14 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>クロスブラウザ / クロスプラットフォーム戦略</h3>
                 <div className="grid-3">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>🌐 クラウドデバイスファーム</h4>
                         <p>
                             BrowserStack・Sauce Labsを活用。Windows ChromeからiOS
                             Safariまで数百種類の組み合わせを同時テスト可能。物理デバイス管理コストを削減。
                         </p>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>🐳 コンテナ化戦略</h4>
                         <p>
                             DockerとSelenium
@@ -1146,7 +1147,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             as Code）で管理します。
                         </p>
                     </div>
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>⚡ テスト並列化</h4>
                         <p>
                             pytest -n
@@ -1206,7 +1207,7 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>収集すべきKPIカテゴリ</h3>
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>📊 ビジネス指標（経営層向け）</h4>
                         <ul className="checklist">
                             <li>
@@ -1220,7 +1221,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             <li><strong>テストカバレッジ率：</strong>コード・機能のカバレッジ</li>
                         </ul>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>🔧 技術指標（開発チーム向け）</h4>
                         <ul className="checklist">
                             <li>
@@ -1259,7 +1260,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                 </div>
 
                 <h3>テスト実行速度のトレンド管理</h3>
-                <div className="card" style={{margin: "20px 0"}}>
+                <div className="istqb-card" style={{margin: "20px 0"}}>
                     <h4>テストスイート実行時間モニタリング</h4>
                     <div className="progress-item">
                         <div className="progress-label">
@@ -1374,7 +1375,7 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>偽陽性と偽陰性</h3>
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4 style={{color: "var(--color-accent-yellow)"}}>⚠️ False Positive（偽陽性）</h4>
                         <p>
                             SUTに問題がないのにテストが失敗する状態です。開発者が無駄なデバッグ時間を費やし、パイプラインを不要に停止させます。
@@ -1386,7 +1387,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             <strong>結果：</strong> チームがテスト結果を無視するようになる
                         </div>
                     </div>
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4 style={{color: "var(--color-accent-red)"}}>🚨 False Negative（偽陰性）</h4>
                         <p>
                             SUTに問題があるのにテストが成功と報告してしまう危険な状態です。バグが本番環境に流出する直接的な原因になります。
@@ -1473,29 +1474,29 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>継続的改善サイクル（PDCA）</h3>
                 <div className="grid-4">
-                    <div className="card">
-                        <div className="card-icon" style={{color: "var(--color-accent-cyan)"}}>📋</div>
+                    <div className="istqb-card">
+                        <div className="istqb-card-icon" style={{color: "var(--color-accent-cyan)"}}>📋</div>
                         <h4 style={{color: "var(--color-accent-cyan)"}}>Plan（計画）</h4>
                         <p style={{fontSize: "1rem"}}>
                             現状のメトリクス分析、改善目標の設定、改善施策の計画
                         </p>
                     </div>
-                    <div className="card">
-                        <div className="card-icon" style={{color: "var(--color-accent-green)"}}>⚙️</div>
+                    <div className="istqb-card">
+                        <div className="istqb-card-icon" style={{color: "var(--color-accent-green)"}}>⚙️</div>
                         <h4 style={{color: "var(--color-accent-green)"}}>Do（実行）</h4>
                         <p style={{fontSize: "1rem"}}>
                             フレームワークリファクタリング、新ツール試験導入、テストスイート最適化
                         </p>
                     </div>
-                    <div className="card">
-                        <div className="card-icon" style={{color: "var(--color-accent-yellow)"}}>📊</div>
+                    <div className="istqb-card">
+                        <div className="istqb-card-icon" style={{color: "var(--color-accent-yellow)"}}>📊</div>
                         <h4 style={{color: "var(--color-accent-yellow)"}}>Check（確認）</h4>
                         <p style={{fontSize: "1rem"}}>
                             改善前後のメトリクス比較、フレイキー減少確認、実行時間短縮確認
                         </p>
                     </div>
-                    <div className="card">
-                        <div className="card-icon" style={{color: "var(--color-accent-purple)"}}>🔄</div>
+                    <div className="istqb-card">
+                        <div className="istqb-card-icon" style={{color: "var(--color-accent-purple)"}}>🔄</div>
                         <h4 style={{color: "var(--color-accent-purple)"}}>Act（改善）</h4>
                         <p style={{fontSize: "1rem"}}>
                             成功した改善を標準化、失敗施策の見直し、次のサイクルへ
@@ -1505,14 +1506,14 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>テスト資産の最適化（技術的負債の返済）</h3>
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>🗑️ テストの断捨離</h4>
                         <p>
                             不要になったテスト（Obsolete
                             tests）を大胆に削除します。アプリケーション側で使われなくなった機能のテストや、他の統合テストで十分にカバーされている古い単体テストは削除対象です。これにより実行時間を短縮しメンテナンス負担を低下させます。
                         </p>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>🔧 継続的リファクタリング</h4>
                         <p>
                             重複するコードを共通関数化し、古いライブラリを最新バージョンへ更新。テスト実行速度の最適化も定期的に実施します。依存関係はバージョン固定（pinning）して再現性を確保します。
@@ -1653,25 +1654,25 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>パフォーマンステスト</h3>
                 <div className="grid-4">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>⚡ k6</h4>
                         <p style={{fontSize: "1rem"}}>
                             Grafana製。JavaScript。CI/CD統合が最も容易。スクリプトがシンプルで習得しやすい。
                         </p>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>🔨 JMeter</h4>
                         <p style={{fontSize: "1rem"}}>
                             Apache製。老舗。GUIで作成可能。豊富なプラグイン。エンタープライズで広く採用。
                         </p>
                     </div>
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>🐝 Locust</h4>
                         <p style={{fontSize: "1rem"}}>
                             Python製。分散負荷テスト。シナリオをPythonコードで記述。
                         </p>
                     </div>
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>⚙️ Gatling</h4>
                         <p style={{fontSize: "1rem"}}>
                             Scala/Java。高スループットシナリオ向け。詳細なHTMLレポート自動生成。
@@ -1681,7 +1682,7 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>モック・スタブ・レポート</h3>
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>🎭 モック・スタブツール</h4>
                         <ul className="checklist">
                             <li><strong>unittest.mock：</strong>Python標準モックライブラリ</li>
@@ -1693,7 +1694,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             </li>
                         </ul>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>📊 レポート・分析ツール</h4>
                         <ul className="checklist">
                             <li>
@@ -1839,7 +1840,7 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <h3>頻出問題パターン</h3>
                 <div className="grid-2">
-                    <div className="card">
+                    <div className="istqb-card">
                         <h4>💡 よく出る問題①</h4>
                         <p style={{fontSize: "1rem", marginBottom: "12px"}}>
                             「次の状況でどの自動化アプローチが最適か？」
@@ -1850,7 +1851,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                             <li>BDD/受入基準がある → <strong>BDD</strong></li>
                         </ul>
                     </div>
-                    <div className="card cyan">
+                    <div className="istqb-card cyan">
                         <h4>💡 よく出る問題②</h4>
                         <p style={{fontSize: "1rem", marginBottom: "12px"}}>
                             「gTAA のどの層に属するか？」
@@ -2172,7 +2173,7 @@ export default function IstqbCtalTaeCompleteGuide() {
                 </p>
             </div>
         </footer>
-    
+            </main>
         </>
     );
 }

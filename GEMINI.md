@@ -64,4 +64,5 @@ This project is a Next.js (App Router) web application designed as a comprehensi
     5. `components/Header.tsx` のナビゲーションと `CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します。
 
 ## Migrated Pages (Tracking)
+
 - `app/istqb-ctal-tae-complete-guide/page.tsx` (テスト自動化 CTAL-TAE 完全ガイド)

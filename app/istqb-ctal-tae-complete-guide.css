@@ -1,11 +1,11 @@
-* {
+.ctal-tae-page * {
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
             }
 
             /* ── SCANLINE OVERLAY ── */
-            body::before {
+            .ctal-tae-page::before {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -21,7 +21,7 @@
             }
 
             /* ── GRID BACKGROUND ── */
-            body::after {
+            .ctal-tae-page::after {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -34,7 +34,7 @@
             }
 
             /* ── HEADER ── */
-            .hero {
+            .ctal-tae-page .hero {
                 position: relative;
                 min-height: 100vh;
                 display: flex;
@@ -46,7 +46,7 @@
                 z-index: 1;
             }
 
-            .hero-glow {
+            .ctal-tae-page .hero-glow {
                 position: absolute;
                 width: 600px;
                 height: 600px;
@@ -70,13 +70,13 @@
                 }
             }
 
-            .hero-content {
+            .ctal-tae-page .hero-content {
                 position: relative;
                 z-index: 2;
                 max-width: 900px;
             }
 
-            .badge {
+            .ctal-tae-page .badge {
                 display: inline-block;
                 font-family: var(--font-mono);
                 font-size: 1rem;
@@ -111,7 +111,7 @@
                 }
             }
 
-            .hero h1 {
+            .ctal-tae-page .hero h1 {
                 font-family: var(--font-display);
                 font-size: clamp(36px, 6vw, 72px);
                 font-weight: 800;
@@ -121,14 +121,14 @@
                 animation: fade-in-up 0.8s 0.2s ease both;
             }
 
-            .hero h1 span.accent-green {
+            .ctal-tae-page .hero h1 span.accent-green {
                 color: var(--color-accent-green);
             }
-            .hero h1 span.accent-cyan {
+            .ctal-tae-page .hero h1 span.accent-cyan {
                 color: var(--color-accent-cyan);
             }
 
-            .hero-sub {
+            .ctal-tae-page .hero-sub {
                 font-size: 1rem;
                 color: var(--color-text-secondary);
                 max-width: 600px;
@@ -136,7 +136,7 @@
                 animation: fade-in-up 0.8s 0.4s ease both;
             }
 
-            .hero-meta {
+            .ctal-tae-page .hero-meta {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 12px;
@@ -144,7 +144,7 @@
                 animation: fade-in-up 0.8s 0.6s ease both;
             }
 
-            .meta-chip {
+            .ctal-tae-page .meta-chip {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 background: var(--color-bg-card);
@@ -154,12 +154,12 @@
                 color: var(--color-text-secondary);
             }
 
-            .meta-chip strong {
+            .ctal-tae-page .meta-chip strong {
                 color: var(--color-accent-yellow);
             }
 
             /* ── NAV ── */
-            .sticky-nav {
+            .ctal-tae-page .sticky-nav {
                 position: sticky;
                 top: 60px; /* Global header is 60px */
                 z-index: 40; /* Below global header z-50 */
@@ -169,7 +169,7 @@
                 padding: 0 40px;
             }
 
-            .nav-inner {
+            .ctal-tae-page .nav-inner {
                 max-width: 1200px;
                 margin: 0 auto;
                 display: flex;
@@ -179,14 +179,11 @@
                 padding: 0 0 1px;
             }
 
-            .nav-inner::-webkit-scrollbar {
+            .ctal-tae-page .nav-inner::-webkit-scrollbar {
                 display: none;
             }
-            .nav-inner {
-                scrollbar-width: none;
-            }
 
-            .nav-item {
+            .ctal-tae-page .nav-item {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 color: var(--color-text-muted);
@@ -198,13 +195,13 @@
                 letter-spacing: 0.5px;
             }
 
-            .nav-item:hover {
+            .ctal-tae-page .nav-item:hover {
                 color: var(--color-accent-green);
                 border-bottom-color: var(--color-accent-green);
             }
 
             /* ── MAIN LAYOUT ── */
-            .container {
+            .ctal-tae-page .container {
                 max-width: 1200px;
                 margin: 0 auto;
                 padding: 0 40px;
@@ -213,19 +210,19 @@
             }
 
             /* ── SECTION ── */
-            .section {
+            .ctal-tae-page .section {
                 padding: 80px 0;
                 border-bottom: 1px solid var(--color-border);
             }
 
-            .section-header {
+            .ctal-tae-page .section-header {
                 display: flex;
                 align-items: center;
                 gap: 20px;
                 margin-bottom: 48px;
             }
 
-            .chapter-num {
+            .ctal-tae-page .chapter-num {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 color: var(--color-accent-green);
@@ -237,35 +234,35 @@
                 letter-spacing: 1px;
             }
 
-            .chapter-num.cyan {
+            .ctal-tae-page .chapter-num.cyan {
                 color: var(--color-accent-cyan);
                 background: rgba(0, 212, 255, 0.08);
                 border-color: rgba(0, 212, 255, 0.3);
             }
-            .chapter-num.amber {
+            .ctal-tae-page .chapter-num.amber {
                 color: var(--color-accent-yellow);
                 background: rgba(255, 179, 0, 0.08);
                 border-color: rgba(255, 179, 0, 0.3);
             }
-            .chapter-num.purple {
+            .ctal-tae-page .chapter-num.purple {
                 color: var(--color-accent-purple);
                 background: rgba(189, 147, 249, 0.08);
                 border-color: rgba(189, 147, 249, 0.3);
             }
-            .chapter-num.red {
+            .ctal-tae-page .chapter-num.red {
                 color: var(--color-accent-red);
                 background: rgba(255, 71, 87, 0.08);
                 border-color: rgba(255, 71, 87, 0.3);
             }
 
-            h2 {
+            .ctal-tae-page h2 {
                 font-family: var(--font-display);
                 font-size: 28px;
                 font-weight: 700;
                 color: var(--color-text-primary);
             }
 
-            h3 {
+            .ctal-tae-page h3 {
                 font-family: var(--font-display);
                 font-size: 20px;
                 font-weight: 600;
@@ -273,7 +270,7 @@
                 margin: 40px 0 16px;
             }
 
-            h4 {
+            .ctal-tae-page h4 {
                 font-family: var(--font-display);
                 font-size: 16px;
                 font-weight: 600;
@@ -282,49 +279,49 @@
                 letter-spacing: 0.5px;
             }
 
-            p {
+            .ctal-tae-page p {
                 color: var(--color-text-secondary);
                 margin-bottom: 16px;
             }
 
-            a {
+            .ctal-tae-page a {
                 color: var(--color-accent-cyan);
                 text-decoration: none;
             }
-            a:hover {
+            .ctal-tae-page a:hover {
                 text-decoration: underline;
             }
 
             /* ── GRID LAYOUTS ── */
-            .grid-2 {
+            .ctal-tae-page .grid-2 {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 20px;
             }
-            .grid-3 {
+            .ctal-tae-page .grid-3 {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 20px;
             }
-            .grid-4 {
+            .ctal-tae-page .grid-4 {
                 display: grid;
                 grid-template-columns: repeat(4, 1fr);
                 gap: 16px;
             }
 
             @media (max-width: 900px) {
-                .grid-2,
-                .grid-3,
-                .grid-4 {
+                .ctal-tae-page .grid-2,
+                .ctal-tae-page .grid-3,
+                .ctal-tae-page .grid-4 {
                     grid-template-columns: 1fr;
                 }
-                .container {
+                .ctal-tae-page .container {
                     padding: 0 20px;
                 }
             }
 
             /* ── CARDS ── */
-            .card {
+            .ctal-tae-page .istqb-card {
                 background: var(--color-bg-secondary);
                 border: 1px solid var(--color-border-bright);
                 border-radius: 8px;
@@ -334,31 +331,31 @@
                     box-shadow 0.2s;
             }
 
-            .card:hover {
+            .ctal-tae-page .istqb-card:hover {
                 border-color: rgba(0, 255, 157, 0.3);
-                box-shadow: var(--color-accent-green);
+                box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
             }
 
-            .card.cyan:hover {
+            .ctal-tae-page .istqb-card.cyan:hover {
                 border-color: rgba(0, 212, 255, 0.3);
-                box-shadow: var(--color-accent-cyan);
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
             }
-            .card.amber:hover {
+            .ctal-tae-page .istqb-card.amber:hover {
                 border-color: rgba(255, 179, 0, 0.3);
                 box-shadow: 0 0 20px rgba(255, 179, 0, 0.2);
             }
 
-            .card-icon {
+            .ctal-tae-page .istqb-card-icon {
                 font-size: 24px;
                 margin-bottom: 12px;
             }
 
-            .card h4 {
+            .ctal-tae-page .istqb-card h4 {
                 margin-top: 0;
             }
 
             /* ── CODE BLOCKS ── */
-            .code-block {
+            .ctal-tae-page .code-block {
                 background: #010409;
                 border: 1px solid var(--color-border-bright);
                 border-left: 3px solid var(--color-accent-green);
@@ -373,18 +370,18 @@
                 position: relative;
             }
 
-            .code-block .line {
+            .ctal-tae-page .code-block .line {
                 display: block;
             }
 
-            .code-block.cyan {
+            .ctal-tae-page .code-block.cyan {
                 border-left-color: var(--color-accent-cyan);
             }
-            .code-block.amber {
+            .ctal-tae-page .code-block.amber {
                 border-left-color: var(--color-accent-yellow);
             }
 
-            .code-label {
+            .ctal-tae-page .code-label {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 text-transform: uppercase;
@@ -398,45 +395,45 @@
                 letter-spacing: 1px;
             }
 
-            .code-comment {
+            .ctal-tae-page .code-comment {
                 color: #6e7681;
             }
-            .code-green {
+            .ctal-tae-page .code-green {
                 color: var(--color-accent-green);
             }
-            .code-cyan {
+            .ctal-tae-page .code-cyan {
                 color: var(--color-accent-cyan);
             }
-            .code-amber {
+            .ctal-tae-page .code-amber {
                 color: var(--color-accent-yellow);
             }
-            .code-purple {
+            .ctal-tae-page .code-purple {
                 color: var(--color-accent-purple);
             }
-            .code-red {
+            .ctal-tae-page .code-red {
                 color: var(--color-accent-red);
             }
-            .code-string {
+            .ctal-tae-page .code-string {
                 color: #a5d6ff;
             }
-            .code-keyword {
+            .ctal-tae-page .code-keyword {
                 color: #ff7b72;
             }
 
             /* ── TABLES ── */
-            .table-wrap {
+            .ctal-tae-page .table-wrap {
                 overflow-x: auto;
                 margin: 20px 0;
                 border-radius: 8px;
                 border: 1px solid var(--color-border-bright);
             }
 
-            table {
+            .ctal-tae-page table {
                 width: 100%;
                 border-collapse: collapse;
             }
 
-            th {
+            .ctal-tae-page th {
                 background: var(--color-bg-card);
                 color: var(--color-accent-green);
                 font-family: var(--font-mono);
@@ -448,46 +445,46 @@
                 border-bottom: 1px solid var(--color-border-bright);
             }
 
-            td {
+            .ctal-tae-page td {
                 padding: 12px 16px;
                 border-bottom: 1px solid var(--color-border);
                 color: var(--color-text-secondary);
                 font-size: 1rem;
             }
 
-            tr:last-child td {
+            .ctal-tae-page tr:last-child td {
                 border-bottom: none;
             }
-            tr:hover td {
+            .ctal-tae-page tr:hover td {
                 background: rgba(255, 255, 255, 0.02);
             }
 
-            td strong {
+            .ctal-tae-page td strong {
                 color: var(--color-text-primary);
             }
-            td .tag-green {
+            .ctal-tae-page td .tag-green {
                 color: var(--color-accent-green);
                 font-family: var(--font-mono);
                 font-size: 1rem;
             }
-            td .tag-amber {
+            .ctal-tae-page td .tag-amber {
                 color: var(--color-accent-yellow);
                 font-family: var(--font-mono);
                 font-size: 1rem;
             }
-            td .tag-red {
+            .ctal-tae-page td .tag-red {
                 color: var(--color-accent-red);
                 font-family: var(--font-mono);
                 font-size: 1rem;
             }
-            td .tag-cyan {
+            .ctal-tae-page td .tag-cyan {
                 color: var(--color-accent-cyan);
                 font-family: var(--font-mono);
                 font-size: 1rem;
             }
 
             /* ── CALLOUTS ── */
-            .callout {
+            .ctal-tae-page .callout {
                 background: rgba(0, 255, 157, 0.05);
                 border: 1px solid rgba(0, 255, 157, 0.2);
                 border-radius: 6px;
@@ -497,34 +494,34 @@
                 gap: 12px;
             }
 
-            .callout.warning {
+            .ctal-tae-page .callout.warning {
                 background: rgba(255, 179, 0, 0.05);
                 border-color: rgba(255, 179, 0, 0.2);
             }
-            .callout.danger {
+            .ctal-tae-page .callout.danger {
                 background: rgba(255, 71, 87, 0.05);
                 border-color: rgba(255, 71, 87, 0.2);
             }
-            .callout.info {
+            .ctal-tae-page .callout.info {
                 background: rgba(0, 212, 255, 0.05);
                 border-color: rgba(0, 212, 255, 0.2);
             }
 
-            .callout-icon {
+            .ctal-tae-page .callout-icon {
                 font-size: 18px;
                 flex-shrink: 0;
                 margin-top: 2px;
             }
-            .callout-body {
+            .ctal-tae-page .callout-body {
                 color: var(--color-text-secondary);
                 font-size: 1rem;
             }
-            .callout-body strong {
+            .ctal-tae-page .callout-body strong {
                 color: var(--color-text-primary);
             }
 
             /* ── PYRAMID VISUAL ── */
-            .pyramid {
+            .ctal-tae-page .pyramid {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -532,7 +529,7 @@
                 margin: 32px 0;
             }
 
-            .pyramid-level {
+            .ctal-tae-page .pyramid-level {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -546,28 +543,28 @@
                 cursor: default;
             }
 
-            .pyramid-level:hover {
+            .ctal-tae-page .pyramid-level:hover {
                 transform: scaleX(1.03);
             }
 
-            .pyramid-level.l1 {
+            .ctal-tae-page .pyramid-level.l1 {
                 width: 30%;
                 background: linear-gradient(135deg, #ff4757, #ff6b81);
             }
-            .pyramid-level.l2 {
+            .ctal-tae-page .pyramid-level.l2 {
                 width: 55%;
                 background: linear-gradient(135deg, #ffb300, #ffd60a);
             }
-            .pyramid-level.l3 {
+            .ctal-tae-page .pyramid-level.l3 {
                 width: 80%;
                 background: linear-gradient(135deg, #00d4ff, #48cae4);
             }
-            .pyramid-level.l4 {
+            .ctal-tae-page .pyramid-level.l4 {
                 width: 100%;
                 background: linear-gradient(135deg, #00ff9d, #00b4d8);
             }
 
-            .pyramid-label {
+            .ctal-tae-page .pyramid-label {
                 display: flex;
                 justify-content: space-between;
                 width: 100%;
@@ -579,14 +576,14 @@
             }
 
             /* ── gTAA ARCHITECTURE ── */
-            .arch-layers {
+            .ctal-tae-page .arch-layers {
                 display: flex;
                 flex-direction: column;
                 gap: 6px;
                 margin: 32px 0;
             }
 
-            .arch-layer {
+            .ctal-tae-page .arch-layer {
                 border: 1px solid var(--color-border-bright);
                 border-radius: 8px;
                 padding: 16px 24px;
@@ -599,7 +596,7 @@
                 overflow: hidden;
             }
 
-            .arch-layer::before {
+            .ctal-tae-page .arch-layer::before {
                 content: '';
                 position: absolute;
                 left: 0;
@@ -608,64 +605,64 @@
                 width: 4px;
             }
 
-            .arch-layer.l1::before {
+            .ctal-tae-page .arch-layer.l1::before {
                 background: var(--color-accent-purple);
             }
-            .arch-layer.l2::before {
+            .ctal-tae-page .arch-layer.l2::before {
                 background: var(--color-accent-yellow);
             }
-            .arch-layer.l3::before {
+            .ctal-tae-page .arch-layer.l3::before {
                 background: var(--color-accent-cyan);
             }
-            .arch-layer.l4::before {
+            .ctal-tae-page .arch-layer.l4::before {
                 background: var(--color-accent-green);
             }
 
-            .arch-layer:hover {
+            .ctal-tae-page .arch-layer:hover {
                 border-color: rgba(0, 255, 157, 0.3);
                 transform: translateX(4px);
             }
 
-            .arch-num {
+            .ctal-tae-page .arch-num {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 font-weight: 700;
                 min-width: 24px;
             }
 
-            .arch-layer.l1 .arch-num {
+            .ctal-tae-page .arch-layer.l1 .arch-num {
                 color: var(--color-accent-purple);
             }
-            .arch-layer.l2 .arch-num {
+            .ctal-tae-page .arch-layer.l2 .arch-num {
                 color: var(--color-accent-yellow);
             }
-            .arch-layer.l3 .arch-num {
+            .ctal-tae-page .arch-layer.l3 .arch-num {
                 color: var(--color-accent-cyan);
             }
-            .arch-layer.l4 .arch-num {
+            .ctal-tae-page .arch-layer.l4 .arch-num {
                 color: var(--color-accent-green);
             }
 
-            .arch-title {
+            .ctal-tae-page .arch-title {
                 font-family: var(--font-display);
                 font-size: 1rem;
                 font-weight: 700;
                 min-width: 200px;
             }
 
-            .arch-desc {
+            .ctal-tae-page .arch-desc {
                 font-size: 1rem;
                 color: var(--color-text-secondary);
                 flex: 1;
             }
 
-            .arch-tools {
+            .ctal-tae-page .arch-tools {
                 display: flex;
                 gap: 8px;
                 flex-wrap: wrap;
             }
 
-            .tool-tag {
+            .ctal-tae-page .tool-tag {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 padding: 3px 8px;
@@ -676,14 +673,14 @@
             }
 
             /* ── METRICS ── */
-            .metric-grid {
+            .ctal-tae-page .metric-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 16px;
                 margin: 24px 0;
             }
 
-            .metric-card {
+            .ctal-tae-page .metric-card {
                 background: var(--color-bg-secondary);
                 border: 1px solid var(--color-border-bright);
                 border-radius: 8px;
@@ -694,12 +691,12 @@
                 transition: all 0.2s;
             }
 
-            .metric-card:hover {
+            .ctal-tae-page .metric-card:hover {
                 border-color: rgba(0, 255, 157, 0.3);
                 transform: translateY(-2px);
             }
 
-            .metric-value {
+            .ctal-tae-page .metric-value {
                 font-family: var(--font-mono);
                 font-size: 36px;
                 font-weight: 700;
@@ -708,17 +705,17 @@
                 margin-bottom: 4px;
             }
 
-            .metric-value.cyan {
+            .ctal-tae-page .metric-value.cyan {
                 color: var(--color-accent-cyan);
             }
-            .metric-value.amber {
+            .ctal-tae-page .metric-value.amber {
                 color: var(--color-accent-yellow);
             }
-            .metric-value.purple {
+            .ctal-tae-page .metric-value.purple {
                 color: var(--color-accent-purple);
             }
 
-            .metric-label {
+            .ctal-tae-page .metric-label {
                 font-size: 1rem;
                 color: var(--color-text-muted);
                 font-family: var(--font-mono);
@@ -726,20 +723,20 @@
             }
 
             /* ── STEP LIST ── */
-            .step-list {
+            .ctal-tae-page .step-list {
                 display: flex;
                 flex-direction: column;
                 gap: 16px;
                 margin: 24px 0;
             }
 
-            .step-item {
+            .ctal-tae-page .step-item {
                 display: flex;
                 gap: 16px;
                 align-items: flex-start;
             }
 
-            .step-num {
+            .ctal-tae-page .step-num {
                 width: 32px;
                 height: 32px;
                 min-width: 32px;
@@ -756,27 +753,27 @@
                 margin-top: 2px;
             }
 
-            .step-content {
+            .ctal-tae-page .step-content {
                 flex: 1;
             }
-            .step-content strong {
+            .ctal-tae-page .step-content strong {
                 color: var(--color-text-primary);
                 display: block;
                 margin-bottom: 4px;
                 font-family: var(--font-display);
             }
-            .step-content p {
+            .ctal-tae-page .step-content p {
                 margin: 0;
                 font-size: 1rem;
             }
 
             /* ── CHECKLIST ── */
-            .checklist {
+            .ctal-tae-page .checklist {
                 list-style: none;
                 margin: 16px 0;
             }
 
-            .checklist li {
+            .ctal-tae-page .checklist li {
                 padding: 8px 0 8px 28px;
                 position: relative;
                 color: var(--color-text-secondary);
@@ -784,11 +781,11 @@
                 border-bottom: 1px solid var(--color-border);
             }
 
-            .checklist li:last-child {
+            .ctal-tae-page .checklist li:last-child {
                 border-bottom: none;
             }
 
-            .checklist li::before {
+            .ctal-tae-page .checklist li::before {
                 content: '▸';
                 position: absolute;
                 left: 6px;
@@ -796,12 +793,12 @@
                 font-size: 1rem;
             }
 
-            .checklist li strong {
+            .ctal-tae-page .checklist li strong {
                 color: var(--color-text-primary);
             }
 
             /* ── ROI FORMULA ── */
-            .formula-box {
+            .ctal-tae-page .formula-box {
                 background: var(--color-bg-card);
                 border: 1px solid rgba(0, 255, 157, 0.2);
                 border-radius: 8px;
@@ -810,24 +807,24 @@
                 margin: 24px 0;
             }
 
-            .formula {
+            .ctal-tae-page .formula {
                 font-family: var(--font-mono);
                 font-size: 20px;
                 color: var(--color-accent-green);
                 margin-bottom: 8px;
             }
 
-            .formula-note {
+            .ctal-tae-page .formula-note {
                 font-size: 1rem;
                 color: var(--color-text-muted);
             }
 
             /* ── PROGRESS BARS ── */
-            .progress-item {
+            .ctal-tae-page .progress-item {
                 margin-bottom: 16px;
             }
 
-            .progress-label {
+            .ctal-tae-page .progress-label {
                 display: flex;
                 justify-content: space-between;
                 font-family: var(--font-mono);
@@ -836,14 +833,14 @@
                 margin-bottom: 6px;
             }
 
-            .progress-bar {
+            .ctal-tae-page .progress-bar {
                 height: 6px;
                 background: var(--color-bg-card);
                 border-radius: 3px;
                 overflow: hidden;
             }
 
-            .progress-fill {
+            .ctal-tae-page .progress-fill {
                 height: 100%;
                 border-radius: 3px;
                 animation: grow-bar 1s ease-out both;
@@ -856,7 +853,7 @@
             }
 
             /* ── TREND CARDS ── */
-            .trend-card {
+            .ctal-tae-page .trend-card {
                 background: var(--color-bg-secondary);
                 border: 1px solid var(--color-border-bright);
                 border-radius: 10px;
@@ -866,7 +863,7 @@
                 transition: all 0.2s;
             }
 
-            .trend-card::before {
+            .ctal-tae-page .trend-card::before {
                 content: '';
                 position: absolute;
                 top: 0;
@@ -878,48 +875,48 @@
                 transform: translate(40px, -40px);
             }
 
-            .trend-card.green::before {
+            .ctal-tae-page .trend-card.green::before {
                 background: var(--color-accent-green);
             }
-            .trend-card.cyan::before {
+            .ctal-tae-page .trend-card.cyan::before {
                 background: var(--color-accent-cyan);
             }
-            .trend-card.amber::before {
+            .ctal-tae-page .trend-card.amber::before {
                 background: var(--color-accent-yellow);
             }
-            .trend-card.purple::before {
+            .ctal-tae-page .trend-card.purple::before {
                 background: var(--color-accent-purple);
             }
 
-            .trend-card:hover {
+            .ctal-tae-page .trend-card:hover {
                 transform: translateY(-4px);
                 border-color: rgba(0, 255, 157, 0.3);
             }
 
-            .trend-icon {
+            .ctal-tae-page .trend-icon {
                 font-size: 32px;
                 margin-bottom: 16px;
             }
 
-            .trend-card h4 {
+            .ctal-tae-page .trend-card h4 {
                 color: var(--color-text-primary);
                 font-size: 1rem;
                 margin: 0 0 8px;
             }
-            .trend-card p {
+            .ctal-tae-page .trend-card p {
                 font-size: 1rem;
                 color: var(--color-text-secondary);
                 margin: 0;
             }
 
             /* ── EXAM SECTION ── */
-            .exam-grid {
+            .ctal-tae-page .exam-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 20px;
             }
 
-            .exam-chapter {
+            .ctal-tae-page .exam-chapter {
                 background: var(--color-bg-secondary);
                 border: 1px solid var(--color-border-bright);
                 border-radius: 8px;
@@ -930,11 +927,11 @@
                 transition: all 0.2s;
             }
 
-            .exam-chapter:hover {
+            .ctal-tae-page .exam-chapter:hover {
                 border-color: rgba(0, 255, 157, 0.3);
             }
 
-            .chapter-score {
+            .ctal-tae-page .chapter-score {
                 font-family: var(--font-mono);
                 font-size: 24px;
                 font-weight: 700;
@@ -942,7 +939,7 @@
                 text-align: center;
             }
 
-            .chapter-info h5 {
+            .ctal-tae-page .chapter-info h5 {
                 font-family: var(--font-display);
                 font-size: 1rem;
                 font-weight: 600;
@@ -950,27 +947,27 @@
                 margin-bottom: 4px;
             }
 
-            .chapter-info p {
+            .ctal-tae-page .chapter-info p {
                 font-size: 1rem;
                 color: var(--color-text-muted);
                 margin: 0;
                 font-family: var(--font-mono);
             }
 
-            .star-row {
+            .ctal-tae-page .star-row {
                 color: var(--color-accent-yellow);
                 font-size: 1rem;
                 margin-top: 4px;
             }
 
             /* ── REFERENCES ── */
-            .ref-grid {
+            .ctal-tae-page .ref-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
             }
 
-            .ref-card {
+            .ctal-tae-page .ref-card {
                 background: var(--color-bg-secondary);
                 border: 1px solid var(--color-border-bright);
                 border-radius: 6px;
@@ -978,12 +975,12 @@
                 transition: all 0.2s;
             }
 
-            .ref-card:hover {
+            .ctal-tae-page .ref-card:hover {
                 border-color: rgba(0, 212, 255, 0.3);
                 transform: translateX(4px);
             }
 
-            .ref-category {
+            .ctal-tae-page .ref-category {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 letter-spacing: 1.5px;
@@ -992,26 +989,26 @@
                 text-transform: uppercase;
             }
 
-            .ref-title {
+            .ctal-tae-page .ref-title {
                 font-size: 1rem;
                 color: var(--color-text-primary);
                 font-weight: 600;
                 margin-bottom: 4px;
             }
 
-            .ref-url {
+            .ctal-tae-page .ref-url {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 color: var(--color-text-muted);
                 word-break: break-all;
             }
 
-            .ref-url:hover {
+            .ctal-tae-page .ref-url:hover {
                 color: var(--color-accent-cyan);
             }
 
             /* ── FOOTER ── */
-            footer {
+            .ctal-tae-page footer {
                 padding: 40px;
                 text-align: center;
                 border-top: 1px solid var(--color-border);
@@ -1019,14 +1016,14 @@
                 z-index: 1;
             }
 
-            footer p {
+            .ctal-tae-page footer p {
                 color: var(--color-text-muted);
                 font-family: var(--font-mono);
                 font-size: 1rem;
             }
 
             /* ── DIVIDER ── */
-            .divider {
+            .ctal-tae-page .divider {
                 height: 1px;
                 background: linear-gradient(90deg, transparent, var(--color-accent-green), transparent);
                 opacity: 0.3;
@@ -1034,14 +1031,14 @@
             }
 
             /* ── TOC INTRO ── */
-            .toc-grid {
+            .ctal-tae-page .toc-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
                 gap: 12px;
                 margin: 32px 0;
             }
 
-            .toc-item {
+            .ctal-tae-page .toc-item {
                 background: var(--color-bg-secondary);
                 border: 1px solid var(--color-border-bright);
                 border-radius: 6px;
@@ -1053,14 +1050,14 @@
                 transition: all 0.2s;
             }
 
-            .toc-item:hover {
+            .ctal-tae-page .toc-item:hover {
                 border-color: rgba(0, 255, 157, 0.3);
-                box-shadow: var(--color-accent-green);
+                box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
                 transform: translateY(-2px);
                 text-decoration: none;
             }
 
-            .toc-num {
+            .ctal-tae-page .toc-num {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 color: var(--color-accent-green);
@@ -1068,13 +1065,13 @@
                 min-width: 28px;
             }
 
-            .toc-text {
+            .ctal-tae-page .toc-text {
                 font-size: 1rem;
                 color: var(--color-text-primary);
                 font-weight: 500;
             }
 
-            .toc-tag {
+            .ctal-tae-page .toc-tag {
                 font-family: var(--font-mono);
                 font-size: 1rem;
                 color: var(--color-text-muted);
@@ -1086,7 +1083,7 @@
             }
 
             /* ── ALERT BOXES ── */
-            .alert {
+            .ctal-tae-page .alert {
                 border-radius: 8px;
                 padding: 16px 20px;
                 margin: 20px 0;
@@ -1094,27 +1091,27 @@
                 color: var(--color-text-secondary);
             }
 
-            .alert-green {
+            .ctal-tae-page .alert-green {
                 background: rgba(0, 255, 157, 0.05);
                 border-left: 3px solid var(--color-accent-green);
             }
-            .alert-amber {
+            .ctal-tae-page .alert-amber {
                 background: rgba(255, 179, 0, 0.05);
                 border-left: 3px solid var(--color-accent-yellow);
             }
-            .alert-red {
+            .ctal-tae-page .alert-red {
                 background: rgba(255, 71, 87, 0.05);
                 border-left: 3px solid var(--color-accent-red);
             }
-            .alert-cyan {
+            .ctal-tae-page .alert-cyan {
                 background: rgba(0, 212, 255, 0.05);
                 border-left: 3px solid var(--color-accent-cyan);
             }
 
-            .alert strong {
+            .ctal-tae-page .alert strong {
                 color: var(--color-text-primary);
             }
-            .alert-title {
+            .ctal-tae-page .alert-title {
                 font-family: var(--font-display);
                 font-weight: 700;
                 font-size: 1rem;
