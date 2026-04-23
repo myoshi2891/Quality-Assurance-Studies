@@ -29,7 +29,22 @@ export default function IstqbCtalTaeCompleteGuide() {
         </section>
 
         {/* NAV */}
-        
+        <nav className="sticky-nav">
+            <div className="nav-inner">
+                <a className="nav-item" href="#intro">OVERVIEW</a>
+                <a className="nav-item" href="#ch1">CH.1 基礎</a>
+                <a className="nav-item" href="#ch2">CH.2 準備・ROI</a>
+                <a className="nav-item" href="#ch3">CH.3 gTAA</a>
+                <a className="nav-item" href="#ch4">CH.4 実装</a>
+                <a className="nav-item" href="#ch5">CH.5 CI/CD</a>
+                <a className="nav-item" href="#ch6">CH.6 メトリクス</a>
+                <a className="nav-item" href="#ch7">CH.7 TAS検証</a>
+                <a className="nav-item" href="#ch8">CH.8 改善・AI</a>
+                <a className="nav-item" href="#tools">TOOLS</a>
+                <a className="nav-item" href="#exam">試験対策</a>
+                <a className="nav-item" href="#refs">参考文献</a>
+            </div>
+        </nav>
 
         {/* OVERVIEW */}
         <section id="intro" className="section">
