@@ -6,6 +6,25 @@ export default function IstqbCtalTaeCompleteGuide() {
         <>
             <Header />
             
+        {/* NAV */}
+        <nav className="sticky-nav">
+            <div className="nav-inner">
+                <a className="nav-item" href="#intro">OVERVIEW</a>
+                <a className="nav-item" href="#ch1">CH.1 基礎</a>
+                <a className="nav-item" href="#ch2">CH.2 準備・ROI</a>
+                <a className="nav-item" href="#ch3">CH.3 gTAA</a>
+                <a className="nav-item" href="#ch4">CH.4 実装</a>
+                <a className="nav-item" href="#ch5">CH.5 CI/CD</a>
+                <a className="nav-item" href="#ch6">CH.6 メトリクス</a>
+                <a className="nav-item" href="#ch7">CH.7 TAS検証</a>
+                <a className="nav-item" href="#ch8">CH.8 改善・AI</a>
+                <a className="nav-item" href="#tools">TOOLS</a>
+                <a className="nav-item" href="#exam">試験対策</a>
+                <a className="nav-item" href="#refs">参考文献</a>
+            </div>
+        </nav>
+
+            
         {/* HERO */}
         <section className="hero">
             <div className="hero-glow"></div>
@@ -29,22 +48,7 @@ export default function IstqbCtalTaeCompleteGuide() {
         </section>
 
         {/* NAV */}
-        <nav className="sticky-nav">
-            <div className="nav-inner">
-                <a className="nav-item" href="#intro">OVERVIEW</a>
-                <a className="nav-item" href="#ch1">CH.1 基礎</a>
-                <a className="nav-item" href="#ch2">CH.2 準備・ROI</a>
-                <a className="nav-item" href="#ch3">CH.3 gTAA</a>
-                <a className="nav-item" href="#ch4">CH.4 実装</a>
-                <a className="nav-item" href="#ch5">CH.5 CI/CD</a>
-                <a className="nav-item" href="#ch6">CH.6 メトリクス</a>
-                <a className="nav-item" href="#ch7">CH.7 TAS検証</a>
-                <a className="nav-item" href="#ch8">CH.8 改善・AI</a>
-                <a className="nav-item" href="#tools">TOOLS</a>
-                <a className="nav-item" href="#exam">試験対策</a>
-                <a className="nav-item" href="#refs">参考文献</a>
-            </div>
-        </nav>
+        
 
         {/* OVERVIEW */}
         <section id="intro" className="section">
@@ -204,14 +208,69 @@ export default function IstqbCtalTaeCompleteGuide() {
 
                 <div className="table-wrap">
                     <table>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <th>テスト階層</th>
+                            <th>特徴</th>
+                            <th>実行速度</th>
+                            <th>コスト</th>
+                            <th>割合</th>
+                        </tr>
+                        <tr>
+                            <td><strong>ユニットテスト</strong></td>
+                            <td>個々の関数・メソッドを分離してテスト</td>
+                            <td><span className="tag-green">高速（秒以内）</span></td>
+                            <td><span className="tag-green">低</span></td>
+                            <td>70%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>統合テスト</strong></td>
+                            <td>API・DB・外部サービスとの連携をテスト</td>
+                            <td><span className="tag-amber">中程度</span></td>
+                            <td><span className="tag-amber">中</span></td>
+                            <td>20%</td>
+                        </tr>
+                        <tr>
+                            <td><strong>E2Eテスト</strong></td>
+                            <td>実ユーザー操作をシミュレートし全体を検証</td>
+                            <td><span className="tag-red">低速（分単位）</span></td>
+                            <td><span className="tag-red">高</span></td>
+                            <td>10%</td>
+                        </tr>
+                    </tbody>
                 </table>
                 </div>
 
                 <h3>SDLCモデル別の自動化戦略</h3>
                 <div className="table-wrap">
                     <table>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <th>SDLCモデル</th>
+                            <th>推奨自動化レベル</th>
+                            <th>主な技法</th>
+                        </tr>
+                        <tr>
+                            <td><strong>ウォーターフォール</strong></td>
+                            <td>システム・受入テスト</td>
+                            <td>機能テスト自動化、回帰テスト</td>
+                        </tr>
+                        <tr>
+                            <td><strong>V字モデル</strong></td>
+                            <td>各テストレベルに対応</td>
+                            <td>ユニット→統合→システムの順に自動化</td>
+                        </tr>
+                        <tr>
+                            <td><strong>アジャイル</strong></td>
+                            <td>ユニット〜受入テスト全体</td>
+                            <td>TDD、BDD、継続的テスト</td>
+                        </tr>
+                        <tr>
+                            <td><strong>DevOps</strong></td>
+                            <td>全レベル＋本番監視</td>
+                            <td>CI/CD統合、カオスエンジニアリング</td>
+                        </tr>
+                    </tbody>
                 </table>
                 </div>
 
@@ -851,7 +910,50 @@ export default function IstqbCtalTaeCompleteGuide() {
                 <h3>リスク管理マトリクス</h3>
                 <div className="table-wrap">
                     <table>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <th>リスク</th>
+                            <th>発生確率</th>
+                            <th>影響度</th>
+                            <th>対策</th>
+                        </tr>
+                        <tr>
+                            <td><strong>SUTのUI変更</strong></td>
+                            <td><span className="tag-red">高</span></td>
+                            <td><span className="tag-red">高</span></td>
+                            <td>POMパターン使用・data-testid属性を活用</td>
+                        </tr>
+                        <tr>
+                            <td><strong>フレイキーテスト多発</strong></td>
+                            <td><span className="tag-red">高</span></td>
+                            <td><span className="tag-red">高</span></td>
+                            <td>安定した待機戦略・独立したテストデータ</td>
+                        </tr>
+                        <tr>
+                            <td><strong>環境差異</strong></td>
+                            <td><span className="tag-amber">中</span></td>
+                            <td><span className="tag-red">高</span></td>
+                            <td>コンテナ化（Docker）・環境定義のコード化</td>
+                        </tr>
+                        <tr>
+                            <td><strong>スキル不足</strong></td>
+                            <td><span className="tag-amber">中</span></td>
+                            <td><span className="tag-red">高</span></td>
+                            <td>トレーニング計画・ペアプログラミング</td>
+                        </tr>
+                        <tr>
+                            <td><strong>過剰な自動化</strong></td>
+                            <td><span className="tag-amber">中</span></td>
+                            <td><span className="tag-amber">中</span></td>
+                            <td>ROI分析・自動化対象の厳選</td>
+                        </tr>
+                        <tr>
+                            <td><strong>機密情報の漏洩</strong></td>
+                            <td><span className="tag-green">低</span></td>
+                            <td><span className="tag-red">高</span></td>
+                            <td>環境変数管理・CI/CDシークレット機能の使用</td>
+                        </tr>
+                    </tbody>
                 </table>
                 </div>
 
@@ -1482,14 +1584,70 @@ export default function IstqbCtalTaeCompleteGuide() {
                 <h3>Web UIテスト</h3>
                 <div className="table-wrap">
                     <table>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <th>ツール</th>
+                            <th>言語</th>
+                            <th>特徴</th>
+                            <th>2025推奨度</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Playwright</strong></td>
+                            <td>JS/TS, Python, Java, C#</td>
+                            <td>ネイティブ並列・クロスブラウザ・AI生成対応・高速</td>
+                            <td><span className="tag-green">⭐⭐⭐⭐⭐ 最推奨</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Cypress</strong></td>
+                            <td>JavaScript</td>
+                            <td>タイムトラベルデバッグ・SPA向け・リアルタイム確認</td>
+                            <td><span className="tag-cyan">⭐⭐⭐⭐</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Selenium</strong></td>
+                            <td>Java, Python, C#, Ruby等</td>
+                            <td>レガシー対応・Appium連携・最多実績</td>
+                            <td><span className="tag-amber">⭐⭐⭐</span></td>
+                        </tr>
+                    </tbody>
                 </table>
                 </div>
 
                 <h3>APIテスト</h3>
                 <div className="table-wrap">
                     <table>
-                    <tbody></tbody>
+                    <tbody>
+                        <tr>
+                            <th>ツール</th>
+                            <th>言語</th>
+                            <th>特徴</th>
+                            <th>推奨度</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Postman / Newman</strong></td>
+                            <td>GUI + JavaScript</td>
+                            <td>APIエクスプローラー + CI自動化・最も広く使われる</td>
+                            <td><span className="tag-green">⭐⭐⭐⭐⭐</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>requests + pytest</strong></td>
+                            <td>Python</td>
+                            <td>シンプル・柔軟・Pythonエコシステムとの親和性</td>
+                            <td><span className="tag-cyan">⭐⭐⭐⭐</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pact</strong></td>
+                            <td>多言語</td>
+                            <td>コントラクトテスト・マイクロサービス向け</td>
+                            <td><span className="tag-cyan">⭐⭐⭐⭐</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>REST Assured</strong></td>
+                            <td>Java</td>
+                            <td>BDDスタイルのAPI検証・Java標準的</td>
+                            <td><span className="tag-amber">⭐⭐⭐⭐</span></td>
+                        </tr>
+                    </tbody>
                 </table>
                 </div>
 
