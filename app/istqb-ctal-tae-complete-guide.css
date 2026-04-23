@@ -1,0 +1,1149 @@
+.ctal-tae-page * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* ── SCANLINE OVERLAY ── */
+            .ctal-tae-page::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 0, 0, 0.03) 2px,
+                    rgba(0, 0, 0, 0.03) 4px
+                );
+                pointer-events: none;
+                z-index: 10;
+            }
+
+            /* ── GRID BACKGROUND ── */
+            .ctal-tae-page::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(0, 255, 157, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 255, 157, 0.03) 1px, transparent 1px);
+                background-size: 60px 60px;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            /* ── HEADER ── */
+            .ctal-tae-page .hero {
+                position: relative;
+                min-height: 100vh;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 80px 40px;
+                overflow: hidden;
+                z-index: 1;
+            }
+
+            .ctal-tae-page .hero-glow {
+                position: absolute;
+                width: 600px;
+                height: 600px;
+                border-radius: 50%;
+                background: radial-gradient(circle, rgba(0, 255, 157, 0.08) 0%, transparent 70%);
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                animation: ctal-tae-pulse 4s ease-in-out infinite;
+            }
+
+            @keyframes ctal-tae-pulse {
+                0%,
+                100% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.6;
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.1);
+                    opacity: 1;
+                }
+            }
+
+            .ctal-tae-page .hero-content {
+                position: relative;
+                z-index: 2;
+                max-width: 900px;
+            }
+
+            .ctal-tae-page .badge {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--color-accent-green);
+                border: 1px solid var(--color-accent-green);
+                padding: 4px 12px;
+                border-radius: 2px;
+                letter-spacing: 2px;
+                margin-bottom: 24px;
+                animation: ctal-tae-fade-in-down 0.6s ease both;
+            }
+
+            @keyframes ctal-tae-fade-in-down {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            @keyframes ctal-tae-fade-in-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(30px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .ctal-tae-page .hero h1 {
+                font-family: var(--font-display);
+                font-size: clamp(36px, 6vw, 72px);
+                font-weight: 800;
+                line-height: 1.05;
+                letter-spacing: -1px;
+                margin-bottom: 20px;
+                animation: ctal-tae-fade-in-up 0.8s 0.2s ease both;
+            }
+
+            .ctal-tae-page .hero h1 span.accent-green {
+                color: var(--color-accent-green);
+            }
+            .ctal-tae-page .hero h1 span.accent-cyan {
+                color: var(--color-accent-cyan);
+            }
+
+            .ctal-tae-page .hero-sub {
+                font-size: 1rem;
+                color: var(--color-text-secondary);
+                max-width: 600px;
+                margin: 0 auto 40px;
+                animation: ctal-tae-fade-in-up 0.8s 0.4s ease both;
+            }
+
+            .ctal-tae-page .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                justify-content: center;
+                animation: ctal-tae-fade-in-up 0.8s 0.6s ease both;
+            }
+
+            .ctal-tae-page .meta-chip {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border-bright);
+                padding: 6px 14px;
+                border-radius: 2px;
+                color: var(--color-text-secondary);
+            }
+
+            .ctal-tae-page .meta-chip strong {
+                color: var(--color-accent-yellow);
+            }
+
+            /* ── NAV ── */
+            .ctal-tae-page .sticky-nav {
+                position: sticky;
+                top: 60px; /* Global header is 60px */
+                z-index: 40; /* Below global header z-50 */
+                background: rgba(3, 7, 18, 0.95);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid var(--color-border);
+                padding: 0 40px;
+            }
+
+            .ctal-tae-page .nav-inner {
+                max-width: 1200px;
+                margin: 0 auto;
+                display: flex;
+                gap: 4px;
+                overflow-x: auto;
+                scrollbar-width: none;
+                padding: 0 0 1px;
+            }
+
+            .ctal-tae-page .nav-inner::-webkit-scrollbar {
+                display: none;
+            }
+
+            .ctal-tae-page .nav-item {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--color-text-muted);
+                text-decoration: none;
+                padding: 14px 12px;
+                white-space: nowrap;
+                border-bottom: 2px solid transparent;
+                transition: all 0.2s;
+                letter-spacing: 0.5px;
+            }
+
+            .ctal-tae-page .nav-item:hover {
+                color: var(--color-accent-green);
+                border-bottom-color: var(--color-accent-green);
+            }
+
+            /* ── MAIN LAYOUT ── */
+            .ctal-tae-page .container {
+                max-width: 1200px;
+                margin: 0 auto;
+                padding: 0 40px;
+                position: relative;
+                z-index: 1;
+            }
+
+            /* ── SECTION ── */
+            .ctal-tae-page .section {
+                padding: 80px 0;
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .ctal-tae-page .section-header {
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                margin-bottom: 48px;
+            }
+
+            .ctal-tae-page .chapter-num {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--color-accent-green);
+                background: rgba(0, 255, 157, 0.08);
+                border: 1px solid rgba(0, 255, 157, 0.3);
+                padding: 4px 10px;
+                border-radius: 2px;
+                white-space: nowrap;
+                letter-spacing: 1px;
+            }
+
+            .ctal-tae-page .chapter-num.cyan {
+                color: var(--color-accent-cyan);
+                background: rgba(0, 212, 255, 0.08);
+                border-color: rgba(0, 212, 255, 0.3);
+            }
+            .ctal-tae-page .chapter-num.amber {
+                color: var(--color-accent-yellow);
+                background: rgba(255, 179, 0, 0.08);
+                border-color: rgba(255, 179, 0, 0.3);
+            }
+            .ctal-tae-page .chapter-num.purple {
+                color: var(--color-accent-purple);
+                background: rgba(189, 147, 249, 0.08);
+                border-color: rgba(189, 147, 249, 0.3);
+            }
+            .ctal-tae-page .chapter-num.red {
+                color: var(--color-accent-red);
+                background: rgba(255, 71, 87, 0.08);
+                border-color: rgba(255, 71, 87, 0.3);
+            }
+
+            .ctal-tae-page h2 {
+                font-family: var(--font-display);
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--color-text-primary);
+            }
+
+            .ctal-tae-page h3 {
+                font-family: var(--font-display);
+                font-size: 20px;
+                font-weight: 600;
+                color: var(--color-text-primary);
+                margin: 40px 0 16px;
+            }
+
+            .ctal-tae-page h4 {
+                font-family: var(--font-display);
+                font-size: 16px;
+                font-weight: 600;
+                color: var(--color-accent-cyan);
+                margin: 24px 0 12px;
+                letter-spacing: 0.5px;
+            }
+
+            .ctal-tae-page p {
+                color: var(--color-text-secondary);
+                margin-bottom: 16px;
+            }
+
+            .ctal-tae-page a {
+                color: var(--color-accent-cyan);
+                text-decoration: none;
+            }
+            .ctal-tae-page a:hover {
+                text-decoration: underline;
+            }
+
+            /* ── GRID LAYOUTS ── */
+            .ctal-tae-page .grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+            .ctal-tae-page .grid-3 {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+            }
+            .ctal-tae-page .grid-4 {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 16px;
+            }
+
+            @media (max-width: 900px) {
+                .ctal-tae-page .grid-2,
+                .ctal-tae-page .grid-3,
+                .ctal-tae-page .grid-4,
+                .ctal-tae-page .exam-grid,
+                .ctal-tae-page .ref-grid {
+                    grid-template-columns: 1fr;
+                }
+                .ctal-tae-page .container {
+                    padding: 0 20px;
+                }
+            }
+
+            /* ── CARDS ── */
+            .ctal-tae-page .istqb-card {
+                background: var(--color-bg-secondary);
+                border: 1px solid var(--color-border-bright);
+                border-radius: 8px;
+                padding: 24px;
+                transition:
+                    border-color 0.2s,
+                    box-shadow 0.2s;
+            }
+
+            .ctal-tae-page .istqb-card:hover {
+                border-color: rgba(0, 255, 157, 0.3);
+                box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+            }
+
+            .ctal-tae-page .istqb-card.cyan:hover {
+                border-color: rgba(0, 212, 255, 0.3);
+                box-shadow: 0 0 20px rgba(0, 212, 255, 0.2);
+            }
+            .ctal-tae-page .istqb-card.amber:hover {
+                border-color: rgba(255, 179, 0, 0.3);
+                box-shadow: 0 0 20px rgba(255, 179, 0, 0.2);
+            }
+
+            .ctal-tae-page .istqb-card-icon {
+                font-size: 24px;
+                margin-bottom: 12px;
+            }
+
+            .ctal-tae-page .istqb-card h4 {
+                margin-top: 0;
+            }
+
+            /* ── CODE BLOCKS ── */
+            .ctal-tae-page .code-block {
+                background: #010409;
+                border: 1px solid var(--color-border-bright);
+                border-left: 3px solid var(--color-accent-green);
+                border-radius: 6px;
+                padding: 20px 24px;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                line-height: 1.8;
+                color: #a8c7fa;
+                overflow-x: auto;
+                margin: 16px 0;
+                position: relative;
+            }
+
+            .ctal-tae-page .code-block .line {
+                display: block;
+            }
+
+            .ctal-tae-page .code-block.cyan {
+                border-left-color: var(--color-accent-cyan);
+            }
+            .ctal-tae-page .code-block.amber {
+                border-left-color: var(--color-accent-yellow);
+            }
+
+            .ctal-tae-page .code-label {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                text-transform: uppercase;
+                color: var(--color-text-muted);
+                background: var(--color-bg-card);
+                padding: 3px 8px;
+                border-radius: 2px;
+                position: absolute;
+                top: 10px;
+                right: 12px;
+                letter-spacing: 1px;
+            }
+
+            .ctal-tae-page .code-comment {
+                color: #6e7681;
+            }
+            .ctal-tae-page .code-green {
+                color: var(--color-accent-green);
+            }
+            .ctal-tae-page .code-cyan {
+                color: var(--color-accent-cyan);
+            }
+            .ctal-tae-page .code-amber {
+                color: var(--color-accent-yellow);
+            }
+            .ctal-tae-page .code-purple {
+                color: var(--color-accent-purple);
+            }
+            .ctal-tae-page .code-red {
+                color: var(--color-accent-red);
+            }
+            .ctal-tae-page .code-string {
+                color: #a5d6ff;
+            }
+            .ctal-tae-page .code-keyword {
+                color: #ff7b72;
+            }
+
+            /* ── TABLES ── */
+            .ctal-tae-page .table-wrap {
+                overflow-x: auto;
+                margin: 20px 0;
+                border-radius: 8px;
+                border: 1px solid var(--color-border-bright);
+            }
+
+            .ctal-tae-page table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+
+            .ctal-tae-page th {
+                background: var(--color-bg-card);
+                color: var(--color-accent-green);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                letter-spacing: 1px;
+                padding: 12px 16px;
+                text-align: left;
+                border-bottom: 1px solid var(--color-border-bright);
+            }
+
+            .ctal-tae-page td {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--color-border);
+                color: var(--color-text-secondary);
+                font-size: 1rem;
+            }
+
+            .ctal-tae-page tr:last-child td {
+                border-bottom: none;
+            }
+            .ctal-tae-page tr:hover td {
+                background: rgba(255, 255, 255, 0.02);
+            }
+
+            .ctal-tae-page td strong {
+                color: var(--color-text-primary);
+            }
+            .ctal-tae-page td .tag-green {
+                color: var(--color-accent-green);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+            }
+            .ctal-tae-page td .tag-amber {
+                color: var(--color-accent-yellow);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+            }
+            .ctal-tae-page td .tag-red {
+                color: var(--color-accent-red);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+            }
+            .ctal-tae-page td .tag-cyan {
+                color: var(--color-accent-cyan);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+            }
+
+            /* ── CALLOUTS ── */
+            .ctal-tae-page .callout {
+                background: rgba(0, 255, 157, 0.05);
+                border: 1px solid rgba(0, 255, 157, 0.2);
+                border-radius: 6px;
+                padding: 16px 20px;
+                margin: 20px 0;
+                display: flex;
+                gap: 12px;
+            }
+
+            .ctal-tae-page .callout.warning {
+                background: rgba(255, 179, 0, 0.05);
+                border-color: rgba(255, 179, 0, 0.2);
+            }
+            .ctal-tae-page .callout.danger {
+                background: rgba(255, 71, 87, 0.05);
+                border-color: rgba(255, 71, 87, 0.2);
+            }
+            .ctal-tae-page .callout.info {
+                background: rgba(0, 212, 255, 0.05);
+                border-color: rgba(0, 212, 255, 0.2);
+            }
+
+            .ctal-tae-page .callout-icon {
+                font-size: 18px;
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+            .ctal-tae-page .callout-body {
+                color: var(--color-text-secondary);
+                font-size: 1rem;
+            }
+            .ctal-tae-page .callout-body strong {
+                color: var(--color-text-primary);
+            }
+
+            /* ── PYRAMID VISUAL ── */
+            .ctal-tae-page .pyramid {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                margin: 32px 0;
+            }
+
+            .ctal-tae-page .pyramid-level {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-bg-primary);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                border-radius: 4px;
+                height: 56px;
+                transition: transform 0.2s;
+                cursor: default;
+            }
+
+            .ctal-tae-page .pyramid-level:hover {
+                transform: scaleX(1.03);
+            }
+
+            .ctal-tae-page .pyramid-level.l1 {
+                width: 30%;
+                background: linear-gradient(135deg, #ff4757, #ff6b81);
+            }
+            .ctal-tae-page .pyramid-level.l2 {
+                width: 55%;
+                background: linear-gradient(135deg, #ffb300, #ffd60a);
+            }
+            .ctal-tae-page .pyramid-level.l3 {
+                width: 80%;
+                background: linear-gradient(135deg, #00d4ff, #48cae4);
+            }
+            .ctal-tae-page .pyramid-level.l4 {
+                width: 100%;
+                background: linear-gradient(135deg, #00ff9d, #00b4d8);
+            }
+
+            .ctal-tae-page .pyramid-label {
+                display: flex;
+                justify-content: space-between;
+                width: 100%;
+                padding: 4px 0;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--color-text-muted);
+                letter-spacing: 0.5px;
+            }
+
+            /* ── gTAA ARCHITECTURE ── */
+            .ctal-tae-page .arch-layers {
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                margin: 32px 0;
+            }
+
+            .ctal-tae-page .arch-layer {
+                border: 1px solid var(--color-border-bright);
+                border-radius: 8px;
+                padding: 16px 24px;
+                background: var(--color-bg-secondary);
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                transition: all 0.2s;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .ctal-tae-page .arch-layer::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 4px;
+            }
+
+            .ctal-tae-page .arch-layer.l1::before {
+                background: var(--color-accent-purple);
+            }
+            .ctal-tae-page .arch-layer.l2::before {
+                background: var(--color-accent-yellow);
+            }
+            .ctal-tae-page .arch-layer.l3::before {
+                background: var(--color-accent-cyan);
+            }
+            .ctal-tae-page .arch-layer.l4::before {
+                background: var(--color-accent-green);
+            }
+
+            .ctal-tae-page .arch-layer:hover {
+                border-color: rgba(0, 255, 157, 0.3);
+                transform: translateX(4px);
+            }
+
+            .ctal-tae-page .arch-num {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                min-width: 24px;
+            }
+
+            .ctal-tae-page .arch-layer.l1 .arch-num {
+                color: var(--color-accent-purple);
+            }
+            .ctal-tae-page .arch-layer.l2 .arch-num {
+                color: var(--color-accent-yellow);
+            }
+            .ctal-tae-page .arch-layer.l3 .arch-num {
+                color: var(--color-accent-cyan);
+            }
+            .ctal-tae-page .arch-layer.l4 .arch-num {
+                color: var(--color-accent-green);
+            }
+
+            .ctal-tae-page .arch-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                min-width: 200px;
+            }
+
+            .ctal-tae-page .arch-desc {
+                font-size: 1rem;
+                color: var(--color-text-secondary);
+                flex: 1;
+            }
+
+            .ctal-tae-page .arch-tools {
+                display: flex;
+                gap: 8px;
+                flex-wrap: wrap;
+            }
+
+            @media (max-width: 600px) {
+                .ctal-tae-page .arch-layer {
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 8px;
+                }
+
+                .ctal-tae-page .arch-title {
+                    min-width: 0;
+                }
+
+                .ctal-tae-page .arch-desc {
+                    min-width: 0;
+                }
+            }
+
+            .ctal-tae-page .tool-tag {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                padding: 3px 8px;
+                border-radius: 3px;
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border-bright);
+                color: var(--color-text-muted);
+            }
+
+            /* ── METRICS ── */
+            .ctal-tae-page .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 16px;
+                margin: 24px 0;
+            }
+
+            .ctal-tae-page .metric-card {
+                background: var(--color-bg-secondary);
+                border: 1px solid var(--color-border-bright);
+                border-radius: 8px;
+                padding: 20px;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.2s;
+            }
+
+            .ctal-tae-page .metric-card:hover {
+                border-color: rgba(0, 255, 157, 0.3);
+                transform: translateY(-2px);
+            }
+
+            .ctal-tae-page .metric-value {
+                font-family: var(--font-mono);
+                font-size: 36px;
+                font-weight: 700;
+                color: var(--color-accent-green);
+                display: block;
+                margin-bottom: 4px;
+            }
+
+            .ctal-tae-page .metric-value.cyan {
+                color: var(--color-accent-cyan);
+            }
+            .ctal-tae-page .metric-value.amber {
+                color: var(--color-accent-yellow);
+            }
+            .ctal-tae-page .metric-value.purple {
+                color: var(--color-accent-purple);
+            }
+
+            .ctal-tae-page .metric-label {
+                font-size: 1rem;
+                color: var(--color-text-muted);
+                font-family: var(--font-mono);
+                letter-spacing: 0.5px;
+            }
+
+            /* ── STEP LIST ── */
+            .ctal-tae-page .step-list {
+                display: flex;
+                flex-direction: column;
+                gap: 16px;
+                margin: 24px 0;
+            }
+
+            .ctal-tae-page .step-item {
+                display: flex;
+                gap: 16px;
+                align-items: flex-start;
+            }
+
+            .ctal-tae-page .step-num {
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+                background: rgba(0, 255, 157, 0.1);
+                border: 1px solid rgba(0, 255, 157, 0.3);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--color-accent-green);
+                margin-top: 2px;
+            }
+
+            .ctal-tae-page .step-content {
+                flex: 1;
+            }
+            .ctal-tae-page .step-content strong {
+                color: var(--color-text-primary);
+                display: block;
+                margin-bottom: 4px;
+                font-family: var(--font-display);
+            }
+            .ctal-tae-page .step-content p {
+                margin: 0;
+                font-size: 1rem;
+            }
+
+            /* ── CHECKLIST ── */
+            .ctal-tae-page .checklist {
+                list-style: none;
+                margin: 16px 0;
+            }
+
+            .ctal-tae-page .checklist li {
+                padding: 8px 0 8px 28px;
+                position: relative;
+                color: var(--color-text-secondary);
+                font-size: 1rem;
+                border-bottom: 1px solid var(--color-border);
+            }
+
+            .ctal-tae-page .checklist li:last-child {
+                border-bottom: none;
+            }
+
+            .ctal-tae-page .checklist li::before {
+                content: '▸';
+                position: absolute;
+                left: 6px;
+                color: var(--color-accent-green);
+                font-size: 1rem;
+            }
+
+            .ctal-tae-page .checklist li strong {
+                color: var(--color-text-primary);
+            }
+
+            /* ── ROI FORMULA ── */
+            .ctal-tae-page .formula-box {
+                background: var(--color-bg-card);
+                border: 1px solid rgba(0, 255, 157, 0.2);
+                border-radius: 8px;
+                padding: 24px;
+                text-align: center;
+                margin: 24px 0;
+            }
+
+            .ctal-tae-page .formula {
+                font-family: var(--font-mono);
+                font-size: 20px;
+                color: var(--color-accent-green);
+                margin-bottom: 8px;
+            }
+
+            .ctal-tae-page .formula-note {
+                font-size: 1rem;
+                color: var(--color-text-muted);
+            }
+
+            /* ── PROGRESS BARS ── */
+            .ctal-tae-page .progress-item {
+                margin-bottom: 16px;
+            }
+
+            .ctal-tae-page .progress-label {
+                display: flex;
+                justify-content: space-between;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--color-text-secondary);
+                margin-bottom: 6px;
+            }
+
+            .ctal-tae-page .progress-bar {
+                height: 6px;
+                background: var(--color-bg-card);
+                border-radius: 3px;
+                overflow: hidden;
+            }
+
+            .ctal-tae-page .progress-fill {
+                height: 100%;
+                border-radius: 3px;
+                animation: ctal-tae-grow-bar 1s ease-out both;
+            }
+
+            @keyframes ctal-tae-grow-bar {
+                from {
+                    width: 0;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .ctal-tae-page *,
+                .ctal-tae-page *::before,
+                .ctal-tae-page *::after {
+                    animation-duration: 0.01ms !important;
+                    animation-iteration-count: 1 !important;
+                    transition-duration: 0.01ms !important;
+                    scroll-behavior: auto !important;
+                }
+            }
+
+            /* ── TREND CARDS ── */
+            .ctal-tae-page .trend-card {
+                background: var(--color-bg-secondary);
+                border: 1px solid var(--color-border-bright);
+                border-radius: 10px;
+                padding: 24px;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.2s;
+            }
+
+            .ctal-tae-page .trend-card::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                opacity: 0.08;
+                transform: translate(40px, -40px);
+            }
+
+            .ctal-tae-page .trend-card.green::before {
+                background: var(--color-accent-green);
+            }
+            .ctal-tae-page .trend-card.cyan::before {
+                background: var(--color-accent-cyan);
+            }
+            .ctal-tae-page .trend-card.amber::before {
+                background: var(--color-accent-yellow);
+            }
+            .ctal-tae-page .trend-card.purple::before {
+                background: var(--color-accent-purple);
+            }
+
+            .ctal-tae-page .trend-card:hover {
+                transform: translateY(-4px);
+                border-color: rgba(0, 255, 157, 0.3);
+            }
+
+            .ctal-tae-page .trend-icon {
+                font-size: 32px;
+                margin-bottom: 16px;
+            }
+
+            .ctal-tae-page .trend-card h4 {
+                color: var(--color-text-primary);
+                font-size: 1rem;
+                margin: 0 0 8px;
+            }
+            .ctal-tae-page .trend-card p {
+                font-size: 1rem;
+                color: var(--color-text-secondary);
+                margin: 0;
+            }
+
+            /* ── EXAM SECTION ── */
+            .ctal-tae-page .exam-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .ctal-tae-page .exam-chapter {
+                background: var(--color-bg-secondary);
+                border: 1px solid var(--color-border-bright);
+                border-radius: 8px;
+                padding: 20px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                transition: all 0.2s;
+            }
+
+            .ctal-tae-page .exam-chapter:hover {
+                border-color: rgba(0, 255, 157, 0.3);
+            }
+
+            .ctal-tae-page .chapter-score {
+                font-family: var(--font-mono);
+                font-size: 24px;
+                font-weight: 700;
+                min-width: 48px;
+                text-align: center;
+            }
+
+            .ctal-tae-page .chapter-info h5 {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 600;
+                color: var(--color-text-primary);
+                margin-bottom: 4px;
+            }
+
+            .ctal-tae-page .chapter-info p {
+                font-size: 1rem;
+                color: var(--color-text-muted);
+                margin: 0;
+                font-family: var(--font-mono);
+            }
+
+            .ctal-tae-page .star-row {
+                color: var(--color-accent-yellow);
+                font-size: 1rem;
+                margin-top: 4px;
+            }
+
+            /* ── REFERENCES ── */
+            .ctal-tae-page .ref-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+
+            .ctal-tae-page .ref-card {
+                background: var(--color-bg-secondary);
+                border: 1px solid var(--color-border-bright);
+                border-radius: 6px;
+                padding: 14px 16px;
+                transition: all 0.2s;
+            }
+
+            .ctal-tae-page .ref-card:hover {
+                border-color: rgba(0, 212, 255, 0.3);
+                transform: translateX(4px);
+            }
+
+            .ctal-tae-page .ref-category {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                letter-spacing: 1.5px;
+                color: var(--color-accent-cyan);
+                margin-bottom: 4px;
+                text-transform: uppercase;
+            }
+
+            .ctal-tae-page .ref-title {
+                font-size: 1rem;
+                color: var(--color-text-primary);
+                font-weight: 600;
+                margin-bottom: 4px;
+            }
+
+            .ctal-tae-page .ref-url {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--color-text-muted);
+                word-break: break-all;
+            }
+
+            .ctal-tae-page .ref-url:hover {
+                color: var(--color-accent-cyan);
+            }
+
+            /* ── FOOTER ── */
+            .ctal-tae-page footer {
+                padding: 40px;
+                text-align: center;
+                border-top: 1px solid var(--color-border);
+                position: relative;
+                z-index: 1;
+            }
+
+            .ctal-tae-page footer p {
+                color: var(--color-text-muted);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+            }
+
+            /* ── DIVIDER ── */
+            .ctal-tae-page .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--color-accent-green), transparent);
+                opacity: 0.3;
+                margin: 40px 0;
+            }
+
+            /* ── TOC INTRO ── */
+            .ctal-tae-page .toc-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 12px;
+                margin: 32px 0;
+            }
+
+            .ctal-tae-page .toc-item {
+                background: var(--color-bg-secondary);
+                border: 1px solid var(--color-border-bright);
+                border-radius: 6px;
+                padding: 14px 18px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                text-decoration: none;
+                transition: all 0.2s;
+            }
+
+            .ctal-tae-page .toc-item:hover {
+                border-color: rgba(0, 255, 157, 0.3);
+                box-shadow: 0 0 20px rgba(0, 255, 157, 0.2);
+                transform: translateY(-2px);
+                text-decoration: none;
+            }
+
+            .ctal-tae-page .toc-num {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--color-accent-green);
+                font-weight: 700;
+                min-width: 28px;
+            }
+
+            .ctal-tae-page .toc-text {
+                font-size: 1rem;
+                color: var(--color-text-primary);
+                font-weight: 500;
+            }
+
+            .ctal-tae-page .toc-tag {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--color-text-muted);
+                margin-left: auto;
+                background: var(--color-bg-card);
+                padding: 2px 6px;
+                border-radius: 2px;
+                border: 1px solid var(--color-border);
+            }
+
+            /* ── ALERT BOXES ── */
+            .ctal-tae-page .alert {
+                border-radius: 8px;
+                padding: 16px 20px;
+                margin: 20px 0;
+                font-size: 1rem;
+                color: var(--color-text-secondary);
+            }
+
+            .ctal-tae-page .alert-green {
+                background: rgba(0, 255, 157, 0.05);
+                border-left: 3px solid var(--color-accent-green);
+            }
+            .ctal-tae-page .alert-amber {
+                background: rgba(255, 179, 0, 0.05);
+                border-left: 3px solid var(--color-accent-yellow);
+            }
+            .ctal-tae-page .alert-red {
+                background: rgba(255, 71, 87, 0.05);
+                border-left: 3px solid var(--color-accent-red);
+            }
+            .ctal-tae-page .alert-cyan {
+                background: rgba(0, 212, 255, 0.05);
+                border-left: 3px solid var(--color-accent-cyan);
+            }
+
+            .ctal-tae-page .alert strong {
+                color: var(--color-text-primary);
+            }
+            .ctal-tae-page .alert-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 1rem;
+                color: var(--color-text-primary);
+                margin-bottom: 6px;
+            }
