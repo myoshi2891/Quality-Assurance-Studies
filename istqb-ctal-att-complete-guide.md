@@ -2235,6 +2235,7 @@ INVEST 基準の T（Testable / テスト可能性）に違反しています。
 > **📌 作成日**: 2025年  
 > **📌 準拠資格**: ISTQB CTAL-ATT v1.1（2020年1月28日正式リリース）  
 > **📌 次のステップ**:
+>
 > - CTAL-TTA（Technical Test Analyst）でホワイトボックス・非機能テストを深掘り
 > - CTAL-TM v3.0（Test Management）でテスト管理スキルを習得
 > - CTAL-TAE v2.0（Test Automation Engineering）で自動化を極める
