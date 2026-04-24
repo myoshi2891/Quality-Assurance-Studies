@@ -84,60 +84,7 @@
                     width: var(--bar-width);
                 }
             }
-            @keyframes ctal-ta-guide-glitch {
-                0% {
-                    clip-path: inset(20% 0 60% 0);
-                    transform: translate(-4px);
-                }
-                20% {
-                    clip-path: inset(80% 0 5% 0);
-                    transform: translate(4px);
-                }
-                40% {
-                    clip-path: inset(40% 0 40% 0);
-                    transform: translate(-2px);
-                }
-                60% {
-                    clip-path: inset(5% 0 80% 0);
-                    transform: translate(2px);
-                }
-                80% {
-                    clip-path: inset(60% 0 20% 0);
-                    transform: translate(-4px);
-                }
-                100% {
-                    clip-path: inset(0% 0 100% 0);
-                    transform: translate(0);
-                }
-            }
-            @keyframes ctal-ta-guide-border-glow {
-                0%,
-                100% {
-                    border-color: var(--color-accent-cyan, #00d4ff);
-                    box-shadow: 0 0 8px var(--color-accent-cyan, #00d4ff);
-                }
-                50% {
-                    border-color: var(--color-accent-green, #00ff87);
-                    box-shadow: 0 0 16px var(--color-accent-green, #00ff87);
-                }
-            }
-            @keyframes ctal-ta-guide-scan-move {
-                from {
-                    transform: translateY(-100%);
-                }
-                to {
-                    transform: translateY(100vh);
-                }
-            }
-            @keyframes ctal-ta-guide-float {
-                0%,
-                100% {
-                    transform: translateY(0px);
-                }
-                50% {
-                    transform: translateY(-6px);
-                }
-            }
+
 
             /* ─────────────────── NAVBAR ─────────────────── */
             .ctal-ta-guide .navbar {

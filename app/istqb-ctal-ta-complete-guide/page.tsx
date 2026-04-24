@@ -1,5 +1,5 @@
 import React from 'react';
-import '../istqb-ctal-ta-complete-guide.css';
+import './istqb-ctal-ta-complete-guide.css';
 
 export default function IstqbCtalTaCompleteGuide() {
     return (
