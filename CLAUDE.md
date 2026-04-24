@@ -45,6 +45,8 @@ Next.js App Router 構成:
 - `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
 - `app/istqb-ctal-tae-complete-guide.css` — テスト自動化(CTAL-TAE)ガイド固有スタイル
 - `app/istqb-ctal-tae-complete-guide/page.tsx` — テスト自動化(CTAL-TAE)ガイドページ
+- `app/istqb-ctal-ta-complete-guide.css` — テストアナリスト(CTAL-TA)ガイド固有スタイル
+- `app/istqb-ctal-ta-complete-guide/page.tsx` — テストアナリスト(CTAL-TA)ガイドページ
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
