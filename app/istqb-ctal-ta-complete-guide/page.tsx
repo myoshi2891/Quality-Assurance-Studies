@@ -596,27 +596,27 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="KEYWORD-DRIVEN">
-                    <span className="code-comment"># キーワード駆動テストの例</span>
-                    <span className="code-cyan">Keyword</span> <span className="code-amber">Object</span>
-                    <span className="code-green">Data/Action</span>
-                    <span className="code-white">────────────────────────────────────────────────</span>
-                    <span className="code-cyan">OpenBrowser</span> <span className="code-white">-</span>
-                    <span className="code-green">Chrome</span> <span className="code-cyan">Navigate</span>
-                    <span className="code-amber">URL</span>
-                    <span className="code-green">https://app.example.com</span>
-                    <span className="code-cyan">EnterText</span>
-                    <span className="code-amber">EmailField</span>
-                    <span className="code-green">user@test.com</span>
-                    <span className="code-cyan">EnterText</span>
-                    <span className="code-amber">PasswordField</span>
-                    <span className="code-green">Pass123!</span>
-                    <span className="code-cyan">ClickButton</span>
-                    <span className="code-amber">LoginButton</span> <span className="code-white">-</span>
-                    <span className="code-cyan">VerifyText</span>
-                    <span className="code-amber">PageTitle</span>
-                    <span className="code-green">ダッシュボード</span>
-
-                    <span className="code-comment"># 利点: ビジネスアナリストがテストを記述可能</span>
+                    <span className="code-comment"># キーワード駆動テストの例</span>{"\n"}
+                    <span className="code-cyan">Keyword</span> <span className="code-amber">Object</span>{"\n"}
+                    <span className="code-green">Data/Action</span>{"\n"}
+                    <span className="code-white">────────────────────────────────────────────────</span>{"\n"}
+                    <span className="code-cyan">OpenBrowser</span> <span className="code-white">-</span>{"\n"}
+                    <span className="code-green">Chrome</span> <span className="code-cyan">Navigate</span>{"\n"}
+                    <span className="code-amber">URL</span>{"\n"}
+                    <span className="code-green">https://app.example.com</span>{"\n"}
+                    <span className="code-cyan">EnterText</span>{"\n"}
+                    <span className="code-amber">EmailField</span>{"\n"}
+                    <span className="code-green">user@test.com</span>{"\n"}
+                    <span className="code-cyan">EnterText</span>{"\n"}
+                    <span className="code-amber">PasswordField</span>{"\n"}
+                    <span className="code-green">Pass123!</span>{"\n"}
+                    <span className="code-cyan">ClickButton</span>{"\n"}
+                    <span className="code-amber">LoginButton</span> <span className="code-white">-</span>{"\n"}
+                    <span className="code-cyan">VerifyText</span>{"\n"}
+                    <span className="code-amber">PageTitle</span>{"\n"}
+                    <span className="code-green">ダッシュボード</span>{"\n"}
+                    {"\n"}
+                    <span className="code-comment"># 利点: ビジネスアナリストがテストを記述可能</span>{"\n"}
                     <span className="code-comment"># プログラミング知識不要でテスト設計が可能</span>
                 </div>
 
@@ -859,14 +859,14 @@ export default function IstqbCtalTaCompleteGuide() {
 
                 <div className="code-block" data-lang="EP EXAMPLE">
                     <span className="code-comment"># 年齢入力フィールド (0〜120が有効)</span>{"\n"}
-                    <span className="code-red">無効EP(&lt;0)</span>
-                    <span className="code-green">有効EP(0〜120)</span>
+                    <span className="code-red">無効EP(&lt;0)</span>{"\n"}
+                    <span className="code-green">有効EP(0〜120)</span>{"\n"}
                     <span className="code-red">無効EP(&gt;120)</span>{"\n"}
                     <span className="code-white">─────────┬────────────────┬─────────</span>{"\n"}
                     <span className="code-white"> ≤ -1 │ 0 〜 120 │ ≥ 121</span>{"\n"}
                     <span className="code-white">─────────┴────────────────┴─────────</span>{"\n"}
-                    <span className="code-red">代表値:-1</span>
-                    <span className="code-green">代表値:60</span>
+                    <span className="code-red">代表値:-1</span>{"\n"}
+                    <span className="code-green">代表値:60</span>{"\n"}
                     <span className="code-red">代表値:121</span>
                 </div>
 
@@ -919,10 +919,10 @@ export default function IstqbCtalTaCompleteGuide() {
                     <div className="compare-box good">
                         <div className="compare-label">✅ 2値BVA（2-value BVA）</div>
                         <div className="code-block" data-lang="2-VALUE BVA" style={{marginTop: "0.5rem"}}>
-                            <span className="code-comment"># パスワード文字数（8〜20文字）</span>
+                            <span className="code-comment"># パスワード文字数（8〜20文字）</span>{"\n"}
                             <span className="code-white">テスト値: </span
-                            ><span className="code-red">7</span> <span className="code-green">8</span>
-                            <span className="code-green">20</span> <span className="code-red">21</span>
+                            ><span className="code-red">7</span> <span className="code-green">8</span>{"\n"}
+                            <span className="code-green">20</span> <span className="code-red">21</span>{"\n"}
                             <span className="code-comment"># OFF ON ON OFF — 4値でカバー</span>
                         </div>
                     </div>
@@ -931,11 +931,11 @@ export default function IstqbCtalTaCompleteGuide() {
                             ✅ 3値BVA（3-value BVA）
                         </div>
                         <div className="code-block" data-lang="3-VALUE BVA" style={{marginTop: "0.5rem"}}>
-                            <span className="code-comment"># パスワード文字数（8〜20文字）</span>
+                            <span className="code-comment"># パスワード文字数（8〜20文字）</span>{"\n"}
                             <span className="code-white">テスト値: </span
-                            ><span className="code-red">7</span> <span className="code-green">8</span>
-                            <span className="code-cyan">9</span> <span className="code-cyan">19</span>
-                            <span className="code-green">20</span> <span className="code-red">21</span>
+                            ><span className="code-red">7</span> <span className="code-green">8</span>{"\n"}
+                            <span className="code-cyan">9</span> <span className="code-cyan">19</span>{"\n"}
+                            <span className="code-green">20</span> <span className="code-red">21</span>{"\n"}
                             <span className="code-comment"># OUT ON IN IN ON OUT — 6値</span>
                         </div>
                     </div>
@@ -1002,17 +1002,17 @@ export default function IstqbCtalTaCompleteGuide() {
                         ># OS(3)×Browser(3)×Lang(2) = 18通り → ペアワイズで6件に削減！</span
                     >{"\n"}
                     <span className="code-white">No OS Browser Lang</span>{"\n"}
-                    <span className="code-green">TC1 Windows Chrome EN</span>
+                    <span className="code-green">TC1 Windows Chrome EN</span>{"\n"}
                     <span className="code-comment"># Win-Chrome, Win-EN, Chrome-EN</span>{"\n"}
-                    <span className="code-green">TC2 Windows Firefox JP</span>
+                    <span className="code-green">TC2 Windows Firefox JP</span>{"\n"}
                     <span className="code-comment"># Win-Firefox, Win-JP, Firefox-JP</span>{"\n"}
-                    <span className="code-cyan">TC3 Mac Safari EN</span>
+                    <span className="code-cyan">TC3 Mac Safari EN</span>{"\n"}
                     <span className="code-comment"># Mac-Safari, Mac-EN, Safari-EN</span>{"\n"}
-                    <span className="code-cyan">TC4 Mac Chrome JP</span>
+                    <span className="code-cyan">TC4 Mac Chrome JP</span>{"\n"}
                     <span className="code-comment"># Mac-Chrome, Mac-JP, Chrome-JP</span>{"\n"}
-                    <span className="code-amber">TC5 Linux Firefox EN</span>
+                    <span className="code-amber">TC5 Linux Firefox EN</span>{"\n"}
                     <span className="code-comment"># Linux-Firefox, Linux-EN</span>{"\n"}
-                    <span className="code-amber">TC6 Linux Safari JP</span>
+                    <span className="code-amber">TC6 Linux Safari JP</span>{"\n"}
                     <span className="code-comment"># Linux-Safari, Linux-JP, Safari-JP</span>{"\n"}
                     <span className="code-comment"
                         ># 全ペア（OS-Browser, OS-Lang, Browser-Lang）を6件でカバー！</span
@@ -1089,26 +1089,26 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 <div className="code-block" data-lang="GHERKIN / BDD">
-                    <span className="code-keyword">Scenario:</span>
-                    <span className="code-green">ユーザーの作成（Create）→ 読み取り確認（Read）</span>
-                    <span className="code-cyan">Given</span>
-                    <span className="code-white">管理者がユーザー管理画面を開いている</span>
-                    <span className="code-cyan">When</span>
+                    <span className="code-keyword">Scenario:</span>{"\n"}
+                    <span className="code-green">ユーザーの作成（Create）→ 読み取り確認（Read）</span>{"\n"}
+                    <span className="code-cyan">Given</span>{"\n"}
+                    <span className="code-white">管理者がユーザー管理画面を開いている</span>{"\n"}
+                    <span className="code-cyan">When</span>{"\n"}
                     <span className="code-white"
                         >名前 "田中太郎", メール "tanaka@test.com" を入力して保存</span
-                    >
-                    <span className="code-cyan">Then</span>
+                    >{"\n"}
+                    <span className="code-cyan">Then</span>{"\n"}
                     <span className="code-white"
                         >"田中太郎" がユーザー一覧に表示される（Read確認）</span
-                    >
-
-                    <span className="code-keyword">Scenario:</span>
-                    <span className="code-red">ユーザーの削除（Delete）→ 不在確認（Read）</span>
-                    <span className="code-cyan">Given</span>
-                    <span className="code-white">"田中太郎" がシステムに存在する</span>
-                    <span className="code-cyan">When</span>
-                    <span className="code-white">"田中太郎" を削除する</span>
-                    <span className="code-cyan">Then</span>
+                    >{"\n"}
+                    {"\n"}
+                    <span className="code-keyword">Scenario:</span>{"\n"}
+                    <span className="code-red">ユーザーの削除（Delete）→ 不在確認（Read）</span>{"\n"}
+                    <span className="code-cyan">Given</span>{"\n"}
+                    <span className="code-white">"田中太郎" がシステムに存在する</span>{"\n"}
+                    <span className="code-cyan">When</span>{"\n"}
+                    <span className="code-white">"田中太郎" を削除する</span>{"\n"}
+                    <span className="code-cyan">Then</span>{"\n"}
                     <span className="code-white">"田中太郎" がユーザー一覧に表示されない</span>
                 </div>
 
@@ -1123,15 +1123,15 @@ export default function IstqbCtalTaCompleteGuide() {
 
                 <div className="code-block" data-lang="STATE DIAGRAM">
                     <span className="code-comment"># 注文システムの状態遷移</span>{"\n"}
-                    <span className="code-green">[注文中]</span>
-                    <span className="code-white">─── 支払い完了 ──→</span>
-                    <span className="code-cyan">[決済済み]</span>
-                    <span className="code-white">─── 発送 ──→</span>
-                    <span className="code-amber">[配送中]</span>
-                    <span className="code-white">─── 到着確認 ──→</span>
+                    <span className="code-green">[注文中]</span>{"\n"}
+                    <span className="code-white">─── 支払い完了 ──→</span>{"\n"}
+                    <span className="code-cyan">[決済済み]</span>{"\n"}
+                    <span className="code-white">─── 発送 ──→</span>{"\n"}
+                    <span className="code-amber">[配送中]</span>{"\n"}
+                    <span className="code-white">─── 到着確認 ──→</span>{"\n"}
                     <span className="code-purple">[完了]</span>{"\n"}
                     <span className="code-white"> │</span>{"\n"}
-                    <span className="code-white"> └── キャンセル ──→</span>
+                    <span className="code-white"> └── キャンセル ──→</span>{"\n"}
                     <span className="code-red">[キャンセル]</span>
                 </div>
 
@@ -1182,14 +1182,14 @@ export default function IstqbCtalTaCompleteGuide() {
                     >実際のユーザーのワークフロー（E2Eシナリオ）をテストする技法。ユーザーストーリーやユースケースから導出する。
                 </p>
                 <div className="code-block" data-lang="E2E SCENARIO">
-                    <span className="code-comment"># ECサイト購入シナリオ（E2Eフロー）</span>
+                    <span className="code-comment"># ECサイト購入シナリオ（E2Eフロー）</span>{"\n"}
                     <span className="code-white"
                         >1. 商品を検索 → 2. 詳細ページ確認 → 3. カート追加(数量:2)</span
-                    >
+                    >{"\n"}
                     <span className="code-white"
                         >4. カート確認 → 5. チェックアウト → 6. 配送先入力</span
-                    >
-                    <span className="code-white">7. 支払い入力 → 8. 注文確定</span>
+                    >{"\n"}
+                    <span className="code-white">7. 支払い入力 → 8. 注文確定</span>{"\n"}
                     <span className="code-green">9. 注文確認画面表示 ✓ 10. 確認メール受信 ✓</span>
                 </div>
 
@@ -1267,30 +1267,30 @@ export default function IstqbCtalTaCompleteGuide() {
                 <div className="code-block" data-lang="METAMORPHIC TESTING">
                     <span className="code-comment"
                         ># MR1: 検索 — クエリ拡張で結果は減らないはず（単調性）</span
-                    >
-                    <span className="code-keyword">assert</span>
-                    <span className="code-white">len(search("Python tutorial programming")) &gt;=</span>
-                    <span className="code-white">len(search("Python tutorial")) * 0.9</span>
-
+                    >{"\n"}
+                    <span className="code-keyword">assert</span>{"\n"}
+                    <span className="code-white">len(search("Python tutorial programming")) &gt;=</span>{"\n"}
+                    <span className="code-white">len(search("Python tutorial")) * 0.9</span>{"\n"}
+                    {"\n"}
                     <span className="code-comment"
                         ># MR2: 経路探索 — 往路と復路の距離は等しいはず（対称性）</span
-                    >
-                    <span className="code-keyword">assert</span>
-                    <span className="code-white">abs(shortest_path("Tokyo","Osaka") -</span>
-                    <span className="code-white">shortest_path("Osaka","Tokyo")) &lt; 0.01</span>
-
+                    >{"\n"}
+                    <span className="code-keyword">assert</span>{"\n"}
+                    <span className="code-white">abs(shortest_path("Tokyo","Osaka") -</span>{"\n"}
+                    <span className="code-white">shortest_path("Osaka","Tokyo")) &lt; 0.01</span>{"\n"}
+                    {"\n"}
                     <span className="code-comment"
                         ># MR3: 機械学習 — 訓練データ増加で精度は下がらないはず</span
-                    >
-                    <span className="code-keyword">assert</span>
+                    >{"\n"}
+                    <span className="code-keyword">assert</span>{"\n"}
                     <span className="code-white"
                         >accuracy(samples=2000) &gt;= accuracy(samples=1000) - 0.05</span
-                    >
-
+                    >{"\n"}
+                    {"\n"}
                     <span className="code-comment"
                         ># MR4: ソート — 同じデータは常に同じ結果（べき等性）</span
-                    >
-                    <span className="code-keyword">assert</span>
+                    >{"\n"}
+                    <span className="code-keyword">assert</span>{"\n"}
                     <span className="code-white">sort([3,1,4,1,5]) == sort([3,1,4,1,5])</span>
                 </div>
 
@@ -1345,9 +1345,9 @@ export default function IstqbCtalTaCompleteGuide() {
                         時間: 60分 | ツール: Chrome DevTools | データ: 特殊文字セット</span
                     >{"\n\n"}
 
-                    <span className="code-cyan">時間配分:</span>
-                    <span className="code-amber"> 設定: 5分</span>
-                    <span className="code-green">実行: 45分</span>
+                    <span className="code-cyan">時間配分:</span>{"\n"}
+                    <span className="code-amber"> 設定: 5分</span>{"\n"}
+                    <span className="code-green">実行: 45分</span>{"\n"}
                     <span className="code-purple">報告: 10分</span>
                 </div>
 
@@ -2018,24 +2018,24 @@ export default function IstqbCtalTaCompleteGuide() {
 
                 <div className="subsection-title">5-Why分析（根本原因分析）</div>
                 <div className="code-block" data-lang="ROOT CAUSE ANALYSIS">
-                    <span className="code-red">問題: ユーザーログインが時々失敗する</span>
-                    <span className="code-amber">Why1: セッションタイムアウトが早すぎる</span>
-                    <span className="code-white">↓</span>
-                    <span className="code-amber">Why2: タイムアウト値が短く設定されている（60秒）</span>
-                    <span className="code-white">↓</span>
+                    <span className="code-red">問題: ユーザーログインが時々失敗する</span>{"\n"}
+                    <span className="code-amber">Why1: セッションタイムアウトが早すぎる</span>{"\n"}
+                    <span className="code-white">↓</span>{"\n"}
+                    <span className="code-amber">Why2: タイムアウト値が短く設定されている（60秒）</span>{"\n"}
+                    <span className="code-white">↓</span>{"\n"}
                     <span className="code-amber"
                         >Why3: デフォルト値が変更されずにそのまま使われていた</span
-                    >
-                    <span className="code-white">↓</span>
-                    <span className="code-amber">Why4: 設定値を確認するプロセスがなかった</span>
-                    <span className="code-white">↓</span>
+                    >{"\n"}
+                    <span className="code-white">↓</span>{"\n"}
+                    <span className="code-amber">Why4: 設定値を確認するプロセスがなかった</span>{"\n"}
+                    <span className="code-white">↓</span>{"\n"}
                     <span className="code-amber"
                         >Why5: リリース前の設定確認チェックリストが存在しなかった</span
-                    >
-                    <span className="code-white">↓</span>
+                    >{"\n"}
+                    <span className="code-white">↓</span>{"\n"}
                     <span className="code-green"
                         >根本原因: リリースプロセスに設定確認チェックリストがない</span
-                    >
+                    >{"\n"}
                     <span className="code-green"
                         >対策: 設定確認チェックリストをリリースプロセスに組み込む → 再発防止！</span
                     >
@@ -2388,29 +2388,29 @@ export default function IstqbCtalTaCompleteGuide() {
                     試験直前チェックリスト
                 </div>
                 <div className="code-block" data-lang="FINAL CHECKLIST">
-                    <span className="code-cyan">Ch.1:</span>
+                    <span className="code-cyan">Ch.1:</span>{"\n"}
                     <span className="code-white"
                         >□ テスト分析/設計/実装/実行の違い □ High/Low-Level TC □
                         テストオラクルの種類</span
-                    >
-                    <span className="code-cyan">Ch.2:</span>
+                    >{"\n"}
+                    <span className="code-cyan">Ch.2:</span>{"\n"}
                     <span className="code-white"
                         >□ 製品リスク vs プロジェクトリスク □ リスク=確率×影響度 □
                         優先順位付け</span
-                    >
-                    <span className="code-cyan">Ch.3:</span>
+                    >{"\n"}
+                    <span className="code-cyan">Ch.3:</span>{"\n"}
                     <span className="code-white"
                         >□ EP/BVA(ON/OFF/IN/OUT点) □ 2値/3値BVA □ ペアワイズ □ 2ⁿルール</span
-                    >
+                    >{"\n"}
                     <span className="code-white"
                         >□ 状態遷移(0/1/Nスイッチ) □ メタモルフィック(オラクル問題) □ CRUD</span
-                    >
-                    <span className="code-white">□ テストチャーター構成 □ リスクと技法の対応</span>
-                    <span className="code-cyan">Ch.4:</span>
+                    >{"\n"}
+                    <span className="code-white">□ テストチャーター構成 □ リスクと技法の対応</span>{"\n"}
+                    <span className="code-cyan">Ch.4:</span>{"\n"}
                     <span className="code-white"
                         >□ ISO 25010 主要特性5つ以上 □ SUS≥68 □ 柔軟性テスト3要素(v4.0新出)</span
-                    >
-                    <span className="code-cyan">Ch.5:</span>
+                    >{"\n"}
+                    <span className="code-cyan">Ch.5:</span>{"\n"}
                     <span className="code-white"
                         >□ 欠陥修正コスト増加の法則 □ TDD/BDD/レビュー □ 5-Why分析 □ ODC分類</span
                     >
