@@ -45,6 +45,7 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable}`}>
       <body>
+        <Header />
         <div>{children}</div>
       </body>
     </html>
