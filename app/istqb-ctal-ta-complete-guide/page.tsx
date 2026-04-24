@@ -3,7 +3,7 @@ import '../istqb-ctal-ta-complete-guide.css';
 
 export default function IstqbCtalTaCompleteGuide() {
     return (
-        <>
+        <div className="ctal-ta-guide">
             
             {/* ══════════════════════════════════════════════════
      CHAPTER 0: 概要
@@ -2712,6 +2712,6 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
             </footer>
         
-        </>
+        </div>
     );
 }

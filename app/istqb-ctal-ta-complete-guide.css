@@ -1,5 +1,5 @@
 /* scanline overlay */
-            body::before {
+            .ctal-ta-guide::before {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -15,7 +15,7 @@
             }
 
             /* grid texture */
-            body::after {
+            .ctal-ta-guide::after {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -404,7 +404,7 @@
                 color: var(--color-accent-orange, #ffb300);
                 margin: 1.5rem 0 0.6rem;
             }
-            p {
+            .ctal-ta-guide p {
                 margin-bottom: 1rem;
                 color: var(--color-text-secondary, #9cb7d6);
                 font-size: 1rem;
@@ -1204,23 +1204,24 @@
                 --accent-color: var(--color-accent-red, #ff6b6b);
             }
 
-            ul,
-            ol {
+            .ctal-ta-guide ul,
+
+            .ctal-ta-guide ol {
                 padding-left: 1.4rem;
                 color: var(--color-text-secondary, #9cb7d6);
                 font-size: 1rem;
                 margin-bottom: 1rem;
             }
-            li {
+            .ctal-ta-guide li {
                 margin-bottom: 0.35rem;
             }
-            a {
+            .ctal-ta-guide a {
                 color: var(--color-accent-cyan, #00d4ff);
             }
-            strong {
+            .ctal-ta-guide strong {
                 color: var(--color-text-primary, #e8f4fd);
             }
-            code {
+            .ctal-ta-guide code {
                 font-family: var(--font-mono);
                 font-size: 1em;
                 background: rgba(0, 212, 255, 0.08);
