@@ -21,8 +21,8 @@
                 --neon-red: #ff4560;
                 --neon-purple: #b36bff;
                 --text-primary: #e8f4fd;
-                --text-secondary: #a9c5e6;
-                --text-muted: #9cb8e3;
+                --text-secondary: #9cb7d6;
+                --text-muted: #85a9df;
                 --border: #1a2e4a;
                 --border-glow: #1e3a5f;
                 --ch1-color: #00ff87;
@@ -48,7 +48,7 @@
 
             html {
                 scroll-behavior: smooth;
-                font-size: 1rem;
+                font-size: 16px;
             }
 
             body {
@@ -606,6 +606,11 @@
                 line-height: 1.65;
                 overflow-x: auto;
                 position: relative;
+            }
+            .code-block span {
+                display: block;
+                white-space: pre;
+                min-height: 1.3em;
             }
             .code-block::before {
                 content: attr(data-lang);
@@ -1283,7 +1288,7 @@
             }
             code {
                 font-family: var(--font-mono);
-                font-size: 1rem;
+                font-size: 1em;
                 background: rgba(0, 212, 255, 0.08);
                 border: 1px solid rgba(0, 212, 255, 0.15);
                 padding: 0.1em 0.35em;
