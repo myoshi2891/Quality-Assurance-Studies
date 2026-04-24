@@ -495,7 +495,14 @@
                 line-height: 1.65;
                 overflow-x: auto;
                 position: relative;
-                white-space: pre-wrap;
+            }
+            .ctal-ta-guide .code-block .code-line {
+                display: block;
+                white-space: pre;
+                min-height: 1.3em;
+            }
+            .ctal-ta-guide .code-block span {
+                display: inline;
             }
             .ctal-ta-guide .code-block::before {
                 content: attr(data-lang);
