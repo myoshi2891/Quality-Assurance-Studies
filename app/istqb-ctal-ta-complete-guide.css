@@ -28,14 +28,14 @@
             }
 
             /* ─────────────────── SCROLLBAR ─────────────────── */
-            ::-webkit-scrollbar {
+            .ctal-ta-guide ::-webkit-scrollbar {
                 width: 6px;
                 height: 6px;
             }
-            ::-webkit-scrollbar-track {
+            .ctal-ta-guide ::-webkit-scrollbar-track {
                 background: var(--color-bg-primary, #030712);
             }
-            ::-webkit-scrollbar-thumb {
+            .ctal-ta-guide ::-webkit-scrollbar-thumb {
                 background: var(--color-accent-cyan, #00d4ff);
                 border-radius: 3px;
             }
