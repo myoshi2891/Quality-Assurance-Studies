@@ -1,3 +1,4 @@
+import React from 'react';
 import '../istqb-ctal-ta-complete-guide.css';
 
 export default function IstqbCtalTaCompleteGuide() {
@@ -65,7 +66,7 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 {/* 資格ロードマップ */}
-                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"}}>
+                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"} as React.CSSProperties}>
                     資格ロードマップ
                 </div>
                 <div className="pyramid">
@@ -86,7 +87,7 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 {/* TAとTTAの違い */}
-                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"}}>
+                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"} as React.CSSProperties}>
                     Test Analyst vs Technical Test Analyst
                 </div>
                 <div className="compare-grid">
@@ -115,54 +116,54 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 {/* 試験概要 */}
-                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"}}>
+                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"} as React.CSSProperties}>
                     試験スペック（v4.0 公式）
                 </div>
                 <div className="metric-grid">
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-cyan)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="metric-value">45</div>
                         <div className="metric-label">問題数</div>
                     </div>
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-green)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="metric-value">78</div>
                         <div className="metric-label">満点</div>
                     </div>
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-amber)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-amber)"} as React.CSSProperties}>
                         <div className="metric-value">51</div>
                         <div className="metric-label">合格点</div>
                     </div>
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-purple)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-purple)"} as React.CSSProperties}>
                         <div className="metric-value">120</div>
                         <div className="metric-label">試験時間(分)</div>
                     </div>
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-red)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-red)"} as React.CSSProperties}>
                         <div className="metric-value">+25%</div>
                         <div className="metric-label">英語非母語者</div>
                     </div>
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-cyan)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="metric-value">65%</div>
                         <div className="metric-label">合格ライン</div>
                     </div>
                 </div>
 
                 {/* K-Level */}
-                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"}}>
+                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"} as React.CSSProperties}>
                     認知レベル（K-Level）
                 </div>
                 <div className="arch-layers">
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="arch-layer-label">K1 – Remember</div>
                         <div className="arch-layer-desc">
                             用語・定義の記憶。「〇〇とは何か」を答える問題。試験では少数。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-amber)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-amber)"} as React.CSSProperties}>
                         <div className="arch-layer-label">K2 – Understand</div>
                         <div className="arch-layer-desc">
                             概念の理解・分類・比較。「〇〇と△△の違いを説明せよ」タイプ。中程度出題。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="arch-layer-label">K3 – Apply</div>
                         <div className="arch-layer-desc">
                             実際のシナリオへの技法適用。「この要件にBVAを適用するとテスト値は何か」タイプ。<strong
@@ -182,115 +183,115 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 {/* シラバス配分 */}
-                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"}}>
+                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"} as React.CSSProperties}>
                     シラバス配分（学習時間）
                 </div>
                 <div className="card" style={{padding: "1.5rem 2rem"}}>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Ch.1 テストプロセス</span>
-                            <span className="progress-val" style={{ "--BarColor": "var(--ch1-color)"}}
+                            <span className="progress-val" style={{ "--BarColor": "var(--ch1-color)"} as React.CSSProperties}
                                 >225分 (18.5%)</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "18.5%", "--BarColor": "var(--ch1-color)"}}
+                                style={{ "--BarWidth": "18.5%", "--BarColor": "var(--ch1-color)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Ch.2 リスクベーステスト</span>
-                            <span className="progress-val" style={{ "--BarColor": "var(--ch2-color)"}}
+                            <span className="progress-val" style={{ "--BarColor": "var(--ch2-color)"} as React.CSSProperties}
                                 >90分 (7.4%)</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "7.4%", "--BarColor": "var(--ch2-color)"}}
+                                style={{ "--BarWidth": "7.4%", "--BarColor": "var(--ch2-color)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Ch.3 テスト分析・設計 ⭐ 最重要</span>
-                            <span className="progress-val" style={{ "--BarColor": "var(--ch3-color)"}}
+                            <span className="progress-val" style={{ "--BarColor": "var(--ch3-color)"} as React.CSSProperties}
                                 >615分 (50.6%)</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "50.6%", "--BarColor": "var(--ch3-color)"}}
+                                style={{ "--BarWidth": "50.6%", "--BarColor": "var(--ch3-color)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Ch.4 品質特性のテスト</span>
-                            <span className="progress-val" style={{ "--BarColor": "var(--ch4-color)"}}
+                            <span className="progress-val" style={{ "--BarColor": "var(--ch4-color)"} as React.CSSProperties}
                                 >60分 (4.9%)</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "4.9%", "--BarColor": "var(--ch4-color)"}}
+                                style={{ "--BarWidth": "4.9%", "--BarColor": "var(--ch4-color)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Ch.5 ソフトウェア欠陥防止</span>
-                            <span className="progress-val" style={{ "--BarColor": "var(--ch5-color)"}}
+                            <span className="progress-val" style={{ "--BarColor": "var(--ch5-color)"} as React.CSSProperties}
                                 >225分 (18.5%)</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "18.5%", "--BarColor": "var(--ch5-color)"}}
+                                style={{ "--BarWidth": "18.5%", "--BarColor": "var(--ch5-color)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                 </div>
 
                 {/* TOC */}
-                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"}}>
+                <div className="section-title ch0" style={{ "--AccentColor": "var(--neon-cyan)"} as React.CSSProperties}>
                     目次ナビゲーション
                 </div>
                 <div className="toc-grid">
-                    <a href="#ch1" className="toc-card" style={{ "--TocColor": "var(--ch1-color)"}}>
+                    <a href="#ch1" className="toc-card" style={{ "--TocColor": "var(--ch1-color)"} as React.CSSProperties}>
                         <div className="toc-num">CHAPTER 1</div>
                         <div className="toc-title">テストプロセスにおけるテストアナリストのタスク</div>
                         <div className="toc-mins">⏱ 225分</div>
                     </a>
-                    <a href="#ch2" className="toc-card" style={{ "--TocColor": "var(--ch2-color)"}}>
+                    <a href="#ch2" className="toc-card" style={{ "--TocColor": "var(--ch2-color)"} as React.CSSProperties}>
                         <div className="toc-num">CHAPTER 2</div>
                         <div className="toc-title">
                             リスクベーステストにおけるテストアナリストのタスク
                         </div>
                         <div className="toc-mins">⏱ 90分</div>
                     </a>
-                    <a href="#ch3" className="toc-card" style={{ "--TocColor": "var(--ch3-color)"}}>
+                    <a href="#ch3" className="toc-card" style={{ "--TocColor": "var(--ch3-color)"} as React.CSSProperties}>
                         <div className="toc-num">CHAPTER 3 ⭐</div>
                         <div className="toc-title">テスト分析とテスト設計（最重要・全体の50%超）</div>
                         <div className="toc-mins">⏱ 615分</div>
                     </a>
-                    <a href="#ch4" className="toc-card" style={{ "--TocColor": "var(--ch4-color)"}}>
+                    <a href="#ch4" className="toc-card" style={{ "--TocColor": "var(--ch4-color)"} as React.CSSProperties}>
                         <div className="toc-num">CHAPTER 4</div>
                         <div className="toc-title">品質特性のテスト</div>
                         <div className="toc-mins">⏱ 60分</div>
                     </a>
-                    <a href="#ch5" className="toc-card" style={{ "--TocColor": "var(--ch5-color)"}}>
+                    <a href="#ch5" className="toc-card" style={{ "--TocColor": "var(--ch5-color)"} as React.CSSProperties}>
                         <div className="toc-num">CHAPTER 5</div>
                         <div className="toc-title">ソフトウェア欠陥防止</div>
                         <div className="toc-mins">⏱ 225分</div>
                     </a>
-                    <a href="#exam" className="toc-card" style={{ "--TocColor": "var(--neon-amber)"}}>
+                    <a href="#exam" className="toc-card" style={{ "--TocColor": "var(--neon-amber)"} as React.CSSProperties}>
                         <div className="toc-num">APPENDIX</div>
                         <div className="toc-title">試験対策・サンプル問題・参考文献</div>
                         <div className="toc-mins">📝 練習問題 5問収録</div>
@@ -330,20 +331,20 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="arch-layers">
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--ch1-color)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--ch1-color)"} as React.CSSProperties}>
                         <div className="arch-layer-label">ウォーターフォール</div>
                         <div className="arch-layer-desc">
                             各フェーズ（要件定義→設計→実装→テスト→保守）で順次テスト活動を実施。テスト計画は早期に策定し、各フェーズで承認を得る。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="arch-layer-label">V字モデル</div>
                         <div className="arch-layer-desc">
                             左辺（開発フェーズ）の各活動に対応する右辺（テストフェーズ）を準備。要求定義
                             ↔ 受入テスト、設計 ↔ システムテスト など対応関係が明確。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-amber)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-amber)"} as React.CSSProperties}>
                         <div className="arch-layer-label">アジャイル/スクラム</div>
                         <div className="arch-layer-desc">
                             各スプリント（通常2週間）内でテスト分析・設計・実装・実行を繰り返す。継続的テストが基本。TAはスプリント計画・レビュー・レトロスペクティブにも参加。
@@ -417,19 +418,19 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="arch-layers">
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-amber)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-amber)"} as React.CSSProperties}>
                         <div className="arch-layer-label">入力</div>
                         <div className="arch-layer-desc">
                             テスト条件（Test Conditions）・リスク分析結果・テストベース
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="arch-layer-label">処理</div>
                         <div className="arch-layer-desc">
                             EP/BVA/デシジョンテーブル等のテスト技法を適用してテストケースを作成
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="arch-layer-label">出力</div>
                         <div className="arch-layer-desc">
                             High-Level テストケース（概念的なテスト意図と期待結果）
@@ -717,25 +718,25 @@ export default function IstqbCtalTaCompleteGuide() {
                 {/* リスク識別手法 */}
                 <div className="subsection-title">リスク識別の手法</div>
                 <div className="arch-layers">
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--ch2-color)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--ch2-color)"} as React.CSSProperties}>
                         <div className="arch-layer-label">ブレインストーミング</div>
                         <div className="arch-layer-desc">
                             全ステークホルダーで参加。「何が失敗し得るか」を自由に発想。ファシリテーターがリストを収集・整理する。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="arch-layer-label">過去の欠陥分析</div>
                         <div className="arch-layer-desc">
                             過去プロジェクトの欠陥データベースを参照し、頻出欠陥パターンをリスクとして登録する。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="arch-layer-label">チェックリスト</div>
                         <div className="arch-layer-desc">
                             業界標準のリスクチェックリストを活用。セキュリティ・パフォーマンス・可用性等の観点で網羅的に確認。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-purple)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-purple)"} as React.CSSProperties}>
                         <div className="arch-layer-label">ステークホルダーインタビュー</div>
                         <div className="arch-layer-desc">
                             ビジネスオーナー・開発者・運用担当者に直接インタビュー。各視点から重要リスクを収集。
@@ -805,28 +806,28 @@ export default function IstqbCtalTaCompleteGuide() {
 
                 <div className="section-title ch3">テスト技法の全体像</div>
                 <div className="arch-layers">
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="arch-layer-label">データベース技法</div>
                         <div className="arch-layer-desc">
                             ドメインテスト（EP+BVA）・組み合わせテスト・ランダムテスト —
                             入力「値」に着目
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="arch-layer-label">振る舞いベース技法</div>
                         <div className="arch-layer-desc">
                             CRUDテスト・状態遷移テスト・シナリオベーステスト —
                             システムの「振る舞い」に着目
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-amber)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-amber)"} as React.CSSProperties}>
                         <div className="arch-layer-label">ルールベース技法</div>
                         <div className="arch-layer-desc">
                             デシジョンテーブルテスト・メタモルフィックテスト —
                             ビジネスルールと関係性に着目
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-purple)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-purple)"} as React.CSSProperties}>
                         <div className="arch-layer-label">経験ベース技法</div>
                         <div className="arch-layer-desc">
                             テストチャーター・チェックリストベース・クラウドテスト —
@@ -1294,19 +1295,19 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 <div className="arch-layers">
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-purple)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-purple)"} as React.CSSProperties}>
                         <div className="arch-layer-label">AI/MLシステム</div>
                         <div className="arch-layer-desc">
                             訓練データ追加・ノイズ除去等の変換に対する出力の単調性・頑健性を検証
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="arch-layer-label">科学計算</div>
                         <div className="arch-layer-desc">
                             スケーリング・対称性・線形性等の物理法則が数値計算でも成立するか検証
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="arch-layer-label">コンパイラ</div>
                         <div className="arch-layer-desc">
                             等価なコードの最適化前後で実行結果が同一であることを検証
@@ -1553,19 +1554,19 @@ export default function IstqbCtalTaCompleteGuide() {
                     4.1 機能テスト（Functional Testing） <span className="badge badge-k2">K2</span>
                 </div>
                 <div className="arch-layers">
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--ch4-color)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--ch4-color)"} as React.CSSProperties}>
                         <div className="arch-layer-label">機能的完全性</div>
                         <div className="arch-layer-desc">
                             指定された全機能がカバーされているか。要求仕様の全機能が実装されている。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="arch-layer-label">機能的正確性</div>
                         <div className="arch-layer-desc">
                             機能が仕様通りに正しく動作するか。計算結果・データ変換等が正確か。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="arch-layer-label">機能的適切性</div>
                         <div className="arch-layer-desc">
                             機能がユーザーの目的・タスクに適しているか。余分な機能が目的達成を妨げていないか。
@@ -1579,7 +1580,7 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
                 <p>ISO 9241-11 に基づくユーザビリティの3要素。</p>
                 <div className="metric-grid">
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-green)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="metric-value" style={{fontSize: "1.2rem"}}>有効性</div>
                         <div className="metric-label">Effectiveness</div>
                         <div
@@ -1588,7 +1589,7 @@ export default function IstqbCtalTaCompleteGuide() {
                             タスク完了率・エラー数で測定
                         </div>
                     </div>
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-cyan)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="metric-value" style={{fontSize: "1.2rem"}}>効率性</div>
                         <div className="metric-label">Efficiency</div>
                         <div
@@ -1597,7 +1598,7 @@ export default function IstqbCtalTaCompleteGuide() {
                             完了時間・クリック数で測定
                         </div>
                     </div>
-                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-amber)"}}>
+                    <div className="metric-card" style={{ "--MetricColor": "var(--neon-amber)"} as React.CSSProperties}>
                         <div className="metric-value" style={{fontSize: "1.2rem"}}>満足度</div>
                         <div className="metric-label">Satisfaction</div>
                         <div
@@ -1613,66 +1614,66 @@ export default function IstqbCtalTaCompleteGuide() {
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Excellent (90〜100)</span
-                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-green)"}}
+                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-green)"} as React.CSSProperties}
                                 >最優秀</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "100%", "--BarColor": "var(--neon-green)"}}
+                                style={{ "--BarWidth": "100%", "--BarColor": "var(--neon-green)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Good (80〜89)</span
-                            ><span className="progress-val" style={{ "--BarColor": "#7fc97f"}}>良好</span>
+                            ><span className="progress-val" style={{ "--BarColor": "#7fc97f"} as React.CSSProperties}>良好</span>
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "89%", "--BarColor": "#7fc97f"}}
+                                style={{ "--BarWidth": "89%", "--BarColor": "#7fc97f"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">OK — ≥68 目標ライン (68〜79)</span
-                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-amber)"}}
+                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-amber)"} as React.CSSProperties}
                                 >許容範囲</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "79%", "--BarColor": "var(--neon-amber)"}}
+                                style={{ "--BarWidth": "79%", "--BarColor": "var(--neon-amber)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Poor (60〜67)</span
-                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-red)"}}
+                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-red)"} as React.CSSProperties}
                                 >要改善</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "67%", "--BarColor": "var(--neon-red)"}}
+                                style={{ "--BarWidth": "67%", "--BarColor": "var(--neon-red)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">Awful (&lt; 60)</span
-                            ><span className="progress-val" style={{ "--BarColor": "#cc0000"}}>深刻</span>
+                            ><span className="progress-val" style={{ "--BarColor": "#cc0000"} as React.CSSProperties}>深刻</span>
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "50%", "--BarColor": "#cc0000"}}
+                                style={{ "--BarWidth": "50%", "--BarColor": "#cc0000"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
@@ -1691,19 +1692,19 @@ export default function IstqbCtalTaCompleteGuide() {
                     </p>
                 </div>
                 <div className="arch-layers">
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--ch4-color)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--ch4-color)"} as React.CSSProperties}>
                         <div className="arch-layer-label">適応性テスト</div>
                         <div className="arch-layer-desc">
                             異なるOS・解像度・言語設定・ネットワーク帯域への適応をテスト。クロスプラットフォーム動作確認。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-cyan)"} as React.CSSProperties}>
                         <div className="arch-layer-label">インストール可能性テスト</div>
                         <div className="arch-layer-desc">
                             インストール・アップグレード・アンインストール・ロールバックが正常動作するか確認。残留ファイルの有無もチェック。
                         </div>
                     </div>
-                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"}}>
+                    <div className="arch-layer" style={{ "--LayerColor": "var(--neon-green)"} as React.CSSProperties}>
                         <div className="arch-layer-label">スケーラビリティテスト</div>
                         <div className="arch-layer-desc">
                             ユーザー数・データ量増加に対してシステムが適切にスケールするか確認。
@@ -1780,70 +1781,70 @@ export default function IstqbCtalTaCompleteGuide() {
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">要求定義フェーズで発見</span
-                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-green)"}}
+                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-green)"} as React.CSSProperties}
                                 >コスト: 1倍</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "5%", "--BarColor": "var(--neon-green)"}}
+                                style={{ "--BarWidth": "5%", "--BarColor": "var(--neon-green)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">設計フェーズで発見</span
-                            ><span className="progress-val" style={{ "--BarColor": "#7fc97f"}}
+                            ><span className="progress-val" style={{ "--BarColor": "#7fc97f"} as React.CSSProperties}
                                 >コスト: 5倍</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "15%", "--BarColor": "#7fc97f"}}
+                                style={{ "--BarWidth": "15%", "--BarColor": "#7fc97f"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">実装フェーズで発見</span
-                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-amber)"}}
+                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-amber)"} as React.CSSProperties}
                                 >コスト: 10倍</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "30%", "--BarColor": "var(--neon-amber)"}}
+                                style={{ "--BarWidth": "30%", "--BarColor": "var(--neon-amber)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">テストフェーズで発見</span
-                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-red)"}}
+                            ><span className="progress-val" style={{ "--BarColor": "var(--neon-red)"} as React.CSSProperties}
                                 >コスト: 50倍</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "65%", "--BarColor": "var(--neon-red)"}}
+                                style={{ "--BarWidth": "65%", "--BarColor": "var(--neon-red)"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
                     <div className="progress-item">
                         <div className="progress-header">
                             <span className="progress-name">本番環境で発見（最悪）</span
-                            ><span className="progress-val" style={{ "--BarColor": "#cc0000"}}
+                            ><span className="progress-val" style={{ "--BarColor": "#cc0000"} as React.CSSProperties}
                                 >コスト: 100倍</span
                             >
                         </div>
                         <div className="progress-track">
                             <div
                                 className="progress-fill"
-                                style={{ "--BarWidth": "100%", "--BarColor": "#cc0000"}}
+                                style={{ "--BarWidth": "100%", "--BarColor": "#cc0000"} as React.CSSProperties}
                             ></div>
                         </div>
                     </div>
@@ -2052,7 +2053,7 @@ export default function IstqbCtalTaCompleteGuide() {
 
             {/* ═══════════ EXAM ═══════════ */}
             <section id="exam">
-                <div className="chapter-header" style={{ "--AccentColor": "var(--neon-amber)"}}>
+                <div className="chapter-header" style={{ "--AccentColor": "var(--neon-amber)"} as React.CSSProperties}>
                     <div
                         className="chapter-num"
                         style={{borderColor: "var(--neon-amber)", color: "var(--neon-amber)"}}
@@ -2069,7 +2070,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     試験配点（推定）
                 </div>
                 <div className="exam-grid">
-                    <div className="exam-card" style={{ "--ExamColor": "var(--ch1-color)"}}>
+                    <div className="exam-card" style={{ "--ExamColor": "var(--ch1-color)"} as React.CSSProperties}>
                         <div className="exam-chapter">Chapter 1</div>
                         <div className="exam-name">テストプロセス</div>
                         <div className="stars">★★☆☆☆</div>
@@ -2088,7 +2089,7 @@ export default function IstqbCtalTaCompleteGuide() {
                             </div>
                         </div>
                     </div>
-                    <div className="exam-card" style={{ "--ExamColor": "var(--ch2-color)"}}>
+                    <div className="exam-card" style={{ "--ExamColor": "var(--ch2-color)"} as React.CSSProperties}>
                         <div className="exam-chapter">Chapter 2</div>
                         <div className="exam-name">リスクベーステスト</div>
                         <div className="stars">★☆☆☆☆</div>
@@ -2109,7 +2110,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     </div>
                     <div
                         className="exam-card"
-                        style={{ "--ExamColor": "var(--ch3-color)", borderColor: "rgba(0, 212, 255, 0.4)"}}
+                        style={{ "--ExamColor": "var(--ch3-color)", borderColor: "rgba(0, 212, 255, 0.4)"} as React.CSSProperties}
                     >
                         <div className="exam-chapter">Chapter 3 ⭐</div>
                         <div className="exam-name">テスト分析・設計</div>
@@ -2129,7 +2130,7 @@ export default function IstqbCtalTaCompleteGuide() {
                             </div>
                         </div>
                     </div>
-                    <div className="exam-card" style={{ "--ExamColor": "var(--ch4-color)"}}>
+                    <div className="exam-card" style={{ "--ExamColor": "var(--ch4-color)"} as React.CSSProperties}>
                         <div className="exam-chapter">Chapter 4</div>
                         <div className="exam-name">品質特性</div>
                         <div className="stars">★☆☆☆☆</div>
@@ -2148,7 +2149,7 @@ export default function IstqbCtalTaCompleteGuide() {
                             </div>
                         </div>
                     </div>
-                    <div className="exam-card" style={{ "--ExamColor": "var(--ch5-color)"}}>
+                    <div className="exam-card" style={{ "--ExamColor": "var(--ch5-color)"} as React.CSSProperties}>
                         <div className="exam-chapter">Chapter 5</div>
                         <div className="exam-name">欠陥防止</div>
                         <div className="stars">★★★☆☆</div>
@@ -2173,7 +2174,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     サンプル問題と解説（5問）
                 </div>
 
-                <div className="card" style={{ "--AccentColor": "var(--neon-cyan)"}}>
+                <div className="card" style={{ "--AccentColor": "var(--neon-cyan)"} as React.CSSProperties}>
                     <div
                         style={{display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.8rem"}}
                     >
@@ -2219,7 +2220,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     </div>
                 </div>
 
-                <div className="card" style={{ "--AccentColor": "var(--neon-amber)"}}>
+                <div className="card" style={{ "--AccentColor": "var(--neon-amber)"} as React.CSSProperties}>
                     <div
                         style={{display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.8rem"}}
                     >
@@ -2252,7 +2253,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     </div>
                 </div>
 
-                <div className="card" style={{ "--AccentColor": "var(--neon-purple)"}}>
+                <div className="card" style={{ "--AccentColor": "var(--neon-purple)"} as React.CSSProperties}>
                     <div
                         style={{display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.8rem"}}
                     >
@@ -2296,7 +2297,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     </div>
                 </div>
 
-                <div className="card" style={{ "--AccentColor": "var(--ch2-color)"}}>
+                <div className="card" style={{ "--AccentColor": "var(--ch2-color)"} as React.CSSProperties}>
                     <div
                         style={{display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.8rem"}}
                     >
@@ -2339,7 +2340,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     </div>
                 </div>
 
-                <div className="card" style={{ "--AccentColor": "var(--ch5-color)"}}>
+                <div className="card" style={{ "--AccentColor": "var(--ch5-color)"} as React.CSSProperties}>
                     <div
                         style={{display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "0.8rem"}}
                     >
@@ -2420,7 +2421,7 @@ export default function IstqbCtalTaCompleteGuide() {
 
             {/* ═══════════ v3.1→v4.0 変更点 ═══════════ */}
             <section id="changes">
-                <div className="chapter-header" style={{ "--AccentColor": "var(--neon-purple)"}}>
+                <div className="chapter-header" style={{ "--AccentColor": "var(--neon-purple)"} as React.CSSProperties}>
                     <div
                         className="chapter-num"
                         style={{borderColor: "var(--neon-purple)", color: "var(--neon-purple)"}}
@@ -2478,7 +2479,7 @@ export default function IstqbCtalTaCompleteGuide() {
 
             {/* ═══════════ REFS ═══════════ */}
             <section id="refs">
-                <div className="chapter-header" style={{ "--AccentColor": "var(--neon-purple)"}}>
+                <div className="chapter-header" style={{ "--AccentColor": "var(--neon-purple)"} as React.CSSProperties}>
                     <div
                         className="chapter-num"
                         style={{borderColor: "var(--neon-purple)", color: "var(--neon-purple)"}}
