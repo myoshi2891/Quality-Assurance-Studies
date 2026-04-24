@@ -1,7 +1,11 @@
+.ctal-ta-guide {
+    position: relative;
+}
+
 /* scanline overlay */
             .ctal-ta-guide::before {
                 content: '';
-                position: fixed;
+                position: absolute;
                 inset: 0;
                 background: repeating-linear-gradient(
                     0deg,
@@ -11,20 +15,20 @@
                     rgba(0, 255, 135, 0.012) 4px
                 );
                 pointer-events: none;
-                z-index: 9999;
+                z-index: 40;
             }
 
             /* grid texture */
             .ctal-ta-guide::after {
                 content: '';
-                position: fixed;
+                position: absolute;
                 inset: 0;
                 background-image:
                     linear-gradient(rgba(0, 212, 255, 0.03) 1px, transparent 1px),
                     linear-gradient(90deg, rgba(0, 212, 255, 0.03) 1px, transparent 1px);
                 background-size: 48px 48px;
                 pointer-events: none;
-                z-index: 9998;
+                z-index: 39;
             }
 
             /* ─────────────────── SCROLLBAR ─────────────────── */
@@ -41,7 +45,7 @@
             }
 
             /* ─────────────────── ANIMATIONS ─────────────────── */
-            @keyframes fade-in-down {
+            @keyframes ctal-ta-guide-fade-in-down {
                 from {
                     opacity: 0;
                     transform: translateY(-24px);
@@ -51,7 +55,7 @@
                     transform: translateY(0);
                 }
             }
-            @keyframes fade-in-up {
+            @keyframes ctal-ta-guide-fade-in-up {
                 from {
                     opacity: 0;
                     transform: translateY(24px);
@@ -61,7 +65,7 @@
                     transform: translateY(0);
                 }
             }
-            @keyframes pulse {
+            @keyframes ctal-ta-guide-pulse {
                 0%,
                 100% {
                     opacity: 0.6;
@@ -72,7 +76,7 @@
                     transform: scale(1.06);
                 }
             }
-            @keyframes grow-bar {
+            @keyframes ctal-ta-guide-grow-bar {
                 from {
                     width: 0%;
                 }
@@ -80,7 +84,7 @@
                     width: var(--bar-width);
                 }
             }
-            @keyframes glitch {
+            @keyframes ctal-ta-guide-glitch {
                 0% {
                     clip-path: inset(20% 0 60% 0);
                     transform: translate(-4px);
@@ -106,7 +110,7 @@
                     transform: translate(0);
                 }
             }
-            @keyframes border-glow {
+            @keyframes ctal-ta-guide-border-glow {
                 0%,
                 100% {
                     border-color: var(--color-accent-cyan, #00d4ff);
@@ -117,7 +121,7 @@
                     box-shadow: 0 0 16px var(--color-accent-green, #00ff87);
                 }
             }
-            @keyframes scan-move {
+            @keyframes ctal-ta-guide-scan-move {
                 from {
                     transform: translateY(-100%);
                 }
@@ -125,7 +129,7 @@
                     transform: translateY(100vh);
                 }
             }
-            @keyframes float {
+            @keyframes ctal-ta-guide-float {
                 0%,
                 100% {
                     transform: translateY(0px);
@@ -241,7 +245,7 @@
                 color: var(--color-accent-green, #00ff87);
                 letter-spacing: 0.08em;
                 margin-bottom: 1.5rem;
-                animation: fade-in-down 0.6s ease both;
+                animation: ctal-ta-guide-fade-in-down 0.6s ease both;
             }
             .ctal-ta-guide .hero-badge::before {
                 content: '';
@@ -249,7 +253,7 @@
                 height: 6px;
                 background: var(--color-accent-green, #00ff87);
                 border-radius: 50%;
-                animation: pulse 1.8s ease infinite;
+                animation: ctal-ta-guide-pulse 1.8s ease infinite;
             }
             .ctal-ta-guide .hero-title {
                 font-family: var(--font-display);
@@ -257,7 +261,7 @@
                 font-weight: 800;
                 line-height: 1.1;
                 margin-bottom: 0.5rem;
-                animation: fade-in-down 0.6s 0.15s ease both;
+                animation: ctal-ta-guide-fade-in-down 0.6s 0.15s ease both;
             }
             .ctal-ta-guide .hero-title .accent-green {
                 color: var(--color-accent-green, #00ff87);
@@ -271,7 +275,7 @@
                 color: var(--color-text-secondary, #9cb7d6);
                 margin-bottom: 2.5rem;
                 letter-spacing: 0.05em;
-                animation: fade-in-down 0.6s 0.25s ease both;
+                animation: ctal-ta-guide-fade-in-down 0.6s 0.25s ease both;
             }
             .ctal-ta-guide .hero-meta {
                 display: flex;
@@ -279,7 +283,7 @@
                 gap: 1rem;
                 justify-content: center;
                 margin-bottom: 2.5rem;
-                animation: fade-in-up 0.6s 0.35s ease both;
+                animation: ctal-ta-guide-fade-in-up 0.6s 0.35s ease both;
             }
             .ctal-ta-guide .hero-stat {
                 display: flex;
@@ -320,7 +324,7 @@
                 top: 50%;
                 left: 50%;
                 transform: translate(-50%, -50%);
-                animation: pulse 4s ease infinite;
+                animation: ctal-ta-guide-pulse 4s ease infinite;
                 pointer-events: none;
             }
 
@@ -741,7 +745,7 @@
                     rgba(0, 212, 255, 0.4)
                 );
                 border-radius: 3px;
-                animation: grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+                animation: ctal-ta-guide-grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
             }
 
             /* ─────────────────── TABLE ─────────────────── */

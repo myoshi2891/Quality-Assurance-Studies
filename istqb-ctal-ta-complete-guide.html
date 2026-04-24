@@ -21,8 +21,8 @@
                 --neon-red: #ff4560;
                 --neon-purple: #b36bff;
                 --text-primary: #e8f4fd;
-                --text-secondary: #9cb7d6;
-                --text-muted: #85a9df;
+                --text-secondary: #8ba3bf;
+                --text-muted: #4a6080;
                 --border: #1a2e4a;
                 --border-glow: #1e3a5f;
                 --ch1-color: #00ff87;
@@ -48,7 +48,7 @@
 
             html {
                 scroll-behavior: smooth;
-                font-size: 100%;
+                font-size: 16px;
             }
 
             body {
@@ -606,7 +606,11 @@
                 line-height: 1.65;
                 overflow-x: auto;
                 position: relative;
-                white-space: pre-wrap;
+            }
+            .code-block span {
+                display: block;
+                white-space: pre;
+                min-height: 1.3em;
             }
             .code-block::before {
                 content: attr(data-lang);
@@ -2179,17 +2183,191 @@
                     >同じパーティション内の値はすべて同じ処理を受けるため、1つテストすれば十分。テスト数を効率的に削減できる。
                 </p>
 
-                <div class="code-block" data-lang="EP EXAMPLE">
-                    <span class="code-comment"># 年齢入力フィールド (0〜120が有効)</span>
-                    <span class="code-red">無効EP(&lt;0)</span>
-                    <span class="code-green">有効EP(0〜120)</span>
-                    <span class="code-red">無効EP(&gt;120)</span>
-                    <span class="code-white">─────────┬────────────────┬─────────</span>
-                    <span class="code-white"> ≤ -1 │ 0 〜 120 │ ≥ 121</span>
-                    <span class="code-white">─────────┴────────────────┴─────────</span>
-                    <span class="code-red">代表値:-1</span>
-                    <span class="code-green">代表値:60</span>
-                    <span class="code-red">代表値:121</span>
+                <div
+                    style="
+                        background: #070e1c;
+                        border: 1px solid #1a2e4a;
+                        border-radius: 8px;
+                        padding: 1.5rem 1rem;
+                        margin: 1rem 0;
+                        overflow-x: auto;
+                    "
+                >
+                    <div
+                        style="
+                            font-family: var(--font-mono);
+                            font-size: 1rem;
+                            color: #546e7a;
+                            font-style: italic;
+                            margin-bottom: 1rem;
+                        "
+                    >
+                        # 年齢入力フィールド (0〜120が有効) — 同値分割法（EP）
+                    </div>
+                    <svg
+                        viewBox="0 0 680 170"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style="width: 100%; max-width: 680px; display: block; margin: 0 auto"
+                        font-family="Space Mono, monospace"
+                        font-size="13"
+                    >
+                        <!-- 無効EP 左 -->
+                        <rect
+                            x="8"
+                            y="10"
+                            width="148"
+                            height="60"
+                            rx="6"
+                            fill="rgba(255,69,96,0.1)"
+                            stroke="#ff4560"
+                            stroke-width="1.5"
+                        />
+                        <text
+                            x="82"
+                            y="36"
+                            fill="#ff4560"
+                            text-anchor="middle"
+                            font-weight="700"
+                            font-size="14"
+                        >
+                            無効EP
+                        </text>
+                        <text x="82" y="57" fill="#ff4560" text-anchor="middle" font-size="12">
+                            （&lt; 0）
+                        </text>
+
+                        <!-- 有効EP 中央 -->
+                        <rect
+                            x="162"
+                            y="10"
+                            width="356"
+                            height="60"
+                            rx="6"
+                            fill="rgba(0,255,135,0.1)"
+                            stroke="#00ff87"
+                            stroke-width="1.5"
+                        />
+                        <text
+                            x="340"
+                            y="36"
+                            fill="#00ff87"
+                            text-anchor="middle"
+                            font-weight="700"
+                            font-size="14"
+                        >
+                            有効EP
+                        </text>
+                        <text x="340" y="57" fill="#00ff87" text-anchor="middle" font-size="12">
+                            （0 〜 120）
+                        </text>
+
+                        <!-- 無効EP 右 -->
+                        <rect
+                            x="524"
+                            y="10"
+                            width="148"
+                            height="60"
+                            rx="6"
+                            fill="rgba(255,69,96,0.1)"
+                            stroke="#ff4560"
+                            stroke-width="1.5"
+                        />
+                        <text
+                            x="598"
+                            y="36"
+                            fill="#ff4560"
+                            text-anchor="middle"
+                            font-weight="700"
+                            font-size="14"
+                        >
+                            無効EP
+                        </text>
+                        <text x="598" y="57" fill="#ff4560" text-anchor="middle" font-size="12">
+                            （&gt; 120）
+                        </text>
+
+                        <!-- 境界線 -->
+                        <line
+                            x1="158"
+                            y1="5"
+                            x2="158"
+                            y2="80"
+                            stroke="#e8f4fd"
+                            stroke-width="1.5"
+                            stroke-dasharray="4,3"
+                        />
+                        <line
+                            x1="522"
+                            y1="5"
+                            x2="522"
+                            y2="80"
+                            stroke="#e8f4fd"
+                            stroke-width="1.5"
+                            stroke-dasharray="4,3"
+                        />
+
+                        <!-- 数直線 -->
+                        <line
+                            x1="20"
+                            y1="105"
+                            x2="660"
+                            y2="105"
+                            stroke="#4a6080"
+                            stroke-width="2"
+                        />
+                        <!-- 矢印 -->
+                        <polygon points="660,100 672,105 660,110" fill="#4a6080" />
+
+                        <!-- 境界マーカー 0 -->
+                        <line
+                            x1="158"
+                            y1="95"
+                            x2="158"
+                            y2="118"
+                            stroke="#e8f4fd"
+                            stroke-width="1.5"
+                        />
+                        <text x="158" y="133" fill="#e8f4fd" text-anchor="middle" font-size="12">
+                            0
+                        </text>
+                        <text x="158" y="147" fill="#4a6080" text-anchor="middle" font-size="11">
+                            下限境界
+                        </text>
+
+                        <!-- 境界マーカー 120 -->
+                        <line
+                            x1="522"
+                            y1="95"
+                            x2="522"
+                            y2="118"
+                            stroke="#e8f4fd"
+                            stroke-width="1.5"
+                        />
+                        <text x="522" y="133" fill="#e8f4fd" text-anchor="middle" font-size="12">
+                            120
+                        </text>
+                        <text x="522" y="147" fill="#4a6080" text-anchor="middle" font-size="11">
+                            上限境界
+                        </text>
+
+                        <!-- 代表値マーカー -1 -->
+                        <circle cx="82" cy="105" r="5" fill="#ff4560" />
+                        <text x="82" y="165" fill="#ff4560" text-anchor="middle" font-size="12">
+                            代表値: -1
+                        </text>
+
+                        <!-- 代表値マーカー 60 -->
+                        <circle cx="340" cy="105" r="5" fill="#00ff87" />
+                        <text x="340" y="165" fill="#00ff87" text-anchor="middle" font-size="12">
+                            代表値: 60
+                        </text>
+
+                        <!-- 代表値マーカー 121 -->
+                        <circle cx="598" cy="105" r="5" fill="#ff4560" />
+                        <text x="598" y="165" fill="#ff4560" text-anchor="middle" font-size="12">
+                            代表値: 121
+                        </text>
+                    </svg>
                 </div>
 
                 <div class="subsection-title">ON点・OFF点・IN点・OUT点（v4.0重要！）</div>
@@ -2443,18 +2621,215 @@
                     >システムが取り得る状態とイベントによる状態遷移を図示し、遷移パスを網羅するテスト技法。
                 </p>
 
-                <div class="code-block" data-lang="STATE DIAGRAM">
-                    <span class="code-comment"># 注文システムの状態遷移</span>
-                    <span class="code-green">[注文中]</span>
-                    <span class="code-white">─── 支払い完了 ──→</span>
-                    <span class="code-cyan">[決済済み]</span>
-                    <span class="code-white">─── 発送 ──→</span>
-                    <span class="code-amber">[配送中]</span>
-                    <span class="code-white">─── 到着確認 ──→</span>
-                    <span class="code-purple">[完了]</span>
-                    <span class="code-white"> │</span>
-                    <span class="code-white"> └── キャンセル ──→</span>
-                    <span class="code-red">[キャンセル]</span>
+                <div
+                    style="
+                        background: #070e1c;
+                        border: 1px solid #1a2e4a;
+                        border-radius: 8px;
+                        padding: 1.5rem 1rem;
+                        margin: 1rem 0;
+                        overflow-x: auto;
+                    "
+                >
+                    <div
+                        style="
+                            font-family: var(--font-mono);
+                            font-size: 1rem;
+                            color: #546e7a;
+                            font-style: italic;
+                            margin-bottom: 1rem;
+                        "
+                    >
+                        # 注文システムの状態遷移ダイアグラム
+                    </div>
+                    <svg
+                        viewBox="0 0 860 200"
+                        xmlns="http://www.w3.org/2000/svg"
+                        style="width: 100%; max-width: 860px; display: block; margin: 0 auto"
+                        font-family="Space Mono, monospace"
+                        font-size="13"
+                    >
+                        <defs>
+                            <marker
+                                id="arrowhead"
+                                markerWidth="10"
+                                markerHeight="7"
+                                refX="9"
+                                refY="3.5"
+                                orient="auto"
+                            >
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#4a6080" />
+                            </marker>
+                            <marker
+                                id="arrowhead-red"
+                                markerWidth="10"
+                                markerHeight="7"
+                                refX="9"
+                                refY="3.5"
+                                orient="auto"
+                            >
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#4a6080" />
+                            </marker>
+                        </defs>
+
+                        <!-- 注文中 -->
+                        <rect
+                            x="10"
+                            y="30"
+                            width="100"
+                            height="44"
+                            rx="8"
+                            fill="rgba(0,255,135,0.1)"
+                            stroke="#00ff87"
+                            stroke-width="1.5"
+                        />
+                        <text x="60" y="56" fill="#00ff87" text-anchor="middle" font-weight="700">
+                            注文中
+                        </text>
+
+                        <!-- → 支払い完了 → 決済済み -->
+                        <line
+                            x1="110"
+                            y1="52"
+                            x2="185"
+                            y2="52"
+                            stroke="#4a6080"
+                            stroke-width="1.5"
+                            marker-end="url(#arrowhead)"
+                        />
+                        <text x="147" y="46" fill="#4a6080" text-anchor="middle" font-size="11">
+                            支払い完了
+                        </text>
+
+                        <!-- 決済済み -->
+                        <rect
+                            x="186"
+                            y="30"
+                            width="110"
+                            height="44"
+                            rx="8"
+                            fill="rgba(0,212,255,0.1)"
+                            stroke="#00d4ff"
+                            stroke-width="1.5"
+                        />
+                        <text x="241" y="56" fill="#00d4ff" text-anchor="middle" font-weight="700">
+                            決済済み
+                        </text>
+
+                        <!-- → 発送 → 配送中 -->
+                        <line
+                            x1="296"
+                            y1="52"
+                            x2="371"
+                            y2="52"
+                            stroke="#4a6080"
+                            stroke-width="1.5"
+                            marker-end="url(#arrowhead)"
+                        />
+                        <text x="333" y="46" fill="#4a6080" text-anchor="middle" font-size="11">
+                            発送
+                        </text>
+
+                        <!-- 配送中 -->
+                        <rect
+                            x="372"
+                            y="30"
+                            width="100"
+                            height="44"
+                            rx="8"
+                            fill="rgba(255,179,0,0.1)"
+                            stroke="#ffb300"
+                            stroke-width="1.5"
+                        />
+                        <text x="422" y="56" fill="#ffb300" text-anchor="middle" font-weight="700">
+                            配送中
+                        </text>
+
+                        <!-- → 到着確認 → 完了 -->
+                        <line
+                            x1="472"
+                            y1="52"
+                            x2="547"
+                            y2="52"
+                            stroke="#4a6080"
+                            stroke-width="1.5"
+                            marker-end="url(#arrowhead)"
+                        />
+                        <text x="509" y="46" fill="#4a6080" text-anchor="middle" font-size="11">
+                            到着確認
+                        </text>
+
+                        <!-- 完了 -->
+                        <rect
+                            x="548"
+                            y="30"
+                            width="90"
+                            height="44"
+                            rx="8"
+                            fill="rgba(179,107,255,0.1)"
+                            stroke="#b36bff"
+                            stroke-width="1.5"
+                        />
+                        <text x="593" y="56" fill="#b36bff" text-anchor="middle" font-weight="700">
+                            完了
+                        </text>
+                        <!-- 完了は終端状態 -->
+                        <rect
+                            x="552"
+                            y="34"
+                            width="82"
+                            height="36"
+                            rx="6"
+                            fill="none"
+                            stroke="#b36bff"
+                            stroke-width="0.5"
+                            opacity="0.5"
+                        />
+
+                        <!-- 注文中 → キャンセル (vertical arrow down) -->
+                        <line
+                            x1="60"
+                            y1="74"
+                            x2="60"
+                            y2="130"
+                            stroke="#4a6080"
+                            stroke-width="1.5"
+                            marker-end="url(#arrowhead-red)"
+                        />
+                        <text x="68" y="108" fill="#4a6080" font-size="11">キャンセル</text>
+
+                        <!-- キャンセル -->
+                        <rect
+                            x="10"
+                            y="131"
+                            width="100"
+                            height="44"
+                            rx="8"
+                            fill="rgba(255,69,96,0.1)"
+                            stroke="#ff4560"
+                            stroke-width="1.5"
+                        />
+                        <text x="60" y="157" fill="#ff4560" text-anchor="middle" font-weight="700">
+                            キャンセル
+                        </text>
+
+                        <!-- 凡例 -->
+                        <text x="680" y="50" fill="#4a6080" font-size="11">■ 状態（State）</text>
+                        <text x="680" y="70" fill="#4a6080" font-size="11">
+                            → 遷移（Transition）
+                        </text>
+                        <text x="680" y="90" fill="#4a6080" font-size="11">　ラベル＝イベント</text>
+                        <rect
+                            x="672"
+                            y="38"
+                            width="175"
+                            height="62"
+                            rx="4"
+                            fill="none"
+                            stroke="#1a2e4a"
+                            stroke-width="1"
+                        />
+                    </svg>
                 </div>
 
                 <div class="table-wrap">
@@ -2532,22 +2907,751 @@
                     ルール。4条件 = 16ルール。
                 </p>
 
-                <div class="code-block" data-lang="DECISION TABLE">
-                    <span class="code-comment"># ローン審査（3条件 = 2³ = 8ルール）</span>
-                    <span class="code-white">条件 </span
-                    ><span class="code-cyan">R1 R2 R3 R4 R5 R6 R7 R8</span>
-                    <span class="code-white">年収 ≥ 300万 </span
-                    ><span class="code-cyan"> T T T T F F F F</span>
-                    <span class="code-white">信用スコア ≥ 700 </span
-                    ><span class="code-cyan"> T T F F T T F F</span>
-                    <span class="code-white">勤続年数 ≥ 3年 </span
-                    ><span class="code-cyan"> T F T F T F T F</span>
-                    <span class="code-white"
-                        >─────────────────────────────────────────────────</span
+                <div
+                    style="
+                        background: #070e1c;
+                        border: 1px solid #1a2e4a;
+                        border-radius: 8px;
+                        padding: 1.5rem 1.4rem;
+                        margin: 1rem 0;
+                        overflow-x: auto;
+                    "
+                >
+                    <div
+                        style="
+                            font-family: var(--font-mono);
+                            font-size: 1rem;
+                            color: #546e7a;
+                            font-style: italic;
+                            margin-bottom: 1rem;
+                        "
                     >
-                    <span class="code-green">審査通過 </span><span class="code-green"> ✓</span>
-                    <span class="code-amber">保証人要求 </span><span class="code-amber"> ✓ ✓</span>
-                    <span class="code-red">申請却下 </span><span class="code-red"> ✓ ✓ ✓ ✓ ✓</span>
+                        # ローン審査（3条件 = 2³ = 8ルール）— デシジョンテーブル
+                    </div>
+                    <table
+                        style="
+                            border-collapse: collapse;
+                            font-family: var(--font-mono);
+                            font-size: 1rem;
+                            width: 100%;
+                            min-width: 560px;
+                        "
+                    >
+                        <thead>
+                            <tr style="background: rgba(0, 212, 255, 0.06)">
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.8rem;
+                                        text-align: left;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                        white-space: nowrap;
+                                    "
+                                >
+                                    条件 / アクション
+                                </th>
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    R1
+                                </th>
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    R2
+                                </th>
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    R3
+                                </th>
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    R4
+                                </th>
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    R5
+                                </th>
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    R6
+                                </th>
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    R7
+                                </th>
+                                <th
+                                    style="
+                                        padding: 0.55rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00d4ff;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    R8
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.8rem;
+                                        border: 1px solid #1a2e4a;
+                                        color: #a9c5e6;
+                                        font-size: 1rem;
+                                        white-space: nowrap;
+                                    "
+                                >
+                                    年収 ≥ 300万
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                            </tr>
+                            <tr style="background: rgba(255, 255, 255, 0.02)">
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.8rem;
+                                        border: 1px solid #1a2e4a;
+                                        color: #a9c5e6;
+                                        font-size: 1rem;
+                                        white-space: nowrap;
+                                    "
+                                >
+                                    信用スコア ≥ 700
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                            </tr>
+                            <tr>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.8rem;
+                                        border: 1px solid #1a2e4a;
+                                        color: #a9c5e6;
+                                        font-size: 1rem;
+                                        white-space: nowrap;
+                                    "
+                                >
+                                    勤続年数 ≥ 3年
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    T
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                    "
+                                >
+                                    F
+                                </td>
+                            </tr>
+                            <!-- 区切り行 -->
+                            <tr>
+                                <td
+                                    colspan="9"
+                                    style="
+                                        padding: 0;
+                                        border: none;
+                                        height: 4px;
+                                        background: linear-gradient(
+                                            90deg,
+                                            #1a2e4a,
+                                            #1e3a5f,
+                                            #1a2e4a
+                                        );
+                                    "
+                                ></td>
+                            </tr>
+                            <!-- アクション行 -->
+                            <tr style="background: rgba(0, 255, 135, 0.04)">
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.8rem;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-weight: 700;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    審査通過
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #00ff87;
+                                        font-size: 1.1rem;
+                                    "
+                                >
+                                    ✓
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                            </tr>
+                            <tr style="background: rgba(255, 179, 0, 0.04)">
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.8rem;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ffb300;
+                                        font-weight: 700;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    保証人要求
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ffb300;
+                                        font-size: 1.1rem;
+                                    "
+                                >
+                                    ✓
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ffb300;
+                                        font-size: 1.1rem;
+                                    "
+                                >
+                                    ✓
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                            </tr>
+                            <tr style="background: rgba(255, 69, 96, 0.04)">
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.8rem;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-weight: 700;
+                                        font-size: 1rem;
+                                    "
+                                >
+                                    申請却下
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-size: 1.1rem;
+                                    "
+                                >
+                                    ✓
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-size: 1.1rem;
+                                    "
+                                >
+                                    ✓
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #4a6080;
+                                    "
+                                >
+                                    —
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-size: 1.1rem;
+                                    "
+                                >
+                                    ✓
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-size: 1.1rem;
+                                    "
+                                >
+                                    ✓
+                                </td>
+                                <td
+                                    style="
+                                        padding: 0.5rem 0.6rem;
+                                        text-align: center;
+                                        border: 1px solid #1a2e4a;
+                                        color: #ff4560;
+                                        font-size: 1.1rem;
+                                    "
+                                >
+                                    ✓
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div class="compare-grid">
