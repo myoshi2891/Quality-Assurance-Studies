@@ -1211,20 +1211,20 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="DECISION TABLE">
-                    <span className="code-comment"># ローン審査（3条件 = 2³ = 8ルール）</span>
+                    <span className="code-comment"># ローン審査（3条件 = 2³ = 8ルール）</span>{"\n"}
                     <span className="code-white">条件 </span
-                    ><span className="code-cyan">R1 R2 R3 R4 R5 R6 R7 R8</span>
+                    ><span className="code-cyan">R1 R2 R3 R4 R5 R6 R7 R8</span>{"\n"}
                     <span className="code-white">年収 ≥ 300万 </span
-                    ><span className="code-cyan"> T T T T F F F F</span>
+                    ><span className="code-cyan"> T T T T F F F F</span>{"\n"}
                     <span className="code-white">信用スコア ≥ 700 </span
-                    ><span className="code-cyan"> T T F F T T F F</span>
+                    ><span className="code-cyan"> T T F F T T F F</span>{"\n"}
                     <span className="code-white">勤続年数 ≥ 3年 </span
-                    ><span className="code-cyan"> T F T F T F T F</span>
+                    ><span className="code-cyan"> T F T F T F T F</span>{"\n"}
                     <span className="code-white"
                         >─────────────────────────────────────────────────</span
-                    >
-                    <span className="code-green">審査通過 </span><span className="code-green"> ✓</span>
-                    <span className="code-amber">保証人要求 </span><span className="code-amber"> ✓ ✓</span>
+                    >{"\n"}
+                    <span className="code-green">審査通過 </span><span className="code-green"> ✓</span>{"\n"}
+                    <span className="code-amber">保証人要求 </span><span className="code-amber"> ✓ ✓</span>{"\n"}
                     <span className="code-red">申請却下 </span><span className="code-red"> ✓ ✓ ✓ ✓ ✓</span>
                 </div>
 
@@ -1330,20 +1330,20 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="TEST CHARTER">
-                    <span className="code-cyan">Target（ターゲット）:</span>
+                    <span className="code-cyan">Target（ターゲット）:</span>{"\n"}
                     <span className="code-white">
                         ユーザー登録フォーム（名前・メール・パスワード・電話）</span
-                    >
+                    >{"\n\n"}
 
-                    <span className="code-cyan">Mission（発見したいもの）:</span>
+                    <span className="code-cyan">Mission（発見したいもの）:</span>{"\n"}
                     <span className="code-white">
                         入力バリデーションの不備・セキュリティ上の脆弱性</span
-                    >
+                    >{"\n\n"}
 
-                    <span className="code-cyan">Resources（リソース）:</span>
+                    <span className="code-cyan">Resources（リソース）:</span>{"\n"}
                     <span className="code-white">
                         時間: 60分 | ツール: Chrome DevTools | データ: 特殊文字セット</span
-                    >
+                    >{"\n\n"}
 
                     <span className="code-cyan">時間配分:</span>
                     <span className="code-amber"> 設定: 5分</span>
@@ -1355,15 +1355,15 @@ export default function IstqbCtalTaCompleteGuide() {
                     3.4.2 チェックリストベーステスト <span className="badge badge-k2">K2</span>
                 </div>
                 <div className="code-block" data-lang="CHECKLIST">
-                    <span className="code-cyan">セキュリティテスト用チェックリスト:</span>
-                    <span className="code-white"> □ SQLインジェクション: ' OR '1'='1</span>
-                    <span className="code-white"> □ XSS: &lt;script&gt;alert(1)&lt;/script&gt;</span>
-                    <span className="code-white"> □ CSRF: トークン検証の有無</span>
-                    <span className="code-white"> □ ディレクトリトラバーサル: ../../etc/passwd</span>
+                    <span className="code-cyan">セキュリティテスト用チェックリスト:</span>{"\n"}
+                    <span className="code-white"> □ SQLインジェクション: ' OR '1'='1</span>{"\n"}
+                    <span className="code-white"> □ XSS: &lt;script&gt;alert(1)&lt;/script&gt;</span>{"\n"}
+                    <span className="code-white"> □ CSRF: トークン検証の有無</span>{"\n"}
+                    <span className="code-white"> □ ディレクトリトラバーサル: ../../etc/passwd</span>{"\n\n"}
 
-                    <span className="code-cyan">ユーザビリティチェックリスト:</span>
-                    <span className="code-white"> □ エラーメッセージは修正方法を示しているか</span>
-                    <span className="code-white"> □ レスポンス時間は3秒以内か</span>
+                    <span className="code-cyan">ユーザビリティチェックリスト:</span>{"\n"}
+                    <span className="code-white"> □ エラーメッセージは修正方法を示しているか</span>{"\n"}
+                    <span className="code-white"> □ レスポンス時間は3秒以内か</span>{"\n"}
                     <span className="code-white"> □ WCAG 2.1 AA レベルを満たすか</span>
                 </div>
 
@@ -1912,16 +1912,16 @@ export default function IstqbCtalTaCompleteGuide() {
                 <div className="code-block" data-lang="REVIEW CHECKLIST">
                     <span className="code-cyan"
                         >要求レビューチェックリスト（テストアナリスト視点）:</span
-                    >
-                    <span className="code-white"> □ 要求は明確で曖昧でないか？</span>
-                    <span className="code-red"> ❌「システムは高速に動作すること」</span>
-                    <span className="code-green"> ✅「ページロード時間は 3秒以内であること」</span>
-                    <span className="code-white"> □ テスト可能な形で記述されているか？</span>
-                    <span className="code-red"> ❌「ユーザーフレンドリーであること」</span>
-                    <span className="code-green"> ✅「SUSスコアが 68 以上であること」</span>
-                    <span className="code-white"> □ 定量的な基準があるか？</span>
-                    <span className="code-white"> □ 矛盾する要求がないか？</span>
-                    <span className="code-white"> □ 境界条件が明示されているか？</span>
+                    >{"\n"}
+                    <span className="code-white"> □ 要求は明確で曖昧でないか？</span>{"\n"}
+                    <span className="code-red"> ❌「システムは高速に動作すること」</span>{"\n"}
+                    <span className="code-green"> ✅「ページロード時間は 3秒以内であること」</span>{"\n"}
+                    <span className="code-white"> □ テスト可能な形で記述されているか？</span>{"\n"}
+                    <span className="code-red"> ❌「ユーザーフレンドリーであること」</span>{"\n"}
+                    <span className="code-green"> ✅「SUSスコアが 68 以上であること」</span>{"\n"}
+                    <span className="code-white"> □ 定量的な基準があるか？</span>{"\n"}
+                    <span className="code-white"> □ 矛盾する要求がないか？</span>{"\n"}
+                    <span className="code-white"> □ 境界条件が明示されているか？</span>{"\n"}
                     <span className="code-white"> □ 依存関係が文書化されているか？</span>
                 </div>
 
@@ -2711,11 +2711,6 @@ export default function IstqbCtalTaCompleteGuide() {
                     © 2025 Study Guide — Exam specs sourced from official ISTQB® materials
                 </div>
             </footer>
-        
-        </div>
-    );
-}
- 
         </div>
     );
 }
