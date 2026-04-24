@@ -1926,24 +1926,14 @@
 
                 <div class="code-block" data-lang="KEYWORD-DRIVEN">
                     <div class="code-line"><span class="code-comment"># キーワード駆動テストの例</span></div>
-                    <div class="code-line"><span class="code-cyan">Keyword</span></div> <span class="code-amber">Object</span>
-                    <div class="code-line"><span class="code-green">Data/Action</span></div>
+                    <div class="code-line"><span class="code-cyan">Keyword</span>         <span class="code-amber">Object</span>          <span class="code-green">Data/Action</span></div>
                     <div class="code-line"><span class="code-white">────────────────────────────────────────────────</span></div>
-                    <div class="code-line"><span class="code-cyan">OpenBrowser</span></div> <span class="code-white">-</span>
-                    <div class="code-line"><span class="code-green">Chrome</span></div> <span class="code-cyan">Navigate</span>
-                    <div class="code-line"><span class="code-amber">URL</span></div>
-                    <div class="code-line"><span class="code-green">https://app.example.com</span></div>
-                    <div class="code-line"><span class="code-cyan">EnterText</span></div>
-                    <div class="code-line"><span class="code-amber">EmailField</span></div>
-                    <div class="code-line"><span class="code-green">user@test.com</span></div>
-                    <div class="code-line"><span class="code-cyan">EnterText</span></div>
-                    <div class="code-line"><span class="code-amber">PasswordField</span></div>
-                    <div class="code-line"><span class="code-green">Pass123!</span></div>
-                    <div class="code-line"><span class="code-cyan">ClickButton</span></div>
-                    <div class="code-line"><span class="code-amber">LoginButton</span></div> <span class="code-white">-</span>
-                    <div class="code-line"><span class="code-cyan">VerifyText</span></div>
-                    <div class="code-line"><span class="code-amber">PageTitle</span></div>
-                    <div class="code-line"><span class="code-green">ダッシュボード</span></div>
+                    <div class="code-line"><span class="code-cyan">OpenBrowser</span>     <span class="code-white">-</span>               <span class="code-green">Chrome</span></div>
+                    <div class="code-line"><span class="code-cyan">Navigate</span>        <span class="code-amber">URL</span>             <span class="code-green">https://app.example.com</span></div>
+                    <div class="code-line"><span class="code-cyan">EnterText</span>       <span class="code-amber">EmailField</span>      <span class="code-green">user@test.com</span></div>
+                    <div class="code-line"><span class="code-cyan">EnterText</span>       <span class="code-amber">PasswordField</span>   <span class="code-green">Pass123!</span></div>
+                    <div class="code-line"><span class="code-cyan">ClickButton</span>     <span class="code-amber">LoginButton</span>     <span class="code-white">-</span></div>
+                    <div class="code-line"><span class="code-cyan">VerifyText</span>      <span class="code-amber">PageTitle</span>       <span class="code-green">ダッシュボード</span></div>
 
                     <div class="code-line"><span class="code-comment"># 利点: ビジネスアナリストがテストを記述可能</span></div>
                     <div class="code-line"><span class="code-comment"># プログラミング知識不要でテスト設計が可能</span></div>
@@ -2427,9 +2417,7 @@
                         <div class="compare-label">✅ 2値BVA（2-value BVA）</div>
                         <div class="code-block" data-lang="2-VALUE BVA" style="margin-top: 0.5rem">
                             <div class="code-line"><span class="code-comment"># パスワード文字数（8〜20文字）</span></div>
-                            <span class="code-white">テスト値: </span
-                            ><span class="code-red">7</span> <span class="code-green">8</span>
-                            <div class="code-line"><span class="code-green">20</span></div> <span class="code-red">21</span>
+                            <div class="code-line"><span class="code-white">テスト値: </span><span class="code-red">7</span> <span class="code-green">8</span> <span class="code-green">20</span> <span class="code-red">21</span></div>
                             <div class="code-line"><span class="code-comment"># OFF ON ON OFF — 4値でカバー</span></div>
                         </div>
                     </div>
@@ -2439,10 +2427,7 @@
                         </div>
                         <div class="code-block" data-lang="3-VALUE BVA" style="margin-top: 0.5rem">
                             <div class="code-line"><span class="code-comment"># パスワード文字数（8〜20文字）</span></div>
-                            <span class="code-white">テスト値: </span
-                            ><span class="code-red">7</span> <span class="code-green">8</span>
-                            <div class="code-line"><span class="code-cyan">9</span></div> <span class="code-cyan">19</span>
-                            <div class="code-line"><span class="code-green">20</span></div> <span class="code-red">21</span>
+                            <div class="code-line"><span class="code-white">テスト値: </span><span class="code-red">7</span> <span class="code-green">8</span> <span class="code-cyan">9</span> <span class="code-cyan">19</span> <span class="code-green">20</span> <span class="code-red">21</span></div>
                             <div class="code-line"><span class="code-comment"># OUT ON IN IN ON OUT — 6値</span></div>
                         </div>
                     </div>
@@ -2505,25 +2490,15 @@
                 </div>
 
                 <div class="code-block" data-lang="PAIRWISE TESTING">
-                    <span class="code-comment"
-                        ># OS(3)×Browser(3)×Lang(2) = 18通り → ペアワイズで6件に削減！</span
-                    >
-                    <div class="code-line"><span class="code-white">No OS Browser Lang</span></div>
-                    <div class="code-line"><span class="code-green">TC1 Windows Chrome EN</span></div>
-                    <div class="code-line"><span class="code-comment"># Win-Chrome, Win-EN, Chrome-EN</span></div>
-                    <div class="code-line"><span class="code-green">TC2 Windows Firefox JP</span></div>
-                    <div class="code-line"><span class="code-comment"># Win-Firefox, Win-JP, Firefox-JP</span></div>
-                    <div class="code-line"><span class="code-cyan">TC3 Mac Safari EN</span></div>
-                    <div class="code-line"><span class="code-comment"># Mac-Safari, Mac-EN, Safari-EN</span></div>
-                    <div class="code-line"><span class="code-cyan">TC4 Mac Chrome JP</span></div>
-                    <div class="code-line"><span class="code-comment"># Mac-Chrome, Mac-JP, Chrome-JP</span></div>
-                    <div class="code-line"><span class="code-amber">TC5 Linux Firefox EN</span></div>
-                    <div class="code-line"><span class="code-comment"># Linux-Firefox, Linux-EN</span></div>
-                    <div class="code-line"><span class="code-amber">TC6 Linux Safari JP</span></div>
-                    <div class="code-line"><span class="code-comment"># Linux-Safari, Linux-JP, Safari-JP</span></div>
-                    <span class="code-comment"
-                        ># 全ペア（OS-Browser, OS-Lang, Browser-Lang）を6件でカバー！</span
-                    >
+                    <div class="code-line"><span class="code-comment"># OS(3)×Browser(3)×Lang(2) = 18通り → ペアワイズで6件に削減！</span></div>
+                    <div class="code-line"><span class="code-white">No  OS       Browser  Lang</span></div>
+                    <div class="code-line"><span class="code-green">TC1 Windows  Chrome   EN</span>    <span class="code-comment"># Win-Chrome, Win-EN, Chrome-EN</span></div>
+                    <div class="code-line"><span class="code-green">TC2 Windows  Firefox  JP</span>    <span class="code-comment"># Win-Firefox, Win-JP, Firefox-JP</span></div>
+                    <div class="code-line"><span class="code-cyan">TC3 Mac      Safari   EN</span>    <span class="code-comment"># Mac-Safari, Mac-EN, Safari-EN</span></div>
+                    <div class="code-line"><span class="code-cyan">TC4 Mac      Chrome   JP</span>    <span class="code-comment"># Mac-Chrome, Mac-JP, Chrome-JP</span></div>
+                    <div class="code-line"><span class="code-amber">TC5 Linux    Firefox  EN</span>    <span class="code-comment"># Linux-Firefox, Linux-EN</span></div>
+                    <div class="code-line"><span class="code-amber">TC6 Linux    Safari   JP</span>    <span class="code-comment"># Linux-Safari, Linux-JP, Safari-JP</span></div>
+                    <div class="code-line"><span class="code-comment"># 全ペア（OS-Browser, OS-Lang, Browser-Lang）を6件でカバー！</span></div>
                 </div>
 
                 <div class="subsection-title">
@@ -2891,12 +2866,8 @@
                 </p>
                 <div class="code-block" data-lang="E2E SCENARIO">
                     <div class="code-line"><span class="code-comment"># ECサイト購入シナリオ（E2Eフロー）</span></div>
-                    <span class="code-white"
-                        >1. 商品を検索 → 2. 詳細ページ確認 → 3. カート追加(数量:2)</span
-                    >
-                    <span class="code-white"
-                        >4. カート確認 → 5. チェックアウト → 6. 配送先入力</span
-                    >
+                    <div class="code-line"><span class="code-white">1. 商品を検索 → 2. 詳細ページ確認 → 3. カート追加(数量:2)</span></div>
+                    <div class="code-line"><span class="code-white">4. カート確認 → 5. チェックアウト → 6. 配送先入力</span></div>
                     <div class="code-line"><span class="code-white">7. 支払い入力 → 8. 注文確定</span></div>
                     <div class="code-line"><span class="code-green">9. 注文確認画面表示 ✓ 10. 確認メール受信 ✓</span></div>
                 </div>
@@ -4990,32 +4961,13 @@
                     試験直前チェックリスト
                 </div>
                 <div class="code-block" data-lang="FINAL CHECKLIST">
-                    <div class="code-line"><span class="code-cyan">Ch.1:</span></div>
-                    <span class="code-white"
-                        >□ テスト分析/設計/実装/実行の違い □ High/Low-Level TC □
-                        テストオラクルの種類</span
-                    >
-                    <div class="code-line"><span class="code-cyan">Ch.2:</span></div>
-                    <span class="code-white"
-                        >□ 製品リスク vs プロジェクトリスク □ リスク=確率×影響度 □
-                        優先順位付け</span
-                    >
-                    <div class="code-line"><span class="code-cyan">Ch.3:</span></div>
-                    <span class="code-white"
-                        >□ EP/BVA(ON/OFF/IN/OUT点) □ 2値/3値BVA □ ペアワイズ □ 2ⁿルール</span
-                    >
-                    <span class="code-white"
-                        >□ 状態遷移(0/1/Nスイッチ) □ メタモルフィック(オラクル問題) □ CRUD</span
-                    >
-                    <div class="code-line"><span class="code-white">□ テストチャーター構成 □ リスクと技法の対応</span></div>
-                    <div class="code-line"><span class="code-cyan">Ch.4:</span></div>
-                    <span class="code-white"
-                        >□ ISO 25010 主要特性5つ以上 □ SUS≥68 □ 柔軟性テスト3要素(v4.0新出)</span
-                    >
-                    <div class="code-line"><span class="code-cyan">Ch.5:</span></div>
-                    <span class="code-white"
-                        >□ 欠陥修正コスト増加の法則 □ TDD/BDD/レビュー □ 5-Why分析 □ ODC分類</span
-                    >
+                    <div class="code-line"><span class="code-cyan">Ch.1: </span><span class="code-white">□ テスト分析/設計/実装/実行の違い □ High/Low-Level TC □ テストオラクルの種類</span></div>
+                    <div class="code-line"><span class="code-cyan">Ch.2: </span><span class="code-white">□ 製品リスク vs プロジェクトリスク □ リスク=確率×影響度 □ 優先順位付け</span></div>
+                    <div class="code-line"><span class="code-cyan">Ch.3: </span><span class="code-white">□ EP/BVA(ON/OFF/IN/OUT点) □ 2値/3値BVA □ ペアワイズ □ 2ⁿルール</span></div>
+                    <div class="code-line"><span class="code-white">      □ 状態遷移(0/1/Nスイッチ) □ メタモルフィック(オラクル問題) □ CRUD</span></div>
+                    <div class="code-line"><span class="code-white">      □ テストチャーター構成 □ リスクと技法の対応</span></div>
+                    <div class="code-line"><span class="code-cyan">Ch.4: </span><span class="code-white">□ ISO 25010 主要特性5つ以上 □ SUS≥68 □ 柔軟性テスト3要素(v4.0新出)</span></div>
+                    <div class="code-line"><span class="code-cyan">Ch.5: </span><span class="code-white">□ 欠陥修正コスト増加の法則 □ TDD/BDD/レビュー □ 5-Why分析 □ ODC分類</span></div>
                 </div>
             </section>
 
