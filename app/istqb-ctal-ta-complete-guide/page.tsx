@@ -386,23 +386,23 @@ export default function IstqbCtalTaCompleteGuide() {
                     <div className="compare-box good">
                         <div className="compare-label">✅ 良い例：テスト分析</div>
                         <div className="code-block" data-lang="ANALYSIS">
-                            <span className="code-comment">// テスト条件の明確な定義</span>
-                            <span className="code-green">テスト条件 TC-001:</span>
-                            <span className="code-white"> 機能: ユーザーログイン</span>
-                            <span className="code-white"> 条件: 有効な認証情報での</span>
-                            <span className="code-white"> ログイン成功ケース</span>
-                            <span className="code-white"> 参照: REQ-AUTH-001</span>
+                            <span className="code-comment">// テスト条件の明確な定義</span>{"\n"}
+                            <span className="code-green">テスト条件 TC-001:</span>{"\n"}
+                            <span className="code-white"> 機能: ユーザーログイン</span>{"\n"}
+                            <span className="code-white"> 条件: 有効な認証情報での</span>{"\n"}
+                            <span className="code-white"> ログイン成功ケース</span>{"\n"}
+                            <span className="code-white"> 参照: REQ-AUTH-001</span>{"\n"}
                             <span className="code-white"> リスクレベル: 高</span>
                         </div>
                     </div>
                     <div className="compare-box bad">
                         <div className="compare-label">❌ 悪い例：テスト分析</div>
                         <div className="code-block" data-lang="ANALYSIS">
-                            <span className="code-comment">// 曖昧なテスト条件</span>
-                            <span className="code-red">テスト条件:</span>
-                            <span className="code-red"> ログインをテストする</span>
-                            <span className="code-red"> ※ テスト可能な基準なし</span>
-                            <span className="code-red"> ※ 仕様への追跡不可</span>
+                            <span className="code-comment">// 曖昧なテスト条件</span>{"\n"}
+                            <span className="code-red">テスト条件:</span>{"\n"}
+                            <span className="code-red"> ログインをテストする</span>{"\n"}
+                            <span className="code-red"> ※ テスト可能な基準なし</span>{"\n"}
+                            <span className="code-red"> ※ 仕様への追跡不可</span>{"\n"}
                             <span className="code-red"> ※ リスク評価なし</span>
                         </div>
                     </div>
@@ -448,24 +448,24 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="TEST CASE">
-                    <span className="code-comment"># High-Level → Low-Level テストケースへの変換</span>
+                    <span className="code-comment"># High-Level → Low-Level テストケースへの変換</span>{"\n\n"}
 
-                    <span className="code-cyan">High-Level TC-001:</span>
-                    <span className="code-white"> 条件: 有効な認証情報でログイン成功</span>
-                    <span className="code-white"> 期待: ダッシュボードが表示される</span>
+                    <span className="code-cyan">High-Level TC-001:</span>{"\n"}
+                    <span className="code-white"> 条件: 有効な認証情報でログイン成功</span>{"\n"}
+                    <span className="code-white"> 期待: ダッシュボードが表示される</span>{"\n\n"}
 
-                    <span className="code-amber"> ↓ テスト実装フェーズで詳細化</span>
+                    <span className="code-amber"> ↓ テスト実装フェーズで詳細化</span>{"\n\n"}
 
-                    <span className="code-green">Low-Level TC-001-001:</span>
+                    <span className="code-green">Low-Level TC-001-001:</span>{"\n"}
                     <span className="code-white">
                         前提: user@test.com がDBに存在し、パスワードは "Pass123!"</span
-                    >
-                    <span className="code-white"> 手順:</span>
-                    <span className="code-white"> 1. https://app.example.com/login を開く</span>
-                    <span className="code-white"> 2. Email欄に "user@test.com" を入力</span>
-                    <span className="code-white"> 3. Password欄に "Pass123!" を入力</span>
-                    <span className="code-white"> 4. [ログイン]ボタンをクリック</span>
-                    <span className="code-white"> 期待: "/dashboard" にリダイレクト</span>
+                    >{"\n"}
+                    <span className="code-white"> 手順:</span>{"\n"}
+                    <span className="code-white"> 1. https://app.example.com/login を開く</span>{"\n"}
+                    <span className="code-white"> 2. Email欄に "user@test.com" を入力</span>{"\n"}
+                    <span className="code-white"> 3. Password欄に "Pass123!" を入力</span>{"\n"}
+                    <span className="code-white"> 4. [ログイン]ボタンをクリック</span>{"\n"}
+                    <span className="code-white"> 期待: "/dashboard" にリダイレクト</span>{"\n"}
                     <span className="code-white"> "ようこそ" メッセージが表示される</span>
                 </div>
 
@@ -754,16 +754,16 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="RISK CONTROL">
-                    <span className="code-comment"># リスクベーステスト 優先順位付けの例</span>
+                    <span className="code-comment"># リスクベーステスト 優先順位付けの例</span>{"\n\n"}
 
-                    <span className="code-white">機能 リスクレベル テスト工数 優先度</span>
-                    <span className="code-white">────────────────────────────────────────────────</span>
-                    <span className="code-red">決済処理 9 (高×高) 多め 1st</span>
-                    <span className="code-amber">ユーザー認証 6 (高×中) 多め 2nd</span>
-                    <span className="code-cyan">商品検索 4 (中×中) 普通 3rd</span>
-                    <span className="code-green">プロフィール編集 2 (低×中) 少なめ 4th</span>
+                    <span className="code-white">機能 リスクレベル テスト工数 優先度</span>{"\n"}
+                    <span className="code-white">────────────────────────────────────────────────</span>{"\n"}
+                    <span className="code-red">決済処理 9 (高×高) 多め 1st</span>{"\n"}
+                    <span className="code-amber">ユーザー認証 6 (高×中) 多め 2nd</span>{"\n"}
+                    <span className="code-cyan">商品検索 4 (中×中) 普通 3rd</span>{"\n"}
+                    <span className="code-green">プロフィール編集 2 (低×中) 少なめ 4th</span>{"\n\n"}
 
-                    <span className="code-comment"># リスクが高い領域 → テストカバレッジを増やす</span>
+                    <span className="code-comment"># リスクが高い領域 → テストカバレッジを増やす</span>{"\n"}
                     <span className="code-comment"
                         ># リスクが低い領域 → テストを軽量化してコスト削減</span
                     >
@@ -858,13 +858,13 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="EP EXAMPLE">
-                    <span className="code-comment"># 年齢入力フィールド (0〜120が有効)</span>
+                    <span className="code-comment"># 年齢入力フィールド (0〜120が有効)</span>{"\n"}
                     <span className="code-red">無効EP(&lt;0)</span>
                     <span className="code-green">有効EP(0〜120)</span>
-                    <span className="code-red">無効EP(&gt;120)</span>
-                    <span className="code-white">─────────┬────────────────┬─────────</span>
-                    <span className="code-white"> ≤ -1 │ 0 〜 120 │ ≥ 121</span>
-                    <span className="code-white">─────────┴────────────────┴─────────</span>
+                    <span className="code-red">無効EP(&gt;120)</span>{"\n"}
+                    <span className="code-white">─────────┬────────────────┬─────────</span>{"\n"}
+                    <span className="code-white"> ≤ -1 │ 0 〜 120 │ ≥ 121</span>{"\n"}
+                    <span className="code-white">─────────┴────────────────┴─────────</span>{"\n"}
                     <span className="code-red">代表値:-1</span>
                     <span className="code-green">代表値:60</span>
                     <span className="code-red">代表値:121</span>
@@ -906,11 +906,11 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 <div className="code-block" data-lang="BOUNDARY TYPES">
-                    <span className="code-comment"># 閉じた境界（≤ or ≥）例: L ≤ 235</span>
-                    <span className="code-green"> ON点: 235（境界上・有効側）</span>
-                    <span className="code-red"> OFF点: 236（境界外・無効側）</span>
-                    <span className="code-comment"># 開いた境界（&lt; or &gt;）例: T &gt; 96</span>
-                    <span className="code-green"> ON点: 97（境界上・有効側）</span>
+                    <span className="code-comment"># 閉じた境界（≤ or ≥）例: L ≤ 235</span>{"\n"}
+                    <span className="code-green"> ON点: 235（境界上・有効側）</span>{"\n"}
+                    <span className="code-red"> OFF点: 236（境界外・無効側）</span>{"\n"}
+                    <span className="code-comment"># 開いた境界（&lt; or &gt;）例: T &gt; 96</span>{"\n"}
+                    <span className="code-green"> ON点: 97（境界上・有効側）</span>{"\n"}
                     <span className="code-red"> OFF点: 96（境界外・無効側）</span>
                 </div>
 
@@ -1000,20 +1000,20 @@ export default function IstqbCtalTaCompleteGuide() {
                 <div className="code-block" data-lang="PAIRWISE TESTING">
                     <span className="code-comment"
                         ># OS(3)×Browser(3)×Lang(2) = 18通り → ペアワイズで6件に削減！</span
-                    >
-                    <span className="code-white">No OS Browser Lang</span>
+                    >{"\n"}
+                    <span className="code-white">No OS Browser Lang</span>{"\n"}
                     <span className="code-green">TC1 Windows Chrome EN</span>
-                    <span className="code-comment"># Win-Chrome, Win-EN, Chrome-EN</span>
+                    <span className="code-comment"># Win-Chrome, Win-EN, Chrome-EN</span>{"\n"}
                     <span className="code-green">TC2 Windows Firefox JP</span>
-                    <span className="code-comment"># Win-Firefox, Win-JP, Firefox-JP</span>
+                    <span className="code-comment"># Win-Firefox, Win-JP, Firefox-JP</span>{"\n"}
                     <span className="code-cyan">TC3 Mac Safari EN</span>
-                    <span className="code-comment"># Mac-Safari, Mac-EN, Safari-EN</span>
+                    <span className="code-comment"># Mac-Safari, Mac-EN, Safari-EN</span>{"\n"}
                     <span className="code-cyan">TC4 Mac Chrome JP</span>
-                    <span className="code-comment"># Mac-Chrome, Mac-JP, Chrome-JP</span>
+                    <span className="code-comment"># Mac-Chrome, Mac-JP, Chrome-JP</span>{"\n"}
                     <span className="code-amber">TC5 Linux Firefox EN</span>
-                    <span className="code-comment"># Linux-Firefox, Linux-EN</span>
+                    <span className="code-comment"># Linux-Firefox, Linux-EN</span>{"\n"}
                     <span className="code-amber">TC6 Linux Safari JP</span>
-                    <span className="code-comment"># Linux-Safari, Linux-JP, Safari-JP</span>
+                    <span className="code-comment"># Linux-Safari, Linux-JP, Safari-JP</span>{"\n"}
                     <span className="code-comment"
                         ># 全ペア（OS-Browser, OS-Lang, Browser-Lang）を6件でカバー！</span
                     >
@@ -1122,15 +1122,15 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="STATE DIAGRAM">
-                    <span className="code-comment"># 注文システムの状態遷移</span>
+                    <span className="code-comment"># 注文システムの状態遷移</span>{"\n"}
                     <span className="code-green">[注文中]</span>
                     <span className="code-white">─── 支払い完了 ──→</span>
                     <span className="code-cyan">[決済済み]</span>
                     <span className="code-white">─── 発送 ──→</span>
                     <span className="code-amber">[配送中]</span>
                     <span className="code-white">─── 到着確認 ──→</span>
-                    <span className="code-purple">[完了]</span>
-                    <span className="code-white"> │</span>
+                    <span className="code-purple">[完了]</span>{"\n"}
+                    <span className="code-white"> │</span>{"\n"}
                     <span className="code-white"> └── キャンセル ──→</span>
                     <span className="code-red">[キャンセル]</span>
                 </div>
@@ -2712,6 +2712,10 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
             </footer>
         
+        </div>
+    );
+}
+ 
         </div>
     );
 }
