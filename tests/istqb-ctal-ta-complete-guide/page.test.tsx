@@ -26,6 +26,6 @@ describe('ISTQB CTAL-TA Complete Guide Page', () => {
 
   it('renders the quality characteristics testing section', () => {
     render(<Page />);
-    expect(screen.getByText('品質特性のテスト')).toBeDefined();
+    expect(screen.getByRole('heading', { name: '品質特性のテスト' })).toBeDefined();
   });
 });
