@@ -48,7 +48,7 @@
 
             html {
                 scroll-behavior: smooth;
-                font-size: 16px;
+                font-size: 100%;
             }
 
             body {
@@ -606,11 +606,11 @@
                 line-height: 1.65;
                 overflow-x: auto;
                 position: relative;
-            }
-            .code-block span {
-                display: block;
                 white-space: pre;
                 min-height: 1.3em;
+            }
+            .code-block span {
+                display: inline;
             }
             .code-block::before {
                 content: attr(data-lang);
