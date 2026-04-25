@@ -66,3 +66,32 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ## Migrated Pages (Tracking)
 
 - `app/istqb-ctal-tae-complete-guide/page.tsx` (テスト自動化 CTAL-TAE 完全ガイド)
+- `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
+
+## HTML → Next.js 移行 注意事項
+
+移行時に頻発する問題。詳細は `.claude/skills/html-to-nextjs-migration/SKILL.md` を参照。
+
+### `.code-block` 内の改行
+
+`{"\n"}` は `.code-block`（`white-space: normal`）では改行にならずスペース扱いになる。
+各行を必ず `<div className="code-line">` でラップすること（`.code-line` には `white-space: pre` が定義済み）。
+
+```tsx
+{/* ❌ NG */}
+<div className="code-block">
+  <span className="code-cyan">Given</span>{"\n"}
+  <span className="code-white">条件</span>
+</div>
+
+{/* ✅ OK */}
+<div className="code-block">
+  <div className="code-line"><span className="code-cyan">Given</span><span className="code-white"> 条件</span></div>
+</div>
+```
+
+### ページ固有スティッキーナビ
+
+- HTML の `<nav>`（ページ内アンカー付き）はグローバル Header とは別物。削除せず `'use client'` コンポーネントとして移行する
+- CSS: `position: sticky; top: 60px; z-index: 40`（Header は `fixed` / 高さ 60px / `z-50`）
+- `IntersectionObserver` は `useEffect` で設定し、クリーンアップで `obs.disconnect()` を呼ぶ

@@ -47,7 +47,8 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tae-complete-guide/page.tsx` — テスト自動化(CTAL-TAE)ガイドページ
 - `app/istqb-ctal-ta-complete-guide.css` — テストアナリスト(CTAL-TA)ガイド固有スタイル
 - `app/istqb-ctal-ta-complete-guide/page.tsx` — テストアナリスト(CTAL-TA)ガイドページ
-- `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート）
+- `app/istqb-ctal-ta-complete-guide/NavBar.tsx` — CTAL-TA ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -75,6 +76,14 @@ Next.js App Router 構成:
 
 Tailwind のアルファ修飾子（`bg-accent-cyan/10` 等）が正しく動作しない場合に備え、`@layer utilities` にフォールバック CSS を定義済み。
 
+### ページ固有スティッキーナビの実装パターン
+
+HTML から移行した `<nav>` がページ内アンカーリンク + `IntersectionObserver` スクロールスパイを持つ場合:
+
+1. `app/<page-slug>/NavBar.tsx` を `'use client'` で作成し `useEffect` 内で `IntersectionObserver` を設定（クリーンアップ: `obs.disconnect()`）
+2. CSS の `position: sticky` には `top: 60px`（Header 高さ）・`z-index: 40`（Header の `z-50` より低く）を設定
+3. `page.tsx`（Server Component）先頭で `<NavBar />` をインポートして配置
+
 ### CSS コンポーネントクラス
 
 プレーンセレクタで以下を定義（`@layer` を使わず、セレクタ順で優先度を制御）:
@@ -83,7 +92,8 @@ Tailwind のアルファ修飾子（`bg-accent-cyan/10` 等）が正しく動作
 |---|---|
 | `.card` / `.card-sm` | コンテンツカード |
 | `.badge-unit/int/func/e2e/sec/perf/a11y/istqb` | テスト種別バッジ |
-| `.code-block` / `.code-header` | コードブロック表示 |
+| `.code-block` / `.code-header` | コードブロック表示（`white-space` はデフォルト `normal`） |
+| `.code-line` | コードブロック内の1行ラッパー（`white-space: pre`）。**`{"\n"}` で改行せず必ずこれを使う** |
 | `.callout-info/warn/good/danger` | 注釈ボックス |
 | `.pyramid-layer` / `.py-unit/int/func/e2e` | テストピラミッド図 |
 | `.tab-btn` / `.tab-panel` | タブ UI |

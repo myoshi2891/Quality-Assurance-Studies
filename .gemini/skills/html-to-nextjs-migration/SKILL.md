@@ -91,13 +91,42 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | KeyFrame naming | `@keyframes fadeUp` | `@keyframes fade-up` |
 | Undefined CSS vars | `var(--r)` | `var(--radius-DEFAULT, 12px)` |
 | Vendor scrollbar only | `::-webkit-scrollbar` (WebKit) | Add `scrollbar-width: none` (Firefox) |
+| `.code-block` 内の改行 | `<span>line1</span>{"\n"}<span>line2</span>` | 各行を `<div className="code-line"><span>line1</span></div>` でラップ |
+| page-sticky nav の top | `position: sticky; top: 0;` | `top: 60px`（グローバル Header の高さ分オフセット） |
 
 ### Phase 4: Convert HTML to TSX
 
 1. **Remove** `<html>`, `<head>`, `<body>`, `<style>`, `<script>` — handled by `layout.tsx`
 2. **Remove** `<link>` font tags — fonts loaded via `next/font/google` in `layout.tsx`
-3. **Remove** `<nav>` block — navigation provided by `components/Header.tsx`
-4. **Wrap** page content in a React component:
+3. **`<nav>` ブロックの扱い**:
+   - グローバルサイトナビ（全ページ共通）→ **削除**（`components/Header.tsx` が提供）
+   - ページ固有のアンカーナビ（sticky + `IntersectionObserver` スクロールスパイ付き）→ **削除せず移行**:
+     1. `app/<page-slug>/NavBar.tsx` を `'use client'` コンポーネントとして作成
+     2. HTML の `<script>` 内 `IntersectionObserver` ロジックを `useEffect` に変換し、クリーンアップで `obs.disconnect()` を呼ぶ
+     3. CSS の `position: sticky; top: 0` → `top: 60px`（グローバル Header の高さ分オフセット）、`z-index` は Header の `z-50`（50）を超えないよう `40` 以下に設定
+     4. `page.tsx`（Server Component のまま）先頭で `<NavBar />` をインポート・配置
+
+4. **`.code-block` 内の行区切りパターン** — HTMLの `white-space: pre` コンテキストから JSX へ変換する際に最も多発する問題:
+
+   ```tsx
+   {/* ❌ NG: {"\n"} は white-space:normal 環境では改行にならずスペース扱い */}
+   <div className="code-block">
+     <span className="code-cyan">Given</span>{"\n"}
+     <span className="code-white">条件テキスト</span>
+   </div>
+
+   {/* ✅ OK: <div className="code-line"> でラップ（CSS に white-space:pre が当たる） */}
+   <div className="code-block">
+     <div className="code-line"><span className="code-cyan">Given</span><span className="code-white"> 条件テキスト</span></div>
+     <div className="code-line"><span className="code-cyan">When</span><span className="code-white"> 操作テキスト</span></div>
+   </div>
+   ```
+
+   **なぜ失敗するか**: `.code-block` のデフォルト `white-space` は `normal`。`{"\n"}` はHTMLテキストノードの改行文字になるが、`white-space: normal` 環境ではブラウザが空白として正規化する。`.code-line` クラスには `white-space: pre` が定義済みのため、このラッパーが必須。
+
+   **デシジョンテーブル・行列データ**: テキストのスペース揃えで列を表現している場合はフォント変更に脆弱なため、`<table>` 要素への変換を優先する。
+
+5. **Wrap** page content in a React component:
 
 ```tsx
 import '../<page-name>.css';
@@ -167,9 +196,12 @@ Common build failures:
 - [ ] Page renders without console errors
 - [ ] All `<pre>` code blocks display as multi-line
 - [ ] Syntax highlighting colors render (`.kw`, `.str`, `.cm`, `.fn`, `.cls`, `.num`)
+- [ ] **`.code-block` 内の各行が正しく改行されている**（`{"\n"}` を使っている箇所がないか確認。あれば `<div className="code-line">` ラッパーに置換）
+- [ ] **デシジョンテーブル・行列データが列ズレなく表示されている**（テキストのスペース揃えではなく `<table>` を使用しているか）
 - [ ] Cards, badges, callouts display correctly
 - [ ] Fonts load properly (display, body, mono)
 - [ ] Navigation shows new page link and works
+- [ ] **ページ固有のスティッキーナビゲーションが Header の直下（60px 位置）に表示され、スクロール時にアクティブリンクが切り替わる**
 - [ ] Responsive layout at 768px and 640px breakpoints
 - [ ] No z-index conflicts with navigation (nav must stay on top)
 - [ ] Animations play correctly (fade-up, pulse-border)
@@ -208,3 +240,6 @@ Do NOT redefine these in page-specific CSS. Use them directly in TSX:
 - **Pages are server-rendered** — no `useState`, `useEffect`, or client-side interactivity unless explicitly needed (use `'use client'` directive)
 - **Always update Header.tsx and CLAUDE.md** when adding a new page
 - **Always use fallback values** for CSS vars that may not be defined: `var(--radius-DEFAULT, 12px)`
+- **Never use `{"\n"}` for line breaks inside `.code-block`** — `.code-block` の `white-space` はデフォルト `normal` のため `{"\n"}` はスペースに正規化される。各行を `<div className="code-line">...</div>` でラップすること（`.code-line` には `white-space: pre` が定義済み）
+- **Never align tabular data with spaces in `.code-block`** — デシジョンテーブルや行列データはフォント変更で列ズレが起きるため `<table>` 要素を使うこと
+- **Never remove page-specific anchor nav bars** — ページ固有のスティッキーナビ（`IntersectionObserver` 付き）はグローバル Header と別物。`'use client'` コンポーネントとして移行し `top: 60px` を設定すること
