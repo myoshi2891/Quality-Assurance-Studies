@@ -116,12 +116,12 @@ export default function PageName() {
 }
 ```
 
-5. **Do NOT add `<main>` wrapper** — `layout.tsx` already wraps `{children}` in a `<div>` (app/layout.tsx)
-6. **Convert attributes**: `class` → `className`, `for` → `htmlFor`
-7. **Inline styles**: `style="font-family: var(--font-display)"` → `style={{ fontFamily: 'var(--font-display)' }}`
-8. **Self-closing tags**: `<img>` → `<img />`, `<br>` → `<br />`, `<hr>` → `<hr />`
-9. **HTML comments**: `<!-- comment -->` → `{/* comment */}`
-10. **Apply global skill rules** for `<pre>` blocks and HTML entities
+1. **Do NOT add `<main>` wrapper** — `layout.tsx` already wraps `{children}` in a `<div>` (app/layout.tsx)
+2. **Convert attributes**: `class` → `className`, `for` → `htmlFor`
+3. **Inline styles**: `style="font-family: var(--font-display)"` → `style={{ fontFamily: 'var(--font-display)' }}`
+4. **Self-closing tags**: `<img>` → `<img />`, `<br>` → `<br />`, `<hr>` → `<hr />`
+5. **HTML comments**: `<!-- comment -->` → `{/* comment */}`
+6. **Apply global skill rules** for `<pre>` blocks and HTML entities
 
 ### Phase 5: Integration Steps
 
@@ -158,6 +158,7 @@ rm -rf .next && bun run build
 ```
 
 Common build failures:
+
 - Unclosed JSX tags
 - `class` not converted to `className` in JSX (keep `class` inside `dangerouslySetInnerHTML`)
 - Missing closing `/>` on void elements
