@@ -608,9 +608,11 @@
                 position: relative;
             }
             .code-block .code-line {
-                display: block;
-                white-space: pre;
+                display: flex;
                 min-height: 1.3em;
+            }
+            .code-block .code-line > span {
+                white-space: pre;
             }
             .code-block span {
                 display: inline;
