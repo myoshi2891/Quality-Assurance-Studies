@@ -22,7 +22,7 @@
                 --neon-purple: #b36bff;
                 --text-primary: #e8f4fd;
                 --text-secondary: #8ba3bf;
-                --text-muted: #4a6080;
+                --text-muted: #85a9df;
                 --border: #1a2e4a;
                 --border-glow: #1e3a5f;
                 --ch1-color: #00ff87;
@@ -1715,24 +1715,48 @@
                     <div class="compare-box good">
                         <div class="compare-label">✅ 良い例：テスト分析</div>
                         <div class="code-block" data-lang="ANALYSIS">
-                            <div class="code-line"><span class="code-comment">// テスト条件の明確な定義</span></div>
-                            <div class="code-line"><span class="code-green">テスト条件 TC-001:</span></div>
-                            <div class="code-line"><span class="code-white"> 機能: ユーザーログイン</span></div>
-                            <div class="code-line"><span class="code-white"> 条件: 有効な認証情報での</span></div>
-                            <div class="code-line"><span class="code-white"> ログイン成功ケース</span></div>
-                            <div class="code-line"><span class="code-white"> 参照: REQ-AUTH-001</span></div>
-                            <div class="code-line"><span class="code-white"> リスクレベル: 高</span></div>
+                            <div class="code-line">
+                                <span class="code-comment">// テスト条件の明確な定義</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-green">テスト条件 TC-001:</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-white"> 機能: ユーザーログイン</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-white"> 条件: 有効な認証情報での</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-white"> ログイン成功ケース</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-white"> 参照: REQ-AUTH-001</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-white"> リスクレベル: 高</span>
+                            </div>
                         </div>
                     </div>
                     <div class="compare-box bad">
                         <div class="compare-label">❌ 悪い例：テスト分析</div>
                         <div class="code-block" data-lang="ANALYSIS">
-                            <div class="code-line"><span class="code-comment">// 曖昧なテスト条件</span></div>
+                            <div class="code-line">
+                                <span class="code-comment">// 曖昧なテスト条件</span>
+                            </div>
                             <div class="code-line"><span class="code-red">テスト条件:</span></div>
-                            <div class="code-line"><span class="code-red"> ログインをテストする</span></div>
-                            <div class="code-line"><span class="code-red"> ※ テスト可能な基準なし</span></div>
-                            <div class="code-line"><span class="code-red"> ※ 仕様への追跡不可</span></div>
-                            <div class="code-line"><span class="code-red"> ※ リスク評価なし</span></div>
+                            <div class="code-line">
+                                <span class="code-red"> ログインをテストする</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-red"> ※ テスト可能な基準なし</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-red"> ※ 仕様への追跡不可</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-red"> ※ リスク評価なし</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1777,25 +1801,49 @@
                 </p>
 
                 <div class="code-block" data-lang="TEST CASE">
-                    <div class="code-line"><span class="code-comment"># High-Level → Low-Level テストケースへの変換</span></div>
+                    <div class="code-line">
+                        <span class="code-comment"
+                            ># High-Level → Low-Level テストケースへの変換</span
+                        >
+                    </div>
 
                     <div class="code-line"><span class="code-cyan">High-Level TC-001:</span></div>
-                    <div class="code-line"><span class="code-white"> 条件: 有効な認証情報でログイン成功</span></div>
-                    <div class="code-line"><span class="code-white"> 期待: ダッシュボードが表示される</span></div>
+                    <div class="code-line">
+                        <span class="code-white"> 条件: 有効な認証情報でログイン成功</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> 期待: ダッシュボードが表示される</span>
+                    </div>
 
-                    <div class="code-line"><span class="code-amber"> ↓ テスト実装フェーズで詳細化</span></div>
+                    <div class="code-line">
+                        <span class="code-amber"> ↓ テスト実装フェーズで詳細化</span>
+                    </div>
 
-                    <div class="code-line"><span class="code-green">Low-Level TC-001-001:</span></div>
+                    <div class="code-line">
+                        <span class="code-green">Low-Level TC-001-001:</span>
+                    </div>
                     <span class="code-white">
                         前提: user@test.com がDBに存在し、パスワードは "Pass123!"</span
                     >
                     <div class="code-line"><span class="code-white"> 手順:</span></div>
-                    <div class="code-line"><span class="code-white"> 1. https://app.example.com/login を開く</span></div>
-                    <div class="code-line"><span class="code-white"> 2. Email欄に "user@test.com" を入力</span></div>
-                    <div class="code-line"><span class="code-white"> 3. Password欄に "Pass123!" を入力</span></div>
-                    <div class="code-line"><span class="code-white"> 4. [ログイン]ボタンをクリック</span></div>
-                    <div class="code-line"><span class="code-white"> 期待: "/dashboard" にリダイレクト</span></div>
-                    <div class="code-line"><span class="code-white"> "ようこそ" メッセージが表示される</span></div>
+                    <div class="code-line">
+                        <span class="code-white"> 1. https://app.example.com/login を開く</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> 2. Email欄に "user@test.com" を入力</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> 3. Password欄に "Pass123!" を入力</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> 4. [ログイン]ボタンをクリック</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> 期待: "/dashboard" にリダイレクト</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> "ようこそ" メッセージが表示される</span>
+                    </div>
                 </div>
 
                 <!-- 実行 -->
@@ -1925,18 +1973,56 @@
                 </p>
 
                 <div class="code-block" data-lang="KEYWORD-DRIVEN">
-                    <div class="code-line"><span class="code-comment"># キーワード駆動テストの例</span></div>
-                    <div class="code-line"><span class="code-cyan">Keyword</span>         <span class="code-amber">Object</span>          <span class="code-green">Data/Action</span></div>
-                    <div class="code-line"><span class="code-white">────────────────────────────────────────────────</span></div>
-                    <div class="code-line"><span class="code-cyan">OpenBrowser</span>     <span class="code-white">-</span>               <span class="code-green">Chrome</span></div>
-                    <div class="code-line"><span class="code-cyan">Navigate</span>        <span class="code-amber">URL</span>             <span class="code-green">https://app.example.com</span></div>
-                    <div class="code-line"><span class="code-cyan">EnterText</span>       <span class="code-amber">EmailField</span>      <span class="code-green">user@test.com</span></div>
-                    <div class="code-line"><span class="code-cyan">EnterText</span>       <span class="code-amber">PasswordField</span>   <span class="code-green">Pass123!</span></div>
-                    <div class="code-line"><span class="code-cyan">ClickButton</span>     <span class="code-amber">LoginButton</span>     <span class="code-white">-</span></div>
-                    <div class="code-line"><span class="code-cyan">VerifyText</span>      <span class="code-amber">PageTitle</span>       <span class="code-green">ダッシュボード</span></div>
+                    <div class="code-line">
+                        <span class="code-comment"># キーワード駆動テストの例</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">Keyword</span>
+                        <span class="code-amber">Object</span>
+                        <span class="code-green">Data/Action</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"
+                            >────────────────────────────────────────────────</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">OpenBrowser</span> <span class="code-white">-</span>
+                        <span class="code-green">Chrome</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">Navigate</span> <span class="code-amber">URL</span>
+                        <span class="code-green">https://app.example.com</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">EnterText</span>
+                        <span class="code-amber">EmailField</span>
+                        <span class="code-green">user@test.com</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">EnterText</span>
+                        <span class="code-amber">PasswordField</span>
+                        <span class="code-green">Pass123!</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">ClickButton</span>
+                        <span class="code-amber">LoginButton</span>
+                        <span class="code-white">-</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">VerifyText</span>
+                        <span class="code-amber">PageTitle</span>
+                        <span class="code-green">ダッシュボード</span>
+                    </div>
 
-                    <div class="code-line"><span class="code-comment"># 利点: ビジネスアナリストがテストを記述可能</span></div>
-                    <div class="code-line"><span class="code-comment"># プログラミング知識不要でテスト設計が可能</span></div>
+                    <div class="code-line">
+                        <span class="code-comment"
+                            ># 利点: ビジネスアナリストがテストを記述可能</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-comment"># プログラミング知識不要でテスト設計が可能</span>
+                    </div>
                 </div>
 
                 <div class="alert green">
@@ -2073,16 +2159,36 @@
                 </p>
 
                 <div class="code-block" data-lang="RISK CONTROL">
-                    <div class="code-line"><span class="code-comment"># リスクベーステスト 優先順位付けの例</span></div>
+                    <div class="code-line">
+                        <span class="code-comment"># リスクベーステスト 優先順位付けの例</span>
+                    </div>
 
-                    <div class="code-line"><span class="code-white">機能 リスクレベル テスト工数 優先度</span></div>
-                    <div class="code-line"><span class="code-white">────────────────────────────────────────────────</span></div>
-                    <div class="code-line"><span class="code-red">決済処理 9 (高×高) 多め 1st</span></div>
-                    <div class="code-line"><span class="code-amber">ユーザー認証 6 (高×中) 多め 2nd</span></div>
-                    <div class="code-line"><span class="code-cyan">商品検索 4 (中×中) 普通 3rd</span></div>
-                    <div class="code-line"><span class="code-green">プロフィール編集 2 (低×中) 少なめ 4th</span></div>
+                    <div class="code-line">
+                        <span class="code-white">機能 リスクレベル テスト工数 優先度</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"
+                            >────────────────────────────────────────────────</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-red">決済処理 9 (高×高) 多め 1st</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-amber">ユーザー認証 6 (高×中) 多め 2nd</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">商品検索 4 (中×中) 普通 3rd</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-green">プロフィール編集 2 (低×中) 少なめ 4th</span>
+                    </div>
 
-                    <div class="code-line"><span class="code-comment"># リスクが高い領域 → テストカバレッジを増やす</span></div>
+                    <div class="code-line">
+                        <span class="code-comment"
+                            ># リスクが高い領域 → テストカバレッジを増やす</span
+                        >
+                    </div>
                     <span class="code-comment"
                         ># リスクが低い領域 → テストを軽量化してコスト削減</span
                     >
@@ -2207,7 +2313,9 @@
                         font-size="13"
                     >
                         <title id="ep-diagram-title">同値分割法（EP）の概念図</title>
-                        <desc id="ep-diagram-desc">年齢入力フィールドにおける、無効EP、有効EPのパーティションと境界値を示す数直線の図。</desc>
+                        <desc id="ep-diagram-desc">
+                            年齢入力フィールドにおける、無効EP、有効EPのパーティションと境界値を示す数直線の図。
+                        </desc>
                         <!-- 無効EP 左 -->
                         <rect
                             x="8"
@@ -2403,12 +2511,24 @@
                 </div>
 
                 <div class="code-block" data-lang="BOUNDARY TYPES">
-                    <div class="code-line"><span class="code-comment"># 閉じた境界（≤ or ≥）例: L ≤ 235</span></div>
-                    <div class="code-line"><span class="code-green"> ON点: 235（境界上・有効側）</span></div>
-                    <div class="code-line"><span class="code-red"> OFF点: 236（境界外・無効側）</span></div>
-                    <div class="code-line"><span class="code-comment"># 開いた境界（&lt; or &gt;）例: T &gt; 96</span></div>
-                    <div class="code-line"><span class="code-green"> ON点: 97（境界上・有効側）</span></div>
-                    <div class="code-line"><span class="code-red"> OFF点: 96（境界外・無効側）</span></div>
+                    <div class="code-line">
+                        <span class="code-comment"># 閉じた境界（≤ or ≥）例: L ≤ 235</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-green"> ON点: 235（境界上・有効側）</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-red"> OFF点: 236（境界外・無効側）</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-comment"># 開いた境界（&lt; or &gt;）例: T &gt; 96</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-green"> ON点: 97（境界上・有効側）</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-red"> OFF点: 96（境界外・無効側）</span>
+                    </div>
                 </div>
 
                 <div class="subsection-title">境界値分析（BVA）— 2値 vs 3値</div>
@@ -2416,9 +2536,17 @@
                     <div class="compare-box good">
                         <div class="compare-label">✅ 2値BVA（2-value BVA）</div>
                         <div class="code-block" data-lang="2-VALUE BVA" style="margin-top: 0.5rem">
-                            <div class="code-line"><span class="code-comment"># パスワード文字数（8〜20文字）</span></div>
-                            <div class="code-line"><span class="code-white">テスト値: </span><span class="code-red">7</span> <span class="code-green">8</span> <span class="code-green">20</span> <span class="code-red">21</span></div>
-                            <div class="code-line"><span class="code-comment"># OFF ON ON OFF — 4値でカバー</span></div>
+                            <div class="code-line">
+                                <span class="code-comment"># パスワード文字数（8〜20文字）</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-white">テスト値: </span
+                                ><span class="code-red">7</span> <span class="code-green">8</span>
+                                <span class="code-green">20</span> <span class="code-red">21</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-comment"># OFF ON ON OFF — 4値でカバー</span>
+                            </div>
                         </div>
                     </div>
                     <div class="compare-box bad" style="border-color: rgba(0, 212, 255, 0.3)">
@@ -2426,9 +2554,18 @@
                             ✅ 3値BVA（3-value BVA）
                         </div>
                         <div class="code-block" data-lang="3-VALUE BVA" style="margin-top: 0.5rem">
-                            <div class="code-line"><span class="code-comment"># パスワード文字数（8〜20文字）</span></div>
-                            <div class="code-line"><span class="code-white">テスト値: </span><span class="code-red">7</span> <span class="code-green">8</span> <span class="code-cyan">9</span> <span class="code-cyan">19</span> <span class="code-green">20</span> <span class="code-red">21</span></div>
-                            <div class="code-line"><span class="code-comment"># OUT ON IN IN ON OUT — 6値</span></div>
+                            <div class="code-line">
+                                <span class="code-comment"># パスワード文字数（8〜20文字）</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-white">テスト値: </span
+                                ><span class="code-red">7</span> <span class="code-green">8</span>
+                                <span class="code-cyan">9</span> <span class="code-cyan">19</span>
+                                <span class="code-green">20</span> <span class="code-red">21</span>
+                            </div>
+                            <div class="code-line">
+                                <span class="code-comment"># OUT ON IN IN ON OUT — 6値</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -2490,15 +2627,41 @@
                 </div>
 
                 <div class="code-block" data-lang="PAIRWISE TESTING">
-                    <div class="code-line"><span class="code-comment"># OS(3)×Browser(3)×Lang(2) = 18通り → ペアワイズで6件に削減！</span></div>
-                    <div class="code-line"><span class="code-white">No  OS       Browser  Lang</span></div>
-                    <div class="code-line"><span class="code-green">TC1 Windows  Chrome   EN</span>    <span class="code-comment"># Win-Chrome, Win-EN, Chrome-EN</span></div>
-                    <div class="code-line"><span class="code-green">TC2 Windows  Firefox  JP</span>    <span class="code-comment"># Win-Firefox, Win-JP, Firefox-JP</span></div>
-                    <div class="code-line"><span class="code-cyan">TC3 Mac      Safari   EN</span>    <span class="code-comment"># Mac-Safari, Mac-EN, Safari-EN</span></div>
-                    <div class="code-line"><span class="code-cyan">TC4 Mac      Chrome   JP</span>    <span class="code-comment"># Mac-Chrome, Mac-JP, Chrome-JP</span></div>
-                    <div class="code-line"><span class="code-amber">TC5 Linux    Firefox  EN</span>    <span class="code-comment"># Linux-Firefox, Linux-EN</span></div>
-                    <div class="code-line"><span class="code-amber">TC6 Linux    Safari   JP</span>    <span class="code-comment"># Linux-Safari, Linux-JP, Safari-JP</span></div>
-                    <div class="code-line"><span class="code-comment"># 全ペア（OS-Browser, OS-Lang, Browser-Lang）を6件でカバー！</span></div>
+                    <div class="code-line">
+                        <span class="code-comment"
+                            ># OS(3)×Browser(3)×Lang(2) = 18通り → ペアワイズで6件に削減！</span
+                        >
+                    </div>
+                    <div class="code-line"><span class="code-white">No OS Browser Lang</span></div>
+                    <div class="code-line">
+                        <span class="code-green">TC1 Windows Chrome EN</span>
+                        <span class="code-comment"># Win-Chrome, Win-EN, Chrome-EN</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-green">TC2 Windows Firefox JP</span>
+                        <span class="code-comment"># Win-Firefox, Win-JP, Firefox-JP</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">TC3 Mac Safari EN</span>
+                        <span class="code-comment"># Mac-Safari, Mac-EN, Safari-EN</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">TC4 Mac Chrome JP</span>
+                        <span class="code-comment"># Mac-Chrome, Mac-JP, Chrome-JP</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-amber">TC5 Linux Firefox EN</span>
+                        <span class="code-comment"># Linux-Firefox, Linux-EN</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-amber">TC6 Linux Safari JP</span>
+                        <span class="code-comment"># Linux-Safari, Linux-JP, Safari-JP</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-comment"
+                            ># 全ペア（OS-Browser, OS-Lang, Browser-Lang）を6件でカバー！</span
+                        >
+                    </div>
                 </div>
 
                 <div class="subsection-title">
@@ -2572,9 +2735,15 @@
 
                 <div class="code-block" data-lang="GHERKIN / BDD">
                     <div class="code-line"><span class="code-keyword">Scenario:</span></div>
-                    <div class="code-line"><span class="code-green">ユーザーの作成（Create）→ 読み取り確認（Read）</span></div>
+                    <div class="code-line">
+                        <span class="code-green"
+                            >ユーザーの作成（Create）→ 読み取り確認（Read）</span
+                        >
+                    </div>
                     <div class="code-line"><span class="code-cyan">Given</span></div>
-                    <div class="code-line"><span class="code-white">管理者がユーザー管理画面を開いている</span></div>
+                    <div class="code-line">
+                        <span class="code-white">管理者がユーザー管理画面を開いている</span>
+                    </div>
                     <div class="code-line"><span class="code-cyan">When</span></div>
                     <span class="code-white"
                         >名前 "田中太郎", メール "tanaka@test.com" を入力して保存</span
@@ -2585,13 +2754,21 @@
                     >
 
                     <div class="code-line"><span class="code-keyword">Scenario:</span></div>
-                    <div class="code-line"><span class="code-red">ユーザーの削除（Delete）→ 不在確認（Read）</span></div>
+                    <div class="code-line">
+                        <span class="code-red">ユーザーの削除（Delete）→ 不在確認（Read）</span>
+                    </div>
                     <div class="code-line"><span class="code-cyan">Given</span></div>
-                    <div class="code-line"><span class="code-white">"田中太郎" がシステムに存在する</span></div>
+                    <div class="code-line">
+                        <span class="code-white">"田中太郎" がシステムに存在する</span>
+                    </div>
                     <div class="code-line"><span class="code-cyan">When</span></div>
-                    <div class="code-line"><span class="code-white">"田中太郎" を削除する</span></div>
+                    <div class="code-line">
+                        <span class="code-white">"田中太郎" を削除する</span>
+                    </div>
                     <div class="code-line"><span class="code-cyan">Then</span></div>
-                    <div class="code-line"><span class="code-white">"田中太郎" がユーザー一覧に表示されない</span></div>
+                    <div class="code-line">
+                        <span class="code-white">"田中太郎" がユーザー一覧に表示されない</span>
+                    </div>
                 </div>
 
                 <div class="subsection-title">
@@ -2634,7 +2811,9 @@
                         font-size="13"
                     >
                         <title id="st-diagram-title">注文システムの状態遷移ダイアグラム</title>
-                        <desc id="st-diagram-desc">注文中、決済済み、配送中、完了、およびキャンセルの各状態と、それらの間を遷移するイベントを示す状態遷移図。</desc>
+                        <desc id="st-diagram-desc">
+                            注文中、決済済み、配送中、完了、およびキャンセルの各状態と、それらの間を遷移するイベントを示す状態遷移図。
+                        </desc>
                         <defs>
                             <marker
                                 id="arrowhead"
@@ -2865,11 +3044,25 @@
                     >実際のユーザーのワークフロー（E2Eシナリオ）をテストする技法。ユーザーストーリーやユースケースから導出する。
                 </p>
                 <div class="code-block" data-lang="E2E SCENARIO">
-                    <div class="code-line"><span class="code-comment"># ECサイト購入シナリオ（E2Eフロー）</span></div>
-                    <div class="code-line"><span class="code-white">1. 商品を検索 → 2. 詳細ページ確認 → 3. カート追加(数量:2)</span></div>
-                    <div class="code-line"><span class="code-white">4. カート確認 → 5. チェックアウト → 6. 配送先入力</span></div>
-                    <div class="code-line"><span class="code-white">7. 支払い入力 → 8. 注文確定</span></div>
-                    <div class="code-line"><span class="code-green">9. 注文確認画面表示 ✓ 10. 確認メール受信 ✓</span></div>
+                    <div class="code-line">
+                        <span class="code-comment"># ECサイト購入シナリオ（E2Eフロー）</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"
+                            >1. 商品を検索 → 2. 詳細ページ確認 → 3. カート追加(数量:2)</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"
+                            >4. カート確認 → 5. チェックアウト → 6. 配送先入力</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white">7. 支払い入力 → 8. 注文確定</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-green">9. 注文確認画面表示 ✓ 10. 確認メール受信 ✓</span>
+                    </div>
                 </div>
 
                 <!-- 3.3 ルールベース技法 -->
@@ -3677,15 +3870,25 @@
                         ># MR1: 検索 — クエリ拡張で結果は減らないはず（単調性）</span
                     >
                     <div class="code-line"><span class="code-keyword">assert</span></div>
-                    <div class="code-line"><span class="code-white">len(search("Python tutorial programming")) &gt;=</span></div>
-                    <div class="code-line"><span class="code-white">len(search("Python tutorial")) * 0.9</span></div>
+                    <div class="code-line">
+                        <span class="code-white"
+                            >len(search("Python tutorial programming")) &gt;=</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white">len(search("Python tutorial")) * 0.9</span>
+                    </div>
 
                     <span class="code-comment"
                         ># MR2: 経路探索 — 往路と復路の距離は等しいはず（対称性）</span
                     >
                     <div class="code-line"><span class="code-keyword">assert</span></div>
-                    <div class="code-line"><span class="code-white">abs(shortest_path("Tokyo","Osaka") -</span></div>
-                    <div class="code-line"><span class="code-white">shortest_path("Osaka","Tokyo")) &lt; 0.01</span></div>
+                    <div class="code-line">
+                        <span class="code-white">abs(shortest_path("Tokyo","Osaka") -</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white">shortest_path("Osaka","Tokyo")) &lt; 0.01</span>
+                    </div>
 
                     <span class="code-comment"
                         ># MR3: 機械学習 — 訓練データ増加で精度は下がらないはず</span
@@ -3699,7 +3902,9 @@
                         ># MR4: ソート — 同じデータは常に同じ結果（べき等性）</span
                     >
                     <div class="code-line"><span class="code-keyword">assert</span></div>
-                    <div class="code-line"><span class="code-white">sort([3,1,4,1,5]) == sort([3,1,4,1,5])</span></div>
+                    <div class="code-line">
+                        <span class="code-white">sort([3,1,4,1,5]) == sort([3,1,4,1,5])</span>
+                    </div>
                 </div>
 
                 <div class="arch-layers">
@@ -3738,17 +3943,23 @@
                 </p>
 
                 <div class="code-block" data-lang="TEST CHARTER">
-                    <div class="code-line"><span class="code-cyan">Target（ターゲット）:</span></div>
+                    <div class="code-line">
+                        <span class="code-cyan">Target（ターゲット）:</span>
+                    </div>
                     <span class="code-white">
                         ユーザー登録フォーム（名前・メール・パスワード・電話）</span
                     >
 
-                    <div class="code-line"><span class="code-cyan">Mission（発見したいもの）:</span></div>
+                    <div class="code-line">
+                        <span class="code-cyan">Mission（発見したいもの）:</span>
+                    </div>
                     <span class="code-white">
                         入力バリデーションの不備・セキュリティ上の脆弱性</span
                     >
 
-                    <div class="code-line"><span class="code-cyan">Resources（リソース）:</span></div>
+                    <div class="code-line">
+                        <span class="code-cyan">Resources（リソース）:</span>
+                    </div>
                     <span class="code-white">
                         時間: 60分 | ツール: Chrome DevTools | データ: 特殊文字セット</span
                     >
@@ -3763,16 +3974,38 @@
                     3.4.2 チェックリストベーステスト <span class="badge badge-k2">K2</span>
                 </div>
                 <div class="code-block" data-lang="CHECKLIST">
-                    <div class="code-line"><span class="code-cyan">セキュリティテスト用チェックリスト:</span></div>
-                    <div class="code-line"><span class="code-white"> □ SQLインジェクション: ' OR '1'='1</span></div>
-                    <div class="code-line"><span class="code-white"> □ XSS: &lt;script&gt;alert(1)&lt;/script&gt;</span></div>
-                    <div class="code-line"><span class="code-white"> □ CSRF: トークン検証の有無</span></div>
-                    <div class="code-line"><span class="code-white"> □ ディレクトリトラバーサル: ../../etc/passwd</span></div>
+                    <div class="code-line">
+                        <span class="code-cyan">セキュリティテスト用チェックリスト:</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ SQLインジェクション: ' OR '1'='1</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white">
+                            □ XSS: &lt;script&gt;alert(1)&lt;/script&gt;</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ CSRF: トークン検証の有無</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white">
+                            □ ディレクトリトラバーサル: ../../etc/passwd</span
+                        >
+                    </div>
 
-                    <div class="code-line"><span class="code-cyan">ユーザビリティチェックリスト:</span></div>
-                    <div class="code-line"><span class="code-white"> □ エラーメッセージは修正方法を示しているか</span></div>
-                    <div class="code-line"><span class="code-white"> □ レスポンス時間は3秒以内か</span></div>
-                    <div class="code-line"><span class="code-white"> □ WCAG 2.1 AA レベルを満たすか</span></div>
+                    <div class="code-line">
+                        <span class="code-cyan">ユーザビリティチェックリスト:</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ エラーメッセージは修正方法を示しているか</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ レスポンス時間は3秒以内か</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ WCAG 2.1 AA レベルを満たすか</span>
+                    </div>
                 </div>
 
                 <div class="subsection-title">
@@ -4333,16 +4566,36 @@
                     <span class="code-cyan"
                         >要求レビューチェックリスト（テストアナリスト視点）:</span
                     >
-                    <div class="code-line"><span class="code-white"> □ 要求は明確で曖昧でないか？</span></div>
-                    <div class="code-line"><span class="code-red"> ❌「システムは高速に動作すること」</span></div>
-                    <div class="code-line"><span class="code-green"> ✅「ページロード時間は 3秒以内であること」</span></div>
-                    <div class="code-line"><span class="code-white"> □ テスト可能な形で記述されているか？</span></div>
-                    <div class="code-line"><span class="code-red"> ❌「ユーザーフレンドリーであること」</span></div>
-                    <div class="code-line"><span class="code-green"> ✅「SUSスコアが 68 以上であること」</span></div>
-                    <div class="code-line"><span class="code-white"> □ 定量的な基準があるか？</span></div>
-                    <div class="code-line"><span class="code-white"> □ 矛盾する要求がないか？</span></div>
-                    <div class="code-line"><span class="code-white"> □ 境界条件が明示されているか？</span></div>
-                    <div class="code-line"><span class="code-white"> □ 依存関係が文書化されているか？</span></div>
+                    <div class="code-line">
+                        <span class="code-white"> □ 要求は明確で曖昧でないか？</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-red"> ❌「システムは高速に動作すること」</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-green"> ✅「ページロード時間は 3秒以内であること」</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ テスト可能な形で記述されているか？</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-red"> ❌「ユーザーフレンドリーであること」</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-green"> ✅「SUSスコアが 68 以上であること」</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ 定量的な基準があるか？</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ 矛盾する要求がないか？</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ 境界条件が明示されているか？</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ 依存関係が文書化されているか？</span>
+                    </div>
                 </div>
 
                 <div class="subsection-title">
@@ -4438,16 +4691,26 @@
 
                 <div class="subsection-title">5-Why分析（根本原因分析）</div>
                 <div class="code-block" data-lang="ROOT CAUSE ANALYSIS">
-                    <div class="code-line"><span class="code-red">問題: ユーザーログインが時々失敗する</span></div>
-                    <div class="code-line"><span class="code-amber">Why1: セッションタイムアウトが早すぎる</span></div>
+                    <div class="code-line">
+                        <span class="code-red">問題: ユーザーログインが時々失敗する</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-amber">Why1: セッションタイムアウトが早すぎる</span>
+                    </div>
                     <div class="code-line"><span class="code-white">↓</span></div>
-                    <div class="code-line"><span class="code-amber">Why2: タイムアウト値が短く設定されている（60秒）</span></div>
+                    <div class="code-line">
+                        <span class="code-amber"
+                            >Why2: タイムアウト値が短く設定されている（60秒）</span
+                        >
+                    </div>
                     <div class="code-line"><span class="code-white">↓</span></div>
                     <span class="code-amber"
                         >Why3: デフォルト値が変更されずにそのまま使われていた</span
                     >
                     <div class="code-line"><span class="code-white">↓</span></div>
-                    <div class="code-line"><span class="code-amber">Why4: 設定値を確認するプロセスがなかった</span></div>
+                    <div class="code-line">
+                        <span class="code-amber">Why4: 設定値を確認するプロセスがなかった</span>
+                    </div>
                     <div class="code-line"><span class="code-white">↓</span></div>
                     <span class="code-amber"
                         >Why5: リリース前の設定確認チェックリストが存在しなかった</span
@@ -4961,13 +5224,48 @@
                     試験直前チェックリスト
                 </div>
                 <div class="code-block" data-lang="FINAL CHECKLIST">
-                    <div class="code-line"><span class="code-cyan">Ch.1: </span><span class="code-white">□ テスト分析/設計/実装/実行の違い □ High/Low-Level TC □ テストオラクルの種類</span></div>
-                    <div class="code-line"><span class="code-cyan">Ch.2: </span><span class="code-white">□ 製品リスク vs プロジェクトリスク □ リスク=確率×影響度 □ 優先順位付け</span></div>
-                    <div class="code-line"><span class="code-cyan">Ch.3: </span><span class="code-white">□ EP/BVA(ON/OFF/IN/OUT点) □ 2値/3値BVA □ ペアワイズ □ 2ⁿルール</span></div>
-                    <div class="code-line"><span class="code-white">      □ 状態遷移(0/1/Nスイッチ) □ メタモルフィック(オラクル問題) □ CRUD</span></div>
-                    <div class="code-line"><span class="code-white">      □ テストチャーター構成 □ リスクと技法の対応</span></div>
-                    <div class="code-line"><span class="code-cyan">Ch.4: </span><span class="code-white">□ ISO 25010 主要特性5つ以上 □ SUS≥68 □ 柔軟性テスト3要素(v4.0新出)</span></div>
-                    <div class="code-line"><span class="code-cyan">Ch.5: </span><span class="code-white">□ 欠陥修正コスト増加の法則 □ TDD/BDD/レビュー □ 5-Why分析 □ ODC分類</span></div>
+                    <div class="code-line">
+                        <span class="code-cyan">Ch.1: </span
+                        ><span class="code-white"
+                            >□ テスト分析/設計/実装/実行の違い □ High/Low-Level TC □
+                            テストオラクルの種類</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">Ch.2: </span
+                        ><span class="code-white"
+                            >□ 製品リスク vs プロジェクトリスク □ リスク=確率×影響度 □
+                            優先順位付け</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">Ch.3: </span
+                        ><span class="code-white"
+                            >□ EP/BVA(ON/OFF/IN/OUT点) □ 2値/3値BVA □ ペアワイズ □ 2ⁿルール</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white">
+                            □ 状態遷移(0/1/Nスイッチ) □ メタモルフィック(オラクル問題) □ CRUD</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-white"> □ テストチャーター構成 □ リスクと技法の対応</span>
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">Ch.4: </span
+                        ><span class="code-white"
+                            >□ ISO 25010 主要特性5つ以上 □ SUS≥68 □
+                            柔軟性テスト3要素(v4.0新出)</span
+                        >
+                    </div>
+                    <div class="code-line">
+                        <span class="code-cyan">Ch.5: </span
+                        ><span class="code-white"
+                            >□ 欠陥修正コスト増加の法則 □ TDD/BDD/レビュー □ 5-Why分析 □
+                            ODC分類</span
+                        >
+                    </div>
                 </div>
             </section>
 
