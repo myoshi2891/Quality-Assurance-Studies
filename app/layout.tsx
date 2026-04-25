@@ -30,11 +30,14 @@ export const metadata: Metadata = {
 };
 
 /**
- * Provides the application's root HTML layout with configured fonts and Japanese language.
+ * Provides the application's root HTML layout with configured fonts, shared Header, and Japanese language.
  *
- * Renders an <html lang="ja"> element with the project's font CSS variables applied and wraps `children` inside the document body.
+ * Renders an <html lang="ja"> element with the project's font CSS variables applied.
+ * It renders an always-visible <Header /> at the top of the viewport.
+ * The `children` content is wrapped in a `<main>` container with a top padding offset
+ * corresponding to the Header's height (60px) to prevent the Header from covering content.
  *
- * @param children - Page content to render inside the layout's body
+ * @param children - Page content rendered beneath the fixed Header within a padded main container
  * @returns The root HTML structure for application pages
  */
 export default function RootLayout({
@@ -45,7 +48,8 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable}`}>
       <body>
-        <div>{children}</div>
+        <Header />
+        <main className="pt-[60px]">{children}</main>
       </body>
     </html>
   );
