@@ -40,6 +40,7 @@ export default function Header({ className }: HeaderProps) {
         <Link href="/istqb-ctfl-at-complete-guide" className={getLinkClassName('/istqb-ctfl-at-complete-guide')}>アジャイル(CTFL-AT)ガイド</Link>
         <Link href="/istqb-ctal-tae-complete-guide" className={getLinkClassName('/istqb-ctal-tae-complete-guide')}>テスト自動化(CTAL-TAE)ガイド</Link>
         <Link href="/istqb-ctal-ta-complete-guide" className={getLinkClassName('/istqb-ctal-ta-complete-guide')}>テストアナリスト(CTAL-TA)ガイド</Link>
+        <Link href="/istqb-ctal-att-complete-guide" className={getLinkClassName('/istqb-ctal-att-complete-guide')}>アジャイル(CTAL-ATT)ガイド</Link>
       </div>
       <span className="nav-badge hidden sm:inline-block">
         Next.js SPA
