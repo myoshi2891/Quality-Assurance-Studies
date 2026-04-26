@@ -1,3 +1,25 @@
+/* ===== COMPONENT ROOT & TOKENS ===== */
+.istqb-ctal-att {
+    background-color: #030712;
+    color: #f8fafc;
+    font-size: 1rem;
+    line-height: 1.75;
+    
+    /* Restore original neon theme values */
+    --color-bg-primary: #030712;
+    --color-bg-secondary: #0a0f1a;
+    --color-bg-card: #111827;
+    --color-text-primary: #f8fafc;
+    --color-text-secondary: #94a3b8;
+    --color-text-muted: #64748b;
+    --color-border: #1e293b;
+    --color-accent-cyan: #00e5ff;
+    --color-accent-green: #00ff88;
+    --color-accent-orange: #ffb800;
+    --color-accent-purple: #b36bff;
+    --color-accent-red: #ff3860;
+}
+
 /* ===== RESET & BASE ===== */
 .istqb-ctal-att *,
 .istqb-ctal-att *::before,
