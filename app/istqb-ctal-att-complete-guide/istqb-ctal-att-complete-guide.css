@@ -72,7 +72,7 @@
 }
 
 /* ===== ANIMATIONS ===== */
-@keyframes fade-in-down {
+@keyframes ctal-att-fade-in-down {
     from {
         opacity: 0;
         transform: translateY(-30px);
@@ -82,7 +82,7 @@
         transform: translateY(0);
     }
 }
-@keyframes fade-in-up {
+@keyframes ctal-att-fade-in-up {
     from {
         opacity: 0;
         transform: translateY(30px);
@@ -92,7 +92,7 @@
         transform: translateY(0);
     }
 }
-@keyframes pulse {
+@keyframes ctal-att-pulse {
     0%,
     100% {
         box-shadow:
@@ -105,7 +105,7 @@
             0 0 100px rgba(0, 229, 255, 0.35);
     }
 }
-@keyframes grow-bar {
+@keyframes ctal-att-grow-bar {
     from {
         width: 0;
     }
@@ -113,7 +113,7 @@
         width: var(--bar-width, 70%);
     }
 }
-@keyframes flicker {
+@keyframes ctal-att-flicker {
     0%,
     100% {
         opacity: 1;
@@ -131,7 +131,7 @@
         opacity: 0.9;
     }
 }
-@keyframes glow-pulse {
+@keyframes ctal-att-glow-pulse {
     0%,
     100% {
         opacity: 0.5;
@@ -221,7 +221,7 @@
     position: relative;
     overflow: hidden;
     text-align: center;
-    animation: flicker 8s infinite;
+    animation: ctal-att-flicker 8s infinite;
 }
 .istqb-ctal-att .hero::before {
     content: '';
@@ -232,7 +232,7 @@
     width: 600px;
     height: 600px;
     background: radial-gradient(circle, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
-    animation: pulse 4s infinite;
+    animation: ctal-att-pulse 4s infinite;
     pointer-events: none;
 }
 .istqb-ctal-att .hero-badge {
@@ -246,7 +246,7 @@
     border-radius: 999px;
     letter-spacing: 0.12em;
     margin-bottom: 1.5rem;
-    animation: fade-in-down 0.6s ease both;
+    animation: ctal-att-fade-in-down 0.6s ease both;
 }
 .istqb-ctal-att .hero h1 {
     font-family: var(--font-display);
@@ -254,7 +254,7 @@
     font-weight: 800;
     line-height: 1.1;
     letter-spacing: -0.02em;
-    animation: fade-in-down 0.7s 0.1s ease both;
+    animation: ctal-att-fade-in-down 0.7s 0.1s ease both;
     opacity: 0;
     animation-fill-mode: both;
 }
@@ -269,7 +269,7 @@
     color: var(--color-text-secondary);
     margin: 1rem auto 2.5rem;
     text-align: center;
-    animation: fade-in-down 0.7s 0.2s ease both;
+    animation: ctal-att-fade-in-down 0.7s 0.2s ease both;
     opacity: 0;
     animation-fill-mode: both;
 }
@@ -279,7 +279,7 @@
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
-    animation: fade-in-up 0.7s 0.4s ease both;
+    animation: ctal-att-fade-in-up 0.7s 0.4s ease both;
     opacity: 0;
     animation-fill-mode: both;
 }
@@ -775,7 +775,7 @@
 .istqb-ctal-att .progress-bar-fill {
     height: 100%;
     border-radius: 999px;
-    animation: grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+    animation: ctal-att-grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 .istqb-ctal-att .bar-green {
     background: linear-gradient(90deg, var(--color-accent-green), #00c870);
@@ -903,7 +903,7 @@
     height: 80px;
     border-radius: 50%;
     background: radial-gradient(circle, rgba(0, 229, 255, 0.15), transparent 70%);
-    animation: glow-pulse 3s infinite;
+    animation: ctal-att-glow-pulse 3s infinite;
 }
 .istqb-ctal-att .trend-card:hover {
     border-color: var(--color-accent-cyan);
