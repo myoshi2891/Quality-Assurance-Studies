@@ -28,8 +28,19 @@ function isNavId(id: string): id is NavId {
 export default function NavBar() {
     const [activeSection, setActiveSection] = useState<NavId | ''>('');
 
+    // URL ハッシュによるディープリンク時の初期ハイライト
     useEffect(() => {
-        const sections = document.querySelectorAll('section[id]');
+        const hash = window.location.hash.replace('#', '');
+        if (isNavId(hash)) {
+            setActiveSection(hash);
+        }
+    }, []);
+
+    useEffect(() => {
+        const root = document.querySelector('.istqb-ctal-att');
+        const sections = root
+            ? root.querySelectorAll('section[id]')
+            : document.querySelectorAll('section[id]');
         const observer = new IntersectionObserver(
             (entries) => {
                 const intersectingEntries = entries

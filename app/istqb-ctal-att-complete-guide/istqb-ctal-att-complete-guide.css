@@ -42,7 +42,7 @@
     padding: 0;
 }
 
-/* Scanline overlay */
+/* Scanline overlay — z-30 keeps it below NavBar (z-40) and Header (z-50) */
 .istqb-ctal-att::before {
     content: '';
     position: fixed;
@@ -55,10 +55,10 @@
         rgba(0, 229, 255, 0.012) 4px
     );
     pointer-events: none;
-    z-index: 40;
+    z-index: 30;
 }
 
-/* Grid texture */
+/* Grid texture — z-29 sits below scanline overlay */
 .istqb-ctal-att::after {
     content: '';
     position: fixed;
@@ -68,7 +68,7 @@
         linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
-    z-index: 39;
+    z-index: 29;
 }
 
 /* ===== ANIMATIONS ===== */
@@ -1095,5 +1095,40 @@
     }
     .istqb-ctal-att section {
         padding: 2.5rem 0;
+    }
+}
+
+/* ===== REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    /* 永続ループアニメーションを停止 */
+    .istqb-ctal-att .hero {
+        animation: none;
+    }
+    .istqb-ctal-att .hero::before {
+        animation: none;
+    }
+    .istqb-ctal-att .trend-card::before {
+        animation: none;
+    }
+
+    /* フェードイン系：animation-fill-mode: both で opacity: 0 のまま残るのを防ぐ */
+    .istqb-ctal-att .hero-badge,
+    .istqb-ctal-att .hero h1,
+    .istqb-ctal-att .hero-sub,
+    .istqb-ctal-att .hero-meta {
+        animation: none;
+        opacity: 1;
+    }
+
+    /* バーグロウアニメーション */
+    .istqb-ctal-att [style*='--bar-width'] {
+        animation: none;
+        width: var(--bar-width, 70%);
+    }
+
+    /* ホバー時トランジションも短縮 */
+    .istqb-ctal-att .trend-card,
+    .istqb-ctal-att .nav-link {
+        transition: none;
     }
 }
