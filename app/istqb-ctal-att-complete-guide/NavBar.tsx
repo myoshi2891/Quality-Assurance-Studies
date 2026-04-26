@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
+/**
+ * Render a fixed navigation bar that highlights the link for the section currently in view and enables smooth scrolling to sections when links are clicked.
+ *
+ * The component tracks the active content section and applies an accent style to the corresponding nav link.
+ *
+ * @returns The navigation bar JSX element
+ */
 export default function NavBar() {
   const [activeSection, setActiveSection] = useState('');
 
