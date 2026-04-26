@@ -25,12 +25,13 @@ export default function NavBar() {
     const sections = document.querySelectorAll('section[id]');
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (!validIds.has(entry.target.id)) return;
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
+        const intersectingEntries = entries
+          .filter((entry) => entry.isIntersecting && validIds.has(entry.target.id))
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+
+        if (intersectingEntries.length > 0) {
+          setActiveSection(intersectingEntries[0].target.id);
+        }
       },
       {
         rootMargin: '-60px 0px -60% 0px',

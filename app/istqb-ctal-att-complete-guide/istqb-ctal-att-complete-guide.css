@@ -25,6 +25,19 @@
 .istqb-ctal-att *::before,
 .istqb-ctal-att *::after {
     box-sizing: border-box;
+}
+
+.istqb-ctal-att h1,
+.istqb-ctal-att h2,
+.istqb-ctal-att h3,
+.istqb-ctal-att h4,
+.istqb-ctal-att p,
+.istqb-ctal-att ul,
+.istqb-ctal-att ol,
+.istqb-ctal-att figure,
+.istqb-ctal-att blockquote,
+.istqb-ctal-att dl,
+.istqb-ctal-att dd {
     margin: 0;
     padding: 0;
 }
@@ -42,7 +55,7 @@
         rgba(0, 229, 255, 0.012) 4px
     );
     pointer-events: none;
-    z-index: 1000;
+    z-index: 40;
 }
 
 /* Grid texture */
@@ -55,7 +68,7 @@
         linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
     background-size: 50px 50px;
     pointer-events: none;
-    z-index: 999;
+    z-index: 39;
 }
 
 /* ===== ANIMATIONS ===== */
