@@ -2025,6 +2025,11 @@ export default function IstqbCtalAttCompleteGuide() {
             </div>
         </footer>
     
+        </div>
+    );
+}
+
+    
         </>
     );
 }

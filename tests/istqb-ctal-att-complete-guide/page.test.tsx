@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach, mock } from 'bun:test';
+import { describe, it, expect, afterEach, mock, beforeAll, afterAll } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import Page from '../../app/istqb-ctal-att-complete-guide/page';
 
@@ -6,18 +6,28 @@ afterEach(() => {
   cleanup();
 });
 
-// NavBar uses IntersectionObserver, which needs to be mocked in JSDOM/HappyDOM
-if (typeof window !== 'undefined') {
-  window.IntersectionObserver = mock((callback) => ({
-    observe: mock(),
-    unobserve: mock(),
-    disconnect: mock(),
-    root: null,
-    rootMargin: '',
-    thresholds: [0],
-    takeRecords: () => []
-  })) as unknown as typeof IntersectionObserver;
-}
+let originalIntersectionObserver: typeof IntersectionObserver;
+
+beforeAll(() => {
+  if (typeof window !== 'undefined') {
+    originalIntersectionObserver = window.IntersectionObserver;
+    window.IntersectionObserver = mock((_callback) => ({
+      observe: mock(),
+      unobserve: mock(),
+      disconnect: mock(),
+      root: null,
+      rootMargin: '',
+      thresholds: [0],
+      takeRecords: () => []
+    })) as unknown as typeof IntersectionObserver;
+  }
+});
+
+afterAll(() => {
+  if (typeof window !== 'undefined') {
+    window.IntersectionObserver = originalIntersectionObserver;
+  }
+});
 
 describe('ISTQB CTAL-ATT Complete Guide Page', () => {
   it('renders the hero section with correct title', () => {
