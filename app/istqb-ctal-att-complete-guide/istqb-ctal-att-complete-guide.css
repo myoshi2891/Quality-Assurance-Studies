@@ -802,6 +802,7 @@
             .compare-box {
                 border-radius: var(--radius-DEFAULT, 12px);
                 padding: 1.1rem 1.3rem;
+                min-width: 0; /* Prevents grid item from expanding beyond container due to pre content */
             }
             .compare-box.good {
                 background: rgba(0, 255, 136, 0.05);
