@@ -5,7 +5,7 @@ import './istqb-ctal-att-complete-guide.css';
 
 export default function IstqbCtalAttCompleteGuide() {
     return (
-        <>
+        <div className="istqb-ctal-att">
             
         <NavBar />
 
@@ -2026,10 +2026,5 @@ export default function IstqbCtalAttCompleteGuide() {
         </footer>
     
         </div>
-    );
-}
-
-    
-        </>
     );
 }
