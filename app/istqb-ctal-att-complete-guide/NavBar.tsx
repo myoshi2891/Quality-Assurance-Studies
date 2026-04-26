@@ -21,10 +21,12 @@ export default function NavBar() {
   const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
+    const validIds = new Set(NAV_ITEMS.map((item) => item.id));
     const sections = document.querySelectorAll('section[id]');
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
+          if (!validIds.has(entry.target.id)) return;
           if (entry.isIntersecting) {
             setActiveSection(entry.target.id);
           }
@@ -35,7 +37,9 @@ export default function NavBar() {
       }
     );
 
-    sections.forEach((section) => observer.observe(section));
+    sections.forEach((section) => {
+      if (validIds.has(section.id)) observer.observe(section);
+    });
 
     return () => {
       observer.disconnect();

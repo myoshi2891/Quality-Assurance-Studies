@@ -199,7 +199,7 @@
 }
 
 .istqb-ctal-att section[id] {
-    scroll-margin-top: 80px;
+    scroll-margin-top: 120px;
 }
 
 /* ===== HERO ===== */
@@ -788,10 +788,10 @@
     width: 100%;
     border-collapse: collapse;
 }
-thead tr {
+.istqb-ctal-att thead tr {
     background: var(--color-bg-secondary);
 }
-th {
+.istqb-ctal-att th {
     font-family: var(--font-mono);
     font-size: 0.72rem;
     color: var(--color-accent-cyan);
@@ -801,24 +801,24 @@ th {
     border-bottom: 1px solid var(--color-border);
     white-space: nowrap;
 }
-td {
+.istqb-ctal-att td {
     font-size: 0.85rem;
     color: var(--color-text-secondary);
     padding: 0.75rem 1rem;
     border-bottom: 1px solid var(--color-border);
     vertical-align: top;
 }
-tbody tr:hover td {
+.istqb-ctal-att tbody tr:hover td {
     background: rgba(0, 229, 255, 0.03);
     color: var(--color-text-primary);
 }
-tbody tr:last-child td {
+.istqb-ctal-att tbody tr:last-child td {
     border-bottom: none;
 }
-td strong {
+.istqb-ctal-att td strong {
     color: var(--color-text-primary);
 }
-td code {
+.istqb-ctal-att td code {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     background: var(--color-bg-secondary);
@@ -1053,34 +1053,34 @@ td code {
     color: var(--color-text-muted);
     border-top: 1px solid var(--color-border);
 }
-footer a {
+.istqb-ctal-att footer a {
     color: var(--color-accent-cyan);
     text-decoration: none;
 }
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 900px) {
-    .compare-grid {
+    .istqb-ctal-att .compare-grid {
         grid-template-columns: 1fr;
     }
-    .toc-grid {
+    .istqb-ctal-att .toc-grid {
         grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
     }
-    .metric-grid {
+    .istqb-ctal-att .metric-grid {
         grid-template-columns: repeat(2, 1fr);
     }
 }
 @media (max-width: 600px) {
-    .hero h1 {
+    .istqb-ctal-att .hero h1 {
         font-size: 1.8rem;
     }
-    .metric-grid {
+    .istqb-ctal-att .metric-grid {
         grid-template-columns: repeat(2, 1fr);
     }
-    .exam-grid {
+    .istqb-ctal-att .exam-grid {
         grid-template-columns: 1fr;
     }
-    section {
+    .istqb-ctal-att section {
         padding: 2.5rem 0;
     }
 }

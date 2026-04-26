@@ -1,4 +1,7 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 const fs = require('fs');
+const postcss = require('postcss');
+const selectorParser = require('postcss-selector-parser');
 const path = 'app/istqb-ctal-att-complete-guide/istqb-ctal-att-complete-guide.css';
 
 let css = fs.readFileSync(path, 'utf8');
@@ -40,39 +43,35 @@ css = css.replace(
 // 5. Add section[id] scroll-margin-top
 css = css.replace(
     /(section \{\s*padding: 4rem 0;\s*border-bottom: 1px solid var\(--color-border\);\s*\})/,
-    `$1\n\nsection[id] {\n    scroll-margin-top: 80px;\n}`
+    `$1\n\nsection[id] {\n    scroll-margin-top: 120px;\n}`
 );
 
-// 6. Scope global rules
-// resets
-css = css.replace(/\*,\n\s*\*::before,\n\s*\*::after/g, '.istqb-ctal-att *,\n.istqb-ctal-att *::before,\n.istqb-ctal-att *::after');
+// 6. Scope all selectors under .istqb-ctal-att using PostCSS AST walking
+function prefixSelector(selectorStr) {
+    const transform = selectorParser((selectors) => {
+        selectors.each((selector) => {
+            const first = selector.first;
+            // Skip if already scoped
+            if (first && first.type === 'class' && first.value === 'istqb-ctal-att') return;
+            // body::before / body::after → scope::pseudo (drop body tag)
+            if (first && first.type === 'tag' && first.value === 'body') {
+                first.replaceWith(selectorParser.className({ value: 'istqb-ctal-att' }));
+                return;
+            }
+            selector.prepend(selectorParser.combinator({ value: ' ' }));
+            selector.prepend(selectorParser.className({ value: 'istqb-ctal-att' }));
+        });
+    });
+    return transform.processSync(selectorStr);
+}
 
-// body overlays
-css = css.replace(/body::before/g, '.istqb-ctal-att::before');
-css = css.replace(/body::after/g, '.istqb-ctal-att::after');
-
-// basic tags
-css = css.replace(/^section \{/gm, '.istqb-ctal-att section {');
-css = css.replace(/^section\[id\] \{/gm, '.istqb-ctal-att section[id] {');
-css = css.replace(/^p \{/gm, '.istqb-ctal-att p {');
-css = css.replace(/^strong \{/gm, '.istqb-ctal-att strong {');
-css = css.replace(/^table \{/gm, '.istqb-ctal-att table {');
-css = css.replace(/^th,\s*td \{/gm, '.istqb-ctal-att th,\n.istqb-ctal-att td {');
-css = css.replace(/^footer \{/gm, '.istqb-ctal-att footer {');
-css = css.replace(/^a \{/gm, '.istqb-ctal-att a {');
-css = css.replace(/^ul \{/gm, '.istqb-ctal-att ul {');
-css = css.replace(/^ol \{/gm, '.istqb-ctal-att ol {');
-
-// Component scoping - instructions say: "ensure you update every occurrence... update every selector in istqb-ctal-att-complete-guide.css to be descendant selectors of that class"
-// To truly scope every selector, we would prefix every class that starts at the beginning of the line.
-// E.g., /^(\.[a-zA-Z0-9_-]+)/gm -> .istqb-ctal-att $1
-// Wait, we have keyframes and @media queries.
-// Let's do a safe targeted regex for classes.
-css = css.replace(/^(\.[a-zA-Z0-9_-]+[^{,]*?)\{/gm, '.istqb-ctal-att $1 {');
-css = css.replace(/^(\.[a-zA-Z0-9_-]+[^,\n]+),\s*$/gm, '.istqb-ctal-att $1,');
-
-// Specifically handle multiple selectors
-css = css.replace(/\.istqb-ctal-att \.istqb-ctal-att/g, '.istqb-ctal-att');
+const root = postcss.parse(css);
+root.walkRules((rule) => {
+    // Don't scope @keyframes selectors (from/to/percentages)
+    if (rule.parent && rule.parent.type === 'atrule' && rule.parent.name === 'keyframes') return;
+    rule.selector = prefixSelector(rule.selector);
+});
+css = root.toString();
 
 // Remove double empty lines
 css = css.replace(/\n{3,}/g, '\n\n');
