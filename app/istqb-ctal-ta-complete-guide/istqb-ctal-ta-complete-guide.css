@@ -86,6 +86,13 @@
             }
 
 
+            /* Fix hash navigation scroll offset (Header 60px + NavBar 52px) */
+            .ctal-ta-guide section[id],
+            .ctal-ta-guide h2[id],
+            .ctal-ta-guide [id^="ch"] {
+                scroll-margin-top: 112px;
+            }
+
             /* ─────────────────── NAVBAR ─────────────────── */
             .ctal-ta-guide .navbar {
                 position: sticky;

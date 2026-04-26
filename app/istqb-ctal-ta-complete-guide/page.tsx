@@ -1047,7 +1047,7 @@ export default function IstqbCtalTaCompleteGuide() {
                             ✅ 2値BVA（2-value BVA）
                             <span style={{fontWeight: 400, color: "var(--text-muted)"}}>— ON点 + OFF点 のみ / 計4値</span>
                         </div>
-                        <div style={{background: "#070e1c", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
+                        <div style={{background: "#070e1c", border: "1px solid var(--color-border)", borderRadius: "var(--radius)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
                             <span style={{position: "absolute", top: "0.4rem", right: "0.8rem", fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em"}}>2-VALUE BVA</span>
                             <div style={{color: "#546e7a", fontStyle: "italic", marginBottom: "0.8rem", fontSize: "0.82rem"}}># パスワード文字数（8〜20文字）</div>
                             <div style={{display: "grid", gridTemplateColumns: "72px repeat(4, 1fr)", gap: "2px 0", lineHeight: 2}}>
@@ -1075,7 +1075,7 @@ export default function IstqbCtalTaCompleteGuide() {
                             ✅ 3値BVA（3-value BVA）
                             <span style={{fontWeight: 400, color: "var(--text-muted)"}}>— ON点 + IN点 + OFF点 / 計6値</span>
                         </div>
-                        <div style={{background: "#070e1c", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
+                        <div style={{background: "#070e1c", border: "1px solid var(--color-border)", borderRadius: "var(--radius)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
                             <span style={{position: "absolute", top: "0.4rem", right: "0.8rem", fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em"}}>3-VALUE BVA</span>
                             <div style={{color: "#546e7a", fontStyle: "italic", marginBottom: "0.8rem", fontSize: "0.82rem"}}># パスワード文字数（8〜20文字）</div>
                             <div style={{display: "grid", gridTemplateColumns: "72px repeat(6, 1fr)", gap: "2px 0", lineHeight: 2}}>
@@ -2500,17 +2500,17 @@ export default function IstqbCtalTaCompleteGuide() {
                             A) 9, 10, 100, 101 ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             B) 10, 100
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) 9, 11, 99, 101
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) 0, 10, 50, 100, 200
                         </div>
@@ -2539,7 +2539,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) 4 &nbsp;&nbsp; B) 8 &nbsp;&nbsp; C) 12
                         </div>
@@ -2573,7 +2573,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) テストオラクルが明確に定義されているシステム
                         </div>
@@ -2583,12 +2583,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) 期待する出力を事前に特定することが難しいシステム ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) ブラックボックステストが不可能なシステム
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) ホワイトボックス技法のみが適用可能なシステム
                         </div>
@@ -2616,7 +2616,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) プロジェクトリスクを管理し、スケジュールを調整する
                         </div>
@@ -2626,12 +2626,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) 製品リスクを識別・評価し、テストの優先順位付けに貢献する ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) テストオートメーションの戦略を策定する
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) テスト環境の性能テストを実施する
                         </div>
@@ -2660,7 +2660,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) コードの実装ミス
                         </div>
@@ -2670,12 +2670,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) テスト可能な形式で記述されていない要求 ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) パフォーマンス最適化の機会
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) CI/CDパイプラインの設定ミス
                         </div>
