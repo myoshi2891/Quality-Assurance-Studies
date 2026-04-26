@@ -255,6 +255,7 @@
     font-size: 1.05rem;
     color: var(--color-text-secondary);
     margin-top: 1rem;
+    text-align: center;
     animation: fade-in-down 0.7s 0.2s ease both;
     opacity: 0;
     animation-fill-mode: both;
