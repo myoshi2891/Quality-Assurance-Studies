@@ -47,16 +47,16 @@ describe('ISTQB CTAL-ATT Complete Guide Page', () => {
   it('renders the CI/CD and service virtualization sections', () => {
     render(<Page />);
     expect(screen.getByText('CI / CT / CD')).toBeDefined();
-    expect(screen.getByText('サービス仮想化')).toBeDefined();
+    expect(screen.getAllByText('サービス仮想化').length).toBeGreaterThan(0);
   });
 
   it('renders the NavBar with sticky links', () => {
     render(<Page />);
     // Check if the NavBar is rendered
-    expect(screen.getByText('CTAL-ATT')).toBeDefined(); // Brand
+    expect(screen.getAllByText('CTAL-ATT').length).toBeGreaterThan(0); // Brand
     expect(screen.getByText('概要')).toBeDefined();
     expect(screen.getByText('Ch.1 要件')).toBeDefined();
     expect(screen.getByText('Ch.2 TDD')).toBeDefined();
-    expect(screen.getByText('仮想化')).toBeDefined();
+    expect(screen.getAllByText('仮想化').length).toBeGreaterThan(0);
   });
 });
