@@ -13,6 +13,7 @@
     --color-text-secondary: #94a3b8;
     --color-text-muted: #64748b;
     --color-border: #1e293b;
+    --color-border-bright: rgba(0, 229, 255, 0.24);
     --color-accent-cyan: #00e5ff;
     --color-accent-green: #00ff88;
     --color-accent-orange: #ffb800;
@@ -1132,9 +1133,26 @@
         width: var(--bar-width, 70%);
     }
 
-    /* ホバー時トランジションも短縮 */
+    /* ホバー時モーションも停止 */
     .istqb-ctal-att .trend-card,
-    .istqb-ctal-att .nav-link {
+    .istqb-ctal-att .nav-link,
+    .istqb-ctal-att .toc-card,
+    .istqb-ctal-att .metric-card,
+    .istqb-ctal-att .exam-card,
+    .istqb-ctal-att .arch-layer,
+    .istqb-ctal-att .pyramid-level,
+    .istqb-ctal-att .step-list li,
+    .istqb-ctal-att .ref-card,
+    .istqb-ctal-att .ref-card::after {
         transition: none;
+    }
+
+    .istqb-ctal-att .toc-card:hover,
+    .istqb-ctal-att .metric-card:hover,
+    .istqb-ctal-att .exam-card:hover,
+    .istqb-ctal-att .arch-layer:hover,
+    .istqb-ctal-att .pyramid-level:hover,
+    .istqb-ctal-att .ref-card:hover {
+        transform: none;
     }
 }
