@@ -598,6 +598,10 @@
     font-family: var(--font-mono);
     font-size: 0.82rem;
     line-height: 1.7;
+    white-space: normal;
+}
+.istqb-ctal-att .code-header {
+    white-space: normal;
 }
 .istqb-ctal-att .code-block::before {
     content: attr(data-lang);
