@@ -19,6 +19,7 @@
     "happy-dom": "^20.8.9",
     "marked": "^18.0.1",
     "postcss": "^8.5.8",
+    "postcss-selector-parser": "^7.1.1",
     "tailwindcss": "^4.2.2"
   },
   "peerDependencies": {

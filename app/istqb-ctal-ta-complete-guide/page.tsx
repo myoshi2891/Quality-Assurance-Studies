@@ -1,10 +1,11 @@
 import React from 'react';
 import './istqb-ctal-ta-complete-guide.css';
+import NavBar from './NavBar';
 
 export default function IstqbCtalTaCompleteGuide() {
     return (
         <div className="ctal-ta-guide">
-            
+            <NavBar />
             {/* ══════════════════════════════════════════════════
      CHAPTER 0: 概要
 ══════════════════════════════════════════════════ */}
@@ -386,24 +387,24 @@ export default function IstqbCtalTaCompleteGuide() {
                     <div className="compare-box good">
                         <div className="compare-label">✅ 良い例：テスト分析</div>
                         <div className="code-block" data-lang="ANALYSIS">
-                            <span className="code-comment">// テスト条件の明確な定義</span>{"\n"}
-                            <span className="code-green">テスト条件 TC-001:</span>{"\n"}
-                            <span className="code-white"> 機能: ユーザーログイン</span>{"\n"}
-                            <span className="code-white"> 条件: 有効な認証情報での</span>{"\n"}
-                            <span className="code-white"> ログイン成功ケース</span>{"\n"}
-                            <span className="code-white"> 参照: REQ-AUTH-001</span>{"\n"}
-                            <span className="code-white"> リスクレベル: 高</span>
+                            <div className="code-line"><span className="code-comment">// テスト条件の明確な定義</span></div>
+                            <div className="code-line"><span className="code-green">テスト条件 TC-001:</span></div>
+                            <div className="code-line"><span className="code-white"> 機能: ユーザーログイン</span></div>
+                            <div className="code-line"><span className="code-white"> 条件: 有効な認証情報での</span></div>
+                            <div className="code-line"><span className="code-white"> ログイン成功ケース</span></div>
+                            <div className="code-line"><span className="code-white"> 参照: REQ-AUTH-001</span></div>
+                            <div className="code-line"><span className="code-white"> リスクレベル: 高</span></div>
                         </div>
                     </div>
                     <div className="compare-box bad">
                         <div className="compare-label">❌ 悪い例：テスト分析</div>
                         <div className="code-block" data-lang="ANALYSIS">
-                            <span className="code-comment">// 曖昧なテスト条件</span>{"\n"}
-                            <span className="code-red">テスト条件:</span>{"\n"}
-                            <span className="code-red"> ログインをテストする</span>{"\n"}
-                            <span className="code-red"> ※ テスト可能な基準なし</span>{"\n"}
-                            <span className="code-red"> ※ 仕様への追跡不可</span>{"\n"}
-                            <span className="code-red"> ※ リスク評価なし</span>
+                            <div className="code-line"><span className="code-comment">// 曖昧なテスト条件</span></div>
+                            <div className="code-line"><span className="code-red">テスト条件:</span></div>
+                            <div className="code-line"><span className="code-red"> ログインをテストする</span></div>
+                            <div className="code-line"><span className="code-red"> ※ テスト可能な基準なし</span></div>
+                            <div className="code-line"><span className="code-red"> ※ 仕様への追跡不可</span></div>
+                            <div className="code-line"><span className="code-red"> ※ リスク評価なし</span></div>
                         </div>
                     </div>
                 </div>
@@ -440,7 +441,7 @@ export default function IstqbCtalTaCompleteGuide() {
 
                 {/* 実装 */}
                 <div className="subsection-title">
-                    🔧 1.2.3 テスト実装（Test Implementation）— 「実行可能な形にする」
+                    🔧 1.2.3 テスト実装 — 「実行可能な形にする」
                 </div>
                 <p>
                     <strong>定義：</strong>High-Level テストケースをLow-Level
@@ -448,25 +449,107 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="TEST CASE">
-                    <span className="code-comment"># High-Level → Low-Level テストケースへの変換</span>{"\n\n"}
+                    <div className="code-line">
+                        <span className="code-comment"># High-Level → Low-Level テストケースへの変換</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.4rem"}}>
+                        <span className="code-cyan">High-Level TC-001:</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> 条件: 有効な認証情報でログイン成功</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> 期待: ダッシュボードが表示される</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.4rem"}}>
+                        <span className="code-amber"> ↓ テスト実装フェーズで詳細化</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.4rem"}}>
+                        <span className="code-green">Low-Level TC-001-001:</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white">
+                            前提: user@test.com がDBに存在、パスワードは "Pass123!"</span>
+                    </div>
+                    <div className="code-line"><span className="code-white"> 手順:</span></div>
+                    <div className="code-line">
+                        <span className="code-white"> 1. https://app.example.com/login を開く</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> 2. Email欄に "user@test.com" を入力</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> 3. Password欄に "Pass123!" を入力</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> 4. [ログイン]ボタンをクリック</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white">
+                            期待: "/dashboard" にリダイレクト、"ようこそ" メッセージが表示</span>
+                    </div>
+                </div>
 
-                    <span className="code-cyan">High-Level TC-001:</span>{"\n"}
-                    <span className="code-white"> 条件: 有効な認証情報でログイン成功</span>{"\n"}
-                    <span className="code-white"> 期待: ダッシュボードが表示される</span>{"\n\n"}
+                {/* キーワード駆動テスト */}
+                <div className="subsection-title">
+                    ⌨️ キーワード駆動テスト（Keyword-Driven Testing）
+                    <span className="fix-badge">✓ FIX</span>
+                </div>
+                <p>
+                    <strong>定義：</strong
+                    >テスト操作を「キーワード」として抽象化し、プログラミング知識なしでテストを記述できるフレームワーク。
+                </p>
 
-                    <span className="code-amber"> ↓ テスト実装フェーズで詳細化</span>{"\n\n"}
-
-                    <span className="code-green">Low-Level TC-001-001:</span>{"\n"}
-                    <span className="code-white">
-                        前提: user@test.com がDBに存在し、パスワードは "Pass123!"</span
-                    >{"\n"}
-                    <span className="code-white"> 手順:</span>{"\n"}
-                    <span className="code-white"> 1. https://app.example.com/login を開く</span>{"\n"}
-                    <span className="code-white"> 2. Email欄に "user@test.com" を入力</span>{"\n"}
-                    <span className="code-white"> 3. Password欄に "Pass123!" を入力</span>{"\n"}
-                    <span className="code-white"> 4. [ログイン]ボタンをクリック</span>{"\n"}
-                    <span className="code-white"> 期待: "/dashboard" にリダイレクト</span>{"\n"}
-                    <span className="code-white"> "ようこそ" メッセージが表示される</span>
+                <div className="code-block" data-lang="KEYWORD-DRIVEN">
+                    <div className="code-line">
+                        <span className="code-comment"># キーワード駆動テストの例（非エンジニアも記述可能）</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.5rem"}}>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "170px", fontWeight: 700}}>Keyword（操作）</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "190px", fontWeight: 700}}>Object（対象）</span>
+                        <span className="code-green" style={{fontWeight: 700}}>Data / Action（値）</span>
+                    </div>
+                    <div className="code-line">
+                        <span style={{color: "#243c5a", display: "inline-block", minWidth: "170px"}}>────────────────</span>
+                        <span style={{color: "#243c5a", display: "inline-block", minWidth: "190px"}}>──────────────────</span>
+                        <span style={{color: "#243c5a"}}>───────────────────────</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "170px"}}>OpenBrowser</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "190px"}}>-</span>
+                        <span className="code-green">Chrome</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "170px"}}>Navigate</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "190px"}}>URL</span>
+                        <span className="code-green">https://app.example.com</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "170px"}}>EnterText</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "190px"}}>EmailField</span>
+                        <span className="code-green">user@test.com</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "170px"}}>EnterText</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "190px"}}>PasswordField</span>
+                        <span className="code-green">Pass123!</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "170px"}}>ClickButton</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "190px"}}>LoginButton</span>
+                        <span className="code-white">-</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "170px"}}>VerifyText</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "190px"}}>PageTitle</span>
+                        <span className="code-green">ダッシュボード</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.6rem"}}>
+                        <span className="code-comment"># ✅ 利点: ビジネスアナリスト・テスターが直接記述できる</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-comment"># ✅ プログラミング知識不要でテスト設計が可能</span>
+                    </div>
                 </div>
 
                 {/* 実行 */}
@@ -478,14 +561,14 @@ export default function IstqbCtalTaCompleteGuide() {
                     >実装済みのテストケースを実行し、実際の結果と期待結果を比較してインシデントを報告する活動。
                 </p>
 
-                <div className="step-list">
+                <ul className="step-list">
                     <li>テスト環境・テストデータのセットアップ確認</li>
                     <li>テストケースの実行（手動またはツール経由）</li>
                     <li>実際の結果と期待結果の比較（テストオラクルの適用）</li>
                     <li>テストログの正確な記録</li>
                     <li>不一致が発生した場合のインシデント（欠陥）報告</li>
                     <li>環境問題と実際の欠陥の切り分け</li>
-                </div>
+                </ul>
 
                 {/* 1.3 */}
                 <div className="section-title ch1">1.3 成果物（Work Products）に関するタスク</div>
@@ -584,40 +667,6 @@ export default function IstqbCtalTaCompleteGuide() {
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                {/* キーワード駆動テスト */}
-                <div className="subsection-title">
-                    ⌨️ キーワード駆動テスト（Keyword-Driven Testing）
-                </div>
-                <p>
-                    <strong>定義：</strong
-                    >テスト操作を「キーワード」として抽象化し、プログラミング知識なしでテストを記述できるフレームワーク。
-                </p>
-
-                <div className="code-block" data-lang="KEYWORD-DRIVEN">
-                    <span className="code-comment"># キーワード駆動テストの例</span>{"\n"}
-                    <span className="code-cyan">Keyword</span> <span className="code-amber">Object</span>{"\n"}
-                    <span className="code-green">Data/Action</span>{"\n"}
-                    <span className="code-white">────────────────────────────────────────────────</span>{"\n"}
-                    <span className="code-cyan">OpenBrowser</span> <span className="code-white">-</span>{"\n"}
-                    <span className="code-green">Chrome</span> <span className="code-cyan">Navigate</span>{"\n"}
-                    <span className="code-amber">URL</span>{"\n"}
-                    <span className="code-green">https://app.example.com</span>{"\n"}
-                    <span className="code-cyan">EnterText</span>{"\n"}
-                    <span className="code-amber">EmailField</span>{"\n"}
-                    <span className="code-green">user@test.com</span>{"\n"}
-                    <span className="code-cyan">EnterText</span>{"\n"}
-                    <span className="code-amber">PasswordField</span>{"\n"}
-                    <span className="code-green">Pass123!</span>{"\n"}
-                    <span className="code-cyan">ClickButton</span>{"\n"}
-                    <span className="code-amber">LoginButton</span> <span className="code-white">-</span>{"\n"}
-                    <span className="code-cyan">VerifyText</span>{"\n"}
-                    <span className="code-amber">PageTitle</span>{"\n"}
-                    <span className="code-green">ダッシュボード</span>{"\n"}
-                    {"\n"}
-                    <span className="code-comment"># 利点: ビジネスアナリストがテストを記述可能</span>{"\n"}
-                    <span className="code-comment"># プログラミング知識不要でテスト設計が可能</span>
                 </div>
 
                 <div className="alert green">
@@ -754,19 +803,51 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="RISK CONTROL">
-                    <span className="code-comment"># リスクベーステスト 優先順位付けの例</span>{"\n\n"}
-
-                    <span className="code-white">機能 リスクレベル テスト工数 優先度</span>{"\n"}
-                    <span className="code-white">────────────────────────────────────────────────</span>{"\n"}
-                    <span className="code-red">決済処理 9 (高×高) 多め 1st</span>{"\n"}
-                    <span className="code-amber">ユーザー認証 6 (高×中) 多め 2nd</span>{"\n"}
-                    <span className="code-cyan">商品検索 4 (中×中) 普通 3rd</span>{"\n"}
-                    <span className="code-green">プロフィール編集 2 (低×中) 少なめ 4th</span>{"\n\n"}
-
-                    <span className="code-comment"># リスクが高い領域 → テストカバレッジを増やす</span>{"\n"}
-                    <span className="code-comment"
-                        ># リスクが低い領域 → テストを軽量化してコスト削減</span
-                    >
+                    <div className="code-line">
+                        <span className="code-comment"># リスクベーステスト 優先順位付けの例</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.4rem"}}>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "200px", fontWeight: 700}}>機能</span>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "160px", fontWeight: 700}}>リスクレベル</span>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "110px", fontWeight: 700}}>テスト工数</span>
+                        <span className="code-white" style={{fontWeight: 700}}>優先度</span>
+                    </div>
+                    <div className="code-line">
+                        <span style={{color: "#243c5a", display: "inline-block", minWidth: "200px"}}>──────────────</span>
+                        <span style={{color: "#243c5a", display: "inline-block", minWidth: "160px"}}>────────────</span>
+                        <span style={{color: "#243c5a", display: "inline-block", minWidth: "110px"}}>──────────</span>
+                        <span style={{color: "#243c5a"}}>──────</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-red" style={{display: "inline-block", minWidth: "200px"}}>決済処理</span>
+                        <span className="code-red" style={{display: "inline-block", minWidth: "160px"}}>9（高×高）🔴</span>
+                        <span className="code-red" style={{display: "inline-block", minWidth: "110px"}}>多め</span>
+                        <span className="code-red" style={{fontWeight: 700}}>1st 最優先</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "200px"}}>ユーザー認証</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "160px"}}>6（高×中）🟡</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "110px"}}>多め</span>
+                        <span className="code-amber" style={{fontWeight: 700}}>2nd</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "200px"}}>商品検索</span>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "160px"}}>4（中×中）🟢</span>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "110px"}}>普通</span>
+                        <span className="code-cyan" style={{fontWeight: 700}}>3rd</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-green" style={{display: "inline-block", minWidth: "200px"}}>プロフィール編集</span>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "160px"}}>2（低×中）⚪</span>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "110px"}}>少なめ</span>
+                        <span className="code-green" style={{fontWeight: 700}}>4th</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.6rem"}}>
+                        <span className="code-comment"># 🔺 リスクが高い領域 → テストカバレッジを増やす</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-comment"># 🔻 リスクが低い領域 → テストを軽量化してコスト削減</span>
+                    </div>
                 </div>
 
                 <div className="callout info">
@@ -847,27 +928,39 @@ export default function IstqbCtalTaCompleteGuide() {
                     同値分割法（EP）と境界値分析（BVA）を組み合わせた高度な技法。入力値を「同じ処理を受ける集合（パーティション）」に分割し、境界に着目してテスト値を設計します。
                 </p>
 
-                <div className="subsection-title">同値分割法（Equivalence Partitioning: EP）</div>
-                <p>
-                    <strong>定義：</strong
-                    >同じ処理結果が期待される入力値の集合を「同値パーティション」とし、各パーティションから代表値を1つ選んでテストする技法。
-                </p>
-                <p>
-                    <strong>理由：</strong
-                    >同じパーティション内の値はすべて同じ処理を受けるため、1つテストすれば十分。テスト数を効率的に削減できる。
-                </p>
-
-                <div className="code-block" data-lang="EP EXAMPLE">
-                    <span className="code-comment"># 年齢入力フィールド (0〜120が有効)</span>{"\n"}
-                    <span className="code-red">無効EP(&lt;0)</span>{"\n"}
-                    <span className="code-green">有効EP(0〜120)</span>{"\n"}
-                    <span className="code-red">無効EP(&gt;120)</span>{"\n"}
-                    <span className="code-white">─────────┬────────────────┬─────────</span>{"\n"}
-                    <span className="code-white"> ≤ -1 │ 0 〜 120 │ ≥ 121</span>{"\n"}
-                    <span className="code-white">─────────┴────────────────┴─────────</span>{"\n"}
-                    <span className="code-red">代表値:-1</span>{"\n"}
-                    <span className="code-green">代表値:60</span>{"\n"}
-                    <span className="code-red">代表値:121</span>
+                <div className="subsection-title">同値分割法（EP）の概念図</div>
+                <div style={{background: "#070e1c", border: "1px solid #1a2e4a", borderRadius: "8px", padding: "1.5rem 1rem", margin: "1rem 0", overflowX: "auto"}}>
+                    <div style={{fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "#546e7a", fontStyle: "italic", marginBottom: "1rem"}}>
+                        # 年齢入力フィールド (0〜120が有効) — 同値分割法（EP）
+                    </div>
+                    <svg role="img" viewBox="0 0 680 170" xmlns="http://www.w3.org/2000/svg" style={{width: "100%", maxWidth: "680px", display: "block", margin: "0 auto"}} fontFamily="Space Mono, monospace" fontSize="13">
+                        <title>同値分割法（EP）の概念図</title>
+                        <rect x="8" y="10" width="148" height="60" rx="6" fill="rgba(255,69,96,0.1)" stroke="#ff4560" strokeWidth="1.5" />
+                        <text x="82" y="36" fill="#ff4560" textAnchor="middle" fontWeight="700" fontSize="14">無効EP</text>
+                        <text x="82" y="57" fill="#ff4560" textAnchor="middle" fontSize="12">{"（< 0）"}</text>
+                        <rect x="162" y="10" width="356" height="60" rx="6" fill="rgba(0,255,135,0.1)" stroke="#00ff87" strokeWidth="1.5" />
+                        <text x="340" y="36" fill="#00ff87" textAnchor="middle" fontWeight="700" fontSize="14">有効EP</text>
+                        <text x="340" y="57" fill="#00ff87" textAnchor="middle" fontSize="12">（0 〜 120）</text>
+                        <rect x="524" y="10" width="148" height="60" rx="6" fill="rgba(255,69,96,0.1)" stroke="#ff4560" strokeWidth="1.5" />
+                        <text x="598" y="36" fill="#ff4560" textAnchor="middle" fontWeight="700" fontSize="14">無効EP</text>
+                        <text x="598" y="57" fill="#ff4560" textAnchor="middle" fontSize="12">{"（> 120）"}</text>
+                        <line x1="158" y1="5" x2="158" y2="80" stroke="#e8f4fd" strokeWidth="1.5" strokeDasharray="4,3" />
+                        <line x1="522" y1="5" x2="522" y2="80" stroke="#e8f4fd" strokeWidth="1.5" strokeDasharray="4,3" />
+                        <line x1="20" y1="105" x2="660" y2="105" stroke="#4a6080" strokeWidth="2" />
+                        <polygon points="660,100 672,105 660,110" fill="#4a6080" />
+                        <line x1="158" y1="95" x2="158" y2="118" stroke="#e8f4fd" strokeWidth="1.5" />
+                        <text x="158" y="133" fill="#e8f4fd" textAnchor="middle" fontSize="12">0</text>
+                        <text x="158" y="147" fill="#4a6080" textAnchor="middle" fontSize="11">下限境界</text>
+                        <line x1="522" y1="95" x2="522" y2="118" stroke="#e8f4fd" strokeWidth="1.5" />
+                        <text x="522" y="133" fill="#e8f4fd" textAnchor="middle" fontSize="12">120</text>
+                        <text x="522" y="147" fill="#4a6080" textAnchor="middle" fontSize="11">上限境界</text>
+                        <circle cx="82" cy="105" r="5" fill="#ff4560" />
+                        <text x="82" y="165" fill="#ff4560" textAnchor="middle" fontSize="12">代表値: -1</text>
+                        <circle cx="340" cy="105" r="5" fill="#00ff87" />
+                        <text x="340" y="165" fill="#00ff87" textAnchor="middle" fontSize="12">代表値: 60</text>
+                        <circle cx="598" cy="105" r="5" fill="#ff4560" />
+                        <text x="598" y="165" fill="#ff4560" textAnchor="middle" fontSize="12">代表値: 121</text>
+                    </svg>
                 </div>
 
                 <div className="subsection-title">ON点・OFF点・IN点・OUT点（v4.0重要！）</div>
@@ -905,38 +998,109 @@ export default function IstqbCtalTaCompleteGuide() {
                     </table>
                 </div>
 
-                <div className="code-block" data-lang="BOUNDARY TYPES">
-                    <span className="code-comment"># 閉じた境界（≤ or ≥）例: L ≤ 235</span>{"\n"}
-                    <span className="code-green"> ON点: 235（境界上・有効側）</span>{"\n"}
-                    <span className="code-red"> OFF点: 236（境界外・無効側）</span>{"\n"}
-                    <span className="code-comment"># 開いた境界（&lt; or &gt;）例: T &gt; 96</span>{"\n"}
-                    <span className="code-green"> ON点: 97（境界上・有効側）</span>{"\n"}
-                    <span className="code-red"> OFF点: 96（境界外・無効側）</span>
+                <div className="subsection-title">
+                    閉じた境界 vs 開いた境界
+                    <span className="fix-badge">✓ FIX</span>
                 </div>
 
-                <div className="subsection-title">境界値分析（BVA）— 2値 vs 3値</div>
-                <div className="compare-grid">
-                    <div className="compare-box good">
-                        <div className="compare-label">✅ 2値BVA（2-value BVA）</div>
-                        <div className="code-block" data-lang="2-VALUE BVA" style={{marginTop: "0.5rem"}}>
-                            <span className="code-comment"># パスワード文字数（8〜20文字）</span>{"\n"}
-                            <span className="code-white">テスト値: </span
-                            ><span className="code-red">7</span> <span className="code-green">8</span>{"\n"}
-                            <span className="code-green">20</span> <span className="code-red">21</span>{"\n"}
-                            <span className="code-comment"># OFF ON ON OFF — 4値でカバー</span>
+                <div className="code-block" data-lang="BOUNDARY TYPES">
+                    <div className="code-line">
+                        <span className="code-amber" style={{fontWeight: 700}}>① 閉じた境界（Closed Border）— ≤ または ≥ を含む</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-comment"> 例: L ≤ 235（長さが235以下）</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.3rem"}}>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "200px"}}> ON点 : 235</span>
+                        <span className="code-comment">← 境界値そのもの（✅ 有効側）</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-red" style={{display: "inline-block", minWidth: "200px"}}> OFF点 : 236</span>
+                        <span className="code-comment">← 境界外の最近傍値（❌ 無効側）</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.6rem"}}>
+                        <span style={{color: "#1e3350"}}> ──────────────────────────────────────</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.6rem"}}>
+                        <span className="code-amber" style={{fontWeight: 700}}>② 開いた境界（Open Border）— {"<"} または {">"} のみ</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-comment"> 例: T {">"} 96（温度が96より大きい）</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.3rem"}}>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "200px"}}> ON点 : 97</span>
+                        <span className="code-comment">← 有効側の最初の値（✅ 有効側）</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-red" style={{display: "inline-block", minWidth: "200px"}}> OFF点 : 96</span>
+                        <span className="code-comment">← 境界値の外側（❌ 無効側）</span>
+                    </div>
+                </div>
+
+                <div className="subsection-title">
+                    境界値分析（BVA）— 2値 vs 3値
+                    <span className="fix-badge">✓ FIX</span>
+                </div>
+                <div style={{display: "flex", flexDirection: "column", gap: "1rem", margin: "1.2rem 0"}}>
+                    <div style={{background: "var(--color-bg-card)", border: "1px solid rgba(0, 255, 135, 0.35)", borderRadius: "var(--radius-DEFAULT)", padding: "1.2rem", borderLeft: "4px solid var(--color-accent-green)"}}>
+                        <div style={{fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 700, color: "var(--color-accent-green)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem"}}>
+                            ✅ 2値BVA（2-value BVA）
+                            <span style={{fontWeight: 400, color: "var(--color-text-muted)"}}>— ON点 + OFF点 のみ / 計4値</span>
+                        </div>
+                        <div style={{background: "#070e1c", border: "1px solid var(--color-border)", borderRadius: "var(--radius-DEFAULT)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
+                            <span style={{position: "absolute", top: "0.4rem", right: "0.8rem", fontSize: "0.68rem", color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.08em"}}>2-VALUE BVA</span>
+                            <div style={{color: "#546e7a", fontStyle: "italic", marginBottom: "0.8rem", fontSize: "0.82rem"}}># パスワード文字数（8〜20文字）</div>
+                            <div style={{display: "grid", gridTemplateColumns: "72px repeat(4, 1fr)", gap: "2px 0", lineHeight: 2}}>
+                                <span style={{color: "#e8f4fd", fontSize: "0.82rem", alignSelf: "center"}}>テスト値:</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>7</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>8</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>20</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>21</span>
+                                <span style={{color: "#e8f4fd", fontSize: "0.72rem", alignSelf: "center"}}>ラベル :</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>OFF</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>ON</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>ON</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>OFF</span>
+                                <span style={{color: "#546e7a", fontSize: "0.72rem", alignSelf: "center"}}>区分 :</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>無効</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>有効</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>有効</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>無効</span>
+                            </div>
+                            <div style={{color: "#546e7a", fontStyle: "italic", marginTop: "0.8rem", fontSize: "0.78rem"}}># 各境界にON点（境界値）+ OFF点（境界外最近傍値）= 計4テスト値</div>
                         </div>
                     </div>
-                    <div className="compare-box bad" style={{borderColor: "rgba(0, 212, 255, 0.3)"}}>
-                        <div className="compare-label" style={{color: "var(--neon-cyan)"}}>
+                    <div style={{background: "var(--color-bg-card)", border: "1px solid rgba(0, 212, 255, 0.35)", borderRadius: "var(--radius-DEFAULT)", padding: "1.2rem", borderLeft: "4px solid var(--color-accent-cyan)"}}>
+                        <div style={{fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 700, color: "var(--color-accent-cyan)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem"}}>
                             ✅ 3値BVA（3-value BVA）
+                            <span style={{fontWeight: 400, color: "var(--color-text-muted)"}}>— ON点 + IN点 + OFF点 / 計6値</span>
                         </div>
-                        <div className="code-block" data-lang="3-VALUE BVA" style={{marginTop: "0.5rem"}}>
-                            <span className="code-comment"># パスワード文字数（8〜20文字）</span>{"\n"}
-                            <span className="code-white">テスト値: </span
-                            ><span className="code-red">7</span> <span className="code-green">8</span>{"\n"}
-                            <span className="code-cyan">9</span> <span className="code-cyan">19</span>{"\n"}
-                            <span className="code-green">20</span> <span className="code-red">21</span>{"\n"}
-                            <span className="code-comment"># OUT ON IN IN ON OUT — 6値</span>
+                        <div style={{background: "#070e1c", border: "1px solid var(--color-border)", borderRadius: "var(--radius-DEFAULT)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
+                            <span style={{position: "absolute", top: "0.4rem", right: "0.8rem", fontSize: "0.68rem", color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.08em"}}>3-VALUE BVA</span>
+                            <div style={{color: "#546e7a", fontStyle: "italic", marginBottom: "0.8rem", fontSize: "0.82rem"}}># パスワード文字数（8〜20文字）</div>
+                            <div style={{display: "grid", gridTemplateColumns: "72px repeat(6, 1fr)", gap: "2px 0", lineHeight: 2}}>
+                                <span style={{color: "#e8f4fd", fontSize: "0.82rem", alignSelf: "center"}}>テスト値:</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>7</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>8</span>
+                                <span style={{color: "#00d4ff", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>9</span>
+                                <span style={{color: "#00d4ff", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>19</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>20</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontWeight: 700, fontSize: "1rem"}}>21</span>
+                                <span style={{color: "#e8f4fd", fontSize: "0.72rem", alignSelf: "center"}}>ラベル :</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>OUT</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>ON</span>
+                                <span style={{color: "#00d4ff", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>IN</span>
+                                <span style={{color: "#00d4ff", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>IN</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>ON</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontSize: "0.72rem", letterSpacing: "0.04em"}}>OUT</span>
+                                <span style={{color: "#546e7a", fontSize: "0.72rem", alignSelf: "center"}}>区分 :</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>無効</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>有効</span>
+                                <span style={{color: "#00d4ff", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>有効</span>
+                                <span style={{color: "#00d4ff", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>有効</span>
+                                <span style={{color: "#00ff87", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>有効</span>
+                                <span style={{color: "#ff4560", textAlign: "center", fontSize: "0.68rem", opacity: 0.7}}>無効</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -951,13 +1115,8 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 <div className="subsection-title">
-                    3.1.2 組み合わせテスト（Combinatorial Testing）
-                    <span className="badge badge-k3">K3</span>
+                    3.1.2 組み合わせテスト <span className="badge badge-k3">K3</span>
                 </div>
-                <p>
-                    <strong>定義：</strong
-                    >複数の入力パラメータが存在する場合に、全組み合わせを削減しながら重要な組み合わせをカバーするテスト技法。
-                </p>
                 <div className="table-wrap">
                     <table>
                         <thead>
@@ -998,25 +1157,60 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 <div className="code-block" data-lang="PAIRWISE TESTING">
-                    <span className="code-comment"
-                        ># OS(3)×Browser(3)×Lang(2) = 18通り → ペアワイズで6件に削減！</span
-                    >{"\n"}
-                    <span className="code-white">No OS Browser Lang</span>{"\n"}
-                    <span className="code-green">TC1 Windows Chrome EN</span>{"\n"}
-                    <span className="code-comment"># Win-Chrome, Win-EN, Chrome-EN</span>{"\n"}
-                    <span className="code-green">TC2 Windows Firefox JP</span>{"\n"}
-                    <span className="code-comment"># Win-Firefox, Win-JP, Firefox-JP</span>{"\n"}
-                    <span className="code-cyan">TC3 Mac Safari EN</span>{"\n"}
-                    <span className="code-comment"># Mac-Safari, Mac-EN, Safari-EN</span>{"\n"}
-                    <span className="code-cyan">TC4 Mac Chrome JP</span>{"\n"}
-                    <span className="code-comment"># Mac-Chrome, Mac-JP, Chrome-JP</span>{"\n"}
-                    <span className="code-amber">TC5 Linux Firefox EN</span>{"\n"}
-                    <span className="code-comment"># Linux-Firefox, Linux-EN</span>{"\n"}
-                    <span className="code-amber">TC6 Linux Safari JP</span>{"\n"}
-                    <span className="code-comment"># Linux-Safari, Linux-JP, Safari-JP</span>{"\n"}
-                    <span className="code-comment"
-                        ># 全ペア（OS-Browser, OS-Lang, Browser-Lang）を6件でカバー！</span
-                    >
+                    <div className="code-line">
+                        <span className="code-comment"># OS(3)×Browser(3)×Lang(2) = 18通り → ペアワイズで6件に削減！</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.4rem"}}>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "50px", fontWeight: 700}}>No</span>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "100px", fontWeight: 700}}>OS</span>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "110px", fontWeight: 700}}>Browser</span>
+                        <span className="code-white" style={{fontWeight: 700}}>Lang</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-green" style={{display: "inline-block", minWidth: "50px"}}>TC1</span>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "100px"}}>Windows</span>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "110px"}}>Chrome</span>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "40px"}}>EN</span>
+                        <span className="code-comment">← Win-Chrome, Win-EN, Chrome-EN</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-green" style={{display: "inline-block", minWidth: "50px"}}>TC2</span>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "100px"}}>Windows</span>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "110px"}}>Firefox</span>
+                        <span className="code-green" style={{display: "inline-block", minWidth: "40px"}}>JP</span>
+                        <span className="code-comment">← Win-Firefox, Win-JP, Firefox-JP</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "50px"}}>TC3</span>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "100px"}}>Mac</span>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "110px"}}>Safari</span>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "40px"}}>EN</span>
+                        <span className="code-comment">← Mac-Safari, Mac-EN, Safari-EN</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "50px"}}>TC4</span>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "100px"}}>Mac</span>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "110px"}}>Chrome</span>
+                        <span className="code-cyan" style={{display: "inline-block", minWidth: "40px"}}>JP</span>
+                        <span className="code-comment">← Mac-Chrome, Mac-JP, Chrome-JP</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "50px"}}>TC5</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "100px"}}>Linux</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "110px"}}>Firefox</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "40px"}}>EN</span>
+                        <span className="code-comment">← Linux-Firefox, Linux-EN</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "50px"}}>TC6</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "100px"}}>Linux</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "110px"}}>Safari</span>
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "40px"}}>JP</span>
+                        <span className="code-comment">← Linux-Safari, Linux-JP, Safari-JP</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.5rem"}}>
+                        <span className="code-comment"># 全ペア（OS-Browser, OS-Lang, Browser-Lang）を6件でカバー！</span>
+                    </div>
                 </div>
 
                 <div className="subsection-title">
@@ -1089,50 +1283,55 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 <div className="code-block" data-lang="GHERKIN / BDD">
-                    <span className="code-keyword">Scenario:</span>{"\n"}
-                    <span className="code-green">ユーザーの作成（Create）→ 読み取り確認（Read）</span>{"\n"}
-                    <span className="code-cyan">Given</span>{"\n"}
-                    <span className="code-white">管理者がユーザー管理画面を開いている</span>{"\n"}
-                    <span className="code-cyan">When</span>{"\n"}
-                    <span className="code-white"
-                        >名前 "田中太郎", メール "tanaka@test.com" を入力して保存</span
-                    >{"\n"}
-                    <span className="code-cyan">Then</span>{"\n"}
-                    <span className="code-white"
-                        >"田中太郎" がユーザー一覧に表示される（Read確認）</span
-                    >{"\n"}
-                    {"\n"}
-                    <span className="code-keyword">Scenario:</span>{"\n"}
-                    <span className="code-red">ユーザーの削除（Delete）→ 不在確認（Read）</span>{"\n"}
-                    <span className="code-cyan">Given</span>{"\n"}
-                    <span className="code-white">"田中太郎" がシステムに存在する</span>{"\n"}
-                    <span className="code-cyan">When</span>{"\n"}
-                    <span className="code-white">"田中太郎" を削除する</span>{"\n"}
-                    <span className="code-cyan">Then</span>{"\n"}
-                    <span className="code-white">"田中太郎" がユーザー一覧に表示されない</span>
+                    <div className="code-line"><span className="code-keyword">Scenario: </span><span className="code-green">ユーザーの作成（Create）→ 読み取り確認（Read）</span></div>
+                    <div className="code-line"><span className="code-cyan">Given </span><span className="code-white">管理者がユーザー管理画面を開いている</span></div>
+                    <div className="code-line"><span className="code-cyan">When  </span><span className="code-white">名前 "田中太郎", メール "tanaka@test.com" を入力して保存</span></div>
+                    <div className="code-line"><span className="code-cyan">Then  </span><span className="code-white">"田中太郎" がユーザー一覧に表示される（Read確認）</span></div>
+                    <div className="code-line">&nbsp;</div>
+                    <div className="code-line"><span className="code-keyword">Scenario: </span><span className="code-red">ユーザーの削除（Delete）→ 不在確認（Read）</span></div>
+                    <div className="code-line"><span className="code-cyan">Given </span><span className="code-white">"田中太郎" がシステムに存在する</span></div>
+                    <div className="code-line"><span className="code-cyan">When  </span><span className="code-white">"田中太郎" を削除する</span></div>
+                    <div className="code-line"><span className="code-cyan">Then  </span><span className="code-white">"田中太郎" がユーザー一覧に表示されない</span></div>
                 </div>
 
                 <div className="subsection-title">
-                    3.2.2 状態遷移テスト（State Transition Testing）
-                    <span className="badge badge-k3">K3</span>
+                    3.2.2 状態遷移テスト <span className="badge badge-k3">K3</span>
                 </div>
-                <p>
-                    <strong>定義：</strong
-                    >システムが取り得る状態とイベントによる状態遷移を図示し、遷移パスを網羅するテスト技法。
-                </p>
-
-                <div className="code-block" data-lang="STATE DIAGRAM">
-                    <span className="code-comment"># 注文システムの状態遷移</span>{"\n"}
-                    <span className="code-green">[注文中]</span>{"\n"}
-                    <span className="code-white">─── 支払い完了 ──→</span>{"\n"}
-                    <span className="code-cyan">[決済済み]</span>{"\n"}
-                    <span className="code-white">─── 発送 ──→</span>{"\n"}
-                    <span className="code-amber">[配送中]</span>{"\n"}
-                    <span className="code-white">─── 到着確認 ──→</span>{"\n"}
-                    <span className="code-purple">[完了]</span>{"\n"}
-                    <span className="code-white"> │</span>{"\n"}
-                    <span className="code-white"> └── キャンセル ──→</span>{"\n"}
-                    <span className="code-red">[キャンセル]</span>
+                <div style={{background: "#070e1c", border: "1px solid #1a2e4a", borderRadius: "8px", padding: "1.5rem 1rem", margin: "1rem 0", overflowX: "auto"}}>
+                    <div style={{fontFamily: "var(--font-mono)", fontSize: "0.78rem", color: "#546e7a", fontStyle: "italic", marginBottom: "1rem"}}>
+                        # 注文システムの状態遷移ダイアグラム
+                    </div>
+                    <svg role="img" viewBox="0 0 860 200" xmlns="http://www.w3.org/2000/svg" style={{width: "100%", maxWidth: "860px", display: "block", margin: "0 auto"}} fontFamily="Space Mono, monospace" fontSize="13">
+                        <title>注文システムの状態遷移ダイアグラム</title>
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#4a6080" />
+                            </marker>
+                        </defs>
+                        <rect x="10" y="30" width="100" height="44" rx="8" fill="rgba(0,255,135,0.1)" stroke="#00ff87" strokeWidth="1.5" />
+                        <text x="60" y="56" fill="#00ff87" textAnchor="middle" fontWeight="700">注文中</text>
+                        <line x1="110" y1="52" x2="185" y2="52" stroke="#4a6080" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                        <text x="147" y="46" fill="#4a6080" textAnchor="middle" fontSize="11">支払い完了</text>
+                        <rect x="186" y="30" width="110" height="44" rx="8" fill="rgba(0,212,255,0.1)" stroke="#00d4ff" strokeWidth="1.5" />
+                        <text x="241" y="56" fill="#00d4ff" textAnchor="middle" fontWeight="700">決済済み</text>
+                        <line x1="296" y1="52" x2="371" y2="52" stroke="#4a6080" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                        <text x="333" y="46" fill="#4a6080" textAnchor="middle" fontSize="11">発送</text>
+                        <rect x="372" y="30" width="100" height="44" rx="8" fill="rgba(255,179,0,0.1)" stroke="#ffb300" strokeWidth="1.5" />
+                        <text x="422" y="56" fill="#ffb300" textAnchor="middle" fontWeight="700">配送中</text>
+                        <line x1="472" y1="52" x2="547" y2="52" stroke="#4a6080" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                        <text x="509" y="46" fill="#4a6080" textAnchor="middle" fontSize="11">到着確認</text>
+                        <rect x="548" y="30" width="90" height="44" rx="8" fill="rgba(179,107,255,0.1)" stroke="#b36bff" strokeWidth="1.5" />
+                        <text x="593" y="56" fill="#b36bff" textAnchor="middle" fontWeight="700">完了</text>
+                        <rect x="552" y="34" width="82" height="36" rx="6" fill="none" stroke="#b36bff" strokeWidth="0.5" opacity="0.5" />
+                        <line x1="60" y1="74" x2="60" y2="130" stroke="#4a6080" strokeWidth="1.5" markerEnd="url(#arrowhead)" />
+                        <text x="68" y="108" fill="#4a6080" fontSize="11">キャンセル</text>
+                        <rect x="10" y="131" width="100" height="44" rx="8" fill="rgba(255,69,96,0.1)" stroke="#ff4560" strokeWidth="1.5" />
+                        <text x="60" y="157" fill="#ff4560" textAnchor="middle" fontWeight="700">キャンセル</text>
+                        <text x="680" y="50" fill="#4a6080" fontSize="11">■ 状態（State）</text>
+                        <text x="680" y="70" fill="#4a6080" fontSize="11">→ 遷移（Transition）</text>
+                        <text x="680" y="90" fill="#4a6080" fontSize="11">　ラベル＝イベント</text>
+                        <rect x="672" y="38" width="175" height="62" rx="4" fill="none" stroke="#1a2e4a" strokeWidth="1" />
+                    </svg>
                 </div>
 
                 <div className="table-wrap">
@@ -1182,15 +1381,11 @@ export default function IstqbCtalTaCompleteGuide() {
                     >実際のユーザーのワークフロー（E2Eシナリオ）をテストする技法。ユーザーストーリーやユースケースから導出する。
                 </p>
                 <div className="code-block" data-lang="E2E SCENARIO">
-                    <span className="code-comment"># ECサイト購入シナリオ（E2Eフロー）</span>{"\n"}
-                    <span className="code-white"
-                        >1. 商品を検索 → 2. 詳細ページ確認 → 3. カート追加(数量:2)</span
-                    >{"\n"}
-                    <span className="code-white"
-                        >4. カート確認 → 5. チェックアウト → 6. 配送先入力</span
-                    >{"\n"}
-                    <span className="code-white">7. 支払い入力 → 8. 注文確定</span>{"\n"}
-                    <span className="code-green">9. 注文確認画面表示 ✓ 10. 確認メール受信 ✓</span>
+                    <div className="code-line"><span className="code-comment"># ECサイト購入シナリオ（E2Eフロー）</span></div>
+                    <div className="code-line"><span className="code-white">1. 商品を検索 → 2. 詳細ページ確認 → 3. カート追加(数量:2)</span></div>
+                    <div className="code-line"><span className="code-white">4. カート確認 → 5. チェックアウト → 6. 配送先入力</span></div>
+                    <div className="code-line"><span className="code-white">7. 支払い入力 → 8. 注文確定</span></div>
+                    <div className="code-line"><span className="code-green">9. 注文確認画面表示 ✓  10. 確認メール受信 ✓</span></div>
                 </div>
 
                 {/* 3.3 ルールベース技法 */}
@@ -1210,22 +1405,73 @@ export default function IstqbCtalTaCompleteGuide() {
                     ルール。4条件 = 16ルール。
                 </p>
 
-                <div className="code-block" data-lang="DECISION TABLE">
-                    <span className="code-comment"># ローン審査（3条件 = 2³ = 8ルール）</span>{"\n"}
-                    <span className="code-white">条件 </span
-                    ><span className="code-cyan">R1 R2 R3 R4 R5 R6 R7 R8</span>{"\n"}
-                    <span className="code-white">年収 ≥ 300万 </span
-                    ><span className="code-cyan"> T T T T F F F F</span>{"\n"}
-                    <span className="code-white">信用スコア ≥ 700 </span
-                    ><span className="code-cyan"> T T F F T T F F</span>{"\n"}
-                    <span className="code-white">勤続年数 ≥ 3年 </span
-                    ><span className="code-cyan"> T F T F T F T F</span>{"\n"}
-                    <span className="code-white"
-                        >─────────────────────────────────────────────────</span
-                    >{"\n"}
-                    <span className="code-green">審査通過 </span><span className="code-green"> ✓</span>{"\n"}
-                    <span className="code-amber">保証人要求 </span><span className="code-amber"> ✓ ✓</span>{"\n"}
-                    <span className="code-red">申請却下 </span><span className="code-red"> ✓ ✓ ✓ ✓ ✓</span>
+                <p className="code-comment" style={{fontSize: "0.9rem", marginBottom: "0.5rem"}}># ローン審査（3条件 = 2³ = 8ルール）</p>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>条件 / アクション</th>
+                                <th>R1</th><th>R2</th><th>R3</th><th>R4</th>
+                                <th>R5</th><th>R6</th><th>R7</th><th>R8</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>年収 ≥ 300万</td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                            </tr>
+                            <tr>
+                                <td>信用スコア ≥ 700</td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                            </tr>
+                            <tr>
+                                <td>勤続年数 ≥ 3年</td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                                <td><span style={{color: "var(--neon-green)"}}>T</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>F</span></td>
+                            </tr>
+                            <tr style={{borderTop: "2px solid var(--color-border)"}}>
+                                <td><span style={{color: "#00ff87", fontWeight: 600}}>審査通過</span></td>
+                                <td><span style={{color: "#00ff87"}}>✓</span></td>
+                                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+                            </tr>
+                            <tr>
+                                <td><span style={{color: "var(--neon-amber)", fontWeight: 600}}>保証人要求</span></td>
+                                <td></td>
+                                <td><span style={{color: "var(--neon-amber)"}}>✓</span></td>
+                                <td><span style={{color: "var(--neon-amber)"}}>✓</span></td>
+                                <td></td><td></td><td></td><td></td><td></td>
+                            </tr>
+                            <tr>
+                                <td><span style={{color: "var(--neon-red)", fontWeight: 600}}>申請却下</span></td>
+                                <td></td><td></td><td></td>
+                                <td><span style={{color: "var(--neon-red)"}}>✓</span></td>
+                                <td></td>
+                                <td><span style={{color: "var(--neon-red)"}}>✓</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>✓</span></td>
+                                <td><span style={{color: "var(--neon-red)"}}>✓</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
 
                 <div className="compare-grid">
@@ -1251,11 +1497,6 @@ export default function IstqbCtalTaCompleteGuide() {
                     3.3.2 メタモルフィックテスト <span className="badge badge-k2">K2</span>
                     <span className="badge badge-new">v4.0 重要新出</span>
                 </div>
-                <p>
-                    <strong>定義：</strong
-                    >テストオラクル問題（期待結果が決定困難）を解決するために、入出力の変化に「メタモルフィック関係（MR）」が成立することを検証するテスト技法。
-                </p>
-
                 <div className="callout warning">
                     <span className="callout-icon">⚠️</span>
                     <div className="callout-body">
@@ -1265,33 +1506,33 @@ export default function IstqbCtalTaCompleteGuide() {
                 </div>
 
                 <div className="code-block" data-lang="METAMORPHIC TESTING">
-                    <span className="code-comment"
-                        ># MR1: 検索 — クエリ拡張で結果は減らないはず（単調性）</span
-                    >{"\n"}
-                    <span className="code-keyword">assert</span>{"\n"}
-                    <span className="code-white">len(search("Python tutorial programming")) &gt;=</span>{"\n"}
-                    <span className="code-white">len(search("Python tutorial")) * 0.9</span>{"\n"}
-                    {"\n"}
-                    <span className="code-comment"
-                        ># MR2: 経路探索 — 往路と復路の距離は等しいはず（対称性）</span
-                    >{"\n"}
-                    <span className="code-keyword">assert</span>{"\n"}
-                    <span className="code-white">abs(shortest_path("Tokyo","Osaka") -</span>{"\n"}
-                    <span className="code-white">shortest_path("Osaka","Tokyo")) &lt; 0.01</span>{"\n"}
-                    {"\n"}
-                    <span className="code-comment"
-                        ># MR3: 機械学習 — 訓練データ増加で精度は下がらないはず</span
-                    >{"\n"}
-                    <span className="code-keyword">assert</span>{"\n"}
-                    <span className="code-white"
-                        >accuracy(samples=2000) &gt;= accuracy(samples=1000) - 0.05</span
-                    >{"\n"}
-                    {"\n"}
-                    <span className="code-comment"
-                        ># MR4: ソート — 同じデータは常に同じ結果（べき等性）</span
-                    >{"\n"}
-                    <span className="code-keyword">assert</span>{"\n"}
-                    <span className="code-white">sort([3,1,4,1,5]) == sort([3,1,4,1,5])</span>
+                    <div className="code-line">
+                        <span className="code-comment"># MR1: 検索 — クエリ拡張で結果は減らないはず（単調性）</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-keyword">assert</span>
+                        <span className="code-white">len(search("Python tutorial programming")) &gt;=</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> len(search("Python tutorial")) * 0.9</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.5rem"}}>
+                        <span className="code-comment"># MR2: 経路探索 — 往路と復路の距離は等しいはず（対称性）</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-keyword">assert</span>
+                        <span className="code-white">abs(shortest_path("Tokyo","Osaka") -</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> shortest_path("Osaka","Tokyo")) &lt; 0.01</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.5rem"}}>
+                        <span className="code-comment"># MR3: ML — 訓練データ増加で精度は下がらないはず</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-keyword">assert</span>
+                        <span className="code-white">accuracy(samples=2000) &gt;= accuracy(samples=1000) - 0.05</span>
+                    </div>
                 </div>
 
                 <div className="arch-layers">
@@ -1330,41 +1571,96 @@ export default function IstqbCtalTaCompleteGuide() {
                 </p>
 
                 <div className="code-block" data-lang="TEST CHARTER">
-                    <span className="code-cyan">Target（ターゲット）:</span>{"\n"}
-                    <span className="code-white">
-                        ユーザー登録フォーム（名前・メール・パスワード・電話）</span
-                    >{"\n\n"}
-
-                    <span className="code-cyan">Mission（発見したいもの）:</span>{"\n"}
-                    <span className="code-white">
-                        入力バリデーションの不備・セキュリティ上の脆弱性</span
-                    >{"\n\n"}
-
-                    <span className="code-cyan">Resources（リソース）:</span>{"\n"}
-                    <span className="code-white">
-                        時間: 60分 | ツール: Chrome DevTools | データ: 特殊文字セット</span
-                    >{"\n\n"}
-
-                    <span className="code-cyan">時間配分:</span>{"\n"}
-                    <span className="code-amber"> 設定: 5分</span>{"\n"}
-                    <span className="code-green">実行: 45分</span>{"\n"}
-                    <span className="code-purple">報告: 10分</span>
+                    <div className="code-line">
+                        <span className="code-cyan" style={{fontWeight: 700}}>EXPLORE</span>
+                        <span className="code-white" style={{marginLeft: "0.5rem"}}>【テスト対象】</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white" style={{paddingLeft: "1.6rem"}}>ユーザー登録フォーム（名前・メール・パスワード・電話）</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.5rem"}}>
+                        <span className="code-cyan" style={{fontWeight: 700}}>TO DISCOVER</span>
+                        <span className="code-white" style={{marginLeft: "0.5rem"}}>【発見したいもの】</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white" style={{paddingLeft: "1.6rem"}}>入力バリデーションの不備・セキュリティ上の脆弱性</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.5rem"}}>
+                        <span className="code-cyan" style={{fontWeight: 700}}>USING</span>
+                        <span className="code-white" style={{marginLeft: "0.5rem"}}>【使用するリソース】</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white" style={{paddingLeft: "1.6rem"}}>時間: 60分 | ツール: Chrome DevTools | データ: 特殊文字セット</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.8rem", borderTop: "1px solid #1e3350", paddingTop: "0.6rem"}}>
+                        <span className="code-white" style={{fontWeight: 700}}>時間配分:</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-amber" style={{display: "inline-block", minWidth: "150px"}}> 設定・準備</span>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "55px"}}>5 分</span>
+                        <span style={{color: "#3a2800"}}>█</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-green" style={{display: "inline-block", minWidth: "150px"}}> テスト実行</span>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "55px"}}>45 分</span>
+                        <span style={{color: "#00ff87"}}>█████████</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-purple" style={{display: "inline-block", minWidth: "150px"}}> レポート作成</span>
+                        <span className="code-white" style={{display: "inline-block", minWidth: "55px"}}>10 分</span>
+                        <span style={{color: "#b36bff"}}>██</span>
+                    </div>
                 </div>
 
                 <div className="subsection-title">
                     3.4.2 チェックリストベーステスト <span className="badge badge-k2">K2</span>
+                    <span className="fix-badge">✓ FIX</span>
                 </div>
                 <div className="code-block" data-lang="CHECKLIST">
-                    <span className="code-cyan">セキュリティテスト用チェックリスト:</span>{"\n"}
-                    <span className="code-white"> □ SQLインジェクション: ' OR '1'='1</span>{"\n"}
-                    <span className="code-white"> □ XSS: &lt;script&gt;alert(1)&lt;/script&gt;</span>{"\n"}
-                    <span className="code-white"> □ CSRF: トークン検証の有無</span>{"\n"}
-                    <span className="code-white"> □ ディレクトリトラバーサル: ../../etc/passwd</span>{"\n\n"}
-
-                    <span className="code-cyan">ユーザビリティチェックリスト:</span>{"\n"}
-                    <span className="code-white"> □ エラーメッセージは修正方法を示しているか</span>{"\n"}
-                    <span className="code-white"> □ レスポンス時間は3秒以内か</span>{"\n"}
-                    <span className="code-white"> □ WCAG 2.1 AA レベルを満たすか</span>
+                    <div className="code-line">
+                        <span className="code-red" style={{fontWeight: 700}}>▌ セキュリティテスト用チェックリスト</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> □ </span>
+                        <span className="code-amber">SQLインジェクション</span>
+                        <span className="code-white"> — 入力: </span>
+                        <span className="code-green">{"' OR '1'='1"}</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> □ </span>
+                        <span className="code-amber">XSS</span>
+                        <span className="code-white"> — 入力: </span>
+                        <span className="code-green">{"<script>alert(1)</script>"}</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> □ </span>
+                        <span className="code-amber">CSRF</span>
+                        <span className="code-white"> — トークン検証の有無を確認</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> □ </span>
+                        <span className="code-amber">ディレクトリトラバーサル</span>
+                        <span className="code-white"> — 入力: </span>
+                        <span className="code-green">../../etc/passwd</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.8rem", borderTop: "1px solid #1e3350", paddingTop: "0.6rem"}}>
+                        <span className="code-cyan" style={{fontWeight: 700}}>▌ ユーザビリティチェックリスト</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> □ エラーメッセージは</span>
+                        <span className="code-green">修正方法</span>
+                        <span className="code-white">を示しているか</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> □ レスポンス時間は</span>
+                        <span className="code-green">3秒以内</span>
+                        <span className="code-white">か（ISO 9241-11 効率性）</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-white"> □ </span>
+                        <span className="code-green">WCAG 2.1 AA レベル</span>
+                        <span className="code-white">を満たすか（アクセシビリティ）</span>
+                    </div>
                 </div>
 
                 <div className="subsection-title">
@@ -1910,19 +2206,17 @@ export default function IstqbCtalTaCompleteGuide() {
                     要求レビューにおけるテストアナリストのチェックリスト
                 </div>
                 <div className="code-block" data-lang="REVIEW CHECKLIST">
-                    <span className="code-cyan"
-                        >要求レビューチェックリスト（テストアナリスト視点）:</span
-                    >{"\n"}
-                    <span className="code-white"> □ 要求は明確で曖昧でないか？</span>{"\n"}
-                    <span className="code-red"> ❌「システムは高速に動作すること」</span>{"\n"}
-                    <span className="code-green"> ✅「ページロード時間は 3秒以内であること」</span>{"\n"}
-                    <span className="code-white"> □ テスト可能な形で記述されているか？</span>{"\n"}
-                    <span className="code-red"> ❌「ユーザーフレンドリーであること」</span>{"\n"}
-                    <span className="code-green"> ✅「SUSスコアが 68 以上であること」</span>{"\n"}
-                    <span className="code-white"> □ 定量的な基準があるか？</span>{"\n"}
-                    <span className="code-white"> □ 矛盾する要求がないか？</span>{"\n"}
-                    <span className="code-white"> □ 境界条件が明示されているか？</span>{"\n"}
-                    <span className="code-white"> □ 依存関係が文書化されているか？</span>
+                    <div className="code-line"><span className="code-cyan">要求レビューチェックリスト（テストアナリスト視点）:</span></div>
+                    <div className="code-line"><span className="code-white"> □ 要求は明確で曖昧でないか？</span></div>
+                    <div className="code-line"><span className="code-red">   ❌「システムは高速に動作すること」</span></div>
+                    <div className="code-line"><span className="code-green">   ✅「ページロード時間は 3秒以内であること」</span></div>
+                    <div className="code-line"><span className="code-white"> □ テスト可能な形で記述されているか？</span></div>
+                    <div className="code-line"><span className="code-red">   ❌「ユーザーフレンドリーであること」</span></div>
+                    <div className="code-line"><span className="code-green">   ✅「SUSスコアが 68 以上であること」</span></div>
+                    <div className="code-line"><span className="code-white"> □ 定量的な基準があるか？</span></div>
+                    <div className="code-line"><span className="code-white"> □ 矛盾する要求がないか？</span></div>
+                    <div className="code-line"><span className="code-white"> □ 境界条件が明示されているか？</span></div>
+                    <div className="code-line"><span className="code-white"> □ 依存関係が文書化されているか？</span></div>
                 </div>
 
                 <div className="subsection-title">
@@ -2018,27 +2312,35 @@ export default function IstqbCtalTaCompleteGuide() {
 
                 <div className="subsection-title">5-Why分析（根本原因分析）</div>
                 <div className="code-block" data-lang="ROOT CAUSE ANALYSIS">
-                    <span className="code-red">問題: ユーザーログインが時々失敗する</span>{"\n"}
-                    <span className="code-amber">Why1: セッションタイムアウトが早すぎる</span>{"\n"}
-                    <span className="code-white">↓</span>{"\n"}
-                    <span className="code-amber">Why2: タイムアウト値が短く設定されている（60秒）</span>{"\n"}
-                    <span className="code-white">↓</span>{"\n"}
-                    <span className="code-amber"
-                        >Why3: デフォルト値が変更されずにそのまま使われていた</span
-                    >{"\n"}
-                    <span className="code-white">↓</span>{"\n"}
-                    <span className="code-amber">Why4: 設定値を確認するプロセスがなかった</span>{"\n"}
-                    <span className="code-white">↓</span>{"\n"}
-                    <span className="code-amber"
-                        >Why5: リリース前の設定確認チェックリストが存在しなかった</span
-                    >{"\n"}
-                    <span className="code-white">↓</span>{"\n"}
-                    <span className="code-green"
-                        >根本原因: リリースプロセスに設定確認チェックリストがない</span
-                    >{"\n"}
-                    <span className="code-green"
-                        >対策: 設定確認チェックリストをリリースプロセスに組み込む → 再発防止！</span
-                    >
+                    <div className="code-line">
+                        <span className="code-red">問題: ユーザーログインが時々失敗する</span>
+                    </div>
+                    <div className="code-line" style={{marginTop: "0.4rem"}}>
+                        <span className="code-amber">Why1: セッションタイムアウトが早すぎる</span>
+                    </div>
+                    <div className="code-line"><span className="code-white"> ↓</span></div>
+                    <div className="code-line">
+                        <span className="code-amber">Why2: タイムアウト値が短く設定されている（60秒）</span>
+                    </div>
+                    <div className="code-line"><span className="code-white"> ↓</span></div>
+                    <div className="code-line">
+                        <span className="code-amber">Why3: デフォルト値が変更されずにそのまま使われていた</span>
+                    </div>
+                    <div className="code-line"><span className="code-white"> ↓</span></div>
+                    <div className="code-line">
+                        <span className="code-amber">Why4: 設定値を確認するプロセスがなかった</span>
+                    </div>
+                    <div className="code-line"><span className="code-white"> ↓</span></div>
+                    <div className="code-line">
+                        <span className="code-amber">Why5: リリース前の設定確認チェックリストが存在しなかった</span>
+                    </div>
+                    <div className="code-line"><span className="code-white"> ↓</span></div>
+                    <div className="code-line" style={{marginTop: "0.3rem"}}>
+                        <span className="code-green">根本原因: リリースプロセスに設定確認チェックリストがない</span>
+                    </div>
+                    <div className="code-line">
+                        <span className="code-green">対策: 設定確認チェックリストをリリースプロセスに組み込む → 再発防止！</span>
+                    </div>
                 </div>
 
                 <div className="alert green">
@@ -2180,7 +2482,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     >
                         <span className="badge badge-k3">K3</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.3.1 境界値分析</span
                         >
                     </div>
@@ -2198,17 +2500,17 @@ export default function IstqbCtalTaCompleteGuide() {
                             A) 9, 10, 100, 101 ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             B) 10, 100
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) 9, 11, 99, 101
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) 0, 10, 50, 100, 200
                         </div>
@@ -2226,7 +2528,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     >
                         <span className="badge badge-k3">K3</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.3.3 デシジョンテーブル</span
                         >
                     </div>
@@ -2237,7 +2539,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) 4 &nbsp;&nbsp; B) 8 &nbsp;&nbsp; C) 12
                         </div>
@@ -2260,7 +2562,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         <span className="badge badge-k2">K2</span
                         ><span className="badge badge-new">v4.0 新出</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.3.3 メタモルフィックテスト</span
                         >
                     </div>
@@ -2271,7 +2573,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) テストオラクルが明確に定義されているシステム
                         </div>
@@ -2281,12 +2583,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) 期待する出力を事前に特定することが難しいシステム ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) ブラックボックステストが不可能なシステム
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) ホワイトボックス技法のみが適用可能なシステム
                         </div>
@@ -2303,7 +2605,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     >
                         <span className="badge badge-k2">K2</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.2 リスクベーステスト</span
                         >
                     </div>
@@ -2314,7 +2616,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) プロジェクトリスクを管理し、スケジュールを調整する
                         </div>
@@ -2324,12 +2626,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) 製品リスクを識別・評価し、テストの優先順位付けに貢献する ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) テストオートメーションの戦略を策定する
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) テスト環境の性能テストを実施する
                         </div>
@@ -2346,7 +2648,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     >
                         <span className="badge badge-k3">K3</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.5 欠陥防止</span
                         >
                     </div>
@@ -2358,7 +2660,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) コードの実装ミス
                         </div>
@@ -2368,12 +2670,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) テスト可能な形式で記述されていない要求 ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) パフォーマンス最適化の機会
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) CI/CDパイプラインの設定ミス
                         </div>
@@ -2388,32 +2690,33 @@ export default function IstqbCtalTaCompleteGuide() {
                     試験直前チェックリスト
                 </div>
                 <div className="code-block" data-lang="FINAL CHECKLIST">
-                    <span className="code-cyan">Ch.1:</span>{"\n"}
-                    <span className="code-white"
-                        >□ テスト分析/設計/実装/実行の違い □ High/Low-Level TC □
-                        テストオラクルの種類</span
-                    >{"\n"}
-                    <span className="code-cyan">Ch.2:</span>{"\n"}
-                    <span className="code-white"
-                        >□ 製品リスク vs プロジェクトリスク □ リスク=確率×影響度 □
-                        優先順位付け</span
-                    >{"\n"}
-                    <span className="code-cyan">Ch.3:</span>{"\n"}
-                    <span className="code-white"
-                        >□ EP/BVA(ON/OFF/IN/OUT点) □ 2値/3値BVA □ ペアワイズ □ 2ⁿルール</span
-                    >{"\n"}
-                    <span className="code-white"
-                        >□ 状態遷移(0/1/Nスイッチ) □ メタモルフィック(オラクル問題) □ CRUD</span
-                    >{"\n"}
-                    <span className="code-white">□ テストチャーター構成 □ リスクと技法の対応</span>{"\n"}
-                    <span className="code-cyan">Ch.4:</span>{"\n"}
-                    <span className="code-white"
-                        >□ ISO 25010 主要特性5つ以上 □ SUS≥68 □ 柔軟性テスト3要素(v4.0新出)</span
-                    >{"\n"}
-                    <span className="code-cyan">Ch.5:</span>{"\n"}
-                    <span className="code-white"
-                        >□ 欠陥修正コスト増加の法則 □ TDD/BDD/レビュー □ 5-Why分析 □ ODC分類</span
-                    >
+                    <div className="code-line"><span className="code-cyan">Ch.1:</span></div>
+                    <div className="code-line"><span className="code-white"> □ テスト分析/設計/実装/実行の違い</span></div>
+                    <div className="code-line"><span className="code-white"> □ High/Low-Level TC</span></div>
+                    <div className="code-line"><span className="code-white"> □ テストオラクルの種類</span></div>
+                    <div className="code-line"><span className="code-cyan">Ch.2:</span></div>
+                    <div className="code-line"><span className="code-white"> □ 製品リスク vs プロジェクトリスク</span></div>
+                    <div className="code-line"><span className="code-white"> □ リスク=確率×影響度</span></div>
+                    <div className="code-line"><span className="code-white"> □ 優先順位付け</span></div>
+                    <div className="code-line"><span className="code-cyan">Ch.3:</span></div>
+                    <div className="code-line"><span className="code-white"> □ EP/BVA(ON/OFF/IN/OUT点)</span></div>
+                    <div className="code-line"><span className="code-white"> □ 2値/3値BVA</span></div>
+                    <div className="code-line"><span className="code-white"> □ ペアワイズ</span></div>
+                    <div className="code-line"><span className="code-white"> □ 2ⁿルール</span></div>
+                    <div className="code-line"><span className="code-white"> □ 状態遷移(0/1/Nスイッチ)</span></div>
+                    <div className="code-line"><span className="code-white"> □ メタモルフィック(オラクル問題)</span></div>
+                    <div className="code-line"><span className="code-white"> □ CRUD</span></div>
+                    <div className="code-line"><span className="code-white"> □ テストチャーター構成</span></div>
+                    <div className="code-line"><span className="code-white"> □ リスクと技法の対応</span></div>
+                    <div className="code-line"><span className="code-cyan">Ch.4:</span></div>
+                    <div className="code-line"><span className="code-white"> □ ISO 25010 主要特性5つ以上</span></div>
+                    <div className="code-line"><span className="code-white"> □ SUS≥68</span></div>
+                    <div className="code-line"><span className="code-white"> □ 柔軟性テスト3要素(v4.0新出)</span></div>
+                    <div className="code-line"><span className="code-cyan">Ch.5:</span></div>
+                    <div className="code-line"><span className="code-white"> □ 欠陥修正コスト増加の法則</span></div>
+                    <div className="code-line"><span className="code-white"> □ TDD/BDD/レビュー</span></div>
+                    <div className="code-line"><span className="code-white"> □ 5-Why分析</span></div>
+                    <div className="code-line"><span className="code-white"> □ ODC分類</span></div>
                 </div>
             </section>
 
@@ -2707,7 +3010,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     ⚠️
                     本ガイドはISTQB®が公認したトレーニング資料ではありません。公式シラバス・サンプル問題と合わせて使用してください。
                 </div>
-                <div style={{marginTop: "0.8rem", color: "var(--text-muted)", fontSize: "1rem"}}>
+                <div style={{marginTop: "0.8rem", color: "var(--color-text-muted)", fontSize: "1rem"}}>
                     © 2025 Study Guide — Exam specs sourced from official ISTQB® materials
                 </div>
             </footer>
