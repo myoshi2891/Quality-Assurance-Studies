@@ -147,6 +147,7 @@
     top: 60px;
     z-index: 40;
     background: rgba(3, 7, 18, 0.92);
+    -webkit-backdrop-filter: blur(16px);
     backdrop-filter: blur(16px);
     border-bottom: 1px solid var(--color-border-bright);
     overflow-x: auto;
@@ -262,6 +263,7 @@
     background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-green));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    color: transparent;
     background-clip: text;
 }
 .istqb-ctal-att .hero-sub {
