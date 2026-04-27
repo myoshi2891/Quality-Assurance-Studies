@@ -1121,7 +1121,7 @@
     }
 
     /* バーグロウアニメーション */
-    .istqb-ctal-att [style*='--bar-width'] {
+    .istqb-ctal-att .progress-bar-fill {
         animation: none;
         width: var(--bar-width, 70%);
     }

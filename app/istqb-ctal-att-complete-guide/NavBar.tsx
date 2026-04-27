@@ -38,9 +38,9 @@ export default function NavBar() {
 
     useEffect(() => {
         const root = document.querySelector('.istqb-ctal-att');
-        const sections = root
-            ? root.querySelectorAll('section[id]')
-            : document.querySelectorAll('section[id]');
+        if (!root) return;
+
+        const sections = root.querySelectorAll('section[id]');
         const observer = new IntersectionObserver(
             (entries) => {
                 const intersectingEntries = entries
@@ -48,8 +48,8 @@ export default function NavBar() {
                     .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
 
                 const first = intersectingEntries[0];
-                if (first !== undefined && isNavId(first.target.id)) {
-                    setActiveSection(first.target.id);
+                if (first !== undefined) {
+                    setActiveSection(first.target.id as NavId);
                 }
             },
             {
