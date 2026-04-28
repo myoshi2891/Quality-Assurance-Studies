@@ -1,0 +1,3195 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CT-ATLaS 完全ガイド 2025 | ISTQB Agile Test Leadership at Scale</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+JP:wght@300;400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+            :root {
+                --bg-deep: #030712;
+                --bg-surface: #0a1120;
+                --bg-card: #0d1829;
+                --bg-hover: #111d35;
+                --neon-green: #00ff88;
+                --neon-cyan: #00e5ff;
+                --neon-amber: #ffb800;
+                --neon-red: #ff4060;
+                --neon-violet: #a855f7;
+                --text-primary: #e2e8f0;
+                --text-secondary: #94a3b8;
+                --text-muted: #475569;
+                --border-subtle: rgba(0, 229, 255, 0.12);
+                --border-glow: rgba(0, 255, 136, 0.3);
+                --glow-green: 0 0 20px rgba(0, 255, 136, 0.4);
+                --glow-cyan: 0 0 20px rgba(0, 229, 255, 0.4);
+                --glow-card: 0 8px 32px rgba(0, 0, 0, 0.6);
+                --font-display: 'Syne', sans-serif;
+                --font-mono: 'Space Mono', monospace;
+                --font-body: 'IBM Plex Sans JP', sans-serif;
+                --radius: 8px;
+                --radius-lg: 14px;
+                --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                --ch1: #00ff88;
+                --ch2: #00e5ff;
+                --ch3: #ffb800;
+                --ch4: #a855f7;
+                --ch5: #ff4060;
+            }
+
+            /* ============================================================
+   RESET & BASE
+   ============================================================ */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                scroll-behavior: smooth;
+                font-size: 16px;
+            }
+
+            body {
+                background-color: var(--bg-deep);
+                color: var(--text-primary);
+                font-family: var(--font-body);
+                font-weight: 400;
+                line-height: 1.7;
+                overflow-x: hidden;
+                position: relative;
+            }
+
+            /* Scanline overlay */
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(0, 229, 255, 0.015) 3px,
+                    rgba(0, 229, 255, 0.015) 4px
+                );
+                pointer-events: none;
+                z-index: 9999;
+            }
+
+            /* Grid texture */
+            body::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+                background-size: 48px 48px;
+                pointer-events: none;
+                z-index: 9998;
+            }
+
+            /* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+            h1,
+            h2,
+            h3,
+            h4,
+            h5 {
+                font-family: var(--font-display);
+                line-height: 1.2;
+            }
+            h1 {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+                font-weight: 800;
+            }
+            h2 {
+                font-size: clamp(1.4rem, 3vw, 2rem);
+                font-weight: 700;
+            }
+            h3 {
+                font-size: clamp(1.1rem, 2vw, 1.4rem);
+                font-weight: 600;
+            }
+            h4 {
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+            p {
+                font-size: 1rem;
+                margin-bottom: 1em;
+            }
+            a {
+                color: var(--neon-cyan);
+                text-decoration: none;
+                transition: color var(--transition);
+            }
+            a:hover {
+                color: var(--neon-green);
+                text-decoration: underline;
+            }
+            ul,
+            ol {
+                padding-left: 1.5em;
+                margin-bottom: 1em;
+            }
+            li {
+                margin-bottom: 0.4em;
+                font-size: 1rem;
+            }
+            strong {
+                color: var(--neon-green);
+                font-weight: 600;
+            }
+            code {
+                font-family: var(--font-mono);
+                font-size: 0.88rem;
+                background: rgba(0, 229, 255, 0.1);
+                padding: 0.15em 0.45em;
+                border-radius: 4px;
+                color: var(--neon-cyan);
+            }
+
+            /* ============================================================
+   STICKY NAV
+   ============================================================ */
+            .sticky-nav {
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                background: rgba(3, 7, 18, 0.92);
+                backdrop-filter: blur(16px);
+                border-bottom: 1px solid var(--border-subtle);
+                padding: 0.6rem 1rem;
+                overflow-x: auto;
+                white-space: nowrap;
+                scrollbar-width: none;
+            }
+            .sticky-nav::-webkit-scrollbar {
+                display: none;
+            }
+            .nav-inner {
+                display: inline-flex;
+                gap: 0.4rem;
+                align-items: center;
+                min-width: max-content;
+            }
+            .nav-brand {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--neon-green);
+                font-weight: 700;
+                margin-right: 1rem;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+            }
+            .nav-link {
+                font-family: var(--font-display);
+                font-size: 0.78rem;
+                font-weight: 600;
+                padding: 0.35rem 0.75rem;
+                border-radius: 4px;
+                border: 1px solid transparent;
+                transition: all var(--transition);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+            .nav-link:hover {
+                text-decoration: none;
+                border-color: var(--neon-cyan);
+                background: rgba(0, 229, 255, 0.08);
+                color: var(--neon-cyan);
+            }
+            .nav-link.ch1 {
+                color: var(--ch1);
+            }
+            .nav-link.ch2 {
+                color: var(--ch2);
+            }
+            .nav-link.ch3 {
+                color: var(--ch3);
+            }
+            .nav-link.ch4 {
+                color: var(--ch4);
+            }
+            .nav-link.ch5 {
+                color: var(--ch5);
+            }
+
+            /* ============================================================
+   LAYOUT CONTAINER
+   ============================================================ */
+            .container {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+            }
+
+            /* ============================================================
+   HERO SECTION
+   ============================================================ */
+            .hero {
+                position: relative;
+                padding: 5rem 1.5rem 4rem;
+                text-align: center;
+                overflow: hidden;
+            }
+            .hero-glow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 600px;
+                height: 600px;
+                background: radial-gradient(ellipse, rgba(0, 255, 136, 0.12) 0%, transparent 70%);
+                animation: pulse 4s ease-in-out infinite;
+                pointer-events: none;
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.7;
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.15);
+                    opacity: 1;
+                }
+            }
+            .hero-badge {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--neon-green);
+                border: 1px solid var(--neon-green);
+                padding: 0.3rem 1rem;
+                border-radius: 99px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                margin-bottom: 1.5rem;
+                animation: fadeInDown 0.6s ease both;
+            }
+            .hero h1 {
+                animation: fadeInDown 0.7s ease 0.1s both;
+                background: linear-gradient(
+                    135deg,
+                    var(--neon-green) 0%,
+                    var(--neon-cyan) 60%,
+                    #ffffff 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 1rem;
+            }
+            .hero-sub {
+                font-size: 1.1rem;
+                color: var(--text-secondary);
+                max-width: 640px;
+                margin: 0 auto 2.5rem;
+                animation: fadeInUp 0.7s ease 0.2s both;
+            }
+            .hero-meta-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+                max-width: 680px;
+                margin: 0 auto;
+                animation: fadeInUp 0.7s ease 0.35s both;
+            }
+            .hero-meta-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius);
+                padding: 1rem;
+                text-align: center;
+            }
+            .hero-meta-card .value {
+                font-family: var(--font-mono);
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: var(--neon-green);
+                display: block;
+            }
+            .hero-meta-card .label {
+                font-size: 0.78rem;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                display: block;
+                margin-top: 0.25rem;
+            }
+
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-24px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(24px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* ============================================================
+   SECTION
+   ============================================================ */
+            .section {
+                padding: 4rem 0;
+                border-top: 1px solid var(--border-subtle);
+            }
+            .section-header {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            .chapter-num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 2.8rem;
+                height: 2.8rem;
+                border-radius: var(--radius);
+                font-family: var(--font-mono);
+                font-size: 0.88rem;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .section-title-wrap {
+                flex: 1;
+            }
+            .section-klevel {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                padding: 0.2rem 0.6rem;
+                border-radius: 4px;
+                margin-left: 0.75rem;
+                vertical-align: middle;
+                letter-spacing: 0.06em;
+            }
+
+            /* Chapter color themes */
+            .ch1-theme {
+                --accent: var(--ch1);
+            }
+            .ch2-theme {
+                --accent: var(--ch2);
+            }
+            .ch3-theme {
+                --accent: var(--ch3);
+            }
+            .ch4-theme {
+                --accent: var(--ch4);
+            }
+            .ch5-theme {
+                --accent: var(--ch5);
+            }
+
+            .chapter-num {
+                background: color-mix(in srgb, var(--accent) 15%, transparent);
+                border: 1px solid var(--accent);
+                color: var(--accent);
+            }
+            .section-klevel {
+                background: color-mix(in srgb, var(--accent) 15%, transparent);
+                border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+                color: var(--accent);
+            }
+
+            /* ============================================================
+   TOC GRID
+   ============================================================ */
+            .toc-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1rem;
+                margin: 2rem 0;
+            }
+            .toc-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius-lg);
+                padding: 1.25rem;
+                transition: all var(--transition);
+                cursor: pointer;
+                text-decoration: none;
+                display: block;
+            }
+            .toc-card:hover {
+                transform: translateY(-4px);
+                box-shadow: var(--glow-card);
+                text-decoration: none;
+            }
+            .toc-card .toc-num {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+            .toc-card .toc-title {
+                font-family: var(--font-display);
+                font-size: 0.92rem;
+                font-weight: 600;
+                color: var(--text-primary);
+                display: block;
+                margin-bottom: 0.4rem;
+            }
+            .toc-card .toc-mins {
+                font-size: 0.75rem;
+                color: var(--text-muted);
+            }
+
+            /* ============================================================
+   ARCH LAYERS
+   ============================================================ */
+            .arch-layers {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin: 1.5rem 0;
+            }
+            .arch-layer {
+                display: flex;
+                align-items: stretch;
+                border-radius: var(--radius);
+                overflow: hidden;
+                background: var(--bg-card);
+                border: 1px solid var(--border-subtle);
+                transition: all var(--transition);
+            }
+            .arch-layer:hover {
+                transform: translateX(6px);
+                box-shadow: var(--glow-card);
+            }
+            .arch-layer-accent {
+                width: 5px;
+                flex-shrink: 0;
+            }
+            .arch-layer-body {
+                padding: 1rem 1.25rem;
+                flex: 1;
+            }
+            .arch-layer-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.3rem;
+            }
+            .arch-layer-desc {
+                font-size: 0.88rem;
+                color: var(--text-secondary);
+                margin: 0;
+            }
+            .arch-layer-tag {
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                padding: 0.2rem 0.5rem;
+                border-radius: 4px;
+                align-self: center;
+                margin-right: 1rem;
+                white-space: nowrap;
+            }
+
+            /* ============================================================
+   PYRAMID
+   ============================================================ */
+            .pyramid {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.4rem;
+                margin: 1.5rem 0;
+            }
+            .pyramid-tier {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: var(--radius);
+                font-family: var(--font-display);
+                font-size: 0.9rem;
+                font-weight: 600;
+                padding: 0.75rem 1rem;
+                transition: all var(--transition);
+                cursor: default;
+                text-align: center;
+            }
+            .pyramid-tier:hover {
+                transform: scale(1.03);
+                filter: brightness(1.2);
+            }
+
+            /* ============================================================
+   CODE BLOCK
+   ============================================================ */
+            .code-block {
+                background: #060e1f;
+                border: 1px solid var(--border-subtle);
+                border-left: 3px solid var(--neon-green);
+                border-radius: var(--radius);
+                padding: 1.25rem 1.5rem;
+                margin: 1.5rem 0;
+                overflow-x: auto;
+                position: relative;
+            }
+            .code-block::before {
+                content: attr(data-lang);
+                position: absolute;
+                top: 0.5rem;
+                right: 0.75rem;
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+            .code-block pre {
+                font-family: var(--font-mono);
+                font-size: 0.85rem;
+                line-height: 1.6;
+                white-space: pre;
+                margin: 0;
+                color: var(--text-primary);
+            }
+            .code-green {
+                color: var(--neon-green);
+            }
+            .code-cyan {
+                color: var(--neon-cyan);
+            }
+            .code-amber {
+                color: var(--neon-amber);
+            }
+            .code-comment {
+                color: #4b5a7a;
+                font-style: italic;
+            }
+            .code-keyword {
+                color: #c792ea;
+            }
+            .code-string {
+                color: #c3e88d;
+            }
+            .code-number {
+                color: #f78c6c;
+            }
+
+            /* ============================================================
+   STEP LIST
+   ============================================================ */
+            .step-list {
+                list-style: none;
+                padding: 0;
+                margin: 1.5rem 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .step-list li {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                background: var(--bg-card);
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius);
+                padding: 1rem 1.25rem;
+                transition: all var(--transition);
+            }
+            .step-list li:hover {
+                border-color: var(--neon-green);
+                box-shadow: var(--glow-green);
+            }
+            .step-num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                min-width: 2rem;
+                border-radius: 50%;
+                background: var(--neon-green);
+                color: var(--bg-deep);
+                font-family: var(--font-mono);
+                font-size: 0.8rem;
+                font-weight: 700;
+            }
+            .step-content {
+                flex: 1;
+            }
+            .step-content strong {
+                display: block;
+                margin-bottom: 0.3rem;
+                color: var(--text-primary);
+            }
+            .step-content p {
+                margin: 0;
+                font-size: 0.92rem;
+                color: var(--text-secondary);
+            }
+
+            /* ============================================================
+   CALLOUT
+   ============================================================ */
+            .callout {
+                border-radius: var(--radius);
+                padding: 1.1rem 1.4rem;
+                margin: 1.5rem 0;
+                display: flex;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            .callout-icon {
+                font-size: 1.25rem;
+                flex-shrink: 0;
+                margin-top: 0.1rem;
+            }
+            .callout-body {
+                flex: 1;
+            }
+            .callout-title {
+                font-family: var(--font-display);
+                font-size: 0.9rem;
+                font-weight: 700;
+                margin-bottom: 0.4rem;
+            }
+            .callout-body p {
+                margin: 0;
+                font-size: 0.92rem;
+            }
+            .callout.info {
+                background: rgba(0, 229, 255, 0.08);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+            }
+            .callout.info .callout-title {
+                color: var(--neon-cyan);
+            }
+            .callout.warning {
+                background: rgba(255, 184, 0, 0.08);
+                border: 1px solid rgba(255, 184, 0, 0.3);
+            }
+            .callout.warning .callout-title {
+                color: var(--neon-amber);
+            }
+            .callout.danger {
+                background: rgba(255, 64, 96, 0.08);
+                border: 1px solid rgba(255, 64, 96, 0.3);
+            }
+            .callout.danger .callout-title {
+                color: var(--neon-red);
+            }
+
+            /* ============================================================
+   METRIC GRID
+   ============================================================ */
+            .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .metric-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius-lg);
+                padding: 1.25rem;
+                text-align: center;
+                transition: all var(--transition);
+            }
+            .metric-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 0 24px rgba(0, 255, 136, 0.2);
+                border-color: var(--neon-green);
+            }
+            .metric-value {
+                font-family: var(--font-mono);
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--neon-green);
+                display: block;
+            }
+            .metric-label {
+                font-size: 0.8rem;
+                color: var(--text-secondary);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                display: block;
+                margin-top: 0.4rem;
+            }
+            .metric-sub {
+                font-size: 0.72rem;
+                color: var(--text-muted);
+                display: block;
+                margin-top: 0.3rem;
+            }
+
+            /* ============================================================
+   PROGRESS ITEMS
+   ============================================================ */
+            .progress-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                margin: 1.5rem 0;
+            }
+            .progress-item {
+            }
+            .progress-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.35rem;
+                font-size: 0.88rem;
+            }
+            .progress-label {
+                font-family: var(--font-display);
+                font-weight: 600;
+                color: var(--text-primary);
+            }
+            .progress-value {
+                font-family: var(--font-mono);
+                font-size: 0.82rem;
+                color: var(--text-secondary);
+            }
+            .progress-bar-bg {
+                height: 6px;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 99px;
+                overflow: hidden;
+            }
+            .progress-bar-fill {
+                height: 100%;
+                border-radius: 99px;
+                width: 0;
+                animation: growBar 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+            @keyframes growBar {
+                to {
+                    width: var(--fill-width);
+                }
+            }
+
+            /* ============================================================
+   TABLE
+   ============================================================ */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 1.5rem 0;
+                border-radius: var(--radius);
+                border: 1px solid var(--border-subtle);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                min-width: 480px;
+            }
+            thead {
+                background: var(--bg-surface);
+            }
+            th {
+                padding: 0.85rem 1rem;
+                font-family: var(--font-display);
+                font-size: 0.82rem;
+                font-weight: 700;
+                text-align: left;
+                color: var(--neon-cyan);
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                border-bottom: 1px solid var(--border-subtle);
+                white-space: nowrap;
+            }
+            td {
+                padding: 0.85rem 1rem;
+                font-size: 0.9rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+                vertical-align: top;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr {
+                transition: background var(--transition);
+            }
+            tbody tr:hover {
+                background: var(--bg-hover);
+            }
+
+            /* ============================================================
+   EXAM GRID
+   ============================================================ */
+            .exam-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .exam-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius-lg);
+                padding: 1.25rem;
+                transition: all var(--transition);
+            }
+            .exam-card:hover {
+                border-color: var(--accent, var(--neon-cyan));
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+                transform: translateY(-3px);
+            }
+            .exam-card-chapter {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                margin-bottom: 0.5rem;
+            }
+            .exam-card-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+            .exam-card-pts {
+                font-family: var(--font-mono);
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+            .exam-stars {
+                color: var(--neon-amber);
+                font-size: 0.85rem;
+                margin-top: 0.5rem;
+                display: block;
+            }
+            .exam-klevel {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--text-muted);
+                margin-top: 0.3rem;
+                display: block;
+            }
+
+            /* ============================================================
+   REFERENCE GRID
+   ============================================================ */
+            .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .ref-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius);
+                padding: 1rem 1.25rem;
+                transition: all var(--transition);
+                display: flex;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            .ref-card:hover {
+                transform: translateX(4px);
+                border-left: 3px solid var(--neon-cyan);
+                padding-left: calc(1.25rem - 2px);
+            }
+            .ref-cat {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                background: rgba(0, 229, 255, 0.12);
+                color: var(--neon-cyan);
+                border-radius: 4px;
+                padding: 0.2rem 0.5rem;
+                white-space: nowrap;
+                align-self: flex-start;
+                margin-top: 0.1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .ref-body {
+                flex: 1;
+            }
+            .ref-title {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: var(--text-primary);
+                margin-bottom: 0.2rem;
+            }
+            .ref-url {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                word-break: break-all;
+            }
+
+            /* ============================================================
+   TREND CARD
+   ============================================================ */
+            .trend-card {
+                position: relative;
+                background: var(--bg-card);
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+                margin: 1rem 0;
+                overflow: hidden;
+                transition: all var(--transition);
+            }
+            .trend-card::before {
+                content: '';
+                position: absolute;
+                top: -40px;
+                right: -40px;
+                width: 120px;
+                height: 120px;
+                background: radial-gradient(circle, rgba(0, 255, 136, 0.15) 0%, transparent 70%);
+                transition: all var(--transition);
+            }
+            .trend-card:hover {
+                border-color: var(--neon-green);
+            }
+            .trend-card:hover::before {
+                transform: scale(1.5);
+                opacity: 0.8;
+            }
+            .trend-label {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--neon-green);
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            /* ============================================================
+   ALERT VARIANTS
+   ============================================================ */
+            .alert {
+                padding: 0.9rem 1.2rem;
+                border-radius: var(--radius);
+                margin: 1rem 0;
+                font-size: 0.92rem;
+                border-left: 4px solid;
+            }
+            .alert.green {
+                border-color: var(--neon-green);
+                background: rgba(0, 255, 136, 0.07);
+                color: var(--text-primary);
+            }
+            .alert.amber {
+                border-color: var(--neon-amber);
+                background: rgba(255, 184, 0, 0.07);
+                color: var(--text-primary);
+            }
+            .alert.red {
+                border-color: var(--neon-red);
+                background: rgba(255, 64, 96, 0.07);
+                color: var(--text-primary);
+            }
+            .alert.cyan {
+                border-color: var(--neon-cyan);
+                background: rgba(0, 229, 255, 0.07);
+                color: var(--text-primary);
+            }
+
+            /* ============================================================
+   COMPARE GRID (GOOD/BAD)
+   ============================================================ */
+            .compare-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .compare-card {
+                border-radius: var(--radius);
+                padding: 1.25rem;
+            }
+            .compare-card.good {
+                background: rgba(0, 255, 136, 0.07);
+                border: 1px solid rgba(0, 255, 136, 0.25);
+            }
+            .compare-card.bad {
+                background: rgba(255, 64, 96, 0.07);
+                border: 1px solid rgba(255, 64, 96, 0.25);
+            }
+            .compare-header {
+                font-family: var(--font-display);
+                font-size: 0.88rem;
+                font-weight: 700;
+                margin-bottom: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .compare-card.good .compare-header {
+                color: var(--neon-green);
+            }
+            .compare-card.bad .compare-header {
+                color: var(--neon-red);
+            }
+            .compare-card ul {
+                margin: 0;
+                font-size: 0.88rem;
+                color: var(--text-secondary);
+            }
+
+            /* ============================================================
+   DIVIDER
+   ============================================================ */
+            .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--border-subtle), transparent);
+                margin: 2rem 0;
+            }
+
+            /* ============================================================
+   FOOTER
+   ============================================================ */
+            .footer {
+                border-top: 1px solid var(--border-subtle);
+                padding: 2.5rem 1.5rem;
+                text-align: center;
+                font-size: 0.85rem;
+                color: var(--text-muted);
+            }
+            .footer a {
+                color: var(--neon-cyan);
+            }
+
+            /* ============================================================
+   RESPONSIVE
+   ============================================================ */
+            @media (max-width: 900px) {
+                .compare-grid {
+                    grid-template-columns: 1fr;
+                }
+                .toc-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                }
+                .metric-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .exam-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+            @media (max-width: 600px) {
+                .hero {
+                    padding: 3rem 1rem 2.5rem;
+                }
+                .hero-meta-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .metric-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .exam-grid {
+                    grid-template-columns: 1fr;
+                }
+                .ref-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* ============================================================
+   MISC UTILITIES
+   ============================================================ */
+            .tag {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                padding: 0.2rem 0.6rem;
+                border-radius: 4px;
+                font-weight: 700;
+                margin: 0.15rem;
+            }
+            .tag.green {
+                background: rgba(0, 255, 136, 0.15);
+                color: var(--neon-green);
+                border: 1px solid rgba(0, 255, 136, 0.3);
+            }
+            .tag.cyan {
+                background: rgba(0, 229, 255, 0.15);
+                color: var(--neon-cyan);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+            }
+            .tag.amber {
+                background: rgba(255, 184, 0, 0.15);
+                color: var(--neon-amber);
+                border: 1px solid rgba(255, 184, 0, 0.3);
+            }
+            .tag.red {
+                background: rgba(255, 64, 96, 0.15);
+                color: var(--neon-red);
+                border: 1px solid rgba(255, 64, 96, 0.3);
+            }
+            .tag.violet {
+                background: rgba(168, 85, 247, 0.15);
+                color: var(--neon-violet);
+                border: 1px solid rgba(168, 85, 247, 0.3);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ============================================================
+     STICKY NAV
+     ============================================================ -->
+        <nav class="sticky-nav" aria-label="章ナビゲーション">
+            <div class="nav-inner">
+                <span class="nav-brand">CT-ATLaS</span>
+                <a href="#overview" class="nav-link">概要</a>
+                <a href="#ch1" class="nav-link ch1">Ch.1 品質支援</a>
+                <a href="#ch2" class="nav-link ch2">Ch.2 フロー改善</a>
+                <a href="#ch3" class="nav-link ch3">Ch.3 継続改善</a>
+                <a href="#ch4" class="nav-link ch4">Ch.4 テスト戦略</a>
+                <a href="#ch5" class="nav-link ch5">Ch.5 テストプロセス</a>
+                <a href="#exam" class="nav-link">試験対策</a>
+                <a href="#refs" class="nav-link">参考文献</a>
+            </div>
+        </nav>
+
+        <!-- ============================================================
+     HERO
+     ============================================================ -->
+        <header class="hero" id="top">
+            <div class="hero-glow"></div>
+            <div class="container" style="position: relative; z-index: 1">
+                <div class="hero-badge">ISTQB® 認定資格 &nbsp;·&nbsp; 2025年版</div>
+                <h1>CT-ATLaS<br />完全学習ガイド</h1>
+                <p class="hero-sub">
+                    Agile Test Leadership at Scale —
+                    組織全体の品質文化とアジャイルテストリーダーシップを初学者からわかりやすく解説
+                </p>
+                <div class="hero-meta-grid">
+                    <div class="hero-meta-card">
+                        <span class="value">40</span>
+                        <span class="label">問題数</span>
+                    </div>
+                    <div class="hero-meta-card">
+                        <span class="value">71</span>
+                        <span class="label">合計点</span>
+                    </div>
+                    <div class="hero-meta-card">
+                        <span class="value">47</span>
+                        <span class="label">合格点（66%）</span>
+                    </div>
+                    <div class="hero-meta-card">
+                        <span class="value">120<span style="font-size: 1rem">分</span></span>
+                        <span class="label">試験時間</span>
+                    </div>
+                    <div class="hero-meta-card">
+                        <span class="value">v2.0</span>
+                        <span class="label">シラバス</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- ============================================================
+     OVERVIEW
+     ============================================================ -->
+        <main>
+            <div class="container">
+                <section class="section" id="overview">
+                    <h2>📘 資格概要と学習ロードマップ</h2>
+                    <p>
+                        CT-ATLaS（Certified Tester Agile Test Leadership at
+                        Scale）は、複数のアジャイルチームを横断し、<strong>組織全体の品質文化・テスト戦略・継続的改善</strong>をリードする専門家を認定するISTQB®国際資格です。2023年9月29日に
+                        v2.0 がリリースされました。
+                    </p>
+
+                    <div class="callout info">
+                        <span class="callout-icon">🎯</span>
+                        <div class="callout-body">
+                            <div class="callout-title">CT-ATLaS が他資格と異なる3つのポイント</div>
+                            <p>
+                                ①
+                                <strong>組織レベル</strong
+                                >（CTAL-TMはプロジェクト・CTAL-ATTはチーム技術レベル）&ensp;②
+                                <strong>アジャイル専用</strong
+                                >（CTAL-TMは従来型/ハイブリッドもカバー）&ensp;③
+                                <strong>テスト管理 → クオリティアシスタンス</strong
+                                >へのマインドセット転換が核心
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 前提資格 -->
+                    <div class="arch-layers">
+                        <div class="arch-layer">
+                            <div class="arch-layer-accent" style="background: var(--ch5)"></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title" style="color: var(--ch5)">
+                                    CT-ATLaS v2.0 &nbsp;<span class="tag red">本資格</span>
+                                </div>
+                                <p class="arch-layer-desc">
+                                    組織レベル｜複数アジャイルチームの品質文化・テスト戦略・継続的改善をリードする
+                                </p>
+                            </div>
+                            <div
+                                class="arch-layer-tag"
+                                style="
+                                    background: rgba(255, 64, 96, 0.15);
+                                    color: var(--ch5);
+                                    border: 1px solid rgba(255, 64, 96, 0.3);
+                                "
+                            >
+                                Org Level
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div class="arch-layer-accent" style="background: var(--ch4)"></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title" style="color: var(--ch4)">
+                                    CTAL-TM v3.0 &nbsp;/&nbsp; CTAL-ATT
+                                </div>
+                                <p class="arch-layer-desc">
+                                    プロジェクト/チーム技術レベル｜テスト管理（TM）・アジャイル技術実践（ATT）
+                                </p>
+                            </div>
+                            <div
+                                class="arch-layer-tag"
+                                style="
+                                    background: rgba(168, 85, 247, 0.15);
+                                    color: var(--ch4);
+                                    border: 1px solid rgba(168, 85, 247, 0.3);
+                                "
+                            >
+                                Project/Team
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div class="arch-layer-accent" style="background: var(--ch1)"></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title" style="color: var(--ch1)">
+                                    CTFL v4.0 &nbsp;<span class="tag green">前提資格（必須）</span>
+                                </div>
+                                <p class="arch-layer-desc">
+                                    Foundation Level｜または旧CTFL + CTFL-AT の組み合わせ
+                                </p>
+                            </div>
+                            <div
+                                class="arch-layer-tag"
+                                style="
+                                    background: rgba(0, 255, 136, 0.15);
+                                    color: var(--ch1);
+                                    border: 1px solid rgba(0, 255, 136, 0.3);
+                                "
+                            >
+                                Foundation
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3大ビジネスアウトカム -->
+                    <h3 style="margin-top: 2rem">3つのビジネスアウトカム</h3>
+                    <ul class="step-list">
+                        <li>
+                            <span class="step-num">BO1</span>
+                            <div class="step-content">
+                                <strong>品質マインドセットと文化の醸成</strong>
+                                <p>
+                                    バリュードリブンな品質マインドセットを組織全体に広め、品質は全員の責任であるという文化を作る
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">BO2</span>
+                            <div class="step-content">
+                                <strong>組織的テスト戦略の共創・実装</strong>
+                                <p>
+                                    品質とテストの能力を開発する組織的テスト戦略を、ステークホルダーと共同で作成・実装する
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">BO3</span>
+                            <div class="step-content">
+                                <strong>継続的なテストプロセス改善</strong>
+                                <p>
+                                    スケールアジャイルの文脈で、組織レベルのテストプロセスを継続的に改善する
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- 目次 -->
+                    <h3 style="margin-top: 2rem">目次</h3>
+                    <div class="toc-grid">
+                        <a href="#ch1" class="toc-card" style="border-top: 3px solid var(--ch1)">
+                            <span class="toc-num" style="color: var(--ch1)"
+                                >Chapter 1 &nbsp;·&nbsp; K2</span
+                            >
+                            <span class="toc-title">クオリティアシスタンス</span>
+                            <span class="toc-mins">📖 60分</span>
+                        </a>
+                        <a href="#ch2" class="toc-card" style="border-top: 3px solid var(--ch2)">
+                            <span class="toc-num" style="color: var(--ch2)"
+                                >Chapter 2 &nbsp;·&nbsp; K3</span
+                            >
+                            <span class="toc-title">品質とフローの改善</span>
+                            <span class="toc-mins">📖 120分</span>
+                        </a>
+                        <a href="#ch3" class="toc-card" style="border-top: 3px solid var(--ch3)">
+                            <span class="toc-num" style="color: var(--ch3)"
+                                >Chapter 3 &nbsp;·&nbsp; K3</span
+                            >
+                            <span class="toc-title">継続的改善</span>
+                            <span class="toc-mins">📖 150分</span>
+                        </a>
+                        <a href="#ch4" class="toc-card" style="border-top: 3px solid var(--ch4)">
+                            <span class="toc-num" style="color: var(--ch4)"
+                                >Chapter 4 &nbsp;·&nbsp; K4</span
+                            >
+                            <span class="toc-title">組織的テスト戦略</span>
+                            <span class="toc-mins">📖 165分</span>
+                        </a>
+                        <a href="#ch5" class="toc-card" style="border-top: 3px solid var(--ch5)">
+                            <span class="toc-num" style="color: var(--ch5)"
+                                >Chapter 5 &nbsp;·&nbsp; K4</span
+                            >
+                            <span class="toc-title">テストプロセス</span>
+                            <span class="toc-mins">📖 195分</span>
+                        </a>
+                    </div>
+
+                    <!-- 学習時間プログレスバー -->
+                    <h3>章別学習時間配分</h3>
+                    <div class="progress-list">
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Ch.1 クオリティアシスタンス</span>
+                                <span class="progress-value">60分 (8.7%)</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div
+                                    class="progress-bar-fill"
+                                    style="--fill-width: 8.7%; background: var(--ch1)"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Ch.2 品質とフローの改善</span>
+                                <span class="progress-value">120分 (17.4%)</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div
+                                    class="progress-bar-fill"
+                                    style="--fill-width: 17.4%; background: var(--ch2)"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Ch.3 継続的改善</span>
+                                <span class="progress-value">150分 (21.7%)</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div
+                                    class="progress-bar-fill"
+                                    style="--fill-width: 21.7%; background: var(--ch3)"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Ch.4 組織的テスト戦略</span>
+                                <span class="progress-value">165分 (23.9%)</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div
+                                    class="progress-bar-fill"
+                                    style="--fill-width: 23.9%; background: var(--ch4)"
+                                ></div>
+                            </div>
+                        </div>
+                        <div class="progress-item">
+                            <div class="progress-header">
+                                <span class="progress-label">Ch.5 テストプロセス</span>
+                                <span class="progress-value">195分 (28.3%)</span>
+                            </div>
+                            <div class="progress-bar-bg">
+                                <div
+                                    class="progress-bar-fill"
+                                    style="--fill-width: 28.3%; background: var(--ch5)"
+                                ></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================================
+     CHAPTER 1: QUALITY ASSISTANCE
+     ============================================================ -->
+                <section class="section ch1-theme" id="ch1">
+                    <div class="section-header">
+                        <div class="chapter-num">1</div>
+                        <div class="section-title-wrap">
+                            <h2 style="color: var(--ch1)">
+                                クオリティアシスタンス <span class="section-klevel">K2</span>
+                            </h2>
+                            <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0">
+                                Quality Assistance — 60分
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 1.1 定義 -->
+                    <h3>1.1 クオリティアシスタンスとは？</h3>
+                    <p>
+                        <strong>クオリティアシスタンス（Quality Assistance）</strong
+                        >とは、アジャイル組織において「テストチームだけが品質に責任を持つ」テストサイロ構造を解体し、<strong>組織全体が品質に責任を持つ文化</strong>を構築するアプローチです。Lean・Agile
+                        の原則に基づき、テストリーダーは「制御者」から「支援者・コーチ」へと役割を転換します。
+                    </p>
+
+                    <div class="callout warning">
+                        <span class="callout-icon">⚠️</span>
+                        <div class="callout-body">
+                            <div class="callout-title">
+                                重要：テスト管理が不要になるわけではない
+                            </div>
+                            <p>
+                                クオリティアシスタンスはテスト管理（規律）を廃止するものではありません。テスト管理の<strong>アプローチと焦点が変わる</strong>のです。品質の規律は引き続き必要で、それをより効果的な方法で実践します。
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 比較テーブル -->
+                    <h3>伝統的テスト管理 vs クオリティアシスタンス</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>伝統的テスト管理</th>
+                                    <th>クオリティアシスタンス</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>役割</td>
+                                    <td>品質の門番・制御者</td>
+                                    <td>サーバントリーダー・支援者</td>
+                                </tr>
+                                <tr>
+                                    <td>テストの位置付け</td>
+                                    <td>テストフェーズの管理</td>
+                                    <td>継続的な品質活動</td>
+                                </tr>
+                                <tr>
+                                    <td>品質の責任者</td>
+                                    <td>テストチーム（サイロ）</td>
+                                    <td>組織全員</td>
+                                </tr>
+                                <tr>
+                                    <td>アプローチ</td>
+                                    <td>欠陥の検出・報告</td>
+                                    <td>予防・自動化・可観測性</td>
+                                </tr>
+                                <tr>
+                                    <td>タイミング</td>
+                                    <td>最後にまとめてテスト</td>
+                                    <td>Built-in Quality（継続的）</td>
+                                </tr>
+                                <tr>
+                                    <td>コミュニティ活動</td>
+                                    <td>個別チームへの指示</td>
+                                    <td>CoP（実践コミュニティ）促進</td>
+                                </tr>
+                                <tr>
+                                    <td>リソース</td>
+                                    <td>権限による管理</td>
+                                    <td>スキル・コーチングによる影響</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- シフトレフト/ライト -->
+                    <h3>シフトレフト & シフトライト</h3>
+                    <p>
+                        クオリティアシスタンスでは、品質活動を開発の<strong>より早い段階</strong>（シフトレフト）にも<strong>本番環境</strong>（シフトライト）にも拡張します。
+                    </p>
+
+                    <div class="arch-layers">
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-green)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">← シフトレフト（Shift Left）</div>
+                                <p class="arch-layer-desc">
+                                    要件定義・設計段階での品質活動。TDD、コードレビュー、要件のテスト可能性確認。欠陥を早期発見するほど修正コストが低い（フェーズが進むと100倍になる）
+                                </p>
+                            </div>
+                            <div
+                                class="arch-layer-tag"
+                                style="
+                                    background: rgba(0, 255, 136, 0.15);
+                                    color: var(--neon-green);
+                                    border: 1px solid rgba(0, 255, 136, 0.3);
+                                "
+                            >
+                                早期品質
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-cyan)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">→ シフトライト（Shift Right）</div>
+                                <p class="arch-layer-desc">
+                                    本番環境での品質活動。モニタリング・可観測性・A/Bテスト・カナリアリリース・合成トランザクション。実際のユーザー行動から品質を向上させる
+                                </p>
+                            </div>
+                            <div
+                                class="arch-layer-tag"
+                                style="
+                                    background: rgba(0, 229, 255, 0.15);
+                                    color: var(--neon-cyan);
+                                    border: 1px solid rgba(0, 229, 255, 0.3);
+                                "
+                            >
+                                本番品質
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 1.2 4つのスキル -->
+                    <h3>1.2 クオリティアシスタンスの4大スキル</h3>
+                    <p>
+                        アジャイルテストリーダーは以下の4スキルを組み合わせて、組織全体に品質能力を広げます。
+                    </p>
+
+                    <ul class="step-list">
+                        <li>
+                            <span
+                                class="step-num"
+                                style="background: var(--ch1); color: var(--bg-deep)"
+                                >S1</span
+                            >
+                            <div class="step-content">
+                                <strong>チェンジリーダーシップ（Change Leadership）</strong>
+                                <p>
+                                    組織変革を成功に導くスキル。人々の変化への抵抗に対応し、心理的安全性を構築しながら品質文化の変革を推進する。「押し付け」ではなく「対話と共創」で変革を進める。
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span
+                                class="step-num"
+                                style="background: var(--ch1); color: var(--bg-deep)"
+                                >S2</span
+                            >
+                            <div class="step-content">
+                                <strong>クオリティコーチング（Quality Coaching）</strong>
+                                <p>
+                                    内省を促す協調的な対話スキル。ティーチング（知識提供）・コーチング（気づき促進）・メンタリング（経験共有）を使い分け、チームが自ら品質課題の解決策を見つけるよう支援する。
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span
+                                class="step-num"
+                                style="background: var(--ch1); color: var(--bg-deep)"
+                                >S3</span
+                            >
+                            <div class="step-content">
+                                <strong>ファシリテーション（Facilitation）</strong>
+                                <p>
+                                    人々が共通の目標に向かうプロセスを支援するスキル。World
+                                    Café・レトロスペクティブ・Impact
+                                    Mappingなどを使い、品質への共有責任を構築する。中立性を保ち全員の参加を促す。
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span
+                                class="step-num"
+                                style="background: var(--ch1); color: var(--bg-deep)"
+                                >S4</span
+                            >
+                            <div class="step-content">
+                                <strong>トレーニング（Training）</strong>
+                                <p>
+                                    組織全体に品質スキルを広げるスキル。形式的トレーニング・実践的学習（Learning
+                                    by
+                                    Doing）・CoP（コミュニティ・オブ・プラクティス）を組み合わせ、スケールするトレーニング戦略を構築する。
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- Good/Bad 例 -->
+                    <h3>具体例：コーチングの良い例・悪い例</h3>
+                    <div class="compare-grid">
+                        <div class="compare-card bad">
+                            <div class="compare-header">❌ 指示型（悪い例）</div>
+                            <ul>
+                                <li>「明日からテストを書くようにしてください」</li>
+                                <li>「自動化率が低いので改善してください」</li>
+                                <li>「なぜこの欠陥が本番に流出したのか報告書を書いてください」</li>
+                            </ul>
+                        </div>
+                        <div class="compare-card good">
+                            <div class="compare-header">✅ コーチング型（良い例）</div>
+                            <ul>
+                                <li>「コードを書く際に最も課題に感じていることは何ですか？」</li>
+                                <li>
+                                    「テストを書きやすくするために何が変わればよいと思いますか？」
+                                </li>
+                                <li>
+                                    「次のスプリントで小さな実験として試せることはありますか？」
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="alert cyan">
+                        📚 <strong>参考文献（Ch.1）</strong>&emsp;
+                        <a
+                            href="https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/"
+                            target="_blank"
+                            >ISTQB CT-ATLaS 公式ページ</a
+                        >
+                        &nbsp;|&nbsp;
+                        <a
+                            href="https://istqb.org/?sdm_process_download=1&download_id=3532"
+                            target="_blank"
+                            >CT-ATLaS シラバス v2.0 (PDF)</a
+                        >
+                    </div>
+                </section>
+
+                <!-- ============================================================
+     CHAPTER 2: VALUE STREAM
+     ============================================================ -->
+                <section class="section ch2-theme" id="ch2">
+                    <div class="section-header">
+                        <div class="chapter-num">2</div>
+                        <div class="section-title-wrap">
+                            <h2 style="color: var(--ch2)">
+                                バリュードリブン組織における品質とフローの改善
+                                <span class="section-klevel">K3</span>
+                            </h2>
+                            <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0">
+                                Improve Quality and Flow in a Value-Driven Organization — 120分
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 2.1 バリューストリーム定義 -->
+                    <h3>2.1 バリューストリームとは？</h3>
+                    <p>
+                        <strong>バリューストリーム（Value Stream）</strong
+                        >とは、顧客に価値を提供するために必要な<strong>全てのアクション・ステップの流れ</strong>です。リーン（Lean）思想に基づく概念で、CTATLaSではソフトウェア開発組織の改善に適用します。
+                    </p>
+
+                    <div class="compare-grid">
+                        <div class="compare-card good">
+                            <div class="compare-header" style="color: var(--neon-cyan)">
+                                開発バリューストリーム
+                            </div>
+                            <ul>
+                                <li>新機能・製品を開発して顧客に届けるまでの流れ</li>
+                                <li>アイデア → 要件 → 設計 → 開発 → テスト → デプロイ</li>
+                                <li>CT-ATLaS が主に対象とするストリーム</li>
+                            </ul>
+                        </div>
+                        <div class="compare-card good">
+                            <div class="compare-header" style="color: var(--neon-cyan)">
+                                運用バリューストリーム
+                            </div>
+                            <ul>
+                                <li>顧客に継続的にサービスを提供するための流れ</li>
+                                <li>顧客要求 → サポート → 問題解決 → 回答</li>
+                                <li>インシデント対応・監視なども含む</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 2.2 VSM -->
+                    <h3>2.2 バリューストリームマッピング（VSM）</h3>
+                    <p>
+                        VSMはリーンの代表的な手法で、現在のバリューストリームを可視化し、<strong>無駄（ムダ）を特定して改善</strong>するための図解技法です。
+                    </p>
+
+                    <div class="code-block" data-lang="VSM記号">
+                        <pre>
+<span class="code-comment">// バリューストリームマップの主要記号</span>
+
+<span class="code-green">□ 外部エンティティ</span>    : 顧客・サプライヤー（ストリームの開始/終了）
+<span class="code-cyan">□ プロセスボックス</span>    : 作業ステップ + PT（処理時間）・WT（待機時間）
+<span class="code-amber">△ 在庫/キュー</span>        : 待ち状態の成果物（数量を記載）
+<span class="code-keyword">→ 情報フロー</span>          : 情報の流れ（電子情報は稲妻矢印）
+<span class="code-comment">─ タイムライン</span>        : 処理時間と待機時間を下部に記入
+
+<span class="code-comment">// 主要メトリクス</span>
+<span class="code-green">リードタイム（LT）</span>     = アイデアから顧客提供までの総時間
+<span class="code-cyan">サイクルタイム（CT）</span>   = 実際の作業処理時間
+<span class="code-amber">プロセス効率</span>           = 価値時間（PT合計）/ リードタイム × 100
+</pre>
+                    </div>
+
+                    <!-- 実例計算 -->
+                    <h3>プロセス効率の計算例</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ステップ</th>
+                                    <th>処理時間（PT）</th>
+                                    <th>待機時間（WT）</th>
+                                    <th>合計</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>要件定義</td>
+                                    <td>3日</td>
+                                    <td>7日</td>
+                                    <td>10日</td>
+                                </tr>
+                                <tr>
+                                    <td>設計</td>
+                                    <td>2日</td>
+                                    <td>5日</td>
+                                    <td>7日</td>
+                                </tr>
+                                <tr>
+                                    <td>開発</td>
+                                    <td>10日</td>
+                                    <td>7日</td>
+                                    <td>17日</td>
+                                </tr>
+                                <tr>
+                                    <td>テスト</td>
+                                    <td>5日</td>
+                                    <td>3日</td>
+                                    <td>8日</td>
+                                </tr>
+                                <tr>
+                                    <td>デプロイ</td>
+                                    <td>1日</td>
+                                    <td>1日</td>
+                                    <td>2日</td>
+                                </tr>
+                                <tr style="background: var(--bg-hover)">
+                                    <td><strong>合計</strong></td>
+                                    <td><strong>21日（価値時間）</strong></td>
+                                    <td><strong>23日（非価値）</strong></td>
+                                    <td><strong>44日（リードタイム）</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <span class="metric-value">44日</span>
+                            <span class="metric-label">リードタイム</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value">21日</span>
+                            <span class="metric-label">価値時間（PT）</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: var(--neon-amber)">47.7%</span>
+                            <span class="metric-label">プロセス効率</span>
+                            <span class="metric-sub">21 / 44 × 100</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: var(--neon-red)">23日</span>
+                            <span class="metric-label">無駄な待機時間</span>
+                            <span class="metric-sub">ボトルネック：開発待ち</span>
+                        </div>
+                    </div>
+
+                    <!-- 8つのムダ -->
+                    <h3>2.3 リーンの8つのムダ（テスト・品質への適用）</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ムダの種類</th>
+                                    <th>テスト・品質での具体例</th>
+                                    <th>改善策</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>①作り過ぎ</td>
+                                    <td>使われないテストケースの大量作成</td>
+                                    <td>リスクベースでテスト対象を厳選</td>
+                                </tr>
+                                <tr>
+                                    <td>②待ち</td>
+                                    <td>レビュー待ち・環境待ち・承認待ち</td>
+                                    <td>WIP制限・非同期レビュー導入</td>
+                                </tr>
+                                <tr>
+                                    <td>③運搬</td>
+                                    <td>欠陥情報の手動転記・ツール間コピー</td>
+                                    <td>ツール統合・自動連携の整備</td>
+                                </tr>
+                                <tr>
+                                    <td>④過剰処理</td>
+                                    <td>不要なほど詳細なテストドキュメント</td>
+                                    <td>軽量ドキュメント・生きたドキュメント</td>
+                                </tr>
+                                <tr>
+                                    <td>⑤在庫</td>
+                                    <td>テストされていない機能の蓄積</td>
+                                    <td>継続的テスト・CI/CDパイプライン</td>
+                                </tr>
+                                <tr>
+                                    <td>⑥動作</td>
+                                    <td>情報を探すための余計な移動・検索</td>
+                                    <td>情報の一元化・可視化ダッシュボード</td>
+                                </tr>
+                                <tr>
+                                    <td>⑦欠陥</td>
+                                    <td>本番への欠陥流出・再テスト工数</td>
+                                    <td>シフトレフト・TDD・コードレビュー強化</td>
+                                </tr>
+                                <tr>
+                                    <td>⑧未活用の才能</td>
+                                    <td>テスターの改善提案が活用されない</td>
+                                    <td>CoPの設置・改善提案の仕組み化</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="alert cyan">
+                        📚 <strong>参考文献（Ch.2）</strong>&emsp;
+                        <a href="https://en.wikipedia.org/wiki/Value_stream_mapping" target="_blank"
+                            >Wikipedia: Value Stream Mapping</a
+                        >
+                        &nbsp;|&nbsp;
+                        <a href="https://www.lean.org/explore-lean/what-is-lean/" target="_blank"
+                            >Lean Enterprise Institute</a
+                        >
+                    </div>
+                </section>
+
+                <!-- ============================================================
+     CHAPTER 3: CONTINUOUS IMPROVEMENT
+     ============================================================ -->
+                <section class="section ch3-theme" id="ch3">
+                    <div class="section-header">
+                        <div class="chapter-num">3</div>
+                        <div class="section-title-wrap">
+                            <h2 style="color: var(--ch3)">
+                                品質とテストの継続的改善 <span class="section-klevel">K3</span>
+                            </h2>
+                            <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0">
+                                Continuous Improvement of Quality and Testing — 150分
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- PDCA -->
+                    <h3>3.1 PDCAサイクル — 継続的改善の基本</h3>
+                    <p>
+                        <strong>PDCA（Plan-Do-Check-Act）サイクル</strong
+                        >は、継続的改善のための反復的フレームワークです。アジャイルではスプリント＝1サイクルとして機能し、レトロスペクティブがCheck+Actに相当します。
+                    </p>
+
+                    <div class="callout info">
+                        <span class="callout-icon">💡</span>
+                        <div class="callout-body">
+                            <div class="callout-title">「問題」の正しい定義</div>
+                            <p>
+                                CT-ATLaSにおける「問題（Problem）」は「<strong>期待パフォーマンス値と現実のギャップ</strong>」として数値で定義します。「欠陥が多い」ではなく「本番欠陥数が月15件（目標5件）→
+                                ギャップ＝10件/月」のように具体化することが必須です。
+                            </p>
+                        </div>
+                    </div>
+
+                    <ul class="step-list">
+                        <li>
+                            <span
+                                class="step-num"
+                                style="background: var(--ch3); color: var(--bg-deep)"
+                                >P</span
+                            >
+                            <div class="step-content">
+                                <strong
+                                    >Plan（計画） —
+                                    問題を数値ギャップで定義し、仮説と実験計画を立てる</strong
+                                >
+                                <p>
+                                    現状メトリクスの把握 → ギャップ分析 → SMARTな改善目標設定 →
+                                    小規模実験計画の策定。「全部変える」のではなく「最小の実験で検証する」が鍵。
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span
+                                class="step-num"
+                                style="background: var(--ch3); color: var(--bg-deep)"
+                                >D</span
+                            >
+                            <div class="step-content">
+                                <strong
+                                    >Do（実行） — 小さなスコープでパイロット実施、データ収集</strong
+                                >
+                                <p>
+                                    限定スコープで変更を試す。全チームに一度に展開せず、1〜2チームで実験。実施中も結果データを継続収集する。
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span
+                                class="step-num"
+                                style="background: var(--ch3); color: var(--bg-deep)"
+                                >C</span
+                            >
+                            <div class="step-content">
+                                <strong
+                                    >Check（確認） — 実験結果を評価し、仮説の妥当性を検証</strong
+                                >
+                                <p>
+                                    収集データを分析し「期待した成果が得られたか？」をデータで判断。感覚ではなくメトリクスで評価する。
+                                </p>
+                            </div>
+                        </li>
+                        <li>
+                            <span
+                                class="step-num"
+                                style="background: var(--ch3); color: var(--bg-deep)"
+                                >A</span
+                            >
+                            <div class="step-content">
+                                <strong
+                                    >Act（改善） —
+                                    成功を標準化して全体展開、失敗から次の仮説を立てる</strong
+                                >
+                                <p>
+                                    成功した改善をWork
+                                    Standard（標準作業）として組み込み組織全体へ展開。失敗の場合は学びを次のPDCAサイクルへ。
+                                </p>
+                            </div>
+                        </li>
+                    </ul>
+
+                    <!-- PDCA コード例 -->
+                    <h3>PDCAサイクル実践コード例</h3>
+                    <div class="code-block" data-lang="Python">
+                        <pre>
+<span class="code-keyword">from</span> dataclasses <span class="code-keyword">import</span> dataclass
+<span class="code-keyword">from</span> typing <span class="code-keyword">import</span> Optional
+
+@dataclass
+<span class="code-keyword">class</span> <span class="code-cyan">PDCACycle</span>:
+    <span class="code-comment"># ── PLAN ──────────────────────────────────────────────</span>
+    problem_statement: str    <span class="code-comment"># ギャップとして定義</span>
+    current_metric: float     <span class="code-comment"># 現状値（例: 月15件の本番欠陥）</span>
+    target_metric: float      <span class="code-comment"># 目標値（例: 月5件）</span>
+    hypothesis: str           <span class="code-comment"># 仮説</span>
+    experiment_plan: str      <span class="code-comment"># 小規模実験計画</span>
+
+    <span class="code-comment"># ── DO ────────────────────────────────────────────────</span>
+    actions_taken: list[str]  <span class="code-comment"># 実施したアクション</span>
+
+    <span class="code-comment"># ── CHECK ─────────────────────────────────────────────</span>
+    result_metric: Optional[float] = None
+    learnings: Optional[str] = None
+
+    <span class="code-comment"># ── ACT ───────────────────────────────────────────────</span>
+    standardized: Optional[bool] = None
+    next_cycle_plan: Optional[str] = None
+
+    @property
+    <span class="code-keyword">def</span> <span class="code-green">performance_gap</span>(self) -&gt; float:
+        <span class="code-keyword">return</span> self.target_metric - self.current_metric
+
+<span class="code-comment"># 実践例：本番欠陥削減のPDCAサイクル</span>
+cycle = <span class="code-cyan">PDCACycle</span>(
+    problem_statement=<span class="code-string">"本番欠陥が月15件（目標5件）。ギャップ=10件/月"</span>,
+    current_metric=<span class="code-number">15.0</span>,
+    target_metric=<span class="code-number">5.0</span>,
+    hypothesis=<span class="code-string">"APIテストカバレッジ強化で欠陥を50%削減できる"</span>,
+    experiment_plan=<span class="code-string">"2スプリントでAPIテストを60%→85%に向上"</span>,
+    actions_taken=[
+        <span class="code-string">"開発者と共同でAPIテストを30件追加"</span>,
+        <span class="code-string">"テストレビューをPRの必須チェックに追加"</span>,
+    ],
+    result_metric=<span class="code-number">8.0</span>,   <span class="code-comment"># 8件に改善（目標届かず）</span>
+    learnings=<span class="code-string">"API強化有効だがフロントエンドのカバレッジ不足が残存"</span>,
+    standardized=<span class="code-number">True</span>,    <span class="code-comment"># APIテスト追加を標準プロセスへ</span>
+    next_cycle_plan=<span class="code-string">"次回はE2Eカバレッジ向上を実験"</span>,
+)
+print(f<span class="code-string">"ギャップ: {cycle.performance_gap:.0f}件/月"</span>)
+print(f<span class="code-string">"改善結果: {cycle.current_metric}件 → {cycle.result_metric}件"</span>)
+</pre>
+                    </div>
+
+                    <!-- Systems Thinking -->
+                    <h3>3.2 システム思考と根本原因分析</h3>
+                    <p>
+                        <strong>システム思考（Systems Thinking）</strong
+                        >とは、物事を孤立した問題ではなく<strong>相互に影響し合うシステムの一部</strong>として捉える思考法です。
+                    </p>
+
+                    <div class="compare-grid">
+                        <div class="compare-card bad">
+                            <div class="compare-header">❌ 線形思考（表面的）</div>
+                            <ul>
+                                <li>「欠陥が多い → テストを増やす → 解決！」</li>
+                                <li>症状を治療するだけで根本原因に届かない</li>
+                                <li>問題が繰り返し発生する（バンドエイド）</li>
+                            </ul>
+                        </div>
+                        <div class="compare-card good">
+                            <div class="compare-header">✅ システム思考（根本原因）</div>
+                            <ul>
+                                <li>「なぜ欠陥が多いのか？」を複数の要因から分析</li>
+                                <li>スキル不足・設計の問題・プレッシャー・プロセスを相互に考慮</li>
+                                <li>フィードバックループを特定して根本から解決</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- 5-Why -->
+                    <h3>根本原因分析：5-Why分析</h3>
+                    <div class="code-block" data-lang="5-Why">
+                        <pre>
+<span class="code-green">問題:</span> テスト環境が頻繁にダウンする
+
+<span class="code-cyan">Why1:</span> Dockerコンテナのメモリが枯渇するため
+   <span class="code-amber">Why2:</span> 並行テストが多すぎてリソースを使い切るため
+      <span class="code-cyan">Why3:</span> テストの並行数を制限する設定がないため
+         <span class="code-amber">Why4:</span> インフラ設定の標準が定められていないため
+            <span class="code-green">Why5:</span> テストインフラの責任者・プロセスが不明確なため
+
+<span class="code-comment">→ 根本原因: テストインフラのガバナンス不在</span>
+<span class="code-comment">→ 解決策: テストインフラオーナーを設置し、設定標準を策定する</span>
+</pre>
+                    </div>
+
+                    <!-- 因果ループ図 -->
+                    <h3>3.3 因果ループ図（Causal Loop Diagram: CLD）</h3>
+                    <p>
+                        CLDはシステム内の変数間の<strong>因果関係とフィードバックループ</strong>を可視化する図です。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ループの種類</th>
+                                    <th>記号</th>
+                                    <th>特性</th>
+                                    <th>例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>強化ループ（R）</strong></td>
+                                    <td><code>→(+)→ ループ</code></td>
+                                    <td>自己強化（スノーボール）</td>
+                                    <td>
+                                        技術的負債↑ → バグ↑ → 修正時間↑ → テスト省略↑ → さらに負債↑
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>バランスループ（B）</strong></td>
+                                    <td><code>→(-)→ ループ</code></td>
+                                    <td>目標値へ自己調整</td>
+                                    <td>バグ↑ → テスト強化↑ → バグ検出↑ → バグ↓</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block" data-lang="CLD概念">
+                        <pre>
+<span class="code-comment">// 技術的負債の悪循環（強化ループ R1）</span>
+
+<span class="code-green">技術的負債</span> ─(+)→ <span class="code-amber">バグ発生率</span>
+                      │
+                     (+)
+                      ↓
+<span class="code-cyan">テストの省略</span> ←(+)─ <span class="code-red">リリースプレッシャー</span> ←(+)─ <span class="code-amber">バグ修正時間</span>
+    │
+   (+)
+    ↓
+<span class="code-green">技術的負債</span>  ← ループ閉じる（悪循環！）
+
+<span class="code-comment">// 介入ポイント</span>
+<span class="code-keyword">1.</span> DoD にテスト必須化 → テスト省略を防ぐ
+<span class="code-keyword">2.</span> 定期リファクタリング → 技術的負債を減らす
+<span class="code-keyword">3.</span> TDD・コードレビュー → バグ発生率を下げる
+</pre>
+                    </div>
+
+                    <div class="alert cyan">
+                        📚 <strong>参考文献（Ch.3）</strong>&emsp;
+                        <a href="https://www.lean.org/" target="_blank"
+                            >Lean Enterprise Institute</a
+                        >
+                        &nbsp;|&nbsp;
+                        <a href="https://thesystemsthinker.com/" target="_blank"
+                            >The Systems Thinker</a
+                        >
+                    </div>
+                </section>
+
+                <!-- ============================================================
+     CHAPTER 4: ORGANIZATIONAL TEST STRATEGY
+     ============================================================ -->
+                <section class="section ch4-theme" id="ch4">
+                    <div class="section-header">
+                        <div class="chapter-num">4</div>
+                        <div class="section-title-wrap">
+                            <h2 style="color: var(--ch4)">
+                                バリュードリブン組織における組織的テスト戦略
+                                <span class="section-klevel">K4</span>
+                            </h2>
+                            <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0">
+                                Organizational Test Strategy in a Value-Driven Organization — 165分
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>4.1 組織的テスト戦略 vs プロジェクトテスト戦略</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>プロジェクトテスト戦略（CTAL-TM）</th>
+                                    <th>組織的テスト戦略（CT-ATLaS）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>スコープ</td>
+                                    <td>単一プロジェクト・特定チーム</td>
+                                    <td>組織全体・複数チーム</td>
+                                </tr>
+                                <tr>
+                                    <td>期間</td>
+                                    <td>プロジェクト期間中のみ（時限的）</td>
+                                    <td>継続的（生きた文書として更新）</td>
+                                </tr>
+                                <tr>
+                                    <td>対象</td>
+                                    <td>従来型・ハイブリッド・アジャイル</td>
+                                    <td>アジャイル組織専用</td>
+                                </tr>
+                                <tr>
+                                    <td>焦点</td>
+                                    <td>テスト計画・欠陥管理・見積もり</td>
+                                    <td>品質文化・能力開発・戦略的整合</td>
+                                </tr>
+                                <tr>
+                                    <td>作成者</td>
+                                    <td>テスト管理者</td>
+                                    <td>アジャイルテストリーダー＋全ステークホルダー共創</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- DevOps Practices -->
+                    <h3>4.1.1 重要なDevOpsプラクティス（組織戦略に組み込む項目）</h3>
+                    <div class="arch-layers">
+                        <div class="arch-layer">
+                            <div class="arch-layer-accent" style="background: var(--ch4)"></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">継続的インテグレーション（CI）</div>
+                                <p class="arch-layer-desc">
+                                    コードを頻繁にメインブランチへ統合し、自動ビルド・自動テストで即時フィードバック。「私のマシンでは動く」問題を排除する。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-cyan)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">
+                                    継続的テスト（Continuous Testing）
+                                </div>
+                                <p class="arch-layer-desc">
+                                    CI/CDパイプライン全体でテストを実行。本番環境での監視・合成テストも含む。テストが「フェーズ」ではなく「継続活動」になる。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-green)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">可観測性（Observability）</div>
+                                <p class="arch-layer-desc">
+                                    ログ・メトリクス・トレーシングの3柱で本番環境を監視。問題を早期に発見し、シフトライトテストを実現する。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-amber)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">
+                                    フィーチャーフラグ & カナリアリリース
+                                </div>
+                                <p class="arch-layer-desc">
+                                    コード変更なしに機能をオン/オフ制御。一部ユーザーへの段階的展開でリスクを最小化。A/Bテストを実現する。
+                                </p>
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-red)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">
+                                    継続的デリバリー / デプロイメント（CD）
+                                </div>
+                                <p class="arch-layer-desc">
+                                    継続的デリバリー：常にリリース可能な状態を維持（人間承認あり）。継続的デプロイメント：テスト通過で自動デプロイ（承認不要）。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 3層構造 -->
+                    <h3>4.2 アジャイルテストリーダーシップの3層構造</h3>
+                    <div class="pyramid">
+                        <div
+                            class="pyramid-tier"
+                            style="
+                                width: 90%;
+                                background: rgba(255, 64, 96, 0.15);
+                                border: 1px solid rgba(255, 64, 96, 0.35);
+                                color: var(--ch5);
+                            "
+                        >
+                            組織レベル（Organizational Level）<br />
+                            <span
+                                style="
+                                    font-size: 0.8rem;
+                                    font-weight: 400;
+                                    color: var(--text-secondary);
+                                "
+                                >品質文化・組織テスト戦略・CoP・全社KPI ←
+                                <strong>CT-ATLaS の主役</strong></span
+                            >
+                        </div>
+                        <div
+                            class="pyramid-tier"
+                            style="
+                                width: 72%;
+                                background: rgba(168, 85, 247, 0.15);
+                                border: 1px solid rgba(168, 85, 247, 0.35);
+                                color: var(--ch4);
+                            "
+                        >
+                            プロダクトレベル（Product Level）<br />
+                            <span
+                                style="
+                                    font-size: 0.8rem;
+                                    font-weight: 400;
+                                    color: var(--text-secondary);
+                                "
+                                >E2Eテスト戦略・リリーストレイン品質・製品メトリクス</span
+                            >
+                        </div>
+                        <div
+                            class="pyramid-tier"
+                            style="
+                                width: 54%;
+                                background: rgba(0, 255, 136, 0.12);
+                                border: 1px solid rgba(0, 255, 136, 0.3);
+                                color: var(--ch1);
+                            "
+                        >
+                            運用レベル（Operational Level）<br />
+                            <span
+                                style="
+                                    font-size: 0.8rem;
+                                    font-weight: 400;
+                                    color: var(--text-secondary);
+                                "
+                                >TDD/BDD・スプリントテスト・チームメトリクス</span
+                            >
+                        </div>
+                    </div>
+
+                    <!-- 伝統的→アジャイル移行 -->
+                    <h3>4.3 伝統的テスト管理からアジャイルテストリーダーシップへの移行</h3>
+                    <div class="compare-grid">
+                        <div class="compare-card bad">
+                            <div class="compare-header">従来型テスト管理者</div>
+                            <ul>
+                                <li>テストフェーズを計画・管理・制御</li>
+                                <li>テストチームのリソースを管理</li>
+                                <li>欠陥レポートを承認・制御</li>
+                                <li>品質の門番として機能</li>
+                                <li>テストサイロを維持・運営</li>
+                            </ul>
+                        </div>
+                        <div class="compare-card good">
+                            <div class="compare-header">アジャイルテストリーダー</div>
+                            <ul>
+                                <li>サーバントリーダーとしてチームを支援</li>
+                                <li>組織全体の品質能力開発を支援</li>
+                                <li>品質文化の醸成に注力</li>
+                                <li>横断的なコラボレーションを促進</li>
+                                <li>CoPを通じて知識を組織に広げる</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="callout danger">
+                        <span class="callout-icon">⚡</span>
+                        <div class="callout-body">
+                            <div class="callout-title">移行の最大の難所：制御を手放すこと</div>
+                            <p>
+                                長年「テストの門番」として働いてきたテスト管理者が最も苦労するのは「制御を手放すこと」です。チームが自律的に品質に責任を持てるよう<strong>支援する役割</strong>へのマインドセット転換が核心的なチャレンジです。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="alert cyan">
+                        📚 <strong>参考文献（Ch.4）</strong>&emsp;
+                        <a href="https://scaledagileframework.com/" target="_blank"
+                            >SAFe (Scaled Agile Framework)</a
+                        >
+                        &nbsp;|&nbsp;
+                        <a href="https://dora.dev/" target="_blank">DORA Metrics</a> &nbsp;|&nbsp;
+                        <a href="https://teamtopologies.com/" target="_blank">Team Topologies</a>
+                    </div>
+                </section>
+
+                <!-- ============================================================
+     CHAPTER 5: TEST PROCESSES
+     ============================================================ -->
+                <section class="section ch5-theme" id="ch5">
+                    <div class="section-header">
+                        <div class="chapter-num">5</div>
+                        <div class="section-title-wrap">
+                            <h2 style="color: var(--ch5)">
+                                バリュードリブン組織におけるテストプロセス
+                                <span class="section-klevel">K4</span>
+                            </h2>
+                            <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0">
+                                Test Processes in a Value-Driven Organization — 195分（最重要章）
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- 5.1 スケールアジャイルの課題 -->
+                    <h3>5.1 スケールアジャイルにおけるテスト固有の課題</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>課題</th>
+                                    <th>問題</th>
+                                    <th>解決策</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>テストレベル → テスト活動への転換</strong></td>
+                                    <td>
+                                        「コンポーネント→統合→システム」の順序的実行はアジャイルのイテレーションに合わない
+                                    </td>
+                                    <td>
+                                        テストを「フェーズ」ではなく継続的な「活動」として再定義する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>統合テストがイテレーション内に収まらない</strong>
+                                    </td>
+                                    <td>環境セットアップに時間がかかりスプリント内完了が困難</td>
+                                    <td>
+                                        サービス仮想化・コントラクトテスト・コンテナ化（Docker）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>並列開発による統合の複雑性</strong></td>
+                                    <td>
+                                        複数チームが同時開発すると統合テストが爆発的に複雑になる
+                                    </td>
+                                    <td>
+                                        Consumer-Driven Contract Testing（Pact等）・APIファースト
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>テスト環境の競合</strong></td>
+                                    <td>多数チームが環境を共有すると衝突が発生</td>
+                                    <td>Infrastructure as Code（IaC）・Kubernetes・環境の独立化</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- テスト活動の分類 -->
+                    <h3>5.1.4 テスト活動をイテレーションに収めるための段階的戦略</h3>
+
+                    <div class="arch-layers">
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-green)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">
+                                    Layer A — イテレーション内（&lt;10分）
+                                </div>
+                                <p class="arch-layer-desc">
+                                    ユニット/コンポーネントテスト（TDD）、APIテスト、静的コード分析（flake8/SonarQube）、コントラクトテスト（Pact）
+                                </p>
+                            </div>
+                            <div
+                                class="arch-layer-tag"
+                                style="
+                                    background: rgba(0, 255, 136, 0.15);
+                                    color: var(--neon-green);
+                                    border: 1px solid rgba(0, 255, 136, 0.3);
+                                "
+                            >
+                                高速
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-amber)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">
+                                    Layer B — PIレベル / 夜間（30分〜数時間）
+                                </div>
+                                <p class="arch-layer-desc">
+                                    End-to-End
+                                    システムテスト（全件）、性能テスト（k6/JMeter）、セキュリティテスト（OWASP
+                                    ZAP）、UIアクセシビリティテスト
+                                </p>
+                            </div>
+                            <div
+                                class="arch-layer-tag"
+                                style="
+                                    background: rgba(255, 184, 0, 0.15);
+                                    color: var(--neon-amber);
+                                    border: 1px solid rgba(255, 184, 0, 0.3);
+                                "
+                            >
+                                中速
+                            </div>
+                        </div>
+                        <div class="arch-layer">
+                            <div
+                                class="arch-layer-accent"
+                                style="background: var(--neon-cyan)"
+                            ></div>
+                            <div class="arch-layer-body">
+                                <div class="arch-layer-title">Layer C — 継続的（本番環境含む）</div>
+                                <p class="arch-layer-desc">
+                                    モニタリング・アラート、合成トランザクション（Synthetic
+                                    Monitoring）、A/Bテスト、カナリアリリースによる段階的品質確認
+                                </p>
+                            </div>
+                            <div
+                                class="arch-layer-tag"
+                                style="
+                                    background: rgba(0, 229, 255, 0.15);
+                                    color: var(--neon-cyan);
+                                    border: 1px solid rgba(0, 229, 255, 0.3);
+                                "
+                            >
+                                継続的
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CI/CD パイプライン -->
+                    <h3>CI/CDパイプライン — 品質を内蔵した実装例</h3>
+                    <div class="code-block" data-lang="YAML (GitHub Actions)">
+                        <pre>
+<span class="code-comment"># .github/workflows/quality_pipeline.yml</span>
+name: <span class="code-string">品質パイプライン（スケールアジャイル対応）</span>
+
+<span class="code-keyword">on:</span> [push, pull_request]
+
+<span class="code-keyword">jobs:</span>
+  <span class="code-comment"># ─── Layer A: 即時フィードバック（&lt;5分）───────────────</span>
+  unit-and-component:
+    <span class="code-keyword">runs-on:</span> ubuntu-latest
+    <span class="code-keyword">steps:</span>
+      - <span class="code-keyword">name:</span> <span class="code-string">ユニットテスト + カバレッジ</span>
+        <span class="code-keyword">run:</span> pytest tests/unit/ -n auto --cov --cov-fail-under=80
+      - <span class="code-keyword">name:</span> <span class="code-string">静的コード解析 + セキュリティスキャン</span>
+        <span class="code-keyword">run:</span> |
+          sonar-scanner
+          bandit -r src/    <span class="code-comment"># セキュリティ静的分析</span>
+
+  <span class="code-comment"># ─── Layer A: コントラクトテスト ──────────────────────</span>
+  contract-tests:
+    <span class="code-keyword">needs:</span> unit-and-component
+    <span class="code-keyword">steps:</span>
+      - <span class="code-keyword">name:</span> <span class="code-string">Pact コントラクト検証</span>
+        <span class="code-keyword">run:</span> pact-provider-verifier --pact-files ./pacts/
+
+  <span class="code-comment"># ─── Layer A: 統合スモークテスト ──────────────────────</span>
+  integration-smoke:
+    <span class="code-keyword">needs:</span> contract-tests
+    <span class="code-keyword">steps:</span>
+      - <span class="code-keyword">name:</span> <span class="code-string">統合スモーク（@smokeタグのみ）</span>
+        <span class="code-keyword">run:</span> pytest tests/integration/ -m smoke
+
+  <span class="code-comment"># ─── Layer B: 夜間バッチ ──────────────────────────────</span>
+  e2e-performance:
+    <span class="code-keyword">if:</span> github.event_name == <span class="code-string">'schedule'</span>
+    <span class="code-keyword">steps:</span>
+      - <span class="code-keyword">name:</span> <span class="code-string">E2Eテスト（全ブラウザ）</span>
+        <span class="code-keyword">run:</span> playwright test --project=all-browsers
+      - <span class="code-keyword">name:</span> <span class="code-string">性能テスト（k6）</span>
+        <span class="code-keyword">run:</span> k6 run --vus 100 --duration 10m load-test.js
+      - <span class="code-keyword">name:</span> <span class="code-string">アクセシビリティテスト（WCAG2.1）</span>
+        <span class="code-keyword">run:</span> axe-core --standard WCAG21 $BASE_URL
+</pre>
+                    </div>
+
+                    <!-- フロー&品質メトリクス -->
+                    <h3>5.1.3 テストとフロー関連メトリクス</h3>
+                    <div class="metric-grid">
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: var(--neon-cyan)">LT</span>
+                            <span class="metric-label">フロー時間（Flow Time）</span>
+                            <span class="metric-sub">要求〜提供までの総時間。短いほど良い</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: var(--neon-green)">FE%</span>
+                            <span class="metric-label">フロー効率（Flow Efficiency）</span>
+                            <span class="metric-sub">価値時間/総時間。高いほど無駄が少ない</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: var(--neon-amber)"
+                                >&lt;5%</span
+                            >
+                            <span class="metric-label">欠陥漏洩率</span>
+                            <span class="metric-sub">本番流出欠陥/全欠陥</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: var(--neon-violet)"
+                                >&gt;80%</span
+                            >
+                            <span class="metric-label">テスト自動化率</span>
+                            <span class="metric-sub">自動テスト/全テスト</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: var(--neon-cyan)"
+                                >&lt;10分</span
+                            >
+                            <span class="metric-label">フィードバックループ時間</span>
+                            <span class="metric-sub">コミット→テスト結果</span>
+                        </div>
+                        <div class="metric-card">
+                            <span class="metric-value" style="color: var(--neon-green)"
+                                >&lt;1時間</span
+                            >
+                            <span class="metric-label">MTTR</span>
+                            <span class="metric-sub">本番問題の平均復旧時間</span>
+                        </div>
+                    </div>
+
+                    <!-- Team Topologies -->
+                    <h3>5.1.5 ストリームアラインドチーム vs 専門チームのテスト分担</h3>
+                    <p>
+                        Team Topologies（Skelton &amp;
+                        Pais）の概念を適用し、テスト活動の責任を設計します。
+                    </p>
+
+                    <div class="compare-grid">
+                        <div class="compare-card good">
+                            <div class="compare-header" style="color: var(--neon-green)">
+                                ✅ ストリームアラインドチーム
+                            </div>
+                            <ul>
+                                <li>ユニット・コンポーネントテスト（TDD）</li>
+                                <li>APIテスト・コントラクトテスト</li>
+                                <li>機能受入テスト（スプリント内）</li>
+                                <li>探索的テスト（基本的なもの）</li>
+                                <li>基本的な回帰テスト</li>
+                                <li>→ <strong>自律的に品質を保証する</strong></li>
+                            </ul>
+                        </div>
+                        <div class="compare-card good">
+                            <div class="compare-header" style="color: var(--neon-cyan)">
+                                ✅ 専門チーム（サービスとして提供）
+                            </div>
+                            <ul>
+                                <li>高度な性能・負荷テスト</li>
+                                <li>セキュリティペネトレーションテスト</li>
+                                <li>アクセシビリティテスト（専門知識必要）</li>
+                                <li>複雑なE2Eシステムテスト</li>
+                                <li>テスト自動化フレームワーク整備</li>
+                                <li>→ <strong>テストサービスを提供する</strong></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="callout danger">
+                        <span class="callout-icon">🚨</span>
+                        <div class="callout-body">
+                            <div class="callout-title">
+                                専門チームの罠：テストサイロを再創造してはならない
+                            </div>
+                            <p>
+                                専門チームは「ゲートキーパー（門番）」ではなく「<strong>サービスプロバイダー</strong>」として機能します。ストリームアラインドチームの認知的負荷を下げ、チームの自律性を高める方向で支援することが必須です。専門チームが品質の責任を一手に引き受けると、テストサイロが再創造されます。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="code-block" data-lang="Python（組織設計概念）">
+                        <pre>
+<span class="code-keyword">class</span> <span class="code-cyan">TestOrganizationDesign</span>:
+    <span class="code-comment">"""Team Topologies 準拠のテスト組織設計"""</span>
+
+    <span class="code-comment"># ストリームアラインドチーム（例：Eコマース機能チーム）</span>
+    stream_aligned = {
+        <span class="code-string">"unit_tests"</span>:    <span class="code-string">"TDD実施・カバレッジ80%以上"</span>,
+        <span class="code-string">"api_tests"</span>:     <span class="code-string">"CI/CDで自動実行"</span>,
+        <span class="code-string">"acceptance"</span>:    <span class="code-string">"スプリント内で受入テスト実施"</span>,
+        <span class="code-string">"exploratory"</span>:  <span class="code-string">"スプリントレビュー前に実施"</span>,
+        <span class="code-string">"contract"</span>:     <span class="code-string">"他チームAPIとの契約を自動検証"</span>,
+    }
+
+    <span class="code-comment"># 専門チーム（品質エンジニアリングプラットフォーム）</span>
+    specialized_services = {
+        <span class="code-string">"perf_testing"</span>:    <span class="code-string">"定期的な性能ベースラインテスト提供"</span>,
+        <span class="code-string">"sec_testing"</span>:     <span class="code-string">"四半期ペネトレーションテスト提供"</span>,
+        <span class="code-string">"test_platform"</span>:   <span class="code-string">"テスト実行基盤・環境の整備提供"</span>,
+        <span class="code-string">"frameworks"</span>:      <span class="code-string">"自動化FW・ベストプラクティス共有"</span>,
+        <span class="code-string">"observability"</span>:  <span class="code-string">"品質メトリクスダッシュボード提供"</span>,
+    }
+
+    <span class="code-comment"># クオリティコーチ（アジャイルテストリーダー）</span>
+    quality_coach = {
+        <span class="code-string">"culture"</span>:     <span class="code-string">"CoP運営・品質マインドセット教育"</span>,
+        <span class="code-string">"strategy"</span>:    <span class="code-string">"組織テスト戦略の共創・維持・更新"</span>,
+        <span class="code-string">"metrics"</span>:     <span class="code-string">"組織レベル品質KPI設定・モニタリング"</span>,
+        <span class="code-string">"improvement"</span>: <span class="code-string">"PDCAサイクルのファシリテーション"</span>,
+        <span class="code-string">"bridge"</span>:      <span class="code-string">"ストリームチームと専門チームの橋渡し"</span>,
+    }
+</pre>
+                    </div>
+
+                    <div class="alert cyan">
+                        📚 <strong>参考文献（Ch.5）</strong>&emsp;
+                        <a href="https://teamtopologies.com/" target="_blank">Team Topologies</a>
+                        &nbsp;|&nbsp;
+                        <a href="https://scaledagileframework.com/" target="_blank">SAFe</a>
+                        &nbsp;|&nbsp;
+                        <a href="https://less.works/" target="_blank">LeSS</a> &nbsp;|&nbsp;
+                        <a href="https://www.tmmifoundation.org/" target="_blank"
+                            >TMMi Foundation</a
+                        >
+                    </div>
+                </section>
+
+                <!-- ============================================================
+     EXAM SECTION
+     ============================================================ -->
+                <section class="section" id="exam">
+                    <h2>📝 試験対策・サンプル問題</h2>
+
+                    <!-- 配点 -->
+                    <h3>章別配点と重要度</h3>
+                    <div class="exam-grid">
+                        <div class="exam-card ch1-theme" style="--accent: var(--ch1)">
+                            <div class="exam-card-chapter">Chapter 1 &nbsp;·&nbsp; K2</div>
+                            <div class="exam-card-title" style="color: var(--ch1)">
+                                クオリティアシスタンス
+                            </div>
+                            <div class="exam-card-pts" style="color: var(--ch1)">
+                                ~8 <span style="font-size: 0.9rem">点</span>
+                            </div>
+                            <span class="exam-stars">★★★★☆</span>
+                            <span class="exam-klevel">K2: 理解レベル</span>
+                        </div>
+                        <div class="exam-card ch2-theme" style="--accent: var(--ch2)">
+                            <div class="exam-card-chapter">Chapter 2 &nbsp;·&nbsp; K3</div>
+                            <div class="exam-card-title" style="color: var(--ch2)">
+                                フロー改善（VSM）
+                            </div>
+                            <div class="exam-card-pts" style="color: var(--ch2)">
+                                ~12 <span style="font-size: 0.9rem">点</span>
+                            </div>
+                            <span class="exam-stars">★★★★☆</span>
+                            <span class="exam-klevel">K3: 適用レベル</span>
+                        </div>
+                        <div class="exam-card ch3-theme" style="--accent: var(--ch3)">
+                            <div class="exam-card-chapter">Chapter 3 &nbsp;·&nbsp; K3</div>
+                            <div class="exam-card-title" style="color: var(--ch3)">継続的改善</div>
+                            <div class="exam-card-pts" style="color: var(--ch3)">
+                                ~15 <span style="font-size: 0.9rem">点</span>
+                            </div>
+                            <span class="exam-stars">★★★★★</span>
+                            <span class="exam-klevel">K3: 適用レベル</span>
+                        </div>
+                        <div class="exam-card ch4-theme" style="--accent: var(--ch4)">
+                            <div class="exam-card-chapter">Chapter 4 &nbsp;·&nbsp; K4</div>
+                            <div class="exam-card-title" style="color: var(--ch4)">
+                                組織的テスト戦略
+                            </div>
+                            <div class="exam-card-pts" style="color: var(--ch4)">
+                                ~15 <span style="font-size: 0.9rem">点</span>
+                            </div>
+                            <span class="exam-stars">★★★★★</span>
+                            <span class="exam-klevel">K4: 分析・評価レベル</span>
+                        </div>
+                        <div class="exam-card ch5-theme" style="--accent: var(--ch5)">
+                            <div class="exam-card-chapter">Chapter 5 &nbsp;·&nbsp; K4</div>
+                            <div class="exam-card-title" style="color: var(--ch5)">
+                                テストプロセス
+                            </div>
+                            <div class="exam-card-pts" style="color: var(--ch5)">
+                                ~21 <span style="font-size: 0.9rem">点</span>
+                            </div>
+                            <span class="exam-stars">★★★★★</span>
+                            <span class="exam-klevel">K4: 分析・評価レベル (最重要)</span>
+                        </div>
+                    </div>
+
+                    <!-- 必須暗記 -->
+                    <div class="divider"></div>
+                    <h3>必ず覚える重要概念チェックリスト</h3>
+                    <div class="trend-card">
+                        <span class="trend-label">🔑 最重要 必須暗記 7項目</span>
+                        <ul style="font-size: 0.92rem; color: var(--text-secondary)">
+                            <li>
+                                <strong style="color: var(--neon-green)"
+                                    >クオリティアシスタンス vs 伝統的テスト管理</strong
+                                >
+                                — 7つの違いを言える
+                            </li>
+                            <li>
+                                <strong style="color: var(--neon-green)">4つのスキル</strong> —
+                                チェンジリーダーシップ / クオリティコーチング / ファシリテーション /
+                                トレーニング
+                            </li>
+                            <li>
+                                <strong style="color: var(--neon-cyan)"
+                                    >バリューストリームの主要メトリクス</strong
+                                >
+                                — リードタイム・サイクルタイム・プロセス効率の計算式
+                            </li>
+                            <li>
+                                <strong style="color: var(--neon-cyan)">リーンの8つのムダ</strong> —
+                                テスト/品質への適用例を含めて説明できる
+                            </li>
+                            <li>
+                                <strong style="color: var(--neon-amber)">PDCAの4フェーズ</strong> —
+                                「問題＝ギャップ」の定義・組織に定着させる4要件
+                            </li>
+                            <li>
+                                <strong style="color: var(--neon-amber)">CLDの2ループ</strong> —
+                                強化ループ（R）とバランスループ（B）の違いと例
+                            </li>
+                            <li>
+                                <strong style="color: var(--ch5)"
+                                    >ストリームアラインドチーム vs 専門チーム</strong
+                                >
+                                — テスト分担の原則とアンチパターン
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- サンプル問題 -->
+                    <div class="divider"></div>
+                    <h3>サンプル問題と解説</h3>
+
+                    <!-- Q1 -->
+                    <div class="trend-card">
+                        <span class="trend-label">問題1 — K2 / Ch.1</span>
+                        <p>
+                            <strong
+                                >クオリティアシスタンスと伝統的テスト管理の違いとして最も適切なものはどれか？</strong
+                            >
+                        </p>
+                        <p>A) クオリティアシスタンスではテスト管理者が品質の門番として機能する</p>
+                        <p>B) クオリティアシスタンスではテスト管理という規律は不要になる</p>
+                        <p style="color: var(--neon-green)">
+                            C)
+                            クオリティアシスタンスでは自律チームが品質に責任を持つことを支援し、テストサイロをなくす
+                            ✅
+                        </p>
+                        <p>
+                            D) クオリティアシスタンスはアジャイルプロジェクトのテスト計画を強化する
+                        </p>
+                        <div class="alert green" style="margin-top: 0.75rem">
+                            <strong>解説:</strong> C が正解。A は伝統的テスト管理のアプローチ。B
+                            は誤り（テスト管理の規律は依然必要）。D はプロジェクトレベルの話であり
+                            CT-ATLaS の組織レベルと異なる。
+                        </div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="trend-card">
+                        <span class="trend-label">問題2 — K3 / Ch.2（計算問題）</span>
+                        <p>
+                            <strong
+                                >あるバリューストリームで処理時間合計が18日、リードタイムが37日の場合、プロセス効率として最も近いものはどれか？</strong
+                            >
+                        </p>
+                        <p>A) 約31%</p>
+                        <p style="color: var(--neon-green)">B) 約49% ✅</p>
+                        <p>C) 約67%</p>
+                        <p>D) 約82%</p>
+                        <div class="alert green" style="margin-top: 0.75rem">
+                            <strong>解説:</strong> プロセス効率 = 価値時間（PT合計）/ リードタイム ×
+                            100 = 18 / 37 × 100 ≈ <strong>48.6%</strong>。最も近いのは B の約49%。
+                        </div>
+                    </div>
+
+                    <!-- Q3 -->
+                    <div class="trend-card">
+                        <span class="trend-label">問題3 — K4 / Ch.5</span>
+                        <p>
+                            <strong
+                                >スケールアジャイル組織でセキュリティテストがスプリントに収まらない。最も適切な解決策はどれか？</strong
+                            >
+                        </p>
+                        <p>A) スプリントを4週間に延ばしてテスト時間を確保する</p>
+                        <p style="color: var(--neon-green)">
+                            B)
+                            セキュリティテストを専門チームがサービスとして提供し、ストリームアラインドチームは自動化された基本テストをイテレーション内で実施する
+                            ✅
+                        </p>
+                        <p>C) セキュリティテストは非アジャイルプロセスとして別管理にする</p>
+                        <p>D) テストを省略してリリース速度を優先する</p>
+                        <div class="alert green" style="margin-top: 0.75rem">
+                            <strong>解説:</strong> Team Topologies の観点から B が正解。A
+                            はアジャイルの速いフィードバックを失う。C はテストサイロの再創造。D
+                            は品質の犠牲。
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ============================================================
+     REFERENCES
+     ============================================================ -->
+                <section class="section" id="refs">
+                    <h2>📚 参考文献・一次情報源</h2>
+
+                    <h3>🏛️ 公式ISTQB® リソース</h3>
+                    <div class="ref-grid">
+                        <div class="ref-card">
+                            <span class="ref-cat">公式</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CT-ATLaS 公式認定ページ</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/"
+                                        target="_blank"
+                                        >istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">シラバス</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CT-ATLaS シラバス v2.0 PDF</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&download_id=3532"
+                                        target="_blank"
+                                        >istqb.org/?sdm_process_download=1&amp;download_id=3532</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">BoK</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CT-ATLaS Body of Knowledge v2.0</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&download_id=3533"
+                                        target="_blank"
+                                        >istqb.org/?sdm_process_download=1&amp;download_id=3533</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">サンプル試験</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CT-ATLaS サンプル試験問題 v2.0</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&download_id=3535"
+                                        target="_blank"
+                                        >istqb.org/?sdm_process_download=1&amp;download_id=3535</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">演習</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CT-ATLaS Hands-On Exercise</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&download_id=3549"
+                                        target="_blank"
+                                        >istqb.org/?sdm_process_download=1&amp;download_id=3549</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">認定GL</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CT-ATLaS 認定ガイドライン v2.0</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/?sdm_process_download=1&download_id=3544"
+                                        target="_blank"
+                                        >istqb.org/?sdm_process_download=1&amp;download_id=3544</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">グロッサリー</span>
+                            <div class="ref-body">
+                                <div class="ref-title">ISTQB® グロッサリー（用語集）</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://glossary.istqb.org/en_US/search?term="
+                                        target="_blank"
+                                        >glossary.istqb.org/en_US/search?term=</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">試験</span>
+                            <div class="ref-body">
+                                <div class="ref-title">試験プロバイダー検索</div>
+                                <div class="ref-url">
+                                    <a href="https://istqb.org/exam-providers/" target="_blank"
+                                        >istqb.org/exam-providers/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>🔧 スケールアジャイル・DevOps フレームワーク</h3>
+                    <div class="ref-grid">
+                        <div class="ref-card">
+                            <span class="ref-cat">Framework</span>
+                            <div class="ref-body">
+                                <div class="ref-title">SAFe — Scaled Agile Framework</div>
+                                <div class="ref-url">
+                                    <a href="https://scaledagileframework.com/" target="_blank"
+                                        >scaledagileframework.com/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">Framework</span>
+                            <div class="ref-body">
+                                <div class="ref-title">LeSS — Large-Scale Scrum</div>
+                                <div class="ref-url">
+                                    <a href="https://less.works/" target="_blank">less.works/</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">Team Design</span>
+                            <div class="ref-body">
+                                <div class="ref-title">Team Topologies (Skelton &amp; Pais)</div>
+                                <div class="ref-url">
+                                    <a href="https://teamtopologies.com/" target="_blank"
+                                        >teamtopologies.com/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">DevOps Metrics</span>
+                            <div class="ref-body">
+                                <div class="ref-title">DORA Metrics（Google DevOps Research）</div>
+                                <div class="ref-url">
+                                    <a href="https://dora.dev/" target="_blank">dora.dev/</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">Lean</span>
+                            <div class="ref-body">
+                                <div class="ref-title">Lean Enterprise Institute</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://www.lean.org/explore-lean/what-is-lean/"
+                                        target="_blank"
+                                        >lean.org/explore-lean/what-is-lean/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">Systems</span>
+                            <div class="ref-body">
+                                <div class="ref-title">The Systems Thinker</div>
+                                <div class="ref-url">
+                                    <a href="https://thesystemsthinker.com/" target="_blank"
+                                        >thesystemsthinker.com/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">TMMi</span>
+                            <div class="ref-body">
+                                <div class="ref-title">TMMi Foundation</div>
+                                <div class="ref-url">
+                                    <a href="https://www.tmmifoundation.org/" target="_blank"
+                                        >tmmifoundation.org/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">Agile</span>
+                            <div class="ref-body">
+                                <div class="ref-title">Agile Alliance</div>
+                                <div class="ref-url">
+                                    <a href="https://www.agilealliance.org/" target="_blank"
+                                        >agilealliance.org/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>📖 関連ISTQB® 資格</h3>
+                    <div class="ref-grid">
+                        <div class="ref-card">
+                            <span class="ref-cat">前提資格</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CTFL v4.0（Foundation Level）</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-foundation-level/"
+                                        target="_blank"
+                                        >istqb.org/certifications/certified-tester-foundation-level/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">補完資格</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CTAL-ATT（Agile Technical Tester）</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/"
+                                        target="_blank"
+                                        >istqb.org/certifications/.../ctal-att/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">補完資格</span>
+                            <div class="ref-body">
+                                <div class="ref-title">CTAL-TM v3.0（Test Management）</div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/"
+                                        target="_blank"
+                                        >istqb.org/certifications/.../ctal-tm-v3-0/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                        <div class="ref-card">
+                            <span class="ref-cat">補完資格</span>
+                            <div class="ref-body">
+                                <div class="ref-title">
+                                    CTAL-TAE v2.0（Test Automation Engineering）
+                                </div>
+                                <div class="ref-url">
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-advanced-level-test-automation-engineering-ctal-tae-v2-0/"
+                                        target="_blank"
+                                        >istqb.org/certifications/.../ctal-tae-v2-0/</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- end container -->
+        </main>
+
+        <!-- ============================================================
+     FOOTER
+     ============================================================ -->
+        <footer class="footer">
+            <div class="container">
+                <p>
+                    <strong style="color: var(--neon-green)">CT-ATLaS 完全学習ガイド 2025</strong
+                    >&ensp;|&ensp; 一次情報源:
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/"
+                        target="_blank"
+                        >ISTQB® 公式ページ</a
+                    >&ensp;|&ensp; シラバス: CT-ATLaS v2.0（2023年9月29日 GA）
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.8rem">
+                    ⚠️ 本ガイドはISTQB®が公認したトレーニング資料ではありません。公式シラバス・Body
+                    of Knowledge・サンプル問題と合わせてご使用ください。
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>
