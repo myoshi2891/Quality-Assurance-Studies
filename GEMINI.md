@@ -96,3 +96,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - HTML の `<nav>`（ページ内アンカー付き）はグローバル Header とは別物。削除せず `'use client'` コンポーネントとして移行する
 - CSS: `position: sticky; top: 60px; z-index: 40`（Header は `fixed` / 高さ 60px / `z-50`）
 - `IntersectionObserver` は `useEffect` で設定し、クリーンアップで `obs.disconnect()` を呼ぶ
+
+### CSSセレクタのスコープ（クラス重複）
+
+- ページ固有のCSSを作成する際、`.istqb-ctal-tm-page` のようなページ固有クラスを親に指定しますが、子要素のモディファイアなどで再度同じクラスを重複させないように注意してください。
+- ❌ NG: `.page-class .alert.page-class .green`
+- ✅ OK: `.page-class .alert.green`
