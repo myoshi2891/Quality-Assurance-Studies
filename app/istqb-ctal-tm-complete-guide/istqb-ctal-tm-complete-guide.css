@@ -111,13 +111,13 @@
             /* ============================================================
    LAYOUT
    ============================================================ */
-            .container {
+            .istqb-ctal-tm-page .container {
                 max-width: 960px;
                 margin: 0 auto;
                 padding: 0 1.5rem;
             }
 
-            .section {
+            .istqb-ctal-tm-page .section {
                 padding: 4rem 0;
                 border-bottom: 1px solid var(--color-border);
             }
@@ -125,7 +125,7 @@
             /* ============================================================
    STICKY NAV
    ============================================================ */
-            .sticky-nav {
+            .istqb-ctal-tm-page .sticky-nav {
                 position: sticky;
                 top: 60px;
                 z-index: 40;
@@ -135,7 +135,7 @@
                 padding: 0.6rem 0;
             }
 
-            .nav-inner {
+            .istqb-ctal-tm-page .nav-inner {
                 display: flex;
                 align-items: center;
                 gap: 0.25rem;
@@ -145,11 +145,11 @@
                 max-width: 960px;
                 margin: 0 auto;
             }
-            .nav-inner::-webkit-scrollbar {
+            .istqb-ctal-tm-page .nav-inner::-webkit-scrollbar {
                 display: none;
             }
 
-            .nav-logo {
+            .istqb-ctal-tm-page .nav-logo {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.75rem;
                 color: var(--color-accent-green);
@@ -159,7 +159,7 @@
                 border-right: 1px solid var(--color-border);
             }
 
-            .nav-link {
+            .istqb-ctal-tm-page .nav-link {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.7rem;
                 color: var(--color-text-muted);
@@ -168,7 +168,7 @@
                 border-radius: 4px;
                 transition: all var(--transition);
             }
-            .nav-link:hover {
+            .istqb-ctal-tm-page .nav-link:hover {
                 color: var(--color-accent-cyan);
                 background: rgba(0, 229, 255, 0.08);
             }
@@ -176,13 +176,13 @@
             /* ============================================================
    HERO
    ============================================================ */
-            .hero {
+            .istqb-ctal-tm-page .hero {
                 padding: 5rem 0 4rem;
                 position: relative;
                 overflow: hidden;
             }
 
-            .hero-glow {
+            .istqb-ctal-tm-page .hero-glow {
                 position: absolute;
                 top: -100px;
                 left: 50%;
@@ -206,7 +206,7 @@
                 }
             }
 
-            .hero-badge {
+            .istqb-ctal-tm-page .hero-badge {
                 display: inline-flex;
                 align-items: center;
                 gap: 0.5rem;
@@ -221,7 +221,7 @@
                 animation: fade-in-down 0.6s ease both;
             }
 
-            .hero-badge::before {
+            .istqb-ctal-tm-page .hero-badge::before {
                 content: '';
                 width: 8px;
                 height: 8px;
@@ -230,7 +230,7 @@
                 animation: pulse 1.5s ease infinite;
             }
 
-            .hero-title {
+            .istqb-ctal-tm-page .hero-title {
                 animation: fade-in-down 0.7s ease 0.1s both;
                 background: linear-gradient(135deg, #e2e8f0 30%, var(--color-accent-cyan));
                 -webkit-background-clip: text;
@@ -239,7 +239,7 @@
                 margin-bottom: 0.5rem;
             }
 
-            .hero-subtitle {
+            .istqb-ctal-tm-page .hero-subtitle {
                 font-family: var(--font-display, sans-serif);
                 font-size: clamp(1rem, 2vw, 1.3rem);
                 color: var(--color-accent-cyan);
@@ -248,7 +248,7 @@
                 animation: fade-in-down 0.7s ease 0.15s both;
             }
 
-            .hero-desc {
+            .istqb-ctal-tm-page .hero-desc {
                 font-size: 1.05rem;
                 color: var(--color-text-secondary);
                 max-width: 640px;
@@ -256,14 +256,14 @@
                 margin-bottom: 2.5rem;
             }
 
-            .hero-meta {
+            .istqb-ctal-tm-page .hero-meta {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 1rem;
                 animation: fade-in-down 0.7s ease 0.25s both;
             }
 
-            .meta-card {
+            .istqb-ctal-tm-page .meta-card {
                 background: var(--color-bg-card);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-DEFAULT, 12px);
@@ -272,19 +272,19 @@
                 min-width: 120px;
                 transition: all var(--transition);
             }
-            .meta-card:hover {
+            .istqb-ctal-tm-page .meta-card:hover {
                 border-color: var(--color-border-bright);
                 box-shadow: var(--shadow-glow-cyan, 0 0 15px rgba(0, 229, 255, 0.5));
                 transform: translateY(-2px);
             }
-            .meta-card .meta-val {
+            .istqb-ctal-tm-page .meta-card .meta-val {
                 font-family: var(--font-mono, monospace);
                 font-size: 1.4rem;
                 font-weight: 700;
                 color: var(--color-accent-cyan);
                 display: block;
             }
-            .meta-card .meta-key {
+            .istqb-ctal-tm-page .meta-card .meta-key {
                 font-size: 0.75rem;
                 color: var(--color-text-muted);
                 font-family: var(--font-mono, monospace);
@@ -324,7 +324,7 @@
             /* ============================================================
    CHAPTER HEADER
    ============================================================ */
-            .chapter-header {
+            .istqb-ctal-tm-page .chapter-header {
                 display: flex;
                 align-items: flex-start;
                 gap: 1rem;
@@ -333,7 +333,7 @@
                 border-bottom: 1px solid var(--color-border);
             }
 
-            .chapter-num {
+            .istqb-ctal-tm-page .chapter-num {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.7rem;
                 font-weight: 700;
@@ -346,20 +346,20 @@
                 margin-top: 0.3rem;
             }
 
-            .chapter-num.green {
+            .istqb-ctal-tm-page .chapter-num.istqb-ctal-tm-page .green {
                 background: var(--color-accent-green);
             }
-            .chapter-num.amber {
+            .istqb-ctal-tm-page .chapter-num.istqb-ctal-tm-page .amber {
                 background: var(--color-accent-orange);
             }
-            .chapter-num.purple {
+            .istqb-ctal-tm-page .chapter-num.istqb-ctal-tm-page .purple {
                 background: var(--color-accent-purple);
             }
-            .chapter-num.red {
+            .istqb-ctal-tm-page .chapter-num.istqb-ctal-tm-page .red {
                 background: var(--color-accent-red);
             }
 
-            .klevel-badge {
+            .istqb-ctal-tm-page .klevel-badge {
                 display: inline-block;
                 font-family: var(--font-mono, monospace);
                 font-size: 0.65rem;
@@ -369,19 +369,19 @@
                 vertical-align: middle;
                 border: 1px solid;
             }
-            .klevel-k1 {
+            .istqb-ctal-tm-page .klevel-k1 {
                 color: var(--color-text-muted);
                 border-color: var(--color-text-muted);
             }
-            .klevel-k2 {
+            .istqb-ctal-tm-page .klevel-k2 {
                 color: var(--color-accent-cyan);
                 border-color: var(--color-accent-cyan);
             }
-            .klevel-k3 {
+            .istqb-ctal-tm-page .klevel-k3 {
                 color: var(--color-accent-green);
                 border-color: var(--color-accent-green);
             }
-            .klevel-k4 {
+            .istqb-ctal-tm-page .klevel-k4 {
                 color: var(--color-accent-orange);
                 border-color: var(--color-accent-orange);
             }
@@ -389,14 +389,14 @@
             /* ============================================================
    TOC GRID
    ============================================================ */
-            .toc-grid {
+            .istqb-ctal-tm-page .toc-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
                 gap: 0.75rem;
                 margin-bottom: 3rem;
             }
 
-            .toc-card {
+            .istqb-ctal-tm-page .toc-card {
                 background: var(--color-bg-card);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-DEFAULT, 12px);
@@ -405,28 +405,28 @@
                 cursor: pointer;
                 text-decoration: none;
             }
-            .toc-card:hover {
+            .istqb-ctal-tm-page .toc-card:hover {
                 border-color: var(--color-border-bright);
                 background: var(--color-bg-secondary);
                 transform: translateY(-2px);
                 box-shadow: var(--shadow-glow-cyan, 0 0 15px rgba(0, 229, 255, 0.5));
                 color: var(--color-accent-cyan);
             }
-            .toc-card .toc-num {
+            .istqb-ctal-tm-page .toc-card .toc-num {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.7rem;
                 color: var(--color-accent-cyan);
                 display: block;
                 margin-bottom: 0.3rem;
             }
-            .toc-card .toc-title {
+            .istqb-ctal-tm-page .toc-card .toc-title {
                 font-family: var(--font-display, sans-serif);
                 font-size: 0.9rem;
                 font-weight: 600;
                 color: var(--color-text-primary);
                 line-height: 1.3;
             }
-            .toc-card .toc-time {
+            .istqb-ctal-tm-page .toc-card .toc-time {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.65rem;
                 color: var(--color-text-muted);
@@ -436,52 +436,52 @@
             /* ============================================================
    ARCH LAYERS
    ============================================================ */
-            .arch-layers {
+            .istqb-ctal-tm-page .arch-layers {
                 display: flex;
                 flex-direction: column;
                 gap: 0;
                 margin: 1.5rem 0;
             }
 
-            .arch-layer {
+            .istqb-ctal-tm-page .arch-layer {
                 padding: 1rem 1.5rem;
                 background: var(--color-bg-card);
                 border-left: 4px solid var(--color-accent-cyan);
                 border-bottom: 1px solid var(--color-border);
                 transition: all var(--transition);
             }
-            .arch-layer:first-child {
+            .istqb-ctal-tm-page .arch-layer:first-child {
                 border-radius: var(--radius-DEFAULT, 12px) var(--radius-DEFAULT, 12px) 0 0;
             }
-            .arch-layer:last-child {
+            .istqb-ctal-tm-page .arch-layer:last-child {
                 border-radius: 0 0 var(--radius-DEFAULT, 12px) var(--radius-DEFAULT, 12px);
                 border-bottom: none;
             }
 
-            .arch-layer:hover {
+            .istqb-ctal-tm-page .arch-layer:hover {
                 background: var(--color-bg-secondary);
                 transform: translateX(4px);
             }
-            .arch-layer.green {
+            .istqb-ctal-tm-page .arch-layer.istqb-ctal-tm-page .green {
                 border-left-color: var(--color-accent-green);
             }
-            .arch-layer.amber {
+            .istqb-ctal-tm-page .arch-layer.istqb-ctal-tm-page .amber {
                 border-left-color: var(--color-accent-orange);
             }
-            .arch-layer.purple {
+            .istqb-ctal-tm-page .arch-layer.istqb-ctal-tm-page .purple {
                 border-left-color: var(--color-accent-purple);
             }
-            .arch-layer.red {
+            .istqb-ctal-tm-page .arch-layer.istqb-ctal-tm-page .red {
                 border-left-color: var(--color-accent-red);
             }
 
-            .arch-layer-title {
+            .istqb-ctal-tm-page .arch-layer-title {
                 font-family: var(--font-display, sans-serif);
                 font-weight: 700;
                 font-size: 0.95rem;
                 margin-bottom: 0.25rem;
             }
-            .arch-layer-desc {
+            .istqb-ctal-tm-page .arch-layer-desc {
                 font-size: 0.9rem;
                 color: var(--color-text-secondary);
             }
@@ -489,12 +489,12 @@
             /* ============================================================
    PYRAMID
    ============================================================ */
-            .pyramid {
+            .istqb-ctal-tm-page .pyramid {
                 margin: 2rem auto;
                 max-width: 500px;
             }
 
-            .pyramid-level {
+            .istqb-ctal-tm-page .pyramid-level {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -510,14 +510,14 @@
                 margin-bottom: 3px;
                 color: var(--color-bg-primary);
             }
-            .pyramid-level:hover {
+            .istqb-ctal-tm-page .pyramid-level:hover {
                 transform: scaleX(1.02);
             }
 
             /* ============================================================
    CODE BLOCK
    ============================================================ */
-            .code-block {
+            .istqb-ctal-tm-page .code-block {
                 background: #0a0f1e;
                 border: 1px solid rgba(0, 229, 255, 0.15);
                 border-radius: var(--radius-DEFAULT, 12px);
@@ -527,7 +527,7 @@
                 position: relative;
             }
 
-            .code-block pre {
+            .istqb-ctal-tm-page .code-block pre {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.82rem;
                 line-height: 1.7;
@@ -535,30 +535,30 @@
                 white-space: pre;
             }
 
-            .code-green {
+            .istqb-ctal-tm-page .code-green {
                 color: var(--color-accent-green);
             }
-            .code-cyan {
+            .istqb-ctal-tm-page .code-cyan {
                 color: var(--color-accent-cyan);
             }
-            .code-amber {
+            .istqb-ctal-tm-page .code-amber {
                 color: var(--color-accent-orange);
             }
-            .code-keyword {
+            .istqb-ctal-tm-page .code-keyword {
                 color: var(--color-accent-purple);
             }
-            .code-comment {
+            .istqb-ctal-tm-page .code-comment {
                 color: var(--color-text-muted);
                 font-style: italic;
             }
-            .code-string {
+            .istqb-ctal-tm-page .code-string {
                 color: #f97316;
             }
-            .code-num {
+            .istqb-ctal-tm-page .code-num {
                 color: var(--color-accent-green);
             }
 
-            .code-label {
+            .istqb-ctal-tm-page .code-label {
                 position: absolute;
                 top: 0.5rem;
                 right: 0.75rem;
@@ -571,20 +571,20 @@
             /* ============================================================
    STEP LIST
    ============================================================ */
-            .step-list {
+            .istqb-ctal-tm-page .step-list {
                 list-style: none;
                 padding: 0;
                 margin: 1.25rem 0;
             }
 
-            .step-list li {
+            .istqb-ctal-tm-page .step-list li {
                 display: flex;
                 gap: 1rem;
                 margin-bottom: 1rem;
                 align-items: flex-start;
             }
 
-            .step-num {
+            .istqb-ctal-tm-page .step-num {
                 flex-shrink: 0;
                 width: 28px;
                 height: 28px;
@@ -599,16 +599,16 @@
                 color: var(--color-bg-primary);
             }
 
-            .step-content {
+            .istqb-ctal-tm-page .step-content {
                 flex: 1;
                 padding-top: 0.2rem;
             }
-            .step-content strong {
+            .istqb-ctal-tm-page .step-content strong {
                 color: var(--color-text-primary);
                 display: block;
                 margin-bottom: 0.2rem;
             }
-            .step-content p {
+            .istqb-ctal-tm-page .step-content p {
                 margin: 0;
                 font-size: 0.9rem;
             }
@@ -616,7 +616,7 @@
             /* ============================================================
    CALLOUT
    ============================================================ */
-            .callout {
+            .istqb-ctal-tm-page .callout {
                 border-radius: var(--radius-DEFAULT, 12px);
                 padding: 1rem 1.25rem;
                 margin: 1.25rem 0;
@@ -626,20 +626,20 @@
                 font-size: 0.9rem;
             }
 
-            .callout.info {
+            .istqb-ctal-tm-page .callout.istqb-ctal-tm-page .info {
                 background: rgba(0, 229, 255, 0.07);
                 border: 1px solid rgba(0, 229, 255, 0.2);
             }
-            .callout.warning {
+            .istqb-ctal-tm-page .callout.istqb-ctal-tm-page .warning {
                 background: rgba(255, 179, 0, 0.07);
                 border: 1px solid rgba(255, 179, 0, 0.2);
             }
-            .callout.danger {
+            .istqb-ctal-tm-page .callout.istqb-ctal-tm-page .danger {
                 background: rgba(255, 61, 90, 0.07);
                 border: 1px solid rgba(255, 61, 90, 0.2);
             }
 
-            .callout-icon {
+            .istqb-ctal-tm-page .callout-icon {
                 font-size: 1.1rem;
                 flex-shrink: 0;
                 margin-top: 0.1rem;
@@ -648,14 +648,14 @@
             /* ============================================================
    METRIC GRID
    ============================================================ */
-            .metric-grid {
+            .istqb-ctal-tm-page .metric-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
                 gap: 1rem;
                 margin: 1.5rem 0;
             }
 
-            .metric-card {
+            .istqb-ctal-tm-page .metric-card {
                 background: var(--color-bg-card);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-DEFAULT, 12px);
@@ -663,19 +663,19 @@
                 text-align: center;
                 transition: all var(--transition);
             }
-            .metric-card:hover {
+            .istqb-ctal-tm-page .metric-card:hover {
                 transform: translateY(-4px);
                 box-shadow: 0 8px 32px rgba(0, 229, 255, 0.15);
                 border-color: var(--color-border-bright);
             }
-            .metric-val {
+            .istqb-ctal-tm-page .metric-val {
                 font-family: var(--font-mono, monospace);
                 font-size: 2rem;
                 font-weight: 700;
                 color: var(--color-accent-cyan);
                 display: block;
             }
-            .metric-label {
+            .istqb-ctal-tm-page .metric-label {
                 font-size: 0.8rem;
                 color: var(--color-text-muted);
                 margin-top: 0.25rem;
@@ -684,29 +684,29 @@
             /* ============================================================
    PROGRESS ITEM
    ============================================================ */
-            .progress-item {
+            .istqb-ctal-tm-page .progress-item {
                 margin-bottom: 1rem;
             }
-            .progress-header {
+            .istqb-ctal-tm-page .progress-header {
                 display: flex;
                 justify-content: space-between;
                 margin-bottom: 0.4rem;
                 font-size: 0.85rem;
             }
-            .progress-label {
+            .istqb-ctal-tm-page .progress-label {
                 color: var(--color-text-secondary);
             }
-            .progress-val {
+            .istqb-ctal-tm-page .progress-val {
                 font-family: var(--font-mono, monospace);
                 color: var(--color-accent-cyan);
             }
-            .progress-bar {
+            .istqb-ctal-tm-page .progress-bar {
                 height: 6px;
                 background: rgba(255, 255, 255, 0.06);
                 border-radius: 999px;
                 overflow: hidden;
             }
-            .progress-fill {
+            .istqb-ctal-tm-page .progress-fill {
                 height: 100%;
                 border-radius: 999px;
                 animation: grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
@@ -715,7 +715,7 @@
             /* ============================================================
    TABLE WRAP
    ============================================================ */
-            .table-wrap {
+            .istqb-ctal-tm-page .table-wrap {
                 overflow-x: auto;
                 margin: 1.5rem 0;
                 border-radius: var(--radius-DEFAULT, 12px);
@@ -762,45 +762,45 @@
             /* ============================================================
    EXAM GRID
    ============================================================ */
-            .exam-grid {
+            .istqb-ctal-tm-page .exam-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
                 gap: 1rem;
                 margin: 1.5rem 0;
             }
 
-            .exam-card {
+            .istqb-ctal-tm-page .exam-card {
                 background: var(--color-bg-card);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-DEFAULT, 12px);
                 padding: 1.25rem;
                 transition: all var(--transition);
             }
-            .exam-card:hover {
+            .istqb-ctal-tm-page .exam-card:hover {
                 border-color: var(--color-border-bright);
                 transform: translateY(-2px);
                 box-shadow: var(--shadow-glow-cyan, 0 0 15px rgba(0, 229, 255, 0.5));
             }
-            .exam-card-title {
+            .istqb-ctal-tm-page .exam-card-title {
                 font-family: var(--font-display, sans-serif);
                 font-weight: 700;
                 font-size: 0.95rem;
                 color: var(--color-text-primary);
                 margin-bottom: 0.5rem;
             }
-            .exam-card-pts {
+            .istqb-ctal-tm-page .exam-card-pts {
                 font-family: var(--font-mono, monospace);
                 font-size: 1.5rem;
                 color: var(--color-accent-cyan);
                 display: block;
                 margin-bottom: 0.25rem;
             }
-            .stars {
+            .istqb-ctal-tm-page .stars {
                 color: var(--color-accent-orange);
                 font-size: 0.8rem;
                 margin-bottom: 0.5rem;
             }
-            .exam-card p {
+            .istqb-ctal-tm-page .exam-card p {
                 font-size: 0.82rem;
                 color: var(--color-text-muted);
                 margin: 0;
@@ -809,14 +809,14 @@
             /* ============================================================
    REF GRID
    ============================================================ */
-            .ref-grid {
+            .istqb-ctal-tm-page .ref-grid {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
                 gap: 0.75rem;
                 margin: 1.5rem 0;
             }
 
-            .ref-card {
+            .istqb-ctal-tm-page .ref-card {
                 background: var(--color-bg-card);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-DEFAULT, 12px);
@@ -825,7 +825,7 @@
                 overflow: hidden;
                 position: relative;
             }
-            .ref-card::before {
+            .istqb-ctal-tm-page .ref-card::before {
                 content: '';
                 position: absolute;
                 left: 0;
@@ -836,15 +836,15 @@
                 transform: scaleY(0);
                 transition: transform var(--transition);
             }
-            .ref-card:hover::before {
+            .istqb-ctal-tm-page .ref-card:hover::before {
                 transform: scaleY(1);
             }
-            .ref-card:hover {
+            .istqb-ctal-tm-page .ref-card:hover {
                 border-color: var(--color-border-bright);
                 background: var(--color-bg-secondary);
             }
 
-            .ref-category {
+            .istqb-ctal-tm-page .ref-category {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.65rem;
                 text-transform: uppercase;
@@ -852,13 +852,13 @@
                 margin-bottom: 0.3rem;
                 letter-spacing: 0.1em;
             }
-            .ref-title {
+            .istqb-ctal-tm-page .ref-title {
                 font-size: 0.85rem;
                 font-weight: 600;
                 color: var(--color-text-primary);
                 margin-bottom: 0.25rem;
             }
-            .ref-url {
+            .istqb-ctal-tm-page .ref-url {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.7rem;
                 color: var(--color-text-muted);
@@ -868,7 +868,7 @@
             /* ============================================================
    TREND CARD
    ============================================================ */
-            .trend-card {
+            .istqb-ctal-tm-page .trend-card {
                 background: var(--color-bg-card);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-DEFAULT, 12px);
@@ -877,7 +877,7 @@
                 position: relative;
                 transition: all var(--transition);
             }
-            .trend-card::after {
+            .istqb-ctal-tm-page .trend-card::after {
                 content: '';
                 position: absolute;
                 inset: -1px;
@@ -887,36 +887,36 @@
                 transition: opacity var(--transition);
                 pointer-events: none;
             }
-            .trend-card:hover {
+            .istqb-ctal-tm-page .trend-card:hover {
                 border-color: var(--color-border-bright);
             }
-            .trend-card:hover::after {
+            .istqb-ctal-tm-page .trend-card:hover::after {
                 opacity: 1;
             }
 
             /* ============================================================
    ALERT
    ============================================================ */
-            .alert {
+            .istqb-ctal-tm-page .alert {
                 border-left: 4px solid;
                 border-radius: 0 var(--radius-DEFAULT, 12px) var(--radius-DEFAULT, 12px) 0;
                 padding: 0.9rem 1.25rem;
                 margin: 1rem 0;
                 font-size: 0.9rem;
             }
-            .alert.green {
+            .istqb-ctal-tm-page .alert.istqb-ctal-tm-page .green {
                 border-color: var(--color-accent-green);
                 background: rgba(0, 255, 136, 0.05);
             }
-            .alert.amber {
+            .istqb-ctal-tm-page .alert.istqb-ctal-tm-page .amber {
                 border-color: var(--color-accent-orange);
                 background: rgba(255, 179, 0, 0.05);
             }
-            .alert.red {
+            .istqb-ctal-tm-page .alert.istqb-ctal-tm-page .red {
                 border-color: var(--color-accent-red);
                 background: rgba(255, 61, 90, 0.05);
             }
-            .alert.cyan {
+            .istqb-ctal-tm-page .alert.istqb-ctal-tm-page .cyan {
                 border-color: var(--color-accent-cyan);
                 background: rgba(0, 229, 255, 0.05);
             }
@@ -924,40 +924,40 @@
             /* ============================================================
    COMPARE GRID (good vs bad)
    ============================================================ */
-            .compare-grid {
+            .istqb-ctal-tm-page .compare-grid {
                 display: grid;
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
                 margin: 1.25rem 0;
             }
 
-            .compare-box {
+            .istqb-ctal-tm-page .compare-box {
                 border-radius: var(--radius-DEFAULT, 12px);
                 padding: 1rem 1.25rem;
                 font-size: 0.88rem;
             }
-            .compare-box.good {
+            .istqb-ctal-tm-page .compare-box.istqb-ctal-tm-page .good {
                 background: rgba(0, 255, 136, 0.06);
                 border: 1px solid rgba(0, 255, 136, 0.2);
             }
-            .compare-box.bad {
+            .istqb-ctal-tm-page .compare-box.istqb-ctal-tm-page .bad {
                 background: rgba(255, 61, 90, 0.06);
                 border: 1px solid rgba(255, 61, 90, 0.2);
             }
-            .compare-box-title {
+            .istqb-ctal-tm-page .compare-box-title {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.7rem;
                 font-weight: 700;
                 margin-bottom: 0.6rem;
                 display: block;
             }
-            .compare-box.good .compare-box-title {
+            .istqb-ctal-tm-page .compare-box.good .compare-box-title {
                 color: var(--color-accent-green);
             }
-            .compare-box.bad .compare-box-title {
+            .istqb-ctal-tm-page .compare-box.bad .compare-box-title {
                 color: var(--color-accent-red);
             }
-            .compare-box p {
+            .istqb-ctal-tm-page .compare-box p {
                 margin: 0.35rem 0;
                 color: var(--color-text-secondary);
             }
@@ -965,13 +965,13 @@
             /* ============================================================
    RETROSPECTIVE BOARD
    ============================================================ */
-            .retro-board {
+            .istqb-ctal-tm-page .retro-board {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1rem;
                 margin: 1.5rem 0;
             }
-            .retro-card {
+            .istqb-ctal-tm-page .retro-card {
                 background: var(--color-bg-card);
                 border: 1px solid var(--color-border);
                 border-top: 3px solid var(--color-accent-cyan);
@@ -982,22 +982,22 @@
                 gap: 0.75rem;
                 transition: var(--transition);
             }
-            .retro-card:hover {
+            .istqb-ctal-tm-page .retro-card:hover {
                 transform: translateY(-5px);
                 border-color: rgba(0, 229, 255, 0.4);
                 box-shadow: var(--shadow-glow-cyan, 0 0 15px rgba(0, 229, 255, 0.5));
             }
-            .retro-card.well {
+            .istqb-ctal-tm-page .retro-card.istqb-ctal-tm-page .well {
                 border-top-color: var(--color-accent-green);
             }
-            .retro-card.improve {
+            .istqb-ctal-tm-page .retro-card.istqb-ctal-tm-page .improve {
                 border-top-color: var(--color-accent-orange);
             }
-            .retro-card.action {
+            .istqb-ctal-tm-page .retro-card.istqb-ctal-tm-page .action {
                 border-top-color: var(--color-accent-purple);
             }
 
-            .retro-card-title {
+            .istqb-ctal-tm-page .retro-card-title {
                 font-family: var(--font-display, sans-serif);
                 font-size: 0.8rem;
                 font-weight: 800;
@@ -1007,17 +1007,17 @@
                 align-items: center;
                 gap: 0.5rem;
             }
-            .well .retro-card-title {
+            .istqb-ctal-tm-page .well .retro-card-title {
                 color: var(--color-accent-green);
             }
-            .improve .retro-card-title {
+            .istqb-ctal-tm-page .improve .retro-card-title {
                 color: var(--color-accent-orange);
             }
-            .action .retro-card-title {
+            .istqb-ctal-tm-page .action .retro-card-title {
                 color: var(--color-accent-purple);
             }
 
-            .retro-list {
+            .istqb-ctal-tm-page .retro-list {
                 list-style: none;
                 padding: 0;
                 margin: 0;
@@ -1027,11 +1027,11 @@
                 flex-direction: column;
                 gap: 0.5rem;
             }
-            .retro-list li {
+            .istqb-ctal-tm-page .retro-list li {
                 position: relative;
                 padding-left: 1.25rem;
             }
-            .retro-list li::before {
+            .istqb-ctal-tm-page .retro-list li::before {
                 content: '→';
                 position: absolute;
                 left: 0;
@@ -1042,7 +1042,7 @@
             /* ============================================================
    RISK MATRIX
    ============================================================ */
-            .risk-matrix {
+            .istqb-ctal-tm-page .risk-matrix {
                 display: grid;
                 grid-template-columns: auto repeat(3, 1fr);
                 gap: 2px;
@@ -1050,7 +1050,7 @@
                 max-width: 400px;
             }
 
-            .rm-cell {
+            .istqb-ctal-tm-page .rm-cell {
                 padding: 0.6rem;
                 border-radius: 4px;
                 text-align: center;
@@ -1058,21 +1058,21 @@
                 font-size: 0.75rem;
                 font-weight: 700;
             }
-            .rm-header {
+            .istqb-ctal-tm-page .rm-header {
                 color: var(--color-text-muted);
                 background: transparent;
                 display: flex;
                 align-items: center;
             }
-            .rm-low {
+            .istqb-ctal-tm-page .rm-low {
                 background: rgba(0, 255, 136, 0.15);
                 color: var(--color-accent-green);
             }
-            .rm-mid {
+            .istqb-ctal-tm-page .rm-mid {
                 background: rgba(255, 179, 0, 0.15);
                 color: var(--color-accent-orange);
             }
-            .rm-high {
+            .istqb-ctal-tm-page .rm-high {
                 background: rgba(255, 61, 90, 0.15);
                 color: var(--color-accent-red);
             }
@@ -1080,14 +1080,14 @@
             /* ============================================================
    IDEAL MODEL DIAGRAM
    ============================================================ */
-            .ideal-flow {
+            .istqb-ctal-tm-page .ideal-flow {
                 display: flex;
                 align-items: center;
                 gap: 0.25rem;
                 margin: 1.5rem 0;
                 flex-wrap: wrap;
             }
-            .ideal-step {
+            .istqb-ctal-tm-page .ideal-step {
                 background: var(--color-bg-card);
                 border: 1px solid var(--color-border);
                 border-radius: var(--radius-DEFAULT, 12px);
@@ -1097,22 +1097,22 @@
                 text-align: center;
                 transition: all var(--transition);
             }
-            .ideal-step:hover {
+            .istqb-ctal-tm-page .ideal-step:hover {
                 border-color: var(--color-border-bright);
                 transform: translateY(-2px);
             }
-            .ideal-step .ideal-letter {
+            .istqb-ctal-tm-page .ideal-step .ideal-letter {
                 font-family: var(--font-mono, monospace);
                 font-size: 1.5rem;
                 font-weight: 700;
                 display: block;
             }
-            .ideal-step .ideal-name {
+            .istqb-ctal-tm-page .ideal-step .ideal-name {
                 font-size: 0.75rem;
                 color: var(--color-text-muted);
                 margin-top: 0.2rem;
             }
-            .ideal-arrow {
+            .istqb-ctal-tm-page .ideal-arrow {
                 color: var(--color-accent-cyan);
                 font-size: 1.2rem;
                 flex-shrink: 0;
@@ -1121,14 +1121,14 @@
             /* ============================================================
    DEFECT LIFECYCLE
    ============================================================ */
-            .lifecycle-flow {
+            .istqb-ctal-tm-page .lifecycle-flow {
                 display: flex;
                 flex-direction: column;
                 gap: 0;
                 margin: 1.5rem 0;
                 position: relative;
             }
-            .lifecycle-flow::before {
+            .istqb-ctal-tm-page .lifecycle-flow::before {
                 content: '';
                 position: absolute;
                 left: 19px;
@@ -1137,14 +1137,14 @@
                 width: 2px;
                 background: linear-gradient(to bottom, var(--color-accent-cyan), var(--color-accent-green));
             }
-            .lc-step {
+            .istqb-ctal-tm-page .lc-step {
                 display: flex;
                 gap: 1rem;
                 margin-bottom: 0.75rem;
                 align-items: flex-start;
                 position: relative;
             }
-            .lc-dot {
+            .istqb-ctal-tm-page .lc-dot {
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
@@ -1160,14 +1160,14 @@
                 flex-shrink: 0;
                 z-index: 1;
             }
-            .lc-content {
+            .istqb-ctal-tm-page .lc-content {
                 flex: 1;
                 padding-top: 0.6rem;
             }
-            .lc-content strong {
+            .istqb-ctal-tm-page .lc-content strong {
                 color: var(--color-text-primary);
             }
-            .lc-content span {
+            .istqb-ctal-tm-page .lc-content span {
                 font-size: 0.82rem;
                 color: var(--color-text-secondary);
             }
@@ -1175,7 +1175,7 @@
             /* ============================================================
    SECTION DIVIDER
    ============================================================ */
-            .section-divider {
+            .istqb-ctal-tm-page .section-divider {
                 border: none;
                 border-top: 1px solid var(--color-border);
                 margin: 2.5rem 0;
@@ -1201,26 +1201,35 @@
    RESPONSIVE
    ============================================================ */
             @media (max-width: 900px) {
-                .compare-grid,
-                .retro-board {
+                .istqb-ctal-tm-page .compare-grid,
+                .istqb-ctal-tm-page .retro-board {
                     grid-template-columns: 1fr;
                 }
-                .ideal-flow {
+                .istqb-ctal-tm-page .ideal-flow {
                     flex-direction: column;
                 }
-                .ideal-arrow {
+                .istqb-ctal-tm-page .ideal-arrow {
                     transform: rotate(90deg);
                 }
-                .hero-meta {
+                .istqb-ctal-tm-page .hero-meta {
                     flex-wrap: wrap;
                 }
             }
 
             @media (max-width: 600px) {
-                .toc-grid {
+                .istqb-ctal-tm-page .toc-grid {
                     grid-template-columns: 1fr 1fr;
                 }
-                .exam-grid {
+                .istqb-ctal-tm-page .exam-grid {
                     grid-template-columns: 1fr;
                 }
             }
+@media (prefers-reduced-motion: reduce) {
+    .istqb-ctal-tm-page *,
+    .istqb-ctal-tm-page *::before,
+    .istqb-ctal-tm-page *::after {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+}
