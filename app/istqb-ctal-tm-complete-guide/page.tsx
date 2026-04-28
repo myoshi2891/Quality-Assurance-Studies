@@ -144,7 +144,7 @@ export default function IstqbCtalTmCompleteGuide() {
                         <div className="progress-bar">
                             <div
                                 className="progress-fill"
-                                style={{width: "54.9%", background: "linear-gradient(\n                                        90deg,\n                                        var(--neon-cyan),\n                                        var(--neon-green)\n                                    )"}}
+                                style={{width: "54.9%", background: "linear-gradient(\n                                        90deg,\n                                        var(--color-accent-cyan),\n                                        var(--color-accent-green)\n                                    )"}}
                             ></div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@ export default function IstqbCtalTmCompleteGuide() {
                         <div className="progress-bar">
                             <div
                                 className="progress-fill"
-                                style={{width: "28.6%", background: "linear-gradient(90deg, var(--neon-amber), #ff6b35)"}}
+                                style={{width: "28.6%", background: "linear-gradient(90deg, var(--color-accent-orange), #ff6b35)"}}
                             ></div>
                         </div>
                     </div>
@@ -168,7 +168,7 @@ export default function IstqbCtalTmCompleteGuide() {
                         <div className="progress-bar">
                             <div
                                 className="progress-fill"
-                                style={{width: "16.5%", background: "linear-gradient(90deg, var(--neon-purple), #ec4899)"}}
+                                style={{width: "16.5%", background: "linear-gradient(90deg, var(--color-accent-purple), #ec4899)"}}
                             ></div>
                         </div>
                     </div>
@@ -199,8 +199,8 @@ export default function IstqbCtalTmCompleteGuide() {
                             Test Management Expert / Improving Test Process Expert
                         </div>
                     </div>
-                    <div className="arch-layer" style={{borderLeftColor: "var(--neon-cyan)"}}>
-                        <div className="arch-layer-title" style={{color: "var(--neon-cyan)"}}>
+                    <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-cyan)"}}>
+                        <div className="arch-layer-title" style={{color: "var(--color-accent-cyan)"}}>
                             Advanced Level Core ← ★ あなたはここ！
                         </div>
                         <div className="arch-layer-desc">
@@ -208,7 +208,7 @@ export default function IstqbCtalTmCompleteGuide() {
                         </div>
                     </div>
                     <div className="arch-layer green">
-                        <div className="arch-layer-title" style={{color: "var(--neon-green)"}}>
+                        <div className="arch-layer-title" style={{color: "var(--color-accent-green)"}}>
                             Foundation Level（前提条件：必須）
                         </div>
                         <div className="arch-layer-desc">CTFL v4.0 ／ 推奨実務経験：6ヶ月以上</div>
@@ -410,8 +410,8 @@ export default function IstqbCtalTmCompleteGuide() {
                     </p>
 
                     <div className="arch-layers">
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-cyan)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-cyan)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-cyan)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-cyan)"}}>
                                 ① テスト計画（Test Planning）
                             </div>
                             <div className="arch-layer-desc">
@@ -420,7 +420,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer amber">
-                            <div className="arch-layer-title" style={{color: "var(--neon-amber)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-orange)"}}>
                                 ② テスト監視と制御（Test Monitoring &amp; Control）
                             </div>
                             <div className="arch-layer-desc">
@@ -429,7 +429,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer green">
-                            <div className="arch-layer-title" style={{color: "var(--neon-green)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-green)"}}>
                                 ③ テスト完了（Test Completion）
                             </div>
                             <div className="arch-layer-desc">
@@ -733,7 +733,7 @@ export default function IstqbCtalTmCompleteGuide() {
                     <h4>リスク管理の4つの対応策（試験頻出！）</h4>
                     <div className="arch-layers">
                         <div className="arch-layer red">
-                            <div className="arch-layer-title" style={{color: "var(--neon-red)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-red)"}}>
                                 🚫 回避（Avoid）
                             </div>
                             <div className="arch-layer-desc">
@@ -741,15 +741,15 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer amber">
-                            <div className="arch-layer-title" style={{color: "var(--neon-amber)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-orange)"}}>
                                 🔧 軽減（Mitigate）
                             </div>
                             <div className="arch-layer-desc">
                                 テストを重点的に実施してリスクを低減。最も一般的な対応策
                             </div>
                         </div>
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-purple)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-purple)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-purple)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-purple)"}}>
                                 🔄 転嫁（Transfer）
                             </div>
                             <div className="arch-layer-desc">
@@ -757,7 +757,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer green">
-                            <div className="arch-layer-title" style={{color: "var(--neon-green)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-green)"}}>
                                 ✅ 受容（Accept）
                             </div>
                             <div className="arch-layer-desc">
@@ -893,16 +893,16 @@ export default function IstqbCtalTmCompleteGuide() {
 
                     <h4>テストアプローチの7種類（試験頻出！）</h4>
                     <div className="arch-layers">
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-cyan)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-cyan)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-cyan)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-cyan)"}}>
                                 ① 分析的アプローチ（Analytical）
                             </div>
                             <div className="arch-layer-desc">
                                 リスクベーステスト・要件ベーステスト・仕様ベーステスト。最も広く使われる
                             </div>
                         </div>
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-green)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-green)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-green)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-green)"}}>
                                 ② モデルベースアプローチ（Model-Based）
                             </div>
                             <div className="arch-layer-desc">
@@ -910,15 +910,15 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer amber">
-                            <div className="arch-layer-title" style={{color: "var(--neon-amber)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-orange)"}}>
                                 ③ 方法論的アプローチ（Methodical）
                             </div>
                             <div className="arch-layer-desc">
                                 チェックリストベーステスト・欠陥ベーステスト（過去データ活用）
                             </div>
                         </div>
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-purple)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-purple)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-purple)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-purple)"}}>
                                 ④ プロセス準拠アプローチ（Process-Compliant）
                             </div>
                             <div className="arch-layer-desc">
@@ -931,8 +931,8 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                             <div className="arch-layer-desc">経験ベーステスト・専門家主導テスト</div>
                         </div>
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-red)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-red)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-red)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-red)"}}>
                                 ⑥ 回帰回避アプローチ（Regression-Averse）
                             </div>
                             <div className="arch-layer-desc">
@@ -958,7 +958,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             <p>例：「全システムにリスクベーステストを採用」</p>
                         </div>
                         <div className="compare-box bad">
-                            <span className="compare-box-title" style={{color: "var(--neon-cyan)"}}
+                            <span className="compare-box-title" style={{color: "var(--color-accent-cyan)"}}
                                 >📋 プロジェクトテスト戦略（下位・派生）</span
                             >
                             <p>特定プロジェクトへの具体的な適用</p>
@@ -1027,27 +1027,27 @@ export default function IstqbCtalTmCompleteGuide() {
 
                     <div className="ideal-flow">
                         <div className="ideal-step" style={{borderColor: "rgba(0, 229, 255, 0.3)"}}>
-                            <span className="ideal-letter" style={{color: "var(--neon-cyan)"}}>I</span>
+                            <span className="ideal-letter" style={{color: "var(--color-accent-cyan)"}}>I</span>
                             <span className="ideal-name">Initiating<br />（開始）</span>
                         </div>
                         <span className="ideal-arrow">→</span>
                         <div className="ideal-step" style={{borderColor: "rgba(0, 255, 136, 0.3)"}}>
-                            <span className="ideal-letter" style={{color: "var(--neon-green)"}}>D</span>
+                            <span className="ideal-letter" style={{color: "var(--color-accent-green)"}}>D</span>
                             <span className="ideal-name">Diagnosing<br />（診断）</span>
                         </div>
                         <span className="ideal-arrow">→</span>
                         <div className="ideal-step" style={{borderColor: "rgba(255, 179, 0, 0.3)"}}>
-                            <span className="ideal-letter" style={{color: "var(--neon-amber)"}}>E</span>
+                            <span className="ideal-letter" style={{color: "var(--color-accent-orange)"}}>E</span>
                             <span className="ideal-name">Establishing<br />（確立）</span>
                         </div>
                         <span className="ideal-arrow">→</span>
                         <div className="ideal-step" style={{borderColor: "rgba(168, 85, 247, 0.3)"}}>
-                            <span className="ideal-letter" style={{color: "var(--neon-purple)"}}>A</span>
+                            <span className="ideal-letter" style={{color: "var(--color-accent-purple)"}}>A</span>
                             <span className="ideal-name">Acting<br />（実施）</span>
                         </div>
                         <span className="ideal-arrow">→</span>
                         <div className="ideal-step" style={{borderColor: "rgba(255, 61, 90, 0.3)"}}>
-                            <span className="ideal-letter" style={{color: "var(--neon-red)"}}>L</span>
+                            <span className="ideal-letter" style={{color: "var(--color-accent-red)"}}>L</span>
                             <span className="ideal-name">Learning<br />（学習）</span>
                         </div>
                     </div>
@@ -1296,8 +1296,8 @@ export default function IstqbCtalTmCompleteGuide() {
 
                     <h4>4カテゴリのテストメトリクス</h4>
                     <div className="arch-layers">
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-cyan)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-cyan)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-cyan)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-cyan)"}}>
                                 進捗メトリクス（Progress）
                             </div>
                             <div className="arch-layer-desc">
@@ -1305,7 +1305,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer green">
-                            <div className="arch-layer-title" style={{color: "var(--neon-green)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-green)"}}>
                                 品質メトリクス（Quality）
                             </div>
                             <div className="arch-layer-desc">
@@ -1313,15 +1313,15 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer amber">
-                            <div className="arch-layer-title" style={{color: "var(--neon-amber)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-orange)"}}>
                                 生産性メトリクス（Productivity）
                             </div>
                             <div className="arch-layer-desc">
                                 テストケース作成速度・テスト実行速度・自動化率・1テストケースあたりのコスト
                             </div>
                         </div>
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-purple)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-purple)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-purple)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-purple)"}}>
                                 安定性メトリクス（Stability）
                             </div>
                             <div className="arch-layer-desc">
@@ -1352,7 +1352,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             <p>→ 数値・グラフを使い視覚的に</p>
                         </div>
                         <div className="compare-box bad">
-                            <span className="compare-box-title" style={{color: "var(--neon-cyan)"}}
+                            <span className="compare-box-title" style={{color: "var(--color-accent-cyan)"}}
                                 >💻 開発チーム向け（詳細）</span
                             >
                             <p>欠陥リスト（優先度・担当者・期限）</p>
@@ -1473,39 +1473,39 @@ export default function IstqbCtalTmCompleteGuide() {
                     <h4>欠陥ライフサイクル</h4>
                     <div className="lifecycle-flow">
                         <div className="lc-step">
-                            <div className="lc-dot" style={{borderColor: "var(--neon-cyan)"}}>NEW</div>
+                            <div className="lc-dot" style={{borderColor: "var(--color-accent-cyan)"}}>NEW</div>
                             <div className="lc-content">
                                 <strong>New / Open</strong
                                 ><span> — テスターが欠陥を発見・報告</span>
                             </div>
                         </div>
                         <div className="lc-step">
-                            <div className="lc-dot" style={{borderColor: "var(--neon-amber)"}}>ASGN</div>
+                            <div className="lc-dot" style={{borderColor: "var(--color-accent-orange)"}}>ASGN</div>
                             <div className="lc-content">
                                 <strong>Assigned</strong><span> — 開発者がアサイン。調査開始</span>
                             </div>
                         </div>
                         <div className="lc-step">
-                            <div className="lc-dot" style={{borderColor: "var(--neon-purple)"}}>WIP</div>
+                            <div className="lc-dot" style={{borderColor: "var(--color-accent-purple)"}}>WIP</div>
                             <div className="lc-content">
                                 <strong>In Progress</strong><span> — 開発者が原因調査・修正</span>
                             </div>
                         </div>
                         <div className="lc-step">
-                            <div className="lc-dot" style={{borderColor: "var(--neon-green)"}}>FIX</div>
+                            <div className="lc-dot" style={{borderColor: "var(--color-accent-green)"}}>FIX</div>
                             <div className="lc-content">
                                 <strong>Fixed / Resolved</strong
                                 ><span> — 修正完了・テスターへ戻す</span>
                             </div>
                         </div>
                         <div className="lc-step">
-                            <div className="lc-dot" style={{borderColor: "var(--neon-cyan)"}}>RT</div>
+                            <div className="lc-dot" style={{borderColor: "var(--color-accent-cyan)"}}>RT</div>
                             <div className="lc-content">
                                 <strong>Re-Test</strong><span> — テスターが修正確認テスト実行</span>
                             </div>
                         </div>
                         <div className="lc-step">
-                            <div className="lc-dot" style={{borderColor: "var(--neon-green)"}}>✓</div>
+                            <div className="lc-dot" style={{borderColor: "var(--color-accent-green)"}}>✓</div>
                             <div className="lc-content">
                                 <strong>Closed ✅</strong
                                 ><span>
@@ -1544,7 +1544,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             <p>DoD: Critical/High欠陥 = 0件</p>
                         </div>
                         <div className="compare-box bad">
-                            <span className="compare-box-title" style={{color: "var(--neon-cyan)"}}
+                            <span className="compare-box-title" style={{color: "var(--color-accent-cyan)"}}
                                 >📋 ウォーターフォールの欠陥管理</span
                             >
                             <p>欠陥票 → 承認 → 修正</p>
@@ -1581,8 +1581,8 @@ export default function IstqbCtalTmCompleteGuide() {
 
                     <h4>4つの能力領域（試験頻出！）</h4>
                     <div className="arch-layers">
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-cyan)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-cyan)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-cyan)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-cyan)"}}>
                                 1. テストスキル（Testing）
                             </div>
                             <div className="arch-layer-desc">
@@ -1590,7 +1590,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer green">
-                            <div className="arch-layer-title" style={{color: "var(--neon-green)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-green)"}}>
                                 2. ドメイン知識（Domain）
                             </div>
                             <div className="arch-layer-desc">
@@ -1598,15 +1598,15 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer amber">
-                            <div className="arch-layer-title" style={{color: "var(--neon-amber)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-orange)"}}>
                                 3. 技術スキル（Technical）
                             </div>
                             <div className="arch-layer-desc">
                                 テスト対象技術（Web/API/DB等）・テストツール（Selenium/Playwright等）・CI/CD・プログラミング
                             </div>
                         </div>
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-purple)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-purple)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-purple)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-purple)"}}>
                                 4. ソフトスキル（Soft Skills）
                             </div>
                             <div className="arch-layer-desc">
@@ -1619,19 +1619,19 @@ export default function IstqbCtalTmCompleteGuide() {
                     <div className="pyramid">
                         <div
                             className="pyramid-level"
-                            style={{width: "100%", background: "linear-gradient(\n                                    90deg,\n                                    var(--neon-cyan),\n                                    var(--neon-green)\n                                )"}}
+                            style={{width: "100%", background: "linear-gradient(\n                                    90deg,\n                                    var(--color-accent-cyan),\n                                    var(--color-accent-green)\n                                )"}}
                         >
                             70% — 実務経験（挑戦的課題・ローテーション・メンター制度）
                         </div>
                         <div
                             className="pyramid-level"
-                            style={{width: "75%", background: "linear-gradient(90deg, var(--neon-amber), #ff9500)"}}
+                            style={{width: "75%", background: "linear-gradient(90deg, var(--color-accent-orange), #ff9500)"}}
                         >
                             20% — 社会的学習（コードレビュー・社内勉強会・コミュニティ）
                         </div>
                         <div
                             className="pyramid-level"
-                            style={{width: "45%", background: "linear-gradient(90deg, var(--neon-purple), #c084fc)"}}
+                            style={{width: "45%", background: "linear-gradient(90deg, var(--color-accent-purple), #c084fc)"}}
                         >
                             10% — 形式的トレーニング（ISTQB研修・Udemy・カンファレンス）
                         </div>
@@ -1680,15 +1680,15 @@ export default function IstqbCtalTmCompleteGuide() {
                     <h4>品質のコスト（Cost of Quality：CoQ）PAFモデル</h4>
                     <div className="arch-layers">
                         <div className="arch-layer green">
-                            <div className="arch-layer-title" style={{color: "var(--neon-green)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-green)"}}>
                                 予防コスト（Prevention）← ここに投資！
                             </div>
                             <div className="arch-layer-desc">
                                 要件・設計レビュー・テスト計画・テストケース設計・チームトレーニング・テストプロセス改善
                             </div>
                         </div>
-                        <div className="arch-layer" style={{borderLeftColor: "var(--neon-cyan)"}}>
-                            <div className="arch-layer-title" style={{color: "var(--neon-cyan)"}}>
+                        <div className="arch-layer" style={{borderLeftColor: "var(--color-accent-cyan)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-cyan)"}}>
                                 評価コスト（Appraisal）
                             </div>
                             <div className="arch-layer-desc">
@@ -1696,7 +1696,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer amber">
-                            <div className="arch-layer-title" style={{color: "var(--neon-amber)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-orange)"}}>
                                 内部失敗コスト（Internal Failure）
                             </div>
                             <div className="arch-layer-desc">
@@ -1704,7 +1704,7 @@ export default function IstqbCtalTmCompleteGuide() {
                             </div>
                         </div>
                         <div className="arch-layer red">
-                            <div className="arch-layer-title" style={{color: "var(--neon-red)"}}>
+                            <div className="arch-layer-title" style={{color: "var(--color-accent-red)"}}>
                                 外部失敗コスト（External Failure）← 最も避けるべき！
                             </div>
                             <div className="arch-layer-desc">
@@ -1722,7 +1722,7 @@ export default function IstqbCtalTmCompleteGuide() {
                         <div className="progress-bar">
                             <div
                                 className="progress-fill"
-                                style={{width: "2%", background: "var(--neon-green)"}}
+                                style={{width: "2%", background: "var(--color-accent-green)"}}
                             ></div>
                         </div>
                     </div>
@@ -1734,7 +1734,7 @@ export default function IstqbCtalTmCompleteGuide() {
                         <div className="progress-bar">
                             <div
                                 className="progress-fill"
-                                style={{width: "10%", background: "var(--neon-cyan)"}}
+                                style={{width: "10%", background: "var(--color-accent-cyan)"}}
                             ></div>
                         </div>
                     </div>
@@ -1746,7 +1746,7 @@ export default function IstqbCtalTmCompleteGuide() {
                         <div className="progress-bar">
                             <div
                                 className="progress-fill"
-                                style={{width: "20%", background: "var(--neon-amber)"}}
+                                style={{width: "20%", background: "var(--color-accent-orange)"}}
                             ></div>
                         </div>
                     </div>
@@ -1770,7 +1770,7 @@ export default function IstqbCtalTmCompleteGuide() {
                         <div className="progress-bar">
                             <div
                                 className="progress-fill"
-                                style={{width: "100%", background: "var(--neon-red)"}}
+                                style={{width: "100%", background: "var(--color-accent-red)"}}
                             ></div>
                         </div>
                     </div>
@@ -2049,7 +2049,7 @@ export default function IstqbCtalTmCompleteGuide() {
         <section className="section" id="references">
             <div className="container">
                 <div className="chapter-header">
-                    <span className="chapter-num" style={{background: "var(--neon-green)"}}>REF</span>
+                    <span className="chapter-num" style={{background: "var(--color-accent-green)"}}>REF</span>
                     <div>
                         <h2>参照URL一覧</h2>
                         <p style={{margin: "0", color: "var(--text-muted)", fontSize: "0.9rem"}}>
