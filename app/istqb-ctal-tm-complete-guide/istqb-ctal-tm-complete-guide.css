@@ -6,9 +6,9 @@
             /* ============================================================
    RESET & BASE
    ============================================================ */
-            *,
-            *::before,
-            *::after {
+            .istqb-ctal-tm-page *,
+            .istqb-ctal-tm-page *::before,
+            .istqb-ctal-tm-page *::after {
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
@@ -31,7 +31,7 @@
             }
 
             /* Grid texture */
-            body::after {
+            .istqb-ctal-tm-page::after {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -46,59 +46,59 @@
             /* ============================================================
    TYPOGRAPHY
    ============================================================ */
-            h1,
-            h2,
-            h3,
-            h4 {
+            .istqb-ctal-tm-page h1,
+            .istqb-ctal-tm-page h2,
+            .istqb-ctal-tm-page h3,
+            .istqb-ctal-tm-page h4 {
                 font-family: var(--font-display, sans-serif);
                 line-height: 1.2;
             }
-            h1 {
+            .istqb-ctal-tm-page h1 {
                 font-size: clamp(2rem, 5vw, 3.5rem);
                 font-weight: 800;
             }
-            h2 {
+            .istqb-ctal-tm-page h2 {
                 font-size: clamp(1.5rem, 3vw, 2rem);
                 font-weight: 700;
                 margin-bottom: 1.25rem;
             }
-            h3 {
+            .istqb-ctal-tm-page h3 {
                 font-size: 1.25rem;
                 font-weight: 600;
                 margin-bottom: 0.75rem;
             }
-            h4 {
+            .istqb-ctal-tm-page h4 {
                 font-size: 1.1rem;
                 font-weight: 600;
                 color: var(--color-accent-cyan);
                 margin-bottom: 0.5rem;
             }
-            p {
+            .istqb-ctal-tm-page p {
                 margin-bottom: 1rem;
                 color: var(--color-text-secondary);
             }
-            a {
+            .istqb-ctal-tm-page a {
                 color: var(--color-accent-cyan);
                 text-decoration: none;
                 transition: color var(--transition);
             }
-            a:hover {
+            .istqb-ctal-tm-page a:hover {
                 color: var(--color-accent-green);
             }
-            ul,
-            ol {
+            .istqb-ctal-tm-page ul,
+            .istqb-ctal-tm-page ol {
                 padding-left: 1.5rem;
                 color: var(--color-text-secondary);
                 margin-bottom: 1rem;
             }
-            li {
+            .istqb-ctal-tm-page li {
                 margin-bottom: 0.4rem;
             }
-            strong {
+            .istqb-ctal-tm-page strong {
                 color: var(--color-text-primary);
                 font-weight: 600;
             }
-            code {
+            .istqb-ctal-tm-page code {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.85rem;
                 background: rgba(0, 229, 255, 0.08);
@@ -721,18 +721,18 @@
                 border-radius: var(--radius-DEFAULT, 12px);
             }
 
-            table {
+            .istqb-ctal-tm-page table {
                 width: 100%;
                 border-collapse: collapse;
                 font-size: 0.88rem;
                 min-width: 480px;
             }
 
-            thead tr {
+            .istqb-ctal-tm-page thead tr {
                 background: rgba(0, 229, 255, 0.08);
                 border-bottom: 2px solid rgba(0, 229, 255, 0.2);
             }
-            thead th {
+            .istqb-ctal-tm-page thead th {
                 padding: 0.75rem 1rem;
                 text-align: left;
                 font-family: var(--font-mono, monospace);
@@ -742,19 +742,19 @@
                 text-transform: uppercase;
                 letter-spacing: 0.05em;
             }
-            tbody tr {
+            .istqb-ctal-tm-page tbody tr {
                 border-bottom: 1px solid var(--color-border);
                 transition: background var(--transition);
             }
-            tbody tr:hover {
+            .istqb-ctal-tm-page tbody tr:hover {
                 background: var(--color-bg-secondary);
             }
-            tbody td {
+            .istqb-ctal-tm-page tbody td {
                 padding: 0.7rem 1rem;
                 color: var(--color-text-secondary);
                 vertical-align: top;
             }
-            tbody td:first-child {
+            .istqb-ctal-tm-page tbody td:first-child {
                 color: var(--color-text-primary);
                 font-weight: 500;
             }

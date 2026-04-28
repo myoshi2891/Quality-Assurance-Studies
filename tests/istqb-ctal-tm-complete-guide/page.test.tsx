@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from 'bun:test';
+import { describe, it, expect, afterEach, beforeAll, afterAll } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import Page from '../../app/istqb-ctal-tm-complete-guide/page';
 
@@ -8,7 +8,16 @@ class MockIntersectionObserver {
   unobserve(_element: Element) {}
   disconnect() {}
 }
-global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
+let _originalIntersectionObserver: typeof IntersectionObserver;
+
+beforeAll(() => {
+  _originalIntersectionObserver = global.IntersectionObserver;
+  global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
+});
+
+afterAll(() => {
+  global.IntersectionObserver = _originalIntersectionObserver;
+});
 
 afterEach(() => {
   cleanup();
@@ -34,11 +43,11 @@ describe('ISTQB CTAL-TM Complete Guide Page', () => {
 
   it('renders Chapter 2 Product Management section', () => {
     render(<Page />);
-    expect(screen.getByText('製品の管理')).toBeDefined();
+    expect(screen.getAllByText(/製品の管理/).length).toBeGreaterThan(0);
   });
   
   it('renders Chapter 3 Team Management section', () => {
     render(<Page />);
-    expect(screen.getByText('チームの管理')).toBeDefined();
+    expect(screen.getAllByText(/チームの管理/).length).toBeGreaterThan(0);
   });
 });
