@@ -13,6 +13,13 @@ const NAV_ITEMS = [
     { href: '#refs', label: '参考文献',           dot: '#b36bff' },
 ] as const;
 
+/**
+ * Renders a navigation bar with links for document sections and highlights the link corresponding to the section currently in view.
+ *
+ * The component observes all `section[id]` elements and toggles the `active` class on the matching anchor as sections intersect the viewport.
+ *
+ * @returns The navbar JSX element containing section links whose `active` class reflects the currently visible section.
+ */
 export default function NavBar() {
     const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
