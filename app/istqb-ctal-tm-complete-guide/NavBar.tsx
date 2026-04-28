@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
+/**
+ * Renders a sticky navigation bar with a logo and in-page links, highlighting the link whose target section is currently visible.
+ *
+ * The component tracks the currently visible section by its `id` and applies an active class and accent color to the matching link.
+ *
+ * @returns The navigation bar JSX element
+ */
 export default function NavBar() {
   const [activeId, setActiveId] = useState('');
 
