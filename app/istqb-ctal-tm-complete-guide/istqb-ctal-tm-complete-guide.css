@@ -346,16 +346,16 @@
                 margin-top: 0.3rem;
             }
 
-            .istqb-ctal-tm-page .chapter-num.istqb-ctal-tm-page .green {
+            .istqb-ctal-tm-page .chapter-num.green {
                 background: var(--color-accent-green);
             }
-            .istqb-ctal-tm-page .chapter-num.istqb-ctal-tm-page .amber {
+            .istqb-ctal-tm-page .chapter-num.amber {
                 background: var(--color-accent-orange);
             }
-            .istqb-ctal-tm-page .chapter-num.istqb-ctal-tm-page .purple {
+            .istqb-ctal-tm-page .chapter-num.purple {
                 background: var(--color-accent-purple);
             }
-            .istqb-ctal-tm-page .chapter-num.istqb-ctal-tm-page .red {
+            .istqb-ctal-tm-page .chapter-num.red {
                 background: var(--color-accent-red);
             }
 
@@ -462,16 +462,16 @@
                 background: var(--color-bg-secondary);
                 transform: translateX(4px);
             }
-            .istqb-ctal-tm-page .arch-layer.istqb-ctal-tm-page .green {
+            .istqb-ctal-tm-page .arch-layer.green {
                 border-left-color: var(--color-accent-green);
             }
-            .istqb-ctal-tm-page .arch-layer.istqb-ctal-tm-page .amber {
+            .istqb-ctal-tm-page .arch-layer.amber {
                 border-left-color: var(--color-accent-orange);
             }
-            .istqb-ctal-tm-page .arch-layer.istqb-ctal-tm-page .purple {
+            .istqb-ctal-tm-page .arch-layer.purple {
                 border-left-color: var(--color-accent-purple);
             }
-            .istqb-ctal-tm-page .arch-layer.istqb-ctal-tm-page .red {
+            .istqb-ctal-tm-page .arch-layer.red {
                 border-left-color: var(--color-accent-red);
             }
 
@@ -626,15 +626,15 @@
                 font-size: 0.9rem;
             }
 
-            .istqb-ctal-tm-page .callout.istqb-ctal-tm-page .info {
+            .istqb-ctal-tm-page .callout.info {
                 background: rgba(0, 229, 255, 0.07);
                 border: 1px solid rgba(0, 229, 255, 0.2);
             }
-            .istqb-ctal-tm-page .callout.istqb-ctal-tm-page .warning {
+            .istqb-ctal-tm-page .callout.warning {
                 background: rgba(255, 179, 0, 0.07);
                 border: 1px solid rgba(255, 179, 0, 0.2);
             }
-            .istqb-ctal-tm-page .callout.istqb-ctal-tm-page .danger {
+            .istqb-ctal-tm-page .callout.danger {
                 background: rgba(255, 61, 90, 0.07);
                 border: 1px solid rgba(255, 61, 90, 0.2);
             }
@@ -904,19 +904,19 @@
                 margin: 1rem 0;
                 font-size: 0.9rem;
             }
-            .istqb-ctal-tm-page .alert.istqb-ctal-tm-page .green {
+            .istqb-ctal-tm-page .alert.green {
                 border-color: var(--color-accent-green);
                 background: rgba(0, 255, 136, 0.05);
             }
-            .istqb-ctal-tm-page .alert.istqb-ctal-tm-page .amber {
+            .istqb-ctal-tm-page .alert.amber {
                 border-color: var(--color-accent-orange);
                 background: rgba(255, 179, 0, 0.05);
             }
-            .istqb-ctal-tm-page .alert.istqb-ctal-tm-page .red {
+            .istqb-ctal-tm-page .alert.red {
                 border-color: var(--color-accent-red);
                 background: rgba(255, 61, 90, 0.05);
             }
-            .istqb-ctal-tm-page .alert.istqb-ctal-tm-page .cyan {
+            .istqb-ctal-tm-page .alert.cyan {
                 border-color: var(--color-accent-cyan);
                 background: rgba(0, 229, 255, 0.05);
             }
@@ -936,13 +936,13 @@
                 padding: 1rem 1.25rem;
                 font-size: 0.88rem;
             }
-            .istqb-ctal-tm-page .compare-box.istqb-ctal-tm-page .good {
+            .istqb-ctal-tm-page .compare-box .good {
                 background: rgba(0, 255, 136, 0.06);
-                border: 1px solid rgba(0, 255, 136, 0.2);
+                border-color: rgba(0, 255, 136, 0.2);
             }
-            .istqb-ctal-tm-page .compare-box.istqb-ctal-tm-page .bad {
+            .istqb-ctal-tm-page .compare-box .bad {
                 background: rgba(255, 61, 90, 0.06);
-                border: 1px solid rgba(255, 61, 90, 0.2);
+                border-color: rgba(255, 61, 90, 0.2);
             }
             .istqb-ctal-tm-page .compare-box-title {
                 font-family: var(--font-mono, monospace);
@@ -987,13 +987,13 @@
                 border-color: rgba(0, 229, 255, 0.4);
                 box-shadow: var(--shadow-glow-cyan, 0 0 15px rgba(0, 229, 255, 0.5));
             }
-            .istqb-ctal-tm-page .retro-card.istqb-ctal-tm-page .well {
+            .istqb-ctal-tm-page .retro-card.well {
                 border-top-color: var(--color-accent-green);
             }
-            .istqb-ctal-tm-page .retro-card.istqb-ctal-tm-page .improve {
+            .istqb-ctal-tm-page .retro-card.improve {
                 border-top-color: var(--color-accent-orange);
             }
-            .istqb-ctal-tm-page .retro-card.istqb-ctal-tm-page .action {
+            .istqb-ctal-tm-page .retro-card.action {
                 border-top-color: var(--color-accent-purple);
             }
 
