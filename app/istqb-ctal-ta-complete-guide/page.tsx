@@ -2,6 +2,13 @@ import React from 'react';
 import './istqb-ctal-ta-complete-guide.css';
 import NavBar from './NavBar';
 
+/**
+ * Render the complete, static study guide for ISTQB® CTAL-TA v4.0 as a chapter-structured React component.
+ *
+ * The component outputs a fully static page including a hero header, chapters 0–5 with detailed content (test process, risk-based testing, test analysis & design, quality characteristics, defect prevention), an exam preparation appendix with sample questions, a v3.1→v4.0 changes section, references, and a footer. Styling and visuals are provided via CSS classes, inline CSS variables, and embedded SVG diagrams; a NavBar is rendered at the top.
+ *
+ * @returns A JSX element containing the full CTAL-TA v4.0 study guide page layout.
+ */
 export default function IstqbCtalTaCompleteGuide() {
     return (
         <div className="ctal-ta-guide">
