@@ -15,7 +15,7 @@
             }
 
             /* Scanline overlay */
-            body::before {
+            .istqb-ctal-tm-page::before {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -127,8 +127,8 @@
    ============================================================ */
             .sticky-nav {
                 position: sticky;
-                top: 0;
-                z-index: 1000;
+                top: 60px;
+                z-index: 40;
                 background: rgba(3, 7, 18, 0.92);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid var(--color-border);
@@ -1184,13 +1184,13 @@
             /* ============================================================
    FOOTER
    ============================================================ */
-            footer {
+            .istqb-ctal-tm-page footer {
                 background: var(--color-bg-secondary);
                 border-top: 1px solid var(--color-border);
                 padding: 2.5rem 0;
                 text-align: center;
             }
-            footer p {
+            .istqb-ctal-tm-page footer p {
                 font-family: var(--font-mono, monospace);
                 font-size: 0.75rem;
                 color: var(--color-text-muted);

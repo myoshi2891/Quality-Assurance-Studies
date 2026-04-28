@@ -3,7 +3,7 @@ import NavBar from './NavBar';
 
 export default function IstqbCtalTmCompleteGuide() {
     return (
-    <>
+    <main className="istqb-ctal-tm-page">
       <NavBar />
             
 
@@ -2368,6 +2368,6 @@ export default function IstqbCtalTmCompleteGuide() {
             </div>
         </footer>
         
-        </>
+        </main>
     );
 }

@@ -2,6 +2,14 @@ import { describe, it, expect, afterEach } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import Page from '../../app/istqb-ctal-tm-complete-guide/page';
 
+class MockIntersectionObserver {
+  constructor(_callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {}
+  observe(_element: Element) {}
+  unobserve(_element: Element) {}
+  disconnect() {}
+}
+global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
+
 afterEach(() => {
   cleanup();
 });
@@ -16,7 +24,7 @@ describe('ISTQB CTAL-TM Complete Guide Page', () => {
 
   it('renders Chapter 0 Overview section', () => {
     render(<Page />);
-    expect(screen.getByText('試験概要と資格ロードマップ')).toBeDefined();
+    expect(screen.getAllByText('試験概要と資格ロードマップ').length).toBeGreaterThan(0);
   });
 
   it('renders Chapter 1 Managing Test Activities section', () => {
