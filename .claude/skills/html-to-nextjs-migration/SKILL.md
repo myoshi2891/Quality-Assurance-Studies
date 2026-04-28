@@ -245,3 +245,4 @@ Do NOT redefine these in page-specific CSS. Use them directly in TSX:
 - **Never use `{"\n"}` for line breaks inside `.code-block`** — `.code-block` の `white-space` はデフォルト `normal` のため `{"\n"}` はスペースに正規化される。各行を `<div className="code-line">...</div>` でラップすること（`.code-line` には `white-space: pre` が定義済み）
 - **Never align tabular data with spaces in `.code-block`** — デシジョンテーブルや行列データはフォント変更で列ズレが起きるため `<table>` 要素を使うこと
 - **Never remove page-specific anchor nav bars** — ページ固有のスティッキーナビ（`IntersectionObserver` 付き）はグローバル Header と別物。`'use client'` コンポーネントとして移行し `top: 60px` を設定すること
+- **Never duplicate page scope classes in CSS selectors** — `.page-class .alert.page-class .green` ではなく、`.page-class .alert.green` のようにページクラスは最上位の1回のみ使用すること

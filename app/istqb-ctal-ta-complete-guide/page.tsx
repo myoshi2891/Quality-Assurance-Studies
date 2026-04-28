@@ -568,14 +568,14 @@ export default function IstqbCtalTaCompleteGuide() {
                     >実装済みのテストケースを実行し、実際の結果と期待結果を比較してインシデントを報告する活動。
                 </p>
 
-                <div className="step-list">
+                <ul className="step-list">
                     <li>テスト環境・テストデータのセットアップ確認</li>
                     <li>テストケースの実行（手動またはツール経由）</li>
                     <li>実際の結果と期待結果の比較（テストオラクルの適用）</li>
                     <li>テストログの正確な記録</li>
                     <li>不一致が発生した場合のインシデント（欠陥）報告</li>
                     <li>環境問題と実際の欠陥の切り分け</li>
-                </div>
+                </ul>
 
                 {/* 1.3 */}
                 <div className="section-title ch1">1.3 成果物（Work Products）に関するタスク</div>
@@ -1049,13 +1049,13 @@ export default function IstqbCtalTaCompleteGuide() {
                     <span className="fix-badge">✓ FIX</span>
                 </div>
                 <div style={{display: "flex", flexDirection: "column", gap: "1rem", margin: "1.2rem 0"}}>
-                    <div style={{background: "var(--bg-card)", border: "1px solid rgba(0, 255, 135, 0.35)", borderRadius: "var(--radius)", padding: "1.2rem", borderLeft: "4px solid var(--neon-green)"}}>
-                        <div style={{fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 700, color: "var(--neon-green)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem"}}>
+                    <div style={{background: "var(--color-bg-card)", border: "1px solid rgba(0, 255, 135, 0.35)", borderRadius: "var(--radius-DEFAULT)", padding: "1.2rem", borderLeft: "4px solid var(--color-accent-green)"}}>
+                        <div style={{fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 700, color: "var(--color-accent-green)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem"}}>
                             ✅ 2値BVA（2-value BVA）
-                            <span style={{fontWeight: 400, color: "var(--text-muted)"}}>— ON点 + OFF点 のみ / 計4値</span>
+                            <span style={{fontWeight: 400, color: "var(--color-text-muted)"}}>— ON点 + OFF点 のみ / 計4値</span>
                         </div>
-                        <div style={{background: "#070e1c", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
-                            <span style={{position: "absolute", top: "0.4rem", right: "0.8rem", fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em"}}>2-VALUE BVA</span>
+                        <div style={{background: "#070e1c", border: "1px solid var(--color-border)", borderRadius: "var(--radius-DEFAULT)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
+                            <span style={{position: "absolute", top: "0.4rem", right: "0.8rem", fontSize: "0.68rem", color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.08em"}}>2-VALUE BVA</span>
                             <div style={{color: "#546e7a", fontStyle: "italic", marginBottom: "0.8rem", fontSize: "0.82rem"}}># パスワード文字数（8〜20文字）</div>
                             <div style={{display: "grid", gridTemplateColumns: "72px repeat(4, 1fr)", gap: "2px 0", lineHeight: 2}}>
                                 <span style={{color: "#e8f4fd", fontSize: "0.82rem", alignSelf: "center"}}>テスト値:</span>
@@ -1077,13 +1077,13 @@ export default function IstqbCtalTaCompleteGuide() {
                             <div style={{color: "#546e7a", fontStyle: "italic", marginTop: "0.8rem", fontSize: "0.78rem"}}># 各境界にON点（境界値）+ OFF点（境界外最近傍値）= 計4テスト値</div>
                         </div>
                     </div>
-                    <div style={{background: "var(--bg-card)", border: "1px solid rgba(0, 212, 255, 0.35)", borderRadius: "var(--radius)", padding: "1.2rem", borderLeft: "4px solid var(--neon-cyan)"}}>
-                        <div style={{fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 700, color: "var(--neon-cyan)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem"}}>
+                    <div style={{background: "var(--color-bg-card)", border: "1px solid rgba(0, 212, 255, 0.35)", borderRadius: "var(--radius-DEFAULT)", padding: "1.2rem", borderLeft: "4px solid var(--color-accent-cyan)"}}>
+                        <div style={{fontFamily: "var(--font-mono)", fontSize: "0.78rem", fontWeight: 700, color: "var(--color-accent-cyan)", letterSpacing: "0.06em", textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", alignItems: "center", gap: "0.5rem"}}>
                             ✅ 3値BVA（3-value BVA）
-                            <span style={{fontWeight: 400, color: "var(--text-muted)"}}>— ON点 + IN点 + OFF点 / 計6値</span>
+                            <span style={{fontWeight: 400, color: "var(--color-text-muted)"}}>— ON点 + IN点 + OFF点 / 計6値</span>
                         </div>
-                        <div style={{background: "#070e1c", border: "1px solid var(--border)", borderRadius: "var(--radius)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
-                            <span style={{position: "absolute", top: "0.4rem", right: "0.8rem", fontSize: "0.68rem", color: "var(--text-muted)", textTransform: "uppercase", letterSpacing: "0.08em"}}>3-VALUE BVA</span>
+                        <div style={{background: "#070e1c", border: "1px solid var(--color-border)", borderRadius: "var(--radius-DEFAULT)", padding: "1rem 1.2rem", fontFamily: "var(--font-mono)", fontSize: "0.88rem", position: "relative"}}>
+                            <span style={{position: "absolute", top: "0.4rem", right: "0.8rem", fontSize: "0.68rem", color: "var(--color-text-muted)", textTransform: "uppercase", letterSpacing: "0.08em"}}>3-VALUE BVA</span>
                             <div style={{color: "#546e7a", fontStyle: "italic", marginBottom: "0.8rem", fontSize: "0.82rem"}}># パスワード文字数（8〜20文字）</div>
                             <div style={{display: "grid", gridTemplateColumns: "72px repeat(6, 1fr)", gap: "2px 0", lineHeight: 2}}>
                                 <span style={{color: "#e8f4fd", fontSize: "0.82rem", alignSelf: "center"}}>テスト値:</span>
@@ -2489,7 +2489,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     >
                         <span className="badge badge-k3">K3</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.3.1 境界値分析</span
                         >
                     </div>
@@ -2507,17 +2507,17 @@ export default function IstqbCtalTaCompleteGuide() {
                             A) 9, 10, 100, 101 ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             B) 10, 100
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) 9, 11, 99, 101
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) 0, 10, 50, 100, 200
                         </div>
@@ -2535,7 +2535,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     >
                         <span className="badge badge-k3">K3</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.3.3 デシジョンテーブル</span
                         >
                     </div>
@@ -2546,7 +2546,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) 4 &nbsp;&nbsp; B) 8 &nbsp;&nbsp; C) 12
                         </div>
@@ -2569,7 +2569,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         <span className="badge badge-k2">K2</span
                         ><span className="badge badge-new">v4.0 新出</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.3.3 メタモルフィックテスト</span
                         >
                     </div>
@@ -2580,7 +2580,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) テストオラクルが明確に定義されているシステム
                         </div>
@@ -2590,12 +2590,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) 期待する出力を事前に特定することが難しいシステム ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) ブラックボックステストが不可能なシステム
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) ホワイトボックス技法のみが適用可能なシステム
                         </div>
@@ -2612,7 +2612,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     >
                         <span className="badge badge-k2">K2</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.2 リスクベーステスト</span
                         >
                     </div>
@@ -2623,7 +2623,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) プロジェクトリスクを管理し、スケジュールを調整する
                         </div>
@@ -2633,12 +2633,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) 製品リスクを識別・評価し、テストの優先順位付けに貢献する ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) テストオートメーションの戦略を策定する
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) テスト環境の性能テストを実施する
                         </div>
@@ -2655,7 +2655,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     >
                         <span className="badge badge-k3">K3</span>
                         <span
-                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}
+                            style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--color-text-muted)"}}
                             >Ch.5 欠陥防止</span
                         >
                     </div>
@@ -2667,7 +2667,7 @@ export default function IstqbCtalTaCompleteGuide() {
                         style={{display: "flex", flexDirection: "column", gap: "0.4rem", margin: "0.8rem 0"}}
                     >
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             A) コードの実装ミス
                         </div>
@@ -2677,12 +2677,12 @@ export default function IstqbCtalTaCompleteGuide() {
                             B) テスト可能な形式で記述されていない要求 ← ✅ 正解
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             C) パフォーマンス最適化の機会
                         </div>
                         <div
-                            style={{padding: "0.5rem 0.8rem", background: "var(--bg-surface)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--border)"}}
+                            style={{padding: "0.5rem 0.8rem", background: "var(--color-bg-secondary)", borderRadius: "4px", fontSize: "1rem", border: "1px solid var(--color-border)"}}
                         >
                             D) CI/CDパイプラインの設定ミス
                         </div>
@@ -3017,7 +3017,7 @@ export default function IstqbCtalTaCompleteGuide() {
                     ⚠️
                     本ガイドはISTQB®が公認したトレーニング資料ではありません。公式シラバス・サンプル問題と合わせて使用してください。
                 </div>
-                <div style={{marginTop: "0.8rem", color: "var(--text-muted)", fontSize: "1rem"}}>
+                <div style={{marginTop: "0.8rem", color: "var(--color-text-muted)", fontSize: "1rem"}}>
                     © 2025 Study Guide — Exam specs sourced from official ISTQB® materials
                 </div>
             </footer>

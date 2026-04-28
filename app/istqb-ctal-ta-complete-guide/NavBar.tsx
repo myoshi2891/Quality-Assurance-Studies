@@ -24,12 +24,14 @@ export default function NavBar() {
     const linkRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
     useEffect(() => {
-        const sections = document.querySelectorAll<HTMLElement>('section[id]');
+        const validIds = new Set(NAV_ITEMS.map(item => item.href.slice(1)));
+        const sections = Array.from(document.querySelectorAll<HTMLElement>('section[id]')).filter(s => validIds.has(s.id));
 
         const obs = new IntersectionObserver(
             (entries) => {
                 entries.forEach((e) => {
                     if (!e.isIntersecting) return;
+                    if (!validIds.has(e.target.id)) return;
                     linkRefs.current.forEach((el) => el.classList.remove('active'));
                     const active = linkRefs.current.get(`#${e.target.id}`);
                     if (active) active.classList.add('active');
