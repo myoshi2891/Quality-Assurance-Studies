@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 
 export default function IstqbCtalAtlasCompleteGuide() {
     return (
-        <>
+        <div className="istqb-ctal-atlas-page">
             <NavBar />
             <header className="hero" id="top">
             <div className="hero-glow"></div>
@@ -207,7 +207,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{ "--fill-width": "8.7%", background: "var(--color-accent-green)" } as React.CSSProperties}
+                                    style={{ width: "8.7%", background: "var(--color-accent-green)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -243,7 +243,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{ "--fill-width": "23.9%", background: "var(--color-accent-purple)" } as React.CSSProperties}
+                                    style={{ width: "23.9%", background: "var(--color-accent-purple)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -255,7 +255,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{ "--fill-width": "28.3%", background: "var(--ch5)" } as React.CSSProperties}
+                                    style={{ width: "28.3%", background: "var(--color-accent-red)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -1075,7 +1075,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                         </div>
                     </div>
 
-                    <div className="callout danger">
+                    <div className="callout callout-danger">
                         <span className="callout-icon">⚡</span>
                         <div className="callout-body">
                             <div className="callout-title">移行の最大の難所：制御を手放すこと</div>
@@ -1313,7 +1313,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                         </div>
                     </div>
 
-                    <div className="callout danger">
+                    <div className="callout callout-danger">
                         <span className="callout-icon">🚨</span>
                         <div className="callout-body">
                             <div className="callout-title">
@@ -1785,6 +1785,6 @@ export default function IstqbCtalAtlasCompleteGuide() {
             {/* end container */}
         
 
-        </>
+        </div>
     );
 }

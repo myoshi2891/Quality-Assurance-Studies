@@ -1,21 +1,28 @@
 /* ============================================================
    CSS CUSTOM PROPERTIES
    ============================================================ */
-            
+            .istqb-ctal-atlas-page {
+                --ch1: var(--color-accent-green);
+                --ch2: var(--color-accent-cyan);
+                --ch3: var(--color-accent-orange);
+                --ch4: var(--color-accent-purple);
+                --ch5: var(--color-accent-red);
+                --bg-deep: var(--color-bg-primary);
+            }
 
             /* ============================================================
    RESET & BASE
    ============================================================ */
-            *,
-            *::before,
-            *::after {
+            .istqb-ctal-atlas-page *,
+            .istqb-ctal-atlas-page *::before,
+            .istqb-ctal-atlas-page *::after {
                 box-sizing: border-box;
                 margin: 0;
                 padding: 0;
             }
 
             /* Scanline overlay */
-            body::before {
+            .istqb-ctal-atlas-page::before {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -31,7 +38,7 @@
             }
 
             /* Grid texture */
-            body::after {
+            .istqb-ctal-atlas-page::after {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -46,57 +53,57 @@
             /* ============================================================
    TYPOGRAPHY
    ============================================================ */
-            h1,
-            h2,
-            h3,
-            h4,
-            h5 {
+            .istqb-ctal-atlas-page h1,
+            .istqb-ctal-atlas-page h2,
+            .istqb-ctal-atlas-page h3,
+            .istqb-ctal-atlas-page h4,
+            .istqb-ctal-atlas-page h5 {
                 font-family: var(--font-display);
                 line-height: 1.2;
             }
-            h1 {
+            .istqb-ctal-atlas-page h1 {
                 font-size: clamp(2rem, 5vw, 3.5rem);
                 font-weight: 800;
             }
-            h2 {
+            .istqb-ctal-atlas-page h2 {
                 font-size: clamp(1.4rem, 3vw, 2rem);
                 font-weight: 700;
             }
-            h3 {
+            .istqb-ctal-atlas-page h3 {
                 font-size: clamp(1.1rem, 2vw, 1.4rem);
                 font-weight: 600;
             }
-            h4 {
+            .istqb-ctal-atlas-page h4 {
                 font-size: 1.1rem;
                 font-weight: 600;
             }
-            p {
+            .istqb-ctal-atlas-page p {
                 font-size: 1rem;
                 margin-bottom: 1em;
             }
-            a {
+            .istqb-ctal-atlas-page a {
                 color: var(--color-accent-cyan);
                 text-decoration: none;
                 transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             }
-            a:hover {
+            .istqb-ctal-atlas-page a:hover {
                 color: var(--color-accent-green);
                 text-decoration: underline;
             }
-            ul,
-            ol {
+            .istqb-ctal-atlas-page ul,
+            .istqb-ctal-atlas-page ol {
                 padding-left: 1.5em;
                 margin-bottom: 1em;
             }
-            li {
+            .istqb-ctal-atlas-page li {
                 margin-bottom: 0.4em;
                 font-size: 1rem;
             }
-            strong {
+            .istqb-ctal-atlas-page strong {
                 color: var(--color-accent-green);
                 font-weight: 600;
             }
-            code {
+            .istqb-ctal-atlas-page code {
                 font-family: var(--font-mono);
                 font-size: 0.88rem;
                 background: rgba(0, 229, 255, 0.1);
@@ -653,25 +660,25 @@
                 margin: 0;
                 font-size: 0.92rem;
             }
-            .callout.info {
+            .callout-info {
                 background: rgba(0, 229, 255, 0.08);
                 border: 1px solid rgba(0, 229, 255, 0.3);
             }
-            .callout.info .callout-title {
+            .callout-info .callout-title {
                 color: var(--color-accent-cyan);
             }
-            .callout.warning {
+            .callout-warn {
                 background: rgba(255, 184, 0, 0.08);
                 border: 1px solid rgba(255, 184, 0, 0.3);
             }
-            .callout.warning .callout-title {
+            .callout-warn .callout-title {
                 color: var(--color-accent-orange);
             }
-            .callout.danger {
+            .callout-danger {
                 background: rgba(255, 64, 96, 0.08);
                 border: 1px solid rgba(255, 64, 96, 0.3);
             }
-            .callout.danger .callout-title {
+            .callout-danger .callout-title {
                 color: var(--color-accent-red);
             }
 
@@ -753,12 +760,12 @@
             .progress-bar-fill {
                 height: 100%;
                 border-radius: 99px;
-                width: 0;
+                max-width: 0;
                 animation: grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             }
             @keyframes grow-bar {
                 to {
-                    width: var(--fill-width);
+                    max-width: 100%;
                 }
             }
 
