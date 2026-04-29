@@ -1,12 +1,20 @@
-import { describe, it, expect, afterEach, beforeAll, afterAll } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { describe, it, expect, afterEach, beforeAll, afterAll, mock } from 'bun:test';
+import { render, screen, cleanup, act } from '@testing-library/react';
 import Page from '../../app/istqb-ctal-atlas-complete-guide/page';
 
+export let mockObserverCallback: IntersectionObserverCallback | null = null;
+export let mockObserverDisconnect: ReturnType<typeof mock> | null = null;
+
 class MockIntersectionObserver {
-  constructor(_callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {}
+  constructor(callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {
+    mockObserverCallback = callback;
+    mockObserverDisconnect = mock(() => {});
+  }
   observe(_element: Element) {}
   unobserve(_element: Element) {}
-  disconnect() {}
+  disconnect() {
+    if (mockObserverDisconnect) mockObserverDisconnect();
+  }
 }
 let _originalIntersectionObserver: typeof IntersectionObserver;
 
@@ -59,5 +67,38 @@ describe('ISTQB CT-ATLaS Complete Guide Page', () => {
   it('renders Chapter 5 Test Processes section', () => {
     render(<Page />);
     expect(screen.getAllByText(/バリュードリブン組織におけるテストプロセス/).length).toBeGreaterThan(0);
+  });
+
+  it('updates active nav link on intersection and cleans up on unmount', () => {
+    const { unmount } = render(<Page />);
+
+    // Trigger intersection for ch1 (クオリティアシスタンス)
+    if (mockObserverCallback) {
+      act(() => {
+        mockObserverCallback!(
+          [
+            {
+              isIntersecting: true,
+              target: { id: 'ch1' } as Element,
+              boundingClientRect: { top: 100 } as DOMRectReadOnly,
+              intersectionRatio: 1,
+              intersectionRect: {} as DOMRectReadOnly,
+              rootBounds: null,
+              time: Date.now(),
+            },
+          ],
+          {} as IntersectionObserver
+        );
+      });
+    }
+
+    // Since NavBar is a child and state updates, we query the DOM
+    const link = document.querySelector('a[href="#ch1"]');
+    expect(link).not.toBeNull();
+    expect(link?.classList.contains('active')).toBe(true);
+    expect(link?.getAttribute('aria-current')).toBe('location');
+
+    unmount();
+    expect(mockObserverDisconnect).toHaveBeenCalled();
   });
 });

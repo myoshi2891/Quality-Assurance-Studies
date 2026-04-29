@@ -12,11 +12,13 @@ export default function NavBar() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
-        });
+        const intersecting = entries.filter((entry) => entry.isIntersecting);
+        if (intersecting.length > 0) {
+          const topMost = intersecting.reduce((prev, curr) => {
+            return prev.boundingClientRect.top < curr.boundingClientRect.top ? prev : curr;
+          });
+          setActiveId(topMost.target.id);
+        }
       },
       { rootMargin: '-60px 0px -80% 0px' }
     );
@@ -57,6 +59,7 @@ export default function NavBar() {
             key={link.id}
             href={`#${link.id}`}
             className={`nav-link ${link.className} ${activeId === link.id ? 'active' : ''}`.trim()}
+            aria-current={activeId === link.id ? 'location' : undefined}
           >
             {link.label}
           </Link>
