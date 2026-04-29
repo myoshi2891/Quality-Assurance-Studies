@@ -501,7 +501,7 @@
                 gap: 0.4rem;
                 margin: 1.5rem 0;
             }
-            .pyramid-tier {
+            .pyramid-tier, .pyramid-layer {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -514,7 +514,7 @@
                 cursor: default;
                 text-align: center;
             }
-            .pyramid-tier:hover {
+            .pyramid-tier:hover, .pyramid-layer:hover {
                 transform: scale(1.03);
                 filter: brightness(1.2);
             }
@@ -681,6 +681,13 @@
             .callout-danger .callout-title {
                 color: var(--color-accent-red);
             }
+            .callout-good {
+                background: rgba(0, 255, 128, 0.08);
+                border: 1px solid rgba(0, 255, 128, 0.3);
+            }
+            .callout-good .callout-title {
+                color: var(--color-accent-green);
+            }
 
             /* ============================================================
    METRIC GRID
@@ -778,15 +785,15 @@
                 border-radius: var(--radius-DEFAULT, 8px);
                 border: 1px solid var(--color-border);
             }
-            table {
+            .table-wrap table {
                 width: 100%;
                 border-collapse: collapse;
                 min-width: 480px;
             }
-            thead {
+            .table-wrap thead {
                 background: var(--color-bg-secondary);
             }
-            th {
+            .table-wrap th {
                 padding: 0.85rem 1rem;
                 font-family: var(--font-display);
                 font-size: 0.82rem;
@@ -798,19 +805,19 @@
                 border-bottom: 1px solid var(--color-border);
                 white-space: nowrap;
             }
-            td {
+            .table-wrap td {
                 padding: 0.85rem 1rem;
                 font-size: 0.9rem;
                 border-bottom: 1px solid rgba(255, 255, 255, 0.04);
                 vertical-align: top;
             }
-            tr:last-child td {
+            .table-wrap tr:last-child td {
                 border-bottom: none;
             }
-            tbody tr {
+            .table-wrap tbody tr {
                 transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1);
             }
-            tbody tr:hover {
+            .table-wrap tbody tr:hover {
                 background: var(--color-bg-secondary);
             }
 
