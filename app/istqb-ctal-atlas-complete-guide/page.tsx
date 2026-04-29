@@ -207,7 +207,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{ "--fill-width": "8.7%", background: "var(--ch1)" } as React.CSSProperties}
+                                    style={{ "--fill-width": "8.7%", background: "var(--color-accent-green)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -243,7 +243,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{ "--fill-width": "23.9%", background: "var(--ch4)" } as React.CSSProperties}
+                                    style={{ "--fill-width": "23.9%", background: "var(--color-accent-purple)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
