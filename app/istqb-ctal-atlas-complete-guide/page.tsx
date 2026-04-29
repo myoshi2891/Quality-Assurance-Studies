@@ -207,7 +207,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{'--fill-width': "8.7%", background: "var(--ch1)"}}
+                                    style={{ "--fill-width": "8.7%", background: "var(--ch1)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -219,7 +219,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{'--fill-width': "17.4%", background: "var(--ch2)"}}
+                                    style={{ "--fill-width": "17.4%", background: "var(--ch2)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -231,7 +231,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{'--fill-width': "21.7%", background: "var(--ch3)"}}
+                                    style={{ "--fill-width": "21.7%", background: "var(--ch3)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -243,7 +243,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{'--fill-width': "23.9%", background: "var(--ch4)"}}
+                                    style={{ "--fill-width": "23.9%", background: "var(--ch4)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -255,7 +255,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <div className="progress-bar-bg">
                                 <div
                                     className="progress-bar-fill"
-                                    style={{'--fill-width': "28.3%", background: "var(--ch5)"}}
+                                    style={{ "--fill-width": "28.3%", background: "var(--ch5)" } as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -1351,7 +1351,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                     {/* 配点 */}
                     <h3>章別配点と重要度</h3>
                     <div className="exam-grid">
-                        <div className="exam-card ch1-theme" style={{'--accent': "var(--ch1)"}}>
+                        <div className="exam-card ch1-theme" style={{ "--accent": "var(--ch1)" } as React.CSSProperties}>
                             <div className="exam-card-chapter">Chapter 1 &nbsp;·&nbsp; K2</div>
                             <div className="exam-card-title" style={{color: "var(--ch1)"}}>
                                 クオリティアシスタンス
@@ -1362,7 +1362,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <span className="exam-stars">★★★★☆</span>
                             <span className="exam-klevel">K2: 理解レベル</span>
                         </div>
-                        <div className="exam-card ch2-theme" style={{'--accent': "var(--ch2)"}}>
+                        <div className="exam-card ch2-theme" style={{ "--accent": "var(--ch2)" } as React.CSSProperties}>
                             <div className="exam-card-chapter">Chapter 2 &nbsp;·&nbsp; K3</div>
                             <div className="exam-card-title" style={{color: "var(--ch2)"}}>
                                 フロー改善（VSM）
@@ -1373,7 +1373,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <span className="exam-stars">★★★★☆</span>
                             <span className="exam-klevel">K3: 適用レベル</span>
                         </div>
-                        <div className="exam-card ch3-theme" style={{'--accent': "var(--ch3)"}}>
+                        <div className="exam-card ch3-theme" style={{ "--accent": "var(--ch3)" } as React.CSSProperties}>
                             <div className="exam-card-chapter">Chapter 3 &nbsp;·&nbsp; K3</div>
                             <div className="exam-card-title" style={{color: "var(--ch3)"}}>継続的改善</div>
                             <div className="exam-card-pts" style={{color: "var(--ch3)"}}>
@@ -1382,7 +1382,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <span className="exam-stars">★★★★★</span>
                             <span className="exam-klevel">K3: 適用レベル</span>
                         </div>
-                        <div className="exam-card ch4-theme" style={{'--accent': "var(--ch4)"}}>
+                        <div className="exam-card ch4-theme" style={{ "--accent": "var(--ch4)" } as React.CSSProperties}>
                             <div className="exam-card-chapter">Chapter 4 &nbsp;·&nbsp; K4</div>
                             <div className="exam-card-title" style={{color: "var(--ch4)"}}>
                                 組織的テスト戦略
@@ -1393,7 +1393,7 @@ export default function IstqbCtalAtlasCompleteGuide() {
                             <span className="exam-stars">★★★★★</span>
                             <span className="exam-klevel">K4: 分析・評価レベル</span>
                         </div>
-                        <div className="exam-card ch5-theme" style={{'--accent': "var(--ch5)"}}>
+                        <div className="exam-card ch5-theme" style={{ "--accent": "var(--ch5)" } as React.CSSProperties}>
                             <div className="exam-card-chapter">Chapter 5 &nbsp;·&nbsp; K4</div>
                             <div className="exam-card-title" style={{color: "var(--ch5)"}}>
                                 テストプロセス

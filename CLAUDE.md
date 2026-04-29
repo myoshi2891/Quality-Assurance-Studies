@@ -54,6 +54,9 @@ Next.js App Router 構成:
 - `app/istqb-ctal-att-complete-guide/istqb-ctal-att-complete-guide.css` — アジャイル(CTAL-ATT)ガイド固有スタイル
 - `app/istqb-ctal-att-complete-guide/page.tsx` — アジャイル(CTAL-ATT)ガイドページ
 - `app/istqb-ctal-att-complete-guide/NavBar.tsx` — CTAL-ATT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ctal-atlas-complete-guide/istqb-ctal-atlas-complete-guide.css` — アジャイル(CT-ATLaS)ガイド固有スタイル
+- `app/istqb-ctal-atlas-complete-guide/page.tsx` — アジャイル(CT-ATLaS)ガイドページ
+- `app/istqb-ctal-atlas-complete-guide/NavBar.tsx` — CT-ATLaS ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
