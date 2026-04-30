@@ -565,6 +565,192 @@
                 font-family: inherit;
                 line-height: inherit;
             }
+
+            /* ============================================================
+   CODE HEADER
+   ============================================================ */
+            .istqb-ctal-atlas-page .code-header,
+            .code-header {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--color-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            /* ============================================================
+   CARD & CARD-SM
+   ============================================================ */
+            .istqb-ctal-atlas-page .card,
+            .card {
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-DEFAULT, 8px);
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .card:hover,
+            .card:hover {
+                border-color: var(--color-accent-cyan);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 229, 255, 0.06);
+            }
+            .istqb-ctal-atlas-page .card-sm,
+            .card-sm {
+                padding: 0.75rem 1rem;
+            }
+
+            /* ============================================================
+   BADGE VARIANTS
+   ============================================================ */
+            .istqb-ctal-atlas-page .badge-unit,
+            .istqb-ctal-atlas-page .badge-int,
+            .istqb-ctal-atlas-page .badge-func,
+            .istqb-ctal-atlas-page .badge-e2e,
+            .istqb-ctal-atlas-page .badge-sec,
+            .istqb-ctal-atlas-page .badge-perf,
+            .istqb-ctal-atlas-page .badge-a11y,
+            .istqb-ctal-atlas-page .badge-istqb,
+            .badge-unit, .badge-int, .badge-func, .badge-e2e,
+            .badge-sec, .badge-perf, .badge-a11y, .badge-istqb {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                padding: 0.15rem 0.5rem;
+                border-radius: 4px;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                vertical-align: middle;
+            }
+            .istqb-ctal-atlas-page .badge-unit,
+            .badge-unit {
+                background: rgba(0, 229, 255, 0.12);
+                color: var(--color-accent-cyan);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-int,
+            .badge-int {
+                background: rgba(0, 255, 128, 0.12);
+                color: var(--color-accent-green);
+                border: 1px solid rgba(0, 255, 128, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-func,
+            .badge-func {
+                background: rgba(255, 184, 0, 0.12);
+                color: var(--color-accent-orange);
+                border: 1px solid rgba(255, 184, 0, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-e2e,
+            .badge-e2e {
+                background: rgba(168, 85, 247, 0.12);
+                color: #c084fc;
+                border: 1px solid rgba(168, 85, 247, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-sec,
+            .badge-sec {
+                background: rgba(255, 64, 96, 0.12);
+                color: var(--color-accent-red);
+                border: 1px solid rgba(255, 64, 96, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-perf,
+            .badge-perf {
+                background: rgba(0, 229, 255, 0.08);
+                color: var(--color-accent-cyan);
+                border: 1px solid rgba(0, 229, 255, 0.2);
+            }
+            .istqb-ctal-atlas-page .badge-a11y,
+            .badge-a11y {
+                background: rgba(0, 255, 128, 0.08);
+                color: var(--color-accent-green);
+                border: 1px solid rgba(0, 255, 128, 0.2);
+            }
+            .istqb-ctal-atlas-page .badge-istqb,
+            .badge-istqb {
+                background: rgba(255, 184, 0, 0.08);
+                color: var(--color-accent-orange);
+                border: 1px solid rgba(255, 184, 0, 0.2);
+            }
+
+            /* ============================================================
+   PYRAMID LAYER VARIANTS  (py-unit / py-int / py-func / py-e2e)
+   ============================================================ */
+            .istqb-ctal-atlas-page .py-unit,
+            .istqb-ctal-atlas-page .py-int,
+            .istqb-ctal-atlas-page .py-func,
+            .istqb-ctal-atlas-page .py-e2e,
+            .py-unit, .py-int, .py-func, .py-e2e {
+                border-radius: var(--radius-DEFAULT, 8px);
+            }
+            .istqb-ctal-atlas-page .py-unit,
+            .py-unit {
+                background: linear-gradient(135deg, rgba(0, 229, 255, 0.18), rgba(0, 229, 255, 0.08));
+                border: 1px solid rgba(0, 229, 255, 0.3);
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .py-int,
+            .py-int {
+                background: linear-gradient(135deg, rgba(0, 255, 128, 0.18), rgba(0, 255, 128, 0.08));
+                border: 1px solid rgba(0, 255, 128, 0.3);
+                color: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .py-func,
+            .py-func {
+                background: linear-gradient(135deg, rgba(255, 184, 0, 0.18), rgba(255, 184, 0, 0.08));
+                border: 1px solid rgba(255, 184, 0, 0.3);
+                color: var(--color-accent-orange);
+            }
+            .istqb-ctal-atlas-page .py-e2e,
+            .py-e2e {
+                background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(168, 85, 247, 0.08));
+                border: 1px solid rgba(168, 85, 247, 0.3);
+                color: #c084fc;
+            }
+
+            /* ============================================================
+   TAB CONTROLS  (.tab-btn / .tab-panel)
+   ============================================================ */
+            .istqb-ctal-atlas-page .tab-btn,
+            .tab-btn {
+                border: 1px solid var(--color-border);
+                background: var(--color-bg-card);
+                font-family: var(--font-display);
+                font-size: 0.82rem;
+                font-weight: 600;
+                padding: 0.5rem 1rem;
+                border-radius: var(--radius-DEFAULT, 8px);
+                color: var(--color-text-secondary);
+                cursor: pointer;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                letter-spacing: 0.02em;
+            }
+            .istqb-ctal-atlas-page .tab-btn:hover,
+            .tab-btn:hover {
+                border-color: var(--color-accent-cyan);
+                background: rgba(0, 229, 255, 0.08);
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .tab-btn:focus-visible,
+            .tab-btn:focus-visible {
+                outline: 2px solid var(--color-accent-cyan);
+                outline-offset: 2px;
+            }
+            .istqb-ctal-atlas-page .tab-btn[aria-selected="true"],
+            .tab-btn[aria-selected="true"] {
+                border-color: var(--color-accent-cyan);
+                background: rgba(0, 229, 255, 0.12);
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .tab-panel,
+            .tab-panel {
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-DEFAULT, 8px);
+                padding: 1.25rem 1.5rem;
+                background: var(--color-bg-card);
+            }
+
             .istqb-ctal-atlas-page .code-green {
                 color: var(--color-accent-green);
             }
