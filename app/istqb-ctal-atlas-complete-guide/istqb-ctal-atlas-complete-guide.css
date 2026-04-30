@@ -971,6 +971,7 @@
             .istqb-ctal-atlas-page .progress-bar-fill {
                 height: 100%;
                 border-radius: 99px;
+                background: var(--accent, var(--color-accent-cyan));
                 max-width: 0;
                 animation: grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
             }
@@ -1351,5 +1352,8 @@
         animation: none !important;
         transition: none !important;
         transform: none !important;
+    }
+    .istqb-ctal-atlas-page .progress-bar-fill {
+        max-width: 100% !important;
     }
 }
