@@ -1,0 +1,2149 @@
+
+import './istqb-ct-ai-complete-guide.css';
+import NavBar from './NavBar';
+
+
+export default function CT_AI_Guide() {
+    return (
+        <div className="istqb-ct-ai-page">
+            
+        {/* ===== STICKY NAV ===== */}
+        <NavBar />
+
+        {/* ===== HERO ===== */}
+        <div className="container">
+            <section className="hero" id="overview">
+                <div className="hero-glow"></div>
+                <div className="hero-badge">ISTQB® Specialist Level — 2025</div>
+                <h1>ISTQB<br /><span>CT-AI 完全ガイド</span></h1>
+                <p className="hero-sub">
+                    Certified Tester AI Testing —
+                    AIシステムのテストから、テストへのAI活用まで。初学者がゼロから理解できるステップバイステップ解説。
+                </p>
+
+                <div className="meta-grid">
+                    <div className="meta-card">
+                        <span className="meta-val">40問</span>
+                        <div className="meta-label">問題数</div>
+                    </div>
+                    <div className="meta-card">
+                        <span className="meta-val">66%</span>
+                        <div className="meta-label">合格ライン (31/47点)</div>
+                    </div>
+                    <div className="meta-card">
+                        <span className="meta-val">60分</span>
+                        <div className="meta-label">試験時間</div>
+                    </div>
+                    <div className="meta-card">
+                        <span className="meta-val">25h</span>
+                        <div className="meta-label">推奨学習時間</div>
+                    </div>
+                    <div className="meta-card">
+                        <span className="meta-val">v1.0</span>
+                        <div className="meta-label">シラバスバージョン</div>
+                    </div>
+                    <div className="meta-card">
+                        <span className="meta-val">CTFL</span>
+                        <div className="meta-label">前提資格</div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== TABLE OF CONTENTS ===== */}
+            <section className="section">
+                <div className="chapter-header">
+                    <span className="chapter-num">TOC</span>
+                    <h2>目次 — 全11章</h2>
+                </div>
+                <div className="toc-grid">
+                    <a className="toc-item" href="#ch1"
+                        ><span className="toc-num">01</span>AIの概要 (K1/K2)</a
+                    >
+                    <a className="toc-item" href="#ch2"
+                        ><span className="toc-num">02</span>AIベースシステムの品質特性</a
+                    >
+                    <a className="toc-item" href="#ch3"
+                        ><span className="toc-num">03</span>機械学習 (ML) 概要</a
+                    >
+                    <a className="toc-item" href="#ch4"
+                        ><span className="toc-num">04</span>ML データ (K2/K3)</a
+                    >
+                    <a className="toc-item" href="#ch5"
+                        ><span className="toc-num">05</span>MLパフォーマンスメトリクス</a
+                    >
+                    <a className="toc-item" href="#ch6"
+                        ><span className="toc-num">06</span>ニューラルネットワークとテスト</a
+                    >
+                    <a className="toc-item" href="#ch7"><span className="toc-num">07</span>AIテスト概要</a>
+                    <a className="toc-item" href="#ch8"
+                        ><span className="toc-num">08</span>AI固有の品質特性のテスト</a
+                    >
+                    <a className="toc-item" href="#ch9"
+                        ><span className="toc-num">09</span>テスト手法と技法 ★最重要</a
+                    >
+                    <a className="toc-item" href="#ch10"><span className="toc-num">10</span>テスト環境</a>
+                    <a className="toc-item" href="#ch11"
+                        ><span className="toc-num">11</span>テストへのAI活用</a
+                    >
+                    <a className="toc-item" href="#exam"
+                        ><span className="toc-num">EX</span>試験対策・サンプル問題</a
+                    >
+                </div>
+
+                {/* 学習時間配分 */}
+                <h3>章別学習時間配分（合計 1505分 / 25.1時間）</h3>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch1 &amp; Ch2 — AI概要・品質特性</span><span>各105分 (7.0%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar green" style={{ width: '43%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch3 — ML概要</span><span>145分 (9.6%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar cyan" style={{ width: '59%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch4 — MLデータ</span><span>230分 (15.3%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar purple" style={{ width: '94%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch5 — MLパフォーマンスメトリクス</span><span>120分 (8.0%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar amber" style={{ width: '49%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch6 — ニューラルネットワークとテスト</span><span>65分 (4.3%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar green" style={{ width: '27%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch7 — AIテスト概要</span><span>115分 (7.7%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar cyan" style={{ width: '47%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch8 — AI固有品質特性のテスト</span><span>150分 (10.0%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar purple" style={{ width: '61%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch9 — テスト手法と技法 ★最重要</span><span>245分 (16.3%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar amber" style={{ width: '100%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch10 — テスト環境</span><span>30分 (2.0%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar green" style={{ width: '12%' }}></div>
+                    </div>
+                </div>
+                <div className="progress-item">
+                    <div className="progress-header">
+                        <span>Ch11 — テストへのAI活用</span><span>195分 (13.0%)</span>
+                    </div>
+                    <div className="progress-bar-bg">
+                        <div className="progress-bar cyan" style={{ width: '80%' }}></div>
+                    </div>
+                </div>
+
+                {/* CT-AI vs CT-GenAI */}
+                <h3>CT-AI vs CT-GenAI — どちらを選ぶか？</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>観点</th>
+                                <th>CT-AI（2021）</th>
+                                <th>CT-GenAI（2025）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>主目的</td>
+                                <td>AIシステムをテストする</td>
+                                <td>生成AIを使ってテストする</td>
+                            </tr>
+                            <tr>
+                                <td>技術領域</td>
+                                <td>ML・ニューラルネット</td>
+                                <td>LLM・プロンプトエンジニアリング</td>
+                            </tr>
+                            <tr>
+                                <td>品質観点</td>
+                                <td>バイアス・倫理・XAI</td>
+                                <td>ハルシネーション・RAG・LLMOps</td>
+                            </tr>
+                            <tr>
+                                <td>テスト技法</td>
+                                <td>メタモルフィックテスト・敵対的テスト</td>
+                                <td>マルチモーダルプロンプト</td>
+                            </tr>
+                            <tr>
+                                <td>推奨用途</td>
+                                <td>AIシステムを開発・テストする組織</td>
+                                <td>テストプロセスにAIを導入する組織</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 1 ===== */}
+            <section className="section" id="ch1">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 01</span>
+                    <span className="k-level">K1/K2</span>
+                    <h2>AIの概要（Introduction to AI）</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    AIの定義・種類・主要技術を認識し、従来型システムとの違いを説明できる。
+                </p>
+
+                <h3>1.1 AIとは何か — 定義とAI効果</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer green">
+                        <div className="arch-label">定義（ISO）</div>
+                        <div className="arch-desc">
+                            「知識とスキルを獲得・処理・適用するエンジニアリングシステムの能力」—
+                            ISO/IEC JTC 1/SC 42
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">AI効果</div>
+                        <div className="arch-desc">
+                            AIが何かを達成すると「それは本物のAIではない」と思われる社会的現象。AIの定義は時代とともに変化する。
+                        </div>
+                    </div>
+                </div>
+                <div className="callout info">
+                    <div className="callout-title">💡 AI効果の具体例</div>
+                    Deep Blue
+                    がチェスで人間を倒した後、「ブルートフォースなので真のAIではない」と批判された。しかし当時は「チェスを指せるAI」こそが夢だった。今日の「AI」も10年後は当たり前の技術になる。
+                </div>
+
+                <h3>1.2 狭義AI / 汎用AI / 超AI（試験頻出）</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>種類</th>
+                                <th>別名</th>
+                                <th>特徴</th>
+                                <th>現状</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>狭義AI（Narrow AI）</td>
+                                <td>弱いAI</td>
+                                <td>特定タスクに特化・文脈が限定的</td>
+                                <td><span className="tag tag-green">✅ 広く普及</span></td>
+                            </tr>
+                            <tr>
+                                <td>汎用AI（General AI）</td>
+                                <td>強いAI</td>
+                                <td>人間同様の汎用認知・理解・推論・適応</td>
+                                <td><span className="tag tag-red">❌ 未実現</span></td>
+                            </tr>
+                            <tr>
+                                <td>超AI（Super AI）</td>
+                                <td>Super AI</td>
+                                <td>人間を超える認知能力・技術的特異点の先</td>
+                                <td><span className="tag tag-red">❌ 未実現</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>1.3 AIベースシステム vs 従来型システム（試験頻出）</h3>
+                <div className="compare-grid">
+                    <div className="compare-good">
+                        <div className="compare-header">✅ 従来型システム</div>
+                        <p>
+                            人間がルール（if-then-else）をコーディング。<strong>決定論的</strong>（同じ入力→同じ出力）。ロジックが追えるので説明可能性が高い。テスト設計が明確。
+                        </p>
+                    </div>
+                    <div className="compare-bad">
+                        <div className="compare-header">⚠️ AIベースシステム（テストの難しさ）</div>
+                        <p>
+                            データからパターンを学習。<strong>確率論的</strong>（同じ入力≠同じ出力）。ブラックボックスになりがち。テストオラクル問題・非決定論的動作が課題。
+                        </p>
+                    </div>
+                </div>
+
+                <h3>1.4 主要なAI技術（K1 — 認識レベル）</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer green">
+                        <div className="arch-label">ファジーロジック</div>
+                        <div className="arch-desc">
+                            「あいまいな」値を扱う論理。真偽の2値ではなく連続値で表現
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">検索アルゴリズム</div>
+                        <div className="arch-desc">A* 探索・最適化問題の解法</div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">推論技術</div>
+                        <div className="arch-desc">ルールエンジン・事例ベース推論</div>
+                    </div>
+                    <div className="arch-layer amber">
+                        <div className="arch-label">機械学習技術</div>
+                        <div className="arch-desc">
+                            ニューラルネット・決定木・ランダムフォレスト・SVM・ベイジアンモデル・遺伝的アルゴリズム
+                        </div>
+                    </div>
+                </div>
+
+                <h3>1.5 主要AIフレームワーク（K1 — 認識のみ）</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>フレームワーク</th>
+                                <th>提供元</th>
+                                <th>主な特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TensorFlow</td>
+                                <td>Google</td>
+                                <td>スケーラブルML・データフローグラフ</td>
+                            </tr>
+                            <tr>
+                                <td>PyTorch</td>
+                                <td>Meta (Facebook)</td>
+                                <td>画像処理・NLP・Python/C++ 対応</td>
+                            </tr>
+                            <tr>
+                                <td>Keras</td>
+                                <td>—</td>
+                                <td>TensorFlow 上の高水準 API</td>
+                            </tr>
+                            <tr>
+                                <td>Scikit-learn</td>
+                                <td>—</td>
+                                <td>Python の ML 標準ライブラリ</td>
+                            </tr>
+                            <tr>
+                                <td>Apache MXNet</td>
+                                <td>Amazon (AWS)</td>
+                                <td>深層学習オープンソース</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout warning">
+                    <div className="callout-title">📝 試験のポイント</div>
+                    フレームワークの実装詳細は不要。「名称を見て何のフレームワークか認識できる」K1レベルで十分。
+                </div>
+
+                <h3>1.7 AIaaS と転移学習のテストリスク</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer red">
+                        <div className="arch-label">バイアス継承</div>
+                        <div className="arch-desc">
+                            元モデルのバイアスをファインチューニング後も引き継ぐ可能性がある
+                        </div>
+                    </div>
+                    <div className="arch-layer amber">
+                        <div className="arch-label">欠陥継承</div>
+                        <div className="arch-desc">
+                            元モデルの欠陥・誤分類パターンがそのまま残るリスク
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">分布差</div>
+                        <div className="arch-desc">
+                            ターゲットドメインのデータ分布が元モデルの学習データと乖離している可能性
+                        </div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">コンセプトドリフト</div>
+                        <div className="arch-desc">
+                            本番環境でのデータ変化に元モデルが追随できない予期しない挙動
+                        </div>
+                    </div>
+                </div>
+
+                <h3>1.9 AI に関する主要な標準・規制</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>規格・法律</th>
+                                <th>概要</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ISO/IEC JTC 1/SC 42</td>
+                                <td>AIの国際標準委員会</td>
+                            </tr>
+                            <tr>
+                                <td>ISO 26262</td>
+                                <td>自動車機能安全規格</td>
+                            </tr>
+                            <tr>
+                                <td>EU AI Act（2024）</td>
+                                <td>AI規制の法的枠組み（欧州）</td>
+                            </tr>
+                            <tr>
+                                <td>GDPR</td>
+                                <td>データ保護・プライバシー規制</td>
+                            </tr>
+                            <tr>
+                                <td>IEEE Ethically Aligned Design</td>
+                                <td>倫理的AI設計ガイドライン</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 2 ===== */}
+            <section className="section" id="ch2">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 02</span>
+                    <span className="k-level">K2</span>
+                    <h2>AIベースシステムの品質特性</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    AI固有の品質課題（バイアス・倫理・XAI等）を説明できる。
+                </p>
+
+                <h3>AI固有の品質特性マップ</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer green">
+                        <div className="arch-label">柔軟性・適応性</div>
+                        <div className="arch-desc">
+                            異なる環境・データ分布に対応・学習・調整できる能力
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">自律性</div>
+                        <div className="arch-desc">
+                            外部の直接的な制御なしに機能を実行できる能力（自動運転 Level 0〜5）
+                        </div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">進化性</div>
+                        <div className="arch-desc">
+                            継続的な学習による性能変化・予期しない挙動変化のリスク
+                        </div>
+                    </div>
+                    <div className="arch-layer amber">
+                        <div className="arch-label">バイアス</div>
+                        <div className="arch-desc">
+                            アルゴリズム / サンプル / 不適切バイアスの3種（後述）
+                        </div>
+                    </div>
+                    <div className="arch-layer red">
+                        <div className="arch-label">倫理・安全性</div>
+                        <div className="arch-desc">
+                            公平性・透明性・プライバシー・アカウンタビリティ・非差別
+                        </div>
+                    </div>
+                    <div className="arch-layer blue">
+                        <div className="arch-label">副作用・報酬ハッキング</div>
+                        <div className="arch-desc">
+                            目標達成のために予期しない負の影響（副作用）や抜け穴悪用（報酬ハッキング）
+                        </div>
+                    </div>
+                </div>
+
+                <h3>2.4 バイアスの3種類（試験頻出）</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>バイアスの種類</th>
+                                <th>定義</th>
+                                <th>具体例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>アルゴリズムバイアス</strong></td>
+                                <td>アルゴリズム自体に内在する偏り</td>
+                                <td>特定人種に不利な採用AIのロジック</td>
+                            </tr>
+                            <tr>
+                                <td><strong>サンプルバイアス</strong></td>
+                                <td>トレーニングデータが実際の分布を反映していない</td>
+                                <td>白人男性の顔画像のみで学習した顔認識システム</td>
+                            </tr>
+                            <tr>
+                                <td><strong>不適切バイアス</strong></td>
+                                <td>差別や不公平を生む偏り</td>
+                                <td>性別・人種・年齢で差別するローン審査AI</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>2.7 透明性・解釈可能性・説明可能性（XAI）の違い（試験頻出）</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer green">
+                        <div className="arch-label">透明性（Transparency）</div>
+                        <div className="arch-desc">
+                            AIシステムの動作に関する情報を公開する度合い。「どんなデータで学習したか」「どんなアルゴリズムを使ったか」
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">解釈可能性（Interpretability）</div>
+                        <div className="arch-desc">
+                            人間がAIの内部動作を理解できる度合い。「モデルがどのように予測を出しているか理解できる」
+                        </div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">説明可能性（Explainability / XAI）</div>
+                        <div className="arch-desc">
+                            特定の予測・決定の根拠を説明できる能力。「この診断の根拠は〇〇という特徴量の影響」。ツール：LIME・SHAP・Grad-CAM
+                        </div>
+                    </div>
+                </div>
+
+                <div className="callout info">
+                    <div className="callout-title">💡 医療AIの例で理解する</div>
+                    <strong>透明性：</strong>「X線画像8万枚で学習したCNNモデル」（公開情報）<br />
+                    <strong>解釈可能性：</strong
+                    >「肺の特定領域の輝度パターンで判断」（内部動作の理解）<br />
+                    <strong>説明可能性：</strong
+                    >「この画像は右上肺野の輝度が通常より20%高いため異常と判定」（個別予測の根拠）
+                </div>
+
+                <h3>2.6 副作用と報酬ハッキング</h3>
+                <div className="compare-grid">
+                    <div className="compare-bad">
+                        <div className="compare-header">❌ 副作用（Side Effects）の例</div>
+                        <p>
+                            ロボットが「部屋を片付ける」タスクで、物を隠蔽・破壊することで達成しようとする。目標は達成するが意図しない被害が出る。
+                        </p>
+                    </div>
+                    <div className="compare-bad">
+                        <div className="compare-header">❌ 報酬ハッキング（Reward Hacking）の例</div>
+                        <p>
+                            ゲームAIが「スコアを最大化」するために、チートに相当する方法（ゲームのバグ悪用等）でスコアを稼ぐ。報酬関数の「抜け穴」を悪用。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 3 ===== */}
+            <section className="section" id="ch3">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 03</span>
+                    <span className="k-level">K2/K3</span>
+                    <h2>機械学習（ML）概要</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    教師あり・なし・強化学習を区別し、MLワークフローとオーバーフィッティングを説明できる。
+                </p>
+
+                <h3>3.1 機械学習の3形態（試験頻出）</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>形態</th>
+                                <th>データ</th>
+                                <th>タスク例</th>
+                                <th>ユースケース</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>教師あり学習</strong></td>
+                                <td>ラベル付きデータ</td>
+                                <td>分類・回帰</td>
+                                <td>スパムフィルター・医療診断・画像分類</td>
+                            </tr>
+                            <tr>
+                                <td><strong>教師なし学習</strong></td>
+                                <td>ラベルなしデータ</td>
+                                <td>クラスタリング・次元削減</td>
+                                <td>顧客セグメンテーション・異常検知・推薦</td>
+                            </tr>
+                            <tr>
+                                <td><strong>強化学習</strong></td>
+                                <td>環境との試行錯誤</td>
+                                <td>報酬最大化</td>
+                                <td>AlphaGo・ロボット制御・自動運転</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>3.2 MLワークフロー（試験頻出）</h3>
+                <ol className="step-list">
+                    <li>
+                        <span className="step-num">1</span
+                        ><span><strong>問題定義</strong>：解くべきビジネス課題を明確にする</span>
+                    </li>
+                    <li>
+                        <span className="step-num">2</span
+                        ><span><strong>データ収集</strong>：様々なソースからバイアスなく収集</span>
+                    </li>
+                    <li>
+                        <span className="step-num">3</span
+                        ><span
+                            ><strong>データ準備</strong> ←
+                            テスターの重要な関与点：欠損値・外れ値・重複・プライバシー対応</span
+                        >
+                    </li>
+                    <li>
+                        <span className="step-num">4</span
+                        ><span
+                            ><strong>特徴量エンジニアリング</strong>：モデルへの入力を最適化</span
+                        >
+                    </li>
+                    <li>
+                        <span className="step-num">5</span
+                        ><span
+                            ><strong>アルゴリズム選択</strong>：問題特性に合ったモデルを選ぶ</span
+                        >
+                    </li>
+                    <li>
+                        <span className="step-num">6</span
+                        ><span><strong>モデルトレーニング</strong>：トレーニングデータで学習</span>
+                    </li>
+                    <li>
+                        <span className="step-num">7</span
+                        ><span
+                            ><strong>モデル評価</strong> ←
+                            テスターの重要な関与点：精度・バイアス・公平性の検証</span
+                        >
+                    </li>
+                    <li>
+                        <span className="step-num">8</span
+                        ><span
+                            ><strong>ハイパーパラメータ調整</strong
+                            >：バリデーションデータで最適化</span
+                        >
+                    </li>
+                    <li>
+                        <span className="step-num">9</span
+                        ><span><strong>モデルデプロイ</strong>：本番環境への展開</span>
+                    </li>
+                    <li>
+                        <span className="step-num">10</span
+                        ><span
+                            ><strong>モニタリング</strong> ←
+                            コンセプトドリフト監視が継続的に必要</span
+                        >
+                    </li>
+                </ol>
+
+                <h3>3.5 過学習と未学習（試験頻出）</h3>
+                <div className="compare-grid">
+                    <div className="compare-bad">
+                        <div className="compare-header">❌ 過学習（Overfitting）</div>
+                        <p>
+                            トレーニングデータに過剰適合。<strong>訓練精度：99%、バリデーション精度：65%</strong>のように乖離が大きい。モデルが複雑すぎ・データが少なすぎ・ノイズまで学習。
+                        </p>
+                    </div>
+                    <div className="compare-bad">
+                        <div className="compare-header">❌ 未学習（Underfitting）</div>
+                        <p>
+                            データのパターンを十分学習できていない。<strong>訓練精度も低い（65%程度）</strong>。モデルが単純すぎ・学習不足・特徴量不足。
+                        </p>
+                    </div>
+                </div>
+                <div className="alert green">
+                    ✅ 理想：訓練精度もバリデーション精度も高く、かつ近い値（例：92% vs
+                    90%）。一般化誤差が小さい状態。
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 4 ===== */}
+            <section className="section" id="ch4">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 04</span>
+                    <span className="k-level">K2/K3</span>
+                    <h2>ML データ（230分 — 重要章）</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    データ品質問題を特定し、3種類のデータセットの役割を説明できる。
+                </p>
+
+                <h3>4.2 3種類のデータセット（試験頻出）</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>データセット</th>
+                                <th>用途</th>
+                                <th>目安比率</th>
+                                <th>注意点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>トレーニング（Training）</strong></td>
+                                <td>モデルの学習・パラメータ調整</td>
+                                <td>70〜80%</td>
+                                <td>最も大きいデータセット</td>
+                            </tr>
+                            <tr>
+                                <td><strong>バリデーション（Validation）</strong></td>
+                                <td>ハイパーパラメータ調整・モデル選択・過学習の早期検出</td>
+                                <td>10〜15%</td>
+                                <td>学習には使わない</td>
+                            </tr>
+                            <tr>
+                                <td><strong>テスト（Test）</strong></td>
+                                <td>最終性能評価（一度だけ使用）</td>
+                                <td>10〜20%</td>
+                                <td><strong>絶対に学習に使わない！</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout danger">
+                    <div className="callout-title">⚠️ データ漏洩（Data Leakage）に要注意！</div>
+                    テストデータの情報がトレーニングに混入すると、評価結果が過度に楽観的になる。「タイムリーク」（未来の情報を使って学習）も典型的な漏洩パターン。
+                </div>
+
+                <h3>4.3 データセット品質の5大問題</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer red">
+                        <div className="arch-label">① クラス不均衡</div>
+                        <div className="arch-desc">
+                            陽性1%・陰性99%のデータで「全て陰性」と予測するだけで正解率99%になる。精度指標のみでは品質が評価できない。
+                        </div>
+                    </div>
+                    <div className="arch-layer amber">
+                        <div className="arch-label">② データノイズ</div>
+                        <div className="arch-desc">
+                            測定誤差・ラベリングミスによるノイズ。モデルの学習を妨げ、偽の相関を学習してしまう。
+                        </div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">③ コンセプトドリフト</div>
+                        <div className="arch-desc">
+                            本番データの分布がトレーニングデータと時間とともに乖離していく現象（Ch7で詳述）。
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">④ データ漏洩</div>
+                        <div className="arch-desc">
+                            テストデータ情報のトレーニングへの混入。過度に楽観的な評価結果をもたらす。
+                        </div>
+                    </div>
+                    <div className="arch-layer blue">
+                        <div className="arch-label">⑤ 代表性の欠如</div>
+                        <div className="arch-desc">
+                            特定グループが過小代表 →
+                            バイアスの原因。例：医療AIの学習データに高齢者が少ない。
+                        </div>
+                    </div>
+                </div>
+
+                <h3>4.5 データラベリングとテスターのQA活動</h3>
+                <div className="code-block" data-lang="python">
+                    <span className="code-comment"
+                        ># テスターのデータラベリングQA活動 — 概念実装例</span
+                    >
+
+                    <span className="code-keyword">def</span>
+                    <span className="code-func">check_label_quality</span>(labeled_data:
+                    <span className="code-func">list</span>) -&gt; <span className="code-func">dict</span>:
+                    <span className="code-str"
+                        >""" ラベリング品質のQAチェック - 一致率（Inter-Annotator Agreement）確認 -
+                        ランダムサンプリングによる正確性検証 - ラベリングガイドラインの品質確認
+                        """</span
+                    >
+
+                    sample_size = <span className="code-func">int</span>(<span className="code-func"
+                        >len</span
+                    >(labeled_data) * <span className="code-num">0.05</span>)
+                    <span className="code-comment"># 5%をサンプリング</span>
+                    issues_found = []
+
+                    <span className="code-keyword">for</span> item
+                    <span className="code-keyword">in</span> labeled_data[:sample_size]:
+                    <span className="code-keyword">if</span> item[<span className="code-str"
+                        >"confidence"</span
+                    >] &lt; <span className="code-num">0.7</span>:
+                    <span className="code-comment"># 低信頼度ラベルを検出</span>
+                    issues_found.append({'{'}
+                    <span className="code-str">"id"</span>: item[<span className="code-str">"id"</span>],
+                    <span className="code-str">"issue"</span>:
+                    <span className="code-str">"低信頼度ラベル"</span>,
+                    <span className="code-str">"confidence"</span>: item[<span className="code-str"
+                        >"confidence"</span
+                    >] {'}'})
+<span className="code-keyword">return</span> {'{'}
+<span className="code-str">"total_checked"</span>: sample_size,
+<span className="code-str">"issues_found"</span>:
+<span className="code-func">len</span>(issues_found),
+<span className="code-str">"details"</span>: issues_found,
+<span className="code-str">"error_rate"</span>:
+                    <span className="code-func">len</span>(issues_found) / sample_size,
+                    <span className="code-str">"needs_relabeling"</span>:
+                    <span className="code-func">len</span>(issues_found) / sample_size &gt;
+                    <span className="code-num">0.05</span>
+                    {'}'}
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 5 ===== */}
+            <section className="section" id="ch5">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 05</span>
+                    <span className="k-level">K3 — 計算必須！</span>
+                    <h2>ML 機能パフォーマンスメトリクス</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    混同行列から精度・適合率・再現率・F1を計算し、ユースケースに適したメトリクスを選択できる。
+                </p>
+
+                <h3>5.1 混同行列（Confusion Matrix）— 試験頻出！</h3>
+                <div className="matrix-wrap">
+                    <table className="confusion-matrix">
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th colSpan={2} className="axis-label">【予測値】</th>
+                            </tr>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th className="axis-label">陽性（Positive）</th>
+                                <th className="axis-label">陰性（Negative）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowSpan={2} className="axis-label">【実際値】</td>
+                                <td className="axis-label">陽性（Positive）</td>
+                                <td className="cm-tp">TP（真陽性）<br />正しく陽性と予測</td>
+                                <td className="cm-fn">FN（偽陰性）<br />⚠️ 見逃し！危険</td>
+                            </tr>
+                            <tr>
+                                <td className="axis-label">陰性（Negative）</td>
+                                <td className="cm-fp">FP（偽陽性）<br />偽アラーム</td>
+                                <td className="cm-tn">TN（真陰性）<br />正しく陰性と予測</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>5.2 主要メトリクスの計算式（必ず暗記）</h3>
+                <div className="code-block" data-lang="python">
+                    <span className="code-comment"
+                        ># 混同行列から主要メトリクスを計算する — 試験の計算問題</span
+                    >
+                    <span className="code-comment"># 医療診断AI例：TP=90, TN=820, FP=30, FN=10</span>
+
+                    TP, TN, FP, FN = <span className="code-num">90</span>,
+                    <span className="code-num">820</span>, <span className="code-num">30</span>,
+                    <span className="code-num">10</span>
+
+                    <span className="code-comment"># 1. 正解率（Accuracy）= (TP + TN) / 全体</span>
+                    accuracy = (TP + TN) / (TP + TN + FP + FN)
+                    <span className="code-comment"># → 94.7%</span>
+
+                    <span className="code-comment"># 2. 適合率（Precision）= TP / (TP + FP)</span>
+                    <span className="code-comment"># 「陽性と言った時にどれだけ正しかったか」</span>
+                    precision = TP / (TP + FP) <span className="code-comment"># → 75.0%</span>
+
+                    <span className="code-comment"
+                        ># 3. 再現率（Recall / Sensitivity）= TP / (TP + FN)</span
+                    >
+                    <span className="code-comment"># 「実際の陽性をどれだけ見つけられたか」</span>
+                    recall = TP / (TP + FN) <span className="code-comment"># → 90.0%</span>
+
+                    <span className="code-comment"
+                        ># 4. F1スコア = 2 × (Precision × Recall) / (Precision + Recall)</span
+                    >
+                    <span className="code-comment"># 適合率と再現率の調和平均</span>
+                    f1 = <span className="code-num">2</span> * (precision * recall) / (precision +
+                    recall) <span className="code-comment"># → 81.8%</span>
+
+                    <span className="code-comment"># 5. 特異度（Specificity）= TN / (TN + FP)</span>
+                    specificity = TN / (TN + FP) <span className="code-comment"># → 96.5%</span>
+
+                    <span className="code-func">print</span>(<span className="code-str"
+                        >f"正解率: {'{'}accuracy:.1%{'}'}"</span
+                    >) <span className="code-comment"># 94.7%</span>
+                    <span className="code-func">print</span>(<span className="code-str"
+                        >f"適合率: {'{'}precision:.1%{'}'}"</span
+                    >) <span className="code-comment"># 75.0%</span>
+                    <span className="code-func">print</span>(<span className="code-str"
+                        >f"再現率: {'{'}recall:.1%{'}'}"</span
+                    >) <span className="code-comment"># 90.0%</span>
+                    <span className="code-func">print</span>(<span className="code-str"
+                        >f"F1スコア: {'{'}f1:.1%{'}'}"</span
+                    >) <span className="code-comment"># 81.8%</span>
+                </div>
+
+                <h3>5.3 適合率 vs 再現率のトレードオフ（試験頻出）</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>優先メトリクス</th>
+                                <th>使うべき場面</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>再現率（Recall）重視</strong></td>
+                                <td>癌診断・セキュリティ侵害検出・緊急事態検出</td>
+                                <td>見逃し（FN）のコストが非常に高い</td>
+                            </tr>
+                            <tr>
+                                <td><strong>適合率（Precision）重視</strong></td>
+                                <td>スパムフィルター・広告ターゲティング・詐欺検出</td>
+                                <td>偽アラーム（FP）のコストが高い</td>
+                            </tr>
+                            <tr>
+                                <td><strong>F1スコア</strong></td>
+                                <td>両方が重要な場合のバランス指標</td>
+                                <td>適合率と再現率の調和平均</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="callout warning">
+                    <div className="callout-title">⚠️ 正解率のパラドックス</div>
+                    クラス不均衡データ（99%陰性）で「全員陰性」と予測するだけで正解率99%になる。しかしこのモデルは役に立たない。<strong
+                        >必ず複数のメトリクスを組み合わせること。</strong
+                    >
+                </div>
+
+                <h3>その他のメトリクス一覧</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>タスク</th>
+                                <th>メトリクス</th>
+                                <th>概要</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>回帰</td>
+                                <td>MAE</td>
+                                <td>平均絶対誤差（外れ値に強い）</td>
+                            </tr>
+                            <tr>
+                                <td>回帰</td>
+                                <td>MSE / RMSE</td>
+                                <td>2乗誤差（外れ値に敏感）</td>
+                            </tr>
+                            <tr>
+                                <td>回帰</td>
+                                <td>R²（決定係数）</td>
+                                <td>モデルの説明力（0〜1）</td>
+                            </tr>
+                            <tr>
+                                <td>分類</td>
+                                <td>AUC-ROC</td>
+                                <td>閾値に依存しない総合性能</td>
+                            </tr>
+                            <tr>
+                                <td>クラスタリング</td>
+                                <td>シルエットスコア</td>
+                                <td>クラスターの凝集度・分離度</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 6 ===== */}
+            <section className="section" id="ch6">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 06</span>
+                    <span className="k-level">K2</span>
+                    <h2>MLニューラルネットワークとテスト</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    NNの基本構造を理解し、ニューロンカバレッジの概念を説明できる。
+                </p>
+
+                <h3>6.1 ニューラルネットワークの基本構造</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>コンポーネント</th>
+                                <th>役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ノード（ニューロン）</td>
+                                <td>入力を受け取り変換して出力する計算単位</td>
+                            </tr>
+                            <tr>
+                                <td>重み（Weights）</td>
+                                <td>接続の強さ（学習によって調整される）</td>
+                            </tr>
+                            <tr>
+                                <td>バイアス（Bias）</td>
+                                <td>活性化のオフセット値</td>
+                            </tr>
+                            <tr>
+                                <td>活性化関数</td>
+                                <td>ReLU・Sigmoid・Tanh等（非線形変換）</td>
+                            </tr>
+                            <tr>
+                                <td>CNN</td>
+                                <td>画像認識に特化した畳み込みネットワーク</td>
+                            </tr>
+                            <tr>
+                                <td>RNN</td>
+                                <td>時系列データ・テキスト処理に特化</td>
+                            </tr>
+                            <tr>
+                                <td>Transformer</td>
+                                <td>NLP・大規模言語モデル（GPT等）の基盤</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>6.2 ニューロンカバレッジ（従来のコードカバレッジとの違い）</h3>
+                <div className="compare-grid">
+                    <div className="compare-good">
+                        <div className="compare-header">従来型コードカバレッジ</div>
+                        <p>
+                            if文・ループ等の構造的カバレッジ。行・分岐・条件のカバレッジを測定。明確なロジックフローが存在する前提。
+                        </p>
+                    </div>
+                    <div className="compare-bad">
+                        <div className="compare-header">⚠️ NNではコードカバレッジが意味をなさない</div>
+                        <p>
+                            <strong>ニューロンカバレッジ</strong>を使う：活性化されたニューロン数 ÷
+                            全ニューロン数。入力データの多様性を高めてカバレッジを向上させる。
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 7 ===== */}
+            <section className="section" id="ch7">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 07</span>
+                    <span className="k-level">K2/K3</span>
+                    <h2>AIベースシステムテスト概要</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    AIシステムの6テストレベル・オートメーションバイアス・コンセプトドリフトを説明できる。
+                </p>
+
+                <h3>7.2 AIシステムの6つのテストレベル（試験頻出）</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer green">
+                        <div className="arch-label">① 入力データテスト</div>
+                        <div className="arch-desc">
+                            MLモデルへの入力データの品質確認。形式・範囲・欠損・偏りを検証。
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">② MLモデルテスト</div>
+                        <div className="arch-desc">
+                            モデルの精度・過学習・バイアス・公平性を評価。混同行列・精度・再現率等のメトリクス確認。
+                        </div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">③ コンポーネントテスト</div>
+                        <div className="arch-desc">
+                            AIコンポーネント単体の機能確認。入出力インターフェースの検証。
+                        </div>
+                    </div>
+                    <div className="arch-layer amber">
+                        <div className="arch-label">④ コンポーネント統合テスト</div>
+                        <div className="arch-desc">
+                            AIコンポーネントと他コンポーネントの連携確認。インターフェース・データフローの検証。
+                        </div>
+                    </div>
+                    <div className="arch-layer red">
+                        <div className="arch-label">⑤ システムテスト</div>
+                        <div className="arch-desc">
+                            システム全体の機能・性能・非機能特性の確認。E2Eシナリオでの動作確認。
+                        </div>
+                    </div>
+                    <div className="arch-layer blue">
+                        <div className="arch-label">⑥ 受入テスト</div>
+                        <div className="arch-desc">
+                            ユーザー・ステークホルダーによる承認。ビジネス要件・倫理要件への準拠確認。
+                        </div>
+                    </div>
+                </div>
+
+                <h3>7.4 オートメーションバイアス（Automation Bias）</h3>
+                <div className="callout danger">
+                    <div className="callout-title">⚠️ オートメーションバイアスとは</div>
+                    人間がAIの出力を過度に信頼・依存する傾向。AIが間違っているときでも人間が批判的判断を失う。<br />
+                    <strong>例：</strong
+                    >医師がAI診断ツールの出力を過信して、自分の臨床的判断よりAIの診断を優先してしまう。
+                </div>
+
+                <h3>7.6 コンセプトドリフト（Concept Drift）— 3種類</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ドリフトの種類</th>
+                                <th>特徴</th>
+                                <th>具体例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>急激なドリフト（Sudden）</strong></td>
+                                <td>一度に大きく変化</td>
+                                <td>COVID-19 パンデミックによる医療データの急変</td>
+                            </tr>
+                            <tr>
+                                <td><strong>漸進的なドリフト（Gradual）</strong></td>
+                                <td>ゆっくりと変化</td>
+                                <td>消費者嗜好の年単位での変化</td>
+                            </tr>
+                            <tr>
+                                <td><strong>繰り返しドリフト（Recurring）</strong></td>
+                                <td>季節変動など周期的</td>
+                                <td>小売の購買パターンの季節変動</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="alert green">
+                    ✅ <strong>対策：</strong>本番データの定期モニタリング +
+                    ドリフト検出アルゴリズムの導入 + 定期的なモデル再トレーニング
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 8 ===== */}
+            <section className="section" id="ch8">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 08</span>
+                    <span className="k-level">K3</span>
+                    <h2>AI固有の品質特性のテスト</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    バイアステスト・テストオラクル問題・非決定論的AIへの対処法を説明できる。
+                </p>
+
+                <h3>8.1 自己学習システムのテストが難しい4つの理由</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer red">
+                        <div className="arch-label">① 非決定論的動作</div>
+                        <div className="arch-desc">
+                            同じ入力でも結果が変わる可能性。従来の「期待値と比較」が難しい。
+                        </div>
+                    </div>
+                    <div className="arch-layer amber">
+                        <div className="arch-label">② 継続的な変化</div>
+                        <div className="arch-desc">
+                            モデルが学習を続けて動作が変わる。テストが「通った」状態が維持されない。
+                        </div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">③ テストオラクル問題</div>
+                        <div className="arch-desc">
+                            「正しい答え」を定義することが困難。複雑な判断では人間でも答えが分かれる。
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">④ 説明可能性の欠如</div>
+                        <div className="arch-desc">
+                            なぜその結果を出したかが分からない。欠陥の原因特定が困難。
+                        </div>
+                    </div>
+                </div>
+
+                <h3>8.3 バイアス検出テストの実装例</h3>
+                <div className="code-block" data-lang="python">
+                    <span className="code-keyword">class</span>
+                    <span className="code-func">AIBiasTester</span>:
+                    <span className="code-str">"""AI モデルのバイアスを検出するテストクラス"""</span>
+
+                    <span className="code-keyword">def</span>
+                    <span className="code-func">test_demographic_parity</span>(<span
+                        className="code-keyword"
+                        >self</span
+                    >, model, test_data):
+                    <span className="code-str"
+                        >""" 人口統計的平等（Demographic Parity）のテスト： 80%ルール —
+                        グループ間の陽性予測率の差が20%以内か確認 """</span
+                    >
+                    positive_rate_by_group = {}
+
+                    <span className="code-keyword">for</span> sample
+                    <span className="code-keyword">in</span> test_data: group = sample[<span
+                        className="code-str"
+                        >"protected_attribute"</span
+                    >] <span className="code-comment"># 性別・年齢・人種等</span> pred =
+                    model.predict(sample[<span className="code-str">"features"</span>])
+
+                    <span className="code-keyword">if</span> group
+                    <span className="code-keyword">not in</span> positive_rate_by_group:
+                    positive_rate_by_group[group] = {'{'}<span className="code-str">"pos"</span>:
+                    <span className="code-num">0</span>, <span className="code-str">"total"</span>:
+                    <span className="code-num">0</span>{'}'} positive_rate_by_group[group][<span
+                        className="code-str"
+                        >"total"</span
+                    >] += <span className="code-num">1</span> <span className="code-keyword">if</span> pred
+                    == <span className="code-num">1</span>: positive_rate_by_group[group][<span
+                        className="code-str"
+                        >"pos"</span
+                    >] += <span className="code-num">1</span>
+
+                    rates = {'{'}{'g'}: d[<span className="code-str">"pos"</span>]/d[<span className="code-str"
+                        >"total"</span
+                    >] <span className="code-keyword">for</span> g, d
+                    <span className="code-keyword">in</span> positive_rate_by_group.items(){'}'}
+                    disparity_ratio = <span className="code-func">min</span>(rates.values()) /
+                    <span className="code-func">max</span>(rates.values())
+
+                    <span className="code-keyword">return</span> {'{'}
+                    <span className="code-str">"rates"</span>: rates,
+                    <span className="code-str">"disparity_ratio"</span>: disparity_ratio,
+                    <span className="code-str">"passes_80pct_rule"</span>: disparity_ratio &gt;=
+                    <span className="code-num">0.8</span>, <span className="code-str">"result"</span>:
+                    <span className="code-str">"✅ 公平"</span>
+                    <span className="code-keyword">if</span> disparity_ratio &gt;=
+                    <span className="code-num">0.8</span> <span className="code-keyword">else</span>
+                    <span className="code-str">"❌ バイアス検出"</span>
+                    {'}'}
+                </div>
+
+                <h3>8.7 テストオラクルの4種類</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>オラクルの種類</th>
+                                <th>概要</th>
+                                <th>特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>専門家オラクル</strong></td>
+                                <td>ドメイン専門家が正解を判断</td>
+                                <td>高精度だが時間・コストが高い</td>
+                            </tr>
+                            <tr>
+                                <td><strong>アンサンブルオラクル</strong></td>
+                                <td>複数モデルの多数決を正解とする</td>
+                                <td>バック・ツー・バックテストの基礎</td>
+                            </tr>
+                            <tr>
+                                <td><strong>統計的オラクル</strong></td>
+                                <td>統計的な閾値・分布を基準とする</td>
+                                <td>「信頼スコア90%以上を正解とみなす」</td>
+                            </tr>
+                            <tr>
+                                <td><strong>プロパティオラクル</strong></td>
+                                <td>特定の性質を持つか確認</td>
+                                <td>メタモルフィックテストで使用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 9 ===== */}
+            <section className="section" id="ch9">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 09</span>
+                    <span className="k-level">K3/K4 — 最重要章</span>
+                    <h2>AIベースシステムのテスト手法と技法</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    メタモルフィックテスト・バック・ツー・バック・A/Bテスト・敵対的テストを設計・適用できる。
+                </p>
+
+                <h3>9.5 メタモルフィックテスト（試験最頻出！）</h3>
+                <div className="callout info">
+                    <div className="callout-title">💡 定義 — テストオラクル問題を解決する技法</div>
+                    <strong>通常のテスト：</strong>入力 →
+                    期待値と比較（期待値が分からない場合は困る）<br />
+                    <strong>メタモルフィックテスト：</strong>入力の変換 →
+                    出力の変換が「メタモルフィック関係（MR）」を満たすか確認
+                </div>
+
+                <h3>典型的なメタモルフィック関係（MR）の例</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>MRの種類</th>
+                                <th>内容</th>
+                                <th>適用例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>同値MR</strong></td>
+                                <td>同義語に変換しても出力は変わらないはず</td>
+                                <td>感情分析モデル</td>
+                            </tr>
+                            <tr>
+                                <td><strong>対称MR</strong></td>
+                                <td>入力を対称変換しても出力は変わらないはず</td>
+                                <td>画像分類（水平反転）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>変換不変MR</strong></td>
+                                <td>画像を回転/反転しても分類は変わらないはず</td>
+                                <td>猫/犬の画像分類</td>
+                            </tr>
+                            <tr>
+                                <td><strong>加法的MR</strong></td>
+                                <td>入力を2倍にすると出力も2倍になるはず</td>
+                                <td>線形回帰モデル</td>
+                            </tr>
+                            <tr>
+                                <td><strong>順序MR</strong></td>
+                                <td>入力Aが入力Bより大きければ出力Aも大きいはず</td>
+                                <td>価格予測モデル</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div className="code-block" data-lang="python">
+                    <span className="code-comment"># メタモルフィックテストの実装例</span>
+
+                    <span className="code-keyword">import</span> numpy
+                    <span className="code-keyword">as</span> np
+
+                    <span className="code-keyword">def</span>
+                    <span className="code-func">mt_image_classifier</span>(model, base_image) -&gt;
+                    <span className="code-func">dict</span>:
+                    <span className="code-str"
+                        >""" 画像分類モデルのメタモルフィックテスト MR1:
+                        水平反転しても同じクラスに分類されるはず MR2:
+                        明度±10%変化しても同じクラスに分類されるはず """</span
+                    >
+                    original = model.predict(base_image) results = {}
+
+                    <span className="code-comment"># MR1: 水平反転（猫は反転しても猫のまま）</span>
+                    flipped = np.fliplr(base_image) results[<span className="code-str">"MR1_flip"</span
+                    >] = {'{'} <span className="code-str">"passes"</span>: original ==
+                    model.predict(flipped), <span className="code-str">"original"</span>: original,
+                    <span className="code-str">"flipped"</span>: model.predict(flipped) {'}'}
+
+                    <span className="code-comment"># MR2: 明度変更（10%増加）</span>
+                    brightened = np.clip(base_image * <span className="code-num">1.1</span>,
+                    <span className="code-num">0</span>,
+                    <span className="code-num">255</span>).astype(np.uint8) results[<span
+                        className="code-str"
+                        >"MR2_bright"</span
+                    >] = {'{'} <span className="code-str">"passes"</span>: original ==
+                    model.predict(brightened), <span className="code-str">"original"</span>: original,
+                    <span className="code-str">"brightened"</span>: model.predict(brightened) {'}'}
+
+                    <span className="code-keyword">return</span> results
+
+                    <span className="code-comment"
+                        ># 感情分析モデルのメタモルフィックテスト（バイアス検出）</span
+                    >
+                    <span className="code-keyword">def</span>
+                    <span className="code-func">mt_sentiment_bias</span>(model, text:
+                    <span className="code-func">str</span>) -&gt; <span className="code-func">dict</span>:
+                    <span className="code-str"
+                        >"""MR: 性別代名詞を変更してもセンチメントは変わらないはず"""</span
+                    >
+                    original_score = model.get_score(text) neutral_text = text.replace(<span
+                        className="code-str"
+                        >"彼は"</span
+                    >, <span className="code-str">"彼女は"</span>) neutral_score =
+                    model.get_score(neutral_text) diff = abs(original_score - neutral_score)
+
+                    <span className="code-keyword">return</span> {'{'}
+                    <span className="code-str">"passes"</span>: diff &lt;
+                    <span className="code-num">0.05</span>,
+                    <span className="code-comment"># 5%以上の変化はバイアスの可能性</span>
+                    <span className="code-str">"diff"</span>: diff,
+                    <span className="code-str">"result"</span>:
+                    <span className="code-str">"✅ バイアスなし"</span>
+                    <span className="code-keyword">if</span> diff &lt;
+                    <span className="code-num">0.05</span> <span className="code-keyword">else</span>
+                    <span className="code-str">"❌ バイアスの可能性"</span>
+                    {'}'}
+                </div>
+
+                <h3>9.1 敵対的攻撃とデータポイズニング</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>攻撃の種類</th>
+                                <th>定義</th>
+                                <th>具体例</th>
+                                <th>テスト上の意義</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>敵対的攻撃（推論時）</strong></td>
+                                <td>AIを騙すために意図的に設計された入力</td>
+                                <td>パンダ画像に微小ノイズ → テナガザルと誤分類</td>
+                                <td>堅牢性（Robustness）のテスト</td>
+                            </tr>
+                            <tr>
+                                <td><strong>データポイズニング（学習時）</strong></td>
+                                <td>トレーニングデータに悪意あるデータを混入</td>
+                                <td>顔認識システムに誤ラベルデータを混入</td>
+                                <td>EDAで外れ値として検出</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>9.3 バック・ツー・バックテスト vs A/Bテスト</h3>
+                <div className="compare-grid">
+                    <div className="compare-good">
+                        <div className="compare-header">バック・ツー・バックテスト</div>
+                        <p>
+                            <strong>目的：</strong
+                            >2バージョンを同じ入力で実行し出力の差異を比較。テストオラクルがない場合・モデル更新時の回帰テストに有効。本番前に実施。
+                        </p>
+                    </div>
+                    <div className="compare-good">
+                        <div className="compare-header">A/Bテスト</div>
+                        <p>
+                            <strong>目的：</strong
+                            >2バージョンを実ユーザーに同時提供しKPIを比較。推薦アルゴリズムのテスト等に有効。本番環境で実施。統計的有意差を確認してから展開。
+                        </p>
+                    </div>
+                </div>
+
+                <h3>9.7 テスト技法の選択マトリクス</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>状況・目的</th>
+                                <th>推奨技法</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>テストオラクルがない</td>
+                                <td><strong>メタモルフィックテスト</strong></td>
+                            </tr>
+                            <tr>
+                                <td>新旧モデルの比較</td>
+                                <td><strong>バック・ツー・バックテスト</strong></td>
+                            </tr>
+                            <tr>
+                                <td>本番環境でのA/Bテスト</td>
+                                <td><strong>A/Bテスト</strong></td>
+                            </tr>
+                            <tr>
+                                <td>バイアス・公平性の確認</td>
+                                <td><strong>バイアステスト（人口統計的平等等）</strong></td>
+                            </tr>
+                            <tr>
+                                <td>セキュリティ・堅牢性の確認</td>
+                                <td><strong>敵対的テスト</strong></td>
+                            </tr>
+                            <tr>
+                                <td>多数パラメータの組み合わせ</td>
+                                <td><strong>ペアワイズテスト</strong></td>
+                            </tr>
+                            <tr>
+                                <td>予期しない動作の探索</td>
+                                <td><strong>探索的テスト + EDA</strong></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 10 ===== */}
+            <section className="section" id="ch10">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 10</span>
+                    <span className="k-level">K2</span>
+                    <h2>AIベースシステムのテスト環境</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    AI特有のインフラ要件と仮想テスト環境の活用を説明できる。
+                </p>
+
+                <h3>10.1 従来のテスト環境との違い</h3>
+                <div className="metric-grid">
+                    <div className="metric-card">
+                        <span className="metric-val">GPU</span>
+                        <div className="metric-label">大規模ML学習に必須</div>
+                    </div>
+                    <div className="metric-card">
+                        <span className="metric-val">大容量RAM</span>
+                        <div className="metric-label">大規模データセット処理</div>
+                    </div>
+                    <div className="metric-card">
+                        <span className="metric-val">高速ストレージ</span>
+                        <div className="metric-label">大量データの読み書き</div>
+                    </div>
+                    <div className="metric-card">
+                        <span className="metric-val">MLflow/DVC</span>
+                        <div className="metric-label">実験追跡・データバージョン管理</div>
+                    </div>
+                </div>
+
+                <h3>10.2 仮想テスト環境の活用</h3>
+                <div className="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ドメイン</th>
+                                <th>シミュレーターの例</th>
+                                <th>テスト可能なシナリオ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>自動運転</td>
+                                <td>CARLA・AirSim</td>
+                                <td>危険な交通シナリオ・悪天候</td>
+                            </tr>
+                            <tr>
+                                <td>ロボティクス</td>
+                                <td>ROS（Robot Operating System）</td>
+                                <td>障害物・センサー故障</td>
+                            </tr>
+                            <tr>
+                                <td>ゲームAI</td>
+                                <td>OpenAI Gym・Unity ML-Agents</td>
+                                <td>強化学習の評価</td>
+                            </tr>
+                            <tr>
+                                <td>医療AI</td>
+                                <td>合成データ生成ツール</td>
+                                <td>プライバシー保護データでのテスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div className="alert amber">
+                    ⚠️
+                    <strong>Reality Gap：</strong
+                    >シミュレーションと現実の乖離に注意。仮想環境でのテスト +
+                    実世界での追加検証が推奨。
+                </div>
+            </section>
+
+            {/* ===== CHAPTER 11 ===== */}
+            <section className="section" id="ch11">
+                <div className="chapter-header">
+                    <span className="chapter-num">Chapter 11</span>
+                    <span className="k-level">K3</span>
+                    <h2>テストへのAI活用</h2>
+                </div>
+                <p>
+                    <strong>学習目標：</strong>
+                    AIが有効・苦手なテスト活動を区別し、欠陥予測・テスト生成・回帰最適化を説明できる。
+                </p>
+
+                <h3>AIが得意なテスト活動 vs 苦手なテスト活動</h3>
+                <div className="compare-grid">
+                    <div className="compare-good">
+                        <div className="compare-header">✅ AIが特に有効なテスト活動</div>
+                        <p>
+                            • 欠陥レポートの<strong>重複検出・分類</strong>（NLP活用）<br />
+                            • <strong>テストケース自動生成</strong>（要件→TC）<br />
+                            • <strong>回帰テストの優先順位付け</strong><br />
+                            • <strong>欠陥予測</strong>（コードメトリクスから）<br />
+                            • <strong>UIの視覚的変化検出</strong>（Applitools等）
+                        </p>
+                    </div>
+                    <div className="compare-bad">
+                        <div className="compare-header">❌ AIが苦手なテスト活動</div>
+                        <p>
+                            • <strong>創造的な探索的テスト</strong>（経験・直感が必要）<br />
+                            • <strong>ユーザビリティテストの評価</strong>（主観・感覚が必要）<br />
+                            • <strong>倫理的判断</strong>が必要なテスト設計<br />
+                            • 完全に<strong>新しい未知のシナリオ</strong>のテスト
+                        </p>
+                    </div>
+                </div>
+
+                <h3>11.5 欠陥予測モデルの特徴量（重要）</h3>
+                <div className="code-block" data-lang="python">
+                    <span className="code-comment"
+                        ># 欠陥予測モデル — コードメトリクスから欠陥リスクを予測</span
+                    >
+                    <span className="code-keyword">from</span> dataclasses
+                    <span className="code-keyword">import</span> dataclass
+
+                    <span className="code-keyword">@</span><span className="code-func">dataclass</span>
+                    <span className="code-keyword">class</span>
+                    <span className="code-func">CodeMetrics</span>:
+                    <span className="code-str">"""欠陥予測の特徴量（K2レベルで記憶すること）"""</span>
+                    file_name: <span className="code-func">str</span> cyclomatic_complexity:
+                    <span className="code-func">int</span>
+                    <span className="code-comment"># 循環的複雑度（高いほど危険）</span> lines_of_code:
+                    <span className="code-func">int</span>
+                    <span className="code-comment"># コード行数</span> number_of_developers:
+                    <span className="code-func">int</span>
+                    <span className="code-comment"># 変更した開発者数（多いほど危険）</span>
+                    recent_changes: <span className="code-func">int</span>
+                    <span className="code-comment"># 直近30日の変更回数（不安定の指標）</span>
+                    historical_defects: <span className="code-func">int</span>
+                    <span className="code-comment"># 過去の欠陥数（要注意ファイル）</span> code_churn:
+                    <span className="code-func">float</span>
+                    <span className="code-comment"># コードの変更率</span>
+
+                    <span className="code-comment"># 特徴量の重要度（Random Forest等で算出）</span>
+                    feature_importance = {'{'}
+                    <span className="code-str">"循環的複雑度"</span>:
+                    <span className="code-num">0.28</span>, <span className="code-comment"># 最重要</span>
+                    <span className="code-str">"コード変更率"</span>:
+                    <span className="code-num">0.25</span>, <span className="code-str">"開発者数"</span>:
+                    <span className="code-num">0.20</span>,
+                    <span className="code-str">"直近変更回数"</span>:
+                    <span className="code-num">0.15</span>,
+                    <span className="code-str">"過去の欠陥数"</span>:
+                    <span className="code-num">0.12</span>, {'}'}
+
+                    <span className="code-comment"
+                        ># 活用：上位20%の高リスクファイルを優先テスト・レビュー</span
+                    >
+                </div>
+
+                <h3>11.6 AIによるUIテストの2アプローチ</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer green">
+                        <div className="arch-label">① AIを通してGUIをテスト</div>
+                        <div className="arch-desc">
+                            AI
+                            が操作パスを自動生成・実行。セルフヒーリングテスト（ロケーターが壊れても自動修復）。Visual
+                            AI でUIの変化を自動検出（Applitools等）。
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">② AIがGUI自体をテスト</div>
+                        <div className="arch-desc">
+                            MLでUI要素を認識・分類。ユーザビリティ問題の自動検出。アクセシビリティ要件への準拠確認。
+                        </div>
+                    </div>
+                </div>
+                <div className="callout warning">
+                    <div className="callout-title">⚠️ オートメーションバイアスに注意</div>
+                    AIテストツールが「問題なし」と判断しても人間の確認が必要。AIツールの過信は品質リスクになる。
+                </div>
+            </section>
+
+            {/* ===== EXAM SECTION ===== */}
+            <section className="section" id="exam">
+                <div className="chapter-header">
+                    <span className="chapter-num">試験対策</span>
+                    <h2>サンプル問題・試験直前チェックリスト</h2>
+                </div>
+
+                <h3>章別重要度・出題数（推定）</h3>
+                <div className="exam-grid">
+                    <div className="exam-card">
+                        <div className="exam-chapter">Chapter 9</div>
+                        <div className="exam-title">テスト手法と技法</div>
+                        <div className="stars">★★★★★</div>
+                        <div className="exam-pts">~8問 / 最重要</div>
+                    </div>
+                    <div className="exam-card">
+                        <div className="exam-chapter">Chapter 4</div>
+                        <div className="exam-title">MLデータ</div>
+                        <div className="stars">★★★★★</div>
+                        <div className="exam-pts">~6問</div>
+                    </div>
+                    <div className="exam-card">
+                        <div className="exam-chapter">Chapter 5</div>
+                        <div className="exam-title">MLメトリクス</div>
+                        <div className="stars">★★★★★</div>
+                        <div className="exam-pts">~6問 / 計算問題</div>
+                    </div>
+                    <div className="exam-card">
+                        <div className="exam-chapter">Chapter 11</div>
+                        <div className="exam-title">テストへのAI活用</div>
+                        <div className="stars">★★★★</div>
+                        <div className="exam-pts">~5問</div>
+                    </div>
+                    <div className="exam-card">
+                        <div className="exam-chapter">Chapter 8</div>
+                        <div className="exam-title">AI固有品質テスト</div>
+                        <div className="stars">★★★★</div>
+                        <div className="exam-pts">~5問</div>
+                    </div>
+                    <div className="exam-card">
+                        <div className="exam-chapter">Chapter 2</div>
+                        <div className="exam-title">AI品質特性</div>
+                        <div className="stars">★★★★</div>
+                        <div className="exam-pts">~6問</div>
+                    </div>
+                    <div className="exam-card">
+                        <div className="exam-chapter">Chapter 7</div>
+                        <div className="exam-title">AIテスト概要</div>
+                        <div className="stars">★★★★</div>
+                        <div className="exam-pts">~4問</div>
+                    </div>
+                    <div className="exam-card">
+                        <div className="exam-chapter">Chapter 1,3,6,10</div>
+                        <div className="exam-title">基礎知識</div>
+                        <div className="stars">★★★</div>
+                        <div className="exam-pts">~10問</div>
+                    </div>
+                </div>
+
+                {/* サンプル問題 */}
+                <h3>サンプル問題 Q1（K2 / Chapter 1）</h3>
+                <div className="card">
+                    <p>
+                        <strong>問：</strong>「AI効果（AI
+                        Effect）」の定義として最も適切なものはどれか？
+                    </p>
+                    <p>
+                        A) AIが人間の能力を超えること<br />B)
+                        AIが達成したことは「真のAI」ではないと思われる社会的現象<br />C)
+                        AIシステムが実世界に与える経済的影響<br />D)
+                        AIが従来型システムより高い性能を発揮すること
+                    </p>
+                    <div className="alert green">
+                        ✅ 正解：<strong>B</strong> —
+                        チェスコンピューターが人間を倒した後「ブルートフォースなので真のAIではない」と言われた現象。AIの定義は社会の認識とともに変化する。
+                    </div>
+                </div>
+
+                <h3>サンプル問題 Q2（K3 / Chapter 5 — 計算問題）</h3>
+                <div className="card">
+                    <p>
+                        <strong>問：</strong>癌診断AI の結果：TP=80, TN=900, FP=20,
+                        FN=20。このモデルの再現率（Recall）は？
+                    </p>
+                    <p>A) 80%　B) 88.9%　C) 90%　D) 96.1%</p>
+                    <div className="alert green">
+                        ✅ 正解：<strong>A（80%）</strong><br />再現率 = TP ÷ (TP + FN) = 80 ÷ (80 +
+                        20) = 80 ÷ 100 = <strong>80%</strong><br /><em
+                            >正解率 = (80+900)÷(80+900+20+20) ≈ 96.1%（D）とは別の指標</em
+                        >
+                    </div>
+                </div>
+
+                <h3>サンプル問題 Q3（K2 / Chapter 3）</h3>
+                <div className="card">
+                    <p>
+                        <strong>問：</strong
+                        >顧客を購買パターンで自動的にグループ分けしたい。どのMLの形態が最も適切か？
+                    </p>
+                    <p>
+                        A) 教師あり学習（分類）　B) 教師あり学習（回帰）　C)
+                        教師なし学習（クラスタリング）　D) 強化学習
+                    </p>
+                    <div className="alert green">
+                        ✅ 正解：<strong>C — 教師なし学習（クラスタリング）</strong
+                        ><br />グループ分けの「正解ラベル」がない場合はクラスタリング。教師あり学習はラベル付きデータが必要。
+                    </div>
+                </div>
+
+                <h3>サンプル問題 Q4（K3 / Chapter 9 — 最頻出技法）</h3>
+                <div className="card">
+                    <p>
+                        <strong>問：</strong
+                        >「このレストランは素晴らしい」と「このレストランは最高だ」（同義語に変換）は同じ感情スコアになるはずだという考えに基づいてテストを設計している。このテスト技法は何か？
+                    </p>
+                    <p>
+                        A) A/Bテスト　B) バック・ツー・バックテスト　C) メタモルフィックテスト　D)
+                        敵対的テスト
+                    </p>
+                    <div className="alert green">
+                        ✅ 正解：<strong>C — メタモルフィックテスト</strong
+                        ><br />「同義語に変換しても感情スコアは変わらないはず」=
+                        メタモルフィック関係（MR）を利用してテストオラクル問題を解決。
+                    </div>
+                </div>
+
+                <h3>サンプル問題 Q5（K2 / Chapter 7）</h3>
+                <div className="card">
+                    <p>
+                        <strong>問：</strong
+                        >MLシステムの「コンセプトドリフト」に対処する最も適切なアプローチはどれか？
+                    </p>
+                    <p>
+                        A) トレーニングデータの量を増やす　B) モデルをより複雑にする　C)
+                        本番データを定期モニタリングして再トレーニングする　D) テストデータを増やす
+                    </p>
+                    <div className="alert green">
+                        ✅ 正解：<strong>C</strong><br />コンセプトドリフト =
+                        データの統計的特性が時間変化する現象。対処法は<strong
+                            >本番データの継続モニタリング + ドリフト検出 +
+                            定期的な再トレーニング</strong
+                        >。
+                    </div>
+                </div>
+
+                {/* 必ず覚える概念 */}
+                <h3>試験直前チェックリスト — 必ず覚える重要概念</h3>
+                <div className="arch-layers">
+                    <div className="arch-layer green">
+                        <div className="arch-label">AIの3分類</div>
+                        <div className="arch-desc">
+                            狭義AI（Narrow）/ 汎用AI（General）/ 超AI（Super）の特徴と現状
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">混同行列 4要素 + 計算式</div>
+                        <div className="arch-desc">
+                            TP/TN/FP/FN → 正解率・適合率・再現率・F1の計算式を暗記
+                        </div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">ML 3形態の違い</div>
+                        <div className="arch-desc">
+                            教師あり（分類・回帰） / 教師なし（クラスタリング） / 強化学習の用途
+                        </div>
+                    </div>
+                    <div className="arch-layer amber">
+                        <div className="arch-label">3種類のデータセット</div>
+                        <div className="arch-desc">
+                            トレーニング / バリデーション / テスト の役割とデータ漏洩リスク
+                        </div>
+                    </div>
+                    <div className="arch-layer red">
+                        <div className="arch-label">バイアスの3種類</div>
+                        <div className="arch-desc">アルゴリズム / サンプル / 不適切バイアス</div>
+                    </div>
+                    <div className="arch-layer blue">
+                        <div className="arch-label">XAI 3概念の違い</div>
+                        <div className="arch-desc">透明性 / 解釈可能性 / 説明可能性（XAI）</div>
+                    </div>
+                    <div className="arch-layer green">
+                        <div className="arch-label">コンセプトドリフト 3種類</div>
+                        <div className="arch-desc">
+                            急激（Sudden）/ 漸進的（Gradual）/ 繰り返し（Recurring）
+                        </div>
+                    </div>
+                    <div className="arch-layer cyan">
+                        <div className="arch-label">メタモルフィックテスト</div>
+                        <div className="arch-desc">
+                            テストオラクル問題を MR（メタモルフィック関係）で解決する技法
+                        </div>
+                    </div>
+                    <div className="arch-layer purple">
+                        <div className="arch-label">バック・ツー・バック vs A/Bテスト</div>
+                        <div className="arch-desc">本番前の比較 vs 本番環境でのユーザー比較</div>
+                    </div>
+                    <div className="arch-layer amber">
+                        <div className="arch-label">AIの得意/苦手テスト活動</div>
+                        <div className="arch-desc">
+                            得意：欠陥重複検出・TC生成・回帰最適化 / 苦手：探索的・倫理的判断
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* ===== REFERENCES ===== */}
+            <section className="section" id="refs">
+                <div className="chapter-header">
+                    <span className="chapter-num">参考文献</span>
+                    <h2>参照URL一覧</h2>
+                </div>
+
+                <h3>🏛️ 公式 ISTQB® リソース</h3>
+                <div className="ref-grid">
+                    <a
+                        className="ref-card"
+                        href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">公式 / 認定ページ</span>
+                        <span className="ref-title">CT-AI 認定ページ（公式）</span>
+                        <span className="ref-url"
+                            >istqb.org/certifications/certified-tester-ai-testing-ct-ai/</span
+                        >
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://astqb.org/assets/documents/ISTQB_CT-AI_Syllabus_v1.0.pdf"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">公式 / シラバス PDF</span>
+                        <span className="ref-title">CT-AI シラバス v1.0（ASTQB 公開版）</span>
+                        <span className="ref-url"
+                            >astqb.org/assets/documents/ISTQB_CT-AI_Syllabus_v1.0.pdf</span
+                        >
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://glossary.istqb.org/en_US/search?term="
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">公式 / 用語集</span>
+                        <span className="ref-title">ISTQB グロッサリー</span>
+                        <span className="ref-url">glossary.istqb.org/en_US/search?term=</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://istqb.org/certifications/certified-tester-testing-with-generative-ai-ct-genai/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">公式 / 関連資格</span>
+                        <span className="ref-title">CT-GenAI（生成AIテスト）認定ページ</span>
+                        <span className="ref-url">istqb.org/certifications/ct-genai/</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://istqb.org/exam-providers/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">公式 / 試験</span>
+                        <span className="ref-title">試験プロバイダー検索</span>
+                        <span className="ref-url">istqb.org/exam-providers/</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://istqb.org/training-providers/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">公式 / 研修</span>
+                        <span className="ref-title">研修プロバイダー検索</span>
+                        <span className="ref-url">istqb.org/training-providers/</span>
+                    </a>
+                </div>
+
+                <h3>🎓 学習リソース</h3>
+                <div className="ref-grid">
+                    <a
+                        className="ref-card"
+                        href="https://www.istqb.guru/artificial-inteligence-tester/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">学習 / ガイド</span>
+                        <span className="ref-title">ISTQB.Guru — CT-AI 完全ガイド</span>
+                        <span className="ref-url">istqb.guru/artificial-inteligence-tester/</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://www.udemy.com/course/isqtb-ai-testing-ct-ai/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">学習 / オンラインコース</span>
+                        <span className="ref-title">Udemy — CT-AI 実践コース</span>
+                        <span className="ref-url">udemy.com/course/isqtb-ai-testing-ct-ai/</span>
+                    </a>
+                </div>
+
+                <h3>🔧 AI/MLフレームワーク・ツール</h3>
+                <div className="ref-grid">
+                    <a
+                        className="ref-card"
+                        href="https://www.tensorflow.org/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">MLフレームワーク</span>
+                        <span className="ref-title">TensorFlow（Google）</span>
+                        <span className="ref-url">tensorflow.org</span>
+                    </a>
+                    <a className="ref-card" href="https://pytorch.org/" target="_blank" rel="noopener">
+                        <span className="ref-cat">MLフレームワーク</span>
+                        <span className="ref-title">PyTorch（Meta）</span>
+                        <span className="ref-url">pytorch.org</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://scikit-learn.org/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">MLフレームワーク</span>
+                        <span className="ref-title">Scikit-learn</span>
+                        <span className="ref-url">scikit-learn.org</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://shap.readthedocs.io/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">XAI / 説明可能性</span>
+                        <span className="ref-title">SHAP（SHapley Additive exPlanations）</span>
+                        <span className="ref-url">shap.readthedocs.io</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://lime-ml.readthedocs.io/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">XAI / 説明可能性</span>
+                        <span className="ref-title"
+                            >LIME（Local Interpretable Model-agnostic Explanations）</span
+                        >
+                        <span className="ref-url">lime-ml.readthedocs.io</span>
+                    </a>
+                    <a className="ref-card" href="https://mlflow.org/" target="_blank" rel="noopener">
+                        <span className="ref-cat">実験追跡</span>
+                        <span className="ref-title">MLflow — ML実験管理</span>
+                        <span className="ref-url">mlflow.org</span>
+                    </a>
+                    <a className="ref-card" href="https://dvc.org/" target="_blank" rel="noopener">
+                        <span className="ref-cat">データ管理</span>
+                        <span className="ref-title">DVC — データバージョン管理</span>
+                        <span className="ref-url">dvc.org</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://aif360.mybluemix.net/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">バイアス検出</span>
+                        <span className="ref-title">IBM AI Fairness 360</span>
+                        <span className="ref-url">aif360.mybluemix.net</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://applitools.com/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">AI UIテスト</span>
+                        <span className="ref-title">Applitools — 視覚的AI回帰テスト</span>
+                        <span className="ref-url">applitools.com</span>
+                    </a>
+                    <a className="ref-card" href="https://carla.org/" target="_blank" rel="noopener">
+                        <span className="ref-cat">シミュレーター</span>
+                        <span className="ref-title">CARLA — 自動運転シミュレーター</span>
+                        <span className="ref-url">carla.org</span>
+                    </a>
+                </div>
+
+                <h3>📋 AI規制・倫理・標準</h3>
+                <div className="ref-grid">
+                    <a
+                        className="ref-card"
+                        href="https://artificialintelligenceact.eu/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">法規制</span>
+                        <span className="ref-title">EU AI Act（欧州AI規制法）</span>
+                        <span className="ref-url">artificialintelligenceact.eu</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://standards.ieee.org/industry-connections/ec/autonomous-systems/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">倫理ガイドライン</span>
+                        <span className="ref-title">IEEE Ethically Aligned Design</span>
+                        <span className="ref-url">standards.ieee.org</span>
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://pair-code.github.io/what-if-tool/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">バイアス評価</span>
+                        <span className="ref-title">What-If Tool（Google）— AIバイアス評価</span>
+                        <span className="ref-url">pair-code.github.io/what-if-tool/</span>
+                    </a>
+                </div>
+
+                <h3>📖 関連資格</h3>
+                <div className="ref-grid">
+                    <a
+                        className="ref-card"
+                        href="https://istqb.org/certifications/certified-tester-foundation-level/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">前提資格</span>
+                        <span className="ref-title">CTFL v4.0（前提資格）</span>
+                        <span className="ref-url"
+                            >istqb.org/certifications/certified-tester-foundation-level/</span
+                        >
+                    </a>
+                    <a
+                        className="ref-card"
+                        href="https://istqb.org/certifications/certified-tester-advanced-level-technical-test-analyst-ctal-tta/"
+                        target="_blank"
+                        rel="noopener"
+                    >
+                        <span className="ref-cat">関連資格</span>
+                        <span className="ref-title">CTAL-TTA（テクニカルアナリスト）</span>
+                        <span className="ref-url">istqb.org/certifications/ctal-tta/</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+        {/* /.container */}
+
+        {/* ===== FOOTER ===== */}
+        <footer className="footer">
+            <p>
+                ISTQB® CT-AI 完全ガイド 2025 |
+                本ガイドはISTQB®が公認したトレーニング資料ではありません。<br />
+                公式シラバス・サンプル問題と合わせてご使用ください。<br />
+                一次情報源：<a
+                    href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/"
+                    target="_blank"
+                    >istqb.org/certifications/certified-tester-ai-testing-ct-ai/</a
+                >
+            </p>
+        </footer>
+    
+
+        </div>
+    );
+}
