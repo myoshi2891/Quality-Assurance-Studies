@@ -119,6 +119,10 @@
             .istqb-ct-ai-page .nav-inner a:hover {
                 color: var(--neon-cyan);
             }
+            .istqb-ct-ai-page .nav-inner a.active {
+                color: var(--neon-green);
+                font-weight: 700;
+            }
 
             /* ===== Hero ===== */
             .istqb-ct-ai-page .hero {
