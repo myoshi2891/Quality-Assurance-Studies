@@ -1,0 +1,1359 @@
+/* ============================================================
+   CSS CUSTOM PROPERTIES
+   ============================================================ */
+            .istqb-ctal-atlas-page {
+                --ch1: var(--color-accent-green);
+                --ch2: var(--color-accent-cyan);
+                --ch3: var(--color-accent-orange);
+                --ch4: var(--color-accent-purple);
+                --ch5: var(--color-accent-red);
+                --bg-deep: var(--color-bg-primary);
+            }
+
+            /* ============================================================
+   RESET & BASE
+   ============================================================ */
+            .istqb-ctal-atlas-page *,
+            .istqb-ctal-atlas-page *::before,
+            .istqb-ctal-atlas-page *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Scanline overlay – sits behind Header (z-50) and sticky Nav (z-40) */
+            .istqb-ctal-atlas-page::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 3px,
+                    rgba(0, 229, 255, 0.015) 3px,
+                    rgba(0, 229, 255, 0.015) 4px
+                );
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            /* Grid texture – sits behind Header (z-50) and sticky Nav (z-40) */
+            .istqb-ctal-atlas-page::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+                background-size: 48px 48px;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            /* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+            .istqb-ctal-atlas-page h1,
+            .istqb-ctal-atlas-page h2,
+            .istqb-ctal-atlas-page h3,
+            .istqb-ctal-atlas-page h4,
+            .istqb-ctal-atlas-page h5 {
+                font-family: var(--font-display);
+                line-height: 1.2;
+            }
+            .istqb-ctal-atlas-page h1 {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+                font-weight: 800;
+            }
+            .istqb-ctal-atlas-page h2 {
+                font-size: clamp(1.4rem, 3vw, 2rem);
+                font-weight: 700;
+            }
+            .istqb-ctal-atlas-page h3 {
+                font-size: clamp(1.1rem, 2vw, 1.4rem);
+                font-weight: 600;
+            }
+            .istqb-ctal-atlas-page h4 {
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+            .istqb-ctal-atlas-page p {
+                font-size: 1rem;
+                margin-bottom: 1em;
+            }
+            .istqb-ctal-atlas-page a {
+                color: var(--color-accent-cyan);
+                text-decoration: none;
+                transition: color 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page a:hover {
+                color: var(--color-accent-green);
+                text-decoration: underline;
+            }
+            .istqb-ctal-atlas-page ul,
+            .istqb-ctal-atlas-page ol {
+                padding-left: 1.5em;
+                margin-bottom: 1em;
+            }
+            .istqb-ctal-atlas-page li {
+                margin-bottom: 0.4em;
+                font-size: 1rem;
+            }
+            .istqb-ctal-atlas-page strong {
+                color: var(--color-accent-green);
+                font-weight: 600;
+            }
+            .istqb-ctal-atlas-page code {
+                font-family: var(--font-mono);
+                font-size: 0.88rem;
+                background: rgba(0, 229, 255, 0.1);
+                padding: 0.15em 0.45em;
+                border-radius: 4px;
+                color: var(--color-accent-cyan);
+            }
+
+            /* ============================================================
+   STICKY NAV
+   ============================================================ */
+            .istqb-ctal-atlas-page .sticky-nav {
+                position: sticky;
+                top: 60px;
+                z-index: 40;
+                background: rgba(3, 7, 18, 0.92);
+                backdrop-filter: blur(16px);
+                border-bottom: 1px solid var(--color-border);
+                padding: 0.6rem 1rem;
+                overflow-x: auto;
+                white-space: nowrap;
+                scrollbar-width: none;
+            }
+            .istqb-ctal-atlas-page .sticky-nav::-webkit-scrollbar {
+                display: none;
+            }
+            .istqb-ctal-atlas-page .nav-inner {
+                display: inline-flex;
+                gap: 0.4rem;
+                align-items: center;
+                min-width: max-content;
+            }
+            .istqb-ctal-atlas-page .nav-brand {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--color-accent-green);
+                font-weight: 700;
+                margin-right: 1rem;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+            }
+            .istqb-ctal-atlas-page .nav-link {
+                font-family: var(--font-display);
+                font-size: 0.78rem;
+                font-weight: 600;
+                padding: 0.35rem 0.75rem;
+                border-radius: 4px;
+                border: 1px solid transparent;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+            .istqb-ctal-atlas-page .nav-link:hover, .istqb-ctal-atlas-page .nav-link.active {
+                text-decoration: none;
+                border-color: var(--color-accent-cyan);
+                background: rgba(0, 229, 255, 0.08);
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch1 {
+                color: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch1:hover, .istqb-ctal-atlas-page .nav-link.ch1.active {
+                border-color: var(--color-accent-green);
+                background: rgba(16, 185, 129, 0.12);
+                color: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch2 {
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch2:hover, .istqb-ctal-atlas-page .nav-link.ch2.active {
+                border-color: var(--color-accent-cyan);
+                background: rgba(0, 229, 255, 0.12);
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch3 {
+                color: var(--color-accent-orange);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch3:hover, .istqb-ctal-atlas-page .nav-link.ch3.active {
+                border-color: var(--color-accent-orange);
+                background: rgba(245, 158, 11, 0.12);
+                color: var(--color-accent-orange);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch4 {
+                color: var(--color-accent-purple);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch4:hover, .istqb-ctal-atlas-page .nav-link.ch4.active {
+                border-color: var(--color-accent-purple);
+                background: rgba(168, 85, 247, 0.12);
+                color: var(--color-accent-purple);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch5 {
+                color: var(--color-accent-red);
+            }
+            .istqb-ctal-atlas-page .nav-link.ch5:hover, .istqb-ctal-atlas-page .nav-link.ch5.active {
+                border-color: var(--color-accent-red);
+                background: rgba(239, 68, 68, 0.12);
+                color: var(--color-accent-red);
+            }
+
+            /* ============================================================
+   LAYOUT CONTAINER
+   ============================================================ */
+            .istqb-ctal-atlas-page .container {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+            }
+
+            /* ============================================================
+   HERO SECTION
+   ============================================================ */
+            .istqb-ctal-atlas-page .hero {
+                position: relative;
+                padding: 5rem 1.5rem 4rem;
+                text-align: center;
+                overflow: hidden;
+            }
+            .istqb-ctal-atlas-page .hero-glow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 600px;
+                height: 600px;
+                background: radial-gradient(ellipse, rgba(0, 255, 136, 0.12) 0%, transparent 70%);
+                animation: pulse-anim 4s ease-in-out infinite;
+                pointer-events: none;
+            }
+            @keyframes pulse-anim {
+                0%,
+                100% {
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 0.7;
+                }
+                50% {
+                    transform: translate(-50%, -50%) scale(1.15);
+                    opacity: 1;
+                }
+            }
+            .istqb-ctal-atlas-page .hero-badge {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--color-accent-green);
+                border: 1px solid var(--color-accent-green);
+                padding: 0.3rem 1rem;
+                border-radius: 99px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                margin-bottom: 1.5rem;
+                animation: fade-in-down 0.6s ease both;
+            }
+            .istqb-ctal-atlas-page .hero h1 {
+                animation: fade-in-down 0.7s ease 0.1s both;
+                background: linear-gradient(
+                    135deg,
+                    var(--color-accent-green) 0%,
+                    var(--color-accent-cyan) 60%,
+                    #ffffff 100%
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                margin-bottom: 1rem;
+            }
+            .istqb-ctal-atlas-page .hero-sub {
+                font-size: 1.1rem;
+                color: var(--color-text-secondary);
+                max-width: 640px;
+                margin: 0 auto 2.5rem;
+                animation: fade-in-up 0.7s ease 0.2s both;
+            }
+            .istqb-ctal-atlas-page .hero-meta-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 1rem;
+                max-width: 680px;
+                margin: 0 auto;
+                animation: fade-in-up 0.7s ease 0.35s both;
+            }
+            .istqb-ctal-atlas-page .hero-meta-card {
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-DEFAULT, 8px);
+                padding: 1rem;
+                text-align: center;
+            }
+            .istqb-ctal-atlas-page .hero-meta-card .value {
+                font-family: var(--font-mono);
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: var(--color-accent-green);
+                display: block;
+            }
+            .istqb-ctal-atlas-page .hero-meta-card .label {
+                font-size: 0.78rem;
+                color: var(--color-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                display: block;
+                margin-top: 0.25rem;
+            }
+
+            @keyframes fade-in-down {
+                from {
+                    opacity: 0;
+                    transform: translateY(-24px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fade-in-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(24px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* ============================================================
+   SECTION
+   ============================================================ */
+            .istqb-ctal-atlas-page .section {
+                padding: 4rem 0;
+                border-top: 1px solid var(--color-border);
+            }
+            .istqb-ctal-atlas-page .section-header {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+            .istqb-ctal-atlas-page .chapter-num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 2.8rem;
+                height: 2.8rem;
+                border-radius: var(--radius-DEFAULT, 8px);
+                font-family: var(--font-mono);
+                font-size: 0.88rem;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .istqb-ctal-atlas-page .section-title-wrap {
+                flex: 1;
+            }
+            .istqb-ctal-atlas-page .section-klevel {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                padding: 0.2rem 0.6rem;
+                border-radius: 4px;
+                margin-left: 0.75rem;
+                vertical-align: middle;
+                letter-spacing: 0.06em;
+            }
+
+            /* Chapter color themes */
+            .istqb-ctal-atlas-page .ch1-theme {
+                --accent: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .ch2-theme {
+                --accent: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .ch3-theme {
+                --accent: var(--color-accent-orange);
+            }
+            .istqb-ctal-atlas-page .ch4-theme {
+                --accent: var(--color-accent-purple);
+            }
+            .istqb-ctal-atlas-page .ch5-theme {
+                --accent: var(--color-accent-red);
+            }
+
+            .istqb-ctal-atlas-page .chapter-num {
+                background: color-mix(in srgb, var(--accent) 15%, transparent);
+                border: 1px solid var(--accent);
+                color: var(--accent);
+            }
+            .istqb-ctal-atlas-page .section-klevel {
+                background: color-mix(in srgb, var(--accent) 15%, transparent);
+                border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+                color: var(--accent);
+            }
+
+            /* ============================================================
+   TOC GRID
+   ============================================================ */
+            .istqb-ctal-atlas-page .toc-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+                gap: 1rem;
+                margin: 2rem 0;
+            }
+            .istqb-ctal-atlas-page .toc-card {
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg, 14px);
+                padding: 1.25rem;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: pointer;
+                text-decoration: none;
+                display: block;
+            }
+            .istqb-ctal-atlas-page .toc-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+                text-decoration: none;
+            }
+            .istqb-ctal-atlas-page .toc-card .toc-num {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+            .istqb-ctal-atlas-page .toc-card .toc-title {
+                font-family: var(--font-display);
+                font-size: 0.92rem;
+                font-weight: 600;
+                color: var(--color-text-primary);
+                display: block;
+                margin-bottom: 0.4rem;
+            }
+            .istqb-ctal-atlas-page .toc-card .toc-mins {
+                font-size: 0.75rem;
+                color: var(--color-text-muted);
+            }
+
+            /* ============================================================
+   ARCH LAYERS
+   ============================================================ */
+            .istqb-ctal-atlas-page .arch-layers {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                margin: 1.5rem 0;
+            }
+            .istqb-ctal-atlas-page .arch-layer {
+                display: flex;
+                align-items: stretch;
+                border-radius: var(--radius-DEFAULT, 8px);
+                overflow: hidden;
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .arch-layer:hover {
+                transform: translateX(6px);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+            }
+            .istqb-ctal-atlas-page .arch-layer-accent {
+                width: 5px;
+                flex-shrink: 0;
+            }
+            .istqb-ctal-atlas-page .arch-layer-body {
+                padding: 1rem 1.25rem;
+                flex: 1;
+            }
+            .istqb-ctal-atlas-page .arch-layer-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.3rem;
+            }
+            .istqb-ctal-atlas-page .arch-layer-desc {
+                font-size: 0.88rem;
+                color: var(--color-text-secondary);
+                margin: 0;
+            }
+            .istqb-ctal-atlas-page .arch-layer-tag {
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                padding: 0.2rem 0.5rem;
+                border-radius: 4px;
+                align-self: center;
+                margin-right: 1rem;
+                white-space: nowrap;
+            }
+
+            /* ============================================================
+   PYRAMID
+   ============================================================ */
+            .istqb-ctal-atlas-page .pyramid {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0.4rem;
+                margin: 1.5rem 0;
+            }
+.istqb-ctal-atlas-page .pyramid-tier,
+            .istqb-ctal-atlas-page .pyramid-layer,
+            .pyramid-tier,
+            .pyramid-layer {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: var(--radius-DEFAULT, 8px);
+                font-family: var(--font-display);
+                font-size: 0.9rem;
+                font-weight: 600;
+                padding: 0.75rem 1rem;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: default;
+                text-align: center;
+            }
+            .istqb-ctal-atlas-page .pyramid-tier:hover,
+            .istqb-ctal-atlas-page .pyramid-layer:hover,
+            .pyramid-tier:hover,
+            .pyramid-layer:hover {
+                transform: scale(1.03);
+                filter: brightness(1.2);
+            }
+
+            /* ============================================================
+   CODE BLOCK
+   ============================================================ */
+            .istqb-ctal-atlas-page .code-block,
+            .code-block {
+                background: #060e1f;
+                border: 1px solid var(--color-border);
+                border-left: 3px solid var(--color-accent-green);
+                border-radius: var(--radius-DEFAULT, 8px);
+                padding: 1.25rem 1.5rem;
+                margin: 1.5rem 0;
+                overflow-x: auto;
+                position: relative;
+            }
+            .istqb-ctal-atlas-page .code-block::before,
+            .code-block::before {
+                content: attr(data-lang);
+                position: absolute;
+                top: 0.5rem;
+                right: 0.75rem;
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                color: var(--color-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+            .istqb-ctal-atlas-page .code-block pre,
+            .code-block pre {
+                font-family: var(--font-mono);
+                font-size: 0.85rem;
+                line-height: 1.6;
+                margin: 0;
+                color: var(--color-text-primary);
+            }
+            .istqb-ctal-atlas-page .code-line,
+            .code-line {
+                white-space: pre;
+                font-family: inherit;
+                line-height: inherit;
+            }
+
+            /* ============================================================
+   CODE HEADER
+   ============================================================ */
+            .istqb-ctal-atlas-page .code-header,
+            .code-header {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--color-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                margin-bottom: 0.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+
+            /* ============================================================
+   CARD & CARD-SM
+   ============================================================ */
+            .istqb-ctal-atlas-page .card,
+            .card {
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-DEFAULT, 8px);
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .card:hover,
+            .card:hover {
+                border-color: var(--color-accent-cyan);
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 229, 255, 0.06);
+            }
+            .istqb-ctal-atlas-page .card-sm,
+            .card-sm {
+                padding: 0.75rem 1rem;
+            }
+
+            /* ============================================================
+   BADGE VARIANTS
+   ============================================================ */
+            .istqb-ctal-atlas-page .badge-unit,
+            .istqb-ctal-atlas-page .badge-int,
+            .istqb-ctal-atlas-page .badge-func,
+            .istqb-ctal-atlas-page .badge-e2e,
+            .istqb-ctal-atlas-page .badge-sec,
+            .istqb-ctal-atlas-page .badge-perf,
+            .istqb-ctal-atlas-page .badge-a11y,
+            .istqb-ctal-atlas-page .badge-istqb,
+            .badge-unit, .badge-int, .badge-func, .badge-e2e,
+            .badge-sec, .badge-perf, .badge-a11y, .badge-istqb {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                padding: 0.15rem 0.5rem;
+                border-radius: 4px;
+                font-weight: 600;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+                vertical-align: middle;
+            }
+            .istqb-ctal-atlas-page .badge-unit,
+            .badge-unit {
+                background: rgba(0, 229, 255, 0.12);
+                color: var(--color-accent-cyan);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-int,
+            .badge-int {
+                background: rgba(0, 255, 128, 0.12);
+                color: var(--color-accent-green);
+                border: 1px solid rgba(0, 255, 128, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-func,
+            .badge-func {
+                background: rgba(255, 184, 0, 0.12);
+                color: var(--color-accent-orange);
+                border: 1px solid rgba(255, 184, 0, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-e2e,
+            .badge-e2e {
+                background: rgba(168, 85, 247, 0.12);
+                color: #c084fc;
+                border: 1px solid rgba(168, 85, 247, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-sec,
+            .badge-sec {
+                background: rgba(255, 64, 96, 0.12);
+                color: var(--color-accent-red);
+                border: 1px solid rgba(255, 64, 96, 0.3);
+            }
+            .istqb-ctal-atlas-page .badge-perf,
+            .badge-perf {
+                background: rgba(0, 229, 255, 0.08);
+                color: var(--color-accent-cyan);
+                border: 1px solid rgba(0, 229, 255, 0.2);
+            }
+            .istqb-ctal-atlas-page .badge-a11y,
+            .badge-a11y {
+                background: rgba(0, 255, 128, 0.08);
+                color: var(--color-accent-green);
+                border: 1px solid rgba(0, 255, 128, 0.2);
+            }
+            .istqb-ctal-atlas-page .badge-istqb,
+            .badge-istqb {
+                background: rgba(255, 184, 0, 0.08);
+                color: var(--color-accent-orange);
+                border: 1px solid rgba(255, 184, 0, 0.2);
+            }
+
+            /* ============================================================
+   PYRAMID LAYER VARIANTS  (py-unit / py-int / py-func / py-e2e)
+   ============================================================ */
+            .istqb-ctal-atlas-page .py-unit,
+            .istqb-ctal-atlas-page .py-int,
+            .istqb-ctal-atlas-page .py-func,
+            .istqb-ctal-atlas-page .py-e2e,
+            .py-unit, .py-int, .py-func, .py-e2e {
+                border-radius: var(--radius-DEFAULT, 8px);
+            }
+            .istqb-ctal-atlas-page .py-unit,
+            .py-unit {
+                background: linear-gradient(135deg, rgba(0, 229, 255, 0.18), rgba(0, 229, 255, 0.08));
+                border: 1px solid rgba(0, 229, 255, 0.3);
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .py-int,
+            .py-int {
+                background: linear-gradient(135deg, rgba(0, 255, 128, 0.18), rgba(0, 255, 128, 0.08));
+                border: 1px solid rgba(0, 255, 128, 0.3);
+                color: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .py-func,
+            .py-func {
+                background: linear-gradient(135deg, rgba(255, 184, 0, 0.18), rgba(255, 184, 0, 0.08));
+                border: 1px solid rgba(255, 184, 0, 0.3);
+                color: var(--color-accent-orange);
+            }
+            .istqb-ctal-atlas-page .py-e2e,
+            .py-e2e {
+                background: linear-gradient(135deg, rgba(168, 85, 247, 0.18), rgba(168, 85, 247, 0.08));
+                border: 1px solid rgba(168, 85, 247, 0.3);
+                color: #c084fc;
+            }
+
+            /* ============================================================
+   TAB CONTROLS  (.tab-btn / .tab-panel)
+   ============================================================ */
+            .istqb-ctal-atlas-page .tab-btn,
+            .tab-btn {
+                border: 1px solid var(--color-border);
+                background: var(--color-bg-card);
+                font-family: var(--font-display);
+                font-size: 0.82rem;
+                font-weight: 600;
+                padding: 0.5rem 1rem;
+                border-radius: var(--radius-DEFAULT, 8px);
+                color: var(--color-text-secondary);
+                cursor: pointer;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                letter-spacing: 0.02em;
+            }
+            .istqb-ctal-atlas-page .tab-btn:hover,
+            .tab-btn:hover {
+                border-color: var(--color-accent-cyan);
+                background: rgba(0, 229, 255, 0.08);
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .tab-btn:focus-visible,
+            .tab-btn:focus-visible {
+                outline: 2px solid var(--color-accent-cyan);
+                outline-offset: 2px;
+            }
+            .istqb-ctal-atlas-page .tab-btn[aria-selected="true"],
+            .tab-btn[aria-selected="true"] {
+                border-color: var(--color-accent-cyan);
+                background: rgba(0, 229, 255, 0.12);
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .tab-panel,
+            .tab-panel {
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-DEFAULT, 8px);
+                padding: 1.25rem 1.5rem;
+                background: var(--color-bg-card);
+            }
+
+            .istqb-ctal-atlas-page .code-green {
+                color: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .code-cyan {
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .code-amber {
+                color: var(--color-accent-orange);
+            }
+            .istqb-ctal-atlas-page .code-comment {
+                color: #4b5a7a;
+                font-style: italic;
+            }
+            .istqb-ctal-atlas-page .code-keyword {
+                color: #c792ea;
+            }
+            .istqb-ctal-atlas-page .code-string {
+                color: #c3e88d;
+            }
+            .istqb-ctal-atlas-page .code-number {
+                color: #f78c6c;
+            }
+
+            /* ============================================================
+   STEP LIST
+   ============================================================ */
+            .istqb-ctal-atlas-page .step-list {
+                list-style: none;
+                padding: 0;
+                margin: 1.5rem 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .istqb-ctal-atlas-page .step-list li {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-DEFAULT, 8px);
+                padding: 1rem 1.25rem;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .step-list li:hover {
+                border-color: var(--color-accent-green);
+                box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
+            }
+            .istqb-ctal-atlas-page .step-num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 2rem;
+                height: 2rem;
+                min-width: 2rem;
+                border-radius: 50%;
+                background: var(--color-accent-green);
+                color: var(--color-bg-primary);
+                font-family: var(--font-mono);
+                font-size: 0.8rem;
+                font-weight: 700;
+            }
+            .istqb-ctal-atlas-page .step-content {
+                flex: 1;
+            }
+            .istqb-ctal-atlas-page .step-content strong {
+                display: block;
+                margin-bottom: 0.3rem;
+                color: var(--color-text-primary);
+            }
+            .istqb-ctal-atlas-page .step-content p {
+                margin: 0;
+                font-size: 0.92rem;
+                color: var(--color-text-secondary);
+            }
+
+            /* ============================================================
+   CALLOUT
+   ============================================================ */
+            .istqb-ctal-atlas-page .callout {
+                border-radius: var(--radius-DEFAULT, 8px);
+                padding: 1.1rem 1.4rem;
+                margin: 1.5rem 0;
+                display: flex;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            .istqb-ctal-atlas-page .callout-icon {
+                font-size: 1.25rem;
+                flex-shrink: 0;
+                margin-top: 0.1rem;
+            }
+            .istqb-ctal-atlas-page .callout-body {
+                flex: 1;
+            }
+            .istqb-ctal-atlas-page .callout-title {
+                font-family: var(--font-display);
+                font-size: 0.9rem;
+                font-weight: 700;
+                margin-bottom: 0.4rem;
+            }
+            .istqb-ctal-atlas-page .callout-body p {
+                margin: 0;
+                font-size: 0.92rem;
+            }
+            .istqb-ctal-atlas-page .callout-info,
+            .callout-info {
+                background: rgba(0, 229, 255, 0.08);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+            }
+            .istqb-ctal-atlas-page .callout-info .callout-title,
+            .callout-info .callout-title {
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctal-atlas-page .callout-warn,
+            .callout-warn {
+                background: rgba(255, 184, 0, 0.08);
+                border: 1px solid rgba(255, 184, 0, 0.3);
+            }
+            .istqb-ctal-atlas-page .callout-warn .callout-title,
+            .callout-warn .callout-title {
+                color: var(--color-accent-orange);
+            }
+            .istqb-ctal-atlas-page .callout-danger,
+            .callout-danger {
+                background: rgba(255, 64, 96, 0.08);
+                border: 1px solid rgba(255, 64, 96, 0.3);
+            }
+            .istqb-ctal-atlas-page .callout-danger .callout-title,
+            .callout-danger .callout-title {
+                color: var(--color-accent-red);
+            }
+            .istqb-ctal-atlas-page .callout-good,
+            .callout-good {
+                background: rgba(0, 255, 128, 0.08);
+                border: 1px solid rgba(0, 255, 128, 0.3);
+            }
+            .istqb-ctal-atlas-page .callout-good .callout-title,
+            .callout-good .callout-title {
+                color: var(--color-accent-green);
+            }
+
+            /* ============================================================
+   METRIC GRID
+   ============================================================ */
+            .istqb-ctal-atlas-page .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .istqb-ctal-atlas-page .metric-card {
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg, 14px);
+                padding: 1.25rem;
+                text-align: center;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .metric-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 0 24px rgba(0, 255, 136, 0.2);
+                border-color: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .metric-value {
+                font-family: var(--font-mono);
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--color-accent-green);
+                display: block;
+            }
+            .istqb-ctal-atlas-page .metric-label {
+                font-size: 0.8rem;
+                color: var(--color-text-secondary);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                display: block;
+                margin-top: 0.4rem;
+            }
+            .istqb-ctal-atlas-page .metric-sub {
+                font-size: 0.72rem;
+                color: var(--color-text-muted);
+                display: block;
+                margin-top: 0.3rem;
+            }
+
+            /* ============================================================
+   PROGRESS ITEMS
+   ============================================================ */
+            .istqb-ctal-atlas-page .progress-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+                margin: 1.5rem 0;
+            }
+            .istqb-ctal-atlas-page .progress-header {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 0.35rem;
+                font-size: 0.88rem;
+            }
+            .istqb-ctal-atlas-page .progress-label {
+                font-family: var(--font-display);
+                font-weight: 600;
+                color: var(--color-text-primary);
+            }
+            .istqb-ctal-atlas-page .progress-value {
+                font-family: var(--font-mono);
+                font-size: 0.82rem;
+                color: var(--color-text-secondary);
+            }
+            .istqb-ctal-atlas-page .progress-bar-bg {
+                height: 6px;
+                background: rgba(255, 255, 255, 0.08);
+                border-radius: 99px;
+                overflow: hidden;
+            }
+            .istqb-ctal-atlas-page .progress-bar-fill {
+                height: 100%;
+                border-radius: 99px;
+                background: var(--accent, var(--color-accent-cyan));
+                max-width: 0;
+                animation: grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+            @keyframes grow-bar {
+                to {
+                    max-width: 100%;
+                }
+            }
+
+            /* ============================================================
+   TABLE
+   ============================================================ */
+            .istqb-ctal-atlas-page .table-wrap {
+                overflow-x: auto;
+                margin: 1.5rem 0;
+                border-radius: var(--radius-DEFAULT, 8px);
+                border: 1px solid var(--color-border);
+            }
+            .istqb-ctal-atlas-page .table-wrap table {
+                width: 100%;
+                border-collapse: collapse;
+                min-width: 480px;
+            }
+            .istqb-ctal-atlas-page .table-wrap thead {
+                background: var(--color-bg-secondary);
+            }
+            .istqb-ctal-atlas-page .table-wrap th {
+                padding: 0.85rem 1rem;
+                font-family: var(--font-display);
+                font-size: 0.82rem;
+                font-weight: 700;
+                text-align: left;
+                color: var(--color-accent-cyan);
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                border-bottom: 1px solid var(--color-border);
+                white-space: nowrap;
+            }
+            .istqb-ctal-atlas-page .table-wrap td {
+                padding: 0.85rem 1rem;
+                font-size: 0.9rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+                vertical-align: top;
+            }
+            .istqb-ctal-atlas-page .table-wrap tr:last-child td {
+                border-bottom: none;
+            }
+            .istqb-ctal-atlas-page .table-wrap tbody tr {
+                transition: background 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .table-wrap tbody tr:hover {
+                background: var(--color-bg-secondary);
+            }
+
+            /* ============================================================
+   EXAM GRID
+   ============================================================ */
+            .istqb-ctal-atlas-page .exam-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .istqb-ctal-atlas-page .exam-card {
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg, 14px);
+                padding: 1.25rem;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .exam-card:hover {
+                border-color: var(--accent, var(--color-accent-cyan));
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.15);
+                transform: translateY(-3px);
+            }
+            .istqb-ctal-atlas-page .exam-card-chapter {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--color-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                margin-bottom: 0.5rem;
+            }
+            .istqb-ctal-atlas-page .exam-card-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+            .istqb-ctal-atlas-page .exam-card-pts {
+                font-family: var(--font-mono);
+                font-size: 1.5rem;
+                font-weight: 700;
+            }
+            .istqb-ctal-atlas-page .exam-stars {
+                color: var(--color-accent-orange);
+                font-size: 0.85rem;
+                margin-top: 0.5rem;
+                display: block;
+            }
+            .istqb-ctal-atlas-page .exam-klevel {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--color-text-muted);
+                margin-top: 0.3rem;
+                display: block;
+            }
+
+            /* ============================================================
+   REFERENCE GRID
+   ============================================================ */
+            .istqb-ctal-atlas-page .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .istqb-ctal-atlas-page .ref-card {
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-DEFAULT, 8px);
+                padding: 1rem 1.25rem;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+                display: flex;
+                gap: 0.75rem;
+                align-items: flex-start;
+            }
+            .istqb-ctal-atlas-page .ref-card:hover {
+                transform: translateX(4px);
+                border-left: 3px solid var(--color-accent-cyan);
+                padding-left: calc(1.25rem - 2px);
+            }
+            .istqb-ctal-atlas-page .ref-cat {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                background: rgba(0, 229, 255, 0.12);
+                color: var(--color-accent-cyan);
+                border-radius: 4px;
+                padding: 0.2rem 0.5rem;
+                white-space: nowrap;
+                align-self: flex-start;
+                margin-top: 0.1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .istqb-ctal-atlas-page .ref-body {
+                flex: 1;
+            }
+            .istqb-ctal-atlas-page .ref-title {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: var(--color-text-primary);
+                margin-bottom: 0.2rem;
+            }
+            .istqb-ctal-atlas-page .ref-url {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--color-text-muted);
+                word-break: break-all;
+            }
+
+            /* ============================================================
+   TREND CARD
+   ============================================================ */
+            .istqb-ctal-atlas-page .trend-card {
+                position: relative;
+                background: var(--color-bg-card);
+                border: 1px solid var(--color-border);
+                border-radius: var(--radius-lg, 14px);
+                padding: 1.5rem;
+                margin: 1rem 0;
+                overflow: hidden;
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .trend-card::before {
+                content: '';
+                position: absolute;
+                top: -40px;
+                right: -40px;
+                width: 120px;
+                height: 120px;
+                background: radial-gradient(circle, rgba(0, 255, 136, 0.15) 0%, transparent 70%);
+                transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+            .istqb-ctal-atlas-page .trend-card:hover {
+                border-color: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .trend-card:hover::before {
+                transform: scale(1.5);
+                opacity: 0.8;
+            }
+            .istqb-ctal-atlas-page .trend-label {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--color-accent-green);
+                text-transform: uppercase;
+                letter-spacing: 0.1em;
+                margin-bottom: 0.5rem;
+                display: block;
+            }
+
+            /* ============================================================
+   ALERT VARIANTS
+   ============================================================ */
+            .istqb-ctal-atlas-page .alert {
+                padding: 0.9rem 1.2rem;
+                border-radius: var(--radius-DEFAULT, 8px);
+                margin: 1rem 0;
+                font-size: 0.92rem;
+                border-left: 4px solid;
+            }
+            .istqb-ctal-atlas-page .alert.green {
+                border-color: var(--color-accent-green);
+                background: rgba(0, 255, 136, 0.07);
+                color: var(--color-text-primary);
+            }
+            .istqb-ctal-atlas-page .alert.amber {
+                border-color: var(--color-accent-orange);
+                background: rgba(255, 184, 0, 0.07);
+                color: var(--color-text-primary);
+            }
+            .istqb-ctal-atlas-page .alert.red {
+                border-color: var(--color-accent-red);
+                background: rgba(255, 64, 96, 0.07);
+                color: var(--color-text-primary);
+            }
+            .istqb-ctal-atlas-page .alert.cyan {
+                border-color: var(--color-accent-cyan);
+                background: rgba(0, 229, 255, 0.07);
+                color: var(--color-text-primary);
+            }
+
+            /* ============================================================
+   COMPARE GRID (GOOD/BAD)
+   ============================================================ */
+            .istqb-ctal-atlas-page .compare-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .istqb-ctal-atlas-page .compare-card {
+                border-radius: var(--radius-DEFAULT, 8px);
+                padding: 1.25rem;
+            }
+            .istqb-ctal-atlas-page .compare-card.good {
+                background: rgba(0, 255, 136, 0.07);
+                border: 1px solid rgba(0, 255, 136, 0.25);
+            }
+            .istqb-ctal-atlas-page .compare-card.bad {
+                background: rgba(255, 64, 96, 0.07);
+                border: 1px solid rgba(255, 64, 96, 0.25);
+            }
+            .istqb-ctal-atlas-page .compare-header {
+                font-family: var(--font-display);
+                font-size: 0.88rem;
+                font-weight: 700;
+                margin-bottom: 0.75rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .istqb-ctal-atlas-page .compare-card.good .compare-header {
+                color: var(--color-accent-green);
+            }
+            .istqb-ctal-atlas-page .compare-card.bad .compare-header {
+                color: var(--color-accent-red);
+            }
+            .istqb-ctal-atlas-page .compare-card ul {
+                margin: 0;
+                font-size: 0.88rem;
+                color: var(--color-text-secondary);
+            }
+
+            /* ============================================================
+   DIVIDER
+   ============================================================ */
+            .istqb-ctal-atlas-page .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--color-border), transparent);
+                margin: 2rem 0;
+            }
+
+            /* ============================================================
+   FOOTER
+   ============================================================ */
+            .istqb-ctal-atlas-page .footer {
+                border-top: 1px solid var(--color-border);
+                padding: 2.5rem 1.5rem;
+                text-align: center;
+                font-size: 0.85rem;
+                color: var(--color-text-muted);
+            }
+            .istqb-ctal-atlas-page .footer a {
+                color: var(--color-accent-cyan);
+            }
+
+            /* ============================================================
+   RESPONSIVE
+   ============================================================ */
+            @media (max-width: 900px) {
+                .istqb-ctal-atlas-page .compare-grid {
+                    grid-template-columns: 1fr;
+                }
+                .istqb-ctal-atlas-page .toc-grid {
+                    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                }
+                .istqb-ctal-atlas-page .metric-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .istqb-ctal-atlas-page .exam-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+            @media (max-width: 600px) {
+                .istqb-ctal-atlas-page .hero {
+                    padding: 3rem 1rem 2.5rem;
+                }
+                .istqb-ctal-atlas-page .hero-meta-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .istqb-ctal-atlas-page .metric-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .istqb-ctal-atlas-page .exam-grid {
+                    grid-template-columns: 1fr;
+                }
+                .istqb-ctal-atlas-page .ref-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* ============================================================
+   MISC UTILITIES
+   ============================================================ */
+            .istqb-ctal-atlas-page .tag {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                padding: 0.2rem 0.6rem;
+                border-radius: 4px;
+                font-weight: 700;
+                margin: 0.15rem;
+            }
+            .istqb-ctal-atlas-page .tag.green {
+                background: rgba(0, 255, 136, 0.15);
+                color: var(--color-accent-green);
+                border: 1px solid rgba(0, 255, 136, 0.3);
+            }
+            .istqb-ctal-atlas-page .tag.cyan {
+                background: rgba(0, 229, 255, 0.15);
+                color: var(--color-accent-cyan);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+            }
+            .istqb-ctal-atlas-page .tag.amber {
+                background: rgba(255, 184, 0, 0.15);
+                color: var(--color-accent-orange);
+                border: 1px solid rgba(255, 184, 0, 0.3);
+            }
+            .istqb-ctal-atlas-page .tag.red {
+                background: rgba(255, 64, 96, 0.15);
+                color: var(--color-accent-red);
+                border: 1px solid rgba(255, 64, 96, 0.3);
+            }
+            .istqb-ctal-atlas-page .tag.violet {
+                background: rgba(168, 85, 247, 0.15);
+                color: var(--color-accent-purple);
+                border: 1px solid rgba(168, 85, 247, 0.3);
+            }
+@media (prefers-reduced-motion: reduce) {
+    .istqb-ctal-atlas-page .hero-glow,
+    .istqb-ctal-atlas-page .hero-badge,
+    .istqb-ctal-atlas-page .hero h1,
+    .istqb-ctal-atlas-page .hero-sub,
+    .istqb-ctal-atlas-page .hero-meta-grid,
+    .istqb-ctal-atlas-page .hero-meta-card,
+    .istqb-ctal-atlas-page .progress-bar-fill {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+    .istqb-ctal-atlas-page .progress-bar-fill {
+        max-width: 100% !important;
+    }
+}
