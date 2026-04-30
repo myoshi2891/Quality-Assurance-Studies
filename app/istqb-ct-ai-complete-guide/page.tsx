@@ -774,49 +774,32 @@ export default function CT_AI_Guide() {
 
                 <h3>4.5 データラベリングとテスターのQA活動</h3>
                 <div className="code-block" data-lang="python">
-                    <span className="code-comment"
-                        ># テスターのデータラベリングQA活動 — 概念実装例</span
-                    >
-
-                    <span className="code-keyword">def</span>
-                    <span className="code-func">check_label_quality</span>(labeled_data:
-                    <span className="code-func">list</span>) -&gt; <span className="code-func">dict</span>:
-                    <span className="code-str"
-                        >""" ラベリング品質のQAチェック - 一致率（Inter-Annotator Agreement）確認 -
-                        ランダムサンプリングによる正確性検証 - ラベリングガイドラインの品質確認
-                        """</span
-                    >
-
-                    sample_size = <span className="code-func">int</span>(<span className="code-func"
-                        >len</span
-                    >(labeled_data) * <span className="code-num">0.05</span>)
-                    <span className="code-comment"># 5%をサンプリング</span>
-                    issues_found = []
-
-                    <span className="code-keyword">for</span> item
-                    <span className="code-keyword">in</span> labeled_data[:sample_size]:
-                    <span className="code-keyword">if</span> item[<span className="code-str"
-                        >"confidence"</span
-                    >] &lt; <span className="code-num">0.7</span>:
-                    <span className="code-comment"># 低信頼度ラベルを検出</span>
-                    issues_found.append({'{'}
-                    <span className="code-str">"id"</span>: item[<span className="code-str">"id"</span>],
-                    <span className="code-str">"issue"</span>:
-                    <span className="code-str">"低信頼度ラベル"</span>,
-                    <span className="code-str">"confidence"</span>: item[<span className="code-str"
-                        >"confidence"</span
-                    >] {'}'})
-<span className="code-keyword">return</span> {'{'}
-<span className="code-str">"total_checked"</span>: sample_size,
-<span className="code-str">"issues_found"</span>:
-<span className="code-func">len</span>(issues_found),
-<span className="code-str">"details"</span>: issues_found,
-<span className="code-str">"error_rate"</span>:
-                    <span className="code-func">len</span>(issues_found) / sample_size,
-                    <span className="code-str">"needs_relabeling"</span>:
-                    <span className="code-func">len</span>(issues_found) / sample_size &gt;
-                    <span className="code-num">0.05</span>
-                    {'}'}
+                    <div className="code-line"><span className="code-comment"># テスターのデータラベリングQA活動 — 概念実装例</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">check_label_quality</span>(labeled_data: <span className="code-func">list</span>) -&gt; <span className="code-func">dict</span>:</div>
+                    <div className="code-line">    <span className="code-str">"""</span></div>
+                    <div className="code-line">    <span className="code-str">ラベリング品質のQAチェック</span></div>
+                    <div className="code-line">    <span className="code-str">- 一致率（Inter-Annotator Agreement）確認</span></div>
+                    <div className="code-line">    <span className="code-str">- ランダムサンプリングによる正確性検証</span></div>
+                    <div className="code-line">    <span className="code-str">- ラベリングガイドラインの品質確認</span></div>
+                    <div className="code-line">    <span className="code-str">"""</span></div>
+                    <div className="code-line">    sample_size = <span className="code-func">int</span>(<span className="code-func">len</span>(labeled_data) * <span className="code-num">0.05</span>)  <span className="code-comment"># 5%をサンプリング</span></div>
+                    <div className="code-line">    issues_found = []</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="code-keyword">for</span> item <span className="code-keyword">in</span> labeled_data[:sample_size]:</div>
+                    <div className="code-line">        <span className="code-keyword">if</span> item[<span className="code-str">"confidence"</span>] &lt; <span className="code-num">0.7</span>:  <span className="code-comment"># 低信頼度ラベルを検出</span></div>
+                    <div className="code-line">            issues_found.append({'{'}</div>
+                    <div className="code-line">                <span className="code-str">"id"</span>: item[<span className="code-str">"id"</span>],</div>
+                    <div className="code-line">                <span className="code-str">"issue"</span>: <span className="code-str">"低信頼度ラベル"</span>,</div>
+                    <div className="code-line">                <span className="code-str">"confidence"</span>: item[<span className="code-str">"confidence"</span>]</div>
+                    <div className="code-line">            {'}'})</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="code-keyword">return</span> {'{'}</div>
+                    <div className="code-line">        <span className="code-str">"total_checked"</span>: sample_size,</div>
+                    <div className="code-line">        <span className="code-str">"issues_found"</span>: <span className="code-func">len</span>(issues_found),</div>
+                    <div className="code-line">        <span className="code-str">"issue_rate"</span>: <span className="code-func">len</span>(issues_found) / sample_size,</div>
+                    <div className="code-line">        <span className="code-str">"needs_relabeling"</span>: <span className="code-func">len</span>(issues_found) / sample_size &gt; <span className="code-num">0.05</span></div>
+                    <div className="code-line">    {'}'}</div>
                 </div>
             </section>
 
@@ -866,51 +849,33 @@ export default function CT_AI_Guide() {
 
                 <h3>5.2 主要メトリクスの計算式（必ず暗記）</h3>
                 <div className="code-block" data-lang="python">
-                    <span className="code-comment"
-                        ># 混同行列から主要メトリクスを計算する — 試験の計算問題</span
-                    >
-                    <span className="code-comment"># 医療診断AI例：TP=90, TN=820, FP=30, FN=10</span>
-
-                    TP, TN, FP, FN = <span className="code-num">90</span>,
-                    <span className="code-num">820</span>, <span className="code-num">30</span>,
-                    <span className="code-num">10</span>
-
-                    <span className="code-comment"># 1. 正解率（Accuracy）= (TP + TN) / 全体</span>
-                    accuracy = (TP + TN) / (TP + TN + FP + FN)
-                    <span className="code-comment"># → 94.7%</span>
-
-                    <span className="code-comment"># 2. 適合率（Precision）= TP / (TP + FP)</span>
-                    <span className="code-comment"># 「陽性と言った時にどれだけ正しかったか」</span>
-                    precision = TP / (TP + FP) <span className="code-comment"># → 75.0%</span>
-
-                    <span className="code-comment"
-                        ># 3. 再現率（Recall / Sensitivity）= TP / (TP + FN)</span
-                    >
-                    <span className="code-comment"># 「実際の陽性をどれだけ見つけられたか」</span>
-                    recall = TP / (TP + FN) <span className="code-comment"># → 90.0%</span>
-
-                    <span className="code-comment"
-                        ># 4. F1スコア = 2 × (Precision × Recall) / (Precision + Recall)</span
-                    >
-                    <span className="code-comment"># 適合率と再現率の調和平均</span>
-                    f1 = <span className="code-num">2</span> * (precision * recall) / (precision +
-                    recall) <span className="code-comment"># → 81.8%</span>
-
-                    <span className="code-comment"># 5. 特異度（Specificity）= TN / (TN + FP)</span>
-                    specificity = TN / (TN + FP) <span className="code-comment"># → 96.5%</span>
-
-                    <span className="code-func">print</span>(<span className="code-str"
-                        >f"正解率: {'{'}accuracy:.1%{'}'}"</span
-                    >) <span className="code-comment"># 94.7%</span>
-                    <span className="code-func">print</span>(<span className="code-str"
-                        >f"適合率: {'{'}precision:.1%{'}'}"</span
-                    >) <span className="code-comment"># 75.0%</span>
-                    <span className="code-func">print</span>(<span className="code-str"
-                        >f"再現率: {'{'}recall:.1%{'}'}"</span
-                    >) <span className="code-comment"># 90.0%</span>
-                    <span className="code-func">print</span>(<span className="code-str"
-                        >f"F1スコア: {'{'}f1:.1%{'}'}"</span
-                    >) <span className="code-comment"># 81.8%</span>
+                    <div className="code-line"><span className="code-comment"># 混同行列から主要メトリクスを計算する — 試験の計算問題</span></div>
+                    <div className="code-line"><span className="code-comment"># 医療診断AI例：TP=90, TN=820, FP=30, FN=10</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">TP, TN, FP, FN = <span className="code-num">90</span>, <span className="code-num">820</span>, <span className="code-num">30</span>, <span className="code-num">10</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 1. 正解率（Accuracy）= (TP + TN) / 全体</span></div>
+                    <div className="code-line">accuracy = (TP + TN) / (TP + TN + FP + FN)  <span className="code-comment"># → 94.7%</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 2. 適合率（Precision）= TP / (TP + FP)</span></div>
+                    <div className="code-line"><span className="code-comment"># 「陽性と言った時にどれだけ正しかったか」</span></div>
+                    <div className="code-line">precision = TP / (TP + FP)  <span className="code-comment"># → 75.0%</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 3. 再現率（Recall / Sensitivity）= TP / (TP + FN)</span></div>
+                    <div className="code-line"><span className="code-comment"># 「実際の陽性をどれだけ見つけられたか」</span></div>
+                    <div className="code-line">recall = TP / (TP + FN)  <span className="code-comment"># → 90.0%</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 4. F1スコア = 2 × (Precision × Recall) / (Precision + Recall)</span></div>
+                    <div className="code-line"><span className="code-comment"># 適合率と再現率の調和平均</span></div>
+                    <div className="code-line">f1 = <span className="code-num">2</span> * (precision * recall) / (precision + recall)  <span className="code-comment"># → 81.8%</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 5. 特異度（Specificity）= TN / (TN + FP)</span></div>
+                    <div className="code-line">specificity = TN / (TN + FP)  <span className="code-comment"># → 96.5%</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-func">print</span>(<span className="code-str">f"正解率: {'{'}accuracy:.1%{'}'}"</span>)   <span className="code-comment"># 94.7%</span></div>
+                    <div className="code-line"><span className="code-func">print</span>(<span className="code-str">f"適合率: {'{'}precision:.1%{'}'}"</span>)  <span className="code-comment"># 75.0%</span></div>
+                    <div className="code-line"><span className="code-func">print</span>(<span className="code-str">f"再現率: {'{'}recall:.1%{'}'}"</span>)   <span className="code-comment"># 90.0%</span></div>
+                    <div className="code-line"><span className="code-func">print</span>(<span className="code-str">f"F1スコア: {'{'}f1:.1%{'}'}"</span>)     <span className="code-comment"># 81.8%</span></div>
                 </div>
 
                 <h3>5.3 適合率 vs 再現率のトレードオフ（試験頻出）</h3>
@@ -1199,58 +1164,35 @@ export default function CT_AI_Guide() {
 
                 <h3>8.3 バイアス検出テストの実装例</h3>
                 <div className="code-block" data-lang="python">
-                    <span className="code-keyword">class</span>
-                    <span className="code-func">AIBiasTester</span>:
-                    <span className="code-str">"""AI モデルのバイアスを検出するテストクラス"""</span>
-
-                    <span className="code-keyword">def</span>
-                    <span className="code-func">test_demographic_parity</span>(<span
-                        className="code-keyword"
-                        >self</span
-                    >, model, test_data):
-                    <span className="code-str"
-                        >""" 人口統計的平等（Demographic Parity）のテスト： 80%ルール —
-                        グループ間の陽性予測率の差が20%以内か確認 """</span
-                    >
-                    positive_rate_by_group = {}
-
-                    <span className="code-keyword">for</span> sample
-                    <span className="code-keyword">in</span> test_data: group = sample[<span
-                        className="code-str"
-                        >"protected_attribute"</span
-                    >] <span className="code-comment"># 性別・年齢・人種等</span> pred =
-                    model.predict(sample[<span className="code-str">"features"</span>])
-
-                    <span className="code-keyword">if</span> group
-                    <span className="code-keyword">not in</span> positive_rate_by_group:
-                    positive_rate_by_group[group] = {'{'}<span className="code-str">"pos"</span>:
-                    <span className="code-num">0</span>, <span className="code-str">"total"</span>:
-                    <span className="code-num">0</span>{'}'} positive_rate_by_group[group][<span
-                        className="code-str"
-                        >"total"</span
-                    >] += <span className="code-num">1</span> <span className="code-keyword">if</span> pred
-                    == <span className="code-num">1</span>: positive_rate_by_group[group][<span
-                        className="code-str"
-                        >"pos"</span
-                    >] += <span className="code-num">1</span>
-
-                    rates = {'{'}{'g'}: d[<span className="code-str">"pos"</span>]/d[<span className="code-str"
-                        >"total"</span
-                    >] <span className="code-keyword">for</span> g, d
-                    <span className="code-keyword">in</span> positive_rate_by_group.items(){'}'}
-                    disparity_ratio = <span className="code-func">min</span>(rates.values()) /
-                    <span className="code-func">max</span>(rates.values())
-
-                    <span className="code-keyword">return</span> {'{'}
-                    <span className="code-str">"rates"</span>: rates,
-                    <span className="code-str">"disparity_ratio"</span>: disparity_ratio,
-                    <span className="code-str">"passes_80pct_rule"</span>: disparity_ratio &gt;=
-                    <span className="code-num">0.8</span>, <span className="code-str">"result"</span>:
-                    <span className="code-str">"✅ 公平"</span>
-                    <span className="code-keyword">if</span> disparity_ratio &gt;=
-                    <span className="code-num">0.8</span> <span className="code-keyword">else</span>
-                    <span className="code-str">"❌ バイアス検出"</span>
-                    {'}'}
+                    <div className="code-line"><span className="code-keyword">class</span> <span className="code-func">AIBiasTester</span>:</div>
+                    <div className="code-line">    <span className="code-str">"""AI モデルのバイアスを検出するテストクラス"""</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">test_demographic_parity</span>(<span className="code-keyword">self</span>, model, test_data):</div>
+                    <div className="code-line">        <span className="code-str">"""</span></div>
+                    <div className="code-line">        <span className="code-str">人口統計的平等（Demographic Parity）のテスト：</span></div>
+                    <div className="code-line">        <span className="code-str">80%ルール — グループ間の陽性予測率の差が20%以内か確認</span></div>
+                    <div className="code-line">        <span className="code-str">"""</span></div>
+                    <div className="code-line">        positive_rate_by_group = {'{}'}</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        <span className="code-keyword">for</span> sample <span className="code-keyword">in</span> test_data:</div>
+                    <div className="code-line">            group = sample[<span className="code-str">"protected_attribute"</span>]  <span className="code-comment"># 性別・年齢・人種等</span></div>
+                    <div className="code-line">            pred = model.predict(sample[<span className="code-str">"features"</span>])</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">            <span className="code-keyword">if</span> group <span className="code-keyword">not in</span> positive_rate_by_group:</div>
+                    <div className="code-line">                positive_rate_by_group[group] = {'{'}<span className="code-str">"pos"</span>: <span className="code-num">0</span>, <span className="code-str">"total"</span>: <span className="code-num">0</span>{'}'}</div>
+                    <div className="code-line">            positive_rate_by_group[group][<span className="code-str">"total"</span>] += <span className="code-num">1</span></div>
+                    <div className="code-line">            <span className="code-keyword">if</span> pred == <span className="code-num">1</span>:</div>
+                    <div className="code-line">                positive_rate_by_group[group][<span className="code-str">"pos"</span>] += <span className="code-num">1</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        rates = {'{'}{'{'}g{'}'}: d[<span className="code-str">"pos"</span>]/d[<span className="code-str">"total"</span>] <span className="code-keyword">for</span> g, d <span className="code-keyword">in</span> positive_rate_by_group.items(){'}'}</div>
+                    <div className="code-line">        disparity_ratio = <span className="code-func">min</span>(rates.values()) / <span className="code-func">max</span>(rates.values())</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        <span className="code-keyword">return</span> {'{'}</div>
+                    <div className="code-line">            <span className="code-str">"rates"</span>: rates,</div>
+                    <div className="code-line">            <span className="code-str">"disparity_ratio"</span>: disparity_ratio,</div>
+                    <div className="code-line">            <span className="code-str">"passes_80pct_rule"</span>: disparity_ratio &gt;= <span className="code-num">0.8</span>,</div>
+                    <div className="code-line">            <span className="code-str">"result"</span>: <span className="code-str">"✅ 公平"</span> <span className="code-keyword">if</span> disparity_ratio &gt;= <span className="code-num">0.8</span> <span className="code-keyword">else</span> <span className="code-str">"❌ バイアス検出"</span></div>
+                    <div className="code-line">        {'}'}</div>
                 </div>
 
                 <h3>8.7 テストオラクルの4種類</h3>
@@ -1351,65 +1293,50 @@ export default function CT_AI_Guide() {
                 </div>
 
                 <div className="code-block" data-lang="python">
-                    <span className="code-comment"># メタモルフィックテストの実装例</span>
-
-                    <span className="code-keyword">import</span> numpy
-                    <span className="code-keyword">as</span> np
-
-                    <span className="code-keyword">def</span>
-                    <span className="code-func">mt_image_classifier</span>(model, base_image) -&gt;
-                    <span className="code-func">dict</span>:
-                    <span className="code-str"
-                        >""" 画像分類モデルのメタモルフィックテスト MR1:
-                        水平反転しても同じクラスに分類されるはず MR2:
-                        明度±10%変化しても同じクラスに分類されるはず """</span
-                    >
-                    original = model.predict(base_image) results = {}
-
-                    <span className="code-comment"># MR1: 水平反転（猫は反転しても猫のまま）</span>
-                    flipped = np.fliplr(base_image) results[<span className="code-str">"MR1_flip"</span
-                    >] = {'{'} <span className="code-str">"passes"</span>: original ==
-                    model.predict(flipped), <span className="code-str">"original"</span>: original,
-                    <span className="code-str">"flipped"</span>: model.predict(flipped) {'}'}
-
-                    <span className="code-comment"># MR2: 明度変更（10%増加）</span>
-                    brightened = np.clip(base_image * <span className="code-num">1.1</span>,
-                    <span className="code-num">0</span>,
-                    <span className="code-num">255</span>).astype(np.uint8) results[<span
-                        className="code-str"
-                        >"MR2_bright"</span
-                    >] = {'{'} <span className="code-str">"passes"</span>: original ==
-                    model.predict(brightened), <span className="code-str">"original"</span>: original,
-                    <span className="code-str">"brightened"</span>: model.predict(brightened) {'}'}
-
-                    <span className="code-keyword">return</span> results
-
-                    <span className="code-comment"
-                        ># 感情分析モデルのメタモルフィックテスト（バイアス検出）</span
-                    >
-                    <span className="code-keyword">def</span>
-                    <span className="code-func">mt_sentiment_bias</span>(model, text:
-                    <span className="code-func">str</span>) -&gt; <span className="code-func">dict</span>:
-                    <span className="code-str"
-                        >"""MR: 性別代名詞を変更してもセンチメントは変わらないはず"""</span
-                    >
-                    original_score = model.get_score(text) neutral_text = text.replace(<span
-                        className="code-str"
-                        >"彼は"</span
-                    >, <span className="code-str">"彼女は"</span>) neutral_score =
-                    model.get_score(neutral_text) diff = abs(original_score - neutral_score)
-
-                    <span className="code-keyword">return</span> {'{'}
-                    <span className="code-str">"passes"</span>: diff &lt;
-                    <span className="code-num">0.05</span>,
-                    <span className="code-comment"># 5%以上の変化はバイアスの可能性</span>
-                    <span className="code-str">"diff"</span>: diff,
-                    <span className="code-str">"result"</span>:
-                    <span className="code-str">"✅ バイアスなし"</span>
-                    <span className="code-keyword">if</span> diff &lt;
-                    <span className="code-num">0.05</span> <span className="code-keyword">else</span>
-                    <span className="code-str">"❌ バイアスの可能性"</span>
-                    {'}'}
+                    <div className="code-line"><span className="code-comment"># メタモルフィックテストの実装例</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-keyword">import</span> numpy <span className="code-keyword">as</span> np</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">mt_image_classifier</span>(model, base_image) -&gt; <span className="code-func">dict</span>:</div>
+                    <div className="code-line">    <span className="code-str">"""</span></div>
+                    <div className="code-line">    <span className="code-str">画像分類モデルのメタモルフィックテスト</span></div>
+                    <div className="code-line">    <span className="code-str">MR1: 水平反転しても同じクラスに分類されるはず</span></div>
+                    <div className="code-line">    <span className="code-str">MR2: 明度±10%変化しても同じクラスに分類されるはず</span></div>
+                    <div className="code-line">    <span className="code-str">"""</span></div>
+                    <div className="code-line">    original = model.predict(base_image)</div>
+                    <div className="code-line">    results = {'{}'}</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="code-comment"># MR1: 水平反転（猫は反転しても猫のまま）</span></div>
+                    <div className="code-line">    flipped = np.fliplr(base_image)</div>
+                    <div className="code-line">    results[<span className="code-str">"MR1_flip"</span>] = {'{'}</div>
+                    <div className="code-line">        <span className="code-str">"passes"</span>: original == model.predict(flipped),</div>
+                    <div className="code-line">        <span className="code-str">"original"</span>: original,</div>
+                    <div className="code-line">        <span className="code-str">"flipped"</span>: model.predict(flipped)</div>
+                    <div className="code-line">    {'}'}</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="code-comment"># MR2: 明度変更（10%増加）</span></div>
+                    <div className="code-line">    brightened = np.clip(base_image * <span className="code-num">1.1</span>, <span className="code-num">0</span>, <span className="code-num">255</span>).astype(np.uint8)</div>
+                    <div className="code-line">    results[<span className="code-str">"MR2_bright"</span>] = {'{'}</div>
+                    <div className="code-line">        <span className="code-str">"passes"</span>: original == model.predict(brightened),</div>
+                    <div className="code-line">        <span className="code-str">"original"</span>: original,</div>
+                    <div className="code-line">        <span className="code-str">"brightened"</span>: model.predict(brightened)</div>
+                    <div className="code-line">    {'}'}</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="code-keyword">return</span> results</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 感情分析モデルのメタモルフィックテスト（バイアス検出）</span></div>
+                    <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">mt_sentiment_bias</span>(model, text: <span className="code-func">str</span>) -&gt; <span className="code-func">dict</span>:</div>
+                    <div className="code-line">    <span className="code-str">"""MR: 性別代名詞を変更してもセンチメントは変わらないはず"""</span></div>
+                    <div className="code-line">    original_score = model.get_score(text)</div>
+                    <div className="code-line">    neutral_text = text.replace(<span className="code-str">"彼は"</span>, <span className="code-str">"彼女は"</span>)</div>
+                    <div className="code-line">    neutral_score = model.get_score(neutral_text)</div>
+                    <div className="code-line">    diff = abs(original_score - neutral_score)</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="code-keyword">return</span> {'{'}</div>
+                    <div className="code-line">        <span className="code-str">"passes"</span>: diff &lt; <span className="code-num">0.05</span>,  <span className="code-comment"># 5%以上の変化はバイアスの可能性</span></div>
+                    <div className="code-line">        <span className="code-str">"diff"</span>: diff,</div>
+                    <div className="code-line">        <span className="code-str">"result"</span>: <span className="code-str">"✅ バイアスなし"</span> <span className="code-keyword">if</span> diff &lt; <span className="code-num">0.05</span> <span className="code-keyword">else</span> <span className="code-str">"❌ バイアスの可能性"</span></div>
+                    <div className="code-line">    {'}'}</div>
                 </div>
 
                 <h3>9.1 敵対的攻撃とデータポイズニング</h3>
@@ -1612,45 +1539,31 @@ export default function CT_AI_Guide() {
 
                 <h3>11.5 欠陥予測モデルの特徴量（重要）</h3>
                 <div className="code-block" data-lang="python">
-                    <span className="code-comment"
-                        ># 欠陥予測モデル — コードメトリクスから欠陥リスクを予測</span
-                    >
-                    <span className="code-keyword">from</span> dataclasses
-                    <span className="code-keyword">import</span> dataclass
-
-                    <span className="code-keyword">@</span><span className="code-func">dataclass</span>
-                    <span className="code-keyword">class</span>
-                    <span className="code-func">CodeMetrics</span>:
-                    <span className="code-str">"""欠陥予測の特徴量（K2レベルで記憶すること）"""</span>
-                    file_name: <span className="code-func">str</span> cyclomatic_complexity:
-                    <span className="code-func">int</span>
-                    <span className="code-comment"># 循環的複雑度（高いほど危険）</span> lines_of_code:
-                    <span className="code-func">int</span>
-                    <span className="code-comment"># コード行数</span> number_of_developers:
-                    <span className="code-func">int</span>
-                    <span className="code-comment"># 変更した開発者数（多いほど危険）</span>
-                    recent_changes: <span className="code-func">int</span>
-                    <span className="code-comment"># 直近30日の変更回数（不安定の指標）</span>
-                    historical_defects: <span className="code-func">int</span>
-                    <span className="code-comment"># 過去の欠陥数（要注意ファイル）</span> code_churn:
-                    <span className="code-func">float</span>
-                    <span className="code-comment"># コードの変更率</span>
-
-                    <span className="code-comment"># 特徴量の重要度（Random Forest等で算出）</span>
-                    feature_importance = {'{'}
-                    <span className="code-str">"循環的複雑度"</span>:
-                    <span className="code-num">0.28</span>, <span className="code-comment"># 最重要</span>
-                    <span className="code-str">"コード変更率"</span>:
-                    <span className="code-num">0.25</span>, <span className="code-str">"開発者数"</span>:
-                    <span className="code-num">0.20</span>,
-                    <span className="code-str">"直近変更回数"</span>:
-                    <span className="code-num">0.15</span>,
-                    <span className="code-str">"過去の欠陥数"</span>:
-                    <span className="code-num">0.12</span>, {'}'}
-
-                    <span className="code-comment"
-                        ># 活用：上位20%の高リスクファイルを優先テスト・レビュー</span
-                    >
+                    <div className="code-line"><span className="code-comment"># 欠陥予測モデル — コードメトリクスから欠陥リスクを予測</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-keyword">from</span> dataclasses <span className="code-keyword">import</span> dataclass</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-keyword">@</span><span className="code-func">dataclass</span></div>
+                    <div className="code-line"><span className="code-keyword">class</span> <span className="code-func">CodeMetrics</span>:</div>
+                    <div className="code-line">    <span className="code-str">"""欠陥予測の特徴量（K2レベルで記憶すること）"""</span></div>
+                    <div className="code-line">    file_name: <span className="code-func">str</span></div>
+                    <div className="code-line">    cyclomatic_complexity: <span className="code-func">int</span>   <span className="code-comment"># 循環的複雑度（高いほど危険）</span></div>
+                    <div className="code-line">    lines_of_code: <span className="code-func">int</span>              <span className="code-comment"># コード行数</span></div>
+                    <div className="code-line">    number_of_developers: <span className="code-func">int</span>       <span className="code-comment"># 変更した開発者数（多いほど危険）</span></div>
+                    <div className="code-line">    recent_changes: <span className="code-func">int</span>             <span className="code-comment"># 直近30日の変更回数（不安定の指標）</span></div>
+                    <div className="code-line">    historical_defects: <span className="code-func">int</span>         <span className="code-comment"># 過去の欠陥数（要注意ファイル）</span></div>
+                    <div className="code-line">    code_churn: <span className="code-func">float</span>                <span className="code-comment"># コードの変更率</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 特徴量の重要度（Random Forest等で算出）</span></div>
+                    <div className="code-line">feature_importance = {'{'}</div>
+                    <div className="code-line">    <span className="code-str">"循環的複雑度"</span>: <span className="code-num">0.28</span>,  <span className="code-comment"># 最重要</span></div>
+                    <div className="code-line">    <span className="code-str">"コード変更率"</span>: <span className="code-num">0.25</span>,</div>
+                    <div className="code-line">    <span className="code-str">"開発者数"</span>:     <span className="code-num">0.20</span>,</div>
+                    <div className="code-line">    <span className="code-str">"直近変更回数"</span>: <span className="code-num">0.15</span>,</div>
+                    <div className="code-line">    <span className="code-str">"過去の欠陥数"</span>: <span className="code-num">0.12</span>,</div>
+                    <div className="code-line">{'}'}</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 活用：上位20%の高リスクファイルを優先テスト・レビュー</span></div>
                 </div>
 
                 <h3>11.6 AIによるUIテストの2アプローチ</h3>
