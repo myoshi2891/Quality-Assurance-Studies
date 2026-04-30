@@ -22,7 +22,7 @@
                 --text-secondary: var(--color-text-secondary);
                 --text-muted: var(--color-text-muted);
                 --radius: var(--radius-DEFAULT, 8px);
-                --radius-lg: var(--radius-lg, 16px);
+                --radius-lg: var(--radius-DEFAULT, 16px);
                 --transition: all 0.25s ease;
             }
 
