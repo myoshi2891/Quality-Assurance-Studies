@@ -280,6 +280,7 @@
                 gap: 0.75rem;
                 margin: 1.5rem 0;
             }
+            .toc-item,
             .istqb-ct-ai-page .toc-item {
                 background: var(--bg-card);
                 border: 1px solid var(--bg-border);
@@ -294,11 +295,13 @@
                 align-items: center;
                 gap: 0.5rem;
             }
+            .toc-item:hover,
             .istqb-ct-ai-page .toc-item:hover {
                 border-left-color: var(--neon-green);
                 color: var(--text-primary);
                 transform: translateX(3px);
             }
+            .toc-num,
             .istqb-ct-ai-page .toc-num {
                 font-family: var(--font-mono);
                 font-size: 0.72rem;
@@ -359,6 +362,8 @@
                 margin: 2rem auto;
                 max-width: 480px;
             }
+            .pyramid-level,
+            .pyramid-layer,
             .istqb-ct-ai-page .pyramid-level {
                 display: flex;
                 flex-direction: column;
@@ -367,10 +372,13 @@
                 transition: var(--transition);
                 cursor: default;
             }
+            .pyramid-level:hover .pyramid-bar,
+            .pyramid-layer:hover .pyramid-bar,
             .istqb-ct-ai-page .pyramid-level:hover .pyramid-bar {
                 filter: brightness(1.3);
                 transform: scaleY(1.06);
             }
+            .pyramid-bar,
             .istqb-ct-ai-page .pyramid-bar {
                 border-radius: 4px;
                 height: 52px;
@@ -385,6 +393,7 @@
                 text-align: center;
                 padding: 0 1rem;
             }
+            .pyramid-label,
             .istqb-ct-ai-page .pyramid-label {
                 font-size: 0.78rem;
                 color: var(--text-muted);
@@ -406,6 +415,7 @@
                 position: relative;
                 white-space: pre;
             }
+            .code-block::before,
             .istqb-ct-ai-page .code-block::before {
                 content: attr(data-lang);
                 position: absolute;
@@ -416,24 +426,31 @@
                 text-transform: uppercase;
                 letter-spacing: 0.1em;
             }
+            .code-green,
             .istqb-ct-ai-page .code-green {
                 color: #00ff88;
             }
+            .code-cyan,
             .istqb-ct-ai-page .code-cyan {
                 color: #00e5ff;
             }
+            .code-keyword,
             .istqb-ct-ai-page .code-keyword {
                 color: #a855f7;
             }
+            .code-str,
             .istqb-ct-ai-page .code-str {
                 color: #f59e0b;
             }
+            .code-comment,
             .istqb-ct-ai-page .code-comment {
                 color: #4b5563;
             }
+            .code-num,
             .istqb-ct-ai-page .code-num {
                 color: #f87171;
             }
+            .code-func,
             .istqb-ct-ai-page .code-func {
                 color: #60a5fa;
             }
@@ -444,6 +461,7 @@
                 list-style: none;
                 margin: 1rem 0;
             }
+            .step-list li,
             .istqb-ct-ai-page .step-list li {
                 display: flex;
                 align-items: flex-start;
@@ -452,6 +470,7 @@
                 color: var(--text-secondary);
                 font-size: 0.95rem;
             }
+            .step-num,
             .istqb-ct-ai-page .step-num {
                 min-width: 28px;
                 height: 28px;
@@ -469,6 +488,7 @@
             }
 
             /* ===== Callout ===== */
+            .callout,
             .istqb-ct-ai-page .callout {
                 border-radius: var(--radius);
                 padding: 1rem 1.25rem;
@@ -476,11 +496,14 @@
                 border-left: 4px solid;
                 font-size: 0.93rem;
             }
+            .callout-info,
             .istqb-ct-ai-page .callout.info {
                 background: rgba(0, 229, 255, 0.06);
                 border-left-color: var(--neon-cyan);
                 color: #a0d8ef;
             }
+            .callout-warn,
+            .callout-warning,
             .istqb-ct-ai-page .callout.warning {
                 background: rgba(245, 158, 11, 0.06);
                 border-left-color: var(--neon-amber);
@@ -492,6 +515,7 @@
                 border-left-color: var(--neon-red);
                 color: #fca5a5;
             }
+            .callout-title,
             .istqb-ct-ai-page .callout-title {
                 font-weight: 700;
                 margin-bottom: 0.3rem;
