@@ -68,6 +68,10 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctal-tae-complete-guide/page.tsx` (テスト自動化 CTAL-TAE 完全ガイド)
 - `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ctal-att-complete-guide/page.tsx` (アジャイルテスト担当者 CTAL-ATT 完全ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ctal-atlas-complete-guide/page.tsx` (アジャイルテストリーダーシップ CT-ATLaS 完全ガイド、`NavBar.tsx` 付き)
+- *Tracking HTML*: `istqb-ct-ai-complete-guide.html` (AIテスト CT-AI 完全ガイド)
+- *Tracking HTML*: `istqb-ct-genai-complete-guide.html` (GenAIテスト CT-GenAI 完全ガイド)
 
 ## HTML → Next.js 移行 注意事項
 
@@ -102,3 +106,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - ページ固有のCSSを作成する際、`.istqb-ctal-tm-page` のようなページ固有クラスを親に指定しますが、子要素のモディファイアなどで再度同じクラスを重複させないように注意してください。
 - ❌ NG: `.page-class .alert.page-class .green`
 - ✅ OK: `.page-class .alert.green`
+
+### アクセシビリティとZ-indexの罠
+
+- **Z-index オーバーレイ**: `::before` や `::after` で画面全体にスキャンラインなどのテクスチャを配置する際、クリックを妨害しないように必ず `pointer-events: none` と背面の `z-index: 0`（または `-1`）を指定してください。
+- **`prefers-reduced-motion` の罠**: 進捗バーなど `max-width: 0` から `100%` へアニメーションで伸ばす要素は、「視覚効果を減らす」環境下で `animation: none` となると幅 0 のまま消えてしまいます。必ず `@media (prefers-reduced-motion: reduce)` ブロック内で `max-width: 100% !important;` などを設定し、最終的な視認性を確保してください。
