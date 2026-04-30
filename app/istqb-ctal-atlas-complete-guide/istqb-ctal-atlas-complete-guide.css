@@ -21,7 +21,7 @@
                 padding: 0;
             }
 
-            /* Scanline overlay */
+            /* Scanline overlay – sits behind Header (z-50) and sticky Nav (z-40) */
             .istqb-ctal-atlas-page::before {
                 content: '';
                 position: fixed;
@@ -34,10 +34,10 @@
                     rgba(0, 229, 255, 0.015) 4px
                 );
                 pointer-events: none;
-                z-index: 9999;
+                z-index: 0;
             }
 
-            /* Grid texture */
+            /* Grid texture – sits behind Header (z-50) and sticky Nav (z-40) */
             .istqb-ctal-atlas-page::after {
                 content: '';
                 position: fixed;
@@ -47,7 +47,7 @@
                     linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
                 background-size: 48px 48px;
                 pointer-events: none;
-                z-index: 9998;
+                z-index: 0;
             }
 
             /* ============================================================
@@ -501,7 +501,10 @@
                 gap: 0.4rem;
                 margin: 1.5rem 0;
             }
-            .istqb-ctal-atlas-page .pyramid-tier, .istqb-ctal-atlas-page .pyramid-layer {
+.istqb-ctal-atlas-page .pyramid-tier,
+            .istqb-ctal-atlas-page .pyramid-layer,
+            .pyramid-tier,
+            .pyramid-layer {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -514,7 +517,10 @@
                 cursor: default;
                 text-align: center;
             }
-            .istqb-ctal-atlas-page .pyramid-tier:hover, .istqb-ctal-atlas-page .pyramid-layer:hover {
+            .istqb-ctal-atlas-page .pyramid-tier:hover,
+            .istqb-ctal-atlas-page .pyramid-layer:hover,
+            .pyramid-tier:hover,
+            .pyramid-layer:hover {
                 transform: scale(1.03);
                 filter: brightness(1.2);
             }
@@ -522,7 +528,8 @@
             /* ============================================================
    CODE BLOCK
    ============================================================ */
-            .istqb-ctal-atlas-page .code-block {
+            .istqb-ctal-atlas-page .code-block,
+            .code-block {
                 background: #060e1f;
                 border: 1px solid var(--color-border);
                 border-left: 3px solid var(--color-accent-green);
@@ -532,7 +539,8 @@
                 overflow-x: auto;
                 position: relative;
             }
-            .istqb-ctal-atlas-page .code-block::before {
+            .istqb-ctal-atlas-page .code-block::before,
+            .code-block::before {
                 content: attr(data-lang);
                 position: absolute;
                 top: 0.5rem;
@@ -543,14 +551,16 @@
                 text-transform: uppercase;
                 letter-spacing: 0.08em;
             }
-            .istqb-ctal-atlas-page .code-block pre {
+            .istqb-ctal-atlas-page .code-block pre,
+            .code-block pre {
                 font-family: var(--font-mono);
                 font-size: 0.85rem;
                 line-height: 1.6;
                 margin: 0;
                 color: var(--color-text-primary);
             }
-            .istqb-ctal-atlas-page .code-line {
+            .istqb-ctal-atlas-page .code-line,
+            .code-line {
                 white-space: pre;
                 font-family: inherit;
                 line-height: inherit;
@@ -660,32 +670,40 @@
                 margin: 0;
                 font-size: 0.92rem;
             }
-            .istqb-ctal-atlas-page .callout-info {
+            .istqb-ctal-atlas-page .callout-info,
+            .callout-info {
                 background: rgba(0, 229, 255, 0.08);
                 border: 1px solid rgba(0, 229, 255, 0.3);
             }
-            .istqb-ctal-atlas-page .callout-info .callout-title {
+            .istqb-ctal-atlas-page .callout-info .callout-title,
+            .callout-info .callout-title {
                 color: var(--color-accent-cyan);
             }
-            .istqb-ctal-atlas-page .callout-warn {
+            .istqb-ctal-atlas-page .callout-warn,
+            .callout-warn {
                 background: rgba(255, 184, 0, 0.08);
                 border: 1px solid rgba(255, 184, 0, 0.3);
             }
-            .istqb-ctal-atlas-page .callout-warn .callout-title {
+            .istqb-ctal-atlas-page .callout-warn .callout-title,
+            .callout-warn .callout-title {
                 color: var(--color-accent-orange);
             }
-            .istqb-ctal-atlas-page .callout-danger {
+            .istqb-ctal-atlas-page .callout-danger,
+            .callout-danger {
                 background: rgba(255, 64, 96, 0.08);
                 border: 1px solid rgba(255, 64, 96, 0.3);
             }
-            .istqb-ctal-atlas-page .callout-danger .callout-title {
+            .istqb-ctal-atlas-page .callout-danger .callout-title,
+            .callout-danger .callout-title {
                 color: var(--color-accent-red);
             }
-            .istqb-ctal-atlas-page .callout-good {
+            .istqb-ctal-atlas-page .callout-good,
+            .callout-good {
                 background: rgba(0, 255, 128, 0.08);
                 border: 1px solid rgba(0, 255, 128, 0.3);
             }
-            .istqb-ctal-atlas-page .callout-good .callout-title {
+            .istqb-ctal-atlas-page .callout-good .callout-title,
+            .callout-good .callout-title {
                 color: var(--color-accent-green);
             }
 
