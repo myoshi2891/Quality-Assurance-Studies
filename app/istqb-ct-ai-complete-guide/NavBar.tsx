@@ -14,7 +14,7 @@ export default function NavBar() {
                     }
                 });
             },
-            { rootMargin: '-80px 0px -80% 0px' }
+            { rootMargin: '-60px 0px -60% 0px' }
         );
 
         const sections = document.querySelectorAll('section[id]');
@@ -27,7 +27,7 @@ export default function NavBar() {
         e.preventDefault();
         const element = document.getElementById(id);
         if (element) {
-            const headerOffset = 80;
+            const headerOffset = 60;
             const elementPosition = element.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.scrollY - headerOffset;
 
@@ -35,6 +35,7 @@ export default function NavBar() {
                 top: offsetPosition,
                 behavior: 'smooth',
             });
+            window.history.pushState(null, '', `#${id}`);
         }
     };
 
