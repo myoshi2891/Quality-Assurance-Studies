@@ -812,7 +812,7 @@
             .istqb-ct-ai-page .compare-bad .compare-header {
                 color: var(--neon-red);
             }
-            .compare-good p,
+            .istqb-ct-ai-page .compare-good p,
             .istqb-ct-ai-page .compare-bad p {
                 font-size: 0.88rem;
                 color: var(--text-secondary);
