@@ -1,4 +1,5 @@
 import NavBar from './NavBar';
+import './istqb-ct-genai-complete-guide.css';
 
 export const metadata = {
     title: 'ISTQB® CT-GenAI – Testing with Generative AI 完全ガイド 2025',
@@ -7,7 +8,7 @@ export const metadata = {
 
 export default function GenAICompleteGuidePage() {
     return (
-        <div className="page-wrapper">
+        <div className="istqb-ct-genai-page page-wrapper">
             <NavBar />
             <section className="hero" id="top">
                 <div className="hero-glow"></div>
