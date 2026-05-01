@@ -8,11 +8,14 @@ export default function NavBar() {
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        setActiveId(entry.target.id);
-                    }
-                });
+                const visibleEntries = entries.filter((entry) => entry.isIntersecting);
+                if (visibleEntries.length > 0) {
+                    // 交差しているエントリーの中で最も交差率が高いものを選択し、チラつきを防ぐ
+                    const bestEntry = visibleEntries.reduce((prev, curr) =>
+                        curr.intersectionRatio > prev.intersectionRatio ? curr : prev
+                    );
+                    setActiveId(bestEntry.target.id);
+                }
             },
             { rootMargin: '-60px 0px -80% 0px' }
         );
@@ -24,7 +27,7 @@ export default function NavBar() {
     }, []);
 
     return (
-        <nav className="sticky-nav" style={{ position: 'sticky', top: '60px', zIndex: 40 }}>
+        <nav className="sticky-nav sticky top-[60px] z-40">
             <div className="nav-inner">
                 <span className="nav-logo">CT-GenAI v1.0</span>
                 <a className={`nav-link ${activeId === 'toc' ? 'active' : ''}`} href="#toc">📋 目次</a>
