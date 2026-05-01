@@ -1,6 +1,12 @@
-import fs from 'fs';
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-let css = fs.readFileSync('app/istqb-ct-genai-complete-guide/istqb-ct-genai-complete-guide.css', 'utf-8');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const cssPath = path.resolve(__dirname, '../app/istqb-ct-genai-complete-guide/istqb-ct-genai-complete-guide.css');
+
+let css = fs.readFileSync(cssPath, 'utf-8');
 
 // 1. Remove :root {} entirely
 css = css.replace(/:root\s*\{[^}]+\}/, '');
@@ -59,4 +65,4 @@ css = css.replace(/animation: fadeInUp/g, 'animation: fade-in-up');
 css = css.replace(/@keyframes growBar/g, '@keyframes grow-bar');
 css = css.replace(/animation: growBar/g, 'animation: grow-bar');
 
-fs.writeFileSync('app/istqb-ct-genai-complete-guide/istqb-ct-genai-complete-guide.css', css, 'utf-8');
+fs.writeFileSync(cssPath, css, 'utf-8');
