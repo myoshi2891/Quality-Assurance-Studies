@@ -503,7 +503,10 @@
                 overflow-x: auto;
                 margin: 1.2rem 0;
                 position: relative;
-                white-space: pre-wrap;
+                white-space: normal;
+            }
+            .code-line {
+                white-space: pre;
             }
             .code-block::before {
                 content: attr(data-lang);
@@ -1927,20 +1930,13 @@
                     </table>
                 </div>
                 <div class="code-block" data-lang="TEST CASES">
-                    <span class="code-comment">// 画面向き変更テスト</span>
-                    <span class="code-keyword">test</span>(<span class="code-string"
-                        >"縦横切り替え時に状態が保持される"</span
-                    >, () =&gt; { <span class="code-func">enterText</span>(<span class="code-string"
-                        >"フォームに入力"</span
-                    >) <span class="code-func">rotateDevice</span>(<span class="code-string"
-                        >"landscape"</span
-                    >) <span class="code-func">expect</span>(<span class="code-func"
-                        >getFormValue</span
-                    >()).<span class="code-func">toBe</span>(<span class="code-string"
-                        >"フォームに入力"</span
-                    >) <span class="code-func">expect</span>(<span class="code-func"
-                        >getScrollPosition</span
-                    >()).<span class="code-func">toBePreserved</span>() })
+                    <div class="code-line"><span class="code-comment">// 画面向き変更テスト</span></div>
+                    <div class="code-line"><span class="code-keyword">test</span>(<span class="code-string">"縦横切り替え時に状態が保持される"</span>, () =&gt; {</div>
+                    <div class="code-line">    <span class="code-func">enterText</span>(<span class="code-string">"フォームに入力"</span>)</div>
+                    <div class="code-line">    <span class="code-func">rotateDevice</span>(<span class="code-string">"landscape"</span>)</div>
+                    <div class="code-line">    <span class="code-func">expect</span>(<span class="code-func">getFormValue</span>()).<span class="code-func">toBe</span>(<span class="code-string">"フォームに入力"</span>)</div>
+                    <div class="code-line">    <span class="code-func">expect</span>(<span class="code-func">getScrollPosition</span>()).<span class="code-func">toBePreserved</span>()</div>
+                    <div class="code-line">})</div>
                 </div>
                 <h3 class="sub-title">2.1.8〜2.1.9 アクセス権限・電力消費テスト</h3>
                 <div class="arch-layers">
@@ -1971,19 +1967,19 @@
                     >
                 </div>
                 <div class="code-block" data-lang="NOTIFICATION TEST">
-                    <span class="code-keyword">const</span>
-                    <span class="code-green">notificationTests</span> = {
-                    <span class="code-string">"プッシュ通知"</span>: [
-                    <span class="code-string">"フォアグラウンド時に通知が表示される"</span>,
-                    <span class="code-string">"バックグラウンド時に通知が届く"</span>,
-                    <span class="code-string">"アプリ終了時にも通知が届く"</span>,
-                    <span class="code-string">"通知タップでアプリの正しい画面が開く"</span>,
-                    <span class="code-string">"通知権限を拒否した場合のフォールバック"</span>
-                    ],
-                    <span class="code-string">"バッジカウント"</span>: [
-                    <span class="code-string">"未読数がホーム画面アイコンに正しく表示される"</span>,
-                    <span class="code-string">"既読後にバッジがクリアされる"</span>
-                    ] }
+                    <div class="code-line"><span class="code-keyword">const</span> <span class="code-green">notificationTests</span> = {</div>
+                    <div class="code-line">    <span class="code-string">"プッシュ通知"</span>: [</div>
+                    <div class="code-line">        <span class="code-string">"フォアグラウンド時に通知が表示される"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"バックグラウンド時に通知が届く"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"アプリ終了時にも通知が届く"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"通知タップでアプリの正しい画面が開く"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"通知権限を拒否した場合のフォールバック"</span></div>
+                    <div class="code-line">    ],</div>
+                    <div class="code-line">    <span class="code-string">"バッジカウント"</span>: [</div>
+                    <div class="code-line">        <span class="code-string">"未読数がホーム画面アイコンに正しく表示される"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"既読後にバッジがクリアされる"</span></div>
+                    <div class="code-line">    ]</div>
+                    <div class="code-line">}</div>
                 </div>
                 <h3 class="sub-title">2.2.3 OSユーザー設定テスト</h3>
                 <div class="arch-layers">
@@ -2084,24 +2080,12 @@
                     </table>
                 </div>
                 <div class="code-block" data-lang="NETWORK SIMULATION">
-                    <span class="code-comment"># ネットワーク制限テスト（Android ADB使用例）</span>
-                    $ adb shell
-                    <span class="code-string"
-                        >"tc qdisc add dev rmnet0 root tbf rate 1000kbit burst 10kbit latency
-                        50ms"</span
-                    >
-
-                    <span class="code-comment"
-                        ># iOS: Network Link Conditioner (Xcode Instruments)</span
-                    >
-                    <span class="code-comment"
-                        ># Settings &gt; Developer &gt; Network Link Conditioner</span
-                    >
-                    <span class="code-green">Profiles:</span> [<span class="code-string">"3G"</span
-                    >, <span class="code-string">"Edge"</span>,
-                    <span class="code-string">"WiFi"</span>,
-                    <span class="code-string">"100% Loss"</span>,
-                    <span class="code-string">"Very Bad Network"</span>]
+                    <div class="code-line"><span class="code-comment"># ネットワーク制限テスト（Android ADB使用例）</span></div>
+                    <div class="code-line">$ adb shell <span class="code-string">"tc qdisc add dev rmnet0 root tbf rate 1000kbit burst 10kbit latency 50ms"</span></div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-comment"># iOS: Network Link Conditioner (Xcode Instruments)</span></div>
+                    <div class="code-line"><span class="code-comment"># Settings &gt; Developer &gt; Network Link Conditioner</span></div>
+                    <div class="code-line"><span class="code-green">Profiles:</span> [<span class="code-string">"3G"</span>, <span class="code-string">"Edge"</span>, <span class="code-string">"WiFi"</span>, <span class="code-string">"100% Loss"</span>, <span class="code-string">"Very Bad Network"</span>]</div>
                 </div>
             </section>
             <div class="divider"></div>
@@ -2226,26 +2210,20 @@
                 </div>
 
                 <div class="code-block" data-lang="SECURITY / ANDROID">
-                    <span class="code-comment">// EncryptedSharedPreferences の実装（Kotlin）</span>
-                    <span class="code-keyword">val</span>
-                    <span class="code-green">encryptedPrefs</span> =
-                    EncryptedSharedPreferences.<span class="code-func">create</span>( context,
-                    <span class="code-string">"secure_prefs"</span>, MasterKey.Builder(context)
-                    .<span class="code-func">setKeyScheme</span
-                    >(MasterKey.KeyScheme.AES256_GCM).<span class="code-func">build</span>(),
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM )
-
-                    <span class="code-comment">// ✅ 良い例: 暗号化して保存</span>
-                    encryptedPrefs.edit().<span class="code-func">putString</span>(<span
-                        class="code-string"
-                        >"token"</span
-                    >, authToken).<span class="code-func">apply</span>()
-
-                    <span class="code-comment">// ❌ 悪い例: 平文で保存（絶対禁止！）</span>
-                    <span class="code-comment"
-                        >// sharedPrefs.edit().putString("password", rawPassword).apply()</span
-                    >
+                    <div class="code-line"><span class="code-comment">// EncryptedSharedPreferences の実装（Kotlin）</span></div>
+                    <div class="code-line"><span class="code-keyword">val</span> <span class="code-green">encryptedPrefs</span> = EncryptedSharedPreferences.<span class="code-func">create</span>(</div>
+                    <div class="code-line">    context,</div>
+                    <div class="code-line">    <span class="code-string">"secure_prefs"</span>,</div>
+                    <div class="code-line">    MasterKey.Builder(context).<span class="code-func">setKeyScheme</span>(MasterKey.KeyScheme.AES256_GCM).<span class="code-func">build</span>(),</div>
+                    <div class="code-line">    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,</div>
+                    <div class="code-line">    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM</div>
+                    <div class="code-line">)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-comment">// ✅ 良い例: 暗号化して保存</span></div>
+                    <div class="code-line">encryptedPrefs.edit().<span class="code-func">putString</span>(<span class="code-string">"token"</span>, authToken).<span class="code-func">apply</span>()</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-comment">// ❌ 悪い例: 平文で保存（絶対禁止！）</span></div>
+                    <div class="code-line"><span class="code-comment">// sharedPrefs.edit().putString("password", rawPassword).apply()</span></div>
                 </div>
 
                 <h2 class="section-title">3.3 パフォーマンステスト</h2>
@@ -2330,23 +2308,22 @@
 
                 <h3 class="sub-title">セッションベーステスト管理（SBTM）</h3>
                 <div class="code-block" data-lang="SESSION SHEET">
-                    <span class="code-green">Session</span>: { charter:
-                    <span class="code-string">"ログイン画面のエラーハンドリングを探索する"</span>,
-                    tester: <span class="code-string">"田中テスター"</span>, date:
-                    <span class="code-string">"2025-05-01"</span>, device:
-                    <span class="code-string">"iPhone 16 Pro, iOS 18.4, WiFi環境"</span>,
-                    timeAllocation: { testing: <span class="code-string">"45分 (75%)"</span>,
-                    bugInvestigation: <span class="code-string">"10分"</span>, setup:
-                    <span class="code-string">"5分"</span>
-                    }, bugsFound: [
-                    <span class="code-string"
-                        >"5回ログイン失敗時のアカウントロック通知が表示されない"</span
-                    >,
-                    <span class="code-string"
-                        >"パスワードのペーストが特定の入力欄で無効になっている"</span
-                    >
-                    ], nextCharter:
-                    <span class="code-string">"ソーシャルログインフローの探索"</span> }
+                    <div class="code-line"><span class="code-green">Session</span>: {</div>
+                    <div class="code-line">    charter: <span class="code-string">"ログイン画面のエラーハンドリングを探索する"</span>,</div>
+                    <div class="code-line">    tester: <span class="code-string">"田中テスター"</span>,</div>
+                    <div class="code-line">    date: <span class="code-string">"2025-05-01"</span>,</div>
+                    <div class="code-line">    device: <span class="code-string">"iPhone 16 Pro, iOS 18.4, WiFi環境"</span>,</div>
+                    <div class="code-line">    timeAllocation: {</div>
+                    <div class="code-line">        testing: <span class="code-string">"45分 (75%)"</span>,</div>
+                    <div class="code-line">        bugInvestigation: <span class="code-string">"10分"</span>,</div>
+                    <div class="code-line">        setup: <span class="code-string">"5分"</span></div>
+                    <div class="code-line">    },</div>
+                    <div class="code-line">    bugsFound: [</div>
+                    <div class="code-line">        <span class="code-string">"5回ログイン失敗時のアカウントロック通知が表示されない"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"パスワードのペーストが特定の入力欄で無効になっている"</span></div>
+                    <div class="code-line">    ],</div>
+                    <div class="code-line">    nextCharter: <span class="code-string">"ソーシャルログインフローの探索"</span></div>
+                    <div class="code-line">}</div>
                 </div>
 
                 <h2 class="section-title">3.5 モバイルテストプロセス（ISTQB準拠）</h2>
@@ -2767,131 +2744,79 @@
 
                 <h3 class="sub-title">✅ Appium 実装例（Python）</h3>
                 <div class="code-block" data-lang="PYTHON / APPIUM">
-                    <span class="code-keyword">from</span> <span class="code-func">appium</span>
-                    <span class="code-keyword">import</span> webdriver
-                    <span class="code-keyword">from</span>
-                    <span class="code-func">appium.webdriver.common.appiumby</span>
-                    <span class="code-keyword">import</span> AppiumBy
-                    <span class="code-keyword">import</span> unittest
-
-                    <span class="code-keyword">class</span>
-                    <span class="code-green">LoginTest</span>(unittest.TestCase):
-
-                    <span class="code-keyword">def</span>
-                    <span class="code-func">setUp</span>(self): caps = {
-                    <span class="code-string">"platformName"</span>:
-                    <span class="code-string">"Android"</span>,
-                    <span class="code-string">"deviceName"</span>:
-                    <span class="code-string">"Pixel_7_API_34"</span>,
-                    <span class="code-string">"app"</span>:
-                    <span class="code-string">"/path/to/app.apk"</span>,
-                    <span class="code-string">"automationName"</span>:
-                    <span class="code-string">"UiAutomator2"</span>, } self.driver = webdriver.<span
-                        class="code-func"
-                        >Remote</span
-                    >(<span class="code-string">"http://localhost:4723"</span>, caps)
-
-                    <span class="code-keyword">def</span>
-                    <span class="code-func">test_login_with_valid_credentials</span>(self):
-                    self.driver.<span class="code-func">find_element</span
-                    >(AppiumBy.ACCESSIBILITY_ID, <span class="code-string">"email_input"</span>)\
-                    .<span class="code-func">send_keys</span>(<span class="code-string"
-                        >"test@example.com"</span
-                    >) self.driver.<span class="code-func">find_element</span
-                    >(AppiumBy.ACCESSIBILITY_ID, <span class="code-string">"password_input"</span>)\
-                    .<span class="code-func">send_keys</span>(<span class="code-string"
-                        >"SecurePass123!"</span
-                    >) self.driver.<span class="code-func">find_element</span
-                    >(AppiumBy.ACCESSIBILITY_ID,
-                    <span class="code-string">"login_button"</span>).<span class="code-func"
-                        >click</span
-                    >() home = self.driver.<span class="code-func">find_element</span
-                    >(AppiumBy.XPATH,
-                    <span class="code-string">"//*[@resource-id='home_screen']"</span>) self.<span
-                        class="code-func"
-                        >assertTrue</span
-                    >(home.<span class="code-func">is_displayed</span>())
-
-                    <span class="code-keyword">def</span>
-                    <span class="code-func">tearDown</span>(self): self.driver.<span
-                        class="code-func"
-                        >quit</span
-                    >()
+                    <div class="code-line"><span class="code-keyword">from</span> <span class="code-func">appium</span> <span class="code-keyword">import</span> webdriver</div>
+                    <div class="code-line"><span class="code-keyword">from</span> <span class="code-func">appium.webdriver.common.appiumby</span> <span class="code-keyword">import</span> AppiumBy</div>
+                    <div class="code-line"><span class="code-keyword">import</span> unittest</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-keyword">class</span> <span class="code-green">LoginTest</span>(unittest.TestCase):</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">def</span> <span class="code-func">setUp</span>(self):</div>
+                    <div class="code-line">        caps = {</div>
+                    <div class="code-line">            <span class="code-string">"platformName"</span>: <span class="code-string">"Android"</span>,</div>
+                    <div class="code-line">            <span class="code-string">"deviceName"</span>: <span class="code-string">"Pixel_7_API_34"</span>,</div>
+                    <div class="code-line">            <span class="code-string">"app"</span>: <span class="code-string">"/path/to/app.apk"</span>,</div>
+                    <div class="code-line">            <span class="code-string">"automationName"</span>: <span class="code-string">"UiAutomator2"</span>,</div>
+                    <div class="code-line">        }</div>
+                    <div class="code-line">        self.driver = webdriver.<span class="code-func">Remote</span>(<span class="code-string">"http://localhost:4723"</span>, caps)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">def</span> <span class="code-func">test_login_with_valid_credentials</span>(self):</div>
+                    <div class="code-line">        self.driver.<span class="code-func">find_element</span>(AppiumBy.ACCESSIBILITY_ID, <span class="code-string">"email_input"</span>)\</div>
+                    <div class="code-line">            .<span class="code-func">send_keys</span>(<span class="code-string">"test@example.com"</span>)</div>
+                    <div class="code-line">        self.driver.<span class="code-func">find_element</span>(AppiumBy.ACCESSIBILITY_ID, <span class="code-string">"password_input"</span>)\</div>
+                    <div class="code-line">            .<span class="code-func">send_keys</span>(<span class="code-string">"SecurePass123!"</span>)</div>
+                    <div class="code-line">        self.driver.<span class="code-func">find_element</span>(AppiumBy.ACCESSIBILITY_ID, <span class="code-string">"login_button"</span>).<span class="code-func">click</span>()</div>
+                    <div class="code-line">        home = self.driver.<span class="code-func">find_element</span>(AppiumBy.XPATH, <span class="code-string">"//*[@resource-id='home_screen']"</span>)</div>
+                    <div class="code-line">        self.<span class="code-func">assertTrue</span>(home.<span class="code-func">is_displayed</span>())</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">def</span> <span class="code-func">tearDown</span>(self):</div>
+                    <div class="code-line">        self.driver.<span class="code-func">quit</span>()</div>
                 </div>
 
                 <h3 class="sub-title">✅ Espresso 実装例（Android / Kotlin）</h3>
                 <div class="code-block" data-lang="KOTLIN / ESPRESSO">
-                    <span class="code-keyword">@RunWith</span>(AndroidJUnit4::<span
-                        class="code-keyword"
-                        >class</span
-                    >) <span class="code-keyword">class</span>
-                    <span class="code-green">LoginActivityTest</span> {
-                    <span class="code-keyword">@get:Rule</span>
-                    <span class="code-keyword">val</span> activityRule =
-                    ActivityScenarioRule(LoginActivity::<span class="code-keyword">class</span
-                    >.java)
-
-                    <span class="code-keyword">@Test</span>
-                    <span class="code-keyword">fun</span>
-                    <span class="code-func">testSuccessfulLogin</span>() {
-                    <span class="code-func">onView</span>(<span class="code-func">withId</span
-                    >(R.id.editUsername)) .<span class="code-func">perform</span>(<span
-                        class="code-func"
-                        >typeText</span
-                    >(<span class="code-string">"testuser"</span>),
-                    <span class="code-func">closeSoftKeyboard</span>())
-                    <span class="code-func">onView</span>(<span class="code-func">withId</span
-                    >(R.id.editPassword)) .<span class="code-func">perform</span>(<span
-                        class="code-func"
-                        >typeText</span
-                    >(<span class="code-string">"password123"</span>),
-                    <span class="code-func">closeSoftKeyboard</span>())
-                    <span class="code-func">onView</span>(<span class="code-func">withId</span
-                    >(R.id.btnLogin)).<span class="code-func">perform</span>(<span class="code-func"
-                        >click</span
-                    >()) <span class="code-func">onView</span>(<span class="code-func">withId</span
-                    >(R.id.tvWelcome)).<span class="code-func">check</span>(<span class="code-func"
-                        >matches</span
-                    >(<span class="code-func">isDisplayed</span>())) } }
+                    <div class="code-line"><span class="code-keyword">@RunWith</span>(AndroidJUnit4::<span class="code-keyword">class</span>)</div>
+                    <div class="code-line"><span class="code-keyword">class</span> <span class="code-green">LoginActivityTest</span> {</div>
+                    <div class="code-line">    <span class="code-keyword">@get:Rule</span></div>
+                    <div class="code-line">    <span class="code-keyword">val</span> activityRule = ActivityScenarioRule(LoginActivity::<span class="code-keyword">class</span>.java)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">@Test</span></div>
+                    <div class="code-line">    <span class="code-keyword">fun</span> <span class="code-func">testSuccessfulLogin</span>() {</div>
+                    <div class="code-line">        <span class="code-func">onView</span>(<span class="code-func">withId</span>(R.id.editUsername))</div>
+                    <div class="code-line">            .<span class="code-func">perform</span>(<span class="code-func">typeText</span>(<span class="code-string">"testuser"</span>), <span class="code-func">closeSoftKeyboard</span>())</div>
+                    <div class="code-line">        <span class="code-func">onView</span>(<span class="code-func">withId</span>(R.id.editPassword))</div>
+                    <div class="code-line">            .<span class="code-func">perform</span>(<span class="code-func">typeText</span>(<span class="code-string">"password123"</span>), <span class="code-func">closeSoftKeyboard</span>())</div>
+                    <div class="code-line">        <span class="code-func">onView</span>(<span class="code-func">withId</span>(R.id.btnLogin)).<span class="code-func">perform</span>(<span class="code-func">click</span>())</div>
+                    <div class="code-line">        <span class="code-func">onView</span>(<span class="code-func">withId</span>(R.id.tvWelcome)).<span class="code-func">check</span>(<span class="code-func">matches</span>(<span class="code-func">isDisplayed</span>()))</div>
+                    <div class="code-line">    }</div>
+                    <div class="code-line">}</div>
                 </div>
 
                 <h3 class="sub-title">✅ XCUITest 実装例（iOS / Swift）</h3>
                 <div class="code-block" data-lang="SWIFT / XCUITEST">
-                    <span class="code-keyword">import</span> XCTest
-
-                    <span class="code-keyword">class</span>
-                    <span class="code-green">LoginUITests</span>: XCTestCase {
-                    <span class="code-keyword">var</span> app: XCUIApplication!
-
-                    <span class="code-keyword">override func</span>
-                    <span class="code-func">setUpWithError</span>()
-                    <span class="code-keyword">throws</span> { continueAfterFailure =
-                    <span class="code-keyword">false</span> app = XCUIApplication(); app.<span
-                        class="code-func"
-                        >launch</span
-                    >() }
-
-                    <span class="code-keyword">func</span>
-                    <span class="code-func">testSuccessfulLogin</span>()
-                    <span class="code-keyword">throws</span> {
-                    <span class="code-keyword">let</span> email = app.textFields[<span
-                        class="code-string"
-                        >"usernameField"</span
-                    >] email.<span class="code-func">tap</span>(); email.<span class="code-func"
-                        >typeText</span
-                    >(<span class="code-string">"testuser@example.com"</span>)
-                    <span class="code-keyword">let</span> pw = app.secureTextFields[<span
-                        class="code-string"
-                        >"passwordField"</span
-                    >] pw.<span class="code-func">tap</span>(); pw.<span class="code-func"
-                        >typeText</span
-                    >(<span class="code-string">"password123"</span>) app.buttons[<span
-                        class="code-string"
-                        >"loginButton"</span
-                    >].<span class="code-func">tap</span>() XCTAssertTrue(app.staticTexts[<span
-                        class="code-string"
-                        >"welcomeLabel"</span
-                    >].exists) } }
+                    <div class="code-line"><span class="code-keyword">import</span> XCTest</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-keyword">class</span> <span class="code-green">LoginUITests</span>: XCTestCase {</div>
+                    <div class="code-line">    <span class="code-keyword">var</span> app: XCUIApplication!</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">override func</span> <span class="code-func">setUpWithError</span>() <span class="code-keyword">throws</span> {</div>
+                    <div class="code-line">        continueAfterFailure = <span class="code-keyword">false</span></div>
+                    <div class="code-line">        app = XCUIApplication()</div>
+                    <div class="code-line">        app.<span class="code-func">launch</span>()</div>
+                    <div class="code-line">    }</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">func</span> <span class="code-func">testSuccessfulLogin</span>() <span class="code-keyword">throws</span> {</div>
+                    <div class="code-line">        <span class="code-keyword">let</span> email = app.textFields[<span class="code-string">"usernameField"</span>]</div>
+                    <div class="code-line">        email.<span class="code-func">tap</span>()</div>
+                    <div class="code-line">        email.<span class="code-func">typeText</span>(<span class="code-string">"testuser@example.com"</span>)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">        <span class="code-keyword">let</span> pw = app.secureTextFields[<span class="code-string">"passwordField"</span>]</div>
+                    <div class="code-line">        pw.<span class="code-func">tap</span>()</div>
+                    <div class="code-line">        pw.<span class="code-func">typeText</span>(<span class="code-string">"password123"</span>)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">        app.buttons[<span class="code-string">"loginButton"</span>].<span class="code-func">tap</span>()</div>
+                    <div class="code-line">        XCTAssertTrue(app.staticTexts[<span class="code-string">"welcomeLabel"</span>].exists)</div>
+                    <div class="code-line">    }</div>
+                    <div class="code-line">}</div>
                 </div>
 
                 <h2 class="section-title">5.3 自動化ツールの評価基準（MAT-5.3.1 K3）</h2>
@@ -2999,34 +2924,39 @@
 
                 <h2 class="section-title">5.4 CI/CDパイプライン統合例</h2>
                 <div class="code-block" data-lang="YAML / GITHUB ACTIONS">
-                    <span class="code-comment"># .github/workflows/mobile-test.yml</span>
-                    <span class="code-green">name</span>: Mobile Automated Tests
-
-                    <span class="code-keyword">on</span>: <span class="code-green">push</span>: {
-                    <span class="code-green">branches</span>: [main, develop] }
-                    <span class="code-green">pull_request</span>: {
-                    <span class="code-green">branches</span>: [main] }
-
-                    <span class="code-keyword">jobs</span>:
-                    <span class="code-green">unit-tests</span>:
-                    <span class="code-green">runs-on</span>: ubuntu-latest
-                    <span class="code-keyword">steps</span>: - <span class="code-green">uses</span>:
-                    actions/checkout@v4 - <span class="code-green">name</span>: Run Android Unit
-                    Tests <span class="code-green">run</span>:
-                    <span class="code-string">./gradlew testDebugUnitTest</span>
-
-                    <span class="code-green">firebase-e2e</span>:
-                    <span class="code-green">needs</span>: unit-tests
-                    <span class="code-green">runs-on</span>: ubuntu-latest
-                    <span class="code-keyword">steps</span>: - <span class="code-green">uses</span>:
-                    actions/checkout@v4 - <span class="code-green">name</span>: Build APKs
-                    <span class="code-green">run</span>: ./gradlew assembleDebug assembleAndroidTest
-                    - <span class="code-green">name</span>: Run on Firebase Test Lab
-                    <span class="code-green">run</span>: | gcloud firebase test android run \ --type
-                    instrumentation \ --app app-debug.apk \ --test app-debug-androidTest.apk \
-                    --device model=Pixel7,version=<span class="code-num">33</span>,locale=ja \
-                    --device model=SamsungS23,version=<span class="code-num">33</span>,locale=ja \
-                    --timeout <span class="code-num">5</span>m
+                    <div class="code-line"><span class="code-comment"># .github/workflows/mobile-test.yml</span></div>
+                    <div class="code-line"><span class="code-green">name</span>: Mobile Automated Tests</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-keyword">on</span>:</div>
+                    <div class="code-line">  <span class="code-green">push</span>:</div>
+                    <div class="code-line">    <span class="code-green">branches</span>: [main, develop]</div>
+                    <div class="code-line">  <span class="code-green">pull_request</span>:</div>
+                    <div class="code-line">    <span class="code-green">branches</span>: [main]</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-keyword">jobs</span>:</div>
+                    <div class="code-line">  <span class="code-green">unit-tests</span>:</div>
+                    <div class="code-line">    <span class="code-green">runs-on</span>: ubuntu-latest</div>
+                    <div class="code-line">    <span class="code-keyword">steps</span>:</div>
+                    <div class="code-line">      - <span class="code-green">uses</span>: actions/checkout@v4</div>
+                    <div class="code-line">      - <span class="code-green">name</span>: Run Android Unit Tests</div>
+                    <div class="code-line">        <span class="code-green">run</span>: <span class="code-string">./gradlew testDebugUnitTest</span></div>
+                    <div class="code-line"></div>
+                    <div class="code-line">  <span class="code-green">firebase-e2e</span>:</div>
+                    <div class="code-line">    <span class="code-green">needs</span>: unit-tests</div>
+                    <div class="code-line">    <span class="code-green">runs-on</span>: ubuntu-latest</div>
+                    <div class="code-line">    <span class="code-keyword">steps</span>:</div>
+                    <div class="code-line">      - <span class="code-green">uses</span>: actions/checkout@v4</div>
+                    <div class="code-line">      - <span class="code-green">name</span>: Build APKs</div>
+                    <div class="code-line">        <span class="code-green">run</span>: ./gradlew assembleDebug assembleAndroidTest</div>
+                    <div class="code-line">      - <span class="code-green">name</span>: Run on Firebase Test Lab</div>
+                    <div class="code-line">        <span class="code-green">run</span>: |</div>
+                    <div class="code-line">          gcloud firebase test android run \</div>
+                    <div class="code-line">            --type instrumentation \</div>
+                    <div class="code-line">            --app app-debug.apk \</div>
+                    <div class="code-line">            --test app-debug-androidTest.apk \</div>
+                    <div class="code-line">            --device model=Pixel7,version=<span class="code-num">33</span>,locale=ja \</div>
+                    <div class="code-line">            --device model=SamsungS23,version=<span class="code-num">33</span>,locale=ja \</div>
+                    <div class="code-line">            --timeout <span class="code-num">5</span>m</div>
                 </div>
             </section>
             <div class="divider"></div>
