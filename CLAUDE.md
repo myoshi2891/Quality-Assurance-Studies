@@ -58,7 +58,9 @@ Next.js App Router 構成:
 - `app/istqb-ctal-atlas-complete-guide/page.tsx` — アジャイル(CT-ATLaS)ガイドページ
 - `app/istqb-ctal-atlas-complete-guide/NavBar.tsx` — CT-ATLaS ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `istqb-ct-ai-complete-guide.html` — AIテスト完全ガイド (HTML)
-- `istqb-ct-genai-complete-guide.html` — GenAIテスト完全ガイド (HTML)
+- `app/istqb-ct-genai-complete-guide/istqb-ct-genai-complete-guide.css` — GenAIテスト(CT-GenAI)ガイド固有スタイル
+- `app/istqb-ct-genai-complete-guide/page.tsx` — GenAIテスト(CT-GenAI)ガイドページ
+- `app/istqb-ct-genai-complete-guide/NavBar.tsx` — CT-GenAI ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
