@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
+/**
+ * Renders a sticky in-page navigation bar that highlights the anchor corresponding to the section currently visible in the viewport.
+ *
+ * The component tracks all `section[id]` elements and applies the `active` CSS class to the matching link so the navigation reflects the user's scroll position.
+ *
+ * @returns The JSX element for the sticky navigation with links to table of contents, chapters, exam, and references; the link for the currently visible section will include the `active` class.
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState('');
 
