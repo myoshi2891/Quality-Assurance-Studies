@@ -13,7 +13,9 @@ css = css.replace(/body::before/g, '&::before');
 css = css.replace(/body::after/g, '&::after');
 
 // 4. Wrap everything in .istqb-ct-genai-page
-css = `.istqb-ct-genai-page {\n${css}\n}\n`;
+if (!css.includes('.istqb-ct-genai-page {')) {
+    css = `.istqb-ct-genai-page {\n${css}\n}\n`;
+}
 
 // 5. Replace variables with globals.css theme tokens
 const replacements = {
