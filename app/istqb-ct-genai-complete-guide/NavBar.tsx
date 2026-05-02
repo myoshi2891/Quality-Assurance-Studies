@@ -37,15 +37,15 @@ export default function NavBar() {
         <nav className="sticky-nav sticky top-[60px] z-40" aria-label="CT-GenAI セクションナビゲーション">
             <div className="nav-inner">
                 <span className="nav-logo">CT-GenAI v1.0</span>
-                <a className={`nav-link ${activeId === 'toc' ? 'active' : ''}`} href="#toc">📋 目次</a>
-                <a className={`nav-link ${activeId === 'ch0' ? 'active' : ''}`} href="#ch0">Ch.0 概要</a>
-                <a className={`nav-link ${activeId === 'ch1' ? 'active' : ''}`} href="#ch1">Ch.1 入門</a>
-                <a className={`nav-link ${activeId === 'ch2' ? 'active' : ''}`} href="#ch2">Ch.2 プロンプト</a>
-                <a className={`nav-link ${activeId === 'ch3' ? 'active' : ''}`} href="#ch3">Ch.3 リスク</a>
-                <a className={`nav-link ${activeId === 'ch4' ? 'active' : ''}`} href="#ch4">Ch.4 インフラ</a>
-                <a className={`nav-link ${activeId === 'ch5' ? 'active' : ''}`} href="#ch5">Ch.5 導入</a>
-                <a className={`nav-link ${activeId === 'exam' ? 'active' : ''}`} href="#exam">📝 試験対策</a>
-                <a className={`nav-link ${activeId === 'refs' ? 'active' : ''}`} href="#refs">🔗 参考文献</a>
+                <a className={`nav-link ${activeId === 'toc' ? 'active' : ''}`} href="#toc" aria-current={activeId === 'toc' ? 'location' : undefined}>📋 目次</a>
+                <a className={`nav-link ${activeId === 'ch0' ? 'active' : ''}`} href="#ch0" aria-current={activeId === 'ch0' ? 'location' : undefined}>Ch.0 概要</a>
+                <a className={`nav-link ${activeId === 'ch1' ? 'active' : ''}`} href="#ch1" aria-current={activeId === 'ch1' ? 'location' : undefined}>Ch.1 入門</a>
+                <a className={`nav-link ${activeId === 'ch2' ? 'active' : ''}`} href="#ch2" aria-current={activeId === 'ch2' ? 'location' : undefined}>Ch.2 プロンプト</a>
+                <a className={`nav-link ${activeId === 'ch3' ? 'active' : ''}`} href="#ch3" aria-current={activeId === 'ch3' ? 'location' : undefined}>Ch.3 リスク</a>
+                <a className={`nav-link ${activeId === 'ch4' ? 'active' : ''}`} href="#ch4" aria-current={activeId === 'ch4' ? 'location' : undefined}>Ch.4 インフラ</a>
+                <a className={`nav-link ${activeId === 'ch5' ? 'active' : ''}`} href="#ch5" aria-current={activeId === 'ch5' ? 'location' : undefined}>Ch.5 導入</a>
+                <a className={`nav-link ${activeId === 'exam' ? 'active' : ''}`} href="#exam" aria-current={activeId === 'exam' ? 'location' : undefined}>📝 試験対策</a>
+                <a className={`nav-link ${activeId === 'refs' ? 'active' : ''}`} href="#refs" aria-current={activeId === 'refs' ? 'location' : undefined}>🔗 参考文献</a>
             </div>
         </nav>
     );
