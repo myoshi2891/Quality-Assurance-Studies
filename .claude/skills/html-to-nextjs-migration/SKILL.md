@@ -8,7 +8,8 @@ description: >
   with project-specific knowledge including font loading via next/font/google,
   design token alignment, and accessibility patterns.
   Trigger: HTMLマイグレーション, ページ移行, HTML変換, 静的HTML移行, CSS変数マッピング,
-  unit-testing-guide.html migration, new page creation from HTML, HTMLからpage.tsx.
+  unit-testing-guide.html migration, new page creation from HTML, HTMLからpage.tsx,
+  mat/mbt/tas guide migration.
 ---
 
 # QA_Studies HTML → Next.js Migration Workflow
@@ -18,6 +19,19 @@ description: >
 Provide the complete, ordered workflow for converting a standalone HTML page (with embedded `<style>`) into a fully integrated Next.js App Router page within the QA_Studies project. This skill extends the global `html-to-nextjs-migration` skill (JSX pitfalls) with project-specific CSS token mapping, file organization, and integration steps.
 
 **Prerequisite**: The global skill covers `<pre>` block conversion, `class`/`className` rules, HTML entity handling, `@layer` priority, and cache invalidation. This skill assumes that knowledge and focuses on the **end-to-end workflow**.
+
+## セッション開始時に必ず読むファイル
+
+1. **`MIGRATION_PROGRESS.md`** — 現在地・残タスク・再開プロンプト
+2. **このファイル（`SKILL.md`）** — 移行手順と QA_Studies 固有ルール
+
+## 未移行 HTML（2026-05-03 時点）
+
+| ファイル | 予定ルート | 状態 |
+|---|---|---|
+| `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | 未着手 |
+| `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | 完了 |
+| `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | 未着手 |
 
 ## Instructions
 
@@ -210,6 +224,25 @@ Common build failures:
 - [ ] No z-index conflicts with navigation (nav must stay on top)
 - [ ] Animations play correctly (fade-up, pulse-border)
 - [ ] Scrollbar styling matches (thin, styled thumb)
+
+## セッション終了前同期（必須）
+
+**ゲート条件**: 1ページの `git commit` 完了後、次 HTML を `Read` し始める前に必ず実施する。
+
+```bash
+bun run build     # ビルド成功を確認
+bun run lint      # ESLint エラーなし
+```
+
+その後 `MIGRATION_PROGRESS.md` の以下を更新してコミット:
+
+| フィールド | 更新内容 |
+|---|---|
+| `最新 HEAD` | `git rev-parse --short HEAD` の実値 |
+| `次の作業` | 次セッションで最初に着手するページ（例: `istqb-ct-mbt-complete-guide.html 移行`） |
+| `再開プロンプト` | 上記と整合した内容 |
+
+手順の詳細は `.claude/rules/migration-progress-sync.md` を参照。
 
 ## Reusable CSS Component Classes (globals.css)
 

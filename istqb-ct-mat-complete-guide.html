@@ -1,0 +1,3457 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ISTQB® CT-MAT モバイルアプリケーションテスト 完全ガイド 2025</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+JP:wght@300;400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg-deep: #030712;
+                --bg-card: #0a1628;
+                --bg-card2: #0d1f3c;
+                --bg-hover: #112244;
+                --neon-green: #00ff88;
+                --neon-cyan: #00e5ff;
+                --neon-purple: #b44fff;
+                --neon-amber: #ffb800;
+                --neon-red: #ff4466;
+                --neon-blue: #4488ff;
+                --text-primary: #e8f4fd;
+                --text-secondary: #8ba8cc;
+                --text-muted: #4a6080;
+                --border-dim: rgba(0, 229, 255, 0.12);
+                --border-glow: rgba(0, 255, 136, 0.35);
+                --glow-green: 0 0 18px rgba(0, 255, 136, 0.45);
+                --glow-cyan: 0 0 18px rgba(0, 229, 255, 0.45);
+                --glow-purple: 0 0 18px rgba(180, 79, 255, 0.4);
+                --font-mono: 'Space Mono', monospace;
+                --font-display: 'Syne', sans-serif;
+                --font-body: 'IBM Plex Sans JP', sans-serif;
+                --radius: 10px;
+                --radius-sm: 6px;
+            }
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                background: var(--bg-deep);
+                color: var(--text-primary);
+                font-family: var(--font-body);
+                font-size: 1rem;
+                line-height: 1.7;
+                position: relative;
+                overflow-x: hidden;
+            }
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 229, 255, 0.015) 2px,
+                    rgba(0, 229, 255, 0.015) 4px
+                );
+                pointer-events: none;
+                z-index: 9999;
+            }
+            body::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+                background-size: 40px 40px;
+                pointer-events: none;
+                z-index: 0;
+            }
+            .nav {
+                position: sticky;
+                top: 0;
+                z-index: 1000;
+                background: rgba(3, 7, 18, 0.92);
+                backdrop-filter: blur(12px);
+                border-bottom: 1px solid var(--border-dim);
+                padding: 0.6rem 1rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+            }
+            .nav::-webkit-scrollbar {
+                display: none;
+            }
+            .nav-logo {
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                color: var(--neon-cyan);
+                white-space: nowrap;
+                letter-spacing: 2px;
+                flex-shrink: 0;
+                padding-right: 1rem;
+                border-right: 1px solid var(--border-dim);
+            }
+            .nav a {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                color: var(--text-secondary);
+                text-decoration: none;
+                white-space: nowrap;
+                padding: 0.3rem 0.7rem;
+                border-radius: 4px;
+                border: 1px solid transparent;
+                transition: all 0.2s;
+                letter-spacing: 0.5px;
+            }
+            .nav a:hover {
+                color: var(--neon-green);
+                border-color: rgba(0, 255, 136, 0.3);
+                background: rgba(0, 255, 136, 0.06);
+                text-shadow: var(--glow-green);
+            }
+            .container {
+                max-width: 940px;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+                position: relative;
+                z-index: 1;
+            }
+            .hero {
+                padding: 5rem 0 4rem;
+                text-align: center;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 600px;
+                height: 600px;
+                background: radial-gradient(ellipse, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
+                animation: pulse 4s ease-in-out infinite;
+                pointer-events: none;
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 0.6;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                50% {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1.08);
+                }
+            }
+            .hero-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: rgba(0, 229, 255, 0.08);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+                border-radius: 100px;
+                padding: 0.35rem 1rem;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--neon-cyan);
+                letter-spacing: 2px;
+                margin-bottom: 1.8rem;
+                animation: fadeInDown 0.6s ease both;
+            }
+            .hero-title {
+                font-family: var(--font-display);
+                font-size: clamp(2rem, 5vw, 3.4rem);
+                font-weight: 800;
+                line-height: 1.15;
+                margin-bottom: 1rem;
+                animation: fadeInDown 0.7s 0.1s ease both;
+            }
+            .hero-title .accent {
+                color: var(--neon-green);
+            }
+            .hero-title .accent2 {
+                color: var(--neon-cyan);
+            }
+            .hero-sub {
+                font-size: 1.05rem;
+                color: var(--text-secondary);
+                max-width: 620px;
+                margin: 0 auto 2.5rem;
+                animation: fadeInDown 0.7s 0.2s ease both;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 1rem;
+                animation: fadeInUp 0.7s 0.3s ease both;
+            }
+            .meta-pill {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-radius: 8px;
+                padding: 0.5rem 1.1rem;
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+            }
+            .meta-pill .val {
+                color: var(--neon-green);
+                font-weight: 700;
+                font-size: 1rem;
+            }
+            .meta-pill .lbl {
+                color: var(--text-muted);
+                font-size: 0.68rem;
+            }
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            .toc-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 0.8rem;
+                margin: 2rem 0;
+            }
+            .toc-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-radius: var(--radius);
+                padding: 1rem 1.2rem;
+                text-decoration: none;
+                color: var(--text-primary);
+                display: flex;
+                align-items: flex-start;
+                gap: 0.8rem;
+                transition: all 0.25s;
+            }
+            .toc-card:hover {
+                border-color: rgba(0, 229, 255, 0.4);
+                background: var(--bg-hover);
+                transform: translateY(-2px);
+                box-shadow: var(--glow-cyan);
+            }
+            .toc-num {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                color: var(--neon-cyan);
+                background: rgba(0, 229, 255, 0.1);
+                border-radius: 4px;
+                padding: 0.15rem 0.5rem;
+                flex-shrink: 0;
+                margin-top: 0.1rem;
+            }
+            .toc-title {
+                font-family: var(--font-display);
+                font-size: 0.85rem;
+                font-weight: 600;
+                line-height: 1.3;
+            }
+            .toc-mins {
+                font-family: var(--font-mono);
+                font-size: 0.65rem;
+                color: var(--neon-amber);
+                margin-top: 0.2rem;
+            }
+            section {
+                padding: 4rem 0 2rem;
+            }
+            .chapter-header {
+                display: flex;
+                align-items: flex-start;
+                gap: 1.2rem;
+                margin-bottom: 2rem;
+                padding-bottom: 1.5rem;
+                border-bottom: 1px solid var(--border-dim);
+            }
+            .chapter-num {
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                color: var(--bg-deep);
+                background: var(--neon-cyan);
+                border-radius: 6px;
+                padding: 0.3rem 0.7rem;
+                font-weight: 700;
+                letter-spacing: 1px;
+                flex-shrink: 0;
+                margin-top: 0.3rem;
+            }
+            .chapter-title {
+                font-family: var(--font-display);
+                font-size: clamp(1.4rem, 3vw, 2rem);
+                font-weight: 800;
+                line-height: 1.2;
+            }
+            .chapter-meta {
+                display: flex;
+                gap: 0.8rem;
+                flex-wrap: wrap;
+                margin-top: 0.5rem;
+            }
+            .chapter-badge {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                padding: 0.2rem 0.6rem;
+                border-radius: 4px;
+                border: 1px solid;
+            }
+            .badge-time {
+                color: var(--neon-amber);
+                border-color: rgba(255, 184, 0, 0.3);
+                background: rgba(255, 184, 0, 0.07);
+            }
+            .badge-k1 {
+                color: var(--neon-green);
+                border-color: rgba(0, 255, 136, 0.3);
+                background: rgba(0, 255, 136, 0.07);
+            }
+            .badge-k2 {
+                color: var(--neon-cyan);
+                border-color: rgba(0, 229, 255, 0.3);
+                background: rgba(0, 229, 255, 0.07);
+            }
+            .badge-k3 {
+                color: var(--neon-purple);
+                border-color: rgba(180, 79, 255, 0.3);
+                background: rgba(180, 79, 255, 0.07);
+            }
+            h2.section-title {
+                font-family: var(--font-display);
+                font-size: 1.3rem;
+                font-weight: 700;
+                margin: 2rem 0 1rem;
+                color: var(--neon-cyan);
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+            h2.section-title::before {
+                content: '';
+                display: block;
+                width: 4px;
+                height: 1.2em;
+                background: var(--neon-cyan);
+                border-radius: 2px;
+            }
+            h3.sub-title {
+                font-family: var(--font-display);
+                font-size: 1.05rem;
+                font-weight: 600;
+                margin: 1.5rem 0 0.8rem;
+                color: var(--text-primary);
+            }
+            p {
+                margin-bottom: 0.9rem;
+                color: var(--text-secondary);
+            }
+            .arch-layers {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+                margin: 1.5rem 0;
+            }
+            .arch-layer {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-left-width: 4px;
+                border-radius: var(--radius);
+                padding: 0.9rem 1.2rem;
+                transition: all 0.25s;
+            }
+            .arch-layer:hover {
+                background: var(--bg-hover);
+                transform: translateX(4px);
+            }
+            .arch-layer.green {
+                border-left-color: var(--neon-green);
+            }
+            .arch-layer.cyan {
+                border-left-color: var(--neon-cyan);
+            }
+            .arch-layer.purple {
+                border-left-color: var(--neon-purple);
+            }
+            .arch-layer.amber {
+                border-left-color: var(--neon-amber);
+            }
+            .arch-layer.red {
+                border-left-color: var(--neon-red);
+            }
+            .arch-layer.blue {
+                border-left-color: var(--neon-blue);
+            }
+            .arch-icon {
+                font-size: 1.4rem;
+                flex-shrink: 0;
+            }
+            .arch-content {
+                flex: 1;
+            }
+            .arch-label {
+                font-family: var(--font-display);
+                font-size: 0.9rem;
+                font-weight: 700;
+                color: var(--text-primary);
+            }
+            .arch-desc {
+                font-size: 0.83rem;
+                color: var(--text-secondary);
+                margin: 0;
+            }
+            .pyramid {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 0;
+                margin: 2rem auto;
+                max-width: 520px;
+            }
+            .pyramid-level {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 0.7rem 1rem;
+                border-radius: 6px;
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                font-weight: 700;
+                transition: transform 0.2s;
+                cursor: default;
+                width: 100%;
+            }
+            .pyramid-level:hover {
+                transform: scale(1.03);
+            }
+            .pyramid-level:nth-child(1) {
+                background: rgba(255, 68, 102, 0.25);
+                border: 1px solid rgba(255, 68, 102, 0.4);
+                color: #ff4466;
+                max-width: 180px;
+            }
+            .pyramid-level:nth-child(2) {
+                background: rgba(255, 184, 0, 0.2);
+                border: 1px solid rgba(255, 184, 0, 0.35);
+                color: #ffb800;
+                max-width: 310px;
+            }
+            .pyramid-level:nth-child(3) {
+                background: rgba(0, 229, 255, 0.15);
+                border: 1px solid rgba(0, 229, 255, 0.3);
+                color: var(--neon-cyan);
+                max-width: 430px;
+            }
+            .pyramid-level:nth-child(4) {
+                background: rgba(0, 255, 136, 0.12);
+                border: 1px solid rgba(0, 255, 136, 0.3);
+                color: var(--neon-green);
+                max-width: 520px;
+            }
+            .pyramid-label {
+                font-size: 0.65rem;
+                opacity: 0.7;
+                margin-left: 0.6rem;
+            }
+            .code-block {
+                background: #010c1a;
+                border: 1px solid rgba(0, 229, 255, 0.2);
+                border-radius: var(--radius);
+                padding: 1.3rem 1.5rem;
+                font-family: var(--font-mono);
+                font-size: 0.83rem;
+                line-height: 1.7;
+                overflow-x: auto;
+                margin: 1.2rem 0;
+                position: relative;
+                white-space: normal;
+            }
+            .code-line {
+                white-space: pre;
+            }
+            .code-block::before {
+                content: attr(data-lang);
+                position: absolute;
+                top: 0.5rem;
+                right: 0.8rem;
+                font-size: 0.6rem;
+                color: var(--text-muted);
+                letter-spacing: 1px;
+            }
+            .code-green {
+                color: #00ff88;
+            }
+            .code-cyan {
+                color: #00e5ff;
+            }
+            .code-keyword {
+                color: #b44fff;
+            }
+            .code-string {
+                color: #ffb800;
+            }
+            .code-comment {
+                color: #3a5a7a;
+                font-style: italic;
+            }
+            .code-num {
+                color: #ff7a40;
+            }
+            .code-func {
+                color: #4488ff;
+            }
+            .step-list {
+                list-style: none;
+                margin: 1rem 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+            .step-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-radius: var(--radius);
+                padding: 1rem 1.2rem;
+            }
+            .step-num {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, var(--neon-cyan), var(--neon-green));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                font-weight: 700;
+                color: var(--bg-deep);
+                flex-shrink: 0;
+            }
+            .step-body {
+                flex: 1;
+            }
+            .step-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 0.9rem;
+                margin-bottom: 0.25rem;
+            }
+            .step-desc {
+                font-size: 0.83rem;
+                color: var(--text-secondary);
+                margin: 0;
+            }
+            .callout {
+                display: flex;
+                gap: 1rem;
+                border-radius: var(--radius);
+                padding: 1rem 1.2rem;
+                margin: 1.2rem 0;
+                border: 1px solid;
+            }
+            .callout.info {
+                background: rgba(0, 229, 255, 0.06);
+                border-color: rgba(0, 229, 255, 0.25);
+            }
+            .callout.warning {
+                background: rgba(255, 184, 0, 0.06);
+                border-color: rgba(255, 184, 0, 0.25);
+            }
+            .callout.danger {
+                background: rgba(255, 68, 102, 0.06);
+                border-color: rgba(255, 68, 102, 0.25);
+            }
+            .callout-icon {
+                font-size: 1.2rem;
+                flex-shrink: 0;
+                line-height: 1;
+                margin-top: 0.1rem;
+            }
+            .callout-body {
+                flex: 1;
+            }
+            .callout-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 0.9rem;
+                margin-bottom: 0.3rem;
+            }
+            .callout.info .callout-title {
+                color: var(--neon-cyan);
+            }
+            .callout.warning .callout-title {
+                color: var(--neon-amber);
+            }
+            .callout.danger .callout-title {
+                color: var(--neon-red);
+            }
+            .callout-text {
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+                margin: 0;
+            }
+            .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 0.8rem;
+                margin: 1.5rem 0;
+            }
+            .metric-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-radius: var(--radius);
+                padding: 1.2rem 1rem;
+                text-align: center;
+                transition: all 0.25s;
+            }
+            .metric-card:hover {
+                transform: translateY(-4px);
+                box-shadow:
+                    0 12px 30px rgba(0, 0, 0, 0.5),
+                    var(--glow-cyan);
+                border-color: rgba(0, 229, 255, 0.4);
+            }
+            .metric-val {
+                font-family: var(--font-display);
+                font-size: 2rem;
+                font-weight: 800;
+                color: var(--neon-green);
+                line-height: 1;
+                margin-bottom: 0.3rem;
+            }
+            .metric-label {
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                font-family: var(--font-mono);
+            }
+            .progress-item {
+                margin-bottom: 1rem;
+            }
+            .progress-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.4rem;
+            }
+            .progress-label {
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+            }
+            .progress-val {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--neon-amber);
+            }
+            .progress-bar {
+                height: 8px;
+                background: rgba(255, 255, 255, 0.06);
+                border-radius: 100px;
+                overflow: hidden;
+            }
+            .progress-fill {
+                height: 100%;
+                border-radius: 100px;
+                background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+                animation: growBar 1.2s ease both;
+                transform-origin: left;
+            }
+            @keyframes growBar {
+                from {
+                    transform: scaleX(0);
+                }
+                to {
+                    transform: scaleX(1);
+                }
+            }
+            .table-wrap {
+                overflow-x: auto;
+                margin: 1.5rem 0;
+                border-radius: var(--radius);
+                border: 1px solid var(--border-dim);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+            }
+            thead tr {
+                background: rgba(0, 229, 255, 0.08);
+            }
+            th {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--neon-cyan);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+                padding: 0.8rem 1rem;
+                text-align: left;
+                border-bottom: 1px solid var(--border-dim);
+            }
+            td {
+                padding: 0.7rem 1rem;
+                font-size: 0.84rem;
+                color: var(--text-secondary);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            }
+            tr:hover td {
+                background: rgba(0, 229, 255, 0.04);
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            .tag {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 0.65rem;
+                padding: 0.15rem 0.5rem;
+                border-radius: 4px;
+                letter-spacing: 0.5px;
+            }
+            .tag-k1 {
+                background: rgba(0, 255, 136, 0.12);
+                color: var(--neon-green);
+                border: 1px solid rgba(0, 255, 136, 0.25);
+            }
+            .tag-k2 {
+                background: rgba(0, 229, 255, 0.12);
+                color: var(--neon-cyan);
+                border: 1px solid rgba(0, 229, 255, 0.25);
+            }
+            .tag-k3 {
+                background: rgba(180, 79, 255, 0.12);
+                color: var(--neon-purple);
+                border: 1px solid rgba(180, 79, 255, 0.25);
+            }
+            .exam-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .exam-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-radius: var(--radius);
+                padding: 1.3rem;
+                transition: all 0.25s;
+            }
+            .exam-card:hover {
+                border-color: rgba(0, 255, 136, 0.35);
+                background: var(--bg-hover);
+                box-shadow: var(--glow-green);
+            }
+            .exam-ch {
+                font-family: var(--font-mono);
+                font-size: 0.65rem;
+                color: var(--neon-amber);
+                margin-bottom: 0.5rem;
+            }
+            .exam-title {
+                font-family: var(--font-display);
+                font-size: 0.92rem;
+                font-weight: 700;
+                margin-bottom: 0.7rem;
+            }
+            .exam-stars {
+                color: var(--neon-amber);
+                font-size: 0.9rem;
+                margin-bottom: 0.4rem;
+            }
+            .exam-pts {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--neon-green);
+            }
+            .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 0.8rem;
+                margin: 1.5rem 0;
+            }
+            .ref-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-radius: var(--radius);
+                padding: 1rem 1.2rem;
+                text-decoration: none;
+                color: var(--text-primary);
+                display: flex;
+                flex-direction: column;
+                gap: 0.3rem;
+                transition: all 0.25s;
+                position: relative;
+                overflow: hidden;
+            }
+            .ref-card::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                background: var(--neon-cyan);
+                transform: scaleY(0);
+                transition: transform 0.2s;
+            }
+            .ref-card:hover::before {
+                transform: scaleY(1);
+            }
+            .ref-card:hover {
+                background: var(--bg-hover);
+                transform: translateX(4px);
+            }
+            .ref-cat {
+                font-family: var(--font-mono);
+                font-size: 0.6rem;
+                color: var(--neon-amber);
+                letter-spacing: 1px;
+                text-transform: uppercase;
+            }
+            .ref-title {
+                font-size: 0.85rem;
+                font-weight: 600;
+                color: var(--neon-cyan);
+            }
+            .ref-url {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                color: var(--text-muted);
+            }
+            .trend-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-radius: var(--radius);
+                padding: 1.3rem;
+                margin-bottom: 0.8rem;
+                position: relative;
+                overflow: hidden;
+                transition: all 0.25s;
+            }
+            .trend-card:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+            }
+            .trend-tag {
+                font-family: var(--font-mono);
+                font-size: 0.62rem;
+                color: var(--neon-cyan);
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                margin-bottom: 0.5rem;
+            }
+            .trend-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            .trend-desc {
+                font-size: 0.83rem;
+                color: var(--text-secondary);
+                margin: 0;
+            }
+            .alert {
+                display: flex;
+                gap: 0.8rem;
+                border-radius: var(--radius-sm);
+                padding: 0.9rem 1.1rem;
+                margin: 0.8rem 0;
+                border-left: 4px solid;
+                font-size: 0.85rem;
+            }
+            .alert.green {
+                background: rgba(0, 255, 136, 0.06);
+                border-left-color: var(--neon-green);
+            }
+            .alert.amber {
+                background: rgba(255, 184, 0, 0.06);
+                border-left-color: var(--neon-amber);
+            }
+            .alert.red {
+                background: rgba(255, 68, 102, 0.06);
+                border-left-color: var(--neon-red);
+            }
+            .alert.cyan {
+                background: rgba(0, 229, 255, 0.06);
+                border-left-color: var(--neon-cyan);
+            }
+            .alert-icon {
+                flex-shrink: 0;
+            }
+            .alert-text {
+                color: var(--text-secondary);
+            }
+            .alert-text strong {
+                color: var(--text-primary);
+            }
+            .compare-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin: 1.2rem 0;
+            }
+            .compare-col {
+                border-radius: var(--radius);
+                padding: 1rem;
+                border: 1px solid;
+            }
+            .compare-col.good {
+                background: rgba(0, 255, 136, 0.05);
+                border-color: rgba(0, 255, 136, 0.2);
+            }
+            .compare-col.bad {
+                background: rgba(255, 68, 102, 0.05);
+                border-color: rgba(255, 68, 102, 0.2);
+            }
+            .compare-head {
+                font-family: var(--font-mono);
+                font-size: 0.7rem;
+                letter-spacing: 1px;
+                font-weight: 700;
+                margin-bottom: 0.7rem;
+            }
+            .compare-col.good .compare-head {
+                color: var(--neon-green);
+            }
+            .compare-col.bad .compare-head {
+                color: var(--neon-red);
+            }
+            .compare-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.4rem;
+                font-size: 0.82rem;
+                color: var(--text-secondary);
+                margin-bottom: 0.4rem;
+            }
+            .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--border-dim), transparent);
+                margin: 3rem 0;
+            }
+            .lo-box {
+                background: rgba(0, 229, 255, 0.04);
+                border: 1px solid rgba(0, 229, 255, 0.15);
+                border-radius: var(--radius-sm);
+                padding: 0.8rem 1rem;
+                margin: 0.6rem 0;
+                font-size: 0.83rem;
+                display: flex;
+                align-items: flex-start;
+                gap: 0.7rem;
+            }
+            .lo-tag {
+                font-family: var(--font-mono);
+                font-size: 0.62rem;
+                background: rgba(0, 229, 255, 0.15);
+                color: var(--neon-cyan);
+                padding: 0.15rem 0.5rem;
+                border-radius: 4px;
+                flex-shrink: 0;
+                border: 1px solid rgba(0, 229, 255, 0.3);
+            }
+            .lo-text {
+                color: var(--text-secondary);
+            }
+            .scroll-top {
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                width: 42px;
+                height: 42px;
+                background: var(--bg-card);
+                border: 1px solid var(--border-dim);
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--neon-cyan);
+                font-size: 1.1rem;
+                text-decoration: none;
+                z-index: 100;
+                transition: all 0.2s;
+            }
+            .scroll-top:hover {
+                background: var(--bg-hover);
+                box-shadow: var(--glow-cyan);
+            }
+            footer {
+                margin-top: 5rem;
+                padding: 2.5rem 0;
+                border-top: 1px solid var(--border-dim);
+                text-align: center;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--text-muted);
+            }
+            footer a {
+                color: var(--neon-cyan);
+                text-decoration: none;
+            }
+            footer a:hover {
+                text-shadow: var(--glow-cyan);
+            }
+            @media (max-width: 900px) {
+                .compare-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            @media (max-width: 600px) {
+                .toc-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+                .metric-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <nav class="nav">
+            <span class="nav-logo">CT-MAT</span>
+            <a href="#toc">目次</a>
+            <a href="#ch1">Ch.1 概論</a>
+            <a href="#ch2">Ch.2 テストタイプ</a>
+            <a href="#ch3">Ch.3 共通テスト</a>
+            <a href="#ch4">Ch.4 ツール/環境</a>
+            <a href="#ch5">Ch.5 自動化</a>
+            <a href="#exam">試験対策</a>
+            <a href="#refs">参考資料</a>
+        </nav>
+        <div class="container">
+            <section class="hero" id="top">
+                <div class="hero-badge">ISTQB® SPECIALIST CERTIFICATION</div>
+                <h1 class="hero-title">
+                    <span class="accent2">Mobile Application</span><br /><span class="accent"
+                        >Testing</span
+                    >
+                    完全ガイド
+                </h1>
+                <p class="hero-sub">
+                    CT-MAT v1.0 シラバス完全準拠 ── 初学者から試験合格まで、<br />実践コード・図解・サンプル問題で徹底解説
+                </p>
+                <div class="hero-meta">
+                    <div class="meta-pill">
+                        <div>
+                            <div class="val">40</div>
+                            <div class="lbl">問題数</div>
+                        </div>
+                    </div>
+                    <div class="meta-pill">
+                        <div>
+                            <div class="val">26</div>
+                            <div class="lbl">合格点 (65%)</div>
+                        </div>
+                    </div>
+                    <div class="meta-pill">
+                        <div>
+                            <div class="val">60</div>
+                            <div class="lbl">試験時間 (分)</div>
+                        </div>
+                    </div>
+                    <div class="meta-pill">
+                        <div>
+                            <div class="val">775</div>
+                            <div class="lbl">推奨学習 (分)</div>
+                        </div>
+                    </div>
+                    <div class="meta-pill">
+                        <div>
+                            <div class="val">K1-K3</div>
+                            <div class="lbl">認知レベル</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="divider"></div>
+            <!-- TOC -->
+            <section id="toc">
+                <h2 class="section-title">目次 — チャプター構成</h2>
+                <div class="toc-grid">
+                    <a href="#ch0" class="toc-card"
+                        ><span class="toc-num">CH.0</span>
+                        <div>
+                            <div class="toc-title">イントロダクション</div>
+                            <div class="toc-mins">試験概要・ビジネスアウトカム</div>
+                        </div></a
+                    >
+                    <a href="#ch1" class="toc-card"
+                        ><span class="toc-num">CH.1</span>
+                        <div>
+                            <div class="toc-title">モバイル世界 ─ ビジネス・技術ドライバー</div>
+                            <div class="toc-mins">⏱ 175分 | K1・K2・K3</div>
+                        </div></a
+                    >
+                    <a href="#ch2" class="toc-card"
+                        ><span class="toc-num">CH.2</span>
+                        <div>
+                            <div class="toc-title">モバイルアプリ テストタイプ</div>
+                            <div class="toc-mins">⏱ 265分 | K1・K2</div>
+                        </div></a
+                    >
+                    <a href="#ch3" class="toc-card"
+                        ><span class="toc-num">CH.3</span>
+                        <div>
+                            <div class="toc-title">共通テストタイプ・テストプロセス</div>
+                            <div class="toc-mins">⏱ 200分 | K1・K2・K3</div>
+                        </div></a
+                    >
+                    <a href="#ch4" class="toc-card"
+                        ><span class="toc-num">CH.4</span>
+                        <div>
+                            <div class="toc-title">プラットフォーム・ツール・環境</div>
+                            <div class="toc-mins">⏱ 80分 | K1・K2</div>
+                        </div></a
+                    >
+                    <a href="#ch5" class="toc-card"
+                        ><span class="toc-num">CH.5</span>
+                        <div>
+                            <div class="toc-title">テスト実行の自動化</div>
+                            <div class="toc-mins">⏱ 55分 | K1・K2・K3</div>
+                        </div></a
+                    >
+                    <a href="#exam" class="toc-card"
+                        ><span class="toc-num">試験</span>
+                        <div>
+                            <div class="toc-title">試験対策・サンプル問題</div>
+                            <div class="toc-mins">チェックリスト完備</div>
+                        </div></a
+                    >
+                    <a href="#refs" class="toc-card"
+                        ><span class="toc-num">参考</span>
+                        <div>
+                            <div class="toc-title">参考文献・URL一覧</div>
+                            <div class="toc-mins">カテゴリ別リンク集</div>
+                        </div></a
+                    >
+                </div>
+                <h3 class="sub-title" style="margin-top: 2rem">📊 章別 推奨学習時間配分</h3>
+                <div style="margin: 1rem 0">
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Ch.1 モバイル世界・ビジネスドライバー</span
+                            ><span class="progress-val">175分 (22.6%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 22.6%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Ch.2 モバイルアプリテストタイプ</span
+                            ><span class="progress-val">265分 (34.2%) ← 最大</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 34.2%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Ch.3 共通テストタイプ・テストプロセス</span
+                            ><span class="progress-val">200分 (25.8%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 25.8%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Ch.4 プラットフォーム・ツール・環境</span
+                            ><span class="progress-val">80分 (10.3%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 10.3%"></div>
+                        </div>
+                    </div>
+                    <div class="progress-item">
+                        <div class="progress-header">
+                            <span class="progress-label">Ch.5 テスト実行の自動化</span
+                            ><span class="progress-val">55分 (7.1%)</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 7.1%"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="divider"></div>
+            <!-- CH0 -->
+            <section id="ch0">
+                <div class="chapter-header">
+                    <span class="chapter-num" style="background: #00e5ff; color: #030712"
+                        >CH.0</span
+                    >
+                    <div>
+                        <h1 class="chapter-title">イントロダクション ─ CT-MAT 概要</h1>
+                        <div class="chapter-meta">
+                            <span class="chapter-badge badge-time">前提: CTFL 必須</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-val">40</div>
+                        <div class="metric-label">問題数</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val">26</div>
+                        <div class="metric-label">合格点 (65%)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val">60</div>
+                        <div class="metric-label">試験時間 (分)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val">75</div>
+                        <div class="metric-label">非母語 +25% (分)</div>
+                    </div>
+                </div>
+                <h2 class="section-title">7つのビジネスアウトカム (MAT-01〜07)</h2>
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-num">01</div>
+                        <div class="step-body">
+                            <div class="step-title">MAT-01 テスト戦略への貢献</div>
+                            <div class="step-desc">
+                                モバイルアプリのビジネス・技術ドライバーを理解し、テスト戦略を策定できる
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">02</div>
+                        <div class="step-body">
+                            <div class="step-title">MAT-02 主要な課題・リスクの識別</div>
+                            <div class="step-desc">
+                                モバイルアプリテストに関わる課題・リスク・期待事項を理解・識別できる
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">03</div>
+                        <div class="step-body">
+                            <div class="step-title">
+                                MAT-03 モバイル固有のテストタイプ・レベルの適用
+                            </div>
+                            <div class="step-desc">
+                                モバイルアプリ固有のテストタイプ・レベルを適切に適用できる
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">04</div>
+                        <div class="step-body">
+                            <div class="step-title">
+                                MAT-04 共通テストタイプのモバイル文脈での適用
+                            </div>
+                            <div class="step-desc">
+                                CTFL に記載の共通テストタイプをモバイル文脈で適用できる
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">05</div>
+                        <div class="step-body">
+                            <div class="step-title">
+                                MAT-05 モバイル固有のテストプロセス活動の実施
+                            </div>
+                            <div class="step-desc">
+                                ISTQB
+                                テストプロセスの主要活動の一環として、モバイル固有の活動を実行できる
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">06</div>
+                        <div class="step-body">
+                            <div class="step-title">MAT-06 適切な環境・ツールの識別・使用</div>
+                            <div class="step-desc">
+                                モバイルアプリテストに適した環境・ツールを識別・活用できる
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">07</div>
+                        <div class="step-body">
+                            <div class="step-title">MAT-07 テスト自動化手法・ツールの理解</div>
+                            <div class="step-desc">
+                                モバイルアプリテスト自動化を支援する手法とツールを理解できる
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <h2 class="section-title">認知レベル（K-Level）の定義</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>K-Level</th>
+                                <th>認知レベル</th>
+                                <th>動詞例</th>
+                                <th>問題の特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="tag tag-k1">K1</span></td>
+                                <td>Remember（記憶）</td>
+                                <td>Recall, Identify, List</td>
+                                <td>用語・定義を答える</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-k2">K2</span></td>
+                                <td>Understand（理解）</td>
+                                <td>Describe, Distinguish, Explain</td>
+                                <td>概念を説明・分類する</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-k3">K3</span></td>
+                                <td>Apply（適用）</td>
+                                <td>Apply, Create, Design, Execute</td>
+                                <td>実際の状況に技法を適用する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <div class="divider"></div>
+            <!-- CH1 -->
+            <section id="ch1">
+                <div class="chapter-header">
+                    <span class="chapter-num" style="background: var(--neon-green); color: #030712"
+                        >CH.1</span
+                    >
+                    <div>
+                        <h1 class="chapter-title">モバイル世界 — ビジネス・技術ドライバー</h1>
+                        <div class="chapter-meta">
+                            <span class="chapter-badge badge-time">⏱ 175分</span
+                            ><span class="chapter-badge badge-k2">K2 主体</span
+                            ><span class="chapter-badge badge-k3">K3 あり</span>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="section-title">1.1 モバイルアナリティクスデータ</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-1.1.1 K2</span
+                    ><span class="lo-text"
+                        >利用可能なモバイルアナリティクスデータが、テスト戦略とテスト計画のインプットとしてどのように使用できるかを説明できる</span
+                    >
+                </div>
+                <p>
+                    モバイルアプリテスターは、テスト計画の議論とテスト分析に効果的に貢献するために、以下の要素を把握しておく必要があります。
+                </p>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">📊</span>
+                        <div class="arch-content">
+                            <div class="arch-label">プラットフォーム分布</div>
+                            <div class="arch-desc">
+                                iOS vs Android のシェア（地域別）・アプリダウンロード数の分布
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">📱</span>
+                        <div class="arch-content">
+                            <div class="arch-label">OSバージョン分布</div>
+                            <div class="arch-desc">
+                                各OSバージョンの市場シェア・サポート期限を考慮したテスト優先度設定
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">🖥️</span>
+                        <div class="arch-content">
+                            <div class="arch-label">デバイスタイプ・画面サイズ</div>
+                            <div class="arch-desc">
+                                地域別のデバイス種別シェア・解像度・DPIの分布データ
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">⌨️</span>
+                        <div class="arch-content">
+                            <div class="arch-label">入力方式・カメラタイプ</div>
+                            <div class="arch-desc">
+                                タッチ・ペン・キーボード・音声入力の種類・カメラ仕様の多様性
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <span class="arch-icon">🌍</span>
+                        <div class="arch-content">
+                            <div class="arch-label">地理的ユーザー分布</div>
+                            <div class="arch-desc">
+                                ターゲット市場に応じたデバイスポートフォリオ選定の根拠データ
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout info">
+                    <span class="callout-icon">💡</span>
+                    <div class="callout-body">
+                        <div class="callout-title">アナリティクスデータの活用方法</div>
+                        <p class="callout-text">
+                            アナリティクスデータは<strong>デバイスポートフォリオ</strong>の選定に使用します。市場データに基づいて優先度を設定し、テスト実行するデバイスセットを決定します。心拍センサー付きデバイスなど特殊な機能がある場合は、デバイス固有のテストケースを追加設計します。
+                        </p>
+                    </div>
+                </div>
+                <h2 class="section-title">1.2 モバイルアプリのビジネスモデル</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-1.2.1 K2</span
+                    ><span class="lo-text">モバイルアプリの様々なビジネスモデルを区別できる</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ビジネスモデル</th>
+                                <th>概要</th>
+                                <th>テスト上の注意点</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🆓 <strong>フリーミアム</strong></td>
+                                <td>基本機能は無料、高度な機能は有料</td>
+                                <td>無料/有料機能の境界・アップグレードフローをテスト</td>
+                            </tr>
+                            <tr>
+                                <td>📢 <strong>広告ベース</strong></td>
+                                <td>アプリ内に広告を表示して収益化</td>
+                                <td>広告表示が操作の妨げにならないかのユーザビリティテスト</td>
+                            </tr>
+                            <tr>
+                                <td>💳 <strong>トランザクションベース</strong></td>
+                                <td>取引ごとまたは比率で課金</td>
+                                <td>決済フロー・金額計算・エラー時のロールバックを徹底テスト</td>
+                            </tr>
+                            <tr>
+                                <td>💰 <strong>フィーベース（有料）</strong></td>
+                                <td>ダウンロード時に料金が発生</td>
+                                <td>インストール・購入フロー・返金ポリシー対応をテスト</td>
+                            </tr>
+                            <tr>
+                                <td>🏢 <strong>エンタープライズ/無料</strong></td>
+                                <td>社内利用・組織サービスへの誘導が目的</td>
+                                <td>認証・VPN・MDM連携・セキュリティポリシーをテスト</td>
+                            </tr>
+                            <tr>
+                                <td>🛒 <strong>アプリ内購入（IAP）</strong></td>
+                                <td>上記モデルに組み合わせて適用可能</td>
+                                <td>ストア課金フロー・消費型/非消費型アイテム区別をテスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <h2 class="section-title">1.3 モバイルデバイスの種類</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-1.3.1 K1</span
+                    ><span class="lo-text">モバイルデバイスの異なる種類を想起できる</span>
+                </div>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">📟</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Basic Phone（基本携帯）</div>
+                            <div class="arch-desc">
+                                通話・SMSのみ。アプリインストール・ブラウジング不可。最低機能のデバイス
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">📲</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Feature Phone（フィーチャーフォン）</div>
+                            <div class="arch-desc">
+                                限定的なアプリサポート・ブラウザ・カメラ搭載。アプリインストールに制限あり
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">📱</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Smartphone（スマートフォン）</div>
+                            <div class="arch-desc">
+                                多数のセンサー・アプリインストール・マルチメディア・ブラウジング完全対応
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">📲</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Tablet（タブレット）</div>
+                            <div class="arch-desc">
+                                スマートフォンより大きな画面・長いバッテリー寿命。UI
+                                レイアウトが異なる
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <span class="arch-icon">⌚</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Companion Device / Wearable</div>
+                            <div class="arch-desc">
+                                スマートウォッチ・フィットネスバンド・IoTデバイス。スマートフォンと連携
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="section-title">1.4 モバイルアプリの種類</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-1.4.1 K2</span
+                    ><span class="lo-text">モバイルアプリの異なる種類を区別できる</span>
+                </div>
+                <div class="compare-grid">
+                    <div class="compare-col good">
+                        <div class="compare-head">✅ ネイティブアプリ</div>
+                        <div class="compare-item">✔️ 最高のパフォーマンス</div>
+                        <div class="compare-item">✔️ プラットフォーム機能フル活用</div>
+                        <div class="compare-item">✔️ オフライン動作可能</div>
+                        <div class="compare-item" style="color: var(--neon-red)">
+                            ❌ 開発コスト高（プラットフォームごと）
+                        </div>
+                        <div class="compare-item" style="color: var(--neon-red)">
+                            ❌ 多数デバイスでのテストが必要
+                        </div>
+                    </div>
+                    <div
+                        class="compare-col"
+                        style="
+                            background: rgba(0, 229, 255, 0.05);
+                            border-color: rgba(0, 229, 255, 0.2);
+                        "
+                    >
+                        <div class="compare-head" style="color: var(--neon-cyan)">
+                            🌐 ブラウザベースアプリ
+                        </div>
+                        <div class="compare-item">✔️ マルチプラットフォーム対応が容易</div>
+                        <div class="compare-item">✔️ 開発コスト低・インストール不要</div>
+                        <div class="compare-item" style="color: var(--neon-red)">
+                            ❌ 常時接続が必要
+                        </div>
+                        <div class="compare-item" style="color: var(--neon-red)">
+                            ❌ センサーAPIへのアクセス限定
+                        </div>
+                        <div class="compare-item" style="color: var(--neon-red)">
+                            ❌ ブラウザ互換性テストが必須
+                        </div>
+                    </div>
+                </div>
+                <h3 class="sub-title">ブラウザベースアプリの4形態</h3>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">🔗</span>
+                        <div class="arch-content">
+                            <div class="arch-label">モバイル専用サイト（m-dotサイト）</div>
+                            <div class="arch-desc">
+                                例: example.com → m.example.com へリダイレクト。専用URLで最適化
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">📐</span>
+                        <div class="arch-content">
+                            <div class="arch-label">レスポンシブWebアプリ</div>
+                            <div class="arch-desc">
+                                ビューポートに応じてデザインが自動調整。CSSメディアクエリで実装
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">🎯</span>
+                        <div class="arch-content">
+                            <div class="arch-label">アダプティブWebアプリ</div>
+                            <div class="arch-desc">
+                                事前定義のサイズに応じて異なるデザインを提供。機能も調整可能
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">⚡</span>
+                        <div class="arch-content">
+                            <div class="arch-label">プログレッシブWebアプリ（PWA）</div>
+                            <div class="arch-desc">
+                                ホーム画面にショートカット作成・ネイティブアプリのような外観・一部オフライン動作
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="trend-card">
+                    <div class="trend-tag">📦 ハイブリッドアプリ</div>
+                    <div class="trend-title">ネイティブ × Webの最適解</div>
+                    <p class="trend-desc">
+                        ネイティブアプリのラッパー内にWebビューでWebアプリを実行。ストアからダウンロード可能で全デバイス機能にアクセス可能。Cordova/Capacitor/React
+                        Native/Flutterなどで実装。パフォーマンスと開発コストのバランスを取る選択肢。オフライン時も利用可能。
+                    </p>
+                </div>
+                <h2 class="section-title">1.5 モバイルアプリのアーキテクチャ</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-1.5.1 K2</span
+                    ><span class="lo-text">モバイルアプリのアーキテクチャタイプを区別できる</span>
+                </div>
+                <h3 class="sub-title">接続モードの3分類（テスト上の重要概念）</h3>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">🔌</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Never-Connected（非接続型）</div>
+                            <div class="arch-desc">
+                                常にオフラインで動作。例：電卓、ゲームの一部。ネットワーク依存なし
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">🌐</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Always-Connected（常時接続型）</div>
+                            <div class="arch-desc">
+                                永続的なネットワーク接続が必要。すべてのモバイルWebアプリが該当
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">🔄</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Partially-Connected（部分接続型）</div>
+                            <div class="arch-desc">
+                                データ転送時のみ接続が必要。長期間オフラインでも動作可能。最も一般的
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="compare-grid">
+                    <div class="compare-col good">
+                        <div class="compare-head">Thin Client（シンクライアント）</div>
+                        <div class="compare-item">📋 アプリコードが最小限</div>
+                        <div class="compare-item">📋 主にブラウザをフロントエンドとして使用</div>
+                        <div class="compare-item">📋 クライアントロジックはJavaScriptで実装</div>
+                    </div>
+                    <div
+                        class="compare-col"
+                        style="
+                            background: rgba(180, 79, 255, 0.05);
+                            border-color: rgba(180, 79, 255, 0.25);
+                        "
+                    >
+                        <div class="compare-head" style="color: var(--neon-purple)">
+                            Thick/Fat Client（ファットクライアント）
+                        </div>
+                        <div class="compare-item">📋 多層のアプリコードを保持</div>
+                        <div class="compare-item">📋 モバイルOS機能を積極活用</div>
+                        <div class="compare-item">📋 ネイティブ・ハイブリッドアプリが該当</div>
+                    </div>
+                </div>
+                <h2 class="section-title">1.6 モバイルアプリのテスト戦略</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-1.6.1 K3</span
+                    ><span class="lo-text"
+                        >テスト戦略の策定において、モバイル市場の特性と固有の要素を適用できる</span
+                    >
+                </div>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">📊</span>
+                        <div class="arch-content">
+                            <div class="arch-label">デバイスポートフォリオの選定</div>
+                            <div class="arch-desc">
+                                アナリティクスデータに基づき、テスト対象デバイスセットを定義する
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">🏷️</span>
+                        <div class="arch-content">
+                            <div class="arch-label">ビジネスモデルの考慮</div>
+                            <div class="arch-desc">
+                                収益モデルに応じた機能テスト（課金フロー・広告表示など）を追加する
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">🔄</span>
+                        <div class="arch-content">
+                            <div class="arch-label">ライフサイクル全体でのリスク</div>
+                            <div class="arch-desc">
+                                新しい技術・デバイス・プラットフォームの導入、アップグレードパスの検証
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">🌍</span>
+                        <div class="arch-content">
+                            <div class="arch-label">ネットワークカバレッジの考慮</div>
+                            <div class="arch-desc">
+                                グローバルコンテキストでのネットワーク影響と様々な接続速度でのテスト
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="section-title">1.7 モバイルアプリテストの課題</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-1.7.1 K2</span
+                    ><span class="lo-text"
+                        >モバイルアプリテストに関連する課題の例を示すことができる</span
+                    >
+                </div>
+                <div class="callout danger">
+                    <span class="callout-icon">⚠️</span>
+                    <div class="callout-body">
+                        <div class="callout-title">モバイルテストの主要な課題</div>
+                        <p class="callout-text">
+                            ① デバイスの断片化（数千種類のデバイス）② OSバージョンの多様性 ③
+                            画面サイズ・解像度の多様性 ④ ネットワーク接続の不安定性 ⑤
+                            バッテリー消費とパフォーマンス ⑥ アプリストア審査プロセス ⑦
+                            同時実行される他アプリとの干渉
+                        </p>
+                    </div>
+                </div>
+                <h2 class="section-title">1.8 モバイルアプリテストのリスク</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-1.8.1 K2</span
+                    ><span class="lo-text"
+                        >モバイルアプリ固有のリスクがどのように軽減できるかを説明できる</span
+                    >
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>リスク</th>
+                                <th>説明</th>
+                                <th>軽減策</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>デバイス固有の欠陥</td>
+                                <td>特定デバイスでのみ発生するバグ</td>
+                                <td>デバイスポートフォリオに基づいた優先テスト</td>
+                            </tr>
+                            <tr>
+                                <td>デバイスの可用性</td>
+                                <td>必要なデバイスが社内にない</td>
+                                <td>クラウドテストサービス・レンタルラボの活用</td>
+                            </tr>
+                            <tr>
+                                <td>新技術・プラットフォームの登場</td>
+                                <td>ライフサイクル中に新しいOSバージョンがリリース</td>
+                                <td>プレプロダクションバージョンでの先行テスト</td>
+                            </tr>
+                            <tr>
+                                <td>インストール・アップグレード</td>
+                                <td>更新時にデータやプリファレンスが失われる</td>
+                                <td>アップグレードパスの専用テスト実施</td>
+                            </tr>
+                            <tr>
+                                <td>ネットワーク・グローバル展開</td>
+                                <td>低速・不安定接続下でのアプリ動作</td>
+                                <td>様々なネットワーク条件下でのテスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+            <div class="divider"></div>
+            <!-- CH2 -->
+            <section id="ch2">
+                <div class="chapter-header">
+                    <span class="chapter-num" style="background: var(--neon-cyan); color: #030712"
+                        >CH.2</span
+                    >
+                    <div>
+                        <h1 class="chapter-title">モバイルアプリテストタイプ</h1>
+                        <div class="chapter-meta">
+                            <span class="chapter-badge badge-time">⏱ 265分（最大章）</span
+                            ><span class="chapter-badge badge-k1">K1</span
+                            ><span class="chapter-badge badge-k2">K2 主体</span>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="section-title">2.1 デバイスハードウェア互換性テスト</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-2.1.1 K2</span
+                    ><span class="lo-text">デバイス機能テストの目的と内容を説明できる</span>
+                </div>
+                <p>
+                    デバイスの機能はデバイスごとに大きく異なり、同じメーカーの異なるモデル間でも差異があります。これらの機能がアプリの動作に悪影響を及ぼさないかを確認します。
+                </p>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">📷</span>
+                        <div class="arch-content">
+                            <div class="arch-label">カメラ</div>
+                            <div class="arch-desc">
+                                前面/背面カメラ・解像度・フラッシュ・ARKit/ARCore対応
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">📍</span>
+                        <div class="arch-content">
+                            <div class="arch-label">GPS・位置情報</div>
+                            <div class="arch-desc">
+                                精度・高速測位（AGPS）・バックグラウンド位置取得の動作確認
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">💳</span>
+                        <div class="arch-content">
+                            <div class="arch-label">NFC</div>
+                            <div class="arch-desc">
+                                モバイル決済・タグ読み取り・P2P通信・NFC無効時のフォールバック
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">📻</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Bluetooth</div>
+                            <div class="arch-desc">
+                                BLE（省電力）・Classic Bluetooth・ペアリングフロー・接続断・再接続
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <span class="arch-icon">🔢</span>
+                        <div class="arch-content">
+                            <div class="arch-label">生体認証センサー</div>
+                            <div class="arch-desc">
+                                指紋・顔認証・虹彩認証・代替認証（PIN/パスワード）へのフォールバック
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer blue">
+                        <span class="arch-icon">❤️</span>
+                        <div class="arch-content">
+                            <div class="arch-label">ヘルスセンサー</div>
+                            <div class="arch-desc">
+                                心拍数・血中酸素・加速度計・ジャイロスコープ（デバイス固有機能）
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h3 class="sub-title">2.1.2 ディスプレイテスト</h3>
+                <div class="compare-grid">
+                    <div class="compare-col good">
+                        <div class="compare-head">✅ テストすべき内容</div>
+                        <div class="compare-item">✔️ 様々な画面サイズでのレイアウト確認</div>
+                        <div class="compare-item">✔️ 高DPI/低DPIでの画像品質</div>
+                        <div class="compare-item">✔️ OLED/LCD/AMOLEDでの色再現</div>
+                        <div class="compare-item">✔️ ノッチ・パンチホール・フォールダブル対応</div>
+                        <div class="compare-item">✔️ ダークモード切り替え時の表示</div>
+                    </div>
+                    <div class="compare-col bad">
+                        <div class="compare-head">❌ よくある見落とし</div>
+                        <div class="compare-item">❌ フォントスケーリング最大値でのテスト省略</div>
+                        <div class="compare-item">❌ ランドスケープモードのUIレイアウト未確認</div>
+                        <div class="compare-item">❌ 超高解像度（4K）での画像劣化チェック漏れ</div>
+                        <div class="compare-item">❌ 小画面デバイスでのボタン操作性確認省略</div>
+                    </div>
+                </div>
+                <h3 class="sub-title">2.1.7 典型的な割り込みテスト（試験頻出！）</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>割り込みの種類</th>
+                                <th>テストシナリオ</th>
+                                <th>期待動作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>📞 着信</td>
+                                <td>ゲーム中・動画再生中に電話着信</td>
+                                <td>状態保持・復帰後に正常再開</td>
+                            </tr>
+                            <tr>
+                                <td>💬 SMS/通知</td>
+                                <td>テキスト入力中に通知が来る</td>
+                                <td>入力内容が保持される</td>
+                            </tr>
+                            <tr>
+                                <td>🔔 アラーム</td>
+                                <td>決済フロー中にアラーム発動</td>
+                                <td>決済状態が保持される・二重課金なし</td>
+                            </tr>
+                            <tr>
+                                <td>🔋 バッテリー低下</td>
+                                <td>バッテリー残量が10%以下になる</td>
+                                <td>適切な警告表示・データ保存</td>
+                            </tr>
+                            <tr>
+                                <td>📡 ネットワーク切断</td>
+                                <td>WiFi → モバイル切り替え・圏外</td>
+                                <td>エラー処理・オフラインモード移行</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="code-block" data-lang="TEST CASES">
+                    <div class="code-line"><span class="code-comment">// 画面向き変更テスト</span></div>
+                    <div class="code-line"><span class="code-keyword">test</span>(<span class="code-string">"縦横切り替え時に状態が保持される"</span>, () =&gt; {</div>
+                    <div class="code-line">    <span class="code-func">enterText</span>(<span class="code-string">"フォームに入力"</span>)</div>
+                    <div class="code-line">    <span class="code-func">rotateDevice</span>(<span class="code-string">"landscape"</span>)</div>
+                    <div class="code-line">    <span class="code-func">expect</span>(<span class="code-func">getFormValue</span>()).<span class="code-func">toBe</span>(<span class="code-string">"フォームに入力"</span>)</div>
+                    <div class="code-line">    <span class="code-func">expect</span>(<span class="code-func">getScrollPosition</span>()).<span class="code-func">toBePreserved</span>()</div>
+                    <div class="code-line">})</div>
+                </div>
+                <h3 class="sub-title">2.1.8〜2.1.9 アクセス権限・電力消費テスト</h3>
+                <div class="arch-layers">
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">🔐</span>
+                        <div class="arch-content">
+                            <div class="arch-label">アクセス権限テスト</div>
+                            <div class="arch-desc">
+                                許可/拒否の両方でアプリが正しく動作するか。権限を後から変更した場合の動作確認
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer green">
+                        <span class="arch-icon">🔋</span>
+                        <div class="arch-content">
+                            <div class="arch-label">電力消費テスト</div>
+                            <div class="arch-desc">
+                                バックグラウンド実行時のバッテリードレイン・スリープ/ウェイク状態での動作確認
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="section-title">2.2 デバイスソフトウェアとのアプリ連携テスト</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-2.2.1 K2</span
+                    ><span class="lo-text"
+                        >デバイスソフトウェアとのアプリ連携テスト項目を説明できる</span
+                    >
+                </div>
+                <div class="code-block" data-lang="NOTIFICATION TEST">
+                    <div class="code-line"><span class="code-keyword">const</span> <span class="code-green">notificationTests</span> = {</div>
+                    <div class="code-line">    <span class="code-string">"プッシュ通知"</span>: [</div>
+                    <div class="code-line">        <span class="code-string">"フォアグラウンド時に通知が表示される"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"バックグラウンド時に通知が届く"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"アプリ終了時にも通知が届く"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"通知タップでアプリの正しい画面が開く"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"通知権限を拒否した場合のフォールバック"</span></div>
+                    <div class="code-line">    ],</div>
+                    <div class="code-line">    <span class="code-string">"バッジカウント"</span>: [</div>
+                    <div class="code-line">        <span class="code-string">"未読数がホーム画面アイコンに正しく表示される"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"既読後にバッジがクリアされる"</span></div>
+                    <div class="code-line">    ]</div>
+                    <div class="code-line">}</div>
+                </div>
+                <h3 class="sub-title">2.2.3 OSユーザー設定テスト</h3>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">🔤</span>
+                        <div class="arch-content">
+                            <div class="arch-label">フォントサイズ設定</div>
+                            <div class="arch-desc">
+                                OS設定の「大きな文字」でアプリのレイアウトが崩れないかを確認
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">🌍</span>
+                        <div class="arch-content">
+                            <div class="arch-label">言語・地域設定</div>
+                            <div class="arch-desc">
+                                日付形式・通貨・数値フォーマットがOS設定に連動するかを確認
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">🌙</span>
+                        <div class="arch-content">
+                            <div class="arch-label">ダークモード/テーマ</div>
+                            <div class="arch-desc">
+                                OSのダークモード切り替え時にアプリが適切にスタイルを変更するか
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">♿</span>
+                        <div class="arch-content">
+                            <div class="arch-label">アクセシビリティ設定</div>
+                            <div class="arch-desc">
+                                VoiceOver/TalkBack・反転色・透明度低下・モノオーディオ設定との互換性
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="callout warning">
+                    <span class="callout-icon">⚠️</span>
+                    <div class="callout-body">
+                        <div class="callout-title">OSバージョン間の相互運用性テスト</div>
+                        <p class="callout-text">
+                            異なるOSバージョン（iOS 15〜18 / Android
+                            12〜15）での動作確認が必要です。特に<strong>非推奨APIの使用</strong>や<strong>新しいプライバシーポリシー</strong>への対応は最新OSバージョンでのテストが重要です。
+                        </p>
+                    </div>
+                </div>
+                <h2 class="section-title">2.3 各種接続方式のテスト</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>接続方式</th>
+                                <th>テストシナリオ</th>
+                                <th>重点確認項目</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>📶 2G/3G</td>
+                                <td>低速接続での動作</td>
+                                <td>タイムアウト処理・ローディング表示・データ節約</td>
+                            </tr>
+                            <tr>
+                                <td>📶 4G/LTE</td>
+                                <td>標準的なモバイル接続</td>
+                                <td>ストリーミング品質・リアルタイム通信</td>
+                            </tr>
+                            <tr>
+                                <td>🚀 5G</td>
+                                <td>超高速・低遅延接続</td>
+                                <td>高帯域アプリの品質・NR対応機能</td>
+                            </tr>
+                            <tr>
+                                <td>📡 WiFi</td>
+                                <td>安定した接続環境</td>
+                                <td>WiFi → モバイルデータの切り替え処理</td>
+                            </tr>
+                            <tr>
+                                <td>🔵 Bluetooth</td>
+                                <td>近距離無線通信</td>
+                                <td>ペアリング・接続断・再接続フロー</td>
+                            </tr>
+                            <tr>
+                                <td>💳 NFC</td>
+                                <td>非接触通信（決済・タグ）</td>
+                                <td>NFC無効化時のフォールバック・距離の影響</td>
+                            </tr>
+                            <tr>
+                                <td>❌ オフライン</td>
+                                <td>完全な接続断</td>
+                                <td>適切なエラーメッセージ・ローカルキャッシュ・同期処理</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="code-block" data-lang="NETWORK SIMULATION">
+                    <div class="code-line"><span class="code-comment"># ネットワーク制限テスト（Android ADB使用例）</span></div>
+                    <div class="code-line">$ adb shell <span class="code-string">"tc qdisc add dev rmnet0 root tbf rate 1000kbit burst 10kbit latency 50ms"</span></div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-comment"># iOS: Network Link Conditioner (Xcode Instruments)</span></div>
+                    <div class="code-line"><span class="code-comment"># Settings &gt; Developer &gt; Network Link Conditioner</span></div>
+                    <div class="code-line"><span class="code-green">Profiles:</span> [<span class="code-string">"3G"</span>, <span class="code-string">"Edge"</span>, <span class="code-string">"WiFi"</span>, <span class="code-string">"100% Loss"</span>, <span class="code-string">"Very Bad Network"</span>]</div>
+                </div>
+            </section>
+            <div class="divider"></div>
+            <!-- CH3 -->
+            <section id="ch3">
+                <div class="chapter-header">
+                    <span class="chapter-num" style="background: var(--neon-purple); color: #030712"
+                        >CH.3</span
+                    >
+                    <div>
+                        <h1 class="chapter-title">共通テストタイプとテストプロセス</h1>
+                        <div class="chapter-meta">
+                            <span class="chapter-badge badge-time">⏱ 200分</span
+                            ><span class="chapter-badge badge-k2">K2 主体</span
+                            ><span class="chapter-badge badge-k3">K3 あり</span>
+                        </div>
+                    </div>
+                </div>
+                <h2 class="section-title">3.1 インストール可能性テスト</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-3.1.1 K2</span
+                    ><span class="lo-text"
+                        >インストール可能性テストの目的・手順・モバイル固有の考慮点を説明できる</span
+                    >
+                </div>
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-body">
+                            <div class="step-title">クリーンインストール</div>
+                            <div class="step-desc">
+                                初回インストール・起動確認。ストア経由・サイドロード両方を確認
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-body">
+                            <div class="step-title">アップデートインストール</div>
+                            <div class="step-desc">
+                                旧バージョンからの更新。ユーザーデータ・設定・認証情報の保持を確認
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-body">
+                            <div class="step-title">アンインストール</div>
+                            <div class="step-desc">
+                                アプリが完全に削除されるか。残留ファイル・キャッシュがないか確認
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">4</div>
+                        <div class="step-body">
+                            <div class="step-title">ダウングレード</div>
+                            <div class="step-desc">
+                                旧バージョンへの戻し（必要な場合）。データスキーマの後方互換性確認
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">5</div>
+                        <div class="step-body">
+                            <div class="step-title">デバイス間移行</div>
+                            <div class="step-desc">
+                                クラウドバックアップから新デバイスへの復元。データ整合性の確認
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <h2 class="section-title">3.2 セキュリティテスト（OWASP Mobile Top 10 2024）</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-3.1.3 K2</span
+                    ><span class="lo-text">モバイルアプリのセキュリティテスト観点を説明できる</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>OWASP ID</th>
+                                <th>リスク名</th>
+                                <th>テスト方法</th>
+                                <th>対策</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>M1</td>
+                                <td>認証情報の不適切な使用</td>
+                                <td>MobSF静的解析でハードコード検出</td>
+                                <td>Android Keystore / iOS Secure Enclave</td>
+                            </tr>
+                            <tr>
+                                <td>M3</td>
+                                <td>不安全な認証・認可</td>
+                                <td>FridaでMFAバイパステスト</td>
+                                <td>多要素認証・適切なセッション管理</td>
+                            </tr>
+                            <tr>
+                                <td>M5</td>
+                                <td>安全でない通信</td>
+                                <td>Burp SuiteでMITMシミュレーション</td>
+                                <td>TLS 1.3・証明書ピンニング実装</td>
+                            </tr>
+                            <tr>
+                                <td>M9</td>
+                                <td>安全でないデータ保管</td>
+                                <td>adb shell でDBファイル検査</td>
+                                <td>AES-256暗号化・EncryptedSharedPreferences</td>
+                            </tr>
+                            <tr>
+                                <td>M10</td>
+                                <td>暗号化の不足</td>
+                                <td>静的解析で暗号化アルゴリズム確認</td>
+                                <td>強固な暗号スイート使用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="code-block" data-lang="SECURITY / ANDROID">
+                    <div class="code-line"><span class="code-comment">// EncryptedSharedPreferences の実装（Kotlin）</span></div>
+                    <div class="code-line"><span class="code-keyword">val</span> <span class="code-green">encryptedPrefs</span> = EncryptedSharedPreferences.<span class="code-func">create</span>(</div>
+                    <div class="code-line">    context,</div>
+                    <div class="code-line">    <span class="code-string">"secure_prefs"</span>,</div>
+                    <div class="code-line">    MasterKey.Builder(context).<span class="code-func">setKeyScheme</span>(MasterKey.KeyScheme.AES256_GCM).<span class="code-func">build</span>(),</div>
+                    <div class="code-line">    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,</div>
+                    <div class="code-line">    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM</div>
+                    <div class="code-line">)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-comment">// ✅ 良い例: 暗号化して保存</span></div>
+                    <div class="code-line">encryptedPrefs.edit().<span class="code-func">putString</span>(<span class="code-string">"token"</span>, authToken).<span class="code-func">apply</span>()</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-comment">// ❌ 悪い例: 平文で保存（絶対禁止！）</span></div>
+                    <div class="code-line"><span class="code-comment">// sharedPrefs.edit().putString("password", rawPassword).apply()</span></div>
+                </div>
+
+                <h2 class="section-title">3.3 パフォーマンステスト</h2>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-val">&lt;3s</div>
+                        <div class="metric-label">コールドスタート目標</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val">&lt;1s</div>
+                        <div class="metric-label">ウォームスタート目標</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val">60fps</div>
+                        <div class="metric-label">UIスムーズ基準</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-val">&lt;2s</div>
+                        <div class="metric-label">API応答目標</div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">3.4 経験ベーステスト技法（SFDPOT）</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-3.3.1 K3</span
+                    ><span class="lo-text">経験ベーステスト技法をモバイルアプリに適用できる</span>
+                </div>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">🏗️</span>
+                        <div class="arch-content">
+                            <div class="arch-label">S - Structure（構造）</div>
+                            <div class="arch-desc">
+                                画面遷移・ナビゲーション・情報アーキテクチャのテスト
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">⚙️</span>
+                        <div class="arch-content">
+                            <div class="arch-label">F - Function（機能）</div>
+                            <div class="arch-desc">各機能が仕様通りに動作するかの機能テスト</div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">📊</span>
+                        <div class="arch-content">
+                            <div class="arch-label">D - Data（データ）</div>
+                            <div class="arch-desc">
+                                データの入出力・境界値・フォーマット・文字コードのテスト
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">🌍</span>
+                        <div class="arch-content">
+                            <div class="arch-label">P - Platform（プラットフォーム）</div>
+                            <div class="arch-desc">
+                                OS・デバイス・ブラウザの各組み合わせでの動作確認
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <span class="arch-icon">⏳</span>
+                        <div class="arch-content">
+                            <div class="arch-label">O - Operations（操作）</div>
+                            <div class="arch-desc">
+                                時間・割り込み・バックグラウンド/フォアグラウンド切り替え
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer blue">
+                        <span class="arch-icon">⏰</span>
+                        <div class="arch-content">
+                            <div class="arch-label">T - Time（時間）</div>
+                            <div class="arch-desc">
+                                タイムゾーン・サマータイム・時刻に依存する機能のテスト
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="sub-title">セッションベーステスト管理（SBTM）</h3>
+                <div class="code-block" data-lang="SESSION SHEET">
+                    <div class="code-line"><span class="code-green">Session</span>: {</div>
+                    <div class="code-line">    charter: <span class="code-string">"ログイン画面のエラーハンドリングを探索する"</span>,</div>
+                    <div class="code-line">    tester: <span class="code-string">"田中テスター"</span>,</div>
+                    <div class="code-line">    date: <span class="code-string">"2025-05-01"</span>,</div>
+                    <div class="code-line">    device: <span class="code-string">"iPhone 16 Pro, iOS 18.4, WiFi環境"</span>,</div>
+                    <div class="code-line">    timeAllocation: {</div>
+                    <div class="code-line">        testing: <span class="code-string">"45分 (75%)"</span>,</div>
+                    <div class="code-line">        bugInvestigation: <span class="code-string">"10分"</span>,</div>
+                    <div class="code-line">        setup: <span class="code-string">"5分"</span></div>
+                    <div class="code-line">    },</div>
+                    <div class="code-line">    bugsFound: [</div>
+                    <div class="code-line">        <span class="code-string">"5回ログイン失敗時のアカウントロック通知が表示されない"</span>,</div>
+                    <div class="code-line">        <span class="code-string">"パスワードのペーストが特定の入力欄で無効になっている"</span></div>
+                    <div class="code-line">    ],</div>
+                    <div class="code-line">    nextCharter: <span class="code-string">"ソーシャルログインフローの探索"</span></div>
+                    <div class="code-line">}</div>
+                </div>
+
+                <h2 class="section-title">3.5 モバイルテストプロセス（ISTQB準拠）</h2>
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-body">
+                            <div class="step-title">テスト計画策定</div>
+                            <div class="step-desc">
+                                デバイスポートフォリオ・環境（実機/エミュレータ）・スケジュール・リスク分析
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-body">
+                            <div class="step-title">テスト分析・設計</div>
+                            <div class="step-desc">
+                                テスト条件の導出・テストケース設計・デバイス×OSバージョン組み合わせマトリクス作成
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-body">
+                            <div class="step-title">テスト実装</div>
+                            <div class="step-desc">
+                                テストスクリプト作成・テストデータ準備・実機/エミュレータ設定・自動化スクリプト実装
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">4</div>
+                        <div class="step-body">
+                            <div class="step-title">テスト実行</div>
+                            <div class="step-desc">
+                                手動テスト・自動テスト実行・欠陥報告・再テスト・回帰テスト
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">5</div>
+                        <div class="step-body">
+                            <div class="step-title">テスト完了</div>
+                            <div class="step-desc">
+                                テストレポート作成・欠陥サマリー・教訓の文書化・アプリストア提出前の最終確認
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <div class="divider"></div>
+            <!-- CH4 -->
+            <section id="ch4">
+                <div class="chapter-header">
+                    <span class="chapter-num" style="background: var(--neon-amber); color: #030712"
+                        >CH.4</span
+                    >
+                    <div>
+                        <h1 class="chapter-title">プラットフォーム・ツール・テスト環境</h1>
+                        <div class="chapter-meta">
+                            <span class="chapter-badge badge-time">⏱ 80分</span
+                            ><span class="chapter-badge badge-k1">K1</span
+                            ><span class="chapter-badge badge-k2">K2 主体</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">4.1 モバイルアプリ開発プラットフォーム</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-4.1.1 K1</span
+                    ><span class="lo-text"
+                        >主要なモバイルアプリ開発プラットフォームとテストツールを認識できる</span
+                    >
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>プラットフォーム</th>
+                                <th>言語</th>
+                                <th>テストツール</th>
+                                <th>対象デバイス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🍎 iOS (Apple)</td>
+                                <td>Swift / Objective-C</td>
+                                <td>XCTest, XCUITest, Instruments</td>
+                                <td>iPhone / iPad / Watch / TV</td>
+                            </tr>
+                            <tr>
+                                <td>🤖 Android (Google)</td>
+                                <td>Kotlin / Java</td>
+                                <td>Espresso, UIAutomator2, Android Studio Profiler</td>
+                                <td>スマートフォン・タブレット・Watch・TV</td>
+                            </tr>
+                            <tr>
+                                <td>⚛️ React Native</td>
+                                <td>JavaScript/TypeScript</td>
+                                <td>Detox, Jest, Appium</td>
+                                <td>iOS + Android（クロスプラットフォーム）</td>
+                            </tr>
+                            <tr>
+                                <td>🐦 Flutter (Google)</td>
+                                <td>Dart</td>
+                                <td>flutter_test, integration_test</td>
+                                <td>iOS + Android + Web + Desktop</td>
+                            </tr>
+                            <tr>
+                                <td>🔷 Xamarin (Microsoft)</td>
+                                <td>C#</td>
+                                <td>Xamarin.UITest, NUnit</td>
+                                <td>iOS + Android</td>
+                            </tr>
+                            <tr>
+                                <td>📱 Ionic/Cordova</td>
+                                <td>HTML/CSS/JavaScript</td>
+                                <td>Appium, Cypress Mobile</td>
+                                <td>iOS + Android（ハイブリッド）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="section-title">4.2 共通開発プラットフォームツール</h2>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">🔧</span>
+                        <div class="arch-content">
+                            <div class="arch-label">ADB（Android Debug Bridge）</div>
+                            <div class="arch-desc">
+                                Androidデバイスとの通信ツール。アプリインストール・ログ取得・シェルコマンド実行に必須
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">🔍</span>
+                        <div class="arch-content">
+                            <div class="arch-label">Logcat / Console</div>
+                            <div class="arch-desc">
+                                リアルタイムログ監視。クラッシュ・エラー・警告の確認に必須。フィルタリング機能で絞り込み可能
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">🌐</span>
+                        <div class="arch-content">
+                            <div class="arch-label">プロキシツール（Charles / Burp Suite）</div>
+                            <div class="arch-desc">
+                                HTTPSトラフィックの傍受・分析。APIテスト・セキュリティテストに活用。MITMシミュレーション
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">📊</span>
+                        <div class="arch-content">
+                            <div class="arch-label">パフォーマンス計測ツール</div>
+                            <div class="arch-desc">
+                                Instruments (iOS) / Android Profiler:
+                                CPU・メモリ・バッテリー・ネットワーク使用量の計測・可視化
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <span class="arch-icon">🗑️</span>
+                        <div class="arch-content">
+                            <div class="arch-label">クラッシュレポートツール</div>
+                            <div class="arch-desc">
+                                Firebase Crashlytics / Sentry:
+                                本番クラッシュの自動収集・スタックトレース分析・アラート通知
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">4.3 エミュレータとシミュレータの違い（試験頻出！）</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-4.3.1 K2</span
+                    ><span class="lo-text"
+                        >エミュレータとシミュレータの違い・メリット・制限を区別できる</span
+                    >
+                </div>
+                <div class="compare-grid">
+                    <div
+                        class="compare-col"
+                        style="
+                            background: rgba(0, 229, 255, 0.05);
+                            border-color: rgba(0, 229, 255, 0.25);
+                        "
+                    >
+                        <div class="compare-head" style="color: var(--neon-cyan)">
+                            🖥️ エミュレータ（Emulator）
+                        </div>
+                        <div class="compare-item">
+                            📋 実際のハードウェアを<strong>完全に模倣</strong>
+                        </div>
+                        <div class="compare-item">📋 主に Android 開発で使用</div>
+                        <div class="compare-item">📋 CPU・メモリ使用量が大きい</div>
+                        <div class="compare-item">📋 ホストOSと異なるゲストOSを実行</div>
+                        <div class="compare-item" style="color: var(--neon-green)">
+                            ✔️ ネイティブに近い動作精度
+                        </div>
+                    </div>
+                    <div
+                        class="compare-col"
+                        style="
+                            background: rgba(0, 255, 136, 0.05);
+                            border-color: rgba(0, 255, 136, 0.25);
+                        "
+                    >
+                        <div class="compare-head" style="color: var(--neon-green)">
+                            💻 シミュレータ（Simulator）
+                        </div>
+                        <div class="compare-item">
+                            📋 ソフトウェアの動作環境を<strong>模擬</strong>
+                        </div>
+                        <div class="compare-item">📋 主に iOS 開発（Xcode Simulator）</div>
+                        <div class="compare-item">📋 軽量・高速起動</div>
+                        <div class="compare-item">📋 ホストOSと同じ環境で実行</div>
+                        <div class="compare-item" style="color: var(--neon-red)">
+                            ❌ ハードウェアセンサーの模倣が不完全
+                        </div>
+                    </div>
+                </div>
+                <div class="callout warning">
+                    <span class="callout-icon">⚠️</span>
+                    <div class="callout-body">
+                        <div class="callout-title">エミュレータ/シミュレータの限界</div>
+                        <p class="callout-text">
+                            GPS精度・カメラ品質・センサー応答・バッテリー消費・熱スロットリングは<strong>実機でのみ正確にテストできます</strong>。リリース前には必ず実機でのテストを実施してください。クラウドデバイスファームを活用することで多数の実機に低コストでアクセスできます。
+                        </p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">4.4 クラウドデバイスファームの活用</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>サービス</th>
+                                <th>実機数</th>
+                                <th>特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>☁️ Firebase Test Lab</td>
+                                <td>多数の実機</td>
+                                <td>Google公式・Roboテスト自動実行・Firebase統合</td>
+                            </tr>
+                            <tr>
+                                <td>☁️ AWS Device Farm</td>
+                                <td>250種類以上</td>
+                                <td>AWS統合・複数フレームワーク対応・詳細レポート</td>
+                            </tr>
+                            <tr>
+                                <td>☁️ BrowserStack</td>
+                                <td>3000種類以上</td>
+                                <td>最大規模・ライブデバッグ可能・豊富なOS/デバイス</td>
+                            </tr>
+                            <tr>
+                                <td>☁️ Sauce Labs</td>
+                                <td>800種類以上</td>
+                                <td>エンタープライズ向け・詳細な分析・CI/CD統合</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h2 class="section-title">4.5 テストラボ構築ステップ</h2>
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-body">
+                            <div class="step-title">デバイスポートフォリオの決定</div>
+                            <div class="step-desc">
+                                市場データ（StatCounter・Firebase・自社アナリティクス）に基づき、テストラボに揃えるデバイスを選定する
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-body">
+                            <div class="step-title">実機 vs エミュレータの分担</div>
+                            <div class="step-desc">
+                                自動化・回帰テストはエミュレータ/クラウド。機能確認・UXは一部実機。アプリストア提出前は必ず実機確認
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-body">
+                            <div class="step-title">クラウドテストサービスの選定</div>
+                            <div class="step-desc">
+                                AWS Device Farm / Firebase Test Lab / BrowserStack
+                                で多数の実機をクラウド上でテスト。コストと品質のバランスを検討
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">4</div>
+                        <div class="step-body">
+                            <div class="step-title">デバイス管理（MDM）体制の整備</div>
+                            <div class="step-desc">
+                                充電管理・OSアップデート管理・セキュリティポリシー（MDM）・デバイスの定期的な入れ替え計画を策定する
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <div class="divider"></div>
+            <!-- CH5 -->
+            <section id="ch5">
+                <div class="chapter-header">
+                    <span class="chapter-num" style="background: var(--neon-red); color: #fff"
+                        >CH.5</span
+                    >
+                    <div>
+                        <h1 class="chapter-title">テスト実行の自動化</h1>
+                        <div class="chapter-meta">
+                            <span class="chapter-badge badge-time">⏱ 55分</span
+                            ><span class="chapter-badge badge-k2">K2</span
+                            ><span class="chapter-badge badge-k3">K3 あり</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">5.1 自動化アプローチとテストピラミッド</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-5.1.1 K2</span
+                    ><span class="lo-text"
+                        >モバイルテスト自動化の様々なアプローチの適切な使用例を説明できる</span
+                    >
+                </div>
+                <div class="pyramid">
+                    <div class="pyramid-level">
+                        E2E テスト <span class="pyramid-label">(少 / 遅い / 高コスト)</span>
+                    </div>
+                    <div class="pyramid-level">
+                        統合テスト / API テスト <span class="pyramid-label">(中)</span>
+                    </div>
+                    <div class="pyramid-level">
+                        UI コンポーネントテスト <span class="pyramid-label">(中)</span>
+                    </div>
+                    <div class="pyramid-level">
+                        ユニットテスト <span class="pyramid-label">(多 / 速い / 低コスト)</span>
+                    </div>
+                </div>
+                <div class="callout info">
+                    <span class="callout-icon">💡</span>
+                    <div class="callout-body">
+                        <div class="callout-title">モバイル自動化ピラミッドの考え方</div>
+                        <p class="callout-text">
+                            ユニットテストが最も多く・速く・安定しています。E2Eテストは高コスト・低速・フレイキーになりやすいため、最重要シナリオのみ自動化します。<strong
+                                >70% ユニット / 20% 統合 / 10% E2E</strong
+                            >
+                            の比率が推奨されます。モバイルE2Eは実機 vs
+                            エミュレータのトレードオフを考慮して設計します。
+                        </p>
+                    </div>
+                </div>
+
+                <h2 class="section-title">5.2 自動化手法（6種類）</h2>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>手法</th>
+                                <th>説明</th>
+                                <th>ツール例</th>
+                                <th>向いているケース</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🎬 キャプチャ&amp;再生</td>
+                                <td>手動操作を記録し再生。低スキルで開始可能</td>
+                                <td>Squish, TestComplete</td>
+                                <td>PoC・短期プロジェクト</td>
+                            </tr>
+                            <tr>
+                                <td>📝 スクリプトベース</td>
+                                <td>コードでテストを記述。柔軟性・メンテナンス性が高い</td>
+                                <td>Appium, Espresso</td>
+                                <td>長期・大規模プロジェクト</td>
+                            </tr>
+                            <tr>
+                                <td>📊 データ駆動</td>
+                                <td>テストデータを外部ファイルから読み込み多パターンをテスト</td>
+                                <td>Appium + CSV</td>
+                                <td>境界値・大量データ検証</td>
+                            </tr>
+                            <tr>
+                                <td>🔑 キーワード駆動</td>
+                                <td>
+                                    テスト操作をキーワードとして定義。非エンジニアでもメンテ可能
+                                </td>
+                                <td>Robot Framework</td>
+                                <td>BizDevOps・混成チーム</td>
+                            </tr>
+                            <tr>
+                                <td>🤝 BDD</td>
+                                <td>自然言語でシナリオを記述。ビジネス側との認識統一</td>
+                                <td>Cucumber + Appium</td>
+                                <td>受入テスト・ドキュメント兼用</td>
+                            </tr>
+                            <tr>
+                                <td>🎨 ページオブジェクトモデル</td>
+                                <td>画面ごとのクラスでUI要素を管理。変更時の修正箇所を最小化</td>
+                                <td>Appium + POM</td>
+                                <td>UI変更が多いアプリ</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3 class="sub-title">✅ Appium 実装例（Python）</h3>
+                <div class="code-block" data-lang="PYTHON / APPIUM">
+                    <div class="code-line"><span class="code-keyword">from</span> <span class="code-func">appium</span> <span class="code-keyword">import</span> webdriver</div>
+                    <div class="code-line"><span class="code-keyword">from</span> <span class="code-func">appium.webdriver.common.appiumby</span> <span class="code-keyword">import</span> AppiumBy</div>
+                    <div class="code-line"><span class="code-keyword">import</span> unittest</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-keyword">class</span> <span class="code-green">LoginTest</span>(unittest.TestCase):</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">def</span> <span class="code-func">setUp</span>(self):</div>
+                    <div class="code-line">        caps = {</div>
+                    <div class="code-line">            <span class="code-string">"platformName"</span>: <span class="code-string">"Android"</span>,</div>
+                    <div class="code-line">            <span class="code-string">"deviceName"</span>: <span class="code-string">"Pixel_7_API_34"</span>,</div>
+                    <div class="code-line">            <span class="code-string">"app"</span>: <span class="code-string">"/path/to/app.apk"</span>,</div>
+                    <div class="code-line">            <span class="code-string">"automationName"</span>: <span class="code-string">"UiAutomator2"</span>,</div>
+                    <div class="code-line">        }</div>
+                    <div class="code-line">        self.driver = webdriver.<span class="code-func">Remote</span>(<span class="code-string">"http://localhost:4723"</span>, caps)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">def</span> <span class="code-func">test_login_with_valid_credentials</span>(self):</div>
+                    <div class="code-line">        self.driver.<span class="code-func">find_element</span>(AppiumBy.ACCESSIBILITY_ID, <span class="code-string">"email_input"</span>)\</div>
+                    <div class="code-line">            .<span class="code-func">send_keys</span>(<span class="code-string">"test@example.com"</span>)</div>
+                    <div class="code-line">        self.driver.<span class="code-func">find_element</span>(AppiumBy.ACCESSIBILITY_ID, <span class="code-string">"password_input"</span>)\</div>
+                    <div class="code-line">            .<span class="code-func">send_keys</span>(<span class="code-string">"SecurePass123!"</span>)</div>
+                    <div class="code-line">        self.driver.<span class="code-func">find_element</span>(AppiumBy.ACCESSIBILITY_ID, <span class="code-string">"login_button"</span>).<span class="code-func">click</span>()</div>
+                    <div class="code-line">        home = self.driver.<span class="code-func">find_element</span>(AppiumBy.XPATH, <span class="code-string">"//*[@resource-id='home_screen']"</span>)</div>
+                    <div class="code-line">        self.<span class="code-func">assertTrue</span>(home.<span class="code-func">is_displayed</span>())</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">def</span> <span class="code-func">tearDown</span>(self):</div>
+                    <div class="code-line">        self.driver.<span class="code-func">quit</span>()</div>
+                </div>
+
+                <h3 class="sub-title">✅ Espresso 実装例（Android / Kotlin）</h3>
+                <div class="code-block" data-lang="KOTLIN / ESPRESSO">
+                    <div class="code-line"><span class="code-keyword">@RunWith</span>(AndroidJUnit4::<span class="code-keyword">class</span>)</div>
+                    <div class="code-line"><span class="code-keyword">class</span> <span class="code-green">LoginActivityTest</span> {</div>
+                    <div class="code-line">    <span class="code-keyword">@get:Rule</span></div>
+                    <div class="code-line">    <span class="code-keyword">val</span> activityRule = ActivityScenarioRule(LoginActivity::<span class="code-keyword">class</span>.java)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">@Test</span></div>
+                    <div class="code-line">    <span class="code-keyword">fun</span> <span class="code-func">testSuccessfulLogin</span>() {</div>
+                    <div class="code-line">        <span class="code-func">onView</span>(<span class="code-func">withId</span>(R.id.editUsername))</div>
+                    <div class="code-line">            .<span class="code-func">perform</span>(<span class="code-func">typeText</span>(<span class="code-string">"testuser"</span>), <span class="code-func">closeSoftKeyboard</span>())</div>
+                    <div class="code-line">        <span class="code-func">onView</span>(<span class="code-func">withId</span>(R.id.editPassword))</div>
+                    <div class="code-line">            .<span class="code-func">perform</span>(<span class="code-func">typeText</span>(<span class="code-string">"password123"</span>), <span class="code-func">closeSoftKeyboard</span>())</div>
+                    <div class="code-line">        <span class="code-func">onView</span>(<span class="code-func">withId</span>(R.id.btnLogin)).<span class="code-func">perform</span>(<span class="code-func">click</span>())</div>
+                    <div class="code-line">        <span class="code-func">onView</span>(<span class="code-func">withId</span>(R.id.tvWelcome)).<span class="code-func">check</span>(<span class="code-func">matches</span>(<span class="code-func">isDisplayed</span>()))</div>
+                    <div class="code-line">    }</div>
+                    <div class="code-line">}</div>
+                </div>
+
+                <h3 class="sub-title">✅ XCUITest 実装例（iOS / Swift）</h3>
+                <div class="code-block" data-lang="SWIFT / XCUITEST">
+                    <div class="code-line"><span class="code-keyword">import</span> XCTest</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-keyword">class</span> <span class="code-green">LoginUITests</span>: XCTestCase {</div>
+                    <div class="code-line">    <span class="code-keyword">var</span> app: XCUIApplication!</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">override func</span> <span class="code-func">setUpWithError</span>() <span class="code-keyword">throws</span> {</div>
+                    <div class="code-line">        continueAfterFailure = <span class="code-keyword">false</span></div>
+                    <div class="code-line">        app = XCUIApplication()</div>
+                    <div class="code-line">        app.<span class="code-func">launch</span>()</div>
+                    <div class="code-line">    }</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">    <span class="code-keyword">func</span> <span class="code-func">testSuccessfulLogin</span>() <span class="code-keyword">throws</span> {</div>
+                    <div class="code-line">        <span class="code-keyword">let</span> email = app.textFields[<span class="code-string">"usernameField"</span>]</div>
+                    <div class="code-line">        email.<span class="code-func">tap</span>()</div>
+                    <div class="code-line">        email.<span class="code-func">typeText</span>(<span class="code-string">"testuser@example.com"</span>)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">        <span class="code-keyword">let</span> pw = app.secureTextFields[<span class="code-string">"passwordField"</span>]</div>
+                    <div class="code-line">        pw.<span class="code-func">tap</span>()</div>
+                    <div class="code-line">        pw.<span class="code-func">typeText</span>(<span class="code-string">"password123"</span>)</div>
+                    <div class="code-line"></div>
+                    <div class="code-line">        app.buttons[<span class="code-string">"loginButton"</span>].<span class="code-func">tap</span>()</div>
+                    <div class="code-line">        XCTAssertTrue(app.staticTexts[<span class="code-string">"welcomeLabel"</span>].exists)</div>
+                    <div class="code-line">    }</div>
+                    <div class="code-line">}</div>
+                </div>
+
+                <h2 class="section-title">5.3 自動化ツールの評価基準（MAT-5.3.1 K3）</h2>
+                <div class="lo-box">
+                    <span class="lo-tag">MAT-5.3.1 K3</span
+                    ><span class="lo-text">モバイルアプリテスト自動化ツールを評価できる</span>
+                </div>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>フレームワーク</th>
+                                <th>プラットフォーム</th>
+                                <th>言語</th>
+                                <th>特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>🤖 <strong>Appium</strong></td>
+                                <td>iOS / Android / Web</td>
+                                <td>Java / Python / JS / C#</td>
+                                <td>オープンソース・最も広く使われる・WebDriverプロトコル準拠</td>
+                            </tr>
+                            <tr>
+                                <td>🍎 <strong>XCUITest</strong></td>
+                                <td>iOS のみ</td>
+                                <td>Swift / Objective-C</td>
+                                <td>Apple公式・高速・Xcode統合・iOS最適</td>
+                            </tr>
+                            <tr>
+                                <td>🤖 <strong>Espresso</strong></td>
+                                <td>Android のみ</td>
+                                <td>Java / Kotlin</td>
+                                <td>Google公式・Android Studio統合・高速・安定</td>
+                            </tr>
+                            <tr>
+                                <td>🚀 <strong>Detox</strong></td>
+                                <td>iOS / Android</td>
+                                <td>JavaScript</td>
+                                <td>React Native推奨・グレーボックス・高速</td>
+                            </tr>
+                            <tr>
+                                <td>🎵 <strong>Maestro</strong></td>
+                                <td>iOS / Android</td>
+                                <td>YAML DSL</td>
+                                <td>シンプルなYAML記述・ノーコード寄り・2024年注目</td>
+                            </tr>
+                            <tr>
+                                <td>☁️ <strong>Firebase Test Lab</strong></td>
+                                <td>Android / iOS</td>
+                                <td>任意</td>
+                                <td>Google実機クラウド・Roboテスト自動実行</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <span class="arch-icon">🎯</span>
+                        <div class="arch-content">
+                            <div class="arch-label">SUT適合性</div>
+                            <div class="arch-desc">
+                                テスト対象のプラットフォーム（iOS/Android）・アプリタイプ（Native/Hybrid）と一致しているか
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <span class="arch-icon">📚</span>
+                        <div class="arch-content">
+                            <div class="arch-label">学習コスト</div>
+                            <div class="arch-desc">
+                                チームのスキルセットに合っているか・学習リソースが豊富か・既存コードベースとの親和性
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <span class="arch-icon">🔗</span>
+                        <div class="arch-content">
+                            <div class="arch-label">CI/CD統合</div>
+                            <div class="arch-desc">
+                                GitHub Actions / Jenkins / GitLab CI / Bitrise と連携できるか
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <span class="arch-icon">💰</span>
+                        <div class="arch-content">
+                            <div class="arch-label">コスト（TCO）</div>
+                            <div class="arch-desc">
+                                ライセンス費用・インフラコスト・クラウドデバイス利用コストを含めた総所有コスト
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <span class="arch-icon">📈</span>
+                        <div class="arch-content">
+                            <div class="arch-label">スケーラビリティ</div>
+                            <div class="arch-desc">
+                                テスト数の増加・デバイスの追加・チームの拡大に対応できるか
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">5.4 CI/CDパイプライン統合例</h2>
+                <div class="code-block" data-lang="YAML / GITHUB ACTIONS">
+                    <div class="code-line"><span class="code-comment"># .github/workflows/mobile-test.yml</span></div>
+                    <div class="code-line"><span class="code-green">name</span>: Mobile Automated Tests</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-keyword">on</span>:</div>
+                    <div class="code-line">  <span class="code-green">push</span>:</div>
+                    <div class="code-line">    <span class="code-green">branches</span>: [main, develop]</div>
+                    <div class="code-line">  <span class="code-green">pull_request</span>:</div>
+                    <div class="code-line">    <span class="code-green">branches</span>: [main]</div>
+                    <div class="code-line"></div>
+                    <div class="code-line"><span class="code-keyword">jobs</span>:</div>
+                    <div class="code-line">  <span class="code-green">unit-tests</span>:</div>
+                    <div class="code-line">    <span class="code-green">runs-on</span>: ubuntu-latest</div>
+                    <div class="code-line">    <span class="code-keyword">steps</span>:</div>
+                    <div class="code-line">      - <span class="code-green">uses</span>: actions/checkout@v4</div>
+                    <div class="code-line">      - <span class="code-green">name</span>: Run Android Unit Tests</div>
+                    <div class="code-line">        <span class="code-green">run</span>: <span class="code-string">./gradlew testDebugUnitTest</span></div>
+                    <div class="code-line"></div>
+                    <div class="code-line">  <span class="code-green">firebase-e2e</span>:</div>
+                    <div class="code-line">    <span class="code-green">needs</span>: unit-tests</div>
+                    <div class="code-line">    <span class="code-green">runs-on</span>: ubuntu-latest</div>
+                    <div class="code-line">    <span class="code-keyword">steps</span>:</div>
+                    <div class="code-line">      - <span class="code-green">uses</span>: actions/checkout@v4</div>
+                    <div class="code-line">      - <span class="code-green">name</span>: Build APKs</div>
+                    <div class="code-line">        <span class="code-green">run</span>: ./gradlew assembleDebug assembleAndroidTest</div>
+                    <div class="code-line">      - <span class="code-green">name</span>: Run on Firebase Test Lab</div>
+                    <div class="code-line">        <span class="code-green">run</span>: |</div>
+                    <div class="code-line">          gcloud firebase test android run \</div>
+                    <div class="code-line">            --type instrumentation \</div>
+                    <div class="code-line">            --app app-debug.apk \</div>
+                    <div class="code-line">            --test app-debug-androidTest.apk \</div>
+                    <div class="code-line">            --device model=Pixel7,version=<span class="code-num">33</span>,locale=ja \</div>
+                    <div class="code-line">            --device model=SamsungS23,version=<span class="code-num">33</span>,locale=ja \</div>
+                    <div class="code-line">            --timeout <span class="code-num">5</span>m</div>
+                </div>
+            </section>
+            <div class="divider"></div>
+            <!-- EXAM SECTION -->
+            <section id="exam">
+                <div class="chapter-header">
+                    <span class="chapter-num" style="background: var(--neon-amber); color: #030712"
+                        >試験</span
+                    >
+                    <div>
+                        <h1 class="chapter-title">試験対策 — チェックリスト &amp; サンプル問題</h1>
+                    </div>
+                </div>
+
+                <h2 class="section-title">章別 配点・重要度マップ</h2>
+                <div class="exam-grid">
+                    <div class="exam-card">
+                        <div class="exam-ch">CHAPTER 1 | 175分</div>
+                        <div class="exam-title">モバイル世界・ビジネスドライバー</div>
+                        <div class="exam-stars">★★★★☆</div>
+                        <div class="exam-pts">
+                            K2主体 | アナリティクス・ビジネスモデル・アーキテクチャ・接続モード
+                        </div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-ch">CHAPTER 2 | 265分 ← 最大</div>
+                        <div class="exam-title">モバイルアプリテストタイプ</div>
+                        <div class="exam-stars">★★★★★</div>
+                        <div class="exam-pts">
+                            K2主体 | ハードウェア・割り込み・接続テスト・センサー
+                        </div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-ch">CHAPTER 3 | 200分</div>
+                        <div class="exam-title">共通テストタイプ・プロセス</div>
+                        <div class="exam-stars">★★★★☆</div>
+                        <div class="exam-pts">
+                            K3あり | セキュリティ・パフォーマンス・SFDPOT・SBTM
+                        </div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-ch">CHAPTER 4 | 80分</div>
+                        <div class="exam-title">プラットフォーム・ツール・環境</div>
+                        <div class="exam-stars">★★★☆☆</div>
+                        <div class="exam-pts">
+                            K2 | エミュレータ vs シミュレータの違い・クラウドファーム
+                        </div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-ch">CHAPTER 5 | 55分</div>
+                        <div class="exam-title">テスト実行の自動化</div>
+                        <div class="exam-stars">★★★☆☆</div>
+                        <div class="exam-pts">
+                            K3あり | ツール評価・自動化手法選択・テストピラミッド
+                        </div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">必ず覚える重要概念チェックリスト</h2>
+                <div class="alert green">
+                    <span class="alert-icon">📋</span>
+                    <div class="alert-text">
+                        <strong>Chapter 1:</strong>
+                        ①モバイルアナリティクスデータの用途（デバイスポートフォリオ選定）
+                        ②5つのビジネスモデル（フリーミアム/広告/トランザクション/フィー/エンタープライズ）
+                        ③デバイスタイプ5分類 ④アプリタイプ（ネイティブ/Webの4形態/ハイブリッド）
+                        ⑤接続モード3種（Never/Always/Partially-Connected）
+                    </div>
+                </div>
+                <div class="alert cyan">
+                    <span class="alert-icon">📋</span>
+                    <div class="alert-text">
+                        <strong>Chapter 2:</strong>
+                        ①ハードウェア機能テスト項目（カメラ/GPS/NFC/Bluetooth/生体認証/ヘルスセンサー）
+                        ②典型的な割り込みテスト5種
+                        ③接続方式別テスト（2G〜5G/WiFi/Bluetooth/NFC/オフライン）
+                        ④画面向き変更・OSユーザー設定テスト
+                    </div>
+                </div>
+                <div class="alert amber">
+                    <span class="alert-icon">📋</span>
+                    <div class="alert-text">
+                        <strong>Chapter 3:</strong> ①インストール可能性テストの5ステップ ②OWASP
+                        Mobile Top 10（2024年版）の主要リスク
+                        ③パフォーマンス目標値（コールドスタート3秒以内等） ④SFDPOT
+                        ヒューリスティック6観点 ⑤セッションベーステスト管理（SBTM）
+                    </div>
+                </div>
+                <div class="alert red">
+                    <span class="alert-icon">📋</span>
+                    <div class="alert-text">
+                        <strong>Chapter 4 &amp; 5:</strong> ①エミュレータ vs
+                        シミュレータの違い（Android/iOS対応と動作原理）
+                        ②クラウドデバイスファームの用途と主要サービス
+                        ③Appiumが最も広く使われるクロスプラットフォームツール ④テスト自動化手法6種
+                        ⑤ツール評価基準5項目（SUT適合性/学習コスト/CI統合/TCO/スケーラビリティ）
+                    </div>
+                </div>
+
+                <h2 class="section-title">📝 サンプル問題と解説</h2>
+
+                <div class="trend-card">
+                    <div class="trend-tag">問1 / K2 / Chapter 1.1</div>
+                    <div class="trend-title">モバイルアナリティクスデータの主な活用目的</div>
+                    <p class="trend-desc">
+                        モバイルアプリのテスト計画において、モバイルアナリティクスデータの主な用途として最も適切なものはどれか？<br /><br />A)
+                        アプリのパフォーマンスを改善するための開発タスクを特定する<br />B)
+                        テスト実行のためのデバイスポートフォリオを選定する基準とする<br />C)
+                        アプリのUI設計の品質を評価する<br />D)
+                        ユーザーのアプリ内行動パターンを分析する<br /><br /><strong
+                            style="color: var(--neon-green)"
+                            >正解: B</strong
+                        >
+                        ─
+                        アナリティクスデータ（OS分布・デバイスシェア・地域別分布）はテスト対象<strong>デバイスポートフォリオの選定</strong>に使用します（MAT-1.1.1
+                        K2）。A・C・Dはテスト計画の文脈での主な用途ではありません。
+                    </p>
+                </div>
+
+                <div class="trend-card">
+                    <div class="trend-tag">問2 / K2 / Chapter 1.4</div>
+                    <div class="trend-title">ハイブリッドアプリの特徴</div>
+                    <p class="trend-desc">
+                        ハイブリッドアプリに関する記述として最も正確なものはどれか？<br /><br />A)
+                        ネイティブSDKのみを使用して開発される<br />B)
+                        常時インターネット接続が必要である<br />C)
+                        ネイティブアプリのラッパー内でウェブアプリを実行する<br />D)
+                        アプリストアからダウンロードできない<br /><br /><strong
+                            style="color: var(--neon-green)"
+                            >正解: C</strong
+                        >
+                        ─
+                        ハイブリッドアプリはネイティブアプリのラッパー内にWebViewでWebアプリを実行します。オフライン時も使用でき、アプリストアからダウンロード可能です（MAT-1.4.1
+                        K2）。
+                    </p>
+                </div>
+
+                <div class="trend-card">
+                    <div class="trend-tag">問3 / K2 / Chapter 2.1.7</div>
+                    <div class="trend-title">割り込みテストの主目的</div>
+                    <p class="trend-desc">
+                        決済処理フロー実行中に電話着信があったシナリオをテストする主な目的はどれか？<br /><br />A)
+                        電話機能がアプリより優先されることを確認する<br />B)
+                        着信後にアプリが正常に再開し、決済状態が保持されることを確認する<br />C)
+                        着信時のアプリのパフォーマンスを計測する<br />D)
+                        通話後にアプリが自動的にアンインストールされないことを確認する<br /><br /><strong
+                            style="color: var(--neon-green)"
+                            >正解: B</strong
+                        >
+                        ─
+                        割り込みテストの目的は、割り込み後にアプリが正常に復帰し状態（決済情報）が保持されること、および二重課金が発生しないことを確認することです（MAT-2.1.7
+                        K2）。
+                    </p>
+                </div>
+
+                <div class="trend-card">
+                    <div class="trend-tag">問4 / K2 / Chapter 4.3</div>
+                    <div class="trend-title">エミュレータとシミュレータの違い</div>
+                    <p class="trend-desc">
+                        シミュレータではなくエミュレータを使用する必要がある最も適切な理由はどれか？<br /><br />A)
+                        シミュレータより起動が速いから<br />B)
+                        実際のハードウェアアーキテクチャを完全に模倣するから<br />C)
+                        ホストOSと同じ環境で動作するから<br />D) iOSテストに最適だから<br /><br /><strong
+                            style="color: var(--neon-green)"
+                            >正解: B</strong
+                        >
+                        ─
+                        エミュレータは実際のハードウェアを完全に模倣します（主にAndroid）。シミュレータはソフトウェアの動作を模擬するもの（主にiOS）で、ホストOSと同じ環境で動作します（MAT-4.3.1
+                        K2）。Cはシミュレータの特徴、DもiOSにはシミュレータが用いられます。
+                    </p>
+                </div>
+
+                <div class="trend-card">
+                    <div class="trend-tag">問5 / K3 / Chapter 5.3</div>
+                    <div class="trend-title">自動化ツールの選定</div>
+                    <p class="trend-desc">
+                        React
+                        Nativeで開発されたiOS・Android両対応アプリのE2Eテスト自動化ツールを選定しています。最も重要な評価基準はどれか？<br /><br />A)
+                        ツールのアイコンデザインが魅力的かどうか<br />B)
+                        最も歴史が長いツールを選ぶ<br />C)
+                        チームのスキルセット・CI/CD統合性・iOS/Android両プラットフォームのサポート<br />D)
+                        最も安価なツールのみを選ぶ<br /><br /><strong
+                            style="color: var(--neon-green)"
+                            >正解: C</strong
+                        >
+                        ─
+                        ツール評価はSUT適合性（両プラットフォーム対応）・学習コスト（チームスキル）・CI/CD統合性・スケーラビリティ・コスト（TCO）の観点で行います（MAT-5.3.1
+                        K3）。React NativeならDetoxまたはAppiumが有力候補です。
+                    </p>
+                </div>
+
+                <h2 class="section-title">推奨学習ステップ</h2>
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-body">
+                            <div class="step-title">Week 1〜2：基礎知識の習得</div>
+                            <div class="step-desc">
+                                ISTQB CT-MAT Syllabus v1.0 の精読。CTFL（Foundation
+                                Level）の復習（テストプロセス・技法）。本ガイドのCh.1〜2を集中学習
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-body">
+                            <div class="step-title">Week 3〜4：実践的理解</div>
+                            <div class="step-desc">
+                                実際にAndroid Emulatorでテスト実施。Appium / Espresso
+                                の基本操作。OWASPモバイルセキュリティガイドの確認
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-body">
+                            <div class="step-title">Week 5〜6：試験対策</div>
+                            <div class="step-desc">
+                                公式Sample Exam
+                                Aを時間を計って解く。弱点分野の復習。本ガイドの試験対策チェックリストで最終確認
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+            <div class="divider"></div>
+            <!-- REFS -->
+            <section id="refs">
+                <h2 class="section-title">参考文献・URL一覧</h2>
+
+                <h3 class="sub-title">🏛️ ISTQB® 公式リソース</h3>
+                <div class="ref-grid">
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-mobile-application-testing-ct-mat/"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">公式認定ページ</span>
+                        <span class="ref-title">CT-MAT 公式認定ページ</span>
+                        <span class="ref-url">istqb.org/certifications/ct-mat/</span>
+                    </a>
+                    <a
+                        href="https://www.istqb.org/?sdm_process_download=1&download_id=3551"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">シラバス PDF</span>
+                        <span class="ref-title">ISTQB CT-MAT Syllabus v1.0 (2019)</span>
+                        <span class="ref-url">istqb.org/...download_id=3551</span>
+                    </a>
+                    <a
+                        href="https://istqb.org/?sdm_process_download=1&download_id=3553"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">サンプル試験問題</span>
+                        <span class="ref-title">CT-MAT Sample Exam A Questions v1.3</span>
+                        <span class="ref-url">istqb.org/...download_id=3553</span>
+                    </a>
+                    <a
+                        href="https://istqb.org/?sdm_process_download=1&download_id=3554"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">サンプル試験解答</span>
+                        <span class="ref-title">CT-MAT Sample Exam A Answers v1.3</span>
+                        <span class="ref-url">istqb.org/...download_id=3554</span>
+                    </a>
+                    <a
+                        href="https://glossary.istqb.org/en_US/search?term="
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">グロッサリー</span>
+                        <span class="ref-title">ISTQB グロッサリー（用語集）</span>
+                        <span class="ref-url">glossary.istqb.org</span>
+                    </a>
+                    <a href="https://istqb.org/exam-providers/" target="_blank" class="ref-card">
+                        <span class="ref-cat">試験プロバイダー</span>
+                        <span class="ref-title">試験プロバイダー検索</span>
+                        <span class="ref-url">istqb.org/exam-providers/</span>
+                    </a>
+                </div>
+
+                <h3 class="sub-title">📱 モバイルプラットフォーム 公式ドキュメント</h3>
+                <div class="ref-grid">
+                    <a
+                        href="https://developer.android.com/studio/test"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">Android 公式</span>
+                        <span class="ref-title">Android テストガイド（Android Studio）</span>
+                        <span class="ref-url">developer.android.com/studio/test</span>
+                    </a>
+                    <a href="https://developer.apple.com/testing/" target="_blank" class="ref-card">
+                        <span class="ref-cat">iOS 公式</span>
+                        <span class="ref-title">Apple Developer Testing Guide</span>
+                        <span class="ref-url">developer.apple.com/testing/</span>
+                    </a>
+                    <a
+                        href="https://developer.apple.com/design/human-interface-guidelines/"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">UI ガイドライン</span>
+                        <span class="ref-title">Apple Human Interface Guidelines</span>
+                        <span class="ref-url">developer.apple.com/design/hig/</span>
+                    </a>
+                    <a href="https://m3.material.io/" target="_blank" class="ref-card">
+                        <span class="ref-cat">UI ガイドライン</span>
+                        <span class="ref-title">Google Material Design 3</span>
+                        <span class="ref-url">m3.material.io</span>
+                    </a>
+                    <a
+                        href="https://firebase.google.com/docs/test-lab"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">クラウドテスト</span>
+                        <span class="ref-title">Firebase Test Lab 公式ドキュメント</span>
+                        <span class="ref-url">firebase.google.com/docs/test-lab</span>
+                    </a>
+                    <a href="https://aws.amazon.com/device-farm/" target="_blank" class="ref-card">
+                        <span class="ref-cat">クラウドテスト</span>
+                        <span class="ref-title">AWS Device Farm</span>
+                        <span class="ref-url">aws.amazon.com/device-farm/</span>
+                    </a>
+                </div>
+
+                <h3 class="sub-title">🤖 自動化ツール 公式ドキュメント</h3>
+                <div class="ref-grid">
+                    <a href="https://appium.io/docs/en/latest/" target="_blank" class="ref-card">
+                        <span class="ref-cat">自動化ツール</span>
+                        <span class="ref-title">Appium 公式ドキュメント</span>
+                        <span class="ref-url">appium.io/docs/en/latest/</span>
+                    </a>
+                    <a
+                        href="https://developer.android.com/training/testing/espresso"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">自動化ツール</span>
+                        <span class="ref-title">Espresso (Android) 公式ガイド</span>
+                        <span class="ref-url">developer.android.com/testing/espresso</span>
+                    </a>
+                    <a
+                        href="https://developer.apple.com/documentation/xctest"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">自動化ツール</span>
+                        <span class="ref-title">XCTest (iOS) 公式リファレンス</span>
+                        <span class="ref-url">developer.apple.com/documentation/xctest</span>
+                    </a>
+                    <a href="https://wix.github.io/Detox/" target="_blank" class="ref-card">
+                        <span class="ref-cat">自動化ツール</span>
+                        <span class="ref-title">Detox（React Native）公式</span>
+                        <span class="ref-url">wix.github.io/Detox/</span>
+                    </a>
+                    <a href="https://maestro.mobile.dev/" target="_blank" class="ref-card">
+                        <span class="ref-cat">自動化ツール</span>
+                        <span class="ref-title">Maestro Mobile 公式</span>
+                        <span class="ref-url">maestro.mobile.dev/</span>
+                    </a>
+                    <a
+                        href="https://www.browserstack.com/app-automate"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">クラウドデバイス</span>
+                        <span class="ref-title">BrowserStack App Automate</span>
+                        <span class="ref-url">browserstack.com/app-automate</span>
+                    </a>
+                </div>
+
+                <h3 class="sub-title">🔐 セキュリティ参考資料</h3>
+                <div class="ref-grid">
+                    <a
+                        href="https://owasp.org/www-project-mobile-top-10/"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">セキュリティ標準</span>
+                        <span class="ref-title">OWASP Mobile Top 10（公式）</span>
+                        <span class="ref-url">owasp.org/mobile-top-10/</span>
+                    </a>
+                    <a href="https://mas.owasp.org/MASTG/" target="_blank" class="ref-card">
+                        <span class="ref-cat">セキュリティ標準</span>
+                        <span class="ref-title"
+                            >OWASP Mobile App Security Testing Guide (MASTG)</span
+                        >
+                        <span class="ref-url">mas.owasp.org/MASTG/</span>
+                    </a>
+                    <a href="https://mas.owasp.org/MASVS/" target="_blank" class="ref-card">
+                        <span class="ref-cat">セキュリティ標準</span>
+                        <span class="ref-title">OWASP MASVS（モバイルセキュリティ検証標準）</span>
+                        <span class="ref-url">mas.owasp.org/MASVS/</span>
+                    </a>
+                    <a
+                        href="https://github.com/MobSF/Mobile-Security-Framework-MobSF"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">セキュリティツール</span>
+                        <span class="ref-title">MobSF（静的・動的解析ツール）</span>
+                        <span class="ref-url"
+                            >github.com/MobSF/Mobile-Security-Framework-MobSF</span
+                        >
+                    </a>
+                </div>
+
+                <h3 class="sub-title">📊 市場データ・業界参考資料</h3>
+                <div class="ref-grid">
+                    <a
+                        href="https://gs.statcounter.com/os-market-share/mobile/"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">市場データ</span>
+                        <span class="ref-title">StatCounter Global Stats（OS市場シェア）</span>
+                        <span class="ref-url">gs.statcounter.com/os-market-share/mobile/</span>
+                    </a>
+                    <a
+                        href="https://developer.android.com/about/dashboards"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">市場データ</span>
+                        <span class="ref-title">Android Distribution Dashboard（公式）</span>
+                        <span class="ref-url">developer.android.com/about/dashboards</span>
+                    </a>
+                    <a
+                        href="https://datareportal.com/reports/digital-2026-global-overview-report"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">業界レポート</span>
+                        <span class="ref-title">DataReportal Digital 2026 Global Overview</span>
+                        <span class="ref-url">datareportal.com/reports/digital-2026</span>
+                    </a>
+                    <a
+                        href="https://www.appypie.com/blog/mobile-app-testing"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">ベストプラクティス</span>
+                        <span class="ref-title">モバイルテスト完全ガイド（AppyPie）</span>
+                        <span class="ref-url">appypie.com/blog/mobile-app-testing</span>
+                    </a>
+                    <a
+                        href="https://testlio.com/blog/mobile-app-testing-strategy/"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">ベストプラクティス</span>
+                        <span class="ref-title">モバイルテスト戦略ガイド（Testlio）</span>
+                        <span class="ref-url">testlio.com/blog/mobile-app-testing-strategy/</span>
+                    </a>
+                    <a
+                        href="https://firebase.google.com/products/performance"
+                        target="_blank"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">パフォーマンス</span>
+                        <span class="ref-title">Firebase Performance Monitoring（公式）</span>
+                        <span class="ref-url">firebase.google.com/products/performance</span>
+                    </a>
+                </div>
+            </section>
+            <div class="divider"></div>
+        </div>
+        <!-- /container -->
+
+        <a href="#top" class="scroll-top">↑</a>
+
+        <footer>
+            <div class="container">
+                <p>ISTQB® CT-MAT 完全ガイド 2025 ── 準拠シラバス: CT-MAT v1.0 (2019)</p>
+                <p style="margin-top: 0.5rem">
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-mobile-application-testing-ct-mat/"
+                        target="_blank"
+                        >公式 ISTQB CT-MAT ページ</a
+                    >
+                    | <a href="https://istqb.org/" target="_blank">ISTQB® Official</a> |
+                    <a href="https://owasp.org/www-project-mobile-top-10/" target="_blank"
+                        >OWASP Mobile Top 10</a
+                    >
+                </p>
+                <p style="margin-top: 0.5rem; color: rgba(255, 255, 255, 0.2)">
+                    本資料は ISTQB®
+                    が公認したトレーニング資料ではありません。公式シラバス・サンプル問題と合わせてご使用ください。
+                </p>
+            </div>
+        </footer>
+    </body>
+</html>

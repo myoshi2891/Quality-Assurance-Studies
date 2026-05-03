@@ -71,7 +71,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctal-att-complete-guide/page.tsx` (アジャイルテスト担当者 CTAL-ATT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-atlas-complete-guide/page.tsx` (アジャイルテストリーダーシップ CT-ATLaS 完全ガイド、`NavBar.tsx` 付き)
 - *Tracking HTML*: `istqb-ct-ai-complete-guide.html` (AIテスト CT-AI 完全ガイド)
-- *Tracking HTML*: `istqb-ct-genai-complete-guide.html` (GenAIテスト CT-GenAI 完全ガイド)
+- `app/istqb-ct-genai-complete-guide/page.tsx` (GenAIテスト CT-GenAI 完全ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 

@@ -1,0 +1,3973 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>ISTQB CT-TAS 完全ガイド 2025 | Test Automation Strategy</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=IBM+Plex+Sans+JP:wght@300;400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            /* ===== CSS CUSTOM PROPERTIES ===== */
+            :root {
+                --bg-deep: #030712;
+                --bg-mid: #0a1020;
+                --bg-card: #0d1628;
+                --bg-card-hover: #111e36;
+                --neon-green: #00ff9f;
+                --neon-cyan: #00e5ff;
+                --neon-blue: #4d9fff;
+                --neon-amber: #ffb700;
+                --neon-red: #ff4757;
+                --neon-purple: #a855f7;
+                --text-primary: #e8edf5;
+                --text-secondary: #8ba3c0;
+                --text-muted: #4a6080;
+                --border: rgba(0, 229, 255, 0.12);
+                --border-bright: rgba(0, 229, 255, 0.35);
+                --glow-green: rgba(0, 255, 159, 0.15);
+                --glow-cyan: rgba(0, 229, 255, 0.15);
+                --font-mono: 'Space Mono', monospace;
+                --font-display: 'Syne', sans-serif;
+                --font-body: 'IBM Plex Sans JP', sans-serif;
+                --radius: 8px;
+                --radius-lg: 16px;
+                --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            /* ===== RESET & BASE ===== */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                background-color: var(--bg-deep);
+                color: var(--text-primary);
+                font-family: var(--font-body);
+                font-size: 1rem;
+                line-height: 1.75;
+                min-height: 100vh;
+                overflow-x: hidden;
+                position: relative;
+            }
+
+            /* Scanline overlay */
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 229, 255, 0.015) 2px,
+                    rgba(0, 229, 255, 0.015) 4px
+                );
+                pointer-events: none;
+                z-index: 1000;
+            }
+
+            /* Grid texture */
+            body::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(0, 229, 255, 0.03) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 229, 255, 0.03) 1px, transparent 1px);
+                background-size: 40px 40px;
+                pointer-events: none;
+                z-index: 999;
+            }
+
+            /* ===== SCROLLBAR ===== */
+            ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            ::-webkit-scrollbar-track {
+                background: var(--bg-deep);
+            }
+            ::-webkit-scrollbar-thumb {
+                background: var(--neon-cyan);
+                opacity: 0.4;
+                border-radius: 3px;
+            }
+
+            /* ===== TYPOGRAPHY ===== */
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: var(--font-display);
+                font-weight: 700;
+                line-height: 1.25;
+            }
+            h1 {
+                font-size: clamp(2rem, 5vw, 3.5rem);
+            }
+            h2 {
+                font-size: clamp(1.5rem, 3vw, 2rem);
+            }
+            h3 {
+                font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+            }
+            h4 {
+                font-size: 1.1rem;
+            }
+            p {
+                margin-bottom: 1rem;
+            }
+            a {
+                color: var(--neon-cyan);
+                text-decoration: none;
+                transition: color var(--transition);
+            }
+            a:hover {
+                color: var(--neon-green);
+            }
+            code {
+                font-family: var(--font-mono);
+                font-size: 0.9rem;
+                background: rgba(0, 229, 255, 0.08);
+                padding: 2px 7px;
+                border-radius: 4px;
+                color: var(--neon-cyan);
+            }
+            strong {
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+            ul,
+            ol {
+                padding-left: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            li {
+                margin-bottom: 0.35rem;
+            }
+
+            /* ===== LAYOUT ===== */
+            .container {
+                max-width: 960px;
+                margin: 0 auto;
+                padding: 0 1.5rem;
+            }
+            section {
+                padding: 4rem 0;
+                border-bottom: 1px solid var(--border);
+            }
+            section:last-child {
+                border-bottom: none;
+            }
+
+            /* ===== ANIMATIONS ===== */
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-24px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(24px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    box-shadow:
+                        0 0 20px var(--neon-cyan),
+                        0 0 60px rgba(0, 229, 255, 0.2);
+                }
+                50% {
+                    box-shadow:
+                        0 0 40px var(--neon-cyan),
+                        0 0 100px rgba(0, 229, 255, 0.4);
+                }
+            }
+            @keyframes growBar {
+                from {
+                    width: 0;
+                }
+                to {
+                    width: var(--bar-width, 70%);
+                }
+            }
+            @keyframes glowPulse {
+                0%,
+                100% {
+                    opacity: 0.6;
+                }
+                50% {
+                    opacity: 1;
+                }
+            }
+            @keyframes borderGlow {
+                0%,
+                100% {
+                    border-color: rgba(0, 229, 255, 0.2);
+                }
+                50% {
+                    border-color: rgba(0, 229, 255, 0.6);
+                }
+            }
+
+            /* ===== STICKY NAV ===== */
+            .sticky-nav {
+                position: sticky;
+                top: 0;
+                background: rgba(3, 7, 18, 0.92);
+                backdrop-filter: blur(16px);
+                border-bottom: 1px solid var(--border-bright);
+                z-index: 900;
+                padding: 0.75rem 0;
+            }
+            .nav-inner {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                overflow-x: auto;
+                padding: 0 1.5rem;
+                scrollbar-width: none;
+            }
+            .nav-inner::-webkit-scrollbar {
+                display: none;
+            }
+            .nav-brand {
+                font-family: var(--font-mono);
+                font-size: 0.85rem;
+                color: var(--neon-green);
+                white-space: nowrap;
+                border-right: 1px solid var(--border-bright);
+                padding-right: 0.75rem;
+                margin-right: 0.25rem;
+                flex-shrink: 0;
+            }
+            .nav-link {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--text-secondary);
+                white-space: nowrap;
+                padding: 0.35rem 0.65rem;
+                border: 1px solid transparent;
+                border-radius: var(--radius);
+                flex-shrink: 0;
+                transition: all var(--transition);
+            }
+            .nav-link:hover {
+                color: var(--neon-cyan);
+                border-color: var(--border-bright);
+                background: var(--glow-cyan);
+            }
+
+            /* ===== HERO ===== */
+            .hero {
+                padding: 5rem 0 4rem;
+                position: relative;
+                overflow: hidden;
+            }
+            .hero-bg {
+                position: absolute;
+                inset: 0;
+                background: radial-gradient(
+                    ellipse 80% 60% at 50% 0%,
+                    rgba(0, 229, 255, 0.07) 0%,
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+            .hero-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-family: var(--font-mono);
+                font-size: 0.8rem;
+                color: var(--neon-green);
+                border: 1px solid rgba(0, 255, 159, 0.3);
+                background: rgba(0, 255, 159, 0.05);
+                padding: 0.4rem 1rem;
+                border-radius: 20px;
+                margin-bottom: 1.5rem;
+                animation: fadeInDown 0.6s ease both;
+            }
+            .hero-badge::before {
+                content: '●';
+                animation: glowPulse 2s ease infinite;
+            }
+            .hero-title {
+                animation: fadeInDown 0.6s 0.1s ease both;
+                margin-bottom: 1rem;
+            }
+            .hero-title .accent {
+                color: var(--neon-cyan);
+            }
+            .hero-title .dim {
+                color: var(--text-secondary);
+                font-size: 0.6em;
+                display: block;
+            }
+            .hero-description {
+                font-size: 1.1rem;
+                color: var(--text-secondary);
+                max-width: 680px;
+                animation: fadeInDown 0.6s 0.2s ease both;
+                margin-bottom: 2rem;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 1rem;
+                animation: fadeInDown 0.6s 0.3s ease both;
+            }
+            .hero-meta-item {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-family: var(--font-mono);
+                font-size: 0.82rem;
+                color: var(--text-secondary);
+                padding: 0.5rem 1rem;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                background: var(--bg-card);
+            }
+            .hero-meta-item .label {
+                color: var(--neon-amber);
+            }
+            .hero-glow {
+                position: absolute;
+                top: 30%;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 400px;
+                height: 200px;
+                background: radial-gradient(ellipse, rgba(0, 229, 255, 0.12) 0%, transparent 70%);
+                pointer-events: none;
+                animation: pulse 4s ease infinite;
+            }
+
+            /* ===== SECTION HEADER ===== */
+            .section-header {
+                margin-bottom: 2.5rem;
+            }
+            .chapter-num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                font-weight: 700;
+                color: var(--bg-deep);
+                background: var(--neon-cyan);
+                width: 28px;
+                height: 28px;
+                border-radius: 6px;
+                margin-right: 0.75rem;
+                flex-shrink: 0;
+            }
+            .section-title {
+                display: flex;
+                align-items: center;
+                font-size: clamp(1.3rem, 3vw, 1.75rem);
+                margin-bottom: 0.5rem;
+            }
+            .k-level {
+                display: inline-flex;
+                align-items: center;
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--neon-purple);
+                border: 1px solid rgba(168, 85, 247, 0.3);
+                background: rgba(168, 85, 247, 0.08);
+                padding: 0.2rem 0.6rem;
+                border-radius: 4px;
+                margin-left: 0.75rem;
+                white-space: nowrap;
+            }
+            .section-desc {
+                color: var(--text-secondary);
+                font-size: 1.05rem;
+            }
+
+            /* ===== CARDS ===== */
+            .card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 1.75rem;
+                transition: all var(--transition);
+            }
+            .card:hover {
+                border-color: var(--border-bright);
+                background: var(--bg-card-hover);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px rgba(0, 229, 255, 0.08);
+            }
+
+            /* ===== TOC GRID ===== */
+            .toc-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+                margin-top: 1.5rem;
+            }
+            .toc-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1rem 1.25rem;
+                transition: all var(--transition);
+                cursor: pointer;
+                text-decoration: none;
+            }
+            .toc-card:hover {
+                border-color: var(--neon-cyan);
+                background: var(--glow-cyan);
+                transform: translateY(-2px);
+                box-shadow: 0 4px 20px rgba(0, 229, 255, 0.1);
+            }
+            .toc-card-num {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--neon-cyan);
+                margin-bottom: 0.35rem;
+            }
+            .toc-card-title {
+                font-family: var(--font-display);
+                font-size: 0.9rem;
+                color: var(--text-primary);
+                font-weight: 600;
+                line-height: 1.35;
+            }
+
+            /* ===== ARCH LAYERS ===== */
+            .arch-layers {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                margin: 1.5rem 0;
+            }
+            .arch-layer {
+                padding: 1.25rem 1.5rem;
+                border-left: 4px solid;
+                background: var(--bg-card);
+                border-radius: 0 var(--radius) var(--radius) 0;
+                margin-bottom: 2px;
+                transition: all var(--transition);
+            }
+            .arch-layer:hover {
+                transform: translateX(4px);
+                background: var(--bg-card-hover);
+            }
+            .arch-layer.green {
+                border-color: var(--neon-green);
+            }
+            .arch-layer.cyan {
+                border-color: var(--neon-cyan);
+            }
+            .arch-layer.blue {
+                border-color: var(--neon-blue);
+            }
+            .arch-layer.amber {
+                border-color: var(--neon-amber);
+            }
+            .arch-layer.purple {
+                border-color: var(--neon-purple);
+            }
+            .arch-layer.red {
+                border-color: var(--neon-red);
+            }
+            .arch-layer-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.35rem;
+            }
+            .arch-layer.green .arch-layer-title {
+                color: var(--neon-green);
+            }
+            .arch-layer.cyan .arch-layer-title {
+                color: var(--neon-cyan);
+            }
+            .arch-layer.blue .arch-layer-title {
+                color: var(--neon-blue);
+            }
+            .arch-layer.amber .arch-layer-title {
+                color: var(--neon-amber);
+            }
+            .arch-layer.purple .arch-layer-title {
+                color: var(--neon-purple);
+            }
+            .arch-layer.red .arch-layer-title {
+                color: var(--neon-red);
+            }
+            .arch-layer-desc {
+                color: var(--text-secondary);
+                font-size: 0.9rem;
+            }
+
+            /* ===== PYRAMID ===== */
+            .pyramid {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+                margin: 2rem 0;
+            }
+            .pyramid-level {
+                border-radius: 6px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-direction: column;
+                cursor: default;
+                transition: transform var(--transition);
+                padding: 0.75rem 1rem;
+            }
+            .pyramid-level:hover {
+                transform: scaleX(1.03);
+                z-index: 10;
+            }
+            .pyramid-level .pl-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 1rem;
+            }
+            .pyramid-level .pl-pct {
+                font-family: var(--font-mono);
+                font-size: 0.8rem;
+                margin-top: 2px;
+            }
+            .pyramid-level.p-e2e {
+                width: 40%;
+                background: rgba(255, 71, 87, 0.15);
+                border: 1px solid var(--neon-red);
+            }
+            .pyramid-level.p-intg {
+                width: 65%;
+                background: rgba(77, 159, 255, 0.12);
+                border: 1px solid var(--neon-blue);
+            }
+            .pyramid-level.p-unit {
+                width: 90%;
+                background: rgba(0, 255, 159, 0.1);
+                border: 1px solid var(--neon-green);
+            }
+            .pyramid-level.p-e2e .pl-title {
+                color: var(--neon-red);
+            }
+            .pyramid-level.p-intg .pl-title {
+                color: var(--neon-blue);
+            }
+            .pyramid-level.p-unit .pl-title {
+                color: var(--neon-green);
+            }
+            .pyramid-label {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                margin-top: 0.5rem;
+                text-align: center;
+            }
+
+            /* ===== CODE BLOCK ===== */
+            .code-block {
+                background: #050d1a;
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+                overflow-x: auto;
+                margin: 1.5rem 0;
+                position: relative;
+            }
+            .code-block::before {
+                content: attr(data-lang);
+                position: absolute;
+                top: 0.75rem;
+                right: 1rem;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--text-muted);
+                letter-spacing: 0.05em;
+            }
+            .code-block pre {
+                margin: 0;
+                font-family: var(--font-mono);
+                font-size: 0.88rem;
+                line-height: 1.65;
+            }
+            .code-green {
+                color: var(--neon-green);
+            }
+            .code-cyan {
+                color: var(--neon-cyan);
+            }
+            .code-amber {
+                color: var(--neon-amber);
+            }
+            .code-purple {
+                color: var(--neon-purple);
+            }
+            .code-red {
+                color: var(--neon-red);
+            }
+            .code-keyword {
+                color: #ff79c6;
+            }
+            .code-comment {
+                color: var(--text-muted);
+                font-style: italic;
+            }
+            .code-string {
+                color: var(--neon-amber);
+            }
+            .code-num {
+                color: #bd93f9;
+            }
+
+            /* ===== STEP LIST ===== */
+            .step-list {
+                list-style: none;
+                padding: 0;
+                counter-reset: step;
+            }
+            .step-item {
+                counter-increment: step;
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1.25rem;
+                margin-bottom: 0.75rem;
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                transition: all var(--transition);
+            }
+            .step-item:hover {
+                border-color: var(--border-bright);
+                background: var(--bg-card-hover);
+            }
+            .step-num {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                flex-shrink: 0;
+                font-family: var(--font-mono);
+                font-size: 0.85rem;
+                font-weight: 700;
+                background: var(--neon-cyan);
+                color: var(--bg-deep);
+            }
+            .step-content {
+                flex: 1;
+            }
+            .step-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                margin-bottom: 0.35rem;
+            }
+            .step-desc {
+                color: var(--text-secondary);
+                font-size: 0.92rem;
+            }
+
+            /* ===== CALLOUT ===== */
+            .callout {
+                border-left: 4px solid;
+                border-radius: 0 var(--radius) var(--radius) 0;
+                padding: 1.25rem 1.5rem;
+                margin: 1.5rem 0;
+            }
+            .callout-title {
+                font-family: var(--font-display);
+                font-size: 0.95rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+            }
+            .callout.info {
+                border-color: var(--neon-cyan);
+                background: rgba(0, 229, 255, 0.06);
+            }
+            .callout.info .callout-title {
+                color: var(--neon-cyan);
+            }
+            .callout.warning {
+                border-color: var(--neon-amber);
+                background: rgba(255, 183, 0, 0.06);
+            }
+            .callout.warning .callout-title {
+                color: var(--neon-amber);
+            }
+            .callout.danger {
+                border-color: var(--neon-red);
+                background: rgba(255, 71, 87, 0.06);
+            }
+            .callout.danger .callout-title {
+                color: var(--neon-red);
+            }
+
+            /* ===== ALERT ===== */
+            .alert {
+                border-left: 4px solid;
+                border-radius: 0 var(--radius) var(--radius) 0;
+                padding: 0.9rem 1.25rem;
+                margin: 1rem 0;
+                font-size: 0.92rem;
+            }
+            .alert.green {
+                border-color: var(--neon-green);
+                background: rgba(0, 255, 159, 0.05);
+                color: var(--neon-green);
+            }
+            .alert.amber {
+                border-color: var(--neon-amber);
+                background: rgba(255, 183, 0, 0.05);
+                color: var(--neon-amber);
+            }
+            .alert.red {
+                border-color: var(--neon-red);
+                background: rgba(255, 71, 87, 0.05);
+                color: var(--neon-red);
+            }
+            .alert.cyan {
+                border-color: var(--neon-cyan);
+                background: rgba(0, 229, 255, 0.05);
+                color: var(--neon-cyan);
+            }
+
+            /* ===== METRIC GRID ===== */
+            .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .metric-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 1.25rem;
+                text-align: center;
+                transition: all var(--transition);
+            }
+            .metric-card:hover {
+                border-color: var(--neon-cyan);
+                background: var(--bg-card-hover);
+                transform: translateY(-4px);
+                box-shadow: 0 12px 40px rgba(0, 229, 255, 0.12);
+            }
+            .metric-value {
+                font-family: var(--font-mono);
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--neon-cyan);
+            }
+            .metric-label {
+                font-size: 0.82rem;
+                color: var(--text-secondary);
+                margin-top: 0.25rem;
+            }
+            .metric-sub {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--neon-green);
+                margin-top: 0.25rem;
+            }
+
+            /* ===== PROGRESS ITEMS ===== */
+            .progress-item {
+                margin: 1rem 0;
+            }
+            .progress-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 0.5rem;
+            }
+            .progress-label {
+                font-family: var(--font-display);
+                font-size: 0.92rem;
+                font-weight: 600;
+            }
+            .progress-pct {
+                font-family: var(--font-mono);
+                font-size: 0.82rem;
+                color: var(--neon-cyan);
+            }
+            .progress-bar-bg {
+                background: rgba(255, 255, 255, 0.06);
+                border-radius: 4px;
+                height: 8px;
+                overflow: hidden;
+            }
+            .progress-bar {
+                height: 100%;
+                border-radius: 4px;
+                background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
+                width: 0;
+                animation: growBar 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+
+            /* ===== TABLE ===== */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 1.5rem 0;
+                border-radius: var(--radius-lg);
+                border: 1px solid var(--border);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                min-width: 560px;
+            }
+            thead tr {
+                background: rgba(0, 229, 255, 0.06);
+                border-bottom: 1px solid var(--border-bright);
+            }
+            th {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                font-weight: 700;
+                color: var(--neon-cyan);
+                letter-spacing: 0.05em;
+                padding: 0.85rem 1rem;
+                text-align: left;
+            }
+            td {
+                padding: 0.75rem 1rem;
+                font-size: 0.9rem;
+                color: var(--text-secondary);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            }
+            tbody tr:hover td {
+                background: rgba(0, 229, 255, 0.04);
+                color: var(--text-primary);
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            /* ===== EXAM GRID ===== */
+            .exam-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .exam-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+                transition: all var(--transition);
+            }
+            .exam-card:hover {
+                border-color: var(--border-bright);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 32px rgba(0, 229, 255, 0.08);
+            }
+            .exam-card-title {
+                font-family: var(--font-display);
+                font-size: 0.95rem;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                color: var(--neon-cyan);
+            }
+            .exam-card-pct {
+                font-family: var(--font-mono);
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--text-primary);
+            }
+            .exam-card-desc {
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+                margin-top: 0.5rem;
+            }
+            .star-rating {
+                color: var(--neon-amber);
+                font-size: 0.85rem;
+                margin-top: 0.5rem;
+                letter-spacing: 2px;
+            }
+
+            /* ===== REF GRID ===== */
+            .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 0.75rem;
+                margin: 1.5rem 0;
+            }
+            .ref-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1rem 1.25rem;
+                transition: all var(--transition);
+                overflow: hidden;
+                position: relative;
+            }
+            .ref-card::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                background: var(--neon-cyan);
+                transform: scaleY(0);
+                transition: transform var(--transition);
+                transform-origin: bottom;
+            }
+            .ref-card:hover::before {
+                transform: scaleY(1);
+            }
+            .ref-card:hover {
+                border-color: var(--border-bright);
+                transform: translateX(4px);
+            }
+            .ref-cat {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--neon-amber);
+                margin-bottom: 0.35rem;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+            }
+            .ref-title {
+                font-size: 0.88rem;
+                font-weight: 600;
+                color: var(--text-primary);
+                margin-bottom: 0.25rem;
+            }
+            .ref-url {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                color: var(--text-muted);
+                word-break: break-all;
+            }
+
+            /* ===== TREND CARD ===== */
+            .trend-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .trend-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+                transition: all var(--transition);
+                position: relative;
+                overflow: hidden;
+            }
+            .trend-card::after {
+                content: '';
+                position: absolute;
+                top: -50%;
+                right: -50%;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background: radial-gradient(circle, var(--glow-cyan) 0%, transparent 70%);
+                opacity: 0;
+                transition: opacity var(--transition);
+            }
+            .trend-card:hover::after {
+                opacity: 1;
+            }
+            .trend-card:hover {
+                border-color: var(--neon-cyan);
+                transform: translateY(-4px);
+                box-shadow: 0 12px 40px rgba(0, 229, 255, 0.1);
+            }
+            .trend-num {
+                font-family: var(--font-mono);
+                font-size: 2rem;
+                font-weight: 700;
+                color: rgba(0, 229, 255, 0.15);
+                line-height: 1;
+                margin-bottom: 0.5rem;
+            }
+            .trend-title {
+                font-family: var(--font-display);
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--neon-cyan);
+                margin-bottom: 0.5rem;
+            }
+            .trend-desc {
+                font-size: 0.88rem;
+                color: var(--text-secondary);
+            }
+
+            /* ===== COMPARISON ===== */
+            .compare-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .compare-box {
+                background: var(--bg-card);
+                border: 1px solid;
+                border-radius: var(--radius-lg);
+                padding: 1.5rem;
+            }
+            .compare-box.good {
+                border-color: rgba(0, 255, 159, 0.3);
+            }
+            .compare-box.bad {
+                border-color: rgba(255, 71, 87, 0.3);
+            }
+            .compare-label {
+                font-family: var(--font-mono);
+                font-size: 0.82rem;
+                font-weight: 700;
+                margin-bottom: 0.75rem;
+            }
+            .compare-box.good .compare-label {
+                color: var(--neon-green);
+            }
+            .compare-box.bad .compare-label {
+                color: var(--neon-red);
+            }
+            .compare-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.5rem;
+                margin-bottom: 0.5rem;
+                font-size: 0.9rem;
+            }
+            .compare-icon {
+                flex-shrink: 0;
+                font-size: 1rem;
+            }
+
+            /* ===== DEFINITION BOX ===== */
+            .definition-box {
+                background: linear-gradient(
+                    135deg,
+                    rgba(0, 229, 255, 0.05) 0%,
+                    rgba(0, 255, 159, 0.03) 100%
+                );
+                border: 1px solid var(--border-bright);
+                border-radius: var(--radius-lg);
+                padding: 1.75rem;
+                margin: 1.5rem 0;
+            }
+            .definition-label {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--neon-cyan);
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                margin-bottom: 0.75rem;
+            }
+            .definition-text {
+                font-size: 1.05rem;
+                color: var(--text-primary);
+                font-style: italic;
+                line-height: 1.7;
+            }
+            .definition-source {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--text-muted);
+                margin-top: 0.75rem;
+            }
+
+            /* ===== INFO GRID ===== */
+            .info-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 1rem;
+                margin: 1.5rem 0;
+            }
+            .info-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius-lg);
+                padding: 1.25rem;
+                transition: all var(--transition);
+            }
+            .info-card:hover {
+                border-color: var(--border-bright);
+                transform: translateY(-2px);
+            }
+            .info-card-icon {
+                font-size: 1.75rem;
+                margin-bottom: 0.75rem;
+            }
+            .info-card-title {
+                font-family: var(--font-display);
+                font-size: 0.95rem;
+                font-weight: 700;
+                margin-bottom: 0.35rem;
+            }
+            .info-card-desc {
+                font-size: 0.85rem;
+                color: var(--text-secondary);
+            }
+
+            /* ===== DIVIDER ===== */
+            .divider {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--border-bright), transparent);
+                margin: 2rem 0;
+            }
+
+            /* ===== TAGS ===== */
+            .tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                margin: 1rem 0;
+            }
+            .tag {
+                font-family: var(--font-mono);
+                font-size: 0.75rem;
+                padding: 0.25rem 0.65rem;
+                border-radius: 4px;
+                border: 1px solid;
+            }
+            .tag-green {
+                color: var(--neon-green);
+                border-color: rgba(0, 255, 159, 0.3);
+                background: rgba(0, 255, 159, 0.05);
+            }
+            .tag-cyan {
+                color: var(--neon-cyan);
+                border-color: rgba(0, 229, 255, 0.3);
+                background: rgba(0, 229, 255, 0.05);
+            }
+            .tag-amber {
+                color: var(--neon-amber);
+                border-color: rgba(255, 183, 0, 0.3);
+                background: rgba(255, 183, 0, 0.05);
+            }
+            .tag-purple {
+                color: var(--neon-purple);
+                border-color: rgba(168, 85, 247, 0.3);
+                background: rgba(168, 85, 247, 0.05);
+            }
+            .tag-red {
+                color: var(--neon-red);
+                border-color: rgba(255, 71, 87, 0.3);
+                background: rgba(255, 71, 87, 0.05);
+            }
+
+            /* ===== FLOW DIAGRAM ===== */
+            .flow {
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                margin: 1.5rem 0;
+            }
+            .flow-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1rem 1.25rem;
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                margin-bottom: 2px;
+                transition: all var(--transition);
+            }
+            .flow-item:hover {
+                border-color: var(--border-bright);
+                transform: translateX(4px);
+            }
+            .flow-arrow {
+                font-family: var(--font-mono);
+                color: var(--neon-cyan);
+                font-size: 1.2rem;
+                flex-shrink: 0;
+                margin-top: 2px;
+            }
+            .flow-body {
+                flex: 1;
+            }
+            .flow-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 0.95rem;
+            }
+            .flow-desc {
+                font-size: 0.88rem;
+                color: var(--text-secondary);
+            }
+
+            /* ===== RESPONSIVE ===== */
+            @media (max-width: 900px) {
+                .compare-grid {
+                    grid-template-columns: 1fr;
+                }
+                .metric-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .toc-grid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media (max-width: 600px) {
+                .metric-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+                .toc-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+                .exam-grid {
+                    grid-template-columns: 1fr;
+                }
+                .ref-grid {
+                    grid-template-columns: 1fr;
+                }
+                .trend-grid {
+                    grid-template-columns: 1fr;
+                }
+                .hero-meta {
+                    flex-direction: column;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- STICKY NAV -->
+        <nav class="sticky-nav">
+            <div class="nav-inner">
+                <span class="nav-brand">CT-TAS</span>
+                <a href="#toc" class="nav-link">目次</a>
+                <a href="#ch1" class="nav-link">Ch.1 概念</a>
+                <a href="#ch2" class="nav-link">Ch.2 リソース</a>
+                <a href="#ch3" class="nav-link">Ch.3 準備</a>
+                <a href="#ch4" class="nav-link">Ch.4 デプロイ</a>
+                <a href="#ch5" class="nav-link">Ch.5 影響分析</a>
+                <a href="#ch6" class="nav-link">Ch.6 改善</a>
+                <a href="#ai" class="nav-link">AI/トレンド</a>
+                <a href="#exam" class="nav-link">試験対策</a>
+                <a href="#refs" class="nav-link">参考文献</a>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <div class="hero">
+            <div class="hero-bg"></div>
+            <div class="container">
+                <div class="hero-badge">ISTQB® Specialist Certification · 2025 Edition</div>
+                <h1 class="hero-title">
+                    <span class="dim">ISTQB® CT-TAS</span>
+                    Test Automation <span class="accent">Strategy</span>
+                </h1>
+                <p class="hero-description">
+                    組織全体でテスト自動化をどう展開するか—ツールや技術だけでなく、コスト・リスク・ROI・役割・戦略を体系的に学ぶ完全ガイド。初学者からテスト管理者まで、ステップバイステップで解説します。
+                </p>
+                <div class="hero-meta">
+                    <div class="hero-meta-item"><span class="label">問題数</span> 40問</div>
+                    <div class="hero-meta-item">
+                        <span class="label">合格点</span> 32/49点 (65.3%)
+                    </div>
+                    <div class="hero-meta-item">
+                        <span class="label">試験時間</span> 60分 (+25%)
+                    </div>
+                    <div class="hero-meta-item"><span class="label">前提資格</span> CTFL必須</div>
+                    <div class="hero-meta-item">
+                        <span class="label">バージョン</span> CT-TAS v1.0
+                    </div>
+                </div>
+            </div>
+            <div class="hero-glow"></div>
+        </div>
+
+        <!-- TABLE OF CONTENTS -->
+        <section id="toc">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">◎</span>目次・学習ロードマップ
+                    </div>
+                    <p class="section-desc">CT-TASシラバスの全章を体系的に学ぶためのガイドマップ</p>
+                </div>
+                <div class="toc-grid">
+                    <a href="#ch1" class="toc-card"
+                        ><div class="toc-card-num">CHAPTER 01</div>
+                        <div class="toc-card-title">テスト自動化戦略の概念と全体像</div></a
+                    >
+                    <a href="#ch2" class="toc-card"
+                        ><div class="toc-card-num">CHAPTER 02</div>
+                        <div class="toc-card-title">自動化リソース・コスト・役割</div></a
+                    >
+                    <a href="#ch3" class="toc-card"
+                        ><div class="toc-card-num">CHAPTER 03</div>
+                        <div class="toc-card-title">テスト自動化の準備・SDLC統合</div></a
+                    >
+                    <a href="#ch4" class="toc-card"
+                        ><div class="toc-card-num">CHAPTER 04</div>
+                        <div class="toc-card-title">デプロイ戦略・環境管理</div></a
+                    >
+                    <a href="#ch5" class="toc-card"
+                        ><div class="toc-card-num">CHAPTER 05</div>
+                        <div class="toc-card-title">ROI・メトリクス・ビジネス価値</div></a
+                    >
+                    <a href="#ch6" class="toc-card"
+                        ><div class="toc-card-num">CHAPTER 06</div>
+                        <div class="toc-card-title">実装・改善・組織展開戦略</div></a
+                    >
+                    <a href="#ai" class="toc-card"
+                        ><div class="toc-card-num">BONUS</div>
+                        <div class="toc-card-title">AI・2025〜2026年最新トレンド</div></a
+                    >
+                    <a href="#exam" class="toc-card"
+                        ><div class="toc-card-num">EXAM</div>
+                        <div class="toc-card-title">試験対策・サンプル問題</div></a
+                    >
+                </div>
+
+                <div class="callout info">
+                    <div class="callout-title">⚡ CT-TAS と CTAL-TAE の重要な違い</div>
+                    <p style="margin: 0; color: var(--text-secondary)">
+                        CT-TASは<strong>「なぜ・いつ・どこで」</strong>自動化するかの戦略・計画・価値を学びます。CTAL-TAEは<strong>「どのように」</strong>実装するかの技術的詳細を学びます。試験問題もこの視点の違いを常に意識する必要があります。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 1 -->
+        <section id="ch1">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">1</span>
+                        テスト自動化戦略とは？—概念と全体像
+                        <span class="k-level">K1・K2</span>
+                    </div>
+                    <p class="section-desc">テスト自動化戦略の定義・目的・成功要因を理解する</p>
+                </div>
+
+                <!-- 1.1 定義 -->
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    1.1 テスト自動化戦略の定義
+                </h3>
+                <div class="definition-box">
+                    <div class="definition-label">📖 ISTQB CT-TAS v1.0 公式定義</div>
+                    <div class="definition-text">
+                        「テスト自動化戦略（Test Automation
+                        Strategy）とは、テクニカルなツール実装や統合の課題を超えた、組織内のテスト自動化ニーズに取り組む、<strong>体系的かつ一貫したアプローチ</strong>である。」
+                    </div>
+                    <div class="definition-source">
+                        出典: ISTQB CT-TAS Syllabus v1.0 —
+                        <a
+                            href="https://istqb.org/certifications/certified-tester-test-automation-strategy-ct-tas/"
+                            target="_blank"
+                            >公式ページ</a
+                        >
+                    </div>
+                </div>
+
+                <p>
+                    テスト自動化戦略は単なる「ツール選定」ではなく、<strong>組織全体でどのように自動化を展開・維持・改善するか</strong>を定義するものです。
+                </p>
+
+                <div class="compare-grid">
+                    <div class="compare-box good">
+                        <div class="compare-label">✅ CT-TAS（戦略）が扱うもの</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📊</span><span>ROI・コスト・リスク分析</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">👥</span><span>役割・責任・スキル定義</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🗺️</span><span>段階的ロードマップ策定</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🏢</span><span>組織全体への展開計画</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📈</span><span>メトリクスと継続的改善</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🎯</span><span>ビジネス目標との整合性</span>
+                        </div>
+                    </div>
+                    <div class="compare-box bad">
+                        <div class="compare-label">❌ CT-TASが扱わないもの (CTAL-TAE の範囲)</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔧</span
+                            ><span>フレームワーク実装コード</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">💻</span
+                            ><span>テストスクリプトのコーディング</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">⚙️</span
+                            ><span>ツールの設定・統合の詳細</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔨</span><span>Page Object Modelの実装</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🧪</span><span>個別テストケースの設計</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.2 全体マップ -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    1.2 テスト自動化戦略の全体構造
+                </h3>
+                <p>
+                    CT-TASシラバスは以下の6章で構成されています。各章は互いに連携し、組織レベルの自動化戦略を構築します。
+                </p>
+
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <div class="arch-layer-title">Ch.1 ビジョンと成功要因</div>
+                        <div class="arch-layer-desc">
+                            ビジネス目標に整合した自動化戦略のゴールを定義。「なぜ自動化するか」を明確にする。
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <div class="arch-layer-title">
+                            Ch.2 リソース計画（コスト・役割・ツール）
+                        </div>
+                        <div class="arch-layer-desc">
+                            TAE（Test Automation
+                            Engineer）の役割、TCO（総所有コスト）分析、構築アプローチ選択。
+                        </div>
+                    </div>
+                    <div class="arch-layer blue">
+                        <div class="arch-layer-title">
+                            Ch.3 準備（テストレベル統合・SDLC別戦略）
+                        </div>
+                        <div class="arch-layer-desc">
+                            テストピラミッドの最適化、ウォーターフォール/アジャイル/DevOps別の自動化戦略立案。
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <div class="arch-layer-title">Ch.4 デプロイ・リリース戦略</div>
+                        <div class="arch-layer-desc">
+                            段階的展開計画、テスト環境の依存関係管理、品質ゲートの設計。
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <div class="arch-layer-title">
+                            Ch.5 影響分析（ROI・メトリクス・価値・レポート）
+                        </div>
+                        <div class="arch-layer-desc">
+                            ROI計算、KPI設定、ステークホルダー別レポート、ビジネス価値の測定・証明。
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">Ch.6 実装・改善・組織展開戦略</div>
+                        <div class="arch-layer-desc">
+                            手動→自動化移行、TCoE設立、継続的改善サイクルで組織全体を底上げ。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 1.3 市場規模 -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    1.3 なぜ今、自動化戦略が重要か
+                </h3>
+                <p>最新の業界データが示すテスト自動化の実態と必要性：</p>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">518B</div>
+                        <div class="metric-label">
+                            ドル・世界テスト市場規模<br />2023年 (CAGR 7%↑)
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">30%</div>
+                        <div class="metric-label">テストコスト削減<br />(Gartner調査)</div>
+                        <div class="metric-sub">↑ 自動化導入後</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">80%</div>
+                        <div class="metric-label">
+                            テストサイクル時間短縮<br />(World Quality Report)
+                        </div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">85%</div>
+                        <div class="metric-label">カバレッジ向上率<br />(Gartner)</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">44%</div>
+                        <div class="metric-label">IT責任者が「スキル不足」<br />を課題と回答</div>
+                        <div class="metric-sub">→ 戦略が必要な証拠</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">1/5</div>
+                        <div class="metric-label">本番欠陥を削減<br />自動化率70%超で</div>
+                        <div class="metric-sub">(McKinsey)</div>
+                    </div>
+                </div>
+
+                <!-- 1.4 成功要因 -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    1.4 自動化戦略の成功要因（5原則）
+                </h3>
+
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-content">
+                            <div class="step-title">ビジネス目標との整合性（Alignment）</div>
+                            <div class="step-desc">
+                                自動化の目標を組織のKPIと紐付ける。「リリース頻度を月1→週1に上げる」等、具体的なビジネス成果で語る。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-content">
+                            <div class="step-title">段階的な実装（Phased Approach）</div>
+                            <div class="step-desc">
+                                パイロット（3ヶ月）→ 拡大（6ヶ月）→
+                                組織展開（12ヶ月）と段階を踏む。リスクを最小化しながら成果を実証する。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <div class="step-title">保守性の確保（Maintainability）</div>
+                            <div class="step-desc">
+                                Page Object
+                                Model等の設計パターンでスクリプトを長寿命化。「スクリプト疲弊」を防ぐアーキテクチャ設計が必須。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">4</div>
+                        <div class="step-content">
+                            <div class="step-title">継続的な測定（Measurement）</div>
+                            <div class="step-desc">
+                                カバレッジ率・欠陥検出率・ROIを週次・スプリント毎に計測し、データドリブンな改善を継続する。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">5</div>
+                        <div class="step-content">
+                            <div class="step-title">ナレッジの共有（Knowledge Sharing）</div>
+                            <div class="step-desc">
+                                共通フレームワーク・共有ライブラリ・TCoE（テストセンターオブエクセレンス）で組織全体の能力を底上げする。
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- 1.5 失敗パターン -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-red)">
+                    1.5 よくある失敗パターン（試験頻出）
+                </h3>
+
+                <div class="arch-layers">
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">❌ 失敗1: 戦略なしで始める</div>
+                        <div class="arch-layer-desc">
+                            方向性なく自動化を進めると重複・非効率が蔓延。「何を、なぜ自動化するか」を先に定義すること。
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">❌ 失敗2: ツール先行の意思決定</div>
+                        <div class="arch-layer-desc">
+                            「Seleniumを使おう」から始まるプロジェクトは失敗しやすい。まず目的・スコープを定め、それに合ったツールを選ぶ。
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">❌ 失敗3: 経営陣のサポートがない</div>
+                        <div class="arch-layer-desc">
+                            C-suiteのスポンサーシップなしに予算・人材は確保できない。ビジネスケースの作成がTASの最初のタスク。
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">❌ 失敗4: 保守コストを過小評価</div>
+                        <div class="arch-layer-desc">
+                            テストスクリプトの維持コストが最大の継続コスト。アプリ変更のたびにスクリプト修正が必要になる「スクリプト疲弊」を計画に含める。
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">
+                            ❌ 失敗5: 「100%自動化」という非現実的な目標
+                        </div>
+                        <div class="arch-layer-desc">
+                            探索的テスト・ユーザビリティ確認は人間が担う。70:20:10ピラミッド比率を守り、高価値テストに絞る。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout warning">
+                    <div class="callout-title">⚠️ 試験のポイント：CT-TAS vs CTAL-TAE</div>
+                    <p style="margin: 0; color: var(--text-secondary)">
+                        試験問題で「実装の詳細」を問うものはCTAL-TAEの範囲です。CT-TASは常に<strong>「戦略・計画・ビジネス視点」</strong>で回答してください。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 2 -->
+        <section id="ch2">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">2</span>
+                        テスト自動化のリソース—コスト・役割・構築方法
+                        <span class="k-level">K2・K3</span>
+                    </div>
+                    <p class="section-desc">
+                        TCO分析、主要ロールの定義、自動化ソリューション構築のアプローチを学ぶ
+                    </p>
+                </div>
+
+                <!-- 2.1 TCO -->
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    2.1 総所有コスト（TCO）の全体像
+                </h3>
+                <p>
+                    テスト自動化の導入判断にはTCO（Total Cost of
+                    Ownership）の正確な把握が不可欠です。「ツールが無料だから安い」は大きな誤解です。
+                </p>
+
+                <div class="arch-layers">
+                    <div class="arch-layer amber">
+                        <div class="arch-layer-title">初期投資コスト（Initial Investment）</div>
+                        <div class="arch-layer-desc">
+                            ツール・ライセンス費用 ／ インフラ・ハードウェア ／ TAE採用・教育費 ／
+                            初期フレームワーク構築工数
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">
+                            継続コスト（Ongoing Costs）— 最大の見落としポイント
+                        </div>
+                        <div class="arch-layer-desc">
+                            テストスクリプト保守費用（UI変更のたびに必要）／ ツール更新費用 ／
+                            インフラ維持費 ／ 継続トレーニング費
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <div class="arch-layer-title">隠れたコスト（Hidden Costs）</div>
+                        <div class="arch-layer-desc">
+                            フレーキーテスト調査・対応工数 ／ テスト環境の整備 ／ テストデータ管理
+                            ／ チームの学習曲線（Learning Curve）
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 1rem; color: var(--neon-amber)">
+                    📊 実際のコスト計算例（中規模プロジェクト）
+                </h4>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>コスト項目</th>
+                                <th>単価</th>
+                                <th>数量/期間</th>
+                                <th>合計</th>
+                                <th>区分</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>TAE 採用・育成</td>
+                                <td>—</td>
+                                <td>1回</td>
+                                <td>120万円</td>
+                                <td><span class="tag tag-amber">初期</span></td>
+                            </tr>
+                            <tr>
+                                <td>ツールライセンス（年間）</td>
+                                <td>60万円/年</td>
+                                <td>1年</td>
+                                <td>60万円</td>
+                                <td><span class="tag tag-amber">初期+継続</span></td>
+                            </tr>
+                            <tr>
+                                <td>フレームワーク構築工数</td>
+                                <td>—</td>
+                                <td>1回</td>
+                                <td>80万円</td>
+                                <td><span class="tag tag-amber">初期</span></td>
+                            </tr>
+                            <tr>
+                                <td>インフラ初期構築</td>
+                                <td>—</td>
+                                <td>1回</td>
+                                <td>30万円</td>
+                                <td><span class="tag tag-amber">初期</span></td>
+                            </tr>
+                            <tr>
+                                <td>TAE 人件費</td>
+                                <td>40万円/月</td>
+                                <td>18ヶ月</td>
+                                <td>720万円</td>
+                                <td><span class="tag tag-red">継続</span></td>
+                            </tr>
+                            <tr>
+                                <td>スクリプト保守工数</td>
+                                <td>10万円/月</td>
+                                <td>18ヶ月</td>
+                                <td>180万円</td>
+                                <td><span class="tag tag-red">継続</span></td>
+                            </tr>
+                            <tr style="background: rgba(0, 229, 255, 0.05)">
+                                <td><strong>18ヶ月間の総コスト</strong></td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td><strong style="color: var(--neon-cyan)">1,190万円</strong></td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>手動テスト（比較）</td>
+                                <td>40万円/月×3名</td>
+                                <td>18ヶ月</td>
+                                <td>2,160万円</td>
+                                <td><span class="tag tag-green">削減比較</span></td>
+                            </tr>
+                            <tr style="background: rgba(0, 255, 159, 0.05)">
+                                <td><strong>削減額</strong></td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>
+                                    <strong style="color: var(--neon-green)"
+                                        >970万円 (45%削減)</strong
+                                    >
+                                </td>
+                                <td>—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 2.2 リスク -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    2.2 テスト自動化の主要リスクと対策
+                </h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>リスク</th>
+                                <th>発生原因</th>
+                                <th>対策</th>
+                                <th>優先度</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>ROIが期待を下回る</strong></td>
+                                <td>自動化範囲の選定ミス、保守コスト過小評価</td>
+                                <td>リスクベースで対象選定、TCOモデルを事前作成</td>
+                                <td><span class="tag tag-red">高</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>フレーキーテスト増加</strong></td>
+                                <td>UIの頻繁な変更、非安定なロケーター使用</td>
+                                <td>Page Object Model採用、安定した要素識別</td>
+                                <td><span class="tag tag-red">高</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>人材・スキル不足</strong></td>
+                                <td>採用難・育成コスト</td>
+                                <td>段階的スキルアップ、外部TAEの活用</td>
+                                <td><span class="tag tag-red">高</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>ツール選定ミス</strong></td>
+                                <td>要件分析不足、ベンダーロックイン</td>
+                                <td>PoC実施、オープンソース優先検討</td>
+                                <td><span class="tag tag-amber">中</span></td>
+                            </tr>
+                            <tr>
+                                <td><strong>変更管理の失敗</strong></td>
+                                <td>組織文化への考慮不足、現場の抵抗</td>
+                                <td>チェンジマネジメント計画の立案</td>
+                                <td><span class="tag tag-amber">中</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 2.3 Roles -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    2.3 主要ロールと責任（試験頻出！）
+                </h3>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-icon">🎯</div>
+                        <div class="info-card-title" style="color: var(--neon-green)">
+                            テストアーキテクト
+                        </div>
+                        <div class="info-card-desc">
+                            自動化フレームワークの設計・選定。テストレベル間の統合設計。技術標準・ガイドラインの策定。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">📊</div>
+                        <div class="info-card-title" style="color: var(--neon-cyan)">
+                            テストマネージャー
+                        </div>
+                        <div class="info-card-desc">
+                            テスト自動化計画の承認・監督。リスク管理・メトリクス評価。ステークホルダーへの報告。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">💻</div>
+                        <div class="info-card-title" style="color: var(--neon-blue)">
+                            TAE (Test Automation Engineer)
+                        </div>
+                        <div class="info-card-desc">
+                            自動化スクリプトの開発・保守。CI/CDパイプラインへの統合。テストフレームワークの実装。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">📋</div>
+                        <div class="info-card-title" style="color: var(--neon-amber)">
+                            テストアナリスト
+                        </div>
+                        <div class="info-card-desc">
+                            自動化すべきテストケースの特定・設計。ビジネスドメイン知識によるテスト要件の整理。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🔬</div>
+                        <div class="info-card-title" style="color: var(--neon-purple)">
+                            SME（ドメイン専門家）
+                        </div>
+                        <div class="info-card-desc">
+                            ビジネスドメイン知識の提供。テスト目標の策定。受入基準の定義。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">⚙️</div>
+                        <div class="info-card-title" style="color: var(--neon-red)">開発者</div>
+                        <div class="info-card-desc">
+                            テスタビリティの確保。ユニットテストの作成。TDD/BDDの実践。CI/CDパイプラインの維持。
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 1rem; color: var(--neon-cyan)">
+                    TAEに必要なスキルセット
+                </h4>
+
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">プログラミング言語 (Java/Python/JS)</span
+                        ><span class="progress-pct">必須</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar" style="--bar-width: 95%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label"
+                            >テスト自動化フレームワーク (Selenium/Playwright)</span
+                        ><span class="progress-pct">必須</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar" style="--bar-width: 95%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">CI/CDツール (Jenkins/GitHub Actions)</span
+                        ><span class="progress-pct">必須</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar" style="--bar-width: 90%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">バージョン管理 (Git)</span
+                        ><span class="progress-pct">必須</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar" style="--bar-width: 90%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">クラウドプラットフォーム (AWS/Azure)</span
+                        ><span class="progress-pct">推奨</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar" style="--bar-width: 70%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">コミュニケーション・問題解決力</span
+                        ><span class="progress-pct">必須</span>
+                    </div>
+                    <div class="progress-bar-bg">
+                        <div class="progress-bar" style="--bar-width: 85%"></div>
+                    </div>
+                </div>
+
+                <!-- 2.4 建築アプローチ -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    2.4 自動化ソリューション構築アプローチの選択
+                </h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>アプローチ</th>
+                                <th>✅ メリット</th>
+                                <th>❌ デメリット</th>
+                                <th>適用場面</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>内製（In-house）</strong></td>
+                                <td>コスト・ガバナンスが内部に収まる。カスタマイズ自由。</td>
+                                <td>初期構築に時間・スキルが必要。</td>
+                                <td>長期プロジェクト、社内スキルがある組織</td>
+                            </tr>
+                            <tr>
+                                <td><strong>商用ツール（非カスタム）</strong></td>
+                                <td>導入が早い。サポートが充実。</td>
+                                <td>ライセンス費用高。ベンダーロックイン。</td>
+                                <td>中小組織、短期間で効果を出したい</td>
+                            </tr>
+                            <tr>
+                                <td><strong>商用ツール（カスタム可）</strong></td>
+                                <td>柔軟性と専門サポートの両立。</td>
+                                <td>費用が高い。</td>
+                                <td>大規模組織、複雑な要件</td>
+                            </tr>
+                            <tr>
+                                <td><strong>アウトソーシング</strong></td>
+                                <td>専門TAEチームを即時確保。</td>
+                                <td>組織内ナレッジが蓄積しにくい。</td>
+                                <td>スキル不足の急ぎプロジェクト</td>
+                            </tr>
+                            <tr>
+                                <td><strong>クラウドSaaS型</strong></td>
+                                <td>インフラコスト削減。多デバイス対応。</td>
+                                <td>データセキュリティ考慮が必要。</td>
+                                <td>モバイル・クロスブラウザテスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout info">
+                    <div class="callout-title">💡 ツール評価のポイント（試験頻出）</div>
+                    <p style="margin: 0; color: var(--text-secondary)">
+                        ツール選定は「技術適合性・チームスキル・コスト・CI/CD統合・スケーラビリティ・コミュニティ」の6軸で評価します。必ずPoC（概念実証）を実施してから本格導入を決定してください。
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 3 -->
+        <section id="ch3">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">3</span>
+                        テスト自動化の準備—テストレベル統合・SDLC別戦略
+                        <span class="k-level">K2・K3</span>
+                    </div>
+                    <p class="section-desc">
+                        テストピラミッドの最適化と、各SDLCモデル別の自動化戦略
+                    </p>
+                </div>
+
+                <!-- 3.1 テストピラミッド -->
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    3.1 テストピラミッドと戦略的配分
+                </h3>
+                <p>
+                    テスト自動化の最重要アーキテクチャ原則。各レベルの比率を守ることがコストと品質のバランスを最適化します。
+                </p>
+
+                <div class="pyramid">
+                    <div class="pyramid-level p-e2e">
+                        <div class="pl-title">E2E / UIテスト</div>
+                        <div class="pl-pct">~10% ／ ゆっくり・高コスト</div>
+                    </div>
+                    <div class="pyramid-level p-intg">
+                        <div class="pl-title">統合テスト（APIテスト）</div>
+                        <div class="pl-pct">~20% ／ 中程度の速さ</div>
+                    </div>
+                    <div class="pyramid-level p-unit">
+                        <div class="pl-title">ユニットテスト</div>
+                        <div class="pl-pct">~70% ／ 超高速・低コスト・安定</div>
+                    </div>
+                    <div class="pyramid-label">↑ 推奨比率: ユニット70% : 統合20% : E2E 10% ↑</div>
+                </div>
+
+                <div class="compare-grid">
+                    <div class="compare-box good">
+                        <div class="compare-label">✅ ピラミッド型（理想）</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🟢</span
+                            ><span>ユニットテストが豊富（高速・安定）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔵</span><span>APIテストで統合確認</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔴</span><span>E2Eは最重要フローのみ</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">⚡</span><span>CI実行時間: 10〜30分</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">💰</span><span>保守コストが低い</span>
+                        </div>
+                    </div>
+                    <div class="compare-box bad">
+                        <div class="compare-label">❌ アイスクリームコーン型（アンチパターン）</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔴</span><span>E2Eテストが多すぎる</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔵</span><span>統合テストが中程度</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🟢</span><span>ユニットテストが少ない</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🐢</span><span>CI実行時間: 2〜6時間</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">💸</span
+                            ><span>保守コストが爆発的に高い</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3.2 各テストレベル -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    3.2 各テストレベルの自動化戦略
+                </h3>
+
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <div class="arch-layer-title">ユニットテスト（70%）</div>
+                        <div class="arch-layer-desc">
+                            開発者が作成・維持（Shift-Left）。TDDとの相性が最高。<br />
+                            <strong>ツール:</strong> JUnit
+                            5（Java）、pytest（Python）、Jest（JS/TS）、NUnit（C#）<br />
+                            <strong>目標:</strong> コードカバレッジ &gt; 80%、実行時間 &lt; 2分
+                        </div>
+                    </div>
+                    <div class="arch-layer blue">
+                        <div class="arch-layer-title">統合テスト / APIテスト（20%）</div>
+                        <div class="arch-layer-desc">
+                            UIなしでバックエンドを直接テスト →
+                            安定性が高い。マイクロサービスで特に重要。<br />
+                            <strong>ツール:</strong> REST
+                            Assured（Java）、requests（Python）、Postman/Newman<br />
+                            <strong>目標:</strong> 主要APIの全エンドポイントカバレッジ、実行時間
+                            &lt; 10分
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">E2Eテスト / UIテスト（10%）</div>
+                        <div class="arch-layer-desc">
+                            クリティカルユーザーパス（ログイン・購入等）のみに絞る。Page Object
+                            Model必須。<br />
+                            <strong>ツール:</strong>
+                            Playwright、Cypress（Web）、Appium（Mobile）<br />
+                            <strong>目標:</strong> フレーキー率 &lt; 5%、実行時間 &lt; 30分
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3.3 SDLC -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    3.3 SDLCモデル別の自動化戦略（試験頻出！）
+                </h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>SDLCモデル</th>
+                                <th>特性</th>
+                                <th>課題</th>
+                                <th>推奨自動化戦略</th>
+                                <th>ROI回収</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="tag tag-cyan">ウォーターフォール</span></td>
+                                <td>テストフェーズが後半に集中</td>
+                                <td>投資回収が次プロジェクトまで</td>
+                                <td>回帰テスト中心・再利用設計</td>
+                                <td>遅い</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-green">アジャイル</span></td>
+                                <td>2〜4週スプリント・頻繁リリース</td>
+                                <td>毎スプリント回帰テスト増加</td>
+                                <td>BDD+TDD・DoD に自動化要件含める</td>
+                                <td>速い</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-amber">DevOps/継続的CD</span></td>
+                                <td>全コミットでデプロイ可能</td>
+                                <td>テスト実行時間がボトルネック</td>
+                                <td>全レベル統合・並列実行・品質ゲート</td>
+                                <td>最速</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-purple">ハイブリッド</span></td>
+                                <td>WF+アジャイルの混在</td>
+                                <td>プロセスの統一が困難</td>
+                                <td>マスター計画+スプリント計画の二層化</td>
+                                <td>中</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--neon-green)">
+                    アジャイルでの自動化ポイント
+                </h4>
+                <div class="code-block" data-lang="Gherkin / BDD">
+                    <pre><span class="code-comment"># 仕様をGherkin記法で記述し、テストコードに自動変換</span>
+<span class="code-keyword">Feature:</span> <span class="code-cyan">ショッピングカートへの商品追加</span>
+
+  <span class="code-keyword">Scenario:</span> <span class="code-cyan">正常系 - 在庫ある商品をカートに追加</span>
+    <span class="code-keyword">Given</span> ユーザーが商品詳細ページ「ノートPC X1」にいる
+    <span class="code-keyword">And</span>   商品の在庫が <span class="code-num">5</span> 個以上ある
+    <span class="code-keyword">When</span>  「カートに追加」ボタンをクリックする
+    <span class="code-keyword">Then</span>  カートに商品が追加される
+    <span class="code-keyword">And</span>   カートのアイコンに「<span class="code-num">1</span>」と表示される
+
+  <span class="code-keyword">Scenario:</span> <span class="code-red">異常系 - 在庫切れ商品はカートに追加できない</span>
+    <span class="code-keyword">Given</span> 商品「限定版モデル」の在庫が <span class="code-num">0</span> 個
+    <span class="code-keyword">When</span>  「カートに追加」ボタンをクリックしようとする
+    <span class="code-keyword">Then</span>  「在庫切れ」の警告が表示される
+    <span class="code-keyword">And</span>   カートに商品は追加されない</pre>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--neon-amber)">
+                    DevOpsパイプラインでの自動化フロー
+                </h4>
+                <div class="flow">
+                    <div class="flow-item">
+                        <div class="flow-arrow">①</div>
+                        <div class="flow-body">
+                            <div class="flow-title">
+                                コードコミット → ユニットテスト（即時・&lt;2分）
+                            </div>
+                            <div class="flow-desc">
+                                全コミットで実行。失敗したら開発者に即時フィードバック。マージは禁止。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-arrow">②</div>
+                        <div class="flow-body">
+                            <div class="flow-title">
+                                プルリクエスト → 統合・APIテスト（&lt;10分）
+                            </div>
+                            <div class="flow-desc">
+                                マージ前に実行。失敗=マージ禁止+チームへ通知。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-arrow">③</div>
+                        <div class="flow-body">
+                            <div class="flow-title">
+                                デイリービルド → E2Eスモークテスト（&lt;30分）
+                            </div>
+                            <div class="flow-desc">
+                                クリティカルフローのみ確認。失敗時はテスト担当者へ通知、バグ登録。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-arrow">④</div>
+                        <div class="flow-body">
+                            <div class="flow-title">
+                                リリース前 → フルリグレッション（&lt;2時間）
+                            </div>
+                            <div class="flow-desc">
+                                全自動化テスト実行。品質ゲート判定 → リリース可否の最終決定。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3.4 自動化対象選定 -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    3.4 「何を自動化すべきか」の判断基準
+                </h3>
+
+                <div class="compare-grid">
+                    <div class="compare-box good">
+                        <div class="compare-label">✅ 自動化に向いているテスト</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔄</span
+                            ><span>回帰テスト（繰り返し実行するもの）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">💨</span
+                            ><span>スモークテスト・サニティチェック</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📊</span
+                            ><span>データ駆動テスト（多数の入力パターン）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">⚡</span
+                            ><span>パフォーマンス・負荷テスト</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🌐</span
+                            ><span>クロスブラウザ・クロスデバイステスト</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔁</span
+                            ><span>単純なEnd-to-Endフロー（ログイン→購入）</span>
+                        </div>
+                    </div>
+                    <div class="compare-box bad">
+                        <div class="compare-label">❌ 手動テストが向いているテスト</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔍</span
+                            ><span>探索的テスト（創造性・直感が必要）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🎨</span
+                            ><span>ユーザビリティテスト（UX評価）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">1️⃣</span
+                            ><span>初回テスト（最初の仕様確認）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔀</span
+                            ><span>頻繁に変わる機能のテスト</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🎲</span><span>アドホックテスト</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="callout warning">
+                    <div class="callout-title">⚠️ 自動化実現可能性チェックリスト（試験頻出）</div>
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem">技術的観点：</p>
+                    <ul style="color: var(--text-secondary); margin: 0 0 0.5rem 1.5rem">
+                        <li>SUTはテスタビリティが確保されているか？（ID・ロケーター等）</li>
+                        <li>ツールが技術スタックをサポートしているか？</li>
+                        <li>テスト実行環境が安定しているか？</li>
+                    </ul>
+                    <p style="color: var(--text-secondary); margin-bottom: 0.5rem">組織的観点：</p>
+                    <ul style="color: var(--text-secondary); margin: 0 0 0 1.5rem">
+                        <li>必要なスキルを持つTAEが確保できるか？</li>
+                        <li>経営陣のサポート・予算は確保されているか？</li>
+                        <li>長期的なメンテナンス体制が構築できるか？</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 4 -->
+        <section id="ch4">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">4</span>
+                        テスト自動化のデプロイ戦略・環境管理
+                        <span class="k-level">K2・K3</span>
+                    </div>
+                    <p class="section-desc">
+                        段階的展開計画、テスト環境の依存関係管理、品質ゲートの設計
+                    </p>
+                </div>
+
+                <!-- 4.1 デプロイ戦略 -->
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    4.1 デプロイ戦略の3パターン
+                </h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>パターン</th>
+                                <th>✅ メリット</th>
+                                <th>❌ デメリット</th>
+                                <th>推奨場面</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>段階的展開 (推奨)</strong></td>
+                                <td>リスク最小・成果実証後に拡大</td>
+                                <td>展開まで時間がかかる</td>
+                                <td>ほぼすべての組織（初回導入）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ビッグバン展開</strong></td>
+                                <td>早期に統一アプローチが確立</td>
+                                <td>失敗時の影響が大きい</td>
+                                <td>小規模組織・経験豊富チーム</td>
+                            </tr>
+                            <tr>
+                                <td><strong>フィーチャーベース展開</strong></td>
+                                <td>既存システムへの影響が小さい</td>
+                                <td>旧機能の自動化が遅れる</td>
+                                <td>レガシーシステムがある組織</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 1rem; color: var(--neon-green)">
+                    段階的展開のロードマップ（推奨パターン）
+                </h4>
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-content">
+                            <div class="step-title">フェーズ1: パイロット（0〜3ヶ月）</div>
+                            <div class="step-desc">
+                                対象：1〜2機能・1チームのみ。ツール検証・プロセス確立・ROI実証。成功基準：選定機能の回帰テスト実行時間50%短縮。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-content">
+                            <div class="step-title">フェーズ2: 拡大（4〜9ヶ月）</div>
+                            <div class="step-desc">
+                                対象：複数機能・複数チームへ展開。共通フレームワーク確立・ナレッジ共有。成功基準：主要機能の回帰テスト80%自動化。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <div class="step-title">フェーズ3: 組織展開（10〜18ヶ月）</div>
+                            <div class="step-desc">
+                                対象：全プロジェクト・全テストレベル。継続的テストの実現・CI/CD完全統合。成功基準：テスト実行サイクル時間を手動比80%削減。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">4</div>
+                        <div class="step-content">
+                            <div class="step-title">フェーズ4: 最適化（継続）</div>
+                            <div class="step-desc">
+                                AI活用（セルフヒーリング）、高度な分析・予測、組織ナレッジライブラリの充実。
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- 4.2 環境管理 -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    4.2 テスト環境の種類と役割
+                </h3>
+
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <div class="arch-layer-title">開発環境（Development）</div>
+                        <div class="arch-layer-desc">
+                            用途：ユニットテスト・コンポーネントテスト実行。開発者のローカル環境＋CI/CD連携。
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <div class="arch-layer-title">統合環境（Integration / QA）</div>
+                        <div class="arch-layer-desc">
+                            用途：統合テスト・APIテスト・機能テスト実行。複数コンポーネントの連携を確認する共有環境。
+                        </div>
+                    </div>
+                    <div class="arch-layer blue">
+                        <div class="arch-layer-title">
+                            ステージング環境（Staging / Pre-Production）
+                        </div>
+                        <div class="arch-layer-desc">
+                            用途：E2Eテスト・回帰テスト・パフォーマンステスト。本番と同等の構成で実施。
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <div class="arch-layer-title">本番環境（Production）</div>
+                        <div class="arch-layer-desc">
+                            用途：本番監視テスト（Synthetic
+                            Monitoring）。本番環境でのスモークテスト・継続的監視。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    4.3 テスト環境の依存関係と解決策
+                </h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>依存関係の問題</th>
+                                <th>解決策</th>
+                                <th>ツール例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>外部サービスへの依存（決済API等）</td>
+                                <td>サービス仮想化・モック化</td>
+                                <td>WireMock、MockServer</td>
+                            </tr>
+                            <tr>
+                                <td>データベースの状態依存</td>
+                                <td>テスト前後のデータリセット・ファクトリ</td>
+                                <td>Flyway、Liquibase</td>
+                            </tr>
+                            <tr>
+                                <td>環境間の差異（Dev≠Staging≠Prod）</td>
+                                <td>Infrastructure as Code (IaC)、コンテナ化</td>
+                                <td>Docker、Kubernetes、Terraform</td>
+                            </tr>
+                            <tr>
+                                <td>テスト環境共有によるコンフリクト</td>
+                                <td>テスト専用環境・並列実行の独立化</td>
+                                <td>Kubernetes Namespace</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 4.4 テストデータ -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    4.4 テストデータ管理の4アプローチ
+                </h3>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-icon">📌</div>
+                        <div class="info-card-title">静的テストデータ</div>
+                        <div class="info-card-desc">
+                            事前にDBへ投入した固定データ。シンプルだが、テスト間で状態が汚染されやすい。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">⚡</div>
+                        <div class="info-card-title">動的テストデータ生成</div>
+                        <div class="info-card-desc">
+                            実行時にAPIやファクトリで作成。独立性が高いが、実装コストがかかる。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🎭</div>
+                        <div class="info-card-title">データモック・スタブ</div>
+                        <div class="info-card-desc">
+                            APIレスポンスを模倣。外部依存なし・高速だが本番との乖離リスクがある。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🔒</div>
+                        <div class="info-card-title">本番データのサニタイズ</div>
+                        <div class="info-card-desc">
+                            本番データを匿名化してテスト使用。リアルなデータだがGDPR等プライバシー法令対応が必要。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4.5 品質ゲート -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    4.5 品質ゲート（Quality Gate）の設計
+                </h3>
+
+                <div class="arch-layers">
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">
+                            🚫 必須条件（1つでも失敗でリリースブロック）
+                        </div>
+                        <div class="arch-layer-desc">
+                            ✅ ユニットテスト合格率: 100%<br />
+                            ✅ スモークテスト: 全件PASS<br />
+                            ✅ セキュリティスキャン: 重大・高リスク 0件<br />
+                            ✅ パフォーマンス: 応答時間 &lt; 2秒（99パーセンタイル）
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <div class="arch-layer-title">⚠️ 推奨条件（警告のみ・リリース可）</div>
+                        <div class="arch-layer-desc">
+                            ⚠️ E2E回帰テスト合格率: &gt; 95%<br />
+                            ⚠️ コードカバレッジ: &gt; 80%<br />
+                            ⚠️ 技術的負債スコア: 前回比 -5%以内
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 5 -->
+        <section id="ch5">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">5</span>
+                        ROI・メトリクス・ビジネス価値・レポート
+                        <span class="k-level">K2・K3・K4</span>
+                    </div>
+                    <p class="section-desc">テスト自動化の投資対効果の計算・証明・報告方法を学ぶ</p>
+                </div>
+
+                <!-- 5.1 ROI -->
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    5.1 ROI計算の基本式と実例
+                </h3>
+
+                <div class="definition-box">
+                    <div class="definition-label">📐 ROI計算式</div>
+                    <div
+                        class="definition-text"
+                        style="font-style: normal; font-family: var(--font-mono); font-size: 1rem"
+                    >
+                        ROI (%) = (年間便益 − 年間コスト) ÷ 年間コスト × 100<br /><br />
+                        年間便益 = 人件費削減額 + 品質改善効果 + リリース速度向上効果 +
+                        リスク低減価値<br />
+                        年間コスト = ライセンス + 保守 + サポート + トレーニング<br />
+                        回収期間 = 総初期投資額 ÷ 月次便益発生額
+                    </div>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 1rem; color: var(--neon-amber)">
+                    📊 実例計算：ECサイトの回帰テスト自動化（18ヶ月）
+                </h4>
+                <div class="code-block" data-lang="ROI計算">
+                    <pre><span class="code-comment">【現状：手動テスト】</span>
+テスター 3名 × 月40万円 × 18ヶ月 = <span class="code-amber">2,160万円</span>
+1回の回帰テスト: 5日間 × 3名 = 15人日
+年間リリース: 12回 → 年間工数: 180人日/年 = 576万円
+
+<span class="code-comment">【自動化導入後のコスト】</span>
+初期投資（フレームワーク構築）: <span class="code-red">200万円</span>
+ツールライセンス（年間）:        <span class="code-red"> 60万円</span>
+TAE 1名（維持・開発）:          <span class="code-red">480万円/年</span>
+自動化後の回帰テスト工数:         32万円/年
+
+<span class="code-comment">【便益計算】</span>
+手動テスト削減: 180人日 → 10人日 = <span class="code-green">170人日削減</span>
+削減コスト: 170 × 3.2万円/人日 = <span class="code-green">544万円/年</span>
+
+<span class="code-comment">【ROI（18ヶ月）】</span>
+総便益: 544万円 × 1.5年 = <span class="code-green">816万円</span>
+総コスト: 200万円 + (60+480+32)万円 × 1.5年 = <span class="code-red">1,076万円</span>
+ROI = (816 - 1,076) ÷ 1,076 × 100 = <span class="code-amber">-24%（2年目以降黒字化）</span>
+
+<span class="code-comment">※ 品質改善・リリース速度向上効果を含めると3年累計ROIは150〜300%に</span></pre>
+                </div>
+
+                <div class="callout warning">
+                    <div class="callout-title">⚠️ ROI計算の重要注意点</div>
+                    <p style="margin: 0; color: var(--text-secondary)">
+                        初年度はTAE人件費・初期投資が重く、多くの場合マイナスになります。<strong>2〜3年の累計で評価</strong>することが正確なROI計算のポイントです。経営層への説明では「回収期間（Payback
+                        Period）」を明示してください。
+                    </p>
+                </div>
+
+                <!-- 5.2 メトリクス -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    5.2 テスト自動化メトリクス 5カテゴリ（試験頻出！）
+                </h3>
+
+                <div class="arch-layers">
+                    <div class="arch-layer green">
+                        <div class="arch-layer-title">カテゴリ1: カバレッジメトリクス</div>
+                        <div class="arch-layer-desc">
+                            テストカバレッジ率 = 自動化テスト数 / 総テストケース数 × 100%<br />
+                            要件カバレッジ（自動化でカバーされた要件 / 全要件）<br />
+                            コードカバレッジ（テストが実行したコード行 / 全コード行）
+                        </div>
+                    </div>
+                    <div class="arch-layer cyan">
+                        <div class="arch-layer-title">カテゴリ2: 効率性メトリクス</div>
+                        <div class="arch-layer-desc">
+                            テスト実行時間（自動 vs 手動の比較）<br />
+                            テスト実行頻度（1日あたり / 1スプリントあたり）<br />
+                            フレーキーテスト率（不安定テスト数 / 総自動化テスト数）<br />
+                            テスト保守工数（スクリプト修正にかけた時間）
+                        </div>
+                    </div>
+                    <div class="arch-layer blue">
+                        <div class="arch-layer-title">カテゴリ3: 品質メトリクス</div>
+                        <div class="arch-layer-desc">
+                            欠陥検出率（自動化で検出した欠陥 / 全欠陥）<br />
+                            欠陥漏洩率 Defect Leakage（本番に漏れた欠陥 / 全欠陥）<br />
+                            偽陽性率（誤ってFAILしたテスト / 全FAILテスト）
+                        </div>
+                    </div>
+                    <div class="arch-layer amber">
+                        <div class="arch-layer-title">カテゴリ4: コスト・ROIメトリクス</div>
+                        <div class="arch-layer-desc">
+                            自動化ROI（削減コスト − 投資コスト）/ 投資コスト × 100%<br />
+                            テスト1件あたりのコスト<br />
+                            投資回収期間（Break-even Point）
+                        </div>
+                    </div>
+                    <div class="arch-layer purple">
+                        <div class="arch-layer-title">カテゴリ5: デリバリーメトリクス</div>
+                        <div class="arch-layer-desc">
+                            デプロイ頻度（自動化前後のリリース頻度比較）<br />
+                            フィードバックループ時間（コミットからテスト結果取得まで）<br />
+                            リードタイム（開発着手からリリースまで）<br />
+                            変更失敗率（デプロイ後の障害発生率）
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5.3 ステークホルダー別レポート -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    5.3 ステークホルダー別レポート設計（試験頻出！）
+                </h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ステークホルダー</th>
+                                <th>頻度</th>
+                                <th>形式</th>
+                                <th>主要指標</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>経営層・CTO</strong></td>
+                                <td>月1回</td>
+                                <td>エグゼクティブサマリー（1ページ）</td>
+                                <td>ROI（%）、リリース頻度、本番障害数、投資継続判断材料</td>
+                            </tr>
+                            <tr>
+                                <td><strong>テストマネージャー</strong></td>
+                                <td>週1回</td>
+                                <td>管理ダッシュボード</td>
+                                <td>カバレッジ推移、フレーキーテスト一覧、欠陥傾向分析</td>
+                            </tr>
+                            <tr>
+                                <td><strong>開発者</strong></td>
+                                <td>即時（CI/CD）</td>
+                                <td>コミットフィードバック</td>
+                                <td>失敗テストのスタックトレース、スクリーンショット、ログ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>QAチーム</strong></td>
+                                <td>スプリント毎</td>
+                                <td>詳細分析レポート</td>
+                                <td>実行時間内訳、環境別比較、新規自動化候補</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout info">
+                    <div class="callout-title">💡 経営層への説明で失敗しないポイント</div>
+                    <ul style="margin: 0; color: var(--text-secondary)">
+                        <li>
+                            <strong>❌「テストカバレッジを80%に上げます」</strong> → 技術用語すぎる
+                        </li>
+                        <li>
+                            <strong
+                                >✅「毎月1回のリリースを週1回に増やし、競合より3倍速く機能を届けます」</strong
+                            >
+                        </li>
+                        <li>
+                            定量的データ（「40%のテスト時間削減」）と投資回収期間を必ずセットで提示
+                        </li>
+                        <li>失敗した場合の撤退基準と損失見込みも明示することで信頼感が増す</li>
+                    </ul>
+                </div>
+
+                <!-- 5.4 ビジネス価値 -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    5.4 テスト自動化がもたらすビジネス価値
+                </h3>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-icon">🚀</div>
+                        <div class="info-card-title" style="color: var(--neon-green)">
+                            市場投入時間の短縮
+                        </div>
+                        <div class="info-card-desc">
+                            回帰テスト時間80%削減により、月1リリース→週1〜日次リリースが実現可能。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">💰</div>
+                        <div class="info-card-title" style="color: var(--neon-cyan)">
+                            コスト削減
+                        </div>
+                        <div class="info-card-desc">
+                            手動テスト工数を最大30%削減（Gartner）。本番バグの早期発見でコストを1/10〜1/100に。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🎯</div>
+                        <div class="info-card-title" style="color: var(--neon-amber)">品質向上</div>
+                        <div class="info-card-desc">
+                            24時間365日のテスト実行。人為的ミスの排除による一貫した品質確保。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">😊</div>
+                        <div class="info-card-title" style="color: var(--neon-purple)">
+                            エンジニア満足度向上
+                        </div>
+                        <div class="info-card-desc">
+                            単純反復作業からの解放。高付加価値な探索的テスト・アーキテクチャ改善への時間を確保。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🔒</div>
+                        <div class="info-card-title" style="color: var(--neon-red)">
+                            コンプライアンス対応
+                        </div>
+                        <div class="info-card-desc">
+                            テスト実行ログの自動記録によるGDPR/HIPAA等の規制要件へのトレーサビリティ確保。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">⚡</div>
+                        <div class="info-card-title" style="color: var(--neon-blue)">
+                            組織のアジリティ向上
+                        </div>
+                        <div class="info-card-desc">
+                            変更への恐怖が減少し、新機能実験が容易に。イノベーションを加速させる安全網として機能。
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CHAPTER 6 -->
+        <section id="ch6">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">6</span>
+                        実装・改善・組織全体への展開戦略
+                        <span class="k-level">K2・K3</span>
+                    </div>
+                    <p class="section-desc">
+                        手動→自動化への移行計画、TCoE設立、継続的改善サイクル
+                    </p>
+                </div>
+
+                <!-- 6.1 移行 -->
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    6.1 手動テストから継続的テストへの移行
+                </h3>
+
+                <div class="flow">
+                    <div class="flow-item">
+                        <div class="flow-arrow">A</div>
+                        <div class="flow-body">
+                            <div class="flow-title">現状評価（Assessment）</div>
+                            <div class="flow-desc">
+                                既存手動テストのインベントリ作成。自動化候補を「自動化ROI ×
+                                実行可能性」でスコアリング。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-arrow">B</div>
+                        <div class="flow-body">
+                            <div class="flow-title">パイロット（Pilot）</div>
+                            <div class="flow-desc">
+                                最もROIが高いテスト10〜20件を自動化。ツール・フレームワークの実証。チームの学習。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-arrow">C</div>
+                        <div class="flow-body">
+                            <div class="flow-title">拡大（Scale）</div>
+                            <div class="flow-desc">
+                                パイロット結果でフレームワーク標準化。手動テストを順次自動化。CI/CDパイプラインへの完全組み込み。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-arrow">D</div>
+                        <div class="flow-body">
+                            <div class="flow-title">最適化（Optimize）</div>
+                            <div class="flow-desc">
+                                自動化カバレッジ最大化。フレーキーテストの根絶。AI/MLの活用開始。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 1rem; color: var(--neon-red)">
+                    ⚠️ 移行時のよくある落とし穴
+                </h4>
+                <div class="arch-layers">
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">
+                            ❌ 落とし穴1: 「まず100%自動化する」という目標設定
+                        </div>
+                        <div class="arch-layer-desc">
+                            非現実的で維持コストが爆発する。解決策：高価値・高頻度テストに絞り、70:20:10ピラミッドを守る。
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">❌ 落とし穴2: 手動テストを即座に廃止する</div>
+                        <div class="arch-layer-desc">
+                            探索的テスト等の価値が失われる。解決策：手動と自動のハイブリッドを維持し、段階的移行する。
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">
+                            ❌ 落とし穴3: テストコードをプロダクションコードより粗末に扱う
+                        </div>
+                        <div class="arch-layer-desc">
+                            保守不能なスパゲッティコードになる。解決策：コードレビュー必須化、設計パターン（POM等）適用。
+                        </div>
+                    </div>
+                    <div class="arch-layer red">
+                        <div class="arch-layer-title">
+                            ❌ 落とし穴4: スキルトレーニングを後回しにする
+                        </div>
+                        <div class="arch-layer-desc">
+                            自動化投資が無駄になる。解決策：導入と並行してトレーニング計画を実行。
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6.2 TCoE -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    6.2 テストセンターオブエクセレンス（TCoE）
+                </h3>
+                <p>
+                    組織横断的なテスト自動化の品質・効率・ナレッジを管理する専門チーム。大規模組織では特に重要です。
+                </p>
+
+                <div class="compare-grid">
+                    <div class="compare-box good">
+                        <div class="compare-label">✅ TCoEの主な役割</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📐</span
+                            ><span>組織全体の自動化標準・ガイドライン策定</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔧</span
+                            ><span>共通フレームワーク・ライブラリの維持・発展</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📚</span
+                            ><span>ベストプラクティスの収集・普及</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🎓</span
+                            ><span>新入メンバーのトレーニング</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📊</span
+                            ><span>自動化成熟度の評価と改善推進</span>
+                        </div>
+                    </div>
+                    <div class="compare-box good">
+                        <div class="compare-label">✅ TCoEが提供するビジネス価値</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">♻️</span
+                            ><span>重複作業の排除（各チームが同じものを作らない）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📈</span
+                            ><span>品質の底上げ（ベストプラクティスを全チームへ）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">💰</span
+                            ><span>コスト削減（共通ライブラリの再利用）</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🏆</span
+                            ><span>スキル向上（組織全体の自動化能力）</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin: 1.5rem 0 0.75rem; color: var(--neon-cyan)">
+                    組織横断で共有すべき自動化アセット
+                </h4>
+                <div class="arch-layers">
+                    <div class="arch-layer cyan">
+                        <div class="arch-layer-title">共有ライブラリ（Shared Libraries）</div>
+                        <div class="arch-layer-desc">
+                            共通テストユーティリティ（ログイン処理・待機関数等）、標準アサーション関数、テストデータファクトリ、レポーティング共通モジュール
+                        </div>
+                    </div>
+                    <div class="arch-layer blue">
+                        <div class="arch-layer-title">共通フレームワーク（Framework）</div>
+                        <div class="arch-layer-desc">
+                            ページオブジェクトの基底クラス、CI/CD統合テンプレート、設定管理（環境変数の一元管理）、テスト実行スクリプト
+                        </div>
+                    </div>
+                    <div class="arch-layer green">
+                        <div class="arch-layer-title">ドキュメント・標準</div>
+                        <div class="arch-layer-desc">
+                            テストコーディング規約、ネーミングコンベンション、テストケース設計ガイドライン、オンボーディングガイド
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 6.3 継続的改善 -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    6.3 継続的改善（PDCA）サイクル
+                </h3>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-card-icon">📋</div>
+                        <div class="info-card-title" style="color: var(--neon-blue)">
+                            Plan（計画）
+                        </div>
+                        <div class="info-card-desc">
+                            メトリクス目標設定、改善施策立案。フレーキーテスト削減目標、カバレッジ拡大計画など。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">⚙️</div>
+                        <div class="info-card-title" style="color: var(--neon-green)">
+                            Do（実行）
+                        </div>
+                        <div class="info-card-desc">
+                            フレームワーク改善、新ツール導入、スキルアップ研修の実施。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">📊</div>
+                        <div class="info-card-title" style="color: var(--neon-cyan)">
+                            Check（評価）
+                        </div>
+                        <div class="info-card-desc">
+                            KPI測定、ステークホルダーフィードバック収集。改善前後のメトリクス比較。
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-card-icon">🔄</div>
+                        <div class="info-card-title" style="color: var(--neon-amber)">
+                            Act（改善）
+                        </div>
+                        <div class="info-card-desc">
+                            成功施策の標準化。失敗施策の廃棄・修正。次のPDCAサイクルへ。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>頻度</th>
+                                <th>レビュー内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>週次</td>
+                                <td>メトリクスレビュー、フレーキーテスト対応</td>
+                            </tr>
+                            <tr>
+                                <td>スプリント毎</td>
+                                <td>自動化カバレッジ確認、保守工数評価</td>
+                            </tr>
+                            <tr>
+                                <td>四半期毎</td>
+                                <td>戦略レビュー、ツール評価、ROI報告</td>
+                            </tr>
+                            <tr>
+                                <td>年次</td>
+                                <td>長期ロードマップ見直し、組織成熟度評価</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI & TRENDS -->
+        <section id="ai">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">AI</span>
+                        AIと最新トレンド（2025〜2026年）
+                        <span class="k-level">参考情報</span>
+                    </div>
+                    <p class="section-desc">
+                        AI/MLがテスト自動化をどう変えているか — 最新動向と実践的活用法
+                    </p>
+                </div>
+
+                <div class="trend-grid">
+                    <div class="trend-card">
+                        <div class="trend-num">01</div>
+                        <div class="trend-title">セルフヒーリングテスト</div>
+                        <div class="trend-desc">
+                            UIが変更されてもテストスクリプトが自動修正。従来の「スクリプト疲弊」問題を80〜90%削減。<br /><br /><strong
+                                >ツール例:</strong
+                            >
+                            Testim、Mabl、Tricentis Vision AI
+                        </div>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-num">02</div>
+                        <div class="trend-title">AIによるテストケース自動生成</div>
+                        <div class="trend-desc">
+                            LLM（GPT-4等）に仕様書を入力してテストコードを生成。エッジケース・境界値を自動発見。作成時間を60〜70%削減。
+                        </div>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-num">03</div>
+                        <div class="trend-title">予測的品質分析</div>
+                        <div class="trend-desc">
+                            過去データからバグ発生箇所を予測。テスト優先順位を動的に最適化。リスクの高い変更に自動でテストリソースを集中。
+                        </div>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-num">04</div>
+                        <div class="trend-title">ビジュアルAIテスト</div>
+                        <div class="trend-desc">
+                            スクリーンショット比較をAIで実施。UI崩れを自動検出。<br /><br /><strong
+                                >ツール例:</strong
+                            >
+                            Applitools Eyes、Percy
+                        </div>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-num">05</div>
+                        <div class="trend-title">ローコード/ノーコード自動化</div>
+                        <div class="trend-desc">
+                            非技術者もテストを作成できるプラットフォームが台頭。テスト民主化（Testing
+                            Democratization）が加速。<br /><br /><strong>ツール例:</strong>
+                            Leapwork、BugBug
+                        </div>
+                    </div>
+                    <div class="trend-card">
+                        <div class="trend-num">06</div>
+                        <div class="trend-title">自律テストモデルへの移行</div>
+                        <div class="trend-desc">
+                            「AIが要件→モデル生成→テスト実行→結果分析」を完全自動化するサイクルへ。銀行・金融業界を中心に加速中（QA
+                            Financial 2026）。
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-amber)">
+                    AIツール活用のベストプラクティス（試験外・実務向け）
+                </h3>
+
+                <div class="compare-grid">
+                    <div class="compare-box good">
+                        <div class="compare-label">✅ AIを正しく使う</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔍</span
+                            ><span>PoCで実用性を必ず検証する</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">👁️</span
+                            ><span>AIが生成したテストは人間がレビューする</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🎯</span
+                            ><span>「何をテストするか」の戦略は人間が決定</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📊</span
+                            ><span>False Positiveに常に注意する</span>
+                        </div>
+                    </div>
+                    <div class="compare-box bad">
+                        <div class="compare-label">❌ AIの過信は禁物</div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🤖</span
+                            ><span>AIを「魔法のソリューション」と思わない</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">📚</span
+                            ><span>テスト設計・品質思考の知識は依然必要</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">💰</span
+                            ><span>ツールコストを過小評価しない</span>
+                        </div>
+                        <div class="compare-item">
+                            <span class="compare-icon">🔄</span
+                            ><span>テスト戦略をAIに丸投げしない</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- EXAM TIPS -->
+        <section id="exam">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">試</span>
+                        ISTQB CT-TAS 試験対策・サンプル問題
+                        <span class="k-level">試験情報</span>
+                    </div>
+                    <p class="section-desc">
+                        試験の特殊性、配点、頻出パターンと6週間学習ロードマップ
+                    </p>
+                </div>
+
+                <!-- 試験スペック -->
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    試験スペック（他ISTQB試験と異なる点）
+                </h3>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="metric-value">40</div>
+                        <div class="metric-label">問題数</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">49</div>
+                        <div class="metric-label">総得点（重み付きあり！）</div>
+                        <div class="metric-sub">1点・2点・3点問題が混在</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">32</div>
+                        <div class="metric-label">合格点（65.3%）</div>
+                        <div class="metric-sub">難しい問題ほど高得点</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-value">60</div>
+                        <div class="metric-label">試験時間（分）</div>
+                        <div class="metric-sub">非英語圏 +25%=75分</div>
+                    </div>
+                </div>
+
+                <div class="alert amber">
+                    ⚠️
+                    重要：CT-TASは問題に重み付け（1・2・3点）があります。難しい問題を確実に取ることが合格の鍵です。全40問必ず解答（未回答=0点）。
+                </div>
+                <div class="alert cyan">
+                    受験資格：CTFL v4.0の認定 +
+                    実務経験の証明が必要。受験前に必ず公式サイトで要件を確認してください。
+                </div>
+
+                <!-- 章別配点 -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">章別ウェイトと重要度</h3>
+                <div class="exam-grid">
+                    <div class="exam-card">
+                        <div class="exam-card-title">Ch.1 目標・成功要因</div>
+                        <div class="exam-card-pct">~15%</div>
+                        <div class="star-rating">★★★☆☆</div>
+                        <div class="exam-card-desc">
+                            CT-TASの定義、CTAL-TAEとの違い、成功要因の特定
+                        </div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-card-title">Ch.2 自動化リソース</div>
+                        <div class="exam-card-pct">~20%</div>
+                        <div class="star-rating">★★★★☆</div>
+                        <div class="exam-card-desc">
+                            TCOの構成要素、TAEの役割、構築アプローチの選択
+                        </div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-card-title">Ch.3 準備・SDLC統合</div>
+                        <div class="exam-card-pct">~20%</div>
+                        <div class="star-rating">★★★★☆</div>
+                        <div class="exam-card-desc">
+                            テストピラミッド、SDLC別戦略、実現可能性評価
+                        </div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-card-title">Ch.4 デプロイ・環境</div>
+                        <div class="exam-card-pct">~20%</div>
+                        <div class="star-rating">★★★★☆</div>
+                        <div class="exam-card-desc">段階的展開、環境依存管理、品質ゲート設計</div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-card-title">Ch.5 影響分析</div>
+                        <div class="exam-card-pct">~15%</div>
+                        <div class="star-rating">★★★★★</div>
+                        <div class="exam-card-desc">
+                            ROI計算、メトリクス5カテゴリ、ステークホルダー別レポート
+                        </div>
+                    </div>
+                    <div class="exam-card">
+                        <div class="exam-card-title">Ch.6 実装・改善</div>
+                        <div class="exam-card-pct">~10%</div>
+                        <div class="star-rating">★★★☆☆</div>
+                        <div class="exam-card-desc">移行ステップ、TCoE、継続的改善サイクル</div>
+                    </div>
+                </div>
+
+                <!-- 頻出パターン -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">
+                    頻出問題パターンと解答アプローチ
+                </h3>
+
+                <ul class="step-list">
+                    <li class="step-item">
+                        <div class="step-num">1</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                「このシナリオで最適な自動化アプローチは？」
+                            </div>
+                            <div class="step-desc">
+                                → スコープ・リスク・コスト・スキルを確認 → 段階的展開 vs ビッグバン
+                                →
+                                <strong>通常は段階的が正解</strong
+                                >。SUTの特性（Web/API/組み込み）でツールを選ぶ。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">2</div>
+                        <div class="step-content">
+                            <div class="step-title">「ROIを最大化するには？」</div>
+                            <div class="step-desc">
+                                → <strong>高頻度・繰り返し・安定したテストを優先</strong>自動化 →
+                                保守コストを最小化するフレームワーク設計 →
+                                CI/CDへの統合でフィードバックループを短縮。
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">3</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                「どのメトリクスをどのステークホルダーに提示する？」
+                            </div>
+                            <div class="step-desc">
+                                → 経営層: ROI・リリース頻度・コスト / テストマネージャー:
+                                カバレッジ・欠陥検出率 / 開発者: 失敗詳細・実行時間
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">4</div>
+                        <div class="step-content">
+                            <div class="step-title">
+                                「なぜこの自動化プロジェクトは失敗したか？」
+                            </div>
+                            <div class="step-desc">
+                                → 経営陣サポートなし=戦略的コミットメント不足 /
+                                ROI実証できない=メトリクス不足 / スクリプト保守コスト増大=設計問題 /
+                                スキル不足=トレーニング不足
+                            </div>
+                        </div>
+                    </li>
+                    <li class="step-item">
+                        <div class="step-num">5</div>
+                        <div class="step-content">
+                            <div class="step-title">「CT-TASとCTAL-TAEの違いは？」</div>
+                            <div class="step-desc">
+                                → CT-TAS:
+                                戦略・計画・価値・組織展開（<strong>WHY・WHEN・WHERE</strong>）/
+                                CTAL-TAE: 技術実装・ツール・フレームワーク（<strong>HOW</strong>）
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+
+                <!-- サンプル問題 -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">サンプル問題と解説</h3>
+
+                <div class="card" style="margin-bottom: 1rem">
+                    <div
+                        style="
+                            font-family: var(--font-mono);
+                            font-size: 0.78rem;
+                            color: var(--neon-amber);
+                            margin-bottom: 0.75rem;
+                        "
+                    >
+                        Q1 — K2 レベル
+                    </div>
+                    <p style="font-weight: 600; margin-bottom: 0.75rem">
+                        テスト自動化戦略（CT-TAS）とテスト自動化エンジニアリング（CTAL-TAE）の最も重要な違いはどれか？
+                    </p>
+                    <div
+                        style="
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+                            margin-bottom: 1rem;
+                        "
+                    >
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            A. TAEはSeleniumを使い、TASはPlaywrightを使う
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid rgba(0, 255, 159, 0.4);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                                background: rgba(0, 255, 159, 0.05);
+                                color: var(--neon-green);
+                            "
+                        >
+                            B.
+                            TASは組織レベルの戦略・コスト・ROI・展開計画に焦点を当て、TAEは技術的な実装詳細に焦点を当てる
+                            ✅
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            C. TASはアジャイル専用で、TAEはウォーターフォール専用である
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            D. TAEのほうがTASより上位の資格である
+                        </div>
+                    </div>
+                    <div class="alert green">
+                        解説：CT-TASは「なぜ・いつ・どこで」自動化するかの戦略を扱い、CTAL-TAEは「どのように」実装するかを扱います。両者は補完関係にあり、どちらが上位という関係ではありません。
+                    </div>
+                </div>
+
+                <div class="card" style="margin-bottom: 1rem">
+                    <div
+                        style="
+                            font-family: var(--font-mono);
+                            font-size: 0.78rem;
+                            color: var(--neon-amber);
+                            margin-bottom: 0.75rem;
+                        "
+                    >
+                        Q2 — K3 レベル（2点問題）
+                    </div>
+                    <p style="font-weight: 600; margin-bottom: 0.75rem">
+                        新規プロジェクトでテスト自動化を導入する際、最初にすべきことはどれか？
+                    </p>
+                    <div
+                        style="
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+                            margin-bottom: 1rem;
+                        "
+                    >
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            A. まずSeleniumのPoCを実施してスクリプトを書き始める
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            B. 自動化フレームワークのアーキテクチャを設計する
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid rgba(0, 255, 159, 0.4);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                                background: rgba(0, 255, 159, 0.05);
+                                color: var(--neon-green);
+                            "
+                        >
+                            C.
+                            ビジネス目標・スコープ・TCO・ROI期待値を明確にし、ステークホルダーのコミットメントを得る
+                            ✅
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            D. 最も多くのテストケースを自動化できるツールを選定する
+                        </div>
+                    </div>
+                    <div class="alert green">
+                        解説：CT-TASの最優先事項は「戦略と目標の明確化」です。ツール選定・実装より前に、ビジネス目標との整合性・TCO分析・経営陣のスポンサーシップが必要です。
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div
+                        style="
+                            font-family: var(--font-mono);
+                            font-size: 0.78rem;
+                            color: var(--neon-amber);
+                            margin-bottom: 0.75rem;
+                        "
+                    >
+                        Q3 — K3 レベル（2点問題）
+                    </div>
+                    <p style="font-weight: 600; margin-bottom: 0.75rem">
+                        テスト自動化のROI計算において、しばしば見落とされる「最大の継続コスト」はどれか？
+                    </p>
+                    <div
+                        style="
+                            display: flex;
+                            flex-direction: column;
+                            gap: 0.5rem;
+                            margin-bottom: 1rem;
+                        "
+                    >
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            A. ツールのライセンス更新費用
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid rgba(0, 255, 159, 0.4);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                                background: rgba(0, 255, 159, 0.05);
+                                color: var(--neon-green);
+                            "
+                        >
+                            B.
+                            アプリケーション変更のたびに発生するテストスクリプトの保守費用（スクリプト疲弊）
+                            ✅
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            C. テスト実行環境のクラウド利用料
+                        </div>
+                        <div
+                            style="
+                                padding: 0.6rem 1rem;
+                                border: 1px solid var(--border);
+                                border-radius: var(--radius);
+                                font-size: 0.9rem;
+                            "
+                        >
+                            D. 初期フレームワーク構築の工数
+                        </div>
+                    </div>
+                    <div class="alert green">
+                        解説：テストスクリプトの保守費用はTCOの中で最大の継続コストです。UIの変更・機能追加のたびにスクリプト修正が必要になる「スクリプト疲弊」を計画に含めないとROI計算が大きくずれます。
+                    </div>
+                </div>
+
+                <!-- 6週間学習ロードマップ -->
+                <div class="divider"></div>
+                <h3 style="margin-bottom: 1rem; color: var(--neon-cyan)">6週間学習ロードマップ</h3>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>週</th>
+                                <th>学習内容</th>
+                                <th>成果物・目標</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span class="tag tag-cyan">Week 1</span></td>
+                                <td>
+                                    全体像の把握：CT-TAS Syllabus v1.0
+                                    を1周読む。CTFLの復習。CT-TASとCTAL-TAEの違いを明確化。
+                                </td>
+                                <td>シラバス構造の把握と全6章の概要理解</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-cyan">Week 2</span></td>
+                                <td>
+                                    コアコンセプト深掘り（Ch.1〜3）：成功要因・TCO・役割・テストピラミッド・SDLC別戦略
+                                </td>
+                                <td>テストピラミッドと各SDLCの戦略を図解でまとめる</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-cyan">Week 3</span></td>
+                                <td>
+                                    計画・デプロイ戦略（Ch.4〜5）：自動化ソリューション計画のステップ暗記、ROI計算実践
+                                </td>
+                                <td>ROI計算を手を動かして3パターン練習</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-cyan">Week 4</span></td>
+                                <td>
+                                    影響分析・改善戦略（Ch.5〜6）：ステークホルダー別レポート設計、TCoEの役割、移行の落とし穴
+                                </td>
+                                <td>メトリクス5カテゴリを全暗記</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-amber">Week 5</span></td>
+                                <td>
+                                    模擬試験と弱点補強：ISTQB公式 Sample Exam v1.2
+                                    を解く。間違えた問題をシラバスに戻って確認。
+                                </td>
+                                <td>模擬試験で32/49点以上を安定して取れる状態</td>
+                            </tr>
+                            <tr>
+                                <td><span class="tag tag-amber">Week 6</span></td>
+                                <td>
+                                    最終仕上げ：全シラバスのポイントを要約ノート整理。重要用語の定義確認。時間配分を意識した模擬試験。
+                                </td>
+                                <td>1.5分/問のペースで全40問解答できる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout info">
+                    <div class="callout-title">📥 公式学習資料のダウンロードリンク</div>
+                    <ul style="margin: 0; color: var(--text-secondary)">
+                        <li>
+                            <a
+                                href="https://istqb.org/?sdm_process_download=1&download_id=3571"
+                                target="_blank"
+                                >CT-TAS Syllabus v1.0（PDF）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://istqb.org/?sdm_process_download=1&download_id=3572"
+                                target="_blank"
+                                >Sample Exam Questions v1.2（PDF）</a
+                            >
+                        </li>
+                        <li>
+                            <a
+                                href="https://istqb.org/?sdm_process_download=1&download_id=3573"
+                                target="_blank"
+                                >Sample Exam Answers v1.2（PDF）</a
+                            >
+                        </li>
+                        <li>
+                            <a href="https://glossary.istqb.org/en_US/search?term=" target="_blank"
+                                >ISTQB グロッサリー（用語集）</a
+                            >
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- REFERENCES -->
+        <section id="refs">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-title">
+                        <span class="chapter-num">📚</span>
+                        参考文献・参照URL一覧
+                    </div>
+                    <p class="section-desc">本ガイドで参照した全リソース（カテゴリ付き）</p>
+                </div>
+
+                <h4 style="margin-bottom: 1rem; color: var(--neon-amber)">🏛️ ISTQB 公式リソース</h4>
+                <div class="ref-grid">
+                    <div class="ref-card">
+                        <div class="ref-cat">公式認定ページ</div>
+                        <div class="ref-title">CT-TAS 公式認定ページ</div>
+                        <a
+                            href="https://istqb.org/certifications/certified-tester-test-automation-strategy-ct-tas/"
+                            target="_blank"
+                            class="ref-url"
+                            >istqb.org/certifications/ct-tas</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">公式シラバス</div>
+                        <div class="ref-title">CT-TAS Syllabus v1.0 PDF</div>
+                        <a
+                            href="https://istqb.org/?sdm_process_download=1&download_id=3571"
+                            target="_blank"
+                            class="ref-url"
+                            >istqb.org download_id=3571</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">模擬試験</div>
+                        <div class="ref-title">Sample Exam Questions v1.2</div>
+                        <a
+                            href="https://istqb.org/?sdm_process_download=1&download_id=3572"
+                            target="_blank"
+                            class="ref-url"
+                            >istqb.org download_id=3572</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">模擬試験</div>
+                        <div class="ref-title">Sample Exam Answers v1.2</div>
+                        <a
+                            href="https://istqb.org/?sdm_process_download=1&download_id=3573"
+                            target="_blank"
+                            class="ref-url"
+                            >istqb.org download_id=3573</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">用語集</div>
+                        <div class="ref-title">ISTQB グロッサリー</div>
+                        <a
+                            href="https://glossary.istqb.org/en_US/search?term="
+                            target="_blank"
+                            class="ref-url"
+                            >glossary.istqb.org</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">試験プロバイダー</div>
+                        <div class="ref-title">CT-TAS 試験情報（ISQI）</div>
+                        <a
+                            href="https://isqi.org/ISTQB-Certified-Tester-Test-Automation-Strategy-CT-TAS/CT-TAS.331"
+                            target="_blank"
+                            class="ref-url"
+                            >isqi.org CT-TAS.331</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">公式シラバス（BCS経由）</div>
+                        <div class="ref-title">CT-TAS シラバスPDF（BCS）</div>
+                        <a
+                            href="https://www.bcs.org/media/xiqglmbk/istqb-test-automation-strategy-syllabus.pdf"
+                            target="_blank"
+                            class="ref-url"
+                            >bcs.org / ct-tas-syllabus.pdf</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">試験プロバイダー検索</div>
+                        <div class="ref-title">ISTQB 試験プロバイダー一覧</div>
+                        <a
+                            href="https://istqb.org/exam-providers/?directory_type=exam-providers"
+                            target="_blank"
+                            class="ref-url"
+                            >istqb.org/exam-providers</a
+                        >
+                    </div>
+                </div>
+
+                <h4 style="margin: 2rem 0 1rem; color: var(--neon-amber)">💰 ROI・コスト分析</h4>
+                <div class="ref-grid">
+                    <div class="ref-card">
+                        <div class="ref-cat">ROI最大化 (2025)</div>
+                        <div class="ref-title">Boosting ROI in Test Automation</div>
+                        <a
+                            href="https://www.itconvergence.com/blog/boosting-roi-in-test-automation-optimization-ci-cd-and-test-reuse-strategies/"
+                            target="_blank"
+                            class="ref-url"
+                            >itconvergence.com/blog</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">ROI計算ガイド (2025)</div>
+                        <div class="ref-title">Calculate Test Automation ROI</div>
+                        <a
+                            href="https://www.browserstack.com/guide/calculate-test-automation-roi"
+                            target="_blank"
+                            class="ref-url"
+                            >browserstack.com/guide</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">ROI詳細計算 (2025)</div>
+                        <div class="ref-title">ROI on Test Automation</div>
+                        <a
+                            href="https://testgrid.io/blog/roi-on-test-automation/"
+                            target="_blank"
+                            class="ref-url"
+                            >testgrid.io/blog</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">ステークホルダー説明</div>
+                        <div class="ref-title">Justify Automation Investment</div>
+                        <a
+                            href="https://www.itconvergence.com/blog/the-roi-of-test-automation-how-to-justify-investment-to-stakeholders/"
+                            target="_blank"
+                            class="ref-url"
+                            >itconvergence.com/roi</a
+                        >
+                    </div>
+                </div>
+
+                <h4 style="margin: 2rem 0 1rem; color: var(--neon-amber)">
+                    📋 戦略・ベストプラクティス
+                </h4>
+                <div class="ref-grid">
+                    <div class="ref-card">
+                        <div class="ref-cat">戦略ガイド (2025)</div>
+                        <div class="ref-title">Test Automation Strategy Guide</div>
+                        <a
+                            href="https://www.testrail.com/blog/test-automation-strategy-guide/"
+                            target="_blank"
+                            class="ref-url"
+                            >testrail.com/blog</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">戦略実践 (2025)</div>
+                        <div class="ref-title">Automation Testing Strategy</div>
+                        <a
+                            href="https://www.ranorex.com/blog/test-automation-strategy/"
+                            target="_blank"
+                            class="ref-url"
+                            >ranorex.com/blog</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">完全ガイド (2026)</div>
+                        <div class="ref-title">Automation Strategy Complete Guide</div>
+                        <a
+                            href="https://www.theknowledgeacademy.com/blog/automation-testing-strategy/"
+                            target="_blank"
+                            class="ref-url"
+                            >theknowledgeacademy.com/blog</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">ベストプラクティス (2025)</div>
+                        <div class="ref-title">Test Automation Best Practices</div>
+                        <a
+                            href="https://medium.com/@sancharini.panda/test-automation-strategy-best-practices-a-complete-guide-ddf0f7a530d3"
+                            target="_blank"
+                            class="ref-url"
+                            >medium.com/@sancharini.panda</a
+                        >
+                    </div>
+                </div>
+
+                <h4 style="margin: 2rem 0 1rem; color: var(--neon-amber)">🤖 AI・最新トレンド</h4>
+                <div class="ref-grid">
+                    <div class="ref-card">
+                        <div class="ref-cat">QAトレンド (2025)</div>
+                        <div class="ref-title">QA Automation Trends 2025</div>
+                        <a
+                            href="https://www.browserstack.com/guide/automation-testing-trends"
+                            target="_blank"
+                            class="ref-url"
+                            >browserstack.com/trends</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">AI×QA自動化 (2025)</div>
+                        <div class="ref-title">How QA Automation is Evolving</div>
+                        <a
+                            href="https://www.frugaltesting.com/blog/how-qa-automation-is-evolving-trends-defining-2025-and-the-future"
+                            target="_blank"
+                            class="ref-url"
+                            >frugaltesting.com/blog</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">自律テスト (2026)</div>
+                        <div class="ref-title">Banks Shift to Autonomous Testing</div>
+                        <a
+                            href="https://qa-financial.com/banks-face-script-fatigue-as-qa-teams-shift-toward-autonomous-testing-models/"
+                            target="_blank"
+                            class="ref-url"
+                            >qa-financial.com</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">ツール比較 (2025)</div>
+                        <div class="ref-title">Automated Testing Tools Guide 2025</div>
+                        <a
+                            href="https://momentic.ai/resources/the-definitive-guide-to-automated-testing-tools-2025-edition"
+                            target="_blank"
+                            class="ref-url"
+                            >momentic.ai/resources</a
+                        >
+                    </div>
+                </div>
+
+                <h4 style="margin: 2rem 0 1rem; color: var(--neon-amber)">
+                    🔄 移行・CI/CD・継続的テスト
+                </h4>
+                <div class="ref-grid">
+                    <div class="ref-card">
+                        <div class="ref-cat">移行戦略</div>
+                        <div class="ref-title">Manual to Test Automation (5 strategies)</div>
+                        <a
+                            href="https://www.qable.io/blog/manual-testing-to-test-automation"
+                            target="_blank"
+                            class="ref-url"
+                            >qable.io/blog</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">移行実例 (2024)</div>
+                        <div class="ref-title">Transition to Automation Testing</div>
+                        <a
+                            href="https://research.aimultiple.com/transition-from-manual-to-automation-testing/"
+                            target="_blank"
+                            class="ref-url"
+                            >research.aimultiple.com</a
+                        >
+                    </div>
+                    <div class="ref-card">
+                        <div class="ref-cat">テスト戦略 (2026)</div>
+                        <div class="ref-title">Testing Strategies 2026</div>
+                        <a
+                            href="https://bugbug.io/blog/software-testing/testing-strategies/"
+                            target="_blank"
+                            class="ref-url"
+                            >bugbug.io/blog</a
+                        >
+                    </div>
+                </div>
+
+                <div class="alert cyan" style="margin-top: 2rem">
+                    ※ 本ガイドは ISTQB CT-TAS Syllabus v1.0、Gartner・IDC・World Quality
+                    Report等の業界レポート、および2025〜2026年の最新研究・実践データを基に作成されています。試験情報・受験資格は変更される可能性があるため、受験前に必ず
+                    <a href="https://istqb.org" target="_blank">istqb.org</a>
+                    で最新情報を確認してください。
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer
+            style="background: var(--bg-mid); border-top: 1px solid var(--border); padding: 3rem 0"
+        >
+            <div class="container" style="text-align: center">
+                <div
+                    style="
+                        font-family: var(--font-mono);
+                        font-size: 0.85rem;
+                        color: var(--neon-green);
+                        margin-bottom: 1rem;
+                    "
+                >
+                    CT-TAS 完全ガイド 2025
+                </div>
+                <p
+                    style="
+                        color: var(--text-muted);
+                        font-size: 0.85rem;
+                        max-width: 600px;
+                        margin: 0 auto;
+                    "
+                >
+                    ISTQB® CT-TAS
+                    v1.0準拠。本ガイドはISTQB®が公認したトレーニング資料ではありません。公式シラバス・サンプル問題と合わせてご使用ください。
+                </p>
+                <div style="margin-top: 1.5rem">
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-test-automation-strategy-ct-tas/"
+                        target="_blank"
+                        style="
+                            font-family: var(--font-mono);
+                            font-size: 0.82rem;
+                            color: var(--neon-cyan);
+                        "
+                        >🔗 ISTQB CT-TAS 公式ページ</a
+                    >
+                </div>
+            </div>
+        </footer>
+    </body>
+</html>
