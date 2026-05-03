@@ -7,9 +7,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `25cb93e` — accessibility: add aria-current to GenAI NavBar and add MBT guide source |
-| 次の作業 | `istqb-ct-mbt-complete-guide.html` 移行（MBT ガイド page.tsx 新規作成） |
-| ビルド状態 | 未確認（このセッションで確認） |
+| 最新 HEAD | `46c4a46` — feat(mbt): migrate CT-MBT guide HTML to Next.js App Router |
+| 次の作業 | `istqb-ct-mat-complete-guide.html` 移行（MAT ガイド page.tsx 新規作成） |
+| ビルド状態 | ✅ ビルド成功・ESLint エラーなし（warnings のみ、既存ファイル由来） |
 
 ## 移行状況テーブル
 
@@ -23,6 +23,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | `integration-system-testing-guide.html` | `/integration-system-testing-guide` | ✅ |
 | `istqb-ct-ai-complete-guide.html` | `/istqb-ct-ai-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -36,25 +37,23 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | 🔄 ソース整備中 | `.md` ソースから `.html` 生成済み（未コミット） |
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ⏳ 未着手 | |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ⏳ 未着手 | 新規ファイル（untracked） |
 
 ## 既知の留保事項
 
-- `istqb-ct-mbt-complete-guide.md` はソースとして削除（git status で `D` 表示）— HTML に変換・確認後に html-archive/ へ移動
 - `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
 
 ## 次回セッションでの再開プロンプト
 
 ```
-最新 HEAD: 25cb93e
-次の作業: istqb-ct-mbt-complete-guide.html を app/istqb-ct-mbt-complete-guide/page.tsx へ移行
+最新 HEAD: 46c4a46
+次の作業: istqb-ct-mat-complete-guide.html を app/istqb-ct-mat-complete-guide/page.tsx へ移行（未移行 HTML 残り 2 件）
 
 手順:
 1. MIGRATION_PROGRESS.md を確認（このファイル）
 2. .claude/skills/html-to-nextjs-migration/SKILL.md を確認
-3. istqb-ct-mbt-complete-guide.html を Read して CSS 変数マッピングと構造を把握
+3. istqb-ct-mat-complete-guide.html を Read して CSS 変数マッピングと構造を把握
 4. NavBar が必要かどうか判断（IntersectionObserver スクロールスパイが HTML にあれば必要）
 5. SKILL.md の Phase 1-6 の手順で移行を実施
 6. bun run build && bun run lint で確認後コミット
