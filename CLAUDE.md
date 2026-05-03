@@ -57,7 +57,9 @@ Next.js App Router 構成:
 - `app/istqb-ctal-atlas-complete-guide/istqb-ctal-atlas-complete-guide.css` — アジャイル(CT-ATLaS)ガイド固有スタイル
 - `app/istqb-ctal-atlas-complete-guide/page.tsx` — アジャイル(CT-ATLaS)ガイドページ
 - `app/istqb-ctal-atlas-complete-guide/NavBar.tsx` — CT-ATLaS ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
-- `istqb-ct-ai-complete-guide.html` — AIテスト完全ガイド (HTML)
+- `app/istqb-ct-ai-complete-guide/istqb-ct-ai-complete-guide.css` — AIテスト(CT-AI)ガイド固有スタイル
+- `app/istqb-ct-ai-complete-guide/page.tsx` — AIテスト(CT-AI)ガイドページ
+- `app/istqb-ct-ai-complete-guide/NavBar.tsx` — CT-AI ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `app/istqb-ct-genai-complete-guide/istqb-ct-genai-complete-guide.css` — GenAIテスト(CT-GenAI)ガイド固有スタイル
 - `app/istqb-ct-genai-complete-guide/page.tsx` — GenAIテスト(CT-GenAI)ガイドページ
 - `app/istqb-ct-genai-complete-guide/NavBar.tsx` — CT-GenAI ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -65,7 +67,21 @@ Next.js App Router 構成:
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
-- `/html-archive/` — 移行済みの元 HTML ファイルの保管場所
+- `/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動）
+
+## 移行進行状況
+
+移行作業の詳細（HEAD・次タスク・再開プロンプト）は `MIGRATION_PROGRESS.md` を参照。
+
+**未移行 HTML（プロジェクトルートに残存）:**
+
+| ファイル | 対応する予定ルート | 状態 |
+|---|---|---|
+| `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | 未着手 |
+| `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ソース整備中（`.md` → `.html`） |
+| `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | 未着手 |
+
+移行完了後は `html-archive/` へ移動し、上記テーブルから削除する。
 
 ## 開発規約
 
@@ -96,6 +112,10 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
 1. `app/<page-slug>/NavBar.tsx` を `'use client'` で作成し `useEffect` 内で `IntersectionObserver` を設定（クリーンアップ: `obs.disconnect()`）
 2. CSS の `position: sticky` には `top: 60px`（Header 高さ）・`z-index: 40`（Header の `z-50` より低く）を設定
 3. `page.tsx`（Server Component）先頭で `<NavBar />` をインポートして配置
+4. アクティブリンクに `aria-current="page"` を付与（アクセシビリティ必須）:
+   ```tsx
+   <a href={`#${id}`} aria-current={activeSection === id ? 'page' : undefined}>
+   ```
 
 ### CSS コンポーネントクラス
 
@@ -110,3 +130,24 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
 | `.callout-info/warn/good/danger` | 注釈ボックス |
 | `.pyramid-layer` / `.py-unit/int/func/e2e` | テストピラミッド図 |
 | `.tab-btn` / `.tab-panel` | タブ UI |
+
+## 移行作業ルール
+
+### Faithful Migration（忠実移行）
+
+HTML の全コンテンツ（リスト項目・コードブロック・テーブル・callout・図・SVG）を page.tsx に転写すること。要約・省略・縮約は禁止。
+
+### セッション終了前チェックリスト
+
+1ページ移行の `git commit` 完了直後、次の HTML を `Read` し始める前に必ず実施する（ゲート条件）:
+
+```bash
+bun run build   # ビルド成功を確認
+bun run lint    # ESLint エラーなし
+```
+
+その後 `MIGRATION_PROGRESS.md` を更新してコミット。手順は `.claude/rules/migration-progress-sync.md` を参照。
+
+### 外部リンク
+
+すべての外部リンクに `target="_blank" rel="noopener noreferrer"` を付与する。

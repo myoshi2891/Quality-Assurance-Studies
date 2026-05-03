@@ -785,26 +785,26 @@ export default function GenAICompleteGuidePage() {
                     ① テスト分析プロンプト（要件 → テスト条件の抽出）
                 </div>
                 <div className="code-block" data-lang="Prompt Template">
-                    <pre><span className="code-comment"># システムプロンプト（プロンプトカタログに格納）</span>
-<span className="code-green">あなたは10年の経験を持つシニアQAエンジニアです。</span>
-<span className="code-dim">常に以下のルールに従ってください：</span>
-<span className="code-dim">- テストケースはGherkin形式で生成してください</span>
-<span className="code-dim">- 個人情報（PII）を含むテストデータを生成しないでください</span>
-<span className="code-dim">- 不確実な場合は「要確認」と明示してください</span>
-
-<span className="code-comment"># ユーザープロンプト（タスクごとに入力）</span>
-<span className="code-cyan">以下のユーザーストーリーを分析し、テスト分析を実施してください。</span>
-
-<span className="code-keyword">## ユーザーストーリー</span>
-<span className="code-string">{'{'}ユーザーストーリーのテキストをここに貼り付け{'}'}</span>
-
-<span className="code-keyword">## 依頼内容</span>
-<span className="code-white">1. テスト条件を列挙してください</span>
-<span className="code-white">2. 曖昧さ・矛盾点を特定してください</span>
-<span className="code-white">3. 非機能要件のテスト観点を提案してください</span>
-<span className="code-white">4. 関連するリスクを特定してください</span>
-
-<span className="code-keyword">## 出力形式</span>
+                    <pre><span className="code-comment"># システムプロンプト（プロンプトカタログに格納）</span>{"\n"}
+<span className="code-green">あなたは10年の経験を持つシニアQAエンジニアです。</span>{"\n"}
+<span className="code-dim">常に以下のルールに従ってください：</span>{"\n"}
+<span className="code-dim">- テストケースはGherkin形式で生成してください</span>{"\n"}
+<span className="code-dim">- 個人情報（PII）を含むテストデータを生成しないでください</span>{"\n"}
+<span className="code-dim">- 不確実な場合は「要確認」と明示してください</span>{"\n"}
+{"\n"}
+<span className="code-comment"># ユーザープロンプト（タスクごとに入力）</span>{"\n"}
+<span className="code-cyan">以下のユーザーストーリーを分析し、テスト分析を実施してください。</span>{"\n"}
+{"\n"}
+<span className="code-keyword">## ユーザーストーリー</span>{"\n"}
+<span className="code-string">{'{'}ユーザーストーリーのテキストをここに貼り付け{'}'}</span>{"\n"}
+{"\n"}
+<span className="code-keyword">## 依頼内容</span>{"\n"}
+<span className="code-white">1. テスト条件を列挙してください</span>{"\n"}
+<span className="code-white">2. 曖昧さ・矛盾点を特定してください</span>{"\n"}
+<span className="code-white">3. 非機能要件のテスト観点を提案してください</span>{"\n"}
+<span className="code-white">4. 関連するリスクを特定してください</span>{"\n"}
+{"\n"}
+<span className="code-keyword">## 出力形式</span>{"\n"}
 <span className="code-white">マークダウン形式で各セクションを明確に区切って回答してください。</span></pre>
                 </div>
 
@@ -813,27 +813,22 @@ export default function GenAICompleteGuidePage() {
                     ② テストケース生成プロンプト（Few-Shot + 制約付き）
                 </div>
                 <div className="code-block" data-lang="Prompt - Test Case Gen">
-                    <pre><span className="code-comment"># Few-Shot の例を提供してから指示する</span>
-<span className="code-cyan">あなたはISTQBの知識を持つQAエンジニアです。</span>
-
-<span className="code-keyword">## 出力形式の例（Few-Shot）</span>
-<span className="code-green">Feature: ログイン機能
-
-  Scenario: 有効な認証情報でログインできる
-    Given ユーザーが登録済みである
-    When 有効なメール "user@example.com" とパスワードを入力する
-    Then ダッシュボードにリダイレクトされる</span>
-
-<span className="code-keyword">## タスク</span>
-<span className="code-white">以下の受入基準に対してGherkin形式でテストケースを生成してください。</span>
-<span className="code-white">等価分割法と境界値分析の両方を適用してください。</span>
-
-<span className="code-keyword">## 受入基準</span>
-<span className="code-string">パスワードは8〜20文字で、大文字・小文字・数字・特殊文字を各1文字以上含む</span>
-
-<span className="code-keyword">## 制約（必ず守ること）</span>
-<span className="code-amber">- 正常系2件、異常系5件（各条件違反1件ずつ）を生成すること</span>
-<span className="code-amber">- PII（個人情報）を一切含まないこと</span>
+                    <pre><span className="code-comment"># Few-Shot の例を提供してから指示する</span>{"\n"}
+<span className="code-cyan">あなたはISTQBの知識を持つQAエンジニアです。</span>{"\n"}
+{"\n"}
+<span className="code-keyword">## 出力形式の例（Few-Shot）</span>{"\n"}
+<span className="code-green">{"Feature: ログイン機能\n\n  Scenario: 有効な認証情報でログインできる\n    Given ユーザーが登録済みである\n    When 有効なメール \"user@example.com\" とパスワードを入力する\n    Then ダッシュボードにリダイレクトされる"}</span>{"\n"}
+{"\n"}
+<span className="code-keyword">## タスク</span>{"\n"}
+<span className="code-white">以下の受入基準に対してGherkin形式でテストケースを生成してください。</span>{"\n"}
+<span className="code-white">等価分割法と境界値分析の両方を適用してください。</span>{"\n"}
+{"\n"}
+<span className="code-keyword">## 受入基準</span>{"\n"}
+<span className="code-string">パスワードは8〜20文字で、大文字・小文字・数字・特殊文字を各1文字以上含む</span>{"\n"}
+{"\n"}
+<span className="code-keyword">## 制約（必ず守ること）</span>{"\n"}
+<span className="code-amber">- 正常系2件、異常系5件（各条件違反1件ずつ）を生成すること</span>{"\n"}
+<span className="code-amber">- PII（個人情報）を一切含まないこと</span>{"\n"}
 <span className="code-amber">- 実在する名前・メールアドレスは使用しないこと</span></pre>
                 </div>
 
@@ -1222,16 +1217,16 @@ export default function GenAICompleteGuidePage() {
                 <div className="section-title">3.4 合成テストデータの生成</div>
 
                 <div className="code-block" data-lang="Prompt - Synthetic Data">
-                    <pre><span className="code-comment"># 合成テストデータ生成プロンプトの良い例</span>
-<span className="code-cyan">以下の条件で合成テストデータを100件生成してください：</span>
-
-<span className="code-keyword">- 架空の日本人の名前（実在する人物は使用しないこと）</span>
-<span className="code-keyword">- 架空の住所（実在する正確な番地は使用しないこと）</span>
-<span className="code-keyword">- 架空のメールアドレス（example.com ドメインを使用）</span>
-<span className="code-keyword">- 架空の電話番号（000-から始める）</span>
-<span className="code-keyword">- 架空のクレジットカード番号（4111-1111-1111-1111 形式）</span>
-
-<span className="code-amber">出力形式：CSV（UTF-8）</span>
+                    <pre><span className="code-comment"># 合成テストデータ生成プロンプトの良い例</span>{"\n"}
+<span className="code-cyan">以下の条件で合成テストデータを100件生成してください：</span>{"\n"}
+{"\n"}
+<span className="code-keyword">- 架空の日本人の名前（実在する人物は使用しないこと）</span>{"\n"}
+<span className="code-keyword">- 架空の住所（実在する正確な番地は使用しないこと）</span>{"\n"}
+<span className="code-keyword">- 架空のメールアドレス（example.com ドメインを使用）</span>{"\n"}
+<span className="code-keyword">- 架空の電話番号（000-から始める）</span>{"\n"}
+<span className="code-keyword">- 架空のクレジットカード番号（4111-1111-1111-1111 形式）</span>{"\n"}
+{"\n"}
+<span className="code-amber">出力形式：CSV（UTF-8）</span>{"\n"}
 <span className="code-amber">ヘッダー：name, address, email, phone, card_number</span></pre>
                 </div>
 
