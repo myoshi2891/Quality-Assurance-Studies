@@ -30,7 +30,7 @@ Provide the complete, ordered workflow for converting a standalone HTML page (wi
 | ファイル | 予定ルート | 状態 |
 |---|---|---|
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | 未着手 |
-| `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ソース整備中 |
+| `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | 完了 |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | 未着手 |
 
 ## Instructions

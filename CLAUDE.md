@@ -114,9 +114,10 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
 1. `app/<page-slug>/NavBar.tsx` を `'use client'` で作成し `useEffect` 内で `IntersectionObserver` を設定（クリーンアップ: `obs.disconnect()`）
 2. CSS の `position: sticky` には `top: 60px`（Header 高さ）・`z-index: 40`（Header の `z-50` より低く）を設定
 3. `page.tsx`（Server Component）先頭で `<NavBar />` をインポートして配置
-4. アクティブリンクに `aria-current="page"` を付与（アクセシビリティ必須）:
+4. アクティブリンクに `aria-current="location"` を付与（アクセシビリティ必須）:
+
    ```tsx
-   <a href={`#${id}`} aria-current={activeSection === id ? 'page' : undefined}>
+   <a href={`#${id}`} aria-current={activeSection === id ? 'location' : undefined}>
    ```
 
 ### CSS コンポーネントクラス

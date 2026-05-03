@@ -971,6 +971,7 @@
     ::-webkit-scrollbar       { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: var(--color-bg-primary, #0a0e1a); }
     ::-webkit-scrollbar-thumb { background: rgba(79, 209, 197, 0.3); border-radius: 3px; }
+
     scrollbar-width: thin;
     scrollbar-color: rgba(79, 209, 197, 0.3) transparent;
 }
