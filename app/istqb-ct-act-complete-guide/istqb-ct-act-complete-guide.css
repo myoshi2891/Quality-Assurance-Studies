@@ -708,6 +708,7 @@
     color: var(--color-accent-cyan);
     transition: all 0.25s;
     font-family: var(--font-mono, monospace);
+    pointer-events: none;
 }
 .istqb-ct-act-page .ref-card:hover {
     border-color: var(--color-accent-cyan);
@@ -759,6 +760,7 @@
     background: radial-gradient(circle, var(--color-accent-cyan) 0%, transparent 70%);
     opacity: 0.06;
     animation: act-glow-pulse 3s ease-in-out infinite;
+    pointer-events: none;
 }
 .istqb-ct-act-page .trend-label {
     font-family: var(--font-mono, monospace);
