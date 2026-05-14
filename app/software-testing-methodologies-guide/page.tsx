@@ -5,7 +5,7 @@ export default function SoftwareTestingMethodologiesGuide() {
     return (
         <>
             <Header />
-            <main>
+            <main className="page-stm">
 <section className="hero" id="top">
   <div className="hero-content">
     <span className="hero-label">ソフトウェアテスト手法 完全ガイド 2025</span>
