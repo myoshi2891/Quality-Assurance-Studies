@@ -7,7 +7,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `4a1e1fb` — feat(act): migrate CT-AcT guide HTML to Next.js App Router |
+| 最新 HEAD | `5b88458` — fix(act): correct invalid SVG DOM properties in page.tsx |
 | 次の作業 | `istqb-ct-mat-complete-guide.html` 移行（MAT ガイド page.tsx 新規作成） |
 | ビルド状態 | ✅ ビルド成功・ESLint エラーなし（warnings のみ、既存ファイル由来） |
 
@@ -48,7 +48,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 次回セッションでの再開プロンプト
 
 ```
-最新 HEAD: 4a1e1fb
+最新 HEAD: 5b88458
 次の作業: istqb-ct-mat-complete-guide.html を app/istqb-ct-mat-complete-guide/page.tsx へ移行（未移行 HTML 残り 2 件）
 
 手順:
