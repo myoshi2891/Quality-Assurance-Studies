@@ -404,6 +404,8 @@
     color: var(--color-text-muted);
     letter-spacing: 0.1em;
     text-transform: uppercase;
+    pointer-events: none;
+    z-index: 0;
 }
 .istqb-ct-act-page .code-green { color: var(--color-accent-green); }
 .istqb-ct-act-page .code-cyan { color: var(--color-accent-cyan); }
