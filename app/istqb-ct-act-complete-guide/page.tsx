@@ -109,9 +109,11 @@ export default function IstqbCtActCompleteGuide() {
 
                 <div className="callout danger">
                     <div className="callout-title">⚠ 試験の落とし穴</div>
-                    OAT（Operational Acceptance Testing：運用受け入れテスト）は
-                    <strong>CT-AcT の対象外</strong>です。OAT
-                    は運用チームが担当するため、本資格のスコープに含まれません。試験で必ず確認される重要な区別です。
+                    <p>
+                        OAT（Operational Acceptance Testing：運用受け入れテスト）は
+                        <strong>CT-AcT の対象外</strong>です。OAT
+                        は運用チームが担当するため、本資格のスコープに含まれません。試験で必ず確認される重要な区別です。
+                    </p>
                 </div>
 
                 {/* ビジネスアウトカム */}
@@ -326,8 +328,10 @@ export default function IstqbCtActCompleteGuide() {
 
                 <div className="callout info">
                     <div className="callout-title">💡 サイロ効果（Silo Effect）に注意</div>
-                    BAチームとテストチームが分断されると、曖昧な要件がテスト開始後に発覚し修正コストが激増します。CT-AcT
-                    は3 Amigos ミーティングなどを通じてこのサイロを壊すことを重視しています。
+                    <p>
+                        BAチームとテストチームが分断されると、曖昧な要件がテスト開始後に発覚し修正コストが激増します。CT-AcT
+                        は3 Amigos ミーティングなどを通じてこのサイロを壊すことを重視しています。
+                    </p>
                 </div>
             </div>
         </section>
@@ -528,9 +532,11 @@ export default function IstqbCtActCompleteGuide() {
                 <h2>ATDD（受け入れテスト駆動開発）のワークフロー</h2>
                 <div className="callout info">
                     <div className="callout-title">定義</div>
-                    ATDD（Acceptance Test-Driven
-                    Development）とは、受け入れテストを<strong>開発開始前に</strong>定義し、そのテストを実装のゴールとする手法。BDD
-                    の基礎でもある。
+                    <p>
+                        ATDD（Acceptance Test-Driven
+                        Development）とは、受け入れテストを<strong>開発開始前に</strong>定義し、そのテストを実装のゴールとする手法。BDD
+                        の基礎でもある。
+                    </p>
                 </div>
 
                 <ol className="step-list">
@@ -2399,9 +2405,11 @@ export default function IstqbCtActCompleteGuide() {
 
                 <div className="callout success">
                     <div className="callout-title">✅ 受け入れ基準の例</div>
-                    「SUSスコアが80点以上であること」—
-                    これは明確で測定可能なユーザビリティの受け入れ基準。「使いやすいこと」という曖昧な記述とは異なり、Yes/No
-                    で判定できます。
+                    <p>
+                        「SUSスコアが80点以上であること」—
+                        これは明確で測定可能なユーザビリティの受け入れ基準。「使いやすいこと」という曖昧な記述とは異なり、Yes/No
+                        で判定できます。
+                    </p>
                 </div>
 
                 {/* パフォーマンステスト */}

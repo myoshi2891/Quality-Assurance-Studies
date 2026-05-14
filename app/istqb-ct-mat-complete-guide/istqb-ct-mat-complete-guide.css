@@ -118,7 +118,7 @@ body::before {
                 color: var(--neon-cyan);
                 letter-spacing: 2px;
                 margin-bottom: 1.8rem;
-                animation: fadeInDown 0.6s ease both;
+                animation: fade-in-down 0.6s ease both;
             }
             .hero-title {
                 font-family: var(--font-display);
@@ -126,7 +126,7 @@ body::before {
                 font-weight: 800;
                 line-height: 1.15;
                 margin-bottom: 1rem;
-                animation: fadeInDown 0.7s 0.1s ease both;
+                animation: fade-in-down 0.7s 0.1s ease both;
             }
             .hero-title .accent {
                 color: var(--neon-green);
@@ -139,14 +139,14 @@ body::before {
                 color: var(--text-secondary);
                 max-width: 620px;
                 margin: 0 auto 2.5rem;
-                animation: fadeInDown 0.7s 0.2s ease both;
+                animation: fade-in-down 0.7s 0.2s ease both;
             }
             .hero-meta {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: center;
                 gap: 1rem;
-                animation: fadeInUp 0.7s 0.3s ease both;
+                animation: fade-in-up 0.7s 0.3s ease both;
             }
             .meta-pill {
                 display: flex;
@@ -168,7 +168,7 @@ body::before {
                 color: var(--text-muted);
                 font-size: 0.68rem;
             }
-            @keyframes fadeInDown {
+            @keyframes fade-in-down {
                 from {
                     opacity: 0;
                     transform: translateY(-20px);
@@ -178,7 +178,7 @@ body::before {
                     transform: translateY(0);
                 }
             }
-            @keyframes fadeInUp {
+            @keyframes fade-in-up {
                 from {
                     opacity: 0;
                     transform: translateY(20px);
@@ -460,6 +460,8 @@ body::before {
                 font-size: 0.6rem;
                 color: var(--text-muted);
                 letter-spacing: 1px;
+                pointer-events: none;
+                z-index: 0;
             }
             .code-green {
                 color: #00ff88;
@@ -638,10 +640,10 @@ body::before {
                 height: 100%;
                 border-radius: 100px;
                 background: linear-gradient(90deg, var(--neon-cyan), var(--neon-green));
-                animation: growBar 1.2s ease both;
+                animation: grow-bar 1.2s ease both;
                 transform-origin: left;
             }
-            @keyframes growBar {
+            @keyframes grow-bar {
                 from {
                     transform: scaleX(0);
                 }
@@ -777,6 +779,8 @@ body::before {
                 background: var(--neon-cyan);
                 transform: scaleY(0);
                 transition: transform 0.2s;
+                pointer-events: none;
+                z-index: 0;
             }
             .ref-card:hover::before {
                 transform: scaleY(1);
@@ -784,6 +788,17 @@ body::before {
             .ref-card:hover {
                 background: var(--bg-hover);
                 transform: translateX(4px);
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .ref-card::before,
+                .ref-card:hover::before {
+                    transition: none;
+                    transform: none !important;
+                }
+                .ref-card:hover {
+                    transform: none;
+                }
             }
             .ref-cat {
                 font-family: var(--font-mono);
