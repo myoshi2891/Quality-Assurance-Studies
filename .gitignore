@@ -92,3 +92,7 @@ scripts/fix-md-errors.mjs
 scripts/fix-md028.mjs
 scripts/fix-toc.mjs
 scripts/format-markdown.mjs
+
+# Specific archived guides
+md-archive/istqb-ct-ai-complete-guide.md
+md-archive/istqb-ctal-tae-complete-guide.md
