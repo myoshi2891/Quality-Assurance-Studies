@@ -18,6 +18,35 @@ bun start            # ビルド成果物をプロダクションモードで起
 bun run lint         # ESLint 実行
 ```
 
+## Docker コマンド
+
+```sh
+# 本番環境
+make build      # 本番イメージをビルドする
+make up         # 本番コンテナを起動する（port 3000）
+make down       # 本番コンテナを停止・削除する
+make logs       # ログをストリーム表示する
+make shell      # コンテナ内でシェルを起動する
+
+# 開発環境（HMR 有効）
+make dev        # 開発コンテナを起動する（フォアグラウンド）
+make dev-up     # 開発コンテナをバックグラウンドで起動する
+make dev-down   # 開発コンテナを停止する
+make dev-logs   # ログをストリーム表示する
+make dev-shell  # コンテナ内でシェルを起動する
+
+# クリーンアップ
+make clean      # 未使用イメージを削除する
+make clean-all  # 全リソース（ボリューム含む）を削除する（⚠️ データ消失注意）
+```
+
+### Docker 構成メモ
+
+- **ベースイメージ**: `oven/bun:1.3.5-alpine`（全ステージ共通、package.json の packageManager に固定）
+- **マルチステージ**: `deps` → `builder` → `runner` の 3 ステージ
+- **runner**: Next.js `output: 'standalone'` の最小イメージ。`nobody` ユーザー（uid=65534）で実行
+- **開発 HMR**: `WATCHPACK_POLLING=true` で Docker Desktop (Mac/Windows) のファイル変更検知を有効化
+
 ## アーキテクチャ
 
 Next.js App Router 構成:
