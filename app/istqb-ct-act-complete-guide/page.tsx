@@ -1030,10 +1030,10 @@ export default function IstqbCtActCompleteGuide() {
                             x="390"
                             y="26"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00e5ff"
-                            font-weight="700"
-                            letter-spacing="1"
+                            fontWeight="700"
+                            letterSpacing="1"
                         >
                             サブスクリプション料金計算　デシジョンテーブル
                         </text>
@@ -1047,15 +1047,15 @@ export default function IstqbCtActCompleteGuide() {
                             rx="4"
                             fill="#0d1117"
                             stroke="rgba(0,229,255,0.3)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="140"
                             y="59"
                             textAnchor="middle"
-                            font-size="11"
+                            fontSize="11"
                             fill="#94a3b8"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             条件 / アクション
                         </text>
@@ -1069,15 +1069,15 @@ export default function IstqbCtActCompleteGuide() {
                             rx="4"
                             fill="#0d2233"
                             stroke="rgba(0,229,255,0.4)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="310"
                             y="59"
                             textAnchor="middle"
-                            font-size="12"
+                            fontSize="12"
                             fill="#00e5ff"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             R1
                         </text>
@@ -1090,15 +1090,15 @@ export default function IstqbCtActCompleteGuide() {
                             rx="4"
                             fill="#0d2233"
                             stroke="rgba(0,229,255,0.4)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="388"
                             y="59"
                             textAnchor="middle"
-                            font-size="12"
+                            fontSize="12"
                             fill="#00e5ff"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             R2
                         </text>
@@ -1111,15 +1111,15 @@ export default function IstqbCtActCompleteGuide() {
                             rx="4"
                             fill="#0d2233"
                             stroke="rgba(0,229,255,0.4)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="466"
                             y="59"
                             textAnchor="middle"
-                            font-size="12"
+                            fontSize="12"
                             fill="#00e5ff"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             R3
                         </text>
@@ -1132,15 +1132,15 @@ export default function IstqbCtActCompleteGuide() {
                             rx="4"
                             fill="#0d2233"
                             stroke="rgba(0,229,255,0.4)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="544"
                             y="59"
                             textAnchor="middle"
-                            font-size="12"
+                            fontSize="12"
                             fill="#00e5ff"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             R4
                         </text>
@@ -1153,15 +1153,15 @@ export default function IstqbCtActCompleteGuide() {
                             rx="4"
                             fill="#0d2233"
                             stroke="rgba(0,229,255,0.4)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="622"
                             y="59"
                             textAnchor="middle"
-                            font-size="12"
+                            fontSize="12"
                             fill="#00e5ff"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             R5
                         </text>
@@ -1174,15 +1174,15 @@ export default function IstqbCtActCompleteGuide() {
                             rx="4"
                             fill="#0d2233"
                             stroke="rgba(0,229,255,0.4)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="700"
                             y="59"
                             textAnchor="middle"
-                            font-size="12"
+                            fontSize="12"
                             fill="#00e5ff"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             R6
                         </text>
@@ -1200,11 +1200,11 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="8"
                             y="130"
-                            font-size="9"
+                            fontSize="9"
                             fill="#00e5ff"
                             transform="rotate(-90,8,130)"
                             textAnchor="middle"
-                            letter-spacing="2"
+                            letterSpacing="2"
                         >
                             CONDITIONS
                         </text>
@@ -1218,9 +1218,9 @@ export default function IstqbCtActCompleteGuide() {
                             rx="2"
                             fill="#0d1117"
                             stroke="rgba(255,255,255,0.06)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="20" y="94" font-size="11" fill="#e2e8f0">会員種別 = 一般</text>
+                        <text x="20" y="94" fontSize="11" fill="#e2e8f0">会員種別 = 一般</text>
                         {/* R1=T R2=T R3=T R4=F R5=F R6=F */}
                         <rect
                             x="272"
@@ -1229,15 +1229,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="310"
                             y="94"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1248,15 +1248,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="388"
                             y="94"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1267,15 +1267,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="466"
                             y="94"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1286,15 +1286,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="544"
                             y="94"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1305,15 +1305,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="622"
                             y="94"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1324,15 +1324,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="700"
                             y="94"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1346,9 +1346,9 @@ export default function IstqbCtActCompleteGuide() {
                             rx="2"
                             fill="rgba(13,17,23,0.6)"
                             stroke="rgba(255,255,255,0.06)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="20" y="126" font-size="11" fill="#e2e8f0">支払い = 月払い</text>
+                        <text x="20" y="126" fontSize="11" fill="#e2e8f0">支払い = 月払い</text>
                         <rect
                             x="272"
                             y="106"
@@ -1356,15 +1356,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="310"
                             y="126"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1375,15 +1375,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="388"
                             y="126"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1394,15 +1394,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="466"
                             y="126"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1413,15 +1413,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="544"
                             y="126"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1432,15 +1432,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="622"
                             y="126"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1451,15 +1451,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="700"
                             y="126"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1473,9 +1473,9 @@ export default function IstqbCtActCompleteGuide() {
                             rx="2"
                             fill="#0d1117"
                             stroke="rgba(255,255,255,0.06)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="20" y="158" font-size="11" fill="#e2e8f0">初回登録</text>
+                        <text x="20" y="158" fontSize="11" fill="#e2e8f0">初回登録</text>
                         <rect
                             x="272"
                             y="138"
@@ -1483,15 +1483,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="310"
                             y="158"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1502,15 +1502,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="388"
                             y="158"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1521,15 +1521,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="466"
                             y="158"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1540,15 +1540,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="544"
                             y="158"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             T
                         </text>
@@ -1559,15 +1559,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="622"
                             y="158"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1578,15 +1578,15 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(255,59,92,0.08)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <text
                             x="700"
                             y="158"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             F
                         </text>
@@ -1598,7 +1598,7 @@ export default function IstqbCtActCompleteGuide() {
                             x2="738"
                             y2="172"
                             stroke="rgba(0,229,255,0.35)"
-                            stroke-width="1.5"
+                            strokeWidth="1.5"
                         />
 
                         {/* ACTIONS section label */}
@@ -1614,11 +1614,11 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="8"
                             y="242"
-                            font-size="9"
+                            fontSize="9"
                             fill="#ffab00"
                             transform="rotate(-90,8,242)"
                             textAnchor="middle"
-                            letter-spacing="2"
+                            letterSpacing="2"
                         >
                             ACTIONS
                         </text>
@@ -1633,9 +1633,9 @@ export default function IstqbCtActCompleteGuide() {
                             rx="2"
                             fill="rgba(13,17,23,0.6)"
                             stroke="rgba(255,255,255,0.06)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="20" y="194" font-size="11" fill="#00ff9d">月額 980円</text>
+                        <text x="20" y="194" fontSize="11" fill="#00ff9d">月額 980円</text>
                         <rect
                             x="272"
                             y="174"
@@ -1643,9 +1643,9 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.14)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="310" y="194" textAnchor="middle" font-size="16" fill="#00ff9d">
+                        <text x="310" y="194" textAnchor="middle" fontSize="16" fill="#00ff9d">
                             ✓
                         </text>
                         <rect
@@ -1655,9 +1655,9 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.14)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="388" y="194" textAnchor="middle" font-size="16" fill="#00ff9d">
+                        <text x="388" y="194" textAnchor="middle" fontSize="16" fill="#00ff9d">
                             ✓
                         </text>
                         <rect
@@ -1667,7 +1667,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="506"
@@ -1676,7 +1676,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="584"
@@ -1685,7 +1685,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="662"
@@ -1694,7 +1694,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
 
                         {/* Row A2: 年額 9,800円 */}
@@ -1706,9 +1706,9 @@ export default function IstqbCtActCompleteGuide() {
                             rx="2"
                             fill="#0d1117"
                             stroke="rgba(255,255,255,0.06)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="20" y="226" font-size="11" fill="#00ff9d">年額 9,800円</text>
+                        <text x="20" y="226" fontSize="11" fill="#00ff9d">年額 9,800円</text>
                         <rect
                             x="272"
                             y="206"
@@ -1716,7 +1716,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="350"
@@ -1725,7 +1725,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="428"
@@ -1734,9 +1734,9 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,255,157,0.14)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="466" y="226" textAnchor="middle" font-size="16" fill="#00ff9d">
+                        <text x="466" y="226" textAnchor="middle" fontSize="16" fill="#00ff9d">
                             ✓
                         </text>
                         <rect
@@ -1746,7 +1746,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="584"
@@ -1755,7 +1755,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="662"
@@ -1764,7 +1764,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
 
                         {/* Row A3: 初回30日無料 */}
@@ -1776,9 +1776,9 @@ export default function IstqbCtActCompleteGuide() {
                             rx="2"
                             fill="rgba(13,17,23,0.6)"
                             stroke="rgba(255,255,255,0.06)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="20" y="258" font-size="11" fill="#00e5ff">＋ 初回30日無料</text>
+                        <text x="20" y="258" fontSize="11" fill="#00e5ff">＋ 初回30日無料</text>
                         <rect
                             x="272"
                             y="238"
@@ -1786,9 +1786,9 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,229,255,0.12)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="310" y="258" textAnchor="middle" font-size="16" fill="#00e5ff">
+                        <text x="310" y="258" textAnchor="middle" fontSize="16" fill="#00e5ff">
                             ✓
                         </text>
                         <rect
@@ -1798,7 +1798,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="428"
@@ -1807,7 +1807,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="506"
@@ -1816,9 +1816,9 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(0,229,255,0.12)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="544" y="258" textAnchor="middle" font-size="16" fill="#00e5ff">
+                        <text x="544" y="258" textAnchor="middle" fontSize="16" fill="#00e5ff">
                             ✓
                         </text>
                         <rect
@@ -1828,7 +1828,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="662"
@@ -1837,7 +1837,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
 
                         {/* Row A4: 月額 1,980円 */}
@@ -1849,9 +1849,9 @@ export default function IstqbCtActCompleteGuide() {
                             rx="2"
                             fill="#0d1117"
                             stroke="rgba(255,255,255,0.06)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="20" y="290" font-size="11" fill="#c084fc">月額 1,980円</text>
+                        <text x="20" y="290" fontSize="11" fill="#c084fc">月額 1,980円</text>
                         <rect
                             x="272"
                             y="270"
@@ -1859,7 +1859,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="350"
@@ -1868,7 +1868,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="428"
@@ -1877,7 +1877,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="506"
@@ -1886,7 +1886,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                         <rect
                             x="584"
@@ -1895,9 +1895,9 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(192,132,252,0.14)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="622" y="290" textAnchor="middle" font-size="16" fill="#c084fc">
+                        <text x="622" y="290" textAnchor="middle" fontSize="16" fill="#c084fc">
                             ✓
                         </text>
                         <rect
@@ -1907,7 +1907,7 @@ export default function IstqbCtActCompleteGuide() {
                             height="32"
                             fill="rgba(13,17,23,0.3)"
                             stroke="rgba(255,255,255,0.05)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
                     </svg>
                 </div>
@@ -1983,10 +1983,10 @@ export default function IstqbCtActCompleteGuide() {
                             x="380"
                             y="26"
                             textAnchor="middle"
-                            font-size="14"
+                            fontSize="14"
                             fill="#00e5ff"
-                            font-weight="700"
-                            letter-spacing="1"
+                            fontWeight="700"
+                            letterSpacing="1"
                         >
                             注文管理システム　状態遷移ダイアグラム
                         </text>
@@ -1995,7 +1995,7 @@ export default function IstqbCtActCompleteGuide() {
                         <circle cx="380" cy="66" r="14" fill="#00e5ff" opacity="0.9" />
                         <circle cx="380" cy="66" r="10" fill="#030712" />
                         <circle cx="380" cy="66" r="5" fill="#00e5ff" />
-                        <text x="380" y="54" textAnchor="middle" font-size="11" fill="#00e5ff">
+                        <text x="380" y="54" textAnchor="middle" fontSize="11" fill="#00e5ff">
                             新規注文
                         </text>
 
@@ -2006,11 +2006,11 @@ export default function IstqbCtActCompleteGuide() {
                             x2="380"
                             y2="128"
                             stroke="#00e5ff"
-                            stroke-width="1.8"
-                            marker-end="url(#arr-cyan)"
-                            stroke-dasharray="5,3"
+                            strokeWidth="1.8"
+                            markerEnd="url(#arr-cyan)"
+                            strokeDasharray="5,3"
                         />
-                        <text x="390" y="108" font-size="10" fill="#94a3b8">支払い完了</text>
+                        <text x="390" y="108" fontSize="10" fill="#94a3b8">支払い完了</text>
 
                         {/* ── STATE: 支払済み (center-left) ── */}
                         <rect
@@ -2021,20 +2021,20 @@ export default function IstqbCtActCompleteGuide() {
                             rx="8"
                             fill="rgba(0,255,157,0.08)"
                             stroke="#00ff9d"
-                            stroke-width="1.8"
+                            strokeWidth="1.8"
                             filter="url(#glow-green)"
                         />
                         <text
                             x="350"
                             y="148"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             支払済み
                         </text>
-                        <text x="350" y="163" textAnchor="middle" font-size="10" fill="#4b5563">
+                        <text x="350" y="163" textAnchor="middle" fontSize="10" fill="#4b5563">
                             Paid
                         </text>
 
@@ -2045,10 +2045,10 @@ export default function IstqbCtActCompleteGuide() {
                             x2="518"
                             y2="152"
                             stroke="#00e5ff"
-                            stroke-width="1.8"
-                            marker-end="url(#arr-cyan)"
+                            strokeWidth="1.8"
+                            markerEnd="url(#arr-cyan)"
                         />
-                        <text x="465" y="146" textAnchor="middle" font-size="10" fill="#94a3b8">
+                        <text x="465" y="146" textAnchor="middle" fontSize="10" fill="#94a3b8">
                             発送
                         </text>
 
@@ -2061,20 +2061,20 @@ export default function IstqbCtActCompleteGuide() {
                             rx="8"
                             fill="rgba(0,255,157,0.08)"
                             stroke="#00ff9d"
-                            stroke-width="1.8"
+                            strokeWidth="1.8"
                             filter="url(#glow-green)"
                         />
                         <text
                             x="590"
                             y="148"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             発送済み
                         </text>
-                        <text x="590" y="163" textAnchor="middle" font-size="10" fill="#4b5563">
+                        <text x="590" y="163" textAnchor="middle" fontSize="10" fill="#4b5563">
                             Shipped
                         </text>
 
@@ -2083,11 +2083,11 @@ export default function IstqbCtActCompleteGuide() {
                             d="M 310 174 L 310 250 L 200 250 L 200 280"
                             fill="none"
                             stroke="#ff3b5c"
-                            stroke-width="1.8"
-                            marker-end="url(#arr-red)"
-                            stroke-dasharray="5,3"
+                            strokeWidth="1.8"
+                            markerEnd="url(#arr-red)"
+                            strokeDasharray="5,3"
                         />
-                        <text x="238" y="244" font-size="10" fill="#ff3b5c">キャンセル</text>
+                        <text x="238" y="244" fontSize="10" fill="#ff3b5c">キャンセル</text>
 
                         {/* Arrow: 発送済み → 完了 (vertical down) */}
                         <line
@@ -2096,10 +2096,10 @@ export default function IstqbCtActCompleteGuide() {
                             x2="590"
                             y2="280"
                             stroke="#00e5ff"
-                            stroke-width="1.8"
-                            marker-end="url(#arr-cyan)"
+                            strokeWidth="1.8"
+                            markerEnd="url(#arr-cyan)"
                         />
-                        <text x="600" y="232" font-size="10" fill="#94a3b8">配達完了</text>
+                        <text x="600" y="232" fontSize="10" fill="#94a3b8">配達完了</text>
 
                         {/* ── STATE: キャンセル済 (bottom-left) ── */}
                         <rect
@@ -2110,20 +2110,20 @@ export default function IstqbCtActCompleteGuide() {
                             rx="8"
                             fill="rgba(255,59,92,0.08)"
                             stroke="#ff3b5c"
-                            stroke-width="1.8"
+                            strokeWidth="1.8"
                             filter="url(#glow-amber)"
                         />
                         <text
                             x="170"
                             y="300"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ff3b5c"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             キャンセル済
                         </text>
-                        <text x="170" y="315" textAnchor="middle" font-size="10" fill="#4b5563">
+                        <text x="170" y="315" textAnchor="middle" fontSize="10" fill="#4b5563">
                             Cancelled
                         </text>
 
@@ -2136,20 +2136,20 @@ export default function IstqbCtActCompleteGuide() {
                             rx="8"
                             fill="rgba(0,255,157,0.08)"
                             stroke="#00ff9d"
-                            stroke-width="1.8"
+                            strokeWidth="1.8"
                             filter="url(#glow-green)"
                         />
                         <text
                             x="590"
                             y="300"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#00ff9d"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             完了
                         </text>
-                        <text x="590" y="315" textAnchor="middle" font-size="10" fill="#4b5563">
+                        <text x="590" y="315" textAnchor="middle" fontSize="10" fill="#4b5563">
                             Completed
                         </text>
 
@@ -2160,11 +2160,11 @@ export default function IstqbCtActCompleteGuide() {
                             x2="590"
                             y2="370"
                             stroke="#ffab00"
-                            stroke-width="1.8"
-                            marker-end="url(#arr-amber)"
-                            stroke-dasharray="5,3"
+                            strokeWidth="1.8"
+                            markerEnd="url(#arr-amber)"
+                            strokeDasharray="5,3"
                         />
-                        <text x="600" y="352" font-size="10" fill="#ffab00">返品要求</text>
+                        <text x="600" y="352" fontSize="10" fill="#ffab00">返品要求</text>
 
                         {/* ── STATE: 返品処理 (bottom-center-right) ── */}
                         <rect
@@ -2175,19 +2175,19 @@ export default function IstqbCtActCompleteGuide() {
                             rx="8"
                             fill="rgba(255,171,0,0.08)"
                             stroke="#ffab00"
-                            stroke-width="1.8"
+                            strokeWidth="1.8"
                         />
                         <text
                             x="590"
                             y="390"
                             textAnchor="middle"
-                            font-size="13"
+                            fontSize="13"
                             fill="#ffab00"
-                            font-weight="700"
+                            fontWeight="700"
                         >
                             返品処理
                         </text>
-                        <text x="590" y="405" textAnchor="middle" font-size="10" fill="#4b5563">
+                        <text x="590" y="405" textAnchor="middle" fontSize="10" fill="#4b5563">
                             Returned
                         </text>
 
@@ -2197,10 +2197,10 @@ export default function IstqbCtActCompleteGuide() {
                             d="M 520 304 C 420 304 420 304 240 304"
                             fill="none"
                             stroke="#ff3b5c"
-                            stroke-width="1.2"
-                            stroke-dasharray="3,4"
+                            strokeWidth="1.2"
+                            strokeDasharray="3,4"
                             opacity="0.45"
-                            marker-end="url(#arr-red)"
+                            markerEnd="url(#arr-red)"
                         />
                         <rect
                             x="358"
@@ -2211,7 +2211,7 @@ export default function IstqbCtActCompleteGuide() {
                             fill="#030712"
                             opacity="0.85"
                         />
-                        <text x="392" y="302" textAnchor="middle" font-size="9" fill="#ff3b5c">
+                        <text x="392" y="302" textAnchor="middle" fontSize="9" fill="#ff3b5c">
                             無効 ✗
                         </text>
 
@@ -2220,10 +2220,10 @@ export default function IstqbCtActCompleteGuide() {
                             d="M 520 142 C 470 118 430 118 420 130"
                             fill="none"
                             stroke="#ff3b5c"
-                            stroke-width="1.2"
-                            stroke-dasharray="3,4"
+                            strokeWidth="1.2"
+                            strokeDasharray="3,4"
                             opacity="0.45"
-                            marker-end="url(#arr-red)"
+                            markerEnd="url(#arr-red)"
                         />
                         <rect
                             x="452"
@@ -2234,7 +2234,7 @@ export default function IstqbCtActCompleteGuide() {
                             fill="#030712"
                             opacity="0.85"
                         />
-                        <text x="480" y="119" textAnchor="middle" font-size="9" fill="#ff3b5c">
+                        <text x="480" y="119" textAnchor="middle" fontSize="9" fill="#ff3b5c">
                             無効 ✗
                         </text>
 
@@ -2247,16 +2247,16 @@ export default function IstqbCtActCompleteGuide() {
                             rx="8"
                             fill="rgba(13,17,23,0.85)"
                             stroke="rgba(0,229,255,0.15)"
-                            stroke-width="1"
+                            strokeWidth="1"
                         />
-                        <text x="34" y="388" font-size="10" fill="#00e5ff">━━</text>
-                        <text x="54" y="388" font-size="10" fill="#94a3b8">正常遷移</text>
-                        <text x="34" y="403" font-size="10" fill="#00e5ff" opacity="0.6">╌╌</text>
-                        <text x="54" y="403" font-size="10" fill="#94a3b8">条件付き遷移</text>
-                        <text x="115" y="388" font-size="10" fill="#ff3b5c" opacity="0.7">╌╌</text>
-                        <text x="136" y="388" font-size="10" fill="#ff3b5c">無効遷移</text>
-                        <text x="115" y="403" font-size="10" fill="#ffab00" opacity="0.8">╌╌</text>
-                        <text x="136" y="403" font-size="10" fill="#ffab00">返品フロー</text>
+                        <text x="34" y="388" fontSize="10" fill="#00e5ff">━━</text>
+                        <text x="54" y="388" fontSize="10" fill="#94a3b8">正常遷移</text>
+                        <text x="34" y="403" fontSize="10" fill="#00e5ff" opacity="0.6">╌╌</text>
+                        <text x="54" y="403" fontSize="10" fill="#94a3b8">条件付き遷移</text>
+                        <text x="115" y="388" fontSize="10" fill="#ff3b5c" opacity="0.7">╌╌</text>
+                        <text x="136" y="388" fontSize="10" fill="#ff3b5c">無効遷移</text>
+                        <text x="115" y="403" fontSize="10" fill="#ffab00" opacity="0.8">╌╌</text>
+                        <text x="136" y="403" fontSize="10" fill="#ffab00">返品フロー</text>
                     </svg>
                 </div>
 
