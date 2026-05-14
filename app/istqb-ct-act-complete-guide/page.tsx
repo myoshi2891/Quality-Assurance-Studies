@@ -1029,7 +1029,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="390"
                             y="26"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00e5ff"
                             font-weight="700"
@@ -1052,7 +1052,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="140"
                             y="59"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="11"
                             fill="#94a3b8"
                             font-weight="700"
@@ -1074,7 +1074,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="310"
                             y="59"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="12"
                             fill="#00e5ff"
                             font-weight="700"
@@ -1095,7 +1095,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="388"
                             y="59"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="12"
                             fill="#00e5ff"
                             font-weight="700"
@@ -1116,7 +1116,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="466"
                             y="59"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="12"
                             fill="#00e5ff"
                             font-weight="700"
@@ -1137,7 +1137,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="544"
                             y="59"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="12"
                             fill="#00e5ff"
                             font-weight="700"
@@ -1158,7 +1158,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="622"
                             y="59"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="12"
                             fill="#00e5ff"
                             font-weight="700"
@@ -1179,7 +1179,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="700"
                             y="59"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="12"
                             fill="#00e5ff"
                             font-weight="700"
@@ -1203,7 +1203,7 @@ export default function IstqbCtActCompleteGuide() {
                             font-size="9"
                             fill="#00e5ff"
                             transform="rotate(-90,8,130)"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             letter-spacing="2"
                         >
                             CONDITIONS
@@ -1234,7 +1234,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="310"
                             y="94"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1253,7 +1253,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="388"
                             y="94"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1272,7 +1272,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="466"
                             y="94"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1291,7 +1291,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="544"
                             y="94"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1310,7 +1310,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="622"
                             y="94"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1329,7 +1329,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="700"
                             y="94"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1361,7 +1361,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="310"
                             y="126"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1380,7 +1380,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="388"
                             y="126"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1399,7 +1399,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="466"
                             y="126"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1418,7 +1418,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="544"
                             y="126"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1437,7 +1437,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="622"
                             y="126"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1456,7 +1456,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="700"
                             y="126"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1488,7 +1488,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="310"
                             y="158"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1507,7 +1507,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="388"
                             y="158"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1526,7 +1526,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="466"
                             y="158"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1545,7 +1545,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="544"
                             y="158"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
@@ -1564,7 +1564,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="622"
                             y="158"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1583,7 +1583,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="700"
                             y="158"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
@@ -1617,7 +1617,7 @@ export default function IstqbCtActCompleteGuide() {
                             font-size="9"
                             fill="#ffab00"
                             transform="rotate(-90,8,242)"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             letter-spacing="2"
                         >
                             ACTIONS
@@ -1645,7 +1645,7 @@ export default function IstqbCtActCompleteGuide() {
                             stroke="rgba(255,255,255,0.05)"
                             stroke-width="1"
                         />
-                        <text x="310" y="194" text-anchor="middle" font-size="16" fill="#00ff9d">
+                        <text x="310" y="194" textAnchor="middle" font-size="16" fill="#00ff9d">
                             ✓
                         </text>
                         <rect
@@ -1657,7 +1657,7 @@ export default function IstqbCtActCompleteGuide() {
                             stroke="rgba(255,255,255,0.05)"
                             stroke-width="1"
                         />
-                        <text x="388" y="194" text-anchor="middle" font-size="16" fill="#00ff9d">
+                        <text x="388" y="194" textAnchor="middle" font-size="16" fill="#00ff9d">
                             ✓
                         </text>
                         <rect
@@ -1736,7 +1736,7 @@ export default function IstqbCtActCompleteGuide() {
                             stroke="rgba(255,255,255,0.05)"
                             stroke-width="1"
                         />
-                        <text x="466" y="226" text-anchor="middle" font-size="16" fill="#00ff9d">
+                        <text x="466" y="226" textAnchor="middle" font-size="16" fill="#00ff9d">
                             ✓
                         </text>
                         <rect
@@ -1788,7 +1788,7 @@ export default function IstqbCtActCompleteGuide() {
                             stroke="rgba(255,255,255,0.05)"
                             stroke-width="1"
                         />
-                        <text x="310" y="258" text-anchor="middle" font-size="16" fill="#00e5ff">
+                        <text x="310" y="258" textAnchor="middle" font-size="16" fill="#00e5ff">
                             ✓
                         </text>
                         <rect
@@ -1818,7 +1818,7 @@ export default function IstqbCtActCompleteGuide() {
                             stroke="rgba(255,255,255,0.05)"
                             stroke-width="1"
                         />
-                        <text x="544" y="258" text-anchor="middle" font-size="16" fill="#00e5ff">
+                        <text x="544" y="258" textAnchor="middle" font-size="16" fill="#00e5ff">
                             ✓
                         </text>
                         <rect
@@ -1897,7 +1897,7 @@ export default function IstqbCtActCompleteGuide() {
                             stroke="rgba(255,255,255,0.05)"
                             stroke-width="1"
                         />
-                        <text x="622" y="290" text-anchor="middle" font-size="16" fill="#c084fc">
+                        <text x="622" y="290" textAnchor="middle" font-size="16" fill="#c084fc">
                             ✓
                         </text>
                         <rect
@@ -1982,7 +1982,7 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="380"
                             y="26"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="14"
                             fill="#00e5ff"
                             font-weight="700"
@@ -1995,7 +1995,7 @@ export default function IstqbCtActCompleteGuide() {
                         <circle cx="380" cy="66" r="14" fill="#00e5ff" opacity="0.9" />
                         <circle cx="380" cy="66" r="10" fill="#030712" />
                         <circle cx="380" cy="66" r="5" fill="#00e5ff" />
-                        <text x="380" y="54" text-anchor="middle" font-size="11" fill="#00e5ff">
+                        <text x="380" y="54" textAnchor="middle" font-size="11" fill="#00e5ff">
                             新規注文
                         </text>
 
@@ -2027,14 +2027,14 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="350"
                             y="148"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
                         >
                             支払済み
                         </text>
-                        <text x="350" y="163" text-anchor="middle" font-size="10" fill="#4b5563">
+                        <text x="350" y="163" textAnchor="middle" font-size="10" fill="#4b5563">
                             Paid
                         </text>
 
@@ -2048,7 +2048,7 @@ export default function IstqbCtActCompleteGuide() {
                             stroke-width="1.8"
                             marker-end="url(#arr-cyan)"
                         />
-                        <text x="465" y="146" text-anchor="middle" font-size="10" fill="#94a3b8">
+                        <text x="465" y="146" textAnchor="middle" font-size="10" fill="#94a3b8">
                             発送
                         </text>
 
@@ -2067,14 +2067,14 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="590"
                             y="148"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
                         >
                             発送済み
                         </text>
-                        <text x="590" y="163" text-anchor="middle" font-size="10" fill="#4b5563">
+                        <text x="590" y="163" textAnchor="middle" font-size="10" fill="#4b5563">
                             Shipped
                         </text>
 
@@ -2116,14 +2116,14 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="170"
                             y="300"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ff3b5c"
                             font-weight="700"
                         >
                             キャンセル済
                         </text>
-                        <text x="170" y="315" text-anchor="middle" font-size="10" fill="#4b5563">
+                        <text x="170" y="315" textAnchor="middle" font-size="10" fill="#4b5563">
                             Cancelled
                         </text>
 
@@ -2142,14 +2142,14 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="590"
                             y="300"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#00ff9d"
                             font-weight="700"
                         >
                             完了
                         </text>
-                        <text x="590" y="315" text-anchor="middle" font-size="10" fill="#4b5563">
+                        <text x="590" y="315" textAnchor="middle" font-size="10" fill="#4b5563">
                             Completed
                         </text>
 
@@ -2180,14 +2180,14 @@ export default function IstqbCtActCompleteGuide() {
                         <text
                             x="590"
                             y="390"
-                            text-anchor="middle"
+                            textAnchor="middle"
                             font-size="13"
                             fill="#ffab00"
                             font-weight="700"
                         >
                             返品処理
                         </text>
-                        <text x="590" y="405" text-anchor="middle" font-size="10" fill="#4b5563">
+                        <text x="590" y="405" textAnchor="middle" font-size="10" fill="#4b5563">
                             Returned
                         </text>
 
@@ -2211,7 +2211,7 @@ export default function IstqbCtActCompleteGuide() {
                             fill="#030712"
                             opacity="0.85"
                         />
-                        <text x="392" y="302" text-anchor="middle" font-size="9" fill="#ff3b5c">
+                        <text x="392" y="302" textAnchor="middle" font-size="9" fill="#ff3b5c">
                             無効 ✗
                         </text>
 
@@ -2234,7 +2234,7 @@ export default function IstqbCtActCompleteGuide() {
                             fill="#030712"
                             opacity="0.85"
                         />
-                        <text x="480" y="119" text-anchor="middle" font-size="9" fill="#ff3b5c">
+                        <text x="480" y="119" textAnchor="middle" font-size="9" fill="#ff3b5c">
                             無効 ✗
                         </text>
 
