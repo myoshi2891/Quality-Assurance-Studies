@@ -10,7 +10,7 @@ body::before {
                     rgba(0, 229, 255, 0.015) 4px
                 );
                 pointer-events: none;
-                z-index: 9999;
+                z-index: -1;
             }
             body::after {
                 content: '';
@@ -25,8 +25,8 @@ body::before {
             }
             .nav {
                 position: sticky;
-                top: 0;
-                z-index: 1000;
+                top: 60px;
+                z-index: 40;
                 background: rgba(3, 7, 18, 0.92);
                 backdrop-filter: blur(12px);
                 border-bottom: 1px solid var(--border-dim);

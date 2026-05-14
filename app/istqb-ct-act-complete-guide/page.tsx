@@ -2309,13 +2309,13 @@ export default function IstqbCtActCompleteGuide() {
                             </tr>
                             <tr>
                                 <td>TC-06</td>
-                                <td><span style={{color: "var(--neon-red)"}}>無効遷移</span></td>
+                                <td><span style={{color: "var(--color-accent-red)"}}>無効遷移</span></td>
                                 <td>完了状態からキャンセルできないこと</td>
                                 <td>エラーメッセージ表示</td>
                             </tr>
                             <tr>
                                 <td>TC-07</td>
-                                <td><span style={{color: "var(--neon-red)"}}>無効遷移</span></td>
+                                <td><span style={{color: "var(--color-accent-red)"}}>無効遷移</span></td>
                                 <td>発送済み状態から支払い取り消しできないこと</td>
                                 <td>エラーメッセージ表示</td>
                             </tr>
