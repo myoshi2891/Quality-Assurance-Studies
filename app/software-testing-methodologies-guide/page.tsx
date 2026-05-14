@@ -1,6 +1,15 @@
 import Header from '../../components/Header';
 import '../software-testing-methodologies-guide.css';
 
+/**
+ * Renders the "Software Testing Methodologies Guide" page composed of a Header and a structured main content area.
+ *
+ * The main content includes a hero section and 14 content sections (principles, static vs dynamic testing, test perspectives,
+ * black-box/white-box techniques, experience-based techniques, test levels, test types, SDLC integration, V-model, shift-left/right,
+ * AI×testing, tools landscape, and a references appendix).
+ *
+ * @returns The component's JSX: a complete, static guide layout wrapped in <main className="page-stm"> containing the Header and all sections.
+ */
 export default function SoftwareTestingMethodologiesGuide() {
     return (
         <>

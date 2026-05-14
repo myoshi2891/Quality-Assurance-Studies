@@ -2,6 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
+/**
+ * Render a sticky section navigation that highlights the most visible page section.
+ *
+ * The component observes page sections and updates which link is active based on intersection
+ * visibility. The active link receives an `active` CSS class and `aria-current="location"` for accessibility.
+ *
+ * @returns A navigation JSX element containing links to page sections with the currently most visible section marked as active.
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState('');
 
