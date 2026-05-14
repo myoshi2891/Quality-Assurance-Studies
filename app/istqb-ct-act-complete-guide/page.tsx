@@ -2367,7 +2367,7 @@ export default function IstqbCtActCompleteGuide() {
                         <div className="metric-val green">有効性</div>
                         <div className="metric-label">
                             Effectiveness<br />目標を正確に達成できるか<br /><span
-                                style={{color: "var(--neon-cyan)"}}
+                                style={{color: "var(--color-accent-cyan)"}}
                                 >タスク完了率(%)</span
                             >
                         </div>
@@ -2376,7 +2376,7 @@ export default function IstqbCtActCompleteGuide() {
                         <div className="metric-val">効率性</div>
                         <div className="metric-label">
                             Efficiency<br />達成にかかる時間・労力<br /><span
-                                style={{color: "var(--neon-cyan)"}}
+                                style={{color: "var(--color-accent-cyan)"}}
                                 >完了時間・クリック数</span
                             >
                         </div>
@@ -2385,7 +2385,7 @@ export default function IstqbCtActCompleteGuide() {
                         <div className="metric-val amber">満足度</div>
                         <div className="metric-label">
                             Satisfaction<br />主観的な使いやすさの評価<br /><span
-                                style={{color: "var(--neon-cyan)"}}
+                                style={{color: "var(--color-accent-cyan)"}}
                                 >SUSスコア</span
                             >
                         </div>
@@ -2721,7 +2721,7 @@ export default function IstqbCtActCompleteGuide() {
                                 <td>Java/JS/Ruby/Python</td>
                                 <td>Gherkin 標準対応・最も広く普及</td>
                                 <td>
-                                    <a href="https://cucumber.io/" style={{color: "var(--neon-cyan)"}}
+                                    <a href="https://cucumber.io/" style={{color: "var(--color-accent-cyan)"}}
                                         >cucumber.io</a
                                     >
                                 </td>
@@ -2731,7 +2731,7 @@ export default function IstqbCtActCompleteGuide() {
                                 <td>C# / .NET</td>
                                 <td>Visual Studio 統合・.NET 向け</td>
                                 <td>
-                                    <a href="https://specflow.org/" style={{color: "var(--neon-cyan)"}}
+                                    <a href="https://specflow.org/" style={{color: "var(--color-accent-cyan)"}}
                                         >specflow.org</a
                                     >
                                 </td>
@@ -2743,7 +2743,7 @@ export default function IstqbCtActCompleteGuide() {
                                 <td>
                                     <a
                                         href="https://behave.readthedocs.io/"
-                                        style={{color: "var(--neon-cyan)"}}
+                                        style={{color: "var(--color-accent-cyan)"}}
                                         >behave.readthedocs.io</a
                                     >
                                 </td>
@@ -2753,7 +2753,7 @@ export default function IstqbCtActCompleteGuide() {
                                 <td>Java</td>
                                 <td>Java の BDD フレームワーク</td>
                                 <td>
-                                    <a href="https://jbehave.org/" style={{color: "var(--neon-cyan)"}}
+                                    <a href="https://jbehave.org/" style={{color: "var(--color-accent-cyan)"}}
                                         >jbehave.org</a
                                     >
                                 </td>
@@ -2765,7 +2765,7 @@ export default function IstqbCtActCompleteGuide() {
                                 <td>
                                     <a
                                         href="https://robotframework.org/"
-                                        style={{color: "var(--neon-cyan)"}}
+                                        style={{color: "var(--color-accent-cyan)"}}
                                         >robotframework.org</a
                                     >
                                 </td>
@@ -2933,9 +2933,9 @@ export default function IstqbCtActCompleteGuide() {
                         Testing）が対象外とされている最大の理由はどれか？
                     </p>
                     <p
-                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--neon-green)"}}
+                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--color-accent-green)"}}
                     >
-                        <strong style={{color: "var(--neon-green)"}}
+                        <strong style={{color: "var(--color-accent-green)"}}
                             >正解:
                             OATは一般的に「システムを運用するチーム」によって実施されるから</strong
                         ><br />
@@ -2957,9 +2957,9 @@ export default function IstqbCtActCompleteGuide() {
                         D) エラーメッセージが適切に表示されること
                     </p>
                     <p
-                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--neon-green)"}}
+                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--color-accent-green)"}}
                     >
-                        <strong style={{color: "var(--neon-green)"}}>正解: C</strong><br />
+                        <strong style={{color: "var(--color-accent-green)"}}>正解: C</strong><br />
                         <span style={{color: "var(--text-secondary)", fontSize: "0.9rem"}}
                             >Cのみが「5回・30分・メール通知」という具体的な数値基準を持ち、Yes/No
                             で判定できる。A・B・D は主観的または数値基準がなくテスト不可能。</span
@@ -2977,9 +2977,9 @@ export default function IstqbCtActCompleteGuide() {
                         >
                     </p>
                     <p
-                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--neon-green)"}}
+                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--color-accent-green)"}}
                     >
-                        <strong style={{color: "var(--neon-green)"}}
+                        <strong style={{color: "var(--color-accent-green)"}}
                             >正解: Given と When の順序が逆</strong
                         ><br />
                         <span style={{color: "var(--text-secondary)", fontSize: "0.9rem"}}
@@ -2999,9 +2999,9 @@ export default function IstqbCtActCompleteGuide() {
                         D) テスト環境がセットアップ済みであること
                     </p>
                     <p
-                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--neon-green)"}}
+                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--color-accent-green)"}}
                     >
-                        <strong style={{color: "var(--neon-green)"}}>正解: C</strong><br />
+                        <strong style={{color: "var(--color-accent-green)"}}>正解: C</strong><br />
                         <span style={{color: "var(--text-secondary)", fontSize: "0.9rem"}}
                             >C は UAT 完了後の活動であり入口基準ではない。入口基準とは UAT
                             を「開始するための前提条件」。出口基準や後続活動と混同しないこと。</span
@@ -3019,9 +3019,9 @@ export default function IstqbCtActCompleteGuide() {
                         D) ユーザーにとって使いやすいシステムであること
                     </p>
                     <p
-                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--neon-green)"}}
+                        style={{marginTop: "0.75rem", paddingLeft: "1rem", borderLeft: "2px solid var(--color-accent-green)"}}
                     >
-                        <strong style={{color: "var(--neon-green)"}}>正解: C</strong><br />
+                        <strong style={{color: "var(--color-accent-green)"}}>正解: C</strong><br />
                         <span style={{color: "var(--text-secondary)", fontSize: "0.9rem"}}
                             >「95パーセンタイルで3秒以内」は測定対象・測定方法・数値基準が全て明確でYes/No判定が可能。A・B・D
                             は全て主観的または測定基準がない。</span
@@ -3354,7 +3354,7 @@ export default function IstqbCtActCompleteGuide() {
                 本資料は ISTQB®
                 が公認したトレーニング資料ではありません。公式シラバスと合わせてご使用ください。<br />
                 最終確認は必ず公式サイト
-                <a href="https://istqb.org" style={{color: "var(--neon-cyan)"}}>istqb.org</a>
+                <a href="https://istqb.org" style={{color: "var(--color-accent-cyan)"}}>istqb.org</a>
                 で行ってください。<br />
                 &copy; 2025 — 情報は執筆時点のものです。
             </div>
