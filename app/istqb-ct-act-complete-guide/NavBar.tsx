@@ -2,6 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
+/**
+ * Renders a sticky section navigation bar that highlights the currently most-visible content section.
+ *
+ * The component tracks which section element (any `section[id]` or `div[id="top"]`) is most visible in the viewport
+ * and applies an active state (`class="active"` and `aria-current="location"`) to the corresponding link.
+ *
+ * @returns The navigation bar React element with links to page sections and a logo link to `#top`
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState('');
 
