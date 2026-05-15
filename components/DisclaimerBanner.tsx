@@ -2,6 +2,13 @@
 
 import { useEffect, useRef } from 'react';
 
+/**
+ * Renders a fixed-position disclaimer banner and keeps the document CSS custom property `--disclaimer-height` synchronized with the banner's current height.
+ *
+ * The banner is positioned near the top of the viewport and displays a short Japanese disclaimer. The component updates `document.documentElement.style.--disclaimer-height` to match the banner's rendered height so other layout code can react to its presence.
+ *
+ * @returns A React element that renders the disclaimer banner.
+ */
 export function DisclaimerBanner() {
     const ref = useRef<HTMLDivElement>(null);
 
