@@ -161,7 +161,7 @@
             /* ── NAV ── */
             .ctal-tae-page .sticky-nav {
                 position: sticky;
-                top: 60px; /* Global header is 60px */
+                top: calc(60px + var(--disclaimer-height, 0px)); /* Header 60px + disclaimer banner */
                 z-index: 40; /* Below global header z-50 */
                 background: rgba(3, 7, 18, 0.95);
                 backdrop-filter: blur(12px);

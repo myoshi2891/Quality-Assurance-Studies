@@ -11,7 +11,7 @@ services:
     # 初回起動時に依存関係をインストールしてから dev サーバーを起動
     command: sh -c "bun install && bun run dev"
     ports:
-      - "3000:3000"
+      - "3002:3000"
     environment:
       NODE_ENV: development
       NEXT_TELEMETRY_DISABLED: "1"

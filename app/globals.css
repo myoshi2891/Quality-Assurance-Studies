@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Turbopack 本番ビルドでユーティリティクラスが生成されるようスキャン対象を明示 */
+@source '../app/**/*.{tsx,ts}';
+@source '../components/**/*.{tsx,ts}';
+
 @theme {
     --color-bg-primary: #0a0e1a;
     --color-bg-secondary: #0f1629;
@@ -39,8 +43,49 @@
     --shadow-glow-cyan: 0 0 40px rgba(79, 209, 197, 0.08);
 }
 
-/* Fallback variable definitions for native CSS usage so alpha modifiers work naturally if mapped */
+/*
+  @theme の値は Next.js の CSS チャンク分割で別チャンクに分離され、
+  特定ページで読み込まれないことがある。
+  var() 参照が確実に解決されるよう、同一チャンクの :root にも定義する。
+*/
 :root {
+    /* --- 背景色 --- */
+    --color-bg-primary: #0a0e1a;
+    --color-bg-secondary: #0f1629;
+    --color-bg-card: #131929;
+    --color-bg-card-hover: #1a2238;
+    /* --- ボーダー --- */
+    --color-border: rgba(99, 179, 237, 0.12);
+    --color-border-bright: rgba(99, 179, 237, 0.3);
+    /* --- テキスト色 --- */
+    --color-text-primary: #e8f0fe;
+    --color-text-secondary: #8ea3c3;
+    --color-text-muted: #85a9df;
+    /* --- アクセント色 --- */
+    --color-accent-blue: #63b3ed;
+    --color-accent-cyan: #4fd1c5;
+    --color-accent-green: #68d391;
+    --color-accent-yellow: #f6e05e;
+    --color-accent-orange: #f6ad55;
+    --color-accent-red: #fc8181;
+    --color-accent-purple: #b794f4;
+    --color-accent-pink: #f687b3;
+    /* --- テストレイヤー識別色 --- */
+    --color-unit: #4fd1c5;
+    --color-integration: #63b3ed;
+    --color-functional: #b794f4;
+    --color-e2e: #f6ad55;
+    /* --- フォント --- */
+    --font-display: 'DM Sans', 'Noto Sans JP', sans-serif;
+    --font-body: 'Noto Sans JP', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    /* --- 角丸・シャドウ --- */
+    --radius-DEFAULT: 12px;
+    --radius-sm: 8px;
+    --shadow-DEFAULT: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-glow-blue: 0 0 40px rgba(99, 179, 237, 0.08);
+    --shadow-glow-cyan: 0 0 40px rgba(79, 209, 197, 0.08);
+    /* --- RGB 値（アルファ合成用） --- */
     --accent-cyan-rgb: 79 209 197;
     --accent-blue-rgb: 99 179 237;
     --accent-purple-rgb: 183 148 244;
@@ -58,6 +103,10 @@
         font-size: 15px;
         line-height: 1.8;
         overflow-x: hidden;
+        padding-top: var(--disclaimer-height, 0px);
+    }
+    .layout-content {
+        padding-top: 60px;
     }
     html {
         scroll-behavior: smooth;
@@ -166,6 +215,22 @@
     }
 
     /* ─── NAV ─── */
+    .nav-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0 2rem;
+        background-color: rgba(10, 14, 26, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(99, 179, 237, 0.12);
+    }
     .nav-logo {
         font-family: var(--font-mono);
         font-size: 13px;

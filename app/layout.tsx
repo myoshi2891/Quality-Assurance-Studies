@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_JP, JetBrains_Mono, DM_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '../components/Header';
+import { DisclaimerBanner } from '../components/DisclaimerBanner';
 
 const notoSansJP = Noto_Sans_JP({
   weight: ['300', '400', '500', '700'],
@@ -49,7 +50,8 @@ export default function RootLayout({
     <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable}`}>
       <body>
         <Header />
-        <main className="pt-[60px]">{children}</main>
+        <DisclaimerBanner />
+        <div className="layout-content">{children}</div>
       </body>
     </html>
   );

@@ -97,7 +97,7 @@
 /* ── NAVBAR ── */
 .istqb-ct-act-page .sticky-nav {
     position: sticky;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
     z-index: 40;
     background: rgba(10, 14, 26, 0.92);
     backdrop-filter: blur(16px);

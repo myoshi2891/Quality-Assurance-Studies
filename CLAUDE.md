@@ -23,7 +23,7 @@ bun run lint         # ESLint 実行
 ```sh
 # 本番環境
 make build      # 本番イメージをビルドする
-make up         # 本番コンテナを起動する（port 3000）
+make up         # 本番コンテナを起動する（port 3002）
 make down       # 本番コンテナを停止・削除する
 make logs       # ログをストリーム表示する
 make shell      # コンテナ内でシェルを起動する
@@ -120,6 +120,22 @@ Next.js App Router 構成:
 移行完了後は `html-archive/` へ移動し、上記テーブルから削除する。
 
 ## 開発規約
+
+### CSS 変更後のキャッシュリセット（必須）
+
+`app/globals.css` または任意の `*.css` ファイルを変更した後は、`.next` キャッシュが古い CSS チャンクを返しダークモードが崩れることがある。
+
+**症状**: `body` の `background-color` が透明になり、ページが白く表示される。
+
+**対処**: CSS 変更後は必ずキャッシュを削除して dev サーバーを再起動する。
+
+```bash
+make css-reset   # .next 削除 + dev サーバー再起動（推奨）
+# または手動で:
+rm -rf .next && bun run dev
+```
+
+詳細は `.claude/rules/css-cache-reset.md` を参照。
 
 ### Markdown 標準化
 

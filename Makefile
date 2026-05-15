@@ -21,6 +21,7 @@ help:
 	@echo "  make dev-down   開発コンテナを停止・削除する"
 	@echo "  make dev-logs   開発コンテナのログをストリーム表示する"
 	@echo "  make dev-shell  開発コンテナ内でシェルを起動する"
+	@echo "  make css-reset  .next キャッシュを削除して dev サーバーを再起動する"
 	@echo "  make clean      停止済みコンテナ・未使用イメージを削除する"
 	@echo "  make clean-all  全リソース（ボリューム含む）を削除する（⚠ データ消失注意）"
 
@@ -34,7 +35,7 @@ build:
 
 .PHONY: up
 up:
-	@echo "本番コンテナを起動しています（http://localhost:3000）..."
+	@echo "本番コンテナを起動しています（http://localhost:3002）..."
 	docker compose -f $(COMPOSE_FILE) up -d
 
 .PHONY: down
@@ -54,7 +55,7 @@ shell:
 # ============================================================
 .PHONY: dev
 dev:
-	@echo "開発コンテナを起動しています（HMR 有効、http://localhost:3000）..."
+	@echo "開発コンテナを起動しています（HMR 有効、http://localhost:3002）..."
 	docker compose -f $(COMPOSE_DEV_FILE) up
 
 .PHONY: dev-up
@@ -72,6 +73,17 @@ dev-logs:
 .PHONY: dev-shell
 dev-shell:
 	docker compose -f $(COMPOSE_DEV_FILE) exec app sh
+
+# ============================================================
+# 開発補助
+# ============================================================
+.PHONY: css-reset
+css-reset:
+	@echo ".next キャッシュを削除して dev サーバーを再起動します..."
+	-kill $$(lsof -ti:3000) 2>/dev/null; true
+	rm -rf .next
+	docker compose -f $(COMPOSE_DEV_FILE) down 2>/dev/null; true
+	bun run dev
 
 # ============================================================
 # クリーンアップ

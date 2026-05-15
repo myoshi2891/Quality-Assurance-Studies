@@ -11,7 +11,7 @@ services:
     image: qa-studies:latest
     container_name: qa-studies-app
     ports:
-      - "3000:3000"
+      - "3002:3000"
     environment:
       NODE_ENV: production
       NEXT_TELEMETRY_DISABLED: "1"
