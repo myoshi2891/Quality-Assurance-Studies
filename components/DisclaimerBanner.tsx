@@ -44,12 +44,12 @@ export function DisclaimerBanner() {
                 lineHeight: 1.4,
             }}
         >
-            <span style={{ display: 'block' }}>
+            <p style={{ margin: 0 }}>
                 ⚠️ 本サイトは個人学習を目的として作成したものです。掲載内容の正確性・完全性は保証されておらず、試験の合否を含むいかなる結果に対しても責任を負いません。
-            </span>
-            <span style={{ display: 'block' }}>
+            </p>
+            <p style={{ margin: 0 }}>
                 最新の公式情報は各試験プロバイダーの公式サイトをご確認ください。
-            </span>
+            </p>
         </div>
     );
 }

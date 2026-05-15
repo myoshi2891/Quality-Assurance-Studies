@@ -34,11 +34,12 @@ export const metadata: Metadata = {
  * Provides the application's root HTML layout with configured fonts, shared Header, and Japanese language.
  *
  * Renders an <html lang="ja"> element with the project's font CSS variables applied.
- * It renders an always-visible <Header /> at the top of the viewport.
- * The `children` content is wrapped in a `<main>` container with a top padding offset
- * corresponding to the Header's height (60px) to prevent the Header from covering content.
+ * It renders an always-visible fixed <Header /> at the top of the viewport, followed by a
+ * <DisclaimerBanner /> directly beneath it. The `children` content is wrapped in a
+ * `<div className="layout-content">` whose spacing is controlled by the `.layout-content`
+ * stylesheet (rather than a hardcoded top padding).
  *
- * @param children - Page content rendered beneath the fixed Header within a padded main container
+ * @param children - Page content rendered inside the `.layout-content` wrapper
  * @returns The root HTML structure for application pages
  */
 export default function RootLayout({
