@@ -36,6 +36,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 COPY --from=builder --chown=nobody:nobody /app/.next/standalone ./
 # 静的アセット（CSS・JS チャンク・Google Fonts）をコピー
 COPY --from=builder --chown=nobody:nobody /app/.next/static ./.next/static
+# favicon・robots.txt など public/ の静的ファイルをコピー
+COPY --from=builder --chown=nobody:nobody /app/public ./public
+
+RUN apk add --no-cache curl
 
 # セキュリティ: Alpine 標準の nobody ユーザー（uid=65534）で実行
 USER nobody
@@ -46,6 +50,6 @@ ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
 HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
-  CMD wget -qO- http://localhost:3000/ || exit 1
+  CMD curl -f http://localhost:3000/ || exit 1
 
 CMD ["bun", "server.js"]

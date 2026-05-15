@@ -14,21 +14,35 @@ export default function NavBar() {
     const [activeId, setActiveId] = useState('');
 
     useEffect(() => {
+        const ratios = new Map<string, number>();
         const observer = new IntersectionObserver(
             (entries) => {
-                const visibleEntries = entries.filter((e) => e.isIntersecting);
-                if (visibleEntries.length > 0) {
-                    const best = visibleEntries.reduce((prev, curr) =>
-                        curr.intersectionRatio > prev.intersectionRatio ? curr : prev
-                    );
-                    setActiveId(best.target.id);
+                entries.forEach((entry) => {
+                    const id = (entry.target as HTMLElement).id;
+                    ratios.set(id, entry.isIntersecting ? entry.intersectionRatio : 0);
+                });
+
+                let bestId = '';
+                let bestRatio = 0;
+                for (const [id, ratio] of ratios) {
+                    if (ratio > bestRatio) {
+                        bestRatio = ratio;
+                        bestId = id;
+                    }
                 }
+                setActiveId((prev) => (prev === bestId ? prev : bestId));
             },
-            { rootMargin: '-60px 0px -80% 0px' }
+            {
+                rootMargin: '-60px 0px -80% 0px',
+                threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+            }
         );
 
-        const sections = document.querySelectorAll('section[id], div[id="top"]');
-        sections.forEach((s) => observer.observe(s));
+        const sections = document.querySelectorAll<HTMLElement>('section[id], div[id="top"]');
+        sections.forEach((s) => {
+            ratios.set(s.id, 0);
+            observer.observe(s);
+        });
 
         return () => observer.disconnect();
     }, []);
