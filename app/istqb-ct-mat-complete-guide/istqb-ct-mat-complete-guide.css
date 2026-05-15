@@ -93,6 +93,7 @@ body::before {
                 background: radial-gradient(ellipse, rgba(0, 229, 255, 0.08) 0%, transparent 70%);
                 animation: pulse 4s ease-in-out infinite;
                 pointer-events: none;
+                z-index: 0;
             }
             @keyframes pulse {
                 0%,

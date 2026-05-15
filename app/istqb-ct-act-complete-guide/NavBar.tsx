@@ -15,6 +15,11 @@ export default function NavBar() {
 
     useEffect(() => {
         const ratios = new Map<string, number>();
+        const disclaimerRaw = getComputedStyle(document.documentElement)
+            .getPropertyValue('--disclaimer-height')
+            .trim();
+        const disclaimerHeight = Number.parseFloat(disclaimerRaw) || 0;
+        const topOffset = 60 + disclaimerHeight;
         const observer = new IntersectionObserver(
             (entries) => {
                 entries.forEach((entry) => {
@@ -33,7 +38,7 @@ export default function NavBar() {
                 setActiveId((prev) => (prev === bestId ? prev : bestId));
             },
             {
-                rootMargin: '-60px 0px -80% 0px',
+                rootMargin: `-${topOffset}px 0px -80% 0px`,
                 threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
             }
         );

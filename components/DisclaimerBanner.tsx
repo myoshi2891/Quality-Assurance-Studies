@@ -21,16 +21,22 @@ export function DisclaimerBanner() {
             document.documentElement.style.setProperty('--disclaimer-height', `${h}px`);
         };
 
-        sync();
+        const frameId = requestAnimationFrame(sync);
 
         if (typeof ResizeObserver !== 'undefined') {
             const ro = new ResizeObserver(sync);
             ro.observe(el);
-            return () => ro.disconnect();
+            return () => {
+                cancelAnimationFrame(frameId);
+                ro.disconnect();
+            };
         }
 
         window.addEventListener('resize', sync);
-        return () => window.removeEventListener('resize', sync);
+        return () => {
+            cancelAnimationFrame(frameId);
+            window.removeEventListener('resize', sync);
+        };
     }, []);
 
     return (
