@@ -44,3 +44,33 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-act-complete-guide', label: '受入テスト(CT-AcT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-mat-complete-guide', label: 'モバイルアプリテスト(CT-MAT)ガイド', category: 'istqb-specialist' },
 ];
+
+const CATEGORY_ORDER: readonly NavCategory[] = [
+  'home',
+  'foundation',
+  'istqb-foundation-ext',
+  'istqb-advanced',
+  'istqb-specialist',
+];
+
+const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
+  'home': 'ホーム',
+  'foundation': '基礎テスト手法',
+  'istqb-foundation-ext': 'ISTQB Foundation Extension',
+  'istqb-advanced': 'ISTQB Advanced',
+  'istqb-specialist': 'ISTQB Specialist',
+};
+
+export function groupByCategory(items: readonly NavItem[]): NavGroup[] {
+  const groups: NavGroup[] = [];
+  for (const category of CATEGORY_ORDER) {
+    const matched = items.filter((item) => item.category === category);
+    if (matched.length === 0) continue;
+    groups.push({
+      category,
+      title: CATEGORY_TITLES[category],
+      items: matched,
+    });
+  }
+  return groups;
+}

@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'bun:test';
-import { NAV_ITEMS, type NavItem } from '../../lib/navigation';
+import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
   it('contains 20 entries (home + 8 foundation + 1 fdn-ext + 5 advanced + 5 specialist)', () => {
@@ -30,5 +30,47 @@ describe('NAV_ITEMS', () => {
   it('classifies home "/" as home category', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
     expect(home?.category).toBe('home');
+  });
+});
+
+describe('groupByCategory', () => {
+  it('returns groups in fixed display order', () => {
+    const groups = groupByCategory(NAV_ITEMS);
+    expect(groups.map((g) => g.category)).toEqual([
+      'home',
+      'foundation',
+      'istqb-foundation-ext',
+      'istqb-advanced',
+      'istqb-specialist',
+    ]);
+  });
+
+  it('places 8 items in the foundation group', () => {
+    const foundation = groupByCategory(NAV_ITEMS).find((g) => g.category === 'foundation');
+    expect(foundation?.items).toHaveLength(8);
+  });
+
+  it('assigns a non-empty display title to every group', () => {
+    for (const group of groupByCategory(NAV_ITEMS)) {
+      expect(group.title.length).toBeGreaterThan(0);
+    }
+  });
+
+  it('preserves the original item order within each group', () => {
+    const advanced = groupByCategory(NAV_ITEMS).find((g) => g.category === 'istqb-advanced');
+    expect(advanced?.items.map((i) => i.href)).toEqual([
+      '/istqb-ctal-tae-complete-guide',
+      '/istqb-ctal-ta-complete-guide',
+      '/istqb-ctal-tm-complete-guide',
+      '/istqb-ctal-att-complete-guide',
+      '/istqb-ctal-atlas-complete-guide',
+    ]);
+  });
+
+  it('omits empty categories from the result', () => {
+    const onlyHome: NavItem[] = [{ href: '/', label: 'Home', category: 'home' }];
+    const groups = groupByCategory(onlyHome);
+    expect(groups).toHaveLength(1);
+    expect(groups[0]?.category).toBe('home');
   });
 });
