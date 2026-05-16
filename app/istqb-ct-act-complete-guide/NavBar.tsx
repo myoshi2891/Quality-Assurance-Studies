@@ -15,41 +15,61 @@ export default function NavBar() {
 
     useEffect(() => {
         const ratios = new Map<string, number>();
-        const disclaimerRaw = getComputedStyle(document.documentElement)
-            .getPropertyValue('--disclaimer-height')
-            .trim();
-        const disclaimerHeight = Number.parseFloat(disclaimerRaw) || 0;
-        const topOffset = 60 + disclaimerHeight;
-        const observer = new IntersectionObserver(
-            (entries) => {
-                entries.forEach((entry) => {
-                    const id = (entry.target as HTMLElement).id;
-                    ratios.set(id, entry.isIntersecting ? entry.intersectionRatio : 0);
-                });
-
-                let bestId = '';
-                let bestRatio = 0;
-                for (const [id, ratio] of ratios) {
-                    if (ratio > bestRatio) {
-                        bestRatio = ratio;
-                        bestId = id;
-                    }
-                }
-                setActiveId((prev) => (prev === bestId ? prev : bestId));
-            },
-            {
-                rootMargin: `-${topOffset}px 0px -80% 0px`,
-                threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-            }
-        );
-
         const sections = document.querySelectorAll<HTMLElement>('section[id], div[id="top"]');
-        sections.forEach((s) => {
-            ratios.set(s.id, 0);
-            observer.observe(s);
-        });
+        sections.forEach((s) => ratios.set(s.id, 0));
 
-        return () => observer.disconnect();
+        let observer: IntersectionObserver | null = null;
+        let lastTopOffset = -1;
+
+        const rebuild = () => {
+            const disclaimerRaw = getComputedStyle(document.documentElement)
+                .getPropertyValue('--disclaimer-height')
+                .trim();
+            const disclaimerHeight = Number.parseFloat(disclaimerRaw) || 0;
+            const topOffset = 60 + disclaimerHeight;
+            if (topOffset === lastTopOffset) return;
+            lastTopOffset = topOffset;
+
+            observer?.disconnect();
+            observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        const id = (entry.target as HTMLElement).id;
+                        ratios.set(id, entry.isIntersecting ? entry.intersectionRatio : 0);
+                    });
+
+                    let bestId = '';
+                    let bestRatio = 0;
+                    for (const [id, ratio] of ratios) {
+                        if (ratio > bestRatio) {
+                            bestRatio = ratio;
+                            bestId = id;
+                        }
+                    }
+                    setActiveId((prev) => (prev === bestId ? prev : bestId));
+                },
+                {
+                    rootMargin: `-${topOffset}px 0px -80% 0px`,
+                    threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+                }
+            );
+            sections.forEach((s) => observer!.observe(s));
+        };
+
+        rebuild();
+        window.addEventListener('resize', rebuild);
+
+        let ro: ResizeObserver | undefined;
+        if (typeof ResizeObserver !== 'undefined') {
+            ro = new ResizeObserver(rebuild);
+            ro.observe(document.documentElement);
+        }
+
+        return () => {
+            observer?.disconnect();
+            ro?.disconnect();
+            window.removeEventListener('resize', rebuild);
+        };
     }, []);
 
     const link = (id: string, label: string) => (

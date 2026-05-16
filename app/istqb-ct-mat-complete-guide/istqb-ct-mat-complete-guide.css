@@ -800,6 +800,17 @@
     .istqb-ct-mat-page .ref-card:hover {
         transform: none;
     }
+    .istqb-ct-mat-page .hero::before,
+    .istqb-ct-mat-page .hero-badge,
+    .istqb-ct-mat-page .hero-title,
+    .istqb-ct-mat-page .hero-sub,
+    .istqb-ct-mat-page .hero-meta {
+        animation: none;
+    }
+    .istqb-ct-mat-page .progress-fill {
+        animation: none;
+        transform: scaleX(1);
+    }
 }
 .istqb-ct-mat-page .ref-cat {
     font-family: var(--font-mono);
