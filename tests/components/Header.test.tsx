@@ -1,4 +1,5 @@
 import { describe, it, expect, afterEach, beforeEach, mock } from 'bun:test';
+import { NAV_ITEMS } from '../../lib/navigation';
 
 let mockPathname = '/';
 mock.module('next/navigation', () => ({
@@ -64,7 +65,7 @@ describe('Header drawer panel', () => {
     render(<Header />);
     fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
     const dialog = screen.getByRole('dialog');
-    expect(within(dialog).getAllByRole('link')).toHaveLength(20);
+    expect(within(dialog).getAllByRole('link')).toHaveLength(NAV_ITEMS.length);
   });
 
   it('includes a link to /istqb-ct-ai-complete-guide in the dialog', () => {

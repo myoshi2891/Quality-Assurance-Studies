@@ -120,11 +120,13 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 各ステップは Red（失敗テスト）→ Green（最小実装）→ 必要に応じて Refactor。各ステップ単体で `bun test` がグリーン、最終ステップで `bun run lint` / `bun run build` も通すこと。
 
 ### Step 1: `bun test` を npm scripts から実行可能にする
+
 - **Edit**: [package.json](package.json) の `scripts` に `"test": "bun test"`, `"test:watch": "bun test --watch"` を追加
 - **検証**: `bun test` 実行で既存 8 個のスケルトンが全て pass
 - **Commit**: `chore(test): add bun test npm scripts`
 
 ### Step 2: `lib/navigation.ts` のテストを書く（Red）
+
 - **New**: [tests/lib/navigation.test.ts](tests/lib/navigation.test.ts)
   - `NAV_ITEMS.length === 20`（home + 8 + 1 + 5 + 5）
   - `href` の重複なし
@@ -134,6 +136,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `test(navigation): add failing spec for NAV_ITEMS shape`
 
 ### Step 3: `lib/navigation.ts` 実装（Green）
+
 - **New**: [lib/navigation.ts](lib/navigation.ts)
   - 型定義 + `NAV_ITEMS` 配列（既存 [components/Header.tsx:31-50](components/Header.tsx#L31-L50) の 19 リンク + ホーム = 20 件）
   - カテゴリ割当は決定事項表に従う
@@ -142,6 +145,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `feat(navigation): introduce NAV_ITEMS single source of truth`
 
 ### Step 4: `groupByCategory()` の Red → Green
+
 - **Edit**: [tests/lib/navigation.test.ts](tests/lib/navigation.test.ts) に追加
   - 返却順が `home → foundation → istqb-foundation-ext → istqb-advanced → istqb-specialist` 固定
   - `foundation` グループは 8 件
@@ -150,6 +154,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `feat(navigation): add groupByCategory helper for drawer rendering`
 
 ### Step 5: ハンバーガーボタンとトグル（Red → Green）
+
 - **New**: [tests/components/Header.test.tsx](tests/components/Header.test.tsx)
   - `mock.module('next/navigation', () => ({ usePathname: () => '/' }))`
   - ボタンが `aria-label="メニューを開く"` `aria-expanded="false"` で存在
@@ -161,6 +166,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `feat(header): add hamburger toggle button with aria-expanded`
 
 ### Step 6: ドロワー描画（Red → Green）
+
 - **Edit**: [tests/components/Header.test.tsx](tests/components/Header.test.tsx) に追加
   - 開くと `<h2>` で 4 カテゴリ見出しが描画される
   - `<dialog>` 内に 20 個の `<a>` が描画され、`/istqb-ct-ai-complete-guide` 等が含まれる
@@ -170,6 +176,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `feat(header): render category drawer driven by NAV_ITEMS`
 
 ### Step 7: close 動作（Escape / overlay / リンク）の Red → Green
+
 - **Edit**: [tests/components/Header.test.tsx](tests/components/Header.test.tsx) に追加
   - Escape キーで dialog が消える
   - リンククリックで dialog が消える
@@ -181,6 +188,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `feat(header): close drawer on escape, overlay click, link click`
 
 ### Step 8: アクティブパス + 旧リンク削除（Red → Green → Refactor）
+
 - **Edit**: [tests/components/Header.test.tsx](tests/components/Header.test.tsx) に追加
   - `usePathname` モックを `/istqb-ct-ai-complete-guide` に差し替え（別 describe ブロック）
   - アクティブリンクに `aria-current="page"`、他のリンクには付かない
@@ -191,6 +199,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `refactor(header): drop legacy inline nav links and SPA badge, mark active via aria-current`
 
 ### Step 9: CSS スタイリング（Red → Green）
+
 - **Edit**: [tests/components/Header.test.tsx](tests/components/Header.test.tsx) に「クラス名が付いていること」のテストを追加
   - ハンバーガーに `nav-hamburger` クラス
   - dialog に `nav-drawer` クラス
@@ -201,6 +210,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `style(header): add drawer/overlay/hamburger styles to globals.css`
 
 ### Step 10: body スクロールロック + 初期フォーカス（Red → Green）
+
 - **Edit**: [tests/components/Header.test.tsx](tests/components/Header.test.tsx) に追加
   - 開いている間 `document.body.style.overflow === 'hidden'`
   - 閉じると `document.body.style.overflow === ''`
@@ -211,6 +221,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 - **Commit**: `feat(header): lock body scroll and focus first link when drawer opens`
 
 ### Step 11: 拡張性ガード（Red → Green）
+
 - **Edit**: [tests/lib/navigation.test.ts](tests/lib/navigation.test.ts) に追加
   - 新しい specialist 項目（CT-TAS 想定）を spread で追加した配列を `groupByCategory` に渡すと、specialist グループに反映されることを確認
 - **Edit**: [lib/navigation.ts](lib/navigation.ts) のファイル先頭に、新ガイド追加手順の日本語コメントを追記
@@ -250,6 +261,7 @@ bun run dev         # 手動: http://localhost:3000
 ```
 
 手動確認チェックリスト（ブラウザ）:
+
 - [ ] PC 幅（≥1280px）でハンバーガーボタンが Header 右側に表示される
 - [ ] クリックで top sheet ドロワーが下方向にスライドダウン展開
 - [ ] 4 カテゴリ見出し（基礎テスト手法 / ISTQB Foundation Extension / ISTQB Advanced / ISTQB Specialist）が見える
