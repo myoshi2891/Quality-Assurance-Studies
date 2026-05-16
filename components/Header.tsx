@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -8,15 +9,17 @@ interface HeaderProps {
 }
 
 /**
- * Renders the top navigation header with a logo link, a set of route-aware page links, and a responsive badge.
+ * グローバルヘッダー。ロゴ・ハンバーガーメニュー・（暫定）旧リンク群を表示する。
  *
- * The header is fixed to the top of the viewport and appends any provided `className` to the root <nav> element.
+ * ハンバーガーボタンは aria-expanded / aria-controls を提供し、開閉状態に応じて
+ * aria-label が「メニューを開く / メニューを閉じる」に切り替わる。
  *
- * @param className - Optional additional CSS classes to apply to the root navigation element
- * @returns The header JSX element containing the logo, navigation links (each marked active when its href matches the current pathname), and a badge shown on small screens and larger
+ * @param className - 追加の CSS クラス
+ * @returns Header コンポーネント
  */
 export default function Header({ className }: HeaderProps) {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
 
   const getLinkClassName = (href: string) => {
     return pathname === href ? 'active' : '';
@@ -27,6 +30,27 @@ export default function Header({ className }: HeaderProps) {
       <Link href="/" className="nav-logo hover:opacity-80 transition-opacity">
         QA_STUDIES
       </Link>
+      <button
+        type="button"
+        className="nav-hamburger"
+        aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
+        aria-expanded={isOpen}
+        aria-controls="global-nav-panel"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        {isOpen ? (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        ) : (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        )}
+      </button>
       <div className="nav-links flex-1 flex gap-1 overflow-x-auto no-scrollbar">
         <Link href="/" className={getLinkClassName('/')}>ホーム</Link>
         <Link href="/software-testing-methodologies-guide" className={getLinkClassName('/software-testing-methodologies-guide')}>テスト手法ガイド</Link>
