@@ -1,16 +1,18 @@
-import { render, screen } from '@testing-library/react';
+import { afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
+import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-ai-complete-guide/page';
 
-// Mock the IntersectionObserver since it's not available in jsdom
+afterEach(() => cleanup());
+
+// Mock the IntersectionObserver since it's not available in happy-dom
 beforeAll(() => {
-    const mockIntersectionObserver = vi.fn();
-    mockIntersectionObserver.mockReturnValue({
+    const mockIntersectionObserver = mock(() => ({
         observe: () => null,
         unobserve: () => null,
         disconnect: () => null,
-    });
-    window.IntersectionObserver = mockIntersectionObserver;
+    }));
+    window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
 });
 
 describe('CT-AI Complete Guide Page', () => {
