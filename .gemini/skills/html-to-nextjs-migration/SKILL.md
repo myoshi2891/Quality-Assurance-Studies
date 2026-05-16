@@ -211,7 +211,7 @@ Common build failures:
 
 ## セッション終了前同期（必須）
 
-**ゲート条件**: 1ページの `git commit` 完了後、次 HTML を `Read` し始める前に必ず実施する。
+**ゲート条件**: 1ページの `git commit` 完了後、次のHTMLを読み始める前に必ず実施する。
 
 ```bash
 bun run build     # ビルド成功を確認

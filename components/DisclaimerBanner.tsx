@@ -3,11 +3,13 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * Renders a fixed-position disclaimer banner and keeps the document CSS custom property `--disclaimer-height` synchronized with the banner's current height.
+ * 固定位置の免責事項バナーをレンダリングし、バナーの現在の高さを CSS カスタムプロパティ
+ * `document.documentElement.style` の `--disclaimer-height` に同期し続ける。
  *
- * The banner is positioned near the top of the viewport and displays a short Japanese disclaimer. The component updates `document.documentElement.style.--disclaimer-height` to match the banner's rendered height so other layout code can react to its presence.
+ * バナーはビューポート上部付近（Header 直下）に固定表示され、短い日本語の免責文を表示する。
+ * バナーの高さが変化するたびに `--disclaimer-height` を更新し、他のレイアウトコードが参照できるようにする。
  *
- * @returns A React element that renders the disclaimer banner.
+ * @returns 免責事項バナーをレンダリングする React 要素
  */
 export function DisclaimerBanner() {
     const ref = useRef<HTMLDivElement>(null);
@@ -42,20 +44,7 @@ export function DisclaimerBanner() {
     return (
         <div
             ref={ref}
-            style={{
-                position: 'fixed',
-                top: '60px',
-                left: 0,
-                right: 0,
-                background: 'rgba(234, 179, 8, 0.12)',
-                borderBottom: '1px solid rgba(234, 179, 8, 0.25)',
-                zIndex: 40,
-                textAlign: 'center',
-                padding: '0.35rem 1rem',
-                fontSize: '0.75rem',
-                color: '#d4a017',
-                lineHeight: 1.4,
-            }}
+            className="fixed top-[60px] left-0 right-0 bg-yellow-500/12 border-b border-yellow-500/25 z-40 text-center px-4 py-[0.35rem] text-xs text-[#d4a017] leading-[1.4]"
         >
             <p style={{ margin: 0 }}>
                 ⚠️ 本サイトは個人学習を目的として作成したものです。掲載内容の正確性・完全性は保証されておらず、試験の合否を含むいかなる結果に対しても責任を負いません。

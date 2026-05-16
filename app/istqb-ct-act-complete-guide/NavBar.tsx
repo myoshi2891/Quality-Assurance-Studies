@@ -3,12 +3,12 @@
 import { useEffect, useState } from 'react';
 
 /**
- * Renders a sticky section navigation bar that highlights the currently most-visible content section.
+ * 現在最も表示されているコンテンツセクションをハイライトするスティッキーナビゲーションバーをレンダリングする。
  *
- * The component tracks which section element (any `section[id]` or `div[id="top"]`) is most visible in the viewport
- * and applies an active state (`class="active"` and `aria-current="location"`) to the corresponding link.
+ * `section[id]` または `div[id="top"]` のうちビューポートで最も表示されている要素を追跡し、
+ * 対応するリンクにアクティブ状態（`class="active"` および `aria-current="location"`）を付与する。
  *
- * @returns The navigation bar React element with links to page sections and a logo link to `#top`
+ * @returns ページセクションへのリンクと `#top` へのロゴリンクを含むナビゲーションバー React 要素
  */
 export default function NavBar() {
     const [activeId, setActiveId] = useState('');

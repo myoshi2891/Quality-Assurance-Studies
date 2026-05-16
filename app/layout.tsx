@@ -31,10 +31,12 @@ export const metadata: Metadata = {
 };
 
 /**
- * Define the application's root HTML layout: applies project font CSS variables, sets the document language to Japanese, renders the shared header and disclaimer banner, and wraps page content in the `.layout-content` container.
+ * アプリケーションのルート HTML レイアウトを定義する。プロジェクトフォントの CSS 変数を適用し、
+ * ドキュメント言語を日本語に設定し、共有ヘッダーと免責事項バナーをレンダリングし、
+ * ページコンテンツを `.layout-content` コンテナでラップする。
  *
- * @param children - Page content rendered inside the `.layout-content` wrapper
- * @returns The root HTML element tree for application pages
+ * @param children - `.layout-content` ラッパー内でレンダリングされるページコンテンツ
+ * @returns アプリケーションページのルート HTML 要素ツリー
  */
 export default function RootLayout({
   children,
