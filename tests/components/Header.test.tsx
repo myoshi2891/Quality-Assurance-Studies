@@ -71,3 +71,33 @@ describe('Header drawer panel', () => {
     expect(link.getAttribute('href')).toBe('/istqb-ct-ai-complete-guide');
   });
 });
+
+describe('Header drawer close behavior', () => {
+  const openDrawer = () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    return screen.getByRole('dialog');
+  };
+
+  it('closes when Escape key is pressed', () => {
+    openDrawer();
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('closes when a link inside the drawer is clicked', () => {
+    const dialog = openDrawer();
+    const firstLink = within(dialog).getAllByRole('link')[0];
+    if (!firstLink) throw new Error('expected at least one link in drawer');
+    fireEvent.click(firstLink);
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('closes when the overlay is clicked', () => {
+    openDrawer();
+    const overlay = document.querySelector('.nav-overlay');
+    if (!overlay) throw new Error('expected nav-overlay element');
+    fireEvent.click(overlay);
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+});

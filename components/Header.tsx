@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS, groupByCategory } from '../lib/navigation';
@@ -23,6 +23,16 @@ export default function Header({ className }: HeaderProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const groups = groupByCategory(NAV_ITEMS);
+  const close = useCallback(() => setIsOpen(false), []);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isOpen, close]);
 
   const getLinkClassName = (href: string) => {
     return pathname === href ? 'active' : '';
@@ -55,28 +65,35 @@ export default function Header({ className }: HeaderProps) {
         )}
       </button>
       {isOpen && (
-        <aside
-          id="global-nav-panel"
-          className="nav-drawer"
-          role="dialog"
-          aria-modal="true"
-          aria-label="ナビゲーションメニュー"
-        >
-          {groups.map((g) => (
-            <section key={g.category} className="nav-drawer-section">
-              {g.category !== 'home' && (
-                <h2 className="nav-drawer-heading">{g.title}</h2>
-              )}
-              <ul className="nav-drawer-list">
-                {g.items.map((item) => (
-                  <li key={item.href}>
-                    <Link href={item.href}>{item.label}</Link>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </aside>
+        <>
+          <div
+            className="nav-overlay"
+            aria-hidden="true"
+            onClick={close}
+          />
+          <aside
+            id="global-nav-panel"
+            className="nav-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="ナビゲーションメニュー"
+          >
+            {groups.map((g) => (
+              <section key={g.category} className="nav-drawer-section">
+                {g.category !== 'home' && (
+                  <h2 className="nav-drawer-heading">{g.title}</h2>
+                )}
+                <ul className="nav-drawer-list">
+                  {g.items.map((item) => (
+                    <li key={item.href}>
+                      <Link href={item.href} onClick={close}>{item.label}</Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </aside>
+        </>
       )}
       <div className="nav-links flex-1 flex gap-1 overflow-x-auto no-scrollbar">
         <Link href="/" className={getLinkClassName('/')}>ホーム</Link>
