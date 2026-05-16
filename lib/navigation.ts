@@ -1,0 +1,46 @@
+export type NavCategory =
+  | 'home'
+  | 'foundation'
+  | 'istqb-foundation-ext'
+  | 'istqb-advanced'
+  | 'istqb-specialist';
+
+export interface NavItem {
+  href: string;
+  label: string;
+  category: NavCategory;
+  badge?: string;
+}
+
+export interface NavGroup {
+  category: NavCategory;
+  title: string;
+  items: NavItem[];
+}
+
+export const NAV_ITEMS: readonly NavItem[] = [
+  { href: '/', label: 'ホーム', category: 'home' },
+
+  { href: '/software-testing-methodologies-guide', label: 'テスト手法ガイド', category: 'foundation' },
+  { href: '/ai-test-guide', label: 'AIテストガイド', category: 'foundation' },
+  { href: '/unit-testing-guide', label: 'ユニットテストガイド', category: 'foundation' },
+  { href: '/integration-functional-testing-guide', label: '統合/機能テストガイド', category: 'foundation' },
+  { href: '/integration-system-testing-guide', label: '統合/システムテストガイド', category: 'foundation' },
+  { href: '/e2e-testing-guide', label: 'E2Eテストガイド', category: 'foundation' },
+  { href: '/acceptance-testing-guide', label: '受入テストガイド', category: 'foundation' },
+  { href: '/bdd-testing-guide', label: 'BDDガイド', category: 'foundation' },
+
+  { href: '/istqb-ctfl-at-complete-guide', label: 'アジャイル(CTFL-AT)ガイド', category: 'istqb-foundation-ext' },
+
+  { href: '/istqb-ctal-tae-complete-guide', label: 'テスト自動化(CTAL-TAE)ガイド', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-tm-complete-guide', label: 'テスト管理(CTAL-TM)ガイド', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-att-complete-guide', label: 'アジャイル(CTAL-ATT)ガイド', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-atlas-complete-guide', label: 'アジャイル(CT-ATLaS)ガイド', category: 'istqb-advanced' },
+
+  { href: '/istqb-ct-ai-complete-guide', label: 'AIテスト(CT-AI)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-genai-complete-guide', label: '生成AIテスト(CT-GenAI)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-mbt-complete-guide', label: 'モデルベーステスト(CT-MBT)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-act-complete-guide', label: '受入テスト(CT-AcT)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-mat-complete-guide', label: 'モバイルアプリテスト(CT-MAT)ガイド', category: 'istqb-specialist' },
+];
