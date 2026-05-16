@@ -1,13 +1,17 @@
-import { describe, it, expect, afterEach, mock } from 'bun:test';
+import { describe, it, expect, afterEach, beforeEach, mock } from 'bun:test';
 
+let mockPathname = '/';
 mock.module('next/navigation', () => ({
-  usePathname: () => '/',
+  usePathname: () => mockPathname,
 }));
 
 import { render, screen, cleanup, fireEvent, within } from '@testing-library/react';
 import Header from '../../components/Header';
 
-afterEach(() => cleanup());
+afterEach(() => {
+  cleanup();
+  mockPathname = '/';
+});
 
 describe('Header hamburger button', () => {
   it('renders a button with aria-label "メニューを開く"', () => {
@@ -99,5 +103,39 @@ describe('Header drawer close behavior', () => {
     if (!overlay) throw new Error('expected nav-overlay element');
     fireEvent.click(overlay);
     expect(screen.queryByRole('dialog')).toBeNull();
+  });
+});
+
+describe('Header active link (aria-current)', () => {
+  beforeEach(() => {
+    mockPathname = '/istqb-ct-ai-complete-guide';
+  });
+
+  it('marks the matching drawer link with aria-current="page"', () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    const dialog = screen.getByRole('dialog');
+    const active = within(dialog).getByRole('link', { name: 'AIテスト(CT-AI)ガイド' });
+    expect(active.getAttribute('aria-current')).toBe('page');
+  });
+
+  it('does not mark non-matching drawer links with aria-current', () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    const dialog = screen.getByRole('dialog');
+    const home = within(dialog).getByRole('link', { name: 'ホーム' });
+    expect(home.getAttribute('aria-current')).toBeNull();
+  });
+});
+
+describe('Header legacy cleanup', () => {
+  it('no longer renders the legacy .nav-links container', () => {
+    render(<Header />);
+    expect(document.querySelector('.nav-links')).toBeNull();
+  });
+
+  it('no longer renders the "Next.js SPA" badge', () => {
+    render(<Header />);
+    expect(screen.queryByText('Next.js SPA')).toBeNull();
   });
 });

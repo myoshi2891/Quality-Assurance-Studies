@@ -10,14 +10,9 @@ interface HeaderProps {
 }
 
 /**
- * グローバルヘッダー。ロゴ・ハンバーガーメニュー・ドロワー・（暫定）旧リンク群を表示する。
- *
- * ハンバーガーボタンは aria-expanded / aria-controls を提供し、開閉状態に応じて
- * aria-label が「メニューを開く / メニューを閉じる」に切り替わる。
- * 開いている間は NAV_ITEMS を groupByCategory でカテゴリ別にまとめた dialog を描画する。
- *
- * @param className - 追加の CSS クラス
- * @returns Header コンポーネント
+ * グローバルヘッダー。ロゴとハンバーガーメニュー（ドロワー）のみを表示する。
+ * 開いている間は NAV_ITEMS を groupByCategory でカテゴリ別にまとめた dialog を描画し、
+ * 現在パスと一致するリンクへ `aria-current="page"` を付与する。
  */
 export default function Header({ className }: HeaderProps) {
   const pathname = usePathname();
@@ -33,10 +28,6 @@ export default function Header({ className }: HeaderProps) {
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [isOpen, close]);
-
-  const getLinkClassName = (href: string) => {
-    return pathname === href ? 'active' : '';
-  };
 
   return (
     <nav className={`nav-header ${className || ''}`}>
@@ -86,7 +77,13 @@ export default function Header({ className }: HeaderProps) {
                 <ul className="nav-drawer-list">
                   {g.items.map((item) => (
                     <li key={item.href}>
-                      <Link href={item.href} onClick={close}>{item.label}</Link>
+                      <Link
+                        href={item.href}
+                        onClick={close}
+                        aria-current={pathname === item.href ? 'page' : undefined}
+                      >
+                        {item.label}
+                      </Link>
                     </li>
                   ))}
                 </ul>
@@ -95,31 +92,6 @@ export default function Header({ className }: HeaderProps) {
           </aside>
         </>
       )}
-      <div className="nav-links flex-1 flex gap-1 overflow-x-auto no-scrollbar">
-        <Link href="/" className={getLinkClassName('/')}>ホーム</Link>
-        <Link href="/software-testing-methodologies-guide" className={getLinkClassName('/software-testing-methodologies-guide')}>テスト手法ガイド</Link>
-        <Link href="/ai-test-guide" className={getLinkClassName('/ai-test-guide')}>AIテストガイド</Link>
-        <Link href="/unit-testing-guide" className={getLinkClassName('/unit-testing-guide')}>ユニットテストガイド</Link>
-        <Link href="/integration-functional-testing-guide" className={getLinkClassName('/integration-functional-testing-guide')}>統合/機能テストガイド</Link>
-        <Link href="/integration-system-testing-guide" className={getLinkClassName('/integration-system-testing-guide')}>統合/システムテストガイド</Link>
-        <Link href="/e2e-testing-guide" className={getLinkClassName('/e2e-testing-guide')}>E2Eテストガイド</Link>
-        <Link href="/acceptance-testing-guide" className={getLinkClassName('/acceptance-testing-guide')}>受入テストガイド</Link>
-        <Link href="/bdd-testing-guide" className={getLinkClassName('/bdd-testing-guide')}>BDDガイド</Link>
-        <Link href="/istqb-ctfl-at-complete-guide" className={getLinkClassName('/istqb-ctfl-at-complete-guide')}>アジャイル(CTFL-AT)ガイド</Link>
-        <Link href="/istqb-ctal-tae-complete-guide" className={getLinkClassName('/istqb-ctal-tae-complete-guide')}>テスト自動化(CTAL-TAE)ガイド</Link>
-        <Link href="/istqb-ctal-ta-complete-guide" className={getLinkClassName('/istqb-ctal-ta-complete-guide')}>テストアナリスト(CTAL-TA)ガイド</Link>
-        <Link href="/istqb-ctal-tm-complete-guide" className={getLinkClassName('/istqb-ctal-tm-complete-guide')}>テスト管理(CTAL-TM)ガイド</Link>
-        <Link href="/istqb-ctal-att-complete-guide" className={getLinkClassName('/istqb-ctal-att-complete-guide')}>アジャイル(CTAL-ATT)ガイド</Link>
-        <Link href="/istqb-ctal-atlas-complete-guide" className={getLinkClassName('/istqb-ctal-atlas-complete-guide')}>アジャイル(CT-ATLaS)ガイド</Link>
-        <Link href="/istqb-ct-ai-complete-guide" className={getLinkClassName('/istqb-ct-ai-complete-guide')}>AIテスト(CT-AI)ガイド</Link>
-        <Link href="/istqb-ct-genai-complete-guide" className={getLinkClassName('/istqb-ct-genai-complete-guide')}>生成AIテスト(CT-GenAI)ガイド</Link>
-        <Link href="/istqb-ct-mbt-complete-guide" className={getLinkClassName('/istqb-ct-mbt-complete-guide')}>モデルベーステスト(CT-MBT)ガイド</Link>
-        <Link href="/istqb-ct-act-complete-guide" className={getLinkClassName('/istqb-ct-act-complete-guide')}>受入テスト(CT-AcT)ガイド</Link>
-        <Link href="/istqb-ct-mat-complete-guide" className={getLinkClassName('/istqb-ct-mat-complete-guide')}>モバイルアプリテスト(CT-MAT)ガイド</Link>
-      </div>
-      <span className="nav-badge hidden sm:inline-block">
-        Next.js SPA
-      </span>
     </nav>
   );
 }
