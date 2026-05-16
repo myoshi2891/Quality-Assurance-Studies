@@ -3,16 +3,18 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { NAV_ITEMS, groupByCategory } from '../lib/navigation';
 
 interface HeaderProps {
   className?: string;
 }
 
 /**
- * グローバルヘッダー。ロゴ・ハンバーガーメニュー・（暫定）旧リンク群を表示する。
+ * グローバルヘッダー。ロゴ・ハンバーガーメニュー・ドロワー・（暫定）旧リンク群を表示する。
  *
  * ハンバーガーボタンは aria-expanded / aria-controls を提供し、開閉状態に応じて
  * aria-label が「メニューを開く / メニューを閉じる」に切り替わる。
+ * 開いている間は NAV_ITEMS を groupByCategory でカテゴリ別にまとめた dialog を描画する。
  *
  * @param className - 追加の CSS クラス
  * @returns Header コンポーネント
@@ -20,6 +22,7 @@ interface HeaderProps {
 export default function Header({ className }: HeaderProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
+  const groups = groupByCategory(NAV_ITEMS);
 
   const getLinkClassName = (href: string) => {
     return pathname === href ? 'active' : '';
@@ -51,6 +54,30 @@ export default function Header({ className }: HeaderProps) {
           </svg>
         )}
       </button>
+      {isOpen && (
+        <aside
+          id="global-nav-panel"
+          className="nav-drawer"
+          role="dialog"
+          aria-modal="true"
+          aria-label="ナビゲーションメニュー"
+        >
+          {groups.map((g) => (
+            <section key={g.category} className="nav-drawer-section">
+              {g.category !== 'home' && (
+                <h2 className="nav-drawer-heading">{g.title}</h2>
+              )}
+              <ul className="nav-drawer-list">
+                {g.items.map((item) => (
+                  <li key={item.href}>
+                    <Link href={item.href}>{item.label}</Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+        </aside>
+      )}
       <div className="nav-links flex-1 flex gap-1 overflow-x-auto no-scrollbar">
         <Link href="/" className={getLinkClassName('/')}>ホーム</Link>
         <Link href="/software-testing-methodologies-guide" className={getLinkClassName('/software-testing-methodologies-guide')}>テスト手法ガイド</Link>
