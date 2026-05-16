@@ -76,9 +76,9 @@ HTML 移行とは独立した機能改修タスク。グローバルヘッダー
 | プランファイル | [.claude/plans/tdd-optimized-dragon.md](.claude/plans/tdd-optimized-dragon.md) |
 | 作業ブランチ | `dev` |
 | TDD ステップ | 全 11 ステップ（1 ステップ = 1 コミット） |
-| 進捗 | **3 / 11 完了** |
-| 直近 HEAD | `d1e1cd7` — feat(navigation): introduce NAV_ITEMS single source of truth |
-| ビルド/Lint 状態 | 本タスクの差分（package.json scripts、lib/navigation.ts、tests/lib/navigation.test.ts）はビルドへ影響なし。テスト `bun test tests/lib/navigation.test.ts` は 6/6 グリーン |
+| 進捗 | **6 / 11 完了** |
+| 直近 HEAD | `36843de` — feat(header): render category drawer driven by NAV_ITEMS |
+| ビルド/Lint 状態 | `bun test` は本タスク関連 19/19 グリーン（既存スケルトン 2 件のみ既知の無関係失敗）。components/Header.tsx は型・ESLint 上問題なし |
 | ユーザー決定事項 | ① Top sheet ドロワー　② インライン SVG（依存追加なし）　③ CT-TAS は今回ナビ未追加　④ "Next.js SPA" バッジ削除 |
 
 ### 完了済みステップ
@@ -88,15 +88,15 @@ HTML 移行とは独立した機能改修タスク。グローバルヘッダー
 | 1 | `7468763` | `chore(test): add bun test npm scripts` — `package.json` に `test` / `test:watch` を追加 |
 | 2 | `f64eba4` | `test(navigation): add failing spec for NAV_ITEMS shape` — Red: `tests/lib/navigation.test.ts` を追加 |
 | 3 | `d1e1cd7` | `feat(navigation): introduce NAV_ITEMS single source of truth` — Green: `lib/navigation.ts` を実装（20 件 / 5 カテゴリ） |
+| 4 | `10a3cbd` | `feat(navigation): add groupByCategory helper for drawer rendering` — Red→Green: 順序固定 + 日本語タイトル付き純関数 |
+| 5 | `ca88a3a` | `feat(header): add hamburger toggle button with aria-expanded` — Red→Green: インライン SVG + `aria-label` / `aria-expanded` / `aria-controls` トグル |
+| 6 | `36843de` | `feat(header): render category drawer driven by NAV_ITEMS` — Red→Green: `<aside role="dialog">` 内に 4 カテゴリ見出し + 全 20 リンクを描画（home は見出しなし） |
 
 ### 残りステップ（次回セッションで実施）
 
 | Step | 種類 | 内容 | 対象ファイル |
 |---|---|---|---|
-| 4 | Red→Green | `groupByCategory()` ヘルパー実装 | `tests/lib/navigation.test.ts`, `lib/navigation.ts` |
-| 5 | Red→Green | ハンバーガーボタン + `aria-expanded` トグル | `tests/components/Header.test.tsx`(新規), `components/Header.tsx` |
-| 6 | Red→Green | ドロワー描画（4 カテゴリ × 全 20 リンク） | 同上 |
-| 7 | Red→Green | close 動作（Escape / overlay クリック / リンククリック） | 同上 |
+| 7 | Red→Green | close 動作（Escape / overlay クリック / リンククリック） | `tests/components/Header.test.tsx`, `components/Header.tsx` |
 | 8 | Red→Green→Refactor | `aria-current="page"` 付与 + 旧 `.nav-links` ハードコード削除 + `Next.js SPA` バッジ削除 | 同上 |
 | 9 | Red→Green | CSS 追加（`.nav-hamburger`, `.nav-overlay`, `.nav-drawer*`） + 旧 `.nav-links` セレクタ削除 + `make css-reset` 実行 | `app/globals.css` |
 | 10 | Red→Green | `document.body.style.overflow` ロック + 最初のリンクへ初期フォーカス | `tests/components/Header.test.tsx`, `components/Header.tsx` |
@@ -106,23 +106,23 @@ HTML 移行とは独立した機能改修タスク。グローバルヘッダー
 ### 次回セッションでの再開プロンプト
 
 ```
-最新 HEAD: d1e1cd7
-進行中タスク: グローバルヘッダーのハンバーガーメニュー化（TDD・3/11 完了）
+最新 HEAD: 36843de
+進行中タスク: グローバルヘッダーのハンバーガーメニュー化（TDD・6/11 完了）
 プランファイル: .claude/plans/tdd-optimized-dragon.md
 
-次の作業: Step 4 — groupByCategory() の Red → Green
-  1. tests/lib/navigation.test.ts に groupByCategory のテスト 3 件追加
-     - 返却順が ['home','foundation','istqb-foundation-ext','istqb-advanced','istqb-specialist'] 固定
-     - foundation グループは 8 件
-     - 各グループに表示用 title が入る
-  2. bun test tests/lib/navigation.test.ts で Red を確認
-  3. lib/navigation.ts に groupByCategory(items): NavGroup[] を実装
-     - カテゴリ → 日本語タイトル対応表を内部に持つ純関数
-     - タイトル候補: home="ホーム", foundation="基礎テスト手法",
-       istqb-foundation-ext="ISTQB Foundation Extension",
-       istqb-advanced="ISTQB Advanced", istqb-specialist="ISTQB Specialist"
-  4. Green 確認後コミット: `feat(navigation): add groupByCategory helper for drawer rendering`
-  5. Step 5 へ進む
+次の作業: Step 7 — close 動作の Red → Green
+  1. tests/components/Header.test.tsx に describe('Header drawer close behavior') を追加し、以下 3 件を Red で書く
+     - Escape キー押下で dialog が消える（fireEvent.keyDown(document, { key: 'Escape' })）
+     - ドロワー内のリンクをクリックすると dialog が消える
+     - overlay 要素クリックで dialog が消える（overlay は `aria-hidden="true"` の `div.nav-overlay` として追加予定）
+  2. bun test tests/components/Header.test.tsx で Red を確認
+  3. components/Header.tsx を Green 実装
+     - close を `useCallback` で集約: const close = useCallback(() => setIsOpen(false), [])
+     - isOpen 中だけ document.addEventListener('keydown', onEsc) を `useEffect` 内で設定し cleanup で remove
+     - dialog の前に `<div className="nav-overlay" aria-hidden="true" onClick={close} />` を追加
+     - ドロワー内の各 Link に onClick={close} を付与
+  4. Green 確認後コミット: `feat(header): close drawer on escape, overlay click, link click`
+  5. Step 8 へ進む
 
 注意事項:
   - 既存 tests/istqb-ctal-ta-complete-guide/page.test.tsx と tests/istqb-ctal-tm-complete-guide/page.test.tsx
