@@ -3,6 +3,8 @@
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
+> **⚠️ 進行中の機能改修タスクあり**: グローバルヘッダーのハンバーガーメニュー化（TDD・全11ステップ・3/11 完了）。詳細は本ファイル末尾 [「進行中: ハンバーガーメニュー化（TDD）」](#進行中-ハンバーガーメニュー化tdd) を参照。HTML 移行と独立した別タスクのため、両者を混在させずに作業すること。
+
 ## 現在地
 
 | フィールド | 値 |
@@ -61,3 +63,71 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 7. MIGRATION_PROGRESS.md を更新してコミット
 ```
 
+---
+
+## 進行中: ハンバーガーメニュー化（TDD）
+
+HTML 移行とは独立した機能改修タスク。グローバルヘッダー [components/Header.tsx](components/Header.tsx) を全画面幅でハンバーガーメニュー化し、将来のガイド追加に備えて `lib/navigation.ts` を Single Source of Truth として導入する。
+
+### タスク概要
+
+| 項目 | 値 |
+|---|---|
+| プランファイル | [.claude/plans/tdd-optimized-dragon.md](.claude/plans/tdd-optimized-dragon.md) |
+| 作業ブランチ | `dev` |
+| TDD ステップ | 全 11 ステップ（1 ステップ = 1 コミット） |
+| 進捗 | **3 / 11 完了** |
+| 直近 HEAD | `d1e1cd7` — feat(navigation): introduce NAV_ITEMS single source of truth |
+| ビルド/Lint 状態 | 本タスクの差分（package.json scripts、lib/navigation.ts、tests/lib/navigation.test.ts）はビルドへ影響なし。テスト `bun test tests/lib/navigation.test.ts` は 6/6 グリーン |
+| ユーザー決定事項 | ① Top sheet ドロワー　② インライン SVG（依存追加なし）　③ CT-TAS は今回ナビ未追加　④ "Next.js SPA" バッジ削除 |
+
+### 完了済みステップ
+
+| Step | コミット | 内容 |
+|---|---|---|
+| 1 | `7468763` | `chore(test): add bun test npm scripts` — `package.json` に `test` / `test:watch` を追加 |
+| 2 | `f64eba4` | `test(navigation): add failing spec for NAV_ITEMS shape` — Red: `tests/lib/navigation.test.ts` を追加 |
+| 3 | `d1e1cd7` | `feat(navigation): introduce NAV_ITEMS single source of truth` — Green: `lib/navigation.ts` を実装（20 件 / 5 カテゴリ） |
+
+### 残りステップ（次回セッションで実施）
+
+| Step | 種類 | 内容 | 対象ファイル |
+|---|---|---|---|
+| 4 | Red→Green | `groupByCategory()` ヘルパー実装 | `tests/lib/navigation.test.ts`, `lib/navigation.ts` |
+| 5 | Red→Green | ハンバーガーボタン + `aria-expanded` トグル | `tests/components/Header.test.tsx`(新規), `components/Header.tsx` |
+| 6 | Red→Green | ドロワー描画（4 カテゴリ × 全 20 リンク） | 同上 |
+| 7 | Red→Green | close 動作（Escape / overlay クリック / リンククリック） | 同上 |
+| 8 | Red→Green→Refactor | `aria-current="page"` 付与 + 旧 `.nav-links` ハードコード削除 + `Next.js SPA` バッジ削除 | 同上 |
+| 9 | Red→Green | CSS 追加（`.nav-hamburger`, `.nav-overlay`, `.nav-drawer*`） + 旧 `.nav-links` セレクタ削除 + `make css-reset` 実行 | `app/globals.css` |
+| 10 | Red→Green | `document.body.style.overflow` ロック + 最初のリンクへ初期フォーカス | `tests/components/Header.test.tsx`, `components/Header.tsx` |
+| 11 | Red→Green | 拡張性ガード（CT-TAS 追加シナリオを `groupByCategory` 純関数テストで保証） | `tests/lib/navigation.test.ts`, `lib/navigation.ts` 先頭コメント追加 |
+| 最終 | 検証 | `bun test` 全グリーン / `bun run lint` / `bun run build` / ブラウザ手動確認 | — |
+
+### 次回セッションでの再開プロンプト
+
+```
+最新 HEAD: d1e1cd7
+進行中タスク: グローバルヘッダーのハンバーガーメニュー化（TDD・3/11 完了）
+プランファイル: .claude/plans/tdd-optimized-dragon.md
+
+次の作業: Step 4 — groupByCategory() の Red → Green
+  1. tests/lib/navigation.test.ts に groupByCategory のテスト 3 件追加
+     - 返却順が ['home','foundation','istqb-foundation-ext','istqb-advanced','istqb-specialist'] 固定
+     - foundation グループは 8 件
+     - 各グループに表示用 title が入る
+  2. bun test tests/lib/navigation.test.ts で Red を確認
+  3. lib/navigation.ts に groupByCategory(items): NavGroup[] を実装
+     - カテゴリ → 日本語タイトル対応表を内部に持つ純関数
+     - タイトル候補: home="ホーム", foundation="基礎テスト手法",
+       istqb-foundation-ext="ISTQB Foundation Extension",
+       istqb-advanced="ISTQB Advanced", istqb-specialist="ISTQB Specialist"
+  4. Green 確認後コミット: `feat(navigation): add groupByCategory helper for drawer rendering`
+  5. Step 5 へ進む
+
+注意事項:
+  - 既存 tests/istqb-ctal-ta-complete-guide/page.test.tsx と tests/istqb-ctal-tm-complete-guide/page.test.tsx
+    の 2 件は失敗するが、これは本タスクと無関係（既存スケルトンの page 構造追従漏れ）。修正対象外。
+  - app/globals.css を編集した時点で必ず `make css-reset` を実行すること
+    （ルール: .claude/rules/css-cache-reset.md）。
+  - 11 ステップ完了後の最終検証で bun run build / bun run lint をパスさせる。
+```
