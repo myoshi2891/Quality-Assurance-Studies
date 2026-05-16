@@ -154,3 +154,31 @@ describe('Header CSS class hooks', () => {
     expect(dialog.classList.contains('nav-drawer')).toBe(true);
   });
 });
+
+describe('Header body scroll lock and focus', () => {
+  afterEach(() => {
+    document.body.style.overflow = '';
+  });
+
+  it('locks body scroll while the drawer is open', () => {
+    render(<Header />);
+    expect(document.body.style.overflow).toBe('');
+    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    expect(document.body.style.overflow).toBe('hidden');
+  });
+
+  it('restores body scroll after the drawer is closed', () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    fireEvent.keyDown(document, { key: 'Escape' });
+    expect(document.body.style.overflow).toBe('');
+  });
+
+  it('focuses the first link inside the drawer when it opens', () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    const dialog = screen.getByRole('dialog');
+    const firstLink = within(dialog).getAllByRole('link')[0];
+    expect(document.activeElement).toBe(firstLink);
+  });
+});

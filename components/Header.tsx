@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS, groupByCategory } from '../lib/navigation';
@@ -19,6 +19,7 @@ export default function Header({ className }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false);
   const groups = groupByCategory(NAV_ITEMS);
   const close = useCallback(() => setIsOpen(false), []);
+  const drawerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -28,6 +29,17 @@ export default function Header({ className }: HeaderProps) {
     document.addEventListener('keydown', onKeyDown);
     return () => document.removeEventListener('keydown', onKeyDown);
   }, [isOpen, close]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const firstLink = drawerRef.current?.querySelector('a');
+    firstLink?.focus();
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isOpen]);
 
   return (
     <nav className={`nav-header ${className || ''}`}>
@@ -63,6 +75,7 @@ export default function Header({ className }: HeaderProps) {
             onClick={close}
           />
           <aside
+            ref={drawerRef}
             id="global-nav-panel"
             className="nav-drawer"
             role="dialog"
