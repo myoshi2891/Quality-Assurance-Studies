@@ -65,69 +65,41 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 ---
 
-## 進行中: ハンバーガーメニュー化（TDD）
+## 完了: ハンバーガーメニュー化（TDD）
 
-HTML 移行とは独立した機能改修タスク。グローバルヘッダー [components/Header.tsx](components/Header.tsx) を全画面幅でハンバーガーメニュー化し、将来のガイド追加に備えて `lib/navigation.ts` を Single Source of Truth として導入する。
+HTML 移行とは独立した機能改修タスク。グローバルヘッダー [components/Header.tsx](components/Header.tsx) を全画面幅でハンバーガーメニュー化し、将来のガイド追加に備えて [lib/navigation.ts](lib/navigation.ts) を Single Source of Truth として導入した。
 
-### タスク概要
+### タスク結果
 
 | 項目 | 値 |
 |---|---|
 | プランファイル | [.claude/plans/tdd-optimized-dragon.md](.claude/plans/tdd-optimized-dragon.md) |
 | 作業ブランチ | `dev` |
-| TDD ステップ | 全 11 ステップ（1 ステップ = 1 コミット） |
-| 進捗 | **6 / 11 完了** |
-| 直近 HEAD | `36843de` — feat(header): render category drawer driven by NAV_ITEMS |
-| ビルド/Lint 状態 | `bun test` は本タスク関連 19/19 グリーン（既存スケルトン 2 件のみ既知の無関係失敗）。components/Header.tsx は型・ESLint 上問題なし |
+| TDD ステップ | 全 11 ステップ（1 ステップ = 1 コミット）すべて完了 |
+| 進捗 | **11 / 11 完了** ✓ |
+| 直近 HEAD | `e13242f` — test(navigation): cover extensibility for future specialist guides (e.g. CT-TAS) |
+| 検証結果 | `bun test` 67 pass / 2 fail（既知の無関係スケルトン: CT-ATLaS, CTAL-TA）<br>`bun run lint` 0 errors / 10 warnings（既存スケルトンの未使用変数のみ）<br>`bun run build` ✓ Compiled successfully / 22 static pages 生成 |
 | ユーザー決定事項 | ① Top sheet ドロワー　② インライン SVG（依存追加なし）　③ CT-TAS は今回ナビ未追加　④ "Next.js SPA" バッジ削除 |
 
 ### 完了済みステップ
 
 | Step | コミット | 内容 |
 |---|---|---|
-| 1 | `7468763` | `chore(test): add bun test npm scripts` — `package.json` に `test` / `test:watch` を追加 |
-| 2 | `f64eba4` | `test(navigation): add failing spec for NAV_ITEMS shape` — Red: `tests/lib/navigation.test.ts` を追加 |
-| 3 | `d1e1cd7` | `feat(navigation): introduce NAV_ITEMS single source of truth` — Green: `lib/navigation.ts` を実装（20 件 / 5 カテゴリ） |
-| 4 | `10a3cbd` | `feat(navigation): add groupByCategory helper for drawer rendering` — Red→Green: 順序固定 + 日本語タイトル付き純関数 |
-| 5 | `ca88a3a` | `feat(header): add hamburger toggle button with aria-expanded` — Red→Green: インライン SVG + `aria-label` / `aria-expanded` / `aria-controls` トグル |
-| 6 | `36843de` | `feat(header): render category drawer driven by NAV_ITEMS` — Red→Green: `<aside role="dialog">` 内に 4 カテゴリ見出し + 全 20 リンクを描画（home は見出しなし） |
+| 1 | `7468763` | `chore(test): add bun test npm scripts` |
+| 2 | `f64eba4` | `test(navigation): add failing spec for NAV_ITEMS shape` (Red) |
+| 3 | `d1e1cd7` | `feat(navigation): introduce NAV_ITEMS single source of truth` (Green: 20 件 / 5 カテゴリ) |
+| 4 | `10a3cbd` | `feat(navigation): add groupByCategory helper for drawer rendering` |
+| 5 | `ca88a3a` | `feat(header): add hamburger toggle button with aria-expanded` |
+| 6 | `36843de` | `feat(header): render category drawer driven by NAV_ITEMS` |
+| 7 | `7550269` | `feat(header): close drawer on escape, overlay click, link click` |
+| 8 | `6620f92` | `refactor(header): drop legacy inline nav links and SPA badge, mark active via aria-current` |
+| 9 | `0aa409a` | `style(header): add drawer/overlay/hamburger styles to globals.css` |
+| 10 | `4aeb6b3` | `feat(header): lock body scroll and focus first link when drawer opens` |
+| 11 | `e13242f` | `test(navigation): cover extensibility for future specialist guides (e.g. CT-TAS)` |
 
-### 残りステップ（次回セッションで実施）
+### 残作業（任意・次セッション以降）
 
-| Step | 種類 | 内容 | 対象ファイル |
-|---|---|---|---|
-| 7 | Red→Green | close 動作（Escape / overlay クリック / リンククリック） | `tests/components/Header.test.tsx`, `components/Header.tsx` |
-| 8 | Red→Green→Refactor | `aria-current="page"` 付与 + 旧 `.nav-links` ハードコード削除 + `Next.js SPA` バッジ削除 | 同上 |
-| 9 | Red→Green | CSS 追加（`.nav-hamburger`, `.nav-overlay`, `.nav-drawer*`） + 旧 `.nav-links` セレクタ削除 + `make css-reset` 実行 | `app/globals.css` |
-| 10 | Red→Green | `document.body.style.overflow` ロック + 最初のリンクへ初期フォーカス | `tests/components/Header.test.tsx`, `components/Header.tsx` |
-| 11 | Red→Green | 拡張性ガード（CT-TAS 追加シナリオを `groupByCategory` 純関数テストで保証） | `tests/lib/navigation.test.ts`, `lib/navigation.ts` 先頭コメント追加 |
-| 最終 | 検証 | `bun test` 全グリーン / `bun run lint` / `bun run build` / ブラウザ手動確認 | — |
-
-### 次回セッションでの再開プロンプト
-
-```
-最新 HEAD: 36843de
-進行中タスク: グローバルヘッダーのハンバーガーメニュー化（TDD・6/11 完了）
-プランファイル: .claude/plans/tdd-optimized-dragon.md
-
-次の作業: Step 7 — close 動作の Red → Green
-  1. tests/components/Header.test.tsx に describe('Header drawer close behavior') を追加し、以下 3 件を Red で書く
-     - Escape キー押下で dialog が消える（fireEvent.keyDown(document, { key: 'Escape' })）
-     - ドロワー内のリンクをクリックすると dialog が消える
-     - overlay 要素クリックで dialog が消える（overlay は `aria-hidden="true"` の `div.nav-overlay` として追加予定）
-  2. bun test tests/components/Header.test.tsx で Red を確認
-  3. components/Header.tsx を Green 実装
-     - close を `useCallback` で集約: const close = useCallback(() => setIsOpen(false), [])
-     - isOpen 中だけ document.addEventListener('keydown', onEsc) を `useEffect` 内で設定し cleanup で remove
-     - dialog の前に `<div className="nav-overlay" aria-hidden="true" onClick={close} />` を追加
-     - ドロワー内の各 Link に onClick={close} を付与
-  4. Green 確認後コミット: `feat(header): close drawer on escape, overlay click, link click`
-  5. Step 8 へ進む
-
-注意事項:
-  - 既存 tests/istqb-ctal-ta-complete-guide/page.test.tsx と tests/istqb-ctal-tm-complete-guide/page.test.tsx
-    の 2 件は失敗するが、これは本タスクと無関係（既存スケルトンの page 構造追従漏れ）。修正対象外。
-  - app/globals.css を編集した時点で必ず `make css-reset` を実行すること
-    （ルール: .claude/rules/css-cache-reset.md）。
-  - 11 ステップ完了後の最終検証で bun run build / bun run lint をパスさせる。
-```
+- [ ] ブラウザ手動確認（プランの `## 検証` チェックリスト参照）
+- [ ] `make css-reset` 実行（dev サーバー使用時のみ — `.next` は本タスク完了時点で削除済み）
+- [ ] CT-TAS 実装完了時に `NAV_ITEMS` 末尾に 1 行追加（`lib/navigation.ts` 冒頭コメント参照）
+- [ ] 既存スケルトン 2 件（`tests/istqb-ct-atlas-complete-guide/page.test.tsx`, `tests/istqb-ctal-ta-complete-guide/page.test.tsx`）の hero タイトル不一致は本タスクと無関係。別タスクで対応。
