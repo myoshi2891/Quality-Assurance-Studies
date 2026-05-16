@@ -139,3 +139,18 @@ describe('Header legacy cleanup', () => {
     expect(screen.queryByText('Next.js SPA')).toBeNull();
   });
 });
+
+describe('Header CSS class hooks', () => {
+  it('hamburger button carries the nav-hamburger class', () => {
+    render(<Header />);
+    const btn = screen.getByRole('button', { name: 'メニューを開く' });
+    expect(btn.classList.contains('nav-hamburger')).toBe(true);
+  });
+
+  it('drawer carries the nav-drawer class when open', () => {
+    render(<Header />);
+    fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
+    const dialog = screen.getByRole('dialog');
+    expect(dialog.classList.contains('nav-drawer')).toBe(true);
+  });
+});
