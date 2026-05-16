@@ -1,3 +1,16 @@
+/**
+ * グローバルヘッダーのドロワーに表示するナビ項目（Single Source of Truth）。
+ *
+ * 新しいガイドページ（例: CT-TAS）を追加するときは、以下 1 行を `NAV_ITEMS`
+ * 配列の末尾に追加するだけでヘッダーに反映される。
+ *
+ *   { href: '/istqb-ct-tas-complete-guide',
+ *     label: 'テスト自動化戦略(CT-TAS)ガイド',
+ *     category: 'istqb-specialist' },
+ *
+ * `category` は下記 5 種類から選ぶ。新カテゴリが必要な場合は、`NavCategory`・
+ * `CATEGORY_ORDER`・`CATEGORY_TITLES` の 3 箇所を同期して拡張する。
+ */
 export type NavCategory =
   | 'home'
   | 'foundation'

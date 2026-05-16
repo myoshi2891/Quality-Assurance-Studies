@@ -74,3 +74,35 @@ describe('groupByCategory', () => {
     expect(groups[0]?.category).toBe('home');
   });
 });
+
+describe('groupByCategory extensibility', () => {
+  it('absorbs a new specialist guide (e.g. future CT-TAS) without code changes', () => {
+    const futureTas: NavItem = {
+      href: '/istqb-ct-tas-complete-guide',
+      label: 'テスト自動化戦略(CT-TAS)ガイド',
+      category: 'istqb-specialist',
+    };
+    const extended: readonly NavItem[] = [...NAV_ITEMS, futureTas];
+    const specialist = groupByCategory(extended).find(
+      (g) => g.category === 'istqb-specialist',
+    );
+    expect(specialist?.items).toHaveLength(6);
+    expect(specialist?.items.at(-1)?.href).toBe('/istqb-ct-tas-complete-guide');
+  });
+
+  it('keeps the category order stable when a new specialist item is appended', () => {
+    const futureTas: NavItem = {
+      href: '/istqb-ct-tas-complete-guide',
+      label: 'CT-TAS',
+      category: 'istqb-specialist',
+    };
+    const groups = groupByCategory([...NAV_ITEMS, futureTas]);
+    expect(groups.map((g) => g.category)).toEqual([
+      'home',
+      'foundation',
+      'istqb-foundation-ext',
+      'istqb-advanced',
+      'istqb-specialist',
+    ]);
+  });
+});
