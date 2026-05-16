@@ -25,12 +25,10 @@ Provide the complete, ordered workflow for converting a standalone HTML page (wi
 1. **`MIGRATION_PROGRESS.md`** — 現在地・残タスク・再開プロンプト
 2. **このファイル（`SKILL.md`）** — 移行手順と QA_Studies 固有ルール
 
-## 未移行 HTML（2026-05-03 時点）
+## 未移行 HTML（2026-05-16 時点）
 
 | ファイル | 予定ルート | 状態 |
 |---|---|---|
-| `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | 未着手 |
-| `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | 完了 |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | 未着手 |
 
 ## Instructions

@@ -57,7 +57,7 @@
 # 本番イメージをビルドして起動
 make build
 make up
-# ブラウザで http://localhost:3000 を開く
+# ブラウザで http://localhost:3002 を開く
 
 # 開発環境（HMR 有効）
 make dev
@@ -79,7 +79,7 @@ bun install
 To run:
 
 ```bash
-bun run 
+bun run dev
 ```
 
 This project was created using `bun init` in bun v1.3.5. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
