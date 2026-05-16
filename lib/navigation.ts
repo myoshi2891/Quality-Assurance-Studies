@@ -56,6 +56,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-mbt-complete-guide', label: 'モデルベーステスト(CT-MBT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-act-complete-guide', label: '受入テスト(CT-AcT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-mat-complete-guide', label: 'モバイルアプリテスト(CT-MAT)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-tas-complete-guide', label: 'テスト自動化戦略(CT-TAS)ガイド', category: 'istqb-specialist' },
 ];
 
 const CATEGORY_ORDER: readonly NavCategory[] = [
