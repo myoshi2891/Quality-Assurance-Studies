@@ -833,7 +833,11 @@
                 color: var(--color-text-primary);
                 margin-bottom: 0.4rem;
             }
-            .tc-
+            .tc-body {
+                font-size: 0.82rem;
+                color: var(--color-text-secondary);
+                line-height: 1.55;
+            }
 
             /* ── TOC Grid ── */
             .toc-grid {
@@ -1008,8 +1012,15 @@
     transition: all 0.22s ease;
     white-space: nowrap;
 }
-.page-nav a:hover, .page-nav a[aria-current="true"] {
+.page-nav a:hover, .page-nav a[aria-current="location"] {
     color: var(--color-accent-cyan);
     border-color: var(--color-border-bright);
     background: rgba(79, 209, 197, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pi-bar {
+        animation: none !important;
+        width: var(--tw, 80%) !important;
+    }
 }

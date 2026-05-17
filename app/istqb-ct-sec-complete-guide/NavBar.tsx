@@ -12,7 +12,7 @@ export default function NavBar() {
             const links = document.querySelectorAll('.page-nav a');
             links.forEach((link) => {
               if (link.getAttribute('href') === `#${id}`) {
-                link.setAttribute('aria-current', 'true');
+                link.setAttribute('aria-current', 'location');
               } else {
                 link.removeAttribute('aria-current');
               }
