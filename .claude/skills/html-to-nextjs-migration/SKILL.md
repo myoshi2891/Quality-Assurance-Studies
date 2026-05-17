@@ -22,7 +22,7 @@ Provide the complete, ordered workflow for converting a standalone HTML page (wi
 
 ## セッション開始時に必ず読むファイル
 
-1. **`MIGRATION_PROGRESS.md`** — 現在地・残タスク・再開プロンプト
+1. **`docs/MIGRATION_PROGRESS.md`** — 現在地・残タスク・再開プロンプト
 2. **このファイル（`SKILL.md`）** — 移行手順と QA_Studies 固有ルール
 
 ## 未移行 HTML（2026-05-16 時点）
@@ -236,7 +236,7 @@ bun run build     # ビルド成功を確認
 bun run lint      # ESLint エラーなし
 ```
 
-その後 `MIGRATION_PROGRESS.md` の以下を更新してコミット:
+その後 `docs/MIGRATION_PROGRESS.md` の以下を更新してコミット:
 
 | フィールド | 更新内容 |
 |---|---|

@@ -41,8 +41,8 @@ paths:
 
 ### ステップ 4: Docs Sync（進捗同期）
 
-- 移行プロジェクトの場合、`MIGRATION_PROGRESS.md` を更新。
-- **コミット**: `chore(docs): update MIGRATION_PROGRESS.md — <page/feature name>`
+- 移行プロジェクトの場合、`docs/MIGRATION_PROGRESS.md` を更新。
+- **コミット**: `chore(docs): update docs/MIGRATION_PROGRESS.md — <page/feature name>`
 
 ## 除外事項
 
