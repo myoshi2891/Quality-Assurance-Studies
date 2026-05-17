@@ -76,10 +76,11 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-mbt-complete-guide/page.tsx` (モデルベーステスト CT-MBT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-act-complete-guide/page.tsx` (受入テスト CT-AcT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-mat-complete-guide/page.tsx` (モバイルアプリテスト CT-MAT 完全ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ct-sec-complete-guide/page.tsx` (セキュリティテスト CT-SEC 完全ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
-移行時に頻発する問題。詳細は `.claude/skills/html-to-nextjs-migration/SKILL.md` を参照。
+移行時に頻発する問題。詳細は `.claude/skills/html-to-nextjs-migration/SKILL.md` および **`.claude/rules/tdd-mandatory-cycle.md` (TDD 必須サイクルルール)** を参照。
 
 ### `.code-block` 内の改行
 
