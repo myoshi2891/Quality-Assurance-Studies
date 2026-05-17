@@ -5,10 +5,6 @@ export default function CTSECCompleteGuide() {
   return (
     <>
       <NavBar />
-      <div className="layout-content">
-        
-        {/* ═══ NAV ═══ */}
-        
 
         {/* ═══ HERO ═══ */}
             <section className="hero" id="chapter-0">
@@ -2801,8 +2797,6 @@ export default function CTSECCompleteGuide() {
                     倫理的注意：本書に記載されたセキュリティテスト技法は、必ず事前に書面による許可を得た上で、許可されたシステムのみに適用してください。
                 </p>
             </footer>
-    
-      </div>
     </>
   );
 }

@@ -974,7 +974,7 @@
 /* Page Specific Nav */
 .page-nav {
     position: sticky;
-    top: 60px; /* Offset for global header */
+    top: calc(60px + var(--disclaimer-height, 0px));
     z-index: 40;
     background: rgba(10, 14, 26, 0.94);
     backdrop-filter: blur(20px);
