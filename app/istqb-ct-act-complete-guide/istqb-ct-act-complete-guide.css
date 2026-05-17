@@ -64,7 +64,6 @@
 .istqb-ct-act-page {
     position: relative;
     font-family: var(--font-body, sans-serif);
-    overflow-x: hidden;
 }
 
 .istqb-ct-act-page::before {

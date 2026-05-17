@@ -9,7 +9,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `acc3155` — feat(tas): migrate CT-TAS guide to Next.js App Router |
+| 最新 HEAD | `d552eab` — feat(sec): migrate CT-SEC guide to Next.js App Router |
 | 次の作業 | 全てのHTML移行が完了しました |
 | ビルド状態 | ✅ ビルド成功・ESLint エラーなし（warnings のみ、既存ファイル由来） |
 
@@ -28,6 +28,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
@@ -51,7 +52,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 次回セッションでの再開プロンプト
 
 ```text
-最新 HEAD: acc3155
+最新 HEAD: d552eab
 次の作業: 全てのHTML移行が完了しました。
 ```
 

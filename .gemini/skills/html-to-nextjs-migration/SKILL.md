@@ -218,7 +218,7 @@ bun run build     # ビルド成功を確認
 bun run lint      # ESLint エラーなし
 ```
 
-その後 `MIGRATION_PROGRESS.md` の以下を更新してコミット:
+その後 `docs/MIGRATION_PROGRESS.md` の以下を更新してコミット:
 
 | フィールド | 更新内容 |
 |---|---|

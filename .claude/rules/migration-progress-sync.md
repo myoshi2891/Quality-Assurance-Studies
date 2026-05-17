@@ -2,10 +2,10 @@
 paths:
   - "app/**/*.tsx"
   - "app/**/*.css"
-  - "MIGRATION_PROGRESS.md"
+  - "docs/MIGRATION_PROGRESS.md"
 ---
 
-# MIGRATION_PROGRESS.md セッション終了前同期ルール
+# docs/MIGRATION_PROGRESS.md セッション終了前同期ルール
 
 HTML → Next.js 移行セッションでは、**コンテキストが逼迫する前に**必ず以下を実施してセッションを終えること。
 
@@ -21,7 +21,7 @@ HTML → Next.js 移行セッションでは、**コンテキストが逼迫す�
 **1ページの `git commit` 完了直後、次の HTML を `Read` し始める前に即実施する。**
 
 これは任意の「区切り」ではなく、次ページ読み込みのための**ゲート条件**。
-`MIGRATION_PROGRESS.md` が未コミットの状態で次の HTML を読み始めることは禁止。
+`docs/MIGRATION_PROGRESS.md` が未コミットの状態で次の HTML を読み始めることは禁止。
 
 ### 追加トリガー
 
@@ -39,7 +39,7 @@ bun run lint    # ESLint エラーなし
 git rev-parse --short HEAD
 ```
 
-### 2. `MIGRATION_PROGRESS.md` を更新
+### 2. `docs/MIGRATION_PROGRESS.md` を更新
 
 更新対象フィールド:
 
@@ -60,8 +60,8 @@ git rev-parse --short HEAD
 ### 4. コミット
 
 ```bash
-git add MIGRATION_PROGRESS.md
-git commit -m "chore(docs): update MIGRATION_PROGRESS.md — <作業内容の1行要約>"
+git add docs/MIGRATION_PROGRESS.md
+git commit -m "chore(docs): update docs/MIGRATION_PROGRESS.md — <作業内容の1行要約>"
 ```
 
 ## 禁止

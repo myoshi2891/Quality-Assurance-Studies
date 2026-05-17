@@ -47,7 +47,6 @@
 .istqb-ct-mbt-page {
     position: relative;
     font-family: var(--font-body, sans-serif);
-    overflow-x: hidden;
 
     /* Scanline overlay */
     &::before {
@@ -130,6 +129,7 @@
     .mbt-main {
         position: relative;
         z-index: 2;
+        overflow-x: hidden;
     }
     .container {
         max-width: 900px;

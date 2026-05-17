@@ -104,6 +104,9 @@ Next.js App Router 構成:
 - `app/istqb-ct-tas-complete-guide/istqb-ct-tas-complete-guide.css` — テスト自動化戦略(CT-TAS)ガイド固有スタイル
 - `app/istqb-ct-tas-complete-guide/page.tsx` — テスト自動化戦略(CT-TAS)ガイドページ
 - `app/istqb-ct-tas-complete-guide/NavBar.tsx` — CT-TAS ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ct-sec-complete-guide/istqb-ct-sec-complete-guide.css` — セキュリティテスト(CT-SEC)ガイド固有スタイル
+- `app/istqb-ct-sec-complete-guide/page.tsx` — セキュリティテスト(CT-SEC)ガイドページ
+- `app/istqb-ct-sec-complete-guide/NavBar.tsx` — CT-SEC ページ固有スティッキーナビ（`'use client'`）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
@@ -112,7 +115,7 @@ Next.js App Router 構成:
 
 ## 移行進行状況
 
-移行作業の詳細（HEAD・次タスク・再開プロンプト）は `MIGRATION_PROGRESS.md` を参照。
+移行作業の詳細（HEAD・次タスク・再開プロンプト）は `docs/MIGRATION_PROGRESS.md` を参照。
 
 **未移行 HTML（プロジェクトルートに残存）:**
 
@@ -165,7 +168,7 @@ Tailwind のアルファ修飾子（`bg-accent-cyan/10` 等）が正しく動作
 HTML から移行した `<nav>` がページ内アンカーリンク + `IntersectionObserver` スクロールスパイを持つ場合:
 
 1. `app/<page-slug>/NavBar.tsx` を `'use client'` で作成し `useEffect` 内で `IntersectionObserver` を設定（クリーンアップ: `obs.disconnect()`）
-2. CSS の `position: sticky` には `top: 60px`（Header 高さ）・`z-index: 40`（Header の `z-50` より低く）を設定
+2. CSS の `position: sticky` には `top: calc(60px + var(--disclaimer-height, 0px))`（Header 高さ + DisclaimerBanner 高さ）・`z-index: 40`（Header の `z-50` より低く）を設定
 3. `page.tsx`（Server Component）先頭で `<NavBar />` をインポートして配置
 4. アクティブリンクに `aria-current="location"` を付与（アクセシビリティ必須）:
 
@@ -202,7 +205,7 @@ bun run build   # ビルド成功を確認
 bun run lint    # ESLint エラーなし
 ```
 
-その後 `MIGRATION_PROGRESS.md` を更新してコミット。手順は `.claude/rules/migration-progress-sync.md` を参照。
+その後 `docs/MIGRATION_PROGRESS.md` を更新してコミット。手順は `.claude/rules/migration-progress-sync.md` を参照。
 
 ### 外部リンク
 

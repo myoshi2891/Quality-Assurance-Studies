@@ -22,7 +22,7 @@ C:\Users\johndoe\...
 
 ## 適用対象
 
-- `MIGRATION_PROGRESS.md` などのドキュメント
+- `docs/MIGRATION_PROGRESS.md` などのドキュメント
 - `.claude/rules/` や `.claude/plans/` 内のファイル
 - コードのコメント・JSDoc
 - 設定ファイル（`.claude/settings.json` 等）
