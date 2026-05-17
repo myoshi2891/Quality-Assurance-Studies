@@ -1,23 +1,58 @@
 'use client';
 
+import { useState, useEffect } from 'react';
+
+const NAV_LINKS = [
+  { id: 'toc', label: '目次' },
+  { id: 'ch1', label: 'Ch.1 概念' },
+  { id: 'ch2', label: 'Ch.2 リソース' },
+  { id: 'ch3', label: 'Ch.3 準備' },
+  { id: 'ch4', label: 'Ch.4 デプロイ' },
+  { id: 'ch5', label: 'Ch.5 影響分析' },
+  { id: 'ch6', label: 'Ch.6 改善' },
+  { id: 'ai', label: 'AI/トレンド' },
+  { id: 'exam', label: '試験対策' },
+  { id: 'refs', label: '参考文献' },
+] as const;
+
 export default function NavBar() {
+  const [activeId, setActiveId] = useState<string>('');
+
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActiveId(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: '-60px 0px -60% 0px', threshold: 0 },
+    );
+
+    for (const { id } of NAV_LINKS) {
+      const el = document.getElementById(id);
+      if (el) obs.observe(el);
+    }
+
+    return () => obs.disconnect();
+  }, []);
+
   return (
     <nav className="sticky-nav z-40">
-      
-            <div className="nav-inner">
-                <span className="nav-brand">CT-TAS</span>
-                <a href="#toc" className="nav-link">目次</a>
-                <a href="#ch1" className="nav-link">Ch.1 概念</a>
-                <a href="#ch2" className="nav-link">Ch.2 リソース</a>
-                <a href="#ch3" className="nav-link">Ch.3 準備</a>
-                <a href="#ch4" className="nav-link">Ch.4 デプロイ</a>
-                <a href="#ch5" className="nav-link">Ch.5 影響分析</a>
-                <a href="#ch6" className="nav-link">Ch.6 改善</a>
-                <a href="#ai" className="nav-link">AI/トレンド</a>
-                <a href="#exam" className="nav-link">試験対策</a>
-                <a href="#refs" className="nav-link">参考文献</a>
-            </div>
-        
+      <div className="nav-inner">
+        <span className="nav-brand">CT-TAS</span>
+        {NAV_LINKS.map(({ id, label }) => (
+          <a
+            key={id}
+            href={`#${id}`}
+            className="nav-link"
+            aria-current={activeId === id ? 'location' : undefined}
+          >
+            {label}
+          </a>
+        ))}
+      </div>
     </nav>
   );
 }

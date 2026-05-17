@@ -55,7 +55,7 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[];
 
 [components/Header.tsx](components/Header.tsx) を以下の構造に再構築（`'use client'` 維持）。
 
-```
+```tsx
 <nav class="nav-header" role="navigation" aria-label="グローバルナビゲーション">
   <Link class="nav-logo">QA_STUDIES</Link>
   <button class="nav-hamburger"

@@ -7,7 +7,7 @@
 
 **禁止例**:
 
-```
+```text
 /Users/johndoe/.claude/plans/my-plan.md
 /home/johndoe/workspace/project/...
 C:\Users\johndoe\...
@@ -15,7 +15,7 @@ C:\Users\johndoe\...
 
 **許可例**:
 
-```
+```text
 .claude/plans/my-plan.md        （リポジトリルートからの相対パス）
 ~/.claude/plans/my-plan.md      （チルダ展開形式、リポジトリ内ではなくローカルを示すときのみ）
 ```

@@ -2,8 +2,8 @@ import { describe, it, expect } from 'bun:test';
 import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 20 entries (home + 8 foundation + 1 fdn-ext + 5 advanced + 5 specialist)', () => {
-    expect(NAV_ITEMS).toHaveLength(20);
+  it('contains 21 entries (home + 8 foundation + 1 fdn-ext + 5 advanced + 6 specialist)', () => {
+    expect(NAV_ITEMS).toHaveLength(21);
   });
 
   it('every item has a unique href', () => {
@@ -76,24 +76,27 @@ describe('groupByCategory', () => {
 });
 
 describe('groupByCategory extensibility', () => {
-  it('absorbs a new specialist guide (e.g. future CT-TAS) without code changes', () => {
-    const futureTas: NavItem = {
-      href: '/istqb-ct-tas-complete-guide',
-      label: 'テスト自動化戦略(CT-TAS)ガイド',
+  it('absorbs a new specialist guide (e.g. future CT-SEC) without code changes', () => {
+    const originalCount = groupByCategory(NAV_ITEMS).find(
+      (g) => g.category === 'istqb-specialist',
+    )?.items.length ?? 0;
+    const futureSec: NavItem = {
+      href: '/istqb-ct-sec-complete-guide',
+      label: 'セキュリティテスト(CT-SEC)ガイド',
       category: 'istqb-specialist',
     };
-    const extended: readonly NavItem[] = [...NAV_ITEMS, futureTas];
+    const extended: readonly NavItem[] = [...NAV_ITEMS, futureSec];
     const specialist = groupByCategory(extended).find(
       (g) => g.category === 'istqb-specialist',
     );
-    expect(specialist?.items).toHaveLength(6);
-    expect(specialist?.items.at(-1)?.href).toBe('/istqb-ct-tas-complete-guide');
+    expect(specialist?.items).toHaveLength(originalCount + 1);
+    expect(specialist?.items.at(-1)?.href).toBe('/istqb-ct-sec-complete-guide');
   });
 
   it('keeps the category order stable when a new specialist item is appended', () => {
     const futureTas: NavItem = {
-      href: '/istqb-ct-tas-complete-guide',
-      label: 'CT-TAS',
+      href: '/istqb-ct-sec-complete-guide',
+      label: 'CT-SEC',
       category: 'istqb-specialist',
     };
     const groups = groupByCategory([...NAV_ITEMS, futureTas]);
