@@ -1,0 +1,54 @@
+# Git / バージョン管理
+.git
+.gitignore
+.githooks
+.gitattributes
+
+# Next.js ビルド成果物（Docker 内で再ビルドする）
+.next
+
+# 依存関係（Docker 内で bun install する）
+node_modules
+
+# アーカイブ（大容量・ランタイム不要）
+html-archive
+md-archive
+
+# 開発・移行ツール（ランタイム不要）
+scripts
+tests
+happydom-setup.ts
+
+# 開発専用設定ファイル
+bunfig.toml
+prettier.config.cjs
+eslint.config.mjs
+postcss.config.mjs
+.markdownlint.json
+
+# TypeScript インクリメンタルビルドキャッシュ
+tsconfig.tsbuildinfo
+
+# IDE・AIエディタ設定
+.vscode
+.claude
+.gemini
+.geminiignore
+
+# ドキュメント（ランタイム不要）
+README.md
+CLAUDE.md
+GEMINI.md
+MIGRATION_PROGRESS.md
+
+# OS 生成ファイル
+.DS_Store
+Thumbs.db
+
+# ログ
+*.log
+
+# 環境変数
+.env
+.env.local
+.env*.local

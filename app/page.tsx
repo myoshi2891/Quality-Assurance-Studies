@@ -1,14 +1,11 @@
-import Header from '../components/Header';
-
 /**
  * Renders the "現代ソフトウェアテスト完全ガイド 2025" homepage as a single-page, sectioned guide.
  *
- * @returns The JSX element for the complete homepage layout, including the header, main content sections (top, overview, step1–step10, methodologies, BDD, nonfunctional, security, accessibility, ISTQB, references) and footer.
+ * @returns The JSX element for the complete homepage layout, including the main content sections (top, overview, step1–step10, methodologies, BDD, nonfunctional, security, accessibility, ISTQB, references) and footer.
  */
 export default function Home() {
     return (
         <>
-            <Header />
             <main>
                 <section
                     className="hero min-h-screen flex flex-col justify-center pt-[60px] relative overflow-hidden hero-bg-glow"
@@ -99,7 +96,7 @@ export default function Home() {
                             これにより欠陥の早期発見・修正コストの削減・システムの高回復力（レジリエンス）が同時に実現されます。
                             <br />
                             <a
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 href="https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai"
                                 className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                 target="_blank"
@@ -108,7 +105,7 @@ export default function Home() {
                             </a>
                             &nbsp;
                             <a
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 href="https://trendig.com/en/blog/software-testing-trends-2025/"
                                 className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                 target="_blank"
@@ -161,7 +158,7 @@ export default function Home() {
                                     </td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.design-master.com/pyramid-diamond-honeycomb-or-trophy-find-a-testing-strategy-that-fits.html"
                                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
@@ -185,7 +182,7 @@ export default function Home() {
                                     </td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
                                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
@@ -208,7 +205,7 @@ export default function Home() {
                                     </td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://premiersoft.net/en/blog/an-analysis-of-the-different-test-shapes"
                                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
@@ -231,7 +228,7 @@ export default function Home() {
                                     </td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.design-master.com/pyramid-diamond-honeycomb-or-trophy-find-a-testing-strategy-that-fits.html"
                                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
@@ -254,7 +251,7 @@ export default function Home() {
                                     </td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.design-master.com/pyramid-diamond-honeycomb-or-trophy-find-a-testing-strategy-that-fits.html"
                                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
@@ -306,7 +303,7 @@ export default function Home() {
                         になります。 早期発見 = コスト最小化のための最も費用対効果の高い投資です。{' '}
                         <br />
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.ibm.com/think/insights/unit-testing-best-practices"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -315,7 +312,7 @@ export default function Home() {
                         </a>
                         &nbsp;
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.testdevlab.com/blog/the-ultimate-guide-to-unit-testing"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -512,7 +509,7 @@ export default function Home() {
                         </strong>
                         <br />
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://kentcdodds.com/blog/testing-implementation-details"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -623,7 +620,7 @@ export default function Home() {
                     <div className="mt-2 text-sm text-muted">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://testomat.io/blog/unit-testing-tools/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -631,7 +628,7 @@ export default function Home() {
                             testomat.io
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.practitest.com/resource-center/blog/best-unit-testing-tools/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -639,7 +636,7 @@ export default function Home() {
                             practitest.com
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.testmuai.com/blog/unit-testing-frameworks/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -811,7 +808,7 @@ export default function Home() {
                         予測不可能なランダムデータ・異常値をシステムに注入し、クラッシュや脆弱性を意図的に引き起こす手法。セキュリティ攻撃ベクトルの発見に極めて有効です。
                         <br />
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://buzzclan.com/quality-assurance/black-box-testing/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -913,7 +910,7 @@ export default function Home() {
                     <div className="text-[13px] text-text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://totalshiftleft.ai/blog/functional-testing-vs-integration-testing"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -921,7 +918,7 @@ export default function Home() {
                             totalshiftleft.ai
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.testim.io/blog/integration-testing-vs-functional-testing/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -929,7 +926,7 @@ export default function Home() {
                             testim.io
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.qatouch.com/blog/functional-test-vs-integration-test/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -982,7 +979,7 @@ client = <span class="cls">TestClient</span>(app)
                     <div className="text-[13px] text-text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://learning.postman.com/docs/tests-and-scripts/test-apis/test-apis"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1115,7 +1112,7 @@ client = <span class="cls">TestClient</span>(app)
                     <div className="text-[13px] text-text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1123,7 +1120,7 @@ client = <span class="cls">TestClient</span>(app)
                             plainenglish.io — 2025 Benchmarks
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://testdino.com/blog/playwright-vs-cypress/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1131,7 +1128,7 @@ client = <span class="cls">TestClient</span>(app)
                             testdino.com
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://devin-rosario.medium.com/cypress-vs-playwright-the-essential-2025-comparison-for-developers-d2e40f20f450"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1139,7 +1136,7 @@ client = <span class="cls">TestClient</span>(app)
                             medium.com (Rosario)
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://thinksys.com/qa-testing/playwright-vs-selenium-vs-cypress/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1308,7 +1305,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <strong>35%多く特定</strong>できることが実証されています。
                         <br />
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://dev.to/matt_calder_e620d84cf0c14/black-box-vs-white-box-vs-grey-box-testing-a-practical-guide-i9d"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1316,7 +1313,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             dev.to — Practical Guide
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1324,7 +1321,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             testlio.com
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.testdevlab.com/blog/white-box-vs-black-box-vs-gray-box-testing"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1451,7 +1448,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                     <div className="text-[13px] text-text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://cucumber.io/docs/bdd/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1459,7 +1456,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             cucumber.io — BDD Official
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://monday.com/blog/rnd/behavior-driven-development/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1467,7 +1464,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             monday.com — BDD Essential Guide
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://automationpanda.com/2025/03/06/is-bdd-dying/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1486,7 +1483,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <strong>ハイブリッドBDDアプローチ</strong>が推奨されます。
                         <br />
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1573,7 +1570,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                     <div className="text-[13px] text-text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://medium.com/@priti_9991/performance-testing-metrics-that-matter-in-2025-fc4d4d7a68fe"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1581,7 +1578,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             medium.com — Metrics 2025
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://pflb.us/blog/performance-testing-metrics/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1589,7 +1586,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             pflb.us
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://solutionshub.epam.com/blog/post/types-of-performance-testing"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1712,7 +1709,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                     <div className="text-[13px] text-text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1749,7 +1746,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         次世代セキュリティQAの最重要課題になっています。
                         <br />
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1945,7 +1942,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                     <div className="text-sm text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://owasp.org/Top10/2025/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1953,7 +1950,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             owasp.org — OWASP Top 10:2025
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://owasp.org/Top10/2025/0x00_2025-Introduction/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -1990,7 +1987,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         スクリーンリーダーの文脈的意味・キーボードナビゲーションの直感性には人間による手動監査が不可欠です。
                         <br />
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://dev.to/maria_bueno/2025-guide-best-10-accessibility-testing-tools-automated-41"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -2054,7 +2051,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                     <div className="text-[13px] text-text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://www.deque.com/axe/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -2062,7 +2059,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             deque.com — Axe Platform
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://testguild.com/accessibility-testing-tools-automation/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -2163,7 +2160,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             </div>
                             <div className="mt-8">
                                 <a
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                                     className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                     target="_blank"
@@ -2172,7 +2169,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                 </a>
                                 &nbsp;
                                 <a
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     href="https://jstqb.jp/"
                                     className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                     target="_blank"
@@ -2209,7 +2206,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                 </span>
                             </div>
                             <a
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 href="https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/"
                                 className="url-ref mt-2 d-block"
                                 target="_blank"
@@ -2300,7 +2297,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                 </div>
                             </div>
                             <a
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 href="https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/"
                                 className="url-ref mt-2 d-block"
                                 target="_blank"
@@ -2333,7 +2330,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                         AIシステムのテスト・AIを使ったテスト支援
                                     </div>
                                     <a
-                                        rel="noopener"
+                                        rel="noopener noreferrer"
                                         href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/"
                                         className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                         target="_blank"
@@ -2355,7 +2352,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                         生成AIを活用したテストプロセス全体の最適化
                                     </div>
                                     <a
-                                        rel="noopener"
+                                        rel="noopener noreferrer"
                                         href="https://istqb.org/certifications/gen-ai/"
                                         className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                         target="_blank"
@@ -2371,7 +2368,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                         モバイルアプリケーションテスト専門
                                     </div>
                                     <a
-                                        rel="noopener"
+                                        rel="noopener noreferrer"
                                         href="https://istqb.org/certifications/certified-tester-mobile-application-testing-ct-mat/"
                                         className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                         target="_blank"
@@ -2395,7 +2392,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                         大規模アジャイル組織でのテスト品質管理
                                     </div>
                                     <a
-                                        rel="noopener"
+                                        rel="noopener noreferrer"
                                         href="https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/"
                                         className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                         target="_blank"
@@ -2512,7 +2509,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                     <div className="text-sm text-muted mt-2">
                         参照:
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://istqb.org/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -2520,7 +2517,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             istqb.org — 公式サイト
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -2528,7 +2525,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             CTFL v4.0 詳細
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://istqb.org/certifications/"
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -2536,7 +2533,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             全資格一覧
                         </a>
                         <a
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             href="https://glossary.istqb.org/en_US/search?term="
                             className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-70 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
@@ -2576,7 +2573,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>ISTQB公式サイト</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://istqb.org/"
                                             className="ref-url"
                                             target="_blank"
@@ -2590,7 +2587,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>CTFL v4.0 詳細ページ</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                                             className="ref-url"
                                             target="_blank"
@@ -2604,7 +2601,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>全資格一覧</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://istqb.org/certifications/"
                                             className="ref-url"
                                             target="_blank"
@@ -2618,7 +2615,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>CT-AI（AIテスト）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/"
                                             className="ref-url"
                                             target="_blank"
@@ -2632,7 +2629,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>CT-GenAI（生成AIテスト）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://istqb.org/certifications/gen-ai/"
                                             className="ref-url"
                                             target="_blank"
@@ -2646,7 +2643,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>CT-MAT（モバイルテスト）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://istqb.org/certifications/certified-tester-mobile-application-testing-ct-mat/"
                                             className="ref-url"
                                             target="_blank"
@@ -2660,7 +2657,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>CT-ATLaS（大規模アジャイル）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/"
                                             className="ref-url"
                                             target="_blank"
@@ -2674,7 +2671,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>CTAL-ATT（アジャイル技術）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://istqb.org/certifications/certified-tester-advanced-level-agile-technical-tester-ctal-att/"
                                             className="ref-url"
                                             target="_blank"
@@ -2688,7 +2685,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>ISTQBグロッサリー</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://glossary.istqb.org/en_US/search?term="
                                             className="ref-url"
                                             target="_blank"
@@ -2702,7 +2699,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>JSTQB（日本語版）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://jstqb.jp/"
                                             className="ref-url"
                                             target="_blank"
@@ -2716,7 +2713,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Test Shapes（Pyramid/Diamond/Honeycomb/Trophy）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.design-master.com/pyramid-diamond-honeycomb-or-trophy-find-a-testing-strategy-that-fits.html"
                                             className="ref-url"
                                             target="_blank"
@@ -2730,7 +2727,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Test Trophy（Kent C. Dodds）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
                                             className="ref-url"
                                             target="_blank"
@@ -2744,7 +2741,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Test Honeycomb（Premiersoft）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://premiersoft.net/en/blog/an-analysis-of-the-different-test-shapes"
                                             className="ref-url"
                                             target="_blank"
@@ -2758,7 +2755,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Unit Testing Best Practices（IBM）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.ibm.com/think/insights/unit-testing-best-practices"
                                             className="ref-url"
                                             target="_blank"
@@ -2772,7 +2769,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Ultimate Guide to Unit Testing（TestDevLab）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.testdevlab.com/blog/the-ultimate-guide-to-unit-testing"
                                             className="ref-url"
                                             target="_blank"
@@ -2786,7 +2783,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Testing Implementation Details（Kent C. Dodds）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://kentcdodds.com/blog/testing-implementation-details"
                                             className="ref-url"
                                             target="_blank"
@@ -2800,7 +2797,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Best Unit Testing Tools 2025（Testomat.io）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://testomat.io/blog/unit-testing-tools/"
                                             className="ref-url"
                                             target="_blank"
@@ -2814,7 +2811,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Best Unit Testing Tools 2026（PractiTest）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.practitest.com/resource-center/blog/best-unit-testing-tools/"
                                             className="ref-url"
                                             target="_blank"
@@ -2828,7 +2825,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>17 Best Unit Testing Frameworks（LambdaTest）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.testmuai.com/blog/unit-testing-frameworks/"
                                             className="ref-url"
                                             target="_blank"
@@ -2842,7 +2839,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Functional vs Integration Testing（TotalShiftLeft）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://totalshiftleft.ai/blog/functional-testing-vs-integration-testing"
                                             className="ref-url"
                                             target="_blank"
@@ -2856,7 +2853,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Integration vs Functional Testing（Testim）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.testim.io/blog/integration-testing-vs-functional-testing/"
                                             className="ref-url"
                                             target="_blank"
@@ -2870,7 +2867,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Postman API Testing Docs</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://learning.postman.com/docs/tests-and-scripts/test-apis/test-apis"
                                             className="ref-url"
                                             target="_blank"
@@ -2884,7 +2881,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Playwright vs Cypress 2025 Benchmarks</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55"
                                             className="ref-url"
                                             target="_blank"
@@ -2898,7 +2895,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Playwright vs Cypress（TestDino）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://testdino.com/blog/playwright-vs-cypress/"
                                             className="ref-url"
                                             target="_blank"
@@ -2912,7 +2909,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Playwright vs Selenium vs Cypress（ThinkSys）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://thinksys.com/qa-testing/playwright-vs-selenium-vs-cypress/"
                                             className="ref-url"
                                             target="_blank"
@@ -2926,7 +2923,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Black/White/Grey Box Testing（Testlio）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/"
                                             className="ref-url"
                                             target="_blank"
@@ -2940,7 +2937,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Practical Guide（DEV Community）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://dev.to/matt_calder_e620d84cf0c14/black-box-vs-white-box-vs-grey-box-testing-a-practical-guide-i9d"
                                             className="ref-url"
                                             target="_blank"
@@ -2954,7 +2951,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Cucumber BDD Official</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://cucumber.io/docs/bdd/"
                                             className="ref-url"
                                             target="_blank"
@@ -2968,7 +2965,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>BDD Essential Guide 2026（Monday.com）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://monday.com/blog/rnd/behavior-driven-development/"
                                             className="ref-url"
                                             target="_blank"
@@ -2982,7 +2979,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Is BDD Dying? 2025（Automation Panda）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://automationpanda.com/2025/03/06/is-bdd-dying/"
                                             className="ref-url"
                                             target="_blank"
@@ -2996,7 +2993,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>BDD Reality Check 2025（303 Software）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework"
                                             className="ref-url"
                                             target="_blank"
@@ -3010,7 +3007,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Performance Testing Metrics 2025（Medium）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://medium.com/@priti_9991/performance-testing-metrics-that-matter-in-2025-fc4d4d7a68fe"
                                             className="ref-url"
                                             target="_blank"
@@ -3024,7 +3021,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>8 Types of Performance Testing（EPAM）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://solutionshub.epam.com/blog/post/types-of-performance-testing"
                                             className="ref-url"
                                             target="_blank"
@@ -3038,7 +3035,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Modern SDET Toolkit 2026（Medium）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa"
                                             className="ref-url"
                                             target="_blank"
@@ -3052,7 +3049,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>OWASP Top 10:2025</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://owasp.org/Top10/2025/"
                                             className="ref-url"
                                             target="_blank"
@@ -3066,7 +3063,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>OWASP Introduction 2025</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://owasp.org/Top10/2025/0x00_2025-Introduction/"
                                             className="ref-url"
                                             target="_blank"
@@ -3080,7 +3077,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Security Testing 2025（Mend.io）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/"
                                             className="ref-url"
                                             target="_blank"
@@ -3094,7 +3091,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Best a11y Testing Tools 2025（DEV）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://dev.to/maria_bueno/2025-guide-best-10-accessibility-testing-tools-automated-41"
                                             className="ref-url"
                                             target="_blank"
@@ -3108,7 +3105,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Axe Platform（Deque Systems）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.deque.com/axe/"
                                             className="ref-url"
                                             target="_blank"
@@ -3122,7 +3119,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Top 18 Accessibility Tools 2025（TestGuild）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://testguild.com/accessibility-testing-tools-automation/"
                                             className="ref-url"
                                             target="_blank"
@@ -3136,7 +3133,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Shift-Left Testing 2025（QASource）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai"
                                             className="ref-url"
                                             target="_blank"
@@ -3150,7 +3147,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Software Testing Trends 2025（Trendig）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://trendig.com/en/blog/software-testing-trends-2025/"
                                             className="ref-url"
                                             target="_blank"
@@ -3164,7 +3161,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Top 5 Testing Trends 2025（Xray）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://www.getxray.app/blog/top-2025-software-testing-trends"
                                             className="ref-url"
                                             target="_blank"
@@ -3178,7 +3175,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <td>Future of Black Box Testing 2025（BuzzClan）</td>
                                     <td>
                                         <a
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             href="https://buzzclan.com/quality-assurance/black-box-testing/"
                                             className="ref-url"
                                             target="_blank"
@@ -3195,11 +3192,11 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
             <footer>
                 <p>
                     現代ソフトウェアテスト完全ガイド 2025 &nbsp;|&nbsp;
-                    <a rel="noopener" href="https://istqb.org/" target="_blank">
+                    <a rel="noopener noreferrer" href="https://istqb.org/" target="_blank">
                         ISTQB CTFL v4.0
                     </a>{' '}
                     準拠 &nbsp;|&nbsp;
-                    <a rel="noopener" href="https://owasp.org/Top10/2025/" target="_blank">
+                    <a rel="noopener noreferrer" href="https://owasp.org/Top10/2025/" target="_blank">
                         OWASP Top 10:2025
                     </a>
                     対応

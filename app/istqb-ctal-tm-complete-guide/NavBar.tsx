@@ -56,7 +56,7 @@ export default function NavBar() {
       className="sticky-nav"
       style={{
         position: 'sticky',
-        top: '60px',
+        top: 'calc(60px + var(--disclaimer-height, 0px))',
         zIndex: 40,
       }}
     >

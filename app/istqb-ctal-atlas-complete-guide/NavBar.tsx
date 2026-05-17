@@ -48,7 +48,7 @@ export default function NavBar() {
       aria-label="章ナビゲーション"
       style={{
         position: 'sticky',
-        top: '60px',
+        top: 'calc(60px + var(--disclaimer-height, 0px))',
         zIndex: 40,
       }}
     >

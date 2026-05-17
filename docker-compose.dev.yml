@@ -1,0 +1,26 @@
+# 開発環境用 Docker Compose 設定
+# ボリュームマウントと HMR (Hot Module Replacement) を有効化
+# 使用方法: make dev
+name: qa-studies-dev
+
+services:
+  app:
+    image: oven/bun:1.3.5-alpine
+    container_name: qa-studies-dev
+    working_dir: /app
+    # 初回起動時に依存関係をインストールしてから dev サーバーを起動
+    command: sh -c "bun install && bun run dev"
+    ports:
+      - "3002:3000"
+    environment:
+      NODE_ENV: development
+      NEXT_TELEMETRY_DISABLED: "1"
+      # Docker Desktop (Mac/Windows) では inotify が動作しないためポーリングに切り替える
+      WATCHPACK_POLLING: "true"
+    volumes:
+      # ソースコードをバインドマウント（HMR のためにホスト変更をリアルタイム反映）
+      - .:/app
+      # node_modules はコンテナ内の匿名ボリュームを使用（macOS arm64 バイナリとの混在防止）
+      - /app/node_modules
+      # .next キャッシュもコンテナ内に分離
+      - /app/.next

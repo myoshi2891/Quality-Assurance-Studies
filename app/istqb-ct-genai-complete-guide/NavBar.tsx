@@ -34,7 +34,7 @@ export default function NavBar() {
     }, []);
 
     return (
-        <nav className="sticky-nav sticky top-[60px] z-40" aria-label="CT-GenAI セクションナビゲーション">
+        <nav className="sticky-nav sticky z-40" style={{ top: 'calc(60px + var(--disclaimer-height, 0px))' }} aria-label="CT-GenAI セクションナビゲーション">
             <div className="nav-inner">
                 <span className="nav-logo">CT-GenAI v1.0</span>
                 <a className={`nav-link ${activeId === 'toc' ? 'active' : ''}`} href="#toc" aria-current={activeId === 'toc' ? 'location' : undefined}>📋 目次</a>

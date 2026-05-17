@@ -18,6 +18,35 @@ bun start            # ビルド成果物をプロダクションモードで起
 bun run lint         # ESLint 実行
 ```
 
+## Docker コマンド
+
+```sh
+# 本番環境
+make build      # 本番イメージをビルドする
+make up         # 本番コンテナを起動する（port 3002）
+make down       # 本番コンテナを停止・削除する
+make logs       # ログをストリーム表示する
+make shell      # コンテナ内でシェルを起動する
+
+# 開発環境（HMR 有効）
+make dev        # 開発コンテナを起動する（フォアグラウンド）
+make dev-up     # 開発コンテナをバックグラウンドで起動する
+make dev-down   # 開発コンテナを停止する
+make dev-logs   # ログをストリーム表示する
+make dev-shell  # コンテナ内でシェルを起動する
+
+# クリーンアップ
+make clean      # 未使用イメージを削除する
+make clean-all  # 全リソース（ボリューム含む）を削除する（⚠️ データ消失注意）
+```
+
+### Docker 構成メモ
+
+- **ベースイメージ**: `oven/bun:1.3.5-alpine`（全ステージ共通、package.json の packageManager に固定）
+- **マルチステージ**: `deps` → `builder` → `runner` の 3 ステージ
+- **runner**: Next.js `output: 'standalone'` の最小イメージ。`nobody` ユーザー（uid=65534）で実行
+- **開発 HMR**: `WATCHPACK_POLLING=true` で Docker Desktop (Mac/Windows) のファイル変更検知を有効化
+
 ## アーキテクチャ
 
 Next.js App Router 構成:
@@ -66,6 +95,15 @@ Next.js App Router 構成:
 - `app/istqb-ct-mbt-complete-guide/istqb-ct-mbt-complete-guide.css` — モデルベーステスト(CT-MBT)ガイド固有スタイル
 - `app/istqb-ct-mbt-complete-guide/page.tsx` — モデルベーステスト(CT-MBT)ガイドページ
 - `app/istqb-ct-mbt-complete-guide/NavBar.tsx` — CT-MBT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-act-complete-guide/istqb-ct-act-complete-guide.css` — 受入テスト(CT-AcT)ガイド固有スタイル
+- `app/istqb-ct-act-complete-guide/page.tsx` — 受入テスト(CT-AcT)ガイドページ
+- `app/istqb-ct-act-complete-guide/NavBar.tsx` — CT-AcT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-mat-complete-guide/istqb-ct-mat-complete-guide.css` — モバイルアプリテスト(CT-MAT)ガイド固有スタイル
+- `app/istqb-ct-mat-complete-guide/page.tsx` — モバイルアプリテスト(CT-MAT)ガイドページ
+- `app/istqb-ct-mat-complete-guide/NavBar.tsx` — CT-MAT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-tas-complete-guide/istqb-ct-tas-complete-guide.css` — テスト自動化戦略(CT-TAS)ガイド固有スタイル
+- `app/istqb-ct-tas-complete-guide/page.tsx` — テスト自動化戦略(CT-TAS)ガイドページ
+- `app/istqb-ct-tas-complete-guide/NavBar.tsx` — CT-TAS ページ固有スティッキーナビ（`'use client'`）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
@@ -80,12 +118,27 @@ Next.js App Router 構成:
 
 | ファイル | 対応する予定ルート | 状態 |
 |---|---|---|
-| `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | 未着手 |
-| `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | 未着手 |
+| なし | - | 全て完了 |
 
 移行完了後は `html-archive/` へ移動し、上記テーブルから削除する。
 
 ## 開発規約
+
+### CSS 変更後のキャッシュリセット（必須）
+
+`app/globals.css` または任意の `*.css` ファイルを変更した後は、`.next` キャッシュが古い CSS チャンクを返しダークモードが崩れることがある。
+
+**症状**: `body` の `background-color` が透明になり、ページが白く表示される。
+
+**対処**: CSS 変更後は必ずキャッシュを削除して dev サーバーを再起動する。
+
+```bash
+make css-reset   # .next 削除 + dev サーバー再起動（推奨）
+# または手動で:
+rm -rf .next && bun run dev
+```
+
+詳細は `.claude/rules/css-cache-reset.md` を参照。
 
 ### Markdown 標準化
 

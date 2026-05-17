@@ -1,0 +1,29 @@
+# 本番環境用 Docker Compose 設定
+# 使用方法: make build && make up
+name: qa-studies
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    image: qa-studies:latest
+    container_name: qa-studies-app
+    ports:
+      - "3002:3000"
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+    restart: unless-stopped
+    # 静的サイトにつき書き込み不要（セキュリティ向上）
+    read_only: true
+    # Next.js standalone が一時書き込みに使用するディレクトリのみ例外
+    tmpfs:
+      - /tmp
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/ || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

@@ -93,6 +93,8 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | Vendor scrollbar only | `::-webkit-scrollbar` (WebKit) | Add `scrollbar-width: none` (Firefox) |
 | `.code-block` 内の改行 | `<span>line1</span>{"\n"}<span>line2</span>` | 各行を `<div className="code-line"><span>line1</span></div>` でラップ |
 | page-sticky nav の top | `position: sticky; top: 0;` | `top: 60px`（グローバル Header の高さ分オフセット） |
+| アニメーションの消失 | `max-width: 0` のまま固定され見えなくなる | `@media (prefers-reduced-motion: reduce)` 内で `max-width: 100% !important;` を指定 |
+| 背景クリック妨害 | `::before` に `z-index` 指定なし | `pointer-events: none;` と `z-index: 0`（または負の値）を指定 |
 
 ### Phase 4: Convert HTML to TSX
 
@@ -206,6 +208,25 @@ Common build failures:
 - [ ] No z-index conflicts with navigation (nav must stay on top)
 - [ ] Animations play correctly (fade-up, pulse-border)
 - [ ] Scrollbar styling matches (thin, styled thumb)
+
+## セッション終了前同期（必須）
+
+**ゲート条件**: 1ページの `git commit` 完了後、次のHTMLを読み始める前に必ず実施する。
+
+```bash
+bun run build     # ビルド成功を確認
+bun run lint      # ESLint エラーなし
+```
+
+その後 `MIGRATION_PROGRESS.md` の以下を更新してコミット:
+
+| フィールド | 更新内容 |
+|---|---|
+| `最新 HEAD` | `git rev-parse --short HEAD` の実値 |
+| `次の作業` | 次セッションで最初に着手するページ（例: `istqb-ct-tas-complete-guide.html 移行`） |
+| `再開プロンプト` | 上記と整合した内容 |
+
+手順の詳細は `.claude/rules/migration-progress-sync.md` を参照。
 
 ## Reusable CSS Component Classes (globals.css)
 

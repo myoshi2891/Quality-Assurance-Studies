@@ -21,11 +21,11 @@ export default function BddTestingGuidePage() {
     { id: '6-スリーアミーゴスthree-amigos', title: '6. スリーアミーゴス（Three Amigos）' },
     { id: '7-gherkin言語の完全解説', title: '7. Gherkin言語の完全解説' },
     { id: '8-実装ステップバイステップ', title: '8. 実装ステップバイステップ' },
-    { id: '9-主要bddツール比較-2025年', title: '9. 主要BDDツール比較 2025年' },
+    { id: `9-主要bddツール比較-${UPDATE_YEAR}年`, title: `9. 主要BDDツール比較 ${UPDATE_YEAR}年` },
     { id: '10-cicdパイプラインへの統合', title: '10. CI/CDパイプラインへの統合' },
     { id: '11-ベストプラクティスとアンチパターン', title: '11. ベストプラクティスとアンチパターン' },
     { id: '12-bdd導入のロードマップ', title: '12. BDD導入のロードマップ' },
-    { id: '13-2025年のbddトレンドと統計', title: '13. 2025年のBDDトレンドと統計' },
+    { id: `13-${UPDATE_YEAR}年のbddトレンドと統計`, title: `13. ${UPDATE_YEAR}年のBDDトレンドと統計` },
     { id: '14-全参照url一覧', title: '14. 全参照URL一覧' }
   ] as const;
 
@@ -1734,7 +1734,7 @@ Week 11-12:
           
           <div className="mt-8 text-center text-sm text-muted">
             <p>本ガイドは ISTQB CTFL v4.0.1 に準拠し、最終更新：{LAST_UPDATED} の時点の情報を反映しています。</p>
-            <p className="mt-2">© 2025-2026 — BDD is not just testing. It's a conversation that never stops.</p>
+            <p className="mt-2">© 2025-{UPDATE_YEAR} — BDD is not just testing. It's a conversation that never stops.</p>
           </div>
         </section>
       </main>

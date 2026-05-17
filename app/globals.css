@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+/* Turbopack 本番ビルドでユーティリティクラスが生成されるようスキャン対象を明示 */
+@source '../app/**/*.{tsx,ts}';
+@source '../components/**/*.{tsx,ts}';
+
 @theme {
     --color-bg-primary: #0a0e1a;
     --color-bg-secondary: #0f1629;
@@ -39,8 +43,49 @@
     --shadow-glow-cyan: 0 0 40px rgba(79, 209, 197, 0.08);
 }
 
-/* Fallback variable definitions for native CSS usage so alpha modifiers work naturally if mapped */
+/*
+  @theme の値は Next.js の CSS チャンク分割で別チャンクに分離され、
+  特定ページで読み込まれないことがある。
+  var() 参照が確実に解決されるよう、同一チャンクの :root にも定義する。
+*/
 :root {
+    /* --- 背景色 --- */
+    --color-bg-primary: #0a0e1a;
+    --color-bg-secondary: #0f1629;
+    --color-bg-card: #131929;
+    --color-bg-card-hover: #1a2238;
+    /* --- ボーダー --- */
+    --color-border: rgba(99, 179, 237, 0.12);
+    --color-border-bright: rgba(99, 179, 237, 0.3);
+    /* --- テキスト色 --- */
+    --color-text-primary: #e8f0fe;
+    --color-text-secondary: #8ea3c3;
+    --color-text-muted: #85a9df;
+    /* --- アクセント色 --- */
+    --color-accent-blue: #63b3ed;
+    --color-accent-cyan: #4fd1c5;
+    --color-accent-green: #68d391;
+    --color-accent-yellow: #f6e05e;
+    --color-accent-orange: #f6ad55;
+    --color-accent-red: #fc8181;
+    --color-accent-purple: #b794f4;
+    --color-accent-pink: #f687b3;
+    /* --- テストレイヤー識別色 --- */
+    --color-unit: #4fd1c5;
+    --color-integration: #63b3ed;
+    --color-functional: #b794f4;
+    --color-e2e: #f6ad55;
+    /* --- フォント --- */
+    --font-display: 'DM Sans', 'Noto Sans JP', sans-serif;
+    --font-body: 'Noto Sans JP', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    /* --- 角丸・シャドウ --- */
+    --radius-DEFAULT: 12px;
+    --radius-sm: 8px;
+    --shadow-DEFAULT: 0 4px 24px rgba(0, 0, 0, 0.4);
+    --shadow-glow-blue: 0 0 40px rgba(99, 179, 237, 0.08);
+    --shadow-glow-cyan: 0 0 40px rgba(79, 209, 197, 0.08);
+    /* --- RGB 値（アルファ合成用） --- */
     --accent-cyan-rgb: 79 209 197;
     --accent-blue-rgb: 99 179 237;
     --accent-purple-rgb: 183 148 244;
@@ -58,6 +103,10 @@
         font-size: 15px;
         line-height: 1.8;
         overflow-x: hidden;
+        padding-top: var(--disclaimer-height, 0px);
+    }
+    .layout-content {
+        padding-top: 60px;
     }
     html {
         scroll-behavior: smooth;
@@ -166,6 +215,22 @@
     }
 
     /* ─── NAV ─── */
+    .nav-header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 50;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 0 2rem;
+        background-color: rgba(10, 14, 26, 0.85);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(99, 179, 237, 0.12);
+    }
     .nav-logo {
         font-family: var(--font-mono);
         font-size: 13px;
@@ -175,42 +240,109 @@
         white-space: nowrap;
         margin-right: 1rem;
     }
-    .nav-links {
-        display: flex;
-        gap: 0.25rem;
-        overflow-x: auto;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-        flex: 1;
+    .nav-header {
+        justify-content: space-between;
     }
-    .nav-links::-webkit-scrollbar {
-        display: none;
-    }
-    .nav-links a {
-        text-decoration: none;
+    .nav-hamburger {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background: transparent;
+        border: 1px solid var(--color-border);
+        border-radius: var(--radius-sm);
         color: var(--color-text-secondary);
-        font-size: 12px;
-        font-weight: 500;
-        padding: 5px 12px;
-        border-radius: 20px;
-        white-space: nowrap;
-        transition: all 0.2s;
-        border: 1px solid transparent;
+        cursor: pointer;
+        transition: color 0.2s, border-color 0.2s, background 0.2s;
     }
-    .nav-links a:hover {
-        color: var(--color-accent-blue);
-        background: rgba(99, 179, 237, 0.08);
-        border-color: var(--color-border);
+    .nav-hamburger:hover {
+        color: var(--color-accent-cyan);
+        border-color: var(--color-accent-cyan);
+        background: rgba(99, 179, 237, 0.06);
     }
-    .nav-badge {
-        background: rgba(99, 179, 237, 0.1);
-        border: 1px solid var(--color-border-bright);
-        color: var(--color-accent-blue);
+    .nav-hamburger:focus-visible {
+        outline: 2px solid var(--color-accent-cyan);
+        outline-offset: 2px;
+    }
+    .nav-overlay {
+        position: fixed;
+        inset: 60px 0 0 0;
+        background: rgba(0, 0, 0, 0.45);
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        z-index: 40;
+        animation: nav-fade-in 0.18s ease-out;
+    }
+    .nav-drawer {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        z-index: 45;
+        background-color: rgba(15, 20, 35, 0.98);
+        border-bottom: 1px solid var(--color-border);
+        padding: 2rem clamp(1rem, 4vw, 3rem);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 2rem;
+        max-height: calc(100vh - 60px);
+        overflow-y: auto;
+        box-shadow: var(--shadow-DEFAULT);
+        animation: nav-slide-down 0.22s ease-out;
+    }
+    .nav-drawer-section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    .nav-drawer-heading {
         font-family: var(--font-mono);
         font-size: 11px;
-        padding: 3px 10px;
-        border-radius: 20px;
-        white-space: nowrap;
+        font-weight: 600;
+        color: var(--color-accent-cyan);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin: 0 0 0.5rem;
+        padding-bottom: 0.4rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+    .nav-drawer-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.15rem;
+    }
+    .nav-drawer-list a {
+        display: block;
+        padding: 0.5rem 0.75rem;
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: 13px;
+        line-height: 1.4;
+        border-left: 2px solid transparent;
+        border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        transition: color 0.15s, background 0.15s, border-color 0.15s;
+    }
+    .nav-drawer-list a:hover {
+        color: var(--color-accent-blue);
+        background: rgba(99, 179, 237, 0.06);
+    }
+    .nav-drawer-list a[aria-current="page"] {
+        color: var(--color-accent-cyan);
+        border-left-color: var(--color-accent-cyan);
+        background: rgba(99, 179, 237, 0.08);
+        font-weight: 600;
+    }
+    @keyframes nav-fade-in {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+    @keyframes nav-slide-down {
+        from { opacity: 0; transform: translateY(-8px); }
+        to { opacity: 1; transform: translateY(0); }
     }
 
     /* ─── LAYOUT ─── */
@@ -1075,9 +1207,9 @@
         nav {
             padding: 0 1rem;
         }
-        .nav-links a {
-            font-size: 11px;
-            padding: 4px 8px;
+        .nav-drawer {
+            padding: 1.5rem 1rem;
+            gap: 1.5rem;
         }
         .hero {
             padding-top: 80px;

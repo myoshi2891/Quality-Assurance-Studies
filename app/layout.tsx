@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Noto_Sans_JP, JetBrains_Mono, DM_Sans } from 'next/font/google';
 import './globals.css';
 import Header from '../components/Header';
+import { DisclaimerBanner } from '../components/DisclaimerBanner';
 
 const notoSansJP = Noto_Sans_JP({
   weight: ['300', '400', '500', '700'],
@@ -30,15 +31,12 @@ export const metadata: Metadata = {
 };
 
 /**
- * Provides the application's root HTML layout with configured fonts, shared Header, and Japanese language.
+ * アプリケーションのルート HTML レイアウトを定義する。プロジェクトフォントの CSS 変数を適用し、
+ * ドキュメント言語を日本語に設定し、共有ヘッダーと免責事項バナーをレンダリングし、
+ * ページコンテンツを `.layout-content` コンテナでラップする。
  *
- * Renders an <html lang="ja"> element with the project's font CSS variables applied.
- * It renders an always-visible <Header /> at the top of the viewport.
- * The `children` content is wrapped in a `<main>` container with a top padding offset
- * corresponding to the Header's height (60px) to prevent the Header from covering content.
- *
- * @param children - Page content rendered beneath the fixed Header within a padded main container
- * @returns The root HTML structure for application pages
+ * @param children - `.layout-content` ラッパー内でレンダリングされるページコンテンツ
+ * @returns アプリケーションページのルート HTML 要素ツリー
  */
 export default function RootLayout({
   children,
@@ -49,7 +47,8 @@ export default function RootLayout({
     <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable}`}>
       <body>
         <Header />
-        <main className="pt-[60px]">{children}</main>
+        <DisclaimerBanner />
+        <main className="layout-content">{children}</main>
       </body>
     </html>
   );

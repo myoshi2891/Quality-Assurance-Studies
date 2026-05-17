@@ -1,55 +1,110 @@
 'use client';
 
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { NAV_ITEMS, groupByCategory } from '../lib/navigation';
 
 interface HeaderProps {
   className?: string;
 }
 
 /**
- * Renders the top navigation header with a logo link, a set of route-aware page links, and a responsive badge.
- *
- * The header is fixed to the top of the viewport and appends any provided `className` to the root <nav> element.
- *
- * @param className - Optional additional CSS classes to apply to the root navigation element
- * @returns The header JSX element containing the logo, navigation links (each marked active when its href matches the current pathname), and a badge shown on small screens and larger
+ * グローバルヘッダー。ロゴとハンバーガーメニュー（ドロワー）のみを表示する。
+ * 開いている間は NAV_ITEMS を groupByCategory でカテゴリ別にまとめた dialog を描画し、
+ * 現在パスと一致するリンクへ `aria-current="page"` を付与する。
  */
 export default function Header({ className }: HeaderProps) {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+  const groups = groupByCategory(NAV_ITEMS);
+  const close = useCallback(() => setIsOpen(false), []);
+  const drawerRef = useRef<HTMLElement>(null);
 
-  const getLinkClassName = (href: string) => {
-    return pathname === href ? 'active' : '';
-  };
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') close();
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [isOpen, close]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    const firstLink = drawerRef.current?.querySelector('a');
+    firstLink?.focus();
+    return () => {
+      document.body.style.overflow = previous;
+    };
+  }, [isOpen]);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 bg-[#0a0e1a]/85 backdrop-blur-[16px] border-b border-[rgba(99,179,237,0.12)] px-8 h-[60px] flex items-center gap-6 ${className || ''}`}>
+    <nav className={`nav-header ${className || ''}`}>
       <Link href="/" className="nav-logo hover:opacity-80 transition-opacity">
         QA_STUDIES
       </Link>
-      <div className="nav-links flex-1 flex gap-1 overflow-x-auto no-scrollbar">
-        <Link href="/" className={getLinkClassName('/')}>ホーム</Link>
-        <Link href="/software-testing-methodologies-guide" className={getLinkClassName('/software-testing-methodologies-guide')}>テスト手法ガイド</Link>
-        <Link href="/ai-test-guide" className={getLinkClassName('/ai-test-guide')}>AIテストガイド</Link>
-        <Link href="/unit-testing-guide" className={getLinkClassName('/unit-testing-guide')}>ユニットテストガイド</Link>
-        <Link href="/integration-functional-testing-guide" className={getLinkClassName('/integration-functional-testing-guide')}>統合/機能テストガイド</Link>
-        <Link href="/integration-system-testing-guide" className={getLinkClassName('/integration-system-testing-guide')}>統合/システムテストガイド</Link>
-        <Link href="/e2e-testing-guide" className={getLinkClassName('/e2e-testing-guide')}>E2Eテストガイド</Link>
-        <Link href="/acceptance-testing-guide" className={getLinkClassName('/acceptance-testing-guide')}>受入テストガイド</Link>
-        <Link href="/bdd-testing-guide" className={getLinkClassName('/bdd-testing-guide')}>BDDガイド</Link>
-        <Link href="/istqb-ctfl-at-complete-guide" className={getLinkClassName('/istqb-ctfl-at-complete-guide')}>アジャイル(CTFL-AT)ガイド</Link>
-        <Link href="/istqb-ctal-tae-complete-guide" className={getLinkClassName('/istqb-ctal-tae-complete-guide')}>テスト自動化(CTAL-TAE)ガイド</Link>
-        <Link href="/istqb-ctal-ta-complete-guide" className={getLinkClassName('/istqb-ctal-ta-complete-guide')}>テストアナリスト(CTAL-TA)ガイド</Link>
-        <Link href="/istqb-ctal-tm-complete-guide" className={getLinkClassName('/istqb-ctal-tm-complete-guide')}>テスト管理(CTAL-TM)ガイド</Link>
-        <Link href="/istqb-ctal-att-complete-guide" className={getLinkClassName('/istqb-ctal-att-complete-guide')}>アジャイル(CTAL-ATT)ガイド</Link>
-        <Link href="/istqb-ctal-atlas-complete-guide" className={getLinkClassName('/istqb-ctal-atlas-complete-guide')}>アジャイル(CT-ATLaS)ガイド</Link>
-        <Link href="/istqb-ct-ai-complete-guide" className={getLinkClassName('/istqb-ct-ai-complete-guide')}>AIテスト(CT-AI)ガイド</Link>
-        <Link href="/istqb-ct-genai-complete-guide" className={getLinkClassName('/istqb-ct-genai-complete-guide')}>生成AIテスト(CT-GenAI)ガイド</Link>
-        <Link href="/istqb-ct-mbt-complete-guide" className={getLinkClassName('/istqb-ct-mbt-complete-guide')}>モデルベーステスト(CT-MBT)ガイド</Link>
-      </div>
-      <span className="nav-badge hidden sm:inline-block">
-        Next.js SPA
-      </span>
+      <button
+        type="button"
+        className="nav-hamburger"
+        aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
+        aria-expanded={isOpen}
+        aria-controls="global-nav-panel"
+        onClick={() => setIsOpen((prev) => !prev)}
+      >
+        {isOpen ? (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        ) : (
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        )}
+      </button>
+      {isOpen && (
+        <>
+          <div
+            className="nav-overlay"
+            aria-hidden="true"
+            onClick={close}
+          />
+          <aside
+            ref={drawerRef}
+            id="global-nav-panel"
+            className="nav-drawer"
+            role="dialog"
+            aria-modal="true"
+            aria-label="ナビゲーションメニュー"
+          >
+            {groups.map((g) => (
+              <section key={g.category} className="nav-drawer-section">
+                {g.category !== 'home' && (
+                  <h2 className="nav-drawer-heading">{g.title}</h2>
+                )}
+                <ul className="nav-drawer-list">
+                  {g.items.map((item) => (
+                    <li key={item.href}>
+                      <Link
+                        href={item.href}
+                        onClick={close}
+                        aria-current={pathname === item.href ? 'page' : undefined}
+                      >
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </aside>
+        </>
+      )}
     </nav>
   );
 }

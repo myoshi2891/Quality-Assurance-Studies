@@ -51,6 +51,23 @@
 * **HTML to JSX 変換 (`scripts/html-to-tsx.mjs`)**
   * HTML 構造を JSX に変換し、属性の置換（`class` → `className` 等）やプロジェクト標準クラスへのリネームを行います。
 
+## Docker での起動
+
+```sh
+# 本番イメージをビルドして起動
+make build
+make up
+# ブラウザで http://localhost:3002 を開く
+
+# 開発環境（HMR 有効）
+make dev
+
+# 停止
+make down
+```
+
+詳細は [Makefile](./Makefile) を参照。
+
 ## qa_studies
 
 To install dependencies:
@@ -62,7 +79,7 @@ bun install
 To run:
 
 ```bash
-bun run 
+bun run dev
 ```
 
 This project was created using `bun init` in bun v1.3.5. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.

@@ -92,3 +92,5 @@ scripts/fix-md-errors.mjs
 scripts/fix-md028.mjs
 scripts/fix-toc.mjs
 scripts/format-markdown.mjs
+
+.playwright-mcp
