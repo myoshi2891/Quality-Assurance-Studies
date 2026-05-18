@@ -1,0 +1,1584 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>QA_Studies — Test Coverage Radar / Mission Control</title>
+<meta name="description" content="QA_Studies プロジェクトのテストカバレッジを自己言及的に可視化するダッシュボード。カテゴリ × テスト種別マトリクス、ページ別カバレッジ、優先度付きネクストアクション。" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700;9..40,800&family=Noto+Sans+JP:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" />
+<style>
+/* ============================================================
+   QA Radar — Mission Control Dashboard
+   Standalone HTML. No external CSS dependency.
+   ============================================================ */
+
+:root {
+  /* Base surfaces */
+  --bg-0: #070a14;
+  --bg-1: #0a0e1a;
+  --bg-2: #131929;
+  --bg-3: #1a2238;
+  --bg-elevated: #1c2540;
+
+  /* Lines and grid */
+  --line: rgba(99, 179, 237, 0.16);
+  --line-strong: rgba(99, 179, 237, 0.28);
+  --line-soft: rgba(99, 179, 237, 0.08);
+
+  /* Text */
+  --fg: #e8f0fe;
+  --fg-mute: #8ea3c3;
+  --fg-dim: #5a6688;
+
+  /* Test-layer palette (mirrors project tokens) */
+  --c-unit: #4fd1c5;
+  --c-integration: #63b3ed;
+  --c-functional: #b794f4;
+  --c-e2e: #f6ad55;
+  --c-perf: #f687b3;
+  --c-a11y: #68d391;
+  --c-visual: #f6e05e;
+
+  /* Status semantics */
+  --st-full: #4fd1c5;
+  --st-partial: #f6ad55;
+  --st-gap: #fc8181;
+  --st-na: #3a4365;
+
+  /* Glow */
+  --glow-cyan: 0 0 32px rgba(79, 209, 197, 0.18);
+  --glow-orange: 0 0 24px rgba(246, 173, 85, 0.18);
+  --glow-red: 0 0 20px rgba(252, 129, 129, 0.16);
+
+  /* Typography */
+  --font-display: 'DM Sans', 'Noto Sans JP', system-ui, sans-serif;
+  --font-body: 'Noto Sans JP', 'DM Sans', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Spacing scale */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-8: 3rem;
+  --space-10: 4rem;
+
+  /* Radii */
+  --r-xs: 4px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-xl: 24px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-1);
+  color: var(--fg);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+body {
+  background:
+    radial-gradient(ellipse 1100px 700px at 90% -10%, rgba(79, 209, 197, 0.08), transparent 60%),
+    radial-gradient(ellipse 900px 500px at -10% 30%, rgba(99, 179, 237, 0.06), transparent 60%),
+    radial-gradient(ellipse 700px 400px at 50% 110%, rgba(246, 173, 85, 0.05), transparent 60%),
+    linear-gradient(180deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-0) 100%);
+  background-attachment: fixed;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Subtle grid backdrop */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(99, 179, 237, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 179, 237, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+  pointer-events: none;
+  z-index: 0;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 30%, #000 30%, transparent 90%);
+}
+
+::selection { background: rgba(79, 209, 197, 0.3); color: var(--fg); }
+
+a { color: var(--c-integration); text-decoration: none; }
+a:hover { color: var(--c-unit); text-decoration: underline; }
+
+code, kbd, samp, .mono { font-family: var(--font-mono); font-feature-settings: 'zero' 1, 'ss01' 1; }
+
+/* ============================================================
+   Layout shell
+   ============================================================ */
+.shell {
+  position: relative;
+  z-index: 1;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: clamp(20px, 3.5vw, 56px) clamp(16px, 3vw, 40px);
+}
+
+.shell > * + * { margin-top: clamp(40px, 5vw, 72px); }
+
+/* ============================================================
+   Header / Hero
+   ============================================================ */
+.mc-head {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: center;
+  padding-bottom: var(--space-6);
+  border-bottom: 1px solid var(--line);
+  position: relative;
+}
+
+.mc-head::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--c-unit), transparent 70%);
+}
+
+.mc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--c-unit);
+  margin-bottom: var(--space-3);
+}
+
+.mc-eyebrow::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--c-unit);
+  box-shadow: 0 0 12px var(--c-unit);
+  animation: pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.85); }
+}
+
+.mc-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(2rem, 4.5vw, 3.4rem);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0 0 var(--space-3) 0;
+  color: var(--fg);
+}
+
+.mc-title .accent {
+  background: linear-gradient(135deg, var(--c-unit) 0%, var(--c-integration) 50%, var(--c-functional) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.mc-sub {
+  font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+  color: var(--fg-mute);
+  max-width: 56ch;
+  margin: 0;
+}
+
+.mc-meta {
+  display: flex;
+  gap: var(--space-5);
+  margin-top: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-dim);
+  flex-wrap: wrap;
+}
+
+.mc-meta > span { display: inline-flex; align-items: center; gap: 6px; }
+.mc-meta strong { color: var(--fg-mute); font-weight: 500; }
+
+/* Donut */
+.mc-gauge {
+  width: clamp(180px, 22vw, 240px);
+  aspect-ratio: 1;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.mc-gauge svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+
+.mc-gauge .track { stroke: var(--bg-3); stroke-width: 10; fill: none; }
+.mc-gauge .arc {
+  stroke: url(#gradArc);
+  stroke-width: 10;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 0 100;
+  animation: drawArc 1.8s cubic-bezier(0.22, 1, 0.36, 1) 0.3s forwards;
+  filter: drop-shadow(0 0 8px rgba(79, 209, 197, 0.5));
+}
+
+@keyframes drawArc {
+  to { stroke-dasharray: var(--coverage, 41) 100; }
+}
+
+.mc-gauge .center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  pointer-events: none;
+}
+
+.mc-gauge .pct {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  line-height: 1;
+  color: var(--c-unit);
+  letter-spacing: -0.02em;
+}
+
+.mc-gauge .lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--fg-dim);
+  margin-top: 6px;
+}
+
+@media (max-width: 820px) {
+  .mc-head { grid-template-columns: 1fr; }
+  .mc-gauge { justify-self: start; }
+}
+
+/* ============================================================
+   KPI strip
+   ============================================================ */
+.mc-kpi {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-4);
+}
+
+.kpi {
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: var(--space-5);
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.kpi::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: var(--kpi-color, var(--c-unit));
+  opacity: 0.6;
+}
+
+.kpi:hover { border-color: var(--line-strong); transform: translateY(-2px); }
+
+.kpi-num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: clamp(2rem, 3.4vw, 2.6rem);
+  color: var(--kpi-color, var(--c-unit));
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.kpi-num .unit { font-size: 0.55em; color: var(--fg-dim); margin-left: 4px; font-weight: 500; }
+
+.kpi-lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--fg-dim);
+  margin-top: var(--space-3);
+}
+
+.kpi-desc { font-size: 13px; color: var(--fg-mute); margin-top: var(--space-2); line-height: 1.5; }
+
+/* Per-kpi color variants */
+.kpi[data-tone="cyan"]    { --kpi-color: var(--c-unit); }
+.kpi[data-tone="orange"]  { --kpi-color: var(--c-e2e); }
+.kpi[data-tone="red"]     { --kpi-color: var(--st-gap); }
+.kpi[data-tone="blue"]    { --kpi-color: var(--c-integration); }
+.kpi[data-tone="violet"]  { --kpi-color: var(--c-functional); }
+
+/* ============================================================
+   Section header
+   ============================================================ */
+.mc-section h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.4rem, 2.4vw, 1.85rem);
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--space-3) 0;
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.mc-section h2 .num {
+  font-family: var(--font-mono);
+  font-size: 0.6em;
+  color: var(--c-unit);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.mc-section .lede {
+  color: var(--fg-mute);
+  max-width: 70ch;
+  margin: 0 0 var(--space-5) 0;
+}
+
+/* ============================================================
+   Matrix
+   ============================================================ */
+.matrix-wrap {
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 100%);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+  position: relative;
+}
+
+.matrix-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: var(--c-integration) transparent;
+}
+
+.matrix-scroll::-webkit-scrollbar { height: 8px; }
+.matrix-scroll::-webkit-scrollbar-track { background: var(--bg-3); }
+.matrix-scroll::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 4px; }
+
+table.matrix {
+  width: 100%;
+  min-width: 920px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+table.matrix thead th {
+  position: sticky;
+  top: 0;
+  background: var(--bg-2);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  text-align: center;
+  padding: var(--space-4) var(--space-3);
+  border-bottom: 1px solid var(--line-strong);
+  color: var(--fg-mute);
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+table.matrix thead th.row-head { text-align: left; padding-left: var(--space-5); }
+table.matrix thead th .typ {
+  display: block;
+  font-size: 9px;
+  margin-top: 4px;
+  color: var(--fg-dim);
+  letter-spacing: 0.1em;
+}
+table.matrix thead th[data-group="level"] .typ { color: var(--c-unit); }
+table.matrix thead th[data-group="nonfunc"] .typ { color: var(--c-e2e); }
+
+/* divider between functional levels and non-functional types */
+table.matrix thead th[data-divide],
+table.matrix tbody td[data-divide] {
+  border-left: 1px dashed var(--line-strong);
+}
+
+table.matrix tbody td,
+table.matrix tbody th {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: middle;
+  text-align: center;
+}
+
+table.matrix tbody tr:hover td { background: rgba(99, 179, 237, 0.04); }
+table.matrix tbody tr:last-child td { border-bottom: none; }
+
+table.matrix tbody th {
+  text-align: left;
+  font-weight: 500;
+  padding-left: var(--space-5);
+  font-family: var(--font-display);
+  min-width: 230px;
+  color: var(--fg);
+  background: linear-gradient(90deg, var(--bg-2) 60%, transparent);
+  position: sticky;
+  left: 0;
+  z-index: 1;
+}
+
+table.matrix tbody th small {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fg-dim);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  margin-top: 2px;
+  text-transform: none;
+}
+
+/* Cell states */
+.cell {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-width: 64px;
+  padding: 6px 8px;
+  border-radius: var(--r-sm);
+}
+
+.cell .dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  display: block;
+}
+
+.cell .lbl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+[data-state="full"] .dot {
+  background: var(--st-full);
+  box-shadow: 0 0 10px rgba(79, 209, 197, 0.6);
+}
+[data-state="full"] .lbl { color: var(--st-full); }
+
+[data-state="partial"] .dot {
+  background: conic-gradient(var(--st-partial) 0 50%, var(--bg-3) 50% 100%);
+  border: 1px solid var(--st-partial);
+}
+[data-state="partial"] .lbl { color: var(--st-partial); }
+
+[data-state="gap"] .dot {
+  background: transparent;
+  border: 2px solid var(--st-gap);
+}
+[data-state="gap"] .lbl { color: var(--st-gap); }
+
+[data-state="na"] .dot {
+  background: transparent;
+  width: 14px;
+  height: 2px;
+  border-radius: 0;
+  border-top: 2px dashed var(--st-na);
+  margin-top: 6px;
+}
+[data-state="na"] .lbl { color: var(--fg-dim); }
+
+/* Legend */
+.matrix-legend {
+  display: flex;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+  padding: var(--space-4) var(--space-5);
+  border-top: 1px solid var(--line);
+  background: var(--bg-1);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-mute);
+}
+
+.matrix-legend .leg {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.matrix-legend .swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+/* Matrix horizontal scroll hint */
+.matrix-wrap::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 24px;
+  background: linear-gradient(90deg, transparent, var(--bg-1));
+  pointer-events: none;
+  opacity: 0.6;
+}
+@media (min-width: 1100px) {
+  .matrix-wrap::after { display: none; }
+}
+
+/* ============================================================
+   Pages grid
+   ============================================================ */
+.pages-toolbar {
+  display: flex;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--space-4);
+  font-family: var(--font-mono);
+  font-size: 11px;
+}
+
+.chip {
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--fg-mute);
+  letter-spacing: 0.04em;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.chip strong { color: var(--fg); font-weight: 600; }
+.chip[data-tone="ok"] { border-color: rgba(79, 209, 197, 0.4); color: var(--st-full); }
+.chip[data-tone="gap"] { border-color: rgba(252, 129, 129, 0.4); color: var(--st-gap); }
+
+.pages-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: var(--space-3);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.page-card {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  padding: var(--space-3) var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+  position: relative;
+}
+
+.page-card:hover {
+  border-color: var(--line-strong);
+  transform: translateY(-1px);
+  background: var(--bg-3);
+}
+
+.page-card .path {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg);
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+
+.page-card .topic {
+  font-size: 11px;
+  color: var(--fg-dim);
+  display: block;
+  margin-top: 2px;
+  font-family: var(--font-body);
+}
+
+.page-card[data-tested="true"] { border-left: 3px solid var(--st-full); }
+.page-card[data-tested="false"] { border-left: 3px solid var(--st-gap); opacity: 0.95; }
+
+.badge {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: var(--r-xs);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge.tested {
+  background: rgba(79, 209, 197, 0.12);
+  color: var(--st-full);
+  border: 1px solid rgba(79, 209, 197, 0.3);
+}
+
+.badge.untested {
+  background: rgba(252, 129, 129, 0.08);
+  color: var(--st-gap);
+  border: 1px solid rgba(252, 129, 129, 0.25);
+}
+
+/* ============================================================
+   Inventory (details/summary tree)
+   ============================================================ */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-4);
+}
+
+details.inv {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+details.inv > summary {
+  list-style: none;
+  cursor: pointer;
+  padding: var(--space-4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  font-family: var(--font-display);
+  font-weight: 500;
+  user-select: none;
+  transition: background 0.15s ease;
+}
+
+details.inv > summary::-webkit-details-marker { display: none; }
+details.inv > summary:hover { background: var(--bg-3); }
+details.inv > summary::after {
+  content: '+';
+  font-family: var(--font-mono);
+  font-size: 18px;
+  color: var(--c-unit);
+  transition: transform 0.2s ease;
+}
+details.inv[open] > summary::after { content: '−'; }
+
+.inv-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-dim);
+  padding: 3px 8px;
+  background: var(--bg-1);
+  border-radius: 999px;
+  margin-left: auto;
+}
+
+details.inv > ul {
+  list-style: none;
+  padding: 0 var(--space-4) var(--space-4);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--fg-mute);
+  border-top: 1px solid var(--line-soft);
+}
+
+details.inv > ul > li {
+  padding: var(--space-2) 0;
+  border-bottom: 1px dashed var(--line-soft);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2);
+}
+
+details.inv > ul > li:last-child { border-bottom: none; }
+
+details.inv > ul > li::before {
+  content: '▸';
+  color: var(--c-unit);
+  flex-shrink: 0;
+}
+
+details.inv > ul > li code {
+  color: var(--fg);
+  overflow-wrap: anywhere;
+}
+
+/* ============================================================
+   Actions (P0-P3)
+   ============================================================ */
+.actions-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.prio {
+  border-radius: var(--r-md);
+  border: 1px solid var(--line);
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg-1) 100%);
+}
+
+.prio-head {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4) var(--space-5);
+  border-bottom: 1px solid var(--line);
+  background: var(--bg-2);
+  flex-wrap: wrap;
+}
+
+.prio-tag {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  padding: 6px 12px;
+  border-radius: var(--r-xs);
+  flex-shrink: 0;
+}
+
+.prio[data-level="P0"] .prio-tag { background: var(--st-gap); color: var(--bg-0); }
+.prio[data-level="P1"] .prio-tag { background: var(--st-partial); color: var(--bg-0); }
+.prio[data-level="P2"] .prio-tag { background: var(--c-integration); color: var(--bg-0); }
+.prio[data-level="P3"] .prio-tag { background: var(--c-functional); color: var(--bg-0); }
+
+.prio[data-level="P0"] { border-color: rgba(252, 129, 129, 0.35); box-shadow: var(--glow-red); }
+.prio[data-level="P1"] { border-color: rgba(246, 173, 85, 0.3); }
+
+.prio-title {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.15rem;
+  margin: 0;
+  color: var(--fg);
+}
+
+.prio-blurb {
+  color: var(--fg-mute);
+  font-size: 13px;
+  margin-left: auto;
+  max-width: 50ch;
+  text-align: right;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1px;
+  background: var(--line-soft);
+}
+
+.action {
+  padding: var(--space-5);
+  background: var(--bg-1);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  transition: background 0.15s ease;
+}
+
+.action:hover { background: var(--bg-2); }
+
+.action h4 {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.98rem;
+  line-height: 1.35;
+  color: var(--fg);
+}
+
+.action p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--fg-mute);
+  line-height: 1.55;
+}
+
+.action dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 4px 12px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  margin-top: auto;
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line-soft);
+}
+
+.action dt { color: var(--fg-dim); letter-spacing: 0.08em; text-transform: uppercase; }
+.action dd { margin: 0; color: var(--fg); }
+.action dd.tool { color: var(--c-integration); }
+.action dd.effort { color: var(--c-e2e); }
+.action dd.impact { color: var(--c-unit); }
+
+/* ============================================================
+   Footer / ISTQB cross-reference
+   ============================================================ */
+.istqb-ref {
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  overflow: hidden;
+}
+
+table.istqb {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 13px;
+}
+
+table.istqb th, table.istqb td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--line-soft);
+  vertical-align: top;
+}
+
+table.istqb thead th {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--fg-mute);
+  font-weight: 600;
+  background: var(--bg-3);
+}
+
+table.istqb tbody tr:last-child th,
+table.istqb tbody tr:last-child td { border-bottom: none; }
+
+table.istqb tbody th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  color: var(--fg);
+  width: 22%;
+}
+
+table.istqb .status {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: var(--r-xs);
+  display: inline-block;
+}
+
+table.istqb .status[data-st="ok"] { background: rgba(79, 209, 197, 0.14); color: var(--st-full); }
+table.istqb .status[data-st="partial"] { background: rgba(246, 173, 85, 0.14); color: var(--st-partial); }
+table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); color: var(--st-gap); }
+
+.foot {
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--fg-dim);
+  padding: var(--space-6) 0 var(--space-4);
+  letter-spacing: 0.08em;
+}
+
+.foot .sep { color: var(--line-strong); margin: 0 8px; }
+
+/* ============================================================
+   Print
+   ============================================================ */
+@media print {
+  :root { --bg-0: #fff; --bg-1: #fff; --bg-2: #fafafa; --bg-3: #f2f2f2; --bg-elevated: #fff; --fg: #0a0e1a; --fg-mute: #4a5570; --fg-dim: #7a849c; }
+  html, body { background: #fff !important; color: #0a0e1a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body::before { display: none; }
+  .shell { max-width: none; padding: 16px; }
+  .mc-section, .prio, .matrix-wrap, .istqb-ref { break-inside: avoid; page-break-inside: avoid; }
+  .mc-gauge .arc { animation: none; stroke-dasharray: var(--coverage, 41) 100; }
+  .matrix-scroll { overflow: visible; }
+  table.matrix { min-width: 0; font-size: 10px; }
+  .matrix-wrap::after { display: none; }
+  .pages-grid { grid-template-columns: repeat(2, 1fr); }
+  a { color: #1a4480; }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+</style>
+</head>
+<body>
+<main class="shell">
+
+  <!-- ====================== HEADER ====================== -->
+  <header class="mc-head">
+    <div>
+      <span class="mc-eyebrow">Mission Control · Self-referential QA Audit</span>
+      <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
+      <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
+      <div class="mc-meta">
+        <span><strong>Updated</strong> <time datetime="2026-05-18">2026-05-18</time></span>
+        <span><strong>Branch</strong> dev</span>
+        <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
+        <span><strong>Scope</strong> 23 pages · 3 components · 1 lib · 5 scripts</span>
+      </div>
+    </div>
+    <div class="mc-gauge" style="--coverage: 41;" role="img" aria-label="全体テストカバー率 約41パーセント">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <defs>
+          <linearGradient id="gradArc" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#4fd1c5" />
+            <stop offset="60%" stop-color="#63b3ed" />
+            <stop offset="100%" stop-color="#b794f4" />
+          </linearGradient>
+        </defs>
+        <circle class="track" cx="60" cy="60" r="50" pathLength="100" />
+        <circle class="arc" cx="60" cy="60" r="50" pathLength="100" />
+      </svg>
+      <div class="center">
+        <div class="pct">41<span style="font-size:0.5em">%</span></div>
+        <div class="lbl">Source Files Covered</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ====================== KPI ====================== -->
+  <section class="mc-kpi" aria-label="主要指標">
+    <article class="kpi" data-tone="cyan">
+      <div class="kpi-num">13<span class="unit">files</span></div>
+      <div class="kpi-lbl">Test Files Total</div>
+      <p class="kpi-desc">Bun test runner + @testing-library/react + happy-dom 構成。Vitest/Jest/Playwright は未導入。</p>
+    </article>
+    <article class="kpi" data-tone="orange">
+      <div class="kpi-num">10<span class="unit">/ 23</span></div>
+      <div class="kpi-lbl">Pages Tested · 43%</div>
+      <p class="kpi-desc">未カバー13ページ。HTML→Next.js 移行完了済みのページのうち、レンダリングテストが半数未満。</p>
+    </article>
+    <article class="kpi" data-tone="red">
+      <div class="kpi-num">5<span class="unit">/ 6</span></div>
+      <div class="kpi-lbl">Test Types Uncovered</div>
+      <p class="kpi-desc">E2E · Visual Regression · Accessibility 自動化 · Performance · Integration が全面的に未着手。Unit のみ部分実装。</p>
+    </article>
+    <article class="kpi" data-tone="violet">
+      <div class="kpi-num">0<span class="unit">pipelines</span></div>
+      <div class="kpi-lbl">CI / CD Configured</div>
+      <p class="kpi-desc">.github/workflows なし。テスト・ビルド・lint はローカル実行のみ、回帰検知はマニュアル依存。</p>
+    </article>
+  </section>
+
+  <!-- ====================== MATRIX ====================== -->
+  <section class="mc-section" aria-labelledby="h-matrix">
+    <h2 id="h-matrix">Coverage Matrix <span class="num">11 categories × 6 types</span></h2>
+    <p class="lede">行はテスト対象カテゴリ、列はテスト種別。Unit / Integration / E2E は ISTQB のテスト<em>レベル</em>、右側 3 種別は<em>非機能テストタイプ</em>として分離表示。セル内の数値は「カバー済 / 対象母数」を示します。</p>
+
+    <div class="matrix-wrap">
+      <div class="matrix-scroll">
+        <table class="matrix" aria-describedby="h-matrix">
+          <thead>
+            <tr>
+              <th class="row-head" scope="col">Category</th>
+              <th scope="col" data-group="level">Unit<span class="typ">Level</span></th>
+              <th scope="col" data-group="level">Integration<span class="typ">Level</span></th>
+              <th scope="col" data-group="level">E2E<span class="typ">System Level</span></th>
+              <th scope="col" data-group="nonfunc" data-divide>Visual Regression<span class="typ">Non-functional</span></th>
+              <th scope="col" data-group="nonfunc">Accessibility<span class="typ">Non-functional</span></th>
+              <th scope="col" data-group="nonfunc">Performance<span class="typ">Non-functional</span></th>
+            </tr>
+          </thead>
+          <tbody id="matrix-body">
+            <!-- injected by JS -->
+          </tbody>
+        </table>
+      </div>
+      <div class="matrix-legend" aria-label="凡例">
+        <span class="leg"><span class="swatch" style="background:var(--st-full); box-shadow:0 0 8px var(--st-full);"></span>Full · 完全カバー</span>
+        <span class="leg"><span class="swatch" style="background:conic-gradient(var(--st-partial) 0 50%, var(--bg-3) 50% 100%); border:1px solid var(--st-partial);"></span>Partial · 部分カバー</span>
+        <span class="leg"><span class="swatch" style="background:transparent; border:2px solid var(--st-gap);"></span>Gap · 未着手</span>
+        <span class="leg"><span class="swatch" style="background:transparent; border-top:2px dashed var(--st-na); border-radius:0; width:14px; height:2px;"></span>N/A · 対象外</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ====================== PAGES ====================== -->
+  <section class="mc-section" aria-labelledby="h-pages">
+    <h2 id="h-pages">Per-Page Coverage <span class="num">23 routes</span></h2>
+    <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。E2E・a11y・ビジュアル確認は未実施です。</p>
+
+    <div class="pages-toolbar" role="status" aria-live="polite">
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">10</strong> Tested</span>
+      <span class="chip" data-tone="gap"><strong id="cnt-untested">13</strong> Untested</span>
+      <span class="chip"><strong>23</strong> Total Routes</span>
+      <span class="chip"><strong>0</strong> with E2E</span>
+    </div>
+
+    <ul class="pages-grid" id="pages-grid">
+      <!-- injected by JS -->
+    </ul>
+  </section>
+
+  <!-- ====================== INVENTORY ====================== -->
+  <section class="mc-section" aria-labelledby="h-inv">
+    <h2 id="h-inv">Existing Test Inventory <span class="num">13 files</span></h2>
+    <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
+
+    <div class="inventory-grid">
+      <details class="inv" open>
+        <summary>
+          <span>Page Render Tests</span>
+          <span class="inv-count">10 files</span>
+        </summary>
+        <ul id="inv-pages"></ul>
+      </details>
+      <details class="inv">
+        <summary>
+          <span>Component Tests</span>
+          <span class="inv-count">1 file</span>
+        </summary>
+        <ul id="inv-components"></ul>
+      </details>
+      <details class="inv">
+        <summary>
+          <span>Library &amp; Dependency Tests</span>
+          <span class="inv-count">2 files</span>
+        </summary>
+        <ul id="inv-lib"></ul>
+      </details>
+    </div>
+  </section>
+
+  <!-- ====================== ACTIONS ====================== -->
+  <section class="mc-section" aria-labelledby="h-actions">
+    <h2 id="h-actions">Next Actions <span class="num">prioritized roadmap</span></h2>
+    <p class="lede">優先度ごとにグループ化。P0 は CI 自動化と既存パターンの拡張で短期に確実な改善が見込めるもの、P3 は中長期の品質投資です。各カードのフッターに「ツール / 想定工数 / 期待効果」を明示。</p>
+
+    <div class="actions-stack" id="actions-root">
+      <!-- injected by JS -->
+    </div>
+  </section>
+
+  <!-- ====================== ISTQB CROSS-REFERENCE ====================== -->
+  <section class="mc-section" aria-labelledby="h-istqb">
+    <h2 id="h-istqb">ISTQB Test Levels — Project Alignment</h2>
+    <p class="lede">ISTQB CTFL シラバスのテストレベル定義と、本プロジェクトの充足状況の対応。サイトが教えている内容と自身の実装の整合性チェック。</p>
+
+    <div class="istqb-ref">
+      <table class="istqb">
+        <thead>
+          <tr>
+            <th scope="col">Test Level (ISTQB)</th>
+            <th scope="col">本プロジェクトでの対応</th>
+            <th scope="col">充足状況</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Component (Unit) Testing</th>
+            <td>tests/components/Header.test.tsx および tests/lib/*.test.ts。Bun + Testing Library + happy-dom。</td>
+            <td><span class="status" data-st="partial">Partial · 4 / 9</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Integration Testing</th>
+            <td>Header と NavBar、NavBar と IntersectionObserver、Mermaid と動的 import など、結合点のテストは存在しない。</td>
+            <td><span class="status" data-st="gap">Gap · 0%</span></td>
+          </tr>
+          <tr>
+            <th scope="row">System Testing (E2E)</th>
+            <td>Playwright / Cypress 未導入。`bun run build` の成功のみが間接的な代替。</td>
+            <td><span class="status" data-st="gap">Gap · 0%</span></td>
+          </tr>
+          <tr>
+            <th scope="row">Acceptance Testing</th>
+            <td>学習サイトという性質上、UAT は手動レビュー（移行前後の表示比較）のみ。BDD/Gherkin は教材として扱うが実装には未適用。</td>
+            <td><span class="status" data-st="partial">Manual</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ====================== FOOTER ====================== -->
+  <p class="foot">
+    QA_Studies Coverage Radar
+    <span class="sep">·</span>
+    Generated 2026-05-18
+    <span class="sep">·</span>
+    Single-file, standalone HTML
+    <span class="sep">·</span>
+    Update DATA object to refresh
+  </p>
+
+</main>
+
+<script>
+/* ============================================================
+   Data source (single source of truth)
+   Update these arrays when tests are added.
+   ============================================================ */
+const DATA = {
+  matrix: [
+    {
+      category: 'Pages',
+      hint: '23 routes under app/',
+      cells: [
+        { state: 'partial', value: '10/23', label: '43%', note: 'Render-only smoke tests on 10 pages.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'No Playwright/Cypress.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'No axe-core / jest-axe.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'No Lighthouse CI.' }
+      ]
+    },
+    {
+      category: 'Shared Components',
+      hint: 'components/ — Header, DisclaimerBanner, Mermaid',
+      cells: [
+        { state: 'partial', value: '1/3', label: '33%', note: 'Header only.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'partial', value: 'manual', label: 'Manual', note: 'aria-* attributes coded but not asserted.' },
+        { state: 'na', value: '—', label: 'N/A' }
+      ]
+    },
+    {
+      category: 'Navigation Logic',
+      hint: 'lib/navigation.ts — NAV_ITEMS single source of truth',
+      cells: [
+        { state: 'full', value: '1/1', label: 'OK', note: 'tests/lib/navigation.test.ts covers structure.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'No header↔route consistency test.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' }
+      ]
+    },
+    {
+      category: 'Interactive Behaviors',
+      hint: 'Header drawer · NavBar IntersectionObserver · Mermaid async render',
+      cells: [
+        { state: 'partial', value: '1/3', label: '33%', note: 'Header drawer covered, NavBar & Mermaid not.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'Scroll-spy behavior requires real browser.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'Focus management not asserted.' },
+        { state: 'na', value: '—', label: 'N/A' }
+      ]
+    },
+    {
+      category: 'CSS Theme & Tokens',
+      hint: 'globals.css @theme + 8 page-specific stylesheets',
+      cells: [
+        { state: 'gap', value: '0', label: 'Gap', note: 'No token resolution test (--color-bg-primary etc).' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'Dark-mode regression risk per migration history.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'Contrast ratios unmeasured automatically.' },
+        { state: 'na', value: '—', label: 'N/A' }
+      ]
+    },
+    {
+      category: 'Markdown Integrity',
+      hint: 'md-archive/ source + format-markdown.mjs output',
+      cells: [
+        { state: 'gap', value: '0', label: 'Gap', note: 'No marked output snapshot.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' }
+      ]
+    },
+    {
+      category: 'Build & Docker',
+      hint: 'next build + Dockerfile multi-stage (oven/bun:1.3.5-alpine)',
+      cells: [
+        { state: 'partial', value: 'tsc', label: 'Type', note: 'bun run build includes TS strict check.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'Docker image not smoke-tested in CI.' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'No bundle-size budget.' }
+      ]
+    },
+    {
+      category: 'SEO Metadata',
+      hint: 'layout.tsx Metadata API + per-page meta',
+      cells: [
+        { state: 'gap', value: '0', label: 'Gap', note: 'No title/description assertions.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'OG image not generated/tested.' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'No SEO score baseline.' }
+      ]
+    },
+    {
+      category: 'Accessibility',
+      hint: 'aria-current · aria-expanded · keyboard nav · contrast',
+      cells: [
+        { state: 'gap', value: '0', label: 'Gap', note: 'aria-* values not asserted on Header tests.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'partial', value: 'manual', label: 'Manual', note: 'Coded with intent but unverified by tools.' },
+        { state: 'na', value: '—', label: 'N/A' }
+      ]
+    },
+    {
+      category: 'Scripts Utilities',
+      hint: 'scripts/ — extract-css · format-markdown · html-to-tsx · md-to-tsx · process-genai-css',
+      cells: [
+        { state: 'gap', value: '0/5', label: 'Gap', note: 'Migration tooling untested.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' },
+        { state: 'na', value: '—', label: 'N/A' }
+      ]
+    },
+    {
+      category: 'i18n / Locale',
+      hint: 'lang="ja" · Noto Sans JP · hardcoded Japanese strings',
+      cells: [
+        { state: 'gap', value: '0', label: 'Gap', note: 'No string extraction / locale test.' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'Font fallback rendering unchecked.' },
+        { state: 'gap', value: '0', label: 'Gap', note: 'lang attribute presence not asserted.' },
+        { state: 'na', value: '—', label: 'N/A' }
+      ]
+    }
+  ],
+
+  pages: [
+    { path: '/', topic: 'ホーム — 2025 完全ガイド トップ', tested: false },
+    { path: '/acceptance-testing-guide', topic: '受入テスト', tested: false },
+    { path: '/ai-test-guide', topic: 'AI テスト基礎', tested: false },
+    { path: '/bdd-testing-guide', topic: 'BDD（ビヘイビア駆動開発）', tested: true },
+    { path: '/e2e-testing-guide', topic: 'E2E テスト', tested: false },
+    { path: '/integration-functional-testing-guide', topic: '統合 / 機能テスト', tested: false },
+    { path: '/integration-system-testing-guide', topic: '統合 / システムテスト', tested: false },
+    { path: '/software-testing-methodologies-guide', topic: 'テスト手法ガイド', tested: false },
+    { path: '/unit-testing-guide', topic: 'ユニットテスト', tested: false },
+    { path: '/istqb-ctfl-at-complete-guide', topic: 'ISTQB Foundation — Agile', tested: false },
+    { path: '/istqb-ct-ai-complete-guide', topic: 'ISTQB Specialist — AI', tested: true },
+    { path: '/istqb-ct-act-complete-guide', topic: 'ISTQB Specialist — Acceptance', tested: false },
+    { path: '/istqb-ct-genai-complete-guide', topic: 'ISTQB Specialist — GenAI', tested: true },
+    { path: '/istqb-ct-mat-complete-guide', topic: 'ISTQB Specialist — Mobile App', tested: false },
+    { path: '/istqb-ct-mbt-complete-guide', topic: 'ISTQB Specialist — MBT', tested: false },
+    { path: '/istqb-ct-pt-complete-guide', topic: 'ISTQB Specialist — Performance', tested: true },
+    { path: '/istqb-ct-sec-complete-guide', topic: 'ISTQB Specialist — Security', tested: true },
+    { path: '/istqb-ct-tas-complete-guide', topic: 'ISTQB Specialist — TAS', tested: false },
+    { path: '/istqb-ctal-atlas-complete-guide', topic: 'ISTQB Advanced — AT Leadership', tested: true },
+    { path: '/istqb-ctal-att-complete-guide', topic: 'ISTQB Advanced — Agile Tech Tester', tested: true },
+    { path: '/istqb-ctal-ta-complete-guide', topic: 'ISTQB Advanced — Test Analyst', tested: true },
+    { path: '/istqb-ctal-tae-complete-guide', topic: 'ISTQB Advanced — Test Automation Eng', tested: true },
+    { path: '/istqb-ctal-tm-complete-guide', topic: 'ISTQB Advanced — Test Manager', tested: true }
+  ],
+
+  inventory: {
+    pages: [
+      'tests/bdd-testing-guide/page.test.tsx',
+      'tests/istqb-ct-ai-complete-guide/page.test.tsx',
+      'tests/istqb-ct-genai-complete-guide/page.test.tsx',
+      'tests/istqb-ct-pt-complete-guide/page.test.tsx',
+      'tests/istqb-ct-sec-complete-guide/page.test.tsx',
+      'tests/istqb-ctal-atlas-complete-guide/page.test.tsx',
+      'tests/istqb-ctal-att-complete-guide/page.test.tsx',
+      'tests/istqb-ctal-ta-complete-guide/page.test.tsx',
+      'tests/istqb-ctal-tae-complete-guide/page.test.tsx',
+      'tests/istqb-ctal-tm-complete-guide/page.test.tsx'
+    ],
+    components: [
+      'tests/components/Header.test.tsx'
+    ],
+    lib: [
+      'tests/lib/navigation.test.ts',
+      'tests/lib/dependencies.test.ts'
+    ]
+  },
+
+  actions: [
+    {
+      level: 'P0',
+      title: '基盤・即実施',
+      blurb: 'CI 自動化と既存パターンの横展開で、確実かつ短期に改善できる項目。',
+      items: [
+        {
+          h: 'GitHub Actions による CI パイプライン',
+          p: '.github/workflows/ci.yml で bun test + next build + bun run lint を Pull Request 毎に自動実行。回帰検知をマニュアル運用から脱却させる。',
+          tool: 'GitHub Actions',
+          effort: '~1h',
+          impact: '回帰検知 / 必須レビューゲート'
+        },
+        {
+          h: '残 13 ページの page.test.tsx 追加',
+          p: '既存 10 ページの tests/*/page.test.tsx パターンを流用し、見出し描画 + 主要セクション存在 + 外部リンク数を検証する render-only テストを追加。',
+          tool: 'Bun test + RTL',
+          effort: '~6h',
+          impact: 'カバー率 43% → 100%'
+        },
+        {
+          h: 'DisclaimerBanner / Mermaid のコンポーネントテスト',
+          p: 'components/ 配下の残り 2 コンポーネントに対し、レンダリング + props バリエーション + エラーハンドリングのテストを追加。Mermaid は async 初期化のテストパターンが課題。',
+          tool: '@testing-library/react',
+          effort: '~2h',
+          impact: '共有コンポーネント 100% 化'
+        }
+      ]
+    },
+    {
+      level: 'P1',
+      title: 'E2E と非機能テスト導入',
+      blurb: 'ISTQB の System Level に相当する検証層を立ち上げ、非機能テストの最低ラインを確立する。',
+      items: [
+        {
+          h: 'Playwright 導入と全ページのスモーク E2E',
+          p: '全 23 ページに対し HTTP 200 / Header 描画 / コンソールエラーなし / 主要見出し存在をチェック。Playwright config を Next.js dev server に接続。',
+          tool: '@playwright/test',
+          effort: '~6h',
+          impact: 'System Level 達成 / 本番回帰検知'
+        },
+        {
+          h: 'axe-core/playwright で WCAG 2.1 AA 自動検証',
+          p: '各ページに対し axe スキャンを実施し、コントラスト・aria 属性・ランドマーク・キーボードフォーカスを自動チェック。ダークテーマのコントラスト崩れを早期検知。',
+          tool: '@axe-core/playwright',
+          effort: '~3h',
+          impact: 'A11y 自動化 / ダーク背景の品質保証'
+        },
+        {
+          h: 'Lighthouse CI でパフォーマンス予算',
+          p: '主要ページの LCP / CLS / TBT / A11y / SEO スコアにしきい値を設定し、PR で劣化を検知。静的サイトなので予算は厳しめに（LCP < 2.0s 等）。',
+          tool: '@lhci/cli',
+          effort: '~2h',
+          impact: 'パフォーマンス劣化検知 / SEO 品質維持'
+        }
+      ]
+    },
+    {
+      level: 'P2',
+      title: '品質深化',
+      blurb: '視覚回帰・スクロールスパイ等の高度な振る舞いと、移行スクリプト類の信頼性を高める。',
+      items: [
+        {
+          h: 'Playwright スクリーンショットによる Visual Regression',
+          p: '各ページのキービューポート（375 / 768 / 1280px）でベースライン取得。Tailwind v4 アップデートや CSS 変更時のリグレッション検知に直結。',
+          tool: 'Playwright snapshots / Chromatic',
+          effort: '~8h',
+          impact: 'CSS 変更時のリグレッション 0 化'
+        },
+        {
+          h: 'Header drawer / NavBar scroll-spy の E2E 拡充',
+          p: 'メニュー開閉 → フォーカス遷移 → Escape 閉じる、IntersectionObserver による active 切替を実ブラウザで検証。',
+          tool: '@playwright/test',
+          effort: '~4h',
+          impact: 'インタラクション品質保証'
+        },
+        {
+          h: 'scripts/ ユーティリティのユニットテスト',
+          p: 'html-to-tsx / md-to-tsx / extract-css / format-markdown / process-genai-css に対し、入出力サンプルでスナップショットテスト。今後の移行作業の品質を担保。',
+          tool: 'Bun test',
+          effort: '~5h',
+          impact: '移行ツールの信頼性向上'
+        },
+        {
+          h: 'i18n リソース抽出の準備',
+          p: 'ハードコードされた日本語文字列の棚卸とキー化検討、next-intl 等のライブラリ評価。将来的な英語版展開の足がかり。',
+          tool: 'next-intl / i18next 評価',
+          effort: '~3h',
+          impact: '多言語化への足がかり'
+        }
+      ]
+    },
+    {
+      level: 'P3',
+      title: '長期・運用品質',
+      blurb: 'テスト自体の有効性検証、本番イメージ検証、設計可視化など中長期の品質投資。',
+      items: [
+        {
+          h: 'Stryker でミューテーションテスト',
+          p: 'テストが本当にバグを検知できるかをミューテーション解析で検証。スコア 60%+ を目標。Bun test には公式アダプタがないため Vitest 移行の検討材料にもなる。',
+          tool: '@stryker-mutator/core',
+          effort: '~6h',
+          impact: 'テストの有効性可視化'
+        },
+        {
+          h: 'Docker build smoke test を CI に組込',
+          p: 'make build + make up をワークフローで実行し、本番イメージの起動と /healthz 相当のリクエストが 200 を返すことを CI で確認。',
+          tool: 'GitHub Actions + Docker',
+          effort: '~2h',
+          impact: '本番イメージの回帰検知'
+        },
+        {
+          h: 'Storybook でコンポーネントカタログ化',
+          p: '3 コンポーネント（Header / DisclaimerBanner / Mermaid）と将来追加される UI を可視化。a11y addon と interactions addon でテストも兼ねる。',
+          tool: 'Storybook 8',
+          effort: '~12h',
+          impact: '設計の可視化 / 再利用促進'
+        }
+      ]
+    }
+  ]
+};
+
+/* ============================================================
+   Render — strictly DOM API, no innerHTML
+   ============================================================ */
+const TYPE_LABELS = ['Unit', 'Integration', 'E2E', 'Visual Regression', 'Accessibility', 'Performance'];
+const STATE_LABEL = { full: '完全', partial: '部分', gap: '未着手', na: '対象外' };
+
+function el(tag, attrs, children) {
+  const e = document.createElement(tag);
+  if (attrs) {
+    for (const k of Object.keys(attrs)) {
+      const v = attrs[k];
+      if (k === 'class') {
+        e.className = v;
+      } else if (k.startsWith('data-') || k.startsWith('aria-') || k === 'role' || k === 'scope' || k === 'title') {
+        e.setAttribute(k, v);
+      } else {
+        e[k] = v;
+      }
+    }
+  }
+  if (children != null) {
+    const list = Array.isArray(children) ? children : [children];
+    for (const c of list) {
+      if (c == null) continue;
+      e.appendChild(typeof c === 'string' ? document.createTextNode(c) : c);
+    }
+  }
+  return e;
+}
+
+function renderMatrix() {
+  const tbody = document.getElementById('matrix-body');
+  DATA.matrix.forEach((row) => {
+    const tr = el('tr');
+    tr.appendChild(el('th', { scope: 'row' }, [
+      document.createTextNode(row.category),
+      el('small', null, row.hint)
+    ]));
+    row.cells.forEach((c, idx) => {
+      const tdAttrs = {
+        'data-state': c.state,
+        'aria-label': row.category + ' × ' + TYPE_LABELS[idx] + ': ' + STATE_LABEL[c.state] + (c.note ? ' — ' + c.note : '')
+      };
+      if (idx === 3) tdAttrs['data-divide'] = '';
+      if (c.note) tdAttrs.title = c.note;
+      const td = el('td', tdAttrs);
+      const cell = el('span', { class: 'cell', 'data-state': c.state }, [
+        el('span', { class: 'dot' }),
+        el('span', { class: 'lbl' }, c.value)
+      ]);
+      td.appendChild(cell);
+      tr.appendChild(td);
+    });
+    tbody.appendChild(tr);
+  });
+}
+
+function renderPages() {
+  const grid = document.getElementById('pages-grid');
+  let tested = 0;
+  DATA.pages.forEach((p) => {
+    if (p.tested) tested++;
+    const left = el('div', null, [
+      el('span', { class: 'path' }, p.path),
+      el('span', { class: 'topic' }, p.topic)
+    ]);
+    const badge = el('span', {
+      class: 'badge ' + (p.tested ? 'tested' : 'untested')
+    }, p.tested ? '✓ Tested' : '⚠ Untested');
+    grid.appendChild(el('li', { class: 'page-card', 'data-tested': String(p.tested) }, [left, badge]));
+  });
+  document.getElementById('cnt-tested').textContent = String(tested);
+  document.getElementById('cnt-untested').textContent = String(DATA.pages.length - tested);
+}
+
+function renderInventory() {
+  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib' };
+  Object.keys(DATA.inventory).forEach((k) => {
+    const ul = document.getElementById(map[k]);
+    DATA.inventory[k].forEach((f) => {
+      ul.appendChild(el('li', null, [el('code', null, f)]));
+    });
+  });
+}
+
+function renderActions() {
+  const root = document.getElementById('actions-root');
+  DATA.actions.forEach((g) => {
+    const head = el('div', { class: 'prio-head' }, [
+      el('span', { class: 'prio-tag' }, g.level),
+      el('h3', { class: 'prio-title' }, g.title),
+      el('p', { class: 'prio-blurb' }, g.blurb)
+    ]);
+    const grid = el('div', { class: 'actions' });
+    g.items.forEach((it) => {
+      const dl = el('dl', null, [
+        el('dt', null, 'Tool'),
+        el('dd', { class: 'tool' }, it.tool),
+        el('dt', null, 'Effort'),
+        el('dd', { class: 'effort' }, it.effort),
+        el('dt', null, 'Impact'),
+        el('dd', { class: 'impact' }, it.impact)
+      ]);
+      grid.appendChild(el('div', { class: 'action' }, [
+        el('h4', null, it.h),
+        el('p', null, it.p),
+        dl
+      ]));
+    });
+    root.appendChild(el('article', { class: 'prio', 'data-level': g.level }, [head, grid]));
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  renderMatrix();
+  renderPages();
+  renderInventory();
+  renderActions();
+});
+</script>
+</body>
+</html>
