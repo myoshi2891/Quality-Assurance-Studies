@@ -9,7 +9,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `d552eab` — feat(sec): migrate CT-SEC guide to Next.js App Router |
+| 最新 HEAD | `07b9045` — refactor(pt-guide): fix linting and build issues, remove source HTML |
 | 次の作業 | 全てのHTML移行が完了しました |
 | ビルド状態 | ✅ ビルド成功・ESLint エラーなし（warnings のみ、既存ファイル由来） |
 
@@ -26,6 +26,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | `istqb-ct-ai-complete-guide.html` | `/istqb-ct-ai-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
@@ -52,7 +53,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 次回セッションでの再開プロンプト
 
 ```text
-最新 HEAD: d552eab
+最新 HEAD: 07b9045
 次の作業: 全てのHTML移行が完了しました。
 ```
 
