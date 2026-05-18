@@ -51,7 +51,12 @@ paths:
 
 ### ステップ 4: Docs Sync（進捗同期）
 
-- 作業対象が HTML → Next.js ページ移行タスク（`app/` 下のページ新規作成・移行）の場合のみ `docs/MIGRATION_PROGRESS.md` を更新する。判定基準: コミット対象に `app/**/page.tsx` の新規作成、または移行に伴う編集が含まれる場合に適用。それ以外（バグ修正・スタイル修正・ユーティリティ変更等）はスキップ。
+- 作業対象が HTML → Next.js ページ移行タスク（`app/` 下のページ新規作成・移行）の場合のみ `docs/MIGRATION_PROGRESS.md` を更新する。判定基準：
+  - HTMLコンテンツをReactコンポーネントへ変換
+  - 既存ページのルーティング・ビジネスロジックをNext.js構成に合わせて変更
+  - 移行に伴うスタイル調整やアセットパス修正
+  - 新規 page.tsx 作成に伴う既存 page の削除/置換
+  など、`app/**/page.tsx` の新規作成または明確な移行に伴う編集が含まれる場合に適用。バグ修正・スタイル微調整・ユーティリティの独立変更などは除外。
 - **コミット（移行タスク時のみ）**: `chore(docs): update docs/MIGRATION_PROGRESS.md — <page/feature name>`
 
 ## 除外事項
