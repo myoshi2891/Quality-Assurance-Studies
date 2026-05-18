@@ -5,7 +5,7 @@ import Page from '../../app/istqb-ct-pt-complete-guide/page';
 
 afterEach(() => cleanup());
 
-let originalIntersectionObserver: any;
+let originalIntersectionObserver: typeof IntersectionObserver | undefined;
 
 // Mock the IntersectionObserver since it's not available in happy-dom
 beforeAll(() => {

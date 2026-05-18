@@ -9,19 +9,21 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `3fc2735` — docs: refine TDD migration rules and fix errors in CT-UT guide |
-| 次の作業 | `istqb-ct-ut-complete-guide.md` 内の残存 ASCII アート等の Markdown 変換（約 27 箇所） |
-| ビルド状態 | ✅ ビルド成功・ESLint エラーなし |
+| 最新 HEAD | (更新待ち) |
+| 次の作業 | 次の HTML の Next.js アプリケーションへの移行、または既存の不具合の修正 |
+| ビルド状態 | ✅ ビルド成功・ESLint エラーなし・テスト成功 |
 
 ## 2026/05/18 修正・改善タスク完了
 
 インラインコメントに基づき、以下の修正を実施した。
 
 ### 1. ガイドラインとルールの明確化
+
 - `.claude/rules/tdd-mandatory-cycle.md`: `docs/MIGRATION_PROGRESS.md` の更新が必要な「移行タスク」の判定基準を具体化（HTML→React変換、ページ削除等）。
 
 ### 2. istqb-ct-pt-complete-guide（Next.js 移行後）の品質向上
-- `app/istqb-ct-pt-complete-guide.css`: 
+
+- `app/istqb-ct-pt-complete-guide.css`:
   - Tailwind v4 規約（`@layer base/components`）への準拠。
   - `prefers-reduced-motion` 対応（アニメーション無効化、プログレスバー表示維持）。
   - `sticky-nav` の位置と `z-index` をプロジェクト規約に調整。
@@ -29,11 +31,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `app/istqb-ct-pt-complete-guide/NavBar.tsx`: `use client` 追加と `IntersectionObserver` によるスクロールスパイ実装。
 - `tests/istqb-ct-pt-complete-guide/page.test.tsx`: `afterAll` での `IntersectionObserver` モック復元処理追加。
 
-### 3. istqb-ct-ut-complete-guide.md の修正（継続中）
-- **完了**: 
+### 3. istqb-ct-ut-complete-guide.md の修正（完了）
+
+- **完了**:
   - ロードマップ、法的リスク（金額表記）、算術計算例（80%の分母修正）の修正。
   - 冒頭および Chapter 2 付近の ASCII アート・テーブルの Markdown 変換。
-- **未完了**: 
   - Chapter 3 以降に残存する約 27 箇所の無タグコードブロック（ASCII アート、テキストボックス等）の Markdown テーブル、リスト、または Mermaid への変換。
 
 ## 移行状況テーブル
@@ -76,18 +78,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 次回セッションでの再開プロンプト
 
 ```text
-最新 HEAD: 3fc2735 (docs: refine TDD migration rules and fix errors in CT-UT guide)
-コンテキスト: インラインコメント修正タスクの途中で、istqb-ct-ut-complete-guide.md のリファクタリングが残っています。
+コンテキスト: `istqb-ct-ut-complete-guide.md` のリファクタリングが完了しました。
 
 【指示】
-1. `istqb-ct-ut-complete-guide.md` を開き、無タグのコードブロック（ ``` のみ）をすべて抽出し、以下のルールで変換してください。
-   - テキストベースの表 → GFM テーブル
-   - ASCII アートのフロー/図解 → Mermaid
-   - 装飾用のテキストボックス → 引用ブロック (>) またはリスト
-   - ※既に言語タグ（python, yaml等）があるブロックは触らないでください。
-2. 変換後、ファイル内に無タグのコードブロックが残っていないことを `grep` で確認してください。
-3. 全体検証（`bun run lint`, `bun run build`, `bun test`）を実行し、問題がないことを確認してください。
-4. 完了後、本ファイル（docs/MIGRATION_PROGRESS.md）の「次の作業」を更新し、変更をコミットしてください。
+次の移行タスクまたは修正タスクを開始してください。
 ```
 
 ---
