@@ -2,6 +2,13 @@
 
 import { useEffect } from 'react';
 
+/**
+ * Renders a sticky chapter navigation bar and updates each link's `aria-current` to reflect the currently visible section.
+ *
+ * The component outputs branded navigation links that point to in-page section anchors and keeps `aria-current="true"` on the link whose target section is in view.
+ *
+ * @returns The navigation bar JSX element containing anchored chapter links
+ */
 export default function NavBar() {
     useEffect(() => {
         const links = document.querySelectorAll('.nav-link');
