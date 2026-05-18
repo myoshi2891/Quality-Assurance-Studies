@@ -1256,7 +1256,7 @@ export default function Page() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td rowSpan="4"><strong>応答時間</strong></td>
+                                <td rowSpan={4}><strong>応答時間</strong></td>
                                 <td><strong>レスポンスタイム</strong></td>
                                 <td>リクエスト送信〜全レスポンス受信まで</td>
                                 <td>ms / 秒 — 例: P90 &lt; 3秒</td>
@@ -1277,7 +1277,7 @@ export default function Page() {
                                 <td>秒 — 例: &lt; 2秒</td>
                             </tr>
                             <tr>
-                                <td rowSpan="2"><strong>スループット</strong></td>
+                                <td rowSpan={2}><strong>スループット</strong></td>
                                 <td><strong>TPS / RPS</strong></td>
                                 <td>1秒あたりに処理できるトランザクション/リクエスト数</td>
                                 <td>TPS — 例: &gt; 150 TPS</td>
@@ -1288,7 +1288,7 @@ export default function Page() {
                                 <td>req/hour</td>
                             </tr>
                             <tr>
-                                <td rowSpan="2"><strong>エラー</strong></td>
+                                <td rowSpan={2}><strong>エラー</strong></td>
                                 <td><strong>エラー率</strong></td>
                                 <td>全リクエストに対するエラーレスポンスの割合</td>
                                 <td>% — 例: &lt; 1%</td>
@@ -1299,7 +1299,7 @@ export default function Page() {
                                 <td>件数・%</td>
                             </tr>
                             <tr>
-                                <td rowSpan="4"><strong>リソース</strong></td>
+                                <td rowSpan={4}><strong>リソース</strong></td>
                                 <td><strong>CPU使用率</strong></td>
                                 <td>サーバーのCPU消費量</td>
                                 <td>% — 例: 通常 &lt; 70%・ピーク &lt; 85%</td>
