@@ -9,9 +9,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `c082652` — docs: refactor istqb-ct-ut-complete-guide.md removing untagged code blocks and fix navigation test |
-| 次の作業 | 次の HTML の Next.js アプリケーションへの移行、または既存の不具合の修正 |
-| ビルド状態 | ✅ ビルド成功・ESLint エラーなし・テスト成功 |
+| 最新 HEAD | `322ca53` — docs(coverage): add self-referential test coverage dashboard |
+| 次の作業 | [docs/coverage-dashboard.html](coverage-dashboard.html) の P0 アクション着手（CI 構築、未テストページ 13 件への page.test.tsx 追加、DisclaimerBanner / Mermaid テスト追加）または別の修正タスク |
+| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 10 warnings（既知のスケルトン）・`bun test` 79 pass / 0 fail |
 
 ## 2026/05/18 修正・改善タスク完了
 
@@ -37,6 +37,16 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - ロードマップ、法的リスク（金額表記）、算術計算例（80%の分母修正）の修正。
   - 冒頭および Chapter 2 付近の ASCII アート・テーブルの Markdown 変換。
   - Chapter 3 以降に残存する約 27 箇所の無タグコードブロック（ASCII アート、テキストボックス等）の Markdown テーブル、リスト、または Mermaid への変換。
+
+### 4. Test Coverage Dashboard の追加（完了）
+
+HTML 移行とは独立した可視化タスク。プロジェクト自身のテストカバレッジを 1 ファイルで把握できるスタンドアロン HTML を追加した。
+
+- 追加ファイル: [docs/coverage-dashboard.html](coverage-dashboard.html)（単一ファイル、外部依存は Google Fonts のみ）
+- 構成: KPI 概要 / 11 カテゴリ × 6 種別マトリクス / 23 ページ別カバレッジ / 既存 13 テストのインベントリ / P0-P3 ネクストアクション / ISTQB テストレベル整合表
+- 数値根拠: ページ 10/23 テスト済（43%）・コンポーネント 1/3・lib 2/1・scripts 0/5・CI 0 パイプライン
+- 更新運用: `<script>` 内の `DATA` 定数を編集して再描画。HTML 構造の変更不要
+- コミット: `322ca53 docs(coverage): add self-referential test coverage dashboard`
 
 ## 移行状況テーブル
 
@@ -78,10 +88,20 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 次回セッションでの再開プロンプト
 
 ```text
-コンテキスト: `istqb-ct-ut-complete-guide.md` のリファクタリングが完了しました。
+コンテキスト:
+- 最新 HEAD: `322ca53` — docs(coverage): add self-referential test coverage dashboard
+- HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
+- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) を追加。
+  現状: ページ 10/23（43%）・コンポーネント 1/3・CI/CD 未構築。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / `bun test` 79 pass / 0 fail。
 
 【指示】
-次の移行タスクまたは修正タスクを開始してください。
+次のいずれかを開始してください:
+1. coverage-dashboard.html の P0 アクション:
+   a. `.github/workflows/ci.yml` で `bun test` + `bun run build` + `bun run lint` を PR 毎に走らせる CI 構築
+   b. 未テストページ 13 件への page.test.tsx 追加（既存 10 件の `tests/*/page.test.tsx` をパターン流用）
+   c. DisclaimerBanner / Mermaid のコンポーネントテスト追加
+2. または別の修正・リファクタリングタスク。
 ```
 
 ---
