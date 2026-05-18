@@ -1,6 +1,45 @@
 'use client';
 
+import { useEffect } from 'react';
+
 export default function NavBar() {
+    useEffect(() => {
+        const links = document.querySelectorAll('.nav-link');
+        const sections = Array.from(links)
+            .map((link) => {
+                const href = link.getAttribute('href');
+                if (href && href.startsWith('#')) {
+                    return document.querySelector(href);
+                }
+                return null;
+            })
+            .filter(Boolean) as HTMLElement[];
+
+        const observer = new IntersectionObserver(
+            (entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        links.forEach((link) => {
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.setAttribute('aria-current', 'true');
+                            } else {
+                                link.removeAttribute('aria-current');
+                            }
+                        });
+                    }
+                });
+            },
+            { rootMargin: '-20% 0px -80% 0px' }
+        );
+
+        sections.forEach((section) => observer.observe(section));
+
+        return () => {
+            observer.disconnect();
+        };
+    }, []);
+
     return (
         <nav className="sticky-nav" aria-label="章ナビゲーション">
             <div className="nav-inner">
