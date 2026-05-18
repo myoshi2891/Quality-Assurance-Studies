@@ -9,7 +9,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | (更新待ち) |
+| 最新 HEAD | `c082652` — docs: refactor istqb-ct-ut-complete-guide.md removing untagged code blocks and fix navigation test |
 | 次の作業 | 次の HTML の Next.js アプリケーションへの移行、または既存の不具合の修正 |
 | ビルド状態 | ✅ ビルド成功・ESLint エラーなし・テスト成功 |
 
