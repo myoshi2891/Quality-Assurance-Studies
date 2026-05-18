@@ -3,7 +3,8 @@
     "allow": [
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(gh issue *)"
+      "Bash(gh issue *)",
+      "Bash(bun test *)"
     ]
   }
 }
