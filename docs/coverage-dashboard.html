@@ -338,6 +338,7 @@ code, kbd, samp, .mono { font-family: var(--font-mono); font-feature-settings: '
 .kpi[data-tone="red"]     { --kpi-color: var(--st-gap); }
 .kpi[data-tone="blue"]    { --kpi-color: var(--c-integration); }
 .kpi[data-tone="violet"]  { --kpi-color: var(--c-functional); }
+.kpi[data-tone="ok"]      { --kpi-color: var(--st-full); }
 
 /* ============================================================
    Section header
@@ -984,24 +985,24 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num">13<span class="unit">files</span></div>
+      <div class="kpi-num">28<span class="unit">files</span></div>
       <div class="kpi-lbl">Test Files Total</div>
       <p class="kpi-desc">Bun test runner + @testing-library/react + happy-dom 構成。Vitest/Jest/Playwright は未導入。</p>
     </article>
-    <article class="kpi" data-tone="orange">
-      <div class="kpi-num">10<span class="unit">/ 23</span></div>
-      <div class="kpi-lbl">Pages Tested · 43%</div>
-      <p class="kpi-desc">未カバー13ページ。HTML→Next.js 移行完了済みのページのうち、レンダリングテストが半数未満。</p>
+    <article class="kpi" data-tone="ok">
+      <div class="kpi-num">23<span class="unit">/ 23</span></div>
+      <div class="kpi-lbl">Pages Tested · 100%</div>
+      <p class="kpi-desc">全 23 ページに render-only スモークテスト完備（P0 完了）。E2E・a11y・ビジュアル検証は P1 で着手予定。</p>
     </article>
     <article class="kpi" data-tone="red">
       <div class="kpi-num">5<span class="unit">/ 6</span></div>
       <div class="kpi-lbl">Test Types Uncovered</div>
       <p class="kpi-desc">E2E · Visual Regression · Accessibility 自動化 · Performance · Integration が全面的に未着手。Unit のみ部分実装。</p>
     </article>
-    <article class="kpi" data-tone="violet">
-      <div class="kpi-num">0<span class="unit">pipelines</span></div>
+    <article class="kpi" data-tone="ok">
+      <div class="kpi-num">1<span class="unit">pipeline</span></div>
       <div class="kpi-lbl">CI / CD Configured</div>
-      <p class="kpi-desc">.github/workflows なし。テスト・ビルド・lint はローカル実行のみ、回帰検知はマニュアル依存。</p>
+      <p class="kpi-desc">.github/workflows/ci.yml で bun lint → test → build を PR / push 毎に自動実行。回帰検知をマニュアル運用から脱却済み。</p>
     </article>
   </section>
 
@@ -1044,8 +1045,8 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。E2E・a11y・ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">10</strong> Tested</span>
-      <span class="chip" data-tone="gap"><strong id="cnt-untested">13</strong> Untested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">23</strong> Tested</span>
+      <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
       <span class="chip"><strong>23</strong> Total Routes</span>
       <span class="chip"><strong>0</strong> with E2E</span>
     </div>
@@ -1159,7 +1160,7 @@ const DATA = {
       category: 'Pages',
       hint: '23 routes under app/',
       cells: [
-        { state: 'partial', value: '10/23', label: '43%', note: 'Render-only smoke tests on 10 pages.' },
+        { state: 'full', value: '23/23', label: '100%', note: 'Render-only smoke tests on all 23 pages.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No Playwright/Cypress.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
@@ -1171,7 +1172,7 @@ const DATA = {
       category: 'Shared Components',
       hint: 'components/ — Header, DisclaimerBanner, Mermaid',
       cells: [
-        { state: 'partial', value: '1/3', label: '33%', note: 'Header only.' },
+        { state: 'full', value: '3/3', label: '100%', note: 'Header / DisclaimerBanner / Mermaid covered.' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
@@ -1195,7 +1196,7 @@ const DATA = {
       category: 'Interactive Behaviors',
       hint: 'Header drawer · NavBar IntersectionObserver · Mermaid async render',
       cells: [
-        { state: 'partial', value: '1/3', label: '33%', note: 'Header drawer covered, NavBar & Mermaid not.' },
+        { state: 'partial', value: '2/3', label: '67%', note: 'Header drawer + Mermaid async render covered, NavBar IntersectionObserver not.' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap', note: 'Scroll-spy behavior requires real browser.' },
         { state: 'gap', value: '0', label: 'Gap' },
@@ -1290,24 +1291,24 @@ const DATA = {
   ],
 
   pages: [
-    { path: '/', topic: 'ホーム — 2025 完全ガイド トップ', tested: false },
-    { path: '/acceptance-testing-guide', topic: '受入テスト', tested: false },
-    { path: '/ai-test-guide', topic: 'AI テスト基礎', tested: false },
+    { path: '/', topic: 'ホーム — 2025 完全ガイド トップ', tested: true },
+    { path: '/acceptance-testing-guide', topic: '受入テスト', tested: true },
+    { path: '/ai-test-guide', topic: 'AI テスト基礎', tested: true },
     { path: '/bdd-testing-guide', topic: 'BDD（ビヘイビア駆動開発）', tested: true },
-    { path: '/e2e-testing-guide', topic: 'E2E テスト', tested: false },
-    { path: '/integration-functional-testing-guide', topic: '統合 / 機能テスト', tested: false },
-    { path: '/integration-system-testing-guide', topic: '統合 / システムテスト', tested: false },
-    { path: '/software-testing-methodologies-guide', topic: 'テスト手法ガイド', tested: false },
-    { path: '/unit-testing-guide', topic: 'ユニットテスト', tested: false },
-    { path: '/istqb-ctfl-at-complete-guide', topic: 'ISTQB Foundation — Agile', tested: false },
+    { path: '/e2e-testing-guide', topic: 'E2E テスト', tested: true },
+    { path: '/integration-functional-testing-guide', topic: '統合 / 機能テスト', tested: true },
+    { path: '/integration-system-testing-guide', topic: '統合 / システムテスト', tested: true },
+    { path: '/software-testing-methodologies-guide', topic: 'テスト手法ガイド', tested: true },
+    { path: '/unit-testing-guide', topic: 'ユニットテスト', tested: true },
+    { path: '/istqb-ctfl-at-complete-guide', topic: 'ISTQB Foundation — Agile', tested: true },
     { path: '/istqb-ct-ai-complete-guide', topic: 'ISTQB Specialist — AI', tested: true },
-    { path: '/istqb-ct-act-complete-guide', topic: 'ISTQB Specialist — Acceptance', tested: false },
+    { path: '/istqb-ct-act-complete-guide', topic: 'ISTQB Specialist — Acceptance', tested: true },
     { path: '/istqb-ct-genai-complete-guide', topic: 'ISTQB Specialist — GenAI', tested: true },
-    { path: '/istqb-ct-mat-complete-guide', topic: 'ISTQB Specialist — Mobile App', tested: false },
-    { path: '/istqb-ct-mbt-complete-guide', topic: 'ISTQB Specialist — MBT', tested: false },
+    { path: '/istqb-ct-mat-complete-guide', topic: 'ISTQB Specialist — Mobile App', tested: true },
+    { path: '/istqb-ct-mbt-complete-guide', topic: 'ISTQB Specialist — MBT', tested: true },
     { path: '/istqb-ct-pt-complete-guide', topic: 'ISTQB Specialist — Performance', tested: true },
     { path: '/istqb-ct-sec-complete-guide', topic: 'ISTQB Specialist — Security', tested: true },
-    { path: '/istqb-ct-tas-complete-guide', topic: 'ISTQB Specialist — TAS', tested: false },
+    { path: '/istqb-ct-tas-complete-guide', topic: 'ISTQB Specialist — TAS', tested: true },
     { path: '/istqb-ctal-atlas-complete-guide', topic: 'ISTQB Advanced — AT Leadership', tested: true },
     { path: '/istqb-ctal-att-complete-guide', topic: 'ISTQB Advanced — Agile Tech Tester', tested: true },
     { path: '/istqb-ctal-ta-complete-guide', topic: 'ISTQB Advanced — Test Analyst', tested: true },
@@ -1317,11 +1318,24 @@ const DATA = {
 
   inventory: {
     pages: [
+      'tests/home/page.test.tsx',
+      'tests/acceptance-testing-guide/page.test.tsx',
+      'tests/ai-test-guide/page.test.tsx',
       'tests/bdd-testing-guide/page.test.tsx',
+      'tests/e2e-testing-guide/page.test.tsx',
+      'tests/integration-functional-testing-guide/page.test.tsx',
+      'tests/integration-system-testing-guide/page.test.tsx',
+      'tests/software-testing-methodologies-guide/page.test.tsx',
+      'tests/unit-testing-guide/page.test.tsx',
+      'tests/istqb-ctfl-at-complete-guide/page.test.tsx',
       'tests/istqb-ct-ai-complete-guide/page.test.tsx',
+      'tests/istqb-ct-act-complete-guide/page.test.tsx',
       'tests/istqb-ct-genai-complete-guide/page.test.tsx',
+      'tests/istqb-ct-mat-complete-guide/page.test.tsx',
+      'tests/istqb-ct-mbt-complete-guide/page.test.tsx',
       'tests/istqb-ct-pt-complete-guide/page.test.tsx',
       'tests/istqb-ct-sec-complete-guide/page.test.tsx',
+      'tests/istqb-ct-tas-complete-guide/page.test.tsx',
       'tests/istqb-ctal-atlas-complete-guide/page.test.tsx',
       'tests/istqb-ctal-att-complete-guide/page.test.tsx',
       'tests/istqb-ctal-ta-complete-guide/page.test.tsx',
@@ -1329,7 +1343,9 @@ const DATA = {
       'tests/istqb-ctal-tm-complete-guide/page.test.tsx'
     ],
     components: [
-      'tests/components/Header.test.tsx'
+      'tests/components/Header.test.tsx',
+      'tests/components/DisclaimerBanner.test.tsx',
+      'tests/components/Mermaid.test.tsx'
     ],
     lib: [
       'tests/lib/navigation.test.ts',
@@ -1340,28 +1356,28 @@ const DATA = {
   actions: [
     {
       level: 'P0',
-      title: '基盤・即実施',
-      blurb: 'CI 自動化と既存パターンの横展開で、確実かつ短期に改善できる項目。',
+      title: '基盤・即実施 ✅ 完了',
+      blurb: 'CI 自動化と既存パターンの横展開で、確実かつ短期に改善できる項目。すべて実施済み。',
       items: [
         {
-          h: 'GitHub Actions による CI パイプライン',
-          p: '.github/workflows/ci.yml で bun test + next build + bun run lint を Pull Request 毎に自動実行。回帰検知をマニュアル運用から脱却させる。',
+          h: '✅ GitHub Actions による CI パイプライン',
+          p: '.github/workflows/ci.yml で bun lint → test → build を Pull Request (main/dev) と main push 毎に自動実行する構成を追加済み。concurrency キャンセルで旧ジョブを破棄。',
           tool: 'GitHub Actions',
-          effort: '~1h',
+          effort: 'Done',
           impact: '回帰検知 / 必須レビューゲート'
         },
         {
-          h: '残 13 ページの page.test.tsx 追加',
-          p: '既存 10 ページの tests/*/page.test.tsx パターンを流用し、見出し描画 + 主要セクション存在 + 外部リンク数を検証する render-only テストを追加。',
+          h: '✅ 残 13 ページの page.test.tsx 追加',
+          p: '既存パターンを流用し、ホーム + 基礎テスト手法 7 ページ + CTFL-AT + ISTQB Specialist 4 ページに h1/h2 見出し検証スペックを追加。23/23 ページ全てが render-only スモークを保有。',
           tool: 'Bun test + RTL',
-          effort: '~6h',
+          effort: 'Done',
           impact: 'カバー率 43% → 100%'
         },
         {
-          h: 'DisclaimerBanner / Mermaid のコンポーネントテスト',
-          p: 'components/ 配下の残り 2 コンポーネントに対し、レンダリング + props バリエーション + エラーハンドリングのテストを追加。Mermaid は async 初期化のテストパターンが課題。',
+          h: '✅ DisclaimerBanner / Mermaid のコンポーネントテスト',
+          p: 'DisclaimerBanner は --disclaimer-height CSS 変数の同期と固定位置を検証。Mermaid は mock.module で mermaid.render をスタブ化し、空 chart の no-op / エラーフォールバック / wrapper 構造を検証。',
           tool: '@testing-library/react',
-          effort: '~2h',
+          effort: 'Done',
           impact: '共有コンポーネント 100% 化'
         }
       ]
