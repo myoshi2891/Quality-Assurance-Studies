@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-act-complete-guide/page';
 
 afterEach(() => {
@@ -8,10 +9,14 @@ afterEach(() => {
 
 describe('ISTQB CT-AcT Complete Guide Page', () => {
   it('renders the hero heading for Acceptance Testing', () => {
-    const h1 = render(<Page />).container.querySelector('h1.hero-title');
-    expect(h1).not.toBeNull();
-    expect(h1?.textContent).toMatch(/CT-AcT/);
-    expect(h1?.textContent).toMatch(/Acceptance Testing/);
+    render(<Page />);
+    const h1 = screen.getByRole('heading', {
+      level: 1,
+      name: /CT-AcT.*Acceptance Testing/,
+    });
+    expect(h1).toBeInTheDocument();
+    expect(h1).toHaveTextContent(/CT-AcT/);
+    expect(h1).toHaveTextContent(/Acceptance Testing/);
   });
 
   it('renders the section title headings', () => {

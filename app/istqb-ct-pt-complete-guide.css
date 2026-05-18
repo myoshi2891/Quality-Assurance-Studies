@@ -2,7 +2,6 @@
             /* ===== CSS CUSTOM PROPERTIES ===== */
             
 
-            @layer base {
             /* ===== RESET & BASE ===== */
             *,
             *::before,
@@ -135,9 +134,6 @@
                 }
             }
 
-            }
-
-            @layer components {
             /* ===== STICKY NAV ===== */
             .sticky-nav {
                 position: sticky;
@@ -1174,6 +1170,4 @@
             }
             .tab-panel:not([hidden]) {
                 display: block;
-            }
-        
             }

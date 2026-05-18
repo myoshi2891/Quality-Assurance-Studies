@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 /**
  * Renders a sticky chapter navigation bar and updates each link's `aria-current` to reflect the currently visible section.
  *
- * The component outputs branded navigation links that point to in-page section anchors and keeps `aria-current="true"` on the link whose target section is in view.
+ * The component outputs branded navigation links that point to in-page section anchors and keeps `aria-current="location"` on the link whose target section is in view.
  *
  * @returns The navigation bar JSX element containing anchored chapter links
  */
@@ -29,7 +29,7 @@ export default function NavBar() {
                         const id = entry.target.getAttribute('id');
                         links.forEach((link) => {
                             if (link.getAttribute('href') === `#${id}`) {
-                                link.setAttribute('aria-current', 'true');
+                                link.setAttribute('aria-current', 'location');
                             } else {
                                 link.removeAttribute('aria-current');
                             }

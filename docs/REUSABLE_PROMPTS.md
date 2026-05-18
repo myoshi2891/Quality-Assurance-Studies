@@ -208,7 +208,7 @@
 ### ファイル形式
 
 - **単一HTMLファイル**（外部CDN可、ビルド不要で開けること）
-- ファイル名: `test-coverage-dashboard.html`
+- ファイル名: `docs/coverage-dashboard.html`
 
 ### UI要件
 

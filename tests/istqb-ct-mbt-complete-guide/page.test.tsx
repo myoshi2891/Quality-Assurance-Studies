@@ -1,5 +1,6 @@
 import { describe, it, expect, afterEach } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-mbt-complete-guide/page';
 
 afterEach(() => {
@@ -8,10 +9,14 @@ afterEach(() => {
 
 describe('ISTQB CT-MBT Complete Guide Page', () => {
   it('renders the main heading for モデルベーステスト', () => {
-    const h1 = render(<Page />).container.querySelector('h1');
-    expect(h1).not.toBeNull();
-    expect(h1?.textContent).toMatch(/CT-MBT/);
-    expect(h1?.textContent).toMatch(/モデルベーステスト/);
+    render(<Page />);
+    const h1 = screen.getByRole('heading', {
+      level: 1,
+      name: /CT-MBT.*モデルベーステスト/,
+    });
+    expect(h1).toBeInTheDocument();
+    expect(h1).toHaveTextContent(/CT-MBT/);
+    expect(h1).toHaveTextContent(/モデルベーステスト/);
   });
 
   it('renders the chapter headings', () => {

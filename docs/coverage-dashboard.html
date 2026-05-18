@@ -1058,28 +1058,28 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num">13 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">13 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count">10 files</span>
+          <span class="inv-count" id="inv-count-pages">10 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
       <details class="inv">
         <summary>
           <span>Component Tests</span>
-          <span class="inv-count">1 file</span>
+          <span class="inv-count" id="inv-count-components">1 file</span>
         </summary>
         <ul id="inv-components"></ul>
       </details>
       <details class="inv">
         <summary>
           <span>Library &amp; Dependency Tests</span>
-          <span class="inv-count">2 files</span>
+          <span class="inv-count" id="inv-count-lib">2 files</span>
         </summary>
         <ul id="inv-lib"></ul>
       </details>
@@ -1553,12 +1553,24 @@ function renderPages() {
 
 function renderInventory() {
   const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib' };
+  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib' };
+  let total = 0;
   Object.keys(DATA.inventory).forEach((k) => {
     const ul = document.getElementById(map[k]);
-    DATA.inventory[k].forEach((f) => {
+    const files = DATA.inventory[k];
+    files.forEach((f) => {
       ul.appendChild(el('li', null, [el('code', null, f)]));
     });
+    const countEl = document.getElementById(countMap[k]);
+    if (countEl) {
+      countEl.textContent = files.length + ' file' + (files.length === 1 ? '' : 's');
+    }
+    total += files.length;
   });
+  const totalEl = document.getElementById('inv-total');
+  if (totalEl) {
+    totalEl.textContent = total + ' file' + (total === 1 ? '' : 's');
+  }
 }
 
 function renderActions() {

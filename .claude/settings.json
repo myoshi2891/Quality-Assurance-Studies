@@ -4,7 +4,8 @@
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
       "Bash(gh issue *)",
-      "Bash(bun test *)"
+      "Bash(bun test *)",
+      "Bash(bun run *)"
     ]
   }
 }
