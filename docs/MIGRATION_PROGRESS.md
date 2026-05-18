@@ -9,9 +9,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `322ca53` — docs(coverage): add self-referential test coverage dashboard |
-| 次の作業 | [docs/coverage-dashboard.html](coverage-dashboard.html) の P0 アクション着手（CI 構築、未テストページ 13 件への page.test.tsx 追加、DisclaimerBanner / Mermaid テスト追加）または別の修正タスク |
-| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 10 warnings（既知のスケルトン）・`bun test` 79 pass / 0 fail |
+| 最新 HEAD | `f58a819` — chore(docs): update coverage dashboard after P0 completion |
+| 次の作業 | coverage-dashboard.html の P1/P2 アクション着手、または別の修正・リファクタリングタスク |
+| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings（既知のスケルトン）・`bun test` 112 pass / 0 fail（28 files）|
 
 ## 2026/05/18 修正・改善タスク完了
 
@@ -89,18 +89,15 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 ```text
 コンテキスト:
-- 最新 HEAD: `322ca53` — docs(coverage): add self-referential test coverage dashboard
+- 最新 HEAD: `f58a819` — chore(docs): update coverage dashboard after P0 completion
 - HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
-- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) を追加。
-  現状: ページ 10/23（43%）・コンポーネント 1/3・CI/CD 未構築。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / `bun test` 79 pass / 0 fail。
+- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 追加・P0 アクション完了済み。
+  現状: CI (.github/workflows/ci.yml) 構築済み・ページテスト追加済み・DisclaimerBanner / Mermaid コンポーネントテスト追加済み。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 112 pass / 0 fail（28 files）。
 
 【指示】
 次のいずれかを開始してください:
-1. coverage-dashboard.html の P0 アクション:
-   a. `.github/workflows/ci.yml` で `bun test` + `bun run build` + `bun run lint` を PR 毎に走らせる CI 構築
-   b. 未テストページ 13 件への page.test.tsx 追加（既存 10 件の `tests/*/page.test.tsx` をパターン流用）
-   c. DisclaimerBanner / Mermaid のコンポーネントテスト追加
+1. coverage-dashboard.html の P1/P2 アクション（スナップショットテスト、アクセシビリティテスト等）
 2. または別の修正・リファクタリングタスク。
 ```
 
