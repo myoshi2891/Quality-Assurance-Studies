@@ -180,15 +180,29 @@ Add a new `<Link>` to `components/Header.tsx`:
 
 Create `app/<page-slug>/page.tsx` following Next.js App Router conventions.
 
-#### 5c. Update CLAUDE.md
+#### 5c. Update CLAUDE.md and GEMINI.md
 
-Add the new page to the Architecture section:
+Add the new page to the Architecture section of **both** `CLAUDE.md` and `GEMINI.md`:
 
 ```markdown
 - `app/<page-slug>/page.tsx` — ページの説明
 ```
 
-If a page-specific CSS file was created, also document it.
+If a page-specific CSS file was created, also document it. Then add an entry to the **Migrated Pages (Tracking)** list in `GEMINI.md`:
+
+```markdown
+- `app/<page-slug>/page.tsx` (ページ日本語タイトル、`NavBar.tsx` 付き)
+```
+
+#### 5d. Update docs/coverage-dashboard.html
+
+After adding `tests/<page-slug>/page.test.tsx`, update the `DATA.pages` array in the `<script>` block at the bottom of `docs/coverage-dashboard.html`:
+
+```js
+{ path: '/<page-slug>', topic: 'ISTQB Specialist — <略称>', tested: true },
+```
+
+Also recalculate the overall coverage percentage (`--coverage` CSS variable and the `<span>` displaying the % value) to reflect the updated tested/total page count.
 
 ### Phase 6: Verification
 
