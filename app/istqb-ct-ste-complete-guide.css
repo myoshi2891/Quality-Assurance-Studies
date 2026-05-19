@@ -240,6 +240,7 @@
 .code-comment { color: var(--color-text-muted); font-style: italic; }
 .code-keyword { color: var(--color-accent-purple); }
 .code-string  { color: var(--color-accent-orange); }
+.code-block .code-line { white-space: pre; font-family: inherit; line-height: inherit; }
 
 /* ===== STEP LIST ===== */
 .step-list { list-style: none; margin: 1rem 0; }

@@ -334,19 +334,19 @@ export default function ISTQB_CT_STE_Page() {
     <li className="ok"><span className="check-icon">③</span><strong>推移的依存関係のチェック：</strong>直接依存だけでなく間接依存ライブラリも確認</li>
   </ul>
 
-  <pre className="code-block" data-lang="bash"><code>
-<span className="code-comment"># ① OWASP Dependency-Check でのスキャン例</span>
-dependency-check.sh <span className="code-keyword">--project</span> MyApp \
-  <span className="code-keyword">--scan</span> ./target/myapp.jar \
-  <span className="code-keyword">--format</span> HTML \
-  <span className="code-keyword">--out</span> ./reports/
-
-<span className="code-comment"># ② Snyk でのスキャン</span>
-snyk test --json &gt; sca-results.json
-
-<span className="code-comment"># ③ npm audit（Node.js の推移的依存関係チェック）</span>
-npm audit --audit-level=high
-  </code></pre>
+  <div className="code-block" data-lang="bash">
+<div className="code-line"><span className="code-comment"># ① OWASP Dependency-Check でのスキャン例</span></div>
+<div className="code-line">dependency-check.sh <span className="code-keyword">--project</span> MyApp \</div>
+<div className="code-line">  <span className="code-keyword">--scan</span> ./target/myapp.jar \</div>
+<div className="code-line">  <span className="code-keyword">--format</span> HTML \</div>
+<div className="code-line">  <span className="code-keyword">--out</span> ./reports/</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-comment"># ② Snyk でのスキャン</span></div>
+<div className="code-line">snyk test --json &gt; sca-results.json</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-comment"># ③ bun audit（Node.js の推移的依存関係チェック）</span></div>
+<div className="code-line">bun audit --audit-level=high</div>
+  </div>
 </section>
 
 {/* CHAPTER 2 */}
@@ -439,20 +439,20 @@ npm audit --audit-level=high
   </div>
 
   <h3 className="sub-title">IDOR（Insecure Direct Object Reference）テスト例</h3>
-  <pre className="code-block" data-lang="http"><code>
-<span className="code-comment"># テストシナリオ：ユーザーA としてログイン後、ユーザーB のデータへアクセスを試みる</span>
-
-<span className="code-comment"># Step 1: 自分の注文を確認（成功するはず）</span>
-GET /api/orders/<span className="code-green">1001</span> HTTP/1.1
-Authorization: Bearer <span className="code-amber">userA_token</span>
-→ 200 OK (自分の注文情報)
-
-<span className="code-comment"># Step 2: 別ユーザーの注文ID を試す（失敗するべき）</span>
-GET /api/orders/<span className="code-red">1002</span> HTTP/1.1
-Authorization: Bearer <span className="code-amber">userA_token</span>
-→ 期待: <span className="code-green">403 Forbidden</span>
-→ 脆弱: <span className="code-red">200 OK (ユーザーBの情報が返る！)</span>
-  </code></pre>
+  <div className="code-block" data-lang="http">
+<div className="code-line"><span className="code-comment"># テストシナリオ：ユーザーA としてログイン後、ユーザーB のデータへアクセスを試みる</span></div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-comment"># Step 1: 自分の注文を確認（成功するはず）</span></div>
+<div className="code-line">GET /api/orders/<span className="code-green">1001</span> HTTP/1.1</div>
+<div className="code-line">Authorization: Bearer <span className="code-amber">userA_token</span></div>
+<div className="code-line">→ 200 OK (自分の注文情報)</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-comment"># Step 2: 別ユーザーの注文ID を試す（失敗するべき）</span></div>
+<div className="code-line">GET /api/orders/<span className="code-red">1002</span> HTTP/1.1</div>
+<div className="code-line">Authorization: Bearer <span className="code-amber">userA_token</span></div>
+<div className="code-line">→ 期待: <span className="code-green">403 Forbidden</span></div>
+<div className="code-line">→ 脆弱: <span className="code-red">200 OK (ユーザーBの情報が返る！)</span></div>
+  </div>
 
   <h3 className="sub-title">テストオラクルのプロとコン</h3>
   <div className="compare-grid">
@@ -487,17 +487,17 @@ Authorization: Bearer <span className="code-amber">userA_token</span>
   </ol>
 
   <h3 className="sub-title">3.2 データ保護テスト（暗号化・鍵管理）</h3>
-  <pre className="code-block" data-lang="bash"><code>
-<span className="code-comment"># TLS 設定テスト（弱い暗号の確認）</span>
-<span className="code-comment"># TLS 1.0 が無効であれば接続エラーになる（これが正しい状態）</span>
-openssl s_client <span className="code-keyword">-connect</span> example.com:443 <span className="code-keyword">-tls1</span>
-
-<span className="code-comment"># Qualys SSL Labs での評価（Grade A 以上が目標）</span>
-<span className="code-comment"># https://www.ssllabs.com/ssltest/analyze.html?d=example.com</span>
-
-<span className="code-comment"># ハードコードされた秘密情報の検索（Gitleaks）</span>
-gitleaks detect --source=. --report-format=json <span className="code-keyword">--report-path</span>=gitleaks-report.json
-  </code></pre>
+  <div className="code-block" data-lang="bash">
+<div className="code-line"><span className="code-comment"># TLS 設定テスト（弱い暗号の確認）</span></div>
+<div className="code-line"><span className="code-comment"># TLS 1.0 が無効であれば接続エラーになる（これが正しい状態）</span></div>
+<div className="code-line">openssl s_client <span className="code-keyword">-connect</span> example.com:443 <span className="code-keyword">-tls1</span></div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-comment"># Qualys SSL Labs での評価（Grade A 以上が目標）</span></div>
+<div className="code-line"><span className="code-comment"># https://www.ssllabs.com/ssltest/analyze.html?d=example.com</span></div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-comment"># ハードコードされた秘密情報の検索（Gitleaks）</span></div>
+<div className="code-line">gitleaks detect --source=. --report-format=json <span className="code-keyword">--report-path</span>=gitleaks-report.json</div>
+  </div>
 
   <div className="compare-grid">
     <div className="compare-box bad">
@@ -623,25 +623,25 @@ gitleaks detect --source=. --report-format=json <span className="code-keyword">-
   </div>
 
   <h3 className="sub-title">5.3 攻撃シナリオ分析（フィッシング攻撃の例）</h3>
-  <pre className="code-block" data-lang="scenario"><code>
-<span className="code-green">== 攻撃シナリオ分析：スピアフィッシング攻撃 ==</span>
-
-脅威アクター：外部サイバー犯罪者
-攻撃ベクトル：偽の VPN ログインページ
-
-<span className="code-amber">攻撃フロー（MITRE ATT&amp;CK ベース）：</span>
-① <span className="code-cyan">Reconnaissance</span>  ：OSINT で標的の名前・メール・役職を SNS から収集
-② <span className="code-cyan">Phishing</span>        ：VPN ログインページを模したフィッシングサイトへ誘導
-③ <span className="code-cyan">Credential Access</span>：入力された ID/パスワードを攻撃者サーバーへ送信
-④ <span className="code-cyan">Initial Access</span>  ：収集した認証情報で VPN にログイン
-⑤ <span className="code-cyan">Lateral Movement</span>：内部ネットワークで権限昇格・データ窃取
-
-<span className="code-green">== 導出されるセキュリティテスト ==</span>
-✓ フィッシングメールの訓練テスト
-✓ 多要素認証（MFA）の有効性テスト
-✓ 異常なアクセス（通常と異なる場所・時刻）の検知テスト
-✓ 内部ネットワークの横移動防止テスト（ゼロトラスト）
-  </code></pre>
+  <div className="code-block" data-lang="scenario">
+<div className="code-line"><span className="code-green">== 攻撃シナリオ分析：スピアフィッシング攻撃 ==</span></div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line">脅威アクター：外部サイバー犯罪者</div>
+<div className="code-line">攻撃ベクトル：偽の VPN ログインページ</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-amber">攻撃フロー（MITRE ATT&amp;CK ベース）：</span></div>
+<div className="code-line">① <span className="code-cyan">Reconnaissance</span>  ：OSINT で標的の名前・メール・役職を SNS から収集</div>
+<div className="code-line">② <span className="code-cyan">Phishing</span>        ：VPN ログインページを模したフィッシングサイトへ誘導</div>
+<div className="code-line">③ <span className="code-cyan">Credential Access</span>：入力された ID/パスワードを攻撃者サーバーへ送信</div>
+<div className="code-line">④ <span className="code-cyan">Initial Access</span>  ：収集した認証情報で VPN にログイン</div>
+<div className="code-line">⑤ <span className="code-cyan">Lateral Movement</span>：内部ネットワークで権限昇格・データ窃取</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-green">== 導出されるセキュリティテスト ==</span></div>
+<div className="code-line">✓ フィッシングメールの訓練テスト</div>
+<div className="code-line">✓ 多要素認証（MFA）の有効性テスト</div>
+<div className="code-line">✓ 異常なアクセス（通常と異なる場所・時刻）の検知テスト</div>
+<div className="code-line">✓ 内部ネットワークの横移動防止テスト（ゼロトラスト）</div>
+  </div>
 </section>
 
 {/* CHAPTER 6 */}
@@ -665,38 +665,38 @@ gitleaks detect --source=. --report-format=json <span className="code-keyword">-
   </div>
 
   <h3 className="sub-title">DevSecOps: CI/CD パイプライン統合例</h3>
-  <pre className="code-block" data-lang="yaml"><code>
-name: Security Testing Pipeline
-on: [push, pull_request]
-
-jobs:
-  security:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: <span className="code-string">actions/checkout@v4</span>
-      
-      <span className="code-comment"># ① SAST — ソースコード静的解析</span>
-      - name: SAST (Semgrep)
-        run: semgrep <span className="code-keyword">--config=auto</span> <span className="code-keyword">--json</span> <span className="code-keyword">-o</span> sast-results.json .
-      
-      <span className="code-comment"># ② SCA — 依存関係脆弱性スキャン</span>
-      - name: SCA (Snyk)
-        run: snyk test <span className="code-keyword">--json</span> &gt; sca-results.json
-      
-      <span className="code-comment"># ③ コンテナスキャン</span>
-      - name: Container Scan (Trivy)
-        run: trivy image myapp:latest <span className="code-keyword">--format</span> json &gt; container-scan.json
-      
-      <span className="code-comment"># ④ DAST — 動的アプリケーションスキャン</span>
-      - name: DAST (OWASP ZAP)
-        run: docker run owasp/zap2docker-stable <span className="code-green">zap-baseline.py</span>
-             <span className="code-keyword">-t</span> http://app-staging-url
-      
-      <span className="code-comment"># セキュリティゲート: Critical 脆弱性でビルドを止める</span>
-      - name: Security Gate
-        run: <span className="code-keyword">if</span> jq <span className="code-string">'.vulnerabilities[] | select(.severity=="CRITICAL")'</span>
-             sca-results.json | grep -q .; <span className="code-keyword">then</span> exit 1; <span className="code-keyword">fi</span>
-  </code></pre>
+  <div className="code-block" data-lang="yaml">
+<div className="code-line">name: Security Testing Pipeline</div>
+<div className="code-line">on: [push, pull_request]</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line">jobs:</div>
+<div className="code-line">  security:</div>
+<div className="code-line">    runs-on: ubuntu-latest</div>
+<div className="code-line">    steps:</div>
+<div className="code-line">      - uses: <span className="code-string">actions/checkout@v4</span></div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line">      <span className="code-comment"># ① SAST — ソースコード静的解析</span></div>
+<div className="code-line">      - name: SAST (Semgrep)</div>
+<div className="code-line">        run: semgrep <span className="code-keyword">--config=auto</span> <span className="code-keyword">--json</span> <span className="code-keyword">-o</span> sast-results.json .</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line">      <span className="code-comment"># ② SCA — 依存関係脆弱性スキャン</span></div>
+<div className="code-line">      - name: SCA (Snyk)</div>
+<div className="code-line">        run: snyk test <span className="code-keyword">--json</span> &gt; sca-results.json</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line">      <span className="code-comment"># ③ コンテナスキャン</span></div>
+<div className="code-line">      - name: Container Scan (Trivy)</div>
+<div className="code-line">        run: trivy image myapp:latest <span className="code-keyword">--format</span> json &gt; container-scan.json</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line">      <span className="code-comment"># ④ DAST — 動的アプリケーションスキャン</span></div>
+<div className="code-line">      - name: DAST (OWASP ZAP)</div>
+<div className="code-line">        run: docker run owasp/zap2docker-stable <span className="code-green">zap-baseline.py</span></div>
+<div className="code-line">             <span className="code-keyword">-t</span> http://app-staging-url</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line">      <span className="code-comment"># セキュリティゲート: Critical 脆弱性でビルドを止める</span></div>
+<div className="code-line">      - name: Security Gate</div>
+<div className="code-line">        run: <span className="code-keyword">if</span> jq <span className="code-string">{`'.vulnerabilities[] | select(.severity=="CRITICAL")'`}</span></div>
+<div className="code-line">             sca-results.json | grep -q .; <span className="code-keyword">then</span> exit 1; <span className="code-keyword">fi</span></div>
+  </div>
 </section>
 
 {/* CHAPTER 7 */}
@@ -754,35 +754,35 @@ jobs:
   </div>
 
   <h3 className="sub-title">個別脆弱性レポート — 必須要素</h3>
-  <pre className="code-block" data-lang="template"><code>
-<span className="code-green">脆弱性ID:</span>     VULN-2025-042
-<span className="code-green">タイトル:</span>     注文 API の IDOR（Insecure Direct Object Reference）
-<span className="code-green">発見日:</span>       2025/04/02
-<span className="code-green">重大度:</span>       <span className="code-amber">High（CVSS v3.1: 7.5）</span>
-<span className="code-green">CWE:</span>          CWE-639（Authorization Bypass Through User-Ctrl Key）
-<span className="code-green">OWASP:</span>        A01:2025 — Broken Access Control
-
-<span className="code-cyan">【詳細説明】</span>
-注文取得 API（GET /api/orders/{'{'}orderId{'}'}）において、orderId パラメータに
-任意の値を設定することで、他のユーザーの注文情報にアクセスできる状態。
-
-<span className="code-cyan">【再現手順】</span>
-1. ユーザーA でログイン
-2. GET /api/orders/<span className="code-green">1001</span> → 200 OK（自分の注文情報）
-3. GET /api/orders/<span className="code-red">1002</span> → 200 OK（ユーザーBの注文情報！）
-
-<span className="code-cyan">【影響】</span>
-顧客の個人情報（住所・電話番号）・購入履歴・支払い方法の漏洩
-GDPR・個人情報保護法違反のリスク
-
-<span className="code-cyan">【推奨対策】</span>
-注文取得 API に認可チェックを追加。
-リクエストユーザーが注文の所有者であることを確認。
-
-<span className="code-cyan">【証拠】</span>
-[スクリーンショット: screenshot_vuln042_idor.png]
-[Burp Suite リクエスト: request_vuln042.xml]
-  </code></pre>
+  <div className="code-block" data-lang="template">
+<div className="code-line"><span className="code-green">脆弱性ID:</span>     VULN-2025-042</div>
+<div className="code-line"><span className="code-green">タイトル:</span>     注文 API の IDOR（Insecure Direct Object Reference）</div>
+<div className="code-line"><span className="code-green">発見日:</span>       2025/04/02</div>
+<div className="code-line"><span className="code-green">重大度:</span>       <span className="code-amber">High（CVSS v3.1: 7.5）</span></div>
+<div className="code-line"><span className="code-green">CWE:</span>          CWE-639（Authorization Bypass Through User-Ctrl Key）</div>
+<div className="code-line"><span className="code-green">OWASP:</span>        A01:2025 — Broken Access Control</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-cyan">【詳細説明】</span></div>
+<div className="code-line">注文取得 API（GET /api/orders/{'{'}orderId{'}'}）において、orderId パラメータに</div>
+<div className="code-line">任意の値を設定することで、他のユーザーの注文情報にアクセスできる状態。</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-cyan">【再現手順】</span></div>
+<div className="code-line">1. ユーザーA でログイン</div>
+<div className="code-line">2. GET /api/orders/<span className="code-green">1001</span> → 200 OK（自分の注文情報）</div>
+<div className="code-line">3. GET /api/orders/<span className="code-red">1002</span> → 200 OK（ユーザーBの注文情報！）</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-cyan">【影響】</span></div>
+<div className="code-line">顧客の個人情報（住所・電話番号）・購入履歴・支払い方法の漏洩</div>
+<div className="code-line">GDPR・個人情報保護法違反のリスク</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-cyan">【推奨対策】</span></div>
+<div className="code-line">注文取得 API に認可チェックを追加。</div>
+<div className="code-line">リクエストユーザーが注文の所有者であることを確認。</div>
+<div className="code-line">&nbsp;</div>
+<div className="code-line"><span className="code-cyan">【証拠】</span></div>
+<div className="code-line">[スクリーンショット: screenshot_vuln042_idor.png]</div>
+<div className="code-line">[Burp Suite リクエスト: request_vuln042.xml]</div>
+  </div>
 
   <h3 className="sub-title">8.2 脆弱性ライフサイクル（クローズまでの流れ）</h3>
   <div className="arch-layers">
