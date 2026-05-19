@@ -3,6 +3,16 @@
 import { useEffect } from 'react';
 import Link from 'next/link';
 
+/**
+ * Render a sticky navigation bar that highlights the link corresponding to the currently visible page section.
+ *
+ * Uses an IntersectionObserver to watch all `section` elements with an `id` and, when a section becomes visible,
+ * adds the `active` class and `aria-current="location"` to the matching `.sticky-nav .nav-link`; the observer
+ * is disconnected when the component unmounts.
+ *
+ * @returns A `<nav>` element containing the brand and chapter/reference anchor links. The link whose `href` matches
+ * the currently visible section receives the `active` class and `aria-current="location"`.
+ */
 export default function NavBar() {
   useEffect(() => {
     const sections = document.querySelectorAll('section[id]');

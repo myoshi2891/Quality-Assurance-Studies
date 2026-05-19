@@ -6,6 +6,15 @@ export const metadata = {
   description: 'ISTQB CT-STE Security Test Engineer 完全ガイド 2025',
 };
 
+/**
+ * Renders the ISTQB CT-STE Security Test Engineer complete guide page.
+ *
+ * The component returns a fully static, presentational JSX page including the hero,
+ * table of contents, chapters (Ch.0–Ch.9), exam tips and sample questions, references,
+ * and footer content (styled via the imported stylesheet and using the NavBar component).
+ *
+ * @returns A React element containing the complete CT-STE guide page content.
+ */
 export default function ISTQB_CT_STE_Page() {
   return (
     <div className="ct-ste-wrapper" id="top">
