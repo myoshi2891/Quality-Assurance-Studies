@@ -9,9 +9,44 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `d552eab` — feat(sec): migrate CT-SEC guide to Next.js App Router |
-| 次の作業 | 全てのHTML移行が完了しました |
-| ビルド状態 | ✅ ビルド成功・ESLint エラーなし（warnings のみ、既存ファイル由来） |
+| 最新 HEAD | `f58a819` — chore(docs): update coverage dashboard after P0 completion |
+| 次の作業 | coverage-dashboard.html の P1/P2 アクション着手、または別の修正・リファクタリングタスク |
+| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings（既知のスケルトン）・`bun test` 112 pass / 0 fail（28 files）|
+
+## 2026/05/18 修正・改善タスク完了
+
+インラインコメントに基づき、以下の修正を実施した。
+
+### 1. ガイドラインとルールの明確化
+
+- `.claude/rules/tdd-mandatory-cycle.md`: `docs/MIGRATION_PROGRESS.md` の更新が必要な「移行タスク」の判定基準を具体化（HTML→React変換、ページ削除等）。
+
+### 2. istqb-ct-pt-complete-guide（Next.js 移行後）の品質向上
+
+- `app/istqb-ct-pt-complete-guide.css`:
+  - Tailwind v4 規約（`@layer base/components`）への準拠。
+  - `prefers-reduced-motion` 対応（アニメーション無効化、プログレスバー表示維持）。
+  - `sticky-nav` の位置と `z-index` をプロジェクト規約に調整。
+  - `body::before/after` オーバーレイの `z-index` を下げ、操作を妨げないように修正。
+- `app/istqb-ct-pt-complete-guide/NavBar.tsx`: `use client` 追加と `IntersectionObserver` によるスクロールスパイ実装。
+- `tests/istqb-ct-pt-complete-guide/page.test.tsx`: `afterAll` での `IntersectionObserver` モック復元処理追加。
+
+### 3. istqb-ct-ut-complete-guide.md の修正（完了）
+
+- **完了**:
+  - ロードマップ、法的リスク（金額表記）、算術計算例（80%の分母修正）の修正。
+  - 冒頭および Chapter 2 付近の ASCII アート・テーブルの Markdown 変換。
+  - Chapter 3 以降に残存する約 27 箇所の無タグコードブロック（ASCII アート、テキストボックス等）の Markdown テーブル、リスト、または Mermaid への変換。
+
+### 4. Test Coverage Dashboard の追加（完了）
+
+HTML 移行とは独立した可視化タスク。プロジェクト自身のテストカバレッジを 1 ファイルで把握できるスタンドアロン HTML を追加した。
+
+- 追加ファイル: [docs/coverage-dashboard.html](coverage-dashboard.html)（単一ファイル、外部依存は Google Fonts のみ）
+- 構成: KPI 概要 / 11 カテゴリ × 6 種別マトリクス / 23 ページ別カバレッジ / 既存 13 テストのインベントリ / P0-P3 ネクストアクション / ISTQB テストレベル整合表
+- 数値根拠: ページ 10/23 テスト済（43%）・コンポーネント 1/3・lib 2/2・scripts 0/5・CI 0 パイプライン
+- 更新運用: `<script>` 内の `DATA` 定数を編集して再描画。HTML 構造の変更不要
+- コミット: `322ca53 docs(coverage): add self-referential test coverage dashboard`
 
 ## 移行状況テーブル
 
@@ -26,9 +61,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | `istqb-ct-ai-complete-guide.html` | `/istqb-ct-ai-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-ste-complete-guide.html` | `/istqb-ct-ste-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
@@ -52,8 +89,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 次回セッションでの再開プロンプト
 
 ```text
-最新 HEAD: d552eab
-次の作業: 全てのHTML移行が完了しました。
+コンテキスト:
+- 最新 HEAD: `f58a819` — chore(docs): update coverage dashboard after P0 completion
+- HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
+- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 追加・P0 アクション完了済み。
+  現状: CI (.github/workflows/ci.yml) 構築済み・ページテスト追加済み・DisclaimerBanner / Mermaid コンポーネントテスト追加済み。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 112 pass / 0 fail（28 files）。
+
+【指示】
+次のいずれかを開始してください:
+1. coverage-dashboard.html の P1/P2 アクション（スナップショットテスト、アクセシビリティテスト等）
+2. または別の修正・リファクタリングタスク。
 ```
 
 ---
