@@ -40,9 +40,9 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="toc">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">◎</span>目次・学習ロードマップ
-                    </h3>
+                    </h2>
                     <p className="section-desc">CT-TASシラバスの全章を体系的に学ぶためのガイドマップ</p>
                 </div>
                 <div className="toc-grid">
@@ -93,11 +93,11 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="ch1">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">1</span>
                         テスト自動化戦略とは？—概念と全体像
                         <span className="k-level">K1・K2</span>
-                    </h3>
+                    </h2>
                     <p className="section-desc">テスト自動化戦略の定義・目的・成功要因を理解する</p>
                 </div>
 
@@ -376,11 +376,11 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="ch2">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">2</span>
                         テスト自動化のリソース—コスト・役割・構築方法
                         <span className="k-level">K2・K3</span>
-                    </h3>
+                    </h2>
                     <p className="section-desc">
                         TCO分析、主要ロールの定義、自動化ソリューション構築のアプローチを学ぶ
                     </p>
@@ -743,11 +743,11 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="ch3">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">3</span>
                         テスト自動化の準備—テストレベル統合・SDLC別戦略
                         <span className="k-level">K2・K3</span>
-                    </h3>
+                    </h2>
                     <p className="section-desc">
                         テストピラミッドの最適化と、各SDLCモデル別の自動化戦略
                     </p>
@@ -1058,11 +1058,11 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="ch4">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">4</span>
                         テスト自動化のデプロイ戦略・環境管理
                         <span className="k-level">K2・K3</span>
-                    </h3>
+                    </h2>
                     <p className="section-desc">
                         段階的展開計画、テスト環境の依存関係管理、品質ゲートの設計
                     </p>
@@ -1294,11 +1294,11 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="ch5">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">5</span>
                         ROI・メトリクス・ビジネス価値・レポート
                         <span className="k-level">K2・K3・K4</span>
-                    </h3>
+                    </h2>
                     <p className="section-desc">テスト自動化の投資対効果の計算・証明・報告方法を学ぶ</p>
                 </div>
 
@@ -1537,11 +1537,11 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="ch6">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">6</span>
                         実装・改善・組織全体への展開戦略
                         <span className="k-level">K2・K3</span>
-                    </h3>
+                    </h2>
                     <p className="section-desc">
                         手動→自動化への移行計画、TCoE設立、継続的改善サイクル
                     </p>
@@ -1786,11 +1786,11 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="ai">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">AI</span>
                         AIと最新トレンド（2025〜2026年）
                         <span className="k-level">参考情報</span>
-                    </h3>
+                    </h2>
                     <p className="section-desc">
                         AI/MLがテスト自動化をどう変えているか — 最新動向と実践的活用法
                     </p>
@@ -1902,11 +1902,11 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="exam">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">試</span>
                         ISTQB CT-TAS 試験対策・サンプル問題
                         <span className="k-level">試験情報</span>
-                    </h3>
+                    </h2>
                     <p className="section-desc">
                         試験の特殊性、配点、頻出パターンと6週間学習ロードマップ
                     </p>
@@ -2292,10 +2292,10 @@ export default function IstqbCtTasCompleteGuide() {
         <section id="refs">
             <div className="container">
                 <div className="section-header">
-                    <h3 className="section-title">
+                    <h2 className="section-title">
                         <span className="chapter-num">📚</span>
                         参考文献・参照URL一覧
-                    </h3>
+                    </h2>
                     <p className="section-desc">本ガイドで参照した全リソース（カテゴリ付き）</p>
                 </div>
 

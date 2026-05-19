@@ -23,15 +23,15 @@ describe('ISTQB CT-MAT Complete Guide Page', () => {
     render(<Page />);
     expect(
       screen.getByRole('heading', { level: 2, name: /目次 — チャプター構成/ }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', {
         level: 2,
         name: /7つのビジネスアウトカム/,
       }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { level: 2, name: /認知レベル（K-Level）の定義/ }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
   });
 });

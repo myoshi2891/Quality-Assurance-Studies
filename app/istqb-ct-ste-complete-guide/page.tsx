@@ -8,7 +8,7 @@ export const metadata = {
 
 export default function ISTQB_CT_STE_Page() {
   return (
-    <div className="ct-ste-wrapper">
+    <div className="ct-ste-wrapper" id="top">
       <NavBar />
       
 
@@ -867,31 +867,31 @@ GDPR・個人情報保護法違反のリスク
   <h3 className="sub-title">進捗確認（章別学習度）</h3>
   <div className="progress-item">
     <div className="progress-header"><span className="progress-label">Ch.1 セキュリティパラダイム</span><span className="progress-val">★★★★★</span></div>
-    <div className="progress-track"><div className="progress-fill" style={{ '--bar-width': '' } as React.CSSProperties}></div></div>
+    <div className="progress-track"><div className="progress-fill"></div></div>
   </div>
   <div className="progress-item">
     <div className="progress-header"><span className="progress-label">Ch.2 セキュリティテスト技法</span><span className="progress-val">★★★★★</span></div>
-    <div className="progress-track"><div className="progress-fill" style={{ '--bar-width': '' } as React.CSSProperties}></div></div>
+    <div className="progress-track"><div className="progress-fill"></div></div>
   </div>
   <div className="progress-item">
     <div className="progress-header"><span className="progress-label">Ch.3 セキュリティテストプロセス</span><span className="progress-val">★★★★☆</span></div>
-    <div className="progress-track"><div className="progress-fill" style={{ '--bar-width': '' } as React.CSSProperties}></div></div>
+    <div className="progress-track"><div className="progress-fill"></div></div>
   </div>
   <div className="progress-item">
     <div className="progress-header"><span className="progress-label">Ch.4 標準・ベストプラクティス（CVSS）</span><span className="progress-val">★★★★★</span></div>
-    <div className="progress-track"><div className="progress-fill" style={{ '--bar-width': '' } as React.CSSProperties}></div></div>
+    <div className="progress-track"><div className="progress-fill"></div></div>
   </div>
   <div className="progress-item">
     <div className="progress-header"><span className="progress-label">Ch.5–6 組織・SDLC</span><span className="progress-val">★★★★☆</span></div>
-    <div className="progress-track"><div className="progress-fill" style={{ '--bar-width': '' } as React.CSSProperties}></div></div>
+    <div className="progress-track"><div className="progress-fill"></div></div>
   </div>
   <div className="progress-item">
     <div className="progress-header"><span className="progress-label">Ch.7–8 ISMS・報告</span><span className="progress-val">★★★★☆</span></div>
-    <div className="progress-track"><div className="progress-fill" style={{ '--bar-width': '' } as React.CSSProperties}></div></div>
+    <div className="progress-track"><div className="progress-fill"></div></div>
   </div>
   <div className="progress-item">
     <div className="progress-header"><span className="progress-label">Ch.9 ツール</span><span className="progress-val">★★★☆☆</span></div>
-    <div className="progress-track"><div className="progress-fill" style={{ '--bar-width': '' } as React.CSSProperties}></div></div>
+    <div className="progress-track"><div className="progress-fill"></div></div>
   </div>
 
   <h3 className="sub-title">サンプル問題 Q1</h3>
@@ -965,32 +965,32 @@ GDPR・個人情報保護法違反のリスク
 
   <h3 className="sub-title">🏛️ 公式 ISTQB® リソース</h3>
   <div className="ref-grid">
-    <a href="https://istqb.org/certifications/certified-tester-security-test-engineer/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://istqb.org/certifications/certified-tester-security-test-engineer/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ISTQB 公式</div>
       <div className="ref-title">CT-STE 認定ページ（公式）</div>
       <div className="ref-url">istqb.org/certifications/certified-tester-security-test-engineer/</div>
     </a>
-    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5103" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5103" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ISTQB 公式</div>
       <div className="ref-title">CT-STE シラバス v1.0.1 ダウンロード</div>
       <div className="ref-url">istqb.org — シラバス PDF（公式）</div>
     </a>
-    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5109" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://istqb.org/?sdm_process_download=1&amp;download_id=5109" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ISTQB 公式</div>
       <div className="ref-title">サンプル試験問題 v1.0.1</div>
       <div className="ref-url">istqb.org — サンプル問題 PDF</div>
     </a>
-    <a href="https://istqb.org/help/security-test-engineer-ste/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://istqb.org/help/security-test-engineer-ste/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ISTQB 公式</div>
       <div className="ref-title">CT-STE FAQ（公式）</div>
       <div className="ref-url">istqb.org/help/security-test-engineer-ste/</div>
     </a>
-    <a href="https://glossary.istqb.org/en_US/search?term=" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://glossary.istqb.org/en_US/search?term=" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ISTQB 公式</div>
       <div className="ref-title">ISTQB グロッサリー</div>
       <div className="ref-url">glossary.istqb.org</div>
     </a>
-    <a href="https://astqb.org/assets/documents/ISTQB_STE_v1.0.1-Syllabus.pdf" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://astqb.org/assets/documents/ISTQB_STE_v1.0.1-Syllabus.pdf" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ASTQB（米国）</div>
       <div className="ref-title">CT-STE シラバス PDF（ASTQB）</div>
       <div className="ref-url">astqb.org — STE_v1.0.1-Syllabus.pdf</div>
@@ -999,32 +999,32 @@ GDPR・個人情報保護法違反のリスク
 
   <h3 className="sub-title">🏛️ OWASP 公式リソース</h3>
   <div className="ref-grid">
-    <a href="https://owasp.org/Top10/2025/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://owasp.org/Top10/2025/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">OWASP</div>
       <div className="ref-title">OWASP Top 10:2025（最新版）</div>
       <div className="ref-url">owasp.org/Top10/2025/</div>
     </a>
-    <a href="https://owasp.org/www-project-web-security-testing-guide/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://owasp.org/www-project-web-security-testing-guide/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">OWASP</div>
       <div className="ref-title">OWASP Testing Guide v4.2（WSTG）</div>
       <div className="ref-url">owasp.org/www-project-web-security-testing-guide/</div>
     </a>
-    <a href="https://owasp.org/www-project-application-security-verification-standard/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://owasp.org/www-project-application-security-verification-standard/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">OWASP</div>
       <div className="ref-title">OWASP ASVS（アプリセキュリティ検証標準）</div>
       <div className="ref-url">owasp.org/www-project-application-security-verification-standard/</div>
     </a>
-    <a href="https://owasp.org/www-project-api-security/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://owasp.org/www-project-api-security/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">OWASP</div>
       <div className="ref-title">OWASP API Security Top 10:2023</div>
       <div className="ref-url">owasp.org/www-project-api-security/</div>
     </a>
-    <a href="https://www.zaproxy.org/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.zaproxy.org/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">OWASP ツール</div>
       <div className="ref-title">OWASP ZAP（Webアプリセキュリティスキャナー）</div>
       <div className="ref-url">zaproxy.org</div>
     </a>
-    <a href="https://owasp.org/www-project-dependency-check/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://owasp.org/www-project-dependency-check/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">OWASP ツール</div>
       <div className="ref-title">OWASP Dependency-Check（SCA）</div>
       <div className="ref-url">owasp.org/www-project-dependency-check/</div>
@@ -1033,42 +1033,42 @@ GDPR・個人情報保護法違反のリスク
 
   <h3 className="sub-title">📋 セキュリティ標準・フレームワーク</h3>
   <div className="ref-grid">
-    <a href="https://csrc.nist.gov/pubs/sp/800/207/final" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://csrc.nist.gov/pubs/sp/800/207/final" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">NIST 標準</div>
       <div className="ref-title">NIST SP 800-207 — Zero Trust Architecture</div>
       <div className="ref-url">csrc.nist.gov/pubs/sp/800/207/final</div>
     </a>
-    <a href="https://csrc.nist.gov/pubs/sp/800/115/final" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://csrc.nist.gov/pubs/sp/800/115/final" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">NIST 標準</div>
       <div className="ref-title">NIST SP 800-115 — IT セキュリティテストと評価</div>
       <div className="ref-url">csrc.nist.gov/pubs/sp/800/115/final</div>
     </a>
-    <a href="https://www.nist.gov/cyberframework" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.nist.gov/cyberframework" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">NIST 標準</div>
       <div className="ref-title">NIST CSF 2.0 — Cybersecurity Framework</div>
       <div className="ref-url">nist.gov/cyberframework</div>
     </a>
-    <a href="https://attack.mitre.org/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://attack.mitre.org/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">MITRE</div>
       <div className="ref-title">MITRE ATT&amp;CK — 攻撃者戦術・技術データベース</div>
       <div className="ref-url">attack.mitre.org</div>
     </a>
-    <a href="https://nvd.nist.gov/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://nvd.nist.gov/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">CVE/CVSS</div>
       <div className="ref-title">NVD（国立脆弱性データベース・CVSS スコア付き）</div>
       <div className="ref-url">nvd.nist.gov</div>
     </a>
-    <a href="https://cve.mitre.org/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://cve.mitre.org/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">CVE</div>
       <div className="ref-title">CVE — 共通脆弱性識別子データベース</div>
       <div className="ref-url">cve.mitre.org</div>
     </a>
-    <a href="https://www.pcisecuritystandards.org/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.pcisecuritystandards.org/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">規制</div>
       <div className="ref-title">PCI DSS v4.0 — 支払いカードセキュリティ標準</div>
       <div className="ref-url">pcisecuritystandards.org</div>
     </a>
-    <a href="https://www.cisecurity.org/cis-benchmarks" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.cisecurity.org/cis-benchmarks" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">CIS</div>
       <div className="ref-title">CIS Benchmarks — OS・ソフトウェアハードニング標準</div>
       <div className="ref-url">cisecurity.org/cis-benchmarks</div>
@@ -1077,42 +1077,42 @@ GDPR・個人情報保護法違反のリスク
 
   <h3 className="sub-title">🔧 主要セキュリティテストツール</h3>
   <div className="ref-grid">
-    <a href="https://portswigger.net/burp" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://portswigger.net/burp" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ツール</div>
       <div className="ref-title">Burp Suite — プロキシ・Webアプリテスト</div>
       <div className="ref-url">portswigger.net/burp</div>
     </a>
-    <a href="https://nmap.org/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://nmap.org/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ツール</div>
       <div className="ref-title">Nmap — ネットワークスキャナー（標準ツール）</div>
       <div className="ref-url">nmap.org</div>
     </a>
-    <a href="https://www.metasploit.com/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.metasploit.com/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ツール</div>
       <div className="ref-title">Metasploit — ペネトレーションテストフレームワーク</div>
       <div className="ref-url">metasploit.com</div>
     </a>
-    <a href="https://snyk.io/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://snyk.io/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ツール</div>
       <div className="ref-title">Snyk — SCA・SAST（OSS 脆弱性スキャン）</div>
       <div className="ref-url">snyk.io</div>
     </a>
-    <a href="https://semgrep.dev/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://semgrep.dev/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ツール</div>
       <div className="ref-title">Semgrep — SAST（多言語・無料OSS）</div>
       <div className="ref-url">semgrep.dev</div>
     </a>
-    <a href="https://trivy.dev/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://trivy.dev/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ツール</div>
       <div className="ref-title">Trivy — コンテナ・IaC セキュリティスキャン</div>
       <div className="ref-url">trivy.dev</div>
     </a>
-    <a href="https://www.ssllabs.com/ssltest/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.ssllabs.com/ssltest/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ツール</div>
       <div className="ref-title">Qualys SSL Labs — TLS 設定評価（Grade A 目標）</div>
       <div className="ref-url">ssllabs.com/ssltest/</div>
     </a>
-    <a href="https://www.sonarsource.com/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.sonarsource.com/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">ツール</div>
       <div className="ref-title">SonarQube — SAST + コード品質（Community 版無料）</div>
       <div className="ref-url">sonarsource.com</div>
@@ -1121,22 +1121,22 @@ GDPR・個人情報保護法違反のリスク
 
   <h3 className="sub-title">📖 最新レポート・参考データ</h3>
   <div className="ref-grid">
-    <a href="https://www.ibm.com/reports/data-breach" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.ibm.com/reports/data-breach" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">業界レポート</div>
       <div className="ref-title">IBM Cost of a Data Breach Report 2024</div>
       <div className="ref-url">ibm.com/reports/data-breach</div>
     </a>
-    <a href="https://www.verizon.com/business/resources/reports/dbir/" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.verizon.com/business/resources/reports/dbir/" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">業界レポート</div>
       <div className="ref-title">Verizon DBIR 2024 — データ侵害調査レポート</div>
       <div className="ref-url">verizon.com/business/resources/reports/dbir/</div>
     </a>
-    <a href="https://www.cisa.gov/zero-trust-maturity-model" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://www.cisa.gov/zero-trust-maturity-model" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">CISA</div>
       <div className="ref-title">CISA Zero Trust Maturity Model</div>
       <div className="ref-url">cisa.gov/zero-trust-maturity-model</div>
     </a>
-    <a href="https://isqi.org/ISTQB-Certified-Tester-Security-Test-Engineer-CT-STE/CT-STE.101" className="ref-card" target="_blank" rel="noopener">
+    <a href="https://isqi.org/ISTQB-Certified-Tester-Security-Test-Engineer-CT-STE/CT-STE.101" className="ref-card" target="_blank" rel="noopener noreferrer">
       <div className="ref-cat">試験プロバイダー</div>
       <div className="ref-title">iSQI 試験情報（CT-STE）</div>
       <div className="ref-url">isqi.org — CT-STE.101</div>
@@ -1144,7 +1144,7 @@ GDPR・個人情報保護法違反のリスク
   </div>
 
   <div className="alert amber">
-    <strong>⚠️ 免責事項：</strong>本ガイドは ISTQB® が公認したトレーニング資料ではありません。公式シラバス・サンプル問題と合わせて使用してください。試験情報の最終確認は必ず公式サイト（<a href="https://istqb.org/" target="_blank" rel="noopener">istqb.org</a>）で行ってください。
+    <strong>⚠️ 免責事項：</strong>本ガイドは ISTQB® が公認したトレーニング資料ではありません。公式シラバス・サンプル問題と合わせて使用してください。試験情報の最終確認は必ず公式サイト（<a href="https://istqb.org/" target="_blank" rel="noopener noreferrer">istqb.org</a>）で行ってください。
   </div>
 
   <div className="alert red">

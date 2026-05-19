@@ -1,18 +1,25 @@
-import { afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
+import { afterEach, beforeAll, afterAll, describe, it, expect, mock } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-ste-complete-guide/page';
 
 afterEach(() => cleanup());
 
+let originalIntersectionObserver: typeof window.IntersectionObserver;
+
 // Mock the IntersectionObserver since it's not available in happy-dom
 beforeAll(() => {
+    originalIntersectionObserver = window.IntersectionObserver;
     const mockIntersectionObserver = mock(() => ({
         observe: () => null,
         unobserve: () => null,
         disconnect: () => null,
     }));
     window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
+});
+
+afterAll(() => {
+    window.IntersectionObserver = originalIntersectionObserver;
 });
 
 describe('CT-STE Complete Guide Page', () => {

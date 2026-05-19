@@ -985,14 +985,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== KPI ====================== -->
   <section class="mc-kpi" aria-label="主要指標">
     <article class="kpi" data-tone="cyan">
-      <div class="kpi-num">28<span class="unit">files</span></div>
+      <div class="kpi-num" id="kpi-total-files">0<span class="unit">files</span></div>
       <div class="kpi-lbl">Test Files Total</div>
       <p class="kpi-desc">Bun test runner + @testing-library/react + happy-dom 構成。Vitest/Jest/Playwright は未導入。</p>
     </article>
     <article class="kpi" data-tone="ok">
-      <div class="kpi-num">23<span class="unit">/ 23</span></div>
+      <div class="kpi-num" id="kpi-pages-tested">0<span class="unit">/ 0</span></div>
       <div class="kpi-lbl">Pages Tested · 100%</div>
-      <p class="kpi-desc">全 23 ページに render-only スモークテスト完備（P0 完了）。E2E・a11y・ビジュアル検証は P1 で着手予定。</p>
+      <p class="kpi-desc"><span id="kpi-pages-desc-count">0</span> ページに render-only スモークテスト完備（P0 完了）。E2E・a11y・ビジュアル検証は P1 で着手予定。</p>
     </article>
     <article class="kpi" data-tone="red">
       <div class="kpi-num">5<span class="unit">/ 6</span></div>
@@ -1158,9 +1158,9 @@ const DATA = {
   matrix: [
     {
       category: 'Pages',
-      hint: '23 routes under app/',
+      hint: `${DATA.pages.length} routes under app/`,
       cells: [
-        { state: 'full', value: '23/23', label: '100%', note: 'Render-only smoke tests on all 23 pages.' },
+        { state: 'full', value: `${DATA.pages.filter(p=>p.tested).length}/${DATA.pages.length}`, label: '100%', note: `Render-only smoke tests on all ${DATA.pages.length} pages.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No Playwright/Cypress.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
@@ -1391,7 +1391,7 @@ const DATA = {
       items: [
         {
           h: 'Playwright 導入と全ページのスモーク E2E',
-          p: '全 23 ページに対し HTTP 200 / Header 描画 / コンソールエラーなし / 主要見出し存在をチェック。Playwright config を Next.js dev server に接続。',
+          p: '<span id="kpi-pages-desc-count">0</span> ページに対し HTTP 200 / Header 描画 / コンソールエラーなし / 主要見出し存在をチェック。Playwright config を Next.js dev server に接続。',
           tool: '@playwright/test',
           effort: '~6h',
           impact: 'System Level 達成 / 本番回帰検知'
@@ -1551,6 +1551,12 @@ function renderPages() {
   });
   document.getElementById('cnt-tested').textContent = String(tested);
   document.getElementById('cnt-untested').textContent = String(DATA.pages.length - tested);
+  
+  const pagesKpi = document.getElementById('kpi-pages-tested');
+  if (pagesKpi) pagesKpi.innerHTML = `${tested}<span class="unit">/ ${DATA.pages.length}</span>`;
+  
+  const pagesDesc = document.getElementById('kpi-pages-desc-count');
+  if (pagesDesc) pagesDesc.textContent = DATA.pages.length;
 }
 
 function renderInventory() {
@@ -1558,6 +1564,7 @@ function renderInventory() {
   const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib' };
   let total = 0;
   Object.keys(DATA.inventory).forEach((k) => {
+    total += DATA.inventory[k].length;
     const ul = document.getElementById(map[k]);
     const files = DATA.inventory[k];
     files.forEach((f) => {

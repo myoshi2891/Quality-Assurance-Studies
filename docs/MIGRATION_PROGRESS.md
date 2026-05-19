@@ -44,7 +44,7 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 - 追加ファイル: [docs/coverage-dashboard.html](coverage-dashboard.html)（単一ファイル、外部依存は Google Fonts のみ）
 - 構成: KPI 概要 / 11 カテゴリ × 6 種別マトリクス / 23 ページ別カバレッジ / 既存 13 テストのインベントリ / P0-P3 ネクストアクション / ISTQB テストレベル整合表
-- 数値根拠: ページ 10/23 テスト済（43%）・コンポーネント 1/3・lib 2/1・scripts 0/5・CI 0 パイプライン
+- 数値根拠: ページ 10/23 テスト済（43%）・コンポーネント 1/3・lib 2/2・scripts 0/5・CI 0 パイプライン
 - 更新運用: `<script>` 内の `DATA` 定数を編集して再描画。HTML 構造の変更不要
 - コミット: `322ca53 docs(coverage): add self-referential test coverage dashboard`
 
