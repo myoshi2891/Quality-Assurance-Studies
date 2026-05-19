@@ -1,6 +1,15 @@
 import './istqb-ct-tas-complete-guide.css';
 import NavBar from './NavBar';
 
+/**
+ * Render the ISTQB CT-TAS complete guide as a static, single-page React component.
+ *
+ * The component returns a long-form Japanese guide that includes a navigation bar, hero
+ * section, table of contents, six syllabus chapters (Ch.1–Ch.6), an AI & trends section,
+ * exam tips with sample questions, a 6-week study roadmap, reference links, and a footer.
+ *
+ * @returns A JSX element containing the full CT-TAS guide page layout
+ */
 export default function IstqbCtTasCompleteGuide() {
   return (
     <>
