@@ -205,7 +205,7 @@ export default function ISTQB_CT_STE_Page() {
   <p><strong>定義：</strong> 資産（Asset）とは、組織にとって価値があり保護が必要な情報・システム・プロセス・人員のことです。資産の感度レベルによってセキュリティテストの必要性と深度が決まります。</p>
 
   <div className="table-wrap">
-    <table>
+    <table className="ste-table">
       <thead><tr><th>感度レベル</th><th>保護レベル</th><th>主な CIA 特性</th><th>テスト要否</th><th>具体例</th></tr></thead>
       <tbody>
         <tr><td><span className="tag amber">低 (Low)</span></td><td>低</td><td>可用性（Availability）</td><td>基本確認のみ</td><td>公開マーケティング資料・製品カタログ</td></tr>
@@ -290,7 +290,7 @@ export default function ISTQB_CT_STE_Page() {
 
   <h3 className="sub-title">セキュリティテストへのゼロトラスト適用</h3>
   <div className="table-wrap">
-    <table>
+    <table className="ste-table">
       <thead><tr><th>ゼロトラスト原則</th><th>セキュリティテストの検証観点</th></tr></thead>
       <tbody>
         <tr><td>常に認証・認可する</td><td>認証バイパス・認可フロービテスト</td></tr>
@@ -359,7 +359,7 @@ export default function ISTQB_CT_STE_Page() {
 
   <h3 className="sub-title">2.1 知識レベル別テスト分類（試験頻出！）</h3>
   <div className="table-wrap">
-    <table>
+    <table className="ste-table">
       <thead><tr><th>テスト種別</th><th>知識レベル</th><th>視点</th><th>主な手法</th><th>長所</th><th>短所</th></tr></thead>
       <tbody>
         <tr>
@@ -400,7 +400,7 @@ export default function ISTQB_CT_STE_Page() {
   </div>
 
   <div className="table-wrap">
-    <table>
+    <table className="ste-table">
       <thead><tr><th>種類</th><th>略称</th><th>説明</th><th>代表ツール</th><th>フェーズ</th></tr></thead>
       <tbody>
         <tr><td><strong>静的アプリケーションセキュリティテスト</strong></td><td><span className="tag green">SAST</span></td><td>ソースコードを解析してセキュリティ欠陥を発見。実行不要。</td><td>Checkmarx・SonarQube・Semgrep・Bandit</td><td>開発中</td></tr>
@@ -543,7 +543,7 @@ export default function ISTQB_CT_STE_Page() {
   <div className="card">
     <p><strong>CVSS v3.1 スコア計算要素：</strong></p>
     <div className="table-wrap">
-      <table>
+      <table className="ste-table">
         <thead><tr><th>評価軸</th><th>値の選択肢</th><th>スコアへの影響</th></tr></thead>
         <tbody>
           <tr><td>攻撃経路（AV）</td><td>Network / Adjacent / Local / Physical</td><td>Network = 最高リスク</td></tr>
@@ -591,7 +591,7 @@ export default function ISTQB_CT_STE_Page() {
 
   <h3 className="sub-title">5.2 主要規制とセキュリティテスト要件</h3>
   <div className="table-wrap">
-    <table>
+    <table className="ste-table">
       <thead><tr><th>規制</th><th>適用範囲</th><th>セキュリティテスト要件</th><th>違反時の制裁</th></tr></thead>
       <tbody>
         <tr>
@@ -654,7 +654,7 @@ export default function ISTQB_CT_STE_Page() {
 
   <h3 className="sub-title">6.1 各 SDLC モデルとセキュリティテスト統合</h3>
   <div className="table-wrap">
-    <table>
+    <table className="ste-table">
       <thead><tr><th>SDLCモデル</th><th>セキュリティテストの位置</th><th>推奨ツール/技法</th><th>主な特徴</th></tr></thead>
       <tbody>
         <tr><td><span className="tag amber">ウォーターフォール</span></td><td>テストフェーズ（後期）</td><td>DAST・ペンテスト（テストフェーズ）<br />脅威モデリング（要件フェーズ）</td><td>遅すぎる発見 = 高い修正コスト</td></tr>
@@ -808,7 +808,7 @@ export default function ISTQB_CT_STE_Page() {
 
   <h3 className="sub-title">9.1 セキュリティテストツール 10カテゴリ</h3>
   <div className="table-wrap">
-    <table>
+    <table className="ste-table">
       <thead><tr><th>#</th><th>カテゴリ</th><th>代表ツール</th><th>主な用途</th></tr></thead>
       <tbody>
         <tr><td><span className="tag green">1</span></td><td>脆弱性スキャナー</td><td>OpenVAS・Nessus・Qualys</td><td>定期的スキャン・コンプライアンス確認</td></tr>
@@ -1153,7 +1153,7 @@ export default function ISTQB_CT_STE_Page() {
 
   <div style={{ textAlign: 'center', padding: '2rem 0 1rem' }}>
     <a href="#top" className="back-top">↑ ページトップへ戻る</a>
-    <p style={{ marginTop: '1.5rem', fontFamily: 'var(--font-mono)', fontSize: '1rem', color: 'var(--text-muted)' }}>
+    <p style={{ marginTop: '1.5rem', fontFamily: 'var(--font-mono)', fontSize: '1rem', color: 'var(--color-text-muted)' }}>
       CT-STE Complete Guide 2025 • v1.0.1 準拠 • ISTQB® Specialist Stream
     </p>
   </div>

@@ -48,7 +48,7 @@
 
 /* ===== STICKY NAV ===== */
 .sticky-nav {
-  position: sticky; top: 60px; z-index: 40;
+  position: sticky; top: calc(60px + var(--disclaimer-height, 0px)); z-index: 40;
   background: rgba(10, 14, 26, 0.92);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--color-border);
