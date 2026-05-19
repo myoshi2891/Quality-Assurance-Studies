@@ -1154,13 +1154,40 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
    Data source (single source of truth)
    Update these arrays when tests are added.
    ============================================================ */
+const pages = [
+  { path: '/', topic: 'ホーム — 2025 完全ガイド トップ', tested: true },
+  { path: '/acceptance-testing-guide', topic: '受入テスト', tested: true },
+  { path: '/ai-test-guide', topic: 'AI テスト基礎', tested: true },
+  { path: '/bdd-testing-guide', topic: 'BDD（ビヘイビア駆動開発）', tested: true },
+  { path: '/e2e-testing-guide', topic: 'E2E テスト', tested: true },
+  { path: '/integration-functional-testing-guide', topic: '統合 / 機能テスト', tested: true },
+  { path: '/integration-system-testing-guide', topic: '統合 / システムテスト', tested: true },
+  { path: '/software-testing-methodologies-guide', topic: 'テスト手法ガイド', tested: true },
+  { path: '/unit-testing-guide', topic: 'ユニットテスト', tested: true },
+  { path: '/istqb-ctfl-at-complete-guide', topic: 'ISTQB Foundation — Agile', tested: true },
+  { path: '/istqb-ct-ai-complete-guide', topic: 'ISTQB Specialist — AI', tested: true },
+  { path: '/istqb-ct-act-complete-guide', topic: 'ISTQB Specialist — Acceptance', tested: true },
+  { path: '/istqb-ct-genai-complete-guide', topic: 'ISTQB Specialist — GenAI', tested: true },
+  { path: '/istqb-ct-mat-complete-guide', topic: 'ISTQB Specialist — Mobile App', tested: true },
+  { path: '/istqb-ct-mbt-complete-guide', topic: 'ISTQB Specialist — MBT', tested: true },
+  { path: '/istqb-ct-pt-complete-guide', topic: 'ISTQB Specialist — Performance', tested: true },
+  { path: '/istqb-ct-sec-complete-guide', topic: 'ISTQB Specialist — Security', tested: true },
+  { path: '/istqb-ct-ste-complete-guide', topic: 'ISTQB Specialist — Security Eng', tested: true },
+  { path: '/istqb-ct-tas-complete-guide', topic: 'ISTQB Specialist — TAS', tested: true },
+  { path: '/istqb-ctal-atlas-complete-guide', topic: 'ISTQB Advanced — AT Leadership', tested: true },
+  { path: '/istqb-ctal-att-complete-guide', topic: 'ISTQB Advanced — Agile Tech Tester', tested: true },
+  { path: '/istqb-ctal-ta-complete-guide', topic: 'ISTQB Advanced — Test Analyst', tested: true },
+  { path: '/istqb-ctal-tae-complete-guide', topic: 'ISTQB Advanced — Test Automation Eng', tested: true },
+  { path: '/istqb-ctal-tm-complete-guide', topic: 'ISTQB Advanced — Test Manager', tested: true }
+];
+
 const DATA = {
   matrix: [
     {
       category: 'Pages',
-      hint: `${DATA.pages.length} routes under app/`,
+      hint: `${pages.length} routes under app/`,
       cells: [
-        { state: 'full', value: `${DATA.pages.filter(p=>p.tested).length}/${DATA.pages.length}`, label: '100%', note: `Render-only smoke tests on all ${DATA.pages.length} pages.` },
+        { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Render-only smoke tests on all ${pages.length} pages.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No Playwright/Cypress.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
@@ -1290,32 +1317,7 @@ const DATA = {
     }
   ],
 
-  pages: [
-    { path: '/', topic: 'ホーム — 2025 完全ガイド トップ', tested: true },
-    { path: '/acceptance-testing-guide', topic: '受入テスト', tested: true },
-    { path: '/ai-test-guide', topic: 'AI テスト基礎', tested: true },
-    { path: '/bdd-testing-guide', topic: 'BDD（ビヘイビア駆動開発）', tested: true },
-    { path: '/e2e-testing-guide', topic: 'E2E テスト', tested: true },
-    { path: '/integration-functional-testing-guide', topic: '統合 / 機能テスト', tested: true },
-    { path: '/integration-system-testing-guide', topic: '統合 / システムテスト', tested: true },
-    { path: '/software-testing-methodologies-guide', topic: 'テスト手法ガイド', tested: true },
-    { path: '/unit-testing-guide', topic: 'ユニットテスト', tested: true },
-    { path: '/istqb-ctfl-at-complete-guide', topic: 'ISTQB Foundation — Agile', tested: true },
-    { path: '/istqb-ct-ai-complete-guide', topic: 'ISTQB Specialist — AI', tested: true },
-    { path: '/istqb-ct-act-complete-guide', topic: 'ISTQB Specialist — Acceptance', tested: true },
-    { path: '/istqb-ct-genai-complete-guide', topic: 'ISTQB Specialist — GenAI', tested: true },
-    { path: '/istqb-ct-mat-complete-guide', topic: 'ISTQB Specialist — Mobile App', tested: true },
-    { path: '/istqb-ct-mbt-complete-guide', topic: 'ISTQB Specialist — MBT', tested: true },
-    { path: '/istqb-ct-pt-complete-guide', topic: 'ISTQB Specialist — Performance', tested: true },
-    { path: '/istqb-ct-sec-complete-guide', topic: 'ISTQB Specialist — Security', tested: true },
-    { path: '/istqb-ct-ste-complete-guide', topic: 'ISTQB Specialist — Security Eng', tested: true },
-    { path: '/istqb-ct-tas-complete-guide', topic: 'ISTQB Specialist — TAS', tested: true },
-    { path: '/istqb-ctal-atlas-complete-guide', topic: 'ISTQB Advanced — AT Leadership', tested: true },
-    { path: '/istqb-ctal-att-complete-guide', topic: 'ISTQB Advanced — Agile Tech Tester', tested: true },
-    { path: '/istqb-ctal-ta-complete-guide', topic: 'ISTQB Advanced — Test Analyst', tested: true },
-    { path: '/istqb-ctal-tae-complete-guide', topic: 'ISTQB Advanced — Test Automation Eng', tested: true },
-    { path: '/istqb-ctal-tm-complete-guide', topic: 'ISTQB Advanced — Test Manager', tested: true }
-  ],
+  pages,
 
   inventory: {
     pages: [
@@ -1564,7 +1566,6 @@ function renderInventory() {
   const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib' };
   let total = 0;
   Object.keys(DATA.inventory).forEach((k) => {
-    total += DATA.inventory[k].length;
     const ul = document.getElementById(map[k]);
     const files = DATA.inventory[k];
     files.forEach((f) => {
