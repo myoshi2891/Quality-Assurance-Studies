@@ -23,18 +23,18 @@ describe('ISTQB CTFL-AT Complete Guide Page', () => {
     render(<Page />);
     expect(
       screen.getByRole('heading', { level: 2, name: /Chapter 0: CTFL-AT 概要と資格ロードマップ/ }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', {
         level: 2,
         name: /Chapter 1: アジャイルソフトウェア開発/,
       }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', {
         level: 2,
         name: /Chapter 3: アジャイルテスト技法とツール/,
       }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
   });
 });

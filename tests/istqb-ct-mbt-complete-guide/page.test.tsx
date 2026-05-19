@@ -23,12 +23,12 @@ describe('ISTQB CT-MBT Complete Guide Page', () => {
     render(<Page />);
     expect(
       screen.getByRole('heading', { level: 2, name: /目次・学習ロードマップ/ }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { level: 2, name: /MBTの概要・動機・統合/ }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
     expect(
       screen.getByRole('heading', { level: 2, name: /MBT テスト実装・実行・適応/ }),
-    ).toBeDefined();
+    ).toBeInTheDocument();
   });
 });

@@ -22,12 +22,10 @@ describe('ISTQB CT-TAS Complete Guide Page', () => {
 
   it('renders the chapter section titles', () => {
     render(<Page />);
-    // このページは <div className="section-title"> で章見出しを表現しているため、
-    // 役割クエリではなくテキストで存在を検証する
-    expect(screen.getByText(/目次・学習ロードマップ/)).toBeDefined();
-    expect(screen.getByText(/テスト自動化戦略とは？/)).toBeDefined();
+    expect(screen.getByText(/目次・学習ロードマップ/)).toBeInTheDocument();
+    expect(screen.getByText(/テスト自動化戦略とは？/)).toBeInTheDocument();
     expect(
       screen.getByText(/CT-TAS と CTAL-TAE の重要な違い/),
-    ).toBeDefined();
+    ).toBeInTheDocument();
   });
 });
