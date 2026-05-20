@@ -17,6 +17,7 @@
     "eslint": "^10.1.0",
     "eslint-config-next": "^16.2.6",
     "happy-dom": "^20.8.9",
+    "markdownlint-cli": "^0.48.0",
     "marked": "^18.0.1",
     "postcss": "^8.5.8",
     "postcss-selector-parser": "^7.1.1",
