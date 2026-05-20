@@ -114,44 +114,40 @@ CTEL-ITP 全体の認定者は以下を達成できます：
 
 ### キーワード
 
-```
-Deming cycle, EFQM Excellence Model, IDEAL, manufacturing-based quality,
-product-based quality, retrospective meeting, software lifecycle,
-Software Process Improvement (SPI), standard, test tool,
-Total Quality Management (TQM), transcendent-based quality,
-user-based quality, value-based quality
-```
+> Deming cycle, EFQM Excellence Model, IDEAL, manufacturing-based quality,
+> product-based quality, retrospective meeting, software lifecycle,
+> Software Process Improvement (SPI), standard, test tool,
+> Total Quality Management (TQM), transcendent-based quality,
+> user-based quality, value-based quality
 
 ### 2.1 なぜテストを改善するのか？（Why Improve Testing?）
 
 テストプロセス改善は以下のビジネス的背景から実施されます：
 
-```
-改善が必要な典型的なビジネス理由：
-
-  ① 品質向上の必要性
-     → 市場に出荷されたソフトウェアの欠陥削減
-     → 「品質」は今や市場参入の必須条件
-
-  ② コスト削減
-     → テスト効率の向上で工数を削減
-     → 本番障害のコストは開発中の100倍以上
-
-  ③ タイム・トゥ・マーケットの短縮
-     → 早期フィードバックで手戻りを削減
-     → CI/CD・DevOpsへの対応
-
-  ④ 予測可能性の向上
-     → プロジェクトの見積もり精度向上
-     → ステークホルダーへの報告品質向上
-
-  ⑤ 規制・標準への準拠
-     → FDA（医療機器）、Sarbanes-Oxley（金融）など
-     → ISO 9001、CMMI などの認定取得
-
-  ⑥ サードパーティへの能力証明
-     → 顧客から特定の成熟度レベルを要求される場合
-```
+> 改善が必要な典型的なビジネス理由：
+>
+> ① 品質向上の必要性
+> → 市場に出荷されたソフトウェアの欠陥削減
+> → 「品質」は今や市場参入の必須条件
+>
+> ② コスト削減
+> → テスト効率の向上で工数を削減
+> → 本番障害のコストは開発中の100倍以上
+>
+> ③ タイム・トゥ・マーケットの短縮
+> → 早期フィードバックで手戻りを削減
+> → CI/CD・DevOpsへの対応
+>
+> ④ 予測可能性の向上
+> → プロジェクトの見積もり精度向上
+> → ステークホルダーへの報告品質向上
+>
+> ⑤ 規制・標準への準拠
+> → FDA（医療機器）、Sarbanes-Oxley（金融）など
+> → ISO 9001、CMMI などの認定取得
+>
+> ⑥ サードパーティへの能力証明
+> → 顧客から特定の成熟度レベルを要求される場合
 
 テスト改善は以下のコンテキスト内で実施されます：
 
@@ -303,11 +299,9 @@ IDEAL フレームワーク の5フェーズ：
 
 ### キーワード
 
-```
-CTP, CMMI, continuous representation, GQM, maturity level,
-software process improvement, staged representation, STEP,
-TPI, TMMi, content-based model, process model
-```
+> CTP, CMMI, continuous representation, GQM, maturity level,
+> software process improvement, staged representation, STEP,
+> TPI, TMMi, content-based model, process model
 
 ### 3.1 モデルベースアプローチの概要
 
@@ -483,12 +477,10 @@ CTP アセスメントの流れ：
 
 ### キーワード
 
-```
-causal analysis, cause-effect diagram, cause-effect graph,
-Defect Detection Percentage, Failure Mode and Effect Analysis,
-Fault Tree Analysis, indicator, inspection, measure, metric,
-Pareto analysis
-```
+> causal analysis, cause-effect diagram, cause-effect graph,
+> Defect Detection Percentage, Failure Mode and Effect Analysis,
+> Fault Tree Analysis, indicator, inspection, measure, metric,
+> Pareto analysis
 
 ### 4.2 原因分析（Causal Analysis）
 
@@ -654,11 +646,9 @@ GQM 適用例（品質改善目標）：
 
 ### キーワード
 
-```
-acting, assessment report, balanced scorecard, corporate dashboard,
-diagnosing, establishing, IDEAL, initiating, learning,
-process assessment, test improvement plan, test policy
-```
+> acting, assessment report, balanced scorecard, corporate dashboard,
+> diagnosing, establishing, IDEAL, initiating, learning,
+> process assessment, test improvement plan, test policy
 
 ### 6.1 テストポリシーとテスト改善ポリシー
 
@@ -977,10 +967,8 @@ process assessment, test improvement plan, test policy
 
 ### キーワード（Chapter 7）
 
-```
-assessor, interviewer, Test Process Group (TPG),
-Test Process Improver (TPI), assessor roles, organization
-```
+> assessor, interviewer, Test Process Group (TPG),
+> Test Process Improver (TPI), assessor roles, organization
 
 ### 7.1 組織（Organization）
 
@@ -1164,10 +1152,8 @@ TPG の組織構造モデル：
 
 ### キーワード（Chapter 8）
 
-```
-change management, human factors, organizational change,
-resistance to change, change agent, stakeholder management
-```
+> change management, human factors, organizational change,
+> resistance to change, change agent, stakeholder management
 
 ### 8.1 変更管理の重要性
 
