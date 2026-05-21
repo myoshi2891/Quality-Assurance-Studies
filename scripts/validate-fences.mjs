@@ -15,17 +15,25 @@ try {
   let inCodeBlock = false;
   let startLine = 0;
   let isUnspecified = false;
+  let currentFence = '';
   const unspecBlocks = [];
 
   for (let i = 0; i < lines.length; i++) {
     const line = lines[i].trim();
     
-    if (line.startsWith('```')) {
+    const openMatch = line.match(/^(`{3,}|~{3,})(.*)$/);
+    if (!inCodeBlock && openMatch) {
+      inCodeBlock = true;
+      currentFence = openMatch[1];
+      startLine = i + 1;
+      const info = openMatch[2].trim();
+      isUnspecified = (info === '');
+      continue;
+    }
+
+    if (inCodeBlock && line === currentFence) {
       if (!inCodeBlock) {
-        inCodeBlock = true;
-        startLine = i + 1;
-        const lang = line.slice(3).trim();
-        isUnspecified = (lang === '');
+        // no-op
       } else {
         inCodeBlock = false;
         if (isUnspecified) {
