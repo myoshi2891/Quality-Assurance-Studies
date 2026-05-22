@@ -154,12 +154,14 @@ CTEL-ITP 全体の認定者は以下を達成できます：
 > **テスト改善のコンテキスト：**
 >
 > 組織・ビジネス改善：
+>
 > - TQM（Total Quality Management）
 > - ISO 9000:2000
 > - EFQM Excellence Model
 > - Six Sigma
 >
 > IT/ソフトウェアプロセス改善：
+>
 > - CMMI（Capability Maturity Model Integration）
 > - ISO/IEC 15504
 > - ITIL

@@ -2,7 +2,6 @@
 
 ## 完全学習ガイド【2025年最新版・初学者対応】
 
-
 > **資格名**: ISTQB® Certified Tester Expert Level – Test Management: Managing the Test Team  
 > **略称**: CTEL-TM-MTT（Part 3 of CTEL-TM）  
 > **試験形式**: 選択式16問 + 記述式3問中2問選択 / 合格基準 65% / 135分  
@@ -11,7 +10,7 @@
 > **有効期間**: 7年（更新制度あり）  
 > **最終更新**: 2025年  
 
-📌 **公式ページ**: https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/
+📌 **公式ページ**: <https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/>
 
 ---
 
@@ -31,6 +30,7 @@
 ---
 
 <a id="chapter-0"></a>
+
 ## 🌟 Chapter 0: CTEL-TM-MTT 概要と資格ロードマップ
 
 ### 0.1 CTEL-TM（Expert Level Test Management）全体像
@@ -73,8 +73,8 @@ graph TD
 
 > ⚠️ **重要**: 記述式問題は専門家が採点するため、試験後3〜4週間でスコア通知される。
 
-📌 試験情報（米国）: https://astqb.org/certifications/expert-level-test-management-certification/  
-📌 iSQI（試験登録）: https://isqi.org/ISTQB-CTEL-TM-Part-3-Managing-the-Test-Team/CT-EL-TM-MCQ-P3.82
+📌 試験情報（米国）: <https://astqb.org/certifications/expert-level-test-management-certification/>  
+📌 iSQI（試験登録）: <https://isqi.org/ISTQB-CTEL-TM-Part-3-Managing-the-Test-Team/CT-EL-TM-MCQ-P3.82>
 
 ---
 
@@ -138,7 +138,9 @@ Expert Level Test Manager として以下を達成できることが求められ
 ---
 
 <a id="chapter-1"></a>
+
 ## 🏗️ Chapter 1: テストチームのビルディング（Building the Test Team）
+>
 > シラバス Section 3.2 | 855分（Chapter 3全体）
 
 ### 1.1 テストチームのビルディングとは？
@@ -410,7 +412,9 @@ Week 2-4:
 ---
 
 <a id="chapter-2"></a>
+
 ## 🌱 Chapter 2: テストチームの開発（Developing the Test Team）
+>
 > シラバス Section 3.3
 
 ### 2.1 テストチーム開発の概要
@@ -605,7 +609,7 @@ Expert Test Manager の活用方法：
   → メンバーが自分のロールを認識・活用できるよう支援する
 ```
 
-📌 ベルビンチームロール詳細: https://www.belbin.com/about/belbin-team-roles/
+📌 ベルビンチームロール詳細: <https://www.belbin.com/about/belbin-team-roles/>
 
 #### 2.4.2 マイヤーズ・ブリッグス（MBTI）型指標
 
@@ -634,7 +638,7 @@ MBTI（Myers-Briggs Type Indicator）の4次元：
    「傾向」を理解するための参考ツールとして活用する
 ```
 
-📌 MBTI詳細: https://www.myersbriggs.org/my-mbti-personality-type/
+📌 MBTI詳細: <https://www.myersbriggs.org/my-mbti-personality-type/>
 
 ---
 
@@ -748,7 +752,9 @@ graph TD
     Reports1["部下 (Direct Reports)"] -->|評価| Self
     Self -->|評価| Reports1
 ```
+
 評価の4視点：
+
   1. 本人の自己評価（Self-Assessment）
   2. 上位者（マネージャー）による評価
   3. 同僚・ピアによる評価
@@ -768,6 +774,7 @@ graph TD
   Step 3: サポートの提供（研修・メンタリング・リソース）
   Step 4: 定期モニタリング（週次チェックイン）
   Step 5: 評価と次のステップ（改善確認 or 次の対策）
+
 ```text
 
 ---
@@ -793,6 +800,7 @@ graph TD
 ### 3.2 情報共有とコミュニケーション（Information Sharing and Communication）
 
 ```
+
 テストチームにおける効果的な情報共有の仕組み：
 
 定期ミーティングの設計（Expert Test Manager のアプローチ）：
@@ -824,6 +832,7 @@ graph TD
   ✓ ドキュメント: Confluence・Notion・Google Docs
   ✓ コミュニケーション: Slack・Teams（チャンネル体系を整理）
   ✓ 知識共有: Wiki・ナレッジベース
+
 ```text
 
 ---
@@ -831,6 +840,7 @@ graph TD
 ### 3.3 ロイヤリティと信頼の醸成（Fostering Loyalty and Trust）
 
 ```
+
 チームの信頼を構築するための行動原則：
 
 「信頼の方程式」（Trust Equation）:
@@ -858,6 +868,7 @@ Expert Test Manager として信頼を構築する具体的行動：
   ✓ 困難な状況でもチームを守る（盾になる）
   ✓ 誤りを素直に認めて謝罪する（完璧主義を捨てる）
   ✓ メンバーの提案を積極的に採用・試す
+
 ```text
 
 ---
@@ -939,6 +950,7 @@ graph BT
 <a id="chapter-4"></a>
 
 ## 🌐 Chapter 4: 組織横断のマネジメント（Managing Across the Organization）
+>
 > シラバス Section 5（一部）
 
 ### 4.1 テストチームの組織内ポジショニング（Placement of the Test Team）
@@ -968,14 +980,17 @@ graph TD
 ```
 
 **モデル1: 中央集権型（Centralized Testing）**
+
 - メリット: 専門性の集中・スキル共有が容易・コスト効率
 - デメリット: プロジェクト固有知識が薄い・連携に時間がかかる
 
 **モデル2: 分散型（Embedded Testing）**
+
 - メリット: プロジェクト密着・即時フィードバック
 - デメリット: スキルサイロ化・標準化が難しい
 
 **モデル3: ハイブリッド型（Center of Excellence + Embedded）**
+
 - メリット: 柔軟性・専門性・プロジェクト適応性のバランス
 - デメリット: 管理の複雑さ・報告ラインの曖昧さ
 
@@ -984,6 +999,7 @@ graph TD
 <a id="chapter-5"></a>
 
 ## 📣 Chapter 5: テストチームのアドボカシー（Advocating the Test Team）
+>
 > シラバス Section 5.2
 
 ### 5.1 テスト組織のプロモーション（Promoting and Advocating the Test Organization）
@@ -1078,6 +1094,7 @@ executive_dashboard = {
 <a id="chapter-6"></a>
 
 ## 🤝 Chapter 6: ステークホルダーコミュニケーション（Stakeholder Communication）
+>
 > シラバス Section 5.4
 
 ### 6.1 ステークホルダー分析と対応戦略
@@ -1090,6 +1107,7 @@ executive_dashboard = {
 | :--- | :--- | :--- |
 | **権力（Power）: 高** | Keep Satisfied<br>（満足させ続ける） | Manage Closely<br>（密接に管理） |
 | **権力（Power）: 低** | Minimal Effort<br>（最小限の対応） | Keep Informed<br>（情報を定期提供） |
+
 各象限のステークホルダー例（テストチームの観点）：
 
   Manage Closely（密接管理）:
@@ -1192,6 +1210,7 @@ executive_dashboard = {
 <a id="chapter-7"></a>
 
 ## ⚖️ Chapter 7: 倫理的問題の対処（Handling Ethical Issues）
+>
 > シラバス Section 5.8
 
 ### 7.1 テスト管理における倫理とは？
@@ -1288,7 +1307,7 @@ executive_dashboard = {
   Step 6: 結果をモニタリングし、学習する
 ```
 
-📌 IEEE/ACM ソフトウェアエンジニアリング倫理規定: https://ethics.acm.org/code-of-ethics/software-engineering-code/
+📌 IEEE/ACM ソフトウェアエンジニアリング倫理規定: <https://ethics.acm.org/code-of-ethics/software-engineering-code/>
 
 ---
 
@@ -1406,10 +1425,12 @@ D) インプレメンター（Implementer）
 **正解: C（プラント）**
 
 プラント（Plant）の特徴:
+
 - 強み: 創造性・革新的なアイデアを生み出す
 - 弱み: 細部への注意が不足しがち・実用的な詳細を見落とす
 
 他の選択肢:
+
 - A) シェーパー: チームを動かす原動力だが、「新しいアイデアを提案する」という特徴がない
 - B) コンプリーター・フィニッシャー: 「細部に注意し、締め切りを守る」が逆の特徴
 - D) インプレメンター: 「計画を行動に変換する」実行者で、革新的アイデア提案者ではない
@@ -1433,6 +1454,7 @@ D) 製品オーナーとの関係を壊さないために、欠陥を「検討�
 **正解: B**
 
 テストマネージャーとして取るべき倫理的な行動:
+
 1. テスト結果の正確性は絶対に維持する（改ざんは絶対にしない）
 2. リスクを明確に文書化する
 3. リリースを承認するステークホルダーがリスクを理解した上で意思決定できるよう情報を提供
@@ -1460,6 +1482,7 @@ D) 福利厚生を充実させる
 **正解: C**
 
 ハーツバーグの二要因理論では:
+
 - **衛生要因（Hygiene Factors）**: 給与・環境・福利厚生 → 不満を防ぐが、動機づけにはならない
 - **動機づけ要因（Motivators）**: 達成感・責任・成長・承認 → 真の満足とモチベーションを生む
 
@@ -1508,18 +1531,18 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 
 | リソース | URL |
 |---------|-----|
-| **CTEL-TM-MTT 公式ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/ |
-| **CTEL-TM シラバス v1.0 (2011) ダウンロード** | https://istqb.org/?sdm_process_download=1&download_id=3709 |
-| **CTEL-TM サンプル試験A 問題 v1.0.1** | https://istqb.org/?sdm_process_download=1&download_id=3718 |
-| **CTEL-TM サンプル試験A 解答 v1.0.1** | https://istqb.org/?sdm_process_download=1&download_id=3720 |
-| **CTEL Expert Level 試験構造とルール v2.32** | https://istqb.org/?sdm_process_download=1&download_id=3834 |
-| **CTEL Expert Level ルールと推奨事項 v1.1** | https://istqb.org/?sdm_process_download=1&download_id=3835 |
-| **ISTQB Expert Level 認定延長ポリシー v1.1** | https://istqb.org/?sdm_process_download=1&download_id=3730 |
-| **ISTQB グロッサリー** | https://glossary.istqb.org/en_US/search?term= |
-| **CTEL-TM-STM（Part 1）公式ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/ |
-| **CTEL-TM-OTM（Part 2）公式ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/ |
-| **前提資格 CTAL-TM（Advanced Level）** | https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/ |
-| **ISTQB 認定資格一覧** | https://istqb.org/certifications/ |
+| **CTEL-TM-MTT 公式ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/> |
+| **CTEL-TM シラバス v1.0 (2011) ダウンロード** | <https://istqb.org/?sdm_process_download=1&download_id=3709> |
+| **CTEL-TM サンプル試験A 問題 v1.0.1** | <https://istqb.org/?sdm_process_download=1&download_id=3718> |
+| **CTEL-TM サンプル試験A 解答 v1.0.1** | <https://istqb.org/?sdm_process_download=1&download_id=3720> |
+| **CTEL Expert Level 試験構造とルール v2.32** | <https://istqb.org/?sdm_process_download=1&download_id=3834> |
+| **CTEL Expert Level ルールと推奨事項 v1.1** | <https://istqb.org/?sdm_process_download=1&download_id=3835> |
+| **ISTQB Expert Level 認定延長ポリシー v1.1** | <https://istqb.org/?sdm_process_download=1&download_id=3730> |
+| **ISTQB グロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
+| **CTEL-TM-STM（Part 1）公式ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/> |
+| **CTEL-TM-OTM（Part 2）公式ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/> |
+| **前提資格 CTAL-TM（Advanced Level）** | <https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/> |
+| **ISTQB 認定資格一覧** | <https://istqb.org/certifications/> |
 
 ---
 
@@ -1527,12 +1550,12 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 
 | リソース | URL |
 |---------|-----|
-| **iSQI（CTEL-TM-MTT 試験登録）** | https://isqi.org/ISTQB-CTEL-TM-Part-3-Managing-the-Test-Team/CT-EL-TM-MCQ-P3.82 |
-| **ASTQB（米国・試験詳細情報）** | https://astqb.org/certifications/expert-level-test-management-certification/ |
-| **ASTQB（試験FAQ）** | https://astqb.org/registration/steps-to-certification/frequently-asked-questions-regarding-the-istqb-certification-exams/ |
-| **Brightest（試験・バッジ）** | https://www.brightest.org/en/certifications/ISTQB-r-CTEL-Test-Management-Managing-the-Test-Team/ |
-| **試験プロバイダー検索** | https://istqb.org/exam-providers/ |
-| **研修プロバイダー検索** | https://istqb.org/training-providers/ |
+| **iSQI（CTEL-TM-MTT 試験登録）** | <https://isqi.org/ISTQB-CTEL-TM-Part-3-Managing-the-Test-Team/CT-EL-TM-MCQ-P3.82> |
+| **ASTQB（米国・試験詳細情報）** | <https://astqb.org/certifications/expert-level-test-management-certification/> |
+| **ASTQB（試験FAQ）** | <https://astqb.org/registration/steps-to-certification/frequently-asked-questions-regarding-the-istqb-certification-exams/> |
+| **Brightest（試験・バッジ）** | <https://www.brightest.org/en/certifications/ISTQB-r-CTEL-Test-Management-Managing-the-Test-Team/> |
+| **試験プロバイダー検索** | <https://istqb.org/exam-providers/> |
+| **研修プロバイダー検索** | <https://istqb.org/training-providers/> |
 
 ---
 
@@ -1540,14 +1563,14 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 
 | リソース | URL |
 |---------|-----|
-| **ベルビンチームロール公式サイト** | https://www.belbin.com/about/belbin-team-roles/ |
-| **ベルビンチームロール Wikipedia** | https://en.wikipedia.org/wiki/Team_Role_Inventories |
-| **MBTI 公式サイト（Myers-Briggs）** | https://www.myersbriggs.org/my-mbti-personality-type/ |
-| **MBTI とチームビルディング（詳細解説）** | https://www.teamdynamics.io/blog/maximizing-team-performance-a-deep-dive-into-mbti-for-team-building |
-| **マズローの欲求階層 解説** | https://www.simplypsychology.org/maslow.html |
-| **ハーツバーグの二要因理論 解説** | https://www.netmba.com/mgmt/ob/motivation/herzberg/ |
-| **70:20:10 学習モデル** | https://702010institute.com/70-20-10-model/ |
-| **SBI フィードバックフレームワーク（CCL）** | https://www.ccl.org/articles/leading-effectively-articles/closing-the-gap-between-intent-vs-impact-3-steps-to-better-feedback/ |
+| **ベルビンチームロール公式サイト** | <https://www.belbin.com/about/belbin-team-roles/> |
+| **ベルビンチームロール Wikipedia** | <https://en.wikipedia.org/wiki/Team_Role_Inventories> |
+| **MBTI 公式サイト（Myers-Briggs）** | <https://www.myersbriggs.org/my-mbti-personality-type/> |
+| **MBTI とチームビルディング（詳細解説）** | <https://www.teamdynamics.io/blog/maximizing-team-performance-a-deep-dive-into-mbti-for-team-building> |
+| **マズローの欲求階層 解説** | <https://www.simplypsychology.org/maslow.html> |
+| **ハーツバーグの二要因理論 解説** | <https://www.netmba.com/mgmt/ob/motivation/herzberg/> |
+| **70:20:10 学習モデル** | <https://702010institute.com/70-20-10-model/> |
+| **SBI フィードバックフレームワーク（CCL）** | <https://www.ccl.org/articles/leading-effectively-articles/closing-the-gap-between-intent-vs-impact-3-steps-to-better-feedback/> |
 
 ---
 
@@ -1555,8 +1578,8 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 
 | リソース | URL |
 |---------|-----|
-| **IEEE/ACM ソフトウェアエンジニアリング倫理規定** | https://ethics.acm.org/code-of-ethics/software-engineering-code/ |
-| **ACM 倫理規定（2018年改訂版）** | https://www.acm.org/code-of-ethics |
+| **IEEE/ACM ソフトウェアエンジニアリング倫理規定** | <https://ethics.acm.org/code-of-ethics/software-engineering-code/> |
+| **ACM 倫理規定（2018年改訂版）** | <https://www.acm.org/code-of-ethics> |
 
 ---
 
@@ -1564,11 +1587,11 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 
 | リソース | URL |
 |---------|-----|
-| **ISTQB.guru CTEL-TM ガイド** | https://www.istqb.guru/ |
-| **Global Knowledge CTEL-TM 研修** | https://www.globalknowledge.com/en-ae/courses/istqb/software_testing/istqbe-tm3 |
-| **Koenig Solutions CTEL-TM トレーニング** | https://www.koenig-solutions.com/istqb-certified-tester-expert-level-test-management-training-course |
-| **Process Exam CTEL-TM シラバス解説** | https://www.processexam.com/istqb/istqb-ctel-tm-certification-exam-syllabus |
-| **ATSQA CTEL-TM 詳細情報** | https://atsqa.org/certifications/expert-level-test-management |
+| **ISTQB.guru CTEL-TM ガイド** | <https://www.istqb.guru/> |
+| **Global Knowledge CTEL-TM 研修** | <https://www.globalknowledge.com/en-ae/courses/istqb/software_testing/istqbe-tm3> |
+| **Koenig Solutions CTEL-TM トレーニング** | <https://www.koenig-solutions.com/istqb-certified-tester-expert-level-test-management-training-course> |
+| **Process Exam CTEL-TM シラバス解説** | <https://www.processexam.com/istqb/istqb-ctel-tm-certification-exam-syllabus> |
+| **ATSQA CTEL-TM 詳細情報** | <https://atsqa.org/certifications/expert-level-test-management> |
 
 ---
 
@@ -1631,11 +1654,12 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 > **📌 最終更新日**: 2025年  
 > **📌 準拠資格**: ISTQB® CTEL-TM-MTT（CTEL-TM Syllabus v1.0, 2011年リリース）  
 > **📌 次のステップ**:
+>
 > - CTEL-TM-STM（Part 1: Strategic Test Management）の習得
 > - CTEL-TM-OTM（Part 2: Operational Test Management）の習得
 > - 3試験全合格で CTEL-TM フル認定取得（7年間有効）
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/>
 
 ---
 

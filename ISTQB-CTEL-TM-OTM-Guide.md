@@ -9,7 +9,7 @@
 > **有効期間**: 7年間  
 > **前提資格**: CTFL（Foundation Level）+ CTAL-TM（Advanced Level Test Manager）+ 実務経験5年以上  
 > **最終更新**: 2025年  
-> 📌 **公式ページ**: https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/
+> 📌 **公式ページ**: <https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/>
 
 ---
 
@@ -1377,6 +1377,7 @@ D) 変更管理はプロジェクトマネージャーの責任であるため�
 **問3（K4 / テスト報告）**
 
 テストプロジェクトの終了基準評価において、以下の状況がある：
+
 - テスト実行率: 97%（目標 ≥ 95%）✅
 - テスト合格率: 87%（目標 ≥ 90%）❌
 - Critical欠陥残: 0件 ✅
@@ -1420,56 +1421,56 @@ D) 環境の問題はテストプロセスに影響するので、テスト見�
 
 | リソース | URL |
 |---------|-----|
-| **CTEL-TM-OTM 公式認定ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/ |
-| **CTEL-TM-STM（Part 1）公式ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/ |
-| **CTEL-TM-MTT（Part 3）公式ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/ |
-| **CTEL-TM シラバス v1.0（PDF）** | https://istqb.org/wp-content/uploads/2024/11/ISTQB-CTEL-TM_Syllabus_v1.0_2011.pdf |
-| **ISTQB グロッサリー** | https://glossary.istqb.org/en_US/search?term= |
-| **試験プロバイダー検索** | https://istqb.org/exam-providers/ |
-| **研修プロバイダー検索** | https://istqb.org/training-providers/ |
-| **Expert Level 詳細情報** | https://istqb.org/certifications/expert-level/ |
+| **CTEL-TM-OTM 公式認定ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/> |
+| **CTEL-TM-STM（Part 1）公式ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/> |
+| **CTEL-TM-MTT（Part 3）公式ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/> |
+| **CTEL-TM シラバス v1.0（PDF）** | <https://istqb.org/wp-content/uploads/2024/11/ISTQB-CTEL-TM_Syllabus_v1.0_2011.pdf> |
+| **ISTQB グロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
+| **試験プロバイダー検索** | <https://istqb.org/exam-providers/> |
+| **研修プロバイダー検索** | <https://istqb.org/training-providers/> |
+| **Expert Level 詳細情報** | <https://istqb.org/certifications/expert-level/> |
 
 ### 📢 試験プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| iSQI（CTEL-TM-OTM 試験情報） | https://isqi.org/en/91-istqb-ctel-tm-part-2-operational-test-management.html |
-| iSQI（Part 2 MCQ 試験） | https://isqi.org/ISTQB-CTEL-TM-Part-2-Operational-Test-Management/CT-EL-TM-MCQ-P2.82 |
-| Brightest（CTEL-TM-OTM） | https://www.brightest.org/en/certifications/ISTQB-r-CTEL-Test-Management-Operational-Test-Management/ |
-| GASQ（試験情報） | https://www.gasq.org/en/exam-modules/istqb-r.html |
-| AZSTQB（Arizona State Board） | https://azstqb.org/certifications/expert-level/strategic-test-management |
-| ProcessExam（模擬試験・シラバス解説） | https://www.processexam.com/istqb/istqb-ctel-tm-certification-exam-syllabus |
-| ProcessExam（無料サンプル問題） | https://www.processexam.com/istqb/istqb-ctel-tm-certification-exam-sample-questions |
+| iSQI（CTEL-TM-OTM 試験情報） | <https://isqi.org/en/91-istqb-ctel-tm-part-2-operational-test-management.html> |
+| iSQI（Part 2 MCQ 試験） | <https://isqi.org/ISTQB-CTEL-TM-Part-2-Operational-Test-Management/CT-EL-TM-MCQ-P2.82> |
+| Brightest（CTEL-TM-OTM） | <https://www.brightest.org/en/certifications/ISTQB-r-CTEL-Test-Management-Operational-Test-Management/> |
+| GASQ（試験情報） | <https://www.gasq.org/en/exam-modules/istqb-r.html> |
+| AZSTQB（Arizona State Board） | <https://azstqb.org/certifications/expert-level/strategic-test-management> |
+| ProcessExam（模擬試験・シラバス解説） | <https://www.processexam.com/istqb/istqb-ctel-tm-certification-exam-syllabus> |
+| ProcessExam（無料サンプル問題） | <https://www.processexam.com/istqb/istqb-ctel-tm-certification-exam-sample-questions> |
 
 ### 📖 関連資格
 
 | 資格 | URL |
 |------|-----|
-| CTFL v4.0（前提資格 - Foundation） | https://istqb.org/certifications/certified-tester-foundation-level/ |
-| CTAL-TM v3.0（前提資格 - Advanced） | https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/ |
-| CTEL-TM-STM（Part 1 - Strategic） | https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/ |
-| CTEL-TM-MTT（Part 3 - Managing Team） | https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/ |
-| CTEL-ITP-ATP（テストプロセス改善） | https://istqb.org/certifications/certified-tester-expert-level-improving-the-test-process-assessing-test-processes-ctel-itp-atp/ |
+| CTFL v4.0（前提資格 - Foundation） | <https://istqb.org/certifications/certified-tester-foundation-level/> |
+| CTAL-TM v3.0（前提資格 - Advanced） | <https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/> |
+| CTEL-TM-STM（Part 1 - Strategic） | <https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/> |
+| CTEL-TM-MTT（Part 3 - Managing Team） | <https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/> |
+| CTEL-ITP-ATP（テストプロセス改善） | <https://istqb.org/certifications/certified-tester-expert-level-improving-the-test-process-assessing-test-processes-ctel-itp-atp/> |
 
 ### 🎓 学習リソース
 
 | リソース | URL |
 |---------|-----|
-| ISTQB.Guru Expert Level ガイド | https://www.istqb.guru/ |
-| Software Testing Help（CTAL-TM学習ガイド） | https://www.softwaretestinghelp.com/istqb-test-manager-syllabus-and-study-guide/ |
-| Udemy CTAL-TM v3.0 コース | https://www.udemy.com/course/istqb-advanced-level-test-manager-ctal/ |
+| ISTQB.Guru Expert Level ガイド | <https://www.istqb.guru/> |
+| Software Testing Help（CTAL-TM学習ガイド） | <https://www.softwaretestinghelp.com/istqb-test-manager-syllabus-and-study-guide/> |
+| Udemy CTAL-TM v3.0 コース | <https://www.udemy.com/course/istqb-advanced-level-test-manager-ctal/> |
 
 ### 📋 関連標準・参考資料
 
 | 標準 / リソース | 内容 | URL/参照 |
 |---------------|------|---------|
-| ISO 9241-11:2018 | ユーザビリティ（有効性・効率性・満足度）の定義 | https://www.iso.org/standard/63500.html |
-| ISO 26262 | 自動車機能安全規格 | https://www.iso.org/standard/68383.html |
-| IEC 62304 | 医療機器ソフトウェア標準 | https://www.iso.org/standard/38421.html |
+| ISO 9241-11:2018 | ユーザビリティ（有効性・効率性・満足度）の定義 | <https://www.iso.org/standard/63500.html> |
+| ISO 26262 | 自動車機能安全規格 | <https://www.iso.org/standard/68383.html> |
+| IEC 62304 | 医療機器ソフトウェア標準 | <https://www.iso.org/standard/38421.html> |
 | DO-178C | 航空ソフトウェア標準 | RTCA/DO-178C |
-| TMMi Professional | テストプロセス成熟度モデル | https://www.tmmifoundation.org/ |
-| ISTQB 倫理規定 | テスト専門家の倫理基準 | https://istqb.org/about/code-of-ethics/ |
-| Google Testing Blog | テスト管理ベストプラクティス | https://testing.googleblog.com/ |
+| TMMi Professional | テストプロセス成熟度モデル | <https://www.tmmifoundation.org/> |
+| ISTQB 倫理規定 | テスト専門家の倫理基準 | <https://istqb.org/about/code-of-ethics/> |
+| Google Testing Blog | テスト管理ベストプラクティス | <https://testing.googleblog.com/> |
 
 ---
 
@@ -1526,11 +1527,12 @@ D) 環境の問題はテストプロセスに影響するので、テスト見�
 > **📌 準拠シラバス**: ISTQB® CTEL-TM Syllabus v1.0（2011年11月1日正式リリース）  
 > **📌 前提資格**: CTFL（Foundation Level）+ CTAL-TM v3.0（Advanced Level Test Manager）  
 > **📌 次のステップ**:
+>
 > - Part 1: CTEL-TM-STM（Strategic Test Management）で戦略的テスト管理を学ぶ
 > - Part 3: CTEL-TM-MTT（Managing the Test Team）でチーム管理を学ぶ
 > - CTEL-ITP（Improving the Test Process）でプロセス改善を学ぶ
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/>
 
 ---
 

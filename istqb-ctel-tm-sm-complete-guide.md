@@ -12,7 +12,7 @@
 > **有効期限**: 取得後7年間有効  
 > **最終更新**: 2025年  
 >
-> 📌 **公式ページ**: https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/
+> 📌 **公式ページ**: <https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/>
 
 ---
 
@@ -58,7 +58,7 @@ graph TD
 
 ※ 3パート全て合格で CTEL-TM フル認定
 
-📌 公式ロードマップ: https://istqb.org/certifications/
+📌 公式ロードマップ: <https://istqb.org/certifications/>
 
 ### 0.2 CTEL-TM 3パートの全体構成
 
@@ -83,7 +83,7 @@ CTEL-TM（Expert Level Test Management）= 3パート構成
 | **前提資格** | CTFL + CTAL-TM（必須） |
 | **実務経験** | テスト経験5年以上<br>テスト管理経験2年以上 |
 
-📌 試験プロバイダー: https://isqi.org/ISTQB-CTEL-TM-Part-1-Strategic-Test-Management/CT-EL-TM-MCQ-P1.82
+📌 試験プロバイダー: <https://isqi.org/ISTQB-CTEL-TM-Part-1-Strategic-Test-Management/CT-EL-TM-MCQ-P1.82>
 
 ### 0.4 CTEL-TM-SM の10のビジネスアウトカム
 
@@ -464,6 +464,7 @@ graph TD
 ```
 
 **統合の課題**:
+
 - 各ベンダーが異なるツール・プロセス・品質基準を使用している
 - テスト結果の形式が統一されていない
 - 欠陥の責任範囲が曖昧である
@@ -572,6 +573,7 @@ CTEL-TM-SM のユニークな要件の一つは、**経営トップ（CEO/取締
 **📊 品質健全性スコア**: **82 / 100点**（ステータス：🟡 注意）
 
 **📈 トレンド（前四半期比）**:
+
 - **DRE (欠陥除去効率)**: 85% → 91% (+6%)
 - **欠陥密度**: 4.1 → 3.2 (改善)
 - **自動化率**: 45% → 62% (+17%)
@@ -769,6 +771,7 @@ Expert Test Managerは、プロジェクトのSDLCモデルに応じて、テス
 ライフサイクルモデル別テスト管理アプローチ：
 
 > **ウォーターフォールモデル**
+>
 > - **特徴**：要件→設計→実装→テスト→デプロイの順次実行
 > - **テスト管理のポイント**：
 >   - V字モデルに基づく各フェーズのテスト活動計画
@@ -781,6 +784,7 @@ Expert Test Managerは、プロジェクトのSDLCモデルに応じて、テス
 >   - 要件変更への対応が困難・コスト大
 >
 > **アジャイルモデル（Scrum/SAFe）**
+>
 > - **特徴**：スプリントごとの反復開発・継続的フィードバック
 > - **テスト管理のポイント**：
 >   - 各スプリントでのテスト活動（シフトレフト）
@@ -795,6 +799,7 @@ Expert Test Managerは、プロジェクトのSDLCモデルに応じて、テス
 >   - Release Train Engineerとの連携
 >
 > **DevOps / 継続的デリバリー**
+>
 > - **特徴**：コードPush→自動テスト→自動デプロイの高速サイクル
 > - **テスト管理のポイント**：
 >   - テスト自動化率の最大化（目標70〜80%以上）
@@ -805,6 +810,7 @@ Expert Test Managerは、プロジェクトのSDLCモデルに応じて、テス
 >   - カオスエンジニアリングの計画的実施
 >
 > **ハイブリッドモデル（最も実際に多い）**
+>
 > - **特徴**：ウォーターフォール的ガバナンス + アジャイル的実行
 > - **テスト管理のポイント**：
 >   - フォーマルなマスターテスト計画（ウォーターフォール要素）
@@ -1091,6 +1097,7 @@ D) テストエンジニアを20名追加採用することで対応する
 Expert Test Managerは、まず**現状評価（As-Is分析）**を行い、データに基づいた戦略を立案します。
 
 理由：
+
 - A) 現状分析なしにポリシーを発行しても、根本原因に対処できない。自動化だけが解決策とは限らない
 - B) ✅ 現状評価 → 問題の根本原因特定 → 効果的な改善ポリシー策定という正しいアプローチ
 - C) 他社のポリシーは自組織のコンテキストに合わない場合がほとんど
@@ -1121,6 +1128,7 @@ D) 問題が発生した際に個別対応するので、事前対策は必要�
 マルチベンダー環境では、**統一された品質基準の合意と契約への明記**が最も効果的です。
 
 理由：
+
 - A) ツールの統一は有益だが、品質基準や責任範囲の合意なしには根本解決にならない
 - B) ✅ 品質ゲート・フォーマット・欠陥分類の統一 + コントラクトテスト導入が包括的解決策
 - C) コスト増大であり、ベンダーのテスト品質改善にはならない
@@ -1149,6 +1157,7 @@ D) DRE = 95%：優秀なパフォーマンスで問題ない
 計算：DRE = 450 / (450 + 50) × 100 = **90%**
 
 解釈：
+
 - 90%は「良好（Good）」な水準
 - ただし、業界・リスクレベルによって判断が異なる
 - 一般的なWebアプリ：85〜90%で許容範囲
@@ -1178,6 +1187,7 @@ D) テストは品質保証の義務であり短縮はできないと拒否す�
 Expert Test Managerはビジネスパートナーとして行動します。
 
 理由：
+
 - A) 根拠なくテストを短縮すると品質リスクが急増する
 - B) テストの完全廃止は組織の品質を崩壊させる
 - C) ✅ データでビジネス価値を証明 + 現実的な改善策を提案するのがExpert Level的アプローチ
@@ -1395,63 +1405,63 @@ annual_coq = calculate_cost_of_quality(
 
 | リソース | URL |
 |---------|-----|
-| **CTEL-TM-SM 公式認定ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/ |
-| **CTEL-TM-OTM（Part 2）公式ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/ |
-| **CTEL-TM-MTT（Part 3）公式ページ** | https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/ |
-| **CTEL-TM シラバス v1.0 ダウンロード** | https://istqb.org/?sdm_process_download=1&download_id=3687 |
-| **CTEL-TM サンプル試験A 問題** | https://istqb.org/?sdm_process_download=1&download_id=3689 |
-| **CTEL-TM サンプル試験A 解答** | https://istqb.org/?sdm_process_download=1&download_id=3690 |
-| **Expert Level 試験構造とルール** | https://istqb.org/?sdm_process_download=1&download_id=3834 |
-| **Expert Level ルールと推奨事項** | https://istqb.org/?sdm_process_download=1&download_id=3835 |
-| **Expert Level 証明書延長ポリシー** | https://istqb.org/?sdm_process_download=1&download_id=3693 |
-| **ISTQB® グロッサリー** | https://glossary.istqb.org/en_US/search?term= |
-| **ISTQB® 資格一覧** | https://istqb.org/certifications/ |
-| **試験プロバイダー検索** | https://istqb.org/exam-providers/ |
-| **研修プロバイダー検索** | https://istqb.org/training-providers/ |
+| **CTEL-TM-SM 公式認定ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/> |
+| **CTEL-TM-OTM（Part 2）公式ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-operational-test-management-ctel-tm-otm/> |
+| **CTEL-TM-MTT（Part 3）公式ページ** | <https://istqb.org/certifications/certified-tester-expert-level-test-management-managing-the-test-team-ctel-tm-mtt/> |
+| **CTEL-TM シラバス v1.0 ダウンロード** | <https://istqb.org/?sdm_process_download=1&download_id=3687> |
+| **CTEL-TM サンプル試験A 問題** | <https://istqb.org/?sdm_process_download=1&download_id=3689> |
+| **CTEL-TM サンプル試験A 解答** | <https://istqb.org/?sdm_process_download=1&download_id=3690> |
+| **Expert Level 試験構造とルール** | <https://istqb.org/?sdm_process_download=1&download_id=3834> |
+| **Expert Level ルールと推奨事項** | <https://istqb.org/?sdm_process_download=1&download_id=3835> |
+| **Expert Level 証明書延長ポリシー** | <https://istqb.org/?sdm_process_download=1&download_id=3693> |
+| **ISTQB® グロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
+| **ISTQB® 資格一覧** | <https://istqb.org/certifications/> |
+| **試験プロバイダー検索** | <https://istqb.org/exam-providers/> |
+| **研修プロバイダー検索** | <https://istqb.org/training-providers/> |
 
 ### 📢 試験プロバイダー（iSQI）
 
 | リソース | URL |
 |---------|-----|
-| **iSQI CTEL-TM Part 1（Strategic TM）** | https://isqi.org/ISTQB-CTEL-TM-Part-1-Strategic-Test-Management/CT-EL-TM-MCQ-P1.82 |
-| **iSQI CTEL-TM Full Certification** | https://isqi.org/en/90-istqb-ctel-tm-part-1-strategic-test-management.html |
-| **Brightest CTEL-TM-SM 試験情報** | https://www.brightest.org/en/certifications/ISTQB-r-CTEL-Test-Management-Strategic-Test-Management/ |
-| **AZSTQB（アリゾナ州ISTQB）CTEL-TM** | https://azstqb.org/certifications/expert-level/strategic-test-management |
+| **iSQI CTEL-TM Part 1（Strategic TM）** | <https://isqi.org/ISTQB-CTEL-TM-Part-1-Strategic-Test-Management/CT-EL-TM-MCQ-P1.82> |
+| **iSQI CTEL-TM Full Certification** | <https://isqi.org/en/90-istqb-ctel-tm-part-1-strategic-test-management.html> |
+| **Brightest CTEL-TM-SM 試験情報** | <https://www.brightest.org/en/certifications/ISTQB-r-CTEL-Test-Management-Strategic-Test-Management/> |
+| **AZSTQB（アリゾナ州ISTQB）CTEL-TM** | <https://azstqb.org/certifications/expert-level/strategic-test-management> |
 
 ### 🎓 前提資格関連
 
 | 資格 | URL |
 |------|-----|
-| CTFL v4.0（Foundation Level・必須）| https://istqb.org/certifications/certified-tester-foundation-level/ |
-| CTAL-TM v3.0（Advanced Level・必須）| https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/ |
+| CTFL v4.0（Foundation Level・必須）| <https://istqb.org/certifications/certified-tester-foundation-level/> |
+| CTAL-TM v3.0（Advanced Level・必須）| <https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/> |
 
 ### 📖 品質・テスト管理の参考資料
 
 | リソース | 内容 | URL |
 |---------|------|-----|
-| TMMi Foundation | テストプロセス成熟度モデル | https://www.tmmifoundation.org/ |
-| ISO/IEC 29119 | ソフトウェアテスト国際標準 | https://www.iso.org/standard/81291.html |
-| ISO/IEC 25010:2023 | ソフトウェア品質モデル（SQuaRE） | https://www.iso.org/standard/78176.html |
-| IEEE 829 | テスト文書化標準 | https://standards.ieee.org/ |
-| GASQ CTEL-TM 情報 | Expert Level 詳細情報 | https://www.gasq.org/en/exam-modules/istqb-r.html |
-| Google Testing Blog | テストのベストプラクティス | https://testing.googleblog.com/ |
-| Martin Fowler | テストピラミッド・技術的実践 | https://martinfowler.com/articles/practical-test-pyramid.html |
-| ISTQB.Guru | 試験対策・解説 | https://www.istqb.guru/ |
+| TMMi Foundation | テストプロセス成熟度モデル | <https://www.tmmifoundation.org/> |
+| ISO/IEC 29119 | ソフトウェアテスト国際標準 | <https://www.iso.org/standard/81291.html> |
+| ISO/IEC 25010:2023 | ソフトウェア品質モデル（SQuaRE） | <https://www.iso.org/standard/78176.html> |
+| IEEE 829 | テスト文書化標準 | <https://standards.ieee.org/> |
+| GASQ CTEL-TM 情報 | Expert Level 詳細情報 | <https://www.gasq.org/en/exam-modules/istqb-r.html> |
+| Google Testing Blog | テストのベストプラクティス | <https://testing.googleblog.com/> |
+| Martin Fowler | テストピラミッド・技術的実践 | <https://martinfowler.com/articles/practical-test-pyramid.html> |
+| ISTQB.Guru | 試験対策・解説 | <https://www.istqb.guru/> |
 
 ### 🔧 関連ツール・フレームワーク
 
 | カテゴリ | ツール | URL |
 |---------|-------|-----|
-| テスト管理 | TestRail | https://www.testrail.com/ |
-| テスト管理 | Zephyr Scale | https://smartbear.com/test-management/ |
-| 欠陥管理 | Jira | https://www.atlassian.com/software/jira |
-| コントラクトテスト | Pact | https://docs.pact.io/ |
-| CI/CD | GitHub Actions | https://docs.github.com/en/actions |
-| コード品質 | SonarQube | https://docs.sonarqube.org/ |
-| レポーティング | Allure TestOps | https://allurereport.org/ |
-| 性能テスト | k6 by Grafana | https://grafana.com/docs/k6/latest/ |
-| セキュリティテスト | OWASP ZAP | https://www.zaproxy.org/ |
-| 欠陥予測・AI | Functionize | https://www.functionize.com/ |
+| テスト管理 | TestRail | <https://www.testrail.com/> |
+| テスト管理 | Zephyr Scale | <https://smartbear.com/test-management/> |
+| 欠陥管理 | Jira | <https://www.atlassian.com/software/jira> |
+| コントラクトテスト | Pact | <https://docs.pact.io/> |
+| CI/CD | GitHub Actions | <https://docs.github.com/en/actions> |
+| コード品質 | SonarQube | <https://docs.sonarqube.org/> |
+| レポーティング | Allure TestOps | <https://allurereport.org/> |
+| 性能テスト | k6 by Grafana | <https://grafana.com/docs/k6/latest/> |
+| セキュリティテスト | OWASP ZAP | <https://www.zaproxy.org/> |
+| 欠陥予測・AI | Functionize | <https://www.functionize.com/> |
 
 ---
 
@@ -1505,11 +1515,12 @@ annual_coq = calculate_cost_of_quality(
 > **📌 作成日**: 2025年  
 > **📌 準拠資格**: ISTQB® CTEL-TM-SM v1.0（シラバス2011年、最新試験情報2025年）  
 > **📌 次のステップ**:
+>
 > - CTEL-TM-OTM（Operational Test Management）でPart 2を学習
 > - CTEL-TM-MTT（Managing the Test Team）でPart 3を学習
 > - 3パート全て合格で CTEL-TM フル認定取得
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-expert-level-test-management-strategic-test-management-ctel-tm-sm/>
 
 ---
 
