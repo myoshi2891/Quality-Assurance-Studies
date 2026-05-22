@@ -33,32 +33,25 @@
 
 ### 0.1 ISTQB® 資格体系における位置づけ
 
-```mermaid
 flowchart TD
-    subgraph EL[Expert Level]
-        direction TB
-        CTEL["CTEL-TM（Certified Tester Expert Level – Test Management）<br>※3つのパートすべてに合格で完全資格取得！"]
-        
-        STM["Part 1: CTEL-TM-STM（Strategic Test Management）<br>テスト戦略・ポリシー・ツール統合 [試験: 別途]"]
-        OTM["Part 2: CTEL-TM-OTM（Operational Test Management）<br>★ 本ガイドが対象！★<br>外部関係・プロジェクト管理・評価・報告 [試験: 別途]"]
-        MTT["Part 3: CTEL-TM-MTT（Managing the Test Team）<br>チーム管理・人材育成・組織管理 [試験: 別途]"]
-        
-        CTEL --- STM
-        STM --> OTM
-        OTM --> MTT
-    end
-    
-    subgraph AL[Advanced Level]
-        CTAL["CTAL-TM v3.0（Advanced Level Test Management）<br>テスト管理・リスクベーステスト・メトリクス・欠陥管理"]
-    end
-    
-    subgraph FL[Foundation Level]
-        CTFL["CTFL v4.0（Certified Tester Foundation Level）"]
-    end
-
-    CTFL -->|必須の前提資格| CTAL
-    CTAL -->|必須の前提資格| EL
-```
+subgraph EL[Expert Level]
+direction TB
+CTEL["CTEL-TM（Certified Tester Expert Level – Test Management）<br>※3つのパートすべてに合格で完全資格取得！"]
+STM["Part 1: CTEL-TM-STM（Strategic Test Management）<br>テスト戦略・ポリシー・ツール統合 [試験: 別途]"]
+OTM["Part 2: CTEL-TM-OTM（Operational Test Management）<br>★ 本ガイドが対象！★<br>外部関係・プロジェクト管理・評価・報告 [試験: 別途]"]
+MTT["Part 3: CTEL-TM-MTT（Managing the Test Team）<br>チーム管理・人材育成・組織管理 [試験: 別途]"]
+CTEL --- STM
+STM --> OTM
+OTM --> MTT
+end
+subgraph AL[Advanced Level]
+CTAL["CTAL-TM v3.0（Advanced Level Test Management）<br>テスト管理・リスクベーステスト・メトリクス・欠陥管理"]
+end
+subgraph FL[Foundation Level]
+CTFL["CTFL v4.0（Certified Tester Foundation Level）"]
+end
+CTFL -->|必須の前提資格| CTAL
+CTAL -->|必須の前提資格| EL
 
 ### 0.2 CTEL-TM-OTM とは何か？
 
@@ -119,27 +112,21 @@ Expert Level Test Manager として認定を受けると、以下が実現でき
 
 ### なぜ外部関係管理が重要か？
 
-```mermaid
 flowchart TD
-    Team["自社テストチーム"]
-    
-    Vendor["海外開発ベンダー"]
-    Partner["自動化テストパートナー"]
-    Consultant["品質保証コンサル"]
-    User["エンドユーザー代表"]
-    
-    Team --> Vendor
-    Team --> Partner
-    Team --> Consultant
-    Team --> User
-    
-    Vendor --> 3rdParty
-    Partner --> 3rdParty
-    Consultant --> 3rdParty
-    User --> 3rdParty
-    
-    3rdParty["サードパーティ（第三者）との関係管理が不可欠！"]
-```
+Team["自社テストチーム"]
+Vendor["海外開発ベンダー"]
+Partner["自動化テストパートナー"]
+Consultant["品質保証コンサル"]
+User["エンドユーザー代表"]
+Team --> Vendor
+Team --> Partner
+Team --> Consultant
+Team --> User
+Vendor --> 3rdParty
+Partner --> 3rdParty
+Consultant --> 3rdParty
+User --> 3rdParty
+3rdParty["サードパーティ（第三者）との関係管理が不可欠！"]
 
 ### 1.1 外部関係の種類（Types of External Relationships）
 
@@ -664,24 +651,22 @@ result = three_point_estimate(
 
 #### 3.1.3 予算管理とリソース配分（Budgeting and Resource Allocation）
 
-```mermaid
 mindmap
-  root((テスト予算の<br>主要コスト要素))
-    人件費（通常最大の割合）
-      テストアナリスト工数
-      テストマネージャー工数
-      スペシャリスト（性能・セキュリティ等）工数
-    ツール・環境費用
-      テスト管理ツールライセンス
-      テスト自動化ツールライセンス
-      テスト環境（サーバー・クラウド）費用
-    教育・トレーニング費用
-      ISTQB認定研修
-      ツール・技術研修
-    サードパーティ費用
-      外部テストベンダー費用
-      コンサルタント費用
-```
+root((テスト予算の<br>主要コスト要素))
+人件費（通常最大の割合）
+テストアナリスト工数
+テストマネージャー工数
+スペシャリスト（性能・セキュリティ等）工数
+ツール・環境費用
+テスト管理ツールライセンス
+テスト自動化ツールライセンス
+テスト環境（サーバー・クラウド）費用
+教育・トレーニング費用
+ISTQB認定研修
+ツール・技術研修
+サードパーティ費用
+外部テストベンダー費用
+コンサルタント費用
 
 #### 3.1.4 プロジェクトの管理と追跡（Managing and Tracking a Project）
 
@@ -705,20 +690,17 @@ mindmap
 テストマネージャーは、スコープ・スケジュール・コスト・品質のトレードオフに対応しなければなりません。
 **鉄の三角形（Iron Triangle）とテスト管理**
 
-```mermaid
 flowchart TD
-    Q["品質（Quality）"]
-    S1["スコープ（Scope）"]
-    S2["スケジュール（Schedule）"]
-    C["コスト（Cost）"]
-
-    Q <--> S1
-    Q <--> S2
-    S1 <--> S2
-    Q <--> C
-    S1 <--> C
-    S2 <--> C
-```
+Q["品質（Quality）"]
+S1["スコープ（Scope）"]
+S2["スケジュール（Schedule）"]
+C["コスト（Cost）"]
+Q <--> S1
+Q <--> S2
+S1 <--> S2
+Q <--> C
+S1 <--> C
+S2 <--> C
 
 **テストマネージャーの役割：**
 
