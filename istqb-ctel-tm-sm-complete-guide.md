@@ -1,5 +1,7 @@
 # 🏆 ISTQB® Expert Level Test Management
+
 ## Strategic Test Management (CTEL-TM-SM) 完全学習ガイド 2025
+
 ### 初学者から実践者まで｜ステップバイステップ図解解説
 
 > **対応資格**: ISTQB® Certified Tester Expert Level – Test Management  
@@ -112,6 +114,7 @@ pie title 章別学習時間配分（推定）
 ---
 
 ## 📋 Chapter 1: テストのミッション・ポリシー・戦略・目標 {#chapter-1}
+
 > Test Missions, Policies, Strategies and Goals
 
 ### 1.1 テストのミッション（Test Mission）
@@ -239,37 +242,29 @@ flowchart TD
 
 #### テスト戦略のアプローチ分類
 
-```
 ISTQB® 公認のテスト戦略アプローチ（7種類）：
 
-  1. 分析的アプローチ（Analytical Approach）
-     → リスクベーステスト・要件ベーステスト
-     → 「どこに最も重大な欠陥があるか」を分析して優先順位付け
-
-  2. モデルベースアプローチ（Model-Based Approach）
-     → 状態遷移・BDD・ユースケース等のモデルからテスト生成
-     → モデルの品質がテストの品質に直結する
-
-  3. 方法論的アプローチ（Methodical Approach）
-     → チェックリスト・過去の欠陥データ・経験則に基づく
-     → 繰り返し実績のあるアプローチ
-
-  4. プロセス準拠アプローチ（Process-Compliant Approach）
-     → ISO 26262（自動車）・DO-178C（航空）等の業界標準に準拠
-     → 規制遵守が法的要件
-
-  5. 指示的アプローチ（Directed Approach）
-     → 探索的テスト・経験ベーステスト
-     → テスターの経験・直感・創造性を活用
-
-  6. 回帰回避アプローチ（Regression-Averse Approach）
-     → 自動化回帰テスト・変更影響分析
-     → CI/CDパイプラインへの統合
-
-  7. 反応的アプローチ（Reactive Approach）
-     → アドホックテスト・探索的テスト
-     → 最大の柔軟性を持つが予測しにくい
-```
+1. 分析的アプローチ（Analytical Approach）
+   - リスクベーステスト・要件ベーステスト
+   - 「どこに最も重大な欠陥があるか」を分析して優先順位付け
+2. モデルベースアプローチ（Model-Based Approach）
+   - 状態遷移・BDD・ユースケース等のモデルからテスト生成
+   - モデルの品質がテストの品質に直結する
+3. 方法論的アプローチ（Methodical Approach）
+   - チェックリスト・過去の欠陥データ・経験則に基づく
+   - 繰り返し実績のあるアプローチ
+4. プロセス準拠アプローチ（Process-Compliant Approach）
+   - ISO 26262（自動車）・DO-178C（航空）等の業界標準に準拠
+   - 規制遵守が法的要件
+5. 指示的アプローチ（Directed Approach）
+   - 探索的テスト・経験ベーステスト
+   - テスターの経験・直感・創造性を活用
+6. 回帰回避アプローチ（Regression-Averse Approach）
+   - 自動化回帰テスト・変更影響分析
+   - CI/CDパイプラインへの統合
+7. 反応的アプローチ（Reactive Approach）
+   - アドホックテスト・探索的テスト
+   - 最大の柔軟性を持つが予測しにくい
 
 #### 複合テスト戦略の設計（Expert Level視点）
 
@@ -447,6 +442,7 @@ result = calculate_dre(
 ---
 
 ## 🌐 Chapter 2: 外部関係の管理 {#chapter-2}
+
 > Managing External Relationships
 
 ### 2.1 テスト戦略の統合（Merging Test Strategies）
@@ -544,6 +540,7 @@ flowchart TD
 ---
 
 ## 🏢 Chapter 3: 組織全体にわたるテスト管理 {#chapter-3}
+
 > Managing Across the Organization
 
 ### 3.1 関係の構築（Creating and Building Relationships）
@@ -760,6 +757,7 @@ roi_analysis = calculate_tool_integration_roi(
 ---
 
 ## 📊 Chapter 4: ドメイン・プロジェクト要因のテスト考慮事項 {#chapter-4}
+
 > Testing Considerations for Domain and Project Factors
 
 ### 4.1 ライフサイクルモデル別テスト管理
@@ -781,7 +779,7 @@ Expert Test Managerは、プロジェクトのSDLCモデルに応じて、テス
 > - **リスク**：
 >   - テストが後半に集中 → 欠陥の発見が遅れる
 >   - 要件変更への対応が困難・コスト大
-
+>
 > **アジャイルモデル（Scrum/SAFe）**
 > - **特徴**：スプリントごとの反復開発・継続的フィードバック
 > - **テスト管理のポイント**：
@@ -795,7 +793,7 @@ Expert Test Managerは、プロジェクトのSDLCモデルに応じて、テス
 >   - ProgamレベルのIP（Innovation & Planning）スプリントでの回帰テスト
 >   - System DemoとSystem Integration Testingの計画
 >   - Release Train Engineerとの連携
-
+>
 > **DevOps / 継続的デリバリー**
 > - **特徴**：コードPush→自動テスト→自動デプロイの高速サイクル
 > - **テスト管理のポイント**：
@@ -805,7 +803,7 @@ Expert Test Managerは、プロジェクトのSDLCモデルに応じて、テス
 >   - カナリアリリース・フィーチャーフラグによるリスク軽減
 >   - 本番モニタリングとアラートの設定
 >   - カオスエンジニアリングの計画的実施
-
+>
 > **ハイブリッドモデル（最も実際に多い）**
 > - **特徴**：ウォーターフォール的ガバナンス + アジャイル的実行
 > - **テスト管理のポイント**：
@@ -908,6 +906,7 @@ master_test_plan:
 ---
 
 ## 📈 Chapter 5: 有効性・効率性・満足度の評価 {#chapter-5}
+
 > Evaluating Effectiveness and Efficiency
 
 ### 5.1 テストプロセスの有効性・効率性・満足度メトリクス
@@ -1115,7 +1114,7 @@ C) 発注者側のテストチームを3倍に増員して全統合テストを�
 D) 問題が発生した際に個別対応するので、事前対策は必要ない
 
 <details>
-<summary>📌 解answer を見る</summary>
+<summary>📌 解答 を見る</summary>
 
 **正解: B**
 

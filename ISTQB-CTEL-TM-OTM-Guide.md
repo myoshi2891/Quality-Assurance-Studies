@@ -1,5 +1,7 @@
 # 🏆 ISTQB® Certified Tester Expert Level – Test Management
+
 ## Operational Test Management（CTEL-TM-OTM）完全ガイド 2025
+
 ### 初学者から実践者まで｜ステップバイステップ図解解説
 
 > **対応資格**: ISTQB® CTEL-TM-OTM（Expert Level Test Management – Part 2: Operational Test Management）  
@@ -26,6 +28,7 @@
 ---
 
 <a id="chapter-0"></a>
+
 ## 🌟 Chapter 0: CTEL-TM-OTM 概要と資格ロードマップ
 
 ### 0.1 ISTQB® 資格体系における位置づけ
@@ -75,7 +78,7 @@ CTEL-TM-OTM（Operational Test Management）は、テストマネージャーが
 
 ### 0.4 OTM が対象とするシラバスの章構成と学習時間
 
-```
+```text
 CTEL-TM 全体のシラバス（v1.0, 2011年）における OTM 対象領域：
 
 Chapter 4: 外部関係の管理          ████████████    330分  (OTM★)
@@ -109,7 +112,9 @@ Expert Level Test Manager として認定を受けると、以下が実現でき
 ---
 
 <a id="chapter-1"></a>
+
 ## 🤝 Chapter 1: 外部関係の管理（Managing External Relationships）
+
 > シラバス Chapter 4 | OTM Part 2 の核心テーマ | 330分
 
 ### なぜ外部関係管理が重要か？
@@ -138,7 +143,7 @@ flowchart TD
 
 ### 1.1 外部関係の種類（Types of External Relationships）
 
-```
+```text
 サードパーティとの関係パターン（5種類）：
 
 パターン1: ターンキー方式
@@ -295,7 +300,7 @@ class SLAFramework:
 
 複数の組織・チームがテストに関与する場合、最も困難な管理課題の一つが「テスト戦略のマージ」です。
 
-```
+```text
 テスト戦略マージ時の考慮事項（試験頻出！）：
 
   1. 欠陥管理ツールの統合
@@ -354,14 +359,16 @@ class SLAFramework:
 ---
 
 <a id="chapter-2"></a>
+
 ## 🏢 Chapter 2: 組織横断的管理（Managing Across the Organization）
+
 > シラバス Chapter 5 | OTM 対象 | 780分
 
 ### 2.1 テストチームのアドボカシー（Advocating the Test Team）
 
 テストマネージャーにとって最も重要な役割の一つが、テストチームを**擁護・推進・防御**することです。
 
-```
+```text
 テストチームが直面する脅威（4パターン）：
 
   ✗ 外部干渉（External Interference）:
@@ -384,7 +391,7 @@ class SLAFramework:
 
 **テストチームを守るための3つの柱:**
 
-```
+```text
 1. オープンなコミュニケーション（Open Communication）
    → 問題の早期共有・透明性の確保
 
@@ -468,7 +475,7 @@ class TestValueCalculator:
 
 ### 2.4 関係の構築と維持（Creating and Building Relationships）
 
-```
+```text
 テストマネージャーが構築すべき重要な関係（試験頻出！）：
 
   ✓ プロジェクト管理者（Project Manager）:
@@ -495,7 +502,7 @@ class TestValueCalculator:
 
 **良い例 vs 良くない例（試験頻出！）:**
 
-```
+```text
 ✅ テストマネージャーとして推奨される行動:
    → 開発マネージャーとランチを共にして率直な情報交換を行う
    → 成功したプロジェクトを認め合う・お互いの成果を称え合う
@@ -511,7 +518,7 @@ class TestValueCalculator:
 
 ### 2.5 ツール統合（Integrating Tools Across the Organization）
 
-```
+```text
 マルチユースツールのライフサイクル管理：
 
   フェーズ1: 購入・選定・取得（Purchasing/Selecting/Acquiring）
@@ -543,7 +550,7 @@ class TestValueCalculator:
 
 ### 2.6 倫理的問題の取り扱い（Handling Ethical Issues）
 
-```
+```text
 ISTQBの倫理規定に基づくテストマネージャーの倫理的行動：
 
   1. 倫理的行動の模範:
@@ -566,14 +573,16 @@ ISTQBの倫理規定に基づくテストマネージャーの倫理的行動：
 ---
 
 <a id="chapter-3"></a>
+
 ## 📊 Chapter 3: プロジェクト管理の基礎（Project Management Essentials）
+
 > シラバス Chapter 6 | OTM 対象 | 615分
 
 ### 3.1 プロジェクト管理タスク（Project Management Tasks）
 
 #### 3.1.1 テスト見積もり（Test Estimation）
 
-```
+```text
 テスト工数見積もりの主要技法：
 
   技法1: 広帯域デルファイ法（Wideband Delphi）
@@ -637,7 +646,7 @@ result = three_point_estimate(
 
 #### 3.1.2 スケジュール定義（Defining the Testing Schedule）
 
-```
+```text
 テストスケジュール設計の主要要素：
 
   ✓ テスト開始・終了の日程（マイルストーン）
@@ -676,7 +685,7 @@ mindmap
 
 #### 3.1.4 プロジェクトの管理と追跡（Managing and Tracking a Project）
 
-```
+```text
 テストプロジェクト追跡の主要ダッシュボード要素（例）：
 
   ┌──────────────────────────────────────────────────────────────┐
@@ -719,7 +728,7 @@ flowchart TD
 
 #### 3.1.6 変更管理（Change Management）
 
-```
+```text
 変更管理におけるテストマネージャーの役割（試験頻出！）：
 
   ✅ 推奨される関与:
@@ -736,7 +745,7 @@ flowchart TD
 
 ### 3.2 プロジェクトリスク管理（Project Risk Management）
 
-```
+```text
 テストプロジェクトのリスクマトリクス：
 
         影響度（Impact）
@@ -770,7 +779,7 @@ flowchart TD
 
 **2種類のプロジェクトリスク管理:**
 
-```
+```text
 1. 内部テストプロジェクトリスク管理（Managing Project Risks）：
    → テストチーム内で発生するリスクの管理
    → テストマネージャーが主体的に管理する
@@ -784,12 +793,14 @@ flowchart TD
 ---
 
 <a id="chapter-4"></a>
+
 ## 📈 Chapter 4: テストプロジェクトの評価と報告（Test Project Evaluation and Reporting）
+
 > シラバス Chapter 7 | OTM 対象 | 510分
 
 ### 4.1 情報の追跡（Tracking Information）
 
-```
+```text
 追跡すべき主要テスト情報：
 
   テスト実行データ：
@@ -813,7 +824,7 @@ flowchart TD
 
 ### 4.2 内部報告（Evaluating and Using Information - Internal Reporting）
 
-```
+```text
 内部報告の目的と特徴：
 
   対象: テストチーム・開発チーム・プロジェクトマネージャー
@@ -838,7 +849,7 @@ flowchart TD
 
 ### 4.3 外部報告（Sharing Information - External Reporting）
 
-```
+```text
 外部報告（ステークホルダー向け）の設計原則：
 
   対象: 経営層・顧客・上位マネジメント
@@ -867,7 +878,7 @@ flowchart TD
 
 #### 4.4.1 テスト段階別の報告内容
 
-```
+```text
 テストプロセス段階別の報告事項：
 
   段階1: テスト計画・監視・制御
@@ -923,7 +934,7 @@ flowchart TD
 
 ### 4.5 統計的品質管理技法（Statistical Quality Control Techniques）
 
-```
+```text
 テストマネージャーが活用すべき統計的技法：
 
   1. コントロールチャート（Control Chart）
@@ -963,7 +974,9 @@ flowchart TD
 ---
 
 <a id="chapter-5"></a>
+
 ## 🔧 Chapter 5: ドメインとプロジェクト要因のテスト考慮事項（Domain and Project Factors）
+
 > シラバス Chapter 8 | OTM 対象 | 270分
 
 ### 5.1 ライフサイクルモデル別のテスト管理考慮事項
@@ -977,7 +990,7 @@ flowchart TD
 
 #### アジャイルにおけるテスト管理の特徴
 
-```
+```text
 アジャイルチームにおけるテストマネージャーの役割変化：
 
   従来型のテスト管理:          アジャイルでの役割:
@@ -999,7 +1012,7 @@ flowchart TD
 
 #### 5.2.1 統合プロジェクト（Integration Projects）
 
-```
+```text
 統合プロジェクトのテスト特性と対策：
 
   特性:
@@ -1016,7 +1029,7 @@ flowchart TD
 
 #### 5.2.2 保守プロジェクト（Maintenance Projects）
 
-```
+```text
 保守プロジェクトのテスト特性と対策：
 
   特性:
@@ -1033,7 +1046,7 @@ flowchart TD
 
 #### 5.2.3 組込みシステム（Hardware/Software and Embedded Systems）
 
-```
+```text
 組込みシステムのテスト特性：
 
   特性:
@@ -1049,7 +1062,7 @@ flowchart TD
 
 #### 5.2.4 安全クリティカルシステム（Safety-Critical Systems）
 
-```
+```text
 安全クリティカルシステムのテスト特性：
 
   特性:
@@ -1073,7 +1086,7 @@ flowchart TD
 
 テストマネージャーはリリース判断において重要な役割を担います。
 
-```
+```text
 リリース判断の3要素：
 
   1. 市場需要（Market Demand）
@@ -1098,7 +1111,9 @@ flowchart TD
 ---
 
 <a id="chapter-6"></a>
+
 ## 📉 Chapter 6: 有効性と効率性の評価（Evaluating Effectiveness and Efficiency）
+
 > シラバス Chapter 9 | OTM 対象 | 195分
 
 ### 6.1 有効性・効率性・満足度のメトリクス（テストプロセス）
@@ -1178,7 +1193,7 @@ print(f"欠陥封じ込め効率: {dce:.1f}%")  # → 94.0%（目標の95%未達
 
 ### 6.2 テストポリシー目標のメトリクス
 
-```
+```text
 テストポリシー目標達成度を測るメトリクス例：
 
   目標1: 「リリース前に重要欠陥をゼロにする」
@@ -1226,7 +1241,7 @@ print(f"欠陥封じ込め効率: {dce:.1f}%")  # → 94.0%（目標の95%未達
 
 **レトロスペクティブを成功させるテストマネージャーの役割:**
 
-```
+```text
 テストマネージャーがレトロスペクティブで果たす役割：
 
   ファシリテーター（Facilitator）として：
@@ -1249,11 +1264,12 @@ print(f"欠陥封じ込め効率: {dce:.1f}%")  # → 94.0%（目標の95%未達
 ---
 
 <a id="exam-tips"></a>
+
 ## 📝 試験対策・サンプル問題
 
 ### 試験概要の再確認
 
-```
+```text
 CTEL-TM-OTM 試験の特徴：
   ・シナリオベースの問題が多い（実際の状況でどう判断するか）
   ・K4（分析）〜K6（創造）レベルの認知要求
@@ -1274,7 +1290,7 @@ CTEL-TM-OTM 試験の特徴：
 
 ### 必ず覚える重要概念チェックリスト
 
-```
+```text
 ✅ 外部関係管理（Chapter 4）:
 
 □ サードパーティ関係の5種類のパターンを説明できる
@@ -1293,7 +1309,7 @@ CTEL-TM-OTM 試験の特徴：
 
 ✅ プロジェクト管理（Chapter 6）:
 
-□ 三点見積もり（PERT）の計算式を使えるP
+□ 三点見積もり（PERT）の計算式を使える
 □ リスクマトリクスの作成・評価ができる
 □ 変更管理におけるテストマネージャーの役割を説明できる（影響分析への参加含む）
 □ スケジュール追跡とバーンダウンチャートの読み方を説明できる
@@ -1397,6 +1413,7 @@ D) 環境の問題はテストプロセスに影響するので、テスト見�
 ---
 
 <a id="references"></a>
+
 ## 📚 参照URL一覧（全件）
 
 ### 🏛️ 公式ISTQB® リソース
@@ -1458,7 +1475,7 @@ D) 環境の問題はテストプロセスに影響するので、テスト見�
 
 ## 🏁 まとめ：Expert Level Test Manager（OTM）成功の10原則
 
-```
+```text
 1. 🤝 サードパーティ関係は「信頼+契約」で管理する
    → SLAと品質ゲートで客観的な基準を設ける
    → 良好なコミュニケーション関係を構築した上で、

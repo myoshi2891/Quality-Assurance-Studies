@@ -1,5 +1,7 @@
 # 👥 ISTQB® Expert Level Test Management – Managing the Test Team (CTEL-TM-MTT)
+
 ## 完全学習ガイド【2025年最新版・初学者対応】
+
 
 > **資格名**: ISTQB® Certified Tester Expert Level – Test Management: Managing the Test Team  
 > **略称**: CTEL-TM-MTT（Part 3 of CTEL-TM）  
@@ -80,7 +82,7 @@ graph TD
 
 > シラバスバージョン: CTEL-TM Syllabus v1.0（2011年11月1日リリース）
 
-```
+```text
 シラバス全体（CTEL-TM）の章別学習時間：
 
 Chapter 1  : Introduction               60分
@@ -158,7 +160,7 @@ graph TD
 
 #### なぜ正確なJDが重要か？
 
-```
+```text
 JDが不正確・曖昧な場合の問題：
   ✗ 適切でない候補者が多く応募してくる
   ✗ 適切な候補者が自分向けと気づかず応募しない
@@ -212,7 +214,7 @@ job_description:
 
 #### Expert Test Manager のJD作成のポイント
 
-```
+```text
 ✅ やるべきこと：
   1. 職種の明確な目的・使命を記述する
   2. 具体的・測定可能な成功基準を含める
@@ -231,7 +233,7 @@ job_description:
 
 ### 1.3 履歴書（レジュメ）の評価（Résumés）
 
-```
+```text
 レジュメ評価のステップバイステップアプローチ：
 
 Step 1: スクリーニング基準の事前定義（重み付け）
@@ -266,7 +268,7 @@ Step 3: 確認すべきポジティブシグナル
 
 #### 面接の設計原則
 
-```
+```text
 Expert Test Manager として行う面接設計の原則：
 
 原則1: 構造化面接（Structured Interview）の採用
@@ -296,7 +298,7 @@ Expert Test Manager として行う面接設計の原則：
 
 #### テストチームに特有の面接質問例
 
-```
+```text
 技術スキルを評価する質問：
 
   Q1: 「テスト自動化を始める際、最初に何を評価しますか？」
@@ -329,7 +331,7 @@ Expert Test Manager として行う面接設計の原則：
 
 ### 1.5 新メンバーのオンボーディング（Assimilating New People）
 
-```
+```text
 効果的なオンボーディングプログラムの設計（90日プラン）：
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -378,7 +380,7 @@ Week 2-4:
 
 ### 1.6 雇用・契約の終了（Termination）
 
-```
+```text
 雇用終了のプロセス（Expert Test Manager として）：
 
 雇用終了の種類：
@@ -491,7 +493,7 @@ individual_development_plan = {
 
 #### SMART 目標設定
 
-```
+```text
 SMART 目標設定フレームワーク：
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -530,7 +532,7 @@ Expert Test Manager の目標設定ベストプラクティス：
 
 #### 2.4.1 ベルビンのチームロールモデル（Belbin Team Roles）
 
-```
+```text
 ベルビンのチームロール9分類（Meredith Belbin, 1970s〜）：
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -587,7 +589,7 @@ Expert Test Manager の目標設定ベストプラクティス：
 
 #### テストチームとベルビンロールの関係
 
-```
+```text
 テストチームでの各ロールの役割：
 
   テストマネージャー:   CO（コーディネーター）+ SH（シェーパー）が典型的
@@ -607,7 +609,7 @@ Expert Test Manager の活用方法：
 
 #### 2.4.2 マイヤーズ・ブリッグス（MBTI）型指標
 
-```
+```text
 MBTI（Myers-Briggs Type Indicator）の4次元：
 
   E vs I：外向（Extroversion）vs 内向（Introversion）
@@ -638,7 +640,7 @@ MBTI（Myers-Briggs Type Indicator）の4次元：
 
 ### 2.5 スキル開発・トレーニング機会（Skills Development & Training）
 
-```
+```text
 テストチームのスキル開発戦略（70:20:10モデル）：
 
 70% - 実務経験（Experience-Based Learning）
@@ -669,7 +671,7 @@ MBTI（Myers-Briggs Type Indicator）の4次元：
 
 #### ISTQB® 認定資格のキャリアパス例
 
-```
+```text
 テストチームメンバーのキャリアパス（ISTQB認定）：
 
 初級テスター:
@@ -694,7 +696,7 @@ MBTI（Myers-Briggs Type Indicator）の4次元：
 
 ### 2.6 メンタリング（Mentoring）
 
-```
+```text
 効果的なメンタリングプログラムの設計：
 
 メンタリングの種類：
@@ -766,7 +768,7 @@ graph TD
   Step 3: サポートの提供（研修・メンタリング・リソース）
   Step 4: 定期モニタリング（週次チェックイン）
   Step 5: 評価と次のステップ（改善確認 or 次の対策）
-```
+```text
 
 ---
 
@@ -822,7 +824,7 @@ graph TD
   ✓ ドキュメント: Confluence・Notion・Google Docs
   ✓ コミュニケーション: Slack・Teams（チャンネル体系を整理）
   ✓ 知識共有: Wiki・ナレッジベース
-```
+```text
 
 ---
 
@@ -856,7 +858,7 @@ Expert Test Manager として信頼を構築する具体的行動：
   ✓ 困難な状況でもチームを守る（盾になる）
   ✓ 誤りを素直に認めて謝罪する（完璧主義を捨てる）
   ✓ メンバーの提案を積極的に採用・試す
-```
+```text
 
 ---
 
@@ -896,7 +898,7 @@ graph BT
 
 ### 3.5 分散チームの管理（Managing Distributed Teams）
 
-```
+```text
 分散チーム（Distributed/Remote Teams）管理の課題と対策：
 
 課題1: タイムゾーンの差異
@@ -935,6 +937,7 @@ graph BT
 ---
 
 <a id="chapter-4"></a>
+
 ## 🌐 Chapter 4: 組織横断のマネジメント（Managing Across the Organization）
 > シラバス Section 5（一部）
 
@@ -979,12 +982,13 @@ graph TD
 ---
 
 <a id="chapter-5"></a>
+
 ## 📣 Chapter 5: テストチームのアドボカシー（Advocating the Test Team）
 > シラバス Section 5.2
 
 ### 5.1 テスト組織のプロモーション（Promoting and Advocating the Test Organization）
 
-```
+```text
 Expert Test Manager として「テストの価値」を組織内で主張する技術：
 
 テストの価値の可視化（Selling the Value of Testing）：
@@ -1036,7 +1040,7 @@ executive_dashboard = {
 
 ### 5.2 防衛可能なチームの構築（Creating a Defensible Team）
 
-```
+```text
 テストチームを組織内で「守る」ためのストラテジー：
 
 課題: テストチームへの予算削減・チーム縮小の圧力
@@ -1072,6 +1076,7 @@ executive_dashboard = {
 ---
 
 <a id="chapter-6"></a>
+
 ## 🤝 Chapter 6: ステークホルダーコミュニケーション（Stakeholder Communication）
 > シラバス Section 5.4
 
@@ -1101,13 +1106,12 @@ executive_dashboard = {
 
   Minimal Effort（最小限）:
   → 他部門の管理職（テストとの接点が少ない）
-```
 
 ---
 
 ### 6.2 対象者別コミュニケーション戦略
 
-```
+```text
 ステークホルダー別の最適なコミュニケーション：
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -1147,7 +1151,7 @@ executive_dashboard = {
 
 ### 6.3 組織内での品質文化の推進（Advocating Quality Across the Organization）
 
-```
+```text
 品質文化（Quality Culture）の組織浸透戦略：
 
 現状診断（Quality Maturity Assessment）：
@@ -1186,12 +1190,13 @@ executive_dashboard = {
 ---
 
 <a id="chapter-7"></a>
+
 ## ⚖️ Chapter 7: 倫理的問題の対処（Handling Ethical Issues）
 > シラバス Section 5.8
 
 ### 7.1 テスト管理における倫理とは？
 
-```
+```text
 テストマネージャーが直面する倫理的課題：
 
   ① チームの倫理（Managing the Team's Ethics）[5.8.1]
@@ -1216,7 +1221,7 @@ executive_dashboard = {
 
 ### 7.2 倫理的ジレンマへの対処法
 
-```
+```text
 テストマネージャーが直面する典型的な倫理的ジレンマ：
 
 ジレンマ1: リリース圧力 vs 品質
@@ -1261,7 +1266,7 @@ executive_dashboard = {
 
 ### 7.3 ISTQB® 倫理規定との関係
 
-```
+```text
 ソフトウェアテストにおける倫理規定（IEEE/ACM Code of Ethics より）：
 
 テスターの8つの倫理原則：
@@ -1288,11 +1293,12 @@ executive_dashboard = {
 ---
 
 <a id="exam-tips"></a>
+
 ## 📝 試験対策・サンプル問題
 
 ### 試験概要の再確認
 
-```
+```text
 CTEL-TM-MTT 試験仕様：
 
   選択式:  16問（各1点 = 16点）
@@ -1326,7 +1332,7 @@ CTEL-TM-MTT 試験仕様：
 
 ### 必ず覚える重要概念チェックリスト
 
-```
+```text
 ✅ 採用プロセスの5ステップ（JD作成→レジュメ評価→面接→オンボーディング→終了）
 
 ✅ ベルビンのチームロール9種類：
@@ -1467,7 +1473,7 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 
 ### 記述式問題の対策
 
-```
+```text
 記述式問題で高得点を獲得するための原則：
 
 原則1: 構造化された回答を書く
@@ -1495,6 +1501,7 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 ---
 
 <a id="references"></a>
+
 ## 📚 参照URL一覧（全件）
 
 ### 🏛️ ISTQB® 公式リソース
@@ -1579,7 +1586,7 @@ A・B・D はいずれも衛生要因の改善であり、既に満たされて�
 
 ## 🏁 まとめ：Expert Test Manager としてのチーム管理の10原則
 
-```
+```text
 1. 🎯 明確な採用基準を設定し、ビジネス目標と一致した人材を採用する
    → JD には明確な成功指標を含める
    → STAR 面接で過去の行動から将来を予測する

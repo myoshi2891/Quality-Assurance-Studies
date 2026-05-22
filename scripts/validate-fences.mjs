@@ -31,10 +31,14 @@ try {
       continue;
     }
 
-    if (inCodeBlock && line === currentFence) {
-      inCodeBlock = false;
-      if (isUnspecified) {
-        unspecBlocks.push({ start: startLine, end: i + 1 });
+    if (inCodeBlock && (line[0] === '`' || line[0] === '~') && line[0] === currentFence[0]) {
+      const fenceChar = currentFence[0];
+      const match = line.match(new RegExp(`^(${fenceChar === '`' ? '\\`' : '~'}{${currentFence.length},})$`));
+      if (match) {
+        inCodeBlock = false;
+        if (isUnspecified) {
+          unspecBlocks.push({ start: startLine, end: i + 1 });
+        }
       }
     }
   }

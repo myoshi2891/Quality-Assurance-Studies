@@ -151,21 +151,19 @@ CTEL-ITP 全体の認定者は以下を達成できます：
 
 テスト改善は以下のコンテキスト内で実施されます：
 
-```text
-テスト改善のコンテキスト：
-
-  組織・ビジネス改善：
-  ├── TQM（Total Quality Management）
-  ├── ISO 9000:2000
-  ├── EFQM Excellence Model
-  └── Six Sigma
-
-  IT/ソフトウェアプロセス改善：
-  ├── CMMI（Capability Maturity Model Integration）
-  ├── ISO/IEC 15504
-  ├── ITIL
-  └── TSP（Team Software Process）/ PSP（Personal Software Process）
-```
+> **テスト改善のコンテキスト：**
+>
+> 組織・ビジネス改善：
+> - TQM（Total Quality Management）
+> - ISO 9000:2000
+> - EFQM Excellence Model
+> - Six Sigma
+>
+> IT/ソフトウェアプロセス改善：
+> - CMMI（Capability Maturity Model Integration）
+> - ISO/IEC 15504
+> - ITIL
+> - TSP（Team Software Process）/ PSP（Personal Software Process）
 
 ### 2.2 何を改善できるか？（What can be Improved?）
 
