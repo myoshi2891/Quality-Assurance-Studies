@@ -33,7 +33,8 @@
     "lint": "eslint .",
     "test": "bun test",
     "test:watch": "bun test --watch",
-    "generate:ctfl-at": "node scripts/md-to-tsx.mjs"
+    "generate:ctfl-at": "node scripts/md-to-tsx.mjs",
+    "validate-fences": "bun run scripts/validate-fences.mjs"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",

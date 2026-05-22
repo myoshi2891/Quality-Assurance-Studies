@@ -32,15 +32,16 @@ try {
     }
 
     if (inCodeBlock && line === currentFence) {
-      if (!inCodeBlock) {
-        // no-op
-      } else {
-        inCodeBlock = false;
-        if (isUnspecified) {
-          unspecBlocks.push({ start: startLine, end: i + 1 });
-        }
+      inCodeBlock = false;
+      if (isUnspecified) {
+        unspecBlocks.push({ start: startLine, end: i + 1 });
       }
     }
+  }
+
+  if (inCodeBlock) {
+    console.error(`Unclosed code block starting at line ${startLine} in ${targetFile}`);
+    process.exit(1);
   }
 
   if (unspecBlocks.length > 0) {
