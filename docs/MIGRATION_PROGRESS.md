@@ -113,16 +113,21 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 ```text
 コンテキスト:
-- 最新 HEAD: `f58a819` — chore(docs): update coverage dashboard after P0 completion
+- 最新 HEAD: `782ac26` — test(validate-fences): fix typescript compiler errors
 - HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
-- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 追加・P0 アクション完了済み。
-  現状: CI (.github/workflows/ci.yml) 構築済み・ページテスト追加済み・DisclaimerBanner / Mermaid コンポーネントテスト追加済み。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 112 pass / 0 fail（28 files）。
+- 移行スクリプト類のテスト実装・P2アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 125 pass / 0 fail)。
+- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（全体カバレッジ 94% / scripts 71% / 他100%）。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 125 pass / 0 fail。
 
 【指示】
-次のいずれかを開始してください:
-1. coverage-dashboard.html の P1/P2 アクション（スナップショットテスト、アクセシビリティテスト等）
-2. または別の修正・リファクタリングタスク。
+カバレッジダッシュボードの P1 アクション（E2E と非機能テスト導入）を開始してください。以下のいずれかを選択して実装してください：
+
+1. **Playwright 導入と全ページのスモーク E2E**
+   - `@playwright/test` を開発用依存関係に追加し、Next.js ローカルサーバーに接続して全23ページに対する E2E スモークテスト（HTTP 200、ヘッダーの表示、コンソールエラーなし、主要見出しの存在確認）を自動化する。
+2. **axe-core/playwright による WCAG 2.1 AA 自動アクセシビリティ検証**
+   - `@axe-core/playwright` を導入し、全ページに対するアクセシビリティ自動監査を実装する。特にダークテーマ下でのカラーコントラスト、aria-* 属性、キーボードフォーカス遷移、および HTML5 ランドマーク構造の妥当性を自動検証する。
+3. **Lighthouse CI によるパフォーマンス・SEO品質予算の導入**
+   - 静的 Next.js サイトの品質維持のため、主要ページに対し LCP (LCP < 2.0s 等) / CLS / TBT / SEO スコアのしきい値を設定し、CI上で Lighthouse スキャニングが自動実行されて予算超過を検知できる仕組みを構築する。
 ```
 
 ---
