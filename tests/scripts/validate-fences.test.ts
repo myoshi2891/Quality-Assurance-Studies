@@ -19,13 +19,13 @@ describe("validate-fences.mjs", () => {
     const content = `# Title\n\n\`\`\`ts\nconst a = 1;\n\`\`\`\n`;
     writeFileSync(tempFilePath, content, "utf8");
     
-    let exitCode: number | null = null;
+    const testState = { exitCode: null as number | null };
     const originalExit = process.exit;
     // @ts-expect-error process.exit is read-only in typical typings but writable in runtime
     process.exit = (code?: number) => {
-      exitCode = code ?? 0;
-      if (exitCode !== 0) {
-        throw new Error(`process.exit: ${exitCode}`);
+      testState.exitCode = code ?? 0;
+      if (testState.exitCode !== 0) {
+        throw new Error(`process.exit: ${testState.exitCode}`);
       }
     };
 
@@ -51,7 +51,7 @@ describe("validate-fences.mjs", () => {
       process.argv = originalArgv;
     }
     
-    expect(exitCode).toBe(0);
+    expect(testState.exitCode).toBe(0);
     expect(logOutput).toContain("No language-unspecified code blocks found");
   });
 
@@ -59,13 +59,13 @@ describe("validate-fences.mjs", () => {
     const content = `# Title\n\n\`\`\`\nconst a = 1;\n\`\`\`\n`;
     writeFileSync(tempFilePath, content, "utf8");
     
-    let exitCode: number | null = null;
+    const testState = { exitCode: null as number | null };
     const originalExit = process.exit;
     // @ts-expect-error process.exit is read-only in typical typings but writable in runtime
     process.exit = (code?: number) => {
-      exitCode = code ?? 0;
-      if (exitCode !== 0) {
-        throw new Error(`process.exit: ${exitCode}`);
+      testState.exitCode = code ?? 0;
+      if (testState.exitCode !== 0) {
+        throw new Error(`process.exit: ${testState.exitCode}`);
       }
     };
 
@@ -91,7 +91,7 @@ describe("validate-fences.mjs", () => {
       process.argv = originalArgv;
     }
     
-    expect(exitCode).toBe(1);
+    expect(testState.exitCode).toBe(1);
     expect(logOutput).toContain("Found 1 language-unspecified code blocks");
   });
 
@@ -99,13 +99,13 @@ describe("validate-fences.mjs", () => {
     const content = `# Title\n\n\`\`\`ts\nconst a = 1;\n`;
     writeFileSync(tempFilePath, content, "utf8");
     
-    let exitCode: number | null = null;
+    const testState = { exitCode: null as number | null };
     const originalExit = process.exit;
     // @ts-expect-error process.exit is read-only in typical typings but writable in runtime
     process.exit = (code?: number) => {
-      exitCode = code ?? 0;
-      if (exitCode !== 0) {
-        throw new Error(`process.exit: ${exitCode}`);
+      testState.exitCode = code ?? 0;
+      if (testState.exitCode !== 0) {
+        throw new Error(`process.exit: ${testState.exitCode}`);
       }
     };
 
@@ -131,7 +131,7 @@ describe("validate-fences.mjs", () => {
       process.argv = originalArgv;
     }
     
-    expect(exitCode).toBe(1);
+    expect(testState.exitCode).toBe(1);
     expect(errorOutput).toContain("Unclosed code block starting at line 3");
   });
 });
