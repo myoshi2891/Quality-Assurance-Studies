@@ -1,12 +1,10 @@
 import { describe, it, expect, afterEach } from "bun:test";
 import { unlinkSync, writeFileSync, readFileSync, existsSync } from "fs";
 import { resolve } from "path";
+import { pathToFileURL } from "url";
 
 const tempFilePath = resolve("./temp_format.md");
-const scriptPath = resolve("./scripts/format-markdown.mjs");
-
-let importCounter = 0;
-const getImportUrl = () => `${scriptPath}?t=${importCounter++}`;
+const scriptUrl = pathToFileURL(resolve("./scripts/format-markdown.mjs")).href;
 
 afterEach(() => {
   if (existsSync(tempFilePath)) {
@@ -30,47 +28,10 @@ Text here.
 End text`;
     writeFileSync(tempFilePath, content, "utf8");
 
-    let exitCode: number | null = null;
-    const originalExit = process.exit;
-    // @ts-expect-error process.exit is read-only in typical typings but writable in runtime
-    process.exit = (code?: number) => {
-      exitCode = code ?? 0;
-      throw new Error(`process.exit: ${exitCode}`);
+    const { default: formatMarkdown } = (await import(scriptUrl)) as {
+      default: (filePath: string) => Promise<void>;
     };
-
-    let logOutput = "";
-    let resolvePromise: () => void;
-    const donePromise = new Promise<void>((r) => {
-      resolvePromise = r;
-    });
-
-    const originalLog = console.log;
-    console.log = (...args: unknown[]) => {
-      logOutput += args.join(" ") + "\n";
-      if (logOutput.includes("Successfully formatted")) {
-        resolvePromise();
-      }
-    };
-
-    const originalArgv = process.argv;
-    process.argv = ["bun", scriptPath, tempFilePath];
-
-    try {
-      await import(getImportUrl());
-      await donePromise;
-    } catch (e) {
-      const err = e as Error;
-      if (!err.message || !err.message.startsWith("process.exit:")) {
-        throw e;
-      }
-    } finally {
-      process.exit = originalExit;
-      console.log = originalLog;
-      process.argv = originalArgv;
-    }
-
-    expect(exitCode).toBeNull();
-    expect(logOutput).toContain("Successfully formatted");
+    await formatMarkdown(tempFilePath);
 
     const formattedContent = readFileSync(tempFilePath, "utf8");
 
