@@ -994,10 +994,10 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <div class="kpi-lbl">Pages Tested · 100%</div>
       <p class="kpi-desc"><span id="kpi-pages-desc-count">0</span> ページに render-only スモークテスト完備（P0 完了）。E2E・a11y・ビジュアル検証は P1 で着手予定。</p>
     </article>
-    <article class="kpi" data-tone="red">
-      <div class="kpi-num">5<span class="unit">/ 6</span></div>
+    <article class="kpi" data-tone="orange">
+      <div class="kpi-num">4<span class="unit">/ 6</span></div>
       <div class="kpi-lbl">Test Types Uncovered</div>
-      <p class="kpi-desc">E2E · Visual Regression · Accessibility 自動化 · Performance · Integration が全面的に未着手。Unit のみ部分実装。</p>
+      <p class="kpi-desc">Visual Regression · Accessibility 自動化 · Performance · Integration が未着手。E2E は Playwright 24/24 ページでスモーク完備（P1 一部完了）。</p>
     </article>
     <article class="kpi" data-tone="ok">
       <div class="kpi-num">1<span class="unit">pipeline</span></div>
@@ -1045,10 +1045,10 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。E2E・a11y・ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">23</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">24</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong>23</strong> Total Routes</span>
-      <span class="chip"><strong>0</strong> with E2E</span>
+      <span class="chip"><strong>24</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong>24</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1090,6 +1090,13 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         </summary>
         <ul id="inv-scripts"></ul>
       </details>
+      <details class="inv" open>
+        <summary>
+          <span>E2E (Playwright)</span>
+          <span class="inv-count" id="inv-count-e2e">0 files</span>
+        </summary>
+        <ul id="inv-e2e"></ul>
+      </details>
     </div>
   </section>
 
@@ -1130,8 +1137,8 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           </tr>
           <tr>
             <th scope="row">System Testing (E2E)</th>
-            <td>Playwright / Cypress 未導入。`bun run build` の成功のみが間接的な代替。</td>
-            <td><span class="status" data-st="gap">Gap · 0%</span></td>
+            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.spec.ts` で全 24 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 25 passed。</td>
+            <td><span class="status" data-st="full">Smoke · 100%</span></td>
           </tr>
           <tr>
             <th scope="row">Acceptance Testing</th>
@@ -1147,7 +1154,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <p class="foot">
     QA_Studies Coverage Radar
     <span class="sep">·</span>
-    Generated 2026-05-18
+    Generated 2026-05-23
     <span class="sep">·</span>
     Single-file, standalone HTML
     <span class="sep">·</span>
@@ -1196,7 +1203,7 @@ const DATA = {
       cells: [
         { state: 'full', value: `${pages.filter(p=>p.tested).length}/${pages.length}`, label: '100%', note: `Render-only smoke tests on all ${pages.length} pages.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
-        { state: 'gap', value: '0', label: 'Gap', note: 'No Playwright/Cypress.' },
+        { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No axe-core / jest-axe.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No Lighthouse CI.' }
@@ -1368,6 +1375,11 @@ const DATA = {
       'tests/scripts/format-markdown.test.ts',
       'tests/scripts/html-to-tsx.test.ts',
       'tests/scripts/validate-fences.test.ts'
+    ],
+    e2e: [
+      'e2e/pages.ts',
+      'e2e/smoke.e2e.ts',
+      'playwright.config.ts'
     ]
   },
 
@@ -1406,10 +1418,10 @@ const DATA = {
       blurb: 'ISTQB の System Level に相当する検証層を立ち上げ、非機能テストの最低ラインを確立する。',
       items: [
         {
-          h: 'Playwright 導入と全ページのスモーク E2E',
-          p: '0 ページに対し HTTP 200 / Header 描画 / コンソールエラーなし / 主要見出し存在をチェック。Playwright config を Next.js dev server に接続。',
+          h: '✅ Playwright 導入と全ページのスモーク E2E',
+          p: '全 24 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 25 passed (24 pages + 1 sanity)。',
           tool: '@playwright/test',
-          effort: '~6h',
+          effort: 'Done',
           impact: 'System Level 達成 / 本番回帰検知'
         },
         {
@@ -1576,8 +1588,8 @@ function renderPages() {
 }
 
 function renderInventory() {
-  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib', scripts: 'inv-scripts' };
-  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib', scripts: 'inv-count-scripts' };
+  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib', scripts: 'inv-scripts', e2e: 'inv-e2e' };
+  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib', scripts: 'inv-count-scripts', e2e: 'inv-count-e2e' };
   let total = 0;
   Object.keys(DATA.inventory).forEach((k) => {
     const ul = document.getElementById(map[k]);

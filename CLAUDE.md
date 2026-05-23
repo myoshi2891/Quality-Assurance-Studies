@@ -16,7 +16,28 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
+bun test             # ユニットテスト (bun test, 125+ specs)
 ```
+
+### E2E テスト (Playwright)
+
+```sh
+bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
+bun run e2e          # 全 24 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e:ui       # Playwright UI モードで対話実行
+bun run e2e:report   # 直近の HTML レポートを表示
+```
+
+`playwright.config.ts` の `webServer` が `bun run build && bun run start` を auto-start する。ローカルでは `reuseExistingServer: !CI` で既存サーバーを再利用するため、`bun run dev` を別タブで起動済みなら高速反復が可能。
+
+**port 3000 衝突時のリカバリ**:
+
+```sh
+lsof -i :3000        # 占有プロセスを確認
+kill $(lsof -ti:3000) # 解放
+```
+
+`bun test` と `bun run e2e` は別ランナー (Bun test runner vs `@playwright/test`)。e2e ファイルは `.e2e.ts` 拡張子を採用しており、`bun test` のデフォルト検出 (`*.test.ts` / `*.spec.ts`) からは自然に除外される。両者を独立して実行できる。
 
 ## Docker コマンド
 

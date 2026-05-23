@@ -9,9 +9,37 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `test(scripts): add unit tests for migration scripts and update coverage dashboard` |
-| 次の作業 | coverage-dashboard.html の P1 アクション（Playwright 導入等）または別のリファクタリングタスク |
-| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings・`bun test` 125 pass / 0 fail（35 files）|
+| 最新 HEAD | `fix(test): isolate Playwright spec from bun test via .e2e.ts extension` (`c2cd734`) |
+| 次の作業 | coverage-dashboard.html の残 P1（axe-core/playwright で WCAG 2.1 AA 自動検証、または Lighthouse CI でパフォーマンス予算） |
+| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings・`bun test` 125 pass / 0 fail（35 files）・`bun run e2e` 25 passed (24 pages + 1 sanity) / 0 fail |
+
+## 2026/05/23 P1: Playwright スモーク E2E 導入
+
+coverage-dashboard.html の P1 アクション「Playwright 導入と全ページのスモーク E2E」を完了した。
+
+### 1. Playwright (@playwright/test@1.60.0) 導入
+
+- `package.json`: devDependency に追加。scripts に `e2e` / `e2e:ui` / `e2e:install` / `e2e:report` を追加。
+- `bunfig.toml`: コメントを更新。e2e ファイルは `.e2e.ts` 拡張子を採用し、`bun test` のデフォルト検出 (`*.test.ts` / `*.spec.ts`) と自然に分離。
+- `.gitignore`: `playwright-report/` / `test-results/` / `playwright/.cache/` を追加。
+
+### 2. スモーク E2E スイート
+
+- `playwright.config.ts`: chromium のみ、`webServer` で `bun run build && bun run start` を auto-start。`reuseExistingServer: !CI`、`retries: CI ? 1 : 0`、reporter は list + html。
+- `e2e/pages.ts`: 全 24 ルート (home + 23 ガイド) と h1 部分一致用 RegExp を単一情報源として定義。`EXPECTED_PAGE_COUNT=24` も export。
+- `e2e/smoke.e2e.ts`: 各ページに対し HTTP 200 / `getByRole('link', { name: 'QA_STUDIES' })` 表示 / `getByRole('heading', level: 1, name: regex)` 一致 / `pageerror` 0件 / `console error` 0件（favicon・ResizeObserver・React DevTools 案内のみ allowlist 除外）を検証。`PAGES.length === EXPECTED_PAGE_COUNT` の sanity test も含む。
+
+### 3. 検証結果
+
+- `bun run e2e`: **25 passed** (24 pages + 1 sanity) / 0 fail / 約 35 秒。
+- `bun test`: 125 pass / 0 fail 維持（`e2e/` は対象外として正しく無視）。
+- 既存の Header 二重レンダ箇所（一部 page.tsx が layout.tsx と Header をダブル import）は `.first()` で吸収。構造修正は別タスク扱い。
+- 既知のノイズ: `next start` + `output: 'standalone'` の警告（動作影響なし、将来 standalone server.js への切り替えで解消可能）。
+
+### 4. ドキュメント同期
+
+- `docs/coverage-dashboard.html`: KPI「Test Types Uncovered」を 5/6 → 4/6、Pages 行の E2E セルを Gap → 100%、「with E2E」chip を 0 → 24、P1 Playwright アクションを ✅ 完了化、ISTQB System Testing 行を Smoke 100%、E2E inventory セクションを追加。
+- `CLAUDE.md`: コマンド節に E2E スクリプト 4 種と port 3000 衝突時のトラブルシュート手順を追加。
 
 ## 2026/05/23 修正・改善タスク完了
 
@@ -113,21 +141,22 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 ```text
 コンテキスト:
-- 最新 HEAD: `782ac26` — test(validate-fences): fix typescript compiler errors
+- 最新 HEAD: `c2cd734` — fix(test): isolate Playwright spec from bun test via .e2e.ts extension
 - HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
-- 移行スクリプト類のテスト実装・P2アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 125 pass / 0 fail)。
-- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（全体カバレッジ 94% / scripts 71% / 他100%）。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 125 pass / 0 fail。
+- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 125 pass / 0 fail)。
+- P1 の Playwright スモーク E2E 導入完了 (`e2e/` 下に 2 ファイル、`bun run e2e` 25 passed / 0 fail、約 35 秒)。
+- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E 24/24 ページ含む）。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 125 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
 
 【指示】
-カバレッジダッシュボードの P1 アクション（E2E と非機能テスト導入）を開始してください。以下のいずれかを選択して実装してください：
+coverage-dashboard.html の残 P1 アクションを選択して実装してください：
 
-1. **Playwright 導入と全ページのスモーク E2E**
-   - `@playwright/test` を開発用依存関係に追加し、Next.js ローカルサーバーに接続して全23ページに対する E2E スモークテスト（HTTP 200、ヘッダーの表示、コンソールエラーなし、主要見出しの存在確認）を自動化する。
-2. **axe-core/playwright による WCAG 2.1 AA 自動アクセシビリティ検証**
-   - `@axe-core/playwright` を導入し、全ページに対するアクセシビリティ自動監査を実装する。特にダークテーマ下でのカラーコントラスト、aria-* 属性、キーボードフォーカス遷移、および HTML5 ランドマーク構造の妥当性を自動検証する。
-3. **Lighthouse CI によるパフォーマンス・SEO品質予算の導入**
-   - 静的 Next.js サイトの品質維持のため、主要ページに対し LCP (LCP < 2.0s 等) / CLS / TBT / SEO スコアのしきい値を設定し、CI上で Lighthouse スキャニングが自動実行されて予算超過を検知できる仕組みを構築する。
+1. **axe-core/playwright による WCAG 2.1 AA 自動アクセシビリティ検証**
+   - `@axe-core/playwright` を導入し、全 24 ページに対する自動監査を実装する。ダークテーマのカラーコントラスト、aria-* 属性、キーボードフォーカス遷移、HTML5 ランドマーク構造を検証。`e2e/a11y.spec.ts` として既存の Playwright 構成に追加可能。
+2. **Lighthouse CI によるパフォーマンス・SEO 品質予算の導入**
+   - 主要ページに対し LCP / CLS / TBT / A11y / SEO スコアのしきい値を設定し (LCP < 2.0s 等)、PR ごとに `@lhci/cli` で予算超過を検知。
+3. **構造修正タスク: Header 二重レンダ解消**
+   - 9 ページが `app/layout.tsx` と独自 `<Header />` import の両方でヘッダーを 2 回描画している。各 page.tsx から重複 import を削除し、`e2e/smoke.e2e.ts` の `.first()` を strict mode のままに戻す。
 ```
 
 ---
