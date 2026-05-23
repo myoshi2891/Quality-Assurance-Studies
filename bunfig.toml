@@ -1,2 +1,4 @@
 [test]
 preload = ["./happydom-setup.ts"]
+# Playwright spec は @playwright/test ランナーで実行するため、bun test の対象から除外
+testPathIgnorePatterns = ["e2e/**", "playwright-report/**", "test-results/**"]

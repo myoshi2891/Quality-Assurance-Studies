@@ -94,3 +94,8 @@ scripts/fix-toc.mjs
 scripts/format-markdown.mjs
 
 .playwright-mcp
+
+# Playwright E2E artifacts
+/playwright-report/
+/test-results/
+/playwright/.cache/
