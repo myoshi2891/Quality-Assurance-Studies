@@ -9,9 +9,31 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f58a819` — chore(docs): update coverage dashboard after P0 completion |
-| 次の作業 | coverage-dashboard.html の P1/P2 アクション着手、または別の修正・リファクタリングタスク |
-| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings（既知のスケルトン）・`bun test` 112 pass / 0 fail（28 files）|
+| 最新 HEAD | `test(scripts): add unit tests for migration scripts and update coverage dashboard` |
+| 次の作業 | coverage-dashboard.html の P1 アクション（Playwright 導入等）または別のリファクタリングタスク |
+| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings・`bun test` 125 pass / 0 fail（35 files）|
+
+## 2026/05/23 修正・改善タスク完了
+
+移行スクリプト類の品質向上とテストカバレッジの深化（P2アクション）を実施した。
+
+### 1. 移行スクリプトのユニットテスト実装
+
+`tests/scripts/` 配下に以下のテストを新規作成し、各スクリプトの入出力やエラーハンドリングを検証した。
+- `validate-fences.test.ts`: 言語未指定フェンスや閉じられていないブロックの検出を検証。
+- `fix-fences.test.ts`: 未指定フェンスへ自動で 'text' を付与する修正ロジックを検証。
+- `format-markdown.test.ts`: リンク分離、見出し前空行（MD022）、空行圧縮（MD012）、末尾改行（MD047）のフォーマットを検証。
+- `extract-css.test.ts`: style タグからの CSS 抽出、変数の置換、不要ルールの削除を検証。
+- `html-to-tsx.test.ts`: HTML の React (TSX) 変換、クラス置換、pre ブロックの dangerouslySetInnerHTML 復元などを検証。
+
+※サンドボックス環境の実行制約を回避するため、`process.exit` や `console.log` をモックし、キャッシュバスター付き動的インポートを用いることでインプロセス実行として実装。非同期処理の待機は `Promise` により同期化。
+
+### 2. テストカバレッジダッシュボードの更新
+
+- [docs/coverage-dashboard.html](coverage-dashboard.html) を最新化。
+- 全体テストカバー率を **41% → 94%** へ引き上げ（ページ 100%、コンポーネント 100%、lib 100%、スクリプト 71%）。
+- インベントリに `Script Utility Tests` セクションを追加し、追加した 5 つのテストファイルを掲載。
+- カバレッジマトリクスに `Scripts Utilities` の充足状況 (5/7 カバー) を反映。
 
 ## 2026/05/18 修正・改善タスク完了
 

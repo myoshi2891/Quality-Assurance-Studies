@@ -957,13 +957,13 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-05-18">2026-05-18</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-05-23">2026-05-23</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span><strong>Scope</strong> 23 pages · 3 components · 1 lib · 5 scripts</span>
+        <span><strong>Scope</strong> 23 pages · 3 components · 1 lib · 7 scripts</span>
       </div>
     </div>
-    <div class="mc-gauge" style="--coverage: 41;" role="img" aria-label="全体テストカバー率 約41パーセント">
+    <div class="mc-gauge" style="--coverage: 94;" role="img" aria-label="全体テストカバー率 約94パーセント">
       <svg viewBox="0 0 120 120" aria-hidden="true">
         <defs>
           <linearGradient id="gradArc" x1="0" y1="0" x2="1" y2="1">
@@ -976,7 +976,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <circle class="arc" cx="60" cy="60" r="50" pathLength="100" />
       </svg>
       <div class="center">
-        <div class="pct">41<span style="font-size:0.5em">%</span></div>
+        <div class="pct">94<span style="font-size:0.5em">%</span></div>
         <div class="lbl">Source Files Covered</div>
       </div>
     </div>
@@ -1082,6 +1082,13 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           <span class="inv-count" id="inv-count-lib">2 files</span>
         </summary>
         <ul id="inv-lib"></ul>
+      </details>
+      <details class="inv" open>
+        <summary>
+          <span>Script Utility Tests</span>
+          <span class="inv-count" id="inv-count-scripts">0 files</span>
+        </summary>
+        <ul id="inv-scripts"></ul>
       </details>
     </div>
   </section>
@@ -1293,9 +1300,9 @@ const DATA = {
     },
     {
       category: 'Scripts Utilities',
-      hint: 'scripts/ — extract-css · format-markdown · html-to-tsx · md-to-tsx · process-genai-css',
+      hint: 'scripts/ — extract-css · fix-fences · format-markdown · html-to-tsx · md-to-tsx · process-genai-css · validate-fences',
       cells: [
-        { state: 'gap', value: '0/5', label: 'Gap', note: 'Migration tooling untested.' },
+        { state: 'partial', value: '5/7', label: '71%', note: 'extract-css, fix-fences, format-markdown, html-to-tsx, validate-fences covered.' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'na', value: '—', label: 'N/A' },
         { state: 'na', value: '—', label: 'N/A' },
@@ -1354,6 +1361,13 @@ const DATA = {
     lib: [
       'tests/lib/navigation.test.ts',
       'tests/lib/dependencies.test.ts'
+    ],
+    scripts: [
+      'tests/scripts/extract-css.test.ts',
+      'tests/scripts/fix-fences.test.ts',
+      'tests/scripts/format-markdown.test.ts',
+      'tests/scripts/html-to-tsx.test.ts',
+      'tests/scripts/validate-fences.test.ts'
     ]
   },
 
@@ -1562,8 +1576,8 @@ function renderPages() {
 }
 
 function renderInventory() {
-  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib' };
-  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib' };
+  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib', scripts: 'inv-scripts' };
+  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib', scripts: 'inv-count-scripts' };
   let total = 0;
   Object.keys(DATA.inventory).forEach((k) => {
     const ul = document.getElementById(map[k]);
