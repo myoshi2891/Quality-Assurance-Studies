@@ -9,7 +9,8 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './e2e',
-  testMatch: /.*\.spec\.ts$/,
+  // .e2e.ts 拡張子に揃えることで `bun test` の自動検出 (*.test.ts / *.spec.ts) から確実に除外する。
+  testMatch: /.*\.e2e\.ts$/,
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,

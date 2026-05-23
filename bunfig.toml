@@ -1,4 +1,5 @@
 [test]
 preload = ["./happydom-setup.ts"]
-# Playwright spec は @playwright/test ランナーで実行するため、bun test の対象から除外
-testPathIgnorePatterns = ["e2e/**", "playwright-report/**", "test-results/**"]
+# Playwright spec は @playwright/test ランナーで実行するため、bun test の対象から除外。
+# 拡張子 .e2e.ts を採用することで bun test のデフォルト検出 (*.test.ts / *.spec.ts) と
+# 自然に分離される (e2e/smoke.e2e.ts ほか)。
