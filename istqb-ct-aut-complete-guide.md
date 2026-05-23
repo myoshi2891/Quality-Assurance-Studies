@@ -108,7 +108,7 @@ CT-AuT 取得者が達成できる4つのビジネス目標：
 | **Chapter 1** | 自動車ソフトウェアテストの概要 | Introduction to Automotive Software Testing | 中 |
 | **Chapter 2** | E/Eシステムのテストのための標準規格 | Standards for the Testing of E/E Systems | **最重要** (ASPICE, ISO 26262, AUTOSAR) |
 | **Chapter 3** | 仮想環境でのテスト | Testing in a Virtual Environment (XiL) | 高 |
-| **Chapter 4** | 自動車特有 of 静的・動的テスト技法 | Automotive-specific Static and Dynamic Test Techniques | 高 |
+| **Chapter 4** | 自動車特有の静的・動的テスト技法 | Automotive-specific Static and Dynamic Test Techniques | 高 |
 
 ---
 
@@ -188,7 +188,7 @@ flowchart LR
   - システム・ソフトウェア・ハードウェアの開発
   - テスターの役割：テスト計画、テスト設計、テスト環境の構築と実行
 - **Phase 3: シリーズ生産 (Series Production)**
-  - 量産に向けた製品 of 最終検証
+  - 量産に向けた製品の最終検証
   - テスターの役割：量産前最終テスト、サンプルテスト
 - **Phase 4: サービス (Service)**
   - 市場投入後のサービス・保守
@@ -1262,7 +1262,7 @@ D) 本番環境でABテストを実施して、どちらのバージョンがよ
 - [ ] ASIL Dが要求される典型的なシステム（AEB: 自動緊急ブレーキ、EPS: 電動パワーステアリング等）を知っている
 - [ ] ISO 26262 の全12パーツの概要と、テスターに特に関連するパート（Part 4: システム開発, Part 6: ソフトウェア開発）を説明できる
 - [ ] AUTOSARの4層構造（Application / RTE / BSW / MCAL）と、各層の役割を説明できる
-- [ ] MISRA-Cの目的を一言で説明できる（「安全・移植性・信頼性の高い車載C言語開発 of ガイドライン」）
+- [ ] MISRA-Cの目的を一言で説明できる（「安全・移植性・信頼性の高い車載C言語開発のガイドライン」）
 - [ ] ASPICE（プロセス改善） vs ISO 26262（機能安全）の違いを3点以上説明できる
 
 #### ✅ Chapter 3: 仮想環境（XiL環境）
