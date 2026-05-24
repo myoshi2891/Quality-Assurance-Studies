@@ -7,7 +7,7 @@
 > **前提資格**: ISTQB CTFL（Foundation Level）保有必須  
 > **最終更新**: 2025年5月  
 
-📌 **公式ページ**: https://istqb.org/certifications/certified-tester-gambling-industry-tester-ct-gt/
+📌 **公式ページ**: <https://istqb.org/certifications/certified-tester-gambling-industry-tester-ct-gt/>
 
 ---
 
@@ -1128,6 +1128,7 @@ D) すべてのギャンブル機器のRNGは独立テストラボで管理さ�
 **正解: C**
 
 VLTとスロットマシンのRNGの最大の違いは搭載場所です：
+
 - VLT: RNGは**セントラルシステム側**で動作（政府・規制機関が管理）
 - スロットマシン: RNGは**各EGM（端末）内**に搭載
 
@@ -1239,56 +1240,56 @@ graph TD
 
 | リソース | URL |
 |---------|-----|
-| **CT-GT 公式認定ページ** | https://istqb.org/certifications/certified-tester-gambling-industry-tester-ct-gt/ |
-| **ISTQB 試験プロバイダー検索** | https://istqb.org/exam-providers/ |
-| **ISTQB 研修プロバイダー検索** | https://istqb.org/training-providers/ |
-| **ISTQB グロッサリー** | https://glossary.istqb.org/ |
-| **CT-GT サンプル試験問題 PDF** | https://istqb.org/wp-content/uploads/2024/11/ISTQB_CT-GT_Sample-Exam-A-Questions_v1.0.1.pdf |
+| **CT-GT 公式認定ページ** | <https://istqb.org/certifications/certified-tester-gambling-industry-tester-ct-gt/> |
+| **ISTQB 試験プロバイダー検索** | <https://istqb.org/exam-providers/> |
+| **ISTQB 研修プロバイダー検索** | <https://istqb.org/training-providers/> |
+| **ISTQB グロッサリー** | <https://glossary.istqb.org/> |
+| **CT-GT サンプル試験問題 PDF** | <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CT-GT_Sample-Exam-A-Questions_v1.0.1.pdf> |
 
 ### 📋 試験プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| **iSQI CT-GT試験情報** | https://isqi.org/ISTQB-Certified-Tester-Gambling-Industry-Tester-CT-GT/CT-GT.82 |
-| **ANZTB CT-GT情報（豪州・NZ）** | https://www.anztb.org/certification/ctfl-gt/ |
-| **Brightest CT-GT情報** | https://www.brightest.org/en/certifications/ISTQB-r-CT-Gambling-Industry-Tester/ |
-| **Credly バッジ情報** | https://www.credly.com/org/brightest/badge/istqb-certified-tester-gambling-industry-tester-ct- |
+| **iSQI CT-GT試験情報** | <https://isqi.org/ISTQB-Certified-Tester-Gambling-Industry-Tester-CT-GT/CT-GT.82> |
+| **ANZTB CT-GT情報（豪州・NZ）** | <https://www.anztb.org/certification/ctfl-gt/> |
+| **Brightest CT-GT情報** | <https://www.brightest.org/en/certifications/ISTQB-r-CT-Gambling-Industry-Tester/> |
+| **Credly バッジ情報** | <https://www.credly.com/org/brightest/badge/istqb-certified-tester-gambling-industry-tester-ct-> |
 
 ### 🎓 学習リソース
 
 | リソース | URL |
 |---------|-----|
-| **ISTQB.Guru CT-GT ガイド** | https://www.istqb.guru/gambling-tester/ |
-| **Acumen IT Training CT-GTコース（シラバス詳細）** | https://acumenph.com/courses/certified-tester-gambling-industry-tester-ct-gt/ |
-| **ProcessExam CT-GT サンプル問題** | https://www.processexam.com/istqb/istqb-ct-gt-certification-exam-sample-questions |
-| **ProcessExam シラバス詳細** | https://www.processexam.com/istqb/istqb-ct-gt-certification-exam-syllabus |
-| **Udemy CT-GT 模擬試験（200問）** | https://www.udemy.com/course/istqb-gambling-industry-tester-ct-gt-mock-exam-set-a/ |
+| **ISTQB.Guru CT-GT ガイド** | <https://www.istqb.guru/gambling-tester/> |
+| **Acumen IT Training CT-GTコース（シラバス詳細）** | <https://acumenph.com/courses/certified-tester-gambling-industry-tester-ct-gt/> |
+| **ProcessExam CT-GT サンプル問題** | <https://www.processexam.com/istqb/istqb-ct-gt-certification-exam-sample-questions> |
+| **ProcessExam シラバス詳細** | <https://www.processexam.com/istqb/istqb-ct-gt-certification-exam-syllabus> |
+| **Udemy CT-GT 模擬試験（200問）** | <https://www.udemy.com/course/istqb-gambling-industry-tester-ct-gt-mock-exam-set-a/> |
 
 ### 🎰 ギャンブル産業・規制機関
 
 | リソース | URL |
 |---------|-----|
-| **UK Gambling Commission** | https://www.gamblingcommission.gov.uk/ |
-| **Malta Gaming Authority (MGA)** | https://www.mga.org.mt/ |
-| **GLI (Gaming Labs International)** | https://www.gaminglabs.com/ |
-| **BMM Testlabs** | https://www.bmm.com/ |
-| **eCOGRA** | https://ecogra.org/ |
+| **UK Gambling Commission** | <https://www.gamblingcommission.gov.uk/> |
+| **Malta Gaming Authority (MGA)** | <https://www.mga.org.mt/> |
+| **GLI (Gaming Labs International)** | <https://www.gaminglabs.com/> |
+| **BMM Testlabs** | <https://www.bmm.com/> |
+| **eCOGRA** | <https://ecogra.org/> |
 
 ### 📊 市場データ・統計
 
 | リソース | URL |
 |---------|-----|
-| **Grand View Research – Online Gambling Market** | https://www.grandviewresearch.com/industry-analysis/online-gambling-market |
-| **GM Insights – Online Gambling Market 2025-2034** | https://www.gminsights.com/industry-analysis/online-gambling-market |
-| **Gambling Industry News – Global Statistics** | https://gamblingindustrynews.com/global-gambling-statistics/ |
+| **Grand View Research – Online Gambling Market** | <https://www.grandviewresearch.com/industry-analysis/online-gambling-market> |
+| **GM Insights – Online Gambling Market 2025-2034** | <https://www.gminsights.com/industry-analysis/online-gambling-market> |
+| **Gambling Industry News – Global Statistics** | <https://gamblingindustrynews.com/global-gambling-statistics/> |
 
 ### 📖 標準・プロトコル
 
 | リソース | URL |
 |---------|-----|
-| **G2S Protocol（ゲーム-システム間プロトコル）** | https://www.gamingstandards.com/g2s-protocol/ |
-| **Gaming Standards Association (GSA)** | https://www.gamingstandards.com/ |
-| **GLI Standards（技術要件）** | https://www.gaminglabs.com/standards |
+| **G2S Protocol（ゲーム-システム間プロトコル）** | <https://www.gamingstandards.com/g2s-protocol/> |
+| **Gaming Standards Association (GSA)** | <https://www.gamingstandards.com/> |
+| **GLI Standards（技術要件）** | <https://www.gaminglabs.com/standards> |
 
 ---
 
@@ -1330,7 +1331,7 @@ graph TD
 > **📌 準拠資格**: ISTQB® CT-GT v1.0（Foundation Level Gambling Industry Tester Specialist）  
 > **📌 次のステップ**: CTAL-TA v4.0（Test Analyst）・CT-SEC（Security Tester）も参照推奨  
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-gambling-industry-tester-ct-gt/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-gambling-industry-tester-ct-gt/>
 
 ---
 
