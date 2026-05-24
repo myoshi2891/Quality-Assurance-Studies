@@ -1593,10 +1593,12 @@ function renderPages() {
 function renderInventory() {
   const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib', scripts: 'inv-scripts', e2e: 'inv-e2e' };
   const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib', scripts: 'inv-count-scripts', e2e: 'inv-count-e2e' };
+  const groups = Object.keys(map);
   let total = 0;
-  Object.keys(DATA.inventory).forEach((k) => {
+  groups.forEach((k) => {
     const ul = document.getElementById(map[k]);
     const files = DATA.inventory[k];
+    if (!Array.isArray(files) || !ul) return;
     files.forEach((f) => {
       ul.appendChild(el('li', null, [el('code', null, f)]));
     });
