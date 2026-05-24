@@ -1334,6 +1334,9 @@ const DATA = {
   pages,
 
   inventory: {
+    total: {
+      scripts: 7
+    },
     pages: [
       'tests/home/page.test.tsx',
       'tests/acceptance-testing-guide/page.test.tsx',
@@ -1649,10 +1652,34 @@ function renderScope() {
     const libCount = DATA.inventory.lib.length;
     const libWord = libCount === 1 ? 'lib' : 'libs';
     
-    const scriptCount = DATA.inventory.scripts.length;
+    const scriptCount = DATA.inventory.total.scripts;
     const scriptWord = scriptCount === 1 ? 'script' : 'scripts';
     
-    scopeEl.innerHTML = `<strong>Scope</strong> ${pageCount} ${pageWord} · ${compCount} ${compWord} · ${libCount} ${libWord} · ${scriptCount} ${scriptWord}`;
+    scopeEl.textContent = '';
+    
+    const strong = document.createElement('strong');
+    strong.textContent = 'Scope';
+    scopeEl.appendChild(strong);
+    
+    scopeEl.appendChild(document.createTextNode(' '));
+    scopeEl.appendChild(document.createTextNode(String(pageCount)));
+    scopeEl.appendChild(document.createTextNode(' '));
+    scopeEl.appendChild(document.createTextNode(pageWord));
+    scopeEl.appendChild(document.createTextNode(' · '));
+    
+    scopeEl.appendChild(document.createTextNode(String(compCount)));
+    scopeEl.appendChild(document.createTextNode(' '));
+    scopeEl.appendChild(document.createTextNode(compWord));
+    scopeEl.appendChild(document.createTextNode(' · '));
+    
+    scopeEl.appendChild(document.createTextNode(String(libCount)));
+    scopeEl.appendChild(document.createTextNode(' '));
+    scopeEl.appendChild(document.createTextNode(libWord));
+    scopeEl.appendChild(document.createTextNode(' · '));
+    
+    scopeEl.appendChild(document.createTextNode(String(scriptCount)));
+    scopeEl.appendChild(document.createTextNode(' '));
+    scopeEl.appendChild(document.createTextNode(scriptWord));
   }
 }
 

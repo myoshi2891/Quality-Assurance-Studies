@@ -1253,7 +1253,7 @@ graph TD
 | **iSQI CT-GT試験情報** | <https://isqi.org/ISTQB-Certified-Tester-Gambling-Industry-Tester-CT-GT/CT-GT.82> |
 | **ANZTB CT-GT情報（豪州・NZ）** | <https://www.anztb.org/certification/ctfl-gt/> |
 | **Brightest CT-GT情報** | <https://www.brightest.org/en/certifications/ISTQB-r-CT-Gambling-Industry-Tester/> |
-| **Credly バッジ情報** | <https://www.credly.com/org/brightest/badge/istqb-certified-tester-gambling-industry-tester-ct-> |
+| **Credly バッジ情報** | <https://www.credly.com/org/brightest/badge/istqb-certified-tester-gambling-industry-tester-ct-gt> |
 
 ### 🎓 学習リソース
 
