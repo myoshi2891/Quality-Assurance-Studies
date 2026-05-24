@@ -56,6 +56,7 @@ flowchart TD
 ```
 
 **CT-GaMe がカバーする領域：**
+
 1. ゲームメカニクスのテスト（コアループ・メタループ・サーバー連携）
 2. グラフィックスのテスト（3Dモデル・テクスチャ・アニメーション等）
 3. サウンドのテスト（SE・BGM・ボイス・音響統合）
@@ -82,8 +83,8 @@ flowchart TD
 | **学習目標数** | 55個（6つのBO経由） |
 | **最新シラバス** | v1.0.1（2024年11月更新） |
 
-📌 試験プロバイダー（iSQI）: https://isqi.org/ISTQB-Certified-Tester-Game-Testing-CT-GaMe/CT-GaMe  
-📌 試験プロバイダー（ASTQB）: https://astqb.org/istqb-game-testing-syllabus/
+📌 試験プロバイダー（iSQI）: <https://isqi.org/ISTQB-Certified-Tester-Game-Testing-CT-GaMe/CT-GaMe>  
+📌 試験プロバイダー（ASTQB）: <https://astqb.org/istqb-game-testing-syllabus/>
 
 ---
 
@@ -115,7 +116,7 @@ flowchart TD
 | BO5 | テストへのAI活用など、ゲームテストを支援するツールを認識できる |
 | BO6 | テスト活動がSDLCとどのように整合し、開発・パブリッシングコストを削減するかを特定できる |
 
-📌 ISTQB CT-GaMe シラバス PDF（ASTQB）: https://astqb.org/assets/documents/ISTQB_CT_GaMe_Syllabus_v1.0.1.pdf
+📌 ISTQB CT-GaMe シラバス PDF（ASTQB）: <https://astqb.org/assets/documents/ISTQB_CT_GaMe_Syllabus_v1.0.1.pdf>
 
 ---
 
@@ -129,6 +130,7 @@ flowchart TD
 > ― ISTQB® CT-GaMe プレスリリース, 2024
 
 **ゲーム産業の規模（参考データ）：**
+
 - 世界のゲーム市場規模：420億ドル以上（2023年）
 - 2029年の予測：691億ドル
 - ゲームテスター米国平均年収：約$31,769〜$87,427（ポジション・経験依存）
@@ -137,6 +139,7 @@ flowchart TD
 - 採用企業例：EA, Ubisoft, Rockstar, Riot Games, Nintendo, Sony等
 
 **テストが必要なプラットフォーム（2025年）：**
+
 - **コンソール**: PlayStation 5/4・Xbox Series X|S・Nintendo Switch/Switch 2
 - **PC**: Windows（DirectX12/Vulkan）・macOS・Linux
 - **モバイル**: iOS（iPhone/iPad）・Android（多数のデバイス）
@@ -162,9 +165,9 @@ flowchart TD
     ⑧ 不正行為（チート）への脆弱性チェック
 ```
 
-📌 ゲームテスターキャリアガイド: https://www.cgspectrum.com/career-pathways/qa-game-tester  
-📌 ゲームテスター年収データ: https://www-cloudfront-alias.coursera.org/articles/video-game-tester-salary  
-📌 ゲーム市場規模データ: https://www.businessnewsdaily.com/4259-how-to-become-a-video-game-tester.html
+📌 ゲームテスターキャリアガイド: <https://www.cgspectrum.com/career-pathways/qa-game-tester>  
+📌 ゲームテスター年収データ: <https://www-cloudfront-alias.coursera.org/articles/video-game-tester-salary>  
+📌 ゲーム市場規模データ: <https://www.businessnewsdaily.com/4259-how-to-become-a-video-game-tester.html>
 
 ---
 
@@ -301,6 +304,7 @@ flowchart TD
 ### 2.2 ゲームメカニクスの分類（試験頻出！）
 
 > **【分類1: ゲームプレイ vs 非ゲームプレイメカニクス】**
+>
 > - **ゲームプレイメカニクス（Gameplay Mechanics）**:
 >   直接ゲーム体験に影響するメカニクス
 >   *(例: 移動・攻撃・防御・スキル使用・アイテム取得)*
@@ -309,6 +313,7 @@ flowchart TD
 >   *(例: セーブ/ロード・設定変更・UI操作・マッチング・課金)*
 >
 > **【分類2: コアループ vs メタループ】**
+>
 > - **コアループ（Core Loop）**:
 >   繰り返しプレイする基本行動サイクル（数分〜数十分）
 >   *(例: バトル → 経験値獲得 → レベルアップ → 次のバトル)*
@@ -317,6 +322,7 @@ flowchart TD
 >   *(例: キャラクター育成 → 強力な装備 → 新エリア解放 → 物語進行)*
 >
 > **【分類3: クライアント vs サーバー vs クライアント-サーバー】**
+>
 > - **クライアントメカニクス**:
 >   ローカルデバイスのみで処理（オフラインゲーム向け）
 >   *(例: ローカルセーブ・入力処理・ローカルAI判定)*
@@ -440,6 +446,7 @@ flowchart TD
 
 > **アプローチ1: アーティスティックテスト（Artistic Testing）**
 > 視覚的な美しさ・スタイルの一貫性を確認
+>
 > - **確認項目：**
 >   - キャラクターデザインがアートガイドラインに準拠しているか
 >   - 色彩・トーン・雰囲気がゲーム全体で一貫しているか
@@ -448,6 +455,7 @@ flowchart TD
 >
 > **アプローチ2: テクニカルテスト（Technical Testing）**
 > 技術的な正確性・パフォーマンスを確認
+>
 > - **確認項目：**
 >   - フレームレート（60fps/30fps目標の達成）
 >   - レンダリングエラー（黒い四角・Z-ファイティング・ちらつき）
@@ -456,6 +464,7 @@ flowchart TD
 >
 > **アプローチ3: ゲームプレイグラフィックステスト（Gameplay Graphics）**
 > グラフィックスがゲームプレイに悪影響を与えないか確認
+>
 > - **確認項目：**
 >   - ヒットボックス（当たり判定）と見た目の一致
 >   - 敵・重要アイテムが見えにくくなっていないか
@@ -595,9 +604,9 @@ VFX系:
 
 | ツール | 特徴 | URL |
 |-------|------|-----|
-| **Wwise（Audiokinetic）** | 業界最大手。アダプティブミュージック・3Dサウンド統合管理 | https://www.audiokinetic.com/ |
-| **FMOD** | リアルタイムのオーディオプログラミング対応。Unity/UE両対応 | https://fmod.com/ |
-| Unity Audio | エンジン内蔵の基本オーディオ。小規模プロジェクト向け | https://docs.unity3d.com/Manual/Audio.html |
+| **Wwise（Audiokinetic）** | 業界最大手。アダプティブミュージック・3Dサウンド統合管理 | <https://www.audiokinetic.com/> |
+| **FMOD** | リアルタイムのオーディオプログラミング対応。Unity/UE両対応 | <https://fmod.com/> |
+| Unity Audio | エンジン内蔵の基本オーディオ。小規模プロジェクト向け | <https://docs.unity3d.com/Manual/Audio.html> |
 
 ---
 
@@ -784,6 +793,7 @@ VFX系:
 
 > **【1. 機能ローカリゼーションテスト（Functional Localization Testing）】**
 > 翻訳されたテキスト・UIが正しく動作するか確認
+>
 > - **確認項目：**
 >   - [ ] テキストが指定領域に収まるか（テキストオーバーフロー）
 >   - [ ] フォントが全文字を正しく表示できるか（特殊文字・記号）
@@ -796,6 +806,7 @@ VFX系:
 >
 > **【2. 言語品質テスト（Linguistic Quality Testing）】**
 > 翻訳の品質・正確性を確認
+>
 > - **確認項目：**
 >   - [ ] 文法的な正確性（ネイティブスピーカーによるレビュー）
 >   - [ ] ゲーム内の一貫した用語使用（「魔法」vs「マジック」の統一）
@@ -804,6 +815,7 @@ VFX系:
 >
 > **【3. 文化的適合性テスト（Cultural Appropriateness Testing）】**
 > 地域の文化・感情・規制への適合を確認
+>
 > - **確認項目：**
 >   - [ ] ジョーク・隠喩が対象文化圏で理解できるか
 >   - [ ] 宗教・政治的に敏感な表現がないか
@@ -857,9 +869,9 @@ VFX系:
   そのまま残っている
 ```
 
-📌 IGDA ローカリゼーション SIG: https://igda.org/sigs/localization/  
-📌 Crowdin（翻訳管理ツール）: https://crowdin.com/  
-📌 Phrase（翻訳プラットフォーム）: https://phrase.com/
+📌 IGDA ローカリゼーション SIG: <https://igda.org/sigs/localization/>  
+📌 Crowdin（翻訳管理ツール）: <https://crowdin.com/>  
+📌 Phrase（翻訳プラットフォーム）: <https://phrase.com/>
 
 ---
 
@@ -873,11 +885,11 @@ VFX系:
 
 | ツール名 | 特徴と用途 |
 |---|---|
-| **Unity Test Framework (UTF)** | ✓ Unity エンジンに直接統合<br>✓ Edit Mode & Play Mode 両方のテスト<br>✓ NUnit フレームワークを使用<br>✓ CI/CDパイプラインに統合可能<br>URL: https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html |
-| **GameDriver** | ✓ Unity & Unreal Engine 両対応<br>✓ PC・コンソール・モバイル対応<br>✓ ソースコードなしでテスト作成可能<br>✓ ゲームテスト自動化の業界標準<br>URL: https://gamedriver.io/ |
-| **Applitools** | ✓ AI搭載のビジュアルリグレッションテスト<br>✓ UIの微妙な変化も自動検出<br>✓ 全解像度・デバイスでの比較が可能<br>URL: https://applitools.com/ |
-| **GameBench** | ✓ モバイルゲームのパフォーマンス測定専門<br>✓ FPS・CPU/GPU使用率・メモリ・温度のリアルタイム計測<br>URL: https://www.gamebench.net/ |
-| **Functionize** | ✓ AI搭載のセルフヒーリングテスト<br>✓ ライブゲームのUI変更に自動対応<br>URL: https://www.functionize.com/ |
+| **Unity Test Framework (UTF)** | ✓ Unity エンジンに直接統合<br>✓ Edit Mode & Play Mode 両方のテスト<br>✓ NUnit フレームワークを使用<br>✓ CI/CDパイプラインに統合可能<br>URL: <https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html> |
+| **GameDriver** | ✓ Unity & Unreal Engine 両対応<br>✓ PC・コンソール・モバイル対応<br>✓ ソースコードなしでテスト作成可能<br>✓ ゲームテスト自動化の業界標準<br>URL: <https://gamedriver.io/> |
+| **Applitools** | ✓ AI搭載のビジュアルリグレッションテスト<br>✓ UIの微妙な変化も自動検出<br>✓ 全解像度・デバイスでの比較が可能<br>URL: <https://applitools.com/> |
+| **GameBench** | ✓ モバイルゲームのパフォーマンス測定専門<br>✓ FPS・CPU/GPU使用率・メモリ・温度のリアルタイム計測<br>URL: <https://www.gamebench.net/> |
+| **Functionize** | ✓ AI搭載のセルフヒーリングテスト<br>✓ ライブゲームのUI変更に自動対応<br>URL: <https://www.functionize.com/> |
 
 ### パフォーマンステストの目標指標（2025年）
 
@@ -907,24 +919,24 @@ VFX系:
 
 | ツール | 用途 | URL |
 |-------|------|-----|
-| **RenderDoc** | グラフィックスAPIレベルのデバッグ（DX/Vulkan/GL） | https://renderdoc.org/ |
-| **PIX for Windows** | Xbox/Windows のグラフィックスデバッグ専用 | https://devblogs.microsoft.com/pix/ |
-| **Unity Profiler** | Unityゲームのリアルタイムパフォーマンス分析 | https://docs.unity3d.com/Manual/Profiler.html |
-| **Unreal Insights** | Unreal Engineゲームの詳細プロファイリング | https://docs.unrealengine.com/insights |
-| **Android GPU Inspector** | AndroidのGPU使用率・シェーダー分析 | https://gpuinspector.dev/ |
-| **Xcode Instruments** | iOS ゲームのCPU・GPU・メモリ分析 | https://developer.apple.com/instruments/ |
+| **RenderDoc** | グラフィックスAPIレベルのデバッグ（DX/Vulkan/GL） | <https://renderdoc.org/> |
+| **PIX for Windows** | Xbox/Windows のグラフィックスデバッグ専用 | <https://devblogs.microsoft.com/pix/> |
+| **Unity Profiler** | Unityゲームのリアルタイムパフォーマンス分析 | <https://docs.unity3d.com/Manual/Profiler.html> |
+| **Unreal Insights** | Unreal Engineゲームの詳細プロファイリング | <https://docs.unrealengine.com/insights> |
+| **Android GPU Inspector** | AndroidのGPU使用率・シェーダー分析 | <https://gpuinspector.dev/> |
+| **Xcode Instruments** | iOS ゲームのCPU・GPU・メモリ分析 | <https://developer.apple.com/instruments/> |
 
 ### バグ追跡・テスト管理ツール
 
 | ツール | 用途 | URL |
 |-------|------|-----|
-| **Jira（Atlassian）** | 最も広く使われるプロジェクト管理・欠陥追跡 | https://www.atlassian.com/jira |
-| **TestRail** | テストケース・実行・レポートの一元管理 | https://www.testrail.com/ |
-| **DevTrack** | ゲーム業界向け欠陥追跡専門ツール | https://devtrack.io/ |
-| **Firebase Crashlytics** | モバイルゲームのクラッシュ分析 | https://firebase.google.com/docs/crashlytics |
+| **Jira（Atlassian）** | 最も広く使われるプロジェクト管理・欠陥追跡 | <https://www.atlassian.com/jira> |
+| **TestRail** | テストケース・実行・レポートの一元管理 | <https://www.testrail.com/> |
+| **DevTrack** | ゲーム業界向け欠陥追跡専門ツール | <https://devtrack.io/> |
+| **Firebase Crashlytics** | モバイルゲームのクラッシュ分析 | <https://firebase.google.com/docs/crashlytics> |
 
-📌 ゲームテストツール比較（2025年）: https://www.softwaretestingmaterial.com/game-testing-tools/  
-📌 ゲームQA自動化ツール比較: https://qawerk.com/blog/game-testing-automation-tools/
+📌 ゲームテストツール比較（2025年）: <https://www.softwaretestingmaterial.com/game-testing-tools/>  
+📌 ゲームQA自動化ツール比較: <https://qawerk.com/blog/game-testing-automation-tools/>
 
 ---
 
@@ -1211,100 +1223,100 @@ D) サーバー側でゲームの勝敗を決定する機能
 
 | リソース | URL |
 |---------|-----|
-| **CT-GaMe 公式認定ページ** | https://istqb.org/certifications/certified-tester-game-testing-ct-game/ |
-| **CT-GaMe v1.0.1 プレスリリース（2024年11月）** | https://istqb.org/istqb-releases-certified-tester-game-testing/ |
-| **CT-GaMe シラバス PDF（ASTQB）** | https://astqb.org/assets/documents/ISTQB_CT_GaMe_Syllabus_v1.0.1.pdf |
-| **CT-GaMe 最新版シラバス PDF（ISTQB）** | https://istqb.org/wp-content/uploads/2024/11/ISTQB_CT_GaMe_Syllabus_v1.0.1_LtrKuyi.pdf |
-| **ISTQB グロッサリー** | https://glossary.istqb.org/en_US/search?term= |
-| **試験プロバイダー検索** | https://istqb.org/exam-providers/ |
-| **研修プロバイダー検索** | https://istqb.org/training-providers/ |
-| **CTFL v4.0（前提資格）** | https://istqb.org/certifications/certified-tester-foundation-level/ |
+| **CT-GaMe 公式認定ページ** | <https://istqb.org/certifications/certified-tester-game-testing-ct-game/> |
+| **CT-GaMe v1.0.1 プレスリリース（2024年11月）** | <https://istqb.org/istqb-releases-certified-tester-game-testing/> |
+| **CT-GaMe シラバス PDF（ASTQB）** | <https://astqb.org/assets/documents/ISTQB_CT_GaMe_Syllabus_v1.0.1.pdf> |
+| **CT-GaMe 最新版シラバス PDF（ISTQB）** | <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CT_GaMe_Syllabus_v1.0.1_LtrKuyi.pdf> |
+| **ISTQB グロッサリー** | <https://glossary.istqb.org/en_US/search?term=> |
+| **試験プロバイダー検索** | <https://istqb.org/exam-providers/> |
+| **研修プロバイダー検索** | <https://istqb.org/training-providers/> |
+| **CTFL v4.0（前提資格）** | <https://istqb.org/certifications/certified-tester-foundation-level/> |
 
 ### 📢 試験プロバイダー
 
 | リソース | URL |
 |---------|-----|
-| iSQI 試験情報（CT-GaMe） | https://isqi.org/ISTQB-Certified-Tester-Game-Testing-CT-GaMe/CT-GaMe |
-| ASTQB 試験情報（米国） | https://astqb.org/istqb-game-testing-syllabus/ |
+| iSQI 試験情報（CT-GaMe） | <https://isqi.org/ISTQB-Certified-Tester-Game-Testing-CT-GaMe/CT-GaMe> |
+| ASTQB 試験情報（米国） | <https://astqb.org/istqb-game-testing-syllabus/> |
 
 ### 🎓 学習リソース
 
 | リソース | URL |
 |---------|-----|
-| ISTQB.Guru CT-GaMe ガイド | https://www.istqb.guru/game-testing/ |
-| Modern Game Testing CT-GaMe レビュー | https://www.moderngametesting.com/articles/istqb-game-testing-review |
-| Udemy CT-GaMe 完全コース | https://www.udemy.com/course/istqb-game-testing-ct-game-complete-syllabus-guide/ |
-| ProcessExam CT-GaMe シラバス解説 | https://www.processexam.com/istqb/istqb-ct-game-certification-exam-syllabus |
+| ISTQB.Guru CT-GaMe ガイド | <https://www.istqb.guru/game-testing/> |
+| Modern Game Testing CT-GaMe レビュー | <https://www.moderngametesting.com/articles/istqb-game-testing-review> |
+| Udemy CT-GaMe 完全コース | <https://www.udemy.com/course/istqb-game-testing-ct-game-complete-syllabus-guide/> |
+| ProcessExam CT-GaMe シラバス解説 | <https://www.processexam.com/istqb/istqb-ct-game-certification-exam-syllabus> |
 
 ### 🔧 ゲームテストツール
 
 | ツール | URL |
 |-------|-----|
-| Unity Test Framework（UTF） | https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html |
-| Unity Profiler | https://docs.unity3d.com/Manual/Profiler.html |
-| GameDriver（Unity/UE対応） | https://gamedriver.io/ |
-| Unreal Insights | https://docs.unrealengine.com/insights |
-| Applitools（ビジュアルAIテスト） | https://applitools.com/ |
-| GameBench（モバイルパフォーマンス） | https://www.gamebench.net/ |
-| RenderDoc（グラフィックスデバッグ） | https://renderdoc.org/ |
-| PIX for Windows（DirectX デバッグ） | https://devblogs.microsoft.com/pix/ |
-| Android GPU Inspector | https://gpuinspector.dev/ |
-| Xcode Instruments（iOS） | https://developer.apple.com/instruments/ |
-| Functionize（AI自動テスト） | https://www.functionize.com/ |
-| TestRail（テスト管理） | https://www.testrail.com/ |
-| Jira（Atlassian）| https://www.atlassian.com/jira |
-| Firebase Crashlytics | https://firebase.google.com/docs/crashlytics |
-| ゲームテストツール比較（2025年） | https://www.softwaretestingmaterial.com/game-testing-tools/ |
-| ゲームQA自動化ツール比較 | https://qawerk.com/blog/game-testing-automation-tools/ |
+| Unity Test Framework（UTF） | <https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html> |
+| Unity Profiler | <https://docs.unity3d.com/Manual/Profiler.html> |
+| GameDriver（Unity/UE対応） | <https://gamedriver.io/> |
+| Unreal Insights | <https://docs.unrealengine.com/insights> |
+| Applitools（ビジュアルAIテスト） | <https://applitools.com/> |
+| GameBench（モバイルパフォーマンス） | <https://www.gamebench.net/> |
+| RenderDoc（グラフィックスデバッグ） | <https://renderdoc.org/> |
+| PIX for Windows（DirectX デバッグ） | <https://devblogs.microsoft.com/pix/> |
+| Android GPU Inspector | <https://gpuinspector.dev/> |
+| Xcode Instruments（iOS） | <https://developer.apple.com/instruments/> |
+| Functionize（AI自動テスト） | <https://www.functionize.com/> |
+| TestRail（テスト管理） | <https://www.testrail.com/> |
+| Jira（Atlassian）| <https://www.atlassian.com/jira> |
+| Firebase Crashlytics | <https://firebase.google.com/docs/crashlytics> |
+| ゲームテストツール比較（2025年） | <https://www.softwaretestingmaterial.com/game-testing-tools/> |
+| ゲームQA自動化ツール比較 | <https://qawerk.com/blog/game-testing-automation-tools/> |
 
 ### 🎵 オーディオツール・リソース
 
 | リソース | URL |
 |---------|-----|
-| Wwise（Audiokinetic）公式 | https://www.audiokinetic.com/ |
-| FMOD 公式 | https://fmod.com/ |
-| Unity Audio ドキュメント | https://docs.unity3d.com/Manual/Audio.html |
+| Wwise（Audiokinetic）公式 | <https://www.audiokinetic.com/> |
+| FMOD 公式 | <https://fmod.com/> |
+| Unity Audio ドキュメント | <https://docs.unity3d.com/Manual/Audio.html> |
 
 ### 🌍 ローカリゼーションリソース
 
 | リソース | URL |
 |---------|-----|
-| IGDA ローカリゼーション SIG | https://igda.org/sigs/localization/ |
-| Crowdin（翻訳管理） | https://crowdin.com/ |
-| Phrase（翻訳プラットフォーム） | https://phrase.com/ |
-| Xbench（翻訳QAツール） | https://www.xbench.net/ |
-| CERO（日本のゲームレーティング） | https://www.cero.gr.jp/ |
-| ESRB（北米レーティング） | https://www.esrb.org/ |
-| PEGI（欧州レーティング） | https://pegi.info/ |
+| IGDA ローカリゼーション SIG | <https://igda.org/sigs/localization/> |
+| Crowdin（翻訳管理） | <https://crowdin.com/> |
+| Phrase（翻訳プラットフォーム） | <https://phrase.com/> |
+| Xbench（翻訳QAツール） | <https://www.xbench.net/> |
+| CERO（日本のゲームレーティング） | <https://www.cero.gr.jp/> |
+| ESRB（北米レーティング） | <https://www.esrb.org/> |
+| PEGI（欧州レーティング） | <https://pegi.info/> |
 
 ### 📖 キャリア・業界情報
 
 | リソース | URL |
 |---------|-----|
-| ゲームテスターキャリアガイド | https://www.cgspectrum.com/career-pathways/qa-game-tester |
-| ゲームテスター年収データ（Coursera） | https://www-cloudfront-alias.coursera.org/articles/video-game-tester-salary |
-| ゲームテスター年収（BusinessNewsDaily） | https://www.businessnewsdaily.com/4259-how-to-become-a-video-game-tester.html |
-| Game Industry Career Guide | https://www.gameindustrycareerguide.com/video-game-tester-salary/ |
-| Modern Game Testing（書籍・記事） | https://www.moderngametesting.com/ |
+| ゲームテスターキャリアガイド | <https://www.cgspectrum.com/career-pathways/qa-game-tester> |
+| ゲームテスター年収データ（Coursera） | <https://www-cloudfront-alias.coursera.org/articles/video-game-tester-salary> |
+| ゲームテスター年収（BusinessNewsDaily） | <https://www.businessnewsdaily.com/4259-how-to-become-a-video-game-tester.html> |
+| Game Industry Career Guide | <https://www.gameindustrycareerguide.com/video-game-tester-salary/> |
+| Modern Game Testing（書籍・記事） | <https://www.moderngametesting.com/> |
 
 ### 🏭 プラットフォーム公式リソース
 
 | リソース | URL |
 |---------|-----|
-| PlayStation Partner プログラム | https://partners.playstation.net/ |
-| Xbox Developer Program | https://developer.microsoft.com/en-us/games/xbox/ |
-| Nintendo Developer Portal | https://developer.nintendo.com/ |
-| Steam Steamworks SDK | https://partner.steamgames.com/ |
-| Apple Game Center | https://developer.apple.com/game-center/ |
-| Google Play ゲームサービス | https://developers.google.com/games |
+| PlayStation Partner プログラム | <https://partners.playstation.net/> |
+| Xbox Developer Program | <https://developer.microsoft.com/en-us/games/xbox/> |
+| Nintendo Developer Portal | <https://developer.nintendo.com/> |
+| Steam Steamworks SDK | <https://partner.steamgames.com/> |
+| Apple Game Center | <https://developer.apple.com/game-center/> |
+| Google Play ゲームサービス | <https://developers.google.com/games> |
 
 ### 📐 グラフィックスAPI・エンジンリソース
 
 | リソース | URL |
 |---------|-----|
-| Unity グラフィックス最適化ガイド | https://docs.unity3d.com/Manual/OptimizingGraphicsPerformance.html |
-| Unreal Engine グラフィックスドキュメント | https://docs.unrealengine.com/designing-visuals-rendering-and-graphics |
-| Khronos Vulkan（グラフィックスAPI） | https://www.vulkan.org/ |
+| Unity グラフィックス最適化ガイド | <https://docs.unity3d.com/Manual/OptimizingGraphicsPerformance.html> |
+| Unreal Engine グラフィックスドキュメント | <https://docs.unrealengine.com/designing-visuals-rendering-and-graphics> |
+| Khronos Vulkan（グラフィックスAPI） | <https://www.vulkan.org/> |
 
 ---
 
@@ -1358,11 +1370,12 @@ D) サーバー側でゲームの勝敗を決定する機能
 > **📌 準拠資格**: ISTQB® CT-GaMe v1.0.1（2024年11月更新）  
 > **📌 前提資格**: ISTQB® CTFL v4.0（Foundation Level）  
 > **📌 次のステップ**:
+>
 > - CTAL-TM v3.0（Test Management）でテスト管理スキルを習得
 > - CT-AI（AI Testing）でAI活用テストを学ぶ
 > - CT-PT（Performance Testing）でパフォーマンステストを深掘り
 >
-> 🔗 **公式リソース**: https://istqb.org/certifications/certified-tester-game-testing-ct-game/
+> 🔗 **公式リソース**: <https://istqb.org/certifications/certified-tester-game-testing-ct-game/>
 
 ---
 
