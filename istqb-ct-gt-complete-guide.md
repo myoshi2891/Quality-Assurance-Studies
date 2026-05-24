@@ -1,4 +1,5 @@
 # 🎰 ISTQB® Certified Tester – Gambling Industry Tester (CT-GT)
+
 ## 完全学習ガイド 2025年版 | 初学者から実践者まで対応
 
 > **対応資格**: ISTQB® CT-GT（Certified Tester – Gambling Industry Tester）  

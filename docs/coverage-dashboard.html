@@ -960,7 +960,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-05-23">2026-05-23</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span><strong>Scope</strong> 24 pages · 3 components · 1 lib · 7 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 24 pages · 3 components · 1 lib · 7 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 94;" role="img" aria-label="全体テストカバー率 約94パーセント">
@@ -1137,7 +1137,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           </tr>
           <tr>
             <th scope="row">System Testing (E2E)</th>
-            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.spec.ts` で全 24 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 25 passed。</td>
+            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 24 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 25 passed。</td>
             <td><span class="status" data-st="full">Smoke · 100%</span></td>
           </tr>
           <tr>
@@ -1637,11 +1637,31 @@ function renderActions() {
   });
 }
 
+function renderScope() {
+  const scopeEl = document.getElementById('mc-scope');
+  if (scopeEl) {
+    const pageCount = pages.length;
+    const pageWord = pageCount === 1 ? 'page' : 'pages';
+    
+    const compCount = DATA.inventory.components.length;
+    const compWord = compCount === 1 ? 'component' : 'components';
+    
+    const libCount = DATA.inventory.lib.length;
+    const libWord = libCount === 1 ? 'lib' : 'libs';
+    
+    const scriptCount = DATA.inventory.scripts.length;
+    const scriptWord = scriptCount === 1 ? 'script' : 'scripts';
+    
+    scopeEl.innerHTML = `<strong>Scope</strong> ${pageCount} ${pageWord} · ${compCount} ${compWord} · ${libCount} ${libWord} · ${scriptCount} ${scriptWord}`;
+  }
+}
+
 document.addEventListener('DOMContentLoaded', function () {
   renderMatrix();
   renderPages();
   renderInventory();
   renderActions();
+  renderScope();
 });
 </script>
 </body>

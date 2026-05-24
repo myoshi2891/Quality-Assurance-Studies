@@ -3,7 +3,7 @@
  * h1 は本文中に <br />, <span>, <em> 等の inline 要素を含むため、
  * Playwright の accessible name 計算結果に対する部分一致 (RegExp) で照合する。
  *
- * ページを追加・削除した際は本配列と smoke.spec.ts の sanity test
+ * ページを追加・削除した際は本配列と smoke.e2e.ts の sanity test
  * (PAGES.length === EXPECTED_PAGE_COUNT) を必ず同時に更新すること。
  */
 
