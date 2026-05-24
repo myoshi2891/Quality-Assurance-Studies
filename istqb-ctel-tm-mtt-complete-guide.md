@@ -753,7 +753,7 @@ graph TD
     Self -->|評価| Reports1
 ```
 
-評価の4視点：
+#### 評価の4視点
 
   1. 本人の自己評価（Self-Assessment）
   2. 上位者（マネージャー）による評価
@@ -775,12 +775,12 @@ graph TD
   Step 4: 定期モニタリング（週次チェックイン）
   Step 5: 評価と次のステップ（改善確認 or 次の対策）
 
-```text
-
 ---
 
 <a id="chapter-3"></a>
+
 ## 🎯 Chapter 3: テストチームのリーディング（Leading the Test Team）
+
 > シラバス Section 3.4
 
 ### 3.1 テストチームをリードする柱
@@ -799,9 +799,7 @@ graph TD
 
 ### 3.2 情報共有とコミュニケーション（Information Sharing and Communication）
 
-```
-
-テストチームにおける効果的な情報共有の仕組み：
+#### テストチームにおける効果的な情報共有の仕組み
 
 定期ミーティングの設計（Expert Test Manager のアプローチ）：
 
@@ -833,15 +831,11 @@ graph TD
   ✓ コミュニケーション: Slack・Teams（チャンネル体系を整理）
   ✓ 知識共有: Wiki・ナレッジベース
 
-```text
-
 ---
 
 ### 3.3 ロイヤリティと信頼の醸成（Fostering Loyalty and Trust）
 
-```
-
-チームの信頼を構築するための行動原則：
+#### チームの信頼を構築するための行動原則
 
 「信頼の方程式」（Trust Equation）:
   Trust = (Credibility + Reliability + Intimacy) / Self-Orientation
@@ -868,8 +862,6 @@ Expert Test Manager として信頼を構築する具体的行動：
   ✓ 困難な状況でもチームを守る（盾になる）
   ✓ 誤りを素直に認めて謝罪する（完璧主義を捨てる）
   ✓ メンバーの提案を積極的に採用・試す
-
-```text
 
 ---
 
