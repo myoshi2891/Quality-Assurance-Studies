@@ -26,4 +26,18 @@ describe("fix-fences.mjs", () => {
     expect(updatedContent).toContain("```text");
     expect(updatedContent).not.toContain("```\nplain");
   });
+
+  it("collapses multiple trailing blank lines to a single trailing newline", async () => {
+    const content = `# Title\n\nbody\n\n\n\n`;
+    writeFileSync(tempFilePath, content, "utf8");
+
+    const { default: fixFences } = (await import(scriptUrl)) as {
+      default: (filePath: string) => Promise<void>;
+    };
+    await fixFences(tempFilePath);
+
+    const updatedContent = readFileSync(tempFilePath, "utf8");
+    expect(updatedContent.endsWith("\n")).toBe(true);
+    expect(updatedContent.endsWith("\n\n")).toBe(false);
+  });
 });

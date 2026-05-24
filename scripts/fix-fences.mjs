@@ -41,9 +41,10 @@ export default async function fixFences(filePath) {
     }
   }
 
-  if (lines[lines.length - 1] !== '') {
-    lines.push('');
+  while (lines.length > 0 && lines[lines.length - 1] === '') {
+    lines.pop();
   }
+  lines.push('');
   await writeFile(absolutePath, lines.join('\n'), 'utf8');
   console.log(`Successfully fixed fences in ${filePath}`);
 }
