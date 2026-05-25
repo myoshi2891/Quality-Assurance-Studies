@@ -63,6 +63,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
     3. CSS の詳細度やスコープの問題を手動で修正します（すべてのスタイルがページ固有のクラスの下にスコープされていることを確認してください）。
     4. 元の HTML ファイルを `/html-archive/` ディレクトリに移動します。
     5. `components/Header.tsx` のナビゲーションと `CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します。
+- **PII / 絶対パスの記載禁止 (CRITICAL):** コミット予定のすべてのファイル（ドキュメント、設定、コード、コメント等）に、ユーザー名を含むローカルの絶対パス（`/Users/` や `/home/`、`C:\Users\` 等）を記載してはなりません。これは個人情報（PII）の流出につながる重大なセキュリティ違反です。AI エージェントは、**コミットを適用する前に、必ず `git diff --cached` でコミット差分を走査し、プレースホルダー (`johndoe`) 以外の絶対パスやローカル名が混入していないことを機械的（`grep`等）に検証するプロセスを自律的かつ自動的に実行してください。**
 
 ## Migrated Pages (Tracking)
 
