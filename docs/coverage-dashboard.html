@@ -1042,7 +1042,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
     <h2 id="h-pages">Per-Page Coverage <span class="num">25 routes</span></h2>
-    <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。E2E・a11y・ビジュアル確認は未実施です。</p>
+    <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
       <span class="chip" data-tone="ok"><strong id="cnt-tested">25</strong> Tested</span>
@@ -1206,7 +1206,7 @@ const DATA = {
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
-        { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'axe-core/playwright: Automated accessibility audit on all 25 routes.' },
+        { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: `axe-core/playwright: Automated accessibility audit on all ${pages.length} routes.` },
         { state: 'gap', value: '0', label: 'Gap', note: 'No Lighthouse CI.' }
       ]
     },
@@ -1426,7 +1426,7 @@ const DATA = {
       items: [
         {
           h: '✅ Playwright 導入と全ページのスモーク E2E',
-          p: '全 25 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 25 passed (25 pages + 1 sanity)。',
+          p: '全 25 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 26 passed (25 pages + 1 sanity)。',
           tool: '@playwright/test',
           effort: 'Done',
           impact: 'System Level 達成 / 本番回帰検知'
