@@ -93,7 +93,7 @@ graph TD
 git log --oneline -5
 git rev-parse --short HEAD
 
-# B. 現在のNext.jsルート一覧 of 取得
+# B. 現在のNext.jsルート一覧の取得
 ls app/*/page.tsx 2>/dev/null | sed 's|app/||' | sed 's|/page.tsx||'
 
 # C. テストファイル実数の取得 (Bunユニットテスト)
@@ -127,7 +127,7 @@ bun run lint 2>&1 | tail -5
   - [ ] `DATA.pages` の配列件数と Next.js のルート件数が一致しているか。
   - [ ] `DATA.inventory`（`pages`, `components`, `lib`, `scripts`, `e2e`）に、上記で検出したすべてのテストファイルパスが登録されているか。
   - [ ] HTML内の初期表示のテストファイル総数（`inv-total`）、および各カテゴリのファイルカウントが、`DATA.inventory` の実数と一致しているか。
-  - [ ] `--coverage` およびプログレスバー의 % 数値が、数式 `Math.floor(tested/total * 100)` に基づき同期されているか。
+  - [ ] `--coverage` およびプログレスバーの % 数値が、数式 `Math.floor(tested/total * 100)` に基づき同期されているか。
   - [ ] メタ情報の `Updated` タイムスタンプが最新化されているか。
 - [ ] **`docs/REUSABLE_PROMPTS.md` 監査**
   - [ ] NavBar未実装リストなど、すでに完了しているタスクの進捗が「なし（すべて実装完了）」に更新されているか。
