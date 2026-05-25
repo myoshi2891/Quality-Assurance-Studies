@@ -1,10 +1,8 @@
-import Header from '../../components/Header';
 import '../e2e-testing-guide.css';
 
 export default function E2eTestingGuide() {
     return (
         <>
-            <Header />
             <main className="page-e2e">
             <section className="hero" id="top">
                 <div className="hero-content">

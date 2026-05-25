@@ -1,12 +1,10 @@
 import Link from 'next/link';
 import Mermaid from '../../components/Mermaid';
-import Header from '../../components/Header';
 import '../istqb-ctfl-at-guide.css';
 
 export default function IstqbCtflAtCompleteGuidePage() {
     return (
         <>
-            <Header />
             <main className="page-ctfl container mx-auto px-4 py-8 max-w-5xl">
                 <section id="top" className="hero"><div className="hero-content"><h1>🌿 ISTQB® Certified Tester Foundation Level Agile Tester (CTFL-AT)</h1></div></section>
 <h2 className="section-header text-2xl mt-12 mb-6 border-b border-[var(--color-border)] pb-2">完全学習ガイド【最新版・初学者対応】</h2>

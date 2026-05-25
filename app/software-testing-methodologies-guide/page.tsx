@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import '../software-testing-methodologies-guide.css';
 
 /**
@@ -13,7 +12,6 @@ import '../software-testing-methodologies-guide.css';
 export default function SoftwareTestingMethodologiesGuide() {
     return (
         <>
-            <Header />
             <main className="page-stm">
 <section className="hero" id="top">
   <div className="hero-content">

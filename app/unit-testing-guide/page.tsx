@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import '../unit-testing.css';
 
 /**
@@ -11,7 +10,6 @@ import '../unit-testing.css';
 export default function UnitTestingGuide() {
     return (
         <>
-            <Header />
             <main>
                 {/* ══════ HERO ══════ */}
                 <section className="hero" id="top">

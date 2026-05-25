@@ -1,10 +1,8 @@
-import Header from '../../components/Header';
 import '../integration-system-testing-guide.css';
 
 export default function IntegrationSystemTestingGuide() {
     return (
         <div className="page-int-sys">
-            <Header className="page-int-sys" />
             <main>
             <section className="hero" id="top">
                 <div className="hero-content">
