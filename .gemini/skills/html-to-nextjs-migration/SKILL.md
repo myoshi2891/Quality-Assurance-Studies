@@ -17,7 +17,24 @@ Provide the complete, ordered workflow for converting a standalone HTML page (wi
 
 **Prerequisite**: The global skill covers `<pre>` block conversion, `class`/`className` rules, HTML entity handling, `@layer` priority, and cache invalidation. This skill assumes that knowledge and focuses on the **end-to-end workflow**.
 
+## セッション開始時に必ず読むファイル
+
+1. **`docs/MIGRATION_PROGRESS.md`** — 現在地・残タスク・再開プロンプト
+2. **このファイル（`SKILL.md`）** — 移行手順と QA_Studies 固有ルール
+3. **`.gemini/rules/tdd-mandatory-cycle.md`（または `.claude/rules/tdd-mandatory-cycle.md`）** — TDD必須サイクル & コミット分割ルール
+
 ## Instructions
+
+### TDD 必須サイクルの適用（最重要）
+
+移行作業中は、常に `.gemini/rules/tdd-mandatory-cycle.md`（または `.claude/rules/tdd-mandatory-cycle.md`）に定められた TDD サイクル（Red → Green → Refactor → Docs）を最優先で適用しなければなりません。
+
+1. **タスク設計の段階（`task.md` の作成時）**:
+   - `task.md` 内のタスクを「Red（テスト失敗とコミット）」「Green（実装とコミット）」「Refactor（リファクタ/ビルド/Linter修正とコミット）」「Docs Sync（進捗同期とコミット）」のコミット単位に明確に構造化してください。
+2. **実装前のテスト作成（Red）**:
+   - 移行先のコード（`page.tsx` や `NavBar.tsx` 等）を実装する前に、必ず失敗するユニットテストを作成してコミットしてください。
+3. **一括コミットの厳禁**:
+   - テスト、実装、カバレッジ更新、ドキュメント更新を一つのコミットにまとめず、フェーズごとに分割コミットを行ってください。
 
 ### Phase 1: Analysis — Audit the Source HTML
 
