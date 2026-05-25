@@ -9,9 +9,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `fix(test): isolate Playwright spec from bun test via .e2e.ts extension` (`c2cd734`) |
+| 最新 HEAD | `Merge pull request #60 from myoshi2891/dev` (`d87ac2c`) |
 | 次の作業 | coverage-dashboard.html の残 P1（axe-core/playwright で WCAG 2.1 AA 自動検証、または Lighthouse CI でパフォーマンス予算） |
-| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings・`bun test` 125 pass / 0 fail（35 files）・`bun run e2e` 25 passed (24 pages + 1 sanity) / 0 fail |
+| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings・`bun test` 126 pass / 0 fail（35 files）・`bun run e2e` 25 passed (24 pages + 1 sanity) / 0 fail |
 
 ## 2026/05/23 P1: Playwright スモーク E2E 導入
 
@@ -141,12 +141,12 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 ```text
 コンテキスト:
-- 最新 HEAD: `c2cd734` — fix(test): isolate Playwright spec from bun test via .e2e.ts extension
+- 最新 HEAD: `d87ac2c` — Merge pull request #60 from myoshi2891/dev
 - HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
-- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 125 pass / 0 fail)。
+- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 126 pass / 0 fail)。
 - P1 の Playwright スモーク E2E 導入完了 (`e2e/` 下に 2 ファイル、`bun run e2e` 25 passed / 0 fail、約 35 秒)。
 - テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E 24/24 ページ含む）。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 125 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 126 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
 
 【指示】
 coverage-dashboard.html の残 P1 アクションを選択して実装してください：

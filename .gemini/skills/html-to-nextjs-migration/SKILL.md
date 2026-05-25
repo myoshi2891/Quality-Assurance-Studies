@@ -182,8 +182,6 @@ If a page-specific CSS file was created, also document it.
 
 ```bash
 rm -rf .next && bun run build
-# npm 環境の場合:  rm -rf .next && npm run build
-# pnpm 環境の場合: rm -rf .next && pnpm run build
 ```
 
 Common build failures:

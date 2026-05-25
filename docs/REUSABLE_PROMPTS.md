@@ -67,16 +67,7 @@
 **参照実装**: `app/istqb-ct-ai-complete-guide/` — NavBar.tsx・CSS・page.tsx の 3 点セット  
 **NavBar 未実装のページ（2025-05-17 時点）**:
 
-- `acceptance-testing-guide`
-- `ai-test-guide`
-- `bdd-testing-guide`
-- `e2e-testing-guide`
-- `integration-functional-testing-guide`
-- `integration-system-testing-guide`
-- `software-testing-methodologies-guide`
-- `unit-testing-guide`
-- `istqb-ctfl-at-complete-guide`
-- `istqb-ctal-tae-complete-guide`
+- なし（すべて実装完了）
 
 > 以下の画面にページ内のスティッキーナビゲーションを新規追加してください。
 > /istqb-ct-ai-complete-guide の実装を参考にしてください。

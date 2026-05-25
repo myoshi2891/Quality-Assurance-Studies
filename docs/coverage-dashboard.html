@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">13 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">38 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">10 files</span>
+          <span class="inv-count" id="inv-count-pages">24 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1079,21 +1079,21 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv">
         <summary>
           <span>Library &amp; Dependency Tests</span>
-          <span class="inv-count" id="inv-count-lib">2 files</span>
+          <span class="inv-count" id="inv-count-lib">3 files</span>
         </summary>
         <ul id="inv-lib"></ul>
       </details>
       <details class="inv" open>
         <summary>
           <span>Script Utility Tests</span>
-          <span class="inv-count" id="inv-count-scripts">0 files</span>
+          <span class="inv-count" id="inv-count-scripts">5 files</span>
         </summary>
         <ul id="inv-scripts"></ul>
       </details>
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">0 files</span>
+          <span class="inv-count" id="inv-count-e2e">3 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
       </details>
@@ -1370,7 +1370,8 @@ const DATA = {
     ],
     lib: [
       'tests/lib/navigation.test.ts',
-      'tests/lib/dependencies.test.ts'
+      'tests/lib/dependencies.test.ts',
+      'tests/istqb-ct-aut-complete-guide.test.ts'
     ],
     scripts: [
       'tests/scripts/extract-css.test.ts',

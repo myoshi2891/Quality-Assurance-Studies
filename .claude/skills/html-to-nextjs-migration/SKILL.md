@@ -29,7 +29,7 @@ Provide the complete, ordered workflow for converting a standalone HTML page (wi
 
 | ファイル | 予定ルート | 状態 |
 |---|---|---|
-| `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | 未着手 |
+| なし | - | ✅ 全て完了 |
 
 ## Instructions
 
