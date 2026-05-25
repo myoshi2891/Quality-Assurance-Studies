@@ -161,8 +161,8 @@ bun scripts/format-markdown.mjs <file_path>
 次に、プロジェクトの `.markdownlint.json` に従って Linter を実行し、残存するエラーがないかを確認します。
 
 ```bash
-# サンドボックス環境に Bun 実行権限がない場合は、以下の node 直接呼び出しを実行
-node node_modules/markdownlint-cli/markdownlint.js <file_path>
+# Bun を使用して markdownlint-cli を実行
+bun x markdownlint-cli <file_path>
 ```
 
 エラーが出力されなくなるまで、手動でマークダウンを修正します。

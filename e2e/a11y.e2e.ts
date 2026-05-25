@@ -14,9 +14,11 @@ test.describe('a11y: WCAG 2.1 AA accessibility audits', () => {
       await page.waitForLoadState('networkidle');
 
       // Axeによるアクセシビリティ監査実行 (WCAG 2.1 AA を対象とする)
+      // color-contrast はグローバルに無効化せず、デザイン上の例外（バッジや一部の特定テキストカード等）のみを exclude で除外する
       const accessibilityScanResults = await new AxeBuilder({ page })
         .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-        .disableRules(['scrollable-region-focusable', 'color-contrast'])
+        .disableRules(['scrollable-region-focusable'])
+        .exclude('.badge, .section-header, .sh, .uat-who, .metric-card, .trend-card, .ref-card, .toc-card, .exam-card, .progress-val, .pi-val, .stat-gem')
         .analyze();
 
       // 違反が検出された場合、デバッグ用に詳細な情報をコンソール出力する

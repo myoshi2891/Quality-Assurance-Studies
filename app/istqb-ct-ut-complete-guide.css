@@ -995,10 +995,12 @@ hr.divider {
 .ut-page strong {
     color: var(--color-text-primary);
 }
+
 .ut-page a {
     color: var(--color-accent-cyan);
-    text-decoration: none;
+    text-decoration: underline;
 }
+
 .ut-page a:hover {
     text-decoration: underline;
 }

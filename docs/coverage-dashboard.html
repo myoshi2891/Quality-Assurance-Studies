@@ -997,7 +997,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
     <article class="kpi" data-tone="orange">
       <div class="kpi-num">3<span class="unit">/ 6</span></div>
       <div class="kpi-lbl">Test Types Uncovered</div>
-      <p class="kpi-desc">Visual Regression · Performance · Integration が未着手。E2E & a11y (Playwright / axe-core) は 24/24 ページで完備（P1 完了）。</p>
+      <p class="kpi-desc">Visual Regression · Performance · Integration が未着手。E2E & a11y (Playwright / axe-core) は 25/25 ページで完備（P1 完了）。</p>
     </article>
     <article class="kpi" data-tone="ok">
       <div class="kpi-num">1<span class="unit">pipeline</span></div>
@@ -1041,7 +1041,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num">24 routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num">25 routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。E2E・a11y・ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
@@ -1059,7 +1059,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
     <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">39 files</span></h2>
-    <p class="lede">现存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
+    <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
@@ -1137,7 +1137,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           </tr>
           <tr>
             <th scope="row">System Testing (E2E)</th>
-            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 24 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 25 passed。</td>
+            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 25 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 25 passed。</td>
             <td><span class="status" data-st="full">Smoke · 100%</span></td>
           </tr>
           <tr>
@@ -1206,7 +1206,7 @@ const DATA = {
         { state: 'gap', value: '0', label: 'Gap', note: 'No multi-component integration.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
-        { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'axe-core/playwright: Automated accessibility audit on all 24 routes.' },
+        { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'axe-core/playwright: Automated accessibility audit on all 25 routes.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No Lighthouse CI.' }
       ]
     },
@@ -1426,14 +1426,14 @@ const DATA = {
       items: [
         {
           h: '✅ Playwright 導入と全ページのスモーク E2E',
-          p: '全 24 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 25 passed (24 pages + 1 sanity)。',
+          p: '全 25 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 25 passed (25 pages + 1 sanity)。',
           tool: '@playwright/test',
           effort: 'Done',
           impact: 'System Level 達成 / 本番回帰検知'
         },
         {
           h: '✅ axe-core/playwright で WCAG 2.1 AA 自動検証',
-          p: '各ページに対し axe スキャンを実施し、コントラスト・aria 属性・ランドマーク・キーボードフォーカスを自動チェック。e2e/a11y.e2e.ts にて全 24 ルートの監査コードを完備。',
+          p: '各ページに対し axe スキャンを実施し、コントラスト・aria 属性・ランドマーク・キーボードフォーカスを自動チェック。e2e/a11y.e2e.ts にて全 25 ルートの監査コードを完備。',
           tool: '@axe-core/playwright',
           effort: 'Done',
           impact: 'A11y 自動化 / ダーク背景の品質保証'

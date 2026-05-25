@@ -11,7 +11,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 |---|---|
 | 最新 HEAD | `4a7938a` (Usability Testing移行の同期コミット) |
 | 次の作業 | なし（全移行タスク完了後の検証および保守） |
-| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`npm run lint` は 0 errors / 11 warnings で成功。 |
+| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`bun run lint` は 0 errors / 11 warnings で成功。 |
 
 ## 2026/05/25: Usability Testing (CT-UT) ガイド移行とTDDルール精査
 
@@ -190,7 +190,7 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 coverage-dashboard.html の残 P1 アクションを選択して実装してください：
 
 1. **axe-core/playwright による WCAG 2.1 AA 自動アクセシビリティ検証**
-   - `@axe-core/playwright` を導入し、全 24 ページに対する自動監査を実装する。ダークテーマのカラーコントラスト、aria-* 属性、キーボードフォーカス遷移、HTML5 ランドマーク構造を検証。`e2e/a11y.e2e.ts` として既存の Playwright 構成に追加可能。
+   - `@axe-core/playwright` を導入し、全 25 ページに対する自動監査を実装する。ダークテーマのカラーコントラスト、aria-* 属性、キーボードフォーカス遷移、HTML5 ランドマーク構造を検証。`e2e/a11y.e2e.ts` として既存の Playwright 構成に追加可能。
 2. **Lighthouse CI によるパフォーマンス・SEO 品質予算の導入**
    - 主要ページに対し LCP / CLS / TBT / A11y / SEO スコアのしきい値を設定し (LCP < 2.0s 等)、PR ごとに `@lhci/cli` で予算超過を検知。
 3. **構造修正タスク: Header 二重レンダ解消**

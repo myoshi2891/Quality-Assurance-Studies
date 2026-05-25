@@ -21,18 +21,17 @@ export default function NavBar() {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        links.forEach((link) => {
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.setAttribute('aria-current', 'location');
-                            } else {
-                                link.removeAttribute('aria-current');
-                            }
-                        });
-                    }
-                });
+                const intersectingEntry = entries.find((entry) => entry.isIntersecting);
+                if (intersectingEntry) {
+                    const id = intersectingEntry.target.getAttribute('id');
+                    links.forEach((link) => {
+                        if (link.getAttribute('href') === `#${id}`) {
+                            link.setAttribute('aria-current', 'location');
+                        } else {
+                            link.removeAttribute('aria-current');
+                        }
+                    });
+                }
             },
             { rootMargin: '-20% 0px -80% 0px' }
         );

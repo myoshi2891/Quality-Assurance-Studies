@@ -1286,7 +1286,7 @@
     /* ─── ACCESSIBILITY FIXES ─── */
     /* Ensure links inside body paragraphs, alerts, footers, and other text structures have underlines to pass link-in-text-block audit */
     p a, footer a, .alert a, .callout a, .ulink, .ref-url, .__cf_email__ {
-        text-decoration: underline !important;
+        text-decoration: underline;
         text-underline-offset: 2px;
     }
 

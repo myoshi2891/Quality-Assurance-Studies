@@ -43,7 +43,6 @@ description: >
 
 開発中に発生する操作（イベント）と、更新が必要な仕様書の対応関係は以下の通りです。イベント発生後、**直ちに（次のタスクに移る前に）**対象の仕様書をすべて更新しなければなりません。
 
-```mermaid
 graph TD
     Event1[A. 新規ページ追加] --> |即時更新| DocC[CLAUDE.md]
     Event1 --> |即時更新| DocG[GEMINI.md]
@@ -63,7 +62,6 @@ graph TD
     Event4 --> |即時更新| DocC[CLAUDE.md]
 
     Event5[E. セッション終了] --> |ゲート条件| DocM[MIGRATION_PROGRESS.md]
-```
 
 ### イベント別更新マトリクス（チェックリスト）
 
@@ -127,7 +125,7 @@ bun run lint 2>&1 | tail -5
   - [ ] `DATA.pages` の配列件数と Next.js のルート件数が一致しているか。
   - [ ] `DATA.inventory`（`pages`, `components`, `lib`, `scripts`, `e2e`）に、上記で検出したすべてのテストファイルパスが登録されているか。
   - [ ] HTML内の初期表示のテストファイル総数（`inv-total`）、および各カテゴリのファイルカウントが、`DATA.inventory` の実数と一致しているか。
-  - [ ] `--coverage` およびプログレスバー의 % 数値が、数式 `Math.floor(tested/total * 100)` に基づき同期されているか。
+  - [ ] `--coverage` およびプログレスバーの % 数値が、数式 `Math.floor(tested/total * 100)` に基づき同期されているか。
   - [ ] メタ情報の `Updated` タイムスタンプが最新化されているか。
 - [ ] **`docs/REUSABLE_PROMPTS.md` 監査**
   - [ ] NavBar未実装リストなど、すでに完了しているタスクの進捗が「なし（すべて実装完了）」に更新されているか。
