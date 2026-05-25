@@ -960,7 +960,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-05-25">2026-05-25</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 24 pages · 3 components · 1 lib · 7 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 25 pages · 3 components · 1 lib · 7 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 94;" role="img" aria-label="全体テストカバー率 約94パーセント">
@@ -1045,10 +1045,10 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。E2E・a11y・ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">24</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">25</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong>24</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong>24</strong> with E2E</span>
+      <span class="chip"><strong>25</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong>25</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1058,21 +1058,21 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">38 files</span></h2>
-    <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">39 files</span></h2>
+    <p class="lede">现存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">24 files</span>
+          <span class="inv-count" id="inv-count-pages">25 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
       <details class="inv">
         <summary>
           <span>Component Tests</span>
-          <span class="inv-count" id="inv-count-components">1 file</span>
+          <span class="inv-count" id="inv-count-components">3 files</span>
         </summary>
         <ul id="inv-components"></ul>
       </details>
@@ -1192,7 +1192,8 @@ const pages = [
   { path: '/istqb-ctal-att-complete-guide', topic: 'ISTQB Advanced — Agile Tech Tester', tested: true },
   { path: '/istqb-ctal-ta-complete-guide', topic: 'ISTQB Advanced — Test Analyst', tested: true },
   { path: '/istqb-ctal-tae-complete-guide', topic: 'ISTQB Advanced — Test Automation Eng', tested: true },
-  { path: '/istqb-ctal-tm-complete-guide', topic: 'ISTQB Advanced — Test Manager', tested: true }
+  { path: '/istqb-ctal-tm-complete-guide', topic: 'ISTQB Advanced — Test Manager', tested: true },
+  { path: '/istqb-ct-ut-complete-guide', topic: 'ISTQB Specialist — Usability', tested: true }
 ];
 
 const DATA = {
@@ -1361,7 +1362,8 @@ const DATA = {
       'tests/istqb-ctal-att-complete-guide/page.test.tsx',
       'tests/istqb-ctal-ta-complete-guide/page.test.tsx',
       'tests/istqb-ctal-tae-complete-guide/page.test.tsx',
-      'tests/istqb-ctal-tm-complete-guide/page.test.tsx'
+      'tests/istqb-ctal-tm-complete-guide/page.test.tsx',
+      'tests/istqb-ct-ut-complete-guide/page.test.tsx'
     ],
     components: [
       'tests/components/Header.test.tsx',

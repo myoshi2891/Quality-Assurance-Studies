@@ -60,6 +60,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-ste-complete-guide', label: 'セキュリティテストエンジニア(CT-STE)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-tas-complete-guide', label: 'テスト自動化戦略(CT-TAS)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-pt-complete-guide', label: 'パフォーマンステスト(CT-PT)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-ut-complete-guide', label: 'ユーザビリティテスト(CT-UT)ガイド', category: 'istqb-specialist' },
 ];
 
 const CATEGORY_ORDER: readonly NavCategory[] = [
