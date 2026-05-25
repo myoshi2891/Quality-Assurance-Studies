@@ -43,7 +43,7 @@
 
 ### ② 特定のデザインパーツにおける配色 (`color-contrast`)
 
-- **検出内容**: 
+- **検出内容**:
   - ライトモード背景（`#ffffff` や `#faf6f0`）上の薄いテキスト（`.section-header > p` の `#8ea3c3`）。
   - バッジ要素（例: `badge-unit.badge` の `#4fd1c5` on `#eaf9f8`：1.72:1、`badge-e2e`、`b-terra` 等）。
   - UAT/OAT等のカード内のメタ情報テキスト（`.uat-who` の `#9c8e82` on `#ffffff`）。
