@@ -195,15 +195,18 @@ To prevent CI/CD and test suite breakages, you must update the page count expect
 1. **`tests/lib/navigation.test.ts`**:
    - Increment the overall count in `expect(NAV_ITEMS).toHaveLength(N)` and update the test case description to reflect the new category counts.
    - Example:
+
      ```typescript
      it('contains 25 entries (home + 8 foundation + 1 fdn-ext + 5 advanced + 10 specialist)', () => {
        expect(NAV_ITEMS).toHaveLength(25);
      });
      ```
+
 2. **`e2e/pages.ts`**:
    - Add the path and header regex for the new page into the `PAGES` array.
    - Increment `EXPECTED_PAGE_COUNT` to the new page total.
    - Example:
+
      ```typescript
      export const PAGES: readonly PageMeta[] = [
        ...
