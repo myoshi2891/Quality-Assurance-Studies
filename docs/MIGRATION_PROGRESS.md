@@ -9,9 +9,24 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `Merge pull request #60 from myoshi2891/dev` (`d87ac2c`) |
-| 次の作業 | coverage-dashboard.html の残 P1（Lighthouse CI によるパフォーマンス・SEO 品質予算の導入） |
-| ビルド状態 | ✅ `bun run build` 成功・`bun run lint` 0 errors / 11 warnings・`bun test` 126 pass / 0 fail（35 files）・`bun run e2e` 49 passed / 0 fail（全自動アクセシビリティ監査パス） |
+| 最新 HEAD | `4a7938a` (Usability Testing移行の同期コミット) |
+| 次の作業 | なし（全移行タスク完了後の検証および保守） |
+| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`npm run lint` は 0 errors / 11 warnings で成功。 |
+
+## 2026/05/25: Usability Testing (CT-UT) ガイド移行とTDDルール精査
+
+Usability Testing (CT-UT) 完全ガイドの移行作業を完了し、併せてTDD必須サイクル（`tdd-mandatory-cycle.md`）の適用強化を行いました。
+
+### 1. Usability Testing (CT-UT) の Next.js 移行
+- **ページ固有スタイルと実装**: `istqb-ct-ut-complete-guide.html` から CSS 変数マッピングやクラス置換を行い、`app/istqb-ct-ut-complete-guide/page.tsx` および `app/istqb-ct-ut-complete-guide.css` として移行。
+- **ナビゲーションとスクロールスパイ**: `'use client'` コンポーネント `app/istqb-ct-ut-complete-guide/NavBar.tsx` を実装し、スクロールスパイおよびスティッキーなアンカーメニューを追加。
+- **関連ファイルの同期**: `lib/navigation.ts` の `NAV_ITEMS` への追加、`e2e/pages.ts` の `PAGES` 配下の追加（期待する総ページ数を 25 にインクリメント）、`docs/coverage-dashboard.html` の KPI/インベントリへの反映、`CLAUDE.md`/`GEMINI.md` の移行済みトラッキング情報の更新を実施。
+- **テストコード追加**: `tests/istqb-ct-ut-complete-guide/page.test.tsx` を作成し、ページの見出しや NavBar、TOCの存在を検証。
+
+### 2. TDD強制ルールの遵守と体制強化
+- **問題の特定**: 第一の失敗原因として、`.gemini` ディレクトリに `rules` がなかったこと、また `html-to-nextjs-migration/SKILL.md` に TDD必須ルール（`tdd-mandatory-cycle.md`）への参照が明記されていなかった点を特定。
+- **インフラ/スキルの強化**: `.gemini/rules/` ディレクトリを作成してすべてのルールファイルをコピー。また、`.claude/` および `.gemini/` 配下の `html-to-nextjs-migration/SKILL.md` を更新し、タスクの TDD 強制構造化を明文化。
+- **リカバリコミットの実施**: 一括コミットを行わず、ルール準備コミット → Red（テストのみ）コミット → Green（実装のみ）コミット → Refactor（同期ファイル等）コミットの順に論理分割して適用しました。
 
 ## 2026/05/25 P1: A11y検証自動化とHeader二重レンダ解消
 
@@ -138,6 +153,7 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 | `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-ste-complete-guide.html` | `/istqb-ct-ste-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
