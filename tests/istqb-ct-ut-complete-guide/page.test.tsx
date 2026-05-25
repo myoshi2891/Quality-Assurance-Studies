@@ -19,25 +19,27 @@ beforeAll(() => {
 });
 
 afterAll(() => {
-    window.IntersectionObserver = originalIntersectionObserver;
+    if (originalIntersectionObserver) {
+        window.IntersectionObserver = originalIntersectionObserver;
+    }
 });
 
 describe('CT-UT Complete Guide Page', () => {
     it('renders the main heading', () => {
         render(<Page />);
         const heading = screen.getByRole('heading', { level: 1 });
-        expect(heading).toBeInTheDocument();
-        expect(heading).toHaveTextContent(/Usability Testing/);
+        expect(heading).toBeTruthy();
+        expect(heading.textContent).toMatch(/Usability Testing/);
     });
 
     it('renders the overview section (toc)', () => {
         render(<Page />);
-        expect(document.getElementById('toc')).toBeInTheDocument();
+        expect(document.getElementById('toc')).toBeTruthy();
     });
 
     it('renders the navigation bar', () => {
         render(<Page />);
         const nav = document.querySelector('nav.sticky-nav');
-        expect(nav).toBeInTheDocument();
+        expect(nav).toBeTruthy();
     });
 });
