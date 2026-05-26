@@ -1087,7 +1087,9 @@
 
             @media (prefers-reduced-motion: reduce) {
                 .page-acc main .hero-content {
-                    animation: none;
+                    animation: none !important;
+                    opacity: 1 !important;
+                    transform: none !important;
                 }
             }
 

@@ -1024,6 +1024,12 @@
         transition: none !important;
         transform: none !important;
     }
+    .istqb-ct-ai-page .hero-badge,
+    .istqb-ct-ai-page .hero h1,
+    .istqb-ct-ai-page .hero-sub,
+    .istqb-ct-ai-page .meta-grid {
+        opacity: 1 !important;
+    }
     .istqb-ct-ai-page .progress-bar {
         max-width: 100% !important;
     }

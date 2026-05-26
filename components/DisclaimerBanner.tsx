@@ -29,15 +29,6 @@ export function DisclaimerBanner() {
 
         const frameId = requestAnimationFrame(sync);
 
-        if (typeof ResizeObserver !== 'undefined') {
-            const ro = new ResizeObserver(sync);
-            ro.observe(el);
-            return () => {
-                cancelAnimationFrame(frameId);
-                ro.disconnect();
-            };
-        }
-
         window.addEventListener('resize', sync);
         return () => {
             cancelAnimationFrame(frameId);
