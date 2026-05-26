@@ -9,9 +9,23 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `844aea6` (Lighthouse CI品質予算の導入、および仕様書同期) |
+| 最新 HEAD | `fe2fa95` (DisclaimerBannerの無限レイアウトループ回避とアクセシビリティ改善、およびテスト追加) |
 | 次の作業 | なし（全P1アクション完了、次回P2アクション開始） |
-| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`bun run lint` は 0 errors / 11 warnings、`bun test` は 132 pass / 0 fail で成功。 |
+| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`bun run lint` は 0 errors / 11 warnings、`bun test` は 133 pass / 0 fail で成功。 |
+
+## 2026/05/26 P1: DisclaimerBanner の無限レイアウトループ回避とアクセシビリティ改善
+
+CIで発生していた Lighthouse CI のテスト失敗（LCPが10秒以上、およびアクセシビリティの低下）の原因を特定し、改善を行いました。
+
+### 1. パフォーマンス（LCP）の改善
+
+- `app/page.tsx`: ヒーローセクションで使われているアニメーション名が `fadeUp` とタイポされており、`globals.css` の `@keyframes fade-up` に一致しなかったため、`fade-up` に修正しました。これにより、初期表示が透明のまま静止していた問題が解消しました。
+- `components/DisclaimerBanner.tsx`: `ResizeObserver` および `requestAnimationFrame` による高頻度な更新が無限レイアウト再計算ループを引き起こすのを防ぐため、バナーの高さが実際に変化したときのみ更新を行うようガードを追加しました。
+
+### 2. アクセシビリティ（Accessibility）の改善
+
+- `components/DisclaimerBanner.tsx`: バナーを `div` から適切なランドマークロールを持つ `aside` 要素へ変更し、`aria-label="免責事項"` 属性を追加しました。また、これに伴い `useRef` の型を `HTMLElement` に変更しました。
+- `tests/components/DisclaimerBanner.test.tsx`: テストケースの説明文を日本語に統一し、新たに `aside` 要素（ロール: `complementary`）および `aria-label` が "免責事項" であることをアサートするテストを追加しました。
 
 ## 2026/05/26 P1: Lighthouse CI による品質予算の導入
 
