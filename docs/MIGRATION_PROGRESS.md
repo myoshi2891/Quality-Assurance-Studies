@@ -18,12 +18,14 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 Lighthouse CI を用いて主要ページのパフォーマンス、アクセシビリティ、SEOの品質予算検証を導入しました。
 
 ### 1. Lighthouse CI の導入
+
 - `package.json`: devDependency に `@lhci/cli` を追加、スクリプトに `"lhci:autorun": "lhci autorun"` を追加。
 - `lighthouserc.json`: 主要4ページに対する品質予算（LCP < 2.5s, CLS < 0.1, TBT < 350ms, 各カテゴリ >= 0.9）を設定。
 - `.github/workflows/ci.yml`: ビルド成功後に Lighthouse CI スキャンを自動実行し、予算超過をPRごとに検知するステップを追加。
 - `tests/lhci-config.test.ts`: TDD必須サイクルに準拠し、設定とスクリプトの妥当性を検証するテストコードを新規作成。
 
 ### 2. ドキュメント同期
+
 - `docs/coverage-dashboard.html`: Performance 監査の状況を Gap → 100% (4/4) に更新。KPI「Test Types Uncovered」を `3/6` から `2/6` に進捗。インベントリに `tests/lhci-config.test.ts` と `lighthouserc.json` を追加。
 - `CLAUDE.md`, `GEMINI.md`, `README.md`, `docs/REUSABLE_PROMPTS.md` 各仕様書を最新化し、最終更新日のタイムスタンプ（`Updated 2026-05-26` または `最終更新日: 2026-05-26`）を付与・更新。
 

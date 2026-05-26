@@ -34,4 +34,3 @@ jobs:
 
       - name: Run Lighthouse CI
         run: bun run lhci:autorun
-
