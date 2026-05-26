@@ -1,5 +1,7 @@
 # Project Overview
 
+Updated 2026-05-26
+
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
 ## Core Technologies
@@ -68,12 +70,15 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ## Migrated Pages (Tracking)
 
 - `app/page.tsx` (ホームページ — 2025 完全ガイド トップ)
-- `app/acceptance-testing-guide/page.tsx` (受入テスト完全ガイド)
-- `app/e2e-testing-guide/page.tsx` (E2Eテスト完全ガイド)
+- `app/acceptance-testing-guide/page.tsx` (受入テスト完全ガイド、`NavBar.tsx` 付き)
+- `app/ai-test-guide/page.tsx` (AI テスト基礎)
+- `app/bdd-testing-guide/page.tsx` (BDD（ビヘイビア駆動開発）完全ガイド)
+- `app/e2e-testing-guide/page.tsx` (E2Eテスト完全ガイド、`NavBar.tsx` 付き)
 - `app/integration-functional-testing-guide/page.tsx` (統合/機能テスト完全ガイド)
 - `app/integration-system-testing-guide/page.tsx` (インテグレーション/システムテストガイド)
 - `app/software-testing-methodologies-guide/page.tsx` (テスト手法ガイド)
 - `app/unit-testing-guide/page.tsx` (ユニットテスト完全ガイド)
+- `app/istqb-ctfl-at-complete-guide/page.tsx` (アジャイル(CTFL-AT)完全ガイド)
 - `app/istqb-ctal-tae-complete-guide/page.tsx` (テスト自動化 CTAL-TAE 完全ガイド)
 - `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
