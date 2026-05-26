@@ -63,9 +63,17 @@ This project is a Next.js (App Router) web application designed as a comprehensi
     3. CSS の詳細度やスコープの問題を手動で修正します（すべてのスタイルがページ固有のクラスの下にスコープされていることを確認してください）。
     4. 元の HTML ファイルを `/html-archive/` ディレクトリに移動します。
     5. `components/Header.tsx` のナビゲーションと `CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します。
+- **PII / 絶対パスの記載禁止 (CRITICAL):** コミット予定のすべてのファイル（ドキュメント、設定、コード、コメント等）に、ユーザー名を含むローカルの絶対パス（`/Users/` や `/home/`、`C:\Users\` 等）を記載してはなりません。これは個人情報（PII）の流出につながる重大なセキュリティ違反です。AI エージェントは、**コミットを適用する前に、必ず `git diff --cached` でコミット差分を走査し、プレースホルダー (`johndoe`) 以外の絶対パスやローカル名が混入していないことを機械的（`grep`等）に検証するプロセスを自律的かつ自動的に実行してください。**
 
 ## Migrated Pages (Tracking)
 
+- `app/page.tsx` (ホームページ — 2025 完全ガイド トップ)
+- `app/acceptance-testing-guide/page.tsx` (受入テスト完全ガイド)
+- `app/e2e-testing-guide/page.tsx` (E2Eテスト完全ガイド)
+- `app/integration-functional-testing-guide/page.tsx` (統合/機能テスト完全ガイド)
+- `app/integration-system-testing-guide/page.tsx` (インテグレーション/システムテストガイド)
+- `app/software-testing-methodologies-guide/page.tsx` (テスト手法ガイド)
+- `app/unit-testing-guide/page.tsx` (ユニットテスト完全ガイド)
 - `app/istqb-ctal-tae-complete-guide/page.tsx` (テスト自動化 CTAL-TAE 完全ガイド)
 - `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
@@ -79,6 +87,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-sec-complete-guide/page.tsx` (セキュリティテストガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-ste-complete-guide/page.tsx` (セキュリティテストエンジニア(CT-STE)ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-pt-complete-guide/page.tsx` (パフォーマンステスト CT-PT 完全ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ct-ut-complete-guide/page.tsx` (ユーザビリティテスト CT-UT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-tas-complete-guide/page.tsx` (テスト自動化戦略 CT-TAS 完全ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項

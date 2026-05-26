@@ -824,7 +824,7 @@
                 font-family: var(--font-mono);
                 font-size: 11px;
                 color: var(--color-accent-blue);
-                text-decoration: none;
+                text-decoration: underline;
                 opacity: 0.8;
                 word-break: break-all;
             }
@@ -838,7 +838,7 @@
                 font-family: var(--font-mono);
                 font-size: 10px;
                 color: var(--color-accent-orange);
-                text-decoration: none;
+                text-decoration: underline;
                 border-bottom: 1px dashed rgba(246, 173, 85, 0.3);
                 opacity: 0.75;
                 transition: opacity 0.15s;
@@ -937,7 +937,7 @@
             }
             .page-int-sys footer a {
                 color: var(--color-accent-yellow);
-                text-decoration: none;
+                text-decoration: underline;
             }
 
             /* ── ANIMATIONS ── */

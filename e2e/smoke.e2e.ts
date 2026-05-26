@@ -40,10 +40,9 @@ test.describe('smoke: all pages', () => {
       expect(response, `goto ${p.path} should return a response`).not.toBeNull();
       expect(response?.status(), `HTTP status for ${p.path}`).toBe(200);
 
-      // 一部ページは layout.tsx と page.tsx の両方で <Header /> をレンダする既存の重複があるため、
-      // ロゴリンクは .first() で柔軟に検証する (重複自体は別タスクで解消予定)。
-      await expect(page.getByRole('link', { name: 'QA_STUDIES' }).first()).toBeVisible();
-      await expect(page.getByRole('heading', { level: 1, name: p.h1 }).first()).toBeVisible();
+      // ロゴリンクと h1 見出しが一意に存在し、可視であることを検証する (Headerの二重レンダは解消済み)。
+      await expect(page.getByRole('link', { name: 'QA_STUDIES' })).toBeVisible();
+      await expect(page.getByRole('heading', { level: 1, name: p.h1 })).toBeVisible();
 
       await page.waitForLoadState('networkidle');
 

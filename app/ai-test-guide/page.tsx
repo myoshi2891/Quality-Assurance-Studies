@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Header from '../../components/Header';
 import '../ai-guide.css';
 
 /**
@@ -14,7 +13,6 @@ import '../ai-guide.css';
 export default function AITestGuide() {
     return (
         <>
-            <Header />
             <main>
                 <section className="hero" id="top">
                     <div className="hero-content">

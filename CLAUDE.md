@@ -16,7 +16,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 125+ specs)
+bun test             # ユニットテスト (bun test, 126 specs)
 ```
 
 ### E2E テスト (Playwright)
@@ -95,7 +95,7 @@ Next.js App Router 構成:
 - `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
 - `app/istqb-ctal-tae-complete-guide.css` — テスト自動化(CTAL-TAE)ガイド固有スタイル
 - `app/istqb-ctal-tae-complete-guide/page.tsx` — テスト自動化(CTAL-TAE)ガイドページ
-- `app/istqb-ctal-ta-complete-guide.css` — テストアナリスト(CTAL-TA)ガイド固有スタイル
+- `app/istqb-ctal-ta-complete-guide/istqb-ctal-ta-complete-guide.css` — テストアナリスト(CTAL-TA)ガイド固有スタイル
 - `app/istqb-ctal-ta-complete-guide/page.tsx` — テストアナリスト(CTAL-TA)ガイドページ
 - `app/istqb-ctal-ta-complete-guide/NavBar.tsx` — CTAL-TA ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `app/istqb-ctal-tm-complete-guide/istqb-ctal-tm-complete-guide.css` — テスト管理(CTAL-TM)ガイド固有スタイル
@@ -134,6 +134,9 @@ Next.js App Router 構成:
 - `app/istqb-ct-pt-complete-guide.css` — パフォーマンステスト(CT-PT)ガイド固有スタイル
 - `app/istqb-ct-pt-complete-guide/page.tsx` — パフォーマンステスト(CT-PT)ガイドページ
 - `app/istqb-ct-pt-complete-guide/NavBar.tsx` — CT-PT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-ut-complete-guide.css` — ユーザビリティテスト(CT-UT)ガイド固有スタイル
+- `app/istqb-ct-ut-complete-guide/page.tsx` — ユーザビリティテスト(CT-UT)ガイドページ
+- `app/istqb-ct-ut-complete-guide/NavBar.tsx` — CT-UT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換

@@ -1,4 +1,3 @@
-import Header from '../../components/Header';
 import '../integration-functional-testing-guide.css';
 
 /**
@@ -13,7 +12,6 @@ import '../integration-functional-testing-guide.css';
 export default function IntegrationFunctionalTestingGuide() {
     return (
         <>
-            <Header />
             <main>
             <section className="hero" id="top">
                 <div className="hero-content">

@@ -1,10 +1,8 @@
 import '../acceptance-testing-guide.css';
-import Header from '../../components/Header';
 
 export default function AcceptanceTestingGuide() {
     return (
         <div className="page-acc">
-            <Header />
             <main>
             <section className="hero" id="top">
                 <div className="hero-content">

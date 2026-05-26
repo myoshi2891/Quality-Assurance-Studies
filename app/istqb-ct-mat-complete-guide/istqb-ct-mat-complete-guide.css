@@ -998,7 +998,7 @@
 }
 .istqb-ct-mat-page footer a {
     color: var(--neon-cyan);
-    text-decoration: none;
+    text-decoration: underline;
 }
 .istqb-ct-mat-page footer a:hover {
     text-shadow: var(--glow-cyan);

@@ -43,25 +43,27 @@ description: >
 
 開発中に発生する操作（イベント）と、更新が必要な仕様書の対応関係は以下の通りです。イベント発生後、**直ちに（次のタスクに移る前に）**対象の仕様書をすべて更新しなければなりません。
 
+```mermaid
 graph TD
-Event1[A. 新規ページ追加] --> |即時更新| DocC[CLAUDE.md]
-Event1 --> |即時更新| DocG[GEMINI.md]
-Event1 --> |即時更新| DocM[MIGRATION_PROGRESS.md]
-Event1 --> |即時更新| DocD[coverage-dashboard.html]
-Event1 --> |即時更新| DocS[個別SKILL.md / 未移行リスト]
+    Event1[A. 新規ページ追加] --> |即時更新| DocC[CLAUDE.md]
+    Event1 --> |即時更新| DocG[GEMINI.md]
+    Event1 --> |即時更新| DocM[MIGRATION_PROGRESS.md]
+    Event1 --> |即時更新| DocD[coverage-dashboard.html]
+    Event1 --> |即時更新| DocS[個別SKILL.md / 未移行リスト]
 
-Event2[B. テスト追加] --> |即時更新| DocD[coverage-dashboard.html]
-Event2 --> |即時更新| DocC[CLAUDE.md]
-Event2 --> |即時更新| DocM[MIGRATION_PROGRESS.md]
+    Event2[B. テスト追加] --> |即時更新| DocD[coverage-dashboard.html]
+    Event2 --> |即時更新| DocC[CLAUDE.md]
+    Event2 --> |即時更新| DocM[MIGRATION_PROGRESS.md]
 
-Event3[C. ナビゲーション変更] --> |即時更新| DocC[CLAUDE.md]
-Event3 --> |即時更新| DocG[GEMINI.md]
-Event3 --> |即時更新| DocR[REUSABLE_PROMPTS.md]
+    Event3[C. ナビゲーション変更] --> |即時更新| DocC[CLAUDE.md]
+    Event3 --> |即時更新| DocG[GEMINI.md]
+    Event3 --> |即時更新| DocR[REUSABLE_PROMPTS.md]
 
-Event4[D. 手順・構成の変更] --> |即時更新| DocR2[README.md]
-Event4 --> |即時更新| DocC[CLAUDE.md]
+    Event4[D. 手順・構成の変更] --> |即時更新| DocR2[README.md]
+    Event4 --> |即時更新| DocC[CLAUDE.md]
 
-Event5[E. セッション終了] --> |ゲート条件| DocM[MIGRATION_PROGRESS.md]
+    Event5[E. セッション終了] --> |ゲート条件| DocM[MIGRATION_PROGRESS.md]
+```
 
 ### イベント別更新マトリクス（チェックリスト）
 
@@ -91,7 +93,7 @@ Event5[E. セッション終了] --> |ゲート条件| DocM[MIGRATION_PROGRESS.m
 git log --oneline -5
 git rev-parse --short HEAD
 
-# B. 現在のNext.jsルート一覧 of 取得
+# B. 現在のNext.jsルート一覧の取得
 ls app/*/page.tsx 2>/dev/null | sed 's|app/||' | sed 's|/page.tsx||'
 
 # C. テストファイル実数の取得 (Bunユニットテスト)

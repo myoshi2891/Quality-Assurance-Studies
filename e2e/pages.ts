@@ -29,6 +29,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ct-sec-complete-guide', h1: /CT-SEC.*Security Tester/s },
   { path: '/istqb-ct-ste-complete-guide', h1: /CT-STE Security Test Engineer/ },
   { path: '/istqb-ct-tas-complete-guide', h1: /Test Automation.*Strategy/s },
+  { path: '/istqb-ct-ut-complete-guide', h1: /Usability Testing/ },
   { path: '/istqb-ctal-atlas-complete-guide', h1: /CT-ATLaS/ },
   { path: '/istqb-ctal-att-complete-guide', h1: /CTAL-ATT.*Agile Technical Tester/s },
   { path: '/istqb-ctal-ta-complete-guide', h1: /CTAL-TA.*完全学習ガイド/s },
@@ -40,4 +41,4 @@ export const PAGES: readonly PageMeta[] = [
 ] as const;
 
 /** ページドリフト検知用。pages.ts と app/**\/page.tsx の数を一致させる。 */
-export const EXPECTED_PAGE_COUNT = 24;
+export const EXPECTED_PAGE_COUNT = 25;

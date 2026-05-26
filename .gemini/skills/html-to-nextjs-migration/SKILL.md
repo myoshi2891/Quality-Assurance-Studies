@@ -17,7 +17,24 @@ Provide the complete, ordered workflow for converting a standalone HTML page (wi
 
 **Prerequisite**: The global skill covers `<pre>` block conversion, `class`/`className` rules, HTML entity handling, `@layer` priority, and cache invalidation. This skill assumes that knowledge and focuses on the **end-to-end workflow**.
 
+## セッション開始時に必ず読むファイル
+
+1. **`docs/MIGRATION_PROGRESS.md`** — 現在地・残タスク・再開プロンプト
+2. **このファイル（`SKILL.md`）** — 移行手順と QA_Studies 固有ルール
+3. **`.gemini/rules/tdd-mandatory-cycle.md`（または `.claude/rules/tdd-mandatory-cycle.md`）** — TDD必須サイクル & コミット分割ルール
+
 ## Instructions
+
+### TDD 必須サイクルの適用（最重要）
+
+移行作業中は、常に `.gemini/rules/tdd-mandatory-cycle.md`（または `.claude/rules/tdd-mandatory-cycle.md`）に定められた TDD サイクル（Red → Green → Refactor → Docs）を最優先で適用しなければなりません。
+
+1. **タスク設計の段階（`task.md` の作成時）**:
+   - `task.md` 内のタスクを「Red（テスト失敗とコミット）」「Green（実装とコミット）」「Refactor（リファクタ/ビルド/Linter修正とコミット）」「Docs Sync（進捗同期とコミット）」のコミット単位に明確に構造化してください。
+2. **実装前のテスト作成（Red）**:
+   - 移行先のコード（`page.tsx` や `NavBar.tsx` 等）を実装する前に、必ず失敗するユニットテストを作成してコミットしてください。
+3. **一括コミットの厳禁**:
+   - テスト、実装、カバレッジ更新、ドキュメント更新を一つのコミットにまとめず、フェーズごとに分割コミットを行ってください。
 
 ### Phase 1: Analysis — Audit the Source HTML
 
@@ -154,27 +171,68 @@ export default function PageName() {
 
 ### Phase 5: Integration Steps
 
-#### 5a. Update Header Navigation
+#### 5a. Update Header Navigation (Single Source of Truth)
 
-Add a new `<Link>` to `components/Header.tsx`:
+`components/Header.tsx` is driven by `lib/navigation.ts`. Add your new page entry to the `NAV_ITEMS` array in `lib/navigation.ts`:
 
-```tsx
-<Link href="/<page-slug>">ページ表示名</Link>
+```typescript
+  { href: '/<page-slug>', label: 'ページ表示名', category: '<category>' },
 ```
 
-#### 5b. Create Route Directory
+#### 5b. Update Navigation & E2E Testing Assertions (CRITICAL: Do NOT skip)
+
+To prevent CI/CD and test suite breakages, you must update the page count expectations in the following test-related files:
+
+1. **`tests/lib/navigation.test.ts`**:
+   - Increment the overall count in `expect(NAV_ITEMS).toHaveLength(N)` and update the test case description to reflect the new category counts.
+   - Example:
+
+     ```typescript
+     it('contains 25 entries (home + 8 foundation + 1 fdn-ext + 5 advanced + 10 specialist)', () => {
+       expect(NAV_ITEMS).toHaveLength(25);
+     });
+     ```
+
+2. **`e2e/pages.ts`**:
+   - Add the path and header regex for the new page into the `PAGES` array.
+   - Increment `EXPECTED_PAGE_COUNT` to the new page total.
+   - Example:
+
+     ```typescript
+     export const PAGES: readonly PageMeta[] = [
+       ...
+       { path: '/istqb-ct-ut-complete-guide', h1: /Usability Testing/ },
+     ] as const;
+     export const EXPECTED_PAGE_COUNT = 25;
+     ```
+
+#### 5c. Create Route Directory
 
 Create `app/<page-slug>/page.tsx` following Next.js App Router conventions.
 
-#### 5c. Update CLAUDE.md
+#### 5d. Update CLAUDE.md and GEMINI.md
 
-Add the new page to the Architecture section:
+Add the new page to the Architecture section of **both** `CLAUDE.md` and `GEMINI.md`:
 
 ```markdown
 - `app/<page-slug>/page.tsx` — ページの説明
 ```
 
-If a page-specific CSS file was created, also document it.
+If a page-specific CSS file was created, also document it. Then add an entry to the **Migrated Pages (Tracking)** list in `GEMINI.md`:
+
+```markdown
+- `app/<page-slug>/page.tsx` (ページ日本語タイトル、`NavBar.tsx` 付き)
+```
+
+#### 5e. Update docs/coverage-dashboard.html
+
+After adding `tests/<page-slug>/page.test.tsx`, update the `DATA.pages` array in the `<script>` block at the bottom of `docs/coverage-dashboard.html`:
+
+```js
+{ path: '/<page-slug>', topic: 'ISTQB Specialist — <略称>', tested: true },
+```
+
+Also recalculate the overall coverage percentage (`--coverage` CSS variable and the `<span>` displaying the % value) to reflect the updated tested/total page count.
 
 ### Phase 6: Verification
 
@@ -182,8 +240,6 @@ If a page-specific CSS file was created, also document it.
 
 ```bash
 rm -rf .next && bun run build
-# npm 環境の場合:  rm -rf .next && npm run build
-# pnpm 環境の場合: rm -rf .next && pnpm run build
 ```
 
 Common build failures:
