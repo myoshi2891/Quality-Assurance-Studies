@@ -42,7 +42,7 @@
     "e2e:report": "playwright show-report",
     "generate:ctfl-at": "node scripts/md-to-tsx.mjs",
     "validate-fences": "bun run scripts/validate-fences.mjs",
-    "lhci:autorun": "lhci autorun"
+    "lhci:autorun": "npx next start & SERVER_PID=$! && sleep 5 && curl -s http://localhost:3000/ > /dev/null && curl -s http://localhost:3000/acceptance-testing-guide > /dev/null && curl -s http://localhost:3000/e2e-testing-guide > /dev/null && curl -s http://localhost:3000/istqb-ct-ai-complete-guide > /dev/null && lhci autorun; EXIT_CODE=$?; kill $SERVER_PID; exit $EXIT_CODE"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.2.2",

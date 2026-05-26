@@ -48,7 +48,7 @@ export default function RootLayout({
       <body>
         <Header />
         <DisclaimerBanner />
-        <main className="layout-content">{children}</main>
+        <div className="layout-content">{children}</div>
       </body>
     </html>
   );

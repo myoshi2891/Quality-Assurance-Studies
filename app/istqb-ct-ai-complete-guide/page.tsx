@@ -5,7 +5,7 @@ import NavBar from './NavBar';
 
 export default function CT_AI_Guide() {
     return (
-        <div className="istqb-ct-ai-page">
+        <main className="istqb-ct-ai-page">
             
         {/* ===== STICKY NAV ===== */}
         <NavBar />
@@ -2057,6 +2057,6 @@ export default function CT_AI_Guide() {
         </footer>
     
 
-        </div>
+        </main>
     );
 }
