@@ -49,6 +49,9 @@
   var() 参照が確実に解決されるよう、同一チャンクの :root にも定義する。
 */
 :root {
+    /* --- 免責バナーのデフォルト高さ (CLS防止) --- */
+    --disclaimer-height: 38px;
+
     /* --- 背景色 --- */
     --color-bg-primary: #0a0e1a;
     --color-bg-secondary: #0f1629;
@@ -1289,4 +1292,11 @@
         text-decoration: underline;
         text-underline-offset: 2px;
     }
+
+/* Mobile-specific disclaimer banner height to prevent Cumulative Layout Shift (CLS) */
+@media (max-width: 768px) {
+    :root {
+        --disclaimer-height: 76px;
+    }
+}
 
