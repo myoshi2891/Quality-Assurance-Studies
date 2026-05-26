@@ -995,9 +995,9 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <p class="kpi-desc"><span id="kpi-pages-desc-count">0</span> ページに render-only スモークテスト完備（P0 完了）。E2E・a11y・ビジュアル検証は P1 で着手予定。</p>
     </article>
     <article class="kpi" data-tone="orange">
-      <div class="kpi-num">3<span class="unit">/ 6</span></div>
+      <div class="kpi-num">2<span class="unit">/ 6</span></div>
       <div class="kpi-lbl">Test Types Uncovered</div>
-      <p class="kpi-desc">Visual Regression · Performance · Integration が未着手。E2E & a11y (Playwright / axe-core) は 25/25 ページで完備（P1 完了）。</p>
+      <p class="kpi-desc">Visual Regression · Integration が未着手。E2E、a11y、および Performance (Lighthouse CI) は完備（P1 完了）。</p>
     </article>
     <article class="kpi" data-tone="ok">
       <div class="kpi-num">1<span class="unit">pipeline</span></div>
@@ -1207,7 +1207,7 @@ const DATA = {
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: `axe-core/playwright: Automated accessibility audit on all ${pages.length} routes.` },
-        { state: 'gap', value: '0', label: 'Gap', note: 'No Lighthouse CI.' }
+        { state: 'full', value: '4/4', label: '100%', note: 'Lighthouse CI: Performance budget (LCP < 2.5s, TBT < 350ms, A11y/SEO >= 0.9) asserted on 4 key routes.' }
       ]
     },
     {
@@ -1373,7 +1373,8 @@ const DATA = {
     lib: [
       'tests/lib/navigation.test.ts',
       'tests/lib/dependencies.test.ts',
-      'tests/istqb-ct-aut-complete-guide.test.ts'
+      'tests/istqb-ct-aut-complete-guide.test.ts',
+      'tests/lhci-config.test.ts'
     ],
     scripts: [
       'tests/scripts/extract-css.test.ts',
@@ -1386,7 +1387,8 @@ const DATA = {
       'e2e/pages.ts',
       'e2e/smoke.e2e.ts',
       'e2e/a11y.e2e.ts',
-      'playwright.config.ts'
+      'playwright.config.ts',
+      'lighthouserc.json'
     ]
   },
 
@@ -1439,10 +1441,10 @@ const DATA = {
           impact: 'A11y 自動化 / ダーク背景の品質保証'
         },
         {
-          h: 'Lighthouse CI でパフォーマンス予算',
-          p: '主要ページの LCP / CLS / TBT / A11y / SEO スコアにしきい値を設定し、PR で劣化を検知。静的サイトなので予算は厳しめに（LCP < 2.0s 等）。',
+          h: '✅ Lighthouse CI でパフォーマンス予算',
+          p: '主要4ページに対し LCP (< 2.5s)、CLS (< 0.1)、TBT (< 350ms)、および A11y/SEO スコア (>= 0.9) に品質予算を設定。PRやプッシュ時の自動監査と予算超過を検知。',
           tool: '@lhci/cli',
-          effort: '~2h',
+          effort: 'Done',
           impact: 'パフォーマンス劣化検知 / SEO 品質維持'
         }
       ]
