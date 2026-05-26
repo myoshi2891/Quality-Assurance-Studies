@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 132 specs)
+bun test             # ユニットテスト (bun test, 133 specs)
 ```
 
 ### E2E テスト (Playwright)
@@ -180,6 +180,7 @@ rm -rf .next && bun run dev
 
 変換スクリプトに頼るのではなく、Markdown ソースファイル自体が標準的な仕様に準拠していることを最優先します。
 
+- **コミット前必須検証 (Gate Condition):** Markdownファイルを編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` の手順に従い、リント検証コマンド（`node node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行してエラーが 0 件であることを確認してください。
 - 言語指定のないコードブロック（```）によるテキストの囲みは避け、引用（>）や適切な見出しを使用してください。
 - 表や図（Mermaid）はコードブロック内に閉じ込めず、Markdown 上で直接レンダリング可能な形で記述してください。
 - 共通の Markdown 整形ツール: `bun scripts/format-markdown.mjs <file>`

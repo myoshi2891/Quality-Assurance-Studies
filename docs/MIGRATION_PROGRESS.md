@@ -9,9 +9,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `fe2fa95` (DisclaimerBannerの無限レイアウトループ回避とアクセシビリティ改善、およびテスト追加) |
+| 最新 HEAD | `99c78b2` (chore(docs): sync spec files - update dashboard coverage and specs timestamps) |
 | 次の作業 | なし（全P1アクション完了、次回P2アクション開始） |
 | ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`bun run lint` は 0 errors / 11 warnings、`bun test` は 133 pass / 0 fail で成功。 |
+
+## 2026/05/26: 各仕様書（CLAUDE.md / coverage-dashboard.html）の同期
+
+- `docs/coverage-dashboard.html`: `Shared Components` の `Accessibility` セルおよび `Accessibility` カテゴリの `Unit` テストセルを `partial`/`33%` に更新（DisclaimerBanner に `aria-label` の検証を追加したことに同期）。静的ファイル数カウントおよび `kpi-total-files` の動的更新ロジックを修正。
+- `CLAUDE.md`: ユニットテストの総数を `133 specs` に更新。
+- 最終更新日のタイムスタンプ（`Updated 2026-05-26`）を同期。
 
 ## 2026/05/26 P1: DisclaimerBanner の無限レイアウトループ回避とアクセシビリティ改善
 

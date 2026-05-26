@@ -154,3 +154,25 @@ bun run lint 2>&1 | tail -5
 git add CLAUDE.md GEMINI.md README.md docs/MIGRATION_PROGRESS.md docs/REUSABLE_PROMPTS.md docs/coverage-dashboard.html .claude/skills/ .gemini/skills/
 git commit -m "chore(docs): sync spec files — <具体的な更新理由や同期内容>"
 ```
+
+---
+
+## 自己監査・強制発火ルール (Enforcement & Gate Conditions)
+
+エージェントは、以下のイベントが発生した際、ユーザーからの指示を待たずに**自律的かつ自動的**に本スキルを読み込み、同期・監査を実行しなければなりません。
+
+### 1. 強制発火のトリガー条件
+
+- **テストの追加・変更時**:
+  - `tests/` 配下のファイルやアサーション（例: `aria-label` 検証の追加など）を修正した直後、直ちに `coverage-dashboard.html` の `DATA.inventory` およびマトリクスの対応するセル（例: `Accessibility` 関連セル）を同期・更新すること。
+- **新規規約・ループ対策の発生時**:
+  - `DisclaimerBanner` の `ResizeObserver` ループ回避など、再利用可能な不具合回避策や制約が発生した場合は、速やかに `GEMINI.md` または `CLAUDE.md` の `Development Conventions` に反映すること。
+- **セッション開始・再開時**:
+  - セッションが開始または compaction から再開された場合、最初のコミットを行う前に必ず「87行目：現在のステータス情報の収集」の実測コマンドを実行し、現行コードと仕様書の乖離（テスト数、Next.jsのルートなど）を自動検知して修正すること。
+- **Markdown 編集時**:
+  - ドキュメント同期のために Markdown ファイルを新規作成または編集した場合は、コミットする前に必ず `markdown-formatter/SKILL.md` スキルをロードし、そこに定義された手順に従ってリント検証を行い、エラーが 0 件であることを保証すること。
+
+### 2. ゲート条件としてのドキュメント同期
+
+- ドキュメント同期および自己監査は、ソースコードのビルド成功と全く同等の **「完了判定ゲート（Gate Condition）」** です。
+- 仕様書・進捗管理ドキュメントに実態との不整合（テスト数の記述ミス、未更新の日付、ダッシュボードのセルの更新漏れ）が1点でもある状態でのタスク完了報告は、**プロトコル違反（FAILED）** とみなされます。報告前に必ず本スキルの「監査チェックリスト」を上から順に自律実行してください。
