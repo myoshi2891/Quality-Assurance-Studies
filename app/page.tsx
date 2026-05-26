@@ -11,8 +11,8 @@ export default function Home() {
                     className="hero min-h-screen flex flex-col justify-center pt-[60px] relative overflow-hidden hero-bg-glow"
                     id="top"
                 >
-                    <div className="hero-content animate-[fadeUp_0.7s_ease_forwards]">
-                        <span className='hero-eyebrow inline-flex items-center gap-2 font-mono text-[12px] font-medium text-accent-cyan tracking-[0.15em] bg-accent-cyan/10 border border-accent-cyan/25 py-[6px] px-[14px] rounded-[20px] mb-6 animate-[fadeUp_0.5s_ease_forwards] before:content-["▶"] before:text-[9px]'>
+                    <div className="hero-content animate-[fade-up_0.7s_ease_forwards]">
+                        <span className='hero-eyebrow inline-flex items-center gap-2 font-mono text-[12px] font-medium text-accent-cyan tracking-[0.15em] bg-accent-cyan/10 border border-accent-cyan/25 py-[6px] px-[14px] rounded-[20px] mb-6 animate-[fade-up_0.5s_ease_forwards] before:content-["▶"] before:text-[9px]'>
                             現代ソフトウェアテスト完全ガイド 2025
                         </span>
                         <h1>
