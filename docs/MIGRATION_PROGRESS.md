@@ -215,12 +215,12 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 ```text
 コンテキスト:
-- 最新 HEAD: `a5e2f5b` — refactor(lhci): integrate Lighthouse CI to GitHub workflow and update coverage dashboard
+- 最新 HEAD: `99c78b2` — chore(docs): sync spec files - update dashboard coverage and specs timestamps
 - HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
-- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 132 pass / 0 fail)。
+- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 133 pass / 0 fail)。
 - P1 アクション（Playwright スモーク、axe-core A11y自動監査、Lighthouse CI 品質予算、Header二重レンダ解消）すべて完了。
 - テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E、a11y、Lighthouse 含む）。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 132 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 133 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
 
 【指示】
 coverage-dashboard.html の残 P2 アクションを選択して実装してください：

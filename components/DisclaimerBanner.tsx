@@ -21,7 +21,7 @@ export function DisclaimerBanner() {
         let lastHeight: number | null = null;
         const sync = () => {
             const h = el.getBoundingClientRect().height;
-            if (h !== lastHeight) {
+            if (lastHeight === null || Math.abs(h - lastHeight) >= 0.5) {
                 lastHeight = h;
                 document.documentElement.style.setProperty('--disclaimer-height', `${h}px`);
             }

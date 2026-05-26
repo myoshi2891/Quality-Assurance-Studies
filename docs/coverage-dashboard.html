@@ -1058,7 +1058,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">42 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">40 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
@@ -1093,9 +1093,16 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>E2E (Playwright)</span>
-          <span class="inv-count" id="inv-count-e2e">5 files</span>
+          <span class="inv-count" id="inv-count-e2e">3 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
+      </details>
+      <details class="inv" open>
+        <summary>
+          <span>Test Tooling &amp; Config</span>
+          <span class="inv-count" id="inv-count-tooling">2 files</span>
+        </summary>
+        <ul id="inv-tooling"></ul>
       </details>
     </div>
   </section>
@@ -1386,7 +1393,9 @@ const DATA = {
     e2e: [
       'e2e/pages.ts',
       'e2e/smoke.e2e.ts',
-      'e2e/a11y.e2e.ts',
+      'e2e/a11y.e2e.ts'
+    ],
+    tooling: [
       'playwright.config.ts',
       'lighthouserc.json'
     ]
@@ -1597,8 +1606,8 @@ function renderPages() {
 }
 
 function renderInventory() {
-  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib', scripts: 'inv-scripts', e2e: 'inv-e2e' };
-  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib', scripts: 'inv-count-scripts', e2e: 'inv-count-e2e' };
+  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib', scripts: 'inv-scripts', e2e: 'inv-e2e', tooling: 'inv-tooling' };
+  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib', scripts: 'inv-count-scripts', e2e: 'inv-count-e2e', tooling: 'inv-count-tooling' };
   const groups = Object.keys(map);
   let total = 0;
   groups.forEach((k) => {
@@ -1612,7 +1621,9 @@ function renderInventory() {
     if (countEl) {
       countEl.textContent = files.length + ' file' + (files.length === 1 ? '' : 's');
     }
-    total += files.length;
+    if (k !== 'tooling') {
+      total += files.length;
+    }
   });
   const totalEl = document.getElementById('inv-total');
   if (totalEl) {

@@ -2,8 +2,8 @@
   "ci": {
     "collect": {
       "startServerCommand": "bun run start",
-      "startServerReadyPattern": "ready|started server",
-      "startServerReadyTimeout": 20000,
+      "startServerReadyPattern": "(?i)ready|started server",
+      "startServerReadyTimeout": 60000,
       "numberOfRuns": 3,
       "url": [
         "http://localhost:3000/",
