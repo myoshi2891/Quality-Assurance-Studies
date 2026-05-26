@@ -8,7 +8,11 @@ description: >
   Requires updating the "Last Updated" or "Updated YYYY-MM-DD" timestamp in each document
   whenever a change is made.
   Trigger: 仕様書の更新, 更新漏れ確認, ドキュメント同期, 各仕様書を更新,
-  各仕様書の更新漏れがないか, docs sync, 仕様書同期, spec sync.
+  各仕様書の更新漏れがないか, docs sync, 仕様書同期, spec sync, test追加,
+  テスト追加, 依存関係の更新, CIワークフロー変更, 設定ファイル追加,
+  セッション終了, 再開プロンプト, MIGRATION_PROGRESS, CLAUDE.md, GEMINI.md,
+  README.md, REUSABLE_PROMPTS.md, docs-sync, spec-sync, 最終更新日,
+  Last Updated.
 ---
 
 # QA_Studies 仕様書同期スキル
