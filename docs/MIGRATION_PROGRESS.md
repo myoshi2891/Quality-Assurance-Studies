@@ -179,22 +179,22 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 ```text
 コンテキスト:
-- 最新 HEAD: `d87ac2c` — Merge pull request #60 from myoshi2891/dev
+- 最新 HEAD: `a5e2f5b` — refactor(lhci): integrate Lighthouse CI to GitHub workflow and update coverage dashboard
 - HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
-- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 126 pass / 0 fail)。
-- P1 の Playwright スモーク E2E 導入完了 (`e2e/` 下に 2 ファイル、`bun run e2e` 25 passed / 0 fail、約 35 秒)。
-- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E 24/24 ページ含む）。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 126 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
+- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 132 pass / 0 fail)。
+- P1 アクション（Playwright スモーク、axe-core A11y自動監査、Lighthouse CI 品質予算、Header二重レンダ解消）すべて完了。
+- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E、a11y、Lighthouse 含む）。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 132 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
 
 【指示】
-coverage-dashboard.html の残 P1 アクションを選択して実装してください：
+coverage-dashboard.html の残 P2 アクションを選択して実装してください：
 
-1. **axe-core/playwright による WCAG 2.1 AA 自動アクセシビリティ検証**
-   - `@axe-core/playwright` を導入し、全 25 ページに対する自動監査を実装する。ダークテーマのカラーコントラスト、aria-* 属性、キーボードフォーカス遷移、HTML5 ランドマーク構造を検証。`e2e/a11y.e2e.ts` として既存の Playwright 構成に追加可能。
-2. **Lighthouse CI によるパフォーマンス・SEO 品質予算の導入**
-   - 主要ページに対し LCP / CLS / TBT / A11y / SEO スコアのしきい値を設定し (LCP < 2.0s 等)、PR ごとに `@lhci/cli` で予算超過を検知。
-3. **構造修正タスク: Header 二重レンダ解消**
-   - 9 ページが `app/layout.tsx` と独自 `<Header />` import の両方でヘッダーを 2 回描画している。各 page.tsx から重複 import を削除し、`e2e/smoke.e2e.ts` の `.first()` を strict mode のままに戻す。
+1. **Playwright スクリーンショットによる Visual Regression**
+   - 各ページのキービューポート（375 / 768 / 1280px）でベースライン取得。Tailwind v4 アップデートや CSS 変更時のリグレッション検知を自動化。
+2. **Header drawer / NavBar scroll-spy の E2E 拡充**
+   - メニュー開閉 → フォーカス遷移 → Escape 閉じる、NavBar scroll-spy のアクティブ表示切替を Playwright で検証。
+3. **i18n リソース抽出の準備**
+   - ハードコードされた日本語文字列の棚卸とキー化検討、next-intl 等の多言語化ライブラリの評価。
 ```
 
 ---
