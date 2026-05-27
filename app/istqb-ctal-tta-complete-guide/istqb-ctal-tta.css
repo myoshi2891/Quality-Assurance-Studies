@@ -1,0 +1,422 @@
+/* TTA Guide Specific CSS */
+.tta-hero {
+    padding: 6rem 0 4rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+.tta-hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.08) 0%, transparent 70%);
+    animation: pulse 4s ease-in-out infinite;
+    pointer-events: none;
+}
+
+@keyframes fade-in-down {
+    from { opacity: 0; transform: translateY(-24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes grow-bar {
+    from { width: 0; }
+    to { width: var(--target-width, 100%); }
+}
+
+.tta-hero-badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--color-accent-green);
+    border: 1px solid var(--color-accent-green);
+    padding: 0.3rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.1em;
+    animation: fade-in-down 0.6s ease both;
+}
+
+.tta-hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+    background: linear-gradient(135deg, var(--color-accent-cyan) 0%, var(--color-accent-green) 50%, var(--color-accent-orange) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fade-in-down 0.6s 0.1s ease both;
+    margin-bottom: 1rem;
+}
+
+.tta-hero-subtitle {
+    font-size: 1.1rem;
+    color: var(--color-text-secondary);
+    animation: fade-in-down 0.6s 0.2s ease both;
+    margin-bottom: 2.5rem;
+}
+
+.tta-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    animation: fade-in-up 0.6s 0.3s ease both;
+}
+
+.tta-meta-chip {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+}
+
+.tta-meta-chip .label {
+    color: var(--color-text-muted);
+}
+.tta-meta-chip .value {
+    color: var(--color-accent-cyan);
+    font-weight: 700;
+}
+
+.tta-arch-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+}
+.tta-arch-layer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--accent, var(--color-accent-cyan));
+    transition: all 0.25s;
+}
+.tta-arch-layer:hover {
+    background: var(--color-bg-card-hover);
+    transform: translateX(4px);
+}
+.tta-arch-icon {
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+.tta-arch-info .arch-name {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--color-text-primary);
+}
+.tta-arch-info .arch-desc {
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+}
+
+.tta-progress-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+.tta-progress-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+}
+.tta-progress-name {
+    font-size: 0.88rem;
+    color: var(--color-text-primary);
+}
+.tta-progress-val {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--color-accent-cyan);
+}
+.tta-progress-track {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    overflow: hidden;
+}
+.tta-progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    width: 0;
+    animation: grow-bar 1.2s ease forwards;
+    animation-delay: 0.3s;
+}
+
+.tta-coverage-ladder {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+}
+.tta-ladder-row {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.9rem 1.25rem;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--color-border);
+    transition: all 0.2s;
+}
+.tta-ladder-row:hover {
+    border-color: var(--color-accent-cyan);
+    background: var(--color-bg-card);
+}
+.tta-ladder-level {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    min-width: 80px;
+    text-align: center;
+}
+.tta-ladder-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    flex: 1;
+    font-size: 0.9rem;
+}
+.tta-ladder-note {
+    font-size: 0.82rem;
+    color: var(--color-text-secondary);
+}
+
+.tta-def-box {
+    background: rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.04);
+    border: 1px solid rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.2);
+    border-radius: var(--radius-DEFAULT);
+    padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0;
+}
+.tta-def-box dt {
+    font-family: var(--font-mono);
+    font-size: 0.82rem;
+    color: var(--color-accent-cyan);
+    margin-bottom: 0.4rem;
+    letter-spacing: 0.05em;
+}
+.tta-def-box dd {
+    font-size: 0.92rem;
+    color: var(--color-text-secondary);
+}
+
+.tta-exam-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+@media (max-width: 600px) {
+    .tta-exam-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.tta-exam-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT);
+    padding: 1.25rem;
+    transition: all 0.25s;
+}
+.tta-exam-card:hover {
+    border-color: var(--color-accent-orange);
+    box-shadow: 0 0 20px rgba(var(--accent-orange-rgb, 246, 173, 85), 0.2);
+}
+.tta-exam-ch {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-accent-orange);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+}
+.tta-exam-name {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+.tta-exam-stars {
+    color: var(--color-accent-orange);
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+}
+.tta-exam-points {
+    font-family: var(--font-mono);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--color-accent-green);
+}
+.tta-exam-sub {
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+}
+
+.tta-ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+@media (max-width: 600px) {
+    .tta-ref-grid {
+        grid-template-columns: 1fr;
+    }
+}
+.tta-ref-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT);
+    padding: 1.1rem 1.25rem;
+    text-decoration: none;
+    transition: all 0.25s;
+    position: relative;
+    overflow: hidden;
+    display: block;
+}
+.tta-ref-card::after {
+    content: '→';
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%) translateX(8px);
+    color: var(--color-accent-cyan);
+    opacity: 0;
+    transition: all 0.25s;
+}
+.tta-ref-card:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+}
+.tta-ref-card:hover {
+    background: var(--color-bg-card-hover);
+    border-color: var(--color-accent-cyan);
+    transform: translateX(-4px);
+}
+.tta-ref-cat {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--color-accent-green);
+    letter-spacing: 0.12em;
+    margin-bottom: 0.3rem;
+}
+.tta-ref-title {
+    font-size: 0.88rem;
+    color: var(--color-text-primary);
+    font-weight: 600;
+    margin-bottom: 0.25rem;
+}
+.tta-ref-url {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-text-muted);
+    word-break: break-all;
+}
+
+.tta-trend-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    position: relative;
+    overflow: hidden;
+}
+.tta-trend-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(ellipse at center, rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.04) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.tta-trend-card:hover::before {
+    opacity: 1;
+}
+.tta-trend-card:hover {
+    border-color: rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.4);
+}
+.tta-trend-label {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--color-accent-purple);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+}
+.tta-trend-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    color: var(--color-text-primary);
+    margin-bottom: 0.5rem;
+}
+.tta-trend-body {
+    font-size: 0.88rem;
+    color: var(--color-text-secondary);
+}
+
+.tta-compare-wrap {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+@media (max-width: 600px) {
+    .tta-compare-wrap {
+        grid-template-columns: 1fr;
+    }
+}
+.tta-compare-box {
+    border-radius: var(--radius-DEFAULT);
+    padding: 1.25rem;
+    border: 1px solid;
+}
+.tta-compare-box.good {
+    background: rgba(var(--accent-green-rgb, 104, 211, 145), 0.04);
+    border-color: rgba(var(--accent-green-rgb, 104, 211, 145), 0.2);
+}
+.tta-compare-box.bad {
+    background: rgba(var(--accent-red-rgb, 252, 129, 129), 0.04);
+    border-color: rgba(var(--accent-red-rgb, 252, 129, 129), 0.2);
+}
+.tta-compare-label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+}
+.tta-compare-box.good .tta-compare-label {
+    color: var(--color-accent-green);
+}
+.tta-compare-box.bad .tta-compare-label {
+    color: var(--color-accent-red);
+}
+.tta-compare-box pre {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    overflow-x: auto;
+    max-width: 100%;
+}
