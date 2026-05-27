@@ -98,7 +98,7 @@ export default function Home() {
                             <a
                                 rel="noopener noreferrer"
                                 href="https://blog.qasource.com/shift-left-testing-a-beginners-guide-to-advancing-automation-with-generative-ai"
-                                className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                 target="_blank"
                             >
                                 blog.qasource.com — Shift-Left Testing 2025
@@ -107,7 +107,7 @@ export default function Home() {
                             <a
                                 rel="noopener noreferrer"
                                 href="https://trendig.com/en/blog/software-testing-trends-2025/"
-                                className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                 target="_blank"
                             >
                                 trendig.com — Software Testing Trends 2025
@@ -160,7 +160,7 @@ export default function Home() {
                                         <a
                                             rel="noopener noreferrer"
                                             href="https://www.design-master.com/pyramid-diamond-honeycomb-or-trophy-find-a-testing-strategy-that-fits.html"
-                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
                                         >
                                             design-master.com
@@ -184,7 +184,7 @@ export default function Home() {
                                         <a
                                             rel="noopener noreferrer"
                                             href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
-                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
                                         >
                                             kentcdodds.com
@@ -207,7 +207,7 @@ export default function Home() {
                                         <a
                                             rel="noopener noreferrer"
                                             href="https://premiersoft.net/en/blog/an-analysis-of-the-different-test-shapes"
-                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
                                         >
                                             premiersoft.net
@@ -230,7 +230,7 @@ export default function Home() {
                                         <a
                                             rel="noopener noreferrer"
                                             href="https://www.design-master.com/pyramid-diamond-honeycomb-or-trophy-find-a-testing-strategy-that-fits.html"
-                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
                                         >
                                             design-master.com
@@ -253,7 +253,7 @@ export default function Home() {
                                         <a
                                             rel="noopener noreferrer"
                                             href="https://www.design-master.com/pyramid-diamond-honeycomb-or-trophy-find-a-testing-strategy-that-fits.html"
-                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                             target="_blank"
                                         >
                                             design-master.com
@@ -305,7 +305,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://www.ibm.com/think/insights/unit-testing-best-practices"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             ibm.com — Unit Testing Best Practices
@@ -314,7 +314,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://www.testdevlab.com/blog/the-ultimate-guide-to-unit-testing"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             testdevlab.com — Ultimate Guide to Unit Testing
@@ -511,7 +511,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://kentcdodds.com/blog/testing-implementation-details"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             kentcdodds.com — Testing Implementation Details
@@ -622,7 +622,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://testomat.io/blog/unit-testing-tools/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             testomat.io
@@ -630,7 +630,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://www.practitest.com/resource-center/blog/best-unit-testing-tools/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             practitest.com
@@ -638,7 +638,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://www.testmuai.com/blog/unit-testing-frameworks/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             testmuai.com
@@ -810,7 +810,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://buzzclan.com/quality-assurance/black-box-testing/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             buzzclan.com — Black Box Testing 2025
@@ -912,7 +912,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://totalshiftleft.ai/blog/functional-testing-vs-integration-testing"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             totalshiftleft.ai
@@ -920,7 +920,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://www.testim.io/blog/integration-testing-vs-functional-testing/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             testim.io
@@ -928,7 +928,7 @@ export default function Home() {
                         <a
                             rel="noopener noreferrer"
                             href="https://www.qatouch.com/blog/functional-test-vs-integration-test/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             qatouch.com
@@ -981,7 +981,7 @@ client = <span class="cls">TestClient</span>(app)
                         <a
                             rel="noopener noreferrer"
                             href="https://learning.postman.com/docs/tests-and-scripts/test-apis/test-apis"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             Postman API Testing Docs
@@ -1114,7 +1114,7 @@ client = <span class="cls">TestClient</span>(app)
                         <a
                             rel="noopener noreferrer"
                             href="https://javascript.plainenglish.io/playwright-vs-cypress-performance-benchmarks-the-2025-report-c2db402c7a55"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             plainenglish.io — 2025 Benchmarks
@@ -1122,7 +1122,7 @@ client = <span class="cls">TestClient</span>(app)
                         <a
                             rel="noopener noreferrer"
                             href="https://testdino.com/blog/playwright-vs-cypress/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             testdino.com
@@ -1130,7 +1130,7 @@ client = <span class="cls">TestClient</span>(app)
                         <a
                             rel="noopener noreferrer"
                             href="https://devin-rosario.medium.com/cypress-vs-playwright-the-essential-2025-comparison-for-developers-d2e40f20f450"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             medium.com (Rosario)
@@ -1138,7 +1138,7 @@ client = <span class="cls">TestClient</span>(app)
                         <a
                             rel="noopener noreferrer"
                             href="https://thinksys.com/qa-testing/playwright-vs-selenium-vs-cypress/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             thinksys.com
@@ -1307,7 +1307,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://dev.to/matt_calder_e620d84cf0c14/black-box-vs-white-box-vs-grey-box-testing-a-practical-guide-i9d"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             dev.to — Practical Guide
@@ -1315,7 +1315,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://testlio.com/blog/black-box-vs-white-vs-gray-box-testing/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             testlio.com
@@ -1323,7 +1323,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://www.testdevlab.com/blog/white-box-vs-black-box-vs-gray-box-testing"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             testdevlab.com
@@ -1450,7 +1450,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://cucumber.io/docs/bdd/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             cucumber.io — BDD Official
@@ -1458,7 +1458,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://monday.com/blog/rnd/behavior-driven-development/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             monday.com — BDD Essential Guide
@@ -1466,7 +1466,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://automationpanda.com/2025/03/06/is-bdd-dying/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             automationpanda.com — Is BDD Dying? (2025)
@@ -1485,7 +1485,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             303software.com — BDD Reality Check 2025
@@ -1572,7 +1572,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://medium.com/@priti_9991/performance-testing-metrics-that-matter-in-2025-fc4d4d7a68fe"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             medium.com — Metrics 2025
@@ -1580,7 +1580,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://pflb.us/blog/performance-testing-metrics/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             pflb.us
@@ -1588,7 +1588,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://solutionshub.epam.com/blog/post/types-of-performance-testing"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             epam.com — Types of Performance Testing
@@ -1711,7 +1711,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://medium.com/@abhishekpurohit444/modern-sdet-toolkit-performance-security-accessibility-chaos-testing-tools-explained-410298d045aa"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             medium.com — Modern SDET Toolkit 2026
@@ -1748,7 +1748,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://www.mend.io/blog/security-testing-in-2025-testing-apps-ai-cloud-native-and-more/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             mend.io — Security Testing 2025
@@ -1944,7 +1944,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://owasp.org/Top10/2025/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             owasp.org — OWASP Top 10:2025
@@ -1952,7 +1952,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://owasp.org/Top10/2025/0x00_2025-Introduction/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             owasp.org — Introduction
@@ -1989,7 +1989,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://dev.to/maria_bueno/2025-guide-best-10-accessibility-testing-tools-automated-41"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             dev.to — Best a11y Testing Tools 2025
@@ -2053,7 +2053,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://www.deque.com/axe/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             deque.com — Axe Platform
@@ -2061,7 +2061,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://testguild.com/accessibility-testing-tools-automation/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             testguild.com — Top 18 Tools 2025
@@ -2110,7 +2110,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                 }}
                             >
                                 <div>
-                                    <h4>CTFL v4.0 — Certified Tester Foundation Level</h4>
+                                    <h3>CTFL v4.0 — Certified Tester Foundation Level</h3>
                                     <p>
                                         全ISTQB資格の前提条件。テストの基礎知識・用語・プロセスを体系的に習得。Waterfall・Agile・DevOps・CI/CDの全開発アプローチに対応。前提条件なしで受験可能。
                                     </p>
@@ -2162,7 +2162,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                 <a
                                     rel="noopener noreferrer"
                                     href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
-                                    className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                    className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                     target="_blank"
                                 >
                                     istqb.org — CTFL v4.0 詳細ページ
@@ -2171,7 +2171,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                 <a
                                     rel="noopener noreferrer"
                                     href="https://jstqb.jp/"
-                                    className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                    className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                     target="_blank"
                                 >
                                     jstqb.jp — 日本語版
@@ -2193,7 +2193,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             <span className="cert-level-label">FOUNDATION+</span>
                         </div>
                         <div className="cert-info">
-                            <h4>CTFL-AT — Certified Tester Foundation Level Agile Tester</h4>
+                            <h3>CTFL-AT — Certified Tester Foundation Level Agile Tester</h3>
                             <p>
                                 アジャイルプロジェクトでのテスト特化。アジャイルマニフェストの原則に基づくテスト手法・チーム全体でのアプローチを習得。CTFLが前提条件。
                             </p>
@@ -2229,7 +2229,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             <span className="cert-level-label">ADVANCED</span>
                         </div>
                         <div className="cert-info">
-                            <h4>CTAL — Advanced Level（上級）3コース</h4>
+                            <h3>CTAL — Advanced Level（上級）3コース</h3>
                             <div className="grid-2 mt-2">
                                 <div className="card-sm bg-bg-card border border-border rounded-sm py-4 px-5 transition-all duration-200 hover:bg-bg-card-hover hover:border-border-bright">
                                     <div
@@ -2320,7 +2320,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             <span className="cert-level-label">SPECIALIST</span>
                         </div>
                         <div className="cert-info">
-                            <h4>Specialist &amp; Expert — 専門分野特化資格</h4>
+                            <h3>Specialist &amp; Expert — 専門分野特化資格</h3>
                             <div className="tool-grid mt-2">
                                 <div className="tool-card bg-bg-card border border-border rounded-sm p-4 transition-all duration-200 cursor-default flex flex-col gap-[6px] hover:border-border-bright hover:bg-bg-card-hover hover:-translate-y-[1px]">
                                     <div className="tool-name font-semibold text-[13.5px] text-text-primary">
@@ -2332,7 +2332,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <a
                                         rel="noopener noreferrer"
                                         href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/"
-                                        className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                        className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                         target="_blank"
                                     >
                                         詳細
@@ -2354,7 +2354,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <a
                                         rel="noopener noreferrer"
                                         href="https://istqb.org/certifications/gen-ai/"
-                                        className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                        className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                         target="_blank"
                                     >
                                         詳細
@@ -2370,7 +2370,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <a
                                         rel="noopener noreferrer"
                                         href="https://istqb.org/certifications/certified-tester-mobile-application-testing-ct-mat/"
-                                        className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                        className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                         target="_blank"
                                     >
                                         詳細
@@ -2394,7 +2394,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                                     <a
                                         rel="noopener noreferrer"
                                         href="https://istqb.org/certifications/certified-tester-agile-test-leadership-at-scale-ct-atlas/"
-                                        className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                                        className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                                         target="_blank"
                                     >
                                         詳細
@@ -2426,7 +2426,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                     </h3>
                     <div className="card-grid grid grid-cols-[repeat(auto-fit,minmax(280px,1fr))] gap-4">
                         <div className="principle-card bg-bg-card border border-border rounded-sm py-4 px-5 flex gap-4 items-start transition-all duration-200 hover:border-border-bright">
-                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/25 shrink-0 leading-none mt-[3px]">
+                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/60 shrink-0 leading-none mt-[3px]">
                                 01
                             </div>
                             <div className="principle-text">
@@ -2437,7 +2437,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             </div>
                         </div>
                         <div className="principle-card bg-bg-card border border-border rounded-sm py-4 px-5 flex gap-4 items-start transition-all duration-200 hover:border-border-bright">
-                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/25 shrink-0 leading-none mt-[3px]">
+                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/60 shrink-0 leading-none mt-[3px]">
                                 02
                             </div>
                             <div className="principle-text">
@@ -2448,7 +2448,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             </div>
                         </div>
                         <div className="principle-card bg-bg-card border border-border rounded-sm py-4 px-5 flex gap-4 items-start transition-all duration-200 hover:border-border-bright">
-                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/25 shrink-0 leading-none mt-[3px]">
+                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/60 shrink-0 leading-none mt-[3px]">
                                 03
                             </div>
                             <div className="principle-text">
@@ -2459,7 +2459,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             </div>
                         </div>
                         <div className="principle-card bg-bg-card border border-border rounded-sm py-4 px-5 flex gap-4 items-start transition-all duration-200 hover:border-border-bright">
-                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/25 shrink-0 leading-none mt-[3px]">
+                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/60 shrink-0 leading-none mt-[3px]">
                                 04
                             </div>
                             <div className="principle-text">
@@ -2470,7 +2470,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             </div>
                         </div>
                         <div className="principle-card bg-bg-card border border-border rounded-sm py-4 px-5 flex gap-4 items-start transition-all duration-200 hover:border-border-bright">
-                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/25 shrink-0 leading-none mt-[3px]">
+                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/60 shrink-0 leading-none mt-[3px]">
                                 05
                             </div>
                             <div className="principle-text">
@@ -2481,7 +2481,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             </div>
                         </div>
                         <div className="principle-card bg-bg-card border border-border rounded-sm py-4 px-5 flex gap-4 items-start transition-all duration-200 hover:border-border-bright">
-                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/25 shrink-0 leading-none mt-[3px]">
+                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/60 shrink-0 leading-none mt-[3px]">
                                 06
                             </div>
                             <div className="principle-text">
@@ -2495,7 +2495,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                             className="principle-card bg-bg-card border border-border rounded-sm py-4 px-5 flex gap-4 items-start transition-all duration-200 hover:border-border-bright"
                             style={{ gridColumn: '1 / -1' }}
                         >
-                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/25 shrink-0 leading-none mt-[3px]">
+                            <div className="principle-num font-mono text-[1.4rem] font-bold text-accent-blue/60 shrink-0 leading-none mt-[3px]">
                                 07
                             </div>
                             <div className="principle-text">
@@ -2511,7 +2511,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://istqb.org/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             istqb.org — 公式サイト
@@ -2519,7 +2519,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             CTFL v4.0 詳細
@@ -2527,7 +2527,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://istqb.org/certifications/"
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             全資格一覧
@@ -2535,7 +2535,7 @@ test(<span class="str">'ユーザーが商品を購入できる'</span>, <span c
                         <a
                             rel="noopener noreferrer"
                             href="https://glossary.istqb.org/en_US/search?term="
-                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue opacity-90 no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
+                            className='url-ref inline-flex items-center gap-[5px] font-mono text-[11px] text-accent-blue no-underline border-b border-dashed border-accent-blue/30 pb-[1px] transition-opacity duration-200 hover:opacity-100 before:content-["🔗"] before:text-[10px]'
                             target="_blank"
                         >
                             ISTQBグロッサリー

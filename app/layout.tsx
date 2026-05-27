@@ -7,6 +7,7 @@ import { DisclaimerBanner } from '../components/DisclaimerBanner';
 const notoSansJP = Noto_Sans_JP({
   weight: ['300', '400', '500', '700'],
   subsets: ['latin'],
+  preload: false,
   display: 'swap',
   variable: '--font-body',
 });
