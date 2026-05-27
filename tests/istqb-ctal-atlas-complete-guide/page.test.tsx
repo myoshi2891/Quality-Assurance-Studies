@@ -11,8 +11,10 @@ class MockIntersectionObserver {
     mockObserverCallback = callback;
     mockObserverDisconnect = mock(() => {});
   }
-  observe() {}
-  unobserve() {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  observe(target: Element) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  unobserve(target: Element) {}
   disconnect() {
     if (mockObserverDisconnect) mockObserverDisconnect();
   }

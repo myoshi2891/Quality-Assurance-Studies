@@ -5,8 +5,10 @@ import Page from '../../app/istqb-ctal-tm-complete-guide/page';
 class MockIntersectionObserver {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {}
-  observe() {}
-  unobserve() {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  observe(target: Element) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  unobserve(target: Element) {}
   disconnect() {}
 }
 let _originalIntersectionObserver: typeof IntersectionObserver;

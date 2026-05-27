@@ -5,12 +5,28 @@ import Page from '../../app/istqb-ctal-tta-complete-guide/page';
 import NavBar from '../../app/istqb-ctal-tta-complete-guide/NavBar';
 
 // IntersectionObserver のモック
-const mockIntersectionObserver = class {
-    constructor() {}
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-};
+class MockIntersectionObserver implements IntersectionObserver {
+    readonly root: Element | Document | null = null;
+    readonly rootMargin: string = '';
+    readonly thresholds: readonly number[] = [];
+
+    private callback: IntersectionObserverCallback;
+    private options?: IntersectionObserverInit;
+
+    constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
+        this.callback = callback;
+        this.options = options;
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    observe(target: Element): void {}
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    unobserve(target: Element): void {}
+    disconnect(): void {}
+    takeRecords(): IntersectionObserverEntry[] {
+        return [];
+    }
+}
 
 describe('istqb-ctal-tta-complete-guide', () => {
     let originalIntersectionObserver: typeof IntersectionObserver | undefined;
@@ -20,7 +36,7 @@ describe('istqb-ctal-tta-complete-guide', () => {
         Object.defineProperty(window, 'IntersectionObserver', {
             writable: true,
             configurable: true,
-            value: mockIntersectionObserver,
+            value: MockIntersectionObserver,
         });
     });
 

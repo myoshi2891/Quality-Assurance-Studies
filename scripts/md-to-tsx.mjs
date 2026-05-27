@@ -4,9 +4,8 @@ import { fileURLToPath } from 'url';
 import { marked } from 'marked';
 import * as cheerio from 'cheerio';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const __filename = fileURLToPath(import.meta.url);
-// eslint-disable-next-line @typescript-eslint/no-unused-vars -- kept for scripts that may reference __dirname
-const __dirname = path.dirname(__filename);
 
 const args = process.argv.slice(2);
 if (args.length < 2) {
