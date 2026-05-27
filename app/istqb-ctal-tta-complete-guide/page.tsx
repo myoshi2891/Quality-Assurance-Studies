@@ -1070,9 +1070,9 @@ export default function IstqbCtalTtaCompleteGuide() {
                                 <div className="code-line">    <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_brute_force_protection</span>(self, api_client):</div>
                                 <div className="code-line">        <span className="text-[#c792ea]">for</span> i <span className="text-[#c792ea]">in</span> range(<span className="text-[#f78c6c]">5</span>):  <span className="text-[#4a7c59] italic"># 5回失敗試行</span></div>
                                 <div className="code-line">            api_client.post(<span className="text-[#c3e88d]">"/login"</span>, json={"{"}<span className="text-[#c3e88d]">"email"</span>: <span className="text-[#c3e88d]">"victim@test.com"</span>,</div>
-                                <div className="code-line">                                          <span className="text-[#c3e88d]">"password"</span>: <span className="text-[#c3e88d]">{"f\"wrong_{i}\""}</span>})</div>
+                                <div className="code-line">                                          <span className="text-[#c3e88d]">"password"</span>: <span className="text-[#c3e88d]">{"f\"wrong_{i}\""}</span>{"}"})</div>
                                 <div className="code-line">        r = api_client.post(<span className="text-[#c3e88d]">"/login"</span>, json={"{"}<span className="text-[#c3e88d]">"email"</span>: <span className="text-[#c3e88d]">"victim@test.com"</span>,</div>
-                                <div className="code-line">                                         <span className="text-[#c3e88d]">"password"</span>: <span className="text-[#c3e88d]">"correct"</span>})</div>
+                                <div className="code-line">                                         <span className="text-[#c3e88d]">"password"</span>: <span className="text-[#c3e88d]">"correct"</span>{"}"})</div>
                                 <div className="code-line">        assert r.status_code == <span className="text-[#f78c6c]">429</span>  <span className="text-[#4a7c59] italic"># ✅ アカウントロック</span></div>
                             </div>
                         </div>
