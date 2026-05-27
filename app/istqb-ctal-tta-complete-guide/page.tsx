@@ -1,5 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar';
+import Mermaid from '../../components/Mermaid';
 import './istqb-ctal-tta.css';
 
 export default function IstqbCtalTtaCompleteGuide() {
@@ -348,14 +349,14 @@ export default function IstqbCtalTtaCompleteGuide() {
                             </div>
                             <div className="p-5 overflow-x-auto text-[0.82rem] font-mono leading-relaxed text-text-primary">
                                 <div className="code-line"><span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">calculate_discount</span>(price: <span className="text-accent-cyan">float</span>, customer_type: <span className="text-accent-cyan">str</span>) -&gt; <span className="text-accent-cyan">float</span>:</div>
-                                <div className="code-line">    discount = <span className="text-[#f78c6c]">0.0</span>                    <span className="text-[#4a7c59] italic"># ステートメント 1</span></div>
+                                <div className="code-line">{"    "}discount = <span className="text-[#f78c6c]">0.0</span>{"                    "}<span className="text-[#4a7c59] italic"># ステートメント 1</span></div>
                                 <div className="code-line"></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">if</span> customer_type == <span className="text-[#c3e88d]">"premium"</span>:    <span className="text-[#4a7c59] italic"># ステートメント 2（条件判定）</span></div>
-                                <div className="code-line">        discount = <span className="text-[#f78c6c]">0.20</span>               <span className="text-[#4a7c59] italic"># ステートメント 3</span></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">elif</span> customer_type == <span className="text-[#c3e88d]">"regular"</span>:  <span className="text-[#4a7c59] italic"># ステートメント 4</span></div>
-                                <div className="code-line">        discount = <span className="text-[#f78c6c]">0.10</span>               <span className="text-[#4a7c59] italic"># ステートメント 5</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">if</span> customer_type == <span className="text-[#c3e88d]">"premium"</span>:{"    "}<span className="text-[#4a7c59] italic"># ステートメント 2（条件判定）</span></div>
+                                <div className="code-line">{"        "}discount = <span className="text-[#f78c6c]">0.20</span>{"               "}<span className="text-[#4a7c59] italic"># ステートメント 3</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">elif</span> customer_type == <span className="text-[#c3e88d]">"regular"</span>:{"  "}<span className="text-[#4a7c59] italic"># ステートメント 4</span></div>
+                                <div className="code-line">{"        "}discount = <span className="text-[#f78c6c]">0.10</span>{"               "}<span className="text-[#4a7c59] italic"># ステートメント 5</span></div>
                                 <div className="code-line"></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">return</span> price * (<span className="text-[#f78c6c]">1</span> - discount)     <span className="text-[#4a7c59] italic"># ステートメント 6</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">return</span> price * (<span className="text-[#f78c6c]">1</span> - discount){"     "}<span className="text-[#4a7c59] italic"># ステートメント 6</span></div>
                                 <div className="code-line"></div>
                                 <div className="code-line"><span className="text-[#4a7c59] italic"># ── 100%ステートメントカバレッジ達成テスト ──</span></div>
                                 <div className="code-line"><span className="text-[#4a7c59] italic"># テスト1: "premium" → ステートメント 1,2,3,6 実行</span></div>
@@ -381,9 +382,8 @@ export default function IstqbCtalTtaCompleteGuide() {
                             <dd>コード内の各決定（IF/SWITCH/LOOP等）のTrue/False両方の結果を実行するテスト技法。ブランチテスト（Branch Testing）とほぼ同義。デシジョンカバレッジ100% → ステートメントカバレッジ100%（逆は成立しない！）</dd>
                         </dl>
 
-                        <div className="my-8 flex flex-col items-center gap-3">
-                            <pre className="mermaid bg-[#060e1a] p-4 rounded-xl border border-border w-full overflow-x-auto text-sm text-text-primary text-center">
-{`flowchart TD
+                        <div className="my-8 flex flex-col items-center gap-3 w-full">
+                            <Mermaid chart={`flowchart TD
     Start([START]) --> Dec1{age >= 18?}
     Dec1 -- False --> UnderAge[UnderAge]
     Dec1 -- True --> Dec2{has_id?}
@@ -391,8 +391,7 @@ export default function IstqbCtalTtaCompleteGuide() {
     Dec2 -- True --> AccGranted[Access Granted]
     UnderAge --> End([END])
     IdReq --> End
-    AccGranted --> End`}
-                            </pre>
+    AccGranted --> End`} />
                             <div className="text-[0.8rem] text-text-muted text-center italic">図2-2: デシジョンテストのコントロールフローグラフ（CFG）— 3テストケースで全4決定結果をカバー</div>
                         </div>
                     </div>
@@ -641,40 +640,40 @@ export default function IstqbCtalTtaCompleteGuide() {
                             </div>
                             <div className="p-5 overflow-x-auto text-[0.82rem] font-mono leading-relaxed text-text-primary">
                                 <div className="code-line"><span className="text-[#c792ea]">class</span> <span className="text-[#82aaff]">SecurityTestSuite</span>:</div>
-                                <div className="code-line">    <span className="text-[#4a7c59] italic"># ── セキュリティ検証（SQLインジェクション防御） ──</span></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_sql_injection_prevention</span>(self, api_client):</div>
-                                <div className="code-line">        sql_payloads = [</div>
-                                <div className="code-line">            <span className="text-[#c3e88d]">"'; DROP TABLE users; --"</span>,</div>
-                                <div className="code-line">            <span className="text-[#c3e88d]">"1' OR '1'='1"</span>,</div>
-                                <div className="code-line">            <span className="text-[#c3e88d]">"admin'--"</span>,</div>
-                                <div className="code-line">        ]</div>
-                                <div className="code-line">        <span className="text-[#c792ea]">for</span> payload <span className="text-[#c792ea]">in</span> sql_payloads:</div>
-                                <div className="code-line">            response = api_client.post(</div>
-                                <div className="code-line">                <span className="text-[#c3e88d]">"/users/search"</span>,</div>
-                                <div className="code-line">                json={"{{"}<span className="text-[#c3e88d]">"query"</span>: payload{"}}"}</div>
-                                <div className="code-line">            )</div>
-                                <div className="code-line">            <span className="text-[#4a7c59] italic"># ✅ 500エラーが出ないことを検証（DBエラー漏洩防止）</span></div>
-                                <div className="code-line">            assert response.status_code <span className="text-[#c792ea]">in</span> [<span className="text-[#f78c6c]">200</span>, <span className="text-[#f78c6c]">400</span>, <span className="text-[#f78c6c]">422</span>]</div>
-                                <div className="code-line">            assert <span className="text-[#c3e88d]">"SQL"</span> <span className="text-[#c792ea]">not in</span> response.text</div>
+                                <div className="code-line">{"    "}<span className="text-[#4a7c59] italic"># ── セキュリティ検証（SQLインジェクション防御） ──</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_sql_injection_prevention</span>(self, api_client):</div>
+                                <div className="code-line">{"        "}sql_payloads = [</div>
+                                <div className="code-line">{"            "}<span className="text-[#c3e88d]">"'; DROP TABLE users; --"</span>,</div>
+                                <div className="code-line">{"            "}<span className="text-[#c3e88d]">"1' OR '1'='1"</span>,</div>
+                                <div className="code-line">{"            "}<span className="text-[#c3e88d]">"admin'--"</span>,</div>
+                                <div className="code-line">{"        "}]</div>
+                                <div className="code-line">{"        "}<span className="text-[#c792ea]">for</span> payload <span className="text-[#c792ea]">in</span> sql_payloads:</div>
+                                <div className="code-line">{"            "}response = api_client.post(</div>
+                                <div className="code-line">{"                "}<span className="text-[#c3e88d]">"/users/search"</span>,</div>
+                                <div className="code-line">{"                "}json={"{{"}<span className="text-[#c3e88d]">"query"</span>: payload{"}}"}</div>
+                                <div className="code-line">{"            "})</div>
+                                <div className="code-line">{"            "}<span className="text-[#4a7c59] italic"># ✅ 500エラーが出ないことを検証（DBエラー漏洩防止）</span></div>
+                                <div className="code-line">{"            "}assert response.status_code <span className="text-[#c792ea]">in</span> [<span className="text-[#f78c6c]">200</span>, <span className="text-[#f78c6c]">400</span>, <span className="text-[#f78c6c]">422</span>]</div>
+                                <div className="code-line">{"            "}assert <span className="text-[#c3e88d]">"SQL"</span> <span className="text-[#c792ea]">not in</span> response.text</div>
                                 <div className="code-line"></div>
-                                <div className="code-line">    <span className="text-[#4a7c59] italic"># ── 認可テスト（アクセス制御検証） ──</span></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_broken_access_control</span>(self, api_client, user_token):</div>
-                                <div className="code-line">        response = api_client.get(</div>
-                                <div className="code-line">            <span className="text-[#c3e88d]">"/admin/users"</span>,</div>
-                                <div className="code-line">            headers={"{"}<span className="text-[#c3e88d]">"Authorization"</span>: <span className="text-[#c3e88d]">{"f\"Bearer {user_token}\""}</span>{"}"}</div>
-                                <div className="code-line">        )</div>
-                                <div className="code-line">        assert response.status_code == <span className="text-[#f78c6c]">403</span>  <span className="text-[#4a7c59] italic"># ✅ Forbidden</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#4a7c59] italic"># ── 認可テスト（アクセス制御検証） ──</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_broken_access_control</span>(self, api_client, user_token):</div>
+                                <div className="code-line">{"        "}response = api_client.get(</div>
+                                <div className="code-line">{"            "}<span className="text-[#c3e88d]">"/admin/users"</span>,</div>
+                                <div className="code-line">{"            "}headers={"{"}<span className="text-[#c3e88d]">"Authorization"</span>: <span className="text-[#c3e88d]">{"f\"Bearer {user_token}\""}</span>{"}"}</div>
+                                <div className="code-line">{"        "})</div>
+                                <div className="code-line">{"        "}assert response.status_code == <span className="text-[#f78c6c]">403</span>{"  "}<span className="text-[#4a7c59] italic"># ✅ Forbidden</span></div>
                                 <div className="code-line"></div>
-                                <div className="code-line">    <span className="text-[#4a7c59] italic"># ── パフォーマンステスト（並列リクエスト） ──</span></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_concurrent_requests</span>(self, api_client):</div>
-                                <div className="code-line">        <span className="text-[#c792ea]">import</span> threading</div>
-                                <div className="code-line">        results = []</div>
-                                <div className="code-line">        <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">make_request</span>():</div>
-                                <div className="code-line">            r = api_client.get(<span className="text-[#c3e88d]">"/health"</span>)</div>
-                                <div className="code-line">            results.append(r.status_code)</div>
-                                <div className="code-line">        threads = [threading.Thread(target=make_request) <span className="text-[#c792ea]">for</span> _ <span className="text-[#c792ea]">in</span> range(<span className="text-[#f78c6c]">50</span>)]</div>
-                                <div className="code-line">        [t.start() <span className="text-[#c792ea]">for</span> t <span className="text-[#c792ea]">in</span> threads]; [t.join() <span className="text-[#c792ea]">for</span> t <span className="text-[#c792ea]">in</span> threads]</div>
-                                <div className="code-line">        assert all(s == <span className="text-[#f78c6c]">200</span> <span className="text-[#c792ea]">for</span> s <span className="text-[#c792ea]">in</span> results)  <span className="text-[#4a7c59] italic"># 全50リクエスト成功</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#4a7c59] italic"># ── パフォーマンステスト（並列リクエスト） ──</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_concurrent_requests</span>(self, api_client):</div>
+                                <div className="code-line">{"        "}<span className="text-[#c792ea]">import</span> threading</div>
+                                <div className="code-line">{"        "}results = []</div>
+                                <div className="code-line">{"        "}<span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">make_request</span>():</div>
+                                <div className="code-line">{"            "}r = api_client.get(<span className="text-[#c3e88d]">"/health"</span>)</div>
+                                <div className="code-line">{"            "}results.append(r.status_code)</div>
+                                <div className="code-line">{"        "}threads = [threading.Thread(target=make_request) <span className="text-[#c792ea]">for</span> _ <span className="text-[#c792ea]">in</span> range(<span className="text-[#f78c6c]">50</span>)]</div>
+                                <div className="code-line">{"        "}[t.start() <span className="text-[#c792ea]">for</span> t <span className="text-[#c792ea]">in</span> threads]; [t.join() <span className="text-[#c792ea]">for</span> t <span className="text-[#c792ea]">in</span> threads]</div>
+                                <div className="code-line">{"        "}assert all(s == <span className="text-[#f78c6c]">200</span> <span className="text-[#c792ea]">for</span> s <span className="text-[#c792ea]">in</span> results){"  "}<span className="text-[#4a7c59] italic"># 全50リクエスト成功</span></div>
                             </div>
                         </div>
 
@@ -922,14 +921,14 @@ export default function IstqbCtalTtaCompleteGuide() {
                                 <div className="code-line"></div>
                                 <div className="code-line"><span className="text-[#4a7c59] italic"># ❌ 非効率: フィボナッチ O(2ⁿ) 指数時間</span></div>
                                 <div className="code-line"><span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">fib_slow</span>(n):</div>
-                                <div className="code-line">    <span className="text-[#c792ea]">if</span> n &lt;= <span className="text-[#f78c6c]">1</span>: <span className="text-[#c792ea]">return</span> n</div>
-                                <div className="code-line">    <span className="text-[#c792ea]">return</span> fib_slow(n-<span className="text-[#f78c6c]">1</span>) + fib_slow(n-<span className="text-[#f78c6c]">2</span>)</div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">if</span> n &lt;= <span className="text-[#f78c6c]">1</span>: <span className="text-[#c792ea]">return</span> n</div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">return</span> fib_slow(n-<span className="text-[#f78c6c]">1</span>) + fib_slow(n-<span className="text-[#f78c6c]">2</span>)</div>
                                 <div className="code-line"></div>
                                 <div className="code-line"><span className="text-[#4a7c59] italic"># ✅ 最適化: メモ化で O(n) 線形時間</span></div>
                                 <div className="code-line">@lru_cache(maxsize=<span className="text-[#c792ea]">None</span>)</div>
                                 <div className="code-line"><span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">fib_fast</span>(n):</div>
-                                <div className="code-line">    <span className="text-[#c792ea]">if</span> n &lt;= <span className="text-[#f78c6c]">1</span>: <span className="text-[#c792ea]">return</span> n</div>
-                                <div className="code-line">    <span className="text-[#c792ea]">return</span> fib_fast(n-<span className="text-[#f78c6c]">1</span>) + fib_fast(n-<span className="text-[#f78c6c]">2</span>)</div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">if</span> n &lt;= <span className="text-[#f78c6c]">1</span>: <span className="text-[#c792ea]">return</span> n</div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">return</span> fib_fast(n-<span className="text-[#f78c6c]">1</span>) + fib_fast(n-<span className="text-[#f78c6c]">2</span>)</div>
                                 <div className="code-line"></div>
                                 <div className="code-line"><span className="text-[#4a7c59] italic"># プロファイリングで実行時間を測定</span></div>
                                 <div className="code-line">profiler = cProfile.Profile()</div>
@@ -1045,36 +1044,36 @@ export default function IstqbCtalTtaCompleteGuide() {
                             </div>
                             <div className="p-5 overflow-x-auto text-[0.82rem] font-mono leading-relaxed text-text-primary">
                                 <div className="code-line"><span className="text-[#c792ea]">class</span> <span className="text-[#82aaff]">SecurityTestSuite</span>:</div>
-                                <div className="code-line">    <span className="text-[#4a7c59] italic"># ── A01: アクセス制御の欠陥 ──</span></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_broken_access_control</span>(self, api_client, user_token):</div>
-                                <div className="code-line">        response = api_client.get(</div>
-                                <div className="code-line">            <span className="text-[#c3e88d]">"/admin/users"</span>,</div>
-                                <div className="code-line">            headers={"{"}<span className="text-[#c3e88d]">"Authorization"</span>: <span className="text-[#c3e88d]">{"f\"Bearer {user_token}\""}</span>{"}"}</div>
-                                <div className="code-line">        )</div>
-                                <div className="code-line">        assert response.status_code == <span className="text-[#f78c6c]">403</span>  <span className="text-[#4a7c59] italic"># ✅ Forbidden</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#4a7c59] italic"># ── A01: アクセス制御の欠陥 ──</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_broken_access_control</span>(self, api_client, user_token):</div>
+                                <div className="code-line">{"        "}response = api_client.get(</div>
+                                <div className="code-line">{"            "}<span className="text-[#c3e88d]">"/admin/users"</span>,</div>
+                                <div className="code-line">{"            "}headers={"{"}<span className="text-[#c3e88d]">"Authorization"</span>: <span className="text-[#c3e88d]">{"f\"Bearer {user_token}\""}</span>{"}"}</div>
+                                <div className="code-line">{"        "})</div>
+                                <div className="code-line">{"        "}assert response.status_code == <span className="text-[#f78c6c]">403</span>{"  "}<span className="text-[#4a7c59] italic"># ✅ Forbidden</span></div>
                                 <div className="code-line"></div>
-                                <div className="code-line">    <span className="text-[#4a7c59] italic"># ── A02: 暗号化の失敗 ──</span></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_password_hashing</span>(self, db):</div>
-                                <div className="code-line">        user = db.query(<span className="text-[#c3e88d]">"SELECT password FROM users WHERE id=1"</span>)</div>
-                                <div className="code-line">        assert <span className="text-[#c792ea]">not</span> user[<span className="text-[#c3e88d]">"password"</span>].isalpha()  <span className="text-[#4a7c59] italic"># 平文ではない</span></div>
-                                <div className="code-line">        assert len(user[<span className="text-[#c3e88d]">"password"</span>]) &gt;= <span className="text-[#f78c6c]">60</span>        <span className="text-[#4a7c59] italic"># bcrypt長</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#4a7c59] italic"># ── A02: 暗号化の失敗 ──</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_password_hashing</span>(self, db):</div>
+                                <div className="code-line">{"        "}user = db.query(<span className="text-[#c3e88d]">"SELECT password FROM users WHERE id=1"</span>)</div>
+                                <div className="code-line">{"        "}assert <span className="text-[#c792ea]">not</span> user[<span className="text-[#c3e88d]">"password"</span>].isalpha(){"  "}<span className="text-[#4a7c59] italic"># 平文ではない</span></div>
+                                <div className="code-line">{"        "}assert len(user[<span className="text-[#c3e88d]">"password"</span>]) &gt;= <span className="text-[#f78c6c]">60</span>{"        "}<span className="text-[#4a7c59] italic"># bcrypt長</span></div>
                                 <div className="code-line"></div>
-                                <div className="code-line">    <span className="text-[#4a7c59] italic"># ── A03: インジェクション ──</span></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_sql_injection</span>(self, api_client):</div>
-                                <div className="code-line">        payloads = [<span className="text-[#c3e88d]">"1; DROP TABLE users; --"</span>, <span className="text-[#c3e88d]">"1' OR '1'='1"</span>]</div>
-                                <div className="code-line">        <span className="text-[#c792ea]">for</span> p <span className="text-[#c792ea]">in</span> payloads:</div>
-                                <div className="code-line">            r = api_client.get(<span className="text-[#c3e88d]">{"f\"/users?id={p}\""}</span>)</div>
-                                <div className="code-line">            assert r.status_code != <span className="text-[#f78c6c]">500</span>           <span className="text-[#4a7c59] italic"># ✅ DBエラー非露出</span></div>
-                                <div className="code-line">            assert <span className="text-[#c3e88d]">"SQL"</span> <span className="text-[#c792ea]">not in</span> r.text          <span className="text-[#4a7c59] italic"># ✅ エラー詳細非露出</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#4a7c59] italic"># ── A03: インジェクション ──</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_sql_injection</span>(self, api_client):</div>
+                                <div className="code-line">{"        "}payloads = [<span className="text-[#c3e88d]">"1; DROP TABLE users; --"</span>, <span className="text-[#c3e88d]">"1' OR '1'='1"</span>]</div>
+                                <div className="code-line">{"        "}<span className="text-[#c792ea]">for</span> p <span className="text-[#c792ea]">in</span> payloads:</div>
+                                <div className="code-line">{"            "}r = api_client.get(<span className="text-[#c3e88d]">{"f\"/users?id={p}\""}</span>)</div>
+                                <div className="code-line">{"            "}assert r.status_code != <span className="text-[#f78c6c]">500</span>{"           "}<span className="text-[#4a7c59] italic"># ✅ DBエラー非露出</span></div>
+                                <div className="code-line">{"            "}assert <span className="text-[#c3e88d]">"SQL"</span> <span className="text-[#c792ea]">not in</span> r.text{"          "}<span className="text-[#4a7c59] italic"># ✅ エラー詳細非露出</span></div>
                                 <div className="code-line"></div>
-                                <div className="code-line">    <span className="text-[#4a7c59] italic"># ── A07: 認証の失敗（ブルートフォース対策） ──</span></div>
-                                <div className="code-line">    <span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_brute_force_protection</span>(self, api_client):</div>
-                                <div className="code-line">        <span className="text-[#c792ea]">for</span> i <span className="text-[#c792ea]">in</span> range(<span className="text-[#f78c6c]">5</span>):  <span className="text-[#4a7c59] italic"># 5回失敗試行</span></div>
-                                <div className="code-line">            api_client.post(<span className="text-[#c3e88d]">"/login"</span>, json={"{"}<span className="text-[#c3e88d]">"email"</span>: <span className="text-[#c3e88d]">"victim@test.com"</span>,</div>
-                                <div className="code-line">                                          <span className="text-[#c3e88d]">"password"</span>: <span className="text-[#c3e88d]">{"f\"wrong_{i}\""}</span>{"}"})</div>
-                                <div className="code-line">        r = api_client.post(<span className="text-[#c3e88d]">"/login"</span>, json={"{"}<span className="text-[#c3e88d]">"email"</span>: <span className="text-[#c3e88d]">"victim@test.com"</span>,</div>
-                                <div className="code-line">                                         <span className="text-[#c3e88d]">"password"</span>: <span className="text-[#c3e88d]">"correct"</span>{"}"})</div>
-                                <div className="code-line">        assert r.status_code == <span className="text-[#f78c6c]">429</span>  <span className="text-[#4a7c59] italic"># ✅ アカウントロック</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#4a7c59] italic"># ── A07: 認証の失敗（ブルートフォース対策） ──</span></div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">test_brute_force_protection</span>(self, api_client):</div>
+                                <div className="code-line">{"        "}<span className="text-[#c792ea]">for</span> i <span className="text-[#c792ea]">in</span> range(<span className="text-[#f78c6c]">5</span>):{"  "}<span className="text-[#4a7c59] italic"># 5回失敗試行</span></div>
+                                <div className="code-line">{"            "}api_client.post(<span className="text-[#c3e88d]">"/login"</span>, json={"{"}<span className="text-[#c3e88d]">"email"</span>: <span className="text-[#c3e88d]">"victim@test.com"</span>,</div>
+                                <div className="code-line">{"                                          "}<span className="text-[#c3e88d]">"password"</span>: <span className="text-[#c3e88d]">{"f\"wrong_{i}\""}</span>{"}"})</div>
+                                <div className="code-line">{"        "}r = api_client.post(<span className="text-[#c3e88d]">"/login"</span>, json={"{"}<span className="text-[#c3e88d]">"email"</span>: <span className="text-[#c3e88d]">"victim@test.com"</span>,</div>
+                                <div className="code-line">{"                                         "}<span className="text-[#c3e88d]">"password"</span>: <span className="text-[#c3e88d]">"correct"</span>{"}"})</div>
+                                <div className="code-line">{"        "}assert r.status_code == <span className="text-[#f78c6c]">429</span>{"  "}<span className="text-[#4a7c59] italic"># ✅ アカウントロック</span></div>
                             </div>
                         </div>
                     </div>
@@ -1525,13 +1524,13 @@ export default function IstqbCtalTtaCompleteGuide() {
 <div className="code-line"><span className="text-[#4a7c59] italic"># ミューテーションテスト（Mutmut）</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># 元コード</span></div>
 <div className="code-line"><span className="text-[#c792ea]">def</span> is_adult(age: int) -&gt; bool:</div>
-<div className="code-line">    <span className="text-[#c792ea]">return</span> age &gt;= <span className="text-[#f78c6c]">18</span></div>
-<div className="code-line"></div>
+<div className="code-line">{"    "}<span className="text-[#c792ea]">return</span> age &gt;= <span className="text-[#f78c6c]">18</span></div>
+<div className="code-line">{" "}</div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># Mutmutが生成するミュータント:</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># M1: return age &gt; 18   ← テストで検出できる?</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># M2: return age &lt;= 18  ← テストで検出できる?</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># M3: return age != 18  ← テストで検出できる?</span></div>
-<div className="code-line"></div>
+<div className="code-line">{" "}</div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># ミューテーションスコア</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># = 殺されたミュータント / 総ミュータント × 100</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># 目標: 80%以上</span></div>
@@ -1542,14 +1541,14 @@ export default function IstqbCtalTtaCompleteGuide() {
                                 <pre className="font-mono text-[0.78rem] leading-relaxed text-text-secondary overflow-x-auto">
 <div className="code-line"><span className="text-[#4a7c59] italic"># Chaos Monkey / Chaos Toolkit</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># 実行時に障害を注入して耐性を確認</span></div>
-<div className="code-line"></div>
+<div className="code-line">{" "}</div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># 例: 依存サービスをダウンさせる</span></div>
 <div className="code-line">dependencies[<span className="text-[#c3e88d]">"payment"</span>].inject_failure()</div>
-<div className="code-line"></div>
+<div className="code-line">{" "}</div>
 <div className="code-line">response = system.post(<span className="text-[#c3e88d]">"/checkout"</span>)</div>
 <div className="code-line">assert response.status_code == <span className="text-[#f78c6c]">503</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># ✅ 503 + 適切なエラーメッセージ</span></div>
-<div className="code-line"></div>
+<div className="code-line">{" "}</div>
 <div className="code-line">response = system.get(<span className="text-[#c3e88d]">"/products"</span>)</div>
 <div className="code-line">assert response.status_code == <span className="text-[#f78c6c]">200</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># ✅ 関係ない機能は正常稼働</span></div>
@@ -1642,26 +1641,26 @@ export default function IstqbCtalTtaCompleteGuide() {
                             </div>
                             <div className="p-5 overflow-x-auto text-[0.82rem] font-mono leading-relaxed text-text-primary">
                                 <div className="code-line"><span className="text-[#c792ea]">def</span> <span className="text-[#82aaff]">calculate_automation_roi</span>(</div>
-                                <div className="code-line">    manual_time_per_tc: <span className="text-accent-cyan">float</span>,     <span className="text-[#4a7c59] italic"># 手動1TC実行時間（時間）</span></div>
-                                <div className="code-line">    tc_count:           <span className="text-accent-cyan">int</span>,         <span className="text-[#4a7c59] italic"># テストケース数</span></div>
-                                <div className="code-line">    runs_per_year:      <span className="text-accent-cyan">int</span>,         <span className="text-[#4a7c59] italic"># 年間実行回数</span></div>
-                                <div className="code-line">    dev_cost:           <span className="text-accent-cyan">float</span>,     <span className="text-[#4a7c59] italic"># 自動化開発コスト（時間）</span></div>
-                                <div className="code-line">    maintenance:        <span className="text-accent-cyan">float</span>,     <span className="text-[#4a7c59] italic"># 年間メンテナンス（時間）</span></div>
-                                <div className="code-line">    rate:               <span className="text-accent-cyan">float</span> = <span className="text-[#f78c6c]">8000</span>  <span className="text-[#4a7c59] italic"># 時給（円）</span></div>
+                                <div className="code-line">{"    "}manual_time_per_tc: <span className="text-accent-cyan">float</span>,     <span className="text-[#4a7c59] italic"># 手動1TC実行時間（時間）</span></div>
+                                <div className="code-line">{"    "}tc_count:           <span className="text-accent-cyan">int</span>,         <span className="text-[#4a7c59] italic"># テストケース数</span></div>
+                                <div className="code-line">{"    "}runs_per_year:      <span className="text-accent-cyan">int</span>,         <span className="text-[#4a7c59] italic"># 年間実行回数</span></div>
+                                <div className="code-line">{"    "}dev_cost:           <span className="text-accent-cyan">float</span>,     <span className="text-[#4a7c59] italic"># 自動化開発コスト（時間）</span></div>
+                                <div className="code-line">{"    "}maintenance:        <span className="text-accent-cyan">float</span>,     <span className="text-[#4a7c59] italic"># 年間メンテナンス（時間）</span></div>
+                                <div className="code-line">{"    "}rate:               <span className="text-accent-cyan">float</span> = <span className="text-[#f78c6c]">8000</span>  <span className="text-[#4a7c59] italic"># 時給（円）</span></div>
                                 <div className="code-line">) -&gt; dict:</div>
-                                <div className="code-line">    annual_manual = manual_time_per_tc * tc_count * runs_per_year * rate</div>
-                                <div className="code-line">    annual_auto_cost = maintenance * rate</div>
-                                <div className="code-line">    annual_savings = annual_manual - annual_auto_cost</div>
-                                <div className="code-line">    investment = dev_cost * rate</div>
-                                <div className="code-line">    roi = (annual_savings - investment) / investment * <span className="text-[#f78c6c]">100</span></div>
-                                <div className="code-line">    breakeven_months = investment / (annual_savings / <span className="text-[#f78c6c]">12</span>)</div>
-                                <div className="code-line">    <span className="text-[#c792ea]">return</span> {'{'}</div>
-                                <div className="code-line">        <span className="text-[#c3e88d]">"年間手動コスト"</span>:   <span className="text-[#c3e88d]">{"f\"¥{annual_manual:,.0f}\""}</span>,</div>
-                                <div className="code-line">        <span className="text-[#c3e88d]">"年間節約額"</span>:       <span className="text-[#c3e88d]">{"f\"¥{annual_savings:,.0f}\""}</span>,</div>
-                                <div className="code-line">        <span className="text-[#c3e88d]">"初期投資"</span>:         <span className="text-[#c3e88d]">{"f\"¥{investment:,.0f}\""}</span>,</div>
-                                <div className="code-line">        <span className="text-[#c3e88d]">"ROI"</span>:              <span className="text-[#c3e88d]">{"f\"{roi:.0f}%\""}</span>,</div>
-                                <div className="code-line">        <span className="text-[#c3e88d]">"Break-even"</span>:      <span className="text-[#c3e88d]">{"f\"{breakeven_months:.1f}ヶ月\""}</span></div>
-                                <div className="code-line">    {'}'}</div>
+                                <div className="code-line">{"    "}annual_manual = manual_time_per_tc * tc_count * runs_per_year * rate</div>
+                                <div className="code-line">{"    "}annual_auto_cost = maintenance * rate</div>
+                                <div className="code-line">{"    "}annual_savings = annual_manual - annual_auto_cost</div>
+                                <div className="code-line">{"    "}investment = dev_cost * rate</div>
+                                <div className="code-line">{"    "}roi = (annual_savings - investment) / investment * <span className="text-[#f78c6c]">100</span></div>
+                                <div className="code-line">{"    "}breakeven_months = investment / (annual_savings / <span className="text-[#f78c6c]">12</span>)</div>
+                                <div className="code-line">{"    "}<span className="text-[#c792ea]">return</span> {'{'}</div>
+                                <div className="code-line">{"        "}<span className="text-[#c3e88d]">"年間手動コスト"</span>:   <span className="text-[#c3e88d]">{"f\"¥{annual_manual:,.0f}\""}</span>,</div>
+                                <div className="code-line">{"        "}<span className="text-[#c3e88d]">"年間節約額"</span>:       <span className="text-[#c3e88d]">{"f\"¥{annual_savings:,.0f}\""}</span>,</div>
+                                <div className="code-line">{"        "}<span className="text-[#c3e88d]">"初期投資"</span>:         <span className="text-[#c3e88d]">{"f\"¥{investment:,.0f}\""}</span>,</div>
+                                <div className="code-line">{"        "}<span className="text-[#c3e88d]">"ROI"</span>:              <span className="text-[#c3e88d]">{"f\"{roi:.0f}%\""}</span>,</div>
+                                <div className="code-line">{"        "}<span className="text-[#c3e88d]">"Break-even"</span>:      <span className="text-[#c3e88d]">{"f\"{breakeven_months:.1f}ヶ月\""}</span></div>
+                                <div className="code-line">{"    "}{'}'}</div>
                                 <div className="code-line"></div>
                                 <div className="code-line"><span className="text-[#4a7c59] italic"># 例: 50TC × 年26回 × 30分/TC → 自動化開発200時間</span></div>
                                 <div className="code-line">result = calculate_automation_roi(<span className="text-[#f78c6c]">0.5</span>, <span className="text-[#f78c6c]">50</span>, <span className="text-[#f78c6c]">26</span>, <span className="text-[#f78c6c]">200</span>, <span className="text-[#f78c6c]">50</span>)</div>
@@ -1851,6 +1850,89 @@ export default function IstqbCtalTtaCompleteGuide() {
                             <div className="tta-ref-cat">公式 ISTQB®</div>
                             <div className="tta-ref-title">ISTQB グロッサリー（用語集）</div>
                             <div className="tta-ref-url">glossary.istqb.org</div>
+                        </a>
+                    </div>
+
+                    <div className="font-display text-[1rem] font-semibold text-accent-orange my-6 flex items-center gap-2 before:content-['◆'] before:text-[0.6rem]">試験プロバイダー・学習リソース</div>
+                    <div className="tta-ref-grid">
+                        <a className="tta-ref-card" href="https://isqi.org/ISTQB-Certified-Tester-Technical-Test-Analyst-CTAL-TTA/CT-AL-TTA.737" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">試験プロバイダー</div>
+                            <div className="tta-ref-title">iSQI 試験情報（CTAL-TTA）</div>
+                            <div className="tta-ref-url">isqi.org/.../CT-AL-TTA</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://www.istqb.guru/technical-test-analyst/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">学習リソース</div>
+                            <div className="tta-ref-title">ISTQB.Guru CTAL-TTA ガイド</div>
+                            <div className="tta-ref-url">istqb.guru/technical-test-analyst/</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://training.coveros.com/training/course/advanced-tester-certification-technical-test-analyst" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">学習リソース</div>
+                            <div className="tta-ref-title">Coveros CTAL-TTA トレーニング</div>
+                            <div className="tta-ref-url">training.coveros.com/.../ctal-tta</div>
+                        </a>
+                    </div>
+
+                    <div className="font-display text-[1rem] font-semibold text-accent-orange my-6 flex items-center gap-2 before:content-['◆'] before:text-[0.6rem]">セキュリティ・パフォーマンス・静的分析ツール</div>
+                    <div className="tta-ref-grid">
+                        <a className="tta-ref-card" href="https://owasp.org/www-project-top-ten/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">セキュリティ</div>
+                            <div className="tta-ref-title">OWASP Top 10</div>
+                            <div className="tta-ref-url">owasp.org/www-project-top-ten/</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://www.zaproxy.org/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">セキュリティ</div>
+                            <div className="tta-ref-title">OWASP ZAP — Webアプリ脆弱性スキャナー</div>
+                            <div className="tta-ref-url">zaproxy.org</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://grafana.com/docs/k6/latest/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">パフォーマンス</div>
+                            <div className="tta-ref-title">k6 公式ドキュメント</div>
+                            <div className="tta-ref-url">grafana.com/docs/k6/latest/</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://jmeter.apache.org/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">パフォーマンス</div>
+                            <div className="tta-ref-title">Apache JMeter 公式</div>
+                            <div className="tta-ref-url">jmeter.apache.org</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://www.sonarsource.com/products/sonarqube/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">静的分析</div>
+                            <div className="tta-ref-title">SonarQube — コード品質分析</div>
+                            <div className="tta-ref-url">sonarsource.com/products/sonarqube/</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://valgrind.org/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">動的分析</div>
+                            <div className="tta-ref-title">Valgrind — メモリリーク・ポインタ検出</div>
+                            <div className="tta-ref-url">valgrind.org</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://mutmut.readthedocs.io/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">ミューテーションテスト</div>
+                            <div className="tta-ref-title">Mutmut（Python ミューテーションテスト）</div>
+                            <div className="tta-ref-url">mutmut.readthedocs.io</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://pitest.org/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">ミューテーションテスト</div>
+                            <div className="tta-ref-title">PIT（Java ミューテーションテスト）</div>
+                            <div className="tta-ref-url">pitest.org</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://playwright.dev/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">ブラウザテスト</div>
+                            <div className="tta-ref-title">Playwright 公式ドキュメント</div>
+                            <div className="tta-ref-url">playwright.dev</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://www.iso.org/standard/78176.html" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">品質標準</div>
+                            <div className="tta-ref-title">ISO/IEC 25010:2023（ソフトウェア品質モデル）</div>
+                            <div className="tta-ref-url">iso.org/standard/78176.html</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://www.iec.ch/iec61508" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">機能安全規格</div>
+                            <div className="tta-ref-title">IEC 61508 機能安全規格</div>
+                            <div className="tta-ref-url">iec.ch/iec61508</div>
+                        </a>
+                        <a className="tta-ref-card" href="https://www.rtca.org/" target="_blank" rel="noopener noreferrer">
+                            <div className="tta-ref-cat">航空宇宙</div>
+                            <div className="tta-ref-title">DO-178C（RTCA）航空宇宙ソフトウェア標準</div>
+                            <div className="tta-ref-url">rtca.org</div>
                         </a>
                     </div>
                 </div>
