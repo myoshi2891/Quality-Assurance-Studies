@@ -3,9 +3,10 @@ import { render, screen, cleanup } from '@testing-library/react';
 import Page from '../../app/istqb-ctal-tm-complete-guide/page';
 
 class MockIntersectionObserver {
-  constructor(_callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {}
-  observe(_element: Element) {}
-  unobserve(_element: Element) {}
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {}
+  observe() {}
+  unobserve() {}
   disconnect() {}
 }
 let _originalIntersectionObserver: typeof IntersectionObserver;

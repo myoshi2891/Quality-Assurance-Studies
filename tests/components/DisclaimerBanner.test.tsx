@@ -12,7 +12,7 @@ beforeAll(() => {
   // 観測を呼び出してもコールバックは発火しない（同期更新のみを検証する）。
   if (typeof globalThis.ResizeObserver === 'undefined') {
     class ResizeObserverStub implements ResizeObserver {
-      constructor(_cb: ResizeObserverCallback) {}
+      constructor() {}
       observe(): void {}
       unobserve(): void {}
       disconnect(): void {}

@@ -6,12 +6,13 @@ export let mockObserverCallback: IntersectionObserverCallback | null = null;
 export let mockObserverDisconnect: ReturnType<typeof mock> | null = null;
 
 class MockIntersectionObserver {
-  constructor(callback: IntersectionObserverCallback, _options?: IntersectionObserverInit) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
     mockObserverCallback = callback;
     mockObserverDisconnect = mock(() => {});
   }
-  observe(_element: Element) {}
-  unobserve(_element: Element) {}
+  observe() {}
+  unobserve() {}
   disconnect() {
     if (mockObserverDisconnect) mockObserverDisconnect();
   }

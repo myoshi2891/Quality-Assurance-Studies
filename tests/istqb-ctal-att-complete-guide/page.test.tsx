@@ -11,7 +11,8 @@ let originalIntersectionObserver: typeof IntersectionObserver;
 beforeAll(() => {
   if (typeof window !== 'undefined') {
     originalIntersectionObserver = window.IntersectionObserver;
-    window.IntersectionObserver = mock((_callback) => ({
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    window.IntersectionObserver = mock((callback) => ({
       observe: mock(),
       unobserve: mock(),
       disconnect: mock(),
