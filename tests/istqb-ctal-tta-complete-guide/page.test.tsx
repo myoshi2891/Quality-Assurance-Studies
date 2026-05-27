@@ -13,7 +13,10 @@ const mockIntersectionObserver = class {
 };
 
 describe('istqb-ctal-tta-complete-guide', () => {
+    let originalIntersectionObserver: any;
+
     beforeAll(() => {
+        originalIntersectionObserver = window.IntersectionObserver;
         Object.defineProperty(window, 'IntersectionObserver', {
             writable: true,
             configurable: true,
@@ -25,7 +28,7 @@ describe('istqb-ctal-tta-complete-guide', () => {
         Object.defineProperty(window, 'IntersectionObserver', {
             writable: true,
             configurable: true,
-            value: undefined,
+            value: originalIntersectionObserver,
         });
     });
 

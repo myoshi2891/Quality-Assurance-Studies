@@ -47,8 +47,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
 
   { href: '/istqb-ctal-tae-complete-guide', label: 'テスト自動化(CTAL-TAE)ガイド', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', category: 'istqb-advanced' },
-  { href: '/istqb-ctal-tm-complete-guide', label: ' テスト管理(CTAL-TM)ガイド', category: 'istqb-advanced' },
-  { href: '/istqb-ctal-tta-complete-guide', label: ' テクニカルテストアナリスト(CTAL-TTA)ガイド', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-tm-complete-guide', label: 'テスト管理(CTAL-TM)ガイド', category: 'istqb-advanced' },
+  { href: '/istqb-ctal-tta-complete-guide', label: 'テクニカルテストアナリスト(CTAL-TTA)ガイド', category: 'istqb-advanced' },
   { href: '/istqb-ctal-att-complete-guide', label: 'アジャイル(CTAL-ATT)ガイド', category: 'istqb-advanced' },
   { href: '/istqb-ctal-atlas-complete-guide', label: 'アジャイル(CT-ATLaS)ガイド', category: 'istqb-advanced' },
 

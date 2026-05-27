@@ -7,7 +7,8 @@ export default function IstqbCtalTtaCompleteGuide() {
         <>
             <NavBar />
 
-            <section className="tta-hero" id="overview">
+            <div className="istqb-ctal-tta-page">
+                <section className="tta-hero" id="overview">
                 <div className="max-w-[960px] mx-auto px-6 relative z-10">
                     <div className="tta-hero-badge">ISTQB® ADVANCED LEVEL 2025</div>
                     <h1>Technical Test Analyst<br />完全ガイド</h1>
@@ -1854,6 +1855,7 @@ export default function IstqbCtalTtaCompleteGuide() {
                     </div>
                 </div>
             </section>
+            </div>
         </>
     );
 }

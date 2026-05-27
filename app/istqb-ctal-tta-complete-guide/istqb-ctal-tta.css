@@ -1,11 +1,11 @@
 /* TTA Guide Specific CSS */
-.tta-hero {
+.istqb-ctal-tta-page .tta-hero {
     padding: 6rem 0 4rem;
     text-align: center;
     position: relative;
     overflow: hidden;
 }
-.tta-hero::before {
+.istqb-ctal-tta-page .tta-hero::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -16,6 +16,7 @@
     background: radial-gradient(circle, rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.08) 0%, transparent 70%);
     animation: pulse 4s ease-in-out infinite;
     pointer-events: none;
+    z-index: -1;
 }
 
 @keyframes fade-in-down {
@@ -31,7 +32,7 @@
     to { width: var(--target-width, 100%); }
 }
 
-.tta-hero-badge {
+.istqb-ctal-tta-page .tta-hero-badge {
     display: inline-block;
     font-family: var(--font-mono);
     font-size: 0.72rem;
@@ -44,7 +45,7 @@
     animation: fade-in-down 0.6s ease both;
 }
 
-.tta-hero h1 {
+.istqb-ctal-tta-page .tta-hero h1 {
     font-family: var(--font-display);
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
@@ -57,14 +58,14 @@
     margin-bottom: 1rem;
 }
 
-.tta-hero-subtitle {
+.istqb-ctal-tta-page .tta-hero-subtitle {
     font-size: 1.1rem;
     color: var(--color-text-secondary);
     animation: fade-in-down 0.6s 0.2s ease both;
     margin-bottom: 2.5rem;
 }
 
-.tta-hero-meta {
+.istqb-ctal-tta-page .tta-hero-meta {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -72,7 +73,7 @@
     animation: fade-in-up 0.6s 0.3s ease both;
 }
 
-.tta-meta-chip {
+.istqb-ctal-tta-page .tta-meta-chip {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -84,21 +85,21 @@
     font-size: 0.78rem;
 }
 
-.tta-meta-chip .label {
+.istqb-ctal-tta-page .tta-meta-chip .label {
     color: var(--color-text-muted);
 }
-.tta-meta-chip .value {
+.istqb-ctal-tta-page .tta-meta-chip .value {
     color: var(--color-accent-cyan);
     font-weight: 700;
 }
 
-.tta-arch-layers {
+.istqb-ctal-tta-page .tta-arch-layers {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     margin: 1.5rem 0;
 }
-.tta-arch-layer {
+.istqb-ctal-tta-page .tta-arch-layer {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -109,66 +110,73 @@
     border-left: 4px solid var(--accent, var(--color-accent-cyan));
     transition: all 0.25s;
 }
-.tta-arch-layer:hover {
+.istqb-ctal-tta-page .tta-arch-layer:hover {
     background: var(--color-bg-card-hover);
     transform: translateX(4px);
 }
-.tta-arch-icon {
+.istqb-ctal-tta-page .tta-arch-icon {
     font-size: 1.4rem;
     flex-shrink: 0;
 }
-.tta-arch-info .arch-name {
+.istqb-ctal-tta-page .tta-arch-info .arch-name {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     font-weight: 700;
     color: var(--color-text-primary);
 }
-.tta-arch-info .arch-desc {
+.istqb-ctal-tta-page .tta-arch-info .arch-desc {
     font-size: 0.85rem;
     color: var(--color-text-secondary);
 }
 
-.tta-progress-list {
+.istqb-ctal-tta-page .tta-progress-list {
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin: 1.5rem 0;
 }
-.tta-progress-head {
+.istqb-ctal-tta-page .tta-progress-head {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.4rem;
 }
-.tta-progress-name {
+.istqb-ctal-tta-page .tta-progress-name {
     font-size: 0.88rem;
     color: var(--color-text-primary);
 }
-.tta-progress-val {
+.istqb-ctal-tta-page .tta-progress-val {
     font-family: var(--font-mono);
     font-size: 0.8rem;
     color: var(--color-accent-cyan);
 }
-.tta-progress-track {
+.istqb-ctal-tta-page .tta-progress-track {
     height: 6px;
     background: rgba(255, 255, 255, 0.06);
     border-radius: 999px;
     overflow: hidden;
 }
-.tta-progress-fill {
+.istqb-ctal-tta-page .tta-progress-fill {
     height: 100%;
     border-radius: 999px;
     width: 0;
     animation: grow-bar 1.2s ease forwards;
     animation-delay: 0.3s;
 }
+@media (prefers-reduced-motion: reduce) {
+    .istqb-ctal-tta-page .tta-progress-fill {
+        animation: none !important;
+        max-width: 100% !important;
+        width: var(--target-width, 100%);
+    }
+}
 
-.tta-coverage-ladder {
+.istqb-ctal-tta-page .tta-coverage-ladder {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     margin: 1.5rem 0;
 }
-.tta-ladder-row {
+.istqb-ctal-tta-page .tta-ladder-row {
     display: flex;
     align-items: center;
     gap: 1rem;
@@ -177,11 +185,11 @@
     border: 1px solid var(--color-border);
     transition: all 0.2s;
 }
-.tta-ladder-row:hover {
+.istqb-ctal-tta-page .tta-ladder-row:hover {
     border-color: var(--color-accent-cyan);
     background: var(--color-bg-card);
 }
-.tta-ladder-level {
+.istqb-ctal-tta-page .tta-ladder-level {
     font-family: var(--font-mono);
     font-size: 0.72rem;
     padding: 0.2rem 0.5rem;
@@ -189,99 +197,99 @@
     min-width: 80px;
     text-align: center;
 }
-.tta-ladder-name {
+.istqb-ctal-tta-page .tta-ladder-name {
     font-weight: 600;
     color: var(--color-text-primary);
     flex: 1;
     font-size: 0.9rem;
 }
-.tta-ladder-note {
+.istqb-ctal-tta-page .tta-ladder-note {
     font-size: 0.82rem;
     color: var(--color-text-secondary);
 }
 
-.tta-def-box {
+.istqb-ctal-tta-page .tta-def-box {
     background: rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.04);
     border: 1px solid rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.2);
     border-radius: var(--radius-DEFAULT);
     padding: 1.25rem 1.5rem;
     margin: 1.25rem 0;
 }
-.tta-def-box dt {
+.istqb-ctal-tta-page .tta-def-box dt {
     font-family: var(--font-mono);
     font-size: 0.82rem;
     color: var(--color-accent-cyan);
     margin-bottom: 0.4rem;
     letter-spacing: 0.05em;
 }
-.tta-def-box dd {
+.istqb-ctal-tta-page .tta-def-box dd {
     font-size: 0.92rem;
     color: var(--color-text-secondary);
 }
 
-.tta-exam-grid {
+.istqb-ctal-tta-page .tta-exam-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 1rem;
     margin: 1.5rem 0;
 }
 @media (max-width: 600px) {
-    .tta-exam-grid {
+    .istqb-ctal-tta-page .tta-exam-grid {
         grid-template-columns: 1fr;
     }
 }
-.tta-exam-card {
+.istqb-ctal-tta-page .tta-exam-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-DEFAULT);
     padding: 1.25rem;
     transition: all 0.25s;
 }
-.tta-exam-card:hover {
+.istqb-ctal-tta-page .tta-exam-card:hover {
     border-color: var(--color-accent-orange);
     box-shadow: 0 0 20px rgba(var(--accent-orange-rgb, 246, 173, 85), 0.2);
 }
-.tta-exam-ch {
+.istqb-ctal-tta-page .tta-exam-ch {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     color: var(--color-accent-orange);
     letter-spacing: 0.1em;
     margin-bottom: 0.3rem;
 }
-.tta-exam-name {
+.istqb-ctal-tta-page .tta-exam-name {
     font-weight: 600;
     color: var(--color-text-primary);
     margin-bottom: 0.5rem;
     font-size: 0.9rem;
 }
-.tta-exam-stars {
+.istqb-ctal-tta-page .tta-exam-stars {
     color: var(--color-accent-orange);
     font-size: 0.85rem;
     margin-bottom: 0.4rem;
 }
-.tta-exam-points {
+.istqb-ctal-tta-page .tta-exam-points {
     font-family: var(--font-mono);
     font-size: 1.4rem;
     font-weight: 700;
     color: var(--color-accent-green);
 }
-.tta-exam-sub {
+.istqb-ctal-tta-page .tta-exam-sub {
     font-size: 0.75rem;
     color: var(--color-text-muted);
 }
 
-.tta-ref-grid {
+.istqb-ctal-tta-page .tta-ref-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1rem;
     margin: 1.5rem 0;
 }
 @media (max-width: 600px) {
-    .tta-ref-grid {
+    .istqb-ctal-tta-page .tta-ref-grid {
         grid-template-columns: 1fr;
     }
 }
-.tta-ref-card {
+.istqb-ctal-tta-page .tta-ref-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-DEFAULT);
@@ -292,7 +300,7 @@
     overflow: hidden;
     display: block;
 }
-.tta-ref-card::after {
+.istqb-ctal-tta-page .tta-ref-card::after {
     content: '→';
     position: absolute;
     right: 1rem;
@@ -302,36 +310,36 @@
     opacity: 0;
     transition: all 0.25s;
 }
-.tta-ref-card:hover::after {
+.istqb-ctal-tta-page .tta-ref-card:hover::after {
     opacity: 1;
     transform: translateY(-50%) translateX(0);
 }
-.tta-ref-card:hover {
+.istqb-ctal-tta-page .tta-ref-card:hover {
     background: var(--color-bg-card-hover);
     border-color: var(--color-accent-cyan);
     transform: translateX(-4px);
 }
-.tta-ref-cat {
+.istqb-ctal-tta-page .tta-ref-cat {
     font-family: var(--font-mono);
     font-size: 0.65rem;
     color: var(--color-accent-green);
     letter-spacing: 0.12em;
     margin-bottom: 0.3rem;
 }
-.tta-ref-title {
+.istqb-ctal-tta-page .tta-ref-title {
     font-size: 0.88rem;
     color: var(--color-text-primary);
     font-weight: 600;
     margin-bottom: 0.25rem;
 }
-.tta-ref-url {
+.istqb-ctal-tta-page .tta-ref-url {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     color: var(--color-text-muted);
     word-break: break-all;
 }
 
-.tta-trend-card {
+.istqb-ctal-tta-page .tta-trend-card {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
     border-radius: var(--radius-DEFAULT);
@@ -340,7 +348,7 @@
     position: relative;
     overflow: hidden;
 }
-.tta-trend-card::before {
+.istqb-ctal-tta-page .tta-trend-card::before {
     content: '';
     position: absolute;
     top: -50%;
@@ -350,69 +358,71 @@
     background: radial-gradient(ellipse at center, rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.04) 0%, transparent 60%);
     opacity: 0;
     transition: opacity 0.3s;
+    pointer-events: none;
+    z-index: -1;
 }
-.tta-trend-card:hover::before {
+.istqb-ctal-tta-page .tta-trend-card:hover::before {
     opacity: 1;
 }
-.tta-trend-card:hover {
+.istqb-ctal-tta-page .tta-trend-card:hover {
     border-color: rgba(var(--accent-cyan-rgb, 79, 209, 197), 0.4);
 }
-.tta-trend-label {
+.istqb-ctal-tta-page .tta-trend-label {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     color: var(--color-accent-purple);
     letter-spacing: 0.1em;
     margin-bottom: 0.5rem;
 }
-.tta-trend-title {
+.istqb-ctal-tta-page .tta-trend-title {
     font-family: var(--font-display);
     font-weight: 700;
     color: var(--color-text-primary);
     margin-bottom: 0.5rem;
 }
-.tta-trend-body {
+.istqb-ctal-tta-page .tta-trend-body {
     font-size: 0.88rem;
     color: var(--color-text-secondary);
 }
 
-.tta-compare-wrap {
+.istqb-ctal-tta-page .tta-compare-wrap {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 1rem;
     margin: 1.5rem 0;
 }
 @media (max-width: 600px) {
-    .tta-compare-wrap {
+    .istqb-ctal-tta-page .tta-compare-wrap {
         grid-template-columns: 1fr;
     }
 }
-.tta-compare-box {
+.istqb-ctal-tta-page .tta-compare-box {
     border-radius: var(--radius-DEFAULT);
     padding: 1.25rem;
     border: 1px solid;
 }
-.tta-compare-box.good {
+.istqb-ctal-tta-page .tta-compare-box.good {
     background: rgba(var(--accent-green-rgb, 104, 211, 145), 0.04);
     border-color: rgba(var(--accent-green-rgb, 104, 211, 145), 0.2);
 }
-.tta-compare-box.bad {
+.istqb-ctal-tta-page .tta-compare-box.bad {
     background: rgba(var(--accent-red-rgb, 252, 129, 129), 0.04);
     border-color: rgba(var(--accent-red-rgb, 252, 129, 129), 0.2);
 }
-.tta-compare-label {
+.istqb-ctal-tta-page .tta-compare-label {
     font-family: var(--font-mono);
     font-size: 0.72rem;
     font-weight: 700;
     letter-spacing: 0.1em;
     margin-bottom: 0.75rem;
 }
-.tta-compare-box.good .tta-compare-label {
+.istqb-ctal-tta-page .tta-compare-box.good .tta-compare-label {
     color: var(--color-accent-green);
 }
-.tta-compare-box.bad .tta-compare-label {
+.istqb-ctal-tta-page .tta-compare-box.bad .tta-compare-label {
     color: var(--color-accent-red);
 }
-.tta-compare-box pre {
+.istqb-ctal-tta-page .tta-compare-box pre {
     font-family: var(--font-mono);
     font-size: 0.78rem;
     line-height: 1.6;

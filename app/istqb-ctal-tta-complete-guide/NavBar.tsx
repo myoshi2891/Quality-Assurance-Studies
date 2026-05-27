@@ -46,6 +46,7 @@ export default function NavBar() {
                         <a
                             key={link.id}
                             href={`#${link.id}`}
+                            aria-current={activeId === link.id ? 'location' : undefined}
                             className={`font-mono text-[0.72rem] px-3 py-1 border rounded-full whitespace-nowrap transition-all ${
                                 activeId === link.id
                                     ? 'text-accent-cyan border-accent-cyan bg-accent-cyan/10'

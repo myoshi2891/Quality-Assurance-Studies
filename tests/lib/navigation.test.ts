@@ -11,9 +11,10 @@ describe('NAV_ITEMS', () => {
     expect(new Set(hrefs).size).toBe(hrefs.length);
   });
 
-  it('every item has a non-empty Japanese label', () => {
+  it('every item has a non-empty Japanese label with no leading/trailing whitespace', () => {
     for (const item of NAV_ITEMS) {
-      expect(item.label.length).toBeGreaterThan(0);
+      expect(item.label.trim().length).toBeGreaterThan(0);
+      expect(item.label).toBe(item.label.trim());
     }
   });
 
