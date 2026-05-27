@@ -13,7 +13,7 @@ const mockIntersectionObserver = class {
 };
 
 describe('istqb-ctal-tta-complete-guide', () => {
-    let originalIntersectionObserver: typeof IntersectionObserver;
+    let originalIntersectionObserver: typeof IntersectionObserver | undefined;
 
     beforeAll(() => {
         originalIntersectionObserver = window.IntersectionObserver;

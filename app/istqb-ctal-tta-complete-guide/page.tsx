@@ -384,9 +384,9 @@ export default function IstqbCtalTtaCompleteGuide() {
 
                         <div className="my-8 flex flex-col items-center gap-3 w-full">
                             <Mermaid chart={`flowchart TD
-    Start([START]) --> Dec1{age >= 18?}
+    Start([START]) --> Dec1{"age >= 18?"}
     Dec1 -- False --> UnderAge[UnderAge]
-    Dec1 -- True --> Dec2{has_id?}
+    Dec1 -- True --> Dec2{"has_id?"}
     Dec2 -- False --> IdReq[ID Required]
     Dec2 -- True --> AccGranted[Access Granted]
     UnderAge --> End([END])
@@ -772,18 +772,16 @@ export default function IstqbCtalTtaCompleteGuide() {
                         </dl>
 
                         <div className="my-8 flex flex-col items-center gap-3">
-                            <pre className="mermaid bg-[#060e1a] p-4 rounded-xl border border-border w-full overflow-x-auto text-sm text-text-primary text-center">
-{`flowchart TD
-    Start([START]) --> N1{N1<br/>not order?}
+                            <Mermaid chart={`flowchart TD
+    Start([START]) --> N1{"N1<br/>not order?"}
     N1 -- T --> N2[N2: Error]
-    N1 -- F --> N3{N3<br/>amount <= 0?}
+    N1 -- F --> N3{"N3<br/>amount <= 0?"}
     N3 -- T --> N4[N4: Invalid]
-    N3 -- F --> N5{N5<br/>type == 'A'?}
+    N3 -- F --> N5{"N5<br/>type == 'A'?"}
     N5 -- T --> N6[N6: TypeA]
     N5 -- F --> N7[N7: TypeB]
     N6 -.-> N8[N8: Success]
-    N7 -.-> N8`}
-                            </pre>
+    N7 -.-> N8`} />
                             <div className="mt-4 p-4 border border-accent-orange/20 bg-accent-orange/5 rounded-xl font-mono text-[0.88rem] text-text-secondary w-full max-w-[400px]">
                                 <strong className="text-accent-orange block mb-2 text-center">循環的複雑度 計算</strong>
                                 ノード数 (N): 9<br />
@@ -1525,12 +1523,12 @@ export default function IstqbCtalTtaCompleteGuide() {
 <div className="code-line"><span className="text-[#4a7c59] italic"># 元コード</span></div>
 <div className="code-line"><span className="text-[#c792ea]">def</span> is_adult(age: int) -&gt; bool:</div>
 <div className="code-line">{"    "}<span className="text-[#c792ea]">return</span> age &gt;= <span className="text-[#f78c6c]">18</span></div>
-<div className="code-line">{" "}</div>
+<div className="code-line"></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># Mutmutが生成するミュータント:</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># M1: return age &gt; 18   ← テストで検出できる?</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># M2: return age &lt;= 18  ← テストで検出できる?</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># M3: return age != 18  ← テストで検出できる?</span></div>
-<div className="code-line">{" "}</div>
+<div className="code-line"></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># ミューテーションスコア</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># = 殺されたミュータント / 総ミュータント × 100</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># 目標: 80%以上</span></div>
@@ -1541,14 +1539,14 @@ export default function IstqbCtalTtaCompleteGuide() {
                                 <pre className="font-mono text-[0.78rem] leading-relaxed text-text-secondary overflow-x-auto">
 <div className="code-line"><span className="text-[#4a7c59] italic"># Chaos Monkey / Chaos Toolkit</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># 実行時に障害を注入して耐性を確認</span></div>
-<div className="code-line">{" "}</div>
+<div className="code-line"></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># 例: 依存サービスをダウンさせる</span></div>
 <div className="code-line">dependencies[<span className="text-[#c3e88d]">"payment"</span>].inject_failure()</div>
-<div className="code-line">{" "}</div>
+<div className="code-line"></div>
 <div className="code-line">response = system.post(<span className="text-[#c3e88d]">"/checkout"</span>)</div>
 <div className="code-line">assert response.status_code == <span className="text-[#f78c6c]">503</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># ✅ 503 + 適切なエラーメッセージ</span></div>
-<div className="code-line">{" "}</div>
+<div className="code-line"></div>
 <div className="code-line">response = system.get(<span className="text-[#c3e88d]">"/products"</span>)</div>
 <div className="code-line">assert response.status_code == <span className="text-[#f78c6c]">200</span></div>
 <div className="code-line"><span className="text-[#4a7c59] italic"># ✅ 関係ない機能は正常稼働</span></div>

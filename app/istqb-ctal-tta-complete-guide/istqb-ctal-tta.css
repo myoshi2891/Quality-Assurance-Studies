@@ -430,3 +430,23 @@
     overflow-x: auto;
     max-width: 100%;
 }
+
+.istqb-ctal-tta-page .code-block {
+    background: #010c1a;
+    border: 1px solid rgba(79, 209, 197, 0.2);
+    border-radius: var(--radius-DEFAULT);
+    padding: 1.3rem 1.5rem;
+    font-family: var(--font-mono);
+    font-size: 0.83rem;
+    line-height: 1.7;
+    overflow-x: auto;
+    margin: 1.2rem 0;
+    position: relative;
+    white-space: normal;
+}
+
+.istqb-ctal-tta-page .code-line {
+    white-space: pre;
+    min-height: 1.25rem;
+}
+
