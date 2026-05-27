@@ -3,13 +3,14 @@
 import { useEffect, useRef } from 'react';
 
 /**
- * 固定位置の免責事項バナーをレンダリングし、バナーの現在の高さを CSS カスタムプロパティ
- * `document.documentElement.style` の `--disclaimer-height` に同期し続ける。
+ * Render a fixed-position disclaimer banner and keep its height synchronized to the
+ * CSS custom property `--disclaimer-height` on `document.documentElement`.
  *
- * バナーはビューポート上部付近（Header 直下）に固定表示され、短い日本語の免責文を表示する。
- * バナーの高さが変化するたびに `--disclaimer-height` を更新し、他のレイアウトコードが参照できるようにする。
+ * The banner is positioned below the header and displays short Japanese disclaimer text;
+ * its measured height is written to the custom property whenever the rendered height changes
+ * so other layout code can reference it.
  *
- * @returns 免責事項バナーをレンダリングする React 要素
+ * @returns A React element that renders the disclaimer banner
  */
 export function DisclaimerBanner() {
     const ref = useRef<HTMLElement>(null);
