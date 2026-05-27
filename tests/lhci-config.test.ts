@@ -16,10 +16,13 @@ describe('Lighthouse CI Configurations', () => {
 
     const collect = content.ci.collect;
     expect(collect.startServerCommand).toBe('bun run start');
-    expect(collect.url).toContain('http://localhost:3000/');
-    expect(collect.url).toContain('http://localhost:3000/acceptance-testing-guide');
-    expect(collect.url).toContain('http://localhost:3000/e2e-testing-guide');
-    expect(collect.url).toContain('http://localhost:3000/istqb-ct-ai-complete-guide');
+    
+    // Normalize urls to replace 127.0.0.1 with localhost to handle differences in environments
+    const normalizedUrls = collect.url.map((u: string) => u.replace('127.0.0.1', 'localhost'));
+    expect(normalizedUrls).toContain('http://localhost:3000/');
+    expect(normalizedUrls).toContain('http://localhost:3000/acceptance-testing-guide');
+    expect(normalizedUrls).toContain('http://localhost:3000/e2e-testing-guide');
+    expect(normalizedUrls).toContain('http://localhost:3000/istqb-ct-ai-complete-guide');
     expect(collect.numberOfRuns).toBe(3);
 
     const assertions = content.ci.assert.assertions;

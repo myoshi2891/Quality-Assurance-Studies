@@ -9,7 +9,10 @@
         "http://127.0.0.1:3000/acceptance-testing-guide",
         "http://127.0.0.1:3000/e2e-testing-guide",
         "http://127.0.0.1:3000/istqb-ct-ai-complete-guide"
-      ]
+      ],
+      "settings": {
+        "blockDomains": ["*.googleapis.com", "*.gstatic.com"]
+      }
     },
     "assert": {
       "assertions": {
