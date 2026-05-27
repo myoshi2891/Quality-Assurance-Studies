@@ -410,7 +410,7 @@
     .code-gray    { color: var(--color-text-muted, #85a9df); }
     .code-keyword { color: var(--color-accent-purple, #b794f4); font-weight: 700; }
     .code-string  { color: var(--color-accent-yellow, #f6e05e); }
-    .code-comment { color: #4a5568; font-style: italic; }
+    .code-comment { color: #8b949e; font-style: italic; }
 
     /* Code-dot for div-based dots */
     .code-dot {

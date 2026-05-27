@@ -1,11 +1,19 @@
-
 import './istqb-ct-ai-complete-guide.css';
 import NavBar from './NavBar';
 
 
+/**
+ * Render the CT-AI complete guide page for ISTQB® Specialist Level — 2025.
+ *
+ * The component returns the full static guide layout including a sticky navigation bar,
+ * hero/overview, table of contents, chapters 1–11 with examples and callouts, an exam
+ * section with sample questions and a checklist, references, and a footer.
+ *
+ * @returns The JSX element representing the complete CT-AI guide page.
+ */
 export default function CT_AI_Guide() {
     return (
-        <div className="istqb-ct-ai-page">
+        <main className="istqb-ct-ai-page">
             
         {/* ===== STICKY NAV ===== */}
         <NavBar />
@@ -2057,6 +2065,6 @@ export default function CT_AI_Guide() {
         </footer>
     
 
-        </div>
+        </main>
     );
 }

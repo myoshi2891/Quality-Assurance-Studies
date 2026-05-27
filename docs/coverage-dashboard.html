@@ -957,7 +957,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-05-25">2026-05-25</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-05-26">2026-05-26</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
         <span id="mc-scope"><strong>Scope</strong> 25 pages · 3 components · 1 lib · 7 scripts</span>
@@ -995,9 +995,9 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <p class="kpi-desc"><span id="kpi-pages-desc-count">0</span> ページに render-only スモークテスト完備（P0 完了）。E2E・a11y・ビジュアル検証は P1 で着手予定。</p>
     </article>
     <article class="kpi" data-tone="orange">
-      <div class="kpi-num">3<span class="unit">/ 6</span></div>
+      <div class="kpi-num">2<span class="unit">/ 6</span></div>
       <div class="kpi-lbl">Test Types Uncovered</div>
-      <p class="kpi-desc">Visual Regression · Performance · Integration が未着手。E2E & a11y (Playwright / axe-core) は 25/25 ページで完備（P1 完了）。</p>
+      <p class="kpi-desc">Visual Regression · Integration が未着手。E2E、a11y、および Performance (Lighthouse CI) は完備（P1 完了）。</p>
     </article>
     <article class="kpi" data-tone="ok">
       <div class="kpi-num">1<span class="unit">pipeline</span></div>
@@ -1058,7 +1058,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">39 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">40 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
@@ -1079,7 +1079,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv">
         <summary>
           <span>Library &amp; Dependency Tests</span>
-          <span class="inv-count" id="inv-count-lib">3 files</span>
+          <span class="inv-count" id="inv-count-lib">4 files</span>
         </summary>
         <ul id="inv-lib"></ul>
       </details>
@@ -1096,6 +1096,13 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           <span class="inv-count" id="inv-count-e2e">3 files</span>
         </summary>
         <ul id="inv-e2e"></ul>
+      </details>
+      <details class="inv" open>
+        <summary>
+          <span>Test Tooling &amp; Config</span>
+          <span class="inv-count" id="inv-count-tooling">2 files</span>
+        </summary>
+        <ul id="inv-tooling"></ul>
       </details>
     </div>
   </section>
@@ -1207,7 +1214,7 @@ const DATA = {
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: 'Playwright smoke: HTTP 200 / Header / h1 / console error 0 on all routes.' },
         { state: 'gap', value: '0', label: 'Gap', note: 'No screenshot baselines.' },
         { state: 'full', value: `${pages.length}/${pages.length}`, label: '100%', note: `axe-core/playwright: Automated accessibility audit on all ${pages.length} routes.` },
-        { state: 'gap', value: '0', label: 'Gap', note: 'No Lighthouse CI.' }
+        { state: 'full', value: '4/4', label: '100%', note: 'Lighthouse CI: Performance budget (LCP < 2.5s, TBT < 350ms, A11y/SEO >= 0.9) asserted on 4 key routes.' }
       ]
     },
     {
@@ -1218,7 +1225,7 @@ const DATA = {
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
-        { state: 'partial', value: 'manual', label: 'Manual', note: 'aria-* attributes coded but not asserted.' },
+        { state: 'partial', value: 'partial', label: 'Partial', note: 'DisclaimerBanner aria-label asserted. Header/Mermaid not.' },
         { state: 'na', value: '—', label: 'N/A' }
       ]
     },
@@ -1298,7 +1305,7 @@ const DATA = {
       category: 'Accessibility',
       hint: 'aria-current · aria-expanded · keyboard nav · contrast',
       cells: [
-        { state: 'gap', value: '0', label: 'Gap', note: 'aria-* values not asserted on Header tests.' },
+        { state: 'partial', value: '1/3', label: '33%', note: 'aria-label asserted on DisclaimerBanner tests, but not on Header/Mermaid.' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'na', value: '—', label: 'N/A' },
@@ -1373,7 +1380,8 @@ const DATA = {
     lib: [
       'tests/lib/navigation.test.ts',
       'tests/lib/dependencies.test.ts',
-      'tests/istqb-ct-aut-complete-guide.test.ts'
+      'tests/istqb-ct-aut-complete-guide.test.ts',
+      'tests/lhci-config.test.ts'
     ],
     scripts: [
       'tests/scripts/extract-css.test.ts',
@@ -1385,8 +1393,11 @@ const DATA = {
     e2e: [
       'e2e/pages.ts',
       'e2e/smoke.e2e.ts',
-      'e2e/a11y.e2e.ts',
-      'playwright.config.ts'
+      'e2e/a11y.e2e.ts'
+    ],
+    tooling: [
+      'playwright.config.ts',
+      'lighthouserc.json'
     ]
   },
 
@@ -1439,10 +1450,10 @@ const DATA = {
           impact: 'A11y 自動化 / ダーク背景の品質保証'
         },
         {
-          h: 'Lighthouse CI でパフォーマンス予算',
-          p: '主要ページの LCP / CLS / TBT / A11y / SEO スコアにしきい値を設定し、PR で劣化を検知。静的サイトなので予算は厳しめに（LCP < 2.0s 等）。',
+          h: '✅ Lighthouse CI でパフォーマンス予算',
+          p: '主要4ページに対し LCP (< 2.5s)、CLS (< 0.1)、TBT (< 350ms)、および A11y/SEO スコア (>= 0.9) に品質予算を設定。PRやプッシュ時の自動監査と予算超過を検知。',
           tool: '@lhci/cli',
-          effort: '~2h',
+          effort: 'Done',
           impact: 'パフォーマンス劣化検知 / SEO 品質維持'
         }
       ]
@@ -1595,8 +1606,8 @@ function renderPages() {
 }
 
 function renderInventory() {
-  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib', scripts: 'inv-scripts', e2e: 'inv-e2e' };
-  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib', scripts: 'inv-count-scripts', e2e: 'inv-count-e2e' };
+  const map = { pages: 'inv-pages', components: 'inv-components', lib: 'inv-lib', scripts: 'inv-scripts', e2e: 'inv-e2e', tooling: 'inv-tooling' };
+  const countMap = { pages: 'inv-count-pages', components: 'inv-count-components', lib: 'inv-count-lib', scripts: 'inv-count-scripts', e2e: 'inv-count-e2e', tooling: 'inv-count-tooling' };
   const groups = Object.keys(map);
   let total = 0;
   groups.forEach((k) => {
@@ -1610,11 +1621,17 @@ function renderInventory() {
     if (countEl) {
       countEl.textContent = files.length + ' file' + (files.length === 1 ? '' : 's');
     }
-    total += files.length;
+    if (k !== 'tooling') {
+      total += files.length;
+    }
   });
   const totalEl = document.getElementById('inv-total');
   if (totalEl) {
     totalEl.textContent = total + ' file' + (total === 1 ? '' : 's');
+  }
+  const kpiTotalEl = document.getElementById('kpi-total-files');
+  if (kpiTotalEl) {
+    kpiTotalEl.innerHTML = `${total}<span class="unit">files</span>`;
   }
 }
 

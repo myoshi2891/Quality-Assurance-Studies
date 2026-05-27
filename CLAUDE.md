@@ -1,5 +1,7 @@
 # CLAUDE.md
 
+Updated 2026-05-26
+
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## プロジェクト概要
@@ -16,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 126 specs)
+bun test             # ユニットテスト (bun test, 133 specs)
 ```
 
 ### E2E テスト (Playwright)
@@ -25,6 +27,7 @@ bun test             # ユニットテスト (bun test, 126 specs)
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
 bun run e2e          # 全 24 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
+bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
 ```
 
@@ -177,6 +180,7 @@ rm -rf .next && bun run dev
 
 変換スクリプトに頼るのではなく、Markdown ソースファイル自体が標準的な仕様に準拠していることを最優先します。
 
+- **コミット前必須検証 (Gate Condition):** Markdownファイルを編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` の手順に従い、リント検証コマンド（`node node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行してエラーが 0 件であることを確認してください。
 - 言語指定のないコードブロック（```）によるテキストの囲みは避け、引用（>）や適切な見出しを使用してください。
 - 表や図（Mermaid）はコードブロック内に閉じ込めず、Markdown 上で直接レンダリング可能な形で記述してください。
 - 共通の Markdown 整形ツール: `bun scripts/format-markdown.mjs <file>`
@@ -219,6 +223,13 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
 | `.callout-info/warn/good/danger` | 注釈ボックス |
 | `.pyramid-layer` / `.py-unit/int/func/e2e` | テストピラミッド図 |
 | `.tab-btn` / `.tab-panel` | タブ UI |
+
+### 開発・デバッグ用スクリプトの管理ルール
+
+一時的に作成する開発・調査用スクリプトと、永続的にリポジトリに残すスクリプトを厳密に区別して管理します。
+
+- **一時的なスクリプト (デバッグ・調査用):** ログ解析やデータ抽出などで一時的に作成するスクリプト、およびそこから生成される一時ファイルは、作業完了後またはコミット前に必ずリポジトリから物理削除（`rm`）し、絶対にコミットに含めない。特にローカル絶対パス（PII）を含んでいるものは、即時削除を徹底する。作成する際にはユーザーに「一時的なものである」ことを明確に報告する。
+- **永続的なスクリプト (機能・テスト用):** プロジェクトの機能、テスト、ビルド、CI/CDで永続的に使用するスクリプトは、作成時に役割と配置場所を明記して報告する。当然、コミットされるすべてのファイルに対して PII やローカル絶対パスが混入していないことを事前に機械的（`git diff --cached` 走査など）に検証する。
 
 ## 移行作業ルール
 

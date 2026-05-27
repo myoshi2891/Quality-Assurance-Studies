@@ -444,7 +444,7 @@
             }
             .code-comment,
             .istqb-ct-ai-page .code-comment {
-                color: #4b5563;
+                color: #8b949e;
             }
             .code-num,
             .istqb-ct-ai-page .code-num {
@@ -1023,6 +1023,12 @@
         animation: none !important;
         transition: none !important;
         transform: none !important;
+    }
+    .istqb-ct-ai-page .hero-badge,
+    .istqb-ct-ai-page .hero h1,
+    .istqb-ct-ai-page .hero-sub,
+    .istqb-ct-ai-page .meta-grid {
+        opacity: 1 !important;
     }
     .istqb-ct-ai-page .progress-bar {
         max-width: 100% !important;

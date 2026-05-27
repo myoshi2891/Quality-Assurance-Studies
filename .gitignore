@@ -97,3 +97,4 @@ scripts/fix-toc.mjs
 /playwright-report/
 /test-results/
 /playwright/.cache/
+.lighthouseci

@@ -49,6 +49,9 @@
   var() 参照が確実に解決されるよう、同一チャンクの :root にも定義する。
 */
 :root {
+    /* --- 免責バナーのデフォルト高さ (CLS防止) --- */
+    --disclaimer-height: 38px;
+
     /* --- 背景色 --- */
     --color-bg-primary: #0a0e1a;
     --color-bg-secondary: #0f1629;
@@ -487,28 +490,28 @@
         height: 52px;
         background: rgba(246, 173, 85, 0.18);
         border: 1px solid rgba(246, 173, 85, 0.4);
-        color: var(--color-e2e);
+        color: #ffd8a8;
     }
     .py-func {
         width: 57%;
         height: 52px;
         background: rgba(183, 148, 244, 0.15);
         border: 1px solid rgba(183, 148, 244, 0.35);
-        color: var(--color-functional);
+        color: #dec9ff;
     }
     .py-int {
         width: 74%;
         height: 52px;
         background: rgba(99, 179, 237, 0.13);
         border: 1px solid rgba(99, 179, 237, 0.32);
-        color: var(--color-integration);
+        color: #a5d8ff;
     }
     .py-unit {
         width: 100%;
         height: 60px;
         background: rgba(79, 209, 197, 0.12);
         border: 1px solid rgba(79, 209, 197, 0.32);
-        color: var(--color-unit);
+        color: #9bf0e6;
     }
     .py-axis {
         display: flex;
@@ -629,42 +632,42 @@
     }
     .badge-unit {
         background: rgba(79, 209, 197, 0.12);
-        color: var(--color-unit);
+        color: #9bf0e6;
         border: 1px solid rgba(79, 209, 197, 0.3);
     }
     .badge-int {
         background: rgba(99, 179, 237, 0.12);
-        color: var(--color-integration);
+        color: #a5d8ff;
         border: 1px solid rgba(99, 179, 237, 0.3);
     }
     .badge-func {
         background: rgba(183, 148, 244, 0.12);
-        color: var(--color-functional);
+        color: #dec9ff;
         border: 1px solid rgba(183, 148, 244, 0.3);
     }
     .badge-e2e {
         background: rgba(246, 173, 85, 0.12);
-        color: var(--color-e2e);
+        color: #ffd8a8;
         border: 1px solid rgba(246, 173, 85, 0.3);
     }
     .badge-sec {
         background: rgba(252, 129, 129, 0.12);
-        color: var(--color-accent-red);
+        color: #ffc9c9;
         border: 1px solid rgba(252, 129, 129, 0.3);
     }
     .badge-perf {
         background: rgba(246, 224, 94, 0.12);
-        color: var(--color-accent-yellow);
+        color: #fff3bf;
         border: 1px solid rgba(246, 224, 94, 0.3);
     }
     .badge-a11y {
         background: rgba(246, 135, 179, 0.12);
-        color: var(--color-accent-pink);
+        color: #ffdeeb;
         border: 1px solid rgba(246, 135, 179, 0.3);
     }
     .badge-istqb {
         background: rgba(99, 179, 237, 0.12);
-        color: var(--color-accent-blue);
+        color: #a5d8ff;
         border: 1px solid rgba(99, 179, 237, 0.3);
     }
 
@@ -893,7 +896,7 @@
         font-family: var(--font-mono);
         font-size: 1.4rem;
         font-weight: 700;
-        color: rgba(99, 179, 237, 0.25);
+        color: rgba(99, 179, 237, 0.60);
         flex-shrink: 0;
         line-height: 1;
         margin-top: 3px;
@@ -967,7 +970,7 @@
         color: var(--color-text-muted);
         letter-spacing: 0.1em;
     }
-    .cert-info h4 {
+    .cert-info h3 {
         font-family: var(--font-display);
         font-size: 1rem;
         font-weight: 600;
@@ -994,7 +997,7 @@
         font-family: var(--font-mono);
         font-size: 11px;
         color: var(--color-accent-blue);
-        opacity: 0.9; /* Increased from 0.7 to meet minimum color-contrast thresholds */
+        opacity: 1.0; /* Keep at 1.0 to ensure maximum WCAG contrast ratio on dark backgrounds */
         text-decoration: none;
         border-bottom: 1px dashed rgba(99, 179, 237, 0.3);
         padding-bottom: 1px;
@@ -1289,4 +1292,21 @@
         text-decoration: underline;
         text-underline-offset: 2px;
     }
+
+/* Mobile-specific disclaimer banner height to prevent Cumulative Layout Shift (CLS) */
+@media (max-width: 768px) {
+    :root {
+        --disclaimer-height: 76px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero-content,
+    .hero-eyebrow {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+    }
+}
+
 

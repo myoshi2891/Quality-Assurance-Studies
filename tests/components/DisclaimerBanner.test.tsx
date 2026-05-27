@@ -31,7 +31,7 @@ afterEach(() => {
 });
 
 describe('DisclaimerBanner', () => {
-  it('renders the fixed disclaimer text', () => {
+  it('固定された免責事項のテキストを表示すること', () => {
     render(<DisclaimerBanner />);
     expect(
       screen.getByText(/本サイトは個人学習を目的として作成したものです/),
@@ -41,18 +41,25 @@ describe('DisclaimerBanner', () => {
     ).toBeDefined();
   });
 
-  it('syncs --disclaimer-height CSS variable after mount', async () => {
+  it('マウント後に --disclaimer-height CSS変数を同期すること', async () => {
     render(<DisclaimerBanner />);
     await waitForFrame();
     const value = document.documentElement.style.getPropertyValue('--disclaimer-height');
     expect(value).toMatch(/^\d+(\.\d+)?px$/);
   });
 
-  it('uses fixed positioning at top:60px (Header と重ならない配置)', () => {
+  it('Headerと重ならないように top:60px に固定配置されること', () => {
     render(<DisclaimerBanner />);
     const banner = screen.getByText(/本サイトは個人学習を目的として/).parentElement;
     expect(banner).not.toBeNull();
     expect(banner?.className).toContain('fixed');
     expect(banner?.className).toContain('top-[60px]');
+  });
+
+  it('aside要素（complementaryロール）として描画され、aria-label「免責事項」を持つこと', () => {
+    render(<DisclaimerBanner />);
+    const aside = screen.getByRole('complementary');
+    expect(aside).toBeDefined();
+    expect(aside.getAttribute('aria-label')).toBe('免責事項');
   });
 });

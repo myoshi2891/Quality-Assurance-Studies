@@ -9,9 +9,45 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `4a7938a` (Usability Testing移行の同期コミット) |
-| 次の作業 | なし（全移行タスク完了後の検証および保守） |
-| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`bun run lint` は 0 errors / 11 warnings で成功。 |
+| 最新 HEAD | `99c78b2` (chore(docs): sync spec files - update dashboard coverage and specs timestamps) |
+| 次の作業 | なし（全P1アクション完了、次回P2アクション開始） |
+| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`bun run lint` は 0 errors / 11 warnings、`bun test` は 133 pass / 0 fail で成功。 |
+
+## 2026/05/26: 各仕様書（CLAUDE.md / coverage-dashboard.html）の同期
+
+- `docs/coverage-dashboard.html`: `Shared Components` の `Accessibility` セルおよび `Accessibility` カテゴリの `Unit` テストセルを `partial`/`33%` に更新（DisclaimerBanner に `aria-label` の検証を追加したことに同期）。静的ファイル数カウントおよび `kpi-total-files` の動的更新ロジックを修正。
+- `CLAUDE.md`: ユニットテストの総数を `133 specs` に更新。
+- 最終更新日のタイムスタンプ（`Updated 2026-05-26`）を同期。
+
+## 2026/05/26 P1: DisclaimerBanner の無限レイアウトループ回避とアクセシビリティ改善
+
+CIで発生していた Lighthouse CI のテスト失敗（LCPが10秒以上、およびアクセシビリティの低下）の原因を特定し、改善を行いました。
+
+### 1. パフォーマンス（LCP）の改善
+
+- `app/page.tsx`: ヒーローセクションで使われているアニメーション名が `fadeUp` とタイポされており、`globals.css` の `@keyframes fade-up` に一致しなかったため、`fade-up` に修正しました。これにより、初期表示が透明のまま静止していた問題が解消しました。
+- `components/DisclaimerBanner.tsx`: `ResizeObserver` および `requestAnimationFrame` による高頻度な更新が無限レイアウト再計算ループを引き起こすのを防ぐため、バナーの高さが実際に変化したときのみ更新を行うようガードを追加しました。
+
+### 2. アクセシビリティ（Accessibility）の改善
+
+- `components/DisclaimerBanner.tsx`: バナーを `div` から適切なランドマークロールを持つ `aside` 要素へ変更し、`aria-label="免責事項"` 属性を追加しました。また、これに伴い `useRef` の型を `HTMLElement` に変更しました。
+- `tests/components/DisclaimerBanner.test.tsx`: テストケースの説明文を日本語に統一し、新たに `aside` 要素（ロール: `complementary`）および `aria-label` が "免責事項" であることをアサートするテストを追加しました。
+
+## 2026/05/26 P1: Lighthouse CI による品質予算の導入
+
+Lighthouse CI を用いて主要ページのパフォーマンス、アクセシビリティ、SEOの品質予算検証を導入しました。
+
+### 1. Lighthouse CI の導入
+
+- `package.json`: devDependency に `@lhci/cli` を追加、スクリプトに `"lhci:autorun": "lhci autorun"` を追加。
+- `lighthouserc.json`: 主要4ページに対する品質予算（LCP < 2.5s, CLS < 0.1, TBT < 350ms, 各カテゴリ >= 0.9）を設定。
+- `.github/workflows/ci.yml`: ビルド成功後に Lighthouse CI スキャンを自動実行し、予算超過をPRごとに検知するステップを追加。
+- `tests/lhci-config.test.ts`: TDD必須サイクルに準拠し、設定とスクリプトの妥当性を検証するテストコードを新規作成。
+
+### 2. ドキュメント同期
+
+- `docs/coverage-dashboard.html`: Performance 監査の状況を Gap → 100% (4/4) に更新。KPI「Test Types Uncovered」を `3/6` から `2/6` に進捗。インベントリに `tests/lhci-config.test.ts` と `lighthouserc.json` を追加。
+- `CLAUDE.md`, `GEMINI.md`, `README.md`, `docs/REUSABLE_PROMPTS.md` 各仕様書を最新化し、最終更新日のタイムスタンプ（`Updated 2026-05-26` または `最終更新日: 2026-05-26`）を付与・更新。
 
 ## 2026/05/25: Usability Testing (CT-UT) ガイド移行とTDDルール精査
 
@@ -179,22 +215,22 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 ```text
 コンテキスト:
-- 最新 HEAD: `d87ac2c` — Merge pull request #60 from myoshi2891/dev
+- 最新 HEAD: `99c78b2` — chore(docs): sync spec files - update dashboard coverage and specs timestamps
 - HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
-- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 126 pass / 0 fail)。
-- P1 の Playwright スモーク E2E 導入完了 (`e2e/` 下に 2 ファイル、`bun run e2e` 25 passed / 0 fail、約 35 秒)。
-- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E 24/24 ページ含む）。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 126 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
+- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 133 pass / 0 fail)。
+- P1 アクション（Playwright スモーク、axe-core A11y自動監査、Lighthouse CI 品質予算、Header二重レンダ解消）すべて完了。
+- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E、a11y、Lighthouse 含む）。
+- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 133 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
 
 【指示】
-coverage-dashboard.html の残 P1 アクションを選択して実装してください：
+coverage-dashboard.html の残 P2 アクションを選択して実装してください：
 
-1. **axe-core/playwright による WCAG 2.1 AA 自動アクセシビリティ検証**
-   - `@axe-core/playwright` を導入し、全 25 ページに対する自動監査を実装する。ダークテーマのカラーコントラスト、aria-* 属性、キーボードフォーカス遷移、HTML5 ランドマーク構造を検証。`e2e/a11y.e2e.ts` として既存の Playwright 構成に追加可能。
-2. **Lighthouse CI によるパフォーマンス・SEO 品質予算の導入**
-   - 主要ページに対し LCP / CLS / TBT / A11y / SEO スコアのしきい値を設定し (LCP < 2.0s 等)、PR ごとに `@lhci/cli` で予算超過を検知。
-3. **構造修正タスク: Header 二重レンダ解消**
-   - 9 ページが `app/layout.tsx` と独自 `<Header />` import の両方でヘッダーを 2 回描画している。各 page.tsx から重複 import を削除し、`e2e/smoke.e2e.ts` の `.first()` を strict mode のままに戻す。
+1. **Playwright スクリーンショットによる Visual Regression**
+   - 各ページのキービューポート（375 / 768 / 1280px）でベースライン取得。Tailwind v4 アップデートや CSS 変更時のリグレッション検知を自動化。
+2. **Header drawer / NavBar scroll-spy の E2E 拡充**
+   - メニュー開閉 → フォーカス遷移 → Escape 閉じる、NavBar scroll-spy のアクティブ表示切替を Playwright で検証。
+3. **i18n リソース抽出の準備**
+   - ハードコードされた日本語文字列の棚卸とキー化検討、next-intl 等の多言語化ライブラリの評価。
 ```
 
 ---
