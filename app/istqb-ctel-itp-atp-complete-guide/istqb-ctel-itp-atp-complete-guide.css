@@ -1,0 +1,1322 @@
+.ctel-atp-page {
+    --bg-deep: var(--color-bg-primary, #030712);
+    --bg-card: var(--color-bg-card, #0d1117);
+    --bg-card2: var(--color-bg-secondary, #111827);
+    --bg-hover: var(--color-bg-hover, #1a2234);
+    --neon-green: var(--color-accent-green, #22c55e);
+    --neon-cyan: var(--color-accent-cyan, #06b6d4);
+    --neon-blue: var(--color-accent-blue, #3b82f6);
+    --neon-purple: var(--color-accent-purple, #a855f7);
+    --neon-amber: var(--color-accent-orange, #f59e0b);
+    --neon-red: var(--color-accent-red, #ef4444);
+    --text-primary: var(--color-text-primary, #f0f4f8);
+    --text-secondary: var(--color-text-secondary, #b5c8e1);
+    --text-dim: var(--color-text-muted, #9fbee9);
+    --border-subtle: var(--color-border, rgba(148, 163, 184, 0.1));
+    --border-glow: rgba(6, 182, 212, 0.3);
+    --font-mono: var(--font-mono, 'Space Mono', monospace);
+    --font-display: var(--font-display, 'Syne', sans-serif);
+    --font-body: var(--font-body, 'IBM Plex Sans JP', sans-serif);
+    --radius: var(--radius-DEFAULT, 8px);
+    --shadow-glow: 0 0 30px rgba(6, 182, 212, 0.15);
+}
+
+.ctel-atp-page *,
+.ctel-atp-page *::before,
+.ctel-atp-page *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.ctel-atp-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.03) 2px,
+        rgba(0, 0, 0, 0.03) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ctel-atp-page::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+}
+
+.ctel-atp-page h1,
+.ctel-atp-page h2,
+.ctel-atp-page h3,
+.ctel-atp-page h4 {
+    font-family: var(--font-display);
+    line-height: 1.2;
+}
+
+.ctel-atp-page h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+}
+
+.ctel-atp-page h2 {
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+}
+
+.ctel-atp-page h3 {
+    font-size: clamp(1.1rem, 2vw, 1.5rem);
+    font-weight: 600;
+}
+
+.ctel-atp-page h4 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--neon-cyan);
+}
+
+.ctel-atp-page p {
+    color: var(--text-secondary);
+    margin-bottom: 1rem;
+}
+
+.ctel-atp-page a {
+    color: var(--neon-cyan);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.ctel-atp-page a:hover {
+    color: var(--neon-green);
+}
+
+.ctel-atp-page ul,
+.ctel-atp-page ol {
+    padding-left: 1.5rem;
+    color: var(--text-secondary);
+}
+
+.ctel-atp-page li {
+    margin-bottom: 0.4rem;
+}
+
+.ctel-atp-page code {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    background: rgba(6, 182, 212, 0.1);
+    padding: 0.15rem 0.4rem;
+    border-radius: 4px;
+    color: var(--neon-cyan);
+}
+
+.ctel-atp-page strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* NAVBAR */
+.ctel-atp-page .sticky-nav {
+    position: sticky;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    z-index: 40;
+    background: rgba(3, 7, 18, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border-subtle);
+    padding: 0.6rem 1rem;
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+
+.ctel-atp-page .sticky-nav::-webkit-scrollbar {
+    height: 3px;
+}
+
+.ctel-atp-page .sticky-nav::-webkit-scrollbar-thumb {
+    background: var(--neon-cyan);
+    border-radius: 2px;
+}
+
+.ctel-atp-page .nav-inner {
+    display: inline-flex;
+    gap: 0.3rem;
+    align-items: center;
+    min-width: max-content;
+}
+
+.ctel-atp-page .nav-brand {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--neon-cyan);
+    font-weight: 700;
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.ctel-atp-page .nav-link {
+    display: inline-block;
+    padding: 0.3rem 0.7rem;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    color: var(--text-secondary);
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.ctel-atp-page .nav-link:hover {
+    color: var(--neon-cyan);
+    border-color: var(--border-glow);
+    background: rgba(6, 182, 212, 0.08);
+}
+
+.ctel-atp-page .nav-link.active {
+    color: var(--neon-cyan);
+    border-color: var(--border-glow);
+    background: rgba(6, 182, 212, 0.12);
+    font-weight: 700;
+}
+
+/* LAYOUT */
+.ctel-atp-page .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+}
+
+.ctel-atp-page .section {
+    padding: 3.5rem 0;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+/* CHAPTER */
+.ctel-atp-page .chapter-header {
+    margin-bottom: 2rem;
+}
+
+.ctel-atp-page .chapter-num {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.2rem 0.7rem;
+    border-radius: 20px;
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.1em;
+}
+
+.ctel-atp-page .ch-0 {
+    background: rgba(168, 85, 247, 0.2);
+    color: var(--neon-purple);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.ctel-atp-page .ch-1 {
+    background: rgba(6, 182, 212, 0.2);
+    color: var(--neon-cyan);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+}
+
+.ctel-atp-page .ch-2 {
+    background: rgba(34, 197, 94, 0.2);
+    color: var(--neon-green);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.ctel-atp-page .ch-3 {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--neon-blue);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.ctel-atp-page .ch-4 {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--neon-amber);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.ctel-atp-page .ch-5 {
+    background: rgba(239, 68, 68, 0.2);
+    color: var(--neon-red);
+    border: 1px solid rgba(239, 68, 68, 0.4);
+}
+
+.ctel-atp-page .ch-6 {
+    background: rgba(6, 182, 212, 0.2);
+    color: var(--neon-cyan);
+    border: 1px solid rgba(6, 182, 212, 0.4);
+}
+
+.ctel-atp-page .ch-7 {
+    background: rgba(34, 197, 94, 0.2);
+    color: var(--neon-green);
+    border: 1px solid rgba(34, 197, 94, 0.4);
+}
+
+.ctel-atp-page .ch-8 {
+    background: rgba(168, 85, 247, 0.2);
+    color: var(--neon-purple);
+    border: 1px solid rgba(168, 85, 247, 0.4);
+}
+
+.ctel-atp-page .ch-9 {
+    background: rgba(245, 158, 11, 0.2);
+    color: var(--neon-amber);
+    border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+.ctel-atp-page .ch-10 {
+    background: rgba(59, 130, 246, 0.2);
+    color: var(--neon-blue);
+    border: 1px solid rgba(59, 130, 246, 0.4);
+}
+
+.ctel-atp-page .k1 {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(34, 197, 94, 0.15);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.ctel-atp-page .k2 {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(6, 182, 212, 0.15);
+    color: #22d3ee;
+    border: 1px solid rgba(6, 182, 212, 0.3);
+}
+
+.ctel-atp-page .k3 {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(59, 130, 246, 0.15);
+    color: #60a5fa;
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.ctel-atp-page .k4 {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(168, 85, 247, 0.15);
+    color: #c084fc;
+    border: 1px solid rgba(168, 85, 247, 0.3);
+}
+
+.ctel-atp-page .k5 {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(245, 158, 11, 0.15);
+    color: #fbbf24;
+    border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.ctel-atp-page .k6 {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    padding: 0.15rem 0.5rem;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    vertical-align: middle;
+    background: rgba(239, 68, 68, 0.15);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+/* HERO */
+.ctel-atp-page .hero {
+    min-height: 85vh;
+    display: flex;
+    align-items: center;
+    padding: 5rem 0 3rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.ctel-atp-page .hero-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(6, 182, 212, 0.12) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: pulse 4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+        opacity: 0.7;
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+        opacity: 1;
+    }
+}
+
+.ctel-atp-page .hero-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--neon-cyan);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    animation: fadeInDown 0.6s ease both;
+}
+
+.ctel-atp-page .hero h1 {
+    background: linear-gradient(
+        135deg,
+        var(--text-primary) 0%,
+        var(--neon-cyan) 50%,
+        var(--neon-green) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+    animation: fadeInDown 0.8s ease 0.1s both;
+}
+
+.ctel-atp-page .hero-sub {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin-bottom: 2rem;
+    animation: fadeInDown 0.8s ease 0.2s both;
+}
+
+.ctel-atp-page .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    animation: fadeInUp 0.8s ease 0.3s both;
+}
+
+.ctel-atp-page .meta-tag {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 20px;
+    border: 1px solid;
+}
+
+.ctel-atp-page .meta-cyan {
+    color: var(--neon-cyan);
+    border-color: rgba(6, 182, 212, 0.4);
+    background: rgba(6, 182, 212, 0.08);
+}
+
+.ctel-atp-page .meta-green {
+    color: var(--neon-green);
+    border-color: rgba(34, 197, 94, 0.4);
+    background: rgba(34, 197, 94, 0.08);
+}
+
+.ctel-atp-page .meta-purple {
+    color: var(--neon-purple);
+    border-color: rgba(168, 85, 247, 0.4);
+    background: rgba(168, 85, 247, 0.08);
+}
+
+.ctel-atp-page .meta-amber {
+    color: var(--neon-amber);
+    border-color: rgba(245, 158, 11, 0.4);
+    background: rgba(245, 158, 11, 0.08);
+}
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* TOC */
+.ctel-atp-page .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.ctel-atp-page .toc-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1rem;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: block;
+}
+
+.ctel-atp-page .toc-card:hover {
+    border-color: var(--border-glow);
+    background: var(--bg-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glow);
+}
+
+.ctel-atp-page .toc-card-num {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    margin-bottom: 0.3rem;
+}
+
+.ctel-atp-page .toc-card-title {
+    font-family: var(--font-display);
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+/* METRIC GRID */
+.ctel-atp-page .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.ctel-atp-page .metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    text-align: center;
+    transition: all 0.25s;
+}
+
+.ctel-atp-page .metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(6, 182, 212, 0.2);
+    border-color: var(--border-glow);
+}
+
+.ctel-atp-page .metric-value {
+    font-family: var(--font-mono);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+}
+
+.ctel-atp-page .metric-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+
+/* ARCH */
+.ctel-atp-page .arch-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1.5rem 0;
+}
+
+.ctel-atp-page .arch-layer {
+    padding: 0.9rem 1.2rem;
+    border-radius: var(--radius);
+    border-left: 4px solid;
+    background: var(--bg-card);
+    transition: all 0.2s;
+    cursor: default;
+}
+
+.ctel-atp-page .arch-layer:hover {
+    transform: translateX(6px);
+    background: var(--bg-hover);
+}
+
+.ctel-atp-page .arch-layer.cyan {
+    border-color: var(--neon-cyan);
+}
+
+.ctel-atp-page .arch-layer.green {
+    border-color: var(--neon-green);
+}
+
+.ctel-atp-page .arch-layer.blue {
+    border-color: var(--neon-blue);
+}
+
+.ctel-atp-page .arch-layer.purple {
+    border-color: var(--neon-purple);
+}
+
+.ctel-atp-page .arch-layer.amber {
+    border-color: var(--neon-amber);
+}
+
+.ctel-atp-page .arch-layer.red {
+    border-color: var(--neon-red);
+}
+
+.ctel-atp-page .arch-layer-title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.ctel-atp-page .arch-layer-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* PYRAMID */
+.ctel-atp-page .pyramid {
+    margin: 1.5rem auto;
+    max-width: 520px;
+}
+
+.ctel-atp-page .pyramid-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3px;
+    transition: transform 0.2s;
+}
+
+.ctel-atp-page .pyramid-row:hover {
+    transform: scaleX(1.03);
+}
+
+.ctel-atp-page .pyramid-cell {
+    padding: 0.6rem 1rem;
+    border-radius: 4px;
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    font-weight: 700;
+    transition: box-shadow 0.2s;
+    white-space: nowrap;
+}
+
+/* CODE */
+.ctel-atp-page .code-block {
+    background: #0a0f1a;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.7;
+    position: relative;
+    white-space: normal;
+}
+
+.ctel-atp-page .code-block::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 0.5rem;
+    right: 0.8rem;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+.ctel-atp-page .code-line {
+    white-space: pre;
+    min-height: 1.5em;
+}
+
+.ctel-atp-page .code-green {
+    color: var(--neon-green);
+}
+
+.ctel-atp-page .code-cyan {
+    color: var(--neon-cyan);
+}
+
+.ctel-atp-page .code-amber {
+    color: var(--neon-amber);
+}
+
+.ctel-atp-page .code-red {
+    color: var(--neon-red);
+}
+
+.ctel-atp-page .code-dim {
+    color: var(--text-dim);
+}
+
+.ctel-atp-page .code-keyword {
+    color: #c084fc;
+    font-weight: 700;
+}
+
+.ctel-atp-page .code-comment {
+    color: #475569;
+    font-style: italic;
+}
+
+/* STEP LIST */
+.ctel-atp-page .step-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin: 1rem 0;
+}
+
+.ctel-atp-page .step-item {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 0.8rem 1rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    transition: all 0.2s;
+}
+
+.ctel-atp-page .step-item:hover {
+    border-color: var(--border-glow);
+    background: var(--bg-hover);
+}
+
+.ctel-atp-page .step-num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(6, 182, 212, 0.2);
+    border: 1px solid rgba(6, 182, 212, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--neon-cyan);
+}
+
+.ctel-atp-page .step-content {
+    flex: 1;
+}
+
+.ctel-atp-page .step-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.2rem;
+    font-family: var(--font-display);
+}
+
+.ctel-atp-page .step-desc {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+/* CALLOUT */
+.ctel-atp-page .callout {
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    margin: 1rem 0;
+    border: 1px solid;
+    display: flex;
+    gap: 0.8rem;
+    align-items: flex-start;
+}
+
+.ctel-atp-page .callout-icon {
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+.ctel-atp-page .callout-body {
+    flex: 1;
+}
+
+.ctel-atp-page .callout-title {
+    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+}
+
+.ctel-atp-page .callout-text {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.ctel-atp-page .callout.info {
+    background: rgba(6, 182, 212, 0.07);
+    border-color: rgba(6, 182, 212, 0.3);
+}
+
+.ctel-atp-page .callout.info .callout-title {
+    color: var(--neon-cyan);
+}
+
+.ctel-atp-page .callout.warning {
+    background: rgba(245, 158, 11, 0.07);
+    border-color: rgba(245, 158, 11, 0.3);
+}
+
+.ctel-atp-page .callout.warning .callout-title {
+    color: var(--neon-amber);
+}
+
+.ctel-atp-page .callout.danger {
+    background: rgba(239, 68, 68, 0.07);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.ctel-atp-page .callout.danger .callout-title {
+    color: var(--neon-red);
+}
+
+.ctel-atp-page .callout.success {
+    background: rgba(34, 197, 94, 0.07);
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.ctel-atp-page .callout.success .callout-title {
+    color: var(--neon-green);
+}
+
+/* ALERT */
+.ctel-atp-page .alert {
+    border-left: 4px solid;
+    padding: 0.8rem 1rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin: 0.8rem 0;
+    font-size: 0.88rem;
+}
+
+.ctel-atp-page .alert.green {
+    border-color: var(--neon-green);
+    background: rgba(34, 197, 94, 0.06);
+    color: #4ade80;
+}
+
+.ctel-atp-page .alert.amber {
+    border-color: var(--neon-amber);
+    background: rgba(245, 158, 11, 0.06);
+    color: #fbbf24;
+}
+
+.ctel-atp-page .alert.red {
+    border-color: var(--neon-red);
+    background: rgba(239, 68, 68, 0.06);
+    color: #f87171;
+}
+
+.ctel-atp-page .alert.cyan {
+    border-color: var(--neon-cyan);
+    background: rgba(6, 182, 212, 0.06);
+    color: #22d3ee;
+}
+
+/* PROGRESS */
+.ctel-atp-page .progress-item {
+    margin: 0.5rem 0;
+}
+
+.ctel-atp-page .progress-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    margin-bottom: 0.3rem;
+}
+
+.ctel-atp-page .progress-label {
+    color: var(--text-secondary);
+    font-family: var(--font-mono);
+}
+
+.ctel-atp-page .progress-value {
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-weight: 700;
+}
+
+.ctel-atp-page .progress-bar-bg {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.ctel-atp-page .progress-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    animation: growBar 1.2s ease-out both;
+    transform-origin: left;
+}
+
+@keyframes growBar {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+/* TABLE */
+.ctel-atp-page .table-wrap {
+    overflow-x: auto;
+    margin: 1rem 0;
+    border-radius: var(--radius);
+    border: 1px solid var(--border-subtle);
+}
+
+.ctel-atp-page table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    min-width: 480px;
+}
+
+.ctel-atp-page th {
+    background: rgba(6, 182, 212, 0.1);
+    color: var(--neon-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 0.7rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border-subtle);
+}
+
+.ctel-atp-page td {
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    color: var(--text-secondary);
+    vertical-align: top;
+}
+
+.ctel-atp-page tr:last-child td {
+    border-bottom: none;
+}
+
+.ctel-atp-page tr:hover td {
+    background: rgba(6, 182, 212, 0.04);
+    color: var(--text-primary);
+}
+
+/* EXAM GRID */
+.ctel-atp-page .exam-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.ctel-atp-page .exam-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    transition: all 0.2s;
+}
+
+.ctel-atp-page .exam-card:hover {
+    border-color: var(--border-glow);
+    box-shadow: var(--shadow-glow);
+}
+
+.ctel-atp-page .exam-card-title {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.ctel-atp-page .exam-card-desc {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-bottom: 0.7rem;
+}
+
+.ctel-atp-page .star-rating {
+    display: flex;
+    gap: 2px;
+}
+
+.ctel-atp-page .star.filled {
+    color: var(--neon-amber);
+}
+
+.ctel-atp-page .star.empty {
+    color: var(--text-dim);
+}
+
+/* REF GRID */
+.ctel-atp-page .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 0.8rem;
+    margin: 1.5rem 0;
+}
+
+.ctel-atp-page .ref-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 0.9rem 1.1rem;
+    transition: all 0.2s;
+    display: block;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.ctel-atp-page .ref-card::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0;
+    background: var(--neon-cyan);
+    transition: width 0.3s;
+}
+
+.ctel-atp-page .ref-card:hover::after {
+    width: 100%;
+}
+
+.ctel-atp-page .ref-card:hover {
+    background: var(--bg-hover);
+    border-color: var(--border-glow);
+    transform: translateY(-2px);
+}
+
+.ctel-atp-page .ref-category {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--neon-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.3rem;
+}
+
+.ctel-atp-page .ref-title {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    margin-bottom: 0.2rem;
+}
+
+.ctel-atp-page .ref-url {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    font-family: var(--font-mono);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* TREND */
+.ctel-atp-page .trend-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    margin: 0.8rem 0;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.ctel-atp-page .trend-card::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: calc(var(--radius) + 1px);
+    background: linear-gradient(
+        135deg,
+        rgba(6, 182, 212, 0.2),
+        transparent,
+        rgba(34, 197, 94, 0.2)
+    );
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.ctel-atp-page .trend-card:hover::before {
+    opacity: 1;
+}
+
+.ctel-atp-page .trend-card:hover {
+    box-shadow: 0 0 30px rgba(6, 182, 212, 0.15);
+}
+
+.ctel-atp-page .trend-card h4 {
+    margin-bottom: 0.5rem;
+}
+
+/* COMPARE */
+.ctel-atp-page .compare-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.ctel-atp-page .compare-box {
+    background: var(--bg-card);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    border: 1px solid;
+}
+
+.ctel-atp-page .compare-box.good {
+    border-color: rgba(34, 197, 94, 0.3);
+}
+
+.ctel-atp-page .compare-box.bad {
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+.ctel-atp-page .compare-box.blue {
+    border-color: rgba(59, 130, 246, 0.3);
+}
+
+.ctel-atp-page .compare-label {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.ctel-atp-page .compare-box.good .compare-label {
+    color: var(--neon-green);
+}
+
+.ctel-atp-page .compare-box.bad .compare-label {
+    color: var(--neon-red);
+}
+
+.ctel-atp-page .compare-box.blue .compare-label {
+    color: var(--neon-blue);
+}
+
+/* MERMAID */
+.ctel-atp-page .mermaid-wrap {
+    background: #080d16;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.ctel-atp-page .mermaid {
+    display: flex;
+    justify-content: center;
+}
+
+/* SECTION DIV */
+.ctel-atp-page .section-divider {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 2rem 0 1.5rem;
+}
+
+.ctel-atp-page .section-divider h3,
+.ctel-atp-page .section-divider h4 {
+    white-space: nowrap;
+}
+
+.ctel-atp-page .section-line {
+    flex: 1;
+    height: 1px;
+    background: var(--border-subtle);
+}
+
+/* GRID */
+.ctel-atp-page .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+/* INFO CARD */
+.ctel-atp-page .info-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    margin: 0.8rem 0;
+}
+
+.ctel-atp-page .info-card h4 {
+    margin-bottom: 0.5rem;
+}
+
+/* PILL */
+.ctel-atp-page .pill {
+    display: inline-block;
+    padding: 0.15rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.78rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    margin: 0.1rem;
+}
+
+.ctel-atp-page .pill-cyan {
+    background: rgba(6, 182, 212, 0.15);
+    color: var(--neon-cyan);
+}
+
+.ctel-atp-page .pill-green {
+    background: rgba(34, 197, 94, 0.15);
+    color: var(--neon-green);
+}
+
+.ctel-atp-page .pill-amber {
+    background: rgba(245, 158, 11, 0.15);
+    color: var(--neon-amber);
+}
+
+.ctel-atp-page .pill-red {
+    background: rgba(239, 68, 68, 0.15);
+    color: var(--neon-red);
+}
+
+.ctel-atp-page .pill-blue {
+    background: rgba(59, 130, 246, 0.15);
+    color: var(--neon-blue);
+}
+
+/* SVG */
+.ctel-atp-page .svg-wrap {
+    margin: 1rem 0;
+    overflow-x: auto;
+}
+
+.ctel-atp-page .svg-wrap svg {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+/* FOOTER */
+.ctel-atp-page footer {
+    padding: 3rem 0 2rem;
+    border-top: 1px solid var(--border-subtle);
+    text-align: center;
+}
+
+.ctel-atp-page footer p {
+    font-size: 0.82rem;
+    color: var(--text-dim);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .ctel-atp-page .compare-grid,
+    .ctel-atp-page .grid-2 {
+        grid-template-columns: 1fr;
+    }
+    .ctel-atp-page .hero {
+        min-height: auto;
+        padding: 3rem 0 2rem;
+    }
+    .ctel-atp-page .toc-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .ctel-atp-page .toc-grid,
+    .ctel-atp-page .exam-grid {
+        grid-template-columns: 1fr;
+    }
+    .ctel-atp-page .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ctel-atp-page .hero-glow,
+    .ctel-atp-page .hero-label,
+    .ctel-atp-page .hero h1,
+    .ctel-atp-page .hero-sub,
+    .ctel-atp-page .hero-meta,
+    .ctel-atp-page .progress-bar-fill {
+        animation: none !important;
+        transition: none !important;
+        transform: none !important;
+    }
+    .ctel-atp-page .hero-label,
+    .ctel-atp-page .hero h1,
+    .ctel-atp-page .hero-sub,
+    .ctel-atp-page .hero-meta {
+        opacity: 1 !important;
+    }
+    .ctel-atp-page .progress-bar-fill {
+        max-width: 100% !important;
+    }
+}

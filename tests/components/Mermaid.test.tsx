@@ -44,13 +44,19 @@ describe('Mermaid component', () => {
   });
 
   it('renders an error fallback when mermaid.render throws', async () => {
-    renderImpl = async () => {
-      throw new Error('boom');
-    };
-    const { container } = render(<Mermaid chart="graph TD; broken" />);
-    await waitFor(() => {
-      expect(container.textContent).toContain('図表の描画に失敗しました');
-    });
+    const originalError = console.error;
+    console.error = () => {};
+    try {
+      renderImpl = async () => {
+        throw new Error('boom');
+      };
+      const { container } = render(<Mermaid chart="graph TD; broken" />);
+      await waitFor(() => {
+        expect(container.textContent).toContain('図表の描画に失敗しました');
+      });
+    } finally {
+      console.error = originalError;
+    }
   });
 
   it('wraps the SVG in a mermaid-wrapper container with overflow handling', async () => {

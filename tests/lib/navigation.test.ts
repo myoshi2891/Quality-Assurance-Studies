@@ -2,8 +2,8 @@ import { describe, it, expect } from 'bun:test';
 import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 26 entries (home + 8 foundation + 1 fdn-ext + 6 advanced + 10 specialist)', () => {
-    expect(NAV_ITEMS).toHaveLength(26);
+  it('contains 27 entries (home + 8 foundation + 1 fdn-ext + 6 advanced + 10 specialist + 1 expert)', () => {
+    expect(NAV_ITEMS).toHaveLength(27);
   });
 
   it('every item has a unique href', () => {
@@ -43,6 +43,7 @@ describe('groupByCategory', () => {
       'istqb-foundation-ext',
       'istqb-advanced',
       'istqb-specialist',
+      'istqb-expert',
     ]);
   });
 
@@ -108,6 +109,7 @@ describe('groupByCategory extensibility', () => {
       'istqb-foundation-ext',
       'istqb-advanced',
       'istqb-specialist',
+      'istqb-expert',
     ]);
   });
 });

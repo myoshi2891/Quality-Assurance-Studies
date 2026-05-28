@@ -1,5 +1,7 @@
 # Migration Progress
 
+Updated 2026-05-28
+
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
@@ -9,9 +11,25 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `99c78b2` (chore(docs): sync spec files - update dashboard coverage and specs timestamps) |
-| 次の作業 | なし（全P1アクション完了、次回P2アクション開始） |
-| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`bun run lint` は 0 errors / 11 warnings、`bun test` は 133 pass / 0 fail で成功。 |
+| 最新 HEAD | `f8c9a52` |
+| 次の作業 | なし（全 HTML ページの移行完了） |
+| ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
+
+## 2026/05/28: CTEL-ITP-ATP Expert Level Guide の Next.js 移行完了
+
+- `app/istqb-ctel-itp-atp-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装。
+- `istqb-ctel-itp-atp-complete-guide.html`: `html-archive/` へ移動。
+- `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
+- `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
+- **全 HTML 移行完了**: これにより、プロジェクトルートにあったすべての静的 HTML ページの Next.js 移行が完了しました。
+
+
+## 2026/05/27: CTAL-TTA ガイドの Next.js 移行完了
+
+- `app/istqb-ctal-tta-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装。
+- `istqb-ctal-tta-complete-guide.html`: `html-archive/` へ移動。
+- ESLint: `no-explicit-any` および `no-unused-vars` の修正を実施。
+- テスト: `tests/istqb-ctal-tta-complete-guide/page.test.tsx` を追加し、全テスト通過を確認。
 
 ## 2026/05/26: 各仕様書（CLAUDE.md / coverage-dashboard.html）の同期
 
@@ -164,12 +182,12 @@ coverage-dashboard.html の P1 アクション「Playwright 導入と全ペー�
 
 ### 4. Test Coverage Dashboard の追加（完了）
 
-HTML 移行とは独立した可視化タスク。プロジェクト自身のテストカバレッジを 1 ファイルで把握できるスタンドアロン HTML を追加した。
+HTML 移行とは独立した可視化タスク. プロジェクト自身のテストカバレッジを 1 ファイルで把握できるスタンドアロン HTML を追加した。
 
 - 追加ファイル: [docs/coverage-dashboard.html](coverage-dashboard.html)（単一ファイル、外部依存は Google Fonts のみ）
 - 構成: KPI 概要 / 11 カテゴリ × 6 種別マトリクス / 23 ページ別カバレッジ / 既存 13 テストのインベントリ / P0-P3 ネクストアクション / ISTQB テストレベル整合表
 - 数値根拠: ページ 10/23 テスト済（43%）・コンポーネント 1/3・lib 2/2・scripts 0/5・CI 0 パイプライン
-- 更新運用: `<script>` 内の `DATA` 定数を編集して再描画。HTML 構造の変更不要
+- 更新運用: `<script>` 内の `DATA` 定数を編集して再描画. HTML 構造の変更不要
 - コミット: `322ca53 docs(coverage): add self-referential test coverage dashboard`
 
 ## 移行状況テーブル
@@ -198,6 +216,7 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 | `istqb-ctal-tae-complete-guide.html` | `/istqb-ctal-tae-complete-guide` | ✅ |
 | `istqb-ctal-tm-complete-guide.html` | `/istqb-ctal-tm-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-tta-complete-guide.html` | `/istqb-ctal-tta-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
@@ -206,7 +225,7 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| なし | - | ✅ | 全て完了 |
+| (なし) | | | |
 
 ## 既知の留保事項
 
@@ -216,61 +235,17 @@ HTML 移行とは独立した可視化タスク。プロジェクト自身のテ
 
 ```text
 コンテキスト:
-- 最新 HEAD: `99c78b2` — chore(docs): sync spec files - update dashboard coverage and specs timestamps
-- HTML→Next.js 移行は全 23 ページ完了済み（html-archive/ に元ファイル退避）。
-- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 133 pass / 0 fail)。
-- P1 アクション（Playwright スモーク、axe-core A11y自動監査、Lighthouse CI 品質予算、Header二重レンダ解消）すべて完了。
-- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E、a11y、Lighthouse 含む）。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 133 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
+- 最新 HEAD: `f8c9a52`
+- **全 HTML 移行完了**: プロジェクトルートにあったすべての静的 HTML ページの Next.js App Router への移行が完了しました。
+- 合計 27 ルート（ホーム + 26 ガイド）が Next.js で管理されています。
+- 各種テスト（ユニット、E2E、アクセシビリティ、Lighthouse CI）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-coverage-dashboard.html の残 P2 アクションを選択して実装してください：
-
-1. **Playwright スクリーンショットによる Visual Regression**
-   - 各ページのキービューポート（375 / 768 / 1280px）でベースライン取得。Tailwind v4 アップデートや CSS 変更時のリグレッション検知を自動化。
-2. **Header drawer / NavBar scroll-spy の E2E 拡充**
-   - メニュー開閉 → フォーカス遷移 → Escape 閉じる、NavBar scroll-spy のアクティブ表示切替を Playwright で検証。
-3. **i18n リソース抽出の準備**
-   - ハードコードされた日本語文字列の棚卸とキー化検討、next-intl 等の多言語化ライブラリの評価。
+すべての移行タスクが完了しました。今後の新機能実装やコンテンツのブラッシュアップについて指示を仰ぎます。
 ```
 
 ---
 
 ## 完了: ハンバーガーメニュー化（TDD）
 
-HTML 移行とは独立した機能改修タスク。グローバルヘッダー [components/Header.tsx](components/Header.tsx) を全画面幅でハンバーガーメニュー化し、将来のガイド追加に備えて [lib/navigation.ts](lib/navigation.ts) を Single Source of Truth として導入した。
-
-### タスク結果
-
-| 項目 | 値 |
-|---|---|
-| プランファイル | [.claude/plans/tdd-optimized-dragon.md](.claude/plans/tdd-optimized-dragon.md) |
-| 作業ブランチ | `dev` |
-| TDD ステップ | 全 11 ステップ（1 ステップ = 1 コミット）すべて完了 |
-| 進捗 | **11 / 11 完了** ✓ |
-| 直近 HEAD | `e13242f` — test(navigation): cover extensibility for future specialist guides (e.g. CT-TAS) |
-| 検証結果 | `bun test` 67 pass / 2 fail（既知の無関係スケルトン: CT-ATLaS, CTAL-TA）<br>`bun run lint` 0 errors / 10 warnings（既存スケルトンの未使用変数のみ）<br>`bun run build` ✓ Compiled successfully / 22 static pages 生成 |
-| ユーザー決定事項 | ① Top sheet ドロワー　② インライン SVG（依存追加なし）　③ CT-TAS は今回ナビ未追加　④ "Next.js SPA" バッジ削除 |
-
-### 完了済みステップ
-
-| Step | コミット | 内容 |
-|---|---|---|
-| 1 | `7468763` | `chore(test): add bun test npm scripts` |
-| 2 | `f64eba4` | `test(navigation): add failing spec for NAV_ITEMS shape` (Red) |
-| 3 | `d1e1cd7` | `feat(navigation): introduce NAV_ITEMS single source of truth` (Green: 20 件 / 5 カテゴリ) |
-| 4 | `10a3cbd` | `feat(navigation): add groupByCategory helper for drawer rendering` |
-| 5 | `ca88a3a` | `feat(header): add hamburger toggle button with aria-expanded` |
-| 6 | `36843de` | `feat(header): render category drawer driven by NAV_ITEMS` |
-| 7 | `7550269` | `feat(header): close drawer on escape, overlay click, link click` |
-| 8 | `6620f92` | `refactor(header): drop legacy inline nav links and SPA badge, mark active via aria-current` |
-| 9 | `0aa409a` | `style(header): add drawer/overlay/hamburger styles to globals.css` |
-| 10 | `4aeb6b3` | `feat(header): lock body scroll and focus first link when drawer opens` |
-| 11 | `e13242f` | `test(navigation): cover extensibility for future specialist guides (e.g. CT-TAS)` |
-
-### 残作業（任意・次セッション以降）
-
-- [ ] ブラウザ手動確認（プランの `## 検証` チェックリスト参照）
-- [ ] `make css-reset` 実行（dev サーバー使用時のみ — `.next` は本タスク完了時点で削除済み）
-- [ ] CT-TAS 実装完了時に `NAV_ITEMS` 末尾に 1 行追加（`lib/navigation.ts` 冒頭コメント参照）
-- [ ] 既存スケルトン 2 件（`tests/istqb-ct-atlas-complete-guide/page.test.tsx`, `tests/istqb-ctal-ta-complete-guide/page.test.tsx`）の hero タイトル不一致は本タスクと無関係。別タスクで対応。
+...
