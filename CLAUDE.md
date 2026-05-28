@@ -140,6 +140,9 @@ Next.js App Router 構成:
 - `app/istqb-ct-ut-complete-guide.css` — ユーザビリティテスト(CT-UT)ガイド固有スタイル
 - `app/istqb-ct-ut-complete-guide/page.tsx` — ユーザビリティテスト(CT-UT)ガイドページ
 - `app/istqb-ct-ut-complete-guide/NavBar.tsx` — CT-UT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ctel-itp-atp-complete-guide/istqb-ctel-itp-atp-complete-guide.css` — テストプロセス評価(CTEL-ATP)ガイド固有スタイル
+- `app/istqb-ctel-itp-atp-complete-guide/page.tsx` — テストプロセス評価(CTEL-ATP)ガイドページ
+- `app/istqb-ctel-itp-atp-complete-guide/NavBar.tsx` — CTEL-ATP ページ固有スティッキーナビ（`'use client'`）
 - `app/istqb-ctal-tta-complete-guide/istqb-ctal-tta.css` — テクニカルテストアナリスト(CTAL-TTA)ガイド固有スタイル
 - `app/istqb-ctal-tta-complete-guide/page.tsx` — テクニカルテストアナリスト(CTAL-TTA)ガイドページ
 - `app/istqb-ctal-tta-complete-guide/NavBar.tsx` — CTAL-TTA ページ固有スティッキーナビ（'use client'）
@@ -157,7 +160,7 @@ Next.js App Router 構成:
 
 | ファイル | 対応する予定ルート | 状態 |
 |---|---|---|
-| `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | 準備中 |
+| なし | - | ✅ 全て完了 |
 
 移行完了後は `html-archive/` へ移動し、上記テーブルから削除する。
 

@@ -11,15 +11,18 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `93fcb85` (feat: add ISTQB CTEL-ITP-ATP Expert Level Guide source HTML) |
-| 次の作業 | なし（全P1アクション完了、次回P2アクション開始） |
-| ビルド状態 | ⚠️ サンドボックスのネットワーク制限等によりローカルテスト/ビルドの実行が制限されているが、`bun run lint` は 0 errors / 11 warnings、`bun test` は 136 pass / 0 fail で成功。 |
+| 最新 HEAD | `f8c9a52` |
+| 次の作業 | なし（全 HTML ページの移行完了） |
+| ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
 
-## 2026/05/28: CTEL-ITP-ATP Expert Level Guide ソースの追加
+## 2026/05/28: CTEL-ITP-ATP Expert Level Guide の Next.js 移行完了
 
-- `istqb-ctel-itp-atp-complete-guide.html`: エキスパートレベルガイドのソースHTMLをプロジェクトルートに追加。
-- `CLAUDE.md` / `GEMINI.md`: 未移行HTMLリストを更新し、同期を実施。
-- テスト数: 136 specs に更新。
+- `app/istqb-ctel-itp-atp-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装。
+- `istqb-ctel-itp-atp-complete-guide.html`: `html-archive/` へ移動。
+- `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
+- `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
+- **全 HTML 移行完了**: これにより、プロジェクトルートにあったすべての静的 HTML ページの Next.js 移行が完了しました。
+
 
 ## 2026/05/27: CTAL-TTA ガイドの Next.js 移行完了
 
@@ -213,6 +216,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ctal-tae-complete-guide.html` | `/istqb-ctal-tae-complete-guide` | ✅ |
 | `istqb-ctal-tm-complete-guide.html` | `/istqb-ctal-tm-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-tta-complete-guide.html` | `/istqb-ctal-tta-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
@@ -221,7 +225,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | 準備中 | 新規追加 |
+| (なし) | | | |
 
 ## 既知の留保事項
 
@@ -231,15 +235,13 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `93fcb85` — feat: add ISTQB CTEL-ITP-ATP Expert Level Guide source HTML
-- HTML→Next.js 移行は 23 ページ完了済み、新たにエキスパートレベルガイドの移行待ちが発生。
-- 移行スクリプト類のテスト実装・P2 アクション一部完了済み (`tests/scripts/` 下に 5 ファイル、`bun test` 136 pass / 0 fail)。
-- P1 アクション（Playwright スモーク、axe-core A11y自動監査、Lighthouse CI 品質予算、Header二重レンダ解消）すべて完了。
-- テストカバレッジ可視化ダッシュボード [docs/coverage-dashboard.html](docs/coverage-dashboard.html) 最新化（E2E、a11y、Lighthouse 含む）。
-- ビルド: `bun run build` ✅ / `bun run lint` 0 errors / 11 warnings / `bun test` 136 pass / 0 fail / `bun run e2e` 25 passed / 0 fail。
+- 最新 HEAD: `f8c9a52`
+- **全 HTML 移行完了**: プロジェクトルートにあったすべての静的 HTML ページの Next.js App Router への移行が完了しました。
+- 合計 27 ルート（ホーム + 26 ガイド）が Next.js で管理されています。
+- 各種テスト（ユニット、E2E、アクセシビリティ、Lighthouse CI）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-未移行の `istqb-ctel-itp-atp-complete-guide.html` を Next.js へ移行してください。
+すべての移行タスクが完了しました。今後の新機能実装やコンテンツのブラッシュアップについて指示を仰ぎます。
 ```
 
 ---

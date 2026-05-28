@@ -98,6 +98,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-pt-complete-guide/page.tsx` (パフォーマンステスト CT-PT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-ut-complete-guide/page.tsx` (ユーザビリティテスト CT-UT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-tas-complete-guide/page.tsx` (テスト自動化戦略 CT-TAS 完全ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ctel-itp-atp-complete-guide/page.tsx` (テストプロセス評価 CTEL-ATP 完全ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
@@ -165,6 +166,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `istqb-ctal-tae-complete-guide.html` | `/istqb-ctal-tae-complete-guide` | ✅ |
 | `istqb-ctal-tm-complete-guide.html` | `/istqb-ctal-tm-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-tta-complete-guide.html` | `/istqb-ctal-tta-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
@@ -173,7 +175,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | 準備中 | 新規追加 |
+| (なし) | | | |
+
 
 ## 既知の留保事項
 
