@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
+/**
+ * Renders a sticky navigation bar that highlights the section currently in view and scrolls smoothly to anchors.
+ *
+ * Observes all `section[id]` elements to track the active section; clicking a link scrolls the page to the target element adjusted by a 60px header offset and updates the URL fragment.
+ *
+ * @returns The NavBar React element.
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState('');
 
