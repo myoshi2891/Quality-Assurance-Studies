@@ -47,6 +47,7 @@ export default function NavBar() {
                     href="#ch0"
                     className={`nav-link ${activeId === 'ch0' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch0')}
+                    aria-current={activeId === 'ch0' ? 'location' : undefined}
                 >
                     概要
                 </a>
@@ -54,6 +55,7 @@ export default function NavBar() {
                     href="#ch1"
                     className={`nav-link ${activeId === 'ch1' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch1')}
+                    aria-current={activeId === 'ch1' ? 'location' : undefined}
                 >
                     Ch1 導入
                 </a>
@@ -61,6 +63,7 @@ export default function NavBar() {
                     href="#ch2"
                     className={`nav-link ${activeId === 'ch2' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch2')}
+                    aria-current={activeId === 'ch2' ? 'location' : undefined}
                 >
                     Ch2 コンテキスト
                 </a>
@@ -68,6 +71,7 @@ export default function NavBar() {
                     href="#ch3"
                     className={`nav-link ${activeId === 'ch3' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch3')}
+                    aria-current={activeId === 'ch3' ? 'location' : undefined}
                 >
                     Ch3 モデルベース
                 </a>
@@ -75,6 +79,7 @@ export default function NavBar() {
                     href="#ch4"
                     className={`nav-link ${activeId === 'ch4' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch4')}
+                    aria-current={activeId === 'ch4' ? 'location' : undefined}
                 >
                     Ch4 分析ベース
                 </a>
@@ -82,6 +87,7 @@ export default function NavBar() {
                     href="#ch5"
                     className={`nav-link ${activeId === 'ch5' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch5')}
+                    aria-current={activeId === 'ch5' ? 'location' : undefined}
                 >
                     Ch5 手法選択
                 </a>
@@ -89,6 +95,7 @@ export default function NavBar() {
                     href="#ch6"
                     className={`nav-link ${activeId === 'ch6' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch6')}
+                    aria-current={activeId === 'ch6' ? 'location' : undefined}
                 >
                     Ch6 IDEALプロセス
                 </a>
@@ -96,6 +103,7 @@ export default function NavBar() {
                     href="#ch7"
                     className={`nav-link ${activeId === 'ch7' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch7')}
+                    aria-current={activeId === 'ch7' ? 'location' : undefined}
                 >
                     Ch7 組織・役割
                 </a>
@@ -103,6 +111,7 @@ export default function NavBar() {
                     href="#ch8"
                     className={`nav-link ${activeId === 'ch8' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch8')}
+                    aria-current={activeId === 'ch8' ? 'location' : undefined}
                 >
                     Ch8 変更管理
                 </a>
@@ -110,6 +119,7 @@ export default function NavBar() {
                     href="#ch9"
                     className={`nav-link ${activeId === 'ch9' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch9')}
+                    aria-current={activeId === 'ch9' ? 'location' : undefined}
                 >
                     Ch9 成功要因
                 </a>
@@ -117,6 +127,7 @@ export default function NavBar() {
                     href="#ch10"
                     className={`nav-link ${activeId === 'ch10' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'ch10')}
+                    aria-current={activeId === 'ch10' ? 'location' : undefined}
                 >
                     Ch10 適応
                 </a>
@@ -124,6 +135,7 @@ export default function NavBar() {
                     href="#exam"
                     className={`nav-link ${activeId === 'exam' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'exam')}
+                    aria-current={activeId === 'exam' ? 'location' : undefined}
                 >
                     試験対策
                 </a>
@@ -131,6 +143,7 @@ export default function NavBar() {
                     href="#refs"
                     className={`nav-link ${activeId === 'refs' ? 'active' : ''}`}
                     onClick={(e) => scrollTo(e, 'refs')}
+                    aria-current={activeId === 'refs' ? 'location' : undefined}
                 >
                     参考文献
                 </a>

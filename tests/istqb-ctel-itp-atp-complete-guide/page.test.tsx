@@ -26,8 +26,8 @@ describe('CTEL-ITP-ATP Expert Level Guide Page', () => {
 
     it('renders the navigation bar', () => {
         render(<Page />);
-        // ページ固有のナビゲーションが存在することを確認
-        const nav = document.querySelector('nav');
+        // ページ固有のナビゲーション（.sticky-nav）が存在することを確認
+        const nav = document.querySelector('.sticky-nav');
         expect(nav).toBeInTheDocument();
     });
 });

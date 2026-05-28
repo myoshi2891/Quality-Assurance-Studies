@@ -124,7 +124,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ### ページ固有スティッキーナビ
 
-- HTML の `<nav>`（ページ内アンカー付き）はグローバル Header とは別物. 削除せず `'use client'` コンポーネントとして移行する
+- HTML の `<nav>`（ページ内アンカー付き）はグローバル Header とは別物。削除せず `'use client'` コンポーネントとして移行する
 - CSS: `position: sticky; top: 60px; z-index: 40`（Header は `fixed` / 高さ 60px / `z-50`）
 - `IntersectionObserver` は `useEffect` で設定し、クリーンアップで `obs.disconnect()` を呼ぶ
 

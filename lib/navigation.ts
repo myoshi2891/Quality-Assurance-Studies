@@ -8,7 +8,7 @@
  *     label: 'テスト自動化戦略(CT-TAS)ガイド',
  *     category: 'istqb-specialist' },
  *
- * `category` は下記 5 種類から選ぶ。新カテゴリが必要な場合は、`NavCategory`・
+ * `category` は下記 6 種類から選ぶ。新カテゴリが必要な場合は、`NavCategory`・
  * `CATEGORY_ORDER`・`CATEGORY_TITLES` の 3 箇所を同期して拡張する。
  */
 export type NavCategory =
