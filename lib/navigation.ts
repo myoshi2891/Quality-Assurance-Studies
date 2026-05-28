@@ -86,6 +86,12 @@ const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
 };
 
 
+/**
+ * Organizes navigation items into ordered groups by their category.
+ *
+ * @param items - The navigation items to group
+ * @returns An array of `NavGroup` objects ordered according to `CATEGORY_ORDER`; categories with no matching items are omitted
+ */
 export function groupByCategory(items: readonly NavItem[]): NavGroup[] {
   const groups: NavGroup[] = [];
   for (const category of CATEGORY_ORDER) {
