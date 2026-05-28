@@ -16,7 +16,8 @@ export type NavCategory =
   | 'foundation'
   | 'istqb-foundation-ext'
   | 'istqb-advanced'
-  | 'istqb-specialist';
+  | 'istqb-specialist'
+  | 'istqb-expert';
 
 export interface NavItem {
   href: string;
@@ -62,6 +63,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-tas-complete-guide', label: 'テスト自動化戦略(CT-TAS)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-pt-complete-guide', label: 'パフォーマンステスト(CT-PT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-ut-complete-guide', label: 'ユーザビリティテスト(CT-UT)ガイド', category: 'istqb-specialist' },
+
+  { href: '/istqb-ctel-itp-atp-complete-guide', label: 'テストプロセス評価(CTEL-ATP)ガイド', category: 'istqb-expert' },
 ];
 
 const CATEGORY_ORDER: readonly NavCategory[] = [
@@ -70,6 +73,7 @@ const CATEGORY_ORDER: readonly NavCategory[] = [
   'istqb-foundation-ext',
   'istqb-advanced',
   'istqb-specialist',
+  'istqb-expert',
 ];
 
 const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
@@ -78,7 +82,9 @@ const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
   'istqb-foundation-ext': 'ISTQB Foundation Extension',
   'istqb-advanced': 'ISTQB Advanced',
   'istqb-specialist': 'ISTQB Specialist',
+  'istqb-expert': 'ISTQB Expert',
 };
+
 
 export function groupByCategory(items: readonly NavItem[]): NavGroup[] {
   const groups: NavGroup[] = [];
