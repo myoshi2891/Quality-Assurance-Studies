@@ -1,7 +1,6 @@
 import { afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
-// @ts-ignore: Page does not exist yet
 import Page from '../../app/istqb-ctel-itp-atp-complete-guide/page';
 
 afterEach(() => cleanup());
