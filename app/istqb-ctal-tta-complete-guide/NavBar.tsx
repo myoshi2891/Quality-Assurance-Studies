@@ -2,6 +2,13 @@
 
 import React, { useEffect, useState } from 'react';
 
+/**
+ * Renders a sticky navigation bar with anchor links and highlights the link that corresponds to the currently visible page section.
+ *
+ * The component observes document sections with an `id` and updates the highlighted link as the visible section changes; it also sets `aria-current="location"` for the active link to improve accessibility.
+ *
+ * @returns The navigation bar as a JSX element.
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState('');
 
