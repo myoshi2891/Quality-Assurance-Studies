@@ -75,6 +75,12 @@ describe("validate-fences.mjs", () => {
       logOutput += args.join(" ") + "\n";
     };
 
+    let errorOutput = "";
+    const originalError = console.error;
+    console.error = (...args: unknown[]) => {
+      errorOutput += args.join(" ") + "\n";
+    };
+
     const originalArgv = process.argv;
     process.argv = ["bun", scriptPath, tempFilePath];
 
@@ -88,6 +94,7 @@ describe("validate-fences.mjs", () => {
     } finally {
       process.exit = originalExit;
       console.log = originalLog;
+      console.error = originalError;
       process.argv = originalArgv;
     }
     

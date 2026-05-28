@@ -11,8 +11,8 @@ describe('ISTQB CTAL-TAE Complete Guide Page', () => {
   it('renders the hero section with correct title', () => {
     render(<Page />);
     const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent(/テスト自動化/);
-    expect(heading).toHaveTextContent(/完全ガイド/);
+    expect(heading.textContent).toContain('テスト自動化');
+    expect(heading.textContent).toContain('完全ガイド');
   });
 
   it('renders the overview section', () => {
