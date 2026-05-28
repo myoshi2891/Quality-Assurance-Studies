@@ -2,8 +2,8 @@ import { describe, it, expect } from 'bun:test';
 import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 25 entries (home + 8 foundation + 1 fdn-ext + 5 advanced + 10 specialist)', () => {
-    expect(NAV_ITEMS).toHaveLength(25);
+  it('contains 26 entries (home + 8 foundation + 1 fdn-ext + 6 advanced + 10 specialist)', () => {
+    expect(NAV_ITEMS).toHaveLength(26);
   });
 
   it('every item has a unique href', () => {
@@ -11,9 +11,10 @@ describe('NAV_ITEMS', () => {
     expect(new Set(hrefs).size).toBe(hrefs.length);
   });
 
-  it('every item has a non-empty Japanese label', () => {
+  it('every item has a non-empty Japanese label with no leading/trailing whitespace', () => {
     for (const item of NAV_ITEMS) {
-      expect(item.label.length).toBeGreaterThan(0);
+      expect(item.label.trim().length).toBeGreaterThan(0);
+      expect(item.label).toBe(item.label.trim());
     }
   });
 
@@ -62,6 +63,7 @@ describe('groupByCategory', () => {
       '/istqb-ctal-tae-complete-guide',
       '/istqb-ctal-ta-complete-guide',
       '/istqb-ctal-tm-complete-guide',
+      '/istqb-ctal-tta-complete-guide',
       '/istqb-ctal-att-complete-guide',
       '/istqb-ctal-atlas-complete-guide',
     ]);

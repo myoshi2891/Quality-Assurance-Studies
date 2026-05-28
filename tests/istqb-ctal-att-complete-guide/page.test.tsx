@@ -11,7 +11,7 @@ let originalIntersectionObserver: typeof IntersectionObserver;
 beforeAll(() => {
   if (typeof window !== 'undefined') {
     originalIntersectionObserver = window.IntersectionObserver;
-    window.IntersectionObserver = mock((_callback) => ({
+    window.IntersectionObserver = mock(() => ({
       observe: mock(),
       unobserve: mock(),
       disconnect: mock(),
