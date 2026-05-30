@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 136 specs)
+bun test             # ユニットテスト (bun test, 140 specs)
 ```
 
 ### E2E テスト (Playwright)
@@ -143,6 +143,9 @@ Next.js App Router 構成:
 - `app/istqb-ctel-itp-atp-complete-guide/istqb-ctel-itp-atp-complete-guide.css` — テストプロセス評価(CTEL-ATP)ガイド固有スタイル
 - `app/istqb-ctel-itp-atp-complete-guide/page.tsx` — テストプロセス評価(CTEL-ATP)ガイドページ
 - `app/istqb-ctel-itp-atp-complete-guide/NavBar.tsx` — CTEL-ATP ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctel-itp-itpi-complete-guide/istqb-ctel-itp-itpi-complete-guide.css` — テストプロセス改善実装(CTEL-ITPI)ガイド固有スタイル
+- `app/istqb-ctel-itp-itpi-complete-guide/page.tsx` — テストプロセス改善実装(CTEL-ITPI)ガイドページ
+- `app/istqb-ctel-itp-itpi-complete-guide/NavBar.tsx` — CTEL-ITPI ページ固有スティッキーナビ（`'use client'`）
 - `app/istqb-ctal-tta-complete-guide/istqb-ctal-tta.css` — テクニカルテストアナリスト(CTAL-TTA)ガイド固有スタイル
 - `app/istqb-ctal-tta-complete-guide/page.tsx` — テクニカルテストアナリスト(CTAL-TTA)ガイドページ
 - `app/istqb-ctal-tta-complete-guide/NavBar.tsx` — CTAL-TTA ページ固有スティッキーナビ（'use client'）

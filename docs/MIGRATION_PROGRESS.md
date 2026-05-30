@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-05-28
+Updated 2026-05-30
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -11,9 +11,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f8c9a52` |
+| 最新 HEAD | `c7509c4` |
 | 次の作業 | なし（全 HTML ページの移行完了） |
 | ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
+
+## 2026/05/30: CTEL-ITP-ITPI Expert Level Guide の Next.js 移行完了
+
+- `app/istqb-ctel-itp-itpi-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装し、IntersectionObserverを追加。
+- 誤変換されていた Mermaid 構文と DOM プロパティを修正。
+- `istqb-ctel-itp-itpi-complete-guide.html`: `html-archive/` へ移動。
+- `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
+- `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
 
 ## 2026/05/28: CTEL-ITP-ATP Expert Level Guide の Next.js 移行完了
 
