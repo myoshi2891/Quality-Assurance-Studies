@@ -1426,7 +1426,7 @@ export default function IstqbCtelItpItpiCompleteGuide() {
                     xmlns="http://www.w3.org/2000/svg"
                     role="img"
                     aria-label="パイロット選択の5基準"
-                    style={{width: "100%", maxWidth: "760px", display: "block", margin: "1.3rem auto", borderRadius: "8px", background: "#040c1a", border: "1px solid #1a3050"}}
+                    style={{width: "100%", maxWidth: "850px", display: "block", margin: "1.3rem auto", borderRadius: "8px", background: "#040c1a", border: "1px solid #1a3050"}}
                 >
                     <rect
                         x="12"
@@ -1830,7 +1830,7 @@ export default function IstqbCtelItpItpiCompleteGuide() {
                     xmlns="http://www.w3.org/2000/svg"
                     role="img"
                     aria-label="ステークホルダーマッピング"
-                    style={{width: "100%", maxWidth: "760px", display: "block", margin: "1.4rem auto", borderRadius: "8px", background: "#040c1a", border: "1px solid #1a3050"}}
+                    style={{width: "100%", maxWidth: "850px", display: "block", margin: "1.4rem auto", borderRadius: "8px", background: "#040c1a", border: "1px solid #1a3050"}}
                 >
                     <line x1="58" y1="252" x2="462" y2="252" stroke="#2a5080" strokeWidth="2" />
                     <line x1="58" y1="252" x2="58" y2="32" stroke="#2a5080" strokeWidth="2" />
