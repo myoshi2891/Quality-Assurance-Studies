@@ -1,6 +1,7 @@
 
 import './istqb-ctel-itp-itpi-complete-guide.css';
 import NavBar from './NavBar';
+import Mermaid from '../../components/Mermaid';
 
 export default function IstqbCtelItpItpiCompleteGuide() {
     return (
@@ -328,21 +329,19 @@ export default function IstqbCtelItpItpiCompleteGuide() {
                 </p>
 
                 <div className="mermaid-wrap">
-<div className="mermaid">
-flowchart TD
+<Mermaid chart={`flowchart TD
     FL["Foundation Level<br/>CTFL v4.0 — 必須前提"]
     AL["Advanced Level<br/>CTAL-TM — 必須前提"]
     subgraph EL["Expert Level: CTEL-ITP"]
         ATP["Part 1: CTEL-ITP-ATP<br/>Assessing Test Processes<br/>テストプロセスの評価・診断"]
         ITPI["Part 2: CTEL-ITP-ITPI ← 本資格<br/>Implementing TPI<br/>改善の実装・組織・変更管理・成功因子"]
-        ATP */} ITPI
+        ATP --> ITPI
     end
-    FL */} AL */} EL
+    FL --> AL --> EL
     style ITPI fill:#00e5ff,color:#030712,stroke:none
     style ATP fill:#00ff88,color:#030712,stroke:none
     style FL fill:#1a3050,color:#e8f4fd,stroke:#00ff88
-    style AL fill:#1a3050,color:#e8f4fd,stroke:#00ff88
-</div>
+    style AL fill:#1a3050,color:#e8f4fd,stroke:#00ff88`} />
                 </div>
 
                 <h3>0.2 試験スペック</h3>
@@ -759,17 +758,15 @@ flowchart TD
                 </p>
 
                 <div className="mermaid-wrap">
-<div className="mermaid">
-flowchart LR
-    P["Plan（計画）<br/>目標設定・現状分析<br/>改善計画策定"] */} D["Do（実行）<br/>研修・コーチング<br/>活動実施"]
-    D */} C["Check（確認）<br/>メトリクスで<br/>進捗追跡"]
-    C */} A["Act（改善）<br/>機会識別<br/>優先順位付け"]
-    A */} P
+<Mermaid chart={`flowchart LR
+    P["Plan（計画）<br/>目標設定・現状分析<br/>改善計画策定"] --> D["Do（実行）<br/>研修・コーチング<br/>活動実施"]
+    D --> C["Check（確認）<br/>メトリクスで<br/>進捗追跡"]
+    C --> A["Act（改善）<br/>機会識別<br/>優先順位付け"]
+    A --> P
     style P fill:#00ff88,color:#030712,stroke:none
     style D fill:#00e5ff,color:#030712,stroke:none
     style C fill:#ffe600,color:#030712,stroke:none
-    style A fill:#ff3c78,color:#ffffff,stroke:none
-</div>
+    style A fill:#ff3c78,color:#ffffff,stroke:none`} />
                 </div>
 
                 <h3>2.4.2 IDEALフレームワーク <span className="kl">K3</span> — 試験最頻出！</h3>
@@ -781,20 +778,18 @@ flowchart LR
                 </p>
 
                 <div className="mermaid-wrap">
-<div className="mermaid">
-flowchart TD
+<Mermaid chart={`flowchart TD
     I["I: Initiating（開始）<br/>改善の理由を明確化<br/>スポンサー確保<br/>改善インフラ確立"]
     D2["D: Diagnosing（診断）<br/>現状の実践を評価・特性化<br/>推奨事項を作成<br/>フェーズ結果を文書化"]
     E["E: Establishing（確立）<br/>戦略と優先順位を設定<br/>TPGを確立<br/>アクションを計画"]
     A["A: Acting（実行）<br/>プロセスと測定を定義<br/>パイロットを計画・実行<br/>本格展開を追跡"]
     L["L: Learning（学習）<br/>教訓を文書化・分析<br/>組織アプローチを改訂"]
-    I */} D2 */} E */} A */} L */} I
+    I --> D2 --> E --> A --> L --> I
     style I fill:#00ff88,color:#030712,stroke:none
     style D2 fill:#00e5ff,color:#030712,stroke:none
     style E fill:#ffe600,color:#030712,stroke:none
     style A fill:#ff3c78,color:#ffffff,stroke:none
-    style L fill:#bf00ff,color:#ffffff,stroke:none
-</div>
+    style L fill:#bf00ff,color:#ffffff,stroke:none`} />
                 </div>
 
                 <div className="callout callout-warning">
@@ -966,16 +961,14 @@ flowchart TD
                 </p>
 
                 <div className="mermaid-wrap">
-<div className="mermaid">
-flowchart TD
+<Mermaid chart={`flowchart TD
     G["Goals（目標 / 概念レベル）<br/>例：本番欠陥を50%削減する"]
     Q["Questions（質問 / 運用レベル）<br/>例：現在のDDPはどのくらいか？"]
     M["Metrics（メトリクス / 定量レベル）<br/>例：DDP = テスト検出欠陥数 ÷ 全既知欠陥数 × 100"]
-    G */} Q */} M
+    G --> Q --> M
     style G fill:#00ff88,color:#030712,stroke:none
     style Q fill:#00e5ff,color:#030712,stroke:none
-    style M fill:#ffe600,color:#030712,stroke:none
-</div>
+    style M fill:#ffe600,color:#030712,stroke:none`} />
                 </div>
 
                 <h3>4.2 フィッシュボーン図（石川ダイアグラム） <span className="kl">K3</span></h3>
@@ -1113,7 +1106,7 @@ flowchart TD
                             <th>計算式 / 説明</th>
                         </tr>
                         <tr>
-                            <td rowSpan="2">
+                            <td rowSpan={2}>
                                 <strong style={{color: "var(--neon-green)"}}>有効性</strong>
                             </td>
                             <td>DDP（欠陥検出率）</td>
@@ -1124,7 +1117,7 @@ flowchart TD
                             <td>顧客発見欠陥数 ÷ KLOC（一定期間）</td>
                         </tr>
                         <tr>
-                            <td rowSpan="3">
+                            <td rowSpan={3}>
                                 <strong style={{color: "var(--neon-cyan)"}}>効率性</strong>
                             </td>
                             <td>相対テスト工数</td>
@@ -1162,8 +1155,7 @@ flowchart TD
                 </p>
 
                 <div className="mermaid-wrap">
-<div className="mermaid">
-flowchart TD
+<Mermaid chart={`flowchart TD
     Start(["改善アプローチを選択する"])
     Q1&#123;"比較・ベンチマーク<br/>または成熟度レベル達成<br/>が必要か？"&#125;
     Q2&#123;"特定の問題点に<br/>集中したいか？"&#125;
@@ -1174,21 +1166,20 @@ flowchart TD
     C["コンテンツモデル<br/>CTP / STEP"]
     H["ハイブリッド<br/>状況に応じて組み合わせ"]
     
-    Start */} Q1
-    Q1 */}|Yes| M
-    Q1 */}|No| Q2
-    Q2 */}|Yes| Q3
-    Q2 */}|No| Q4
-    Q3 */}|Yes| A
-    Q3 */}|No| H
-    Q4 */}|Yes| C
-    Q4 */}|No| H
+    Start --> Q1
+    Q1 -->|Yes| M
+    Q1 -->|No| Q2
+    Q2 -->|Yes| Q3
+    Q2 -->|No| Q4
+    Q3 -->|Yes| A
+    Q3 -->|No| H
+    Q4 -->|Yes| C
+    Q4 -->|No| H
     
     style M fill:#00ff88,color:#030712,stroke:none
     style A fill:#00e5ff,color:#030712,stroke:none
     style C fill:#ffe600,color:#030712,stroke:none
-    style H fill:#ff3c78,color:#ffffff,stroke:none
-</div>
+    style H fill:#ff3c78,color:#ffffff,stroke:none`} />
                 </div>
 
                 <div className="table-wrap">
@@ -1670,7 +1661,7 @@ flowchart TD
                         <span className="n">インタビュースキル</span><span className="p">重要度：最高</span>
                     </div>
                     <div className="progress-bar">
-                        <div className="progress-fill" style={{ "--w": "95%"}}></div>
+                        <div className="progress-fill" style={{ "--w": "95%" } as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -1679,7 +1670,7 @@ flowchart TD
                         ><span className="p">重要度：最高</span>
                     </div>
                     <div className="progress-bar">
-                        <div className="progress-fill" style={{ "--w": "93%"}}></div>
+                        <div className="progress-fill" style={{ "--w": "93%" } as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -1687,7 +1678,7 @@ flowchart TD
                         <span className="n">分析スキル</span><span className="p">重要度：高</span>
                     </div>
                     <div className="progress-bar">
-                        <div className="progress-fill" style={{ "--w": "88%"}}></div>
+                        <div className="progress-fill" style={{ "--w": "88%"} as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -1696,7 +1687,7 @@ flowchart TD
                         ><span className="p">重要度：高</span>
                     </div>
                     <div className="progress-bar">
-                        <div className="progress-fill" style={{ "--w": "86%"}}></div>
+                        <div className="progress-fill" style={{ "--w": "86%" } as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -1704,7 +1695,7 @@ flowchart TD
                         <span className="n">説得スキル</span><span className="p">重要度：高</span>
                     </div>
                     <div className="progress-bar">
-                        <div className="progress-fill" style={{ "--w": "83%"}}></div>
+                        <div className="progress-fill" style={{ "--w": "83%" } as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -1713,7 +1704,7 @@ flowchart TD
                         ><span className="p">重要度：中〜高</span>
                     </div>
                     <div className="progress-bar">
-                        <div className="progress-fill" style={{ "--w": "77%"}}></div>
+                        <div className="progress-fill" style={{ "--w": "77%" } as React.CSSProperties}></div>
                     </div>
                 </div>
 
@@ -1752,16 +1743,14 @@ flowchart TD
 
                 <h3>Lewin のアンフリーズモデル（3フェーズ） <span className="kl">K5</span></h3>
                 <div className="mermaid-wrap">
-<div className="mermaid">
-flowchart LR
+<Mermaid chart={`flowchart LR
     U["Unfreeze（解凍）<br/>変化の必要性を認識させる<br/>緊急感を醸成する<br/>コミットメントを獲得する"]
     C2["Change（変化）<br/>新しいプロセスを実装する<br/>教育・コーチングを提供する<br/>段階的な変化を推進する"]
     F["Freeze（凍結）<br/>新しい状態を安定させる<br/>文化として定着させる<br/>後退防止の仕組みを作る"]
-    U */} C2 */} F
+    U --> C2 --> F
     style U fill:#00e5ff33,stroke:#00e5ff,color:#e8f4fd
     style C2 fill:#ffe60033,stroke:#ffe600,color:#e8f4fd
-    style F fill:#00ff8833,stroke:#00ff88,color:#e8f4fd
-</div>
+    style F fill:#00ff8833,stroke:#00ff88,color:#e8f4fd`} />
                 </div>
 
                 <h4>コッターの8ステップ変革モデル</h4>

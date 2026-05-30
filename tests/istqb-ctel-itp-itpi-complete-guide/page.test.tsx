@@ -21,7 +21,7 @@ describe('CTEL-ITP-ITPI Expert Level Guide Page', () => {
         const heading = screen.getByRole('heading', { level: 1 });
         expect(heading).toBeInTheDocument();
         expect(heading).toHaveTextContent(/CTEL-ITP-ITPI/);
-        expect(heading).toHaveTextContent(/改善の実装/);
+        expect(heading).toHaveTextContent(/改善実装/);
     });
 
     it('renders the navigation bar', () => {
