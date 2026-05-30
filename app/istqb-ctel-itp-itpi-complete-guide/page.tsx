@@ -1157,10 +1157,10 @@ export default function IstqbCtelItpItpiCompleteGuide() {
                 <div className="mermaid-wrap">
 <Mermaid chart={`flowchart TD
     Start(["改善アプローチを選択する"])
-    Q1&#123;"比較・ベンチマーク<br/>または成熟度レベル達成<br/>が必要か？"&#125;
-    Q2&#123;"特定の問題点に<br/>集中したいか？"&#125;
-    Q3&#123;"メトリクスが<br/>利用可能か？"&#125;
-    Q4&#123;"新規プロセス<br/>確立が必要か？"&#125;
+    Q1{"比較・ベンチマーク<br/>または成熟度レベル達成<br/>が必要か？"}
+    Q2{"特定の問題点に<br/>集中したいか？"}
+    Q3{"メトリクスが<br/>利用可能か？"}
+    Q4{"新規プロセス<br/>確立が必要か？"}
     M["モデルベース<br/>TMMi / TPI Next"]
     A["分析ベース<br/>GQM / フィッシュボーン"]
     C["コンテンツモデル<br/>CTP / STEP"]
