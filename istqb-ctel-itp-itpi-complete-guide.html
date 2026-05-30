@@ -1,0 +1,3566 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CTEL-ITP-ITPI Expert Level — 完全ガイド</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@700;800;900&family=IBM+Plex+Sans+JP:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+        <style>
+            /* ─── CSS CUSTOM PROPERTIES ─── */
+            :root {
+                --bg-deep: #030712;
+                --bg-card: #0a1628;
+                --bg-card2: #0d1f3c;
+                --bg-hover: #112244;
+                --neon-green: #00ff88;
+                --neon-cyan: #00e5ff;
+                --neon-yellow: #ffe600;
+                --neon-pink: #ff3c78;
+                --neon-purple: #bf00ff;
+                --text-primary: #e8f4fd;
+                --text-muted: #7a9abf;
+                --text-dim: #4a6080;
+                --border: #1a3050;
+                --border-hover: #2a4870;
+                --font-head: 'Syne', sans-serif;
+                --font-mono: 'Space Mono', monospace;
+                --font-body: 'IBM Plex Sans JP', sans-serif;
+                --radius: 8px;
+                --radius-lg: 14px;
+                --transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+            }
+
+            /* ─── RESET & BASE ─── */
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                background: var(--bg-deep);
+                color: var(--text-primary);
+                font-family: var(--font-body);
+                font-size: 1rem;
+                line-height: 1.78;
+                
+                overflow-x: hidden;
+            }
+
+            /* Scanline overlay */
+            body::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(0, 229, 255, 0.013) 2px,
+                    rgba(0, 229, 255, 0.013) 4px
+                );
+                pointer-events: none;
+                z-index: 9999;
+            }
+            /* Grid texture */
+            body::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(0, 229, 255, 0.04) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(0, 229, 255, 0.04) 1px, transparent 1px);
+                background-size: 60px 60px;
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            main {
+                position: relative;
+                z-index: 1;
+            }
+
+            /* ─── TYPOGRAPHY ─── */
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: var(--font-head);
+                font-weight: 800;
+                letter-spacing: -0.025em;
+            }
+            h1 {
+                font-size: clamp(2.1rem, 5vw, 3.8rem);
+                line-height: 1.08;
+            }
+            h2 {
+                font-size: clamp(1.5rem, 3vw, 2.25rem);
+                margin-bottom: 1rem;
+            }
+            h3 {
+                font-size: clamp(1.1rem, 2vw, 1.5rem);
+                margin: 2.2rem 0 0.85rem;
+            }
+            h4 {
+                font-size: 1.08rem;
+                margin: 1.6rem 0 0.6rem;
+                color: var(--neon-cyan);
+            }
+            p {
+                margin-bottom: 1rem;
+            }
+            a {
+                color: var(--neon-cyan);
+                text-decoration: none;
+                transition: var(--transition);
+            }
+            a:hover {
+                color: var(--neon-green);
+            }
+            ul,
+            ol {
+                padding-left: 1.5rem;
+                margin-bottom: 1rem;
+            }
+            li {
+                margin-bottom: 0.4rem;
+            }
+            strong {
+                color: var(--text-primary);
+            }
+
+            /* ─── STICKY NAV ─── */
+            .nav {
+                position: sticky;
+                top: 0;
+                z-index: 200;
+                background: rgba(3, 7, 18, 0.94);
+                backdrop-filter: blur(20px);
+                border-bottom: 1px solid var(--border);
+                padding: 0.55rem 1.5rem;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            .nav::-webkit-scrollbar {
+                height: 3px;
+            }
+            .nav::-webkit-scrollbar-thumb {
+                background: var(--neon-cyan);
+                border-radius: 2px;
+            }
+            .nav-inner {
+                display: inline-flex;
+                gap: 0.3rem;
+                align-items: center;
+                min-width: max-content;
+            }
+            .nav-brand {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--neon-green);
+                margin-right: 1rem;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+            }
+            .nav-link {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--text-muted);
+                padding: 0.3rem 0.65rem;
+                border: 1px solid transparent;
+                border-radius: 4px;
+                display: inline-block;
+                transition: var(--transition);
+            }
+            .nav-link:hover {
+                color: var(--neon-cyan);
+                border-color: var(--neon-cyan);
+                background: rgba(0, 229, 255, 0.08);
+            }
+
+            /* ─── HERO ─── */
+            .hero {
+                max-width: 1160px;
+                margin: 0 auto;
+                padding: 5.5rem 2rem 4.5rem;
+                position: relative;
+            }
+            .hero-glow {
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 700px;
+                height: 450px;
+                background: radial-gradient(ellipse, rgba(0, 229, 255, 0.07) 0%, transparent 68%);
+                pointer-events: none;
+                animation: pulse 4.5s ease-in-out infinite;
+            }
+            .hero-badge {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--neon-green);
+                border: 1px solid var(--neon-green);
+                padding: 0.28rem 0.9rem;
+                border-radius: 20px;
+                margin-bottom: 1.6rem;
+                animation: fadeInDown 0.6s ease both;
+            }
+            .hero-title {
+                animation: fadeInDown 0.7s 0.1s ease both;
+                margin-bottom: 1rem;
+            }
+            .hero-title span {
+                color: var(--neon-cyan);
+            }
+            .hero-sub {
+                font-size: 1.1rem;
+                color: var(--text-muted);
+                max-width: 700px;
+                animation: fadeInDown 0.7s 0.2s ease both;
+                margin-bottom: 2.8rem;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.85rem;
+                animation: fadeInUp 0.7s 0.35s ease both;
+            }
+            .hm {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 0.8rem 1.2rem;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+            }
+            .hm .label {
+                color: var(--text-dim);
+                display: block;
+                margin-bottom: 0.2rem;
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.09em;
+            }
+            .hm .val {
+                color: var(--neon-yellow);
+                font-weight: 700;
+            }
+
+            /* ─── SECTION ─── */
+            .sec {
+                max-width: 1160px;
+                margin: 0 auto;
+                padding: 3.2rem 2rem;
+                border-top: 1px solid var(--border);
+            }
+
+            /* Chapter num badge */
+            .chapter-num {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--bg-deep);
+                background: var(--neon-cyan);
+                padding: 0.22rem 0.65rem;
+                border-radius: 4px;
+                margin-bottom: 0.9rem;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+            }
+            .kl {
+                display: inline-block;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--neon-yellow);
+                border: 1px solid var(--neon-yellow);
+                padding: 0.12rem 0.48rem;
+                border-radius: 4px;
+                margin-left: 0.6rem;
+                vertical-align: middle;
+            }
+
+            /* ─── TOC GRID ─── */
+            .toc-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 0.95rem;
+                margin-top: 1.6rem;
+            }
+            .toc-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.1rem 1.25rem;
+                transition: var(--transition);
+                display: block;
+            }
+            .toc-card:hover {
+                border-color: var(--neon-cyan);
+                background: var(--bg-hover);
+                transform: translateY(-3px);
+                box-shadow: 0 0 20px rgba(0, 229, 255, 0.18);
+            }
+            .toc-card .ch {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--neon-green);
+                display: block;
+                margin-bottom: 0.35rem;
+            }
+            .toc-card .ti {
+                font-family: var(--font-head);
+                font-weight: 700;
+                font-size: 1rem;
+                color: var(--text-primary);
+                display: block;
+                margin-bottom: 0.25rem;
+            }
+            .toc-card .tm {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--text-dim);
+            }
+
+            /* ─── ARCH LAYERS ─── */
+            .arch-layers {
+                margin: 1.4rem 0;
+            }
+            .arch-row {
+                display: flex;
+                align-items: flex-start;
+                gap: 1rem;
+                padding: 1rem 1.2rem;
+                margin-bottom: 0.5rem;
+                background: var(--bg-card);
+                border-radius: var(--radius);
+                border-left: 4px solid var(--neon-green);
+                transition: var(--transition);
+            }
+            .arch-row:hover {
+                transform: translateX(5px);
+                background: var(--bg-hover);
+            }
+            .arch-row:nth-child(1) {
+                border-color: #0f8;
+            }
+            .arch-row:nth-child(2) {
+                border-color: #0ef;
+            }
+            .arch-row:nth-child(3) {
+                border-color: #fe0;
+            }
+            .arch-row:nth-child(4) {
+                border-color: #f3c;
+            }
+            .arch-row:nth-child(5) {
+                border-color: #c0f;
+            }
+            .arch-row:nth-child(6) {
+                border-color: #0ef;
+            }
+            .arch-num {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                min-width: 2.2rem;
+                color: var(--text-dim);
+                flex-shrink: 0;
+                padding-top: 0.15rem;
+            }
+            .arch-content .t {
+                font-family: var(--font-head);
+                font-weight: 700;
+                font-size: 1rem;
+                margin-bottom: 0.22rem;
+            }
+            .arch-content .d {
+                font-size: 1rem;
+                color: var(--text-muted);
+            }
+
+            /* ─── PYRAMID ─── */
+            .pyramid {
+                margin: 1.9rem auto;
+                max-width: 520px;
+                text-align: center;
+            }
+            .pyr-level {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto 0.38rem;
+                border-radius: var(--radius);
+                font-family: var(--font-head);
+                font-weight: 700;
+                font-size: 1rem;
+                padding: 0.7rem 1rem;
+                transition: var(--transition);
+                color: var(--bg-deep);
+                cursor: default;
+            }
+            .pyr-level:hover {
+                transform: scaleX(1.05);
+            }
+            .pyr-level:nth-child(1) {
+                width: 24%;
+                background: #c0f;
+                color: #fff;
+            }
+            .pyr-level:nth-child(2) {
+                width: 39%;
+                background: #f3c;
+                color: #fff;
+            }
+            .pyr-level:nth-child(3) {
+                width: 55%;
+                background: #fe0;
+            }
+            .pyr-level:nth-child(4) {
+                width: 72%;
+                background: #0ef;
+            }
+            .pyr-level:nth-child(5) {
+                width: 90%;
+                background: #0f8;
+            }
+
+            /* ─── CODE BLOCK ─── */
+            .code-block {
+                background: #040c1a;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.25rem 1.5rem;
+                margin: 1.1rem 0;
+                overflow-x: auto;
+                position: relative;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                line-height: 1.78;
+                white-space: pre-wrap;
+            }
+            .code-block::before {
+                content: attr(data-lang);
+                position: absolute;
+                top: 0.45rem;
+                right: 0.9rem;
+                font-size: 1rem;
+                color: var(--text-dim);
+                text-transform: uppercase;
+            }
+            .code-green {
+                color: #0f8;
+            }
+            .code-keyword {
+                color: #c0f;
+                font-weight: 700;
+            }
+            .code-string {
+                color: #fe0;
+            }
+            .code-comment {
+                color: #4a6080;
+                font-style: italic;
+            }
+            .code-cyan {
+                color: #0ef;
+            }
+
+            /* ─── STEP LIST ─── */
+            .step-list {
+                list-style: none;
+                padding: 0;
+                margin: 1.2rem 0;
+            }
+            .step-list li {
+                display: flex;
+                gap: 1rem;
+                align-items: flex-start;
+                margin-bottom: 0.85rem;
+                padding: 0.95rem 1.15rem;
+                background: var(--bg-card);
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+                transition: var(--transition);
+            }
+            .step-list li:hover {
+                border-color: var(--neon-cyan);
+                background: var(--bg-hover);
+            }
+            .step-num {
+                min-width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                background: var(--neon-cyan);
+                color: var(--bg-deep);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .step-content .t {
+                font-weight: 700;
+                font-family: var(--font-head);
+                font-size: 1rem;
+                margin-bottom: 0.25rem;
+            }
+            .step-content .d {
+                font-size: 1rem;
+                color: var(--text-muted);
+            }
+
+            /* ─── CALLOUT ─── */
+            .callout {
+                border-radius: var(--radius);
+                padding: 1rem 1.35rem;
+                margin: 1.2rem 0;
+                border-left: 4px solid;
+                font-size: 1rem;
+            }
+            .callout-info {
+                background: rgba(0, 229, 255, 0.06);
+                border-color: var(--neon-cyan);
+            }
+            .callout-warning {
+                background: rgba(255, 230, 0, 0.06);
+                border-color: var(--neon-yellow);
+            }
+            .callout-danger {
+                background: rgba(255, 60, 120, 0.06);
+                border-color: var(--neon-pink);
+            }
+            .callout-title {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.09em;
+                margin-bottom: 0.5rem;
+            }
+            .callout-info .callout-title {
+                color: var(--neon-cyan);
+            }
+            .callout-warning .callout-title {
+                color: var(--neon-yellow);
+            }
+            .callout-danger .callout-title {
+                color: var(--neon-pink);
+            }
+
+            /* ─── METRIC GRID ─── */
+            .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+                gap: 0.95rem;
+                margin: 1.4rem 0;
+            }
+            .metric-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.25rem;
+                text-align: center;
+                transition: var(--transition);
+            }
+            .metric-card:hover {
+                transform: translateY(-5px);
+                border-color: var(--neon-green);
+                box-shadow: 0 0 22px rgba(0, 255, 136, 0.28);
+            }
+            .metric-val {
+                font-family: var(--font-mono);
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--neon-green);
+                display: block;
+                margin-bottom: 0.35rem;
+            }
+            .metric-label {
+                font-size: 1rem;
+                color: var(--text-muted);
+            }
+
+            /* ─── PROGRESS ITEM ─── */
+            .progress-item {
+                margin-bottom: 1.05rem;
+            }
+            .progress-label {
+                display: flex;
+                justify-content: space-between;
+                font-size: 1rem;
+                margin-bottom: 0.38rem;
+            }
+            .progress-label .n {
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+            .progress-label .p {
+                color: var(--text-dim);
+                font-family: var(--font-mono);
+            }
+            .progress-bar {
+                height: 5px;
+                background: var(--border);
+                border-radius: 3px;
+                overflow: hidden;
+            }
+            .progress-fill {
+                height: 100%;
+                border-radius: 3px;
+                background: linear-gradient(90deg, var(--neon-green), var(--neon-cyan));
+                width: 0;
+                animation: growBar 1.3s 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+            }
+
+            /* ─── TABLE WRAP ─── */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 1.4rem 0;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+            }
+            .table-wrap::-webkit-scrollbar {
+                height: 5px;
+            }
+            .table-wrap::-webkit-scrollbar-thumb {
+                background: var(--neon-cyan);
+                border-radius: 3px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 1rem;
+            }
+            th {
+                background: var(--bg-card2);
+                color: var(--neon-cyan);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.07em;
+                padding: 0.85rem 1rem;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+                white-space: nowrap;
+            }
+            td {
+                padding: 0.8rem 1rem;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            tr:hover td {
+                background: var(--bg-hover);
+            }
+
+            /* ─── EXAM GRID ─── */
+            .exam-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 0.95rem;
+                margin: 1.4rem 0;
+            }
+            .exam-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.25rem;
+                transition: var(--transition);
+            }
+            .exam-card:hover {
+                border-color: var(--neon-yellow);
+                transform: translateY(-3px);
+            }
+            .exam-card .el {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--text-dim);
+                display: block;
+                margin-bottom: 0.38rem;
+            }
+            .exam-card .et {
+                font-weight: 700;
+                font-family: var(--font-head);
+                font-size: 1rem;
+                margin-bottom: 0.48rem;
+            }
+            .exam-card .es {
+                color: var(--neon-yellow);
+                font-size: 1rem;
+                display: block;
+                margin-bottom: 0.38rem;
+            }
+            .exam-card .ei {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--neon-cyan);
+            }
+
+            /* ─── REF GRID ─── */
+            .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 0.8rem;
+                margin: 1.4rem 0;
+            }
+            .ref-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1rem 1.2rem;
+                transition: var(--transition);
+                display: block;
+                position: relative;
+                overflow: hidden;
+            }
+            .ref-card::before {
+                content: '';
+                position: absolute;
+                left: 0;
+                top: 0;
+                bottom: 0;
+                width: 3px;
+                background: var(--neon-cyan);
+                transform: scaleY(0);
+                transition: transform 0.3s;
+                transform-origin: top;
+            }
+            .ref-card:hover::before {
+                transform: scaleY(1);
+            }
+            .ref-card:hover {
+                border-color: var(--neon-cyan);
+                transform: translateX(4px);
+            }
+            .ref-cat {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.09em;
+                color: var(--neon-green);
+                display: block;
+                margin-bottom: 0.38rem;
+            }
+            .ref-title {
+                font-size: 1rem;
+                font-weight: 600;
+                display: block;
+                margin-bottom: 0.22rem;
+            }
+            .ref-url {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--text-dim);
+                word-break: break-all;
+            }
+
+            /* ─── TREND CARD ─── */
+            .trend-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.45rem;
+                margin-bottom: 0.95rem;
+                transition: var(--transition);
+                position: relative;
+                overflow: hidden;
+            }
+            .trend-card::after {
+                content: '';
+                position: absolute;
+                top: -40px;
+                right: -40px;
+                width: 120px;
+                height: 120px;
+                background: radial-gradient(circle, rgba(0, 229, 255, 0.07) 0%, transparent 70%);
+                border-radius: 50%;
+                transition: var(--transition);
+            }
+            .trend-card:hover {
+                border-color: var(--neon-green);
+                box-shadow: 0 0 22px rgba(0, 255, 136, 0.2);
+            }
+            .trend-card:hover::after {
+                transform: scale(2.5);
+            }
+            .trend-label {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                color: var(--neon-green);
+                text-transform: uppercase;
+                letter-spacing: 0.09em;
+                display: block;
+                margin-bottom: 0.6rem;
+            }
+
+            /* ─── COMPARE ─── */
+            .compare-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0.95rem;
+                margin: 1.2rem 0;
+            }
+            .compare-card {
+                padding: 1.15rem;
+                border-radius: var(--radius);
+            }
+            .compare-good {
+                background: rgba(0, 255, 136, 0.05);
+                border: 1px solid rgba(0, 255, 136, 0.22);
+            }
+            .compare-bad {
+                background: rgba(255, 60, 120, 0.05);
+                border: 1px solid rgba(255, 60, 120, 0.22);
+            }
+            .compare-head {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                margin-bottom: 0.78rem;
+                display: block;
+            }
+            .compare-good .compare-head {
+                color: var(--neon-green);
+            }
+            .compare-bad .compare-head {
+                color: var(--neon-pink);
+            }
+            .compare-card ul {
+                list-style: none;
+                padding: 0;
+            }
+            .compare-card li {
+                font-size: 1rem;
+                padding: 0.32rem 0;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .compare-card li:last-child {
+                border-bottom: none;
+            }
+
+            /* ─── ALERT ─── */
+            .alert {
+                border-left: 4px solid;
+                border-radius: var(--radius);
+                padding: 0.9rem 1.2rem;
+                margin: 1rem 0;
+                font-size: 1rem;
+            }
+            .alert-cyan {
+                border-color: var(--neon-cyan);
+                background: rgba(0, 229, 255, 0.05);
+            }
+            .alert-amber {
+                border-color: var(--neon-yellow);
+                background: rgba(255, 230, 0, 0.05);
+            }
+            .alert-red {
+                border-color: var(--neon-pink);
+                background: rgba(255, 60, 120, 0.05);
+            }
+            .alert-green {
+                border-color: var(--neon-green);
+                background: rgba(0, 255, 136, 0.05);
+            }
+            .alert strong {
+                display: block;
+                margin-bottom: 0.3rem;
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                text-transform: uppercase;
+            }
+            .alert-cyan strong {
+                color: var(--neon-cyan);
+            }
+            .alert-amber strong {
+                color: var(--neon-yellow);
+            }
+            .alert-red strong {
+                color: var(--neon-pink);
+            }
+            .alert-green strong {
+                color: var(--neon-green);
+            }
+
+            /* ─── MERMAID ─── */
+            .mermaid-wrap {
+                background: #040c1a;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.4rem;
+                margin: 1.35rem 0;
+                overflow-x: auto;
+                text-align: center;
+            }
+
+            /* ─── DIVIDER ─── */
+            .dv {
+                height: 1px;
+                background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+                margin: 2.2rem 0;
+                opacity: 0.3;
+            }
+
+            /* ─── CHECKLIST ─── */
+            .checklist {
+                list-style: none;
+                padding: 0;
+            }
+            .checklist li {
+                padding: 0.4rem 0 0.4rem 1.8rem;
+                position: relative;
+                font-size: 1rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .checklist li:last-child {
+                border-bottom: none;
+            }
+            .checklist li::before {
+                content: '[ ]';
+                position: absolute;
+                left: 0;
+                color: var(--neon-cyan);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+            }
+
+            /* ─── ANIMATIONS ─── */
+            @keyframes fadeInDown {
+                from {
+                    opacity: 0;
+                    transform: translateY(-20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 0.5;
+                    transform: translate(-50%, -50%) scale(1);
+                }
+                50% {
+                    opacity: 1;
+                    transform: translate(-50%, -50%) scale(1.06);
+                }
+            }
+            @keyframes growBar {
+                to {
+                    width: var(--w, 100%);
+                }
+            }
+
+            /* ─── RESPONSIVE ─── */
+            @media (max-width: 900px) {
+                .hero,
+                .sec {
+                    padding-left: 1.2rem;
+                    padding-right: 1.2rem;
+                }
+                .compare-grid {
+                    grid-template-columns: 1fr;
+                }
+                .metric-grid {
+                    grid-template-columns: 1fr 1fr;
+                }
+            }
+            @media (max-width: 600px) {
+                .metric-grid,
+                .exam-grid,
+                .ref-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+
+            /* ─── FOOTER ─── */
+            footer {
+                text-align: center;
+                padding: 2.8rem;
+                border-top: 1px solid var(--border);
+                color: var(--text-dim);
+                font-family: var(--font-mono);
+                font-size: 1rem;
+            }
+            footer span {
+                color: var(--neon-green);
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ─── NAV ─── -->
+        <nav class="nav" aria-label="章ナビゲーション">
+            <div class="nav-inner">
+                <span class="nav-brand">CTEL-ITP-ITPI</span>
+                <a href="#top" class="nav-link">概要</a>
+                <a href="#ch0" class="nav-link">Ch.0 資格概要</a>
+                <a href="#ch2" class="nav-link">Ch.2 コンテキスト</a>
+                <a href="#ch3" class="nav-link">Ch.3 モデル</a>
+                <a href="#ch4" class="nav-link">Ch.4 分析</a>
+                <a href="#ch5" class="nav-link">Ch.5 選択</a>
+                <a href="#ch6" class="nav-link">Ch.6 実装★</a>
+                <a href="#ch7" class="nav-link">Ch.7 組織★</a>
+                <a href="#ch8" class="nav-link">Ch.8 変更管理★</a>
+                <a href="#ch9" class="nav-link">Ch.9 CSF★</a>
+                <a href="#ch10" class="nav-link">Ch.10 適応</a>
+                <a href="#exam" class="nav-link">試験対策</a>
+                <a href="#refs" class="nav-link">参考文献</a>
+            </div>
+        </nav>
+
+        <main>
+            <!-- ─── HERO ─── -->
+            <section class="hero" id="top">
+                <div class="hero-glow" aria-hidden="true"></div>
+                <div class="hero-badge">ISTQB® Expert Level Certification</div>
+                <h1 class="hero-title">
+                    <span>CTEL-ITP-ITPI</span><br />テストプロセス改善<br />実装 完全ガイド
+                </h1>
+                <p class="hero-sub">
+                    Implementing Test Process Improvement —
+                    テストプロセスを組織で実装・推進するエキスパートレベル認定資格（シラバス v2011
+                    準拠）の初学者向けステップバイステップ解説
+                </p>
+                <div class="hero-meta">
+                    <div class="hm">
+                        <span class="label">試験形式</span><span class="val">MCQ（多肢選択）</span>
+                    </div>
+                    <div class="hm">
+                        <span class="label">認知レベル</span><span class="val">K5 / K6 中心</span>
+                    </div>
+                    <div class="hm">
+                        <span class="label">前提資格</span><span class="val">CTFL + CTAL-TM</span>
+                    </div>
+                    <div class="hm">
+                        <span class="label">実務経験</span
+                        ><span class="val">テスト5年 / PI 2年</span>
+                    </div>
+                    <div class="hm">
+                        <span class="label">有効期間</span><span class="val">7年（更新要）</span>
+                    </div>
+                    <div class="hm">
+                        <span class="label">Part 構成</span
+                        ><span class="val">ATP (Part1) + ITPI (Part2)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ─── TOC ─── -->
+            <section class="sec" id="toc">
+                <div class="chapter-num">目次</div>
+                <h2>学習ロードマップ</h2>
+                <p style="color: var(--text-muted)">
+                    全10章。Part 1（ATP）は Ch.2〜5、Part 2（ITPI）は Ch.6〜10 が中心です。★★★ が
+                    ITPI 試験の最重要章です。
+                </p>
+
+                <!-- SVG Roadmap -->
+                <svg
+                    viewBox="0 0 900 110"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="img"
+                    aria-label="学習ロードマップ"
+                    style="
+                        width: 100%;
+                        margin: 1.5rem 0;
+                        border-radius: 8px;
+                        background: #0a1628;
+                        border: 1px solid #1a3050;
+                    "
+                >
+                    <defs>
+                        <linearGradient id="rg1" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color: #00ff88" />
+                            <stop offset="100%" style="stop-color: #00e5ff" />
+                        </linearGradient>
+                    </defs>
+                    <line x1="40" y1="52" x2="860" y2="52" stroke="#1a3050" stroke-width="2" />
+                    <line x1="40" y1="52" x2="440" y2="52" stroke="url(#rg1)" stroke-width="3" />
+                    <text
+                        x="220"
+                        y="16"
+                        fill="#00ff88"
+                        font-size="9"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Part 1: ATP (Ch.2-5)
+                    </text>
+                    <text
+                        x="680"
+                        y="16"
+                        fill="#00e5ff"
+                        font-size="9"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Part 2: ITPI (Ch.6-10) — 本ガイドの中核
+                    </text>
+                    <!-- Nodes -->
+                    <circle cx="40" cy="52" r="9" fill="#00ff88" />
+                    <text
+                        x="40"
+                        y="56"
+                        fill="#030712"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        2
+                    </text>
+                    <text
+                        x="40"
+                        y="74"
+                        fill="#7a9abf"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Context
+                    </text>
+                    <circle cx="175" cy="52" r="9" fill="#00ff88" />
+                    <text
+                        x="175"
+                        y="56"
+                        fill="#030712"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        3
+                    </text>
+                    <text
+                        x="175"
+                        y="74"
+                        fill="#7a9abf"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Model
+                    </text>
+                    <circle cx="310" cy="52" r="9" fill="#00e5aa" />
+                    <text
+                        x="310"
+                        y="56"
+                        fill="#030712"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        4
+                    </text>
+                    <text
+                        x="310"
+                        y="74"
+                        fill="#7a9abf"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Analysis
+                    </text>
+                    <circle cx="440" cy="52" r="9" fill="#00e5ff" />
+                    <text
+                        x="440"
+                        y="56"
+                        fill="#030712"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        5
+                    </text>
+                    <text
+                        x="440"
+                        y="74"
+                        fill="#7a9abf"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Select
+                    </text>
+                    <circle cx="560" cy="52" r="13" fill="#00e5ff" />
+                    <text
+                        x="560"
+                        y="56"
+                        fill="#030712"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        6
+                    </text>
+                    <text
+                        x="560"
+                        y="80"
+                        fill="#00e5ff"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Implement
+                    </text>
+                    <circle cx="672" cy="52" r="13" fill="#ffe600" />
+                    <text
+                        x="672"
+                        y="56"
+                        fill="#030712"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        7
+                    </text>
+                    <text
+                        x="672"
+                        y="80"
+                        fill="#ffe600"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Org/Roles
+                    </text>
+                    <circle cx="772" cy="52" r="13" fill="#ff3c78" />
+                    <text
+                        x="772"
+                        y="56"
+                        fill="#fff"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        8
+                    </text>
+                    <text
+                        x="772"
+                        y="80"
+                        fill="#ff3c78"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        Change
+                    </text>
+                    <circle cx="860" cy="52" r="13" fill="#bf00ff" />
+                    <text
+                        x="860"
+                        y="56"
+                        fill="#fff"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        9+
+                    </text>
+                    <text
+                        x="860"
+                        y="80"
+                        fill="#bf00ff"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        CSF/Adapt
+                    </text>
+                </svg>
+
+                <div class="toc-grid">
+                    <a href="#ch2" class="toc-card"
+                        ><span class="ch">Chapter 2 | 285分 | K2-K4</span
+                        ><span class="ti">改善のコンテキスト</span
+                        ><span class="tm">品質ビュー・PDCA・IDEAL・EFQMの基礎</span></a
+                    >
+                    <a href="#ch3" class="toc-card"
+                        ><span class="ch">Chapter 3 | 570分 | K3-K4</span
+                        ><span class="ti">モデルベース改善</span
+                        ><span class="tm">TMMi・TPI Next・CMMI・STEP・CTP</span></a
+                    >
+                    <a href="#ch4" class="toc-card"
+                        ><span class="ch">Chapter 4 | 555分 | K3-K4</span
+                        ><span class="ti">分析ベース改善</span
+                        ><span class="tm">GQM・原因分析・フィッシュボーン・DDP</span></a
+                    >
+                    <a href="#ch5" class="toc-card"
+                        ><span class="ch">Chapter 5 | 105分 | K5</span
+                        ><span class="ti">アプローチの選択</span
+                        ><span class="tm">コンテキストに応じた最適アプローチ</span></a
+                    >
+                    <a href="#ch6" class="toc-card"
+                        ><span class="ch">Chapter 6 | 900分 | K5-K6 ★★★</span
+                        ><span class="ti">改善プロセス（ITPI核心）</span
+                        ><span class="tm">IDEAL全フェーズ・アセスメント・改善計画</span></a
+                    >
+                    <a href="#ch7" class="toc-card"
+                        ><span class="ch">Chapter 7 | 465分 | K4-K6 ★★★</span
+                        ><span class="ti">組織・役割・スキル</span
+                        ><span class="tm">TPG・アセッサー・インタビュー技法</span></a
+                    >
+                    <a href="#ch8" class="toc-card"
+                        ><span class="ch">Chapter 8 | 285分 | K5-K6 ★★★</span
+                        ><span class="ti">変更管理</span
+                        ><span class="tm">Lewin・Kotter・抵抗管理・ステークホルダー</span></a
+                    >
+                    <a href="#ch9" class="toc-card"
+                        ><span class="ch">Chapter 9 | 300分 | K5-K6 ★★★</span
+                        ><span class="ti">重要成功因子（CSF）</span
+                        ><span class="tm">9つのCSF・改善文化の醸成</span></a
+                    >
+                    <a href="#ch10" class="toc-card"
+                        ><span class="ch">Chapter 10 | 60分 | K4</span
+                        ><span class="ti">ライフサイクルへの適応</span
+                        ><span class="tm">アジャイル・DevOps・ウォーターフォール</span></a
+                    >
+                </div>
+            </section>
+
+            <!-- ─── CH0 ─── -->
+            <section class="sec" id="ch0">
+                <div class="chapter-num">Chapter 0 | 資格概要</div>
+                <h2>CTEL-ITP-ITPI とは何か？</h2>
+
+                <h3>0.1 定義 — この資格の位置づけ</h3>
+                <p>
+                    <strong>CTEL-ITP-ITPI</strong>（Certified Tester Expert Level — Implementing
+                    Test Process Improvement）は、ISTQB®
+                    が認定するエキスパートレベル資格の一つです。テストプロセス改善プログラムを<strong>組織内で実装・推進・持続させる能力</strong>を証明します。
+                </p>
+
+                <div class="mermaid-wrap">
+<div class="mermaid">
+flowchart TD FL["Foundation Level\nCTFL v4.0 — 必須前提"] AL["Advanced
+Level\nCTAL-TM — 必須前提"] subgraph EL["Expert Level: CTEL-ITP"] ATP["Part
+1: CTEL-ITP-ATP\nAssessing Test Processes\nテストプロセスの評価・診断"]
+ITPI["Part 2: CTEL-ITP-ITPI ← 本資格\nImplementing
+TPI\n改善の実装・組織・変更管理・成功因子"] ATP --> ITPI end FL --> AL -->
+EL style ITPI fill:#00e5ff,color:#030712,stroke:none style ATP
+fill:#00ff88,color:#030712,stroke:none style FL
+fill:#1a3050,color:#e8f4fd,stroke:#00ff88 style AL
+fill:#1a3050,color:#e8f4fd,stroke:#00ff88
+                    </div>
+                </div>
+
+                <h3>0.2 試験スペック</h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>項目</th>
+                            <th>内容</th>
+                        </tr>
+                        <tr>
+                            <td>試験形式</td>
+                            <td>多肢選択問題（MCQ）のみ</td>
+                        </tr>
+                        <tr>
+                            <td>認知レベル</td>
+                            <td>
+                                <strong>K5（評価）・K6（創造）中心</strong> — 単純暗記では不合格
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>有効期間</td>
+                            <td>7年間（更新要）</td>
+                        </tr>
+                        <tr>
+                            <td>前提資格</td>
+                            <td>CTFL + CTAL-TM（両方必須）</td>
+                        </tr>
+                        <tr>
+                            <td>実務経験</td>
+                            <td>テスト経験5年以上 / プロセス改善経験2年以上</td>
+                        </tr>
+                        <tr>
+                            <td>追加要件</td>
+                            <td>カンファレンス発表 or 論文 + 推薦状2通</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="alert alert-red">
+                    <strong>⚡ 重要</strong>
+                    エキスパートレベルは<strong>試験合格だけでは取得できません</strong>。①
+                    テスト経験5年以上のCV（推薦状2通含む）、② プロセス改善経験2年以上、③
+                    カンファレンス発表または論文が追加で必要です。
+                </div>
+
+                <h3>0.3 認知レベル（K-Level）とは？</h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>レベル</th>
+                            <th>意味</th>
+                            <th>キーワード</th>
+                            <th>設問例</th>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #0ef">K5</strong></td>
+                            <td>Evaluate（評価）</td>
+                            <td>評価・判定・モニタリング</td>
+                            <td>「この改善計画の効果を評価せよ」</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: #c0f">K6</strong></td>
+                            <td>Create（創造）</td>
+                            <td>設計・構築・策定</td>
+                            <td>「テスト改善計画を作成せよ」</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>0.4 ビジネスアウトカム（なぜこの資格が必要か）</h3>
+                <div class="arch-layers">
+                    <div class="arch-row">
+                        <span class="arch-num">①</span>
+                        <div class="arch-content">
+                            <div class="t">改善プログラムのリード</div>
+                            <div class="d">
+                                テストプロセス改善プログラムをリードし、重要成功因子を識別・管理できる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">②</span>
+                        <div class="arch-content">
+                            <div class="t">ビジネス主導の意思決定</div>
+                            <div class="d">
+                                改善アプローチについてビジネス主導の適切な意思決定ができる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">③</span>
+                        <div class="arch-content">
+                            <div class="t">現状評価と段階的改善提案</div>
+                            <div class="d">
+                                テストプロセスの現状を評価し、段階的改善を提案し、ビジネス目標との関連を示せる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">④</span>
+                        <div class="arch-content">
+                            <div class="t">戦略的ポリシーの策定</div>
+                            <div class="d">
+                                テストプロセス改善の戦略的ポリシーを策定・実施できる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">⑤</span>
+                        <div class="arch-content">
+                            <div class="t">問題の根本原因分析</div>
+                            <div class="d">
+                                テストプロセスの特定問題を分析し、原因・症状・影響を評価できる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">⑥</span>
+                        <div class="arch-content">
+                            <div class="t">変更管理の実行</div>
+                            <div class="d">改善を実施するために必要な変更管理を実行できる。</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ─── CH2 ─── -->
+            <section class="sec" id="ch2">
+                <div class="chapter-num">Chapter 2 | K2-K4 | ATP + ITPI 共通基礎</div>
+                <h2>改善のコンテキスト <span class="kl">285分</span></h2>
+                <p style="color: var(--text-muted)">
+                    なぜ・何を・どう改善するかの基盤となる概念。ITPI 試験でも背景知識として必須。
+                </p>
+
+                <h3>2.1 なぜテストを改善するのか？ <span class="kl">K2</span></h3>
+                <p>
+                    <strong>定義：</strong
+                    >テストプロセス改善（TPI）は、組織のビジネス目標達成を支援するために実施されます。改善の動機を理解することが出発点です。
+                </p>
+
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span class="metric-val">100×</span
+                        ><span class="metric-label">本番障害コストは開発中修正の約100倍</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-val">DDP</span
+                        ><span class="metric-label">欠陥検出率が改善の核心的指標</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-val">6+</span
+                        ><span class="metric-label">改善を推進する主要ビジネス理由</span>
+                    </div>
+                </div>
+
+                <div class="arch-layers">
+                    <div class="arch-row">
+                        <span class="arch-num">01</span>
+                        <div class="arch-content">
+                            <div class="t">品質向上（Quality Improvement）</div>
+                            <div class="d">
+                                市場出荷ソフトウェアの欠陥削減。品質は今や市場参入の必須条件。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">02</span>
+                        <div class="arch-content">
+                            <div class="t">コスト削減（Cost Reduction）</div>
+                            <div class="d">
+                                テスト効率向上で工数を削減。早期発見が後工程のリワークコストを劇的に下げる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">03</span>
+                        <div class="arch-content">
+                            <div class="t">タイム・トゥ・マーケット短縮</div>
+                            <div class="d">
+                                早期フィードバックで手戻り削減。CI/CD・DevOps対応への必要性が高まっている。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">04</span>
+                        <div class="arch-content">
+                            <div class="t">予測可能性の向上</div>
+                            <div class="d">
+                                プロジェクトの見積もり精度向上。ステークホルダーへの報告品質向上。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">05</span>
+                        <div class="arch-content">
+                            <div class="t">規制・標準への準拠</div>
+                            <div class="d">
+                                FDA（医療機器）、Sarbanes-Oxley（金融）、ISO
+                                9001、CMMIなどへの対応。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">06</span>
+                        <div class="arch-content">
+                            <div class="t">サードパーティへの能力証明</div>
+                            <div class="d">
+                                顧客から特定の成熟度レベルが要求される場合（例：TMMi Level 3以上）。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>2.3 品質の5つのビュー（ガービン） <span class="kl">K2</span></h3>
+                <p>
+                    <strong>定義：</strong
+                    >品質には5つの視点があり、どの視点から改善を捉えるかで目標と指標が変わります。
+                </p>
+
+                <svg
+                    viewBox="0 0 750 140"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="img"
+                    aria-label="品質の5つのビュー"
+                    style="
+                        width: 100%;
+                        max-width: 750px;
+                        display: block;
+                        margin: 1.3rem 0;
+                        border-radius: 8px;
+                        background: #040c1a;
+                        border: 1px solid #1a3050;
+                    "
+                >
+                    <rect
+                        x="10"
+                        y="15"
+                        width="130"
+                        height="105"
+                        rx="6"
+                        fill="#00ff8812"
+                        stroke="#00ff88"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="75"
+                        y="44"
+                        fill="#00ff88"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        製品ベース
+                    </text>
+                    <text x="75" y="64" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        製品属性・特性
+                    </text>
+                    <text x="75" y="80" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        で品質を定義
+                    </text>
+                    <text
+                        x="75"
+                        y="104"
+                        fill="#4a6080"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        要件適合性
+                    </text>
+                    <rect
+                        x="152"
+                        y="15"
+                        width="130"
+                        height="105"
+                        rx="6"
+                        fill="#00e5ff12"
+                        stroke="#00e5ff"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="217"
+                        y="44"
+                        fill="#00e5ff"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        製造ベース
+                    </text>
+                    <text x="217" y="64" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        プロセス・仕様
+                    </text>
+                    <text x="217" y="80" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        への適合
+                    </text>
+                    <text
+                        x="217"
+                        y="104"
+                        fill="#4a6080"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        欠陥数・遵守率
+                    </text>
+                    <rect
+                        x="294"
+                        y="15"
+                        width="155"
+                        height="105"
+                        rx="6"
+                        fill="#ffe60012"
+                        stroke="#ffe600"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="371"
+                        y="44"
+                        fill="#ffe600"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        ユーザーベース
+                    </text>
+                    <text x="371" y="64" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        ニーズ充足度
+                    </text>
+                    <text x="371" y="80" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        で品質を定義
+                    </text>
+                    <text
+                        x="371"
+                        y="104"
+                        fill="#4a6080"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        顧客満足度
+                    </text>
+                    <rect
+                        x="461"
+                        y="15"
+                        width="130"
+                        height="105"
+                        rx="6"
+                        fill="#ff3c7812"
+                        stroke="#ff3c78"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="526"
+                        y="44"
+                        fill="#ff3c78"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        価値ベース
+                    </text>
+                    <text x="526" y="64" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        コストと品質
+                    </text>
+                    <text x="526" y="80" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        のバランス
+                    </text>
+                    <text
+                        x="526"
+                        y="104"
+                        fill="#4a6080"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        ROI・効果比率
+                    </text>
+                    <rect
+                        x="603"
+                        y="15"
+                        width="137"
+                        height="105"
+                        rx="6"
+                        fill="#bf00ff12"
+                        stroke="#bf00ff"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="671"
+                        y="44"
+                        fill="#bf00ff"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        超越ベース
+                    </text>
+                    <text x="671" y="64" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        経験で認識される
+                    </text>
+                    <text x="671" y="80" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        卓越性
+                    </text>
+                    <text
+                        x="671"
+                        y="104"
+                        fill="#4a6080"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        信頼・ブランド
+                    </text>
+                </svg>
+
+                <h3>2.4 PDCAサイクル（デミングサイクル） <span class="kl">K3</span></h3>
+                <p>
+                    <strong>定義：</strong>Plan（計画）→ Do（実行）→ Check（確認）→
+                    Act（改善）の4段階で継続的改善を回すサイクル。全ての改善活動の基盤です。
+                </p>
+
+                <div class="mermaid-wrap">
+<div class="mermaid">
+flowchart LR P["Plan（計画）\n目標設定・現状分析\n改善計画策定"] -->
+D["Do（実行）\n研修・コーチング\n活動実施"] D -->
+C["Check（確認）\nメトリクスで\n進捗追跡"] C -->
+A["Act（改善）\n機会識別\n優先順位付け"] A --> P style P
+fill:#00ff88,color:#030712,stroke:none style D
+fill:#00e5ff,color:#030712,stroke:none style C
+fill:#ffe600,color:#030712,stroke:none style A
+fill:#ff3c78,color:#ffffff,stroke:none
+                    </div>
+                </div>
+
+                <h3>2.4.2 IDEALフレームワーク <span class="kl">K3</span> — 試験最頻出！</h3>
+                <p>
+                    <strong>定義：</strong>IDEAL は
+                    PDCAの具体的実装です。<strong>I</strong>nitiating → <strong>D</strong>iagnosing
+                    → <strong>E</strong>stablishing → <strong>A</strong>cting →
+                    <strong>L</strong>earning の5フェーズで改善を推進します。
+                </p>
+
+                <div class="mermaid-wrap">
+<div class="mermaid">
+flowchart TD I["I: Initiating（開始）\n改善の理由を明確化\nスポンサー確保\n改善インフラ確立"]
+D2["D: Diagnosing（診断）\n現状の実践を評価・特性化\n推奨事項を作成\nフェーズ結果を文書化"]
+E["E: Establishing（確立）\n戦略と優先順位を設定\nTPGを確立\nアクションを計画"]
+A["A: Acting（実行）\nプロセスと測定を定義\nパイロットを計画・実行\n本格展開を追跡"]
+L["L: Learning（学習）\n教訓を文書化・分析\n組織アプローチを改訂"] I --> D2
+--> E --> A --> L --> I style I fill:#00ff88,color:#030712,stroke:none style
+D2 fill:#00e5ff,color:#030712,stroke:none style E
+fill:#ffe600,color:#030712,stroke:none style A
+fill:#ff3c78,color:#ffffff,stroke:none style L
+fill:#bf00ff,color:#ffffff,stroke:none
+                    </div>
+                </div>
+
+                <div class="callout callout-warning">
+                    <div class="callout-title">⚠️ 重要ポイント</div>
+                    <strong>Initiating（開始）フェーズが最も重要</strong
+                    >です。初期段階のアクションが最終結果を直接左右します。スポンサーの確保なしに大規模な改善は成功しません。
+                </div>
+
+                <h4>2.4.3 EFQM 卓越性の8つの基本概念</h4>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>#</th>
+                            <th>概念</th>
+                            <th>テストへの適用</th>
+                        </tr>
+                        <tr>
+                            <td>1</td>
+                            <td>結果指向</td>
+                            <td>DDP・本番欠陥数などの成果指標を重視</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>顧客フォーカス</td>
+                            <td>エンドユーザーの品質ニーズを最優先</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>リーダーシップと目的の一貫性</td>
+                            <td>経営層のスポンサーシップが不可欠</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>プロセスと事実による管理</td>
+                            <td>メトリクスに基づく意思決定</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>人材の育成と関与</td>
+                            <td>テスターのスキル向上・エンゲージメント</td>
+                        </tr>
+                        <tr>
+                            <td>6</td>
+                            <td>継続的学習・革新・改善</td>
+                            <td>レトロスペクティブ・改善サイクルの定常化</td>
+                        </tr>
+                        <tr>
+                            <td>7</td>
+                            <td>パートナーシップの発展</td>
+                            <td>開発・PMとの連携強化</td>
+                        </tr>
+                        <tr>
+                            <td>8</td>
+                            <td>企業の社会的責任</td>
+                            <td>規制・標準への準拠（FDA等）</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ─── CH3 ─── -->
+            <section class="sec" id="ch3">
+                <div class="chapter-num">Chapter 3 | K3-K4 | ATP中心 / ITPI背景知識</div>
+                <h2>モデルベース改善 <span class="kl">570分</span></h2>
+
+                <h3>3.1 ステージド vs 継続 表現形式 <span class="kl">K3</span></h3>
+                <div class="compare-grid">
+                    <div class="compare-card compare-good">
+                        <span class="compare-head">✅ ステージド表現（例：TMMi）</span>
+                        <ul>
+                            <li>決められたレベルを順に上がる</li>
+                            <li>「成熟度レベル」でコミュニケーションしやすい</li>
+                            <li>外部認定に使いやすい</li>
+                            <li>明確な進捗基準がある</li>
+                            <li>全段階達成が必要（柔軟性やや低）</li>
+                        </ul>
+                    </div>
+                    <div class="compare-card compare-bad">
+                        <span class="compare-head">⚡ 継続表現（例：TPI Next）</span>
+                        <ul>
+                            <li>レベルに縛られず改善エリアを選べる</li>
+                            <li>特定の問題点に集中できる</li>
+                            <li>柔軟性が高い</li>
+                            <li>全体比較・ベンチマークには適さない</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <h4>TMMi® 成熟度レベル（5段階）</h4>
+                <div class="pyramid">
+                    <div class="pyr-level">Level 5: Optimization（最適化）</div>
+                    <div class="pyr-level">Level 4: Measurement &amp; Management</div>
+                    <div class="pyr-level">Level 3: Defined（定義）</div>
+                    <div class="pyr-level">Level 2: Managed（管理）</div>
+                    <div class="pyr-level">Level 1: Initial（初期）</div>
+                </div>
+
+                <h4>TPI Next® vs TMMi® — 試験頻出比較</h4>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>観点</th>
+                            <th>TPI Next®</th>
+                            <th>TMMi®</th>
+                        </tr>
+                        <tr>
+                            <td>表現形式</td>
+                            <td style="color: var(--neon-cyan)">継続モデル（Continuous）</td>
+                            <td style="color: var(--neon-green)">ステージドモデル（Staged）</td>
+                        </tr>
+                        <tr>
+                            <td>テスト手法</td>
+                            <td>TMap Next を参照</td>
+                            <td>テスト手法非依存</td>
+                        </tr>
+                        <tr>
+                            <td>SPI との関係</td>
+                            <td>特定SPIモデルとの公式関係なし</td>
+                            <td>CMMIと高い相関</td>
+                        </tr>
+                        <tr>
+                            <td>詳細度</td>
+                            <td>16のキーエリアで詳細な視点</td>
+                            <td>成熟度レベルごとの構造化PA</td>
+                        </tr>
+                        <tr>
+                            <td>外部認定</td>
+                            <td>使いにくい</td>
+                            <td>使いやすい</td>
+                        </tr>
+                        <tr>
+                            <td>柔軟性</td>
+                            <td>高い（任意エリア選択可）</td>
+                            <td>低い（順序が決まっている）</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h3>3.4 コンテンツベースモデル（STEP・CTP）</h3>
+                <div class="compare-grid">
+                    <div class="compare-card compare-good">
+                        <span class="compare-head"
+                            >STEP（Systematic Test and Evaluation Process）</span
+                        >
+                        <ul>
+                            <li>テストはライフサイクル全体を通じた活動</li>
+                            <li>要件定義から廃止まで継続</li>
+                            <li>改善は特定の順序を要求しない</li>
+                            <li>TPI Nextと組み合わせ可能</li>
+                        </ul>
+                    </div>
+                    <div class="compare-card compare-good">
+                        <span class="compare-head">CTP（Critical Testing Process）</span>
+                        <ul>
+                            <li>12の「重要テストプロセス」を定義</li>
+                            <li>強みと弱みを識別し優先順位を付ける</li>
+                            <li>汎用計画を組織にカスタマイズ</li>
+                            <li>定量・定性メトリクスを収集・分析</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ─── CH4 ─── -->
+            <section class="sec" id="ch4">
+                <div class="chapter-num">Chapter 4 | K3-K4 | ATP中心 / ITPI基礎</div>
+                <h2>分析ベース改善 <span class="kl">555分</span></h2>
+
+                <h3>4.3 GQM アプローチ <span class="kl">K3</span></h3>
+                <p>
+                    <strong>定義：</strong>Goal（目標）→ Question（質問）→
+                    Metric（メトリクス）の3層で改善を体系的に計測するアプローチです。
+                </p>
+
+                <div class="mermaid-wrap">
+<div class="mermaid">
+flowchart TD G["Goals（目標 / 概念レベル）\n例：本番欠陥を50%削減する"]
+Q["Questions（質問 / 運用レベル）\n例：現在のDDPはどのくらいか？"]
+M["Metrics（メトリクス / 定量レベル）\n例：DDP = テスト検出欠陥数 ÷
+全既知欠陥数 × 100"] G --> Q --> M style G
+fill:#00ff88,color:#030712,stroke:none style Q
+fill:#00e5ff,color:#030712,stroke:none style M
+fill:#ffe600,color:#030712,stroke:none
+                    </div>
+                </div>
+
+                <h3>4.2 フィッシュボーン図（石川ダイアグラム） <span class="kl">K3</span></h3>
+                <p>
+                    <strong>定義：</strong
+                    >問題（効果）の根本原因を「6M」カテゴリに分類して視覚化する原因分析ツール。
+                </p>
+
+                <svg
+                    viewBox="0 0 760 280"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="img"
+                    aria-label="フィッシュボーン図：テスト実行遅延の根本原因分析"
+                    style="
+                        width: 100%;
+                        max-width: 760px;
+                        display: block;
+                        margin: 1.4rem auto;
+                        border: 1px solid #1a3050;
+                        border-radius: 8px;
+                        background: #040c1a;
+                    "
+                >
+                    <!-- Main arrow -->
+                    <line x1="50" y1="140" x2="660" y2="140" stroke="#00e5ff" stroke-width="3" />
+                    <polygon points="660,140 642,132 642,148" fill="#00e5ff" />
+                    <!-- Effect box -->
+                    <rect
+                        x="664"
+                        y="110"
+                        width="86"
+                        height="60"
+                        rx="6"
+                        fill="#ff3c78"
+                        opacity="0.9"
+                    />
+                    <text
+                        x="707"
+                        y="134"
+                        fill="#fff"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        テスト実行
+                    </text>
+                    <text
+                        x="707"
+                        y="150"
+                        fill="#fff"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        の遅延
+                    </text>
+                    <!-- Top ribs -->
+                    <line x1="160" y1="140" x2="110" y2="68" stroke="#00ff88" stroke-width="1.5" />
+                    <text
+                        x="94"
+                        y="60"
+                        fill="#00ff88"
+                        font-size="10"
+                        font-family="Space Mono"
+                        font-weight="bold"
+                    >
+                        Method
+                    </text>
+                    <text x="82" y="78" fill="#7a9abf" font-size="9">自動化率が低い</text>
+                    <line x1="320" y1="140" x2="270" y2="68" stroke="#00ff88" stroke-width="1.5" />
+                    <text
+                        x="252"
+                        y="60"
+                        fill="#00ff88"
+                        font-size="10"
+                        font-family="Space Mono"
+                        font-weight="bold"
+                    >
+                        Machine
+                    </text>
+                    <text x="240" y="78" fill="#7a9abf" font-size="9">テスト環境が不安定</text>
+                    <line x1="490" y1="140" x2="440" y2="68" stroke="#00ff88" stroke-width="1.5" />
+                    <text
+                        x="422"
+                        y="60"
+                        fill="#00ff88"
+                        font-size="10"
+                        font-family="Space Mono"
+                        font-weight="bold"
+                    >
+                        Material
+                    </text>
+                    <text x="412" y="78" fill="#7a9abf" font-size="9">テストデータ不足</text>
+                    <!-- Bottom ribs -->
+                    <line x1="160" y1="140" x2="110" y2="212" stroke="#ffe600" stroke-width="1.5" />
+                    <text
+                        x="72"
+                        y="226"
+                        fill="#ffe600"
+                        font-size="10"
+                        font-family="Space Mono"
+                        font-weight="bold"
+                    >
+                        Man
+                    </text>
+                    <text x="60" y="244" fill="#7a9abf" font-size="9">スキル不足</text>
+                    <line x1="320" y1="140" x2="270" y2="212" stroke="#ffe600" stroke-width="1.5" />
+                    <text
+                        x="218"
+                        y="226"
+                        fill="#ffe600"
+                        font-size="10"
+                        font-family="Space Mono"
+                        font-weight="bold"
+                    >
+                        Measurement
+                    </text>
+                    <text x="228" y="244" fill="#7a9abf" font-size="9">進捗可視化なし</text>
+                    <line x1="490" y1="140" x2="440" y2="212" stroke="#ffe600" stroke-width="1.5" />
+                    <text
+                        x="390"
+                        y="226"
+                        fill="#ffe600"
+                        font-size="10"
+                        font-family="Space Mono"
+                        font-weight="bold"
+                    >
+                        Environment
+                    </text>
+                    <text x="402" y="244" fill="#7a9abf" font-size="9">CI/CD 未整備</text>
+                    <text x="50" y="270" fill="#4a6080" font-size="9" font-family="Space Mono">
+                        フィッシュボーン図（石川ダイアグラム）— テスト実行遅延の根本原因分析
+                    </text>
+                </svg>
+
+                <h3>4.4 主要メトリクス体系 <span class="kl">K4</span></h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>カテゴリ</th>
+                            <th>メトリクス名</th>
+                            <th>計算式 / 説明</th>
+                        </tr>
+                        <tr>
+                            <td rowspan="2">
+                                <strong style="color: var(--neon-green)">有効性</strong>
+                            </td>
+                            <td>DDP（欠陥検出率）</td>
+                            <td>テスト検出欠陥数 ÷ 全既知欠陥数 × 100</td>
+                        </tr>
+                        <tr>
+                            <td>本番後欠陥率</td>
+                            <td>顧客発見欠陥数 ÷ KLOC（一定期間）</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="3">
+                                <strong style="color: var(--neon-cyan)">効率性</strong>
+                            </td>
+                            <td>相対テスト工数</td>
+                            <td>テスト工数 ÷ 総プロジェクト工数</td>
+                        </tr>
+                        <tr>
+                            <td>テスト効率</td>
+                            <td>欠陥数 ÷ テスト工数</td>
+                        </tr>
+                        <tr>
+                            <td>自動化レベル</td>
+                            <td>自動化TC数 ÷ 全TC数 × 100</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--neon-yellow)">予測可能性</strong></td>
+                            <td>工数乖離</td>
+                            <td>実績工数 ÷ 計画工数 × 100</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="callout callout-info">
+                    <div class="callout-title">💡 DDP 計算例</div>
+                    テストで90件発見し、本番後に10件追加発見：<br />
+                    <strong>DDP = 90 ÷ (90+10) × 100 = 90%</strong><br />
+                    一般的な目標は 85〜95% 以上です。
+                </div>
+            </section>
+
+            <!-- ─── CH5 ─── -->
+            <section class="sec" id="ch5">
+                <div class="chapter-num">Chapter 5 | K5 | ATP・ITPI共通</div>
+                <h2>テストプロセス改善アプローチの選択 <span class="kl">105分</span></h2>
+                <p style="color: var(--text-muted)">
+                    コンテキストに応じた最適なアプローチを評価・選択できるようになる（K5：評価レベル）。
+                </p>
+
+                <div class="mermaid-wrap">
+<div class="mermaid">
+flowchart TD Start(["改善アプローチを選択する"])
+Q1{"比較・ベンチマーク\nまたは成熟度レベル達成\nが必要か？"}
+Q2{"特定の問題点に\n集中したいか？"} Q3{"メトリクスが\n利用可能か？"}
+Q4{"新規プロセス\n確立が必要か？"} M["モデルベース\nTMMi / TPI Next"]
+A["分析ベース\nGQM / フィッシュボーン"] C["コンテンツモデル\nCTP / STEP"]
+H["ハイブリッド\n状況に応じて組み合わせ"] Start --> Q1 Q1 -->|Yes| M Q1
+-->|No| Q2 Q2 -->|Yes| Q3 Q2 -->|No| Q4 Q3 -->|Yes| A Q3 -->|No| H Q4
+-->|Yes| C Q4 -->|No| H style M fill:#00ff88,color:#030712,stroke:none style
+A fill:#00e5ff,color:#030712,stroke:none style C
+fill:#ffe600,color:#030712,stroke:none style H
+fill:#ff3c78,color:#ffffff,stroke:none
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>アプローチ</th>
+                            <th>最適な場面</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: var(--neon-green)"
+                                    >モデルベース（TMMi/TPI Next）</strong
+                                >
+                            </td>
+                            <td>
+                                ベンチマーク比較が必要・成熟度レベル達成が会社方針・外部認定が必要
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: var(--neon-cyan)"
+                                    >コンテンツモデル（CTP/STEP）</strong
+                                >
+                            </td>
+                            <td>テストプロセスを新たに確立・TMMi/TPI Nextの順序に縛られたくない</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: var(--neon-yellow)"
+                                    >分析ベース（GQM/フィッシュボーン）</strong
+                                >
+                            </td>
+                            <td>特定問題に集中・メトリクスが利用可能・根拠が必要</td>
+                        </tr>
+                        <tr>
+                            <td><strong style="color: var(--neon-pink)">ハイブリッド</strong></td>
+                            <td>多くの実際プロジェクトで採用される組み合わせ</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ─── CH6 ─── -->
+            <section class="sec" id="ch6">
+                <div class="chapter-num">Chapter 6 | K5-K6 | ITPI 核心 ★★★★★</div>
+                <h2>改善プロセスの実装（IDEAL 全フェーズ詳解） <span class="kl">900分</span></h2>
+
+                <div class="alert alert-cyan">
+                    <strong>LO 6.4.5（K6）最重要</strong
+                    >テスト改善計画を<strong>実際に作成できる</strong>レベルが求められます。単なる暗記では不十分で、状況に応じた適切な計画立案能力が試されます。
+                </div>
+
+                <h3>6.2 開始フェーズ（Initiating）：スコープの4観点 <span class="kl">K5</span></h3>
+                <div class="arch-layers">
+                    <div class="arch-row">
+                        <span class="arch-num">①</span>
+                        <div class="arch-content">
+                            <div class="t">汎用プロセススコープ</div>
+                            <div class="d">
+                                テストプロセス以外のプロセス（PM・要件管理等）が改善範囲に含まれるか？
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">②</span>
+                        <div class="arch-content">
+                            <div class="t">テストプロセススコープ</div>
+                            <div class="d">
+                                テストプロセスのどの部分を対象とするか。特定部分のみの改善は「部分最適」のリスクがある。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">③</span>
+                        <div class="arch-content">
+                            <div class="t">テストレベルスコープ</div>
+                            <div class="d">
+                                UT・IT・ST・UAT のどのレベルを対象とするか明確にする。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">④</span>
+                        <div class="arch-content">
+                            <div class="t">プロジェクトスコープ</div>
+                            <div class="d">
+                                単一プロジェクト（速い・安い）か組織全体（広い・長い）かで規模・期間・コストが変わる。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4>バランスドスコアカード（BSC）の4視点</h4>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <span
+                            class="metric-val"
+                            style="font-size: 1.25rem; color: var(--neon-green)"
+                            >財務</span
+                        ><span class="metric-label">生産性向上・収益改善・コスト削減</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-val" style="font-size: 1.25rem; color: var(--neon-cyan)"
+                            >顧客</span
+                        ><span class="metric-label">市場シェア・顧客満足度・リスク管理</span>
+                    </div>
+                    <div class="metric-card">
+                        <span
+                            class="metric-val"
+                            style="font-size: 1.25rem; color: var(--neon-yellow)"
+                            >内部</span
+                        ><span class="metric-label">予測可能性向上・欠陥削減・工期短縮</span>
+                    </div>
+                    <div class="metric-card">
+                        <span class="metric-val" style="font-size: 1.25rem; color: var(--neon-pink)"
+                            >学習・成長</span
+                        ><span class="metric-label">新市場参入・製品化速度・標準認定</span>
+                    </div>
+                </div>
+
+                <h3>6.3 診断フェーズ（Diagnosing）— アセスメント <span class="kl">K5</span></h3>
+
+                <div class="alert alert-amber">
+                    <strong>インタビュー実施の4原則</strong>
+                    ① 個別インタビューが推奨（グループだと発言が制限される）<br />
+                    ② 上司の前でインタビューしない（圧力を排除する）<br />
+                    ③ 機密性を確保して正直な発言を促す<br />
+                    ④ 罰則・失敗への恐れがない環境を作る
+                </div>
+
+                <h4>アセスメントレポートの6つの必須内容</h4>
+                <ol class="step-list">
+                    <li>
+                        <span class="step-num">1</span>
+                        <div class="step-content">
+                            <div class="t">マネジメントサマリー</div>
+                            <div class="d">
+                                ビジョンへの言及を含む。経営層が読む1〜2ページの要約。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <div class="step-content">
+                            <div class="t">スコープと目標の記述</div>
+                            <div class="d">
+                                何を評価したか、どんな目標があるかを明確に記述する。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <div class="step-content">
+                            <div class="t">分析結果（強み・弱み・未解決課題）</div>
+                            <div class="d">
+                                肯定的な側面、改善が必要な側面、未解決の課題をバランスよく記述。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">4</span>
+                        <div class="step-content">
+                            <div class="t">各観察事項の評価（重大度含む）</div>
+                            <div class="d">各問題の重大度とビジネス影響を定量的に評価する。</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">5</span>
+                        <div class="step-content">
+                            <div class="t">提案する改善アクション（優先順位付き）</div>
+                            <div class="d">
+                                具体的なアクション、担当者候補、期限の目安を含める。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">6</span>
+                        <div class="step-content">
+                            <div class="t">評価の根拠</div>
+                            <div class="d">
+                                どのインタビュー・文書・データから得た情報かを明記する。
+                            </div>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3>6.4 確立フェーズ：テスト改善計画（TIP）の策定 <span class="kl">K6</span></h3>
+                <div class="callout callout-danger">
+                    <div class="callout-title">⚡ K6レベル — 実際に作成できることが必要</div>
+                    テスト改善計画（Test Improvement
+                    Plan）の10構成要素を全て把握し、シナリオに応じて適切な計画を立案できるようにしてください。
+                </div>
+
+                <h4>TIP の10構成要素 — 良い例 vs 悪い例</h4>
+                <div class="compare-grid">
+                    <div class="compare-card compare-good">
+                        <span class="compare-head">✅ 良い TIP の特徴</span>
+                        <ul>
+                            <li>「DDPを70%→90%（6ヶ月）」など定量目標がある</li>
+                            <li>スコープが明確（含む・除外が明示）</li>
+                            <li>RACI マトリクスで役割が明確</li>
+                            <li>パイロットから段階的に展開する計画がある</li>
+                            <li>リスクと軽減策が列挙されている</li>
+                            <li>変更管理・コミュニケーション計画が含まれる</li>
+                            <li>成功基準とメトリクスが具体的</li>
+                        </ul>
+                    </div>
+                    <div class="compare-card compare-bad">
+                        <span class="compare-head">❌ 悪い TIP の特徴</span>
+                        <ul>
+                            <li>「テスト品質を改善する」などの曖昧な目標のみ</li>
+                            <li>スコープが無制限（「全テストを改善する」）</li>
+                            <li>役割・責任が不明確</li>
+                            <li>パイロットなしで全組織に一気に展開</li>
+                            <li>リスクへの言及がない</li>
+                            <li>変更管理の考慮がない</li>
+                            <li>成功の測定方法が不明</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="code-block" data-lang="TIP構成要素">
+                    <span class="code-keyword"
+                        >テスト改善計画書（Test Improvement Plan）の10構成要素</span
+                    >
+
+                    <span class="code-green">① 改善目標（Goal）</span>
+                    ✅ 良い例:
+                    <span class="code-string"
+                        >"DDPを現在の70%から90%に向上させる（6ヶ月以内）"</span
+                    >
+                    ❌ 悪い例:
+                    <span class="code-comment">"テスト品質を改善する"（曖昧・測定不能）</span>
+
+                    <span class="code-cyan">② スコープと境界（Scope）</span>
+                    ✅ 良い例: <span class="code-string">"STとUATのみ対象。UTは除外。"</span>
+
+                    <span class="code-keyword">③ 役割と責任（RACI マトリクス）</span>
+                    <span class="code-green">④ スケジュールとマイルストーン</span>
+                    <span class="code-cyan">⑤ リソース計画（人員・ツール・予算）</span>
+                    <span class="code-keyword">⑥ リスクと軽減策</span>
+                    <span class="code-string">⑦ 成功基準とメトリクス（GQMを活用）</span>
+                    <span class="code-green">⑧ 変更管理の方針（チェンジマネジメント計画）</span>
+                    <span class="code-cyan">⑨ コミュニケーション計画</span>
+                    <span class="code-comment"
+                        >⑩ 教訓と継続改善の方針（次のIDEALサイクルへ接続）</span
+                    >
+                </div>
+
+                <h3>6.5 実行フェーズ：パイロット選択の5基準 <span class="kl">K5</span></h3>
+
+                <svg
+                    viewBox="0 0 640 160"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="img"
+                    aria-label="パイロット選択の5基準"
+                    style="
+                        width: 100%;
+                        max-width: 640px;
+                        display: block;
+                        margin: 1.3rem 0;
+                        border-radius: 8px;
+                        background: #040c1a;
+                        border: 1px solid #1a3050;
+                    "
+                >
+                    <rect
+                        x="12"
+                        y="18"
+                        width="112"
+                        height="114"
+                        rx="6"
+                        fill="#00ff8810"
+                        stroke="#00ff88"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="68"
+                        y="47"
+                        fill="#00ff88"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        ① 代表的
+                    </text>
+                    <text x="68" y="68" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        特殊でない
+                    </text>
+                    <text x="68" y="84" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        一般的なPJ
+                    </text>
+                    <rect
+                        x="136"
+                        y="18"
+                        width="112"
+                        height="114"
+                        rx="6"
+                        fill="#00e5ff10"
+                        stroke="#00e5ff"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="192"
+                        y="47"
+                        fill="#00e5ff"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        ② 意欲的
+                    </text>
+                    <text x="192" y="68" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        チームが
+                    </text>
+                    <text x="192" y="84" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        協力的
+                    </text>
+                    <rect
+                        x="260"
+                        y="18"
+                        width="112"
+                        height="114"
+                        rx="6"
+                        fill="#ffe60010"
+                        stroke="#ffe600"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="316"
+                        y="47"
+                        fill="#ffe600"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        ③ 適切規模
+                    </text>
+                    <text x="316" y="68" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        小さすぎず
+                    </text>
+                    <text x="316" y="84" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        大きすぎない
+                    </text>
+                    <rect
+                        x="384"
+                        y="18"
+                        width="112"
+                        height="114"
+                        rx="6"
+                        fill="#ff3c7810"
+                        stroke="#ff3c78"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="440"
+                        y="47"
+                        fill="#ff3c78"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        ④ 短期間
+                    </text>
+                    <text x="440" y="68" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        速やかに
+                    </text>
+                    <text x="440" y="84" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        結果が出る
+                    </text>
+                    <rect
+                        x="508"
+                        y="18"
+                        width="120"
+                        height="114"
+                        rx="6"
+                        fill="#bf00ff10"
+                        stroke="#bf00ff"
+                        stroke-width="1.2"
+                    />
+                    <text
+                        x="568"
+                        y="47"
+                        fill="#bf00ff"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        font-weight="bold"
+                    >
+                        ⑤ 可視性
+                    </text>
+                    <text x="568" y="68" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        ステークホルダー
+                    </text>
+                    <text x="568" y="84" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        に見えやすい
+                    </text>
+                    <text
+                        x="320"
+                        y="148"
+                        fill="#4a6080"
+                        font-size="8"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        パイロットプロジェクト選択の5基準
+                    </text>
+                </svg>
+
+                <h3>6.6 学習フェーズ（Learning） <span class="kl">K4</span></h3>
+                <div class="trend-card">
+                    <span class="trend-label">IDEAL の最終フェーズ — 継続改善の核心</span>
+                    <ul>
+                        <li>成功と失敗を文書化・分析する</li>
+                        <li>何がうまくいったか・改善できたかを整理する</li>
+                        <li>組織的アプローチを改訂し次サイクルに反映する</li>
+                        <li>教訓を組織内で共有し、ナレッジリポジトリに蓄積する</li>
+                        <li>次の IDEAL サイクルを開始する</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- ─── CH7 ─── -->
+            <section class="sec" id="ch7">
+                <div class="chapter-num">Chapter 7 | K4-K6 | ITPI中核 ★★★★★</div>
+                <h2>組織・役割・スキル <span class="kl">465分</span></h2>
+
+                <h3>7.1 テストプロセスグループ（TPG）の3組織モデル <span class="kl">K4</span></h3>
+                <div class="arch-layers">
+                    <div class="arch-row">
+                        <span class="arch-num">A</span>
+                        <div class="arch-content">
+                            <div class="t">中央集権型</div>
+                            <div class="d">
+                                専任TPGチームが全組織をサポート。専門性が高いがコストが高く現場から乖離するリスクがある。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">B</span>
+                        <div class="arch-content">
+                            <div class="t">分散型</div>
+                            <div class="d">
+                                各プロジェクトにTPGメンバーを配置。現場に近いが一貫性の維持が難しい。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">C</span>
+                        <div class="arch-content">
+                            <div class="t" style="color: var(--neon-green)">
+                                ハイブリッド型（★実務で最多）
+                            </div>
+                            <div class="d">
+                                中央に小さなコアTPGを持ちつつ、各組織に担当者を配置。最もバランスが良い。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3>7.2 内部アセッサー vs 外部アセッサー</h3>
+                <div class="compare-grid">
+                    <div class="compare-card compare-good">
+                        <span class="compare-head">内部アセッサー（Internal Assessor）</span>
+                        <ul>
+                            <li>✅ 組織文化・コンテキストを理解している</li>
+                            <li>✅ コストが低い</li>
+                            <li>✅ 内部の信頼関係がある</li>
+                            <li>❌ 客観性・独立性が低い可能性</li>
+                            <li>❌ 内部政治の影響を受ける</li>
+                        </ul>
+                    </div>
+                    <div class="compare-card compare-bad">
+                        <span class="compare-head">外部アセッサー（External Assessor）</span>
+                        <ul>
+                            <li>✅ 高い客観性・独立性</li>
+                            <li>✅ 業界の比較情報を持っている</li>
+                            <li>✅ 政治的影響を受けにくい</li>
+                            <li>❌ コストが高い</li>
+                            <li>❌ 組織文化への理解に時間が必要</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="callout callout-info">
+                    <div class="callout-title">💡 推奨アプローチ</div>
+                    外部アセッサーがリードし、内部が協力する<strong>ハイブリッドアプローチ</strong>が最もバランスが良いとされています。
+                </div>
+
+                <h3>7.3 テストプロセス改善者のスキルセット <span class="kl">K5</span></h3>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="n">インタビュースキル</span><span class="p">重要度：最高</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--w: 95%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="n">傾聴スキル（Active Listening）</span
+                        ><span class="p">重要度：最高</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--w: 93%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="n">分析スキル</span><span class="p">重要度：高</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--w: 88%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="n">プレゼンテーション・報告スキル</span
+                        ><span class="p">重要度：高</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--w: 86%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="n">説得スキル</span><span class="p">重要度：高</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--w: 83%"></div>
+                    </div>
+                </div>
+                <div class="progress-item">
+                    <div class="progress-label">
+                        <span class="n">マネジメントスキル</span
+                        ><span class="p">重要度：中〜高</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="--w: 77%"></div>
+                    </div>
+                </div>
+
+                <h4>オープン質問 vs クローズ質問</h4>
+                <div class="compare-grid">
+                    <div class="compare-card compare-good">
+                        <span class="compare-head">✅ オープン質問（推奨）</span>
+                        <ul>
+                            <li>「テスト計画について教えてください」</li>
+                            <li>「現在、最も困っている課題は何ですか？」</li>
+                            <li>「理想的なテストプロセスはどんなイメージですか？」</li>
+                            <li>→ より多くの情報・洞察を引き出せる</li>
+                        </ul>
+                    </div>
+                    <div class="compare-card compare-bad">
+                        <span class="compare-head">⚡ クローズ質問（確認用に限定）</span>
+                        <ul>
+                            <li>「テスト計画を文書化していますか？」</li>
+                            <li>「自動化率は50%以上ですか？」</li>
+                            <li>→ Yes/Noのみで情報量が少ない</li>
+                            <li>→ 事実確認には有効</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ─── CH8 ─── -->
+            <section class="sec" id="ch8">
+                <div class="chapter-num">Chapter 8 | K5-K6 | ITPI中核 ★★★★★</div>
+                <h2>変更管理（チェンジマネジメント） <span class="kl">285分</span></h2>
+
+                <div class="alert alert-red">
+                    <strong>重要事実</strong>
+                    テストプロセス改善プログラムが失敗する主な理由の多くは、技術的な問題ではなく<strong>人的・組織的な問題</strong>（変化への抵抗、スポンサー不在、コミュニケーション不足）です。
+                </div>
+
+                <h3>Lewin のアンフリーズモデル（3フェーズ） <span class="kl">K5</span></h3>
+                <div class="mermaid-wrap">
+<div class="mermaid">
+flowchart LR
+U["Unfreeze（解凍）\n変化の必要性を認識させる\n緊急感を醸成する\nコミットメントを獲得する"]
+C2["Change（変化）\n新しいプロセスを実装する\n教育・コーチングを提供する\n段階的な変化を推進する"]
+F["Freeze（凍結）\n新しい状態を安定させる\n文化として定着させる\n後退防止の仕組みを作る"]
+U --> C2 --> F style U fill:#00e5ff33,stroke:#00e5ff,color:#e8f4fd style C2
+fill:#ffe60033,stroke:#ffe600,color:#e8f4fd style F
+fill:#00ff8833,stroke:#00ff88,color:#e8f4fd
+                    </div>
+                </div>
+
+                <h4>コッターの8ステップ変革モデル</h4>
+                <ol class="step-list">
+                    <li>
+                        <span class="step-num">1</span>
+                        <div class="step-content">
+                            <div class="t">緊急性の確立（Create Urgency）</div>
+                            <div class="d">
+                                「なぜ今変わらないといけないか」をデータと事例で組織全体に訴える。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">2</span>
+                        <div class="step-content">
+                            <div class="t">ガイド連合の形成</div>
+                            <div class="d">
+                                変革をリードする強力なチームを構築する。多様なスキルと権限を持つメンバーが必要。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">3</span>
+                        <div class="step-content">
+                            <div class="t">ビジョンと戦略の策定</div>
+                            <div class="d">
+                                変革後の姿と実現方法を明確にする。誰もが理解できる言葉で表現する。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">4</span>
+                        <div class="step-content">
+                            <div class="t">変革ビジョンの伝達</div>
+                            <div class="d">
+                                全員がビジョンを理解し、方向性を共有できるよう繰り返し伝える。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">5</span>
+                        <div class="step-content">
+                            <div class="t">行動のためのエンパワーメント</div>
+                            <div class="d">障壁を取り除き、現場が変革できる権限と環境を作る。</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">6</span>
+                        <div class="step-content">
+                            <div class="t">短期成果（クイックウィン）の創出</div>
+                            <div class="d">
+                                早期の小さな成功でモメンタムを維持し、懐疑的な人々を説得する。
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">7</span>
+                        <div class="step-content">
+                            <div class="t">変化の定着と更なる加速</div>
+                            <div class="d">成功を積み重ねてより大きな変革へとつなげる。</div>
+                        </div>
+                    </li>
+                    <li>
+                        <span class="step-num">8</span>
+                        <div class="step-content">
+                            <div class="t">文化への変化の定着</div>
+                            <div class="d">新しい行動・プロセスを組織文化として根付かせる。</div>
+                        </div>
+                    </li>
+                </ol>
+
+                <h3>ステークホルダーマッピング（4象限） <span class="kl">K5</span></h3>
+
+                <svg
+                    viewBox="0 0 520 300"
+                    xmlns="http://www.w3.org/2000/svg"
+                    role="img"
+                    aria-label="ステークホルダーマッピング"
+                    style="
+                        width: 100%;
+                        max-width: 520px;
+                        display: block;
+                        margin: 1.4rem 0;
+                        border-radius: 8px;
+                        background: #040c1a;
+                        border: 1px solid #1a3050;
+                    "
+                >
+                    <line x1="58" y1="252" x2="462" y2="252" stroke="#2a5080" stroke-width="2" />
+                    <line x1="58" y1="252" x2="58" y2="32" stroke="#2a5080" stroke-width="2" />
+                    <polygon points="462,252 446,244 446,260" fill="#2a5080" />
+                    <polygon points="58,32 50,48 66,48" fill="#2a5080" />
+                    <text
+                        x="262"
+                        y="276"
+                        fill="#4a6080"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        影響力（Power） →
+                    </text>
+                    <text
+                        x="22"
+                        y="145"
+                        fill="#4a6080"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                        transform="rotate(-90,22,145)"
+                    >
+                        関心（Interest） →
+                    </text>
+                    <line
+                        x1="58"
+                        y1="142"
+                        x2="462"
+                        y2="142"
+                        stroke="#1a3050"
+                        stroke-width="1"
+                        stroke-dasharray="4,4"
+                    />
+                    <line
+                        x1="260"
+                        y1="32"
+                        x2="260"
+                        y2="252"
+                        stroke="#1a3050"
+                        stroke-width="1"
+                        stroke-dasharray="4,4"
+                    />
+                    <!-- Quadrants -->
+                    <rect x="58" y="142" width="202" height="110" fill="#00ff8808" />
+                    <rect x="260" y="142" width="202" height="110" fill="#00e5ff08" />
+                    <rect x="58" y="32" width="202" height="110" fill="#ff3c7808" />
+                    <rect x="260" y="32" width="202" height="110" fill="#ffe60008" />
+                    <text
+                        x="159"
+                        y="178"
+                        fill="#00ff88"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        最小限の努力
+                    </text>
+                    <text x="159" y="194" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        （Monitor）
+                    </text>
+                    <text
+                        x="361"
+                        y="178"
+                        fill="#00e5ff"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        密接に管理
+                    </text>
+                    <text x="361" y="194" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        （Manage Closely）
+                    </text>
+                    <text
+                        x="159"
+                        y="78"
+                        fill="#ff3c78"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        情報を提供
+                    </text>
+                    <text x="159" y="94" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        （Keep Informed）
+                    </text>
+                    <text
+                        x="361"
+                        y="78"
+                        fill="#ffe600"
+                        font-size="10"
+                        font-family="Space Mono"
+                        text-anchor="middle"
+                    >
+                        スポンサー重視
+                    </text>
+                    <text x="361" y="94" fill="#7a9abf" font-size="9" text-anchor="middle">
+                        （Key Players）
+                    </text>
+                    <!-- Sample points -->
+                    <circle cx="375" cy="55" r="7" fill="#ffe600" />
+                    <text x="390" y="60" fill="#ffe600" font-size="9">経営スポンサー</text>
+                    <circle cx="358" cy="162" r="7" fill="#00e5ff" />
+                    <text x="373" y="167" fill="#00e5ff" font-size="9">テストMgr</text>
+                    <circle cx="140" cy="82" r="7" fill="#ff3c78" />
+                    <text x="155" y="87" fill="#ff3c78" font-size="9">開発者</text>
+                    <circle cx="128" cy="198" r="7" fill="#00ff88" />
+                    <text x="143" y="203" fill="#00ff88" font-size="9">その他</text>
+                </svg>
+
+                <h3>変化への抵抗 — 原因と対処法</h3>
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>抵抗の原因</th>
+                            <th>効果的な対処法</th>
+                        </tr>
+                        <tr>
+                            <td>現状への満足（「現状で十分」）</td>
+                            <td>データで問題を可視化し、緊急性を醸成する</td>
+                        </tr>
+                        <tr>
+                            <td>失敗への恐れ</td>
+                            <td>心理的安全性を確保し、失敗を学習と位置づける</td>
+                        </tr>
+                        <tr>
+                            <td>スキル・能力への不安</td>
+                            <td>必要な研修・コーチングを提供する</td>
+                        </tr>
+                        <tr>
+                            <td>変化の意味が理解できない</td>
+                            <td>オープンな対話の場を設け、理由と便益を説明する</td>
+                        </tr>
+                        <tr>
+                            <td>追加作業への不満</td>
+                            <td>改善がワークロードを最終的に下げることを示す</td>
+                        </tr>
+                        <tr>
+                            <td>組織の惰性</td>
+                            <td>クイックウィンで「変化は可能」を実証する</td>
+                        </tr>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ─── CH9 ─── -->
+            <section class="sec" id="ch9">
+                <div class="chapter-num">Chapter 9 | K5-K6 | ITPI中核 ★★★★★</div>
+                <h2>重要成功因子（Critical Success Factors） <span class="kl">300分</span></h2>
+
+                <h3>9.1 9つの重要成功因子（CSF） <span class="kl">K5</span></h3>
+                <div class="exam-grid">
+                    <div class="exam-card">
+                        <span class="el">CSF 1</span
+                        ><span class="et">経営のコミットメントとスポンサーシップ</span
+                        ><span class="es">★★★★★</span
+                        ><span class="ei">予算・時間・人員の確保が不可欠。最重要CSF。</span>
+                    </div>
+                    <div class="exam-card">
+                        <span class="el">CSF 2</span
+                        ><span class="et">明確なビジネスゴールとの連携</span
+                        ><span class="es">★★★★★</span
+                        ><span class="ei">「テストのための改善」ではなくビジネス成功のため。</span>
+                    </div>
+                    <div class="exam-card">
+                        <span class="el">CSF 3</span><span class="et">適切なスコープとリソース</span
+                        ><span class="es">★★★★</span
+                        ><span class="ei">過度に広いスコープは失敗の元。段階的アプローチ。</span>
+                    </div>
+                    <div class="exam-card">
+                        <span class="el">CSF 4</span><span class="et">強力な改善チームとスキル</span
+                        ><span class="es">★★★★</span
+                        ><span class="ei">内部＋外部の専門家の適切な組み合わせ。</span>
+                    </div>
+                    <div class="exam-card">
+                        <span class="el">CSF 5</span
+                        ><span class="et">効果的なチェンジマネジメント</span
+                        ><span class="es">★★★★★</span
+                        ><span class="ei">変化への抵抗を管理。コミュニケーション計画の徹底。</span>
+                    </div>
+                    <div class="exam-card">
+                        <span class="el">CSF 6</span><span class="et">測定と可視化</span
+                        ><span class="es">★★★★</span
+                        ><span class="ei">明確な成功基準とメトリクス。定期的な進捗報告。</span>
+                    </div>
+                    <div class="exam-card">
+                        <span class="el">CSF 7</span
+                        ><span class="et">継続的なコミュニケーション</span
+                        ><span class="es">★★★★</span
+                        ><span class="ei">全ステークホルダーへの透明性のある情報提供。</span>
+                    </div>
+                    <div class="exam-card">
+                        <span class="el">CSF 8</span
+                        ><span class="et">クイックウィン（早期成果）</span
+                        ><span class="es">★★★★</span
+                        ><span class="ei">早期の小さな成功でモメンタムを維持する。</span>
+                    </div>
+                    <div class="exam-card">
+                        <span class="el">CSF 9</span><span class="et">改善文化の醸成</span
+                        ><span class="es">★★★★★</span
+                        ><span class="ei">継続的改善が「標準的な仕事の進め方」になること。</span>
+                    </div>
+                </div>
+
+                <h3>9.2 改善文化の特性と醸成 <span class="kl">K6</span></h3>
+                <div class="compare-grid">
+                    <div class="compare-card compare-good">
+                        <span class="compare-head">✅ 良い改善文化の特性</span>
+                        <ul>
+                            <li>継続的改善が「日常の仕事」になっている</li>
+                            <li>失敗を学習の機会として捉える（心理的安全性）</li>
+                            <li>データと事実に基づく意思決定</li>
+                            <li>オープンなコミュニケーションとフィードバック</li>
+                            <li>改善の成功を認め・祝う習慣がある</li>
+                            <li>テスト・品質が全員の責任という意識</li>
+                        </ul>
+                    </div>
+                    <div class="compare-card compare-bad">
+                        <span class="compare-head">❌ アンチパターン（必ず避ける）</span>
+                        <ul>
+                            <li>問題を隠す文化（失敗を責める雰囲気）</li>
+                            <li>改善提案が却下され続ける環境</li>
+                            <li>「いつもこうやってきた」という惰性</li>
+                            <li>形式的な改善活動（実態が伴わない）</li>
+                            <li>改善に時間・リソースが割り当てられない</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ─── CH10 ─── -->
+            <section class="sec" id="ch10">
+                <div class="chapter-num">Chapter 10 | K4 | ITPI補足</div>
+                <h2>異なるライフサイクルモデルへの適応 <span class="kl">60分</span></h2>
+
+                <div class="table-wrap">
+                    <table>
+                        <tr>
+                            <th>ライフサイクル</th>
+                            <th>改善の特徴</th>
+                            <th>推奨アクション</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: var(--neon-green)">ウォーターフォール</strong>
+                            </td>
+                            <td>
+                                フェーズゲートでのアセスメントが自然。フォーマルな文書レビュー可能。
+                            </td>
+                            <td>フェーズゲートに改善レビューを組み込む</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: var(--neon-cyan)">アジャイル（Scrum）</strong>
+                            </td>
+                            <td>スプリントレトロスペクティブが自然な改善サイクル（2週間ごと）</td>
+                            <td>レトロスペクティブの質を高める</td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong style="color: var(--neon-yellow)">DevOps / CI/CD</strong>
+                            </td>
+                            <td>テスト自動化率の向上が核心。フィードバックの高速化が目標。</td>
+                            <td>DORA 4メトリクスで成熟度を計測</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h4>モデル適用時に解釈が必要な6つの要因</h4>
+                <div class="arch-layers">
+                    <div class="arch-row">
+                        <span class="arch-num">①</span>
+                        <div class="arch-content">
+                            <div class="t">SDLCモデル</div>
+                            <div class="d">
+                                V字/アジャイル/DevOpsによってモデルの適用方法が変わる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">②</span>
+                        <div class="arch-content">
+                            <div class="t">使用技術</div>
+                            <div class="d">
+                                Web・OO・組み込みシステムでテスト改善の焦点が異なる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">③</span>
+                        <div class="arch-content">
+                            <div class="t">システムアーキテクチャ</div>
+                            <div class="d">
+                                分散システム・SOA・組み込みシステムではテスト戦略が大きく異なる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">④</span>
+                        <div class="arch-content">
+                            <div class="t">リスクレベル</div>
+                            <div class="d">
+                                安全クリティカルシステムとビジネスシステムでは要求度が異なる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">⑤</span>
+                        <div class="arch-content">
+                            <div class="t">テストアプローチ</div>
+                            <div class="d">
+                                スクリプト型テスト vs 探索的テストではプロセス改善の方向性が変わる。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="arch-row">
+                        <span class="arch-num">⑥</span>
+                        <div class="arch-content">
+                            <div class="t">組織文化・コンテキスト</div>
+                            <div class="d">
+                                組織固有の文化・構造・成熟度がモデルの適用方法に影響する。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ─── EXAM ─── -->
+            <section class="sec" id="exam">
+                <div class="chapter-num">試験対策</div>
+                <h2>CTEL-ITP-ITPI 試験直前チェックリスト</h2>
+                <p style="color: var(--text-muted)">
+                    K5（評価）・K6（創造）レベルが中心。シナリオへの適用と計画立案能力が問われます。
+                </p>
+
+                <h3>Chapter 2-5（背景知識）</h3>
+                <ul class="checklist">
+                    <li>デミングサイクル（PDCA）の4ステップを順番に説明できる</li>
+                    <li>IDEALフレームワークの5フェーズ（I・D・E・A・L）を順番に説明できる</li>
+                    <li>EFQMの8つの卓越性の基本概念を説明できる</li>
+                    <li>ガービンの5つの品質ビューを全て説明できる</li>
+                    <li>3つの主要改善アプローチの使い分け基準を説明できる</li>
+                    <li>TMMiとTPI Nextの主な違い（ステージド/継続）を比較できる</li>
+                    <li>GQMの3レベル（Goals/Questions/Metrics）を適用できる</li>
+                    <li>DDPの計算式を適用できる（DDP = 検出欠陥 ÷ 全既知欠陥 × 100）</li>
+                </ul>
+
+                <h3>Chapter 6（改善プロセス）★最重要</h3>
+                <ul class="checklist">
+                    <li>IDEALの各フェーズで実施する主要活動を説明できる</li>
+                    <li>アセスメントレポートの必須6要素を全て言える</li>
+                    <li>テスト改善計画の10構成要素を全て言える（K6）</li>
+                    <li>ソリューション分析の5アプローチの長短を比較できる</li>
+                    <li>パイロット選択の5基準を説明できる</li>
+                    <li>トップダウン vs ボトムアップの違いを説明できる</li>
+                    <li>スコープの4観点（汎用/テスト/テストレベル/プロジェクト）を説明できる</li>
+                    <li>バランスドスコアカードの4視点を説明できる</li>
+                </ul>
+
+                <h3>Chapter 7-10（組織・変更管理・CSF）</h3>
+                <ul class="checklist">
+                    <li>TPGの役割と3つの組織構造（中央/分散/ハイブリッド）を説明できる</li>
+                    <li>内部アセッサー vs 外部アセッサーの長短を比較できる</li>
+                    <li>Lewinのアンフリーズモデル（Unfreeze/Change/Freeze）を説明できる</li>
+                    <li>コッターの8ステップを順番に説明できる</li>
+                    <li>変化への抵抗の主な原因と対処法を5つ以上挙げられる</li>
+                    <li>ステークホルダーマッピングの4象限を説明できる</li>
+                    <li>9つの重要成功因子（CSF 1〜9）を全て説明できる</li>
+                    <li>良い改善文化の特性を5つ以上説明できる</li>
+                    <li>DevOps環境でのDORA 4メトリクスを説明できる</li>
+                </ul>
+
+                <div class="dv"></div>
+
+                <h3>サンプル問題と解説</h3>
+
+                <div class="trend-card">
+                    <span class="trend-label">問1（K6 / Chapter 6.4 テスト改善計画）</span>
+                    <p>
+                        テストプロセス改善プログラムの「確立（Establishing）」フェーズで作成されるテスト改善計画に<strong>必ず含めるべき内容</strong>はどれか？
+                    </p>
+                    <p>
+                        A) 現在のテストプロセスの詳細な問題リスト<br />
+                        B) 改善の目標・スコープ・役割・スケジュール・成功基準<br />
+                        C) テスト対象システムの技術アーキテクチャ<br />
+                        D) インタビューで収集した全発言の記録
+                    </p>
+                    <p style="color: var(--neon-green)">
+                        <strong>正解: B</strong> —
+                        テスト改善計画（TIP）の典型的内容（10要素）。Aは診断フェーズの成果物、CはTIPに直接含めるものではない、Dは診断フェーズのインプット情報。
+                    </p>
+                </div>
+
+                <div class="trend-card">
+                    <span class="trend-label">問2（K5 / Chapter 9 重要成功因子）</span>
+                    <p>
+                        テストプロセス改善プログラムが成功するための<strong>最も重要な条件</strong>はどれか？
+                    </p>
+                    <p>
+                        A) 最新のテスト自動化ツールの導入<br />
+                        B) 経営層からの明確なコミットメントとスポンサーシップ<br />
+                        C) 詳細なテストプロセス文書の整備<br />
+                        D) テスト専任チームの大幅な増員
+                    </p>
+                    <p style="color: var(--neon-green)">
+                        <strong>正解: B</strong> — CSF
+                        1「経営のコミットメントとスポンサーシップ」が最重要。予算・時間・人員の確保と組織的変革には権限ある支持者が不可欠。
+                    </p>
+                </div>
+
+                <div class="trend-card">
+                    <span class="trend-label">問3（K5 / Chapter 8 変更管理）</span>
+                    <p>
+                        テスターのチームから「なぜ今まで通りのやり方ではダメなのか」という抵抗を受けた。<strong>最も適切な対処法</strong>はどれか？
+                    </p>
+                    <p>
+                        A) 経営層の権限で強制的に新プロセスを導入する<br />
+                        B)
+                        テスターを改善計画の策定プロセスに参加させ、変化の理由とメリットを明確に説明する<br />
+                        C) 抵抗しているテスターを他のプロジェクトに異動させる<br />
+                        D) 改善の範囲をそのチームを除外するよう縮小する
+                    </p>
+                    <p style="color: var(--neon-green)">
+                        <strong>正解: B</strong> —
+                        変化への抵抗への最も効果的な対処は「参加と関与」。当事者意識を生み出し、変化の理由と便益を自然に理解させる。
+                    </p>
+                </div>
+            </section>
+
+            <!-- ─── REFS ─── -->
+            <section class="sec" id="refs">
+                <div class="chapter-num">参考文献・URL一覧</div>
+                <h2>カテゴリ別参考リソース</h2>
+
+                <h3>🏛️ ISTQB® 公式リソース（一次情報源）</h3>
+                <div class="ref-grid">
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-expert-level-implementing-test-process-improvement-ctel-itp-itpi/"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">公式 / ITPI 一次情報源</span>
+                        <span class="ref-title">CTEL-ITP-ITPI 公式認定ページ</span>
+                        <span class="ref-url"
+                            >istqb.org/certifications/.../implementing-test-process-improvement-ctel-itp-itpi/</span
+                        >
+                    </a>
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-expert-level-assessing-test-processes-ctel-itp-atp/"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">公式 / ATP（Part 1）</span>
+                        <span class="ref-title">CTEL-ITP-ATP 公式認定ページ</span>
+                        <span class="ref-url"
+                            >istqb.org/certifications/.../assessing-test-processes-ctel-itp-atp/</span
+                        >
+                    </a>
+                    <a
+                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB-CTEL-ITP_Syllabus_v1.0_2011.pdf"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">公式 / シラバスPDF</span>
+                        <span class="ref-title">CTEL-ITP 公式シラバス v2011</span>
+                        <span class="ref-url"
+                            >istqb.org/wp-content/uploads/2024/11/ISTQB-CTEL-ITP_Syllabus_v1.0_2011.pdf</span
+                        >
+                    </a>
+                    <a
+                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTEL-ITP-Part_2_Sample_Exam-A-Questions_v1.1.pdf"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">公式 / サンプル問題</span>
+                        <span class="ref-title">サンプル試験問題 Part 2 v1.1（PDF）</span>
+                        <span class="ref-url"
+                            >istqb.org/...ISTQB_CTEL-ITP-Part_2_Sample_Exam-A-Questions_v1.1.pdf</span
+                        >
+                    </a>
+                    <a
+                        href="https://glossary.istqb.org/en_US/search?term="
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">公式 / 用語集</span>
+                        <span class="ref-title">ISTQBグロッサリー（用語検索）</span>
+                        <span class="ref-url">glossary.istqb.org/en_US/search</span>
+                    </a>
+                    <a
+                        href="https://isqi.org/ISTQB-CTEL-ITP-Part-2-Implementing-Test-Process-Improvement/CT-EL-ITP-MCQ-P2.92"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">試験プロバイダー / iSQI</span>
+                        <span class="ref-title">iSQI – 試験登録・モックテスト（無料）</span>
+                        <span class="ref-url"
+                            >isqi.org/ISTQB-CTEL-ITP-Part-2-Implementing-Test-Process-Improvement/CT-EL-ITP-MCQ-P2.92</span
+                        >
+                    </a>
+                </div>
+
+                <h3 style="margin-top: 2rem">📖 テストプロセス改善モデル</h3>
+                <div class="ref-grid">
+                    <a
+                        href="https://www.tmmifoundation.org/"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">モデル / TMMi</span>
+                        <span class="ref-title">TMMi Foundation 公式サイト</span>
+                        <span class="ref-url">tmmifoundation.org</span>
+                    </a>
+                    <a
+                        href="https://www.tmmifoundation.org/certifications"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">モデル / TMMi 認定</span>
+                        <span class="ref-title">TMMi Foundation 認定資格一覧</span>
+                        <span class="ref-url">tmmifoundation.org/certifications</span>
+                    </a>
+                    <a
+                        href="https://cmmiinstitute.com/"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">モデル / CMMI</span>
+                        <span class="ref-title">CMMI Institute 公式サイト</span>
+                        <span class="ref-url">cmmiinstitute.com</span>
+                    </a>
+                    <a
+                        href="https://www.iso.org/standard/38932.html"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">標準 / ISO/IEC 15504</span>
+                        <span class="ref-title">ISO/IEC 15504（SPICE）</span>
+                        <span class="ref-url">iso.org/standard/38932.html</span>
+                    </a>
+                </div>
+
+                <h3 style="margin-top: 2rem">🔧 改善フレームワーク・変更管理・DevOps</h3>
+                <div class="ref-grid">
+                    <a href="https://www.efqm.org/" target="_blank" rel="noopener" class="ref-card">
+                        <span class="ref-cat">フレームワーク / EFQM</span>
+                        <span class="ref-title">EFQM Excellence Model 公式</span>
+                        <span class="ref-url">efqm.org</span>
+                    </a>
+                    <a
+                        href="https://resources.sei.cmu.edu/library/asset-view.cfm?assetid=27427"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">フレームワーク / IDEAL</span>
+                        <span class="ref-title">IDEALフレームワーク解説（SEI/CMU）</span>
+                        <span class="ref-url"
+                            >resources.sei.cmu.edu/library/asset-view.cfm?assetid=27427</span
+                        >
+                    </a>
+                    <a
+                        href="https://www.kotterinc.com/methodology/8-steps/"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">変更管理 / Kotter</span>
+                        <span class="ref-title">コッターの8ステップ変革モデル公式</span>
+                        <span class="ref-url">kotterinc.com/methodology/8-steps</span>
+                    </a>
+                    <a
+                        href="https://balancedscorecard.org/bsc-basics/"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">フレームワーク / BSC</span>
+                        <span class="ref-title">バランスドスコアカード解説（公式）</span>
+                        <span class="ref-url">balancedscorecard.org/bsc-basics</span>
+                    </a>
+                    <a
+                        href="https://dora.dev/research/"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">DevOps / DORA</span>
+                        <span class="ref-title">DORAリサーチ（DevOps 4指標）</span>
+                        <span class="ref-url">dora.dev/research</span>
+                    </a>
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-advanced-level-test-management-ctal-tm-v3-0/"
+                        target="_blank"
+                        rel="noopener"
+                        class="ref-card"
+                    >
+                        <span class="ref-cat">前提資格 / CTAL-TM</span>
+                        <span class="ref-title">CTAL-TM v3.0 公式（必須前提資格）</span>
+                        <span class="ref-url"
+                            >istqb.org/certifications/...test-management-ctal-tm-v3-0/</span
+                        >
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <p>
+                <span>CTEL-ITP-ITPI</span> Expert Level Test Process Improvement 完全学習ガイド<br />
+                一次情報源:
+                <a
+                    href="https://istqb.org/certifications/certified-tester-expert-level-implementing-test-process-improvement-ctel-itp-itpi/"
+                    target="_blank"
+                    rel="noopener"
+                    >ISTQB® 公式 (istqb.org)</a
+                ><br />
+                ISTQB® 公式シラバス v2011 準拠 | 2025年版<br /><br />
+                &laquo; 免責事項 &raquo;
+                本ガイドはISTQB®が公認したトレーニング資料ではありません。公式シラバス・サンプル問題と合わせてご使用ください。
+            </p>
+        </footer>
+
+        <script>
+            mermaid.initialize({
+                startOnLoad: true,
+                theme: 'dark',
+                themeVariables: {
+                    background: '#040c1a',
+                    primaryColor: '#0a1628',
+                    primaryTextColor: '#e8f4fd',
+                    primaryBorderColor: '#1a3050',
+                    lineColor: '#00e5ff',
+                    secondaryColor: '#0d1f3c',
+                    tertiaryColor: '#112244',
+                    edgeLabelBackground: '#040c1a',
+                    nodeTextColor: '#e8f4fd',
+                    clusterBkg: '#0a1628',
+                },
+                flowchart: { htmlLabels: true, curve: 'basis' },
+            });
+        </script>
+    </body>
+</html>
