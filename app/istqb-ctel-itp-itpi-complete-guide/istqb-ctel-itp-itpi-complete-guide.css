@@ -126,6 +126,12 @@
                 border-color: var(--color-accent-cyan);
                 background: rgba(0, 229, 255, 0.08);
             }
+            .sticky-nav-link.active {
+                color: var(--color-accent-green);
+                border-color: var(--color-accent-green);
+                background: rgba(0, 255, 136, 0.08);
+                font-weight: 700;
+            }
 
             /* ─── HERO ─── */
             .hero {

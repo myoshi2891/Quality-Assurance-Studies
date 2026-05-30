@@ -45,13 +45,13 @@ export default function NavBar() {
 
     return (
         <nav className="sticky-nav" aria-label="章ナビゲーション">
-            <div className="nav-inner">
-                <span className="nav-brand">CTEL-ITP-ITPI</span>
+            <div className="sticky-nav-inner">
+                <span className="sticky-nav-brand">CTEL-ITP-ITPI</span>
                 {NAV_LINKS.map((link) => (
                     <a
                         key={link.href}
                         href={link.href}
-                        className={`nav-link ${activeId === link.href.substring(1) ? 'active' : ''}`}
+                        className={`sticky-nav-link ${activeId === link.href.substring(1) ? 'active' : ''}`}
                     >
                         {link.label}
                     </a>
