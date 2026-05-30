@@ -24,9 +24,35 @@ export function fixMermaidContent(inner: string): { fixedContent: string; fixedC
   const fixed: string[] = [];
   let fixedCount = 0;
 
-  for (const ln of rawLines) {
+  let i = 0;
+  while (i < rawLines.length) {
+    const ln = rawLines[i];
     const stripped = ln.trimStart();
     const leading = ln.length - stripped.length;
+
+    if (isMindmap) {
+      let commonIndent = Infinity;
+      for (let j = i; j < rawLines.length; j++) {
+        const line = rawLines[j];
+        if (line.trim()) {
+          const indent = line.length - line.trimStart().length;
+          if (indent < commonIndent) {
+            commonIndent = indent;
+          }
+        }
+      }
+      if (commonIndent === Infinity) {
+        commonIndent = 0;
+      }
+
+      for (let j = i; j < rawLines.length; j++) {
+        const line = rawLines[j];
+        fixed.push(line.slice(commonIndent));
+      }
+      i = rawLines.length;
+      break;
+    }
+
     if (leading > 0 && stripped) {
       const prev = fixed.length > 0 ? fixed[fixed.length - 1].trimEnd() : '';
       const fragMatch = seqFragRe.test(prev);
@@ -37,8 +63,6 @@ export function fixMermaidContent(inner: string): { fixedContent: string; fixedC
       if (isCont && fixed.length > 0) {
         fixed[fixed.length - 1] = prev + ' ' + stripped;
         changed = true;
-      } else if (isMindmap) {
-        fixed.push(ln);
       } else {
         fixed.push(stripped);
         changed = true;
@@ -49,6 +73,7 @@ export function fixMermaidContent(inner: string): { fixedContent: string; fixedC
     } else {
       fixed.push(ln);
     }
+    i++;
   }
 
   return {
@@ -102,7 +127,7 @@ export function fixTsxMermaid(content: string): { fixed: string; report: string[
   const report: string[] = [];
   // バッククォート ` で囲まれたテンプレートリテラルで、
   // 内部が graph/flowchart/sequenceDiagram/mindmap で始まるものを検出
-  const pattern = /`((?:graph\s+\w+|flowchart\s+\w+|sequenceDiagram|mindmap\b)[\s\S]*?)`/gi;
+  const pattern = /`(\s*(?:graph\s+\w+|flowchart\s+\w+|sequenceDiagram|mindmap\b)[\s\S]*?)`/gi;
 
   const fixed = content.replace(pattern, (match, inner) => {
     const { fixedContent, fixedCount } = fixMermaidContent(inner);

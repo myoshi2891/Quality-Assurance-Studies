@@ -28,10 +28,11 @@ describe("fixHtmlMermaid", () => {
         Child2
 </div>`;
     const { fixed, report } = fixHtmlMermaid(html);
-    expect(fixed).toContain("      root((Title))");
-    expect(fixed).toContain("        Child1");
-    expect(fixed).toContain("          Grandchild1");
-    expect(fixed).toContain("        Child2");
+    expect(fixed).toMatch(/^mindmap$/m);
+    expect(fixed).toContain("  root((Title))");
+    expect(fixed).toContain("    Child1");
+    expect(fixed).toContain("      Grandchild1");
+    expect(fixed).toContain("    Child2");
     expect(fixed).not.toContain("root((Title))Child1");
     expect(report).toEqual([]);
   });
@@ -79,6 +80,22 @@ export default function Page() {
     const { fixed, report } = fixTsxMermaid(tsx);
     expect(fixed).toContain("graph TD\nA --> B\nB --> C");
     expect(fixed).not.toContain("      A --> B");
+    expect(report.length).toBe(1);
+  });
+
+  test("TSX 内のテンプレートリテラルでバッククォートの直後に改行がある場合も Mermaid コードが検出されて修正される", () => {
+    const tsx = `import Mermaid from '../../components/Mermaid';
+export default function Page() {
+  return (
+    <Mermaid chart={\`
+      graph TD
+      A --> B
+      B --> C
+    \`} />
+  );
+}`;
+    const { fixed, report } = fixTsxMermaid(tsx);
+    expect(fixed).toContain("graph TD\nA --> B\nB --> C");
     expect(report.length).toBe(1);
   });
 });

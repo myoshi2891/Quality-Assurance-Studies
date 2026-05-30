@@ -149,4 +149,4 @@ A["&lt; 10行"]
 
 - Mermaid 公式ドキュメント: <https://mermaid.js.org/intro/>
 - Mermaid v10 Release Notes: <https://github.com/mermaid-js/mermaid/releases/tag/v10.0.0>
-- このプロジェクトの静的 HTML ドキュメント: `claude/`, `gemini/`, `codex/`, `copilot/` 各ディレクトリ
+- このプロジェクトの静的 HTML ドキュメント: `.claude/`, `.gemini/`, `codex/`, `copilot/` 各ディレクトリ
