@@ -18,6 +18,14 @@ const NAV_LINKS = [
     { href: '#refs', label: '参考文献' },
 ];
 
+/**
+ * Render a sticky chapter navigation that highlights the link for the section currently in view.
+ *
+ * The component tracks which section is visible (by id) and applies an active state and `aria-current="location"`
+ * to the corresponding link so keyboard/screen reader users and visual users can identify the current chapter.
+ *
+ * @returns A <nav> element containing links to page sections; the link corresponding to the section nearest the top of the viewport is marked active.
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState('top');
     const activeIdRef = useRef(activeId);
