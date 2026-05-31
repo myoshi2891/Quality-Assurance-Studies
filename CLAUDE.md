@@ -146,6 +146,9 @@ Next.js App Router 構成:
 - `app/istqb-ctel-itp-itpi-complete-guide/istqb-ctel-itp-itpi-complete-guide.css` — テストプロセス改善実装(CTEL-ITPI)ガイド固有スタイル
 - `app/istqb-ctel-itp-itpi-complete-guide/page.tsx` — テストプロセス改善実装(CTEL-ITPI)ガイドページ
 - `app/istqb-ctel-itp-itpi-complete-guide/NavBar.tsx` — CTEL-ITPI ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctel-tm-sm-complete-guide/istqb-ctel-tm-sm-complete-guide.css` — テスト管理戦略(CTEL-TM-SM)ガイド固有スタイル
+- `app/istqb-ctel-tm-sm-complete-guide/page.tsx` — テスト管理戦略(CTEL-TM-SM)ガイドページ
+- `app/istqb-ctel-tm-sm-complete-guide/NavBar.tsx` — CTEL-TM-SM ページ固有スティッキーナビ（`'use client'`）
 - `app/istqb-ctal-tta-complete-guide/istqb-ctal-tta.css` — テクニカルテストアナリスト(CTAL-TTA)ガイド固有スタイル
 - `app/istqb-ctal-tta-complete-guide/page.tsx` — テクニカルテストアナリスト(CTAL-TTA)ガイドページ
 - `app/istqb-ctal-tta-complete-guide/NavBar.tsx` — CTAL-TTA ページ固有スティッキーナビ（'use client'）
