@@ -14,7 +14,7 @@
                     rgba(0, 229, 255, 0.013) 4px
                 );
                 pointer-events: none;
-                z-index: 9999;
+                z-index: -1;
             }
             /* Grid texture */
             body::after {
