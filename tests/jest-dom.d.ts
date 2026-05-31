@@ -1,5 +1,5 @@
-import '@testing-library/jest-dom';
+import type { TestingLibraryMatchers } from '@testing-library/jest-dom/matchers';
 
 declare module 'bun:test' {
-  interface Matchers<T = any> extends jest.Matchers<void, T> {}
+  interface Matchers<T = any> extends TestingLibraryMatchers<any, T> {}
 }
