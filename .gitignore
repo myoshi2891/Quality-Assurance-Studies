@@ -98,3 +98,5 @@ scripts/fix-toc.mjs
 /test-results/
 /playwright/.cache/
 .lighthouseci
+
+archive/
