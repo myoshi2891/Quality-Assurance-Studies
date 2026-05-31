@@ -11,7 +11,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `7b843c5` |
+| 最新 HEAD | `8623d18` |
 | 次の作業 | なし（全 HTML ページの移行完了） |
 | ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
 
@@ -20,6 +20,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `app/istqb-ctel-tm-sm-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装し、IntersectionObserverを追加。
 - 誤変換されていた Mermaid 構文と DOM プロパティを修正.
 - `istqb-ctel-tm-sm-complete-guide.html`: `archive/html-archive/` へ移動。
+- `istqb-ctel-tm-sm-complete-guide.md`: `archive/md-archive/` へ移動。
 - `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
 - `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
 - **TypeScript 型エラー解消**: `bun:test` の `expect` において `jest-dom` マッチャーの型定義が不足していた問題に対し、グローバルな型定義ファイル [tests/jest-dom.d.ts](../tests/jest-dom.d.ts) を作成し、マッチャー定義をマージすることでプロジェクト全体の型エラーを一括解決しました。
