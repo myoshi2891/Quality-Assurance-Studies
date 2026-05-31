@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-05-30
+Updated 2026-05-31
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -11,9 +11,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `c7509c4` |
+| 最新 HEAD | `f4a6fb8` |
 | 次の作業 | なし（全 HTML ページの移行完了） |
 | ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
+
+## 2026/05/31: CTEL-TM-SM Expert Level Strategic Test Manager Guide の Next.js 移行完了
+
+- `app/istqb-ctel-tm-sm-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装し、IntersectionObserverを追加。
+- 誤変換されていた Mermaid 構文と DOM プロパティを修正。
+- `istqb-ctel-tm-sm-complete-guide.html`: `archive/html-archive/` へ移動。
+- `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
+- `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
 
 ## 2026/05/30: CTEL-ITP-ITPI Expert Level Guide の Next.js 移行完了
 
@@ -30,7 +38,6 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
 - `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
 - **全 HTML 移行完了**: これにより、プロジェクトルートにあったすべての静的 HTML ページの Next.js 移行が完了しました。
-
 
 ## 2026/05/27: CTAL-TTA ガイドの Next.js 移行完了
 
@@ -225,6 +232,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ctal-tm-complete-guide.html` | `/istqb-ctal-tm-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-tta-complete-guide.html` | `/istqb-ctal-tta-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
@@ -243,10 +251,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `f8c9a52`
+- 最新 HEAD: `f4a6fb8`
 - **全 HTML 移行完了**: プロジェクトルートにあったすべての静的 HTML ページの Next.js App Router への移行が完了しました。
-- 合計 27 ルート（ホーム + 26 ガイド）が Next.js で管理されています。
-- 各種テスト（ユニット、E2E、アクセシビリティ、Lighthouse CI）はすべて最新の構成に同期され、通過しています。
+- 合計 29 ルート（ホーム + 28 ガイド）が Next.js で管理されています。
+- 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
 すべての移行タスクが完了しました。今後の新機能実装やコンテンツのブラッシュアップについて指示を仰ぎます。
