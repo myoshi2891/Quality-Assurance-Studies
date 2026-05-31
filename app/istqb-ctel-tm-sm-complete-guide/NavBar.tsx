@@ -19,13 +19,11 @@ export default function NavBar() {
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                let currentActiveId = activeId;
                 entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        currentActiveId = entry.target.id;
+                        setActiveId(entry.target.id);
                     }
                 });
-                setActiveId(currentActiveId);
             },
             { rootMargin: '-60px 0px -80% 0px', threshold: 0 }
         );
@@ -36,21 +34,25 @@ export default function NavBar() {
         });
 
         return () => observer.disconnect();
-    }, [activeId]);
+    }, []);
 
     return (
         <nav className="sticky-nav" aria-label="章ナビゲーション">
             <div className="sticky-nav-inner">
                 <span className="sticky-nav-brand">CTEL-TM-SM</span>
-                {NAV_LINKS.map((link) => (
-                    <a
-                        key={link.href}
-                        href={link.href}
-                        className={`sticky-nav-link ${activeId === link.href.substring(1) ? 'active' : ''}`}
-                    >
-                        {link.label}
-                    </a>
-                ))}
+                {NAV_LINKS.map((link) => {
+                    const isActive = activeId === link.href.substring(1);
+                    return (
+                        <a
+                            key={link.href}
+                            href={link.href}
+                            className={`sticky-nav-link ${isActive ? 'active' : ''}`}
+                            aria-current={isActive ? 'location' : undefined}
+                        >
+                            {link.label}
+                        </a>
+                    );
+                })}
             </div>
         </nav>
     );
