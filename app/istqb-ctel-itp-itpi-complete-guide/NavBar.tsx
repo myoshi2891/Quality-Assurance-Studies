@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 const NAV_LINKS = [
     { href: '#top', label: '概要' },
@@ -20,17 +20,23 @@ const NAV_LINKS = [
 
 export default function NavBar() {
     const [activeId, setActiveId] = useState('top');
+    const activeIdRef = useRef(activeId);
+
+    useEffect(() => {
+        activeIdRef.current = activeId;
+    }, [activeId]);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             (entries) => {
-                let currentActiveId = activeId;
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        currentActiveId = entry.target.id;
-                    }
-                });
-                setActiveId(currentActiveId);
+                const activeEntries = entries.filter((entry) => entry.isIntersecting);
+                if (activeEntries.length > 0) {
+                    const first = activeEntries[0] as IntersectionObserverEntry;
+                    const closest = activeEntries.reduce<IntersectionObserverEntry>((best, current) => {
+                        return current.boundingClientRect.top < best.boundingClientRect.top ? current : best;
+                    }, first);
+                    setActiveId(closest.target.id);
+                }
             },
             { rootMargin: '-60px 0px -80% 0px', threshold: 0 }
         );
@@ -41,7 +47,7 @@ export default function NavBar() {
         });
 
         return () => observer.disconnect();
-    }, [activeId]);
+    }, []);
 
     return (
         <nav className="sticky-nav" aria-label="章ナビゲーション">
@@ -52,6 +58,7 @@ export default function NavBar() {
                         key={link.href}
                         href={link.href}
                         className={`sticky-nav-link ${activeId === link.href.substring(1) ? 'active' : ''}`}
+                        aria-current={activeId === link.href.substring(1) ? 'location' : undefined}
                     >
                         {link.label}
                     </a>

@@ -2,7 +2,7 @@
             
 
             /* Scanline overlay */
-            &::before {
+            body::before {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -17,7 +17,7 @@
                 z-index: 9999;
             }
             /* Grid texture */
-            &::after {
+            body::after {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -81,8 +81,8 @@
             /* ─── STICKY NAV ─── */
             .sticky-nav {
                 position: sticky;
-                top: 60px;
-                z-index: 200;
+                top: calc(60px + var(--disclaimer-height, 0px));
+                z-index: 40;
                 background: rgba(3, 7, 18, 0.94);
                 backdrop-filter: blur(20px);
                 border-bottom: 1px solid var(--color-border);
@@ -958,4 +958,32 @@
             }
             footer span {
                 color: var(--color-accent-green);
+            }
+
+            /* ─── REDUCED MOTION ─── */
+            @media (prefers-reduced-motion: reduce) {
+                *,
+                *::before,
+                *::after {
+                    animation-delay: -1ms !important;
+                    animation-duration: 1ms !important;
+                    animation-iteration-count: 1 !important;
+                    background-attachment: initial !important;
+                    scroll-behavior: auto !important;
+                    transition-duration: 0s !important;
+                    transition-delay: 0s !important;
+                }
+                .progress-fill {
+                    animation: none !important;
+                    max-width: 100% !important;
+                    width: var(--w, 100%) !important;
+                }
+                .hero-badge,
+                .hero-title,
+                .hero-sub,
+                .hero-meta {
+                    animation: none !important;
+                    opacity: 1 !important;
+                    transform: none !important;
+                }
             }

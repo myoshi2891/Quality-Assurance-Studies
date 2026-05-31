@@ -13,7 +13,7 @@ function getDiagramType(inner: string): string {
 /**
  * Mermaid コードブロックのインデントとステートメントの崩れを修復する
  */
-export function fixMermaidContent(inner: string): { fixedContent: string; fixedCount: number } {
+export function fixMermaidContent(inner: string, report?: string[]): { fixedContent: string; fixedCount: number } {
   const rawLines = inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
 
   // 最初の非空・非ディレクティブ行でダイアグラム種別を判定
@@ -45,9 +45,21 @@ export function fixMermaidContent(inner: string): { fixedContent: string; fixedC
         commonIndent = 0;
       }
 
+      let localFixedCount = 0;
       for (let j = i; j < rawLines.length; j++) {
         const line = rawLines[j];
-        fixed.push(line.slice(commonIndent));
+        const sliced = line.slice(commonIndent);
+        if (sliced !== line) {
+          localFixedCount++;
+        }
+        fixed.push(sliced);
+      }
+      if (localFixedCount > 0) {
+        fixedCount += localFixedCount;
+        if (report) {
+          const diagramType = getDiagramType(inner);
+          report.push(`[${diagramType}]: ${localFixedCount} line(s) modified`);
+        }
       }
       i = rawLines.length;
       break;
@@ -76,6 +88,11 @@ export function fixMermaidContent(inner: string): { fixedContent: string; fixedC
     i++;
   }
 
+  if (fixedCount > 0 && report && !isMindmap) {
+    const diagramType = getDiagramType(inner);
+    report.push(`[${diagramType}]: ${fixedCount} line(s) modified`);
+  }
+
   return {
     fixedContent: fixed.join('\n'),
     fixedCount,
@@ -90,11 +107,7 @@ export function fixHtmlMermaid(html: string): { fixed: string; report: string[] 
   const pattern = /(<div\b[^>]*\bclass\s*=\s*(?:"[^"]*\bmermaid\b[^"]*"|'[^']*\bmermaid\b[^']*'|[^\s>]*\bmermaid\b[^\s>]*)[^>]*>)([\s\S]*?)(<\/div>)/gi;
 
   const fixed = html.replace(pattern, (match, openTag, inner, closeTag) => {
-    const { fixedContent, fixedCount } = fixMermaidContent(inner);
-    if (fixedCount > 0) {
-      const diagramType = getDiagramType(inner);
-      report.push(`[${diagramType}]: ${fixedCount} line(s) modified`);
-    }
+    const { fixedContent } = fixMermaidContent(inner, report);
     return openTag + fixedContent + closeTag;
   });
 
@@ -109,11 +122,7 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
   const pattern = /(```mermaid\r?\n)([\s\S]*?)(\r?\n```)/gi;
 
   const fixed = markdown.replace(pattern, (match, openTag, inner, closeTag) => {
-    const { fixedContent, fixedCount } = fixMermaidContent(inner);
-    if (fixedCount > 0) {
-      const diagramType = getDiagramType(inner);
-      report.push(`[${diagramType}]: ${fixedCount} line(s) modified`);
-    }
+    const { fixedContent } = fixMermaidContent(inner, report);
     return openTag + fixedContent + closeTag;
   });
 
@@ -130,11 +139,7 @@ export function fixTsxMermaid(content: string): { fixed: string; report: string[
   const pattern = /`(\s*(?:graph\s+\w+|flowchart\s+\w+|sequenceDiagram|mindmap\b)[\s\S]*?)`/gi;
 
   const fixed = content.replace(pattern, (match, inner) => {
-    const { fixedContent, fixedCount } = fixMermaidContent(inner);
-    if (fixedCount > 0) {
-      const diagramType = getDiagramType(inner);
-      report.push(`[${diagramType}]: ${fixedCount} line(s) modified`);
-    }
+    const { fixedContent } = fixMermaidContent(inner, report);
     return '`' + fixedContent + '`';
   });
 
