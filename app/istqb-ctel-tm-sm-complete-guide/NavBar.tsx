@@ -1,0 +1,57 @@
+'use client';
+
+import React, { useEffect, useState } from 'react';
+
+const NAV_LINKS = [
+    { href: '#intro', label: '概要' },
+    { href: '#ch1', label: 'Ch.1 ミッション' },
+    { href: '#ch2', label: 'Ch.2 外部関係' },
+    { href: '#ch3', label: 'Ch.3 組織管理' },
+    { href: '#ch4', label: 'Ch.4 考慮事項' },
+    { href: '#ch5', label: 'Ch.5 評価' },
+    { href: '#exam', label: '試験対策' },
+    { href: '#refs', label: '参考文献' },
+];
+
+export default function NavBar() {
+    const [activeId, setActiveId] = useState('intro');
+
+    useEffect(() => {
+        const observer = new IntersectionObserver(
+            (entries) => {
+                let currentActiveId = activeId;
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        currentActiveId = entry.target.id;
+                    }
+                });
+                setActiveId(currentActiveId);
+            },
+            { rootMargin: '-60px 0px -80% 0px', threshold: 0 }
+        );
+
+        NAV_LINKS.forEach(({ href }) => {
+            const el = document.getElementById(href.substring(1));
+            if (el) observer.observe(el);
+        });
+
+        return () => observer.disconnect();
+    }, [activeId]);
+
+    return (
+        <nav className="sticky-nav" aria-label="章ナビゲーション">
+            <div className="sticky-nav-inner">
+                <span className="sticky-nav-brand">CTEL-TM-SM</span>
+                {NAV_LINKS.map((link) => (
+                    <a
+                        key={link.href}
+                        href={link.href}
+                        className={`sticky-nav-link ${activeId === link.href.substring(1) ? 'active' : ''}`}
+                    >
+                        {link.label}
+                    </a>
+                ))}
+            </div>
+        </nav>
+    );
+}
