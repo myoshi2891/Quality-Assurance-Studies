@@ -11,17 +11,18 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f4a6fb8` |
+| 最新 HEAD | `231a381` |
 | 次の作業 | なし（全 HTML ページの移行完了） |
 | ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
 
 ## 2026/05/31: CTEL-TM-SM Expert Level Strategic Test Manager Guide の Next.js 移行完了
 
 - `app/istqb-ctel-tm-sm-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装し、IntersectionObserverを追加。
-- 誤変換されていた Mermaid 構文と DOM プロパティを修正。
+- 誤変換されていた Mermaid 構文と DOM プロパティを修正.
 - `istqb-ctel-tm-sm-complete-guide.html`: `archive/html-archive/` へ移動。
 - `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
 - `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
+- **TypeScript 型エラー解消**: `bun:test` の `expect` において `jest-dom` マッチャーの型定義が不足していた問題に対し、グローバルな型定義ファイル [tests/jest-dom.d.ts](../tests/jest-dom.d.ts) を作成し、マッチャー定義をマージすることでプロジェクト全体の型エラーを一括解決しました。
 
 ## 2026/05/30: CTEL-ITP-ITPI Expert Level Guide の Next.js 移行完了
 
@@ -251,7 +252,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `f4a6fb8`
+- 最新 HEAD: `231a381`
 - **全 HTML 移行完了**: プロジェクトルートにあったすべての静的 HTML ページの Next.js App Router への移行が完了しました。
 - 合計 29 ルート（ホーム + 28 ガイド）が Next.js で管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
