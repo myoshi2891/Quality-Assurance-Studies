@@ -1,6 +1,5 @@
 import { describe, it, expect, afterEach } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, cleanup } from '@testing-library/react';
 import Page from '../../app/istqb-ctal-tae-complete-guide/page';
 
 afterEach(() => {
@@ -9,23 +8,24 @@ afterEach(() => {
 
 describe('ISTQB CTAL-TAE Complete Guide Page', () => {
   it('renders the hero section with correct title', () => {
-    render(<Page />);
-    const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading.textContent).toMatch(/テスト自動化[\s\S]*完全ガイド/);
+    const { container } = render(<Page />);
+    const h1 = container.querySelector('h1');
+    expect(h1).not.toBeNull();
+    expect(h1!.textContent).toMatch(/テスト自動化[\s\S]*完全ガイド/);
   });
 
   it('renders the overview section', () => {
-    render(<Page />);
-    expect(screen.getByText('学習ロードマップ')).toBeDefined();
+    const { getByText } = render(<Page />);
+    expect(getByText('学習ロードマップ')).toBeDefined();
   });
 
   it('renders the gTAA section', () => {
-    render(<Page />);
-    expect(screen.getByText('汎用テスト自動化アーキテクチャ（gTAA）')).toBeDefined();
+    const { getByText } = render(<Page />);
+    expect(getByText('汎用テスト自動化アーキテクチャ（gTAA）')).toBeDefined();
   });
 
   it('renders the tools section', () => {
-    render(<Page />);
-    expect(screen.getByText('主要ツール・フレームワーク 2025年版')).toBeDefined();
+    const { getByText } = render(<Page />);
+    expect(getByText('主要ツール・フレームワーク 2025年版')).toBeDefined();
   });
 });

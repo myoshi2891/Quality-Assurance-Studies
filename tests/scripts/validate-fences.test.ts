@@ -75,10 +75,10 @@ describe("validate-fences.mjs", () => {
       logOutput += args.join(" ") + "\n";
     };
 
-    let errorOutput = "";
+    const errorOutput: string[] = [];
     const originalError = console.error;
     console.error = (...args: unknown[]) => {
-      errorOutput += args.join(" ") + "\n";
+      errorOutput.push(args.join(" "));
     };
 
     const originalArgv = process.argv;
@@ -100,6 +100,7 @@ describe("validate-fences.mjs", () => {
     
     expect(testState.exitCode).toBe(1);
     expect(logOutput).toContain("Found 1 language-unspecified code blocks");
+    expect(errorOutput.join("\n")).toContain("process.exit: 1");
   });
 
   it("fails with unclosed code blocks", async () => {
