@@ -13,6 +13,14 @@ const NAV_LINKS = [
     { href: '#refs', label: '参考文献' },
 ];
 
+/**
+ * Render a sticky section navigation that highlights and marks the currently visible section.
+ *
+ * The component observes page sections and updates the active link; the active link receives the `active`
+ * CSS class and `aria-current="location"`.
+ *
+ * @returns A JSX element for the sticky navigation bar containing links defined in `NAV_LINKS`.
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState('intro');
 

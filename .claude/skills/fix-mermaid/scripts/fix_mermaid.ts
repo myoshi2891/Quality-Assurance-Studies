@@ -4,6 +4,14 @@ import * as path from 'path';
 const newStmtRe = /^(?:\w+\s*-[->.>]|Note\b|participant\b|actor\b|alt\b|else\b|opt\b|loop\b|rect\b|par\b|end\b|%%|activate\b|deactivate\b|subgraph\b|style\b|classDef\b|linkStyle\b)/i;
 const seqFragRe = /^(?:Note\s+(?:over|left\s+of|right\s+of)\b|participant\b|actor\b|alt\b|loop\b|rect\b)/i;
 
+/**
+ * Determine the diagram type from a block of Mermaid content.
+ *
+ * Scans the content for the first non-empty line that does not start with `%%` and returns its first whitespace-delimited token.
+ *
+ * @param inner - Mermaid diagram content
+ * @returns The diagram type token (e.g., `graph`, `sequenceDiagram`, `mindmap`), or `"unknown"` if no suitable line is found
+ */
 function getDiagramType(inner: string): string {
   const rawLines = inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
   const diagramTypeLine = rawLines.find(line => line.trim() && !line.trim().startsWith('%%')) || '';
@@ -11,7 +19,16 @@ function getDiagramType(inner: string): string {
 }
 
 /**
- * Mermaid コードブロックのインデントとステートメントの崩れを修復する
+ * Fixes indentation and broken statement lines inside a Mermaid diagram block.
+ *
+ * Normalizes newlines, repairs mindmap indentation or merges incorrectly broken lines
+ * for other diagram types, and returns the corrected content along with a count
+ * of modified lines.
+ *
+ * @param inner - The raw content of a Mermaid diagram block
+ * @param report - Optional array that will be appended with a summary line when changes are made.
+ *                 Each appended entry has the form `[<diagramType>]: <N> line(s) modified`.
+ * @returns An object containing `fixedContent` (the corrected diagram text) and `fixedCount` (the number of lines modified)
  */
 export function fixMermaidContent(inner: string, report?: string[]): { fixedContent: string; fixedCount: number } {
   const rawLines = inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
@@ -100,7 +117,14 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
 }
 
 /**
- * HTML ファイル内の Mermaid ブロックを修正する
+ * Fixes Mermaid diagram blocks found inside an HTML string.
+ *
+ * Searches for <div> elements whose class attribute contains "mermaid", repairs
+ * the inner Mermaid content, and returns the updated HTML along with a report
+ * of modifications performed.
+ *
+ * @param html - The HTML document text to scan and fix
+ * @returns An object with `fixed` containing the HTML with corrected Mermaid blocks, and `report` containing per-diagram modification messages
  */
 export function fixHtmlMermaid(html: string): { fixed: string; report: string[] } {
   const report: string[] = [];
@@ -115,7 +139,10 @@ export function fixHtmlMermaid(html: string): { fixed: string; report: string[] 
 }
 
 /**
- * Markdown ファイル内の Mermaid ブロックを修正する
+ * Fixes Mermaid code blocks inside a Markdown string.
+ *
+ * @param markdown - The Markdown source to scan for fenced ```mermaid blocks.
+ * @returns An object with `fixed` containing the Markdown where each Mermaid block has been corrected, and `report` listing short messages for each diagram that was modified.
  */
 export function fixMarkdownMermaid(markdown: string): { fixed: string; report: string[] } {
   const report: string[] = [];
@@ -130,7 +157,15 @@ export function fixMarkdownMermaid(markdown: string): { fixed: string; report: s
 }
 
 /**
- * TSX / TS ファイル内の Mermaid ブロック (テンプレートリテラル) を修正する
+ * Fixes Mermaid diagram code contained in template literals within TS/TSX source text.
+ *
+ * Scans the provided file content for backtick-delimited template literals whose inner text begins with
+ * `graph <word>`, `flowchart <word>`, `sequenceDiagram`, or `mindmap`, repairs malformed Mermaid blocks,
+ * and returns the updated source and a list of modification summaries.
+ *
+ * @param content - The TS/TSX source text to scan and fix
+ * @returns An object with `fixed` containing the updated source text and `report` containing per-diagram
+ * modification messages (e.g. "[sequenceDiagram]: 3 line(s) modified")
  */
 export function fixTsxMermaid(content: string): { fixed: string; report: string[] } {
   const report: string[] = [];
