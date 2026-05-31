@@ -75,10 +75,9 @@ describe("validate-fences.mjs", () => {
       logOutput += args.join(" ") + "\n";
     };
 
-    let errorOutput = "";
     const originalError = console.error;
-    console.error = (...args: unknown[]) => {
-      errorOutput += args.join(" ") + "\n";
+    console.error = () => {
+      // suppress output during tests
     };
 
     const originalArgv = process.argv;
