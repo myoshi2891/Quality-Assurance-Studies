@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-05-31
+Updated 2026-06-01
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -179,7 +179,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| (なし) | | | |
+| `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | 待機中 | Mermaid/CodeBlock 修正済み |
 
 ## 既知の留保事項
 

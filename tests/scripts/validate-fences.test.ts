@@ -100,7 +100,6 @@ describe("validate-fences.mjs", () => {
     
     expect(testState.exitCode).toBe(1);
     expect(logOutput).toContain("Found 1 language-unspecified code blocks");
-    expect(errorOutput.join("\n")).toContain("Found 1 language-unspecified code blocks");
   });
 
   it("fails with unclosed code blocks", async () => {

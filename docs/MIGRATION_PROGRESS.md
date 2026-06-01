@@ -1,21 +1,28 @@
 # Migration Progress
 
-Updated 2026-05-31
+Updated 2026-06-01
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 機能改修タスク完了**: グローバルヘッダーのハンバーガーメニュー化（TDD・全11ステップ・11/11 完了）。詳細は本ファイル末尾 [「完了: ハンバーガーメニュー化（TDD）」](#完了-ハンバーガーメニュー化tdd) を参照。
+> **✅ 機能改修タスク完了**: CTEL-TM-OTM ガイド (HTML) の表示改善（Mermaid 構文・コードブロック構造化）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
 | 最新 HEAD | `3b8fdab` |
-| 次の作業 | なし（全 HTML ページの移行完了） |
+| 次の作業 | なし |
 | ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
 
-## 2026/05/31: CTEL-TM-SM Expert Level Strategic Test Manager Guide の Next.js 移行完了
+## 2026/06/01: CTEL-TM-OTM Expert Level Guide (HTML) の表示改善
+
+- **Mermaid 構文の修正**: カラム0配置の徹底、ステートメント分離、`quadrantChart` 構文の最適化により描画エラーを解消。
+- **Mermaid 外観の調整**: ダークテーマに最適化した配色設定、中央寄せ、および個別 ID による最大幅制御を実装。ライブラリを v11 に更新。
+- **コードブロックの構造化**: `.code-line` (white-space: pre) を導入し、各行をラップすることで不要なインデントを除去し、表示を正常化。
+- **検証**: `tests/scripts/validate-fences.test.ts` の微修正（エラー出力の検証ロジック調整）を適用。
+
+## 2026/05/31: CTEL-TM-SM Expert Level Strategic Test Management Guide の Next.js 移行完了
 
 - `app/istqb-ctel-tm-sm-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装し、IntersectionObserverを追加。
 - 誤変換されていた Mermaid 構文と DOM プロパティを修正.
