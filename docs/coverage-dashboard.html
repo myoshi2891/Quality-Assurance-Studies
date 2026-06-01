@@ -960,7 +960,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-06-01">2026-06-01</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 29 pages · 3 components · 1 lib · 7 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 30 pages · 3 components · 1 lib · 7 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 95;" role="img" aria-label="全体テストカバー率 約95パーセント">
@@ -1041,14 +1041,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num">29 routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num">30 routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">29</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">30</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong>29</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong>29</strong> with E2E</span>
+      <span class="chip"><strong>30</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong>30</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1065,7 +1065,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">29 files</span>
+          <span class="inv-count" id="inv-count-pages">30 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1144,7 +1144,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           </tr>
           <tr>
             <th scope="row">System Testing (E2E)</th>
-            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 29 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 29 passed。</td>
+            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 30 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 30 passed。</td>
             <td><span class="status" data-st="full">Smoke · 100%</span></td>
           </tr>
           <tr>
@@ -1161,7 +1161,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <p class="foot">
     QA_Studies Coverage Radar
     <span class="sep">·</span>
-    Generated 2026-05-31
+    Generated 2026-06-01
     <span class="sep">·</span>
     Single-file, standalone HTML
     <span class="sep">·</span>
@@ -1204,7 +1204,8 @@ const pages = [
   { path: '/istqb-ct-ut-complete-guide', topic: 'ISTQB Specialist — Usability', tested: true },
   { path: '/istqb-ctel-itp-atp-complete-guide', topic: 'ISTQB Expert — Assessing', tested: true },
   { path: '/istqb-ctel-itp-itpi-complete-guide', topic: 'ISTQB Expert — Implementing', tested: true },
-  { path: '/istqb-ctel-tm-sm-complete-guide', topic: 'ISTQB Expert — Strategic', tested: true }
+  { path: '/istqb-ctel-tm-sm-complete-guide', topic: 'ISTQB Expert — Strategic', tested: true },
+  { path: '/istqb-ctel-tm-otm-complete-guide', topic: 'ISTQB Expert — Operational', tested: true }
   ];
 const DATA = {
   matrix: [
@@ -1377,7 +1378,8 @@ const DATA = {
       'tests/istqb-ct-ut-complete-guide/page.test.tsx',
       'tests/istqb-ctel-itp-atp-complete-guide/page.test.tsx',
       'tests/istqb-ctel-itp-itpi-complete-guide/page.test.tsx',
-      'tests/istqb-ctel-tm-sm-complete-guide/page.test.tsx'
+      'tests/istqb-ctel-tm-sm-complete-guide/page.test.tsx',
+      'tests/istqb-ctel-tm-otm-complete-guide/page.test.tsx'
     ],
     components: [
       'tests/components/Header.test.tsx',

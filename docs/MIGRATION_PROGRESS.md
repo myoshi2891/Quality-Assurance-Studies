@@ -11,7 +11,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `3b8fdab` |
+| 最新 HEAD | `680c9f4` |
 | 次の作業 | なし |
 | ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
 
@@ -244,6 +244,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-itp-itpi-complete-guide.html` | `/istqb-ctel-itp-itpi-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
+| `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
@@ -262,9 +263,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `3b8fdab`
+- 最新 HEAD: `680c9f4`
 - **全 HTML 移行完了**: プロジェクトルートにあったすべての静的 HTML ページの Next.js App Router への移行が完了しました。
-- 合計 29 ルート（ホーム + 28 ガイド）が Next.js で管理されています。
+- 合計 30 ルート（ホーム + 29 ガイド）が Next.js で管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

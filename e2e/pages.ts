@@ -42,7 +42,8 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctel-itp-atp-complete-guide', h1: /CTEL-ITP-ATP.*テストプロセス評価/s },
   { path: '/istqb-ctel-itp-itpi-complete-guide', h1: /CTEL-ITP-ITPI.*改善/s },
   { path: '/istqb-ctel-tm-sm-complete-guide', h1: /CTEL-TM-SM/ },
+  { path: '/istqb-ctel-tm-otm-complete-guide', h1: /CTEL-TM-OTM.*Operational/s },
 ] as const;
 
 /** ページドリフト検知用。pages.ts と app/**\/page.tsx の数を一致させる。 */
-export const EXPECTED_PAGE_COUNT = 29;
+export const EXPECTED_PAGE_COUNT = 30;
