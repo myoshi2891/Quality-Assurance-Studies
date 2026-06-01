@@ -21,6 +21,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **Mermaid 外観の調整**: ダークテーマに最適化した配色設定、中央寄せ、および個別 ID による最大幅制御を実装。ライブラリを v11 に更新。
 - **コードブロックの構造化**: `.code-line` (white-space: pre) を導入し、各行をラップすることで不要なインデントを除去し、表示を正常化。
 - **検証**: `tests/scripts/validate-fences.test.ts` の微修正（エラー出力の検証ロジック調整）を適用。
+- **アーカイブ**: `ISTQB-CTEL-TM-OTM-Guide.html` および `ISTQB-CTEL-TM-OTM-Guide.md` を `archive/` 以下に移動。
 
 ## 2026/05/31: CTEL-TM-SM Expert Level Strategic Test Management Guide の Next.js 移行完了
 
