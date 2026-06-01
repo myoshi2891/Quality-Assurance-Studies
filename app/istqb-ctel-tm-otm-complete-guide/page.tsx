@@ -8,6 +8,21 @@ export default function IstqbCtelTmOtmCompleteGuide() {
     return (
         <div className="istqb-ctel-tm-otm-page">
             <NavBar />
+            <header className="hero" id="top">
+                <div className="hero-badge">ISTQB® Expert Level | 2025年最新版</div>
+                <h1>CTEL-TM-OTM<br />Operational Test Management</h1>
+                <p className="hero-sub">
+                    Expert Level Test Management — Part 2 完全学習ガイド<br />初学者から実践者まで対応 |
+                    ステップバイステップ図解解説
+                </p>
+                <div className="hero-meta">
+                    <span className="meta-pill"><strong>前提</strong> CTFL + CTAL-TM</span>
+                    <span className="meta-pill"><strong>有効期間</strong> 7年間</span>
+                    <span className="meta-pill"><strong>K-Level</strong> K2〜K6</span>
+                    <span className="meta-pill"><strong>実務経験</strong> 5年以上</span>
+                    <span className="meta-pill"><strong>プロバイダー</strong> iSQI / Brightest</span>
+                </div>
+            </header>
             <div className="wrapper">
             <section id="overview">
                 <div className="section-header">
