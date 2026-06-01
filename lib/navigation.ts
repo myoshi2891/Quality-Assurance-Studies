@@ -67,6 +67,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctel-itp-atp-complete-guide', label: 'テストプロセス評価(CTEL-ATP)ガイド', category: 'istqb-expert' },
   { href: '/istqb-ctel-itp-itpi-complete-guide', label: 'テストプロセス改善実装(CTEL-ITPI)ガイド', category: 'istqb-expert' },
   { href: '/istqb-ctel-tm-sm-complete-guide', label: '戦略的テスト管理(CTEL-TM-SM)ガイド', category: 'istqb-expert' },
+  { href: '/istqb-ctel-tm-otm-complete-guide', label: 'オペレーショナルテスト管理(CTEL-TM-OTM)ガイド', category: 'istqb-expert' },
 ];
 
 const CATEGORY_ORDER: readonly NavCategory[] = [
