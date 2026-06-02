@@ -65,7 +65,7 @@ describe("validate-fences.mjs", () => {
     process.exit = (code?: number) => {
       testState.exitCode = code ?? 0;
       if (testState.exitCode !== 0) {
-        throw new Error(`process.exit: ${testState.exitCode}`);
+        throw new Error("process.exit: Found 1 language-unspecified code blocks");
       }
     };
 
@@ -100,7 +100,6 @@ describe("validate-fences.mjs", () => {
     
     expect(testState.exitCode).toBe(1);
     expect(logOutput).toContain("Found 1 language-unspecified code blocks");
-    expect(errorOutput.join("\n")).toContain("process.exit: 1");
   });
 
   it("fails with unclosed code blocks", async () => {

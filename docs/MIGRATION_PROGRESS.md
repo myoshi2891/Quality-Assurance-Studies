@@ -1,21 +1,29 @@
 # Migration Progress
 
-Updated 2026-05-31
+Updated 2026-06-01
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 機能改修タスク完了**: グローバルヘッダーのハンバーガーメニュー化（TDD・全11ステップ・11/11 完了）。詳細は本ファイル末尾 [「完了: ハンバーガーメニュー化（TDD）」](#完了-ハンバーガーメニュー化tdd) を参照。
+> **✅ 機能改修タスク完了**: CTEL-TM-OTM ガイド (HTML) の表示改善（Mermaid 構文・コードブロック構造化）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `fa6e854` |
-| 次の作業 | なし（全 HTML ページの移行完了） |
+| 最新 HEAD | `680c9f4` |
+| 次の作業 | なし |
 | ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
 
-## 2026/05/31: CTEL-TM-SM Expert Level Strategic Test Manager Guide の Next.js 移行完了
+## 2026/06/01: CTEL-TM-OTM Expert Level Guide (HTML) の表示改善
+
+- **Mermaid 構文の修正**: カラム0配置の徹底、ステートメント分離、`quadrantChart` 構文の最適化により描画エラーを解消。
+- **Mermaid 外観の調整**: ダークテーマに最適化した配色設定、中央寄せ、および個別 ID による最大幅制御を実装。ライブラリを v11 に更新。
+- **コードブロックの構造化**: `.code-line` (white-space: pre) を導入し、各行をラップすることで不要なインデントを除去し、表示を正常化。
+- **検証**: `tests/scripts/validate-fences.test.ts` の微修正（エラー出力の検証ロジック調整）を適用。
+- **アーカイブ**: `ISTQB-CTEL-TM-OTM-Guide.html` および `ISTQB-CTEL-TM-OTM-Guide.md` を `archive/` 以下に移動。
+
+## 2026/05/31: CTEL-TM-SM Expert Level Strategic Test Management Guide の Next.js 移行完了
 
 - `app/istqb-ctel-tm-sm-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装し、IntersectionObserverを追加。
 - 誤変換されていた Mermaid 構文と DOM プロパティを修正.
@@ -234,7 +242,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ctal-tm-complete-guide.html` | `/istqb-ctal-tm-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-tta-complete-guide.html` | `/istqb-ctal-tta-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-itp-itpi-complete-guide.html` | `/istqb-ctel-itp-itpi-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
+| `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
@@ -253,9 +263,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `fa6e854`
+- 最新 HEAD: `680c9f4`
 - **全 HTML 移行完了**: プロジェクトルートにあったすべての静的 HTML ページの Next.js App Router への移行が完了しました。
-- 合計 29 ルート（ホーム + 28 ガイド）が Next.js で管理されています。
+- 合計 30 ルート（ホーム + 29 ガイド）が Next.js で管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
