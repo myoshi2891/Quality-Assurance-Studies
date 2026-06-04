@@ -245,7 +245,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `integration-functional-testing-guide.html` | `/integration-functional-testing-guide` | ✅ |
 | `integration-system-testing-guide.html` | `/integration-system-testing-guide` | ✅ |
 | `istqb-ct-ai-complete-guide.html` | `/istqb-ct-ai-complete-guide` | ✅ NavBar あり |
-| `istqb-ct-genai-complete-guide.html" | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
