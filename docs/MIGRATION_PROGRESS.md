@@ -11,7 +11,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `123b065` |
+| 最新 HEAD | `4f25fce` |
 | 次の作業 | なし |
 | ビルド状態 | ✅ `bun run build`（33ページ静的生成）/ `bun run lint` / `bun test`（146 pass）全て成功。 |
 

@@ -502,8 +502,7 @@ table.matrix tbody th small {
 [data-state="partial"] .dot {
   background: conic-gradient(var(--st-partial) 0 50%, var(--bg-3) 50% 100%);
   border: 1px solid var(--st-partial);
-}
-[data-state="partial"] .lbl { color: var(--st-partial); }
+} [data-state="partial"] .lbl { color: var(--st-partial); }
 
 [data-state="gap"] .dot {
   background: transparent;
@@ -960,7 +959,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-06-04">2026-06-04</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 30 pages · 3 components · 1 lib · 7 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 31 pages · 3 components · 1 lib · 7 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 95;" role="img" aria-label="全体テストカバー率 約95パーセント">
@@ -1041,14 +1040,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num">30 routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num">31 routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">30</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">31</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong>30</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong>30</strong> with E2E</span>
+      <span class="chip"><strong>31</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong>31</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1058,14 +1057,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">41 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">43 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">30 files</span>
+          <span class="inv-count" id="inv-count-pages">31 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1110,7 +1109,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
   <!-- ====================== ACTIONS ====================== -->
   <section class="mc-section" aria-labelledby="h-actions">
     <h2 id="h-actions">Next Actions <span class="num">prioritized roadmap</span></h2>
-    <p class="lede">優先度ごとにグループ化。P0 は CI 自動化と既存パターンの拡張で短期に確実な改善が見込めるもの、P3 は中長期の品質投資です。各カードのフッターに「ツール / 想定工数 / 期待効果」を明示。</p>
+    <p class="lede">優先度ごとにグループ化。P0 は CI 自動化と既存パターンの拡張で短期に確実な改善が見込めるもの、P3 は中長期の品質投資です。各カード hostのフッターに「ツール / 想定工数 / 期待効果」を明示。</p>
 
     <div class="actions-stack" id="actions-root">
       <!-- injected by JS -->
@@ -1144,7 +1143,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           </tr>
           <tr>
             <th scope="row">System Testing (E2E)</th>
-            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 30 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 30 passed。</td>
+            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 31 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 31 passed。</td>
             <td><span class="status" data-st="full">Smoke · 100%</span></td>
           </tr>
           <tr>
@@ -1206,7 +1205,7 @@ const pages = [
   { path: '/istqb-ctel-itp-itpi-complete-guide', topic: 'ISTQB Expert — Implementing', tested: true },
   { path: '/istqb-ctel-tm-sm-complete-guide', topic: 'ISTQB Expert — Strategic', tested: true },
   { path: '/istqb-ctel-tm-otm-complete-guide', topic: 'ISTQB Expert — Operational', tested: true },
-  { path: '/istqb-ctel-tm-mtt-complete-guide', topic: 'ISTQB Expert — MTT', tested: true }
+  { path: '/istqb-ctel-tm-mtt-complete-guide', topic: 'ISTQB Expert — Team Management', tested: true }
   ];
 const DATA = {
   matrix: [
@@ -1427,7 +1426,7 @@ const DATA = {
         },
         {
           h: '✅ 残 13 ページの page.test.tsx 追加',
-          p: '既存パターンを流用し、ホーム + 基礎テスト手法 7 ページ + CTFL-AT + ISTQB Specialist 4 ページに h1/h2 見出し検証スペックを追加。31/31 ページ全てが render-only スモークを保有。',
+          p: '既存パターンを流用し、ホーム + 基礎テスト手法 7 ページ + CTFL-AT + ISTQB Specialist 4 ページに h1/h2 見出し検証スペックを追加。29/29 ページ全てが render-only スモークを保有。',
           tool: 'Bun test + RTL',
           effort: 'Done',
           impact: 'カバー率 43% → 100%'
@@ -1448,14 +1447,14 @@ const DATA = {
       items: [
         {
           h: '✅ Playwright 導入と全ページのスモーク E2E',
-          p: '全 31 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 31 passed。',
+          p: '全 29 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 29 passed。',
           tool: '@playwright/test',
           effort: 'Done',
           impact: 'System Level 達成 / 本番回帰検知'
         },
         {
           h: '✅ axe-core/playwright で WCAG 2.1 AA 自動検証',
-          p: '各ページに対し axe スキャンを実施し、コントラスト・aria 属性・ランドマーク・キーボードフォーカスを自動チェック。e2e/a11y.e2e.ts にて全 31 ルートの監査コードを完備。',
+          p: '各ページに対し axe スキャンを実施し、コントラスト・aria 属性・ランドマーク・キーボードフォーカスを自動チェック。e2e/a11y.e2e.ts にて全 29 ルートの監査コードを完備。',
           tool: '@axe-core/playwright',
           effort: 'Done',
           impact: 'A11y 自動化 / ダーク背景の品質保証'
