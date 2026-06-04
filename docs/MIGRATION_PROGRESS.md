@@ -5,15 +5,27 @@ Updated 2026-06-04
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 機能改修タスク完了**: CTEL-TM-MTT ガイド (HTML) の表示改善（Mermaid 構文・コードブロック構造化）。
+> **✅ Next.js 移行完了**: CTEL-TM-MTT ガイド を Next.js App Router に移行完了。33ページ全て静的生成成功。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `40d14cb` |
+| 最新 HEAD | `123b065` |
 | 次の作業 | なし |
-| ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功（144 pass）。 |
+| ビルド状態 | ✅ `bun run build`（33ページ静的生成）/ `bun run lint` / `bun test`（146 pass）全て成功。 |
+
+## 2026/06/04: CTEL-TM-MTT Expert Level Guide の Next.js 移行完了
+
+- `app/istqb-ctel-tm-mtt-complete-guide/`: ページコンポーネント（`page.tsx`）、スタイル（`.css`）、`NavBar.tsx`（sticky + IntersectionObserver scrollspy）を実装。
+- Mermaid 図解 8 箇所、CodeBlock 5 箇所を正しく構造化。
+- `lib/navigation.ts`: `NAV_ITEMS` にエキスパートレベルカテゴリとして追加（計31件）。
+- `tests/istqb-ctel-tm-mtt-complete-guide/page.test.tsx`: TDD Red→Green サイクルで実装。`bun test` 146件全パス。
+- `e2e/pages.ts`: E2Eスモークテスト対象に追加（`EXPECTED_PAGE_COUNT=31`）。
+- `istqb-ctel-tm-mtt-complete-guide.html`: `archive/html-archive/` へ移動。
+- `istqb-ctel-tm-mtt-complete-guide.md`: `archive/` へ移動。
+- `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し同期。
+- `bun run build`: 33ページ全て静的生成に成功。
 
 ## 2026/06/04: CTEL-TM-MTT Expert Level Guide (HTML) の表示改善
 
