@@ -1027,9 +1027,20 @@
                 padding: 1.5rem;
                 margin: 1.5rem 0;
                 overflow-x: auto;
-            }
+                            display: flex;
+                justify-content: center;
+}
             .mermaid {
                 min-height: 60px;
+                            display: flex;
+                justify-content: center;
+                width: 100%;
+}
+            .mermaid svg {
+                display: block;
+                margin: 0 auto;
+                max-width: 100% !important;
+                height: auto !important;
             }
 
             /* ── DIVIDER ── */
@@ -1299,7 +1310,7 @@ CTFL["🎓 CTFL<br />Foundation Level"] --> CTAL
 CTAL["📘 CTAL-TM<br />Advanced Level Test Manager"] --> STM
 CTAL --> OTM
 CTAL --> MTT
-subgraph ExpertLevel["⭐ Expert Level – CTEL-TM"]
+subgraph ExpertLevel["⭐ Expert Level - CTEL-TM"]
 STM["Part 1: CTEL-TM-STM<br />Strategic Test Management"]
 OTM["Part 2: CTEL-TM-OTM<br />Operational Test Management"]
 MTT["Part 3: CTEL-TM-MTT<br />Managing the Test Team ★"]
@@ -1307,7 +1318,7 @@ end
 STM --> FULL
 OTM --> FULL
 MTT --> FULL
-FULL["🏆 CTEL-TM フル認定<br />（7年間有効）"]
+FULL["🏆 CTEL-TM フル認定<br />(7年間有効)"]
 style MTT fill:#003322,stroke:#00ff88,stroke-width:3px,color:#00ff88
 style FULL fill:#002233,stroke:#00d4ff,color:#00d4ff
 style ExpertLevel fill:#0a0e1a,stroke:#21262d
@@ -2134,11 +2145,11 @@ style R fill:#003300,stroke:#00ff88,color:#00ff88
                 <div class="mermaid-wrap">
                     <div class="mermaid">
 flowchart TD
-Self["👤 本人<br />（自己評価）"]
-Manager["👔 上位者<br />（マネージャー評価）"]
-Peer1["👥 同僚A<br />（ピア評価）"]
-Peer2["👥 同僚B<br />（ピア評価）"]
-Report["⬇️ 部下<br />（リーダー職の場合）"]
+Self["👤 本人<br />(自己評価)"]
+Manager["👔 上位者<br />(マネージャー評価)"]
+Peer1["👥 同僚A<br />(ピア評価)"]
+Peer2["👥 同僚B<br />(ピア評価)"]
+Report["⬇️ 部下<br />(リーダー職の場合)"]
 Self --> Manager
 Manager --> Self
 Peer1 --> Self
@@ -2319,19 +2330,19 @@ style Report fill:#002233,stroke:#00d4ff,color:#e6edf3
                 <div class="mermaid-wrap">
                     <div class="mermaid">
 flowchart LR
-subgraph H["衛生要因（Hygiene Factors）― 不満足を防ぐが動機づけにならない"]
+subgraph H["衛生要因 (Hygiene Factors) - 不満足を防ぐが動機づけにならない"]
 H1["💰 給与・報酬"]
 H2["🏢 職場環境・設備"]
 H3["📋 会社のポリシー"]
 H4["👔 上司の管理スタイル"]
 end
-subgraph M["動機づけ要因（Motivators）― 真の満足と動機を生む"]
+subgraph M["動機づけ要因 (Motivators) - 真の満足と動機を生む"]
 M1["🏆 達成感"]
 M2["🙌 承認・称賛"]
 M3["📈 成長・昇進の機会"]
 M4["💡 挑戦的な責任"]
 end
-H --> |"不足 → 不慢"| Note1["❌ 不満状態"]
+H --> |"不足 → 不満"| Note1["❌ 不満状態"]
 M --> |"充実 → 高モチベーション"| Note2["✅ 動機づけ状態"]
 style H fill:#0a0e1a,stroke:#ffaa00
 style M fill:#0a0e1a,stroke:#00ff88
@@ -2426,17 +2437,17 @@ style Note2 fill:#002200,stroke:#00ff88,color:#00ff88
                 <div class="mermaid-wrap">
                     <div class="mermaid">
 flowchart TD
-subgraph M1["モデル1：中央集権型（Centralized）"]
+subgraph M1["モデル1: 中央集権型 (Centralized)"]
 C_QA["🏢 テスト部門"] --> C_P1["プロジェクトA"]
 C_QA --> C_P2["プロジェクトB"]
 C_QA --> C_P3["プロジェクトC"]
 end
-subgraph M2["モデル2：分散型（Embedded）"]
+subgraph M2["モデル2: 分散型 (Embedded)"]
 E_P1["プロジェクトA<br />QAチーム内包"]
 E_P2["プロジェクトB<br />QAチーム内包"]
 E_P3["プロジェクトC<br />QAチーム内包"]
 end
-subgraph M3["モデル3：ハイブリッド型（CoE+Embedded）"]
+subgraph M3["モデル3: ハイブリッド型 (CoE + Embedded)"]
 H_CoE["⭐ テストCoE<br />戦略・標準・ツール管理"]
 H_P1["プロジェクトA<br />エンベッドQA"]
 H_P2["プロジェクトB<br />エンベッドQA"]
@@ -2643,19 +2654,19 @@ style M3 fill:#0a0e1a,stroke:#00ff88
                 <div class="mermaid-wrap">
                     <div class="mermaid">
 quadrantChart
-title Power-Interest Grid（テストチームの観点）
-x-axis 低関心（Interest: Low） --> 高関心（Interest: High）
-y-axis 低権力（Power: Low） --> 高権力（Power: High）
-quadrant-1 Manage Closely（密接に管理）
-quadrant-2 Keep Satisfied（満足させ続ける）
-quadrant-3 Minimal Effort（最小限の対応）
-quadrant-4 Keep Informed（情報を定期提供）
-CEO/CTO: [0.8, 0.9]
-製品オーナー: [0.85, 0.75]
-CFO: [0.3, 0.85]
-開発チームリード: [0.9, 0.4]
-QAアナリスト: [0.95, 0.25]
-他部門管理職: [0.2, 0.3]
+title "Power-Interest Grid (テストチームの観点)"
+x-axis "低関心 (Interest: Low)" --> "高関心 (Interest: High)"
+y-axis "低権力 (Power: Low)" --> "高権力 (Power: High)"
+quadrant-1 "Manage Closely (密接に管理)"
+quadrant-2 "Keep Satisfied (満足させ続ける)"
+quadrant-3 "Minimal Effort (最小限の対応)"
+quadrant-4 "Keep Informed (情報を定期提供)"
+"CEO/CTO": [0.8, 0.9]
+"製品オーナー": [0.85, 0.75]
+"CFO": [0.3, 0.85]
+"開発チームリード": [0.9, 0.4]
+"QAアナリスト": [0.95, 0.25]
+"他部門管理職": [0.2, 0.3]
 </div>
                 </div>
 
@@ -2858,7 +2869,7 @@ QAアナリスト: [0.95, 0.25]
                     <div class="mermaid">
 flowchart TD
 A["📌 Step 1<br />倫理的問題かどうかを識別する"] --> B["👥 Step 2<br />関係するステークホルダーを特定する"]
-B --> C["💡 Step 3<br />選択肢を列挙する（2〜5案）"]
+B --> C["💡 Step 3<br />選択肢を列挙する (2-5案)"]
 C --> D["⚖️ Step 4<br />各選択肢の倫理的影響を評価する"]
 D --> E["✅ Step 5<br />最善の選択肢を選び、行動する"]
 E --> F["📊 Step 6<br />結果をモニタリングし、学習する"]
