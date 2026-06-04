@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-06-01
+Updated 2026-06-04
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 143 specs)
+bun test             # ユニットテスト (bun test, 144 specs)
 ```
 
 ### E2E テスト (Playwright)

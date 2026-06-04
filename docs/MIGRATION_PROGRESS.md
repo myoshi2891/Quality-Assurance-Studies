@@ -1,19 +1,26 @@
 # Migration Progress
 
-Updated 2026-06-01
+Updated 2026-06-04
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 機能改修タスク完了**: CTEL-TM-OTM ガイド (HTML) の表示改善（Mermaid 構文・コードブロック構造化）。
+> **✅ 機能改修タスク完了**: CTEL-TM-MTT ガイド (HTML) の表示改善（Mermaid 構文・コードブロック構造化）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `680c9f4` |
+| 最新 HEAD | `40d14cb` |
 | 次の作業 | なし |
-| ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
+| ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功（144 pass）。 |
+
+## 2026/06/04: CTEL-TM-MTT Expert Level Guide (HTML) の表示改善
+
+- **Mermaid 構文の修正**: カラム0配置、ステートメント分離、`quadrantChart` 構文の最適化により描画エラーを解消。日本語ノードラベルのクォート処理を適用。
+- **Mermaid 外観の調整**: ダークテーマに最適化した配色設定、中央寄せ、および個別 ID による最大幅制御を実装。一部の図でテキスト重なりを防ぐためスケール調整を実施。
+- **コードブロックの構造化**: 不要なインデントを除去し、モバイル等の狭い画面でもレイアウトが崩れないよう plain text 形式への変換を含めた最適化を実施。
+- **スキル同期**: `.claude/skills/fix-mermaid` を `.gemini/skills/` へ同期し、Mermaid 修正ノウハウを共有可能に。
 
 ## 2026/06/01: CTEL-TM-OTM Expert Level Guide (HTML) の表示改善
 
