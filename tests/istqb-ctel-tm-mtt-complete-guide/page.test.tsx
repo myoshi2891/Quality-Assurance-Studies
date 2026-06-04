@@ -21,7 +21,7 @@ describe('CTEL-TM-MTT Expert Level Guide Page', () => {
         const heading = screen.getByRole('heading', { level: 1 });
         expect(heading).toBeInTheDocument();
         expect(heading).toHaveTextContent(/CTEL-TM-MTT/);
-        expect(heading).toHaveTextContent(/完全学習ガイド/);
+        expect(heading).toHaveTextContent(/Managing the Test Team/);
     });
 
     it('renders the navigation bar', () => {

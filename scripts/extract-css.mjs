@@ -60,7 +60,7 @@ const varMap = {
   'var(--info)': 'var(--color-accent-blue)',
   'var(--purple)': 'var(--color-accent-purple)',
   'var(--border)': 'var(--color-border)',
-  'var(--border2)': 'var(--color-border-bright)',
+  'var(--border-bright)': 'var(--color-border-bright)',
   'var(--border3)': 'var(--color-border-bright)',
   'var(--font-display)': 'var(--font-display)',
   'var(--font-body)': 'var(--font-body)',
@@ -91,7 +91,23 @@ const varMap = {
   'var(--violet)': 'var(--color-accent-purple)',
   'var(--text1)': 'var(--color-text-primary)',
   'var(--text2)': 'var(--color-text-secondary)',
-  'var(--text3)': 'var(--color-text-muted)'
+  'var(--text3)': 'var(--color-text-muted)',
+  // Neon/MTT Theme mappings
+  'var(--bg-deep)': 'var(--color-bg-primary)',
+  'var(--bg-card)': 'var(--color-bg-card)',
+  'var(--bg-hover)': 'var(--color-bg-card-hover)',
+  'var(--neon-green)': 'var(--color-accent-green)',
+  'var(--neon-cyan)': 'var(--color-accent-cyan)',
+  'var(--neon-amber)': 'var(--color-accent-orange)',
+  'var(--neon-red)': 'var(--color-accent-red)',
+  'var(--neon-purple)': 'var(--color-accent-purple)',
+  'var(--neon-pink)': 'var(--color-accent-pink)',
+  'var(--text-primary)': 'var(--color-text-primary)',
+  'var(--text-secondary)': 'var(--color-text-secondary)',
+  'var(--text-dim)': 'var(--color-text-muted)',
+  'var(--font-head)': 'var(--font-display)',
+  'var(--radius)': 'var(--radius-sm, 8px)',
+  'var(--radius-lg)': 'var(--radius-DEFAULT, 12px)'
 };
 
 for (const [key, value] of Object.entries(varMap)) {
