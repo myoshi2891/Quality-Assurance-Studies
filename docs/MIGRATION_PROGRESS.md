@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-06-04
+Updated 2026-06-05
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -70,7 +70,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 ## 2026/05/27: CTAL-TTA ガイドの Next.js 移行完了
 
-- `app/istqb-ctal-tta-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装。
+- `app/istqb-ctal-tta-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装.
 - `istqb-ctal-tta-complete-guide.html`: `html-archive/` へ移動。
 - ESLint: `no-explicit-any` および `no-unused-vars` の修正を実施。
 - テスト: `tests/istqb-ctal-tta-complete-guide/page.test.tsx` を追加し、全テスト通過を確認。
@@ -185,7 +185,7 @@ coverage-dashboard.html の P1 アクション「Playwright 導入と全ペー�
 `tests/scripts/` 配下に以下のテストを新規作成し、各スクリプトの入出力やエラーハンドリングを検証した。
 
 - `validate-fences.test.ts`: 言語未指定フェンスや閉じられていないブロックの検出を検証。
-- `fix-fences.test.ts`: 未指定フェンスへ自動で 'text' を付与する修正ロジックを検証。
+- `fix-fences.test.ts`: 未指定フェンスへ自動で 'text' を付与する修正ロジックを検証.
 - `format-markdown.test.ts`: リンク分離、見出し前空行（MD022）、空行圧縮（MD012）、末尾改行（MD047）のフォーマットを検証。
 - `extract-css.test.ts`: style タグからの CSS 抽出、変数の置換、不要ルールの削除を検証。
 - `html-to-tsx.test.ts`: HTML の React (TSX) 変換、クラス置換、pre ブロックの dangerouslySetInnerHTML 復元などを検証。
@@ -245,7 +245,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `integration-functional-testing-guide.html` | `/integration-functional-testing-guide` | ✅ |
 | `integration-system-testing-guide.html` | `/integration-system-testing-guide` | ✅ |
 | `istqb-ct-ai-complete-guide.html` | `/istqb-ct-ai-complete-guide` | ✅ NavBar あり |
-| `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-genai-complete-guide.html" | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
@@ -264,6 +264,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ctel-itp-itpi-complete-guide.html` | `/istqb-ctel-itp-itpi-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
 | `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-tm-mtt-complete-guide.html` | `/istqb-ctel-tm-mtt-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |

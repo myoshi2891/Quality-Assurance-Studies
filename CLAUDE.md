@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-06-04
+Updated 2026-06-05
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -269,3 +269,73 @@ bun run lint    # ESLint エラーなし
 ### 外部リンク
 
 すべての外部リンクに `target="_blank" rel="noopener noreferrer"` を付与する。
+��. プロジェクト自身のテストカバレッジを 1 ファイルで把握できるスタンドアロン HTML を追加した。
+
+- 追加ファイル: [docs/coverage-dashboard.html](coverage-dashboard.html)（単一ファイル、外部依存は Google Fonts のみ）
+- 構成: KPI 概要 / 11 カテゴリ × 6 種別マトリクス / 23 ページ別カバレッジ / 既存 13 テストのインベントリ / P0-P3 ネクストアクション / ISTQB テストレベル整合表
+- 数値根拠: ページ 10/23 テスト済（43%）・コンポーネント 1/3・lib 2/2・scripts 0/5・CI 0 パイプライン
+- 更新運用: `<script>` 内の `DATA` 定数を編集して再描画. HTML 構造の変更不要
+- コミット: `322ca53 docs(coverage): add self-referential test coverage dashboard`
+
+## 移行状況テーブル
+
+### 移行完了（html-archive/ に移動済み）
+
+| 元 HTML | 移行先ルート | 備考 |
+|---|---|---|
+| `acceptance-testing-guide.html` | `/acceptance-testing-guide` | ✅ |
+| `e2e-testing-guide.html` | `/e2e-testing-guide` | ✅ |
+| `integration-functional-testing-guide.html` | `/integration-functional-testing-guide` | ✅ |
+| `integration-system-testing-guide.html` | `/integration-system-testing-guide` | ✅ |
+| `istqb-ct-ai-complete-guide.html` | `/istqb-ct-ai-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-ste-complete-guide.html` | `/istqb-ct-ste-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
+| `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
+| `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
+| `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
+| `istqb-ctal-tae-complete-guide.html` | `/istqb-ctal-tae-complete-guide` | ✅ |
+| `istqb-ctal-tm-complete-guide.html` | `/istqb-ctal-tm-complete-guide` | ✅ NavBar あり |
+| `istqb-ctal-tta-complete-guide.html` | `/istqb-ctal-tta-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-itp-atp-complete-guide.html` | `/istqb-ctel-itp-atp-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-itp-itpi-complete-guide.html` | `/istqb-ctel-itp-itpi-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
+| `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
+| `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
+| `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
+| `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
+
+### 未移行（プロジェクトルートに残存）
+
+| ファイル | 予定ルート | 状態 | 備考 |
+|---|---|---|---|
+| (なし) | | | |
+
+## 既知の留保事項
+
+- `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
+
+## 次回セッションでの再開プロンプト
+
+```text
+コンテキスト:
+- 最新 HEAD: `680c9f4`
+- **全 HTML 移行完了**: プロジェクトルートにあったすべての静的 HTML ページの Next.js App Router への移行が完了しました。
+- 合計 30 ルート（ホーム + 29 ガイド）が Next.js で管理されています。
+- 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
+
+【指示】
+すべての移行タスクが完了しました。今後の新機能実装やコンテンツのブラッシュアップについて指示を仰ぎます。
+```
+
+---
+
+## 完了: ハンバーガーメニュー化（TDD）
+
+...
