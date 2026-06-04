@@ -1552,45 +1552,43 @@ style G fill:#220011,stroke:#ff4466,color:#ff4466
                     不明確なJDは適切でない候補者の応募を招き、採用後のミスマッチによる高い退職率を引き起こします。
                 </p>
 
-                <div class="code-block" data-lang="YAML"><span class="code-comment"
-    ># テストチームリード JD 構成例（Expert Level アプローチ）</span
->
-<span class="code-keyword">job_description:</span>
-<span class="code-cyan">title:</span>
-<span class="code-string">"シニアQAエンジニア / テストリード"</span>
+                <div class="code-block" data-lang="YAML">job_description:
+  title: "シニアQAエンジニア / テストリード"
+  
+  purpose: |
+    「テスト自動化フレームワークの設計・実装を主導し、
+     品質保証プロセス全体を改善する」
+  
+  responsibilities:
+    - テスト戦略の策定と実行
+    - テスト自動化フレームワークのアーキテクチャ設計
+    - ジュニアテスターのメンタリング
+    - ステークホルダーへのテスト結果報告
+    - テスト計画書・テストケースの作成
 
-<span class="code-cyan">purpose:</span>
-<span class="code-string"
-    >| テスト自動化フレームワークを主導し、品質保証プロセス全体を改善する</span
->
+  required_skills:
+    technical:
+      - テスト自動化（Selenium / Playwright / Cypress）
+      - API テスト（Postman / REST Assured）
+      - CI/CD パイプライン（GitHub Actions / Jenkins）
+      - SQL / データベーステスト
+    soft_skills:
+      - コミュニケーション能力
+      - 問題解決スキル
+      - チームワーク
+      - アダプタビリティ
 
-<span class="code-keyword">responsibilities:</span>
-<span class="code-green">- テスト戦略の策定と実行</span>
-<span class="code-green">- テスト自動化フレームワークのアーキテクチャ設計</span>
-<span class="code-green">- ジュニアテスターのメンタリング（週1回1on1）</span>
-<span class="code-green">- ステークホルダーへのテスト結果報告</span>
+  qualifications:
+    - ISTQB CTFL または CTAL-TA（推奨）
+    - 5年以上のソフトウェアテスト経験
+    - アジャイル開発環境での経験
 
-<span class="code-keyword">success_metrics:</span>
-<span class="code-comment"># 測定可能な成功指標を必ず含める</span>
-<span class="code-amber">- 自動化カバレッジ 80%以上を達成</span>
-<span class="code-amber">- 欠陥漏洩率を現在比 50%削減</span>
-<span class="code-amber">- テスト実行時間を 30%短縮</span>
-
-<span class="code-keyword">required_skills:</span>
-<span class="code-cyan">technical:</span>
-<span class="code-green"
-    >- テスト自動化（Selenium / Playwright / Cypress）</span
->
-<span class="code-green">- API テスト（Postman / REST Assured）</span>
-<span class="code-green">- CI/CD（GitHub Actions / Jenkins）</span>
-<span class="code-cyan">soft_skills:</span>
-<span class="code-green"
-    >- コミュニケーション能力・問題解決・アダプタビリティ</span
->
-
-<span class="code-keyword">qualifications:</span>
-<span class="code-amber">- ISTQB CTFL または CTAL-TA（推奨）</span>
-<span class="code-amber">- 5年以上のソフトウェアテスト経験</span></div>
+  reporting_line: "テストマネージャー直属"
+  
+  success_metrics:
+    - 自動化テストのカバレッジ80%以上を達成
+    - 欠陥漏洩率を現在比50%削減
+    - テスト実行時間を30%短縮</div>
 
                 <div class="compare-wrap">
                     <div class="compare-box good">
@@ -1844,51 +1842,52 @@ style R fill:#003300,stroke:#00ff88,color:#00ff88
                     Plan）は、各チームメンバーの現状スキル・成長目標・アクションプランを文書化したロードマップです。
                 </p>
 
-                <div class="code-block" data-lang="Python"><span class="code-comment"># IDP（個人開発計画）の構成例</span>
-<span class="code-keyword">individual_development_plan</span> = {
-<span class="code-string">"employee"</span>:
-<span class="code-string">"田中花子"</span>,
-<span class="code-string">"manager"</span>:
-<span class="code-string">"鈴木テストマネージャー"</span>,
-<span class="code-string">"review_date"</span>:
-<span class="code-string">"2025-04-01"</span>,
-
-<span class="code-comment"
-    ># 現状スキル評価（1-4 スケール: 1=初心者, 4=エキスパート）</span
->
-<span class="code-string">"current_skills"</span>: {
-<span class="code-string">"test_design"</span>: <span class="code-num">3</span>,
-<span class="code-comment"># ⭐⭐⭐ 実践レベル</span>
-<span class="code-string">"test_automation"</span>:
-<span class="code-num">2</span>,
-<span class="code-comment"># ⭐⭐ 基礎レベル ← 強化必要</span>
-<span class="code-string">"api_testing"</span>: <span class="code-num">2</span>,
-<span class="code-string">"leadership"</span>: <span class="code-num">1</span>,
-<span class="code-comment"># ⭐ 初心者 ← 段階的成長</span>
-<span class="code-string">"domain_knowledge"</span>:<span class="code-num"
-    >3</span
->, },
-
-<span class="code-comment"># 具体的なアクションプラン</span>
-<span class="code-string">"actions"</span>: [ {
-<span class="code-string">"skill"</span>:
-<span class="code-string">"テスト自動化"</span>,
-<span class="code-string">"action"</span>:
-<span class="code-string">"Playwright 認定トレーニング受講"</span>,
-<span class="code-string">"due_date"</span>:
-<span class="code-string">"2025-06-30"</span>,
-<span class="code-string">"support"</span>:
-<span class="code-string">"費用会社負担・学習時間確保"</span>,
-<span class="code-string">"measurement"</span>:
-<span class="code-string">"20件の自動化テストを独立して作成"</span>, }, {
-<span class="code-string">"skill"</span>:
-<span class="code-string">"リーダーシップ"</span>,
-<span class="code-string">"action"</span>:
-<span class="code-string">"ジュニアメンバー2名のメンター担当"</span>,
-<span class="code-string">"due_date"</span>:
-<span class="code-string">"継続"</span>,
-<span class="code-string">"measurement"</span>:
-<span class="code-string">"メンティーの満足度評価・成長確認"</span>, }, ], }</div>
+                <div class="code-block" data-lang="Python">individual_development_plan = {
+    "employee": "田中花子",
+    "manager": "鈴木テストマネージャー",
+    "review_date": "2025-04-01",
+    "next_review": "2025-10-01",
+    
+    # 現状スキル評価（1-4スケール）
+    "current_skills": {
+        "test_design":        3,  # ⭐⭐⭐（実践レベル）
+        "test_automation":    2,  # ⭐⭐（基礎レベル）
+        "api_testing":        2,  # ⭐⭐
+        "leadership":         1,  # ⭐（初心者）
+        "domain_knowledge":   3,  # ⭐⭐⭐
+    },
+    
+    # 目標スキルレベル（6ヶ月後）
+    "target_skills": {
+        "test_automation":    3,  # 重点強化
+        "leadership":         2,  # 段階的成長
+    },
+    
+    # 具体的なアクションプラン
+    "actions": [
+        {
+            "skill": "テスト自動化",
+            "action": "Playwright 認定トレーニング受講",
+            "due_date": "2025-06-30",
+            "support": "費用会社負担・学習時間確保",
+            "measurement": "20件の自動化テストを独立して作成",
+        },
+        {
+            "skill": "リーダーシップ",
+            "action": "ジュニアメンバー2名のメンター担当",
+            "due_date": "継続",
+            "support": "週1回のメンタリング面談時間確保",
+            "measurement": "メンティーの満足度評価・成長確認",
+        },
+    ],
+    
+    # 成功指標
+    "success_metrics": {
+        "short_term": "3ヶ月以内に基本的な自動化テストを独立実装",
+        "mid_term": "6ヶ月以内に自動化テストの設計レビューを担当",
+        "long_term": "1年以内に自動化テストリードとして機能",
+    }
+}</div>
 
                 <!-- 2.2 SMART -->
                 <h3 class="sub-title">2.2 SMART 目標設定 — Section 3.3.2</h3>
@@ -2164,29 +2163,18 @@ style Report fill:#002233,stroke:#00d4ff,color:#e6edf3
                 </div>
 
                 <h4 class="sub-sub">SBI フィードバックフレームワーク</h4>
-                <div class="code-block" data-lang="例"><span class="code-comment"
-    >## SBI = Situation（状況）→ Behavior（行動）→ Impact（影響）</span
->
+                <div class="code-block" data-lang="例">## SBI = Situation（状況）→ Behavior（行動）→ Impact（影響）
 
-<span class="code-keyword">S - Situation（状況）:</span>
-<span class="code-green">"先週の〇〇プロジェクトのスプリントレビューで…"</span>
+S - Situation（状況）:
+"先週の〇〇プロジェクトのスプリントレビューで…"
 
-<span class="code-keyword">B - Behavior（具体的な行動）:</span>
-<span class="code-green"
-    >"ステークホルダーからの質問に対して、データなしで
-    自信を持って回答し、その場で調査することを約束した"</span
->
+B - Behavior（具体的な行動）:
+"ステークホルダーからの質問に対して、データなしで
+自信を持って回答し、その場で調査することを約束した"
 
-<span class="code-keyword">I - Impact（影響）:</span>
-<span class="code-green"
-    >"チームの信頼性が向上し、POがテストチームへの
-    依頼を増やした。次のスプリントで予算も確保された。"</span
->
-
-<span class="code-comment"
-    ># ✅ 具体的・行動ベース・タイムリーなフィードバック</span
->
-<span class="code-red"># ❌ 避ける: "いつもそういうことをする" の一般化</span></div>
+I - Impact（影響）:
+"チームの信頼性が向上し、POがテストチームへの
+依頼を増やした。次のスプリントで予算も確保された。"</div>
 
                 <div class="compare-wrap">
                     <div class="compare-box good">
@@ -2273,20 +2261,12 @@ style Report fill:#002233,stroke:#00d4ff,color:#e6edf3
                 <h3 class="sub-title">3.2 ロイヤリティと信頼の醸成 — Section 3.4.2</h3>
                 <p><strong>信頼の方程式（Trust Equation）：</strong></p>
 
-                <div class="code-block" data-lang="Formula"><span class="code-keyword">Trust</span> = (<span class="code-green"
-    >Credibility</span
->
-+ <span class="code-cyan">Reliability</span> +
-<span class="code-amber">Intimacy</span>) /
-<span class="code-red">Self-Orientation</span>
+                <div class="code-block" data-lang="Formula">Trust = (Credibility + Reliability + Intimacy) / Self-Orientation
 
-<span class="code-green">Credibility（信用性）</span>:
-専門知識を持ち、約束を守る <span class="code-cyan">Reliability（信頼性）</span>:
-言ったことを確実に実行し、一貫した行動をとる
-<span class="code-amber">Intimacy（親密さ）</span>:
-感情・懸念を理解し、心理的安全性を提供する
-<span class="code-red">Self-Orientation（低いほど良い）</span>:
-チームの利益を個人の利益より優先する</div>
+Credibility（信用性）: 専門知識を持ち、約束を守る
+Reliability（信頼性）: 言ったことを確実に実行し、一貫した行動をとる
+Intimacy（親密さ）: 感情・懸念を理解し、心理的安全性を提供する
+Self-Orientation（自己本位・低いほど良い）: チームの利益を個人の利益より優先する</div>
 
                 <div class="compare-wrap">
                     <div class="compare-box good">
@@ -2516,42 +2496,23 @@ style M3 fill:#0a0e1a,stroke:#00ff88
                     テストは目に見えにくいコストとして削減対象になりやすいため、ビジネス言語で価値を証明する必要があります。
                 </p>
 
-                <div class="code-block" data-lang="Python"><span class="code-comment"
-    ># テストダッシュボードのKPI構成例（経営層向け）</span
->
-<span class="code-keyword">executive_dashboard</span> = {
-<span class="code-string">"品質KPI"</span>: {
-<span class="code-string">"欠陥漏洩率"</span>:
-<span class="code-string">"2.3% (目標: &lt;5%)"</span>,
-<span class="code-comment"># ✅ 良好</span>
-<span class="code-string">"本番障害数"</span>:
-<span class="code-string">"3件 (前月比 -2件)"</span>,
-<span class="code-comment"># ✅ 改善中</span>
-<span class="code-string">"重大欠陥率"</span>:
-<span class="code-string">"0% (目標: 0%)"</span>,
-<span class="code-comment"># ✅ 達成</span>
-<span class="code-string">"顧客クレーム"</span>:
-<span class="code-string">"1件 (前月比 -4件)"</span>,
-<span class="code-comment"># ✅ 改善中</span>
-},
-<span class="code-string">"効率KPI"</span>: {
-<span class="code-string">"テストカバレッジ"</span>:<span class="code-string"
-    >"78% (目標: 75%)"</span
->, <span class="code-comment"># ✅ 目標超過</span>
-<span class="code-string">"自動化率"</span>:
-<span class="code-string">"65% (目標: 60%)"</span>,
-<span class="code-comment"># ✅ 目標超過</span>
-<span class="code-string">"テスト実行時間"</span>:<span class="code-string"
-    >"4.5時間 (前月比 -30%)"</span
->, <span class="code-comment"># ✅ 改善</span>
-},
-<span class="code-string">"コストKPI"</span>: {
-<span class="code-string">"テスト工数削減"</span>:
-<span class="code-string">"月200時間 (自動化効果)"</span>,
-<span class="code-string">"本番障害対応コスト"</span>:
-<span class="code-string">"月45万 (前年比 -35%)"</span>,
-<span class="code-string">"品質ROI"</span>:
-<span class="code-string">"320%"</span>, }, }</div>
+                <div class="code-block" data-lang="Python">executive_dashboard = {
+    "品質KPI": {
+        "欠陥漏洩率": "2.3% (目標: &lt;5%)",  # ✅ 良好
+        "本番障害数": "3件 (前月比 -2件)", # ✅ 改善中
+        "重大欠陥率": "0% (目標: 0%)",     # ✅ 達成
+        "顧客クレーム": "1件 (前月比 -4件)", # ✅ 改善中
+    },
+    "効率KPI": {
+        "テストカバレッジ": "78% (目標: 75%)", # ✅ 目標超過
+        "自動化率": "65% (目標: 60%)",       # ✅ 目標超過
+        "テスト実行時間": "4.5時間 (前月比 -30%)", # ✅ 改善
+    },
+    "コストKPI": {
+        "テスト工数削減": "月200時間 (自動化効果)",
+        "テスト環境コスト": "25%削減 (クラウド最適化)",
+    }
+}</div>
 
                 <h3 class="sub-title">5.2 ROI 計算によるテスト価値の証明</h3>
 
