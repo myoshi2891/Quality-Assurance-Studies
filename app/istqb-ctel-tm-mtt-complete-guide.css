@@ -1,9 +1,9 @@
-body::before {
+.istqb-ctel-tm-mtt-page::before {
                 content: '';
                 position: fixed;
                 inset: 0;
                 pointer-events: none;
-                z-index: 1;
+                z-index: 0;
                 background: repeating-linear-gradient(
                     0deg,
                     transparent,
@@ -13,7 +13,7 @@ body::before {
                 );
                 animation: scanMove 8s linear infinite;
             }
-            body::after {
+            .istqb-ctel-tm-mtt-page::after {
                 content: '';
                 position: fixed;
                 inset: 0;
@@ -32,11 +32,11 @@ body::before {
                     background-position: 0 40px;
                 }
             }
-            main,
-            nav,
-            footer,
-            section,
-            .hero {
+            .istqb-ctel-tm-mtt-page main,
+            .istqb-ctel-tm-mtt-page nav,
+            .istqb-ctel-tm-mtt-page footer,
+            .istqb-ctel-tm-mtt-page section,
+            .istqb-ctel-tm-mtt-page .hero {
                 position: relative;
                 z-index: 2;
             }
@@ -71,7 +71,7 @@ body::before {
             /* ── STICKY NAV ── */
             .sticky-nav {
                 position: sticky;
-                top: 60px;
+                top: calc(60px + var(--disclaimer-height, 0px));
                 z-index: 40;
                 background: rgba(3, 7, 18, 0.92);
                 backdrop-filter: blur(12px);

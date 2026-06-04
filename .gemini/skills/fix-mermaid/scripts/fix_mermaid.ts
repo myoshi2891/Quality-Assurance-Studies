@@ -33,9 +33,8 @@ function getDiagramType(inner: string): string {
 export function fixMermaidContent(inner: string, report?: string[]): { fixedContent: string; fixedCount: number } {
   const rawLines = inner.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
 
-  // 最初の非空・非ディレクティブ行でダイアグラム種別を判定
-  const diagramTypeLine = rawLines.find(line => line.trim() && !line.trim().startsWith('%%')) || '';
-  const diagramType = diagramTypeLine.trim();
+  // ダイアグラム種別をキャッシュ（getDiagramType は最初のトークンを返す）
+  const diagramType = getDiagramType(inner);
   const isMindmap = diagramType.toLowerCase().startsWith('mindmap');
 
   const fixed: string[] = [];
@@ -74,7 +73,6 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
       if (localFixedCount > 0) {
         fixedCount += localFixedCount;
         if (report) {
-          const diagramType = getDiagramType(inner);
           report.push(`[${diagramType}]: ${localFixedCount} line(s) modified`);
         }
       }
@@ -88,15 +86,11 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
       const isIncompleteFrag = fragMatch && !/:\s*\S/.test(prev);
       const isCont = (prev.endsWith(':') || isIncompleteFrag) && !newStmtRe.test(stripped);
 
-      let changed = false;
       if (isCont && fixed.length > 0) {
         fixed[fixed.length - 1] = prev + ' ' + stripped;
-        changed = true;
+        fixedCount++;
       } else {
         fixed.push(stripped);
-        changed = true;
-      }
-      if (changed) {
         fixedCount++;
       }
     } else {
@@ -106,7 +100,6 @@ export function fixMermaidContent(inner: string, report?: string[]): { fixedCont
   }
 
   if (fixedCount > 0 && report && !isMindmap) {
-    const diagramType = getDiagramType(inner);
     report.push(`[${diagramType}]: ${fixedCount} line(s) modified`);
   }
 

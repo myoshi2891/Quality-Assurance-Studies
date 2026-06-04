@@ -159,7 +159,7 @@ React (Next.js App Router) 移行に際して共通の `MermaidDiagram` コン�
 
 #### 1. CSS Modules 環境下での中央寄せとサイズ制限
 
-共通 of `MermaidDiagram` は出力時にグローバルクラス `"mermaid"` を付与します。しかし、CSS Modules（`*.module.css`）で指定した `.mermaid` はクラス名がハッシュ化されるため、スタイルが当たらなくなり左寄せになってしまいます。
+共通の `MermaidDiagram` コンポーネントは出力時にグローバルクラス `"mermaid"` を付与します。しかし、CSS Modules（`*.module.css`）で指定した `.mermaid` はクラス名がハッシュ化されるため、スタイルが当たらなくなり左寄せになってしまいます。
 
 **【対策】**
 
@@ -171,7 +171,7 @@ React (Next.js App Router) 移行に際して共通の `MermaidDiagram` コン�
 </div>
 ```
 
-1. **CSS 側**: ハッシュ化クラスから下位 of グローバルな `svg` をターゲットするため、`:global` セレクタを使用します。
+1. **CSS 側**: ハッシュ化クラスから下位のグローバルな `svg` をターゲットするため、`:global` セレクタを使用します。
 
 ```css
 .mermaid {

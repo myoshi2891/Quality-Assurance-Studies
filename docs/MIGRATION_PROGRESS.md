@@ -5,7 +5,7 @@ Updated 2026-06-04
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ Next.js 移行完了**: CTEL-TM-MTT ガイド を Next.js App Router に移行完了。33ページ全て静的生成成功。
+> **✅ Next.js 移行完了**: CTEL-TM-MTT ガイド を Next.js App Router に移行完了。31ページ全て静的生成成功。
 
 ## 現在地
 
@@ -13,7 +13,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 |---|---|
 | 最新 HEAD | `4f25fce` |
 | 次の作業 | なし |
-| ビルド状態 | ✅ `bun run build`（33ページ静的生成）/ `bun run lint` / `bun test`（146 pass）全て成功。 |
+| ビルド状態 | ✅ `bun run build`（31ページ静的生成）/ `bun run lint` / `bun test`（146 pass）全て成功。 |
 
 ## 2026/06/04: CTEL-TM-MTT Expert Level Guide の Next.js 移行完了
 
@@ -25,7 +25,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `istqb-ctel-tm-mtt-complete-guide.html`: `archive/html-archive/` へ移動。
 - `istqb-ctel-tm-mtt-complete-guide.md`: `archive/` へ移動。
 - `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し同期。
-- `bun run build`: 33ページ全て静的生成に成功。
+- `bun run build`: 31ページ全て静的生成に成功。
 
 ## 2026/06/04: CTEL-TM-MTT Expert Level Guide (HTML) の表示改善
 

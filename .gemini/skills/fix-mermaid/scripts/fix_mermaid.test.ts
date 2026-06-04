@@ -34,7 +34,8 @@ describe("fixHtmlMermaid", () => {
     expect(fixed).toContain("      Grandchild1");
     expect(fixed).toContain("    Child2");
     expect(fixed).not.toContain("root((Title))Child1");
-    expect(report).toEqual([]);
+    expect(report.length).toBe(1);
+    expect(report[0]).toContain("[mindmap]:");
   });
 
   test("class 属性に追加トークンがあってもブロックが検出・処理される", () => {
