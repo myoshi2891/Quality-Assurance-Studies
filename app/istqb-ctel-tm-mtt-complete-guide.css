@@ -41,6 +41,33 @@ body::before {
                 z-index: 2;
             }
 
+            /* ── PAGE SCOPE: globals.css との衝突リセット ── */
+            /* globals.css の .hero（min-height: 100vh, display: flex 等）を上書き */
+            .istqb-ctel-tm-mtt-page .hero {
+                min-height: unset;
+                display: block;
+                justify-content: unset;
+            }
+            /* hero-badge が flex コンテナに引き伸ばされないよう align-self を明示 */
+            .istqb-ctel-tm-mtt-page .hero-badge {
+                align-self: center;
+            }
+            /* Mermaid.tsx の mermaid-wrapper ラッパー div のスタイルをリセットして
+               page.tsxの mermaid-wrap CSS が正しく機能するようにする */
+            .istqb-ctel-tm-mtt-page .mermaid-wrapper {
+                all: unset;
+                display: block;
+                width: 100%;
+            }
+            /* mermaid-wrapper 内の SVG に明示的に幅を与える */
+            .istqb-ctel-tm-mtt-page .mermaid-wrapper svg {
+                display: block;
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+                margin: 0 auto;
+            }
+
             /* ── STICKY NAV ── */
             .sticky-nav {
                 position: sticky;

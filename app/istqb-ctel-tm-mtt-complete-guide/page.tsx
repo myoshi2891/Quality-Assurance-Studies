@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 
 export default function IstqbCtelTmMttCompleteGuide() {
     return (
-        <>
+        <div className="istqb-ctel-tm-mtt-page">
             <NavBar />
             
         {/* ═══ NAVIGATION ═══ */}
@@ -2427,6 +2427,6 @@ style F fill:#222200,stroke:#ffaa00,color:#ffaa00`} />
             </div>
         </footer>
 
-        </>
+        </div>
     );
 }
