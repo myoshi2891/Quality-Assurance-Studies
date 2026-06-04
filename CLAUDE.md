@@ -25,7 +25,7 @@ bun test             # ユニットテスト (bun test, 144 specs)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 29 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 31 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -152,6 +152,9 @@ Next.js App Router 構成:
 - `app/istqb-ctel-tm-otm-complete-guide/istqb-ctel-tm-otm-complete-guide.css` — オペレーショナルテスト管理(CTEL-TM-OTM)ガイド固有スタイル
 - `app/istqb-ctel-tm-otm-complete-guide/page.tsx` — オペレーショナルテスト管理(CTEL-TM-OTM)ガイドページ
 - `app/istqb-ctel-tm-otm-complete-guide/NavBar.tsx` — CTEL-TM-OTM ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctel-tm-mtt-complete-guide.css` — テストチーム管理(CTEL-TM-MTT)ガイド固有スタイル
+- `app/istqb-ctel-tm-mtt-complete-guide/page.tsx` — テストチーム管理(CTEL-TM-MTT)ガイドページ
+- `app/istqb-ctel-tm-mtt-complete-guide/NavBar.tsx` — CTEL-TM-MTT ページ固有スティッキーナビ（`'use client'`）
 - `app/istqb-ctal-tta-complete-guide/istqb-ctal-tta.css` — テクニカルテストアナリスト(CTAL-TTA)ガイド固有スタイル
 - `app/istqb-ctal-tta-complete-guide/page.tsx` — テクニカルテストアナリスト(CTAL-TTA)ガイドページ
 - `app/istqb-ctal-tta-complete-guide/NavBar.tsx` — CTAL-TTA ページ固有スティッキーナビ（'use client'）

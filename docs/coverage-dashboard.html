@@ -1205,7 +1205,8 @@ const pages = [
   { path: '/istqb-ctel-itp-atp-complete-guide', topic: 'ISTQB Expert — Assessing', tested: true },
   { path: '/istqb-ctel-itp-itpi-complete-guide', topic: 'ISTQB Expert — Implementing', tested: true },
   { path: '/istqb-ctel-tm-sm-complete-guide', topic: 'ISTQB Expert — Strategic', tested: true },
-  { path: '/istqb-ctel-tm-otm-complete-guide', topic: 'ISTQB Expert — Operational', tested: true }
+  { path: '/istqb-ctel-tm-otm-complete-guide', topic: 'ISTQB Expert — Operational', tested: true },
+  { path: '/istqb-ctel-tm-mtt-complete-guide', topic: 'ISTQB Expert — MTT', tested: true }
   ];
 const DATA = {
   matrix: [
@@ -1379,7 +1380,8 @@ const DATA = {
       'tests/istqb-ctel-itp-atp-complete-guide/page.test.tsx',
       'tests/istqb-ctel-itp-itpi-complete-guide/page.test.tsx',
       'tests/istqb-ctel-tm-sm-complete-guide/page.test.tsx',
-      'tests/istqb-ctel-tm-otm-complete-guide/page.test.tsx'
+      'tests/istqb-ctel-tm-otm-complete-guide/page.test.tsx',
+      'tests/istqb-ctel-tm-mtt-complete-guide/page.test.tsx'
     ],
     components: [
       'tests/components/Header.test.tsx',
@@ -1425,7 +1427,7 @@ const DATA = {
         },
         {
           h: '✅ 残 13 ページの page.test.tsx 追加',
-          p: '既存パターンを流用し、ホーム + 基礎テスト手法 7 ページ + CTFL-AT + ISTQB Specialist 4 ページに h1/h2 見出し検証スペックを追加。29/29 ページ全てが render-only スモークを保有。',
+          p: '既存パターンを流用し、ホーム + 基礎テスト手法 7 ページ + CTFL-AT + ISTQB Specialist 4 ページに h1/h2 見出し検証スペックを追加。31/31 ページ全てが render-only スモークを保有。',
           tool: 'Bun test + RTL',
           effort: 'Done',
           impact: 'カバー率 43% → 100%'
@@ -1446,14 +1448,14 @@ const DATA = {
       items: [
         {
           h: '✅ Playwright 導入と全ページのスモーク E2E',
-          p: '全 29 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 29 passed。',
+          p: '全 31 ルートに対し HTTP 200 / Header (QA_STUDIES) 描画 / 主要 h1 部分一致 / console error / pageerror 不在を Playwright (@1.60.0) で自動検証。webServer で本番ビルドを auto-start、bun test とは bunfig.toml の testPathIgnorePatterns で分離。`bun run e2e` で 31 passed。',
           tool: '@playwright/test',
           effort: 'Done',
           impact: 'System Level 達成 / 本番回帰検知'
         },
         {
           h: '✅ axe-core/playwright で WCAG 2.1 AA 自動検証',
-          p: '各ページに対し axe スキャンを実施し、コントラスト・aria 属性・ランドマーク・キーボードフォーカスを自動チェック。e2e/a11y.e2e.ts にて全 29 ルートの監査コードを完備。',
+          p: '各ページに対し axe スキャンを実施し、コントラスト・aria 属性・ランドマーク・キーボードフォーカスを自動チェック。e2e/a11y.e2e.ts にて全 31 ルートの監査コードを完備。',
           tool: '@axe-core/playwright',
           effort: 'Done',
           impact: 'A11y 自動化 / ダーク背景の品質保証'
