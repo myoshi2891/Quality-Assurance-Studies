@@ -11,9 +11,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `4f25fce` |
+| 最新 HEAD | `8aede0e` |
 | 次の作業 | なし |
 | ビルド状態 | ✅ `bun run build`（31ページ静的生成）/ `bun run lint` / `bun test`（146 pass）全て成功。 |
+
+## 2026/06/05: テストカバレッジダッシュボードの不整合修正
+
+- `docs/coverage-dashboard.html`: 静的 HTML 初期マークアップの `Scope` カウント（`1 lib · 7 scripts`）を `DATA.inventory` に合わせた `4 libs · 5 scripts` に修正。
+- `DATA.inventory.total.scripts` を実際の配列長（`5`）に修正。
+- `renderScope()` で `DATA.inventory.total.scripts` ではなく `DATA.inventory.scripts.length` から動的に計算するようにし、将来的な不整合を防ぐ実装に変更。
 
 ## 2026/06/04: CTEL-TM-MTT Expert Level Guide の Next.js 移行完了
 
