@@ -960,7 +960,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
         <span><strong>Updated</strong> <time datetime="2026-06-05">2026-06-05</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 31 pages · 3 components · 1 lib · 7 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 31 pages · 3 components · 4 libs · 5 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 95;" role="img" aria-label="全体テストカバー率 約95パーセント">
@@ -1348,7 +1348,7 @@ const DATA = {
 
   inventory: {
     total: {
-      scripts: 7
+      scripts: 5
     },
     pages: [
       'tests/home/page.test.tsx',
@@ -1686,7 +1686,7 @@ function renderScope() {
     const libCount = DATA.inventory.lib.length;
     const libWord = libCount === 1 ? 'lib' : 'libs';
     
-    const scriptCount = DATA.inventory.total.scripts;
+    const scriptCount = DATA.inventory.scripts.length;
     const scriptWord = scriptCount === 1 ? 'script' : 'scripts';
     
     scopeEl.textContent = '';
