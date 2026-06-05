@@ -130,10 +130,6 @@ mermaid.initialize({ startOnLoad: false });
 | ノードラベル `["..."]` | 全角波ダッシュ `〜` | `から` 等の日本語に置換 |
 | ノードラベル `["..."]` | スラッシュ `path/to` | `-` またはスペースに置換 |
 | 菱形ノード `{}` | クォートなし日本語 `{新しいファイル}` | `{"新しいファイル"}` とクォートする |
-| `quadrantChart` の座標 / テキスト | ダブルクォーテーションなしの文字列 | `""` で囲む (例: `"CEO/CTO": [0.8, 0.9]`) |
-| 全ての図解 (全般) | 全角丸括弧 `（）` | 半角丸括弧 `( )` に置換する |
-| 全ての図解 (全般) | 全角ダッシュ `―` | 半角ハイフン `-` に置換する |
-| 全ての図解 (全般) | 全角コロン `：` | 半角コロン `:` に置換する |
 
 ### SVG サイズ制御
 
@@ -154,45 +150,6 @@ CSS にもフォールバックを追加する：
   width: auto !important;
   max-width: 100% !important;
   height: auto !important;
-}
-```
-
-### `quadrantChart` の文字被り対策（2026年6月追記）
-
-`quadrantChart` でプロットされる各要素のテキストラベルが重なって表示される場合は、`mermaid.initialize` の設定にて内部描画解像度を大きく指定します。
-
-```javascript
-mermaid.initialize({
-    quadrantChart: {
-        chartWidth: 800,  // デフォルトの500から拡大して表示エリアを広げる
-        chartHeight: 600, // デフォルトの400から拡大
-        pointRadius: 8,
-        pointLabelFontSize: 14
-    }
-});
-```
-
-このうえで、HTML のラッパー（`.mermaid-wrap` 等）のインラインスタイル（例: `style="max-width: 750px; margin: 0 auto;"`）で表示幅を制限することで、描画文字同士の被りを完全に回避しつつ、画面に収まる綺麗さでレスポンシブ表示できます。
-
-### HTML での Mermaid 図解の中央寄せ Flexbox スタイル（2026年6月追記）
-
-静的 HTML で Mermaid を表示する際、図解が左寄せになるのを防ぎ中央寄せにするための CSS 実装例です。
-
-```css
-.mermaid-wrap {
-    display: flex;
-    justify-content: center;
-}
-.mermaid {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-.mermaid svg {
-    display: block;
-    margin: 0 auto;
-    max-width: 100% !important;
-    height: auto !important;
 }
 ```
 

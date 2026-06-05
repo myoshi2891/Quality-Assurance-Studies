@@ -1,19 +1,38 @@
 # Migration Progress
 
-Updated 2026-06-01
+Updated 2026-06-05
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 機能改修タスク完了**: CTEL-TM-OTM ガイド (HTML) の表示改善（Mermaid 構文・コードブロック構造化）。
+> **✅ Next.js 移行完了**: CTEL-TM-MTT ガイド を Next.js App Router に移行完了。31ページ全て静的生成成功。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `680c9f4` |
+| 最新 HEAD | `4f25fce` |
 | 次の作業 | なし |
-| ビルド状態 | ✅ `bun run build` / `bun run lint` / `bun test` 全て成功。 |
+| ビルド状態 | ✅ `bun run build`（31ページ静的生成）/ `bun run lint` / `bun test`（146 pass）全て成功。 |
+
+## 2026/06/04: CTEL-TM-MTT Expert Level Guide の Next.js 移行完了
+
+- `app/istqb-ctel-tm-mtt-complete-guide/`: ページコンポーネント（`page.tsx`）、スタイル（`.css`）、`NavBar.tsx`（sticky + IntersectionObserver scrollspy）を実装。
+- Mermaid 図解 8 箇所、CodeBlock 5 箇所を正しく構造化。
+- `lib/navigation.ts`: `NAV_ITEMS` にエキスパートレベルカテゴリとして追加（計31件）。
+- `tests/istqb-ctel-tm-mtt-complete-guide/page.test.tsx`: TDD Red→Green サイクルで実装。`bun test` 146件全パス。
+- `e2e/pages.ts`: E2Eスモークテスト対象に追加（`EXPECTED_PAGE_COUNT=31`）。
+- `istqb-ctel-tm-mtt-complete-guide.html`: `archive/html-archive/` へ移動。
+- `istqb-ctel-tm-mtt-complete-guide.md`: `archive/` へ移動。
+- `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し同期。
+- `bun run build`: 31ページ全て静的生成に成功。
+
+## 2026/06/04: CTEL-TM-MTT Expert Level Guide (HTML) の表示改善
+
+- **Mermaid 構文の修正**: カラム0配置、ステートメント分離、`quadrantChart` 構文の最適化により描画エラーを解消。日本語ノードラベルのクォート処理を適用。
+- **Mermaid 外観の調整**: ダークテーマに最適化した配色設定、中央寄せ、および個別 ID による最大幅制御を実装。一部の図でテキスト重なりを防ぐためスケール調整を実施。
+- **コードブロックの構造化**: 不要なインデントを除去し、モバイル等の狭い画面でもレイアウトが崩れないよう plain text 形式への変換を含めた最適化を実施。
+- **スキル同期**: `.claude/skills/fix-mermaid` を `.gemini/skills/` へ同期し、Mermaid 修正ノウハウを共有可能に。
 
 ## 2026/06/01: CTEL-TM-OTM Expert Level Guide (HTML) の表示改善
 
@@ -51,7 +70,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 ## 2026/05/27: CTAL-TTA ガイドの Next.js 移行完了
 
-- `app/istqb-ctal-tta-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装。
+- `app/istqb-ctal-tta-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装.
 - `istqb-ctal-tta-complete-guide.html`: `html-archive/` へ移動。
 - ESLint: `no-explicit-any` および `no-unused-vars` の修正を実施。
 - テスト: `tests/istqb-ctal-tta-complete-guide/page.test.tsx` を追加し、全テスト通過を確認。
@@ -166,7 +185,7 @@ coverage-dashboard.html の P1 アクション「Playwright 導入と全ペー�
 `tests/scripts/` 配下に以下のテストを新規作成し、各スクリプトの入出力やエラーハンドリングを検証した。
 
 - `validate-fences.test.ts`: 言語未指定フェンスや閉じられていないブロックの検出を検証。
-- `fix-fences.test.ts`: 未指定フェンスへ自動で 'text' を付与する修正ロジックを検証。
+- `fix-fences.test.ts`: 未指定フェンスへ自動で 'text' を付与する修正ロジックを検証.
 - `format-markdown.test.ts`: リンク分離、見出し前空行（MD022）、空行圧縮（MD012）、末尾改行（MD047）のフォーマットを検証。
 - `extract-css.test.ts`: style タグからの CSS 抽出、変数の置換、不要ルールの削除を検証。
 - `html-to-tsx.test.ts`: HTML の React (TSX) 変換、クラス置換、pre ブロックの dangerouslySetInnerHTML 復元などを検証。
@@ -245,6 +264,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ctel-itp-itpi-complete-guide.html` | `/istqb-ctel-itp-itpi-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
 | `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-tm-mtt-complete-guide.html` | `/istqb-ctel-tm-mtt-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |

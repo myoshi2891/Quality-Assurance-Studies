@@ -167,7 +167,23 @@ const varMap = {
     '--text2': 'var(--color-text-secondary)',
     '--text3': 'var(--color-text-muted)',
     '--r': 'var(--radius-DEFAULT, 12px)',
-    '--r-sm': 'var(--radius-sm, 8px)'
+    '--r-sm': 'var(--radius-sm, 8px)',
+    // Neon/MTT Theme mappings
+    '--bg-deep': 'var(--color-bg-primary)',
+    '--bg-card': 'var(--color-bg-card)',
+    '--bg-hover': 'var(--color-bg-card-hover)',
+    '--neon-green': 'var(--color-accent-green)',
+    '--neon-cyan': 'var(--color-accent-cyan)',
+    '--neon-amber': 'var(--color-accent-orange)',
+    '--neon-red': 'var(--color-accent-red)',
+    '--neon-purple': 'var(--color-accent-purple)',
+    '--neon-pink': 'var(--color-accent-pink)',
+    '--text-primary': 'var(--color-text-primary)',
+    '--text-secondary': 'var(--color-text-secondary)',
+    '--text-dim': 'var(--color-text-muted)',
+    '--font-head': 'var(--font-display)',
+    '--radius': 'var(--radius-sm, 8px)',
+    '--radius-lg': 'var(--radius-DEFAULT, 12px)'
 };
 
 for (const [key, value] of Object.entries(varMap)) {

@@ -2,8 +2,8 @@ import { describe, it, expect } from 'bun:test';
 import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 30 entries (home + 8 foundation + 1 fdn-ext + 6 advanced + 10 specialist + 4 expert)', () => {
-    expect(NAV_ITEMS).toHaveLength(30);
+  it('contains 31 entries (home + 8 foundation + 1 fdn-ext + 6 advanced + 10 specialist + 5 expert)', () => {
+    expect(NAV_ITEMS).toHaveLength(31);
   });
 
   it('every item has a unique href', () => {
