@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-06-05
+Updated 2026-06-07
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -183,7 +183,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| なし | | | |
+| `istqb-ct-aut-complete-guide.html` | `/istqb-ct-aut-complete-guide` | ⏳ 未着手 | 2026-06-07 追加 |
+| `istqb-ct-game-complete-guide.md` | `/istqb-ct-game-complete-guide` | ⏳ 未着手 | HTML版未生成 |
+| `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 未着手 | HTML版未生成 |
 
 ## 既知の留保事項
 
