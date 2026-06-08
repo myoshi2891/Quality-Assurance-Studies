@@ -38,7 +38,7 @@ export default function NavBar() {
     return (
         <nav className="sticky-nav" aria-label="CT-AuT セクションナビゲーション">
             <div className="nav-inner">
-                <span className="nav-logo">CT-AuT</span>
+                <span className="nav-brand">CT-AuT</span>
                 {link('overview', 'Ch.0 概要')}
                 {link('ch1', 'Ch.1 自動車SW')}
                 {link('aspice', 'Ch.2.1 ASPICE')}

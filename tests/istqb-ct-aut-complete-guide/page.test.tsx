@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach } from 'bun:test';
+import { describe, it, expect, afterEach, beforeAll, afterAll } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-aut-complete-guide/page';
@@ -11,9 +11,19 @@ const mockIntersectionObserver = class {
     unobserve() {}
     disconnect() {}
 };
-global.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
 
 describe('ISTQB CT-AuT Complete Guide Page', () => {
+    let originalIntersectionObserver: typeof IntersectionObserver;
+
+    beforeAll(() => {
+        originalIntersectionObserver = global.IntersectionObserver;
+        global.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
+    });
+
+    afterAll(() => {
+        global.IntersectionObserver = originalIntersectionObserver;
+    });
+
     afterEach(cleanup);
 
     it('renders the hero heading for Automotive Software Tester', () => {

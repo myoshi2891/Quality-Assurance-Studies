@@ -272,7 +272,10 @@ bun run lint    # ESLint エラーなし
 ### 外部リンク
 
 すべての外部リンクに `target="_blank" rel="noopener noreferrer"` を付与する。
-��. プロジェクト自身のテストカバレッジを 1 ファイルで把握できるスタンドアロン HTML を追加した。
+
+### テストカバレッジ可視化
+
+プロジェクト自身のテストカバレッジを 1 ファイルで把握できるスタンドアロン HTML を追加した。
 
 - 追加ファイル: [docs/coverage-dashboard.html](coverage-dashboard.html)（単一ファイル、外部依存は Google Fonts のみ）
 - 構成: KPI 概要 / 11 カテゴリ × 6 種別マトリクス / 23 ページ別カバレッジ / 既存 13 テストのインベントリ / P0-P3 ネクストアクション / ISTQB テストレベル整合表
