@@ -141,18 +141,18 @@
                 color: var(--color-accent-green);
             }
             h1,
-            h2,
-            h3,
+            .istqb-ct-aut-page h2,
+            .istqb-ct-aut-page h3,
             h4,
             h5 {
                 font-family: var(--font-display);
                 line-height: 1.3;
             }
-            h2 {
+            .istqb-ct-aut-page h2 {
                 font-size: clamp(1.4rem, 3vw, 2rem);
                 color: var(--color-text-primary);
             }
-            h3 {
+            .istqb-ct-aut-page h3 {
                 font-size: clamp(1.1rem, 2vw, 1.4rem);
                 color: var(--color-accent-cyan);
                 margin: 1.5rem 0 0.75rem;
@@ -184,7 +184,7 @@
             /* ===========================
    STICKY NAVIGATION
    =========================== */
-            nav {
+            .istqb-ct-aut-page nav {
                 position: sticky;
                 top: calc(60px + var(--disclaimer-height, 0px));
                 z-index: 40;
@@ -198,7 +198,7 @@
                 overflow-x: auto;
                 scrollbar-width: none;
             }
-            nav::-webkit-scrollbar {
+            .istqb-ct-aut-page nav::-webkit-scrollbar {
                 display: none;
             }
             .nav-brand {
@@ -212,7 +212,7 @@
                 flex-shrink: 0;
                 animation: glowLine 3s ease-in-out infinite;
             }
-            nav a {
+            .istqb-ct-aut-page nav a {
                 white-space: nowrap;
                 padding: 0.85rem 0.9rem;
                 font-size: 0.82rem;
@@ -221,7 +221,7 @@
                 border-bottom: 2px solid transparent;
                 transition: all 0.2s;
             }
-            nav a:hover {
+            .istqb-ct-aut-page nav a:hover {
                 color: var(--color-accent-green);
                 border-bottom-color: var(--color-accent-green);
             }
@@ -801,6 +801,13 @@
                 height: 100%;
                 border-radius: 99px;
                 animation: growBar 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                .istqb-ct-aut-page .progress-bar {
+                    animation: none !important;
+                    width: var(--bar-width, 70%) !important;
+                }
             }
             .bar-green {
                 background: linear-gradient(90deg, var(--color-accent-green), rgba(0, 212, 255, 0.7));

@@ -273,6 +273,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-aut-complete-guide.html` | `/istqb-ct-aut-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
@@ -298,7 +299,6 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ct-aut-complete-guide.html` | `/istqb-ct-aut-complete-guide` | ⏳ 未着手 | 2026-06-07 追加 |
 | `istqb-ct-game-complete-guide.md` | `/istqb-ct-game-complete-guide` | ⏳ 未着手 | HTML版未生成 |
 | `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 未着手 | HTML版未生成 |
 
@@ -310,7 +310,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `de91a87`
+- 最新 HEAD: `ab61845`
 - **新規ガイド追加中**: 既存の全 HTML 移行は完了しましたが、新たに CT-AuT, CT-GaMe, CT-GT ガイドが追加されました。
 - 合計 32 ルート（ホーム + 31 ガイド予定）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
