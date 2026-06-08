@@ -56,6 +56,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-ai-complete-guide', label: 'AIテスト(CT-AI)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-genai-complete-guide', label: '生成AIテスト(CT-GenAI)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-mbt-complete-guide', label: 'モデルベーステスト(CT-MBT)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-aut-complete-guide', label: '自動車ソフトウェアテスター(CT-AuT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-act-complete-guide', label: '受入テスト(CT-AcT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-mat-complete-guide', label: 'モバイルアプリテスト(CT-MAT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-sec-complete-guide', label: 'セキュリティテスト(CT-SEC)ガイド', category: 'istqb-specialist' },

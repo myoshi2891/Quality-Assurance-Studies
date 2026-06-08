@@ -1,5 +1,5 @@
-import { describe, it, expect } from 'bun:test';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, afterEach } from 'bun:test';
+import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-aut-complete-guide/page';
 import NavBar from '../../app/istqb-ct-aut-complete-guide/NavBar';
@@ -11,9 +11,11 @@ const mockIntersectionObserver = class {
     unobserve() {}
     disconnect() {}
 };
-global.IntersectionObserver = mockIntersectionObserver as any;
+global.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
 
 describe('ISTQB CT-AuT Complete Guide Page', () => {
+    afterEach(cleanup);
+
     it('renders the hero heading for Automotive Software Tester', () => {
         render(<Page />);
         const mainHeading = screen.getByRole('heading', { level: 1 });

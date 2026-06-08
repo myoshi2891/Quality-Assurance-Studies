@@ -281,7 +281,7 @@ export default function IstqbCtAutCompleteGuide() {
                     自動車プロジェクトは互いに相反する目標を同時に達成しなければなりません。テスト計画立案時にこのトレードオフを理解することが重要です。
                 </p>
 
-                <Mermaid chart={DIAGRAMS["diag-1"]} />
+                <Mermaid chart={DIAGRAMS[""] || ""} />
 
                 <h4>テスターへの実践的影響</h4>
                 <ul>
@@ -352,7 +352,7 @@ export default function IstqbCtAutCompleteGuide() {
                 {/* 1.4 システムライフサイクル */}
                 <h3>1.4 システムライフサイクルの6フェーズ <span className="klevel">K2</span></h3>
 
-                <Mermaid chart={DIAGRAMS["diag-2"]} />
+                <Mermaid chart={DIAGRAMS[""] || ""} />
 
                 <div className="arch-layers">
                     <div className="arch-layer green">
@@ -567,7 +567,7 @@ export default function IstqbCtAutCompleteGuide() {
                     ASPICEのプライマリライフサイクルプロセスは、<strong>SYS（システム）</strong>と<strong>SWE（ソフトウェアエンジニアリング）</strong>の2グループに大別されます。テスターは主にSWE.4〜SWE.6を担当します。
                 </p>
 
-                <Mermaid chart={DIAGRAMS["diag-3"]} />
+                <Mermaid chart={DIAGRAMS[""] || ""} />
 
                 <div className="callout warning">
                     <div className="callout-title">
@@ -821,7 +821,7 @@ export default function IstqbCtAutCompleteGuide() {
                     </table>
                 </div>
 
-                <Mermaid chart={DIAGRAMS["diag-4"]} />
+                <Mermaid chart={DIAGRAMS[""] || ""} />
 
                 {/* メソッドテーブル */}
                 <h3>
@@ -1109,7 +1109,7 @@ export default function IstqbCtAutCompleteGuide() {
                     </div>
                 </div>
 
-                <Mermaid chart={DIAGRAMS["diag-5"]} />
+                <Mermaid chart={DIAGRAMS[""] || ""} />
 
                 <h3>2.3.3 MISRA-Cコーディング規約<span className="klevel">K1/K2</span></h3>
                 <div className="callout warning">
@@ -1386,7 +1386,7 @@ export default function IstqbCtAutCompleteGuide() {
                 </div>
 
                 <h3>3.2 XiL全体像：開発ステージとテスト環境の対応</h3>
-                <Mermaid chart={DIAGRAMS["diag-6"]} />
+                <Mermaid chart={DIAGRAMS[""] || ""} />
 
                 {/* XiL比較カード */}
                 <div className="xil-grid">
@@ -1575,7 +1575,7 @@ export default function IstqbCtAutCompleteGuide() {
                     実際のECU（本物のマイコン・基板）をリアルタイムシミュレーターに接続し、ECUは「本物の車両と接続されている」と錯覚しながら動作します。車両側の挙動（センサー信号・アクチュエーターフィードバック）をシミュレーターが<strong>電気信号レベル</strong>でリアルタイムに模倣します。
                 </div>
 
-                <Mermaid chart={DIAGRAMS["diag-7"]} />
+                <Mermaid chart={DIAGRAMS[""] || ""} />
 
                 <div className="table-wrap">
                     <table>
@@ -1641,7 +1641,7 @@ export default function IstqbCtAutCompleteGuide() {
                     26262でASIL C（推奨+）、<strong>ASIL D（強く推奨++）</strong>。
                 </div>
 
-                <Mermaid chart={DIAGRAMS["diag-8"]} />
+                <Mermaid chart={DIAGRAMS[""] || ""} />
 
                 <div className="table-wrap">
                     <table>
@@ -2233,7 +2233,7 @@ export default function IstqbCtAutCompleteGuide() {
                         </thead>
                         <tbody>
                             <tr>
-                                <td className="td-strong" rowSpan="4">ASPICE</td>
+                                <td className="td-strong" rowSpan={4}>ASPICE</td>
                                 <td>能力レベル0〜5の各名称と定義</td>
                                 <td className="td-red">★★★★★</td>
                             </tr>
@@ -2250,7 +2250,7 @@ export default function IstqbCtAutCompleteGuide() {
                                 <td className="td-amber">★★★★☆</td>
                             </tr>
                             <tr>
-                                <td className="td-strong" rowSpan="5">ISO 26262</td>
+                                <td className="td-strong" rowSpan={5}>ISO 26262</td>
                                 <td>ASIL A〜D・QMの定義と事例</td>
                                 <td className="td-red">★★★★★</td>
                             </tr>
@@ -2271,7 +2271,7 @@ export default function IstqbCtAutCompleteGuide() {
                                 <td className="td-amber">★★★★☆</td>
                             </tr>
                             <tr>
-                                <td className="td-strong" rowSpan="3">AUTOSAR</td>
+                                <td className="td-strong" rowSpan={3}>AUTOSAR</td>
                                 <td>4層構造（App / RTE / BSW / MCAL）の名称と役割</td>
                                 <td className="td-amber">★★★★☆</td>
                             </tr>
@@ -2284,7 +2284,7 @@ export default function IstqbCtAutCompleteGuide() {
                                 <td className="td-cyan">★★★☆☆</td>
                             </tr>
                             <tr>
-                                <td className="td-strong" rowSpan="4">XiL環境</td>
+                                <td className="td-strong" rowSpan={4}>XiL環境</td>
                                 <td>MiL/SiL/PiL/HiL/ViLの各定義と使い分け</td>
                                 <td className="td-red">★★★★★</td>
                             </tr>
@@ -2304,7 +2304,7 @@ export default function IstqbCtAutCompleteGuide() {
                                 <td className="td-amber">★★★★☆</td>
                             </tr>
                             <tr>
-                                <td className="td-strong" rowSpan="3">テスト技法</td>
+                                <td className="td-strong" rowSpan={3}>テスト技法</td>
                                 <td>MC/DCの定義（各条件の独立影響の証明）</td>
                                 <td className="td-red">★★★★★</td>
                             </tr>
