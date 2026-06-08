@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-06-07
+Updated 2026-06-08
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -11,9 +11,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `72e910c` |
+| 最新 HEAD | `ec808d2` |
 | 次の作業 | CT-AuT ガイドの Next.js 移行 |
 | ビルド状態 | ✅ `bun run build`（31ページ静的生成）/ `bun run lint` / `bun test`（146 pass）全て成功。 |
+
+## 2026/06/08: 新規ガイド (CT-GaMe) の追加とダッシュボード整理
+
+- `istqb-ct-game-complete-guide.html`: ゲームテスト (CT-GaMe) 2025 完全学習ガイドを追加。
+- `docs/coverage-dashboard.html`: 冗長な `DATA.inventory.total.scripts` フィールドを削除。動的なカウント計算ロジックに一本化。
+- `docs/MIGRATION_PROGRESS.md`: 移行ステータスを更新。
 
 ## 2026/06/07: 新規ガイド (CT-AuT) の追加
 
