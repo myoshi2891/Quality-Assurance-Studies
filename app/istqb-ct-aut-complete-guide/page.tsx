@@ -951,7 +951,7 @@ export default function IstqbCtAutCompleteGuide() {
                         <span>QM — 通常品質管理</span><span className="progress-val">20%</span>
                     </div>
                     <div className="progress-bar-wrap">
-                        <div className="progress-bar bar-green" ></div>
+                        <div className="progress-bar bar-green" style={{'--bar-width': '20%'} as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -960,7 +960,7 @@ export default function IstqbCtAutCompleteGuide() {
                         ><span className="progress-val">40%</span>
                     </div>
                     <div className="progress-bar-wrap">
-                        <div className="progress-bar bar-cyan" ></div>
+                        <div className="progress-bar bar-cyan" style={{'--bar-width': '40%'} as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -968,7 +968,7 @@ export default function IstqbCtAutCompleteGuide() {
                         <span>ASIL B — 強化テスト</span><span className="progress-val">60%</span>
                     </div>
                     <div className="progress-bar-wrap">
-                        <div className="progress-bar bar-cyan" ></div>
+                        <div className="progress-bar bar-cyan" style={{'--bar-width': '60%'} as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -977,7 +977,7 @@ export default function IstqbCtAutCompleteGuide() {
                         ><span className="progress-val">80%</span>
                     </div>
                     <div className="progress-bar-wrap">
-                        <div className="progress-bar bar-amber" ></div>
+                        <div className="progress-bar bar-amber" style={{'--bar-width': '80%'} as React.CSSProperties}></div>
                     </div>
                 </div>
                 <div className="progress-item">
@@ -986,7 +986,7 @@ export default function IstqbCtAutCompleteGuide() {
                         ><span className="progress-val">100%</span>
                     </div>
                     <div className="progress-bar-wrap">
-                        <div className="progress-bar bar-red" ></div>
+                        <div className="progress-bar bar-red" style={{'--bar-width': '100%'} as React.CSSProperties}></div>
                     </div>
                 </div>
             </section>

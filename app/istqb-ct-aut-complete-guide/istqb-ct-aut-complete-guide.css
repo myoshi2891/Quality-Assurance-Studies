@@ -140,11 +140,11 @@
             a:hover {
                 color: var(--color-accent-green);
             }
-            h1,
+            .istqb-ct-aut-page h1,
             .istqb-ct-aut-page h2,
             .istqb-ct-aut-page h3,
-            h4,
-            h5 {
+            .istqb-ct-aut-page h4,
+            .istqb-ct-aut-page h5 {
                 font-family: var(--font-display);
                 line-height: 1.3;
             }
@@ -157,7 +157,7 @@
                 color: var(--color-accent-cyan);
                 margin: 1.5rem 0 0.75rem;
             }
-            h4 {
+            .istqb-ct-aut-page h4 {
                 font-size: 1.05rem;
                 color: var(--color-accent-green);
                 margin: 1.25rem 0 0.5rem;
@@ -806,7 +806,8 @@
             @media (prefers-reduced-motion: reduce) {
                 .istqb-ct-aut-page .progress-bar {
                     animation: none !important;
-                    width: var(--bar-width, 70%) !important;
+                    width: var(--bar-width) !important;
+                    max-width: 100% !important;
                 }
             }
             .bar-green {
