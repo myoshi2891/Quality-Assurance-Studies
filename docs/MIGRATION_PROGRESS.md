@@ -11,9 +11,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `ec808d2` |
-| 次の作業 | CT-AuT ガイドの Next.js 移行 |
-| ビルド状態 | ✅ `bun run build`（31ページ静的生成）/ `bun run lint` / `bun test`（146 pass）全て成功。 |
+| 最新 HEAD | `91e4cee` |
+| 次の作業 | CT-GaMe ガイドの Next.js 移行 |
+| ビルド状態 | ✅ `bun run build`（32ページ静的生成）/ `bun run lint` / `bun test`（149 pass）全て成功。 |
+
+## 2026/06/08: CT-AuT ガイドの Next.js 移行完了
+
+- `app/istqb-ct-aut-complete-guide/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
+- Mermaid 描画ロジックを `<Mermaid>` コンポーネントに統合し、TypeScript エラーを修正。
+- `tests/istqb-ct-aut-complete-guide/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（149件）。
+- `istqb-ct-aut-complete-guide.html`: `archive/html-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html` など）を最新の 32 ページ体制に同期。
 
 ## 2026/06/08: 新規ガイド (CT-GaMe) の追加とダッシュボード整理
 
@@ -302,13 +310,13 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `72e910c`
+- 最新 HEAD: `91e4cee`
 - **新規ガイド追加中**: 既存の全 HTML 移行は完了しましたが、新たに CT-AuT, CT-GaMe, CT-GT ガイドが追加されました。
-- 合計 31 ルート（ホーム + 30 ガイド予定）が管理されています。
+- 合計 32 ルート（ホーム + 30 ガイド予定）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-新規ガイド (CT-AuT) の追加とドキュメント同期が完了しました。今後の移行作業について指示を仰ぎます。
+CT-AuTガイドの移行が完了し、32ルートになりました。次のタスク（CT-GaMeガイドの移行）について指示を仰ぎます。
 ```
 
 ---

@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 146 specs)
+bun test             # ユニットテスト (bun test, 149 specs)
 ```
 
 ### E2E テスト (Playwright)
@@ -119,6 +119,9 @@ Next.js App Router 構成:
 - `app/istqb-ct-mbt-complete-guide/istqb-ct-mbt-complete-guide.css` — モデルベーステスト(CT-MBT)ガイド固有スタイル
 - `app/istqb-ct-mbt-complete-guide/page.tsx` — モデルベーステスト(CT-MBT)ガイドページ
 - `app/istqb-ct-mbt-complete-guide/NavBar.tsx` — CT-MBT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-aut-complete-guide/istqb-ct-aut-complete-guide.css` — 自動車ソフトウェアテスター(CT-AuT)ガイド固有スタイル
+- `app/istqb-ct-aut-complete-guide/page.tsx` — 自動車ソフトウェアテスター(CT-AuT)ガイドページ
+- `app/istqb-ct-aut-complete-guide/NavBar.tsx` — CT-AuT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `app/istqb-ct-act-complete-guide/istqb-ct-act-complete-guide.css` — 受入テスト(CT-AcT)ガイド固有スタイル
 - `app/istqb-ct-act-complete-guide/page.tsx` — 受入テスト(CT-AcT)ガイドページ
 - `app/istqb-ct-act-complete-guide/NavBar.tsx` — CT-AcT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -325,13 +328,13 @@ bun run lint    # ESLint エラーなし
 
 ```text
 コンテキスト:
-- 最新 HEAD: `680c9f4`
-- **全 HTML 移行完了**: プロジェクトルートにあったすべての静的 HTML ページの Next.js App Router への移行が完了しました。
-- 合計 30 ルート（ホーム + 29 ガイド）が Next.js で管理されています。
+- 最新 HEAD: `91e4cee`
+- **新規ガイド追加中**: CT-AuTの移行が完了し、次はCT-GaMeの移行に入ります。
+- 合計 32 ルート（ホーム + 31 ガイド）が Next.js で管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-すべての移行タスクが完了しました。今後の新機能実装やコンテンツのブラッシュアップについて指示を仰ぎます。
+CT-AuTガイドの移行が完了しました。次のタスク（CT-GaMeガイドの移行）について指示を仰ぎます。
 ```
 
 ---
