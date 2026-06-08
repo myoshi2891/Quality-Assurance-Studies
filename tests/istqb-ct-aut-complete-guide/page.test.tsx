@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'bun:test';
 import { render, screen } from '@testing-library/react';
+import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-aut-complete-guide/page';
 import NavBar from '../../app/istqb-ct-aut-complete-guide/NavBar';
 
@@ -27,10 +28,10 @@ describe('ISTQB CT-AuT Complete Guide Page', () => {
         const h2Elements = screen.getAllByRole('heading', { level: 2 });
         const h2Texts = h2Elements.map((h2) => h2.textContent);
         
-        expect(h2Texts.some(text => text?.includes('序章: 試験概要と学習戦略'))).toBe(true);
-        expect(h2Texts.some(text => text?.includes('第1章: 自動車システム開発の基礎'))).toBe(true);
-        expect(h2Texts.some(text => text?.includes('第2章: 自動車システム向け規格と標準'))).toBe(true);
-        expect(h2Texts.some(text => text?.includes('第3章: 仮想環境におけるテスト'))).toBe(true);
+        expect(h2Texts.some(text => text?.includes('学習ロードマップ'))).toBe(true);
+        expect(h2Texts.some(text => text?.includes('自動車ソフトウェアテストの概要'))).toBe(true);
+        expect(h2Texts.some(text => text?.includes('Automotive SPICE'))).toBe(true);
+        expect(h2Texts.some(text => text?.includes('仮想環境でのテスト'))).toBe(true);
     });
 
     it('renders the NavBar component with correct sections', () => {
@@ -43,7 +44,7 @@ describe('ISTQB CT-AuT Complete Guide Page', () => {
         expect(links.length).toBeGreaterThan(0);
         
         const linkTexts = links.map(link => link.textContent);
-        expect(linkTexts).toContain('序章: 試験概要');
-        expect(linkTexts).toContain('第1章: 開発基礎');
+        expect(linkTexts).toContain('Ch.0 概要');
+        expect(linkTexts).toContain('Ch.1 自動車SW');
     });
 });
