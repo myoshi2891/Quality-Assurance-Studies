@@ -126,7 +126,7 @@ export default function IstqbCtGameCompleteGuide() {
                     <div className="progress-bar-track">
                         <div
                             className="progress-bar-fill cyan"
-                            style={{"--target-width": "100%", width: "100%"}}
+                            style={{ "--target-width": "100%", width: "100%"} as React.CSSProperties}
                         ></div>
                     </div>
                 </div>
@@ -138,7 +138,7 @@ export default function IstqbCtGameCompleteGuide() {
                     <div className="progress-bar-track">
                         <div
                             className="progress-bar-fill green"
-                            style={{"--target-width": "95%", width: "95%"}}
+                            style={{ "--target-width": "95%", width: "95%"} as React.CSSProperties}
                         ></div>
                     </div>
                 </div>
@@ -150,7 +150,7 @@ export default function IstqbCtGameCompleteGuide() {
                     <div className="progress-bar-track">
                         <div
                             className="progress-bar-fill amber"
-                            style={{"--target-width": "85%", width: "85%"}}
+                            style={{ "--target-width": "85%", width: "85%"} as React.CSSProperties}
                         ></div>
                     </div>
                 </div>
@@ -162,7 +162,7 @@ export default function IstqbCtGameCompleteGuide() {
                     <div className="progress-bar-track">
                         <div
                             className="progress-bar-fill purple"
-                            style={{"--target-width": "82%", width: "82%"}}
+                            style={{ "--target-width": "82%", width: "82%"} as React.CSSProperties}
                         ></div>
                     </div>
                 </div>
@@ -174,7 +174,7 @@ export default function IstqbCtGameCompleteGuide() {
                     <div className="progress-bar-track">
                         <div
                             className="progress-bar-fill pink"
-                            style={{"--target-width": "50%", width: "50%"}}
+                            style={{ "--target-width": "50%", width: "50%"} as React.CSSProperties}
                         ></div>
                     </div>
                 </div>
@@ -186,7 +186,7 @@ export default function IstqbCtGameCompleteGuide() {
                     <div className="progress-bar-track">
                         <div
                             className="progress-bar-fill red"
-                            style={{"--target-width": "40%", width: "40%"}}
+                            style={{ "--target-width": "40%", width: "40%"} as React.CSSProperties}
                         ></div>
                     </div>
                 </div>
@@ -198,7 +198,7 @@ export default function IstqbCtGameCompleteGuide() {
                     <div className="progress-bar-track">
                         <div
                             className="progress-bar-fill green"
-                            style={{"--target-width": "29%", width: "29%"}}
+                            style={{ "--target-width": "29%", width: "29%"} as React.CSSProperties}
                         ></div>
                     </div>
                 </div>
@@ -1187,7 +1187,7 @@ export default function IstqbCtGameCompleteGuide() {
                             <div className="progress-bar-track">
                                 <div
                                     className="progress-bar-fill green"
-                                    style={{"--target-width": "55%", width: "55%"}}
+                                    style={{ "--target-width": "55%", width: "55%"} as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -1200,7 +1200,7 @@ export default function IstqbCtGameCompleteGuide() {
                             <div className="progress-bar-track">
                                 <div
                                     className="progress-bar-fill amber"
-                                    style={{"--target-width": "75%", width: "75%"}}
+                                    style={{ "--target-width": "75%", width: "75%"} as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
@@ -1212,7 +1212,7 @@ export default function IstqbCtGameCompleteGuide() {
                             <div className="progress-bar-track">
                                 <div
                                     className="progress-bar-fill red"
-                                    style={{"--target-width": "100%", width: "100%"}}
+                                    style={{ "--target-width": "100%", width: "100%"} as React.CSSProperties}
                                 ></div>
                             </div>
                         </div>
