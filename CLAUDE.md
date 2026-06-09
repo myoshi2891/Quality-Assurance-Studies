@@ -137,6 +137,9 @@ Next.js App Router 構成:
 - `app/istqb-ct-ste-complete-guide.css` — セキュリティテストエンジニア(CT-STE)ガイド固有スタイル
 - `app/istqb-ct-ste-complete-guide/page.tsx` — セキュリティテストエンジニア(CT-STE)ガイドページ
 - `app/istqb-ct-ste-complete-guide/NavBar.tsx` — CT-STE ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css` — ゲームテスト(CT-GaMe)ガイド固有スタイル
+- `app/istqb-ct-game-complete-guide/page.tsx` — ゲームテスト(CT-GaMe)ガイドページ
+- `app/istqb-ct-game-complete-guide/NavBar.tsx` — CT-GaMe ページ固有スティッキーナビ（`'use client'`）
 - `app/istqb-ct-pt-complete-guide.css` — パフォーマンステスト(CT-PT)ガイド固有スタイル
 - `app/istqb-ct-pt-complete-guide/page.tsx` — パフォーマンステスト(CT-PT)ガイドページ
 - `app/istqb-ct-pt-complete-guide/NavBar.tsx` — CT-PT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）

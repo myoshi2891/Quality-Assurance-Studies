@@ -163,6 +163,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-ste-complete-guide.html` | `/istqb-ct-ste-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-game-complete-guide.html` | `/istqb-ct-game-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
@@ -184,9 +185,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ct-game-complete-guide.md` | `/istqb-ct-game-complete-guide` | ⏳ 未着手 | HTML版追加済み |
 | `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 未着手 | HTML版未生成 |
 
 ## 既知の留保事項
 
 - `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
+）
