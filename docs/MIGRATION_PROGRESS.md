@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-06-08
+Updated 2026-06-09
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -273,7 +273,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
-| `istqb-ct-aut-complete-guide.html` | `/istqb-ct-aut-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-aut-complete-guide.html` | `/istqb-ct-aut-complete-guide` | ✅ NavBar あり (HTML not found) |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
@@ -299,12 +299,15 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ct-game-complete-guide.md` | `/istqb-ct-game-complete-guide` | ⏳ 未着手 | HTML版未生成 |
+| `istqb-ct-game-complete-guide.md` | `/istqb-ct-game-complete-guide` | ⏳ 未着手 | HTML版存在 |
 | `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 未着手 | HTML版未生成 |
 
 ## 既知の留保事項
 
 - `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
+- `istqb-ct-aut-complete-guide.html` はリポジトリ内に存在しません（not found）。
+- `istqb-ct-game-complete-guide.html` はプロジェクトルートに存在しますが、まだ移行されていません。
+- `istqb-ct-gt-complete-guide.md` は対応するHTMLファイルが未生成です。
 
 ## 次回セッションでの再開プロンプト
 
@@ -318,9 +321,3 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 【指示】
 CT-AuTガイドの移行が完了し、32ルートになりました。次のタスク（CT-GaMeガイドの移行）について指示を仰ぎます。
 ```
-
----
-
-## 完了: ハンバーガーメニュー化（TDD）
-
-...
