@@ -957,10 +957,10 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-06-05">2026-06-05</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-06-08">2026-06-08</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
-        <span id="mc-scope"><strong>Scope</strong> 31 pages · 3 components · 1 lib · 7 scripts</span>
+        <span id="mc-scope"><strong>Scope</strong> 32 pages · 3 components · 4 libs · 5 scripts</span>
       </div>
     </div>
     <div class="mc-gauge" style="--coverage: 95;" role="img" aria-label="全体テストカバー率 約95パーセント">
@@ -1041,14 +1041,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num">31 routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num">32 routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
-      <span class="chip" data-tone="ok"><strong id="cnt-tested">31</strong> Tested</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-tested">32</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong>31</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong>31</strong> with E2E</span>
+      <span class="chip"><strong>32</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong>32</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1058,14 +1058,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">43 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">47 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
       <details class="inv" open>
         <summary>
           <span>Page Render Tests</span>
-          <span class="inv-count" id="inv-count-pages">31 files</span>
+          <span class="inv-count" id="inv-count-pages">32 files</span>
         </summary>
         <ul id="inv-pages"></ul>
       </details>
@@ -1191,6 +1191,7 @@ const pages = [
   { path: '/istqb-ct-genai-complete-guide', topic: 'ISTQB Specialist — GenAI', tested: true },
   { path: '/istqb-ct-mat-complete-guide', topic: 'ISTQB Specialist — Mobile App', tested: true },
   { path: '/istqb-ct-mbt-complete-guide', topic: 'ISTQB Specialist — MBT', tested: true },
+  { path: '/istqb-ct-aut-complete-guide', topic: 'ISTQB Specialist — AuT', tested: true },
   { path: '/istqb-ct-pt-complete-guide', topic: 'ISTQB Specialist — Performance', tested: true },
   { path: '/istqb-ct-sec-complete-guide', topic: 'ISTQB Specialist — Security', tested: true },
   { path: '/istqb-ct-ste-complete-guide', topic: 'ISTQB Specialist — Security Eng', tested: true },
@@ -1347,9 +1348,6 @@ const DATA = {
   pages,
 
   inventory: {
-    total: {
-      scripts: 7
-    },
     pages: [
       'tests/home/page.test.tsx',
       'tests/acceptance-testing-guide/page.test.tsx',
@@ -1366,6 +1364,7 @@ const DATA = {
       'tests/istqb-ct-genai-complete-guide/page.test.tsx',
       'tests/istqb-ct-mat-complete-guide/page.test.tsx',
       'tests/istqb-ct-mbt-complete-guide/page.test.tsx',
+      'tests/istqb-ct-aut-complete-guide/page.test.tsx',
       'tests/istqb-ct-pt-complete-guide/page.test.tsx',
       'tests/istqb-ct-sec-complete-guide/page.test.tsx',
       'tests/istqb-ct-ste-complete-guide/page.test.tsx',
@@ -1686,7 +1685,7 @@ function renderScope() {
     const libCount = DATA.inventory.lib.length;
     const libWord = libCount === 1 ? 'lib' : 'libs';
     
-    const scriptCount = DATA.inventory.total.scripts;
+    const scriptCount = DATA.inventory.scripts.length;
     const scriptWord = scriptCount === 1 ? 'script' : 'scripts';
     
     scopeEl.textContent = '';
