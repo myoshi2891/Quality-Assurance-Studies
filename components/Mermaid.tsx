@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import mermaid from 'mermaid';
+import DOMPurify from 'dompurify';
 
 mermaid.initialize({
   startOnLoad: false,
@@ -32,8 +33,10 @@ export default function Mermaid({ chart }: MermaidProps) {
           // DOMParserを使ってSVGのスタイルをインテリジェントに調整
           const parser = new DOMParser();
           const doc = parser.parseFromString(svg, 'image/svg+xml');
+          const parserError = doc.querySelector('parsererror');
           const svgEl = doc.querySelector('svg');
-          if (svgEl) {
+          
+          if (!parserError && svgEl) {
             const isSequence = chart.includes('sequenceDiagram');
             const isFlowchartLR = chart.includes('flowchart LR') || chart.includes('graph LR');
             const isFlowchartTD = chart.includes('flowchart TD') || chart.includes('graph TD') || chart.includes('flowchart TB') || chart.includes('graph TB');
@@ -70,12 +73,20 @@ export default function Mermaid({ chart }: MermaidProps) {
             
             const serializer = new XMLSerializer();
             const newSvg = serializer.serializeToString(doc);
+            const sanitizedSvg = DOMPurify.sanitize(`<div>${newSvg}</div>`, { 
+              USE_PROFILES: { svg: true, svgFilters: true },
+              ALLOW_DATA_ATTR: true
+            });
             if (isMounted) {
-              setSvgStr(newSvg);
+              setSvgStr(sanitizedSvg);
             }
           } else {
+            const sanitizedSvg = DOMPurify.sanitize(`<div>${svg}</div>`, { 
+              USE_PROFILES: { svg: true, svgFilters: true },
+              ALLOW_DATA_ATTR: true
+            });
             if (isMounted) {
-              setSvgStr(svg);
+              setSvgStr(sanitizedSvg);
             }
           }
         } catch (error) {

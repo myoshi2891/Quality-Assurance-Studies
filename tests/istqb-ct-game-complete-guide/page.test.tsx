@@ -1,4 +1,4 @@
-import { afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
+import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
 import { render, screen, cleanup, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import mermaid from 'mermaid';
@@ -7,8 +7,14 @@ import Page from '../../app/istqb-ct-game-complete-guide/page';
 afterEach(() => cleanup());
 
 let observerCallback: (entries: IntersectionObserverEntry[]) => void = () => {};
+let originalMermaidRender: typeof mermaid.render;
 
 beforeAll(() => {
+  originalMermaidRender = mermaid.render;
+  mermaid.render = mock(async () => {
+    return { svg: '<svg data-testid="mock-mermaid"></svg>' };
+  }) as unknown as typeof mermaid.render;
+
   const mockIntersectionObserver = mock((callback: (entries: IntersectionObserverEntry[]) => void) => {
     observerCallback = callback;
     return {
@@ -18,6 +24,10 @@ beforeAll(() => {
     };
   });
   window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
+});
+
+afterAll(() => {
+  mermaid.render = originalMermaidRender;
 });
 
 describe('CT-GaMe Guide Page', () => {
