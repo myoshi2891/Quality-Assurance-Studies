@@ -1052,7 +1052,7 @@
                 border-radius: 8px;
                 padding: 1.5rem;
                 margin: 1.5rem auto;
-                max-width: 760px;
+                max-width: 960px;
                 width: 100%;
                 overflow-x: auto;
             }
@@ -3127,7 +3127,7 @@
     style GameSec fill:#c62828,stroke:#ef5350,color:#e2e8f0
     style NetSec fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
     style PlayerSec fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
-    style FinanceSec fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0`
+    style FinanceSec fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0`,
             };
 
             mermaid.initialize({
@@ -3168,17 +3168,17 @@
 
             // IDごとのカスタム表示設定
             const DIAGRAM_SETTINGS = {
-                'mermaid-0': { maxWidth: '850px', scrollable: false }, // ISTQB® 資格ロードマップ
-                'mermaid-1': { maxWidth: '900px', scrollable: true },  // 1.2 ギャンブルの種類
-                'mermaid-2': { maxWidth: '680px', scrollable: false }, // プログレッシブジャックポット
+                'mermaid-0': { maxWidth: '1250px', scrollable: false }, // ISTQB® 資格ロードマップ
+                'mermaid-1': { maxWidth: '1080px', scrollable: true }, // 1.2 ギャンブルの種類
+                'mermaid-2': { maxWidth: '1080px', scrollable: false }, // プログレッシブジャックポット
                 'mermaid-3': { maxWidth: '380px', scrollable: false }, // 1.5 GSDLC
                 'mermaid-4': { maxWidth: '750px', scrollable: false }, // VLT エコシステム
-                'mermaid-5': { maxWidth: '850px', scrollable: true },  // EGMエコシステム
-                'mermaid-6': { maxWidth: '960px', scrollable: true },  // 2.5 オンラインギャンブルエコシステム
-                'mermaid-7': { maxWidth: '800px', scrollable: false }, // 3.1 コンプライアンステスト
-                'mermaid-8': { maxWidth: '750px', scrollable: false }, // 3.4 プロトコルテスト
-                'mermaid-9': { maxWidth: '750px', scrollable: false }, // 3.8 マルチプレイヤーテスト
-                'mermaid-10': { maxWidth: '850px', scrollable: false } // 3.10 セキュリティテスト
+                'mermaid-5': { maxWidth: '1080px', scrollable: true }, // EGMエコシステム
+                'mermaid-6': { maxWidth: '1080px', scrollable: true }, // 2.5 オンラインギャンブルエコシステム
+                'mermaid-7': { maxWidth: '1080px', scrollable: false }, // 3.1 コンプライアンステスト
+                'mermaid-8': { maxWidth: '1080px', scrollable: false }, // 3.4 プロトコルテスト
+                'mermaid-9': { maxWidth: '1080px', scrollable: false }, // 3.8 マルチプレイヤーテスト
+                'mermaid-10': { maxWidth: '1080px', scrollable: false }, // 3.10 セキュリティテスト
             };
 
             (async () => {
@@ -3186,15 +3186,15 @@
                     try {
                         const targetEl = document.getElementById(id);
                         if (!targetEl) continue;
-                        
+
                         const { svg } = await mermaid.render('svg-' + id, src);
                         targetEl.innerHTML = svg;
-                        
+
                         const svgEl = targetEl.querySelector('svg');
                         if (svgEl) {
                             const isSequence = src.includes('sequenceDiagram');
                             const settings = DIAGRAM_SETTINGS[id] || {};
-                            
+
                             // viewBoxからアスペクト比を計算して設定
                             const viewBox = svgEl.getAttribute('viewBox');
                             let vbWidth = null;
@@ -3217,13 +3217,15 @@
                             svgEl.style.height = 'auto';
                             svgEl.style.display = 'block';
                             svgEl.style.margin = '0 auto';
-                            
+
                             if (settings.maxWidth) {
                                 svgEl.style.width = '100%';
                                 svgEl.style.maxWidth = settings.maxWidth;
-                                
+
                                 if (settings.scrollable) {
-                                    const originalWidth = svgEl.getAttribute('width') || (vbWidth ? `${vbWidth}px` : null);
+                                    const originalWidth =
+                                        svgEl.getAttribute('width') ||
+                                        (vbWidth ? `${vbWidth}px` : null);
                                     if (originalWidth && !originalWidth.includes('%')) {
                                         const widthVal = parseFloat(originalWidth);
                                         svgEl.style.minWidth = `${widthVal}px`;

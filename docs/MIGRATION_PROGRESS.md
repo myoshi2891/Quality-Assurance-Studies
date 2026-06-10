@@ -300,13 +300,13 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 未着手 | HTML版未生成 |
+| `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 進行中 | HTML版生成済み、表示調整中 |
 
 ## 既知の留保事項
 
 - `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
 - `istqb-ct-aut-complete-guide.html` はリポジトリ内に存在しません（not found）。
-- `istqb-ct-gt-complete-guide.md` は対応するHTMLファイルが未生成です。
+- `istqb-ct-gt-complete-guide.html` は生成済みです。表示崩れや Mermaid の調整を実施中。
 
 ## 次回セッションでの再開プロンプト
 
