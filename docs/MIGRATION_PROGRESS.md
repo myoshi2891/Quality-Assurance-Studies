@@ -11,9 +11,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `d51f01d` |
+| 最新 HEAD | `c71bc8b` |
 | 次の作業 | CT-GT ガイドの Next.js 移行 |
-| ビルド状態 | ✅ `bun run build`（32ページ静的生成）/ `bun run lint` / `bun test`（149 pass）全て成功。 |
+| ビルド状態 | ✅ `bun run build`（33ページ静的生成）/ `bun run lint` / `bun test`（151 pass）全て成功。 |
 
 ## 2026/06/08: CT-AuT ガイドの Next.js 移行完了
 
