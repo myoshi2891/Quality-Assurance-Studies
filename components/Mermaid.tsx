@@ -38,32 +38,34 @@ export default function Mermaid({ chart }: MermaidProps) {
             const isFlowchartLR = chart.includes('flowchart LR') || chart.includes('graph LR');
             const isFlowchartTD = chart.includes('flowchart TD') || chart.includes('graph TD') || chart.includes('flowchart TB') || chart.includes('graph TB');
             
-            svgEl.style.height = 'auto';
-            svgEl.style.display = 'block';
-            svgEl.style.margin = '0 auto';
-            
-            if (isSequence) {
-              svgEl.style.width = '100%';
-              svgEl.style.maxWidth = '650px';
-            } else if (isFlowchartLR) {
-              const originalWidth = svgEl.getAttribute('width');
-              if (originalWidth && !originalWidth.includes('%')) {
-                const widthVal = parseFloat(originalWidth);
-                if (widthVal > 720) {
-                  svgEl.style.minWidth = originalWidth;
-                  svgEl.style.width = originalWidth;
+            if (svgEl.style) {
+              svgEl.style.height = 'auto';
+              svgEl.style.display = 'block';
+              svgEl.style.margin = '0 auto';
+              
+              if (isSequence) {
+                svgEl.style.width = '100%';
+                svgEl.style.maxWidth = '650px';
+              } else if (isFlowchartLR) {
+                const originalWidth = svgEl.getAttribute('width');
+                if (originalWidth && !originalWidth.includes('%')) {
+                  const widthVal = parseFloat(originalWidth);
+                  if (widthVal > 720) {
+                    svgEl.style.minWidth = originalWidth;
+                    svgEl.style.width = originalWidth;
+                  } else {
+                    svgEl.style.width = '100%';
+                    svgEl.style.maxWidth = originalWidth;
+                  }
                 } else {
-                  svgEl.style.width = '100%';
-                  svgEl.style.maxWidth = originalWidth;
+                  svgEl.style.maxWidth = '100%';
                 }
+              } else if (isFlowchartTD) {
+                svgEl.style.width = '100%';
+                svgEl.style.maxWidth = '480px';
               } else {
                 svgEl.style.maxWidth = '100%';
               }
-            } else if (isFlowchartTD) {
-              svgEl.style.width = '100%';
-              svgEl.style.maxWidth = '480px';
-            } else {
-              svgEl.style.maxWidth = '100%';
             }
             
             const serializer = new XMLSerializer();
