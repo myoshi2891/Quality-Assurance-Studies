@@ -3283,6 +3283,7 @@ style C fill:#0a1020,stroke:#cc55ff,color:#cc55ff`
             mermaid.initialize({
                 startOnLoad: false,
                 theme: 'dark',
+                fontSize: 16,
                 themeVariables: {
                     primaryColor: '#0a1020',
                     primaryTextColor: '#e2e8f0',
@@ -3296,7 +3297,7 @@ style C fill:#0a1020,stroke:#cc55ff,color:#cc55ff`
                     clusterBkg: '#0f1a2e',
                     titleColor: '#00ff88',
                     edgeLabelBackground: '#0a1020',
-                    fontSize: '14px',
+                    fontSize: '16px',
                 },
             });
 
@@ -3315,6 +3316,21 @@ style C fill:#0a1020,stroke:#cc55ff,color:#cc55ff`
                             const isFlowchartLR = src.includes('flowchart LR') || src.includes('graph LR');
                             const isFlowchartTD = src.includes('flowchart TD') || src.includes('graph TD') || src.includes('flowchart TB') || src.includes('graph TB');
                             
+                            // viewBoxからアスペクト比を計算して設定
+                            const viewBox = svgEl.getAttribute('viewBox');
+                            let vbWidth = null;
+                            let vbHeight = null;
+                            if (viewBox) {
+                                const parts = viewBox.split(/\s+/);
+                                if (parts.length === 4) {
+                                    vbWidth = parseFloat(parts[2]);
+                                    vbHeight = parseFloat(parts[3]);
+                                    if (!isNaN(vbWidth) && !isNaN(vbHeight) && vbHeight > 0) {
+                                        svgEl.style.aspectRatio = `${vbWidth} / ${vbHeight}`;
+                                    }
+                                }
+                            }
+
                             svgEl.style.height = 'auto';
                             svgEl.style.display = 'block';
                             svgEl.style.margin = '0 auto';
@@ -3323,23 +3339,26 @@ style C fill:#0a1020,stroke:#cc55ff,color:#cc55ff`
                                 svgEl.style.width = '100%';
                                 svgEl.style.maxWidth = '650px';
                             } else if (isFlowchartLR) {
-                                const originalWidth = svgEl.getAttribute('width');
+                                const originalWidth = svgEl.getAttribute('width') || (vbWidth ? `${vbWidth}px` : null);
                                 if (originalWidth && !originalWidth.includes('%')) {
                                     const widthVal = parseFloat(originalWidth);
                                     if (widthVal > 720) {
-                                        svgEl.style.minWidth = originalWidth;
-                                        svgEl.style.width = originalWidth;
+                                        svgEl.style.minWidth = `${widthVal}px`;
+                                        svgEl.style.width = `${widthVal}px`;
+                                        svgEl.style.maxWidth = 'none'; // 横スクロール可能にするために制限を解除
                                     } else {
                                         svgEl.style.width = '100%';
-                                        svgEl.style.maxWidth = originalWidth;
+                                        svgEl.style.maxWidth = `${widthVal}px`;
                                     }
                                 } else {
+                                    svgEl.style.width = '100%';
                                     svgEl.style.maxWidth = '100%';
                                 }
                             } else if (isFlowchartTD) {
                                 svgEl.style.width = '100%';
                                 svgEl.style.maxWidth = '480px';
                             } else {
+                                svgEl.style.width = '100%';
                                 svgEl.style.maxWidth = '100%';
                             }
                         }

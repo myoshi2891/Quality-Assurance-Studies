@@ -7,6 +7,7 @@ mermaid.initialize({
   startOnLoad: false,
   theme: 'dark', // サイトに合わせてダークテーマかベーステーマを使用
   fontFamily: 'var(--font-body)',
+  fontSize: 16,
 });
 
 interface MermaidProps {

@@ -2858,21 +2858,21 @@
             const DIAGRAMS = {
                 'mermaid-0': `graph TB
     subgraph Foundation["📚 Foundation Level（必須）"]
-        CTFL["CTFL v4.0\\nCertified Tester Foundation Level"]
+        CTFL["CTFL v4.0<br/>Certified Tester Foundation Level"]
     end
     subgraph Specialist["⭐ Specialist Stream"]
-        CTGT["🎰 CT-GT\\nGambling Industry Tester\\n← ここ！"]
-        CTAI["CT-AI\\nAI Testing"]
-        CTUT["CT-UT\\nUsability Testing"]
-        CTSEC["CT-SEC\\nSecurity Tester"]
-        CTMAT["CT-MAT\\nMobile App Testing"]
-        CTGAME["CT-GaMe\\nGame Testing"]
+        CTGT["🎰 CT-GT<br/>Gambling Industry Tester<br/>← ここ！"]
+        CTAI["CT-AI<br/>AI Testing"]
+        CTUT["CT-UT<br/>Usability Testing"]
+        CTSEC["CT-SEC<br/>Security Tester"]
+        CTMAT["CT-MAT<br/>Mobile App Testing"]
+        CTGAME["CT-GaMe<br/>Game Testing"]
     end
     subgraph Advanced["🎓 Advanced Level"]
-        TM["CTAL-TM v3.0\\nTest Management"]
-        TA["CTAL-TA v4.0\\nTest Analyst"]
-        TTA["CTAL-TTA\\nTech Test Analyst"]
-        TAE["CTAL-TAE v2.0\\nTest Automation Eng"]
+        TM["CTAL-TM v3.0<br/>Test Management"]
+        TA["CTAL-TA v4.0<br/>Test Analyst"]
+        TTA["CTAL-TTA<br/>Tech Test Analyst"]
+        TAE["CTAL-TAE v2.0<br/>Test Automation Eng"]
     end
     CTFL --> CTGT
     CTFL --> CTAI
@@ -2889,26 +2889,26 @@
     style Advanced fill:#2d4a1a,stroke:#6ab04c,color:#e2e8f0
     style Specialist fill:#4a1a3a,stroke:#d48ab0,color:#e2e8f0`,
                 'mermaid-1': `graph TB
-    Root["🎰 ギャンブルの種類\\n(Types of Gambling)"]
-    Root --> Casino["🏛️ カジノゲーム\\nCasino Games"]
-    Root --> Lottery["🎫 宝くじシステム\\nLottery Systems"]
-    Root --> Racing["🏇 競馬・スポーツ賭け\\nRace & Sports Wagering"]
-    Root --> Online["📱 オンライン・モバイル\\nOnline & Mobile Gambling"]
-    Casino --> C1["スロットマシン\\nSlot Machines"]
-    Casino --> C2["テーブルゲーム\\nBlackjack/Roulette"]
-    Casino --> C3["ポーカー\\nPoker"]
-    Casino --> C4["ビデオポーカー\\nVideo Poker"]
-    Lottery --> L1["ビデオ宝くじ端末\\nVLT (Video Lottery Terminals)"]
-    Lottery --> L2["インスタントくじ\\nInstant Scratch"]
-    Lottery --> L3["キノ\\nKeno"]
-    Lottery --> L4["ナンバーズゲーム\\nNumbers Games"]
-    Racing --> R1["競馬ベッティング\\nHorse Racing"]
-    Racing --> R2["スポーツブック\\nSports Book"]
-    Racing --> R3["パリミュエル式\\nPari-mutuel"]
-    Online --> O1["オンラインカジノ\\nOnline Casino"]
-    Online --> O2["ライブディーラー\\nLive Dealer"]
-    Online --> O3["モバイルギャンブル\\nMobile Apps"]
-    Online --> O4["ゲーミフィケーション\\nSocial Gaming"]
+    Root["🎰 ギャンブルの種類<br/>(Types of Gambling)"]
+    Root --> Casino["🏛️ カジノゲーム<br/>Casino Games"]
+    Root --> Lottery["🎫 宝くじシステム<br/>Lottery Systems"]
+    Root --> Racing["🏇 競馬・スポーツ賭け<br/>Race & Sports Wagering"]
+    Root --> Online["📱 オンライン・モバイル<br/>Online & Mobile Gambling"]
+    Casino --> C1["スロットマシン<br/>Slot Machines"]
+    Casino --> C2["テーブルゲーム<br/>Blackjack/Roulette"]
+    Casino --> C3["ポーカー<br/>Poker"]
+    Casino --> C4["ビデオポーカー<br/>Video Poker"]
+    Lottery --> L1["ビデオ宝くじ端末<br/>VLT (Video Lottery Terminals)"]
+    Lottery --> L2["インスタントくじ<br/>Instant Scratch"]
+    Lottery --> L3["キノ<br/>Keno"]
+    Lottery --> L4["ナンバーズゲーム<br/>Numbers Games"]
+    Racing --> R1["競馬ベッティング<br/>Horse Racing"]
+    Racing --> R2["スポーツブック<br/>Sports Book"]
+    Racing --> R3["パリミュエル式<br/>Pari-mutuel"]
+    Online --> O1["オンラインカジノ<br/>Online Casino"]
+    Online --> O2["ライブディーラー<br/>Live Dealer"]
+    Online --> O3["モバイルギャンブル<br/>Mobile Apps"]
+    Online --> O4["ゲーミフィケーション<br/>Social Gaming"]
     style Root fill:#d4a017,stroke:#f0c040,color:#000,font-weight:bold
     style Casino fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
     style Lottery fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
@@ -2934,18 +2934,18 @@
     JP->>Jackpot: シードバリューにリセット
     Note over Jackpot: リセット: $10,000（シード値）`,
                 'mermaid-3': `flowchart TD
-    A["📋 ゲーム設計\\nGame Design\\n・ゲームメカニクス設計\\n・数学モデル設計\\n・RTP設定"] 
-    --> B["💻 開発\\nDevelopment\\n・ゲームエンジン実装\\n・RNG統合\\n・プラットフォーム実装"]
-    --> C["🔬 内部QAテスト\\nInternal QA Test\\n・機能テスト\\n・数学テスト\\n・プレイヤー体験テスト"]
-    --> D{"内部QA\\n合格?"}
+    A["📋 ゲーム設計<br/>Game Design<br/>・ゲームメカニクス設計<br/>・数学モデル設計<br/>・RTP設定"] 
+    --> B["💻 開発<br/>Development<br/>・ゲームエンジン実装<br/>・RNG統合<br/>・プラットフォーム実装"]
+    --> C["🔬 内部QAテスト<br/>Internal QA Test<br/>・機能テスト<br/>・数学テスト<br/>・プレイヤー体験テスト"]
+    --> D{"内部QA<br/>合格?"}
     D -->|NO: 欠陥修正| B
-    D -->|YES| E["📤 ITL提出\\nIndependent Test Lab\\nSubmission\\n・認証テストパッケージ作成\\n・書類準備"]
-    --> F["🏛️ 独立テストラボ\\n（ITL）コンプライアンステスト\\n・GLI / BMM / NMi等\\n・管轄別規制検証\\n・RNG認証"]
-    --> G{"ITL\\n合格?"}
+    D -->|YES| E["📤 ITL提出<br/>Independent Test Lab<br/>Submission<br/>・認証テストパッケージ作成<br/>・書類準備"]
+    --> F["🏛️ 独立テストラボ<br/>（ITL）コンプライアンステスト<br/>・GLI / BMM / NMi等<br/>・管轄別規制検証<br/>・RNG認証"]
+    --> G{"ITL<br/>合格?"}
     G -->|NO: 欠陥修正| B
-    G -->|YES| H["📜 規制機関承認\\nRegulatory Approval\\n・管轄規制機関へ申請\\n・最終認証取得"]
-    --> I["🚀 デプロイ\\nDeployment\\n・特定管轄でのリリース\\n・本番環境テスト"]
-    --> J["📊 モニタリング\\nMonitoring\\n・本番環境での継続的監視\\n・インシデント対応"]
+    G -->|YES| H["📜 規制機関承認<br/>Regulatory Approval<br/>・管轄規制機関へ申請<br/>・最終認証取得"]
+    --> I["🚀 デプロイ<br/>Deployment<br/>・特定管轄でのリリース<br/>・本番環境テスト"]
+    --> J["📊 モニタリング<br/>Monitoring<br/>・本番環境での継続的監視<br/>・インシデント対応"]
     style A fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
     style B fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
     style C fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0
@@ -2956,11 +2956,11 @@
     style J fill:#37474f,stroke:#78909c,color:#e2e8f0`,
                 'mermaid-4': `graph TB
     subgraph VLT["VLT エコシステム"]
-        Central["VLTセントラルシステム\\nRNG搭載（政府管理）"]
+        Central["VLTセントラルシステム<br/>RNG搭載（政府管理）"]
         T1["VLT端末 1"]
         T2["VLT端末 2"]
         T3["VLT端末 3"]
-        Monitor["規制機関\\nモニタリングシステム"]
+        Monitor["規制機関<br/>モニタリングシステム"]
         T1 <-->|暗号化通信| Central
         T2 <-->|暗号化通信| Central
         T3 <-->|暗号化通信| Central
@@ -2971,14 +2971,14 @@
     style VLT fill:#1a1a2e,stroke:#4a90d9,color:#e2e8f0`,
                 'mermaid-5': `graph LR
     subgraph Casino["カジノフロア"]
-        EGM1["EGM 1\\nRNG内蔵"]
-        EGM2["EGM 2\\nRNG内蔵"]
-        EGM3["EGM 3\\nRNG内蔵"]
+        EGM1["EGM 1<br/>RNG内蔵"]
+        EGM2["EGM 2<br/>RNG内蔵"]
+        EGM3["EGM 3<br/>RNG内蔵"]
     end
     subgraph Backend["バックエンドシステム"]
-        CMS["CMS\\nカジノ管理システム"]
-        JP["JPコントローラー\\nジャックポット管理"]
-        Report["レポーティング\\nシステム"]
+        CMS["CMS<br/>カジノ管理システム"]
+        JP["JPコントローラー<br/>ジャックポット管理"]
+        Report["レポーティング<br/>システム"]
     end
     EGM1 <-->|SAS/G2S Protocol| CMS
     EGM2 <-->|SAS/G2S Protocol| CMS
@@ -2998,32 +2998,32 @@
         Tablet["タブレット"]
     end
     subgraph CDN["🌐 CDN / ロードバサー"]
-        LB["負荷分散\\nLoad Balancer"]
+        LB["負荷分散<br/>Load Balancer"]
     end
     subgraph Platform["🖥️ ゲームプラットフォーム"]
         API["プラットフォームAPI"]
-        Auth["認証\\nAuthentication"]
-        Wallet["ウォレット\\nシステム"]
-        Geo["ジオロケーション\\nサービス"]
-        KYC["KYC\\n本人確認"]
-        RG["責任ある賭博\\nEngine"]
+        Auth["認証<br/>Authentication"]
+        Wallet["ウォレット<br/>システム"]
+        Geo["ジオロケーション<br/>サービス"]
+        KYC["KYC<br/>本人確認"]
+        RG["責任ある賭博<br/>Engine"]
     end
     subgraph Game["🎮 ゲームコンテンツ"]
         GameServer["ゲームサーバー"]
         RNG2["RNGサービス"]
         Math["数学エンジン"]
-        LiveDealer["ライブディーラー\\nスタジオ"]
+        LiveDealer["ライブディーラー<br/>スタジオ"]
     end
     subgraph Backend["🔧 バックエンド"]
-        CRM["CRM\\nプレイヤー管理"]
-        Bonus["ボーナス\\nエンジン"]
-        Report["レポーティング\\n・分析"]
-        AML["マネーロンダリング\\n防止（AML）"]
+        CRM["CRM<br/>プレイヤー管理"]
+        Bonus["ボーナス<br/>エンジン"]
+        Report["レポーティング<br/>・分析"]
+        AML["マネーロンダリング<br/>防止（AML）"]
     end
     subgraph Payment["💳 決済"]
-        PSP["決済サービス\\nプロバイダー"]
+        PSP["決済サービス<br/>プロバイダー"]
         Bank["銀行振込"]
-        EWallet["電子ウォレット\\ne-Wallet"]
+        EWallet["電子ウォレット<br/>e-Wallet"]
         Crypto["仮想通貨"]
     end
     Player --> CDN
@@ -3041,18 +3041,18 @@
     participant ITL as 独立テストラボ (ITL)
     participant Reg as 規制機関
     Dev->>Dev: 内部テスト実施
-    Dev->>ITL: 認証申請\\n（テストパッケージ提出）
-    Note over ITL: 技術文書審査\\nRNG統計検定\\nコンプライアンス確認
+    Dev->>ITL: 認証申請<br/>（テストパッケージ提出）
+    Note over ITL: 技術文書審査<br/>RNG統計検定<br/>コンプライアンス確認
     alt 不合格の場合
-        ITL-->>Dev: 欠陥レポート\\n（Defect Report）
+        ITL-->>Dev: 欠陥レポート<br/>（Defect Report）
         Dev->>Dev: 欠陥修正
         Dev->>ITL: 再提出
     end
-    ITL->>Dev: コンプライアンス証明書\\n（Compliance Certificate）発行
-    Dev->>Reg: 管轄認証申請\\n（ITL証明書添付）
-    Note over Reg: 書類審査\\n必要に応じ追加テスト
+    ITL->>Dev: コンプライアンス証明書<br/>（Compliance Certificate）発行
+    Dev->>Reg: 管轄認証申請<br/>（ITL証明書添付）
+    Note over Reg: 書類審査<br/>必要に応じ追加テスト
     alt 承認
-        Reg->>Dev: デプロイ許可\\n（Gaming License）
+        Reg->>Dev: デプロイ許可<br/>（Gaming License）
     else 不承認
         Reg-->>Dev: 修正要求
     end`,
@@ -3106,22 +3106,22 @@
                 'mermaid-10': `graph TB
     subgraph SecDomains["🔒 ギャンブルシステムのセキュリティテスト領域"]
         subgraph GameSec["ゲームセキュリティ"]
-            RNG_Sec["RNG改ざん防止テスト\\n・メモリ改ざん検出\\n・外部操作不可確認"]
-            Payout_Sec["ペイアウト不正防止\\n・パリティチェック\\n・二重支払い防止"]
+            RNG_Sec["RNG改ざん防止テスト<br/>・メモリ改ざん検出<br/>・外部操作不可確認"]
+            Payout_Sec["ペイアウト不正防止<br/>・パリティチェック<br/>・二重支払い防止"]
         end
         subgraph NetSec["ネットワークセキュリティ"]
-            Encrypt["暗号化テスト\\n・TLS 1.3\\n・エンドツーエンド暗号化"]
-            DDoS["DDoS耐性テスト\\n・高負荷時の動作確認"]
-            Firewall["ファイアウォール\\nペネトレーションテスト"]
+            Encrypt["暗号化テスト<br/>・TLS 1.3<br/>・エンドツーエンド暗号化"]
+            DDoS["DDoS耐性テスト<br/>・高負荷時の動作確認"]
+            Firewall["ファイアウォール<br/>ペネトレーションテスト"]
         end
         subgraph PlayerSec["プレイヤーセキュリティ"]
-            GeoBlock["ジオブロッキングテスト\\n・VPN検出\\n・プロキシ検出\\n・IPブラックリスト"]
-            AgeVerify["年齢確認テスト\\n・KYCフロー検証\\n・バイパス試行テスト"]
-            DataPrivacy["個人情報保護テスト\\n・GDPR準拠\\n・データ最小化"]
+            GeoBlock["ジオブロッキングテスト<br/>・VPN検出<br/>・プロキシ検出<br/>・IPブラックリスト"]
+            AgeVerify["年齢確認テスト<br/>・KYCフロー検証<br/>・バイパス試行テスト"]
+            DataPrivacy["個人情報保護テスト<br/>・GDPR準拠<br/>・データ最小化"]
         end
         subgraph FinanceSec["金融セキュリティ"]
-            AML_Test["AML（マネーロンダリング防止）\\n・大額取引検出\\n・不審パターン検知"]
-            Payment_Sec["決済セキュリティテスト\\n・PCI-DSS準拠\\n・不正取引検出"]
+            AML_Test["AML（マネーロンダリング防止）<br/>・大額取引検出<br/>・不審パターン検知"]
+            Payment_Sec["決済セキュリティテスト<br/>・PCI-DSS準拠<br/>・不正取引検出"]
         end
     end
     style GameSec fill:#c62828,stroke:#ef5350,color:#e2e8f0
@@ -3133,6 +3133,7 @@
             mermaid.initialize({
                 startOnLoad: false,
                 theme: 'dark',
+                fontSize: 16,
                 themeVariables: {
                     primaryColor: '#1e293b',
                     primaryTextColor: '#e2e8f0',
@@ -3148,7 +3149,7 @@
                     titleColor: '#00ff88',
                     edgeLabelBackground: '#0d1117',
                     nodeTextColor: '#e2e8f0',
-                    fontSize: '14px',
+                    fontSize: '16px',
                     fontFamily: 'IBM Plex Sans JP, sans-serif',
                 },
                 sequence: {
@@ -3178,6 +3179,21 @@
                             const isFlowchartLR = src.includes('flowchart LR') || src.includes('graph LR');
                             const isFlowchartTD = src.includes('flowchart TD') || src.includes('graph TD') || src.includes('flowchart TB') || src.includes('graph TB');
                             
+                            // viewBoxからアスペクト比を計算して設定
+                            const viewBox = svgEl.getAttribute('viewBox');
+                            let vbWidth = null;
+                            let vbHeight = null;
+                            if (viewBox) {
+                                const parts = viewBox.split(/\s+/);
+                                if (parts.length === 4) {
+                                    vbWidth = parseFloat(parts[2]);
+                                    vbHeight = parseFloat(parts[3]);
+                                    if (!isNaN(vbWidth) && !isNaN(vbHeight) && vbHeight > 0) {
+                                        svgEl.style.aspectRatio = `${vbWidth} / ${vbHeight}`;
+                                    }
+                                }
+                            }
+
                             svgEl.style.height = 'auto';
                             svgEl.style.display = 'block';
                             svgEl.style.margin = '0 auto';
@@ -3186,23 +3202,26 @@
                                 svgEl.style.width = '100%';
                                 svgEl.style.maxWidth = '650px';
                             } else if (isFlowchartLR) {
-                                const originalWidth = svgEl.getAttribute('width');
+                                const originalWidth = svgEl.getAttribute('width') || (vbWidth ? `${vbWidth}px` : null);
                                 if (originalWidth && !originalWidth.includes('%')) {
                                     const widthVal = parseFloat(originalWidth);
                                     if (widthVal > 720) {
-                                        svgEl.style.minWidth = originalWidth;
-                                        svgEl.style.width = originalWidth;
+                                        svgEl.style.minWidth = `${widthVal}px`;
+                                        svgEl.style.width = `${widthVal}px`;
+                                        svgEl.style.maxWidth = 'none'; // 横スクロール可能にするために制限を解除
                                     } else {
                                         svgEl.style.width = '100%';
-                                        svgEl.style.maxWidth = originalWidth;
+                                        svgEl.style.maxWidth = `${widthVal}px`;
                                     }
                                 } else {
+                                    svgEl.style.width = '100%';
                                     svgEl.style.maxWidth = '100%';
                                 }
                             } else if (isFlowchartTD) {
                                 svgEl.style.width = '100%';
                                 svgEl.style.maxWidth = '480px';
                             } else {
+                                svgEl.style.width = '100%';
                                 svgEl.style.maxWidth = '100%';
                             }
                         }
