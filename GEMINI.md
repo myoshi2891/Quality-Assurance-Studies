@@ -190,4 +190,3 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ## 既知の留保事項
 
 - `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
-）
