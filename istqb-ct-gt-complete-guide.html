@@ -1051,12 +1051,15 @@
                 border: 1px solid var(--border-dim);
                 border-radius: 8px;
                 padding: 1.5rem;
-                margin: 1.5rem 0;
+                margin: 1.5rem auto;
+                max-width: 760px;
+                width: 100%;
                 overflow-x: auto;
             }
             .mermaid-wrap .mermaid {
                 display: flex;
                 justify-content: center;
+                width: 100%;
             }
 
             /* ===== DIVIDER ===== */
@@ -1299,21 +1302,7 @@
 
                 <h3 class="section-title">ISTQB® 資格ロードマップ</h3>
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        graph TB subgraph Foundation["📚 Foundation Level（必須）"] CTFL["CTFL
-                        v4.0&#xa;Certified Tester Foundation Level"] end subgraph Specialist["⭐
-                        Specialist Stream"] CTGT["🎰 CT-GT&#xa;Gambling Industry Tester&#xa;←
-                        本資格"] CTAI["CT-AI&#xa;AI Testing"] CTUT["CT-UT&#xa;Usability Testing"]
-                        CTSEC["CT-SEC&#xa;Security Tester"] CTGAME["CT-GaMe&#xa;Game Testing"] end
-                        subgraph Advanced["🎓 Advanced Level"] TM["CTAL-TM&#xa;Test Management"]
-                        TA["CTAL-TA&#xa;Test Analyst"] TAE["CTAL-TAE&#xa;Test Automation Eng"] end
-                        CTFL --> CTGT CTFL --> CTAI CTFL --> CTUT CTFL --> CTSEC CTFL --> CTGAME
-                        CTFL --> TM CTFL --> TA CTFL --> TAE style CTGT
-                        fill:#d4a017,stroke:#f0c040,color:#000 style Foundation
-                        fill:#1a3a5c,stroke:#4a90d9,color:#e2e8f0 style Specialist
-                        fill:#2a1a3a,stroke:#7c3aed,color:#e2e8f0 style Advanced
-                        fill:#1a3a1a,stroke:#00ff88,color:#e2e8f0
-                    </div>
+                    <div id="mermaid-0" class="mermaid"></div>
                 </div>
             </section>
 
@@ -1363,24 +1352,7 @@
                 <!-- 1.2 Types of Gambling -->
                 <h3 class="section-title">1.2 ギャンブルの種類 <span class="k-badge">K1</span></h3>
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        graph TB Root["🎰 ギャンブルの種類"] Root --> Casino["🏛️
-                        カジノゲーム&#xa;Casino Games"] Root --> Lottery["🎫
-                        宝くじシステム&#xa;Lottery Systems"] Root --> Racing["🏇
-                        競馬・スポーツ&#xa;Race &amp; Sports Wagering"] Root --> Online["📱
-                        オンライン&#xa;Online Gambling"] Casino --> C1["スロットマシン&#xa;Slot
-                        Machines"] Casino --> C2["テーブルゲーム&#xa;Blackjack / Roulette"] Casino
-                        --> C3["ポーカー / ビデオポーカー"] Lottery --> L1["VLT&#xa;Video Lottery
-                        Terminals"] Lottery --> L2["インスタントくじ"] Lottery --> L3["キノ /
-                        数字ゲーム"] Racing --> R1["競馬ベッティング"] Racing -->
-                        R2["スポーツブック"] Racing --> R3["パリミュエル式"] Online -->
-                        O1["オンラインカジノ"] Online --> O2["ライブディーラー"] Online -->
-                        O3["モバイルアプリ"] style Root fill:#d4a017,stroke:#f0c040,color:#000 style
-                        Casino fill:#1565c0,stroke:#42a5f5,color:#e2e8f0 style Lottery
-                        fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0 style Racing
-                        fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0 style Online
-                        fill:#b45309,stroke:#fbbf24,color:#e2e8f0
-                    </div>
+                    <div id="mermaid-1" class="mermaid"></div>
                 </div>
 
                 <!-- 1.3 Key Concepts -->
@@ -1478,59 +1450,30 @@
                     </table>
                 </div>
 
+                <!-- prettier-ignore -->
                 <div class="code-block" data-lang="Python">
-                    <span class="code-comment"
-                        ># RTP計算の概念例（数学テストで実際に実施する検証）</span
-                    >
-                    <span class="code-keyword">class</span>
-                    <span class="code-cyan">MathVerifier</span>:
-                    <span class="code-keyword">def</span>
-                    <span class="code-green">simulate_rtp</span>(<span class="code-white">self</span
-                    >, <span class="code-white">game_engine</span>,
-                    <span class="code-white">iterations</span>=<span class="code-num"
-                        >10_000_000</span
-                    >) -&gt; <span class="code-cyan">dict</span>:
-                    <span class="code-string"
-                        >""" 数百万〜数十億回のシミュレーションで実際RTPlimitを算出し
-                        理論値との誤差が許容範囲内か検証する """</span
-                    >
-                    <span class="code-white">total_bet</span>,
-                    <span class="code-white">total_win</span> = <span class="code-num">0</span>,
-                    <span class="code-num">0</span>
+                    <code><span class="code-comment"># RTP計算の概念例（数学テストで実際に実施する検証）</span>
+<span class="code-keyword">class</span> <span class="code-cyan">MathVerifier</span>:
+    <span class="code-keyword">def</span> <span class="code-green">simulate_rtp</span>(<span class="code-white">self</span>, <span class="code-white">game_engine</span>, <span class="code-white">iterations</span>=<span class="code-num">10_000_000</span>) -&gt; <span class="code-cyan">dict</span>:
+        <span class="code-string">""" 数百万〜数十億回のシミュレーションで実際RTPを算出し
+        理論値との誤差が許容範囲内か検証する """</span>
+        <span class="code-white">total_bet</span>, <span class="code-white">total_win</span> = <span class="code-num">0</span>, <span class="code-num">0</span>
 
-                    <span class="code-keyword">for</span> <span class="code-white">_</span>
-                    <span class="code-keyword">in</span> <span class="code-cyan">range</span>(<span
-                        class="code-white"
-                        >iterations</span
-                    >): <span class="code-white">bet</span> = <span class="code-num">1.0</span>
-                    <span class="code-white">result</span> =
-                    <span class="code-white">game_engine</span>.<span class="code-green">spin</span
-                    >(<span class="code-white">bet</span>)
-                    <span class="code-white">total_bet</span> += <span class="code-white">bet</span>
-                    <span class="code-white">total_win</span> +=
-                    <span class="code-white">result</span>.<span class="code-white">payout</span>
+        <span class="code-keyword">for</span> <span class="code-white">_</span> <span class="code-keyword">in</span> <span class="code-cyan">range</span>(<span class="code-white">iterations</span>):
+            <span class="code-white">bet</span> = <span class="code-num">1.0</span>
+            <span class="code-white">result</span> = <span class="code-white">game_engine</span>.<span class="code-green">spin</span>(<span class="code-white">bet</span>)
+            <span class="code-white">total_bet</span> += <span class="code-white">bet</span>
+            <span class="code-white">total_win</span> += <span class="code-white">result</span>.<span class="code-white">payout</span>
 
-                    <span class="code-white">actual_rtp</span> = (<span class="code-white"
-                        >total_win</span
-                    >
-                    / <span class="code-white">total_bet</span>) * <span class="code-num">100</span>
-                    <span class="code-white">deviation</span> =
-                    <span class="code-cyan">abs</span>(<span class="code-white">actual_rtp</span> -
-                    <span class="code-white">game_engine</span>.<span class="code-white"
-                        >theoretical_rtp</span
-                    >)
+        <span class="code-white">actual_rtp</span> = (<span class="code-white">total_win</span> / <span class="code-white">total_bet</span>) * <span class="code-num">100</span>
+        <span class="code-white">deviation</span> = <span class="code-cyan">abs</span>(<span class="code-white">actual_rtp</span> - <span class="code-white">game_engine</span>.<span class="code-white">theoretical_rtp</span>)
 
-                    <span class="code-keyword">return</span> {
-                    <span class="code-string">"theoretical_rtp"</span>:
-                    <span class="code-white">game_engine</span>.<span class="code-white"
-                        >theoretical_rtp</span
-                    >, <span class="code-string">"simulated_rtp"</span>:
-                    <span class="code-white">actual_rtp</span>,
-                    <span class="code-string">"deviation"</span>:
-                    <span class="code-white">deviation</span>,
-                    <span class="code-string">"passes"</span>:
-                    <span class="code-white">deviation</span> &lt; <span class="code-num">0.5</span>
-                    <span class="code-comment"># 0.5%以内が許容誤差</span> }
+        <span class="code-keyword">return</span> {
+            <span class="code-string">"theoretical_rtp"</span>: <span class="code-white">game_engine</span>.<span class="code-white">theoretical_rtp</span>,
+            <span class="code-string">"simulated_rtp"</span>: <span class="code-white">actual_rtp</span>,
+            <span class="code-string">"deviation"</span>: <span class="code-white">deviation</span>,
+            <span class="code-string">"passes"</span>: <span class="code-white">deviation</span> &lt; <span class="code-num">0.5</span> <span class="code-comment"># 0.5%以内が許容誤差</span>
+        }</code>
                 </div>
 
                 <h4 class="sub-title">🎰 プログレッシブジャックポット（Progressive Jackpots）</h4>
@@ -1539,15 +1482,7 @@
                     >複数台のEGM（または複数カジノ）からのベットの一定割合を累積プールに加算し、特定の条件達成時に累積額を全額払い出す仕組み。
                 </p>
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        sequenceDiagram participant P1 as プレイヤーA participant EGM as EGM端末
-                        participant JP as JPコントローラー participant Pool as 累積プール P1->>EGM:
-                        ベット $1.00 EGM->>JP: 拠出 $0.005 (0.5%) JP->>Pool: 累積額に加算 Note over
-                        Pool: $1,000,000 → $1,000,005 Note over P1,EGM: ジャックポット当選条件達成！
-                        EGM->>JP: JP当選通知 JP->>JP: 当選検証・承認 JP->>EGM: 払い出し指示
-                        EGM->>P1: 累積額 $1,000,005 全額支払い JP->>Pool: シード値にリセット
-                        ($10,000)
-                    </div>
+                    <div id="mermaid-2" class="mermaid"></div>
                 </div>
 
                 <!-- 1.4 Metrics -->
@@ -1588,23 +1523,7 @@
                     <span class="k-badge">K2</span>
                 </h3>
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart TD A["📋
-                        ゲーム設計&#xa;・ゲームメカニクス&#xa;・数学モデル設計&#xa;・RTP設定"] B["💻
-                        開発&#xa;・ゲームエンジン実装&#xa;・RNG統合&#xa;・プラットフォーム実装"]
-                        C["🔬
-                        内部QAテスト&#xa;・機能テスト&#xa;・数学テスト&#xa;・プレイヤー体験テスト"]
-                        D{"内部QA&#xa;合格?"} E["📤 ITL提出&#xa;・認証パッケージ&#xa;・書類準備"]
-                        F["🏛️ ITLコンプライアンステスト&#xa;・GLI / BMM /
-                        NMi等&#xa;・RNG認証・管轄規制検証"] G{"ITL&#xa;合格?"} H["📜
-                        規制機関承認&#xa;・管轄当局への申請&#xa;・最終認証取得"] I["🚀
-                        本番デプロイ"] J["📊 継続的モニタリング"] A --> B --> C --> D D -->|"❌
-                        欠陥修正"| B D -->|"✅ OK"| E --> F --> G G -->|"❌ 欠陥修正"| B G -->|"✅
-                        OK"| H --> I --> J style A fill:#1565c0,stroke:#42a5f5,color:#e2e8f0 style F
-                        fill:#c62828,stroke:#ef5350,color:#e2e8f0 style H
-                        fill:#d4a017,stroke:#f0c040,color:#000 style I
-                        fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
-                    </div>
+                    <div id="mermaid-3" class="mermaid"></div>
                 </div>
 
                 <h4 class="sub-title">独立テストラボ（ITL: Independent Test Lab）</h4>
@@ -1808,16 +1727,7 @@
                 </div>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        graph TB subgraph VLT["VLT エコシステム"]
-                        Central["VLTセントラルシステム&#xa;RNG搭載（政府管理）"] T1["VLT端末 1"]
-                        T2["VLT端末 2"] T3["VLT端末 3"] Monitor["規制機関&#xa;モニタリングシステム"]
-                        T1 <-->|"暗号化通信"| Central T2 <-->|"暗号化通信"| Central T3
-                        <-->|"暗号化通信"| Central Central --> Monitor end style Central
-                        fill:#c62828,stroke:#ef5350,color:#e2e8f0 style Monitor
-                        fill:#1565c0,stroke:#42a5f5,color:#e2e8f0 style VLT
-                        fill:#1a1a2e,stroke:#4a90d9,color:#e2e8f0
-                    </div>
+                    <div id="mermaid-4" class="mermaid"></div>
                 </div>
 
                 <!-- 2.3 EGM / Slot Machine Ecosystem -->
@@ -1873,19 +1783,7 @@
                 </div>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        graph LR subgraph Casino["カジノフロア"] EGM1["EGM 1&#xa;RNG内蔵"] EGM2["EGM
-                        2&#xa;RNG内蔵"] EGM3["EGM 3&#xa;RNG内蔵"] end subgraph
-                        Backend["バックエンドシステム"] CMS["CMS&#xa;カジノ管理システム"]
-                        JP["JPコントローラー&#xa;ジャックポット管理"]
-                        Report["レポーティング&#xa;システム"] end EGM1 <-->|"SAS/G2S"| CMS EGM2
-                        <-->|"SAS/G2S"| CMS EGM3 <-->|"SAS/G2S"| CMS EGM1 -->|"JP拠出"| JP EGM2
-                        -->|"JP拠出"| JP JP -->|"JP払い出し指示"| EGM2 CMS --> Report style CMS
-                        fill:#1565c0,stroke:#42a5f5,color:#e2e8f0 style JP
-                        fill:#d4a017,stroke:#f0c040,color:#000 style Casino
-                        fill:#1a2a1a,stroke:#00ff88,color:#e2e8f0 style Backend
-                        fill:#1a1a3a,stroke:#7c3aed,color:#e2e8f0
-                    </div>
+                    <div id="mermaid-5" class="mermaid"></div>
                 </div>
 
                 <!-- 2.4 Lottery Ecosystem -->
@@ -1946,22 +1844,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart TB subgraph Players["👤 プレイヤー"] PC["PCブラウザ"]
-                        Mobile["モバイルApp"] end subgraph Platform["🖥️ プラットフォーム層"]
-                        Auth["認証&#xa;Authentication"] Wallet["ウォレット"] Geo["ジオロケーション"]
-                        KYC["KYC本人確認"] RG["責任ある賭博&#xa;エンジン"] end subgraph Games["🎮
-                        ゲームコンテンツ"] GameSrv["ゲームサーバー"] RNG2["RNGサービス"]
-                        Live["ライブディーラー"] end subgraph Backend["🔧 バックエンド"]
-                        Bonus["ボーナスエンジン"] AML["AML監視"] CRM["CRM"] end subgraph Payment["💳
-                        決済"] PSP["決済サービス"] EWallet["電子ウォレット"] end Players -->
-                        Platform Platform --> Games Platform --> Backend Platform --> Payment style
-                        Platform fill:#1565c0,stroke:#42a5f5,color:#e2e8f0 style Games
-                        fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0 style Backend
-                        fill:#37474f,stroke:#78909c,color:#e2e8f0 style Payment
-                        fill:#b45309,stroke:#fbbf24,color:#e2e8f0 style Players
-                        fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
-                    </div>
+                    <div id="mermaid-6" class="mermaid"></div>
                 </div>
 
                 <div class="compare">
@@ -2058,15 +1941,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        sequenceDiagram actor Dev as 開発チーム participant ITL as 独立テストラボ
-                        (ITL) participant Reg as 規制機関 Dev->>Dev: 内部テスト実施 Dev->>ITL:
-                        認証申請（テストパッケージ提出） Note over ITL:
-                        技術文書審査&#xa;RNG統計検定&#xa;コンプライアンス確認 alt 不合格 ITL-->>Dev:
-                        欠陥レポート Dev->>Dev: 欠陥修正 Dev->>ITL: 再提出 end ITL->>Dev:
-                        コンプライアンス証明書発行 Dev->>Reg: 管轄認証申請（証明書添付） Reg->>Dev:
-                        デプロイ許可（Gaming License）
-                    </div>
+                    <div id="mermaid-7" class="mermaid"></div>
                 </div>
 
                 <div class="table-wrap">
@@ -2125,69 +2000,33 @@
                     </div>
                 </div>
 
+                <!-- prettier-ignore -->
                 <div class="code-block" data-lang="Python">
-                    <span class="code-comment"
-                        ># 数学検証：RTP・ボラティリティ・ヒット率を同時検証する例</span
-                    >
-                    <span class="code-keyword">import</span>
-                    <span class="code-cyan">statistics</span>
+                    <code><span class="code-comment"># 数学検証：RTP・ボラティリティ・ヒット率を同時検証する例</span>
+<span class="code-keyword">import</span> <span class="code-cyan">statistics</span>
 
-                    <span class="code-keyword">class</span>
-                    <span class="code-cyan">MathValidator</span>:
+<span class="code-keyword">class</span> <span class="code-cyan">MathValidator</span>:
+    <span class="code-keyword">def</span> <span class="code-green">run_simulation</span>(<span class="code-white">self</span>, <span class="code-white">engine</span>, <span class="code-white">itr</span>=<span class="code-num">10_000_000</span>):
+        <span class="code-white">bets</span>, <span class="code-white">wins_list</span>, <span class="code-white">win_count</span> = [], [], <span class="code-num">0</span>
 
-                    <span class="code-keyword">def</span>
-                    <span class="code-green">run_simulation</span>(<span class="code-white"
-                        >self</span
-                    >, <span class="code-white">engine</span>,
-                    <span class="code-white">itr</span>=<span class="code-num">10_000_000</span>):
-                    <span class="code-white">bets</span>, <span class="code-white">wins_list</span>,
-                    <span class="code-white">win_count</span> = [], [],
-                    <span class="code-num">0</span>
+        <span class="code-keyword">for</span> <span class="code-white">_</span> <span class="code-keyword">in</span> <span class="code-cyan">range</span>(<span class="code-white">itr</span>):
+            <span class="code-white">result</span> = <span class="code-white">engine</span>.<span class="code-green">spin</span>(<span class="code-num">1.0</span>)
+            <span class="code-white">bets</span>.<span class="code-green">append</span>(<span class="code-num">1.0</span>)
+            <span class="code-white">wins_list</span>.<span class="code-green">append</span>(<span class="code-white">result</span>.<span class="code-white">payout</span>)
+            <span class="code-keyword">if</span> <span class="code-white">result</span>.<span class="code-white">payout</span> &gt; <span class="code-num">0</span>:
+                <span class="code-white">win_count</span> += <span class="code-num">1</span>
 
-                    <span class="code-keyword">for</span> <span class="code-white">_</span>
-                    <span class="code-keyword">in</span> <span class="code-cyan">range</span>(<span
-                        class="code-white"
-                        >itr</span
-                    >): <span class="code-white">result</span> =
-                    <span class="code-white">engine</span>.<span class="code-green">spin</span
-                    >(<span class="code-num">1.0</span>) <span class="code-white">bets</span>.<span
-                        class="code-green"
-                        >append</span
-                    >(<span class="code-num">1.0</span>)
-                    <span class="code-white">wins_list</span>.<span class="code-green">append</span
-                    >(<span class="code-white">result</span>.<span class="code-white">payout</span>)
-                    <span class="code-keyword">if</span>
-                    <span class="code-white">result</span>.<span class="code-white">payout</span>
-                    &gt; <span class="code-num">0</span>:
-                    <span class="code-white">win_count</span> += <span class="code-num">1</span>
+        <span class="code-white">actual_rtp</span> = <span class="code-cyan">sum</span>(<span class="code-white">wins_list</span>) / <span class="code-cyan">sum</span>(<span class="code-white">bets</span>) * <span class="code-num">100</span>
+        <span class="code-white">hit_rate</span> = <span class="code-white">win_count</span> / <span class="code-white">itr</span> * <span class="code-num">100</span>
+        <span class="code-white">variance</span> = <span class="code-cyan">statistics</span>.<span class="code-green">variance</span>(<span class="code-white">wins_list</span>)
 
-                    <span class="code-white">actual_rtp</span> =
-                    <span class="code-cyan">sum</span>(<span class="code-white">wins_list</span>) /
-                    <span class="code-cyan">sum</span>(<span class="code-white">bets</span>) *
-                    <span class="code-num">100</span> <span class="code-white">hit_rate</span> =
-                    <span class="code-white">win_count</span> /
-                    <span class="code-white">itr</span> * <span class="code-num">100</span>
-                    <span class="code-white">variance</span> =
-                    <span class="code-cyan">statistics</span>.<span class="code-green"
-                        >variance</span
-                    >(<span class="code-white">wins_list</span>)
-
-                    <span class="code-keyword">return</span> {
-                    <span class="code-string">"rtp_actual"</span>:
-                    <span class="code-cyan">round</span>(<span class="code-white">actual_rtp</span>,
-                    <span class="code-num">4</span>), <span class="code-string">"rtp_target"</span>:
-                    <span class="code-white">engine</span>.<span class="code-white"
-                        >theoretical_rtp</span
-                    >, <span class="code-string">"rtp_ok"</span>:
-                    <span class="code-cyan">abs</span>(<span class="code-white">actual_rtp</span> -
-                    <span class="code-white">engine</span>.<span class="code-white"
-                        >theoretical_rtp</span
-                    >) &lt; <span class="code-num">0.5</span>,
-                    <span class="code-string">"hit_rate_pct"</span>:
-                    <span class="code-cyan">round</span>(<span class="code-white">hit_rate</span>,
-                    <span class="code-num">2</span>), <span class="code-string">"variance"</span>:
-                    <span class="code-cyan">round</span>(<span class="code-white">variance</span>,
-                    <span class="code-num">4</span>), }
+        <span class="code-keyword">return</span> {
+            <span class="code-string">"rtp_actual"</span>: <span class="code-cyan">round</span>(<span class="code-white">actual_rtp</span>, <span class="code-num">4</span>),
+            <span class="code-string">"rtp_target"</span>: <span class="code-white">engine</span>.<span class="code-white">theoretical_rtp</span>,
+            <span class="code-string">"rtp_ok"</span>: <span class="code-cyan">abs</span>(<span class="code-white">actual_rtp</span> - <span class="code-white">engine</span>.<span class="code-white">theoretical_rtp</span>) &lt; <span class="code-num">0.5</span>,
+            <span class="code-string">"hit_rate_pct"</span>: <span class="code-cyan">round</span>(<span class="code-white">hit_rate</span>, <span class="code-num">2</span>),
+            <span class="code-string">"variance"</span>: <span class="code-cyan">round</span>(<span class="code-white">variance</span>, <span class="code-num">4</span>),
+        }</code>
                 </div>
 
                 <div class="compare">
@@ -2335,15 +2174,7 @@
                 </div>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        sequenceDiagram participant EGM as EGM端末 participant CMS as
-                        CMS（管理システム） participant JP as JPコントローラー Note over EGM,JP: SAS
-                        プロトコルテスト例 EGM->>CMS: Poll 0x00（定期通信） CMS->>EGM: ACK
-                        EGM->>CMS: ゲームスタート通知 0x57 CMS->>EGM: クレジット確認 0x1F EGM->>CMS:
-                        クレジット額：$25.00 EGM->>JP: JP拠出額通知 JP->>CMS: JP累積額更新 Note over
-                        EGM: ジャックポット当選！ EGM->>JP: JP当選通知 0x8A JP->>CMS: 当選確認要求
-                        CMS->>JP: 当選承認 JP->>EGM: 払い出し指示 EGM->>CMS: 払い出し完了 0x72
-                    </div>
+                    <div id="mermaid-8" class="mermaid"></div>
                 </div>
 
                 <!-- 3.5 Online Gambling Testing -->
@@ -2478,17 +2309,7 @@
                     3.8 マルチプレイヤーテスト <span class="k-badge">K2</span>
                 </h3>
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        sequenceDiagram participant P1 as プレイヤー1 participant P2 as プレイヤー2
-                        participant P3 as プレイヤー3 participant GS as ゲームサーバー Note over
-                        P1,GS: ビンゴ形式コミュナルゲームのテスト例 P1->>GS: 参加要求 P2->>GS:
-                        参加要求 P3->>GS: 参加要求 GS->>P1: ゲーム開始通知 GS->>P2: ゲーム開始通知
-                        GS->>P3: ゲーム開始通知 GS->>GS: RNG で番号を抽選 GS->>P1: 番号 "42" を送信
-                        GS->>P2: 番号 "42" を送信 GS->>P3: 番号 "42" を送信 Note over P2: P2
-                        がビンゴ達成！ P2->>GS: ビンゴ申告 GS->>GS: ビンゴ検証 alt 検証成功 GS->>P2:
-                        当選確認・払い出し GS->>P1: ゲーム終了（P2当選） GS->>P3:
-                        ゲーム終了（P2当選） else 不正申告 GS->>P2: エラー・不正ログ記録 end
-                    </div>
+                    <div id="mermaid-9" class="mermaid"></div>
                 </div>
 
                 <!-- 3.9 Interoperability Testing -->
@@ -2532,22 +2353,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        graph TB subgraph GameSec["ゲームセキュリティ"]
-                        R1["RNG改ざん防止&#xa;メモリ改ざん検出&#xa;外部操作不可確認"]
-                        R2["ペイアウト不正防止&#xa;パリティチェック&#xa;二重支払い防止"] end
-                        subgraph NetSec["ネットワークセキュリティ"] N1["暗号化テスト&#xa;TLS
-                        1.3&#xa;E2E暗号化"] N2["DDoS耐性テスト"]
-                        N3["ファイアウォール&#xa;ペネトレーションテスト"] end subgraph
-                        PlayerSec["プレイヤーセキュリティ"] P1["ジオブロッキング&#xa;VPN検出・IP
-                        BL"] P2["年齢確認&#xa;KYCバイパス試行"] P3["個人情報保護&#xa;GDPR準拠"] end
-                        subgraph FinSec["金融セキュリティ"] F1["AML監視&#xa;大額取引検出"]
-                        F2["PCI-DSS準拠&#xa;不正取引検出"] end style GameSec
-                        fill:#c62828,stroke:#ef5350,color:#e2e8f0 style NetSec
-                        fill:#1565c0,stroke:#42a5f5,color:#e2e8f0 style PlayerSec
-                        fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0 style FinSec
-                        fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0
-                    </div>
+                    <div id="mermaid-10" class="mermaid"></div>
                 </div>
 
                 <div class="compare">
@@ -3049,8 +2855,283 @@
 
         <!-- ===== MERMAID INIT ===== -->
         <script>
+            const DIAGRAMS = {
+                'mermaid-0': `graph TB
+    subgraph Foundation["📚 Foundation Level（必須）"]
+        CTFL["CTFL v4.0\\nCertified Tester Foundation Level"]
+    end
+    subgraph Specialist["⭐ Specialist Stream"]
+        CTGT["🎰 CT-GT\\nGambling Industry Tester\\n← ここ！"]
+        CTAI["CT-AI\\nAI Testing"]
+        CTUT["CT-UT\\nUsability Testing"]
+        CTSEC["CT-SEC\\nSecurity Tester"]
+        CTMAT["CT-MAT\\nMobile App Testing"]
+        CTGAME["CT-GaMe\\nGame Testing"]
+    end
+    subgraph Advanced["🎓 Advanced Level"]
+        TM["CTAL-TM v3.0\\nTest Management"]
+        TA["CTAL-TA v4.0\\nTest Analyst"]
+        TTA["CTAL-TTA\\nTech Test Analyst"]
+        TAE["CTAL-TAE v2.0\\nTest Automation Eng"]
+    end
+    CTFL --> CTGT
+    CTFL --> CTAI
+    CTFL --> CTUT
+    CTFL --> CTSEC
+    CTFL --> CTMAT
+    CTFL --> CTGAME
+    CTFL --> TM
+    CTFL --> TA
+    CTFL --> TTA
+    CTFL --> TAE
+    style CTGT fill:#d4a017,stroke:#f0c040,color:#000,font-weight:bold
+    style Foundation fill:#1a3a5c,stroke:#4a90d9,color:#e2e8f0
+    style Advanced fill:#2d4a1a,stroke:#6ab04c,color:#e2e8f0
+    style Specialist fill:#4a1a3a,stroke:#d48ab0,color:#e2e8f0`,
+                'mermaid-1': `graph TB
+    Root["🎰 ギャンブルの種類\\n(Types of Gambling)"]
+    Root --> Casino["🏛️ カジノゲーム\\nCasino Games"]
+    Root --> Lottery["🎫 宝くじシステム\\nLottery Systems"]
+    Root --> Racing["🏇 競馬・スポーツ賭け\\nRace & Sports Wagering"]
+    Root --> Online["📱 オンライン・モバイル\\nOnline & Mobile Gambling"]
+    Casino --> C1["スロットマシン\\nSlot Machines"]
+    Casino --> C2["テーブルゲーム\\nBlackjack/Roulette"]
+    Casino --> C3["ポーカー\\nPoker"]
+    Casino --> C4["ビデオポーカー\\nVideo Poker"]
+    Lottery --> L1["ビデオ宝くじ端末\\nVLT (Video Lottery Terminals)"]
+    Lottery --> L2["インスタントくじ\\nInstant Scratch"]
+    Lottery --> L3["キノ\\nKeno"]
+    Lottery --> L4["ナンバーズゲーム\\nNumbers Games"]
+    Racing --> R1["競馬ベッティング\\nHorse Racing"]
+    Racing --> R2["スポーツブック\\nSports Book"]
+    Racing --> R3["パリミュエル式\\nPari-mutuel"]
+    Online --> O1["オンラインカジノ\\nOnline Casino"]
+    Online --> O2["ライブディーラー\\nLive Dealer"]
+    Online --> O3["モバイルギャンブル\\nMobile Apps"]
+    Online --> O4["ゲーミフィケーション\\nSocial Gaming"]
+    style Root fill:#d4a017,stroke:#f0c040,color:#000,font-weight:bold
+    style Casino fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
+    style Lottery fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
+    style Racing fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0
+    style Online fill:#e65100,stroke:#ffa726,color:#e2e8f0`,
+                'mermaid-2': `sequenceDiagram
+    participant P1 as プレイヤーA
+    participant P2 as プレイヤーB
+    participant EGM as EGM機器
+    participant JP as ジャックポット<br/>コントローラー
+    participant Jackpot as 累積<br/>ジャックポット
+    P1->>EGM: ベット $1.00
+    EGM->>JP: 0.05% をジャックポット拠出
+    JP->>Jackpot: 累積額に加算
+    Note over Jackpot: $1,000,000 → $1,000,005
+    P2->>EGM: ベット $2.00
+    EGM->>JP: 0.05% をジャックポット拠出
+    JP->>Jackpot: 累積額に加算
+    Note over Jackpot: $1,000,005 → $1,000,010
+    Note over P2,EGM: ジャックポット当選！
+    JP->>EGM: 払い出しシグナル
+    EGM->>P2: 累積額全額 $1,000,010 支払い
+    JP->>Jackpot: シードバリューにリセット
+    Note over Jackpot: リセット: $10,000（シード値）`,
+                'mermaid-3': `flowchart TD
+    A["📋 ゲーム設計\\nGame Design\\n・ゲームメカニクス設計\\n・数学モデル設計\\n・RTP設定"] 
+    --> B["💻 開発\\nDevelopment\\n・ゲームエンジン実装\\n・RNG統合\\n・プラットフォーム実装"]
+    --> C["🔬 内部QAテスト\\nInternal QA Test\\n・機能テスト\\n・数学テスト\\n・プレイヤー体験テスト"]
+    --> D{"内部QA\\n合格?"}
+    D -->|NO: 欠陥修正| B
+    D -->|YES| E["📤 ITL提出\\nIndependent Test Lab\\nSubmission\\n・認証テストパッケージ作成\\n・書類準備"]
+    --> F["🏛️ 独立テストラボ\\n（ITL）コンプライアンステスト\\n・GLI / BMM / NMi等\\n・管轄別規制検証\\n・RNG認証"]
+    --> G{"ITL\\n合格?"}
+    G -->|NO: 欠陥修正| B
+    G -->|YES| H["📜 規制機関承認\\nRegulatory Approval\\n・管轄規制機関へ申請\\n・最終認証取得"]
+    --> I["🚀 デプロイ\\nDeployment\\n・特定管轄でのリリース\\n・本番環境テスト"]
+    --> J["📊 モニタリング\\nMonitoring\\n・本番環境での継続的監視\\n・インシデント対応"]
+    style A fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
+    style B fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
+    style C fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0
+    style E fill:#e65100,stroke:#ffa726,color:#e2e8f0
+    style F fill:#c62828,stroke:#ef5350,color:#e2e8f0
+    style H fill:#d4a017,stroke:#f0c040,color:#000
+    style I fill:#00695c,stroke:#4db6ac,color:#e2e8f0
+    style J fill:#37474f,stroke:#78909c,color:#e2e8f0`,
+                'mermaid-4': `graph TB
+    subgraph VLT["VLT エコシステム"]
+        Central["VLTセントラルシステム\\nRNG搭載（政府管理）"]
+        T1["VLT端末 1"]
+        T2["VLT端末 2"]
+        T3["VLT端末 3"]
+        Monitor["規制機関\\nモニタリングシステム"]
+        T1 <-->|暗号化通信| Central
+        T2 <-->|暗号化通信| Central
+        T3 <-->|暗号化通信| Central
+        Central --> Monitor
+    end
+    style Central fill:#c62828,stroke:#ef5350,color:#e2e8f0
+    style Monitor fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
+    style VLT fill:#1a1a2e,stroke:#4a90d9,color:#e2e8f0`,
+                'mermaid-5': `graph LR
+    subgraph Casino["カジノフロア"]
+        EGM1["EGM 1\\nRNG内蔵"]
+        EGM2["EGM 2\\nRNG内蔵"]
+        EGM3["EGM 3\\nRNG内蔵"]
+    end
+    subgraph Backend["バックエンドシステム"]
+        CMS["CMS\\nカジノ管理システム"]
+        JP["JPコントローラー\\nジャックポット管理"]
+        Report["レポーティング\\nシステム"]
+    end
+    EGM1 <-->|SAS/G2S Protocol| CMS
+    EGM2 <-->|SAS/G2S Protocol| CMS
+    EGM3 <-->|SAS/G2S Protocol| CMS
+    EGM1 -->|JP拠出| JP
+    EGM2 -->|JP拠出| JP
+    JP -->|JP払い出し指示| EGM2
+    CMS --> Report
+    style CMS fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
+    style JP fill:#d4a017,stroke:#f0c040,color:#000
+    style Casino fill:#1a2a1a,stroke:#00ff88,color:#e2e8f0
+    style Backend fill:#1a1a3a,stroke:#7c3aed,color:#e2e8f0`,
+                'mermaid-6': `flowchart LR
+    subgraph Player["👤 プレイヤー側"]
+        PC["PCブラウザ"]
+        Mobile["モバイルアプリ"]
+        Tablet["タブレット"]
+    end
+    subgraph CDN["🌐 CDN / ロードバサー"]
+        LB["負荷分散\\nLoad Balancer"]
+    end
+    subgraph Platform["🖥️ ゲームプラットフォーム"]
+        API["プラットフォームAPI"]
+        Auth["認証\\nAuthentication"]
+        Wallet["ウォレット\\nシステム"]
+        Geo["ジオロケーション\\nサービス"]
+        KYC["KYC\\n本人確認"]
+        RG["責任ある賭博\\nEngine"]
+    end
+    subgraph Game["🎮 ゲームコンテンツ"]
+        GameServer["ゲームサーバー"]
+        RNG2["RNGサービス"]
+        Math["数学エンジン"]
+        LiveDealer["ライブディーラー\\nスタジオ"]
+    end
+    subgraph Backend["🔧 バックエンド"]
+        CRM["CRM\\nプレイヤー管理"]
+        Bonus["ボーナス\\nエンジン"]
+        Report["レポーティング\\n・分析"]
+        AML["マネーロンダリング\\n防止（AML）"]
+    end
+    subgraph Payment["💳 決済"]
+        PSP["決済サービス\\nプロバイダー"]
+        Bank["銀行振込"]
+        EWallet["電子ウォレット\\ne-Wallet"]
+        Crypto["仮想通貨"]
+    end
+    Player --> CDN
+    CDN --> Platform
+    Platform --> Game
+    Platform --> Backend
+    Platform --> Payment
+    style Player fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
+    style Platform fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
+    style Game fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0
+    style Backend fill:#37474f,stroke:#78909c,color:#e2e8f0
+    style Payment fill:#e65100,stroke:#ffa726,color:#e2e8f0`,
+                'mermaid-7': `sequenceDiagram
+    actor Dev as 開発者/テスター
+    participant ITL as 独立テストラボ (ITL)
+    participant Reg as 規制機関
+    Dev->>Dev: 内部テスト実施
+    Dev->>ITL: 認証申請\\n（テストパッケージ提出）
+    Note over ITL: 技術文書審査\\nRNG統計検定\\nコンプライアンス確認
+    alt 不合格の場合
+        ITL-->>Dev: 欠陥レポート\\n（Defect Report）
+        Dev->>Dev: 欠陥修正
+        Dev->>ITL: 再提出
+    end
+    ITL->>Dev: コンプライアンス証明書\\n（Compliance Certificate）発行
+    Dev->>Reg: 管轄認証申請\\n（ITL証明書添付）
+    Note over Reg: 書類審査\\n必要に応じ追加テスト
+    alt 承認
+        Reg->>Dev: デプロイ許可\\n（Gaming License）
+    else 不承認
+        Reg-->>Dev: 修正要求
+    end`,
+                'mermaid-8': `sequenceDiagram
+    participant EGM as EGM（スロット端末）
+    participant CMS as CMS（カジノ管理システム）
+    participant JP as JPコントローラー
+    Note over EGM,JP: SAS (Slot Accounting System) プロトコルテスト例
+    EGM->>CMS: Poll（定期通信）[SAS 0x00]
+    CMS->>EGM: ACK
+    EGM->>CMS: ゲームスタート通知 [SAS 0x57]
+    EGM->>CMS: 完了待ち信号送信
+    CMS->>EGM: クレジット確認 [SAS 0x1F]
+    EGM->>CMS: クレジット額: $25.00
+    EGM->>JP: JP拠出額通知
+    JP->>CMS: JP累積額更新通知
+    Note over EGM: ジャックポット当選！
+    EGM->>JP: JP当選通知 [SAS 0x8A]
+    JP->>CMS: 当選確認要求
+    CMS->>JP: 当選承認
+    JP->>EGM: 払い出し指示
+    EGM->>EGM: JP払い出し実行
+    EGM->>CMS: 払い出し完了通知 [SAS 0x72]`,
+                'mermaid-9': `sequenceDiagram
+    participant P1 as プレイヤー1
+    participant P2 as プレイヤー2
+    participant P3 as プレイヤー3
+    participant GameServer as ゲームサーバー
+    Note over P1,GameServer: コミュナルゲームテストシナリオ（Bingo例）
+    P1->>GameServer: 参加要求
+    P2->>GameServer: 参加要求
+    P3->>GameServer: 参加要求
+    GameServer->>P1: ゲーム開始通知
+    GameServer->>P2: ゲーム開始通知
+    GameServer->>P3: ゲーム開始通知
+    GameServer->>GameServer: RNGで番号を抽選
+    GameServer->>P1: 番号 "42" を通知
+    GameServer->>P2: 番号 "42" を通知
+    GameServer->>P3: 番号 "42" を通知
+    Note over P2: P2がビンゴ達成！
+    P2->>GameServer: ビンゴ申告
+    GameServer->>GameServer: ビンゴ検証
+    alt 検証成功
+        GameServer->>P2: 当選確認・払い出し
+        GameServer->>P1: ゲーム終了通知（P2当選）
+        GameServer->>P3: ゲーム終了通知（P2当選）
+    else 検証失敗（不正申告）
+        GameServer->>P2: エラー通知・申告却下
+        GameServer->>GameServer: 不正行為ログ記録
+    end`,
+                'mermaid-10': `graph TB
+    subgraph SecDomains["🔒 ギャンブルシステムのセキュリティテスト領域"]
+        subgraph GameSec["ゲームセキュリティ"]
+            RNG_Sec["RNG改ざん防止テスト\\n・メモリ改ざん検出\\n・外部操作不可確認"]
+            Payout_Sec["ペイアウト不正防止\\n・パリティチェック\\n・二重支払い防止"]
+        end
+        subgraph NetSec["ネットワークセキュリティ"]
+            Encrypt["暗号化テスト\\n・TLS 1.3\\n・エンドツーエンド暗号化"]
+            DDoS["DDoS耐性テスト\\n・高負荷時の動作確認"]
+            Firewall["ファイアウォール\\nペネトレーションテスト"]
+        end
+        subgraph PlayerSec["プレイヤーセキュリティ"]
+            GeoBlock["ジオブロッキングテスト\\n・VPN検出\\n・プロキシ検出\\n・IPブラックリスト"]
+            AgeVerify["年齢確認テスト\\n・KYCフロー検証\\n・バイパス試行テスト"]
+            DataPrivacy["個人情報保護テスト\\n・GDPR準拠\\n・データ最小化"]
+        end
+        subgraph FinanceSec["金融セキュリティ"]
+            AML_Test["AML（マネーロンダリング防止）\\n・大額取引検出\\n・不審パターン検知"]
+            Payment_Sec["決済セキュリティテスト\\n・PCI-DSS準拠\\n・不正取引検出"]
+        end
+    end
+    style GameSec fill:#c62828,stroke:#ef5350,color:#e2e8f0
+    style NetSec fill:#1565c0,stroke:#42a5f5,color:#e2e8f0
+    style PlayerSec fill:#2e7d32,stroke:#66bb6a,color:#e2e8f0
+    style FinanceSec fill:#6a1b9a,stroke:#ab47bc,color:#e2e8f0`
+            };
+
             mermaid.initialize({
-                startOnLoad: true,
+                startOnLoad: false,
                 theme: 'dark',
                 themeVariables: {
                     primaryColor: '#1e293b',
@@ -3081,6 +3162,33 @@
                     curve: 'basis',
                 },
             });
+
+            (async () => {
+                for (const [id, src] of Object.entries(DIAGRAMS)) {
+                    try {
+                        const targetEl = document.getElementById(id);
+                        if (!targetEl) continue;
+                        
+                        const { svg } = await mermaid.render('svg-' + id, src);
+                        targetEl.innerHTML = svg;
+                        
+                        const svgEl = targetEl.querySelector('svg');
+                        if (svgEl) {
+                            svgEl.removeAttribute('width');
+                            svgEl.removeAttribute('height');
+                            svgEl.style.width = '100%';
+                            svgEl.style.maxWidth = '100%';
+                            svgEl.style.height = 'auto';
+                        }
+                    } catch (error) {
+                        console.error(`Mermaid render failed for ${id}:`, error);
+                        const targetEl = document.getElementById(id);
+                        if (targetEl) {
+                            targetEl.innerHTML = `<p style="color: var(--neon-red); font-size: 0.85rem; padding: 1rem;">図表の描画に失敗しました</p>`;
+                        }
+                    }
+                }
+            })();
 
             // Highlight active nav link on scroll
             const sections = document.querySelectorAll('section[id]');
