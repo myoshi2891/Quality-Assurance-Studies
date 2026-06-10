@@ -3166,6 +3166,21 @@
                 },
             });
 
+            // IDごとのカスタム表示設定
+            const DIAGRAM_SETTINGS = {
+                'mermaid-0': { maxWidth: '850px', scrollable: false }, // ISTQB® 資格ロードマップ
+                'mermaid-1': { maxWidth: '900px', scrollable: true },  // 1.2 ギャンブルの種類
+                'mermaid-2': { maxWidth: '680px', scrollable: false }, // プログレッシブジャックポット
+                'mermaid-3': { maxWidth: '380px', scrollable: false }, // 1.5 GSDLC
+                'mermaid-4': { maxWidth: '750px', scrollable: false }, // VLT エコシステム
+                'mermaid-5': { maxWidth: '850px', scrollable: true },  // EGMエコシステム
+                'mermaid-6': { maxWidth: '960px', scrollable: true },  // 2.5 オンラインギャンブルエコシステム
+                'mermaid-7': { maxWidth: '800px', scrollable: false }, // 3.1 コンプライアンステスト
+                'mermaid-8': { maxWidth: '750px', scrollable: false }, // 3.4 プロトコルテスト
+                'mermaid-9': { maxWidth: '750px', scrollable: false }, // 3.8 マルチプレイヤーテスト
+                'mermaid-10': { maxWidth: '850px', scrollable: false } // 3.10 セキュリティテスト
+            };
+
             (async () => {
                 for (const [id, src] of Object.entries(DIAGRAMS)) {
                     try {
@@ -3178,8 +3193,7 @@
                         const svgEl = targetEl.querySelector('svg');
                         if (svgEl) {
                             const isSequence = src.includes('sequenceDiagram');
-                            const isFlowchartLR = src.includes('flowchart LR') || src.includes('graph LR');
-                            const isFlowchartTD = src.includes('flowchart TD') || src.includes('graph TD') || src.includes('flowchart TB') || src.includes('graph TB');
+                            const settings = DIAGRAM_SETTINGS[id] || {};
                             
                             // viewBoxからアスペクト比を計算して設定
                             const viewBox = svgEl.getAttribute('viewBox');
@@ -3191,7 +3205,11 @@
                                     vbWidth = parseFloat(parts[2]);
                                     vbHeight = parseFloat(parts[3]);
                                     if (!isNaN(vbWidth) && !isNaN(vbHeight) && vbHeight > 0) {
-                                        svgEl.style.aspectRatio = `${vbWidth} / ${vbHeight}`;
+                                        let aspectHeight = vbHeight;
+                                        if (isSequence) {
+                                            aspectHeight += 60; // 下部途切れ防止のマージン
+                                        }
+                                        svgEl.style.aspectRatio = `${vbWidth} / ${aspectHeight}`;
                                     }
                                 }
                             }
@@ -3200,28 +3218,19 @@
                             svgEl.style.display = 'block';
                             svgEl.style.margin = '0 auto';
                             
-                            if (isSequence) {
+                            if (settings.maxWidth) {
                                 svgEl.style.width = '100%';
-                                svgEl.style.maxWidth = '650px';
-                            } else if (isFlowchartLR) {
-                                const originalWidth = svgEl.getAttribute('width') || (vbWidth ? `${vbWidth}px` : null);
-                                if (originalWidth && !originalWidth.includes('%')) {
-                                    const widthVal = parseFloat(originalWidth);
-                                    if (widthVal > 720) {
+                                svgEl.style.maxWidth = settings.maxWidth;
+                                
+                                if (settings.scrollable) {
+                                    const originalWidth = svgEl.getAttribute('width') || (vbWidth ? `${vbWidth}px` : null);
+                                    if (originalWidth && !originalWidth.includes('%')) {
+                                        const widthVal = parseFloat(originalWidth);
                                         svgEl.style.minWidth = `${widthVal}px`;
                                         svgEl.style.width = `${widthVal}px`;
                                         svgEl.style.maxWidth = 'none'; // 横スクロール可能にするために制限を解除
-                                    } else {
-                                        svgEl.style.width = '100%';
-                                        svgEl.style.maxWidth = `${widthVal}px`;
                                     }
-                                } else {
-                                    svgEl.style.width = '100%';
-                                    svgEl.style.maxWidth = '100%';
                                 }
-                            } else if (isFlowchartTD) {
-                                svgEl.style.width = '100%';
-                                svgEl.style.maxWidth = '480px';
                             } else {
                                 svgEl.style.width = '100%';
                                 svgEl.style.maxWidth = '100%';
