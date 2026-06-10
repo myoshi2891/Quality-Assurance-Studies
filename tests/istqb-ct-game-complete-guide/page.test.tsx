@@ -1,6 +1,7 @@
 import { afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
 import { render, screen, cleanup, act } from '@testing-library/react';
 import '@testing-library/jest-dom';
+import mermaid from 'mermaid';
 import Page from '../../app/istqb-ct-game-complete-guide/page';
 
 afterEach(() => cleanup());
@@ -87,4 +88,32 @@ describe('CT-GaMe Guide Page', () => {
     expect(ch1Link.classList.contains('active')).toBe(true);
     expect(ch1Link.getAttribute('aria-current')).toBe('location');
   });
+
+  it('passes properly formatted Mermaid charts to Mermaid component (no spaces at start of lines)', async () => {
+    const renderedCharts: string[] = [];
+    const originalRender = mermaid.render;
+
+    mermaid.render = async (id: string, text: string) => {
+      renderedCharts.push(text);
+      return { svg: '<svg data-testid="mock-mermaid"></svg>' };
+    };
+
+    try {
+      render(<Page />);
+      await screen.findAllByTestId('mock-mermaid');
+
+      expect(renderedCharts.length).toBeGreaterThan(0);
+      for (const chart of renderedCharts) {
+        const lines = chart.trim().split('\n');
+        for (const line of lines) {
+          // Check for format pollution (e.g. 4+ leading spaces)
+          expect(line.startsWith('    ')).toBe(false);
+          expect(line.startsWith('\t')).toBe(false);
+        }
+      }
+    } finally {
+      mermaid.render = originalRender;
+    }
+  });
 });
+
