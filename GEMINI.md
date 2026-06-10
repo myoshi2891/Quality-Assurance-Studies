@@ -185,8 +185,23 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 未着手 | HTML版未生成 |
+| `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 進行中 | HTML版生成済み、表示調整中 |
 
 ## 既知の留保事項
 
 - `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
+- `istqb-ct-aut-complete-guide.html` はリポジトリ内に存在しません（not found）。
+- `istqb-ct-gt-complete-guide.html` は生成済みです。表示崩れや Mermaid の調整を実施中。
+
+## 次回セッションでの再開プロンプト
+
+```text
+コンテキスト:
+- 最新 HEAD: `c175034`
+- **新規ガイド追加中**: 既存の全 HTML 移行は完了しましたが、新たに CT-AuT, CT-GaMe, CT-GT ガイドが追加されました。
+- 合計 33 ルート（ホーム + 32 ガイド予定）が管理されています。
+- 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
+
+【指示】
+CT-GaMeガイドの移行が完了し、33ルートになりました。次のタスク（CT-GTガイドの移行、またはその他のタスク）について指示を仰ぎます。
+```

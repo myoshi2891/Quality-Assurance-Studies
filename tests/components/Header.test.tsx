@@ -181,6 +181,6 @@ describe('Header body scroll lock and focus', () => {
     fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
     const dialog = screen.getByRole('dialog');
     const firstLink = within(dialog).getAllByRole('link')[0];
-    expect(document.activeElement).toBe(firstLink);
+    expect(document.activeElement).toBe(firstLink ?? null);
   });
 });

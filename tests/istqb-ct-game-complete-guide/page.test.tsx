@@ -12,7 +12,10 @@ let originalMermaidRender: typeof mermaid.render;
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
   mermaid.render = mock(async () => {
-    return { svg: '<svg data-testid="mock-mermaid"></svg>' };
+    return {
+      svg: '<svg data-testid="mock-mermaid"></svg>',
+      diagramType: 'flowchart',
+    };
   }) as unknown as typeof mermaid.render;
 
   const mockIntersectionObserver = mock((callback: (entries: IntersectionObserverEntry[]) => void) => {
@@ -103,10 +106,13 @@ describe('CT-GaMe Guide Page', () => {
     const renderedCharts: string[] = [];
     const originalRender = mermaid.render;
 
-    mermaid.render = async (id: string, text: string) => {
+    mermaid.render = (async (id: string, text: string) => {
       renderedCharts.push(text);
-      return { svg: '<svg data-testid="mock-mermaid"></svg>' };
-    };
+      return {
+        svg: '<svg data-testid="mock-mermaid"></svg>',
+        diagramType: 'flowchart',
+      };
+    }) as unknown as typeof mermaid.render;
 
     try {
       render(<Page />);

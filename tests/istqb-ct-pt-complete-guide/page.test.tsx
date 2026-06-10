@@ -19,7 +19,9 @@ beforeAll(() => {
 });
 
 afterAll(() => {
-    window.IntersectionObserver = originalIntersectionObserver;
+    if (originalIntersectionObserver) {
+        window.IntersectionObserver = originalIntersectionObserver;
+    }
 });
 
 describe('CT-PT Complete Guide Page', () => {

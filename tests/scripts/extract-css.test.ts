@@ -64,7 +64,6 @@ describe("extract-css.mjs", () => {
 
     let exitCode: number | null = null;
 const originalExit = process.exit;
-// @ts-expect-error process.exit is read-only in typical typings but writable in runtime
 process.exit = (code?: number) => {
   exitCode = code ?? 0;
   throw new Error(`process.exit: ${exitCode}`);
