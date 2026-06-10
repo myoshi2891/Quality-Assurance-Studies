@@ -8,9 +8,12 @@ afterEach(() => cleanup());
 
 let observerCallback: (entries: IntersectionObserverEntry[]) => void = () => {};
 let originalMermaidRender: typeof mermaid.render;
+let originalIntersectionObserver: typeof window.IntersectionObserver;
 
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
+  // 後続テストファイルへモックが漏れないよう元の IntersectionObserver を退避する
+  originalIntersectionObserver = window.IntersectionObserver;
   mermaid.render = mock(async () => {
     return {
       svg: '<svg data-testid="mock-mermaid"></svg>',
@@ -31,6 +34,7 @@ beforeAll(() => {
 
 afterAll(() => {
   mermaid.render = originalMermaidRender;
+  window.IntersectionObserver = originalIntersectionObserver;
 });
 
 describe('CT-GaMe Guide Page', () => {
