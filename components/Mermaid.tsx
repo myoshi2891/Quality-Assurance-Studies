@@ -75,6 +75,7 @@ export default function Mermaid({ chart }: MermaidProps) {
             const newSvg = serializer.serializeToString(doc);
             const sanitizedSvg = DOMPurify.sanitize(`<div>${newSvg}</div>`, { 
               USE_PROFILES: { svg: true, svgFilters: true },
+              ADD_TAGS: ['style'],
               ALLOW_DATA_ATTR: true
             });
             if (isMounted) {
@@ -83,6 +84,7 @@ export default function Mermaid({ chart }: MermaidProps) {
           } else {
             const sanitizedSvg = DOMPurify.sanitize(`<div>${svg}</div>`, { 
               USE_PROFILES: { svg: true, svgFilters: true },
+              ADD_TAGS: ['style'],
               ALLOW_DATA_ATTR: true
             });
             if (isMounted) {
