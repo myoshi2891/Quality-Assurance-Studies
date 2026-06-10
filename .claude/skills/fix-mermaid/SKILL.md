@@ -245,6 +245,28 @@ vi.mock("@/components/docs/MermaidDiagram", () => ({
 }));
 ```
 
+### 外側 DOMPurify による過剰サニタイズで図が壊れる（2026年6月追記・QA_Studies 実地）
+
+**症状**: ダークモードでノード内テキストが消える（背景と同化）／矢印・枠線のスタイルが当たらない。構文は正しくブラウザ Console にも構文エラーは出ない。
+
+**根本原因**: `mermaid.render()` の出力 SVG に対し、コンポーネント側で**外側から** `DOMPurify.sanitize(svg, { USE_PROFILES: { svg: true } })` をかけていた。SVG プロファイルは HTML 要素を許可しないため、以下が同時に除去される。
+
+- `htmlLabels: true` のノードラベルは `<foreignObject>` 内の `<div class="nodeLabel">`（＝HTML）として描画される → `div`/`span` が除去され **テキスト消失**。
+- ノード/エッジ/テキストの色を与える `<style>` ブロックが **`<style>` 要素ごと除去** → 色・矢印・枠線が既定（黒）に戻る。
+- `ADD_TAGS: ['style']` を足しても `USE_PROFILES` 制約下では除去が続く。
+
+**恒久対策**:
+
+1. **図表が開発者直書きの静的定数（外部入力なし）なら、外側 DOMPurify は不要・有害**。撤去して `mermaid.render()` の出力をそのまま描画する。XSS 攻撃面が無く、Mermaid v11 は内部に DOMPurify を同梱しているため自前で無害化される。
+2. どうしても外側サニタイズを残すなら `USE_PROFILES: { svg: true }`（HTML を排除するプロファイル）は使わず、`style` タグ＋CSS 内容・`foreignObject`・`div`/`span`・`style`/`class` 属性を明示許可する。ただし CSS 無害化が脆く mermaid 出力変化に弱いため非推奨。
+
+**テストの落とし穴（再発防止）**:
+
+- モックが `<svg><g>ok</g></svg>` のような自明 SVG だと、`<style>` や `<foreignObject>` を含まないため壊れるサニタイズ経路を一度も通らず、**テストが緑のまま本番が壊れる**。モックには必ず `<style>` ブロックと `<foreignObject>` 内 HTML ラベルを含めること。
+- ただし **happy-dom / jsdom は SVG 内 `<style>` 内容や `foreignObject` の HTML 子要素の `DOMParser`/`XMLSerializer` ラウンドトリップを完全再現できない**。ユニットテストでは「`<style>` 要素が除去されないこと」など機械的に確実な差分のみを検証し、色・ラベル文字列の可視性は実ブラウザ（Playwright 等）の目視で担保する。
+
+詳細な解決記録は `docs/archive/MERMAID_TROUBLESHOOTING.md` を参照。
+
 ---
 
 ### Mermaid を諦めて HTML/CSS に置き換えるべきケース
