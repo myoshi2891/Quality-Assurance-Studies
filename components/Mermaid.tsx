@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react';
 import mermaid from 'mermaid';
-import DOMPurify from 'dompurify';
 
 mermaid.initialize({
   startOnLoad: false,
@@ -71,24 +70,19 @@ export default function Mermaid({ chart }: MermaidProps) {
               }
             }
             
+            // 図表は開発者が直書きした静的定数のみ（外部入力なし）のため
+            // 外側サニタイズは不要。サイズ調整済み SVG をそのまま描画する。
+            // 外側 DOMPurify(svg プロファイル)は htmlLabel の <div> や <style>
+            // ブロックを除去しテキスト・色・矢印・枠線を消すため適用しない。
             const serializer = new XMLSerializer();
             const newSvg = serializer.serializeToString(doc);
-            const sanitizedSvg = DOMPurify.sanitize(`<div>${newSvg}</div>`, { 
-              USE_PROFILES: { svg: true, svgFilters: true },
-              ADD_TAGS: ['style'],
-              ALLOW_DATA_ATTR: true
-            });
             if (isMounted) {
-              setSvgStr(sanitizedSvg);
+              setSvgStr(newSvg);
             }
           } else {
-            const sanitizedSvg = DOMPurify.sanitize(`<div>${svg}</div>`, { 
-              USE_PROFILES: { svg: true, svgFilters: true },
-              ADD_TAGS: ['style'],
-              ALLOW_DATA_ATTR: true
-            });
+            // パーサーエラー時は mermaid の生出力をそのまま描画する。
             if (isMounted) {
-              setSvgStr(sanitizedSvg);
+              setSvgStr(svg);
             }
           }
         } catch (error) {
