@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-06-09
+Updated 2026-06-10
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -11,7 +11,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `abf37c8` |
+| 最新 HEAD | `d51f01d` |
 | 次の作業 | CT-GaMe ガイドの Next.js 移行 |
 | ビルド状態 | ✅ `bun run build`（32ページ静的生成）/ `bun run lint` / `bun test`（149 pass）全て成功。 |
 
