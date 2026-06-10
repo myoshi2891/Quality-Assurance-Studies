@@ -5,15 +5,6 @@ import Page from '../../app/istqb-ctel-tm-mtt-complete-guide/page';
 
 afterEach(() => cleanup());
 
-// Mock the IntersectionObserver since it's not available in happy-dom
-beforeAll(() => {
-    const mockIntersectionObserver = mock(() => ({
-        observe: () => null,
-        unobserve: () => null,
-        disconnect: () => null,
-    }));
-    window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
-});
 
 describe('CTEL-TM-MTT Expert Level Guide Page', () => {
     it('renders the main heading', () => {

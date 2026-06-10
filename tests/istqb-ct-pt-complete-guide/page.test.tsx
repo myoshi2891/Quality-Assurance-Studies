@@ -5,24 +5,8 @@ import Page from '../../app/istqb-ct-pt-complete-guide/page';
 
 afterEach(() => cleanup());
 
-let originalIntersectionObserver: typeof IntersectionObserver | undefined;
 
-// Mock the IntersectionObserver since it's not available in happy-dom
-beforeAll(() => {
-    originalIntersectionObserver = window.IntersectionObserver;
-    const mockIntersectionObserver = mock(() => ({
-        observe: () => null,
-        unobserve: () => null,
-        disconnect: () => null,
-    }));
-    window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
-});
 
-afterAll(() => {
-    if (originalIntersectionObserver) {
-        window.IntersectionObserver = originalIntersectionObserver;
-    }
-});
 
 describe('CT-PT Complete Guide Page', () => {
     it('renders the main heading', () => {

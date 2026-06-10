@@ -6,28 +6,8 @@ afterEach(() => {
   cleanup();
 });
 
-let originalIntersectionObserver: typeof IntersectionObserver;
 
-beforeAll(() => {
-  if (typeof window !== 'undefined') {
-    originalIntersectionObserver = window.IntersectionObserver;
-    window.IntersectionObserver = mock(() => ({
-      observe: mock(),
-      unobserve: mock(),
-      disconnect: mock(),
-      root: null,
-      rootMargin: '',
-      thresholds: [0],
-      takeRecords: () => []
-    })) as unknown as typeof IntersectionObserver;
-  }
-});
 
-afterAll(() => {
-  if (typeof window !== 'undefined') {
-    window.IntersectionObserver = originalIntersectionObserver;
-  }
-});
 
 describe('ISTQB CTAL-ATT Complete Guide Page', () => {
   it('renders the hero section with correct title', () => {
