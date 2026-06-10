@@ -3,6 +3,99 @@ import NavBar from './NavBar';
 import './istqb-ct-game-complete-guide.css';
 import Mermaid from '../../components/Mermaid';
 
+/* prettier-ignore */
+const DIAGRAM_ROADMAP = `flowchart LR
+CTFL["&#127891; CTFL v4.0 Foundation Level&#40;前提必須&#41;"]
+GaMe["&#127918; CT-GaMe v1.0.1 Certified Tester - Game Testing"]
+Other["Other Core / Agile / Specialist Certifications"]
+CTFL --> GaMe --> Other
+style CTFL fill:#0a1020,stroke:#00d4ff,color:#00d4ff
+style GaMe fill:#0a1020,stroke:#00ff88,color:#00ff88
+style Other fill:#0a1020,stroke:#ffaa00,color:#ffaa00`;
+
+/* prettier-ignore */
+const DIAGRAM_LIFECYCLE = `flowchart LR
+A["&#128161; コンセプト プリプロダクション"]
+B["&#128296; プロダクション"]
+C["&#128300; アルファ&#183;ベータ"]
+D["&#127942; ゴールドマスター リリース"]
+E["&#128225; ポストリリース ライブ運営"]
+A -->|"プロトタイプUX リスク評価"| B
+B -->|"スプリント毎テスト アルファ回帰"| C
+C -->|"認証テスト準備 ローカライゼーション"| D
+D -->|"パッチ&#183;DLC 継続監視"| E
+style A fill:#0a1020,stroke:#cc55ff,color:#cc55ff
+style B fill:#0a1020,stroke:#00d4ff,color:#00d4ff
+style C fill:#0a1020,stroke:#ffaa00,color:#ffaa00
+style D fill:#0a1020,stroke:#00ff88,color:#00ff88
+style E fill:#0a1020,stroke:#ff66cc,color:#ff66cc`;
+
+/* prettier-ignore */
+const DIAGRAM_LOOPS = `flowchart LR
+subgraph Core["&#128260; コアループ（数分単位 of 繰り返し）"]
+C1["&#9876;&#65039; バトル"] --> C2["&#10024; 経験値獲得"] --> C3["&#128200; レベルアップ"] --> C1
+end
+subgraph Meta["&#127758; メタループ（数時間&#183;数日単位）"]
+M1["&#9876;&#65039; 強力な装備収集"] --> M2["&#127758; 新エリア解放"] --> M3["&#128214; ストーリー進行"] --> M1
+end
+Core -->|"積み重なる"| Meta
+style Core fill:#0a1020,stroke:#00ff88
+style Meta fill:#0a1020,stroke:#ffaa00`;
+
+/* prettier-ignore */
+const DIAGRAM_AUTHORITATIVE = `flowchart TB
+Player["&#127918; プレイヤー（クライアント）"]
+Cheat["&#128296; チート試行: HP=9999に改ざん"]
+Server["&#128421;&#65039; サーバー（権威型） HP=100を管理"]
+Result["&#10060; 改ざん無効 サーバー値が優先される"]
+Player -->|"ローカル改ざん"| Cheat
+Cheat -->|"リクエスト送信"| Server
+Server --> Result
+style Server fill:#0a1020,stroke:#00ff88,color:#00ff88
+style Result fill:#0a1020,stroke:#ff4466,color:#ff4466
+style Cheat fill:#0a1020,stroke:#ffaa00,color:#ffaa00`;
+
+/* prettier-ignore */
+const DIAGRAM_GRAPHICS = `flowchart TB
+G["&#127912; グラフィックステスト"]
+G --> A1["&#128444;&#65039; アーティスティックテスト Artistic Testing"]
+G --> A2["&#9881;&#65039; テクニカルテスト Technical Testing"]
+G --> A3["&#127918; ゲームプレイグラフィックステスト Gameplay Graphics Testing"]
+A1 --> D1["ビジュアルスタイルの一貫性 色彩&#183;トーン&#183;雰囲気 アートガイドライン準拠"]
+A2 --> D2["フレームレート維持 レンダリングエラー検出 メモリ使用量確認"]
+A3 --> D3["ヒットボックスと見た目の一致 敵&#183;重要アイテムの視認性 VFXによる視野妨害なし"]
+style G fill:#0a1020,stroke:#00d4ff,color:#00d4ff
+style A1 fill:#0a1020,stroke:#cc55ff,color:#cc55ff
+style A2 fill:#0a1020,stroke:#00ff88,color:#00ff88
+style A3 fill:#0a1020,stroke:#ffaa00,color:#ffaa00`;
+
+/* prettier-ignore */
+const DIAGRAM_AUDIO = `flowchart LR
+A["&#127807; 穏やかな フィールド曲"] -->|"敵を検知"| B["&#9889; テンション 上昇曲（移行）"]
+B -->|"バトル開始"| C["&#9876;&#65039; バトルBGM"]
+C -->|"敵全滅"| D["&#127942; 勝利スティンガー"]
+D -->|"フィールド復帰"| A
+C -->|"プレイヤー撃破"| E["&#128128; ゲームオーバー スティンガー"]
+style A fill:#0a1020,stroke:#00ff88,color:#00ff88
+style B fill:#0a1020,stroke:#ffaa00,color:#ffaa00
+style C fill:#0a1020,stroke:#ff4466,color:#ff4466
+style D fill:#0a1020,stroke:#00d4ff,color:#00d4ff
+style E fill:#0a1020,stroke:#cc55ff,color:#cc55ff`;
+
+/* prettier-ignore */
+const DIAGRAM_LOCALIZATION = `flowchart TB
+L["&#127758; ローカリゼーションテスト"]
+L --> F["&#9881;&#65039; 機能ローカリゼーションテスト Functional Localization Testing"]
+L --> Q["&#128221; 言語品質テスト Linguistic Quality Testing"]
+L --> C["&#127914; 文化的適合性テスト Cultural Appropriateness Testing"]
+F --> FD["UIの動作確認 テキストオーバーフロー フォント&#183;エンコーディング 未翻訳テキスト&#40;プレースホルダー&#41;残存"]
+Q --> QD["文法的正確性 ゲーム内用語の一貫性 キャラクターのトーン&#183;性格 専門用語の正確性"]
+C --> CD["ジョーク&#183;隠喩の適切性 宗教&#183;政治的な表現 文化的に敏感なコンテンツ 地域固有の変更"]
+style L fill:#0a1020,stroke:#00d4ff,color:#00d4ff
+style F fill:#0a1020,stroke:#00ff88,color:#00ff88
+style Q fill:#0a1020,stroke:#ffaa00,color:#ffaa00
+style C fill:#0a1020,stroke:#cc55ff,color:#cc55ff`;
+
 export default function IstqbCtGameCompleteGuide() {
     return (
         <div className="istqb-ct-game-page">
@@ -51,14 +144,7 @@ export default function IstqbCtGameCompleteGuide() {
                 </div>
                 <h3>資格ロードマップ</h3>
                 <div className="mermaid-wrap">
-                    <Mermaid chart={`
-                        flowchart LR CTFL["&#127891; CTFL v4.0 Foundation Level&#40;前提必須&#41;"]
-                        GaMe["&#127918; CT-GaMe v1.0.1 Certified Tester - Game Testing"]
-                        Other["Other Core / Agile / Specialist Certifications"] CTFL --> GaMe -->
-                        Other style CTFL fill:#0a1020,stroke:#00d4ff,color:#00d4ff style GaMe
-                        fill:#0a1020,stroke:#00ff88,color:#00ff88 style Other
-                        fill:#0a1020,stroke:#ffaa00,color:#ffaa00
-                    `} />
+                    <Mermaid chart={DIAGRAM_ROADMAP} />
                 </div>
                 <h3>6つのビジネスアウトカム</h3>
                 <div className="arch-layers">
@@ -369,18 +455,7 @@ export default function IstqbCtGameCompleteGuide() {
                 </div>
                 <h3>1.4 ゲーム開発ライフサイクルとテスト（K2）</h3>
                 <div className="mermaid-wrap">
-                    <Mermaid chart={`
-                        flowchart LR A["&#128161; コンセプト プリプロダクション"] B["&#128296;
-                        プロダクション"] C["&#128300; アルファ&#183;ベータ"] D["&#127942;
-                        ゴールドマスター リリース"] E["&#128225; ポストリリース ライブ運営"] A
-                        -->|"プロトタイプUX リスク評価"| B B -->|"スプリント毎テスト アルファ回帰"|
-                        C C -->|"認証テスト準備 ローカライゼーション"| D D -->|"パッチ&#183;DLC
-                        継続監視"| E style A fill:#0a1020,stroke:#cc55ff,color:#cc55ff style B
-                        fill:#0a1020,stroke:#00d4ff,color:#00d4ff style C
-                        fill:#0a1020,stroke:#ffaa00,color:#ffaa00 style D
-                        fill:#0a1020,stroke:#00ff88,color:#00ff88 style E
-                        fill:#0a1020,stroke:#ff66cc,color:#ff66cc
-                    `} />
+                    <Mermaid chart={DIAGRAM_LIFECYCLE} />
                 </div>
                 <div className="callout info">
                     <div className="callout-title">&#128204; 試験ポイント K2</div>
@@ -447,15 +522,7 @@ export default function IstqbCtGameCompleteGuide() {
                 </div>
                 <h4>分類2：コアループ vs メタループ（K2）</h4>
                 <div className="mermaid-wrap">
-                    <Mermaid chart={`
-                        flowchart LR subgraph Core["&#128260; コアループ（数分単位の繰り返し）"]
-                        C1["&#9876;&#65039; バトル"] --> C2["&#10024; 経験値獲得"] --> C3["&#128200;
-                        レベルアップ"] --> C1 end subgraph Meta["&#127758;
-                        メタループ（数時間&#183;数日単位）"] M1["&#9876;&#65039; 強力な装備収集"]
-                        --> M2["&#127758; 新エリア解放"] --> M3["&#128214; ストーリー進行"] --> M1
-                        end Core -->|"積み重なる"| Meta style Core fill:#0a1020,stroke:#00ff88 style
-                        Meta fill:#0a1020,stroke:#ffaa00
-                    `} />
+                    <Mermaid chart={DIAGRAM_LOOPS} />
                 </div>
                 <h4>分類3：クライアント / サーバー / クライアント-サーバーメカニクス（K2）</h4>
                 <div className="arch-layers">
@@ -500,15 +567,7 @@ export default function IstqbCtGameCompleteGuide() {
                     </p>
                 </div>
                 <div className="mermaid-wrap">
-                    <Mermaid chart={`
-                        flowchart TB Player["&#127918; プレイヤー（クライアント）"] Cheat["&#128296;
-                        チート試行: HP=9999に改ざん"] Server["&#128421;&#65039; サーバー（権威型）
-                        HP=100を管理"] Result["&#10060; 改ざん無効 サーバー値が優先される"] Player
-                        -->|"ローカル改ざん"| Cheat Cheat -->|"リクエスト送信"| Server Server -->
-                        Result style Server fill:#0a1020,stroke:#00ff88,color:#00ff88 style Result
-                        fill:#0a1020,stroke:#ff4466,color:#ff4466 style Cheat
-                        fill:#0a1020,stroke:#ffaa00,color:#ffaa00
-                    `} />
+                    <Mermaid chart={DIAGRAM_AUTHORITATIVE} />
                 </div>
                 <div className="code-block" data-lang="テストチェックリスト">
                     <code
@@ -765,20 +824,7 @@ export default function IstqbCtGameCompleteGuide() {
                 </div>
                 <h3>3.2 グラフィックステストの3アプローチ（K2）&#8212;試験頻出！</h3>
                 <div className="mermaid-wrap">
-                    <Mermaid chart={`
-                        flowchart TB G["&#127912; グラフィックステスト"] G --> A1["&#128444;&#65039;
-                        アーティスティックテスト Artistic Testing"] G --> A2["&#9881;&#65039;
-                        テクニカルテスト Technical Testing"] G --> A3["&#127918;
-                        ゲームプレイグラフィックステスト Gameplay Graphics Testing"] A1 -->
-                        D1["ビジュアルスタイルの一貫性 色彩&#183;トーン&#183;雰囲気
-                        アートガイドライン準拠"] A2 --> D2["フレームレート維持
-                        レンダリングエラー検出 メモリ使用量確認"] A3 -->
-                        D3["ヒットボックスと見た目の一致 敵&#183;重要アイテムの視認性
-                        VFXによる視野妨害なし"] style G fill:#0a1020,stroke:#00d4ff,color:#00d4ff
-                        style A1 fill:#0a1020,stroke:#cc55ff,color:#cc55ff style A2
-                        fill:#0a1020,stroke:#00ff88,color:#00ff88 style A3
-                        fill:#0a1020,stroke:#ffaa00,color:#ffaa00
-                    `} />
+                    <Mermaid chart={DIAGRAM_GRAPHICS} />
                 </div>
                 <h3>3.3 グラフィックス欠陥カタログ（K2）</h3>
                 <div className="table-wrap">
@@ -938,17 +984,7 @@ export default function IstqbCtGameCompleteGuide() {
                     </p>
                 </div>
                 <div className="mermaid-wrap">
-                    <Mermaid chart={`
-                        flowchart LR A["&#127807; 穏やかな フィールド曲"] -->|"敵を検知"| B["&#9889;
-                        テンション 上昇曲（移行）"] B -->|"バトル開始"| C["&#9876;&#65039;
-                        バトルBGM"] C -->|"敵全滅"| D["&#127942; 勝利スティンガー"] D
-                        -->|"フィールド復帰"| A C -->|"プレイヤー撃破"| E["&#128128; ゲームオーバー
-                        スティンガー"] style A fill:#0a1020,stroke:#00ff88,color:#00ff88 style B
-                        fill:#0a1020,stroke:#ffaa00,color:#ffaa00 style C
-                        fill:#0a1020,stroke:#ff4466,color:#ff4466 style D
-                        fill:#0a1020,stroke:#00d4ff,color:#00d4ff style E
-                        fill:#0a1020,stroke:#cc55ff,color:#cc55ff
-                    `} />
+                    <Mermaid chart={DIAGRAM_AUDIO} />
                 </div>
                 <h3>4.4 サウンド製作プロセスとテスト段階（K2）</h3>
                 <ol className="step-list">
@@ -1459,21 +1495,7 @@ export default function IstqbCtGameCompleteGuide() {
                 </div>
                 <h3>7.3 ローカリゼーションテストの3種類（K2）&#8212;試験頻出！</h3>
                 <div className="mermaid-wrap">
-                    <Mermaid chart={`
-                        flowchart TB L["&#127758; ローカリゼーションテスト"] L -->
-                        F["&#9881;&#65039; 機能ローカリゼーションテスト Functional Localization
-                        Testing"] L --> Q["&#128221; 言語品質テスト Linguistic Quality Testing"] L
-                        --> C["&#127914; 文化的適合性テスト Cultural Appropriateness Testing"] F -->
-                        FD["UIの動作確認 テキストオーバーフロー フォント&#183;エンコーディング
-                        未翻訳テキスト&#40;プレースホルダー&#41;残存"] Q --> QD["文法的正確性
-                        ゲーム内用語の一貫性 キャラクターのトーン&#183;性格 専門用語の正確性"] C -->
-                        CD["ジョーク&#183;隠喩の適切性 宗教&#183;政治的な表現
-                        文化的に敏感なコンテンツ 地域固有の変更"] style L
-                        fill:#0a1020,stroke:#00d4ff,color:#00d4ff style F
-                        fill:#0a1020,stroke:#00ff88,color:#00ff88 style Q
-                        fill:#0a1020,stroke:#ffaa00,color:#ffaa00 style C
-                        fill:#0a1020,stroke:#cc55ff,color:#cc55ff
-                    `} />
+                    <Mermaid chart={DIAGRAM_LOCALIZATION} />
                 </div>
                 <h3>7.4 テキストオーバーフロー問題（K3）</h3>
                 <div className="callout warning">
