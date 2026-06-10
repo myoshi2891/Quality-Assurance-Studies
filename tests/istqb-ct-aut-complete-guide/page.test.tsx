@@ -4,26 +4,11 @@ import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-aut-complete-guide/page';
 import NavBar from '../../app/istqb-ct-aut-complete-guide/NavBar';
 
-// Mock IntersectionObserver for NavBar
-const mockIntersectionObserver = class {
-    constructor() {}
-    observe() {}
-    unobserve() {}
-    disconnect() {}
-};
 
 describe('ISTQB CT-AuT Complete Guide Page', () => {
-    let originalIntersectionObserver: typeof IntersectionObserver;
-
-    beforeAll(() => {
-        originalIntersectionObserver = global.IntersectionObserver;
-        global.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
-    });
-
-    afterAll(() => {
-        global.IntersectionObserver = originalIntersectionObserver;
-    });
-
+    
+    
+    
     afterEach(cleanup);
 
     it('renders the hero heading for Automotive Software Tester', () => {

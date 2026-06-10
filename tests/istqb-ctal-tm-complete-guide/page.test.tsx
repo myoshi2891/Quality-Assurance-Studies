@@ -1,26 +1,6 @@
-import { describe, it, expect, afterEach, beforeAll, afterAll } from 'bun:test';
+import { describe, it, expect, afterEach } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import Page from '../../app/istqb-ctal-tm-complete-guide/page';
-
-class MockIntersectionObserver {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  observe(target: Element) {}
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  unobserve(target: Element) {}
-  disconnect() {}
-}
-let _originalIntersectionObserver: typeof IntersectionObserver;
-
-beforeAll(() => {
-  _originalIntersectionObserver = global.IntersectionObserver;
-  global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
-});
-
-afterAll(() => {
-  global.IntersectionObserver = _originalIntersectionObserver;
-});
 
 afterEach(() => {
   cleanup();

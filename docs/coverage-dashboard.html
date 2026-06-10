@@ -957,7 +957,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-06-08">2026-06-08</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-06-10">2026-06-10</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
         <span id="mc-scope"><strong>Scope</strong> 32 pages · 3 components · 4 libs · 5 scripts</span>
@@ -1041,14 +1041,14 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== PAGES ====================== -->
   <section class="mc-section" aria-labelledby="h-pages">
-    <h2 id="h-pages">Per-Page Coverage <span class="num">32 routes</span></h2>
+    <h2 id="h-pages">Per-Page Coverage <span class="num"><span id="cnt-routes">32</span> routes</span></h2>
     <p class="lede">各ページの page.test.tsx 有無を一覧化。テスト済みは見出し描画 + リンク数 + 主要セクション存在の最低限の保証のみ。完了済み（E2E・a11y）ですが、ビジュアル確認は未実施です。</p>
 
     <div class="pages-toolbar" role="status" aria-live="polite">
       <span class="chip" data-tone="ok"><strong id="cnt-tested">32</strong> Tested</span>
       <span class="chip" data-tone="gap"><strong id="cnt-untested">0</strong> Untested</span>
-      <span class="chip"><strong>32</strong> Total Routes</span>
-      <span class="chip" data-tone="ok"><strong>32</strong> with E2E</span>
+      <span class="chip"><strong id="cnt-total">32</strong> Total Routes</span>
+      <span class="chip" data-tone="ok"><strong id="cnt-e2e">32</strong> with E2E</span>
     </div>
 
     <ul class="pages-grid" id="pages-grid">
@@ -1144,24 +1144,25 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           </tr>
           <tr>
             <th scope="row">System Testing (E2E)</th>
-            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 31 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 31 passed。</td>
+            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 33 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 33 passed。</td>
             <td><span class="status" data-st="full">Smoke · 100%</span></td>
-          </tr>
-          <tr>
+            </tr>
+            <tr>
             <th scope="row">Acceptance Testing</th>
             <td>学習サイトという性質上、UAT は手動レビュー（移行前後の表示比較）のみ。BDD/Gherkin は教材として扱うが実装には未適用。</td>
             <td><span class="status" data-st="partial">Manual</span></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+            </tr>
+            </tbody>
+            </table>
+            </div>
+            </section>
 
-  <!-- ====================== FOOTER ====================== -->
-  <p class="foot">
-    QA_Studies Coverage Radar
-    <span class="sep">·</span>
-    Generated 2026-06-05
+            <!-- ====================== FOOTER ====================== -->
+            <p class="foot">
+            QA_Studies Coverage Radar
+            <span class="sep">·</span>
+            Generated 2026-06-10
+
     <span class="sep">·</span>
     Single-file, standalone HTML
     <span class="sep">·</span>
@@ -1195,6 +1196,7 @@ const pages = [
   { path: '/istqb-ct-pt-complete-guide', topic: 'ISTQB Specialist — Performance', tested: true },
   { path: '/istqb-ct-sec-complete-guide', topic: 'ISTQB Specialist — Security', tested: true },
   { path: '/istqb-ct-ste-complete-guide', topic: 'ISTQB Specialist — Security Eng', tested: true },
+  { path: '/istqb-ct-game-complete-guide', topic: 'ISTQB Specialist — Game Testing', tested: true },
   { path: '/istqb-ct-tas-complete-guide', topic: 'ISTQB Specialist — TAS', tested: true },
   { path: '/istqb-ctal-atlas-complete-guide', topic: 'ISTQB Advanced — AT Leadership', tested: true },
   { path: '/istqb-ctal-att-complete-guide', topic: 'ISTQB Advanced — Agile Tech Tester', tested: true },
@@ -1368,6 +1370,7 @@ const DATA = {
       'tests/istqb-ct-pt-complete-guide/page.test.tsx',
       'tests/istqb-ct-sec-complete-guide/page.test.tsx',
       'tests/istqb-ct-ste-complete-guide/page.test.tsx',
+      'tests/istqb-ct-game-complete-guide/page.test.tsx',
       'tests/istqb-ct-tas-complete-guide/page.test.tsx',
       'tests/istqb-ctal-atlas-complete-guide/page.test.tsx',
       'tests/istqb-ctal-att-complete-guide/page.test.tsx',
@@ -1607,6 +1610,9 @@ function renderPages() {
   });
   document.getElementById('cnt-tested').textContent = String(tested);
   document.getElementById('cnt-untested').textContent = String(DATA.pages.length - tested);
+  document.getElementById('cnt-routes').textContent = String(DATA.pages.length);
+  document.getElementById('cnt-total').textContent = String(DATA.pages.length);
+  document.getElementById('cnt-e2e').textContent = String(DATA.pages.length);
   
   const pagesKpi = document.getElementById('kpi-pages-tested');
   if (pagesKpi) pagesKpi.innerHTML = `${tested}<span class="unit">/ ${DATA.pages.length}</span>`;

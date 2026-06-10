@@ -2,6 +2,7 @@ import { describe, it, expect } from 'bun:test';
 import nextPkg from 'next/package.json' with { type: 'json' };
 import reactPkg from 'react/package.json' with { type: 'json' };
 import reactDomPkg from 'react-dom/package.json' with { type: 'json' };
+// @ts-expect-error eslint-config-next package.json lacks exports typings
 import eslintConfigNextPkg from 'eslint-config-next/package.json' with { type: 'json' };
 
 // 意図せぬダウングレードによる回帰を防ぐため、主要依存の下限バージョンを固定する
@@ -13,8 +14,11 @@ const MIN = {
 } as const;
 
 const toNum = (v: string): [number, number, number] => {
-  const [a, b, c] = v.split('.').map((n) => Number.parseInt(n, 10));
-  return [a, b, c];
+  const parts = v.split('.').map((n) => {
+    const parsed = Number.parseInt(n, 10);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  });
+  return [parts[0] ?? 0, parts[1] ?? 0, parts[2] ?? 0];
 };
 
 const gte = (actual: string, min: string): boolean => {

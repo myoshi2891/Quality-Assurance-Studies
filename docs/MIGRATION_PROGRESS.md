@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-06-08
+Updated 2026-06-10
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -11,9 +11,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `abf37c8` |
-| 次の作業 | CT-GaMe ガイドの Next.js 移行 |
-| ビルド状態 | ✅ `bun run build`（32ページ静的生成）/ `bun run lint` / `bun test`（149 pass）全て成功。 |
+| 最新 HEAD | `fdc0ea1` |
+| 次の作業 | CT-GT ガイドの Next.js 移行 |
+| ビルド状態 | ✅ `bun run build`（33ページ静的生成）/ `bun run lint` / `bun test`（151 pass）全て成功。 |
 
 ## 2026/06/08: CT-AuT ガイドの Next.js 移行完了
 
@@ -270,10 +270,11 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `integration-functional-testing-guide.html` | `/integration-functional-testing-guide` | ✅ |
 | `integration-system-testing-guide.html` | `/integration-system-testing-guide` | ✅ |
 | `istqb-ct-ai-complete-guide.html` | `/istqb-ct-ai-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-game-complete-guide.html` | `/istqb-ct-game-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
-| `istqb-ct-aut-complete-guide.html` | `/istqb-ct-aut-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-aut-complete-guide.html` | `/istqb-ct-aut-complete-guide` | ✅ NavBar あり (HTML not found) |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
@@ -299,28 +300,23 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ct-game-complete-guide.md` | `/istqb-ct-game-complete-guide` | ⏳ 未着手 | HTML版未生成 |
-| `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 未着手 | HTML版未生成 |
+| `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 進行中 | HTML版生成済み、表示調整中 |
 
 ## 既知の留保事項
 
 - `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
+- `istqb-ct-aut-complete-guide.html` はリポジトリ内に存在しません（not found）。
+- `istqb-ct-gt-complete-guide.html` は生成済みです。表示崩れや Mermaid の調整を実施中。
 
 ## 次回セッションでの再開プロンプト
 
 ```text
 コンテキスト:
-- 最新 HEAD: `abf37c8`
+- 最新 HEAD: `fdc0ea1`
 - **新規ガイド追加中**: 既存の全 HTML 移行は完了しましたが、新たに CT-AuT, CT-GaMe, CT-GT ガイドが追加されました。
-- 合計 32 ルート（ホーム + 31 ガイド予定）が管理されています。
+- 合計 33 ルート（ホーム + 32 ガイド予定）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-CT-AuTガイドの移行が完了し、32ルートになりました。次のタスク（CT-GaMeガイドの移行）について指示を仰ぎます。
+CT-GaMeガイドの移行が完了し、33ルートになりました。次のタスク（CT-GTガイドの移行、またはその他のタスク）について指示を仰ぎます。
 ```
-
----
-
-## 完了: ハンバーガーメニュー化（TDD）
-
-...

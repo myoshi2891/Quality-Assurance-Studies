@@ -5,15 +5,6 @@ import Page from '../../app/istqb-ct-sec-complete-guide/page';
 
 afterEach(() => cleanup());
 
-// Mock the IntersectionObserver since it's not available in happy-dom
-beforeAll(() => {
-    const mockIntersectionObserver = mock(() => ({
-        observe: () => null,
-        unobserve: () => null,
-        disconnect: () => null,
-    }));
-    window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
-});
 
 describe('CT-SEC Complete Guide Page', () => {
     it('renders the main heading', () => {

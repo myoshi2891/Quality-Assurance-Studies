@@ -9,3 +9,29 @@ mock.module('mermaid', () => ({
     render: async () => ({ svg: '<svg data-testid="mock-mermaid"></svg>' }),
   },
 }));
+
+class IntersectionObserverMock {
+  root: Element | Document | null = null;
+  rootMargin: string = '';
+  thresholds: ReadonlyArray<number> = [];
+  constructor(private callback: IntersectionObserverCallback, public options?: IntersectionObserverInit) {
+    this.root = options?.root ?? null;
+    this.rootMargin = options?.rootMargin ?? '';
+    this.thresholds = Array.isArray(options?.threshold)
+      ? options!.threshold
+      : (typeof options?.threshold === 'number'
+      ? [options!.threshold]
+      : []);
+  }
+  observe(target: Element) {}
+  unobserve(target: Element) {}
+  disconnect() {}
+  takeRecords(): IntersectionObserverEntry[] { return []; }
+}
+
+if (typeof window !== 'undefined') {
+  window.IntersectionObserver = IntersectionObserverMock as unknown as typeof IntersectionObserver;
+}
+if (typeof global !== 'undefined') {
+  global.IntersectionObserver = IntersectionObserverMock as unknown as typeof IntersectionObserver;
+}

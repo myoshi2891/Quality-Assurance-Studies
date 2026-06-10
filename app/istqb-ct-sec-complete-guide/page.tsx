@@ -1,11 +1,19 @@
 import './istqb-ct-sec-complete-guide.css';
 import NavBar from './NavBar';
 
+/**
+ * Render the complete single-page UI for the "ISTQB® Specialist — Security Tester (CT-SEC)" learning guide.
+ *
+ * The returned element includes the top navigation, hero/metadata, table of contents, chapter sections (Ch.0–Ch.9),
+ * exam preparation (sample questions and checklist), tools reference, references list, summary checklist, and footer.
+ *
+ * @returns A React element containing the full CT-SEC guide page layout and content
+ */
 export default function CTSECCompleteGuide() {
   return (
-    <>
+    <div className="istqb-ct-sec-page">
       <NavBar />
-
+      <main>
         {/* ═══ HERO ═══ */}
             <section className="hero" id="chapter-0">
                 <div className="hero-glow"></div>
@@ -2797,6 +2805,7 @@ export default function CTSECCompleteGuide() {
                     倫理的注意：本書に記載されたセキュリティテスト技法は、必ず事前に書面による許可を得た上で、許可されたシステムのみに適用してください。
                 </p>
             </footer>
-    </>
+      </main>
+    </div>
   );
 }
