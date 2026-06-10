@@ -1057,8 +1057,8 @@
                 overflow-x: auto;
             }
             .mermaid-wrap .mermaid {
-                display: flex;
-                justify-content: center;
+                display: block;
+                text-align: center;
                 width: 100%;
             }
 
@@ -3174,11 +3174,37 @@
                         
                         const svgEl = targetEl.querySelector('svg');
                         if (svgEl) {
-                            svgEl.removeAttribute('width');
-                            svgEl.removeAttribute('height');
-                            svgEl.style.width = '100%';
-                            svgEl.style.maxWidth = '100%';
+                            const isSequence = src.includes('sequenceDiagram');
+                            const isFlowchartLR = src.includes('flowchart LR') || src.includes('graph LR');
+                            const isFlowchartTD = src.includes('flowchart TD') || src.includes('graph TD') || src.includes('flowchart TB') || src.includes('graph TB');
+                            
                             svgEl.style.height = 'auto';
+                            svgEl.style.display = 'block';
+                            svgEl.style.margin = '0 auto';
+                            
+                            if (isSequence) {
+                                svgEl.style.width = '100%';
+                                svgEl.style.maxWidth = '650px';
+                            } else if (isFlowchartLR) {
+                                const originalWidth = svgEl.getAttribute('width');
+                                if (originalWidth && !originalWidth.includes('%')) {
+                                    const widthVal = parseFloat(originalWidth);
+                                    if (widthVal > 720) {
+                                        svgEl.style.minWidth = originalWidth;
+                                        svgEl.style.width = originalWidth;
+                                    } else {
+                                        svgEl.style.width = '100%';
+                                        svgEl.style.maxWidth = originalWidth;
+                                    }
+                                } else {
+                                    svgEl.style.maxWidth = '100%';
+                                }
+                            } else if (isFlowchartTD) {
+                                svgEl.style.width = '100%';
+                                svgEl.style.maxWidth = '480px';
+                            } else {
+                                svgEl.style.maxWidth = '100%';
+                            }
                         }
                     } catch (error) {
                         console.error(`Mermaid render failed for ${id}:`, error);
