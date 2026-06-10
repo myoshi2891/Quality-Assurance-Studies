@@ -2238,27 +2238,6 @@ export default function IstqbCtGameCompleteGuide() {
                 </div>
             </div>
         </footer>
-        <script>
-            mermaid.initialize(&#123;
-                startOnLoad: true,
-                theme: 'dark',
-                themeVariables: &#123;
-                    primaryColor: '#0a1020',
-                    primaryTextColor: '#e2e8f0',
-                    primaryBorderColor: '#00d4ff',
-                    lineColor: '#00d4ff',
-                    secondaryColor: '#0f1a2e',
-                    tertiaryColor: '#162035',
-                    background: '#030712',
-                    mainBkg: '#0a1020',
-                    nodeBorder: '#00d4ff',
-                    clusterBkg: '#0f1a2e',
-                    titleColor: '#00ff88',
-                    edgeLabelBackground: '#0a1020',
-                    fontSize: '14px',
-                &#125;,
-            &#125;);
-        </script>
     
         </div>
     );
