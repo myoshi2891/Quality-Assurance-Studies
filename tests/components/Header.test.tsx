@@ -181,6 +181,11 @@ describe('Header body scroll lock and focus', () => {
     fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
     const dialog = screen.getByRole('dialog');
     const firstLink = within(dialog).getAllByRole('link')[0];
-    expect(document.activeElement).toBe(firstLink ?? null);
+    expect(firstLink).toBeDefined();
+    // Header.tsx は firstLink?.focus() で undefined 時にフォーカスしない早期リターン挙動。
+    // それに合わせ、リンクが存在する場合のみフォーカスを検証する。
+    if (firstLink) {
+      expect(document.activeElement).toBe(firstLink);
+    }
   });
 });

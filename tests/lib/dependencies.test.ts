@@ -14,7 +14,10 @@ const MIN = {
 } as const;
 
 const toNum = (v: string): [number, number, number] => {
-  const parts = v.split('.').map((n) => Number.parseInt(n, 10));
+  const parts = v.split('.').map((n) => {
+    const parsed = Number.parseInt(n, 10);
+    return Number.isNaN(parsed) ? 0 : parsed;
+  });
   return [parts[0] ?? 0, parts[1] ?? 0, parts[2] ?? 0];
 };
 
