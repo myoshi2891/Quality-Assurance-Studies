@@ -1,53 +1,10 @@
 import { render, screen, cleanup } from '@testing-library/react';
-import { expect, test, describe, beforeAll, afterAll, afterEach } from 'bun:test';
+import { expect, test, describe, afterEach } from 'bun:test';
 import React from 'react';
 import Page from '../../app/istqb-ctal-tta-complete-guide/page';
 import NavBar from '../../app/istqb-ctal-tta-complete-guide/NavBar';
 
-// IntersectionObserver のモック
-class MockIntersectionObserver implements IntersectionObserver {
-    readonly root: Element | Document | null = null;
-    readonly rootMargin: string = '';
-    readonly thresholds: readonly number[] = [];
-
-    private callback: IntersectionObserverCallback;
-    private options?: IntersectionObserverInit;
-
-    constructor(callback: IntersectionObserverCallback, options?: IntersectionObserverInit) {
-        this.callback = callback;
-        this.options = options;
-    }
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    observe(target: Element): void {}
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    unobserve(target: Element): void {}
-    disconnect(): void {}
-    takeRecords(): IntersectionObserverEntry[] {
-        return [];
-    }
-}
-
 describe('istqb-ctal-tta-complete-guide', () => {
-    let originalIntersectionObserver: typeof IntersectionObserver | undefined;
-
-    beforeAll(() => {
-        originalIntersectionObserver = window.IntersectionObserver;
-        Object.defineProperty(window, 'IntersectionObserver', {
-            writable: true,
-            configurable: true,
-            value: MockIntersectionObserver,
-        });
-    });
-
-    afterAll(() => {
-        Object.defineProperty(window, 'IntersectionObserver', {
-            writable: true,
-            configurable: true,
-            value: originalIntersectionObserver,
-        });
-    });
-
     // 各テスト後にレンダリング結果を破棄し、未await の Mermaid 非同期処理が
     // テスト境界を越えて後続ファイルに漏れるのを防ぐ
     afterEach(() => {

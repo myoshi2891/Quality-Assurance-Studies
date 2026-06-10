@@ -199,7 +199,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ```text
 コンテキスト:
-- 最新 HEAD: `d51f01d`
+- 最新 HEAD: `eb3b900`
 - **新規ガイド追加中**: 既存の全 HTML 移行は完了しましたが、新たに CT-AuT, CT-GaMe, CT-GT ガイドが追加されました。
 - 合計 33 ルート（ホーム + 32 ガイド予定）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
