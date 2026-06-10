@@ -16,6 +16,17 @@ interface MermaidProps {
   chart: string;
 }
 
+/**
+ * Renders a Mermaid diagram source into an adjusted SVG and injects it into the page.
+ *
+ * Parses Mermaid's generated SVG, adjusts inline sizing and layout based on detected diagram type
+ * (sequence diagrams, left-right flowcharts, top-down flowcharts, or fallback), and displays the
+ * resulting SVG inside a responsive container. If SVG parsing fails the raw Mermaid output is used;
+ * on rendering errors a small error message is shown.
+ *
+ * @param chart - Mermaid diagram source text
+ * @returns The component's JSX element that contains the rendered/adjusted SVG or an error message
+ */
 export default function Mermaid({ chart }: MermaidProps) {
   const [svgStr, setSvgStr] = useState<string>('');
 
