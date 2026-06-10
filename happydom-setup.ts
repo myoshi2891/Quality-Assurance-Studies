@@ -11,10 +11,18 @@ mock.module('mermaid', () => ({
 }));
 
 class IntersectionObserverMock {
-  root: Element | null = null;
+  root: Element | Document | null = null;
   rootMargin: string = '';
   thresholds: ReadonlyArray<number> = [];
-  constructor(public callback: IntersectionObserverCallback, public options?: IntersectionObserverInit) {}
+  constructor(private callback: IntersectionObserverCallback, public options?: IntersectionObserverInit) {
+    this.root = options?.root ?? null;
+    this.rootMargin = options?.rootMargin ?? '';
+    this.thresholds = Array.isArray(options?.threshold)
+      ? options!.threshold
+      : (typeof options?.threshold === 'number'
+      ? [options!.threshold]
+      : []);
+  }
   observe(target: Element) {}
   unobserve(target: Element) {}
   disconnect() {}
