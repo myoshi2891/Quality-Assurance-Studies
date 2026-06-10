@@ -19,15 +19,15 @@ class MockIntersectionObserver {
     if (mockObserverDisconnect) mockObserverDisconnect();
   }
 }
-let _originalIntersectionObserver: typeof IntersectionObserver;
+let _originalIntersectionObserver: typeof window.IntersectionObserver;
 
 beforeAll(() => {
-  _originalIntersectionObserver = global.IntersectionObserver;
-  global.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
+  _originalIntersectionObserver = window.IntersectionObserver;
+  window.IntersectionObserver = MockIntersectionObserver as unknown as typeof IntersectionObserver;
 });
 
 afterAll(() => {
-  global.IntersectionObserver = _originalIntersectionObserver;
+  window.IntersectionObserver = _originalIntersectionObserver;
 });
 
 afterEach(() => {

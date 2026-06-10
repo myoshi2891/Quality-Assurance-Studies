@@ -10,6 +10,8 @@ export default function NavBar() {
   const [activeId, setActiveId] = useState('');
 
   useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const intersecting = entries.filter((entry) => entry.isIntersecting);
