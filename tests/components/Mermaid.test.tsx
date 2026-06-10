@@ -67,4 +67,40 @@ describe('Mermaid component', () => {
       expect(wrapper?.className).toContain('overflow-x-auto');
     });
   });
+
+  // Mermaid v11 は securityLevel:'loose' + htmlLabels:true でラベルを
+  // <foreignObject> 内の <div class="nodeLabel">（＝HTML）として描画し、
+  // ノード/エッジ/テキストの色は <style> ブロックの CSS で与えられる。
+  // 外側 DOMPurify を SVG プロファイルで適用するとこの HTML ラベルと
+  // <style> 内容が除去され、ダークモードでテキスト・矢印・枠線が消える。
+  // 本スペックはその退行を検知する（実出力に近い SVG を描画して保持を検証）。
+  it('preserves the <style> block and htmlLabel (foreignObject) content of real mermaid SVG output', async () => {
+    renderImpl = async () => ({
+      svg:
+        '<svg xmlns="http://www.w3.org/2000/svg" data-testid="mermaid-svg" class="flowchart">' +
+        '<style>#g .nodeLabel{color:#00ff88;fill:#00ff88}#g .edgePath path{stroke:#888}</style>' +
+        '<g class="node"><rect class="basic"></rect>' +
+        '<foreignObject width="100" height="20">' +
+        '<div xmlns="http://www.w3.org/1999/xhtml" class="nodeLabel"><span>CT-GaMe</span></div>' +
+        '</foreignObject></g>' +
+        '<g class="edgePaths"><path class="edgePath" d="M0,0L10,10"></path></g>' +
+        '</svg>',
+    });
+
+    const { container } = render(<Mermaid chart="flowchart LR; A-->B" />);
+
+    await waitFor(() => {
+      const svg = container.querySelector('svg[data-testid="mermaid-svg"]');
+      expect(svg).not.toBeNull();
+    });
+
+    // <style> ブロックが残り、色を与える CSS ルールを保持していること
+    const styleEl = container.querySelector('style');
+    expect(styleEl).not.toBeNull();
+    expect(styleEl?.textContent).toContain('nodeLabel');
+
+    // htmlLabel（foreignObject 内 HTML）とラベル文字列が保持されていること
+    expect(container.querySelector('foreignObject')).not.toBeNull();
+    expect(container.textContent).toContain('CT-GaMe');
+  });
 });
