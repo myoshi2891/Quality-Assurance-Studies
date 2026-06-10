@@ -4,7 +4,9 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 
 /**
- * Renders a sticky navigation bar with a logo and in-page links, highlighting the link whose target section is currently visible.
+ * Render a sticky navigation bar with brand label and in-page links, highlighting the link whose target section is currently visible.
+ *
+ * @returns The React element for the navigation bar.
  */
 export default function NavBar() {
   const [activeId, setActiveId] = useState('');
