@@ -1067,3 +1067,19 @@
                     font-size: 1rem;
                 }
             }
+/* ===== ACCESSIBILITY: REDUCED MOTION ===== */
+@media (prefers-reduced-motion: reduce) {
+    .hero-title, .hero-subtitle, .hero-desc {
+        animation: none !important;
+    }
+    .hero-btn {
+        animation: none !important;
+    }
+    .neon-text, .neon-box {
+        animation: none !important;
+    }
+    .progress-bar {
+        animation: none !important;
+        width: var(--bar-width, 70%) !important;
+    }
+}
