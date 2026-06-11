@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, cleanup } from '@testing-library/react';
 import { describe, it, expect, beforeEach, afterEach, vi } from 'bun:test';
 import IstqbCtGtCompleteGuide from '../../app/istqb-ct-gt-complete-guide/page';
 
@@ -11,10 +11,11 @@ describe('IstqbCtGtCompleteGuide', () => {
             unobserve: () => null,
             disconnect: () => null
         });
-        window.IntersectionObserver = mockIntersectionObserver;
+        window.IntersectionObserver = mockIntersectionObserver as unknown as typeof window.IntersectionObserver;
     });
 
     afterEach(() => {
+        cleanup();
         vi.clearAllMocks();
     });
 

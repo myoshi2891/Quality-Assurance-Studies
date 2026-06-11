@@ -65,6 +65,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-tas-complete-guide', label: 'テスト自動化戦略(CT-TAS)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-pt-complete-guide', label: 'パフォーマンステスト(CT-PT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-ut-complete-guide', label: 'ユーザビリティテスト(CT-UT)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-gt-complete-guide', label: 'ギャンブル産業テスター(CT-GT)ガイド', category: 'istqb-specialist' },
 
   { href: '/istqb-ctel-itp-atp-complete-guide', label: 'テストプロセス評価(CTEL-ATP)ガイド', category: 'istqb-expert' },
   { href: '/istqb-ctel-itp-itpi-complete-guide', label: 'テストプロセス改善実装(CTEL-ITPI)ガイド', category: 'istqb-expert' },
@@ -111,3 +112,4 @@ export function groupByCategory(items: readonly NavItem[]): NavGroup[] {
   }
   return groups;
 }
+
