@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-06-10
+Updated 2026-06-11
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,7 +18,7 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 151 specs)
+bun test             # ユニットテスト (bun test, 154 specs)
 ```
 
 ### E2E テスト (Playwright)
@@ -140,6 +140,9 @@ Next.js App Router 構成:
 - `app/istqb-ct-game-complete-guide/istqb-ct-game-complete-guide.css` — ゲームテスト(CT-GaMe)ガイド固有スタイル
 - `app/istqb-ct-game-complete-guide/page.tsx` — ゲームテスト(CT-GaMe)ガイドページ
 - `app/istqb-ct-game-complete-guide/NavBar.tsx` — CT-GaMe ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ct-gt-complete-guide/istqb-ct-gt-complete-guide.css` — ギャンブル産業テスター(CT-GT)ガイド固有スタイル
+- `app/istqb-ct-gt-complete-guide/page.tsx` — ギャンブル産業テスター(CT-GT)ガイドページ
+- `app/istqb-ct-gt-complete-guide/NavBar.tsx` — CT-GT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `app/istqb-ct-pt-complete-guide.css` — パフォーマンステスト(CT-PT)ガイド固有スタイル
 - `app/istqb-ct-pt-complete-guide/page.tsx` — パフォーマンステスト(CT-PT)ガイドページ
 - `app/istqb-ct-pt-complete-guide/NavBar.tsx` — CT-PT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -334,13 +337,13 @@ bun run lint    # ESLint エラーなし
 
 ```text
 コンテキスト:
-- 最新 HEAD: `fdc0ea1`
-- **新規ガイド追加中**: CT-AuTの移行が完了し、次はCT-GaMeの移行に入ります。
-- 合計 32 ルート（ホーム + 31 ガイド）が Next.js で管理されています。
+- 最新 HEAD: `20d5713`
+- **全ガイド移行完了**: プロジェクトルートに存在した全34ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 34 ルート（ホーム + 33 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-CT-AuTガイドの移行が完了しました。次のタスク（CT-GaMeガイドの移行）について指示を仰ぎます。
+全ガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
 ```
 
 ---

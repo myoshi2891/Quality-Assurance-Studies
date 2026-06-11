@@ -1,19 +1,27 @@
 # Migration Progress
 
-Updated 2026-06-10
+Updated 2026-06-11
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **⚠️ 新規ガイド追加中**: 既存の全 HTML 移行は完了しましたが、新たに CT-AuT, CT-GaMe, CT-GT ガイドが追加されました。これらを順次 Next.js App Router に移行します。
+> **✅ 全ガイド移行完了**: 全34ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `fdc0ea1` |
-| 次の作業 | CT-GT ガイドの Next.js 移行 |
-| ビルド状態 | ✅ `bun run build`（33ページ静的生成）/ `bun run lint` / `bun test`（151 pass）全て成功。 |
+| 最新 HEAD | `20d5713` |
+| 次の作業 | QA/テストプロセスの継続的改善 |
+| ビルド状態 | ✅ `bun run build`（34ページ静的生成）/ `bun run lint` / `bun test`（154 pass）全て成功。 |
+
+## 2026/06/11: CT-GT ガイドの Next.js 移行完了
+
+- `app/istqb-ct-gt-complete-guide/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
+- `tests/istqb-ct-gt-complete-guide/page.test.tsx`: TDD 必須サイクルに従い、テストケースを実装して全パス（154件）。
+- `istqb-ct-gt-complete-guide.html`: `archive/html-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html` など）を最新の 34 ページ体制に同期。
+- これにより、予定されていた全てのガイドの移行が完了しました。
 
 ## 2026/06/08: CT-AuT ガイドの Next.js 移行完了
 
@@ -296,27 +304,28 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
 
+| `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
+
 ### 未移行（プロジェクトルートに残存）
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| `istqb-ct-gt-complete-guide.md` | `/istqb-ct-gt-complete-guide` | ⏳ 進行中 | HTML版生成済み、表示調整中 |
+| (なし) | | | 全てのガイドの移行が完了しました |
 
 ## 既知の留保事項
 
 - `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
 - `istqb-ct-aut-complete-guide.html` はリポジトリ内に存在しません（not found）。
-- `istqb-ct-gt-complete-guide.html` は生成済みです。表示崩れや Mermaid の調整を実施中。
 
 ## 次回セッションでの再開プロンプト
 
 ```text
 コンテキスト:
-- 最新 HEAD: `fdc0ea1`
-- **新規ガイド追加中**: 既存の全 HTML 移行は完了しましたが、新たに CT-AuT, CT-GaMe, CT-GT ガイドが追加されました。
-- 合計 33 ルート（ホーム + 32 ガイド予定）が管理されています。
+- 最新 HEAD: `20d5713`
+- **全ガイド移行完了**: プロジェクトルートに存在した全34ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 34 ルート（ホーム + 33 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-CT-GaMeガイドの移行が完了し、33ルートになりました。次のタスク（CT-GTガイドの移行、またはその他のタスク）について指示を仰ぎます。
+全ガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
 ```
