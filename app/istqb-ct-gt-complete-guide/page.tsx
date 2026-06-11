@@ -3,12 +3,13 @@ import NavBar from './NavBar';
 
 export default function IstqbCtGtCompleteGuide() {
     return (
-        <>
+        <div className="istqb-ct-gt-page">
             <NavBar />
 
             {/* ===== HERO ===== */}
             <section id="hero" className="hero">
-                <div className="hero-eyebrow">ISTQB® SPECIALIST STREAM ● 2025年版</div>
+                <div className="container">
+                    <div className="hero-eyebrow">ISTQB® SPECIALIST STREAM ● 2025年版</div>
                 <h1>🎰 CT-GT<br />ギャンブル産業テスター<br />完全ガイド</h1>
                 <p className="hero-sub">
                     Gambling Industry Tester — ゼロから試験合格まで<br />全Chapter・全K-Level・全テスト技法を網羅
@@ -19,11 +20,13 @@ export default function IstqbCtGtCompleteGuide() {
                     <span className="meta-chip cyan">前提: CTFL</span>
                     <span className="meta-chip purple">シラバス v1.0</span>
                 </div>
+                </div>
             </section>
             
             {/* ===== TOC ===== */}
             <section id="toc" style={{marginBottom: "3rem"}}>
-                <h2
+                <div className="container">
+                    <h2
                     style={{fontFamily: "var(--font-display)", fontSize: "1.5rem", color: "var(--color-accent-green)", marginBottom: "1rem", fontWeight: "700"}}
                 >
                     📚 目次
@@ -64,11 +67,13 @@ export default function IstqbCtGtCompleteGuide() {
                         <span className="toc-card-desc">公式・学習・規制・業界リソース</span>
                     </a>
                 </div>
+                </div>
             </section>
 
             {/* ===== CHAPTER 0: OVERVIEW ===== */}
             <section id="ch0" className="chapter">
-                <div className="chapter-header">
+                <div className="container">
+                    <div className="chapter-header">
                     <span className="chapter-num">Chapter 0</span>
                     <span className="k-badge">概要</span>
                     <h2>資格概要・ロードマップ</h2>
@@ -194,11 +199,13 @@ export default function IstqbCtGtCompleteGuide() {
                 <div className="mermaid-wrap">
                     <div id="mermaid-0" className="mermaid"></div>
                 </div>
+                </div>
             </section>
 
             {/* ===== CHAPTER 1: INTRODUCTION ===== */}
             <section id="ch1" className="chapter">
-                <div className="chapter-header">
+                <div className="container">
+                    <div className="chapter-header">
                     <span className="chapter-num">Chapter 1</span>
                     <span className="k-badge">K1 / K2 / K3</span>
                     <h2>ギャンブル産業入門</h2>
@@ -504,11 +511,13 @@ export default function IstqbCtGtCompleteGuide() {
                     <strong>✅ 管轄（Jurisdiction）の重要性</strong>
                     同じゲームでも管轄によってRTPの最低値・最大ペイアウト・ギャンブル年齢・許可されるゲーム種別が異なります。テスターは常に「どの管轄向けか」を確認してからテストを設計する必要があります。
                 </div>
+                </div>
             </section>
 
             {/* ===== CHAPTER 2: ECOSYSTEMS ===== */}
             <section id="ch2" className="chapter">
-                <div className="chapter-header">
+                <div className="container">
+                    <div className="chapter-header">
                     <span className="chapter-num">Chapter 2</span>
                     <span className="k-badge">K1 / K2 / K3</span>
                     <h2>ギャンブル産業エコシステム</h2>
@@ -776,11 +785,13 @@ export default function IstqbCtGtCompleteGuide() {
                         <span className="ref-url">https://ecogra.org/</span>
                     </a>
                 </div>
+                </div>
             </section>
 
             {/* ===== CHAPTER 3: TESTING TECHNIQUES ===== */}
             <section id="ch3" className="chapter">
-                <div className="chapter-header">
+                <div className="container">
+                    <div className="chapter-header">
                     <span className="chapter-num">Chapter 3</span>
                     <span className="k-badge">K1 / K2 / K3</span>
                     <h2>ギャンブル産業テスト技法</h2>
@@ -1296,11 +1307,13 @@ export default function IstqbCtGtCompleteGuide() {
                         <span className="ref-url">https://www.pcisecuritystandards.org/</span>
                     </a>
                 </div>
+                </div>
             </section>
 
             {/* ===== EXAM TIPS ===== */}
             <section id="exam" className="chapter">
-                <div className="chapter-header">
+                <div className="container">
+                    <div className="chapter-header">
                     <span className="chapter-num">付録</span>
                     <span className="k-badge amber">試験対策</span>
                     <h2>試験対策・サンプル問題</h2>
@@ -1498,11 +1511,13 @@ export default function IstqbCtGtCompleteGuide() {
                     □ RTP・ハウスエッジ・ボラティリティ・ヒット率の定義と関係を説明できる<br />
                     □ 管轄（Jurisdiction）がテストに与える影響を具体例で説明できる
                 </div>
+                </div>
             </section>
 
             {/* ===== REFERENCES ===== */}
             <section id="references" className="chapter">
-                <div className="chapter-header">
+                <div className="container">
+                    <div className="chapter-header">
                     <span className="chapter-num">参照</span>
                     <span className="k-badge cyan">URL一覧</span>
                     <h2>参照 URL 一覧（カテゴリ付き）</h2>
@@ -1717,12 +1732,13 @@ export default function IstqbCtGtCompleteGuide() {
                         >
                     </a>
                 </div>
+                </div>
             </section>
 
-            {/* ===== FOOTER ===== */}
             <footer
                 style={{borderTop: "1px solid var(--border-dim)", padding: "2.5rem 0 1.5rem", textAlign: "center"}}
             >
+                <div className="container">
                 <p style={{fontFamily: "var(--font-mono)", fontSize: "1rem", color: "var(--text-muted)"}}>
                     🎰 CT-GT ギャンブル産業テスター完全ガイド 2025 | ISTQB® Specialist Stream<br />
                     <span style={{color: "var(--color-accent-orange)"}}
@@ -1735,8 +1751,9 @@ export default function IstqbCtGtCompleteGuide() {
                     >
                     の公式サイトで行ってください。
                 </p>
+                </div>
             </footer>
         
-        </>
+        </div>
     );
 }

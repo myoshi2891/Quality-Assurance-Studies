@@ -1,62 +1,62 @@
 /* ===== CSS VARIABLES ===== */
-            :root {
-                --bg-deep: #030712;
-                --bg-surface: #0d1117;
-                --bg-card: #111827;
-                --bg-card-hover: #1c2a3a;
-                --neon-green: #00ff88;
-                --neon-cyan: #00d4ff;
-                --neon-amber: #ffb703;
-                --neon-red: #ff006e;
-                --neon-purple: #7c3aed;
-                --neon-pink: #f72585;
-                --text-primary: #e2e8f0;
-                --text-secondary: #a8b8cc;
-                --text-muted: #6b7f96;
-                --border-dim: #1e293b;
-                --border-glow: rgba(0, 255, 136, 0.3);
-                --font-mono: 'Space Mono', monospace;
-                --font-head: 'Syne', sans-serif;
-                --font-body: 'IBM Plex Sans JP', sans-serif;
-            }
+.istqb-ct-gt-page {
+    --bg-deep: #030712;
+    --bg-surface: #0d1117;
+    --bg-card: #111827;
+    --bg-card-hover: #1c2a3a;
+    --neon-green: #00ff88;
+    --neon-cyan: #00d4ff;
+    --neon-amber: #ffb703;
+    --neon-red: #ff006e;
+    --neon-purple: #7c3aed;
+    --neon-pink: #f72585;
+    --text-primary: #e2e8f0;
+    --text-secondary: #a8b8cc;
+    --text-muted: #6b7f96;
+    --border-dim: #1e293b;
+    --border-glow: rgba(0, 255, 136, 0.3);
+    --font-mono: 'Space Mono', monospace;
+    --font-head: 'Syne', sans-serif;
+    --font-body: 'IBM Plex Sans JP', sans-serif;
+}
 
-            /* ===== RESET ===== */
-            *,
-            *::before,
-            *::after {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-            }
+/* ===== RESET ===== */
+.istqb-ct-gt-page,
+.istqb-ct-gt-page *,
+.istqb-ct-gt-page *::before,
+.istqb-ct-gt-page *::after {
+    box-sizing: border-box;
+}
 
-            /* ===== SCANLINE OVERLAY ===== */
-            body::before {
-                content: '';
-                position: fixed;
-                inset: 0;
-                background: repeating-linear-gradient(
-                    0deg,
-                    rgba(0, 0, 0, 0.03) 0px,
-                    rgba(0, 0, 0, 0.03) 1px,
-                    transparent 1px,
-                    transparent 4px
-                );
-                pointer-events: none;
-                z-index: 9999;
-            }
+/* ===== SCANLINE OVERLAY ===== */
+.istqb-ct-gt-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.03) 0px,
+        rgba(0, 0, 0, 0.03) 1px,
+        transparent 1px,
+        transparent 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+}
 
-            /* ===== GRID TEXTURE ===== */
-            body::after {
-                content: '';
-                position: fixed;
-                inset: 0;
-                background-image:
-                    linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
-                background-size: 40px 40px;
-                pointer-events: none;
-                z-index: 9998;
-            }
+/* ===== GRID TEXTURE ===== */
+.istqb-ct-gt-page::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(0, 255, 136, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 136, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 9998;
+}
+
 
             /* ===== ANIMATIONS ===== */
             @keyframes fadeInDown {
@@ -111,6 +111,9 @@
                         0 0 40px var(--color-accent-cyan);
                 }
             }
+
+/* ===== SCOPED CONTENT ===== */
+.istqb-ct-gt-page {
 
             /* ===== STICKY NAV ===== */
             .sticky-nav {
@@ -1082,4 +1085,5 @@
         animation: none !important;
         width: var(--bar-width, 70%) !important;
     }
+}
 }
