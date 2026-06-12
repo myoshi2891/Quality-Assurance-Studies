@@ -39,16 +39,17 @@ export default function BddTestingGuidePage() {
       </section>
 
       <main>
-        <section id="toc" className="mt-4">
-          <div className="card">
-            <h2 className="text-xl font-bold mb-4">目次</h2>
-            <ul className="list-disc pl-5 space-y-2">
+        <section id="toc" className="bdd-toc-section">
+          <div className="bdd-toc-card">
+            <h2 className="bdd-toc-title">目次</h2>
+            <div className="bdd-toc-grid">
               {sections.map(sec => (
-                <li key={sec.id}>
-                  <a href={`#${sec.id}`} className="text-accent hover:underline">{sec.title}</a>
-                </li>
+                <a key={sec.id} href={`#${sec.id}`} className="bdd-toc-item-link">
+                  <span className="bdd-toc-dot" />
+                  <span className="bdd-toc-text">{sec.title}</span>
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
         </section>
 
