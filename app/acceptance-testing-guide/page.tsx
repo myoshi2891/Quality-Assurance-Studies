@@ -1168,7 +1168,7 @@ export default function AcceptanceTestingGuide() {
                     <div className="d-arrow">→</div>
                     <div className="d-stage">作業中（In Progress）</div>
                     <div className="d-arrow">→</div>
-                    <div className="d-stage fixed">修正済（Fixed）</div>
+                    <div className="d-stage d-fixed">修正済（Fixed）</div>
                     <div className="d-arrow">→</div>
                     <div className="d-stage">UAT再テスト</div>
                     <div className="d-arrow">→</div>
