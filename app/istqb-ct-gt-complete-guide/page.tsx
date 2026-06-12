@@ -347,30 +347,29 @@ export default function IstqbCtGtCompleteGuide() {
                     </table>
                 </div>
 
-                {/* prettier-ignore */}
                 <div className="code-block" data-lang="Python">
-                    <code><span className="code-comment"># RTP計算の概念例（数学テストで実際に実施する検証）</span>
-<span className="code-keyword">class</span> <span className="code-cyan">MathVerifier</span>:
-    <span className="code-keyword">def</span> <span className="code-green">simulate_rtp</span>(<span className="code-white">self</span>, <span className="code-white">game_engine</span>, <span className="code-white">iterations</span>=<span className="code-num">10_000_000</span>) -&gt; <span className="code-cyan">dict</span>:
-        <span className="code-string">""" 数百万〜数十億回のシミュレーションで実際RTPを算出し
-        理論値との誤差が許容範囲内か検証する """</span>
-        <span className="code-white">total_bet</span>, <span className="code-white">total_win</span> = <span className="code-num">0</span>, <span className="code-num">0</span>
-
-        <span className="code-keyword">for</span> <span className="code-white">_</span> <span className="code-keyword">in</span> <span className="code-cyan">range</span>(<span className="code-white">iterations</span>):
-            <span className="code-white">bet</span> = <span className="code-num">1.0</span>
-            <span className="code-white">result</span> = <span className="code-white">game_engine</span>.<span className="code-green">spin</span>(<span className="code-white">bet</span>)
-            <span className="code-white">total_bet</span> += <span className="code-white">bet</span>
-            <span className="code-white">total_win</span> += <span className="code-white">result</span>.<span className="code-white">payout</span>
-
-        <span className="code-white">actual_rtp</span> = (<span className="code-white">total_win</span> / <span className="code-white">total_bet</span>) * <span className="code-num">100</span>
-        <span className="code-white">deviation</span> = <span className="code-cyan">abs</span>(<span className="code-white">actual_rtp</span> - <span className="code-white">game_engine</span>.<span className="code-white">theoretical_rtp</span>)
-
-        <span className="code-keyword">return</span> &#123;
-            <span className="code-string">"theoretical_rtp"</span>: <span className="code-white">game_engine</span>.<span className="code-white">theoretical_rtp</span>,
-            <span className="code-string">"simulated_rtp"</span>: <span className="code-white">actual_rtp</span>,
-            <span className="code-string">"deviation"</span>: <span className="code-white">deviation</span>,
-            <span className="code-string">"passes"</span>: <span className="code-white">deviation</span> &lt; <span className="code-num">0.5</span> <span className="code-comment"># 0.5%以内が許容誤差</span>
-        &#125;</code>
+                    <div className="code-line"><span className="code-comment"># RTP計算の概念例（数学テストで実際に実施する検証）</span></div>
+                    <div className="code-line"><span className="code-keyword">class</span> <span className="code-cyan">MathVerifier</span>:</div>
+                    <div className="code-line">    <span className="code-keyword">def</span> <span className="code-green">simulate_rtp</span>(<span className="code-white">self</span>, <span className="code-white">game_engine</span>, <span className="code-white">iterations</span>=<span className="code-num">10_000_000</span>) -&gt; <span className="code-cyan">dict</span>:</div>
+                    <div className="code-line">        <span className="code-string">""" 数百万〜数十億回のシミュレーションで実際RTPを算出し</span></div>
+                    <div className="code-line"><span className="code-string">        理論値との誤差が許容範囲内か検証する """</span></div>
+                    <div className="code-line">        <span className="code-white">total_bet</span>, <span className="code-white">total_win</span> = <span className="code-num">0</span>, <span className="code-num">0</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        <span className="code-keyword">for</span> <span className="code-white">_</span> <span className="code-keyword">in</span> <span className="code-cyan">range</span>(<span className="code-white">iterations</span>):</div>
+                    <div className="code-line">            <span className="code-white">bet</span> = <span className="code-num">1.0</span></div>
+                    <div className="code-line">            <span className="code-white">result</span> = <span className="code-white">game_engine</span>.<span className="code-green">spin</span>(<span className="code-white">bet</span>)</div>
+                    <div className="code-line">            <span className="code-white">total_bet</span> += <span className="code-white">bet</span></div>
+                    <div className="code-line">            <span className="code-white">total_win</span> += <span className="code-white">result</span>.<span className="code-white">payout</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        <span className="code-white">actual_rtp</span> = (<span className="code-white">total_win</span> / <span className="code-white">total_bet</span>) * <span className="code-num">100</span></div>
+                    <div className="code-line">        <span className="code-white">deviation</span> = <span className="code-cyan">abs</span>(<span className="code-white">actual_rtp</span> - <span className="code-white">game_engine</span>.<span className="code-white">theoretical_rtp</span>)</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        <span className="code-keyword">return</span> {'{'}</div>
+                    <div className="code-line">            <span className="code-string">"theoretical_rtp"</span>: <span className="code-white">game_engine</span>.<span className="code-white">theoretical_rtp</span>,</div>
+                    <div className="code-line">            <span className="code-string">"simulated_rtp"</span>: <span className="code-white">actual_rtp</span>,</div>
+                    <div className="code-line">            <span className="code-string">"deviation"</span>: <span className="code-white">deviation</span>,</div>
+                    <div className="code-line">            <span className="code-string">"passes"</span>: <span className="code-white">deviation</span> &lt; <span className="code-num">0.5</span> <span className="code-comment"># 0.5%以内が許容誤差</span></div>
+                    <div className="code-line">        {'}'}</div>
                 </div>
 
                 <h4 className="sub-title">🎰 プログレッシブジャックポット（Progressive Jackpots）</h4>
@@ -901,33 +900,32 @@ export default function IstqbCtGtCompleteGuide() {
                     </div>
                 </div>
 
-                {/* prettier-ignore */}
                 <div className="code-block" data-lang="Python">
-                    <code><span className="code-comment"># 数学検証：RTP・ボラティリティ・ヒット率を同時検証する例</span>
-<span className="code-keyword">import</span> <span className="code-cyan">statistics</span>
-
-<span className="code-keyword">class</span> <span className="code-cyan">MathValidator</span>:
-    <span className="code-keyword">def</span> <span className="code-green">run_simulation</span>(<span className="code-white">self</span>, <span className="code-white">engine</span>, <span className="code-white">itr</span>=<span className="code-num">10_000_000</span>):
-        <span className="code-white">bets</span>, <span className="code-white">wins_list</span>, <span className="code-white">win_count</span> = [], [], <span className="code-num">0</span>
-
-        <span className="code-keyword">for</span> <span className="code-white">_</span> <span className="code-keyword">in</span> <span className="code-cyan">range</span>(<span className="code-white">itr</span>):
-            <span className="code-white">result</span> = <span className="code-white">engine</span>.<span className="code-green">spin</span>(<span className="code-num">1.0</span>)
-            <span className="code-white">bets</span>.<span className="code-green">append</span>(<span className="code-num">1.0</span>)
-            <span className="code-white">wins_list</span>.<span className="code-green">append</span>(<span className="code-white">result</span>.<span className="code-white">payout</span>)
-            <span className="code-keyword">if</span> <span className="code-white">result</span>.<span className="code-white">payout</span> &gt; <span className="code-num">0</span>:
-                <span className="code-white">win_count</span> += <span className="code-num">1</span>
-
-        <span className="code-white">actual_rtp</span> = <span className="code-cyan">sum</span>(<span className="code-white">wins_list</span>) / <span className="code-cyan">sum</span>(<span className="code-white">bets</span>) * <span className="code-num">100</span>
-        <span className="code-white">hit_rate</span> = <span className="code-white">win_count</span> / <span className="code-white">itr</span> * <span className="code-num">100</span>
-        <span className="code-white">variance</span> = <span className="code-cyan">statistics</span>.<span className="code-green">variance</span>(<span className="code-white">wins_list</span>)
-
-        <span className="code-keyword">return</span> &#123;
-            <span className="code-string">"rtp_actual"</span>: <span className="code-cyan">round</span>(<span className="code-white">actual_rtp</span>, <span className="code-num">4</span>),
-            <span className="code-string">"rtp_target"</span>: <span className="code-white">engine</span>.<span className="code-white">theoretical_rtp</span>,
-            <span className="code-string">"rtp_ok"</span>: <span className="code-cyan">abs</span>(<span className="code-white">actual_rtp</span> - <span className="code-white">engine</span>.<span className="code-white">theoretical_rtp</span>) &lt; <span className="code-num">0.5</span>,
-            <span className="code-string">"hit_rate_pct"</span>: <span className="code-cyan">round</span>(<span className="code-white">hit_rate</span>, <span className="code-num">2</span>),
-            <span className="code-string">"variance"</span>: <span className="code-cyan">round</span>(<span className="code-white">variance</span>, <span className="code-num">4</span>),
-        &#125;</code>
+                    <div className="code-line"><span className="code-comment"># 数学検証：RTP・ボラティリティ・ヒット率を同時検証する例</span></div>
+                    <div className="code-line"><span className="code-keyword">import</span> <span className="code-cyan">statistics</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-keyword">class</span> <span className="code-cyan">MathValidator</span>:</div>
+                    <div className="code-line">    <span className="code-keyword">def</span> <span className="code-green">run_simulation</span>(<span className="code-white">self</span>, <span className="code-white">engine</span>, <span className="code-white">itr</span>=<span className="code-num">10_000_000</span>):</div>
+                    <div className="code-line">        <span className="code-white">bets</span>, <span className="code-white">wins_list</span>, <span className="code-white">win_count</span> = [], [], <span className="code-num">0</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        <span className="code-keyword">for</span> <span className="code-white">_</span> <span className="code-keyword">in</span> <span className="code-cyan">range</span>(<span className="code-white">itr</span>):</div>
+                    <div className="code-line">            <span className="code-white">result</span> = <span className="code-white">engine</span>.<span className="code-green">spin</span>(<span className="code-num">1.0</span>)</div>
+                    <div className="code-line">            <span className="code-white">bets</span>.<span className="code-green">append</span>(<span className="code-num">1.0</span>)</div>
+                    <div className="code-line">            <span className="code-white">wins_list</span>.<span className="code-green">append</span>(<span className="code-white">result</span>.<span className="code-white">payout</span>)</div>
+                    <div className="code-line">            <span className="code-keyword">if</span> <span className="code-white">result</span>.<span className="code-white">payout</span> &gt; <span className="code-num">0</span>:</div>
+                    <div className="code-line">                <span className="code-white">win_count</span> += <span className="code-num">1</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        <span className="code-white">actual_rtp</span> = <span className="code-cyan">sum</span>(<span className="code-white">wins_list</span>) / <span className="code-cyan">sum</span>(<span className="code-white">bets</span>) * <span className="code-num">100</span></div>
+                    <div className="code-line">        <span className="code-white">hit_rate</span> = <span className="code-white">win_count</span> / <span className="code-white">itr</span> * <span className="code-num">100</span></div>
+                    <div className="code-line">        <span className="code-white">variance</span> = <span className="code-cyan">statistics</span>.<span className="code-green">variance</span>(<span className="code-white">wins_list</span>)</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">        <span className="code-keyword">return</span> {'{'}</div>
+                    <div className="code-line">            <span className="code-string">"rtp_actual"</span>: <span className="code-cyan">round</span>(<span className="code-white">actual_rtp</span>, <span className="code-num">4</span>),</div>
+                    <div className="code-line">            <span className="code-string">"rtp_target"</span>: <span className="code-white">engine</span>.<span className="code-white">theoretical_rtp</span>,</div>
+                    <div className="code-line">            <span className="code-string">"rtp_ok"</span>: <span className="code-cyan">abs</span>(<span className="code-white">actual_rtp</span> - <span className="code-white">engine</span>.<span className="code-white">theoretical_rtp</span>) &lt; <span className="code-num">0.5</span>,</div>
+                    <div className="code-line">            <span className="code-string">"hit_rate_pct"</span>: <span className="code-cyan">round</span>(<span className="code-white">hit_rate</span>, <span className="code-num">2</span>),</div>
+                    <div className="code-line">            <span className="code-string">"variance"</span>: <span className="code-cyan">round</span>(<span className="code-white">variance</span>, <span className="code-num">4</span>),</div>
+                    <div className="code-line">        {'}'}</div>
                 </div>
 
                 <div className="compare">
