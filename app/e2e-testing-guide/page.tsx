@@ -916,35 +916,35 @@ export default function E2eTestingGuide() {
                         </div>
                         <pre>
                             <div className="code-line"><span className="cm">// pages/LoginPage.ts</span></div>
-                            <div className="code-line"><span className="kw">import</span> &#123; Page, Locator &#125; <span class="kw">from</span> <span class="str">'@playwright/test'</span>;</div>
+                            <div className="code-line"><span className="kw">import</span> &#123; Page, Locator &#125; <span className="kw">from</span> <span className="str">'@playwright/test'</span>;</div>
                             <div className="code-line"></div>
-                            <div className="code-line"><span className="kw">export class</span> <span class="cls">LoginPage</span> &#123;</div>
-                            <div className="code-line">  <span className="kw">private readonly</span> emailInput:    <span class="cls">Locator</span>;</div>
-                            <div className="code-line">  <span className="kw">private readonly</span> passwordInput: <span class="cls">Locator</span>;</div>
-                            <div className="code-line">  <span className="kw">private readonly</span> loginButton:   <span class="cls">Locator</span>;</div>
-                            <div className="code-line">  <span className="kw">private readonly</span> errorAlert:    <span class="cls">Locator</span>;</div>
+                            <div className="code-line"><span className="kw">export class</span> <span className="cls">LoginPage</span> &#123;</div>
+                            <div className="code-line">  <span className="kw">private readonly</span> emailInput:    <span className="cls">Locator</span>;</div>
+                            <div className="code-line">  <span className="kw">private readonly</span> passwordInput: <span className="cls">Locator</span>;</div>
+                            <div className="code-line">  <span className="kw">private readonly</span> loginButton:   <span className="cls">Locator</span>;</div>
+                            <div className="code-line">  <span className="kw">private readonly</span> errorAlert:    <span className="cls">Locator</span>;</div>
                             <div className="code-line"></div>
-                            <div className="code-line">  <span className="fn">constructor</span>(<span class="kw">private</span> page: <span class="cls">Page</span>) &#123;</div>
-                            <div className="code-line">    <span class="cm">// セレクタはここに集約する（テストコードに書かない！）</span></div>
-                            <div className="code-line">    <span class="kw">this</span>.emailInput    = page.<span class="fn">locator</span>(<span class="str">'[data-testid="email-input"]'</span>);</div>
-                            <div className="code-line">    <span class="kw">this</span>.passwordInput = page.<span class="fn">locator</span>(<span class="str">'[data-testid="password-input"]'</span>);</div>
-                            <div className="code-line">    <span class="kw">this</span>.loginButton   = page.<span class="fn">locator</span>(<span class="str">'[data-testid="login-btn"]'</span>);</div>
-                            <div className="code-line">    <span class="kw">this</span>.errorAlert    = page.<span class="fn">locator</span>(<span class="str">'[data-testid="error-alert"]'</span>);</div>
+                            <div className="code-line">  <span className="fn">constructor</span>(<span className="kw">private</span> page: <span className="cls">Page</span>) &#123;</div>
+                            <div className="code-line">    <span className="cm">// セレクタはここに集約する（テストコードに書かない！）</span></div>
+                            <div className="code-line">    <span className="kw">this</span>.emailInput    = page.<span className="fn">locator</span>(<span className="str">'[data-testid="email-input"]'</span>);</div>
+                            <div className="code-line">    <span className="kw">this</span>.passwordInput = page.<span className="fn">locator</span>(<span className="str">'[data-testid="password-input"]'</span>);</div>
+                            <div className="code-line">    <span className="kw">this</span>.loginButton   = page.<span className="fn">locator</span>(<span className="str">'[data-testid="login-btn"]'</span>);</div>
+                            <div className="code-line">    <span className="kw">this</span>.errorAlert    = page.<span className="fn">locator</span>(<span className="str">'[data-testid="error-alert"]'</span>);</div>
                             <div className="code-line">  &#125;</div>
                             <div className="code-line"></div>
-                            <div className="code-line">  <span class="cm">// 操作をメソッドとして公開する</span></div>
-                            <div className="code-line">  <span class="kw">async</span> <span class="fn">goto</span>() &#123;</div>
-                            <div className="code-line">    <span class="kw">await</span> <span class="kw">this</span>.page.<span class="fn">goto</span>(<span class="str">'/login'</span>);</div>
+                            <div className="code-line">  <span className="cm">// 操作をメソッドとして公開する</span></div>
+                            <div className="code-line">  <span className="kw">async</span> <span className="fn">goto</span>() &#123;</div>
+                            <div className="code-line">    <span className="kw">await</span> <span className="kw">this</span>.page.<span className="fn">goto</span>(<span className="str">'/login'</span>);</div>
                             <div className="code-line">  &#125;</div>
                             <div className="code-line"></div>
-                            <div className="code-line">  <span class="kw">async</span> <span class="fn">login</span>(email: <span class="cls">string</span>, password: <span class="cls">string</span>) &#123;</div>
-                            <div className="code-line">    <span class="kw">await</span> <span class="kw">this</span>.emailInput.<span class="fn">fill</span>(email);</div>
-                            <div className="code-line">    <span class="kw">await</span> <span class="kw">this</span>.passwordInput.<span class="fn">fill</span>(password);</div>
-                            <div className="code-line">    <span class="kw">await</span> <span class="kw">this</span>.loginButton.<span class="fn">click</span>();</div>
+                            <div className="code-line">  <span className="kw">async</span> <span className="fn">login</span>(email: <span className="cls">string</span>, password: <span className="cls">string</span>) &#123;</div>
+                            <div className="code-line">    <span className="kw">await</span> <span className="kw">this</span>.emailInput.<span className="fn">fill</span>(email);</div>
+                            <div className="code-line">    <span className="kw">await</span> <span className="kw">this</span>.passwordInput.<span className="fn">fill</span>(password);</div>
+                            <div className="code-line">    <span className="kw">await</span> <span className="kw">this</span>.loginButton.<span className="fn">click</span>();</div>
                             <div className="code-line">  &#125;</div>
                             <div className="code-line"></div>
-                            <div className="code-line">  <span class="cm">// 検証用のゲッターメソッド</span></div>
-                            <div className="code-line">  <span class="fn">getErrorMessage</span>() &#123; <span class="kw">return</span> <span class="kw">this</span>.errorAlert; &#125;</div>
+                            <div className="code-line">  <span className="cm">// 検証用のゲッターメソッド</span></div>
+                            <div className="code-line">  <span className="fn">getErrorMessage</span>() &#123; <span className="kw">return</span> <span className="kw">this</span>.errorAlert; &#125;</div>
                             <div className="code-line">&#125;</div>
                         </pre>
                     </div>
@@ -957,30 +957,30 @@ export default function E2eTestingGuide() {
                         </div>
                         <pre>
                             <div className="code-line"><span className="cm">// tests/auth.spec.ts</span></div>
-                            <div className="code-line"><span className="kw">import</span> &#123; test, expect &#125; <span class="kw">from</span> <span class="str">'@playwright/test'</span>;</div>
-                            <div className="code-line"><span className="kw">import</span> &#123; <span class="cls">LoginPage</span> &#125; <span class="kw">from</span> <span class="str">'../pages/LoginPage'</span>;</div>
+                            <div className="code-line"><span className="kw">import</span> &#123; test, expect &#125; <span className="kw">from</span> <span className="str">'@playwright/test'</span>;</div>
+                            <div className="code-line"><span className="kw">import</span> &#123; <span className="cls">LoginPage</span> &#125; <span className="kw">from</span> <span className="str">'../pages/LoginPage'</span>;</div>
                             <div className="code-line"></div>
-                            <div className="code-line">test.<span class="fn">describe</span>(<span class="str">'認証フロー'</span>, () =&gt; &#123;</div>
-                            <div className="code-line">  <span class="kw">let</span> loginPage: <span class="cls">LoginPage</span>;</div>
+                            <div className="code-line">test.<span className="fn">describe</span>(<span className="str">'認証フロー'</span>, () =&gt; &#123;</div>
+                            <div className="code-line">  <span className="kw">let</span> loginPage: <span className="cls">LoginPage</span>;</div>
                             <div className="code-line"></div>
-                            <div className="code-line">  test.<span class="fn">beforeEach</span>(<span class="kw">async</span> (&#123; page &#125;) =&gt; &#123;</div>
-                            <div className="code-line">    loginPage = <span class="kw">new</span> <span class="cls">LoginPage</span>(page);</div>
-                            <div className="code-line">    <span class="kw">await</span> loginPage.<span class="fn">goto</span>();</div>
+                            <div className="code-line">  test.<span className="fn">beforeEach</span>(<span className="kw">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                            <div className="code-line">    loginPage = <span className="kw">new</span> <span className="cls">LoginPage</span>(page);</div>
+                            <div className="code-line">    <span className="kw">await</span> loginPage.<span className="fn">goto</span>();</div>
                             <div className="code-line">  &#125;);</div>
                             <div className="code-line"></div>
-                            <div className="code-line">  test(<span class="str">'正規ユーザーがログインできる'</span>, <span class="kw">async</span> (&#123; page &#125;) =&gt; &#123;</div>
-                            <div className="code-line">    <span class="cm">// セレクタは一切書かない！ビジネスロジックだけを記述</span></div>
-                            <div className="code-line">    <span class="kw">await</span> loginPage.<span class="fn">login</span>(<span class="str">'user@example.com'</span>, <span class="str">'Pass123!'</span>);</div>
+                            <div className="code-line">  test(<span className="str">'正規ユーザーがログインできる'</span>, <span className="kw">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                            <div className="code-line">    <span className="cm">// セレクタは一切書かない！ビジネスロジックだけを記述</span></div>
+                            <div className="code-line">    <span className="kw">await</span> loginPage.<span className="fn">login</span>(<span className="str">'user@example.com'</span>, <span className="str">'Pass123!'</span>);</div>
                             <div className="code-line"></div>
-                            <div className="code-line">    <span class="kw">await</span> expect(page).<span class="fn">toHaveURL</span>(<span class="str">'/dashboard'</span>);</div>
+                            <div className="code-line">    <span className="kw">await</span> expect(page).<span className="fn">toHaveURL</span>(<span className="str">'/dashboard'</span>);</div>
                             <div className="code-line">  &#125;);</div>
                             <div className="code-line"></div>
-                            <div className="code-line">  test(<span class="str">'誤パスワードでエラーが表示される'</span>, <span class="kw">async</span> () =&gt; &#123;</div>
-                            <div className="code-line">    <span class="kw">await</span> loginPage.<span class="fn">login</span>(<span class="str">'user@example.com'</span>, <span class="str">'WrongPass'</span>);</div>
+                            <div className="code-line">  test(<span className="str">'誤パスワードでエラーが表示される'</span>, <span className="kw">async</span> () =&gt; &#123;</div>
+                            <div className="code-line">    <span className="kw">await</span> loginPage.<span className="fn">login</span>(<span className="str">'user@example.com'</span>, <span className="str">'WrongPass'</span>);</div>
                             <div className="code-line"></div>
-                            <div className="code-line">    <span class="kw">await</span> expect(</div>
-                            <div className="code-line">      loginPage.<span class="fn">getErrorMessage</span>()</div>
-                            <div className="code-line">    ).<span class="fn">toContainText</span>(<span class="str">'パスワードが正しくありません'</span>);</div>
+                            <div className="code-line">    <span className="kw">await</span> expect(</div>
+                            <div className="code-line">      loginPage.<span className="fn">getErrorMessage</span>()</div>
+                            <div className="code-line">    ).<span className="fn">toContainText</span>(<span className="str">'パスワードが正しくありません'</span>);</div>
                             <div className="code-line">  &#125;);</div>
                             <div className="code-line">&#125;);</div>
                             <div className="code-line"></div>
