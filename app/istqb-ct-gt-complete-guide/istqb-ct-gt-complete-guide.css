@@ -1072,18 +1072,18 @@
             }
 /* ===== ACCESSIBILITY: REDUCED MOTION ===== */
 @media (prefers-reduced-motion: reduce) {
-    .hero-title, .hero-subtitle, .hero-desc {
-        animation: none !important;
-    }
-    .hero-btn {
-        animation: none !important;
-    }
-    .neon-text, .neon-box {
+    .hero,
+    .hero-eyebrow,
+    .hero h1,
+    .hero-sub,
+    .hero-meta,
+    .toc-card {
         animation: none !important;
     }
     .progress-bar {
         animation: none !important;
         width: var(--bar-width, 70%) !important;
+        max-width: 100% !important;
     }
 }
 }
