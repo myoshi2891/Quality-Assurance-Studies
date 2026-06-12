@@ -3,46 +3,46 @@
     position: relative;
 
     /* Base Variables */
-    --bg-deep: #030712;
-    --bg-surface: #0d1117;
-    --bg-card: #111827;
-    --bg-card-hover: #1c2a3a;
-    --neon-green: #00ff88;
-    --neon-cyan: #00d4ff;
-    --neon-amber: #ffb703;
-    --neon-red: #ff006e;
-    --neon-purple: #7c3aed;
-    --neon-pink: #f72585;
-    --text-primary: #e2e8f0;
-    --text-secondary: #a8b8cc;
-    --text-muted: #6b7f96;
-    --border-dim: #1e293b;
-    --border-glow: rgba(0, 255, 136, 0.3);
-    --font-mono: 'Space Mono', monospace;
-    --font-head: 'Syne', sans-serif;
-    --font-body: 'IBM Plex Sans JP', sans-serif;
+    --bg-deep: var(--color-bg-primary);
+    --bg-surface: var(--color-bg-secondary);
+    --bg-card: var(--color-bg-card);
+    --bg-card-hover: var(--color-bg-card-hover);
+    --neon-green: var(--color-accent-green);
+    --neon-cyan: var(--color-accent-cyan);
+    --neon-amber: var(--color-accent-orange);
+    --neon-red: var(--color-accent-red);
+    --neon-purple: var(--color-accent-purple);
+    --neon-pink: var(--color-accent-pink);
+    --text-primary: var(--color-text-primary);
+    --text-secondary: var(--color-text-secondary);
+    --text-muted: var(--color-text-muted);
+    --border-dim: var(--color-border);
+    --border-glow: rgba(var(--accent-green-rgb, 104 211 145), 0.3);
+    --font-mono: var(--font-mono);
+    --font-head: var(--font-display);
+    --font-body: var(--font-body);
 
     /* Global Naming Convention Mappings */
-    --color-bg-deep: var(--bg-deep);
-    --color-bg-surface: var(--bg-surface);
-    --color-bg-card: var(--bg-card);
-    --color-bg-card-hover: var(--bg-card-hover);
+    --color-bg-deep: var(--color-bg-primary);
+    --color-bg-surface: var(--color-bg-secondary);
+    --color-bg-card: var(--color-bg-card);
+    --color-bg-card-hover: var(--color-bg-card-hover);
     
-    --color-accent-green: var(--neon-green);
-    --color-accent-cyan: var(--neon-cyan);
-    --color-accent-orange: var(--neon-amber);
-    --color-accent-red: var(--neon-red);
-    --color-accent-purple: var(--neon-purple);
-    --color-accent-pink: var(--neon-pink);
+    --color-accent-green: var(--color-accent-green);
+    --color-accent-cyan: var(--color-accent-cyan);
+    --color-accent-orange: var(--color-accent-orange);
+    --color-accent-red: var(--color-accent-red);
+    --color-accent-purple: var(--color-accent-purple);
+    --color-accent-pink: var(--color-accent-pink);
     
-    --color-text-primary: var(--text-primary);
-    --color-text-secondary: var(--text-secondary);
-    --color-text-muted: var(--text-muted);
+    --color-text-primary: var(--color-text-primary);
+    --color-text-secondary: var(--color-text-secondary);
+    --color-text-muted: var(--color-text-muted);
     
-    --color-border-dim: var(--border-dim);
+    --color-border-dim: var(--color-border);
     --color-border-glow: var(--border-glow);
     
-    --font-display: var(--font-head);
+    --font-display: var(--font-display);
 }
 
 /* ===== RESET ===== */
@@ -662,28 +662,28 @@
                 margin: 0;
                 font-size: 1rem;
             }
-            .callout.info {
+            .callout-info {
                 background: rgba(0, 212, 255, 0.08);
                 border-color: var(--color-accent-cyan);
             }
-            .callout.info .callout-body strong,
-            .callout.info .callout-body p {
+            .callout-info .callout-body strong,
+            .callout-info .callout-body p {
                 color: #90e0f0;
             }
-            .callout.warning {
+            .callout-warning {
                 background: rgba(255, 183, 3, 0.08);
                 border-color: var(--color-accent-orange);
             }
-            .callout.warning .callout-body strong,
-            .callout.warning .callout-body p {
+            .callout-warning .callout-body strong,
+            .callout-warning .callout-body p {
                 color: #ffd166;
             }
-            .callout.danger {
+            .callout-danger {
                 background: rgba(255, 0, 110, 0.08);
                 border-color: var(--color-accent-red);
             }
-            .callout.danger .callout-body strong,
-            .callout.danger .callout-body p {
+            .callout-danger .callout-body strong,
+            .callout-danger .callout-body p {
                 color: #ff6b8a;
             }
 

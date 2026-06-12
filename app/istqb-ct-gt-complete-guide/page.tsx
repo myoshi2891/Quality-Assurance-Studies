@@ -79,7 +79,7 @@ export default function IstqbCtGtCompleteGuide() {
                     <h2>資格概要・ロードマップ</h2>
                 </div>
 
-                <div className="callout info">
+                <div className="callout callout-info">
                     <span className="callout-icon">ℹ️</span>
                     <div className="callout-body">
                         <strong>CT-GT とは？</strong>
@@ -211,7 +211,7 @@ export default function IstqbCtGtCompleteGuide() {
                     <h2>ギャンブル産業入門</h2>
                 </div>
 
-                <div className="callout info">
+                <div className="callout callout-info">
                     <span className="callout-icon">📌</span>
                     <div className="callout-body">
                         <strong>なぜ専門シラバスが必要か？</strong>
@@ -522,7 +522,7 @@ export default function IstqbCtGtCompleteGuide() {
                     <h2>ギャンブル産業エコシステム</h2>
                 </div>
 
-                <div className="callout info">
+                <div className="callout callout-info">
                     <span className="callout-icon">🏗️</span>
                     <div className="callout-body">
                         <strong>エコシステムとは？</strong>
@@ -796,7 +796,7 @@ export default function IstqbCtGtCompleteGuide() {
                     <h2>ギャンブル産業テスト技法</h2>
                 </div>
 
-                <div className="callout warning">
+                <div className="callout callout-warning">
                     <span className="callout-icon">⚠️</span>
                     <div className="callout-body">
                         <strong>Chapter 3 は試験配点 50%！</strong>
