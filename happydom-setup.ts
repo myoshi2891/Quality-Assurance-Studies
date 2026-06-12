@@ -23,8 +23,8 @@ class IntersectionObserverMock {
       ? [options!.threshold]
       : []);
   }
-  observe(_target: Element) {}
-  unobserve(_target: Element) {}
+  observe() {}
+  unobserve() {}
   disconnect() {}
   takeRecords(): IntersectionObserverEntry[] { return []; }
 }
