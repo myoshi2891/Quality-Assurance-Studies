@@ -88,15 +88,15 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
     text-align: center;
     font-family: var(--font-body);
-    font-size: 13px;
+    font-size: 11.5px;
     font-weight: 700;
     border: 2.5px solid;
-    padding: 12px;
+    padding: 8px;
     transition: transform 0.2s;
 }
 .tdd-step:hover {
@@ -124,13 +124,14 @@
     font-weight: 700;
 }
 .tdd-step .step-title {
-    font-size: 1.2rem;
-    margin-bottom: 4px;
+    font-size: 1.1rem;
+    margin-bottom: 2px;
 }
 .tdd-step .step-sub {
-    font-size: 10px;
+    font-size: 9.5px;
     font-weight: 400;
     opacity: 0.85;
+    line-height: 1.35;
 }
 
 /* ── TEST DOUBLES GRID ── */
@@ -210,8 +211,18 @@
 /* ── FRAMEWORK CARDS ── */
 .fw-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
-    gap: 0.75rem;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+@media (max-width: 992px) {
+    .fw-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+@media (max-width: 640px) {
+    .fw-grid {
+        grid-template-columns: 1fr;
+    }
 }
 .fw-card {
     background: var(--color-bg-card);
