@@ -11,9 +11,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `20d5713` |
+| 最新 HEAD | `b6dfd27` |
 | 次の作業 | QA/テストプロセスの継続的改善 |
 | ビルド状態 | ✅ `bun run build`（34ページ静的生成）/ `bun run lint` / `bun test`（154 pass）全て成功。 |
+
+## 2026/06/12: CT-GT ガイド of CSS バグ修正 (z-index & 変数ミスマッチ)
+
+- `app/istqb-ct-gt-complete-guide/istqb-ct-gt-complete-guide.css`:
+  - ページ背景のスキャンラインおよびグリッドの z-index を 0 に下げ、コンテンツの背面に配置。
+  - `.istqb-ct-gt-page` に `position: relative` を追加してスタッキングコンテキストを作成。
+  - ローカル CSS 変数と参照されているグローバル CSS 変数名のミスマッチを解消するため、定義部分にグローバル命名規約へのエイリアスマッピングを追加。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/MIGRATION_PROGRESS.md`）の最新コミットハッシュの同期。
 
 ## 2026/06/11: CT-GT ガイドの Next.js 移行完了
 
@@ -321,7 +329,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `20d5713`
+- 最新 HEAD: `b6dfd27`
 - **全ガイド移行完了**: プロジェクトルートに存在した全34ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
 - 合計 34 ルート（ホーム + 33 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
