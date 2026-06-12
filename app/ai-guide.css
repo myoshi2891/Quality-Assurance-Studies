@@ -162,6 +162,8 @@
     display: flex;
     justify-content: center;
     margin: 2rem 0;
+    overflow-x: auto;
+    width: 100%;
 }
 
 .matrix-grid {
@@ -169,6 +171,12 @@
     grid-template-columns: 50px 170px 170px;
     grid-template-rows: 40px 100px 100px;
     gap: 6px;
+}
+
+@media (max-width: 420px) {
+    .matrix-grid {
+        grid-template-columns: 40px 130px 130px;
+    }
 }
 
 .matrix-cell {

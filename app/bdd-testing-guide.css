@@ -27,6 +27,7 @@
     /* Borders & Glows */
     --cyber-border: rgba(16, 185, 129, 0.15);
     --cyber-border-hover: rgba(16, 185, 129, 0.45);
+    --cyber-border-bright: rgba(52, 211, 153, 0.75);
     --cyber-glow-green: 0 0 20px rgba(16, 185, 129, 0.25);
     --cyber-glow-green-bright: 0 0 35px rgba(16, 185, 129, 0.5);
     --cyber-glow-cyan: 0 0 20px rgba(6, 182, 212, 0.25);

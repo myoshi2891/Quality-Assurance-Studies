@@ -417,46 +417,55 @@ export default function AITestGuide() {
                         混同行列（Confusion Matrix）— 全指標の出発点
                     </h3>
                     <div className="matrix-wrap">
-                        <div className="matrix-grid">
-                            <div className="matrix-cell header"></div>
-                            <div className="matrix-cell header">予測：Positive</div>
-                            <div className="matrix-cell header">予測：Negative</div>
-                            <div className="matrix-cell vertical-header">
-                                実際：Positive
+                        <div className="matrix-grid" role="table" aria-label="混同行列（Confusion Matrix）">
+                            {/* Row 1 */}
+                            <div role="row" style={{ display: 'contents' }}>
+                                <div className="matrix-cell header" role="columnheader"></div>
+                                <div className="matrix-cell header" role="columnheader" id="col-pred-pos">予測：Positive</div>
+                                <div className="matrix-cell header" role="columnheader" id="col-pred-neg">予測：Negative</div>
                             </div>
-                            <div className="matrix-cell tp">
-                                <div className="matrix-val">TP</div>
-                                <div className="matrix-lbl">
-                                    True Positive
-                                    <br />
-                                    正しくPositiveと判定
+                            {/* Row 2 */}
+                            <div role="row" style={{ display: 'contents' }}>
+                                <div className="matrix-cell vertical-header" role="rowheader" id="row-act-pos">
+                                    実際：Positive
+                                </div>
+                                <div className="matrix-cell tp" role="cell" aria-labelledby="row-act-pos col-pred-pos">
+                                    <div className="matrix-val">TP</div>
+                                    <div className="matrix-lbl">
+                                        True Positive
+                                        <br />
+                                        正しくPositiveと判定
+                                    </div>
+                                </div>
+                                <div className="matrix-cell fn" role="cell" aria-labelledby="row-act-pos col-pred-neg">
+                                    <div className="matrix-val">FN</div>
+                                    <div className="matrix-lbl">
+                                        False Negative
+                                        <br />
+                                        見逃し（偽陰性）
+                                    </div>
                                 </div>
                             </div>
-                            <div className="matrix-cell fn">
-                                <div className="matrix-val">FN</div>
-                                <div className="matrix-lbl">
-                                    False Negative
-                                    <br />
-                                    見逃し（偽陰性）
+                            {/* Row 3 */}
+                            <div role="row" style={{ display: 'contents' }}>
+                                <div className="matrix-cell vertical-header" role="rowheader" id="row-act-neg">
+                                    実際：Negative
                                 </div>
-                            </div>
-                            <div className="matrix-cell vertical-header">
-                                実際：Negative
-                            </div>
-                            <div className="matrix-cell fp">
-                                <div className="matrix-val">FP</div>
-                                <div className="matrix-lbl">
-                                    False Positive
-                                    <br />
-                                    誤検知（偽陽性）
+                                <div className="matrix-cell fp" role="cell" aria-labelledby="row-act-neg col-pred-pos">
+                                    <div className="matrix-val">FP</div>
+                                    <div className="matrix-lbl">
+                                        False Positive
+                                        <br />
+                                        誤検知（偽陽性）
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="matrix-cell tn">
-                                <div className="matrix-val">TN</div>
-                                <div className="matrix-lbl">
-                                    True Negative
-                                    <br />
-                                    正しくNegativeと判定
+                                <div className="matrix-cell tn" role="cell" aria-labelledby="row-act-neg col-pred-neg">
+                                    <div className="matrix-val">TN</div>
+                                    <div className="matrix-lbl">
+                                        True Negative
+                                        <br />
+                                        正しくNegativeと判定
+                                    </div>
                                 </div>
                             </div>
                         </div>

@@ -25,24 +25,9 @@
     /* Global Naming Convention Mappings */
     --color-bg-deep: var(--color-bg-primary);
     --color-bg-surface: var(--color-bg-secondary);
-    --color-bg-card: var(--color-bg-card);
-    --color-bg-card-hover: var(--color-bg-card-hover);
-    
-    --color-accent-green: var(--color-accent-green);
-    --color-accent-cyan: var(--color-accent-cyan);
-    --color-accent-orange: var(--color-accent-orange);
-    --color-accent-red: var(--color-accent-red);
-    --color-accent-purple: var(--color-accent-purple);
-    --color-accent-pink: var(--color-accent-pink);
-    
-    --color-text-primary: var(--color-text-primary);
-    --color-text-secondary: var(--color-text-secondary);
-    --color-text-muted: var(--color-text-muted);
     
     --color-border-dim: var(--color-border);
     --color-border-glow: var(--border-glow);
-    
-    --font-display: var(--font-display);
 }
 
 /* ===== RESET ===== */
