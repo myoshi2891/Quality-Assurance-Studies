@@ -18,9 +18,7 @@
     --text-muted: var(--color-text-muted);
     --border-dim: var(--color-border);
     --border-glow: rgba(var(--accent-green-rgb, 104 211 145), 0.3);
-    --font-mono: var(--font-mono);
     --font-head: var(--font-display);
-    --font-body: var(--font-body);
 
     /* Global Naming Convention Mappings */
     --color-bg-deep: var(--color-bg-primary);

@@ -914,7 +914,7 @@ export default function E2eTestingGuide() {
                                 >TYPESCRIPT — ログインページ オブジェクト</span
                             >
                         </div>
-                        <pre>
+                        <div className="code-pre-div">
                             <div className="code-line"><span className="cm">// pages/LoginPage.ts</span></div>
                             <div className="code-line"><span className="kw">import</span> &#123; Page, Locator &#125; <span className="kw">from</span> <span className="str">'@playwright/test'</span>;</div>
                             <div className="code-line"></div>
@@ -946,7 +946,7 @@ export default function E2eTestingGuide() {
                             <div className="code-line">  <span className="cm">// 検証用のゲッターメソッド</span></div>
                             <div className="code-line">  <span className="fn">getErrorMessage</span>() &#123; <span className="kw">return</span> <span className="kw">this</span>.errorAlert; &#125;</div>
                             <div className="code-line">&#125;</div>
-                        </pre>
+                        </div>
                     </div>
                     <div className="code-block">
                         <div className="code-header">

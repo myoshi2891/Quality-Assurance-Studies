@@ -419,13 +419,13 @@ export default function AITestGuide() {
                     <div className="matrix-wrap">
                         <div className="matrix-grid" role="table" aria-label="混同行列（Confusion Matrix）">
                             {/* Row 1 */}
-                            <div role="row" style={{ display: 'contents' }}>
+                            <div role="row" className="contents">
                                 <div className="matrix-cell header" role="columnheader"></div>
                                 <div className="matrix-cell header" role="columnheader" id="col-pred-pos">予測：Positive</div>
                                 <div className="matrix-cell header" role="columnheader" id="col-pred-neg">予測：Negative</div>
                             </div>
                             {/* Row 2 */}
-                            <div role="row" style={{ display: 'contents' }}>
+                            <div role="row" className="contents">
                                 <div className="matrix-cell vertical-header" role="rowheader" id="row-act-pos">
                                     実際：Positive
                                 </div>
@@ -447,7 +447,7 @@ export default function AITestGuide() {
                                 </div>
                             </div>
                             {/* Row 3 */}
-                            <div role="row" style={{ display: 'contents' }}>
+                            <div role="row" className="contents">
                                 <div className="matrix-cell vertical-header" role="rowheader" id="row-act-neg">
                                     実際：Negative
                                 </div>
