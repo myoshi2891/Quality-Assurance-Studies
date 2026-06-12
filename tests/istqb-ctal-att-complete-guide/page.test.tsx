@@ -1,4 +1,4 @@
-import { describe, it, expect, afterEach, mock, beforeAll, afterAll } from 'bun:test';
+import { describe, it, expect, afterEach } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import Page from '../../app/istqb-ctal-att-complete-guide/page';
 
