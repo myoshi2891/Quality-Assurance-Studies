@@ -925,7 +925,7 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                gap: 0;
+                gap: 0.5rem;
                 flex-wrap: wrap;
                 margin: 1.5rem 0;
             }
@@ -934,15 +934,16 @@
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
-                width: 110px;
-                height: 110px;
+                width: 135px;
+                height: 135px;
                 border-radius: 50%;
                 border: 2.5px solid;
                 font-family: var(--font-body);
                 font-size: 12px;
                 font-weight: 700;
                 text-align: center;
-                padding: 10px;
+                padding: 12px;
+                line-height: 1.35;
                 transition: transform 0.2s;
             }
             .page-acc main .atdd-node:hover {
