@@ -419,9 +419,9 @@ export default function AITestGuide() {
                     <div className="matrix-wrap">
                         <div className="matrix-grid">
                             <div className="matrix-cell header"></div>
-                            <div className="matrix-cell header w-[140px]">予測：Positive</div>
-                            <div className="matrix-cell header w-[140px]">予測：Negative</div>
-                            <div className="matrix-cell header w-auto [writing-mode:vertical-rl] h-[80px] justify-center">
+                            <div className="matrix-cell header">予測：Positive</div>
+                            <div className="matrix-cell header">予測：Negative</div>
+                            <div className="matrix-cell vertical-header">
                                 実際：Positive
                             </div>
                             <div className="matrix-cell tp">
@@ -440,7 +440,7 @@ export default function AITestGuide() {
                                     見逃し（偽陰性）
                                 </div>
                             </div>
-                            <div className="matrix-cell header w-auto [writing-mode:vertical-rl] h-[80px] justify-center">
+                            <div className="matrix-cell vertical-header">
                                 実際：Negative
                             </div>
                             <div className="matrix-cell fp">
@@ -2009,30 +2009,26 @@ result = <span class="fn">evaluate</span>(
                             <span className="cert-dot-lbl">CT-AI</span>
                         </div>
                         <div className="cert-body">
-                            <div className="flex flex-wrap justify-between items-start gap-4">
-                                <div>
-                                    <h4>CT-AI v1.0 — Certified Tester AI Testing</h4>
-                                    <p>
-                                        AIシステムのテスト・AIを使ったテストの両軸を扱う専門資格。MLワークフロー・ニューラルネットワーク・バイアス・敵対的攻撃・幻覚などAI固有の品質課題を包括的にカバー。
-                                    </p>
+                            <h4>CT-AI v1.0 — Certified Tester AI Testing</h4>
+                            <p>
+                                AIシステムのテスト・AIを使ったテストの両軸を扱う専門資格。MLワークフロー・ニューラルネットワーク・バイアス・敵対的攻撃・幻覚などAI固有の品質課題を包括的にカバー。
+                            </p>
+                            <div className="cert-meta mt-3">
+                                <div className="cert-meta-item">
+                                    <div className="k">前提条件</div>
+                                    <div className="v">CTFL必須</div>
                                 </div>
-                                <div className="card-sm min-w-[170px]">
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">前提条件</div>
-                                        <div className="v">CTFL必須</div>
-                                    </div>
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">問題数</div>
-                                        <div className="v">40問 / 47点</div>
-                                    </div>
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">合格点</div>
-                                        <div className="v">31点（66%）</div>
-                                    </div>
-                                    <div className="cert-meta-item">
-                                        <div className="k">試験時間</div>
-                                        <div className="v">60分</div>
-                                    </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">問題数</div>
+                                    <div className="v">40問 / 47点</div>
+                                </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">合格点</div>
+                                    <div className="v">31点（66%）</div>
+                                </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">試験時間</div>
+                                    <div className="v">60分</div>
                                 </div>
                             </div>
                             <div className="cert-tags">
@@ -2060,35 +2056,31 @@ result = <span class="fn">evaluate</span>(
                             <span className="cert-dot-lbl">CT-GenAI</span>
                         </div>
                         <div className="cert-body">
-                            <div className="flex flex-wrap justify-between items-start gap-4">
-                                <div>
-                                    <h4>
-                                        CT-GenAI v1.0 — Testing with Generative AI
-                                        <span className="badge badge-unit text-[9px] align-middle">
-                                            NEW 2025
-                                        </span>
-                                    </h4>
-                                    <p>
-                                        LLM・生成AIを使ったテストプロセス全体の最適化を扱う最新資格。プロンプトエンジニアリング・リスク管理・幻覚・プライバシー・環境影響・AI規制への対応を習得。テストプロセスの要件分析からレポーティングまでAIを統合する実践的スキルを提供。
-                                    </p>
+                            <h4>
+                                CT-GenAI v1.0 — Testing with Generative AI
+                                <span className="badge badge-unit text-[9px] align-middle ml-1">
+                                    NEW 2025
+                                </span>
+                            </h4>
+                            <p>
+                                LLM・生成AIを使ったテストプロセス全体の最適化を扱う最新資格。プロンプトエンジニアリング・リスク管理・幻覚・プライバシー・環境影響・AI規制への対応を習得。テストプロセスの要件分析からレポーティングまでAIを統合する実践的スキルを提供。
+                            </p>
+                            <div className="cert-meta mt-3">
+                                <div className="cert-meta-item">
+                                    <div className="k">前提条件</div>
+                                    <div className="v">CTFL必須</div>
                                 </div>
-                                <div className="card-sm min-w-[170px]">
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">前提条件</div>
-                                        <div className="v">CTFL必須</div>
-                                    </div>
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">問題数</div>
-                                        <div className="v">40問 / 46点</div>
-                                    </div>
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">合格点</div>
-                                        <div className="v">30点（65%）</div>
-                                    </div>
-                                    <div className="cert-meta-item">
-                                        <div className="k">シラバス</div>
-                                        <div className="v">v1.0 (2025)</div>
-                                    </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">問題数</div>
+                                    <div className="v">40問 / 46点</div>
+                                </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">合格点</div>
+                                    <div className="v">30点（65%）</div>
+                                </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">シラバス</div>
+                                    <div className="v">v1.0 (2025)</div>
                                 </div>
                             </div>
                             <div className="cert-tags">

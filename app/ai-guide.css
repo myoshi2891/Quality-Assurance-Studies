@@ -161,36 +161,50 @@
 .matrix-wrap {
     display: flex;
     justify-content: center;
-    margin: 1.5rem 0;
+    margin: 2rem 0;
 }
 
 .matrix-grid {
     display: grid;
-    grid-template-columns: auto 1fr 1fr;
-    grid-template-rows: auto 1fr 1fr;
-    gap: 2px;
+    grid-template-columns: 50px 170px 170px;
+    grid-template-rows: 40px 100px 100px;
+    gap: 6px;
 }
 
 .matrix-cell {
     background: var(--color-bg-card);
     border: 1px solid var(--color-border);
-    border-radius: 4px;
-    width: 140px;
-    height: 80px;
+    border-radius: 6px;
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
+    font-size: 12.5px;
     text-align: center;
+    padding: 0.5rem;
 }
 
 .matrix-cell.header {
     background: transparent;
     border: none;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: 600;
     color: var(--color-text-muted);
+}
+
+.matrix-cell.vertical-header {
+    background: transparent;
+    border: none;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .matrix-cell.tp {
@@ -219,13 +233,15 @@
 
 .matrix-val {
     font-family: var(--font-mono);
-    font-size: 1.2rem;
+    font-size: 1.35rem;
     font-weight: 700;
+    margin-bottom: 2px;
 }
 
 .matrix-lbl {
-    font-size: 10px;
-    opacity: 0.7;
+    font-size: 11px;
+    opacity: 0.85;
+    line-height: 1.4;
 }
 
 .cert-row {
