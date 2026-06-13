@@ -1,5 +1,13 @@
 import '../acceptance-testing-guide.css';
 
+/**
+ * Renders a complete, static Acceptance Testing Guide page aligned with ISTQB CTFL v4.0.
+ *
+ * The component produces a full JSX tree including hero, STEP 01–13 sections (definition, types, UAT/OAT details,
+ * ATDD/BDD guidance, defect management, tools, best practices), an appendix of references, and a footer.
+ *
+ * @returns The JSX element representing the acceptance testing guide page.
+ */
 export default function AcceptanceTestingGuide() {
     return (
         <div className="page-acc">

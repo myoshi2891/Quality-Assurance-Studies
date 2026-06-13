@@ -1,5 +1,14 @@
 import '../e2e-testing-guide.css';
 
+/**
+ * Render the complete End-to-End (E2E) Testing Guide page as a static React component.
+ *
+ * Renders a deterministic JSX tree composed of the hero section, STEP 01–STEP 12 content sections
+ * (overview, why, when, design, tools, POM, flaky tests, CI/CD, visual regression, AI, antipatterns,
+ * best practices), a references appendix, and a footer.
+ *
+ * @returns The JSX element representing the full E2E Testing Guide page.
+ */
 export default function E2eTestingGuide() {
     return (
         <>

@@ -2,6 +2,13 @@
 
 import { useEffect, useState } from 'react';
 
+/**
+ * Renders a sticky navigation bar that highlights and sets aria-current for the link whose section is currently visible.
+ *
+ * The component tracks document sections that have an `id` and updates the active link as the user scrolls.
+ *
+ * @returns The navigation bar element
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState<string>('');
 
