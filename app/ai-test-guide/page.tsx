@@ -1,11 +1,12 @@
 import '../ai-guide.css';
 
 /**
- * Renders the complete static Japanese "ISTQB CT-AI & CT-GenAI 完全ガイド 2025" page as a Next.js/React component.
+ * Render the static Japanese ISTQB CT-AI & CT-GenAI "完全ガイド 2025" page as a React component.
  *
- * The page includes a header and a multi-section main content body covering AI fundamentals, ML workflows and metrics,
- * quality characteristics, testing techniques (metamorphic, adversarial, RAG, prompt injection, etc.), hallucination and bias,
- * GenAI testing and prompt engineering, tools and frameworks, certification roadmap, and a references appendix.
+ * The component produces a complete, static JSX page composed of a hero and multiple step sections
+ * (AI fundamentals, ML overview & metrics, AI quality characteristics, testing techniques,
+ * hallucination & bias, GenAI testing & prompt engineering, RAG testing, security, tools,
+ * certification roadmap, and references), plus a footer. No props, state, or runtime logic are used.
  *
  * @returns The React element for the full static guide page.
  */
