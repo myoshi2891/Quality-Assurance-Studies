@@ -1,5 +1,14 @@
 import '../e2e-testing-guide.css';
 
+/**
+ * Render the complete End-to-End (E2E) Testing Guide page as a static React component.
+ *
+ * Renders a deterministic JSX tree composed of the hero section, STEP 01–STEP 12 content sections
+ * (overview, why, when, design, tools, POM, flaky tests, CI/CD, visual regression, AI, antipatterns,
+ * best practices), a references appendix, and a footer.
+ *
+ * @returns The JSX element representing the full E2E Testing Guide page.
+ */
 export default function E2eTestingGuide() {
     return (
         <>
@@ -906,28 +915,87 @@ export default function E2eTestingGuide() {
                 </div>
 
                 {/* POM Code Example */}
-                <div className="grid-2 mt-3">
-                    <div>
-                        <div className="code-block">
-                            <div className="code-header">
-                                <div className="code-dots"><span></span><span></span><span></span></div>
-                                <span className="code-lang"
-                                    >TYPESCRIPT — ログインページ オブジェクト</span
-                                >
-                            </div>
-                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">// pages/LoginPage.ts</span>\n<span class=\"kw\">import</span> { Page, Locator } <span class=\"kw\">from</span> <span class=\"str\">'@playwright/test'</span>;\n\n<span class=\"kw\">export class</span> <span class=\"cls\">LoginPage</span> {\n  <span class=\"kw\">private readonly</span> emailInput:    <span class=\"cls\">Locator</span>;\n  <span class=\"kw\">private readonly</span> passwordInput: <span class=\"cls\">Locator</span>;\n  <span class=\"kw\">private readonly</span> loginButton:   <span class=\"cls\">Locator</span>;\n  <span class=\"kw\">private readonly</span> errorAlert:    <span class=\"cls\">Locator</span>;\n\n  <span class=\"fn\">constructor</span>(<span class=\"kw\">private</span> page: <span class=\"cls\">Page</span>) {\n    <span class=\"cm\">// セレクタはここに集約する（テストコードに書かない！）</span>\n    <span class=\"kw\">this</span>.emailInput    = page.<span class=\"fn\">locator</span>(<span class=\"str\">'[data-testid=\"email-input\"]'</span>);\n    <span class=\"kw\">this</span>.passwordInput = page.<span class=\"fn\">locator</span>(<span class=\"str\">'[data-testid=\"password-input\"]'</span>);\n    <span class=\"kw\">this</span>.loginButton   = page.<span class=\"fn\">locator</span>(<span class=\"str\">'[data-testid=\"login-btn\"]'</span>);\n    <span class=\"kw\">this</span>.errorAlert    = page.<span class=\"fn\">locator</span>(<span class=\"str\">'[data-testid=\"error-alert\"]'</span>);\n  }\n\n  <span class=\"cm\">// 操作をメソッドとして公開する</span>\n  <span class=\"kw\">async</span> <span class=\"fn\">goto</span>() {\n    <span class=\"kw\">await</span> <span class=\"kw\">this</span>.page.<span class=\"fn\">goto</span>(<span class=\"str\">'/login'</span>);\n  }\n\n  <span class=\"kw\">async</span> <span class=\"fn\">login</span>(email: <span class=\"cls\">string</span>, password: <span class=\"cls\">string</span>) {\n    <span class=\"kw\">await</span> <span class=\"kw\">this</span>.emailInput.<span class=\"fn\">fill</span>(email);\n    <span class=\"kw\">await</span> <span class=\"kw\">this</span>.passwordInput.<span class=\"fn\">fill</span>(password);\n    <span class=\"kw\">await</span> <span class=\"kw\">this</span>.loginButton.<span class=\"fn\">click</span>();\n  }\n\n  <span class=\"cm\">// 検証用のゲッターメソッド</span>\n  <span class=\"fn\">getErrorMessage</span>() { <span class=\"kw\">return</span> <span class=\"kw\">this</span>.errorAlert; }\n}" }} />
+                <div className="flex flex-col gap-4 mt-3">
+                    <div className="code-block">
+                        <div className="code-header">
+                            <div className="code-dots"><span></span><span></span><span></span></div>
+                            <span className="code-lang"
+                                >TYPESCRIPT — ログインページ オブジェクト</span
+                            >
+                        </div>
+                        <div className="code-pre-div">
+                            <div className="code-line"><span className="cm">// pages/LoginPage.ts</span></div>
+                            <div className="code-line"><span className="kw">import</span> &#123; Page, Locator &#125; <span className="kw">from</span> <span className="str">'@playwright/test'</span>;</div>
+                            <div className="code-line"></div>
+                            <div className="code-line"><span className="kw">export class</span> <span className="cls">LoginPage</span> &#123;</div>
+                            <div className="code-line">  <span className="kw">private readonly</span> emailInput:    <span className="cls">Locator</span>;</div>
+                            <div className="code-line">  <span className="kw">private readonly</span> passwordInput: <span className="cls">Locator</span>;</div>
+                            <div className="code-line">  <span className="kw">private readonly</span> loginButton:   <span className="cls">Locator</span>;</div>
+                            <div className="code-line">  <span className="kw">private readonly</span> errorAlert:    <span className="cls">Locator</span>;</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">  <span className="fn">constructor</span>(<span className="kw">private</span> page: <span className="cls">Page</span>) &#123;</div>
+                            <div className="code-line">    <span className="cm">// セレクタはここに集約する（テストコードに書かない！）</span></div>
+                            <div className="code-line">    <span className="kw">this</span>.emailInput    = page.<span className="fn">locator</span>(<span className="str">'[data-testid="email-input"]'</span>);</div>
+                            <div className="code-line">    <span className="kw">this</span>.passwordInput = page.<span className="fn">locator</span>(<span className="str">'[data-testid="password-input"]'</span>);</div>
+                            <div className="code-line">    <span className="kw">this</span>.loginButton   = page.<span className="fn">locator</span>(<span className="str">'[data-testid="login-btn"]'</span>);</div>
+                            <div className="code-line">    <span className="kw">this</span>.errorAlert    = page.<span className="fn">locator</span>(<span className="str">'[data-testid="error-alert"]'</span>);</div>
+                            <div className="code-line">  &#125;</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">  <span className="cm">// 操作をメソッドとして公開する</span></div>
+                            <div className="code-line">  <span className="kw">async</span> <span className="fn">goto</span>() &#123;</div>
+                            <div className="code-line">    <span className="kw">await</span> <span className="kw">this</span>.page.<span className="fn">goto</span>(<span className="str">'/login'</span>);</div>
+                            <div className="code-line">  &#125;</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">  <span className="kw">async</span> <span className="fn">login</span>(email: <span className="cls">string</span>, password: <span className="cls">string</span>) &#123;</div>
+                            <div className="code-line">    <span className="kw">await</span> <span className="kw">this</span>.emailInput.<span className="fn">fill</span>(email);</div>
+                            <div className="code-line">    <span className="kw">await</span> <span className="kw">this</span>.passwordInput.<span className="fn">fill</span>(password);</div>
+                            <div className="code-line">    <span className="kw">await</span> <span className="kw">this</span>.loginButton.<span className="fn">click</span>();</div>
+                            <div className="code-line">  &#125;</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">  <span className="cm">// 検証用のゲッターメソッド</span></div>
+                            <div className="code-line">  <span className="fn">getErrorMessage</span>() &#123; <span className="kw">return</span> <span className="kw">this</span>.errorAlert; &#125;</div>
+                            <div className="code-line">&#125;</div>
                         </div>
                     </div>
-                    <div>
-                        <div className="code-block">
-                            <div className="code-header">
-                                <div className="code-dots"><span></span><span></span><span></span></div>
-                                <span className="code-lang"
-                                    >TYPESCRIPT — POMを使ったテストスペック</span
-                                >
-                            </div>
-                            <pre dangerouslySetInnerHTML={{ __html: "<span class=\"cm\">// tests/auth.spec.ts</span>\n<span class=\"kw\">import</span> { test, expect } <span class=\"kw\">from</span> <span class=\"str\">'@playwright/test'</span>;\n<span class=\"kw\">import</span> { <span class=\"cls\">LoginPage</span> } <span class=\"kw\">from</span> <span class=\"str\">'../pages/LoginPage'</span>;\n\ntest.<span class=\"fn\">describe</span>(<span class=\"str\">'認証フロー'</span>, () => {\n  <span class=\"kw\">let</span> loginPage: <span class=\"cls\">LoginPage</span>;\n\n  test.<span class=\"fn\">beforeEach</span>(<span class=\"kw\">async</span> ({ page }) => {\n    loginPage = <span class=\"kw\">new</span> <span class=\"cls\">LoginPage</span>(page);\n    <span class=\"kw\">await</span> loginPage.<span class=\"fn\">goto</span>();\n  });\n\n  test(<span class=\"str\">'正規ユーザーがログインできる'</span>, <span class=\"kw\">async</span> ({ page }) => {\n    <span class=\"cm\">// セレクタは一切書かない！ビジネスロジックだけを記述</span>\n    <span class=\"kw\">await</span> loginPage.<span class=\"fn\">login</span>(<span class=\"str\">'user@example.com'</span>, <span class=\"str\">'Pass123!'</span>);\n\n    <span class=\"kw\">await</span> expect(page).<span class=\"fn\">toHaveURL</span>(<span class=\"str\">'/dashboard'</span>);\n  });\n\n  test(<span class=\"str\">'誤パスワードでエラーが表示される'</span>, <span class=\"kw\">async</span> () => {\n    <span class=\"kw\">await</span> loginPage.<span class=\"fn\">login</span>(<span class=\"str\">'user@example.com'</span>, <span class=\"str\">'WrongPass'</span>);\n\n    <span class=\"kw\">await</span> expect(\n      loginPage.<span class=\"fn\">getErrorMessage</span>()\n    ).<span class=\"fn\">toContainText</span>(<span class=\"str\">'パスワードが正しくありません'</span>);\n  });\n});\n\n<span class=\"cm\">// ← セレクタが変更されたときは LoginPage.ts の\n//   1か所を直すだけで全テストが修正される！</span>" }} />
+                    <div className="code-block">
+                        <div className="code-header">
+                            <div className="code-dots"><span></span><span></span><span></span></div>
+                            <span className="code-lang"
+                                >TYPESCRIPT — POMを使ったテストスペック</span
+                            >
                         </div>
+                        <pre>
+                            <div className="code-line"><span className="cm">// tests/auth.spec.ts</span></div>
+                            <div className="code-line"><span className="kw">import</span> &#123; test, expect &#125; <span className="kw">from</span> <span className="str">'@playwright/test'</span>;</div>
+                            <div className="code-line"><span className="kw">import</span> &#123; <span className="cls">LoginPage</span> &#125; <span className="kw">from</span> <span className="str">'../pages/LoginPage'</span>;</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">test.<span className="fn">describe</span>(<span className="str">'認証フロー'</span>, () =&gt; &#123;</div>
+                            <div className="code-line">  <span className="kw">let</span> loginPage: <span className="cls">LoginPage</span>;</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">  test.<span className="fn">beforeEach</span>(<span className="kw">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                            <div className="code-line">    loginPage = <span className="kw">new</span> <span className="cls">LoginPage</span>(page);</div>
+                            <div className="code-line">    <span className="kw">await</span> loginPage.<span className="fn">goto</span>();</div>
+                            <div className="code-line">  &#125;);</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">  test(<span className="str">'正規ユーザーがログインできる'</span>, <span className="kw">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                            <div className="code-line">    <span className="cm">// セレクタは一切書かない！ビジネスロジックだけを記述</span></div>
+                            <div className="code-line">    <span className="kw">await</span> loginPage.<span className="fn">login</span>(<span className="str">'user@example.com'</span>, <span className="str">'Pass123!'</span>);</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">    <span className="kw">await</span> expect(page).<span className="fn">toHaveURL</span>(<span className="str">'/dashboard'</span>);</div>
+                            <div className="code-line">  &#125;);</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">  test(<span className="str">'誤パスワードでエラーが表示される'</span>, <span className="kw">async</span> () =&gt; &#123;</div>
+                            <div className="code-line">    <span className="kw">await</span> loginPage.<span className="fn">login</span>(<span className="str">'user@example.com'</span>, <span className="str">'WrongPass'</span>);</div>
+                            <div className="code-line"></div>
+                            <div className="code-line">    <span className="kw">await</span> expect(</div>
+                            <div className="code-line">      loginPage.<span className="fn">getErrorMessage</span>()</div>
+                            <div className="code-line">    ).<span className="fn">toContainText</span>(<span className="str">'パスワードが正しくありません'</span>);</div>
+                            <div className="code-line">  &#125;);</div>
+                            <div className="code-line">&#125;);</div>
+                            <div className="code-line"></div>
+                            <div className="code-line"><span className="cm">// ← セレクタが変更されたときは LoginPage.ts の</span></div>
+                            <div className="code-line"><span className="cm">//   1か所を直すだけで全テストが修正される！</span></div>
+                        </pre>
                     </div>
                 </div>
 

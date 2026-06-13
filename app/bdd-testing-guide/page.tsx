@@ -39,16 +39,17 @@ export default function BddTestingGuidePage() {
       </section>
 
       <main>
-        <section id="toc" className="mt-4">
-          <div className="card">
-            <h2 className="text-xl font-bold mb-4">目次</h2>
-            <ul className="list-disc pl-5 space-y-2">
+        <section id="toc" className="bdd-toc-section">
+          <div className="bdd-toc-card">
+            <h2 className="bdd-toc-title">目次</h2>
+            <div className="bdd-toc-grid">
               {sections.map(sec => (
-                <li key={sec.id}>
-                  <a href={`#${sec.id}`} className="text-accent hover:underline">{sec.title}</a>
-                </li>
+                <a key={sec.id} href={`#${sec.id}`} className="bdd-toc-item-link">
+                  <span className="bdd-toc-dot" />
+                  <span className="bdd-toc-text">{sec.title}</span>
+                </a>
               ))}
-            </ul>
+            </div>
           </div>
         </section>
 
@@ -1587,11 +1588,11 @@ Week 11-12:
                 </tr>
               </thead>
               <tbody>
-                <tr><td>ISTQB公式サイト</td><td><a href="https://istqb.org/" className="ref-url">https://istqb.org/</a></td></tr>
-                <tr><td>CTFL v4.0 詳細ページ</td><td><a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ref-url">https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a></td></tr>
-                <tr><td>CTFL v4.0.1 シラバスPDF</td><td><a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" className="ref-url">https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a></td></tr>
-                <tr><td>ISTQBグロッサリー</td><td><a href="https://glossary.istqb.org/en_US/search?term=" className="ref-url">https://glossary.istqb.org/en_US/search?term=</a></td></tr>
-                <tr><td>JSTQB（日本語版）</td><td><a href="https://jstqb.jp/" className="ref-url">https://jstqb.jp/</a></td></tr>
+                <tr><td>ISTQB公式サイト</td><td><a href="https://istqb.org/" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/</a></td></tr>
+                <tr><td>CTFL v4.0 詳細ページ</td><td><a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a></td></tr>
+                <tr><td>CTFL v4.0.1 シラバスPDF</td><td><a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" className="ref-url" target="_blank" rel="noopener noreferrer">https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a></td></tr>
+                <tr><td>ISTQBグロッサリー</td><td><a href="https://glossary.istqb.org/en_US/search?term=" className="ref-url" target="_blank" rel="noopener noreferrer">https://glossary.istqb.org/en_US/search?term=</a></td></tr>
+                <tr><td>JSTQB（日本語版）</td><td><a href="https://jstqb.jp/" className="ref-url" target="_blank" rel="noopener noreferrer">https://jstqb.jp/</a></td></tr>
               </tbody>
             </table>
           </div>
@@ -1607,11 +1608,11 @@ Week 11-12:
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Wikipedia — Behavior-driven development</td><td><a href="https://en.wikipedia.org/wiki/Behavior-driven_development" className="ref-url">https://en.wikipedia.org/wiki/Behavior-driven_development</a></td></tr>
-                <tr><td>Cucumber公式 — BDD</td><td><a href="https://cucumber.io/docs/bdd/" className="ref-url">https://cucumber.io/docs/bdd/</a></td></tr>
-                <tr><td>monday.com — BDD Essential Guide 2026</td><td><a href="https://monday.com/blog/rnd/behavior-driven-development/" className="ref-url">https://monday.com/blog/rnd/behavior-driven-development/</a></td></tr>
-                <tr><td>qase.io — A beginner's guide to BDD</td><td><a href="https://qase.io/blog/behavior-driven-development/" className="ref-url">https://qase.io/blog/behavior-driven-development/</a></td></tr>
-                <tr><td>Synoverge — What is BDD? Complete Guide</td><td><a href="https://www.synoverge.com/blog/what-is-bdd-complete-guide-to-behavior-driven-development/" className="ref-url">https://www.synoverge.com/blog/what-is-bdd-complete-guide-to-behavior-driven-development/</a></td></tr>
+                <tr><td>Wikipedia — Behavior-driven development</td><td><a href="https://en.wikipedia.org/wiki/Behavior-driven_development" className="ref-url" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Behavior-driven_development</a></td></tr>
+                <tr><td>Cucumber公式 — BDD</td><td><a href="https://cucumber.io/docs/bdd/" className="ref-url" target="_blank" rel="noopener noreferrer">https://cucumber.io/docs/bdd/</a></td></tr>
+                <tr><td>monday.com — BDD Essential Guide 2026</td><td><a href="https://monday.com/blog/rnd/behavior-driven-development/" className="ref-url" target="_blank" rel="noopener noreferrer">https://monday.com/blog/rnd/behavior-driven-development/</a></td></tr>
+                <tr><td>qase.io — A beginner's guide to BDD</td><td><a href="https://qase.io/blog/behavior-driven-development/" className="ref-url" target="_blank" rel="noopener noreferrer">https://qase.io/blog/behavior-driven-development/</a></td></tr>
+                <tr><td>Synoverge — What is BDD? Complete Guide</td><td><a href="https://www.synoverge.com/blog/what-is-bdd-complete-guide-to-behavior-driven-development/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.synoverge.com/blog/what-is-bdd-complete-guide-to-behavior-driven-development/</a></td></tr>
               </tbody>
             </table>
           </div>
@@ -1627,11 +1628,11 @@ Week 11-12:
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Cucumber — Gherkin Reference（公式）</td><td><a href="https://cucumber.io/docs/gherkin/reference/" className="ref-url">https://cucumber.io/docs/gherkin/reference/</a></td></tr>
-                <tr><td>BrowserStack — Gherkin and its role in BDD</td><td><a href="https://www.browserstack.com/guide/gherkin-and-its-role-bdd-scenarios" className="ref-url">https://www.browserstack.com/guide/gherkin-and-its-role-bdd-scenarios</a></td></tr>
-                <tr><td>Testsigma — BDD with Gherkin</td><td><a href="https://testsigma.com/blog/behavior-driven-development-bdd-with-gherkin/" className="ref-url">https://testsigma.com/blog/behavior-driven-development-bdd-with-gherkin/</a></td></tr>
-                <tr><td>Tutorialspoint — BDD Gherkin</td><td><a href="https://www.tutorialspoint.com/behavior_driven_development/behavior_driven_development_gherkin.htm" className="ref-url">https://www.tutorialspoint.com/behavior_driven_development/behavior_driven_development_gherkin.htm</a></td></tr>
-                <tr><td>Jignect — Understanding BDD & Gherkin</td><td><a href="https://jignect.tech/understanding-the-bdd-gherkin-language-main-rules-for-bdd-ui-scenarios/" className="ref-url">https://jignect.tech/understanding-the-bdd-gherkin-language-main-rules-for-bdd-ui-scenarios/</a></td></tr>
+                <tr><td>Cucumber — Gherkin Reference（公式）</td><td><a href="https://cucumber.io/docs/gherkin/reference/" className="ref-url" target="_blank" rel="noopener noreferrer">https://cucumber.io/docs/gherkin/reference/</a></td></tr>
+                <tr><td>BrowserStack — Gherkin and its role in BDD</td><td><a href="https://www.browserstack.com/guide/gherkin-and-its-role-bdd-scenarios" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.browserstack.com/guide/gherkin-and-its-role-bdd-scenarios</a></td></tr>
+                <tr><td>Testsigma — BDD with Gherkin</td><td><a href="https://testsigma.com/blog/behavior-driven-development-bdd-with-gherkin/" className="ref-url" target="_blank" rel="noopener noreferrer">https://testsigma.com/blog/behavior-driven-development-bdd-with-gherkin/</a></td></tr>
+                <tr><td>Tutorialspoint — BDD Gherkin</td><td><a href="https://www.tutorialspoint.com/behavior_driven_development/behavior_driven_development_gherkin.htm" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.tutorialspoint.com/behavior_driven_development/behavior_driven_development_gherkin.htm</a></td></tr>
+                <tr><td>Jignect — Understanding BDD & Gherkin</td><td><a href="https://jignect.tech/understanding-the-bdd-gherkin-language-main-rules-for-bdd-ui-scenarios/" className="ref-url" target="_blank" rel="noopener noreferrer">https://jignect.tech/understanding-the-bdd-gherkin-language-main-rules-for-bdd-ui-scenarios/</a></td></tr>
               </tbody>
             </table>
           </div>
@@ -1647,16 +1648,16 @@ Week 11-12:
                 </tr>
               </thead>
               <tbody>
-                <tr><td>TestQuality — Gherkin BDD Cucumber Guide</td><td><a href="https://testquality.com/gherkin-bdd-cucumber-guide-to-behavior-driven-development/" className="ref-url">https://testquality.com/gherkin-bdd-cucumber-guide-to-behavior-driven-development/</a></td></tr>
-                <tr><td>SoftwareTestingHelp — BDD Framework Tutorial</td><td><a href="https://www.softwaretestinghelp.com/bdd-framework/" className="ref-url">https://www.softwaretestinghelp.com/bdd-framework/</a></td></tr>
-                <tr><td>SoftwareTestingHelp — BDD Tools</td><td><a href="https://www.softwaretestinghelp.com/behavior-driven-development-bdd-tools/" className="ref-url">https://www.softwaretestinghelp.com/behavior-driven-development-bdd-tools/</a></td></tr>
-                <tr><td>ACCELQ — Top 13 BDD Testing Tools 2026</td><td><a href="https://www.accelq.com/blog/bdd-testing-tools/" className="ref-url">https://www.accelq.com/blog/bdd-testing-tools/</a></td></tr>
-                <tr><td>TheCTOClub — 13 Best BDD Tools 2026</td><td><a href="https://thectoclub.com/tools/best-bdd-testing-tools/" className="ref-url">https://thectoclub.com/tools/best-bdd-testing-tools/</a></td></tr>
-                <tr><td>Test Automation Tools — Top 5 BDD Tools</td><td><a href="https://testautomationtools.dev/bdd-testing-tools/" className="ref-url">https://testautomationtools.dev/bdd-testing-tools/</a></td></tr>
-                <tr><td>Qodex — SpecFlow vs Cucumber</td><td><a href="https://qodex.ai/blog/specflow-vs-cucumber" className="ref-url">https://qodex.ai/blog/specflow-vs-cucumber</a></td></tr>
-                <tr><td>Testsigma — SpecFlow vs Cucumber</td><td><a href="https://testsigma.com/blog/specflow-vs-cucumber/" className="ref-url">https://testsigma.com/blog/specflow-vs-cucumber/</a></td></tr>
-                <tr><td>Medium — Best BDD Framework 2024</td><td><a href="https://ambahera.medium.com/best-behavior-driven-development-bdd-framework-93089c377700" className="ref-url">https://ambahera.medium.com/best-behavior-driven-development-bdd-framework-93089c377700</a></td></tr>
-                <tr><td>QAlified — What is a BDD framework</td><td><a href="https://qalified.com/blog/what-is-bdd-framework/" className="ref-url">https://qalified.com/blog/what-is-bdd-framework/</a></td></tr>
+                <tr><td>TestQuality — Gherkin BDD Cucumber Guide</td><td><a href="https://testquality.com/gherkin-bdd-cucumber-guide-to-behavior-driven-development/" className="ref-url" target="_blank" rel="noopener noreferrer">https://testquality.com/gherkin-bdd-cucumber-guide-to-behavior-driven-development/</a></td></tr>
+                <tr><td>SoftwareTestingHelp — BDD Framework Tutorial</td><td><a href="https://www.softwaretestinghelp.com/bdd-framework/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.softwaretestinghelp.com/bdd-framework/</a></td></tr>
+                <tr><td>SoftwareTestingHelp — BDD Tools</td><td><a href="https://www.softwaretestinghelp.com/behavior-driven-development-bdd-tools/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.softwaretestinghelp.com/behavior-driven-development-bdd-tools/</a></td></tr>
+                <tr><td>ACCELQ — Top 13 BDD Testing Tools 2026</td><td><a href="https://www.accelq.com/blog/bdd-testing-tools/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.accelq.com/blog/bdd-testing-tools/</a></td></tr>
+                <tr><td>TheCTOClub — 13 Best BDD Tools 2026</td><td><a href="https://thectoclub.com/tools/best-bdd-testing-tools/" className="ref-url" target="_blank" rel="noopener noreferrer">https://thectoclub.com/tools/best-bdd-testing-tools/</a></td></tr>
+                <tr><td>Test Automation Tools — Top 5 BDD Tools</td><td><a href="https://testautomationtools.dev/bdd-testing-tools/" className="ref-url" target="_blank" rel="noopener noreferrer">https://testautomationtools.dev/bdd-testing-tools/</a></td></tr>
+                <tr><td>Qodex — SpecFlow vs Cucumber</td><td><a href="https://qodex.ai/blog/specflow-vs-cucumber" className="ref-url" target="_blank" rel="noopener noreferrer">https://qodex.ai/blog/specflow-vs-cucumber</a></td></tr>
+                <tr><td>Testsigma — SpecFlow vs Cucumber</td><td><a href="https://testsigma.com/blog/specflow-vs-cucumber/" className="ref-url" target="_blank" rel="noopener noreferrer">https://testsigma.com/blog/specflow-vs-cucumber/</a></td></tr>
+                <tr><td>Medium — Best BDD Framework 2024</td><td><a href="https://ambahera.medium.com/best-behavior-driven-development-bdd-framework-93089c377700" className="ref-url" target="_blank" rel="noopener noreferrer">https://ambahera.medium.com/best-behavior-driven-development-bdd-framework-93089c377700</a></td></tr>
+                <tr><td>QAlified — What is a BDD framework</td><td><a href="https://qalified.com/blog/what-is-bdd-framework/" className="ref-url" target="_blank" rel="noopener noreferrer">https://qalified.com/blog/what-is-bdd-framework/</a></td></tr>
               </tbody>
             </table>
           </div>
@@ -1672,8 +1673,8 @@ Week 11-12:
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Capgemini — World Quality Report 2024-25</td><td><a href="https://www.capgemini.com/insights/research-library/world-quality-report-2024-25/" className="ref-url">https://www.capgemini.com/insights/research-library/world-quality-report-2024-25/</a></td></tr>
-                <tr><td>Test Evolve — BDD Market Size</td><td><a href="https://testevolve.com/" className="ref-url">https://testevolve.com/</a></td></tr>
+                <tr><td>Capgemini — World Quality Report 2024-25</td><td><a href="https://www.capgemini.com/insights/research-library/world-quality-report-2024-25/" className="ref-url" target="_blank" rel="noopener noreferrer">https://www.capgemini.com/insights/research-library/world-quality-report-2024-25/</a></td></tr>
+                <tr><td>Test Evolve — BDD Market Size</td><td><a href="https://testevolve.com/" className="ref-url" target="_blank" rel="noopener noreferrer">https://testevolve.com/</a></td></tr>
               </tbody>
             </table>
           </div>
@@ -1689,10 +1690,10 @@ Week 11-12:
                 </tr>
               </thead>
               <tbody>
-                <tr><td>Cucumber — BDD Anti-patterns</td><td><a href="https://cucumber.io/docs/guides/anti-patterns/" className="ref-url">https://cucumber.io/docs/guides/anti-patterns/</a></td></tr>
-                <tr><td>Cucumber — Writing Good Gherkin</td><td><a href="https://cucumber.io/docs/bdd/better-gherkin/" className="ref-url">https://cucumber.io/docs/bdd/better-gherkin/</a></td></tr>
-                <tr><td>automationpanda.com — Is BDD Dying? (2025)</td><td><a href="https://automationpanda.com/2025/03/06/is-bdd-dying/" className="ref-url">https://automationpanda.com/2025/03/06/is-bdd-dying/</a></td></tr>
-                <tr><td>303software.com — BDD Reality Check 2025</td><td><a href="https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework" className="ref-url">https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework</a></td></tr>
+                <tr><td>Cucumber — BDD Anti-patterns</td><td><a href="https://cucumber.io/docs/guides/anti-patterns/" className="ref-url" target="_blank" rel="noopener noreferrer">https://cucumber.io/docs/guides/anti-patterns/</a></td></tr>
+                <tr><td>Cucumber — Writing Good Gherkin</td><td><a href="https://cucumber.io/docs/bdd/better-gherkin/" className="ref-url" target="_blank" rel="noopener noreferrer">https://cucumber.io/docs/bdd/better-gherkin/</a></td></tr>
+                <tr><td>automationpanda.com — Is BDD Dying? (2025)</td><td><a href="https://automationpanda.com/2025/03/06/is-bdd-dying/" className="ref-url" target="_blank" rel="noopener noreferrer">https://automationpanda.com/2025/03/06/is-bdd-dying/</a></td></tr>
+                <tr><td>303software.com — BDD Reality Check 2025</td><td><a href="https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework" className="ref-url" target="_blank" rel="noopener noreferrer">https://303software.com/behavior-driven-testing-a-cucumber-test-automation-framework</a></td></tr>
               </tbody>
             </table>
           </div>

@@ -1,4 +1,4 @@
-import { afterEach, beforeAll, afterAll, describe, it, expect, mock } from 'bun:test';
+import { afterEach, describe, it, expect } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import Page from '../../app/istqb-ct-pt-complete-guide/page';

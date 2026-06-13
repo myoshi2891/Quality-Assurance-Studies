@@ -1,11 +1,12 @@
 import '../ai-guide.css';
 
 /**
- * Renders the complete static Japanese "ISTQB CT-AI & CT-GenAI 完全ガイド 2025" page as a Next.js/React component.
+ * Render the static Japanese ISTQB CT-AI & CT-GenAI "完全ガイド 2025" page as a React component.
  *
- * The page includes a header and a multi-section main content body covering AI fundamentals, ML workflows and metrics,
- * quality characteristics, testing techniques (metamorphic, adversarial, RAG, prompt injection, etc.), hallucination and bias,
- * GenAI testing and prompt engineering, tools and frameworks, certification roadmap, and a references appendix.
+ * The component produces a complete, static JSX page composed of a hero and multiple step sections
+ * (AI fundamentals, ML overview & metrics, AI quality characteristics, testing techniques,
+ * hallucination & bias, GenAI testing & prompt engineering, RAG testing, security, tools,
+ * certification roadmap, and references), plus a footer. No props, state, or runtime logic are used.
  *
  * @returns The React element for the full static guide page.
  */
@@ -417,46 +418,55 @@ export default function AITestGuide() {
                         混同行列（Confusion Matrix）— 全指標の出発点
                     </h3>
                     <div className="matrix-wrap">
-                        <div className="matrix-grid">
-                            <div className="matrix-cell header"></div>
-                            <div className="matrix-cell header w-[140px]">予測：Positive</div>
-                            <div className="matrix-cell header w-[140px]">予測：Negative</div>
-                            <div className="matrix-cell header w-auto [writing-mode:vertical-rl] h-[80px] justify-center">
-                                実際：Positive
+                        <div className="matrix-grid" role="table" aria-label="混同行列（Confusion Matrix）">
+                            {/* Row 1 */}
+                            <div role="row" className="contents">
+                                <div className="matrix-cell header" role="columnheader"></div>
+                                <div className="matrix-cell header" role="columnheader" id="col-pred-pos">予測：Positive</div>
+                                <div className="matrix-cell header" role="columnheader" id="col-pred-neg">予測：Negative</div>
                             </div>
-                            <div className="matrix-cell tp">
-                                <div className="matrix-val">TP</div>
-                                <div className="matrix-lbl">
-                                    True Positive
-                                    <br />
-                                    正しくPositiveと判定
+                            {/* Row 2 */}
+                            <div role="row" className="contents">
+                                <div className="matrix-cell vertical-header" role="rowheader" id="row-act-pos">
+                                    実際：Positive
+                                </div>
+                                <div className="matrix-cell tp" role="cell" aria-labelledby="row-act-pos col-pred-pos">
+                                    <div className="matrix-val">TP</div>
+                                    <div className="matrix-lbl">
+                                        True Positive
+                                        <br />
+                                        正しくPositiveと判定
+                                    </div>
+                                </div>
+                                <div className="matrix-cell fn" role="cell" aria-labelledby="row-act-pos col-pred-neg">
+                                    <div className="matrix-val">FN</div>
+                                    <div className="matrix-lbl">
+                                        False Negative
+                                        <br />
+                                        見逃し（偽陰性）
+                                    </div>
                                 </div>
                             </div>
-                            <div className="matrix-cell fn">
-                                <div className="matrix-val">FN</div>
-                                <div className="matrix-lbl">
-                                    False Negative
-                                    <br />
-                                    見逃し（偽陰性）
+                            {/* Row 3 */}
+                            <div role="row" className="contents">
+                                <div className="matrix-cell vertical-header" role="rowheader" id="row-act-neg">
+                                    実際：Negative
                                 </div>
-                            </div>
-                            <div className="matrix-cell header w-auto [writing-mode:vertical-rl] h-[80px] justify-center">
-                                実際：Negative
-                            </div>
-                            <div className="matrix-cell fp">
-                                <div className="matrix-val">FP</div>
-                                <div className="matrix-lbl">
-                                    False Positive
-                                    <br />
-                                    誤検知（偽陽性）
+                                <div className="matrix-cell fp" role="cell" aria-labelledby="row-act-neg col-pred-pos">
+                                    <div className="matrix-val">FP</div>
+                                    <div className="matrix-lbl">
+                                        False Positive
+                                        <br />
+                                        誤検知（偽陽性）
+                                    </div>
                                 </div>
-                            </div>
-                            <div className="matrix-cell tn">
-                                <div className="matrix-val">TN</div>
-                                <div className="matrix-lbl">
-                                    True Negative
-                                    <br />
-                                    正しくNegativeと判定
+                                <div className="matrix-cell tn" role="cell" aria-labelledby="row-act-neg col-pred-neg">
+                                    <div className="matrix-val">TN</div>
+                                    <div className="matrix-lbl">
+                                        True Negative
+                                        <br />
+                                        正しくNegativeと判定
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -2009,30 +2019,26 @@ result = <span class="fn">evaluate</span>(
                             <span className="cert-dot-lbl">CT-AI</span>
                         </div>
                         <div className="cert-body">
-                            <div className="flex flex-wrap justify-between items-start gap-4">
-                                <div>
-                                    <h4>CT-AI v1.0 — Certified Tester AI Testing</h4>
-                                    <p>
-                                        AIシステムのテスト・AIを使ったテストの両軸を扱う専門資格。MLワークフロー・ニューラルネットワーク・バイアス・敵対的攻撃・幻覚などAI固有の品質課題を包括的にカバー。
-                                    </p>
+                            <h4>CT-AI v1.0 — Certified Tester AI Testing</h4>
+                            <p>
+                                AIシステムのテスト・AIを使ったテストの両軸を扱う専門資格。MLワークフロー・ニューラルネットワーク・バイアス・敵対的攻撃・幻覚などAI固有の品質課題を包括的にカバー。
+                            </p>
+                            <div className="cert-meta mt-3">
+                                <div className="cert-meta-item">
+                                    <div className="k">前提条件</div>
+                                    <div className="v">CTFL必須</div>
                                 </div>
-                                <div className="card-sm min-w-[170px]">
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">前提条件</div>
-                                        <div className="v">CTFL必須</div>
-                                    </div>
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">問題数</div>
-                                        <div className="v">40問 / 47点</div>
-                                    </div>
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">合格点</div>
-                                        <div className="v">31点（66%）</div>
-                                    </div>
-                                    <div className="cert-meta-item">
-                                        <div className="k">試験時間</div>
-                                        <div className="v">60分</div>
-                                    </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">問題数</div>
+                                    <div className="v">40問 / 47点</div>
+                                </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">合格点</div>
+                                    <div className="v">31点（66%）</div>
+                                </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">試験時間</div>
+                                    <div className="v">60分</div>
                                 </div>
                             </div>
                             <div className="cert-tags">
@@ -2060,35 +2066,31 @@ result = <span class="fn">evaluate</span>(
                             <span className="cert-dot-lbl">CT-GenAI</span>
                         </div>
                         <div className="cert-body">
-                            <div className="flex flex-wrap justify-between items-start gap-4">
-                                <div>
-                                    <h4>
-                                        CT-GenAI v1.0 — Testing with Generative AI
-                                        <span className="badge badge-unit text-[9px] align-middle">
-                                            NEW 2025
-                                        </span>
-                                    </h4>
-                                    <p>
-                                        LLM・生成AIを使ったテストプロセス全体の最適化を扱う最新資格。プロンプトエンジニアリング・リスク管理・幻覚・プライバシー・環境影響・AI規制への対応を習得。テストプロセスの要件分析からレポーティングまでAIを統合する実践的スキルを提供。
-                                    </p>
+                            <h4>
+                                CT-GenAI v1.0 — Testing with Generative AI
+                                <span className="badge badge-unit text-[9px] align-middle ml-1">
+                                    NEW 2025
+                                </span>
+                            </h4>
+                            <p>
+                                LLM・生成AIを使ったテストプロセス全体の最適化を扱う最新資格。プロンプトエンジニアリング・リスク管理・幻覚・プライバシー・環境影響・AI規制への対応を習得。テストプロセスの要件分析からレポーティングまでAIを統合する実践的スキルを提供。
+                            </p>
+                            <div className="cert-meta mt-3">
+                                <div className="cert-meta-item">
+                                    <div className="k">前提条件</div>
+                                    <div className="v">CTFL必須</div>
                                 </div>
-                                <div className="card-sm min-w-[170px]">
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">前提条件</div>
-                                        <div className="v">CTFL必須</div>
-                                    </div>
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">問題数</div>
-                                        <div className="v">40問 / 46点</div>
-                                    </div>
-                                    <div className="cert-meta-item mb-1">
-                                        <div className="k">合格点</div>
-                                        <div className="v">30点（65%）</div>
-                                    </div>
-                                    <div className="cert-meta-item">
-                                        <div className="k">シラバス</div>
-                                        <div className="v">v1.0 (2025)</div>
-                                    </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">問題数</div>
+                                    <div className="v">40問 / 46点</div>
+                                </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">合格点</div>
+                                    <div className="v">30点（65%）</div>
+                                </div>
+                                <div className="cert-meta-item">
+                                    <div className="k">シラバス</div>
+                                    <div className="v">v1.0 (2025)</div>
                                 </div>
                             </div>
                             <div className="cert-tags">
