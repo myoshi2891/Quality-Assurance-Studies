@@ -15,6 +15,10 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 依存関係の管理、スクリプトの実行、および node ツールの実行には、必ず `bun` のみを使用してください。`npm`、`yarn`、または `pnpm` の使用は禁止されています。
 
+> [!IMPORTANT]
+> **ビルド実行に関する重要ルール (AIエージェント用規約):**
+> AIエージェントは、自律的・自動的に本番ビルドコマンド（`bun run build`、`next build` 等）を実行してはなりません。ビルド検証が必要な場合は、自らコマンドを走らせず、必ずユーザーにビルドの実行を依頼してください。勝手に実行すると、ローカル環境のビルドプロセスと競合し、開発を阻害する原因となります。
+
 - **Install dependencies:**
 
   ```bash
