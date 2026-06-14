@@ -662,6 +662,9 @@ Scrum の主要要素：</p>
   → テストコード自体がドキュメントとしての役割を果たす
   → TDD/BDD のテストが「実行可能な仕様書」として機能する</p>
 <div className="callout callout-info">
+<h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.3 テストレベル（Test Levels）</h4>
+<p>従来型 vs アジャイルのテストレベル：</p>
+</div>
 <div className="max-w-2xl mx-auto">
     <Mermaid chart={`flowchart TD
     subgraph 従来型["従来型 (厳格なシーケンスで1回のみ実施)"]
