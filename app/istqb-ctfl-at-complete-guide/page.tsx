@@ -1,8 +1,31 @@
+'use client';
+
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Mermaid from '../../components/Mermaid';
 import '../istqb-ctfl-at-guide.css';
 
 export default function IstqbCtflAtCompleteGuidePage() {
+    const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
+
+    useEffect(() => {
+        const saved = localStorage.getItem('ctfl-at-checklist');
+        if (saved) {
+            try {
+                setCheckedItems(JSON.parse(saved));
+            } catch (e) {
+                console.error(e);
+            }
+        }
+    }, []);
+
+    const handleToggle = (id: string) => {
+        setCheckedItems(prev => {
+            const next = { ...prev, [id]: !prev[id] };
+            localStorage.setItem('ctfl-at-checklist', JSON.stringify(next));
+            return next;
+        });
+    };
     return (
         <>
             <main className="page-ctfl container mx-auto px-4 py-8 max-w-5xl">
@@ -45,7 +68,7 @@ export default function IstqbCtflAtCompleteGuidePage() {
     classDef required fill:#fff3cd,stroke:#ffc107,stroke-width:2px,color:#856404
     classDef advanced fill:#d1ecf1,stroke:#17a2b8,stroke-width:2px,color:#0c5460
 
-    CTFL["CTFL v4.0 / 旧CTFL<br>（前提資格：必須）"]:::required
+    CTFL["CTFL v4.0 / 旧CTFL<br>(前提資格: 必須)"]:::required
     CTFL_AT["CTFL-AT<br>(Foundation Level Agile Tester)<br>★ 本資格"]:::current
     CTAL_ATT["CTAL-ATT<br>(Agile Technical Tester)"]:::advanced
     CT_ATLaS["CT-ATLaS<br>(Agile Test Leadership at Scale)"]:::advanced
@@ -555,6 +578,7 @@ Scrum の主要要素：</p>
 <h3 id="section-2-1" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.1 従来型テストとアジャイルテストの違い（The Differences between Testing in Traditional and Agile Approaches）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.1 テストと開発活動（Testing and Development Activities）</h4>
 <p>従来型（ウォーターフォール）とアジャイルの開発・テストサイクルの違い：</p>
+<div className="max-w-2xl mx-auto">
 <Mermaid chart={`flowchart LR
     subgraph 従来型["従来型 (個別フェーズが順番に実行される)"]
         direction TB
@@ -571,6 +595,7 @@ Scrum の主要要素：</p>
     class 従来型 waterfall
     class アジャイル agile
 `} />
+</div>
 <div className="callout callout-info">
 <p><strong>主な違い（試験頻出！）：</strong></p>
 <div className="table-wrapper"><table aria-label="Data table">
@@ -637,16 +662,25 @@ Scrum の主要要素：</p>
   → テストコード自体がドキュメントとしての役割を果たす
   → TDD/BDD のテストが「実行可能な仕様書」として機能する</p>
 <div className="callout callout-info">
-<h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.3 テストレベル（Test Levels）</h4>
-<p>従来型 vs アジャイルのテストレベル：</p>
-</div>
-<p>flowchart TD
-    subgraph 従来型["従来型（厳格なシーケンスで1回のみ実施）"]
+<div className="max-w-2xl mx-auto">
+    <Mermaid chart={`flowchart TD
+    subgraph 従来型["従来型 (厳格なシーケンスで1回のみ実施)"]
         direction LR
-        C1["コンポーネント"] --&gt; I1["統合"] --&gt; S1["システム"] --&gt; U1["受入"]
-    end</p>
-<pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code>{"subgraph アジャイル[\"アジャイル（毎スプリントで全てのレベルを反復実施）\"]\n    direction TD\n    C2[\"コンポーネントテスト&lt;br&gt;(ユニットテスト/TDD)\"] --&gt;|毎日のCIで自動実行| I2[\"統合テスト\"]\n    I2 --&gt;|\"(\"| S2[\"システムテスト&lt;br&gt;(スプリント内機能テスト)\"]\n    S2 --&gt;|スプリントレビュー| U2[\"受入テスト&lt;br&gt;(顧客/POによる評価)\"]\nend\n\nclassDef waterfall fill:#f8f9fa,stroke:#ced4da,stroke-width:2px,color:#495057\nclassDef agile fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#1b5e20\nclass 従来型 waterfall\nclass アジャイル agile\n"}</code></pre>
-<div className="callout callout-info">
+        C1["コンポーネント"] --> I1["統合"] --> S1["システム"] --> U1["受入"]
+    end
+    
+    subgraph アジャイル["アジャイル (毎スプリントで全てのレベルを反復実施)"]
+        direction TD
+        C2["コンポーネントテスト<br>(ユニットテスト/TDD)"] -->|毎日のCIで自動実行| I2["統合テスト"]
+        I2 --> S2["システムテスト<br>(スプリント内機能テスト)"]
+        S2 -->|スプリントレビュー| U2["受入テスト<br>(顧客/POによる評価)"]
+    end
+
+    classDef waterfall fill:#f8f9fa,stroke:#ced4da,stroke-width:2px,color:#495057
+    classDef agile fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#1b5e20
+    class 従来型 waterfall
+    class アジャイル agile
+`} />
 </div>
 <p>アジャイルにおけるテストレベルの特徴：
   ✓ 全レベルを各スプリントで繰り返し実施
@@ -876,6 +910,7 @@ Scrum の主要要素：</p>
 <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]"><code className="language-gherkin">{"# BDD のシナリオ（Gherkin 記法）\nFeature: ショッピングカート割引機能\n  登録ユーザーが購入する際に適切な割引が適用される\n\n  Scenario: プレミアム会員が商品を購入する\n    Given プレミアム会員 \"yamada@example.com\" がログインしている\n    And カートに \"ノートPC（150,000円）\" が1台ある\n    When 注文を確定する\n    Then 割引後の合計金額は 120,000円 である\n    And 注文確認メールが \"yamada@example.com\" に送信される\n\n  Scenario: 一般会員が商品を購入する\n    Given 一般会員 \"tanaka@example.com\" がログインしている\n    And カートに \"ノートPC（150,000円）\" が1台ある\n    When 注文を確定する\n    Then 割引後の合計金額は 135,000円 である\n\n  Scenario Outline: 各会員タイプの割引確認\n    Given &lt;会員タイプ&gt; 会員がログインしている\n    And カートに単価 &lt;単価&gt;円 の商品が1個ある\n    When 注文を確定する\n    Then 合計金額は &lt;合計&gt;円 である\n\n    Examples:\n      | 会員タイプ | 単価   | 合計   |\n      | プレミアム | 10000 | 8000  |\n      | 一般      | 10000 | 9000  |\n      | ゲスト    | 10000 | 10000 |\n"}</code></pre>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">3.1.2 テストピラミッド（The Test Pyramid）</h4>
 <p><strong>テストピラミッド（Mike Cohn のモデル）：</strong></p>
+<div className="max-w-md mx-auto">
 <Mermaid chart={`flowchart TD
     UI["UI テスト (E2E)<br>10%程度"]
     Service["Service (API/統合) テスト<br>20%程度"]
@@ -892,6 +927,7 @@ Scrum の主要要素：</p>
     class Service service
     class Unit unit
 `} />
+</div>
 <div className="callout callout-info">
 <p>各レベルの特徴：</p>
 <p>  <strong>Unit（ユニットテスト）：</strong>
@@ -1488,37 +1524,117 @@ Scrum の主要要素：</p>
 </ul>
 </details><hr className="accent-line" />
 <h3 className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">試験直前チェックリスト</h3>
-<div className="callout callout-info">
-<p>✅ Chapter 1 アジャイルソフトウェア開発:</p>
-<p>□ アジャイルマニフェストの4つの価値を左右ともに言える
-□ アジャイルマニフェストの12の原則の概要を理解している
-□ ホールチームアプローチの定義と3つのメリットを説明できる
-□ 早期・頻繁なフィードバックの4つのメリットを説明できる
-□ XP・Scrum・Kanban の特徴と違いを比較できる
-□ Scrum の3つの役割（Scrum Master・PO・開発チーム）を説明できる
-□ Kanban の3つの機器（ボード・WIP制限・リードタイム）を説明できる
-□ INVEST 基準の6要素を全て言える
-□ 3C コンセプト（Card・Conversation・Confirmation）を説明できる
-□ レトロスペクティブとCIの目的・効果を説明できる
-□ リリース計画とイテレーション計画の違いを説明できる</p>
-<p>✅ Chapter 2 アジャイルテストの基本原則:</p>
-<p>□ 従来型テストとアジャイルテストの主要な違いを5つ以上説明できる
-□ アジャイルでのテストドキュメントの位置づけを説明できる
-□ アジャイルにおける独立テストの3つのオプションを説明できる
-□ デイリースタンドアップでのテスターの貢献を説明できる
-□ バーンダウンチャートの読み方を説明できる
-□ アジャイルテスターに必要なスキルを分類できる</p>
-<p>✅ Chapter 3 アジャイルテスト技法とツール（最重要）:</p>
-<p>□ TDD・ATDD・BDD の違いを表で比較できる
-□ TDDのRed-Green-Refactorサイクルを順番に説明できる
-□ テストピラミッドの3層と各層の特徴を説明できる
-□ テストクアドラントの4象限と各象限の内容を説明できる
-□ INVEST のTがユーザーストーリーにとって重要な理由を説明できる
-□ 受入基準のGiven-When-Then形式でシナリオを書ける
-□ 探索的テストとテストチャーターの概念を説明できる
-□ 代表的なCI/CDツール・テスト自動化ツールを挙げられる
-□ リスクベーステストのリスクマトリクスを説明できる
-□ 機能テスト技法（EP・BVA）をアジャイルに適用できる</p>
+<div className="callout callout-info space-y-6">
+  <div>
+    <h4 className="font-bold text-[var(--color-text-primary)] mb-3 flex items-center gap-2">
+      <span className="text-green-500">✓</span> Chapter 1 アジャイルソフトウェア開発:
+    </h4>
+    <ul className="space-y-2.5 pl-2">
+      {[
+        { id: "c1-1", text: "アジャイルマニフェストの4つの価値を左右ともに言える" },
+        { id: "c1-2", text: "アジャイルマニフェストの12の原則の概要を理解している" },
+        { id: "c1-3", text: "ホールチームアプローチの定義と3つのメリットを説明できる" },
+        { id: "c1-4", text: "早期・頻繁なフィードバックの4つのメリットを説明できる" },
+        { id: "c1-5", text: "XP・Scrum・Kanban の特徴と違いを比較できる" },
+        { id: "c1-6", text: "Scrum の3つの役割（Scrum Master・PO・開発チーム）を説明できる" },
+        { id: "c1-7", text: "Kanban の3つの機器（ボード・WIP制限・リードタイム）を説明できる" },
+        { id: "c1-8", text: "INVEST 基準の6要素を全て言える" },
+        { id: "c1-9", text: "3C コンセプト（Card・Conversation・Confirmation）を説明できる" },
+        { id: "c1-10", text: "レトロスペクティブとCIの目的・効果を説明できる" },
+        { id: "c1-11", text: "リリース計画とイテレーション計画の違いを説明できる" }
+      ].map(item => (
+        <li key={item.id} className="flex items-start gap-2.5">
+          <input
+            type="checkbox"
+            id={item.id}
+            checked={!!checkedItems[item.id]}
+            onChange={() => handleToggle(item.id)}
+            className="mt-1 h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 accent-[#48bb78] cursor-pointer"
+          />
+          <label
+            htmlFor={item.id}
+            className={`cursor-pointer text-[var(--color-text-secondary)] select-none transition-all duration-200 ${
+              checkedItems[item.id] ? 'line-through opacity-50 text-gray-500' : ''
+            }`}
+          >
+            {item.text}
+          </label>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div>
+    <h4 className="font-bold text-[var(--color-text-primary)] mb-3 flex items-center gap-2">
+      <span className="text-green-500">✓</span> Chapter 2 アジャイルテストの基本原則:
+    </h4>
+    <ul className="space-y-2.5 pl-2">
+      {[
+        { id: "c2-1", text: "従来型テストとアジャイルテストの主要な違いを5つ以上説明できる" },
+        { id: "c2-2", text: "アジャイルでのテストドキュメントの位置づけを説明できる" },
+        { id: "c2-3", text: "アジャイルにおける独立テストの3つのオプションを説明できる" },
+        { id: "c2-4", text: "デイリースタンドアップでのテスターの貢献を説明できる" },
+        { id: "c2-5", text: "バーンダウンチャートの読み方を説明できる" },
+        { id: "c2-6", text: "アジャイルテスターに必要なスキルを分類できる" }
+      ].map(item => (
+        <li key={item.id} className="flex items-start gap-2.5">
+          <input
+            type="checkbox"
+            id={item.id}
+            checked={!!checkedItems[item.id]}
+            onChange={() => handleToggle(item.id)}
+            className="mt-1 h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 accent-[#48bb78] cursor-pointer"
+          />
+          <label
+            htmlFor={item.id}
+            className={`cursor-pointer text-[var(--color-text-secondary)] select-none transition-all duration-200 ${
+              checkedItems[item.id] ? 'line-through opacity-50 text-gray-500' : ''
+            }`}
+          >
+            {item.text}
+          </label>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <div>
+    <h4 className="font-bold text-[var(--color-text-primary)] mb-3 flex items-center gap-2">
+      <span className="text-green-500">✓</span> Chapter 3 アジャイルテスト技法とツール（最重要）:
+    </h4>
+    <ul className="space-y-2.5 pl-2">
+      {[
+        { id: "c3-1", text: "TDD・ATDD・BDD の違いを表で比較できる" },
+        { id: "c3-2", text: "TDDのRed-Green-Refactorサイクルを順番に説明できる" },
+        { id: "c3-3", text: "テストピラミッドの3層と各層の特徴を説明できる" },
+        { id: "c3-4", text: "テストクアドラントの4象限と各象限の内容を説明できる" },
+        { id: "c3-5", text: "INVEST のTがユーザーストーリーにとって重要な理由を説明できる" },
+        { id: "c3-6", text: "受入基準のGiven-When-Then形式でシナリオを書ける" },
+        { id: "c3-7", text: "探索的テストとテストチャーターの概念を説明できる" },
+        { id: "c3-8", text: "代表的なCI/CDツール・テスト自動化ツールを挙げられる" },
+        { id: "c3-9", text: "リスクベーステストのリスクマトリクスを説明できる" },
+        { id: "c3-10", text: "機能テスト技法（EP・BVA）をアジャイルに適用できる" }
+      ].map(item => (
+        <li key={item.id} className="flex items-start gap-2.5">
+          <input
+            type="checkbox"
+            id={item.id}
+            checked={!!checkedItems[item.id]}
+            onChange={() => handleToggle(item.id)}
+            className="mt-1 h-4 w-4 rounded border-gray-300 text-green-600 focus:ring-green-500 accent-[#48bb78] cursor-pointer"
+          />
+          <label
+            htmlFor={item.id}
+            className={`cursor-pointer text-[var(--color-text-secondary)] select-none transition-all duration-200 ${
+              checkedItems[item.id] ? 'line-through opacity-50 text-gray-500' : ''
+            }`}
+          >
+            {item.text}
+          </label>
+        </li>
+      ))}
+    </ul>
+  </div>
 </div>
 <hr className="accent-line" />
 
