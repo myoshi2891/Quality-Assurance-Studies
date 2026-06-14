@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Mermaid from '../../components/Mermaid';
+import CodeWindow from '../../components/CodeWindow';
 import '../istqb-ctfl-at-guide.css';
 
 export default function IstqbCtflAtCompleteGuidePage() {
@@ -559,13 +560,11 @@ export default function IstqbCtflAtCompleteGuidePage() {
                 <p>
                     <strong>テスターとしてのアジャイルマニフェスト理解：</strong>
                 </p>
-                <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]">
-                    <code className="language-python">
-                        {
-                            '# アジャイルマニフェストをテスト視点で理解する\n\nagile_manifesto_for_testers = {\n    "個人と対話": {\n        "意味": "チームメンバー間の直接コミュニケーションを重視",\n        "テスターへの影響": [\n            "開発者と毎日コミュニケーション",\n            "バグを早期に口頭で共有",\n            "チーム全体で品質に責任を持つ",\n        ]\n    },\n    "動くソフトウェア": {\n        "意味": "ドキュメントより実際に動くソフトを重視",\n        "テスターへの影響": [\n            "スプリントの最後に動作確認を実施",\n            "テスト仕様書より自動テストを重視",\n            "実際に動くコードをデモできることが完了の証明",\n        ]\n    },\n    "顧客との協調": {\n        "意味": "契約ではなく継続的な協力を重視",\n        "テスターへの影響": [\n            "受入基準を顧客と共に定義",\n            "デモでユーザーからフィードバックを取得",\n            "ユーザーストーリーの作成に参加",\n        ]\n    },\n    "変化への対応": {\n        "意味": "固定計画より変化への適応を重視",\n        "テスターへの影響": [\n            "テスト計画を柔軟に更新",\n            "リグレッションテストで変更による影響を確認",\n            "スプリント中の要件変更に素早く対応",\n        ]\n    }\n}\n'
-                        }
-                    </code>
-                </pre>
+                <CodeWindow
+                    lang="python"
+                    filename="agile_manifesto_for_testers.py"
+                    code={'# アジャイルマニフェストをテスト視点で理解する\n\nagile_manifesto_for_testers = {\n    "個人と対話": {\n        "意味": "チームメンバー間の直接コミュニケーションを重視",\n        "テスターへの影響": [\n            "開発者と毎日コミュニケーション",\n            "バグを早期に口頭で共有",\n            "チーム全体で品質に責任を持つ",\n        ]\n    },\n    "動くソフトウェア": {\n        "意味": "ドキュメントより実際に動くソフトを重視",\n        "テスターへの影響": [\n            "スプリントの最後に動作確認を実施",\n            "テスト仕様書より自動テストを重視",\n            "実際に動くコードをデモできることが完了の証明",\n        ]\n    },\n    "顧客との協調": {\n        "意味": "契約ではなく継続的な協力を重視",\n        "テスターへの影響": [\n            "受入基準を顧客と共に定義",\n            "デモでユーザーからフィードバックを取得",\n            "ユーザーストーリーの作成に参加",\n        ]\n    },\n    "変化への対応": {\n        "意味": "固定計画より変化への適応を重視",\n        "テスターへの影響": [\n            "テスト計画を柔軟に更新",\n            "リグレッションテストで変更による影響を確認",\n            "スプリント中の要件変更に素早く対応",\n        ]\n    }\n}\n'}
+                />
                 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">
                     1.1.2 ホールチームアプローチ（Whole-Team Approach）
                 </h4>
@@ -879,13 +878,11 @@ export default function IstqbCtflAtCompleteGuidePage() {
                         良い：「チェックアウトは4ステップ以下で完了できること」
                     </p>
                 </div>
-                <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]">
-                    <code className="language-python">
-                        {
-                            '# ユーザーストーリー作成の実践例とテスターの貢献\n\n# オリジナルのユーザーストーリー（テスター参加前）\noriginal_story = """\nAs a registered user,\nI want to search for products,\nSo that I can find what I need quickly.\n"""\n\n# テスターが提案する質問（テスターの視点）\ntester_questions = [\n    # INVEST の T（テスト可能性）の確認\n    "「素早く」の具体的な基準は？（例：3秒以内）",\n    \n    # 境界値・異常系の確認\n    "検索キーワードが空の場合は？",\n    "検索キーワードに特殊文字を入れた場合は？",\n    "検索結果が0件の場合は？",\n    \n    # 非機能要件の確認\n    "同時に1000人が検索した場合の性能要件は？",\n    "部分一致・完全一致・あいまい検索は？",\n    \n    # エラー処理の確認\n    "商品が一時的に検索できない場合のエラー表示は？",\n]\n\n# テスターが提案する受入基準（改善後）\nacceptance_criteria = [\n    "✓ キーワード入力後3秒以内に検索結果が表示される",\n    "✓ 商品名・説明文を対象に部分一致検索ができる",\n    "✓ 結果は関連度の高い順に表示される（最大50件）",\n    "✓ 0件の場合は「検索結果がありません」メッセージを表示",\n    "✓ 空のキーワードでは検索が実行されない（エラーメッセージ表示）",\n    "✓ 100文字を超えるキーワードは入力できない",\n]\n\nprint("テスターの貢献：曖昧な要件を具体的な受入基準に変換！")\n'
-                        }
-                    </code>
-                </pre>
+                <CodeWindow
+                    lang="python"
+                    filename="user_story_example.py"
+                    code={'# ユーザーストーリー作成の実践例とテスターの貢献\n\n# オリジナルのユーザーストーリー（テスター参加前）\noriginal_story = """\nAs a registered user,\nI want to search for products,\nSo that I can find what I need quickly.\n"""\n\n# テスターが提案する質問（テスターの視点）\ntester_questions = [\n    # INVEST の T（テスト可能性）の確認\n    "「素早く」の具体的な基準は？（例：3秒以内）",\n    \n    # 境界値・異常系の確認\n    "検索キーワードが空の場合は？",\n    "検索キーワードに特殊文字を入れた場合は？",\n    "検索結果が0件の場合は？",\n    \n    # 非機能要件の確認\n    "同時に1000人が検索した場合の性能要件は？",\n    "部分一致・完全一致・あいまい検索は？",\n    \n    # エラー処理の確認\n    "商品が一時的に検索できない場合のエラー表示は？",\n]\n\n# テスターが提案する受入基準（改善後）\nacceptance_criteria = [\n    "✓ キーワード入力後3秒以内に検索結果が表示される",\n    "✓ 商品名・説明文を対象に部分一致検索ができる",\n    "✓ 結果は関連度の高い順に表示される（最大50件）",\n    "✓ 0件の場合は「検索結果がありません」メッセージを表示",\n    "✓ 空のキーワードでは検索が実行されない（エラーメッセージ表示）",\n    "✓ 100文字を超えるキーワードは入力できない",\n]\n\nprint("テスターの貢献：曖昧な要件を具体的な受入基準に変換！")\n'}
+                />
                 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">
                     1.2.3 レトロスペクティブ（Retrospectives）
                 </h4>
@@ -1416,13 +1413,11 @@ export default function IstqbCtflAtCompleteGuidePage() {
                 <p>
                     <strong>TDD（テスト駆動開発）の詳細：</strong>
                 </p>
-                <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]">
-                    <code className="language-python">
-                        {
-                            '# TDD のサイクル（Red-Green-Refactor）\n\n# ===== RED フェーズ：失敗するテストを書く =====\ndef test_calculate_discount_for_premium_customer():\n    """プレミアム顧客は20%割引を受けられること"""\n    service = DiscountService()\n    # まだ DiscountService が存在しないのでこのテストは失敗する\n    result = service.calculate(price=1000, customer_type="premium")\n    assert result == 800  # 20%引き = 800円\n\n# ===== GREEN フェーズ：最小限のコードを書く =====\nclass DiscountService:\n    def calculate(self, price: float, customer_type: str) -&gt; float:\n        if customer_type == "premium":\n            return price * 0.8  # 20%引き\n        return price\n\n# テスト実行 → PASS ✅\n\n# ===== REFACTOR フェーズ：コードを整理する =====\nclass DiscountService:\n    DISCOUNT_RATES = {\n        "premium": 0.20,\n        "regular": 0.10,\n        "guest":   0.00,\n    }\n    \n    def calculate(self, price: float, customer_type: str) -&gt; float:\n        discount_rate = self.DISCOUNT_RATES.get(customer_type, 0.0)\n        return price * (1 - discount_rate)\n\n# テスト再実行 → まだ PASS ✅（リファクタリング成功）\n'
-                        }
-                    </code>
-                </pre>
+                <CodeWindow
+                    lang="python"
+                    filename="tdd_cycle_example.py"
+                    code={'# TDD のサイクル（Red-Green-Refactor）\n\n# ===== RED フェーズ：失敗するテストを書く =====\ndef test_calculate_discount_for_premium_customer():\n    """プレミアム顧客は20%割引を受けられること"""\n    service = DiscountService()\n    # まだ DiscountService が存在しないのでこのテストは失敗する\n    result = service.calculate(price=1000, customer_type="premium")\n    assert result == 800  # 20%引き = 800円\n\n# ===== GREEN フェーズ：最小限のコードを書く =====\nclass DiscountService:\n    def calculate(self, price: float, customer_type: str) -> float:\n        if customer_type == "premium":\n            return price * 0.8  # 20%引き\n        return price\n\n# テスト実行 → PASS ✅\n\n# ===== REFACTOR フェーズ：コードを整理する =====\nclass DiscountService:\n    DISCOUNT_RATES = {\n        "premium": 0.20,\n        "regular": 0.10,\n        "guest":   0.00,\n    }\n    \n    def calculate(self, price: float, customer_type: str) -> float:\n        discount_rate = self.DISCOUNT_RATES.get(customer_type, 0.0)\n        return price * (1 - discount_rate)\n\n# テスト再実行 → まだ PASS ✅（リファクタリング成功）\n'}
+                />
                 <p>
                     <strong>ATDD（受入テスト駆動開発）の詳細：</strong>
                 </p>
@@ -1443,13 +1438,11 @@ export default function IstqbCtflAtCompleteGuidePage() {
                 <p>
                     <strong>BDD（振る舞い駆動開発）の詳細：</strong>
                 </p>
-                <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]">
-                    <code className="language-gherkin">
-                        {
-                            '# BDD のシナリオ（Gherkin 記法）\nFeature: ショッピングカート割引機能\n  登録ユーザーが購入する際に適切な割引が適用される\n\n  Scenario: プレミアム会員が商品を購入する\n    Given プレミアム会員 "yamada@example.com" がログインしている\n    And カートに "ノートPC（150,000円）" が1台ある\n    When 注文を確定する\n    Then 割引後の合計金額は 120,000円 である\n    And 注文確認メールが "yamada@example.com" に送信される\n\n  Scenario: 一般会員が商品を購入する\n    Given 一般会員 "tanaka@example.com" がログインしている\n    And カートに "ノートPC（150,000円）" が1台ある\n    When 注文を確定する\n    Then 割引後の合計金額は 135,000円 である\n\n  Scenario Outline: 各会員タイプの割引確認\n    Given &lt;会員タイプ&gt; 会員がログインしている\n    And カートに単価 &lt;単価&gt;円 の商品が1個ある\n    When 注文を確定する\n    Then 合計金額は &lt;合計&gt;円 である\n\n    Examples:\n      | 会員タイプ | 単価   | 合計   |\n      | プレミアム | 10000 | 8000  |\n      | 一般      | 10000 | 9000  |\n      | ゲスト    | 10000 | 10000 |\n'
-                        }
-                    </code>
-                </pre>
+                <CodeWindow
+                    lang="gherkin"
+                    filename="discount_feature.feature"
+                    code={'# BDD のシナリオ（Gherkin 記法）\nFeature: ショッピングカート割引機能\n  登録ユーザーが購入する際に適切な割引が適用される\n\n  Scenario: プレミアム会員が商品を購入する\n    Given プレミアム会員 "yamada@example.com" がログインしている\n    And カートに "ノートPC（150,000円）" が1台ある\n    When 注文を確定する\n    Then 割引後の合計金額は 120,000円 である\n    And 注文確認メールが "yamada@example.com" に送信される\n\n  Scenario: 一般会員が商品を購入する\n    Given 一般会員 "tanaka@example.com" がログインしている\n    And カートに "ノートPC（150,000円）" が1台ある\n    When 注文を確定する\n    Then 割引後の合計金額は 135,000円 である\n\n  Scenario Outline: 各会員タイプの割引確認\n    Given <会員タイプ> 会員がログインしている\n    And カートに単価 <単価>円 の商品が1個ある\n    When 注文を確定する\n    Then 合計金額は <合計>円 である\n\n    Examples:\n      | 会員タイプ | 単価   | 合計   |\n      | プレミアム | 10000 | 8000  |\n      | 一般      | 10000 | 9000  |\n      | ゲスト    | 10000 | 10000 |\n'}
+                />
                 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">
                     3.1.2 テストピラミッド（The Test Pyramid）
                 </h4>
@@ -1692,9 +1685,9 @@ export default function IstqbCtflAtCompleteGuidePage() {
                     </table>
                 </div>
                 <div className="callout callout-info">
-                    <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]">
-                        <code>{'L=低リスク、M=中リスク、H=高リスク\n'}</code>
-                    </pre>
+                    <p className="text-xs text-[var(--color-text-secondary)] font-mono bg-[var(--color-bg-card)] px-3 py-1.5 rounded border border-[var(--color-border)] inline-block my-2">
+                        L=低リスク、M=中リスク、H=高リスク
+                    </p>
                     <p>
                         アジャイル特有のリスク要因： ✓ 技術の複雑さ（新技術の使用） ✓
                         チームスキル（スキルの不均一） ✓ 既知の欠陥傾向（過去の欠陥データ） ✓
@@ -1764,13 +1757,11 @@ export default function IstqbCtflAtCompleteGuidePage() {
                 <p>
                     <strong>受入基準の例（ログイン機能）：</strong>
                 </p>
-                <pre className="code-block text-sm overflow-x-auto p-4 bg-[var(--color-bg-card)] rounded-[var(--radius-DEFAULT)] border border-[var(--color-border)] my-4 text-[var(--color-text-secondary)]">
-                    <code className="language-gherkin">
-                        {
-                            'Feature: ユーザーログイン機能\n\n  # 正常系\n  Scenario: 有効な資格情報でログインできる\n    Given ユーザーが "user@example.com" で登録されている\n    When メールアドレス "user@example.com" と\n         パスワード "Pass@123" を入力する\n    And ログインボタンをクリックする\n    Then ダッシュボードにリダイレクトされる\n    And "ようこそ、山田太郎さん" と\n        表示される\n\n  # 異常系1\n  Scenario: 無効なパスワードでログインできない\n    Given ユーザーが "user@example.com" で登録されている\n    When メールアドレス "user@example.com" と\n         誤ったパスワード "wrong" を入力する\n    And ログインボタンをクリックする\n    Then 「メールアドレスまたはパスワードが\n         正しくありません」と表示される\n    And ダッシュボードへのリダイレクトが行われない\n\n  # 異常系2（境界値）\n  Scenario: 5回連続で失敗するとアカウントがロックされる\n    Given ユーザーが "user@example.com" で登録されている\n    When 誤ったパスワードで5回ログインを試みる\n    Then 「アカウントが一時的にロックされました」\n         と表示される\n    And 30分後に自動的にロックが解除される\n\n  # 非機能要件\n  Scenario: ログイン処理は3秒以内に完了する\n    Given ユーザーが有効な資格情報を持っている\n    When ログインボタンをクリックする\n    Then 3秒以内にダッシュボードが表示される\n'
-                        }
-                    </code>
-                </pre>
+                <CodeWindow
+                    lang="gherkin"
+                    filename="login_feature.feature"
+                    code={'Feature: ユーザーログイン機能\n\n  # 正常系\n  Scenario: 有効な資格情報でログインできる\n    Given ユーザーが "user@example.com" で登録されている\n    When メールアドレス "user@example.com" と\n         パスワード "Pass@123" を入力する\n    And ログインボタンをクリックする\n    Then ダッシュボードにリダイレクトされる\n    And "ようこそ、山田太郎さん" と\n        表示される\n\n  # 異常系1\n  Scenario: 無効なパスワードでログインできない\n    Given ユーザーが "user@example.com" で登録されている\n    When メールアドレス "user@example.com" と\n         誤ったパスワード "wrong" を入力する\n    And ログインボタンをクリックする\n    Then 「メールアドレスまたはパスワードが\n         正しくありません」と表示される\n    And ダッシュボードへのリダイレクトが行われない\n\n  # 異常系2（境界値）\n  Scenario: 5回連続で失敗するとアカウントがロックされる\n    Given ユーザーが "user@example.com" で登録されている\n    When 誤ったパスワードで5回ログインを試みる\n    Then 「アカウントが一時的にロックされました」\n         と表示される\n    And 30分後に自動的にロックが解除される\n\n  # 非機能要件\n  Scenario: ログイン処理は3秒以内に完了する\n    Given ユーザーが有効な資格情報を持っている\n    When ログインボタンをクリックする\n    Then 3秒以内にダッシュボードが表示される\n'}
+                />
                 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">
                     3.3.2 ATDD の適用（Applying Acceptance Test-Driven Development）
                 </h4>

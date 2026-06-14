@@ -622,7 +622,129 @@
     font-weight: 500;
 }
 
-/* ── CODE BLOCKS ── */
+/* ── CODE BLOCKS（コードウィンドウ） ── */
+
+/* ラッパー */
+.page-ctfl .code-window {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(72, 187, 120, 0.2);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(72, 187, 120, 0.06) inset,
+        0 2px 60px rgba(72, 187, 120, 0.04);
+    margin: 1.5rem 0;
+    background: #0a0f1e;
+    transition: box-shadow 0.25s ease;
+}
+
+.page-ctfl .code-window:hover {
+    box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(72, 187, 120, 0.14) inset,
+        0 2px 80px rgba(72, 187, 120, 0.08);
+}
+
+/* ヘッダーバー */
+.page-ctfl .code-window-header {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0.6rem 1rem;
+    background: #111827;
+    border-bottom: 1px solid rgba(72, 187, 120, 0.12);
+    user-select: none;
+}
+
+/* macOS風トラフィックライトボタン */
+.page-ctfl .code-dots {
+    display: flex;
+    gap: 6px;
+    margin-right: 1rem;
+}
+
+.page-ctfl .code-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+    opacity: 0.85;
+}
+
+.page-ctfl .code-dots span:nth-child(1) { background: #ff5f57; }
+.page-ctfl .code-dots span:nth-child(2) { background: #febc2e; }
+.page-ctfl .code-dots span:nth-child(3) { background: #28c840; }
+
+/* 言語バッジ */
+.page-ctfl .code-lang {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #68d391;
+    background: rgba(72, 187, 120, 0.1);
+    border: 1px solid rgba(72, 187, 120, 0.25);
+    padding: 0.18rem 0.6rem;
+    border-radius: 5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+/* ファイル名（オプション） */
+.page-ctfl .code-filename {
+    flex: 1;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    margin-left: 0.75rem;
+}
+
+/* コピーボタン */
+.page-ctfl .code-copy-btn {
+    margin-left: auto;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.35);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 5px;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.page-ctfl .code-copy-btn:hover {
+    color: #68d391;
+    border-color: rgba(72, 187, 120, 0.4);
+    background: rgba(72, 187, 120, 0.08);
+}
+
+.page-ctfl .code-copy-btn.copied {
+    color: #68d391;
+    border-color: rgba(72, 187, 120, 0.5);
+    background: rgba(72, 187, 120, 0.1);
+}
+
+/* コード本文 */
+.page-ctfl .code-window pre.code-block {
+    background: #0a0f1e;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', ui-monospace, monospace;
+    color: #e2e8f0;
+    padding: 1.25rem 1.5rem;
+    margin: 0;
+    overflow-x: auto;
+    position: relative;
+    font-size: 0.82rem;
+    line-height: 1.75;
+    white-space: pre;
+    tab-size: 4;
+}
+
+/* 旧スタイル（ラッパーなしの場合の後方互換） */
 .page-ctfl .code-block {
     background: #0a0f1e;
     border: 1px solid rgba(72, 187, 120, 0.15);
@@ -638,6 +760,102 @@
     line-height: 1.7;
 }
 
+/* ── シンタックスハイライト カラー ── */
+
+/* コメント */
+.page-ctfl .hl-comment {
+    color: #6a9955;
+    font-style: italic;
+}
+
+/* 文字列 */
+.page-ctfl .hl-string {
+    color: #ce9178;
+}
+
+/* キーワード（Python: def, class, return, if, else, assert, import等） */
+.page-ctfl .hl-keyword {
+    color: #569cd6;
+    font-weight: 600;
+}
+
+/* 組み込み関数・型 */
+.page-ctfl .hl-builtin {
+    color: #4ec9b0;
+}
+
+/* 数値 */
+.page-ctfl .hl-number {
+    color: #b5cea8;
+}
+
+/* 関数名 */
+.page-ctfl .hl-function {
+    color: #dcdcaa;
+}
+
+/* クラス名 */
+.page-ctfl .hl-class {
+    color: #4ec9b0;
+    font-weight: 600;
+}
+
+/* 演算子 */
+.page-ctfl .hl-operator {
+    color: #d4d4d4;
+}
+
+/* 変数・識別子 */
+.page-ctfl .hl-variable {
+    color: #9cdcfe;
+}
+
+/* Gherkin 専用 */
+.page-ctfl .hl-gherkin-key {
+    color: #c586c0;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-gherkin-section {
+    color: #569cd6;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-gherkin-param {
+    color: #ce9178;
+}
+
+.page-ctfl .hl-gherkin-table-sep {
+    color: #6a9955;
+}
+
+/* 特殊マーカー（✓ ✗ ★ 等） */
+.page-ctfl .hl-pass {
+    color: #4ade80;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-fail {
+    color: #f87171;
+    font-weight: 700;
+}
+
+/* フェーズラベル（RED / GREEN / REFACTOR） */
+.page-ctfl .hl-phase-red {
+    color: #f87171;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-phase-green {
+    color: #4ade80;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-phase-refactor {
+    color: #60a5fa;
+    font-weight: 700;
+}
+
 .page-ctfl .code-label {
     position: absolute;
     top: 0.5rem;
@@ -648,6 +866,7 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
 }
+
 
 /* ── CHECKLIST ITEMS ── */
 .page-ctfl .checklist-section {
