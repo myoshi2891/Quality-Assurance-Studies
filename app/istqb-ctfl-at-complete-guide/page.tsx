@@ -1075,39 +1075,40 @@ export default function IstqbCtflAtCompleteGuidePage() {
                 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">
                     2.1.2 プロジェクト成果物（Project Work Products）
                 </h4>
-                <p>従来型とアジャイルの主要な成果物の違い：</p>
-                <p>
-                    テストドキュメント： 従来型： - 詳細なテスト計画書（マスターテスト計画） -
-                    テストケース仕様書 - テスト結果レポート
-                </p>
-                <p>
-                    {' '}
-                    アジャイル： - 軽量なテスト戦略（スプリントテスト計画） -
-                    受入基準（ユーザーストーリーの一部） -
-                    自動化テストスクリプト（実行可能な仕様書として機能） -
-                    テストダッシュボード（リアルタイム進捗確認）
-                </p>
-                <p>
-                    テスト実行の成果物： 従来型： - 重量なテスト結果レポート -
-                    欠陥レポート（フォーマル手続き）
-                </p>
-                <p>
-                    {' '}
-                    アジャイル： - 自動テストの実行結果 - タスクボード上の欠陥（バックログアイテム）
-                    - バーンダウンチャート
-                </p>
-                <p>
-                    ポイント：アジャイルではドキュメントより「実行可能なテスト」を重視！ →
-                    テストコード自体がドキュメントとしての役割を果たす → TDD/BDD
-                    のテストが「実行可能な仕様書」として機能する
-                </p>
                 <div className="callout callout-info">
-                    <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">
-                        2.1.3 テストレベル（Test Levels）
-                    </h4>
-                    <p>従来型 vs アジャイルのテストレベル：</p>
+                    <p>
+                        <strong>従来型とアジャイルの主要な成果物の違い：</strong>
+                    </p>
+                    <p>
+                        テストドキュメント： 従来型： - 詳細なテスト計画書（マスターテスト計画） -
+                        テストケース仕様書 - テスト結果レポート
+                    </p>
+                    <p>
+                        アジャイル： - 軽量なテスト戦略（スプリントテスト計画） -
+                        受入基準（ユーザーストーリーの一部） -
+                        自動化テストスクリプト（実行可能な仕様書として機能） -
+                        テストダッシュボード（リアルタイム進捗確認）
+                    </p>
+                    <p>
+                        テスト実行の成果物： 従来型： - 重量なテスト結果レポート -
+                        欠陥レポート（フォーマル手続き）
+                    </p>
+                    <p>
+                        アジャイル： - 自動テストの実行結果 - タスクボード上の欠陥（バックログアイテム）
+                        - バーンダウンチャート
+                    </p>
+                    <p>
+                        ポイント：アジャイルではドキュメントより「実行可能なテスト」を重視！ →
+                        テストコード自体がドキュメントとしての役割を果たす → TDD/BDD
+                        のテストが「実行可能な仕様書」として機能する
+                    </p>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto my-6">
+
+                <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">
+                    2.1.3 テストレベル（Test Levels）
+                </h4>
+                <p className="mb-4">従来型 vs アジャイルのテストレベル：</p>
+                <div className="flex flex-col gap-8 max-w-2xl mx-auto my-8">
                     <div className="flex flex-col items-center">
                         <h5 className="text-center font-bold mb-2 text-[var(--color-text-primary)]">
                             従来型 (厳格なシーケンスで1回のみ実施)
