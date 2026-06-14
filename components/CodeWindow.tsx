@@ -1,11 +1,11 @@
 'use client';
 
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 
 /* ── シンタックスハイライト関数 ── */
 function highlightPython(code: string): string {
     const escape = (s: string) =>
-        s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
     const lines = code.split('\n');
     return lines
@@ -120,12 +120,19 @@ export interface CodeWindowProps {
 
 export default function CodeWindow({ lang, filename, code }: CodeWindowProps) {
     const [copied, setCopied] = useState(false);
+    const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
     const handleCopy = useCallback(async () => {
         try {
             await navigator.clipboard.writeText(code);
             setCopied(true);
-            setTimeout(() => setCopied(false), 2000);
+            if (copyTimeoutRef.current) {
+                clearTimeout(copyTimeoutRef.current);
+            }
+            copyTimeoutRef.current = setTimeout(() => {
+                setCopied(false);
+                copyTimeoutRef.current = null;
+            }, 2000);
         } catch {
             // フォールバック不要
         }

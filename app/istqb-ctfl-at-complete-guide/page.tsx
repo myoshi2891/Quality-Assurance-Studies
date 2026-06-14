@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import Link from 'next/link';
 import Mermaid from '../../components/Mermaid';
 import CodeWindow from '../../components/CodeWindow';
-import '../istqb-ctfl-at-guide.css';
+import './istqb-ctfl-at-guide.css';
 
 export default function IstqbCtflAtCompleteGuidePage() {
     const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});

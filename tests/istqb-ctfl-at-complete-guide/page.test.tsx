@@ -67,12 +67,8 @@ describe('ISTQB CTFL-AT Complete Guide Page', () => {
     );
     // アジャイルテストレベルのMermaid図がflowchart LRを使用していること
     // The agile mermaid diagram that follows "従来型 vs アジャイルのテストレベル" must use LR
-    const testLevelSection = pageSrc.slice(pageSrc.indexOf('従来型 vs アジャイルのテストレベル'));
-    const firstMermaidAfter = testLevelSection.slice(
-      testLevelSection.indexOf('flowchart'),
-      testLevelSection.indexOf('flowchart') + 200,
-    );
     // Both diagrams in the test levels section should use LR (not TD)
     expect(pageSrc).not.toMatch(/従来型 vs アジャイルのテストレベル[\s\S]{0,2000}flowchart TD/);
+    expect(pageSrc).toMatch(/従来型 vs アジャイルのテストレベル[\s\S]{0,2000}flowchart LR/);
   });
 });

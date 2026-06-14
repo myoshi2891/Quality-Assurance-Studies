@@ -23,7 +23,7 @@
         rgba(0, 0, 0, 0.06) 4px
     );
     pointer-events: none;
-    z-index: 9999;
+    z-index: -1;
 }
 
 /* ── 背景テクスチャ（グリッド） ── */
@@ -36,7 +36,7 @@
         linear-gradient(90deg, rgba(72, 187, 120, 0.025) 1px, transparent 1px);
     background-size: 48px 48px;
     pointer-events: none;
-    z-index: 9998;
+    z-index: -2;
 }
 
 /* ── HERO セクション ── */
