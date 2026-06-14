@@ -578,7 +578,7 @@ Scrum の主要要素：</p>
 <h3 id="section-2-1" className="text-xl font-bold mt-8 mb-4 text-[var(--color-text-primary)]">2.1 従来型テストとアジャイルテストの違い（The Differences between Testing in Traditional and Agile Approaches）</h3>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.1 テストと開発活動（Testing and Development Activities）</h4>
 <p>従来型（ウォーターフォール）とアジャイルの開発・テストサイクルの違い：</p>
-<div className="max-w-2xl mx-auto">
+<div className="max-w-lg mx-auto">
 <Mermaid chart={`flowchart LR
     subgraph 従来型["従来型 (個別フェーズが順番に実行される)"]
         direction TB
@@ -637,8 +637,8 @@ Scrum の主要要素：</p>
 <td align="left">バグは即座に同チーム内で修正される</td>
 </tr>
 </tbody></table></div>
-<h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.2 プロジェクト成果物（Project Work Products）</h4>
 </div>
+<h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.2 プロジェクト成果物（Project Work Products）</h4>
 <p>従来型とアジャイルの主要な成果物の違い：</p>
 <p>テストドキュメント：
   従来型：
@@ -665,25 +665,25 @@ Scrum の主要要素：</p>
 <h4 className="text-lg font-bold mt-6 mb-3 text-[var(--color-text-primary)]">2.1.3 テストレベル（Test Levels）</h4>
 <p>従来型 vs アジャイルのテストレベル：</p>
 </div>
-<div className="max-w-2xl mx-auto">
-    <Mermaid chart={`flowchart TD
-    subgraph 従来型["従来型 (厳格なシーケンスで1回のみ実施)"]
-        direction LR
-        C1["コンポーネント"] --> I1["統合"] --> S1["システム"] --> U1["受入"]
-    end
-    
-    subgraph アジャイル["アジャイル (毎スプリントで全てのレベルを反復実施)"]
-        direction TD
-        C2["コンポーネントテスト<br>(ユニットテスト/TDD)"] -->|毎日のCIで自動実行| I2["統合テスト"]
-        I2 --> S2["システムテスト<br>(スプリント内機能テスト)"]
-        S2 -->|スプリントレビュー| U2["受入テスト<br>(顧客/POによる評価)"]
-    end
-
-    classDef waterfall fill:#f8f9fa,stroke:#ced4da,stroke-width:2px,color:#495057
-    classDef agile fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#1b5e20
-    class 従来型 waterfall
-    class アジャイル agile
-`} />
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto my-6">
+    <div className="flex flex-col items-center">
+        <h5 className="text-center font-bold mb-2 text-[var(--color-text-primary)]">従来型 (厳格なシーケンスで1回のみ実施)</h5>
+        <Mermaid chart={`flowchart LR
+            C1["コンポーネント"] --> I1["統合"] --> S1["システム"] --> U1["受入"]
+            classDef waterfall fill:#f8f9fa,stroke:#ced4da,stroke-width:2px,color:#495057
+            class C1,I1,S1,U1 waterfall
+        `} />
+    </div>
+    <div className="flex flex-col items-center">
+        <h5 className="text-center font-bold mb-2 text-[var(--color-text-primary)]">アジャイル (毎スプリントで全てのレベルを反復実施)</h5>
+        <Mermaid chart={`flowchart TD
+            C2["コンポーネントテスト<br>(ユニットテスト/TDD)"] -->|毎日のCIで自動実行| I2["統合テスト"]
+            I2 --> S2["システムテスト<br>(スプリント内機能テスト)"]
+            S2 -->|スプリントレビュー| U2["受入テスト<br>(顧客/POによる評価)"]
+            classDef agile fill:#e8f5e9,stroke:#4caf50,stroke-width:2px,color:#1b5e20
+            class C2,I2,S2,U2 agile
+        `} />
+    </div>
 </div>
 <p>アジャイルにおけるテストレベルの特徴：
   ✓ 全レベルを各スプリントで繰り返し実施
