@@ -2,7 +2,13 @@
 
 import React, { useState, useCallback, useRef } from 'react';
 
-/* ── シンタックスハイライト関数 ── */
+/**
+ * Applies syntax highlighting to Python code for HTML rendering.
+ *
+ * Escapes HTML special characters and wraps Python syntax elements (keywords, strings, numbers, class/function definitions, comments, phase labels, and pass/fail markers) in styled `<span>` elements.
+ *
+ * @returns HTML-escaped code with Python syntax elements wrapped in styled spans.
+ */
 function highlightPython(code: string): string {
     const escape = (s: string) =>
         s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -63,6 +69,11 @@ function highlightPython(code: string): string {
         .join('\n');
 }
 
+/**
+ * Applies syntax highlighting to Gherkin-formatted code.
+ *
+ * @returns The input code with HTML syntax highlighting applied.
+ */
 function highlightGherkin(code: string): string {
     const escape = (s: string) =>
         s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
@@ -118,6 +129,9 @@ export interface CodeWindowProps {
     code: string;
 }
 
+/**
+ * Displays code with language-specific syntax highlighting and copy functionality.
+ */
 export default function CodeWindow({ lang, filename, code }: CodeWindowProps) {
     const [copied, setCopied] = useState(false);
     const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
