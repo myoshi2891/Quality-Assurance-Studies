@@ -1,0 +1,1076 @@
+/* ═══════════════════════════════════════════════════════════════
+   istqb-ctfl-at-complete-guide ページ固有スタイル
+   CTAL-TM 相当のプレミアムデザインシステム（グリーン系アクセント）
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── RESET & BOX MODEL ── */
+.page-ctfl *,
+.page-ctfl *::before,
+.page-ctfl *::after {
+    box-sizing: border-box;
+}
+
+/* ── 背景テクスチャ（スキャンライン） ── */
+.page-ctfl::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.06) 2px,
+        rgba(0, 0, 0, 0.06) 4px
+    );
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ── 背景テクスチャ（グリッド） ── */
+.page-ctfl::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+        linear-gradient(rgba(72, 187, 120, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(72, 187, 120, 0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+    pointer-events: none;
+    z-index: -2;
+}
+
+/* ── HERO セクション ── */
+.page-ctfl section.hero {
+    position: relative;
+    overflow: hidden;
+    padding: 5rem 2rem 4rem;
+    text-align: center;
+    border-bottom: 1px solid rgba(72, 187, 120, 0.2);
+    margin-bottom: 0;
+}
+
+/* Hero グロー（放射状グラデーション） */
+.page-ctfl .hero-glow {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 700px;
+    height: 450px;
+    background: radial-gradient(ellipse, rgba(72, 187, 120, 0.12) 0%, transparent 70%);
+    pointer-events: none;
+    animation: hero-pulse 4s ease-in-out infinite;
+}
+
+/* Hero バッジ */
+.page-ctfl .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: #68d391;
+    border: 1px solid rgba(72, 187, 120, 0.35);
+    background: rgba(72, 187, 120, 0.07);
+    padding: 0.35rem 0.9rem;
+    border-radius: 999px;
+    margin-bottom: 1.5rem;
+    animation: fade-in-down 0.5s ease both;
+}
+
+.page-ctfl .hero-badge::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    background: #68d391;
+    border-radius: 50%;
+    animation: dot-pulse 1.5s ease infinite;
+}
+
+/* Hero タイトル */
+.page-ctfl .hero-content h1 {
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    line-height: 1.2;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #f0fff4 30%, #48bb78);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: fade-in-down 0.6s ease 0.1s both;
+}
+
+/* Hero サブタイトル */
+.page-ctfl .hero-subtitle {
+    font-family: var(--font-display, sans-serif);
+    font-size: clamp(0.95rem, 2vw, 1.15rem);
+    color: #68d391;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    animation: fade-in-down 0.6s ease 0.15s both;
+}
+
+/* Hero メタカードグリッド */
+.page-ctfl .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 2rem;
+    animation: fade-in-down 0.6s ease 0.2s both;
+}
+
+.page-ctfl .meta-card {
+    background: var(--color-bg-card, rgba(255,255,255,0.05));
+    border: 1px solid var(--color-border, rgba(255,255,255,0.1));
+    border-radius: 12px;
+    padding: 0.75rem 1.25rem;
+    text-align: center;
+    min-width: 100px;
+    transition: all 0.2s ease;
+}
+
+.page-ctfl .meta-card:hover {
+    border-color: rgba(72, 187, 120, 0.5);
+    box-shadow: 0 0 20px rgba(72, 187, 120, 0.2);
+    transform: translateY(-2px);
+}
+
+.page-ctfl .meta-card .meta-val {
+    font-family: var(--font-mono, monospace);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #68d391;
+    display: block;
+}
+
+.page-ctfl .meta-card .meta-key {
+    font-size: 0.7rem;
+    color: var(--color-text-muted, rgba(255,255,255,0.4));
+    font-family: var(--font-mono, monospace);
+    display: block;
+    margin-top: 0.2rem;
+}
+
+/* ── TOC グリッド ── */
+.page-ctfl .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0 2.5rem;
+}
+
+.page-ctfl .toc-card {
+    background: var(--color-bg-card, rgba(255,255,255,0.04));
+    border: 1px solid var(--color-border, rgba(255,255,255,0.1));
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    display: block;
+}
+
+.page-ctfl .toc-card:hover {
+    border-color: rgba(72, 187, 120, 0.5);
+    background: rgba(72, 187, 120, 0.06);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(72, 187, 120, 0.15);
+}
+
+.page-ctfl .toc-card .toc-num {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    color: #68d391;
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.page-ctfl .toc-card .toc-title {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--color-text-primary, #f8fafc);
+    line-height: 1.35;
+}
+
+.page-ctfl .toc-card .toc-time {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.63rem;
+    color: var(--color-text-muted, rgba(255,255,255,0.4));
+    margin-top: 0.4rem;
+    display: block;
+}
+
+/* ── TYPOGRAPHY AND HEADERS ── */
+.page-ctfl h2.section-header {
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    margin: 4rem 0 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid rgba(72, 187, 120, 0.25);
+    position: relative;
+    background: linear-gradient(90deg, #f0fff4, #e2e8f0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.page-ctfl h2.section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 60px;
+    height: 2px;
+    background: #48bb78;
+    box-shadow: 0 0 10px rgba(72, 187, 120, 0.8);
+}
+
+/* ── チャプターヘッダー ── */
+.page-ctfl .chapter-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--color-border, rgba(255,255,255,0.08));
+}
+
+.page-ctfl .chapter-num {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: #0a0f1e;
+    background: #48bb78;
+    padding: 0.3rem 0.65rem;
+    border-radius: 5px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 0.3rem;
+    letter-spacing: 0.03em;
+}
+
+.page-ctfl .chapter-num.amber {
+    background: var(--color-accent-orange, #f6ad55);
+    color: #1a0a00;
+}
+
+.page-ctfl .chapter-num.purple {
+    background: var(--color-accent-purple, #9f7aea);
+    color: #0a0010;
+}
+
+.page-ctfl .chapter-num.cyan {
+    background: var(--color-accent-cyan, #00e5ff);
+    color: #001020;
+}
+
+.page-ctfl .chapter-header-text h2 {
+    margin: 0 0 0.25rem;
+    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
+}
+
+.page-ctfl .chapter-header-text p {
+    margin: 0;
+    color: var(--color-text-muted, rgba(255,255,255,0.4));
+    font-size: 0.88rem;
+}
+
+/* ── ACCENT LINE ── */
+.page-ctfl .accent-line {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(72, 187, 120, 0.4), transparent);
+    margin: 3rem 0;
+}
+
+/* ── CALLOUTS ── */
+.page-ctfl .callout {
+    padding: 1.25rem 1.5rem;
+    border-radius: 12px;
+    margin: 1.25rem 0;
+    font-size: 0.9rem;
+}
+
+.page-ctfl .callout.callout-info {
+    background: rgba(72, 187, 120, 0.06);
+    border: 1px solid rgba(72, 187, 120, 0.2);
+    border-left: 4px solid #48bb78;
+}
+
+.page-ctfl .callout.callout-warning,
+.page-ctfl .callout.warning {
+    background: rgba(246, 173, 85, 0.06);
+    border: 1px solid rgba(246, 173, 85, 0.2);
+    border-left: 4px solid #f6ad55;
+}
+
+.page-ctfl .callout.callout-danger,
+.page-ctfl .callout.danger {
+    background: rgba(252, 129, 129, 0.06);
+    border: 1px solid rgba(252, 129, 129, 0.2);
+    border-left: 4px solid #fc8181;
+}
+
+/* ── ARCH LAYERS（左ボーダー付きカードリスト） ── */
+.page-ctfl .arch-layers {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 1.25rem 0;
+}
+
+.page-ctfl .arch-layer {
+    padding: 0.9rem 1.25rem;
+    background: var(--color-bg-card, rgba(255,255,255,0.03));
+    border-left: 4px solid #48bb78;
+    border-bottom: 1px solid var(--color-border, rgba(255,255,255,0.06));
+    transition: all 0.2s ease;
+}
+
+.page-ctfl .arch-layer:first-child {
+    border-radius: 12px 12px 0 0;
+}
+
+.page-ctfl .arch-layer:last-child {
+    border-radius: 0 0 12px 12px;
+    border-bottom: none;
+}
+
+.page-ctfl .arch-layer:hover {
+    background: rgba(72, 187, 120, 0.05);
+    transform: translateX(4px);
+}
+
+.page-ctfl .arch-layer.amber {
+    border-left-color: var(--color-accent-orange, #f6ad55);
+}
+
+.page-ctfl .arch-layer.purple {
+    border-left-color: var(--color-accent-purple, #9f7aea);
+}
+
+.page-ctfl .arch-layer.cyan {
+    border-left-color: var(--color-accent-cyan, #00e5ff);
+}
+
+.page-ctfl .arch-layer.red {
+    border-left-color: var(--color-accent-red, #fc8181);
+}
+
+.page-ctfl .arch-layer-title {
+    font-weight: 700;
+    font-size: 0.92rem;
+    color: #68d391;
+    margin-bottom: 0.2rem;
+}
+
+.page-ctfl .arch-layer.amber .arch-layer-title {
+    color: #f6ad55;
+}
+
+.page-ctfl .arch-layer.purple .arch-layer-title {
+    color: #b794f4;
+}
+
+.page-ctfl .arch-layer.cyan .arch-layer-title {
+    color: #63e6fa;
+}
+
+.page-ctfl .arch-layer.red .arch-layer-title {
+    color: #fc8181;
+}
+
+.page-ctfl .arch-layer-desc {
+    font-size: 0.87rem;
+    color: var(--color-text-secondary, rgba(255,255,255,0.6));
+}
+
+/* ── STEP LIST（番号バッジ付き） ── */
+.page-ctfl .step-list {
+    list-style: none;
+    padding: 0;
+    margin: 1.25rem 0;
+}
+
+.page-ctfl .step-list li {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+    align-items: flex-start;
+}
+
+.page-ctfl .step-num {
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    background: linear-gradient(135deg, #48bb78, #38a169);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #0a0f1e;
+}
+
+.page-ctfl .step-content {
+    flex: 1;
+    padding-top: 0.2rem;
+}
+
+.page-ctfl .step-content strong {
+    color: var(--color-text-primary, #f8fafc);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-size: 0.92rem;
+}
+
+.page-ctfl .step-content p {
+    margin: 0;
+    font-size: 0.87rem;
+    color: var(--color-text-secondary, rgba(255,255,255,0.6));
+}
+
+/* ── METRIC GRID（試験スペック等の数値カード） ── */
+.page-ctfl .metric-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 0.75rem;
+    margin: 1.5rem 0;
+}
+
+.page-ctfl .metric-card {
+    background: var(--color-bg-card, rgba(255,255,255,0.04));
+    border: 1px solid var(--color-border, rgba(255,255,255,0.1));
+    border-radius: 12px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.page-ctfl .metric-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(72, 187, 120, 0.15);
+    border-color: rgba(72, 187, 120, 0.4);
+}
+
+.page-ctfl .metric-val {
+    font-family: var(--font-mono, monospace);
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: #68d391;
+    display: block;
+}
+
+.page-ctfl .metric-label {
+    font-size: 0.75rem;
+    color: var(--color-text-muted, rgba(255,255,255,0.4));
+    margin-top: 0.3rem;
+}
+
+/* ── COMPARE GRID（good/bad 比較ボックス） ── */
+.page-ctfl .compare-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+    margin: 1.25rem 0;
+}
+
+.page-ctfl .compare-box {
+    background: var(--color-bg-card, rgba(255,255,255,0.03));
+    border: 1px solid var(--color-border, rgba(255,255,255,0.08));
+    border-radius: 12px;
+    padding: 1.25rem;
+}
+
+.page-ctfl .compare-box.good {
+    border-top: 3px solid #48bb78;
+    background: rgba(72, 187, 120, 0.04);
+}
+
+.page-ctfl .compare-box.bad {
+    border-top: 3px solid #fc8181;
+    background: rgba(252, 129, 129, 0.04);
+}
+
+.page-ctfl .compare-box-title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    display: block;
+    margin-bottom: 0.75rem;
+    color: var(--color-text-primary, #f8fafc);
+}
+
+.page-ctfl .compare-box.good .compare-box-title {
+    color: #68d391;
+}
+
+.page-ctfl .compare-box.bad .compare-box-title {
+    color: #fc8181;
+}
+
+/* ── PROGRESS BARS（チャプター学習時間バー） ── */
+.page-ctfl .trend-card {
+    background: var(--color-bg-card, rgba(255,255,255,0.04));
+    border: 1px solid var(--color-border, rgba(255,255,255,0.1));
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1.5rem 0;
+}
+
+.page-ctfl .trend-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--color-text-primary, #f8fafc);
+    margin-bottom: 1.25rem;
+}
+
+.page-ctfl .progress-item {
+    margin-bottom: 1rem;
+}
+
+.page-ctfl .progress-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.4rem;
+    font-size: 0.82rem;
+}
+
+.page-ctfl .progress-label {
+    color: var(--color-text-secondary, rgba(255,255,255,0.6));
+}
+
+.page-ctfl .progress-val {
+    font-family: var(--font-mono, monospace);
+    color: #68d391;
+}
+
+.page-ctfl .progress-bar {
+    height: 6px;
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.page-ctfl .progress-fill {
+    height: 100%;
+    border-radius: 999px;
+    animation: grow-bar 1.2s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .page-ctfl .progress-fill {
+        animation: none;
+        max-width: 100% !important;
+    }
+}
+
+/* ── TABLES ── */
+.page-ctfl .table-wrapper {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border-radius: 12px;
+    border: 1px solid rgba(255,255,255,0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    background: rgba(10, 15, 30, 0.4);
+}
+
+.page-ctfl table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.87rem;
+    min-width: 400px;
+}
+
+.page-ctfl thead tr {
+    background: rgba(72, 187, 120, 0.08);
+    border-bottom: 2px solid rgba(72, 187, 120, 0.2);
+}
+
+.page-ctfl th {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.75rem;
+    color: #68d391;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.page-ctfl tbody tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.15s ease;
+}
+
+.page-ctfl tbody tr:last-child {
+    border-bottom: none;
+}
+
+.page-ctfl tbody tr:hover {
+    background: rgba(72, 187, 120, 0.04);
+}
+
+.page-ctfl td {
+    padding: 0.7rem 1rem;
+    color: var(--color-text-secondary, rgba(255,255,255,0.6));
+    vertical-align: top;
+}
+
+.page-ctfl tbody td:first-child {
+    color: var(--color-text-primary, #f8fafc);
+    font-weight: 500;
+}
+
+/* ── CODE BLOCKS（コードウィンドウ） ── */
+
+/* ラッパー */
+.page-ctfl .code-window {
+    position: relative;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(72, 187, 120, 0.2);
+    box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.35),
+        0 0 0 1px rgba(72, 187, 120, 0.06) inset,
+        0 2px 60px rgba(72, 187, 120, 0.04);
+    margin: 1.5rem 0;
+    background: #0a0f1e;
+    transition: box-shadow 0.25s ease;
+}
+
+.page-ctfl .code-window:hover {
+    box-shadow:
+        0 12px 48px rgba(0, 0, 0, 0.45),
+        0 0 0 1px rgba(72, 187, 120, 0.14) inset,
+        0 2px 80px rgba(72, 187, 120, 0.08);
+}
+
+/* ヘッダーバー */
+.page-ctfl .code-window-header {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0.6rem 1rem;
+    background: #111827;
+    border-bottom: 1px solid rgba(72, 187, 120, 0.12);
+    user-select: none;
+}
+
+/* macOS風トラフィックライトボタン */
+.page-ctfl .code-dots {
+    display: flex;
+    gap: 6px;
+    margin-right: 1rem;
+}
+
+.page-ctfl .code-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: block;
+    opacity: 0.85;
+}
+
+.page-ctfl .code-dots span:nth-child(1) { background: #ff5f57; }
+.page-ctfl .code-dots span:nth-child(2) { background: #febc2e; }
+.page-ctfl .code-dots span:nth-child(3) { background: #28c840; }
+
+/* 言語バッジ */
+.page-ctfl .code-lang {
+    font-family: var(--font-mono, monospace);
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #68d391;
+    background: rgba(72, 187, 120, 0.1);
+    border: 1px solid rgba(72, 187, 120, 0.25);
+    padding: 0.18rem 0.6rem;
+    border-radius: 5px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+/* ファイル名（オプション） */
+.page-ctfl .code-filename {
+    flex: 1;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.3);
+    margin-left: 0.75rem;
+}
+
+/* コピーボタン */
+.page-ctfl .code-copy-btn {
+    margin-left: auto;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.35);
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 5px;
+    padding: 0.2rem 0.6rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    flex-shrink: 0;
+}
+
+.page-ctfl .code-copy-btn:hover {
+    color: #68d391;
+    border-color: rgba(72, 187, 120, 0.4);
+    background: rgba(72, 187, 120, 0.08);
+}
+
+.page-ctfl .code-copy-btn.copied {
+    color: #68d391;
+    border-color: rgba(72, 187, 120, 0.5);
+    background: rgba(72, 187, 120, 0.1);
+}
+
+/* コード本文 */
+.page-ctfl .code-window pre.code-block {
+    background: #0a0f1e;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Source Code Pro', ui-monospace, monospace;
+    color: #e2e8f0;
+    padding: 1.25rem 1.5rem;
+    margin: 0;
+    overflow-x: auto;
+    position: relative;
+    font-size: 0.82rem;
+    line-height: 1.75;
+    white-space: pre;
+    tab-size: 4;
+}
+
+/* 旧スタイル（ラッパーなしの場合の後方互換） */
+.page-ctfl .code-block {
+    background: #0a0f1e;
+    border: 1px solid rgba(72, 187, 120, 0.15);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    font-family: var(--font-mono, monospace);
+    color: #e2e8f0;
+    padding: 1.25rem 1.5rem;
+    margin: 1.25rem 0;
+    overflow-x: auto;
+    position: relative;
+    font-size: 0.82rem;
+    line-height: 1.7;
+}
+
+/* ── シンタックスハイライト カラー ── */
+
+/* コメント */
+.page-ctfl .hl-comment {
+    color: #6a9955;
+    font-style: italic;
+}
+
+/* 文字列 */
+.page-ctfl .hl-string {
+    color: #ce9178;
+}
+
+/* キーワード（Python: def, class, return, if, else, assert, import等） */
+.page-ctfl .hl-keyword {
+    color: #569cd6;
+    font-weight: 600;
+}
+
+/* 組み込み関数・型 */
+.page-ctfl .hl-builtin {
+    color: #4ec9b0;
+}
+
+/* 数値 */
+.page-ctfl .hl-number {
+    color: #b5cea8;
+}
+
+/* 関数名 */
+.page-ctfl .hl-function {
+    color: #dcdcaa;
+}
+
+/* クラス名 */
+.page-ctfl .hl-class {
+    color: #4ec9b0;
+    font-weight: 600;
+}
+
+/* 演算子 */
+.page-ctfl .hl-operator {
+    color: #d4d4d4;
+}
+
+/* 変数・識別子 */
+.page-ctfl .hl-variable {
+    color: #9cdcfe;
+}
+
+/* Gherkin 専用 */
+.page-ctfl .hl-gherkin-key {
+    color: #c586c0;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-gherkin-section {
+    color: #569cd6;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-gherkin-param {
+    color: #ce9178;
+}
+
+.page-ctfl .hl-gherkin-table-sep {
+    color: #6a9955;
+}
+
+/* 特殊マーカー（✓ ✗ ★ 等） */
+.page-ctfl .hl-pass {
+    color: #4ade80;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-fail {
+    color: #f87171;
+    font-weight: 700;
+}
+
+/* フェーズラベル（RED / GREEN / REFACTOR） */
+.page-ctfl .hl-phase-red {
+    color: #f87171;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-phase-green {
+    color: #4ade80;
+    font-weight: 700;
+}
+
+.page-ctfl .hl-phase-refactor {
+    color: #60a5fa;
+    font-weight: 700;
+}
+
+.page-ctfl .code-label {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.62rem;
+    color: var(--color-text-muted, rgba(255,255,255,0.3));
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+
+/* ── CHECKLIST ITEMS ── */
+.page-ctfl .checklist-section {
+    margin: 1.25rem 0;
+}
+
+.page-ctfl .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    background: var(--color-bg-card, rgba(255,255,255,0.03));
+    border: 1px solid var(--color-border, rgba(255,255,255,0.07));
+    border-radius: 8px;
+    margin-bottom: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.page-ctfl .checklist-item:hover {
+    border-color: rgba(72, 187, 120, 0.35);
+    background: rgba(72, 187, 120, 0.04);
+}
+
+.page-ctfl .checklist-item input[type="checkbox"] {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    accent-color: #48bb78;
+    margin-top: 2px;
+    cursor: pointer;
+}
+
+.page-ctfl .checklist-item label {
+    font-size: 0.88rem;
+    color: var(--color-text-secondary, rgba(255,255,255,0.65));
+    cursor: pointer;
+    line-height: 1.5;
+    flex: 1;
+}
+
+.page-ctfl .checklist-item.checked label {
+    color: var(--color-text-muted, rgba(255,255,255,0.35));
+    text-decoration: line-through;
+}
+
+.page-ctfl .checklist-item.checked {
+    border-color: rgba(72, 187, 120, 0.15);
+    background: rgba(72, 187, 120, 0.02);
+}
+
+/* ── DETAILS / SUMMARY (Accordions) ── */
+.page-ctfl details {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 12px;
+    padding: 1.25rem;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+}
+
+.page-ctfl details:hover {
+    border-color: rgba(72,187,120,0.35);
+    box-shadow: 0 4px 20px rgba(72, 187, 120, 0.08);
+}
+
+.page-ctfl details[open] {
+    background: rgba(72, 187, 120, 0.025);
+}
+
+.page-ctfl summary {
+    font-weight: 700;
+    font-size: 1rem;
+    color: #68d391;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.page-ctfl summary::before {
+    content: '▶';
+    font-size: 0.75rem;
+    color: #48bb78;
+    transition: transform 0.2s;
+}
+
+.page-ctfl details[open] summary::before {
+    transform: rotate(90deg);
+}
+
+.page-ctfl details > *:not(summary) {
+    margin-top: 1rem;
+    padding-left: 1.5rem;
+    border-left: 2px solid rgba(72,187,120,0.2);
+}
+
+/* ── K-LEVEL BADGES ── */
+.page-ctfl .klevel-badge {
+    display: inline-block;
+    font-family: var(--font-mono, monospace);
+    font-size: 0.62rem;
+    padding: 0.18rem 0.45rem;
+    border-radius: 4px;
+    margin-left: 0.4rem;
+    vertical-align: middle;
+    border: 1px solid;
+    font-weight: 700;
+}
+
+.page-ctfl .klevel-k1 {
+    color: var(--color-text-muted, rgba(255,255,255,0.4));
+    border-color: var(--color-text-muted, rgba(255,255,255,0.4));
+}
+
+.page-ctfl .klevel-k2 {
+    color: #63e6fa;
+    border-color: #63e6fa;
+}
+
+.page-ctfl .klevel-k3 {
+    color: #68d391;
+    border-color: #68d391;
+}
+
+/* ── ALERT BOXES ── */
+.page-ctfl .alert {
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 0.88rem;
+    border: 1px solid;
+    line-height: 1.65;
+}
+
+.page-ctfl .alert.cyan {
+    background: rgba(99, 230, 250, 0.06);
+    border-color: rgba(99, 230, 250, 0.25);
+    color: var(--color-text-secondary, rgba(255,255,255,0.65));
+}
+
+.page-ctfl .alert.green {
+    background: rgba(72, 187, 120, 0.06);
+    border-color: rgba(72, 187, 120, 0.25);
+    color: var(--color-text-secondary, rgba(255,255,255,0.65));
+}
+
+/* ── ANIMATIONS ── */
+@keyframes hero-pulse {
+    0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.08); }
+}
+
+@keyframes dot-pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes fade-in-down {
+    from { opacity: 0; transform: translateY(-16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes grow-bar {
+    from { width: 0; }
+}
+
+@keyframes glow-pulse-green {
+    0%, 100% { text-shadow: 0 0 15px rgba(72, 187, 120, 0.4); }
+    50% { text-shadow: 0 0 30px rgba(72, 187, 120, 0.7); }
+}
+
+/* ── SECTION DIVIDER ── */
+.page-ctfl .section-divider {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(72, 187, 120, 0.3), transparent);
+    margin: 2.5rem 0;
+}
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+    .page-ctfl section.hero {
+        padding: 3.5rem 1.5rem 3rem;
+    }
+
+    .page-ctfl .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .page-ctfl .toc-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-ctfl .metric-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .page-ctfl .compare-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .page-ctfl .chapter-header {
+        flex-direction: column;
+    }
+}

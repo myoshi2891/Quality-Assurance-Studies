@@ -964,7 +964,7 @@ export default function E2eTestingGuide() {
                                 >TYPESCRIPT — POMを使ったテストスペック</span
                             >
                         </div>
-                        <pre>
+                        <div className="code-pre-div">
                             <div className="code-line"><span className="cm">// tests/auth.spec.ts</span></div>
                             <div className="code-line"><span className="kw">import</span> &#123; test, expect &#125; <span className="kw">from</span> <span className="str">'@playwright/test'</span>;</div>
                             <div className="code-line"><span className="kw">import</span> &#123; <span className="cls">LoginPage</span> &#125; <span className="kw">from</span> <span className="str">'../pages/LoginPage'</span>;</div>
@@ -995,7 +995,7 @@ export default function E2eTestingGuide() {
                             <div className="code-line"></div>
                             <div className="code-line"><span className="cm">// ← セレクタが変更されたときは LoginPage.ts の</span></div>
                             <div className="code-line"><span className="cm">//   1か所を直すだけで全テストが修正される！</span></div>
-                        </pre>
+                        </div>
                     </div>
                 </div>
 
