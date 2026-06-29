@@ -74,10 +74,18 @@ export default function Mermaid({ chart }: MermaidProps) {
                   svgEl.style.maxWidth = '100%';
                 }
               } else if (isFlowchartTD) {
-                svgEl.style.width = '100%';
-                svgEl.style.maxWidth = '480px';
+                // width: 100% は親幅いっぱいに SVG が引き伸ばされノードが巨大化するため設定しない。
+                // ネイティブサイズ（Mermaid が計算した自然な幅）を維持し、max-width でキャップする。
+                svgEl.removeAttribute('width');
+                svgEl.removeAttribute('height');
+                svgEl.style.width = 'auto';
+                svgEl.style.maxWidth = '560px';
               } else {
-                svgEl.style.maxWidth = '100%';
+                // stateDiagram-v2 など
+                svgEl.removeAttribute('width');
+                svgEl.removeAttribute('height');
+                svgEl.style.width = 'auto';
+                svgEl.style.maxWidth = '680px';
               }
             }
             

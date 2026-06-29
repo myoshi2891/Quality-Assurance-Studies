@@ -180,7 +180,7 @@
 .istqb-ctfl-layout .main {
     flex: 1;
     min-width: 0;
-    padding: 48px 56px;
+    padding: 40px 32px;
     overflow-x: hidden;
     background: var(--color-background-primary);
 }
@@ -340,23 +340,27 @@
     width: 100%;
 }
 
-/* Mermaid コンポーネントが出力する mermaid-wrapper を上書き */
+/* Mermaid コンポーネントが出力する mermaid-wrapper を上書き。
+   !important は JS インラインスタイル（maxWidth: '480px' 等）を上書きしてしまうため
+   margin/padding/background のリセットにのみ使い、SVG サイズは JS に任せる */
 .istqb-ctfl-layout .mermaid-wrapper {
-    max-width: 100% !important;
-    width: 100% !important;
+    width: 100%;
+    max-width: 100%;
     margin: 0 !important;
     padding: 0 !important;
     background: transparent !important;
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
 }
 
-.istqb-ctfl-layout .mermaid :global(svg),
+/* SVG サイズは Mermaid.tsx の JS インラインスタイルが制御する。
+   CSS はフォールバックのみ（!important なし）。 */
 .istqb-ctfl-layout .mermaid-wrapper svg {
-    width: auto !important;
-    max-width: 100% !important;
-    height: auto !important;
+    height: auto;
     display: block;
     margin: 0 auto;
 }
