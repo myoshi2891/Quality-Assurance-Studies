@@ -10,9 +10,9 @@ export const metadata = {
 
 export default function IstqbCtflCompleteGuide() {
     return (
-        <div className="istqb-ctfl-page-container">
+        <div className="layout istqb-ctfl-layout">
             <NavBar />
-            <div className="istqb-ctfl-page">
+            <main className="main">
             
                 <section className="hero">
                     <div className="hero-badge">ISTQB Syllabus v4.0.1 準拠 | 2026年6月更新</div>
@@ -1678,7 +1678,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                     で最新情報を確認してください。<br />
                     作成日: 2026年6月 | 対応バージョン: ISTQB CTFL Syllabus v4.0.1
                 </div>
-            </div>
+            </main>
         </div>
     );
 }

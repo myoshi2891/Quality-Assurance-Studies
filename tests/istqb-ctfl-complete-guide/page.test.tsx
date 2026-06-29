@@ -20,7 +20,7 @@ describe('CTFL Complete Guide Page', () => {
 
     it('renders the navigation bar', () => {
         render(<Page />);
-        const nav = document.querySelector('nav.sticky-nav');
+        const nav = document.querySelector('nav.sidebar');
         expect(nav).toBeTruthy();
     });
 });
