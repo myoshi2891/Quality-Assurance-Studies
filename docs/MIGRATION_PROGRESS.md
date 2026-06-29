@@ -1,19 +1,26 @@
 # Migration Progress
 
-Updated 2026-06-11
+Updated 2026-06-29
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 全34ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
+> **✅ 全ガイド移行完了**: 全35ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `e80058b` |
+| 最新 HEAD | `e885528` |
 | 次の作業 | QA/テストプロセスの継続的改善 |
-| ビルド状態 | ✅ `bun run build`（34ページ静的生成）/ `bun run lint` / `bun test`（154 pass）全て成功。 |
+| ビルド状態 | ✅ `bun run lint` / `bun test`（161 pass）成功（※ サンドボックス環境のビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/06/29: ISTQB CTFL v4.0 ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-complete-guide/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
+- `tests/istqb-ctfl-complete-guide/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（161件）。
+- `Istqb-ctfl.html`: `archive/html-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html` など）を最新の 35 ページ体制に同期。
 
 ## 2026/06/12: 受入テストガイドの ATDD 図解レイアウト調整
 
@@ -309,6 +316,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ct-ste-complete-guide.html` | `/istqb-ct-ste-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
+| `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
