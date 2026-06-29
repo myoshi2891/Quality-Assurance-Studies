@@ -96,10 +96,10 @@
     background: var(--color-background-secondary);
     border-right: 1px solid var(--color-border-secondary);
     padding: 24px 0;
-    height: calc(100vh - 60px);
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     overflow-y: auto;
     position: sticky;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
     scrollbar-width: thin;
     scrollbar-color: var(--color-border-primary) transparent;
     z-index: 40;
@@ -223,7 +223,14 @@
     margin-bottom: 16px;
     padding-bottom: 8px;
     border-bottom: 1px solid var(--color-border-secondary);
-    scroll-margin-top: 84px; /* Header分を考慮 */
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px)); /* 固定ヘッダー + 免責バナー分 */
+}
+
+/* ナビゲーションのハッシュリンクは section/div のラッパー id を指すため、
+   ラッパー自体にもスクロールオフセットを付与して見出しが固定ヘッダー下に隠れないようにする。 */
+.istqb-ctfl-layout section[id],
+.istqb-ctfl-layout div[id] {
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .istqb-ctfl-layout h3 {
@@ -232,7 +239,7 @@
     color: var(--color-text-primary);
     margin-top: 28px;
     margin-bottom: 12px;
-    scroll-margin-top: 84px; /* Header分を考慮 */
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px)); /* 固定ヘッダー + 免責バナー分 */
 }
 
 .istqb-ctfl-layout h4 {

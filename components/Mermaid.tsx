@@ -88,6 +88,13 @@ export default function Mermaid({ chart }: MermaidProps) {
 
         const renderMermaid = async () => {
             try {
+                // Web フォント（Noto Sans JP 等）の読み込み完了を待ってから描画する。
+                // 未読込のフォールバックフォントで mermaid.render() するとノード幅が
+                // 誤計算され、確定後に文字がはみ出す/見切れるため。
+                if (typeof document !== 'undefined' && 'fonts' in document) {
+                    await document.fonts.ready;
+                }
+                if (!isMounted) return;
                 const id = `mermaid-svg-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
                 const { svg } = await mermaid.render(id, chart);
                 if (isMounted) setSvgStr(svg);

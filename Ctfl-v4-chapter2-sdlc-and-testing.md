@@ -183,7 +183,7 @@ flowchart LR
 
 #### BDD の Given/When/Then 形式
 
-```
+```gherkin
 Feature: ショッピングカートへの商品追加
 
   Scenario: 在庫ありの商品をカートに追加する
@@ -565,6 +565,17 @@ flowchart TD
 | testing101.net — CTFL v4.0 概要 | <https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new> | 2026-06-29 |
 | ISO/IEC 25010（品質モデル）概要 | <https://www.iso.org/standard/78176.html> | 2026-06-29 |
 | CTFL-AT（Agile Tester）公式ページ | <https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/> | 2026-06-29 |
+
+---
+
+## 試験配点の最終確認
+
+> **Chapter 2 の出題配分（冒頭の再掲）:**
+>
+> - Chapter 2 は全40問中 **7問** が出題されます
+> - 内訳: **K1 × 2問** / **K2 × 5問**
+> - K3（適用）レベルの出題はありません
+> - 章末で配点を素早く確認できるよう、冒頭の「試験配点」を再掲しています
 
 ---
 

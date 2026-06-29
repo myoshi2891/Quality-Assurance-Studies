@@ -872,7 +872,7 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                             </tbody>
                         </table>
                         <p style={{fontSize: "13px", color: "var(--color-text-secondary)"}}>
-                            ルール 2 と 3 が同じアクション（再審査）→ 収入条件を「Don't
+                            ルール 2 と 3 が同じアクション（再審査）→ 収入条件を「Don&apos;t
                             Care」に統合して最小化可能。
                         </p>
                     </div>
@@ -1465,7 +1465,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">CTFL v4.0 公式ページ</span>
                             <a
                                 href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/
                             </a>
@@ -1474,14 +1474,14 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">シラバス v4.0.1 PDF</span>
                             <a
                                 href="https://istqb.org/?sdm_process_download=1&download_id=3345"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://istqb.org/?sdm_process_download=1&download_id=3345
                             </a>
                         </div>
                         <div className="url-item">
                             <span className="url-title">公式用語集 (Glossary)</span>
-                            <a href="https://glossary.istqb.org/en_US/search" target="_blank">
+                            <a href="https://glossary.istqb.org/en_US/search" target="_blank" rel="noopener noreferrer">
                                 https://glossary.istqb.org/en_US/search
                             </a>
                         </div>
@@ -1489,7 +1489,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">サンプル試験 A（問題）</span>
                             <a
                                 href="https://istqb.org/?sdm_process_download=1&download_id=3352"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://istqb.org/?sdm_process_download=1&download_id=3352
                             </a>
@@ -1498,7 +1498,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">サンプル試験 A（解答）</span>
                             <a
                                 href="https://istqb.org/?sdm_process_download=1&download_id=3357"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://istqb.org/?sdm_process_download=1&download_id=3357
                             </a>
@@ -1507,7 +1507,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">サンプル試験 B（問題）</span>
                             <a
                                 href="https://istqb.org/?sdm_process_download=1&download_id=3359"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://istqb.org/?sdm_process_download=1&download_id=3359
                             </a>
@@ -1516,7 +1516,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">サンプル試験 C（解答付き）</span>
                             <a
                                 href="https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB_CTFL_v4.0_Sample-Exam-C-Answers_v1.6.pdf"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 istqb.org / Sample Exam C Answers v1.6 PDF
                             </a>
@@ -1525,7 +1525,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">CTFL v4.0 リリースニュース</span>
                             <a
                                 href="https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/
                             </a>
@@ -1536,7 +1536,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                     <div className="url-list">
                         <div className="url-item">
                             <span className="url-title">ISTQB.com 試験ガイド（2026版）</span>
-                            <a href="https://www.istqb.com/ctfl-v4-0/" target="_blank">
+                            <a href="https://www.istqb.com/ctfl-v4-0/" target="_blank" rel="noopener noreferrer">
                                 https://www.istqb.com/ctfl-v4-0/
                             </a>
                         </div>
@@ -1544,7 +1544,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">ISTQB Guru — チートシート 2026</span>
                             <a
                                 href="https://www.istqb.guru/istqb-ctfl-cheat-sheet/"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://www.istqb.guru/istqb-ctfl-cheat-sheet/
                             </a>
@@ -1555,7 +1555,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             >
                             <a
                                 href="https://www.istqb.guru/decision-tables-equivalence-partitioning-boundary-value-analysis/"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://www.istqb.guru/decision-tables-equivalence-partitioning-boundary-value-analysis/
                             </a>
@@ -1566,14 +1566,14 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             >
                             <a
                                 href="https://www.istqb.guru/istqb-certification-levels-roadmap/"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://www.istqb.guru/istqb-certification-levels-roadmap/
                             </a>
                         </div>
                         <div className="url-item">
                             <span className="url-title">istqb.com — 認定一覧 2026</span>
-                            <a href="https://www.istqb.com/certifications/" target="_blank">
+                            <a href="https://www.istqb.com/certifications/" target="_blank" rel="noopener noreferrer">
                                 https://www.istqb.com/certifications/
                             </a>
                         </div>
@@ -1583,7 +1583,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             >
                             <a
                                 href="https://mockexamnetwork.com/exams/istqb-foundation/"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://mockexamnetwork.com/exams/istqb-foundation/
                             </a>
@@ -1592,7 +1592,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">Medium — BVA 詳解（2026年4月）</span>
                             <a
                                 href="https://medium.com/@nostochk/day-10-of-learning-testing-boundary-value-analysis-bva-1371d16f88fe"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://medium.com — Boundary Value Analysis BVA (April 2026)
                             </a>
@@ -1601,14 +1601,14 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             <span className="url-title">SoftwareTestingHelp — EP/BVA 演習問題</span>
                             <a
                                 href="https://www.softwaretestinghelp.com/istqb-exam-questions-equivalence-partitioning-boundary-value-analysis/"
-                                target="_blank"
+                                target="_blank" rel="noopener noreferrer"
                             >
                                 https://www.softwaretestinghelp.com / EP-BVA ISTQB Questions (2026)
                             </a>
                         </div>
                         <div className="url-item">
                             <span className="url-title">CTAL-TA v4.0 ガイド（上位認定参考）</span>
-                            <a href="https://www.istqb.com/ctal-ta-v4-0/" target="_blank">
+                            <a href="https://www.istqb.com/ctal-ta-v4-0/" target="_blank" rel="noopener noreferrer">
                                 https://www.istqb.com/ctal-ta-v4-0/
                             </a>
                         </div>
@@ -1626,7 +1626,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                         <tbody>
                             <tr>
                                 <td>
-                                    <a href="https://www.istqb.com/ctal-ta-v4-0/" target="_blank"
+                                    <a href="https://www.istqb.com/ctal-ta-v4-0/" target="_blank" rel="noopener noreferrer"
                                         >CTAL-TA v4.0</a
                                     >
                                 </td>
@@ -1650,7 +1650,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                             </tr>
                             <tr>
                                 <td>
-                                    <a href="https://www.istqb.com/certifications/" target="_blank"
+                                    <a href="https://www.istqb.com/certifications/" target="_blank" rel="noopener noreferrer"
                                         >CT-AI v2.0</a
                                     >
                                 </td>
@@ -1672,7 +1672,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                     試験仕様・ダウンロードリンクは変更される場合があります。受験前に必ず
                     <a
                         href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
-                        target="_blank"
+                        target="_blank" rel="noopener noreferrer"
                         >istqb.org</a
                     >
                     で最新情報を確認してください。<br />

@@ -124,14 +124,14 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - `app/istqb-ctel-itp-itpi-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装し、IntersectionObserverを追加。
 - 誤変換されていた Mermaid 構文と DOM プロパティを修正。
-- `istqb-ctel-itp-itpi-complete-guide.html`: `html-archive/` へ移動。
+- `istqb-ctel-itp-itpi-complete-guide.html`: `archive/html-archive/` へ移動。
 - `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
 - `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
 
 ## 2026/05/28: CTEL-ITP-ATP Expert Level Guide の Next.js 移行完了
 
 - `app/istqb-ctel-itp-atp-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装.
-- `istqb-ctel-itp-atp-complete-guide.html`: `html-archive/` へ移動.
+- `istqb-ctel-itp-atp-complete-guide.html`: `archive/html-archive/` へ移動.
 - `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）.
 - `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施.
 - **全 HTML 移行完了**: これにより、プロジェクトルートにあったすべての静的 HTML ページの Next.js 移行が完了しました。
@@ -139,7 +139,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/05/27: CTAL-TTA ガイドの Next.js 移行完了
 
 - `app/istqb-ctal-tta-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装.
-- `istqb-ctal-tta-complete-guide.html`: `html-archive/` へ移動.
+- `istqb-ctal-tta-complete-guide.html`: `archive/html-archive/` へ移動.
 - ESLint: `no-explicit-any` および `no-unused-vars` の修正を実施.
 - テスト: `tests/istqb-ctal-tta-complete-guide/page.test.tsx` を追加し、全テスト通過を確認.
 
@@ -304,7 +304,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ## 移行状況テーブル
 
-### 移行完了（html-archive/ に移動済み）
+### 移行完了（archive/html-archive/ に移動済み）
 
 | 元 HTML | 移行先ルート | 備考 |
 |---|---|---|
@@ -350,7 +350,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ## 既知の留保事項
 
-- `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
+- `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は archive/html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
 - `istqb-ct-aut-complete-guide.html` はリポジトリ内に存在しません（not found）。
 
 ## 次回セッションでの再開プロンプト

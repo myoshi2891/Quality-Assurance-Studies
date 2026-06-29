@@ -28,6 +28,12 @@ describe('NAV_ITEMS', () => {
     expect(ctflAt?.category).toBe('istqb-foundation-ext');
   });
 
+  it('pins /istqb-ctfl-complete-guide under istqb-foundation-ext (catches reorder/misclassification)', () => {
+    const ctfl = NAV_ITEMS.find((item: NavItem) => item.href === '/istqb-ctfl-complete-guide');
+    expect(ctfl).toBeDefined();
+    expect(ctfl?.category).toBe('istqb-foundation-ext');
+  });
+
   it('classifies home "/" as home category', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
     expect(home?.category).toBe('home');
