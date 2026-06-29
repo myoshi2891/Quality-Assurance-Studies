@@ -43,6 +43,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/e2e-testing-guide', label: 'E2Eテストガイド', category: 'foundation' },
   { href: '/acceptance-testing-guide', label: '受入テストガイド', category: 'foundation' },
   { href: '/bdd-testing-guide', label: 'BDDガイド', category: 'foundation' },
+  { href: '/istqb-ctfl-complete-guide', label: 'ISTQB CTFL v4.0 ガイド', category: 'foundation' },
 
   { href: '/istqb-ctfl-at-complete-guide', label: 'アジャイル(CTFL-AT)ガイド', category: 'istqb-foundation-ext' },
 

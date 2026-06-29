@@ -1,0 +1,361 @@
+/* app/istqb-ctfl-complete-guide/istqb-ctfl-complete-guide.css */
+
+.istqb-ctfl-page {
+    position: relative;
+    padding: 48px 56px;
+}
+
+.istqb-ctfl-page {
+    /* カラーマッピング */
+    --color-bg-info: rgba(99, 179, 237, 0.08);
+    --color-text-info: var(--color-accent-blue);
+    --color-bg-danger: rgba(252, 129, 129, 0.12);
+    --color-text-danger: var(--color-accent-red);
+    --color-bg-success: rgba(104, 211, 145, 0.12);
+    --color-text-success: var(--color-accent-green);
+    --color-bg-warning: rgba(246, 224, 94, 0.12);
+    --color-text-warning: var(--color-accent-yellow);
+}
+
+/* ページ固有のアンカーナビ (NavBar) 用スタイル */
+.istqb-ctfl-page-container {
+    position: relative;
+    width: 100%;
+}
+
+.istqb-ctfl-page-container .sticky-nav {
+    position: sticky;
+    top: 60px; /* Header 高さ分 */
+    z-index: 40;
+    background-color: rgba(10, 14, 26, 0.95);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--color-border);
+    padding: 10px 20px;
+    overflow-x: auto;
+    white-space: nowrap;
+    scrollbar-width: none; /* Firefox */
+}
+
+.istqb-ctfl-page-container .sticky-nav::-webkit-scrollbar {
+    display: none; /* Chrome/Safari */
+}
+
+.istqb-ctfl-page-container .sticky-nav ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.istqb-ctfl-page-container .sticky-nav a {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.istqb-ctfl-page-container .sticky-nav a:hover,
+.istqb-ctfl-page-container .sticky-nav a[aria-current="location"] {
+    color: var(--color-accent-cyan);
+    font-weight: 500;
+}
+
+.istqb-ctfl-page .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.istqb-ctfl-page .meta-card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 16px;
+}
+
+.istqb-ctfl-page .meta-card .label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+
+.istqb-ctfl-page .meta-card .value {
+    font-size: 20px;
+    font-weight: 500;
+    color: var(--color-accent-purple);
+}
+
+.istqb-ctfl-page .meta-card .sub {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    margin-top: 2px;
+}
+
+.istqb-ctfl-page .principle-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 16px 0 24px;
+}
+
+.istqb-ctfl-page .principle-card {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 16px;
+}
+
+.istqb-ctfl-page .principle-card .num {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-accent-purple);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+}
+
+.istqb-ctfl-page .principle-card h4 {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin: 0 0 6px 0;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.istqb-ctfl-page .principle-card p {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.istqb-ctfl-page .chapter-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm, 8px);
+    padding: 10px 16px;
+    margin: 8px 0;
+}
+
+.istqb-ctfl-page .chapter-bar .ch-name {
+    font-size: 13px;
+    color: var(--color-text-primary);
+    flex: 1;
+}
+
+.istqb-ctfl-page .chapter-bar .ch-count {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-accent-purple);
+    min-width: 40px;
+    text-align: right;
+}
+
+.istqb-ctfl-page .progress-bar {
+    height: 4px;
+    background: var(--color-border);
+    border-radius: 2px;
+    flex: 2;
+    overflow: hidden;
+}
+
+.istqb-ctfl-page .progress-fill {
+    height: 100%;
+    border-radius: 2px;
+}
+
+.istqb-ctfl-page .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 16px 0;
+}
+
+.istqb-ctfl-page .box {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 16px;
+}
+
+.istqb-ctfl-page .box h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-accent-cyan);
+    margin: 0 0 10px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.istqb-ctfl-page .box ul {
+    list-style: none;
+    padding: 0;
+}
+
+.istqb-ctfl-page .box ul li {
+    font-size: 13px;
+    color: var(--color-text-secondary);
+    padding: 4px 0;
+    padding-left: 14px;
+    position: relative;
+}
+
+.istqb-ctfl-page .box ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-accent-cyan);
+}
+
+.istqb-ctfl-page .klevel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    font-size: 12px;
+    font-weight: 500;
+    margin-right: 8px;
+}
+
+.istqb-ctfl-page .k1 {
+    background: rgba(79, 209, 197, 0.25);
+    color: var(--color-accent-cyan);
+    border: 1px solid var(--color-accent-cyan);
+}
+
+.istqb-ctfl-page .k2 {
+    background: rgba(183, 148, 244, 0.25);
+    color: var(--color-accent-purple);
+    border: 1px solid var(--color-accent-purple);
+}
+
+.istqb-ctfl-page .k3 {
+    background: rgba(246, 173, 85, 0.25);
+    color: var(--color-accent-orange);
+    border: 1px solid var(--color-accent-orange);
+}
+
+.istqb-ctfl-page .footer-note {
+    margin-top: 64px;
+    padding: 20px;
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT, 12px);
+    font-size: 13px;
+    color: var(--color-text-muted);
+    text-align: center;
+}
+
+.istqb-ctfl-page .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+.istqb-ctfl-page .tag-purple {
+    background: rgba(183, 148, 244, 0.15);
+    color: var(--color-accent-purple);
+    border: 1px solid rgba(183, 148, 244, 0.3);
+}
+
+.istqb-ctfl-page .tag-teal {
+    background: rgba(79, 209, 197, 0.15);
+    color: var(--color-accent-cyan);
+    border: 1px solid rgba(79, 209, 197, 0.3);
+}
+
+.istqb-ctfl-page .tag-coral {
+    background: rgba(246, 173, 85, 0.15);
+    color: var(--color-accent-orange);
+    border: 1px solid rgba(246, 173, 85, 0.3);
+}
+
+.istqb-ctfl-page .tag-amber {
+    background: rgba(246, 224, 94, 0.15);
+    color: var(--color-accent-yellow);
+    border: 1px solid rgba(246, 224, 94, 0.3);
+}
+
+.istqb-ctfl-page .tag-red {
+    background: rgba(252, 129, 129, 0.15);
+    color: var(--color-accent-red);
+    border: 1px solid rgba(252, 129, 129, 0.3);
+}
+
+.istqb-ctfl-page .tag-green {
+    background: rgba(104, 211, 145, 0.15);
+    color: var(--color-accent-green);
+    border: 1px solid rgba(104, 211, 145, 0.3);
+}
+
+.istqb-ctfl-page .section-sep {
+    border: none;
+    border-top: 1px solid var(--color-border);
+    margin: 40px 0;
+}
+
+.istqb-ctfl-page .url-list {
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 16px 20px;
+    margin: 16px 0;
+}
+
+.istqb-ctfl-page .url-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 13px;
+}
+
+.istqb-ctfl-page .url-item:last-child {
+    border-bottom: none;
+}
+
+.istqb-ctfl-page .url-item .url-title {
+    color: var(--color-text-primary);
+    font-weight: 500;
+    min-width: 200px;
+    flex-shrink: 0;
+}
+
+.istqb-ctfl-page .url-item a {
+    color: var(--color-accent-cyan);
+    font-size: 12px;
+    word-break: break-all;
+}
+
+@media (max-width: 900px) {
+    .istqb-ctfl-page {
+        padding: 24px 20px;
+    }
+    .istqb-ctfl-page .meta-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .istqb-ctfl-page .principle-grid {
+        grid-template-columns: 1fr;
+    }
+    .istqb-ctfl-page .two-col {
+        grid-template-columns: 1fr;
+    }
+}

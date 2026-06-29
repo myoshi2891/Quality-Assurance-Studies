@@ -1,0 +1,1684 @@
+
+import NavBar from './NavBar';
+import Mermaid from '../../components/Mermaid';
+import './istqb-ctfl-complete-guide.css';
+
+export const metadata = {
+    title: 'ISTQB CTFL v4.0 完全解説ガイド | Certified Tester Foundation Level',
+    description: 'ISTQB Certified Tester Foundation Level (CTFL) v4.0 のシラバス v4.0.1 に完全準拠した日本語解説ガイド。',
+};
+
+export default function IstqbCtflCompleteGuide() {
+    return (
+        <div className="istqb-ctfl-page-container">
+            <NavBar />
+            <div className="istqb-ctfl-page">
+            
+                <section className="hero">
+                    <div className="hero-badge">ISTQB Syllabus v4.0.1 準拠 | 2026年6月更新</div>
+                    <h1>ISTQB Certified Tester Foundation Level (CTFL) v4.0<br />完全解説ガイド</h1>
+                    <p style={{color: "var(--color-text-secondary)", fontSize: "14px"}}>
+                        中級者〜上級者向け。試験配点・技法の実践計算・よく混同される用語まで、
+                        シラバス v4.0.1 の全6章をステップバイステップで解説します。
+                    </p>
+                </section>
+
+                <section id="overview">
+                    <h2>概要・試験情報</h2>
+                    <p>
+                        CTFL v4.0 は 2023年4月21日にリリースされた ISTQB
+                        フラッグシップ資格の完全再設計版です。 旧 Foundation + Agile Extension
+                        を統合し、ウォーターフォール・アジャイル・DevOps・
+                        継続的デリバリーに横断的に適用できる現代的なシラバスへと生まれ変わりました。
+                        2024年11月に保守更新版 v4.0.1 が公開されましたが試験内容の変更はありません。
+                    </p>
+
+                    <div id="exam-spec">
+                        <h3>試験仕様</h3>
+                        <div className="meta-grid">
+                            <div className="meta-card">
+                                <div className="label">問題数</div>
+                                <div className="value">40問</div>
+                                <div className="sub">多肢選択式・各1点</div>
+                            </div>
+                            <div className="meta-card">
+                                <div className="label">合格スコア</div>
+                                <div className="value">26 / 40</div>
+                                <div className="sub">65% 以上</div>
+                            </div>
+                            <div className="meta-card">
+                                <div className="label">試験時間</div>
+                                <div className="value">60分</div>
+                                <div className="sub">非母国語受験者 +25% = 75分</div>
+                            </div>
+                            <div className="meta-card">
+                                <div className="label">形式</div>
+                                <div className="value" style={{fontSize: "15px"}}>クローズドブック</div>
+                                <div className="sub">持ち込み不可</div>
+                            </div>
+                            <div className="meta-card">
+                                <div className="label">有効期限</div>
+                                <div className="value" style={{fontSize: "15px"}}>終身有効</div>
+                                <div className="sub">更新不要</div>
+                            </div>
+                            <div className="meta-card">
+                                <div className="label">前提条件</div>
+                                <div className="value" style={{fontSize: "15px"}}>なし</div>
+                                <div className="sub">誰でも受験可能</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chapter-dist">
+                        <h3>章別出題配分</h3>
+                        <div className="chapter-bar">
+                            <span className="ch-name">Chapter 1: テストの基礎</span>
+                            <div className="progress-bar">
+                                <div
+                                    className="progress-fill"
+                                    style={{width: "20%", background: "var(--c-purple-500)"}}
+                                ></div>
+                            </div>
+                            <span className="ch-count">8問 (20%)</span>
+                        </div>
+                        <div className="chapter-bar">
+                            <span className="ch-name">Chapter 2: SDLCでのテスト</span>
+                            <div className="progress-bar">
+                                <div
+                                    className="progress-fill"
+                                    style={{width: "15%", background: "var(--c-teal-500)"}}
+                                ></div>
+                            </div>
+                            <span className="ch-count">6問 (15%)</span>
+                        </div>
+                        <div className="chapter-bar">
+                            <span className="ch-name">Chapter 3: 静的テスト</span>
+                            <div className="progress-bar">
+                                <div
+                                    className="progress-fill"
+                                    style={{width: "10%", background: "var(--c-pink-500)"}}
+                                ></div>
+                            </div>
+                            <span className="ch-count">4問 (10%)</span>
+                        </div>
+                        <div className="chapter-bar">
+                            <span className="ch-name"
+                                >Chapter 4: テスト分析・設計
+                                <span className="tag tag-coral">最重要</span></span
+                            >
+                            <div className="progress-bar">
+                                <div
+                                    className="progress-fill"
+                                    style={{width: "27.5%", background: "var(--c-coral-500)"}}
+                                ></div>
+                            </div>
+                            <span className="ch-count">11問 (27.5%)</span>
+                        </div>
+                        <div className="chapter-bar">
+                            <span className="ch-name">Chapter 5: テスト活動の管理</span>
+                            <div className="progress-bar">
+                                <div
+                                    className="progress-fill"
+                                    style={{width: "22.5%", background: "var(--c-purple-400)"}}
+                                ></div>
+                            </div>
+                            <span className="ch-count">9問 (22.5%)</span>
+                        </div>
+                        <div className="chapter-bar">
+                            <span className="ch-name">Chapter 6: テストツール</span>
+                            <div className="progress-bar">
+                                <div
+                                    className="progress-fill"
+                                    style={{width: "5%", background: "var(--c-teal-600)"}}
+                                ></div>
+                            </div>
+                            <span className="ch-count">2問 (5%)</span>
+                        </div>
+                        <div className="callout callout-warning">
+                            <strong>試験戦略上の要点:</strong> Chapter 4（27.5%）と Chapter
+                            5（22.5%）の2章だけで試験全体の50%を占めます。 特に Chapter 4 の
+                            K3（適用）レベル問題は実際に計算を行う必要があるため、反復練習が必須です。
+                        </div>
+                    </div>
+
+                    <div id="certification-path">
+                        <h3>認定スキームにおける位置付け</h3>
+                        <div className="mermaid">
+                            <Mermaid chart={`graph TD
+CTFL["CTFL v4.0 Foundation Level (すべての上位認定の前提)"]
+TA["CTAL-TA v4.0 Test Analyst"]
+TTA["CTAL-TTA Technical Test Analyst"]
+TM["CTAL-TM v3.0 Test Manager"]
+TAE["CTAL-TAE Test Automation Engineer"]
+AGILE["CTAL-AT v2.0 Agile Tester"]
+AI["CT-AI v2.0 AI Testing"]
+GENAI["CT-GenAI Generative AI Testing"]
+CTFL --> TA
+CTFL --> TTA
+CTFL --> TM
+CTFL --> TAE
+CTFL --> AGILE
+CTFL --> AI
+CTFL --> GENAI
+style CTFL fill:#5b21b6,stroke:#7c3aed,color:#ede9fe
+style TA fill:#1e2536,stroke:#2e3650,color:#9ba3b8
+style TTA fill:#1e2536,stroke:#2e3650,color:#9ba3b8
+style TM fill:#1e2536,stroke:#2e3650,color:#9ba3b8
+style TAE fill:#1e2536,stroke:#2e3650,color:#9ba3b8
+style AGILE fill:#1e2536,stroke:#2e3650,color:#9ba3b8
+style AI fill:#1e2536,stroke:#2e3650,color:#9ba3b8
+style GENAI fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
+                        </div>
+                        <div className="callout callout-info">
+                            <strong>2026年最新動向:</strong> CT-AI v2.0 が
+                            2026年4月にリリース（v1.0は2027年4月に英語試験終了）。 CT-GenAI v1.1
+                            も並行して提供中。CTAL-TA v4.0 が 2025年5月リリース、旧 v3.1 英語試験は
+                            2026年5月に終了。
+                        </div>
+                    </div>
+                </section>
+
+                <hr className="section-sep" />
+
+                <section id="ch1">
+                    <h2>Chapter 1: テストの基礎</h2>
+                    <p>
+                        Chapter 1
+                        は試験全体の語彙と概念的土台を提供します。ここを曖昧にすると他の章の問題でも
+                        「言葉の罠」に引っかかります。定義を正確に暗記するだけでなく、各概念の境界線を理解することが重要です。
+                    </p>
+
+                    <h3>テストとは何か</h3>
+                    <p>
+                        CTFL v4.0 における「テスト」は単なるバグ探しではありません。
+                        <strong>動的テスト</strong>（ソフトウェアを実行してテスト）と
+                        <strong>静的テスト</strong>（実行せずにテスト）の両方を含み、
+                        <strong>検証（Verification）</strong> と
+                        <strong>妥当性確認（Validation）</strong> を包含します。
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>概念</th>
+                                <th>問い</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>検証 (Verification)</td>
+                                <td>「正しく作っているか？」</td>
+                                <td>仕様通りに実装されているか確認</td>
+                            </tr>
+                            <tr>
+                                <td>妥当性確認 (Validation)</td>
+                                <td>「正しいものを作っているか？」</td>
+                                <td>ユーザーのニーズを満たしているか確認</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div id="error-defect">
+                        <h3>エラー・欠陥・障害の連鎖</h3>
+                        <div className="mermaid">
+                            <Mermaid chart={`flowchart LR
+E["エラー (Error) 人間のミス 例: 開発者が計算式を誤記"]
+D["欠陥 (Defect / Bug) 成果物の誤り 例: コード of 論理バグ"]
+F["障害 (Failure) 実行時の誤動作 例: アプリがクラッシュ"]
+R["根本原因 (Root Cause) 欠陥を引き起こした 最初の原因"]
+E -->|引き起こす| D
+D -->|引き起こす可能性がある| F
+R -->|特定することで| E
+style E fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style D fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style F fill:#7c2d12,stroke:#f97316,color:#fed7aa
+style R fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
+                        </div>
+                        <div className="callout callout-warning">
+                            <strong>重要:</strong>
+                            テストとデバッグは別の活動。テストは障害を特定し、デバッグはその原因（欠陥）を除去する。
+                            また、欠陥は必ずしも障害を引き起こすとは限りません（デッドコード、条件分岐で実行されない欠陥など）。
+                        </div>
+
+                        <h4>テスト vs 品質保証（QA）の違い</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>テスト (QC)</th>
+                                    <th>品質保証 (QA)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>目的</td>
+                                    <td>欠陥を検出する（是正措置）</td>
+                                    <td>プロセスを改善する（予防措置）</td>
+                                </tr>
+                                <tr>
+                                    <td>対象</td>
+                                    <td>成果物 (Product)</td>
+                                    <td>プロセス (Process)</td>
+                                </tr>
+                                <tr>
+                                    <td>関係</td>
+                                    <td>QC の一部</td>
+                                    <td>組織レベルの活動</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="7principles">
+                        <h3>テストの7原則</h3>
+                        <div className="callout callout-danger">
+                            <strong>試験必出:</strong> 7原則は K1（定義の再現）と
+                            K2（概念の説明）レベルで問われます。
+                            特に「殺虫剤のパラドックス」「欠陥ゼロの誤謬」などの逆説的な原則は引っかけ問題の定番です。
+                        </div>
+                        <div className="principle-grid">
+                            <div className="principle-card">
+                                <div className="num">原則 1</div>
+                                <h4>テストは欠陥の存在を示す</h4>
+                                <p>
+                                    欠陥があることは示せるが、欠陥がないことは証明できない。テストは欠陥ゼロの証明手段ではない。
+                                </p>
+                            </div>
+                            <div className="principle-card">
+                                <div className="num">原則 2</div>
+                                <h4>網羅的テストは不可能</h4>
+                                <p>
+                                    すべての入力・条件の組み合わせをテストするのは現実不可能。リスクベース・優先度付けで対応する。
+                                </p>
+                            </div>
+                            <div className="principle-card">
+                                <div className="num">原則 3</div>
+                                <h4>早期テスト（シフトレフト）</h4>
+                                <p>
+                                    テストは早期に開始すべき。後工程での欠陥修正は指数的にコスト増大する。要件段階からレビューを実施。
+                                </p>
+                            </div>
+                            <div className="principle-card">
+                                <div className="num">原則 4</div>
+                                <h4>欠陥クラスタリング</h4>
+                                <p>
+                                    欠陥は少数のモジュールに集中する傾向がある（80:20則）。リスクの高いモジュールを重点的にテスト。
+                                </p>
+                            </div>
+                            <div className="principle-card">
+                                <div className="num">原則 5</div>
+                                <h4>殺虫剤のパラドックス</h4>
+                                <p>
+                                    同じテストを繰り返すと新たな欠陥を見つけられなくなる。テストケースを定期的に見直し・更新する。
+                                </p>
+                            </div>
+                            <div className="principle-card">
+                                <div className="num">原則 6</div>
+                                <h4>テストはコンテキスト依存</h4>
+                                <p>
+                                    テスト手法は開発方法論・ドメイン・リスクによって変わる。汎用的な「最良のテスト」は存在しない。
+                                </p>
+                            </div>
+                            <div className="principle-card" style={{gridColumn: "1 / -1"}}>
+                                <div className="num">原則 7</div>
+                                <h4>欠陥ゼロの誤謬 (Absence-of-defects fallacy)</h4>
+                                <p>
+                                    欠陥が見つからなくてもユーザーのニーズを満たすとは限らない。品質は「欠陥ゼロ」ではなく妥当性確認で判断する。
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="test-process">
+                        <h3>テストプロセスの7アクティビティ</h3>
+                        <div className="mermaid">
+                            <Mermaid chart={`flowchart LR
+TP["テスト計画 (Test Planning)"]
+TM["テストの モニタリングと コントロール"]
+TA["テスト分析 (Test Analysis)"]
+TD["テスト設計 (Test Design)"]
+TI["テスト実装 (Test Implementation)"]
+TE["テスト実行 (Test Execution)"]
+TC["テスト完了 (Test Completion)"]
+TP --> TM
+TM -.-> TA
+TA --> TD
+TD --> TI
+TI --> TE
+TE --> TC
+style TP fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style TM fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style TA fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style TD fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style TI fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style TE fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style TC fill:#134e4a,stroke:#14b8a6,color:#99f6e4`} />
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>アクティビティ</th>
+                                    <th>主な成果物 (Testware)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>テスト計画</td>
+                                    <td>テスト計画書、リスク登録簿</td>
+                                </tr>
+                                <tr>
+                                    <td>テスト分析</td>
+                                    <td>テスト条件、テストベースの欠陥レポート</td>
+                                </tr>
+                                <tr>
+                                    <td>テスト設計</td>
+                                    <td>テストケース、テストチャーター</td>
+                                </tr>
+                                <tr>
+                                    <td>テスト実装</td>
+                                    <td>テスト手順、自動化スクリプト、テストスイート</td>
+                                </tr>
+                                <tr>
+                                    <td>テスト実行</td>
+                                    <td>テスト結果ログ、欠陥レポート</td>
+                                </tr>
+                                <tr>
+                                    <td>テスト完了</td>
+                                    <td>テスト完了レポート、改善アクションリスト</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <hr className="section-sep" />
+
+                <section id="ch2">
+                    <h2>Chapter 2: SDLCとテスト</h2>
+
+                    <h3>SDLCモデルとテストアプローチの対応</h3>
+                    <div className="mermaid">
+                        <Mermaid chart={`flowchart TD
+SDLC["SDLCモデル"]
+SEQ["シーケンシャル"]
+ITER["イテラティブ / インクリメンタル"]
+WF["ウォーターフォール 開発後にテスト集中"]
+VM["V字モデル 各フェーズに対応するテストレベル"]
+AGILE["アジャイル / スクラム スプリントごとにテスト"]
+DEVOPS["DevOps / CD CI/CDに組み込んだ継続的テスト"]
+SDLC --> SEQ
+SDLC --> ITER
+SEQ --> WF
+SEQ --> VM
+ITER --> AGILE
+ITER --> DEVOPS
+style SDLC fill:#4c1d95,stroke:#7c3aed,color:#ede9fe
+style SEQ fill:#1e2536,stroke:#2e3650,color:#9ba3b8
+style ITER fill:#1e2536,stroke:#2e3650,color:#9ba3b8
+style WF fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style VM fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style AGILE fill:#7c2d12,stroke:#f97316,color:#fed7aa
+style DEVOPS fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
+                    </div>
+
+                    <div id="shift-left">
+                        <h3>シフトレフトと DevOps</h3>
+                        <div className="mermaid">
+                            <Mermaid chart={`flowchart LR
+R["要件定義 (テスター参画・ 仕様レビュー)"]
+D["設計 (静的テスト・ 設計レビュー)"]
+C["コーディング (TDD・単体テスト)"]
+T["テスト実行 (自動回帰テスト)"]
+DEP["デプロイ (CD Gate)"]
+R --> D
+D --> C
+C --> T
+T --> DEP
+style R fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style D fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style C fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style T fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style DEP fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>DevOps の特徴</th>
+                                    <th>テストへの影響</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>継続的インテグレーション (CI)</td>
+                                    <td>自動回帰テストが必須、プッシュごとに実行</td>
+                                </tr>
+                                <tr>
+                                    <td>継続的デリバリー (CD)</td>
+                                    <td>テストの高速化・安定化が必要、パイプラインゲート</td>
+                                </tr>
+                                <tr>
+                                    <td>全員オーナーシップ</td>
+                                    <td>テストがチーム全員の責任（Whole Team Approach）</td>
+                                </tr>
+                                <tr>
+                                    <td>フィードバックループの短縮</td>
+                                    <td>テスト結果の即時可視化・ダッシュボードの整備</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="test-levels">
+                        <h3>テストレベル（5段階）</h3>
+                        <div className="mermaid">
+                            <Mermaid chart={`flowchart TD
+CT["コンポーネントテスト (Unit Testing) 個別モジュールの検証"]
+CIT["コンポーネント統合テスト インタフェース of 検証"]
+ST["システムテスト システム全体の動作検証"]
+SIT["システム統合テスト 外部システムとの連携検証"]
+AT["受け入れテスト リリース可否の最終判断"]
+CT --> CIT
+CIT --> ST
+ST --> SIT
+SIT --> AT
+style CT fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style CIT fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style ST fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style SIT fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style AT fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
+                        </div>
+
+                        <h4>受け入れテストの4種類（試験頻出）</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>種別</th>
+                                    <th>実施者</th>
+                                    <th>目的</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>UAT（ユーザー受け入れテスト）</td>
+                                    <td>実ユーザー</td>
+                                    <td>実業務での動作確認</td>
+                                </tr>
+                                <tr>
+                                    <td>OAT（運用受け入れテスト）</td>
+                                    <td>運用チーム</td>
+                                    <td>インフラ・運用観点での検証</td>
+                                </tr>
+                                <tr>
+                                    <td>契約・規制テスト</td>
+                                    <td>顧客・監査人</td>
+                                    <td>契約条件・法規制への準拠確認</td>
+                                </tr>
+                                <tr>
+                                    <td>アルファ・ベータテスト</td>
+                                    <td>限定ユーザー</td>
+                                    <td>α=開発環境、β=本番相当環境での早期検証</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="test-types">
+                        <h3>テストタイプ</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>タイプ</th>
+                                    <th>観点</th>
+                                    <th>主な技法・例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>機能テスト</td>
+                                    <td>「何ができるか」</td>
+                                    <td>EP・BVA・デシジョンテーブル</td>
+                                </tr>
+                                <tr>
+                                    <td>非機能テスト</td>
+                                    <td>「どのように動くか」</td>
+                                    <td>パフォーマンス・セキュリティ・使用性</td>
+                                </tr>
+                                <tr>
+                                    <td>ホワイトボックステスト</td>
+                                    <td>コード構造ベース</td>
+                                    <td>ステートメント・ブランチカバレッジ</td>
+                                </tr>
+                                <tr>
+                                    <td>確認テスト</td>
+                                    <td>欠陥修正後の再確認</td>
+                                    <td>修正された欠陥を直接再テスト</td>
+                                </tr>
+                                <tr>
+                                    <td>回帰テスト</td>
+                                    <td>変更による影響確認</td>
+                                    <td>変更した機能以外への副作用チェック</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div className="callout callout-info">
+                            <strong>ISO/IEC 25010 非機能品質特性:</strong>
+                            パフォーマンス効率・使用性 (Usability)・ 信頼性
+                            (Reliability)・セキュリティ・保守性 (Maintainability)・移植性
+                            (Portability) など。 Chapter 2 と Chapter 5 の両方で問われます。
+                        </div>
+                    </div>
+                </section>
+
+                <hr className="section-sep" />
+
+                <section id="ch3">
+                    <h2>Chapter 3: 静的テスト</h2>
+                    <p>
+                        静的テストはソフトウェアを<strong>実行せずに</strong>欠陥を検出する手法です。
+                        動的テストでは発見しにくい、要件の曖昧さ・設計の脆弱性・デッドコードなどを早期に発見できます。
+                    </p>
+
+                    <div id="review-process">
+                        <h3>レビュープロセス</h3>
+                        <div className="mermaid">
+                            <Mermaid chart={`flowchart LR
+PL["計画 (Planning) スコープ・参加者・ タイプ選定"]
+IN["開始 (Initiation) 成果物配布・ 入り基準確認"]
+IR["個人レビュー (Individual Review) 各自が独立して 異常を記録"]
+CA["コミュニケーション と分析 異常の議論・ 欠陥ステータス決定"]
+FR["修正とレポート (Fixing and Reporting) 欠陥修正・ 出口基準確認"]
+PL --> IN
+IN --> IR
+IR --> CA
+CA --> FR
+style PL fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style IN fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style IR fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style CA fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style FR fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
+                        </div>
+                    </div>
+
+                    <div id="review-types">
+                        <h3>レビュータイプの比較</h3>
+                        <div className="callout callout-danger">
+                            <strong>試験最頻出:</strong>
+                            4種類のレビューの「形式度」「誰がリーダーか」「ドキュメントが必須か」を正確に覚えてください。
+                            特に「ウォークスルーは著者がリーダー、インスペクションはモデレーターがリーダー」は頻繁に出題されます。
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>タイプ</th>
+                                    <th>形式度</th>
+                                    <th>リーダー</th>
+                                    <th>主目的</th>
+                                    <th>ドキュメント</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>インフォーマルレビュー</td>
+                                    <td><span className="tag tag-teal">最低</span></td>
+                                    <td>—</td>
+                                    <td>欠陥検出（非公式）</td>
+                                    <td>不要</td>
+                                </tr>
+                                <tr>
+                                    <td>ウォークスルー</td>
+                                    <td><span className="tag tag-teal">低〜中</span></td>
+                                    <td><strong>著者</strong></td>
+                                    <td>理解・フィードバック収集</td>
+                                    <td>軽度</td>
+                                </tr>
+                                <tr>
+                                    <td>テクニカルレビュー</td>
+                                    <td><span className="tag tag-purple">中</span></td>
+                                    <td>訓練されたモデレーター</td>
+                                    <td>合意形成・技術的欠陥検出</td>
+                                    <td>要</td>
+                                </tr>
+                                <tr>
+                                    <td>インスペクション</td>
+                                    <td><span className="tag tag-coral">最高</span></td>
+                                    <td><strong>訓練されたモデレーター</strong></td>
+                                    <td>欠陥検出・プロセス改善</td>
+                                    <td><strong>必須（メトリクス含む）</strong></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>レビュー技法</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>技法</th>
+                                    <th>特徴</th>
+                                    <th>適用場面</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>アドホックレビュー</td>
+                                    <td>事前準備なし、経験依存</td>
+                                    <td>簡易・非公式なレビュー</td>
+                                </tr>
+                                <tr>
+                                    <td>チェックリストベース</td>
+                                    <td>定型チェックリストに従う</td>
+                                    <td>繰り返し実施する成果物のレビュー</td>
+                                </tr>
+                                <tr>
+                                    <td>シナリオベース</td>
+                                    <td>想定シナリオ・ユースケースから確認</td>
+                                    <td>要件・設計のレビュー</td>
+                                </tr>
+                                <tr>
+                                    <td>パースペクティブベース</td>
+                                    <td>特定ステークホルダーの視点から確認</td>
+                                    <td>多角的なレビューが必要な複雑な成果物</td>
+                                </tr>
+                                <tr>
+                                    <td>ロールベース</td>
+                                    <td>特定の役割（セキュリティ専門家等）の観点</td>
+                                    <td>セキュリティ・コンプライアンスレビュー</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <hr className="section-sep" />
+
+                <section id="ch4">
+                    <h2>Chapter 4: テスト分析・設計</h2>
+                    <p>
+                        試験の27.5%（11問）を占める最重要章です。
+                        K3（適用）レベルの問題が集中しており、具体的な仕様から実際にテストケースを導出できる
+                        実践力が問われます。EP・BVA の計算問題は必ず手を動かして練習してください。
+                    </p>
+
+                    <div className="mermaid">
+                        <Mermaid chart={`flowchart TD
+TT["テスト技法 (Test Techniques)"]
+BB["ブラックボックス Black-Box"]
+WB["ホワイトボックス White-Box"]
+EB["経験ベース Experience-Based"]
+CB["コラボレーションベース Collaboration-Based"]
+TT --> BB
+TT --> WB
+TT --> EB
+TT --> CB
+BB --> EP["同値分割 (EP)"]
+BB --> BVA["境界値分析 (BVA) 2値 / 3値"]
+BB --> DT["デシジョンテーブル"]
+BB --> ST["状態遷移テスト"]
+WB --> SC["ステートメントカバレッジ"]
+WB --> BC["ブランチカバレッジ"]
+EB --> EXP["探索的テスト"]
+EB --> CL["チェックリストベース"]
+CB --> US["ユーザーストーリー共同作成"]
+CB --> ATDD2["ATDD / GWT"]
+style TT fill:#4c1d95,stroke:#7c3aed,color:#ede9fe
+style BB fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style WB fill:#7c2d12,stroke:#f97316,color:#fed7aa
+style EB fill:#831843,stroke:#ec4899,color:#fbcfe8
+style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
+                    </div>
+
+                    <div id="ep">
+                        <h3>同値分割（Equivalence Partitioning: EP）</h3>
+                        <p>
+                            入力値を「同じ動作をする」グループ（同値クラス）に分割し、各グループから代表値を1つだけ選んでテストする技法。
+                            テストケース数を削減しながら、効率的なカバレッジを達成します。
+                        </p>
+                        <h4>具体例: 年齢入力フィールド（有効: 18〜65歳）</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>同値クラス</th>
+                                    <th>範囲</th>
+                                    <th>種別</th>
+                                    <th>代表値の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>EP1</td>
+                                    <td>18未満</td>
+                                    <td><span className="tag tag-red">無効</span></td>
+                                    <td>0, 10, 17</td>
+                                </tr>
+                                <tr>
+                                    <td>EP2</td>
+                                    <td>18〜65</td>
+                                    <td><span className="tag tag-green">有効</span></td>
+                                    <td>30, 45</td>
+                                </tr>
+                                <tr>
+                                    <td>EP3</td>
+                                    <td>65超</td>
+                                    <td><span className="tag tag-red">無効</span></td>
+                                    <td>66, 100</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div className="callout callout-success">
+                            <strong>カバレッジ計算:</strong><br />
+                            EP カバレッジ = テスト済み同値クラス数 ÷ 全同値クラス数 × 100%<br />
+                            上記の例で EP1 と EP2 のみテスト済み → 2 ÷ 3 = 66.7%（100%達成には EP3
+                            も必要）
+                        </div>
+                    </div>
+
+                    <div id="bva">
+                        <h3>境界値分析（Boundary Value Analysis: BVA）</h3>
+                        <p>
+                            境界付近の値に欠陥が集中するという経験則を活用した技法。 開発者が
+                            <code>&lt;=</code> を <code>&lt;</code> と誤記するような境界の
+                            off-by-one エラーを 効率的に検出します。BVA
+                            は順序付きパーティション（数値・日付・文字列長など）にのみ適用可能です。
+                        </p>
+                        <div className="two-col">
+                            <div className="box">
+                                <h4>2値 BVA（2-value BVA）</h4>
+                                <ul>
+                                    <li>各境界値と、隣接パーティションの最近傍値をテスト</li>
+                                    <li>範囲 18〜65 の場合: <strong>17, 18, 65, 66</strong></li>
+                                    <li>各境界につき2つの値 → 境界数 × 2</li>
+                                    <li>100% カバレッジ = 全境界値を網羅</li>
+                                </ul>
+                            </div>
+                            <div className="box">
+                                <h4>3値 BVA（3-value BVA）</h4>
+                                <ul>
+                                    <li>境界値・外側の隣接値・内側の隣接値をテスト</li>
+                                    <li>
+                                        範囲 18〜65 の場合: <strong>17, 18, 19, 64, 65, 66</strong>
+                                    </li>
+                                    <li>各境界につき3つの値 → より厳密なカバレッジ</li>
+                                    <li>2値BVAでは検出できない欠陥も検出可能</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="callout callout-warning">
+                            <strong>K3 試験問題の典型:</strong> 「範囲 1〜100
+                            の入力フィールドに対して、3値BVAで必要なテスト値の数はいくつか？」<br />
+                            → 下限境界: 0, 1, 2（3値）、上限境界: 99, 100, 101（3値）= 合計
+                            <strong>6値</strong>
+                        </div>
+                    </div>
+
+                    <div id="decision-table">
+                        <h3>デシジョンテーブルテスト</h3>
+                        <p>
+                            複数の条件の組み合わせによるシステム動作を体系的に網羅します。 n個の条件
+                            → 最大 2<sup>n</sup>
+                            のルールが存在（同一アクションのルールは統合可能）。
+                        </p>
+                        <h4>具体例: ローン審査（収入 × 信用スコア）</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ルール 1</th>
+                                    <th>ルール 2</th>
+                                    <th>ルール 3</th>
+                                    <th>ルール 4</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style={{fontWeight: "500", color: "var(--color-text-secondary)"}}>
+                                    <td colSpan={5}>条件</td>
+                                </tr>
+                                <tr>
+                                    <td>収入 ≥ 500万円</td>
+                                    <td>T</td>
+                                    <td>T</td>
+                                    <td>F</td>
+                                    <td>F</td>
+                                </tr>
+                                <tr>
+                                    <td>信用スコア ≥ 700</td>
+                                    <td>T</td>
+                                    <td>F</td>
+                                    <td>T</td>
+                                    <td>F</td>
+                                </tr>
+                                <tr style={{fontWeight: "500", color: "var(--color-text-secondary)"}}>
+                                    <td colSpan={5}>アクション</td>
+                                </tr>
+                                <tr>
+                                    <td>ローン承認</td>
+                                    <td><span className="tag tag-green">✓</span></td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>再審査</td>
+                                    <td>—</td>
+                                    <td><span className="tag tag-amber">✓</span></td>
+                                    <td><span className="tag tag-amber">✓</span></td>
+                                    <td>—</td>
+                                </tr>
+                                <tr>
+                                    <td>否決</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                    <td>—</td>
+                                    <td><span className="tag tag-red">✓</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p style={{fontSize: "13px", color: "var(--color-text-secondary)"}}>
+                            ルール 2 と 3 が同じアクション（再審査）→ 収入条件を「Don't
+                            Care」に統合して最小化可能。
+                        </p>
+                    </div>
+
+                    <div id="state-transition">
+                        <h3>状態遷移テスト</h3>
+                        <p>
+                            システムの状態変化をモデル化してテストケースを設計します。
+                            ATM・ログイン・注文ライフサイクルなど、状態依存の動作を持つシステムに有効です。
+                        </p>
+                        <div className="mermaid">
+                            <Mermaid chart={`stateDiagram-v2
+[*] --> ロック中
+ロック中 --> ロック中 : 誤ったPIN（残り2回以上）
+ロック中 --> ロック解除 : 正しいPIN
+ロック中 --> アカウント停止 : 誤ったPINを3回入力
+ロック解除 --> ロック中 : タイムアウト / ログアウト
+ロック解除 --> [*] : セッション終了
+アカウント停止 --> [*]`} />
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>カバレッジ基準</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>全状態カバレッジ</td>
+                                    <td>すべての状態を少なくとも1回通過</td>
+                                </tr>
+                                <tr>
+                                    <td>全遷移カバレッジ（0スイッチ）</td>
+                                    <td>すべての遷移を少なくとも1回通過（最低基準）</td>
+                                </tr>
+                                <tr>
+                                    <td>nスイッチカバレッジ</td>
+                                    <td>長さ n+1 の遷移シーケンスをすべてカバー（コスト高）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="whitebox">
+                        <h3>ホワイトボックステスト技法</h3>
+                        <h4>ステートメントテスト vs ブランチテスト</h4>
+                        <div className="code-block" data-lang="Python">
+                            <div className="code-line"><span className="code-keyword">def</span> <span className="code-cyan">check_discount</span>(age, is_member):</div>
+                            <div className="code-line">    discount = <span className="code-amber">0</span>           <span className="code-comment"># Line 1: 常に実行</span></div>
+                            <div className="code-line">    <span className="code-keyword">if</span> age &gt; <span className="code-amber">60</span>:           <span className="code-comment"># Line 2: 判定</span></div>
+                            <div className="code-line">        discount = <span className="code-amber">10</span>      <span className="code-comment"># Line 3: True ブランチ</span></div>
+                            <div className="code-line">    <span className="code-keyword">if</span> is_member:          <span className="code-comment"># Line 4: 判定</span></div>
+                            <div className="code-line">        discount += <span className="code-amber">5</span>      <span className="code-comment"># Line 5: True ブランチ</span></div>
+                            <div className="code-line">    <span className="code-keyword">return</span> discount        <span className="code-comment"># Line 6: 常に実行</span></div>
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>カバレッジ基準</th>
+                                    <th>必要なテスト</th>
+                                    <th>達成条件</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>100% ステートメント</td>
+                                    <td>Line 3 と Line 5 の両方を実行</td>
+                                    <td>age > 60 かつ is_member のケースを含む</td>
+                                </tr>
+                                <tr>
+                                    <td>100% ブランチ</td>
+                                    <td>各 if の True / False を両方実行</td>
+                                    <td>age > 60 の T/F × is_member の T/F = 最低3テスト</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div className="callout callout-danger">
+                            <strong>試験頻出の罠:</strong> 100% ブランチカバレッジ ⊃ 100%
+                            ステートメントカバレッジ（包含関係）。
+                            逆（ステートメント100%→ブランチ100%）は成立しません。 例:
+                            <code>if (condition) &#123; action(); &#125;</code> で condition が常に True
+                            のケースのみ実行しても ステートメントは100%になるが、False
+                            ブランチはカバーされない。
+                        </div>
+                    </div>
+
+                    <div id="exploratory">
+                        <h3>探索的テスト</h3>
+                        <p>
+                            テストの設計・実行・学習を<strong>同時並行</strong>で行う動的なアプローチ。
+                            テスターの知識・経験・好奇心を最大限に活用し、形式的なテストでは見逃しやすい欠陥を発見します。
+                        </p>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>要素</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>テストチャーター</td>
+                                    <td>
+                                        「[ターゲット] を [リソース] を使って [発見すべき情報]
+                                        を探索する」という形式の目的定義文書
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>セッション</td>
+                                    <td>時間制約のあるテスト実施単位（通常 30〜120 分）</td>
+                                </tr>
+                                <tr>
+                                    <td>デブリーフィング</td>
+                                    <td>セッション後の振り返り・所見の共有・次回方針決定</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="atdd">
+                        <h3>ATDD・コラボレーションベース技法（v4.0 新追加）</h3>
+                        <h4>INVEST 原則（ユーザーストーリー品質評価）</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>頭文字</th>
+                                    <th>意味</th>
+                                    <th>確認ポイント</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>I</strong>ndependent</td>
+                                    <td>独立している</td>
+                                    <td>他のストーリーに依存せずにデリバリー可能か</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>N</strong>egotiable</td>
+                                    <td>交渉可能</td>
+                                    <td>実装の詳細は柔軟に変更できるか</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>V</strong>aluable</td>
+                                    <td>価値がある</td>
+                                    <td>ステークホルダーに明確なビジネス価値があるか</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>E</strong>stimable</td>
+                                    <td>見積もり可能</td>
+                                    <td>チームがサイズを見積もれるか</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>S</strong>mall</td>
+                                    <td>小さい</td>
+                                    <td>1スプリントで完成できるサイズか</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>T</strong>estable</td>
+                                    <td>テスト可能</td>
+                                    <td>明確な受け入れ基準があるか</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Given-When-Then (GWT) 形式</h4>
+                        <div className="code-block" data-lang="Gherkin">
+                            <div className="code-line"><span className="code-keyword">Given</span>: ユーザーがログイン画面にいる</div>
+                            <div className="code-line"><span className="code-keyword">When</span>:  有効なユーザーIDとパスワードを入力し「ログイン」ボタンを押す</div>
+                            <div className="code-line"><span className="code-keyword">Then</span>:  ダッシュボード画面に遷移し、ユーザー名が表示される</div>
+                        </div>
+
+                        <div className="mermaid">
+                            <Mermaid chart={`flowchart LR
+DISC["議論 (Discuss) 開発者・テスター・ PO が要件を 共同理解"]
+DIST["精緻化 (Distill) 受け入れテストを GWT 形式で作成"]
+DEV["開発 (Develop) テストを満たす 実装を進める"]
+DISC --> DIST
+DIST --> DEV
+DEV --> DISC
+style DISC fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style DIST fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style DEV fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
+                        </div>
+                    </div>
+                </section>
+
+                <hr className="section-sep" />
+
+                <section id="ch5">
+                    <h2>Chapter 5: テスト活動の管理</h2>
+
+                    <div id="test-planning">
+                        <h3>テスト計画</h3>
+                        <h4>テストピラミッドとテスト四象限</h4>
+                        <div className="two-col">
+                            <div className="box">
+                                <h4>テストピラミッド</h4>
+                                <ul>
+                                    <li>下段: ユニットテスト（多数・低コスト・高速）</li>
+                                    <li>中段: 統合テスト（中程度）</li>
+                                    <li>上段: E2E / UIテスト（少数・高コスト・低速）</li>
+                                    <li>自動化投資はピラミッドの下段に集中</li>
+                                </ul>
+                            </div>
+                            <div className="box">
+                                <h4>テスト推定技法</h4>
+                                <ul>
+                                    <li>メトリクスベース: 過去データから推定</li>
+                                    <li>エキスパートベース: デルファイ法・専門家集約</li>
+                                    <li>プランニングポーカー: アジャイルチームの合意ベース</li>
+                                    <li>WBS: 作業分解構造から積み上げ</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <h4>テスト四象限（Brian Marick モデル）</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ビジネスを支援</th>
+                                    <th>技術を評価</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>チームを支援（開発ガイド）</strong></td>
+                                    <td>Q2: 機能テスト・ストーリーテスト（自動 / 手動）</td>
+                                    <td>Q1: 自動単体・統合テスト</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>製品を批評（評価）</strong></td>
+                                    <td>Q3: 探索的テスト・UAT・使用性テスト</td>
+                                    <td>Q4: パフォーマンス・セキュリティ・信頼性テスト</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="risk-mgmt">
+                        <h3>リスク管理</h3>
+                        <h4>リスクの分類</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>種別</th>
+                                    <th>定義</th>
+                                    <th>例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>プロジェクトリスク</strong></td>
+                                    <td>プロジェクト目標達成を脅かすリスク</td>
+                                    <td>スケジュール遅延・リソース不足・ベンダー問題</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>プロダクトリスク</strong></td>
+                                    <td>ソフトウェアの品質特性に関するリスク</td>
+                                    <td>セキュリティ脆弱性・パフォーマンス問題・データ損失</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div className="mermaid">
+                            <Mermaid chart={`flowchart LR
+RI["リスク識別 (Risk Identification) ブレインストーミング チェックリスト 過去の教訓"]
+RA["リスク評価 (Risk Assessment) 発生確率 × 影響度 = リスクレベル"]
+RC["リスク制御 (Risk Control) 軽減策の実施 テストアプローチへの反映"]
+RI --> RA
+RA --> RC
+RC --> RI
+style RI fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style RA fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style RC fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
+                        </div>
+                        <div className="callout callout-success">
+                            <strong>リスクレベルの公式:</strong> リスクレベル = 発生確率
+                            (Likelihood) × 影響度 (Impact)<br />
+                            高リスク → 広いカバレッジ・早期テスト・頻繁な確認<br />
+                            低リスク → 最小限のテストまたは実施を省略
+                        </div>
+                    </div>
+
+                    <div id="monitoring">
+                        <h3>テストモニタリング・コントロール・完了</h3>
+                        <h4>主要テストメトリクス</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>カテゴリ</th>
+                                    <th>メトリクス例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>進捗</td>
+                                    <td>テストケース実行率・消化率・残テスト数</td>
+                                </tr>
+                                <tr>
+                                    <td>欠陥</td>
+                                    <td>欠陥検出数・欠陥密度・修正率・エスケープ率</td>
+                                </tr>
+                                <tr>
+                                    <td>カバレッジ</td>
+                                    <td>要件カバレッジ・コードカバレッジ・リスクカバレッジ</td>
+                                </tr>
+                                <tr>
+                                    <td>リスク</td>
+                                    <td>残存リスクレベル・リスク軽減率</td>
+                                </tr>
+                                <tr>
+                                    <td>コスト</td>
+                                    <td>予算消化率・テストコスト対欠陥発見数</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>テストレポートの種類</h4>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>種別</th>
+                                    <th>目的</th>
+                                    <th>主な読者</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>テスト進捗レポート</td>
+                                    <td>定期的な状況報告（日次・週次）</td>
+                                    <td>テストマネージャー・PM</td>
+                                </tr>
+                                <tr>
+                                    <td>テスト完了レポート</td>
+                                    <td>フェーズ・プロジェクト完了時の総括</td>
+                                    <td>全ステークホルダー</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id="defect-mgmt">
+                        <h3>欠陥管理</h3>
+                        <div className="mermaid">
+                            <Mermaid chart={`stateDiagram-v2
+[*] --> 新規New
+新規New --> 確認中Assigned : 担当者アサイン
+確認中Assigned --> 修正中InProgress : 開発者が対応開始
+修正中InProgress --> 確認待ちFixed : 修正完了
+確認待ちFixed --> クローズClosed : 確認テスト成功
+確認待ちFixed --> 再オープンReopen : 確認テスト失敗
+再オープンReopen --> 修正中InProgress : 再修正
+新規New --> 棄却Rejected : 欠陥でないと判断
+棄却Rejected --> [*]
+クローズClosed --> [*]
+新規New : 新規 (New)
+確認中Assigned : 確認中 (Assigned)
+修正中InProgress : 修正中 (In Progress)
+確認待ちFixed : 確認待ち (Fixed)
+クローズClosed : クローズ (Closed)
+再オープンReopen : 再オープン (Reopen)
+棄却Rejected : 棄却 (Rejected)`} />
+                        </div>
+                        <div className="callout callout-warning">
+                            <strong>頻出の混同ポイント — 重要度 vs 優先度:</strong><br />
+                            <strong>重要度 (Severity):</strong> 技術的影響度。Critical / Major /
+                            Minor / Trivial<br />
+                            <strong>優先度 (Priority):</strong> ビジネス修正緊急度。High / Medium /
+                            Low<br />
+                            例: UIの誤字（重要度 Trivial）でも、トップページならば優先度 High
+                            になる場合がある。 この2つは完全に独立した概念です。
+                        </div>
+                    </div>
+                </section>
+
+                <hr className="section-sep" />
+
+                <section id="ch6">
+                    <h2>Chapter 6: テストツール</h2>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ツールカテゴリ</th>
+                                <th>例</th>
+                                <th>目的</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>テスト管理</td>
+                                <td>Jira, TestRail, Zephyr Scale</td>
+                                <td>テスト計画・実行・追跡</td>
+                            </tr>
+                            <tr>
+                                <td>静的テスト</td>
+                                <td>SonarQube, Checkstyle, ESLint</td>
+                                <td>静的解析・コードレビュー支援</td>
+                            </tr>
+                            <tr>
+                                <td>テスト実行・カバレッジ</td>
+                                <td>JUnit, pytest, JaCoCo, Coverage.py</td>
+                                <td>テスト自動実行・カバレッジ計測</td>
+                            </tr>
+                            <tr>
+                                <td>パフォーマンス</td>
+                                <td>JMeter, Gatling, k6</td>
+                                <td>負荷・スループット・応答時間テスト</td>
+                            </tr>
+                            <tr>
+                                <td>セキュリティ</td>
+                                <td>OWASP ZAP, Burp Suite</td>
+                                <td>脆弱性スキャン・ペネトレーションテスト</td>
+                            </tr>
+                            <tr>
+                                <td>BDD / ATDD</td>
+                                <td>Cucumber, SpecFlow, FitNesse</td>
+                                <td>GWT 形式のテスト実装</td>
+                            </tr>
+                            <tr>
+                                <td>CI/CD 統合</td>
+                                <td>Jenkins, GitHub Actions, GitLab CI</td>
+                                <td>パイプライン組み込み自動テスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>テスト自動化のメリット vs リスク</h3>
+                    <div className="two-col">
+                        <div className="box">
+                            <h4>メリット</h4>
+                            <ul>
+                                <li>回帰テストの繰り返し実行コスト削減</li>
+                                <li>CI/CDパイプラインで夜間も継続実行</li>
+                                <li>人的ミスの排除・再現性の確保</li>
+                                <li>大量データを使ったデータ駆動テスト</li>
+                                <li>パフォーマンス・負荷テストの実現</li>
+                            </ul>
+                        </div>
+                        <div className="box">
+                            <h4>リスク</h4>
+                            <ul>
+                                <li>初期開発・保守コストの過小評価</li>
+                                <li>アプリ変更のたびにスクリプト更新が必要</li>
+                                <li>フォルスポジティブ / ネガティブのリスク</li>
+                                <li>探索的テストは自動化できない</li>
+                                <li>「自動化すれば解決する」という誤解</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div className="callout callout-info">
+                        <strong>試験ポイント:</strong>
+                        自動化は手動テストの<strong>補完</strong>であり、置き換えではありません。
+                        特に探索的テスト・ユーザビリティテスト・一度しか実行しないテストは手動が適切です。
+                    </div>
+                </section>
+
+                <hr className="section-sep" />
+
+                <section id="exam-strategy">
+                    <h2>試験対策・学習戦略</h2>
+
+                    <h3>K-Level 別の出題傾向</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>K-Level</th>
+                                <th>要求レベル</th>
+                                <th>主な章</th>
+                                <th>問題例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><span className="klevel k1">K1</span> 覚える</td>
+                                <td>定義・用語を再現する</td>
+                                <td>Ch.1, Ch.3</td>
+                                <td>「欠陥クラスタリングの定義は？」</td>
+                            </tr>
+                            <tr>
+                                <td><span className="klevel k2">K2</span> 理解する</td>
+                                <td>概念を自分の言葉で説明</td>
+                                <td>Ch.2, Ch.5, Ch.6</td>
+                                <td>
+                                    「ブランチカバレッジ100%のとき、ステートメントカバレッジは？」
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span className="klevel k3">K3</span> 適用する</td>
+                                <td>具体的な状況に技法を適用</td>
+                                <td>Ch.4, Ch.5</td>
+                                <td>「以下の仕様から3値BVAテストケースを導出せよ」</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>よく混同される用語ペア</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>用語 A</th>
+                                <th>用語 B</th>
+                                <th>区別の核心</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>検証 (Verification)</td>
+                                <td>妥当性確認 (Validation)</td>
+                                <td>仕様準拠 vs ユーザーニーズ充足</td>
+                            </tr>
+                            <tr>
+                                <td>欠陥 (Defect)</td>
+                                <td>障害 (Failure)</td>
+                                <td>コードの誤り vs 実行時の誤動作</td>
+                            </tr>
+                            <tr>
+                                <td>重要度 (Severity)</td>
+                                <td>優先度 (Priority)</td>
+                                <td>技術的影響度 vs ビジネス修正緊急度</td>
+                            </tr>
+                            <tr>
+                                <td>ウォークスルー</td>
+                                <td>インスペクション</td>
+                                <td>著者主導・非公式 vs モデレーター主導・最公式</td>
+                            </tr>
+                            <tr>
+                                <td>ステートメントカバレッジ</td>
+                                <td>ブランチカバレッジ</td>
+                                <td>命令網羅 vs 分岐網羅（後者が上位）</td>
+                            </tr>
+                            <tr>
+                                <td>プロジェクトリスク</td>
+                                <td>プロダクトリスク</td>
+                                <td>スケジュール等 vs 品質特性</td>
+                            </tr>
+                            <tr>
+                                <td>確認テスト</td>
+                                <td>回帰テスト</td>
+                                <td>修正欠陥の直接確認 vs 変更による副作用確認</td>
+                            </tr>
+                            <tr>
+                                <td>テスト計画 (Planning)</td>
+                                <td>テストコントロール (Control)</td>
+                                <td>計画立案 vs 乖離時の是正措置</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h3>推奨学習ステップ</h3>
+                    <div className="mermaid">
+                        <Mermaid chart={`flowchart TD
+S1["Step 1 公式シラバス v4.0.1 精読 全6章を通読"]
+S2["Step 2 ISTQB 公式用語集で K1 レベル用語を確認"]
+S3["Step 3 各章の学習目標で K2・K3 のセルフチェック"]
+S4["Step 4 公式サンプル試験 A〜D を 60分制限で実施"]
+S5["Step 5 間違えた問題の根拠を シラバスで確認"]
+S6["Step 6 Chapter 4・5 を 重点的に再精読"]
+S7["Step 7 模擬試験で 65% 以上を 安定的に達成"]
+S1 --> S2
+S2 --> S3
+S3 --> S4
+S4 --> S5
+S5 --> S6
+S6 --> S7
+style S1 fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style S2 fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style S3 fill:#134e4a,stroke:#14b8a6,color:#99f6e4
+style S4 fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style S5 fill:#4c1d95,stroke:#8b5cf6,color:#ddd6fe
+style S6 fill:#7c2d12,stroke:#f97316,color:#fed7aa
+style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
+                    </div>
+                </section>
+
+                <hr className="section-sep" />
+
+                <section id="references">
+                    <h2>参考文献・公式リソース</h2>
+                    <p
+                        style={{fontSize: "13px", color: "var(--color-text-secondary)", marginBottom: "16px"}}
+                    >
+                        本ガイドの作成にあたり参照したすべての URL
+                        を掲載しています。試験前には必ず公式サイトで最新情報を確認してください。
+                    </p>
+
+                    <h3>公式一次情報（ISTQB）</h3>
+                    <div className="url-list">
+                        <div className="url-item">
+                            <span className="url-title">CTFL v4.0 公式ページ</span>
+                            <a
+                                href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
+                                target="_blank"
+                            >
+                                https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">シラバス v4.0.1 PDF</span>
+                            <a
+                                href="https://istqb.org/?sdm_process_download=1&download_id=3345"
+                                target="_blank"
+                            >
+                                https://istqb.org/?sdm_process_download=1&download_id=3345
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">公式用語集 (Glossary)</span>
+                            <a href="https://glossary.istqb.org/en_US/search" target="_blank">
+                                https://glossary.istqb.org/en_US/search
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">サンプル試験 A（問題）</span>
+                            <a
+                                href="https://istqb.org/?sdm_process_download=1&download_id=3352"
+                                target="_blank"
+                            >
+                                https://istqb.org/?sdm_process_download=1&download_id=3352
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">サンプル試験 A（解答）</span>
+                            <a
+                                href="https://istqb.org/?sdm_process_download=1&download_id=3357"
+                                target="_blank"
+                            >
+                                https://istqb.org/?sdm_process_download=1&download_id=3357
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">サンプル試験 B（問題）</span>
+                            <a
+                                href="https://istqb.org/?sdm_process_download=1&download_id=3359"
+                                target="_blank"
+                            >
+                                https://istqb.org/?sdm_process_download=1&download_id=3359
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">サンプル試験 C（解答付き）</span>
+                            <a
+                                href="https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB_CTFL_v4.0_Sample-Exam-C-Answers_v1.6.pdf"
+                                target="_blank"
+                            >
+                                istqb.org / Sample Exam C Answers v1.6 PDF
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">CTFL v4.0 リリースニュース</span>
+                            <a
+                                href="https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/"
+                                target="_blank"
+                            >
+                                https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/
+                            </a>
+                        </div>
+                    </div>
+
+                    <h3>補助学習リソース（2026年確認済み）</h3>
+                    <div className="url-list">
+                        <div className="url-item">
+                            <span className="url-title">ISTQB.com 試験ガイド（2026版）</span>
+                            <a href="https://www.istqb.com/ctfl-v4-0/" target="_blank">
+                                https://www.istqb.com/ctfl-v4-0/
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">ISTQB Guru — チートシート 2026</span>
+                            <a
+                                href="https://www.istqb.guru/istqb-ctfl-cheat-sheet/"
+                                target="_blank"
+                            >
+                                https://www.istqb.guru/istqb-ctfl-cheat-sheet/
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title"
+                                >ISTQB Guru — EP/BVA/デシジョンテーブル詳解</span
+                            >
+                            <a
+                                href="https://www.istqb.guru/decision-tables-equivalence-partitioning-boundary-value-analysis/"
+                                target="_blank"
+                            >
+                                https://www.istqb.guru/decision-tables-equivalence-partitioning-boundary-value-analysis/
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title"
+                                >ISTQB Guru — 認定レベル全体ロードマップ 2026</span
+                            >
+                            <a
+                                href="https://www.istqb.guru/istqb-certification-levels-roadmap/"
+                                target="_blank"
+                            >
+                                https://www.istqb.guru/istqb-certification-levels-roadmap/
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">istqb.com — 認定一覧 2026</span>
+                            <a href="https://www.istqb.com/certifications/" target="_blank">
+                                https://www.istqb.com/certifications/
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title"
+                                >Mock Exam Network — 無料模擬試験（1855問）</span
+                            >
+                            <a
+                                href="https://mockexamnetwork.com/exams/istqb-foundation/"
+                                target="_blank"
+                            >
+                                https://mockexamnetwork.com/exams/istqb-foundation/
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">Medium — BVA 詳解（2026年4月）</span>
+                            <a
+                                href="https://medium.com/@nostochk/day-10-of-learning-testing-boundary-value-analysis-bva-1371d16f88fe"
+                                target="_blank"
+                            >
+                                https://medium.com — Boundary Value Analysis BVA (April 2026)
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">SoftwareTestingHelp — EP/BVA 演習問題</span>
+                            <a
+                                href="https://www.softwaretestinghelp.com/istqb-exam-questions-equivalence-partitioning-boundary-value-analysis/"
+                                target="_blank"
+                            >
+                                https://www.softwaretestinghelp.com / EP-BVA ISTQB Questions (2026)
+                            </a>
+                        </div>
+                        <div className="url-item">
+                            <span className="url-title">CTAL-TA v4.0 ガイド（上位認定参考）</span>
+                            <a href="https://www.istqb.com/ctal-ta-v4-0/" target="_blank">
+                                https://www.istqb.com/ctal-ta-v4-0/
+                            </a>
+                        </div>
+                    </div>
+
+                    <h3>次のステップ（上位認定）</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>認定</th>
+                                <th>対象者</th>
+                                <th>試験</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <a href="https://www.istqb.com/ctal-ta-v4-0/" target="_blank"
+                                        >CTAL-TA v4.0</a
+                                    >
+                                </td>
+                                <td>機能テスト・ブラックボックス専門家</td>
+                                <td>45問 / 78点満点 / 65%合格</td>
+                            </tr>
+                            <tr>
+                                <td>CTAL-TTA</td>
+                                <td>ホワイトボックス・非機能テスト専門家</td>
+                                <td>45問 / 120分</td>
+                            </tr>
+                            <tr>
+                                <td>CTAL-TM v3.0</td>
+                                <td>テスト管理・マネジメント職</td>
+                                <td>50問 / 90分</td>
+                            </tr>
+                            <tr>
+                                <td>CTAL-TAE</td>
+                                <td>自動化フレームワーク設計者</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <a href="https://www.istqb.com/certifications/" target="_blank"
+                                        >CT-AI v2.0</a
+                                    >
+                                </td>
+                                <td>AIシステムのテスト専門家（2026年4月リリース）</td>
+                                <td>—</td>
+                            </tr>
+                            <tr>
+                                <td>CT-GenAI v1.1</td>
+                                <td>生成AIツールを使ったテスト専門家</td>
+                                <td>—</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <div className="footer-note">
+                    本ガイドは ISTQB CTFL Syllabus v4.0.1（2024年11月公開）および
+                    2026年6月時点の公式サイト情報に基づいて作成しています。<br />
+                    試験仕様・ダウンロードリンクは変更される場合があります。受験前に必ず
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
+                        target="_blank"
+                        >istqb.org</a
+                    >
+                    で最新情報を確認してください。<br />
+                    作成日: 2026年6月 | 対応バージョン: ISTQB CTFL Syllabus v4.0.1
+                </div>
+            </div>
+        </div>
+    );
+}
