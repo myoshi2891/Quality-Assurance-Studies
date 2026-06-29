@@ -147,7 +147,9 @@
     color: var(--color-text-secondary);
     text-decoration: none;
     border-radius: var(--border-radius-md);
-    transition: background 0.15s, color 0.15s;
+    transition:
+        background 0.15s,
+        color 0.15s;
     line-height: 1.4;
 }
 
@@ -157,7 +159,7 @@
 }
 
 .istqb-ctfl-layout .nav-link.active,
-.istqb-ctfl-layout .nav-link[aria-current="location"] {
+.istqb-ctfl-layout .nav-link[aria-current='location'] {
     background: var(--color-background-tertiary);
     color: var(--c-purple-300);
     font-weight: 500;
