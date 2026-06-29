@@ -1,121 +1,121 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import mermaid from 'mermaid';
 
 mermaid.initialize({
-  startOnLoad: false,
-  theme: 'dark', // サイトに合わせてダークテーマかベーステーマを使用
-  fontFamily: 'var(--font-body)',
-  fontSize: 16,
-  securityLevel: 'loose',
-  htmlLabels: true,
+    startOnLoad: false,
+    theme: 'dark',
+    securityLevel: 'loose',
+    themeVariables: {
+        primaryColor: '#1a73e8',
+        primaryTextColor: '#e8f0fe',
+        primaryBorderColor: '#1a73e8',
+        lineColor: '#5f7fb8',
+        secondaryColor: '#0f9d58',
+        tertiaryColor: '#0d1a2e',
+        background: '#060b14',
+        mainBkg: '#0f2040',
+        nodeBorder: '#1a73e8',
+        clusterBkg: '#0d1a2e',
+        titleColor: '#e8f0fe',
+        edgeLabelBackground: '#0d1a2e',
+        fontFamily: "'Noto Sans JP', sans-serif",
+        fontSize: '13px',
+    },
+    flowchart: { curve: 'basis', padding: 20 },
+    sequence: { actorMargin: 60, mirrorActors: true },
 });
 
 interface MermaidProps {
-  chart: string;
+    chart: string;
 }
 
 /**
- * Mermaidダイアグラムのソーステキストを調整されたSVGにレンダリングし、ページに挿入します。
+ * SVG 後処理（fix-mermaid スキルの正準 applySvgFixups 実装）。
  *
- * Mermaidが生成したSVGをパースし、検出されたダイアグラムの種類（シーケンス図、左右フローチャート、
- * 上下フローチャート、またはフォールバック）に基づいてインラインサイズとレイアウトを調整し、
- * 得られたSVGをレスポンシブなコンテナ内に表示します。SVGのパースに失敗した場合は生のMermaid出力が
- * そのまま使用され、レンダリングエラー時にはエラーメッセージが表示されます。
+ * - width/height 属性を除去し viewBox 由来の自然 px 幅 + maxWidth:100% を設定する。
+ *   （width:'100%' は intrinsic サイズを持たない SVG をコンテナ全幅へ伸ばすため使わない。）
+ * - viewBox 高さを +extraHeight px 拡張して下部見切れを防ぐ。
+ * - overflow:visible で viewBox からの数 px はみ出しを描画する。
+ */
+function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
+    svgEl.removeAttribute('width');
+    svgEl.removeAttribute('height');
+    svgEl.style.height = 'auto';
+    svgEl.style.overflow = 'visible';
+    svgEl.style.display = 'block';
+    svgEl.style.margin = '0 auto';
+    svgEl.style.marginBottom = '10px';
+
+    const viewBox = svgEl.getAttribute('viewBox');
+    if (!viewBox) return;
+    const parts = viewBox.split(/\s+/).map(Number);
+    if (parts.length !== 4 || !parts.every((n) => Number.isFinite(n))) return;
+
+    const [x, y, w, h] = parts as [number, number, number, number];
+    const trimmed = chart.trim();
+    const isSequenceOrState =
+        trimmed.startsWith('sequenceDiagram') || trimmed.startsWith('stateDiagram');
+    const extraHeight = isSequenceOrState ? 110 : 15;
+
+    // ⚠️ SVG 幅の鉄則:
+    //   viewBox 由来の自然 px 幅 + maxWidth:100% を使う。
+    //   width:'100%' は viewBox のみで intrinsic サイズを持たない SVG をコンテナ全幅へ
+    //   伸ばし、小さい図を異常拡大させるため使わない。
+    //   width:${w}px + maxWidth:100% なら「親より広い図のみ縮小、小さい図は自然サイズ」となる。
+    svgEl.style.width = `${w}px`;
+    svgEl.style.maxWidth = '100%';
+    svgEl.setAttribute('viewBox', `${x} ${y} ${w} ${h + extraHeight}`);
+}
+
+/**
+ * Mermaid ダイアグラムを描画するコンポーネント。
  *
- * @param chart - Mermaidダイアグラムのソーステキスト
- * @returns レンダリング・調整されたSVGまたはエラーメッセージを含むコンポーネントのJSX要素
+ * fix-mermaid スキルの正準実装に準拠:
+ * - SVG 文字列を dangerouslySetInnerHTML で注入した後、ref 経由で実 DOM 上の svg 要素に
+ *   applySvgFixups を適用する（DOMParser+XMLSerializer 往復は foreignObject を破壊するため不使用）。
+ * - 図表は開発者が直書きした静的定数のみ（外部入力なし）のため外側サニタイズは不要。
  */
 export default function Mermaid({ chart }: MermaidProps) {
-  const [svgStr, setSvgStr] = useState<string>('');
+    const [svgStr, setSvgStr] = useState<string>('');
+    const wrapperRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    let isMounted = true;
+    // Step 1: mermaid.render() で SVG 文字列を生成して state へ格納
+    useEffect(() => {
+        let isMounted = true;
+        if (!chart) return;
 
-    const renderMermaid = async () => {
-      if (chart) {
-        try {
-          // ユニークなIDを付けて同一ページ内の複数図表に対応
-          const id = `mermaid-svg-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
-          const { svg } = await mermaid.render(id, chart);
-          
-          // DOMParserを使ってSVGのスタイルをインテリジェントに調整
-          const parser = new DOMParser();
-          const doc = parser.parseFromString(svg, 'image/svg+xml');
-          const parserError = doc.querySelector('parsererror');
-          const svgEl = doc.querySelector('svg');
-          
-          if (!parserError && svgEl) {
-            const isSequence = chart.includes('sequenceDiagram');
-            const isFlowchartLR = chart.includes('flowchart LR') || chart.includes('graph LR');
-            const isFlowchartTD = chart.includes('flowchart TD') || chart.includes('graph TD') || chart.includes('flowchart TB') || chart.includes('graph TB');
-            
-            if (svgEl.style) {
-              svgEl.style.height = 'auto';
-              svgEl.style.display = 'block';
-              svgEl.style.margin = '0 auto';
-              
-              if (isSequence) {
-                svgEl.style.width = '100%';
-                svgEl.style.maxWidth = '650px';
-              } else if (isFlowchartLR) {
-                const originalWidth = svgEl.getAttribute('width');
-                if (originalWidth && !originalWidth.includes('%')) {
-                  const widthVal = parseFloat(originalWidth);
-                  if (widthVal > 720) {
-                    svgEl.style.minWidth = originalWidth;
-                    svgEl.style.width = originalWidth;
-                  } else {
-                    svgEl.style.width = '100%';
-                    svgEl.style.maxWidth = originalWidth;
-                  }
-                } else {
-                  svgEl.style.maxWidth = '100%';
-                }
-              } else if (isFlowchartTD) {
-                svgEl.style.width = '100%';
-                svgEl.style.maxWidth = '480px';
-              } else {
-                svgEl.style.maxWidth = '100%';
-              }
+        const renderMermaid = async () => {
+            try {
+                const id = `mermaid-svg-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+                const { svg } = await mermaid.render(id, chart);
+                if (isMounted) setSvgStr(svg);
+            } catch (error) {
+                console.error('Mermaid rendering failed:', error);
+                if (isMounted)
+                    setSvgStr(`<p class="text-red-500">図表の描画に失敗しました</p>`);
             }
-            
-            // 図表は開発者が直書きした静的定数のみ（外部入力なし）のため
-            // 外側サニタイズは不要。サイズ調整済み SVG をそのまま描画する。
-            // 外側 DOMPurify(svg プロファイル)は htmlLabel の <div> や <style>
-            // ブロックを除去しテキスト・色・矢印・枠線を消すため適用しない。
-            const serializer = new XMLSerializer();
-            const newSvg = serializer.serializeToString(doc);
-            if (isMounted) {
-              setSvgStr(newSvg);
-            }
-          } else {
-            // パーサーエラー時は mermaid の生出力をそのまま描画する。
-            if (isMounted) {
-              setSvgStr(svg);
-            }
-          }
-        } catch (error) {
-          console.error("Mermaid rendering failed:", error);
-          if (isMounted) {
-            setSvgStr(`<p class="text-red-500">図表の描画に失敗しました</p>`);
-          }
-        }
-      }
-    };
-    
-    renderMermaid();
+        };
 
-    return () => {
-      isMounted = false;
-    };
-  }, [chart]);
+        renderMermaid();
+        return () => {
+            isMounted = false;
+        };
+    }, [chart]);
 
-  return (
-    <div 
-      className="mermaid-wrapper"
-      dangerouslySetInnerHTML={{ __html: svgStr }} 
-    />
-  );
+    // Step 2: 注入済みの実 DOM 上の svg 要素に applySvgFixups を適用
+    useEffect(() => {
+        if (!svgStr || !wrapperRef.current) return;
+        const svgEl = wrapperRef.current.querySelector('svg');
+        if (svgEl) applySvgFixups(svgEl as SVGSVGElement, chart);
+    }, [svgStr, chart]);
+
+    return (
+        <div
+            ref={wrapperRef}
+            className="mermaid-wrapper"
+            dangerouslySetInnerHTML={{ __html: svgStr }}
+        />
+    );
 }

@@ -340,13 +340,14 @@
     width: 100%;
 }
 
-/* Mermaid コンポーネントが出力する mermaid-wrapper を CTFL ページ専用で上書き。
-   CTFL ページでは flowchart TD の図解が巨大化する問題があるため、
-   !important でラッパーの最大幅を絞ってサイズを制限する。
-   （Mermaid.tsx グローバルコンポーネントは変更しない。他ページへの影響なし。） */
+/* Mermaid コンポーネントが出力する mermaid-wrapper を CTFL ページ専用でリセット。
+   グローバルデフォルト（globals.css）の card 背景・border・shadow を除去し、
+   .mermaid ラッパーのスタイルを活かす。
+   SVG サイズは applySvgFixups（JS）が width:${w}px + maxWidth:100% で制御するため
+   CSS 側では max-width を上書きしない。 */
 .istqb-ctfl-layout .mermaid-wrapper {
     width: 100%;
-    max-width: 420px !important;
+    max-width: 100%;
     margin: 0 auto !important;
     padding: 0 !important;
     background: transparent !important;
@@ -358,9 +359,10 @@
     overflow-x: auto;
 }
 
-/* SVG サイズは Mermaid.tsx の JS インラインスタイルが制御する。
-   CSS はフォールバックのみ（!important なし）。 */
+/* SVG はスキルの正準 applySvgFixups が width:${w}px + maxWidth:100% を設定済み。
+   CSS は縮小フォールバックのみ（!important なし）。 */
 .istqb-ctfl-layout .mermaid-wrapper svg {
+    max-width: 100%;
     height: auto;
     display: block;
     margin: 0 auto;

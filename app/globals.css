@@ -148,8 +148,9 @@
         width: 100%;
         max-width: 760px;
     }
+    /* SVG サイズは applySvgFixups（JS）が width:${w}px + maxWidth:100% で制御する。
+       CSS は「JS より広い場合に縮小」するフォールバックのみ（width は !important なし）。 */
     .mermaid-wrapper svg {
-        width: auto !important;
         max-width: 100% !important;
         height: auto !important;
         display: block;
