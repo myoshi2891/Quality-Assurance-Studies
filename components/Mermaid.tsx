@@ -114,7 +114,7 @@ export default function Mermaid({ chart }: MermaidProps) {
 
   return (
     <div 
-      className="mermaid-wrapper flex justify-center my-8 p-4 bg-[#1a2235] rounded-xl border border-[var(--color-border)] shadow-lg overflow-x-auto max-w-[760px] mx-auto w-full"
+      className="mermaid-wrapper"
       dangerouslySetInnerHTML={{ __html: svgStr }} 
     />
   );

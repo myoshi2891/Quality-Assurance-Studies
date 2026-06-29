@@ -131,6 +131,30 @@
         -ms-overflow-style: none;
         scrollbar-width: none;
     }
+
+    /* Mermaid コンポーネントの mermaid-wrapper グローバルデフォルト
+       各ページ固有 CSS でスコープ付きの上書きが可能 */
+    .mermaid-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        overflow-x: auto;
+        margin: 2rem auto;
+        padding: 1rem;
+        background: var(--color-bg-card, #131929);
+        border-radius: var(--radius-DEFAULT, 12px);
+        border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+        box-shadow: var(--shadow-DEFAULT, 0 4px 24px rgba(0, 0, 0, 0.4));
+        width: 100%;
+        max-width: 760px;
+    }
+    .mermaid-wrapper svg {
+        width: auto !important;
+        max-width: 100% !important;
+        height: auto !important;
+        display: block;
+        margin: 0 auto;
+    }
 }
 
 @layer utilities {

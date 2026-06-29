@@ -179,6 +179,7 @@
 
 .istqb-ctfl-layout .main {
     flex: 1;
+    min-width: 0;
     padding: 48px 56px;
     overflow-x: hidden;
     background: var(--color-background-primary);
@@ -336,11 +337,25 @@
     display: flex;
     justify-content: center;
     align-items: flex-start;
+    width: 100%;
 }
 
-.istqb-ctfl-layout .mermaid :global(svg) {
-    max-width: 850px !important;
+/* Mermaid コンポーネントが出力する mermaid-wrapper を上書き */
+.istqb-ctfl-layout .mermaid-wrapper {
+    max-width: 100% !important;
     width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.istqb-ctfl-layout .mermaid :global(svg),
+.istqb-ctfl-layout .mermaid-wrapper svg {
+    width: auto !important;
+    max-width: 100% !important;
     height: auto !important;
     display: block;
     margin: 0 auto;
