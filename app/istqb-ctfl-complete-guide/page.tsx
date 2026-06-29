@@ -941,12 +941,12 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                                 <tr>
                                     <td>100% ステートメント</td>
                                     <td>Line 3 と Line 5 の両方を実行</td>
-                                    <td>age > 60 かつ is_member のケースを含む</td>
+                                    <td>age &gt; 60 かつ is_member のケースを含む</td>
                                 </tr>
                                 <tr>
                                     <td>100% ブランチ</td>
                                     <td>各 if の True / False を両方実行</td>
-                                    <td>age > 60 の T/F × is_member の T/F = 最低3テスト</td>
+                                    <td>age &gt; 60 の T/F × is_member の T/F = 最低3テスト</td>
                                 </tr>
                             </tbody>
                         </table>
