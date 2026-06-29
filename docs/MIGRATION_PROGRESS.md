@@ -11,9 +11,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `e885528` |
+| 最新 HEAD | `240939a` |
 | 次の作業 | QA/テストプロセスの継続的改善 |
 | ビルド状態 | ✅ `bun run lint` / `bun test`（161 pass）成功（※ サンドボックス環境のビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/06/29: ISTQB CTFL v4.0 ガイドのサイドバーデザイン復元とカテゴリ変更
+
+- `app/istqb-ctfl-complete-guide/`: 水平ナビバーから、元の HTML に忠実な階層型左固定サイドバー（`NavBar.tsx`）レイアウトに復元。
+- `app/istqb-ctfl-complete-guide/istqb-ctfl-complete-guide.css`: カラー変数やサイドバー・メインエリアのレイアウト定義を移植。Mermaid図解サイズを `max-width: 850px` 中央寄せに制限。
+- `lib/navigation.ts`: `/istqb-ctfl-complete-guide` のカテゴリを `foundation` から `istqb-foundation-ext` へ移動。
+- `tests/lib/navigation.test.ts` & `tests/istqb-ctfl-complete-guide/page.test.tsx`: アサーション件数およびクラス指定の追従修正を実施し、全161テストパス。
+- `Istqb-ctfl.html`: 再び `archive/html-archive/` へ移動。
 
 ## 2026/06/29: ISTQB CTFL v4.0 ガイドの Next.js 移行完了
 
