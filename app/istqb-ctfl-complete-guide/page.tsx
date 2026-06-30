@@ -23,8 +23,8 @@ export default function IstqbCtflCompleteGuide() {
                     </p>
                 </section>
 
-                <section id="overview">
-                    <h2>概要・試験情報</h2>
+                <section>
+                    <h2 id="overview">概要・試験情報</h2>
                     <p>
                         CTFL v4.0 は 2023年4月21日にリリースされた ISTQB
                         フラッグシップ資格の完全再設計版です。 旧 Foundation + Agile Extension
@@ -33,8 +33,8 @@ export default function IstqbCtflCompleteGuide() {
                         2024年11月に保守更新版 v4.0.1 が公開されましたが試験内容の変更はありません。
                     </p>
 
-                    <div id="exam-spec">
-                        <h3>試験仕様</h3>
+                    <div>
+                        <h3 id="exam-spec">試験仕様</h3>
                         <div className="meta-grid">
                             <div className="meta-card">
                                 <div className="label">問題数</div>
@@ -69,8 +69,8 @@ export default function IstqbCtflCompleteGuide() {
                         </div>
                     </div>
 
-                    <div id="chapter-dist">
-                        <h3>章別出題配分</h3>
+                    <div>
+                        <h3 id="chapter-dist">章別出題配分</h3>
                         <div className="chapter-bar">
                             <span className="ch-name">Chapter 1: テストの基礎</span>
                             <div className="progress-bar">
@@ -141,8 +141,8 @@ export default function IstqbCtflCompleteGuide() {
                         </div>
                     </div>
 
-                    <div id="certification-path">
-                        <h3>認定スキームにおける位置付け</h3>
+                    <div>
+                        <h3 id="certification-path">認定スキームにおける位置付け</h3>
                         <div className="mermaid">
                             <Mermaid chart={`graph TD
 CTFL["CTFL v4.0 Foundation Level (すべての上位認定の前提)"]
@@ -171,7 +171,7 @@ style GENAI fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
                         </div>
                         <div className="callout callout-info">
                             <strong>2026年最新動向:</strong> CT-AI v2.0 が
-                            2026年4月にリリース（v1.0は2027年4月に英語試験終了）。 CT-GenAI v1.1
+                            2026年4月にリリース（v1.0は2027年4月21日に英語試験終了）。 CT-GenAI v1.1
                             も並行して提供中。CTAL-TA v4.0 が 2025年5月リリース、旧 v3.1 英語試験は
                             2026年5月に終了。
                         </div>
@@ -180,8 +180,8 @@ style GENAI fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
 
                 <hr className="section-sep" />
 
-                <section id="ch1">
-                    <h2>Chapter 1: テストの基礎</h2>
+                <section>
+                    <h2 id="ch1">Chapter 1: テストの基礎</h2>
                     <p>
                         Chapter 1
                         は試験全体の語彙と概念的土台を提供します。ここを曖昧にすると他の章の問題でも
@@ -218,8 +218,8 @@ style GENAI fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
                         </tbody>
                     </table>
 
-                    <div id="error-defect">
-                        <h3>エラー・欠陥・障害の連鎖</h3>
+                    <div>
+                        <h3 id="error-defect">エラー・欠陥・障害の連鎖</h3>
                         <div className="mermaid">
                             <Mermaid chart={`flowchart LR
 E["エラー (Error) 人間のミス 例: 開発者が計算式を誤記"]
@@ -269,8 +269,8 @@ style R fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
                         </table>
                     </div>
 
-                    <div id="7principles">
-                        <h3>テストの7原則</h3>
+                    <div>
+                        <h3 id="7principles">テストの7原則</h3>
                         <div className="callout callout-danger">
                             <strong>試験必出:</strong> 7原則は K1（定義の再現）と
                             K2（概念の説明）レベルで問われます。
@@ -329,8 +329,8 @@ style R fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
                         </div>
                     </div>
 
-                    <div id="test-process">
-                        <h3>テストプロセスの7アクティビティ</h3>
+                    <div>
+                        <h3 id="test-process">テストプロセスの7アクティビティ</h3>
                         <div className="mermaid">
                             <Mermaid chart={`flowchart LR
 TP["テスト計画 (Test Planning)"]
@@ -393,8 +393,8 @@ style TC fill:#134e4a,stroke:#14b8a6,color:#99f6e4`} />
 
                 <hr className="section-sep" />
 
-                <section id="ch2">
-                    <h2>Chapter 2: SDLCとテスト</h2>
+                <section>
+                    <h2 id="ch2">Chapter 2: SDLCとテスト</h2>
 
                     <h3>SDLCモデルとテストアプローチの対応</h3>
                     <div className="mermaid">
@@ -421,8 +421,8 @@ style AGILE fill:#7c2d12,stroke:#f97316,color:#fed7aa
 style DEVOPS fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
                     </div>
 
-                    <div id="shift-left">
-                        <h3>シフトレフトと DevOps</h3>
+                    <div>
+                        <h3 id="shift-left">シフトレフトと DevOps</h3>
                         <div className="mermaid">
                             <Mermaid chart={`flowchart LR
 R["要件定義 (テスター参画・ 仕様レビュー)"]
@@ -468,8 +468,8 @@ style DEP fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
                         </table>
                     </div>
 
-                    <div id="test-levels">
-                        <h3>テストレベル（5段階）</h3>
+                    <div>
+                        <h3 id="test-levels">テストレベル（5段階）</h3>
                         <div className="mermaid">
                             <Mermaid chart={`flowchart TD
 CT["コンポーネントテスト (Unit Testing) 個別モジュールの検証"]
@@ -522,8 +522,8 @@ style AT fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
                         </table>
                     </div>
 
-                    <div id="test-types">
-                        <h3>テストタイプ</h3>
+                    <div>
+                        <h3 id="test-types">テストタイプ</h3>
                         <table>
                             <thead>
                                 <tr>
@@ -571,15 +571,15 @@ style AT fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
 
                 <hr className="section-sep" />
 
-                <section id="ch3">
-                    <h2>Chapter 3: 静的テスト</h2>
+                <section>
+                    <h2 id="ch3">Chapter 3: 静的テスト</h2>
                     <p>
                         静的テストはソフトウェアを<strong>実行せずに</strong>欠陥を検出する手法です。
                         動的テストでは発見しにくい、要件の曖昧さ・設計の脆弱性・デッドコードなどを早期に発見できます。
                     </p>
 
-                    <div id="review-process">
-                        <h3>レビュープロセス</h3>
+                    <div>
+                        <h3 id="review-process">レビュープロセス</h3>
                         <div className="mermaid">
                             <Mermaid chart={`flowchart LR
 PL["計画 (Planning) スコープ・参加者・ タイプ選定"]
@@ -599,8 +599,8 @@ style FR fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
                         </div>
                     </div>
 
-                    <div id="review-types">
-                        <h3>レビュータイプの比較</h3>
+                    <div>
+                        <h3 id="review-types">レビュータイプの比較</h3>
                         <div className="callout callout-danger">
                             <strong>試験最頻出:</strong>
                             4種類のレビューの「形式度」「誰がリーダーか」「ドキュメントが必須か」を正確に覚えてください。
@@ -690,8 +690,8 @@ style FR fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
 
                 <hr className="section-sep" />
 
-                <section id="ch4">
-                    <h2>Chapter 4: テスト分析・設計</h2>
+                <section>
+                    <h2 id="ch4">Chapter 4: テスト分析・設計</h2>
                     <p>
                         試験の27.5%（11問）を占める最重要章です。
                         K3（適用）レベルの問題が集中しており、具体的な仕様から実際にテストケースを導出できる
@@ -726,8 +726,8 @@ style EB fill:#831843,stroke:#ec4899,color:#fbcfe8
 style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                     </div>
 
-                    <div id="ep">
-                        <h3>同値分割（Equivalence Partitioning: EP）</h3>
+                    <div>
+                        <h3 id="ep">同値分割（Equivalence Partitioning: EP）</h3>
                         <p>
                             入力値を「同じ動作をする」グループ（同値クラス）に分割し、各グループから代表値を1つだけ選んでテストする技法。
                             テストケース数を削減しながら、効率的なカバレッジを達成します。
@@ -771,8 +771,8 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                         </div>
                     </div>
 
-                    <div id="bva">
-                        <h3>境界値分析（Boundary Value Analysis: BVA）</h3>
+                    <div>
+                        <h3 id="bva">境界値分析（Boundary Value Analysis: BVA）</h3>
                         <p>
                             境界付近の値に欠陥が集中するという経験則を活用した技法。 開発者が
                             <code>&lt;=</code> を <code>&lt;</code> と誤記するような境界の
@@ -809,8 +809,8 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                         </div>
                     </div>
 
-                    <div id="decision-table">
-                        <h3>デシジョンテーブルテスト</h3>
+                    <div>
+                        <h3 id="decision-table">デシジョンテーブルテスト</h3>
                         <p>
                             複数の条件の組み合わせによるシステム動作を体系的に網羅します。 n個の条件
                             → 最大 2<sup>n</sup>
@@ -877,8 +877,8 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                         </p>
                     </div>
 
-                    <div id="state-transition">
-                        <h3>状態遷移テスト</h3>
+                    <div>
+                        <h3 id="state-transition">状態遷移テスト</h3>
                         <p>
                             システムの状態変化をモデル化してテストケースを設計します。
                             ATM・ログイン・注文ライフサイクルなど、状態依存の動作を持つシステムに有効です。
@@ -917,8 +917,8 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                         </table>
                     </div>
 
-                    <div id="whitebox">
-                        <h3>ホワイトボックステスト技法</h3>
+                    <div>
+                        <h3 id="whitebox">ホワイトボックステスト技法</h3>
                         <h4>ステートメントテスト vs ブランチテスト</h4>
                         <div className="code-block" data-lang="Python">
                             <div className="code-line"><span className="code-keyword">def</span> <span className="code-cyan">check_discount</span>(age, is_member):</div>
@@ -960,8 +960,8 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                         </div>
                     </div>
 
-                    <div id="exploratory">
-                        <h3>探索的テスト</h3>
+                    <div>
+                        <h3 id="exploratory">探索的テスト</h3>
                         <p>
                             テストの設計・実行・学習を<strong>同時並行</strong>で行う動的なアプローチ。
                             テスターの知識・経験・好奇心を最大限に活用し、形式的なテストでは見逃しやすい欠陥を発見します。
@@ -993,8 +993,8 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                         </table>
                     </div>
 
-                    <div id="atdd">
-                        <h3>ATDD・コラボレーションベース技法（v4.0 新追加）</h3>
+                    <div>
+                        <h3 id="atdd">ATDD・コラボレーションベース技法（v4.0 新追加）</h3>
                         <h4>INVEST 原則（ユーザーストーリー品質評価）</h4>
                         <table>
                             <thead>
@@ -1062,11 +1062,11 @@ style DEV fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
 
                 <hr className="section-sep" />
 
-                <section id="ch5">
-                    <h2>Chapter 5: テスト活動の管理</h2>
+                <section>
+                    <h2 id="ch5">Chapter 5: テスト活動の管理</h2>
 
-                    <div id="test-planning">
-                        <h3>テスト計画</h3>
+                    <div>
+                        <h3 id="test-planning">テスト計画</h3>
                         <h4>テストピラミッドとテスト四象限</h4>
                         <div className="two-col">
                             <div className="box">
@@ -1113,8 +1113,8 @@ style DEV fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
                         </table>
                     </div>
 
-                    <div id="risk-mgmt">
-                        <h3>リスク管理</h3>
+                    <div>
+                        <h3 id="risk-mgmt">リスク管理</h3>
                         <h4>リスクの分類</h4>
                         <table>
                             <thead>
@@ -1157,8 +1157,8 @@ style RC fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
                         </div>
                     </div>
 
-                    <div id="monitoring">
-                        <h3>テストモニタリング・コントロール・完了</h3>
+                    <div>
+                        <h3 id="monitoring">テストモニタリング・コントロール・完了</h3>
                         <h4>主要テストメトリクス</h4>
                         <table>
                             <thead>
@@ -1215,8 +1215,8 @@ style RC fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
                         </table>
                     </div>
 
-                    <div id="defect-mgmt">
-                        <h3>欠陥管理</h3>
+                    <div>
+                        <h3 id="defect-mgmt">欠陥管理</h3>
                         <div className="mermaid">
                             <Mermaid chart={`stateDiagram-v2
 [*] --> 新規New
@@ -1251,8 +1251,8 @@ style RC fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
 
                 <hr className="section-sep" />
 
-                <section id="ch6">
-                    <h2>Chapter 6: テストツール</h2>
+                <section>
+                    <h2 id="ch6">Chapter 6: テストツール</h2>
                     <table>
                         <thead>
                             <tr>
@@ -1332,8 +1332,8 @@ style RC fill:#7c2d12,stroke:#f97316,color:#fed7aa`} />
 
                 <hr className="section-sep" />
 
-                <section id="exam-strategy">
-                    <h2>試験対策・学習戦略</h2>
+                <section>
+                    <h2 id="exam-strategy">試験対策・学習戦略</h2>
 
                     <h3>K-Level 別の出題傾向</h3>
                     <table>
@@ -1450,8 +1450,8 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
 
                 <hr className="section-sep" />
 
-                <section id="references">
-                    <h2>参考文献・公式リソース</h2>
+                <section>
+                    <h2 id="references">参考文献・公式リソース</h2>
                     <p
                         style={{fontSize: "13px", color: "var(--color-text-secondary)", marginBottom: "16px"}}
                     >

@@ -84,7 +84,10 @@ export default function Mermaid({ chart }: MermaidProps) {
     // Step 1: mermaid.render() で SVG 文字列を生成して state へ格納
     useEffect(() => {
         let isMounted = true;
-        if (!chart) return;
+        if (!chart) {
+            setSvgStr('');
+            return;
+        }
 
         const renderMermaid = async () => {
             try {
