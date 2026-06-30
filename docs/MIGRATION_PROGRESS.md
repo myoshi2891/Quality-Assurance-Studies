@@ -1,19 +1,39 @@
 # Migration Progress
 
-Updated 2026-06-11
+Updated 2026-06-30
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 全34ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
+> **✅ 全ガイド移行完了**: 全35ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `e80058b` |
+| 最新 HEAD | `5e3acbe` |
 | 次の作業 | QA/テストプロセスの継続的改善 |
-| ビルド状態 | ✅ `bun run build`（34ページ静的生成）/ `bun run lint` / `bun test`（154 pass）全て成功。 |
+| ビルド状態 | ✅ `bun run lint` / `bun test`（161 pass）成功（※ サンドボックス環境のビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/06/30: CTFL v4.0 Chapter 3 (静的テスト) Markdown ガイドの追加と検証
+
+- `Ctfl-v4-chapter3-static-testing.md` を追加し、他章との命名一貫性を確保。
+- `.markdownlint.json` に準拠したフォーマット修正（裸の URL の修正、引用ブロック内空行の解消）を実施し、検証を通過。
+
+## 2026/06/29: ISTQB CTFL v4.0 ガイドのサイドバーデザイン復元とカテゴリ変更
+
+- `app/istqb-ctfl-complete-guide/`: 水平ナビバーから、元の HTML に忠実な階層型左固定サイドバー（`NavBar.tsx`）レイアウトに復元。
+- `app/istqb-ctfl-complete-guide/istqb-ctfl-complete-guide.css`: カラー変数やサイドバー・メインエリアのレイアウト定義を移植。Mermaid図解サイズを `max-width: 850px` 中央寄せに制限。
+- `lib/navigation.ts`: `/istqb-ctfl-complete-guide` のカテゴリを `foundation` から `istqb-foundation-ext` へ移動。
+- `tests/lib/navigation.test.ts` & `tests/istqb-ctfl-complete-guide/page.test.tsx`: アサーション件数およびクラス指定の追従修正を実施し、全161テストパス。
+- `Istqb-ctfl.html`: 再び `archive/html-archive/` へ移動。
+
+## 2026/06/29: ISTQB CTFL v4.0 ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-complete-guide/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
+- `tests/istqb-ctfl-complete-guide/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（161件）。
+- `Istqb-ctfl.html`: `archive/html-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html` など）を最新の 35 ページ体制に同期。
 
 ## 2026/06/12: 受入テストガイドの ATDD 図解レイアウト調整
 
@@ -109,14 +129,14 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - `app/istqb-ctel-itp-itpi-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装し、IntersectionObserverを追加。
 - 誤変換されていた Mermaid 構文と DOM プロパティを修正。
-- `istqb-ctel-itp-itpi-complete-guide.html`: `html-archive/` へ移動。
+- `istqb-ctel-itp-itpi-complete-guide.html`: `archive/html-archive/` へ移動。
 - `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）。
 - `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施。
 
 ## 2026/05/28: CTEL-ITP-ATP Expert Level Guide の Next.js 移行完了
 
 - `app/istqb-ctel-itp-atp-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装.
-- `istqb-ctel-itp-atp-complete-guide.html`: `html-archive/` へ移動.
+- `istqb-ctel-itp-atp-complete-guide.html`: `archive/html-archive/` へ移動.
 - `lib/navigation.ts`: `NAV_ITEMS` へ項目追加（エキスパートレベルカテゴリ）.
 - `CLAUDE.md` / `GEMINI.md` / `docs/coverage-dashboard.html`: 移行済みリストを更新し、同期を実施.
 - **全 HTML 移行完了**: これにより、プロジェクトルートにあったすべての静的 HTML ページの Next.js 移行が完了しました。
@@ -124,7 +144,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/05/27: CTAL-TTA ガイドの Next.js 移行完了
 
 - `app/istqb-ctal-tta-complete-guide/`: ページコンポーネント、スタイル、NavBarを実装.
-- `istqb-ctal-tta-complete-guide.html`: `html-archive/` へ移動.
+- `istqb-ctal-tta-complete-guide.html`: `archive/html-archive/` へ移動.
 - ESLint: `no-explicit-any` および `no-unused-vars` の修正を実施.
 - テスト: `tests/istqb-ctal-tta-complete-guide/page.test.tsx` を追加し、全テスト通過を確認.
 
@@ -289,7 +309,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ## 移行状況テーブル
 
-### 移行完了（html-archive/ に移動済み）
+### 移行完了（archive/html-archive/ に移動済み）
 
 | 元 HTML | 移行先ルート | 備考 |
 |---|---|---|
@@ -309,6 +329,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ct-ste-complete-guide.html` | `/istqb-ct-ste-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
+| `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -334,7 +355,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ## 既知の留保事項
 
-- `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
+- `istqb-ctfl-at-complete-guide` と `bdd-testing-guide` / `ai-test-guide` は archive/html-archive/ に元 HTML が存在しない（最初から Next.js で作成）
 - `istqb-ct-aut-complete-guide.html` はリポジトリ内に存在しません（not found）。
 
 ## 次回セッションでの再開プロンプト

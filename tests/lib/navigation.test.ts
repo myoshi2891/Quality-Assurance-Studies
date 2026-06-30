@@ -2,8 +2,8 @@ import { describe, it, expect } from 'bun:test';
 import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 34 entries (home + 8 foundation + 1 fdn-ext + 6 advanced + 13 specialist + 5 expert)', () => {
-    expect(NAV_ITEMS).toHaveLength(34);
+  it('contains 35 entries (home + 8 foundation + 2 fdn-ext + 6 advanced + 13 specialist + 5 expert)', () => {
+    expect(NAV_ITEMS).toHaveLength(35);
   });
 
   it('every item has a unique href', () => {
@@ -26,6 +26,12 @@ describe('NAV_ITEMS', () => {
   it('classifies /istqb-ctfl-at-complete-guide as istqb-foundation-ext', () => {
     const ctflAt = NAV_ITEMS.find((item: NavItem) => item.href === '/istqb-ctfl-at-complete-guide');
     expect(ctflAt?.category).toBe('istqb-foundation-ext');
+  });
+
+  it('pins /istqb-ctfl-complete-guide under istqb-foundation-ext (catches reorder/misclassification)', () => {
+    const ctfl = NAV_ITEMS.find((item: NavItem) => item.href === '/istqb-ctfl-complete-guide');
+    expect(ctfl).toBeDefined();
+    expect(ctfl?.category).toBe('istqb-foundation-ext');
   });
 
   it('classifies home "/" as home category', () => {

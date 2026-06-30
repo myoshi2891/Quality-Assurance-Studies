@@ -17,7 +17,15 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 > [!IMPORTANT]
 > **ビルド実行に関する重要ルール (AIエージェント用規約):**
-> AIエージェントは、自律的・自動的に本番ビルドコマンド（`bun run build`、`next build` 等）を実行してはなりません。ビルド検証が必要な場合は、自らコマンドを走らせず、必ずユーザーにビルドの実行を依頼してください。勝手に実行すると、ローカル環境のビルドプロセスと競合し、開発を阻害する原因となります。
+> **Antigravityのサンドボックス環境においては**、ビルドのバックグラウンド実行が正常にハンドリングされず、
+> ビルド待ちの状態が続いてローカルメモリを過度に圧迫し、最終的にクラッシュを引き起こす問題が
+> 確認されています。
+> そのため、本プロジェクトのルール（`migration-progress-sync.md` や `tdd-mandatory-cycle.md`
+> などのゲート条件）でビルドの検証が義務付けられている場合であっても、AIエージェント
+> （Antigravity）は**自律的・自動的に本番ビルドコマンド（`bun run build`、`next build` 等）を
+> 実行してはなりません（このサンドボックス上の制約は他のあらゆるゲート条件より最優先されます）**。
+> ビルド検証が必要な場合は、自らコマンドを実行せず、必ずユーザーにビルドの実行および成否の確認を
+> 依頼してください。
 
 - **Install dependencies:**
 
@@ -86,6 +94,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/software-testing-methodologies-guide/page.tsx` (テスト手法ガイド)
 - `app/unit-testing-guide/page.tsx` (ユニットテスト完全ガイド)
 - `app/istqb-ctfl-at-complete-guide/page.tsx` (アジャイル(CTFL-AT)完全ガイド)
+- `app/istqb-ctfl-complete-guide/page.tsx` (ISTQB CTFL v4.0 完全解説ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tae-complete-guide/page.tsx` (テスト自動化 CTAL-TAE 完全ガイド)
 - `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
@@ -172,6 +181,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `istqb-ct-game-complete-guide.html` | `/istqb-ct-game-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
+| `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |

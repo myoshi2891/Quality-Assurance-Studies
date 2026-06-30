@@ -94,6 +94,9 @@ Next.js App Router 構成:
 - `app/bdd-testing-guide.css` — BDDガイド固有スタイル
 - `app/istqb-ctfl-at-guide.css` — アジャイル(CTFL-AT)ガイド固有スタイル
 - `app/istqb-ctfl-at-complete-guide/page.tsx` — アジャイル(CTFL-AT)ガイドページ
+- `app/istqb-ctfl-complete-guide/istqb-ctfl-complete-guide.css` — ISTQB CTFL v4.0 ガイド固有スタイル
+- `app/istqb-ctfl-complete-guide/page.tsx` — ISTQB CTFL v4.0 ガイドページ
+- `app/istqb-ctfl-complete-guide/NavBar.tsx` — CTFL ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `app/software-testing-methodologies-guide.css` — テスト手法ガイド固有スタイル
 - `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
 - `app/istqb-ctal-tae-complete-guide.css` — テスト自動化(CTAL-TAE)ガイド固有スタイル
@@ -269,9 +272,13 @@ HTML の全コンテンツ（リスト項目・コードブロック・テーブ
 1ページ移行の `git commit` 完了直後、次の HTML を `Read` し始める前に必ず実施する（ゲート条件）:
 
 ```bash
-bun run build   # ビルド成功を確認
 bun run lint    # ESLint エラーなし
+bun test        # ユニットテスト成功
 ```
+
+> **本番ビルド検証の制約:** サンドボックス環境では `bun run build` を直接実行しない。
+> ビルド検証が必要な場合は、エージェントが自律実行するのではなく**ユーザーに実行を依頼**し、
+> 結果の共有を待つこと（`docs/MIGRATION_PROGRESS.md` の「ビルド状態」欄もこの方針に従う）。
 
 その後 `docs/MIGRATION_PROGRESS.md` を更新してコミット。手順は `.claude/rules/migration-progress-sync.md` を参照。
 
@@ -309,6 +316,7 @@ bun run lint    # ESLint エラーなし
 | `istqb-ct-ste-complete-guide.html` | `/istqb-ct-ste-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
+| `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -337,10 +345,14 @@ bun run lint    # ESLint エラーなし
 
 ```text
 コンテキスト:
-- 最新 HEAD: `e80058b`
-- **全ガイド移行完了**: プロジェクトルートに存在した全34ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 34 ルート（ホーム + 33 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全35ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました（ISTQB CTFL v4.0 ガイドを含む）。
+- 合計 35 ルート（ホーム + 34 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
+- 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
+
+【ビルド検証の制約】
+サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。
+ローカル検証は `bun run lint` と `bun test` で行う。
 
 【指示】
 全ガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
