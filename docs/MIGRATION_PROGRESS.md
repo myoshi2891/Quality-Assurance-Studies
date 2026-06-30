@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-06-29
+Updated 2026-06-30
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -11,9 +11,14 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `240939a` |
+| 最新 HEAD | `b4b1136` |
 | 次の作業 | QA/テストプロセスの継続的改善 |
 | ビルド状態 | ✅ `bun run lint` / `bun test`（161 pass）成功（※ サンドボックス環境のビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/06/30: CTFL v4.0 Chapter 3 (静的テスト) Markdown ガイドの追加と検証
+
+- `Ctfl-v4-chapter3-static-testing.md` を追加し、他章との命名一貫性を確保。
+- `.markdownlint.json` に準拠したフォーマット修正（裸の URL の修正、引用ブロック内空行の解消）を実施し、検証を通過。
 
 ## 2026/06/29: ISTQB CTFL v4.0 ガイドのサイドバーデザイン復元とカテゴリ変更
 
