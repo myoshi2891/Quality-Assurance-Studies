@@ -32,12 +32,9 @@ interface MermaidProps {
 }
 
 /**
- * SVG 後処理（fix-mermaid スキルの正準 applySvgFixups 実装）。
+ * Adjusts a rendered Mermaid SVG for layout and sizing.
  *
- * - width/height 属性を除去し viewBox 由来の自然 px 幅 + maxWidth:100% を設定する。
- *   （width:'100%' は intrinsic サイズを持たない SVG をコンテナ全幅へ伸ばすため使わない。）
- * - viewBox 高さを +extraHeight px 拡張して下部見切れを防ぐ。
- * - overflow:visible で viewBox からの数 px はみ出しを描画する。
+ * @param chart - The Mermaid diagram source, used to determine the extra bottom padding for some diagram types.
  */
 function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
     svgEl.removeAttribute('width');
@@ -70,12 +67,9 @@ function applySvgFixups(svgEl: SVGSVGElement, chart: string): void {
 }
 
 /**
- * Mermaid ダイアグラムを描画するコンポーネント。
+ * Renders a Mermaid diagram from a chart definition.
  *
- * fix-mermaid スキルの正準実装に準拠:
- * - SVG 文字列を dangerouslySetInnerHTML で注入した後、ref 経由で実 DOM 上の svg 要素に
- *   applySvgFixups を適用する（DOMParser+XMLSerializer 往復は foreignObject を破壊するため不使用）。
- * - 図表は開発者が直書きした静的定数のみ（外部入力なし）のため外側サニタイズは不要。
+ * @param chart - Mermaid diagram source code
  */
 export default function Mermaid({ chart }: MermaidProps) {
     const [svgStr, setSvgStr] = useState<string>('');

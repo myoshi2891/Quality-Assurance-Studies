@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 
 /**
- * ISTQB CTFL v4.0 完全解説ガイド用の左固定サイドバーナビゲーション。
- * スクロール位置に応じてアクティブなセクションのリンクに `active` クラスおよび `aria-current="location"` を設定します。
+ * 左固定の章ナビゲーションを表示します。
+ *
+ * スクロール位置に応じて、表示中のセクションに対応するリンクへ `active` クラスと `aria-current="location"` を設定します。
  */
 export default function NavBar() {
     useEffect(() => {
