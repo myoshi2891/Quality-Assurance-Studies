@@ -793,17 +793,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart TD A["Chapter 2: SDLCとテスト"] --> B["2.1
-                        SDLCのコンテキスト\nにおけるテスト"] A --> C["2.2
-                        テストレベルと\nテストタイプ"] A --> D["2.3 メンテナンステスト"] B -->
-                        B1["2.1.1 SDLCモデルの影響"] B --> B2["2.1.2 良いテスト実践"] B -->
-                        B3["2.1.3 TDD/ATDD/BDD"] B --> B4["2.1.4 DevOps"] B --> B5["2.1.5 Shift
-                        Left"] B --> B6["2.1.6 レトロスペクティブ"] C --> C1["2.2.1 テストレベル
-                        5段階"] C --> C2["2.2.2 テストタイプ 4種類"] C --> C3["2.2.3
-                        確認・リグレッション"] D --> D1["変更の種類と契機"] D -->
-                        D2["インパクト分析"]
-                    </div>
+                    <div class="mermaid" id="d1"></div>
                     <div class="mermaid-caption">図1: Chapter 2 構造マップ</div>
                 </div>
 
@@ -866,14 +856,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart LR subgraph seq["シーケンシャルモデル"] W["Waterfall"]
-                        V["V-model"] end subgraph iter["イテラティブ/インクリメンタル"] AG["Agile:
-                        Scrum/XP/Kanban"] SP["Spiral"] end subgraph hyb["ハイブリッド"] HB["Wagile
-                        等"] end seq -->|"静的テスト中心 後半に動的"| e1["テスト後倒しリスク"] iter
-                        -->|"各イテレーションで静的+動的"| e2["継続的テストが可能"] hyb -->
-                        e3["組み合わせに応じて調整"]
-                    </div>
+                    <div class="mermaid" id="d2"></div>
                     <div class="mermaid-caption">図2: SDLCモデルの分類とテストへの影響</div>
                 </div>
 
@@ -929,15 +912,7 @@
                         >となる成果物が明示的に結びつく。
                     </p>
                     <div class="mermaid-wrap">
-                        <div class="mermaid">
-                            flowchart LR subgraph left["開発フェーズ（左辺）"] R["要件定義"] -->
-                            SA["システム設計"] --> AD["アーキテクチャ設計"] --> DD["詳細設計"] -->
-                            CD["コーディング"] end subgraph right["テストフェーズ（右辺）"]
-                            AT["受入テスト"] --> ST["システムテスト"] --> SIT["システム統合テスト"]
-                            --> CIT["コンポーネント統合テスト"] --> CT["コンポーネントテスト"] end R
-                            -.->|"テスト基盤"| AT SA -.->|"テスト基盤"| ST AD -.->|"テスト基盤"| SIT
-                            DD -.->|"テスト基盤"| CIT CD --> CT
-                        </div>
+                        <div class="mermaid" id="d3"></div>
                         <div class="mermaid-caption">
                             図3: V-model — 開発フェーズとテストレベルの対応（v4.0の5レベル構成）
                         </div>
@@ -961,13 +936,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart TD GP["Good Testing Practices"] --> P1["1.
-                        テスト目標の対応付け\n各開発活動に対応するテスト活動を設ける"] GP --> P2["2.
-                        テストタイプの適用\n各テストレベルに適切なテストタイプを使用"] GP --> P3["3.
-                        テスト目標のSDLC適合\nプロセス・制約・目標に合わせてテスト目標を策定"] GP
-                        --> P4["4. テスター関与の早期化\nレビュー・分析・設計を開発初期から実施"]
-                    </div>
+                    <div class="mermaid" id="d4"></div>
                     <div class="mermaid-caption">図4: 良いテスト実践の4原則</div>
                 </div>
 
@@ -1062,11 +1031,7 @@
                 <div class="subsection">
                     <h3>TDD サイクル（Red-Green-Refactor）</h3>
                     <div class="mermaid-wrap">
-                        <div class="mermaid">
-                            flowchart LR A["1. Failing Test を書く\nRed"] --> B["2.
-                            テストを通る最小限のコードを書く\nGreen"] B --> C["3.
-                            コードをリファクタリング\nRefactor"] C --> A
-                        </div>
+                        <div class="mermaid" id="d5"></div>
                         <div class="mermaid-caption">図5: TDD の Red-Green-Refactor サイクル</div>
                     </div>
                 </div>
@@ -1142,16 +1107,7 @@
                 <div class="subsection">
                     <h3>CI/CDパイプラインにおけるテストフロー</h3>
                     <div class="mermaid-wrap">
-                        <div class="mermaid">
-                            flowchart LR commit["コードコミット"] --> build["CIビルド"] build -->
-                            ct["コンポーネントテスト\n自動実行"] ct -->
-                            integ["統合テスト\n自動実行"] integ --> sa["静的解析\nLint / SAST"] sa
-                            --> stage["ステージング\n環境デプロイ"] stage -->
-                            sys["システムテスト\n自動実行"] sys --> manual["探索的テスト\n手動"]
-                            manual --> prod["本番デプロイ"] ct -->|"失敗"|
-                            notify["開発者に即時通知"] integ -->|"失敗"| notify sys -->|"失敗"|
-                            notify
-                        </div>
+                        <div class="mermaid" id="d6"></div>
                         <div class="mermaid-caption">
                             図6: DevOps CI/CDパイプラインにおけるテストフロー
                         </div>
@@ -1191,12 +1147,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart LR subgraph trad["従来のアプローチ（後倒し）"] t1["要件"] -->
-                        t2["設計"] --> t3["実装"] --> t4["テスト"] end subgraph sl["シフトレフト"]
-                        s1["テスト設計\n要件段階"] --> s2["仕様レビュー\n設計段階"] -->
-                        s3["TDD/ATDD\n実装段階"] --> s4["テスト実行\n通常タイミング"] end
-                    </div>
+                    <div class="mermaid" id="d7"></div>
                     <div class="mermaid-caption">図7: 従来アプローチ vs シフトレフト</div>
                 </div>
 
@@ -1258,13 +1209,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart TD retro["レトロスペクティブ"] retro -->
-                        r1["成功事例の確認\n続けること"] retro --> r2["改善機会の特定\n変えること"]
-                        retro --> r3["教訓の文書化\n次プロジェクトへの継承"] r1 -->
-                        out["テスト有効性・効率性・品質の向上\nチームコラボレーションの改善"] r2 -->
-                        out r3 --> out
-                    </div>
+                    <div class="mermaid" id="d8"></div>
                     <div class="mermaid-caption">図8: レトロスペクティブの構造と成果</div>
                 </div>
 
@@ -1314,12 +1259,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart BT L1["コンポーネントテスト\nComponent Testing"] -->
-                        L2["コンポーネント統合テスト\nComponent Integration Testing"] L2 -->
-                        L3["システムテスト\nSystem Testing"] L3 --> L4["システム統合テスト\nSystem
-                        Integration Testing"] L4 --> L5["受入テスト\nAcceptance Testing"]
-                    </div>
+                    <div class="mermaid" id="d9"></div>
                     <div class="mermaid-caption">図9: 5段階テストレベルの階層構造（v4.0）</div>
                 </div>
 
@@ -1384,13 +1324,7 @@
                     <h3>受入テストの4サブタイプ</h3>
                     <p>受入テストはシラバスで特に詳しく定義されており、試験で問われやすい。</p>
                     <div class="mermaid-wrap">
-                        <div class="mermaid">
-                            flowchart TD AT["受入テスト\nAcceptance Testing"] AT -->
-                            UAT["ユーザー受入テスト\nUAT\n実際のユーザーが実シナリオで検証"] AT -->
-                            OAT["運用受入テスト\nOAT\nシステム管理者が運用面を検証"] AT -->
-                            CRT["契約・規制受入テスト\n契約条件・法規制への準拠検証"] AT -->
-                            ABT["アルファ/ベータテスト\n限定ユーザーによる実環境テスト"]
-                        </div>
+                        <div class="mermaid" id="d10"></div>
                         <div class="mermaid-caption">図10: 受入テストの4サブタイプ</div>
                     </div>
                     <div class="table-wrap">
@@ -1445,13 +1379,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart TD TT["テストタイプ\nTest Types"] TT -->
-                        FT["機能テスト\nFunctional Testing\n「何をするか」を検証"] TT -->
-                        NFT["非機能テスト\nNon-Functional Testing\n「どのようにするか」を検証"] TT
-                        --> BBT["ブラックボックステスト\nBlack-Box Testing\n仕様・外部仕様ベース"]
-                        TT --> WBT["ホワイトボックステスト\nWhite-Box Testing\n内部構造ベース"]
-                    </div>
+                    <div class="mermaid" id="d11"></div>
                     <div class="mermaid-caption">図11: 4つのテストタイプ</div>
                 </div>
 
@@ -1497,16 +1425,7 @@
                 <div class="subsection">
                     <h3>非機能テストの品質特性（ISO/IEC 25010）</h3>
                     <div class="mermaid-wrap">
-                        <div class="mermaid">
-                            flowchart TD NF["非機能テストの主要対象\nISO/IEC 25010 品質特性"] NF -->
-                            P1["性能効率性\nPerformance Efficiency\n応答時間・スループット"] NF -->
-                            P2["互換性\nCompatibility\n共存性・相互運用性"] NF -->
-                            P3["使用性\nUsability\n認識可能性・学習容易性"] NF -->
-                            P4["信頼性\nReliability\n成熟性・可用性"] NF -->
-                            P5["セキュリティ\nSecurity\n機密性・完全性"] NF -->
-                            P6["保守性\nMaintainability\n変更可能性・テスト容易性"] NF -->
-                            P7["移植性\nPortability\n適応性・設置性"]
-                        </div>
+                        <div class="mermaid" id="d12"></div>
                         <div class="mermaid-caption">
                             図12: ISO/IEC 25010 品質特性と非機能テストの対応
                         </div>
@@ -1571,14 +1490,7 @@
                 <div class="subsection">
                     <h3>欠陥修正後のテストフロー</h3>
                     <div class="mermaid-wrap">
-                        <div class="mermaid">
-                            flowchart LR defect["欠陥報告\nDefect Report"] --> fix["開発者が修正"]
-                            fix --> confirm["確認テスト\n修正箇所が正しく直ったか確認"] confirm
-                            -->|"Pass"| regress["リグレッションテスト\n修正の副作用がないか確認"]
-                            confirm -->|"Fail"| reopen["欠陥をReopen"] regress -->|"Pass"|
-                            close["テスト完了\nDeployへ"] regress -->|"新欠陥検出"|
-                            new_defect["新規欠陥報告"]
-                        </div>
+                        <div class="mermaid" id="d13"></div>
                         <div class="mermaid-caption">
                             図13: 欠陥修正後の確認テスト・リグレッションテストフロー
                         </div>
@@ -1601,14 +1513,7 @@
                 </p>
 
                 <div class="mermaid-wrap">
-                    <div class="mermaid">
-                        flowchart TD MT["メンテナンステストのトリガー"] MT -->
-                        C1["修正変更\nCorrective Changes\n欠陥・障害の修正"] MT -->
-                        C2["適応的変更\nAdaptive Changes\n環境変化への対応\nOS更新 /
-                        DBアップグレード"] MT --> C3["改善的変更\nPerfective
-                        Changes\n機能追加・性能改善"] MT -->
-                        C4["廃止・退役\nRetirement\nシステム/コンポーネントの廃止"]
-                    </div>
+                    <div class="mermaid" id="d14"></div>
                     <div class="mermaid-caption">
                         図14: メンテナンステストのトリガー（変更の4種類）
                     </div>
@@ -1659,16 +1564,7 @@
                         メンテナンステストの計画において中核となるプロセス。変更の影響範囲を体系的に分析し、テスト範囲と優先順位を決定する。
                     </p>
                     <div class="mermaid-wrap">
-                        <div class="mermaid">
-                            flowchart TD IA["インパクト分析\nImpact Analysis"] IA -->
-                            IA1["変更の影響範囲を特定\n変更されたコンポーネントと依存関係を調査"] IA
-                            -->
-                            IA2["テスト範囲の決定\n確認テストとリグレッションテストの範囲を決定"] IA
-                            --> IA3["リスクの評価\n変更による未意図の副作用リスクを評価"] IA -->
-                            IA4["テスト優先順位付け\n影響度の高い領域から優先的にテスト"] IA1 -->
-                            out["インパクト分析の成果物"] IA2 --> out IA3 --> out IA4 --> out out
-                            --> plan["メンテナンステスト計画の策定"]
-                        </div>
+                        <div class="mermaid" id="d15"></div>
                         <div class="mermaid-caption">図15: インパクト分析プロセス</div>
                     </div>
                 </div>
@@ -2082,6 +1978,24 @@
         </main>
 
         <script>
+            const DIAGRAMS = {
+    "d1": "flowchart TD\nA[\"Chapter 2<br />SDLC to Test\"] --> B[\"2.1 SDLC Context\"]\nA --> C[\"2.2 Levels and Types\"]\nA --> D[\"2.3 Maintenance\"]\nB --> B1[\"2.1.1 SDLC Model Impact\"]\nB --> B2[\"2.1.2 Good Practices\"]\nB --> B3[\"2.1.3 TDD / ATDD / BDD\"]\nB --> B4[\"2.1.4 DevOps\"]\nB --> B5[\"2.1.5 Shift Left\"]\nB --> B6[\"2.1.6 Retrospective\"]\nC --> C1[\"2.2.1 Test Levels x5\"]\nC --> C2[\"2.2.2 Test Types x4\"]\nC --> C3[\"2.2.3 Confirmation + Regression\"]\nD --> D1[\"Change Triggers\"]\nD --> D2[\"Impact Analysis\"]",
+    "d2": "flowchart LR\nsubgraph seq[\"Sequential\"]\nW[\"Waterfall\"]\nV[\"V-model\"]\nend\nsubgraph iter[\"Iterative / Incremental\"]\nAG[\"Agile: Scrum / XP / Kanban\"]\nSP[\"Spiral\"]\nend\nsubgraph hyb[\"Hybrid\"]\nHB[\"Wagile etc.\"]\nend\nseq -- \"Static testing first<br />Dynamic testing later\" --> e1[\"Risk of late testing\"]\niter -- \"Static + Dynamic<br />in each iteration\" --> e2[\"Continuous testing\"]\nhyb --> e3[\"Adjust per combination\"]",
+    "d3": "flowchart LR\nsubgraph dev[\"Development Phase\"]\nR[\"Requirements\"] --> SA[\"System Design\"] --> AD[\"Architecture Design\"] --> DD[\"Detailed Design\"] --> CD[\"Coding\"]\nend\nsubgraph tst[\"Test Phase\"]\nAT[\"Acceptance Test\"] --> ST[\"System Test\"] --> SIT[\"System Integration Test\"] --> CIT[\"Component Integration Test\"] --> CT[\"Component Test\"]\nend\nR -.->|\"Test Basis\"| AT\nSA -.->|\"Test Basis\"| ST\nAD -.->|\"Test Basis\"| SIT\nDD -.->|\"Test Basis\"| CIT\nCD --> CT",
+    "d4": "flowchart TD\nGP[\"Good Testing Practices\"] --> P1[\"1. Map test goals<br />to development activities\"]\nGP --> P2[\"2. Apply test types<br />to each test level\"]\nGP --> P3[\"3. Align test goals<br />to SDLC process\"]\nGP --> P4[\"4. Involve testers early<br />in reviews and design\"]",
+    "d5": "flowchart LR\nA[\"1. Write Failing Test<br />Red\"] --> B[\"2. Write Minimal Code<br />to Pass Test<br />Green\"]\nB --> C[\"3. Refactor Code<br />Refactor\"]\nC --> A",
+    "d6": "flowchart LR\ncommit[\"Code Commit\"] --> build[\"CI Build\"]\nbuild --> ct[\"Component Test<br />auto\"]\nct --> integ[\"Integration Test<br />auto\"]\ninteg --> sa[\"Static Analysis<br />Lint / SAST\"]\nsa --> stage[\"Deploy to<br />Staging\"]\nstage --> sys[\"System Test<br />auto\"]\nsys --> manual[\"Exploratory Test<br />manual\"]\nmanual --> prod[\"Deploy to<br />Production\"]\nct -- \"FAIL\" --> notify[\"Notify Developer<br />immediately\"]\ninteg -- \"FAIL\" --> notify\nsys -- \"FAIL\" --> notify",
+    "d7": "flowchart LR\nsubgraph trad[\"Traditional: testing deferred\"]\nt1[\"Requirements\"] --> t2[\"Design\"] --> t3[\"Implementation\"] --> t4[\"Testing\"]\nend\nsubgraph sl[\"Shift Left: testing starts early\"]\ns1[\"Test Design<br />at Requirements\"] --> s2[\"Spec Review<br />at Design\"] --> s3[\"TDD / ATDD<br />at Implementation\"] --> s4[\"Test Execution<br />as usual\"]\nend",
+    "d8": "flowchart TD\nretro[\"レトロスペクティブ<br />Retrospective\"] --> r1[\"成功プロセスの確認<br />Keep doing\"]\nretro --> r2[\"改善点の特定<br />Change this\"]\nretro --> r3[\"教訓の文書化<br />次プロジェクトへの継承\"]\nr1 --> out[\"テスト有効性・効率性・品質の向上<br />チームコラボレーションの改善\"]\nr2 --> out\nr3 --> out",
+    "d9": "flowchart BT\nL1[\"コンポーネントテスト<br />Component Testing\"] --> L2[\"コンポーネント統合テスト<br />Component Integration Testing\"]\nL2 --> L3[\"システムテスト<br />System Testing\"]\nL3 --> L4[\"システム統合テスト<br />System Integration Testing\"]\nL4 --> L5[\"受入テスト<br />Acceptance Testing\"]",
+    "d10": "flowchart TD\nAT[\"受入テスト<br />Acceptance Testing\"] --> UAT[\"ユーザー受入テスト<br />UAT<br />実際のユーザーが実シナリオで検証\"]\nAT --> OAT[\"運用受入テスト<br />OAT<br />システム管理者が運用面を検証\"]\nAT --> CRT[\"契約・規制受入テスト<br />契約条件・法規制への準拠検証\"]\nAT --> ABT[\"アルファ/ベータテスト<br />限定ユーザーによる実環境テスト\"]",
+    "d11": "flowchart TD\nTT[\"テストタイプ<br />Test Types\"] --> FT[\"機能テスト<br />Functional Testing<br />「何をするか」を検証\"]\nTT --> NFT[\"非機能テスト<br />Non-Functional Testing<br />「どのようにするか」を検証\"]\nTT --> BBT[\"ブラックボックステスト<br />Black-Box Testing<br />仕様・外部仕様ベース\"]\nTT --> WBT[\"ホワイトボックステスト<br />White-Box Testing<br />内部構造ベース\"]",
+    "d12": "flowchart TD\nNF[\"非機能テストの主要対象<br />ISO/IEC 25010 品質特性\"] --> P1[\"性能効率性<br />Performance Efficiency<br />応答時間・スループット\"]\nNF --> P2[\"互換性<br />Compatibility<br />共存性・相互運用性\"]\nNF --> P3[\"使用性<br />Usability<br />認識可能性・学習容易性\"]\nNF --> P4[\"信頼性<br />Reliability<br />成熟性・可用性\"]\nNF --> P5[\"セキュリティ<br />Security<br />機密性・完全性\"]\nNF --> P6[\"保守性<br />Maintainability<br />変更可能性・テスト容易性\"]\nNF --> P7[\"移植性<br />Portability<br />適応性・設置性\"]",
+    "d13": "flowchart LR\ndefect[\"欠陥報告<br />Defect Report\"] --> fix[\"開発者が修正\"]\nfix --> confirm[\"確認テスト<br />修正箇所が正しく直ったか確認\"]\nconfirm -->|\"Pass\"| regress[\"リグレッションテスト<br />修正の副作用がないか確認\"]\nconfirm -->|\"Fail\"| reopen[\"欠陥をReopen\"]\nregress -->|\"Pass\"| close[\"テスト完了<br />Deployへ\"]\nregress -->|\"新欠陥検出\"| new_defect[\"新規欠陥報告\"]",
+    "d14": "flowchart TD\nMT[\"メンテナンステストのトリガー\"] --> C1[\"修正変更<br />Corrective Changes<br />欠陥・障害の修正\"]\nMT --> C2[\"適応的変更<br />Adaptive Changes<br />環境変化への対応<br />OS更新 / DBアップグレード\"]\nMT --> C3[\"改善的変更<br />Perfective Changes<br />機能追加・性能改善\"]\nMT --> C4[\"廃止・退役<br />Retirement<br />システム/コンポーネントの廃止\"]",
+    "d15": "flowchart TD\nIA[\"インパクト分析<br />Impact Analysis\"] --> IA1[\"変更の影響範囲を特定<br />変更されたコンポーネントと依存関係を調査\"]\nIA --> IA2[\"テスト範囲の決定<br />確認テストとリグレッションテストの範囲を決定\"]\nIA --> IA3[\"リスクの評価<br />変更による未意図の副作用リスクを評価\"]\nIA --> IA4[\"テスト優先順位付け<br />影響度の高い領域から優先的にテスト\"]\nIA1 --> out[\"インパクト分析の成果物\"]\nIA2 --> out\nIA3 --> out\nIA4 --> out\nout --> plan[\"メンテナンステスト計画の策定\"]"
+};
+
             document.addEventListener('DOMContentLoaded', function () {
                 mermaid.initialize({
                     startOnLoad: false,
@@ -2100,17 +2014,54 @@
                         fontSize: '13px',
                     },
                 });
-                mermaid.run({ querySelector: '.mermaid' });
+
+                (async () => {
+                    for (const [id, src] of Object.entries(DIAGRAMS)) {
+                        try {
+                            const container = document.getElementById(id);
+                            if (!container) continue;
+                            const { svg } = await mermaid.render('svg-' + id, src);
+                            container.innerHTML = svg;
+
+                            const svgEl = container.querySelector('svg');
+                            if (svgEl) {
+                                svgEl.removeAttribute('width');
+                                svgEl.removeAttribute('height');
+                                svgEl.style.height = 'auto';
+                                svgEl.style.overflow = 'visible';
+
+                                const viewBox = svgEl.getAttribute('viewBox');
+                                if (viewBox) {
+                                    const parts = viewBox.split(/\s+/).map(Number);
+                                    if (parts.length === 4 && parts.every(Number.isFinite)) {
+                                        const trimmed = src.trim();
+                                        const isSequenceOrState = trimmed.startsWith('sequenceDiagram') || trimmed.startsWith('stateDiagram');
+                                        const extraHeight = isSequenceOrState ? 110 : 15;
+                                        const [x, y, w, h] = parts;
+                                        svgEl.style.width = w + 'px';
+                                        svgEl.style.maxWidth = '100%';
+                                        svgEl.setAttribute('viewBox', `${x} ${y} ${w} ${h + extraHeight}`);
+                                    }
+                                }
+                            }
+                        } catch (e) {
+                            console.error('Failed to render mermaid diagram ' + id, e);
+                            const container = document.getElementById(id);
+                            if (container) {
+                                container.innerHTML = '<p style="color: var(--color-text-danger)">図表の描画に失敗しました</p>';
+                            }
+                        }
+                    }
+                })();
 
                 // Sidebar active state via IntersectionObserver
-                const sections = document.querySelectorAll('[id]');
-                const navLinks = document.querySelectorAll('.nav-link');
-
-                const observer = new IntersectionObserver(
-                    (entries) => {
-                        entries.forEach((entry) => {
+                var sections = document.querySelectorAll('[id]');
+                var navLinks = document.querySelectorAll('.nav-link');
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
                             if (entry.isIntersecting) {
-                                navLinks.forEach((link) => {
+                                navLinks.forEach(function (link) {
                                     link.classList.remove('active');
                                     if (link.getAttribute('href') === '#' + entry.target.id) {
                                         link.classList.add('active');
@@ -2121,8 +2072,9 @@
                     },
                     { rootMargin: '-20% 0px -70% 0px' },
                 );
-
-                sections.forEach((s) => observer.observe(s));
+                sections.forEach(function (s) {
+                    observer.observe(s);
+                });
             });
         </script>
     </body>
