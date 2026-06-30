@@ -1,4 +1,3 @@
-
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
 import './istqb-ctfl-complete-guide.css';
@@ -8,6 +7,9 @@ export const metadata = {
     description: 'ISTQB Certified Tester Foundation Level (CTFL) v4.0 のシラバス v4.0.1 に完全準拠した日本語解説ガイド。',
 };
 
+/**
+ * Renders the ISTQB CTFL v4.0.1 complete guide page.
+ */
 export default function IstqbCtflCompleteGuide() {
     return (
         <div className="layout istqb-ctfl-layout">
