@@ -254,6 +254,37 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
 | `.pyramid-layer` / `.py-unit/int/func/e2e` | テストピラミッド図 |
 | `.tab-btn` / `.tab-panel` | タブ UI |
 
+### globals.css のグローバルスタイル干渉（サイドバー付き独自レイアウト）
+
+サイドバー＋メインコンテンツの2カラムレイアウトを持つページでは、`globals.css` の汎用セレクターが干渉して**大きな余白崩れ**を引き起こす既知パターンがある。
+
+**干渉する globals.css の定義（抜粋）:**
+
+| セレクター | 干渉の症状 |
+|---|---|
+| `section { padding-top: 5rem }` | 全 `<section>` に 80px の上余白 → ヒーロー等が押し下がる |
+| `.hero { min-height: 100vh; display: flex; justify-content: center }` | ヒーローが全画面高さになりコンテンツが中央に押し下がる |
+| `main { max-width: 1100px; margin: 0 auto }` | `<main>` 幅が 1100px に制限・中央寄せになる |
+
+**必須リセット（ページ固有 CSS に追加）:**
+
+```css
+/* globals の section { padding-top: 5rem } をリセット */
+.my-page-layout section { padding-top: 0; }
+
+/* globals の .hero { min-height: 100vh } をリセット */
+.my-page-layout .hero { min-height: 0; display: block; padding-top: 0; }
+
+/* globals の main { max-width: 1100px } をリセット */
+.my-page-layout .main { max-width: none; margin: 0; }
+```
+
+**ヘッダーオフセットの二重カウント禁止:**
+
+`layout-content` が既に `padding-top: 60px`（ヘッダー分）を持つため、ページ固有の layout wrapper に `margin-top: 60px` を追加してはならない。追加すると 60px の余白が二重になる。
+
+詳細は `.claude/skills/html-to-nextjs-migration/SKILL.md` の Phase 3b を参照。
+
 ### 開発・デバッグ用スクリプトの管理ルール
 
 一時的に作成する開発・調査用スクリプトと、永続的にリポジトリに残すスクリプトを厳密に区別して管理します。

@@ -75,13 +75,9 @@
     --c-red-500: #ef4444;
     --c-red-700: #b91c1c;
     --c-red-200: #fecaca;
-}
-
-.istqb-ctfl-layout {
     display: flex;
     min-height: 100vh;
     width: 100%;
-    margin-top: 60px; /* グローバルヘッダー分 */
     background: var(--color-background-primary);
     color: var(--color-text-primary);
     font-family: var(--font-sans);
@@ -182,12 +178,23 @@
 .istqb-ctfl-layout .main {
     flex: 1;
     min-width: 0;
-    padding: 40px 32px;
+    max-width: none;
+    margin: 0;
+    padding: 24px 20px;
     overflow-x: hidden;
     background: var(--color-background-primary);
 }
 
+/* globals.css の section { padding-top: 5rem } をリセット */
+.istqb-ctfl-layout section {
+    padding-top: 0;
+}
+
 .istqb-ctfl-layout .hero {
+    min-height: 0;
+    display: block;
+    justify-content: unset;
+    padding-top: 0;
     margin-bottom: 48px;
     padding-bottom: 32px;
     border-bottom: 1px solid var(--color-border-secondary);

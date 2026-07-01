@@ -121,6 +121,72 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | page-sticky nav の top | `position: sticky; top: 0;` | `top: 60px`（グローバル Header の高さ分オフセット） |
 | アニメーションの消失 | `max-width: 0` のまま固定され見えなくなる | `@media (prefers-reduced-motion: reduce)` 内で `max-width: 100% !important;` を指定 |
 | 背景クリック妨害 | `::before` に `z-index` 指定なし | `pointer-events: none;` と `z-index: 0`（または負の値）を指定 |
+| ヘッダーオフセット二重カウント | `.page-layout { margin-top: 60px; }` | 削除。`layout-content` が既に `padding-top: 60px` を持つため不要。60px の余白が二重になる |
+| globals `section` 干渉 | ページ固有 section に余分な `padding-top: 5rem`(80px) が付く | `.page-layout section { padding-top: 0; }` でリセット |
+| globals `.hero` 干渉 | `.hero { min-height: 100vh; }` でヒーローが全画面高さになりコンテンツが押し下がる | `.page-layout .hero { min-height: 0; display: block; padding-top: 0; }` でリセット |
+| globals `main` 干渉 | `main { max-width: 1100px; margin: 0 auto; }` で幅が制限・中央寄せになる | `.page-layout .main { max-width: none; margin: 0; }` でリセット |
+
+### Phase 3b: 独自レイアウト（サイドバー付きドキュメントページ）の globals.css 干渉リセット
+
+サイドバーナビ＋メインコンテンツの2カラムレイアウト（`display: flex` で独自スコープを持つページ）を実装する場合、`globals.css` の汎用セレクターが干渉し**大きな余白崩れ**を引き起こす。必ず以下をページ固有 CSS でリセットすること。
+
+#### 干渉の仕組み
+
+| globals.css の定義 | 干渉の症状 |
+| --- | --- |
+| `body { padding-top: var(--disclaimer-height) }` | body 全体が disclaimer 分下にずれる（意図通り） |
+| `.layout-content { padding-top: 60px }` | layout-content がヘッダー分下にずれる（意図通り） |
+| `section { padding-top: 5rem }` | 全 `<section>` に 80px の上余白が付く → ヒーロー等がずれる |
+| `.hero { min-height: 100vh; display: flex; justify-content: center }` | ヒーローが全画面高さになりコンテンツが中央に押し下がる |
+| `main { max-width: 1100px; margin: 0 auto }` | `<main>` 要素の幅が 1100px に制限・中央寄せになる |
+
+#### 必須リセット CSS テンプレート
+
+```css
+/* layout-content が padding-top: 60px を持つため、ページ固有 wrapper に margin-top は不要 */
+.my-page-layout {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    /* margin-top: 60px は書かない */
+}
+
+/* globals.css の section { padding-top: 5rem } をリセット */
+.my-page-layout section {
+    padding-top: 0;
+}
+
+/* globals.css の .hero { min-height: 100vh } をリセット */
+.my-page-layout .hero {
+    min-height: 0;
+    display: block;
+    padding-top: 0;
+    /* ページ固有の余白はここに追加 */
+}
+
+/* globals.css の main { max-width: 1100px; margin: 0 auto } をリセット */
+.my-page-layout .main {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 24px 20px;
+}
+```
+
+#### サイドバーの sticky 計算
+
+```css
+.my-page-layout .sidebar {
+    position: sticky;
+    /* ヘッダー(60px) + DisclaimerBanner(var(--disclaimer-height)) の合算 */
+    top: calc(60px + var(--disclaimer-height, 0px));
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    z-index: 40; /* Header の z-50(50) より低く */
+}
+```
+
+**注意**: `--disclaimer-height` は `DisclaimerBanner` コンポーネントが JS で動的に計算してセットする。CSS 変数の初期値は `38px`（デスクトップ1行）、モバイルでは `76px`（2行）になる。
 
 ### Phase 4: Convert HTML to TSX
 
@@ -334,3 +400,5 @@ Do NOT redefine these in page-specific CSS. Use them directly in TSX:
 - **Never align tabular data with spaces in `.code-block`** — デシジョンテーブルや行列データはフォント変更で列ズレが起きるため `<table>` 要素を使うこと
 - **Never remove page-specific anchor nav bars** — ページ固有のスティッキーナビ（`IntersectionObserver` 付き）はグローバル Header と別物。`'use client'` コンポーネントとして移行し `top: 60px` を設定すること
 - **Never duplicate page scope classes in CSS selectors** — `.page-class .alert.page-class .green` ではなく、`.page-class .alert.green` のようにページクラスは最上位の1回のみ使用すること
+- **Never add `margin-top: 60px` to page-specific layout wrappers** — `layout-content` が既に `padding-top: 60px`（ヘッダー分）を持つ。さらに `margin-top: 60px` を追加すると 60px の余白が二重になる
+- **Always reset globals.css interference for custom layout pages** — サイドバー付き独自レイアウトでは `section { padding-top: 0 }`, `.hero { min-height: 0; display: block; padding-top: 0 }`, `.main { max-width: none; margin: 0 }` を必ずリセットすること（Phase 3b 参照）
