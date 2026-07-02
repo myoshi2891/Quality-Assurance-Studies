@@ -1,0 +1,3082 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>第4章：テスト分析・設計 | ISTQB® CTFL v4.0 解説</title>
+
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+        />
+
+        <style>
+            :root {
+                --bg-primary: #0a0e14;
+                --bg-secondary: #10151d;
+                --bg-tertiary: #161c26;
+                --bg-hover: #1b2230;
+                --text-primary: #e6e9ef;
+                --text-secondary: #9aa5b6;
+                --text-tertiary: #5b6576;
+                --border-primary: #232b38;
+                --border-secondary: #1a212c;
+                --accent: #2dd4bf;
+                --accent-strong: #5eead4;
+                --accent-soft: rgba(45, 212, 191, 0.12);
+                --blue: #60a5fa;
+                --blue-soft: rgba(96, 165, 250, 0.12);
+                --amber: #fbbf24;
+                --amber-soft: rgba(251, 191, 36, 0.12);
+                --rose: #f472b6;
+                --rose-soft: rgba(244, 114, 182, 0.12);
+                --red: #f87171;
+                --red-soft: rgba(248, 113, 113, 0.12);
+                --green: #4ade80;
+                --font-sans:
+                    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+                    'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', sans-serif;
+                --font-mono:
+                    ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, 'Liberation Mono',
+                    monospace;
+                --sidebar-w: 280px;
+                --content-max: 1600px;
+                --diagram-max: 980px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--bg-primary);
+                color: var(--text-primary);
+                font-family: var(--font-sans);
+                font-size: 16px;
+                line-height: 1.75;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* ---------- layout ---------- */
+            .layout {
+                display: flex;
+                min-height: 100vh;
+                width: 100%;
+            }
+
+            .sidebar {
+                width: var(--sidebar-w);
+                flex-shrink: 0;
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--bg-secondary);
+                border-right: 1px solid var(--border-secondary);
+                padding: 28px 0 40px;
+                scrollbar-width: thin;
+                scrollbar-color: var(--border-primary) transparent;
+                z-index: 40;
+            }
+            .sidebar::-webkit-scrollbar {
+                width: 6px;
+            }
+            .sidebar::-webkit-scrollbar-thumb {
+                background: var(--border-primary);
+                border-radius: 3px;
+            }
+
+            .brand {
+                padding: 0 24px 22px;
+                border-bottom: 1px solid var(--border-secondary);
+                margin-bottom: 16px;
+            }
+            .brand-eyebrow {
+                font-size: 11px;
+                letter-spacing: 0.12em;
+                color: var(--accent);
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+            .brand-title {
+                font-size: 18px;
+                font-weight: 700;
+                margin-top: 6px;
+                color: var(--text-primary);
+                line-height: 1.4;
+            }
+            .brand-sub {
+                font-size: 12px;
+                color: var(--text-tertiary);
+                margin-top: 4px;
+                font-family: var(--font-mono);
+            }
+
+            .nav-group {
+                margin-bottom: 4px;
+            }
+            .nav-link {
+                display: block;
+                padding: 8px 24px;
+                font-size: 13.5px;
+                color: var(--text-secondary);
+                text-decoration: none;
+                border-left: 2px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s,
+                    border-color 0.15s;
+            }
+            .nav-link:hover {
+                background: var(--bg-hover);
+                color: var(--text-primary);
+            }
+            .nav-link.level-2 {
+                font-weight: 600;
+                color: var(--text-primary);
+                margin-top: 6px;
+            }
+            .nav-link.level-3 {
+                padding-left: 38px;
+                font-size: 12.5px;
+            }
+            .nav-link.active {
+                color: var(--accent);
+                border-left-color: var(--accent);
+                background: var(--accent-soft);
+            }
+
+            .nav-toggle {
+                display: none;
+                position: fixed;
+                top: 16px;
+                left: 16px;
+                z-index: 60;
+                width: 40px;
+                height: 40px;
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-primary);
+                border-radius: 8px;
+                color: var(--text-primary);
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+            .nav-toggle span,
+            .nav-toggle span::before,
+            .nav-toggle span::after {
+                content: '';
+                display: block;
+                width: 16px;
+                height: 2px;
+                background: var(--text-primary);
+                position: relative;
+                transition: 0.2s;
+            }
+            .nav-toggle span::before {
+                position: absolute;
+                top: -5px;
+            }
+            .nav-toggle span::after {
+                position: absolute;
+                top: 5px;
+            }
+
+            .main {
+                flex: 1 1 auto;
+                min-width: 0;
+                width: 100%;
+            }
+            .content-wrap {
+                width: 100%;
+                max-width: var(--content-max);
+                margin: 0 auto;
+                padding: 56px 56px 120px;
+            }
+
+            /* ---------- hero ---------- */
+            .hero {
+                margin-bottom: 56px;
+            }
+            .hero-eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 12px;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--accent);
+                font-weight: 700;
+                background: var(--accent-soft);
+                padding: 6px 12px;
+                border-radius: 20px;
+                border: 1px solid rgba(45, 212, 191, 0.25);
+            }
+            .hero h1 {
+                font-size: 38px;
+                line-height: 1.3;
+                margin: 20px 0 6px;
+                font-weight: 800;
+                color: var(--text-primary);
+                letter-spacing: -0.01em;
+            }
+            .hero .hero-en {
+                font-family: var(--font-mono);
+                font-size: 15px;
+                color: var(--text-tertiary);
+                margin-bottom: 22px;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 20px;
+            }
+            .meta-pill {
+                font-size: 12.5px;
+                color: var(--text-secondary);
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-primary);
+                padding: 6px 12px;
+                border-radius: 8px;
+                font-family: var(--font-mono);
+            }
+            .meta-pill b {
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+
+            /* ---------- sections ---------- */
+            section {
+                scroll-margin-top: 24px;
+                margin-bottom: 72px;
+            }
+            .sec-kicker {
+                font-family: var(--font-mono);
+                font-size: 13px;
+                color: var(--accent);
+                font-weight: 700;
+                letter-spacing: 0.03em;
+                display: block;
+                margin-bottom: 8px;
+            }
+            h2 {
+                font-size: 27px;
+                font-weight: 800;
+                color: var(--text-primary);
+                margin: 0 0 20px;
+                letter-spacing: -0.01em;
+                border-bottom: 1px solid var(--border-primary);
+                padding-bottom: 16px;
+            }
+            h3 {
+                font-size: 20px;
+                font-weight: 700;
+                color: var(--text-primary);
+                margin: 40px 0 14px;
+            }
+            h4 {
+                font-size: 16px;
+                font-weight: 700;
+                color: var(--accent-strong);
+                margin: 28px 0 10px;
+            }
+            p {
+                color: var(--text-secondary);
+                margin: 0 0 16px;
+            }
+            strong {
+                color: var(--text-primary);
+                font-weight: 700;
+            }
+            a {
+                color: var(--accent);
+                text-decoration: none;
+                border-bottom: 1px solid rgba(45, 212, 191, 0.3);
+            }
+            a:hover {
+                border-bottom-color: var(--accent);
+            }
+            ul,
+            ol {
+                color: var(--text-secondary);
+                padding-left: 22px;
+                margin: 0 0 16px;
+            }
+            li {
+                margin-bottom: 6px;
+            }
+            code {
+                font-family: var(--font-mono);
+                font-size: 0.87em;
+                background: var(--bg-tertiary);
+                color: var(--accent-strong);
+                padding: 2px 6px;
+                border-radius: 5px;
+                border: 1px solid var(--border-primary);
+            }
+            pre code {
+                border: none;
+                padding: 0;
+                background: none;
+                color: inherit;
+            }
+
+            /* ---------- tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 20px 0 28px;
+                border: 1px solid var(--border-primary);
+                border-radius: 10px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+                min-width: 480px;
+            }
+            thead th {
+                background: var(--bg-tertiary);
+                color: var(--text-primary);
+                text-align: left;
+                padding: 11px 14px;
+                font-weight: 700;
+                border-bottom: 1px solid var(--border-primary);
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--border-secondary);
+                color: var(--text-secondary);
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: var(--bg-hover);
+            }
+            td strong,
+            th strong {
+                color: var(--text-primary);
+            }
+
+            /* ---------- code blocks ---------- */
+            .code-block {
+                margin: 20px 0 28px;
+                border-radius: 10px;
+                overflow: hidden;
+                border: 1px solid var(--border-primary);
+            }
+            .code-label {
+                background: var(--bg-tertiary);
+                color: var(--text-tertiary);
+                font-family: var(--font-mono);
+                font-size: 11.5px;
+                letter-spacing: 0.05em;
+                padding: 9px 16px;
+                border-bottom: 1px solid var(--border-primary);
+                text-transform: uppercase;
+            }
+            pre[class*='language-'] {
+                margin: 0;
+                border-radius: 0;
+                font-size: 13.5px;
+                line-height: 1.65;
+                padding: 18px 20px !important;
+                background: #0d1117 !important;
+            }
+
+            /* ---------- callouts ---------- */
+            .callout {
+                border-radius: 10px;
+                padding: 16px 18px;
+                margin: 20px 0 28px;
+                border: 1px solid var(--border-primary);
+                background: var(--bg-secondary);
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            .callout .dot {
+                flex-shrink: 0;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                margin-top: 8px;
+            }
+            .callout p {
+                margin: 0;
+                color: var(--text-secondary);
+                font-size: 14.5px;
+            }
+            .callout.info .dot {
+                background: var(--blue);
+            }
+            .callout.info {
+                border-color: rgba(96, 165, 250, 0.28);
+            }
+            .callout.warn .dot {
+                background: var(--amber);
+            }
+            .callout.warn {
+                border-color: rgba(251, 191, 36, 0.28);
+            }
+            .callout.tip .dot {
+                background: var(--accent);
+            }
+            .callout.tip {
+                border-color: rgba(45, 212, 191, 0.28);
+            }
+            .callout.point .dot {
+                background: var(--rose);
+            }
+            .callout.point {
+                border-color: rgba(244, 114, 182, 0.28);
+            }
+
+            /* ---------- mermaid ---------- */
+            .diagram {
+                margin: 24px auto 28px;
+                padding: 28px;
+                border-radius: 12px;
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-primary);
+                overflow-x: auto;
+                max-width: var(--diagram-max);
+                text-align: center;
+            }
+            .diagram-caption {
+                font-size: 12.5px;
+                color: var(--text-tertiary);
+                text-align: center;
+                margin-top: 14px;
+                font-family: var(--font-mono);
+            }
+            .mermaid {
+                display: inline-block;
+                max-width: 100%;
+            }
+            .mermaid svg {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+
+            /* ---------- keyword chips ---------- */
+            .keyword-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin: 16px 0 28px;
+            }
+            .keyword-chip {
+                display: inline-flex;
+                align-items: baseline;
+                gap: 6px;
+                font-size: 12.5px;
+                color: var(--text-secondary);
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-primary);
+                padding: 7px 12px;
+                border-radius: 8px;
+                line-height: 1.4;
+            }
+            .keyword-chip b {
+                color: var(--accent-strong);
+                font-family: var(--font-mono);
+                font-weight: 600;
+                font-size: 12px;
+            }
+
+            /* ---------- badges & chips ---------- */
+            .badge {
+                display: inline-block;
+                font-size: 11px;
+                font-weight: 700;
+                padding: 3px 9px;
+                border-radius: 6px;
+                font-family: var(--font-mono);
+                letter-spacing: 0.02em;
+            }
+            .badge.bb {
+                background: var(--accent-soft);
+                color: var(--accent-strong);
+            }
+            .badge.wb {
+                background: var(--blue-soft);
+                color: var(--blue);
+            }
+            .badge.eb {
+                background: var(--amber-soft);
+                color: var(--amber);
+            }
+            .badge.cb {
+                background: var(--rose-soft);
+                color: var(--rose);
+            }
+            .badge.k1 {
+                background: rgba(96, 165, 250, 0.15);
+                color: var(--blue);
+            }
+            .badge.k2 {
+                background: var(--accent-soft);
+                color: var(--accent-strong);
+            }
+            .badge.k3 {
+                background: var(--amber-soft);
+                color: var(--amber);
+            }
+
+            /* ---------- coverage bar (signature element) ---------- */
+            .coverage-block {
+                margin: 18px 0 28px;
+                padding: 18px 20px;
+                border-radius: 10px;
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-primary);
+            }
+            .coverage-row {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 10px;
+            }
+            .coverage-row:last-child {
+                margin-bottom: 0;
+            }
+            .coverage-label {
+                font-size: 13px;
+                color: var(--text-secondary);
+                width: 200px;
+                flex-shrink: 0;
+                font-family: var(--font-mono);
+            }
+            .coverage-bar {
+                flex: 1;
+                display: flex;
+                gap: 3px;
+                height: 14px;
+            }
+            .coverage-bar .seg {
+                flex: 1;
+                border-radius: 3px;
+                background: var(--border-primary);
+            }
+            .coverage-bar .seg.on {
+                background: var(--accent);
+            }
+            .coverage-pct {
+                width: 56px;
+                text-align: right;
+                font-family: var(--font-mono);
+                font-size: 13px;
+                color: var(--accent-strong);
+                font-weight: 700;
+            }
+
+            /* ---------- pipeline ---------- */
+            .pipeline {
+                display: flex;
+                flex-wrap: wrap;
+                align-items: center;
+                gap: 8px;
+                margin: 20px 0 8px;
+            }
+            .pipeline .step {
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-primary);
+                padding: 9px 16px;
+                border-radius: 8px;
+                font-size: 13.5px;
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+            .pipeline .arrow {
+                color: var(--text-tertiary);
+                font-size: 16px;
+            }
+
+            /* ---------- summary grid ---------- */
+            .grid-2 {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin: 20px 0 28px;
+            }
+            .card {
+                background: var(--bg-secondary);
+                border: 1px solid var(--border-primary);
+                border-radius: 10px;
+                padding: 18px 20px;
+            }
+            .card h5 {
+                margin: 0 0 10px;
+                font-size: 13px;
+                color: var(--text-primary);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .card ul {
+                margin: 0;
+                padding-left: 18px;
+                font-size: 13.5px;
+            }
+
+            /* ---------- refs ---------- */
+            .ref-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                counter-reset: refs;
+            }
+            .ref-list li {
+                counter-increment: refs;
+                position: relative;
+                padding: 14px 0 14px 40px;
+                border-bottom: 1px solid var(--border-secondary);
+                font-size: 14px;
+            }
+            .ref-list li::before {
+                content: counter(refs);
+                position: absolute;
+                left: 0;
+                top: 14px;
+                width: 24px;
+                height: 24px;
+                border-radius: 6px;
+                background: var(--accent-soft);
+                color: var(--accent-strong);
+                font-family: var(--font-mono);
+                font-size: 12px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .ref-list .ref-title {
+                color: var(--text-primary);
+                font-weight: 600;
+                display: block;
+                margin-bottom: 3px;
+            }
+            .ref-list .ref-url {
+                font-family: var(--font-mono);
+                font-size: 12.5px;
+                word-break: break-all;
+            }
+
+            footer {
+                border-top: 1px solid var(--border-secondary);
+                padding: 32px 40px 60px;
+                max-width: var(--content-max);
+                margin: 0 auto;
+                color: var(--text-tertiary);
+                font-size: 12.5px;
+                line-height: 1.8;
+            }
+
+            @media (max-width: 900px) {
+                .sidebar {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .nav-toggle {
+                    display: flex;
+                }
+                .content-wrap {
+                    padding: 88px 20px 100px;
+                }
+                .hero h1 {
+                    font-size: 28px;
+                }
+                .grid-2 {
+                    grid-template-columns: 1fr;
+                }
+                .coverage-label {
+                    width: 130px;
+                    font-size: 11.5px;
+                }
+                .diagram {
+                    padding: 16px;
+                    max-width: 100%;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="nav-toggle" id="navToggle" aria-label="目次を開く"><span></span></button>
+
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="brand">
+                    <div class="brand-eyebrow">ISTQB® CTFL v4.0</div>
+                    <div class="brand-title">第4章<br />テスト分析・設計</div>
+                    <div class="brand-sub">Test Analysis and Design</div>
+                </div>
+                <div class="nav-group">
+                    <a class="nav-link level-2" href="#sec-0">0. 章の全体像</a>
+                    <a class="nav-link level-2" href="#sec-1">4.1 テスト技法の全体像</a>
+                    <a class="nav-link level-2" href="#sec-2">4.2 ブラックボックス技法</a>
+                    <a class="nav-link level-3" href="#sec-2-1">4.2.1 同値分割法</a>
+                    <a class="nav-link level-3" href="#sec-2-2">4.2.2 境界値分析</a>
+                    <a class="nav-link level-3" href="#sec-2-3">4.2.3 デシジョンテーブルテスト</a>
+                    <a class="nav-link level-3" href="#sec-2-4">4.2.4 状態遷移テスト</a>
+                    <a class="nav-link level-2" href="#sec-3">4.3 ホワイトボックス技法</a>
+                    <a class="nav-link level-3" href="#sec-3-1">4.3.1 ステートメントテスト</a>
+                    <a class="nav-link level-3" href="#sec-3-2">4.3.2 分岐テスト</a>
+                    <a class="nav-link level-3" href="#sec-3-3">4.3.3 WBテストの価値</a>
+                    <a class="nav-link level-2" href="#sec-4">4.4 経験ベースの技法</a>
+                    <a class="nav-link level-3" href="#sec-4-1">4.4.1 エラー推測</a>
+                    <a class="nav-link level-3" href="#sec-4-2">4.4.2 探索的テスト</a>
+                    <a class="nav-link level-3" href="#sec-4-3">4.4.3 チェックリストベースド</a>
+                    <a class="nav-link level-2" href="#sec-5">4.5 コラボレーションベース</a>
+                    <a class="nav-link level-3" href="#sec-5-1">4.5.1 ユーザーストーリー共同作成</a>
+                    <a class="nav-link level-3" href="#sec-5-2">4.5.2 受け入れ基準</a>
+                    <a class="nav-link level-3" href="#sec-5-3">4.5.3 ATDD</a>
+                    <a class="nav-link level-2" href="#sec-6">6. 技法選択の指針</a>
+                    <a class="nav-link level-2" href="#sec-7">7. 試験対策のポイント</a>
+                    <a class="nav-link level-2" href="#sec-8">8. まとめ</a>
+                    <a class="nav-link level-2" href="#sec-refs">参考文献・URL一覧</a>
+                </div>
+            </nav>
+
+            <main class="main">
+                <div class="content-wrap">
+                    <div class="hero">
+                        <span class="hero-eyebrow"
+                            >ISTQB® Certified Tester Foundation Level v4.0.1</span
+                        >
+                        <h1>第4章：テスト分析・設計</h1>
+                        <div class="hero-en">Chapter 4 — Test Analysis and Design</div>
+                        <p>
+                            中級者から上級者を対象に、ブラックボックス・ホワイトボックス・経験ベースの各テスト技法とコラボレーションベースのテストアプローチを、公式シラバスに基づきステップバイステップで解説します。
+                        </p>
+                        <div class="hero-meta">
+                            <span class="meta-pill">学習時間 <b>390分</b>（全6章中 最大）</span>
+                            <span class="meta-pill">準拠版 <b>Syllabus v4.0.1</b></span>
+                            <span class="meta-pill">K-Level <b>K1 / K2 / K3</b></span>
+                            <span class="meta-pill">技法数 <b>9技法 + 3アプローチ</b></span>
+                        </div>
+                    </div>
+
+                    <!-- ============ SECTION 0 ============ -->
+                    <section id="sec-0">
+                        <span class="sec-kicker">INTRODUCTION</span>
+                        <h2>0. 本章の位置づけと学習目標</h2>
+                        <p>
+                            第4章は、第1章で学んだ「テストプロセス」のうち<strong
+                                >テスト分析（Test Analysis）</strong
+                            >と<strong>テスト設計（Test Design）</strong
+                            >を、具体的な「技法（Technique）」レベルまで掘り下げる章です。テスト分析は「何をテストするか（What
+                            to test）」、テスト設計は「どのようにテストするか（How to
+                            test）」に答える活動であり、本章で学ぶ技法群はその両方を体系的に支援します。
+                        </p>
+
+                        <div class="pipeline">
+                            <div class="step">テストベース</div>
+                            <span class="arrow">→</span>
+                            <div class="step">テスト分析</div>
+                            <span class="arrow">→</span>
+                            <div class="step">テスト設計</div>
+                            <span class="arrow">→</span>
+                            <div class="step">テスト実装</div>
+                            <span class="arrow">→</span>
+                            <div class="step">テスト実行</div>
+                        </div>
+
+                        <h3>0.1 学習目標（Learning Objectives）一覧</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>節</th>
+                                        <th>LO番号</th>
+                                        <th>K-Level</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>4.1</td>
+                                        <td><code>FL-4.1.1</code></td>
+                                        <td><span class="badge k2">K2</span></td>
+                                        <td>
+                                            ブラックボックス・ホワイトボックス・経験ベースの技法を区別できる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.2</td>
+                                        <td><code>FL-4.2.1〜4.2.4</code></td>
+                                        <td><span class="badge k3">K3</span></td>
+                                        <td>
+                                            同値分割法・境界値分析・デシジョンテーブルテスト・状態遷移テストを使ってテストケースを導出できる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.3</td>
+                                        <td><code>FL-4.3.1〜4.3.3</code></td>
+                                        <td><span class="badge k2">K2</span></td>
+                                        <td>
+                                            ステートメントテスト・分岐テストを説明でき、ホワイトボックステストの価値を説明できる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.4</td>
+                                        <td><code>FL-4.4.1〜4.4.3</code></td>
+                                        <td><span class="badge k2">K2</span></td>
+                                        <td>
+                                            エラー推測・探索的テスト・チェックリストベースドテストを説明できる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4.5</td>
+                                        <td><code>FL-4.5.1〜4.5.3</code></td>
+                                        <td>
+                                            <span class="badge k2">K2</span>/<span class="badge k3"
+                                                >K3</span
+                                            >
+                                        </td>
+                                        <td>
+                                            ユーザーストーリーの共同作成・受け入れ基準の分類ができ、ATDDでテストケースを導出できる
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout warn">
+                            <span class="dot"></span>
+                            <p>
+                                K3（適用）レベルの学習目標が集中しているのが本章の特徴です。試験では「用語の暗記」だけでなく「与えられた仕様からテストケースを実際に導出させる」計算問題・応用問題が出題されます。
+                            </p>
+                        </div>
+
+                        <h3>0.2 本章のキーワード（K1：暗記必須）</h3>
+                        <div class="keyword-grid">
+                            <span class="keyword-chip"><b>acceptance criteria</b>受け入れ基準</span>
+                            <span class="keyword-chip"
+                                ><b>acceptance test-driven development</b>ATDD</span
+                            >
+                            <span class="keyword-chip"
+                                ><b>black-box test technique</b>ブラックボックステスト技法</span
+                            >
+                            <span class="keyword-chip"
+                                ><b>boundary value analysis</b>境界値分析</span
+                            >
+                            <span class="keyword-chip"><b>branch coverage</b>分岐カバレッジ</span>
+                            <span class="keyword-chip"
+                                ><b>checklist-based testing</b>チェックリストベースドテスト</span
+                            >
+                            <span class="keyword-chip"
+                                ><b>collaboration-based test approach</b
+                                >コラボレーションベースのテストアプローチ</span
+                            >
+                            <span class="keyword-chip"><b>coverage</b>カバレッジ</span>
+                            <span class="keyword-chip"><b>coverage item</b>カバレッジ項目</span>
+                            <span class="keyword-chip"
+                                ><b>decision table testing</b>デシジョンテーブルテスト</span
+                            >
+                            <span class="keyword-chip"
+                                ><b>equivalence partitioning</b>同値分割法</span
+                            >
+                            <span class="keyword-chip"><b>error guessing</b>エラー推測</span>
+                            <span class="keyword-chip"
+                                ><b>experience-based test technique</b>経験ベースのテスト技法</span
+                            >
+                            <span class="keyword-chip"><b>exploratory testing</b>探索的テスト</span>
+                            <span class="keyword-chip"
+                                ><b>state transition testing</b>状態遷移テスト</span
+                            >
+                            <span class="keyword-chip"
+                                ><b>statement coverage</b>ステートメントカバレッジ</span
+                            >
+                            <span class="keyword-chip"><b>test technique</b>テスト技法</span>
+                            <span class="keyword-chip"
+                                ><b>white-box test technique</b>ホワイトボックステスト技法</span
+                            >
+                        </div>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB Certified Tester Foundation Level Syllabus v4.0.1,
+                                    Chapter 4</a
+                                >（p.38-46）
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- ============ SECTION 1 (4.1) ============ -->
+                    <section id="sec-1">
+                        <span class="sec-kicker">4.1</span>
+                        <h2>テスト技法の全体像（Test Techniques Overview）</h2>
+
+                        <h3>1.1 なぜテスト技法が必要か</h3>
+                        <p>
+                            「テストは無限にはできない（Exhaustive testing is
+                            impossible）」という第1章のテスト7原則を思い出してください。テスト技法とは、<strong>限られた時間の中で、比較的小さいが十分なテストケース集合を、体系的に導き出すための方法論</strong>です。テスト技法は以下の3つを助けます。
+                        </p>
+                        <ul>
+                            <li>テスト条件（test condition）の定義</li>
+                            <li>カバレッジ項目（coverage item）の識別</li>
+                            <li>テストデータの識別</li>
+                        </ul>
+                        <p>シラバスでは、テスト技法を大きく3つに分類しています。</p>
+
+                        <div class="diagram">
+                            <div class="mermaid">
+                                flowchart TD A["テスト技法"] -->
+                                B["ブラックボックステスト技法（仕様ベース）"] A -->
+                                C["ホワイトボックステスト技法（構造ベース）"] A -->
+                                D["経験ベースのテスト技法"] B --> B1["同値分割法"] B -->
+                                B2["境界値分析"] B --> B3["デシジョンテーブルテスト"] B -->
+                                B4["状態遷移テスト"] C --> C1["ステートメントテスト"] C -->
+                                C2["分岐テスト"] D --> D1["エラー推測"] D --> D2["探索的テスト"] D
+                                --> D3["チェックリストベースドテスト"]
+                            </div>
+                            <div class="diagram-caption">
+                                図1: シラバス4.1節に基づくテスト技法の3分類
+                            </div>
+                        </div>
+
+                        <div class="callout point">
+                            <span class="dot"></span>
+                            <p>
+                                <strong>図解上の注意</strong
+                                >：コラボレーションベースのテストアプローチ（4.5節）は、上記の「ブラックボックス／ホワイトボックス／経験ベース」という3分類には含まれません。技法群が主に「欠陥の検出（defect
+                                detection）」を目的とするのに対し、コラボレーションベースのアプローチは会話とコラボレーションによる「<strong
+                                    >欠陥の回避（defect avoidance）</strong
+                                >」にも重点を置く点が特徴です。
+                            </p>
+                        </div>
+
+                        <h3>1.2 3つの技法カテゴリの本質的な違い</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th><span class="badge bb">BLACK-BOX</span></th>
+                                        <th><span class="badge wb">WHITE-BOX</span></th>
+                                        <th><span class="badge eb">EXPERIENCE</span></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>別名</td>
+                                        <td>仕様ベース技法</td>
+                                        <td>構造ベース技法</td>
+                                        <td>—</td>
+                                    </tr>
+                                    <tr>
+                                        <td>導出の根拠</td>
+                                        <td>仕様化された振る舞い（内部構造は見ない）</td>
+                                        <td>テスト対象の内部構造・処理</td>
+                                        <td>テスターの知識・経験・直感</td>
+                                    </tr>
+                                    <tr>
+                                        <td>実装への依存</td>
+                                        <td>
+                                            依存しない（実装が変わっても仕様が同じなら再利用可）
+                                        </td>
+                                        <td>依存する（設計・実装後でないと作成不可）</td>
+                                        <td>テスターのスキルに強く依存</td>
+                                    </tr>
+                                    <tr>
+                                        <td>いつ使えるか</td>
+                                        <td>要件定義後、実装前から着手可能</td>
+                                        <td>設計・実装が完了してから</td>
+                                        <td>いつでも、他技法の補完として</td>
+                                    </tr>
+                                    <tr>
+                                        <td>主目的</td>
+                                        <td>仕様どおりの振る舞いを検証</td>
+                                        <td>コード構造のカバレッジ達成</td>
+                                        <td>フォーマル技法が見逃す欠陥の検出</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            3つのカテゴリは互いに排他的ではなく、<strong>補完関係（complementary）</strong>にあります。経験ベースの技法は、ブラックボックス／ホワイトボックス技法では見逃されがちな欠陥を検出できるため、単独で使うのではなく組み合わせて使うのが実務上のベストプラクティスです。
+                        </p>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.1</a
+                                >（p.39） /
+                                <a
+                                    href="https://www.iso.org/standard/79430.html"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISO/IEC/IEEE 29119-4:2021 Test techniques</a
+                                >
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- ============ SECTION 2 (4.2) ============ -->
+                    <section id="sec-2">
+                        <span class="sec-kicker">4.2</span>
+                        <h2>ブラックボックステスト技法（Black-Box Test Techniques）</h2>
+                        <p>
+                            ブラックボックステスト技法は、テスト対象を「中身の見えない箱」として扱い、<strong>入力と出力の関係（＝仕様）だけ</strong>からテストケースを導き出します。シラバスで扱う4つの技法を順に見ていきます。
+                        </p>
+                    </section>
+
+                    <section id="sec-2-1">
+                        <span class="sec-kicker">4.2.1</span>
+                        <h2>同値分割法（Equivalence Partitioning, EP）</h2>
+
+                        <h3>基本原理</h3>
+                        <p>
+                            同値分割法は、データを「同値パーティション（equivalence
+                            partition）」に分割する技法です。理論的根拠は次の一文に集約されます。
+                        </p>
+                        <div class="callout tip">
+                            <span class="dot"></span>
+                            <p>
+                                あるパーティションに属する1つの値をテストして欠陥が検出されたなら、そのパーティションに属する他のどの値をテストしても同じ欠陥が検出されるはずである。したがって、<strong>1パーティションにつき1テストで十分</strong>である。
+                            </p>
+                        </div>
+                        <p>パーティションは以下の性質を満たす必要があります。</p>
+                        <ul>
+                            <li>
+                                連続的でも離散的でもよい、順序があってもなくてもよい、有限でも無限でもよい
+                            </li>
+                            <li><strong>重複してはならない</strong></li>
+                            <li><strong>空集合であってはならない</strong></li>
+                            <li>
+                                有効値を含む「有効パーティション（valid
+                                partition）」と、無効値を含む「無効パーティション（invalid
+                                partition）」に分かれる
+                            </li>
+                        </ul>
+
+                        <h3>ステップバイステップ：年齢入力欄の例</h3>
+                        <p>
+                            「保険商品への加入可能年齢は18歳以上65歳以下（整数、単位：歳）」という仕様を例に考えます。
+                        </p>
+
+                        <h4>ステップ1：パーティションを識別する</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>パーティションID</th>
+                                        <th>範囲</th>
+                                        <th>種別</th>
+                                        <th>代表値の例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>P1</td>
+                                        <td><code>age &lt; 18</code></td>
+                                        <td>無効パーティション</td>
+                                        <td>10</td>
+                                    </tr>
+                                    <tr>
+                                        <td>P2</td>
+                                        <td><code>18 ≤ age ≤ 65</code></td>
+                                        <td>有効パーティション</td>
+                                        <td>40</td>
+                                    </tr>
+                                    <tr>
+                                        <td>P3</td>
+                                        <td><code>age &gt; 65</code></td>
+                                        <td>無効パーティション</td>
+                                        <td>80</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>
+                            ステップ2：各パーティションから代表値を1つずつ選び、テストケース化する
+                        </h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>TC ID</th>
+                                        <th>入力値（age）</th>
+                                        <th>対象パーティション</th>
+                                        <th>期待結果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>EP-01</td>
+                                        <td>10</td>
+                                        <td>P1</td>
+                                        <td>加入不可（エラーメッセージ）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>EP-02</td>
+                                        <td>40</td>
+                                        <td>P2</td>
+                                        <td>加入可能</td>
+                                    </tr>
+                                    <tr>
+                                        <td>EP-03</td>
+                                        <td>80</td>
+                                        <td>P3</td>
+                                        <td>加入不可（エラーメッセージ）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>ステップ3：カバレッジを計算する</h4>
+                        <p>カバレッジ項目（coverage item）は「同値パーティションそのもの」です。</p>
+                        <div class="code-block">
+                            <div class="code-label">coverage formula</div>
+                            <pre><code class="language-python">カバレッジ(%) = (少なくとも1回はテストされたパーティション数 ÷ 識別されたパーティション総数) × 100</code></pre>
+                        </div>
+
+                        <div class="coverage-block">
+                            <div class="coverage-row">
+                                <span class="coverage-label">EP-01,02,03 実行後</span>
+                                <div class="coverage-bar">
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                </div>
+                                <span class="coverage-pct">100%</span>
+                            </div>
+                        </div>
+                        <p
+                            style="
+                                text-align: center;
+                                color: var(--text-tertiary);
+                                font-size: 12.5px;
+                                margin-top: -18px;
+                            "
+                        >
+                            3パーティション全てを1回ずつテスト → 100%カバレッジ達成
+                        </p>
+
+                        <h4>複数パラメータがある場合：Each Choice coverage</h4>
+                        <p>
+                            入力パラメータが複数ある場合（例：age と membership_type
+                            の2つ）、各パラメータ集合から少なくとも1回ずつパーティションを組み合わせるだけの最も単純なカバレッジ基準を<strong
+                                >Each Choice coverage</strong
+                            >と呼びます。これは全組み合わせを網羅するものではない点に注意してください（全組み合わせのテストはデシジョンテーブルテストの領域になります）。
+                        </p>
+
+                        <h3>Pythonによる実装例とテストコード</h3>
+                        <div class="code-block">
+                            <div class="code-label">insurance.py</div>
+                            <pre><code class="language-python">def check_insurance_eligibility(age: int) -&gt; str:
+    """保険加入可否を判定する（仕様: 18歳以上65歳以下が加入可能）"""
+    if age &lt; 18:
+        return "REJECTED_TOO_YOUNG"
+    if age &gt; 65:
+        return "REJECTED_TOO_OLD"
+    return "ACCEPTED"</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-label">test_insurance.py</div>
+                            <pre><code class="language-python">import pytest
+from insurance import check_insurance_eligibility
+
+# 同値分割法に基づくテストケース（P1, P2, P3 の代表値）
+@pytest.mark.parametrize("age, expected", [
+    (10, "REJECTED_TOO_YOUNG"),  # P1: 無効パーティション（下限未満）
+    (40, "ACCEPTED"),            # P2: 有効パーティション
+    (80, "REJECTED_TOO_OLD"),    # P3: 無効パーティション（上限超過）
+])
+def test_equivalence_partitioning(age, expected):
+    assert check_insurance_eligibility(age) == expected</code></pre>
+                        </div>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.2.1</a
+                                >（p.39-40）
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="sec-2-2">
+                        <span class="sec-kicker">4.2.2</span>
+                        <h2>境界値分析（Boundary Value Analysis, BVA）</h2>
+
+                        <h3>基本原理</h3>
+                        <p>
+                            境界値分析は、同値パーティションの「境界」を重点的にテストする技法です。<strong>順序があるパーティションにのみ適用可能</strong>という制約がある点が、同値分割法との重要な違いです。開発者は境界値の実装（<code
+                                >&lt;</code
+                            >
+                            と
+                            <code>&lt;=</code>
+                            の取り違えなど）でミスをしやすいため、境界値分析は非常に効果の高い技法とされています。
+                        </p>
+                        <p>
+                            シラバスは<strong>2値BVA（2-value BVA）</strong>と<strong
+                                >3値BVA（3-value BVA）</strong
+                            >の2種類を規定しています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>方式</th>
+                                        <th>1境界あたりのカバレッジ項目</th>
+                                        <th>出典</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2値BVA</td>
+                                        <td>
+                                            境界値そのもの + 隣接パーティションの最も近い値（計2点）
+                                        </td>
+                                        <td>Craig 2002, Myers 2011</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3値BVA</td>
+                                        <td>境界値そのもの + 両隣の値（計3点）</td>
+                                        <td>Koomen 2006, O'Regan 2019</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            3値BVAの方が2値BVAより厳密です。例えば
+                            <code>if (x &lt;= 10)</code> を誤って
+                            <code>if (x == 10)</code> と実装してしまった欠陥は、2値BVA（x=10,
+                            x=11）では検出できませんが、3値BVAが追加する x=9
+                            のテストによって検出できます。
+                        </p>
+
+                        <h3>ステップバイステップ：先ほどの年齢入力欄で境界値分析を行う</h3>
+                        <p>境界は「17/18」（下限）と「65/66」（上限）の2箇所です。</p>
+
+                        <h4>2値BVA</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>TC ID</th>
+                                        <th>入力値</th>
+                                        <th>対象境界</th>
+                                        <th>期待結果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>BVA2-01</td>
+                                        <td>17</td>
+                                        <td>下限の無効側</td>
+                                        <td>REJECTED_TOO_YOUNG</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BVA2-02</td>
+                                        <td>18</td>
+                                        <td>下限の有効側</td>
+                                        <td>ACCEPTED</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BVA2-03</td>
+                                        <td>65</td>
+                                        <td>上限の有効側</td>
+                                        <td>ACCEPTED</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BVA2-04</td>
+                                        <td>66</td>
+                                        <td>上限の無効側</td>
+                                        <td>REJECTED_TOO_OLD</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>→ 4テストケースで100%カバレッジ（識別された境界値4つを全て網羅）。</p>
+
+                        <h4>3値BVA</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>TC ID</th>
+                                        <th>入力値</th>
+                                        <th>対象境界</th>
+                                        <th>期待結果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>BVA3-01</td>
+                                        <td>17</td>
+                                        <td>下限-1</td>
+                                        <td>REJECTED_TOO_YOUNG</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BVA3-02</td>
+                                        <td>18</td>
+                                        <td>下限</td>
+                                        <td>ACCEPTED</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BVA3-03</td>
+                                        <td>19</td>
+                                        <td>下限+1</td>
+                                        <td>ACCEPTED</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BVA3-04</td>
+                                        <td>64</td>
+                                        <td>上限-1</td>
+                                        <td>ACCEPTED</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BVA3-05</td>
+                                        <td>65</td>
+                                        <td>上限</td>
+                                        <td>ACCEPTED</td>
+                                    </tr>
+                                    <tr>
+                                        <td>BVA3-06</td>
+                                        <td>66</td>
+                                        <td>上限+1</td>
+                                        <td>REJECTED_TOO_OLD</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>→ 6テストケースで100%カバレッジ。</p>
+
+                        <div class="code-block">
+                            <div class="code-label">test_insurance_bva.py</div>
+                            <pre><code class="language-python">@pytest.mark.parametrize("age, expected", [
+    # --- 下限境界 (17/18) ---
+    (17, "REJECTED_TOO_YOUNG"),
+    (18, "ACCEPTED"),
+    (19, "ACCEPTED"),            # 3値BVAのみで追加される
+    # --- 上限境界 (65/66) ---
+    (64, "ACCEPTED"),            # 3値BVAのみで追加される
+    (65, "ACCEPTED"),
+    (66, "REJECTED_TOO_OLD"),
+])
+def test_boundary_value_analysis(age, expected):
+    assert check_insurance_eligibility(age) == expected</code></pre>
+                        </div>
+
+                        <div class="callout tip">
+                            <span class="dot"></span>
+                            <p>
+                                <strong>実務Tips</strong
+                                >：境界値分析は同値分割法とセットで使うのが定石です。同値分割法で「大きなミス」を、境界値分析で「境界の小さなオフバイワン（off-by-one）ミス」を狙う、という役割分担で理解すると設計しやすくなります。
+                            </p>
+                        </div>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.2.2</a
+                                >（p.40-41）
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="sec-2-3">
+                        <span class="sec-kicker">4.2.3</span>
+                        <h2>デシジョンテーブルテスト（Decision Table Testing）</h2>
+
+                        <h3>基本原理</h3>
+                        <p>
+                            デシジョンテーブルは、<strong>複数の条件の組み合わせによって異なる結果（アクション）になる業務ロジック</strong>をテストするのに適した技法です。条件とアクションを行に、それぞれの組み合わせ（ルール）を列に配置します。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>限定エントリー表（limited-entry）</strong
+                                >：条件・アクションを全てブール値（T/F）で表現
+                            </li>
+                            <li>
+                                <strong>拡張エントリー表（extended-entry）</strong
+                                >：条件・アクションが複数値（数値範囲など）を取り得る
+                            </li>
+                        </ul>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>記号（条件）</th>
+                                        <th>意味</th>
+                                        <th>記号（アクション）</th>
+                                        <th>意味</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>T</code></td>
+                                        <td>条件を満たす</td>
+                                        <td><code>X</code></td>
+                                        <td>アクションを実行する</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>F</code></td>
+                                        <td>条件を満たさない</td>
+                                        <td>(空欄)</td>
+                                        <td>アクションを実行しない</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>–</code></td>
+                                        <td>結果に無関係</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>N/A</code></td>
+                                        <td>そのルールでは条件自体が起こり得ない</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>ステップバイステップ：ローン仮審査システムの例</h3>
+                        <p>
+                            <strong>条件</strong
+                            >：C1＝信用スコアが基準値以上か／C2＝年収が基準値以上か／C3＝過去に延滞歴があるか<br />
+                            <strong>アクション</strong
+                            >：A1＝自動承認／A2＝手動審査へ回す／A3＝自動謝絶
+                        </p>
+
+                        <h4>ステップ1：フルデシジョンテーブルを作成する（3条件 → 2³ = 8ルール）</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>条件／アクション</th>
+                                        <th>R1</th>
+                                        <th>R2</th>
+                                        <th>R3</th>
+                                        <th>R4</th>
+                                        <th>R5</th>
+                                        <th>R6</th>
+                                        <th>R7</th>
+                                        <th>R8</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>C1: 信用スコア基準以上</td>
+                                        <td>T</td>
+                                        <td>T</td>
+                                        <td>T</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C2: 年収基準以上</td>
+                                        <td>T</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                        <td>T</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C3: 延滞歴あり</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A1: 自動承認</td>
+                                        <td></td>
+                                        <td>X</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>A2: 手動審査</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>X</td>
+                                        <td></td>
+                                        <td>X</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>A3: 自動謝絶</td>
+                                        <td>X</td>
+                                        <td></td>
+                                        <td>X</td>
+                                        <td></td>
+                                        <td>X</td>
+                                        <td></td>
+                                        <td>X</td>
+                                        <td>X</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>ステップ2：テーブルを簡略化（minimize）する</h4>
+                        <p>
+                            シラバスでは「一部の条件が結果に影響しない列は1列に統合してテーブルを縮小できる」とされています（具体的な最小化アルゴリズムは試験範囲外）。上表を観察すると、<strong
+                                >C3（延滞歴あり）が T のルールは C1・C2
+                                の値に関わらず全て「自動謝絶」</strong
+                            >になっています。これらを1列にまとめると次のように簡略化できます。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>条件／アクション</th>
+                                        <th>R1'（C3=Tを統合）</th>
+                                        <th>R2</th>
+                                        <th>R4</th>
+                                        <th>R6</th>
+                                        <th>R8</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>C1: 信用スコア基準以上</td>
+                                        <td>–</td>
+                                        <td>T</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C2: 年収基準以上</td>
+                                        <td>–</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>C3: 延滞歴あり</td>
+                                        <td>T</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                        <td>F</td>
+                                    </tr>
+                                    <tr>
+                                        <td>A1: 自動承認</td>
+                                        <td></td>
+                                        <td>X</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>A2: 手動審査</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>X</td>
+                                        <td>X</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>A3: 自動謝絶</td>
+                                        <td>X</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>X</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="coverage-block">
+                            <div class="coverage-row">
+                                <span class="coverage-label">簡略化前 (8ルール)</span>
+                                <div class="coverage-bar">
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                </div>
+                                <span class="coverage-pct">8件</span>
+                            </div>
+                            <div class="coverage-row">
+                                <span class="coverage-label">簡略化後 (5ルール)</span>
+                                <div class="coverage-bar">
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg on"></div>
+                                    <div class="seg"></div>
+                                    <div class="seg"></div>
+                                    <div class="seg"></div>
+                                </div>
+                                <span class="coverage-pct">5件</span>
+                            </div>
+                        </div>
+                        <p
+                            style="
+                                text-align: center;
+                                color: var(--text-tertiary);
+                                font-size: 12.5px;
+                                margin-top: -18px;
+                            "
+                        >
+                            8ルール → 5ルールへと簡略化されても論理的な網羅性は保たれる
+                        </p>
+
+                        <h4>ステップ3：カバレッジを算出する</h4>
+                        <div class="code-block">
+                            <div class="code-label">coverage formula</div>
+                            <pre><code class="language-python">カバレッジ(%) = (実行された実現可能な列の数 ÷ 実現可能な列の総数) × 100</code></pre>
+                        </div>
+                        <p>
+                            デシジョンテーブルテストの強みは、<strong>要件の矛盾や漏れを機械的に発見できる</strong>点にあります。一方で条件数が増えると列数は指数関数的に増加するため、条件が多い場合はテーブルの簡略化かリスクベースアプローチの併用が推奨されます。
+                        </p>
+
+                        <h3>Pythonでの実装とテストコード</h3>
+                        <div class="code-block">
+                            <div class="code-label">loan_screening.py</div>
+                            <pre><code class="language-python">def screen_loan_application(credit_ok: bool, income_ok: bool, has_delinquency: bool) -&gt; str:
+    if has_delinquency:
+        return "AUTO_REJECT"
+    if credit_ok and income_ok:
+        return "AUTO_APPROVE"
+    return "MANUAL_REVIEW"</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-label">test_loan_screening.py</div>
+                            <pre><code class="language-python">@pytest.mark.parametrize("credit_ok, income_ok, has_delinquency, expected", [
+    (False, False, True,  "AUTO_REJECT"),    # 簡略化後のルール1（C3=Tで統合）
+    (True,  True,  False, "AUTO_APPROVE"),   # ルール2
+    (True,  False, False, "MANUAL_REVIEW"),  # ルール4
+    (False, True,  False, "MANUAL_REVIEW"),  # ルール6
+    (False, False, False, "AUTO_REJECT"),    # ルール8
+])
+def test_decision_table(credit_ok, income_ok, has_delinquency, expected):
+    assert screen_loan_application(credit_ok, income_ok, has_delinquency) == expected</code></pre>
+                        </div>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.2.3</a
+                                >（p.41）
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="sec-2-4">
+                        <span class="sec-kicker">4.2.4</span>
+                        <h2>状態遷移テスト（State Transition Testing）</h2>
+
+                        <h3>基本原理</h3>
+                        <p>
+                            状態遷移テストは、システムの「状態（state）」と、イベント（＋ガード条件）による「遷移（transition）」をモデル化してテストケースを導出する技法です。表記法は次の形式です。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label">notation</div>
+                            <pre><code class="language-python">event [guard condition] / action</code></pre>
+                        </div>
+                        <p>
+                            <strong>状態図（state diagram）</strong>と<strong
+                                >状態表（state table）</strong
+                            >は等価なモデルです。状態表は行に状態、列にイベントを配置し、セルに遷移先状態を書きます。<strong
+                                >状態図では見えにくい「無効な遷移（invalid
+                                transition）」が、状態表では空欄として明示される</strong
+                            >点が重要な違いです。
+                        </p>
+
+                        <h3>ステップバイステップ：ログイン試行制限機能の例</h3>
+                        <p>
+                            仕様：ログイン画面で誤った認証情報を3回連続入力するとアカウントがロックされる。
+                        </p>
+
+                        <h4>ステップ1：状態遷移図を作成する</h4>
+                        <div class="diagram">
+                            <div class="mermaid">
+                                stateDiagram-v2 [*] --> LoggedOut LoggedOut --> LoggedIn:
+                                正しい認証情報 LoggedOut --> LoggedOut:
+                                誤った認証情報（試行2回未満） LoggedOut --> Locked:
+                                誤った認証情報（3回目） LoggedIn --> LoggedOut: ログアウト Locked
+                                --> [*]
+                            </div>
+                            <div class="diagram-caption">図2: ログイン試行制限機能の状態遷移図</div>
+                        </div>
+
+                        <h4>ステップ2：状態表を作成する（無効遷移を明示する）</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>状態 ＼ イベント</th>
+                                        <th>正しい認証情報</th>
+                                        <th>誤った認証情報[試行&lt;2]</th>
+                                        <th>誤った認証情報[試行=2]</th>
+                                        <th>ログアウト</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>LoggedOut</strong></td>
+                                        <td>→ LoggedIn</td>
+                                        <td>→ LoggedOut</td>
+                                        <td>→ Locked</td>
+                                        <td><em>(無効)</em></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>LoggedIn</strong></td>
+                                        <td><em>(無効)</em></td>
+                                        <td><em>(無効)</em></td>
+                                        <td><em>(無効)</em></td>
+                                        <td>→ LoggedOut</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Locked</strong></td>
+                                        <td><em>(無効)</em></td>
+                                        <td><em>(無効)</em></td>
+                                        <td><em>(無効)</em></td>
+                                        <td><em>(無効)</em></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h4>ステップ3：3種類のカバレッジ基準でテストケースを設計する</h4>
+                        <p>
+                            シラバスは3つのカバレッジ基準を規定しており、これらは<strong>包含関係</strong>にあります（強いものほど弱いものを自動的に満たす）。
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>カバレッジ基準</th>
+                                        <th>カバレッジ項目</th>
+                                        <th>計算式</th>
+                                        <th>特徴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>All states coverage<br />（全状態カバレッジ）</td>
+                                        <td>状態</td>
+                                        <td>訪問した状態数 ÷ 全状態数</td>
+                                        <td>最も弱い。遷移を経由せずとも達成できてしまう</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            Valid transitions coverage<br />（有効遷移カバレッジ、0-switch
+                                            coverage）
+                                        </td>
+                                        <td>有効な遷移</td>
+                                        <td>実行した有効遷移数 ÷ 全有効遷移数</td>
+                                        <td>最も広く使われる基準</td>
+                                    </tr>
+                                    <tr>
+                                        <td>All transitions coverage<br />（全遷移カバレッジ）</td>
+                                        <td>有効遷移＋無効遷移</td>
+                                        <td>実行/試行した遷移数 ÷ 全遷移数</td>
+                                        <td>
+                                            最も厳密。ミッションクリティカルなソフトウェアの最低要件
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout point">
+                            <span class="dot"></span>
+                            <p>
+                                <strong>重要な包含関係</strong>：全遷移カバレッジ100% ⊃
+                                有効遷移カバレッジ100% ⊃ 全状態カバレッジ100%（逆は成立しない）
+                            </p>
+                        </div>
+
+                        <p><strong>有効遷移カバレッジ100%を満たす最小テストケース例</strong></p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>TC ID</th>
+                                        <th>遷移シーケンス</th>
+                                        <th>カバーする有効遷移</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ST-01</td>
+                                        <td>
+                                            LoggedOut →(誤×1)→ LoggedOut →(正)→ LoggedIn
+                                            →(ログアウト)→ LoggedOut
+                                        </td>
+                                        <td>
+                                            LoggedOut→LoggedOut, LoggedOut→LoggedIn,
+                                            LoggedIn→LoggedOut
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ST-02</td>
+                                        <td>LoggedOut →(誤×3)→ Locked</td>
+                                        <td>LoggedOut→Locked</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            上記2テストケースで4つの有効遷移すべてと3つの状態すべてをカバーできます。全遷移カバレッジを狙う場合は、さらに「LoggedIn状態で認証情報を入力する」「Locked状態でログアウトを試みる」といった<strong>無効遷移を意図的に発生させるテストケース</strong>を追加する必要があります。
+                        </p>
+
+                        <div class="callout warn">
+                            <span class="dot"></span>
+                            <p>
+                                シラバスは<strong>1テストケースにつき無効遷移は1つだけテストする</strong>ことを推奨しています。複数の無効遷移を1テストケースに詰め込むと、1つの欠陥がもう1つの欠陥の検出を妨げる「<strong
+                                    >欠陥マスキング（defect masking）</strong
+                                >」が起きる可能性があるためです。
+                            </p>
+                        </div>
+
+                        <h3>Pythonでの状態遷移モデル実装とテスト</h3>
+                        <div class="code-block">
+                            <div class="code-label">login_state_machine.py</div>
+                            <pre><code class="language-python">class LoginStateMachine:
+    def __init__(self):
+        self.state = "LoggedOut"
+        self.attempts = 0
+
+    def enter_credentials(self, is_valid: bool):
+        if self.state != "LoggedOut":
+            raise ValueError(f"Invalid transition: enter_credentials from {self.state}")
+        if is_valid:
+            self.state = "LoggedIn"
+            self.attempts = 0
+        else:
+            self.attempts += 1
+            if self.attempts &gt;= 3:
+                self.state = "Locked"
+
+    def logout(self):
+        if self.state != "LoggedIn":
+            raise ValueError(f"Invalid transition: logout from {self.state}")
+        self.state = "LoggedOut"</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-label">test_login_state_machine.py</div>
+                            <pre><code class="language-python">def test_valid_transitions_coverage():
+    # ST-01: LoggedOut -&gt; LoggedOut -&gt; LoggedIn -&gt; LoggedOut
+    sm = LoginStateMachine()
+    sm.enter_credentials(is_valid=False)
+    assert sm.state == "LoggedOut"
+    sm.enter_credentials(is_valid=True)
+    assert sm.state == "LoggedIn"
+    sm.logout()
+    assert sm.state == "LoggedOut"
+
+def test_lockout_after_three_failures():
+    # ST-02: LoggedOut -&gt; Locked（3回連続失敗）
+    sm = LoginStateMachine()
+    for _ in range(3):
+        sm.enter_credentials(is_valid=False)
+    assert sm.state == "Locked"
+
+def test_invalid_transition_raises_error():
+    # 全遷移カバレッジ用: LoggedOutでログアウトを試みる（無効遷移）
+    sm = LoginStateMachine()
+    with pytest.raises(ValueError):
+        sm.logout()</code></pre>
+                        </div>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.2.4</a
+                                >（p.41-42）
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- ============ SECTION 3 (4.3) ============ -->
+                    <section id="sec-3">
+                        <span class="sec-kicker">4.3</span>
+                        <h2>ホワイトボックステスト技法（White-Box Test Techniques）</h2>
+                        <p>
+                            ブラックボックス技法と対照的に、ホワイトボックス技法は<strong>テスト対象の内部構造（コード）を根拠にテストケースを導出</strong>します。そのためテストケースはテスト対象の設計・実装が完了した後でなければ作成できません。シラバスは実務でよく使われる2つのコードベース技法、<strong>ステートメントテスト</strong>と<strong>分岐テスト</strong>を扱います。
+                        </p>
+
+                        <h3>制御フローグラフ（Control Flow Graph）の考え方</h3>
+                        <p>
+                            ホワイトボックステストを理解する前提として、コードを「制御フローグラフ」として捉える視点が必要です。次のPython関数を例に考えます。
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-label">shipping.py</div>
+                            <pre><code class="language-python">def calculate_shipping_fee(amount: int, is_member: bool) -&gt; int:
+    fee = 500                     # S1: ステートメント
+    if amount &gt;= 5000:            # D1: 分岐（決定）
+        fee = 0                   # S2: ステートメント（D1がTrueの場合のみ実行）
+    if is_member:                 # D2: 分岐（決定）
+        fee = fee - 100           # S3: ステートメント（D2がTrueの場合のみ実行）
+    return fee                    # S4: ステートメント</code></pre>
+                        </div>
+
+                        <p><strong>制御フローグラフ</strong></p>
+                        <div class="diagram">
+                            <div class="mermaid">
+                                flowchart TD Start(["開始"]) --> S1["S1: fee = 500"] S1 --> D1{"D1:
+                                amount &gt;= 5000 ?"} D1 -->|"True"| S2["S2: fee = 0"] D1
+                                -->|"False"| D2{"D2: is_member ?"} S2 --> D2 D2 -->|"True"| S3["S3:
+                                fee = fee - 100"] D2 -->|"False"| Finish(["return fee"]) S3 -->
+                                Finish
+                            </div>
+                            <div class="diagram-caption">
+                                図3: calculate_shipping_fee の制御フローグラフ
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="sec-3-1">
+                        <span class="sec-kicker">4.3.1</span>
+                        <h2>ステートメントテストとステートメントカバレッジ</h2>
+                        <p>
+                            ステートメントテストでは、<strong
+                                >カバレッジ項目は実行可能なステートメント（executable
+                                statement）</strong
+                            >です。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label">coverage formula</div>
+                            <pre><code class="language-python">ステートメントカバレッジ(%) = (テストで実行されたステートメント数 ÷ 実行可能なステートメント総数) × 100</code></pre>
+                        </div>
+
+                        <h4>ステップバイステップ</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>TC ID</th>
+                                        <th>amount</th>
+                                        <th>is_member</th>
+                                        <th>通るパス</th>
+                                        <th>カバーされるステートメント</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>WB-01</td>
+                                        <td>6000</td>
+                                        <td>True</td>
+                                        <td>S1→D1(T)→S2→D2(T)→S3→End</td>
+                                        <td>S1, S2, S3, End</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            この<strong>1テストケースだけで S1〜S4 すべてを実行</strong
+                            >でき、100%ステートメントカバレッジを達成できます。しかし、これは「D1がFalseの場合」「D2がFalseの場合」というロジックを一切検証していないことに注意してください。
+                        </p>
+
+                        <div class="callout warn">
+                            <span class="dot"></span>
+                            <p>
+                                <strong
+                                    >100%ステートメントカバレッジを達成しても、以下は保証されません：</strong
+                                >
+                                ①すべての決定（decision）のロジックが検証されたこと（分岐カバレッジは別途必要）／②データに依存する欠陥（例：特定の値でのみ発生するゼロ除算）の検出
+                            </p>
+                        </div>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.3.1</a
+                                >（p.42-43）
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="sec-3-2">
+                        <span class="sec-kicker">4.3.2</span>
+                        <h2>分岐テストと分岐カバレッジ</h2>
+                        <p>
+                            分岐テストでは、<strong>カバレッジ項目は分岐（branch）</strong>、つまり制御フローグラフ上のノード間の遷移（無条件・条件付きの両方）です。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label">coverage formula</div>
+                            <pre><code class="language-python">分岐カバレッジ(%) = (テストで実行された分岐数 ÷ 分岐総数) × 100</code></pre>
+                        </div>
+
+                        <h4>ステップバイステップ：2テストケースで100%分岐カバレッジを達成する</h4>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>TC ID</th>
+                                        <th>amount</th>
+                                        <th>is_member</th>
+                                        <th>D1の結果</th>
+                                        <th>D2の結果</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>WB-01</td>
+                                        <td>6000</td>
+                                        <td>True</td>
+                                        <td>True</td>
+                                        <td>True</td>
+                                    </tr>
+                                    <tr>
+                                        <td>WB-02</td>
+                                        <td>1000</td>
+                                        <td>False</td>
+                                        <td>False</td>
+                                        <td>False</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            D1・D2 それぞれについて True/False
+                            両方が最低1回ずつ実行されるため、この2テストケースで<strong>100%分岐カバレッジ</strong>を達成できます（D1=T&amp;D2=F、D1=F&amp;D2=Tの組み合わせまでは要求されない点が「分岐カバレッジ」と「パスカバレッジ」の違いです）。
+                        </p>
+
+                        <div class="callout point">
+                            <span class="dot"></span>
+                            <p>
+                                <strong>重要な関係性（シラバスの明言）</strong
+                                >：分岐カバレッジはステートメントカバレッジを<strong>包含する（subsumes）</strong>。つまり100%分岐カバレッジを達成するテストケース集合は、必ず100%ステートメントカバレッジも達成します。ただし逆は成立しません。
+                            </p>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-label">test_shipping.py</div>
+                            <pre><code class="language-python">@pytest.mark.parametrize("amount, is_member, expected_fee", [
+    (6000, True, -100),   # D1=True, D2=True の分岐を通る
+    (1000, False, 500),   # D1=False, D2=False の分岐を通る
+])
+def test_branch_coverage(amount, is_member, expected_fee):
+    assert calculate_shipping_fee(amount, is_member) == expected_fee</code></pre>
+                        </div>
+                        <div class="code-block">
+                            <div class="code-label">terminal</div>
+                            <pre><code class="language-bash"># coverage.py と組み合わせて実際のカバレッジ率を計測する場合
+pip install pytest-cov --break-system-packages
+pytest --cov=shipping --cov-report=term-missing --cov-branch</code></pre>
+                        </div>
+                        <p>
+                            <code>--cov-branch</code>
+                            オプションを付けることで、ステートメントカバレッジだけでなく分岐カバレッジも計測できます。実務でホワイトボックステストの網羅率を主張する際は、必ずこのオプションを使うようにしましょう。
+                        </p>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.3.2</a
+                                >（p.43）
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="sec-3-3">
+                        <span class="sec-kicker">4.3.3</span>
+                        <h2>ホワイトボックステストの価値</h2>
+                        <div class="grid-2">
+                            <div class="card">
+                                <h5 style="color: var(--accent-strong)">強み</h5>
+                                <ul>
+                                    <li>
+                                        実装全体を考慮するため、仕様があいまい・古い・不完全でも欠陥を検出できる
+                                    </li>
+                                    <li>
+                                        コードがまだ実行可能でない段階（ドライラン、疑似コードのレビュー）でも静的テストとして活用できる
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="card">
+                                <h5 style="color: var(--amber)">弱み</h5>
+                                <ul>
+                                    <li>
+                                        ソフトウェアが要件を実装し<strong>忘れている</strong>場合（欠落の欠陥）は検出できない（Watson
+                                        1996）
+                                    </li>
+                                    <li>
+                                        ブラックボックステストだけでは実コードカバレッジを測定できないため、客観的な網羅性の証拠として補完的に必要
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.3.3</a
+                                >（p.43）
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- ============ SECTION 4 (4.4) ============ -->
+                    <section id="sec-4">
+                        <span class="sec-kicker">4.4</span>
+                        <h2>経験ベースのテスト技法（Experience-based Test Techniques）</h2>
+                        <p>
+                            経験ベースの技法は、フォーマルな技法（ブラックボックス／ホワイトボックス）が見逃しがちな欠陥を、<strong>テスターの知識・直感・経験</strong>を根拠に検出する技法群です。効果はテスターのスキルに大きく依存します。
+                        </p>
+                    </section>
+
+                    <section id="sec-4-1">
+                        <span class="sec-kicker">4.4.1</span>
+                        <h2>エラー推測（Error Guessing）</h2>
+                        <p>
+                            エラー推測は、テスターの以下のような知識に基づいて、エラー・欠陥・故障の発生を予測するテスト技法です。
+                        </p>
+                        <ul>
+                            <li>そのアプリケーションが過去にどう動いてきたか</li>
+                            <li>
+                                開発者が起こしがちな誤り（error）の種類と、そこから生じる欠陥（defect）の種類
+                            </li>
+                            <li>類似の他アプリケーションで発生してきた故障（failure）の種類</li>
+                        </ul>
+                        <p>
+                            一般に、エラー・欠陥・故障は「入力・出力・ロジック・計算・インターフェース・データ」に関連しています。
+                        </p>
+
+                        <p>
+                            <strong
+                                >エラー推測でよく狙われる典型的な入力パターン（実務での代表例）</strong
+                            >
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>カテゴリ</th>
+                                        <th>具体例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>空・未入力系</td>
+                                        <td>空文字列、null、空配列、未選択のドロップダウン</td>
+                                    </tr>
+                                    <tr>
+                                        <td>極端な値</td>
+                                        <td>非常に長い文字列、桁あふれする数値、負の数値</td>
+                                    </tr>
+                                    <tr>
+                                        <td>フォーマット違反</td>
+                                        <td>
+                                            全角/半角混在、絵文字、SQLインジェクション文字列、改行コード混入
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>タイミング系</td>
+                                        <td>
+                                            二重送信（ダブルクリック）、通信タイムアウト中の再操作
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>環境系</td>
+                                        <td>
+                                            ネットワーク切断中の操作、権限のないユーザーでのアクセス
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            エラー推測は無秩序（unstructured）な技法であり、体系立った数学的根拠を持ちません。したがって、複数のテスターが同じアプリケーションに適用しても、異なるテストケース集合になり得ます。実務では「起こりうる欠陥のリストを作り、それに対応するテストを設計する」という体系立ったアプローチを取ると再現性が上がります。
+                        </p>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://astqb.org/4-4-experience-based-test-techniques/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ASTQB, 4.4 Experience-based Test Techniques</a
+                                >
+                                /
+                                <a
+                                    href="https://www.toolsqa.com/software-testing/error-guessing-technique-software-testing/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ToolsQA, Error Guessing Technique</a
+                                >
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="sec-4-2">
+                        <span class="sec-kicker">4.4.2</span>
+                        <h2>探索的テスト（Exploratory Testing）</h2>
+                        <p>
+                            探索的テストでは、<strong>テストの設計・実行・評価を同時並行で行いながら</strong>、テスターがテスト対象について学習していきます。テスターは学習した内容をもとに、より深く掘り下げたテストを即座に設計し、未テスト領域に対する新たなテストを作り出します。
+                        </p>
+                        <p>
+                            実務では、探索的テストを場当たり的にせず品質を担保するために、<strong
+                                >セッションベーステスト（session-based testing）</strong
+                            >とテストチャーター（test charter）が使われます。
+                        </p>
+
+                        <p><strong>テストチャーターの例</strong></p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>項目</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>チャーターID</td>
+                                        <td>EXP-CHECKOUT-01</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ミッション</td>
+                                        <td>
+                                            ECサイトのチェックアウトフローを、クーポン適用・在庫切れ・決済失敗の観点から探索する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>時間枠</td>
+                                        <td>60分（session-based）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>焦点領域</td>
+                                        <td>
+                                            クーポンコード入力欄、在庫連携、決済APIのエラーハンドリング
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>対象外</td>
+                                        <td>配送先住所のバリデーション（別チャーターでカバー）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            探索的テストは、要件が曖昧・不完全な場合や、システムが複雑で事前のテスト分析だけでは全体を把握しきれない場合に特に有効です。アジャイル開発において、経験ベースの技法（探索的テストを含む）が多用される背景には、事前の詳細なテスト分析・設計を必要としないという特性があります。
+                        </p>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.4.2</a
+                                >（p.44） /
+                                <a
+                                    href="https://astqb.org/4-4-experience-based-test-techniques/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ASTQB, 4.4 Experience-based Test Techniques</a
+                                >
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="sec-4-3">
+                        <span class="sec-kicker">4.4.3</span>
+                        <h2>チェックリストベースドテスト（Checklist-Based Testing）</h2>
+                        <p>
+                            チェックリストベースドテストでは、テスターはチェックリストから引き出されたテスト条件をカバーするように、テストを設計・実装・実行します。チェックリストは以下のような根拠に基づいて構築されます。
+                        </p>
+                        <ul>
+                            <li>テスターの経験</li>
+                            <li>ユーザーにとって何が重要かについての知識</li>
+                            <li>ソフトウェアがなぜ・どのように故障するかについての理解</li>
+                        </ul>
+
+                        <p>
+                            <strong>チェックリストに含めるべきでない項目</strong
+                            >（シラバスが明示的に注意喚起している点）
+                        </p>
+                        <ul>
+                            <li>
+                                自動的にチェックできる項目（＝静的解析や自動テストで代替すべき）
+                            </li>
+                            <li>エントリー基準・エグジット基準の方が適切な項目</li>
+                            <li>一般的すぎる項目</li>
+                        </ul>
+
+                        <p><strong>ログインフォームのチェックリスト例</strong></p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>チェック項目</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            必須項目が未入力の場合、適切なエラーメッセージが表示されるか
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>パスワードが平文でネットワーク上に流れていないか</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>
+                                            ロックアウト後の案内文言がユーザーにとって分かりやすいか
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>
+                                            多要素認証(MFA)を有効化しているユーザーで正しく2段階目に遷移するか
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>
+                                            ブラウザの「戻る」ボタン操作後もセッション状態が矛盾しないか
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            チェックリストは一度作って終わりではなく、<strong>定期的に見直し・更新すべき</strong>であることも重要なポイントです。システムが進化すれば、古いチェックリストは新しいタイプの欠陥を見逃す可能性が高まるためです（試験でも頻出の論点）。
+                        </p>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://astqb.org/4-4-experience-based-test-techniques/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ASTQB, 4.4 Experience-based Test Techniques</a
+                                >
+                                /
+                                <a
+                                    href="https://glossary.istqb.org/en_US/term/checklist-based-testing"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB Glossary, checklist-based testing</a
+                                >
+                            </p>
+                        </div>
+
+                        <h3>経験ベース技法の比較まとめ</h3>
+                        <div class="diagram">
+                            <div class="mermaid">
+                                flowchart LR A["テスターの経験・知識・直感"] --> B["エラー推測"] A
+                                --> C["探索的テスト"] A --> D["チェックリストベースドテスト"] B
+                                -->|"個別の欠陥を予測してピンポイントで狙う"|
+                                E["フォーマル技法が見逃す欠陥を検出"] C
+                                -->|"学習しながら同時に設計・実行・評価"| E D
+                                -->|"高レベルの網羅リストで抜け漏れを防ぐ"| E
+                            </div>
+                            <div class="diagram-caption">図4: 経験ベースの3技法とその役割</div>
+                        </div>
+                    </section>
+
+                    <!-- ============ SECTION 5 (4.5) ============ -->
+                    <section id="sec-5">
+                        <span class="sec-kicker">4.5</span>
+                        <h2>
+                            コラボレーションベースのテストアプローチ（Collaboration-based Test
+                            Approaches）
+                        </h2>
+                        <p>
+                            これまでの技法群が主に「欠陥の検出（defect
+                            detection）」を目的とするのに対し、コラボレーションベースのアプローチは、開発者・テスター・ビジネス代表者間の<strong
+                                >会話とコラボレーションによる欠陥の"回避"（defect
+                                avoidance）</strong
+                            >にも重点を置きます。アジャイル開発、特にユーザーストーリーを扱う文脈で中心的な役割を果たします。
+                        </p>
+                    </section>
+
+                    <section id="sec-5-1">
+                        <span class="sec-kicker">4.5.1</span>
+                        <h2>ユーザーストーリーの共同作成（Collaborative User Story Writing）</h2>
+                        <p>
+                            ユーザーストーリーは、システムやソフトウェアの利用者・購入者にとって価値のある機能を表現したものです。ユーザーストーリーには「<strong
+                                >3つのC（3 C's）</strong
+                            >」と呼ばれる重要な側面があります。
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>要素</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Card（カード）</strong></td>
+                                        <td>
+                                            ユーザーストーリーを記述する媒体（インデックスカード、電子ボードのエントリーなど）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Conversation（会話）</strong></td>
+                                        <td>
+                                            ソフトウェアがどう使われるかを説明するもの（文書化されている場合も口頭の場合もある）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Confirmation（確認）</strong></td>
+                                        <td>受け入れ基準（acceptance criteria）そのもの</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            ユーザーストーリーの作成は、開発者・テスター・ビジネス代表者（プロダクトオーナー、ビジネスアナリストなど）が共同で行う、静的テストの一環でもあります（第3章「協調的なユーザーストーリー作成」参照）。テスターはこのプロセスで、ユーザーストーリーの完全性・理解可能性・テスト可能な受け入れ基準の有無をレビューし、適切な質問を投げかけることで改善に貢献します。
+                        </p>
+                    </section>
+
+                    <section id="sec-5-2">
+                        <span class="sec-kicker">4.5.2</span>
+                        <h2>受け入れ基準（Acceptance Criteria）</h2>
+                        <p>
+                            受け入れ基準とは、あるユーザーストーリーの実装がステークホルダーに受け入れられるために満たすべき条件です。この観点から見ると、<strong>受け入れ基準はテストによって検証されるべきテスト条件そのもの</strong>とも言えます。受け入れ基準は通常、「Conversation（会話）」の結果として生まれます。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>形式</th>
+                                        <th>特徴</th>
+                                        <th>例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Scenario-oriented<br />(Given/When/Then)</td>
+                                        <td>
+                                            BDD（Behavior-Driven
+                                            Development）でよく使われる、条件・操作・結果を構造化した形式
+                                        </td>
+                                        <td>下記参照</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Rule-oriented<br />（チェックリスト形式）</td>
+                                        <td>満たすべきルールを箇条書きで列挙する形式</td>
+                                        <td>
+                                            「パスワードは8文字以上」「特殊文字を1つ以上含む」など
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p><strong>Given/When/Then形式の受け入れ基準の例</strong></p>
+                        <div class="code-block">
+                            <div class="code-label">login.feature</div>
+                            <pre><code class="language-gherkin">Feature: ログイン機能
+
+  Scenario: 正しい認証情報でログインに成功する
+    Given 登録済みユーザーがログイン画面を表示している
+    When  正しいユーザー名とパスワードを入力し、ログインボタンを押す
+    Then  ダッシュボード画面に遷移する
+    And   ウェルカムメッセージが表示される</code></pre>
+                        </div>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://astqb.org/4-5-collaboration-based-test-approaches/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ASTQB, 4.5 Collaboration-based Test Approaches</a
+                                >
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="sec-5-3">
+                        <span class="sec-kicker">4.5.3</span>
+                        <h2>受け入れテスト駆動開発（Acceptance Test-Driven Development, ATDD）</h2>
+                        <p>
+                            ATDDは<strong>テストファーストのアプローチ</strong>です。テストケースは、ユーザーストーリーの実装が始まる<strong>前に</strong>、受け入れ基準に基づいて作成されます。重要な特徴は、テストケースが単一の役割ではなく、<strong>顧客・開発者・テスターという異なる視点を持つチームメンバーによって共同作成される</strong>という点です。
+                        </p>
+
+                        <div class="diagram">
+                            <div class="mermaid">
+                                flowchart LR A["ユーザーストーリー + 受け入れ基準"] -->
+                                B["受け入れテストケースの共同作成（顧客・開発者・テスター）"] B -->
+                                C["テストの実行（実装前は当然Fail）"] C -->
+                                D["プロダクトコードの実装"] D --> E["テストの再実行"] E -->|"Fail"|
+                                D E -->|"Pass"| F["ユーザーストーリー完了 Done"] F
+                                -.->|"自動テストとして資産化・回帰テストに活用"|
+                                G["リグレッションテストスイート"]
+                            </div>
+                            <div class="diagram-caption">図5: ATDDのワークフロー</div>
+                        </div>
+
+                        <p>
+                            ATDDのテストケースは、通常まず<strong>ポジティブケース（正しい振る舞いを確認するもの）</strong>から作成され、その後にネガティブケースや代替フローが追加されます。手動実行でも自動化でもよく、実装後もリグレッションテストの資産として長く活用されることが一般的です。
+                        </p>
+
+                        <p><strong>Given/When/Thenからpytestテストコードへの変換例</strong></p>
+                        <div class="code-block">
+                            <div class="code-label">tests/test_login.py</div>
+                            <pre><code class="language-python">def test_login_success_with_valid_credentials(login_page, existing_user):
+    # Given: 登録済みユーザーがログイン画面を表示している
+    login_page.open()
+
+    # When: 正しいユーザー名とパスワードを入力し、ログインボタンを押す
+    login_page.enter_username(existing_user.username)
+    login_page.enter_password(existing_user.password)
+    login_page.click_login_button()
+
+    # Then: ダッシュボード画面に遷移し、ウェルカムメッセージが表示される
+    assert login_page.current_url().endswith("/dashboard")
+    assert login_page.welcome_message_is_displayed()</code></pre>
+                        </div>
+                        <p>
+                            このように、ATDDで合意した受け入れ基準がそのままテストコードの骨格になる点が、TDD／BDDとの共通点であり、シフトレフト（第2章参照）を体現する実践例です。
+                        </p>
+
+                        <div class="callout info">
+                            <span class="dot"></span>
+                            <p>
+                                参考:
+                                <a
+                                    href="https://astqb.org/4-5-collaboration-based-test-approaches/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ASTQB, 4.5 Collaboration-based Test Approaches</a
+                                >
+                                /
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL Syllabus v4.0.1, Section 4.5</a
+                                >（p.45-46）
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- ============ SECTION 6 ============ -->
+                    <section id="sec-6">
+                        <span class="sec-kicker">GUIDE</span>
+                        <h2>6. 技法選択の指針：どの技法をいつ使うか</h2>
+                        <p>
+                            実務でもっとも重要なのは「暗記」ではなく「使い分け」です。以下の意思決定フローを参考にしてください。
+                        </p>
+
+                        <div class="diagram">
+                            <div class="mermaid">
+                                flowchart TD Start(["これからテストを設計する"]) -->
+                                Q1{"仕様書・要件が明確に存在するか？"} Q1 -->|"Yes"|
+                                Q2{"入力データに範囲・分類があるか？"} Q1 -->|"No（曖昧）"|
+                                Exp["経験ベースの技法（探索的テスト・エラー推測）"] Q2 -->|"Yes"|
+                                Q3{"境界・順序性があるか？"} Q2
+                                -->|"No（複数条件の組合せロジック）"| DT["デシジョンテーブルテスト"]
+                                Q3 -->|"Yes"| BVA["境界値分析（同値分割法とセットで）"] Q3 -->|"No"|
+                                EP["同値分割法"] Start --> Q4{"状態・モードが変化するシステムか？"}
+                                Q4 -->|"Yes"| ST["状態遷移テスト"] Start -->
+                                Q5{"コードの内部構造にアクセスできるか？（実装後）"} Q5
+                                -->|"Yes（網羅率を客観的に証明したい）"|
+                                WB["ホワイトボックス技法（ステートメント／分岐カバレッジ）"] Start
+                                --> Q6{"アジャイルでユーザーストーリーを扱っているか？"} Q6
+                                -->|"Yes"| Collab["コラボレーションベースのアプローチ（ATDD等）"]
+                            </div>
+                            <div class="diagram-caption">図6: テスト技法の選択フローチャート</div>
+                        </div>
+
+                        <h3>6.1 技法比較総括表</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>技法</th>
+                                        <th>カテゴリ</th>
+                                        <th>カバレッジ項目</th>
+                                        <th>適した対象</th>
+                                        <th>弱点</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>同値分割法</td>
+                                        <td><span class="badge bb">BB</span></td>
+                                        <td>同値パーティション</td>
+                                        <td>入力値の分類が明確な項目</td>
+                                        <td>境界付近の欠陥は見逃しやすい</td>
+                                    </tr>
+                                    <tr>
+                                        <td>境界値分析</td>
+                                        <td><span class="badge bb">BB</span></td>
+                                        <td>境界値（＋隣接値）</td>
+                                        <td>順序性のある範囲入力</td>
+                                        <td>順序のないデータには適用不可</td>
+                                    </tr>
+                                    <tr>
+                                        <td>デシジョンテーブルテスト</td>
+                                        <td><span class="badge bb">BB</span></td>
+                                        <td>実現可能な列（ルール）</td>
+                                        <td>複数条件の組合せビジネスロジック</td>
+                                        <td>条件数増加で列数が指数的に増大</td>
+                                    </tr>
+                                    <tr>
+                                        <td>状態遷移テスト</td>
+                                        <td><span class="badge bb">BB</span></td>
+                                        <td>状態／遷移</td>
+                                        <td>モード・ステータスを持つシステム</td>
+                                        <td>状態数が多いと組合せ爆発</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ステートメントテスト</td>
+                                        <td><span class="badge wb">WB</span></td>
+                                        <td>実行可能ステートメント</td>
+                                        <td>最低限のコードカバレッジ保証</td>
+                                        <td>分岐ロジックの網羅は保証しない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>分岐テスト</td>
+                                        <td><span class="badge wb">WB</span></td>
+                                        <td>分岐（決定の各結果）</td>
+                                        <td>ロジックの網羅的検証</td>
+                                        <td>パスの組合せまでは保証しない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>エラー推測</td>
+                                        <td><span class="badge eb">EB</span></td>
+                                        <td>なし（体系的基準を持たない）</td>
+                                        <td>過去の欠陥傾向がある領域</td>
+                                        <td>テスターのスキル依存、再現性が低い</td>
+                                    </tr>
+                                    <tr>
+                                        <td>探索的テスト</td>
+                                        <td><span class="badge eb">EB</span></td>
+                                        <td>テストチャーターの達成度</td>
+                                        <td>要件が曖昧・複雑なシステム</td>
+                                        <td>設計と実行が同時のため事前見積りが難しい</td>
+                                    </tr>
+                                    <tr>
+                                        <td>チェックリストベースドテスト</td>
+                                        <td><span class="badge eb">EB</span></td>
+                                        <td>チェックリスト項目</td>
+                                        <td>繰り返し発生する既知の観点の網羅</td>
+                                        <td>チェックリストの陳腐化リスク</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コラボレーションベース（ATDD等）</td>
+                                        <td><span class="badge cb">CB</span></td>
+                                        <td>受け入れ基準</td>
+                                        <td>アジャイル・ユーザーストーリー駆動開発</td>
+                                        <td>チーム全体のコラボレーション文化が前提</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- ============ SECTION 7 ============ -->
+                    <section id="sec-7">
+                        <span class="sec-kicker">EXAM PREP</span>
+                        <h2>7. 試験対策のポイント</h2>
+
+                        <h3>7.1 頻出の引っかけポイント</h3>
+                        <ol>
+                            <li>
+                                <strong>同値分割法とデシジョンテーブルテストの境界線</strong
+                                >：単一パラメータの分類 → 同値分割法。複数条件の<strong
+                                    >組み合わせロジック</strong
+                                >
+                                → デシジョンテーブルテスト、という区別を問う問題が頻出です。
+                            </li>
+                            <li>
+                                <strong>2値BVAと3値BVAの計算問題</strong
+                                >：「境界がN個ある場合、2値BVAでは2N個、3値BVAでは3N個のテストケース（カバレッジ項目）が必要」という計算をさせる問題が出ます。ただし境界同士が隣接（重複）している場合は重複値を1つにまとめられる点にも注意してください。
+                            </li>
+                            <li>
+                                <strong>分岐カバレッジ＞ステートメントカバレッジの包含関係</strong
+                                >：「100%分岐カバレッジを達成したテストスイートは、必ず100%ステートメントカバレッジも達成する。逆は成立しない」という一方向の包含関係を問う問題は非常に頻出です。
+                            </li>
+                            <li>
+                                <strong>状態遷移テストの3つのカバレッジ基準の強さの順序</strong
+                                >：全遷移カバレッジ ⊃ 有効遷移カバレッジ ⊃
+                                全状態カバレッジ、という包含関係。
+                            </li>
+                            <li>
+                                <strong
+                                    >経験ベース技法とコラボレーションベースアプローチの違い</strong
+                                >：後者は「4.1節の3分類」に含まれない独立したカテゴリである点。
+                            </li>
+                            <li>
+                                <strong>チェックリストに含めるべきでない項目</strong
+                                >：自動化できる項目、エントリー/エグジット基準に該当する項目、一般的すぎる項目の3点は選択肢問題で頻出です。
+                            </li>
+                        </ol>
+
+                        <h3>7.2 学習の進め方（ステップバイステップ）</h3>
+                        <div class="diagram">
+                            <div class="mermaid">
+                                flowchart LR A["1. 用語の暗記（K1キーワード）"] --> B["2.
+                                各技法の定義理解（K2学習目標）"] B --> C["3.
+                                手計算でのテストケース導出練習（K3学習目標）"] C --> D["4.
+                                公式サンプル問題を解く"] D --> E["5. 誤答分析 →
+                                該当セクションに戻る"] E --> C
+                            </div>
+                            <div class="diagram-caption">図7: 本章の学習サイクル</div>
+                        </div>
+                        <p>
+                            K3レベルの学習目標（4.2節・4.5.3）は「実際に手を動かしてテストケースを導出できるか」が問われるため、本記事のような具体例を<strong>自分で紙に書いて再現できるか</strong>を必ず確認してください。
+                        </p>
+                    </section>
+
+                    <!-- ============ SECTION 8 ============ -->
+                    <section id="sec-8">
+                        <span class="sec-kicker">SUMMARY</span>
+                        <h2>8. まとめ</h2>
+                        <p>
+                            第4章は、ISTQB CTFL
+                            v4.0の中で最もボリュームが大きく、実務での有用性も最も高い章です。要点を1枚で振り返ると以下のようになります。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>ブラックボックス技法</strong
+                                >（同値分割法・境界値分析・デシジョンテーブルテスト・状態遷移テスト）は仕様から、<strong>ホワイトボックス技法</strong>（ステートメント・分岐テスト）はコード構造から、<strong>経験ベースの技法</strong>（エラー推測・探索的テスト・チェックリストベースドテスト）はテスターの知見から、それぞれテストケースを導出する。
+                            </li>
+                            <li>
+                                3つのカテゴリは<strong>互いに補完関係</strong>にあり、実務では組み合わせて使うのが基本。
+                            </li>
+                            <li>
+                                <strong>コラボレーションベースのアプローチ</strong
+                                >は、検出ではなく<strong>回避</strong>に重点を置く独立したカテゴリであり、アジャイル・ユーザーストーリー駆動開発の中核をなす。
+                            </li>
+                            <li>
+                                各技法には固有の「カバレッジ項目」と「カバレッジ計算式」が定義されており、試験ではこの計算を問う問題が頻出する。
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- ============ REFERENCES ============ -->
+                    <section id="sec-refs">
+                        <span class="sec-kicker">SOURCES</span>
+                        <h2>参考文献・引用元URL一覧</h2>
+                        <ol class="ref-list">
+                            <li>
+                                <span class="ref-title"
+                                    >ISTQB®,
+                                    <em>Certified Tester Foundation Level Syllabus v4.0.1</em
+                                    >（2024-09-15改訂）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
+                                >
+                            </li>
+                            <li>
+                                <span class="ref-title"
+                                    >ISTQB®,
+                                    <em>Certified Tester Foundation Level (CTFL) v4.0</em>
+                                    認定情報ページ</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a
+                                >
+                            </li>
+                            <li>
+                                <span class="ref-title"
+                                    >ASTQB,
+                                    <em
+                                        >ISTQB Foundation Level Syllabus - 4.4 Experience-based Test
+                                        Techniques</em
+                                    ></span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://astqb.org/4-4-experience-based-test-techniques/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://astqb.org/4-4-experience-based-test-techniques/</a
+                                >
+                            </li>
+                            <li>
+                                <span class="ref-title"
+                                    >ASTQB,
+                                    <em
+                                        >ISTQB Foundation Level Syllabus - 4.5 Collaboration-based
+                                        Test Approaches</em
+                                    ></span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://astqb.org/4-5-collaboration-based-test-approaches/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://astqb.org/4-5-collaboration-based-test-approaches/</a
+                                >
+                            </li>
+                            <li>
+                                <span class="ref-title"
+                                    >ISTQB Glossary, <em>checklist-based testing</em></span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://glossary.istqb.org/en_US/term/checklist-based-testing"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://glossary.istqb.org/en_US/term/checklist-based-testing</a
+                                >
+                            </li>
+                            <li>
+                                <span class="ref-title"
+                                    >istqb.guru,
+                                    <em
+                                        >ISTQB CTFL v4.0 Syllabus Explained: Chapter-by-Chapter</em
+                                    ></span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/</a
+                                >
+                            </li>
+                            <li>
+                                <span class="ref-title"
+                                    >Master Software Testing,
+                                    <em
+                                        >ISTQB CTFL Chapter 4: Test Analysis and Design
+                                        Techniques</em
+                                    ></span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-test-analysis-design"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-test-analysis-design</a
+                                >
+                            </li>
+                            <li>
+                                <span class="ref-title"
+                                    >ToolsQA,
+                                    <em>Error Guessing Technique in Software Testing</em></span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.toolsqa.com/software-testing/error-guessing-technique-software-testing/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.toolsqa.com/software-testing/error-guessing-technique-software-testing/</a
+                                >
+                            </li>
+                            <li>
+                                <span class="ref-title"
+                                    >ISO/IEC/IEEE 29119-4:2021,
+                                    <em
+                                        >Software and systems engineering — Software testing — Part
+                                        4: Test techniques</em
+                                    >（シラバス本文が参照する国際規格）</span
+                                >
+                                <a
+                                    class="ref-url"
+                                    href="https://www.iso.org/standard/79430.html"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.iso.org/standard/79430.html</a
+                                >
+                            </li>
+                        </ol>
+                        <div class="callout warn" style="margin-top: 24px">
+                            <span class="dot"></span>
+                            <p>
+                                本記事はISTQB® CTFL
+                                v4.0.1シラバスの内容を基に、実務での理解を助けるための独自の具体例（コード・図表）を追加して解説したものです。試験の正式な出題範囲・正誤判定は必ず上記シラバス原文を最終的な拠り所としてください。
+                            </p>
+                        </div>
+                    </section>
+                </div>
+
+                <footer>
+                    ISTQB®, ISTQB® CTFL は International Software Testing Qualifications Board
+                    の登録商標です。本ドキュメントは学習目的の独自解説であり、ISTQB®による公式資料ではありません。
+                </footer>
+            </main>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-gherkin.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+
+        <script>
+            // Mermaid: startOnLoad race condition を避けるため明示的に初期化・実行する
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'dark',
+                themeVariables: {
+                    darkMode: true,
+                    background: '#10151d',
+                    primaryColor: '#161c26',
+                    primaryTextColor: '#e6e9ef',
+                    primaryBorderColor: '#2dd4bf',
+                    lineColor: '#5b6576',
+                    secondaryColor: '#1b2230',
+                    tertiaryColor: '#10151d',
+                    fontFamily:
+                        '-apple-system, BlinkMacSystemFont, Segoe UI, Hiragino Kaku Gothic ProN, Yu Gothic, Noto Sans JP, sans-serif',
+                    fontSize: '14px',
+                    edgeLabelBackground: '#10151d',
+                    clusterBkg: '#161c26',
+                    clusterBorder: '#232b38',
+                    nodeTextColor: '#e6e9ef',
+                },
+                flowchart: { curve: 'basis', padding: 12 },
+                stateDiagram: { curve: 'basis' },
+                securityLevel: 'loose',
+            });
+
+            document.addEventListener('DOMContentLoaded', function () {
+                mermaid.run({ querySelector: '.mermaid' }).catch(function (err) {
+                    console.error('Mermaid render error:', err);
+                });
+
+                // --- サイドバー: モバイル用トグル ---
+                var toggle = document.getElementById('navToggle');
+                var sidebar = document.getElementById('sidebar');
+                if (toggle && sidebar) {
+                    toggle.addEventListener('click', function () {
+                        sidebar.classList.toggle('open');
+                    });
+                    sidebar.querySelectorAll('a.nav-link').forEach(function (link) {
+                        link.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                        });
+                    });
+                }
+
+                // --- IntersectionObserver によるアクティブナビゲーション ---
+                var sections = document.querySelectorAll('section[id]');
+                var navLinks = document.querySelectorAll('.nav-link');
+
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            var id = entry.target.getAttribute('id');
+                            var link = document.querySelector('.nav-link[href="#' + id + '"]');
+                            if (!link) return;
+                            if (entry.isIntersecting) {
+                                navLinks.forEach(function (l) {
+                                    l.classList.remove('active');
+                                });
+                                link.classList.add('active');
+                            }
+                        });
+                    },
+                    { rootMargin: '-15% 0px -70% 0px', threshold: 0 },
+                );
+
+                sections.forEach(function (sec) {
+                    observer.observe(sec);
+                });
+            });
+        </script>
+    </body>
+</html>
