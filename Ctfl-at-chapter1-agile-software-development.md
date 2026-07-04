@@ -93,7 +93,7 @@ CTFL-ATシラバスの原則として、**「シラバス全体はK1レベルで
 | **K2** | Understand（理解） | ホールチームアプローチの利点を説明できる／CIの目的を理解している |
 | **K3** | Apply（適用） | 開発者・ビジネス代表者と協調して、テスト可能なユーザーストーリーを実際に書ける |
 
-📌 出典: シラバスPDF p.8 "Learning Objectives for Agile Software Development"（<https://istqb.org/wp-content/uploads/2024/11/ISTQB-CTFL-AT_Syllabus_v1.0.pdf）>
+📌 出典: シラバスPDF p.8 "Learning Objectives for Agile Software Development"（<https://istqb.org/wp-content/uploads/2024/11/ISTQB-CTFL-AT_Syllabus_v1.0.pdf>）
 
 ---
 
