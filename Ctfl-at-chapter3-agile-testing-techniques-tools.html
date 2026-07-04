@@ -513,8 +513,25 @@
                 display: flex;
                 justify-content: center;
             }
-            .mermaid-wrap svg {
-                max-width: 100%;
+            .mermaid {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+            .mermaid svg {
+                display: block;
+                margin: 0 auto;
+                max-width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            .mermaid foreignObject {
+                overflow: visible !important;
+            }
+            .mermaid foreignObject > div,
+            .mermaid .nodeLabel,
+            .mermaid .edgeLabel {
+                overflow: visible !important;
             }
             .mermaid-wrap .loading {
                 font-family: var(--font-mono);
@@ -2515,6 +2532,7 @@ Then("口座残高は{int}円になる", function (expected: number) {
 
             mermaid.initialize({
                 startOnLoad: false,
+                securityLevel: 'loose',
                 theme: 'dark',
                 themeVariables: {
                     background: '#0c1a2c',
@@ -2562,9 +2580,36 @@ Then("口座残高は{int}円になる", function (expected: number) {
                 for (let i = 0; i < mermaidSources.length; i++) {
                     const el = document.getElementById('mermaid-' + i);
                     if (!el) continue;
-                    el.textContent = mermaidSources[i];
+                    const src = mermaidSources[i];
+                    try {
+                        const { svg } = await mermaid.render('svg-mermaid-' + i, src);
+                        el.innerHTML = svg;
+
+                        const svgEl = el.querySelector('svg');
+                        if (svgEl) {
+                            svgEl.removeAttribute('width');
+                            svgEl.removeAttribute('height');
+                            svgEl.style.height = 'auto';
+                            svgEl.style.overflow = 'visible';
+
+                            const viewBoxStr = svgEl.getAttribute('viewBox');
+                            if (viewBoxStr) {
+                                const parts = viewBoxStr.split(' ').map(Number);
+                                if (parts.length === 4) {
+                                    const [vx, vy, vw, vh] = parts;
+                                    const isSequenceOrState = src.trim().startsWith('sequenceDiagram') || src.trim().startsWith('stateDiagram');
+                                    const extraHeight = isSequenceOrState ? 110 : 15;
+                                    svgEl.style.width = `${vw}px`;
+                                    svgEl.style.maxWidth = '100%';
+                                    svgEl.setAttribute('viewBox', `${vx} ${vy} ${vw} ${vh + extraHeight}`);
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.error(`Mermaid render error for mermaid-${i}:`, err);
+                        el.innerHTML = `<p style="color: var(--red);">図表の描画に失敗しました: ${err.message}</p>`;
+                    }
                 }
-                await mermaid.run({ querySelector: '.mermaid' });
             }
             renderDiagrams();
 
