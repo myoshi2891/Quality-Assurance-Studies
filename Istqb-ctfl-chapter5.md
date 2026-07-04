@@ -354,6 +354,12 @@ class RiskItem:
     impact: int       # 1(軽微) 〜 5(重大)
     mitigation: str = ""
 
+    def __post_init__(self):
+        if not (1 <= self.likelihood <= 5):
+            raise ValueError(f"likelihood must be between 1 and 5, got {self.likelihood}")
+        if not (1 <= self.impact <= 5):
+            raise ValueError(f"impact must be between 1 and 5, got {self.impact}")
+
     def risk_level(self) -> int:
         return self.likelihood * self.impact
 
@@ -582,7 +588,7 @@ class DefectReport:
     def is_complete(self) -> bool:
         """必須項目がすべて空でないかを検証する簡易バリデーション"""
         required_fields = [
-            self.title, self.reported_by, self.test_object,
+            self.defect_id, self.title, self.reported_by, self.test_object,
             self.test_environment, self.steps_to_reproduce,
             self.expected_result, self.actual_result,
             self.severity, self.priority,
