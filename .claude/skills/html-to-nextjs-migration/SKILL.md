@@ -126,6 +126,8 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | globals `.hero` 干渉 | `.hero { min-height: 100vh; }` でヒーローが全画面高さになりコンテンツが押し下がる | `.page-layout .hero { min-height: 0; display: block; padding-top: 0; }` でリセット |
 | globals `main` 干渉 | `main { max-width: 1100px; margin: 0 auto; }` で幅が制限・中央寄せになる | `.page-layout .main { max-width: none; margin: 0; }` でリセット |
 | Mermaid 図の表示圧縮 | ページ固有 Flexbox と `globals.css` の `.mermaid-wrapper` (max-width) が競合し、図が極端に縮小される | ページ固有 CSS で `.mermaid-wrapper` の `max-width: 100% !important` 化と背景・ボーダーの透明化リセットを適用 |
+| コードブロックCSSの欠落 | ページ固有 CSS に `.code-block` や `.code-line` 等の定義が抜けている | ページ固有 CSS に `.code-block`, `.code-line` および `.code-keyword` 等のシンタックスハイライト定義を追加してインデント・配色を適用する |
+| 機械翻訳調の誤記（of） | Mermaid 等の中に「成果物 of 誤り」「インタフェース of 検証」などの直訳表現が残る | 機械翻訳で発生しやすい「A of B」の直訳を「AのB」といった適切な日本語表現に修正する |
 
 ### Phase 3b: 独自レイアウト（サイドバー付きドキュメントページ）の globals.css 干渉リセット
 
@@ -409,3 +411,5 @@ Do NOT redefine these in page-specific CSS. Use them directly in TSX:
 - **Never add `margin-top: 60px` to page-specific layout wrappers** — `layout-content` が既に `padding-top: 60px`（ヘッダー分）を持つ。さらに `margin-top: 60px` を追加すると 60px の余白が二重になる
 - **Always reset globals.css interference for custom layout pages** — サイドバー付き独自レイアウトでは `section { padding-top: 0 }`, `.hero { min-height: 0; display: block; padding-top: 0 }`, `.main { max-width: none; margin: 0 }` を必ずリセットすること（Phase 3b 参照）
 - **Always verify and reset Mermaid sizing rules for migrated pages** — 移行するページ内に Mermaid が含まれる場合は、必ず `.claude/skills/fix-mermaid/SKILL.md` の確認を徹底し、かつページ固有 CSS 内で `.mermaid-wrapper` の幅を `100%` に広げて背景・枠線を透明化するリセット規則を追加し、表示サイズが極端に圧縮されるのを防ぐこと。
+- **Always ensure code block CSS is defined** — ページ固有 CSS ファイル内に `.code-block`, `.code-line`, および必要なシンタックスハイライト（`.code-keyword`, `.code-cyan` 等）のスタイル定義が存在していることを必ず確認する。定義がない場合は、他の移行済みページから定義をコピーして追加すること。
+- **Always review and correct translation errors** — 特に「A of B」（例: `成果物 of 誤り`, `インタフェース of 検証` など）のように英語の直訳表現が不自然に日本語テキストや Mermaid 図の中に残っていないかを必ず走査し、「AのB」などの自然な日本語表現に修正すること。
