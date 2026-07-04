@@ -1,19 +1,27 @@
 # Migration Progress
 
-Updated 2026-06-30
+Updated 2026-07-04
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 全35ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
+> **✅ 全ガイド移行完了**: 全36ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `5e3acbe` |
+| 最新 HEAD | `852a6bd` |
 | 次の作業 | QA/テストプロセスの継続的改善 |
-| ビルド状態 | ✅ `bun run lint` / `bun test`（161 pass）成功（※ サンドボックス環境のビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun run lint` / `bun test`（165 pass）成功（※ サンドボックス環境のビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/07/04: CTFL v4.0 Chapter 1 (テストの基礎) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-v4-chapter1-fundamentals/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
+- `tests/istqb-ctfl-v4-chapter1-fundamentals/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（165件）。
+- `Ctfl-v4-chapter1-fundamentals.html`: `archive/html-archive/` へ移動完了。
+- `Ctfl-v4-chapter1-fundamentals.md`: `archive/md-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html` など）を最新の 36 ページ体制に同期。
 
 ## 2026/06/30: CTFL v4.0 Chapter 3 (静的テスト) Markdown ガイドの追加と検証
 
@@ -330,6 +338,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
 | `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
+| `Ctfl-v4-chapter1-fundamentals.html` | `/istqb-ctfl-v4-chapter1-fundamentals` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -363,8 +372,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 ```text
 コンテキスト:
 - 最新 HEAD: `e80058b`
-- **全ガイド移行完了**: プロジェクトルートに存在した全34ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 34 ルート（ホーム + 33 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全36ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 36 ルート（ホーム + 35 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
