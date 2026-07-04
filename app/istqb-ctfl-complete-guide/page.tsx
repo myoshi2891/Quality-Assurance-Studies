@@ -225,7 +225,7 @@ style GENAI fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
                         <div className="mermaid">
                             <Mermaid chart={`flowchart LR
 E["エラー (Error) 人間のミス 例: 開発者が計算式を誤記"]
-D["欠陥 (Defect / Bug) 成果物の誤り 例: コード of 論理バグ"]
+D["欠陥 (Defect / Bug) 成果物の誤り 例: コードの論理バグ"]
 F["障害 (Failure) 実行時の誤動作 例: アプリがクラッシュ"]
 R["根本原因 (Root Cause) 欠陥を引き起こした 最初の原因"]
 E -->|引き起こす| D
@@ -475,7 +475,7 @@ style DEP fill:#1e2536,stroke:#2e3650,color:#9ba3b8`} />
                         <div className="mermaid">
                             <Mermaid chart={`flowchart TD
 CT["コンポーネントテスト (Unit Testing) 個別モジュールの検証"]
-CIT["コンポーネント統合テスト インタフェース of 検証"]
+CIT["コンポーネント統合テスト インタフェースの検証"]
 ST["システムテスト システム全体の動作検証"]
 SIT["システム統合テスト 外部システムとの連携検証"]
 AT["受け入れテスト リリース可否の最終判断"]
