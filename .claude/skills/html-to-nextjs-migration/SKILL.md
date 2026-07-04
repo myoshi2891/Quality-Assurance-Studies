@@ -125,6 +125,7 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | globals `section` 干渉 | ページ固有 section に余分な `padding-top: 5rem`(80px) が付く | `.page-layout section { padding-top: 0; }` でリセット |
 | globals `.hero` 干渉 | `.hero { min-height: 100vh; }` でヒーローが全画面高さになりコンテンツが押し下がる | `.page-layout .hero { min-height: 0; display: block; padding-top: 0; }` でリセット |
 | globals `main` 干渉 | `main { max-width: 1100px; margin: 0 auto; }` で幅が制限・中央寄せになる | `.page-layout .main { max-width: none; margin: 0; }` でリセット |
+| Mermaid 図の表示圧縮 | ページ固有 Flexbox と `globals.css` の `.mermaid-wrapper` (max-width) が競合し、図が極端に縮小される | ページ固有 CSS で `.mermaid-wrapper` の `max-width: 100% !important` 化と背景・ボーダーの透明化リセットを適用 |
 
 ### Phase 3b: 独自レイアウト（サイドバー付きドキュメントページ）の globals.css 干渉リセット
 
@@ -219,6 +220,11 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
    **なぜ失敗するか**: `.code-block` のデフォルト `white-space` は `normal`。`{"\n"}` はHTMLテキストノードの改行文字になるが、`white-space: normal` 環境ではブラウザが空白として正規化する。`.code-line` クラスには `white-space: pre` が定義済みのため、このラッパーが必須。
 
    **デシジョンテーブル・行列データ**: テキストのスペース揃えで列を表現している場合はフォント変更に脆弱なため、`<table>` 要素への変換を優先する。
+
+   **Mermaid 図解の移植**:
+   - HTML 内に Mermaid 図解（`<div class="mermaid">` 等）が含まれる場合は、プロジェクト共通の `<Mermaid>` コンポーネントに移植してください。
+   - 移植の際は、必ず `.claude/skills/fix-mermaid/SKILL.md` をロードして構文規則（カラム0配置、改行など）を確認し、ブラウザレンダラーでシンタックスエラーを起こさないように対処してください。
+   - また、共通コンポーネントが出力する `.mermaid-wrapper` の表示圧縮や二重枠線を防ぐため、必ずページ固有 CSS にて正準リセットスタイル（`width: 100%`, `max-width: 100% !important`, `background: transparent !important` 等）を記述してください。
 
 5. **Wrap** page content in a React component:
 
@@ -402,3 +408,4 @@ Do NOT redefine these in page-specific CSS. Use them directly in TSX:
 - **Never duplicate page scope classes in CSS selectors** — `.page-class .alert.page-class .green` ではなく、`.page-class .alert.green` のようにページクラスは最上位の1回のみ使用すること
 - **Never add `margin-top: 60px` to page-specific layout wrappers** — `layout-content` が既に `padding-top: 60px`（ヘッダー分）を持つ。さらに `margin-top: 60px` を追加すると 60px の余白が二重になる
 - **Always reset globals.css interference for custom layout pages** — サイドバー付き独自レイアウトでは `section { padding-top: 0 }`, `.hero { min-height: 0; display: block; padding-top: 0 }`, `.main { max-width: none; margin: 0 }` を必ずリセットすること（Phase 3b 参照）
+- **Always verify and reset Mermaid sizing rules for migrated pages** — 移行するページ内に Mermaid が含まれる場合は、必ず `.claude/skills/fix-mermaid/SKILL.md` の確認を徹底し、かつページ固有 CSS 内で `.mermaid-wrapper` の幅を `100%` に広げて背景・枠線を透明化するリセット規則を追加し、表示サイズが極端に圧縮されるのを防ぐこと。
