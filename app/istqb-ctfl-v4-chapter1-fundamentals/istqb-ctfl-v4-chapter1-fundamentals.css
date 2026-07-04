@@ -848,7 +848,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    * {
+    .istqb-ctfl-v4-chapter1-page * {
         transition: none !important;
         animation: none !important;
     }
