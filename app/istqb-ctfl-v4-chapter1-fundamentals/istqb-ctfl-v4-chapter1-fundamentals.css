@@ -1,0 +1,832 @@
+/* ==========================================
+   ISTQB CTFL v4.0 Chapter 1: テストの基礎
+   Page specific stylesheet
+   ========================================== */
+
+/* globals.css の干渉リセット (Phase 3b) */
+.istqb-ctfl-v4-chapter1-page {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.istqb-ctfl-v4-chapter1-page section {
+    padding-top: 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .hero {
+    min-height: 0;
+    display: block;
+    padding-top: 0;
+    margin-bottom: 48px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+}
+
+.istqb-ctfl-v4-chapter1-page .main {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 48px 40px 80px;
+}
+
+/* ── Sidebar ── */
+.istqb-ctfl-v4-chapter1-page .sidebar {
+    background: var(--color-bg-secondary, #0f1629);
+    border-right: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    width: 260px;
+    position: sticky;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 40;
+}
+
+.istqb-ctfl-v4-chapter1-page .sidebar-header {
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+}
+
+.istqb-ctfl-v4-chapter1-page .sidebar-badge {
+    display: inline-block;
+    background: var(--color-bg-card-hover, #1a2238);
+    color: var(--color-accent-purple, #b794f4);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 2px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+}
+
+.istqb-ctfl-v4-chapter1-page .sidebar-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    line-height: 1.4;
+}
+
+.istqb-ctfl-v4-chapter1-page .sidebar-sub {
+    font-size: 12px;
+    color: var(--color-text-secondary, #8ea3c3);
+    margin-top: 4px;
+}
+
+.istqb-ctfl-v4-chapter1-page .sidebar-nav {
+    padding: 12px 0;
+    flex: 1;
+}
+
+.istqb-ctfl-v4-chapter1-page .nav-section-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-muted, #85a9df);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 10px 16px 4px;
+}
+
+.istqb-ctfl-v4-chapter1-page .nav-item {
+    display: block;
+    padding: 6px 16px;
+    font-size: 13px;
+    color: var(--color-text-secondary, #8ea3c3);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    line-height: 1.4;
+}
+
+.istqb-ctfl-v4-chapter1-page .nav-item:hover {
+    color: var(--color-accent-purple, #b794f4);
+    border-left-color: var(--color-accent-purple, #b794f4);
+    background: rgba(183, 148, 244, 0.06);
+}
+
+.istqb-ctfl-v4-chapter1-page .nav-item.active {
+    color: var(--color-accent-purple, #b794f4);
+    border-left-color: var(--color-accent-purple, #b794f4);
+    background: rgba(183, 148, 244, 0.1);
+}
+
+.istqb-ctfl-v4-chapter1-page .nav-item-sub {
+    padding-left: 28px;
+    font-size: 12px;
+}
+
+.istqb-ctfl-v4-chapter1-page .sidebar-stats {
+    padding: 12px 16px;
+    border-top: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+}
+
+.istqb-ctfl-v4-chapter1-page .stat-box {
+    background: var(--color-bg-card, #131929);
+    border-radius: var(--radius-sm, 8px);
+    padding: 8px 10px;
+    text-align: center;
+}
+
+.istqb-ctfl-v4-chapter1-page .stat-num {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-accent-purple, #b794f4);
+    line-height: 1;
+}
+
+.istqb-ctfl-v4-chapter1-page .stat-label {
+    font-size: 10px;
+    color: var(--color-text-secondary, #8ea3c3);
+    margin-top: 2px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ── Hero section metadata ── */
+.istqb-ctfl-v4-chapter1-page .hero-meta {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.istqb-ctfl-v4-chapter1-page .meta-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 13px;
+    color: var(--color-text-secondary, #8ea3c3);
+}
+
+.istqb-ctfl-v4-chapter1-page .meta-chip .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent-purple, #b794f4);
+}
+
+/* ── Section titles ── */
+.istqb-ctfl-v4-chapter1-page .section {
+    margin-bottom: 64px;
+}
+
+.istqb-ctfl-v4-chapter1-page .section-header {
+    margin-bottom: 28px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+}
+
+.istqb-ctfl-v4-chapter1-page .section-number {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-accent-purple, #b794f4);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.istqb-ctfl-v4-chapter1-page .section-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+}
+
+.istqb-ctfl-v4-chapter1-page .section-title-en {
+    font-size: 13px;
+    color: var(--color-text-muted, #85a9df);
+    margin-top: 2px;
+    font-weight: 400;
+}
+
+.istqb-ctfl-v4-chapter1-page .subsection {
+    margin-bottom: 36px;
+}
+
+.istqb-ctfl-v4-chapter1-page .subsection-title {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-accent-cyan, #4fd1c5);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.istqb-ctfl-v4-chapter1-page .subsection-title::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 16px;
+    background: var(--color-accent-cyan, #4fd1c5);
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .subsubsection-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+/* ── Tables ── */
+.istqb-ctfl-v4-chapter1-page .table-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+    border-radius: var(--radius-DEFAULT, 12px);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+}
+
+.istqb-ctfl-v4-chapter1-page table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+
+.istqb-ctfl-v4-chapter1-page thead {
+    background: var(--color-bg-card, #131929);
+}
+
+.istqb-ctfl-v4-chapter1-page th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-text-muted, #85a9df);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+}
+
+.istqb-ctfl-v4-chapter1-page td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    color: var(--color-text-secondary, #8ea3c3);
+    vertical-align: top;
+    line-height: 1.6;
+}
+
+.istqb-ctfl-v4-chapter1-page tr:last-child td {
+    border-bottom: none;
+}
+
+.istqb-ctfl-v4-chapter1-page tr:hover td {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+/* ── Callout boxes ── */
+.istqb-ctfl-v4-chapter1-page .callout {
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 16px 18px;
+    margin: 16px 0;
+    border-left: 3px solid;
+    font-size: 14px;
+    line-height: 1.7;
+}
+
+.istqb-ctfl-v4-chapter1-page .callout-info {
+    background: rgba(99, 179, 237, 0.1);
+    border-color: var(--color-accent-blue, #63b3ed);
+    color: var(--color-text-primary, #e8f0fe);
+}
+
+.istqb-ctfl-v4-chapter1-page .callout-warning {
+    background: rgba(246, 224, 94, 0.08);
+    border-color: var(--color-accent-yellow, #f6e05e);
+    color: var(--color-text-primary, #e8f0fe);
+}
+
+.istqb-ctfl-v4-chapter1-page .callout-danger {
+    background: rgba(252, 129, 129, 0.08);
+    border-color: var(--color-accent-red, #fc8181);
+    color: var(--color-text-primary, #e8f0fe);
+}
+
+.istqb-ctfl-v4-chapter1-page .callout-success {
+    background: rgba(104, 211, 145, 0.08);
+    border-color: var(--color-accent-green, #68d391);
+    color: var(--color-text-primary, #e8f0fe);
+}
+
+.istqb-ctfl-v4-chapter1-page .callout-title {
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+}
+
+/* ── Diagram wrapper ── */
+.istqb-ctfl-v4-chapter1-page .diagram-wrap {
+    background: var(--color-bg-secondary, #0f1629);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 24px;
+    margin: 20px 0;
+    overflow-x: auto;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.istqb-ctfl-v4-chapter1-page .diagram-label {
+    font-size: 12px;
+    color: var(--color-text-secondary, #8ea3c3);
+    text-align: center;
+    margin-top: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+/* ── Learning Objective cards ── */
+.istqb-ctfl-v4-chapter1-page .lo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .lo-card {
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 12px 14px;
+}
+
+.istqb-ctfl-v4-chapter1-page .lo-id {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-accent-purple, #b794f4);
+    font-family: var(--font-mono, monospace);
+    margin-bottom: 4px;
+}
+
+.istqb-ctfl-v4-chapter1-page .lo-level {
+    display: inline-block;
+    font-size: 11px;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.istqb-ctfl-v4-chapter1-page .lo-k1 {
+    background: rgba(79, 209, 197, 0.15);
+    color: var(--color-accent-cyan, #4fd1c5);
+    border: 1px solid rgba(79, 209, 197, 0.3);
+}
+
+.istqb-ctfl-v4-chapter1-page .lo-k2 {
+    background: rgba(183, 148, 244, 0.15);
+    color: var(--color-accent-purple, #b794f4);
+    border: 1px solid rgba(183, 148, 244, 0.3);
+}
+
+.istqb-ctfl-v4-chapter1-page .lo-k3 {
+    background: rgba(252, 129, 129, 0.15);
+    color: var(--color-accent-red, #fc8181);
+    border: 1px solid rgba(252, 129, 129, 0.3);
+}
+
+.istqb-ctfl-v4-chapter1-page .lo-text {
+    font-size: 13px;
+    color: var(--color-text-secondary, #8ea3c3);
+    line-height: 1.5;
+}
+
+/* ── Principle cards ── */
+.istqb-ctfl-v4-chapter1-page .principle-list {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 16px 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .principle-card {
+    background: var(--color-bg-secondary, #0f1629);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 18px 20px;
+    display: grid;
+    grid-template-columns: 44px 1fr;
+    gap: 16px;
+    align-items: start;
+}
+
+.istqb-ctfl-v4-chapter1-page .principle-num {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .p1 {
+    background: rgba(183, 148, 244, 0.15);
+    color: var(--color-accent-purple, #b794f4);
+    border: 1px solid rgba(183, 148, 244, 0.25);
+}
+
+.istqb-ctfl-v4-chapter1-page .p2 {
+    background: rgba(79, 209, 197, 0.15);
+    color: var(--color-accent-cyan, #4fd1c5);
+    border: 1px solid rgba(79, 209, 197, 0.25);
+}
+
+.istqb-ctfl-v4-chapter1-page .p3 {
+    background: rgba(104, 211, 145, 0.15);
+    color: var(--color-accent-green, #68d391);
+    border: 1px solid rgba(104, 211, 145, 0.25);
+}
+
+.istqb-ctfl-v4-chapter1-page .p4 {
+    background: rgba(246, 224, 94, 0.15);
+    color: var(--color-accent-yellow, #f6e05e);
+    border: 1px solid rgba(246, 224, 94, 0.25);
+}
+
+.istqb-ctfl-v4-chapter1-page .p5 {
+    background: rgba(252, 129, 129, 0.15);
+    color: var(--color-accent-red, #fc8181);
+    border: 1px solid rgba(252, 129, 129, 0.25);
+}
+
+.istqb-ctfl-v4-chapter1-page .p6 {
+    background: rgba(99, 179, 237, 0.15);
+    color: var(--color-accent-blue, #63b3ed);
+    border: 1px solid rgba(99, 179, 237, 0.25);
+}
+
+.istqb-ctfl-v4-chapter1-page .p7 {
+    background: rgba(183, 148, 244, 0.15);
+    color: #d8b4fe;
+    border: 1px solid rgba(183, 148, 244, 0.25);
+}
+
+.istqb-ctfl-v4-chapter1-page .principle-name {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.istqb-ctfl-v4-chapter1-page .principle-name-en {
+    font-size: 13px;
+    color: var(--color-text-muted, #85a9df);
+    margin-bottom: 8px;
+}
+
+.istqb-ctfl-v4-chapter1-page .principle-desc {
+    font-size: 14px;
+    color: var(--color-text-secondary, #8ea3c3);
+    line-height: 1.65;
+}
+
+.istqb-ctfl-v4-chapter1-page .principle-tag {
+    display: inline-block;
+    margin-top: 8px;
+    font-size: 12px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    color: var(--color-text-secondary, #8ea3c3);
+}
+
+/* ── Checklist ── */
+.istqb-ctfl-v4-chapter1-page .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 14px;
+    color: var(--color-text-secondary, #8ea3c3);
+    line-height: 1.6;
+}
+
+.istqb-ctfl-v4-chapter1-page .checklist li::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid var(--color-border-bright, rgba(99, 179, 237, 0.3));
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 3px;
+    background: var(--color-bg-card, #131929);
+}
+
+/* ── References ── */
+.istqb-ctfl-v4-chapter1-page .ref-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .ref-item {
+    background: var(--color-bg-secondary, #0f1629);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 12px 14px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 12px;
+    align-items: start;
+}
+
+.istqb-ctfl-v4-chapter1-page .ref-icon {
+    width: 28px;
+    height: 28px;
+    background: var(--color-bg-card, #131929);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-accent-purple, #b794f4);
+    font-size: 14px;
+    flex-shrink: 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .ref-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    margin-bottom: 2px;
+}
+
+.istqb-ctfl-v4-chapter1-page .ref-url {
+    font-size: 13px;
+    color: var(--color-accent-blue, #63b3ed);
+    text-decoration: none;
+    word-break: break-all;
+}
+
+.istqb-ctfl-v4-chapter1-page .ref-url:hover {
+    color: var(--color-accent-purple, #b794f4);
+    text-decoration: underline;
+}
+
+.istqb-ctfl-v4-chapter1-page .ref-note {
+    font-size: 12px;
+    color: var(--color-text-secondary, #8ea3c3);
+    margin-top: 2px;
+}
+
+/* ── Glossary ── */
+.istqb-ctfl-v4-chapter1-page .glossary-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .glossary-item {
+    background: var(--color-bg-secondary, #0f1629);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 10px 12px;
+}
+
+.istqb-ctfl-v4-chapter1-page .glossary-ja {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+}
+
+.istqb-ctfl-v4-chapter1-page .glossary-en {
+    font-size: 12px;
+    color: var(--color-accent-purple, #b794f4);
+    font-family: var(--font-mono, monospace);
+    margin-bottom: 4px;
+}
+
+.istqb-ctfl-v4-chapter1-page .glossary-def {
+    font-size: 13px;
+    color: var(--color-text-secondary, #8ea3c3);
+    line-height: 1.5;
+}
+
+/* ── Skill badge row ── */
+.istqb-ctfl-v4-chapter1-page .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 16px 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .skill-badge {
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 12px 10px;
+    text-align: center;
+}
+
+.istqb-ctfl-v4-chapter1-page .skill-icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.istqb-ctfl-v4-chapter1-page .skill-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    margin-bottom: 4px;
+}
+
+.istqb-ctfl-v4-chapter1-page .skill-desc {
+    font-size: 11px;
+    color: var(--color-text-muted, #85a9df);
+    line-height: 1.4;
+}
+
+/* ── Independence levels ── */
+.istqb-ctfl-v4-chapter1-page .independence-levels {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin: 16px 0;
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-DEFAULT, 12px);
+    overflow: hidden;
+}
+
+.istqb-ctfl-v4-chapter1-page .indep-level {
+    padding: 14px 12px;
+    border-right: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    position: relative;
+}
+
+.istqb-ctfl-v4-chapter1-page .indep-level:last-child {
+    border-right: none;
+}
+
+.istqb-ctfl-v4-chapter1-page .indep-bar {
+    height: 3px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+.istqb-ctfl-v4-chapter1-page .indep-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    margin-bottom: 4px;
+}
+
+.istqb-ctfl-v4-chapter1-page .indep-actor {
+    font-size: 12px;
+    color: var(--color-text-secondary, #8ea3c3);
+    margin-bottom: 8px;
+}
+
+.istqb-ctfl-v4-chapter1-page .indep-merit {
+    font-size: 12px;
+    color: var(--color-accent-green, #68d391);
+    margin-bottom: 2px;
+}
+
+.istqb-ctfl-v4-chapter1-page .indep-demerit {
+    font-size: 12px;
+    color: var(--color-accent-red, #fc8181);
+}
+
+/* ── Process activity cards ── */
+.istqb-ctfl-v4-chapter1-page .activity-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 16px 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-card {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 0;
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-bottom: none;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-card:first-child {
+    border-radius: var(--radius-DEFAULT, 12px) var(--radius-DEFAULT, 12px) 0 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-card:last-child {
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: 0 0 var(--radius-DEFAULT, 12px) var(--radius-DEFAULT, 12px);
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-num {
+    background: var(--color-bg-card, #131929);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 8px;
+    border-right: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    text-align: center;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-step {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary, #8ea3c3);
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-n {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-accent-purple, #b794f4);
+    line-height: 1;
+    margin: 2px 0;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-body {
+    padding: 12px 16px;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    margin-bottom: 2px;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-name-en {
+    font-size: 12px;
+    color: var(--color-text-muted, #85a9df);
+    margin-bottom: 6px;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-desc {
+    font-size: 13px;
+    color: var(--color-text-secondary, #8ea3c3);
+    line-height: 1.5;
+}
+
+.istqb-ctfl-v4-chapter1-page .activity-output {
+    font-size: 13px;
+    color: var(--color-accent-cyan, #4fd1c5);
+    margin-top: 6px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+    .istqb-ctfl-v4-chapter1-page {
+        flex-direction: column;
+    }
+    .istqb-ctfl-v4-chapter1-page .sidebar {
+        position: static;
+        height: auto;
+        width: 100%;
+    }
+    .istqb-ctfl-v4-chapter1-page .main {
+        padding: 24px 16px 60px;
+    }
+    .istqb-ctfl-v4-chapter1-page .lo-grid {
+        grid-template-columns: 1fr;
+    }
+    .istqb-ctfl-v4-chapter1-page .skill-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+    .istqb-ctfl-v4-chapter1-page .independence-levels {
+        grid-template-columns: 1fr 1fr;
+    }
+    .istqb-ctfl-v4-chapter1-page .glossary-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}

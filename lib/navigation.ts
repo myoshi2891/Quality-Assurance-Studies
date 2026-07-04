@@ -44,6 +44,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/acceptance-testing-guide', label: '受入テストガイド', category: 'foundation' },
   { href: '/bdd-testing-guide', label: 'BDDガイド', category: 'foundation' },
   { href: '/istqb-ctfl-complete-guide', label: 'ISTQB CTFL v4.0 ガイド', category: 'istqb-foundation-ext' },
+  { href: '/istqb-ctfl-v4-chapter1-fundamentals', label: 'CTFL v4.0 第1章 テストの基礎', category: 'istqb-foundation-ext' },
 
   { href: '/istqb-ctfl-at-complete-guide', label: 'アジャイル(CTFL-AT)ガイド', category: 'istqb-foundation-ext' },
 
