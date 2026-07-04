@@ -22,9 +22,9 @@ export default function Page() {
                     </p>
                     <div className="hero-meta">
                         <div className="meta-chip"><span className="dot"></span>試験問題: 40問中 8問</div>
-                        <div className="meta-chip"><span class="dot"></span>K1×2 + K2×6</div>
-                        <div className="meta-chip"><span class="dot"></span>学習目安: 180分</div>
-                        <div className="meta-chip"><span class="dot"></span>合格基準: 65% (26/40)</div>
+                        <div className="meta-chip"><span className="dot"></span>K1×2 + K2×6</div>
+                        <div className="meta-chip"><span className="dot"></span>学習目安: 180分</div>
+                        <div className="meta-chip"><span className="dot"></span>合格基準: 65% (26/40)</div>
                     </div>
                 </section>
 
@@ -228,7 +228,7 @@ style VA fill:#3b1a1a,stroke:#f43f5e,color:#fecdd3`} />
                     </div>
 
                     <div className="subsection" id="s11-objectives">
-                        <h3 class="subsection-title">テスト目標 (Test Objectives) — FL-1.1.1</h3>
+                        <h3 className="subsection-title">テスト目標 (Test Objectives) — FL-1.1.1</h3>
                         <p>
                             v4.0 で定義される典型的なテスト目標は以下の9つです。試験では「どのシナリオがどの目標に該当するか」を問う問題が出調されます。
                         </p>
