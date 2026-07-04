@@ -11,7 +11,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `852a6bd` |
+| 最新 HEAD | `f590676` |
 | 次の作業 | QA/テストプロセスの継続的改善 |
 | ビルド状態 | ✅ `bun run lint` / `bun test`（165 pass）成功（※ サンドボックス環境のビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -21,6 +21,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `tests/istqb-ctfl-v4-chapter1-fundamentals/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（165件）。
 - `Ctfl-v4-chapter1-fundamentals.html`: `archive/html-archive/` へ移動完了。
 - `Ctfl-v4-chapter1-fundamentals.md`: `archive/md-archive/` へ移動完了。
+- `app/istqb-ctfl-v4-chapter1-fundamentals/istqb-ctfl-v4-chapter1-fundamentals.css`: Mermaid wrapper のリセットスタイルを追加し、コンテナ内での表示サイズが極端に圧縮されてしまう表示不具合を修正。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html` など）を最新の 36 ページ体制に同期。
 
 ## 2026/06/30: CTFL v4.0 Chapter 3 (静的テスト) Markdown ガイドの追加と検証
