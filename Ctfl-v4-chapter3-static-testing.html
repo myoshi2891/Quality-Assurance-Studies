@@ -1,15 +1,24 @@
-<meta charset="utf-8" />
-<title>CTFL v4.0 第3章 静的テスト 徹底解説</title>
-<link
-    rel="stylesheet"
-    href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
-/>
-<link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
-/>
-<style>
-    :root {
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="utf-8" />
+    <title>CTFL v4.0 第3章 静的テスト 徹底解説</title>
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/tabler-icons/3.29.0/tabler-icons.min.css"
+        integrity="sha512-Iw4ouwBqUfzvdks8b0+A1P69eASdGV+fAtE96mEOyq1SXSRrdZsYEV3U+Yk1bfUdgvfAw/t6O6SvvTGnX8ea4g=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+        integrity="sha512-vswe+cgvic/XBoF1OcM/TeJ2FW0OofqAVdCZiEYkd6dwGXthvkSFWOoGGJgS2CW70VK5dQM5Oh+7ne47s74VTg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    />
+    <style>
+        :root {
         --color-background-primary: #0e0f13;
         --color-background-secondary: #161821;
         --color-background-tertiary: #1d2029;
@@ -432,6 +441,8 @@
         }
     }
 </style>
+</head>
+<body>
 <div class="layout">
     <nav class="sidebar">
         <p class="sidebar-title">CTFL v4.0 第3章</p>
@@ -1582,9 +1593,9 @@ jobs:
     </main>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js" integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" integrity="sha512-7Z9J3l1+EYfeaPKcGXu3MS/7T+w19WtKQY/n+xzmw4hZhJ9tyYmcUS+4QqAlzhicE5LAfMQSF3iFTK9bQdTxXg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js" integrity="sha512-tadU5rglbEdjmtqX1QE4sOyjX8+RM7UpFTqog4bgu4fe12pTvfq/keOKIq5tDITmJX4YLzdCvsPgcgJvJVuIHg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         mermaid.initialize({
@@ -1623,8 +1634,10 @@ jobs:
                         if (link) {
                             links.forEach(function (l) {
                                 l.classList.remove('active');
+                                l.removeAttribute('aria-current');
                             });
                             link.classList.add('active');
+                            link.setAttribute('aria-current', 'location');
                         }
                     }
                 });
@@ -1647,4 +1660,6 @@ jobs:
         });
     });
 </script>
+</body>
+</html>
 
