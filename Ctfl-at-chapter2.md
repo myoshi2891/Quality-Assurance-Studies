@@ -1,5 +1,6 @@
 # ISTQB® CTFL-AT Chapter 2: アジャイルテストの基本原則
-### ― Fundamental Agile Testing Principles, Practices, and Processes 完全解説 ―
+
+**― Fundamental Agile Testing Principles, Practices, and Processes 完全解説 ―**
 
 > **対象読者**: JSTQB Foundation Level（CTFL）取得済み、またはソフトウェアテストの基礎知識を持つ中級〜上級エンジニア
 > **学習時間目安（シラバス公式）**: 105分
