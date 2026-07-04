@@ -339,6 +339,29 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
+}
+
+/* Mermaid コンポーネントが出力する mermaid-wrapper のリセット */
+.istqb-ctfl-v4-chapter1-page .mermaid-wrapper {
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.istqb-ctfl-v4-chapter1-page .mermaid-wrapper svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
 }
 
 .istqb-ctfl-v4-chapter1-page .diagram-label {
