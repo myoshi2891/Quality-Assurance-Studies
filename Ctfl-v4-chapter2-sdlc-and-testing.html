@@ -1,1683 +1,2078 @@
 <!doctype html>
 <html lang="ja">
     <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta
-            name="description"
-            content="ISTQB CTFL v4.0.1 シラバス Chapter 3「静的テスト」の解説。静的テストの基本、レビュープロセス、役割と責務、レビュー種別、成功要因を出典付きで整理。"
-        />
-        <meta name="color-scheme" content="dark" />
-        <title>CTFL v4.0 第3章 静的テスト 徹底解説</title>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
-        />
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>CTFL v4.0 Chapter 2: SDLCとテスト — 完全解説ガイド</title>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
         />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
         <style>
             :root {
-                --color-background-primary: #0e0f13;
-                --color-background-secondary: #161821;
-                --color-background-tertiary: #1d2029;
-                --color-background-info: #16202e;
-                --color-background-danger: #271718;
-                --color-background-success: #142219;
-                --color-background-warning: #261f12;
-                --color-text-primary: #e7e8ee;
-                --color-text-secondary: #a3a7b7;
-                --color-text-tertiary: #686d80;
-                --color-text-info: #7fa8e8;
-                --color-text-danger: #e58a8a;
-                --color-text-success: #7fcb96;
-                --color-text-warning: #e0bd72;
-                --color-border-primary: #2a2d3a;
-                --color-border-secondary: #34384a;
-                --color-border-tertiary: #1f2129;
-                --font-sans:
-                    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-                    sans-serif;
-                --font-serif: Georgia, 'Times New Roman', serif;
-                --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+                --color-background-primary: #0f1117;
+                --color-background-secondary: #161b27;
+                --color-background-tertiary: #1e2535;
+                --color-background-info: #0d1f3c;
+                --color-background-danger: #2a1219;
+                --color-background-success: #0d2318;
+                --color-background-warning: #2a1f0d;
+
+                --color-text-primary: #e8eaf0;
+                --color-text-secondary: #a8b2c8;
+                --color-text-tertiary: #6b7a99;
+                --color-text-info: #7ab8f5;
+                --color-text-danger: #f07070;
+                --color-text-success: #6ec98a;
+                --color-text-warning: #f0c060;
+
+                --color-border-primary: #2e3650;
+                --color-border-secondary: #3a4468;
+                --color-border-tertiary: #4a5680;
+
+                --font-sans: 'Inter', 'Hiragino Sans', 'Yu Gothic UI', system-ui, sans-serif;
+                --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+
                 --border-radius-md: 8px;
                 --border-radius-lg: 12px;
                 --border-radius-xl: 16px;
-                --c-purple-800: #211c38;
-                --c-purple-200: #8b7cf6;
-                --c-purple-100: #c7bdfa;
-                --c-teal-800: #173430;
-                --c-teal-200: #4fd1c5;
-                --c-teal-100: #a8ece4;
-                --c-coral-800: #3a2418;
-                --c-coral-200: #f08a5d;
-                --c-coral-100: #f7c4a8;
+
+                /* color ramps */
+                --c-purple-50: #f3f0ff;
+                --c-purple-100: #e4dcff;
+                --c-purple-200: #c8b8ff;
+                --c-purple-300: #a98fff;
+                --c-purple-400: #8b66ff;
+                --c-purple-500: #6e3dff;
+                --c-purple-600: #5a2fe0;
+                --c-purple-700: #4422b8;
+                --c-purple-800: #2e1690;
+                --c-purple-900: #1a0a60;
+
+                --c-teal-50: #f0fdfb;
+                --c-teal-100: #ccfbf1;
+                --c-teal-200: #99f3e3;
+                --c-teal-300: #5ee7d0;
+                --c-teal-400: #2dd4b8;
+                --c-teal-500: #14b8a0;
+                --c-teal-600: #0d9488;
+                --c-teal-700: #0f766e;
+                --c-teal-800: #115e59;
+                --c-teal-900: #134e4a;
+
+                --c-coral-50: #fff7f0;
+                --c-coral-100: #ffead9;
+                --c-coral-200: #ffd0ad;
+                --c-coral-300: #ffb07a;
+                --c-coral-400: #ff8c4a;
+                --c-coral-500: #ff6820;
+                --c-coral-600: #e0520f;
+                --c-coral-700: #b83d0a;
+                --c-coral-800: #902c08;
+                --c-coral-900: #601e06;
+
+                --c-pink-50: #fff0f6;
+                --c-pink-100: #ffd9ea;
+                --c-pink-200: #ffadd1;
+                --c-pink-300: #ff80b8;
+                --c-pink-400: #f754a0;
+                --c-pink-500: #e0288b;
+                --c-pink-600: #c01876;
+                --c-pink-700: #9a0e60;
+                --c-pink-800: #740a4a;
+                --c-pink-900: #4e0633;
+
+                --c-blue-500: #3b82f6;
+                --c-blue-400: #60a5fa;
+                --c-blue-300: #93c5fd;
+                --c-green-500: #22c55e;
+                --c-green-400: #4ade80;
+                --c-amber-500: #f59e0b;
+                --c-amber-400: #fbbf24;
+                --c-red-500: #ef4444;
+                --c-red-400: #f87171;
+
+                --c-gray-800: #1e2535;
+                --c-gray-700: #2a3350;
+                --c-gray-600: #3a4468;
+                --c-gray-500: #4a5680;
+                --c-gray-400: #6b7a99;
+                --c-gray-300: #a8b2c8;
+
+                --sidebar-w: 260px;
             }
-            * {
+
+            *,
+            *::before,
+            *::after {
                 box-sizing: border-box;
-            }
-            html,
-            body {
                 margin: 0;
                 padding: 0;
-                background: var(--color-background-primary);
-                color: var(--color-text-primary);
+            }
+
+            html {
+                font-size: 16px;
+                scroll-behavior: smooth;
+            }
+
+            body {
                 font-family: var(--font-sans);
                 font-size: 16px;
                 line-height: 1.7;
                 font-weight: 400;
-            }
-            .layout {
+                color: var(--color-text-primary);
+                background: var(--color-background-primary);
                 display: flex;
-                width: 100%;
-                align-items: flex-start;
             }
+
+            /* ===== SIDEBAR ===== */
             .sidebar {
-                width: 260px;
+                width: var(--sidebar-w);
+                min-height: 100vh;
+                background: var(--color-background-secondary);
+                border-right: 1px solid var(--color-border-primary);
+                padding: 24px 0;
+                overflow-y: auto;
                 flex-shrink: 0;
                 position: sticky;
                 top: 0;
                 height: 100vh;
-                overflow-y: auto;
-                padding: 40px 20px 40px 32px;
-                border-right: 1px solid var(--color-border-tertiary);
             }
-            .sidebar-title {
+
+            .sidebar-logo {
+                padding: 0 20px 20px;
+                border-bottom: 1px solid var(--color-border-primary);
+                margin-bottom: 16px;
+            }
+            .sidebar-logo .badge-ctfl {
+                display: inline-block;
+                background: var(--c-purple-800);
+                color: var(--c-purple-200);
+                font-size: 11px;
+                font-weight: 500;
+                padding: 3px 8px;
+                border-radius: 4px;
+                letter-spacing: 0.04em;
+                margin-bottom: 6px;
+            }
+            .sidebar-logo h2 {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                line-height: 1.4;
+            }
+            .sidebar-logo p {
+                font-size: 11px;
+                color: var(--color-text-tertiary);
+                margin-top: 4px;
+            }
+
+            .nav-group {
+                margin-bottom: 4px;
+            }
+            .nav-group-label {
                 font-size: 11px;
                 font-weight: 500;
                 color: var(--color-text-tertiary);
                 text-transform: uppercase;
-                letter-spacing: 0.06em;
-                margin: 0 0 12px;
-            }
-            .nav-list {
-                list-style: none;
-                margin: 0;
-                padding: 0;
-            }
-            .nav-list li {
-                margin: 0;
+                letter-spacing: 0.08em;
+                padding: 8px 20px 4px;
             }
             .nav-link {
+                display: block;
+                padding: 6px 20px;
+                font-size: 13px;
+                color: var(--color-text-secondary);
+                text-decoration: none;
+                border-left: 2px solid transparent;
+                transition:
+                    color 0.15s,
+                    border-color 0.15s,
+                    background 0.15s;
+            }
+            .nav-link:hover {
+                color: var(--color-text-primary);
+                background: var(--color-background-tertiary);
+            }
+            .nav-link.active {
+                color: var(--c-purple-300);
+                border-left-color: var(--c-purple-500);
+                background: rgba(110, 61, 255, 0.08);
+            }
+            .nav-link.sub {
+                padding-left: 32px;
+                font-size: 12px;
+            }
+
+            /* ===== MAIN ===== */
+            .main {
+                flex: 1;
+                min-width: 0;
+                padding: 48px 56px 80px;
+            }
+
+            /* ===== HERO ===== */
+            .hero {
+                margin-bottom: 48px;
+                padding: 40px;
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-primary);
+                border-radius: var(--border-radius-xl);
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 3px;
+                background: linear-gradient(
+                    90deg,
+                    var(--c-purple-500),
+                    var(--c-teal-500),
+                    var(--c-coral-500)
+                );
+            }
+            .hero-eyebrow {
+                font-size: 12px;
+                font-weight: 500;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--c-purple-400);
+                margin-bottom: 12px;
+            }
+            .hero h1 {
+                font-size: 22px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                line-height: 1.3;
+                margin-bottom: 16px;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 12px;
+                margin-bottom: 20px;
+            }
+            .hero-meta-item {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+                color: var(--color-text-secondary);
+            }
+            .hero-meta-item strong {
+                color: var(--color-text-primary);
+            }
+            .hero-stat-row {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+            }
+            .hero-stat {
+                background: var(--color-background-tertiary);
+                border: 1px solid var(--color-border-primary);
+                border-radius: var(--border-radius-md);
+                padding: 14px 16px;
+                text-align: center;
+            }
+            .hero-stat-num {
+                font-size: 22px;
+                font-weight: 500;
+                color: var(--c-purple-300);
+                display: block;
+            }
+            .hero-stat-label {
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+            }
+
+            /* ===== SECTION ===== */
+            .section {
+                margin-bottom: 56px;
+                scroll-margin-top: 24px;
+            }
+            .section-header {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                margin-bottom: 24px;
+                padding-bottom: 14px;
+                border-bottom: 1px solid var(--color-border-primary);
+            }
+            .section-num {
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--c-teal-400);
+                font-family: var(--font-mono);
+                background: var(--c-teal-900);
+                padding: 2px 8px;
+                border-radius: 4px;
+                flex-shrink: 0;
+            }
+            .section-header h2 {
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+            }
+
+            .subsection {
+                margin-bottom: 40px;
+                scroll-margin-top: 24px;
+            }
+            .subsection h3 {
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--c-purple-300);
+                margin-bottom: 14px;
                 display: flex;
                 align-items: center;
                 gap: 8px;
-                padding: 6px 10px;
-                border-radius: var(--border-radius-md);
-                color: var(--color-text-secondary);
-                text-decoration: none;
-                font-size: 13px;
-                line-height: 1.4;
-                transition:
-                    background 0.15s,
-                    color 0.15s;
             }
-            .nav-link i {
+            .subsection h3::before {
+                content: '';
+                display: block;
+                width: 3px;
+                height: 16px;
+                background: var(--c-purple-500);
+                border-radius: 2px;
+                flex-shrink: 0;
+            }
+            .subsection h4 {
                 font-size: 14px;
-                color: var(--color-text-tertiary);
-            }
-            .nav-link:hover {
-                background: var(--color-background-tertiary);
-                color: var(--color-text-primary);
-            }
-            .nav-link.active {
-                background: var(--color-background-tertiary);
-                color: var(--color-text-info);
-            }
-            .nav-link.active i {
-                color: var(--color-text-info);
-            }
-            .nav-sub {
-                padding-left: 18px;
-            }
-            .nav-sub .nav-link {
-                font-size: 12px;
-            }
-            .content {
-                flex: 1;
-                min-width: 0;
-                padding: 56px 64px 120px;
-            }
-            .hero-eyebrow {
-                display: inline-flex;
-                align-items: center;
-                gap: 6px;
-                font-size: 12px;
                 font-weight: 500;
-                color: var(--color-text-info);
-                background: var(--color-background-info);
-                border: 1px solid var(--color-border-secondary);
-                padding: 4px 10px;
-                border-radius: var(--border-radius-md);
-                margin-bottom: 16px;
-            }
-            h1 {
-                font-size: 22px;
-                font-weight: 500;
-                line-height: 1.4;
-                margin: 0 0 12px;
-            }
-            h2 {
-                font-size: 18px;
-                font-weight: 500;
-                line-height: 1.5;
-                margin: 56px 0 16px;
-                padding-top: 24px;
-                border-top: 1px solid var(--color-border-tertiary);
-                scroll-margin-top: 24px;
-            }
-            h2:first-of-type {
-                border-top: none;
-                padding-top: 0;
-            }
-            h3 {
-                font-size: 16px;
-                font-weight: 500;
-                line-height: 1.5;
-                margin: 36px 0 12px;
-                scroll-margin-top: 24px;
-            }
-            h4 {
-                font-size: 16px;
-                font-weight: 500;
-                margin: 24px 0 8px;
                 color: var(--color-text-secondary);
+                margin: 20px 0 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                font-size: 12px;
             }
+
             p {
-                margin: 0 0 16px;
-                color: var(--color-text-primary);
-            }
-            .lede {
-                font-size: 16px;
+                margin-bottom: 14px;
                 color: var(--color-text-secondary);
-                margin-bottom: 32px;
             }
-            ul,
-            ol {
-                margin: 0 0 16px;
-                padding-left: 22px;
+            p:last-child {
+                margin-bottom: 0;
             }
-            li {
-                margin-bottom: 6px;
+
+            /* ===== CALLOUTS ===== */
+            .callout {
+                padding: 14px 18px;
+                border-radius: var(--border-radius-md);
+                border-left: 3px solid;
+                margin: 16px 0;
+                font-size: 14px;
+                line-height: 1.6;
             }
-            strong {
-                font-weight: 500;
-                color: var(--color-text-primary);
-            }
-            a {
+            .callout-info {
+                background: var(--color-background-info);
+                border-color: var(--c-blue-500);
                 color: var(--color-text-info);
             }
-            hr {
-                border: none;
-                border-top: 1px solid var(--color-border-tertiary);
-                margin: 40px 0;
+            .callout-warn {
+                background: var(--color-background-warning);
+                border-color: var(--c-amber-500);
+                color: var(--color-text-warning);
             }
-            .badge {
-                display: inline-flex;
-                align-items: center;
-                font-size: 11px;
+            .callout-success {
+                background: var(--color-background-success);
+                border-color: var(--c-green-500);
+                color: var(--color-text-success);
+            }
+            .callout-danger {
+                background: var(--color-background-danger);
+                border-color: var(--c-red-500);
+                color: var(--color-text-danger);
+            }
+            .callout strong {
                 font-weight: 500;
-                padding: 2px 8px;
+            }
+
+            /* ===== TABLES ===== */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 16px 0;
                 border-radius: var(--border-radius-md);
-                border: 1px solid var(--color-border-secondary);
-                color: var(--color-text-secondary);
-                margin-right: 6px;
-            }
-            .badge-k1 {
-                color: var(--c-teal-100);
-                background: var(--c-teal-800);
-                border-color: var(--c-teal-200);
-            }
-            .badge-k2 {
-                color: var(--c-purple-100);
-                background: var(--c-purple-800);
-                border-color: var(--c-purple-200);
+                border: 1px solid var(--color-border-primary);
             }
             table {
                 width: 100%;
                 border-collapse: collapse;
-                margin: 0 0 24px;
                 font-size: 14px;
-                background: var(--color-background-secondary);
-                border: 1px solid var(--color-border-tertiary);
-                border-radius: var(--border-radius-lg);
-                overflow: hidden;
             }
-            th,
-            td {
-                text-align: left;
+            thead {
+                background: var(--color-background-tertiary);
+            }
+            thead th {
                 padding: 10px 14px;
-                border-bottom: 1px solid var(--color-border-tertiary);
+                text-align: left;
+                font-size: 12px;
+                font-weight: 500;
+                color: var(--color-text-tertiary);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                border-bottom: 1px solid var(--color-border-primary);
+            }
+            tbody td {
+                padding: 10px 14px;
+                color: var(--color-text-secondary);
+                border-bottom: 1px solid var(--color-border-primary);
                 vertical-align: top;
             }
-            th {
-                background: var(--color-background-tertiary);
-                color: var(--color-text-secondary);
-                font-weight: 500;
-                font-size: 12px;
-                text-transform: uppercase;
-                letter-spacing: 0.04em;
-            }
-            tr:last-child td {
+            tbody tr:last-child td {
                 border-bottom: none;
             }
-            td:first-child,
-            th:first-child {
-                white-space: nowrap;
-                color: var(--color-text-secondary);
-            }
-            .callout {
-                display: flex;
-                gap: 12px;
-                padding: 16px 18px;
-                border-radius: var(--border-radius-lg);
-                border: 1px solid var(--color-border-secondary);
-                background: var(--color-background-secondary);
-                margin: 0 0 24px;
-            }
-            .callout i {
-                font-size: 18px;
-                flex-shrink: 0;
-                margin-top: 1px;
-            }
-            .callout p {
-                margin: 0;
-                font-size: 14px;
-            }
-            .callout p + p {
-                margin-top: 8px;
-            }
-            .callout-source {
+            tbody tr:hover td {
                 background: var(--color-background-tertiary);
-                border-color: var(--color-border-tertiary);
             }
-            .callout-source i {
-                color: var(--color-text-tertiary);
+            td strong {
+                color: var(--color-text-primary);
+                font-weight: 500;
             }
-            .callout-source p {
-                color: var(--color-text-secondary);
-            }
-            .callout-source a {
-                word-break: break-all;
-            }
-            .callout-tip {
-                background: var(--color-background-info);
-                border-color: var(--color-border-secondary);
-            }
-            .callout-tip i {
-                color: var(--color-text-info);
-            }
-            .callout-warning {
-                background: var(--color-background-warning);
-                border-color: var(--color-border-secondary);
-            }
-            .callout-warning i {
-                color: var(--color-text-warning);
-            }
-            .mermaid {
+
+            /* ===== MERMAID ===== */
+            .mermaid-wrap {
                 background: var(--color-background-secondary);
-                border: 1px solid var(--color-border-tertiary);
+                border: 1px solid var(--color-border-primary);
                 border-radius: var(--border-radius-lg);
-                padding: 20px;
-                margin: 0 0 24px;
+                padding: 24px;
+                margin: 16px 0;
+                overflow-x: auto;
                 text-align: center;
+            }
+            .mermaid-caption {
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+                text-align: center;
+                margin-top: 10px;
+            }
+
+            /* ===== CODE BLOCK ===== */
+            .code-block {
+                background: #1a1f2e;
+                border: 1px solid var(--color-border-primary);
+                border-radius: var(--border-radius-md);
+                padding: 18px 20px;
+                margin: 16px 0;
                 overflow-x: auto;
             }
-            pre[class*='language-'] {
-                border-radius: var(--border-radius-lg);
-                border: 1px solid var(--color-border-tertiary);
-                font-size: 13px;
-                margin: 0 0 24px;
+            .code-block pre {
+                margin: 0;
             }
-            code:not([class*='language-']) {
+            .code-block code {
                 font-family: var(--font-mono);
                 font-size: 13px;
-                background: var(--color-background-tertiary);
-                border: 1px solid var(--color-border-tertiary);
-                border-radius: 4px;
-                padding: 1px 6px;
+                line-height: 1.6;
+                color: #c9d1d9;
             }
-            .steps {
-                list-style: none;
-                padding: 0;
-                margin: 0 0 24px;
-                counter-reset: step;
+            .code-block .kw {
+                color: var(--c-purple-300);
             }
-            .steps li {
-                position: relative;
-                padding: 4px 0 4px 40px;
-                margin-bottom: 14px;
-                counter-increment: step;
+            .code-block .val {
+                color: var(--c-teal-300);
             }
-            .steps li::before {
-                content: counter(step);
-                position: absolute;
-                left: 0;
-                top: 2px;
-                width: 24px;
-                height: 24px;
-                border-radius: var(--border-radius-md);
-                background: var(--c-teal-800);
-                color: var(--c-teal-100);
-                border: 1px solid var(--c-teal-200);
-                font-size: 12px;
+            .code-block .cm {
+                color: var(--c-gray-400);
+                font-style: italic;
+            }
+            .code-block .str {
+                color: var(--c-coral-300);
+            }
+
+            /* ===== TAGS ===== */
+            .tag {
+                display: inline-block;
+                font-size: 11px;
                 font-weight: 500;
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                padding: 2px 7px;
+                border-radius: 4px;
+                vertical-align: middle;
             }
-            .flow-spectrum {
-                display: flex;
-                align-items: center;
-                gap: 8px;
-                margin: 0 0 24px;
+            .tag-new {
+                background: var(--c-teal-900);
+                color: var(--c-teal-300);
+                border: 1px solid var(--c-teal-700);
+            }
+            .tag-changed {
+                background: var(--c-coral-900);
+                color: var(--c-coral-300);
+                border: 1px solid var(--c-coral-700);
+            }
+            .tag-k1 {
+                background: var(--c-gray-700);
+                color: var(--c-gray-300);
+            }
+            .tag-k2 {
+                background: var(--c-purple-900);
+                color: var(--c-purple-300);
+            }
+
+            /* ===== GRID CARDS ===== */
+            .card-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+                margin: 16px 0;
+            }
+            .card-grid-3 {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .card {
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-primary);
+                border-radius: var(--border-radius-md);
+                padding: 16px;
+            }
+            .card-title {
+                font-size: 13px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                margin-bottom: 6px;
+            }
+            .card-sub {
                 font-size: 12px;
                 color: var(--color-text-tertiary);
+                line-height: 1.5;
             }
-            .flow-spectrum span {
-                white-space: nowrap;
+            .card.accent-purple {
+                border-top: 2px solid var(--c-purple-500);
             }
-            .flow-spectrum hr {
-                flex: 1;
-                margin: 0;
-                border-top: 1px dashed var(--color-border-secondary);
+            .card.accent-teal {
+                border-top: 2px solid var(--c-teal-500);
             }
-            .checklist {
-                list-style: none;
-                padding: 0;
-                margin: 0 0 24px;
+            .card.accent-coral {
+                border-top: 2px solid var(--c-coral-500);
             }
-            .checklist li {
-                display: flex;
-                gap: 10px;
-                padding: 8px 0;
-                border-bottom: 1px solid var(--color-border-tertiary);
+            .card.accent-pink {
+                border-top: 2px solid var(--c-pink-500);
+            }
+
+            /* ===== EXAM SECTION ===== */
+            .exam-q {
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-md);
+                padding: 16px 18px;
+                margin: 12px 0;
+            }
+            .exam-q-label {
+                font-size: 11px;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--c-coral-400);
+                margin-bottom: 6px;
+            }
+            .exam-q-text {
                 font-size: 14px;
+                color: var(--color-text-primary);
+                margin-bottom: 10px;
+                font-style: italic;
             }
-            .checklist li:last-child {
-                border-bottom: none;
-            }
-            .checklist i {
+            .exam-a {
+                font-size: 13px;
                 color: var(--color-text-success);
-                margin-top: 2px;
-                flex-shrink: 0;
-            }
-            .summary-list {
-                list-style: none;
-                padding: 0;
-                margin: 0 0 24px;
-            }
-            .summary-list li {
                 display: flex;
-                gap: 12px;
-                padding: 12px 0;
-                border-bottom: 1px solid var(--color-border-tertiary);
+                align-items: flex-start;
+                gap: 8px;
             }
-            .summary-list li:last-child {
+            .exam-a::before {
+                content: '→';
+                flex-shrink: 0;
+                color: var(--c-green-400);
+            }
+
+            /* ===== MISCONCEPTION TABLE ===== */
+            .mcon-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 0;
+            }
+            .mcon-wrong {
+                background: var(--color-background-danger);
+                border: 1px solid var(--c-red-500);
+                border-radius: var(--border-radius-md) 0 0 var(--border-radius-md);
+                padding: 12px 14px;
+                font-size: 13px;
+                color: var(--color-text-danger);
+            }
+            .mcon-right {
+                background: var(--color-background-success);
+                border: 1px solid var(--c-green-500);
+                border-left: none;
+                border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0;
+                padding: 12px 14px;
+                font-size: 13px;
+                color: var(--color-text-success);
+            }
+            .mcon-label {
+                font-size: 11px;
+                font-weight: 500;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                margin-bottom: 4px;
+                opacity: 0.7;
+            }
+
+            /* ===== REF TABLE ===== */
+            .ref-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 10px;
+                padding: 10px 0;
+                border-bottom: 1px solid var(--color-border-primary);
+                font-size: 13px;
+            }
+            .ref-item:last-child {
                 border-bottom: none;
             }
-            .summary-list i {
-                color: var(--color-text-info);
-                margin-top: 3px;
+            .ref-num {
+                font-family: var(--font-mono);
+                font-size: 11px;
+                color: var(--color-text-tertiary);
+                min-width: 24px;
                 flex-shrink: 0;
-                font-size: 16px;
+                padding-top: 2px;
             }
-            footer {
+            .ref-title {
+                color: var(--color-text-primary);
+                margin-bottom: 2px;
+                font-weight: 500;
+            }
+            .ref-url a {
+                color: var(--c-teal-400);
+                text-decoration: none;
+                font-size: 12px;
+                font-family: var(--font-mono);
+            }
+            .ref-url a:hover {
+                text-decoration: underline;
+            }
+            .ref-date {
+                font-size: 11px;
+                color: var(--color-text-tertiary);
+                margin-top: 2px;
+            }
+
+            /* ===== FOOTER ===== */
+            .doc-footer {
                 margin-top: 64px;
                 padding-top: 24px;
-                border-top: 1px solid var(--color-border-tertiary);
+                border-top: 1px solid var(--color-border-primary);
                 font-size: 12px;
                 color: var(--color-text-tertiary);
+                line-height: 1.6;
             }
-            @media (max-width: 900px) {
-                .sidebar {
-                    display: none;
-                }
-                .content {
-                    padding: 32px 20px 96px;
-                }
+
+            /* ===== SCROLLBAR ===== */
+            ::-webkit-scrollbar {
+                width: 6px;
+                height: 6px;
+            }
+            ::-webkit-scrollbar-track {
+                background: var(--color-background-primary);
+            }
+            ::-webkit-scrollbar-thumb {
+                background: var(--c-gray-600);
+                border-radius: 3px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: var(--c-gray-500);
+            }
+
+            .version-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: var(--c-purple-900);
+                border: 1px solid var(--c-purple-700);
+                color: var(--c-purple-200);
+                font-size: 12px;
+                font-weight: 500;
+                padding: 4px 10px;
+                border-radius: 20px;
+                margin-bottom: 12px;
+            }
+
+            .divider {
+                border: none;
+                border-top: 1px solid var(--color-border-primary);
+                margin: 32px 0;
             }
         </style>
     </head>
     <body>
-        <div class="layout">
-            <nav class="sidebar">
-                <p class="sidebar-title">CTFL v4.0 第3章</p>
-                <ul class="nav-list">
-                    <li>
-                        <a class="nav-link" data-target="overview" href="#overview"
-                            ><i class="ti ti-map"></i>章の位置づけ</a
-                        >
-                    </li>
-                    <li>
-                        <a class="nav-link" data-target="sec-31" href="#sec-31"
-                            ><i class="ti ti-clipboard-list"></i>3.1 静的テストの基本</a
-                        >
-                    </li>
-                    <li class="nav-sub">
-                        <ul class="nav-list">
-                            <li>
-                                <a class="nav-link" data-target="sec-311" href="#sec-311"
-                                    ><i class="ti ti-file-description"></i>3.1.1 対象成果物</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" data-target="sec-312" href="#sec-312"
-                                    ><i class="ti ti-bulb"></i>3.1.2 価値</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" data-target="sec-313" href="#sec-313"
-                                    ><i class="ti ti-arrows-diff"></i>3.1.3 動的テストとの違い</a
-                                >
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="nav-link" data-target="sec-32" href="#sec-32"
-                            ><i class="ti ti-users-group"></i>3.2 レビュープロセス</a
-                        >
-                    </li>
-                    <li class="nav-sub">
-                        <ul class="nav-list">
-                            <li>
-                                <a class="nav-link" data-target="sec-321" href="#sec-321"
-                                    ><i class="ti ti-message-2"></i>3.2.1 早期フィードバック</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" data-target="sec-322" href="#sec-322"
-                                    ><i class="ti ti-route"></i>3.2.2 レビュー活動</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" data-target="sec-323" href="#sec-323"
-                                    ><i class="ti ti-id-badge-2"></i>3.2.3 役割と責務</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" data-target="sec-324" href="#sec-324"
-                                    ><i class="ti ti-stack-2"></i>3.2.4 レビュー種別</a
-                                >
-                            </li>
-                            <li>
-                                <a class="nav-link" data-target="sec-325" href="#sec-325"
-                                    ><i class="ti ti-trophy"></i>3.2.5 成功要因</a
-                                >
-                            </li>
-                        </ul>
-                    </li>
-                    <li>
-                        <a class="nav-link" data-target="sec-tools" href="#sec-tools"
-                            ><i class="ti ti-tool"></i>実務補足：解析ツール</a
-                        >
-                    </li>
-                    <li>
-                        <a class="nav-link" data-target="sec-pitfalls" href="#sec-pitfalls"
-                            ><i class="ti ti-alert-triangle"></i>誤解・試験ポイント</a
-                        >
-                    </li>
-                    <li>
-                        <a class="nav-link" data-target="sec-summary" href="#sec-summary"
-                            ><i class="ti ti-checkbox"></i>まとめ</a
-                        >
-                    </li>
-                    <li>
-                        <a class="nav-link" data-target="sec-refs" href="#sec-refs"
-                            ><i class="ti ti-link"></i>参考文献</a
-                        >
-                    </li>
-                </ul>
-            </nav>
-            <main class="content">
-                <span class="hero-eyebrow"
-                    ><i class="ti ti-shield-check"></i>ISTQB CTFL v4.0.1 準拠</span
-                >
-                <h1>第3章：静的テスト 徹底解説</h1>
-                <p class="lede">
-                    ソフトウェアを実行せずに欠陥を見つける――静的テストの基本から、レビュープロセス、役割分担、レビュー種別の選び方までを、公式シラバスと実務の両面からステップバイステップで解説します。
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <div class="badge-ctfl">ISTQB CTFL v4.0</div>
+                <h2>Chapter 2<br />SDLCとテスト</h2>
+                <p>完全解説ガイド（中上級者向け）</p>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">概要</div>
+                <a class="nav-link" href="#overview">全体像と試験戦略</a>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">2.1 SDLCとテスト</div>
+                <a class="nav-link sub" href="#sec-211">2.1.1 SDLCモデルの影響</a>
+                <a class="nav-link sub" href="#sec-212">2.1.2 良いテスト実践</a>
+                <a class="nav-link sub" href="#sec-213">2.1.3 TDD / ATDD / BDD</a>
+                <a class="nav-link sub" href="#sec-214">2.1.4 DevOpsとテスト</a>
+                <a class="nav-link sub" href="#sec-215">2.1.5 シフトレフト</a>
+                <a class="nav-link sub" href="#sec-216">2.1.6 レトロスペクティブ</a>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">2.2 レベル・タイプ</div>
+                <a class="nav-link sub" href="#sec-221">2.2.1 テストレベル（5段階）</a>
+                <a class="nav-link sub" href="#sec-222">2.2.2 テストタイプ（4種類）</a>
+                <a class="nav-link sub" href="#sec-223">2.2.3 確認・リグレッション</a>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">2.3 メンテナンス</div>
+                <a class="nav-link" href="#sec-23">メンテナンステスト</a>
+            </div>
+
+            <div class="nav-group">
+                <div class="nav-group-label">試験対策</div>
+                <a class="nav-link" href="#exam-prep">頻出パターン＆落とし穴</a>
+                <a class="nav-link" href="#references">参照URL一覧</a>
+            </div>
+        </nav>
+
+        <main class="main">
+            <!-- HERO -->
+            <div class="hero" id="top">
+                <div class="version-badge"><span>&#9679;</span> CTFL Syllabus v4.0.1</div>
+                <div class="hero-eyebrow">ISTQB Certified Tester Foundation Level</div>
+                <h1>Chapter 2: SDLCとテスト<br />完全解説ガイド</h1>
+                <div class="hero-meta">
+                    <span class="hero-meta-item"><strong>対象:</strong> 中級〜上級エンジニア</span>
+                    <span class="hero-meta-item"
+                        ><strong>参照:</strong> Syllabus v4.0.1 (2024-09-15)</span
+                    >
+                    <span class="hero-meta-item"><strong>推奨学習時間:</strong> 約80分</span>
+                </div>
+                <div class="hero-stat-row">
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">7</span>
+                        <span class="hero-stat-label">試験問題数（全40問中）</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">5</span>
+                        <span class="hero-stat-label">v4.0で新設/変更された項目</span>
+                    </div>
+                    <div class="hero-stat">
+                        <span class="hero-stat-num">3+4+5</span>
+                        <span class="hero-stat-label">アプローチ+タイプ+レベル</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION: OVERVIEW -->
+            <section class="section" id="overview">
+                <div class="section-header">
+                    <span class="section-num">§ OVERVIEW</span>
+                    <h2>Chapter 2 の全体像と試験戦略</h2>
+                </div>
+
+                <p>
+                    Chapter 2はSDLC（Software Development
+                    Lifecycle）の文脈においてテストをどう機能させるかを扱う。v4.0では<strong
+                        >DevOps、Shift Left、TDD/BDD/ATDD、レトロスペクティブ</strong
+                    >が新設された。さらに「統合テスト」が<strong>コンポーネント統合テスト</strong>と<strong>システム統合テスト</strong>の2段階に分離された。
                 </p>
 
-                <section id="overview">
-                    <h2><i class="ti ti-map"></i>&nbsp;0. この章の位置づけ</h2>
-                    <p>
-                        CTFL v4.0 シラバスは全6章で構成され、Chapter
-                        3「静的テスト」の標準学習時間は<strong>80分</strong>と、6章の中では最も短い部類に入ります。とはいえ出題範囲としての重要度が低いわけではなく、「欠陥をできるだけ早く・安く見つける」というテストの大原則（第1章で学ぶ7原則の3番目「早期テストは時間とコストを節約する」）を実践するうえでの中核技法がここに詰まっています。
-                    </p>
+                <div class="mermaid-wrap">
+                    <div class="mermaid" id="d1"></div>
+                    <div class="mermaid-caption">図1: Chapter 2 構造マップ</div>
+                </div>
 
-                    <pre class="mermaid">
-flowchart TD
-    A["ソフトウェアテスト"] --> B["静的テスト（実行しない）"]
-    A --> C["動的テスト（実行する）"]
-    B --> B1["レビュー（人手による評価）"]
-    B --> B2["静的解析（ツールによる評価）"]
-    C --> C1["テストケースの設計と実行"]
-    C --> C2["故障の検出と欠陥の特定"]
+                <div class="callout callout-info">
+                    <strong>試験戦略:</strong> Chapter
+                    2の問題は主にK2（理解）レベル。「定義の丸暗記」ではなく「シナリオを読んでどのレベル/タイプ/アプローチが適切かを判断する」力が問われる。v4.0の新設項目（DevOps
+                    / Shift Left / BDD / 統合テストの分離）を重点的に押さえること。
+                </div>
 
-    classDef staticNode fill:#173430,stroke:#4fd1c5,color:#a8ece4
-    classDef dynamicNode fill:#211c38,stroke:#8b7cf6,color:#c7bdfa
-    class B,B1,B2 staticNode
-    class C,C1,C2 dynamicNode
-      </pre
-                    >
-
-                    <p>
-                        第2章で学ぶ「シフトレフト」の考え方とも直結しており、コードがまだ実行できない段階（要件定義・設計フェーズ）から欠陥を発見できる唯一の手段が静的テストです。動的テストが「動かして壊れ方を見る」アプローチだとすれば、静的テストは「動かす前に、人の目とツールでミスを見つける」アプローチだと整理すると理解しやすくなります。
-                    </p>
-
-                    <h3>学習目標一覧</h3>
+                <div class="table-wrap">
                     <table>
-                        <tr>
-                            <th>項番</th>
-                            <th>学習目標</th>
-                            <th>認知レベル</th>
-                        </tr>
-                        <tr>
-                            <td>FL-3.1.1</td>
-                            <td>静的テストで検証できる作業成果物の種類を認識する</td>
-                            <td><span class="badge badge-k1">K1 記憶</span></td>
-                        </tr>
-                        <tr>
-                            <td>FL-3.1.2</td>
-                            <td>静的テストの価値を説明する</td>
-                            <td><span class="badge badge-k2">K2 理解</span></td>
-                        </tr>
-                        <tr>
-                            <td>FL-3.1.3</td>
-                            <td>静的テストと動的テストを比較対比する</td>
-                            <td><span class="badge badge-k2">K2 理解</span></td>
-                        </tr>
-                        <tr>
-                            <td>FL-3.2.1</td>
-                            <td>
-                                早期かつ頻繁なステークホルダーからのフィードバックの利点を識別する
-                            </td>
-                            <td><span class="badge badge-k1">K1 記憶</span></td>
-                        </tr>
-                        <tr>
-                            <td>FL-3.2.2</td>
-                            <td>レビュープロセスの活動を要約する</td>
-                            <td><span class="badge badge-k2">K2 理解</span></td>
-                        </tr>
-                        <tr>
-                            <td>FL-3.2.3</td>
-                            <td>レビューの主要な役割にどの責務が割り当てられるかを想起する</td>
-                            <td><span class="badge badge-k1">K1 記憶</span></td>
-                        </tr>
-                        <tr>
-                            <td>FL-3.2.4</td>
-                            <td>さまざまなレビュー種別を比較対比する</td>
-                            <td><span class="badge badge-k2">K2 理解</span></td>
-                        </tr>
-                        <tr>
-                            <td>FL-3.2.5</td>
-                            <td>レビューを成功させる要因を想起する</td>
-                            <td><span class="badge badge-k1">K1 記憶</span></td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>セクション</th>
+                                <th>問題数</th>
+                                <th>K-レベル</th>
+                                <th>v4.0変更</th>
+                                <th>頻出トピック</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2.1 SDLCのコンテキスト</td>
+                                <td>2問</td>
+                                <td>
+                                    <span class="tag tag-k1">K1</span>
+                                    <span class="tag tag-k2">K2</span>
+                                </td>
+                                <td><span class="tag tag-new">新設多数</span></td>
+                                <td>DevOps特性、Shift Left手法</td>
+                            </tr>
+                            <tr>
+                                <td>2.2 テストレベル/タイプ</td>
+                                <td>4問</td>
+                                <td><span class="tag tag-k2">K2</span></td>
+                                <td><span class="tag tag-changed">統合テスト分離</span></td>
+                                <td>各レベルの目的・テスト基盤・担当者</td>
+                            </tr>
+                            <tr>
+                                <td>2.3 メンテナンステスト</td>
+                                <td>1問</td>
+                                <td><span class="tag tag-k2">K2</span></td>
+                                <td>—</td>
+                                <td>変更の種類、インパクト分析</td>
+                            </tr>
+                        </tbody>
                     </table>
+                </div>
+            </section>
 
+            <!-- SECTION 2.1 -->
+            <section class="section" id="sec-211">
+                <div class="section-header">
+                    <span class="section-num">§ 2.1.1</span>
+                    <h2>SDLCモデルとテスト活動の影響</h2>
+                </div>
+
+                <p>
+                    SDLCの選択はテストのあらゆる側面に影響する。シラバスはどのSDLCモデルが「優れているか」を問うのではなく、「テストをSDLCに適合させる方法」を問う。
+                </p>
+
+                <div class="mermaid-wrap">
+                    <div class="mermaid" id="d2"></div>
+                    <div class="mermaid-caption">図2: SDLCモデルの分類とテストへの影響</div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>側面</th>
+                                <th>シーケンシャル（Waterfall/V-model）</th>
+                                <th>イテラティブ/インクリメンタル（Agile）</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>テストの開始時期</strong></td>
+                                <td>後半フェーズが中心</td>
+                                <td>各イテレーション内で並行</td>
+                            </tr>
+                            <tr>
+                                <td><strong>静的テスト</strong></td>
+                                <td>要件・設計レビューとして前半に実施</td>
+                                <td>各スプリントで継続的に実施</td>
+                            </tr>
+                            <tr>
+                                <td><strong>動的テスト</strong></td>
+                                <td>コード完成後に集中</td>
+                                <td>各スプリント内で完結</td>
+                            </tr>
+                            <tr>
+                                <td><strong>テスト文書</strong></td>
+                                <td>詳細・フォーマル</td>
+                                <td>軽量・Just Enough</td>
+                            </tr>
+                            <tr>
+                                <td><strong>自動化の位置づけ</strong></td>
+                                <td>プロジェクト後半</td>
+                                <td>リグレッション防止として初期から</td>
+                            </tr>
+                            <tr>
+                                <td><strong>テスターの関与</strong></td>
+                                <td>後半フェーズに集中</td>
+                                <td>要件定義から継続的に関与</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>V-model: テストレベルと開発フェーズの対応</h3>
                     <p>
-                        <strong>キーワード（暗記必須）</strong>：anomaly（不正）、dynamic
-                        testing（動的テスト）、formal review（公式レビュー）、informal
-                        review（非公式レビュー）、inspection（インスペクション）、review（レビュー）、static
-                        analysis（静的解析）、static testing（静的テスト）、technical
-                        review（テクニカルレビュー）、walkthrough（ウォークスルー）
+                        V-modelはシーケンシャルモデルの代表例。左辺の各開発フェーズに右辺のテストレベルが対応し、<strong
+                            >テスト基盤（Test Basis）</strong
+                        >となる成果物が明示的に結びつく。
                     </p>
-
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>
-                                出典：ISTQB® Certified Tester Foundation Level Syllabus
-                                v4.0.1（2024-09-15）, Chapter 3, p.32-33
-                            </p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid" id="d3"></div>
+                        <div class="mermaid-caption">
+                            図3: V-model — 開発フェーズとテストレベルの対応（v4.0の5レベル構成）
                         </div>
                     </div>
-                </section>
+                    <div class="callout callout-warn">
+                        <strong>v4.0の重要変更:</strong> V-modelの右辺は
+                        v3.1の「統合テスト」1段階から、<strong>コンポーネント統合テスト</strong>と<strong>システム統合テスト</strong>の2段階に分離された。これは試験頻出事項。
+                    </div>
+                </div>
+            </section>
 
-                <section id="sec-31">
-                    <h2><i class="ti ti-clipboard-list"></i>&nbsp;1. 3.1 静的テストの基本</h2>
+            <!-- SECTION 2.1.2 -->
+            <section class="section" id="sec-212">
+                <div class="section-header">
+                    <span class="section-num">§ 2.1.2</span>
+                    <h2>良いテスト実践とSDLCへの統合</h2>
+                </div>
+                <p>
+                    シラバスは「Good Testing
+                    Practices（良いテスト実践）」として、SDLCモデルによらず適用できる4原則を定めている。
+                </p>
 
-                    <h3>1.1 静的テストとは何か</h3>
-                    <p>
-                        静的テストは、対象のソフトウェアを実際に動かさずに、要件定義書・設計書・ソースコードといった作業成果物を<strong>人手による精査（レビュー）</strong>、あるいは<strong>ツールによる自動チェック（静的解析）</strong>によって評価するアプローチです。動的テストとの最大の違いは「実行するかどうか」であり、静的テストは実行不可能な文書段階の成果物にも適用できる点が大きな強みになります。
-                    </p>
-                    <p>
-                        静的テストの目的は、欠陥の検出だけにとどまりません。可読性・完全性・正確性・試験性・一貫性といった品質特性を評価し、成果物全体の品質を底上げすることも狙いの一つです。さらに静的テストは、「仕様通りに作られているか」を確認する<strong>検証（Verification）</strong>と、「本当にユーザーが欲しいものになっているか」を確認する<strong>妥当性確認（Validation）</strong>の両方に活用できます。
-                    </p>
-                    <p>
-                        近年のアジャイル開発では、テスト担当者・ビジネス側の代表者（プロダクトオーナーやビジネスアナリスト）・開発担当者が共同で行う<strong
-                            >Example Mapping（実例マッピング）</strong
-                        >、<strong>ユーザーストーリーの共同執筆</strong>、<strong>バックログリファインメント</strong>といった協働作業も、広い意味での静的テストに含まれます。これらの場では、ユーザーストーリーが「Definition
-                        of
-                        Ready（準備完了の定義）」を満たしているか、受け入れ基準がテスト可能な形になっているかを、適切な質問を投げかけながら確認していきます。
-                    </p>
+                <div class="mermaid-wrap">
+                    <div class="mermaid" id="d4"></div>
+                    <div class="mermaid-caption">図4: 良いテスト実践の4原則</div>
+                </div>
 
-                    <h3 id="sec-311">1.2 静的テストで検証可能な作業成果物</h3>
-                    <p>
-                        レビューの対象になり得る作業成果物は非常に幅広く、「人が読んで理解できるもの」であればほぼすべてが対象になります。一方、静的解析の対象にするには、検査の前提となる構造（コードの文法、モデルの記法など）が必要です。
-                    </p>
+                <div class="table-wrap">
                     <table>
-                        <tr>
-                            <th>分類</th>
-                            <th>静的テストの対象となる作業成果物の例</th>
-                        </tr>
-                        <tr>
-                            <td>要求関連</td>
-                            <td>要件仕様書、ユーザーストーリー、受け入れ基準</td>
-                        </tr>
-                        <tr>
-                            <td>設計関連</td>
-                            <td>
-                                システムアーキテクチャ仕様書、詳細設計書、データモデル、画面遷移図
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>実装関連</td>
-                            <td>ソースコード、ビルドスクリプト、設定ファイル</td>
-                        </tr>
-                        <tr>
-                            <td>テスト関連</td>
-                            <td>テスト計画書、テストケース、テストチャーター、自動化スクリプト</td>
-                        </tr>
-                        <tr>
-                            <td>プロジェクト管理関連</td>
-                            <td>プロジェクト計画書、契約書、製品バックログアイテム</td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>開発活動</th>
+                                <th>対応するテスト活動</th>
+                                <th>根拠</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>要件定義</td>
+                                <td>要件レビュー、受入基準作成</td>
+                                <td>欠陥の早期発見（Shift Left）</td>
+                            </tr>
+                            <tr>
+                                <td>設計</td>
+                                <td>テスト設計（テスト条件の特定）</td>
+                                <td>アーキテクチャの問題を設計段階で検出</td>
+                            </tr>
+                            <tr>
+                                <td>コーディング</td>
+                                <td>コンポーネントテスト、コードレビュー</td>
+                                <td>単体レベルの欠陥除去</td>
+                            </tr>
+                            <tr>
+                                <td>統合</td>
+                                <td>統合テスト（コンポーネント統合/システム統合）</td>
+                                <td>インターフェース欠陥の検出</td>
+                            </tr>
+                            <tr>
+                                <td>リリース</td>
+                                <td>受入テスト、リグレッションテスト</td>
+                                <td>デプロイ判断の根拠取得</td>
+                            </tr>
+                        </tbody>
                     </table>
-                    <p>
-                        一方で、静的テストに適さない作業成果物も存在します。具体的には、人間にとって解釈が困難なもの（例：機械生成された難読化コード）や、ツールで分析すべきでない成果物が該当します。代表例として挙げられるのが<strong>サードパーティの実行可能コード</strong>です。これは多くの場合ライセンス契約上の制約によって、逆コンパイルや静的解析ツールでの分析自体が認められていないためです。この「静的テストに適さない成果物」という観点はシラバスv4.0で新たに明文化された考え方であり、実務でOSSライブラリやベンダー提供のバイナリを扱う際に意識しておくべきポイントです。
-                    </p>
+                </div>
+            </section>
 
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>出典：ISTQB® CTFL Syllabus v4.0.1, Section 3.1.1, p.33</p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
+            <!-- SECTION 2.1.3 -->
+            <section class="section" id="sec-213">
+                <div class="section-header">
+                    <span class="section-num">§ 2.1.3</span>
+                    <h2>テストファーストアプローチ <span class="tag tag-new">v4.0 新設</span></h2>
+                </div>
+                <p>
+                    3つのアプローチはすべて「テストが開発を駆動する」という共通原則を持ち、Shift
+                    Leftを実践する中核的手法。
+                </p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>アプローチ</th>
+                                <th>正式名称</th>
+                                <th>テスト記述者</th>
+                                <th>テスト形式</th>
+                                <th>目的</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>TDD</strong></td>
+                                <td>Test-Driven Development</td>
+                                <td>開発者</td>
+                                <td>プログラミング言語のテストコード</td>
+                                <td>コード設計の改善</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ATDD</strong></td>
+                                <td>Acceptance Test-Driven Development</td>
+                                <td>開発者・テスター・ビジネス</td>
+                                <td>自然言語ベースの受入基準</td>
+                                <td>全員の共通理解を形成</td>
+                            </tr>
+                            <tr>
+                                <td><strong>BDD</strong></td>
+                                <td>Behavior-Driven Development</td>
+                                <td>開発者・テスター・ビジネス</td>
+                                <td><strong>Given/When/Then</strong> 形式（Gherkin）</td>
+                                <td>システムの振る舞いを仕様化</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>TDD サイクル（Red-Green-Refactor）</h3>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid" id="d5"></div>
+                        <div class="mermaid-caption">図5: TDD の Red-Green-Refactor サイクル</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>BDD — Given/When/Then 形式（Gherkin）</h3>
+                    <div class="code-block">
+                        <pre><code><span class="kw">Feature:</span> <span class="str">ショッピングカートへの商品追加</span>
+
+  <span class="kw">Scenario:</span> <span class="str">在庫ありの商品をカートに追加する</span>
+    <span class="kw">Given</span> ユーザーが商品詳細ページを閲覧している
+    <span class="kw">When</span>  ユーザーが「カートに追加」ボタンをクリックする
+    <span class="kw">Then</span>  カート内の商品数が1増加する
+    <span class="kw">And</span>   「カートに追加しました」のメッセージが表示される</code></pre>
+                    </div>
+                </div>
+
+                <div class="callout callout-warn">
+                    <strong>試験の落とし穴:</strong>
+                    BDDはGiven/When/Then形式（Gherkin）を使用するが、ATDDは<em>必ずしもこの形式を使わない</em>。ATDDの本質は「受入基準からテストを派生させる」ことであり、フォーマットは問わない。
+                </div>
+            </section>
+
+            <!-- SECTION 2.1.4 -->
+            <section class="section" id="sec-214">
+                <div class="section-header">
+                    <span class="section-num">§ 2.1.4</span>
+                    <h2>DevOpsとテスト <span class="tag tag-new">v4.0 新設</span></h2>
+                </div>
+                <p>
+                    DevOpsは開発（テストを含む）とオペレーションが共通目標に向けて協働するための<strong>組織変革</strong>。技術的プラクティスに加え、<strong>文化的変革</strong>が必須であることがシラバスで明示されている。
+                </p>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>特性</th>
+                                <th>説明</th>
+                                <th>テストへの影響</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>チームの自律性</strong></td>
+                                <td>各チームがエンドツーエンドの責任を持つ</td>
+                                <td>テスターが開発チームに埋め込まれる</td>
+                            </tr>
+                            <tr>
+                                <td><strong>高速フィードバック</strong></td>
+                                <td>CIによる自動テスト実行</td>
+                                <td>数分以内に品質フィードバックを取得</td>
+                            </tr>
+                            <tr>
+                                <td><strong>統合ツールチェーン</strong></td>
+                                <td>CI/CDパイプラインの自動化</td>
+                                <td>テスト自動化が必須インフラに</td>
+                            </tr>
+                            <tr>
+                                <td><strong>継続的インテグレーション（CI）</strong></td>
+                                <td>コードの頻繁なマージ + 自動ビルド/テスト</td>
+                                <td>リグレッション即時検出</td>
+                            </tr>
+                            <tr>
+                                <td><strong>継続的デリバリー（CD）</strong></td>
+                                <td>常にリリース可能な状態を維持</td>
+                                <td>全テストレベルの高速化が前提</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>CI/CDパイプラインにおけるテストフロー</h3>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid" id="d6"></div>
+                        <div class="mermaid-caption">
+                            図6: DevOps CI/CDパイプラインにおけるテストフロー
                         </div>
                     </div>
+                </div>
 
-                    <h3 id="sec-312">1.3 静的テストの価値</h3>
-                    <p>静的テストの価値は、大きく次の4つに整理できます。</p>
-                    <ol class="steps">
-                        <li>
-                            <strong>最も早い段階で欠陥を検出できる</strong
-                            >　コードが1行も書かれていない要件定義の段階からレビューを始められるため、「早期テストの原則」を最も忠実に実践できる手段です。要件の段階で見つかる矛盾や曖昧さは、設計・実装・テストの各工程に伝播する前に取り除けます。
-                        </li>
-                        <li>
-                            <strong>動的テストでは発見しにくい欠陥を見つけられる</strong
-                            >　到達不能コード（どんな条件分岐をたどっても実行されないコードの塊）、意図したとおりに実装されていない設計パターン、そもそも実行できないドキュメントに内在する欠陥などは、動的テストでは原理的に発見が難しいか非常に手間がかかります。
-                        </li>
-                        <li>
-                            <strong>成果物への信頼を積み上げ、共通理解を醸成する</strong
-                            >　レビューを通じて要件を確認するプロセスは、書かれた要件が本当にステークホルダーの真のニーズを反映しているかを早期に検証する機会にもなります。これにより開発に関わる人々の間で「何を作るべきか」の認識のずれを防ぎ、コミュニケーションの質も向上します。
-                        </li>
-                        <li>
-                            <strong>結果的にプロジェクト全体のコストを削減する</strong
-                            >　レビューの実施自体にはコストがかかりますが、後工程での手戻りコストを考えれば、レビューを行わない場合よりもプロジェクト全体のコストは下がるのが一般的です。静的解析で検出できる種類のコード欠陥は、動的テストで見つけるよりも効率的に検出でき、開発工数全体の削減にもつながります。
-                        </li>
-                    </ol>
-                    <p>
-                        静的解析についても補足しておくと、静的解析はテストケースを必要とせず、ツールによって自動実行できるため、レビューよりも少ない工数で多くの欠陥候補を洗い出せるという特徴があります。多くの組織では、CI（継続的インテグレーション）パイプラインに静的解析を組み込み、コードがコミットされるたびに自動でチェックする運用が一般的になっています。静的解析は主にコードの欠陥検出に使われますが、保守性やセキュリティの評価にも活用され、スペルチェッカーや文章の読みやすさを評価するツールも広い意味では静的解析の一種です。
-                    </p>
-
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>出典：ISTQB® CTFL Syllabus v4.0.1, Section 3.1.2, p.33-34</p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
+                <div class="card-grid">
+                    <div class="card accent-teal">
+                        <div class="card-title">メリット</div>
+                        <div class="card-sub">
+                            安定した環境（IaC）でのテスト<br />非機能テストのパイプライン組み込み<br />テストカバレッジの継続的可視化
                         </div>
                     </div>
-
-                    <h3 id="sec-313">1.4 静的テストと動的テストの違い</h3>
-                    <p>
-                        静的テストと動的テストは対立する技法ではなく、互いの弱点を補い合う<strong>補完関係</strong>にあります。「欠陥を検出する」という目的は共通していますが、検出のメカニズムや得意領域は異なります。
-                    </p>
-
-                    <pre class="mermaid">
-flowchart LR
-    subgraph ST["静的テスト"]
-    direction TB
-    ST1["作業成果物を読む・解析する"] --> ST2["欠陥を直接発見する"]
-    end
-    subgraph DT["動的テスト"]
-    direction TB
-    DT1["テストケースを実行する"] --> DT2["故障が発生する"]
-    DT2 --> DT3["分析して欠陥を特定する"]
-    end
-
-    classDef staticNode fill:#173430,stroke:#4fd1c5,color:#a8ece4
-    classDef dynamicNode fill:#211c38,stroke:#8b7cf6,color:#c7bdfa
-    class ST1,ST2 staticNode
-    class DT1,DT2,DT3 dynamicNode
-      </pre
-                    >
-
-                    <table>
-                        <tr>
-                            <th>観点</th>
-                            <th>静的テスト</th>
-                            <th>動的テスト</th>
-                        </tr>
-                        <tr>
-                            <td>ソフトウェアの実行</td>
-                            <td>不要</td>
-                            <td>必要</td>
-                        </tr>
-                        <tr>
-                            <td>欠陥の発見プロセス</td>
-                            <td>欠陥を直接発見する</td>
-                            <td>テスト実行が故障を引き起こし、その後の分析で欠陥を特定する</td>
-                        </tr>
-                        <tr>
-                            <td>適用できる対象</td>
-                            <td>実行不可能な成果物（文書・モデルなど）にも適用可能</td>
-                            <td>実行可能な成果物のみが対象</td>
-                        </tr>
-                        <tr>
-                            <td>検出が得意な品質特性</td>
-                            <td>保守性など、実行しなくても評価できる特性</td>
-                            <td>性能効率性など、実行しないと評価できない特性</td>
-                        </tr>
-                        <tr>
-                            <td>めったに実行されない処理経路の欠陥</td>
-                            <td>比較的見つけやすい</td>
-                            <td>到達・再現が難しい場合がある</td>
-                        </tr>
-                    </table>
-
-                    <p>
-                        実務上特に重要なのは、「静的テストでしか見つからない欠陥」と「動的テストでしか見つからない欠陥」がそれぞれ存在するという点です。たとえば実行時のパフォーマンス劣化は動的テストでなければ確認できませんが、コーディング規約違反や到達不能コードは動的テストではほぼ検出できません。したがって、どちらか一方に偏ったテスト戦略はリスクが高く、両方を組み合わせることが推奨されます。
-                    </p>
-
-                    <p>
-                        シラバスでは、静的テストによって早期かつ安価に検出しやすい欠陥の代表例として、次の7カテゴリが挙げられています。
-                    </p>
-                    <table>
-                        <tr>
-                            <th>欠陥カテゴリ</th>
-                            <th>具体例</th>
-                        </tr>
-                        <tr>
-                            <td>要件の欠陥</td>
-                            <td>矛盾、曖昧な表現、記載漏れ、不正確な記述、重複した記載</td>
-                        </tr>
-                        <tr>
-                            <td>設計の欠陥</td>
-                            <td>非効率なデータベース構造、モジュール分割の悪さ</td>
-                        </tr>
-                        <tr>
-                            <td>一部のコーディング欠陥</td>
-                            <td>
-                                未定義値のままの変数、未宣言変数の使用、到達不能コード、コードの重複、過度に複雑なロジック
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>コーディング標準からの逸脱</td>
-                            <td>命名規則などコーディング規約への不適合</td>
-                        </tr>
-                        <tr>
-                            <td>インタフェース仕様の誤り</td>
-                            <td>パラメータの数・型・順序の不一致</td>
-                        </tr>
-                        <tr>
-                            <td>特定のセキュリティ脆弱性</td>
-                            <td>バッファオーバーフローなど</td>
-                        </tr>
-                        <tr>
-                            <td>テストベースに対するカバレッジの不備</td>
-                            <td>ある受け入れ基準に対応するテストが漏れている、など</td>
-                        </tr>
-                    </table>
-
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>出典：ISTQB® CTFL Syllabus v4.0.1, Section 3.1.3, p.34</p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
+                    <div class="card accent-coral">
+                        <div class="card-title">リスク・課題</div>
+                        <div class="card-sub">
+                            テスト自動化の初期構築コストが高い<br />手動テストの位置づけが不明確になりがち<br />パイプライン維持に専門知識が必要
                         </div>
                     </div>
-                </section>
+                </div>
 
-                <section id="sec-32">
+                <div class="callout callout-info">
+                    <strong>重要:</strong>
+                    DevOpsは<em>手動テストの廃止</em>を意味しない。探索的テストなどの手動テストは依然として重要な役割を持つ。シラバスはこの点を明示的に述べている。
+                </div>
+            </section>
+
+            <!-- SECTION 2.1.5 -->
+            <section class="section" id="sec-215">
+                <div class="section-header">
+                    <span class="section-num">§ 2.1.5</span>
+                    <h2>シフトレフト（Shift Left） <span class="tag tag-new">v4.0 新設</span></h2>
+                </div>
+                <p>
+                    「Early Testing saves time and
+                    money」（テスト原則3番）の実践的手法。テスト活動をSDLCの早い段階に移動させることで欠陥検出コストを削減する。
+                </p>
+
+                <div class="mermaid-wrap">
+                    <div class="mermaid" id="d7"></div>
+                    <div class="mermaid-caption">図7: 従来アプローチ vs シフトレフト</div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>手法</th>
+                                <th>タイミング</th>
+                                <th>目的</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>仕様・要件のレビュー</td>
+                                <td>要件定義フェーズ</td>
+                                <td>曖昧さ・矛盾の早期検出</td>
+                            </tr>
+                            <tr>
+                                <td>コード実装前のテスト設計</td>
+                                <td>設計フェーズ</td>
+                                <td>テスト容易性を設計に反映</td>
+                            </tr>
+                            <tr>
+                                <td>CI/CDでの自動テスト</td>
+                                <td>コミット時</td>
+                                <td>即時フィードバック</td>
+                            </tr>
+                            <tr>
+                                <td>静的解析（Lint/SAST）</td>
+                                <td>コミット/ビルド時</td>
+                                <td>コード品質の継続的確認</td>
+                            </tr>
+                            <tr>
+                                <td>TDD / ATDD</td>
+                                <td>実装フェーズ</td>
+                                <td>テストによる設計駆動</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="callout callout-success">
+                    <strong>正しい理解:</strong>
+                    シフトレフトは「後半テストをなくす」ことではなく、「前半にもテスト活動を追加する」ことで全体の品質を向上させる考え方。後半のシステムテストや受入テストは依然として必要。
+                </div>
+            </section>
+
+            <!-- SECTION 2.1.6 -->
+            <section class="section" id="sec-216">
+                <div class="section-header">
+                    <span class="section-num">§ 2.1.6</span>
                     <h2>
-                        <i class="ti ti-users-group"></i>&nbsp;2. 3.2
-                        フィードバックとレビュープロセス
+                        レトロスペクティブとプロセス改善 <span class="tag tag-new">v4.0 新設</span>
                     </h2>
+                </div>
+                <p>
+                    レトロスペクティブ（振り返り会議）はプロジェクト、フェーズ、リリース、またはイテレーションの終了時に実施し、<strong>テストプロセスの継続的改善</strong>に活用する。
+                </p>
 
-                    <h3 id="sec-321">2.1 早期かつ頻繁なステークホルダーフィードバックの利点</h3>
-                    <p>
-                        レビューの議論に入る前に、なぜそもそも「早期かつ頻繁なフィードバック」が重要なのかを押さえておきます。
-                    </p>
-                    <p>
-                        開発の初期段階でステークホルダーの関与が乏しいと、開発チームが作っているものが、ステークホルダーが本来思い描いていたビジョンとずれていく危険があります。このずれに気づくのが終盤であればあるほど軌道修正のコストは増大し、最悪の場合は納期遅延や責任の押し付け合い、プロジェクト自体の失敗に直結します。
-                    </p>
-                    <p>
-                        逆に、開発ライフサイクル全体を通じて頻繁にフィードバックを得られれば、要件に対する誤解を未然に防ぎ、要件の変更が必要になった場合にも早い段階で気づき、対応できます。これは開発チーム自身が「自分たちが何を作っているのか」をより深く理解することにもつながり、ステークホルダーにとって価値の高い機能や、リスクへの影響が大きい部分に開発の力を集中させやすくなるという副次的な効果もあります。レビューは、この「早期かつ頻繁なフィードバック」を構造的に実現するための代表的な手段の一つです。
-                    </p>
+                <div class="mermaid-wrap">
+                    <div class="mermaid" id="d8"></div>
+                    <div class="mermaid-caption">図8: レトロスペクティブの構造と成果</div>
+                </div>
 
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>出典：ISTQB® CTFL Syllabus v4.0.1, Section 3.2.1, p.35</p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>議題例</th>
+                                <th>テスト観点での改善内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>テストカバレッジ</td>
+                                <td>不足していたテスト観点の特定と次回への反映</td>
+                            </tr>
+                            <tr>
+                                <td>欠陥の傾向分析</td>
+                                <td>繰り返し発生する欠陥パターンの根本原因分析</td>
+                            </tr>
+                            <tr>
+                                <td>テスト自動化</td>
+                                <td>手動で繰り返したテストの自動化候補の洗い出し</td>
+                            </tr>
+                            <tr>
+                                <td>テスト環境の問題</td>
+                                <td>環境起因の障害への対策</td>
+                            </tr>
+                            <tr>
+                                <td>テストプロセスの効率化</td>
+                                <td>テスト設計・実行の所要時間の見直し</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- SECTION 2.2.1 -->
+            <section class="section" id="sec-221">
+                <div class="section-header">
+                    <span class="section-num">§ 2.2.1</span>
+                    <h2>テストレベル（5段階） <span class="tag tag-changed">v4.0 変更</span></h2>
+                </div>
+                <p>
+                    v4.0の重要変更:
+                    v3.1では「統合テスト」1段階だったが、v4.0では<strong>コンポーネント統合テスト</strong>と<strong>システム統合テスト</strong>に分離され、計5段階構成になった。
+                </p>
+
+                <div class="mermaid-wrap">
+                    <div class="mermaid" id="d9"></div>
+                    <div class="mermaid-caption">図9: 5段階テストレベルの階層構造（v4.0）</div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>属性</th>
+                                <th>コンポーネント</th>
+                                <th>コンポーネント統合</th>
+                                <th>システム</th>
+                                <th>システム統合</th>
+                                <th>受入</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>目的</strong></td>
+                                <td>個別コンポーネントの動作確認</td>
+                                <td>コンポーネント間IF確認</td>
+                                <td>システム全体の動作確認</td>
+                                <td>外部システムとの統合確認</td>
+                                <td>ビジネス要件を満たすか確認</td>
+                            </tr>
+                            <tr>
+                                <td><strong>テスト対象</strong></td>
+                                <td>1コンポーネント/クラス</td>
+                                <td>コンポーネント群のIF</td>
+                                <td>システム全体</td>
+                                <td>他システム・サードパーティとの結合</td>
+                                <td>システム全体（本番同等環境）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>テスト基盤</strong></td>
+                                <td>詳細設計、コンポーネント仕様</td>
+                                <td>IF設計、アーキテクチャ設計</td>
+                                <td>システム要件仕様</td>
+                                <td>システムIF設計</td>
+                                <td>ユーザー要件、ユースケース、契約</td>
+                            </tr>
+                            <tr>
+                                <td><strong>テスト担当者</strong></td>
+                                <td>主に開発者</td>
+                                <td>開発者/テスター</td>
+                                <td>テスター</td>
+                                <td>テスター/統合チーム</td>
+                                <td>ユーザー/顧客/テスター</td>
+                            </tr>
+                            <tr>
+                                <td><strong>代表的な欠陥</strong></td>
+                                <td>ロジックエラー</td>
+                                <td>IF不整合、データ変換エラー</td>
+                                <td>機能要件の未達、性能問題</td>
+                                <td>外部システムとの通信エラー</td>
+                                <td>ビジネス要件の未達</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>受入テストの4サブタイプ</h3>
+                    <p>受入テストはシラバスで特に詳しく定義されており、試験で問われやすい。</p>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid" id="d10"></div>
+                        <div class="mermaid-caption">図10: 受入テストの4サブタイプ</div>
+                    </div>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>サブタイプ</th>
+                                    <th>略称</th>
+                                    <th>実施者</th>
+                                    <th>目的</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>ユーザー受入テスト</strong></td>
+                                    <td>UAT</td>
+                                    <td>実際のユーザー</td>
+                                    <td>実際の利用シナリオでの検証</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>運用受入テスト</strong></td>
+                                    <td>OAT</td>
+                                    <td>システム管理者</td>
+                                    <td>バックアップ・リカバリ・メンテナンス性確認</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>契約・規制受入テスト</strong></td>
+                                    <td>—</td>
+                                    <td>テスター/外部監査</td>
+                                    <td>契約条件・法規制・標準への準拠確認</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>アルファ/ベータテスト</strong></td>
+                                    <td>—</td>
+                                    <td>限定ユーザー</td>
+                                    <td>実際の利用環境での問題検出</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2.2.2 -->
+            <section class="section" id="sec-222">
+                <div class="section-header">
+                    <span class="section-num">§ 2.2.2</span>
+                    <h2>テストタイプ（4種類）</h2>
+                </div>
+                <p>
+                    テストタイプは「何を評価するか」を定義する。テストレベルとは<strong>独立</strong>しており、すべてのテストレベルで全タイプを適用できる。
+                </p>
+
+                <div class="mermaid-wrap">
+                    <div class="mermaid" id="d11"></div>
+                    <div class="mermaid-caption">図11: 4つのテストタイプ</div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>テストタイプ</th>
+                                <th>評価対象</th>
+                                <th>代表的な技法</th>
+                                <th>主なテスト基盤</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>機能テスト</strong></td>
+                                <td>機能要件（完全性・正確性・適切性）</td>
+                                <td>同値分割、境界値分析、デシジョンテーブル</td>
+                                <td>要件仕様、ユースケース、ユーザーストーリー</td>
+                            </tr>
+                            <tr>
+                                <td><strong>非機能テスト</strong></td>
+                                <td>品質特性（性能・セキュリティ・信頼性等）</td>
+                                <td>性能テスト、セキュリティテスト、ユーザビリティテスト</td>
+                                <td>性能要件、セキュリティ基準、UI仕様</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ブラックボックス</strong></td>
+                                <td>外部仕様との整合性（内部実装を見ない）</td>
+                                <td>同値分割、境界値分析、ユースケーステスト</td>
+                                <td>仕様書、要件</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ホワイトボックス</strong></td>
+                                <td>内部構造の網羅性</td>
+                                <td>ステートメント/ブランチカバレッジ</td>
+                                <td>コード、アーキテクチャ図</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>非機能テストの品質特性（ISO/IEC 25010）</h3>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid" id="d12"></div>
+                        <div class="mermaid-caption">
+                            図12: ISO/IEC 25010 品質特性と非機能テストの対応
                         </div>
                     </div>
+                </div>
 
-                    <h3 id="sec-322">2.2 レビュープロセスの活動</h3>
-                    <p>
-                        レビューには様々な形式があり、案件の重要度やリスクに応じて柔軟に調整される必要があります。シラバスでは、その柔軟性の土台として
-                        ISO/IEC 20246
-                        規格が定義する汎用的なレビュープロセスを参照しています。ISO/IEC 20246
-                        は、インスペクション・レビュー・ウォークスルーといった作業成果物レビュー全般について、ライフサイクルのどの段階でも使える汎用的なプロセス、活動、タスク、レビュー技法、文書テンプレートを定めた国際標準です。「より公式なレビューが必要であれば、各活動でより多くのタスクをこなすことになる」という考え方が基本になります。
-                    </p>
-                    <p>
-                        対象となる作業成果物のサイズが大きい場合、1回のレビューですべてをカバーしきれないことがあります。その場合は、同じ成果物に対してレビュープロセス全体を複数回繰り返す（章やモジュール単位で分割してレビューする）運用も想定されています。
-                    </p>
+                <div class="callout callout-info">
+                    <strong>試験のポイント:</strong>
+                    テストタイプはテストレベルとは<em>独立</em>。例えば「コンポーネントレベルで非機能テスト（単体レベルの性能計測）」も「システムレベルでホワイトボックステスト」も理論上は可能。これは試験でひっかけとして使われることがある。
+                </div>
+            </section>
 
-                    <pre class="mermaid">
-flowchart LR
-    A["1. 計画"] --> B["2. レビューの開始"]
-    B --> C["3. 個々のレビュー"]
-    C --> D["4. コミュニケーションと分析"]
-    D --> E["5. 修正と報告"]
-    D -.->|"終了基準未達の場合"| C
+            <!-- SECTION 2.2.3 -->
+            <section class="section" id="sec-223">
+                <div class="section-header">
+                    <span class="section-num">§ 2.2.3</span>
+                    <h2>確認テストとリグレッションテスト</h2>
+                </div>
+                <p>
+                    欠陥修正後に実施する2種類のテスト。目的が異なるため、混同しないよう区別して理解する必要がある。
+                </p>
 
-    classDef step fill:#16202e,stroke:#7fa8e8,color:#e7e8ee
-    class A,B,C,D,E step
-      </pre
-                    >
-
+                <div class="table-wrap">
                     <table>
-                        <tr>
-                            <th>活動</th>
-                            <th>主な目的</th>
-                            <th>具体的なタスクの例</th>
-                        </tr>
-                        <tr>
-                            <td>① 計画</td>
-                            <td>レビューのスコープを定義する</td>
-                            <td>
-                                レビューの目的・対象成果物・評価する品質特性・重点領域・終了基準・参照すべき標準・工数とスケジュールを決定する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>② レビューの開始</td>
-                            <td>参加者と成果物の準備を整える</td>
-                            <td>
-                                参加者全員が対象成果物にアクセスできる状態にし、各自の役割と責務を理解させ、必要な情報を行き渡らせる
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>③ 個々のレビュー</td>
-                            <td>レビューアが各自で成果物を精査する</td>
-                            <td>
-                                チェックリストベースドレビューやシナリオベースドレビューなどの技法を用いて、不正・提案・疑問点を識別し記録する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>④ コミュニケーションと分析</td>
-                            <td>見つかった不正を議論し合意する</td>
-                            <td>
-                                レビューミーティングなどを通じて各不正のステータス・担当者・必要な対応を決定し、成果物全体の品質レベルとフォローアップの要否を判断する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>⑤ 修正と報告</td>
-                            <td>欠陥を修正し結果を報告する</td>
-                            <td>
-                                欠陥ごとに欠陥レポートを作成し、是正措置を追跡できるようにする。終了基準を満たした時点で成果物を受け入れ、結果を関係者に報告する
-                            </td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>属性</th>
+                                <th>確認テスト (Confirmation Testing)</th>
+                                <th>リグレッションテスト (Regression Testing)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>別名</strong></td>
+                                <td>リテスト (Re-test)</td>
+                                <td>回帰テスト</td>
+                            </tr>
+                            <tr>
+                                <td><strong>目的</strong></td>
+                                <td>欠陥修正が正しく行われたことを確認</td>
+                                <td>修正によって他の部分に影響が出ていないことを確認</td>
+                            </tr>
+                            <tr>
+                                <td><strong>実施タイミング</strong></td>
+                                <td>欠陥修正後</td>
+                                <td>欠陥修正後、変更後、環境変更後</td>
+                            </tr>
+                            <tr>
+                                <td><strong>テスト範囲</strong></td>
+                                <td>修正された欠陥に関連するテストのみ</td>
+                                <td>修正の影響範囲全体（場合によってはシステム全体）</td>
+                            </tr>
+                            <tr>
+                                <td><strong>自動化の推奨度</strong></td>
+                                <td>低〜中（修正内容に依存）</td>
+                                <td><strong>高</strong>（繰り返し実行のため）</td>
+                            </tr>
+                        </tbody>
                     </table>
+                </div>
 
-                    <div class="callout callout-tip">
-                        <i class="ti ti-bulb"></i>
-                        <p>
-                            レビューア個人が気づいた「気になる点」は、確定した欠陥（defect）ではなく、まず<strong>不正（anomaly）</strong>として扱われます。不正は、レビューミーティングなどでの議論・分析を経て初めて、欠陥として認定されるか「問題なし」と判断されるかが決まります。この「いきなり欠陥と決めつけない」姿勢は、後述する成功要因（参加者を責めない文化づくり）とも密接に関係しています。
-                        </p>
-                    </div>
-
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>出典：ISTQB® CTFL Syllabus v4.0.1, Section 3.2.2, p.35-36</p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
-                            <p>
-                                ISO/IEC 20246:2017 Software and systems engineering — Work product
-                                reviews（概要）
-                            </p>
-                            <p>
-                                <a
-                                    href="https://www.iso.org/standard/67407.html"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://www.iso.org/standard/67407.html</a
-                                >
-                            </p>
+                <div class="subsection">
+                    <h3>欠陥修正後のテストフロー</h3>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid" id="d13"></div>
+                        <div class="mermaid-caption">
+                            図13: 欠陥修正後の確認テスト・リグレッションテストフロー
                         </div>
                     </div>
-
-                    <h3 id="sec-323">2.3 レビューでの役割と責務</h3>
-                    <p>
-                        レビューには複数のステークホルダーが関わり、それぞれが異なる役割を担います。1人が複数の役割を兼任することも一般的ですが、シラバスでは以下の6つの
-                        principal role（主要な役割）が定義されています。
-                    </p>
-                    <table>
-                        <tr>
-                            <th>役割</th>
-                            <th>主な責務</th>
-                        </tr>
-                        <tr>
-                            <td>マネージャー</td>
-                            <td>
-                                何をレビュー対象とするかを決定し、要員や時間といったリソースを提供する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>作成者（オーサー）</td>
-                            <td>
-                                レビュー対象の作業成果物を作成し、指摘された不正・欠陥を修正する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>モデレーター（ファシリテーター）</td>
-                            <td>
-                                レビューミーティングが効果的に進行するよう、議論の調整・時間管理・誰もが安心して発言できる雰囲気づくりを担う
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>書記（スクライブ／レコーダー）</td>
-                            <td>
-                                レビューアから集まった不正情報をまとめ、ミーティング中の決定事項や新たに見つかった不正を記録する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>レビューア</td>
-                            <td>
-                                実際にレビューを行う。プロジェクトに関わる人だけでなく、その分野の専門家やその他のステークホルダーが担うこともある
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>レビューリーダー</td>
-                            <td>
-                                誰を関与させるか、いつ・どこでレビューを行うかなど、レビュー全体に対して最終的な責任を持つ
-                            </td>
-                        </tr>
-                    </table>
-                    <p>
-                        より詳細な役割分担は ISO/IEC 20246
-                        でさらに細かく定義されていますが、CTFL試験で問われるのはこの6つの基本形です。
-                    </p>
-
-                    <div class="callout callout-warning">
-                        <i class="ti ti-alert-triangle"></i>
-                        <p>
-                            <strong>実務・試験で押さえておきたいポイント</strong
-                            >：最も公式なレビュー種別である<strong>インスペクション</strong>では、客観性を担保するために<strong>作成者がレビューリーダーや書記を兼任することはできません</strong>。作成者自身が自分の成果物の評価プロセスをコントロールしてしまうことを防ぐための仕組みであり、CTFL試験でも頻出のポイントです。
-                        </p>
+                    <div class="callout callout-success">
+                        <strong>DevOps/Agile環境での推奨:</strong>
+                        リグレッションテストはCI/CDパイプラインで自動実行することが強く推奨される。頻繁な変更に対応するためには手動実行は非効率。
                     </div>
+                </div>
+            </section>
 
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>出典：ISTQB® CTFL Syllabus v4.0.1, Section 3.2.3, p.36</p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
+            <!-- SECTION 2.3 -->
+            <section class="section" id="sec-23">
+                <div class="section-header">
+                    <span class="section-num">§ 2.3</span>
+                    <h2>メンテナンステスト</h2>
+                </div>
+                <p>
+                    システムのリリース後に行われるテスト活動。リリース前のテストとは異なる特性・課題を持つ。変更の種類とインパクト分析が中心概念。
+                </p>
+
+                <div class="mermaid-wrap">
+                    <div class="mermaid" id="d14"></div>
+                    <div class="mermaid-caption">
+                        図14: メンテナンステストのトリガー（変更の4種類）
+                    </div>
+                </div>
+
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>変更の種類</th>
+                                <th>例</th>
+                                <th>テストの焦点</th>
+                                <th>リスクレベル</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>修正変更</strong></td>
+                                <td>バグフィックスのパッチ適用</td>
+                                <td>確認テスト + 限定的リグレッション</td>
+                                <td>中</td>
+                            </tr>
+                            <tr>
+                                <td><strong>適応的変更</strong></td>
+                                <td>OSバージョンアップ、クラウド移行</td>
+                                <td>互換性テスト + 全体リグレッション</td>
+                                <td>高</td>
+                            </tr>
+                            <tr>
+                                <td><strong>改善的変更</strong></td>
+                                <td>新機能追加、UI刷新</td>
+                                <td>新機能テスト + 影響範囲のリグレッション</td>
+                                <td>中〜高</td>
+                            </tr>
+                            <tr>
+                                <td><strong>廃止・退役</strong></td>
+                                <td>旧システムの廃止、データ移行</td>
+                                <td>データ移行テスト、並行稼働テスト</td>
+                                <td>高</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subsection">
+                    <h3>インパクト分析（Impact Analysis）</h3>
+                    <p>
+                        メンテナンステストの計画において中核となるプロセス。変更の影響範囲を体系的に分析し、テスト範囲と優先順位を決定する。
+                    </p>
+                    <div class="mermaid-wrap">
+                        <div class="mermaid" id="d15"></div>
+                        <div class="mermaid-caption">図15: インパクト分析プロセス</div>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>メンテナンステスト固有の課題</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>課題</th>
+                                    <th>理由</th>
+                                    <th>対策</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>テスト基盤の陳腐化</td>
+                                    <td>長年の変更でドキュメントが実装と乖離</td>
+                                    <td>変更都度のドキュメント更新、逆エンジニアリング</td>
+                                </tr>
+                                <tr>
+                                    <td>変更範囲の不明確さ</td>
+                                    <td>依存関係が複雑化しているシステム</td>
+                                    <td>依存関係分析ツールの活用、コードカバレッジ計測</td>
+                                </tr>
+                                <tr>
+                                    <td>本番環境での直接テスト</td>
+                                    <td>テスト環境が整備されていない</td>
+                                    <td>本番同等環境の整備、フィーチャーフラグの活用</td>
+                                </tr>
+                                <tr>
+                                    <td>開発者知識の喪失</td>
+                                    <td>担当者離脱による知識断絶</td>
+                                    <td>テスト自動化、テストドキュメントの充実</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION EXAM PREP -->
+            <section class="section" id="exam-prep">
+                <div class="section-header">
+                    <span class="section-num">§ 試験対策</span>
+                    <h2>頻出問題パターンと落とし穴</h2>
+                </div>
+
+                <div class="subsection">
+                    <h3>v4.0で追加・変更された重要ポイント</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>変更内容</th>
+                                    <th>v3.1</th>
+                                    <th>v4.0</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>統合テストの分離</strong></td>
+                                    <td>統合テスト（1段階）</td>
+                                    <td>
+                                        コンポーネント統合テスト + システム統合テスト（2段階）<span
+                                            class="tag tag-changed"
+                                            >変更</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>DevOpsセクション</strong></td>
+                                    <td>なし</td>
+                                    <td>2.1.4として新設<span class="tag tag-new">新設</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Shift Leftセクション</strong></td>
+                                    <td>なし</td>
+                                    <td>2.1.5として新設<span class="tag tag-new">新設</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>テストファーストアプローチ</strong></td>
+                                    <td>TDD/ATDDのみ</td>
+                                    <td>
+                                        TDD / ATDD / BDD（3種類）を明確化<span
+                                            class="tag tag-changed"
+                                            >変更</span
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>レトロスペクティブ</strong></td>
+                                    <td>なし</td>
+                                    <td>2.1.6として新設<span class="tag tag-new">新設</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <h3>よくある誤解と正しい理解</h3>
+                    <div style="display: flex; flex-direction: column; gap: 10px; margin: 16px 0">
+                        <div class="mcon-row">
+                            <div class="mcon-wrong">
+                                <div class="mcon-label">誤解</div>
+                                BDD = TDDの発展形・上位互換
+                            </div>
+                            <div class="mcon-right">
+                                <div class="mcon-label">正しい理解</div>
+                                BDDとTDDは異なるアプローチ。BDDは振る舞い仕様に焦点、TDDはコード設計に焦点
+                            </div>
+                        </div>
+                        <div class="mcon-row">
+                            <div class="mcon-wrong">
+                                <div class="mcon-label">誤解</div>
+                                シフトレフト = テストを前倒しにするだけ
+                            </div>
+                            <div class="mcon-right">
+                                <div class="mcon-label">正しい理解</div>
+                                テスト活動全体の前倒し +
+                                後半テストとの組み合わせ。後半テストは依然として必要
+                            </div>
+                        </div>
+                        <div class="mcon-row">
+                            <div class="mcon-wrong">
+                                <div class="mcon-label">誤解</div>
+                                DevOps = 手動テストの廃止
+                            </div>
+                            <div class="mcon-right">
+                                <div class="mcon-label">正しい理解</div>
+                                探索的テストなどの手動テストは依然として重要な役割を持つ
+                            </div>
+                        </div>
+                        <div class="mcon-row">
+                            <div class="mcon-wrong">
+                                <div class="mcon-label">誤解</div>
+                                確認テスト = リグレッションテスト
+                            </div>
+                            <div class="mcon-right">
+                                <div class="mcon-label">正しい理解</div>
+                                目的が異なる。確認テストは修正確認、リグレッションは副作用確認
+                            </div>
+                        </div>
+                        <div class="mcon-row">
+                            <div class="mcon-wrong">
+                                <div class="mcon-label">誤解</div>
+                                テストタイプはテストレベルに紐付く
+                            </div>
+                            <div class="mcon-right">
+                                <div class="mcon-label">正しい理解</div>
+                                テストタイプはすべてのテストレベルで適用可能（独立している）
+                            </div>
+                        </div>
+                        <div class="mcon-row">
+                            <div class="mcon-wrong">
+                                <div class="mcon-label">誤解</div>
+                                ATDDはGiven/When/Then形式を使う
+                            </div>
+                            <div class="mcon-right">
+                                <div class="mcon-label">正しい理解</div>
+                                Given/When/Then（Gherkin）はBDDの形式。ATDDは形式を問わない
+                            </div>
                         </div>
                     </div>
+                </div>
 
-                    <h3 id="sec-324">2.4 レビュー種別</h3>
-                    <p>
-                        レビューには「非公式」から「非常に公式」まで、さまざまな形式が存在します。どの程度の公式さが必要かは、採用しているSDLC、開発プロセスの成熟度、対象成果物の重要度や複雑さ、法規制や監査証跡の必要性といった要因によって決まります。同じ成果物に対して、まず非公式レビューを行い、その後でより公式なレビューを実施するという段階的な運用も可能です。
-                    </p>
-
-                    <pre class="mermaid">
-flowchart LR
-    A["非公式レビュー"] --> B["ウォークスルー"]
-    B --> C["テクニカルレビュー"]
-    C --> D["インスペクション"]
-
-    classDef low fill:#3a2418,stroke:#f08a5d,color:#f7c4a8
-    classDef high fill:#173430,stroke:#4fd1c5,color:#a8ece4
-    class A,B low
-    class C,D high
-      </pre
-                    >
-
-                    <div class="flow-spectrum">
-                        <span><i class="ti ti-arrow-left"></i>　軽量・非公式</span>
-                        <hr />
-                        <span>厳格・公式　<i class="ti ti-arrow-right"></i></span>
-                    </div>
-
-                    <p>
-                        右に進むほど公式度・プロセスの厳密さが高まり、それに比例して文書化の要求レベルや必要な準備工数も増えていきます。シラバスで定義される4種別を観点ごとに比較します。
-                    </p>
-                    <table>
-                        <tr>
-                            <th>観点</th>
-                            <th>非公式レビュー</th>
-                            <th>ウォークスルー</th>
-                            <th>テクニカルレビュー</th>
-                            <th>インスペクション</th>
-                        </tr>
-                        <tr>
-                            <td>主な目的</td>
-                            <td>不正の検出</td>
-                            <td>
-                                品質評価・信頼の醸成・教育・合意形成・アイデア創出・改善動機づけなど多目的
-                            </td>
-                            <td>
-                                技術的な合意形成・意思決定、不正の検出、品質評価、信頼の醸成、改善動機づけ
-                            </td>
-                            <td>
-                                不正を最大限に検出すること。加えて品質評価・信頼の醸成・改善動機づけも目的に含まれる
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>主導者</td>
-                            <td>特に定めなし</td>
-                            <td>作成者</td>
-                            <td>モデレーター</td>
-                            <td>モデレーター（作成者は主導しない）</td>
-                        </tr>
-                        <tr>
-                            <td>プロセスの定義・文書化</td>
-                            <td>定義されたプロセスはなく公式な文書化も求められない</td>
-                            <td>比較的軽量。個々のレビューは必須ではない</td>
-                            <td>ある程度形式的。個々のレビューを伴うのが一般的</td>
-                            <td>シラバスの汎用プロセス全工程に従う、最も公式な形式</td>
-                        </tr>
-                        <tr>
-                            <td>メトリクスの収集</td>
-                            <td>通常なし</td>
-                            <td>通常なし</td>
-                            <td>行われることがある</td>
-                            <td>収集したメトリクスをSDLCやインスペクション自体の改善に活用する</td>
-                        </tr>
-                        <tr>
-                            <td>典型的な利用シーン</td>
-                            <td>ペアプログラミングでの相互チェックなど</td>
-                            <td>設計内容の共有を兼ねたミーティング、デモを兼ねた説明</td>
-                            <td>アーキテクチャ選定など技術的な意思決定が必要な場面</td>
-                            <td>安全性・ミッションクリティカルな成果物に対する厳格な品質保証</td>
-                        </tr>
-                    </table>
-                    <p>
-                        実務での感覚としては、非公式レビューはコードレビューツール上での気軽なコメントのやり取りに近く、インスペクションは監査証跡が必要な規制産業（医療機器・航空宇宙・金融システムなど）でよく採用される、というイメージを持つと理解しやすくなります。
-                    </p>
-
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>出典：ISTQB® CTFL Syllabus v4.0.1, Section 3.2.4, p.36-37</p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
+                <div class="subsection">
+                    <h3>試験頻出のK2問題パターン例</h3>
+                    <div class="exam-q">
+                        <div class="exam-q-label">問題タイプ 1 — テストレベルの識別</div>
+                        <div class="exam-q-text">
+                            開発チームが外部決済APIとの統合後、決済フローに問題が発生した。この問題を検出するために最も適切なテストレベルはどれか？
+                        </div>
+                        <div class="exam-a">
+                            システム統合テスト（外部システムとの結合インターフェースを確認するため）
                         </div>
                     </div>
-
-                    <h3 id="sec-325">2.5 レビューの成功要因</h3>
-                    <p>
-                        最後に、レビューを「やって終わり」にせず、実効性のある活動にするための成功要因を整理します。シラバスでは9つの要因が挙げられています。
-                    </p>
-                    <table>
-                        <tr>
-                            <th>#</th>
-                            <th>成功要因</th>
-                            <th>補足</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>明確な目的と測定可能な終了基準を定義する</td>
-                            <td>
-                                <strong>参加者個人の評価を目的に含めてはならない</strong
-                                >。あくまで成果物の品質向上が目的であることを徹底する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>目的に合った適切なレビュー種別を選ぶ</td>
-                            <td>
-                                成果物の種類・参加者・プロジェクトのニーズやコンテキストに応じて選択する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>対象を小さな単位に分割して実施する</td>
-                            <td>
-                                1回のレビューで扱う範囲を絞り、個々のレビューやミーティングで集中力が途切れるのを防ぐ
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>レビュー結果をフィードバックする</td>
-                            <td>
-                                結果をステークホルダーや作成者に返し、今後の活動そのものの改善につなげる
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>参加者に十分な準備時間を与える</td>
-                            <td>事前に成果物を読み込んで個々のレビューを行える時間を確保する</td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>マネジメントからの支援を得る</td>
-                            <td>
-                                レビュープロセスが組織として正式にサポートされている状態をつくる
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>レビューを組織文化の一部にする</td>
-                            <td>
-                                学習とプロセス改善を促す文化として、レビューを当たり前の習慣にしていく
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>参加者に適切なトレーニングを提供する</td>
-                            <td>全員が自分の役割を理解し、果たせるようにする</td>
-                        </tr>
-                        <tr>
-                            <td>9</td>
-                            <td>ミーティングを適切にファシリテーションする</td>
-                            <td>議論が脱線したり停滞したりしないよう、効果的に進行を管理する</td>
-                        </tr>
-                    </table>
-                    <p>
-                        特に1番目の「参加者個人の評価を目的にしない」という原則は、レビュー文化を定着させるうえで最も重要なポイントです。レビューで指摘された不正の件数を人事評価に直結させてしまうと、参加者は不正を見つけても報告をためらうようになり、レビュー本来の目的である品質向上が機能しなくなります。心理的安全性が確保された環境でこそ、率直な指摘とそれに対する前向きな受け止め方が成立し、レビューが効果を発揮します。
-                    </p>
-
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>出典：ISTQB® CTFL Syllabus v4.0.1, Section 3.2.5, p.37</p>
-                            <p>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
-                                >
-                            </p>
+                    <div class="exam-q">
+                        <div class="exam-q-label">
+                            問題タイプ 2 — テストファーストアプローチの識別
+                        </div>
+                        <div class="exam-q-text">
+                            テストチームがコードを書く前に、Gherkinを使ってGiven/When/Then形式でテストシナリオを定義している。どのアプローチか？
+                        </div>
+                        <div class="exam-a">
+                            BDD（Given/When/Then形式 + テストファーストの組み合わせがBDDの特徴）
                         </div>
                     </div>
-                </section>
-
-                <section id="sec-tools">
-                    <h2>
-                        <i class="ti ti-tool"></i>&nbsp;3.
-                        シラバス補足：実務における静的解析ツールの活用
-                    </h2>
-                    <p>
-                        ここからはシラバス本体の範囲を超えた補足情報として、2026年時点での静的解析ツールの実務動向を整理します。CTFL試験の直接の出題範囲ではありませんが、「静的解析」を実務でどう活用するかをイメージできると3.1節の理解がより立体的になります。
-                    </p>
-
-                    <h3>3.1 代表的な静的解析ツールの位置づけ</h3>
-                    <p>
-                        静的解析ツールは大きく「言語特化型のリンター」と「横断的な品質プラットフォーム」の2層に分かれます。リンターはエディタやコミット前のフックで即座にフィードバックを返す一方、単一ファイル単位の解析にとどまり、ファイルをまたいだ解析や品質ゲートの仕組みは持たないのが一般的です。これに対してプラットフォーム型のツールは、複数ファイル・複数言語を横断して解析し、品質の推移をダッシュボードで追跡し、しきい値を下回るコードのマージを品質ゲートでブロックする機能を備えています。
-                    </p>
-                    <table>
-                        <tr>
-                            <th>分類</th>
-                            <th>代表的なツール</th>
-                            <th>主な特徴</th>
-                        </tr>
-                        <tr>
-                            <td>言語特化型リンター</td>
-                            <td>
-                                ESLint（JavaScript /
-                                TypeScript）、Pylint・Ruff（Python）、RuboCop（Ruby）、golangci-lint（Go）
-                            </td>
-                            <td>
-                                軽量・高速で、エディタ上やコミット前フックでのリアルタイムなフィードバックに向く。基本的に単一ファイル・単一言語の解析にとどまる
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>横断的な品質プラットフォーム</td>
-                            <td>SonarQube、Codacy、DeepSource</td>
-                            <td>
-                                複数言語・複数ファイルを横断して解析し、技術的負債やコード重複・セキュリティ脆弱性を可視化。CI/CDパイプラインに組み込み品質ゲートとして運用するのが一般的
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>セキュリティ特化型（SAST）</td>
-                            <td>Semgrep、Bandit（Python）</td>
-                            <td>
-                                ファイルをまたぐデータフロー解析により、インジェクション系の脆弱性などを検出する
-                            </td>
-                        </tr>
-                    </table>
-                    <p>
-                        実務でよく採用される組み合わせとしては、「開発中はエディタ上のリンターで即時フィードバックを得て、CI/CDパイプライン上ではプラットフォーム型ツールで品質ゲートを通す」という二段構えの運用が紹介されています。エディタでの即時フィードバックとパイプライン上の包括的な解析を組み合わせることで、開発の初期段階での問題検出とリリース前の品質保証の両方を実現する考え方であり、3.1.2節で説明した「シフトレフト」の実践そのものと言えます。
-                    </p>
-
-                    <h4>CI/CDパイプラインへの組み込み例</h4>
-                    <p>
-                        静的解析をシフトレフトの一環としてCIに組み込む典型的な構成を、GitHub
-                        Actionsのワークフロー例で示します。
-                    </p>
-                    <pre><code class="language-yaml">name: static-analysis
-on: [pull_request]
-jobs:
-  lint-and-scan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run ESLint
-        run: npx eslint . --max-warnings=0
-      - name: Run SonarQube quality gate
-        uses: SonarSource/sonarqube-scan-action@v3
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}</code></pre>
-                    <p>
-                        プルリクエストが作成されるたびに静的解析が自動実行され、品質ゲートを満たさないコードはマージ前に検知されます。これは3.2.2節で扱ったレビュープロセスの「個々のレビュー」を、機械的に検出可能な範囲について自動化したものと捉えることができます。
-                    </p>
-
-                    <div class="callout callout-source">
-                        <i class="ti ti-external-link"></i>
-                        <div>
-                            <p>
-                                出典：SonarQube vs ESLint: Code Quality Platform vs JavaScript
-                                Linter（2026）
-                            </p>
-                            <p>
-                                <a
-                                    href="https://dev.to/rahulxsingh/sonarqube-vs-eslint-code-quality-platform-vs-javascript-linter-2026-i55"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://dev.to/rahulxsingh/sonarqube-vs-eslint-code-quality-platform-vs-javascript-linter-2026-i55</a
-                                >
-                            </p>
-                            <p>12 Best Code Quality Tools in 2026</p>
-                            <p>
-                                <a
-                                    href="https://dev.to/rahulxsingh/12-best-code-quality-tools-in-2026-platforms-linters-and-metrics-a12"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >https://dev.to/rahulxsingh/12-best-code-quality-tools-in-2026-platforms-linters-and-metrics-a12</a
-                                >
-                            </p>
+                    <div class="exam-q">
+                        <div class="exam-q-label">問題タイプ 3 — DevOpsにおけるテストの役割</div>
+                        <div class="exam-q-text">
+                            DevOpsチームがCIパイプラインでビルドのたびに自動テストを実行している。このテストの主要な目的は何か？
+                        </div>
+                        <div class="exam-a">
+                            リグレッション防止と即時フィードバック（変更の副作用を最速で検出し開発者に通知する）
                         </div>
                     </div>
+                    <div class="exam-q">
+                        <div class="exam-q-label">問題タイプ 4 — メンテナンステストの変更種別</div>
+                        <div class="exam-q-text">
+                            本番稼働中のシステムのデータベースをOracleからPostgreSQLに移行する際のテストは、どの変更種別に該当するか？
+                        </div>
+                        <div class="exam-a">
+                            適応的変更（Adaptive Changes）— 環境変化への対応が目的であるため
+                        </div>
+                    </div>
+                    <div class="exam-q">
+                        <div class="exam-q-label">問題タイプ 5 — 受入テストのサブタイプ</div>
+                        <div class="exam-q-text">
+                            システム管理者がシステムのバックアップ・リストア手順と障害時の自動復旧機能を検証している。これはどのテストか？
+                        </div>
+                        <div class="exam-a">
+                            運用受入テスト（OAT）— システム管理者による運用面の検証が特徴
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-                    <h3>3.2 静的解析はレビューの代替にはならない</h3>
-                    <p>
-                        ここで強調しておきたいのは、静的解析はあくまで「機械的に検出できる種類の欠陥」を効率よく洗い出すための手段であり、3.1.2節で説明した「人手によるレビュー」を置き換えるものではないという点です。静的解析ツールは構文上の問題やパターン化された欠陥（未使用変数、コーディング規約違反、既知の脆弱性パターンなど）の検出には強い一方、「この設計はビジネス要件を正しく満たしているか」「このユーザーストーリーの受け入れ基準は本当に妥当か」といった文脈理解を要する判断は、依然として人手によるレビューでなければ評価できません。CTFL試験的な整理をするなら、静的解析は3.1節（静的テストの基本）の話であり、レビュープロセス（3.2節）はあくまで人を中心とした活動である、という区別を意識しておくとよいでしょう。
-                    </p>
-                </section>
+            <!-- SECTION REFERENCES -->
+            <section class="section" id="references">
+                <div class="section-header">
+                    <span class="section-num">§ 参照</span>
+                    <h2>参照URL一覧</h2>
+                </div>
+                <p>本ガイド作成に使用した一次資料・信頼性の高い情報源。最終確認日: 2026-06-29。</p>
 
-                <section id="sec-pitfalls">
-                    <h2>
-                        <i class="ti ti-alert-triangle"></i>&nbsp;4.
-                        よくある誤解・試験で問われやすいポイント
-                    </h2>
-                    <p>
-                        CTFL試験の出題傾向や受験者の体験談を踏まえ、特に誤解されやすいポイントを整理しておきます。
-                    </p>
-                    <table>
-                        <tr>
-                            <th>誤解されがちな点</th>
-                            <th>正しい理解</th>
-                        </tr>
-                        <tr>
-                            <td>「静的テスト＝コードレビューのこと」</td>
-                            <td>
-                                静的テストはコードに限らず、要件・設計・テストケース・契約書など、人が読んで理解できるあらゆる作業成果物が対象になる
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>「静的解析にはテストケースが必要」</td>
-                            <td>
-                                静的解析はテストケースを必要とせず、ツールによって自動的に実行できる点が静的テストの効率の良さの理由の一つ
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>「静的テストは欠陥を見つけるだけ」</td>
-                            <td>
-                                検証だけでなく妥当性確認にも使え、品質特性（可読性・保守性など）の評価や、ステークホルダー間の共通理解の醸成にも貢献する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>「インスペクションが常に最善のレビュー種別」</td>
-                            <td>
-                                公式度が高いほど準備・実施のコストも増える。プロジェクトのリスクや成果物の重要度に見合った種別を選ぶことが重要で、常にインスペクションが正解とは限らない
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>「レビューでの指摘＝確定した欠陥」</td>
-                            <td>
-                                個々のレビューで見つかったものはまず「不正（anomaly）」であり、コミュニケーションと分析の活動を経て初めて欠陥かどうかが判断される
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>「レビューの成果を担当者の評価に使ってよい」</td>
-                            <td>
-                                シラバスは明確に「参加者の評価をレビューの目的にしてはならない」としている。これを破ると心理的安全性が損なわれ、レビューが形骸化する
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>「インスペクションでは作成者がリーダーを兼任できる」</td>
-                            <td>
-                                インスペクションでは客観性確保のため、作成者はレビューリーダーにも書記にもなれない
-                            </td>
-                        </tr>
-                    </table>
-                </section>
-
-                <section id="sec-summary">
-                    <h2><i class="ti ti-checkbox"></i>&nbsp;5. まとめ</h2>
-                    <p>第3章「静的テスト」の要点を、もう一度俯瞰しておきます。</p>
-                    <ul class="summary-list">
-                        <li>
-                            <i class="ti ti-circle-check"></i
-                            ><span
-                                ><strong
-                                    >静的テストはソフトウェアを実行せずに行うテストであり、レビュー（人手）と静的解析（ツール）の2本柱から成る。</strong
-                                ></span
-                            >
-                        </li>
-                        <li>
-                            <i class="ti ti-circle-check"></i
-                            ><span
-                                ><strong
-                                    >静的テストの最大の価値は「最も早い段階で、かつ動的テストでは見つけにくい種類の欠陥を検出できる」ことにある。</strong
-                                >早期テストの原則・シフトレフトと直結する。</span
-                            >
-                        </li>
-                        <li>
-                            <i class="ti ti-circle-check"></i
-                            ><span
-                                ><strong
-                                    >静的テストと動的テストは対立関係ではなく補完関係にあり、両方を組み合わせて初めて効果的な品質保証が成立する。</strong
-                                ></span
-                            >
-                        </li>
-                        <li>
-                            <i class="ti ti-circle-check"></i
-                            ><span
-                                ><strong
-                                    >レビュープロセスは「計画→開始→個々のレビュー→コミュニケーションと分析→修正と報告」の5活動で構成され、ISO/IEC
-                                    20246がその汎用フレームワークを提供している。</strong
-                                ></span
-                            >
-                        </li>
-                        <li>
-                            <i class="ti ti-circle-check"></i
-                            ><span
-                                ><strong
-                                    >レビューには6つの主要な役割があり、特にインスペクションでは作成者がリーダーや書記を兼任できない。</strong
-                                ></span
-                            >
-                        </li>
-                        <li>
-                            <i class="ti ti-circle-check"></i
-                            ><span
-                                ><strong
-                                    >レビュー種別は非公式レビュー・ウォークスルー・テクニカルレビュー・インスペクションの順に公式度が高まり、目的や成果物の重要度に応じて選択する。</strong
-                                ></span
-                            >
-                        </li>
-                        <li>
-                            <i class="ti ti-circle-check"></i
-                            ><span
-                                ><strong
-                                    >レビューを成功させる鍵は多岐にわたるが、「参加者を評価しない」という原則が土台になる。</strong
-                                ></span
-                            >
-                        </li>
-                    </ul>
-                    <p>
-                        静的テストは、動的テストに比べて地味に見えるかもしれませんが、コストパフォーマンスの高い品質向上手段として、現場での実践価値は非常に高い領域です。次章（第4章：テスト分析と設計）では動的テストにおけるテストケースの導出技法を扱いますが、本章で学んだ「早期にレビューで欠陥を取り除く」という発想は、第4章以降のテスト設計の土台としても活きてきます。
-                    </p>
-                </section>
-
-                <section id="sec-refs">
-                    <h2><i class="ti ti-link"></i>&nbsp;6. 参考文献・出典一覧</h2>
-                    <table>
-                        <tr>
-                            <th>#</th>
-                            <th>資料名</th>
-                            <th>URL</th>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>
-                                ISTQB® Certified Tester Foundation Level Syllabus
-                                v4.0.1（英語版、2024-09-15）
-                            </td>
-                            <td>
-                                <a
-                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
-                                    rel="noopener"
-                                    >istqb.org（PDF）</a
-                                >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>2</td>
-                            <td>ISTQB® CTFL v4.0 認定情報ページ</td>
-                            <td>
+                <div style="margin: 16px 0">
+                    <div class="ref-item">
+                        <div class="ref-num">01</div>
+                        <div>
+                            <div class="ref-title">ISTQB CTFL v4.0 公式ページ</div>
+                            <div class="ref-url">
                                 <a
                                     href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
                                     target="_blank"
-                                    rel="noopener"
-                                    >istqb.org</a
+                                    >https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a
                                 >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>3</td>
-                            <td>
-                                JSTQB テスト技術者資格制度 Foundation Level シラバス Version
-                                2023V4.0.J02（日本語版）
-                            </td>
-                            <td>
+                            </div>
+                            <div class="ref-date">
+                                International Software Testing Qualifications Board — 公式
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">02</div>
+                        <div>
+                            <div class="ref-title">CTFL Syllabus v4.0.1（PDF）— 一次資料</div>
+                            <div class="ref-url">
                                 <a
-                                    href="https://jstqb.jp/dl/JSTQB-SyllabusFoundation_VersionV40.J02.pdf"
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
                                     target="_blank"
-                                    rel="noopener"
-                                    >jstqb.jp（PDF）</a
+                                    >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
                                 >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>4</td>
-                            <td>
-                                ISO/IEC 20246:2017 Software and systems engineering — Work product
-                                reviews
-                            </td>
-                            <td>
+                            </div>
+                            <div class="ref-date">
+                                ISTQB, 2024-09-15 改訂 — 本ガイドの主要参照元
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">03</div>
+                        <div>
+                            <div class="ref-title">ISTQB v4.0 リリースアナウンス</div>
+                            <div class="ref-url">
                                 <a
-                                    href="https://www.iso.org/standard/67407.html"
+                                    href="https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/"
                                     target="_blank"
-                                    rel="noopener"
-                                    >iso.org</a
+                                    >https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/</a
                                 >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>5</td>
-                            <td>ISO/IEC 20246 関連解説（Stuart Reid, 2018）</td>
-                            <td>
+                            </div>
+                            <div class="ref-date">ISTQB, 2023-05-09 — v4.0リリース時の公式発表</div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">04</div>
+                        <div>
+                            <div class="ref-title">ISTQB 用語集（Glossary）</div>
+                            <div class="ref-url">
+                                <a href="https://glossary.istqb.org/en_US/search" target="_blank"
+                                    >https://glossary.istqb.org/en_US/search</a
+                                >
+                            </div>
+                            <div class="ref-date">ISTQB — テスト用語の公式定義</div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">05</div>
+                        <div>
+                            <div class="ref-title">ASTQB版 CTFL Syllabus v4.0.1（PDF）</div>
+                            <div class="ref-url">
                                 <a
-                                    href="https://www.stureid.info/wp-content/uploads/2018/01/Software-Reviews.pdf"
+                                    href="https://astqb.org/assets/documents/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
                                     target="_blank"
-                                    rel="noopener"
-                                    >stureid.info（PDF）</a
+                                    >https://astqb.org/assets/documents/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
                                 >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>6</td>
-                            <td>
-                                SonarQube vs ESLint: Code Quality Platform vs JavaScript
-                                Linter（2026）
-                            </td>
-                            <td>
+                            </div>
+                            <div class="ref-date">
+                                ASTQB（米国ISTQBメンバーボード） — ミラー資料
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">06</div>
+                        <div>
+                            <div class="ref-title">ISTQB.com — CTFL v4.0 試験・シラバスガイド</div>
+                            <div class="ref-url">
+                                <a href="https://www.istqb.com/ctfl-v4-0/" target="_blank"
+                                    >https://www.istqb.com/ctfl-v4-0/</a
+                                >
+                            </div>
+                            <div class="ref-date">
+                                istqb.com (独立教育リソース), 最終更新 2026-05-21
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">07</div>
+                        <div>
+                            <div class="ref-title">istqb.guru — Chapter別シラバス詳細解説</div>
+                            <div class="ref-url">
                                 <a
-                                    href="https://dev.to/rahulxsingh/sonarqube-vs-eslint-code-quality-platform-vs-javascript-linter-2026-i55"
+                                    href="https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/"
                                     target="_blank"
-                                    rel="noopener"
-                                    >dev.to</a
+                                    >https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/</a
                                 >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>7</td>
-                            <td>12 Best Code Quality Tools in 2026</td>
-                            <td>
+                            </div>
+                            <div class="ref-date">istqb.guru, 2026-04-17</div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">08</div>
+                        <div>
+                            <div class="ref-title">
+                                testing101.net — CTFL v4.0 概要とChapter別ポイント
+                            </div>
+                            <div class="ref-url">
                                 <a
-                                    href="https://dev.to/rahulxsingh/12-best-code-quality-tools-in-2026-platforms-linters-and-metrics-a12"
+                                    href="https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new"
                                     target="_blank"
-                                    rel="noopener"
-                                    >dev.to</a
+                                    >https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new</a
                                 >
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>8</td>
-                            <td>SonarQube 公式製品ページ（SonarSource）</td>
-                            <td>
+                            </div>
+                            <div class="ref-date">
+                                testing101.net, 2025-05-01 — v4.0変更点の詳細解説
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">09</div>
+                        <div>
+                            <div class="ref-title">
+                                ISO/IEC 25010 — Systems and software Quality Requirements and
+                                Evaluation
+                            </div>
+                            <div class="ref-url">
+                                <a href="https://www.iso.org/standard/78176.html" target="_blank"
+                                    >https://www.iso.org/standard/78176.html</a
+                                >
+                            </div>
+                            <div class="ref-date">ISO/IEC — 非機能テストの品質特性の国際標準</div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">10</div>
+                        <div>
+                            <div class="ref-title">CTFL-AT（Agile Tester）公式ページ</div>
+                            <div class="ref-url">
                                 <a
-                                    href="https://www.sonarsource.com/products/sonarqube/"
+                                    href="https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/"
                                     target="_blank"
-                                    rel="noopener"
-                                    >sonarsource.com</a
+                                    >https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/</a
                                 >
-                            </td>
-                        </tr>
-                    </table>
-                    <footer>
-                        本資料はISTQB®／JSTQB®の公式シラバスの内容を独自に要約・解説したものであり、公式シラバス本文の逐語的な転載ではありません。試験対策としては必ず公式シラバス原文（上記出典1・3）を一次情報として参照してください。
-                    </footer>
-                </section>
-            </main>
-        </div>
+                            </div>
+                            <div class="ref-date">ISTQB — CTFL後の発展資格（Agileストリーム）</div>
+                        </div>
+                    </div>
+                    <div class="ref-item">
+                        <div class="ref-num">11</div>
+                        <div>
+                            <div class="ref-title">
+                                mastersoftwaretesting.com — CTFL Complete Study Guide 2025
+                            </div>
+                            <div class="ref-url">
+                                <a
+                                    href="https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide"
+                                    target="_blank"
+                                    >https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide</a
+                                >
+                            </div>
+                            <div class="ref-date">mastersoftwaretesting.com, 2026-01-23</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-        <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-yaml.min.js"></script>
+            <!-- FOOTER -->
+            <footer class="doc-footer">
+                <p>
+                    <strong>著作権表示:</strong> 本資料はISTQB CTFL Syllabus
+                    v4.0.1の学習用解説資料です。ISTQB®はInternational Software Testing
+                    Qualifications
+                    Boardの登録商標です。シラバスの著作権は各著者およびISTQBに帰属します。
+                </p>
+                <p style="margin-top: 8px">
+                    <strong>最終更新:</strong> 2026年6月29日 | <strong>参照シラバス:</strong> ISTQB
+                    CTFL v4.0.1 (2024-09-15)
+                </p>
+            </footer>
+        </main>
+
         <script>
+            const DIAGRAMS = {
+    "d1": "flowchart TD\nA[\"Chapter 2<br />SDLC to Test\"] --> B[\"2.1 SDLC Context\"]\nA --> C[\"2.2 Levels and Types\"]\nA --> D[\"2.3 Maintenance\"]\nB --> B1[\"2.1.1 SDLC Model Impact\"]\nB --> B2[\"2.1.2 Good Practices\"]\nB --> B3[\"2.1.3 TDD / ATDD / BDD\"]\nB --> B4[\"2.1.4 DevOps\"]\nB --> B5[\"2.1.5 Shift Left\"]\nB --> B6[\"2.1.6 Retrospective\"]\nC --> C1[\"2.2.1 Test Levels x5\"]\nC --> C2[\"2.2.2 Test Types x4\"]\nC --> C3[\"2.2.3 Confirmation + Regression\"]\nD --> D1[\"Change Triggers\"]\nD --> D2[\"Impact Analysis\"]",
+    "d2": "flowchart LR\nsubgraph seq[\"Sequential\"]\nW[\"Waterfall\"]\nV[\"V-model\"]\nend\nsubgraph iter[\"Iterative / Incremental\"]\nAG[\"Agile: Scrum / XP / Kanban\"]\nSP[\"Spiral\"]\nend\nsubgraph hyb[\"Hybrid\"]\nHB[\"Wagile etc.\"]\nend\nseq -- \"Static testing first<br />Dynamic testing later\" --> e1[\"Risk of late testing\"]\niter -- \"Static + Dynamic<br />in each iteration\" --> e2[\"Continuous testing\"]\nhyb --> e3[\"Adjust per combination\"]",
+    "d3": "flowchart LR\nsubgraph dev[\"Development Phase\"]\nR[\"Requirements\"] --> SA[\"System Design\"] --> AD[\"Architecture Design\"] --> DD[\"Detailed Design\"] --> CD[\"Coding\"]\nend\nsubgraph tst[\"Test Phase\"]\nAT[\"Acceptance Test\"] --> ST[\"System Test\"] --> SIT[\"System Integration Test\"] --> CIT[\"Component Integration Test\"] --> CT[\"Component Test\"]\nend\nR -.->|\"Test Basis\"| AT\nSA -.->|\"Test Basis\"| ST\nAD -.->|\"Test Basis\"| SIT\nDD -.->|\"Test Basis\"| CIT\nCD --> CT",
+    "d4": "flowchart TD\nGP[\"Good Testing Practices\"] --> P1[\"1. Map test goals<br />to development activities\"]\nGP --> P2[\"2. Apply test types<br />to each test level\"]\nGP --> P3[\"3. Align test goals<br />to SDLC process\"]\nGP --> P4[\"4. Involve testers early<br />in reviews and design\"]",
+    "d5": "flowchart LR\nA[\"1. Write Failing Test<br />Red\"] --> B[\"2. Write Minimal Code<br />to Pass Test<br />Green\"]\nB --> C[\"3. Refactor Code<br />Refactor\"]\nC --> A",
+    "d6": "flowchart LR\ncommit[\"Code Commit\"] --> build[\"CI Build\"]\nbuild --> ct[\"Component Test<br />auto\"]\nct --> integ[\"Integration Test<br />auto\"]\ninteg --> sa[\"Static Analysis<br />Lint / SAST\"]\nsa --> stage[\"Deploy to<br />Staging\"]\nstage --> sys[\"System Test<br />auto\"]\nsys --> manual[\"Exploratory Test<br />manual\"]\nmanual --> prod[\"Deploy to<br />Production\"]\nct -- \"FAIL\" --> notify[\"Notify Developer<br />immediately\"]\ninteg -- \"FAIL\" --> notify\nsys -- \"FAIL\" --> notify",
+    "d7": "flowchart LR\nsubgraph trad[\"Traditional: testing deferred\"]\nt1[\"Requirements\"] --> t2[\"Design\"] --> t3[\"Implementation\"] --> t4[\"Testing\"]\nend\nsubgraph sl[\"Shift Left: testing starts early\"]\ns1[\"Test Design<br />at Requirements\"] --> s2[\"Spec Review<br />at Design\"] --> s3[\"TDD / ATDD<br />at Implementation\"] --> s4[\"Test Execution<br />as usual\"]\nend",
+    "d8": "flowchart TD\nretro[\"レトロスペクティブ<br />Retrospective\"] --> r1[\"成功プロセスの確認<br />Keep doing\"]\nretro --> r2[\"改善点の特定<br />Change this\"]\nretro --> r3[\"教訓の文書化<br />次プロジェクトへの継承\"]\nr1 --> out[\"テスト有効性・効率性・品質の向上<br />チームコラボレーションの改善\"]\nr2 --> out\nr3 --> out",
+    "d9": "flowchart BT\nL1[\"コンポーネントテスト<br />Component Testing\"] --> L2[\"コンポーネント統合テスト<br />Component Integration Testing\"]\nL2 --> L3[\"システムテスト<br />System Testing\"]\nL3 --> L4[\"システム統合テスト<br />System Integration Testing\"]\nL4 --> L5[\"受入テスト<br />Acceptance Testing\"]",
+    "d10": "flowchart TD\nAT[\"受入テスト<br />Acceptance Testing\"] --> UAT[\"ユーザー受入テスト<br />UAT<br />実際のユーザーが実シナリオで検証\"]\nAT --> OAT[\"運用受入テスト<br />OAT<br />システム管理者が運用面を検証\"]\nAT --> CRT[\"契約・規制受入テスト<br />契約条件・法規制への準拠検証\"]\nAT --> ABT[\"アルファ/ベータテスト<br />限定ユーザーによる実環境テスト\"]",
+    "d11": "flowchart TD\nTT[\"テストタイプ<br />Test Types\"] --> FT[\"機能テスト<br />Functional Testing<br />「何をするか」を検証\"]\nTT --> NFT[\"非機能テスト<br />Non-Functional Testing<br />「どのようにするか」を検証\"]\nTT --> BBT[\"ブラックボックステスト<br />Black-Box Testing<br />仕様・外部仕様ベース\"]\nTT --> WBT[\"ホワイトボックステスト<br />White-Box Testing<br />内部構造ベース\"]",
+    "d12": "flowchart TD\nNF[\"非機能テストの主要対象<br />ISO/IEC 25010 品質特性\"] --> P1[\"性能効率性<br />Performance Efficiency<br />応答時間・スループット\"]\nNF --> P2[\"互換性<br />Compatibility<br />共存性・相互運用性\"]\nNF --> P3[\"使用性<br />Usability<br />認識可能性・学習容易性\"]\nNF --> P4[\"信頼性<br />Reliability<br />成熟性・可用性\"]\nNF --> P5[\"セキュリティ<br />Security<br />機密性・完全性\"]\nNF --> P6[\"保守性<br />Maintainability<br />変更可能性・テスト容易性\"]\nNF --> P7[\"移植性<br />Portability<br />適応性・設置性\"]",
+    "d13": "flowchart LR\ndefect[\"欠陥報告<br />Defect Report\"] --> fix[\"開発者が修正\"]\nfix --> confirm[\"確認テスト<br />修正箇所が正しく直ったか確認\"]\nconfirm -->|\"Pass\"| regress[\"リグレッションテスト<br />修正の副作用がないか確認\"]\nconfirm -->|\"Fail\"| reopen[\"欠陥をReopen\"]\nregress -->|\"Pass\"| close[\"テスト完了<br />Deployへ\"]\nregress -->|\"新欠陥検出\"| new_defect[\"新規欠陥報告\"]",
+    "d14": "flowchart TD\nMT[\"メンテナンステストのトリガー\"] --> C1[\"修正変更<br />Corrective Changes<br />欠陥・障害の修正\"]\nMT --> C2[\"適応的変更<br />Adaptive Changes<br />環境変化への対応<br />OS更新 / DBアップグレード\"]\nMT --> C3[\"改善的変更<br />Perfective Changes<br />機能追加・性能改善\"]\nMT --> C4[\"廃止・退役<br />Retirement<br />システム/コンポーネントの廃止\"]",
+    "d15": "flowchart TD\nIA[\"インパクト分析<br />Impact Analysis\"] --> IA1[\"変更の影響範囲を特定<br />変更されたコンポーネントと依存関係を調査\"]\nIA --> IA2[\"テスト範囲の決定<br />確認テストとリグレッションテストの範囲を決定\"]\nIA --> IA3[\"リスクの評価<br />変更による未意図の副作用リスクを評価\"]\nIA --> IA4[\"テスト優先順位付け<br />影響度の高い領域から優先的にテスト\"]\nIA1 --> out[\"インパクト分析の成果物\"]\nIA2 --> out\nIA3 --> out\nIA4 --> out\nout --> plan[\"メンテナンステスト計画の策定\"]"
+};
+
             document.addEventListener('DOMContentLoaded', function () {
                 mermaid.initialize({
                     startOnLoad: false,
-                    theme: 'base',
+                    theme: 'dark',
                     themeVariables: {
-                        background: '#0e0f13',
-                        primaryColor: '#1d2029',
-                        primaryTextColor: '#e7e8ee',
-                        primaryBorderColor: '#34384a',
-                        lineColor: '#686d80',
-                        secondaryColor: '#161821',
-                        tertiaryColor: '#161821',
-                        fontSize: '14px',
+                        primaryColor: '#2e1690',
+                        primaryTextColor: '#e8eaf0',
+                        primaryBorderColor: '#6e3dff',
+                        lineColor: '#6b7a99',
+                        secondaryColor: '#1e2535',
+                        tertiaryColor: '#1e2535',
+                        edgeLabelBackground: '#1e2535',
+                        clusterBkg: '#1e2535',
+                        clusterBorder: '#3a4468',
+                        fontFamily: 'Inter, Hiragino Sans, system-ui, sans-serif',
+                        fontSize: '13px',
                     },
                 });
-                mermaid.run({ querySelector: '.mermaid' });
 
-                if (window.Prism) {
-                    Prism.highlightAll();
-                }
+                (async () => {
+                    for (const [id, src] of Object.entries(DIAGRAMS)) {
+                        try {
+                            const container = document.getElementById(id);
+                            if (!container) continue;
+                            const { svg } = await mermaid.render('svg-' + id, src);
+                            container.innerHTML = svg;
 
-                var sections = Array.prototype.slice.call(
-                    document.querySelectorAll('section[id], h3[id]'),
-                );
-                var links = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
-                var linkByTarget = {};
-                links.forEach(function (link) {
-                    linkByTarget[link.getAttribute('data-target')] = link;
-                });
+                            const svgEl = container.querySelector('svg');
+                            if (svgEl) {
+                                svgEl.removeAttribute('width');
+                                svgEl.removeAttribute('height');
+                                svgEl.style.height = 'auto';
+                                svgEl.style.overflow = 'visible';
 
+                                const viewBox = svgEl.getAttribute('viewBox');
+                                if (viewBox) {
+                                    const parts = viewBox.split(/\s+/).map(Number);
+                                    if (parts.length === 4 && parts.every(Number.isFinite)) {
+                                        const trimmed = src.trim();
+                                        const isSequenceOrState = trimmed.startsWith('sequenceDiagram') || trimmed.startsWith('stateDiagram');
+                                        const extraHeight = isSequenceOrState ? 110 : 15;
+                                        const [x, y, w, h] = parts;
+                                        svgEl.style.width = w + 'px';
+                                        svgEl.style.maxWidth = '100%';
+                                        svgEl.setAttribute('viewBox', `${x} ${y} ${w} ${h + extraHeight}`);
+                                    }
+                                }
+                            }
+                        } catch (e) {
+                            console.error('Failed to render mermaid diagram ' + id, e);
+                            const container = document.getElementById(id);
+                            if (container) {
+                                container.innerHTML = '<p style="color: var(--color-text-danger)">図表の描画に失敗しました</p>';
+                            }
+                        }
+                    }
+                })();
+
+                // Sidebar active state via IntersectionObserver
+                var sections = document.querySelectorAll('[id]');
+                var navLinks = document.querySelectorAll('.nav-link');
                 var observer = new IntersectionObserver(
                     function (entries) {
                         entries.forEach(function (entry) {
                             if (entry.isIntersecting) {
-                                var id = entry.target.getAttribute('id');
-                                var link = linkByTarget[id];
-                                if (link) {
-                                    links.forEach(function (l) {
-                                        l.classList.remove('active');
-                                    });
-                                    link.classList.add('active');
-                                }
+                                navLinks.forEach(function (link) {
+                                    link.classList.remove('active');
+                                    if (link.getAttribute('href') === '#' + entry.target.id) {
+                                        link.classList.add('active');
+                                    }
+                                });
                             }
                         });
                     },
-                    { rootMargin: '-10% 0px -70% 0px', threshold: 0 },
+                    { rootMargin: '-20% 0px -70% 0px' },
                 );
-
-                sections.forEach(function (section) {
-                    observer.observe(section);
-                });
-
-                links.forEach(function (link) {
-                    link.addEventListener('click', function (event) {
-                        event.preventDefault();
-                        var target = document.getElementById(link.getAttribute('data-target'));
-                        if (target) {
-                            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        }
-                    });
+                sections.forEach(function (s) {
+                    observer.observe(s);
                 });
             });
         </script>
