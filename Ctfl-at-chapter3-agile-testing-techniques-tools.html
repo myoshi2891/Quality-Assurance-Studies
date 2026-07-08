@@ -1,0 +1,2682 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chapter 3: アジャイルテスト技法とツール | CTFL-AT 実践解説ガイド</title>
+        <meta
+            name="description"
+            content="ISTQB CTFL-AT Chapter 3 アジャイルテスト技法とツールの実践解説ガイド。TDD/ATDD/BDD、テスティングクアドラント、探索的テスト、アジャイルツールチェーンを図解付きで解説。"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        />
+        <style>
+            :root {
+                --bg: #07111e;
+                --bg-raised: #0c1a2c;
+                --bg-card: #0f2138;
+                --bg-card-hover: #12283f;
+                --border: #1c3552;
+                --border-soft: #152941;
+                --text: #e7edf7;
+                --text-dim: #9fb0c7;
+                --text-faint: #66768f;
+                --blue: #4a9eff;
+                --blue-soft: rgba(74, 158, 255, 0.12);
+                --amber: #ffb84a;
+                --amber-soft: rgba(255, 184, 74, 0.12);
+                --green: #4ade80;
+                --green-soft: rgba(74, 222, 128, 0.12);
+                --red: #ff6b6b;
+                --red-soft: rgba(255, 107, 107, 0.12);
+                --font-display: 'Space Grotesk', sans-serif;
+                --font-body: 'Inter', sans-serif;
+                --font-mono: 'JetBrains Mono', monospace;
+                --sidebar-w: 320px;
+                --content-max: 100%;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+            ::selection {
+                background: var(--blue-soft);
+                color: var(--text);
+            }
+
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 24px;
+            }
+
+            body {
+                margin: 0;
+                background:
+                    radial-gradient(
+                        ellipse 900px 500px at 15% -10%,
+                        rgba(74, 158, 255, 0.1),
+                        transparent
+                    ),
+                    radial-gradient(
+                        ellipse 700px 500px at 100% 0%,
+                        rgba(255, 184, 74, 0.06),
+                        transparent
+                    ),
+                    var(--bg);
+                color: var(--text);
+                font-family: var(--font-body);
+                font-size: 16px;
+                line-height: 1.75;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* ---------- Scrollbar ---------- */
+            ::-webkit-scrollbar {
+                width: 10px;
+                height: 10px;
+            }
+            ::-webkit-scrollbar-track {
+                background: transparent;
+            }
+            ::-webkit-scrollbar-thumb {
+                background: var(--border);
+                border-radius: 8px;
+            }
+            ::-webkit-scrollbar-thumb:hover {
+                background: var(--blue);
+            }
+
+            /* ---------- Layout ---------- */
+            .layout {
+                display: grid;
+                grid-template-columns: var(--sidebar-w) minmax(0, 1fr);
+                min-height: 100vh;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+                border-right: 1px solid var(--border-soft);
+                padding: 28px 20px 40px;
+                background: rgba(7, 17, 30, 0.6);
+                backdrop-filter: blur(6px);
+            }
+
+            .sidebar__brand {
+                display: flex;
+                align-items: baseline;
+                gap: 10px;
+                margin-bottom: 4px;
+                font-family: var(--font-mono);
+            }
+            .sidebar__brand-mark {
+                color: var(--blue);
+                font-weight: 600;
+                font-size: 13px;
+                letter-spacing: 0.08em;
+            }
+            .sidebar__brand-name {
+                font-family: var(--font-display);
+                font-size: 17px;
+                font-weight: 600;
+                color: var(--text);
+            }
+            .sidebar__tagline {
+                font-size: 12px;
+                color: var(--text-faint);
+                margin: 6px 0 26px;
+                line-height: 1.6;
+            }
+
+            .toc {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .toc__h2 {
+                margin: 2px 0;
+            }
+            .toc__h2 > a {
+                display: flex;
+                gap: 8px;
+                align-items: baseline;
+                padding: 8px 10px;
+                border-radius: 8px;
+                color: var(--text-dim);
+                text-decoration: none;
+                font-size: 13.5px;
+                font-weight: 600;
+                transition:
+                    background 0.15s ease,
+                    color 0.15s ease;
+            }
+            .toc__h2 > a:hover {
+                background: var(--bg-card);
+                color: var(--text);
+            }
+            .toc__h2 > a.active {
+                background: var(--blue-soft);
+                color: var(--blue);
+            }
+            .toc__num {
+                font-family: var(--font-mono);
+                font-size: 11px;
+                color: var(--text-faint);
+                flex-shrink: 0;
+                padding-top: 1px;
+            }
+            .toc__h2 > a.active .toc__num {
+                color: var(--blue);
+            }
+
+            .toc__sub {
+                list-style: none;
+                margin: 2px 0 8px 0;
+                padding: 0 0 0 22px;
+            }
+            .toc__sub li a {
+                display: block;
+                padding: 5px 10px;
+                border-radius: 7px;
+                color: var(--text-faint);
+                text-decoration: none;
+                font-size: 12.5px;
+                border-left: 2px solid var(--border-soft);
+                margin-left: 2px;
+                transition:
+                    color 0.15s ease,
+                    border-color 0.15s ease,
+                    background 0.15s ease;
+            }
+            .toc__sub li a:hover {
+                color: var(--text-dim);
+                background: var(--bg-card);
+            }
+            .toc__sub li a.active {
+                color: var(--amber);
+                border-left-color: var(--amber);
+                background: var(--amber-soft);
+            }
+
+            /* ---------- Main ---------- */
+            main {
+                min-width: 0;
+            }
+
+            .hero {
+                padding: 64px 48px 40px;
+                border-bottom: 1px solid var(--border-soft);
+                position: relative;
+                overflow: hidden;
+            }
+            .hero::before {
+                content: '';
+                position: absolute;
+                inset: 0;
+                background-image:
+                    linear-gradient(rgba(74, 158, 255, 0.05) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(74, 158, 255, 0.05) 1px, transparent 1px);
+                background-size: 42px 42px;
+                mask-image: linear-gradient(to bottom, black, transparent 80%);
+                pointer-events: none;
+            }
+            .hero__eyebrow {
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-family: var(--font-mono);
+                font-size: 12.5px;
+                letter-spacing: 0.08em;
+                color: var(--blue);
+                background: var(--blue-soft);
+                border: 1px solid rgba(74, 158, 255, 0.3);
+                padding: 6px 14px;
+                border-radius: 999px;
+                margin-bottom: 22px;
+            }
+            .hero__eyebrow .dot {
+                width: 6px;
+                height: 6px;
+                border-radius: 50%;
+                background: var(--green);
+                box-shadow: 0 0 8px var(--green);
+            }
+
+            .hero h1 {
+                position: relative;
+                font-family: var(--font-display);
+                font-size: clamp(32px, 4.4vw, 50px);
+                line-height: 1.15;
+                font-weight: 700;
+                margin: 0 0 12px;
+                letter-spacing: -0.01em;
+            }
+            .hero h1 .accent {
+                color: var(--blue);
+            }
+            .hero__sub {
+                position: relative;
+                font-family: var(--font-display);
+                font-size: clamp(16px, 1.6vw, 19px);
+                color: var(--text-dim);
+                font-weight: 500;
+                margin: 0 0 28px;
+            }
+            .hero__meta {
+                position: relative;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .pill {
+                font-family: var(--font-mono);
+                font-size: 12px;
+                color: var(--text-dim);
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                padding: 7px 12px;
+                border-radius: 8px;
+            }
+            .pill b {
+                color: var(--text);
+                font-weight: 600;
+            }
+
+            .content {
+                max-width: var(--content-max);
+                padding: 0 48px 120px;
+                margin: 0 auto;
+            }
+
+            .intro-card {
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-left: 3px solid var(--blue);
+                border-radius: 10px;
+                padding: 22px 26px;
+                margin: 40px 0 8px;
+            }
+            .intro-card p {
+                margin: 0 0 14px;
+                font-size: 14.5px;
+                color: var(--text-dim);
+            }
+            .intro-card p:last-child {
+                margin-bottom: 0;
+            }
+            .intro-card strong {
+                color: var(--text);
+            }
+
+            /* ---------- Typography ---------- */
+            .content h2 {
+                font-family: var(--font-display);
+                font-size: 28px;
+                font-weight: 700;
+                color: var(--text);
+                margin: 72px 0 20px;
+                padding-top: 24px;
+                border-top: 1px solid var(--border-soft);
+                scroll-margin-top: 24px;
+            }
+            .content > h2:first-of-type {
+                border-top: none;
+                padding-top: 0;
+                margin-top: 48px;
+            }
+
+            .content h3 {
+                font-family: var(--font-display);
+                font-size: 20px;
+                font-weight: 600;
+                color: var(--text);
+                margin: 44px 0 16px;
+                scroll-margin-top: 24px;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            .content h3::before {
+                content: '';
+                width: 4px;
+                height: 18px;
+                background: var(--blue);
+                border-radius: 2px;
+                flex-shrink: 0;
+            }
+            .content h4 {
+                font-family: var(--font-body);
+                font-size: 15.5px;
+                font-weight: 700;
+                color: var(--text-dim);
+                text-transform: none;
+                margin: 30px 0 14px;
+            }
+
+            .content p {
+                margin: 0 0 16px;
+                color: var(--text-dim);
+                font-size: 15.5px;
+            }
+            .content strong {
+                color: var(--text);
+                font-weight: 600;
+            }
+            .content em {
+                color: var(--amber);
+                font-style: normal;
+            }
+            .content a {
+                color: var(--blue);
+                text-decoration: none;
+                border-bottom: 1px solid rgba(74, 158, 255, 0.3);
+                word-break: break-word;
+            }
+            .content a:hover {
+                border-bottom-color: var(--blue);
+            }
+
+            .content ul,
+            .content ol {
+                margin: 0 0 18px;
+                padding-left: 22px;
+                color: var(--text-dim);
+                font-size: 15.5px;
+            }
+            .content li {
+                margin-bottom: 8px;
+            }
+            .content li::marker {
+                color: var(--blue);
+            }
+
+            .content hr {
+                border: none;
+                border-top: 1px solid var(--border-soft);
+                margin: 48px 0;
+            }
+
+            .content blockquote {
+                margin: 0 0 20px;
+                padding: 16px 20px;
+                background: var(--bg-card);
+                border-left: 3px solid var(--amber);
+                border-radius: 8px;
+                color: var(--text-dim);
+                font-size: 14.5px;
+            }
+            .content blockquote p:last-child {
+                margin-bottom: 0;
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 0 0 28px;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+            }
+            .content table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 13.5px;
+            }
+            .content thead th {
+                font-family: var(--font-mono);
+                font-size: 11.5px;
+                letter-spacing: 0.03em;
+                text-transform: uppercase;
+                color: var(--blue);
+                background: var(--bg-raised);
+                text-align: left;
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border);
+                white-space: nowrap;
+            }
+            .content tbody td {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border-soft);
+                color: var(--text-dim);
+                vertical-align: top;
+            }
+            .content tbody tr:last-child td {
+                border-bottom: none;
+            }
+            .content tbody tr:hover {
+                background: rgba(74, 158, 255, 0.04);
+            }
+            .content tbody td strong {
+                color: var(--text);
+            }
+
+            /* ---------- Code ---------- */
+            .content code {
+                font-family: var(--font-mono);
+                font-size: 0.87em;
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                padding: 2px 6px;
+                border-radius: 5px;
+                color: var(--amber);
+            }
+            .code-block {
+                margin: 0 0 28px;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                overflow: hidden;
+                background: #0a1622;
+            }
+            .code-block__label {
+                font-family: var(--font-mono);
+                font-size: 11px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--text-faint);
+                background: var(--bg-raised);
+                padding: 9px 16px;
+                border-bottom: 1px solid var(--border);
+            }
+            .code-block pre {
+                margin: 0;
+                padding: 18px 20px;
+                overflow-x: auto;
+            }
+            .code-block code {
+                background: none;
+                border: none;
+                padding: 0;
+                color: var(--text);
+                font-size: 13px;
+                line-height: 1.7;
+            }
+
+            /* ---------- Mermaid ---------- */
+            .mermaid-wrap {
+                margin: 8px 0 32px;
+                padding: 28px;
+                background: var(--bg-raised);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                overflow-x: auto;
+                display: flex;
+                justify-content: center;
+            }
+            .mermaid {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+            }
+            .mermaid svg {
+                display: block;
+                margin: 0 auto;
+                max-width: 100% !important;
+                height: auto !important;
+                overflow: visible !important;
+            }
+            .mermaid foreignObject {
+                overflow: visible !important;
+            }
+            .mermaid foreignObject > div,
+            .mermaid .nodeLabel,
+            .mermaid .edgeLabel {
+                overflow: visible !important;
+            }
+            .mermaid-wrap .loading {
+                font-family: var(--font-mono);
+                font-size: 12.5px;
+                color: var(--text-faint);
+            }
+
+            /* ---------- Details / practice questions ---------- */
+            .content details {
+                margin: -6px 0 24px;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                background: var(--bg-card);
+                overflow: hidden;
+            }
+            .content summary {
+                cursor: pointer;
+                font-family: var(--font-mono);
+                font-size: 12.5px;
+                color: var(--blue);
+                padding: 12px 18px;
+                list-style: none;
+            }
+            .content summary::-webkit-details-marker {
+                display: none;
+            }
+            .content summary::before {
+                content: '▸ ';
+            }
+            .content details[open] summary::before {
+                content: '▾ ';
+            }
+            .content details > *:not(summary) {
+                padding: 0 20px 18px;
+            }
+            .content details p {
+                margin: 0;
+                padding-top: 4px;
+            }
+
+            /* ---------- Checklist items (☐) ---------- */
+            .content td:has(> *:only-child):empty::before {
+                content: '';
+            }
+
+            /* ---------- Footer ---------- */
+            .page-footer {
+                max-width: var(--content-max);
+                margin: 0 auto;
+                padding: 40px 48px 80px;
+                color: var(--text-faint);
+                font-size: 13px;
+                border-top: 1px solid var(--border-soft);
+            }
+            .page-footer a {
+                color: var(--text-faint);
+            }
+
+            /* ---------- Mobile ---------- */
+            .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 16px;
+                left: 16px;
+                z-index: 50;
+                width: 44px;
+                height: 44px;
+                border-radius: 10px;
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                color: var(--text);
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+            }
+
+            @media (max-width: 900px) {
+                .layout {
+                    grid-template-columns: 1fr;
+                }
+                .sidebar {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    width: 82vw;
+                    max-width: 320px;
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    z-index: 40;
+                    box-shadow: 20px 0 40px rgba(0, 0, 0, 0.4);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .sidebar-toggle {
+                    display: flex;
+                }
+                .hero,
+                .content,
+                .page-footer {
+                    padding-left: 24px;
+                    padding-right: 24px;
+                }
+                .hero {
+                    padding-top: 84px;
+                }
+            }
+
+            @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+                * {
+                    transition: none !important;
+                }
+            }
+
+            /* Print */
+            @media print {
+                .sidebar,
+                .sidebar-toggle {
+                    display: none;
+                }
+                .layout {
+                    display: block;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="目次を開閉">☰</button>
+
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar__brand">
+                    <span class="sidebar__brand-mark">CTFL-AT</span>
+                    <span class="sidebar__brand-name">Chapter 3</span>
+                </div>
+                <p class="sidebar__tagline">
+                    アジャイルテスト技法とツール<br />実践解説ガイド &middot; 目次
+                </p>
+                <ul class="toc">
+                    <li class="toc__h2">
+                        <a href="#0-chapter-3" data-nav
+                            ><span class="toc__num">01</span
+                            ><span>0. Chapter 3 の全体マップ</span></a
+                        >
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#31-tddatddbdd" data-nav
+                            ><span class="toc__num">02</span
+                            ><span>3.1 アジャイルテスト手法(TDD・ATDD・BDD)</span></a
+                        >
+                        <ul class="toc__sub">
+                            <li>
+                                <a href="#310-3" data-nav>3.1.0 なぜ3つも「駆動開発」があるのか</a>
+                            </li>
+                            <li>
+                                <a href="#311-test-driven-development-tdd" data-nav
+                                    >3.1.1 Test-Driven Development (TDD)</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#312-acceptance-test-driven-development-atdd" data-nav
+                                    >3.1.2 Acceptance Test-Driven Development (ATDD)</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#313-behavior-driven-development-bdd" data-nav
+                                    >3.1.3 Behavior-Driven Development (BDD)</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#314-tddatddbdd1" data-nav
+                                    >3.1.4 TDD・ATDD・BDDの関係性を1枚で理解する</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#32" data-nav
+                            ><span class="toc__num">03</span
+                            ><span>3.2 品質リスクの評価とテスト工数の見積り</span></a
+                        >
+                        <ul class="toc__sub">
+                            <li>
+                                <a href="#321" data-nav
+                                    >3.2.1 アジャイルプロジェクトにおける品質リスク評価</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#322" data-nav
+                                    >3.2.2 内容とリスクに基づくテスト工数の見積り</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#33" data-nav
+                            ><span class="toc__num">04</span
+                            ><span>3.3 アジャイルプロジェクトにおける技法</span></a
+                        >
+                        <ul class="toc__sub">
+                            <li>
+                                <a href="#331-testing-quadrants" data-nav
+                                    >3.3.1 テスティング・クアドラント(Testing Quadrants)</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#332" data-nav>3.3.2 非機能テストと技術的負債の考慮</a>
+                            </li>
+                            <li>
+                                <a href="#333" data-nav
+                                    >3.3.3 リグレッションテストとテスト自動化ピラミッド</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#334-exploratory-testing" data-nav
+                                    >3.3.4 探索的テスト(Exploratory Testing)</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#34" data-nav
+                            ><span class="toc__num">05</span
+                            ><span>3.4 アジャイルにおけるツール</span></a
+                        >
+                        <ul class="toc__sub">
+                            <li>
+                                <a href="#341-task-management-and-tracking-tools" data-nav
+                                    >3.4.1 タスク管理・追跡ツール(Task Management and Tracking
+                                    Tools)</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#342-communication-and-information-sharing-tools" data-nav
+                                    >3.4.2 コミュニケーション・情報共有ツール(Communication and
+                                    Information Sharing Tools)</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#343-software-build-and-distribution-tools" data-nav
+                                    >3.4.3 ソフトウェアビルド・配布ツール(Software Build and
+                                    Distribution Tools)</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#344-configuration-management-tools" data-nav
+                                    >3.4.4 構成管理ツール(Configuration Management Tools)</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="#345-test-design-implementation-and-execution-tools"
+                                    data-nav
+                                    >3.4.5 テスト設計・実装・実行ツール(Test Design, Implementation,
+                                    and Execution Tools)</a
+                                >
+                            </li>
+                            <li>
+                                <a href="#346-cloud-computing-and-virtualization-tools" data-nav
+                                    >3.4.6 クラウドコンピューティング・仮想化ツール(Cloud Computing
+                                    and Virtualization Tools)</a
+                                >
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#4-chapter-3" data-nav
+                            ><span class="toc__num">06</span
+                            ><span>4. Chapter 3 全体の振り返り</span></a
+                        >
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#5-k-" data-nav
+                            ><span class="toc__num">07</span
+                            ><span>5. 学習チェックリスト(K-レベル別)</span></a
+                        >
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#6" data-nav
+                            ><span class="toc__num">08</span
+                            ><span>6. 実践演習(サンプル問題)</span></a
+                        >
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#7-url" data-nav
+                            ><span class="toc__num">09</span
+                            ><span>7. 参考文献・URL一覧(節ごとの一次情報源)</span></a
+                        >
+                    </li>
+                    <li class="toc__h2">
+                        <a href="#8" data-nav
+                            ><span class="toc__num">10</span><span>8. 次のステップ</span></a
+                        >
+                    </li>
+                </ul>
+            </nav>
+
+            <main>
+                <header class="hero">
+                    <span class="hero__eyebrow"
+                        ><span class="dot"></span>ISTQB&reg; CTFL-AT SYLLABUS v1.0 &middot; CHAPTER
+                        3</span
+                    >
+                    <h1>
+                        アジャイルテスト<span class="accent">技法</span>と<span class="accent"
+                            >ツール</span
+                        >
+                    </h1>
+                    <p class="hero__sub">
+                        TDD・ATDD・BDDからテスティングクアドラント、探索的テスト、CI/CDツールチェーンまで
+                        &mdash; 中級〜上級者向け実践解説
+                    </p>
+                    <div class="hero__meta">
+                        <span class="pill">対象: <b>Foundation Level Agile Tester</b></span>
+                        <span class="pill">図解: <b>Mermaid &times; 19</b></span>
+                        <span class="pill">形式: <b>ステップバイステップ</b></span>
+                        <span class="pill">更新: <b>2026年7月</b></span>
+                    </div>
+                </header>
+
+                <div class="content">
+                    <blockquote class="intro-card">
+                        <p>
+                            <strong>対象読者</strong>:
+                            すでにCTFLまたは実務でのテスト経験があり、アジャイル開発におけるテスト技法・ツールを体系的かつ実践的に理解したい中級〜上級のテスト・QAエンジニア、開発者、スクラムマスター、プロダクトオーナー。
+                        </p>
+                        <p>
+                            <strong>本ガイドの位置づけ</strong>: 本章は ISTQB® Certified Tester
+                            Foundation Level Agile Tester (CTFL-AT) Syllabus v1.0 (2024年11月公開)
+                            の
+                            <strong>Chapter 3: Agile Testing Methods, Techniques and Tools</strong>
+                            を主たる典拠とし、各技法・ツールの解説を最新(2026年)の業界動向・一次情報で補強したものです。シラバス自体は「What」(何を知っておくべきか)を簡潔に定義するにとどまるため、本ガイドでは「Why」(なぜそれが重要か)と「How」(どう実践するか)をMermaid図・比較表・コード例を交えてステップバイステップで掘り下げます。
+                        </p>
+                        <p>
+                            <strong>免責事項</strong>:
+                            本ガイドは学習・実務理解を目的とした二次解説であり、公式シラバスの逐語再現ではありません。試験直前の一言一句の確認は、必ず
+                            ISTQB® 公式サイトで公開されている最新版シラバスPDFをご参照ください。 -
+                            公式シラバス certification page:
+                            https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/
+                            - シラバスPDF (ダウンロードリンク経由):
+                            https://istqb.org/?sdm_process_download=1&amp;download_id=3647
+                        </p>
+                    </blockquote>
+                    <hr />
+                    <h2 id="0-chapter-3">0. Chapter 3 の全体マップ</h2>
+                    <p>
+                        CTFL-AT Chapter 3
+                        は、アジャイルプロジェクトにおける「テストの手法(Methods)」「見積りとリスク評価」「具体的な技法(Techniques)」「それらを支えるツール(Tools)」という4つの層で構成されています。まず全体像をMermaidで俯瞰します。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-0"></div></div>
+                    <p>
+                        <strong>なぜこの構造なのか</strong>:
+                        アジャイル開発では「テストを後工程に置く」従来型ではなく、「テストを開発サイクルに織り込む(shift-left)」ことが前提になります。そのため、まず開発と一体化した手法(3.1)を学び、次に限られたイテレーション期間でどこにテスト労力を割くかというリスクベースの判断(3.2)を学び、そのうえで具体的な技法(3.3)とそれを支えるツールチェーン(3.4)を理解する、という積み上げ構造になっています。
+                    </p>
+                    <p>
+                        参考: ISTQB®の資格体系では、本ガイドが扱うFoundation Level Agile Tester
+                        (CTFL-AT) の上位に、より高度な実務経験を持つテスターを対象としたAdvanced
+                        Level Agile Tester (CTAL-AT)
+                        が位置づけられています。本章で学ぶ内容は、その上位資格に進むための土台となる基礎知識です。
+                        URL: https://istqb.org/
+                    </p>
+                    <hr />
+                    <h2 id="31-tddatddbdd">3.1 アジャイルテスト手法(TDD・ATDD・BDD)</h2>
+                    <h3 id="310-3">3.1.0 なぜ3つも「駆動開発」があるのか</h3>
+                    <p>
+                        アジャイル開発では「テストファースト」という考え方が中心にありますが、<strong>誰が・何を対象に・どのレベルで</strong>テストを先に書くかによって3つの流派に分かれます。この違いを最初に押さえることが理解の近道です。
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>手法</th>
+                                <th>主な担当者</th>
+                                <th>対象レベル</th>
+                                <th>記述形式</th>
+                                <th>主目的</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>TDD</strong> (Test-Driven Development)</td>
+                                <td>開発者</td>
+                                <td>単体(コード単位)</td>
+                                <td>テストコード(xUnit等)</td>
+                                <td>内部設計・実装の品質を駆動する</td>
+                            </tr>
+                            <tr>
+                                <td><strong>ATDD</strong> (Acceptance Test-Driven Development)</td>
+                                <td>開発者・テスター・ビジネス代表(Three Amigos)</td>
+                                <td>受け入れ(ユーザーストーリー単位)</td>
+                                <td>受け入れ基準・受け入れテスト</td>
+                                <td>「何を作るべきか」の認識合わせ</td>
+                            </tr>
+                            <tr>
+                                <td><strong>BDD</strong> (Behavior-Driven Development)</td>
+                                <td>開発者・テスター・ビジネス代表</td>
+                                <td>振る舞い(シナリオ単位)</td>
+                                <td>自然言語(Given-When-Then)</td>
+                                <td>ビジネス言語でテストを表現し自動化する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <blockquote>
+                        <p>
+                            💡 <strong>ポイント</strong>: TDD/ATDD/BDDは排他的ではなく、実務では
+                            <strong
+                                >ATDD/BDDで「何を作るか」を合意 → TDDで「どう作るか」を実装</strong
+                            >
+                            という形で併用されるのが一般的です。
+                        </p>
+                    </blockquote>
+                    <hr />
+                    <h3 id="311-test-driven-development-tdd">
+                        3.1.1 Test-Driven Development (TDD)
+                    </h3>
+                    <p>
+                        <strong>定義</strong>:
+                        プロダクションコードを書く前に、まず失敗するテストコードを書き、そのテストを通す最小限の実装を行い、その後リファクタリングするという開発サイクル。Kent
+                        Beckが体系化したことで知られています。
+                    </p>
+                    <h4 id="red-green-refactor">Red-Green-Refactorサイクル</h4>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-1"></div></div>
+                    <p><strong>ステップバイステップの流れ</strong>:</p>
+                    <ol>
+                        <li>
+                            <strong>Red</strong>:
+                            これから実装する振る舞いを表す、失敗するテストを1つだけ書く。まだ実装がないのでコンパイルエラーまたはアサーション失敗になる。
+                        </li>
+                        <li>
+                            <strong>Green</strong>:
+                            そのテストを通すためだけの、最も単純な実装を書く(ハードコードでもよい)。過剰設計をしない。
+                        </li>
+                        <li>
+                            <strong>Refactor</strong>:
+                            テストがGreenのまま、重複除去・命名改善・構造整理を行う。テストが安全網になっているため、大胆なリファクタリングが可能。
+                        </li>
+                        <li>次の振る舞いについて1に戻る。</li>
+                    </ol>
+                    <p><strong>コード例(TypeScript / Jest)</strong>:</p>
+                    <div class="code-block">
+                        <div class="code-block__label">TypeScript</div>
+                        <pre><code class="language-typescript">// Step 1: Red - 失敗するテストを先に書く
+describe("PriceCalculator", () =&gt; {
+  it("税込み価格を計算できる", () =&gt; {
+    const calculator = new PriceCalculator(0.10); // 消費税10%
+    expect(calculator.withTax(1000)).toBe(1100);
+  });
+});
+
+// Step 2: Green - 最小限の実装
+class PriceCalculator {
+  constructor(private taxRate: number) {}
+  withTax(price: number): number {
+    return price + price * this.taxRate;
+  }
+}
+
+// Step 3: Refactor - 端数処理など仕様が明確になった時点で整理
+class PriceCalculator {
+  constructor(private readonly taxRate: number) {}
+  withTax(price: number): number {
+    return Math.round(price * (1 + this.taxRate));
+  }
+}</code></pre>
+                    </div>
+                    <p>
+                        <strong>TDDがアジャイルで重視される理由</strong>: -
+                        イテレーションが短いアジャイル開発では、後工程での大規模な手戻りが許容されない。TDDは実装と同時に回帰テストのセーフティネットを構築する。
+                        -
+                        「動くコード」を頻繁にデモする必要があるため、常にテストが通る状態(Green)を保ちながら進められるTDDのリズムと相性が良い。
+                        -
+                        設計の副産物として、テスト容易性(testability)の高い疎結合な設計が自然に導かれる。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - Agile Alliance, "TDD" 用語解説:
+                        https://www.agilealliance.org/glossary/tdd/ - Martin Fowler,
+                        "TestDrivenDevelopment":
+                        https://martinfowler.com/bliki/TestDrivenDevelopment.html
+                    </p>
+                    <hr />
+                    <h3 id="312-acceptance-test-driven-development-atdd">
+                        3.1.2 Acceptance Test-Driven Development (ATDD)
+                    </h3>
+                    <p>
+                        <strong>定義</strong>:
+                        ユーザーストーリーの実装に着手する前に、開発者・テスター・ビジネス代表(プロダクトオーナー等)の三者が協働して受け入れテスト(Acceptance
+                        Test)を定義する手法。この三者協働は「Three
+                        Amigos」(スリーアミーゴ)と呼ばれます。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-2"></div></div>
+                    <p><strong>ステップバイステップ</strong>:</p>
+                    <ol>
+                        <li>
+                            <strong>ストーリーの選定</strong>:
+                            スプリントプランニングや直前のリファインメントで対象ユーザーストーリーを決める。
+                        </li>
+                        <li>
+                            <strong>Three Amigosセッションの実施</strong>:
+                            実装着手前に三者が集まり、要求の曖昧さを洗い出す。
+                        </li>
+                        <li>
+                            <strong>受け入れ基準(Acceptance Criteria)の合意</strong>:
+                            Given-When-Then形式や箇条書きで、「完了の定義」を明文化する。
+                        </li>
+                        <li>
+                            <strong>受け入れテストの自動化</strong>:
+                            合意した基準をそのまま自動テストとして落とし込む(BDDツールと組み合わせることが多い)。
+                        </li>
+                        <li>
+                            <strong>実装</strong>:
+                            開発者は受け入れテストをパスすることを目標にTDDサイクルで実装する。
+                        </li>
+                        <li>
+                            <strong>検証</strong>:
+                            完成後、自動化された受け入れテストと必要に応じた探索的テストで確認する。
+                        </li>
+                    </ol>
+                    <p>
+                        <strong>ATDDの効果</strong>: -
+                        「作ってから仕様がずれていたことに気づく」という手戻りを防ぐ(shift-left)。 -
+                        テスターが実装後ではなく<strong>要求定義の段階</strong>から品質に関与できる。
+                        - 受け入れ基準がそのまま生きたドキュメント(living documentation)になる。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - Agile Alliance, "Acceptance Test-Driven
+                        Development (ATDD)": https://www.agilealliance.org/glossary/atdd/ - Ministry
+                        of Testing, "Three Amigos" 実践解説:
+                        https://www.ministryoftesting.com/dojo/lessons/three-amigos
+                    </p>
+                    <hr />
+                    <h3 id="313-behavior-driven-development-bdd">
+                        3.1.3 Behavior-Driven Development (BDD)
+                    </h3>
+                    <p>
+                        <strong>定義</strong>:
+                        システムの振る舞いを自然言語に近い構文(Given-When-Then)で記述し、それを自動テストとして直接実行可能にする手法。Dan
+                        Northが提唱し、ビジネス・開発・テストの共通言語(Ubiquitous
+                        Language)を作ることを目的とします。
+                    </p>
+                    <h4 id="gherkingiven-when-then">Gherkin構文とGiven-When-Then</h4>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-3"></div></div>
+                    <p><strong>コード例(Gherkin / Cucumber形式)</strong>:</p>
+                    <div class="code-block">
+                        <div class="code-block__label">Gherkin</div>
+                        <pre><code class="language-gherkin">機能: ATMからの現金引き出し
+  顧客が正しい残高範囲内で現金を引き出せることを保証する
+
+  シナリオ: 残高内での引き出し成功
+    前提 口座残高が10000円である
+    もし 3000円の引き出しを要求する
+    ならば 引き出しは成功する
+    かつ 口座残高は7000円になる
+
+  シナリオ: 残高不足時の引き出し失敗
+    前提 口座残高が2000円である
+    もし 3000円の引き出しを要求する
+    ならば 引き出しは失敗する
+    かつ エラーメッセージ「残高不足」が表示される</code></pre>
+                    </div>
+                    <p><strong>このシナリオをステップ定義に接続する(TypeScript例)</strong>:</p>
+                    <div class="code-block">
+                        <div class="code-block__label">TypeScript</div>
+                        <pre><code class="language-typescript">import { Given, When, Then } from "@cucumber/cucumber";
+import assert from "assert";
+
+Given("口座残高が{int}円である", function (balance: number) {
+  this.account = new Account(balance);
+});
+
+When("{int}円の引き出しを要求する", function (amount: number) {
+  this.result = this.account.withdraw(amount);
+});
+
+Then("引き出しは成功する", function () {
+  assert.strictEqual(this.result.success, true);
+});
+
+Then("口座残高は{int}円になる", function (expected: number) {
+  assert.strictEqual(this.account.balance, expected);
+});</code></pre>
+                    </div>
+                    <p><strong>BDDの3つの価値</strong>:</p>
+                    <ol>
+                        <li>
+                            <strong>共通言語</strong>:
+                            非エンジニアも読める形式のため、ビジネス代表がテストシナリオを直接レビューできる。
+                        </li>
+                        <li>
+                            <strong>生きた仕様書(Living Documentation)</strong>:
+                            <code>.feature</code>ファイル自体が常に最新の振る舞い仕様となる。
+                        </li>
+                        <li>
+                            <strong>自動化との直結</strong>:
+                            シナリオがそのまま実行可能なテストになるため、仕様とテストの乖離が起きにくい。
+                        </li>
+                    </ol>
+                    <p>
+                        <strong>代表的なBDDツール</strong>:
+                        Cucumber(多言語対応)、SpecFlow(.NET)、Behave(Python)、JBehave(Java)。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - Cucumber公式ドキュメント "Gherkin Reference":
+                        https://cucumber.io/docs/gherkin/reference/ - Dan North, "What's in a
+                        Story?": https://dannorth.net/whats-in-a-story/ - Agile Alliance,
+                        "Behavior-Driven Development": https://www.agilealliance.org/glossary/bdd/
+                    </p>
+                    <hr />
+                    <h3 id="314-tddatddbdd1">3.1.4 TDD・ATDD・BDDの関係性を1枚で理解する</h3>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-4"></div></div>
+                    <p><strong>まとめ表</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>観点</th>
+                                <th>TDD</th>
+                                <th>ATDD</th>
+                                <th>BDD</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>起点</td>
+                                <td>開発者の設計意図</td>
+                                <td>ビジネス要求(ユーザーストーリー)</td>
+                                <td>ビジネス要求(振る舞い)</td>
+                            </tr>
+                            <tr>
+                                <td>記述言語</td>
+                                <td>プログラミング言語</td>
+                                <td>自然言語 or 表形式</td>
+                                <td>制御された自然言語(Gherkin)</td>
+                            </tr>
+                            <tr>
+                                <td>主な参加者</td>
+                                <td>開発者単独が多い</td>
+                                <td>Three Amigos(3者協働)</td>
+                                <td>Three Amigos(3者協働)</td>
+                            </tr>
+                            <tr>
+                                <td>テストの粒度</td>
+                                <td>単体・コンポーネント</td>
+                                <td>受け入れ(機能単位)</td>
+                                <td>シナリオ(振る舞い単位)</td>
+                            </tr>
+                            <tr>
+                                <td>ドキュメントとしての価値</td>
+                                <td>低い(実装者向け)</td>
+                                <td>中程度</td>
+                                <td>高い(非エンジニアも読める)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr />
+                    <h2 id="32">3.2 品質リスクの評価とテスト工数の見積り</h2>
+                    <p>
+                        アジャイル開発では、ウォーターフォールのような包括的なテスト計画書を最初に固定するのではなく、<strong>イテレーションごとに軽量なリスク評価と見積りを繰り返す</strong>アプローチを取ります。ここでは「何を・どれだけ深くテストすべきか」を判断するための2つの実践技法を扱います。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-5"></div></div>
+                    <h3 id="321">3.2.1 アジャイルプロジェクトにおける品質リスク評価</h3>
+                    <p>
+                        <strong>なぜ従来型のリスク評価と違うのか</strong>:
+                        従来のリスクベースドテスト(Risk-Based
+                        Testing)では、プロジェクト開始時に詳細なリスク分析を1回実施しますが、アジャイルでは要求(バックログ)自体が継続的に変化するため、<strong>軽量かつ反復的</strong>なリスク評価が求められます。
+                    </p>
+                    <p>
+                        <strong
+                            >ステップバイステップ: プロダクトリスクワークショップの進め方</strong
+                        >
+                    </p>
+                    <ol>
+                        <li>
+                            <strong>参加者を集める</strong>:
+                            プロダクトオーナー、開発者、テスター、必要に応じてUX担当者やビジネスアナリストを含む。
+                        </li>
+                        <li>
+                            <strong>対象範囲を決める</strong>:
+                            直近のリリース、または着手予定のエピック/ストーリー群を対象とする。
+                        </li>
+                        <li>
+                            <strong>リスク項目を洗い出す</strong>:
+                            「もし〇〇が壊れたら、ユーザー・ビジネスにどんな影響があるか」をブレインストーミングする。典型的なリスクカテゴリ:
+                            - 機能的リスク(誤った計算結果、業務ロジックの欠陥) -
+                            非機能的リスク(性能劣化、セキュリティ脆弱性、可用性低下) -
+                            技術的リスク(複雑な外部連携、新技術の採用)
+                        </li>
+                        <li>
+                            <strong>発生確率(Likelihood)と影響度(Impact)を評価する</strong>:
+                            通常は「高・中・低」の3段階、またはPoker形式の相対値で評価する。
+                        </li>
+                        <li>
+                            <strong>リスクレベルからテストの深さを決める</strong>:
+                            高リスク項目には多くのテスト技法(自動化+探索的テスト+非機能テスト)を割り当て、低リスク項目には最小限のスモークテストのみを割り当てる。
+                        </li>
+                        <li>
+                            <strong>合意事項をバックログに反映する</strong>:
+                            リスクの高いストーリーには「受け入れ基準」や「テストタスク」として明示的に追記する。
+                        </li>
+                    </ol>
+                    <p><strong>リスクレベルとテスト深度のマトリクス例</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>発生確率／影響度</th>
+                                <th>低</th>
+                                <th>中</th>
+                                <th>高</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>高</strong></td>
+                                <td>中程度のテスト(主要シナリオ+境界値)</td>
+                                <td>手厚いテスト(自動化+探索的+性能)</td>
+                                <td>最優先・全技法を投入(自動化・探索的・非機能・セキュリティ)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>中</strong></td>
+                                <td>最小限(スモークテストのみ)</td>
+                                <td>標準的なテスト(機能テスト+代表的な異常系)</td>
+                                <td>手厚いテスト(自動化+探索的)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>低</strong></td>
+                                <td>最小限、または省略</td>
+                                <td>最小限(スモークテストのみ)</td>
+                                <td>中程度のテスト</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>参考文献</strong>: - ISTQB Advanced Level Test Analyst Syllabus
+                        における product risk analysis の考え方(参考): https://istqb.org/ - Rex
+                        Black, "Risk-Based Testing" 解説記事(ISTQB系著者による一般解説):
+                        https://www.rbcs-us.com/resources/articles/risk-based-testing/ - Agile
+                        Alliance, "Risk-Based Testing":
+                        https://www.agilealliance.org/glossary/risk-based-testing/
+                    </p>
+                    <hr />
+                    <h3 id="322">3.2.2 内容とリスクに基づくテスト工数の見積り</h3>
+                    <p>
+                        アジャイルでは、テスト工数を独立した見積り項目として切り出すのではなく、<strong>ストーリー全体の見積りの中にテスト活動を織り込む</strong>のが一般的です。
+                    </p>
+                    <p><strong>ステップバイステップ: プランニングポーカーによる見積り</strong></p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-6"></div></div>
+                    <p>
+                        <strong>なぜフィボナッチ数列を使うのか</strong>:
+                        数値が大きくなるほど間隔が広がるため、「見積りの精度は規模が大きいほど粗くなる」という現実(不確実性コーン)を自然に表現できます。テストタスク(異常系の網羅、性能検証など)は特に規模が大きくなるほど見落としが発生しやすいため、この粗さが安全側に働きます。
+                    </p>
+                    <p><strong>見積りに影響する典型的なテスト関連要因</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>要因</th>
+                                <th>テスト工数への影響</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>受け入れ基準の数と複雑さ</td>
+                                <td>基準が多い・曖昧なほど工数増加</td>
+                            </tr>
+                            <tr>
+                                <td>外部システムとの連携有無</td>
+                                <td>スタブ/モック作成や結合テストの工数が追加</td>
+                            </tr>
+                            <tr>
+                                <td>非機能要件(性能・セキュリティ)</td>
+                                <td>専門的なテスト技法・ツール準備が必要</td>
+                            </tr>
+                            <tr>
+                                <td>既存機能への影響範囲</td>
+                                <td>リグレッションテストの範囲が拡大</td>
+                            </tr>
+                            <tr>
+                                <td>テスト自動化の既存資産の有無</td>
+                                <td>ゼロから自動化する場合は工数が大きく増加</td>
+                            </tr>
+                            <tr>
+                                <td>データ準備の複雑さ</td>
+                                <td>テストデータ生成・匿名化などの前処理が必要</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>内容(Content)に基づく見積りのポイント</strong>:
+                        「ストーリーポイント」は本質的にはストーリー全体の複雑さ・不確実性・作業量を表す相対値であり、テストだけを別枠で見積もるのではなく、<strong
+                            >開発・テスト・レビューを含めた「完了の定義(Definition of
+                            Done)」を満たすために必要な全作業</strong
+                        >を含めて見積もることが、アジャイルテスト工数見積りの基本原則です。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - Mike Cohn, "Planning Poker" 解説(Mountain Goat
+                        Software): https://www.mountaingoatsoftware.com/agile/planning-poker -
+                        Scrum.org, "What is Definition of Done?":
+                        https://www.scrum.org/resources/what-definition-done
+                    </p>
+                    <hr />
+                    <h2 id="33">3.3 アジャイルプロジェクトにおける技法</h2>
+                    <h3 id="331-testing-quadrants">
+                        3.3.1 テスティング・クアドラント(Testing Quadrants)
+                    </h3>
+                    <p>
+                        <strong>なぜ必要か</strong>:
+                        アジャイルチームは「どのテストを」「いつ」「誰が」「何のために」実施するかを整理する共通言語を必要とします。Brian
+                        MarickのAgile Testing Matrixを基に Lisa Crispin と Janet Gregory
+                        が体系化した<strong>テスティング・クアドラント</strong>は、テストを2つの軸で4象限に分類するモデルです。
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>横軸</strong>: ビジネス視点(Business-Facing) vs
+                            技術視点(Technology-Facing)
+                        </li>
+                        <li>
+                            <strong>縦軸</strong>: チームを支援する(Supporting the Team) vs
+                            プロダクトを批評する(Critiquing the Product)
+                        </li>
+                    </ul>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-7"></div></div>
+                    <p>
+                        <em
+                            >凡例: 図の左側(Q1, Q4)が「技術視点(Technology-Facing)」、右側(Q2,
+                            Q3)が「ビジネス視点(Business-Facing)」を表し、上段(Q1,
+                            Q2)が「チームを支援」、下段(Q4,
+                            Q3)が「プロダクトを批評」を表します。</em
+                        >
+                    </p>
+                    <p><strong>各象限の詳細</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>象限</th>
+                                <th>名称</th>
+                                <th>目的</th>
+                                <th>代表的なテスト</th>
+                                <th>主な自動化可否</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Q1</strong></td>
+                                <td>技術視点・チーム支援</td>
+                                <td>開発を内側から支える</td>
+                                <td>単体テスト、コンポーネントテスト、コンポーネント統合テスト</td>
+                                <td>高い自動化が前提(TDD由来)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q2</strong></td>
+                                <td>ビジネス視点・チーム支援</td>
+                                <td>「作るべきものを正しく作っているか」を確認</td>
+                                <td>
+                                    機能テスト、ストーリーテスト、受け入れ基準の検証、プロトタイプ検証
+                                </td>
+                                <td>自動化推奨(ATDD/BDD)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q3</strong></td>
+                                <td>ビジネス視点・プロダクト批評</td>
+                                <td>実際のユーザー視点で製品を評価</td>
+                                <td>
+                                    探索的テスト、ユーザビリティテスト、UAT、シナリオベースのE2Eテスト
+                                </td>
+                                <td>手動が中心(人間の判断が価値を生む)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Q4</strong></td>
+                                <td>技術視点・プロダクト批評</td>
+                                <td>システムの非機能特性を評価</td>
+                                <td>
+                                    性能テスト、負荷テスト、セキュリティテスト、信頼性テスト、保守性テスト
+                                </td>
+                                <td>専用ツールによる自動化が中心</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>ステップバイステップ活用法</strong>:</p>
+                    <ol>
+                        <li>
+                            対象ストーリー・リリースについて、4象限それぞれに該当するテストタスクが漏れなく検討されているかチェックリストとして使う。
+                        </li>
+                        <li>
+                            「Q1・Q2に偏っていてQ4(非機能)が手薄」といった<strong>テスト戦略の偏り</strong>を可視化する。
+                        </li>
+                        <li>
+                            スプリントレビューやリリース判定会議で、各象限の消化状況を報告し、意思決定の材料にする。
+                        </li>
+                    </ol>
+                    <p>
+                        <strong>参考文献</strong>: - Lisa Crispin, "Using the Agile Testing
+                        Quadrants":
+                        https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/ -
+                        Agile Alliance, "Agile Testing Quadrants":
+                        https://www.agilealliance.org/glossary/agile-testing-quadrants/
+                    </p>
+                    <hr />
+                    <h3 id="332">3.3.2 非機能テストと技術的負債の考慮</h3>
+                    <p>
+                        アジャイルの短いイテレーションでは、機能要件(Q2/Q3)の実装に意識が向きがちで、性能・セキュリティ・保守性といった<strong>非機能要件(Q4)</strong>や、応急的な実装によって蓄積する<strong
+                            >技術的負債(Technical Debt)</strong
+                        >が後回しにされるリスクがあります。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-8"></div></div>
+                    <p><strong>実践上の対応策</strong>:</p>
+                    <ol>
+                        <li>
+                            <strong>Definition of Doneに非機能基準を組み込む</strong>:
+                            「性能テストに合格」「静的解析ツールの警告ゼロ」などをストーリー完了の条件に含める。
+                        </li>
+                        <li>
+                            <strong>継続的インテグレーション(CI)に自動チェックを組み込む</strong>:
+                            単体テストと同様に、性能回帰テストやセキュリティスキャンをCIパイプラインに組み込み、負債を早期発見する(3.4.3で詳述)。
+                        </li>
+                        <li>
+                            <strong>技術的負債を可視化してバックログ管理する</strong>:
+                            「負債チケット」として明示的にバックログに登録し、プロダクトオーナーと優先順位を協議する。
+                        </li>
+                        <li>
+                            <strong>リファクタリングを継続的な作業として計画に含める</strong>:
+                            TDDのRefactorステップだけでなく、スプリントの一定割合を保守性向上に充てる。
+                        </li>
+                    </ol>
+                    <p>
+                        <strong>参考文献</strong>: - Martin Fowler, "TechnicalDebt":
+                        https://martinfowler.com/bliki/TechnicalDebt.html - Agile Alliance,
+                        "Technical Debt": https://www.agilealliance.org/glossary/technical-debt/
+                    </p>
+                    <hr />
+                    <h3 id="333">3.3.3 リグレッションテストとテスト自動化ピラミッド</h3>
+                    <p>
+                        イテレーションのたびに新機能を追加しながら、<strong>既存機能が壊れていないこと</strong>を継続的に確認する必要があります。これがリグレッションテストであり、アジャイルではその大部分を自動化に依存します。自動化戦略のバランスを示す代表的なモデルが<strong>テスト自動化ピラミッド</strong>です。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-9"></div></div>
+                    <p><strong>なぜピラミッド型が推奨されるのか</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>レイヤー</th>
+                                <th>実行速度</th>
+                                <th>保守コスト</th>
+                                <th>フィードバックの速さ</th>
+                                <th>推奨比率(目安)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>単体テスト</td>
+                                <td>非常に速い(ms単位)</td>
+                                <td>低い</td>
+                                <td>即座</td>
+                                <td>全体の約60-70%</td>
+                            </tr>
+                            <tr>
+                                <td>統合/APIテスト</td>
+                                <td>中程度(秒単位)</td>
+                                <td>中程度</td>
+                                <td>数分以内</td>
+                                <td>全体の約20-30%</td>
+                            </tr>
+                            <tr>
+                                <td>E2E/UIテスト</td>
+                                <td>遅い(分単位)</td>
+                                <td>高い(UI変更に弱い)</td>
+                                <td>数十分〜</td>
+                                <td>全体の約5-10%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <blockquote>
+                        <p>
+                            ⚠️ <strong>アンチパターン「アイスクリームコーン」</strong>:
+                            E2Eテストばかりを増やし単体テストが少ない逆三角形の構成は、実行が遅く、壊れやすく(flaky)、失敗原因の特定が困難になるため避けるべきとされています。
+                        </p>
+                    </blockquote>
+                    <p>
+                        <strong>リグレッションテストの選択戦略</strong>: 1.
+                        <strong>リスクベースの選択</strong>:
+                        3.2.1のリスク評価結果を用いて、高リスク領域を優先的に自動化・再実行する。 2.
+                        <strong>変更影響分析</strong>:
+                        バージョン管理システム(3.4.4)の差分情報から、変更されたモジュールに関連するテストを優先実行する。
+                        3. <strong>CI/CDへの統合</strong>:
+                        プルリクエストごとに該当レイヤーのテストを自動実行し、マージ前に回帰を検出する(3.4.3で詳述)。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - Martin Fowler, "TestPyramid":
+                        https://martinfowler.com/bliki/TestPyramid.html - Google Testing Blog, "Just
+                        Say No to More End-to-End Tests":
+                        https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+                    </p>
+                    <hr />
+                    <h3 id="334-exploratory-testing">3.3.4 探索的テスト(Exploratory Testing)</h3>
+                    <p>
+                        <strong>定義</strong>:
+                        事前に詳細なテストケースを設計するのではなく、テスターが<strong>学習・テスト設計・テスト実行を同時並行</strong>で行いながら、システムに対する理解を深めつつ欠陥を発見していくアプローチ。自動化では見つけにくい「想定外の使われ方」や「体験としての違和感」を発見するのに優れています。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-10"></div></div>
+                    <p>
+                        上図が示すように、探索的テストでは3つの活動が<strong>同時に、双方向に</strong>影響し合いながら進みます。これが事前に全テストケースを固定する「スクリプトテスト」との決定的な違いです。
+                    </p>
+                    <p>
+                        <strong
+                            >ステップバイステップ: セッションベーステストマネジメント(SBTM)</strong
+                        >
+                    </p>
+                    <p>
+                        アジャイルでは、探索的テストを場当たり的にせず、時間管理・記録・報告を伴う「セッション」単位で構造化する<strong
+                            >Session-Based Test Management (SBTM)</strong
+                        >
+                        がよく用いられます。
+                    </p>
+                    <ol>
+                        <li>
+                            <strong>チャーター(Charter)の作成</strong>:
+                            そのセッションで探索する目的・範囲・重点を1〜2文で定義する。 - 例:
+                            「チェックアウト画面で、クーポン適用と配送先変更を組み合わせた際の価格計算の妥当性を調査する」
+                        </li>
+                        <li>
+                            <strong>タイムボックスの設定</strong>:
+                            通常60〜120分の固定時間を設定する。
+                        </li>
+                        <li>
+                            <strong>セッション実行</strong>:
+                            チャーターに沿って自由に探索しつつ、気づいた点(発見した欠陥、追加調査が必要な事項、テスト対象の理解)をリアルタイムでメモする。
+                        </li>
+                        <li>
+                            <strong>セッションレポートの作成</strong>: 以下の観点で記録する。 -
+                            実施した内容の要約 - 発見した欠陥・懸念事項 -
+                            追加で必要なテストチャーター(派生課題) - 実際に探索に使った時間 vs
+                            環境準備やバグ報告に使った時間の内訳
+                        </li>
+                        <li>
+                            <strong>デブリーフィング(振り返り)</strong>:
+                            テストリードやペアと結果を共有し、次のチャーターを決める。
+                        </li>
+                    </ol>
+                    <p><strong>探索的テストとスクリプトテストの比較</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>観点</th>
+                                <th>スクリプトテスト</th>
+                                <th>探索的テスト</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>テスト設計のタイミング</td>
+                                <td>実行前に事前設計</td>
+                                <td>実行と同時に設計</td>
+                            </tr>
+                            <tr>
+                                <td>再現性</td>
+                                <td>高い(手順が固定)</td>
+                                <td>低い(都度異なる可能性)</td>
+                            </tr>
+                            <tr>
+                                <td>未知の欠陥発見力</td>
+                                <td>限定的(想定内のみ)</td>
+                                <td>高い(想定外の発見に強い)</td>
+                            </tr>
+                            <tr>
+                                <td>必要なスキル</td>
+                                <td>手順に従う能力</td>
+                                <td>ドメイン知識・批判的思考・観察力</td>
+                            </tr>
+                            <tr>
+                                <td>適した場面</td>
+                                <td>回帰確認、規制対応の証跡が必要な場合</td>
+                                <td>新機能の初回検証、UI/UX確認、探索的な脆弱性発見</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>アジャイルで探索的テストが重視される理由</strong>:
+                        自動化された回帰テスト(3.3.3)が「既知の振る舞いの維持」を保証する一方、探索的テストは「まだ誰も気づいていない問題」を発見する役割を担います。テスティング・クアドラント(3.3.1)ではQ3(ビジネス視点・プロダクト批評)に位置づけられ、短いイテレーションの中でも<strong>新機能に対する一次検証</strong>として組み込まれることが多い技法です。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - James Bach, "Session-Based Test Management":
+                        https://www.satisfice.com/sbtm - Ministry of Testing, "What is Exploratory
+                        Testing?":
+                        https://www.ministryoftesting.com/dojo/lessons/what-is-exploratory-testing -
+                        Elisabeth Hendrickson, "Explore It!" 概要(著者サイト):
+                        https://testobsessed.com/exploreit/
+                    </p>
+                    <hr />
+                    <h2 id="34">3.4 アジャイルにおけるツール</h2>
+                    <p>
+                        CTFL-ATシラバスでは、アジャイルプロジェクトを支えるツールを6つのカテゴリに分類しています。ここではそれぞれの目的・代表的なツール・選定時の考慮点を、2026年時点の最新動向を交えて解説します。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-11"></div></div>
+                    <p>
+                        <strong>このループが表す実践の流れ</strong>:
+                        タスク管理ツールで計画されたストーリーが →
+                        構成管理ツール上のコード変更として実装され →
+                        ビルド・配布ツール(CI/CD)によって自動検証・デプロイされ →
+                        クラウド・仮想化環境で稼働し → テストツールで検証され →
+                        その結果がコミュニケーションツールを通じてチームにフィードバックされ →
+                        次のタスクに反映される、という一連の<strong>ツールチェーン</strong>を理解することが重要です。
+                    </p>
+                    <hr />
+                    <h3 id="341-task-management-and-tracking-tools">
+                        3.4.1 タスク管理・追跡ツール(Task Management and Tracking Tools)
+                    </h3>
+                    <p>
+                        <strong>目的</strong>:
+                        プロダクトバックログ、スプリントバックログ、タスクボード(カンバン)を可視化し、チームの作業状況・進捗をリアルタイムに共有する。
+                    </p>
+                    <p><strong>主要ツールと特徴(2026年時点)</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ツール</th>
+                                <th>特徴</th>
+                                <th>適した規模・用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Jira</strong></td>
+                                <td>
+                                    スクラム/カンバンボード標準搭載、豊富なプラグイン、レポート機能(バーンダウン等)
+                                </td>
+                                <td>中〜大規模、複雑なワークフローが必要なチーム</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Trello</strong></td>
+                                <td>シンプルなカンバンボード、Power-Upsによる拡張</td>
+                                <td>小規模チーム、シンプルな運用を好むチーム</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Azure DevOps Boards</strong></td>
+                                <td>Microsoftエコシステムとの統合、Azure Pipelinesとの連携</td>
+                                <td>.NET/Microsoft中心の開発組織</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Asana / monday.com / ClickUp</strong></td>
+                                <td>タスク管理+コラボレーション機能を統合</td>
+                                <td>開発以外の部門も含む横断的なチーム</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        Jiraはアジャイルなソフトウェアチームが利用する代表的なプロジェクト管理ツールであり、スクラムボード、カンバンボード、ロードマップ、レポート機能や他ツールとの連携を提供する。プロジェクト管理ツールを選ぶ際は、チームの連携ニーズ、既存ツールとの統合性、導入のしやすさを評価基準とすることが推奨される。
+                    </p>
+                    <p>
+                        <strong>選定時の考慮点(ステップバイステップ)</strong>: 1.
+                        チームの分散度合い(同一拠点か、リモート混在か)を確認する。 2.
+                        既存の構成管理・CI/CDツールとの連携可否を確認する(例: Jira ⇔
+                        GitHub/GitLabの課題連携)。 3.
+                        必要なレポート(ベロシティ、バーンダウン/バーンアップチャート)が標準搭載されているか確認する。
+                        4. チームの成熟度に合わせて過剰な機能によるオーバーヘッドを避ける。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - Atlassian, "9 best agile project management
+                        tools for your team":
+                        https://www.atlassian.com/agile/project-management/tools - GeeksforGeeks,
+                        "Overview of Agile Project Management Tools":
+                        https://www.geeksforgeeks.org/software-engineering/overview-of-agile-project-management-tools/
+                    </p>
+                    <hr />
+                    <h3 id="342-communication-and-information-sharing-tools">
+                        3.4.2 コミュニケーション・情報共有ツール(Communication and Information
+                        Sharing Tools)
+                    </h3>
+                    <p>
+                        <strong>目的</strong>:
+                        デイリースタンドアップ、リファインメント、レトロスペクティブなどのセレモニーを支え、特にリモート/分散チームにおいて非同期・同期双方のコミュニケーションを円滑にする。ドキュメントやナレッジを蓄積するWikiも含まれる。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-12"></div></div>
+                    <p><strong>主要ツールと特徴(2026年時点)</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>カテゴリ</th>
+                                <th>代表ツール</th>
+                                <th>特徴</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>チャット/インスタントメッセージング</td>
+                                <td>Slack, Microsoft Teams</td>
+                                <td>
+                                    チャンネルやダイレクトメッセージ、スレッドによる会話の整理が可能で、コラボレーション機能はメッセージングにとどまらない
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Wiki/ナレッジ共有</td>
+                                <td>Confluence, Notion</td>
+                                <td>
+                                    タグ付き・フィルタ可能なデータベースでタスクやリソース、アイデアを柔軟な表示形式で整理できる
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ホワイトボード/可視化</td>
+                                <td>Miro, FigJam</td>
+                                <td>
+                                    リモートでのブレインストーミング、リファインメント時のストーリーマッピングに活用
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ビデオ会議</td>
+                                <td>Zoom, Microsoft Teams</td>
+                                <td>デイリースタンドアップ、レトロスペクティブの実施</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>なぜこのカテゴリが「テストツール」として扱われるのか</strong>:
+                        アジャイルテストは個人作業ではなく<strong>チーム全体での情報共有</strong>が品質に直結します。欠陥情報、テスト観点の議論、探索的テストのチャーター共有などがこれらのツール上で行われるため、CTFL-ATではコミュニケーションツールも重要なテスト支援ツールの一つとして位置づけています。
+                    </p>
+                    <p>
+                        <strong>選定時の考慮点</strong>: 1. タスク管理ツール(3.4.1)との連携(例:
+                        Slack上でJiraチケットのステータス変更を通知)を確認する。 2.
+                        検索性(過去の議論を後から追跡できるか)を重視する。 3.
+                        非同期コミュニケーションを前提とした分散チームでは、タイムゾーンをまたいだ情報の非同期共有(録画、要約)の仕組みを整える。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - Chanty, "10 Communication Tools in Project
+                        Management":
+                        https://www.chanty.com/blog/project-management-communication-tools/ -
+                        Neatro, "The Best Tools for Agile Teams":
+                        https://www.neatro.io/blog/agile-team-tools/
+                    </p>
+                    <hr />
+                    <h3 id="343-software-build-and-distribution-tools">
+                        3.4.3 ソフトウェアビルド・配布ツール(Software Build and Distribution Tools)
+                    </h3>
+                    <p>
+                        <strong>目的</strong>:
+                        コードのコミットから、ビルド・自動テスト・パッケージング・環境へのデプロイまでを自動化する継続的インテグレーション/継続的デリバリー(CI/CD)のパイプラインを構築する。3.3.3の自動化ピラミッドを実行するための土台となる。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-13"></div></div>
+                    <p><strong>主要ツールと2026年時点の採用動向</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ツール</th>
+                                <th>特徴</th>
+                                <th>2026年時点の位置づけ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>GitHub Actions</strong></td>
+                                <td>
+                                    GitHubとのネイティブ統合、YAML定義、豊富なMarketplaceアクション
+                                </td>
+                                <td>
+                                    組織利用でのCI/CD採用率トップ(約33%)であり、パイプライン構築の摩擦の低さが評価されている
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Jenkins</strong></td>
+                                <td>老舗のOSS自動化サーバー、1,800以上のプラグインで高い柔軟性</td>
+                                <td>
+                                    組織利用で2位(約28%)。複雑なカスタマイズやオンプレミス/エアギャップ環境を要する企業で根強い需要
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>GitLab CI/CD</strong></td>
+                                <td>
+                                    SCM・CI/CD・セキュリティスキャンまで含む統合DevOpsプラットフォーム
+                                </td>
+                                <td>
+                                    コード管理からCI/CD、セキュリティスキャン、監視、コンプライアンスまでを一つのプラットフォームで提供する「オールインワン」型として2026年時点で評価されている
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>CircleCI</strong></td>
+                                <td>高速な並列実行、モノレポ対応に強み</td>
+                                <td>ビルド時間短縮を優先するチーム向け</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Azure DevOps Pipelines</strong></td>
+                                <td>Microsoftエコシステムとの統合</td>
+                                <td>.NET中心の組織で採用</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>ツール選定の判断フロー</strong>:</p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-14"></div></div>
+                    <p>
+                        <strong>参考文献</strong>: - Let's Talk DevOps, "Best CI/CD Tools Comparison
+                        2026": https://devopstales.com/devops/best-ci-cd-tools-comparison-2026/ -
+                        EITT, "Jenkins vs GitHub Actions vs GitLab CI — 2026 verdict":
+                        https://eitt.academy/knowledge-base/jenkins-vs-github-actions-vs-gitlab-ci-cicd-2026/
+                        - JetBrains Blog, "Best CI/CD Tools for 2026":
+                        https://blog.jetbrains.com/teamcity/2026/03/best-ci-tools/
+                    </p>
+                    <hr />
+                    <h3 id="344-configuration-management-tools">
+                        3.4.4 構成管理ツール(Configuration Management Tools)
+                    </h3>
+                    <p>
+                        <strong>目的</strong>:
+                        ソースコード、テストウェア、環境設定、ビルド成果物など、変化するあらゆる成果物の<strong>バージョン・変更履歴・依存関係</strong>を管理する。アジャイルの頻繁な変更に耐えるための基盤technology。
+                    </p>
+                    <p>
+                        <strong
+                            >中心となるのはバージョン管理システム(Git)であり、ブランチ戦略がチームの開発フローを規定します。</strong
+                        >
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-15"></div></div>
+                    <p><strong>構成管理が支える3つの領域</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>領域</th>
+                                <th>具体例</th>
+                                <th>アジャイルにおける意味</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ソースコード管理</td>
+                                <td>Git(GitHub, GitLab, Bitbucket)</td>
+                                <td>頻繁なコミット・ブランチ・マージを支える</td>
+                            </tr>
+                            <tr>
+                                <td>テストウェア管理</td>
+                                <td>
+                                    テストコード、テストデータ、<code>.feature</code>ファイルもコードと同様にバージョン管理する
+                                </td>
+                                <td>BDDシナリオ(3.1.3)を本体コードと同じリポジトリで履歴管理</td>
+                            </tr>
+                            <tr>
+                                <td>環境構成管理</td>
+                                <td>
+                                    Infrastructure as Code(Terraform,
+                                    Ansible)、コンテナ定義(Dockerfile)
+                                </td>
+                                <td>環境差異による「私の環境では動く」問題を防止(3.4.6と連携)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>ブランチ戦略の比較(アジャイルでよく使われる代表例)</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>戦略</th>
+                                <th>特徴</th>
+                                <th>適した場面</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>トランクベース開発</strong></td>
+                                <td>短命なブランチのみを許容し、頻繁にmain(トランク)へマージ</td>
+                                <td>高頻度リリース、CI/CDが成熟したチーム</td>
+                            </tr>
+                            <tr>
+                                <td><strong>GitHub Flow</strong></td>
+                                <td>
+                                    mainブランチ+フィーチャーブランチ+PRレビューのシンプルな流れ
+                                </td>
+                                <td>継続的デプロイを行うWebサービス開発</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Git Flow</strong></td>
+                                <td>develop/feature/release/hotfixなど役割別ブランチを持つ</td>
+                                <td>リリースサイクルが長い・バージョン管理が厳格な製品</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>参考文献</strong>: - Atlassian, "Git Branching Strategies":
+                        https://www.atlassian.com/git/tutorials/comparing-workflows - trunk-based
+                        development公式サイト: https://trunkbaseddevelopment.com/
+                    </p>
+                    <hr />
+                    <h3 id="345-test-design-implementation-and-execution-tools">
+                        3.4.5 テスト設計・実装・実行ツール(Test Design, Implementation, and
+                        Execution Tools)
+                    </h3>
+                    <p>
+                        <strong>目的</strong>:
+                        3.1〜3.3で解説した各種テスト技法(TDD/BDD/自動化ピラミッドの各層/探索的テスト)を実際に実行するための専用ツール群。
+                    </p>
+                    <p><strong>Webブラウザ自動化ツールの比較(2026年時点)</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ツール</th>
+                                <th>アーキテクチャ</th>
+                                <th>対応言語</th>
+                                <th>強み</th>
+                                <th>弱み</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Playwright</strong></td>
+                                <td>ブラウザへ直接接続(WebSocketベース)</td>
+                                <td>JS/TS, Python, .NET, Java</td>
+                                <td>
+                                    週間npmダウンロード数は約3,000万に達し、Cypressの約650万を大きく上回っている。並列実行が標準搭載でコンテナ環境でのコスト効率も高い
+                                </td>
+                                <td>比較的新しく、ブラウザベンダーのAPI変更への追従が必要</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cypress</strong></td>
+                                <td>ブラウザのJSランタイム内で直接実行</td>
+                                <td>JavaScript/TypeScript</td>
+                                <td>開発者体験(DX)に優れ、デバッグが直感的</td>
+                                <td>
+                                    Chromium系ブラウザのみ対応で、FirefoxやSafariは標準サポート外
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Selenium</strong></td>
+                                <td>WebDriverプロトコル経由でブラウザを外部制御</td>
+                                <td>Java, Python, C#, JavaScript, Ruby等</td>
+                                <td>
+                                    31,000社以上が利用し約22%の市場シェアを持つなど、最も広い言語・ブラウザ互換性を持つ。Appium連携でネイティブモバイルにも対応
+                                </td>
+                                <td>プロトコルのオーバーヘッドで実行速度がやや劣る</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p><strong>選定フローチャート</strong>:</p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-16"></div></div>
+                    <p><strong>テスト管理・その他関連ツールのカテゴリ</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>カテゴリ</th>
+                                <th>目的</th>
+                                <th>代表例</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>テスト管理ツール</td>
+                                <td>テストケース管理、実行結果の追跡、要件とのトレーサビリティ</td>
+                                <td>TestRail, Xray(Jira連携), Zephyr</td>
+                            </tr>
+                            <tr>
+                                <td>APIテストツール</td>
+                                <td>REST/GraphQL APIの機能・契約テスト</td>
+                                <td>Postman, REST Assured, Karate</td>
+                            </tr>
+                            <tr>
+                                <td>モバイル自動化</td>
+                                <td>ネイティブ/ハイブリッドアプリの自動操作</td>
+                                <td>Appium</td>
+                            </tr>
+                            <tr>
+                                <td>静的解析ツール</td>
+                                <td>コード品質・セキュリティ脆弱性の早期発見(3.3.2と連携)</td>
+                                <td>SonarQube, ESLint</td>
+                            </tr>
+                            <tr>
+                                <td>探索的テスト支援</td>
+                                <td>セッション記録、バグ報告の効率化(3.3.4と連携)</td>
+                                <td>qTest Explorer, Session Tester</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>参考文献</strong>: - Tech Insider, "Playwright vs Cypress vs
+                        Selenium: 30M vs 6.5M Downloads":
+                        https://tech-insider.org/playwright-vs-cypress-vs-selenium-2026/ - Quash,
+                        "Best Test Automation Tools 2026":
+                        https://quashbugs.com/blog/best-test-automation-tools-2026-playwright-vs-selenium-vs-cypress-vs-appium
+                        - Master Software Testing, "Selenium vs Playwright vs Cypress: Complete
+                        Comparison Guide for 2026":
+                        https://mastersoftwaretesting.com/automation-academy/ui-automation/selenium-vs-playwright-vs-cypress
+                    </p>
+                    <hr />
+                    <h3 id="346-cloud-computing-and-virtualization-tools">
+                        3.4.6 クラウドコンピューティング・仮想化ツール(Cloud Computing and
+                        Virtualization Tools)
+                    </h3>
+                    <p>
+                        <strong>目的</strong>:
+                        テスト環境の迅速な構築・破棄、本番同等環境でのテスト実行、スケーラブルなテスト実行基盤の提供。アジャイルの「頻繁なリリース」を支えるインフラ技術。
+                    </p>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-17"></div></div>
+                    <p><strong>アジャイルテストにおける活用場面</strong>:</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>活用場面</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>使い捨てテスト環境</strong></td>
+                                <td>
+                                    コンテナでテスト対象+依存サービス(DB等)を毎回クリーンな状態で起動し、テスト間の状態汚染を防ぐ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>並列テスト実行によるスケーリング</strong></td>
+                                <td>
+                                    クラウド上で多数のテストランナー(コンテナ/VM)を並列起動し、E2Eテストの実行時間を短縮
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>本番同等環境の再現</strong></td>
+                                <td>
+                                    Infrastructure as
+                                    Codeでステージング環境を本番と同一構成にし、環境差異に起因する欠陥の見逃しを防ぐ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>ネットワーク・障害注入テスト</strong></td>
+                                <td>
+                                    クラウドの機能やChaos
+                                    Engineeringツールを用い、非機能テスト(3.3.2
+                                    Q4)の一環として障害耐性を検証
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <p>
+                        <strong>CI/CDとの統合(3.4.3との関係)</strong>:
+                        現代のCI/CDパイプラインでは、GitHub Actions・GitLab
+                        CI・Jenkinsのいずれも、テスト実行時にDockerコンテナを起動し、その中でSelenium/Playwright(3.4.5)を実行するという構成が一般的です。クラウドネイティブなエンジニアリング組織における2026年時点で最も一般的なアーキテクチャは、CIでコンテナイメージをビルド・テストし、ArgoCDのようなCDツールがGitの変更を検知してクラスタに反映するという構成である。
+                    </p>
+                    <p>
+                        <strong>参考文献</strong>: - Opsio, "CI/CD Pipeline Tools Compared":
+                        https://opsiocloud.com/blogs/ci-cd-pipeline-tools-jenkins-github-actions-gitlab-argocd/
+                        - Docker公式ドキュメント: https://docs.docker.com/ -
+                        Kubernetes公式ドキュメント: https://kubernetes.io/docs/home/
+                    </p>
+                    <hr />
+                    <h2 id="4-chapter-3">4. Chapter 3 全体の振り返り</h2>
+                    <div class="mermaid-wrap"><div class="mermaid" id="mermaid-18"></div></div>
+                    <p>
+                        このように、Chapter
+                        3の各節は独立した知識ではなく、<strong>1つのイテレーションを回すための一貫したサイクル</strong>として理解することが、CTFL-ATの学習における最大のポイントです。
+                    </p>
+                    <hr />
+                    <h2 id="5-k-">5. 学習チェックリスト(K-レベル別)</h2>
+                    <p>
+                        ISTQBシラバスは学習目標を認知レベル(K1: 記憶、K2: 理解、K3:
+                        適用)で分類しています。以下は本章の内容に対する自己チェック用リストです。
+                    </p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>チェック項目</th>
+                                <th>レベル目安</th>
+                                <th>完了</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>TDD・ATDD・BDDそれぞれの目的と違いを説明できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Red-Green-Refactorサイクルを実際のコード例で示せる</td>
+                                <td>K3</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Three Amigosセッションの進め方を説明できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Given-When-Then形式でシナリオを自分で書ける</td>
+                                <td>K3</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>アジャイルにおける品質リスク評価の進め方を説明できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>リスクレベルに応じたテスト深度の判断ができる</td>
+                                <td>K3</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>7</td>
+                                <td>プランニングポーカーによる見積りプロセスを説明できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>8</td>
+                                <td>テスティング・クアドラントの4象限を図示し分類できる</td>
+                                <td>K3</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>9</td>
+                                <td>技術的負債がアジャイル開発に与える影響を説明できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>10</td>
+                                <td>テスト自動化ピラミッドの各層の役割と比率を説明できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>11</td>
+                                <td>探索的テストとスクリプトテストの違いを説明できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>12</td>
+                                <td>セッションベーステストマネジメントの手順を実践できる</td>
+                                <td>K3</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>13</td>
+                                <td>3.4の6つのツールカテゴリをそれぞれ具体例と共に列挙できる</td>
+                                <td>K1</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>14</td>
+                                <td>CI/CDパイプラインの一連の流れを図示できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                            <tr>
+                                <td>15</td>
+                                <td>Git構成管理と自動化ピラミッド・CI/CDの関係を説明できる</td>
+                                <td>K2</td>
+                                <td>☐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr />
+                    <h2 id="6">6. 実践演習(サンプル問題)</h2>
+                    <p>
+                        以下はCTFL-AT試験形式を模した練習問題です(選択式・K2/K3レベル相当)。実際の出題形式・難易度は必ず公式サンプル問題でご確認ください。
+                    </p>
+                    <p>
+                        <strong>Q1.</strong>
+                        あるチームが、ユーザーストーリーの実装着手前にプロダクトオーナー・開発者・テスターの三者でセッションを行い、受け入れ基準を明文化してから実装に入っている。この手法の名称として最も適切なものはどれか。
+                    </p>
+                    <p>
+                        A. Test-Driven Development (TDD) B. Acceptance Test-Driven Development
+                        (ATDD) C. Session-Based Test Management (SBTM) D. 探索的テスト
+                    </p>
+                    <details>
+                        <summary>解答を見る</summary>
+
+                        **正解: B** 実装前に三者(Three
+                        Amigos)が協働して受け入れ基準を合意するプロセスはATDDの特徴です。TDDは開発者主導で単体テストを先に書く手法であり、SBTMと探索的テストはテスト実行段階の技法です。
+                    </details>
+                    <hr />
+                    <p>
+                        <strong>Q2.</strong>
+                        テスティング・クアドラントにおいて、性能テストやセキュリティテストが分類される象限はどれか。
+                    </p>
+                    <p>
+                        A. Q1(技術視点・チーム支援) B. Q2(ビジネス視点・チーム支援) C.
+                        Q3(ビジネス視点・プロダクト批評) D. Q4(技術視点・プロダクト批評)
+                    </p>
+                    <details>
+                        <summary>解答を見る</summary>
+
+                        **正解: D**
+                        性能・セキュリティ・負荷・信頼性テストは「技術視点」かつ「プロダクトを批評する」性質を持つため、Q4に分類されます。
+                    </details>
+                    <hr />
+                    <p>
+                        <strong>Q3.</strong>
+                        テスト自動化ピラミッドにおいて、実行速度が最も速く、最も多くのテストを配置すべき層はどれか。
+                    </p>
+                    <p>A. E2E/UIテスト層 B. 統合/APIテスト層 C. 単体テスト層 D. 探索的テスト層</p>
+                    <details>
+                        <summary>解答を見る</summary>
+
+                        **正解: C**
+                        単体テストは実行速度が最も速く保守コストが低いため、ピラミッドの土台として最も多く配置することが推奨されます。なお探索的テストはピラミッドの構成要素(自動テスト)には含まれません。
+                    </details>
+                    <hr />
+                    <p>
+                        <strong>Q4.</strong>
+                        チームがコードのコミットからテスト実行・パッケージング・デプロイまでを自動化したいと考えている。このために導入すべきツールカテゴリとして最も適切なものはどれか。
+                    </p>
+                    <p>
+                        A. タスク管理・追跡ツール B. コミュニケーション・情報共有ツール C.
+                        ソフトウェアビルド・配布ツール(CI/CDツール) D.
+                        クラウドコンピューティング・仮想化ツール
+                    </p>
+                    <details>
+                        <summary>解答を見る</summary>
+
+                        **正解: C**
+                        コミットからビルド・テスト・デプロイまでの自動化はCI/CDツール(ソフトウェアビルド・配布ツール)の役割です。クラウド・仮想化ツールはその実行基盤を提供しますが、パイプライン自体の自動化機能ではありません。
+                    </details>
+                    <hr />
+                    <h2 id="7-url">7. 参考文献・URL一覧(節ごとの一次情報源)</h2>
+                    <p>本ガイド内で言及したすべてのURLを、節ごとに再掲します。</p>
+                    <h3 id="_1">公式シラバス・認定資格情報</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>出典</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ISTQB® CTFL-AT certification概要ページ</td>
+                                <td>
+                                    https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ISTQB® CTFL-AT シラバスPDFダウンロード</td>
+                                <td>
+                                    https://istqb.org/?sdm_process_download=1&amp;download_id=3647
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ISTQB®公式サイト(資格体系全体)</td>
+                                <td>https://istqb.org/</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 id="31-tddatddbdd_1">3.1 アジャイルテスト手法(TDD/ATDD/BDD)</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>出典</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Agile Alliance, "TDD" 用語解説</td>
+                                <td>https://www.agilealliance.org/glossary/tdd/</td>
+                            </tr>
+                            <tr>
+                                <td>Martin Fowler, "TestDrivenDevelopment"</td>
+                                <td>https://martinfowler.com/bliki/TestDrivenDevelopment.html</td>
+                            </tr>
+                            <tr>
+                                <td>Agile Alliance, "ATDD" 用語解説</td>
+                                <td>https://www.agilealliance.org/glossary/atdd/</td>
+                            </tr>
+                            <tr>
+                                <td>Ministry of Testing, "Three Amigos"</td>
+                                <td>https://www.ministryoftesting.com/dojo/lessons/three-amigos</td>
+                            </tr>
+                            <tr>
+                                <td>Cucumber公式ドキュメント, "Gherkin Reference"</td>
+                                <td>https://cucumber.io/docs/gherkin/reference/</td>
+                            </tr>
+                            <tr>
+                                <td>Dan North, "What's in a Story?"</td>
+                                <td>https://dannorth.net/whats-in-a-story/</td>
+                            </tr>
+                            <tr>
+                                <td>Agile Alliance, "BDD" 用語解説</td>
+                                <td>https://www.agilealliance.org/glossary/bdd/</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 id="32_1">3.2 品質リスク評価とテスト工数見積り</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>出典</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>RBCS (Rex Black), "Risk-Based Testing"</td>
+                                <td>
+                                    https://www.rbcs-us.com/resources/articles/risk-based-testing/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Agile Alliance, "Risk-Based Testing"</td>
+                                <td>https://www.agilealliance.org/glossary/risk-based-testing/</td>
+                            </tr>
+                            <tr>
+                                <td>Mountain Goat Software, "Planning Poker"</td>
+                                <td>https://www.mountaingoatsoftware.com/agile/planning-poker</td>
+                            </tr>
+                            <tr>
+                                <td>Scrum.org, "What is Definition of Done?"</td>
+                                <td>https://www.scrum.org/resources/what-definition-done</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 id="33_1">3.3 アジャイルプロジェクトにおける技法</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>出典</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Lisa Crispin, "Using the Agile Testing Quadrants"</td>
+                                <td>
+                                    https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Agile Alliance, "Agile Testing Quadrants"</td>
+                                <td>
+                                    https://www.agilealliance.org/glossary/agile-testing-quadrants/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Martin Fowler, "TechnicalDebt"</td>
+                                <td>https://martinfowler.com/bliki/TechnicalDebt.html</td>
+                            </tr>
+                            <tr>
+                                <td>Agile Alliance, "Technical Debt"</td>
+                                <td>https://www.agilealliance.org/glossary/technical-debt/</td>
+                            </tr>
+                            <tr>
+                                <td>Martin Fowler, "TestPyramid"</td>
+                                <td>https://martinfowler.com/bliki/TestPyramid.html</td>
+                            </tr>
+                            <tr>
+                                <td>Google Testing Blog, "Just Say No to More End-to-End Tests"</td>
+                                <td>
+                                    https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>James Bach (Satisfice), "Session-Based Test Management"</td>
+                                <td>https://www.satisfice.com/sbtm</td>
+                            </tr>
+                            <tr>
+                                <td>Ministry of Testing, "What is Exploratory Testing?"</td>
+                                <td>
+                                    https://www.ministryoftesting.com/dojo/lessons/what-is-exploratory-testing
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Elisabeth Hendrickson, "Explore It!"</td>
+                                <td>https://testobsessed.com/exploreit/</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3 id="34_1">3.4 アジャイルにおけるツール</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>出典</th>
+                                <th>URL</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Atlassian, "9 best agile project management tools"</td>
+                                <td>https://www.atlassian.com/agile/project-management/tools</td>
+                            </tr>
+                            <tr>
+                                <td>GeeksforGeeks, "Overview of Agile Project Management Tools"</td>
+                                <td>
+                                    https://www.geeksforgeeks.org/software-engineering/overview-of-agile-project-management-tools/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Chanty, "10 Communication Tools in Project Management"</td>
+                                <td>
+                                    https://www.chanty.com/blog/project-management-communication-tools/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Neatro, "The Best Tools for Agile Teams"</td>
+                                <td>https://www.neatro.io/blog/agile-team-tools/</td>
+                            </tr>
+                            <tr>
+                                <td>Let's Talk DevOps, "Best CI/CD Tools Comparison 2026"</td>
+                                <td>
+                                    https://devopstales.com/devops/best-ci-cd-tools-comparison-2026/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    EITT, "Jenkins vs GitHub Actions vs GitLab CI — 2026 verdict"
+                                </td>
+                                <td>
+                                    https://eitt.academy/knowledge-base/jenkins-vs-github-actions-vs-gitlab-ci-cicd-2026/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>JetBrains Blog, "Best CI/CD Tools for 2026"</td>
+                                <td>https://blog.jetbrains.com/teamcity/2026/03/best-ci-tools/</td>
+                            </tr>
+                            <tr>
+                                <td>Atlassian, "Comparing Workflows"(ブランチ戦略)</td>
+                                <td>https://www.atlassian.com/git/tutorials/comparing-workflows</td>
+                            </tr>
+                            <tr>
+                                <td>Trunk Based Development 公式サイト</td>
+                                <td>https://trunkbaseddevelopment.com/</td>
+                            </tr>
+                            <tr>
+                                <td>Tech Insider, "Playwright vs Cypress vs Selenium 2026"</td>
+                                <td>
+                                    https://tech-insider.org/playwright-vs-cypress-vs-selenium-2026/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Quash, "Best Test Automation Tools 2026"</td>
+                                <td>
+                                    https://quashbugs.com/blog/best-test-automation-tools-2026-playwright-vs-selenium-vs-cypress-vs-appium
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    Master Software Testing, "Selenium vs Playwright vs Cypress"
+                                </td>
+                                <td>
+                                    https://mastersoftwaretesting.com/automation-academy/ui-automation/selenium-vs-playwright-vs-cypress
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Opsio, "CI/CD Pipeline Tools Compared"</td>
+                                <td>
+                                    https://opsiocloud.com/blogs/ci-cd-pipeline-tools-jenkins-github-actions-gitlab-argocd/
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Docker 公式ドキュメント</td>
+                                <td>https://docs.docker.com/</td>
+                            </tr>
+                            <tr>
+                                <td>Kubernetes 公式ドキュメント</td>
+                                <td>https://kubernetes.io/docs/home/</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr />
+                    <h2 id="8">8. 次のステップ</h2>
+                    <p>本章の内容を実務に定着させるための推奨アクション:</p>
+                    <ol>
+                        <li>
+                            <strong>チームでテスティング・クアドラント(3.3.1)の棚卸しをする</strong
+                            >: 直近のリリースで実施したテストを4象限に分類し、偏りがないか確認する。
+                        </li>
+                        <li>
+                            <strong>1つのユーザーストーリーでATDD/BDDを試す</strong>: Three
+                            Amigosセッションを実際に開催し、Gherkinシナリオを1本書いてみる。
+                        </li>
+                        <li>
+                            <strong>CI/CDパイプラインの現状を可視化する</strong>:
+                            3.4.3のフロー図を自チームのパイプラインに置き換えて描いてみて、ボトルネックを特定する。
+                        </li>
+                        <li>
+                            <strong
+                                >探索的テストのチャーターを1つ作成し、60分のセッションを実施してみる</strong
+                            >(3.3.4)。
+                        </li>
+                        <li>
+                            <strong>公式サンプル問題で理解度を確認する</strong>: https://istqb.org/
+                            の Exam Resources セクションから最新のサンプル問題を入手する。
+                        </li>
+                    </ol>
+                </div>
+
+                <footer class="page-footer">
+                    本ガイドは学習・実務理解を目的とした二次解説であり、ISTQB&reg;
+                    公式シラバスの逐語再現ではありません。試験直前の確認は必ず
+                    <a
+                        href="https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/"
+                        target="_blank"
+                        rel="noopener"
+                        >ISTQB&reg; 公式サイト</a
+                    >
+                    の最新版シラバスPDFをご参照ください。ISTQB&reg; は International Software
+                    Testing Qualifications Board の登録商標です。
+                </footer>
+            </main>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/typescript.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/gherkin.min.js"></script>
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                securityLevel: 'loose',
+                theme: 'dark',
+                themeVariables: {
+                    background: '#0c1a2c',
+                    primaryColor: '#12283f',
+                    primaryTextColor: '#e7edf7',
+                    primaryBorderColor: '#4a9eff',
+                    lineColor: '#4a9eff',
+                    secondaryColor: '#1c3552',
+                    tertiaryColor: '#0f2138',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '14px',
+                },
+                flowchart: { htmlLabels: true, curve: 'basis' },
+                sequence: { actorMargin: 60 },
+                gitGraph: { showBranches: true },
+            });
+
+            // Mermaid sources are injected via textContent (never innerHTML) so that
+            // literal characters used inside diagram labels (e.g. <br/> for line breaks
+            // within a node) are preserved as raw text for Mermaid's own parser, rather
+            // than being pre-parsed as real DOM elements by the browser.
+            const mermaidSources = [
+                'flowchart TD\n    A["Chapter 3<br/>Agile Testing Methods, Techniques and Tools"] --> B["3.1 \u30a2\u30b8\u30e3\u30a4\u30eb\u30c6\u30b9\u30c8\u624b\u6cd5<br/>TDD / ATDD / BDD"]\n    A --> C["3.2 \u54c1\u8cea\u30ea\u30b9\u30af\u8a55\u4fa1\u3068<br/>\u30c6\u30b9\u30c8\u5de5\u6570\u898b\u7a4d\u308a"]\n    A --> D["3.3 \u30a2\u30b8\u30e3\u30a4\u30eb\u30d7\u30ed\u30b8\u30a7\u30af\u30c8\u306e<br/>\u6280\u6cd5"]\n    A --> E["3.4 \u30a2\u30b8\u30e3\u30a4\u30eb\u306b\u304a\u3051\u308b<br/>\u30c4\u30fc\u30eb"]\n\n    B --> B1["3.1.1 TDD<br/>Red-Green-Refactor"]\n    B --> B2["3.1.2 ATDD<br/>\u53d7\u3051\u5165\u308c\u57fa\u6e96\u306e\u4e8b\u524d\u5408\u610f"]\n    B --> B3["3.1.3 BDD<br/>Given-When-Then"]\n\n    C --> C1["3.2.1 \u54c1\u8cea\u30ea\u30b9\u30af\u8a55\u4fa1<br/>Product Risk Workshop"]\n    C --> C2["3.2.2 \u5185\u5bb9\u3068\u30ea\u30b9\u30af\u306b\u57fa\u3065\u304f<br/>\u5de5\u6570\u898b\u7a4d\u308a"]\n\n    D --> D1["3.3.1 \u30c6\u30b9\u30c6\u30a3\u30f3\u30b0<br/>\u30af\u30a2\u30c9\u30e9\u30f3\u30c8"]\n    D --> D2["3.3.2 \u975e\u6a5f\u80fd\u30c6\u30b9\u30c8 /<br/>\u6280\u8853\u7684\u8ca0\u50b5\u306e\u8003\u616e"]\n    D --> D3["3.3.3 \u30ea\u30b0\u30ec\u30c3\u30b7\u30e7\u30f3\u30c6\u30b9\u30c8\u3068<br/>\u30c6\u30b9\u30c8\u81ea\u52d5\u5316\u30d4\u30e9\u30df\u30c3\u30c9"]\n    D --> D4["3.3.4 \u63a2\u7d22\u7684\u30c6\u30b9\u30c8<br/>Exploratory Testing"]\n\n    E --> E1["3.4.1 \u30bf\u30b9\u30af\u7ba1\u7406\u30fb<br/>\u8ffd\u8de1\u30c4\u30fc\u30eb"]\n    E --> E2["3.4.2 \u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u30fb<br/>\u60c5\u5831\u5171\u6709\u30c4\u30fc\u30eb"]\n    E --> E3["3.4.3 \u30bd\u30d5\u30c8\u30a6\u30a7\u30a2\u30d3\u30eb\u30c9\u30fb<br/>\u914d\u5e03\u30c4\u30fc\u30eb"]\n    E --> E4["3.4.4 \u69cb\u6210\u7ba1\u7406\u30c4\u30fc\u30eb"]\n    E --> E5["3.4.5 \u30c6\u30b9\u30c8\u8a2d\u8a08\u30fb\u5b9f\u88c5\u30fb<br/>\u5b9f\u884c\u30c4\u30fc\u30eb"]\n    E --> E6["3.4.6 \u30af\u30e9\u30a6\u30c9\u30fb<br/>\u4eee\u60f3\u5316\u30c4\u30fc\u30eb"]\n\n    style A fill:#1a2744,stroke:#4a9eff,color:#fff\n    style B fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style C fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style D fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style E fill:#1e3a5f,stroke:#4a9eff,color:#fff',
+                'flowchart LR\n    R["Red<br/>\u5931\u6557\u3059\u308b\u30c6\u30b9\u30c8\u3092\u66f8\u304f"] --> G["Green<br/>\u30c6\u30b9\u30c8\u3092\u901a\u3059\u6700\u5c0f\u9650\u306e<br/>\u5b9f\u88c5\u3092\u66f8\u304f"]\n    G --> F["Refactor<br/>\u30c6\u30b9\u30c8\u3092\u901a\u3057\u305f\u307e\u307e<br/>\u30b3\u30fc\u30c9\u3092\u6574\u7406\u3059\u308b"]\n    F --> R\n\n    style R fill:#5c1a1a,stroke:#ff6b6b,color:#fff\n    style G fill:#1a5c2e,stroke:#4ade80,color:#fff\n    style F fill:#1a3a5c,stroke:#4a9eff,color:#fff',
+                'sequenceDiagram\n    participant PO as \u30d7\u30ed\u30c0\u30af\u30c8\u30aa\u30fc\u30ca\u30fc<br/>(\u30d3\u30b8\u30cd\u30b9\u8996\u70b9)\n    participant Dev as \u958b\u767a\u8005<br/>(\u5b9f\u88c5\u8996\u70b9)\n    participant QA as \u30c6\u30b9\u30bf\u30fc<br/>(\u54c1\u8cea\u8996\u70b9)\n\n    Note over PO,QA: Three Amigos \u30bb\u30c3\u30b7\u30e7\u30f3(\u30b9\u30c8\u30fc\u30ea\u30fc\u7740\u624b\u524d)\n    PO->>Dev: \u30e6\u30fc\u30b6\u30fc\u30b9\u30c8\u30fc\u30ea\u30fc\u3068\u80cc\u666f\u3092\u5171\u6709\n    PO->>QA: \u671f\u5f85\u3059\u308b\u30d3\u30b8\u30cd\u30b9\u4fa1\u5024\u3092\u5171\u6709\n    Dev->>QA: \u6280\u8853\u7684\u306a\u5b9f\u73fe\u53ef\u80fd\u6027\u30fb\u5236\u7d04\u3092\u5171\u6709\n    QA->>PO: \u30a8\u30c3\u30b8\u30b1\u30fc\u30b9\u30fb\u4f8b\u5916\u6761\u4ef6\u3092\u8cea\u554f\n    Note over PO,QA: \u53d7\u3051\u5165\u308c\u57fa\u6e96\u306b\u5408\u610f\n    PO->>Dev: \u5408\u610f\u3057\u305f\u53d7\u3051\u5165\u308c\u57fa\u6e96\u3092\u78ba\u5b9a\n    Dev->>Dev: \u53d7\u3051\u5165\u308c\u30c6\u30b9\u30c8\u3092\u81ea\u52d5\u5316\u3057\u306a\u304c\u3089\u5b9f\u88c5\n    QA->>QA: \u53d7\u3051\u5165\u308c\u30c6\u30b9\u30c8\u3067\u691c\u8a3c',
+                'flowchart TD\n    subgraph Scenario["\u30b7\u30ca\u30ea\u30aa: ATM\u304b\u3089\u306e\u5f15\u304d\u51fa\u3057"]\n        Given["Given: \u524d\u63d0\u6761\u4ef6<br/>\u53e3\u5ea7\u6b8b\u9ad8\u304c10,000\u5186\u3067\u3042\u308b"]\n        When["When: \u5b9f\u884c\u3059\u308b\u30a2\u30af\u30b7\u30e7\u30f3<br/>3,000\u5186\u3092\u5f15\u304d\u51fa\u3059"]\n        Then["Then: \u671f\u5f85\u3059\u308b\u7d50\u679c<br/>\u6b8b\u9ad8\u306f7,000\u5186\u306b\u306a\u308b"]\n        Given --> When --> Then\n    end\n\n    style Given fill:#1a3a5c,stroke:#4a9eff,color:#fff\n    style When fill:#5c4a1a,stroke:#ffb84a,color:#fff\n    style Then fill:#1a5c2e,stroke:#4ade80,color:#fff',
+                'flowchart TD\n    subgraph Outer["\u30d3\u30b8\u30cd\u30b9\u8996\u70b9\u306e\u7c92\u5ea6(\u7c97\u3044)"]\n        ATDD["ATDD<br/>\u30e6\u30fc\u30b6\u30fc\u30b9\u30c8\u30fc\u30ea\u30fc\u5358\u4f4d\u306e<br/>\u53d7\u3051\u5165\u308c\u57fa\u6e96"]\n        BDD["BDD<br/>\u632f\u308b\u821e\u3044\u30b7\u30ca\u30ea\u30aa\u5358\u4f4d<br/>Given-When-Then"]\n    end\n    subgraph Inner["\u6280\u8853\u8996\u70b9\u306e\u7c92\u5ea6(\u7d30\u304b\u3044)"]\n        TDD["TDD<br/>\u95a2\u6570\u30fb\u30af\u30e9\u30b9\u5358\u4f4d\u306e<br/>\u5358\u4f53\u30c6\u30b9\u30c8"]\n    end\n\n    ATDD -->|"\u53d7\u3051\u5165\u308c\u57fa\u6e96\u3092<br/>\u5b9f\u88c5\u306b\u843d\u3068\u3057\u8fbc\u3080"| TDD\n    BDD -->|"\u30b7\u30ca\u30ea\u30aa\u5185\u306e\u5404\u30b9\u30c6\u30c3\u30d7\u3092<br/>\u5b9f\u88c5\u3059\u308b\u969b\u306b\u4f75\u7528"| TDD\n\n    style ATDD fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style BDD fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style TDD fill:#1a5c2e,stroke:#4ade80,color:#fff',
+                'flowchart LR\n    A["\u30ea\u30ea\u30fc\u30b9\u8a08\u753b<br/>Release Planning"] --> B["\u30d7\u30ed\u30c0\u30af\u30c8\u30ea\u30b9\u30af<br/>\u30ef\u30fc\u30af\u30b7\u30e7\u30c3\u30d7"]\n    B --> C["\u30ea\u30b9\u30af\u30ec\u30d9\u30eb\u306e<br/>\u5408\u610f(\u9ad8/\u4e2d/\u4f4e)"]\n    C --> D["\u30a4\u30c6\u30ec\u30fc\u30b7\u30e7\u30f3\u8a08\u753b<br/>Iteration Planning"]\n    D --> E["\u30ea\u30b9\u30af\u306b\u5fdc\u3058\u305f<br/>\u30c6\u30b9\u30c8\u5de5\u6570\u914d\u5206"]\n    E --> F["\u30b9\u30c8\u30fc\u30ea\u30fc\u30dd\u30a4\u30f3\u30c8/<br/>\u30d7\u30e9\u30f3\u30cb\u30f3\u30b0\u30dd\u30fc\u30ab\u30fc"]\n    F --> G["\u30b9\u30d7\u30ea\u30f3\u30c8\u30d0\u30c3\u30af\u30ed\u30b0<br/>\u78ba\u5b9a"]\n\n    style A fill:#1a2744,stroke:#4a9eff,color:#fff\n    style B fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style C fill:#5c4a1a,stroke:#ffb84a,color:#fff\n    style D fill:#1a2744,stroke:#4a9eff,color:#fff\n    style E fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style F fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style G fill:#1a5c2e,stroke:#4ade80,color:#fff',
+                'sequenceDiagram\n    participant PO as \u30d7\u30ed\u30c0\u30af\u30c8\u30aa\u30fc\u30ca\u30fc\n    participant Team as \u958b\u767a\u30c1\u30fc\u30e0(\u958b\u767a\u8005+\u30c6\u30b9\u30bf\u30fc)\n\n    PO->>Team: \u5bfe\u8c61\u30b9\u30c8\u30fc\u30ea\u30fc\u3092\u63d0\u793a\u3057\u3001\u53d7\u3051\u5165\u308c\u57fa\u6e96\u3092\u8aac\u660e\n    Team->>Team: \u5404\u30e1\u30f3\u30d0\u30fc\u304c\u975e\u516c\u958b\u3067\u30ab\u30fc\u30c9\u3092\u9078\u3076<br/>(\u30d5\u30a3\u30dc\u30ca\u30c3\u30c1\u6570\u5217: 1,2,3,5,8,13...)\n    Team->>Team: \u4e00\u6589\u306b\u30ab\u30fc\u30c9\u3092\u516c\u958b\n    alt \u898b\u7a4d\u308a\u304c\u4e00\u81f4 or \u8fd1\u3044\n        Team->>PO: \u898b\u7a4d\u308a\u5024\u3092\u78ba\u5b9a\n    else \u898b\u7a4d\u308a\u304c\u5927\u304d\u304f\u4e56\u96e2\n        Team->>Team: \u6700\u5927\u5024\u30fb\u6700\u5c0f\u5024\u306e\u62c5\u5f53\u8005\u304c\u6839\u62e0\u3092\u8aac\u660e<br/>(\u30c6\u30b9\u30c8\u89b3\u70b9\u306e\u898b\u843d\u3068\u3057\u304c\u5224\u660e\u3059\u308b\u3053\u3068\u304c\u591a\u3044)\n        Team->>Team: \u518d\u5ea6\u30ab\u30fc\u30c9\u3092\u9078\u3073\u76f4\u3059\n    end',
+                'flowchart TB\n    subgraph Top["\u30c1\u30fc\u30e0\u3092\u652f\u63f4 (Supporting the Team)"]\n        direction LR\n        Q1["Q1: \u6280\u8853\u8996\u70b9 x \u30c1\u30fc\u30e0\u652f\u63f4<br/>\u5358\u4f53\u30c6\u30b9\u30c8<br/>\u30b3\u30f3\u30dd\u30fc\u30cd\u30f3\u30c8\u30c6\u30b9\u30c8 (TDD)"]\n        Q2["Q2: \u30d3\u30b8\u30cd\u30b9\u8996\u70b9 x \u30c1\u30fc\u30e0\u652f\u63f4<br/>\u6a5f\u80fd\u30c6\u30b9\u30c8<br/>\u30b9\u30c8\u30fc\u30ea\u30fc\u30c6\u30b9\u30c8<br/>\u30d7\u30ed\u30c8\u30bf\u30a4\u30d7\u691c\u8a3c"]\n        Q1 --- Q2\n    end\n    subgraph Bottom["\u30d7\u30ed\u30c0\u30af\u30c8\u3092\u6279\u8a55 (Critiquing the Product)"]\n        direction LR\n        Q4["Q4: \u6280\u8853\u8996\u70b9 x \u30d7\u30ed\u30c0\u30af\u30c8\u6279\u8a55<br/>\u6027\u80fd\u30c6\u30b9\u30c8<br/>\u30bb\u30ad\u30e5\u30ea\u30c6\u30a3\u30c6\u30b9\u30c8<br/>\u8ca0\u8377\u30fb\u4fe1\u983c\u6027\u30c6\u30b9\u30c8"]\n        Q3["Q3: \u30d3\u30b8\u30cd\u30b9\u8996\u70b9 x \u30d7\u30ed\u30c0\u30af\u30c8\u6279\u8a55<br/>\u63a2\u7d22\u7684\u30c6\u30b9\u30c8<br/>\u30e6\u30fc\u30b6\u30d3\u30ea\u30c6\u30a3\u30c6\u30b9\u30c8<br/>\u53d7\u3051\u5165\u308c\u30c6\u30b9\u30c8 (UAT)"]\n        Q4 --- Q3\n    end\n    Top ~~~ Bottom\n\n    style Q1 fill:#1a5c2e,stroke:#4ade80,color:#fff\n    style Q2 fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style Q3 fill:#5c4a1a,stroke:#ffb84a,color:#fff\n    style Q4 fill:#5c1a1a,stroke:#ff6b6b,color:#fff',
+                'flowchart TD\n    A["\u30b9\u30d7\u30ea\u30f3\u30c8\u5185\u3067<br/>\u6a5f\u80fd\u3092\u7d20\u65e9\u304f\u5b9f\u88c5"] --> B{"\u975e\u6a5f\u80fd\u8981\u4ef6\u30fb<br/>\u8a2d\u8a08\u54c1\u8cea\u3092<br/>\u7d99\u7d9a\u7684\u306b\u691c\u8a3c\u3057\u3066\u3044\u308b\u304b?"}\n    B -->|"Yes"| C["\u6301\u7d9a\u53ef\u80fd\u306a\u30da\u30fc\u30b9\u3067<br/>\u958b\u767a\u3092\u7d99\u7d9a\u3067\u304d\u308b"]\n    B -->|"No"| D["\u6280\u8853\u7684\u8ca0\u50b5\u304c\u84c4\u7a4d"]\n    D --> E["\u5c06\u6765\u306e\u30d9\u30ed\u30b7\u30c6\u30a3\u4f4e\u4e0b\u30fb<br/>\u969c\u5bb3\u30ea\u30b9\u30af\u5897\u5927"]\n    E --> F["\u8ca0\u50b5\u8fd4\u6e08\u306e\u305f\u3081\u306e<br/>\u5c02\u7528\u30b9\u30d7\u30ea\u30f3\u30c8\u304c\u5fc5\u8981\u306b"]\n\n    style A fill:#1a2744,stroke:#4a9eff,color:#fff\n    style C fill:#1a5c2e,stroke:#4ade80,color:#fff\n    style D fill:#5c1a1a,stroke:#ff6b6b,color:#fff\n    style E fill:#5c1a1a,stroke:#ff6b6b,color:#fff\n    style F fill:#5c4a1a,stroke:#ffb84a,color:#fff',
+                'flowchart TD\n    subgraph Pyramid[" "]\n        direction TB\n        E2E["E2E/UI\u30c6\u30b9\u30c8<br/>\u5c11\u6570\u30fb\u4f4e\u901f\u30fb\u9ad8\u30b3\u30b9\u30c8<br/>(Playwright, Cypress, Selenium)"]\n        Integration["\u7d71\u5408/API\u30c6\u30b9\u30c8<br/>\u4e2d\u7a0b\u5ea6\u306e\u6570\u30fb\u4e2d\u901f\u5ea6<br/>(REST Assured, Postman/Newman)"]\n        Unit["\u5358\u4f53\u30c6\u30b9\u30c8<br/>\u591a\u6570\u30fb\u9ad8\u901f\u30fb\u4f4e\u30b3\u30b9\u30c8<br/>(Jest, JUnit, pytest)"]\n    end\n    Unit --> Integration --> E2E\n\n    style Unit fill:#1a5c2e,stroke:#4ade80,color:#fff\n    style Integration fill:#5c4a1a,stroke:#ffb84a,color:#fff\n    style E2E fill:#5c1a1a,stroke:#ff6b6b,color:#fff',
+                'flowchart LR\n    A["\u5b66\u7fd2<br/>Learning"] <--> B["\u30c6\u30b9\u30c8\u8a2d\u8a08<br/>Test Design"]\n    B <--> C["\u30c6\u30b9\u30c8\u5b9f\u884c<br/>Test Execution"]\n    C <--> A\n\n    style A fill:#1a3a5c,stroke:#4a9eff,color:#fff\n    style B fill:#5c4a1a,stroke:#ffb84a,color:#fff\n    style C fill:#1a5c2e,stroke:#4ade80,color:#fff',
+                'flowchart TD\n    Center["\u30a2\u30b8\u30e3\u30a4\u30eb<br/>\u30c4\u30fc\u30eb\u30c1\u30a7\u30fc\u30f3"] --> T1["3.4.1 \u30bf\u30b9\u30af\u7ba1\u7406\u30fb\u8ffd\u8de1"]\n    Center --> T2["3.4.2 \u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3\u30fb<br/>\u60c5\u5831\u5171\u6709"]\n    Center --> T3["3.4.3 \u30d3\u30eb\u30c9\u30fb\u914d\u5e03<br/>(CI/CD)"]\n    Center --> T4["3.4.4 \u69cb\u6210\u7ba1\u7406<br/>(\u30d0\u30fc\u30b8\u30e7\u30f3\u7ba1\u7406)"]\n    Center --> T5["3.4.5 \u30c6\u30b9\u30c8\u8a2d\u8a08\u30fb\u5b9f\u88c5\u30fb<br/>\u5b9f\u884c"]\n    Center --> T6["3.4.6 \u30af\u30e9\u30a6\u30c9\u30fb\u4eee\u60f3\u5316"]\n\n    T1 -.->|"\u30bf\u30b9\u30af\u3068\u30b3\u30fc\u30c9\u3092<br/>\u7d10\u4ed8\u3051"| T4\n    T4 -->|"\u30b3\u30df\u30c3\u30c8/PR\u3092<br/>\u30c8\u30ea\u30ac\u30fc\u306b\u5b9f\u884c"| T3\n    T3 -->|"\u30d3\u30eb\u30c9\u6210\u679c\u7269\u3092<br/>\u30c6\u30b9\u30c8\u74b0\u5883\u3078\u914d\u7f6e"| T6\n    T6 -->|"\u30c6\u30b9\u30c8\u5bfe\u8c61\u74b0\u5883\u3067<br/>\u5b9f\u884c"| T5\n    T5 -.->|"\u7d50\u679c\u3092\u30c1\u30fc\u30e0\u306b<br/>\u901a\u77e5"| T2\n    T2 -.->|"\u8b70\u8ad6\u5185\u5bb9\u3092<br/>\u30bf\u30b9\u30af\u5316"| T1\n\n    style Center fill:#1a2744,stroke:#4a9eff,color:#fff\n    style T1 fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style T2 fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style T3 fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style T4 fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style T5 fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style T6 fill:#1e3a5f,stroke:#4a9eff,color:#fff',
+                'flowchart TD\n    subgraph Sync["\u540c\u671f\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3"]\n        Video["\u30d3\u30c7\u30aa\u4f1a\u8b70<br/>(Zoom, Microsoft Teams)"]\n        Chat["\u30c1\u30e3\u30c3\u30c8<br/>(Slack, Teams)"]\n    end\n    subgraph Async["\u975e\u540c\u671f\u30b3\u30df\u30e5\u30cb\u30b1\u30fc\u30b7\u30e7\u30f3"]\n        Wiki["Wiki/\u30c9\u30ad\u30e5\u30e1\u30f3\u30c8<br/>(Confluence, Notion)"]\n        Board["\u30db\u30ef\u30a4\u30c8\u30dc\u30fc\u30c9<br/>(Miro, FigJam)"]\n    end\n    Sync -.->|"\u8b70\u8ad6\u306e\u7d50\u679c\u3092"| Async\n    Async -.->|"\u4e8b\u524d\u60c5\u5831\u306e\u5171\u6709\u3068\u3057\u3066"| Sync\n\n    style Sync fill:#1a3a5c,stroke:#4a9eff,color:#fff\n    style Async fill:#1a5c2e,stroke:#4ade80,color:#fff',
+                'flowchart LR\n    Commit["\u30b3\u30fc\u30c9<br/>\u30b3\u30df\u30c3\u30c8/PR"] --> Build["\u30d3\u30eb\u30c9"]\n    Build --> UnitTest["\u5358\u4f53\u30c6\u30b9\u30c8\u5b9f\u884c"]\n    UnitTest --> IntTest["\u7d71\u5408/API\u30c6\u30b9\u30c8\u5b9f\u884c"]\n    IntTest --> Package["\u30d1\u30c3\u30b1\u30fc\u30b8\u30f3\u30b0<br/>(\u30b3\u30f3\u30c6\u30ca\u30a4\u30e1\u30fc\u30b8\u7b49)"]\n    Package --> Deploy["\u30b9\u30c6\u30fc\u30b8\u30f3\u30b0\u74b0\u5883\u3078<br/>\u30c7\u30d7\u30ed\u30a4"]\n    Deploy --> E2ETest["E2E\u30c6\u30b9\u30c8\u5b9f\u884c"]\n    E2ETest -->|"\u5408\u683c"| Prod["\u672c\u756a\u74b0\u5883\u3078<br/>\u30c7\u30d7\u30ed\u30a4"]\n    E2ETest -->|"\u4e0d\u5408\u683c"| Notify["\u5931\u6557\u3092<br/>\u30c1\u30fc\u30e0\u306b\u901a\u77e5"]\n    UnitTest -->|"\u4e0d\u5408\u683c"| Notify\n    Notify --> Commit\n\n    style Commit fill:#1a2744,stroke:#4a9eff,color:#fff\n    style Prod fill:#1a5c2e,stroke:#4ade80,color:#fff\n    style Notify fill:#5c1a1a,stroke:#ff6b6b,color:#fff',
+                'flowchart TD\n    Q1{"\u30b3\u30fc\u30c9\u306f<br/>\u3069\u3053\u3067\u30db\u30b9\u30c8\u3055\u308c\u3066\u3044\u308b\u304b?"}\n    Q1 -->|"GitHub"| A1["GitHub Actions\u304c<br/>\u6700\u77ed\u7d4c\u8def"]\n    Q1 -->|"GitLab"| A2["GitLab CI/CD\u304c<br/>\u6469\u64e6\u306a\u3057"]\n    Q1 -->|"\u30aa\u30f3\u30d7\u30ec\u30df\u30b9/<br/>\u30a8\u30a2\u30ae\u30e3\u30c3\u30d7\u74b0\u5883"| A3["Jenkins\u304c<br/>\u552f\u4e00\u306e\u73fe\u5b9f\u89e3\u306b\u306a\u308a\u3084\u3059\u3044"]\n\n    A1 --> Q2{"\u53b3\u683c\u306a<br/>\u30b3\u30f3\u30d7\u30e9\u30a4\u30a2\u30f3\u30b9\u8981\u4ef6\u306f?"}\n    A2 --> Q2\n    Q2 -->|"\u3042\u308a"| B1["GitLab Ultimate \u3084<br/>TeamCity/Harness\u3092\u691c\u8a0e"]\n    Q2 -->|"\u306a\u3057"| B2["\u9078\u5b9a\u3057\u305f\u30c4\u30fc\u30eb\u3067<br/>\u305d\u306e\u307e\u307e\u904b\u7528"]\n\n    style Q1 fill:#5c4a1a,stroke:#ffb84a,color:#fff\n    style Q2 fill:#5c4a1a,stroke:#ffb84a,color:#fff',
+                'gitGraph\n    commit id: "main\u521d\u671f\u72b6\u614b"\n    branch feature/checkout\n    checkout feature/checkout\n    commit id: "\u53d7\u3051\u5165\u308c\u30c6\u30b9\u30c8\u8ffd\u52a0(ATDD)"\n    commit id: "\u5b9f\u88c5(TDD)"\n    checkout main\n    merge feature/checkout id: "PR\u30ec\u30d3\u30e5\u30fc\u5f8c\u30de\u30fc\u30b8"\n    commit id: "CI/CD\u3067\u30d3\u30eb\u30c9\u30fb\u81ea\u52d5\u30c6\u30b9\u30c8"\n    branch hotfix/payment-bug\n    checkout hotfix/payment-bug\n    commit id: "\u7dca\u6025\u30d0\u30b0\u4fee\u6b63"\n    checkout main\n    merge hotfix/payment-bug id: "\u5373\u6642\u30c7\u30d7\u30ed\u30a4"',
+                'flowchart TD\n    Q1{"\u30c1\u30fc\u30e0\u306e\u4e3b\u8981\u8a00\u8a9e\u306f?"}\n    Q1 -->|"JavaScript/TypeScript\u4e2d\u5fc3"| Q2{"\u30af\u30ed\u30b9\u30d6\u30e9\u30a6\u30b6<br/>(Safari/Firefox)\u304c\u5fc5\u9808\u304b?"}\n    Q1 -->|"Java/Python/C#\u7b49<br/>\u591a\u8a00\u8a9e\u6df7\u5728"| A3["Selenium<br/>(\u65e2\u5b58\u8cc7\u7523\u30fb\u8a00\u8a9e\u591a\u69d8\u6027\u3092\u6d3b\u304b\u3059)"]\n\n    Q2 -->|"\u306f\u3044"| A1["Playwright"]\n    Q2 -->|"\u3044\u3044\u3048<br/>(Chrome/Edge\u306e\u307f\u3067\u826f\u3044)"| A2["Cypress<br/>(DX\u3092\u512a\u5148)"]\n\n    A3 --> Q3{"\u30ec\u30ac\u30b7\u30fc\u30d6\u30e9\u30a6\u30b6/<br/>\u30cd\u30a4\u30c6\u30a3\u30d6\u30e2\u30d0\u30a4\u30eb\u5bfe\u5fdc\u304c\u5fc5\u8981\u304b?"}\n    Q3 -->|"\u306f\u3044"| A4["Selenium + Appium"]\n\n    style Q1 fill:#5c4a1a,stroke:#ffb84a,color:#fff\n    style Q2 fill:#5c4a1a,stroke:#ffb84a,color:#fff\n    style Q3 fill:#5c4a1a,stroke:#ffb84a,color:#fff',
+                'flowchart TD\n    subgraph Layer1["\u4eee\u60f3\u5316\u30ec\u30a4\u30e4\u30fc"]\n        VM["\u4eee\u60f3\u30de\u30b7\u30f3<br/>(\u91cd\u91cf\u7d1a\u3001OS\u4e38\u3054\u3068\u4eee\u60f3\u5316)"]\n        Container["\u30b3\u30f3\u30c6\u30ca<br/>(\u8efd\u91cf\u7d1a\u3001OS\u30ab\u30fc\u30cd\u30eb\u3092\u5171\u6709)"]\n    end\n    subgraph Layer2["\u30aa\u30fc\u30b1\u30b9\u30c8\u30ec\u30fc\u30b7\u30e7\u30f3"]\n        Docker["Docker<br/>\u5358\u4e00\u30b3\u30f3\u30c6\u30ca\u306e\u69cb\u7bc9\u30fb\u5b9f\u884c"]\n        K8s["Kubernetes<br/>\u8907\u6570\u30b3\u30f3\u30c6\u30ca\u306e<br/>\u81ea\u52d5\u30c7\u30d7\u30ed\u30a4\u30fb\u30b9\u30b1\u30fc\u30ea\u30f3\u30b0"]\n    end\n    subgraph Layer3["\u30af\u30e9\u30a6\u30c9\u30d7\u30e9\u30c3\u30c8\u30d5\u30a9\u30fc\u30e0"]\n        AWS["AWS"]\n        Azure["Azure"]\n        GCP["Google Cloud"]\n    end\n\n    VM --> Docker\n    Container --> Docker\n    Docker --> K8s\n    K8s --> AWS\n    K8s --> Azure\n    K8s --> GCP\n\n    style Container fill:#1a5c2e,stroke:#4ade80,color:#fff\n    style Docker fill:#1e3a5f,stroke:#4a9eff,color:#fff\n    style K8s fill:#1e3a5f,stroke:#4a9eff,color:#fff',
+                'flowchart TD\n    Start(["\u30a4\u30c6\u30ec\u30fc\u30b7\u30e7\u30f3\u958b\u59cb"]) --> Plan["3.2 \u54c1\u8cea\u30ea\u30b9\u30af\u8a55\u4fa1<br/>+ \u5185\u5bb9/\u30ea\u30b9\u30af\u30d9\u30fc\u30b9\u306e\u898b\u7a4d\u308a"]\n    Plan --> Method["3.1 \u5b9f\u88c5\u30a2\u30d7\u30ed\u30fc\u30c1\u3092\u9078\u629e<br/>TDD / ATDD / BDD"]\n    Method --> Build["3.4.3+3.4.4<br/>\u69cb\u6210\u7ba1\u7406+CI/CD\u3067<br/>\u7d99\u7d9a\u7684\u306b\u7d71\u5408"]\n    Build --> Technique["3.3 \u9069\u5207\u306a\u6280\u6cd5\u3092\u9069\u7528<br/>\u30af\u30a2\u30c9\u30e9\u30f3\u30c8\u5168\u4f53\u3092<br/>\u30ab\u30d0\u30fc\u3057\u3066\u3044\u308b\u304b\u78ba\u8a8d"]\n    Technique --> Explore["3.3.4 \u63a2\u7d22\u7684\u30c6\u30b9\u30c8\u3067<br/>\u60f3\u5b9a\u5916\u306e\u6b20\u9665\u3092\u767a\u898b"]\n    Explore --> Tooling["3.4.1/3.4.2/3.4.5/3.4.6<br/>\u30c4\u30fc\u30eb\u30c1\u30a7\u30fc\u30f3\u3067<br/>\u5b9f\u884c\u30fb\u5171\u6709\u30fb\u74b0\u5883\u63d0\u4f9b"]\n    Tooling --> Review["\u30b9\u30d7\u30ea\u30f3\u30c8\u30ec\u30d3\u30e5\u30fc/<br/>\u30ec\u30c8\u30ed\u30b9\u30da\u30af\u30c6\u30a3\u30d6"]\n    Review --> Start\n\n    style Start fill:#1a2744,stroke:#4a9eff,color:#fff\n    style Review fill:#1a5c2e,stroke:#4ade80,color:#fff',
+            ];
+
+            async function renderDiagrams() {
+                for (let i = 0; i < mermaidSources.length; i++) {
+                    const el = document.getElementById('mermaid-' + i);
+                    if (!el) continue;
+                    const src = mermaidSources[i];
+                    try {
+                        const { svg } = await mermaid.render('svg-mermaid-' + i, src);
+                        el.innerHTML = svg;
+
+                        const svgEl = el.querySelector('svg');
+                        if (svgEl) {
+                            svgEl.removeAttribute('width');
+                            svgEl.removeAttribute('height');
+                            svgEl.style.height = 'auto';
+                            svgEl.style.overflow = 'visible';
+
+                            const viewBoxStr = svgEl.getAttribute('viewBox');
+                            if (viewBoxStr) {
+                                const parts = viewBoxStr.split(' ').map(Number);
+                                if (parts.length === 4) {
+                                    const [vx, vy, vw, vh] = parts;
+                                    const isSequenceOrState = src.trim().startsWith('sequenceDiagram') || src.trim().startsWith('stateDiagram');
+                                    const extraHeight = isSequenceOrState ? 110 : 15;
+                                    svgEl.style.width = `${vw}px`;
+                                    svgEl.style.maxWidth = '100%';
+                                    svgEl.setAttribute('viewBox', `${vx} ${vy} ${vw} ${vh + extraHeight}`);
+                                }
+                            }
+                        }
+                    } catch (err) {
+                        console.error(`Mermaid render error for mermaid-${i}:`, err);
+                        el.innerHTML = `<p style="color: var(--red);">図表の描画に失敗しました: ${err.message}</p>`;
+                    }
+                }
+            }
+            renderDiagrams();
+
+            // Syntax highlighting for fenced code blocks
+            window.addEventListener('DOMContentLoaded', () => {
+                if (window.hljs) hljs.highlightAll();
+            });
+
+            // ---- Sidebar active-section tracking via IntersectionObserver ----
+            const navLinks = Array.from(document.querySelectorAll('[data-nav]'));
+            const linkById = new Map(navLinks.map((a) => [a.getAttribute('href').slice(1), a]));
+            const observeIds = [
+                '0-chapter-3',
+                '31-tddatddbdd',
+                '310-3',
+                '311-test-driven-development-tdd',
+                '312-acceptance-test-driven-development-atdd',
+                '313-behavior-driven-development-bdd',
+                '314-tddatddbdd1',
+                '32',
+                '321',
+                '322',
+                '33',
+                '331-testing-quadrants',
+                '332',
+                '333',
+                '334-exploratory-testing',
+                '34',
+                '341-task-management-and-tracking-tools',
+                '342-communication-and-information-sharing-tools',
+                '343-software-build-and-distribution-tools',
+                '344-configuration-management-tools',
+                '345-test-design-implementation-and-execution-tools',
+                '346-cloud-computing-and-virtualization-tools',
+                '4-chapter-3',
+                '5-k-',
+                '6',
+                '7-url',
+                '8',
+            ];
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        const link = linkById.get(entry.target.id);
+                        if (!link) return;
+                        if (entry.isIntersecting) {
+                            navLinks.forEach((l) => l.classList.remove('active'));
+                            link.classList.add('active');
+                        }
+                    });
+                },
+                { rootMargin: '-10% 0px -75% 0px', threshold: 0 },
+            );
+
+            observeIds.forEach((id) => {
+                const target = document.getElementById(id);
+                if (target) observer.observe(target);
+            });
+
+            // ---- Mobile sidebar toggle ----
+            const sidebar = document.getElementById('sidebar');
+            const toggleBtn = document.getElementById('sidebarToggle');
+            toggleBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
+            navLinks.forEach((a) =>
+                a.addEventListener('click', () => sidebar.classList.remove('open')),
+            );
+        </script>
+    </body>
+</html>

@@ -1,0 +1,2222 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chapter 6: テストツール（Test Tools）— ISTQB CTFL v4.0 学習ガイド</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css"
+        />
+        <style>
+            :root {
+                --color-background-primary: #0a0c10;
+                --color-background-secondary: #12151b;
+                --color-background-tertiary: #1a1e26;
+                --color-background-info: #12212f;
+                --color-background-danger: #2a1618;
+                --color-background-success: #122420;
+                --color-background-warning: #2a2113;
+                --color-text-primary: #e7eaee;
+                --color-text-secondary: #a3abb8;
+                --color-text-tertiary: #6b7280;
+                --color-text-info: #7cb8ea;
+                --color-text-danger: #e88a8a;
+                --color-text-success: #7fd9a8;
+                --color-text-warning: #e8c47f;
+                --color-border-tertiary: #1c2028;
+                --color-border-secondary: #232833;
+                --color-border-primary: #2c313c;
+                --font-sans:
+                    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+                    'Noto Sans JP', sans-serif;
+                --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+                --border-radius-md: 8px;
+                --border-radius-lg: 12px;
+                --border-radius-xl: 16px;
+                --content-max: 1600px;
+                --sidebar-width: 308px;
+                --c-purple-800: #3b2f63;
+                --c-purple-200: #c9baf0;
+                --c-purple-100: #efeafc;
+                --c-teal-800: #123c3c;
+                --c-teal-200: #a9e2e0;
+                --c-teal-100: #e6f8f7;
+                --c-coral-800: #4a2620;
+                --c-coral-200: #f0b8a9;
+                --c-coral-100: #fbe9e4;
+                --c-pink-800: #452038;
+                --c-pink-200: #f0b8dc;
+                --c-pink-100: #fbe6f4;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+            }
+            body {
+                background: var(--color-background-primary);
+                color: var(--color-text-primary);
+                font-family: var(--font-sans);
+                font-size: 16px;
+                line-height: 1.7;
+                font-weight: 400;
+            }
+            a {
+                color: var(--color-text-info);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            .layout {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            /* ---------- sidebar ---------- */
+            .sidebar {
+                width: var(--sidebar-width);
+                flex-shrink: 0;
+                position: sticky;
+                top: 0;
+                align-self: flex-start;
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--color-background-secondary);
+                border-right: 1px solid var(--color-border-tertiary);
+                padding: 28px 18px 60px;
+            }
+            .sidebar::-webkit-scrollbar {
+                width: 6px;
+            }
+            .sidebar::-webkit-scrollbar-thumb {
+                background: var(--color-border-primary);
+                border-radius: 4px;
+            }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 4px 10px 20px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                margin-bottom: 18px;
+            }
+            .brand i {
+                font-size: 22px;
+                color: var(--color-text-info);
+            }
+            .brand-text .t1 {
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+                letter-spacing: 0.04em;
+            }
+            .brand-text .t2 {
+                font-size: 15px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+            }
+
+            .nav-group {
+                margin-bottom: 6px;
+            }
+            .nav-label {
+                font-size: 11px;
+                color: var(--color-text-tertiary);
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                padding: 14px 10px 6px;
+            }
+            .nav-link {
+                display: flex;
+                align-items: center;
+                gap: 9px;
+                padding: 8px 10px;
+                border-radius: var(--border-radius-md);
+                font-size: 13.5px;
+                color: var(--color-text-secondary);
+                cursor: pointer;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .nav-link i {
+                font-size: 15px;
+                width: 16px;
+                text-align: center;
+                color: var(--color-text-tertiary);
+            }
+            .nav-link:hover {
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                text-decoration: none;
+            }
+            .nav-link.active {
+                background: var(--color-background-info);
+                color: var(--color-text-info);
+            }
+            .nav-link.active i {
+                color: var(--color-text-info);
+            }
+            .nav-sub {
+                padding-left: 22px;
+                font-size: 12.5px;
+            }
+
+            /* ---------- main ---------- */
+            .main {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                padding: 0 40px;
+            }
+            .content {
+                width: 100%;
+                max-width: var(--content-max);
+                padding: 48px 8px 140px;
+            }
+
+            .page-header {
+                margin-bottom: 36px;
+            }
+            .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+                color: var(--color-text-info);
+                background: var(--color-background-info);
+                border: 1px solid var(--color-border-primary);
+                padding: 4px 12px;
+                border-radius: 999px;
+                margin-bottom: 14px;
+            }
+            h1 {
+                font-size: 22px;
+                font-weight: 500;
+                margin: 0 0 10px;
+                color: var(--color-text-primary);
+            }
+            .subtitle {
+                font-size: 15px;
+                color: var(--color-text-secondary);
+                max-width: 900px;
+            }
+            .notice-box {
+                margin-top: 20px;
+                padding: 16px 18px;
+                border-radius: var(--border-radius-lg);
+                background: var(--color-background-tertiary);
+                border: 1px solid var(--color-border-secondary);
+                font-size: 13.5px;
+                color: var(--color-text-secondary);
+                display: flex;
+                gap: 12px;
+                align-items: flex-start;
+            }
+            .notice-box i {
+                color: var(--color-text-info);
+                font-size: 17px;
+                margin-top: 1px;
+                flex-shrink: 0;
+            }
+            .notice-box a {
+                color: var(--color-text-info);
+            }
+
+            section {
+                margin-bottom: 56px;
+                scroll-margin-top: 24px;
+            }
+            h2 {
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                margin: 0 0 18px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            }
+            h2 i {
+                color: var(--color-text-info);
+                font-size: 19px;
+            }
+            h3 {
+                font-size: 16px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                margin: 32px 0 14px;
+            }
+            h4 {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-text-info);
+                margin: 24px 0 10px;
+            }
+            p {
+                color: var(--color-text-secondary);
+                margin: 0 0 14px;
+            }
+            strong {
+                color: var(--color-text-primary);
+                font-weight: 500;
+            }
+            .lead {
+                font-size: 15px;
+            }
+
+            /* callouts */
+            .callout {
+                border-radius: var(--border-radius-lg);
+                padding: 16px 18px;
+                margin: 18px 0;
+                border: 1px solid var(--color-border-secondary);
+                font-size: 13.5px;
+                display: flex;
+                gap: 12px;
+            }
+            .callout i {
+                font-size: 17px;
+                margin-top: 1px;
+                flex-shrink: 0;
+            }
+            .callout.info {
+                background: var(--color-background-info);
+            }
+            .callout.info i {
+                color: var(--color-text-info);
+            }
+            .callout.warning {
+                background: var(--color-background-warning);
+            }
+            .callout.warning i {
+                color: var(--color-text-warning);
+            }
+            .callout.danger {
+                background: var(--color-background-danger);
+            }
+            .callout.danger i {
+                color: var(--color-text-danger);
+            }
+            .callout.success {
+                background: var(--color-background-success);
+            }
+            .callout.success i {
+                color: var(--color-text-success);
+            }
+            .callout p {
+                margin: 0;
+                color: var(--color-text-secondary);
+            }
+            .callout p + p {
+                margin-top: 8px;
+            }
+
+            /* tables */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 18px 0;
+                border-radius: var(--border-radius-lg);
+                border: 1px solid var(--color-border-secondary);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13.5px;
+            }
+            thead th {
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                text-align: left;
+                padding: 11px 14px;
+                font-weight: 500;
+                border-bottom: 1px solid var(--color-border-primary);
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 11px 14px;
+                color: var(--color-text-secondary);
+                border-bottom: 1px solid var(--color-border-tertiary);
+                vertical-align: top;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: var(--color-background-secondary);
+            }
+            td.hl {
+                color: var(--color-text-primary);
+                font-weight: 500;
+                white-space: nowrap;
+            }
+            td.center {
+                text-align: center;
+            }
+
+            /* pills / badges */
+            .badge {
+                display: inline-block;
+                padding: 2px 9px;
+                border-radius: 999px;
+                font-size: 11px;
+                font-weight: 500;
+            }
+            .badge.k1 {
+                background: var(--color-background-info);
+                color: var(--color-text-info);
+            }
+            .badge.k2 {
+                background: var(--color-background-success);
+                color: var(--color-text-success);
+            }
+            .badge.scope-out {
+                background: var(--color-background-warning);
+                color: var(--color-text-warning);
+            }
+
+            /* diagram card */
+            .diagram-card {
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-xl);
+                padding: 22px;
+                margin: 20px 0;
+            }
+            .diagram-caption {
+                font-size: 12.5px;
+                color: var(--color-text-tertiary);
+                margin-top: 12px;
+                text-align: center;
+            }
+            .diagram-target {
+                display: flex;
+                justify-content: center;
+                min-height: 60px;
+            }
+            .diagram-target svg {
+                display: block;
+                margin: 0 auto;
+                max-width: 100%;
+                height: auto;
+            }
+            .diagram-target foreignObject {
+                overflow: visible;
+            }
+            .diagram-target foreignObject > div,
+            .diagram-target .nodeLabel,
+            .diagram-target .edgeLabel {
+                overflow: visible;
+            }
+            .diagram-error {
+                color: var(--color-text-danger);
+                font-size: 13px;
+                background: var(--color-background-danger);
+                border: 1px solid var(--color-border-primary);
+                border-radius: var(--border-radius-md);
+                padding: 10px 14px;
+                width: 100%;
+            }
+
+            /* category grid */
+            .cat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 14px;
+                margin: 18px 0;
+            }
+            .cat-card {
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-lg);
+                padding: 16px 18px;
+            }
+            .cat-card .num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 24px;
+                height: 24px;
+                border-radius: 6px;
+                background: var(--color-background-tertiary);
+                color: var(--color-text-info);
+                font-size: 12px;
+                font-weight: 500;
+                margin-bottom: 10px;
+            }
+            .cat-card h4 {
+                margin: 0 0 6px;
+                font-size: 14px;
+                color: var(--color-text-primary);
+            }
+            .cat-card p {
+                font-size: 13px;
+                margin: 0 0 8px;
+            }
+            .cat-card .examples {
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+            }
+            .cat-card .examples b {
+                color: var(--color-text-secondary);
+                font-weight: 500;
+            }
+
+            /* code */
+            pre {
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-lg);
+                padding: 16px 18px;
+                overflow-x: auto;
+                margin: 16px 0;
+            }
+            code {
+                font-family: var(--font-mono);
+                font-size: 12.5px;
+            }
+            p code,
+            li code,
+            td code {
+                background: var(--color-background-tertiary);
+                padding: 2px 6px;
+                border-radius: 5px;
+                color: var(--color-text-info);
+                font-size: 12.5px;
+            }
+            .code-label {
+                font-size: 11px;
+                color: var(--color-text-tertiary);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 6px;
+            }
+            .token.key {
+                color: var(--c-teal-200);
+            }
+            .token.string {
+                color: var(--color-text-success);
+            }
+            .token.comment {
+                color: var(--color-text-tertiary);
+                font-style: italic;
+            }
+            .token.punctuation {
+                color: var(--color-text-tertiary);
+            }
+
+            /* lists */
+            ul.plain {
+                margin: 0 0 14px;
+                padding-left: 20px;
+                color: var(--color-text-secondary);
+            }
+            ul.plain li {
+                margin-bottom: 8px;
+                font-size: 14.5px;
+            }
+            ul.plain b {
+                color: var(--color-text-primary);
+                font-weight: 500;
+            }
+
+            /* reference list */
+            .ref-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .ref-list li {
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+                padding: 9px 0;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                font-size: 13px;
+            }
+            .ref-list li:last-child {
+                border-bottom: none;
+            }
+            .ref-list i {
+                color: var(--color-text-tertiary);
+                font-size: 13px;
+                margin-top: 3px;
+            }
+            .ref-group {
+                margin-bottom: 22px;
+            }
+            .ref-group-title {
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                margin-bottom: 6px;
+            }
+
+            /* summary table icon rows */
+            .summary-row i {
+                color: var(--color-text-info);
+                margin-right: 6px;
+            }
+
+            /* quiz */
+            .quiz-card {
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-lg);
+                padding: 18px 20px;
+                margin-bottom: 14px;
+            }
+            .quiz-q {
+                color: var(--color-text-primary);
+                font-size: 14.5px;
+                margin-bottom: 10px;
+            }
+            .quiz-options {
+                font-size: 13.5px;
+                color: var(--color-text-secondary);
+                margin-bottom: 10px;
+            }
+            details {
+                background: var(--color-background-tertiary);
+                border-radius: var(--border-radius-md);
+                padding: 10px 14px;
+                font-size: 13px;
+                color: var(--color-text-secondary);
+            }
+            details summary {
+                cursor: pointer;
+                color: var(--color-text-info);
+                font-weight: 500;
+            }
+            details[open] summary {
+                margin-bottom: 8px;
+            }
+
+            footer {
+                margin-top: 60px;
+                padding-top: 24px;
+                border-top: 1px solid var(--color-border-tertiary);
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+            }
+
+            @media (max-width: 980px) {
+                .sidebar {
+                    display: none;
+                }
+                .content {
+                    padding: 32px 4px 100px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="brand">
+                    <i class="ti ti-tools"></i>
+                    <div class="brand-text">
+                        <div class="t1">ISTQB CTFL v4.0</div>
+                        <div class="t2">Chapter 6: テストツール</div>
+                    </div>
+                </div>
+
+                <div class="nav-group">
+                    <a class="nav-link" data-target="pos"
+                        ><i class="ti ti-map-pin"></i>この章の位置づけ</a
+                    >
+                    <a class="nav-link" data-target="lo"
+                        ><i class="ti ti-target-arrow"></i>学習目標</a
+                    >
+                </div>
+
+                <div class="nav-label">6.1 テストツールによる支援</div>
+                <div class="nav-group">
+                    <a class="nav-link" data-target="s61-1"
+                        ><i class="ti ti-help-hexagon"></i>テストツールとは</a
+                    >
+                    <a class="nav-link" data-target="s61-2"
+                        ><i class="ti ti-category"></i>9カテゴリ分類</a
+                    >
+                    <a class="nav-link" data-target="s61-3"
+                        ><i class="ti ti-sitemap"></i>プロセスとの関係図</a
+                    >
+                    <a class="nav-link" data-target="s61-4"
+                        ><i class="ti ti-apps"></i>現在のツール例</a
+                    >
+                    <a class="nav-link" data-target="s61-5"
+                        ><i class="ti ti-activity"></i>プローブ効果</a
+                    >
+                </div>
+
+                <div class="nav-label">6.2 利点とリスク</div>
+                <div class="nav-group">
+                    <a class="nav-link" data-target="s62-1"
+                        ><i class="ti ti-alert-circle"></i>導入の大前提</a
+                    >
+                    <a class="nav-link" data-target="s62-2"><i class="ti ti-thumb-up"></i>利点</a>
+                    <a class="nav-link" data-target="s62-3"
+                        ><i class="ti ti-thumb-down"></i>リスク</a
+                    >
+                    <a class="nav-link" data-target="s62-4"
+                        ><i class="ti ti-git-branch"></i>構造的理解</a
+                    >
+                </div>
+
+                <div class="nav-label">FL-6.2.2 特別な考慮事項</div>
+                <div class="nav-group">
+                    <a class="nav-link" data-target="s623-1"
+                        ><i class="ti ti-player-play"></i>テスト実行ツール</a
+                    >
+                    <a class="nav-link" data-target="s623-2"
+                        ><i class="ti ti-search-code"></i>静的解析ツール</a
+                    >
+                    <a class="nav-link" data-target="s623-3"
+                        ><i class="ti ti-layout-dashboard"></i>テスト管理ツール</a
+                    >
+                </div>
+
+                <div class="nav-group">
+                    <a class="nav-link" data-target="s5"
+                        ><i class="ti ti-route"></i>実務補足：導入プロセス</a
+                    >
+                    <a class="nav-link" data-target="summary"
+                        ><i class="ti ti-list-check"></i>章のまとめ</a
+                    >
+                    <a class="nav-link" data-target="quiz"><i class="ti ti-writing"></i>演習問題</a>
+                    <a class="nav-link" data-target="refs"><i class="ti ti-link"></i>参照URL一覧</a>
+                </div>
+            </nav>
+
+            <main class="main">
+                <div class="content">
+                    <header class="page-header">
+                        <span class="eyebrow"
+                            ><i class="ti ti-book-2"></i> ISTQB Certified Tester Foundation Level
+                            v4.0</span
+                        >
+                        <h1>Chapter 6: テストツール（Test Tools）</h1>
+                        <p class="subtitle lead">
+                            中級〜上級者向けに、公式シラバスの範囲を明確にしながらステップバイステップで解説します。試験範囲（examinable
+                            content）と実務補足を明確に区別しています。
+                        </p>
+                        <div class="notice-box">
+                            <i class="ti ti-info-circle"></i>
+                            <div>
+                                本ガイドは
+                                <a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB® CTFL v4.0.1 公式シラバス</a
+                                >
+                                の Chapter 6
+                                を範囲とし、公式資料および信頼できる二次情報源（ASTQB、ISTQB Guru
+                                等）を参照しています。各節末に参照URLを掲載し、全URLは末尾の「参照URL一覧」にも集約しています。
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- 0. 位置づけ -->
+                    <section id="pos">
+                        <h2><i class="ti ti-map-pin"></i>0. この章の位置づけ</h2>
+                        <p>
+                            Chapter 6 は CTFL v4.0
+                            シラバスの中で<strong>最も短い章</strong>です。学習時間の目安は
+                            <strong>20分</strong
+                            >、6章全体（1,135分）に占める割合はわずか約1.8%ですが、試験では実務的な理解を問う問題が出題されます。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>項目</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="hl">学習時間目安</td>
+                                        <td>20分</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">節構成</td>
+                                        <td>
+                                            6.1 テストツールによる支援 ／ 6.2
+                                            テスト自動化の利点とリスク
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">出題数目安</td>
+                                        <td>
+                                            40問中
+                                            約2〜3問（chapter配点は出典により変動、目安として7.5%程度）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">学習到達レベル</td>
+                                        <td>
+                                            <span class="badge k1">K1 記憶</span>
+                                            <span class="badge k2">K2 理解</span>
+                                            中心。K3（適用）は無し
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">キーワード</td>
+                                        <td>
+                                            data-driven testing（データ駆動テスト）, keyword-driven
+                                            testing（キーワード駆動テスト）, scripting
+                                            language（スクリプト言語）
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout warning">
+                            <i class="ti ti-alert-triangle"></i>
+                            <p>
+                                CTFL v3.1
+                                以前は「ツール選定の主要原則」「組織へのツール導入（パイロットプロジェクト）」「ツール導入の成功要因」といった節が存在しましたが、v4.0
+                                では基礎知識のみに絞られ、これらの実務寄りの節は削除されています。本ガイドでは
+                                v4.0
+                                シラバスの範囲を明確にしたうえで、実務上有用な発展知識も<b>「シラバス範囲外の実務補足」</b>として区別して提供します。
+                            </p>
+                        </div>
+
+                        <ul class="ref-list">
+                            <li>
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL v4.0.1 公式シラバス PDF</a
+                                >
+                            </li>
+                            <li>
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL v4.0 公式ページ</a
+                                >
+                            </li>
+                            <li>
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL v4.0 Syllabus Explained: Chapter-by-Chapter（ISTQB
+                                    Guru）</a
+                                >
+                            </li>
+                            <li>
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL v4.0 Overview（旧版との章構成比較）</a
+                                >
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 1. 学習目標 -->
+                    <section id="lo">
+                        <h2>
+                            <i class="ti ti-target-arrow"></i>1. 学習目標（Learning Objectives）
+                        </h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>K-level</th>
+                                        <th>学習目標</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="hl">FL-6.1.1</td>
+                                        <td><span class="badge k2">K2</span></td>
+                                        <td>
+                                            テストプロセスの活動やソフトウェアライフサイクルに応じて、さまざまな種類のテストツールを分類できる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">FL-6.2.1</td>
+                                        <td><span class="badge k2">K2</span></td>
+                                        <td>
+                                            テスト自動化とツールサポートの潜在的な利点とリスクを要約できる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">FL-6.2.2</td>
+                                        <td><span class="badge k1">K1</span></td>
+                                        <td>
+                                            テスト実行ツール、静的解析ツール、テスト管理ツールに関する特別な考慮事項を記憶している
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <ul class="ref-list">
+                            <li>
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL v4.0.1 公式シラバス PDF</a
+                                >
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 2. 6.1 -->
+                    <section id="s61">
+                        <h2>
+                            <i class="ti ti-tool"></i>2. 6.1 テストツールによる支援（Tool Support
+                            for Testing）
+                        </h2>
+
+                        <div id="s61-1">
+                            <h3>2.1 テストツールとは何か</h3>
+                            <p>
+                                シラバスは「テストツール」を非常に広く定義しています。専用の商用/OSS自動化ツールだけでなく、<strong>テスト活動を支援する任意のツール</strong>（極端な例では、テストデータやチェックリストを管理するためのスプレッドシートでさえも、テストの文脈で使われればテストツールとみなされる）が含まれます。
+                            </p>
+                            <p>
+                                これは Chapter 1 で学んだ「テストプロセス（test planning →
+                                monitoring/control → analysis → design → implementation → execution
+                                →
+                                completion）」の各活動に対して、ツールが横断的に支援を提供しうるという考え方につながります。
+                            </p>
+                        </div>
+
+                        <div id="s61-2">
+                            <h3>2.2 v4.0 シラバスにおけるツール分類（9カテゴリ）</h3>
+                            <p>
+                                v4.0
+                                シラバスは、テストツールを以下のカテゴリに分類しています（網羅的リストではなく代表例）。
+                            </p>
+
+                            <div class="cat-grid">
+                                <div class="cat-card">
+                                    <span class="num">1</span>
+                                    <h4>汎用ツール</h4>
+                                    <p>テストの文脈で利用されるあらゆる補助ツール</p>
+                                    <div class="examples"><b>例：</b>スプレッドシート</div>
+                                </div>
+                                <div class="cat-card">
+                                    <span class="num">2</span>
+                                    <h4>テスト管理ツール</h4>
+                                    <p>SDLC・要求・テスト・欠陥・構成管理の効率を高める</p>
+                                    <div class="examples">
+                                        <b>主活動：</b>計画／監視・コントロール／完了
+                                    </div>
+                                </div>
+                                <div class="cat-card">
+                                    <span class="num">3</span>
+                                    <h4>静的テストツール</h4>
+                                    <p>レビューと静的解析を支援する</p>
+                                    <div class="examples"><b>関連：</b>Chapter 3 静的テスト</div>
+                                </div>
+                                <div class="cat-card">
+                                    <span class="num">4</span>
+                                    <h4>テスト設計・実装ツール</h4>
+                                    <p>テストケース、テストデータ、テスト手順の生成を支援する</p>
+                                    <div class="examples"><b>主活動：</b>分析・設計・実装</div>
+                                </div>
+                                <div class="cat-card">
+                                    <span class="num">5</span>
+                                    <h4>テスト実行・カバレッジツール</h4>
+                                    <p>自動テスト実行とカバレッジ計測を支援する</p>
+                                    <div class="examples"><b>主活動：</b>実装・実行</div>
+                                </div>
+                                <div class="cat-card">
+                                    <span class="num">6</span>
+                                    <h4>非機能テストツール</h4>
+                                    <p>手動では困難・不可能な非機能テストを実施可能にする</p>
+                                    <div class="examples"><b>主活動：</b>実行（非機能）</div>
+                                </div>
+                                <div class="cat-card">
+                                    <span class="num">7</span>
+                                    <h4>DevOpsツール</h4>
+                                    <p>
+                                        デリバリーパイプライン、ワークフロー追跡、ビルド自動化、CI/CDを支援する
+                                    </p>
+                                    <div class="examples"><b>関連：</b>Chapter 2 DevOps</div>
+                                </div>
+                                <div class="cat-card">
+                                    <span class="num">8</span>
+                                    <h4>コラボレーションツール</h4>
+                                    <p>コミュニケーションを促進する</p>
+                                    <div class="examples"><b>関連：</b>Whole Team Approach</div>
+                                </div>
+                                <div class="cat-card">
+                                    <span class="num">9</span>
+                                    <h4>スケーラビリティ・デプロイ標準化支援ツール</h4>
+                                    <p>仮想マシン、コンテナ化技術など</p>
+                                    <div class="examples"><b>主活動：</b>テスト環境構築</div>
+                                </div>
+                            </div>
+
+                            <div class="callout info">
+                                <i class="ti ti-quote"></i>
+                                <p>
+                                    出典: ASTQB
+                                    による公式シラバス該当箇所の掲載ページを参照し、日本語で要約・再構成しています。原文の逐語引用は行っていません。
+                                </p>
+                            </div>
+
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://astqb.org/6-1-tool-support-for-testing/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB Foundation Level Syllabus - 6.1 Tool Support for
+                                        Testing（ASTQB公式ミラー）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB CTFL v4.0.1 公式シラバス PDF</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="s61-3">
+                            <h3>2.3 テストプロセスとツール分類の関係図</h3>
+                            <p>
+                                以下は、Chapter 1 で学んだ基本テストプロセスの各活動に、Chapter 6
+                                で扱う9つのツールカテゴリがどのように対応するかを示したフローチャートです。
+                            </p>
+                            <div class="diagram-card">
+                                <div class="diagram-target" id="diag-0"></div>
+                                <div class="diagram-caption">
+                                    図1: テストプロセス活動とツールカテゴリの対応関係
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="s61-4">
+                            <h3>2.4 各カテゴリの詳細と現在（2026年）の代表的ツール例</h3>
+                            <p>
+                                シラバスは特定の商用ツール名を挙げませんが、実務理解を深めるため、2026年時点で広く使われているツール群を例示します（<span
+                                    class="badge scope-out"
+                                    >試験範囲外の実務補足</span
+                                >）。
+                            </p>
+
+                            <h4><i class="ti ti-2"></i> テスト管理ツール</h4>
+                            <p>
+                                要求・テストケース・実行結果・欠陥の間のトレーサビリティ（1.4.4節参照）を確立し、進捗レポート（5.3.2節）の作成を支援します。要求管理ツール、構成管理ツール、欠陥管理ツールなど<strong>他ツールとの相互運用性</strong>が重要な選定基準になります。
+                            </p>
+                            <p>
+                                代表例（2026年時点）:
+                                <code>Jira + Xray/Zephyr</code
+                                >、<code>TestRail</code>、<code>qTest</code>、<code
+                                    >Azure Test Plans</code
+                                >
+                            </p>
+
+                            <h4><i class="ti ti-3"></i> 静的テストツール</h4>
+                            <p>
+                                レビュー支援ツール（コメント・チェックリスト管理）と静的解析ツール（コーディング規約違反や潜在的な欠陥の自動検出）に大別されます。開発者がコンポーネントテスト前・コミット前に用いることが多く、CIパイプラインに統合されることが一般的です（Chapter
+                                3, 2.1.4節参照）。
+                            </p>
+                            <p>
+                                代表例:
+                                <code>SonarQube</code
+                                >、<code>ESLint</code>、<code>Pylint</code>、<code>CodeQL</code>
+                            </p>
+
+                            <div class="code-label">
+                                CI パイプラインへの静的解析統合例（GitHub Actions）
+                            </div>
+                            <pre><code id="code-yaml">name: static-analysis
+on: [pull_request]
+jobs:
+  sonar-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run SonarQube analysis
+        uses: SonarSource/sonarqube-scan-action@v3
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      - name: Quality gate check
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 5</code></pre>
+
+                            <h4><i class="ti ti-4"></i> テスト設計・実装ツール</h4>
+                            <p>
+                                要求仕様、モデル（状態遷移図など）、コードからテストケースやテスト入力を生成する支援を行います。近年は生成AIを活用したテストケース生成支援も普及しています。
+                            </p>
+
+                            <h4><i class="ti ti-5"></i> テスト実行・カバレッジツール</h4>
+                            <p>
+                                自動テストスクリプトを用いてテスト対象を実行し、カバレッジ（Chapter
+                                4
+                                のステートメントカバレッジ・ブランチカバレッジ等）を計測します。この分野は技術トレンドの変化が特に速く、次の比較が参考になります。
+                            </p>
+
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>項目</th>
+                                            <th>Playwright</th>
+                                            <th>Selenium</th>
+                                            <th>Cypress</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="hl">開発元</td>
+                                            <td>Microsoft</td>
+                                            <td>オープンソースコミュニティ</td>
+                                            <td>Cypress.io</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">対応言語</td>
+                                            <td>TypeScript/JavaScript, Python, Java, .NET</td>
+                                            <td>Java, Python, C#, Ruby, JavaScript 等多数</td>
+                                            <td>JavaScript/TypeScript</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">対応ブラウザエンジン</td>
+                                            <td>
+                                                Chromium, Firefox, WebKitを単一APIでネイティブ対応
+                                            </td>
+                                            <td>最も幅広い（レガシー含む）</td>
+                                            <td>主にChromium系、Firefoxも対応</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">並列実行</td>
+                                            <td>追加インフラなしでネイティブ対応</td>
+                                            <td>Selenium Grid等が必要</td>
+                                            <td>
+                                                基本はシングルスレッド、拡張は有償クラウドで強化
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">2026年時点の傾向</td>
+                                            <td>QA実務者採用率が上昇し主流化</td>
+                                            <td>
+                                                大規模エンタープライズ・多言語チームで根強い採用
+                                            </td>
+                                            <td>フロントエンド専業チームで安定した採用</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                            <div class="diagram-card">
+                                <div class="diagram-target" id="diag-1"></div>
+                                <div class="diagram-caption">
+                                    図2:
+                                    E2Eテスト自動化ツールの一般的傾向（2026年時点、市場調査記事に基づく相対的な位置づけ）
+                                </div>
+                            </div>
+
+                            <div class="callout warning">
+                                <i class="ti ti-clock-exclamation"></i>
+                                <p>
+                                    上記は市場調査記事に基づく傾向であり、Claudeの学習データのカットオフ以降の情報を含むため、最新動向は必ず一次情報でご確認ください。
+                                </p>
+                            </div>
+
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://www.vervali.com/blog/web-services-testing-automation-tools-comparison-2026-selenium-vs-playwright-vs-cypress-and-beyond/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Selenium vs Playwright vs Cypress 2026 比較（Vervali
+                                        Systems）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://tech-insider.org/playwright-vs-cypress-vs-selenium-2026/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Playwright vs Cypress vs Selenium 2026 比較（Tech
+                                        Insider）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://testdino.com/blog/best-test-automation-tools"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Best Test Automation Tools in 2026（TestDino）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://stackoverflow.blog/2026/06/15/selenium-vs-cypress-vs-playwright-choosing-your-test-automation-framework/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Selenium vs Cypress vs Playwright（Stack Overflow Blog,
+                                        2026）</a
+                                    >
+                                </li>
+                            </ul>
+
+                            <h4><i class="ti ti-6"></i> 非機能テストツール</h4>
+                            <p>
+                                パフォーマンス（負荷・ストレス）、セキュリティ、ユーザビリティなど、手動での再現・測定が困難な非機能特性（Chapter
+                                2, 2.2.2節の ISO/IEC 25010 品質特性参照）を検証します。
+                            </p>
+                            <p>
+                                代表例:
+                                <code>JMeter</code
+                                >、<code>k6</code>、<code>Gatling</code>（性能）、<code
+                                    >OWASP ZAP</code
+                                >、<code>Burp Suite</code>（セキュリティ）
+                            </p>
+
+                            <h4><i class="ti ti-7"></i> DevOpsツール</h4>
+                            <p>
+                                継続的インテグレーション/継続的デリバリー（CI/CD）パイプライン、ワークフロー追跡、自動ビルドを支援します（Chapter
+                                2, 2.1.4節「DevOpsとテスト」と直結）。
+                            </p>
+                            <p>
+                                代表例: <code>Jenkins</code>、<code>GitHub Actions</code>、<code
+                                    >GitLab CI/CD</code
+                                >、<code>CircleCI</code>
+                            </p>
+
+                            <h4><i class="ti ti-8"></i> コラボレーションツール</h4>
+                            <p>
+                                Whole Team Approach（Chapter 1, 1.5.2節）を支える情報共有基盤です。
+                            </p>
+                            <p>
+                                代表例: <code>Slack</code>、<code>Microsoft Teams</code>、<code
+                                    >Confluence</code
+                                >
+                            </p>
+
+                            <h4>
+                                <i class="ti ti-9"></i> スケーラビリティ・デプロイ標準化支援ツール
+                            </h4>
+                            <p>テスト環境の再現性・拡張性を高めます。</p>
+                            <p>
+                                代表例:
+                                <code>Docker</code
+                                >、<code>Kubernetes</code>、<code>Testcontainers</code>（テスト用の使い捨てコンテナ環境）
+                            </p>
+
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://astqb.org/6-1-tool-support-for-testing/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB Foundation Level Syllabus - 6.1 Tool Support for
+                                        Testing（ASTQB）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISO/IEC 25010 品質特性の参照（ISTQB CTFL v4.0.1
+                                        公式シラバス PDF, Chapter 2関連）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="s61-5">
+                            <h3>2.5 侵入的ツールと「プローブ効果」（発展知識）</h3>
+                            <p>
+                                一部のツール（特に性能計測ツールやカバレッジ計測ツール）は、計測のための追加命令をテスト対象に組み込むため、<strong>測定行為そのものがテスト対象の挙動（実行タイミングやメモリ使用量）に影響を与える</strong>ことがあります。この現象は一般に「プローブ効果（probe
+                                effect）」と呼ばれ、非侵入型（non-intrusive）の計測手法が可能であれば優先的に検討すべきとされています。
+                            </p>
+                            <div class="callout info">
+                                <i class="ti ti-info-circle"></i>
+                                <p>
+                                    補足: 「プローブ効果」という用語自体は v3.1
+                                    以前のシラバスで明示的なキーワードでしたが、v4.0
+                                    では簡略化されキーワードとしては明記されていません。ただし概念としては実務上重要であるため、発展知識として記載しています。
+                                </p>
+                            </div>
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/test-tool-classification/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Test Tool Classification（ISTQB Foundation, 一般解説）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 3. 6.2 -->
+                    <section id="s62">
+                        <h2>
+                            <i class="ti ti-scale"></i>3. 6.2 テスト自動化の利点とリスク（Benefits
+                            and Risks of Test Automation）
+                        </h2>
+
+                        <div id="s62-1">
+                            <h3>3.1 導入の大前提</h3>
+                            <p>
+                                シラバスが強調する最も重要なポイントは、<strong>「ツールを導入するだけでは成功は保証されない」</strong>という点です。ツールの導入・維持・トレーニングには継続的な投資が必要であり、リスクの分析と対策（mitigation）が不可欠です。
+                            </p>
+                            <div class="callout info">
+                                <i class="ti ti-quote"></i>
+                                <p>
+                                    出典を要約:
+                                    単にツールを取得しただけでは効果は得られず、ツール導入・保守・教育に継続的な工数が必要であり、そこにはリスクも伴うため分析と緩和策が求められる。
+                                </p>
+                            </div>
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://astqb.org/6-2-benefits-and-risks-of-test-automation/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB Foundation Level Syllabus - 6.2 Benefits and Risks of
+                                        Test Automation（ASTQB）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="s62-2">
+                            <h3>3.2 テスト自動化・ツール活用の利点</h3>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>利点</th>
+                                            <th>説明</th>
+                                            <th>具体例</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="hl">
+                                                <i class="ti ti-repeat summary-row"></i
+                                                >反復作業の削減
+                                            </td>
+                                            <td>人手による繰り返し作業を減らす</td>
+                                            <td>
+                                                回帰テストの再実行、同一テストデータの再入力、コーディング規約チェック
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">
+                                                <i class="ti ti-copy-check summary-row"></i
+                                                >一貫性・再現性の向上
+                                            </td>
+                                            <td>同じ手順・頻度でテストを実行できる</td>
+                                            <td>要求から導出したテストを常に同一順序で実行</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">
+                                                <i class="ti ti-chart-bar summary-row"></i
+                                                >客観的な評価
+                                            </td>
+                                            <td>人的バイアスを排した測定が可能</td>
+                                            <td>静的コード指標、カバレッジ測定値</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">
+                                                <i class="ti ti-report summary-row"></i
+                                                >情報アクセスの容易化
+                                            </td>
+                                            <td>テスト状況に関する情報を素早く得られる</td>
+                                            <td>進捗統計、欠陥発生率、性能グラフ</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="s62-3">
+                            <h3>3.3 テスト自動化・ツール活用のリスク</h3>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>リスク</th>
+                                            <th>説明</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="hl">非現実的な期待</td>
+                                            <td>
+                                                ツールが「すべての欠陥を防いでくれる」といった過大な期待を持ってしまう
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">導入コスト・工数の過小評価</td>
+                                            <td>初期導入にかかる時間・費用・労力を見誤る</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">継続的便益達成コストの過小評価</td>
+                                            <td>
+                                                プロセス変更や継続的改善を伴わなければ、真の便益は得られない
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">テスト資産保守コストの過小評価</td>
+                                            <td>
+                                                自動化によって生成されたテストスクリプト・データの保守負荷を軽視しがち
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">ツールへの過度な依存</td>
+                                            <td>
+                                                テスト設計そのものを軽視し、手動テストが適切な場面でも自動化に固執する
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">バージョン管理の軽視</td>
+                                            <td>
+                                                テスト資産（スクリプト・データ）の構成管理（Chapter
+                                                5, 5.4節）を怠る
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">他ツールとの相互運用性の欠如</td>
+                                            <td>
+                                                要求管理・構成管理・欠陥管理ツール等、複数ベンダーのツール間連携の問題
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">ベンダー・プロジェクトリスク</td>
+                                            <td>
+                                                ツールベンダーの廃業・ツール廃止・買収、OSSプロジェクトの停止によるサポート断絶
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="hl">ベンダーサポートの質</td>
+                                            <td>
+                                                サポート・アップグレード・不具合修正への対応が不十分な場合がある
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="s62-4">
+                            <h3>3.4 利点とリスクの構造的理解</h3>
+                            <div class="diagram-card">
+                                <div class="diagram-target" id="diag-2"></div>
+                                <div class="diagram-caption">
+                                    図3: 継続投資の有無が利点実現とリスク顕在化を分岐させる
+                                </div>
+                            </div>
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://astqb.org/6-2-benefits-and-risks-of-test-automation/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB Foundation Level Syllabus - 6.2 Benefits and Risks of
+                                        Test Automation（ASTQB）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/potential-benefits-and-risks-of-tool-support-for-testing-for-all-tools/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Potential Benefits and Risks of Tool Support for
+                                        Testing（一般解説）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 4. FL-6.2.2 -->
+                    <section id="s623">
+                        <h2>
+                            <i class="ti ti-adjustments"></i>4. FL-6.2.2:
+                            特定ツール種別に関する特別な考慮事項
+                        </h2>
+                        <p>
+                            v4.0 のキーワードである
+                            <strong>data-driven testing（データ駆動テスト）</strong>、<strong
+                                >keyword-driven testing（キーワード駆動テスト）</strong
+                            >、<strong>scripting language（スクリプト言語）</strong>
+                            は、主にテスト実行ツールの文脈で登場します。
+                        </p>
+
+                        <div id="s623-1">
+                            <h3>4.1 テスト実行ツール: スクリプティング手法の進化</h3>
+                            <p>
+                                テスト実行の自動化アプローチは、成熟度に応じて次のように整理できます。
+                            </p>
+
+                            <div class="diagram-card">
+                                <div class="diagram-target" id="diag-3"></div>
+                                <div class="diagram-caption">
+                                    図4: テスト実行自動化における成熟度モデル
+                                </div>
+                            </div>
+
+                            <ul class="plain">
+                                <li>
+                                    <b>データ駆動テスト（data-driven testing）:</b>
+                                    汎用の制御スクリプトが、表形式のデータ（入力値・期待結果）を読み込みながら同じ操作を繰り返す手法。スクリプト作成という技術的に難しい作業は一度で済み、以降はテストデータの追加だけでテストケースを拡張できる。
+                                </li>
+                                <li>
+                                    <b>キーワード駆動テスト（keyword-driven testing）:</b>
+                                    データ駆動テストをさらに発展させ、データファイルに「アクションワード（操作を表すキーワード）」を含める手法。スクリプト言語に不慣れなテスト担当者でも、キーワードを組み合わせることでテストを定義できる。
+                                </li>
+                                <li>
+                                    <b>スクリプト言語（scripting language）:</b>
+                                    実行可能なテストスクリプトを記述するためのプログラミング言語。どの手法を採用しても、スクリプト自体の実装には専門知識（テスト担当者自身、または自動化専門の開発者）が必要になる。
+                                </li>
+                            </ul>
+                            <p>
+                                いずれの手法でも、実際の結果と期待結果の比較（動的な比較、またはテスト実行後のバッチ比較）が必要になる点は共通しています。
+                            </p>
+
+                            <div class="code-label">
+                                キーワード駆動テストのデータ表現イメージ（CSV）
+                            </div>
+                            <pre><code>keyword,target,value
+open_browser,https://example.com/login,
+input_text,#username,tanaka_taro
+input_text,#password,P@ssw0rd
+click,#login-button,
+assert_text,#welcome-message,ようこそ、田中太郎さん</code></pre>
+
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/special-considerations-for-some-types-of-tools/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Special Considerations for Some Types of Tools（一般解説,
+                                        データ駆動/キーワード駆動）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://glossary.istqb.org/en_US/term/keyword-driven-testing"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >keyword-driven testing — ISTQB公式用語集</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://medium.com/@mehmetbarannakipoglu/test-tools-chapter-vi-of-istqb-ctfl-5b0a93a79b93"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Test Tools - Chapter VI of
+                                        ISTQB（データ駆動/キーワード駆動の実務解説）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="s623-2">
+                            <h3>4.2 静的解析ツールに関する考慮事項</h3>
+                            <p>
+                                静的解析ツールは、コード実行を伴わずに欠陥候補を検出できるため、<strong>コンポーネントテストより前、あるいは開発者自身がコミット前に実行する</strong>ことで最大の効果を発揮します（Chapter
+                                3,
+                                3.1.2節「静的テストの価値」を参照）。アーキテクトが設計標準への準拠を確認する目的で使うこともあります。CIパイプラインに組み込むことで、シフトレフト（Chapter
+                                2, 2.1.5節）を実践する代表的な手段となります。
+                            </p>
+                        </div>
+
+                        <div id="s623-3">
+                            <h3>4.3 テスト管理ツールに関する考慮事項</h3>
+                            <p>
+                                テスト管理ツールは単体で機能するのではなく、<strong>要求管理ツール、構成管理（バージョン管理）ツール、欠陥管理ツール、CI/CDツールなど多数のツールと連携する</strong>ことで真価を発揮します。組織にとって有用なレポート（Chapter
+                                5,
+                                5.3.2節）を生成するには、これらのツール間でデータが一貫して流通する必要があります。
+                            </p>
+
+                            <div class="diagram-card">
+                                <div class="diagram-target" id="diag-4"></div>
+                                <div class="diagram-caption">
+                                    図5: テスト管理ツールを中心とした他ツールとの相互運用
+                                </div>
+                            </div>
+
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://astqb.org/6-2-benefits-and-risks-of-test-automation/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB Foundation Level Syllabus - 6.2 Benefits and Risks of
+                                        Test Automation（ASTQB）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB CTFL v4.0.1 公式シラバス PDF（Chapter 5, 3
+                                        関連節）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 5. 実務補足 -->
+                    <section id="s5">
+                        <h2>
+                            <i class="ti ti-route"></i>5. シラバス範囲外の実務補足:
+                            ツール導入の意思決定プロセス
+                        </h2>
+                        <div class="callout warning">
+                            <i class="ti ti-alert-triangle"></i>
+                            <p>
+                                <strong>注意:</strong> 以下は v4.0 シラバスの examinable content
+                                には含まれません（v3.1 以前には「6.2.1
+                                主要なツール選定の原則」「6.2.2
+                                組織へのツール導入（パイロットプロジェクト）」「6.2.3
+                                ツール成功要因」という節が存在しましたが、v4.0
+                                では削除されています）。試験対策としては不要ですが、実務でツール導入を検討する際の一般的な流れとして紹介します。
+                            </p>
+                        </div>
+
+                        <div class="diagram-card">
+                            <div class="diagram-target" id="diag-5"></div>
+                            <div class="diagram-caption">
+                                図6: 実務でのツール導入意思決定フロー（シラバス範囲外・参考情報）
+                            </div>
+                        </div>
+
+                        <ul class="ref-list">
+                            <li>
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >ISTQB CTFL v4.0
+                                    Overview（旧版との章構成比較、削除内容の明記）</a
+                                >
+                            </li>
+                            <li>
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://astqb.org/assets/documents/CTFL-2018-Syllabus.pdf"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >Certified Tester Foundation Level Syllabus
+                                    v3.1.1（旧シラバス、参考比較用）</a
+                                >
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 6. まとめ -->
+                    <section id="summary">
+                        <h2><i class="ti ti-list-check"></i>6. 章のまとめ</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ポイント</th>
+                                        <th>要約</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="hl">ツールの範囲</td>
+                                        <td>
+                                            専用自動化ツールに限らず、テスト活動を支援するあらゆるツールを含む広い概念
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">分類軸</td>
+                                        <td>
+                                            テストプロセスの活動（Chapter
+                                            1）に対応させて分類するのがシラバスの立場
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">9カテゴリ</td>
+                                        <td>
+                                            汎用／テスト管理／静的テスト／設計・実装／実行・カバレッジ／非機能／DevOps／コラボレーション／スケーラビリティ支援
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">導入の大原則</td>
+                                        <td>
+                                            ツール取得だけでは成功は保証されない。継続的な投資（保守・教育・プロセス改善）が前提
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">利点</td>
+                                        <td>
+                                            反復作業削減、一貫性・再現性向上、客観的評価、情報アクセスの容易化
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">主要リスク</td>
+                                        <td>
+                                            過大な期待、コスト過小評価、過度な依存、相互運用性・ベンダーリスク
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">テスト実行ツールの発展</td>
+                                        <td>
+                                            キャプチャ・リプレイ → データ駆動 →
+                                            キーワード駆動という成熟度の流れ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">静的解析ツール</td>
+                                        <td>
+                                            コンポーネントテスト以前・コミット前に使うことで最大効果。シフトレフトを支える
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="hl">テスト管理ツール</td>
+                                        <td>
+                                            単体では機能せず、要求管理・構成管理・欠陥管理・CI/CDとの連携が鍵
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- 7. 演習 -->
+                    <section id="quiz">
+                        <h2><i class="ti ti-writing"></i>7. 演習問題（自己チェック用）</h2>
+
+                        <div class="quiz-card">
+                            <div class="quiz-q">
+                                <span class="badge k1">Q1 K1</span> &nbsp;次のうち、v4.0
+                                シラバスのキーワードとして明記されているものはどれか。
+                            </div>
+                            <div class="quiz-options">
+                                A. probe effect　B. data-driven testing　C. pilot project　D. test
+                                comparator
+                            </div>
+                            <details>
+                                <summary>解答を見る</summary>
+                                B. data-driven testing（キーワード駆動テストと共に v4.0
+                                のキーワードとして明記されている）
+                            </details>
+                        </div>
+
+                        <div class="quiz-card">
+                            <div class="quiz-q">
+                                <span class="badge k2">Q2 K2</span>
+                                &nbsp;あるチームが「テスト自動化ツールを導入すればテスト担当者の専門知識が不要になる」と考えている。これはシラバスのどの原則に反するか説明せよ。
+                            </div>
+                            <details>
+                                <summary>解答例を見る</summary>
+                                「非現実的な期待（unrealistic
+                                expectations）」というリスクに該当する。ツールはテスト活動を支援するものであり、テストは本質的に知的活動（Chapter
+                                1, 1.1節）であるため、専門知識の代替にはならない。
+                            </details>
+                        </div>
+
+                        <div class="quiz-card">
+                            <div class="quiz-q">
+                                <span class="badge k2">Q3 K2</span>
+                                &nbsp;静的解析ツールを開発者のコミット前に実行することの利点を、シフトレフトの観点から説明せよ。
+                            </div>
+                            <details>
+                                <summary>解答例を見る</summary>
+                                コード実行を伴わずに早期に欠陥を検出できるため、Chapter 3
+                                で学んだ「早期テストの原則」およびシフトレフト（Chapter 2,
+                                2.1.5節）を実践でき、後工程での修正コストを抑制できる。
+                            </details>
+                        </div>
+                    </section>
+
+                    <!-- 8. 参照URL -->
+                    <section id="refs">
+                        <h2><i class="ti ti-link"></i>8. 参照URL一覧（全節共通）</h2>
+
+                        <div class="ref-group">
+                            <div class="ref-group-title">公式一次情報源</div>
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB CTFL v4.0.1 公式シラバス PDF</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB CTFL v4.0 公式ページ</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB CTFL v4.0 リリース発表</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqb.org/help/ctfl-v40/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB CTFL v4.0 FAQ</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://glossary.istqb.org/en_US/term/keyword-driven-testing"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >keyword-driven testing — ISTQB公式用語集</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <div class="ref-group-title">
+                                公式内容のミラー・要約（ASTQB＝米国ISTQB加盟団体）
+                            </div>
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://astqb.org/6-1-tool-support-for-testing/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >6.1 Tool Support for Testing（ASTQB）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://astqb.org/6-2-benefits-and-risks-of-test-automation/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >6.2 Benefits and Risks of Test Automation（ASTQB）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <div class="ref-group-title">学習補助・比較解説</div>
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB CTFL v4.0 Syllabus Explained:
+                                        Chapter-by-Chapter（ISTQB Guru）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >ISTQB CTFL v4.0 Overview（章構成の新旧比較）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://medium.com/@mehmetbarannakipoglu/test-tools-chapter-vi-of-istqb-ctfl-5b0a93a79b93"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Test Tools - Chapter VI of ISTQB — CTFL</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/test-tool-classification/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Test Tool Classification（一般解説）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/potential-benefits-and-risks-of-tool-support-for-testing-for-all-tools/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Potential Benefits and Risks of Tool Support for
+                                        Testing（一般解説）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/special-considerations-for-some-types-of-tools/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Special Considerations for Some Types of
+                                        Tools（一般解説）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <div class="ref-group-title">
+                                2026年時点の実務ツール市場動向（発展知識・シラバス範囲外）
+                            </div>
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://www.vervali.com/blog/web-services-testing-automation-tools-comparison-2026-selenium-vs-playwright-vs-cypress-and-beyond/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Selenium vs Playwright vs Cypress 2026（Vervali
+                                        Systems）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://tech-insider.org/playwright-vs-cypress-vs-selenium-2026/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Playwright vs Cypress vs Selenium: 2026 比較（Tech
+                                        Insider）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://testdino.com/blog/best-test-automation-tools"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Best Test Automation Tools in 2026（TestDino）</a
+                                    >
+                                </li>
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://stackoverflow.blog/2026/06/15/selenium-vs-cypress-vs-playwright-choosing-your-test-automation-framework/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Selenium vs Cypress vs Playwright（Stack Overflow Blog,
+                                        2026）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <div class="ref-group-title">旧シラバス（比較参考用）</div>
+                            <ul class="ref-list">
+                                <li>
+                                    <i class="ti ti-external-link"></i
+                                    ><a
+                                        href="https://astqb.org/assets/documents/CTFL-2018-Syllabus.pdf"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >Certified Tester Foundation Level Syllabus v3.1.1（GASQ,
+                                        PDF）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <footer>
+                        本ガイドは学習補助を目的とした二次資料です。試験対策の最終確認には、必ず
+                        <a
+                            href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                            target="_blank"
+                            rel="noopener"
+                            >ISTQB® 公式シラバス</a
+                        >
+                        の原文をご確認ください。ISTQB® は International Software Testing
+                        Qualifications Board の登録商標です。
+                    </footer>
+                </div>
+            </main>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+        <script>
+            // 各図はJSテンプレートリテラルとして保持する（<div class="mermaid">への直書きはしない）。
+            // 理由: HTML編集・整形時にインデント混入や改行分断が起きても、この定数はテキストとして
+            // 安全に保持され、Mermaidパーサーに渡す直前まで構造が保証される。
+            var DIAGRAMS = {
+                'diag-0':
+                    'flowchart TB\n' +
+                    '    subgraph PROC["基本テストプロセス Chapter1"]\n' +
+                    '        direction LR\n' +
+                    '        P1["テスト計画"] --> P2["監視とコントロール"]\n' +
+                    '        P2 --> P3["テスト分析"]\n' +
+                    '        P3 --> P4["テスト設計"]\n' +
+                    '        P4 --> P5["テスト実装"]\n' +
+                    '        P5 --> P6["テスト実行"]\n' +
+                    '        P6 --> P7["テスト完了"]\n' +
+                    '    end\n' +
+                    '    T2["テスト管理ツール"] -.支援.-> P1\n' +
+                    '    T2 -.支援.-> P2\n' +
+                    '    T2 -.支援.-> P7\n' +
+                    '    T3["静的テストツール"] -.支援.-> P3\n' +
+                    '    T4["テスト設計・実装ツール"] -.支援.-> P4\n' +
+                    '    T4 -.支援.-> P5\n' +
+                    '    T5["テスト実行・カバレッジツール"] -.支援.-> P5\n' +
+                    '    T5 -.支援.-> P6\n' +
+                    '    T6["非機能テストツール"] -.支援.-> P6\n' +
+                    '    T7["DevOpsツール"] -.支援.-> P1\n' +
+                    '    T7 -.支援.-> P6\n' +
+                    '    T8["コラボレーションツール"] -.支援.-> P3\n' +
+                    '    T9["スケーラビリティ支援ツール"] -.支援.-> P5',
+
+                'diag-1':
+                    'quadrantChart\n' +
+                    '    title E2Eテスト自動化ツールの傾向 2026年時点\n' +
+                    '    x-axis "レガシー環境向け" --> "モダンWeb向け"\n' +
+                    '    y-axis "学習コスト高" --> "学習コスト低"\n' +
+                    '    quadrant-1 "モダンチームに最適"\n' +
+                    '    quadrant-2 "学習容易だが対象限定"\n' +
+                    '    quadrant-3 "エンタープライズ向け高機能"\n' +
+                    '    quadrant-4 "汎用性と学習容易さの両立"\n' +
+                    '    "Playwright": [0.8, 0.75]\n' +
+                    '    "Selenium": [0.35, 0.3]\n' +
+                    '    "Cypress": [0.7, 0.65]',
+
+                'diag-2':
+                    'flowchart LR\n' +
+                    '    A["ツール導入の意思決定"] --> B{"継続的に投資対効果を評価しているか"}\n' +
+                    '    B -->|"Yes"| C["利点が実現: 効率と品質が向上"]\n' +
+                    '    B -->|"No"| D["リスクが顕在化: 過度な依存や相互運用性の問題"]\n' +
+                    '    C --> E["テストプロセス全体が改善する"]\n' +
+                    '    D --> F["ツール利用が形骸化する"]',
+
+                'diag-3':
+                    'flowchart TD\n' +
+                    '    S1["キャプチャ・リプレイ方式"] --> S2["データ駆動テスト"]\n' +
+                    '    S2 --> S3["キーワード駆動テスト"]\n' +
+                    '    S1 -.欠点.-> N1["変更に弱くスケールしない"]\n' +
+                    '    S2 -.利点.-> N2["データ追加だけでテスト拡張が可能"]\n' +
+                    '    S3 -.利点.-> N3["非技術者もテスト定義に参加可能"]',
+
+                'diag-4':
+                    'flowchart TD\n' +
+                    '    TM["テスト管理ツール"]\n' +
+                    '    RM["要求管理ツール"]\n' +
+                    '    CM["構成管理・バージョン管理ツール"]\n' +
+                    '    DM["欠陥管理ツール"]\n' +
+                    '    CI["CI・CDツール"]\n' +
+                    '    RM <--> TM\n' +
+                    '    CM <--> TM\n' +
+                    '    DM <--> TM\n' +
+                    '    CI <--> TM\n' +
+                    '    TM --> REPORT["トレーサビリティ・進捗レポート"]',
+
+                'diag-5':
+                    'flowchart TD\n' +
+                    '    A["組織の成熟度・強み弱みを評価"] --> B["ツール導入の目的・要件を明確化"]\n' +
+                    '    B --> C["候補ツールを機能・サポート・コストで評価"]\n' +
+                    '    C --> D["パイロットプロジェクトで試行"]\n' +
+                    '    D --> E{"パイロットの結果は目的に合致するか"}\n' +
+                    '    E -->|"Yes"| F["ガイドラインを策定し段階的に組織展開"]\n' +
+                    '    E -->|"No"| G["要件を見直すか別ツールを再評価"]\n' +
+                    '    F --> H["継続的なトレーニングと教訓収集"]',
+            };
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'dark',
+                themeVariables: {
+                    background: '#12151b',
+                    primaryColor: '#1a2733',
+                    primaryTextColor: '#e7eaee',
+                    primaryBorderColor: '#3a4a5a',
+                    lineColor: '#5a6472',
+                    secondaryColor: '#2a1f3d',
+                    tertiaryColor: '#1a1e26',
+                    textColor: '#e7eaee',
+                    fontFamily: 'sans-serif',
+                    fontSize: '14px',
+                },
+                flowchart: { htmlLabels: true, curve: 'basis', padding: 20 },
+                quadrantChart: {
+                    chartWidth: 800,
+                    chartHeight: 600,
+                    pointRadius: 8,
+                    pointLabelFontSize: 14,
+                },
+                securityLevel: 'loose',
+            });
+
+            // SVG後処理: 絶対px指定の除去、viewBox下端見切れの解消、自然幅+maxWidth:100%化
+            function applySvgFixups(svgEl, chart) {
+                svgEl.removeAttribute('width');
+                svgEl.removeAttribute('height');
+                svgEl.style.height = 'auto';
+                svgEl.style.overflow = 'visible';
+                svgEl.style.marginBottom = '4px';
+
+                var viewBox = svgEl.getAttribute('viewBox');
+                if (!viewBox) return;
+                var parts = viewBox.split(/\s+/).map(Number);
+                if (
+                    parts.length !== 4 ||
+                    parts.some(function (n) {
+                        return !isFinite(n);
+                    })
+                )
+                    return;
+
+                var trimmed = chart.trim();
+                var isSequenceOrState =
+                    trimmed.indexOf('sequenceDiagram') === 0 ||
+                    trimmed.indexOf('stateDiagram') === 0;
+                var extraHeight = isSequenceOrState ? 110 : 15;
+                var x = parts[0],
+                    y = parts[1],
+                    w = parts[2],
+                    h = parts[3];
+
+                svgEl.style.width = w + 'px';
+                svgEl.style.maxWidth = '100%';
+                svgEl.setAttribute('viewBox', x + ' ' + y + ' ' + w + ' ' + (h + extraHeight));
+            }
+
+            async function renderAllDiagrams() {
+                if (document.fonts && document.fonts.ready) {
+                    try {
+                        await document.fonts.ready;
+                    } catch (e) {
+                        /* no-op */
+                    }
+                }
+                for (var id in DIAGRAMS) {
+                    if (!Object.prototype.hasOwnProperty.call(DIAGRAMS, id)) continue;
+                    var container = document.getElementById(id);
+                    if (!container) continue;
+                    var src = DIAGRAMS[id];
+                    try {
+                        var result = await mermaid.render('svg-' + id, src);
+                        container.innerHTML = result.svg;
+                        var svgEl = container.querySelector('svg');
+                        if (svgEl) applySvgFixups(svgEl, src);
+                    } catch (err) {
+                        console.error('Mermaid render failed for ' + id + ':', err);
+                        container.innerHTML =
+                            '<div class="diagram-error">図の描画に失敗しました（' +
+                            id +
+                            '）: ' +
+                            (err && err.message ? err.message : String(err)) +
+                            '</div>';
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                renderAllDiagrams();
+
+                // sidebar active state via IntersectionObserver
+                var navLinks = Array.prototype.slice.call(document.querySelectorAll('.nav-link'));
+                var idToLink = {};
+                navLinks.forEach(function (link) {
+                    var id = link.getAttribute('data-target');
+                    idToLink[id] = link;
+                    link.addEventListener('click', function () {
+                        var el = document.getElementById(id);
+                        if (el) {
+                            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        }
+                    });
+                });
+
+                var targets = Object.keys(idToLink)
+                    .map(function (id) {
+                        return document.getElementById(id);
+                    })
+                    .filter(Boolean);
+
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            var link = idToLink[entry.target.id];
+                            if (!link) return;
+                            if (entry.isIntersecting) {
+                                navLinks.forEach(function (l) {
+                                    l.classList.remove('active');
+                                });
+                                link.classList.add('active');
+                            }
+                        });
+                    },
+                    { rootMargin: '-15% 0px -70% 0px', threshold: 0 },
+                );
+
+                targets.forEach(function (t) {
+                    observer.observe(t);
+                });
+            });
+        </script>
+    </body>
+</html>

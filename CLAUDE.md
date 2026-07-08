@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 154 specs)
+bun test             # ユニットテスト (bun test, 161 specs)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 33 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 36 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -97,6 +97,9 @@ Next.js App Router 構成:
 - `app/istqb-ctfl-complete-guide/istqb-ctfl-complete-guide.css` — ISTQB CTFL v4.0 ガイド固有スタイル
 - `app/istqb-ctfl-complete-guide/page.tsx` — ISTQB CTFL v4.0 ガイドページ
 - `app/istqb-ctfl-complete-guide/NavBar.tsx` — CTFL ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ctfl-v4-chapter1-fundamentals/istqb-ctfl-v4-chapter1-fundamentals.css` — CTFL v4.0 第1章ガイド固有スタイル
+- `app/istqb-ctfl-v4-chapter1-fundamentals/page.tsx` — CTFL v4.0 第1章ガイドページ
+- `app/istqb-ctfl-v4-chapter1-fundamentals/NavBar.tsx` — CTFL v4.0 第1章ページ固有スティッキーナビ
 - `app/software-testing-methodologies-guide.css` — テスト手法ガイド固有スタイル
 - `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
 - `app/istqb-ctal-tae-complete-guide.css` — テスト自動化(CTAL-TAE)ガイド固有スタイル
@@ -254,6 +257,37 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
 | `.pyramid-layer` / `.py-unit/int/func/e2e` | テストピラミッド図 |
 | `.tab-btn` / `.tab-panel` | タブ UI |
 
+### globals.css のグローバルスタイル干渉（サイドバー付き独自レイアウト）
+
+サイドバー＋メインコンテンツの2カラムレイアウトを持つページでは、`globals.css` の汎用セレクターが干渉して**大きな余白崩れ**を引き起こす既知パターンがある。
+
+**干渉する globals.css の定義（抜粋）:**
+
+| セレクター | 干渉の症状 |
+|---|---|
+| `section { padding-top: 5rem }` | 全 `<section>` に 80px の上余白 → ヒーロー等が押し下がる |
+| `.hero { min-height: 100vh; display: flex; justify-content: center }` | ヒーローが全画面高さになりコンテンツが中央に押し下がる |
+| `main { max-width: 1100px; margin: 0 auto }` | `<main>` 幅が 1100px に制限・中央寄せになる |
+
+**必須リセット（ページ固有 CSS に追加）:**
+
+```css
+/* globals の section { padding-top: 5rem } をリセット */
+.my-page-layout section { padding-top: 0; }
+
+/* globals の .hero { min-height: 100vh } をリセット */
+.my-page-layout .hero { min-height: 0; display: block; padding-top: 0; }
+
+/* globals の main { max-width: 1100px } をリセット */
+.my-page-layout .main { max-width: none; margin: 0; }
+```
+
+**ヘッダーオフセットの二重カウント禁止:**
+
+`layout-content` が既に `padding-top: 60px`（ヘッダー分）を持つため、ページ固有の layout wrapper に `margin-top: 60px` を追加してはならない。追加すると 60px の余白が二重になる。
+
+詳細は `.claude/skills/html-to-nextjs-migration/SKILL.md` の Phase 3b を参照。
+
 ### 開発・デバッグ用スクリプトの管理ルール
 
 一時的に作成する開発・調査用スクリプトと、永続的にリポジトリに残すスクリプトを厳密に区別して管理します。
@@ -317,6 +351,7 @@ bun test        # ユニットテスト成功
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
 | `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
+| `Ctfl-v4-chapter1-fundamentals.html` | `/istqb-ctfl-v4-chapter1-fundamentals` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -345,8 +380,8 @@ bun test        # ユニットテスト成功
 
 ```text
 コンテキスト:
-- **全ガイド移行完了**: プロジェクトルートに存在した全35ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました（ISTQB CTFL v4.0 ガイドを含む）。
-- 合計 35 ルート（ホーム + 34 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全36ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました（ISTQB CTFL v4.0 ガイドを含む）。
+- 合計 36 ルート（ホーム + 35 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 

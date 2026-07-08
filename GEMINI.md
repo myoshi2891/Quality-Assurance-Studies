@@ -95,6 +95,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/unit-testing-guide/page.tsx` (ユニットテスト完全ガイド)
 - `app/istqb-ctfl-at-complete-guide/page.tsx` (アジャイル(CTFL-AT)完全ガイド)
 - `app/istqb-ctfl-complete-guide/page.tsx` (ISTQB CTFL v4.0 完全解説ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ctfl-v4-chapter1-fundamentals/page.tsx` (CTFL v4.0 第1章 テストの基礎、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tae-complete-guide/page.tsx` (テスト自動化 CTAL-TAE 完全ガイド)
 - `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
@@ -182,6 +183,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
 | `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
+| `Ctfl-v4-chapter1-fundamentals.html` | `/istqb-ctfl-v4-chapter1-fundamentals` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -214,8 +216,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ```text
 コンテキスト:
 - 最新 HEAD: `e80058b`
-- **全ガイド移行完了**: プロジェクトルートに存在した全34ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 34 ルート（ホーム + 33 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全36ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 36 ルート（ホーム + 35 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

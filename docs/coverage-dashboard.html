@@ -1144,7 +1144,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
           </tr>
           <tr>
             <th scope="row">System Testing (E2E)</th>
-            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 33 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 33 passed。</td>
+            <td>Playwright (@1.60.0) を導入し、`e2e/smoke.e2e.ts` で全 36 ルートに HTTP 200 / Header / h1 / console error 0 を自動検証。`bun run e2e` で 36 passed。</td>
             <td><span class="status" data-st="full">Smoke · 100%</span></td>
             </tr>
             <tr>
@@ -1207,6 +1207,7 @@ const pages = [
   { path: '/istqb-ctal-tm-complete-guide', topic: 'ISTQB Advanced — Test Manager', tested: true },
   { path: '/istqb-ctal-tta-complete-guide', topic: 'ISTQB Advanced — Technical Test Analyst', tested: true },
   { path: '/istqb-ct-ut-complete-guide', topic: 'ISTQB Specialist — Usability', tested: true },
+  { path: '/istqb-ctfl-v4-chapter1-fundamentals', topic: 'ISTQB Foundation — CTFL v4 Ch1', tested: true },
   { path: '/istqb-ctel-itp-atp-complete-guide', topic: 'ISTQB Expert — Assessing', tested: true },
   { path: '/istqb-ctel-itp-itpi-complete-guide', topic: 'ISTQB Expert — Implementing', tested: true },
   { path: '/istqb-ctel-tm-sm-complete-guide', topic: 'ISTQB Expert — Strategic', tested: true },
@@ -1381,6 +1382,7 @@ const DATA = {
       'tests/istqb-ctal-tm-complete-guide/page.test.tsx',
       'tests/istqb-ctal-tta-complete-guide/page.test.tsx',
       'tests/istqb-ct-ut-complete-guide/page.test.tsx',
+      'tests/istqb-ctfl-v4-chapter1-fundamentals/page.test.tsx',
       'tests/istqb-ctel-itp-atp-complete-guide/page.test.tsx',
       'tests/istqb-ctel-itp-itpi-complete-guide/page.test.tsx',
       'tests/istqb-ctel-tm-sm-complete-guide/page.test.tsx',
