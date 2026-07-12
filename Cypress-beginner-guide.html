@@ -1,0 +1,2429 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cypress入門ガイド：初学者のためのステップバイステップ解説</title>
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.47.0/dist/tabler-icons.min.css"
+        />
+        <style>
+            :root {
+                --color-background-primary: #0c0d10;
+                --color-background-secondary: #15171c;
+                --color-background-tertiary: #1c1f26;
+                --color-background-info: #14202c;
+                --color-background-danger: #2a1618;
+                --color-background-success: #10241b;
+                --color-background-warning: #2a2113;
+
+                --color-text-primary: #e9eaee;
+                --color-text-secondary: #a7adba;
+                --color-text-tertiary: #6c7280;
+                --color-text-info: #7cb6ea;
+                --color-text-danger: #e8918f;
+                --color-text-success: #7fd7ab;
+                --color-text-warning: #e8c17e;
+
+                --color-border-primary: #2a2d37;
+                --color-border-secondary: #23262e;
+                --color-border-tertiary: #1a1c22;
+
+                --font-sans:
+                    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+                    'Noto Sans JP', 'Yu Gothic', sans-serif;
+                --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+                --border-radius-md: 8px;
+                --border-radius-lg: 12px;
+                --border-radius-xl: 16px;
+
+                --c-purple-500: #a78bfa;
+                --c-teal-500: #5eead4;
+                --c-coral-500: #fb9271;
+                --c-pink-500: #f472b6;
+                --c-purple-900: #241b3d;
+                --c-teal-900: #0e2b28;
+                --c-coral-900: #331a10;
+                --c-pink-900: #331726;
+
+                --sidebar-width: 300px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                margin: 0;
+                background: var(--color-background-primary);
+                color: var(--color-text-primary);
+                font-family: var(--font-sans);
+                font-size: 16px;
+                line-height: 1.7;
+                font-weight: 400;
+                display: flex;
+                min-height: 100vh;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                width: var(--sidebar-width);
+                flex-shrink: 0;
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--color-background-secondary);
+                border-right: 1px solid var(--color-border-tertiary);
+                padding: 28px 20px 60px 20px;
+            }
+            .sidebar-brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 6px;
+                color: var(--color-text-primary);
+                font-weight: 500;
+                font-size: 16px;
+            }
+            .sidebar-brand i {
+                font-size: 20px;
+                color: var(--c-teal-500);
+            }
+            .sidebar-sub {
+                color: var(--color-text-tertiary);
+                font-size: 12px;
+                margin-bottom: 24px;
+                padding-bottom: 20px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+            }
+            .sidebar nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sidebar nav li a {
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+                color: var(--color-text-secondary);
+                text-decoration: none;
+                font-size: 13px;
+                padding: 8px 10px;
+                border-radius: var(--border-radius-md);
+                line-height: 1.4;
+            }
+            .sidebar nav li a:hover {
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+            }
+            .sidebar nav li a .num {
+                flex-shrink: 0;
+                color: var(--c-purple-500);
+                font-family: var(--font-mono);
+                font-size: 11px;
+                padding-top: 1px;
+            }
+
+            /* ---------- Main content ---------- */
+            .main-content {
+                flex: 1;
+                min-width: 0;
+                padding: 56px 64px 120px 64px;
+            }
+            .content-inner {
+                max-width: 980px;
+            }
+
+            .doc-header {
+                margin-bottom: 40px;
+            }
+            .doc-eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--c-teal-500);
+                font-size: 13px;
+                font-weight: 500;
+                letter-spacing: 0.03em;
+                margin-bottom: 16px;
+            }
+            h1 {
+                font-size: 34px;
+                font-weight: 500;
+                line-height: 1.3;
+                margin: 0 0 18px 0;
+                color: var(--color-text-primary);
+            }
+            .doc-lede {
+                color: var(--color-text-secondary);
+                font-size: 16px;
+                line-height: 1.75;
+                max-width: 760px;
+            }
+            .doc-lede a {
+                color: var(--color-text-info);
+            }
+
+            h2 {
+                font-size: 24px;
+                font-weight: 500;
+                margin: 64px 0 20px 0;
+                padding-top: 16px;
+                border-top: 1px solid var(--color-border-tertiary);
+                color: var(--color-text-primary);
+                scroll-margin-top: 24px;
+            }
+            h2:first-of-type {
+                border-top: none;
+                padding-top: 0;
+            }
+            h3 {
+                font-size: 19px;
+                font-weight: 500;
+                margin: 36px 0 14px 0;
+                color: var(--color-text-primary);
+                scroll-margin-top: 24px;
+            }
+            h4 {
+                font-size: 16px;
+                font-weight: 500;
+                margin: 24px 0 10px 0;
+                color: var(--color-text-primary);
+            }
+
+            p {
+                color: var(--color-text-secondary);
+                margin: 0 0 16px 0;
+            }
+            a {
+                color: var(--color-text-info);
+            }
+            strong {
+                color: var(--color-text-primary);
+                font-weight: 500;
+            }
+            ul,
+            ol {
+                color: var(--color-text-secondary);
+                padding-left: 22px;
+                margin: 0 0 18px 0;
+            }
+            li {
+                margin-bottom: 8px;
+            }
+            li::marker {
+                color: var(--c-purple-500);
+            }
+
+            code {
+                font-family: var(--font-mono);
+                font-size: 13px;
+                background: var(--color-background-tertiary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: 5px;
+                padding: 2px 6px;
+                color: var(--c-teal-500);
+            }
+
+            pre {
+                background: var(--color-background-secondary) !important;
+                border: 1px solid var(--color-border-primary);
+                border-radius: var(--border-radius-lg);
+                padding: 18px 20px !important;
+                overflow-x: auto;
+                margin: 0 0 22px 0 !important;
+                font-size: 13px !important;
+                line-height: 1.6 !important;
+            }
+            pre code {
+                background: none;
+                border: none;
+                padding: 0;
+                color: inherit;
+                font-size: 13px !important;
+            }
+            .code-label {
+                font-family: var(--font-mono);
+                font-size: 11px;
+                color: var(--color-text-tertiary);
+                margin-bottom: 6px;
+                text-transform: none;
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 0 0 24px 0;
+                border: 1px solid var(--color-border-primary);
+                border-radius: var(--border-radius-lg);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+            }
+            thead th {
+                text-align: left;
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                font-weight: 500;
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--color-border-primary);
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 12px 16px;
+                color: var(--color-text-secondary);
+                border-bottom: 1px solid var(--color-border-tertiary);
+                vertical-align: top;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody td strong {
+                color: var(--color-text-primary);
+            }
+            tbody td code {
+                white-space: nowrap;
+            }
+
+            /* ---------- Callouts / citations ---------- */
+            .source-note {
+                display: flex;
+                gap: 10px;
+                align-items: flex-start;
+                font-size: 13px;
+                color: var(--color-text-tertiary);
+                border-left: 2px solid var(--c-purple-500);
+                padding: 4px 0 4px 14px;
+                margin: 4px 0 28px 0;
+            }
+            .source-note i {
+                color: var(--c-purple-500);
+                font-size: 14px;
+                margin-top: 2px;
+                flex-shrink: 0;
+            }
+            .source-note a {
+                color: var(--color-text-secondary);
+            }
+            .source-note a:hover {
+                color: var(--color-text-info);
+            }
+
+            .callout {
+                display: flex;
+                gap: 12px;
+                padding: 16px 18px;
+                border-radius: var(--border-radius-md);
+                border: 1px solid var(--color-border-primary);
+                margin: 0 0 22px 0;
+                font-size: 14px;
+            }
+            .callout i {
+                flex-shrink: 0;
+                font-size: 17px;
+                margin-top: 1px;
+            }
+            .callout p {
+                margin: 0;
+                color: var(--color-text-secondary);
+            }
+            .callout-info {
+                background: var(--color-background-info);
+            }
+            .callout-info i {
+                color: var(--color-text-info);
+            }
+            .callout-danger {
+                background: var(--color-background-danger);
+            }
+            .callout-danger i {
+                color: var(--color-text-danger);
+            }
+            .callout-success {
+                background: var(--color-background-success);
+            }
+            .callout-success i {
+                color: var(--color-text-success);
+            }
+            .callout-warning {
+                background: var(--color-background-warning);
+            }
+            .callout-warning i {
+                color: var(--color-text-warning);
+            }
+
+            /* ---------- Mermaid ---------- */
+            .mermaid-wrap {
+                text-align: center;
+                margin: 8px 0 28px 0;
+                padding: 24px;
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-primary);
+                border-radius: var(--border-radius-lg);
+                overflow-x: auto;
+            }
+            .mermaid-wrap pre.mermaid {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: none !important;
+                border: none !important;
+                display: inline-block;
+            }
+            .mermaid svg {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                overflow: visible;
+            }
+
+            /* ---------- Section badges ---------- */
+            .sec-badge {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: 30px;
+                border-radius: var(--border-radius-md);
+                background: var(--c-purple-900);
+                color: var(--c-purple-500);
+                font-family: var(--font-mono);
+                font-size: 13px;
+                margin-right: 12px;
+                vertical-align: middle;
+            }
+
+            footer.doc-footer {
+                margin-top: 80px;
+                padding-top: 24px;
+                border-top: 1px solid var(--color-border-tertiary);
+                color: var(--color-text-tertiary);
+                font-size: 13px;
+            }
+
+            @media (max-width: 900px) {
+                .sidebar {
+                    display: none;
+                }
+                .main-content {
+                    padding: 32px 24px 80px 24px;
+                }
+                h1 {
+                    font-size: 26px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <aside class="sidebar">
+            <div class="sidebar-brand"><i class="ti ti-flask-2"></i>Cypress入門ガイド</div>
+            <div class="sidebar-sub">
+                初学者のためのステップバイステップ解説<br />2026年7月時点の最新情報に基づく
+            </div>
+            <nav>
+                <ul>
+                    <li>
+                        <a href="#sec-1"><span class="num">01</span><span>Cypressとは何か</span></a>
+                    </li>
+                    <li>
+                        <a href="#sec-2"
+                            ><span class="num">02</span><span>なぜCypressが選ばれるのか</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-3"
+                            ><span class="num">03</span
+                            ><span>Cypress vs Selenium vs Playwright</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-4"
+                            ><span class="num">04</span><span>インストール手順</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-5"
+                            ><span class="num">05</span><span>プロジェクト構成を理解する</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-6"
+                            ><span class="num">06</span><span>はじめてのテストを書く</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-7"
+                            ><span class="num">07</span
+                            ><span>テストの構造：describe・it・hooks</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-8"
+                            ><span class="num">08</span
+                            ><span>E2Eテスト vs コンポーネントテスト</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-9"
+                            ><span class="num">09</span
+                            ><span>セレクター戦略とベストプラクティス</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-10"
+                            ><span class="num">10</span><span>コマンドラインの使い方</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-11"><span class="num">11</span><span>CI/CDへの統合</span></a>
+                    </li>
+                    <li>
+                        <a href="#sec-12"
+                            ><span class="num">12</span><span>Cypress CloudとAI機能</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-13"
+                            ><span class="num">13</span><span>トレードオフと制限事項</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-14"
+                            ><span class="num">14</span><span>まとめと次のステップ</span></a
+                        >
+                    </li>
+                    <li>
+                        <a href="#sec-15"
+                            ><span class="num">15</span><span>参考文献・出典一覧</span></a
+                        >
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <div class="content-inner">
+                <div class="doc-header">
+                    <div class="doc-eyebrow">
+                        <i class="ti ti-brand-cypress"></i>E2E / COMPONENT TESTING GUIDE
+                    </div>
+                    <h1>Cypress入門ガイド：初学者のためのステップバイステップ解説</h1>
+                    <p class="doc-lede">
+                        本ガイドは、Cypress公式ドキュメント（<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress?</a
+                        >を中心に）および<a
+                            href="https://www.cypress.io/"
+                            target="_blank"
+                            rel="noopener"
+                            >cypress.io</a
+                        >公式サイト、比較対象としてPlaywright公式サイトの情報をもとに、2026年7月時点の最新情報として作成しています。各セクションの末尾に参照元URLを明記しているので、詳細を確認したい場合はそちらもあわせてご覧ください。
+                    </p>
+                </div>
+
+                <!-- ============ 1 ============ -->
+                <h2 id="sec-1"><span class="sec-badge">01</span>Cypressとは何か</h2>
+
+                <h3>1-1. 概要</h3>
+                <p>
+                    Cypressは、モダンなWebアプリケーションを開発するチームのための「品質プラットフォーム」です。E2Eテスト、コンポーネントテスト、アクセシビリティチェック、そしてテストカバレッジの可視化までを一つのワークフローにまとめており、ローカル環境でもCI環境でも同じ仕組みで動作します。
+                </p>
+                <p>
+                    多くのチームは「フロントエンドのテストをもっと良い方法で書きたい」という理由でCypressを使い始めますが、チームやアプリケーションが成長するにつれて、単なるテストツール以上の役割を果たすようになるのが特徴です。1人の開発者が最初のテストを書く場面から、QAチームが数千のテストスペックを管理する場面、そしてリリース判断を行うエンジニアリングリーダーまで、同じプラットフォーム上でカバーできます。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Cypress Documentation</a
+                        ></span
+                    >
+                </div>
+
+                <h3>1-2. Cypressが提供する4つの製品</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>製品</th>
+                                <th>概要</th>
+                                <th>位置づけ</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Cypress App</strong></td>
+                                <td>
+                                    テストの作成・実行を行う、無料かつオープンソースのローカルアプリ
+                                </td>
+                                <td>無料</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cypress Cloud</strong></td>
+                                <td>テスト結果の記録・可視化・分析を行う有料サービス</td>
+                                <td>有料</td>
+                            </tr>
+                            <tr>
+                                <td><strong>UI Coverage</strong></td>
+                                <td>
+                                    アプリの各ページ・コンポーネントに対するテストカバレッジを可視化するプレミアム機能
+                                </td>
+                                <td>プレミアム</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Cypress Accessibility</strong></td>
+                                <td>アクセシビリティ上の問題を自動検出するプレミアム機能</td>
+                                <td>プレミアム</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    Cypress
+                    AppはGitHub上でオープンソースとして公開されており、テストコード自体は特定の有料サービスに縛られることなく単独で動作します。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress#Products"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Products</a
+                        ></span
+                    >
+                </div>
+
+                <h3>1-3. Cypressのミッション</h3>
+                <p>
+                    Cypressチームは「実際に機能するテストプロセス」を作ることをミッションに掲げています。ドキュメントは「何を」だけでなく「なぜ」を理解できるように書かれるべきだという考え方に基づいており、オープンソースエコシステムを大切にする姿勢を明言しています。テストコードは特定の有料サービスに結合されることなく、常に単独で動作するように設計されています。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress#Our-mission"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Our mission</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 2 ============ -->
+                <h2 id="sec-2"><span class="sec-badge">02</span>なぜCypressが選ばれるのか</h2>
+
+                <h3>2-1. チームの成長段階に合わせた使い方</h3>
+                <p>
+                    Cypressの使い方は、チームの成熟度に応じて段階的に広がっていく設計になっています。
+                </p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>段階</th>
+                                <th>やること</th>
+                                <th>得られるもの</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1. 導入期</td>
+                                <td>Cypress Appをインストールし、開発と同時にテストを書く</td>
+                                <td>
+                                    Time Travel（実行状態のスナップショット）、自動待機、Studio
+                                    AIによるアサーション提案
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2. CI移行期</td>
+                                <td>Cypress CloudにテストをレコードしCIパイプラインに組み込む</td>
+                                <td>
+                                    Test Replay、フレーキーテスト検知、Branch Review、Smart
+                                    Orchestration
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3. スケール期</td>
+                                <td>UI CoverageやCypress Accessibilityを導入</td>
+                                <td>テストカバレッジの可視化、アクセシビリティ問題の継続的検出</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress#How-Cypress-grows-with-your-team"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - How Cypress grows with your team</a
+                        ></span
+                    >
+                </div>
+
+                <h3>2-2. Cypress Appの主な機能</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>機能</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Time Travel</td>
+                                <td>
+                                    テスト実行中の各コマンドのスナップショットを記録し、実行後にホバーして状態を確認できる
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Debuggability</td>
+                                <td>
+                                    ブラウザのDevToolsから直接デバッグでき、読みやすいエラーメッセージとスタックトレースを提供
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Automatic Waiting</td>
+                                <td>
+                                    コマンドやアサーションの完了を自動的に待つため、waitやsleepを手動で書く必要がない
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Spies, Stubs, and Clocks</td>
+                                <td>関数やサーバーレスポンス、タイマーの挙動を検証・制御できる</td>
+                            </tr>
+                            <tr>
+                                <td>Network Traffic Control</td>
+                                <td>サーバーを介さずにネットワーク通信をスタブ化・制御できる</td>
+                            </tr>
+                            <tr>
+                                <td>Consistent Results</td>
+                                <td>
+                                    SeleniumやWebDriverを使わない独自アーキテクチャにより、flake（不安定な失敗）の少ない一貫した結果を得られる
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cypress Studio / Studio AI</td>
+                                <td>
+                                    アプリ内の操作を記録してテストを自動生成し、Studio
+                                    AIがアサーションを提案する
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cross Browser Testing</td>
+                                <td>
+                                    Firefox、Chrome系ブラウザ（Edge・Electron含む）でローカル・CI双方で実行可能
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress#Features"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Features</a
+                        ></span
+                    >
+                </div>
+
+                <h3>2-3. アーキテクチャ図解</h3>
+                <p>
+                    Cypressの最大の特徴は「ブラウザの外側からリモート操作する」のではなく「アプリケーションと同じ実行ループの中で動作する」という点です。裏側にはNode.jsのサーバープロセスがあり、Cypress本体と常に通信・同期しながらタスクを分担しています。これにより、ブラウザ内外の出来事をCypressがすべて把握でき、他のツールよりも一貫性の高い結果を実現しています。
+                </p>
+
+                <div class="mermaid-wrap">
+                    <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': false, 'curve': 'linear'}}}%%
+flowchart TB
+    subgraph SEL["従来型ツール（例：Selenium）"]
+        direction LR
+        A1["テストコード"] --> A2["WebDriverプロトコル通信"]
+        A2 --> A3["ブラウザを外部から遠隔操作"]
+    end
+    subgraph CY["Cypress"]
+        direction LR
+        B1["Node.jsサーバープロセス"] <--> B2["ブラウザ内で動くテストランナー"]
+        B2 --> B3["アプリケーションと同じ実行ループで動作"]
+    end
+</pre
+                    >
+                </div>
+
+                <p>
+                    この「ブラウザ内で動く」という設計により、window・document・DOM要素・アプリケーションのインスタンス・タイマー・Service
+                    Workerなど、あらゆるオブジェクトへネイティブにアクセスできます。また、<code>cy.session()</code>によってログイン状態をキャッシュできるため、テストごとにログイン画面を経由する必要がなくなり実行時間を短縮できます。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress#Key-Differences"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Key Differences（Architecture / Native access /
+                            Shortcuts）</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 3 ============ -->
+                <h2 id="sec-3">
+                    <span class="sec-badge">03</span>Cypress vs Selenium vs
+                    Playwright：アーキテクチャの違い
+                </h2>
+
+                <h3>3-1. 実行モデルの比較</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>Cypress</th>
+                                <th>Selenium</th>
+                                <th>Playwright</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>実行モデル</td>
+                                <td>
+                                    ブラウザと同じ実行ループ内で動作。裏側のNode.jsプロセスと常時通信
+                                </td>
+                                <td>WebDriverプロトコル経由でブラウザを外部から遠隔操作</td>
+                                <td>
+                                    Node.jsプロセスからブラウザを外部制御し、非同期（async/await）で操作を待つ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>対応ブラウザ</td>
+                                <td>
+                                    Chrome系（Chrome・Edge・Electron）、Firefox、WebKit（実験的）
+                                </td>
+                                <td>事実上すべての主要ブラウザ（WebDriver実装があるもの）</td>
+                                <td>Chromium・Firefox・WebKit</td>
+                            </tr>
+                            <tr>
+                                <td>ブラウザの取得方法</td>
+                                <td>
+                                    マシンに既にインストールされているブラウザを使用し、Cypress自体はブラウザバイナリをダウンロードしない
+                                </td>
+                                <td>別途WebDriverと対応ブラウザが必要</td>
+                                <td>
+                                    Playwright専用にビルドされたブラウザバイナリを自前でダウンロード・管理する
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>待機処理</td>
+                                <td>
+                                    コマンド・アサーションが自動的にリトライ待機する（auto-wait）
+                                </td>
+                                <td>明示的な待機（WebDriverWaitなど）が基本的に必要</td>
+                                <td>
+                                    要素がアクション可能になるまで自動待機し、アサーションも自動リトライする
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>コードの書き方</td>
+                                <td>コマンドをキューに積んで連鎖させる方式。async/awaitは不要</td>
+                                <td>各言語の同期/非同期APIに依存</td>
+                                <td>async/awaitを用いた非同期コード</td>
+                            </tr>
+                            <tr>
+                                <td>テストランナー</td>
+                                <td>Mocha + Chaiをベースに構築</td>
+                                <td>各言語のテストフレームワークに依存（JUnit、pytestなど）</td>
+                                <td>Playwright独自のテストランナー（Playwright Test）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress#Architecture"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Architecture</a
+                        >、<a
+                            href="https://docs.cypress.io/app/references/trade-offs"
+                            target="_blank"
+                            rel="noopener"
+                            >Trade-offs</a
+                        >、<a
+                            href="https://docs.cypress.io/app/guides/migration/playwright-to-cypress"
+                            target="_blank"
+                            rel="noopener"
+                            >Migrate from Playwright to Cypress</a
+                        >、<a
+                            href="https://github.com/microsoft/playwright"
+                            target="_blank"
+                            rel="noopener"
+                            >Playwright（GitHub公式）</a
+                        ></span
+                    >
+                </div>
+
+                <h3>3-2. CypressとPlaywrightの詳細比較</h3>
+                <p>
+                    ユーザーの要望に応じて、Cypress公式の移行ガイドとPlaywright公式情報をもとに、より実務的な観点で両者を比較します。
+                </p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>Cypress</th>
+                                <th>Playwright</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>設定ファイル</td>
+                                <td>
+                                    <code>cypress.config.ts</code
+                                    >（E2E固有の設定は<code>e2e</code>オブジェクト配下）
+                                </td>
+                                <td>
+                                    <code>playwright.config.ts</code
+                                    >（<code>use</code>ブロックがフラットな構造）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>テスト定義の書き方</td>
+                                <td><code>describe()</code> / <code>it()</code>（Mocha由来）</td>
+                                <td><code>test.describe()</code> / <code>test()</code></td>
+                            </tr>
+                            <tr>
+                                <td>ロケーター取得の考え方</td>
+                                <td><code>data-*</code>属性を用いたセレクターを推奨</td>
+                                <td>
+                                    <code>getByRole()</code
+                                    >・<code>getByLabel()</code>・<code>getByTestId()</code>などロールベースのロケーターを標準搭載
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>並列実行</td>
+                                <td>
+                                    Cypress Cloudの「Smart
+                                    Orchestration」が過去の実行時間をもとに動的にスペックを分配
+                                </td>
+                                <td>
+                                    <code>--workers</code
+                                    >によるローカル並列化と、<code>--shard</code>による手動シャーディング
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>デバッグ用リプレイ機能</td>
+                                <td>
+                                    Cypress CloudのTest
+                                    Replayでネットワーク・コンソール・DOMスナップショットを再生
+                                </td>
+                                <td><code>--trace on</code>で記録し、Trace Viewerで確認</td>
+                            </tr>
+                            <tr>
+                                <td>コンポーネントテスト</td>
+                                <td>
+                                    React・Angular・Vue・Svelte向けに公式マウントライブラリを提供し、Vite・Webpack双方に対応
+                                </td>
+                                <td>
+                                    React・Vue・Svelte向けの実験的パッケージを提供し、Viteのみに対応
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>複数タブ・ウィンドウ操作</td>
+                                <td>
+                                    標準では1ブラウザのみ制御可能（複数タブは<code>@cypress/puppeteer</code>プラグインで対応）
+                                </td>
+                                <td>
+                                    <code>page.context()</code
+                                    >など複数ページ・複数コンテキストをネイティブにサポート
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>クロスオリジンナビゲーション</td>
+                                <td>
+                                    1テストにつき1つのスーパードメインが基本。別オリジンへは<code>cy.origin()</code>で明示的にスコープを切る必要がある
+                                </td>
+                                <td>通常のページ遷移として扱いやすい</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/guides/migration/playwright-to-cypress"
+                            target="_blank"
+                            rel="noopener"
+                            >Migrate from Playwright to Cypress: Complete Migration Guide</a
+                        >、<a
+                            href="https://docs.cypress.io/app/references/trade-offs"
+                            target="_blank"
+                            rel="noopener"
+                            >Trade-offs</a
+                        >、<a
+                            href="https://github.com/microsoft/playwright"
+                            target="_blank"
+                            rel="noopener"
+                            >Playwright（GitHub公式）</a
+                        >、<a
+                            href="https://playwright.dev/docs/browsers"
+                            target="_blank"
+                            rel="noopener"
+                            >Browsers | Playwright</a
+                        ></span
+                    >
+                </div>
+
+                <h3>3-3. どちらを選ぶべきか</h3>
+                <div class="callout callout-info">
+                    <i class="ti ti-info-circle"></i>
+                    <p>
+                        どちらのツールも活発に開発が続く高品質なE2Eテストフレームワークであり、優劣を一概に決められるものではありません。一般的な目安として、<strong>Cypress</strong>はブラウザ内部の状態（DOM・アプリのインスタンス・タイマーなど）に直接アクセスしてスタブ化したい場合やTime
+                        Travelによる視覚的なデバッグ体験を重視する場合に、<strong>Playwright</strong>は複数タブ・複数ブラウザコンテキストを頻繁に扱う場合やChromium・Firefox・WebKitを同一設定で厳密に固定したい場合に向いています。実際に両方を試してからチームに合う方を選ぶのが確実です。
+                    </p>
+                </div>
+
+                <!-- ============ 4 ============ -->
+                <h2 id="sec-4"><span class="sec-badge">04</span>インストール手順</h2>
+
+                <h3>4-1. システム要件</h3>
+                <p>インストール前に、以下の要件を満たしているか確認します。</p>
+
+                <p><strong>OS要件</strong></p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>OS</th>
+                                <th>バージョン</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>macOS</td>
+                                <td>13.5以上（Intel／Apple Silicon 64bit）</td>
+                            </tr>
+                            <tr>
+                                <td>Linux</td>
+                                <td>
+                                    Ubuntu 22.04以上、Debian 11以上、Fedora 43以上（x64／arm64）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Windows</td>
+                                <td>
+                                    10・11（x64）、Windows 11
+                                    25H2（arm64、x64エミュレーションで動作・プレビュー）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Windows Server</td>
+                                <td>2019・2022・2025（x64）</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>Node.jsとパッケージマネージャー</strong></p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ツール</th>
+                                <th>必要バージョン</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Node.js</td>
+                                <td>20.x、22.x、24.x以上</td>
+                            </tr>
+                            <tr>
+                                <td>npm</td>
+                                <td>10.1.0以上</td>
+                            </tr>
+                            <tr>
+                                <td>Yarn（Classic）</td>
+                                <td>1.22.22以上</td>
+                            </tr>
+                            <tr>
+                                <td>Yarn（Modern／Berry）</td>
+                                <td>4.x以上</td>
+                            </tr>
+                            <tr>
+                                <td>pnpm</td>
+                                <td>8.x以上</td>
+                            </tr>
+                            <tr>
+                                <td>Bun</td>
+                                <td>1.2.22以上</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p>
+                    <strong>対応ブラウザ</strong
+                    >：CypressにバンドルされたElectron（Chromiumベース）に加え、Google
+                    Chrome・Microsoft Edge・Mozilla
+                    Firefox（最新3メジャーバージョン）、WebKitは実験的サポートです。<br />
+                    <strong>ハードウェア</strong
+                    >：ローカルは一般的な開発マシンで問題ありません。CI環境では最低2CPU・4GB
+                    RAM、動画録画や長時間実行には8GB以上を推奨します。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/install-cypress#System-requirements"
+                            target="_blank"
+                            rel="noopener"
+                            >Install using npm, Yarn, pnpm, or Bun - System requirements</a
+                        ></span
+                    >
+                </div>
+
+                <h3>4-2. ステップバイステップ・インストール</h3>
+
+                <div class="mermaid-wrap">
+                    <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': false, 'curve': 'linear'}}}%%
+flowchart LR
+    A["1. システム要件を確認"] --> B["2. npm install cypress --save-dev"]
+    B --> C["3. npx cypress open で起動"]
+    C --> D["4. E2E または Component を選択しテストを書き始める"]
+</pre
+                    >
+                </div>
+
+                <p><strong>ステップ1：プロジェクトルートでインストール</strong></p>
+                <pre><code class="language-bash">npm install cypress --save-dev</code></pre>
+                <p>
+                    これによりCypressがdevDependencyとしてプロジェクトにローカルインストールされます。
+                </p>
+
+                <p><strong>ステップ2：Cypressを開く</strong></p>
+                <pre><code class="language-bash">npx cypress open</code></pre>
+                <p>
+                    Cypress Appが起動し、End-to-End Testing（E2E）かComponent
+                    Testing（CT）かを選択できます。
+                </p>
+
+                <p><strong>ステップ3：はじめてのテストを書く</strong></p>
+                <p>
+                    セットアップが完了すると、<code>cypress.config.js</code>（または<code>.ts</code>）と<code>cypress/</code>ディレクトリが自動生成されます。ここから「はじめてのテストを書く」セクションに進みます。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/install-cypress#Install--Run"
+                            target="_blank"
+                            rel="noopener"
+                            >Install using npm, Yarn, pnpm, or Bun - Install &amp; Run</a
+                        ></span
+                    >
+                </div>
+
+                <h3>4-3. npm実行スクリプトのブロック対策（重要）</h3>
+                <p>
+                    npm
+                    12以降、依存パッケージのインストールスクリプト（<code>postinstall</code>など）がデフォルトでブロックされる場合があります。Cypressの<code>postinstall</code>スクリプトがブロックされるとバイナリがダウンロードされないため、以下のいずれかの対応が必要です。
+                </p>
+                <pre><code class="language-bash">npm approve-scripts cypress</code></pre>
+                <p>または、バイナリのみを明示的にインストールします。</p>
+                <pre><code class="language-bash">npx cypress install</code></pre>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/install-cypress#npm-configuration"
+                            target="_blank"
+                            rel="noopener"
+                            >Install using npm, Yarn, pnpm, or Bun - npm configuration</a
+                        ></span
+                    >
+                </div>
+
+                <h3>4-4. Linux環境の追加設定</h3>
+                <p>
+                    Linux環境（特にCIコンテナ）では、以下のような追加パッケージが必要になる場合があります（Ubuntu
+                    22.04・Debianの例）。
+                </p>
+                <pre><code class="language-bash">apt-get install libgtk-3-0 libgbm-dev libnotify-dev libnss3 libxss1 libasound2 libxtst6 xauth xvfb</code></pre>
+                <p>
+                    これらの依存関係を毎回手動でインストールする代わりに、必要なパッケージが事前にインストール済みの<a
+                        href="https://github.com/cypress-io/cypress-docker-images"
+                        target="_blank"
+                        rel="noopener"
+                        >Cypress公式Dockerイメージ</a
+                    >を利用することもできます。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/install-cypress#Linux-Prerequisites"
+                            target="_blank"
+                            rel="noopener"
+                            >Install using npm, Yarn, pnpm, or Bun - Linux Prerequisites</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 5 ============ -->
+                <h2 id="sec-5"><span class="sec-badge">05</span>プロジェクト構成を理解する</h2>
+                <p>
+                    Cypressは「設定より規約（convention over
+                    configuration）」を重視しており、プロジェクトを追加すると自動的に以下のフォルダー構成が生成されます。すべて設定ファイルで変更可能ですが、初めてのプロジェクトではデフォルトのまま進めることが推奨されています。
+                </p>
+
+                <h3>5-1. デフォルトフォルダー構成</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>パス</th>
+                                <th>役割</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>cypress.config.js</code>（または<code>.ts</code>）</td>
+                                <td>Cypress全体の設定ファイル</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress/fixtures/example.json</code></td>
+                                <td>テストで使う静的なテストデータ（フィクスチャ）</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress/support/commands.js</code></td>
+                                <td>カスタムコマンドを定義する場所</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress/support/e2e.js</code></td>
+                                <td>E2Eテスト実行前に毎回読み込まれるサポートファイル</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress/support/component.js</code></td>
+                                <td>コンポーネントテスト用のサポートファイル</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress/e2e/</code></td>
+                                <td>E2Eテストのスペックファイルを配置する場所（デフォルト）</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress/downloads/</code></td>
+                                <td>テスト中にダウンロードしたファイルの保存先</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress/screenshots/</code></td>
+                                <td>スクリーンショットの保存先</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress/videos/</code></td>
+                                <td>実行動画の保存先</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/writing-and-organizing-tests#Project-structure"
+                            target="_blank"
+                            rel="noopener"
+                            >Writing and organizing Cypress tests - Project structure</a
+                        ></span
+                    >
+                </div>
+
+                <h3>5-2. specファイルの命名規則</h3>
+                <p>
+                    Cypressはテストフォルダー内のすべてのファイルをテストとして扱うわけではありません。ファイル名に<code>.cy.</code>という接尾辞が含まれるファイルのみを<code>specPattern</code>として認識します。
+                </p>
+                <ul>
+                    <li>E2E: <code>cypress/e2e/**/*.cy.{js,jsx,ts,tsx}</code></li>
+                    <li>Component: <code>**/*.cy.{js,jsx,ts,tsx}</code></li>
+                </ul>
+                <p>
+                    たとえば<code>cypress/e2e/login.js</code>は認識されませんが、<code>cypress/e2e/login.cy.js</code>は認識されます。テストが一覧に表示されない場合は、まずこのファイル名の規則を疑うとよいでしょう。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/writing-and-organizing-tests#Spec-files"
+                            target="_blank"
+                            rel="noopener"
+                            >Writing and organizing Cypress tests - Spec files</a
+                        ></span
+                    >
+                </div>
+
+                <h3>5-3. サポートファイルとフィクスチャ</h3>
+                <p>
+                    サポートファイル（<code>cypress/support/e2e.js</code>など）は、すべてのスペックファイルより先に毎回読み込まれるため、カスタムコマンドやグローバルな<code>beforeEach</code>フックを定義するのに最適な場所です。ただし、ここでインポートしたものはすべてのスペック実行のたびにコストがかかるため、軽量に保つことが推奨されています。
+                </p>
+                <p>
+                    フィクスチャ（<code>cypress/fixtures/</code>）は、<code>cy.fixture()</code>でテスト内に読み込んだり、<code>cy.intercept()</code>のレスポンスとして指定したりできる静的データです。<code>.json</code>・<code>.js</code>・<code>.html</code>・<code>.csv</code>・<code>.png</code>など多様な形式をサポートしています。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/writing-and-organizing-tests#Support-file"
+                            target="_blank"
+                            rel="noopener"
+                            >Writing and organizing Cypress tests - Support file / Fixtures</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 6 ============ -->
+                <h2 id="sec-6"><span class="sec-badge">06</span>はじめてのテストを書く</h2>
+
+                <h3>6-1. 空のspecファイルを作成する</h3>
+                <p>
+                    Cypress Appの「Create new empty
+                    spec」ボタンから新しいスペックファイルを作成します。デフォルトのファイル名のまま作成すると、<code>cypress/e2e</code>配下に自動的に配置され、Cypressがファイルの変更を監視して即座に一覧へ反映します。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/end-to-end-testing/writing-your-first-end-to-end-test#Add-a-test-file"
+                            target="_blank"
+                            rel="noopener"
+                            >Your First Test - Add a test file</a
+                        ></span
+                    >
+                </div>
+
+                <h3>6-2. 最初のテストを書いてみる</h3>
+                <p>まずは動作確認のため、シンプルなアサーションだけのテストを書きます。</p>
+                <pre><code class="language-javascript">describe('My First Test', () => {
+  it('Does not do much!', () => {
+    expect(true).to.equal(true)
+  })
+})</code></pre>
+                <p>
+                    保存するとブラウザが自動的にリロードされ、緑色でパスしたことが表示されます。<code>true</code>を<code>false</code>に変えて保存すると、今度は赤色で失敗し、詳細なスタックトレースとコードフレームが表示されます。
+                </p>
+                <p>
+                    ここで使われている<code>describe</code>・<code>it</code>は<a
+                        href="https://mochajs.org"
+                        target="_blank"
+                        rel="noopener"
+                        >Mocha</a
+                    >、<code>expect</code>は<a
+                        href="https://www.chaijs.com"
+                        target="_blank"
+                        rel="noopener"
+                        >Chai</a
+                    >というライブラリに由来しており、Cypressはこれらの実績あるライブラリの上に構築されています。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/end-to-end-testing/writing-your-first-end-to-end-test#Write-your-first-test"
+                            target="_blank"
+                            rel="noopener"
+                            >Your First Test - Write your first test</a
+                        ></span
+                    >
+                </div>
+
+                <h3>6-3. 実際のテストを組み立てる（4ステップ）</h3>
+                <p>
+                    しっかりとしたテストは、一般的に「①アプリケーションの状態を準備する→②操作を行う→③結果となる状態をアサーションする」という3フェーズ（「Given/When/Then」や「Arrange/Act/Assert」とも呼ばれます）で構成されます。Cypressの基本コマンドに当てはめると、次の4ステップになります。
+                </p>
+
+                <div class="mermaid-wrap">
+                    <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': false, 'curve': 'linear'}}}%%
+flowchart LR
+    A["1. cy.visit() でページ訪問"] --> B["2. cy.get() / cy.contains() で要素を検索"]
+    B --> C["3. .click() や .type() で操作"]
+    C --> D["4. .should() でアサーション"]
+</pre
+                    >
+                </div>
+
+                <p><strong>ステップ1：ページを訪問する</strong></p>
+                <pre><code class="language-javascript">describe('My First Test', () => {
+  it('Visits the Kitchen Sink', () => {
+    cy.visit('https://example.cypress.io')
+  })
+})</code></pre>
+
+                <p><strong>ステップ2：要素を検索する</strong></p>
+                <pre><code class="language-javascript">cy.visit('https://example.cypress.io')
+cy.contains('type')</code></pre>
+                <p>
+                    <code>cy.contains()</code
+                    >のようなコマンドの多くは「見つからなければ失敗する」という暗黙のアサーションを内蔵しています。存在しない文字列を指定すると、即座に失敗するのではなく、Cypressが自動的にリトライしながら数秒間待機したうえで失敗する点がポイントです（デフォルトのタイムアウトは約4秒）。
+                </p>
+
+                <p><strong>ステップ3：要素をクリックする</strong></p>
+                <pre><code class="language-javascript">cy.contains('type').click()</code></pre>
+
+                <p><strong>ステップ4：アサーションを行う</strong></p>
+                <pre><code class="language-javascript">cy.url().should('include', '/commands/actions')</code></pre>
+
+                <p><strong>完成した一連のテスト例</strong></p>
+                <pre><code class="language-javascript">describe('My First Test', () => {
+  it('Gets, types and asserts', () => {
+    cy.visit('https://example.cypress.io')
+
+    cy.contains('type').click()
+
+    // 新しいURLに '/commands/actions' が含まれることを確認
+    cy.url().should('include', '/commands/actions')
+
+    // 入力欄を取得して文字を入力
+    cy.get('.action-email').type('jane@example.com')
+
+    // 入力した値が反映されていることを確認
+    cy.get('.action-email').should('have.value', 'jane@example.com')
+  })
+})</code></pre>
+                <p>
+                    このテストが2ページにまたがっている点にも注目してください。Cypressはページ遷移イベントを自動的に検出し、次のページの読み込みが完了するまでコマンドの実行を一時停止します。通常4秒のタイムアウトも、ページ遷移が検出されると自動的に60秒まで延長されます。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/end-to-end-testing/writing-your-first-end-to-end-test#Write-a-real-test"
+                            target="_blank"
+                            rel="noopener"
+                            >Your First Test - Write a real test</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 7 ============ -->
+                <h2 id="sec-7">
+                    <span class="sec-badge">07</span>テストの構造：describe・it・hooks
+                </h2>
+
+                <h3>7-1. BDD構文</h3>
+                <p>
+                    Cypressのテストインターフェースは、Mocha由来の<code>describe()</code>・<code>context()</code>・<code>it()</code>・<code>specify()</code>から構成されます。<code>describe()</code>で関連するテストをグループ化し、<code>it()</code>で個々のテストを定義します。<code>context()</code>は<code>describe()</code>と、<code>specify()</code>は<code>it()</code>と全く同じ動作をするエイリアスです。
+                </p>
+                <pre><code class="language-javascript">describe('Account settings', () => {
+  beforeEach(() => {
+    cy.visit('/account')
+  })
+
+  it('shows the current user name', () => {
+    cy.get('[data-testid="profile-name"]').should('have.value', 'Jane Lane')
+  })
+})</code></pre>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/writing-and-organizing-tests#Test-Structure"
+                            target="_blank"
+                            rel="noopener"
+                            >Writing and organizing Cypress tests - Test Structure</a
+                        ></span
+                    >
+                </div>
+
+                <h3>7-2. フック（before / beforeEach / afterEach / after）</h3>
+                <p>
+                    セットアップやクリーンアップの処理を各テストの中で繰り返し書く代わりに、フックを使ってまとめて定義できます。
+                </p>
+
+                <div class="mermaid-wrap">
+                    <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': false, 'curve': 'linear'}}}%%
+flowchart TD
+    A["before（describe内で一度だけ実行）"] --> B["beforeEach（各itの直前に実行）"]
+    B --> C["it（個々のテスト本体）"]
+    C --> D["afterEach（各itの直後に実行）"]
+    D --> E{"未実行のitが残っている？"}
+    E -->|"はい"| B
+    E -->|"いいえ"| F["after（describe内で一度だけ実行）"]
+</pre
+                    >
+                </div>
+
+                <div class="callout callout-danger">
+                    <i class="ti ti-alert-triangle"></i>
+                    <p>
+                        <strong>注意点：</strong
+                        >Cypress公式ドキュメントは「状態のクリーンアップを<code>after</code>や<code>afterEach</code>で行う」ことをアンチパターンとして明確に挙げています。理由は、テストの途中でCypressをリフレッシュした場合に<code>after</code>系フックが実行される保証がないためです。状態のリセットが本当に必要な場合は、<code>before</code>や<code>beforeEach</code>側で行うべきとされています。
+                    </p>
+                </div>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/writing-and-organizing-tests#Hooks"
+                            target="_blank"
+                            rel="noopener"
+                            >Writing and organizing Cypress tests - Hooks</a
+                        >、<a
+                            href="https://docs.cypress.io/app/core-concepts/best-practices#Using-after-Or-afterEach-Hooks"
+                            target="_blank"
+                            rel="noopener"
+                            >Cypress best practices - Using after Or afterEach Hooks</a
+                        ></span
+                    >
+                </div>
+
+                <h3>7-3. テストの独立性（Test Isolation）</h3>
+                <p>
+                    Cypressは各テストの前にブラウザの状態をクリーンアップする「Test
+                    Isolation」をデフォルトで有効にしています（<code>testIsolation: true</code
+                    >）。これにより、1つのテストの動作が別のテストに影響を与えることを防ぎ、テストをどの順序・どの組み合わせで実行しても再現性のある結果が得られます。あるテストが単独では失敗するのに他のテストと一緒に実行すると成功する場合、それはテスト同士が暗黙的に依存している兆候です。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/writing-and-organizing-tests#Test-Isolation"
+                            target="_blank"
+                            rel="noopener"
+                            >Writing and organizing Cypress tests - Test Isolation</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 8 ============ -->
+                <h2 id="sec-8">
+                    <span class="sec-badge">08</span>テストの種類：E2Eテスト vs コンポーネントテスト
+                </h2>
+                <p>
+                    Cypressを使い始める際に最初に決めるべきことの一つが、E2Eテストとコンポーネントテストのどちらを書くかです。両方を組み合わせて使うのが一般的です。
+                </p>
+
+                <h3>8-1. 比較表</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>項目</th>
+                                <th>E2Eテスト</th>
+                                <th>コンポーネントテスト</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>テスト対象</td>
+                                <td>アプリの全レイヤー（フロントエンドからバックエンドまで）</td>
+                                <td>個々のコンポーネント単体</td>
+                            </tr>
+                            <tr>
+                                <td>特徴</td>
+                                <td>包括的だが実行が遅く、flakeが発生しやすい</td>
+                                <td>専門特化していて高速・安定</td>
+                            </tr>
+                            <tr>
+                                <td>主な用途</td>
+                                <td>アプリ全体が一体として正しく動くことの検証</td>
+                                <td>個々のコンポーネントの機能検証</td>
+                            </tr>
+                            <tr>
+                                <td>実装者</td>
+                                <td>開発者、QAチーム、SDET</td>
+                                <td>開発者、デザイナー</td>
+                            </tr>
+                            <tr>
+                                <td>CIインフラ</td>
+                                <td>複雑なセットアップが必要になることが多い</td>
+                                <td>特別なインフラ不要</td>
+                            </tr>
+                            <tr>
+                                <td>初期化コマンド</td>
+                                <td><code>cy.visit(url)</code></td>
+                                <td><code>cy.mount(&lt;MyComponent /&gt;)</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/testing-types#Testing-Type-Comparison"
+                            target="_blank"
+                            rel="noopener"
+                            >Testing Types - Testing Type Comparison</a
+                        ></span
+                    >
+                </div>
+
+                <h3>8-2. どちらを選ぶかの判断フロー</h3>
+                <div class="mermaid-wrap">
+                    <pre class="mermaid">
+%%{init: {'flowchart': {'htmlLabels': false, 'curve': 'linear'}}}%%
+flowchart TD
+    A["何をテストしたいか？"] --> B{"アプリ全体としての統合された挙動を検証したい？"}
+    B -->|"はい"| C["E2Eテストを選択（cy.visit）"]
+    B -->|"いいえ"| D{"個々のUIコンポーネント単体を素早く検証したい？"}
+    D -->|"はい"| E["コンポーネントテストを選択（cy.mount）"]
+    D -->|"いいえ"| F["両方を組み合わせて使うのが一般的"]
+</pre
+                    >
+                </div>
+                <p>
+                    E2Eテストは、認証フローや購入フローのような重要な業務フローの検証、複数画面にまたがるデータの永続化の確認、デプロイ前のスモークテストに向いています。一方でコンポーネントテストは、日付ピッカーのような複雑なUI部品の様々なシナリオ検証や、フォームの表示・非表示ロジックの検証、デザインシステムから切り出されたコンポーネントの検証に向いています。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/testing-types"
+                            target="_blank"
+                            rel="noopener"
+                            >Testing Types - What is E2E Testing / What is Component Testing</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 9 ============ -->
+                <h2 id="sec-9">
+                    <span class="sec-badge">09</span>セレクター戦略とベストプラクティス
+                </h2>
+
+                <h3>9-1. 良いセレクター・悪いセレクター</h3>
+                <p>
+                    Cypress公式ドキュメントは、テストの壊れやすさを大きく左右する「セレクター選び」について明確な指針を示しています。次のようなHTMLがあるとします。
+                </p>
+                <pre><code class="language-html">&lt;button
+  id="main"
+  class="btn btn-large"
+  name="submission"
+  role="button"
+  data-cy="submit"
+&gt;
+  Submit
+&lt;/button&gt;</code></pre>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>セレクター</th>
+                                <th>推奨度</th>
+                                <th>理由</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>cy.get('button')</code></td>
+                                <td>非推奨</td>
+                                <td>汎用的すぎて文脈がない</td>
+                            </tr>
+                            <tr>
+                                <td><code>cy.get('.btn.btn-large')</code></td>
+                                <td>非推奨</td>
+                                <td>スタイルに結合しており変更に弱い</td>
+                            </tr>
+                            <tr>
+                                <td><code>cy.get('#main')</code></td>
+                                <td>限定的に可</td>
+                                <td>スタイルやJSのイベントリスナーと結合しやすい</td>
+                            </tr>
+                            <tr>
+                                <td><code>cy.get('[name="submission"]')</code></td>
+                                <td>限定的に可</td>
+                                <td>HTML意味論を持つname属性に結合している</td>
+                            </tr>
+                            <tr>
+                                <td><code>cy.contains('Submit')</code></td>
+                                <td>状況による</td>
+                                <td>テキストが変わる可能性があると壊れる</td>
+                            </tr>
+                            <tr>
+                                <td><code>cy.get('[data-cy="submit"]')</code></td>
+                                <td>最推奨</td>
+                                <td>CSSやJSの変更から完全に独立している</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    <code>data-*</code
+                    >属性はCSSのスタイル変更やJavaScriptの挙動変更の影響を受けないため、最も堅牢なセレクター戦略とされています。<a
+                        href="https://github.com/cypress-io/eslint-plugin-cypress"
+                        target="_blank"
+                        rel="noopener"
+                        >eslint-plugin-cypress</a
+                    >の<code>cypress/require-data-selectors</code>ルールを使えば、この規約をリント時点で強制することもできます。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/best-practices#Selecting-Elements"
+                            target="_blank"
+                            rel="noopener"
+                            >Cypress best practices - Selecting Elements</a
+                        ></span
+                    >
+                </div>
+
+                <h3>9-2. テキストコンテンツを使うべきかの判断基準</h3>
+                <p>「そのテキストが変わったらテストを失敗させたいか？」を自問するのがコツです。</p>
+                <ul>
+                    <li>
+                        <strong>はい</strong>（そのテキストが重要な意味を持つ）→
+                        <code>cy.contains()</code>を使う
+                    </li>
+                    <li>
+                        <strong>いいえ</strong>（テキストは変わりうる）→
+                        <code>data-*</code>属性を使う
+                    </li>
+                </ul>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/best-practices#Text-Content"
+                            target="_blank"
+                            rel="noopener"
+                            >Cypress best practices - Text Content</a
+                        ></span
+                    >
+                </div>
+
+                <h3>9-3. 代表的なアンチパターンと推奨パターン</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>アンチパターン</th>
+                                <th>推奨されるベストプラクティス</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>シークレット情報をテストコードにハードコーディングする</td>
+                                <td>
+                                    <code>cy.env()</code
+                                    >でセンシティブな値を扱い、公開設定は<code>Cypress.expose()</code>を使う
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    UIを経由してログインする、複数テスト間でページオブジェクトを共有する
+                                </td>
+                                <td>
+                                    プログラム的にログインし、テストは独立させてアプリの状態を直接コントロールする
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    コマンドの戻り値を<code>const</code>・<code>let</code>・<code>var</code>に代入しようとする
+                                </td>
+                                <td>
+                                    エイリアスとクロージャ（<code>.as()</code> /
+                                    <code>cy.get('@alias')</code>）を使う
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>自分がコントロールできない外部サイトを訪問・操作する</td>
+                                <td>
+                                    自分の管理下にあるドメインのみをテストし、外部連携は<code>cy.request()</code>で扱う
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>前のテストの状態に依存したテストを書く</td>
+                                <td>
+                                    <code>it.only</code>を付けて単独実行してもパスするように書く
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    ユニットテストのように1アサーションずつ細かくテストを分割する
+                                </td>
+                                <td>
+                                    1つのテストに複数のアサーションを含めてもよい（E2Eではむしろ推奨）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>after</code
+                                    >・<code>afterEach</code>で状態をクリーンアップする
+                                </td>
+                                <td>
+                                    クリーンアップは<code>before</code>・<code>beforeEach</code>で行う
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>cy.wait(数値)</code>で決め打ちの時間待機をする</td>
+                                <td>ルートエイリアスやアサーションでCypressに待機条件を伝える</td>
+                            </tr>
+                            <tr>
+                                <td>Cypressスクリプトからバックエンドサーバーを起動しようとする</td>
+                                <td>Cypressを実行する前にWebサーバーを起動しておく</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <code>baseUrl</code
+                                    >を設定せず、<code>cy.visit()</code>にフルURLを書く
+                                </td>
+                                <td>
+                                    <code>cypress.config.js</code
+                                    >で<code>baseUrl</code>をグローバル設定する
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <p><strong>不要な待機の悪い例と良い例</strong></p>
+                <div class="code-label">悪い例：決め打ちの待機時間</div>
+                <pre><code class="language-javascript">cy.intercept('GET', '/users', [{ name: 'Maggy' }, { name: 'Joan' }])
+cy.get('#fetch').click()
+cy.wait(4000) // ← これは不要
+cy.get('table tr').should('have.length', 2)</code></pre>
+                <div class="code-label">良い例：ルートエイリアスを明示的に待つ</div>
+                <pre><code class="language-javascript">cy.intercept('GET', '/users', [{ name: 'Maggy' }, { name: 'Joan' }]).as('getUsers')
+cy.get('[data-testid="fetch-users"]').click()
+cy.wait('@getUsers') // ← このリクエストの完了を明示的に待つ
+cy.get('table tr').should('have.length', 2)</code></pre>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/core-concepts/best-practices"
+                            target="_blank"
+                            rel="noopener"
+                            >Cypress best practices</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 10 ============ -->
+                <h2 id="sec-10"><span class="sec-badge">10</span>コマンドラインの使い方</h2>
+                <p>
+                    Cypressをインストールした後は、プロジェクトルートから以下のコマンドを実行できます（<code>npx</code>・<code>yarn</code>・<code>pnpm</code>のいずれかを頭に付けます）。
+                </p>
+
+                <h3>10-1. 主要コマンド</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>コマンド</th>
+                                <th>用途</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>cypress open</code></td>
+                                <td>インタラクティブなCypress Appを開く</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress run</code></td>
+                                <td>
+                                    すべてのテストをヘッドレスモードで一括実行する（デフォルト動作）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress info</code></td>
+                                <td>検出されたブラウザや環境変数などの診断情報を表示する</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress verify</code></td>
+                                <td>Cypressが正しくインストールされているか検証する</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress version</code></td>
+                                <td>インストール済みのバージョン情報を表示する</td>
+                            </tr>
+                            <tr>
+                                <td><code>cypress cache list</code></td>
+                                <td>キャッシュされているCypressバージョン一覧を表示する</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>10-2. cypress run の主なオプション</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>オプション</th>
+                                <th>説明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><code>--browser</code>, <code>-b</code></td>
+                                <td>実行するブラウザを指定する（例：chrome）</td>
+                            </tr>
+                            <tr>
+                                <td><code>--headed</code></td>
+                                <td>ブラウザを表示した状態で実行する</td>
+                            </tr>
+                            <tr>
+                                <td><code>--spec</code>, <code>-s</code></td>
+                                <td>実行するスペックファイルを限定する</td>
+                            </tr>
+                            <tr>
+                                <td><code>--config</code>, <code>-c</code></td>
+                                <td>設定値をコマンドラインから上書きする</td>
+                            </tr>
+                            <tr>
+                                <td><code>--env</code>, <code>-e</code></td>
+                                <td>センシティブな環境変数を<code>cy.env()</code>用に渡す</td>
+                            </tr>
+                            <tr>
+                                <td><code>--record</code></td>
+                                <td>Cypress Cloudへ記録する</td>
+                            </tr>
+                            <tr>
+                                <td><code>--parallel</code></td>
+                                <td>Cypress Cloudで並列実行する</td>
+                            </tr>
+                            <tr>
+                                <td><code>--reporter</code>, <code>-r</code></td>
+                                <td>Mochaレポーターを指定する</td>
+                            </tr>
+                            <tr>
+                                <td><code>--group</code></td>
+                                <td>記録したテストをグループにまとめる</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="code-label">
+                    ヘッドレスモードで単一スペックを実行し、Cypress Cloudに記録する例
+                </div>
+                <pre><code class="language-bash">npx cypress run --record --spec "cypress/e2e/my-spec.cy.js"</code></pre>
+
+                <h3>10-3. package.jsonへのスクリプト登録</h3>
+                <p>
+                    頻繁に使うコマンドは<code>package.json</code>の<code>scripts</code>に登録しておくと便利です。
+                </p>
+                <pre><code class="language-json">{
+  "scripts": {
+    "e2e:chrome": "cypress run --browser chrome"
+  }
+}</code></pre>
+                <pre><code class="language-bash">npm run e2e:chrome</code></pre>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/references/command-line"
+                            target="_blank"
+                            rel="noopener"
+                            >Command Line - Cypress Documentation</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 11 ============ -->
+                <h2 id="sec-11">
+                    <span class="sec-badge">11</span>CI/CDへの統合：GitHub Actionsの例
+                </h2>
+                <p>
+                    Cypressは公式の<a
+                        href="https://github.com/marketplace/actions/cypress-io"
+                        target="_blank"
+                        rel="noopener"
+                        >Cypress GitHub Action</a
+                    >を提供しており、依存関係のインストール・キャッシュ・テスト実行をまとめて扱えます。
+                </p>
+
+                <h3>11-1. 基本的なワークフロー例</h3>
+                <pre><code class="language-yaml">name: Cypress Tests
+
+on: push
+
+jobs:
+  cypress-run:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Cypress run
+        uses: cypress-io/github-action@v7
+        with:
+          build: npm run build
+          start: npm start</code></pre>
+                <p>
+                    このワークフローは、pushをトリガーにUbuntu環境を起動し、リポジトリをチェックアウトしたうえで、依存関係のインストール・ビルド・アプリの起動・Electronブラウザでのテスト実行までを自動的に行います。
+                </p>
+
+                <h3>11-2. 特定ブラウザでの実行</h3>
+                <p>
+                    GitHub
+                    Actionsのホスト型ランナーにはあらかじめChrome・Firefox・Edgeがインストールされています（macOSランナーにはSafariも含まれます）。<code>browser</code>パラメーターで使用ブラウザを指定できます。
+                </p>
+                <pre><code class="language-yaml">- name: Cypress run
+  uses: cypress-io/github-action@v7
+  with:
+    build: npm run build
+    start: npm start
+    browser: chrome</code></pre>
+
+                <h3>11-3. 並列実行（Parallelization）</h3>
+                <p>
+                    Cypress Cloudに記録することで、GitHub Actionsのmatrix
+                    strategyを使った並列実行が可能になります。以下は5並列で実行する例の要点です。
+                </p>
+                <pre><code class="language-yaml">jobs:
+  cypress-run:
+    runs-on: ubuntu-24.04
+    needs: install
+    strategy:
+      fail-fast: false
+      matrix:
+        containers: [1, 2, 3, 4, 5]
+    steps:
+      - name: Cypress run
+        uses: cypress-io/github-action@v7
+        with:
+          record: true
+          parallel: true
+          group: 'UI-Chrome'
+          start: npm start</code></pre>
+                <p>
+                    <code>record: true</code>によってCypress
+                    Cloudへ結果を記録し、プルリクエスト上でのステータスチェックやフレーキーテストの検知が可能になります。<code
+                        >parallel: true</code
+                    >は、実行時間の履歴に基づいてスペックを動的に振り分けるSmart
+                    Orchestrationを利用します。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/continuous-integration/github-actions"
+                            target="_blank"
+                            rel="noopener"
+                            >Run Cypress in GitHub Actions</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 12 ============ -->
+                <h2 id="sec-12"><span class="sec-badge">12</span>Cypress CloudとAI機能</h2>
+                <p>
+                    Cypress
+                    Cloudは、CI上でのテスト結果を「解釈すべき情報の山」から「チーム全員が行動できるシグナル」に変える有料サービスです。主な機能は以下の通りです。
+                </p>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>機能</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Test Replay</td>
+                                <td>
+                                    記録されたテストをネットワークリクエスト・コンソール出力・DOMスナップショットとともに、CI上で実行されたとおりに再生できる
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Smart Orchestration</td>
+                                <td>
+                                    過去の実行時間に基づく負荷分散（Load
+                                    Balancing）、失敗したスペックを優先して再実行するSpec
+                                    Prioritization、一定数の失敗でランを打ち切るAuto
+                                    Cancellationを含む
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Flaky test management</td>
+                                <td>
+                                    再試行後にパスするテスト（flake）を自動的に特定し、傾向を追跡する
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Branch Review</td>
+                                <td>
+                                    プルリクエストがテストスイートに与える影響を、失敗・flaky・追加・変更ごとに一覧できる
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Cloud MCP</td>
+                                <td>
+                                    AIコーディングアシスタントに、テストの実行結果や失敗コンテキストをIDE内から直接渡せる
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    さらに、Cypress Studio（レコーディングによるテスト自動生成）にCypress
+                    Cloudアカウントを組み合わせると「Studio
+                    AI」が有効になり、記録した操作に対してアサーションを自動提案してくれます。cypress.io公式サイトのトップページでは、この一連の体験が「Create（作成）→
+                    Debug（デバッグ）→ Improve（改善）→
+                    Collaborate（連携）」という4ステップのワークフローとして紹介されています。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress#Cypress-Cloud"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Cypress Cloud</a
+                        >、<a href="https://www.cypress.io/" target="_blank" rel="noopener"
+                            >cypress.io トップページ</a
+                        ></span
+                    >
+                </div>
+
+                <div class="callout callout-success">
+                    <i class="ti ti-chart-bar"></i>
+                    <p>
+                        Cypressは、週間ダウンロード数6M以上、GitHubスター数50K以上、依存リポジトリ数150万以上という規模で利用されているオープンソースプロジェクトです。
+                    </p>
+                </div>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a href="https://www.cypress.io/" target="_blank" rel="noopener"
+                            >cypress.io トップページ - Loved by OSS, trusted by Enterprise</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 13 ============ -->
+                <h2 id="sec-13"><span class="sec-badge">13</span>トレードオフと制限事項</h2>
+                <p>
+                    Cypressは独自アーキテクチャによってこれまでにない機能を実現している一方で、明確なトレードオフも存在します。公式ドキュメントは、これらの制約の多くが「悪いテスト・遅いテスト・不安定なテストを書かせないための、良い意味での境界線」であると位置づけています。
+                </p>
+
+                <h3>13-1. 恒久的なトレードオフ</h3>
+                <div class="table-wrap">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>制約</th>
+                                <th>内容</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>汎用自動化ツールではない</td>
+                                <td>
+                                    Webのインデックス作成やスパイダリング、パフォーマンステスト、サードパーティサイトのスクレイピングには向いていない
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ブラウザ内で実行される</td>
+                                <td>
+                                    テストコードはNode.jsではなくブラウザ内のJavaScriptとして評価されるため、サーバーサイドのライブラリを直接importできない（<code>cy.exec()</code>・<code>cy.task()</code>・<code>cy.request()</code>経由でNode側とやり取りする）
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>同時に複数ブラウザを開けない</td>
+                                <td>
+                                    1つのブラウザのみ制御可能。複数タブが必要な場合は<code>@cypress/puppeteer</code>プラグインで対応する
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>1テスト=1スーパードメインが基本</td>
+                                <td>
+                                    別オリジンへのナビゲーションを行う場合は<code>cy.origin()</code>で明示的にスコープする必要がある
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <h3>13-2. 将来的に改善が見込まれる一時的な制約</h3>
+                <ul>
+                    <li><code>cy.hover()</code>コマンドが存在しない（回避策あり）</li>
+                    <li>ネイティブ／モバイルアプリのイベントには非対応</li>
+                    <li>iframeサポートは限定的（同一オリジンのiframeはネイティブにクエリ可能）</li>
+                </ul>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/references/trade-offs"
+                            target="_blank"
+                            rel="noopener"
+                            >Trade-offs - Cypress Documentation</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 14 ============ -->
+                <h2 id="sec-14"><span class="sec-badge">14</span>まとめと次のステップ</h2>
+                <p>
+                    ここまでの内容を振り返ると、Cypressは以下のような流れで学んでいくのがおすすめです。
+                </p>
+                <ol>
+                    <li>インストールして<code>npx cypress open</code>を実行する</li>
+                    <li>
+                        はじめてのテストで<code>cy.visit()</code> → <code>cy.get()</code> →
+                        <code>.click()</code> →
+                        <code>.should()</code>の基本パターンを体に染み込ませる
+                    </li>
+                    <li>
+                        ベストプラクティスを意識し、<code>data-*</code>属性でセレクターを組み立てる習慣をつける
+                    </li>
+                    <li>
+                        自分のアプリケーションに対してE2Eテストとコンポーネントテストを組み合わせて書く
+                    </li>
+                    <li>GitHub ActionsなどのCIパイプラインに組み込む</li>
+                    <li>
+                        必要に応じてCypress Cloudを導入し、Test ReplayやSmart
+                        Orchestrationでスケールさせる
+                    </li>
+                </ol>
+                <p>
+                    Cypressチームは、ベストプラクティスを実践的なシナリオで学べる<a
+                        href="https://github.com/cypress-io/cypress-realworld-app"
+                        target="_blank"
+                        rel="noopener"
+                        >Real World App（RWA）</a
+                    >というフルスタックのサンプルアプリケーションを公開しています。複数ブラウザ・複数デバイスサイズでのE2Eテスト、ビジュアルリグレッションテスト、APIテスト、ユニットテストを、効率的なCIパイプラインの中でどのように組み合わせるかを学ぶのに最適です。
+                </p>
+                <p>
+                    また、SeleniumやProtractor、Playwrightから移行する場合は、公式の移行ガイドが充実しているので参照してください。
+                </p>
+                <div class="source-note">
+                    <i class="ti ti-link"></i
+                    ><span
+                        >出典：<a
+                            href="https://docs.cypress.io/app/get-started/why-cypress#Cypress-in-the-Real-World"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Cypress in the Real World</a
+                        ></span
+                    >
+                </div>
+
+                <!-- ============ 15 ============ -->
+                <h2 id="sec-15"><span class="sec-badge">15</span>参考文献・出典一覧</h2>
+                <p>
+                    本ガイドの作成にあたり、以下の一次情報源（2026年7月時点の最新版）を参照しました。
+                </p>
+
+                <h3>Cypress公式ドキュメント</h3>
+                <ul>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/get-started/why-cypress"
+                            target="_blank"
+                            rel="noopener"
+                            >Why Cypress? - Cypress Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/get-started/install-cypress"
+                            target="_blank"
+                            rel="noopener"
+                            >Install using npm, Yarn, pnpm, or Bun - Cypress Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/end-to-end-testing/writing-your-first-end-to-end-test"
+                            target="_blank"
+                            rel="noopener"
+                            >Your First Test - Cypress Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/core-concepts/writing-and-organizing-tests"
+                            target="_blank"
+                            rel="noopener"
+                            >Writing and organizing Cypress tests - Cypress Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/core-concepts/testing-types"
+                            target="_blank"
+                            rel="noopener"
+                            >Testing Types - Cypress Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/core-concepts/best-practices"
+                            target="_blank"
+                            rel="noopener"
+                            >Cypress best practices - Cypress Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/references/command-line"
+                            target="_blank"
+                            rel="noopener"
+                            >Command Line - Cypress Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/references/trade-offs"
+                            target="_blank"
+                            rel="noopener"
+                            >Trade-offs - Cypress Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/guides/migration/playwright-to-cypress"
+                            target="_blank"
+                            rel="noopener"
+                            >Migrate from Playwright to Cypress: Complete Migration Guide - Cypress
+                            Documentation</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://docs.cypress.io/app/continuous-integration/github-actions"
+                            target="_blank"
+                            rel="noopener"
+                            >Run Cypress in GitHub Actions - Cypress Documentation</a
+                        >
+                    </li>
+                </ul>
+
+                <h3>Cypress公式サイト</h3>
+                <ul>
+                    <li>
+                        <a href="https://www.cypress.io/" target="_blank" rel="noopener"
+                            >cypress.io（トップページ）</a
+                        >
+                    </li>
+                    <li>
+                        <a href="https://www.cypress.io/#create" target="_blank" rel="noopener"
+                            >cypress.io/#create</a
+                        >
+                    </li>
+                </ul>
+
+                <h3>Playwright公式情報（比較参照用）</h3>
+                <ul>
+                    <li>
+                        <a
+                            href="https://playwright.dev/docs/browsers"
+                            target="_blank"
+                            rel="noopener"
+                            >Browsers | Playwright</a
+                        >
+                    </li>
+                    <li>
+                        <a href="https://playwright.dev/docs/intro" target="_blank" rel="noopener"
+                            >Installation | Playwright</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://github.com/microsoft/playwright"
+                            target="_blank"
+                            rel="noopener"
+                            >GitHub - microsoft/playwright</a
+                        >
+                    </li>
+                </ul>
+
+                <h3>サンプルリポジトリ</h3>
+                <ul>
+                    <li>
+                        <a
+                            href="https://github.com/cypress-io/cypress-realworld-app"
+                            target="_blank"
+                            rel="noopener"
+                            >cypress-io/cypress-realworld-app（GitHub）</a
+                        >
+                    </li>
+                    <li>
+                        <a
+                            href="https://github.com/cypress-io/eslint-plugin-cypress"
+                            target="_blank"
+                            rel="noopener"
+                            >cypress-io/eslint-plugin-cypress（GitHub）</a
+                        >
+                    </li>
+                </ul>
+
+                <footer class="doc-footer">
+                    本ガイドは学習・社内共有目的で作成された二次資料です。最新の公式情報は必ず上記リンク先でご確認ください。
+                </footer>
+            </div>
+        </main>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                themeVariables: {
+                    background: 'transparent',
+                    primaryColor: '#1c1f26',
+                    primaryTextColor: '#e9eaee',
+                    primaryBorderColor: '#a78bfa',
+                    lineColor: '#6c7280',
+                    secondaryColor: '#15171c',
+                    tertiaryColor: '#15171c',
+                    fontFamily: 'var(--font-sans)',
+                    fontSize: '16px',
+                },
+                flowchart: {
+                    htmlLabels: false,
+                    curve: 'linear',
+                    useMaxWidth: false,
+                    nodeSpacing: 45,
+                    rankSpacing: 50,
+                },
+                securityLevel: 'loose',
+            });
+
+            window.addEventListener('DOMContentLoaded', async () => {
+                if (document.fonts && document.fonts.ready) {
+                    await document.fonts.ready;
+                }
+                await mermaid.run({ querySelector: '.mermaid' });
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,4046 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Playwright実践ガイド ― 中級者から上級者のためのステップバイステップ解説</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
+        <style>
+            :root {
+                --bg: #07111e;
+                --bg-elevated: #0d1b2e;
+                --bg-card: #0b1622;
+                --border: rgba(255, 255, 255, 0.08);
+                --border-strong: rgba(255, 255, 255, 0.14);
+                --text-primary: #e7edf6;
+                --text-secondary: #93a5bd;
+                --text-muted: #5c6f88;
+                --accent: #2dd4bf;
+                --accent-soft: rgba(45, 212, 191, 0.12);
+                --accent-strong: #5eead4;
+                --warn: #fbbf24;
+                --warn-soft: rgba(251, 191, 36, 0.1);
+                --danger: #f87171;
+                --danger-soft: rgba(248, 113, 113, 0.1);
+                --font-display: 'Space Grotesk', sans-serif;
+                --font-body: 'Inter', sans-serif;
+                --font-mono: 'JetBrains Mono', monospace;
+                --sidebar-w: 300px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text-primary);
+                font-family: var(--font-body);
+                font-size: 16px;
+                line-height: 1.75;
+                -webkit-font-smoothing: antialiased;
+            }
+            a {
+                color: var(--accent-strong);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+
+            /* ===== Layout ===== */
+            .app {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-w);
+                background: var(--bg-elevated);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 28px 20px 40px;
+                z-index: 50;
+            }
+            .sidebar::-webkit-scrollbar {
+                width: 6px;
+            }
+            .sidebar::-webkit-scrollbar-thumb {
+                background: var(--border-strong);
+                border-radius: 3px;
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 6px;
+            }
+            .brand-mark {
+                width: 34px;
+                height: 34px;
+                border-radius: 8px;
+                background: linear-gradient(135deg, var(--accent), #0891b2);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: var(--font-display);
+                font-weight: 700;
+                color: #031318;
+                font-size: 16px;
+                flex-shrink: 0;
+            }
+            .brand-text {
+                font-family: var(--font-display);
+                font-weight: 600;
+                font-size: 15px;
+                color: var(--text-primary);
+            }
+            .brand-sub {
+                font-size: 11px;
+                color: var(--text-muted);
+                margin: 2px 0 22px 0;
+                letter-spacing: 0.04em;
+                text-transform: uppercase;
+            }
+
+            .nav-group-label {
+                font-size: 11px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--text-muted);
+                margin: 22px 0 8px;
+                font-weight: 600;
+            }
+            .nav-group-label:first-of-type {
+                margin-top: 0;
+            }
+
+            .toc {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .toc li {
+                margin: 2px 0;
+            }
+            .toc a {
+                display: flex;
+                gap: 10px;
+                align-items: baseline;
+                padding: 7px 10px;
+                border-radius: 6px;
+                font-size: 13.5px;
+                color: var(--text-secondary);
+                border-left: 2px solid transparent;
+                transition:
+                    background 0.15s ease,
+                    color 0.15s ease,
+                    border-color 0.15s ease;
+            }
+            .toc a:hover {
+                background: rgba(255, 255, 255, 0.04);
+                color: var(--text-primary);
+                text-decoration: none;
+            }
+            .toc a.active {
+                color: var(--accent-strong);
+                background: var(--accent-soft);
+                border-left-color: var(--accent);
+                font-weight: 600;
+            }
+            .toc .num {
+                font-family: var(--font-mono);
+                font-size: 11.5px;
+                color: var(--text-muted);
+                min-width: 20px;
+            }
+            .toc a.active .num {
+                color: var(--accent);
+            }
+
+            .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 16px;
+                left: 16px;
+                z-index: 60;
+                background: var(--bg-elevated);
+                border: 1px solid var(--border-strong);
+                color: var(--text-primary);
+                width: 42px;
+                height: 42px;
+                border-radius: 8px;
+                font-size: 18px;
+                cursor: pointer;
+                align-items: center;
+                justify-content: center;
+            }
+
+            main {
+                margin-left: var(--sidebar-w);
+                width: calc(100% - var(--sidebar-w));
+                padding: 0 56px 100px;
+            }
+
+            /* ===== Hero ===== */
+            .hero {
+                padding: 72px 0 48px;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 48px;
+            }
+            .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-family: var(--font-mono);
+                font-size: 12.5px;
+                color: var(--accent-strong);
+                background: var(--accent-soft);
+                border: 1px solid rgba(45, 212, 191, 0.25);
+                padding: 6px 14px;
+                border-radius: 100px;
+                margin-bottom: 22px;
+            }
+            .eyebrow::before {
+                content: '●';
+                font-size: 8px;
+                color: var(--accent);
+            }
+            h1.title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: clamp(32px, 4vw, 48px);
+                line-height: 1.15;
+                margin: 0 0 18px;
+                letter-spacing: -0.01em;
+                color: var(--text-primary);
+            }
+            .hero p.lead {
+                font-size: 17px;
+                color: var(--text-secondary);
+                max-width: 900px;
+                margin: 0 0 28px;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+            .chip {
+                font-family: var(--font-mono);
+                font-size: 12px;
+                color: var(--text-secondary);
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                padding: 6px 12px;
+                border-radius: 6px;
+            }
+
+            /* ===== Section typography ===== */
+            section.doc-section {
+                padding-top: 36px;
+                margin-top: -20px;
+            }
+            section.doc-section:first-of-type {
+                padding-top: 0;
+            }
+            h2.sec-title {
+                font-family: var(--font-display);
+                font-weight: 600;
+                font-size: 28px;
+                color: var(--text-primary);
+                display: flex;
+                align-items: baseline;
+                gap: 14px;
+                margin: 0 0 22px;
+                padding-bottom: 16px;
+                border-bottom: 1px solid var(--border);
+            }
+            h2.sec-title .idx {
+                font-family: var(--font-mono);
+                color: var(--accent);
+                font-size: 17px;
+                font-weight: 500;
+            }
+            h3.sub-title {
+                font-family: var(--font-display);
+                font-weight: 600;
+                font-size: 19px;
+                color: var(--text-primary);
+                margin: 34px 0 14px;
+            }
+            p {
+                color: var(--text-secondary);
+                margin: 0 0 16px;
+            }
+            strong {
+                color: var(--text-primary);
+                font-weight: 600;
+            }
+            ul,
+            ol {
+                color: var(--text-secondary);
+                padding-left: 22px;
+                margin: 0 0 16px;
+            }
+            li {
+                margin-bottom: 6px;
+            }
+            li::marker {
+                color: var(--accent);
+            }
+
+            /* ===== Tables ===== */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 0 0 24px;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+            }
+            thead th {
+                background: var(--bg-elevated);
+                color: var(--text-primary);
+                font-family: var(--font-display);
+                font-weight: 600;
+                font-size: 13px;
+                text-align: left;
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border-strong);
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--border);
+                color: var(--text-secondary);
+                vertical-align: top;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: rgba(255, 255, 255, 0.02);
+            }
+            td code,
+            li code,
+            p code {
+                font-family: var(--font-mono);
+                font-size: 0.88em;
+                color: var(--accent-strong);
+                background: var(--bg-card);
+                padding: 2px 6px;
+                border-radius: 4px;
+                border: 1px solid var(--border);
+            }
+
+            /* ===== Code blocks ===== */
+            .code-block {
+                position: relative;
+                margin: 0 0 24px;
+                border-radius: 10px;
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                overflow: hidden;
+            }
+            .code-block .code-label {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 9px 16px;
+                border-bottom: 1px solid var(--border);
+                font-family: var(--font-mono);
+                font-size: 11.5px;
+                color: var(--text-muted);
+                background: rgba(255, 255, 255, 0.02);
+                letter-spacing: 0.03em;
+            }
+            .code-block pre {
+                margin: 0;
+                padding: 18px 20px;
+                overflow-x: auto;
+            }
+            .code-block code {
+                font-family: var(--font-mono);
+                font-size: 13.2px;
+                line-height: 1.65;
+                color: var(--text-primary);
+                background: none;
+            }
+            /* minimal custom highlight.js token palette matching design system */
+            .hljs-keyword,
+            .hljs-built_in,
+            .hljs-type {
+                color: #7dd3fc;
+            }
+            .hljs-string {
+                color: var(--accent-strong);
+            }
+            .hljs-number,
+            .hljs-literal {
+                color: var(--warn);
+            }
+            .hljs-comment {
+                color: var(--text-muted);
+                font-style: italic;
+            }
+            .hljs-function,
+            .hljs-title {
+                color: #c4b5fd;
+            }
+            .hljs-attr,
+            .hljs-property,
+            .hljs-attribute {
+                color: #93c5fd;
+            }
+            .hljs-tag,
+            .hljs-name {
+                color: #7dd3fc;
+            }
+            .hljs-punctuation,
+            .hljs-operator {
+                color: var(--text-secondary);
+            }
+            .hljs-variable,
+            .hljs-params {
+                color: var(--text-primary);
+            }
+
+            /* ===== Mermaid ===== */
+            .mermaid-container {
+                width: 100%;
+                margin: 0 0 28px;
+                padding: 20px;
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+            }
+            pre.mermaid {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                background: transparent;
+                margin: 0;
+            }
+            pre.mermaid svg {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* ===== Callouts ===== */
+            .callout {
+                display: flex;
+                gap: 14px;
+                padding: 16px 18px;
+                border-radius: 10px;
+                margin: 0 0 24px;
+                border: 1px solid;
+            }
+            .callout .icon {
+                font-size: 18px;
+                line-height: 1;
+                flex-shrink: 0;
+            }
+            .callout p {
+                margin: 0;
+                color: var(--text-secondary);
+            }
+            .callout.note {
+                background: var(--accent-soft);
+                border-color: rgba(45, 212, 191, 0.3);
+            }
+            .callout.note .icon {
+                color: var(--accent-strong);
+            }
+            .callout.warn {
+                background: var(--warn-soft);
+                border-color: rgba(251, 191, 36, 0.3);
+            }
+            .callout.warn .icon {
+                color: var(--warn);
+            }
+
+            /* ===== Refs ===== */
+            .refs {
+                margin-top: 20px;
+                padding: 16px 18px;
+                border-radius: 10px;
+                background: var(--bg-card);
+                border: 1px solid var(--border);
+            }
+            .refs .refs-label {
+                font-family: var(--font-mono);
+                font-size: 11.5px;
+                color: var(--text-muted);
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                margin-bottom: 10px;
+            }
+            .refs ul {
+                margin: 0;
+                padding-left: 18px;
+            }
+            .refs li {
+                font-size: 13.5px;
+                margin-bottom: 5px;
+            }
+            .refs a {
+                color: var(--text-secondary);
+                font-family: var(--font-mono);
+                font-size: 12.8px;
+                word-break: break-all;
+            }
+            .refs a:hover {
+                color: var(--accent-strong);
+            }
+
+            /* ===== Checklist table variant ===== */
+            .divider {
+                height: 1px;
+                background: var(--border);
+                margin: 56px 0;
+            }
+
+            footer.doc-footer {
+                margin-top: 60px;
+                padding-top: 28px;
+                border-top: 1px solid var(--border);
+                color: var(--text-muted);
+                font-size: 13px;
+            }
+
+            @media (max-width: 960px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                main {
+                    margin-left: 0;
+                    width: 100%;
+                    padding: 0 22px 80px;
+                }
+                .sidebar-toggle {
+                    display: flex;
+                }
+                .hero {
+                    padding-top: 88px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="sidebar-toggle" id="sidebarToggle" aria-label="目次を開閉">☰</button>
+
+        <div class="app">
+            <aside class="sidebar" id="sidebar">
+                <div class="brand">
+                    <div class="brand-mark">PW</div>
+                    <div class="brand-text">Playwright Guide</div>
+                </div>
+                <div class="brand-sub">中級者〜上級者向け</div>
+
+                <div class="nav-group-label">基礎編</div>
+                <ul class="toc">
+                    <li>
+                        <a href="#sec-1"><span class="num">01</span>アーキテクチャ</a>
+                    </li>
+                    <li>
+                        <a href="#sec-2"><span class="num">02</span>セットアップ</a>
+                    </li>
+                    <li>
+                        <a href="#sec-3"><span class="num">03</span>基本概念</a>
+                    </li>
+                    <li>
+                        <a href="#sec-4"><span class="num">04</span>Locators</a>
+                    </li>
+                    <li>
+                        <a href="#sec-5"><span class="num">05</span>Auto-waiting</a>
+                    </li>
+                    <li>
+                        <a href="#sec-6"><span class="num">06</span>Assertions</a>
+                    </li>
+                </ul>
+
+                <div class="nav-group-label">設計・構造編</div>
+                <ul class="toc">
+                    <li>
+                        <a href="#sec-7"><span class="num">07</span>Fixtures</a>
+                    </li>
+                    <li>
+                        <a href="#sec-8"><span class="num">08</span>Page Object Model</a>
+                    </li>
+                    <li>
+                        <a href="#sec-9"><span class="num">09</span>並列実行</a>
+                    </li>
+                    <li>
+                        <a href="#sec-10"><span class="num">10</span>Sharding</a>
+                    </li>
+                    <li>
+                        <a href="#sec-11"><span class="num">11</span>リトライ対策</a>
+                    </li>
+                </ul>
+
+                <div class="nav-group-label">デバッグ・応用編</div>
+                <ul class="toc">
+                    <li>
+                        <a href="#sec-12"><span class="num">12</span>Trace Viewer</a>
+                    </li>
+                    <li>
+                        <a href="#sec-13"><span class="num">13</span>ネットワークモック</a>
+                    </li>
+                    <li>
+                        <a href="#sec-14"><span class="num">14</span>認証状態の再利用</a>
+                    </li>
+                    <li>
+                        <a href="#sec-15"><span class="num">15</span>Visual Regression</a>
+                    </li>
+                    <li>
+                        <a href="#sec-16"><span class="num">16</span>API Testing</a>
+                    </li>
+                    <li>
+                        <a href="#sec-17"><span class="num">17</span>UI Mode / VS Code</a>
+                    </li>
+                </ul>
+
+                <div class="nav-group-label">運用編</div>
+                <ul class="toc">
+                    <li>
+                        <a href="#sec-18"><span class="num">18</span>CI/CD統合</a>
+                    </li>
+                    <li>
+                        <a href="#sec-19"><span class="num">19</span>Docker活用</a>
+                    </li>
+                    <li>
+                        <a href="#sec-20"><span class="num">20</span>ベストプラクティス</a>
+                    </li>
+                    <li>
+                        <a href="#sec-21"><span class="num">21</span>参考文献一覧</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <main>
+                <header class="hero">
+                    <div class="eyebrow">TECHNICAL GUIDE / QA ENGINEERING</div>
+                    <h1 class="title">
+                        Playwright実践ガイド<br />中級者から上級者のためのステップバイステップ解説
+                    </h1>
+                    <p class="lead">
+                        本ガイドは
+                        <a href="https://playwright.dev/docs/intro" target="_blank" rel="noopener"
+                            >Playwright公式ドキュメント</a
+                        >
+                        を主軸に、 Microsoft
+                        Learn等の関連情報源を参照して作成した技術解説です。TypeScript +
+                        <code>@playwright/test</code> を前提に、
+                        実務で直面する設計判断・アーキテクチャ理解・運用ノウハウにフォーカスしています。各章末に参照URLを明記しています。
+                    </p>
+                    <div class="hero-meta">
+                        <span class="chip">全21章</span>
+                        <span class="chip">TypeScript / @playwright/test</span>
+                        <span class="chip">2026年7月時点の情報</span>
+                        <span class="chip">Mermaid図解</span>
+                    </div>
+                </header>
+
+                <!-- ============ SECTION 1 ============ -->
+                <section class="doc-section" id="sec-1">
+                    <h2 class="sec-title">
+                        <span class="idx">01</span>Playwrightとは何か・全体アーキテクチャ
+                    </h2>
+
+                    <p>
+                        Playwrightは Microsoft
+                        が開発するオープンソースのEnd-to-End(E2E)テストフレームワークです。単一のAPIで
+                        <strong>Chromium・Firefox・WebKit</strong>
+                        の3エンジンを横断的に自動操作でき、Windows・Linux・macOS上でheadless/headed
+                        両方の実行モードをサポートします。Node.js(TypeScript/JavaScript)のほか、Python・Java・.NETからも同一の思想でAPIが
+                        提供されています。
+                    </p>
+
+                    <p>
+                        Playwrightが他のE2Eツールと一線を画す最大の特徴は、<strong
+                            >ブラウザ内部のプロトコル(CDPおよび各ブラウザ独自の
+                            リモートデバッグプロトコル)に直接接続する</strong
+                        >アーキテクチャです。Selenium系のようにWebDriverプロトコルを経由
+                        しないため、通信オーバーヘッドが小さく、要素の状態変化を高精度に検知できます。この設計が後述する
+                        「Auto-waiting」の基盤になっています。
+                    </p>
+
+                    <h3 class="sub-title">全体アーキテクチャ図</h3>
+                    <div class="mermaid-container"><div id="mermaid-1"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-1">
+                        graph TB
+                            subgraph TL["テストコード層"]
+                                A["Test Runner (playwright/test package)"]
+                            end
+                            subgraph EX["実行制御層"]
+                                B1["Worker Process #1"]
+                                B2["Worker Process #2"]
+                                B3["Worker Process #N"]
+                            end
+                            subgraph BA["ブラウザ抽象化層"]
+                                C1["Browser (Chromium)"]
+                                C2["Browser (Firefox)"]
+                                C3["Browser (WebKit)"]
+                            end
+                            subgraph IS["分離単位"]
+                                D1["BrowserContext A"]
+                                D2["BrowserContext B"]
+                                E1["Page"]
+                                E2["Page"]
+                                E3["Page"]
+                            end
+                            A -->|テストファイルを分散| B1
+                            A --> B2
+                            A --> B3
+                            B1 -->|CDP / リモートデバッグ| C1
+                            B2 --> C2
+                            B3 --> C3
+                            C1 --> D1
+                            C1 --> D2
+                            D1 --> E1
+                            D1 --> E2
+                            D2 --> E3
+                    </script>
+
+                    <p>このアーキテクチャの要点は次の3層です。</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>層</th>
+                                    <th>役割</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>テストランナー(<code>@playwright/test</code>)</td>
+                                    <td>テストの発見・スケジューリング・レポート生成</td>
+                                    <td>
+                                        Jest/Mocha等と異なり、ブラウザ自動化に特化した専用ランナー
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Workerプロセス</td>
+                                    <td>OSプロセスとして独立実行</td>
+                                    <td>Worker間で状態を共有できない(意図的な設計)</td>
+                                </tr>
+                                <tr>
+                                    <td>BrowserContext</td>
+                                    <td>Cookie・LocalStorage・権限などを分離する単位</td>
+                                    <td>
+                                        通常のブラウザの「シークレットウィンドウ」に近い概念で、1つのBrowserプロセスから複数生成可能
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Playwright Testは<strong
+                            >テストランナー・アサーションライブラリ・並列化・リッチなツール群(コード生成/トレース
+                            ビューア)を1つに束ねたオールインワン設計</strong
+                        >である点が、公式ドキュメントでも明示されています。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/intro"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/intro</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/browser-contexts"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/browser-contexts</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://learn.microsoft.com/en-us/shows/getting-started-with-end-to-end-testing-with-playwright/introduction-to-playwright-for-end-to-end-testing"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >learn.microsoft.com — Introduction to Playwright for end-to-end
+                                    testing</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 2 ============ -->
+                <section class="doc-section" id="sec-2">
+                    <h2 class="sec-title">
+                        <span class="idx">02</span>インストールとプロジェクトセットアップ
+                    </h2>
+
+                    <h3 class="sub-title">2.1 インストール</h3>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-1"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-1">
+                        npm init playwright@latest
+                    </script>
+
+                    <p>
+                        このコマンドは新規プロジェクトの初期化、または既存プロジェクトへの追加のどちらにも対応しており、対話式で
+                        以下を確認します。
+                    </p>
+                    <ul>
+                        <li>TypeScript か JavaScript か(デフォルト: TypeScript)</li>
+                        <li>
+                            テストフォルダ名(デフォルト: <code>tests</code>、既に存在する場合は
+                            <code>e2e</code>)
+                        </li>
+                        <li>GitHub Actionsワークフローを追加するか</li>
+                        <li>Playwrightブラウザをインストールするか(デフォルト: Yes)</li>
+                    </ul>
+
+                    <p>セットアップ後に生成される構成は以下の通りです。</p>
+                    <div class="code-block">
+                        <div class="code-label">directory structure</div>
+                        <pre><code class="language-text" id="code-2"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-2">
+                        playwright.config.ts     # テスト設定(対象ブラウザ・タイムアウト・リトライ・レポーター等を集約)
+                        package.json
+                        package-lock.json
+                        tests/
+                          example.spec.ts        # 最小構成のサンプルテスト
+                    </script>
+
+                    <h3 class="sub-title">2.2 動作要件(2026年7月時点)</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>要件</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Node.js</td>
+                                    <td>22.x / 24.x / 26.x(いずれも最新版)</td>
+                                </tr>
+                                <tr>
+                                    <td>Windows</td>
+                                    <td>Windows 11以降、Windows Server 2019以降、またはWSL</td>
+                                </tr>
+                                <tr>
+                                    <td>macOS</td>
+                                    <td>macOS 14 (Sonoma) 以降</td>
+                                </tr>
+                                <tr>
+                                    <td>Linux</td>
+                                    <td>
+                                        Debian 12/13、Ubuntu 22.04/24.04/26.04(x86-64またはarm64)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="sub-title">2.3 テストの実行とレポート確認</h3>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-3"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-3">
+                        # 全テスト実行(Chromium/Firefox/WebKitで並列)
+                        npx playwright test
+
+                        # 特定ブラウザのみ
+                        npx playwright test --project=chromium
+
+                        # 特定ファイルのみ
+                        npx playwright test tests/example.spec.ts
+
+                        # ヘッド付きモード(ブラウザウィンドウを表示)
+                        npx playwright test --headed
+
+                        # UI Mode(推奨: 開発時のデバッグ体験)
+                        npx playwright test --ui
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-4"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-4">
+                        # HTMLレポートを表示
+                        npx playwright show-report
+                    </script>
+
+                    <p>
+                        HTMLレポートは失敗時に自動で開き、ブラウザ別・合格/失敗/flaky/スキップでフィルタ可能なダッシュボードを
+                        提供します。
+                    </p>
+
+                    <h3 class="sub-title">2.4 バージョン更新</h3>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-5"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-5">
+                        npm install -D @playwright/test@latest
+                        npx playwright install --with-deps
+                        npx playwright --version
+                    </script>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/intro"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/intro</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-configuration"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-configuration</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-reporters"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-reporters</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 3 ============ -->
+                <section class="doc-section" id="sec-3">
+                    <h2 class="sec-title">
+                        <span class="idx">03</span>基本概念: Browser / BrowserContext / Page
+                    </h2>
+
+                    <p>
+                        Playwright
+                        Testでは、テスト関数の引数に必要なオブジェクトを宣言するだけで自動的に注入される「フィクスチャ」
+                        という仕組みが中核にあります(詳細は第7章)。まずは代表的な組み込みフィクスチャを押さえておきましょう。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>フィクスチャ</th>
+                                    <th>型</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>page</code></td>
+                                    <td><code>Page</code></td>
+                                    <td>このテスト実行専用の分離されたページ</td>
+                                </tr>
+                                <tr>
+                                    <td><code>context</code></td>
+                                    <td><code>BrowserContext</code></td>
+                                    <td>
+                                        このテスト実行専用の分離されたコンテキスト。<code>page</code>はこのコンテキストに属する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>browser</code></td>
+                                    <td><code>Browser</code></td>
+                                    <td>リソース最適化のためテスト間で共有される</td>
+                                </tr>
+                                <tr>
+                                    <td><code>browserName</code></td>
+                                    <td><code>string</code></td>
+                                    <td>実行中のブラウザ名(chromium / firefox / webkit)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>request</code></td>
+                                    <td><code>APIRequestContext</code></td>
+                                    <td>HTTPリクエスト専用の分離されたコンテキスト</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-label">basic.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-6"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-6">
+                        import { test, expect } from '@playwright/test';
+
+                        test('basic test', async ({ page }) => {
+                          await page.goto('https://playwright.dev/');
+                          await expect(page).toHaveTitle(/Playwright/);
+                        });
+                    </script>
+
+                    <h3 class="sub-title">なぜBrowserContextによる分離が重要か</h3>
+                    <p>
+                        Playwrightは<strong>各テストを独立したBrowserContextで実行する</strong>ことをデフォルトの設計思想としています。
+                        これにより、Cookie・セッションストレージ・権限設定などがテスト間で漏れることなく、シークレットウィンドウを
+                        都度開くのと同等の再現性が得られます。テストの並列化・リトライ耐性・デバッグのしやすさは、すべてこの
+                        「分離(Isolation)」の恩恵です。
+                    </p>
+
+                    <div class="mermaid-container"><div id="mermaid-2"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-2">
+                        graph LR
+                            Browser["Browser (1プロセスを複数テストで共有)"]
+                            Browser --> CTX1["BrowserContext A (テスト1専用)"]
+                            Browser --> CTX2["BrowserContext B (テスト2専用)"]
+                            CTX1 --> P1["Page"]
+                            CTX2 --> P2["Page"]
+                            CTX1 -.->|"Cookie/Storage/権限は互いに影響しない"| CTX2
+                    </script>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/browser-contexts"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/browser-contexts</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/pages"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/pages</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 4 ============ -->
+                <section class="doc-section" id="sec-4">
+                    <h2 class="sec-title"><span class="idx">04</span>Locators(ロケーター)戦略</h2>
+
+                    <p>
+                        Locatorは、Playwrightの自動待機とリトライ可能性(retry-ability)の中核をなす概念です。Locatorは「その瞬間に
+                        ページ上の要素を探す方法」を表す<strong>遅延評価のオブジェクト</strong>であり、アクションを実行するたびにDOMを
+                        再検索します。つまり、DOMの再レンダリングが発生しても、Locatorは常に最新の要素を指し続けます。
+                    </p>
+
+                    <h3 class="sub-title">4.1 推奨ロケーターの優先順位</h3>
+                    <p>
+                        公式ドキュメントは、ユーザーが実際に知覚する属性(ロール・テキスト・ラベルなど)を優先することを強く
+                        推奨しています。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>優先度</th>
+                                    <th>メソッド</th>
+                                    <th>用途</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1(最推奨)</td>
+                                    <td><code>page.getByRole()</code></td>
+                                    <td>
+                                        ARIAロールとアクセシブルネームで検索。アクセシビリティ検証の早期フィードバックにもなる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><code>page.getByLabel()</code></td>
+                                    <td>ラベルに紐づくフォームコントロールを検索</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><code>page.getByPlaceholder()</code></td>
+                                    <td>placeholder属性で検索</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><code>page.getByText()</code></td>
+                                    <td>非インタラクティブ要素(div/span/p)のテキスト内容で検索</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><code>page.getByAltText()</code></td>
+                                    <td>画像の代替テキストで検索</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td><code>page.getByTitle()</code></td>
+                                    <td>title属性で検索</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td><code>page.getByTestId()</code></td>
+                                    <td>
+                                        <code>data-testid</code
+                                        >(カスタマイズ可)で検索。UI変更に強いが非ユーザー視点
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>非推奨</td>
+                                    <td>CSS / XPath</td>
+                                    <td>DOM構造への依存が強く壊れやすい</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-label">locators-basic.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-7"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-7">
+                        await page.getByRole('button', { name: 'Sign in' }).click();
+                        await page.getByLabel('Password').fill('secret-password');
+                        await expect(page.getByText('Welcome, John!')).toBeVisible();
+                    </script>
+
+                    <p>
+                        <code>data-testid</code
+                        >を独自の属性名に変更したい場合は設定で切り替え可能です。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code class="language-typescript" id="code-8"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-8">
+                        export default defineConfig({
+                          use: {
+                            testIdAttribute: 'data-pw',
+                          },
+                        });
+                    </script>
+
+                    <h3 class="sub-title">4.2 Locatorのフィルタリングとチェーン</h3>
+                    <p>
+                        一覧の中から特定要素を絞り込む際は
+                        <code>filter()</code> を使います。テキスト・子孫要素の有無・可視性で
+                        絞り込めます。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">filter-example.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-9"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-9">
+                        // テキストで絞り込み
+                        await page
+                          .getByRole('listitem')
+                          .filter({ hasText: 'Product 2' })
+                          .getByRole('button', { name: 'Add to cart' })
+                          .click();
+
+                        // 子孫ロケーターの有無で絞り込み(見出しに"Product 2"を含むリスト項目)
+                        await page
+                          .getByRole('listitem')
+                          .filter({ has: page.getByRole('heading', { name: 'Product 2' }) })
+                          .getByRole('button', { name: 'Add to cart' })
+                          .click();
+                    </script>
+
+                    <p>
+                        複数フィルタのチェーンや、<code>.and()</code> /
+                        <code>.or()</code> による論理結合もサポートされています。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">and-or-example.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-10"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-10">
+                        // role と title の両方に一致
+                        const button = page.getByRole('button').and(page.getByTitle('Subscribe'));
+
+                        // どちらかが表示されたら処理を分岐(2要素同時出現時はstrictエラーになるためfirst()で回避)
+                        const newEmail = page.getByRole('button', { name: 'New' });
+                        const dialog = page.getByText('Confirm security settings');
+                        await expect(newEmail.or(dialog).first()).toBeVisible();
+                    </script>
+
+                    <h3 class="sub-title">4.3 Strictモード</h3>
+                    <p>
+                        Locatorは<strong>厳格(strict)</strong>であり、複数要素にマッチする操作(クリックなど)は例外をスローします。
+                        これは意図しない要素操作によるテストの誤動作を防ぐ安全装置です。<code>count()</code>のような複数要素向け操作は
+                        例外の対象外です。<code>.first()</code> / <code>.last()</code> /
+                        <code>.nth()</code> によるオプトアウトは可能ですが、
+                        DOM変更時に意図しない要素を指す危険があるため非推奨とされています。
+                    </p>
+
+                    <h3 class="sub-title">4.4 Shadow DOMの扱い</h3>
+                    <p>
+                        PlaywrightのLocatorは<strong>デフォルトでShadow DOMを貫通</strong
+                        >します(XPathを除く)。Web Componentsを
+                        扱うプロジェクトでも特別な記述なしに要素を検索できる点は、他ツールとの大きな差異です。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/locators"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/locators</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/best-practices"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/best-practices</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/other-locators"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/other-locators</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 5 ============ -->
+                <section class="doc-section" id="sec-5">
+                    <h2 class="sec-title">
+                        <span class="idx">05</span>Auto-waiting(自動待機)の仕組み
+                    </h2>
+
+                    <p>
+                        Playwrightのテストが安定している(Flakyになりにくい)最大の理由は、アクション実行前に<strong
+                            >アクショナビリティ チェック(actionability checks)</strong
+                        >を自動的に行い、すべての条件が満たされるまで待機してからアクションを
+                        実行する設計にあります。条件がタイムアウトまでに満たされない場合は<code>TimeoutError</code>が発生します。
+                    </p>
+
+                    <p>
+                        例えば
+                        <code>locator.click()</code>
+                        の場合、Playwrightは次を保証してから実行します。
+                    </p>
+                    <ul>
+                        <li>Locatorが<strong>厳密に1要素</strong>に解決されること</li>
+                        <li>要素が<strong>可視(Visible)</strong>であること</li>
+                        <li>
+                            要素が<strong>安定(Stable)</strong>していること(アニメーション中でない)
+                        </li>
+                        <li>
+                            要素が<strong>イベントを受け取れる</strong>こと(他要素に隠れていない)
+                        </li>
+                        <li>要素が<strong>有効(Enabled)</strong>であること</li>
+                    </ul>
+
+                    <h3 class="sub-title">アクショナビリティチェックのフロー</h3>
+                    <div class="mermaid-container"><div id="mermaid-3"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-3">
+                        flowchart TD
+                            Start(["アクション呼び出し (例: locator.click())"]) --> Resolve{"Locatorが1要素に解決?"}
+                            Resolve -- 複数要素 --> StrictErr["Strictモード違反エラー"]
+                            Resolve -- 1要素 --> Attached{"要素はDOMにattachedか?"}
+                            Attached -- No --> Wait1["待機してリトライ"]
+                            Attached -- Yes --> Visible{"表示されているか?"}
+                            Visible -- No --> Wait1
+                            Visible -- Yes --> Stable{"安定しているか?(アニメーション完了)"}
+                            Stable -- No --> Wait1
+                            Stable -- Yes --> Receives{"イベントを受け取れるか?(他要素に非遮蔽)"}
+                            Receives -- No --> Wait1
+                            Receives -- Yes --> Enabled{"有効(enabled)か?"}
+                            Enabled -- No --> Wait1
+                            Enabled -- Yes --> Execute["アクション実行"]
+                            Wait1 --> Timeout{"タイムアウト到達?"}
+                            Timeout -- No --> Attached
+                            Timeout -- Yes --> TimeoutErr["TimeoutError"]
+                    </script>
+
+                    <h3 class="sub-title">5.1 Web-First Assertionsとの関係</h3>
+                    <p>
+                        <code>expect(locator).toBeVisible()</code
+                        >のような<strong>Web-Firstアサーション</strong>も同様にリトライを
+                        内蔵しており、条件が満たされるまで自動的に再試行します。手動で<code>isVisible()</code>のような即時判定APIを
+                        使うと、この恩恵を失いFlakyの原因になります(詳細は第6章)。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/actionability"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/actionability</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/best-practices"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/best-practices</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 6 ============ -->
+                <section class="doc-section" id="sec-6">
+                    <h2 class="sec-title">
+                        <span class="idx">06</span>Web-First Assertions(アサーション)
+                    </h2>
+
+                    <p>
+                        Playwright
+                        Testの<code>expect</code>は、標準のJest系アサーションを拡張した<strong
+                            >Web-First Assertions</strong
+                        >
+                        を提供します。最大の特徴は、期待条件が満たされるまで自動的にポーリング・リトライする点です。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">assertions.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-11"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-11">
+                        // 👍 推奨: 表示されるまで自動的に待機・リトライする
+                        await expect(page.getByText('Welcome')).toBeVisible();
+
+                        // 👎 非推奨: 即座に判定し、リトライしない(Flakyの温床)
+                        expect(await page.getByText('Welcome').isVisible()).toBe(true);
+                    </script>
+
+                    <h3 class="sub-title">6.1 主なアサーションの分類</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>カテゴリ</th>
+                                    <th>代表例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Locator(要素)系</td>
+                                    <td>
+                                        <code>toBeVisible()</code> / <code>toBeEnabled()</code> /
+                                        <code>toHaveText()</code> / <code>toHaveCount()</code> /
+                                        <code>toHaveAttribute()</code>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Page系</td>
+                                    <td><code>toHaveTitle()</code> / <code>toHaveURL()</code></td>
+                                </tr>
+                                <tr>
+                                    <td>APIResponse系</td>
+                                    <td><code>toBeOK()</code></td>
+                                </tr>
+                                <tr>
+                                    <td>汎用値比較</td>
+                                    <td><code>toEqual()</code> / <code>toMatchSnapshot()</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="sub-title">6.2 Soft Assertions(ソフトアサーション)</h3>
+                    <p>
+                        通常のアサーションは失敗した時点でテストを即座に終了しますが、<code>expect.soft()</code>を使うと
+                        <strong>失敗を記録しつつテストの実行を継続</strong
+                        >し、テスト終了時にまとめて失敗一覧を報告します。1つのテストで
+                        複数の検証観点を独立して確認したい場合に有用です。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">soft-assertion.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-12"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-12">
+                        await expect.soft(page.getByTestId('status')).toHaveText('Success');
+                        // 上のアサーションが失敗してもテストは継続する
+                        await page.getByRole('link', { name: 'next page' }).click();
+                    </script>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-assertions"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-assertions</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/best-practices"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/best-practices</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 7 ============ -->
+                <section class="doc-section" id="sec-7">
+                    <h2 class="sec-title">
+                        <span class="idx">07</span>Test Fixtures(テストフィクスチャ)
+                    </h2>
+
+                    <p>
+                        Playwright
+                        Testは<strong>フィクスチャ</strong>という概念を中心に設計されています。フィクスチャとは、
+                        テストに必要な環境(前提条件)を用意し、テストにはそれ以外の情報を渡さない仕組みです。フィクスチャはテスト間で
+                        分離されており、共通のセットアップコードを持つテストを「意味」でグルーピングできるようになります。
+                    </p>
+
+                    <h3 class="sub-title">7.1 Fixtureなしとありの比較</h3>
+                    <p>
+                        <strong>Fixtureを使わない場合</strong
+                        >(before/afterフックによる典型的な構成):
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">without-fixtures.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-13"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-13">
+                        import { test } from '@playwright/test';
+                        import { TodoPage } from './todo-page';
+
+                        test.describe('todo tests', () => {
+                          let todoPage: TodoPage;
+
+                          test.beforeEach(async ({ page }) => {
+                            todoPage = new TodoPage(page);
+                            await todoPage.goto();
+                            await todoPage.addItem('item1');
+                          });
+
+                          test.afterEach(async () => {
+                            await todoPage.removeAll();
+                          });
+
+                          test('adds an item', async () => {
+                            await todoPage.addItem('my item');
+                          });
+                        });
+                    </script>
+
+                    <p>
+                        <strong>Fixtureを使う場合</strong
+                        >(<code>test.extend()</code>でセットアップ/ティアダウンをカプセル化):
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">with-fixtures.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-14"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-14">
+                        import { test as base } from '@playwright/test';
+                        import { TodoPage } from './todo-page';
+
+                        const test = base.extend<{ todoPage: TodoPage }>({
+                          todoPage: async ({ page }, use) => {
+                            const todoPage = new TodoPage(page);
+                            await todoPage.goto();
+                            await todoPage.addItem('item1');
+                            await use(todoPage);          // ← ここでテスト本体が実行される
+                            await todoPage.removeAll();   // ← テスト終了後にティアダウン
+                          },
+                        });
+
+                        test('adds an item', async ({ todoPage }) => {
+                          await todoPage.addItem('my item');
+                        });
+                    </script>
+
+                    <p>フィクスチャは次の利点を持ちます。</p>
+                    <ul>
+                        <li>
+                            <strong>カプセル化</strong>: セットアップとティアダウンが1箇所にまとまる
+                        </li>
+                        <li><strong>再利用性</strong>: 複数のテストファイルで使い回せる</li>
+                        <li>
+                            <strong>オンデマンド</strong>:
+                            テストが実際に必要とするフィクスチャのみセットアップされる
+                        </li>
+                        <li><strong>合成可能</strong>: フィクスチャ同士が依存し合える</li>
+                        <li>
+                            <strong>柔軟性</strong>:
+                            テストごとに任意のフィクスチャの組み合わせが可能
+                        </li>
+                    </ul>
+
+                    <h3 class="sub-title">7.2 Worker-scopedフィクスチャ</h3>
+                    <p>
+                        Playwright
+                        Testは複数のWorkerプロセスでテストファイルを並列実行します。フィクスチャには「テストスコープ
+                        (デフォルト)」と「ワーカースコープ」があり、後者は<strong>Workerプロセスにつき1回だけ</strong>セットアップされ、
+                        そのWorkerが実行する全テストで再利用されます。DBセットアップや外部サービス起動など、コストの高い初期化に
+                        向いています。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">worker-fixture.ts</div>
+                        <pre><code class="language-typescript" id="code-15"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-15">
+                        import { test as base } from '@playwright/test';
+
+                        type Account = { username: string; password: string };
+
+                        export const test = base.extend<{}, { account: Account }>({
+                          account: [async ({ browser }, use, workerInfo) => {
+                            const username = `user-${workerInfo.workerIndex}`;
+                            const page = await browser.newPage();
+                            await page.goto('/signup');
+                            await page.getByLabel('User Name').fill(username);
+                            await page.getByText('Sign up').click();
+                            await page.close();
+                            await use({ username, password: 'verysecure' });
+                          }, { scope: 'worker' }],
+                        });
+                    </script>
+
+                    <h3 class="sub-title">7.3 Automatic Fixtures(自動フィクスチャ)</h3>
+                    <p>
+                        <code>{ auto: true }</code
+                        >を付けると、テストが明示的に要求しなくても常にセットアップされます。失敗時のログ
+                        収集など「常に動いてほしい」補助的な処理に向いています。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">auto-fixture.ts</div>
+                        <pre><code class="language-typescript" id="code-16"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-16">
+                        export const test = base.extend<{ saveLogsOnFailure: void }>({
+                          saveLogsOnFailure: [async ({}, use, testInfo) => {
+                            await use();
+                            if (testInfo.status !== testInfo.expectedStatus) {
+                              // 失敗時のみログを添付する処理をここに書く
+                            }
+                          }, { auto: true }],
+                        });
+                    </script>
+
+                    <h3 class="sub-title">7.4 実行順序を理解する</h3>
+                    <p>フィクスチャの実行順序には明確なルールがあります。</p>
+                    <ul>
+                        <li>
+                            フィクスチャAがフィクスチャBに依存する場合、<strong>Bは常にAより先にセットアップされ、Aより後にティアダウン</strong>される
+                        </li>
+                        <li>
+                            非自動フィクスチャは<strong>遅延評価</strong>され、テスト/フックが実際に必要とした時点で初めてセットアップされる
+                        </li>
+                        <li>
+                            テストスコープのフィクスチャは各テスト後にティアダウンされ、ワーカースコープのフィクスチャはWorkerプロセス終了時にのみティアダウンされる
+                        </li>
+                    </ul>
+
+                    <div class="mermaid-container"><div id="mermaid-4"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-4">
+                        sequenceDiagram
+                            participant W as Worker起動
+                            participant AutoW as autoWorkerFixture
+                            participant BA as beforeAll
+                            participant AutoT as autoTestFixture
+                            participant Page as pageフィクスチャ
+                            participant T1 as テスト1
+                            participant WF as workerFixture
+                            participant TF as testFixture
+                            participant T2 as テスト2
+                            participant AA as afterAll
+                            W->>AutoW: セットアップ(自動・Worker単位)
+                            AutoW->>BA: beforeAll実行
+                            BA->>AutoT: autoTestFixtureセットアップ
+                            AutoT->>Page: pageセットアップ
+                            Page->>T1: テスト1実行
+                            T1-->>Page: ティアダウン(テスト単位)
+                            Note over T2: 2つ目のテストで初めてworkerFixtureが必要になる
+                            Page->>WF: workerFixtureを遅延セットアップ
+                            WF->>TF: testFixtureセットアップ
+                            TF->>T2: テスト2実行
+                            T2-->>TF: ティアダウン
+                            TF-->>AA: afterAll実行
+                            AA-->>WF: Worker終了時にティアダウン
+                    </script>
+
+                    <h3 class="sub-title">7.5 複数モジュールのフィクスチャ合成</h3>
+                    <div class="code-block">
+                        <div class="code-label">merge-fixtures.ts</div>
+                        <pre><code class="language-typescript" id="code-17"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-17">
+                        import { mergeTests } from '@playwright/test';
+                        import { test as dbTest } from './database-fixtures';
+                        import { test as a11yTest } from './a11y-fixtures';
+
+                        export const test = mergeTests(dbTest, a11yTest);
+                    </script>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-parallel"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-parallel</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 8 ============ -->
+                <section class="doc-section" id="sec-8">
+                    <h2 class="sec-title">
+                        <span class="idx">08</span>Page Object Model(POM)設計パターン
+                    </h2>
+
+                    <p>
+                        大規模なテストスイートでは、テストの可読性と保守性を高めるために<strong
+                            >Page Object Model</strong
+                        >の導入が 推奨されています。Page
+                        Objectはアプリケーションの特定の画面(あるいは画面の一部)を表すクラスで、要素の
+                        Locatorを1箇所に集約し、画面固有の操作を高レベルAPIとして提供します。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">playwright-dev-page.ts</div>
+                        <pre><code class="language-typescript" id="code-18"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-18">
+                        import { expect, type Locator, type Page } from '@playwright/test';
+
+                        export class PlaywrightDevPage {
+                          readonly page: Page;
+                          readonly getStartedLink: Locator;
+                          readonly gettingStartedHeader: Locator;
+
+                          constructor(page: Page) {
+                            this.page = page;
+                            this.getStartedLink = page.getByRole('link', { name: 'Get started' });
+                            this.gettingStartedHeader = page.getByRole('heading', { name: 'Installation' });
+                          }
+
+                          async goto() {
+                            await this.page.goto('https://playwright.dev');
+                          }
+
+                          async clickGetStarted() {
+                            await this.getStartedLink.first().click();
+                            await expect(this.gettingStartedHeader).toBeVisible();
+                          }
+                        }
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">example.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-19"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-19">
+                        import { test, expect } from '@playwright/test';
+                        import { PlaywrightDevPage } from './playwright-dev-page';
+
+                        test('Get Startedからインストールページへ遷移できる', async ({ page }) => {
+                          const devPage = new PlaywrightDevPage(page);
+                          await devPage.goto();
+                          await devPage.clickGetStarted();
+                        });
+                    </script>
+
+                    <h3 class="sub-title">8.1 POM単体からFixture統合されたPOMへ</h3>
+                    <p>
+                        POMは単体でも有用ですが、実務では第7章のFixtureと組み合わせることで真価を発揮します。テストごとに
+                        <code>new TodoPage(page)</code
+                        >と書く代わりに、フィクスチャとして注入すればテストコードから初期化・後始末の
+                        ノイズが消えます。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">fixtures.ts</div>
+                        <pre><code class="language-typescript" id="code-20"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-20">
+                        import { test as base } from '@playwright/test';
+                        import { PlaywrightDevPage } from './playwright-dev-page';
+
+                        export const test = base.extend<{ devPage: PlaywrightDevPage }>({
+                          devPage: async ({ page }, use) => {
+                            const devPage = new PlaywrightDevPage(page);
+                            await devPage.goto();
+                            await use(devPage);
+                          },
+                        });
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">example.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-21"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-21">
+                        import { test } from './fixtures';
+
+                        test('Get Startedからインストールページへ遷移できる', async ({ devPage }) => {
+                          await devPage.clickGetStarted();
+                        });
+                    </script>
+
+                    <h3 class="sub-title">8.2 POM設計のポイント</h3>
+                    <ul>
+                        <li>
+                            Locatorはコンストラクタで一括初期化し、テストコードに直接CSS/XPathを書かせない
+                        </li>
+                        <li>
+                            画面固有の「意味のある操作」(例:
+                            <code>login()</code
+                            >、<code>addToCart()</code>)をメソッド化し、内部実装の変更をPOM内に閉じ込める
+                        </li>
+                        <li>
+                            アサーションをPOM内に持たせるかは議論があるが、<strong>画面遷移の確認など操作の一部として自然なもの</strong>はPOM内に置き、<strong>ビジネスロジックの検証</strong>はテスト側に置くと責務が分離しやすい
+                        </li>
+                    </ul>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/pom"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/pom</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 9 ============ -->
+                <section class="doc-section" id="sec-9">
+                    <h2 class="sec-title"><span class="idx">09</span>並列実行とWorkerプロセス</h2>
+
+                    <p>
+                        Playwright
+                        Testは<strong>デフォルトで並列実行</strong>されます。複数のWorkerプロセス(OSプロセスとして独立)が
+                        同時に起動し、各Workerが自分自身のブラウザインスタンスを持ちます。デフォルトでは<strong
+                            >テストファイル単位</strong
+                        >
+                        が並列化の粒度であり、同一ファイル内のテストは順番に、同じWorkerプロセス内で実行されます。
+                    </p>
+
+                    <div class="mermaid-container"><div id="mermaid-5"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-5">
+                        graph TB
+                            Runner["テストランナー"]
+                            Runner --> W1["Worker 1 (file-a.spec.ts, file-d.spec.ts)"]
+                            Runner --> W2["Worker 2 (file-b.spec.ts)"]
+                            Runner --> W3["Worker 3 (file-c.spec.ts)"]
+                            W1 -.->|"プロセス間通信不可(状態共有なし)"| W2
+                            W2 -.-> W3
+                    </script>
+
+                    <h3 class="sub-title">9.1 Worker数の制御</h3>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-22"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-22">
+                        npx playwright test --workers 4
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code class="language-typescript" id="code-23"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-23">
+                        export default defineConfig({
+                          workers: process.env.CI ? 2 : undefined, // CIでは絞り、ローカルはCPUコア数に応じて自動
+                        });
+                    </script>
+
+                    <p>
+                        並列化を無効化(デバッグ時など)したい場合は<code>--workers=1</code>を指定します。
+                    </p>
+
+                    <h3 class="sub-title">9.2 ファイル内並列化(fullyParallel)</h3>
+                    <p>
+                        デフォルトでは同一ファイル内のテストは順番に実行されますが、
+                        <code>test.describe.configure({ mode: 'parallel' })</code
+                        >または設定ファイルの<code>fullyParallel: true</code>
+                        によって、ファイル内のテストも並列化できます。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">parallel-in-file.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-24"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-24">
+                        test.describe.configure({ mode: 'parallel' });
+
+                        test('独立したテストA', async ({ page }) => { /* ... */ });
+                        test('独立したテストB', async ({ page }) => { /* ... */ });
+                    </script>
+
+                    <div class="callout warn">
+                        <div class="icon">⚠</div>
+                        <p>
+                            <strong>注意</strong>:
+                            並列テストは別々のWorkerプロセスで実行されるため、グローバル変数や状態を共有できません。
+                            各テストは<code>beforeAll</code>/<code>afterAll</code>を含む関連フックをそれぞれ独立して実行します。
+                        </p>
+                    </div>
+
+                    <h3 class="sub-title">9.3 Serialモード(非推奨だが必要な場面もある)</h3>
+                    <p>
+                        相互に依存するテストは<code
+                            >test.describe.configure({ mode: 'serial' })</code
+                        >でグループ化できますが、
+                        公式ドキュメントは「通常はテストを独立させる方が良い」と明言しています。1つが失敗すると後続はすべてスキップ
+                        されます。
+                    </p>
+
+                    <h3 class="sub-title">9.4 Worker単位でのデータ分離</h3>
+                    <p>
+                        <code>testInfo.workerIndex</code
+                        >を使うことで、Worker間でテストデータ(DBユーザー等)を安全に分離できます。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">worker-scoped-data.ts</div>
+                        <pre><code class="language-typescript" id="code-25"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-25">
+                        export const test = baseTest.extend<{}, { dbUserName: string }>({
+                          dbUserName: [async ({}, use) => {
+                            const userName = `user-${test.info().workerIndex}`;
+                            await createUserInTestDatabase(userName);
+                            await use(userName);
+                            await deleteUserFromTestDatabase(userName);
+                          }, { scope: 'worker' }],
+                        });
+                    </script>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-parallel"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-parallel</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 10 ============ -->
+                <section class="doc-section" id="sec-10">
+                    <h2 class="sec-title">
+                        <span class="idx">10</span>Sharding(シャーディング)によるスケールアウト
+                    </h2>
+
+                    <p>
+                        1台のマシンでの並列化には限界があります。<strong>Sharding</strong>は、テストスイート全体を複数の「シャード」に
+                        分割し、複数のマシン(典型的にはCIのジョブ)で同時に実行する仕組みです。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-26"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-26">
+                        npx playwright test --shard=1/4
+                        npx playwright test --shard=2/4
+                        npx playwright test --shard=3/4
+                        npx playwright test --shard=4/4
+                    </script>
+
+                    <p>
+                        4台で並列実行すれば、理論上テストスイート全体の実行時間を1/4に短縮できます。
+                    </p>
+
+                    <h3 class="sub-title">10.1 シャードのバランシング</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>設定</th>
+                                    <th>分割の粒度</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>fullyParallel: true</code></td>
+                                    <td>個々のテスト単位</td>
+                                    <td>シャード間でテスト数が均等に分配されやすい(推奨)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>fullyParallel</code>なし(デフォルト)</td>
+                                    <td>ファイル単位</td>
+                                    <td>
+                                        ファイルごとのテスト数に偏りがあるとシャード間の負荷が不均衡になりやすい
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="sub-title">10.2 レポートのマージ</h3>
+                    <p>
+                        シャードごとに生成された個別レポートを1つに統合するには、<code>blob</code>レポーターを使います。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code class="language-typescript" id="code-27"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-27">
+                        export default defineConfig({
+                          reporter: process.env.CI ? 'blob' : 'html',
+                        });
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-28"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-28">
+                        npx playwright merge-reports --reporter html ./all-blob-reports
+                    </script>
+
+                    <h3 class="sub-title">10.3 GitHub Actionsでのシャーディング例</h3>
+                    <div class="mermaid-container"><div id="mermaid-6"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-6">
+                        flowchart LR
+                            Push["git push"] --> Matrix["Actions Matrix shardIndex: [1,2,3,4]"]
+                            Matrix --> S1["Shard 1/4"]
+                            Matrix --> S2["Shard 2/4"]
+                            Matrix --> S3["Shard 3/4"]
+                            Matrix --> S4["Shard 4/4"]
+                            S1 --> Blob1["blob-report-1"]
+                            S2 --> Blob2["blob-report-2"]
+                            S3 --> Blob3["blob-report-3"]
+                            S4 --> Blob4["blob-report-4"]
+                            Blob1 --> Merge["merge-reportsジョブ (needs: すべてのShard)"]
+                            Blob2 --> Merge
+                            Blob3 --> Merge
+                            Blob4 --> Merge
+                            Merge --> HTML["統合HTMLレポート"]
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">.github/workflows/playwright.yml(抜粋)</div>
+                        <pre><code class="language-yaml" id="code-29"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-29">
+                        jobs:
+                          playwright-tests:
+                            strategy:
+                              fail-fast: false
+                              matrix:
+                                shardIndex: [1, 2, 3, 4]
+                                shardTotal: [4]
+                            steps:
+                              - uses: actions/checkout@v5
+                              - uses: actions/setup-node@v5
+                                with:
+                                  node-version: lts/*
+                              - run: npm ci
+                              - run: npx playwright install --with-deps
+                              - run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+                              - uses: actions/upload-artifact@v4
+                                if: ${{ !cancelled() }}
+                                with:
+                                  name: blob-report-${{ matrix.shardIndex }}
+                                  path: blob-report
+                                  retention-days: 1
+
+                          merge-reports:
+                            if: ${{ !cancelled() }}
+                            needs: [playwright-tests]
+                            runs-on: ubuntu-latest
+                            steps:
+                              - uses: actions/download-artifact@v5
+                                with:
+                                  path: all-blob-reports
+                                  pattern: blob-report-*
+                                  merge-multiple: true
+                              - run: npx playwright merge-reports --reporter html ./all-blob-reports
+                              - uses: actions/upload-artifact@v4
+                                with:
+                                  name: html-report
+                                  path: playwright-report
+                    </script>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-sharding"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-sharding</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-parallel"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-parallel</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-reporters"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-reporters</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 11 ============ -->
+                <section class="doc-section" id="sec-11">
+                    <h2 class="sec-title"><span class="idx">11</span>リトライとFlakyテスト対策</h2>
+
+                    <p>
+                        失敗したテストを自動的に再試行する仕組みが<strong>Retries</strong>です。デフォルトでは無効ですが、CI環境では
+                        有効化するのが一般的です。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-30"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-30">
+                        npx playwright test --retries=3
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code class="language-typescript" id="code-31"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-31">
+                        export default defineConfig({
+                          retries: process.env.CI ? 2 : 0,
+                        });
+                    </script>
+
+                    <h3 class="sub-title">11.1 テストの分類</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>分類</th>
+                                    <th>意味</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>passed</td>
+                                    <td>初回実行で合格</td>
+                                </tr>
+                                <tr>
+                                    <td>flaky</td>
+                                    <td>初回は失敗したがリトライで合格</td>
+                                </tr>
+                                <tr>
+                                    <td>failed</td>
+                                    <td>初回・リトライすべてで失敗</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Workerプロセスはテストが1つでも失敗すると<strong>破棄され、新しいWorkerプロセスが起動</strong>します。これは、
+                        失敗したテストが残した副作用(グローバル状態の汚染など)が後続テストに影響しないようにするための設計です。
+                        リトライが有効な場合、新しいWorkerプロセスは失敗したテストからやり直します。
+                    </p>
+
+                    <h3 class="sub-title">11.2 リトライ回数はテストの中からも参照できる</h3>
+                    <div class="code-block">
+                        <div class="code-label">retry-aware.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-32"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-32">
+                        test('サーバー状態に依存するテスト', async ({ page }, testInfo) => {
+                          if (testInfo.retry) {
+                            await cleanUpServerSideCache();
+                          }
+                          // ...
+                        });
+                    </script>
+
+                    <h3 class="sub-title">11.3 Flaky対策の本質</h3>
+                    <p>
+                        リトライは<strong>対症療法</strong>であり、根本原因(不十分な待機、不安定なテストデータ、外部依存のブレ)への
+                        対応が本筋です。第4〜6章のLocator戦略・Auto-waiting・Web-Firstアサーションを正しく使うことが、最も効果的な
+                        Flaky対策になります。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-retries"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-retries</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/best-practices"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/best-practices</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 12 ============ -->
+                <section class="doc-section" id="sec-12">
+                    <h2 class="sec-title"><span class="idx">12</span>Trace Viewerによるデバッグ</h2>
+
+                    <p>
+                        <strong>Trace Viewer</strong
+                        >は、記録されたテスト実行の軌跡(トレース)を探索できるGUIツールです。各アクションの
+                        前後でページがどう変化したかを、タイムラインを操作しながら視覚的に確認できます。
+                    </p>
+
+                    <h3 class="sub-title">12.1 トレースの記録設定</h3>
+                    <p>
+                        デフォルトの設定テンプレートでは、CI環境で「最初のリトライ時にのみ」トレースを記録するようになっています
+                        (常時記録は性能への影響が大きいため非推奨)。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code class="language-typescript" id="code-33"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-33">
+                        export default defineConfig({
+                          retries: process.env.CI ? 2 : 0,
+                          use: {
+                            trace: 'on-first-retry', // 失敗したテストの最初のリトライでのみ記録
+                          },
+                        });
+                    </script>
+
+                    <p>ローカルで強制的に記録したい場合:</p>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-34"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-34">
+                        npx playwright test --trace on
+                    </script>
+
+                    <h3 class="sub-title">12.2 トレースの閲覧フロー</h3>
+                    <div class="mermaid-container"><div id="mermaid-7"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-7">
+                        flowchart TD
+                            A["テスト実行"] --> B{"失敗した?"}
+                            B -- Yes --> C["trace.zip を自動生成(on-first-retryの場合)"]
+                            B -- No --> D["トレースなし(設定次第)"]
+                            C --> E["npx playwright show-report"]
+                            E --> F["HTMLレポート内のトレースアイコンをクリック"]
+                            F --> G["Trace Viewerが開く"]
+                            G --> H["タイムライン上でアクションを1つずつ確認"]
+                            H --> I["DOMスナップショット閲覧 + DevTools起動可能"]
+                            H --> J["ネットワークログ確認"]
+                            H --> K["コンソールログ確認"]
+                    </script>
+
+                    <p>
+                        Trace
+                        Viewerでは、各アクション実行前後のDOMスナップショットを完全にインタラクティブな形で再現でき、
+                        ブラウザのDevToolsをその場で開いてHTML/CSSを検証することも可能です。ネットワークリクエスト・コンソールログ・
+                        実行時のログ(要素が可視になるまでの待機など)も同時に確認できます。
+                    </p>
+
+                    <h3 class="sub-title">12.3 UI Modeとの使い分け</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ツール</th>
+                                    <th>主な用途</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>UI Mode(<code>--ui</code>)</td>
+                                    <td>
+                                        ローカル開発中の<strong>リアルタイム</strong>デバッグ・ウォッチモード
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Trace Viewer</td>
+                                    <td>
+                                        <strong>CI環境で失敗したテスト</strong
+                                        >の事後解析(共有可能なPWAとして)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/trace-viewer-intro"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/trace-viewer-intro</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/trace-viewer"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/trace-viewer</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-ui-mode"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-ui-mode</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 13 ============ -->
+                <section class="doc-section" id="sec-13">
+                    <h2 class="sec-title">
+                        <span class="idx">13</span>ネットワークインターセプションとAPIモック
+                    </h2>
+
+                    <p>
+                        Playwrightは、ページが発行するHTTP(S)リクエスト(XHR・fetchを含む)をすべて追跡・変更・モックするAPIを
+                        提供します。
+                    </p>
+
+                    <h3 class="sub-title">13.1 APIレスポンスの完全モック</h3>
+                    <div class="code-block">
+                        <div class="code-label">mock-api.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-35"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-35">
+                        test('APIをモックしフルーツ一覧を表示する', async ({ page }) => {
+                          await page.route('*/**/api/v1/fruits', async route => {
+                            const json = [{ name: 'Strawberry', id: 21 }];
+                            await route.fulfill({ json });
+                          });
+
+                          await page.goto('https://demo.playwright.dev/api-mocking');
+                          await expect(page.getByText('Strawberry')).toBeVisible();
+                        });
+                    </script>
+
+                    <p>
+                        このパターンでは実際のAPIには一切リクエストが送信されず、指定したモックデータでレスポンスが完結します。
+                    </p>
+
+                    <h3 class="sub-title">13.2 実際のレスポンスを部分的に改変</h3>
+                    <p>
+                        実サーバーへのリクエストは発生させつつ、レスポンスボディだけを差し替えることも可能です。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">mock-partial.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-36"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-36">
+                        test('実APIのレスポンスに要素を追加する', async ({ page }) => {
+                          await page.route('*/**/api/v1/fruits', async route => {
+                            const response = await route.fetch();
+                            const json = await response.json();
+                            json.push({ name: 'Loquat', id: 100 });
+                            await route.fulfill({ response, json });
+                          });
+
+                          await page.goto('https://demo.playwright.dev/api-mocking');
+                          await expect(page.getByText('Loquat', { exact: true })).toBeVisible();
+                        });
+                    </script>
+
+                    <h3 class="sub-title">13.3 HARファイルによる記録・再生</h3>
+                    <p>
+                        HAR(HTTP
+                        Archive)ファイルはページロード時に発生した全通信の記録です。これをテストのモックデータとして
+                        再利用できます。
+                    </p>
+
+                    <div class="mermaid-container"><div id="mermaid-8"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-8">
+                        flowchart LR
+                            A["page.routeFromHAR() update: true"] --> B["実際にAPIへアクセスしHARファイルへ記録"]
+                            B --> C["HARファイルをバージョン管理にコミット"]
+                            C --> D["update: false で再実行"]
+                            D --> E["記録済みHARからレスポンスを再生(実APIは呼ばれない)"]
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">har-replay.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-37"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-37">
+                        await page.routeFromHAR('./hars/fruit.har', {
+                          url: '*/**/api/v1/fruits',
+                          update: false, // true にすると実データでHARを更新する
+                        });
+                    </script>
+
+                    <p>
+                        HAR再生はURLとHTTPメソッドを厳密に照合し、POSTの場合はペイロードも厳密照合します。複数のエントリが
+                        一致する場合はヘッダー一致数が最も多いものが選択されます。
+                    </p>
+
+                    <h3 class="sub-title">13.4 WebSocketのモック</h3>
+                    <div class="code-block">
+                        <div class="code-label">websocket-mock.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-38"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-38">
+                        await page.routeWebSocket('wss://example.com/ws', ws => {
+                          ws.onMessage(message => {
+                            if (message === 'request') ws.send('response');
+                          });
+                        });
+                    </script>
+
+                    <p>
+                        実サーバーに接続しつつ、メッセージの一部だけを書き換える「中間者」的な使い方も可能です。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/mock"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/mock</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/network"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/network</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 14 ============ -->
+                <section class="doc-section" id="sec-14">
+                    <h2 class="sec-title"><span class="idx">14</span>認証状態の再利用戦略</h2>
+
+                    <p>
+                        Playwrightはテストごとに独立したBrowserContextで実行されるため、毎回ログインフローを繰り返すのは非効率です。
+                        公式ドキュメントは認証状態(Cookie・LocalStorage・IndexedDB)をファイルに保存し、テスト開始時に再利用する複数の
+                        戦略を提示しています。
+                    </p>
+
+                    <h3 class="sub-title">14.1 認証戦略の選択フロー</h3>
+                    <div class="mermaid-container"><div id="mermaid-9"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-9">
+                        flowchart TD
+                            Start(["テストはサーバー側状態を変更するか?"]) -->|変更しない| Basic
+                            Start -->|"変更する(例: 設定変更テストが並列実行される)"| Worker
+                            Basic["基本戦略: 全テストで共有アカウント1つ"] --> BasicDetail["setupプロジェクトで1回だけログイン → storageState.jsonを保存 → 全テストプロジェクトがdependenciesで参照"]
+                            Worker["中級戦略: Workerごとに専用アカウント"] --> WorkerDetail["parallelIndexでWorker固有のアカウントを払い出し → Worker単位でstorageStateをキャッシュ"]
+                            BasicDetail --> Roles{"複数ロール(admin/user等)が必要か?"}
+                            WorkerDetail --> Roles
+                            Roles -- Yes --> Multi["複数回ログインしロールごとにstorageStateを保存 test.use()で使い分け"]
+                            Roles -- No --> Done["完了"]
+                            Multi --> Together{"複数ロールを1テスト内で同時に操作するか?"}
+                            Together -- Yes --> Contexts["browser.newContext()で複数のBrowserContextを生成し同時に操作"]
+                            Together -- No --> Done
+                    </script>
+
+                    <h3 class="sub-title">14.2 基本戦略: 共有アカウント</h3>
+                    <div class="code-block">
+                        <div class="code-label">tests/auth.setup.ts</div>
+                        <pre><code class="language-typescript" id="code-39"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-39">
+                        import { test as setup, expect } from '@playwright/test';
+                        import path from 'path';
+
+                        const authFile = path.join(__dirname, '../playwright/.auth/user.json');
+
+                        setup('authenticate', async ({ page }) => {
+                          await page.goto('https://example.com/login');
+                          await page.getByLabel('Username').fill('username');
+                          await page.getByLabel('Password').fill('password');
+                          await page.getByRole('button', { name: 'Sign in' }).click();
+                          await page.waitForURL('https://example.com/');
+                          await page.context().storageState({ path: authFile });
+                        });
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code class="language-typescript" id="code-40"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-40">
+                        export default defineConfig({
+                          projects: [
+                            { name: 'setup', testMatch: /.*\.setup\.ts/ },
+                            {
+                              name: 'chromium',
+                              use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json' },
+                              dependencies: ['setup'],
+                            },
+                          ],
+                        });
+                    </script>
+
+                    <div class="callout warn">
+                        <div class="icon">⚠</div>
+                        <p>
+                            <strong>重要</strong>:
+                            <code>playwright/.auth</code
+                            >ディレクトリは機密情報(Cookie・トークン)を含むため、
+                            必ず<code>.gitignore</code>に追加してください。
+                        </p>
+                    </div>
+
+                    <h3 class="sub-title">14.3 中級戦略: Workerごとに専用アカウント</h3>
+                    <p>
+                        サーバー側状態を変更するテスト(設定変更のテストなど)が並列実行される場合、共有アカウントでは競合が
+                        起きます。この場合はWorkerごとに一意なアカウントを用意します。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">worker-auth.ts</div>
+                        <pre><code class="language-typescript" id="code-41"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-41">
+                        export const test = baseTest.extend<{}, { workerStorageState: string }>({
+                          storageState: ({ workerStorageState }, use) => use(workerStorageState),
+                          workerStorageState: [async ({ browser }, use) => {
+                            const id = test.info().parallelIndex;
+                            const fileName = path.resolve(test.info().project.outputDir, `.auth/${id}.json`);
+                            if (fs.existsSync(fileName)) {
+                              await use(fileName);
+                              return;
+                            }
+                            const page = await browser.newPage({ storageState: undefined });
+                            const account = await acquireAccount(id);
+                            await page.goto('/login');
+                            // ... ログイン処理 ...
+                            await page.context().storageState({ path: fileName });
+                            await page.close();
+                            await use(fileName);
+                          }, { scope: 'worker' }],
+                        });
+                    </script>
+
+                    <h3 class="sub-title">14.4 APIリクエストによる認証(UIを経由しない高速化)</h3>
+                    <div class="code-block">
+                        <div class="code-label">api-auth.setup.ts</div>
+                        <pre><code class="language-typescript" id="code-42"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-42">
+                        setup('authenticate via API', async ({ request }) => {
+                          await request.post('https://example.com/login', {
+                            form: { user: 'user', password: 'password' },
+                          });
+                          await request.storageState({ path: 'playwright/.auth/user.json' });
+                        });
+                    </script>
+
+                    <h3 class="sub-title">14.5 複数ロールの同時操作</h3>
+                    <div class="code-block">
+                        <div class="code-label">multi-role.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-43"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-43">
+                        test('adminとuserが同時にやり取りする', async ({ browser }) => {
+                          const adminContext = await browser.newContext({ storageState: 'playwright/.auth/admin.json' });
+                          const userContext = await browser.newContext({ storageState: 'playwright/.auth/user.json' });
+                          const adminPage = await adminContext.newPage();
+                          const userPage = await userContext.newPage();
+                          // ... 両方のページを操作 ...
+                          await adminContext.close();
+                          await userContext.close();
+                        });
+                    </script>
+
+                    <h3 class="sub-title">14.6 Passkeys(WebAuthn)への対応</h3>
+                    <p>
+                        <code>browserContext.credentials</code
+                        >は仮想WebAuthn認証器として機能し、パスキー認証にも対応します。
+                        Cookie系と異なり<code>storageState</code>ではなく<code
+                            >credentials.create()</code
+                        >
+                        /
+                        <code>credentials.install()</code
+                        >で<strong>命令的に</strong>シードする点が特徴です。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/auth"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/auth</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/api-testing"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/api-testing</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 15 ============ -->
+                <section class="doc-section" id="sec-15">
+                    <h2 class="sec-title">
+                        <span class="idx">15</span>Visual Regression Testing(視覚的回帰テスト)
+                    </h2>
+
+                    <p>
+                        Playwright
+                        Testは<code>expect(page).toHaveScreenshot()</code>によって、スクリーンショットの生成と比較を
+                        組み込みでサポートします。初回実行時に基準画像(ゴールデンファイル)が生成され、以降の実行はそれと比較されます。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">visual.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-44"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-44">
+                        test('トップページの見た目を検証', async ({ page }) => {
+                          await page.goto('https://playwright.dev');
+                          await expect(page).toHaveScreenshot();
+                        });
+                    </script>
+
+                    <h3 class="sub-title">15.1 注意点: 環境依存性</h3>
+                    <p>
+                        ブラウザのレンダリングはOS・バージョン・設定・ハードウェア・電源状態(バッテリー/電源接続)・headlessモード
+                        などで変わり得ます。基準画像を生成した環境と同一環境で実行することが、視覚的テストの安定運用の前提条件です
+                        (多くの場合、CI上のLinuxコンテナに統一します)。
+                    </p>
+
+                    <h3 class="sub-title">15.2 スナップショットの命名規則</h3>
+                    <div class="code-block">
+                        <div class="code-label">directory structure</div>
+                        <pre><code class="language-text" id="code-45"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-45">
+                        example.spec.ts-snapshots/
+                          example-test-1-chromium-darwin.png
+                    </script>
+
+                    <p>
+                        <code>chromium-darwin</code
+                        >の部分はブラウザ名とOSを表し、レンダリング差異のため環境ごとに個別の
+                        スナップショットが必要になります。複数プロジェクト構成の場合は<code>chromium</code>の部分がプロジェクト名に
+                        置き換わります。
+                    </p>
+
+                    <h3 class="sub-title">15.3 基準画像の更新</h3>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-46"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-46">
+                        npx playwright test --update-snapshots
+                    </script>
+
+                    <h3 class="sub-title">15.4 差分許容度とノイズ除去</h3>
+                    <div class="code-block">
+                        <div class="code-label">threshold.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-47"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-47">
+                        // 数ピクセルの差異は許容する
+                        await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });
+                    </script>
+
+                    <p>
+                        動的要素(広告・iframe等)を除外したい場合は、カスタムCSSを適用してからスクリーンショットを撮ることで
+                        決定論性を高められます。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">screenshot-style.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-48"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-48">
+                        // screenshot.css
+                        // iframe { visibility: hidden; }
+
+                        await expect(page).toHaveScreenshot({
+                          stylePath: path.join(__dirname, 'screenshot.css'),
+                        });
+                    </script>
+
+                    <h3 class="sub-title">15.5 非画像スナップショット</h3>
+                    <div class="code-block">
+                        <div class="code-label">text-snapshot.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-49"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-49">
+                        expect(await page.textContent('.hero__title')).toMatchSnapshot('hero.txt');
+                    </script>
+
+                    <p>
+                        テキストや任意のバイナリデータの比較にも対応しており、Playwrightがコンテンツタイプを自動判定して
+                        適切な比較アルゴリズムを選びます。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-snapshots"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-snapshots</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 16 ============ -->
+                <section class="doc-section" id="sec-16">
+                    <h2 class="sec-title">
+                        <span class="idx">16</span>API Testing(バックエンドAPIテスト)
+                    </h2>
+
+                    <p>
+                        Playwrightはブラウザ操作だけでなく、Node.jsから直接HTTPリクエストを送信する<code>APIRequestContext</code>も
+                        提供します。ブラウザを起動せずにサーバーAPIそのものを検証したい場合や、UIテストの前提条件(サーバー側状態)を
+                        準備する場合に有用です。
+                    </p>
+
+                    <h3 class="sub-title">16.1 設定とベーステスト</h3>
+                    <div class="code-block">
+                        <div class="code-label">playwright.config.ts</div>
+                        <pre><code class="language-typescript" id="code-50"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-50">
+                        export default defineConfig({
+                          use: {
+                            baseURL: 'https://api.example.com',
+                            extraHTTPHeaders: {
+                              'Accept': 'application/vnd.example.v1+json',
+                              'Authorization': `token ${process.env.API_TOKEN}`,
+                            },
+                          },
+                        });
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">api.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-51"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-51">
+                        test('Issueを作成できる', async ({ request }) => {
+                          const newIssue = await request.post('/repos/org/repo/issues', {
+                            data: { title: '[Bug] report', body: '説明文' },
+                          });
+                          expect(newIssue.ok()).toBeTruthy();
+                        });
+                    </script>
+
+                    <p>
+                        <code>request</code
+                        >フィクスチャは組み込みであり、<code>baseURL</code>や<code>extraHTTPHeaders</code>などの
+                        設定を自動的に引き継ぎます。
+                    </p>
+
+                    <h3 class="sub-title">16.2 UIテストとAPIテストの併用パターン</h3>
+                    <div class="mermaid-container"><div id="mermaid-10"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-10">
+                        flowchart LR
+                            subgraph PRE["前提条件の準備(APIで高速化)"]
+                                A["APIでテストデータを作成"]
+                            end
+                            subgraph UI["UI検証"]
+                                B["ブラウザでページ遷移・操作"]
+                                C["UI上で期待通り表示されるか検証"]
+                            end
+                            subgraph POST["事後条件の検証(APIで確実に)"]
+                                D["APIでサーバー側状態を検証"]
+                            end
+                            A --> B --> C --> D
+                    </script>
+
+                    <ul>
+                        <li>
+                            <strong>事前条件の準備</strong>:
+                            UIを経由せずAPIでデータを作成し、UIテストの実行時間を短縮する
+                        </li>
+                        <li>
+                            <strong>事後条件の検証</strong>:
+                            UI上の操作結果が実際にサーバーへ反映されたかをAPI経由で確認する
+                        </li>
+                    </ul>
+
+                    <div class="code-block">
+                        <div class="code-label">combined.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-52"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-52">
+                        test.beforeAll(async ({ playwright }) => {
+                          apiContext = await playwright.request.newContext({ baseURL: 'https://api.example.com' });
+                        });
+
+                        test('最後に作成したIssueが一覧の先頭に表示される', async ({ page }) => {
+                          await apiContext.post('/repos/org/repo/issues', { data: { title: 'Feature request' } });
+                          await page.goto('https://example.com/org/repo/issues');
+                          await expect(page.locator("[data-hovercard-type='issue']").first()).toHaveText('Feature request');
+                        });
+                    </script>
+
+                    <h3 class="sub-title">16.3 認証状態の相互運用性</h3>
+                    <p>
+                        <code>storageState</code
+                        >は<code>BrowserContext</code>と<code>APIRequestContext</code>の間で相互運用可能です。
+                        APIでログインしてCookieを取得し、それをブラウザコンテキストの初期状態として使うことで、UIログインを完全に
+                        省略できます。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">interop.spec.ts</div>
+                        <pre><code class="language-typescript" id="code-53"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-53">
+                        const requestContext = await request.newContext();
+                        await requestContext.get('https://api.example.com/login');
+                        await requestContext.storageState({ path: 'state.json' });
+
+                        const context = await browser.newContext({ storageState: 'state.json' });
+                    </script>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/api-testing"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/api-testing</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/auth"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/auth</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 17 ============ -->
+                <section class="doc-section" id="sec-17">
+                    <h2 class="sec-title"><span class="idx">17</span>UI ModeとVS Code拡張機能</h2>
+
+                    <h3 class="sub-title">17.1 UI Mode</h3>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-54"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-54">
+                        npx playwright test --ui
+                    </script>
+
+                    <p>
+                        UI
+                        Modeは「タイムトラベル」型のデバッグ体験を提供する統合ビューです。主な機能は以下の通りです。
+                    </p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>機能</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>テストサイドバー</td>
+                                    <td>
+                                        全テストファイルを表示し、個別・グループ単位で実行/監視/デバッグ可能
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>フィルタリング</td>
+                                    <td>
+                                        テスト名・プロジェクト・@tag・実行結果(合格/失敗/スキップ)で絞り込み
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>タイムラインビュー</td>
+                                    <td>
+                                        ナビゲーションとアクションを色分けして表示し、アクション単位でスナップショットを確認
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DOMスナップショットのポップアウト</td>
+                                    <td>
+                                        別ウィンドウで開き、DevTools(HTML/CSS/Console)を直接使って調査可能
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pick Locator</td>
+                                    <td>
+                                        DOMスナップショット上でホバーするとLocatorをリアルタイム表示、クリックでプレイグラウンドに追加
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Watch Mode</td>
+                                    <td>
+                                        監視アイコンをクリックすると、コード変更時にテストを自動再実行
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Network / Console タブ</td>
+                                    <td>
+                                        各アクション実行時のネットワークリクエストやコンソールログを確認
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Docker・GitHub
+                        Codespaces環境では、<code>--ui-host=0.0.0.0</code>でブラウザ経由のUI
+                        Mode利用も可能です
+                        (ネットワーク越しにトレース・パスワード等が閲覧可能になる点に注意)。
+                    </p>
+
+                    <h3 class="sub-title">17.2 VS Code拡張機能</h3>
+                    <p>VS Code拡張は次の機能を提供します。</p>
+                    <ul>
+                        <li>ブレークポイントを使ったライブデバッグ</li>
+                        <li>
+                            Locatorをクリックするとブラウザ上で対応要素がハイライトされる「Show
+                            Browsers」機能
+                        </li>
+                        <li>
+                            テスト失敗時に詳細なエラーメッセージ(期待値 vs
+                            実際の値、コールログ)をエディタ上に表示
+                        </li>
+                        <li>Copilotによる「Fix with AI」提案(失敗の原因分析とコード修正案)</li>
+                        <li>Trace Viewerの自動起動によるステップバイステップ解析</li>
+                    </ul>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-ui-mode"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-ui-mode</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/getting-started-vscode"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/getting-started-vscode</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 18 ============ -->
+                <section class="doc-section" id="sec-18">
+                    <h2 class="sec-title"><span class="idx">18</span>CI/CD統合(GitHub Actions)</h2>
+
+                    <h3 class="sub-title">18.1 基本ワークフロー</h3>
+                    <p>
+                        <code>npm init playwright@latest</code>実行時にGitHub
+                        Actionsワークフローの追加を選択すると、以下の
+                        <code>.github/workflows/playwright.yml</code>が自動生成されます。
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-label">.github/workflows/playwright.yml</div>
+                        <pre><code class="language-yaml" id="code-55"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-55">
+                        name: Playwright Tests
+                        on:
+                          push:
+                            branches: [ main, master ]
+                          pull_request:
+                            branches: [ main, master ]
+                        jobs:
+                          test:
+                            timeout-minutes: 60
+                            runs-on: ubuntu-latest
+                            steps:
+                            - uses: actions/checkout@v5
+                            - uses: actions/setup-node@v5
+                              with:
+                                node-version: lts/*
+                            - name: Install dependencies
+                              run: npm ci
+                            - name: Install Playwright Browsers
+                              run: npx playwright install --with-deps
+                            - name: Run Playwright tests
+                              run: npx playwright test
+                            - uses: actions/upload-artifact@v4
+                              if: ${{ !cancelled() }}
+                              with:
+                                name: playwright-report
+                                path: playwright-report/
+                                retention-days: 30
+                    </script>
+
+                    <h3 class="sub-title">18.2 CI/CDパイプライン全体像</h3>
+                    <div class="mermaid-container"><div id="mermaid-11"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-11">
+                        flowchart TD
+                            A["git push / PR"] --> B["リポジトリをclone"]
+                            B --> C["Node.jsをセットアップ"]
+                            C --> D["npm ci"]
+                            D --> E["npx playwright install --with-deps"]
+                            E --> F["npx playwright test"]
+                            F --> G{"テスト結果"}
+                            G -- 合格 --> H["HTMLレポートをArtifactへアップロード"]
+                            G -- 失敗 --> H
+                            H --> I["GitHub Actions ActionsタブでArtifact確認"]
+                            I --> J["npx playwright show-report でローカル閲覧"]
+                            J --> K["Trace Viewerで失敗箇所を特定"]
+                    </script>
+
+                    <h3 class="sub-title">18.3 レポートの閲覧</h3>
+                    <p>
+                        Artifactとしてダウンロードした<code>playwright-report</code>はローカルでの直接表示(ファイルを開くだけ)では
+                        正しく動作しないため、Webサーバー越しに閲覧する必要があります。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-56"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-56">
+                        npx playwright show-report name-of-extracted-report-folder
+                    </script>
+
+                    <h3 class="sub-title">18.4 CI最適化のポイント</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>施策</th>
+                                    <th>効果</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Linux(Ubuntu)ランナーを使用</td>
+                                    <td>クラウドCIのコストが最も低い</td>
+                                </tr>
+                                <tr>
+                                    <td>必要なブラウザのみインストール</td>
+                                    <td>
+                                        <code>npx playwright install chromium --with-deps</code
+                                        >のように絞り込みダウンロード時間を短縮
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sharding併用</td>
+                                    <td>複数ジョブに分散し実行時間を短縮(第10章参照)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>retries</code>をCIのみ有効化</td>
+                                    <td>ローカルでは0、CIでは2程度に設定するのが定石</td>
+                                </tr>
+                                <tr>
+                                    <td>Secretsの取り扱い</td>
+                                    <td>
+                                        トレース・レポート・コンソールログには機密情報が含まれ得るため、信頼できるArtifactストアにのみアップロードするか暗号化する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="sub-title">18.5 レポートのWeb公開(Azure Storageの例)</h3>
+                    <p>
+                        Artifactのzipダウンロードは不便なため、Azure
+                        Storageの静的Webサイトホスティングを使い、CIのジョブ内で
+                        HTMLレポートを直接公開URLとしてアップロードする方法も紹介されています。Service
+                        Principalの発行・Storage Blob Data Contributorロールの付与・GitHub Actions
+                        Secretsへの認証情報登録が前提条件です。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/ci-intro"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/ci-intro</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/ci"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/ci</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-sharding"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-sharding</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 19 ============ -->
+                <section class="doc-section" id="sec-19">
+                    <h2 class="sec-title"><span class="idx">19</span>Docker活用</h2>
+
+                    <p>
+                        公式は<code>mcr.microsoft.com/playwright</code>イメージを提供しており、ブラウザ本体とOS依存ライブラリを
+                        含みますが、Playwrightパッケージ自体は含まれないため別途インストールが必要です。
+                    </p>
+
+                    <h3 class="sub-title">19.1 基本的な使い方</h3>
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-57"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-57">
+                        docker pull mcr.microsoft.com/playwright:v1.61.0-noble
+                        docker run -it --rm --ipc=host mcr.microsoft.com/playwright:v1.61.0-noble /bin/bash
+                    </script>
+
+                    <p>
+                        信頼できるコード(自社のE2Eテストなど)を実行する場合はrootユーザーで問題ありませんが、Chromiumの
+                        サンドボックスがrootでは無効化される点に留意してください。信頼できないWebサイトをクロールする用途では、
+                        専用ユーザー+seccompプロファイルの利用が推奨されます。
+                    </p>
+
+                    <h3 class="sub-title">19.2 推奨Docker設定</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>設定</th>
+                                    <th>理由</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>--init</code>フラグ</td>
+                                    <td>PID=1プロセスのゾンビプロセス化を防止</td>
+                                </tr>
+                                <tr>
+                                    <td><code>--ipc=host</code></td>
+                                    <td>
+                                        Chromium利用時、これがないとメモリ不足でクラッシュしやすい
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>--cap-add=SYS_ADMIN</code>(開発時のみ)</td>
+                                    <td>Chromium起動時の謎のエラーを回避</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="sub-title">19.3 リモートPlaywrightサーバー</h3>
+                    <p>
+                        Dockerコンテナ内でPlaywright
+                        Serverを起動し、ホスト側やCIの別マシンからテストを実行することも可能です。
+                        サポート外のLinuxディストリビューションでの実行や、リモート実行シナリオに有用です。
+                    </p>
+
+                    <div class="mermaid-container"><div id="mermaid-12"></div></div>
+                    <script type="text/plain" data-mermaid-for="mermaid-12">
+                        graph LR
+                            subgraph DC["Docker Container"]
+                                Server["Playwright Server (ws://0.0.0.0:3000)"]
+                            end
+                            subgraph HM["ホスト / 別マシン"]
+                                Test["npx playwright test (PW_TEST_CONNECT_WS_ENDPOINT経由)"]
+                            end
+                            Test -->|WebSocket接続| Server
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-58"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-58">
+                        docker run -p 3000:3000 --rm --init -it --workdir /home/pwuser --user pwuser \
+                          mcr.microsoft.com/playwright:v1.61.0-noble \
+                          /bin/sh -c "npx -y playwright@1.61.0 run-server --port 3000 --host 0.0.0.0"
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">bash</div>
+                        <pre><code class="language-bash" id="code-59"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-59">
+                        PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ npx playwright test
+                    </script>
+
+                    <div class="callout warn">
+                        <div class="icon">⚠</div>
+                        <p>
+                            <strong>重要</strong>:
+                            リモート実行時は、テスト側とサーバー側のPlaywrightバージョンを完全に一致させる
+                            必要があります。
+                        </p>
+                    </div>
+
+                    <h3 class="sub-title">19.4 自前イメージのビルド</h3>
+                    <div class="code-block">
+                        <div class="code-label">Dockerfile</div>
+                        <pre><code class="language-dockerfile" id="code-60"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-60">
+                        FROM node:20-bookworm
+                        RUN npx -y playwright@1.61.0 install --with-deps
+                    </script>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/docker"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/docker</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/ci"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/ci</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 20 ============ -->
+                <section class="doc-section" id="sec-20">
+                    <h2 class="sec-title"><span class="idx">20</span>ベストプラクティス総まとめ</h2>
+
+                    <p>
+                        公式ドキュメントの「Best
+                        Practices」ガイドが提示する原則を、実務での適用ポイントとともに整理します。
+                    </p>
+
+                    <h3 class="sub-title">20.1 テスト哲学</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>原則</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ユーザーに見える振る舞いを検証する</td>
+                                    <td>
+                                        関数名や内部実装(配列かどうか、CSSクラス名)ではなく、エンドユーザーが見て操作できるものだけをテスト対象にする
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>テストを可能な限り独立させる</td>
+                                    <td>
+                                        各テストは自分専用のlocalStorage・sessionStorage・Cookie・データで動くべき。beforeEachで共通処理を括り出しつつ、シンプルなテストでは多少の重複を許容する方が読みやすい場合もある
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>サードパーティ依存をテストしない</td>
+                                    <td>
+                                        外部リンク・外部サーバーはネットワークAPIでモックし、自分が制御できる範囲だけを検証する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DBを使う場合は状態を制御する</td>
+                                    <td>
+                                        ステージング環境を固定化し、視覚的回帰テストではOS・ブラウザバージョンを揃える
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="sub-title">20.2 実装レベルのベストプラクティス</h3>
+                    <div class="code-block">
+                        <div class="code-label">good-vs-bad-locators.ts</div>
+                        <pre><code class="language-typescript" id="code-61"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-61">
+                        // 👍 推奨: ユーザー視点のLocator
+                        page.getByRole('button', { name: 'submit' });
+
+                        // 👎 非推奨: DOM構造に依存した壊れやすいセレクタ
+                        page.locator('button.buttonIcon.episode-actions-later');
+                    </script>
+
+                    <div class="code-block">
+                        <div class="code-label">good-vs-bad-assertions.ts</div>
+                        <pre><code class="language-typescript" id="code-62"></code></pre>
+                    </div>
+                    <script type="text/plain" data-code-for="code-62">
+                        // 👍 推奨: Web-Firstアサーション(自動リトライ)
+                        await expect(page.getByText('welcome')).toBeVisible();
+
+                        // 👎 非推奨: 即時判定(リトライなし)
+                        expect(await page.getByText('welcome').isVisible()).toBe(true);
+                    </script>
+
+                    <ul>
+                        <li>
+                            <strong>Locatorを使う</strong>:
+                            自動待機とリトライ可能性の恩恵を最大限活用する
+                        </li>
+                        <li>
+                            <strong>チェーンとフィルタを活用する</strong>:
+                            特定範囲に検索スコープを絞ることで壊れにくいLocatorを構築する
+                        </li>
+                        <li>
+                            <strong>codegenで生成する</strong>:
+                            <code>npx playwright codegen &lt;URL&gt;</code
+                            >はロール・テキスト・test-idを優先した堅牢なLocatorを自動生成する
+                        </li>
+                        <li>
+                            <strong>デバッグ環境を整備する</strong>: ローカルはVS
+                            Code拡張機能でのライブデバッグ、CIはTrace Viewerを使い分ける
+                        </li>
+                        <li>
+                            <strong>全ブラウザでテストする</strong>:
+                            <code>projects</code
+                            >設定でChromium/Firefox/WebKitを横断し、対象ユーザー全体をカバーする
+                        </li>
+                        <li>
+                            <strong>依存を最新に保つ</strong>:
+                            <code>npm install -D @playwright/test@latest</code
+                            >で最新ブラウザに追従し、リリース前に不具合を検知する
+                        </li>
+                        <li>
+                            <strong>CIで頻繁に実行する</strong>:
+                            可能であれば全コミット・全PRで実行し、Linux + Shardingで高速化する
+                        </li>
+                        <li>
+                            <strong>リンティングを導入する</strong>:
+                            <code>@typescript-eslint/no-floating-promises</code
+                            >で<code>await</code>忘れを機械的に検出する
+                        </li>
+                        <li>
+                            <strong>並列化とシャーディングを併用する</strong>:
+                            単一ファイル内の独立したテストは<code>fullyParallel</code>で、マシン単位のスケールは<code>--shard</code>で対応する
+                        </li>
+                    </ul>
+
+                    <h3 class="sub-title">20.3 生産性を高めるテクニック</h3>
+                    <ul>
+                        <li>
+                            <strong>Soft Assertions</strong>:
+                            1テスト内の複数の検証観点を独立してレポートし、1つ目の失敗で処理を止めない
+                        </li>
+                        <li>
+                            <strong>UI Modeでのウォッチモード</strong>:
+                            コード変更のたびに自動でテストを再実行し、開発ループを短縮する
+                        </li>
+                        <li>
+                            <strong>codegenで迷わずLocatorを取得する</strong>:
+                            手動でセレクタを推測せず、生成→調整のフローに乗る
+                        </li>
+                    </ul>
+
+                    <h3 class="sub-title">20.4 章横断チェックリスト</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>チェック項目</th>
+                                    <th>対応章</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Locatorの優先順位(role &gt; label &gt; text &gt; testid &gt;
+                                        CSS/XPath)を守っているか
+                                    </td>
+                                    <td>第4章</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        手動isVisible()ではなくWeb-Firstアサーションを使っているか
+                                    </td>
+                                    <td>第6章</td>
+                                </tr>
+                                <tr>
+                                    <td>セットアップ/ティアダウンをFixtureに集約できているか</td>
+                                    <td>第7章</td>
+                                </tr>
+                                <tr>
+                                    <td>Locatorの集約先としてPOMを活用しているか</td>
+                                    <td>第8章</td>
+                                </tr>
+                                <tr>
+                                    <td>CIでのみretriesを有効化しているか</td>
+                                    <td>第11章</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trace: 'on-first-retry'</code>を設定しているか</td>
+                                    <td>第12章</td>
+                                </tr>
+                                <tr>
+                                    <td>外部依存はネットワークモックで切り離しているか</td>
+                                    <td>第13章</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        認証はUIログインを毎回繰り返さずstorageStateで再利用しているか
+                                    </td>
+                                    <td>第14章</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        大規模スイートはSharding+blobレポートのマージで運用しているか
+                                    </td>
+                                    <td>第10章・第18章</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="refs">
+                        <div class="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/best-practices"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/best-practices</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/locators"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/locators</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-assertions"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://playwright.dev/docs/test-assertions</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div class="divider"></div>
+
+                <!-- ============ SECTION 21 ============ -->
+                <section class="doc-section" id="sec-21">
+                    <h2 class="sec-title"><span class="idx">21</span>参考文献一覧</h2>
+
+                    <p>本ガイド作成にあたり参照した情報源の一覧です(2026年7月時点)。</p>
+
+                    <h3 class="sub-title">Playwright公式ドキュメント</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ページ</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Installation(Getting Started)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/intro"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/intro</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Locators</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/locators"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/locators</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Other locators</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/other-locators"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/other-locators</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Auto-waiting</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/actionability"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/actionability</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Assertions</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-assertions"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-assertions</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fixtures</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-fixtures"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-fixtures</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Page object models</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/pom"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/pom</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Parallelism</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-parallel"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-parallel</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sharding</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-sharding"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-sharding</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Retries</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-retries"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-retries</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Trace viewer(イントロ)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/trace-viewer-intro"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/trace-viewer-intro</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Trace viewer(詳細)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/trace-viewer"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/trace-viewer</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mock APIs</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/mock"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/mock</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Network</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/network"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/network</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Authentication</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/auth"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/auth</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Visual comparisons</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-snapshots"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-snapshots</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>API testing</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/api-testing"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/api-testing</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>UI Mode</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-ui-mode"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-ui-mode</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Getting started (VS Code)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/getting-started-vscode"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/getting-started-vscode</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Setting up CI</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/ci-intro"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/ci-intro</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Continuous Integration</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/ci"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/ci</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Docker</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/docker"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/docker</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Best Practices</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/best-practices"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/best-practices</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Isolation(Browser contexts)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/browser-contexts"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/browser-contexts</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Test configuration</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-configuration"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-configuration</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Reporters</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-reporters"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/test-reporters</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pages</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/pages"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >playwright.dev/docs/pages</a
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 class="sub-title">その他の信頼できる情報源</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ページ</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Microsoft Learn: Introduction to Playwright for end-to-end
+                                        testing
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://learn.microsoft.com/en-us/shows/getting-started-with-end-to-end-testing-with-playwright/introduction-to-playwright-for-end-to-end-testing"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >learn.microsoft.com</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Playwright公式GitHubリポジトリ</td>
+                                    <td>
+                                        <a
+                                            href="https://github.com/microsoft/playwright"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >github.com/microsoft/playwright</a
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer class="doc-footer">
+                    本ガイドはPlaywright公式ドキュメント(2026年7月時点の内容)を基に、中級〜上級者向けに再構成・要約したものです。
+                    実装の詳細な最新仕様は必ず公式ドキュメントを一次情報として参照してください。
+                </footer>
+            </main>
+        </div>
+
+        <script>
+            // ---- 共通インデント除去(dedent) ----
+            // エディタの自動整形(Prettier/HTMLフォーマッタ等)が <script type="text/plain"> の
+            // 中身にまで一律のインデントを追加してしまうことがあるため、
+            // 実際に描画する直前に「全行に共通する先頭空白」を検出して取り除く。
+            // これにより、ファイルが再整形されてもコードの相対的なインデント構造だけが
+            // 正しく保たれ、コードブロック全体が右にずれて表示される問題を防ぐ。
+            function dedent(text) {
+                var lines = text.split('\n');
+                var minIndent = Infinity;
+                lines.forEach(function (line) {
+                    if (line.trim().length === 0) return; // 空行は無視
+                    var m = line.match(/^[ \t]*/)[0].length;
+                    if (m < minIndent) minIndent = m;
+                });
+                if (!isFinite(minIndent) || minIndent === 0) return text;
+                return lines
+                    .map(function (line) {
+                        return line.length >= minIndent
+                            ? line.slice(minIndent)
+                            : line.replace(/^[ \t]+/, '');
+                    })
+                    .join('\n');
+            }
+
+            function cleanRaw(raw) {
+                var text = raw.replace(/^\r?\n/, ''); // 先頭の1改行(整形用)を除去
+                text = text.replace(/[ \t]+$/, ''); // 末尾の余分な空白を除去
+                text = text.replace(/\s+$/, ''); // 末尾の空行を除去
+                return dedent(text);
+            }
+
+            // ---- コードブロックへのテキスト注入 (raw-text scriptタグからの安全なコピー) ----
+            document.querySelectorAll('script[data-code-for]').forEach(function (rawEl) {
+                var targetId = rawEl.getAttribute('data-code-for');
+                var target = document.getElementById(targetId);
+                if (target) {
+                    target.textContent = cleanRaw(rawEl.textContent);
+                }
+            });
+
+            // highlight.js 適用
+            if (window.hljs) {
+                document.querySelectorAll('pre code').forEach(function (block) {
+                    hljs.highlightElement(block);
+                });
+            }
+
+            // ---- Mermaid図の注入 ----
+            document.querySelectorAll('script[data-mermaid-for]').forEach(function (rawEl) {
+                var targetId = rawEl.getAttribute('data-mermaid-for');
+                var target = document.getElementById(targetId);
+                if (target) {
+                    var pre = document.createElement('pre');
+                    pre.className = 'mermaid';
+                    pre.textContent = cleanRaw(rawEl.textContent);
+                    target.appendChild(pre);
+                }
+            });
+
+            if (window.mermaid) {
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'base',
+                    themeVariables: {
+                        background: '#07111e',
+                        primaryColor: '#0d1b2e',
+                        primaryTextColor: '#e7edf6',
+                        primaryBorderColor: '#2dd4bf',
+                        lineColor: '#4b5f77',
+                        secondaryColor: '#11263c',
+                        tertiaryColor: '#0b1622',
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '14px',
+                        edgeLabelBackground: '#0d1b2e',
+                        clusterBkg: '#0b1622',
+                        clusterBorder: 'rgba(45,212,191,0.35)',
+                        nodeTextColor: '#e7edf6',
+                        actorBkg: '#0d1b2e',
+                        actorBorder: '#2dd4bf',
+                        actorTextColor: '#e7edf6',
+                        signalColor: '#93a5bd',
+                        signalTextColor: '#e7edf6',
+                        labelBoxBkgColor: '#0d1b2e',
+                        labelTextColor: '#e7edf6',
+                        noteBkgColor: '#11263c',
+                        noteTextColor: '#e7edf6',
+                        noteBorderColor: '#2dd4bf',
+                    },
+                    flowchart: { curve: 'basis', htmlLabels: true, padding: 12 },
+                    sequence: { actorMargin: 60, useMaxWidth: true, boxMargin: 10 },
+                });
+                mermaid.run({ querySelector: 'pre.mermaid' });
+            }
+
+            // ---- サイドバー: スクロールスパイ (IntersectionObserver) ----
+            var sections = Array.prototype.slice.call(
+                document.querySelectorAll('section.doc-section'),
+            );
+            var links = Array.prototype.slice.call(document.querySelectorAll('.toc a'));
+            var linkMap = {};
+            links.forEach(function (link) {
+                var href = link.getAttribute('href').replace('#', '');
+                linkMap[href] = link;
+            });
+
+            function setActive(id) {
+                links.forEach(function (l) {
+                    l.classList.remove('active');
+                });
+                if (linkMap[id]) linkMap[id].classList.add('active');
+            }
+
+            if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        var visible = entries.filter(function (e) {
+                            return e.isIntersecting;
+                        });
+                        if (visible.length > 0) {
+                            visible.sort(function (a, b) {
+                                return b.intersectionRatio - a.intersectionRatio;
+                            });
+                            setActive(visible[0].target.id);
+                        }
+                    },
+                    { rootMargin: '-15% 0px -70% 0px', threshold: [0, 0.25, 0.5, 0.75, 1] },
+                );
+
+                sections.forEach(function (sec) {
+                    observer.observe(sec);
+                });
+            }
+
+            // ---- モバイル用サイドバートグル ----
+            var toggleBtn = document.getElementById('sidebarToggle');
+            var sidebar = document.getElementById('sidebar');
+            if (toggleBtn && sidebar) {
+                toggleBtn.addEventListener('click', function () {
+                    sidebar.classList.toggle('open');
+                });
+                links.forEach(function (l) {
+                    l.addEventListener('click', function () {
+                        sidebar.classList.remove('open');
+                    });
+                });
+            }
+        </script>
+    </body>
+</html>

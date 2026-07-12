@@ -1,0 +1,3144 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Cucumber 入門ガイド ― BDDではじめる自動テスト</title>
+        <style>
+            :root {
+                --color-background-primary: #141811;
+                --color-background-secondary: #1b2118;
+                --color-background-tertiary: #232b1f;
+                --color-background-info: #16232b;
+                --color-background-danger: #2b1a18;
+                --color-background-success: #17281c;
+                --color-background-warning: #2b2416;
+
+                --color-text-primary: #e9ede4;
+                --color-text-secondary: #aab5a0;
+                --color-text-tertiary: #75806e;
+                --color-text-info: #7fb0c9;
+                --color-text-danger: #d98a7e;
+                --color-text-success: #8fc98a;
+                --color-text-warning: #d8b46b;
+
+                --color-border-tertiary: #232b1f;
+                --color-border-secondary: #2e3728;
+                --color-border-primary: #3c4636;
+
+                --color-accent: #8bab6f;
+                --color-accent-strong: #a3c489;
+                --color-accent-soft: #4b5c3f;
+
+                --font-sans:
+                    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+                    'Hiragino Sans', 'Yu Gothic', sans-serif;
+                --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+                --border-radius-md: 8px;
+                --border-radius-lg: 12px;
+                --border-radius-xl: 16px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                margin: 0;
+                background: var(--color-background-primary);
+                color: var(--color-text-primary);
+                font-family: var(--font-sans);
+                font-size: 16px;
+                line-height: 1.7;
+                font-weight: 400;
+            }
+
+            a {
+                color: var(--color-accent-strong);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .layout {
+                display: grid;
+                grid-template-columns: 296px 1fr;
+                min-height: 100vh;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+                border-right: 1px solid var(--color-border-secondary);
+                background: var(--color-background-secondary);
+                padding: 28px 20px 40px;
+            }
+
+            .sidebar-brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                margin-bottom: 6px;
+            }
+
+            .sidebar-brand .mark {
+                width: 30px;
+                height: 30px;
+                border-radius: var(--border-radius-md);
+                background: var(--color-accent-soft);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: var(--color-accent-strong);
+                font-weight: 500;
+                font-size: 15px;
+            }
+
+            .sidebar-brand .name {
+                font-weight: 500;
+                font-size: 16px;
+                color: var(--color-text-primary);
+            }
+
+            .sidebar-sub {
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+                margin: 0 0 22px 40px;
+            }
+
+            .sidebar nav {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+
+            .sidebar nav a {
+                color: var(--color-text-secondary);
+                font-size: 13px;
+                padding: 8px 10px;
+                border-radius: var(--border-radius-md);
+                display: flex;
+                gap: 8px;
+                align-items: baseline;
+            }
+
+            .sidebar nav a .num {
+                color: var(--color-text-tertiary);
+                font-family: var(--font-mono);
+                font-size: 11px;
+                min-width: 16px;
+            }
+
+            .sidebar nav a:hover {
+                background: var(--color-background-tertiary);
+                text-decoration: none;
+                color: var(--color-text-primary);
+            }
+
+            .sidebar nav a.active {
+                background: var(--color-background-tertiary);
+                color: var(--color-accent-strong);
+                font-weight: 500;
+            }
+
+            .sidebar-footer {
+                margin-top: 24px;
+                padding-top: 16px;
+                border-top: 1px solid var(--color-border-tertiary);
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+            }
+
+            .sidebar-footer a {
+                color: var(--color-text-secondary);
+            }
+
+            /* ---------- Main content ---------- */
+            .content {
+                width: 100%;
+                padding: 0 0 80px;
+            }
+
+            .hero {
+                padding: 56px 56px 40px;
+                border-bottom: 1px solid var(--color-border-secondary);
+                background:
+                    radial-gradient(circle at 12% 20%, rgba(139, 171, 111, 0.1), transparent 45%),
+                    var(--color-background-primary);
+            }
+
+            .hero .eyebrow {
+                font-size: 12px;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                color: var(--color-accent-strong);
+                font-weight: 500;
+                margin-bottom: 14px;
+            }
+
+            .hero h1 {
+                font-size: 34px;
+                font-weight: 500;
+                line-height: 1.35;
+                margin: 0 0 14px;
+                color: var(--color-text-primary);
+            }
+
+            .hero p.lead {
+                font-size: 16px;
+                color: var(--color-text-secondary);
+                max-width: 760px;
+                margin: 0 0 22px;
+            }
+
+            .hero-badges {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .badge {
+                font-size: 12px;
+                padding: 5px 12px;
+                border-radius: 999px;
+                border: 1px solid var(--color-border-primary);
+                color: var(--color-text-secondary);
+                background: var(--color-background-secondary);
+            }
+
+            .badge.accent {
+                border-color: var(--color-accent-soft);
+                color: var(--color-accent-strong);
+            }
+
+            section.doc-section {
+                padding: 48px 56px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                max-width: none;
+                width: 100%;
+            }
+
+            section.doc-section p,
+            section.doc-section li {
+                max-width: 1100px;
+            }
+
+            section.doc-section:last-of-type {
+                border-bottom: none;
+            }
+
+            .section-kicker {
+                font-family: var(--font-mono);
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+                margin-bottom: 8px;
+            }
+
+            h2 {
+                font-size: 24px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                margin: 0 0 18px;
+                scroll-margin-top: 24px;
+            }
+
+            h3 {
+                font-size: 18px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+                margin: 32px 0 12px;
+                scroll-margin-top: 24px;
+            }
+
+            h4 {
+                font-size: 15px;
+                font-weight: 500;
+                color: var(--color-accent-strong);
+                margin: 22px 0 8px;
+            }
+
+            p {
+                color: var(--color-text-secondary);
+                margin: 0 0 14px;
+            }
+
+            strong {
+                color: var(--color-text-primary);
+                font-weight: 500;
+            }
+
+            ul,
+            ol {
+                color: var(--color-text-secondary);
+                padding-left: 22px;
+                margin: 0 0 16px;
+            }
+
+            li {
+                margin-bottom: 6px;
+            }
+
+            li > ul,
+            li > ol {
+                margin-top: 6px;
+            }
+
+            .callout {
+                display: flex;
+                gap: 12px;
+                padding: 14px 16px;
+                border-radius: var(--border-radius-lg);
+                border: 1px solid var(--color-border-secondary);
+                background: var(--color-background-info);
+                margin: 18px 0;
+                font-size: 14px;
+            }
+
+            .callout .icon {
+                color: var(--color-text-info);
+                font-size: 16px;
+                flex-shrink: 0;
+            }
+
+            .callout p {
+                margin: 0;
+                color: var(--color-text-secondary);
+            }
+            .callout strong {
+                color: var(--color-text-info);
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 18px 0 22px;
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-lg);
+            }
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 14px;
+            }
+
+            thead th {
+                text-align: left;
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                font-weight: 500;
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--color-border-secondary);
+                white-space: nowrap;
+            }
+
+            tbody td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                color: var(--color-text-secondary);
+                vertical-align: top;
+            }
+
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            tbody code,
+            p code,
+            li code,
+            h4 code {
+                font-family: var(--font-mono);
+                font-size: 0.88em;
+                background: var(--color-background-tertiary);
+                color: var(--color-accent-strong);
+                padding: 2px 6px;
+                border-radius: 5px;
+            }
+
+            /* ---------- Code blocks ---------- */
+            pre:not(.mermaid) {
+                position: relative;
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-lg);
+                padding: 18px 18px 16px;
+                overflow-x: auto;
+                margin: 16px 0 22px;
+                font-size: 13px;
+                line-height: 1.6;
+            }
+
+            pre:not(.mermaid) code {
+                font-family: var(--font-mono);
+                background: none;
+                padding: 0;
+                color: var(--color-text-primary);
+                white-space: pre;
+            }
+
+            pre[data-lang]::before {
+                content: attr(data-lang);
+                position: absolute;
+                top: -1px;
+                right: 0;
+                font-family: var(--font-mono);
+                font-size: 10px;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: var(--color-text-tertiary);
+                background: var(--color-background-tertiary);
+                padding: 4px 10px;
+                border-radius: 0 var(--border-radius-lg) 0 var(--border-radius-md);
+                border-left: 1px solid var(--color-border-secondary);
+                border-bottom: 1px solid var(--color-border-secondary);
+            }
+
+            /* Prism token colors (custom mapped to design system, high-contrast) */
+            .token.keyword {
+                color: #ffb454;
+                font-weight: 600;
+            }
+            .token.string {
+                color: #79c0ff;
+            }
+            .token.number {
+                color: #d2a8ff;
+            }
+            .token.comment {
+                color: #8b949e;
+                font-style: italic;
+            }
+            .token.function {
+                color: #ff9bce;
+            }
+            .token.class-name {
+                color: #79c0ff;
+            }
+            .token.annotation {
+                color: #8b949e;
+            }
+            .token.punctuation {
+                color: var(--color-text-secondary);
+            }
+            .token.operator {
+                color: var(--color-text-secondary);
+            }
+            .token.property {
+                color: #ffb454;
+            }
+            .token.boolean {
+                color: #d2a8ff;
+            }
+
+            /* Gherkin custom highlighter (bypasses Prism for guaranteed contrast) */
+            .gk-keyword {
+                color: #ffb454;
+                font-weight: 600;
+            } /* Feature/Rule/Background/Scenario/Examples */
+            .gk-step {
+                color: #7ee787;
+                font-weight: 600;
+            } /* Given/When/Then/And/But/* */
+            .gk-string {
+                color: #79c0ff;
+            } /* "quoted strings" / doc strings */
+            .gk-comment {
+                color: #8b949e;
+                font-style: italic;
+            } /* # comments */
+            .gk-tag {
+                color: #ff9bce;
+                font-weight: 500;
+            } /* @tags */
+            .gk-param {
+                color: #ffa198;
+            } /* <placeholders> */
+            .gk-number {
+                color: #d2a8ff;
+            } /* numeric literals */
+            .gk-pipe {
+                color: #6e7681;
+            } /* data table | */
+
+            /* ---------- Mermaid ---------- */
+            .mermaid-wrap {
+                text-align: center;
+                margin: 20px 0 26px;
+                padding: 20px 12px;
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-lg);
+            }
+
+            .mermaid-wrap svg {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                overflow: visible;
+            }
+
+            .mermaid-caption {
+                text-align: center;
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+                margin-top: -14px;
+                margin-bottom: 24px;
+            }
+
+            /* ---------- Reference list ---------- */
+            .ref-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .ref-list li {
+                display: flex;
+                gap: 14px;
+                padding: 10px 0;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                font-size: 14px;
+                align-items: baseline;
+            }
+            .ref-list li:last-child {
+                border-bottom: none;
+            }
+            .ref-list .ref-num {
+                font-family: var(--font-mono);
+                color: var(--color-text-tertiary);
+                font-size: 12px;
+                min-width: 20px;
+            }
+            .ref-list .ref-title {
+                color: var(--color-text-primary);
+                min-width: 260px;
+            }
+            .ref-list .ref-url {
+                color: var(--color-text-secondary);
+                word-break: break-all;
+            }
+
+            hr.divider {
+                border: none;
+                border-top: 1px solid var(--color-border-tertiary);
+                margin: 32px 0;
+            }
+
+            .summary-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 12px;
+                margin: 18px 0 26px;
+            }
+
+            .summary-card {
+                border: 1px solid var(--color-border-secondary);
+                background: var(--color-background-secondary);
+                border-radius: var(--border-radius-lg);
+                padding: 14px 16px;
+            }
+
+            .summary-card .n {
+                font-family: var(--font-mono);
+                font-size: 11px;
+                color: var(--color-accent-strong);
+                margin-bottom: 6px;
+            }
+
+            .summary-card p {
+                margin: 0;
+                font-size: 13px;
+                color: var(--color-text-secondary);
+            }
+            .summary-card strong {
+                display: block;
+                margin-bottom: 4px;
+                font-size: 14px;
+            }
+
+            .footer-note {
+                padding: 32px 56px 60px;
+                color: var(--color-text-tertiary);
+                font-size: 13px;
+            }
+
+            @media (max-width: 900px) {
+                .layout {
+                    grid-template-columns: 1fr;
+                }
+                .sidebar {
+                    position: relative;
+                    height: auto;
+                }
+                .hero,
+                section.doc-section,
+                .footer-note {
+                    padding-left: 24px;
+                    padding-right: 24px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <!-- ============ SIDEBAR ============ -->
+            <aside class="sidebar">
+                <div class="sidebar-brand">
+                    <span class="mark">🥒</span>
+                    <span class="name">Cucumber 入門ガイド</span>
+                </div>
+                <p class="sidebar-sub">BDDではじめる自動テスト</p>
+                <nav id="toc">
+                    <a href="#sec01"><span class="num">01</span>Cucumberとは何か</a>
+                    <a href="#sec02"><span class="num">02</span>BDDを理解する</a>
+                    <a href="#sec03"><span class="num">03</span>Gherkin構文</a>
+                    <a href="#sec04"><span class="num">04</span>ステップ定義</a>
+                    <a href="#sec05"><span class="num">05</span>Cucumber Expressions</a>
+                    <a href="#sec06"><span class="num">06</span>Hooks(フック)</a>
+                    <a href="#sec07"><span class="num">07</span>Tags(タグ)</a>
+                    <a href="#sec08"><span class="num">08</span>ステップの実行結果</a>
+                    <a href="#sec09"><span class="num">09</span>インストール</a>
+                    <a href="#sec10"><span class="num">10</span>実践:10分チュートリアル</a>
+                    <a href="#sec11"><span class="num">11</span>レポーティング</a>
+                    <a href="#sec12"><span class="num">12</span>ベストプラクティス</a>
+                    <a href="#sec13"><span class="num">13</span>CI/CD連携</a>
+                    <a href="#sec14"><span class="num">14</span>エディタ・IDE</a>
+                    <a href="#sec15"><span class="num">15</span>まとめ</a>
+                    <a href="#sec16"><span class="num">16</span>参考文献一覧</a>
+                </nav>
+                <div class="sidebar-footer">
+                    情報源:
+                    <a href="https://cucumber.io/docs" target="_blank" rel="noopener"
+                        >cucumber.io/docs</a
+                    ><br />
+                    取得時点: 2026年7月
+                </div>
+            </aside>
+
+            <!-- ============ MAIN CONTENT ============ -->
+            <main class="content">
+                <header class="hero">
+                    <div class="eyebrow">Beginner Guide / BDD / Testing</div>
+                    <h1>Cucumber 入門ガイド<br />BDD (振る舞い駆動開発) ではじめる自動テスト</h1>
+                    <p class="lead">
+                        本ガイドは
+                        <a href="https://cucumber.io/docs" target="_blank" rel="noopener"
+                            >cucumber.io/docs</a
+                        >
+                        を中心とした公式ドキュメント、および関連するGitHubリポジトリの情報をもとに、
+                        Cucumberを初めて学ぶ方向けにステップバイステップでまとめたものです。各セクションの末尾に参照元URLを明記しています。
+                    </p>
+                    <div class="hero-badges">
+                        <span class="badge accent">対象: BDD/Cucumber初学者</span>
+                        <span class="badge">前提知識: 不要</span>
+                        <span class="badge">全16セクション</span>
+                        <span class="badge">情報取得: 2026年7月</span>
+                    </div>
+                </header>
+
+                <!-- ============ 1. Cucumberとは何か ============ -->
+                <section class="doc-section" id="sec01">
+                    <div class="section-kicker">SECTION 01</div>
+                    <h2>Cucumberとは何か</h2>
+
+                    <p>
+                        Cucumberは
+                        <strong>Behaviour-Driven Development (BDD、振る舞い駆動開発)</strong>
+                        をサポートするツールです。
+                        よくある誤解ですが、Cucumberは単体の「テストツール」ではなく、平易な自然言語で書かれた「実行可能な仕様書
+                        (executable specification)」を読み取り、
+                        実際のソフトウェアがその仕様通りに動くかを検証するツールです。
+                    </p>
+
+                    <p>
+                        仕様は複数の <strong>example (例)</strong> または
+                        <strong>scenario (シナリオ)</strong>
+                        の集まりとして表現されます。次のような形式です。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Scenario: Breaker guesses a word
+  Given the Maker has chosen a word
+  When the Breaker makes a guess
+  Then the Maker is asked to score</code></pre>
+
+                    <p>
+                        各シナリオは
+                        <strong>step (ステップ)</strong>
+                        のリストであり、Cucumberはこのステップを順番に実行します。
+                        そして各シナリオについて成功 (✅) か失敗 (❌) かを示すレポートを生成します。
+                    </p>
+
+                    <h3>Gherkinとの関係</h3>
+                    <p>
+                        Cucumberがシナリオを理解するためには、決められた文法ルールに従う必要があります。このルールを
+                        <strong>Gherkin</strong> と呼びます。 Gherkinには3つの役割があります。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>役割</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>曖昧さのない実行可能仕様</td>
+                                    <td>
+                                        人間にもコンピュータにも読める形式でシステムの振る舞いを定義する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Cucumberによる自動テスト</td>
+                                    <td>書かれた仕様がそのまま自動テストとして実行される</td>
+                                </tr>
+                                <tr>
+                                    <td>ドキュメント</td>
+                                    <td>システムが実際にどう振る舞うかを文書化する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Gherkinの文書は
+                        <code>.feature</code>
+                        という拡張子のテキストファイルに保存され、通常はソースコードと一緒にバージョン管理されます。
+                    </p>
+
+                    <h3>ステップ定義との関係</h3>
+                    <p>
+                        Gherkinのステップとプログラムコードを結びつけるのが
+                        <strong>Step Definition (ステップ定義)</strong> です。
+                        ステップ定義は、ステップによって実行されるべきアクションを実際に処理するコードです。つまり、仕様(Gherkin)と実装(コード)をつなぐ「配線」の役割を果たします。
+                    </p>
+
+                    <p>Cucumberの全体像を図にすると、次のような一方向の流れになります。</p>
+
+                    <div class="mermaid-wrap">
+                        <pre class="mermaid">
+flowchart LR
+    A["Gherkinのステップ(自然言語)"] -->|"マッチング"| B["Step Definition(コード)"]
+    B -->|"操作・呼び出し"| C["テスト対象システム"]
+    C -->|"結果を返す"| B
+    B -->|"成功/失敗を報告"| D["テストレポート"]
+        </pre
+                        >
+                    </div>
+                    <p class="mermaid-caption">
+                        図: Gherkinステップ・Step Definition・テスト対象システムの関係
+                    </p>
+
+                    <p>JavaScriptによるステップ定義の例:</p>
+
+                    <pre
+                        data-lang="javascript"
+                    ><code class="language-javascript">When('{maker} starts a game', maker => {
+  maker.startGameWithWord({ word: 'whale' })
+})</code></pre>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong>
+                            <a href="https://cucumber.io/docs/" target="_blank" rel="noopener"
+                                >Introduction | Cucumber</a
+                            >
+                            ／
+                            <a href="https://cucumber.io/" target="_blank" rel="noopener"
+                                >Cucumber公式サイト</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 2. BDDを理解する ============ -->
+                <section class="doc-section" id="sec02">
+                    <div class="section-kicker">SECTION 02</div>
+                    <h2>BDD (振る舞い駆動開発) を理解する</h2>
+
+                    <p>
+                        CucumberはBDDというソフトウェア開発プロセスをサポートするために作られました。BDDそのものはCucumberより大きな概念であり、
+                        ツールの話ではなくチームの「働き方」の話です。
+                    </p>
+
+                    <h3>BDDの3つの目的</h3>
+                    <p>
+                        BDDは、ビジネス側の人間と技術側の人間のギャップを埋めるための働き方であり、次の3点を重視します。
+                    </p>
+                    <ol>
+                        <li>
+                            さまざまな役割の人が協力し、解決すべき問題について共通理解を築くこと
+                        </li>
+                        <li>
+                            小さく素早い反復作業でフィードバックと価値提供のスピードを上げること
+                        </li>
+                        <li>
+                            システムの振る舞いに対して自動的に検証されるドキュメントを生み出すこと
+                        </li>
+                    </ol>
+                    <p>
+                        BDDは既存のアジャイル手法(スクラムなど)を置き換えるものではなく、その上に乗せる「拡張機能」のようなものだと説明されています。
+                    </p>
+
+                    <h3>Discovery → Formulation → Automation の3ステップ</h3>
+                    <p>BDDの日々の活動は、次の3段階の反復プロセスとしてまとめられます。</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>段階</th>
+                                    <th>英語名</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>発見</td>
+                                    <td>Discovery</td>
+                                    <td>
+                                        User
+                                        Storyについて、具体的な例を使ってチームで会話し、何を作るべきかを合意する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>定式化</td>
+                                    <td>Formulation</td>
+                                    <td>
+                                        合意した例を、人間にもコンピュータにも読める形式(Gherkin)で文書化する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>自動化</td>
+                                    <td>Automation</td>
+                                    <td>
+                                        文書化した例を1つずつ自動テストとして実装し、プロダクションコードを実装していく
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="mermaid-wrap">
+                        <pre class="mermaid">
+flowchart LR
+    A["Discovery:何を作るべきか会話する"] --> B["Formulation:Gherkinで文書化する"]
+    B --> C["Automation:テストとして実装し開発を進める"]
+    C -->|"次のUser Storyへ"| A
+        </pre
+                        >
+                    </div>
+                    <p class="mermaid-caption">
+                        図: Discovery → Formulation → Automation の反復サイクル
+                    </p>
+
+                    <ul>
+                        <li>
+                            <strong>Discovery</strong> では、「Discovery
+                            workshop(発見ワークショップ)」と呼ばれる構造化された会話を通じて、ユーザー視点の具体例からチームの共通理解を深めます。初めてBDDに取り組むなら、まずこのDiscoveryから始めるのが良いとされています。
+                        </li>
+                        <li>
+                            <strong>Formulation</strong>
+                            では、合意した例を実行可能な仕様として書き出します。これにより「本当にチーム全員が同じものを作ろうとしているか」を素早く確認できます。
+                        </li>
+                        <li>
+                            <strong>Automation</strong>
+                            では、1つの例をテストとして自動化し、そのテストを通すために最小限の実装を行います。実装が完了した自動化例は「ガードレール」として、将来の変更が既存の振る舞いを壊していないかを保証してくれます。
+                        </li>
+                    </ul>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a href="https://cucumber.io/docs/bdd/" target="_blank" rel="noopener"
+                                >Behaviour-Driven Development | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 3. Gherkin構文 ============ -->
+                <section class="doc-section" id="sec03">
+                    <div class="section-kicker">SECTION 03</div>
+                    <h2>Gherkin構文を理解する</h2>
+
+                    <p>
+                        Gherkinは、平文テキストにCucumberが理解できる構造を与えるための、特別な<strong>キーワード</strong>の集合です。
+                        ほとんどの行はこれらのキーワードのいずれかで始まります。
+                    </p>
+
+                    <h3>主要キーワード一覧</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>キーワード</th>
+                                    <th>コロン(:)が必要か</th>
+                                    <th>役割</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>Feature</code></td>
+                                    <td>必要</td>
+                                    <td>機能の概要を説明し、関連するシナリオをグループ化する</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Rule</code></td>
+                                    <td>必要</td>
+                                    <td>
+                                        1つのビジネスルールを表し、複数のシナリオをグループ化する(Gherkin
+                                        6以降)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>Example</code> / <code>Scenario</code></td>
+                                    <td>必要</td>
+                                    <td>ビジネスルールを説明する具体的な例。両者は同義語</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Given</code></td>
+                                    <td>不要</td>
+                                    <td>シナリオの初期状態(過去に起きたこと)を記述する</td>
+                                </tr>
+                                <tr>
+                                    <td><code>When</code></td>
+                                    <td>不要</td>
+                                    <td>イベントやアクションを記述する</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Then</code></td>
+                                    <td>不要</td>
+                                    <td>期待される結果を記述する</td>
+                                </tr>
+                                <tr>
+                                    <td><code>And</code> / <code>But</code></td>
+                                    <td>不要</td>
+                                    <td>直前のステップと同種のステップを読みやすく続ける</td>
+                                </tr>
+                                <tr>
+                                    <td><code>*</code></td>
+                                    <td>不要</td>
+                                    <td>Given/When/Thenの代わりに使える汎用のステップ記号</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Background</code></td>
+                                    <td>必要</td>
+                                    <td>
+                                        すべてのシナリオの前に共通して実行するGivenステップをまとめる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <code>Scenario Outline</code> /
+                                        <code>Scenario Template</code>
+                                    </td>
+                                    <td>必要</td>
+                                    <td>同じシナリオを異なる値で複数回実行するテンプレート</td>
+                                </tr>
+                                <tr>
+                                    <td><code>Examples</code> / <code>Scenarios</code></td>
+                                    <td>必要</td>
+                                    <td>Scenario Outlineに与えるデータ行の一覧</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        補助的なキーワードとして、<code>"""</code> (Doc Strings)、<code>|</code>
+                        (Data Tables)、<code>@</code> (Tags)、<code>#</code> (コメント) があります。
+                        コメントは行頭に
+                        <code>#</code>
+                        を書くことで表現し、ブロックコメントはサポートされていません。インデントにはスペースまたはタブが使えますが、推奨はスペース2つです。
+                    </p>
+
+                    <h3>Feature</h3>
+                    <p>
+                        <code>Feature</code>
+                        はGherkin文書の最初のキーワードで、機能の概要を短い文章で説明します。1つの
+                        <code>.feature</code> ファイルには <code>Feature</code> を1つだけ書けます。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Feature: Guess the word
+
+  The word guess game is a turn-based game for two players.
+  The Maker makes a word for the Breaker to guess. The game
+  is over when the Breaker guesses the Maker's word.
+
+  Example: Maker starts a game</code></pre>
+
+                    <p>
+                        <code>Feature</code>
+                        の直下に書ける自由記述の説明文は、Cucumberの実行には影響しませんが、公式HTMLフォーマッタなどのレポートには表示されます。
+                    </p>
+
+                    <h3>Rule (Gherkin 6以降)</h3>
+                    <p>
+                        <code>Rule</code>
+                        は「1つのビジネスルール」を表すためのオプションのキーワードです。関連する複数のシナリオをまとめる役割を持ちます。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Feature: Highlander
+  Rule: There can be only One
+
+    Example: Only One -- More than one alive
+      Given there are 3 ninjas
+      And there are more than one ninja alive
+      When 2 ninjas meet, they will fight
+      Then one ninja dies (but not me)
+      And there is one ninja less alive
+
+    Example: Only One -- One alive
+      Given there is only 1 ninja alive
+      Then they will live forever ;-)</code></pre>
+
+                    <h3>Example / Scenario とステップ</h3>
+                    <p>
+                        <code>Example</code> (<code>Scenario</code> はその同義語)
+                        は、あるビジネスルールを説明する具体的な例です。ステップ数は3〜5個程度が推奨されており、
+                        多すぎると仕様・ドキュメントとしての表現力が失われてしまいます。
+                    </p>
+                    <p>シナリオは基本的に次の3部構成に従います。</p>
+                    <ul>
+                        <li>初期状態を表す <code>Given</code> ステップ</li>
+                        <li>イベントを表す <code>When</code> ステップ</li>
+                        <li>期待される結果を表す <code>Then</code> ステップ</li>
+                    </ul>
+
+                    <p>
+                        Cucumberはキーワード自体をステップの識別には使いません。つまり、次の2つのステップは(キーワードが違っても)<strong>同じ意味の重複したステップ</strong>とみなされます。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Given there is money in my account
+Then there is money in my account</code></pre>
+
+                    <p>
+                        これは制約というより、より明確な言葉を使うよう促す仕組みです。次のように書き換えると意図が明確になります。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Given my account has a balance of £430
+Then my account should have a balance of £430</code></pre>
+
+                    <h4>Given</h4>
+                    <p>
+                        <code>Given</code>
+                        は「シナリオの舞台設定」であり、通常は過去に起きたことを表します。Cucumberがこのステップを実行するときは、
+                        システムを既知の状態にします(オブジェクトの作成、テストDBへのデータ投入など)。ユーザー操作の話はここに書かず、<code
+                            >When</code
+                        >
+                        に譲ります。
+                    </p>
+
+                    <h4>When</h4>
+                    <p>
+                        <code>When</code>
+                        はイベントやアクション、つまり人やほかのシステムがシステムと相互作用する場面を表します。実装の詳細(UIのボタン名など)は避け、
+                        「1922年に(コンピュータがなかった時代に)人が手作業で行える操作」をイメージして書くとよい、とされています。
+                    </p>
+
+                    <h4>Then</h4>
+                    <p>
+                        <code>Then</code>
+                        は期待される結果を表します。ステップ定義側ではアサーション(実際の結果と期待される結果の比較)を行います。
+                        検証すべきなのは「外部から観測できる出力」(画面表示やメッセージなど)であり、データベースの中身のような外部から見えないものを直接検証するのは避けるべきとされています。
+                    </p>
+
+                    <h4>And, But, *</h4>
+                    <p>
+                        連続する <code>Given</code> や <code>Then</code> は <code>And</code> /
+                        <code>But</code> で読みやすく続けられます。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Example: Multiple Givens
+  Given one thing
+  And another thing
+  And yet another thing
+  When I open my eyes
+  Then I should see something
+  But I shouldn't see something else</code></pre>
+
+                    <p>
+                        また、箇条書きのように見せたい場合はアスタリスク <code>*</code> も使えます。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Scenario: All done
+  Given I am out shopping
+  * I have eggs
+  * I have milk
+  * I have butter
+  When I check my list
+  Then I don't need anything</code></pre>
+
+                    <h3>Background</h3>
+                    <p>
+                        複数のシナリオで同じ
+                        <code>Given</code>
+                        ステップが繰り返される場合、それらは「本質的でない前提条件」である可能性が高いので、
+                        <code>Background</code> としてまとめられます。<code>Background</code>
+                        は最初の <code>Scenario</code> より前、同じインデントレベルに配置します。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Feature: Multiple site support
+  Only blog owners can post to a blog, except administrators,
+  who can post to all blogs.
+
+  Background:
+    Given a global administrator named "Greg"
+    And a blog named "Greg's anti-tax rants"
+    And a customer named "Dr. Bill"
+    And a blog named "Expensive Therapy" owned by "Dr. Bill"
+
+  Scenario: Dr. Bill posts to his own blog
+    Given I am logged in as Dr. Bill
+    When I try to post to "Expensive Therapy"
+    Then I should see "Your article was published."</code></pre>
+
+                    <p>
+                        <code>Background</code> は <code>Feature</code> または
+                        <code>Rule</code>
+                        ごとに1つしか持てません。異なるシナリオ群で異なるBackgroundが必要な場合は、
+                        <code>Rule</code> や <code>Feature</code> を分割することが推奨されています。
+                    </p>
+
+                    <p><code>Background</code> を使う際のポイント:</p>
+                    <ul>
+                        <li>
+                            複雑な状態設定には使わない(クライアントに関係ない詳細ならより抽象的なステップにする)
+                        </li>
+                        <li>短く保つ(4行を超えたら見直しを検討)</li>
+                        <li>印象的な固有名詞を使い、ストーリーとして記憶しやすくする</li>
+                        <li>
+                            シナリオ自体も短く保つ(Backgroundが画面外にスクロールすると全体像が把握しづらくなる)
+                        </li>
+                    </ul>
+
+                    <h3>Scenario Outline と Examples</h3>
+                    <p>
+                        同じシナリオを異なる値の組み合わせで何度も実行したい場合、コピー&amp;ペーストは非効率です。
+                        <code>Scenario Outline</code> を使うと
+                        <code>&lt; &gt;</code> で囲んだパラメータでテンプレート化できます。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Scenario Outline: eating
+  Given there are &lt;start&gt; cucumbers
+  When I eat &lt;eat&gt; cucumbers
+  Then I should have &lt;left&gt; cucumbers
+
+  Examples:
+    | start | eat | left |
+    |    12 |   5 |    7 |
+    |    20 |   5 |   15 |</code></pre>
+
+                    <p>
+                        <code>Scenario Outline</code> は1つ以上の
+                        <code>Examples</code>
+                        セクションを必ず持ち、そのテーブルの各行(見出し行を除く)ごとに1回ずつ実行されます。
+                    </p>
+
+                    <div class="mermaid-wrap">
+                        <pre class="mermaid">
+flowchart TD
+    A["Scenario Outline(テンプレート)"] --> B["Examplesテーブル 1行目"]
+    A --> C["Examplesテーブル 2行目"]
+    A --> D["Examplesテーブル 3行目"]
+    B --> E["具体的なScenarioとして実行1"]
+    C --> F["具体的なScenarioとして実行2"]
+    D --> G["具体的なScenarioとして実行3"]
+        </pre
+                        >
+                    </div>
+                    <p class="mermaid-caption">
+                        図: Scenario Outlineがexamplesの行数だけ展開される様子
+                    </p>
+
+                    <h3>Step Arguments: Doc StringsとData Tables</h3>
+                    <p>
+                        1行に収まらない大きなデータをステップに渡したいとき、GherkinにはDoc
+                        StringsとData Tablesという仕組みがあります。
+                    </p>
+
+                    <h4>Doc Strings</h4>
+                    <p>
+                        <code>"""</code> (または3つのバッククォート)
+                        で囲むことで、長いテキストをステップ定義に渡せます。ステップ定義側では、このテキストを自動的に最後の引数として受け取ります。
+                    </p>
+
+                    <pre
+                        data-lang="gherkin"
+                    ><code>Given a blog post named "Random" with Markdown body
+  """
+  Some Title, Eh?
+  ===============
+  Here is the first paragraph of my blog post. Lorem ipsum dolor sit amet,
+  consectetur adipiscing elit.
+  """</code></pre>
+
+                    <p>
+                        コンテンツタイプ(<code>"""markdown</code>
+                        のように)を明示的に指定することもできます。
+                    </p>
+
+                    <h4>Data Tables</h4>
+                    <p>
+                        <code>|</code>
+                        で区切ったテーブル形式で、値のリストをステップ定義に渡せます。こちらもDoc
+                        Stringsと同様、ステップ定義の最後の引数として渡されます。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>Given the following users exist:
+  | name   | email               | twitter         |
+  | Aslak  | aslak@example.com   | @aslak_hellesoy |
+  | Julien | julien@example.com  | @jbpros         |</code></pre>
+
+                    <p>
+                        セル内で改行を使いたい場合は <code>\n</code>、<code>|</code>
+                        自体を使いたい場合は <code>\|</code>、<code>\</code> を使いたい場合は
+                        <code>\\</code> とエスケープします。
+                    </p>
+
+                    <h3>Spoken Languages (多言語対応)</h3>
+                    <p>
+                        Gherkinは70以上の話し言葉にローカライズされています。ファイルの先頭に
+                        <code># language: xx</code> ヘッダーを書くことで、
+                        日本語を含む各国語のキーワードを使うことができます(省略した場合は英語
+                        <code>en</code> が使われます)。
+                    </p>
+
+                    <pre data-lang="gherkin"><code># language: no
+Funksjonalitet: Gjett et ord
+  Eksempel: Ordmaker starter et spill
+    Når Ordmaker starter et spill
+    Så må Ordmaker vente på at Gjetter blir med</code></pre>
+
+                    <p>
+                        Gherkinで使う言語は、その分野の専門家(ドメインエキスパート)が普段使っている言語と合わせるべきとされています。翻訳による齟齬を避けるためです。
+                    </p>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong>
+                            <a
+                                href="https://cucumber.io/docs/gherkin/reference"
+                                target="_blank"
+                                rel="noopener"
+                                >Gherkin Reference | Cucumber</a
+                            >
+                            ／
+                            <a
+                                href="https://cucumber.io/docs/gherkin/languages"
+                                target="_blank"
+                                rel="noopener"
+                                >Gherkin Localisation | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 4. ステップ定義 ============ -->
+                <section class="doc-section" id="sec04">
+                    <div class="section-kicker">SECTION 04</div>
+                    <h2>ステップ定義 (Step Definitions) を書く</h2>
+
+                    <p>
+                        <strong>Step Definition</strong>
+                        は、1つ以上のGherkinステップと結びつく「式(expression)」を持ったメソッドです。
+                        Cucumberはシナリオ内のGherkinステップを実行するとき、マッチするステップ定義を探して実行します。
+                    </p>
+
+                    <p>例えば次のシナリオがあるとします。</p>
+
+                    <pre data-lang="gherkin"><code>Scenario: Some cukes
+  Given I have 48 cukes in my belly</code></pre>
+
+                    <p>
+                        <code>Given</code> の後ろのテキスト
+                        <code>I have 48 cukes in my belly</code>
+                        は、次のようなステップ定義とマッチします(Javaの例)。
+                    </p>
+
+                    <pre data-lang="java"><code class="language-java">package com.example;
+
+import io.cucumber.java.en.Given;
+
+public class StepDefinitions {
+
+    @Given("I have {int} cukes in my belly")
+    public void i_have_n_cukes_in_my_belly(int cukes) {
+        System.out.format("Cukes: %d\n", cukes);
+    }
+}</code></pre>
+
+                    <p>JavaScriptでは次のように書きます。</p>
+
+                    <pre
+                        data-lang="javascript"
+                    ><code class="language-javascript">const { Given } = require('@cucumber/cucumber')
+
+Given('I have {int} cukes in my belly', function (cukes) {
+  console.log(`Cukes: ${cukes}`)
+});</code></pre>
+
+                    <h3>マッチングの仕組み</h3>
+                    <ol>
+                        <li>
+                            Cucumberはステップの文字列をステップ定義の正規表現(またはCucumber
+                            Expression)と照合する
+                        </li>
+                        <li>一致した場合、キャプチャグループや変数を取り出す</li>
+                        <li>それらを引数としてステップ定義のメソッドに渡し、実行する</li>
+                    </ol>
+
+                    <p>
+                        ステップ定義の<strong>先頭のキーワード(Given/When/Then/And/But)自体には意味がなく</strong>、登録・検索の際は無視されます。
+                        つまり <code>Given</code> で定義したステップを
+                        <code>Then</code> として呼び出すこともできます。
+                    </p>
+
+                    <h3>式 (Expressions) の種類</h3>
+                    <p>
+                        ステップ定義の式には、<strong>正規表現(Regular Expression)</strong> または
+                        <strong>Cucumber Expression</strong> のどちらかを使えます。
+                        正規表現の場合、キャプチャグループがそのままステップ定義メソッドの引数として渡されます。Cucumber
+                        Expressionを使う場合は、 パラメータタイプの
+                        <code>regexp</code>
+                        と一致するキャプチャグループが自動的に型変換されます。上の例では
+                        <code>{int}</code> パラメータタイプの正規表現が
+                        <code>\d+</code> であるため、<code>cukes</code>
+                        引数は自動的に整数型に変換されます。
+                    </p>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a
+                                href="https://cucumber.io/docs/cucumber/step-definitions"
+                                target="_blank"
+                                rel="noopener"
+                                >Step definitions | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 5. Cucumber Expressions ============ -->
+                <section class="doc-section" id="sec05">
+                    <div class="section-kicker">SECTION 05</div>
+                    <h2>Cucumber Expressionsでステップを賢くマッチさせる</h2>
+
+                    <p>
+                        <strong>Cucumber Expressions</strong>
+                        は正規表現の代替となる、より直感的な構文です。
+                        例えば次のGherkinステップ(<code>Given</code>
+                        を除く)にマッチさせたいとします。
+                    </p>
+
+                    <pre data-lang="text"><code>I have 42 cucumbers in my belly</code></pre>
+
+                    <p>
+                        最もシンプルな方法はテキストそのままを書くことですが、<code>{int}</code>
+                        という<strong>出力パラメータ</strong>を使えばより汎用的に書けます。
+                    </p>
+
+                    <pre data-lang="text"><code>I have {int} cucumbers in my belly</code></pre>
+
+                    <p>
+                        このように書くと、テキストとマッチしたときに <code>42</code> という数値が
+                        <code>{int}</code> パラメータから抽出され、ステップ定義に渡されます。
+                    </p>
+
+                    <h3>組み込みパラメータタイプ</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>パラメータタイプ</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>{int}</code></td>
+                                    <td>
+                                        整数にマッチ (例: <code>71</code>,
+                                        <code>-19</code
+                                        >)。プラットフォームが対応していれば32bit符号付き整数に変換
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>{float}</code></td>
+                                    <td>
+                                        浮動小数点数にマッチ (例: <code>3.6</code>, <code>.8</code>,
+                                        <code>-9.2</code>)。32bit floatに変換
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>{word}</code></td>
+                                    <td>
+                                        空白を含まない単語にマッチ (例: <code>banana</code>。<code
+                                            >banana split</code
+                                        >にはマッチしない)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>{string}</code></td>
+                                    <td>
+                                        シングルまたはダブルクォートで囲まれた文字列にマッチ (例:
+                                        <code>"banana split"</code>)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>{}</code> (匿名)</td>
+                                    <td>あらゆる文字列にマッチ (<code>/.*/</code> と同等)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>{bigdecimal}</code></td>
+                                    <td>
+                                        <code>{float}</code> と同様だが
+                                        <code>BigDecimal</code> に変換
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>{double}</code></td>
+                                    <td><code>{float}</code> と同様だが64bit floatに変換</td>
+                                </tr>
+                                <tr>
+                                    <td><code>{biginteger}</code></td>
+                                    <td>
+                                        <code>{int}</code> と同様だが <code>BigInteger</code> に変換
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <code>{byte}</code> / <code>{short}</code> /
+                                        <code>{long}</code>
+                                    </td>
+                                    <td>
+                                        <code>{int}</code> と同様だが、それぞれ8/16/64bit整数に変換
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>オプションのテキスト</h3>
+                    <p>
+                        「1 cucumbers」は文法的に誤りなので、複数形の
+                        <code>s</code> をオプションにしたい場合は括弧で囲みます。
+                    </p>
+
+                    <pre data-lang="text"><code>I have {int} cucumber(s) in my belly</code></pre>
+
+                    <p>
+                        正規表現では括弧はキャプチャグループを意味しますが、Cucumber
+                        Expressionsでは「オプションのテキスト」を意味する点に注意してください。
+                    </p>
+
+                    <h3>代替テキスト</h3>
+                    <p>
+                        言い回しの揺らぎを許容したい場合はスラッシュで代替候補を区切ります(間に空白は入れられません)。
+                    </p>
+
+                    <pre
+                        data-lang="text"
+                    ><code>I have {int} cucumber(s) in my belly/stomach</code></pre>
+
+                    <h3>エスケープ</h3>
+                    <p>
+                        <code>()</code> や
+                        <code>{}</code>
+                        をリテラルとしてマッチさせたい場合は、バックスラッシュでエスケープします。
+                    </p>
+
+                    <pre
+                        data-lang="text"
+                    ><code>I have {int} \{what} cucumber(s) in my belly \(amazing!)</code></pre>
+
+                    <h3>カスタムパラメータタイプ</h3>
+                    <p>
+                        独自の型に自動変換したい場合は、カスタムパラメータタイプを定義できます。例えば
+                        <code>{color}</code> というパラメータを
+                        <code>Color</code> オブジェクトに変換する場合(JavaScript/TypeScriptの例):
+                    </p>
+
+                    <pre
+                        data-lang="javascript"
+                    ><code class="language-javascript">import { defineParameterType } from '@cucumber/cucumber'
+
+defineParameterType({
+    name: 'color',
+    regexp: /red|blue|yellow/,
+    transformer: s => new Color(s)
+})</code></pre>
+
+                    <p>カスタムパラメータタイプ定義時の主な引数は以下の通りです。</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>引数</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>name</code></td>
+                                    <td>出力パラメータとして認識される名前</td>
+                                </tr>
+                                <tr>
+                                    <td><code>regexp</code></td>
+                                    <td>
+                                        パラメータにマッチする正規表現(キャプチャグループを含んでもよい)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>type</code></td>
+                                    <td>変換後の戻り値の型</td>
+                                </tr>
+                                <tr>
+                                    <td><code>transformer</code></td>
+                                    <td>正規表現のマッチ結果を変換する関数</td>
+                                </tr>
+                                <tr>
+                                    <td><code>useForSnippets</code></td>
+                                    <td>
+                                        デフォルト
+                                        <code>true</code
+                                        >。未定義ステップのスニペット生成に使うかどうか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>preferForRegexpMatch</code></td>
+                                    <td>
+                                        デフォルト
+                                        <code>false</code
+                                        >。正規表現を使うステップ定義でこのパラメータタイプを優先するかどうか
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong>
+                            <a
+                                href="https://cucumber.io/docs/cucumber/cucumber-expressions"
+                                target="_blank"
+                                rel="noopener"
+                                >Cucumber Expressions | Cucumber</a
+                            >
+                            ／
+                            <a
+                                href="https://github.com/cucumber/cucumber-expressions#readme"
+                                target="_blank"
+                                rel="noopener"
+                                >cucumber/cucumber-expressions (GitHub README)</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 6. Hooks ============ -->
+                <section class="doc-section" id="sec06">
+                    <div class="section-kicker">SECTION 06</div>
+                    <h2>Hooks (フック) でセットアップ・後片付けを行う</h2>
+
+                    <p>
+                        <strong>Hooks</strong>
+                        はCucumberの実行サイクルの様々なタイミングで実行できるコードのブロックで、主に各シナリオの前後の環境セットアップ・後片付けに使われます。
+                        フックをどこで宣言するかは、どのシナリオ・ステップに適用されるかには影響しません(タグを使えば絞り込めます)。
+                    </p>
+
+                    <h3>フックの種類</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>フック</th>
+                                    <th>実行タイミング</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>Before</code></td>
+                                    <td>各シナリオの最初のステップの前</td>
+                                </tr>
+                                <tr>
+                                    <td><code>After</code></td>
+                                    <td>
+                                        各シナリオの最後のステップの後(結果がfailed/undefined/pending/skippedでも実行される)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>Around</code>(Rubyのみ)</td>
+                                    <td>シナリオの実行を丸ごと囲む</td>
+                                </tr>
+                                <tr>
+                                    <td><code>BeforeStep</code></td>
+                                    <td>各ステップの前</td>
+                                </tr>
+                                <tr>
+                                    <td><code>AfterStep</code></td>
+                                    <td>各ステップの後</td>
+                                </tr>
+                                <tr>
+                                    <td><code>BeforeAll</code></td>
+                                    <td>全シナリオの実行前に一度だけ</td>
+                                </tr>
+                                <tr>
+                                    <td><code>AfterAll</code></td>
+                                    <td>全シナリオの実行後に一度だけ</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        <code>Before</code>
+                        フックで行ったことは、Featureファイルだけを読む人には見えません。読みやすさを重視するなら、<code
+                            >Background</code
+                        >
+                        を使うことを検討し、
+                        <code>Before</code>
+                        フックはブラウザの起動やDBのクリーンアップのような低レベルな処理に限定するのがよいとされています。
+                    </p>
+
+                    <h3>シナリオ実行のライフサイクル</h3>
+                    <div class="mermaid-wrap">
+                        <pre class="mermaid">
+flowchart TD
+    A["BeforeAll:全シナリオの前に一度"] --> B["Before:各シナリオの前"]
+    B --> C["Background:各シナリオの前"]
+    C --> D["BeforeStep:各ステップの前"]
+    D --> E["ステップ実行 Given/When/Then"]
+    E --> F["AfterStep:各ステップの後"]
+    F --> G{"次のステップはあるか"}
+    G -->|"あり"| D
+    G -->|"なし"| H["After:各シナリオの後"]
+    H --> I["AfterAll:全シナリオの後に一度"]
+        </pre
+                        >
+                    </div>
+                    <p class="mermaid-caption">図: フックを含めたシナリオ実行のライフサイクル</p>
+
+                    <h3>コード例(JavaScript)</h3>
+                    <pre
+                        data-lang="javascript"
+                    ><code class="language-javascript">const { Before, After } = require('@cucumber/cucumber')
+
+Before(async function () {
+  // 各シナリオの前に実行する処理
+})
+
+After(async function (scenario) {
+  // 各シナリオの後に実行する処理
+  // scenario引数から成功/失敗の状態を取得できる
+})</code></pre>
+
+                    <h3>実行順序の指定</h3>
+                    <p>複数のフックがある場合、明示的な順序を指定できます(Javaの例)。</p>
+
+                    <pre data-lang="java"><code class="language-java">@Before(order = 10)
+public void doSomething(){
+    // 各シナリオの前に実行する処理
+}</code></pre>
+
+                    <h3>条件付きフック (Conditional Hooks)</h3>
+                    <p>タグ式を使うことで、特定のシナリオにのみフックを適用できます。</p>
+
+                    <pre
+                        data-lang="java"
+                    ><code class="language-java">@After("@browser and not @headless")
+public void doSomethingAfter(Scenario scenario){
+    driver.quit()
+}</code></pre>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a
+                                href="https://cucumber.io/docs/cucumber/api/#hooks"
+                                target="_blank"
+                                rel="noopener"
+                                >Cucumber reference | Cucumber (Hooksセクション)</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 7. Tags ============ -->
+                <section class="doc-section" id="sec07">
+                    <div class="section-kicker">SECTION 07</div>
+                    <h2>Tags (タグ) でシナリオを整理する</h2>
+
+                    <p>
+                        <strong>Tags</strong>
+                        はFeatureやScenarioを整理するための仕組みです。主に次の2つの目的で使われます。
+                    </p>
+                    <ul>
+                        <li>シナリオの一部だけを実行する</li>
+                        <li>フックを特定のシナリオ群にのみ適用する(条件付きフック)</li>
+                    </ul>
+
+                    <p>
+                        タグは <code>Feature</code>、<code>Rule</code>、<code>Scenario</code>、<code
+                            >Scenario Outline</code
+                        >、<code>Examples</code> の上に置くことができます。
+                        <code>Background</code> やステップ
+                        (<code>Given</code>/<code>When</code>/<code>Then</code> など)
+                        の上には置けません。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>@billing
+Feature: Verify billing
+
+  @important
+  Scenario: Missing product description
+    Given hello
+
+  Scenario: Several products
+    Given hello</code></pre>
+
+                    <p>1つの要素に複数のタグを付けることもできます(スペース区切り)。</p>
+
+                    <pre data-lang="gherkin"><code>@billing @bicker @annoy
+Feature: Verify billing</code></pre>
+
+                    <h3>タグの継承</h3>
+                    <p>
+                        タグは子要素に継承されます。<code>Feature</code> に付けたタグは
+                        <code>Rule</code>、<code>Scenario</code>、<code>Scenario Outline</code
+                        >、<code>Examples</code> に継承され、 同様に
+                        <code>Scenario Outline</code> に付けたタグは
+                        <code>Examples</code> に継承されます。
+                    </p>
+
+                    <h3>タグ式 (Tag Expressions)</h3>
+                    <p>タグ式は「中置のブール式」で、次のような書き方ができます。</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>タグ式</th>
+                                    <th>意味</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>@fast</code></td>
+                                    <td><code>@fast</code> タグが付いたシナリオ</td>
+                                </tr>
+                                <tr>
+                                    <td><code>@wip and not @slow</code></td>
+                                    <td>
+                                        <code>@wip</code> が付いていて、かつ
+                                        <code>@slow</code> が付いていないシナリオ
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>@smoke and @fast</code></td>
+                                    <td>
+                                        <code>@smoke</code> と
+                                        <code>@fast</code> の両方が付いたシナリオ
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>@gui or @database</code></td>
+                                    <td>
+                                        <code>@gui</code> または
+                                        <code>@database</code> のどちらかが付いたシナリオ
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>(@smoke or @ui) and (not @slow)</code></td>
+                                    <td>括弧でグループ化した、より複雑な条件式</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>タグを使った一部シナリオの実行</h3>
+                    <p>Maven(Java)の例:</p>
+                    <pre
+                        data-lang="shell"
+                    ><code class="language-bash">mvn test -Dcucumber.filter.tags="@smoke and @fast"</code></pre>
+
+                    <p>Cucumber-JSの例:</p>
+                    <pre
+                        data-lang="shell"
+                    ><code class="language-bash">./node_modules/.bin/cucumber.js --tags "@smoke and @fast"</code></pre>
+
+                    <p>逆に特定のタグを除外して実行したい場合は <code>not</code> を使います。</p>
+                    <pre
+                        data-lang="shell"
+                    ><code class="language-bash">cucumber --tags "not @smoke"</code></pre>
+
+                    <h3>タグをドキュメントとして活用する</h3>
+                    <p>
+                        タグは外部システム(要件管理ツール、課題管理ツールなど)のIDと紐づけたり、開発プロセス上の状態(<code
+                            >@qa_ready</code
+                        >
+                        など)を表すためにも使えます。
+                    </p>
+
+                    <pre data-lang="gherkin"><code>@BJ-x98.77 @BJ-z12.33
+Feature: Convert transaction</code></pre>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a
+                                href="https://cucumber.io/docs/cucumber/api/#tags"
+                                target="_blank"
+                                rel="noopener"
+                                >Cucumber reference | Cucumber (Tagsセクション)</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 8. ステップの実行結果 ============ -->
+                <section class="doc-section" id="sec08">
+                    <div class="section-kicker">SECTION 08</div>
+                    <h2>ステップの実行結果を理解する</h2>
+
+                    <p>Cucumberの各ステップは、実行後に次のいずれかの結果になります。</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>結果</th>
+                                    <th>色</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Success(成功)</td>
+                                    <td>緑</td>
+                                    <td>マッチするステップ定義が見つかり、エラーなく実行された</td>
+                                </tr>
+                                <tr>
+                                    <td>Undefined(未定義)</td>
+                                    <td>黄</td>
+                                    <td>
+                                        マッチするステップ定義が見つからなかった。以降のステップはSkippedになる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pending(保留)</td>
+                                    <td>黄</td>
+                                    <td>
+                                        ステップ定義内で
+                                        <code>pending</code>
+                                        メソッドが呼ばれた。「まだ実装が必要」という意味
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Failed(失敗)</td>
+                                    <td>赤</td>
+                                    <td>
+                                        ステップ定義の実行中にエラー(アサーション失敗など)が発生した
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Skipped(スキップ)</td>
+                                    <td>シアン</td>
+                                    <td>
+                                        Undefined/Pending/Failedの後に続くステップは実行されない
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ambiguous(曖昧)</td>
+                                    <td>―</td>
+                                    <td>
+                                        同じステップに複数のステップ定義がマッチしてしまい、Cucumberが解決できない状態
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        ステップ定義から何を
+                        <code>return</code> しても、その値自体には意味がありません(<code>null</code>
+                        や <code>false</code> を返しても失敗にはなりません)。
+                        失敗として扱われるのは、あくまでエラー(例外)が発生した場合です。
+                    </p>
+
+                    <div class="mermaid-wrap">
+                        <pre class="mermaid">
+flowchart TD
+    A["ステップを実行"] --> B{"一致するステップ定義は?"}
+    B -->|"見つからない"| C["Undefined:未定義"]
+    B -->|"複数見つかる"| D["Ambiguous:曖昧"]
+    B -->|"1つ見つかる"| E["ステップ定義を実行"]
+    E --> F{"実行結果は?"}
+    F -->|"エラーなし"| G["Success:成功"]
+    F -->|"pendingを呼ぶ"| H["Pending:保留"]
+    F -->|"エラー発生"| I["Failed:失敗"]
+    C --> J["以降のステップはSkipped扱い"]
+    D --> J
+    H --> J
+    I --> J
+        </pre
+                        >
+                    </div>
+                    <p class="mermaid-caption">図: ステップ実行結果の分岐</p>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a
+                                href="https://cucumber.io/docs/cucumber/api/#step-results"
+                                target="_blank"
+                                rel="noopener"
+                                >Cucumber reference | Cucumber (Step resultsセクション)</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 9. インストール ============ -->
+                <section class="doc-section" id="sec09">
+                    <div class="section-kicker">SECTION 09</div>
+                    <h2>Cucumberをインストールする</h2>
+
+                    <p>
+                        Cucumberはほとんどの主要なプログラミング言語に対応しています。公式は「プロダクションコードと同じプラットフォーム・言語の実装を選ぶこと」を推奨しています。
+                    </p>
+
+                    <p>実装は次の4種類に分類されます。</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>分類</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>official(公式)</td>
+                                    <td>
+                                        <a
+                                            href="https://github.com/cucumber"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >cucumber</a
+                                        >
+                                        組織でホストされている
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>semi-official(準公式)</td>
+                                    <td>
+                                        別の場所でホストされているが、cucumberのコンポーネントを利用している
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>unofficial(非公式)</td>
+                                    <td>
+                                        別の場所でホストされ、cucumberのコンポーネントを使っていない
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>unmaintained(メンテナンスされていない)</td>
+                                    <td>公式だが、メンテナが不在で更新が止まっている</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>主な言語別実装(抜粋)</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>実装</th>
+                                    <th>言語</th>
+                                    <th>分類</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cucumber-JS</td>
+                                    <td>JavaScript</td>
+                                    <td>official</td>
+                                </tr>
+                                <tr>
+                                    <td>Cucumber-JVM</td>
+                                    <td>Java / Kotlin</td>
+                                    <td>official</td>
+                                </tr>
+                                <tr>
+                                    <td>Cucumber-Ruby</td>
+                                    <td>Ruby</td>
+                                    <td>official</td>
+                                </tr>
+                                <tr>
+                                    <td>Cucumber-Scala</td>
+                                    <td>Scala</td>
+                                    <td>official</td>
+                                </tr>
+                                <tr>
+                                    <td>Cucumber.cpp</td>
+                                    <td>C++</td>
+                                    <td>official</td>
+                                </tr>
+                                <tr>
+                                    <td>Behat</td>
+                                    <td>PHP</td>
+                                    <td>semi-official</td>
+                                </tr>
+                                <tr>
+                                    <td>Behave</td>
+                                    <td>Python</td>
+                                    <td>semi-official</td>
+                                </tr>
+                                <tr>
+                                    <td>Pytest-BDD</td>
+                                    <td>Python</td>
+                                    <td>semi-official</td>
+                                </tr>
+                                <tr>
+                                    <td>Reqnroll</td>
+                                    <td>.NET (C#, F#, VB)</td>
+                                    <td>semi-official</td>
+                                </tr>
+                                <tr>
+                                    <td>gocuke</td>
+                                    <td>Go</td>
+                                    <td>semi-official</td>
+                                </tr>
+                                <tr>
+                                    <td>Cucumber-Rust</td>
+                                    <td>Rust</td>
+                                    <td>unofficial</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>JavaScriptでのインストール例</h3>
+                    <p>Cucumber-JSはnpmパッケージとして提供されています。</p>
+                    <pre
+                        data-lang="shell"
+                    ><code class="language-bash">npm install --save-dev @cucumber/cucumber</code></pre>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong>
+                            <a
+                                href="https://cucumber.io/docs/installation/"
+                                target="_blank"
+                                rel="noopener"
+                                >Installation | Cucumber</a
+                            >
+                            ／
+                            <a
+                                href="https://cucumber.io/docs/installation/javascript"
+                                target="_blank"
+                                rel="noopener"
+                                >Cucumber-JS | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 10. 実践チュートリアル ============ -->
+                <section class="doc-section" id="sec10">
+                    <div class="section-kicker">SECTION 10</div>
+                    <h2>実践: 10分でCucumberを動かしてみる</h2>
+
+                    <p>
+                        ここでは公式の「10-minute
+                        tutorial」の流れに沿って、Cucumberを使ったBDDの基本的なワークフローを確認します(例はJavaベースです)。
+                    </p>
+
+                    <h3>BDDのワークフロー全体像</h3>
+                    <div class="mermaid-wrap">
+                        <pre class="mermaid">
+flowchart LR
+    A["Featureファイルにシナリオを書く"] --> B["Cucumberを実行:Undefined"]
+    B --> C["スニペットからステップ定義を作成:Pending"]
+    C --> D["ステップ定義に最低限の実装を追加:Failing"]
+    D --> E["プロダクションコードを実装:Passing"]
+    E --> F["リファクタリング"]
+    F -->|"次のシナリオへ"| A
+        </pre
+                        >
+                    </div>
+                    <p class="mermaid-caption">
+                        図: Undefined → Pending → Failing → Passing のBDDサイクル
+                    </p>
+
+                    <h3>ステップ1: プロジェクトを作成する</h3>
+                    <p>Maven archetypeを使ってプロジェクトを作成します。</p>
+                    <pre data-lang="shell"><code class="language-bash">mvn archetype:generate \
+"-DarchetypeGroupId=io.cucumber" \
+"-DarchetypeArtifactId=cucumber-archetype" \
+"-DarchetypeVersion=7.34.3" \
+"-DgroupId=hellocucumber" \
+"-DartifactId=hellocucumber" \
+"-Dpackage=hellocucumber" \
+"-Dversion=1.0.0-SNAPSHOT" \
+"-DinteractiveMode=false"</code></pre>
+
+                    <h3>ステップ2: インストールを確認する</h3>
+                    <pre data-lang="shell"><code class="language-bash">mvn test</code></pre>
+                    <p>「0 scenarios」のように、まだ何も実行対象がないことが表示されればOKです。</p>
+
+                    <h3>ステップ3: シナリオを書く</h3>
+                    <p>
+                        <code>src/test/resources/hellocucumber/is_it_friday_yet.feature</code>
+                        を作成します。
+                    </p>
+                    <pre data-lang="gherkin"><code>Feature: Is it Friday yet?
+  Everybody wants to know when it's Friday
+
+  Scenario: Sunday isn't Friday
+    Given today is Sunday
+    When I ask whether it's Friday yet
+    Then I should be told "Nope"</code></pre>
+
+                    <h3>ステップ4: Undefinedを確認する</h3>
+                    <p>
+                        再度 <code>mvn test</code> を実行すると、1つのシナリオと3つのステップが
+                        <code>undefined</code> と報告され、実装のスニペットが提案されます。
+                    </p>
+                    <pre data-lang="java"><code class="language-java">@Given("today is Sunday")
+public void today_is_Sunday() {
+    // Write code here that turns the phrase above into concrete actions
+    throw new io.cucumber.java.PendingException();
+}</code></pre>
+                    <p>
+                        このスニペットを
+                        <code>src/test/java/hellocucumber/StepDefinitions.java</code>
+                        にコピーします。
+                    </p>
+
+                    <h3>ステップ5: Pendingを確認する</h3>
+                    <p>
+                        再実行すると、ステップ定義は見つかったものの
+                        <code>PendingException</code>
+                        により「保留」として報告されます。まだ実装が必要という意味です。
+                    </p>
+
+                    <h3>ステップ6: Failingにしてみる</h3>
+                    <p>コメントに書かれている通り、フレーズを具体的な処理に置き換えます。</p>
+                    <pre data-lang="java"><code class="language-java">public class StepDefinitions {
+    private String today;
+    private String actualAnswer;
+
+    @Given("today is Sunday")
+    public void today_is_Sunday() {
+        today = "Sunday";
+    }
+
+    @When("I ask whether it's Friday yet")
+    public void i_ask_whether_it_s_Friday_yet() {
+        actualAnswer = IsItFriday.isItFriday(today);
+    }
+
+    @Then("I should be told {string}")
+    public void i_should_be_told(String expectedAnswer) {
+        assertThat(actualAnswer).isEqualTo(expectedAnswer);
+    }
+}</code></pre>
+                    <p>
+                        <code>isItFriday</code> メソッドはまだ
+                        <code>null</code>
+                        を返す仮実装なので、テストは失敗(Failing)します。これは意図した動作です。
+                    </p>
+
+                    <h3>ステップ7: Passingにする</h3>
+                    <p>最小限の実装でテストを通します。</p>
+                    <pre
+                        data-lang="java"
+                    ><code class="language-java">static String isItFriday(String today) {
+    return "Nope";
+}</code></pre>
+                    <p>これで最初のシナリオがグリーン(Passing)になります。</p>
+
+                    <h3>ステップ8: もう1つのシナリオを追加する</h3>
+                    <p>
+                        「Friday」の場合も検証するシナリオを追加し、対応するステップ定義も追加します。すると2つ目のシナリオは失敗するので、正しいロジックを実装します。
+                    </p>
+                    <pre
+                        data-lang="java"
+                    ><code class="language-java">static String isItFriday(String today) {
+    return "Friday".equals(today) ? "TGIF" : "Nope";
+}</code></pre>
+
+                    <h3>ステップ9: Scenario Outlineでまとめる</h3>
+                    <p>
+                        すべての曜日を検証したくなったら、<code>Scenario</code> を
+                        <code>Scenario Outline</code> に書き換え、<code>Examples</code>
+                        テーブルでまとめます。
+                    </p>
+                    <pre data-lang="gherkin"><code>Feature: Is it Friday yet?
+  Everybody wants to know when it's Friday
+
+  Scenario Outline: Today is or is not Friday
+    Given today is "&lt;day&gt;"
+    When I ask whether it's Friday yet
+    Then I should be told "&lt;answer&gt;"
+
+  Examples:
+    | day             | answer |
+    | Friday          | TGIF   |
+    | Sunday          | Nope   |
+    | anything else!  | Nope   |</code></pre>
+
+                    <p>ステップ定義側も、文字列をそのまま受け取る形に一本化します。</p>
+                    <pre data-lang="java"><code class="language-java">@Given("today is {string}")
+public void today_is(String today) {
+    this.today = today;
+}</code></pre>
+                    <p>これで3つのシナリオ(9ステップ)がすべてパスします。</p>
+
+                    <h3>ステップ10: リファクタリングする</h3>
+                    <p>
+                        テストが通った状態(グリーン)になったら、次のようなリファクタリングを検討します。
+                    </p>
+                    <ul>
+                        <li>
+                            <code>isItFriday</code>
+                            メソッドをテストコードからプロダクションコードへ移動する
+                        </li>
+                        <li>複数箇所で使うヘルパーメソッドをステップ定義から抽出する</li>
+                    </ul>
+                    <p>
+                        このように「Given実装→Undefined→Pending→Failing→Passing→リファクタリング」というサイクルを繰り返すことが、CucumberによるBDDの基本ワークフローです。
+                    </p>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a
+                                href="https://cucumber.io/docs/guides/10-minute-tutorial"
+                                target="_blank"
+                                rel="noopener"
+                                >10-minute tutorial | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 11. レポーティング ============ -->
+                <section class="doc-section" id="sec11">
+                    <div class="section-kicker">SECTION 11</div>
+                    <h2>テスト結果をレポートする</h2>
+
+                    <p>
+                        Cucumberは「レポータープラグイン(フォーマッタ)」を使って、シナリオの成功・失敗に関する情報を含むレポートを生成します。
+                    </p>
+
+                    <h3>Cucumber Reportsサービス</h3>
+                    <p>
+                        最も手軽に始められる方法は、<a
+                            href="https://reports.cucumber.io/"
+                            target="_blank"
+                            rel="noopener"
+                            >Cucumber Reports</a
+                        >
+                        というホスティングサービスにレポートを送信することです。
+                        以下のバージョン以降で対応しています。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>実装</th>
+                                    <th>対応バージョン</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cucumber-JVM</td>
+                                    <td>6.7.0以降</td>
+                                </tr>
+                                <tr>
+                                    <td>Cucumber-Ruby</td>
+                                    <td>5.1.1以降</td>
+                                </tr>
+                                <tr>
+                                    <td>Cucumber-JS</td>
+                                    <td>7.0.0以降</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>ビルトインのレポータープラグイン</h3>
+                    <p>
+                        外部サービスを使わずローカルでレポートを生成したい場合、次のビルトインフォーマッタが使えます。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>フォーマッタ名</th>
+                                    <th>概要</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>message</code></td>
+                                    <td>Cucumber Messages形式の生データを出力</td>
+                                </tr>
+                                <tr>
+                                    <td><code>progress</code></td>
+                                    <td>ドットで進捗を表示するシンプルな形式</td>
+                                </tr>
+                                <tr>
+                                    <td><code>pretty</code></td>
+                                    <td>人が読みやすい形式でコンソールに出力</td>
+                                </tr>
+                                <tr>
+                                    <td><code>html</code></td>
+                                    <td>HTMLレポートを生成</td>
+                                </tr>
+                                <tr>
+                                    <td><code>json</code></td>
+                                    <td>JSON形式でレポートを出力</td>
+                                </tr>
+                                <tr>
+                                    <td><code>rerun</code></td>
+                                    <td>失敗したシナリオだけを再実行するためのファイルを出力</td>
+                                </tr>
+                                <tr>
+                                    <td><code>junit</code></td>
+                                    <td>JUnit形式のXMLレポートを出力(多くのCIツールが解釈可能)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>testng</code></td>
+                                    <td>TestNG形式のレポート(JVMのみ)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>カスタムフォーマッタ</h3>
+                    <p>
+                        Cucumberの各実装は拡張可能なため、独自のフォーマッタを作成したり、サードパーティ製のフォーマッタ(Allure、Masterthoughtなど)を利用することもできます。
+                        フォーマッタはイベントベースのAPIで動作し、Cucumber
+                        Messagesという共通の仕様に基づいています。
+                    </p>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a
+                                href="https://cucumber.io/docs/cucumber/reporting"
+                                target="_blank"
+                                rel="noopener"
+                                >Reporting | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 12. ベストプラクティス ============ -->
+                <section class="doc-section" id="sec12">
+                    <div class="section-kicker">SECTION 12</div>
+                    <h2>ベストプラクティスとアンチパターン</h2>
+
+                    <h3>宣言的スタイル vs 命令的スタイル</h3>
+                    <p>
+                        Gherkinシナリオは<strong>何が起こるか(What)</strong>を書くべきであり、<strong>どうやって実現するか(How)</strong>を書くべきではありません。
+                        次の2つの書き方を比較します。
+                    </p>
+
+                    <p><strong>命令的(避けたい)スタイル:</strong></p>
+                    <pre data-lang="gherkin"><code>Given I visit "/login"
+When I enter "Bob" in the "user name" field
+  And I enter "tester" in the "password" field
+  And I press the "login" button
+Then I should see the "welcome" page</code></pre>
+
+                    <p><strong>宣言的(推奨される)スタイル:</strong></p>
+                    <pre data-lang="gherkin"><code>When "Bob" logs in</code></pre>
+
+                    <p>
+                        命令的スタイルは実装の詳細(URL、フィールド名、ボタン名)に強く依存するため、実装が変わるたびにシナリオも修正が必要になります。
+                        宣言的スタイルであれば、ログイン方法がパスワード認証から生体認証に変わっても、シナリオ自体は変更せずに済みます。
+                    </p>
+
+                    <p>
+                        「実装が変わったら、この記述も変える必要があるか?」と自問し、答えが「はい」なら実装依存の記述を見直す、というのが良い目安です。
+                    </p>
+
+                    <h3>
+                        アンチパターン1: Feature-coupled step
+                        definitions(機能に結合したステップ定義)
+                    </h3>
+                    <p>
+                        特定のFeatureやScenarioでしか再利用できないステップ定義は、ステップ定義の爆発的な増加、コードの重複、保守コストの増大を招きます。
+                    </p>
+                    <p><strong>対策:</strong></p>
+                    <ul>
+                        <li>
+                            ステップ定義はドメイン概念ごとに整理する(Feature名やScenario名ではなく)
+                        </li>
+                        <li>
+                            例:
+                            <code>EmployeeStepDefinitions.java</code
+                            >、<code>EducationStepDefinitions.java</code>、<code
+                                >AuthenticationStepDefinitions.java</code
+                            >
+                            のように分割する
+                        </li>
+                    </ul>
+
+                    <h3>アンチパターン2: Conjunction steps(接続詞的ステップ)</h3>
+                    <p>
+                        複数の異なる要素を1つのステップに詰め込むと、そのステップは特殊化しすぎて再利用性が下がります。
+                    </p>
+
+                    <pre data-lang="gherkin"><code># 避けたい書き方
+Given I have shades and a brand new Mustang</code></pre>
+
+                    <pre data-lang="gherkin"><code># 望ましい書き方
+Given I have shades
+And I have a brand new Mustang</code></pre>
+
+                    <p>
+                        Cucumberが <code>And</code>/<code>But</code>
+                        をサポートしているのは、まさにこのようなケースのためです。
+                    </p>
+
+                    <h3>ステップ定義の整理</h3>
+                    <p>
+                        プロジェクトが成長するにつれ、ステップ定義は意味のあるグループに分割すべきです。
+                    </p>
+                    <ul>
+                        <li>主要なドメインオブジェクトごとに1ファイルを用意する</li>
+                        <li>
+                            実際に使われていないステップ定義は書かない(不要なコードは掃除が必要な「残骸」になる)
+                        </li>
+                        <li>似たようなステップ定義の重複を避け、ヘルパーメソッドで抽象化する</li>
+                    </ul>
+
+                    <pre data-lang="gherkin"><code># 重複しがちな例
+Given I go to the home page
+Given I check the about page of the website
+Given I get the contact details</code></pre>
+
+                    <pre data-lang="gherkin"><code># ヘルパーメソッドで抽象化した例
+Given I go to the {string} page</code></pre>
+
+                    <p>
+                        Cucumberは対象のプログラミング言語のDSLラッパーに過ぎないため、ステップ定義ファイルの中では通常のプログラミング言語の機能(ヘルパーメソッドの抽出など)を自由に使えます。
+                        ただし、Featureファイルの中の記述は必ずGherkin構文に従う必要があります。
+                    </p>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong>
+                            <a
+                                href="https://cucumber.io/docs/bdd/better-gherkin"
+                                target="_blank"
+                                rel="noopener"
+                                >Writing better Gherkin | Cucumber</a
+                            >
+                            ／
+                            <a
+                                href="https://cucumber.io/docs/guides/anti-patterns"
+                                target="_blank"
+                                rel="noopener"
+                                >Anti-patterns | Cucumber</a
+                            >
+                            ／
+                            <a
+                                href="https://cucumber.io/docs/gherkin/step-organization"
+                                target="_blank"
+                                rel="noopener"
+                                >Step organization | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 13. CI/CD ============ -->
+                <section class="doc-section" id="sec13">
+                    <div class="section-kicker">SECTION 13</div>
+                    <h2>CI/CDに組み込む</h2>
+
+                    <p>
+                        CucumberをCI(継続的インテグレーション)環境で使うのは比較的シンプルです。<code
+                            >cucumber</code
+                        >
+                        の実行コマンドは、1つでもシナリオが失敗すると
+                        <code>0</code> 以外の終了ステータス(exit
+                        status)を返します。CIサーバーはこの終了ステータスだけを見れば、ビルドを成功/失敗として扱えます。
+                    </p>
+
+                    <h3>典型的な構成</h3>
+                    <p>
+                        多くのCI構成は何らかのビルドツールを経由してCucumberを実行します。代表的なビルドツールは次の通りです。
+                    </p>
+                    <ul>
+                        <li>Rake(Ruby)</li>
+                        <li>Ant(Java)</li>
+                        <li>Maven(Java)</li>
+                    </ul>
+
+                    <h3>JUnit形式の出力を使う</h3>
+                    <p>
+                        多くのCIサーバーは、Ant
+                        JUnitタスクが生成するXML形式のレポートを解釈してHTML表示できます。中には時系列のレポートを作れるものもあります。
+                        このようなCIサーバーを使っている場合は、Cucumberの
+                        <code>JUnit</code> フォーマッタを使うことが推奨されます。
+                    </p>
+                    <p>
+                        例えばJenkinsでは、ビルドステップとして
+                        <code>cucumber -f junit --out WORKSPACE</code> を追加し、「Publish JUnit
+                        test result report」を有効化して
+                        <code>*.xml</code>
+                        をテストレポートのXMLパスに指定することで、Cucumberのレポートを取り込めます。
+                    </p>
+
+                    <h3>Jenkins用プラグイン</h3>
+                    <p>
+                        Jenkinsには専用の
+                        <a
+                            href="https://github.com/jenkinsci/cucumber-reports-plugin"
+                            target="_blank"
+                            rel="noopener"
+                            >Cucumber Reports plugin</a
+                        >
+                        が用意されており、見やすいレポートを生成できます。
+                    </p>
+
+                    <div class="mermaid-wrap">
+                        <pre class="mermaid">
+flowchart LR
+    A["コードをコミット"] --> B["CIサーバーがビルドを開始"]
+    B --> C["ビルドツール経由でCucumberを実行"]
+    C --> D{"終了ステータスは0か"}
+    D -->|"はい:全シナリオ成功"| E["ビルド成功として扱う"]
+    D -->|"いいえ:1つ以上失敗"| F["ビルド失敗として扱う"]
+    C --> G["JUnit/HTMLレポートを出力"]
+    G --> H["CIダッシュボードでレポートを閲覧"]
+        </pre
+                        >
+                    </div>
+                    <p class="mermaid-caption">図: CI環境におけるCucumber実行の流れ</p>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a
+                                href="https://cucumber.io/docs/guides/continuous-integration"
+                                target="_blank"
+                                rel="noopener"
+                                >Continuous Integration | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 14. エディタ・IDE ============ -->
+                <section class="doc-section" id="sec14">
+                    <div class="section-kicker">SECTION 14</div>
+                    <h2>エディタ・IDEサポート</h2>
+
+                    <p>
+                        主要なテキストエディタの多くは、Gherkin構文のシンタックスハイライトに対応しています。一部のIDEは、IDE内からCucumberを実行したり、結果を表示したり、
+                        GherkinステップとStep
+                        Definitionの間をジャンプしたりする高度な機能も備えています。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>エディタ/IDE</th>
+                                    <th>サポート内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Visual Studio Code</td>
+                                    <td>
+                                        「Cucumber for VSCode」(公式)や「Cucumber (Gherkin) Full
+                                        Support」などの拡張機能でGherkinをサポート
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Atom</td>
+                                    <td>Cucumber向けの各種パッケージが利用可能</td>
+                                </tr>
+                                <tr>
+                                    <td>TextMate</td>
+                                    <td><code>Cucumber.tmbundle</code> によるサポート</td>
+                                </tr>
+                                <tr>
+                                    <td>Nova</td>
+                                    <td>Cucumber拡張機能によるGherkin言語サポート</td>
+                                </tr>
+                                <tr>
+                                    <td>IntelliJ IDEA / Eclipse</td>
+                                    <td>
+                                        Java向けのCucumberプラグインでシナリオの実行・ナビゲーションが可能
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout">
+                        <span class="icon">i</span>
+                        <p>
+                            <strong>参考: </strong
+                            ><a
+                                href="https://cucumber.io/docs/tools/"
+                                target="_blank"
+                                rel="noopener"
+                                >Tools | Cucumber</a
+                            >
+                        </p>
+                    </div>
+                </section>
+
+                <!-- ============ 15. まとめ ============ -->
+                <section class="doc-section" id="sec15">
+                    <div class="section-kicker">SECTION 15</div>
+                    <h2>まとめと次のステップ</h2>
+
+                    <p>このガイドで扱った内容を振り返ります。</p>
+
+                    <div class="summary-grid">
+                        <div class="summary-card">
+                            <div class="n">01</div>
+                            <p>
+                                <strong>Cucumberとは</strong
+                                >Gherkinで書かれた実行可能な仕様を検証するBDDツール
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">02</div>
+                            <p>
+                                <strong>BDDの本質</strong>Discovery → Formulation → Automation
+                                という協働のプロセス
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">03</div>
+                            <p>
+                                <strong>Gherkin構文</strong
+                                >Feature、Rule、Scenario、Given/When/Then、Background、Scenario
+                                Outlineなど
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">04</div>
+                            <p>
+                                <strong>Step Definitions</strong
+                                >Gherkinのステップと実装コードをつなぐ「配線」
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">05</div>
+                            <p>
+                                <strong>Cucumber Expressions</strong
+                                >正規表現よりも読みやすいステップのマッチング方法
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">06</div>
+                            <p><strong>Hooks</strong>シナリオの前後で共通処理を行う仕組み</p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">07</div>
+                            <p>
+                                <strong>Tags</strong>シナリオを整理し、一部だけ実行するための仕組み
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">08</div>
+                            <p>
+                                <strong>ステップの実行結果</strong
+                                >Success/Undefined/Pending/Failed/Skipped/Ambiguousの6種類
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">09</div>
+                            <p>
+                                <strong>インストール</strong
+                                >使用中の言語に応じた公式・準公式の実装を選ぶ
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">10</div>
+                            <p>
+                                <strong>10分チュートリアル</strong
+                                >Undefined→Pending→Failing→Passingのサイクルを体験
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">11</div>
+                            <p>
+                                <strong>レポーティング</strong>ビルトインフォーマッタやCucumber
+                                Reportsサービスの活用
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">12</div>
+                            <p>
+                                <strong>ベストプラクティス</strong
+                                >宣言的スタイル、ステップの整理、アンチパターンの回避
+                            </p>
+                        </div>
+                        <div class="summary-card">
+                            <div class="n">13</div>
+                            <p>
+                                <strong>CI/CD</strong
+                                >終了ステータスとJUnit形式の出力を使ったビルド連携
+                            </p>
+                        </div>
+                    </div>
+
+                    <h3>次に学ぶと良いこと</h3>
+                    <ul>
+                        <li>
+                            実際に手を動かして
+                            <a
+                                href="https://cucumber.io/docs/guides/10-minute-tutorial"
+                                target="_blank"
+                                rel="noopener"
+                                >10-minute tutorial</a
+                            >
+                            を自分の使用言語で試す
+                        </li>
+                        <li>
+                            チームで
+                            <a
+                                href="https://cucumber.io/docs/bdd/example-mapping"
+                                target="_blank"
+                                rel="noopener"
+                                >Example Mapping</a
+                            >
+                            ワークショップを行い、Discoveryを体験する
+                        </li>
+                        <li>
+                            <a
+                                href="https://cucumber.io/docs/guides/browser-automation"
+                                target="_blank"
+                                rel="noopener"
+                                >Browser automation</a
+                            >
+                            や
+                            <a
+                                href="https://cucumber.io/docs/guides/api-automation"
+                                target="_blank"
+                                rel="noopener"
+                                >API automation</a
+                            >
+                            のガイドを読み、実際のテスト自動化に応用する
+                        </li>
+                        <li>
+                            <a
+                                href="https://cucumber.io/docs/guides/parallel-execution"
+                                target="_blank"
+                                rel="noopener"
+                                >Parallel execution</a
+                            >
+                            を読み、テスト実行時間を短縮する方法を学ぶ
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- ============ 16. 参考文献 ============ -->
+                <section class="doc-section" id="sec16">
+                    <div class="section-kicker">SECTION 16</div>
+                    <h2>参考文献・出典一覧</h2>
+
+                    <p>
+                        本ガイドの作成にあたり参照した、Cucumber公式ドキュメントおよび関連リポジトリのURL一覧です(2026年7月時点の情報)。
+                    </p>
+
+                    <ul class="ref-list">
+                        <li>
+                            <span class="ref-num">01</span
+                            ><span class="ref-title">Introduction</span
+                            ><span class="ref-url"
+                                ><a href="https://cucumber.io/docs/" target="_blank" rel="noopener"
+                                    >https://cucumber.io/docs/</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">02</span
+                            ><span class="ref-title">Cucumber公式サイト</span
+                            ><span class="ref-url"
+                                ><a href="https://cucumber.io/" target="_blank" rel="noopener"
+                                    >https://cucumber.io/</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">03</span
+                            ><span class="ref-title">Behaviour-Driven Development</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/bdd/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/bdd/</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">04</span
+                            ><span class="ref-title">Writing better Gherkin</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/bdd/better-gherkin"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/bdd/better-gherkin</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">05</span
+                            ><span class="ref-title">Gherkin Reference</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/gherkin/reference"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/gherkin/reference</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">06</span
+                            ><span class="ref-title">Gherkin Localisation</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/gherkin/languages"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/gherkin/languages</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">07</span
+                            ><span class="ref-title">Step organization</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/gherkin/step-organization"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/gherkin/step-organization</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">08</span
+                            ><span class="ref-title">Step definitions</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/cucumber/step-definitions"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/cucumber/step-definitions</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">09</span
+                            ><span class="ref-title">Cucumber reference (Hooks / Tags / Steps)</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/cucumber/api/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/cucumber/api/</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">10</span
+                            ><span class="ref-title">Cucumber Expressions</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/cucumber/cucumber-expressions"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/cucumber/cucumber-expressions</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">11</span
+                            ><span class="ref-title">cucumber/cucumber-expressions (README)</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://github.com/cucumber/cucumber-expressions#readme"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://github.com/cucumber/cucumber-expressions#readme</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">12</span><span class="ref-title">Reporting</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/cucumber/reporting"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/cucumber/reporting</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">13</span
+                            ><span class="ref-title"
+                                >State (sharing state, dependency injection)</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/cucumber/state"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/cucumber/state</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">14</span
+                            ><span class="ref-title">Installation</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/installation/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/installation/</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">15</span
+                            ><span class="ref-title">Cucumber-JS Installation</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/installation/javascript"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/installation/javascript</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">16</span
+                            ><span class="ref-title">Guides (index)</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/guides/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/guides/</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">17</span
+                            ><span class="ref-title">10-minute tutorial</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/guides/10-minute-tutorial"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/guides/10-minute-tutorial</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">18</span
+                            ><span class="ref-title">Anti-patterns</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/guides/anti-patterns"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/guides/anti-patterns</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">19</span
+                            ><span class="ref-title">Continuous Integration</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/guides/continuous-integration"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/guides/continuous-integration</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">20</span><span class="ref-title">Tools</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/tools/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/tools/</a
+                                ></span
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-num">21</span><span class="ref-title">Terminology</span
+                            ><span class="ref-url"
+                                ><a
+                                    href="https://cucumber.io/docs/terms/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://cucumber.io/docs/terms/</a
+                                ></span
+                            >
+                        </li>
+                    </ul>
+                </section>
+
+                <div class="footer-note">
+                    注記:
+                    Cucumber公式ドキュメントは継続的に更新されています。本ガイド内の情報は取得時点(2026年7月)のものであり、最新の詳細は上記URLから直接ご確認ください。
+                </div>
+            </main>
+        </div>
+
+        <!-- Prism.js: シンタックスハイライト -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+        <!-- Mermaid: フローチャート描画 -->
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                themeVariables: {
+                    background: '#1b2118',
+                    primaryColor: '#232b1f',
+                    primaryTextColor: '#e9ede4',
+                    primaryBorderColor: '#4b5c3f',
+                    lineColor: '#6b7a5e',
+                    secondaryColor: '#16232b',
+                    tertiaryColor: '#1b2118',
+                    fontFamily:
+                        '-apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif',
+                    fontSize: '16px',
+                },
+                flowchart: {
+                    htmlLabels: false,
+                    curve: 'linear',
+                    useMaxWidth: false,
+                    nodeSpacing: 45,
+                    rankSpacing: 50,
+                },
+                securityLevel: 'loose',
+            });
+
+            (async () => {
+                if (document.fonts && document.fonts.ready) {
+                    await document.fonts.ready;
+                }
+                await mermaid.run({ querySelector: '.mermaid' });
+            })();
+        </script>
+
+        <!-- Gherkinカスタムハイライター: Prismのgherkin文法に依存せず確実にトークンを色分け -->
+        <script>
+            (function highlightGherkin() {
+                const pattern =
+                    /(?<docstring>"""[\s\S]*?"""|```[\s\S]*?```)|(?<comment>#[^\n]*)|(?<tag>@[^\s]+)|(?<seckw>(?<=^[ \t]*)(?:Feature|Rule|Background|Scenario Outline|Scenario Template|Scenarios|Examples|Scenario|Example))|(?<stepkw>(?<=^[ \t]*)(?:Given|When|Then|And|But|\*)(?=[ \t]))|(?<string>"(?:[^"\\]|\\.)*"|'(?:[^'\\]|\\.)*')|(?<param>&lt;[^&\n]+?&gt;)|(?<pipe>\|)|(?<number>\b\d+(?:\.\d+)?\b)/gm;
+
+                document.querySelectorAll('pre[data-lang="gherkin"] code').forEach((codeEl) => {
+                    const raw = codeEl.textContent;
+                    const escaped = raw
+                        .replace(/&/g, '&amp;')
+                        .replace(/</g, '&lt;')
+                        .replace(/>/g, '&gt;');
+
+                    const result = escaped.replace(pattern, (match, ...args) => {
+                        const groups = args[args.length - 1];
+                        if (groups.docstring) return '<span class="gk-string">' + match + '</span>';
+                        if (groups.comment) return '<span class="gk-comment">' + match + '</span>';
+                        if (groups.tag) return '<span class="gk-tag">' + match + '</span>';
+                        if (groups.seckw) return '<span class="gk-keyword">' + match + '</span>';
+                        if (groups.stepkw) return '<span class="gk-step">' + match + '</span>';
+                        if (groups.string) return '<span class="gk-string">' + match + '</span>';
+                        if (groups.param) return '<span class="gk-param">' + match + '</span>';
+                        if (groups.pipe) return '<span class="gk-pipe">' + match + '</span>';
+                        if (groups.number) return '<span class="gk-number">' + match + '</span>';
+                        return match;
+                    });
+
+                    codeEl.innerHTML = result;
+                });
+            })();
+        </script>
+
+        <!-- Scrollspy: サイドバーの現在地ハイライト -->
+        <script>
+            const sections = document.querySelectorAll('section.doc-section');
+            const navLinks = document.querySelectorAll('.sidebar nav a');
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        const id = entry.target.getAttribute('id');
+                        const link = document.querySelector('.sidebar nav a[href="#' + id + '"]');
+                        if (!link) return;
+                        if (entry.isIntersecting) {
+                            navLinks.forEach((l) => l.classList.remove('active'));
+                            link.classList.add('active');
+                        }
+                    });
+                },
+                { rootMargin: '-15% 0px -70% 0px', threshold: 0 },
+            );
+
+            sections.forEach((section) => observer.observe(section));
+        </script>
+    </body>
+</html>
