@@ -356,12 +356,15 @@
                 margin: 0 0 14px;
             }
             .mermaid {
-                width: 100%;
                 max-width: 100%;
+                display: flex;
+                justify-content: center;
             }
             .mermaid svg {
                 max-width: 100%;
                 height: auto;
+                display: block;
+                margin: 0 auto;
             }
             .node-legend {
                 background: var(--bg-card);
@@ -3127,33 +3130,74 @@
                 return lines.map((l) => l.slice(minIndent)).join('\n');
             }
 
-            // ---- inject dedented mermaid source into each .mermaid target ----
-            document.querySelectorAll('.mermaid[data-src]').forEach(function (target) {
-                const id = target.getAttribute('data-src');
-                const src = document.getElementById(id);
-                if (src) {
-                    target.textContent = dedent(src.textContent);
-                }
-            });
+            // ---- inject dedented mermaid source into each .mermaid target and render with size controls ----
+            (async function () {
+                // ---- mermaid init: dark theme matching the navy/gold palette ----
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'base',
+                    themeVariables: {
+                        background: '#07111e',
+                        primaryColor: '#0f2035',
+                        primaryTextColor: '#e9eef6',
+                        primaryBorderColor: '#e8ab3f',
+                        lineColor: '#4fb8ad',
+                        secondaryColor: '#0d1b2e',
+                        tertiaryColor: '#0d1b2e',
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '15px',
+                    },
+                    flowchart: { curve: 'basis', htmlLabels: true },
+                });
 
-            // ---- mermaid init: dark theme matching the navy/gold palette ----
-            mermaid.initialize({
-                startOnLoad: false,
-                theme: 'base',
-                themeVariables: {
-                    background: '#07111e',
-                    primaryColor: '#0f2035',
-                    primaryTextColor: '#e9eef6',
-                    primaryBorderColor: '#e8ab3f',
-                    lineColor: '#4fb8ad',
-                    secondaryColor: '#0d1b2e',
-                    tertiaryColor: '#0d1b2e',
-                    fontFamily: 'Inter, sans-serif',
-                    fontSize: '15px',
-                },
-                flowchart: { curve: 'basis', htmlLabels: true },
-            });
-            mermaid.run({ querySelector: '.mermaid' });
+                await document.fonts.ready;
+
+                const targets = document.querySelectorAll('.mermaid[data-src]');
+                for (let i = 0; i < targets.length; i++) {
+                    const target = targets[i];
+                    const id = target.getAttribute('data-src');
+                    const srcEl = document.getElementById(id);
+                    if (srcEl) {
+                        const src = dedent(srcEl.textContent);
+                        try {
+                            // Render diagram
+                            const { svg } = await mermaid.render('svg-' + id, src);
+                            target.innerHTML = svg;
+
+                            // Apply SVG fixes
+                            const svgEl = target.querySelector('svg');
+                            if (svgEl) {
+                                svgEl.removeAttribute('width');
+                                svgEl.removeAttribute('height');
+                                svgEl.style.height = 'auto';
+                                svgEl.style.display = 'block';
+                                svgEl.style.margin = '0 auto';
+                                svgEl.style.overflow = 'visible';
+
+                                const viewBox = svgEl.getAttribute('viewBox');
+                                if (viewBox) {
+                                    const parts = viewBox.split(/\s+/).map(Number);
+                                    if (parts.length === 4 && parts.every(Number.isFinite)) {
+                                        const w = parts[2];
+                                        const h = parts[3];
+                                        // Expand height slightly to prevent clipping on sequence/state diagrams
+                                        const isSequenceOrState = src.trim().startsWith('sequenceDiagram') || src.trim().startsWith('stateDiagram');
+                                        const extraHeight = isSequenceOrState ? 110 : 15;
+                                        svgEl.setAttribute('viewBox', `${parts[0]} ${parts[1]} ${w} ${h + extraHeight}`);
+                                        
+                                        // Set style-based width using intrinsic size from viewBox
+                                        svgEl.style.width = w + 'px';
+                                        svgEl.style.maxWidth = '100%';
+                                    }
+                                }
+                            }
+                        } catch (err) {
+                            target.innerHTML = '<p class="mermaid-error" style="color: #ea4335;">図の描画に失敗しました。</p>';
+                            console.error('Mermaid render error: ' + id, err);
+                        }
+                    }
+                }
+            })();
 
             // ---- sidebar active-link highlighting via IntersectionObserver ----
             const sections = document.querySelectorAll('main section[id]');
