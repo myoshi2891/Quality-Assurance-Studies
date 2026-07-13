@@ -479,12 +479,41 @@
                 font-size: 12px;
             }
 
+            /* -------- mobile -------- */
+            .menu-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 50;
+                width: 38px;
+                height: 38px;
+                align-items: center;
+                justify-content: center;
+                background: var(--color-background-tertiary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-md);
+                color: var(--color-text-primary);
+                font-size: 18px;
+            }
             @media (max-width: 960px) {
+                .menu-toggle {
+                    display: flex;
+                }
                 .sidebar {
-                    display: none;
+                    position: fixed;
+                    z-index: 40;
+                    left: 0;
+                    top: 0;
+                    transform: translateX(-100%);
+                    transition: transform 0.2s ease;
+                    box-shadow: 0 0 0 1px var(--color-border-primary);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
                 }
                 .content {
-                    padding: 32px 20px 80px;
+                    padding: 70px 20px 100px;
                 }
                 header.hero h1 {
                     font-size: 26px;
@@ -493,8 +522,11 @@
         </style>
     </head>
     <body>
+        <button class="menu-toggle" id="menuToggle" aria-label="メニューを開く">
+            <i class="ti ti-menu-2"></i>
+        </button>
         <div class="app-shell">
-            <aside class="sidebar">
+            <aside class="sidebar" id="sidebar">
                 <div class="sidebar-brand">
                     <div class="logo-row">
                         <i class="ti ti-shield-check-filled"></i>
@@ -3626,6 +3658,21 @@ claude mcp add sonarqube \
 
                     sections.forEach(function (section) {
                         observer.observe(section);
+                    });
+                }
+
+                // ---------- モバイル用メニュー ----------
+                var menuToggle = document.getElementById('menuToggle');
+                var sidebar = document.getElementById('sidebar');
+
+                if (menuToggle && sidebar) {
+                    menuToggle.addEventListener('click', function () {
+                        sidebar.classList.toggle('open');
+                    });
+                    navLinks.forEach(function (link) {
+                        link.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                        });
                     });
                 }
             });

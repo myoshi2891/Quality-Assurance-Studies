@@ -667,7 +667,7 @@ export default function Page() {
                                         <a
                                             href="https://agilemanifesto.org/principles.html"
                                             target="_blank"
-                                            rel="noopener"
+                                            rel="noopener noreferrer"
                                             >agilemanifesto.org/principles.html</a
                                         ></div></div>
 
@@ -993,7 +993,7 @@ export default function Page() {
                                 </div>
 
                                 <div className="mermaid-wrap"><Mermaid chart={DIAGRAM_9} /><div className="mermaid-cap">XPの開発サイクル（週次・四半期サイクル）／📌 参考:
-                                        <a href="http://www.extremeprogramming.org/" target="_blank" rel="noopener"
+                                        <a href="http://www.extremeprogramming.org/" target="_blank" rel="noopener noreferrer"
                                             >extremeprogramming.org</a
                                         ></div></div>
 

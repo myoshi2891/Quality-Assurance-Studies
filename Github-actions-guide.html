@@ -553,7 +553,7 @@
     </head>
     <body>
         <div class="layout">
-            <nav class="sidebar" id="sidebar-nav">
+            <nav class="sidebar" id="sidebar-nav" aria-label="目次ナビゲーション">
                 <div class="brand">
                     <div class="brand-mark">GA</div>
                     <div class="brand-text">
@@ -948,7 +948,7 @@
                     <p>
                         <code>schedule</code
                         >イベントでは複数のcron式を定義でき、<code>github.event.schedule</code>コンテキストで
-                        どのcron式がトリガーしたかを判定できる。以下は月・水5:30と火・木17:30に実行しつつ、
+                        どのcron式がトリガーしたかを判定できる。以下は月〜木の5:30に加えて火・木は17:30にも実行しつつ、
                         片方のスケジュールでは特定ステップをスキップする例である。
                     </p>
 
@@ -3146,7 +3146,7 @@
                             tertiaryColor: '#0a1520',
                             fontFamily: 'Inter, sans-serif',
                         },
-                        securityLevel: 'strict',
+                        securityLevel: 'loose',
                         flowchart: { htmlLabels: true, curve: 'basis' },
                         sequence: { showSequenceNumbers: false },
                     });
@@ -3167,9 +3167,13 @@
                             if (entry.isIntersecting) {
                                 navLinks.forEach(function (l) {
                                     l.classList.remove('active');
+                                    l.removeAttribute('aria-current');
                                 });
                                 const link = linkFor[entry.target.id];
-                                if (link) link.classList.add('active');
+                                if (link) {
+                                    link.classList.add('active');
+                                    link.setAttribute('aria-current', 'location');
+                                }
                             }
                         });
                     },
