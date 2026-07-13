@@ -25,21 +25,16 @@ S12 --> S122["1.2.2<br />協調的ユーザーストーリー作成"]
 S12 --> S123["1.2.3<br />レトロスペクティブ"]
 S12 --> S124["1.2.4<br />継続的インテグレーション"]
 S12 --> S125["1.2.5<br />リリース計画／イテレーション計画"]
-classDef root
-fill:#132038,stroke:#22d3ee,stroke-width:2px,color:#eaf2fb,font-weight:bold;
-classDef branchA
-fill:#0f2e28,stroke:#00ff9d,stroke-width:2px,color:#baf7dc,font-weight:bold;
-classDef branchB
-fill:#2e1f3d,stroke:#b478ff,stroke-width:2px,color:#e6c9ff,font-weight:bold;
+classDef root fill:#132038,stroke:#22d3ee,stroke-width:2px,color:#eaf2fb,font-weight:bold;
+classDef branchA fill:#0f2e28,stroke:#00ff9d,stroke-width:2px,color:#baf7dc,font-weight:bold;
+classDef branchB fill:#2e1f3d,stroke:#b478ff,stroke-width:2px,color:#e6c9ff,font-weight:bold;
 classDef leafA fill:#16233d,stroke:#00ff9d,color:#e6edf7;
-classDef leafB
-fill:#16233d,stroke:#b478ff,color:#e6edf7;
+classDef leafB fill:#16233d,stroke:#b478ff,color:#e6edf7;
 class ROOT root
 class S11 branchA
 class S12 branchB
 class S111,S112,S113 leafA
-class S121,S122,S123,S124,S125
-leafB
+class S121,S122,S123,S124,S125 leafB
 `;
 
 const DIAGRAM_2 = `
@@ -79,7 +74,9 @@ T2 -->|"欠陥報告を戻す"| T1
 end
 subgraph WholeTeam["✅ ホールチームアプローチ"]
 direction TB
-Dev["開発者"] --- Tester["テスター"] Tester --- Biz["ビジネス代表者<br />プロダクトオーナー等"] Biz --- Dev
+Dev["開発者"] --- Tester["テスター"]
+Tester --- Biz["ビジネス代表者<br />プロダクトオーナー等"]
+Biz --- Dev
 Dev -.->|"品質は全員の責任"| Quality(("共有された<br />品質目標"))
 Tester -.-> Quality
 Biz -.-> Quality
@@ -89,7 +86,8 @@ end
 const DIAGRAM_4 = `
 flowchart TD
 Story(("ユーザーストーリー"))
-Biz2["ビジネス代表者<br />(何を・なぜ)"] --> Story Dev2["開発者<br />(どのように実装するか)"] --> Story
+Biz2["ビジネス代表者<br />(何を・なぜ)"] --> Story
+Dev2["開発者<br />(どのように実装するか)"] --> Story
 Tester2["テスター<br />(どうテストするか／エッジケースは何か)"] --> Story
 Story --> Result["共通理解に基づく<br />高品質な受け入れ基準"]
 `;
@@ -102,8 +100,7 @@ S1[要件定義] --> S2[設計] --> S3[実装] --> S4[テスト] --> S5[リリ�
 S5 -.->|"数ヶ月後にようやく<br />顧客フィードバック"| FB1(("フィードバック"))
 end
 classDef seqNode fill:#3a1220,stroke:#ff4d6a,color:#ffc2d1;
-class
-S1,S2,S3,S4,S5,FB1 seqNode
+class S1,S2,S3,S4,S5,FB1 seqNode
 `;
 
 const DIAGRAM_6 = `
@@ -114,8 +111,7 @@ I1["イテレーション1"] --> F1(("フィードバック"))
 F1 --> I2["イテレーション2"] --> F2(("フィードバック"))
 F2 --> I3["イテレーション3"] --> F3(("フィードバック"))
 end
-classDef agileNode
-fill:#0f2e28,stroke:#00ff9d,color:#baf7dc;
+classDef agileNode fill:#0f2e28,stroke:#00ff9d,color:#baf7dc;
 class I1,I2,I3,F1,F2,F3 agileNode
 `;
 
@@ -148,7 +144,9 @@ SP --> SB[("スプリントバックログ")]
 SB --> Sprint["スプリント本体<br />通常2から4週間の固定長"]
 subgraph Sprint
 direction TB
-DS["デイリースクラム<br />毎日15分の同期MTG"] -.->|"日々繰り返す"| DS Dev3["開発・テストの実施<br />ホールチームアプローチで進行"]
+DS["デイリースクラム<br />毎日15分の同期MTG"]
+DS -.->|"日々繰り返す"| DS
+Dev3["開発・テストの実施<br />ホールチームアプローチで進行"]
 DS --> Dev3
 end
 Sprint --> Inc[("インクリメント<br />完了の定義を満たした<br />動くソフトウェア")]
@@ -160,12 +158,10 @@ SR -.->|"フィードバックを反映"| PB
 
 const DIAGRAM_11 = `
 flowchart LR
-Backlog["バックログ<br />依頼された作業"] -->|"Pull"|
-Analysis["分析中<br />WIP上限=2"]
+Backlog["バックログ<br />依頼された作業"] -->|"Pull"| Analysis["分析中<br />WIP上限=2"]
 Analysis -->|"Pull"| Dev4["開発中<br />WIP上限=3"]
 Dev4 -->|"Pull"| Test5["テスト中<br />WIP上限=2"]
-Test5 -->|"Pull"|
-Done["完了"]
+Test5 -->|"Pull"| Done["完了"]
 style Analysis fill:#22d3ee,color:#001018
 style Dev4 fill:#22d3ee,color:#001018
 style Test5 fill:#22d3ee,color:#001018
@@ -217,7 +213,8 @@ direction LR
 C1["コードのコミット/プッシュ"] --> C2["自動ビルド"]
 C2 --> C3["静的解析"]
 C3 --> C4["自動テスト実行<br />ユニット・統合"]
-C4 --> C5{"全て成功？"} C5 -->|"Yes"| C6["✅ 統合完了"]
+C4 --> C5{"全て成功？"}
+C5 -->|"Yes"| C6["✅ 統合完了"]
 C5 -->|"No"| C7["❌ 即座に開発者へ通知"]
 C7 -.->|"すぐ修正"| C1
 end
@@ -227,9 +224,11 @@ const DIAGRAM_17 = `
 flowchart TD
 Push["開発者がコードをpush"] --> Trigger["CIサーバーがトリガー検知<br />Jenkins / GitHub Actions等"]
 Trigger --> Build["自動ビルド"]
-Build --> BuildCheck{"ビルド成功？"} BuildCheck -->|"No"| Fail1["❌ ビルド失敗を即通知<br />チームは最優先で修正"]
+Build --> BuildCheck{"ビルド成功？"}
+BuildCheck -->|"No"| Fail1["❌ ビルド失敗を即通知<br />チームは最優先で修正"]
 BuildCheck -->|"Yes"| UnitTest["ユニットテストの自動実行"]
-UnitTest --> UTCheck{"テスト成功？"} UTCheck -->|"No"| Fail2["❌ テスト失敗を通知"]
+UnitTest --> UTCheck{"テスト成功？"}
+UTCheck -->|"No"| Fail2["❌ テスト失敗を通知"]
 UTCheck -->|"Yes"| IntTest["統合テストの自動実行"]
 IntTest --> Report["カバレッジ・品質レポート生成"]
 Report --> Artifact["デプロイ可能なビルド成果物の生成"]
@@ -283,8 +282,7 @@ B4 --> B4b["パワー・オブ・スリー"]
 B4 --> B4c["INVESTとテスト可能性"]
 B5 --> B5a["レトロスペクティブ"]
 B5 --> B5b["リリース計画と<br />イテレーション計画の階層"]
-classDef root
-fill:#132038,stroke:#22d3ee,stroke-width:2px,color:#eaf2fb,font-weight:bold;
+classDef root fill:#132038,stroke:#22d3ee,stroke-width:2px,color:#eaf2fb,font-weight:bold;
 classDef n1 fill:#3a2412,stroke:#ffb020,color:#ffe0b3,font-weight:bold;
 classDef n2 fill:#2e1f3d,stroke:#b478ff,color:#e6c9ff,font-weight:bold;
 classDef n3 fill:#123a38,stroke:#22d3ee,color:#a9f5ee,font-weight:bold;
@@ -293,8 +291,7 @@ classDef n5 fill:#0f2e28,stroke:#00ff9d,color:#baf7dc,font-weight:bold;
 class ROOT2 root
 class B1,B1a,B1b,B1c n1
 class B2,B2a,B2b n2
-class
-B3,B3a,B3b n3
+class B3,B3a,B3b n3
 class B4,B4a,B4b,B4c n4
 class B5,B5a,B5b n5
 `;
