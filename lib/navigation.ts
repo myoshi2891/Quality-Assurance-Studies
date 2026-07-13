@@ -48,6 +48,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctfl-v4-chapter2-sdlc-and-testing', label: 'CTFL v4.0 第2章 SDLCとテスト', category: 'istqb-foundation-ext' },
 
   { href: '/istqb-ctfl-at-complete-guide', label: 'アジャイル(CTFL-AT)ガイド', category: 'istqb-foundation-ext' },
+  { href: '/istqb-ctfl-at-chapter1-agile-software-development', label: 'CTFL-AT 1章 アジャイル開発', category: 'istqb-foundation-ext' },
 
   { href: '/istqb-ctal-tae-complete-guide', label: 'テスト自動化(CTAL-TAE)ガイド', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', category: 'istqb-advanced' },

@@ -6,7 +6,6 @@ import Page from '../../app/istqb-ctfl-at-chapter1-agile-software-development/pa
 
 afterEach(() => cleanup());
 
-let observerCallback: (entries: IntersectionObserverEntry[]) => void = () => {};
 let originalMermaidRender: typeof mermaid.render;
 let originalIntersectionObserver: typeof window.IntersectionObserver;
 
@@ -20,8 +19,7 @@ beforeAll(() => {
         };
     }) as unknown as typeof mermaid.render;
 
-    const mockIntersectionObserver = mock((callback: (entries: IntersectionObserverEntry[]) => void) => {
-        observerCallback = callback;
+    const mockIntersectionObserver = mock(() => {
         return {
             observe: () => null,
             unobserve: () => null,
