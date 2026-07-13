@@ -13,9 +13,9 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 |---|---|
 | 最新 HEAD | `03ec1eb` |
 | 次の作業 | QA/テストプロセスの継続的改善 |
-| ビルド状態 | ✅ `bun run lint` / `bun test`（168 pass）成功（※ サンドボックス環境 of ビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun run lint` / `bun test`（168 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
-## 2026/07/08: CTFL v4.0 Chapter 2 (SDLCとテスト) ガイド of Next.js 移行完了
+## 2026/07/08: CTFL v4.0 Chapter 2 (SDLCとテスト) ガイドの Next.js 移行完了
 
 - `app/istqb-ctfl-v4-chapter2-sdlc-and-testing/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
 - `tests/istqb-ctfl-v4-chapter2-sdlc-and-testing/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（168件）。

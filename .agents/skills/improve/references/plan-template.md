@@ -66,10 +66,10 @@ The facts the executor needs, inlined — never "as discussed" or "see audit":
 
 | Purpose   | Command                  | Expected on success |
 |-----------|--------------------------|---------------------|
-| Install   | `pnpm install`           | exit 0              |
-| Typecheck | `pnpm typecheck`         | exit 0, no errors   |
-| Tests     | `pnpm test -- <filter>`  | all pass            |
-| Lint      | `pnpm lint`              | exit 0              |
+| Install   | `bun install`            | exit 0              |
+| Typecheck | `bun run typecheck`      | exit 0, no errors   |
+| Tests     | `bun test -- <filter>`   | all pass            |
+| Lint      | `bun run lint`           | exit 0              |
 
 (Exact commands from this repo — verified during recon, not guessed.)
 
@@ -129,8 +129,8 @@ callers, then remove old path.)
 
 Machine-checkable. ALL must hold:
 
-- [ ] `pnpm typecheck` exits 0
-- [ ] `pnpm test` exits 0; new tests for <X> exist and pass
+- [ ] `bun run typecheck` exits 0
+- [ ] `bun test` exits 0; new tests for <X> exist and pass
 - [ ] `grep -rn "<old pattern>" src/` returns no matches
 - [ ] No files outside the in-scope list are modified (`git status`)
 - [ ] `plans/README.md` status row updated
