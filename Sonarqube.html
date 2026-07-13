@@ -1,0 +1,3061 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            SonarQube 完全ガイド ― コード品質を継続的に守るための初学者向けステップバイステップ解説
+        </title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
+        />
+        <style>
+            :root {
+                --color-background-primary: #0a0c10;
+                --color-background-secondary: #12151b;
+                --color-background-tertiary: #1a1e26;
+                --color-background-info: rgba(88, 166, 255, 0.1);
+                --color-background-danger: rgba(248, 113, 113, 0.1);
+                --color-background-success: rgba(74, 222, 128, 0.1);
+                --color-background-warning: rgba(251, 191, 36, 0.1);
+
+                --color-text-primary: #e8eaed;
+                --color-text-secondary: #a4acb8;
+                --color-text-tertiary: #6b7280;
+                --color-text-info: #79c0ff;
+                --color-text-danger: #ff8f87;
+                --color-text-success: #7ee2a8;
+                --color-text-warning: #f0c674;
+
+                --color-border-tertiary: #1f242e;
+                --color-border-secondary: #2b3140;
+                --color-border-primary: #3c4454;
+
+                --font-sans:
+                    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Hiragino Sans',
+                    'Noto Sans JP', Meiryo, sans-serif;
+                --font-mono:
+                    ui-monospace, 'SFMono-Regular', 'JetBrains Mono', Menlo, Consolas,
+                    'Liberation Mono', monospace;
+
+                --border-radius-md: 8px;
+                --border-radius-lg: 12px;
+                --border-radius-xl: 16px;
+
+                --sidebar-width: 296px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--color-background-primary);
+                color: var(--color-text-primary);
+                font-family: var(--font-sans);
+                font-size: 16px;
+                line-height: 1.7;
+                font-weight: 400;
+            }
+
+            a {
+                color: var(--color-text-info);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-weight: 500;
+                line-height: 1.4;
+                color: var(--color-text-primary);
+                letter-spacing: -0.01em;
+            }
+            h1 {
+                font-size: 22px;
+            }
+            h2 {
+                font-size: 18px;
+                margin-top: 0;
+            }
+            h3 {
+                font-size: 16px;
+                margin-top: 0;
+            }
+
+            code {
+                font-family: var(--font-mono);
+                font-size: 13.5px;
+                background: var(--color-background-tertiary);
+                border: 1px solid var(--color-border-tertiary);
+                border-radius: 4px;
+                padding: 0.1em 0.4em;
+                color: var(--color-text-info);
+            }
+            pre {
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-md);
+                padding: 16px 18px;
+                overflow-x: auto;
+                margin: 16px 0;
+            }
+            pre code {
+                background: none;
+                border: none;
+                padding: 0;
+                color: var(--color-text-primary);
+                font-size: 13.5px;
+                line-height: 1.65;
+            }
+
+            /* -------- layout -------- */
+            .layout {
+                display: flex;
+                align-items: flex-start;
+                min-height: 100vh;
+            }
+
+            .sidebar {
+                position: sticky;
+                top: 0;
+                width: var(--sidebar-width);
+                flex: 0 0 var(--sidebar-width);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--color-background-secondary);
+                border-right: 1px solid var(--color-border-tertiary);
+                padding: 22px 14px 40px;
+            }
+            .sidebar::-webkit-scrollbar {
+                width: 8px;
+            }
+            .sidebar::-webkit-scrollbar-thumb {
+                background: var(--color-border-secondary);
+                border-radius: 8px;
+            }
+
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 6px 10px 18px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                margin-bottom: 14px;
+            }
+            .brand-badge {
+                width: 34px;
+                height: 34px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: var(--color-background-tertiary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-md);
+                color: var(--color-text-info);
+                font-size: 17px;
+            }
+            .brand-title {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--color-text-primary);
+            }
+            .brand-sub {
+                font-size: 11px;
+                color: var(--color-text-tertiary);
+                margin-top: 1px;
+            }
+
+            nav.toc {
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+            nav.toc a {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px 10px;
+                border-radius: var(--border-radius-md);
+                color: var(--color-text-secondary);
+                font-size: 13.5px;
+                line-height: 1.3;
+            }
+            nav.toc a i {
+                font-size: 16px;
+                width: 18px;
+                text-align: center;
+                color: var(--color-text-tertiary);
+                flex-shrink: 0;
+            }
+            nav.toc a:hover {
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                text-decoration: none;
+            }
+            nav.toc a.active {
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+            }
+            nav.toc a.active i {
+                color: var(--color-text-info);
+            }
+
+            .content {
+                flex: 1;
+                min-width: 0;
+                padding: 40px 56px 120px;
+            }
+
+            .page-header {
+                padding-bottom: 28px;
+                margin-bottom: 36px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+            }
+            .page-header .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 12px;
+                color: var(--color-text-info);
+                background: var(--color-background-info);
+                border: 1px solid var(--color-border-secondary);
+                padding: 4px 10px;
+                border-radius: 999px;
+                margin-bottom: 14px;
+            }
+            .page-header h1 {
+                font-size: 26px;
+                margin: 0 0 12px;
+            }
+            .page-header p {
+                color: var(--color-text-secondary);
+                font-size: 15px;
+                max-width: 820px;
+                margin: 0;
+            }
+
+            section.section {
+                padding-top: 8px;
+                margin-bottom: 56px;
+                scroll-margin-top: 24px;
+            }
+            section.section > h2 {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding-bottom: 14px;
+                margin-bottom: 22px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+            }
+            section.section > h2 .num {
+                font-family: var(--font-mono);
+                font-size: 13px;
+                color: var(--color-text-tertiary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: 6px;
+                padding: 2px 7px;
+            }
+            h3 {
+                margin-top: 28px;
+                margin-bottom: 10px;
+            }
+            h3.sub {
+                font-size: 15px;
+                color: var(--color-text-secondary);
+                font-weight: 500;
+                margin-top: 22px;
+            }
+
+            p {
+                color: var(--color-text-secondary);
+                margin: 0 0 14px;
+            }
+            strong {
+                color: var(--color-text-primary);
+                font-weight: 500;
+            }
+
+            ul,
+            ol {
+                color: var(--color-text-secondary);
+                padding-left: 22px;
+                margin: 0 0 14px;
+            }
+            li {
+                margin-bottom: 6px;
+            }
+            li strong {
+                color: var(--color-text-primary);
+            }
+
+            /* -------- tables -------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 16px 0 20px;
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-md);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 13.5px;
+            }
+            thead th {
+                text-align: left;
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                font-weight: 500;
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--color-border-secondary);
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                color: var(--color-text-secondary);
+                vertical-align: top;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody td strong {
+                color: var(--color-text-primary);
+            }
+            tbody td code {
+                white-space: nowrap;
+            }
+
+            /* -------- callouts -------- */
+            .callout {
+                display: flex;
+                gap: 12px;
+                padding: 14px 16px;
+                border-radius: var(--border-radius-md);
+                border: 1px solid var(--color-border-secondary);
+                background: var(--color-background-tertiary);
+                margin: 16px 0;
+                font-size: 14px;
+            }
+            .callout i {
+                font-size: 17px;
+                margin-top: 1px;
+                flex-shrink: 0;
+            }
+            .callout p {
+                margin: 0;
+                color: var(--color-text-secondary);
+            }
+            .callout p + p {
+                margin-top: 8px;
+            }
+            .callout-info {
+                border-color: var(--color-border-secondary);
+                background: var(--color-background-info);
+            }
+            .callout-info i {
+                color: var(--color-text-info);
+            }
+            .callout-warning {
+                background: var(--color-background-warning);
+            }
+            .callout-warning i {
+                color: var(--color-text-warning);
+            }
+            .callout-danger {
+                background: var(--color-background-danger);
+            }
+            .callout-danger i {
+                color: var(--color-text-danger);
+            }
+
+            .refs {
+                margin-top: 18px;
+                padding: 14px 16px;
+                border-top: 1px dashed var(--color-border-secondary);
+            }
+            .refs .refs-title {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 12.5px;
+                font-weight: 500;
+                color: var(--color-text-tertiary);
+                margin-bottom: 8px;
+            }
+            .refs ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+            }
+            .refs li {
+                margin: 0;
+            }
+            .refs a {
+                font-size: 12.5px;
+                color: var(--color-text-tertiary);
+                word-break: break-all;
+            }
+            .refs a:hover {
+                color: var(--color-text-info);
+            }
+
+            /* -------- mermaid -------- */
+            .diagram {
+                text-align: center;
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-lg);
+                padding: 22px 14px;
+                margin: 18px 0 20px;
+            }
+            .diagram svg {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+                overflow: visible;
+            }
+            .diagram-caption {
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+                margin-top: 10px;
+            }
+            .diagram-fallback {
+                color: var(--color-text-tertiary);
+                font-size: 13px;
+            }
+
+            /* -------- badges / pills -------- */
+            .pill {
+                display: inline-flex;
+                align-items: center;
+                gap: 5px;
+                font-size: 11.5px;
+                font-weight: 500;
+                padding: 2px 9px;
+                border-radius: 999px;
+                border: 1px solid var(--color-border-secondary);
+                background: var(--color-background-tertiary);
+                color: var(--color-text-secondary);
+            }
+
+            /* -------- mobile -------- */
+            .menu-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 50;
+                width: 38px;
+                height: 38px;
+                align-items: center;
+                justify-content: center;
+                background: var(--color-background-tertiary);
+                border: 1px solid var(--color-border-secondary);
+                border-radius: var(--border-radius-md);
+                color: var(--color-text-primary);
+                font-size: 18px;
+            }
+            @media (max-width: 960px) {
+                .menu-toggle {
+                    display: flex;
+                }
+                .sidebar {
+                    position: fixed;
+                    z-index: 40;
+                    left: 0;
+                    top: 0;
+                    transform: translateX(-100%);
+                    transition: transform 0.2s ease;
+                    box-shadow: 0 0 0 1px var(--color-border-tertiary);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .content {
+                    padding: 70px 20px 100px;
+                }
+                .page-header h1 {
+                    font-size: 21px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="menu-toggle" id="menuToggle" aria-label="メニューを開く">
+            <i class="ti ti-menu-2"></i>
+        </button>
+
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="brand">
+                    <div class="brand-badge"><i class="ti ti-shield-check"></i></div>
+                    <div>
+                        <div class="brand-title">SonarQube 完全ガイド</div>
+                        <div class="brand-sub">初学者向けステップバイステップ解説</div>
+                    </div>
+                </div>
+                <div class="toc">
+                    <a href="#sec-1"><i class="ti ti-info-circle"></i>1. SonarQubeとは何か</a>
+                    <a href="#sec-2"><i class="ti ti-book-2"></i>2. 基本用語・コンセプト集</a>
+                    <a href="#sec-3"><i class="ti ti-sitemap"></i>3. アーキテクチャを理解する</a>
+                    <a href="#sec-4"
+                        ><i class="ti ti-stack-2"></i>4. 製品ファミリーとエディション</a
+                    >
+                    <a href="#sec-5"><i class="ti ti-list-check"></i>5. コード品質モデル</a>
+                    <a href="#sec-6"
+                        ><i class="ti ti-adjustments"></i>6. Quality ProfileとQuality Gate</a
+                    >
+                    <a href="#sec-7"><i class="ti ti-brand-docker"></i>7. Dockerでローカル構築</a>
+                    <a href="#sec-8"
+                        ><i class="ti ti-player-play"></i>8. 初めてのプロジェクト分析</a
+                    >
+                    <a href="#sec-9"
+                        ><i class="ti ti-git-pull-request"></i>9. CI/CD統合（GitHub Actions）</a
+                    >
+                    <a href="#sec-10"><i class="ti ti-plug-connected"></i>10. SonarQube for IDE</a>
+                    <a href="#sec-11"><i class="ti ti-sparkles"></i>11. 2026年の最新動向</a>
+                    <a href="#sec-12"
+                        ><i class="ti ti-checklist"></i>12. 導入のベストプラクティス</a
+                    >
+                    <a href="#sec-13"><i class="ti ti-tool"></i>13. トラブルシューティングFAQ</a>
+                    <a href="#sec-14"><i class="ti ti-flag-3"></i>14. まとめ</a>
+                    <a href="#sec-15"><i class="ti ti-link"></i>15. 参考文献・URL一覧</a>
+                </div>
+            </nav>
+
+            <main class="content" id="content">
+                <header class="page-header">
+                    <span class="eyebrow"
+                        ><i class="ti ti-clock"></i>2026年7月時点の最新情報に基づく</span
+                    >
+                    <h1>
+                        SonarQube 完全ガイド ―
+                        コード品質を継続的に守るための初学者向けステップバイステップ解説
+                    </h1>
+                    <p>
+                        本ガイドは、SonarQube公式ドキュメント（docs.sonarsource.com）およびSonarSource公式サイト、GitHub公式リポジトリ、Docker
+                        Hub、その他信頼できる技術情報源を基に作成しています。各セクションの末尾に参照元URLを明記しています。
+                    </p>
+                </header>
+
+                <!-- 1 -->
+                <section class="section" id="sec-1">
+                    <h2><span class="num">01</span>SonarQubeとは何か</h2>
+
+                    <h3>1.1 一言でいうと</h3>
+                    <p>
+                        SonarQubeは、SonarSource社が開発する<strong
+                            >継続的コードインスペクション（Continuous Inspection）</strong
+                        >のためのプラットフォームです。ソースコードを実行せずに解析する<strong
+                            >静的解析（Static Analysis / SAST）</strong
+                        >によって、バグ、脆弱性、セキュリティホットスポット、コードスメル（保守性の低いコード）を自動的に検出します。GitHub公式リポジトリでは、SonarQubeは新たに混入した問題をハイライトすることでアプリケーションの健全性を可視化し、Quality
+                        Gateという仕組みによって「クリーンなコード」を体系的に維持できるツールとして紹介されています。
+                    </p>
+
+                    <h3>1.2 何を検出するのか（4つの課題カテゴリ）</h3>
+                    <p>
+                        SonarQubeの品質モデルは、コードの問題を大きく4種類に分類します。詳細は第5章で解説しますが、まずは全体像を押さえておきましょう。
+                    </p>
+
+                    <div class="diagram" id="d1"></div>
+                    <p class="diagram-caption">
+                        図：SonarQubeが検出する4つの問題カテゴリとQuality Gate判定までの流れ
+                    </p>
+
+                    <p>
+                        30以上のプログラミング言語（Java、JavaScript/TypeScript、Python、C#、C/C++、Go、Kotlin、Ruby、PHP、Swift、COBOL、Apexなど）とIaC（Infrastructure
+                        as Code）に対応しており、単なるLintツールではなく、技術的負債（Technical
+                        Debt）の可視化やセキュリティ標準（OWASP Top 10、CWE、MISRA
+                        C++など）への準拠状況の確認まで一気通貫でカバーします。
+                    </p>
+
+                    <h3>1.3 なぜ今SonarQubeが必要なのか（AI生成コード時代の文脈）</h3>
+                    <p>
+                        2026年に入り、SonarSourceはAIコーディングエージェント時代を強く意識した機能強化を続けています。公式の「What's
+                        new」ページによると、SonarQube Server 2026.2ではJava 25の新機能（Scoped
+                        Values、Flexible Constructor
+                        Bodiesなど）を狙い撃ちにしたルールが追加されており、これは特に「構文的には正しいが意味的には壊れている」AI生成コードを捕捉する目的が明言されています。また、Cursor、Claude
+                        Code、WindsurfといったAIネイティブなIDEとの統合も強化されており、AIが書いたコードを人間のコードと同じ基準で検証する「Verify
+                        AI Code」という文脈でSonarQubeが位置づけられています。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/SonarSource/sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://github.com/SonarSource/sonarqube</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/whats-new/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/whats-new/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 2 -->
+                <section class="section" id="sec-2">
+                    <h2><span class="num">02</span>基本用語・コンセプト集</h2>
+                    <p>
+                        SonarQubeを学ぶ上で最初につまずきやすいのが独自用語です。公式Glossaryを基に、初学者が押さえるべき用語を整理しました。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 220px">用語</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Issue（イシュー）</strong></td>
+                                    <td>
+                                        ルールに違反したコード箇所に対して発生する問題。Bug/Vulnerability/Code
+                                        Smellのいずれかに紐づく
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Rule（ルール）</strong></td>
+                                    <td>
+                                        「守るべきコーディング規約」。ルールに反するとIssueが起票される
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Quality Profile（品質プロファイル）</strong></td>
+                                    <td>
+                                        言語ごとに「どのルールを適用するか」を定義する設定セット
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Quality Gate（品質ゲート）</strong></td>
+                                    <td>
+                                        「このプロジェクトはリリース可能か？」を判定する合否条件の集合
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>New Code（新規コード）</strong></td>
+                                    <td>
+                                        直近のバージョンや指定期間内に追加・変更されたコード。Clean
+                                        as You Codeの中心概念
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Overall Code（全体コード）</strong></td>
+                                    <td>新規コードを含むプロジェクト全体のコード</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Clean as You Code（CaYC）</strong></td>
+                                    <td>
+                                        過去のコードを一度に直そうとせず、「今書いているコード」をクリーンに保つことで段階的に品質を改善していく方針
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Technical Debt（技術的負債）</strong></td>
+                                    <td>Issueを解消するために必要な推定作業時間</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong>SAST（Static Application Security Testing）</strong>
+                                    </td>
+                                    <td>
+                                        ソースコードを実行せずに脆弱性を検出する静的解析セキュリティテスト
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Taint Analysis（テイント解析）</strong></td>
+                                    <td>
+                                        ユーザー入力（ソース）が検証されずに危険な処理（シンク）へ到達する経路を追跡する高度な解析技術。SQLインジェクション等の検出に使用
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Security Hotspot</strong></td>
+                                    <td>
+                                        「危険とは限らないが人間によるレビューが必要」なセキュリティ関連コード箇所
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Scanner（スキャナー）</strong></td>
+                                    <td>
+                                        CI/CDホストやローカル環境で動作し、コードを解析してサーバーへレポートを送信するプログラム（SonarScanner
+                                        CLI、Maven、Gradle、.NET、NPM用など）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Compute Engine（CE）</strong></td>
+                                    <td>
+                                        サーバー側でスキャナーから受け取った解析レポートを処理し、データベースへ保存するバックグラウンド処理系
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MQR Mode</strong></td>
+                                    <td>
+                                        1つのルールが複数のソフトウェア品質（Security/Reliability/Maintainability）に影響し得るとする新しい評価モード
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Standard Experience</strong></td>
+                                    <td>
+                                        従来のBug/Vulnerability/Code
+                                        Smellの3分類でルールを評価するモード
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Connected Mode</strong></td>
+                                    <td>
+                                        SonarQube for IDE（旧SonarLint）をSonarQube
+                                        Server/Cloudに接続し、ルールやQuality
+                                        Profileを同期する仕組み
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-cloud/appendices/glossary"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-cloud/appendices/glossary</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/10.8/glossary"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/10.8/glossary</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/user-guide/about-new-code"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/user-guide/about-new-code</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 3 -->
+                <section class="section" id="sec-3">
+                    <h2><span class="num">03</span>アーキテクチャを理解する</h2>
+                    <p>
+                        SonarQube
+                        Serverは、大きく分けて「サーバー側の3つのプロセス」と「クライアント側のスキャナー」で構成されます。公式ドキュメントの「Server
+                        components」ページによれば、サーバーは以下のプロセスから成ります。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 200px">コンポーネント</th>
+                                    <th>役割</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Web</strong></td>
+                                    <td>
+                                        SonarQube ServerのユーザーインターフェースとWeb
+                                        APIを提供する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Elasticsearch（ES）</strong></td>
+                                    <td>
+                                        データベースの内容をインデックス化し、UI上の検索を高速化する検索サーバー
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Compute Engine（CE）</strong></td>
+                                    <td>
+                                        スキャナーが送信した解析レポートを処理し、結果をデータベースに保存するバックグラウンド処理プロセス
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Database</strong></td>
+                                    <td>
+                                        プロジェクト設定、解析結果（メトリクス・Issue）、レポートのジョブキューを保存するRDB（本番環境ではPostgreSQL推奨）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>SonarScanner</strong></td>
+                                    <td>
+                                        CI/CDサーバーやローカル環境で動作し、実際にソースコードを解析してレポートを生成・送信するクライアント
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>これらを図で表すと以下のようになります。</p>
+
+                    <div class="diagram" id="d2"></div>
+                    <p class="diagram-caption">図：SonarQubeのコンポーネント構成とデータフロー</p>
+
+                    <p>この構成の要点は次の通りです。</p>
+                    <ol>
+                        <li>
+                            <strong
+                                >開発者はIDE上で「SonarQube for
+                                IDE」を使い、コミット前にリアルタイムでフィードバックを得る</strong
+                            >（第10章で詳述）
+                        </li>
+                        <li>
+                            <strong
+                                >CI/CDパイプライン上でSonarScannerが実際の解析を実行し、その結果（レポート）をWeb
+                                Serverへ送信する</strong
+                            >
+                        </li>
+                        <li>
+                            <strong
+                                >Compute
+                                Engineが非同期でレポートを処理し、Issueやメトリクスを計算してDatabaseへ書き込む</strong
+                            >
+                        </li>
+                        <li>
+                            <strong
+                                >Elasticsearchが検索用のインデックスを保持し、UI上の高速な検索・フィルタリングを支える</strong
+                            >
+                        </li>
+                        <li>
+                            サーバーとデータベースは同一ネットワーク上に配置することが推奨される一方、スキャナーはネットワーク的に離れた場所（CIサーバー）で動作可能です
+                        </li>
+                    </ol>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/server-installation/server-components-overview"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/server-installation/server-components-overview</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.devopsschool.com/blog/what-is-sonarqube-and-how-it-works-an-overview-and-its-use-cases/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.devopsschool.com/blog/what-is-sonarqube-and-how-it-works-an-overview-and-its-use-cases/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://deepwiki.com/SonarSource/sonarqube/12-compute-engine"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://deepwiki.com/SonarSource/sonarqube/12-compute-engine</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.geeksforgeeks.org/devops/sonarqube/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.geeksforgeeks.org/devops/sonarqube/</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 4 -->
+                <section class="section" id="sec-4">
+                    <h2><span class="num">04</span>製品ファミリーとエディションの比較</h2>
+                    <p>
+                        SonarSourceの製品群は2024年10月末のリブランディングにより名称が整理されました。旧SonarLintは「SonarQube
+                        for IDE」、旧SonarCloudは「SonarQube Cloud」、無償の旧Community
+                        Editionは「SonarQube Community
+                        Build」という名称に変更されています（機能自体は同じで、名称変更が中心です）。
+                    </p>
+
+                    <h3>4.1 SonarQubeファミリーの全体像</h3>
+                    <div class="diagram" id="d3"></div>
+                    <p class="diagram-caption">図：Sonarソリューションの製品ファミリー構成</p>
+
+                    <h3>4.2 セルフホストエディション比較表</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>Community Build</th>
+                                    <th>Developer Edition</th>
+                                    <th>Enterprise Edition</th>
+                                    <th>Data Center Edition</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>料金</td>
+                                    <td>無償（OSS）</td>
+                                    <td>有償（LOC課金）</td>
+                                    <td>有償（LOC課金）</td>
+                                    <td>有償（最も高額）</td>
+                                </tr>
+                                <tr>
+                                    <td>ブランチ解析</td>
+                                    <td>主ブランチのみ</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>Pull Request装飾</td>
+                                    <td>不可</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>Taint Analysis（高度なSAST）</td>
+                                    <td>制限あり</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>ポートフォリオ管理</td>
+                                    <td>不可</td>
+                                    <td>不可</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>セキュリティコンプライアンスレポート</td>
+                                    <td>不可</td>
+                                    <td>不可</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>COBOL / RPG / Apex解析</td>
+                                    <td>不可</td>
+                                    <td>不可</td>
+                                    <td>○</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>高可用性・水平スケーリング</td>
+                                    <td>不可</td>
+                                    <td>不可</td>
+                                    <td>不可</td>
+                                    <td>○</td>
+                                </tr>
+                                <tr>
+                                    <td>対応言語数の目安</td>
+                                    <td>20以上</td>
+                                    <td>24以上</td>
+                                    <td>さらに拡張</td>
+                                    <td>Enterpriseと同等＋HA</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        技術ブログ「SonarQube Pricing in
+                        2026」によれば、2026年時点の目安価格は、Developer
+                        Editionが約100,000行のコードで年間2,500ドル前後、Enterprise
+                        Editionが約100万行で年間16,000ドル前後、Data Center
+                        Editionが約1,000万行で年間100,000ドル前後とされています。ただし公式に一般公開されている価格はDeveloper
+                        Editionの一部のみで、Enterprise以上は個別見積もりが必要です。
+                    </p>
+
+                    <h3>4.3 「Community BuildかDeveloper Editionか」の判断基準</h3>
+                    <p>
+                        比較記事「SonarQube Community vs Developer
+                        Edition」では、判断基準を極めてシンプルに次のように整理しています。<strong
+                            >チームがPull Requestベースの開発フローを使っているかどうか</strong
+                        >が最大の分岐点です。Community
+                        Buildは主ブランチの解析にしか対応しないため、Issueがマージ後にしか可視化されません。これは「シフトレフト」というモダン開発の思想と逆行するため、PRレビューを日常的に行うチームではDeveloper
+                        Edition以上への移行が事実上必須とされています。
+                    </p>
+
+                    <h3>4.4 SonarQube Cloud（旧SonarCloud）</h3>
+                    <p>
+                        SonarQube
+                        Cloudはフルマネージドなクラウド版で、インフラ運用の負荷なしにSonarQube
+                        Serverと同等の解析能力を得られます。無料枠は最大50,000行・5ユーザーまでで、GitHub・GitLab・Bitbucket・Azure
+                        DevOpsと直接連携できます。パブリック（OSS）プロジェクトであれば常に無料という特徴もあります。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/blog/sonarqube-compare-editions/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/blog/sonarqube-compare-editions/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.almtoolbox.com/blog/sonarqube-editions-differences/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.almtoolbox.com/blog/sonarqube-editions-differences/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/rahulxsingh/sonarqube-pricing-in-2026-community-developer-enterprise-and-cloud-costs-explained-bdg"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/rahulxsingh/sonarqube-pricing-in-2026-community-developer-enterprise-and-cloud-costs-explained-bdg</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/rahulxsingh/sonarqube-community-vs-developer-edition-24oo"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/rahulxsingh/sonarqube-community-vs-developer-edition-24oo</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/rahulxsingh/sonarqube-community-vs-enterprise-comparison-2j0d"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/rahulxsingh/sonarqube-community-vs-enterprise-comparison-2j0d</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://appsecsanta.com/sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://appsecsanta.com/sonarqube</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 5 -->
+                <section class="section" id="sec-5">
+                    <h2><span class="num">05</span>コード品質モデル：Issueの4分類</h2>
+                    <p>
+                        SonarQubeのルールエンジンは、各ルールを「そのコードは何が問題なのか」という一連の質問に答える形で4種類に分類します。公式ドキュメント「SonarQube
+                        rules」に基づく分類ロジックは次の通りです。
+                    </p>
+
+                    <div class="diagram" id="d4"></div>
+                    <p class="diagram-caption">図：ルールの4分類を決定するロジック</p>
+
+                    <h3>5.1 各分類の意味</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 160px">種別</th>
+                                    <th>意味</th>
+                                    <th>期待される精度</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Bug</strong></td>
+                                    <td>
+                                        実行時に意図しない挙動やクラッシュを引き起こす可能性が高いコード
+                                    </td>
+                                    <td>誤検知（False Positive）ゼロを目標</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Vulnerability</strong></td>
+                                    <td>
+                                        攻撃者に悪用され得るセキュリティ上の欠陥（SQLインジェクション等）
+                                    </td>
+                                    <td>真陽性率80%以上を目標</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Security Hotspot</strong></td>
+                                    <td>
+                                        危険とは断定できないが、人間によるレビューが必要なセキュリティ関連コード（例：Cookieの<code>HttpOnly</code>フラグ未設定）
+                                    </td>
+                                    <td>レビュー後80%以上が「問題なし」と解決されることを想定</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Code Smell</strong></td>
+                                    <td>
+                                        バグでも脆弱性でもないが、保守性を下げる可能性のあるコード（重複、過度な複雑度など）
+                                    </td>
+                                    <td>誤検知ゼロを目標</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>5.2 Vulnerability と Security Hotspot の違い</h3>
+                    <p>
+                        この2つは初学者が最も混同しやすい概念です。公式ドキュメントの説明を要約すると、<strong>インジェクション系のルール（SQLインジェクションなど）はほぼ確実に修正が必要</strong>なためVulnerabilityに分類されます。一方、Cookieの<code>HttpOnly</code>フラグのような「追加の防御層」は、実装できない・関係ないケースもあり得るため、機械的に「問題」と断定できません。そこでSecurity
+                        Hotspotとして起票し、開発者が文脈を踏まえてレビュー・判断する仕組みになっています。
+                    </p>
+
+                    <div class="callout callout-info">
+                        <i class="ti ti-info-circle"></i>
+                        <p>
+                            Sonar Cloudの最新ドキュメントでは、分類の簡素化を目的に「Security
+                            Hotspotを段階的にVulnerabilityへ統合していく」方針が示されています。今後、Hotspotという呼び方自体が縮小していく可能性があります。
+                        </p>
+                    </div>
+
+                    <h3>5.3 MQR Mode と Standard Experience</h3>
+                    <p>2024年以降、SonarQubeには2つの評価モードが存在します。</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 220px">モード</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Standard Experience</strong></td>
+                                    <td>
+                                        従来型。ルールは「Bug／Vulnerability／Code
+                                        Smell」のいずれか1種類に分類される
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MQR Mode</strong>（Multi-Quality Rule Mode）</td>
+                                    <td>
+                                        1つのルールが複数のソフトウェア品質（Security／Reliability／Maintainability）に同時に影響し得るとする、より柔軟な新モデル
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        MQR Modeでは「Bug」は「Reliability Issue」、「Code
+                        Smell」は「Maintainability Issue」、「Vulnerability」は「Security
+                        Issue」という呼称に対応します。どちらのモードを使うかはインスタンス単位で設定可能です。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-rules/rules"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-rules/rules</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-cloud/standards/managing-rules/rules"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-cloud/standards/managing-rules/rules</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.1/quality-standards-administration/managing-rules/security-related-rules"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.1/quality-standards-administration/managing-rules/security-related-rules</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/10.8/user-guide/rules/security-related-rules"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/10.8/user-guide/rules/security-related-rules</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 6 -->
+                <section class="section" id="sec-6">
+                    <h2><span class="num">06</span>Quality ProfileとQuality Gate</h2>
+
+                    <h3>6.1 Quality Profile（品質プロファイル）とは</h3>
+                    <p>
+                        Quality
+                        Profileは「どの言語に対してどのルールを有効化するか」を定義する設定です。デフォルトでは、SonarSourceが保守する<code
+                            >Sonar way</code
+                        >という組み込みプロファイルが使われ、これはベストプラクティスを反映した推奨設定として維持されています。組織のニーズに応じてルールを追加・除外したカスタムプロファイルを作成することも可能です。
+                    </p>
+
+                    <h3>6.2 Quality Gate（品質ゲート）とは</h3>
+                    <p>
+                        Quality
+                        Gateは「このプロジェクトはリリース可能か？」という問いにYes/Noで答えるための、メトリクスベースの合否条件セットです。GitHub公式リポジトリのREADMEでも、Quality
+                        Gateを設定することでClean
+                        Codeを達成し、体系的に品質を改善できると説明されています。
+                    </p>
+                    <p>
+                        条件は「New Code（新規コード）」または「Overall
+                        Code（全体コード）」のいずれかに紐づけて設定します。デフォルトの<code
+                            >Sonar way</code
+                        >品質ゲートはNew Codeに焦点を当てており、次のような条件で構成されます。
+                    </p>
+
+                    <div class="diagram" id="d5"></div>
+                    <p class="diagram-caption">図：Sonar way Quality Gateの標準条件と判定フロー</p>
+
+                    <h3>6.3 なぜ「New Code」に焦点を当てるのか（Clean as You Code）</h3>
+                    <p>
+                        数年〜数十年運用されてきたレガシーコードベースをいきなり全て解析すると、大量のIssueが一度に検出され、多くの場合「対応しきれない」という無力感につながります。公式ドキュメントの「Clean
+                        as You Code」の考え方は、<strong
+                            >「過去のコードは過去のコードとして受け入れ、今日書いているコード（New
+                            Code）だけは常にクリーンに保つ」</strong
+                        >というものです。これにより、開発者は自分が書いたコードにだけ責任を持てばよく、心理的な負担が大きく下がります。同時に、新規コードを書く過程で既存コードに触れる機会も自然と増えるため、結果的にコードベース全体の品質も緩やかに改善されていきます。
+                    </p>
+
+                    <p>New Codeの定義方法には以下の4種類があります。</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 240px">定義方法</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Previous version</strong>（前バージョン比較）</td>
+                                    <td>
+                                        直前のリリースバージョンからの差分をNew
+                                        Codeとする（SonarQube Serverのデフォルト）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Number of days</strong>（日数指定）</td>
+                                    <td>直近N日間に追加・変更されたコードをNew Codeとする</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Specific analysis</strong>（特定の解析基準）</td>
+                                    <td>特定の解析日時を基準点とする</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Reference branch</strong>（基準ブランチ比較）</td>
+                                    <td>
+                                        対象ブランチと基準ブランチ（例：<code>main</code>）の差分をNew
+                                        Codeとする。トランクベース開発やPR作成前のブランチ解析に有効
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>6.4 Sonar way for AI Code</h3>
+                    <p>
+                        2026年のアップデートで、AIが生成したコードを対象とした専用の組み込みQuality
+                        Gateである<code>Sonar way for AI Code</code
+                        >が追加されました。7つの条件から構成され、AI生成コードに対する「AI Code
+                        Assurance」を達成するための推奨ゲートとして案内されています。AI生成コードが新規コードの範囲外（＝古いコードの中）に存在するケースもあるため、全体コードに対するカバレッジ条件を追加することも推奨されています。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/blog/clean_coding-quality_profile_quality_gate_guidance/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/blog/clean_coding-quality_profile_quality_gate_guidance/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-gates/introduction-to-quality-gates"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-gates/introduction-to-quality-gates</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/user-guide/about-new-code"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/user-guide/about-new-code</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/10.8/instance-administration/analysis-functions/quality-gates"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/10.8/instance-administration/analysis-functions/quality-gates</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/SonarSource/sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://github.com/SonarSource/sonarqube</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 7 -->
+                <section class="section" id="sec-7">
+                    <h2><span class="num">07</span>ハンズオン：Dockerでローカル環境を構築する</h2>
+                    <p>
+                        ここからは実際に手を動かしていきます。公式の「Try out SonarQube
+                        Server」ガイドとDocker
+                        Hub公式イメージの情報を基に、最も手軽な導入方法であるDockerでのセットアップを解説します。
+                    </p>
+
+                    <div class="callout callout-info">
+                        <i class="ti ti-info-circle"></i>
+                        <p>
+                            <strong>前提条件</strong>：Docker Engine
+                            20.10以上がインストールされていること。SonarQube
+                            ServerのDockerイメージはamd64アーキテクチャとApple
+                            Silicon（arm64）の両方に対応しています。
+                        </p>
+                    </div>
+
+                    <h3>ステップ1：Dockerが利用可能か確認する</h3>
+                    <pre><code class="language-bash">docker --version</code></pre>
+
+                    <h3>
+                        ステップ2：SonarQubeコンテナを起動する（評価用・組み込みH2データベース）
+                    </h3>
+                    <p>
+                        最も簡単な起動方法は、組み込みのH2データベースを使う評価用構成です。ただし、これは検証目的専用で、本番運用には適しません。
+                    </p>
+                    <pre><code class="language-bash">docker run -d --name sonarqube \
+  -e SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true \
+  -p 9000:9000 \
+  sonarqube:lts-community</code></pre>
+                    <ul>
+                        <li>
+                            <code>SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true</code>
+                            は、ローカル評価環境でElasticsearchの厳格な起動時チェックを緩和するための設定です
+                        </li>
+                        <li>
+                            <code>-p 9000:9000</code>
+                            により、コンテナ内のポート9000をホストのポート9000に公開します
+                        </li>
+                        <li>
+                            <code>sonarqube:lts-community</code> は最新のLTA（Long-Term
+                            Active）版Community Buildイメージを指すタグです
+                        </li>
+                    </ul>
+                    <p>
+                        コンテナの起動には環境によって60〜120秒程度かかります。ログを確認する場合は以下を実行してください。
+                    </p>
+                    <pre><code class="language-bash">docker logs -f sonarqube</code></pre>
+                    <p>ログに <code>SonarQube is operational</code> と表示されれば起動完了です。</p>
+
+                    <h3>ステップ3：本番想定の構成（PostgreSQL併用）</h3>
+                    <p>
+                        継続的に使う場合は、外部データベース（PostgreSQLが公式推奨）を併用したDocker
+                        Compose構成を用います。
+                    </p>
+                    <pre><code class="language-yaml">version: "3"
+services:
+  sonarqube:
+    image: sonarqube:lts-community
+    depends_on:
+      - db
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://db:5432/sonar
+      SONAR_JDBC_USERNAME: sonar
+      SONAR_JDBC_PASSWORD: sonar
+    ports:
+      - "9000:9000"
+    volumes:
+      - sonarqube_data:/opt/sonarqube/data
+      - sonarqube_extensions:/opt/sonarqube/extensions
+      - sonarqube_logs:/opt/sonarqube/logs
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: sonar
+      POSTGRES_PASSWORD: sonar
+      POSTGRES_DB: sonar
+    volumes:
+      - postgresql_data:/var/lib/postgresql/data
+
+volumes:
+  sonarqube_data:
+  sonarqube_extensions:
+  sonarqube_logs:
+  postgresql_data:</code></pre>
+                    <pre><code class="language-bash">docker compose up -d</code></pre>
+
+                    <div class="callout callout-warning">
+                        <i class="ti ti-alert-triangle"></i>
+                        <p>
+                            公式ドキュメントは、ボリュームを使わず<code>bind mount</code
+                            >を使うとプラグインが正しく反映されない場合があると警告しています。必ず<code
+                                >docker volume</code
+                            >を使った構成にしてください。また、<code>docker system prune</code
+                            >や<code>docker volume prune</code
+                            >を誤って実行するとデータベースのデータが失われる可能性があるため注意が必要です。
+                        </p>
+                    </div>
+
+                    <h3>ステップ4：Webブラウザでアクセスする</h3>
+                    <p>ブラウザで以下のURLへアクセスします。</p>
+                    <pre><code class="language-bash">http://localhost:9000</code></pre>
+
+                    <h3>ステップ5：初回ログインとパスワード変更</h3>
+                    <p>デフォルトの管理者アカウントでログインします。</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>値</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ログインID</td>
+                                    <td><code>admin</code></td>
+                                </tr>
+                                <tr>
+                                    <td>初期パスワード</td>
+                                    <td><code>admin</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        初回ログイン時、SonarQubeから強制的にパスワード変更を求められます。強力なパスワードを設定し、必ず保存してください（後ほどスキャナー用トークンを発行する際に必要になります）。
+                    </p>
+
+                    <h3>ステップ6：プロジェクトを作成する</h3>
+                    <ol>
+                        <li>ダッシュボードから <strong>Create new project</strong> を選択します</li>
+                        <li>
+                            <strong>Project key</strong>（プロジェクトを一意に識別するキー）と
+                            <strong>Display name</strong>（表示名）を入力します
+                        </li>
+                        <li><strong>Set up</strong> をクリックして次のステップへ進みます</li>
+                    </ol>
+
+                    <h3>ステップ7：解析トークンを発行する</h3>
+                    <p>
+                        プロジェクト分析にはSonarQubeへの認証用トークンが必要です。UI上のガイドに従って
+                        <strong>Generate a token</strong>
+                        を実行し、発行されたトークンを安全な場所に控えます（このトークンは再表示できないため注意してください）。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/try-out-sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/try-out-sonarqube</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://hub.docker.com/_/sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://hub.docker.com/_/sonarqube</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/server-installation/from-docker-image/installation-overview"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/server-installation/from-docker-image/installation-overview</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-community-build/server-installation/from-docker-image/installation-overview"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-community-build/server-installation/from-docker-image/installation-overview</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/rahulxsingh/how-to-install-sonarqube-with-docker-659"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/rahulxsingh/how-to-install-sonarqube-with-docker-659</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://medium.com/@s.klop/quick-start-local-sonarqube-setup-with-docker-for-js-ts-projects-2c1f19c24567"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://medium.com/@s.klop/quick-start-local-sonarqube-setup-with-docker-for-js-ts-projects-2c1f19c24567</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 8 -->
+                <section class="section" id="sec-8">
+                    <h2><span class="num">08</span>初めてのプロジェクト分析（SonarScanner CLI）</h2>
+                    <p>言語やビルドツールに応じて、SonarQubeは複数のスキャナーを提供しています。</p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ビルド環境</th>
+                                    <th>推奨スキャナー</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>汎用（言語不問）</td>
+                                    <td>SonarScanner CLI</td>
+                                </tr>
+                                <tr>
+                                    <td>Maven（Java）</td>
+                                    <td>SonarScanner for Maven</td>
+                                </tr>
+                                <tr>
+                                    <td>Gradle（Java/Kotlin）</td>
+                                    <td>SonarScanner for Gradle</td>
+                                </tr>
+                                <tr>
+                                    <td>.NET / C#</td>
+                                    <td>SonarScanner for .NET</td>
+                                </tr>
+                                <tr>
+                                    <td>npm（JavaScript/TypeScript）</td>
+                                    <td>SonarScanner for NPM</td>
+                                </tr>
+                                <tr>
+                                    <td>C / C++ / Objective-C</td>
+                                    <td>SonarQube Scan for C and C++（ビルドラッパー使用）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>8.1 SonarScanner CLIによる解析（汎用パターン）</h3>
+                    <p>
+                        プロジェクトのルートディレクトリに
+                        <code>sonar-project.properties</code> を作成します。
+                    </p>
+                    <pre><code class="language-properties">sonar.projectKey=my-first-project
+sonar.projectName=My First Project
+sonar.sources=src
+sonar.sourceEncoding=UTF-8
+sonar.host.url=http://localhost:9000</code></pre>
+
+                    <p>
+                        続いてスキャナーを実行します（環境変数にトークンを渡す方式を推奨します）。
+                    </p>
+                    <pre><code class="language-bash">export SONAR_TOKEN=（ステップ7で発行したトークン）
+sonar-scanner</code></pre>
+
+                    <h3>8.2 解析結果を確認する</h3>
+                    <p>
+                        解析が成功すると、ターミナルに解析成功メッセージと結果確認用URLが表示されます。ブラウザで
+                        <code>http://localhost:9000</code>
+                        にアクセスし、対象プロジェクトを開くと、以下の情報が確認できます。
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>Bugs / Vulnerabilities / Code Smells</strong>
+                            の件数と重要度別内訳
+                        </li>
+                        <li><strong>Security Hotspots</strong> のレビュー状況</li>
+                        <li>
+                            <strong>Coverage（テストカバレッジ）</strong
+                            >（別途カバレッジレポートを連携した場合）
+                        </li>
+                        <li><strong>Duplications（重複コード率）</strong></li>
+                        <li>
+                            <strong>Quality Gate</strong> の合否ステータス（画面左上に大きく表示）
+                        </li>
+                    </ul>
+                    <p>
+                        初回解析は「現在のコード全体」を測定するベースラインとなります。第6章で説明した通り、以降はこの時点を起点とした<strong
+                            >New Code</strong
+                        >にフォーカスして改善を進めていくのが推奨されるアプローチです。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/try-out-sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/try-out-sonarqube</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2025.5/server-installation/from-docker-image/installation-overview"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2025.5/server-installation/from-docker-image/installation-overview</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.geeksforgeeks.org/devops/sonarqube/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.geeksforgeeks.org/devops/sonarqube/</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 9 -->
+                <section class="section" id="sec-9">
+                    <h2><span class="num">09</span>CI/CDパイプラインへの統合（GitHub Actions）</h2>
+                    <p>
+                        ローカルでの単発解析だけでなく、CI/CDパイプラインに組み込むことでSonarQubeの真価が発揮されます。ここではGitHub
+                        Actionsを例に解説します。
+                    </p>
+
+                    <h3>9.1 全体の流れ</h3>
+                    <div class="diagram" id="d6"></div>
+                    <p class="diagram-caption">
+                        図：GitHub ActionsとSonarQube Serverの連携シーケンス
+                    </p>
+
+                    <h3>9.2 GitHub Secretsの設定</h3>
+                    <p>
+                        GitHubリポジトリの
+                        <strong>Settings > Secrets and variables > Actions</strong>
+                        から、以下を登録します。
+                    </p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 260px">Secret名</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>SONAR_TOKEN</code></td>
+                                    <td>SonarQubeで発行した解析用トークン</td>
+                                </tr>
+                                <tr>
+                                    <td><code>SONAR_HOST_URL</code>（Variableとして設定可）</td>
+                                    <td>SonarQube ServerのURL（SonarQube Cloudの場合は不要）</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>9.3 ワークフローファイルの例</h3>
+                    <p>
+                        公式GitHub Marketplaceで提供されている
+                        <code>SonarSource/sonarqube-scan-action</code>
+                        を使う、最もシンプルな構成例です。
+                    </p>
+                    <pre><code class="language-yaml">name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  sonarqube:
+    name: SonarQube Scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # SCM blame情報のためシャロークローンを無効化
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v8
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}</code></pre>
+
+                    <div class="callout callout-warning">
+                        <i class="ti ti-alert-triangle"></i>
+                        <p>
+                            <strong>重要</strong>：<code>actions/checkout</code> の
+                            <code>fetch-depth: 0</code> は必須に近い設定です。浅いクローン（shallow
+                            clone）のままだと、SCM blame情報の取得に失敗し
+                            <code>Missing blame information</code>
+                            のようなエラーが発生することがあります。
+                        </p>
+                    </div>
+
+                    <h3>9.4 Quality Gateでマージをブロックする</h3>
+                    <p>
+                        公式ドキュメントでは、Quality
+                        Gateの結果をもとにPRのマージをブロックする方法として2つのアプローチが紹介されています。
+                    </p>
+                    <ol>
+                        <li>
+                            <strong>SonarQube Quality Gate Check Action</strong>
+                            を使い、GitHub側のステータスチェックとしてQuality Gateの合否を反映する
+                        </li>
+                        <li>
+                            スキャナー実行時に
+                            <code>-Dsonar.qualitygate.wait=true</code> を指定し、Quality
+                            Gateの計算が終わるまでスキャンステップ自体を待機・失敗させる（ただしワークフロー時間が延びるため、必要な場面に限定して使うことが推奨されています）
+                        </li>
+                    </ol>
+                    <pre><code class="language-yaml">      - name: SonarQube Quality Gate check
+        uses: SonarSource/sonarqube-quality-gate-action@v1
+        timeout-minutes: 5
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}</code></pre>
+                    <p>
+                        GitHub側では
+                        <strong>Settings > Branches > Branch protection rules</strong>
+                        で、このステータスチェックを必須項目として設定することで、Quality
+                        Gateが赤（不合格）のPRを物理的にマージ不可能にできます。
+                    </p>
+
+                    <h3>9.5 エディションによる制約に注意</h3>
+                    <p>
+                        Community Buildは複数ブランチの解析に対応していないため、<code
+                            >on.push.branches</code
+                        >
+                        を主ブランチのみに限定し、<code>on.pull_request</code>
+                        トリガーは使用しません。ブランチ解析・PR解析・PR装飾を行うには、Developer
+                        Edition以上（またはSonarQube Cloud）が必要です。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/ci-integration/github-actions"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/ci-integration/github-actions</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/marketplace/actions/official-sonarqube-scan"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://github.com/marketplace/actions/official-sonarqube-scan</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/SonarSource/sonarqube-scan-action"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://github.com/SonarSource/sonarqube-scan-action</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.2/analyzing-source-code/ci-integration/github-actions"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.2/analyzing-source-code/ci-integration/github-actions</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-community-build/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-community-build/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 10 -->
+                <section class="section" id="sec-10">
+                    <h2><span class="num">10</span>SonarQube for IDE と Connected Mode</h2>
+
+                    <h3>10.1 SonarQube for IDE（旧SonarLint）とは</h3>
+                    <p>
+                        SonarQube for
+                        IDEは、無償で提供されるIDE拡張機能です。公式サイトの説明では「スペルチェッカーのように、コードを書いている最中にリアルタイムで問題をハイライトする」ツールと表現されています。VS
+                        Code、IntelliJ（JetBrains全般）、Eclipse、Visual
+                        Studioに対応し、さらにCursor・Windsurf・TraeといったVS Codeベースの
+                        AIネイティブIDEでも動作します。
+                    </p>
+
+                    <h3>10.2 対応IDEと言語</h3>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 260px">IDE</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>VS Code</td>
+                                    <td>Cursor・Windsurf・Trae等のフォークでも動作</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        JetBrains系（IntelliJ IDEA, PyCharm, WebStorm, GoLand,
+                                        CLion, PHPStorm, Rider, Android Studio, RubyMine）
+                                    </td>
+                                    <td>主要JetBrains製品全般をカバー</td>
+                                </tr>
+                                <tr>
+                                    <td>Eclipse</td>
+                                    <td>Eclipse専用の拡張機能を提供</td>
+                                </tr>
+                                <tr>
+                                    <td>Visual Studio</td>
+                                    <td>.NET開発者向けの包括的な統合</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        標準構成で20以上の言語をリアルタイム解析でき、Connected
+                        Modeを使うことでCOBOL・Apex・PL/SQLなど、より専門的な言語にも対応範囲を拡張できます。
+                    </p>
+
+                    <h3>10.3 Connected Modeとは何か、なぜ重要か</h3>
+                    <p>
+                        Connected ModeなしでSonarQube for IDEを使う場合、IDE側はデフォルトのQuality
+                        Profileや限定的なルールセットしか適用できません。その結果、<strong
+                            >「IDE上ではクリーンに見えたのに、SonarQube
+                            Server上ではIssueとして検出される」</strong
+                        >という食い違いが起こり得ます。
+                    </p>
+                    <p>
+                        Connected Modeを設定すると、SonarQube
+                        Server（またはCloud）上で定義された以下の情報がIDEへ同期されます。
+                    </p>
+                    <ul>
+                        <li>使用しているQuality Profile（有効化されたルールの完全な一致）</li>
+                        <li>プロジェクト設定（ファイル除外設定など）</li>
+                        <li>解析パラメータ</li>
+                        <li>
+                            Issueのステータス（「False
+                            Positive」「Accepted」に設定済みのIssueはIDE側でも抑制される）
+                        </li>
+                        <li>New Codeの定義（新規コードのみにフォーカスした表示が可能）</li>
+                        <li>
+                            Injection Vulnerability（Taint
+                            Vulnerability）：プロジェクト全体の解析が必要なため、Connected
+                            Mode経由でのみIDEに表示される
+                        </li>
+                    </ul>
+
+                    <div class="diagram" id="d7"></div>
+                    <p class="diagram-caption">
+                        図：スタンドアロンとConnected ModeでのSonarQube for IDEの違い
+                    </p>
+
+                    <h3>10.4 Connected Modeのセットアップ手順（概要）</h3>
+                    <ol>
+                        <li>
+                            対象IDEのマーケットプレイスから「SonarQube for
+                            IDE」拡張機能をインストールする
+                        </li>
+                        <li>
+                            IDE内の設定画面からSonarQube
+                            Server（またはCloud）への接続を作成する（サーバーURLとトークンが必要）
+                        </li>
+                        <li>
+                            ローカルのプロジェクトフォルダを、SonarQube
+                            Server/Cloud上の対象プロジェクトへバインドする
+                        </li>
+                        <li>
+                            バインド完了後、IDEはサーバー側のQuality
+                            Profileを取得し、以降の解析に反映する
+                        </li>
+                    </ol>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/ide/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/ide/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/ide/features/connected-mode/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/ide/features/connected-mode/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/user-guide/connected-mode"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/user-guide/connected-mode</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-cloud/analyzing-source-code/connected-mode"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-cloud/analyzing-source-code/connected-mode</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://appsecsanta.com/sast-tools/sonarlint-vs-sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://appsecsanta.com/sast-tools/sonarlint-vs-sonarqube</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 11 -->
+                <section class="section" id="sec-11">
+                    <h2><span class="num">11</span>2026年の最新動向：AI時代のSonarQube</h2>
+                    <p>
+                        SonarSource公式の「What's
+                        new」ページと最新リリースノートを基に、2026年前半の主要トピックを整理します。
+                    </p>
+
+                    <h3>11.1 AIエージェントとの直接連携：組み込みMCP Server</h3>
+                    <p>
+                        2026年5月〜6月のリリースノートによれば、SonarQube Serverは<strong
+                            >MCP（Model Context Protocol）Serverを拡張機能としてホストできる</strong
+                        >ようになりました。<code>/mcp</code>
+                        リバースプロキシエンドポイントを公開し、Claude、Cursor、Copilotなどのコーディングエージェントが、SonarQube
+                        Serverインスタンスへ直接クエリを投げられるようになっています。これはAIエージェントが生成したコードをその場でSonarQubeの基準に照らして検証する、という新しいワークフローを可能にするものです。
+                    </p>
+
+                    <h3>11.2 AI CodeFix：モデル非依存の自動修正提案</h3>
+                    <p>
+                        AI
+                        CodeFixは、SonarQubeが検出したIssueに対してLLMが具体的な修正コードを提案する機能です。開発者は提示された差分（diff）をレビューした上で適用するかどうかを判断します。2026年3月リリースのSonarQube
+                        Server
+                        2026.2からは「モデル非依存（model-agnostic）」化され、単一のLLMベンダーに縛られず複数のLLMプロバイダーを組織側で選択・接続できるようになりました。対応言語はJava、JavaScript、TypeScript、Python、C#、C++などが中心です。
+                    </p>
+
+                    <h3>11.3 SonarQube Remediation Agent</h3>
+                    <p>
+                        公式ドキュメントのFAQ見出しには「SonarQube Remediation
+                        Agentの使い方」という項目が新設されており、AI
+                        CodeFixよりもさらに自律的に、複数のIssueに対する修正をエージェント的に実行する機能として案内されています。
+                    </p>
+
+                    <h3>11.4 Java 25 LTS対応と「AI生成コードへの意味的検証」</h3>
+                    <p>
+                        SonarQube Server 2026.2では、2021年のJava 17以来の長期サポート版であるJava
+                        25
+                        LTSに対する誤りのない構文解析とディープセマンティック解析が追加されました。特筆すべきは、追加されたルール群が単なる新構文対応ではなく、<strong>「古いプレビューAPIで学習されたAIアシスタントが生成しがちな、構文的には正しいが意味的には壊れているコード」</strong>を狙い撃ちにしている点です。これはAIコーディングが一般化した開発現場を強く意識した設計と言えます。
+                    </p>
+
+                    <h3>11.5 サプライチェーンセキュリティの強化</h3>
+                    <p>
+                        2026.1 LTAおよびそれ以降のリリースでは、CycloneDXやSPDX形式のSBOM（Software
+                        Bill of
+                        Materials）インポートに対応し、依存パッケージが既知の悪意あるパッケージのデータセットと一致した場合にブロッカーレベルのアラートを出す機能が追加されています。またJFrog
+                        Evidence
+                        Collectionとの連携により、SonarQubeの解析結果とJFrogのパッケージ管理を紐づけた監査証跡を一元化できるようになりました（Enterprise
+                        Edition以上）。
+                    </p>
+
+                    <h3>11.6 インフラ要件の変化に関する注意点</h3>
+                    <p>
+                        2026.1 LTA以降、SonarQube Serverの実行にはJRE（Java Runtime
+                        Environment）ではなく<strong>フルのJDK（Java Development Kit）</strong
+                        >が必要になった点、対応Javaバージョンが21および25になりJava
+                        17のサポートが終了した点は、既存環境からのアップグレードを検討する際の重要な注意点です。またPostgreSQLは14〜18系がサポートされ、13系は非サポートとなりました。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/whats-new/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/whats-new/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/server-update-and-maintenance/release-notes"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/server-update-and-maintenance/release-notes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/release-notes"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/release-notes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/lta-to-lta-release-notes"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/lta-to-lta-release-notes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://appsecsanta.com/sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://appsecsanta.com/sonarqube</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 12 -->
+                <section class="section" id="sec-12">
+                    <h2><span class="num">12</span>導入のベストプラクティス</h2>
+                    <p>
+                        これまでの内容を踏まえ、実務でSonarQubeを導入する際に押さえておきたいポイントを整理します。
+                    </p>
+
+                    <h3>12.1 New Codeへの集中を徹底する</h3>
+                    <p>
+                        技術ブログ「Automated Code Quality」で述べられている通り、Quality
+                        Gateは「完璧なコード」や「PRでの叱責」のためのものではなく、<strong>技術的負債がmasterブランチに紛れ込むことを防ぐための自動化された審判</strong>として位置づけるべきです。まずは<code
+                            >Sonar way</code
+                        >のデフォルト設定のまま、New
+                        Codeに対するBlockingゲートを有効化するところから始めるのが定石です。
+                    </p>
+
+                    <h3>12.2 IDE・PR・ブランチの3層でチェックする</h3>
+                    <p>
+                        公式ドキュメントは、以下の3層すべてを実装することで最も包括的な体験が得られると案内しています。
+                    </p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>レイヤー</th>
+                                    <th>タイミング</th>
+                                    <th>目的</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>SonarQube for IDE（Connected Mode）</td>
+                                    <td>コーディング中</td>
+                                    <td>Issueが生まれた瞬間に修正する</td>
+                                </tr>
+                                <tr>
+                                    <td>Pull Request解析</td>
+                                    <td>レビュー時</td>
+                                    <td>マージされるコードがクリーンであることを保証する</td>
+                                </tr>
+                                <tr>
+                                    <td>ブランチ解析（main等）</td>
+                                    <td>マージ後</td>
+                                    <td>リリース可能な状態であることを保証する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>12.3 段階的な導入（スモールスタート）</h3>
+                    <p>
+                        いきなり全プロジェクト・全ルールを有効化するのではなく、以下のような順序が現実的です。
+                    </p>
+                    <ol>
+                        <li>
+                            Community Build（またはCloud
+                            Free）でPoC（概念実証）を実施し、チームにツールを馴染ませる
+                        </li>
+                        <li>
+                            PRベースの開発を行っているチームであれば、早期にDeveloper
+                            Edition（またはCloud有償プラン）へ移行し、ブランチ解析・PR装飾を有効化する
+                        </li>
+                        <li>
+                            <code>Sonar way</code>のデフォルトQuality
+                            Gateから開始し、必要に応じて重複率・カバレッジ条件を調整する
+                        </li>
+                        <li>
+                            チームが慣れてきたら、AI Code Assurance用のQuality
+                            Gateなど、より高度な運用へ拡張する
+                        </li>
+                    </ol>
+
+                    <h3>12.4 誤検知（False Positive）への向き合い方</h3>
+                    <p>
+                        コードスメルやバグルールは「誤検知ゼロ」を目標に設計されていますが、実際の開発ではプロジェクト固有の文脈によりFalse
+                        Positiveと判断すべきケースも発生します。SonarQubeはIssueに対して「False
+                        Positive」や「Won't
+                        Fix（対応しない）」といったステータスを付与できる仕組みを持っており、これを乱用せず、本当に妥当な場合にのみ使うことがQuality
+                        Gateの信頼性を保つ鍵になります。
+                    </p>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://dev.to/actocodes/automated-code-quality-using-sonarqube-quality-gates-to-enforce-cleaner-codebases-53c0"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/actocodes/automated-code-quality-using-sonarqube-quality-gates-to-enforce-cleaner-codebases-53c0</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/user-guide/about-new-code"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/user-guide/about-new-code</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/outdated-dev/ensure-code-quality-with-sonar-quality-gates-4bjb"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/outdated-dev/ensure-code-quality-with-sonar-quality-gates-4bjb</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 13 -->
+                <section class="section" id="sec-13">
+                    <h2><span class="num">13</span>トラブルシューティングFAQ</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th style="width: 320px">症状</th>
+                                    <th>主な原因と対処</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        コンテナ起動後、<code>localhost:9000</code>にアクセスできない
+                                    </td>
+                                    <td>
+                                        起動完了まで60〜120秒程度かかることがある。<code
+                                            >docker logs -f sonarqube</code
+                                        >で<code>SonarQube is operational</code>のログを確認する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Elasticsearchのブートストラップチェックで起動失敗する</td>
+                                    <td>
+                                        評価用途では<code>SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true</code>を設定する（本番環境では推奨されないため、OS側の<code>vm.max_map_count</code>等を正しく設定するのが望ましい）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        GitHub Actionsで<code>Missing blame information</code
+                                        >エラーが出る
+                                    </td>
+                                    <td>
+                                        <code>actions/checkout</code
+                                        >でシャロークローンになっている。<code>fetch-depth: 0</code
+                                        >を指定して完全な履歴を取得する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>PR上にQuality Gateの結果が表示されない</td>
+                                    <td>
+                                        Community Buildを使用している（ブランチ・PR解析はDeveloper
+                                        Edition以上が必要）、またはGitHub
+                                        Appの権限設定が未完了である可能性がある
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Quality GateがCaYC非準拠と警告される</td>
+                                    <td>
+                                        New
+                                        Codeに対する必須条件（新規Bug・Vulnerability0件、Security
+                                        Hotspot100%レビュー等）が欠けている。「Review and Update
+                                        Quality Gate」から自動修正できる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>アップグレード後にJRE関連のエラーが出る</td>
+                                    <td>
+                                        2026.1
+                                        LTA以降はJDK（JRE単体では不可）が必須。JDKを導入しなおす
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="refs">
+                        <div class="refs-title"><i class="ti ti-external-link"></i>参考URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/lta-to-lta-release-notes"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/lta-to-lta-release-notes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/10.6/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/10.6/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://windowsforum.com/threads/safer-windows-10-sonarqube-install-verified-steps-and-tips.402876/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://windowsforum.com/threads/safer-windows-10-sonarqube-install-verified-steps-and-tips.402876/</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- 14 -->
+                <section class="section" id="sec-14">
+                    <h2><span class="num">14</span>まとめ</h2>
+                    <p>
+                        SonarQubeは、単一のIssue検出ツールではなく、<strong>「開発者のIDE」「CI/CDパイプライン」「プロジェクトのダッシュボード」という3つの接点を通じて、コード品質を継続的に守り続けるためのプラットフォーム</strong>です。
+                    </p>
+                    <p>学習の順序としては、次のようなステップを踏むと理解がスムーズです。</p>
+                    <ol>
+                        <li>
+                            Bug／Vulnerability／Code Smell／Security
+                            Hotspotという4分類の考え方を理解する
+                        </li>
+                        <li>Quality ProfileとQuality Gateの役割の違いを理解する</li>
+                        <li>
+                            New Code（Clean as You
+                            Code）という「今日書いたコードにだけ責任を持つ」思想を理解する
+                        </li>
+                        <li>
+                            Dockerで実際にローカル環境を構築し、手元のプロジェクトを解析してみる
+                        </li>
+                        <li>GitHub ActionsなどのCI/CDに組み込み、PRベースの開発フローに統合する</li>
+                        <li>
+                            SonarQube for IDEのConnected
+                            Modeを設定し、IDE・PR・ブランチの3層でのチェック体制を完成させる
+                        </li>
+                    </ol>
+                    <p>
+                        2026年時点では、AIコーディングエージェントとの統合（MCP Server、AI
+                        CodeFix、AI Code
+                        Assurance）が急速に進んでおり、「人間が書いたコード」だけでなく「AIが生成したコード」を同じ品質基準で検証するという役割が、SonarQubeの新しい価値の中心になりつつあります。
+                    </p>
+                </section>
+
+                <!-- 15 -->
+                <section class="section" id="sec-15">
+                    <h2><span class="num">15</span>参考文献・URL一覧</h2>
+                    <p>本ガイド全体で参照した情報源を一覧化します（重複を除く）。</p>
+
+                    <h3 class="sub">公式ドキュメント（docs.sonarsource.com）</h3>
+                    <div class="refs" style="border-top: none; padding-top: 0">
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/server-update-and-maintenance/release-notes"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/server-update-and-maintenance/release-notes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/release-notes"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/release-notes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/lta-to-lta-release-notes"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/lta-to-lta-release-notes</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.1/user-guide"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.1/user-guide</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-gates/introduction-to-quality-gates"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-gates/introduction-to-quality-gates</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/10.8/instance-administration/analysis-functions/quality-gates"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/10.8/instance-administration/analysis-functions/quality-gates</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/user-guide/about-new-code"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/user-guide/about-new-code</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-rules/rules"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-rules/rules</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-cloud/standards/managing-rules/rules"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-cloud/standards/managing-rules/rules</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-cloud/appendices/glossary"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-cloud/appendices/glossary</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/10.8/glossary"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/10.8/glossary</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/10.8/user-guide/rules/security-related-rules"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/10.8/user-guide/rules/security-related-rules</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.1/quality-standards-administration/managing-rules/security-related-rules"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.1/quality-standards-administration/managing-rules/security-related-rules</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/try-out-sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/try-out-sonarqube</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/server-installation/from-docker-image/installation-overview"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/server-installation/from-docker-image/installation-overview</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-community-build/server-installation/from-docker-image/installation-overview"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-community-build/server-installation/from-docker-image/installation-overview</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2025.5/server-installation/from-docker-image/installation-overview"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2025.5/server-installation/from-docker-image/installation-overview</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/server-installation/server-components-overview"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/server-installation/server-components-overview</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/ci-integration/github-actions"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/ci-integration/github-actions</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/2026.2/analyzing-source-code/ci-integration/github-actions"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/2026.2/analyzing-source-code/ci-integration/github-actions</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-community-build/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-community-build/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/10.6/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/10.6/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-server/user-guide/connected-mode"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-server/user-guide/connected-mode</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://docs.sonarsource.com/sonarqube-cloud/analyzing-source-code/connected-mode"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://docs.sonarsource.com/sonarqube-cloud/analyzing-source-code/connected-mode</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="sub">SonarSource公式サイト</h3>
+                    <div class="refs" style="border-top: none; padding-top: 0">
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/whats-new/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/whats-new/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/ide/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/ide/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/products/sonarqube/ide/features/connected-mode/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/products/sonarqube/ide/features/connected-mode/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/blog/clean_coding-quality_profile_quality_gate_guidance/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/blog/clean_coding-quality_profile_quality_gate_guidance/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.sonarsource.com/blog/sonarqube-compare-editions/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.sonarsource.com/blog/sonarqube-compare-editions/</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="sub">GitHub公式</h3>
+                    <div class="refs" style="border-top: none; padding-top: 0">
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://github.com/SonarSource/sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://github.com/SonarSource/sonarqube</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/SonarSource/sonarqube-scan-action"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://github.com/SonarSource/sonarqube-scan-action</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://github.com/marketplace/actions/official-sonarqube-scan"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://github.com/marketplace/actions/official-sonarqube-scan</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="sub">Docker Hub</h3>
+                    <div class="refs" style="border-top: none; padding-top: 0">
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://hub.docker.com/_/sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://hub.docker.com/_/sonarqube</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <h3 class="sub">その他の技術情報源（比較・解説記事）</h3>
+                    <div class="refs" style="border-top: none; padding-top: 0">
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://www.almtoolbox.com/blog/sonarqube-editions-differences/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.almtoolbox.com/blog/sonarqube-editions-differences/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/rahulxsingh/sonarqube-pricing-in-2026-community-developer-enterprise-and-cloud-costs-explained-bdg"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/rahulxsingh/sonarqube-pricing-in-2026-community-developer-enterprise-and-cloud-costs-explained-bdg</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/rahulxsingh/sonarqube-community-vs-developer-edition-24oo"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/rahulxsingh/sonarqube-community-vs-developer-edition-24oo</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/rahulxsingh/sonarqube-community-vs-enterprise-comparison-2j0d"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/rahulxsingh/sonarqube-community-vs-enterprise-comparison-2j0d</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/rahulxsingh/how-to-install-sonarqube-with-docker-659"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/rahulxsingh/how-to-install-sonarqube-with-docker-659</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/actocodes/automated-code-quality-using-sonarqube-quality-gates-to-enforce-cleaner-codebases-53c0"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/actocodes/automated-code-quality-using-sonarqube-quality-gates-to-enforce-cleaner-codebases-53c0</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dev.to/outdated-dev/ensure-code-quality-with-sonar-quality-gates-4bjb"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://dev.to/outdated-dev/ensure-code-quality-with-sonar-quality-gates-4bjb</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://appsecsanta.com/sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://appsecsanta.com/sonarqube</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://appsecsanta.com/sast-tools/sonarlint-vs-sonarqube"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://appsecsanta.com/sast-tools/sonarlint-vs-sonarqube</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.devopsschool.com/blog/what-is-sonarqube-and-how-it-works-an-overview-and-its-use-cases/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.devopsschool.com/blog/what-is-sonarqube-and-how-it-works-an-overview-and-its-use-cases/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://www.geeksforgeeks.org/devops/sonarqube/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://www.geeksforgeeks.org/devops/sonarqube/</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://deepwiki.com/SonarSource/sonarqube/12-compute-engine"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://deepwiki.com/SonarSource/sonarqube/12-compute-engine</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://medium.com/@secilaydin/mastering-sonarqube-a-complete-guide-to-code-quality-and-continuous-inspection-part-1-bd451ed016f8"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://medium.com/@secilaydin/mastering-sonarqube-a-complete-guide-to-code-quality-and-continuous-inspection-part-1-bd451ed016f8</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://medium.com/@s.klop/quick-start-local-sonarqube-setup-with-docker-for-js-ts-projects-2c1f19c24567"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://medium.com/@s.klop/quick-start-local-sonarqube-setup-with-docker-for-js-ts-projects-2c1f19c24567</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://windowsforum.com/threads/safer-windows-10-sonarqube-install-verified-steps-and-tips.402876/"
+                                    target="_blank"
+                                    rel="noopener"
+                                    >https://windowsforum.com/threads/safer-windows-10-sonarqube-install-verified-steps-and-tips.402876/</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="callout callout-info" style="margin-top: 24px">
+                        <i class="ti ti-info-circle"></i>
+                        <p>
+                            <strong>注記</strong
+                            >：SonarSourceは2024年10月29日付で製品名称を刷新しており、旧SonarLintは「SonarQube
+                            for IDE」、旧SonarCloudは「SonarQube Cloud」、無償の旧Community
+                            Editionは「SonarQube Community
+                            Build」という名称になっています。本ガイドは2026年7月時点の新名称に統一して記述していますが、Web上の記事やコミュニティでは旧名称（SonarLint、SonarCloud、Community
+                            Edition）が引き続き広く使われている点にご留意ください。
+                        </p>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+        <style>
+            /* Prismトークンカラー（ダークテーマに合わせた独自定義） */
+            .token.comment,
+            .token.prolog,
+            .token.doctype,
+            .token.cdata {
+                color: #6b7280;
+            }
+            .token.punctuation {
+                color: #a4acb8;
+            }
+            .token.property,
+            .token.tag,
+            .token.boolean,
+            .token.number,
+            .token.constant,
+            .token.symbol {
+                color: #f0c674;
+            }
+            .token.selector,
+            .token.attr-name,
+            .token.string,
+            .token.char,
+            .token.builtin {
+                color: #7ee2a8;
+            }
+            .token.operator,
+            .token.entity,
+            .token.url,
+            .language-css .token.string,
+            .style .token.string {
+                color: #a4acb8;
+            }
+            .token.atrule,
+            .token.attr-value,
+            .token.keyword {
+                color: #c9a4ff;
+            }
+            .token.function,
+            .token.class-name {
+                color: #79c0ff;
+            }
+            .token.regex,
+            .token.important,
+            .token.variable {
+                color: #ff8f87;
+            }
+        </style>
+
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                themeVariables: {
+                    background: 'transparent',
+                    primaryColor: '#1a1e26',
+                    primaryTextColor: '#e8eaed',
+                    primaryBorderColor: '#3c4454',
+                    lineColor: '#6b7280',
+                    secondaryColor: '#12151b',
+                    tertiaryColor: '#12151b',
+                    fontFamily:
+                        '-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Hiragino Sans,Noto Sans JP,Meiryo,sans-serif',
+                    fontSize: '16px',
+                },
+                flowchart: {
+                    htmlLabels: false,
+                    curve: 'linear',
+                    useMaxWidth: false,
+                    nodeSpacing: 45,
+                    rankSpacing: 50,
+                },
+                sequence: {
+                    useMaxWidth: false,
+                    htmlLabels: false,
+                    actorFontSize: 14,
+                    messageFontSize: 13,
+                },
+                securityLevel: 'loose',
+            });
+
+            const classDefBlock = `
+    classDef gray fill:#1f2937,stroke:#9ca3af,color:#f3f4f6;
+    classDef purple fill:#3b2e5a,stroke:#c4b5fd,color:#ede9fe;
+    classDef teal fill:#134e4a,stroke:#5eead4,color:#ccfbf1;
+    classDef coral fill:#7c2d12,stroke:#fdba8c,color:#ffedd5;
+    classDef pink fill:#831843,stroke:#f9a8d4,color:#fce7f3;
+    classDef amber fill:#78350f,stroke:#fcd34d,color:#fef3c7;
+    classDef green fill:#14532d,stroke:#86efac,color:#dcfce7;
+    classDef red fill:#7f1d1d,stroke:#fca5a5,color:#fee2e2;
+  `;
+
+            const diagrams = {
+                d1: `
+flowchart LR
+    A["ソースコード"]:::gray --> B["SonarQube静的解析エンジン"]:::purple
+    B --> C["Bug（信頼性の問題）"]:::coral
+    B --> D["Vulnerability（脆弱性）"]:::coral
+    B --> E["Security Hotspot（要レビュー）"]:::amber
+    B --> F["Code Smell（保守性の問題）"]:::teal
+    C --> G["Quality Gate判定"]:::purple
+    D --> G
+    E --> G
+    F --> G
+    G --> H{"合格?"}
+    H -->|Yes| I["リリース・マージ可能"]:::green
+    H -->|No| J["修正が必要"]:::red
+${classDefBlock}`,
+
+                d2: `
+flowchart TB
+    subgraph Dev["開発者環境"]
+        IDE["IDE + SonarQube for IDE"]:::purple
+    end
+    subgraph CIENV["CI/CDサーバー"]
+        Scanner["SonarScanner"]:::teal
+        Result["パイプラインステータス"]:::gray
+    end
+    subgraph ServerEnv["SonarQube Server"]
+        Web["Web Server（UI/API）"]:::coral
+        CE["Compute Engine（レポート処理）"]:::coral
+        ES["Elasticsearch（検索インデックス）"]:::coral
+        DB["Database（PostgreSQL等）"]:::coral
+    end
+    IDE -.->|"Connected Modeでルール同期"| Web
+    Scanner -->|"解析レポート送信"| Web
+    Web --> CE
+    CE --> DB
+    CE --> ES
+    Web --> ES
+    Web --> DB
+    Web -->|"Quality Gate結果"| Result
+${classDefBlock}`,
+
+                d3: `
+flowchart TD
+    Sonar["Sonarソリューション"]:::purple
+    Sonar --> SQServer["SonarQube Server（セルフホスト）"]:::teal
+    Sonar --> SQCloud["SonarQube Cloud（SaaS）"]:::coral
+    Sonar --> SQIDE["SonarQube for IDE（旧SonarLint）"]:::pink
+    SQServer --> Community["Community Build（無償・OSS）"]:::gray
+    SQServer --> Developer["Developer Edition（有償）"]:::gray
+    SQServer --> Enterprise["Enterprise Edition（有償）"]:::gray
+    SQServer --> DataCenter["Data Center Edition（有償・高可用性）"]:::gray
+${classDefBlock}`,
+
+                d4: `
+flowchart TD
+    Start["ルールを評価"]:::gray --> Q1{"攻撃者に悪用され得るか?"}
+    Q1 -->|Yes| Vuln["Vulnerability（脆弱性）"]:::coral
+    Q1 -->|No| Q2{"セキュリティ上要注意な箇所か?"}
+    Q2 -->|Yes| Hotspot["Security Hotspot（要レビュー）"]:::amber
+    Q2 -->|No| Q3{"明らかに、またはおそらく誤りか?"}
+    Q3 -->|Yes| Bug["Bug（信頼性の問題）"]:::coral
+    Q3 -->|No| Smell["Code Smell（保守性の問題）"]:::teal
+${classDefBlock}`,
+
+                d5: `
+flowchart TD
+    A["Sonar way Quality Gate（New Codeが対象）"]:::purple --> B["新規のBugが0件"]:::gray
+    A --> C["新規のVulnerabilityが0件"]:::gray
+    A --> D["新規のSecurity Hotspotが100%レビュー済み"]:::gray
+    A --> E["新規コードの重複率が一定以下"]:::gray
+    A --> F["新規コードのテストカバレッジが一定以上"]:::gray
+    B --> G{"すべて満たすか?"}
+    C --> G
+    D --> G
+    E --> G
+    F --> G
+    G -->|Yes| H["Quality Gate: 合格（Green）"]:::green
+    G -->|No| I["Quality Gate: 不合格（Red）"]:::red
+${classDefBlock}`,
+
+                d6: `
+sequenceDiagram
+    participant Dev as 開発者
+    participant GH as GitHub（PR）
+    participant GA as GitHub Actions
+    participant Scanner as SonarScanner
+    participant SQ as SonarQube Server
+
+    Dev->>GH: コードをpush・PR作成
+    GH->>GA: ワークフロートリガー
+    GA->>Scanner: sonar-scanner実行
+    Scanner->>SQ: 解析レポート送信
+    SQ->>SQ: Compute Engineがレポートを処理
+    SQ->>SQ: Quality Gate判定
+    SQ-->>GH: Quality Gate結果をPRに装飾
+    SQ-->>GA: Quality Gate結果を返却
+    GA-->>Dev: ワークフロー成功・失敗を通知`,
+
+                d7: `
+flowchart LR
+    A["SonarQube for IDE（スタンドアロン）"]:::gray -->|"限定的なQuality Profile"| B["IDE上の解析結果"]:::gray
+    C["SonarQube for IDE（Connected Mode）"]:::purple -->|"Server/Cloudと同一のQuality Profile"| D["SonarQube Server・Cloud"]:::coral
+    D -->|"ルール・設定・Issueステータスを同期"| C
+    C --> E["IDE上の解析結果＝CI上の結果と一致"]:::green
+${classDefBlock}`,
+            };
+
+            async function renderDiagrams() {
+                if (document.fonts && document.fonts.ready) {
+                    try {
+                        await document.fonts.ready;
+                    } catch (e) {
+                        /* noop */
+                    }
+                }
+                for (const [id, source] of Object.entries(diagrams)) {
+                    const container = document.getElementById(id);
+                    if (!container) continue;
+                    try {
+                        const { svg } = await mermaid.render(id + '-svg', source.trim());
+                        container.innerHTML = svg;
+                        const svgEl = container.querySelector('svg');
+                        if (svgEl) {
+                            svgEl.style.maxWidth = '100%';
+                            svgEl.style.height = 'auto';
+                            svgEl.style.display = 'block';
+                            svgEl.style.margin = '0 auto';
+                            svgEl.style.overflow = 'visible';
+                        }
+                    } catch (err) {
+                        container.innerHTML =
+                            '<p class="diagram-fallback">図の描画に失敗しました（' + id + '）</p>';
+                        console.error('Mermaid render error:', id, err);
+                    }
+                }
+            }
+            renderDiagrams();
+
+            /* -------- scrollspy -------- */
+            const sections = document.querySelectorAll('section.section');
+            const navLinks = document.querySelectorAll('nav.toc a');
+            const linkMap = new Map();
+            navLinks.forEach((a) => linkMap.set(a.getAttribute('href').slice(1), a));
+
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        const link = linkMap.get(entry.target.id);
+                        if (!link) return;
+                        if (entry.isIntersecting) {
+                            navLinks.forEach((a) => a.classList.remove('active'));
+                            link.classList.add('active');
+                        }
+                    });
+                },
+                { rootMargin: '-15% 0px -70% 0px', threshold: 0 },
+            );
+            sections.forEach((s) => observer.observe(s));
+
+            /* -------- mobile menu -------- */
+            const menuToggle = document.getElementById('menuToggle');
+            const sidebar = document.getElementById('sidebar');
+            menuToggle.addEventListener('click', () => {
+                sidebar.classList.toggle('open');
+            });
+            navLinks.forEach((a) => {
+                a.addEventListener('click', () => {
+                    sidebar.classList.remove('open');
+                });
+            });
+        </script>
+    </body>
+</html>
