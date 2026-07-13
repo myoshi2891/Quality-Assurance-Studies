@@ -127,6 +127,12 @@
                 background: var(--color-background-tertiary);
                 color: var(--color-text-primary);
             }
+            .sidebar nav li a.active {
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                border-left: 3px solid var(--c-purple-500);
+                padding-left: 7px;
+            }
             .sidebar nav li a .num {
                 flex-shrink: 0;
                 color: var(--c-purple-500);
@@ -2424,6 +2430,28 @@ jobs:
                 }
                 await mermaid.run({ querySelector: '.mermaid' });
             });
+        </script>
+        <!-- Scrollspy: サイドバーの現在地ハイライト -->
+        <script>
+            const cypressSections = document.querySelectorAll('[id^="sec-"]');
+            const cypressNavLinks = document.querySelectorAll('.sidebar nav a');
+
+            const cypressObserver = new IntersectionObserver(
+                (entries) => {
+                    const intersecting = entries.filter((e) => e.isIntersecting);
+                    if (intersecting.length === 0) return;
+                    intersecting.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                    const best = intersecting[0];
+                    const id = best.target.getAttribute('id');
+                    const link = document.querySelector('.sidebar nav a[href="#' + id + '"]');
+                    if (!link) return;
+                    cypressNavLinks.forEach((l) => l.classList.remove('active'));
+                    link.classList.add('active');
+                },
+                { rootMargin: '-15% 0px -70% 0px', threshold: 0 },
+            );
+
+            cypressSections.forEach((section) => cypressObserver.observe(section));
         </script>
     </body>
 </html>
