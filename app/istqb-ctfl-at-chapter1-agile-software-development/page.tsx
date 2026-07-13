@@ -4,19 +4,12 @@ import Mermaid from '../../components/Mermaid';
 
 const DIAGRAM_0 = `
 flowchart TD
-A["CTFL v4.0<br />Foundation Level<br />(必須前提資格)"] -->
-B["CTFL-AT<br />Foundation Level Agile Tester<br />本ガイドの対象"]
-B -->
-C1["CTAL-ATT<br />Advanced Level<br />Agile Technical Tester"]
-B -->
-C2["CTAL-ATLaS<br />Agile Test Leadership<br />at Scale"]
-A
--.->|"2025年以降の新規推奨ルート"| D["CTAL-AT v2.0<br />Advanced Level Agile
-Tester<br />CTFL-ATの後継"]
-style B
-fill:#00ff9d,stroke:#00a86b,color:#001018
-style D
-fill:#ffb020,stroke:#a86b00,color:#001018
+A["CTFL v4.0<br />Foundation Level<br />(必須前提資格)"] --> B["CTFL-AT<br />Foundation Level Agile Tester<br />本ガイドの対象"]
+B --> C1["CTAL-ATT<br />Advanced Level<br />Agile Technical Tester"]
+B --> C2["CTAL-ATLaS<br />Agile Test Leadership<br />at Scale"]
+A -.->|"2025年以降の新規推奨ルート"| D["CTAL-AT v2.0<br />Advanced Level Agile Tester<br />CTFL-ATの後継"]
+style B fill:#00ff9d,stroke:#00a86b,color:#001018
+style D fill:#ffb020,stroke:#a86b00,color:#001018
 `;
 
 const DIAGRAM_1 = `
@@ -52,40 +45,28 @@ leafB
 const DIAGRAM_2 = `
 flowchart TB
 subgraph G1["顧客価値・早期デリバリー"]
-P1["①
-価値あるソフトウェアの早期・継続的デリバリーで顧客満足を最優先"]
-P3["③
-数週間から数ヶ月間隔(短い方が望ましい)での頻繁なデリバリー"]
+P1["① 価値あるソフトウェアの早期・継続的デリバリーで顧客満足を最優先"]
+P3["③ 数週間から数ヶ月間隔(短い方が望ましい)での頻繁なデリバリー"]
 end
 subgraph G2["変化への適応"]
-P2["②
-開発後期であっても要求の変更を歓迎し、顧客の競争優位に変える"]
+P2["② 開発後期であっても要求の変更を歓迎し、顧客の競争優位に変える"]
 end
 subgraph G3["協働とコミュニケーション"]
-P4["④
-ビジネス側の人間と開発者は、プロジェクトを通じて毎日共に働く"]
-P6["⑥
-情報伝達の最も効率的で効果的な方法はフェイストゥフェイスの会話"]
+P4["④ ビジネス側の人間と開発者は、プロジェクトを通じて毎日共に働く"]
+P6["⑥ 情報伝達の最も効率的で効果的な方法はフェイストゥフェイスの会話"]
 end
 subgraph G4["人と持続可能性"]
-P5["⑤
-意欲ある個人を中心にプロジェクトを構築し、環境と支援を与え信頼する"]
-P8["⑧
-持続可能な開発を促進し、一定のペースを継続維持できるようにする"]
+P5["⑤ 意欲ある個人を中心にプロジェクトを構築し、環境と支援を与え信頼する"]
+P8["⑧ 持続可能な開発を促進し、一定のペースを継続維持できるようにする"]
 end
 subgraph G5["進捗の測定と技術的卓越性"]
-P7["⑦
-動くソフトウェアこそが進捗の主要な尺度"]
-P9["⑨
-技術的卓越性と優れた設計への継続的な配慮がアジリティを高める"]
-P10["⑩
-シンプルさ＝行わない作業を最大化する技術"]
+P7["⑦ 動くソフトウェアこそが進捗の主要な尺度"]
+P9["⑨ 技術的卓越性と優れた設計への継続的な配慮がアジリティを高める"]
+P10["⑩ シンプルさ＝行わない作業を最大化する技術"]
 end
 subgraph G6["自己組織化と継続的改善"]
-P11["⑪
-最良のアーキテクチャ・要求・設計は自己組織化チームから生まれる"]
-P12["⑫
-チームは定期的に振り返り、より効果的になるよう行動を調整する"]
+P11["⑪ 最良のアーキテクチャ・要求・設計は自己組織化チームから生まれる"]
+P12["⑫ チームは定期的に振り返り、より効果的になるよう行動を調整する"]
 end
 `;
 
@@ -94,17 +75,13 @@ flowchart LR
 subgraph Traditional["❌ 伝統的な分離モデル"]
 direction TB
 T1["開発チーム"] -->|"完成後に引き渡し"| T2["独立したテストチーム"]
-T2
--->|"欠陥報告を戻す"| T1
+T2 -->|"欠陥報告を戻す"| T1
 end
 subgraph WholeTeam["✅ ホールチームアプローチ"]
 direction TB
-Dev["開発者"] --- Tester["テスター"] Tester ---
-Biz["ビジネス代表者<br />プロダクトオーナー等"] Biz --- Dev
-Dev
--.->|"品質は全員の責任"| Quality(("共有された<br />品質目標"))
-Tester -.->
-Quality
+Dev["開発者"] --- Tester["テスター"] Tester --- Biz["ビジネス代表者<br />プロダクトオーナー等"] Biz --- Dev
+Dev -.->|"品質は全員の責任"| Quality(("共有された<br />品質目標"))
+Tester -.-> Quality
 Biz -.-> Quality
 end
 `;
@@ -112,8 +89,7 @@ end
 const DIAGRAM_4 = `
 flowchart TD
 Story(("ユーザーストーリー"))
-Biz2["ビジネス代表者<br />(何を・なぜ)"]
---> Story Dev2["開発者<br />(どのように実装するか)"] --> Story
+Biz2["ビジネス代表者<br />(何を・なぜ)"] --> Story Dev2["開発者<br />(どのように実装するか)"] --> Story
 Tester2["テスター<br />(どうテストするか／エッジケースは何か)"] --> Story
 Story --> Result["共通理解に基づく<br />高品質な受け入れ基準"]
 `;
@@ -123,8 +99,7 @@ flowchart LR
 subgraph Seq["シーケンシャル開発モデル"]
 direction LR
 S1[要件定義] --> S2[設計] --> S3[実装] --> S4[テスト] --> S5[リリース]
-S5
--.->|"数ヶ月後にようやく<br />顧客フィードバック"| FB1(("フィードバック"))
+S5 -.->|"数ヶ月後にようやく<br />顧客フィードバック"| FB1(("フィードバック"))
 end
 classDef seqNode fill:#3a1220,stroke:#ff4d6a,color:#ffc2d1;
 class
@@ -136,10 +111,8 @@ flowchart LR
 subgraph Agile2["アジャイル開発"]
 direction LR
 I1["イテレーション1"] --> F1(("フィードバック"))
-F1 -->
-I2["イテレーション2"] --> F2(("フィードバック"))
-F2 -->
-I3["イテレーション3"] --> F3(("フィードバック"))
+F1 --> I2["イテレーション2"] --> F2(("フィードバック"))
+F2 --> I3["イテレーション3"] --> F3(("フィードバック"))
 end
 classDef agileNode
 fill:#0f2e28,stroke:#00ff9d,color:#baf7dc;
@@ -148,30 +121,24 @@ class I1,I2,I3,F1,F2,F3 agileNode
 
 const DIAGRAM_7 = `
 flowchart TD
-A["コード単位のフィードバック<br />ユニットテスト・TDD・ペアプログラミング"]
---> B["機能単位のフィードバック<br />イテレーション内のデモ・受け入れテスト"]
+A["コード単位のフィードバック<br />ユニットテスト・TDD・ペアプログラミング"] --> B["機能単位のフィードバック<br />イテレーション内のデモ・受け入れテスト"]
 B --> C["プロダクト単位のフィードバック<br />スプリントレビュー・リリースごとの顧客評価"]
 C --> D["プロセス単位のフィードバック<br />レトロスペクティブによるチームプロセスの改善"]
 `;
 
 const DIAGRAM_8 = `
 flowchart TD
-Manifesto(("アジャイルマニフェスト<br />4つの価値観・12の原則"))
---> XP["Extreme Programming<br />技術プラクティス中心"]
-Manifesto -->
-Scrum["Scrum<br />時間区切り・役割中心"]
+Manifesto(("アジャイルマニフェスト<br />4つの価値観・12の原則")) --> XP["Extreme Programming<br />技術プラクティス中心"]
+Manifesto --> Scrum["Scrum<br />時間区切り・役割中心"]
 Manifesto --> Kanban["Kanban<br />フロー・WIP制限中心"]
 `;
 
 const DIAGRAM_9 = `
 flowchart LR
 subgraph Weekly["週次サイクル"]
-W1["ストーリーの選択"] -->
-W2["タスクへの分解"] --> W3["テストファーストで実装"] -->
-W4["継続的インテグレーション"] --> W5["週次リリース候補"]
+W1["ストーリーの選択"] --> W2["タスクへの分解"] --> W3["テストファーストで実装"] --> W4["継続的インテグレーション"] --> W5["週次リリース候補"]
 end
-W5 -->
-Q["四半期サイクル:<br />複数週次サイクルの積み上げでリリース"]
+W5 --> Q["四半期サイクル:<br />複数週次サイクルの積み上げでリリース"]
 `;
 
 const DIAGRAM_10 = `
@@ -181,8 +148,7 @@ SP --> SB[("スプリントバックログ")]
 SB --> Sprint["スプリント本体<br />通常2から4週間の固定長"]
 subgraph Sprint
 direction TB
-DS["デイリースクラム<br />毎日15分の同期MTG"]
--.->|"日々繰り返す"| DS Dev3["開発・テストの実施<br />ホールチームアプローチで進行"]
+DS["デイリースクラム<br />毎日15分の同期MTG"] -.->|"日々繰り返す"| DS Dev3["開発・テストの実施<br />ホールチームアプローチで進行"]
 DS --> Dev3
 end
 Sprint --> Inc[("インクリメント<br />完了の定義を満たした<br />動くソフトウェア")]
@@ -201,45 +167,36 @@ Dev4 -->|"Pull"| Test5["テスト中<br />WIP上限=2"]
 Test5 -->|"Pull"|
 Done["完了"]
 style Analysis fill:#22d3ee,color:#001018
-style Dev4
-fill:#22d3ee,color:#001018
+style Dev4 fill:#22d3ee,color:#001018
 style Test5 fill:#22d3ee,color:#001018
 `;
 
 const DIAGRAM_12 = `
 flowchart LR
-Card["📝 Card(カード)<br />ストーリーの簡潔な記述<br />詳細な仕様ではない"]
---> Conv["💬 Conversation(会話)<br />ビジネス代表者・開発者・<br />テスターによる詳細化の議論"]
+Card["📝 Card(カード)<br />ストーリーの簡潔な記述<br />詳細な仕様ではない"] --> Conv["💬 Conversation(会話)<br />ビジネス代表者・開発者・<br />テスターによる詳細化の議論"]
 Conv --> Conf["✅ Confirmation(確認)<br />受け入れ基準による<br />「完了」の合意"]
 `;
 
 const DIAGRAM_13 = `
 flowchart TD
-Start(("ストーリー作成の<br />ワークショップ開始")) -->
-Discuss["ビジネス代表者・開発者・テスターの<br />3者が同じ場でストーリーを議論"]
+Start(("ストーリー作成の<br />ワークショップ開始")) --> Discuss["ビジネス代表者・開発者・テスターの<br />3者が同じ場でストーリーを議論"]
 Discuss --> Q1{"テスターからの問い:<br />これはどうテストするか？<br />エッジケースは？"}
 Q1 --> Refine["ストーリーと受け入れ基準を<br />共同で洗練"]
-Refine -->
-AC[("テスト可能な<br />受け入れ基準が完成")]
-AC -->
-Ready["Ready(着手可能)な<br />ストーリーとしてバックログへ"]
+Refine --> AC[("テスト可能な<br />受け入れ基準が完成")]
+AC --> Ready["Ready(着手可能)な<br />ストーリーとしてバックログへ"]
 `;
 
 const DIAGRAM_14 = `
 flowchart TD
-Sprint2["1つのイテレーション/スプリントの終了"] -->
-Retro2["レトロスペクティブ開催"]
+Sprint2["1つのイテレーション/スプリントの終了"] --> Retro2["レトロスペクティブ開催"]
 Retro2 --> Q1["何がうまくいったか？<br />Keep"]
 Retro2 --> Q2["何が問題だったか？<br />Problem"]
-Retro2 -->
-Q3["次に何を試すか？<br />Try"]
+Retro2 --> Q3["次に何を試すか？<br />Try"]
 Q1 --> Actions[("具体的な改善アクション<br />アイテムの合意")]
 Q2 --> Actions
 Q3 --> Actions
-Actions -->
-NextSprint["次のイテレーション計画に反映"]
-NextSprint
--.->|"サイクルの繰り返し"| Sprint2
+Actions --> NextSprint["次のイテレーション計画に反映"]
+NextSprint -.->|"サイクルの繰り返し"| Sprint2
 `;
 
 const DIAGRAM_15 = `
@@ -249,8 +206,7 @@ direction TB
 D1["開発者A:2週間ブランチで作業"] --> Merge1["統合フェーズ<br />マージ地獄"]
 D2["開発者B:2週間ブランチで作業"] --> Merge1
 D3["開発者C:2週間ブランチで作業"] --> Merge1
-Merge1 -->
-Problem["大量のコンフリクト／統合バグの原因特定困難／修正コストが指数関数的に増大"]
+Merge1 --> Problem["大量のコンフリクト／統合バグの原因特定困難／修正コストが指数関数的に増大"]
 end
 `;
 
@@ -261,47 +217,35 @@ direction LR
 C1["コードのコミット/プッシュ"] --> C2["自動ビルド"]
 C2 --> C3["静的解析"]
 C3 --> C4["自動テスト実行<br />ユニット・統合"]
-C4 --> C5{"全て成功？"} C5
--->|"Yes"| C6["✅ 統合完了"]
+C4 --> C5{"全て成功？"} C5 -->|"Yes"| C6["✅ 統合完了"]
 C5 -->|"No"| C7["❌ 即座に開発者へ通知"]
-C7
--.->|"すぐ修正"| C1
+C7 -.->|"すぐ修正"| C1
 end
 `;
 
 const DIAGRAM_17 = `
 flowchart TD
-Push["開発者がコードをpush"] -->
-Trigger["CIサーバーがトリガー検知<br />Jenkins / GitHub Actions等"]
-Trigger
---> Build["自動ビルド"]
-Build --> BuildCheck{"ビルド成功？"} BuildCheck
--->|"No"| Fail1["❌ ビルド失敗を即通知<br />チームは最優先で修正"]
+Push["開発者がコードをpush"] --> Trigger["CIサーバーがトリガー検知<br />Jenkins / GitHub Actions等"]
+Trigger --> Build["自動ビルド"]
+Build --> BuildCheck{"ビルド成功？"} BuildCheck -->|"No"| Fail1["❌ ビルド失敗を即通知<br />チームは最優先で修正"]
 BuildCheck -->|"Yes"| UnitTest["ユニットテストの自動実行"]
-UnitTest -->
-UTCheck{"テスト成功？"} UTCheck -->|"No"| Fail2["❌ テスト失敗を通知"]
+UnitTest --> UTCheck{"テスト成功？"} UTCheck -->|"No"| Fail2["❌ テスト失敗を通知"]
 UTCheck -->|"Yes"| IntTest["統合テストの自動実行"]
-IntTest -->
-Report["カバレッジ・品質レポート生成"]
-Report -->
-Artifact["デプロイ可能なビルド成果物の生成"]
+IntTest --> Report["カバレッジ・品質レポート生成"]
+Report --> Artifact["デプロイ可能なビルド成果物の生成"]
 `;
 
 const DIAGRAM_18 = `
 flowchart TD
-Vision["プロダクトビジョン<br />プロダクトゴール"] -->
-RP["リリース計画<br />Release Planning<br />数ヶ月から数四半期単位"]
-RP -->
-IP1["イテレーション計画1"]
+Vision["プロダクトビジョン<br />プロダクトゴール"] --> RP["リリース計画<br />Release Planning<br />数ヶ月から数四半期単位"]
+RP --> IP1["イテレーション計画1"]
 RP --> IP2["イテレーション計画2"]
-RP -->
-IP3["イテレーション計画3"]
+RP --> IP3["イテレーション計画3"]
 IP1 --> Iter1["イテレーション1実施<br />1から4週間"]
 IP2 --> Iter2["イテレーション2実施"]
 IP3 --> Iter3["イテレーション3実施"]
 Iter1 --> Release[("リリース<br />複数イテレーションの積み上げ")]
-Iter2 -->
-Release
+Iter2 --> Release
 Iter3 --> Release
 `;
 
@@ -322,30 +266,22 @@ Release2 --> Iteration2 --> Daily
 const DIAGRAM_20 = `
 flowchart TD
 ROOT2(("Chapter 1<br />核心メッセージ"))
-ROOT2 --> B1["①
-価値観と原則が<br />全ての土台"]
+ROOT2 --> B1["① 価値観と原則が<br />全ての土台"]
 ROOT2 --> B2["② テスターは分離<br />された存在ではない"]
 ROOT2 --> B3["③ フィードバックの<br />速度が品質を決める"]
-ROOT2 --> B4["④
-ストーリーは<br />会話から生まれる"]
+ROOT2 --> B4["④ ストーリーは<br />会話から生まれる"]
 ROOT2 --> B5["⑤ 改善は<br />仕組み化されている"]
 B1 --> B1a["4つの価値観"]
 B1 --> B1b["12の原則"]
-B1 -->
-B1c["XP/Scrum/Kanbanは<br />その実装形態"]
-B2 -->
-B2a["ホールチームアプローチ"]
+B1 --> B1c["XP/Scrum/Kanbanは<br />その実装形態"]
+B2 --> B2a["ホールチームアプローチ"]
 B2 --> B2b["品質は全員の責任"]
-B3 -->
-B3a["早期・頻繁な<br />フィードバック"]
-B3 -->
-B3b["継続的インテグレーション"]
+B3 --> B3a["早期・頻繁な<br />フィードバック"]
+B3 --> B3b["継続的インテグレーション"]
 B4 --> B4a["3つのC"]
-B4 -->
-B4b["パワー・オブ・スリー"]
+B4 --> B4b["パワー・オブ・スリー"]
 B4 --> B4c["INVESTとテスト可能性"]
-B5 -->
-B5a["レトロスペクティブ"]
+B5 --> B5a["レトロスペクティブ"]
 B5 --> B5b["リリース計画と<br />イテレーション計画の階層"]
 classDef root
 fill:#132038,stroke:#22d3ee,stroke-width:2px,color:#eaf2fb,font-weight:bold;
