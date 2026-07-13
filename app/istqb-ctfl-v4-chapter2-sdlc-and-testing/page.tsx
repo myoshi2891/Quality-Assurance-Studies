@@ -197,7 +197,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     / Shift Left / BDD / 統合テストの分離）を重点的に押さえること。
                 </div>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -254,7 +254,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     <div className="mermaid-caption">図2: SDLCモデルの分類とテストへの影響</div>
                 </div>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -334,7 +334,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     <div className="mermaid-caption">図4: 良いテスト実践の4原則</div>
                 </div>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -385,7 +385,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     Leftを実践する中核的手法。
                 </p>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -459,7 +459,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     DevOpsは開発（テストを含む）とオペレーションが共通目標に向けて協働するための<strong>組織変革</strong>。技術的プラクティスに加え、<strong>文化的変革</strong>が必須であることがシラバスで明示されている。
                 </p>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -545,7 +545,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     <div className="mermaid-caption">図7: 従来アプローチ vs シフトレフト</div>
                 </div>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -584,7 +584,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     </table>
                 </div>
 
-                <div className="callout callout-success">
+                <div className="callout callout-good">
                     <strong>正しい理解:</strong>
                     シフトレフトは「後半テストをなくす」ことではなく、「前半にもテスト活動を追加する」ことで全体の品質を向上させる考え方。後半のシステムテストや受入テストは依然として必要。
                 </div>
@@ -607,7 +607,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     <div className="mermaid-caption">図8: レトロスペクティブの構造と成果</div>
                 </div>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -657,7 +657,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     <div className="mermaid-caption">図9: 5段階テストレベルの階層構造（v4.0）</div>
                 </div>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -721,7 +721,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                         <Mermaid chart={DIAGRAM_D10} />
                         <div className="mermaid-caption">図10: 受入テストの4サブタイプ</div>
                     </div>
-                    <div className="table-wrap">
+                    <div className="table-wrapper">
                         <table>
                             <thead>
                                 <tr>
@@ -777,7 +777,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     <div className="mermaid-caption">図11: 4つのテストタイプ</div>
                 </div>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -842,7 +842,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     欠陥修正後に実施する2種類のテスト。目的が異なるため、混同しないよう区別して理解する必要がある。
                 </p>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -889,7 +889,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             図13: 欠陥修正後の確認テスト・リグレッションテストフロー
                         </div>
                     </div>
-                    <div className="callout callout-success">
+                    <div className="callout callout-good">
                         <strong>DevOps/Agile環境での推奨:</strong>
                         リグレッションテストはCI/CDパイプラインで自動実行することが強く推奨される。頻繁な変更に対応するためには手動実行は非効率。
                     </div>
@@ -913,7 +913,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                     </div>
                 </div>
 
-                <div className="table-wrap">
+                <div className="table-wrapper">
                     <table>
                         <thead>
                             <tr>
@@ -965,7 +965,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
 
                 <div className="subsection">
                     <h3>メンテナンステスト固有の課題</h3>
-                    <div className="table-wrap">
+                    <div className="table-wrapper">
                         <table>
                             <thead>
                                 <tr>
@@ -1010,7 +1010,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
 
                 <div className="subsection">
                     <h3>v4.0で追加・変更された重要ポイント</h3>
-                    <div className="table-wrap">
+                    <div className="table-wrapper">
                         <table>
                             <thead>
                                 <tr>
@@ -1195,7 +1195,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             <div className="ref-url">
                                 <a
                                     href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
-                                    target="_blank"
+                                    target="_blank" rel="noopener noreferrer"
                                     >https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a
                                 >
                             </div>
@@ -1211,7 +1211,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             <div className="ref-url">
                                 <a
                                     href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
+                                    target="_blank" rel="noopener noreferrer"
                                     >https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
                                 >
                             </div>
@@ -1227,7 +1227,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             <div className="ref-url">
                                 <a
                                     href="https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/"
-                                    target="_blank"
+                                    target="_blank" rel="noopener noreferrer"
                                     >https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/</a
                                 >
                             </div>
@@ -1239,7 +1239,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                         <div>
                             <div className="ref-title">ISTQB 用語集（Glossary）</div>
                             <div className="ref-url">
-                                <a href="https://glossary.istqb.org/en_US/search" target="_blank"
+                                <a href="https://glossary.istqb.org/en_US/search" target="_blank" rel="noopener noreferrer"
                                     >https://glossary.istqb.org/en_US/search</a
                                 >
                             </div>
@@ -1253,7 +1253,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             <div className="ref-url">
                                 <a
                                     href="https://astqb.org/assets/documents/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
-                                    target="_blank"
+                                    target="_blank" rel="noopener noreferrer"
                                     >https://astqb.org/assets/documents/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a
                                 >
                             </div>
@@ -1267,7 +1267,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                         <div>
                             <div className="ref-title">ISTQB.com — CTFL v4.0 試験・シラバスガイド</div>
                             <div className="ref-url">
-                                <a href="https://www.istqb.com/ctfl-v4-0/" target="_blank"
+                                <a href="https://www.istqb.com/ctfl-v4-0/" target="_blank" rel="noopener noreferrer"
                                     >https://www.istqb.com/ctfl-v4-0/</a
                                 >
                             </div>
@@ -1283,7 +1283,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             <div className="ref-url">
                                 <a
                                     href="https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/"
-                                    target="_blank"
+                                    target="_blank" rel="noopener noreferrer"
                                     >https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/</a
                                 >
                             </div>
@@ -1299,7 +1299,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             <div className="ref-url">
                                 <a
                                     href="https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new"
-                                    target="_blank"
+                                    target="_blank" rel="noopener noreferrer"
                                     >https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new</a
                                 >
                             </div>
@@ -1316,7 +1316,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                                 Evaluation
                             </div>
                             <div className="ref-url">
-                                <a href="https://www.iso.org/standard/78176.html" target="_blank"
+                                <a href="https://www.iso.org/standard/78176.html" target="_blank" rel="noopener noreferrer"
                                     >https://www.iso.org/standard/78176.html</a
                                 >
                             </div>
@@ -1330,7 +1330,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             <div className="ref-url">
                                 <a
                                     href="https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/"
-                                    target="_blank"
+                                    target="_blank" rel="noopener noreferrer"
                                     >https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/</a
                                 >
                             </div>
@@ -1346,7 +1346,7 @@ export default function IstqbCtflV4Chapter2SdlcAndTesting() {
                             <div className="ref-url">
                                 <a
                                     href="https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide"
-                                    target="_blank"
+                                    target="_blank" rel="noopener noreferrer"
                                     >https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-complete-guide</a
                                 >
                             </div>
