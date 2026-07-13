@@ -1,4 +1,5 @@
 # ISTQB® Certified Tester – Finance Testing（CT-FT）完全ガイド
+
 ## 初学者のためのステップバイステップ解説
 
 > 🎯 **[algo-beginner スキル発火]**
