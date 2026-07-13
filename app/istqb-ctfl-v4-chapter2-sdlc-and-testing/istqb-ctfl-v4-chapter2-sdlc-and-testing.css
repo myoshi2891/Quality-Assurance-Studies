@@ -17,7 +17,6 @@
 .istqb-ctfl-v4-chapter2-page .hero {
     min-height: 0;
     display: block;
-    padding-top: 0;
     margin-bottom: 48px;
     padding: 40px;
     background: var(--color-bg-secondary, #0f1629);
@@ -552,4 +551,33 @@
         grid-template-columns: 1fr;
         gap: 12px;
     }
+}
+
+/* ─── Shared Components (Badge / Caption) ─── */
+.istqb-ctfl-v4-chapter2-page .version-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(183, 148, 244, 0.1);
+    border: 1px solid rgba(183, 148, 244, 0.25);
+    color: var(--color-accent-purple, #b794f4);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    font-family: var(--font-mono, monospace);
+}
+.istqb-ctfl-v4-chapter2-page .version-badge span {
+    color: var(--color-accent-purple, #b794f4);
+    font-size: 8px;
+}
+.istqb-ctfl-v4-chapter2-page .mermaid-caption {
+    text-align: center;
+    font-size: 12px;
+    color: var(--color-text-muted, #85a9df);
+    margin-top: 8px;
+    margin-bottom: 24px;
+    font-weight: 500;
 }
