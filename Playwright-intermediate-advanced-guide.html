@@ -811,7 +811,7 @@
                         <pre><code class="language-bash" id="code-1"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-1">
-                        npm init playwright@latest
+                        bun create playwright
                     </script>
 
                     <p>
@@ -880,19 +880,19 @@
                     </div>
                     <script type="text/plain" data-code-for="code-3">
                         # 全テスト実行(Chromium/Firefox/WebKitで並列)
-                        npx playwright test
+                        bunx playwright test
 
                         # 特定ブラウザのみ
-                        npx playwright test --project=chromium
+                        bunx playwright test --project=chromium
 
                         # 特定ファイルのみ
-                        npx playwright test tests/example.spec.ts
+                        bunx playwright test tests/example.spec.ts
 
                         # ヘッド付きモード(ブラウザウィンドウを表示)
-                        npx playwright test --headed
+                        bunx playwright test --headed
 
                         # UI Mode(推奨: 開発時のデバッグ体験)
-                        npx playwright test --ui
+                        bunx playwright test --ui
                     </script>
 
                     <div class="code-block">
@@ -901,7 +901,7 @@
                     </div>
                     <script type="text/plain" data-code-for="code-4">
                         # HTMLレポートを表示
-                        npx playwright show-report
+                        bunx playwright show-report
                     </script>
 
                     <p>
@@ -915,9 +915,9 @@
                         <pre><code class="language-bash" id="code-5"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-5">
-                        npm install -D @playwright/test@latest
-                        npx playwright install --with-deps
-                        npx playwright --version
+                        bun add -d @playwright/test@latest
+                        bunx playwright install --with-deps
+                        bunx playwright --version
                     </script>
 
                     <div class="refs">
@@ -1165,6 +1165,8 @@
                         <pre><code class="language-typescript" id="code-8"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-8">
+                        import { defineConfig } from '@playwright/test';
+
                         export default defineConfig({
                           use: {
                             testIdAttribute: 'data-pw',
@@ -1840,7 +1842,7 @@
                         <pre><code class="language-bash" id="code-22"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-22">
-                        npx playwright test --workers 4
+                        bunx playwright test --workers 4
                     </script>
 
                     <div class="code-block">
@@ -1955,10 +1957,10 @@
                         <pre><code class="language-bash" id="code-26"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-26">
-                        npx playwright test --shard=1/4
-                        npx playwright test --shard=2/4
-                        npx playwright test --shard=3/4
-                        npx playwright test --shard=4/4
+                        bunx playwright test --shard=1/4
+                        bunx playwright test --shard=2/4
+                        bunx playwright test --shard=3/4
+                        bunx playwright test --shard=4/4
                     </script>
 
                     <p>
@@ -2011,7 +2013,7 @@
                         <pre><code class="language-bash" id="code-28"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-28">
-                        npx playwright merge-reports --reporter html ./all-blob-reports
+                        bunx playwright merge-reports --reporter html ./all-blob-reports
                     </script>
 
                     <h3 class="sub-title">10.3 GitHub Actionsでのシャーディング例</h3>
@@ -2051,9 +2053,9 @@
                               - uses: actions/setup-node@v5
                                 with:
                                   node-version: lts/*
-                              - run: npm ci
-                              - run: npx playwright install --with-deps
-                              - run: npx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
+                              - run: bun install --frozen-lockfile
+                              - run: bunx playwright install --with-deps
+                              - run: bunx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
                               - uses: actions/upload-artifact@v4
                                 if: ${{ !cancelled() }}
                                 with:
@@ -2071,7 +2073,7 @@
                                   path: all-blob-reports
                                   pattern: blob-report-*
                                   merge-multiple: true
-                              - run: npx playwright merge-reports --reporter html ./all-blob-reports
+                              - run: bunx playwright merge-reports --reporter html ./all-blob-reports
                               - uses: actions/upload-artifact@v4
                                 with:
                                   name: html-report
@@ -2125,7 +2127,7 @@
                         <pre><code class="language-bash" id="code-30"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-30">
-                        npx playwright test --retries=3
+                        bunx playwright test --retries=3
                     </script>
 
                     <div class="code-block">
@@ -2251,7 +2253,7 @@
                         <pre><code class="language-bash" id="code-34"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-34">
-                        npx playwright test --trace on
+                        bunx playwright test --trace on
                     </script>
 
                     <h3 class="sub-title">12.2 トレースの閲覧フロー</h3>
@@ -2261,7 +2263,7 @@
                             A["テスト実行"] --> B{"失敗した?"}
                             B -- Yes --> C["trace.zip を自動生成(on-first-retryの場合)"]
                             B -- No --> D["トレースなし(設定次第)"]
-                            C --> E["npx playwright show-report"]
+                            C --> E["bunx playwright show-report"]
                             E --> F["HTMLレポート内のトレースアイコンをクリック"]
                             F --> G["Trace Viewerが開く"]
                             G --> H["タイムライン上でアクションを1つずつ確認"]
@@ -2699,7 +2701,7 @@
                         <pre><code class="language-bash" id="code-46"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-46">
-                        npx playwright test --update-snapshots
+                        bunx playwright test --update-snapshots
                     </script>
 
                     <h3 class="sub-title">15.4 差分許容度とノイズ除去</h3>
@@ -2845,6 +2847,10 @@
                           apiContext = await playwright.request.newContext({ baseURL: 'https://api.example.com' });
                         });
 
+                        test.afterAll(async () => {
+                          await apiContext.dispose();
+                        });
+
                         test('最後に作成したIssueが一覧の先頭に表示される', async ({ page }) => {
                           await apiContext.post('/repos/org/repo/issues', { data: { title: 'Feature request' } });
                           await page.goto('https://example.com/org/repo/issues');
@@ -2906,7 +2912,7 @@
                         <pre><code class="language-bash" id="code-54"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-54">
-                        npx playwright test --ui
+                        bunx playwright test --ui
                     </script>
 
                     <p>
@@ -3022,7 +3028,7 @@
 
                     <h3 class="sub-title">18.1 基本ワークフロー</h3>
                     <p>
-                        <code>npm init playwright@latest</code>実行時にGitHub
+                        <code>bun create playwright</code>実行時にGitHub
                         Actionsワークフローの追加を選択すると、以下の
                         <code>.github/workflows/playwright.yml</code>が自動生成されます。
                     </p>
@@ -3044,15 +3050,15 @@
                             runs-on: ubuntu-latest
                             steps:
                             - uses: actions/checkout@v5
-                            - uses: actions/setup-node@v5
+                            - uses: oven-sh/setup-bun@v2
                               with:
-                                node-version: lts/*
+                                bun-version: latest
                             - name: Install dependencies
-                              run: npm ci
+                              run: bun install --frozen-lockfile
                             - name: Install Playwright Browsers
-                              run: npx playwright install --with-deps
+                              run: bunx playwright install --with-deps
                             - name: Run Playwright tests
-                              run: npx playwright test
+                              run: bunx playwright test
                             - uses: actions/upload-artifact@v4
                               if: ${{ !cancelled() }}
                               with:
@@ -3067,14 +3073,14 @@
                         flowchart TD
                             A["git push / PR"] --> B["リポジトリをclone"]
                             B --> C["Node.jsをセットアップ"]
-                            C --> D["npm ci"]
-                            D --> E["npx playwright install --with-deps"]
-                            E --> F["npx playwright test"]
+                            C --> D["bun install --frozen-lockfile"]
+                            D --> E["bunx playwright install --with-deps"]
+                            E --> F["bunx playwright test"]
                             F --> G{"テスト結果"}
                             G -- 合格 --> H["HTMLレポートをArtifactへアップロード"]
                             G -- 失敗 --> H
                             H --> I["GitHub Actions ActionsタブでArtifact確認"]
-                            I --> J["npx playwright show-report でローカル閲覧"]
+                            I --> J["bunx playwright show-report でローカル閲覧"]
                             J --> K["Trace Viewerで失敗箇所を特定"]
                     </script>
 
@@ -3088,7 +3094,7 @@
                         <pre><code class="language-bash" id="code-56"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-56">
-                        npx playwright show-report name-of-extracted-report-folder
+                        bunx playwright show-report name-of-extracted-report-folder
                     </script>
 
                     <h3 class="sub-title">18.4 CI最適化のポイント</h3>
@@ -3108,7 +3114,7 @@
                                 <tr>
                                     <td>必要なブラウザのみインストール</td>
                                     <td>
-                                        <code>npx playwright install chromium --with-deps</code
+                                        <code>bunx playwright install chromium --with-deps</code
                                         >のように絞り込みダウンロード時間を短縮
                                     </td>
                                 </tr>
@@ -3239,7 +3245,7 @@
                                 Server["Playwright Server (ws://0.0.0.0:3000)"]
                             end
                             subgraph HM["ホスト / 別マシン"]
-                                Test["npx playwright test (PW_TEST_CONNECT_WS_ENDPOINT経由)"]
+                                Test["bunx playwright test (PW_TEST_CONNECT_WS_ENDPOINT経由)"]
                             end
                             Test -->|WebSocket接続| Server
                     </script>
@@ -3251,7 +3257,7 @@
                     <script type="text/plain" data-code-for="code-58">
                         docker run -p 3000:3000 --rm --init -it --workdir /home/pwuser --user pwuser \
                           mcr.microsoft.com/playwright:v1.61.0-noble \
-                          /bin/sh -c "npx -y playwright@1.61.0 run-server --port 3000 --host 0.0.0.0"
+                          /bin/sh -c "bunx playwright@1.61.0 run-server --port 3000 --host 0.0.0.0"
                     </script>
 
                     <div class="code-block">
@@ -3259,7 +3265,7 @@
                         <pre><code class="language-bash" id="code-59"></code></pre>
                     </div>
                     <script type="text/plain" data-code-for="code-59">
-                        PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ npx playwright test
+                        PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ bunx playwright test
                     </script>
 
                     <div class="callout warn">
@@ -3278,7 +3284,7 @@
                     </div>
                     <script type="text/plain" data-code-for="code-60">
                         FROM node:20-bookworm
-                        RUN npx -y playwright@1.61.0 install --with-deps
+                        RUN bunx playwright@1.61.0 install --with-deps
                     </script>
 
                     <div class="refs">
@@ -3389,7 +3395,7 @@
                         </li>
                         <li>
                             <strong>codegenで生成する</strong>:
-                            <code>npx playwright codegen &lt;URL&gt;</code
+                            <code>bunx playwright codegen &lt;URL&gt;</code
                             >はロール・テキスト・test-idを優先した堅牢なLocatorを自動生成する
                         </li>
                         <li>
@@ -3403,7 +3409,7 @@
                         </li>
                         <li>
                             <strong>依存を最新に保つ</strong>:
-                            <code>npm install -D @playwright/test@latest</code
+                            <code>bun add -d @playwright/test@latest</code
                             >で最新ブラウザに追従し、リリース前に不具合を検知する
                         </li>
                         <li>
