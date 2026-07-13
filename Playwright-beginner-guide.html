@@ -633,7 +633,7 @@
                     <h2>Playwrightとは何か</h2>
                     <p>
                         Playwrightは、Microsoftが開発しているオープンソースのE2E（End-to-End）テスト・ブラウザ自動化フレームワークです。Chromium・Firefox・WebKitという3大ブラウザエンジンを、単一のAPIでWindows・Linux・macOS上から操作できるのが最大の特徴です。ローカル環境でもCI環境でも、ヘッドレス（画面非表示）・ヘッド付き（画面表示）のどちらのモードでも動作し、Android向けChromeやMobile
-                        Safariのネイティブなモバイルエミュレーションにも対応しています。
+                        Safari（Safari本体のネイティブ自動化ではなく、WebKitベースのデバイスエミュレーション）のモバイルエミュレーションにも対応しています。
                     </p>
                     <p>
                         Playwright
@@ -693,7 +693,7 @@
                     </div>
 
                     <p>
-                        Cypressと比較されることが多いですが、Cypressが基本的にChromium系ブラウザに限定されるのに対し、Playwrightは3エンジンすべてで同一コードのテストを実行できる点、また複数タブやiframe、複数ブラウザコンテキストの扱いに強い点が大きな違いです。
+                        Cypressと比較されることが多いですが、CypressはChromium系ブラウザに加えてFirefoxを正式サポートし、WebKitを実験的対応としているのに対し、Playwrightは3大ブラウザエンジンすべてで同一コードのテストを実行できる点、また複数タブやiframe、複数ブラウザコンテキストの扱いに強い点が大きな違いです。
                     </p>
 
                     <h4>参照URL</h4>
@@ -865,7 +865,7 @@
                         <div class="code-head">
                             <span>terminal</span><span class="lang">bash</span>
                         </div>
-                        <pre><code class="language-bash">npm init playwright@latest</code></pre>
+                        <pre><code class="language-bash">bun create playwright</code></pre>
                     </div>
 
                     <p>このコマンドを実行すると、対話形式で以下を尋ねられます。</p>
@@ -898,11 +898,11 @@
                             <span>terminal</span><span class="lang">bash</span>
                         </div>
                         <pre><code class="language-bash"># 現在のバージョンを確認
-npx playwright --version
+bunx playwright --version
 
 # 最新版へ更新し、ブラウザも再取得
-npm install -D @playwright/test@latest
-npx playwright install --with-deps</code></pre>
+bun add -d @playwright/test@latest
+bunx playwright install --with-deps</code></pre>
                     </div>
 
                     <div class="callout note">
