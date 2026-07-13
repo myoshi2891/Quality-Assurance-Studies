@@ -5,6 +5,7 @@ import Page from '../../app/istqb-ctfl-at-chapter1-agile-software-development/pa
 
 afterEach(() => cleanup());
 
+// TDD Red Phase: failing test for initial empty page
 describe('CTFL-AT Chapter 1 Agile Software Development Page', () => {
     it('renders the main heading', () => {
         render(<Page />);
