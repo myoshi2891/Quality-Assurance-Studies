@@ -139,6 +139,9 @@ IA3 --> out
 IA4 --> out
 out --> plan["メンテナンステスト計画の策定"]`;
 
+/**
+ * Renders a study guide for ISTQB CTFL v4.0.1 Chapter 2, covering software development life cycles and testing.
+ */
 export default function IstqbCtflV4Chapter2SdlcAndTesting() {
     return (
         <div className="istqb-ctfl-v4-chapter2-page">
