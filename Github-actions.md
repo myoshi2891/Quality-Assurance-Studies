@@ -115,7 +115,7 @@ jobs:
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
       - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
       - name: Check out repository code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
       - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: List files in the repository
@@ -208,7 +208,7 @@ defaults:
 | キー | 説明 |
 |---|---|
 | `name` | ステップの表示名 |
-| `uses` | 使用するアクション（例: `actions/checkout@v6`） |
+| `uses` | 使用するアクション（例: `actions/checkout@v7`） |
 | `run` | 実行するシェルコマンド |
 | `with` | アクションに渡す入力パラメータ |
 | `env` | ステップ単位の環境変数 |
@@ -406,7 +406,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 ```
 
 参照: [Workflow syntax - Standard GitHub-hosted runners for public repositories](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#standard-github-hosted-runners-for-public-repositories), [GitHub-hosted runners](https://docs.github.com/en/actions/concepts/runners/github-hosted-runners)
@@ -434,7 +434,7 @@ jobs:
     container:
       image: node:20-bookworm
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - run: npm ci
 ```
 
@@ -481,7 +481,7 @@ jobs:
     if: github.repository == 'octo-org/octo-repo-prod'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 ```
 
 `if`式の先頭が`!`で始まる場合は、YAMLの予約文字と衝突するため`${{ }}`または引用符での囲みが必須です。
@@ -519,7 +519,7 @@ jobs:
         node-version: [18, 20, 22]
     runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -663,7 +663,7 @@ GitHubホスト型ランナーは毎回クリーンな仮想マシンから起�
 
 ```yaml
 steps:
-  - uses: actions/checkout@v6
+  - uses: actions/checkout@v7
   - uses: actions/setup-node@v4
     with:
       node-version: 20
@@ -703,7 +703,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - run: npm ci && npm run build
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -763,7 +763,7 @@ jobs:
     outputs:
       result: ${{ steps.build-step.outputs.result }}
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - id: build-step
         run: |
           echo "result=success" >> "$GITHUB_OUTPUT"
@@ -852,7 +852,7 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -868,7 +868,7 @@ jobs:
         os: [ubuntu-latest]
         node-version: [18, 20, 22]
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
@@ -880,7 +880,7 @@ jobs:
     needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -935,12 +935,20 @@ jobs:
 - uses: actions/checkout@8e8a3f4f6c8b3e1e9b1e...
 
 # 一般的だが、タグの再割り当てリスクがある
-- uses: actions/checkout@v6
+- uses: actions/checkout@v7
 ```
 
-### 15.2 pull_request_targetの取り扱い注意
+### 15.2 pull_request_targetおよびworkflow_runの取り扱い注意
 
 `pull_request_target`イベントはデフォルトブランチのコンテキストで実行され、フォークからのPRであっても書き込み権限のある`GITHUB_TOKEN`が発行されます。この特性を悪用され、フォークのPRに含まれる未信頼コードを実行してしまうと、シークレットの窃取やキャッシュポイズニングにつながる恐れがあります。フォークのPRコードをチェックアウトして実行する必要がある場合は、このイベントの使用を避けるか、[Securely using pull_request_target](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target)のガイドラインに従ってください。
+
+**actions/checkout v7 の注意点：**
+
+`actions/checkout@v7`では、`pull_request_target`および`workflow_run`トリガーのワークフロー内でフォークからのPRコードをデフォルトでチェックアウトする動作が**既定で拒否**されます。これはサプライチェーン攻撃のリスクを軽減するためのセキュリティ強化です。
+
+- `pull_request_target`でフォークのHEADをチェックアウトするには、明示的に`ref: ${{ github.event.pull_request.head.sha }}`を指定し、かつ信頼されたコードのみを実行するよう設計する必要があります。
+- `workflow_run`トリガーでも同様に、トリガー元のワークフローのSHAを明示的に指定しない場合、フォーク由来のコードはチェックアウトされません。
+- v6以前の挙動に依存したワークフローはv7移行時に動作が変わる可能性があるため、必ず検証してください。
 
 ### 15.3 最小権限のpermissions設定
 
