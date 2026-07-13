@@ -1,19 +1,26 @@
 # Migration Progress
 
-Updated 2026-07-08
+Updated 2026-07-13
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 全37ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
+> **✅ 全ガイド移行完了**: 全38ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `03ec1eb` |
-| 次の作業 | QA/テストプロセスの継続的改善 |
-| ビルド状態 | ✅ `bun run lint` / `bun test`（168 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| 最新 HEAD | `641ecb2` |
+| 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
+| ビルド状態 | ✅ `bun run lint` / `bun test`（171 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/07/13: CTFL-AT Chapter 1 (アジャイルソフトウェア開発) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-at-chapter1-agile-software-development/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
+- `tests/istqb-ctfl-at-chapter1-agile-software-development/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（171件）。
+- `Ctfl-at-chapter1-agile-software-development.html`: `archive/html-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 38 ページ体制に同期。
 
 ## 2026/07/08: CTFL v4.0 Chapter 2 (SDLCとテスト) ガイドの Next.js 移行完了
 

@@ -94,6 +94,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/software-testing-methodologies-guide/page.tsx` (テスト手法ガイド)
 - `app/unit-testing-guide/page.tsx` (ユニットテスト完全ガイド)
 - `app/istqb-ctfl-at-complete-guide/page.tsx` (アジャイル(CTFL-AT)完全ガイド)
+- `app/istqb-ctfl-at-chapter1-agile-software-development/page.tsx` (アジャイル(CTFL-AT)1章ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctfl-complete-guide/page.tsx` (ISTQB CTFL v4.0 完全解説ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctfl-v4-chapter1-fundamentals/page.tsx` (CTFL v4.0 第1章 テストの基礎、`NavBar.tsx` 付き)
 - `app/istqb-ctfl-v4-chapter2-sdlc-and-testing/page.tsx` (CTFL v4.0 第2章 SDLCとテスト、`NavBar.tsx` 付き)
@@ -201,6 +202,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
 | `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
+| `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -219,7 +221,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 コンテキスト:
 - 最新 HEAD: `5125d0b` (Chapter 2 実装コミット)
 - **全ガイド移行完了**: プロジェクトルートに存在した全37ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 37 ルート（ホーム + 36 ガイド）が管理されています。
+- 合計 38 ルート（ホーム + 37 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
