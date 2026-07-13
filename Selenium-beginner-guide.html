@@ -492,7 +492,7 @@
                 <header class="page-header">
                     <div class="badges">
                         <span class="badge"
-                            ><i class="ti ti-versions"></i>Selenium 4.41.0（2026年7月時点）</span
+                            ><i class="ti ti-versions"></i>Selenium 4.46.0（2026年7月時点）</span
                         >
                         <span class="badge"
                             ><i class="ti ti-language"></i>日本語 / コード例: Python</span
@@ -776,11 +776,11 @@ graph LR
                         <code>requirements.txt</code>
                         を使ってバージョンを固定する場合は、以下のように記述します
                         （本ガイド執筆時点の最新安定版は
-                        <strong>4.41.0</strong> です。最新バージョンは必ず
+                        <strong>4.46.0</strong> です。最新バージョンは必ず
                         <a href="https://www.selenium.dev/downloads/" target="_blank" rel="noopener noreferrer">Downloadsページ</a
                         >で確認してください）。
                     </p>
-                    <pre><code class="language-bash">selenium==4.41.0
+                    <pre><code class="language-bash">selenium==4.46.0
 pytest==9.0.3</code></pre>
 
                     <h3><i class="ti ti-circle-check step-icon"></i>Step 3: インストールの確認</h3>
@@ -1161,20 +1161,24 @@ flowchart TD
                         <code>WebDriverWait</code>
                         を使い、特定の条件（表示されるまで、など）が満たされるまでポーリングします。
                     </p>
-                    <pre><code class="language-python">from selenium.webdriver.support.wait import WebDriverWait
+                    <pre><code class="language-python">from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 wait = WebDriverWait(driver, timeout=2)
-wait.until(lambda d: revealed.is_displayed())</code></pre>
+revealed = wait.until(lambda d: d.find_element(By.ID, "revealed"))
+revealed.is_displayed()</code></pre>
 
                     <h3>
                         <i class="ti ti-adjustments step-icon"></i>Step 3:
                         カスタマイズ（ポーリング間隔・例外の無視）
                     </h3>
                     <pre><code class="language-python">from selenium.common import NoSuchElementException, ElementNotInteractableException
+from selenium.webdriver.common.by import By
 
 errors = [NoSuchElementException, ElementNotInteractableException]
 wait = WebDriverWait(driver, timeout=2, poll_frequency=0.3, ignored_exceptions=errors)
-wait.until(lambda d: revealed.send_keys("Displayed") or True)</code></pre>
+revealed = wait.until(lambda d: d.find_element(By.ID, "revealed"))
+revealed.send_keys("Displayed")</code></pre>
 
                     <div class="section-refs">
                         <div class="label"><i class="ti ti-link"></i>参考</div>
