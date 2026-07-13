@@ -11,16 +11,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `641ecb2` |
+| 最新 HEAD | `7187966` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun run lint` / `bun test`（171 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
-## 2026/07/13: CTFL-AT Chapter 1 (アジャイルソフトウェア開発) ガイドの Next.js 移行完了
+## 2026/07/13: CTFL-AT Chapter 1 (アジャイルソフトウェア開発) ガイド of Next.js 移行完了と Mermaid 修正
 
 - `app/istqb-ctfl-at-chapter1-agile-software-development/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
 - `tests/istqb-ctfl-at-chapter1-agile-software-development/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（171件）。
 - `Ctfl-at-chapter1-agile-software-development.html`: `archive/html-archive/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 38 ページ体制に同期。
+- **Mermaid 表示バグの修正**: 移行スクリプトで改行が崩れて描画エラー（`Expecting 'NEWLINE'` 等）になっていた21個の Mermaid ダイアグラムを、元の HTML から抽出した正しい複数行構文に修復。
 
 ## 2026/07/08: CTFL v4.0 Chapter 2 (SDLCとテスト) ガイドの Next.js 移行完了
 
