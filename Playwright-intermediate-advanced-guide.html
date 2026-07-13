@@ -11,7 +11,6 @@
             rel="stylesheet"
         />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js"></script>
         <style>
             :root {
                 --bg: #07111e;
@@ -550,7 +549,7 @@
         </style>
     </head>
     <body>
-        <button class="sidebar-toggle" id="sidebarToggle" aria-label="目次を開閉">☰</button>
+        <button type="button" class="sidebar-toggle" id="sidebarToggle" aria-label="目次を開閉">☰</button>
 
         <div class="app">
             <aside class="sidebar" id="sidebar">
@@ -3954,40 +3953,49 @@
                 }
             });
 
-            if (window.mermaid) {
-                mermaid.initialize({
-                    startOnLoad: false,
-                    theme: 'base',
-                    themeVariables: {
-                        background: '#07111e',
-                        primaryColor: '#0d1b2e',
-                        primaryTextColor: '#e7edf6',
-                        primaryBorderColor: '#2dd4bf',
-                        lineColor: '#4b5f77',
-                        secondaryColor: '#11263c',
-                        tertiaryColor: '#0b1622',
-                        fontFamily: 'Inter, sans-serif',
-                        fontSize: '14px',
-                        edgeLabelBackground: '#0d1b2e',
-                        clusterBkg: '#0b1622',
-                        clusterBorder: 'rgba(45,212,191,0.35)',
-                        nodeTextColor: '#e7edf6',
-                        actorBkg: '#0d1b2e',
-                        actorBorder: '#2dd4bf',
-                        actorTextColor: '#e7edf6',
-                        signalColor: '#93a5bd',
-                        signalTextColor: '#e7edf6',
-                        labelBoxBkgColor: '#0d1b2e',
-                        labelTextColor: '#e7edf6',
-                        noteBkgColor: '#11263c',
-                        noteTextColor: '#e7edf6',
-                        noteBorderColor: '#2dd4bf',
-                    },
-                    flowchart: { curve: 'basis', htmlLabels: true, padding: 12 },
-                    sequence: { actorMargin: 60, useMaxWidth: true, boxMargin: 10 },
-                });
-                mermaid.run({ querySelector: 'pre.mermaid' });
-            }
+        </script>
+
+        <script type="module">
+            import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.4.1/dist/mermaid.esm.min.mjs';
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                themeVariables: {
+                    background: '#07111e',
+                    primaryColor: '#0d1b2e',
+                    primaryTextColor: '#e7edf6',
+                    primaryBorderColor: '#2dd4bf',
+                    lineColor: '#4b5f77',
+                    secondaryColor: '#11263c',
+                    tertiaryColor: '#0b1622',
+                    fontFamily: 'Inter, sans-serif',
+                    fontSize: '14px',
+                    edgeLabelBackground: '#0d1b2e',
+                    clusterBkg: '#0b1622',
+                    clusterBorder: 'rgba(45,212,191,0.35)',
+                    nodeTextColor: '#e7edf6',
+                    actorBkg: '#0d1b2e',
+                    actorBorder: '#2dd4bf',
+                    actorTextColor: '#e7edf6',
+                    signalColor: '#93a5bd',
+                    signalTextColor: '#e7edf6',
+                    labelBoxBkgColor: '#0d1b2e',
+                    labelTextColor: '#e7edf6',
+                    noteBkgColor: '#11263c',
+                    noteTextColor: '#e7edf6',
+                    noteBorderColor: '#2dd4bf',
+                },
+                flowchart: { curve: 'basis', htmlLabels: true, padding: 12 },
+                sequence: { actorMargin: 60, useMaxWidth: true, boxMargin: 10 },
+            });
+
+            window.addEventListener('DOMContentLoaded', async () => {
+                if (document.fonts && document.fonts.ready) {
+                    await document.fonts.ready;
+                }
+                await mermaid.run({ querySelector: 'pre.mermaid' });
+            });
 
             // ---- サイドバー: スクロールスパイ (IntersectionObserver) ----
             var sections = Array.prototype.slice.call(
