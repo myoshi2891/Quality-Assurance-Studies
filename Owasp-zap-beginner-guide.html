@@ -1,0 +1,3816 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <title>
+            OWASP ZAP 完全ガイド ― 初学者のための Web アプリケーションセキュリティテスト入門
+        </title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.33.0/dist/tabler-icons.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css"
+        />
+        <style>
+            :root {
+                --color-background-primary: #0b0e14;
+                --color-background-secondary: #12161f;
+                --color-background-tertiary: #1b212c;
+                --color-background-info: #0f2438;
+                --color-background-danger: #3a1416;
+                --color-background-success: #0e2a1c;
+                --color-background-warning: #3a2a0a;
+
+                --color-text-primary: #e8ecf1;
+                --color-text-secondary: #9aa5b3;
+                --color-text-tertiary: #6b7484;
+                --color-text-info: #7cc4ff;
+                --color-text-danger: #ff8a85;
+                --color-text-success: #7fe3ab;
+                --color-text-warning: #f0c05a;
+
+                --color-border-tertiary: #1e2530;
+                --color-border-secondary: #2a3240;
+                --color-border-primary: #3d4757;
+
+                --accent-teal: #2dd4bf;
+                --accent-purple: #a78bfa;
+                --accent-coral: #ff8a65;
+
+                --font-sans:
+                    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+                    'Hiragino Sans', 'Yu Gothic', 'Noto Sans JP', Meiryo, sans-serif;
+                --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+                --border-radius-md: 8px;
+                --border-radius-lg: 12px;
+                --border-radius-xl: 16px;
+
+                --sidebar-width: 300px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--color-background-primary);
+                color: var(--color-text-primary);
+                font-family: var(--font-sans);
+                font-size: 16px;
+                line-height: 1.7;
+                font-weight: 400;
+            }
+
+            a {
+                color: var(--accent-teal);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .layout {
+                display: flex;
+                min-height: 100vh;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                width: var(--sidebar-width);
+                flex-shrink: 0;
+                background: var(--color-background-secondary);
+                border-right: 1px solid var(--color-border-tertiary);
+                position: sticky;
+                top: 0;
+                height: 100vh;
+                overflow-y: auto;
+                padding: 24px 0 40px;
+            }
+            .sidebar-header {
+                padding: 0 20px 20px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                margin-bottom: 12px;
+            }
+            .sidebar-header .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 500;
+                font-size: 16px;
+                color: var(--color-text-primary);
+            }
+            .sidebar-header .brand i {
+                color: var(--accent-teal);
+                font-size: 22px;
+            }
+            .sidebar-header .sub {
+                margin-top: 6px;
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+            }
+            .nav-group-title {
+                padding: 16px 20px 6px;
+                font-size: 11px;
+                letter-spacing: 0.04em;
+                color: var(--color-text-tertiary);
+                text-transform: uppercase;
+            }
+            .nav-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .nav-list li a {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                padding: 8px 20px;
+                font-size: 14px;
+                color: var(--color-text-secondary);
+                border-left: 2px solid transparent;
+            }
+            .nav-list li a i {
+                font-size: 16px;
+                color: var(--color-text-tertiary);
+                flex-shrink: 0;
+            }
+            .nav-list li a:hover {
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                text-decoration: none;
+            }
+            .nav-list li a.active {
+                color: var(--color-text-primary);
+                border-left: 2px solid var(--accent-teal);
+                background: var(--color-background-tertiary);
+            }
+            .nav-list li a.active i {
+                color: var(--accent-teal);
+            }
+
+            .sidebar-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 50;
+                width: 40px;
+                height: 40px;
+                border-radius: var(--border-radius-md);
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-secondary);
+                color: var(--color-text-primary);
+                align-items: center;
+                justify-content: center;
+                font-size: 18px;
+            }
+
+            /* ---------- Main content ---------- */
+            .content {
+                flex: 1;
+                min-width: 0;
+                padding: 56px 64px 120px;
+            }
+            .content-inner {
+                max-width: none;
+                width: 100%;
+            }
+
+            .doc-header {
+                margin-bottom: 48px;
+            }
+            .doc-header h1 {
+                font-size: 28px;
+                font-weight: 500;
+                line-height: 1.35;
+                margin: 0 0 12px;
+            }
+            .doc-header p {
+                color: var(--color-text-secondary);
+                font-size: 15px;
+                margin: 0;
+            }
+            .doc-header .source-line {
+                margin-top: 16px;
+                font-size: 13px;
+                color: var(--color-text-tertiary);
+            }
+            .doc-header .source-line a {
+                margin-right: 14px;
+            }
+
+            section {
+                margin-bottom: 56px;
+                padding-top: 16px;
+                border-top: 1px solid var(--color-border-tertiary);
+            }
+            section:first-of-type {
+                border-top: none;
+            }
+
+            .section-eyebrow {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 13px;
+                color: var(--color-text-tertiary);
+                margin-bottom: 8px;
+            }
+            .section-eyebrow i {
+                color: var(--accent-teal);
+                font-size: 16px;
+            }
+
+            h2 {
+                font-size: 22px;
+                font-weight: 500;
+                margin: 0 0 16px;
+                color: var(--color-text-primary);
+            }
+            h3 {
+                font-size: 18px;
+                font-weight: 500;
+                margin: 28px 0 12px;
+                color: var(--color-text-primary);
+            }
+            h4 {
+                font-size: 16px;
+                font-weight: 500;
+                margin: 20px 0 10px;
+                color: var(--color-text-primary);
+            }
+            p {
+                margin: 0 0 16px;
+                color: var(--color-text-primary);
+            }
+            ul,
+            ol {
+                margin: 0 0 16px;
+                padding-left: 22px;
+            }
+            li {
+                margin-bottom: 6px;
+            }
+            strong {
+                font-weight: 500;
+                color: var(--color-text-primary);
+            }
+            blockquote {
+                margin: 0 0 16px;
+                padding: 2px 16px;
+                border-left: 2px solid var(--color-border-primary);
+                color: var(--color-text-secondary);
+            }
+            code {
+                font-family: var(--font-mono);
+                font-size: 13px;
+                background: var(--color-background-tertiary);
+                padding: 2px 6px;
+                border-radius: 4px;
+                color: var(--color-text-info);
+            }
+            pre {
+                margin: 0 0 20px;
+            }
+            pre code {
+                display: block;
+                padding: 18px 20px;
+                border-radius: var(--border-radius-md);
+                background: #12161f !important;
+                overflow-x: auto;
+                font-size: 13px;
+                line-height: 1.6;
+                border: 1px solid var(--color-border-tertiary);
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 0 0 20px;
+                border-radius: var(--border-radius-md);
+                border: 1px solid var(--color-border-tertiary);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 14px;
+            }
+            thead th {
+                text-align: left;
+                background: var(--color-background-tertiary);
+                color: var(--color-text-primary);
+                font-weight: 500;
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--color-border-secondary);
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 10px 14px;
+                border-bottom: 1px solid var(--color-border-tertiary);
+                color: var(--color-text-secondary);
+                vertical-align: top;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: var(--color-background-tertiary);
+            }
+
+            /* ---------- Callouts ---------- */
+            .callout {
+                display: flex;
+                gap: 12px;
+                padding: 14px 16px;
+                border-radius: var(--border-radius-md);
+                border: 1px solid var(--color-border-secondary);
+                margin: 0 0 20px;
+                font-size: 14px;
+            }
+            .callout i {
+                font-size: 18px;
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+            .callout-info {
+                background: var(--color-background-info);
+                border-color: #204a6b;
+            }
+            .callout-info i {
+                color: var(--color-text-info);
+            }
+            .callout-warning {
+                background: var(--color-background-warning);
+                border-color: #5a4514;
+            }
+            .callout-warning i {
+                color: var(--color-text-warning);
+            }
+            .callout-danger {
+                background: var(--color-background-danger);
+                border-color: #6b2124;
+            }
+            .callout-danger i {
+                color: var(--color-text-danger);
+            }
+            .callout-success {
+                background: var(--color-background-success);
+                border-color: #1d5236;
+            }
+            .callout-success i {
+                color: var(--color-text-success);
+            }
+            .callout p {
+                margin: 0;
+                color: var(--color-text-primary);
+            }
+            .callout strong {
+                display: block;
+                margin-bottom: 4px;
+            }
+
+            /* ---------- Mermaid diagrams ---------- */
+            .mermaid-diagram {
+                text-align: center;
+                padding: 20px;
+                margin: 0 0 20px;
+                border-radius: var(--border-radius-md);
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-tertiary);
+                overflow-x: auto;
+            }
+            .mermaid-diagram svg {
+                overflow: visible;
+            }
+            .mermaid-error {
+                color: var(--color-text-danger);
+                font-size: 13px;
+            }
+
+            /* ---------- Reference box ---------- */
+            .refs {
+                margin-top: 24px;
+                padding: 16px 18px;
+                border-radius: var(--border-radius-md);
+                background: var(--color-background-secondary);
+                border: 1px solid var(--color-border-tertiary);
+            }
+            .refs .refs-title {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 12px;
+                color: var(--color-text-tertiary);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                margin-bottom: 10px;
+            }
+            .refs .refs-title i {
+                font-size: 14px;
+                color: var(--accent-teal);
+            }
+            .refs ul {
+                margin: 0;
+                padding-left: 18px;
+            }
+            .refs li {
+                margin-bottom: 6px;
+                font-size: 13px;
+            }
+            .refs a {
+                color: var(--color-text-secondary);
+                word-break: break-all;
+            }
+            .refs a:hover {
+                color: var(--accent-teal);
+            }
+
+            /* ---------- Footer ---------- */
+            .doc-footer {
+                margin-top: 40px;
+                padding-top: 24px;
+                border-top: 1px solid var(--color-border-tertiary);
+                color: var(--color-text-tertiary);
+                font-size: 13px;
+            }
+
+            @media (max-width: 900px) {
+                .sidebar {
+                    position: fixed;
+                    left: 0;
+                    top: 0;
+                    transform: translateX(-100%);
+                    transition: transform 0.2s ease;
+                    z-index: 40;
+                    width: 80vw;
+                    max-width: 320px;
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .sidebar-toggle {
+                    display: flex;
+                }
+                .content {
+                    padding: 88px 20px 80px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="メニューを開く">
+                <i class="ti ti-menu-2"></i>
+            </button>
+
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-header">
+                    <div class="brand"><i class="ti ti-shield-bolt"></i>OWASP ZAP ガイド</div>
+                    <div class="sub">初学者向けステップバイステップ解説</div>
+                </div>
+
+                <div class="nav-group-title">導入</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#intro"><i class="ti ti-info-circle"></i>ZAP とは何か</a>
+                    </li>
+                    <li>
+                        <a href="#disclaimer"
+                            ><i class="ti ti-alert-triangle"></i>免責事項・法的注意</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#features"><i class="ti ti-checklist"></i>主な特徴</a>
+                    </li>
+                    <li>
+                        <a href="#install"><i class="ti ti-download"></i>インストール方法</a>
+                    </li>
+                </ul>
+
+                <div class="nav-group-title">基本操作</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#architecture"
+                            ><i class="ti ti-sitemap"></i>アーキテクチャと基本用語</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#proxy-setup"><i class="ti ti-plug"></i>起動とプロキシ設定</a>
+                    </li>
+                    <li>
+                        <a href="#quickstart"><i class="ti ti-bolt"></i>Quick Start</a>
+                    </li>
+                    <li>
+                        <a href="#scsm"><i class="ti ti-target-arrow"></i>Context・Scope・Mode</a>
+                    </li>
+                    <li>
+                        <a href="#manual-explore"
+                            ><i class="ti ti-hand-click"></i>手動探索と MITM</a
+                        >
+                    </li>
+                </ul>
+
+                <div class="nav-group-title">スキャン機能</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#spider"><i class="ti ti-network"></i>Spider（クローラー）</a>
+                    </li>
+                    <li>
+                        <a href="#passive-scan"><i class="ti ti-eye"></i>Passive Scan</a>
+                    </li>
+                    <li>
+                        <a href="#active-scan"><i class="ti ti-radar-2"></i>Active Scan</a>
+                    </li>
+                    <li>
+                        <a href="#pentest-flow"
+                            ><i class="ti ti-route"></i>ペネトレーションテストの流れ</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#alerts"><i class="ti ti-bell-ringing"></i>Alerts の見方</a>
+                    </li>
+                </ul>
+
+                <div class="nav-group-title">応用設定</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#authentication"><i class="ti ti-lock"></i>Authentication</a>
+                    </li>
+                    <li>
+                        <a href="#scan-policy"><i class="ti ti-adjustments"></i>Scan Policy</a>
+                    </li>
+                    <li>
+                        <a href="#hud"><i class="ti ti-device-desktop"></i>HUD</a>
+                    </li>
+                    <li>
+                        <a href="#reports"><i class="ti ti-report"></i>レポート生成</a>
+                    </li>
+                </ul>
+
+                <div class="nav-group-title">自動化</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#api"><i class="ti ti-terminal-2"></i>ZAP API</a>
+                    </li>
+                    <li>
+                        <a href="#automation-framework"
+                            ><i class="ti ti-robot"></i>Automation Framework</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#docker-cicd"><i class="ti ti-brand-docker"></i>Docker と CI/CD</a>
+                    </li>
+                    <li>
+                        <a href="#scripting"><i class="ti ti-code"></i>スクリプティングと拡張</a>
+                    </li>
+                </ul>
+
+                <div class="nav-group-title">まとめ</div>
+                <ul class="nav-list">
+                    <li>
+                        <a href="#troubleshooting"
+                            ><i class="ti ti-bug"></i>トラブルシューティング</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#best-practices"><i class="ti ti-star"></i>ベストプラクティス</a>
+                    </li>
+                    <li>
+                        <a href="#resources"><i class="ti ti-books"></i>学習リソース・参考 URL</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <main class="content">
+                <div class="content-inner">
+                    <div class="doc-header">
+                        <h1>
+                            OWASP ZAP 完全ガイド<br />初学者のための Web
+                            アプリケーションセキュリティテスト入門
+                        </h1>
+                        <p>
+                            ZAP 公式ドキュメント（zaproxy.org/docs/）および ZAP 公式サイト・GitHub
+                            リポジトリの一次情報をもとに、初学者が ZAP (Zed Attack Proxy)
+                            を体系的に学べるようステップバイステップでまとめたガイドです。各章末に参照した
+                            URL を明記しています。
+                        </p>
+                        <div class="source-line">
+                            <a href="https://www.zaproxy.org/" target="_blank" rel="noopener noreferrer"
+                                >zaproxy.org</a
+                            >
+                            <a href="https://www.zaproxy.org/docs/" target="_blank" rel="noopener noreferrer"
+                                >zaproxy.org/docs/</a
+                            >
+                        </div>
+                    </div>
+
+                    <!-- 1. Introduction -->
+                    <section id="intro">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-info-circle"></i>SECTION 01
+                        </div>
+                        <h2>ZAP とは何か</h2>
+                        <p>
+                            <strong>ZAP（Zed Attack Proxy）</strong>は、Web
+                            アプリケーションの脆弱性を発見するための無料・オープンソースのセキュリティテストツールです。もともと
+                            OWASP（Open Web Application Security
+                            Project）のフラッグシッププロジェクトとして開発され、現在は Checkmarx
+                            社がスポンサーとなり「<strong>ZAP by Checkmarx</strong
+                            >」としてコミュニティ主導で開発が続けられています。GitHub 上でも Top
+                            1000 に入る規模のプロジェクトです。
+                        </p>
+                        <p>
+                            ZAP は
+                            <strong
+                                >DAST（Dynamic Application Security
+                                Testing：動的アプリケーションセキュリティテスト）</strong
+                            >ツールに分類され、実際に動作している Web
+                            アプリケーションに対してリクエストを送信し、レスポンスを解析することで脆弱性を検出します。ソースコードを解析する
+                            SAST（静的解析）とは異なり、実際の通信を観察・操作する点が特徴です。
+                        </p>
+                        <p>
+                            ZAP
+                            はセキュリティ専門家でなくても扱いやすいように設計されており、開発者や
+                            QA エンジニアが CI/CD
+                            パイプラインに組み込んで日常的にセキュリティテストを行うことも、経験豊富なペネトレーションテスターが手動テストのために使うことも、どちらの用途にも対応できます。
+                        </p>
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP 公式サイト</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP Desktop User Guide - Introduction</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/zaproxy/zaproxy"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub - zaproxy/zaproxy</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://checkmarx.com/product/zap/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Checkmarx ZAP 製品ページ</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 2. Disclaimer -->
+                    <section id="disclaimer">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-alert-triangle"></i>SECTION 02
+                        </div>
+                        <h2>免責事項・法的な注意点</h2>
+                        <p>
+                            ZAP
+                            の学習・利用を始める前に、必ず理解しておくべき重要な注意点があります。
+                        </p>
+                        <div class="callout callout-danger">
+                            <i class="ti ti-gavel"></i>
+                            <p>
+                                <strong
+                                    >多くの法域において、許可を得ずに Web
+                                    サイト／アプリケーションを「テスト」することは違法です。</strong
+                                >ZAP は強力な攻撃機能（SQL インジェクション、XSS
+                                などのペイロード送信）を含むため、自分が所有する環境または明示的にテスト許可を得た環境に対してのみ使用してください。
+                            </p>
+                        </div>
+                        <p>
+                            学習用途では、後述する意図的に脆弱性を含んだ公開テスト環境（OWASP Juice
+                            Shop、Google Firing Range など）の利用を推奨します。
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>用途</th>
+                                        <th>対象</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>学習・練習</td>
+                                        <td>
+                                            OWASP Juice Shop、Google Firing Range、bodgeit
+                                            などの意図的脆弱アプリ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>業務利用</td>
+                                        <td>
+                                            自社が管理する環境、書面で許可を得たステージング／本番環境
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>禁止</td>
+                                        <td>許可のない第三者サイトへのスキャン・攻撃</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/api/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP API Reference - Introduction（法的注意の記載）</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.owasp.org/wstg"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >OWASP Testing Guide</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 3. Features -->
+                    <section id="features">
+                        <div class="section-eyebrow"><i class="ti ti-checklist"></i>SECTION 03</div>
+                        <h2>ZAP の主な特徴</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>機能カテゴリ</th>
+                                        <th>概要</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Manipulator-in-the-middle Proxy</td>
+                                        <td>
+                                            ブラウザと対象アプリの通信を中継し、リクエスト/レスポンスを観察・改ざんできる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Spider / Ajax Spider</td>
+                                        <td>
+                                            サイト内のリンクを自動でたどり URL を網羅的に発見（Ajax
+                                            Spider は JavaScript で動的生成されるリンクにも対応）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Passive Scan</td>
+                                        <td>
+                                            通過したトラフィックを受動的に解析し、攻撃を送らずに検出できる問題を報告
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Active Scan</td>
+                                        <td>
+                                            既知の攻撃パターン（ペイロード）を実際に送信し、SQL
+                                            インジェクションや XSS などを能動的に検出
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Automation Framework</td>
+                                        <td>
+                                            YAML ファイル 1
+                                            つで一連のテストを定義・自動実行できる仕組み
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>REST API</td>
+                                        <td>
+                                            ほぼすべての機能を HTTP API 経由で操作可能。CI/CD
+                                            やカスタムスクリプトとの連携に使う
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>HUD（Heads Up Display）</td>
+                                        <td>
+                                            ブラウザ上に ZAP
+                                            の機能をオーバーレイ表示するインターフェース
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Docker イメージ / GitHub Actions</td>
+                                        <td>
+                                            <code>zap-baseline.py</code>、<code
+                                                >zap-full-scan.py</code
+                                            >
+                                            などのパッケージスキャンとそのラッパーとなる GitHub
+                                            Actions を提供
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Add-on Marketplace</td>
+                                        <td>
+                                            数十種類の追加機能（レポート生成、認証補助、GraphQL/SOAP/OpenAPI
+                                            対応など）を追加インストール可能
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>スクリプティング</td>
+                                        <td>
+                                            JavaScript（GraalVM）、Python（Jython）、Ruby、Groovy、Kotlin
+                                            など複数言語でスキャンや認証をカスタマイズ可能
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Features 一覧</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Add-ons 一覧</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/automate/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automate ZAP</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 4. Install -->
+                    <section id="install">
+                        <div class="section-eyebrow"><i class="ti ti-download"></i>SECTION 04</div>
+                        <h2>インストール方法</h2>
+                        <p>
+                            ZAP は Windows・macOS・Linux・Docker
+                            など幅広い環境に対応しています。<strong>Java 17 以上</strong
+                            >が必要です（クロスプラットフォーム版・Linux 版の場合。Windows/macOS
+                            のインストーラー版は Java 込みの場合もあります）。
+                        </p>
+
+                        <h3>インストール方法一覧</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>プラットフォーム</th>
+                                        <th>主な方法</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Windows</td>
+                                        <td>
+                                            公式インストーラー（.exe）／ Windows Package
+                                            Manager（winget）／ Scoop ／ Chocolatey
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>macOS</td>
+                                        <td>
+                                            公式インストーラー（.dmg、Apple Silicon / Intel 別配布）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Linux</td>
+                                        <td>
+                                            公式インストーラー ／ Flathub（<code
+                                                >flatpak install flathub org.zaproxy.ZAP</code
+                                            >） ／ Snapcraft
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FreeBSD</td>
+                                        <td><code>zaproxy</code> パッケージ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>クロスプラットフォーム</td>
+                                        <td>ZIP 版（インストーラー不要、Java 17+ が別途必要）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コンテナ</td>
+                                        <td>
+                                            Docker（<code>ghcr.io/zaproxy/zaproxy:stable</code>
+                                            など）
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>リリースチャンネル</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>チャンネル</th>
+                                        <th>更新頻度</th>
+                                        <th>用途</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Stable（安定版）</td>
+                                        <td>フルリリースごと（+ 月1回の base image 更新）</td>
+                                        <td>通常利用・本番導入</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Weekly（週次版）</td>
+                                        <td>毎週月曜</td>
+                                        <td>最新機能を試したい開発者向け</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Nightly（夜間版）</td>
+                                        <td>少なくとも1日1回</td>
+                                        <td>最新コミットを追う場合</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout callout-info">
+                            <i class="ti ti-info-circle"></i>
+                            <p>
+                                2026 年 7 月時点の最新安定版は
+                                <strong>ZAP 2.17.0</strong>
+                                です。バージョンは今後も更新されるため、実際にインストールする際は公式ダウンロードページで最新版を確認してください。
+                            </p>
+                        </div>
+
+                        <h3>Docker での起動例</h3>
+                        <pre><code class="language-bash"># stable イメージを取得
+docker pull ghcr.io/zaproxy/zaproxy:stable
+
+# デスクトップUIなしでAPIサーバーとして起動（daemonモード）
+docker run -u zap -p 8080:8080 -i ghcr.io/zaproxy/zaproxy:stable zap.sh \
+  -daemon -host 0.0.0.0 -port 8080 \
+  -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true</code></pre>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/download/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Download</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/docker/about/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – ZAP Docker User Guide</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/zaproxy/zaproxy/releases"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub - zaproxy/zaproxy Releases</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 5. Architecture -->
+                    <section id="architecture">
+                        <div class="section-eyebrow"><i class="ti ti-sitemap"></i>SECTION 05</div>
+                        <h2>全体アーキテクチャと基本用語</h2>
+                        <p>
+                            ZAP の核心は「<strong>manipulator-in-the-middle proxy</strong>」（ZAP
+                            公式が用いる呼称。いわゆる中間者プロキシ）であるという点です。ブラウザや自動テストツールの通信を
+                            ZAP
+                            経由にすることで、すべてのリクエスト・レスポンスを観察・記録・改変できます。
+                        </p>
+
+                        <div class="mermaid-diagram">
+                            <div id="diagram-architecture"></div>
+                        </div>
+
+                        <h3>基本用語まとめ</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>用語</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Sites Tree</td>
+                                        <td>
+                                            アクセスしたすべての URL をツリー構造で表示するパネル
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>History</td>
+                                        <td>送受信されたすべてのリクエスト/レスポンスの一覧</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Context</td>
+                                        <td>テスト対象の URL 群を関連付ける論理的なグループ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Scope</td>
+                                        <td>
+                                            現在テスト対象としている URL の集合（Context
+                                            をスコープに追加して定義）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Mode</td>
+                                        <td>
+                                            ZAP の動作制限レベル（Safe / Protected / Standard /
+                                            ATTACK）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alert</td>
+                                        <td>ZAP が検出した問題（脆弱性の可能性がある事象）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Session</td>
+                                        <td>
+                                            現在の ZAP
+                                            の作業状態。ファイルとして保存・再読み込み可能
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/intercept/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Manipulator-in-the-middle Proxy</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/sitestree/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Sites Tree</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/tabs/sites/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Sites tab (UI)</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 6. Proxy setup -->
+                    <section id="proxy-setup">
+                        <div class="section-eyebrow"><i class="ti ti-plug"></i>SECTION 06</div>
+                        <h2>起動とプロキシ設定</h2>
+                        <p>
+                            ZAP を最大限活用するには、ブラウザ（または自動テストツール）の通信を ZAP
+                            経由にする必要があります。
+                        </p>
+
+                        <h3>手順</h3>
+                        <ol>
+                            <li>ZAP を起動する。</li>
+                            <li>
+                                ZAP の Local Proxy の待受アドレス・ポート（デフォルトは
+                                <code>localhost:8080</code>）を確認する（Tools &gt; Options &gt;
+                                Local Servers/Proxies）。
+                            </li>
+                            <li>ブラウザのプロキシ設定を ZAP のアドレス・ポートに設定する。</li>
+                            <li>ブラウザから対象アプリケーションへアクセスしてみる。</li>
+                            <li>
+                                <strong>Sites</strong> タブ・<strong>History</strong>
+                                タブに通信が記録されれば成功。
+                            </li>
+                        </ol>
+                        <p>
+                            Quick Start タブの「<strong>Manual Explore</strong>」機能を使うと、ZAP
+                            用に事前設定されたブラウザプロファイルをワンクリックで起動できるため、既存のブラウザ設定を変更したくない場合に便利です。
+                        </p>
+
+                        <h3>HTTPS 通信を見るために</h3>
+                        <p>
+                            HTTPS の内容まで解析するには、ZAP が生成する
+                            <strong>Root CA 証明書</strong>をブラウザ／OS
+                            の信頼済みルート証明書としてインストールする必要があります（Tools &gt;
+                            Options &gt; Dynamic SSL Certificates からエクスポート可能）。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Getting Started</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/proxies/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Configuring Proxies</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/options/dynsslcert/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Dynamic SSL Certificates</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 7. Quick Start -->
+                    <section id="quickstart">
+                        <div class="section-eyebrow"><i class="ti ti-bolt"></i>SECTION 07</div>
+                        <h2>Quick Start：最速でスキャンを試す</h2>
+                        <p>
+                            <strong>Quick Start</strong>
+                            アドオンはデフォルトでインストールされており、初学者が最も簡単に ZAP
+                            を使い始められる入口です。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>機能</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Automated Scan</td>
+                                        <td>
+                                            URL を 1 つ入力するだけで、Spider（通常 or Ajax）→
+                                            Active Scan を自動的に実行
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Manual Explore</td>
+                                        <td>
+                                            ZAP 経由でプロキシ設定済みのブラウザを起動し、HUD
+                                            を有効にするかどうかも選択できる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Learn More</td>
+                                        <td>ローカル／オンラインの学習リソースへのリンク集</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Automated Scan を試す</h3>
+                        <ol>
+                            <li>Quick Start タブを開く。</li>
+                            <li>
+                                「URL to attack」に対象 URL（例：学習用アプリの URL）を入力する。
+                            </li>
+                            <li>「Attack」ボタンをクリックする。</li>
+                            <li>Spider が URL を収集し、続けて Active Scan が自動実行される。</li>
+                            <li>完了後、下部の Alerts タブに検出結果が一覧表示される。</li>
+                        </ol>
+
+                        <div class="callout callout-warning">
+                            <i class="ti ti-alert-triangle"></i>
+                            <p>
+                                Automated Scan は Active
+                                Scan（実際の攻撃ペイロード送信）まで自動実行するため、許可のない対象や本番環境には絶対に使用しないでください。
+                            </p>
+                        </div>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/quick-start/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Quick Start Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/quick-start/cmdline/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Quick Start Command Line</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 8. Context Scope Mode -->
+                    <section id="scsm">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-target-arrow"></i>SECTION 08
+                        </div>
+                        <h2>Sites Tree・Context・Scope・Mode</h2>
+                        <p>初学者がつまずきやすい 4 つの概念を整理します。</p>
+
+                        <h3>Context（コンテキスト）</h3>
+                        <p>
+                            Context は、一連の URL をひとつのまとまり（＝ひとつの Web
+                            アプリケーション）として関連付ける仕組みです。Context
+                            は<strong>正規表現（regex）</strong>で定義され、その正規表現は URL
+                            全体にマッチする必要があります。複数の Web
+                            アプリをテストするシステムでは、アプリごとに Context
+                            を分けて定義することが推奨されています。
+                        </p>
+                        <p>Context には以下のような付随情報を関連付けられます。</p>
+                        <ul>
+                            <li>認証方式（Authentication Method）</li>
+                            <li>セッション管理方式（Session Management Method）</li>
+                            <li>ユーザー定義（Users）</li>
+                            <li>除外 URL、構造修飾子（Structural Modifiers）など</li>
+                        </ul>
+
+                        <h3>Scope（スコープ）</h3>
+                        <p>
+                            Scope は「現在テスト対象としている URL の集合」であり、Context
+                            をスコープに追加することで定義されます。デフォルトでは何もスコープに入っていません。Scope
+                            は以下に影響します。
+                        </p>
+                        <ul>
+                            <li>Protected Mode で「危険な操作」を実行できる対象</li>
+                            <li>History タブなどでの表示フィルタ</li>
+                        </ul>
+
+                        <h3>Mode（モード）</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Mode</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Safe</td>
+                                        <td>危険な操作を一切許可しない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Protected</td>
+                                        <td>Scope 内の URL に対してのみ危険な操作を許可</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Standard</td>
+                                        <td>制限なし（デフォルト）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ATTACK</td>
+                                        <td>
+                                            Scope 内で新しく発見されたノードを自動的に Active Scan
+                                            する
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mermaid-diagram">
+                            <div id="diagram-mode"></div>
+                        </div>
+
+                        <p>
+                            初学者は、意図しない対象を誤って攻撃しないよう<strong
+                                >Protected Mode</strong
+                            >
+                            の利用が推奨されています。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/contexts/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Contexts</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/scope/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Scope</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/modes/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Modes</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/session/contexts/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Session Context screens</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 9. Manual explore -->
+                    <section id="manual-explore">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-hand-click"></i>SECTION 09
+                        </div>
+                        <h2>手動探索（Explore）と MITM プロキシ</h2>
+                        <p>
+                            自動化されたスキャンだけでは、フォーム入力やログイン後の画面など、実際にユーザーが操作しないと到達できないページを見逃すことがあります。そのため
+                            ZAP
+                            を使ったテストの最初のステップとして「<strong>手動探索（Explore）</strong>」が推奨されます。
+                        </p>
+
+                        <h3>手動探索の考え方</h3>
+                        <ol>
+                            <li>ZAP 経由でプロキシ設定したブラウザで対象アプリを開く。</li>
+                            <li>
+                                すべてのリンクをクリックし、すべてのボタンを押し、すべてのフォームに入力・送信する。
+                            </li>
+                            <li>
+                                アプリが複数のロール（一般ユーザー・管理者など）を持つ場合は、ロールごとに別セッションで探索する。
+                            </li>
+                            <li>
+                                これにより Sites Tree・History に多くの URL
+                                とリクエストパターンが記録され、後続の Spider・Active Scan
+                                の精度が上がる。
+                            </li>
+                        </ol>
+
+                        <h3>Breakpoints（ブレークポイント）</h3>
+                        <p>
+                            リクエストやレスポンスをその場で書き換えてテストしたい場合は、<strong
+                                >Breakpoints</strong
+                            >
+                            機能を使います。特定の条件に一致した通信を一時停止し、内容を編集してから送信できます。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/pentest/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – A Basic Penetration Test</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/breakpoints/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Breakpoints</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/intercept/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Manipulator-in-the-middle Proxy</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 10. Spider -->
+                    <section id="spider">
+                        <div class="section-eyebrow"><i class="ti ti-network"></i>SECTION 10</div>
+                        <h2>Spider（クローラー）</h2>
+                        <p>
+                            <strong>Spider</strong>
+                            は、対象アプリケーション内のリンクを自動的にたどり、URL
+                            を網羅的に発見する機能です。HTML の <code>&lt;a&gt;</code> タグや
+                            <code>&lt;form&gt;</code> タグなどを解析してリンクを収集します。
+                        </p>
+
+                        <h3>通常の Spider と Ajax Spider の違い</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>項目</th>
+                                        <th>Spider（通常）</th>
+                                        <th>Ajax Spider</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>解析対象</td>
+                                        <td>静的 HTML のリンク・フォーム</td>
+                                        <td>JavaScript によって動的生成される DOM / リンク</td>
+                                    </tr>
+                                    <tr>
+                                        <td>動作方式</td>
+                                        <td>HTTP リクエストを直接解析</td>
+                                        <td>
+                                            実ブラウザ（Selenium
+                                            経由）でページを描画してリンクを収集
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>速度</td>
+                                        <td>高速</td>
+                                        <td>低速（実ブラウザ起動のため）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>向いているアプリ</td>
+                                        <td>従来型の MPA（マルチページアプリ）</td>
+                                        <td>
+                                            SPA（React/Vue などの JavaScript
+                                            フレームワーク使用アプリ）
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>両方を組み合わせて使うことで、より網羅的な URL 収集が可能になります。</p>
+
+                        <h3>使い方</h3>
+                        <ol>
+                            <li>
+                                Sites タブで対象ノードを右クリック →「Attack」→「Spider…」を選択。
+                            </li>
+                            <li>Spider dialog でスコープや最大深度、Context/User などを設定。</li>
+                            <li>「Start Scan」で実行。</li>
+                            <li>Spider タブで進捗と発見された URL のリストを確認。</li>
+                        </ol>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/spider/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Spider (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/spider/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Spider Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/ajax-spider/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – AJAX Spider Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/spider/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Spider dialog</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 11. Passive scan -->
+                    <section id="passive-scan">
+                        <div class="section-eyebrow"><i class="ti ti-eye"></i>SECTION 11</div>
+                        <h2>Passive Scan（受動的スキャン）</h2>
+                        <p>
+                            <strong>Passive Scan（受動的スキャン）</strong> は、ZAP
+                            を通過したすべてのトラフィックをバックグラウンドで解析し、<strong>攻撃ペイロードを一切送信せずに</strong>検出できる問題を報告する機能です。ZAP
+                            を起動してブラウザ経由でアクセスするだけで、常にバックグラウンドで動作しています。
+                        </p>
+
+                        <h3>Passive Scan で検出できる代表例</h3>
+                        <ul>
+                            <li>
+                                セキュリティ関連 HTTP
+                                ヘッダーの欠落（<code>X-Content-Type-Options</code>、<code
+                                    >Content-Security-Policy</code
+                                >
+                                など）
+                            </li>
+                            <li>
+                                Cookie の <code>Secure</code> / <code>HttpOnly</code> 属性の欠落
+                            </li>
+                            <li>ソースコード内のコメントに含まれる機密情報の可能性</li>
+                            <li>
+                                脆弱なバージョンの JavaScript ライブラリ（Retire.js
+                                アドオンとの連携）
+                            </li>
+                            <li>サーバーのバージョン情報の露出</li>
+                        </ul>
+
+                        <div class="callout callout-success">
+                            <i class="ti ti-shield-check"></i>
+                            <p>
+                                Passive Scan は安全なため、本番環境に対しても実行可能です（Active
+                                Scan とは異なり攻撃を行わないため）。
+                            </p>
+                        </div>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/pscan/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Passive Scan (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/passive-scanner/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Passive Scanner Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/passive-scan-rules/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Passive Scan Rules</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 12. Active scan -->
+                    <section id="active-scan">
+                        <div class="section-eyebrow"><i class="ti ti-radar-2"></i>SECTION 12</div>
+                        <h2>Active Scan（能動的スキャン）</h2>
+                        <p>
+                            <strong>Active Scan（能動的スキャン）</strong>
+                            は、既知の攻撃パターン（ペイロード）を対象アプリケーションに実際に送信し、その応答から脆弱性の有無を判定する機能です。SQL
+                            インジェクション、Cross-Site
+                            Scripting（XSS）、コマンドインジェクションなどを検出できます。
+                        </p>
+
+                        <div class="callout callout-danger">
+                            <i class="ti ti-alert-octagon"></i>
+                            <p>
+                                <strong>重要</strong>：Active Scan
+                                は実際に攻撃を行うため、必ず許可を得た対象・テスト環境に対してのみ実行してください。データの破損や意図しない副作用（メール送信、レコード削除など）が発生する可能性があります。
+                            </p>
+                        </div>
+
+                        <h3>実行の流れ</h3>
+                        <ol>
+                            <li>
+                                Spider などで URL を十分に収集しておく（Active Scan は「発見済みの
+                                URL」に対してのみ攻撃を行うため）。
+                            </li>
+                            <li>
+                                Sites タブでノードを右クリック →「Attack」→「Active Scan…」を選択。
+                            </li>
+                            <li>
+                                Scan Policy
+                                を選択し、スキャン対象の入力ベクトル（クエリパラメータ、POST
+                                データ、Cookie、HTTP ヘッダーなど）を確認。
+                            </li>
+                            <li>「Start Scan」で実行。</li>
+                            <li>
+                                Active Scan タブで進捗を確認し、完了後は Alerts タブで結果を確認。
+                            </li>
+                        </ol>
+
+                        <h3>Active Scan の入力ベクトル設定</h3>
+                        <p>
+                            デフォルトでは URL クエリパラメータと POST
+                            パラメータが対象ですが、Options &gt; Active Scan Input Vectors 画面で
+                            Cookie
+                            やヘッダーもスキャン対象に含めるよう変更できます（誤検知や負荷増大とのトレードオフに注意）。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/ascan/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Active Scan (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/active-scan-rules/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Active Scan Rules</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/advascan/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Active Scan dialog</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/options/ascaninput/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Options Active Scan Input Vectors screen</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 13. Pentest flow -->
+                    <section id="pentest-flow">
+                        <div class="section-eyebrow"><i class="ti ti-route"></i>SECTION 13</div>
+                        <h2>基本的なペネトレーションテストの流れ</h2>
+                        <p>
+                            ZAP 公式ドキュメントでは、基本的なペネトレーションテストの流れを次の 5
+                            ステップで説明しています。
+                        </p>
+
+                        <div class="mermaid-diagram">
+                            <div id="diagram-pentest-flow"></div>
+                        </div>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ステップ</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>① Explore</td>
+                                        <td>
+                                            ブラウザでアプリのすべての機能・リンク・フォームを操作する。複数ロールがある場合はロールごとに実施
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>② Spider</td>
+                                        <td>
+                                            Spider / Ajax Spider を使い、見逃した URL
+                                            や動的生成リンクを発見する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>③ Forced Browse</td>
+                                        <td>
+                                            「Forced
+                                            Browse」アドオンを使い、リンクされていないファイルやディレクトリ（バックアップファイルなど）を辞書ベースで探索する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>④ Active Scan</td>
+                                        <td>Active Scanner で基本的な脆弱性を検出する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>⑤ Manual Test</td>
+                                        <td>
+                                            自動化では見つからない論理的な脆弱性（認可不備など）を
+                                            OWASP Testing Guide を参考に手動でテストする
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            自動化された ①〜④
+                            のステップだけでも基本的な脆弱性は発見できますが、認可制御の不備やビジネスロジックの欠陥など、<strong>自動スキャンでは検出できない問題</strong>を見つけるためには
+                            ⑤ の手動テストが不可欠です。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/pentest/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – A Basic Penetration Test</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/forced-browse/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Forced Browse Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.owasp.org/wstg"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >OWASP Testing Guide</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAPping the OWASP Top 10（ZAP ドキュメントトップ）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 14. Alerts -->
+                    <section id="alerts">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-bell-ringing"></i>SECTION 14
+                        </div>
+                        <h2>Alerts（検出結果）の見方</h2>
+                        <p>
+                            ZAP
+                            がスキャン中に検出した問題は<strong>Alert（アラート）</strong>として記録されます。Alerts
+                            タブでは、検出されたすべてのアラートがツリー形式で一覧表示されます。
+                        </p>
+
+                        <h3>Alert の主なフィールド</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>フィールド</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Name</td>
+                                        <td>
+                                            アラート名（例：「Cross Site Scripting (Reflected)」）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>URL</td>
+                                        <td>検出された URL（正規化された URL）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Risk（リスク）</td>
+                                        <td>深刻度：Informational / Low / Medium / High</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Confidence（確信度）</td>
+                                        <td>
+                                            検出結果の確からしさ：Low / Medium / High（人が手動で
+                                            False Positive / Confirmed に変更可能）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Parameter</td>
+                                        <td>攻撃対象となったパラメータ名</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Description</td>
+                                        <td>問題の詳細説明</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Solution</td>
+                                        <td>
+                                            一般的な対処方法（ソースコードを解析しているわけではないため一般論に留まる）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Reference</td>
+                                        <td>詳細情報へのリンク</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Tags</td>
+                                        <td>関連タグ（CWE、OWASP Top 10 カテゴリなど）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Risk × Confidence の考え方</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Risk ＼ Confidence</th>
+                                        <th>Low</th>
+                                        <th>Medium</th>
+                                        <th>High</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>High</td>
+                                        <td>要確認（誤検知の可能性あり）</td>
+                                        <td>優先度高</td>
+                                        <td>最優先で対応</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Medium</td>
+                                        <td>参考情報として確認</td>
+                                        <td>通常の優先度</td>
+                                        <td>優先的に確認</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Low</td>
+                                        <td>参考情報</td>
+                                        <td>参考情報</td>
+                                        <td>低リスクだが確実</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Informational</td>
+                                        <td>情報提供のみ</td>
+                                        <td>情報提供のみ</td>
+                                        <td>情報提供のみ</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            ZAP
+                            が検出する全アラートの一覧は公式サイトに常時公開されています。個々のアラートには固有の
+                            Alert Reference（ID）があり、静的なページ URL が割り当てられています。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/alerts/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Alerts (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/alerts/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – 全アラート一覧</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/alerttags/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Alert Tags 一覧</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/tabs/alerts/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Alerts tab (UI)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/addalert/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Add Alert dialog</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 15. Authentication -->
+                    <section id="authentication">
+                        <div class="section-eyebrow"><i class="ti ti-lock"></i>SECTION 15</div>
+                        <h2>Authentication（認証）の設定</h2>
+                        <p>
+                            ログインが必要なアプリケーションを効果的にテストするには、ZAP
+                            に認証情報を設定する必要があります。設定の全体フローは次の通りです。
+                        </p>
+
+                        <div class="mermaid-diagram">
+                            <div id="diagram-auth"></div>
+                        </div>
+
+                        <h3>各ステップの概要</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ステップ</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Context 作成</td>
+                                        <td>
+                                            テスト対象アプリの URL をすべて含む Context を用意する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Session Management Method</td>
+                                        <td>
+                                            アプリが使用しているセッション管理方式（Cookie
+                                            ベース、HTTP
+                                            認証ベース、スクリプトベースなど）に合わせて設定
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Authentication Method</td>
+                                        <td>
+                                            フォームベース認証、HTTP/NTLM 認証、JSON
+                                            ベース認証、スクリプトベース認証、ブラウザベース認証（Selenium
+                                            経由）など、アプリに合った方式を選択
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Verification Strategy</td>
+                                        <td>
+                                            ZAP が「ログイン済みか」を判定する方法。Logged-in /
+                                            Logged-out Indicator や特定 URL
+                                            へのポーリングなどで判定する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Users</td>
+                                        <td>
+                                            Context に紐づくユーザー（ユーザー名・パスワードなど）を
+                                            1 人以上定義する
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>実践的な設定手順（フォームベース認証の例）</h3>
+                        <ol>
+                            <li>ブラウザを ZAP 経由でプロキシ設定し、対象アプリにログインする。</li>
+                            <li>
+                                History タブでログイン時の POST リクエストを見つけ、右クリック
+                                →「Flag as Context」→「Default Context: Form-based Login
+                                Request」を選択。
+                            </li>
+                            <li>
+                                開いたダイアログでユーザー名・パスワードに対応するパラメータを指定する。
+                            </li>
+                            <li>
+                                ログイン後の画面から、ログイン中であることを示す要素を選択し、右クリックして「Flag
+                                as Context」→「Authentication Logged-in Indicator」を指定する。
+                            </li>
+                            <li>
+                                Session Properties &gt; Users
+                                で実際のユーザー（ID/パスワード）を登録する。
+                            </li>
+                            <li>
+                                以降、Spider や Active Scan のダイアログでこの User
+                                を選択すれば、認証済み状態でスキャンできる。
+                            </li>
+                        </ol>
+
+                        <h3>Forced User Mode との違い</h3>
+                        <p>
+                            「Forced User Mode」はツールバーのボタンで有効化でき、ZAP
+                            を通過するすべての通信を指定ユーザーの視点として扱う機能です。<strong>あくまで手動テスト用</strong>であり、自動化（Automation
+                            Framework や API 経由のスクリプト）では、より確実な代替手段（Context
+                            の認証設定＋ User 指定）を使うことが推奨されています。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/authentication/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Authentication (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/authmethods/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Authentication Methods</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/authstrategies/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Authentication Verification Strategies</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/users/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Users (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/authentication-helper/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Authentication Helper Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/session/context-auth/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Session Context Authentication screen</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/api/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP API Reference – Getting Authenticated（BodgeIt
+                                        を使った実践例）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 16. Scan policy -->
+                    <section id="scan-policy">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-adjustments"></i>SECTION 16
+                        </div>
+                        <h2>Scan Policy（スキャンポリシー）</h2>
+                        <p>
+                            <strong>Scan Policy</strong> は、Active Scan
+                            がどの検査ルールをどの強度（Attack Strength）・しきい値（Alert
+                            Threshold）で実行するかを定義する設定セットです。用途に応じてあらかじめ複数のポリシーが用意されています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ポリシー名</th>
+                                        <th>想定用途</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Default Policy</td>
+                                        <td>汎用的なデフォルト設定</td>
+                                    </tr>
+                                    <tr>
+                                        <td>API Policy</td>
+                                        <td>API（REST/GraphQL/SOAP 等）向けに調整された設定</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Developer Standard / Full / CI-CD Policy</td>
+                                        <td>
+                                            開発者が開発中に使うことを想定した設定（CI/CD
+                                            版は高速・軽量）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>QA Standard / Full / CI-CD Policy</td>
+                                        <td>
+                                            QA
+                                            エンジニアが機能テストと合わせて使うことを想定した設定
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Penetration Tester Policy</td>
+                                        <td>経験豊富なペンテスターが徹底的に検査するための設定</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            CI/CD パイプラインに組み込む場合は、実行時間を抑えられる<strong
+                                >CI/CD 系ポリシー</strong
+                            >を選ぶことが一般的です。独自のポリシーを作成し、特定のルールだけを有効化・強度調整することもできます。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Scan Policy (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/scan-policies/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Scan Policies Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/scanpolicymgr/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Scan Policy Manager dialog</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 17. HUD -->
+                    <section id="hud">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-device-desktop"></i>SECTION 17
+                        </div>
+                        <h2>HUD（Heads Up Display）</h2>
+                        <p>
+                            <strong>HUD</strong> は、ZAP
+                            の主要機能をブラウザ上にオーバーレイ表示するインターフェースで、対象アプリの画面を見ながら
+                            ZAP のツールやアラートを直接操作できるユニークな仕組みです。特に Web
+                            セキュリティ初学者にとって、デスクトップ UI
+                            とブラウザを行き来せずに済む点がメリットとして紹介されてきました。
+                        </p>
+
+                        <div class="callout callout-warning">
+                            <i class="ti ti-alert-triangle"></i>
+                            <p>
+                                <strong>重要な留意点</strong>：2026 年時点で、HUD
+                                は開発が活発ではなくなっており、デフォルトで無効化されています。ブラウザのセキュリティ機能の変更に伴い動作が不安定になることがあるため、公式もメンテナンス協力者を募集している状況です。利用する場合は、この点を理解した上で試験的な機能として扱うことを推奨します。
+                            </p>
+                        </div>
+
+                        <p>
+                            HUD を有効化する場合は、Quick Start タブの「Manual Explore」から HUD
+                            対応ブラウザ（Firefox/Chrome）を起動するか、Options
+                            画面から手動で有効化します。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/hud/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – The HUD Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/zaproxy/zap-hud"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub - zaproxy/zap-hud（現状の開発状況の記載）</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/addons/hud/changelog/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP HUD Changelog</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/hud/options/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Options HUD screen</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 18. Reports -->
+                    <section id="reports">
+                        <div class="section-eyebrow"><i class="ti ti-report"></i>SECTION 18</div>
+                        <h2>レポートの生成</h2>
+                        <p>
+                            スキャンが完了したら、結果を関係者に共有するためのレポートを生成します。ZAP
+                            は「Report
+                            Generation」アドオンにより多様な形式のレポートテンプレートを標準搭載しています。
+                        </p>
+
+                        <h3>主なレポートテンプレート</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>テンプレート</th>
+                                        <th>形式</th>
+                                        <th>特徴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Modern HTML Report</td>
+                                        <td>HTML</td>
+                                        <td>
+                                            テーマ・オプションを選べる現行の標準的な HTML レポート
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Traditional HTML（+ Requests/Responses）</td>
+                                        <td>HTML</td>
+                                        <td>
+                                            従来型の HTML
+                                            レポート。リクエスト/レスポンス全文を含むバリエーションあり
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Risk and Confidence HTML</td>
+                                        <td>HTML</td>
+                                        <td>
+                                            Risk × Confidence のマトリクスに主眼を置いたレポート
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Traditional XML（+ Requests/Responses）</td>
+                                        <td>XML</td>
+                                        <td>他システムとの連携用</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Traditional JSON（+ Requests/Responses）</td>
+                                        <td>JSON</td>
+                                        <td>他システムとの連携・自動処理用</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Traditional Markdown Report</td>
+                                        <td>Markdown</td>
+                                        <td>Wiki やドキュメントへの貼り付けに便利</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Traditional PDF</td>
+                                        <td>PDF</td>
+                                        <td>そのまま配布可能な形式</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SARIF JSON Report</td>
+                                        <td>JSON（SARIF形式）</td>
+                                        <td>
+                                            GitHub Code Scanning など SARIF 対応ツールとの連携用
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>生成方法</h3>
+                        <ul>
+                            <li>
+                                <strong>デスクトップ UI</strong>：Report メニュー →「Generate
+                                Report...」から対象 Context/Site、Risk/Confidence
+                                のフィルタ、テンプレートを選択して生成。
+                            </li>
+                            <li>
+                                <strong>API 経由</strong>：<code>core</code> や
+                                <code>reports</code> API を呼び出してプログラム的に生成（Automation
+                                Framework の <code>report</code> ジョブでも生成可能）。
+                            </li>
+                        </ul>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/report-generation/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Report Generation Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/report-generation/create/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Creating Reports</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/report-generation/templates/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Report Templates 一覧</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/report-generation/report-sarif-json/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – SARIF JSON Report</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/report-generation/api/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Report Generation API</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 19. API -->
+                    <section id="api">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-terminal-2"></i>SECTION 19
+                        </div>
+                        <h2>ZAP API</h2>
+                        <p>
+                            ZAP のほぼすべての機能は<strong>REST API</strong>
+                            経由で操作できます。デスクトップモード・Daemon
+                            モードいずれでもデフォルトで有効です。
+                        </p>
+
+                        <h3>API の基本</h3>
+                        <ul>
+                            <li>
+                                レスポンス形式は
+                                <strong>JSON / XML / HTML / OTHER</strong> から選択可能。
+                            </li>
+                            <li>
+                                URL
+                                例：<code>http://localhost:8080/JSON/core/view/version/</code>（<code
+                                    >view</code
+                                >
+                                = 情報取得、<code>action</code> = 操作実行、<code>other</code> =
+                                ファイル転送等）
+                            </li>
+                            <li>
+                                ブラウザから <code>http://zap/</code>（ZAP 経由でプロキシ中）または
+                                <code>http://localhost:8080/</code> にアクセスすると、API
+                                を試せる簡易 Web UI が使える。
+                            </li>
+                            <li>
+                                悪意あるサイトから ZAP API へアクセスされることを防ぐため、<strong
+                                    >API キー</strong
+                                >の設定が強く推奨されている（隔離環境を除く）。
+                            </li>
+                        </ul>
+
+                        <h3>クライアントライブラリ</h3>
+                        <p>
+                            Java、Python、Node.js
+                            用の公式クライアントライブラリが提供されており、直接 HTTP
+                            リクエストを組み立てなくても API を呼び出せます。
+                        </p>
+
+                        <h3>API 呼び出し例（Python, <code>zaproxy</code> パッケージ）</h3>
+                        <pre><code class="language-python">from zapv2 import ZAPv2
+
+zap = ZAPv2(apikey='your-api-key',
+            proxies={'http': 'http://localhost:8080', 'https': 'http://localhost:8080'})
+
+target = 'https://your-test-target.example.com'
+
+# Spiderを開始
+scan_id = zap.spider.scan(target)
+while int(zap.spider.status(scan_id)) < 100:
+    print(f'Spider progress: {zap.spider.status(scan_id)}%')
+
+# Passive Scanの完了を待つ
+while int(zap.pscan.records_to_scan) > 0:
+    pass
+
+# Active Scanを開始
+ascan_id = zap.ascan.scan(target)
+while int(zap.ascan.status(ascan_id)) < 100:
+    print(f'Active Scan progress: {zap.ascan.status(ascan_id)}%')
+
+# 結果を取得
+alerts = zap.core.alerts(baseurl=target)
+print(f'検出されたアラート数: {len(alerts)}')</code></pre>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/api/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – API (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/api/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP API Reference</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/ui/dialogs/options/api/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Options API screen</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/zaproxy/zap-api-docs"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub - zaproxy/zap-api-docs</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 20. Automation framework -->
+                    <section id="automation-framework">
+                        <div class="section-eyebrow"><i class="ti ti-robot"></i>SECTION 20</div>
+                        <h2>Automation Framework（自動化）</h2>
+                        <p>
+                            <strong>Automation Framework</strong> は、ZAP を 1 つの YAML
+                            ファイルで制御できる公式の自動化の仕組みです。特定のコンテナ技術に縛られず柔軟性が高いため、非自明な（＝単純な
+                            baseline/full scan では足りない）自動化には Automation Framework
+                            の利用が推奨されています。
+                        </p>
+
+                        <h3>実行の流れ（イメージ）</h3>
+                        <div class="mermaid-diagram">
+                            <div id="diagram-automation"></div>
+                        </div>
+
+                        <div class="callout callout-info">
+                            <i class="ti ti-info-circle"></i>
+                            <p>
+                                ジョブは YAML
+                                ファイルに記述した<strong>上から下の順</strong>で実行されます。例えば
+                                <code>passiveScan-wait</code> は Spider/Import
+                                より前に置いても意味がありません。
+                            </p>
+                        </div>
+
+                        <h3>YAML の基本構造の例</h3>
+                        <pre><code class="language-yaml">env:
+  contexts:
+    - name: "my-app"
+      urls:
+        - "https://your-test-target.example.com"
+      includePaths:
+        - "https://your-test-target.example.com/.*"
+  parameters:
+    failOnError: true
+    failOnWarning: false
+    progressToStdout: true
+
+jobs:
+  - type: spider
+    parameters:
+      context: "my-app"
+      url: "https://your-test-target.example.com"
+      maxDuration: 5
+
+  - type: passiveScan-wait
+    parameters:
+      maxDuration: 5
+
+  - type: activeScan
+    parameters:
+      context: "my-app"
+      policy: "Default Policy"
+
+  - type: report
+    parameters:
+      template: "modern"
+      reportDir: "/zap/wrk"
+      reportFile: "zap-report"
+      reportTitle: "ZAP Scan Report"
+
+  - type: exitStatus
+    parameters:
+      errorLevel: "High"
+      warnLevel: "Medium"</code></pre>
+
+                        <h3>実行方法</h3>
+                        <pre><code class="language-bash"># デスクトップUIを表示せずに自動実行し、完了後に終了
+./zap.sh -cmd -autorun zap.yaml</code></pre>
+
+                        <p>
+                            主な代表的ジョブには、<code>spider</code>（通常のクロール）、<code>spiderAjax</code>（Ajax
+                            Spider）、<code>passiveScan-config</code> /
+                            <code>passiveScan-wait</code>（受動スキャン設定・待機）、<code
+                                >activeScan</code
+                            >
+                            / <code>activeScan-config</code> /
+                            <code>activeScan-policy</code>（能動スキャン関連）、<code>openapi</code>
+                            / <code>soap</code> /
+                            <code>graphql</code
+                            >（各仕様のインポート）、<code>requestor</code>（任意のリクエスト送信）、<code>replacer</code>（文字列置換）、<code>delay</code>（待機）、<code>report</code>（レポート生成）、<code>exitStatus</code>（終了コード制御）などがあり、対応するアドオンによってジョブの種類は拡張されます。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/automate/automation-framework/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automation Framework</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/about/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automation Framework Add-on - About</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/environment/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automation Framework - Environment</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/gui/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automation Framework - GUI</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/job-ascan/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automation Framework - activeScan Job</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/job-spider/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automation Framework - spider Job</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/job-exitstatus/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automation Framework - exitStatus Job</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/tests/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Automation Framework - Job Tests</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 21. Docker CI/CD -->
+                    <section id="docker-cicd">
+                        <div class="section-eyebrow">
+                            <i class="ti ti-brand-docker"></i>SECTION 21
+                        </div>
+                        <h2>Docker と CI/CD 連携</h2>
+                        <p>
+                            ZAP を CI/CD パイプラインで自動実行するための代表的な方法として、<strong
+                                >パッケージスキャン（Docker スクリプト）</strong
+                            >と、それをラップする<strong>GitHub Actions</strong>
+                            が提供されています。
+                        </p>
+
+                        <h3>パッケージスキャンの種類</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>スクリプト</th>
+                                        <th>内容</th>
+                                        <th>攻撃の有無</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><code>zap-baseline.py</code></td>
+                                        <td>
+                                            デフォルト 1 分間 Spider を実行し、Passive Scan
+                                            の結果を待って報告。高速で CI 向き
+                                        </td>
+                                        <td>なし（受動的のみ）</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>zap-full-scan.py</code></td>
+                                        <td>
+                                            Spider（時間制限なし）＋任意で Ajax Spider ＋ Active
+                                            Scan を実行
+                                        </td>
+                                        <td>あり（能動的攻撃を実施）</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>zap-api-scan.py</code></td>
+                                        <td>
+                                            OpenAPI/Swagger または GraphQL の定義から API
+                                            を能動的にスキャン
+                                        </td>
+                                        <td>あり</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            いずれのスクリプトも Automation Framework
+                            へ移行が進められており、内部的に YAML
+                            プランを生成・実行する仕組みに統合されつつあります。
+                        </p>
+
+                        <h3>終了コードによる結果判定</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>終了コード</th>
+                                        <th>意味</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>0</td>
+                                        <td>成功（FAIL 該当なし）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>少なくとも 1 件の FAIL あり</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>WARN のみで FAIL なし</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>その他の失敗（スキャン自体の実行エラーなど）</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Docker での実行例（Baseline Scan）</h3>
+                        <pre><code class="language-bash">docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable \
+  zap-baseline.py -t https://your-test-target.example.com \
+  -r baseline-report.html</code></pre>
+
+                        <h3>GitHub Actions での実行例</h3>
+                        <pre><code class="language-yaml">name: ZAP Baseline Scan
+on: [push]
+
+jobs:
+  zap_scan:
+    runs-on: ubuntu-latest
+    name: Scan the web application
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: ZAP Scan
+        uses: zaproxy/action-baseline@v0.15.0
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          docker_name: 'ghcr.io/zaproxy/zaproxy:stable'
+          target: 'https://your-test-target.example.com'
+          rules_file_name: '.zap/rules.tsv'
+          cmd_options: '-a'</code></pre>
+
+                        <p>
+                            <code>zaproxy/action-baseline</code> は Baseline Scan をラップした公式
+                            GitHub Action で、検出されたアラートを GitHub の Issue
+                            として自動的に作成・更新することもできます。ルールファイル（<code>rules.tsv</code>）を使えば、特定のルール
+                            ID を <code>IGNORE</code> に設定して誤検知を除外できます。
+                        </p>
+
+                        <h3>CI/CD パイプライン全体のイメージ</h3>
+                        <div class="mermaid-diagram">
+                            <div id="diagram-cicd"></div>
+                        </div>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/docker/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – ZAP Docker Documentation</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/docker/about/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – ZAP Docker User Guide</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/docker/baseline-scan/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Baseline Scan</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/docker/full-scan/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Full Scan</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/zaproxy/action-baseline"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub - zaproxy/action-baseline</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/marketplace/actions/zap-baseline-scan"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub Marketplace - ZAP Baseline Scan</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/zaproxy/zaproxy/blob/main/docker/zap-baseline.py"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub - zaproxy/zaproxy -
+                                        docker/zap-baseline.py（ソースコード）</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/zaproxy/zaproxy/blob/main/docker/zap-full-scan.py"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub - zaproxy/zaproxy -
+                                        docker/zap-full-scan.py（ソースコード）</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 22. Scripting -->
+                    <section id="scripting">
+                        <div class="section-eyebrow"><i class="ti ti-code"></i>SECTION 22</div>
+                        <h2>スクリプティングと拡張（Add-ons / Script Console）</h2>
+
+                        <h3>Add-on（アドオン）と Marketplace</h3>
+                        <p>
+                            ZAP のコア機能はあえて最小限に保たれており、多くの追加機能は<strong
+                                >Marketplace</strong
+                            >
+                            から個別にインストールするアドオンとして提供されています。Access Control
+                            Testing、GraphQL Support、OpenAPI Support、SOAP
+                            Support、WebSockets、Retire.js（脆弱な JS ライブラリ検出）、Postman
+                            Support など、目的に応じて数十種類のアドオンが公開されています。
+                        </p>
+
+                        <h3>Script Console</h3>
+                        <p>
+                            <strong>Script Console</strong>
+                            アドオンを使うと、以下のような複数のスクリプト言語で ZAP
+                            の挙動をカスタマイズできます。
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>言語</th>
+                                        <th>用途例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>JavaScript（GraalVM JavaScript）</td>
+                                        <td>標準で利用可能なスクリプト言語</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Python（Jython 経由）</td>
+                                        <td>Python に慣れたエンジニア向け</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ruby / Groovy / Kotlin</td>
+                                        <td>それぞれ追加アドオンとして提供</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            スクリプトは以下のような種類に分類され、それぞれ異なるタイミング・目的で実行されます。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Authentication Script</strong>：カスタム認証フローの実装
+                            </li>
+                            <li>
+                                <strong>Active/Passive Rule Script</strong
+                                >：独自の検査ロジックの追加
+                            </li>
+                            <li>
+                                <strong>HTTP Sender Script</strong>：すべての送受信メッセージに介入
+                            </li>
+                            <li>
+                                <strong>Proxy Script</strong>：プロキシ通過時の挙動をカスタマイズ
+                            </li>
+                            <li>
+                                <strong>Standalone Script</strong
+                                >：単体で実行するユーティリティスクリプト
+                            </li>
+                        </ul>
+                        <p>
+                            コミュニティが公開しているスクリプト集（Community Scripts
+                            アドオン）も利用可能です。
+                        </p>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Add-ons 一覧</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/marketplace/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Marketplace (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/script-console/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Script Console Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/features/scripts/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Scripts (Feature)</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/community-scripts/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Community Scripts</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://github.com/zaproxy/community-scripts"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub - zaproxy/community-scripts</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 23. Troubleshooting -->
+                    <section id="troubleshooting">
+                        <div class="section-eyebrow"><i class="ti ti-bug"></i>SECTION 23</div>
+                        <h2>よくあるトラブルと対処法</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>症状</th>
+                                        <th>主な原因</th>
+                                        <th>対処法</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ブラウザ経由の通信が Sites/History に表示されない</td>
+                                        <td>
+                                            ブラウザまたは ZAP
+                                            のプロキシ設定が誤っている、対象アプリが起動していない
+                                        </td>
+                                        <td>
+                                            ブラウザのプロキシ設定と ZAP の Local Proxy
+                                            設定（アドレス・ポート）を再確認する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>HTTPS サイトで証明書エラーが出る</td>
+                                        <td>
+                                            ZAP の Root CA 証明書がブラウザ/OS に信頼されていない
+                                        </td>
+                                        <td>
+                                            Options &gt; Dynamic SSL Certificates
+                                            から証明書を再エクスポートし、ブラウザに信頼済み証明書としてインポートする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Spider が「No seeds available」で失敗する</td>
+                                        <td>
+                                            対象 URL が Context
+                                            に含まれていない、またはアクセスできない
+                                        </td>
+                                        <td>
+                                            Context の URL 設定を確認し、対象 URL
+                                            に直接一度アクセスしてから再実行する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Docker コンテナから対象アプリに到達できない</td>
+                                        <td>
+                                            Docker のネットワーク分離により、別コンテナ・localhost
+                                            にアクセスできない
+                                        </td>
+                                        <td>
+                                            Docker ネットワーク（<code>--net</code>
+                                            オプション）を作成し、ZAP
+                                            コンテナと対象アプリコンテナを同じネットワークに参加させる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ajax Spider が動かない（no_implementor error 等）</td>
+                                        <td>
+                                            Ajax Spider アドオンや WebDriver
+                                            アドオンが未インストール
+                                        </td>
+                                        <td>
+                                            Marketplace から AJAX Spider アドオンおよび対応する
+                                            WebDriver アドオンをインストールする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Active Scan の結果に誤検知（False Positive）が多い</td>
+                                        <td>
+                                            Scan Policy の Alert Threshold
+                                            が低すぎる、対象アプリ特有の応答パターンによる誤判定
+                                        </td>
+                                        <td>
+                                            Scan Policy の Threshold/Strength
+                                            を調整する、または個別アラートを「Mark as False
+                                            Positive」に設定する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>CI 上で Baseline Scan がタイムアウトする</td>
+                                        <td>
+                                            Spider の実行時間（デフォルト1分）や Passive Scan
+                                            待機時間が不足
+                                        </td>
+                                        <td>
+                                            <code>-m</code>（分）オプションや
+                                            <code>-T</code>（待機時間上限）オプションを調整する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            ウイルス対策ソフトが ZAP のインストーラーを誤検知する
+                                        </td>
+                                        <td>署名なしバイナリであることに起因する既知の問題</td>
+                                        <td>
+                                            公式ダウンロードページのチェックサムで検証し、必要に応じて例外設定する
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/docker/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Diagnosing Docker Problems</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/download/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Download（アンチウイルス誤検知に関する記載）</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/faq/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – FAQ</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 24. Best practices -->
+                    <section id="best-practices">
+                        <div class="section-eyebrow"><i class="ti ti-star"></i>SECTION 24</div>
+                        <h2>ベストプラクティスまとめ</h2>
+                        <ol>
+                            <li>
+                                <strong>必ず許可された対象のみをテストする。</strong>学習中は OWASP
+                                Juice Shop などの意図的脆弱アプリを使う。
+                            </li>
+                            <li>
+                                <strong>Protected Mode を基本とし、Scope を明確に設定する。</strong
+                                >誤って意図しない対象を攻撃するリスクを減らす。
+                            </li>
+                            <li>
+                                <strong
+                                    >手動探索（Explore）を先に行ってから Spider/Active Scan
+                                    を実行する。</strong
+                                >自動化だけでは到達できないページを減らす。
+                            </li>
+                            <li>
+                                <strong
+                                    >Passive Scan
+                                    の結果は本番環境でも比較的安全に活用できる。</strong
+                                >一方 Active Scan は必ずステージング環境以下で実施する。
+                            </li>
+                            <li>
+                                <strong
+                                    >CI/CD には Automation Framework または Baseline/Full Scan の
+                                    Docker/GitHub Actions を組み込む。</strong
+                                >継続的にセキュリティリグレッションを検知できる体制を作る。
+                            </li>
+                            <li>
+                                <strong
+                                    >Alert の Risk と Confidence
+                                    の両方を見て優先順位をつける。</strong
+                                >High Risk かつ High Confidence のものから対応する。
+                            </li>
+                            <li>
+                                <strong
+                                    >誤検知は個別に False Positive としてマークし、Alert Filter
+                                    で自動化する。</strong
+                                >レポートのノイズを減らす。
+                            </li>
+                            <li>
+                                <strong>API キーを必ず設定する。</strong>ZAP API
+                                が意図せず外部からアクセスされるリスクを避ける。
+                            </li>
+                            <li>
+                                <strong
+                                    >自動スキャンだけに頼らず、OWASP Testing Guide
+                                    に基づいた手動テストを組み合わせる。</strong
+                                >認可制御やビジネスロジックの脆弱性は自動検出が困難なため。
+                            </li>
+                        </ol>
+
+                        <div class="refs">
+                            <div class="refs-title"><i class="ti ti-link"></i>参考 URL</div>
+                            <ul>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/start/pentest/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – A Basic Penetration Test</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.zaproxy.org/docs/desktop/addons/alert-filters/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >ZAP – Alert Filters Add-on</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.owasp.org/wstg"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >OWASP Testing Guide</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <!-- 25. Resources -->
+                    <section id="resources">
+                        <div class="section-eyebrow"><i class="ti ti-books"></i>SECTION 25</div>
+                        <h2>学習リソース・参考 URL 一覧</h2>
+
+                        <h3>公式ドキュメント</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>リソース</th>
+                                        <th>URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ZAP 公式サイト</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ドキュメントトップ</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Desktop User Guide</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/desktop/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/desktop/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Getting Started</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/desktop/start/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/desktop/start/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Features 一覧</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/desktop/start/features/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/desktop/start/features/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Add-ons 一覧</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/desktop/addons/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/desktop/addons/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>API リファレンス</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/api/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/api/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Automate ZAP</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/automate/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/automate/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Automation Framework</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/automate/automation-framework/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/automate/automation-framework/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Docker Documentation</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/docker/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/docker/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>全アラート一覧</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/alerts/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/alerts/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Alert Tags 一覧</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/alerttags/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/alerttags/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ダウンロードページ</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/download/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/download/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>FAQ</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/faq/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/faq/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ロードマップ</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/docs/roadmap/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/docs/roadmap/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ブログ</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/blog/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/blog/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>動画一覧（ZAP Chat 等）</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/videos/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/videos/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>コミュニティ</td>
+                                        <td>
+                                            <a
+                                                href="https://www.zaproxy.org/community/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >zaproxy.org/community/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>GitHub リポジトリ</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>リポジトリ</th>
+                                        <th>URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>zaproxy/zaproxy（コア）</td>
+                                        <td>
+                                            <a
+                                                href="https://github.com/zaproxy/zaproxy"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >github.com/zaproxy/zaproxy</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>zaproxy/zap-extensions（アドオン）</td>
+                                        <td>
+                                            <a
+                                                href="https://github.com/zaproxy/zap-extensions"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >github.com/zaproxy/zap-extensions</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>zaproxy/zap-hud（HUD）</td>
+                                        <td>
+                                            <a
+                                                href="https://github.com/zaproxy/zap-hud"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >github.com/zaproxy/zap-hud</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>zaproxy/community-scripts</td>
+                                        <td>
+                                            <a
+                                                href="https://github.com/zaproxy/community-scripts"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >github.com/zaproxy/community-scripts</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>zaproxy/zap-api-docs</td>
+                                        <td>
+                                            <a
+                                                href="https://github.com/zaproxy/zap-api-docs"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >github.com/zaproxy/zap-api-docs</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>zaproxy/action-baseline（GitHub Action）</td>
+                                        <td>
+                                            <a
+                                                href="https://github.com/zaproxy/action-baseline"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >github.com/zaproxy/action-baseline</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>zaproxy/zaproxy-website（サイトのソース）</td>
+                                        <td>
+                                            <a
+                                                href="https://github.com/zaproxy/zaproxy-website"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >github.com/zaproxy/zaproxy-website</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>GitHub Organization 全体</td>
+                                        <td>
+                                            <a
+                                                href="https://github.com/zaproxy"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >github.com/zaproxy</a
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>学習用の脆弱アプリケーション</h3>
+                        <div class="callout callout-danger">
+                            <i class="ti ti-alert-triangle"></i>
+                            <p>
+                                許可なくインターネット上の他サイトを攻撃しないこと。以下は学習目的で公開されている、意図的に脆弱性を含んだアプリケーションです。
+                            </p>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>アプリ</th>
+                                        <th>用途</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>OWASP Juice Shop</td>
+                                        <td>
+                                            モダンな SPA
+                                            構成の意図的脆弱アプリ。認証テストの学習にも利用される
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Google Firing Range</td>
+                                        <td>
+                                            各種 XSS
+                                            パターンなどをテストするための公開テストターゲット
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>bodgeit</td>
+                                        <td>
+                                            フォームベース認証のサンプルとして ZAP
+                                            公式ドキュメントでも使用される
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>関連する外部標準・団体</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>リソース</th>
+                                        <th>URL</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>OWASP Testing Guide</td>
+                                        <td>
+                                            <a
+                                                href="https://www.owasp.org/wstg"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >owasp.org/wstg</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>OWASP 本体</td>
+                                        <td>
+                                            <a
+                                                href="https://owasp.org/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >owasp.org</a
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Checkmarx（ZAP スポンサー企業）</td>
+                                        <td>
+                                            <a
+                                                href="https://checkmarx.com/product/zap/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >checkmarx.com/product/zap/</a
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="doc-footer">
+                            本ガイドでは、ZAP のインストールから基本的な UI 操作、Spider・Passive
+                            Scan・Active Scan といったコア機能、Context・Scope・Authentication
+                            などのテスト対象定義、Automation Framework と Docker/CI-CD
+                            連携による自動化、レポート生成、そしてトラブルシューティングまでを一通り解説しました。次のステップとしては、OWASP
+                            Juice Shop
+                            などの学習用アプリケーションに対して本ガイドの手順を一通り試し、その後は各章の公式ドキュメントリンクから興味のある機能を深掘りしていくことをお勧めします。
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+        <script>
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'dark',
+                securityLevel: 'loose',
+                fontFamily: 'inherit',
+                themeVariables: { fontSize: '16px' },
+                flowchart: {
+                    htmlLabels: false,
+                    curve: 'linear',
+                    useMaxWidth: false,
+                    nodeSpacing: 45,
+                    rankSpacing: 50,
+                },
+                state: { htmlLabels: false, useMaxWidth: false },
+            });
+
+            var diagramDefinitions = {
+                'diagram-architecture':
+                    'flowchart LR\n' +
+                    '    Browser["Webブラウザ"] -->|プロキシ経由| ZAP["ZAP Proxy"]\n' +
+                    '    ZAP --> Target["対象Webアプリケーション"]\n' +
+                    '    Target --> ZAP\n' +
+                    '    ZAP --> Browser\n' +
+                    '    ZAP -.-> PScan["Passive Scanner"]\n' +
+                    '    ZAP -.-> Spider["Spider / Ajax Spider"]\n' +
+                    '    ZAP -.-> AScan["Active Scanner"]\n' +
+                    '    PScan -.-> Alerts["Alerts"]\n' +
+                    '    Spider -.-> Alerts\n' +
+                    '    AScan -.-> Alerts',
+
+                'diagram-mode':
+                    'stateDiagram-v2\n' +
+                    '    [*] --> Standard\n' +
+                    '    Standard --> Safe\n' +
+                    '    Safe --> Protected\n' +
+                    '    Protected --> ATTACK\n' +
+                    '    ATTACK --> Protected\n' +
+                    '    Protected --> Standard',
+
+                'diagram-pentest-flow':
+                    'flowchart TD\n' +
+                    '    A["① Explore（手動探索）"] --> B["② Spider（クローリング）"]\n' +
+                    '    B --> C["③ Forced Browse"]\n' +
+                    '    C --> D["④ Active Scan"]\n' +
+                    '    D --> E["⑤ Manual Test"]',
+
+                'diagram-auth':
+                    'flowchart TD\n' +
+                    '    A["① Contextを作成"] --> B["② Session Management Method設定"]\n' +
+                    '    B --> C["③ Authentication Method設定"]\n' +
+                    '    C --> D["④ Verification Strategy設定"]\n' +
+                    '    D --> E["⑤ Userを定義"]\n' +
+                    '    E --> F["認証済み状態でSpider/Active Scan"]',
+
+                'diagram-automation':
+                    'flowchart TD\n' +
+                    '    Env["envセクション"] --> Spider["spider job"]\n' +
+                    '    Spider --> AjaxSpider["spiderAjax job"]\n' +
+                    '    AjaxSpider --> PScanWait["passiveScan-wait job"]\n' +
+                    '    PScanWait --> AScan["activeScan job"]\n' +
+                    '    AScan --> Report["report job"]\n' +
+                    '    Report --> ExitStatus["exitStatus job"]',
+
+                'diagram-cicd':
+                    'flowchart LR\n' +
+                    '    Commit["コードのpush"] --> CI["CI/CDパイプライン起動"]\n' +
+                    '    CI --> Build["ステージングへデプロイ"]\n' +
+                    '    Build --> ZAPScan["ZAP Baseline/Full Scan"]\n' +
+                    '    ZAPScan --> Report["レポート生成"]\n' +
+                    '    Report --> Gate{"FAILあり?"}\n' +
+                    '    Gate -->|Yes| Block["パイプライン失敗"]\n' +
+                    '    Gate -->|No| Pass["次のステージへ"]',
+            };
+
+            async function renderMermaidDiagrams() {
+                await document.fonts.ready;
+                var ids = Object.keys(diagramDefinitions);
+                for (var i = 0; i < ids.length; i++) {
+                    var id = ids[i];
+                    var container = document.getElementById(id);
+                    if (!container) continue;
+                    try {
+                        var result = await mermaid.render(id + '-svg', diagramDefinitions[id]);
+                        container.innerHTML = result.svg;
+                        var svgEl = container.querySelector('svg');
+                        if (svgEl) {
+                            svgEl.style.maxWidth = '100%';
+                            svgEl.style.height = 'auto';
+                            svgEl.style.display = 'block';
+                            svgEl.style.margin = '0 auto';
+                            svgEl.style.overflow = 'visible';
+                        }
+                    } catch (err) {
+                        container.innerHTML =
+                            '<p class="mermaid-error">図の描画に失敗しました。</p>';
+                        console.error('Mermaid render error: ' + id, err);
+                    }
+                }
+            }
+
+            function initScrollspy() {
+                var links = Array.prototype.slice.call(document.querySelectorAll('.nav-list a'));
+                var sections = links
+                    .map(function (a) {
+                        return document.getElementById(a.getAttribute('href').slice(1));
+                    })
+                    .filter(Boolean);
+
+                var observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            var id = entry.target.getAttribute('id');
+                            var link = document.querySelector('.nav-list a[href="#' + id + '"]');
+                            if (!link) return;
+                            if (entry.isIntersecting) {
+                                links.forEach(function (l) {
+                                    l.classList.remove('active');
+                                });
+                                link.classList.add('active');
+                            }
+                        });
+                    },
+                    { rootMargin: '-15% 0px -70% 0px', threshold: 0 },
+                );
+
+                sections.forEach(function (s) {
+                    observer.observe(s);
+                });
+            }
+
+            function initSidebarToggle() {
+                var toggle = document.getElementById('sidebarToggle');
+                var sidebar = document.getElementById('sidebar');
+                if (!toggle || !sidebar) return;
+                toggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('open');
+                });
+                sidebar.querySelectorAll('a').forEach(function (a) {
+                    a.addEventListener('click', function () {
+                        sidebar.classList.remove('open');
+                    });
+                });
+            }
+
+            window.addEventListener('DOMContentLoaded', function () {
+                renderMermaidDiagrams();
+                initScrollspy();
+                initSidebarToggle();
+            });
+        </script>
+    </body>
+</html>

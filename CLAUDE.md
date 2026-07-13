@@ -25,7 +25,7 @@ bun test             # ユニットテスト (bun test, 161 specs)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 36 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 37 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -100,6 +100,9 @@ Next.js App Router 構成:
 - `app/istqb-ctfl-v4-chapter1-fundamentals/istqb-ctfl-v4-chapter1-fundamentals.css` — CTFL v4.0 第1章ガイド固有スタイル
 - `app/istqb-ctfl-v4-chapter1-fundamentals/page.tsx` — CTFL v4.0 第1章ガイドページ
 - `app/istqb-ctfl-v4-chapter1-fundamentals/NavBar.tsx` — CTFL v4.0 第1章ページ固有スティッキーナビ
+- `app/istqb-ctfl-v4-chapter2-sdlc-and-testing/istqb-ctfl-v4-chapter2-sdlc-and-testing.css` — CTFL v4.0 第2章ガイド固有スタイル
+- `app/istqb-ctfl-v4-chapter2-sdlc-and-testing/page.tsx` — CTFL v4.0 第2章ガイドページ
+- `app/istqb-ctfl-v4-chapter2-sdlc-and-testing/NavBar.tsx` — CTFL v4.0 第2章ページ固有スティッキーナビ
 - `app/software-testing-methodologies-guide.css` — テスト手法ガイド固有スタイル
 - `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
 - `app/istqb-ctal-tae-complete-guide.css` — テスト自動化(CTAL-TAE)ガイド固有スタイル

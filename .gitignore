@@ -99,4 +99,5 @@ scripts/fix-toc.mjs
 /playwright/.cache/
 .lighthouseci
 
-archive/
+/archive/
+/plans/

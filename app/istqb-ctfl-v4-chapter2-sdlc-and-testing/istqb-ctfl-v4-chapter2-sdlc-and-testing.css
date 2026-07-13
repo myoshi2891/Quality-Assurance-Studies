@@ -1,0 +1,583 @@
+/* ============================================================
+   ISTQB CTFL v4.0 Chapter 2: SDLCとテスト
+   Page specific stylesheet
+   ============================================================ */
+
+/* globals.css の干渉リセット (Phase 3b) */
+.istqb-ctfl-v4-chapter2-page {
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.istqb-ctfl-v4-chapter2-page section {
+    padding-top: 0;
+}
+
+.istqb-ctfl-v4-chapter2-page .hero {
+    min-height: 0;
+    display: block;
+    margin-bottom: 48px;
+    padding: 40px;
+    background: var(--color-bg-secondary, #0f1629);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-DEFAULT, 12px);
+    position: relative;
+    overflow: hidden;
+}
+
+.istqb-ctfl-v4-chapter2-page .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(
+        90deg,
+        var(--color-accent-purple, #b794f4),
+        var(--color-accent-cyan, #4fd1c5),
+        var(--color-accent-orange, #f6ad55)
+    );
+}
+
+.istqb-ctfl-v4-chapter2-page .main {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 48px 56px 80px;
+}
+
+/* ===== SIDEBAR ===== */
+.istqb-ctfl-v4-chapter2-page .sidebar {
+    width: 260px;
+    background: var(--color-bg-secondary, #0f1629);
+    border-right: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    padding: 24px 0;
+    overflow-y: auto;
+    flex-shrink: 0;
+    position: sticky;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    z-index: 40;
+}
+
+.istqb-ctfl-v4-chapter2-page .sidebar-logo {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    margin-bottom: 16px;
+}
+.istqb-ctfl-v4-chapter2-page .sidebar-logo .badge-ctfl {
+    display: inline-block;
+    background: var(--color-bg-card-hover, #1a2238);
+    color: var(--color-accent-purple, #b794f4);
+    font-size: 11px;
+    font-weight: 500;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.04em;
+    margin-bottom: 6px;
+}
+.istqb-ctfl-v4-chapter2-page .sidebar-logo h2 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    line-height: 1.4;
+}
+.istqb-ctfl-v4-chapter2-page .sidebar-logo p {
+    font-size: 11px;
+    color: var(--color-text-muted, #85a9df);
+    margin-top: 4px;
+}
+
+.istqb-ctfl-v4-chapter2-page .nav-group {
+    margin-bottom: 4px;
+}
+.istqb-ctfl-v4-chapter2-page .nav-group-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-text-muted, #85a9df);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: 8px 20px 4px;
+}
+.istqb-ctfl-v4-chapter2-page .nav-link {
+    display: block;
+    padding: 6px 20px;
+    font-size: 13px;
+    color: var(--color-text-secondary, #8ea3c3);
+    text-decoration: none;
+    border-left: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s, background 0.15s;
+    line-height: 1.4;
+}
+.istqb-ctfl-v4-chapter2-page .nav-link:hover {
+    color: var(--color-text-primary, #e8f0fe);
+    background: var(--color-bg-card-hover, #1a2238);
+}
+.istqb-ctfl-v4-chapter2-page .nav-link.active {
+    color: var(--color-accent-purple, #b794f4);
+    border-left-color: var(--color-accent-purple, #b794f4);
+    background: rgba(183, 148, 244, 0.08);
+}
+.istqb-ctfl-v4-chapter2-page .nav-link.sub {
+    padding-left: 32px;
+    font-size: 12px;
+}
+
+/* ── Hero metrics ── */
+.istqb-ctfl-v4-chapter2-page .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-accent-purple, #b794f4);
+    margin-bottom: 12px;
+}
+.istqb-ctfl-v4-chapter2-page .hero h1 {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    line-height: 1.3;
+    margin-bottom: 16px;
+}
+.istqb-ctfl-v4-chapter2-page .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+.istqb-ctfl-v4-chapter2-page .hero-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: var(--color-text-secondary, #8ea3c3);
+}
+.istqb-ctfl-v4-chapter2-page .hero-meta-item strong {
+    color: var(--color-text-primary, #e8f0fe);
+}
+.istqb-ctfl-v4-chapter2-page .hero-stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+.istqb-ctfl-v4-chapter2-page .hero-stat {
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 14px 16px;
+    text-align: center;
+}
+.istqb-ctfl-v4-chapter2-page .hero-stat-num {
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--color-accent-purple, #b794f4);
+    display: block;
+}
+.istqb-ctfl-v4-chapter2-page .hero-stat-label {
+    font-size: 12px;
+    color: var(--color-text-muted, #85a9df);
+}
+
+/* ===== SECTION ===== */
+.istqb-ctfl-v4-chapter2-page .section {
+    margin-bottom: 56px;
+    scroll-margin-top: 24px;
+}
+.istqb-ctfl-v4-chapter2-page .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+}
+.istqb-ctfl-v4-chapter2-page .section-num {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-accent-cyan, #4fd1c5);
+    font-family: var(--font-mono, monospace);
+    background: rgba(79, 209, 197, 0.12);
+    padding: 2px 8px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+.istqb-ctfl-v4-chapter2-page .section-header h2 {
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+}
+
+.istqb-ctfl-v4-chapter2-page .subsection {
+    margin-bottom: 40px;
+    scroll-margin-top: 24px;
+}
+.istqb-ctfl-v4-chapter2-page .subsection h3 {
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--color-accent-purple, #b794f4);
+    margin-bottom: 14px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.istqb-ctfl-v4-chapter2-page .subsection h3::before {
+    content: '';
+    display: block;
+    width: 3px;
+    height: 16px;
+    background: var(--color-accent-purple, #b794f4);
+    border-radius: 2px;
+    flex-shrink: 0;
+}
+.istqb-ctfl-v4-chapter2-page .subsection h4 {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    margin: 20px 0 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.istqb-ctfl-v4-chapter2-page p {
+    margin-bottom: 14px;
+    color: var(--color-text-secondary, #8ea3c3);
+}
+
+/* ===== CALLOUTS ===== */
+.istqb-ctfl-v4-chapter2-page .callout {
+    padding: 14px 18px;
+    border-radius: var(--radius-sm, 8px);
+    border-left: 3px solid;
+    margin: 16px 0;
+    font-size: 14px;
+    line-height: 1.6;
+}
+.istqb-ctfl-v4-chapter2-page .callout-info {
+    background: rgba(99, 179, 237, 0.1);
+    border-color: var(--color-accent-blue, #63b3ed);
+    color: var(--color-text-primary, #e8f0fe);
+}
+.istqb-ctfl-v4-chapter2-page .callout-warn {
+    background: rgba(246, 173, 85, 0.08);
+    border-color: var(--color-accent-orange, #f6ad55);
+    color: var(--color-text-primary, #e8f0fe);
+}
+.istqb-ctfl-v4-chapter2-page .callout-danger {
+    background: rgba(252, 129, 129, 0.08);
+    border-color: var(--color-accent-red, #fc8181);
+    color: var(--color-text-primary, #e8f0fe);
+}
+.istqb-ctfl-v4-chapter2-page .callout-good {
+    background: rgba(104, 211, 145, 0.08);
+    border-color: var(--color-accent-green, #68d391);
+    color: var(--color-text-primary, #e8f0fe);
+}
+.istqb-ctfl-v4-chapter2-page .callout-title {
+    font-weight: 500;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-size: 12px;
+}
+
+/* ===== TABLES ===== */
+.istqb-ctfl-v4-chapter2-page .table-wrapper {
+    overflow-x: auto;
+    margin: 20px 0;
+    border-radius: var(--radius-sm, 8px);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+}
+.istqb-ctfl-v4-chapter2-page table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    text-align: left;
+}
+.istqb-ctfl-v4-chapter2-page th {
+    background: var(--color-bg-card, #131929);
+    padding: 12px 16px;
+    font-weight: 500;
+    color: var(--color-text-muted, #85a9df);
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.istqb-ctfl-v4-chapter2-page td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    color: var(--color-text-secondary, #8ea3c3);
+    vertical-align: top;
+    line-height: 1.6;
+}
+.istqb-ctfl-v4-chapter2-page tr:last-child td {
+    border-bottom: none;
+}
+.istqb-ctfl-v4-chapter2-page tr:hover td {
+    background: var(--color-bg-card-hover, #1a2238);
+}
+
+/* ===== BADGES ===== */
+.istqb-ctfl-v4-chapter2-page .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+}
+.istqb-ctfl-v4-chapter2-page .badge-k1 {
+    background: rgba(79, 209, 197, 0.12);
+    color: var(--color-accent-cyan, #4fd1c5);
+    border: 1px solid rgba(79, 209, 197, 0.25);
+}
+.istqb-ctfl-v4-chapter2-page .badge-k2 {
+    background: rgba(183, 148, 244, 0.12);
+    color: var(--color-accent-purple, #b794f4);
+    border: 1px solid rgba(183, 148, 244, 0.3);
+}
+
+/* ===== EXAM PATTERNS ===== */
+.istqb-ctfl-v4-chapter2-page .exam-q {
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 18px;
+    margin-bottom: 16px;
+}
+.istqb-ctfl-v4-chapter2-page .exam-q-label {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--color-accent-purple, #b794f4);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+}
+.istqb-ctfl-v4-chapter2-page .exam-q-text {
+    font-size: 14px;
+    color: var(--color-text-primary, #e8f0fe);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+.istqb-ctfl-v4-chapter2-page .exam-a {
+    font-size: 13px;
+    color: var(--color-accent-green, #68d391);
+    background: rgba(104, 211, 145, 0.08);
+    border: 1px solid rgba(104, 211, 145, 0.2);
+    border-radius: 4px;
+    padding: 10px 14px;
+}
+
+/* ===== MISCON CONCEPT ===== */
+.istqb-ctfl-v4-chapter2-page .mcon {
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 20px;
+    margin: 24px 0;
+}
+.istqb-ctfl-v4-chapter2-page .mcon-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+}
+.istqb-ctfl-v4-chapter2-page .mcon-row:first-child {
+    padding-top: 0;
+}
+.istqb-ctfl-v4-chapter2-page .mcon-row:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.istqb-ctfl-v4-chapter2-page .mcon-wrong {
+    color: var(--color-accent-red, #fc8181);
+    font-size: 14px;
+}
+.istqb-ctfl-v4-chapter2-page .mcon-right {
+    color: var(--color-accent-green, #68d391);
+    font-size: 14px;
+}
+.istqb-ctfl-v4-chapter2-page .mcon-label {
+    font-size: 10px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+}
+.istqb-ctfl-v4-chapter2-page .mcon-wrong .mcon-label {
+    background: rgba(252, 129, 129, 0.12);
+}
+.istqb-ctfl-v4-chapter2-page .mcon-right .mcon-label {
+    background: rgba(104, 211, 145, 0.12);
+}
+
+/* ===== MERMAID RESET ===== */
+.istqb-ctfl-v4-chapter2-page .mermaid-wrapper {
+    width: 100%;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+
+.istqb-ctfl-v4-chapter2-page .mermaid-wrapper svg {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
+    margin: 0 auto;
+}
+
+/* ===== REFERENCES ===== */
+.istqb-ctfl-v4-chapter2-page .ref-item {
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 16px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 16px;
+    align-items: start;
+}
+.istqb-ctfl-v4-chapter2-page .ref-num {
+    background: var(--color-bg-secondary, #0f1629);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    color: var(--color-accent-purple, #b794f4);
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    font-size: 14px;
+}
+.istqb-ctfl-v4-chapter2-page .ref-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text-primary, #e8f0fe);
+    margin-bottom: 4px;
+}
+.istqb-ctfl-v4-chapter2-page .ref-url {
+    font-size: 13px;
+    color: var(--color-accent-blue, #63b3ed);
+    word-break: break-all;
+    margin-bottom: 4px;
+}
+.istqb-ctfl-v4-chapter2-page .ref-url a {
+    color: inherit;
+    text-decoration: none;
+}
+.istqb-ctfl-v4-chapter2-page .ref-url a:hover {
+    text-decoration: underline;
+}
+.istqb-ctfl-v4-chapter2-page .ref-date {
+    font-size: 12px;
+    color: var(--color-text-muted, #85a9df);
+}
+
+/* ===== FOOTER ===== */
+.istqb-ctfl-v4-chapter2-page .doc-footer {
+    margin-top: 64px;
+    padding-top: 24px;
+    border-top: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    font-size: 12px;
+    color: var(--color-text-muted, #85a9df);
+    line-height: 1.6;
+}
+
+/* ===== CODE BLOCK ===== */
+.istqb-ctfl-v4-chapter2-page .code-block {
+    background: var(--color-bg-card, #131929);
+    border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+    border-radius: var(--radius-sm, 8px);
+    padding: 16px;
+    margin: 16px 0;
+    font-family: var(--font-mono, monospace);
+    font-size: 13px;
+    overflow-x: auto;
+}
+.istqb-ctfl-v4-chapter2-page .code-line {
+    white-space: pre;
+    line-height: 1.5;
+}
+.istqb-ctfl-v4-chapter2-page .code-keyword {
+    color: var(--color-accent-purple, #b794f4);
+}
+.istqb-ctfl-v4-chapter2-page .code-string {
+    color: var(--color-accent-green, #68d391);
+}
+.istqb-ctfl-v4-chapter2-page .code-comment {
+    color: var(--color-text-muted, #85a9df);
+    font-style: italic;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+    .istqb-ctfl-v4-chapter2-page {
+        flex-direction: column;
+    }
+    .istqb-ctfl-v4-chapter2-page .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        top: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
+        padding: 16px 0;
+    }
+    .istqb-ctfl-v4-chapter2-page .main {
+        padding: 32px 24px 64px;
+    }
+}
+@media (max-width: 640px) {
+    .istqb-ctfl-v4-chapter2-page .hero-stat-row {
+        grid-template-columns: 1fr;
+    }
+    .istqb-ctfl-v4-chapter2-page .mcon-row {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+}
+
+/* ─── Shared Components (Badge / Caption) ─── */
+.istqb-ctfl-v4-chapter2-page .version-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(183, 148, 244, 0.1);
+    border: 1px solid rgba(183, 148, 244, 0.25);
+    color: var(--color-accent-purple, #b794f4);
+    font-size: 11px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.05em;
+    margin-bottom: 16px;
+    font-family: var(--font-mono, monospace);
+}
+.istqb-ctfl-v4-chapter2-page .version-badge span {
+    color: var(--color-accent-purple, #b794f4);
+    font-size: 8px;
+}
+.istqb-ctfl-v4-chapter2-page .mermaid-caption {
+    text-align: center;
+    font-size: 12px;
+    color: var(--color-text-muted, #85a9df);
+    margin-top: 8px;
+    margin-bottom: 24px;
+    font-weight: 500;
+}
