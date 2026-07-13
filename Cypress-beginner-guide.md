@@ -579,7 +579,7 @@ Cypressをインストールした後は、プロジェクトルートから以�
 
 ```shell
 # ヘッドレスモードで単一スペックを実行し、Cypress Cloudに記録する例
-npx cypress run --record --spec "cypress/e2e/my-spec.cy.js"
+bunx cypress run --record --spec "cypress/e2e/my-spec.cy.js"
 ```
 
 ### 10-3. package.jsonへのスクリプト登録
@@ -595,7 +595,7 @@ npx cypress run --record --spec "cypress/e2e/my-spec.cy.js"
 ```
 
 ```shell
-npm run e2e:chrome
+bun run e2e:chrome
 ```
 
 > 出典: [Command Line - Cypress Documentation](https://docs.cypress.io/app/references/command-line)
@@ -622,8 +622,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v7
         with:
-          build: npm run build
-          start: npm start
+          build: bun run build
+          start: bun run start
 ```
 
 このワークフローは、pushをトリガーにUbuntu環境を起動し、リポジトリをチェックアウトしたうえで、依存関係のインストール・ビルド・アプリの起動・Electronブラウザでのテスト実行までを自動的に行います。
@@ -636,8 +636,8 @@ GitHub Actionsのホスト型ランナーにはあらかじめChrome・Firefox�
 - name: Cypress run
   uses: cypress-io/github-action@v7
   with:
-    build: npm run build
-    start: npm start
+    build: bun run build
+    start: bun run start
     browser: chrome
 ```
 
@@ -661,7 +661,7 @@ jobs:
           record: true
           parallel: true
           group: 'UI-Chrome'
-          start: npm start
+          start: bun run start
 ```
 
 `record: true`によってCypress Cloudへ結果を記録し、プルリクエスト上でのステータスチェックやフレーキーテストの検知が可能になります。`parallel: true`は、実行時間の履歴に基づいてスペックを動的に振り分けるSmart Orchestrationを利用します。
