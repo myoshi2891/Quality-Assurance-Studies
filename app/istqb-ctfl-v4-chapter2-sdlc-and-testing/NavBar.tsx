@@ -3,8 +3,9 @@
 import { useEffect } from 'react';
 
 /**
- * ISTQB CTFL v4.0 Chapter 2 専用のサイドバーナビゲーションコンポーネント。
- * スクロール位置に応じて、表示中のセクションに対応するリンクへ `active` クラスと `aria-current="location"` を設定します。
+ * Renders the ISTQB CTFL v4.0 Chapter 2 sidebar navigation.
+ *
+ * Updates the active navigation link as the corresponding content section enters the viewport.
  */
 export default function NavBar() {
     useEffect(() => {
