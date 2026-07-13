@@ -432,10 +432,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: node:20-bookworm
+      image: oven/bun:1
     steps:
       - uses: actions/checkout@v7
-      - run: npm ci
+      - run: bun install --frozen-lockfile
 ```
 
 参照: [Run jobs in a container](https://docs.github.com/en/actions/how-tos/write-workflows/choose-where-workflows-run/run-jobs-in-a-container)
@@ -516,15 +516,15 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18, 20, 22]
+        bun-version: [1.0, 1.1, 1.2]
     runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm test
+          bun-version: ${{ matrix.bun-version }}
+      - run: bun install --frozen-lockfile
+      - run: bun test
 ```
 
 上記の例では、3種類のOS × 3種類のNode.jsバージョン = **9通りの組み合わせ**でジョブが並列実行されます。
@@ -659,16 +659,15 @@ flowchart TD
 
 ## 11. 依存関係のキャッシュで高速化する
 
-GitHubホスト型ランナーは毎回クリーンな仮想マシンから起動するため、依存パッケージ（npm、Maven、Gradle、pipなど）を都度ダウンロードし直す必要があり、実行時間・ネットワーク利用量・コストが増加します。**依存関係キャッシュ**を使うことでこれを高速化できます。
+GitHubホスト型ランナーは毎回クリーンな仮想マシンから起動するため、依存パッケージ（Bun、Maven、Gradle、pipなど）を都度ダウンロードし直す必要があり、実行時間・ネットワーク利用量・コストが増加します。**依存関係キャッシュ**を使うことでこれを高速化できます。
 
 ```yaml
 steps:
   - uses: actions/checkout@v7
-  - uses: actions/setup-node@v4
+  - uses: oven-sh/setup-bun@v2
     with:
-      node-version: 20
-      cache: 'npm'
-  - run: npm ci
+      bun-version: latest
+  - run: bun install --frozen-lockfile
 ```
 
 `actions/setup-node`など多くの`setup-*`アクションには`cache`オプションが組み込まれており、簡単にキャッシュを有効化できます。より柔軟な制御が必要な場合は汎用の`actions/cache`アクションを使用します。
@@ -677,10 +676,10 @@ steps:
 steps:
   - uses: actions/cache@v4
     with:
-      path: ~/.npm
-      key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+      path: ~/.bun/install/cache
+      key: ${{ runner.os }}-bun-${{ hashFiles('**/bun.lock') }}
       restore-keys: |
-        ${{ runner.os }}-node-
+        ${{ runner.os }}-bun-
 ```
 
 ### 11.1 キャッシュとアーティファクトの違い
@@ -704,7 +703,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - run: npm ci && npm run build
+      - run: bun install --frozen-lockfile && bun run build
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -725,7 +724,7 @@ jobs:
 
 ```mermaid
 flowchart LR
-    B["build ジョブ<br/>npm run build"] -->|upload-artifact| A["アーティファクト<br/>dist-files"]
+    B["build ジョブ<br/>bun run build"] -->|upload-artifact| A["アーティファクト<br/>dist-files"]
     A -->|download-artifact| D["deploy ジョブ<br/>needs: build"]
 ```
 
@@ -853,12 +852,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run lint
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run lint
 
   test:
     runs-on: ${{ matrix.os }}
@@ -866,27 +864,25 @@ jobs:
       fail-fast: false
       matrix:
         os: [ubuntu-latest]
-        node-version: [18, 20, 22]
+        bun-version: [1.0, 1.1, 1.2]
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-      - run: npm test
+          bun-version: ${{ matrix.bun-version }}
+      - run: bun install --frozen-lockfile
+      - run: bun test
 
   build:
     needs: [lint, test]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: actions/setup-node@v4
+      - uses: oven-sh/setup-bun@v2
         with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
+          bun-version: latest
+      - run: bun install --frozen-lockfile
+      - run: bun run build
       - uses: actions/upload-artifact@v4
         with:
           name: production-build
