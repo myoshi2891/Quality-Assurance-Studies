@@ -3125,15 +3125,15 @@ flowchart LR
 
             const observer = new IntersectionObserver(
                 (entries) => {
-                    entries.forEach((entry) => {
-                        const id = entry.target.getAttribute('id');
-                        const link = document.querySelector('.sidebar nav a[href="#' + id + '"]');
-                        if (!link) return;
-                        if (entry.isIntersecting) {
-                            navLinks.forEach((l) => l.classList.remove('active'));
-                            link.classList.add('active');
-                        }
-                    });
+                    const intersecting = entries.filter((e) => e.isIntersecting);
+                    if (intersecting.length === 0) return;
+                    intersecting.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+                    const best = intersecting[0];
+                    const id = best.target.getAttribute('id');
+                    const link = document.querySelector('.sidebar nav a[href="#' + id + '"]');
+                    if (!link) return;
+                    navLinks.forEach((l) => l.classList.remove('active'));
+                    link.classList.add('active');
                 },
                 { rootMargin: '-15% 0px -70% 0px', threshold: 0 },
             );
