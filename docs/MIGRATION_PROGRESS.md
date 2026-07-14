@@ -11,7 +11,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `2fe7db3` |
+| 最新 HEAD | `1438e39` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun run lint` / `bun test`（174 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -21,6 +21,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `tests/istqb-ctfl-v4-chapter3-static-testing/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（174件）。
 - `Ctfl-v4-chapter3-static-testing.html`: `archive/html-archive/ctfl/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 39 ページ体制に同期。
+- フィードバックに基づき、1rem未満の文字サイズを1rem（16px）に統一し、最大幅制限を撤廃してレイアウトを画面いっぱいに広げる調整を実施。
 
 ## 2026/07/13: CTFL-AT Chapter 1 (アジャイルソフトウェア開発) ガイド of Next.js 移行完了と Mermaid 修正
 
