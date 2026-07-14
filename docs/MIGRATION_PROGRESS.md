@@ -11,9 +11,16 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `7ece24b` |
+| 最新 HEAD | `2fe7db3` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun run lint` / `bun test`（171 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun run lint` / `bun test`（174 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/07/15: CTFL v4.0 Chapter 3 (静的テスト) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-v4-chapter3-static-testing/`: ページコンポーネント、スタイル、NavBar（IntersectionObserver）を実装。
+- `tests/istqb-ctfl-v4-chapter3-static-testing/page.test.tsx`: TDD 必須サイクルに従い、3つのテストケースを実装して全パス（174件）。
+- `Ctfl-v4-chapter3-static-testing.html`: `archive/html-archive/ctfl/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 39 ページ体制に同期。
 
 ## 2026/07/13: CTFL-AT Chapter 1 (アジャイルソフトウェア開発) ガイド of Next.js 移行完了と Mermaid 修正
 
