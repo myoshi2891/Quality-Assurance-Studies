@@ -221,7 +221,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ```text
 コンテキスト:
-- 最新 HEAD: `63be0c5` (Chapter 3 実装コミット)
+- 最新 HEAD: `b482fe7` (Chapter 3 レイアウト調整コミット)
 - **全ガイド移行完了**: プロジェクトルートに存在した全38ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
 - 合計 39 ルート（ホーム + 38 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
