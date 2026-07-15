@@ -35,6 +35,22 @@ const DIAGRAM_3 = `flowchart LR
     class A,B low
     class C,D high`;
 
+const DIAGRAM_4 = `flowchart LR
+    subgraph ST["静的テスト"]
+    direction TB
+    ST1["作業成果物を読む・解析する"] --> ST2["欠陥を直接発見する"]
+    end
+    subgraph DT["動的テスト"]
+    direction TB
+    DT1["テストケースを実行する"] --> DT2["故障が発生する"]
+    DT2 --> DT3["分析して欠陥を特定する"]
+    end
+
+    classDef staticNode fill:#173430,stroke:#4fd1c5,color:#a8ece4
+    classDef dynamicNode fill:#211c38,stroke:#8b7cf6,color:#c7bdfa
+    class ST1,ST2 staticNode
+    class DT1,DT2,DT3 dynamicNode`;
+
 export default function Page() {
     return (
         <div className="istqb-ctfl-v4-chapter3-page">
@@ -270,7 +286,7 @@ export default function Page() {
                             静的テストと動的テストは対立する技法ではなく、互いの弱点を補い合う<strong>補完関係</strong>にあります。「欠陥を検出する」という目的は共通していますが、検出のメカニズムや得意領域は異なります。
                         </p>
 
-                        <Mermaid chart={DIAGRAM_2} />
+                        <Mermaid chart={DIAGRAM_4} />
 
                         <div className="table-wrapper">
                             <table>
@@ -418,7 +434,7 @@ export default function Page() {
                             対象となる作業成果物のサイズが大きい場合、1回のレビューですべてをカバーしきれないことがあります。その場合は、同じ成果物に対してレビュープロセス全体を複数回繰り返す（章やモジュール単位で分割してレビューする）運用も想定されています。
                         </p>
 
-                        <Mermaid chart={DIAGRAM_3} />
+                        <Mermaid chart={DIAGRAM_2} />
 
                         <div className="table-wrapper">
                             <table>
@@ -584,6 +600,8 @@ export default function Page() {
                             レビューには「非公式」から「非常に公式」まで、さまざまな形式が存在します。どの程度の公式さが必要かは、採用しているSDLC、開発プロセスの成熟度、対象成果物の重要度や複雑さ、法規制や監査証跡の必要性といった要因によって決まります。同じ成果物に対して、まず非公式レビューを行い、その後でより公式なレビューを実施するという段階的な運用も可能です。
                         </p>
 
+                        <Mermaid chart={DIAGRAM_3} />
+
                         <div className="flow-spectrum">
                             <span><i className="ti ti-arrow-left"></i>&nbsp;軽量・非公式</span>
                             <hr />
@@ -740,7 +758,7 @@ export default function Page() {
                             </table>
                         </div>
                         <p>
-                            特に1番目の「参加者個人の評価を目的にしない」という原則は、レビュー文化を定着させるうえで最も重要なポイントです。レビューで指摘された不正の件数を人事評価に直結させてしまうと、参加者は不正を見つけても報告をためらうようになり、レビュー本来の目的である品質向上が機能しなくなります。心理的安全性が確保された環境でこそ、率率な指摘とそれに対する前向きな受け止め方が成立し、レビューが効果を発揮します。
+                            特に1番目の「参加者個人の評価を目的にしない」という原則は、レビュー文化を定着させるうえで最も重要なポイントです。レビューで指摘された不正の件数を人事評価に直結させてしまうと、参加者は不正を見つけても報告をためらうようになり、レビュー本来の目的である品質向上が機能しなくなります。心理的安全性が確保された環境でこそ、率直な指摘とそれに対する前向きな受け止め方が成立し、レビューが効果を発揮します。
                         </p>
 
                         <div className="callout callout-source">

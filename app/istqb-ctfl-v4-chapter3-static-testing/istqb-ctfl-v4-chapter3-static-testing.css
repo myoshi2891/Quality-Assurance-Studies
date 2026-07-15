@@ -349,7 +349,7 @@
     justify-content: center;
 }
 
-.istqb-ctfl-v4-chapter3-page .mermaid-wrapper :global(svg) {
+.istqb-ctfl-v4-chapter3-page .mermaid-wrapper svg {
     display: block;
     margin: 0 auto;
     width: 100%;
@@ -358,13 +358,13 @@
 }
 
 /* foreignObject のクリップ解除（emoji 採寸ズレによる右端切れ対策） */
-.istqb-ctfl-v4-chapter3-page .mermaid-wrapper :global(foreignObject) { overflow: visible; }
-.istqb-ctfl-v4-chapter3-page .mermaid-wrapper :global(foreignObject > div),
-.istqb-ctfl-v4-chapter3-page .mermaid-wrapper :global(.nodeLabel),
-.istqb-ctfl-v4-chapter3-page .mermaid-wrapper :global(.edgeLabel) { overflow: visible; }
+.istqb-ctfl-v4-chapter3-page .mermaid-wrapper foreignObject { overflow: visible; }
+.istqb-ctfl-v4-chapter3-page .mermaid-wrapper foreignObject > div,
+.istqb-ctfl-v4-chapter3-page .mermaid-wrapper .nodeLabel,
+.istqb-ctfl-v4-chapter3-page .mermaid-wrapper .edgeLabel { overflow: visible; }
 
-.istqb-ctfl-v4-chapter3-page .mermaid-wrapper :global(.node .nodeLabel),
-.istqb-ctfl-v4-chapter3-page .mermaid-wrapper :global(.node .nodeLabel *) { color: #ffffff !important; }
+.istqb-ctfl-v4-chapter3-page .mermaid-wrapper .node .nodeLabel,
+.istqb-ctfl-v4-chapter3-page .mermaid-wrapper .node .nodeLabel * { color: #ffffff !important; }
 
 /* ===== CODE WINDOW / BLOCKS ===== */
 .istqb-ctfl-v4-chapter3-page .code-block {
