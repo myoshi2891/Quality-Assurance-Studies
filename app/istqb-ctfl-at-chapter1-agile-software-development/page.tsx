@@ -302,48 +302,50 @@ export default function Page() {
             <NavBar />
             <div className="wrap">
 
-                            <section className="hero">
-                                <div className="eyebrow">ISTQB® CTFL-AT · Chapter 1</div>
-                                <h1>アジャイルソフトウェア開発<br />完全解説ガイド</h1>
-                                <p className="sub">
+                            <section className="relative block min-h-0 pb-14 max-[900px]:pt-14 max-[900px]:pb-10 motion-safe:[animation:fade-in-down_0.7s_ease_both]">
+                                <div className="mb-[18px] flex items-center gap-2.5 font-mono text-[0.8rem] uppercase tracking-[0.15em] text-accent-green"><span className="text-accent-cyan">◆</span>ISTQB® CTFL-AT · Chapter 1</div>
+                                <h1 className="mb-5 bg-linear-[120deg] from-white from-10% via-accent-cyan via-50% to-accent-green to-90% bg-clip-text text-[clamp(2.1rem,5vw,3.6rem)] leading-[1.15] text-transparent [-webkit-text-fill-color:transparent]">アジャイルソフトウェア開発<br />完全解説ガイド</h1>
+                                <p className="mb-[30px] max-w-[760px] text-[1.08rem] text-text-secondary">
                                     Certified Tester Foundation Level – Agile Tester 公式シラバス Chapter
                                     1「Agile Software
                                     Development」を、中級者〜上級者向けにステップバイステップで詳解。アジャイルマニフェストからXP／Scrum／Kanban、ユーザーストーリー、CI、リリース計画まで、図解と一次情報源つきで完全網羅します。
                                 </p>
 
-                                <div className="hero-meta">
-                                    <div>
-                                        <div className="label">対応資格</div>
-                                        <div className="val">CTFL-AT (Foundation Level Agile Tester)</div>
+                                <div className="grid grid-cols-[repeat(auto-fit,minmax(200px,1fr))] gap-px overflow-hidden rounded-xl border border-border bg-border">
+                                    <div className="bg-transparent px-[18px] py-4">
+                                        <div className="mb-1.5 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-text-muted">対応資格</div>
+                                        <div className="text-[0.95rem] font-semibold text-text-primary">CTFL-AT (Foundation Level Agile Tester)</div>
                                     </div>
-                                    <div>
-                                        <div className="label">対応章</div>
-                                        <div className="val">Chapter 1 — 150分想定</div>
+                                    <div className="bg-transparent px-[18px] py-4">
+                                        <div className="mb-1.5 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-text-muted">対応章</div>
+                                        <div className="text-[0.95rem] font-semibold text-text-primary">Chapter 1 — 150分想定</div>
                                     </div>
-                                    <div>
-                                        <div className="label">シラバス版</div>
-                                        <div className="val">Version 2014（現行最新）</div>
+                                    <div className="bg-transparent px-[18px] py-4">
+                                        <div className="mb-1.5 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-text-muted">シラバス版</div>
+                                        <div className="text-[0.95rem] font-semibold text-text-primary">Version 2014（現行最新）</div>
                                     </div>
-                                    <div>
-                                        <div className="label">前提資格</div>
-                                        <div className="val">ISTQB® CTFL 必須</div>
+                                    <div className="bg-transparent px-[18px] py-4">
+                                        <div className="mb-1.5 font-mono text-[0.68rem] uppercase tracking-[0.08em] text-text-muted">前提資格</div>
+                                        <div className="text-[0.95rem] font-semibold text-text-primary">ISTQB® CTFL 必須</div>
                                     </div>
                                 </div>
 
-                                <div className="hero-links">
+                                <div className="mt-6 flex flex-wrap gap-2.5">
                                     <a
+                                        className="rounded-lg border border-accent-cyan px-4 py-[9px] font-mono text-[0.78rem] text-accent-cyan transition-all duration-200 hover:!bg-accent-cyan hover:!text-[#001018] hover:!no-underline"
                                         href="https://istqb.org/certifications/certified-tester-foundation-level-agile-tester-ctfl-at/"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         >📌 公式認定ページ</a
                                     >
                                     <a
+                                        className="rounded-lg border border-accent-cyan px-4 py-[9px] font-mono text-[0.78rem] text-accent-cyan transition-all duration-200 hover:!bg-accent-cyan hover:!text-[#001018] hover:!no-underline"
                                         href="https://istqb.org/wp-content/uploads/2024/11/ISTQB-CTFL-AT_Syllabus_v1.0.pdf"
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         >📌 公式シラバスPDF</a
                                     >
-                                    <a href="https://agilemanifesto.org/" target="_blank" rel="noopener noreferrer"
+                                    <a className="rounded-lg border border-accent-cyan px-4 py-[9px] font-mono text-[0.78rem] text-accent-cyan transition-all duration-200 hover:!bg-accent-cyan hover:!text-[#001018] hover:!no-underline" href="https://agilemanifesto.org/" target="_blank" rel="noopener noreferrer"
                                         >📌 アジャイルマニフェスト公式</a
                                     >
                                 </div>
