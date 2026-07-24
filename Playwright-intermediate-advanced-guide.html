@@ -2053,6 +2053,7 @@
                               - uses: actions/setup-node@v5
                                 with:
                                   node-version: lts/*
+                              - uses: oven-sh/setup-bun@v2
                               - run: bun install --frozen-lockfile
                               - run: bunx playwright install --with-deps
                               - run: bunx playwright test --shard=${{ matrix.shardIndex }}/${{ matrix.shardTotal }}
@@ -2068,6 +2069,8 @@
                             needs: [playwright-tests]
                             runs-on: ubuntu-latest
                             steps:
+                              - uses: actions/checkout@v5
+                              - uses: oven-sh/setup-bun@v2
                               - uses: actions/download-artifact@v5
                                 with:
                                   path: all-blob-reports
@@ -3257,7 +3260,7 @@
                     <script type="text/plain" data-code-for="code-58">
                         docker run -p 3000:3000 --rm --init -it --workdir /home/pwuser --user pwuser \
                           mcr.microsoft.com/playwright:v1.61.0-noble \
-                          /bin/sh -c "bunx playwright@1.61.0 run-server --port 3000 --host 0.0.0.0"
+                          /bin/sh -c "npx -y playwright@1.61.0 run-server --port 3000 --host 0.0.0.0"
                     </script>
 
                     <div class="code-block">

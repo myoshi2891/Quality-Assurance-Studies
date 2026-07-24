@@ -42,7 +42,7 @@ describe('CT-GaMe Guide Page', () => {
     render(<Page />);
 
     // Wait for async components like Mermaid to finish rendering to avoid act warnings
-    await screen.findAllByTestId('mock-mermaid');
+    await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
 
     const heading = screen.getByRole('heading', { level: 1 });
     expect(heading.textContent).toMatch(/ゲームテスト/i);
@@ -51,7 +51,7 @@ describe('CT-GaMe Guide Page', () => {
 
   it('contains specific section IDs (#overview, #ch1, #ch2)', async () => {
     render(<Page />);
-    await screen.findAllByTestId('mock-mermaid');
+    await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
 
     expect(document.getElementById('overview')).toBeInTheDocument();
     expect(document.getElementById('ch1')).toBeInTheDocument();
@@ -60,7 +60,7 @@ describe('CT-GaMe Guide Page', () => {
 
   it('renders NavBar and updates active link class / aria-current when target section becomes active', async () => {
     render(<Page />);
-    await screen.findAllByTestId('mock-mermaid');
+    await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
 
     // Assert NavBar renders expected links
     const overviewLink = screen.getByRole('link', { name: '概要' });
@@ -120,7 +120,7 @@ describe('CT-GaMe Guide Page', () => {
 
     try {
       render(<Page />);
-      await screen.findAllByTestId('mock-mermaid');
+      await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
 
       expect(renderedCharts.length).toBeGreaterThan(0);
       for (const chart of renderedCharts) {

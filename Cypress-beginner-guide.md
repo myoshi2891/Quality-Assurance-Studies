@@ -619,6 +619,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
       - name: Cypress run
         uses: cypress-io/github-action@v7
         with:
@@ -633,6 +635,8 @@ jobs:
 GitHub Actionsのホスト型ランナーにはあらかじめChrome・Firefox・Edgeがインストールされています（macOSランナーにはSafariも含まれます）。`browser`パラメーターで使用ブラウザを指定できます。
 
 ```yaml
+- name: Setup Bun
+  uses: oven-sh/setup-bun@v2
 - name: Cypress run
   uses: cypress-io/github-action@v7
   with:

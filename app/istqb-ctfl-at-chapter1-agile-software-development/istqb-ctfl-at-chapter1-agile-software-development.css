@@ -1,0 +1,854 @@
+/* ==========================================
+   .istqb-ctfl-at-chapter1-page ISTQB CTFL-AT Chapter 1: アジャイルソフトウェア開発
+   .istqb-ctfl-at-chapter1-page Page specific stylesheet
+   .istqb-ctfl-at-chapter1-page ========================================== */
+
+/* globals.css 干渉リセット */
+.istqb-ctfl-at-chapter1-page {
+    position: relative;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* globals.css の section / .hero 干渉リセットは、下部の同名ルールへ統合済み
+   （全セレクタをページクラス配下にスコープしたため詳細度が同一になった） */
+
+.istqb-ctfl-at-chapter1-page::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 2;
+                background: repeating-linear-gradient(
+                    to bottom,
+                    rgba(255, 255, 255, 0.015) 0px,
+                    rgba(255, 255, 255, 0.015) 1px,
+                    transparent 1px,
+                    transparent 3px
+                );
+                opacity: 0.5;
+            }
+
+.istqb-ctfl-at-chapter1-page::after {
+                content: '';
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                z-index: 1;
+                background-image:
+                    linear-gradient(rgba(34, 211, 238, 0.035) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(34, 211, 238, 0.035) 1px, transparent 1px);
+                background-size: 42px 42px;
+                mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 40%, transparent 100%);
+            }
+
+            .istqb-ctfl-at-chapter1-page ::selection {
+                background: var(--color-accent-cyan);
+                color: #001018;
+            }
+
+            .istqb-ctfl-at-chapter1-page a {
+                color: var(--color-accent-cyan);
+                text-decoration: none;
+            }
+            .istqb-ctfl-at-chapter1-page a:hover {
+                text-decoration: underline;
+            }
+
+            .istqb-ctfl-at-chapter1-page h1,
+            .istqb-ctfl-at-chapter1-page h2,
+            .istqb-ctfl-at-chapter1-page h3,
+            .istqb-ctfl-at-chapter1-page h4 {
+                font-family: var(--font-display);
+                font-weight: 800;
+                letter-spacing: 0.01em;
+                color: var(--color-text-primary);
+            }
+
+            .istqb-ctfl-at-chapter1-page .wrap {
+                max-width: 1140px;
+                margin: 0 auto;
+                padding: 0 28px;
+                position: relative;
+                z-index: 3;
+            }
+
+            /* ============ NAV ============ */
+            .istqb-ctfl-at-chapter1-page nav.topnav {
+                position: sticky;
+                top: calc(60px + var(--disclaimer-height, 0px));
+                z-index: 40;
+                background: rgba(3, 7, 18, 0.92);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--color-border);
+                overflow-x: auto;
+                white-space: nowrap;
+                scrollbar-width: thin;
+            }
+            .istqb-ctfl-at-chapter1-page nav.topnav::-webkit-scrollbar {
+                height: 4px;
+            }
+            .istqb-ctfl-at-chapter1-page nav.topnav::-webkit-scrollbar-thumb {
+                background: var(--color-accent-cyan);
+                border-radius: 2px;
+            }
+            .istqb-ctfl-at-chapter1-page nav.topnav .navinner {
+                display: flex;
+                gap: 4px;
+                padding: 12px 20px;
+                max-width: 1140px;
+                margin: 0 auto;
+            }
+            .istqb-ctfl-at-chapter1-page nav.topnav a {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--color-text-secondary);
+                padding: 8px 12px;
+                border-radius: 6px;
+                border: 1px solid transparent;
+                white-space: nowrap;
+                transition: all 0.2s;
+            }
+            .istqb-ctfl-at-chapter1-page nav.topnav a:hover,
+            .istqb-ctfl-at-chapter1-page nav.topnav a.active {
+                color: var(--color-accent-green);
+                border-color: var(--color-accent-green);
+                text-decoration: none;
+                background: rgba(0, 255, 157, 0.06);
+            }
+
+            /* ============ SECTION SHELL ============ */
+            .istqb-ctfl-at-chapter1-page section {
+                /* globals.css の section { padding-top: 5rem } をリセット */
+                padding: 0 0 52px;
+                position: relative;
+                animation: fade-in-up 0.6s ease both;
+            }
+            .istqb-ctfl-at-chapter1-page section.divider-top {
+                border-top: 1px solid var(--color-border);
+            }
+
+            .istqb-ctfl-at-chapter1-page .section-head {
+                margin-bottom: 28px;
+            }
+            .istqb-ctfl-at-chapter1-page .chapter-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--color-bg-primary);
+                background: var(--color-accent-green);
+                padding: 5px 12px;
+                border-radius: 20px;
+                font-weight: 700;
+                margin-bottom: 14px;
+            }
+            .istqb-ctfl-at-chapter1-page .chapter-badge .klevel {
+                background: rgba(0, 0, 0, 0.25);
+                padding: 2px 8px;
+                border-radius: 10px;
+                font-size: 0.68rem;
+            }
+            .istqb-ctfl-at-chapter1-page .chapter-badge.k1 {
+                background: var(--color-accent-cyan);
+            }
+            .istqb-ctfl-at-chapter1-page .chapter-badge.k2 {
+                background: var(--color-accent-orange);
+            }
+            .istqb-ctfl-at-chapter1-page .chapter-badge.k3 {
+                background: var(--color-accent-red);
+                color: #fff;
+            }
+            .istqb-ctfl-at-chapter1-page .chapter-badge.k3 .klevel {
+                background: rgba(255, 255, 255, 0.25);
+            }
+
+            .istqb-ctfl-at-chapter1-page h2.h-section {
+                font-size: clamp(1.5rem, 3.2vw, 2.1rem);
+                margin-bottom: 8px;
+            }
+            .istqb-ctfl-at-chapter1-page h3.h-sub {
+                font-size: 1.35rem;
+                margin: 34px 0 14px;
+                color: var(--color-accent-cyan);
+            }
+            .istqb-ctfl-at-chapter1-page h4.h-minor {
+                font-size: 1.08rem;
+                margin: 24px 0 10px;
+                color: var(--color-text-primary);
+                font-family: var(--font-body);
+                font-weight: 700;
+            }
+            .istqb-ctfl-at-chapter1-page p {
+                margin-bottom: 14px;
+                color: var(--color-text-primary);
+            }
+            .istqb-ctfl-at-chapter1-page .lead {
+                color: var(--color-text-primary);
+                font-size: 1.02rem;
+                max-width: 800px;
+            }
+
+            /* ============ TOC GRID ============ */
+            .istqb-ctfl-at-chapter1-page .toc-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 14px;
+                margin-top: 20px;
+            }
+            .istqb-ctfl-at-chapter1-page .toc-grid a {
+                display: block;
+                background: var(--bg-panel);
+                border: 1px solid var(--color-border);
+                border-radius: 10px;
+                padding: 16px 18px;
+                color: var(--color-text-primary);
+                transition: all 0.2s;
+            }
+            .istqb-ctfl-at-chapter1-page .toc-grid a:hover {
+                border-color: var(--color-accent-green);
+                text-decoration: none;
+                transform: translateY(-2px);
+            }
+            .istqb-ctfl-at-chapter1-page .toc-grid .tnum {
+                font-family: var(--font-mono);
+                color: var(--color-accent-green);
+                font-size: 0.78rem;
+                display: block;
+                margin-bottom: 4px;
+            }
+            .istqb-ctfl-at-chapter1-page .toc-grid .ttitle {
+                font-weight: 600;
+                font-size: 0.95rem;
+            }
+
+            /* ============ ALERT / CALLOUT ============ */
+            .istqb-ctfl-at-chapter1-page .alert {
+                border-left: 4px solid var(--color-accent-red);
+                background: rgba(255, 77, 106, 0.07);
+                border-radius: 0 10px 10px 0;
+                padding: 18px 22px;
+                margin: 22px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .alert .atitle {
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--color-accent-red);
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                margin-bottom: 8px;
+                font-weight: 700;
+            }
+            .istqb-ctfl-at-chapter1-page .alert.amber {
+                border-left-color: var(--color-accent-orange);
+                background: rgba(255, 176, 32, 0.07);
+            }
+            .istqb-ctfl-at-chapter1-page .alert.amber .atitle {
+                color: var(--color-accent-orange);
+            }
+            .istqb-ctfl-at-chapter1-page .alert.green {
+                border-left-color: var(--color-accent-green);
+                background: rgba(0, 255, 157, 0.06);
+            }
+            .istqb-ctfl-at-chapter1-page .alert.green .atitle {
+                color: var(--color-accent-green);
+            }
+
+            .istqb-ctfl-at-chapter1-page .callout {
+                background: var(--bg-panel-2);
+                border: 1px solid var(--color-border);
+                border-radius: 10px;
+                padding: 18px 22px;
+                margin: 22px 0;
+                position: relative;
+                padding-left: 52px;
+            }
+            .istqb-ctfl-at-chapter1-page .callout::before {
+                content: '💡';
+                position: absolute;
+                left: 16px;
+                top: 17px;
+                font-size: 1.2rem;
+            }
+            .istqb-ctfl-at-chapter1-page .callout .ctitle {
+                font-weight: 700;
+                color: var(--color-accent-purple);
+                margin-bottom: 6px;
+                font-family: var(--font-body);
+            }
+
+            /* ============ TABLE ============ */
+            .istqb-ctfl-at-chapter1-page .table-wrap {
+                overflow-x: auto;
+                margin: 20px 0;
+                border: 1px solid var(--color-border);
+                border-radius: 10px;
+            }
+            .istqb-ctfl-at-chapter1-page table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.92rem;
+                min-width: 520px;
+            }
+            .istqb-ctfl-at-chapter1-page thead tr {
+                background: var(--bg-panel-2);
+            }
+            .istqb-ctfl-at-chapter1-page th {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+                color: var(--color-accent-green);
+                text-align: left;
+                padding: 12px 16px;
+                border-bottom: 2px solid var(--color-border);
+                white-space: nowrap;
+            }
+            .istqb-ctfl-at-chapter1-page td {
+                padding: 12px 16px;
+                border-bottom: 1px solid var(--color-border);
+                color: var(--color-text-primary);
+                vertical-align: top;
+            }
+            .istqb-ctfl-at-chapter1-page tbody tr:hover {
+                background: rgba(34, 211, 238, 0.04);
+            }
+            .istqb-ctfl-at-chapter1-page tbody tr:last-child td {
+                border-bottom: none;
+            }
+            .istqb-ctfl-at-chapter1-page td strong {
+                color: var(--color-accent-cyan);
+            }
+
+            /* ============ CODE BLOCK ============ */
+            .istqb-ctfl-at-chapter1-page .code-block {
+                background: #050a14;
+                border: 1px solid var(--color-border);
+                border-radius: 10px;
+                padding: 18px 20px;
+                overflow-x: auto;
+                font-family: var(--font-mono);
+                font-size: 0.86rem;
+                line-height: 1.65;
+                color: #c9e9d8;
+                white-space: pre;
+                margin: 18px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .code-block .cmt {
+                color: var(--color-text-muted);
+            }
+            .istqb-ctfl-at-chapter1-page .code-block .kw {
+                color: var(--color-accent-purple);
+            }
+            .istqb-ctfl-at-chapter1-page .code-block .str {
+                color: var(--color-accent-orange);
+            }
+            .istqb-ctfl-at-chapter1-page .code-tag {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                color: var(--color-bg-primary);
+                background: var(--color-accent-cyan);
+                display: inline-block;
+                padding: 2px 10px;
+                border-radius: 6px 6px 0 0;
+                margin-bottom: -1px;
+                font-weight: 700;
+            }
+
+            /* ============ STEP LIST ============ */
+            .istqb-ctfl-at-chapter1-page .step-list {
+                list-style: none;
+                counter-reset: step;
+                margin: 22px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .step-list > li {
+                counter-increment: step;
+                position: relative;
+                padding: 6px 0 22px 52px;
+                border-left: 2px solid var(--color-border);
+                margin-left: 19px;
+            }
+            .istqb-ctfl-at-chapter1-page .step-list > li:last-child {
+                border-left: 2px solid transparent;
+                padding-bottom: 2px;
+            }
+            .istqb-ctfl-at-chapter1-page .step-list > li::before {
+                content: counter(step);
+                position: absolute;
+                left: -20px;
+                top: 0;
+                width: 38px;
+                height: 38px;
+                background: var(--bg-panel);
+                border: 2px solid var(--color-accent-green);
+                color: var(--color-accent-green);
+                font-family: var(--font-mono);
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 50%;
+                font-size: 0.95rem;
+            }
+            .istqb-ctfl-at-chapter1-page .step-list .stitle {
+                font-weight: 700;
+                color: var(--color-text-primary);
+                margin-bottom: 6px;
+                font-size: 1.02rem;
+            }
+            .istqb-ctfl-at-chapter1-page .step-list .sdesc {
+                color: var(--color-text-primary);
+            }
+
+            /* ============ METRIC GRID ============ */
+            .istqb-ctfl-at-chapter1-page .metric-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+                gap: 14px;
+                margin: 22px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .metric-grid .metric {
+                background: var(--bg-panel);
+                border: 1px solid var(--color-border);
+                border-radius: 10px;
+                padding: 18px;
+                text-align: center;
+            }
+            .istqb-ctfl-at-chapter1-page .metric-grid .mval {
+                font-family: var(--font-display);
+                font-size: 1.9rem;
+                font-weight: 800;
+                color: var(--color-accent-green);
+            }
+            .istqb-ctfl-at-chapter1-page .metric-grid .mlabel {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                color: var(--color-text-muted);
+                text-transform: uppercase;
+                margin-top: 6px;
+            }
+
+            /* ============ PROGRESS ============ */
+            .istqb-ctfl-at-chapter1-page .progress-item {
+                margin: 14px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .progress-item .plabel {
+                display: flex;
+                justify-content: space-between;
+                font-size: 0.86rem;
+                margin-bottom: 6px;
+                color: var(--color-text-secondary);
+            }
+            .istqb-ctfl-at-chapter1-page .progress-item .ptrack {
+                height: 10px;
+                background: var(--bg-panel-2);
+                border-radius: 6px;
+                overflow: hidden;
+                border: 1px solid var(--color-border);
+            }
+            .istqb-ctfl-at-chapter1-page .progress-item .pfill {
+                height: 100%;
+                background: linear-gradient(90deg, var(--color-accent-green), var(--color-accent-cyan));
+                border-radius: 6px;
+                width: 0%;
+                animation: grow-bar 1.4s ease forwards;
+            }
+
+            /* ============ PYRAMID ============ */
+            .istqb-ctfl-at-chapter1-page .pyramid {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 6px;
+                margin: 30px auto;
+                max-width: 640px;
+            }
+            .istqb-ctfl-at-chapter1-page .pyramid .plevel {
+                width: 100%;
+                text-align: center;
+                padding: 16px 20px;
+                border-radius: 8px;
+                font-family: var(--font-body);
+                font-weight: 600;
+                color: #001018;
+                position: relative;
+            }
+            .istqb-ctfl-at-chapter1-page .pyramid .plevel small {
+                display: block;
+                font-family: var(--font-mono);
+                font-weight: 400;
+                font-size: 0.72rem;
+                margin-top: 4px;
+                opacity: 0.85;
+            }
+            .istqb-ctfl-at-chapter1-page .pyramid .plevel.l1 {
+                width: 96%;
+                background: linear-gradient(90deg, #ff4d6a, #ff8fa3);
+            }
+            .istqb-ctfl-at-chapter1-page .pyramid .plevel.l2 {
+                width: 70%;
+                background: linear-gradient(90deg, #ffb020, #ffd166);
+            }
+            .istqb-ctfl-at-chapter1-page .pyramid .plevel.l3 {
+                width: 44%;
+                background: linear-gradient(90deg, #22d3ee, #8ff4ff);
+            }
+
+            /* ============ ARCH LAYERS ============ */
+            .istqb-ctfl-at-chapter1-page .arch-layers {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                margin: 24px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .arch-layers .layer {
+                background: var(--bg-panel);
+                border: 1px solid var(--color-border);
+                border-left: 4px solid var(--color-accent-cyan);
+                border-radius: 0 10px 10px 0;
+                padding: 16px 20px;
+            }
+            .istqb-ctfl-at-chapter1-page .arch-layers .layer .lname {
+                font-weight: 700;
+                color: var(--color-accent-cyan);
+                font-family: var(--font-body);
+                margin-bottom: 4px;
+            }
+            .istqb-ctfl-at-chapter1-page .arch-layers .layer .ldesc {
+                color: var(--color-text-primary);
+                font-size: 0.9rem;
+            }
+
+            /* ============ EXAM GRID (Q&A cards) ============ */
+            .istqb-ctfl-at-chapter1-page .exam-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 16px;
+                margin: 22px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .qcard {
+                background: var(--bg-panel);
+                border: 1px solid var(--color-border);
+                border-radius: 12px;
+                padding: 20px;
+                display: flex;
+                flex-direction: column;
+            }
+            .istqb-ctfl-at-chapter1-page .qcard .qtag {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                color: var(--color-accent-orange);
+                margin-bottom: 10px;
+            }
+            .istqb-ctfl-at-chapter1-page .qcard .qtext {
+                font-weight: 600;
+                margin-bottom: 12px;
+                flex-grow: 1;
+            }
+            .istqb-ctfl-at-chapter1-page .qcard .qopts {
+                list-style: none;
+                font-size: 0.9rem;
+                color: var(--color-text-secondary);
+                margin-bottom: 12px;
+            }
+            .istqb-ctfl-at-chapter1-page .qcard .qopts li {
+                padding: 4px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .qcard details {
+                background: var(--bg-panel-2);
+                border-radius: 8px;
+                padding: 10px 14px;
+                border: 1px solid var(--color-border);
+            }
+            .istqb-ctfl-at-chapter1-page .qcard summary {
+                cursor: pointer;
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                color: var(--color-accent-green);
+                font-weight: 700;
+            }
+            .istqb-ctfl-at-chapter1-page .qcard .answer {
+                margin-top: 10px;
+                font-size: 0.88rem;
+                color: var(--color-text-secondary);
+            }
+            .istqb-ctfl-at-chapter1-page .qcard .answer strong {
+                color: var(--color-accent-green);
+            }
+
+            /* ============ CHECKLIST ============ */
+            .istqb-ctfl-at-chapter1-page .checklist {
+                list-style: none;
+                margin: 18px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .checklist li {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 9px 0;
+                border-bottom: 1px solid var(--color-border);
+                font-size: 0.94rem;
+            }
+            .istqb-ctfl-at-chapter1-page .checklist li:last-child {
+                border-bottom: none;
+            }
+            .istqb-ctfl-at-chapter1-page .checklist li::before {
+                content: '□';
+                color: var(--color-accent-green);
+                font-family: var(--font-mono);
+                font-size: 1.1rem;
+                flex-shrink: 0;
+            }
+
+            /* ============ TREND CARD ============ */
+            .istqb-ctfl-at-chapter1-page .trend-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+                gap: 16px;
+                margin: 22px 0;
+            }
+            .istqb-ctfl-at-chapter1-page .trend-card {
+                background: var(--bg-panel);
+                border: 1px solid var(--color-border);
+                border-radius: 12px;
+                padding: 20px;
+                border-top: 3px solid var(--color-accent-purple);
+            }
+            .istqb-ctfl-at-chapter1-page .trend-card .ttag {
+                font-family: var(--font-mono);
+                font-size: 0.68rem;
+                color: var(--color-accent-purple);
+                text-transform: uppercase;
+                margin-bottom: 10px;
+            }
+            .istqb-ctfl-at-chapter1-page .trend-card h4 {
+                margin: 0 0 8px;
+                font-size: 0.98rem;
+            }
+            .istqb-ctfl-at-chapter1-page .trend-card p {
+                font-size: 0.88rem;
+                color: var(--color-text-primary);
+                margin: 0;
+            }
+
+            /* ============ REF GRID ============ */
+            .istqb-ctfl-at-chapter1-page .ref-cat {
+                margin: 28px 0 12px;
+            }
+            .istqb-ctfl-at-chapter1-page .ref-cat h4 {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                color: var(--color-bg-primary);
+                background: var(--color-accent-green);
+                padding: 5px 14px;
+                border-radius: 6px;
+            }
+            .istqb-ctfl-at-chapter1-page .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 10px;
+                margin: 14px 0 6px;
+            }
+            .istqb-ctfl-at-chapter1-page .ref-grid .rcard {
+                background: var(--bg-panel);
+                border: 1px solid var(--color-border);
+                border-radius: 8px;
+                padding: 12px 16px;
+                font-size: 0.86rem;
+            }
+            .istqb-ctfl-at-chapter1-page .ref-grid .rcard .rname {
+                color: var(--color-text-primary);
+                font-weight: 600;
+                display: block;
+                margin-bottom: 4px;
+            }
+            .istqb-ctfl-at-chapter1-page .ref-grid .rcard a {
+                color: var(--color-accent-cyan);
+                font-family: var(--font-mono);
+                font-size: 0.78rem;
+                word-break: break-all;
+            }
+
+            /* ============ MERMAID WRAPPER ============ */
+            .istqb-ctfl-at-chapter1-page .mermaid-wrap {
+                background: var(--bg-panel);
+                border: 1px solid var(--color-border);
+                border-radius: 12px;
+                padding: 24px;
+                margin: 22px 0;
+                overflow-x: auto;
+                text-align: center;
+            }
+            .istqb-ctfl-at-chapter1-page .mermaid-wrap svg {
+                max-width: none !important;
+                height: auto !important;
+            }
+            .istqb-ctfl-at-chapter1-page .mermaid-wrap .mermaid {
+                display: inline-block;
+                min-width: min-content;
+            }
+            .istqb-ctfl-at-chapter1-page .mermaid-cap {
+                font-family: var(--font-mono);
+                font-size: 0.72rem;
+                color: var(--color-text-muted);
+                margin-top: 12px;
+                text-align: center;
+            }
+
+            /* ============ COMPARE (good/bad) ============ */
+            .istqb-ctfl-at-chapter1-page .compare-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+                margin: 20px 0;
+            }
+            @media (max-width: 700px) {
+                .istqb-ctfl-at-chapter1-page .compare-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .istqb-ctfl-at-chapter1-page .compare-box {
+                border-radius: 10px;
+                padding: 16px 18px;
+                font-size: 0.9rem;
+            }
+            .istqb-ctfl-at-chapter1-page .compare-box.good {
+                background: rgba(0, 255, 157, 0.06);
+                border: 1px solid rgba(0, 255, 157, 0.3);
+            }
+            .istqb-ctfl-at-chapter1-page .compare-box.bad {
+                background: rgba(255, 77, 106, 0.06);
+                border: 1px solid rgba(255, 77, 106, 0.3);
+            }
+            .istqb-ctfl-at-chapter1-page .compare-box .clabel {
+                font-family: var(--font-mono);
+                font-weight: 700;
+                font-size: 0.78rem;
+                margin-bottom: 8px;
+            }
+            .istqb-ctfl-at-chapter1-page .compare-box.good .clabel {
+                color: var(--color-accent-green);
+            }
+            .istqb-ctfl-at-chapter1-page .compare-box.bad .clabel {
+                color: var(--color-accent-red);
+            }
+
+            /* ============ FOOTER ============ */
+            .istqb-ctfl-at-chapter1-page footer {
+                border-top: 1px solid var(--color-border);
+                padding: 40px 0 60px;
+                margin-top: 40px;
+                color: var(--color-text-muted);
+                font-size: 0.84rem;
+            }
+            .istqb-ctfl-at-chapter1-page footer a {
+                color: var(--color-accent-cyan);
+            }
+
+            /* ============ ANIMATIONS ============ */
+            @keyframes fade-in-down {
+                from {
+                    opacity: 0;
+                    transform: translateY(-16px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes fade-in-up {
+                from {
+                    opacity: 0;
+                    transform: translateY(16px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+            @keyframes grow-bar {
+                from {
+                    width: 0%;
+                }
+            }
+            @keyframes pulse {
+                0%,
+                100% {
+                    opacity: 1;
+                }
+                50% {
+                    opacity: 0.55;
+                }
+            }
+            .istqb-ctfl-at-chapter1-page .pulse {
+                animation: pulse 2s ease-in-out infinite;
+            }
+
+            /* Mermaid wrapper reset */
+            .istqb-ctfl-at-chapter1-page .mermaid-wrap {
+                background: var(--color-bg-secondary);
+                border: 1px solid var(--color-border);
+                border-radius: 12px;
+                padding: 24px;
+                margin: 20px 0;
+                overflow-x: auto;
+            }
+
+            .istqb-ctfl-at-chapter1-page .mermaid-wrapper {
+                width: 100%;
+                max-width: 100% !important;
+                margin: 0 auto !important;
+                padding: 0 !important;
+                background: transparent !important;
+                border: none !important;
+                border-radius: 0 !important;
+                box-shadow: none !important;
+                display: flex;
+                justify-content: center;
+                overflow-x: auto;
+            }
+
+            .istqb-ctfl-at-chapter1-page .mermaid-wrapper svg {
+                max-width: 100%;
+                height: auto;
+                display: block;
+                margin: 0 auto;
+            }
+
+            /* ============ RESPONSIVE ============ */
+            @media (max-width: 900px) {
+                .istqb-ctfl-at-chapter1-page nav.topnav .navinner {
+                    padding: 10px 14px;
+                }
+                .istqb-ctfl-at-chapter1-page .compare-grid {
+                    grid-template-columns: 1fr;
+                }
+                .istqb-ctfl-at-chapter1-page section {
+                    padding: 38px 0;
+                }
+            }
+
+            /* ============ REDUCED MOTION ============ */
+            @media (prefers-reduced-motion: reduce) {
+                .istqb-ctfl-at-chapter1-page section,
+                .istqb-ctfl-at-chapter1-page .pulse,
+                .istqb-ctfl-at-chapter1-page .progress-item .pfill {
+                    animation: none !important;
+                    transition: none !important;
+                }
+                /* アニメーション停止時も最終状態を表示する */
+                .istqb-ctfl-at-chapter1-page section,
+                .istqb-ctfl-at-chapter1-page .pulse {
+                    opacity: 1;
+                    transform: none;
+                }
+                .istqb-ctfl-at-chapter1-page .progress-item .pfill {
+                    width: 100%;
+                }
+            }
