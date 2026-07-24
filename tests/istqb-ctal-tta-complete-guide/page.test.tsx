@@ -1,8 +1,37 @@
 import { render, screen, cleanup } from '@testing-library/react';
-import { expect, test, describe, afterEach } from 'bun:test';
+import { expect, test, describe, afterEach, beforeAll, afterAll, mock } from 'bun:test';
 import React from 'react';
+import mermaid from 'mermaid';
 import Page from '../../app/istqb-ctal-tta-complete-guide/page';
 import NavBar from '../../app/istqb-ctal-tta-complete-guide/NavBar';
+
+let originalMermaidRender: typeof mermaid.render;
+let originalIntersectionObserver: typeof window.IntersectionObserver;
+
+beforeAll(() => {
+    originalMermaidRender = mermaid.render;
+    originalIntersectionObserver = window.IntersectionObserver;
+    mermaid.render = mock(async () => {
+        return {
+            svg: '<svg data-testid="mock-mermaid"></svg>',
+            diagramType: 'flowchart',
+        };
+    }) as unknown as typeof mermaid.render;
+
+    const mockIntersectionObserver = mock(() => {
+        return {
+            observe: () => null,
+            unobserve: () => null,
+            disconnect: () => null,
+        };
+    });
+    window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
+});
+
+afterAll(() => {
+    mermaid.render = originalMermaidRender;
+    window.IntersectionObserver = originalIntersectionObserver;
+});
 
 describe('istqb-ctal-tta-complete-guide', () => {
     // 各テスト後にレンダリング結果を破棄し、未await の Mermaid 非同期処理が
