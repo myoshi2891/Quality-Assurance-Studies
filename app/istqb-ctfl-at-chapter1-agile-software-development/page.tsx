@@ -296,6 +296,9 @@ class B4,B4a,B4b,B4c n4
 class B5,B5a,B5b n5
 `;
 
+/**
+ * Renders the CTFL-AT Chapter 1 learning guide on agile software development.
+ */
 export default function Page() {
     return (
         <div className="istqb-ctfl-at-chapter1-page">

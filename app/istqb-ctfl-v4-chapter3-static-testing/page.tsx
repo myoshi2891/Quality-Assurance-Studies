@@ -51,6 +51,9 @@ const DIAGRAM_4 = `flowchart LR
     class ST1,ST2 staticNode
     class DT1,DT2,DT3 dynamicNode`;
 
+/**
+ * Renders the static testing chapter content page.
+ */
 export default function Page() {
     return (
         <div className="istqb-ctfl-v4-chapter3-page">
