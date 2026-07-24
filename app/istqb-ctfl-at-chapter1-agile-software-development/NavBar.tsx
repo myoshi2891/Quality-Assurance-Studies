@@ -2,6 +2,9 @@
 
 import { useEffect } from 'react';
 
+/**
+ * Renders chapter navigation links and highlights the section currently in view.
+ */
 export default function NavBar() {
     useEffect(() => {
         const links = document.querySelectorAll('nav.topnav a');
