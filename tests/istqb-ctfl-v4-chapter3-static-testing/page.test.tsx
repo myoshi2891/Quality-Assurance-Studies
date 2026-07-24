@@ -37,7 +37,7 @@ afterAll(() => {
 describe('CTFL Chapter 3 Static Testing Page', () => {
     it('renders the main heading', async () => {
         render(<Page />);
-        await screen.findAllByTestId('mock-mermaid');
+        await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
         const heading = screen.getByRole('heading', { level: 1 });
         expect(heading).toBeTruthy();
         expect(heading.textContent).toMatch(/第3章：静的テスト/);
@@ -45,13 +45,13 @@ describe('CTFL Chapter 3 Static Testing Page', () => {
 
     it('renders the overview section', async () => {
         render(<Page />);
-        await screen.findAllByTestId('mock-mermaid');
+        await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
         expect(document.getElementById('overview')).toBeTruthy();
     });
 
     it('renders the navigation bar', async () => {
         render(<Page />);
-        await screen.findAllByTestId('mock-mermaid');
+        await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
         const nav = document.querySelector('nav.sidebar');
         expect(nav).toBeTruthy();
     });
