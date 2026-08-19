@@ -1,0 +1,563 @@
+/* ==========================================================================
+   ISTQB CTFL v4.0 Chapter 5: Test Management Styles
+   Scoped under .ctfl-v4-ch5-page to avoid globals.css pollution
+   ========================================================================== */
+
+.ctfl-v4-ch5-page {
+    --bg-0: var(--color-bg-primary, #0a0e14);
+    --bg-1: var(--color-bg-secondary, #10151f);
+    --bg-2: var(--color-bg-card, #161c29);
+    --bg-3: #1c2433;
+    --bg-code: #0d1117;
+    --border: var(--color-border, #263042);
+    --border-soft: #1c2433;
+    --text-0: var(--color-text-primary, #eaeef4);
+    --text-1: var(--color-text-secondary, #c3ccd9);
+    --text-2: var(--color-text-muted, #8894a6);
+    --text-3: #5c6779;
+    --accent: #4f8cff;
+    --accent-soft: rgba(79, 140, 255, 0.15);
+    --purple: #a684ff;
+    --purple-soft: rgba(166, 132, 255, 0.15);
+    --teal: #35c9b0;
+    --teal-soft: rgba(53, 201, 176, 0.15);
+    --coral: #ff8a65;
+    --coral-soft: rgba(255, 138, 101, 0.15);
+    --pink: #ec6cad;
+    --amber: #f5b942;
+    --amber-soft: rgba(245, 185, 66, 0.15);
+    --green: #4fce7a;
+    --green-soft: rgba(79, 206, 122, 0.15);
+    --red: #f2617a;
+    --red-soft: rgba(242, 97, 122, 0.15);
+    --radius-md: var(--radius-sm, 8px);
+    --radius-lg: var(--radius-DEFAULT, 12px);
+    --sidebar-w: 300px;
+    --content-max: 1600px;
+    --font-sans: var(--font-body, 'Hiragino Sans', 'Noto Sans JP', 'Yu Gothic', -apple-system, BlinkMacSystemFont, sans-serif);
+    --font-mono: var(--font-mono, 'SF Mono', Menlo, Consolas, monospace);
+
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: var(--bg-0);
+    color: var(--text-1);
+    font-family: var(--font-sans);
+    font-size: 16px;
+    line-height: 1.8;
+}
+
+/* ---------- globals.css interference resets ---------- */
+.ctfl-v4-ch5-page section {
+    padding-top: 0;
+    scroll-margin-top: 24px;
+    margin-bottom: 56px;
+}
+
+.ctfl-v4-ch5-page .hero {
+    min-height: 0;
+    display: block;
+    padding-top: 0;
+    margin-bottom: 40px;
+}
+
+.ctfl-v4-ch5-page .main {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    width: 100%;
+}
+
+/* ---------- Sidebar ---------- */
+.ctfl-v4-ch5-page .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    border-right: 1px solid var(--border);
+    background: var(--bg-1);
+    padding: 28px 0 60px;
+    position: sticky;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    align-self: flex-start;
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+    z-index: 40;
+}
+.ctfl-v4-ch5-page .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.ctfl-v4-ch5-page .sidebar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 4px;
+}
+.ctfl-v4-ch5-page .side-brand {
+    padding: 0 24px 20px;
+    border-bottom: 1px solid var(--border-soft);
+    margin-bottom: 16px;
+}
+.ctfl-v4-ch5-page .side-brand .eyebrow {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+.ctfl-v4-ch5-page .side-brand h1,
+.ctfl-v4-ch5-page .side-brand .side-brand-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text-0);
+    margin: 6px 0 0;
+    line-height: 1.5;
+}
+.ctfl-v4-ch5-page .side-nav {
+    padding: 0 12px;
+}
+.ctfl-v4-ch5-page .side-nav .group-label {
+    font-size: 11px;
+    color: var(--text-3);
+    padding: 16px 12px 6px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+.ctfl-v4-ch5-page .side-nav a {
+    display: block;
+    padding: 7px 12px;
+    border-radius: var(--radius-md);
+    color: var(--text-2);
+    text-decoration: none;
+    font-size: 13.5px;
+    font-weight: 400;
+    transition: background 0.15s, color 0.15s;
+    border-left: 2px solid transparent;
+    margin-bottom: 1px;
+}
+.ctfl-v4-ch5-page .side-nav a:hover {
+    background: var(--bg-2);
+    color: var(--text-0);
+}
+.ctfl-v4-ch5-page .side-nav a.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+    border-left: 2px solid var(--accent);
+    font-weight: 600;
+}
+.ctfl-v4-ch5-page .side-nav a.sub {
+    padding-left: 26px;
+    font-size: 13px;
+}
+
+/* Mobile Nav Toggle Button */
+.ctfl-v4-ch5-page .nav-toggle {
+    display: none;
+    position: fixed;
+    top: calc(76px + var(--disclaimer-height, 0px));
+    left: 16px;
+    z-index: 60;
+    width: 40px;
+    height: 40px;
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-0);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.ctfl-v4-ch5-page .nav-toggle span,
+.ctfl-v4-ch5-page .nav-toggle span::before,
+.ctfl-v4-ch5-page .nav-toggle span::after {
+    content: '';
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: var(--text-0);
+    position: relative;
+    transition: 0.2s;
+}
+.ctfl-v4-ch5-page .nav-toggle span::before {
+    position: absolute;
+    top: -5px;
+}
+.ctfl-v4-ch5-page .nav-toggle span::after {
+    position: absolute;
+    top: 5px;
+}
+
+/* ---------- Main content ---------- */
+.ctfl-v4-ch5-page .content {
+    flex: 1 1 auto;
+    min-width: 0;
+    padding: 56px 56px 120px;
+    max-width: var(--content-max);
+    width: 100%;
+}
+.ctfl-v4-ch5-page .doc-header {
+    margin-bottom: 40px;
+}
+.ctfl-v4-ch5-page .doc-header .kicker {
+    font-size: 12px;
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+.ctfl-v4-ch5-page .doc-header h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: var(--text-0);
+    margin: 10px 0 18px;
+    line-height: 1.35;
+}
+.ctfl-v4-ch5-page .meta-box {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 18px 22px;
+    font-size: 14px;
+    color: var(--text-2);
+}
+.ctfl-v4-ch5-page .meta-box div {
+    margin: 6px 0;
+}
+.ctfl-v4-ch5-page .meta-box b {
+    color: var(--text-1);
+    font-weight: 600;
+}
+
+.ctfl-v4-ch5-page h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text-0);
+    margin: 56px 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+    scroll-margin-top: 24px;
+}
+.ctfl-v4-ch5-page h3 {
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--text-0);
+    margin: 40px 0 14px;
+    scroll-margin-top: 24px;
+}
+.ctfl-v4-ch5-page h4 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--teal);
+    margin: 26px 0 10px;
+    scroll-margin-top: 24px;
+}
+.ctfl-v4-ch5-page p {
+    margin: 14px 0;
+    color: var(--text-1);
+    font-size: 16px;
+}
+.ctfl-v4-ch5-page strong {
+    color: var(--text-0);
+    font-weight: 600;
+}
+.ctfl-v4-ch5-page a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(79, 140, 255, 0.3);
+}
+.ctfl-v4-ch5-page a:hover {
+    border-bottom-color: var(--accent);
+}
+.ctfl-v4-ch5-page ul,
+.ctfl-v4-ch5-page ol {
+    margin: 14px 0;
+    padding-left: 26px;
+    color: var(--text-1);
+    font-size: 16px;
+}
+.ctfl-v4-ch5-page li {
+    margin: 6px 0;
+}
+.ctfl-v4-ch5-page li::marker {
+    color: var(--text-3);
+}
+.ctfl-v4-ch5-page code:not(pre code) {
+    background: var(--bg-3);
+    color: var(--teal);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 0.9em;
+}
+.ctfl-v4-ch5-page hr {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 48px 0;
+}
+
+.ctfl-v4-ch5-page .callout {
+    background: var(--bg-2);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 18px 22px;
+    margin: 20px 0;
+    font-size: 15px;
+    color: var(--text-1);
+}
+.ctfl-v4-ch5-page .callout div {
+    margin: 4px 0;
+}
+
+/* ---------- Tables ---------- */
+.ctfl-v4-ch5-page .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0 28px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+}
+.ctfl-v4-ch5-page table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+}
+.ctfl-v4-ch5-page th,
+.ctfl-v4-ch5-page td {
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--border-soft);
+    vertical-align: top;
+}
+.ctfl-v4-ch5-page th {
+    background: var(--bg-2);
+    color: var(--text-0);
+    font-weight: 600;
+    font-size: 13.5px;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+}
+.ctfl-v4-ch5-page td {
+    color: var(--text-1);
+}
+.ctfl-v4-ch5-page tr:last-child td {
+    border-bottom: none;
+}
+.ctfl-v4-ch5-page tbody tr:hover {
+    background: var(--bg-1);
+}
+
+/* ---------- Source note ---------- */
+.ctfl-v4-ch5-page .source-note {
+    font-size: 13px;
+    color: var(--text-3);
+    margin: 18px 0 8px;
+    padding: 10px 16px;
+    background: var(--bg-1);
+    border-radius: var(--radius-md);
+    border: 1px dashed var(--border);
+}
+.ctfl-v4-ch5-page .source-note a {
+    color: var(--text-2);
+}
+.ctfl-v4-ch5-page .source-note b {
+    color: var(--text-3);
+    font-weight: 600;
+}
+
+/* ---------- Diagram wrap ---------- */
+.ctfl-v4-ch5-page .diagram-card {
+    background: var(--bg-1);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    margin: 24px 0;
+}
+.ctfl-v4-ch5-page .diagram-wrap {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    width: 100%;
+}
+.ctfl-v4-ch5-page .mermaid-wrapper {
+    width: 100%;
+    max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+}
+.ctfl-v4-ch5-page .mermaid-wrapper svg {
+    display: block;
+    margin: 0 auto;
+    height: auto !important;
+    overflow: visible !important;
+    font-size: 1rem !important;
+}
+.ctfl-v4-ch5-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+.ctfl-v4-ch5-page .mermaid-wrapper foreignObject > div,
+.ctfl-v4-ch5-page .mermaid-wrapper .nodeLabel,
+.ctfl-v4-ch5-page .mermaid-wrapper .edgeLabel,
+.ctfl-v4-ch5-page .mermaid-wrapper .label,
+.ctfl-v4-ch5-page .mermaid-wrapper text {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    font-family: var(--font-sans) !important;
+}
+
+/* ---------- Code blocks ---------- */
+.ctfl-v4-ch5-page pre {
+    background: var(--bg-code) !important;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px !important;
+    overflow-x: auto;
+    margin: 18px 0 !important;
+    font-size: 14px !important;
+    line-height: 1.65 !important;
+}
+.ctfl-v4-ch5-page pre code {
+    font-family: var(--font-mono) !important;
+}
+.ctfl-v4-ch5-page .code-label {
+    font-size: 11px;
+    color: var(--text-3);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 20px 0 -6px;
+    font-weight: 600;
+}
+
+/* ---------- Checklist ---------- */
+.ctfl-v4-ch5-page .checklist {
+    list-style: none;
+    padding-left: 0;
+    margin: 16px 0;
+}
+.ctfl-v4-ch5-page .checklist li {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-soft);
+    font-size: 15px;
+    color: var(--text-1);
+}
+.ctfl-v4-ch5-page .checklist li:last-child {
+    border-bottom: none;
+}
+.ctfl-v4-ch5-page .chk-box {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    border: 1.5px solid var(--text-3);
+    border-radius: 4px;
+    margin-top: 3px;
+}
+
+/* ---------- Badges ---------- */
+.ctfl-v4-ch5-page .badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 2px 9px;
+    border-radius: 20px;
+    margin-left: 8px;
+    vertical-align: middle;
+}
+.ctfl-v4-ch5-page .badge-purple {
+    background: var(--purple-soft);
+    color: var(--purple);
+}
+.ctfl-v4-ch5-page .badge-teal {
+    background: var(--teal-soft);
+    color: var(--teal);
+}
+
+/* ---------- Ref list ---------- */
+.ctfl-v4-ch5-page .ref-group {
+    margin: 24px 0;
+}
+.ctfl-v4-ch5-page .ref-group .ref-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+}
+.ctfl-v4-ch5-page .ref-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.ctfl-v4-ch5-page .ref-list li {
+    padding: 12px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    margin-bottom: 10px;
+    font-size: 14px;
+    background: var(--bg-1);
+}
+.ctfl-v4-ch5-page .ref-list a {
+    color: var(--text-1);
+    word-break: break-all;
+}
+.ctfl-v4-ch5-page .ref-list .ref-name {
+    color: var(--text-0);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 4px;
+}
+
+.ctfl-v4-ch5-page .term-key {
+    color: var(--purple);
+    font-weight: 600;
+}
+
+.ctfl-v4-ch5-page .footer-note {
+    margin-top: 56px;
+    padding: 24px;
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-lg);
+    font-size: 13.5px;
+    color: var(--text-3);
+    text-align: center;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .ctfl-v4-ch5-page .sidebar {
+        position: fixed;
+        left: 0;
+        top: calc(60px + var(--disclaimer-height, 0px));
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+    }
+    .ctfl-v4-ch5-page .sidebar.open {
+        transform: translateX(0);
+    }
+    .ctfl-v4-ch5-page .nav-toggle {
+        display: flex;
+    }
+    .ctfl-v4-ch5-page .content {
+        padding: 40px 20px 80px;
+        max-width: 100%;
+    }
+    .ctfl-v4-ch5-page .doc-header h1 {
+        font-size: 26px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ctfl-v4-ch5-page .sidebar {
+        transition: none !important;
+    }
+    .ctfl-v4-ch5-page .side-nav a {
+        transition: none !important;
+    }
+}
