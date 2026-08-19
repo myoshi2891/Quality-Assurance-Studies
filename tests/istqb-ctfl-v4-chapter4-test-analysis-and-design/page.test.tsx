@@ -59,15 +59,15 @@ describe('CTFL v4.0 Chapter 4: Test Analysis and Design Guide Page', () => {
 
         const expectedSections = [
             { id: 'sec-0', title: '0. 本章の位置づけと学習目標' },
-            { id: 'sec-1', title: '4.1 テスト技法の全体像（Overview of Test Techniques）' },
-            { id: 'sec-2', title: '4.2 ブラックボックステスト技法（Black-box Test Techniques）' },
-            { id: 'sec-3', title: '4.3 ホワイトボックステスト技法（White-box Test Techniques）' },
-            { id: 'sec-4', title: '4.4 経験ベースのテスト技法（Experience-based Test Techniques）' },
-            { id: 'sec-5', title: '4.5 コラボレーションベースのテストアプローチ（Collaboration-based Test Approaches）' },
+            { id: 'sec-1', title: 'テスト技法の全体像（Test Techniques Overview）' },
+            { id: 'sec-2', title: 'ブラックボックステスト技法（Black-box Test Techniques）' },
+            { id: 'sec-3', title: 'ホワイトボックステスト技法（White-box Test Techniques）' },
+            { id: 'sec-4', title: '経験ベースのテスト技法（Experience-based Test Techniques）' },
+            { id: 'sec-5', title: 'コラボレーションベースのテストアプローチ（Collaboration-based Test Approaches）' },
             { id: 'sec-6', title: '6. 技法選択の指針：どの技法をいつ使うか' },
             { id: 'sec-7', title: '7. 試験対策のポイント' },
             { id: 'sec-8', title: '8. まとめ' },
-            { id: 'sec-refs', title: '参考文献・一次情報源' },
+            { id: 'sec-refs', title: '参考文献・引用元URL一覧' },
         ];
 
         expectedSections.forEach(({ id, title }) => {
@@ -82,19 +82,19 @@ describe('CTFL v4.0 Chapter 4: Test Analysis and Design Guide Page', () => {
         await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
 
         const expectedSubsections = [
-            { id: 'sec-2-1', title: '4.2.1 同値分割法（Equivalence Partitioning, EP）' },
-            { id: 'sec-2-2', title: '4.2.2 境界値分析（Boundary Value Analysis, BVA）' },
-            { id: 'sec-2-3', title: '4.2.3 デシジョンテーブルテスト（Decision Table Testing）' },
-            { id: 'sec-2-4', title: '4.2.4 状態遷移テスト（State Transition Testing）' },
-            { id: 'sec-3-1', title: '4.3.1 ステートメントテストとステートメントカバレッジ' },
-            { id: 'sec-3-2', title: '4.3.2 分岐テストと分岐カバレッジ' },
-            { id: 'sec-3-3', title: '4.3.3 ホワイトボックステストの価値' },
-            { id: 'sec-4-1', title: '4.4.1 エラー推測（Error Guessing）' },
-            { id: 'sec-4-2', title: '4.4.2 探索的テスト（Exploratory Testing）' },
-            { id: 'sec-4-3', title: '4.4.3 チェックリストベースドテスト（Checklist-based Testing）' },
-            { id: 'sec-5-1', title: '4.5.1 ユーザーストーリーの共同作成（Collaborative User Story Writing）' },
-            { id: 'sec-5-2', title: '4.5.2 受け入れ基準（Acceptance Criteria）' },
-            { id: 'sec-5-3', title: '4.5.3 受け入れテスト駆動開発（Acceptance Test-Driven Development, ATDD）' },
+            { id: 'sec-2-1', title: '同値分割法（Equivalence Partitioning, EP）' },
+            { id: 'sec-2-2', title: '境界値分析（Boundary Value Analysis, BVA）' },
+            { id: 'sec-2-3', title: 'デシジョンテーブルテスト（Decision Table Testing）' },
+            { id: 'sec-2-4', title: '状態遷移テスト（State Transition Testing）' },
+            { id: 'sec-3-1', title: 'ステートメントテストとステートメントカバレッジ' },
+            { id: 'sec-3-2', title: '分岐テストと分岐カバレッジ' },
+            { id: 'sec-3-3', title: 'ホワイトボックステストの価値' },
+            { id: 'sec-4-1', title: 'エラー推測（Error Guessing）' },
+            { id: 'sec-4-2', title: '探索的テスト（Exploratory Testing）' },
+            { id: 'sec-4-3', title: 'チェックリストベースドテスト（Checklist-based Testing）' },
+            { id: 'sec-5-1', title: 'ユーザーストーリーの共同作成（Collaborative User Story Writing）' },
+            { id: 'sec-5-2', title: '受け入れ基準（Acceptance Criteria）' },
+            { id: 'sec-5-3', title: '受け入れテスト駆動開発（Acceptance Test-Driven Development, ATDD）' },
         ];
 
         expectedSubsections.forEach(({ id, title }) => {
