@@ -524,43 +524,44 @@ export default function CtflV4Chapter5Page() {
                             以下は、エキスパートベース技法のひとつである三点見積り(PERT式)を Python で実装した簡単な例である。楽観値・最頻値・悲観値の3点から加重平均で見積り工数を算出する、実務でもよく使われる手法である。
                         </p>
 
-                        <div className="code-label">Python — 三点見積り(PERT式)</div>
-                        <pre>
-                            <code>{`"""三点見積り(PERT式)によるテスト工数見積りの例。
-
-expert-based technique の代表的な実装のひとつ。
-楽観値(optimistic)・最頻値(most likely)・悲観値(pessimistic)
-の3値から、ベータ分布を仮定した期待値と標準偏差を算出する。
-"""
-from dataclasses import dataclass
-
-
-@dataclass
-class ThreePointEstimate:
-    optimistic: float       # 楽観値(順調に進んだ場合の工数[人日])
-    most_likely: float      # 最頻値(最も起こりうる工数[人日])
-    pessimistic: float      # 悲観値(問題が発生した場合の工数[人日])
-
-    def expected_effort(self) -> float:
-        """PERT式の期待値: (楽観 + 4*最頻 + 悲観) / 6"""
-        return (self.optimistic + 4 * self.most_likely + self.pessimistic) / 6
-
-    def standard_deviation(self) -> float:
-        """ばらつきの目安: (悲観 - 楽観) / 6"""
-        return (self.pessimistic - self.optimistic) / 6
-
-
-def test_expected_effort_matches_pert_formula():
-    """回帰テストAPIの見積り: 楽観3日、最頻5日、悲観9日のケース"""
-    estimate = ThreePointEstimate(optimistic=3, most_likely=5, pessimistic=9)
-
-    expected = estimate.expected_effort()
-    stddev = estimate.standard_deviation()
-
-    assert expected == 5.333333333333333  # (3 + 20 + 9) / 6
-    assert round(stddev, 2) == 1.0
-`}</code>
-                        </pre>
+                        <div className="code-block">
+                            <div className="code-label">Python — 三点見積り(PERT式)</div>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-string">&quot;&quot;&quot;三点見積り(PERT式)によるテスト工数見積りの例。</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-string">expert-based technique の代表的な実装のひとつ。</span></div>
+                                <div className="code-line"><span className="code-string">楽観値(optimistic)・最頻値(most likely)・悲観値(pessimistic)</span></div>
+                                <div className="code-line"><span className="code-string">の3値から、ベータ分布を仮定した期待値と標準偏差を算出する。</span></div>
+                                <div className="code-line"><span className="code-string">&quot;&quot;&quot;</span></div>
+                                <div className="code-line"><span className="code-keyword">from</span> <span className="code-type">dataclasses</span> <span className="code-keyword">import</span> <span className="code-type">dataclass</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-decorator">@dataclass</span></div>
+                                <div className="code-line"><span className="code-keyword">class</span> <span className="code-type">ThreePointEstimate</span>:</div>
+                                <div className="code-line">    <span className="code-variable">optimistic</span>: <span className="code-type">float</span>       <span className="code-comment"># 楽観値(順調に進んだ場合の工数[人日])</span></div>
+                                <div className="code-line">    <span className="code-variable">most_likely</span>: <span className="code-type">float</span>      <span className="code-comment"># 最頻値(最も起こりうる工数[人日])</span></div>
+                                <div className="code-line">    <span className="code-variable">pessimistic</span>: <span className="code-type">float</span>      <span className="code-comment"># 悲観値(問題が発生した場合の工数[人日])</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">expected_effort</span>(<span className="code-variable">self</span>) -&gt; <span className="code-type">float</span>:</div>
+                                <div className="code-line">        <span className="code-string">&quot;&quot;&quot;PERT式の期待値: (楽観 + 4*最頻 + 悲観) / 6&quot;&quot;&quot;</span></div>
+                                <div className="code-line">        <span className="code-keyword">return</span> (<span className="code-variable">self</span>.<span className="code-variable">optimistic</span> <span className="code-op">+</span> <span className="code-number">4</span> <span className="code-op">*</span> <span className="code-variable">self</span>.<span className="code-variable">most_likely</span> <span className="code-op">+</span> <span className="code-variable">self</span>.<span className="code-variable">pessimistic</span>) <span className="code-op">/</span> <span className="code-number">6</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">standard_deviation</span>(<span className="code-variable">self</span>) -&gt; <span className="code-type">float</span>:</div>
+                                <div className="code-line">        <span className="code-string">&quot;&quot;&quot;ばらつきの目安: (悲観 - 楽観) / 6&quot;&quot;&quot;</span></div>
+                                <div className="code-line">        <span className="code-keyword">return</span> (<span className="code-variable">self</span>.<span className="code-variable">pessimistic</span> <span className="code-op">-</span> <span className="code-variable">self</span>.<span className="code-variable">optimistic</span>) <span className="code-op">/</span> <span className="code-number">6</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">test_expected_effort_matches_pert_formula</span>():</div>
+                                <div className="code-line">    <span className="code-string">&quot;&quot;&quot;回帰テストAPIの見積り: 楽観3日、最頻5日、悲観9日のケース&quot;&quot;&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">estimate</span> <span className="code-op">=</span> <span className="code-type">ThreePointEstimate</span>(<span className="code-variable">optimistic</span><span className="code-op">=</span><span className="code-number">3</span>, <span className="code-variable">most_likely</span><span className="code-op">=</span><span className="code-number">5</span>, <span className="code-variable">pessimistic</span><span className="code-op">=</span><span className="code-number">9</span>)</div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-variable">expected</span> <span className="code-op">=</span> <span className="code-variable">estimate</span>.<span className="code-func">expected_effort</span>()</div>
+                                <div className="code-line">    <span className="code-variable">stddev</span> <span className="code-op">=</span> <span className="code-variable">estimate</span>.<span className="code-func">standard_deviation</span>()</div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> <span className="code-variable">expected</span> <span className="code-op">==</span> <span className="code-number">5.333333333333333</span>  <span className="code-comment"># (3 + 20 + 9) / 6</span></div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> <span className="code-func">round</span>(<span className="code-variable">stddev</span>, <span className="code-number">2</span>) <span className="code-op">==</span> <span className="code-number">1.0</span></div>
+                            </div>
+                        </div>
 
                         <p>
                             この例のように、エキスパートベースの見積りであっても計算ロジック自体は定量的に再現可能な形で実装しておくと、見積り根拠をレビュー・トレーサビリティの対象にできる点が実務上のメリットである。
@@ -1009,58 +1010,59 @@ def test_expected_effort_matches_pert_formula():
                             以下は、リスクレジスタ(risk register)をシンプルに実装し、発生確率と影響度からリスクレベルを算出してテスト優先順位を導出する例である。
                         </p>
 
-                        <div className="code-label">Python — リスクレジスタとリスクベース優先順位付け</div>
-                        <pre>
-                            <code>{`"""リスクベーステストのための簡易リスクレジスタ実装例。
-
-risk level = likelihood(1-5) x impact(1-5) という単純な乗算モデルで
-優先順位付けを行う。実務ではより精緻なマトリクスを使うこともあるが、
-考え方の骨子はこのモデルで説明できる。
-"""
-from dataclasses import dataclass, field
-
-
-@dataclass
-class RiskItem:
-    risk_id: str
-    description: str
-    likelihood: int  # 1(低い) 〜 5(高い)
-    impact: int       # 1(軽微) 〜 5(重大)
-    mitigation: str = ""
-
-    def risk_level(self) -> int:
-        return self.likelihood * self.impact
-
-
-@dataclass
-class RiskRegister:
-    items: list = field(default_factory=list)
-
-    def add(self, risk: RiskItem) -> None:
-        self.items.append(risk)
-
-    def prioritized(self) -> list:
-        """リスクレベルの高い順にソートして返す(risk-based testingの基礎)"""
-        return sorted(self.items, key=lambda r: r.risk_level(), reverse=True)
-
-
-def test_high_risk_items_are_prioritized_first():
-    register = RiskRegister()
-    register.add(RiskItem("R-01", "決済APIのタイムアウト処理不備",
-                           likelihood=4, impact=5,
-                           mitigation="決済系の異常系テストを重点的に実施"))
-    register.add(RiskItem("R-02", "フッターのリンク切れ",
-                           likelihood=3, impact=1))
-    register.add(RiskItem("R-03", "個人情報のログ出力漏洩",
-                           likelihood=2, impact=5,
-                           mitigation="セキュリティレビューとログ出力の静的解析"))
-
-    ranked = register.prioritized()
-
-    assert [r.risk_id for r in ranked] == ["R-01", "R-03", "R-02"]
-    assert ranked[0].risk_level() == 20
-`}</code>
-                        </pre>
+                        <div className="code-block">
+                            <div className="code-label">Python — リスクレジスタとリスクベース優先順位付け</div>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-string">&quot;&quot;&quot;リスクベーステストのための簡易リスクレジスタ実装例。</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-string">risk level = likelihood(1-5) x impact(1-5) という単純な乗算モデルで</span></div>
+                                <div className="code-line"><span className="code-string">優先順位付けを行う。実務ではより精緻なマトリクスを使うこともあるが、</span></div>
+                                <div className="code-line"><span className="code-string">考え方の骨子はこのモデルで説明できる。</span></div>
+                                <div className="code-line"><span className="code-string">&quot;&quot;&quot;</span></div>
+                                <div className="code-line"><span className="code-keyword">from</span> <span className="code-type">dataclasses</span> <span className="code-keyword">import</span> <span className="code-type">dataclass</span>, <span className="code-func">field</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-decorator">@dataclass</span></div>
+                                <div className="code-line"><span className="code-keyword">class</span> <span className="code-type">RiskItem</span>:</div>
+                                <div className="code-line">    <span className="code-variable">risk_id</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">description</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">likelihood</span>: <span className="code-type">int</span>  <span className="code-comment"># 1(低い) 〜 5(高い)</span></div>
+                                <div className="code-line">    <span className="code-variable">impact</span>: <span className="code-type">int</span>       <span className="code-comment"># 1(軽微) 〜 5(重大)</span></div>
+                                <div className="code-line">    <span className="code-variable">mitigation</span>: <span className="code-type">str</span> <span className="code-op">=</span> <span className="code-string">&quot;&quot;</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">risk_level</span>(<span className="code-variable">self</span>) -&gt; <span className="code-type">int</span>:</div>
+                                <div className="code-line">        <span className="code-keyword">return</span> <span className="code-variable">self</span>.<span className="code-variable">likelihood</span> <span className="code-op">*</span> <span className="code-variable">self</span>.<span className="code-variable">impact</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-decorator">@dataclass</span></div>
+                                <div className="code-line"><span className="code-keyword">class</span> <span className="code-type">RiskRegister</span>:</div>
+                                <div className="code-line">    <span className="code-variable">items</span>: <span className="code-type">list</span> <span className="code-op">=</span> <span className="code-func">field</span>(<span className="code-variable">default_factory</span><span className="code-op">=</span><span className="code-type">list</span>)</div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">add</span>(<span className="code-variable">self</span>, <span className="code-variable">risk</span>: <span className="code-type">RiskItem</span>) -&gt; <span className="code-type">None</span>:</div>
+                                <div className="code-line">        <span className="code-variable">self</span>.<span className="code-variable">items</span>.<span className="code-func">append</span>(<span className="code-variable">risk</span>)</div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">prioritized</span>(<span className="code-variable">self</span>) -&gt; <span className="code-type">list</span>:</div>
+                                <div className="code-line">        <span className="code-string">&quot;&quot;&quot;リスクレベルの高い順にソートして返す(risk-based testingの基礎)&quot;&quot;&quot;</span></div>
+                                <div className="code-line">        <span className="code-keyword">return</span> <span className="code-func">sorted</span>(<span className="code-variable">self</span>.<span className="code-variable">items</span>, <span className="code-variable">key</span><span className="code-op">=</span><span className="code-keyword">lambda</span> <span className="code-variable">r</span>: <span className="code-variable">r</span>.<span className="code-func">risk_level</span>(), <span className="code-variable">reverse</span><span className="code-op">=</span><span className="code-keyword">True</span>)</div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">test_high_risk_items_are_prioritized_first</span>():</div>
+                                <div className="code-line">    <span className="code-variable">register</span> <span className="code-op">=</span> <span className="code-type">RiskRegister</span>()</div>
+                                <div className="code-line">    <span className="code-variable">register</span>.<span className="code-func">add</span>(<span className="code-type">RiskItem</span>(<span className="code-string">&quot;R-01&quot;</span>, <span className="code-string">&quot;決済APIのタイムアウト処理不備&quot;</span>,</div>
+                                <div className="code-line">                           <span className="code-variable">likelihood</span><span className="code-op">=</span><span className="code-number">4</span>, <span className="code-variable">impact</span><span className="code-op">=</span><span className="code-number">5</span>,</div>
+                                <div className="code-line">                           <span className="code-variable">mitigation</span><span className="code-op">=</span><span className="code-string">&quot;決済系の異常系テストを重点的に実施&quot;</span>))</div>
+                                <div className="code-line">    <span className="code-variable">register</span>.<span className="code-func">add</span>(<span className="code-type">RiskItem</span>(<span className="code-string">&quot;R-02&quot;</span>, <span className="code-string">&quot;フッターのリンク切れ&quot;</span>,</div>
+                                <div className="code-line">                           <span className="code-variable">likelihood</span><span className="code-op">=</span><span className="code-number">3</span>, <span className="code-variable">impact</span><span className="code-op">=</span><span className="code-number">1</span>))</div>
+                                <div className="code-line">    <span className="code-variable">register</span>.<span className="code-func">add</span>(<span className="code-type">RiskItem</span>(<span className="code-string">&quot;R-03&quot;</span>, <span className="code-string">&quot;個人情報のログ出力漏洩&quot;</span>,</div>
+                                <div className="code-line">                           <span className="code-variable">likelihood</span><span className="code-op">=</span><span className="code-number">2</span>, <span className="code-variable">impact</span><span className="code-op">=</span><span className="code-number">5</span>,</div>
+                                <div className="code-line">                           <span className="code-variable">mitigation</span><span className="code-op">=</span><span className="code-string">&quot;セキュリティレビューとログ出力の静的解析&quot;</span>))</div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-variable">ranked</span> <span className="code-op">=</span> <span className="code-variable">register</span>.<span className="code-func">prioritized</span>()</div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> [<span className="code-variable">r</span>.<span className="code-variable">risk_id</span> <span className="code-keyword">for</span> <span className="code-variable">r</span> <span className="code-keyword">in</span> <span className="code-variable">ranked</span>] <span className="code-op">==</span> [<span className="code-string">&quot;R-01&quot;</span>, <span className="code-string">&quot;R-03&quot;</span>, <span className="code-string">&quot;R-02&quot;</span>]</div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> <span className="code-variable">ranked</span>[<span className="code-number">0</span>].<span className="code-func">risk_level</span>() <span className="code-op">==</span> <span className="code-number">20</span></div>
+                            </div>
+                        </div>
 
                         <div className="source-note">
                             <b>出典:</b>{' '}
@@ -1424,86 +1426,87 @@ def test_high_risk_items_are_prioritized_first():
                             以下は、この欠陥報告の必須項目を Python のデータクラスとしてモデル化し、必須フィールドが揃っているかを検証する簡易バリデータの例である。実務では欠陥管理ツール(Jira等)がこの構造をGUIとして提供するが、内部的なデータモデルの理解に役立つ。
                         </p>
 
-                        <div className="code-label">Python — 欠陥報告のデータモデルとバリデーション</div>
-                        <pre>
-                            <code>{`"""動的テストにおける欠陥報告(defect report)のデータモデル例。
-
-ISTQB CTFL v4.0.1 5.5節で挙げられている典型的な記載項目を
-dataclassとしてモデル化し、必須項目の充足チェックを行う。
-"""
-from dataclasses import dataclass
-from enum import Enum
-
-
-class DefectStatus(str, Enum):
-    OPEN = "open"
-    DEFERRED = "deferred"
-    DUPLICATE = "duplicate"
-    WAITING_TO_BE_FIXED = "waiting_to_be_fixed"
-    AWAITING_CONFIRMATION = "awaiting_confirmation_testing"
-    REOPENED = "reopened"
-    CLOSED = "closed"
-    REJECTED = "rejected"
-
-
-@dataclass
-class DefectReport:
-    defect_id: str
-    title: str
-    reported_by: str
-    test_object: str
-    test_environment: str
-    steps_to_reproduce: str
-    expected_result: str
-    actual_result: str
-    severity: str        # 例: "Critical", "Major", "Minor"
-    priority: str         # 例: "P1", "P2", "P3"
-    status: DefectStatus = DefectStatus.OPEN
-
-    def is_complete(self) -> bool:
-        """必須項目がすべて空でないかを検証する簡易バリデーション"""
-        required_fields = [
-            self.title, self.reported_by, self.test_object,
-            self.test_environment, self.steps_to_reproduce,
-            self.expected_result, self.actual_result,
-            self.severity, self.priority,
-        ]
-        return all(field.strip() for field in required_fields)
-
-
-def test_defect_report_with_all_fields_is_complete():
-    report = DefectReport(
-        defect_id="DEF-1042",
-        title="決済確定後にタイムアウトすると二重課金が発生する",
-        reported_by="山田太郎(QAエンジニア)",
-        test_object="決済API v2.3.0",
-        test_environment="Staging / Chrome 126",
-        steps_to_reproduce="1) カート合計10,000円で決済確定\\n"
-                            "2) 決済処理中に強制的にAPIタイムアウトを発生させる\\n"
-                            "3) 決済履歴を確認する",
-        expected_result="決済は1回のみ確定し、タイムアウト時は自動的にロールバックされる",
-        actual_result="同一注文に対し決済が2回確定している",
-        severity="Critical",
-        priority="P1",
-    )
-
-    assert report.is_complete() is True
-    assert report.status == DefectStatus.OPEN
-
-
-def test_defect_report_missing_actual_result_is_incomplete():
-    incomplete_report = DefectReport(
-        defect_id="DEF-1043", title="ログイン画面のラベル崩れ",
-        reported_by="佐藤花子", test_object="Webフロントエンド",
-        test_environment="Production", steps_to_reproduce="ログイン画面を開く",
-        expected_result="ラベルが正しく表示される",
-        actual_result="",  # 未記入
-        severity="Minor", priority="P3",
-    )
-
-    assert incomplete_report.is_complete() is False
-`}</code>
-                        </pre>
+                        <div className="code-block">
+                            <div className="code-label">Python — 欠陥報告のデータモデルとバリデーション</div>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-string">&quot;&quot;&quot;動的テストにおける欠陥報告(defect report)のデータモデル例。</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-string">ISTQB CTFL v4.0.1 5.5節で挙げられている典型的な記載項目を</span></div>
+                                <div className="code-line"><span className="code-string">dataclassとしてモデル化し、必須項目の充足チェックを行う。</span></div>
+                                <div className="code-line"><span className="code-string">&quot;&quot;&quot;</span></div>
+                                <div className="code-line"><span className="code-keyword">from</span> <span className="code-type">dataclasses</span> <span className="code-keyword">import</span> <span className="code-type">dataclass</span></div>
+                                <div className="code-line"><span className="code-keyword">from</span> <span className="code-type">enum</span> <span className="code-keyword">import</span> <span className="code-type">Enum</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-keyword">class</span> <span className="code-type">DefectStatus</span>(<span className="code-type">str</span>, <span className="code-type">Enum</span>):</div>
+                                <div className="code-line">    <span className="code-variable">OPEN</span> <span className="code-op">=</span> <span className="code-string">&quot;open&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">DEFERRED</span> <span className="code-op">=</span> <span className="code-string">&quot;deferred&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">DUPLICATE</span> <span className="code-op">=</span> <span className="code-string">&quot;duplicate&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">WAITING_TO_BE_FIXED</span> <span className="code-op">=</span> <span className="code-string">&quot;waiting_to_be_fixed&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">AWAITING_CONFIRMATION</span> <span className="code-op">=</span> <span className="code-string">&quot;awaiting_confirmation_testing&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">REOPENED</span> <span className="code-op">=</span> <span className="code-string">&quot;reopened&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">CLOSED</span> <span className="code-op">=</span> <span className="code-string">&quot;closed&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">REJECTED</span> <span className="code-op">=</span> <span className="code-string">&quot;rejected&quot;</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-decorator">@dataclass</span></div>
+                                <div className="code-line"><span className="code-keyword">class</span> <span className="code-type">DefectReport</span>:</div>
+                                <div className="code-line">    <span className="code-variable">defect_id</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">title</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">reported_by</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">test_object</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">test_environment</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">steps_to_reproduce</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">expected_result</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">actual_result</span>: <span className="code-type">str</span></div>
+                                <div className="code-line">    <span className="code-variable">severity</span>: <span className="code-type">str</span>        <span className="code-comment"># 例: &quot;Critical&quot;, &quot;Major&quot;, &quot;Minor&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">priority</span>: <span className="code-type">str</span>         <span className="code-comment"># 例: &quot;P1&quot;, &quot;P2&quot;, &quot;P3&quot;</span></div>
+                                <div className="code-line">    <span className="code-variable">status</span>: <span className="code-type">DefectStatus</span> <span className="code-op">=</span> <span className="code-type">DefectStatus</span>.<span className="code-variable">OPEN</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">def</span> <span className="code-func">is_complete</span>(<span className="code-variable">self</span>) -&gt; <span className="code-type">bool</span>:</div>
+                                <div className="code-line">        <span className="code-string">&quot;&quot;&quot;必須項目がすべて空でないかを検証する簡易バリデーション&quot;&quot;&quot;</span></div>
+                                <div className="code-line">        <span className="code-variable">required_fields</span> <span className="code-op">=</span> [</div>
+                                <div className="code-line">            <span className="code-variable">self</span>.<span className="code-variable">title</span>, <span className="code-variable">self</span>.<span className="code-variable">reported_by</span>, <span className="code-variable">self</span>.<span className="code-variable">test_object</span>,</div>
+                                <div className="code-line">            <span className="code-variable">self</span>.<span className="code-variable">test_environment</span>, <span className="code-variable">self</span>.<span className="code-variable">steps_to_reproduce</span>,</div>
+                                <div className="code-line">            <span className="code-variable">self</span>.<span className="code-variable">expected_result</span>, <span className="code-variable">self</span>.<span className="code-variable">actual_result</span>,</div>
+                                <div className="code-line">            <span className="code-variable">self</span>.<span className="code-variable">severity</span>, <span className="code-variable">self</span>.<span className="code-variable">priority</span>,</div>
+                                <div className="code-line">        ]</div>
+                                <div className="code-line">        <span className="code-keyword">return</span> <span className="code-func">all</span>(<span className="code-variable">field</span>.<span className="code-func">strip</span>() <span className="code-keyword">for</span> <span className="code-variable">field</span> <span className="code-keyword">in</span> <span className="code-variable">required_fields</span>)</div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">test_defect_report_with_all_fields_is_complete</span>():</div>
+                                <div className="code-line">    <span className="code-variable">report</span> <span className="code-op">=</span> <span className="code-type">DefectReport</span>(</div>
+                                <div className="code-line">        <span className="code-variable">defect_id</span><span className="code-op">=</span><span className="code-string">&quot;DEF-1042&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">title</span><span className="code-string">&quot;決済確定後にタイムアウトすると二重課金が発生する&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">reported_by</span><span className="code-op">=</span><span className="code-string">&quot;山田太郎(QAエンジニア)&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">test_object</span><span className="code-op">=</span><span className="code-string">&quot;決済API v2.3.0&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">test_environment</span><span className="code-op">=</span><span className="code-string">&quot;Staging / Chrome 126&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">steps_to_reproduce</span><span className="code-op">=</span><span className="code-string">&quot;1) カート合計10,000円で決済確定\n&quot;</span></div>
+                                <div className="code-line">                            <span className="code-string">&quot;2) 決済処理中に強制的にAPIタイムアウトを発生させる\n&quot;</span></div>
+                                <div className="code-line">                            <span className="code-string">&quot;3) 決済履歴を確認する&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">expected_result</span><span className="code-op">=</span><span className="code-string">&quot;決済は1回のみ確定し、タイムアウト時は自動的にロールバックされる&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">actual_result</span><span className="code-op">=</span><span className="code-string">&quot;同一注文に対し決済が2回確定している&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">severity</span><span className="code-op">=</span><span className="code-string">&quot;Critical&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">priority</span><span className="code-op">=</span><span className="code-string">&quot;P1&quot;</span>,</div>
+                                <div className="code-line">    )</div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> <span className="code-variable">report</span>.<span className="code-func">is_complete</span>() <span className="code-keyword">is</span> <span className="code-keyword">True</span></div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> <span className="code-variable">report</span>.<span className="code-variable">status</span> <span className="code-op">==</span> <span className="code-type">DefectStatus</span>.<span className="code-variable">OPEN</span></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"></div>
+                                <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">test_defect_report_missing_actual_result_is_incomplete</span>():</div>
+                                <div className="code-line">    <span className="code-variable">incomplete_report</span> <span className="code-op">=</span> <span className="code-type">DefectReport</span>(</div>
+                                <div className="code-line">        <span className="code-variable">defect_id</span><span className="code-op">=</span><span className="code-string">&quot;DEF-1043&quot;</span>, <span className="code-variable">title</span><span className="code-op">=</span><span className="code-string">&quot;ログイン画面のラベル崩れ&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">reported_by</span><span className="code-op">=</span><span className="code-string">&quot;佐藤花子&quot;</span>, <span className="code-variable">test_object</span><span className="code-op">=</span><span className="code-string">&quot;Webフロントエンド&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">test_environment</span><span className="code-op">=</span><span className="code-string">&quot;Production&quot;</span>, <span className="code-variable">steps_to_reproduce</span><span className="code-op">=</span><span className="code-string">&quot;ログイン画面を開く&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">expected_result</span><span className="code-op">=</span><span className="code-string">&quot;ラベルが正しく表示される&quot;</span>,</div>
+                                <div className="code-line">        <span className="code-variable">actual_result</span><span className="code-op">=</span><span className="code-string">&quot;&quot;</span>,  <span className="code-comment"># 未記入</span></div>
+                                <div className="code-line">        <span className="code-variable">severity</span><span className="code-op">=</span><span className="code-string">&quot;Minor&quot;</span>, <span className="code-variable">priority</span><span className="code-op">=</span><span className="code-string">&quot;P3&quot;</span>,</div>
+                                <div className="code-line">    )</div>
+                                <div className="code-line"></div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> <span className="code-variable">incomplete_report</span>.<span className="code-func">is_complete</span>() <span className="code-keyword">is</span> <span className="code-keyword">False</span></div>
+                            </div>
+                        </div>
 
                         <div className="source-note">
                             <b>出典:</b>{' '}

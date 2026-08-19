@@ -409,26 +409,64 @@
 }
 
 /* ---------- Code blocks ---------- */
+.ctfl-v4-ch5-page .code-block {
+    margin: 20px 0 28px;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: #0d1117;
+}
+.ctfl-v4-ch5-page .code-label {
+    background: var(--bg-card);
+    color: var(--text-2);
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    padding: 9px 16px;
+    border-bottom: 1px solid var(--border);
+    text-transform: uppercase;
+    font-weight: 600;
+}
+.ctfl-v4-ch5-page .code-content {
+    margin: 0;
+    padding: 18px 20px;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    line-height: 1.65;
+    color: #e6edf3;
+    overflow-x: auto;
+}
+.ctfl-v4-ch5-page .code-line {
+    white-space: pre;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+/* Syntax Highlighting Colors */
+.ctfl-v4-ch5-page .code-comment { color: #8b949e; font-style: italic; }
+.ctfl-v4-ch5-page .code-keyword { color: #ff7b72; font-weight: 600; }
+.ctfl-v4-ch5-page .code-string { color: #a5d6ff; }
+.ctfl-v4-ch5-page .code-number { color: #79c0ff; }
+.ctfl-v4-ch5-page .code-func { color: #d2a8ff; }
+.ctfl-v4-ch5-page .code-type { color: #ffa657; }
+.ctfl-v4-ch5-page .code-decorator { color: #d2a8ff; font-weight: 600; }
+.ctfl-v4-ch5-page .code-cyan { color: #7ee787; font-weight: 600; }
+.ctfl-v4-ch5-page .code-green { color: #7ee787; font-weight: 600; }
+.ctfl-v4-ch5-page .code-variable { color: #e6edf3; }
+.ctfl-v4-ch5-page .code-op { color: #ff7b72; }
+
 .ctfl-v4-ch5-page pre {
-    background: var(--bg-code) !important;
+    background: #0d1117 !important;
     border: 1px solid var(--border);
     border-radius: var(--radius-lg);
     padding: 20px 22px !important;
     overflow-x: auto;
     margin: 18px 0 !important;
-    font-size: 14px !important;
+    font-size: 1rem !important;
     line-height: 1.65 !important;
 }
 .ctfl-v4-ch5-page pre code {
     font-family: var(--font-mono) !important;
-}
-.ctfl-v4-ch5-page .code-label {
-    font-size: 11px;
-    color: var(--text-3);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    margin: 20px 0 -6px;
-    font-weight: 600;
 }
 
 /* ---------- Checklist ---------- */
