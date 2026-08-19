@@ -5,15 +5,22 @@ Updated 2026-08-20
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 全40ページの静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計41ルート）。
+> **✅ 全ガイド移行完了**: 全41ページの静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計42ルート）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `05a6d4d` |
+| 最新 HEAD | `d0a21af` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun run lint` / `bun test`（188 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun run lint` / `bun test`（195 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/08/20: CTFL-AT Chapter 3 (アジャイルテスト技法とツール) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/`: ページコンポーネント（Mermaid 19図、全8セクション、全テーブル、K-Level学習チェックリスト、サンプル問題4問、コード例、参考文献を含む完全移行）、スタイル（`.ctfl-at-ch3-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応）を実装。
+- `tests/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 19図、チェックリスト、練習問題、参考文献の存在を検証する厳格なテストスイートを実装して全パス（全195件）。
+- `Ctfl-at-chapter3-agile-testing-techniques-tools.html`: `archive/html-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 42 ページ体制に同期。
 
 ## 2026/08/20: CTFL-AT Chapter 2 (アジャイルテストの基本原則) ガイドの Next.js 移行完了
 
@@ -397,6 +404,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Finance-testing-ct-ft-guide.html` | `/istqb-ct-ft-complete-guide` | ✅ NavBar + aria-current あり |
 | `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
 | `Ctfl-at-chapter2.html` | `/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles` | ✅ NavBar あり |
+| `Ctfl-at-chapter3-agile-testing-techniques-tools.html` | `/istqb-ctfl-at-chapter3-agile-testing-techniques-tools` | ✅ NavBar あり |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -413,9 +421,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `05a6d4d`
-- **全ガイド移行完了**: プロジェクトルートに存在した全40ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 41 ルート（ホーム + 40 ガイド）が管理されています。
+- 最新 HEAD: `d0a21af`
+- **全ガイド移行完了**: プロジェクトルートに存在した全41ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 42 ルート（ホーム + 41 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

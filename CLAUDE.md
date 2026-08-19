@@ -100,6 +100,9 @@ Next.js App Router 構成:
 - `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles.css` — アジャイル(CTFL-AT)2章ガイド固有スタイル
 - `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/page.tsx` — アジャイル(CTFL-AT)2章ガイドページ
 - `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/NavBar.tsx` — アジャイル(CTFL-AT)2章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/istqb-ctfl-at-chapter3-agile-testing-techniques-tools.css` — アジャイル(CTFL-AT)3章ガイド固有スタイル
+- `app/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/page.tsx` — アジャイル(CTFL-AT)3章ガイドページ
+- `app/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/NavBar.tsx` — アジャイル(CTFL-AT)3章ページ固有スティッキーナビ（`'use client'`）
 - `app/istqb-ctfl-complete-guide/istqb-ctfl-complete-guide.css` — ISTQB CTFL v4.0 ガイド固有スタイル
 - `app/istqb-ctfl-complete-guide/page.tsx` — ISTQB CTFL v4.0 ガイドページ
 - `app/istqb-ctfl-complete-guide/NavBar.tsx` — CTFL ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -380,6 +383,11 @@ bun test        # ユニットテスト成功
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
+| `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
+| `Finance-testing-ct-ft-guide.html` | `/istqb-ct-ft-complete-guide` | ✅ NavBar + aria-current あり |
+| `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
+| `Ctfl-at-chapter2.html` | `/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles` | ✅ NavBar あり |
+| `Ctfl-at-chapter3-agile-testing-techniques-tools.html` | `/istqb-ctfl-at-chapter3-agile-testing-techniques-tools` | ✅ NavBar あり |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -395,8 +403,8 @@ bun test        # ユニットテスト成功
 
 ```text
 コンテキスト:
-- **全ガイド移行完了**: プロジェクトルートに存在した全36ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました（ISTQB CTFL v4.0 ガイドを含む）。
-- 合計 36 ルート（ホーム + 35 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全41ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 42 ルート（ホーム + 41 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
