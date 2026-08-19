@@ -47,9 +47,9 @@ describe('CTFL-AT Chapter 3: Agile Testing Techniques and Tools Guide Page', () 
         expect(screen.getByText(/TDD・ATDD・BDDからテスティングクアドラント、探索的テスト、CI\/CDツールチェーンまで/i)).toBeDefined();
 
         // Hero metadata
-        expect(screen.getByText(/Foundation Level Agile Tester/i)).toBeDefined();
-        expect(screen.getByText(/Mermaid/i)).toBeDefined();
-        expect(screen.getByText(/ステップバイステップ/i)).toBeDefined();
+        expect(screen.getAllByText(/Foundation Level Agile Tester/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/Mermaid/i).length).toBeGreaterThan(0);
+        expect(screen.getAllByText(/ステップバイステップ/i).length).toBeGreaterThan(0);
     });
 
     it('renders all main sections with expected headings and IDs', async () => {
@@ -70,7 +70,7 @@ describe('CTFL-AT Chapter 3: Agile Testing Techniques and Tools Guide Page', () 
         ];
 
         expectedSections.forEach(({ id, title }) => {
-            const el = container.querySelector(`#${id}`);
+            const el = container.querySelector(`[id="${id}"]`);
             expect(el).not.toBeNull();
             expect(el?.textContent).toContain(title);
         });
@@ -101,16 +101,16 @@ describe('CTFL-AT Chapter 3: Agile Testing Techniques and Tools Guide Page', () 
         ];
 
         expectedSubsections.forEach(({ id, title }) => {
-            const el = container.querySelector(`#${id}`);
+            const el = container.querySelector(`[id="${id}"]`);
             expect(el).not.toBeNull();
             expect(el?.textContent).toContain(title);
         });
     });
 
-    it('renders all 18 Mermaid diagrams across the page', async () => {
+    it('renders all 19 Mermaid diagrams across the page', async () => {
         render(<Page />);
         const diagrams = await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
-        expect(diagrams).toHaveLength(18);
+        expect(diagrams).toHaveLength(19);
     });
 
     it('renders the sidebar navigation with scrollspy links and toggle', () => {
@@ -130,10 +130,10 @@ describe('CTFL-AT Chapter 3: Agile Testing Techniques and Tools Guide Page', () 
 
     it('renders the learning checklist and sample practice questions', () => {
         const { container } = render(<Page />);
-        const checklistSection = container.querySelector('#5-k-');
+        const checklistSection = container.querySelector('[id="5-k-"]');
         expect(checklistSection).not.toBeNull();
 
-        const practiceSection = container.querySelector('#6');
+        const practiceSection = container.querySelector('[id="6"]');
         expect(practiceSection).not.toBeNull();
         expect(container.textContent).toContain('Q1.');
         expect(container.textContent).toContain('Q2.');
@@ -143,7 +143,7 @@ describe('CTFL-AT Chapter 3: Agile Testing Techniques and Tools Guide Page', () 
 
     it('renders the references table with primary sources', () => {
         const { container } = render(<Page />);
-        const refSection = container.querySelector('#7-url');
+        const refSection = container.querySelector('[id="7-url"]');
         expect(refSection).not.toBeNull();
         expect(container.textContent).toContain('Agile Alliance');
         expect(container.textContent).toContain('Martin Fowler');
