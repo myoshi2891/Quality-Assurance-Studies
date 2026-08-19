@@ -51,6 +51,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctfl-at-complete-guide', label: 'アジャイル(CTFL-AT)ガイド', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-at-chapter1-agile-software-development', label: 'CTFL-AT 1章 アジャイル開発', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles', label: 'CTFL-AT 2章 アジャイルテスト基本原則', category: 'istqb-foundation-ext' },
+  { href: '/istqb-ctfl-at-chapter3-agile-testing-techniques-tools', label: 'CTFL-AT 3章 アジャイルテスト技法とツール', category: 'istqb-foundation-ext' },
 
   { href: '/istqb-ctal-tae-complete-guide', label: 'テスト自動化(CTAL-TAE)ガイド', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', category: 'istqb-advanced' },

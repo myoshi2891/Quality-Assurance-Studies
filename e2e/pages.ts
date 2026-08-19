@@ -40,6 +40,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctfl-at-complete-guide', h1: /Foundation Level Agile Tester/ },
   { path: '/istqb-ctfl-at-chapter1-agile-software-development', h1: /アジャイルソフトウェア開発/ },
   { path: '/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles', h1: /アジャイルテストの基本原則/ },
+  { path: '/istqb-ctfl-at-chapter3-agile-testing-techniques-tools', h1: /アジャイルテスト.*技法.*ツール/s },
   { path: '/istqb-ctfl-v4-chapter1-fundamentals', h1: /テストの基礎/ },
   { path: '/istqb-ctfl-v4-chapter2-sdlc-and-testing', h1: /SDLCとテスト/ },
   { path: '/istqb-ctfl-v4-chapter3-static-testing', h1: /静的テスト/ },
@@ -57,4 +58,4 @@ export const PAGES: readonly PageMeta[] = [
 ] as const;
 
 /** ページドリフト検知用。pages.ts と app/**\/page.tsx の数を一致させる。 */
-export const EXPECTED_PAGE_COUNT = 41;
+export const EXPECTED_PAGE_COUNT = 42;
