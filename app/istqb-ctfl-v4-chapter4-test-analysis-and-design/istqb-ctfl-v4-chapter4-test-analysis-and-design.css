@@ -358,7 +358,7 @@
     background: var(--ch4-bg-tertiary);
     color: var(--ch4-text-tertiary);
     font-family: var(--ch4-font-mono);
-    font-size: 11.5px;
+    font-size: 12px;
     letter-spacing: 0.05em;
     padding: 9px 16px;
     border-bottom: 1px solid var(--ch4-border-primary);
@@ -368,12 +368,29 @@
     margin: 0;
     padding: 18px 20px;
     font-family: var(--ch4-font-mono);
-    font-size: 13.5px;
+    font-size: 1rem;
     line-height: 1.65;
     color: #e6edf3;
     overflow-x: auto;
-    white-space: pre;
 }
+.ctfl-v4-ch4-page .code-line {
+    white-space: pre;
+    font-size: 1rem;
+    line-height: 1.65;
+}
+
+/* Syntax Highlighting Colors */
+.ctfl-v4-ch4-page .code-comment { color: #8b949e; font-style: italic; }
+.ctfl-v4-ch4-page .code-keyword { color: #ff7b72; font-weight: 600; }
+.ctfl-v4-ch4-page .code-string { color: #a5d6ff; }
+.ctfl-v4-ch4-page .code-number { color: #79c0ff; }
+.ctfl-v4-ch4-page .code-func { color: #d2a8ff; }
+.ctfl-v4-ch4-page .code-type { color: #ffa657; }
+.ctfl-v4-ch4-page .code-cyan { color: #7ee787; font-weight: 600; }
+.ctfl-v4-ch4-page .code-green { color: #7ee787; font-weight: 600; }
+.ctfl-v4-ch4-page .code-amber { color: #d2a8ff; font-weight: 600; }
+.ctfl-v4-ch4-page .code-variable { color: #e6edf3; }
+.ctfl-v4-ch4-page .code-op { color: #ff7b72; }
 
 /* ---------- callouts ---------- */
 .ctfl-v4-ch4-page .callout {
@@ -396,7 +413,7 @@
 .ctfl-v4-ch4-page .callout p {
     margin: 0;
     color: var(--ch4-text-secondary);
-    font-size: 14.5px;
+    font-size: 1rem;
 }
 .ctfl-v4-ch4-page .callout.info .dot {
     background: var(--ch4-blue);
@@ -426,7 +443,7 @@
 /* ---------- mermaid ---------- */
 .ctfl-v4-ch4-page .diagram {
     margin: 24px auto 28px;
-    padding: 28px;
+    padding: 28px 20px;
     border-radius: 12px;
     background: var(--ch4-bg-secondary);
     border: 1px solid var(--ch4-border-primary);
@@ -435,7 +452,7 @@
     text-align: center;
 }
 .ctfl-v4-ch4-page .diagram-caption {
-    font-size: 12.5px;
+    font-size: 1rem;
     color: var(--ch4-text-tertiary);
     text-align: center;
     margin-top: 14px;
@@ -450,16 +467,26 @@
     padding: 0 !important;
     display: flex;
     justify-content: center;
+    overflow-x: auto;
 }
-.ctfl-v4-ch4-page .mermaid {
-    display: inline-block;
-    max-width: 100%;
-}
-.ctfl-v4-ch4-page .mermaid svg {
-    max-width: 100% !important;
-    height: auto !important;
+.ctfl-v4-ch4-page .mermaid-wrapper svg {
     display: block;
     margin: 0 auto;
+    height: auto !important;
+    overflow: visible !important;
+    font-size: 1rem !important;
+}
+.ctfl-v4-ch4-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+.ctfl-v4-ch4-page .mermaid-wrapper foreignObject > div,
+.ctfl-v4-ch4-page .mermaid-wrapper .nodeLabel,
+.ctfl-v4-ch4-page .mermaid-wrapper .edgeLabel,
+.ctfl-v4-ch4-page .mermaid-wrapper .label,
+.ctfl-v4-ch4-page .mermaid-wrapper text {
+    font-size: 1rem !important;
+    line-height: 1.5 !important;
+    font-family: var(--ch4-font-sans) !important;
 }
 
 /* ---------- keyword chips ---------- */

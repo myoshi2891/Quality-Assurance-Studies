@@ -127,18 +127,32 @@ export default function Page() {
 
                         <div className="diagram">
                             <Mermaid chart={`flowchart TD
-A["テスト技法"] --> B["ブラックボックステスト技法（仕様ベース）"]
-A --> C["ホワイトボックステスト技法（構造ベース）"]
-A --> D["経験ベースのテスト技法"]
-B --> B1["同値分割法"]
-B --> B2["境界値分析"]
-B --> B3["デシジョンテーブルテスト"]
-B --> B4["状態遷移テスト"]
-C --> C1["ステートメントテスト"]
-C --> C2["分岐テスト"]
-D --> D1["エラー推測"]
-D --> D2["探索的テスト"]
-D --> D3["チェックリストベースドテスト"]`} />
+Root["テスト技法（Test Techniques）"]
+Root --> BB["ブラックボックステスト技法<br/>（仕様ベース / 4.2節）"]
+Root --> WB["ホワイトボックステスト技法<br/>（構造ベース / 4.3節）"]
+Root --> EB["経験ベースのテスト技法<br/>（4.4節）"]
+
+subgraph BB_G["ブラックボックス技法"]
+    B1["同値分割法 (EP)"]
+    B2["境界値分析 (BVA)"]
+    B3["デシジョンテーブルテスト"]
+    B4["状態遷移テスト"]
+end
+
+subgraph WB_G["ホワイトボックス技法"]
+    C1["ステートメントテスト"]
+    C2["分岐テスト"]
+end
+
+subgraph EB_G["経験ベース技法"]
+    D1["エラー推測"]
+    D2["探索的テスト"]
+    D3["チェックリストベースドテスト"]
+end
+
+BB --> B1 & B2 & B3 & B4
+WB --> C1 & C2
+EB --> D1 & D2 & D3`} />
                             <div className="diagram-caption">図1: シラバス4.1節に基づくテスト技法の3分類</div>
                         </div>
 
@@ -269,7 +283,9 @@ D --> D3["チェックリストベースドテスト"]`} />
                         <h4>同値パーティションカバレッジの計算式</h4>
                         <div className="code-block">
                             <div className="code-label">coverage formula</div>
-                            <pre className="code-content">同値パーティションカバレッジ(%) = (テストで網羅された識別済みパーティション数 ÷ 識別された全パーティション総数) × 100</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-variable">同値パーティションカバレッジ(%)</span> <span className="code-op">=</span> (<span className="code-func">テストで網羅された識別済みパーティション数</span> <span className="code-op">÷</span> <span className="code-variable">識別された全パーティション総数</span>) <span className="code-op">×</span> <span className="code-number">100</span></div>
+                            </div>
                         </div>
                         <p>上記例では3パーティションすべてをテストすれば <code>(3 ÷ 3) × 100 = 100%</code> カバレッジとなります。</p>
 
@@ -333,7 +349,9 @@ D --> D3["チェックリストベースドテスト"]`} />
 
                         <div className="code-block">
                             <div className="code-label">coverage formula</div>
-                            <pre className="code-content">境界値カバレッジ(%) = (テストで網羅された識別済み境界値数 ÷ 識別された全境界値総数) × 100</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-variable">境界値カバレッジ(%)</span> <span className="code-op">=</span> (<span className="code-func">テストで網羅された識別済み境界値数</span> <span className="code-op">÷</span> <span className="code-variable">識別された全境界値総数</span>) <span className="code-op">×</span> <span className="code-number">100</span></div>
+                            </div>
                         </div>
 
                         <div className="callout info">
@@ -456,7 +474,9 @@ D --> D3["チェックリストベースドテスト"]`} />
                         <h4>デシジョンテーブルカバレッジの計算式</h4>
                         <div className="code-block">
                             <div className="code-label">coverage formula</div>
-                            <pre className="code-content">デシジョンテーブルカバレッジ(%) = (テストで実行された実現可能なルール数 ÷ 実現可能な全ルール総数) × 100</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-variable">デシジョンテーブルカバレッジ(%)</span> <span className="code-op">=</span> (<span className="code-func">テストで実行された実現可能なルール数</span> <span className="code-op">÷</span> <span className="code-variable">実現可能な全ルール総数</span>) <span className="code-op">×</span> <span className="code-number">100</span></div>
+                            </div>
                         </div>
                         <p>
                             不可能な組み合わせ（例：論理的にあり得ない条件の組み合わせ）は除外した「実現可能なルール数」を分母とします。
@@ -553,7 +573,9 @@ Locked --> [*]`} />
 
                         <div className="code-block">
                             <div className="code-label">coverage formula</div>
-                            <pre className="code-content">有効遷移カバレッジ(%) = (テストで実行された有効な遷移数 ÷ 識別された有効な遷移総数) × 100</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-variable">有効遷移カバレッジ(%)</span> <span className="code-op">=</span> (<span className="code-func">テストで実行された有効な遷移数</span> <span className="code-op">÷</span> <span className="code-variable">識別された有効な遷移総数</span>) <span className="code-op">×</span> <span className="code-number">100</span></div>
+                            </div>
                         </div>
 
                         <div className="callout info">
@@ -577,13 +599,15 @@ Locked --> [*]`} />
 
                         <div className="code-block">
                             <div className="code-label">shipping.py</div>
-                            <pre className="code-content">{`def calculate_shipping_fee(amount: int, is_member: bool) -> int:
-    fee = 500                     # S1: ステートメント
-    if amount >= 5000:            # D1: 分岐（決定）
-        fee = 0                   # S2: ステートメント（D1がTrueの場合のみ実行）
-    if is_member:                 # D2: 分岐（決定）
-        fee = fee - 100           # S3: ステートメント（D2がTrueの場合のみ実行）
-    return fee                    # S4: ステートメント`}</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">calculate_shipping_fee</span>(amount: <span className="code-type">int</span>, is_member: <span className="code-type">bool</span>) <span className="code-op">-&gt;</span> <span className="code-type">int</span>:</div>
+                                <div className="code-line">    fee <span className="code-op">=</span> <span className="code-number">500</span>                     <span className="code-comment"># S1: ステートメント</span></div>
+                                <div className="code-line">    <span className="code-keyword">if</span> amount <span className="code-op">&gt;=</span> <span className="code-number">5000</span>:            <span className="code-comment"># D1: 分岐（決定）</span></div>
+                                <div className="code-line">        fee <span className="code-op">=</span> <span className="code-number">0</span>                   <span className="code-comment"># S2: ステートメント（D1がTrueの場合のみ実行）</span></div>
+                                <div className="code-line">    <span className="code-keyword">if</span> is_member:                 <span className="code-comment"># D2: 分岐（決定）</span></div>
+                                <div className="code-line">        fee <span className="code-op">=</span> fee <span className="code-op">-</span> <span className="code-number">100</span>           <span className="code-comment"># S3: ステートメント（D2がTrueの場合のみ実行）</span></div>
+                                <div className="code-line">    <span className="code-keyword">return</span> fee                    <span className="code-comment"># S4: ステートメント</span></div>
+                            </div>
                         </div>
 
                         <p><strong>制御フローグラフ</strong></p>
@@ -610,7 +634,9 @@ S3 --> Finish`} />
                         </p>
                         <div className="code-block">
                             <div className="code-label">coverage formula</div>
-                            <pre className="code-content">ステートメントカバレッジ(%) = (テストで実行されたステートメント数 ÷ 実行可能なステートメント総数) × 100</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-variable">ステートメントカバレッジ(%)</span> <span className="code-op">=</span> (<span className="code-func">テストで実行されたステートメント数</span> <span className="code-op">÷</span> <span className="code-variable">実行可能なステートメント総数</span>) <span className="code-op">×</span> <span className="code-number">100</span></div>
+                            </div>
                         </div>
 
                         <h4>ステップバイステップ</h4>
@@ -668,7 +694,9 @@ S3 --> Finish`} />
                         </p>
                         <div className="code-block">
                             <div className="code-label">coverage formula</div>
-                            <pre className="code-content">分岐カバレッジ(%) = (テストで実行された分岐数 ÷ 識別された分岐総数) × 100</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-variable">分岐カバレッジ(%)</span> <span className="code-op">=</span> (<span className="code-func">テストで実行された分岐数</span> <span className="code-op">÷</span> <span className="code-variable">識別された分岐総数</span>) <span className="code-op">×</span> <span className="code-number">100</span></div>
+                            </div>
                         </div>
 
                         <p>本例の分岐総数は <strong>4本</strong> です：</p>
@@ -821,11 +849,13 @@ S3 --> Finish`} />
 
                         <div className="code-block">
                             <div className="code-label">test charter example</div>
-                            <pre className="code-content">{`チャーター: ショッピングカートの割引適用機能において、
-           複数クーポンの連続適用・取消時の挙動を探索し、
-           合計金額の不整合や表示崩れの欠陥を発見する。
-タイムボックス: 90分
-テスター: QAエンジニア A / 観点: 異常系・境界値・同時操作`}</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-keyword">チャーター:</span> <span className="code-string">ショッピングカートの割引適用機能において、</span></div>
+                                <div className="code-line">           <span className="code-string">複数クーポンの連続適用・取消時の挙動を探索し、</span></div>
+                                <div className="code-line">           <span className="code-string">合計金額の不整合や表示崩れの欠陥を発見する。</span></div>
+                                <div className="code-line"><span className="code-keyword">タイムボックス:</span> <span className="code-number">90分</span></div>
+                                <div className="code-line"><span className="code-keyword">テスター:</span> <span className="code-variable">QAエンジニア A</span> <span className="code-op">/</span> <span className="code-keyword">観点:</span> <span className="code-type">異常系・境界値・同時操作</span></div>
+                            </div>
                         </div>
 
                         <div className="callout info">
@@ -947,13 +977,15 @@ D -->|"高レベルの網羅リストで抜け漏れを防ぐ"| E`} />
                         <p><strong>Given/When/Then形式の受け入れ基準の例</strong></p>
                         <div className="code-block">
                             <div className="code-label">login.feature</div>
-                            <pre className="code-content">{`Feature: ログイン機能
-
-  Scenario: 正しい認証情報でログインに成功する
-    Given 登録済みユーザーがログイン画面を表示している
-    When  正しいユーザー名とパスワードを入力し、ログインボタンを押す
-    Then  ダッシュボード画面に遷移する
-    And   ウェルカムメッセージが表示される`}</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-keyword">Feature:</span> ログイン機能</div>
+                                <div className="code-line" />
+                                <div className="code-line">  <span className="code-keyword">Scenario:</span> 正しい認証情報でログインに成功する</div>
+                                <div className="code-line">    <span className="code-cyan">Given</span> 登録済みユーザーがログイン画面を表示している</div>
+                                <div className="code-line">    <span className="code-amber">When</span>  正しいユーザー名とパスワードを入力し、ログインボタンを押す</div>
+                                <div className="code-line">    <span className="code-green">Then</span>  ダッシュボード画面に遷移する</div>
+                                <div className="code-line">    <span className="code-cyan">And</span>   ウェルカムメッセージが表示される</div>
+                            </div>
                         </div>
 
                         <div className="callout info">
@@ -974,12 +1006,12 @@ D -->|"高レベルの網羅リストで抜け漏れを防ぐ"| E`} />
 
                         <div className="diagram">
                             <Mermaid chart={`flowchart LR
-A["ユーザーストーリー + 受け入れ基準"] --> B["受け入れテストケースの共同作成 (顧客・開発者・テスター)"]
-B --> C["テストの実行 (実装前は当然Fail)"]
+A["ユーザーストーリー + 受け入れ基準"] --> B["受け入れテストケースの共同作成<br/>(顧客・開発者・テスター)"]
+B --> C["テストの実行<br/>(実装前は当然Fail)"]
 C --> D["プロダクトコードの実装"]
 D --> E["テストの再実行"]
 E -->|"Fail"| D
-E -->|"Pass"| F["ユーザーストーリー完了 Done"]
+E -->|"Pass"| F["ユーザーストーリー完了<br/>Done"]
 F -.->|"自動テストとして資産化・回帰テストに活用"| G["リグレッションテストスイート"]`} />
                             <div className="diagram-caption">図5: ATDDのワークフロー</div>
                         </div>
@@ -991,18 +1023,20 @@ F -.->|"自動テストとして資産化・回帰テストに活用"| G["リグ
                         <p><strong>Given/When/Thenからpytestテストコードへの変換例</strong></p>
                         <div className="code-block">
                             <div className="code-label">tests/test_login.py</div>
-                            <pre className="code-content">{`def test_login_success_with_valid_credentials(login_page, existing_user):
-    # Given: 登録済みユーザーがログイン画面を表示している
-    login_page.open()
-
-    # When: 正しいユーザー名とパスワードを入力し、ログインボタンを押す
-    login_page.enter_username(existing_user.username)
-    login_page.enter_password(existing_user.password)
-    login_page.click_login_button()
-
-    # Then: ダッシュボード画面に遷移し、ウェルカムメッセージが表示される
-    assert login_page.current_url().endswith("/dashboard")
-    assert login_page.welcome_message_is_displayed()`}</pre>
+                            <div className="code-content">
+                                <div className="code-line"><span className="code-keyword">def</span> <span className="code-func">test_login_success_with_valid_credentials</span>(login_page, existing_user):</div>
+                                <div className="code-line">    <span className="code-comment"># Given: 登録済みユーザーがログイン画面を表示している</span></div>
+                                <div className="code-line">    login_page.<span className="code-func">open</span>()</div>
+                                <div className="code-line" />
+                                <div className="code-line">    <span className="code-comment"># When: 正しいユーザー名とパスワードを入力し、ログインボタンを押す</span></div>
+                                <div className="code-line">    login_page.<span className="code-func">enter_username</span>(existing_user.username)</div>
+                                <div className="code-line">    login_page.<span className="code-func">enter_password</span>(existing_user.password)</div>
+                                <div className="code-line">    login_page.<span className="code-func">click_login_button</span>()</div>
+                                <div className="code-line" />
+                                <div className="code-line">    <span className="code-comment"># Then: ダッシュボード画面に遷移し、ウェルカムメッセージが表示される</span></div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> login_page.<span className="code-func">current_url</span>().<span className="code-func">endswith</span>(<span className="code-string">&quot;/dashboard&quot;</span>)</div>
+                                <div className="code-line">    <span className="code-keyword">assert</span> login_page.<span className="code-func">welcome_message_is_displayed</span>()</div>
+                            </div>
                         </div>
                         <p>
                             このように、ATDDで合意した受け入れ基準がそのままテストコードの骨格になる点が、TDD／BDDとの共通点であり、シフトレフト（第2章参照）を体現する実践例です。
@@ -1026,19 +1060,19 @@ F -.->|"自動テストとして資産化・回帰テストに活用"| G["リグ
 
                         <div className="diagram">
                             <Mermaid chart={`flowchart TD
-Start(["これからテストを設計する"]) --> Q1{"仕様書・要件が明確に存在するか？"}
-Q1 -->|"Yes"| Q2{"入力データに範囲・分類があるか？"}
-Q1 -->|"No (曖昧)"| Exp["経験ベースの技法 (探索的テスト・エラー推測)"]
-Q2 -->|"Yes"| Q3{"境界・順序性があるか？"}
-Q2 -->|"No (複数条件の組合せロジック)"| DT["デシジョンテーブルテスト"]
-Q3 -->|"Yes"| BVA["境界値分析 (同値分割法とセットで)"]
+Start(["テスト設計の開始"]) --> Q1{"仕様書・要件が明確に存在するか?"}
+Q1 -->|"Yes"| Q2{"入力データに範囲・分類があるか?"}
+Q1 -->|"No (曖昧)"| Exp["経験ベースの技法<br/>(探索的テスト・エラー推測)"]
+Q2 -->|"Yes"| Q3{"境界・順序性があるか?"}
+Q2 -->|"No (複数条件の組合せ)"| DT["デシジョンテーブルテスト"]
+Q3 -->|"Yes"| BVA["境界値分析<br/>(同値分割法とセット)"]
 Q3 -->|"No"| EP["同値分割法"]
-Start --> Q4{"状態・モードが変化するシステムか？"}
+Start --> Q4{"状態・モードが変化するシステムか?"}
 Q4 -->|"Yes"| ST["状態遷移テスト"]
-Start --> Q5{"コードの内部構造にアクセスできるか？ (実装後)"}
-Q5 -->|"Yes (網羅率を客観的に証明したい)"| WB["ホワイトボックス技法 (ステートメント／分岐カバレッジ)"]
-Start --> Q6{"アジャイルでユーザーストーリーを扱っているか？"}
-Q6 -->|"Yes"| Collab["コラボレーションベースのアプローチ (ATDD等)"]`} />
+Start --> Q5{"コード内部構造にアクセス可能か?<br/>(実装後)"}
+Q5 -->|"Yes (網羅率を測定)"| WB["ホワイトボックス技法<br/>(ステートメント/分岐カバレッジ)"]
+Start --> Q6{"アジャイルでユーザーストーリーを扱うか?"}
+Q6 -->|"Yes"| Collab["コラボレーションベース<br/>(ATDD等)"]`} />
                             <div className="diagram-caption">図6: テスト技法の選択フローチャート</div>
                         </div>
 
@@ -1160,10 +1194,10 @@ Q6 -->|"Yes"| Collab["コラボレーションベースのアプローチ (ATDD�
                         <h3>7.2 学習の進め方（ステップバイステップ）</h3>
                         <div className="diagram">
                             <Mermaid chart={`flowchart LR
-A["1. 用語の暗記 (K1キーワード)"] --> B["2. 各技法の定義理解 (K2学習目標)"]
-B --> C["3. 手計算でのテストケース導出練習 (K3学習目標)"]
+A["1. 用語の暗記<br/>(K1キーワード)"] --> B["2. 各技法の定義理解<br/>(K2学習目標)"]
+B --> C["3. 手計算でのテストケース導出練習<br/>(K3学習目標)"]
 C --> D["4. 公式サンプル問題を解く"]
-D --> E["5. 誤答分析 → 該当セクションに戻る"]
+D --> E["5. 誤答分析 -> 該当セクションに戻る"]
 E --> C`} />
                             <div className="diagram-caption">図7: 本章の学習サイクル</div>
                         </div>
