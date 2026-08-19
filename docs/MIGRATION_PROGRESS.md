@@ -5,15 +5,22 @@ Updated 2026-08-20
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 全41ページの静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計42ルート）。
+> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計43ルート）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `d0a21af` |
+| 最新 HEAD | `3f0e77a` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun run lint` / `bun test`（195 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（202 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/08/20: CTFL v4.0 Chapter 4 (テスト分析・設計) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-v4-chapter4-test-analysis-and-design/`: ページコンポーネント（Mermaid 7図、全10セクション、全テーブル、カバレッジバー、キーワードチップ、コード例、参考文献を含む完全移行）、スタイル（`.ctfl-v4-ch4-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応）を実装。
+- `tests/istqb-ctfl-v4-chapter4-test-analysis-and-design/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 7図、カバレッジバー、テーブル、参考文献の存在を検証する厳格なテストスイートを実装して全パス（全202件）。
+- `Istqb-ctfl-v4-chapter4.html`: `archive/html-archive/ctfl/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 43 ページ体制に同期。
 
 ## 2026/08/20: CTFL-AT Chapter 3 (アジャイルテスト技法とツール) ガイドの Next.js 移行完了
 
@@ -386,6 +393,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
 | `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
 | `Ctfl-v4-chapter1-fundamentals.html` | `/istqb-ctfl-v4-chapter1-fundamentals` | ✅ NavBar あり |
+| `Ctfl-v4-chapter2-sdlc-and-testing.html` | `/istqb-ctfl-v4-chapter2-sdlc-and-testing` | ✅ NavBar あり |
+| `Ctfl-v4-chapter3-static-testing.html` | `/istqb-ctfl-v4-chapter3-static-testing` | ✅ NavBar あり |
+| `Istqb-ctfl-v4-chapter4.html` | `/istqb-ctfl-v4-chapter4-test-analysis-and-design` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -421,9 +431,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `d0a21af`
-- **全ガイド移行完了**: プロジェクトルートに存在した全41ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 42 ルート（ホーム + 41 ガイド）が管理されています。
+- 最新 HEAD: `3f0e77a`
+- **CTFL v4.0 Chapter 4 移行完了**: プロジェクトルートに存在した全42ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 43 ルート（ホーム + 42 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
