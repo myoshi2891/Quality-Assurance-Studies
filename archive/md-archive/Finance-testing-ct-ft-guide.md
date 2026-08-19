@@ -1,12 +1,6 @@
 # ISTQB® Certified Tester – Finance Testing（CT-FT）完全ガイド
 
 ## 初学者のためのステップバイステップ解説
-
-> 🎯 **[algo-beginner スキル発火]**
-> 言語/カテゴリ: ドキュメント（README/技術解説）
-> 適用ルールセット: 共通5ルール + ドキュメント固有ルール
-> 参照ファイル: references/common.md + references/doc-readme.md
-
 ---
 
 ## この記事について

@@ -597,12 +597,6 @@
                     </div>
                 </header>
 
-                <div class="skill-badge">
-                    🎯 <b>[algo-beginner スキル発火]</b> 言語/カテゴリ:
-                    ドキュメント（README/技術解説）／ 適用ルールセット: 共通5ルール +
-                    ドキュメント固有ルール
-                </div>
-
                 <div class="intro-callout">
                     <span class="icon">📘</span>
                     <div>
@@ -3181,10 +3175,15 @@
                                         const w = parts[2];
                                         const h = parts[3];
                                         // Expand height slightly to prevent clipping on sequence/state diagrams
-                                        const isSequenceOrState = src.trim().startsWith('sequenceDiagram') || src.trim().startsWith('stateDiagram');
+                                        const isSequenceOrState =
+                                            src.trim().startsWith('sequenceDiagram') ||
+                                            src.trim().startsWith('stateDiagram');
                                         const extraHeight = isSequenceOrState ? 110 : 15;
-                                        svgEl.setAttribute('viewBox', `${parts[0]} ${parts[1]} ${w} ${h + extraHeight}`);
-                                        
+                                        svgEl.setAttribute(
+                                            'viewBox',
+                                            `${parts[0]} ${parts[1]} ${w} ${h + extraHeight}`,
+                                        );
+
                                         // Set style-based width using intrinsic size from viewBox
                                         svgEl.style.width = w + 'px';
                                         svgEl.style.maxWidth = '100%';
@@ -3192,7 +3191,8 @@
                                 }
                             }
                         } catch (err) {
-                            target.innerHTML = '<p class="mermaid-error" style="color: #ea4335;">図の描画に失敗しました。</p>';
+                            target.innerHTML =
+                                '<p class="mermaid-error" style="color: #ea4335;">図の描画に失敗しました。</p>';
                             console.error('Mermaid render error: ' + id, err);
                         }
                     }

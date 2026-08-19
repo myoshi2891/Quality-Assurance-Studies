@@ -114,6 +114,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ct-sec-complete-guide/page.tsx` (セキュリティテストガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-ste-complete-guide/page.tsx` (セキュリティテストエンジニア(CT-STE)ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-game-complete-guide/page.tsx` (ゲームテスト CT-GaMe 完全ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ct-gt-complete-guide/page.tsx` (ギャンブル産業テスター CT-GT 完全ガイド、`NavBar.tsx` 付き)
+- `app/istqb-ct-ft-complete-guide/page.tsx` (金融テスト CT-FT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-pt-complete-guide/page.tsx` (パフォーマンステスト CT-PT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-ut-complete-guide/page.tsx` (ユーザビリティテスト CT-UT 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ct-tas-complete-guide/page.tsx` (テスト自動化戦略 CT-TAS 完全ガイド、`NavBar.tsx` 付き)
@@ -204,6 +206,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
 | `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
+| `Finance-testing-ct-ft-guide.html` | `/istqb-ct-ft-complete-guide` | ✅ NavBar + aria-current あり |
 | `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
 
 ### 未移行（プロジェクトルートに残存）
@@ -221,9 +224,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ```text
 コンテキスト:
-- 最新 HEAD: `1438e39`
-- **全ガイド移行完了**: プロジェクトルートに存在した全38ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 39 ルート（ホーム + 38 ガイド）が管理されています。
+- 最新 HEAD: `1ab3f16`
+- **全ガイド移行完了**: プロジェクトルートに存在した全39ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 40 ルート（ホーム + 39 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
