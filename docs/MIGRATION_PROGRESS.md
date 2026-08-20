@@ -401,6 +401,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctfl-v4-chapter2-sdlc-and-testing.html` | `/istqb-ctfl-v4-chapter2-sdlc-and-testing` | ✅ NavBar あり |
 | `Ctfl-v4-chapter3-static-testing.html` | `/istqb-ctfl-v4-chapter3-static-testing` | ✅ NavBar あり |
 | `Istqb-ctfl-v4-chapter4.html` | `/istqb-ctfl-v4-chapter4-test-analysis-and-design` | ✅ NavBar あり |
+| `Istqb-ctfl-chapter5.html` | `/istqb-ctfl-v4-chapter5-test-management` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -437,8 +438,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 ```text
 コンテキスト:
 - 最新 HEAD: `cbe4bc2`
-- **CTFL v4.0 Chapter 4 移行完了**: プロジェクトルートに存在した全42ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 43 ルート（ホーム + 42 ガイド）が管理されています。
+- **CTFL v4.0 Chapter 5 移行完了**: プロジェクトルートに存在した全43ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 44 ルート（ホーム + 43 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
