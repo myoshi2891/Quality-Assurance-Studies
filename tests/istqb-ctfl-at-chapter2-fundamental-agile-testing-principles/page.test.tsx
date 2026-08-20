@@ -159,14 +159,17 @@ describe('CTFL-AT Chapter 2: Fundamental Agile Testing Principles Guide Page', (
     });
 
     it('renders references section with all 15 sources', async () => {
-        render(<Page />);
+        const { container } = render(<Page />);
         await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
 
-        // Source 1 to 15
-        expect(screen.getByText(/CTFL-AT.*公式ページ\(サンセット情報含む\)/i)).toBeDefined();
-        expect(screen.getByText(/Extension Agile Tester Syllabus/i)).toBeDefined();
-        expect(screen.getByText(/CTAL-AT.*v2\.0 公式ページ/i)).toBeDefined();
-        expect(screen.getByText(/The Agile Testing Quadrants/i)).toBeDefined();
-        expect(screen.getByText(/Testing Quadrants.*PMI Disciplined Agile/i)).toBeDefined();
+        // 参考文献セクションの全エントリ（3テーブル合計 15 行）が描画されていること
+        const referenceRows = container.querySelectorAll('#references table tbody tr');
+        expect(referenceRows).toHaveLength(15);
+
+        // 各行が No. / 資料名 / URL リンクを持つこと
+        referenceRows.forEach((row) => {
+            expect(row.querySelectorAll('td')).toHaveLength(3);
+            expect(row.querySelector('td a[href^="http"]')).not.toBeNull();
+        });
     });
 });
