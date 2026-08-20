@@ -594,7 +594,7 @@
 .ctfl-at-ch3-page .sidebar-toggle {
     display: none;
     position: fixed;
-    top: 72px;
+    top: calc(72px + var(--disclaimer-height, 0px));
     left: 16px;
     z-index: 45;
     width: 44px;

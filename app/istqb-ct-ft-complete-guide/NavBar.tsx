@@ -57,6 +57,7 @@ export default function NavBar() {
                 type="button"
                 className="sidebar-toggle"
                 aria-label="目次を開く"
+                aria-expanded={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
             >
                 {isOpen ? '✕' : '☰'}
