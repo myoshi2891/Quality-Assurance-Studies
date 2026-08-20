@@ -11,7 +11,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `562c720` |
+| 最新 HEAD | `784c7a6` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（209 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -21,6 +21,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `tests/istqb-ctfl-v4-chapter5-test-management/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 9図、テーブル、参考文献の存在を検証する厳格なテストスイートを実装して全パス（全209件）。
 - `Istqb-ctfl-chapter5.html`: `archive/html-archive/ctfl/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 44 ページ体制に同期。
+
+## 2026/08/20: CTFL v4.0 Chapter 4 (テスト分析・設計) ガイドの Next.js 移行完了
 
 - `app/istqb-ctfl-v4-chapter4-test-analysis-and-design/`: ページコンポーネント（Mermaid 7図、全10セクション、全テーブル、カバレッジバー、キーワードチップ、コード例、参考文献を含む完全移行）、スタイル（`.ctfl-v4-ch4-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応）を実装。
 - `tests/istqb-ctfl-v4-chapter4-test-analysis-and-design/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 7図、カバレッジバー、テーブル、参考文献の存在を検証する厳格なテストスイートを実装して全パス（全202件）。
@@ -36,7 +38,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 ## 2026/08/20: CTFL-AT Chapter 2 (アジャイルテストの基本原則) ガイドの Next.js 移行完了
 
-- `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/`: ページコンポーネント（Mermaid 14図、全7セクション、全テーブル、K-Level学習目標、コード例、参考文献15件を含む完全移行）、スタイル（`.ctfl-at-ch2-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、ステータスドット遷移、モバイルトグル対応）を実装。
+- `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/`: ページコンポーネント（Mermaid 14図、全7セクション、全テーブル、K-Level学習目標、コード例、参考文献15件を含む完全移行）、スタイル（`.ctfl-at-ch2-page` スコープ）、NavBar（scroll イベント + `offsetTop` によるスクロールスパイ、ステータスドット遷移、モバイルトグル対応）を実装。
 - `tests/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 14図、重要用語、自己診断チェック、参考文献15件の存在を検証する厳格なテストスイートを実装して全パス（全188件）。
 - `Ctfl-at-chapter2.html`: `archive/html-archive/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 41 ページ体制に同期。
@@ -437,7 +439,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `cbe4bc2`
+- 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **CTFL v4.0 Chapter 5 移行完了**: プロジェクトルートに存在した全43ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
 - 合計 44 ルート（ホーム + 43 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
