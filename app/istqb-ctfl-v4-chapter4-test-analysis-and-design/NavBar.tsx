@@ -2,20 +2,46 @@
 
 import React, { useEffect, useState } from 'react';
 
+interface NavItem {
+    id: string;
+    label: string;
+    level: 2 | 3;
+}
+
+const NAV_ITEMS: NavItem[] = [
+    { id: 'sec-0', label: '0. 章の全体像', level: 2 },
+    { id: 'sec-1', label: '4.1 テスト技法の全体像', level: 2 },
+    { id: 'sec-2', label: '4.2 ブラックボックス技法', level: 2 },
+    { id: 'sec-2-1', label: '4.2.1 同値分割法', level: 3 },
+    { id: 'sec-2-2', label: '4.2.2 境界値分析', level: 3 },
+    { id: 'sec-2-3', label: '4.2.3 デシジョンテーブルテスト', level: 3 },
+    { id: 'sec-2-4', label: '4.2.4 状態遷移テスト', level: 3 },
+    { id: 'sec-3', label: '4.3 ホワイトボックス技法', level: 2 },
+    { id: 'sec-3-1', label: '4.3.1 ステートメントテスト', level: 3 },
+    { id: 'sec-3-2', label: '4.3.2 分岐テスト', level: 3 },
+    { id: 'sec-3-3', label: '4.3.3 WBテストの価値', level: 3 },
+    { id: 'sec-4', label: '4.4 経験ベースの技法', level: 2 },
+    { id: 'sec-4-1', label: '4.4.1 エラー推測', level: 3 },
+    { id: 'sec-4-2', label: '4.4.2 探索的テスト', level: 3 },
+    { id: 'sec-4-3', label: '4.4.3 チェックリストベースド', level: 3 },
+    { id: 'sec-5', label: '4.5 コラボレーションベース', level: 2 },
+    { id: 'sec-5-1', label: '4.5.1 ユーザーストーリー共同作成', level: 3 },
+    { id: 'sec-5-2', label: '4.5.2 受け入れ基準', level: 3 },
+    { id: 'sec-5-3', label: '4.5.3 ATDD', level: 3 },
+    { id: 'sec-6', label: '6. 技法選択の指針', level: 2 },
+    { id: 'sec-7', label: '7. 試験対策のポイント', level: 2 },
+    { id: 'sec-8', label: '8. まとめ', level: 2 },
+    { id: 'sec-refs', label: '参考文献・URL一覧', level: 2 },
+];
+
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
+    const [activeId, setActiveId] = useState<string>('sec-0');
 
     useEffect(() => {
-        const links = document.querySelectorAll('.sidebar .nav-link');
-        const sections = Array.from(links)
-            .map((link) => {
-                const href = link.getAttribute('href');
-                if (href && href.startsWith('#')) {
-                    return document.getElementById(href.slice(1));
-                }
-                return null;
-            })
-            .filter(Boolean) as HTMLElement[];
+        const sections = NAV_ITEMS.map((item) => document.getElementById(item.id)).filter(
+            (el): el is HTMLElement => el !== null
+        );
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -29,16 +55,7 @@ export default function NavBar() {
                 });
 
                 if (bestEntry) {
-                    const id = (bestEntry as IntersectionObserverEntry).target.getAttribute('id');
-                    links.forEach((link) => {
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('active');
-                            link.setAttribute('aria-current', 'location');
-                        } else {
-                            link.classList.remove('active');
-                            link.removeAttribute('aria-current');
-                        }
-                    });
+                    setActiveId((bestEntry as IntersectionObserverEntry).target.id);
                 }
             },
             { rootMargin: '-15% 0px -70% 0px', threshold: 0 }
@@ -46,30 +63,20 @@ export default function NavBar() {
 
         sections.forEach((section) => observer.observe(section));
 
-        const handleLinkClick = (e: Event) => {
-            const target = e.currentTarget as HTMLAnchorElement;
-            const href = target.getAttribute('href');
-            if (href && href.startsWith('#')) {
-                e.preventDefault();
-                const element = document.getElementById(href.slice(1));
-                if (element) {
-                    element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-                setIsOpen(false);
-            }
-        };
-
-        links.forEach((link) => {
-            link.addEventListener('click', handleLinkClick);
-        });
-
         return () => {
             observer.disconnect();
-            links.forEach((link) => {
-                link.removeEventListener('click', handleLinkClick);
-            });
         };
     }, []);
+
+    const handleLinkClick = (event: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+        const element = document.getElementById(id);
+        if (!element) return;
+
+        event.preventDefault();
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setActiveId(id);
+        setIsOpen(false);
+    };
 
     return (
         <>
@@ -77,7 +84,7 @@ export default function NavBar() {
                 type="button"
                 className="nav-toggle"
                 id="navToggle"
-                aria-label="目次を開く"
+                aria-label={isOpen ? '目次を閉じる' : '目次を開く'}
                 aria-expanded={isOpen}
                 onClick={() => setIsOpen(!isOpen)}
             >
@@ -93,75 +100,17 @@ export default function NavBar() {
                     <div className="brand-sub">Test Analysis and Design</div>
                 </div>
                 <div className="nav-group">
-                    <a className="nav-link level-2" href="#sec-0">
-                        0. 章の全体像
-                    </a>
-                    <a className="nav-link level-2" href="#sec-1">
-                        4.1 テスト技法の全体像
-                    </a>
-                    <a className="nav-link level-2" href="#sec-2">
-                        4.2 ブラックボックス技法
-                    </a>
-                    <a className="nav-link level-3" href="#sec-2-1">
-                        4.2.1 同値分割法
-                    </a>
-                    <a className="nav-link level-3" href="#sec-2-2">
-                        4.2.2 境界値分析
-                    </a>
-                    <a className="nav-link level-3" href="#sec-2-3">
-                        4.2.3 デシジョンテーブルテスト
-                    </a>
-                    <a className="nav-link level-3" href="#sec-2-4">
-                        4.2.4 状態遷移テスト
-                    </a>
-                    <a className="nav-link level-2" href="#sec-3">
-                        4.3 ホワイトボックス技法
-                    </a>
-                    <a className="nav-link level-3" href="#sec-3-1">
-                        4.3.1 ステートメントテスト
-                    </a>
-                    <a className="nav-link level-3" href="#sec-3-2">
-                        4.3.2 分岐テスト
-                    </a>
-                    <a className="nav-link level-3" href="#sec-3-3">
-                        4.3.3 WBテストの価値
-                    </a>
-                    <a className="nav-link level-2" href="#sec-4">
-                        4.4 経験ベースの技法
-                    </a>
-                    <a className="nav-link level-3" href="#sec-4-1">
-                        4.4.1 エラー推測
-                    </a>
-                    <a className="nav-link level-3" href="#sec-4-2">
-                        4.4.2 探索的テスト
-                    </a>
-                    <a className="nav-link level-3" href="#sec-4-3">
-                        4.4.3 チェックリストベースド
-                    </a>
-                    <a className="nav-link level-2" href="#sec-5">
-                        4.5 コラボレーションベース
-                    </a>
-                    <a className="nav-link level-3" href="#sec-5-1">
-                        4.5.1 ユーザーストーリー共同作成
-                    </a>
-                    <a className="nav-link level-3" href="#sec-5-2">
-                        4.5.2 受け入れ基準
-                    </a>
-                    <a className="nav-link level-3" href="#sec-5-3">
-                        4.5.3 ATDD
-                    </a>
-                    <a className="nav-link level-2" href="#sec-6">
-                        6. 技法選択の指針
-                    </a>
-                    <a className="nav-link level-2" href="#sec-7">
-                        7. 試験対策のポイント
-                    </a>
-                    <a className="nav-link level-2" href="#sec-8">
-                        8. まとめ
-                    </a>
-                    <a className="nav-link level-2" href="#sec-refs">
-                        参考文献・URL一覧
-                    </a>
+                    {NAV_ITEMS.map((item) => (
+                        <a
+                            key={item.id}
+                            className={`nav-link level-${item.level}${activeId === item.id ? ' active' : ''}`}
+                            href={`#${item.id}`}
+                            aria-current={activeId === item.id ? 'location' : undefined}
+                            onClick={(event) => handleLinkClick(event, item.id)}
+                        >
+                            {item.label}
+                        </a>
+                    ))}
                 </div>
             </nav>
         </>
