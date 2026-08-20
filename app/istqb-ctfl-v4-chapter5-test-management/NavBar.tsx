@@ -80,6 +80,7 @@ export default function NavBar() {
     return (
         <>
             <button
+                type="button"
                 className="nav-toggle"
                 id="navToggle"
                 aria-label="目次を開く"
@@ -144,7 +145,7 @@ export default function NavBar() {
                         2.4 プロダクトリスク制御
                     </a>
 
-                    <div class-name="group-label" className="group-label">5.3 モニタリング/コントロール</div>
+                    <div className="group-label">5.3 モニタリング/コントロール</div>
                     <a href="#sec-3" data-nav>
                         3. モニタリング/コントロール
                     </a>

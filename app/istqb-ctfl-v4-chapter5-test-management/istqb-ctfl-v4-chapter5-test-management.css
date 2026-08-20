@@ -417,7 +417,7 @@
     background: #0d1117;
 }
 .ctfl-v4-ch5-page .code-label {
-    background: var(--bg-card);
+    background: var(--bg-3);
     color: var(--text-2);
     font-family: var(--font-mono);
     font-size: 12px;

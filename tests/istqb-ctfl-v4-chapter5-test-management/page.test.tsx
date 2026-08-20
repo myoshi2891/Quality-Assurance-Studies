@@ -68,8 +68,6 @@ describe('CTFL v4.0 Chapter 5: Test Management Guide Page', () => {
 
         expectedSections.forEach(({ id, title }) => {
             const el = container.querySelector(`[id="${id}"]`);
-            if (!el) console.error(`Section not found: ${id}`);
-            else if (!el.textContent?.includes(title)) console.error(`Title mismatch for ${id}: expected "${title}", got "${el.textContent?.slice(0, 50)}"`);
             expect(el).not.toBeNull();
             expect(el?.textContent).toContain(title);
         });
@@ -112,8 +110,9 @@ describe('CTFL v4.0 Chapter 5: Test Management Guide Page', () => {
         expect(diagrams.length).toBe(9);
     });
 
-    it('renders the sidebar navigation with links and brand title', () => {
+    it('renders the sidebar navigation with links and brand title', async () => {
         const { container } = render(<Page />);
+        await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
         const nav = container.querySelector('nav.sidebar');
         expect(nav).not.toBeNull();
 
@@ -126,14 +125,16 @@ describe('CTFL v4.0 Chapter 5: Test Management Guide Page', () => {
         expect(tocLinks.length).toBeGreaterThanOrEqual(20);
     });
 
-    it('renders tables across sections', () => {
+    it('renders tables across sections', async () => {
         const { container } = render(<Page />);
+        await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
         const tables = container.querySelectorAll('table');
         expect(tables.length).toBeGreaterThanOrEqual(5);
     });
 
-    it('renders references section with primary sources', () => {
+    it('renders references section with primary sources', async () => {
         const { container } = render(<Page />);
+        await screen.findAllByTestId('mock-mermaid', undefined, { timeout: 5000 });
         const refSection = container.querySelector('[id="sec-7"]');
         expect(refSection).not.toBeNull();
         expect(container.textContent).toContain('ISTQB CTFL Syllabus v4.0.1');
