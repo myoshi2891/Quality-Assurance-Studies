@@ -193,7 +193,7 @@ EB --> D3["チェックリストベースドテスト"]`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-1-overview-of-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.1 Overview of Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/black-box-test-technique" target="_blank" rel="noopener">ISTQB Glossary, black-box test technique</a>
+                                参考: <a href="https://astqb.org/4-1-overview-of-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.1 Overview of Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/black-box-test-technique" target="_blank" rel="noopener noreferrer">ISTQB Glossary, black-box test technique</a>
                             </p>
                         </div>
                     </section>
@@ -279,7 +279,7 @@ EB --> D3["チェックリストベースドテスト"]`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.2 Black-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/equivalence-partitioning" target="_blank" rel="noopener">ISTQB Glossary, equivalence partitioning</a>
+                                参考: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.2 Black-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/equivalence-partitioning" target="_blank" rel="noopener noreferrer">ISTQB Glossary, equivalence partitioning</a>
                             </p>
                         </div>
                     </section>
@@ -344,7 +344,7 @@ EB --> D3["チェックリストベースドテスト"]`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.2 Black-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/boundary-value-analysis" target="_blank" rel="noopener">ISTQB Glossary, boundary value analysis</a>
+                                参考: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.2 Black-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/boundary-value-analysis" target="_blank" rel="noopener noreferrer">ISTQB Glossary, boundary value analysis</a>
                             </p>
                         </div>
                     </section>
@@ -472,7 +472,7 @@ EB --> D3["チェックリストベースドテスト"]`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.2 Black-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/decision-table-testing" target="_blank" rel="noopener">ISTQB Glossary, decision table testing</a>
+                                参考: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.2 Black-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/decision-table-testing" target="_blank" rel="noopener noreferrer">ISTQB Glossary, decision table testing</a>
                             </p>
                         </div>
                     </section>
@@ -568,7 +568,7 @@ Locked --> [*]`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.2 Black-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/state-transition-testing" target="_blank" rel="noopener">ISTQB Glossary, state transition testing</a>
+                                参考: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.2 Black-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/state-transition-testing" target="_blank" rel="noopener noreferrer">ISTQB Glossary, state transition testing</a>
                             </p>
                         </div>
                     </section>
@@ -667,7 +667,7 @@ S3 --> Finish`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-3-white-box-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.3 White-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/statement-testing" target="_blank" rel="noopener">ISTQB Glossary, statement testing</a>
+                                参考: <a href="https://astqb.org/4-3-white-box-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.3 White-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/statement-testing" target="_blank" rel="noopener noreferrer">ISTQB Glossary, statement testing</a>
                             </p>
                         </div>
                     </section>
@@ -753,7 +753,7 @@ S3 --> Finish`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-3-white-box-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.3 White-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/branch-testing" target="_blank" rel="noopener">ISTQB Glossary, branch testing</a>
+                                参考: <a href="https://astqb.org/4-3-white-box-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.3 White-box Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/branch-testing" target="_blank" rel="noopener noreferrer">ISTQB Glossary, branch testing</a>
                             </p>
                         </div>
                     </section>
@@ -783,7 +783,7 @@ S3 --> Finish`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-3-white-box-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.3 White-box Test Techniques</a>
+                                参考: <a href="https://astqb.org/4-3-white-box-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.3 White-box Test Techniques</a>
                             </p>
                         </div>
                     </section>
@@ -816,7 +816,7 @@ S3 --> Finish`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-4-experience-based-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.4 Experience-based Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/error-guessing" target="_blank" rel="noopener">ISTQB Glossary, error guessing</a>
+                                参考: <a href="https://astqb.org/4-4-experience-based-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.4 Experience-based Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/error-guessing" target="_blank" rel="noopener noreferrer">ISTQB Glossary, error guessing</a>
                             </p>
                         </div>
                     </section>
@@ -848,7 +848,7 @@ S3 --> Finish`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-4-experience-based-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.4 Experience-based Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/exploratory-testing" target="_blank" rel="noopener">ISTQB Glossary, exploratory testing</a>
+                                参考: <a href="https://astqb.org/4-4-experience-based-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.4 Experience-based Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/exploratory-testing" target="_blank" rel="noopener noreferrer">ISTQB Glossary, exploratory testing</a>
                             </p>
                         </div>
                     </section>
@@ -867,7 +867,7 @@ S3 --> Finish`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-4-experience-based-test-techniques/" target="_blank" rel="noopener">ASTQB, 4.4 Experience-based Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/checklist-based-testing" target="_blank" rel="noopener">ISTQB Glossary, checklist-based testing</a>
+                                参考: <a href="https://astqb.org/4-4-experience-based-test-techniques/" target="_blank" rel="noopener noreferrer">ASTQB, 4.4 Experience-based Test Techniques</a> / <a href="https://glossary.istqb.org/en_US/term/checklist-based-testing" target="_blank" rel="noopener noreferrer">ISTQB Glossary, checklist-based testing</a>
                             </p>
                         </div>
 
@@ -979,7 +979,7 @@ D --> E`} />
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-5-collaboration-based-test-approaches/" target="_blank" rel="noopener">ASTQB, 4.5 Collaboration-based Test Approaches</a>
+                                参考: <a href="https://astqb.org/4-5-collaboration-based-test-approaches/" target="_blank" rel="noopener noreferrer">ASTQB, 4.5 Collaboration-based Test Approaches</a>
                             </p>
                         </div>
                     </section>
@@ -1034,7 +1034,7 @@ F -.->|"回帰テストに追加"| G["リグレッションテストスイート
                         <div className="callout info">
                             <span className="dot"></span>
                             <p>
-                                参考: <a href="https://astqb.org/4-5-collaboration-based-test-approaches/" target="_blank" rel="noopener">ASTQB, 4.5 Collaboration-based Test Approaches</a> / <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" target="_blank" rel="noopener">ISTQB CTFL Syllabus v4.0.1, Section 4.5</a>（p.45-46）
+                                参考: <a href="https://astqb.org/4-5-collaboration-based-test-approaches/" target="_blank" rel="noopener noreferrer">ASTQB, 4.5 Collaboration-based Test Approaches</a> / <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" target="_blank" rel="noopener noreferrer">ISTQB CTFL Syllabus v4.0.1, Section 4.5</a>（p.45-46）
                             </p>
                         </div>
                     </section>
@@ -1216,43 +1216,43 @@ E --> C`} />
                         <ol className="ref-list">
                             <li>
                                 <span className="ref-title">ISTQB®, <em>Certified Tester Foundation Level (CTFL) Syllabus v4.0.1</em> (2024)</span>
-                                <a className="ref-url" href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" target="_blank" rel="noopener">
+                                <a className="ref-url" href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" target="_blank" rel="noopener noreferrer">
                                     https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf
                                 </a>
                             </li>
                             <li>
                                 <span className="ref-title">ASTQB, <em>CTFL Syllabus v4.0 - Chapter 4: Test Analysis and Design</em></span>
-                                <a className="ref-url" href="https://astqb.org/4-1-overview-of-test-techniques/" target="_blank" rel="noopener">
+                                <a className="ref-url" href="https://astqb.org/4-1-overview-of-test-techniques/" target="_blank" rel="noopener noreferrer">
                                     https://astqb.org/4-1-overview-of-test-techniques/
                                 </a>
                             </li>
                             <li>
                                 <span className="ref-title">ISTQB® Glossary of Testing Terms (Interactive / v4.0 対応)</span>
-                                <a className="ref-url" href="https://glossary.istqb.org/" target="_blank" rel="noopener">
+                                <a className="ref-url" href="https://glossary.istqb.org/" target="_blank" rel="noopener noreferrer">
                                     https://glossary.istqb.org/
                                 </a>
                             </li>
                             <li>
                                 <span className="ref-title">JSTQB, <em>テスト技術者資格制度 Foundation Level シラバス Version 2023.J01</em> (2024)</span>
-                                <a className="ref-url" href="https://jstqb.jp/syllabus.html" target="_blank" rel="noopener">
+                                <a className="ref-url" href="https://jstqb.jp/syllabus.html" target="_blank" rel="noopener noreferrer">
                                     https://jstqb.jp/syllabus.html
                                 </a>
                             </li>
                             <li>
                                 <span className="ref-title">Master Software Testing, <em>ISTQB CTFL Chapter 4: Test Analysis and Design Complete Guide</em></span>
-                                <a className="ref-url" href="https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-test-analysis-design" target="_blank" rel="noopener">
+                                <a className="ref-url" href="https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-test-analysis-design" target="_blank" rel="noopener noreferrer">
                                     https://mastersoftwaretesting.com/certification-guides/istqb/ctfl/ctfl-test-analysis-design
                                 </a>
                             </li>
                             <li>
                                 <span className="ref-title">ToolsQA, <em>Error Guessing Technique in Software Testing</em></span>
-                                <a className="ref-url" href="https://www.toolsqa.com/software-testing/error-guessing-technique-software-testing/" target="_blank" rel="noopener">
+                                <a className="ref-url" href="https://www.toolsqa.com/software-testing/error-guessing-technique-software-testing/" target="_blank" rel="noopener noreferrer">
                                     https://www.toolsqa.com/software-testing/error-guessing-technique-software-testing/
                                 </a>
                             </li>
                             <li>
                                 <span className="ref-title">ISO/IEC/IEEE 29119-4:2021, <em>Software and systems engineering — Software testing — Part 4: Test techniques</em>（シラバス本文が参照する国際規格）</span>
-                                <a className="ref-url" href="https://www.iso.org/standard/79430.html" target="_blank" rel="noopener">
+                                <a className="ref-url" href="https://www.iso.org/standard/79430.html" target="_blank" rel="noopener noreferrer">
                                     https://www.iso.org/standard/79430.html
                                 </a>
                             </li>

@@ -19,9 +19,17 @@ export default function NavBar() {
 
         const observer = new IntersectionObserver(
             (entries) => {
-                const intersectingEntry = entries.find((entry) => entry.isIntersecting);
-                if (intersectingEntry) {
-                    const id = intersectingEntry.target.getAttribute('id');
+                // 交差中のうち最も上にあるセクションを選ぶ（entries の順序は保証されないため）
+                let bestEntry: IntersectionObserverEntry | null = null;
+                entries.forEach((entry) => {
+                    if (!entry.isIntersecting) return;
+                    if (!bestEntry || entry.boundingClientRect.top < bestEntry.boundingClientRect.top) {
+                        bestEntry = entry;
+                    }
+                });
+
+                if (bestEntry) {
+                    const id = (bestEntry as IntersectionObserverEntry).target.getAttribute('id');
                     links.forEach((link) => {
                         if (link.getAttribute('href') === `#${id}`) {
                             link.classList.add('active');
@@ -66,6 +74,7 @@ export default function NavBar() {
     return (
         <>
             <button
+                type="button"
                 className="nav-toggle"
                 id="navToggle"
                 aria-label="目次を開く"
