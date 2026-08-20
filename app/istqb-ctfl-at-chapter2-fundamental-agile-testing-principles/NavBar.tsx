@@ -109,6 +109,7 @@ export default function NavBar() {
                                 <a
                                     className={`toc-link ${statusClass}`}
                                     href={`#${item.id}`}
+                                    aria-current={isActive ? 'location' : undefined}
                                     data-target={item.id}
                                     onClick={handleLinkClick}
                                 >
@@ -125,6 +126,7 @@ export default function NavBar() {
                                                     <a
                                                         className={`toc-link ${isSubActive ? 'is-active' : ''}`}
                                                         href={`#${sub.id}`}
+                                                        aria-current={isSubActive ? 'location' : undefined}
                                                         data-target={sub.id}
                                                         onClick={handleLinkClick}
                                                     >

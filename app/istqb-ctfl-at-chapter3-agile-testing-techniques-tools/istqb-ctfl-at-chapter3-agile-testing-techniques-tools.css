@@ -311,7 +311,7 @@
     margin: 72px 0 20px;
     padding-top: 24px;
     border-top: 1px solid var(--border-soft);
-    scroll-margin-top: 80px;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 .ctfl-at-ch3-page .content > h2:first-of-type {
     border-top: none;
@@ -325,7 +325,7 @@
     font-weight: 600;
     color: var(--text);
     margin: 44px 0 16px;
-    scroll-margin-top: 80px;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
     display: flex;
     align-items: center;
     gap: 10px;
@@ -345,7 +345,7 @@
     color: var(--text-dim);
     text-transform: none;
     margin: 30px 0 14px;
-    scroll-margin-top: 80px;
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 
 .ctfl-at-ch3-page .content p {
@@ -643,7 +643,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .ctfl-at-ch3-page html {
+    .ctfl-at-ch3-page {
         scroll-behavior: auto;
     }
     .ctfl-at-ch3-page * {

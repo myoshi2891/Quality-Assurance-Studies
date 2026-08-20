@@ -610,7 +610,7 @@
     .ctfl-at-ch2-page .sidebar {
         display: none;
         position: fixed;
-        top: 60px;
+        top: calc(60px + var(--disclaimer-height, 0px));
         left: 0;
         right: 0;
         bottom: 0;

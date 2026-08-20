@@ -97,35 +97,11 @@ export default function NavBar() {
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
     useEffect(() => {
-        const observeIds: string[] = [
-            '0-chapter-3',
-            '31-tddatddbdd',
-            '310-3',
-            '311-test-driven-development-tdd',
-            '312-acceptance-test-driven-development-atdd',
-            '313-behavior-driven-development-bdd',
-            '314-tddatddbdd1',
-            '32',
-            '321',
-            '322',
-            '33',
-            '331-testing-quadrants',
-            '332',
-            '333',
-            '334-exploratory-testing',
-            '34',
-            '341-task-management-and-tracking-tools',
-            '342-communication-and-information-sharing-tools',
-            '343-software-build-and-distribution-tools',
-            '344-configuration-management-tools',
-            '345-test-design-implementation-and-execution-tools',
-            '346-cloud-computing-and-virtualization-tools',
-            '4-chapter-3',
-            '5-k-',
-            '6',
-            '7-url',
-            '8',
-        ];
+        // TOC_ITEMS を単一の情報源として監視対象 ID を導出する（手書きリストとの乖離を防ぐ）
+        const observeIds: string[] = TOC_ITEMS.flatMap((item) => [
+            item.id,
+            ...(item.subLinks?.map((sub) => sub.id) ?? []),
+        ]);
 
         const observer = new IntersectionObserver(
             (entries) => {
@@ -181,6 +157,7 @@ export default function NavBar() {
                                 <a
                                     href={`#${item.id}`}
                                     className={activeId === item.id || (!item.subLinks && isMainActive) ? 'active' : ''}
+                                    aria-current={activeId === item.id ? 'location' : undefined}
                                     onClick={handleLinkClick}
                                 >
                                     <span className="toc__num">{item.num}</span>
@@ -193,6 +170,7 @@ export default function NavBar() {
                                                 <a
                                                     href={`#${sub.id}`}
                                                     className={activeId === sub.id ? 'active' : ''}
+                                                    aria-current={activeId === sub.id ? 'location' : undefined}
                                                     onClick={handleLinkClick}
                                                 >
                                                     {sub.label}
