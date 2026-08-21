@@ -287,7 +287,7 @@ style Start fill:#1a2744,stroke:#4a9eff,color:#fff
 style Review fill:#1a5c2e,stroke:#4ade80,color:#fff`;
 
 /**
- * Renders the CTFL-AT Chapter 3 learning page covering agile testing methods, techniques, and tools.
+ * Renders the CTFL-AT Chapter 3 learning page on agile testing methods, techniques, and tools.
  */
 export default function CtflAtChapter3Page() {
     return (

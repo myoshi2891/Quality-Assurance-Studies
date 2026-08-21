@@ -68,7 +68,7 @@ B --> C["UIテスト 数が最も少ない"]`;
 /**
  * Renders a Japanese study guide for the ISTQB® Certified Tester–Finance Testing syllabus.
  *
- * @returns The complete CT-FT study guide page
+ * @returns The rendered CT-FT study guide page.
  */
 export default function IstqbCtFtCompleteGuide() {
     return (
