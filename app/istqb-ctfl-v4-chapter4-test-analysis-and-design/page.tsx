@@ -2,6 +2,9 @@ import './istqb-ctfl-v4-chapter4-test-analysis-and-design.css';
 import NavBar from './NavBar';
 import Mermaid from '../../components/Mermaid';
 
+/**
+ * Renders a Japanese learning page covering ISTQB CTFL v4.0.1 Chapter 4, Test Analysis and Design.
+ */
 export default function Page() {
     return (
         <div className="ctfl-v4-ch4-page">

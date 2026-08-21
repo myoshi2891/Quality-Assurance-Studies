@@ -19,6 +19,11 @@ const NAV_LINKS: NavLinkItem[] = [
     { id: 'ch8', label: '8. 参考文献一覧' },
 ];
 
+/**
+ * Renders a page navigation sidebar for the finance testing guide.
+ *
+ * @returns The navigation controls, chapter links, and reference links
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState<string>('ch0');
     const [isOpen, setIsOpen] = useState<boolean>(false);

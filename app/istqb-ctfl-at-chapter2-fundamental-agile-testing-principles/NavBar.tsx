@@ -42,6 +42,12 @@ const TOC_ITEMS: TocLink[] = [
     { id: 'references', label: '4. 参考文献' },
 ];
 
+/**
+ * Renders a responsive table of contents for Chapter 2.
+ *
+ * Tracks the currently viewed section, marks preceding sections as completed,
+ * and closes the mobile navigation when a link is selected.
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState<string>('overview');
     const [doneIds, setDoneIds] = useState<string[]>([]);

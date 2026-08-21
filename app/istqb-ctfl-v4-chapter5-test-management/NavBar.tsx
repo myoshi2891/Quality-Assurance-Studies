@@ -2,6 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 
+/**
+ * Renders a collapsible table of contents for Chapter 5 and tracks the section currently in view.
+ */
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
 

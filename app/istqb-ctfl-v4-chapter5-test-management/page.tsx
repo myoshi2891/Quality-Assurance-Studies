@@ -132,6 +132,9 @@ Duplicate --> [*]
 Deferred --> Assigned: 後日、優先度が上がり着手
 Closed --> [*]`;
 
+/**
+ * Renders an educational guide to ISTQB CTFL v4.0.1 Chapter 5, “Managing the Test Activities.”
+ */
 export default function CtflV4Chapter5Page() {
     return (
         <div className="ctfl-v4-ch5-page">

@@ -92,6 +92,13 @@ const TOC_ITEMS: TocLink[] = [
     },
 ];
 
+/**
+ * Renders a responsive table-of-contents sidebar for Chapter 3.
+ *
+ * The sidebar tracks the currently visible heading and highlights the corresponding
+ * navigation link. On smaller screens, users can toggle the sidebar, which closes
+ * after selecting a link.
+ */
 export default function NavBar() {
     const [activeId, setActiveId] = useState<string>('0-chapter-3');
     const [isOpen, setIsOpen] = useState<boolean>(false);

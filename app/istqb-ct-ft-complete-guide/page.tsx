@@ -65,6 +65,11 @@ const DIAGRAM_8 = `flowchart TD
 A["コンポーネントテスト 数が最も多い"] --> B["APIサービステスト 中程度の数"]
 B --> C["UIテスト 数が最も少ない"]`;
 
+/**
+ * Renders a Japanese study guide for the ISTQB® Certified Tester–Finance Testing syllabus.
+ *
+ * @returns The complete CT-FT study guide page
+ */
 export default function IstqbCtFtCompleteGuide() {
     return (
         <div className="istqb-ct-ft-page">

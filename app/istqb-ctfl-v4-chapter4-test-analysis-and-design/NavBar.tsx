@@ -34,6 +34,11 @@ const NAV_ITEMS: NavItem[] = [
     { id: 'sec-refs', label: '参考文献・URL一覧', level: 2 },
 ];
 
+/**
+ * Renders a responsive table of contents for the ISTQB CTFL v4.0 Chapter 4 page.
+ *
+ * Tracks the visible section, supports smooth navigation to sections, synchronizes the URL fragment, and controls sidebar visibility.
+ */
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeId, setActiveId] = useState<string>('sec-0');

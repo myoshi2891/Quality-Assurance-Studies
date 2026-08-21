@@ -215,6 +215,9 @@ const DIAGRAM_14 = `flowchart TD
 
     style START fill:#1c6f88,color:#fff`;
 
+/**
+ * Renders the CTFL-AT Chapter 2 guide on fundamental agile testing principles, practices, and processes.
+ */
 export default function CtflAtChapter2Page() {
     return (
         <div className="ctfl-at-ch2-page">
