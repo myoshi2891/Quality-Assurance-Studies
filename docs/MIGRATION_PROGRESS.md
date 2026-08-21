@@ -1,19 +1,55 @@
 # Migration Progress
 
-Updated 2026-07-13
+Updated 2026-08-20
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 全38ページの静的HTMLからNext.js App Routerへの完全移行が完了しました。
+> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計44ルート）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `1438e39` |
+| 最新 HEAD | `784c7a6` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun run lint` / `bun test`（174 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（209 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/08/20: CTFL v4.0 Chapter 5 (テスト活動の管理) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-v4-chapter5-test-management/`: ページコンポーネント（Mermaid 9図、全8セクション、全テーブル、コード例、用語集、参考文献を含む完全移行）、スタイル（`.ctfl-v4-ch5-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応）を実装。
+- `tests/istqb-ctfl-v4-chapter5-test-management/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 9図、テーブル、参考文献の存在を検証する厳格なテストスイートを実装して全パス（全209件）。
+- `Istqb-ctfl-chapter5.html`: `archive/html-archive/ctfl/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 44 ページ体制に同期。
+
+## 2026/08/20: CTFL v4.0 Chapter 4 (テスト分析・設計) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-v4-chapter4-test-analysis-and-design/`: ページコンポーネント（Mermaid 7図、全10セクション、全テーブル、カバレッジバー、キーワードチップ、コード例、参考文献を含む完全移行）、スタイル（`.ctfl-v4-ch4-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応）を実装。
+- `tests/istqb-ctfl-v4-chapter4-test-analysis-and-design/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 7図、カバレッジバー、テーブル、参考文献の存在を検証する厳格なテストスイートを実装して全パス（全202件）。
+- `Istqb-ctfl-v4-chapter4.html`: `archive/html-archive/ctfl/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 43 ページ体制に同期。
+
+## 2026/08/20: CTFL-AT Chapter 3 (アジャイルテスト技法とツール) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/`: ページコンポーネント（Mermaid 19図、全8セクション、全テーブル、K-Level学習チェックリスト、サンプル問題4問、コード例、参考文献を含む完全移行）、スタイル（`.ctfl-at-ch3-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応）を実装。
+- `tests/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 19図、チェックリスト、練習問題、参考文献の存在を検証する厳格なテストスイートを実装して全パス（全195件）。
+- `Ctfl-at-chapter3-agile-testing-techniques-tools.html`: `archive/html-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 42 ページ体制に同期。
+
+## 2026/08/20: CTFL-AT Chapter 2 (アジャイルテストの基本原則) ガイドの Next.js 移行完了
+
+- `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/`: ページコンポーネント（Mermaid 14図、全7セクション、全テーブル、K-Level学習目標、コード例、参考文献15件を含む完全移行）、スタイル（`.ctfl-at-ch2-page` スコープ）、NavBar（scroll イベント + `offsetTop` によるスクロールスパイ、ステータスドット遷移、モバイルトグル対応）を実装。
+- `tests/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次、全セクション・サブセクション、Mermaid 14図、重要用語、自己診断チェック、参考文献15件の存在を検証する厳格なテストスイートを実装して全パス（全188件）。
+- `Ctfl-at-chapter2.html`: `archive/html-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 41 ページ体制に同期。
+
+## 2026/08/20: ISTQB CT-FT (Finance Testing) ガイドの Next.js 移行完了
+
+- `app/istqb-ct-ft-complete-guide/`: ページコンポーネント（Mermaid 9図、全9セクション、全テーブル、用語集、参考文献、注記を含む完全移行）、スタイル（`.istqb-ct-ft-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応）を実装。
+- `tests/istqb-ct-ft-complete-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー全9リンク、ch0〜ch8全9セクション、Mermaid 9図、主要規制用語・用語集、参考文献・注記の存在を検証する厳格なテストスイートを実装して全パス（全180件）。
+- `Finance-testing-ct-ft-guide.html`: `archive/html-archive/` へ移動完了。
+- `Finance-testing-ct-ft-guide.md`: `archive/md-archive/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 40 ページ体制に同期。
 
 ## 2026/07/15: CTFL v4.0 Chapter 3 (静的テスト) ガイドの Next.js 移行完了
 
@@ -364,6 +400,10 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
 | `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
 | `Ctfl-v4-chapter1-fundamentals.html` | `/istqb-ctfl-v4-chapter1-fundamentals` | ✅ NavBar あり |
+| `Ctfl-v4-chapter2-sdlc-and-testing.html` | `/istqb-ctfl-v4-chapter2-sdlc-and-testing` | ✅ NavBar あり |
+| `Ctfl-v4-chapter3-static-testing.html` | `/istqb-ctfl-v4-chapter3-static-testing` | ✅ NavBar あり |
+| `Istqb-ctfl-v4-chapter4.html` | `/istqb-ctfl-v4-chapter4-test-analysis-and-design` | ✅ NavBar あり |
+| `Istqb-ctfl-chapter5.html` | `/istqb-ctfl-v4-chapter5-test-management` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -378,8 +418,11 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
-
 | `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
+| `Finance-testing-ct-ft-guide.html` | `/istqb-ct-ft-complete-guide` | ✅ NavBar + aria-current あり |
+| `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
+| `Ctfl-at-chapter2.html` | `/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles` | ✅ NavBar あり |
+| `Ctfl-at-chapter3-agile-testing-techniques-tools.html` | `/istqb-ctfl-at-chapter3-agile-testing-techniques-tools` | ✅ NavBar あり |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -396,9 +439,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ```text
 コンテキスト:
-- 最新 HEAD: `1438e39`
-- **全ガイド移行完了**: プロジェクトルートに存在した全38ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 39 ルート（ホーム + 38 ガイド）が管理されています。
+- 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
+- **CTFL v4.0 Chapter 5 移行完了**: プロジェクトルートに存在した全43ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 44 ルート（ホーム + 43 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

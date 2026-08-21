@@ -1,0 +1,611 @@
+/* ==========================================================================
+   ISTQB® CT-FT (Finance Testing) Guide Styles
+   Scoped under .istqb-ct-ft-page
+   ========================================================================== */
+
+.istqb-ct-ft-page {
+    --ft-bg: #07111e;
+    --ft-bg-elevated: #0d1b2e;
+    --ft-bg-card: #0f2035;
+    --ft-border: #1e3049;
+    --ft-text-primary: #e9eef6;
+    --ft-text-secondary: #93a6bf;
+    --ft-text-tertiary: #5f7591;
+    --ft-accent: #e8ab3f;
+    --ft-accent-soft: rgba(232, 171, 63, 0.13);
+    --ft-accent-strong: #f5c26b;
+    --ft-teal: #4fb8ad;
+    --ft-danger: #e07a5f;
+    --ft-radius: 10px;
+    --ft-maxw: 1180px;
+
+    background-color: var(--ft-bg);
+    color: var(--ft-text-primary);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.75;
+    font-size: 16px;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/* ---------- Globals Interference Resets ---------- */
+.istqb-ct-ft-page section {
+    padding-top: 0;
+    margin-bottom: 64px;
+}
+
+.istqb-ct-ft-page section:target {
+    scroll-margin-top: 80px;
+}
+
+.istqb-ct-ft-page .hero {
+    min-height: 0;
+    display: block;
+    padding-top: 0;
+    padding-bottom: 40px;
+    margin-bottom: 48px;
+    border-bottom: 1px solid var(--ft-border);
+}
+
+.istqb-ct-ft-page main.content {
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 56px clamp(24px, 5vw, 72px) 100px;
+    width: 100%;
+}
+
+.istqb-ct-ft-page h1,
+.istqb-ct-ft-page h2,
+.istqb-ct-ft-page h3,
+.istqb-ct-ft-page h4 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #fff;
+    letter-spacing: -0.01em;
+}
+
+.istqb-ct-ft-page a {
+    color: var(--ft-accent-strong);
+    text-decoration: none;
+}
+
+.istqb-ct-ft-page a:hover {
+    text-decoration: underline;
+}
+
+.istqb-ct-ft-page code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88em;
+    background: var(--ft-bg-card);
+    border: 1px solid var(--ft-border);
+    padding: 0.12em 0.42em;
+    border-radius: 5px;
+    color: var(--ft-accent-strong);
+}
+
+/* ---------- Layout ---------- */
+.istqb-ct-ft-page .layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.istqb-ct-ft-page .sidebar {
+    position: sticky;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    overflow-y: auto;
+    background: var(--ft-bg-elevated);
+    border-right: 1px solid var(--ft-border);
+    padding: 28px 20px 40px;
+    z-index: 40;
+}
+
+.istqb-ct-ft-page .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.istqb-ct-ft-page .sidebar::-webkit-scrollbar-thumb {
+    background: var(--ft-border);
+    border-radius: 3px;
+}
+
+.istqb-ct-ft-page .sidebar-brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ft-accent);
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.istqb-ct-ft-page .sidebar-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 24px;
+    line-height: 1.4;
+}
+
+.istqb-ct-ft-page .nav-group-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ft-text-tertiary);
+    margin: 22px 0 8px;
+    padding-left: 10px;
+}
+
+.istqb-ct-ft-page .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.istqb-ct-ft-page .nav-link {
+    display: block;
+    padding: 8px 10px;
+    border-radius: 8px;
+    color: var(--ft-text-secondary);
+    font-size: 0.88rem;
+    border-left: 2px solid transparent;
+    transition: background 0.15s, color 0.15s, border-color 0.15s;
+}
+
+.istqb-ct-ft-page .nav-link:hover {
+    background: var(--ft-bg-card);
+    color: var(--ft-text-primary);
+    text-decoration: none;
+}
+
+.istqb-ct-ft-page .nav-link.active {
+    color: var(--ft-accent-strong);
+    background: var(--ft-accent-soft);
+    border-left-color: var(--ft-accent);
+    font-weight: 600;
+}
+
+/* ---------- Hero ---------- */
+.istqb-ct-ft-page .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.74rem;
+    color: var(--ft-accent);
+    background: var(--ft-accent-soft);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+}
+
+.istqb-ct-ft-page .hero h1 {
+    font-size: clamp(1.9rem, 4vw, 2.7rem);
+    margin: 0 0 14px;
+}
+
+.istqb-ct-ft-page .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--ft-text-secondary);
+    margin: 0 0 26px;
+    max-width: 900px;
+}
+
+.istqb-ct-ft-page .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+}
+
+.istqb-ct-ft-page .hero-meta-item {
+    background: var(--ft-bg-elevated);
+    border: 1px solid var(--ft-border);
+    padding: 10px 16px;
+    border-radius: var(--ft-radius);
+    font-size: 0.85rem;
+}
+
+.istqb-ct-ft-page .hero-meta-item .k {
+    display: block;
+    color: var(--ft-text-tertiary);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 2px;
+}
+
+.istqb-ct-ft-page .hero-meta-item .v {
+    color: var(--ft-text-primary);
+    font-weight: 600;
+}
+
+/* ---------- Headings & Section components ---------- */
+.istqb-ct-ft-page .chapter-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.76rem;
+    letter-spacing: 0.12em;
+    color: var(--ft-accent);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+    display: block;
+}
+
+.istqb-ct-ft-page h2 {
+    font-size: 1.8rem;
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--ft-border);
+}
+
+.istqb-ct-ft-page h3 {
+    font-size: 1.25rem;
+    margin: 36px 0 12px;
+    color: #fff;
+}
+
+.istqb-ct-ft-page h4 {
+    font-size: 1.02rem;
+    margin: 24px 0 8px;
+    color: var(--ft-text-primary);
+}
+
+.istqb-ct-ft-page p {
+    color: var(--ft-text-secondary);
+    margin: 0 0 16px;
+}
+
+.istqb-ct-ft-page ul,
+.istqb-ct-ft-page ol {
+    color: var(--ft-text-secondary);
+    padding-left: 24px;
+    margin: 0 0 20px;
+}
+
+.istqb-ct-ft-page li {
+    margin-bottom: 8px;
+}
+
+.istqb-ct-ft-page strong {
+    color: var(--ft-text-primary);
+}
+
+/* ---------- Callouts & Boxes ---------- */
+.istqb-ct-ft-page .why-box {
+    background: var(--ft-accent-soft);
+    border-left: 3px solid var(--ft-accent);
+    padding: 14px 18px;
+    border-radius: 0 var(--ft-radius) var(--ft-radius) 0;
+    margin: 18px 0 28px;
+    font-size: 0.93rem;
+    color: var(--ft-text-primary);
+}
+
+.istqb-ct-ft-page .why-box::before {
+    content: "💡 なぜこの章が重要か：";
+    font-weight: 700;
+    color: var(--ft-accent-strong);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.istqb-ct-ft-page .intro-callout {
+    background: var(--ft-bg-card);
+    border: 1px solid var(--ft-border);
+    border-radius: var(--ft-radius);
+    padding: 18px 22px;
+    margin: 24px 0 36px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+}
+
+.istqb-ct-ft-page .intro-callout .icon {
+    font-size: 1.4rem;
+    line-height: 1;
+}
+
+.istqb-ct-ft-page .intro-callout div {
+    font-size: 0.92rem;
+    color: var(--ft-text-secondary);
+}
+
+.istqb-ct-ft-page .skill-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    background: var(--ft-bg-card);
+    border: 1px solid var(--ft-border);
+    border-left: 3px solid var(--ft-teal);
+    border-radius: 8px;
+    padding: 12px 18px;
+    color: var(--ft-text-secondary);
+    margin-bottom: 30px;
+}
+
+.istqb-ct-ft-page .skill-badge b {
+    color: var(--ft-teal);
+}
+
+/* ---------- Tables ---------- */
+.istqb-ct-ft-page .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0 28px;
+    border: 1px solid var(--ft-border);
+    border-radius: var(--ft-radius);
+    background: var(--ft-bg-card);
+}
+
+.istqb-ct-ft-page table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    text-align: left;
+}
+
+.istqb-ct-ft-page th,
+.istqb-ct-ft-page td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--ft-border);
+    vertical-align: top;
+}
+
+.istqb-ct-ft-page th {
+    background: var(--ft-bg-elevated);
+    color: var(--ft-text-primary);
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+}
+
+.istqb-ct-ft-page tr:last-child td {
+    border-bottom: none;
+}
+
+.istqb-ct-ft-page td {
+    color: var(--ft-text-secondary);
+}
+
+/* ---------- Glossary & Source Boxes ---------- */
+.istqb-ct-ft-page .glossary-box {
+    background: var(--ft-bg-elevated);
+    border: 1px solid var(--ft-border);
+    border-radius: var(--ft-radius);
+    padding: 20px 24px;
+    margin: 32px 0;
+}
+
+.istqb-ct-ft-page .glossary-box .label {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ft-accent-strong);
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: block;
+}
+
+.istqb-ct-ft-page .glossary-box dl {
+    margin: 0;
+}
+
+.istqb-ct-ft-page .term-row {
+    margin-bottom: 10px;
+    font-size: 0.88rem;
+    display: grid;
+    grid-template-columns: 180px 1fr;
+    gap: 8px;
+}
+
+.istqb-ct-ft-page .term-row dt {
+    color: var(--ft-text-primary);
+    font-weight: 600;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.82rem;
+}
+
+.istqb-ct-ft-page .term-row dd {
+    margin: 0;
+    color: var(--ft-text-secondary);
+}
+
+.istqb-ct-ft-page .source-box {
+    background: var(--ft-bg-card);
+    border: 1px dashed var(--ft-border);
+    border-radius: var(--ft-radius);
+    padding: 16px 20px;
+    margin: 24px 0 36px;
+    font-size: 0.82rem;
+}
+
+.istqb-ct-ft-page .source-box .label {
+    font-weight: 700;
+    color: var(--ft-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.7rem;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.istqb-ct-ft-page .source-box ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.istqb-ct-ft-page .source-box li {
+    margin-bottom: 5px;
+    word-break: break-all;
+}
+
+.istqb-ct-ft-page sup a {
+    color: var(--ft-accent);
+    font-size: 0.78em;
+    text-decoration: none;
+}
+
+/* ---------- Diagrams & Mermaid ---------- */
+.istqb-ct-ft-page .diagram-frame {
+    background: var(--ft-bg-card);
+    border: 1px solid var(--ft-border);
+    border-radius: var(--ft-radius);
+    padding: 24px 20px;
+    margin: 20px 0 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: auto;
+}
+
+.istqb-ct-ft-page .diagram-note {
+    font-size: 0.82rem;
+    color: var(--ft-text-tertiary);
+    margin: 8px 0 12px;
+}
+
+.istqb-ct-ft-page .node-legend {
+    background: var(--ft-bg-elevated);
+    border: 1px solid var(--ft-border);
+    border-radius: var(--ft-radius);
+    padding: 14px 18px;
+    margin: 12px 0 28px;
+    font-size: 0.82rem;
+}
+
+.istqb-ct-ft-page .node-legend p {
+    font-weight: 700;
+    color: var(--ft-text-primary);
+    margin: 0 0 6px;
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.istqb-ct-ft-page .node-legend ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.istqb-ct-ft-page .node-legend li {
+    margin-bottom: 4px;
+    color: var(--ft-text-secondary);
+}
+
+/* Mermaid wrapper reset */
+.istqb-ct-ft-page .mermaid-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+}
+
+.istqb-ct-ft-page .mermaid-wrapper svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* ---------- Code block structure ---------- */
+.istqb-ct-ft-page .code-block {
+    background: var(--ft-bg-card);
+    border: 1px solid var(--ft-border);
+    border-radius: var(--ft-radius);
+    padding: 16px;
+    margin: 20px 0;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.88rem;
+    overflow-x: auto;
+}
+
+.istqb-ct-ft-page .code-line {
+    white-space: pre;
+    line-height: 1.6;
+}
+
+/* ---------- Final note & Footer ---------- */
+.istqb-ct-ft-page .biblio-group {
+    margin-bottom: 30px;
+}
+
+.istqb-ct-ft-page .biblio-group h4 {
+    color: var(--ft-accent-strong);
+}
+
+.istqb-ct-ft-page .final-note {
+    margin-top: 60px;
+    padding: 22px 26px;
+    background: var(--ft-bg-card);
+    border: 1px solid var(--ft-border);
+    border-radius: var(--ft-radius);
+    font-size: 0.88rem;
+    color: var(--ft-text-tertiary);
+}
+
+/* ---------- Mobile Toggle & Responsive ---------- */
+.istqb-ct-ft-page .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: calc(76px + var(--disclaimer-height, 0px));
+    left: 16px;
+    z-index: 50;
+    background: var(--ft-accent);
+    color: #1a1200;
+    border: none;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    font-size: 1.2rem;
+    font-weight: 700;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+}
+
+@media (max-width: 900px) {
+    .istqb-ct-ft-page .layout {
+        grid-template-columns: 1fr;
+    }
+
+    .istqb-ct-ft-page .sidebar {
+        position: fixed;
+        inset: calc(60px + var(--disclaimer-height, 0px)) 20% 0 0;
+        transform: translateX(-105%);
+        transition: transform 0.25s ease;
+        z-index: 40;
+        width: auto;
+        height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    }
+
+    .istqb-ct-ft-page .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .istqb-ct-ft-page .sidebar-toggle {
+        display: block;
+    }
+
+    .istqb-ct-ft-page main.content {
+        padding: 80px 20px 80px;
+    }
+
+    .istqb-ct-ft-page .term-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Reduced motion: アニメーション抑制設定を尊重する */
+@media (prefers-reduced-motion: reduce) {
+    .istqb-ct-ft-page .sidebar,
+    .istqb-ct-ft-page .nav-link {
+        transition: none !important;
+    }
+}

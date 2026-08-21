@@ -97,6 +97,12 @@ Next.js App Router 構成:
 - `app/istqb-ctfl-at-chapter1-agile-software-development/istqb-ctfl-at-chapter1-agile-software-development.css` — アジャイル(CTFL-AT)1章ガイド固有スタイル
 - `app/istqb-ctfl-at-chapter1-agile-software-development/page.tsx` — アジャイル(CTFL-AT)1章ガイドページ
 - `app/istqb-ctfl-at-chapter1-agile-software-development/NavBar.tsx` — アジャイル(CTFL-AT)1章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles.css` — アジャイル(CTFL-AT)2章ガイド固有スタイル
+- `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/page.tsx` — アジャイル(CTFL-AT)2章ガイドページ
+- `app/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles/NavBar.tsx` — アジャイル(CTFL-AT)2章ページ固有スティッキーナビ（`'use client'`）
+- `app/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/istqb-ctfl-at-chapter3-agile-testing-techniques-tools.css` — アジャイル(CTFL-AT)3章ガイド固有スタイル
+- `app/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/page.tsx` — アジャイル(CTFL-AT)3章ガイドページ
+- `app/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/NavBar.tsx` — アジャイル(CTFL-AT)3章ページ固有スティッキーナビ（`'use client'`）
 - `app/istqb-ctfl-complete-guide/istqb-ctfl-complete-guide.css` — ISTQB CTFL v4.0 ガイド固有スタイル
 - `app/istqb-ctfl-complete-guide/page.tsx` — ISTQB CTFL v4.0 ガイドページ
 - `app/istqb-ctfl-complete-guide/NavBar.tsx` — CTFL ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -109,6 +115,12 @@ Next.js App Router 構成:
 - `app/istqb-ctfl-v4-chapter3-static-testing/istqb-ctfl-v4-chapter3-static-testing.css` — CTFL v4.0 第3章ガイド固有スタイル
 - `app/istqb-ctfl-v4-chapter3-static-testing/page.tsx` — CTFL v4.0 第3章ガイドページ
 - `app/istqb-ctfl-v4-chapter3-static-testing/NavBar.tsx` — CTFL v4.0 第3章ページ固有スティッキーナビ
+- `app/istqb-ctfl-v4-chapter4-test-analysis-and-design/istqb-ctfl-v4-chapter4-test-analysis-and-design.css` — CTFL v4.0 第4章ガイド固有スタイル
+- `app/istqb-ctfl-v4-chapter4-test-analysis-and-design/page.tsx` — CTFL v4.0 第4章ガイドページ
+- `app/istqb-ctfl-v4-chapter4-test-analysis-and-design/NavBar.tsx` — CTFL v4.0 第4章ページ固有スティッキーナビ
+- `app/istqb-ctfl-v4-chapter5-test-management/istqb-ctfl-v4-chapter5-test-management.css` — CTFL v4.0 第5章ガイド固有スタイル
+- `app/istqb-ctfl-v4-chapter5-test-management/page.tsx` — CTFL v4.0 第5章ガイドページ
+- `app/istqb-ctfl-v4-chapter5-test-management/NavBar.tsx` — CTFL v4.0 第5章ページ固有スティッキーナビ
 - `app/software-testing-methodologies-guide.css` — テスト手法ガイド固有スタイル
 - `app/software-testing-methodologies-guide/page.tsx` — テスト手法ガイドページ
 - `app/istqb-ctal-tae-complete-guide.css` — テスト自動化(CTAL-TAE)ガイド固有スタイル
@@ -158,6 +170,9 @@ Next.js App Router 構成:
 - `app/istqb-ct-gt-complete-guide/istqb-ct-gt-complete-guide.css` — ギャンブル産業テスター(CT-GT)ガイド固有スタイル
 - `app/istqb-ct-gt-complete-guide/page.tsx` — ギャンブル産業テスター(CT-GT)ガイドページ
 - `app/istqb-ct-gt-complete-guide/NavBar.tsx` — CT-GT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
+- `app/istqb-ct-ft-complete-guide/istqb-ct-ft-complete-guide.css` — 金融テスト(CT-FT)ガイド固有スタイル
+- `app/istqb-ct-ft-complete-guide/page.tsx` — 金融テスト(CT-FT)ガイドページ
+- `app/istqb-ct-ft-complete-guide/NavBar.tsx` — CT-FT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
 - `app/istqb-ct-pt-complete-guide.css` — パフォーマンステスト(CT-PT)ガイド固有スタイル
 - `app/istqb-ct-pt-complete-guide/page.tsx` — パフォーマンステスト(CT-PT)ガイドページ
 - `app/istqb-ct-pt-complete-guide/NavBar.tsx` — CT-PT ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御）
@@ -352,15 +367,21 @@ bun test        # ユニットテスト成功
 | `istqb-ct-ai-complete-guide.html` | `/istqb-ct-ai-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-genai-complete-guide.html` | `/istqb-ct-genai-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mbt-complete-guide.html` | `/istqb-ct-mbt-complete-guide` | ✅ NavBar + aria-current あり |
+| `istqb-ct-aut-complete-guide.html` | `/istqb-ct-aut-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-pt-complete-guide.html` | `/istqb-ct-pt-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-act-complete-guide.html` | `/istqb-ct-act-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-mat-complete-guide.html` | `/istqb-ct-mat-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-sec-complete-guide.html` | `/istqb-ct-sec-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-ste-complete-guide.html` | `/istqb-ct-ste-complete-guide` | ✅ NavBar あり |
+| `istqb-ct-game-complete-guide.html` | `/istqb-ct-game-complete-guide` | ✅ NavBar + aria-current あり |
 | `istqb-ct-tas-complete-guide.html` | `/istqb-ct-tas-complete-guide` | ✅ NavBar あり |
 | `istqb-ct-ut-complete-guide.html` | `/istqb-ct-ut-complete-guide` | ✅ NavBar あり |
 | `Istqb-ctfl.html` | `/istqb-ctfl-complete-guide` | ✅ NavBar あり |
 | `Ctfl-v4-chapter1-fundamentals.html` | `/istqb-ctfl-v4-chapter1-fundamentals` | ✅ NavBar あり |
+| `Ctfl-v4-chapter2-sdlc-and-testing.html` | `/istqb-ctfl-v4-chapter2-sdlc-and-testing` | ✅ NavBar あり |
+| `Ctfl-v4-chapter3-static-testing.html` | `/istqb-ctfl-v4-chapter3-static-testing` | ✅ NavBar あり |
+| `Istqb-ctfl-v4-chapter4.html` | `/istqb-ctfl-v4-chapter4-test-analysis-and-design` | ✅ NavBar あり |
+| `Istqb-ctfl-chapter5.html` | `/istqb-ctfl-v4-chapter5-test-management` | ✅ NavBar あり |
 | `istqb-ctal-atlas-complete-guide.html` | `/istqb-ctal-atlas-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-att-complete-guide.html` | `/istqb-ctal-att-complete-guide` | ✅ NavBar あり |
 | `istqb-ctal-ta-complete-guide.html` | `/istqb-ctal-ta-complete-guide` | ✅ NavBar あり |
@@ -371,9 +392,15 @@ bun test        # ユニットテスト成功
 | `istqb-ctel-itp-itpi-complete-guide.html` | `/istqb-ctel-itp-itpi-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
 | `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
+| `istqb-ctel-tm-mtt-complete-guide.html` | `/istqb-ctel-tm-mtt-complete-guide` | ✅ NavBar あり |
 | `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
+| `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
+| `Finance-testing-ct-ft-guide.html` | `/istqb-ct-ft-complete-guide` | ✅ NavBar + aria-current あり |
+| `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
+| `Ctfl-at-chapter2.html` | `/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles` | ✅ NavBar あり |
+| `Ctfl-at-chapter3-agile-testing-techniques-tools.html` | `/istqb-ctfl-at-chapter3-agile-testing-techniques-tools` | ✅ NavBar あり |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -389,8 +416,8 @@ bun test        # ユニットテスト成功
 
 ```text
 コンテキスト:
-- **全ガイド移行完了**: プロジェクトルートに存在した全36ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました（ISTQB CTFL v4.0 ガイドを含む）。
-- 合計 36 ルート（ホーム + 35 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全43ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 44 ルート（ホーム + 43 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 

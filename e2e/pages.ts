@@ -39,9 +39,13 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctal-tta-complete-guide', h1: /Technical Test Analyst/ },
   { path: '/istqb-ctfl-at-complete-guide', h1: /Foundation Level Agile Tester/ },
   { path: '/istqb-ctfl-at-chapter1-agile-software-development', h1: /アジャイルソフトウェア開発/ },
+  { path: '/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles', h1: /アジャイルテストの基本原則/ },
+  { path: '/istqb-ctfl-at-chapter3-agile-testing-techniques-tools', h1: /アジャイルテスト.*技法.*ツール/s },
   { path: '/istqb-ctfl-v4-chapter1-fundamentals', h1: /テストの基礎/ },
   { path: '/istqb-ctfl-v4-chapter2-sdlc-and-testing', h1: /SDLCとテスト/ },
   { path: '/istqb-ctfl-v4-chapter3-static-testing', h1: /静的テスト/ },
+  { path: '/istqb-ctfl-v4-chapter4-test-analysis-and-design', h1: /テスト分析・設計/ },
+  { path: '/istqb-ctfl-v4-chapter5-test-management', h1: /テスト活動の管理/ },
   { path: '/istqb-ctfl-complete-guide', h1: /Certified Tester Foundation Level/ },
   { path: '/software-testing-methodologies-guide', h1: /Test.*Methodologies/s },
   { path: '/unit-testing-guide', h1: /良いコードの証明.*良いテスト/s },
@@ -52,7 +56,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctel-tm-mtt-complete-guide', h1: /CTEL-TM-MTT.*Managing the Test Team/s },
   { path: '/istqb-ct-game-complete-guide', h1: /ゲームテスト/ },
   { path: '/istqb-ct-gt-complete-guide', h1: /CT-GT.*ギャンブル産業テスター/s },
+  { path: '/istqb-ct-ft-complete-guide', h1: /CT-FT.*Finance Testing/s },
 ] as const;
 
-/** ページドリフト検知用。pages.ts と app/**\/page.tsx の数を一致させる。 */
-export const EXPECTED_PAGE_COUNT = 39;
+export const EXPECTED_PAGE_COUNT = 44;

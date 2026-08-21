@@ -47,9 +47,13 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctfl-v4-chapter1-fundamentals', label: 'CTFL v4.0 第1章 テストの基礎', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-v4-chapter2-sdlc-and-testing', label: 'CTFL v4.0 第2章 SDLCとテスト', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-v4-chapter3-static-testing', label: 'CTFL v4.0 第3章 静的テスト', category: 'istqb-foundation-ext' },
+  { href: '/istqb-ctfl-v4-chapter4-test-analysis-and-design', label: 'CTFL v4.0 第4章 テスト分析・設計', category: 'istqb-foundation-ext' },
+  { href: '/istqb-ctfl-v4-chapter5-test-management', label: 'CTFL v4.0 第5章 テスト活動の管理', category: 'istqb-foundation-ext' },
 
   { href: '/istqb-ctfl-at-complete-guide', label: 'アジャイル(CTFL-AT)ガイド', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-at-chapter1-agile-software-development', label: 'CTFL-AT 1章 アジャイル開発', category: 'istqb-foundation-ext' },
+  { href: '/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles', label: 'CTFL-AT 2章 アジャイルテスト基本原則', category: 'istqb-foundation-ext' },
+  { href: '/istqb-ctfl-at-chapter3-agile-testing-techniques-tools', label: 'CTFL-AT 3章 アジャイルテスト技法とツール', category: 'istqb-foundation-ext' },
 
   { href: '/istqb-ctal-tae-complete-guide', label: 'テスト自動化(CTAL-TAE)ガイド', category: 'istqb-advanced' },
   { href: '/istqb-ctal-ta-complete-guide', label: 'テストアナリスト(CTAL-TA)ガイド', category: 'istqb-advanced' },
@@ -71,6 +75,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ct-pt-complete-guide', label: 'パフォーマンステスト(CT-PT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-ut-complete-guide', label: 'ユーザビリティテスト(CT-UT)ガイド', category: 'istqb-specialist' },
   { href: '/istqb-ct-gt-complete-guide', label: 'ギャンブル産業テスター(CT-GT)ガイド', category: 'istqb-specialist' },
+  { href: '/istqb-ct-ft-complete-guide', label: '金融テスト(CT-FT)ガイド', category: 'istqb-specialist' },
 
   { href: '/istqb-ctel-itp-atp-complete-guide', label: 'テストプロセス評価(CTEL-ATP)ガイド', category: 'istqb-expert' },
   { href: '/istqb-ctel-itp-itpi-complete-guide', label: 'テストプロセス改善実装(CTEL-ITPI)ガイド', category: 'istqb-expert' },
