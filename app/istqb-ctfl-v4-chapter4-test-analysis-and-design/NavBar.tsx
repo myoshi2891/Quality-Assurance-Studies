@@ -43,18 +43,26 @@ export default function NavBar() {
             (el): el is HTMLElement => el !== null
         );
 
+        // コールバックには「状態が変化したセクション」しか渡らないため、
+        // 全セクションの最新の交差状態をここに保持して判定する
+        const entryStates = new Map<string, IntersectionObserverEntry>();
+
         const observer = new IntersectionObserver(
             (entries) => {
-                // 交差中のうち最も上にあるセクションを選ぶ（entries の順序は保証されないため）
-                let bestEntry: IntersectionObserverEntry | null = null;
                 entries.forEach((entry) => {
+                    entryStates.set(entry.target.id, entry);
+                });
+
+                // 交差中のうち最も上にあるセクションを選ぶ
+                let bestEntry: IntersectionObserverEntry | null = null;
+                entryStates.forEach((entry) => {
                     if (!entry.isIntersecting) return;
-                    if (!bestEntry || entry.boundingClientRect.top < bestEntry.boundingClientRect.top) {
+                    if (bestEntry === null || entry.boundingClientRect.top < bestEntry.boundingClientRect.top) {
                         bestEntry = entry;
                     }
                 });
 
-                if (bestEntry) {
+                if (bestEntry !== null) {
                     setActiveId((bestEntry as IntersectionObserverEntry).target.id);
                 }
             },
