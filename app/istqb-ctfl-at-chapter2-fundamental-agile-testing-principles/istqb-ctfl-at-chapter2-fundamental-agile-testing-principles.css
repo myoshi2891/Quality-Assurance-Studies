@@ -632,3 +632,11 @@
         padding: 40px 0 32px 0;
     }
 }
+
+/* Reduced motion: アニメーション抑制設定を尊重する */
+@media (prefers-reduced-motion: reduce) {
+    .ctfl-at-ch2-page .toc-link,
+    .ctfl-at-ch2-page .status-dot {
+        transition: none !important;
+    }
+}
