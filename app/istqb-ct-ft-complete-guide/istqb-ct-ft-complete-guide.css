@@ -601,3 +601,11 @@
         grid-template-columns: 1fr;
     }
 }
+
+/* Reduced motion: アニメーション抑制設定を尊重する */
+@media (prefers-reduced-motion: reduce) {
+    .istqb-ct-ft-page .sidebar,
+    .istqb-ct-ft-page .nav-link {
+        transition: none !important;
+    }
+}
