@@ -73,7 +73,10 @@ export default function NavBar() {
         if (!element) return;
 
         event.preventDefault();
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        element.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
+        // preventDefault でアンカー遷移を止めるため、URL のフラグメントを手動で同期する
+        window.history.pushState(null, '', `#${id}`);
         setActiveId(id);
         setIsOpen(false);
     };
