@@ -216,7 +216,7 @@ const DIAGRAM_14 = `flowchart TD
     style START fill:#1c6f88,color:#fff`;
 
 /**
- * Renders the CTFL-AT Chapter 2 guide on fundamental agile testing principles, practices, and processes.
+ * Renders a Japanese educational guide to ISTQB CTFL-AT Chapter 2, covering agile testing principles, practices, processes, and the roles and skills of agile testing professionals.
  */
 export default function CtflAtChapter2Page() {
     return (
