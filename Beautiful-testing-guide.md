@@ -228,7 +228,7 @@ flowchart TB
     Commit["コミット / プルリクエスト"] --> Static2["静的解析"]
     Static2 --> Small["Smallテスト<br/>数秒で完了"]
     Small --> Medium["Mediumテスト<br/>数分で完了"]
-    Medium --> Large["Largeテスト<br/>本番同等環境"]
+    Medium --> Large["Largeテスト<br/>ネットワーク・外部システム連携あり"]
     Large --> Deploy["デプロイ"]
     Small -->|"失敗"| Feedback["開発者へ即座にフィードバック"]
     Medium -->|"失敗"| Feedback
@@ -240,7 +240,7 @@ flowchart TB
 
 1. まず「実行が速く、壊れにくい」Smallテスト（ユニットテスト）をコミットのたびに実行できるようにする。
 2. 次に、複数コンポーネントの結合を検証するMediumテスト（統合テスト）をプルリクエスト単位で実行する。
-3. 最後に、本番同等環境で行うLargeテスト（E2E）は数を絞り、リリース前や定期実行に留める。
+3. 最後に、ネットワークアクセスや外部システムとの連携を伴うLargeテスト（E2E）は数を絞り、リリース前や定期実行に留める。
 
 「大規模自動化」と聞くと難しく感じますが、本質は「テストインフラを"資産"として設計し、失敗したときに誰が・どこを見ればよいかを明確にする」という地道な積み重ねです。
 
@@ -285,7 +285,7 @@ flowchart TB
 
 テストは個人の技術だけでなく、**組織・コミュニティのプロセス**としても機能します。第3章「Building Open Source QA Communities」は、Mozillaのようなオープンソースプロジェクトにおいて、ボランティアテスターのコミュニティをどう立ち上げ、維持し、彼らのモチベーションを保つかを扱います。コミュニケーション、ボランティアの募集、イベントの運営など、技術というより「人と組織」に関するノウハウが中心です。
 
-また第16章「Peeling the Glass Onion at Socialtext」や第15章「Beautiful Testing As the Cornerstone of Business Success」は、テスターと開発者が役割を分けずに協働する**ホールチーム・アプローチ（Whole-Team Approach）**の実例（Wikitestsのような独自ツールを含む）を紹介しています。「どのストーリーもテストされるまで完了とみなさない（No Story Is "Done" Until It's Tested）」という原則は、現代のアジャイル開発における「Definition of Done」の考え方そのものです。
+また第16章「Peeling the Glass Onion at Socialtext」や第15章「Beautiful Testing As the Cornerstone of Business Success」は、テスターと開発者が役割を分けずに協働する**ホールチーム・アプローチ（Whole-Team Approach）**の実例（Wikitestsのような独自ツールを含む）を紹介しています。「どのストーリーもテストされるまで完了とみなさない（No Story Is "Done" Until It's Tested）」という原則は、現代のアジャイル開発において多くのチームが「Definition of Done」に含める代表的な要素の一つです（Definition of Doneはこの原則だけでなく、コードレビューやドキュメント整備などチームが合意した複数の条件で構成されます）。
 
 初学者、特にこれから小さなチームやOSSプロジェクトに関わる人へのアドバイスは、「テストを一人で抱え込まない」ことです。テストの基準やプロセスをチーム全員で合意し、ドキュメント化し、新しく参加する人にも伝わる形にしておくことが、長期的に「美しいテスト文化」を維持する鍵になります。
 
