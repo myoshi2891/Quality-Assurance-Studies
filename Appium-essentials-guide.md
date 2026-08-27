@@ -204,9 +204,9 @@ Appium 2.xの既定のバインドアドレスは`0.0.0.0`で、起動しただ�
 
 CIやデバイスファームなど**リモートから接続する必要がある場合**は、次を満たした上で公開します。
 
-- `--allowed-hosts` / `--allow-cors` を必要な接続元だけに絞り、`--relaxed-security`や`--allow-insecure`は原則として有効化しない（必要な機能だけを個別に許可する）。
+- 接続元の制限はAppium単体では行えないため、VPN・ファイアウォール（ソースIP制限）・認証付きリバースプロキシのいずれかで到達可能な範囲を絞る。`--relaxed-security`や`--allow-insecure`は原則として有効化しない（必要な機能だけを個別に許可する）。
 - サーバーを直接インターネットに公開せず、VPNまたは信頼済みネットワーク内に閉じる。
-- 外部からアクセスさせる場合はリバースプロキシでTLS終端し、`https://`かつ認証（Basic認証やmTLSなど）を前段に置く。Appium自体はTLSも認証も提供しません。
+- 外部からアクセスさせる場合はTLSで暗号化する。Appiumサーバー自体は`--ssl-cert-path`と`--ssl-key-path`を指定することで`https://`を直接提供できる。ただしAppiumは認証機構を持たないため、認証が必要な場合はBasic認証やmTLSを設定したリバースプロキシを前段に置く構成にする。
 
 ---
 
@@ -393,7 +393,7 @@ flowchart TD
     A["要素を特定したい"] --> B{"resource-id や<br/>accessibility idがあるか"}
     B -->|"ある"| C["ID / AccessibilityIdを使う<br/>最優先"]
     B -->|"ない"| D{"プラットフォーム固有の<br/>属性で絞り込めるか"}
-    D -->|"Android"| E["-android uiautomatorを使う"]
+    D -->|"Android"| E["安定したresource-id /<br/>accessibility idの付与を優先<br/>(-android uiautomatorはレガシー)"]
     D -->|"iOS"| F["-ios predicate string<br/>-ios class chainを使う"]
     D -->|"判断できない"| G["ClassNameで候補を絞れるか"]
     G -->|"絞れる"| H["ClassNameを併用する"]
@@ -406,7 +406,7 @@ flowchart TD
 |---|---|---|
 | ID（resource-id） | Android | ネイティブのID属性を利用。高速かつ安定。最優先候補。 |
 | Accessibility ID | Android / iOS | アクセシビリティラベルを利用。クロスプラットフォームで同じ書き方ができ、テストコードの再利用性が高い。最優先候補。 |
-| `-android uiautomator` | Android | UiAutomatorのUiSelectorをそのまま文字列で渡せる。複雑な条件での絞り込みに強い。 |
+| `-android uiautomator` | Android | UiAutomatorのUiSelectorをそのまま文字列で渡せる。複雑な条件での絞り込みに強いが、UI階層や表示文言の変更に追随しづらいレガシーな選択肢。まずはresource-idやaccessibility idを付与してもらう方向で解決し、それが難しい場合の代替手段とする。 |
 | `-ios predicate string` | iOS | NSPredicateベースの柔軟な条件指定。iOS版XPathの代替として推奨される。 |
 | `-ios class chain` | iOS | XPathとpredicate stringのハイブリッド的な記法。階層的な問い合わせをXPathより高速に処理できる。 |
 | ClassName | Android / iOS | UI部品の型（ボタン、テキストフィールドなど）で絞り込む。単独では要素を一意に特定しにくいことが多い。 |
@@ -424,8 +424,8 @@ appium plugin install images
 # 2. インストール済みプラグインを確認する
 appium plugin list --installed
 
-# 3. プラグインを有効にしてサーバーを起動する
-appium --use-plugins=images
+# 3. プラグインを有効にしてサーバーを起動する（認証を持たないため接続元をループバックに限定する）
+appium --use-plugins=images --address 127.0.0.1
 ```
 
 プラグインは明示的に有効化しないと読み込まれません。手順3の`--use-plugins=images`を忘れると、テスト実行時に`-image`ロケーターが未知の戦略として拒否されます。複数のプラグインを同時に使う場合は`--use-plugins=images,execute-driver`のようにカンマ区切りで指定します。
@@ -629,7 +629,7 @@ flowchart TD
 CI/CDにAppiumテストを組み込む際に押さえておきたいポイントは次の通りです。
 
 - **テストの独立性を保つ**：並列実行するテストケース同士が同じデバイス状態やアプリデータに依存しないよう設計する。テスト間でアプリの状態がリセットされることを前提にする。
-- **セッションごとに端末識別子とポートを分離する**：同一マシン上で複数セッションを並列実行する場合、識別子とポートが衝突するとセッション同士が干渉して不可解な失敗を起こす。Androidでは `appium:udid`（対象端末の一意な指定）と `appium:systemPort`（UiAutomator2サーバーの待受ポート）を、iOSでは `appium:udid` に加えて `appium:wdaLocalPort`（WebDriverAgentの待受ポート）と `appium:derivedDataPath`（ビルド成果物の格納先）を、**セッションごとに必ず別の値**で指定する。画面録画やスクリーンストリーミングを併用する場合は `appium:mjpegServerPort` も同様にセッションごとへ分離する。
+- **セッションごとに端末識別子とポートを分離する**：同一マシン上で複数セッションを並列実行する場合、識別子とポートが衝突するとセッション同士が干渉して不可解な失敗を起こす。Androidでは `appium:udid`（対象端末の一意な指定）と `appium:systemPort`（UiAutomator2サーバーの待受ポート）を、iOSでは `appium:udid` に加えて `appium:wdaLocalPort`（WebDriverAgentの待受ポート）と `appium:derivedDataPath`（ビルド成果物の格納先）を、**セッションごとに必ず別の値**で指定する。画面録画やスクリーンストリーミングを併用する場合は `appium:mjpegServerPort` も同様にセッションごとへ分離する。さらにAndroidでWebViewやChromeを並列に自動化する場合は、`appium:chromedriverPort`（Chromedriverの待受ポート）と `appium:webviewDevtoolsPort`（WebViewのDevToolsへ接続するためのポート）にもセッションごとに異なる値を指定する。既定値のままだとセッション間でポートが衝突し、WebViewコンテキストへの切り替えが失敗する。
 - **失敗時の証跡を残す**：スクリーンショットやAppiumサーバーのログ、可能であれば画面録画を自動保存し、CI上でも失敗原因を追いやすくする。
 - **リトライの扱いに注意する**：一時的なネットワーク遅延などによる偶発的失敗を吸収するためにリトライ機構を入れるチームは多いが、リトライで「隠れた不安定テスト」を放置しないよう、リトライ発生自体もメトリクスとして可視化しておくとよい。
 - **段階的なテスト戦略**：コミットごとに全テストを実機ファームでフル実行するとコストと時間がかさむため、プルリクエスト時はスモークテストのみエミュレーターで実行し、マージ後や夜間バッチで実機ファームによるフル回帰テストを走らせる、といった段階分けが一般的です。
