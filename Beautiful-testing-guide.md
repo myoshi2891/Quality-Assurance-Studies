@@ -4,7 +4,7 @@
 > 編者: Adam Goucher / Tim Riley（Mozilla QAディレクター）
 > 参照元: <https://www.oreilly.com/library/view/beautiful-testing/9780596806934/>
 
-本ガイドは、ソフトウェアテストの古典的名著『Beautiful Testing』の構成とエッセンスを、2026年時点の現代的なテスト実践（テストピラミッド／テスティングトロフィー／Googleのテストサイズ分類／AIエージェント時代のテストなど）と橋渡ししながら、初学者が実務で使える形に再構成した学習ガイドです。各セクションの末尾には根拠とした参考資料のURLを明記しています。
+本ガイドは、ソフトウェアテストの古典的名著『Beautiful Testing』の構成とエッセンスを、2026年時点の現代的なテスト実践（テストピラミッド／テスティングトロフィー／Googleのテストサイズ分類／AIエージェント時代のテストなど）と橋渡ししながら、初学者が実務で使える形に再構成した学習ガイドです。主要な解説セクションの末尾には、根拠とした参考資料のURLを明記しています（章のまとめにあたるチェックリストなど、一部のセクションには個別のURLを付していません）。
 
 ---
 
@@ -169,7 +169,7 @@ flowchart TB
     Debrief --> Charter
 ```
 
-また、「どこにどんなテストを配置すべきか」を整理するフレームワークとして、Lisa CrispinとJanet Gregoryが提唱した**アジャイルテストの4象限**が国際的に広く使われています。
+また、「どこにどんなテストを配置すべきか」を整理するフレームワークとして、**アジャイルテストの4象限**が国際的に広く使われています。原型は2003年にBrian Marickが示したテスト分類のマトリクスで、それをLisa CrispinとJanet Gregoryがアジャイル開発の文脈へ適用・発展させ、書籍『Agile Testing』を通じて広く普及させました。
 
 | | ビジネス視点（Business-facing） | 技術視点（Technology-facing） |
 |---|---|---|
@@ -307,7 +307,7 @@ flowchart TB
 
 『Beautiful Testing』が刊行された2009年から現在（2026年）までの最大の変化の一つが、**LLM（大規模言語モデル）やAIエージェントを組み込んだソフトウェアの登場**です。従来のテストピラミッドは「同じ入力には常に同じ出力が返る」という決定性（Determinism）を暗黙の前提としていましたが、LLMを含むシステムでは同じプロンプトでも毎回微妙に異なる出力が返ることがあります。
 
-2026年に提唱された「Agentic Test Pyramid（エージェント的テストピラミッド）」という考え方は、Fowlerの伝統的なピラミッドを**置き換えるのではなく拡張する**アプローチを取ります。
+2026年に提唱された「Agentic Test Pyramid（エージェント的テストピラミッド）」という考え方は、Fowlerの伝統的なピラミッドを**置き換えるのではなく拡張する**アプローチを取ります。次の図は元モデルを簡略化したもので、決定的レイヤーに含まれる「静的な不変条件によるトリップワイヤー（Static-invariant tripwires）」の層は省略しています。
 
 ```mermaid
 %%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%%
@@ -361,7 +361,7 @@ flowchart TB
 | III | 22 | Testing One Million Web Pages | 大規模Webページ検証の実践 |
 | III | 23 | Testing Network Services in Multimachine Scenarios | eBox/ANSTEによるマルチマシン環境テスト |
 
-> 本書には他にLinda Wilkinson、Martin Schröder、Clint Talbert、Kamran Khan、Emily Chen、Brian Nitz、Remko Tronçon、Neal Norwitz、Michelle Levesque、Jeffrey Yasskin、Murali Nandigama、Chris McMahon、Jennitta Andrea、Lisa Crispin、Matt Heusser、Tomasz Kojm、Adam Christian、Isaac Clerenciaを含む27名が寄稿しています。個々の章とすべての著者の厳密な対応は原著（目次・各章冒頭）でご確認ください。
+> 本書には他に、編者でもあるAdam GoucherとTim Riley、第12章に知見が反映されたKaren N. Johnson、ミューテーションテストの章の土台となったAndreas ZellerとDavid Schuler、そしてLinda Wilkinson、Martin Schröder、Clint Talbert、Kamran Khan、Emily Chen、Brian Nitz、Remko Tronçon、Neal Norwitz、Michelle Levesque、Jeffrey Yasskin、Murali Nandigama、Chris McMahon、Jennitta Andrea、Matt Heusser、Tomasz Kojm、Adam Christian、Isaac Clerenciaが寄稿しています。上記と本文中で触れたAlan Page、Scott Barber、Rex Black、Lisa Crispin、John D. Cookを合わせた27名が本書の寄稿者です。個々の章とすべての著者の厳密な対応は原著（目次・各章冒頭）でご確認ください。
 
 参照: <https://www.oreilly.com/library/view/beautiful-testing/9780596806934/> ／ <https://books.apple.com/us/book/beautiful-testing/id396905423>
 
