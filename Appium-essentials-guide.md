@@ -266,7 +266,7 @@ options.setFullReset(true);
 
 `noReset`を`true`にすると、セッション開始時にアプリのデータが初期化されず、前のテストが残したログイン状態やキャッシュを引き継ぎます。これは実行時間を短縮できる反面、テストの実行順序に依存する不安定なテストを生みやすく、本ガイドが後述する「テストの独立性を保つ」という方針と衝突します。
 
-したがって、既定では`fullReset`（アプリのアンインストール・データ削除を含む完全初期化）を使うか、テストのセットアップ／ティアダウンでアプリ固有のクリーンアップ（`driver.terminate_app()`と`driver.activate_app()`の組み合わせ、テスト用APIによるデータリセットなど）を明示的に行ってください。`noReset`は、初期化コストが極端に高くテスト間で状態を共有しても安全だと確認できた場合に限り、理由をコメントに残したうえで使用します。
+したがって、既定では`fullReset`（アプリのアンインストール・再インストールを伴う完全初期化）を使うか、テストのセットアップ／ティアダウンでアプリ固有のクリーンアップを明示的に行ってください。ここで注意したいのは、`driver.terminate_app()`と`driver.activate_app()`の組み合わせは**アプリのプロセスを停止して起動し直すだけ**であり、保存済みのデータや認証情報は消えないという点です。データそのものを初期化したい場合は、`fullReset`による再インストール、Androidであれば`mobile: clearApp`（アプリのデータ削除）、あるいはテスト用APIによるデータリセットといった手段を別途使い分けてください。`noReset`は、初期化コストが極端に高くテスト間で状態を共有しても安全だと確認できた場合に限り、理由をコメントに残したうえで使用します。
 
 ---
 
@@ -292,6 +292,11 @@ def driver():
     options.device_name = "Pixel_7_API_34"
     options.automation_name = "UiAutomator2"
     options.app = "/path/to/your/app.apk"
+    # 対象デバイスを明示する（前述のとおりdevice_nameだけでは一意に決まらない）
+    # エミュレーターをAppiumに起動させる場合:
+    options.avd = "Pixel_7_API_34"
+    # 実機や起動済みエミュレーターに接続する場合は、avdの代わりにudidを指定する:
+    # options.udid = "emulator-5554"  # adb devices で確認したデバイスID
 
     drv = webdriver.Remote("http://127.0.0.1:4723", options=options)
     yield drv
@@ -331,6 +336,11 @@ public class LoginScreenTest {
         options.setDeviceName("Pixel_7_API_34");
         options.setAutomationName("UiAutomator2");
         options.setApp("/path/to/your/app.apk");
+        // 対象デバイスを明示する（device_nameだけでは一意に決まらない）
+        // エミュレーターをAppiumに起動させる場合:
+        options.setAvd("Pixel_7_API_34");
+        // 実機や起動済みエミュレーターに接続する場合は、setAvd()の代わりにsetUdid()を使う:
+        // options.setUdid("emulator-5554");  // adb devices で確認したデバイスID
 
         driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
     }
