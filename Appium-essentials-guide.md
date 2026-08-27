@@ -359,7 +359,7 @@ public class LoginScreenTest {
         options.setDeviceName("Pixel_7_API_34");
         options.setAutomationName("UiAutomator2");
         options.setApp("/path/to/your/app.apk");
-        // 対象デバイスを明示する（device_nameだけでは一意に決まらない）
+        // 対象デバイスを明示する（deviceNameだけでは一意に決まらない）
         // エミュレーターをAppiumに起動させる場合:
         options.setAvd("Pixel_7_API_34");
         // 実機や起動済みエミュレーターに接続する場合は、setAvd()の代わりにsetUdid()を使う:
