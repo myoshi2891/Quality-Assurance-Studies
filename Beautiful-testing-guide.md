@@ -221,19 +221,29 @@ flowchart LR
 
 また第9章「Beautiful Is Better Than Ugly」（このタイトルはPython の設計思想「The Zen of Python」の一節そのものです）は、Python本体の品質を支えるBuildbotによる継続的インテグレーション、リファレンスカウントのリーク検出（Refleak Testing）、ドキュメントテスト、静的解析・動的解析までを扱い、「地味だが継続的な検証の積み重ねこそが美しい」という思想を示します。
 
-これらの章のエッセンスは、現代のCI/CDパイプラインにそのまま応用できます。ステップ2で紹介したGoogleのテストサイズ分類と組み合わせると、次のようなゲーティング構造が描けます。
+これらの章のエッセンスは、現代のCI/CDパイプラインにそのまま応用できます。ステップ2で紹介したGoogleのテストサイズ分類と組み合わせると、**実行タイミングごとに別のパイプライン**としてゲーティング構造を描けます。すべてのテストを毎コミットで回すのではなく、速いテストほど高頻度に、遅いテストほど低頻度に配置するのが要点です。
+
+コミット／プルリクエストのたびに走らせるのは、静的解析とSmall／Mediumテストまでに留めます。
 
 ```mermaid
 flowchart TB
-    Commit["コミット / プルリクエスト"] --> Static2["静的解析"]
+    Commit["コミット / プルリクエスト<br/>（毎回実行）"] --> Static2["静的解析"]
     Static2 --> Small["Smallテスト<br/>数秒で完了"]
     Small --> Medium["Mediumテスト<br/>数分で完了"]
-    Medium --> Large["Largeテスト<br/>ネットワーク・外部システム連携あり"]
-    Large --> Deploy["デプロイ"]
+    Medium --> Merge["マージ可能"]
     Small -->|"失敗"| Feedback["開発者へ即座にフィードバック"]
     Medium -->|"失敗"| Feedback
-    Large -->|"失敗"| Feedback
     Feedback --> Commit
+```
+
+Largeテストとデプロイは、リリース前またはナイトリーなどの定期実行に切り出します。
+
+```mermaid
+flowchart TB
+    Trigger["リリース前 / 定期実行（ナイトリー等）"] --> Large["Largeテスト<br/>ネットワーク・外部システム連携あり"]
+    Large --> Deploy["デプロイ"]
+    Large -->|"失敗"| Triage["担当者へ通知しトリアージ"]
+    Triage --> Fix["修正して次サイクルへ"]
 ```
 
 初学者が自動化を始める際は、次の順番で育てていくのがお勧めです。
