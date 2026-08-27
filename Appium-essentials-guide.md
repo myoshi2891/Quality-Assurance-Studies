@@ -102,14 +102,14 @@ flowchart TD
     B --> C["Appium 2.0<br/>2023年7月GA"]
     C --> D["W3C WebDriver専用<br/>ドライバー・プラグイン分離"]
     D --> E["Appium 3.x<br/>2025年8月GA"]
-    E --> F["Node.js 20.19以上が必須<br/>非推奨エンドポイント全廃"]
+    E --> F["Node.js 20.19+ / 22.12+ / 24+ が必須<br/>非推奨エンドポイント全廃"]
 ```
 
 | バージョン | 主な特徴 | 現在の位置づけ |
 |---|---|---|
 | Appium 1.x | JSON Wire Protocol（JSONWP）/ Mobile JSONWPをサポート。ドライバーはサーバーに同梱され、`http://localhost:4723/wd/hub`が既定のベースパスだった。 | 2022年1月にコアチームによるサポートが終了。Android 13/iOS 16以降との相性問題があり、新規利用は非推奨。 |
 | Appium 2.x | 2023年7月に正式リリース。W3Cプロトコルのみをサポートし、ドライバーとプラグインをサーバー本体から分離。`appium driver install`のような専用CLIでドライバーを個別に管理する方式に変更。カスタムドライバー・プラグインの作成も可能になった。 | 依然として広く使われているが、Appium 3系への移行が進んでいる世代。 |
-| Appium 3.x | 2025年8月に正式リリース。Node.js 20.19.0以上（または22.12.0以上、24.0.0以上）、npm 10以上が必須に。内部で使うExpressをv4からv5へ更新。過去に非推奨化されていたエンドポイントを完全に廃止し、`adb_shell`のようなセキュリティ関連の機能フラグに`uiautomator2:`のようなベンダープレフィックスが必須になった。 | 2026年8月時点の最新メジャーバージョン系列。パッチバージョンは頻繁に更新されるため、固定値を覚えるのではなく `appium -v` で導入済みバージョンを確認する。 |
+| Appium 3.x | 2025年8月に正式リリース。Node.jsの対応範囲が`^20.19.0 \|\| ^22.12.0 \|\| >=24.0.0`（20.19.0以上の20系、22.12.0以上の22系、または24.0.0以上）、npm 10以上が必須に。奇数メジャー（21系・23系）は対象外。内部で使うExpressをv4からv5へ更新。過去に非推奨化されていたエンドポイントを完全に廃止し、`adb_shell`のようなセキュリティ関連の機能フラグに`uiautomator2:`のようなベンダープレフィックスが必須になった。 | 2026年8月時点の最新メジャーバージョン系列。パッチバージョンは頻繁に更新されるため、固定値を覚えるのではなく `appium -v` で導入済みバージョンを確認する。 |
 
 Appium 2から3への移行は、Appium 1から2への移行ほど破壊的ではありません。インストール方法自体は変わらず、既存環境に対して`npm install -g appium`を実行すれば上書きアップグレードできます。ただし、Node.jsのバージョンが古い場合は先にNode.js自体をアップグレードする必要があります。
 
@@ -121,7 +121,7 @@ Appium 2から3への移行は、Appium 1から2への移行ほど破壊的で�
 
 Appiumの環境構築は「Appium本体」と「テスト対象プラットフォームに応じたドライバー」を別々にインストールする、という2段階の考え方を理解すると迷いません。
 
-> **本リポジトリのBun-only方針に対する例外**：本リポジトリはパッケージ管理・スクリプト実行に Bun を用いる方針ですが、Appium は Node.js 20.19.0 以上と npm 10 以上を動作要件として明示しているサーバー実装であり、公式にサポートされる導入手順は `npm` ベースです。したがって **Appium の導入・ドライバー管理手順に限り、Node.js / npm の使用を規約上の例外として認めます**。この例外は Appium 関連コマンドのみに適用され、本プロジェクト自体のビルド・テストは従来どおり Bun を使用してください。
+> **本リポジトリのBun-only方針に対する例外**：本リポジトリはパッケージ管理・スクリプト実行に Bun を用いる方針ですが、Appium は Node.js `^20.19.0 || ^22.12.0 || >=24.0.0` と npm 10 以上を動作要件として明示しているサーバー実装であり、公式にサポートされる導入手順は `npm` ベースです。したがって **Appium の導入・ドライバー管理手順に限り、Node.js / npm の使用を規約上の例外として認めます**。この例外は Appium 関連コマンドのみに適用され、本プロジェクト自体のビルド・テストは従来どおり Bun を使用してください。
 
 ```mermaid
 flowchart TD
@@ -135,7 +135,7 @@ flowchart TD
 
 ### ステップ1: Node.jsをインストールする
 
-Appium 3.xはNode.js 20.19.0以上（20.19.x系、22.12.0以上の22系、または24.0.0以上のいずれか）、npm 10以上を要求します。まずは公式サイトからLTS版のNode.jsを導入し、バージョンを確認します。
+Appium 3.xはNode.js `^20.19.0 || ^22.12.0 || >=24.0.0`（20.19.0以上の20系、22.12.0以上の22系、または24.0.0以上のいずれか）、npm 10以上を要求します。奇数メジャーである21系・23系はサポート対象外です。まずは公式サイトからLTS版のNode.jsを導入し、バージョンを確認します。
 
 ```bash
 node -v
@@ -220,10 +220,15 @@ from appium.options.android import UiAutomator2Options
 
 options = UiAutomator2Options()
 options.platform_name = "Android"
-options.device_name = "Pixel_7_API_34"
 options.automation_name = "UiAutomator2"
+options.device_name = "Pixel_7_API_34"
+# エミュレーターを起動して使う場合は avd でAVD名を指定する
+options.avd = "Pixel_7_API_34"
+# 実機、または既に起動済みのエミュレーターに接続する場合は udid を指定する
+# options.udid = "emulator-5554"   # adb devices で確認できるID
 options.app = "/path/to/your/app.apk"
-options.no_reset = True
+# テスト間の独立性を確保するため、アプリのデータを毎回初期化する
+options.full_reset = True
 ```
 
 ### コード例（Java）
@@ -233,13 +238,35 @@ import io.appium.java_client.android.options.UiAutomator2Options;
 
 UiAutomator2Options options = new UiAutomator2Options();
 options.setPlatformName("Android");
-options.setDeviceName("Pixel_7_API_34");
 options.setAutomationName("UiAutomator2");
+options.setDeviceName("Pixel_7_API_34");
+// エミュレーターを起動して使う場合は setAvd() でAVD名を指定する
+options.setAvd("Pixel_7_API_34");
+// 実機、または既に起動済みのエミュレーターに接続する場合は setUdid() を指定する
+// options.setUdid("emulator-5554");   // adb devices で確認できるID
 options.setApp("/path/to/your/app.apk");
-options.setNoReset(true);
+// テスト間の独立性を確保するため、アプリのデータを毎回初期化する
+options.setFullReset(true);
 ```
 
 このように、Appium 2系以降の公式クライアントライブラリには`UiAutomator2Options`や`XCUITestOptions`といった型安全なオプションクラスが用意されており、キー名のタイプミスを防ぎながらCapabilitiesを組み立てられます。
+
+### 対象デバイスの指定方法に注意する
+
+`deviceName`は、Appiumが実際に接続先デバイスを決めるための一意なキーではありません。Androidで対象を確実に指定するには、次のどちらかを併用します。
+
+| 状況 | 使用するcapability | 説明 |
+|---|---|---|
+| エミュレーターをAppiumに起動させる | `appium:avd`（Java: `setAvd()`） | AVD Managerで作成したAVD名を指定する。該当のエミュレーターが起動していなければAppiumが自動的に起動する。 |
+| 実機、または起動済みのエミュレーターに接続する | `appium:udid`（Java: `setUdid()`） | `adb devices`で表示されるデバイスIDを指定する。複数端末が接続されている環境では必須。 |
+
+`deviceName`だけに頼ると、複数のデバイスやエミュレーターが接続されている環境で意図しない端末が選ばれることがあります。CIや並列実行の環境では、必ず`avd`か`udid`で対象を明示してください。
+
+### リセット系capabilityとテストの独立性
+
+`noReset`を`true`にすると、セッション開始時にアプリのデータが初期化されず、前のテストが残したログイン状態やキャッシュを引き継ぎます。これは実行時間を短縮できる反面、テストの実行順序に依存する不安定なテストを生みやすく、本ガイドが後述する「テストの独立性を保つ」という方針と衝突します。
+
+したがって、既定では`fullReset`（アプリのアンインストール・データ削除を含む完全初期化）を使うか、テストのセットアップ／ティアダウンでアプリ固有のクリーンアップ（`driver.terminate_app()`と`driver.activate_app()`の組み合わせ、テスト用APIによるデータリセットなど）を明示的に行ってください。`noReset`は、初期化コストが極端に高くテスト間で状態を共有しても安全だと確認できた場合に限り、理由をコメントに残したうえで使用します。
 
 ---
 
@@ -361,7 +388,24 @@ flowchart TD
 | `-ios class chain` | iOS | XPathとpredicate stringのハイブリッド的な記法。階層的な問い合わせをXPathより高速に処理できる。 |
 | ClassName | Android / iOS | UI部品の型（ボタン、テキストフィールドなど）で絞り込む。単独では要素を一意に特定しにくいことが多い。 |
 | XPath | Android / iOS | 最も柔軟だが、DOM階層のわずかな変更にも弱く、実行速度も他の戦略より遅い傾向がある。他の戦略で特定できない場合の最終手段とするのが定石。 |
-| Image（テンプレート画像） | Android / iOS | 画像テンプレートとのマッチングで要素を特定する。他の戦略が使えない特殊なケース向けで、解像度やUIの見た目の変化に弱くテストが不安定になりやすい。 |
+| Image（テンプレート画像） | Android / iOS | 画像テンプレートとのマッチングで要素を特定する。**Appium 2.x以降ではドライバー標準の機能ではなく、別途Imagesプラグインの導入が必要**（下記参照）。他の戦略が使えない特殊なケース向けで、解像度やUIの見た目の変化に弱くテストが不安定になりやすい。 |
+
+### Imageロケーターを使う場合のみ必要な追加セットアップ
+
+`-image`ロケーター戦略は、Appium 2.xでコア機能からプラグインとして分離されました。`uiautomator2`や`xcuitest`といったドライバーを入れただけでは利用できず、`-image`を使うテストがある場合に限り、次の追加セットアップを行います。他のロケーター戦略しか使わないのであれば、前章のドライバー導入手順だけで十分です。
+
+```sh
+# 1. Imagesプラグインをインストールする（-image を使う場合のみ）
+appium plugin install images
+
+# 2. インストール済みプラグインを確認する
+appium plugin list --installed
+
+# 3. プラグインを有効にしてサーバーを起動する
+appium --use-plugins=images
+```
+
+プラグインは明示的に有効化しないと読み込まれません。手順3の`--use-plugins=images`を忘れると、テスト実行時に`-image`ロケーターが未知の戦略として拒否されます。複数のプラグインを同時に使う場合は`--use-plugins=images,execute-driver`のようにカンマ区切りで指定します。
 
 要素を実際に調べる際は、前章で紹介したAppium Inspectorを使い、画面をキャプチャしながらresource-idやaccessibility idの有無を確認するのが最も効率的です。アプリ開発チームと連携し、主要なUI部品にaccessibility idやresource-idを付与してもらう「テスト容易性の作り込み」も、長期的には非常に効果の高い施策です。
 
