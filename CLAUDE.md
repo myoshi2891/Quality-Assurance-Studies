@@ -217,6 +217,23 @@ Next.js App Router 構成:
 
 ## 開発規約
 
+### パッケージマネージャー: Bun-only（例外あり）
+
+本リポジトリの依存関係インストール・スクリプト実行・テスト実行は **Bun に統一**する（`bun install` / `bun run <script>` / `bun test`）。`npm` / `yarn` / `pnpm` をプロジェクトのビルド・テスト用途で使用してはならない。
+
+**唯一の例外: Appium のサーバー・ドライバー・プラグイン管理**
+
+Appium は Node.js `^20.19.0 || ^22.12.0 || >=24.0.0` と npm 10 以上を動作要件として明示しており、公式にサポートされる導入手順が `npm` ベースであるため、以下のコマンドに限り Node.js / npm の使用を認める。
+
+| 用途 | 許可されるコマンド |
+|---|---|
+| サーバー導入 | `npm install -g appium` |
+| ドライバー管理 | `appium driver install` / `appium driver doctor` |
+| プラグイン管理 | `appium plugin install` |
+| サーバー起動 | `appium`（`--use-plugins` を含む） |
+
+この例外は上記の Appium 関連コマンドのみに適用される。本プロジェクト自体のビルド・テスト（`bun run build` / `bun test` / `bun run e2e` 等）は従来どおり Bun を使用すること。詳細な背景は [Appium-essentials-guide.md](Appium-essentials-guide.md) の「環境構築ステップバイステップ」節を参照。
+
 ### CSS 変更後のキャッシュリセット（必須）
 
 `app/globals.css` または任意の `*.css` ファイルを変更した後は、`.next` キャッシュが古い CSS チャンクを返しダークモードが崩れることがある。
