@@ -611,6 +611,26 @@ Appiumのテストは、大きく分けて3つの環境で実行できます。�
 
 クラウド型の実機デバイスファームは、BrowserStack App Automate、Sauce Labs、TestMu AI（旧LambdaTest）、Kobitonなど複数のベンダーが提供しています。いずれもAppiumクライアントの接続先URLとCapabilitiesを変更するだけで、既存のテストコードをほぼそのまま実機クラウドに向けて実行できる点が共通しています。多くのベンダーがGitHub ActionsやJenkinsといった主要CIツールとの連携も公式にサポートしています。
 
+ただし「接続先URLとCapabilitiesを変えるだけ」と言っても、**アプリ本体の指定方法だけはローカル実行と同じにはできません**。本ガイドのこれまでの例で使ってきた`options.app = "/path/to/your/app.apk"`（Python）や`options.setApp("/path/to/your/app.apk")`（Java）のようなローカルファイルパスは、CIマシン上のパスを指しています。クラウド実行ではAppiumサーバーがベンダー側で動いているため、CIマシンのローカルパスは解決できず、セッション開始時に失敗します。クラウドでは次のいずれかの方法でアプリを配置します。
+
+- **事前アップロードしてアプリIDを指定する（推奨）**：CIのビルドステップで生成したAPK／IPAを、ベンダーのREST APIまたはCLIでアップロードし、返却されたアプリIDを`appium:app`に指定する。IDの形式はベンダーごとに異なり、BrowserStackは`bs://<hash>`、Sauce Labsは`storage:<file-id>`（またはアップロード時の名前を使う`storage:filename=app.apk`）といった独自スキームを用いる。多くのベンダーはビルド名やカスタムIDによる再利用にも対応しているため、同じビルドを複数ジョブから参照できる。
+- **Appiumサーバーから到達可能なアプリURLを指定する**：アーティファクトストレージ上のAPK／IPAを、ベンダー側から取得できる公開URLまたは署名付きURLとして`appium:app`に渡す。社内ネットワーク内のURLは到達できないため、この方式を使う場合は外部から取得可能であることが前提になる。
+
+```python
+# ローカル実行: CIマシン上のパス
+options.app = "/path/to/your/app.apk"
+
+# クラウド実行: 事前アップロードで得たアプリID、または到達可能なURL
+options.app = "bs://<uploaded-app-hash>"          # BrowserStackの例
+# options.app = "storage:filename=app.apk"        # Sauce Labsの例
+# options.app = "https://example.com/builds/app.apk"  # URL指定の例
+```
+
+あわせて、クラウド実行では次の2点の設定も必要になります。
+
+- **認証情報**：ベンダーが発行するユーザー名とアクセスキーを、接続先URLに埋め込む（`https://<user>:<accessKey>@hub.<vendor>.com/wd/hub`）か、後述のベンダー固有Capabilities（BrowserStackなら`bstack:options`の`userName`／`accessKey`、Sauce Labsなら`sauce:options`の`username`／`accessKey`）で渡します。**いずれの場合も値はCIのシークレット管理機能（GitHub ActionsのSecretsなど）から環境変数として注入し、テストコードやリポジトリにハードコードしないでください。**
+- **ベンダー固有Capabilities**：セッション名・ビルド名、ログや画面録画の取得可否、社内環境へアクセスするためのローカルトンネルの有効化といった設定は、W3C標準ではなくベンダー独自の名前空間（`bstack:options`、`sauce:options`など）にまとめて指定します。名前空間ごと差し替えれば済むよう、これらの設定は共通のCapabilities組み立て処理に切り出しておくと、ローカル／クラウドの切り替えが容易になります。
+
 実務でよく採用される方針は、「開発中のスモークテストはローカルのエミュレーター/シミュレーターで高速に回し、リリース前の網羅的な回帰テストはクラウド実機デバイスファームで多機種並列実行する」という、フェーズに応じた使い分けです。
 
 ---
