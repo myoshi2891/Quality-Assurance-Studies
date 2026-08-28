@@ -617,7 +617,7 @@ Appiumのテストは、大きく分けて3つの環境で実行できます。�
 
 ただし「接続先URLとCapabilitiesを変えるだけ」と言っても、**アプリ本体の指定方法だけはローカル実行と同じにはできません**。本ガイドのこれまでの例で使ってきた`options.app = "/path/to/your/app.apk"`（Python）や`options.setApp("/path/to/your/app.apk")`（Java）のようなローカルファイルパスは、CIマシン上のパスを指しています。クラウド実行ではAppiumサーバーがベンダー側で動いているため、CIマシンのローカルパスは解決できず、セッション開始時に失敗します。クラウドでは次のいずれかの方法でアプリを配置します。
 
-- **事前アップロードしてアプリIDを指定する（推奨）**：CIのビルドステップで生成したAPK／IPAを、ベンダーのREST APIまたはCLIでアップロードし、返却されたアプリIDを`appium:app`に指定する。IDの形式はベンダーごとに異なり、BrowserStackは`bs://<hash>`、Sauce Labsは`storage:<file-id>`（またはアップロード時の名前を使う`storage:filename=app.apk`）といった独自スキームを用いる。多くのベンダーはビルド名やカスタムIDによる再利用にも対応しているため、同じビルドを複数ジョブから参照できる。
+- **事前アップロードしてアプリIDを指定する（推奨）**：CIのビルドステップで生成したAPK／IPAを、ベンダーのREST APIまたはCLIでアップロードし、返却されたアプリIDを`appium:app`に指定する。IDの形式はベンダーごとに異なり、BrowserStackは`bs://<hash>`、Sauce Labsは`storage:<file-id>`といった独自スキームを用いる。Sauce Labsにはファイル名で参照する`storage:filename=<name>`という形式もあるが、同名のファイルは最後にアップロードされたものへ解決されるため、`app.apk`のような固定名のままでは並列実行中の別ジョブがアップロードしたビルドを掴んでしまうおそれがある。**ファイル名で参照する場合は`app-<commit-sha>.apk`のようにビルドごと（またはジョブごと）に一意な名前を付け、確実性を優先するならアップロード時に返る`<file-id>`を直接指定してください。** 多くのベンダーはビルド名やカスタムIDによる再利用にも対応しているため、意図的に同じビルドを複数ジョブから参照させることもできる。
 - **Appiumサーバーから到達可能なアプリURLを指定する**：アーティファクトストレージ上のAPK／IPAを、ベンダー側から取得できる公開URLまたは署名付きURLとして`appium:app`に渡す。社内ネットワーク内のURLは到達できないため、この方式を使う場合は外部から取得可能であることが前提になる。
 
 ```python
@@ -626,7 +626,8 @@ options.app = "/path/to/your/app.apk"
 
 # クラウド実行: 事前アップロードで得たアプリID、または到達可能なURL
 options.app = "bs://<uploaded-app-hash>"          # BrowserStackの例
-# options.app = "storage:filename=app.apk"        # Sauce Labsの例
+# options.app = "storage:8b0e1a3c-..."             # Sauce Labsの例（アップロードで得たfile-id）
+# options.app = "storage:filename=app-<commit-sha>.apk"  # 名前で参照する場合はビルドごとに一意にする
 # options.app = "https://example.com/builds/app.apk"  # URL指定の例
 ```
 
