@@ -3,6 +3,7 @@
 > 本ガイドは、Mark Winteringham 著『Testing Web APIs』（Manning／O'Reilly）の構成、Martin Fowler・Kent C. Dodds によるテスト戦略論、OWASP・Pact・Postman・Grafana k6 などの業界標準的な情報源をもとに、2026年8月時点の最新知見を踏まえて独自にまとめた解説書です。各セクションの根拠URLは末尾の「参考文献・出典」に記載しています。
 
 <a id="toc"></a>
+
 ## 目次
 
 1. [はじめに：なぜWeb APIのテストが重要なのか](#section-1)
@@ -24,6 +25,7 @@
 ---
 
 <a id="section-1"></a>
+
 ## 1. はじめに：なぜWeb APIのテストが重要なのか
 
 現代のアプリケーションの多くは、画面（UI）の裏側でWeb API（主にHTTP経由でJSONなどをやり取りするインターフェース）が実際のデータ処理を担っています。フロントエンド、モバイルアプリ、他社サービスなど、複数のクライアントが同じAPIを利用することも珍しくありません。
@@ -42,6 +44,7 @@ Web APIテストとは、HTTP（またはgRPC・GraphQLなど）のレイヤー�
 ---
 
 <a id="section-2"></a>
+
 ## 2. Web APIテストの全体像（テストピラミッドとテスティング・トロフィー）
 
 ### 2.1 テストピラミッド
@@ -99,6 +102,7 @@ Martin Fowler 自身も 2021年の記事 "On the Diverse And Fantastical Shapes 
 ---
 
 <a id="section-3"></a>
+
 ## 3. ステップ0：テストを始める前の準備（リスクベースの考え方）
 
 いきなりツールを触る前に、「何にリスクがあり、何を優先してテストすべきか」を整理します。Mark Winteringham は著書『Testing Web APIs』の中で、品質特性（正確性・パフォーマンス・セキュリティ・可用性など）ごとにリスクを洗い出し、テスト活動を選ぶ「リスクドリブン」なアプローチを提唱しています。
@@ -122,6 +126,7 @@ flowchart TD
 ---
 
 <a id="section-4"></a>
+
 ## 4. ステップ1：APIの仕様を理解する（OpenAPI/Swagger）
 
 テストを書く前に、対象APIの「あるべき姿」を明文化した仕様書（OpenAPI/Swagger）を確認・整備します。仕様書はテストの土台であり、後述する自動生成型テスト（Schemathesis など）や契約テストの入力にもなります。
@@ -134,11 +139,12 @@ flowchart TD
 - ステータスコードの使い分け（成功・クライアントエラー・サーバーエラー）
 - バージョニング方針（URLパス、ヘッダーなど）
 
-仕様と実装が乖離していないかを機械的に確認する「スキーマ適合性テスト」も、この段階の延長として重要です。Schemathesis のようなツールはOpenAPI仕様を読み込み、境界値やあり得ない入力値を自動生成してAPIに送信し、レスポンスが仕様通りかを検証します（詳しくは4.7節「自動化」を参照）。
+仕様と実装が乖離していないかを機械的に確認する「スキーマ適合性テスト」も、この段階の延長として重要です。Schemathesis のようなツールはOpenAPI仕様を読み込み、境界値やあり得ない入力値を自動生成してAPIに送信し、レスポンスが仕様通りかを検証します（詳しくは7.2節「代表的なツールの比較」を参照）。
 
 ---
 
 <a id="section-5"></a>
+
 ## 5. ステップ2：基本のHTTPテスト設計（ステータスコードとレスポンス検証）
 
 ### 5.1 テストの基本的な流れ
@@ -178,11 +184,12 @@ flowchart TD
 | 存在しないリソースへのアクセス | 404 |
 | 重複作成やべき等性が必要な操作 | 同じリクエストを繰り返しても矛盾した状態にならない |
 
-これらは「60%のAPIテストスイートがハッピーパス（正常系）しかカバーできておらず、そこに重大な見落としが集中する」という近年の実務調査でも繰り返し指摘されている典型的な抜け漏れです。設計段階でこの表をテンプレートとして使うと抜けを防げます。
+これらは、正常系（ハッピーパス）だけを確認して満足してしまったときに見落とされやすい観点です。設計段階でこの表をテンプレートとして使うと抜けを防げます。
 
 ---
 
 <a id="section-6"></a>
+
 ## 6. ステップ3：探索的テスト（Exploratory Testing）
 
 自動化されたチェックだけでは見つけにくい問題（仕様自体の考慮漏れ、UXに関わる違和感など）を見つけるために、人が主体的に考えながらAPIを触る「探索的テスト」も重要な活動です。Mark Winteringham は「チャーター（探索の目的・範囲を短く書いたメモ）」を用意し、時間を区切ってセッション形式で実施する方法を紹介しています。
@@ -200,12 +207,13 @@ flowchart TD
 
 - 「もし◯◯だったら？」という条件の組み合わせを変えてみる
 - 実際のユーザーが行いそうな“変則的な操作順”を試す（例：作成前に削除を呼ぶ）
-- 同じリクエストを高速に連打してみる（レースコンディションの確認）
+- 同じリソースに対するリクエストを並列に送ってみる（レースコンディションの確認）
 - ドキュメントに書かれていない挙動を探す
 
 ---
 
 <a id="section-7"></a>
+
 ## 7. ステップ4：テストの自動化とツール選定
 
 ### 7.1 自動化の目的を誤解しない
@@ -240,14 +248,17 @@ import requests
 BASE_URL = "https://api.example.com"
 
 def test_get_user_returns_200_and_expected_fields():
-    response = requests.get(f"{BASE_URL}/users/123")
+    # (接続タイムアウト, 読み取りタイムアウト) を明示し、無期限ブロックを防ぐ
+    response = requests.get(f"{BASE_URL}/users/123", timeout=(3.05, 10))
     assert response.status_code == 200
     body = response.json()
     assert body["id"] == 123
     assert "email" in body
 
 def test_create_user_missing_required_field_returns_400():
-    response = requests.post(f"{BASE_URL}/users", json={"name": "Taro"})
+    response = requests.post(
+        f"{BASE_URL}/users", json={"name": "Taro"}, timeout=(3.05, 10)
+    )
     assert response.status_code == 400
     assert "email" in response.json()["errors"]
 ```
@@ -255,6 +266,7 @@ def test_create_user_missing_required_field_returns_400():
 ---
 
 <a id="section-8"></a>
+
 ## 8. ステップ5：契約テスト（Contract Testing with Pact）
 
 ### 8.1 契約テストが必要な理由
@@ -276,7 +288,7 @@ sequenceDiagram
     P->>B: 最新の契約を取得する
     P->>P: 契約内容を実際のプロバイダーに対して検証する
     P->>B: 検証結果を公開する
-    B->>C: can-i-deploy でデプロイ可否を確認
+    C->>B: can-i-deploy でデプロイ可否を確認
 ```
 
 ### 8.3 契約テストを書くときの注意点
@@ -301,6 +313,7 @@ Pact 公式ドキュメントでは、良い契約テストを書くコツとし
 ---
 
 <a id="section-9"></a>
+
 ## 9. ステップ6：パフォーマンス・負荷テスト
 
 ### 9.1 何を測るかを先に決める
@@ -343,6 +356,8 @@ export const options = {
   thresholds: {
     http_req_duration: ['p(95) < 500'],
     http_req_failed: ['rate < 0.01'],
+    // check が1件でも失敗したらCIを失敗させる
+    checks: ['rate == 1'],
   },
 };
 
@@ -358,6 +373,7 @@ export default function () {
 ---
 
 <a id="section-10"></a>
+
 ## 10. ステップ7：セキュリティテスト（OWASP API Security Top 10）
 
 セキュリティは後回しにされがちですが、OWASP（Open Web Application Security Project）はWeb API特有の脆弱性をまとめた「OWASP API Security Top 10」を公開しており、2023年版が現在の最新版です。認可（Authorization）まわりの不備が上位を占めている点が大きな特徴です。
@@ -390,6 +406,7 @@ flowchart TD
 ---
 
 <a id="section-11"></a>
+
 ## 11. ステップ8：CI/CDへの統合
 
 自動テストは、実行されて初めて価値を持ちます。コミットやプルリクエストのたびに自動実行される状態を作ることが、テスト戦略の完成形です。
@@ -411,12 +428,13 @@ flowchart TD
 
 - **速いテストを先に、遅いテストを後に**：単体テストや静的解析はコミットのたびに、性能テストやE2Eはマージ前後などタイミングを絞って実行する
 - **並列実行でフィードバックを短縮する**：テストをサービス単位やタグ単位に分割し、複数ランナーで並列実行する
-- **フレーキー（不安定）なテストを放置しない**：Googleのテストブログでも指摘される通り、広い範囲を検証する高レベルテストほど不安定になりやすく、放置すると開発速度そのものを落とす原因になる
+- **フレーキー（不安定）なテストを放置しない**：広い範囲を検証する高レベルテストほど、外部依存やタイミングの影響を受けて不安定になりやすい。放置すると失敗が信用されなくなり、開発速度そのものを落とす原因になる
 - **ビルドを止める基準を明確にする**：性能テストのしきい値超過やセキュリティスキャンでの重大な指摘は、マージをブロックする条件として明示しておく
 
 ---
 
 <a id="section-12"></a>
+
 ## 12. ステップ9：本番環境でのテスト（Testing in Production）
 
 事前のテストだけでは、実際の本番トラフィックが持つ多様性（想定外の入力、実際の負荷パターン、サードパーティの挙動変化など）を完全には再現できません。そのため、本番環境そのものを観測し続ける「テスティング・イン・プロダクション」という考え方も、近年のAPIテスト戦略に含まれるようになっています。
@@ -440,6 +458,7 @@ flowchart TD
 ---
 
 <a id="section-13"></a>
+
 ## 13. よくある落とし穴とアンチパターン
 
 | アンチパターン | なぜ問題か | 改善策 |
@@ -455,6 +474,7 @@ flowchart TD
 ---
 
 <a id="section-14"></a>
+
 ## 14. まとめ：初学者向けチェックリスト
 
 | # | 確認項目 |
@@ -473,24 +493,25 @@ flowchart TD
 ---
 
 <a id="section-15"></a>
+
 ## 15. 参考文献・出典
 
 本ガイドの作成にあたり、以下の情報源を参照しました（2026年8月28日時点で確認）。
 
-1. Mark Winteringham, *Testing Web APIs* (Manning Publications / O'Reilly) ― https://www.oreilly.com/library/view/testing-web-apis/9781617299537/
-2. Ham Vocke, "The Practical Test Pyramid" (martinfowler.com) ― https://martinfowler.com/articles/practical-test-pyramid.html
-3. Martin Fowler, "On the Diverse And Fantastical Shapes of Testing" ― https://martinfowler.com/articles/2021-test-shapes.html
-4. Kent C. Dodds, "Write tests. Not too many. Mostly integration." ― https://kentcdodds.com/blog/write-tests
-5. Kent C. Dodds, "The Testing Trophy and Testing Classifications" ― https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications
-6. OWASP API Security Project, "OWASP Top 10 API Security Risks – 2023" ― https://owasp.org/API-Security/editions/2023/en/0x11-t10/
-7. OWASP Foundation, "OWASP API Security Top 10 2023 has been released" ― https://owasp.org/blog/2023/07/03/owasp-api-top10-2023
-8. Pact Documentation, "Introduction" ― https://docs.pact.io/
-9. Pact Documentation, "Consumer Tests" ― https://docs.pact.io/consumer
-10. PactFlow, "What is Consumer-Driven Contract Testing (CDC)?" ― https://pactflow.io/what-is-consumer-driven-contract-testing/
-11. Postman, "API Test Automation" (Postman Best Practices) ― https://www.postman.com/postman-best-practices/api-test-automation/
-12. Grafana Labs, "Get started with k6" (k6 documentation) ― https://grafana.com/docs/k6/latest/get-started/
-13. Grafana Labs, "API load testing" (k6 Testing Guides) ― https://grafana.com/docs/k6/latest/testing-guides/api-load-testing/
-14. Schemathesis 公式サイト（OpenAPI/GraphQLに基づくプロパティベーステスト）― https://schemathesis.io/
-15. Ministry of Testing, Mark Winteringham 講座ページ ― https://www.ministryoftesting.com/courses/let-s-build-an-api-checking-framework-mark-winteringham
+1. Mark Winteringham, *Testing Web APIs* (Manning Publications / O'Reilly) ― <https://www.oreilly.com/library/view/testing-web-apis/9781617299537/>
+2. Ham Vocke, "The Practical Test Pyramid" (martinfowler.com) ― <https://martinfowler.com/articles/practical-test-pyramid.html>
+3. Martin Fowler, "On the Diverse And Fantastical Shapes of Testing" ― <https://martinfowler.com/articles/2021-test-shapes.html>
+4. Kent C. Dodds, "Write tests. Not too many. Mostly integration." ― <https://kentcdodds.com/blog/write-tests>
+5. Kent C. Dodds, "The Testing Trophy and Testing Classifications" ― <https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications>
+6. OWASP API Security Project, "OWASP Top 10 API Security Risks – 2023" ― <https://owasp.org/API-Security/editions/2023/en/0x11-t10/>
+7. OWASP Foundation, "OWASP API Security Top 10 2023 has been released" ― <https://owasp.org/blog/2023/07/03/owasp-api-top10-2023>
+8. Pact Documentation, "Introduction" ― <https://docs.pact.io/>
+9. Pact Documentation, "Consumer Tests" ― <https://docs.pact.io/consumer>
+10. PactFlow, "What is Consumer-Driven Contract Testing (CDC)?" ― <https://pactflow.io/what-is-consumer-driven-contract-testing/>
+11. Postman, "API Test Automation" (Postman Best Practices) ― <https://www.postman.com/postman-best-practices/api-test-automation/>
+12. Grafana Labs, "Get started with k6" (k6 documentation) ― <https://grafana.com/docs/k6/latest/get-started/>
+13. Grafana Labs, "API load testing" (k6 Testing Guides) ― <https://grafana.com/docs/k6/latest/testing-guides/api-load-testing/>
+14. Schemathesis 公式サイト（OpenAPI/GraphQLに基づくプロパティベーステスト）― <https://schemathesis.io/>
+15. Ministry of Testing, Mark Winteringham 講座ページ ― <https://www.ministryoftesting.com/courses/let-s-build-an-api-checking-framework-mark-winteringham>
 
 > 免責事項：本ガイドは各情報源の考え方を要約・再構成した独自の教育コンテンツであり、原文からの引用は最小限（要約・言い換え）に留めています。正確な原文表現や詳細な実装例が必要な場合は、各URLの一次情報を直接ご参照ください。
