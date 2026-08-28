@@ -420,14 +420,14 @@
                         <a
                             href="https://pragprog.com/titles/jrtest/the-way-of-the-web-tester/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >Pragmatic Bookshelf</a
                         >
                         および
                         <a
                             href="https://www.oreilly.com/library/view/the-way-of/9781680502251/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >O'Reilly</a
                         >
                         で確認できます。
@@ -470,8 +470,7 @@
                         </li>
                     </ul>
                     <p>
-                        原著は UI テスト → 統合テスト →
-                        単体テストの順で「テストピラミッド」を下から上、また上から下へ何度も行き来しながら解説する構成になっています。本ガイドもこの流れに沿って、ステップバイステップで解説します。
+                        原著は UI テスト、統合テスト、単体テストという各層を行き来しながら「テストピラミッド」を解説する構成になっています。本ガイドもこの流れに沿って、ステップバイステップで解説します。
                     </p>
                 </section>
 
@@ -1010,10 +1009,27 @@
                             テスト同士が共有状態（データベースの行、グローバル変数など）に依存しないようにする
                         </li>
                         <li>
-                            単体テストでは外部サービスへの依存をモックやスタブに置き換え、ネットワークの不安定さを排除する。ただしモック化はその外部連携を検証対象から外すことでもあるため、HTTPのやり取り・認証・シリアライズ・タイムアウト・契約の境界については、実サービスに対するテストや契約テスト（Contract
-                            Testing）で別途検証する
+                            単体テストでは外部サービスへの依存をモックやスタブに置き換え、ネットワークの不安定さを排除する
                         </li>
                         <li>原因が特定できないテストは「隔離」して可視化し、放置しない</li>
+                    </ul>
+
+                    <h4>［本ガイドによる補足：モック化で失う検証範囲をどう埋めるか］</h4>
+                    <p>
+                        以下は原著の記述ではなく、現在の実務を踏まえた補足です。上記3点目のモック化は不安定さを取り除く一方で、<strong>その外部連携そのものを検証対象から外す</strong>ことでもあります。モックは自分が書いた期待どおりに応答するため、相手側の実装が変わっても単体テストは緑のままになります。そこで、モックで隠れてしまう次の境界は別のレイヤーで検証しておきます。
+                    </p>
+                    <ul>
+                        <li>HTTPのやり取り（ステータスコード、ヘッダー、エラー応答の扱い）</li>
+                        <li>認証・認可（トークンの期限切れや権限不足時の挙動）</li>
+                        <li>
+                            シリアライズ／デシリアライズ（フィールド名や型、日付フォーマットの不一致）
+                        </li>
+                        <li>タイムアウトとリトライの挙動</li>
+                        <li>
+                            相手サービスとのインターフェース契約 —
+                            契約テスト（Contract
+                            Testing）で、モックの想定と実サービスの実装がずれていないことを継続的に検証する
+                        </li>
                     </ul>
                 </section>
 
@@ -1457,7 +1473,7 @@
                     <ol>
                         <li>
                             <strong>単体テストから始める</strong> —
-                            最も書きやすく、最も多く書くべきテスト
+                            最も書きやすく、土台として最初に着手しやすいテスト
                         </li>
                         <li><strong>統合テストでつなぐ</strong> — サービス間・API連携を検証する</li>
                         <li>
@@ -1470,6 +1486,12 @@
                             ロールベースセレクタや自動待機など、当時なかったベストプラクティスも積極的に採用する
                         </li>
                     </ol>
+                    <p>
+                        ただし、最終的にどの層をどれだけ厚くするかは一律には決まりません。<a
+                            href="#sec-14"
+                            >第14章</a
+                        >で見たとおり、配分はプロジェクトの性質、各層の実行速度と信頼性、そして投資対効果（ROI）を突き合わせて判断してください。
+                    </p>
                     <p>
                         テストは「書いて終わり」ではなく、チームの共通言語として育てていくものだ、というのが本書と本ガイドを通じての一貫したメッセージです。
                     </p>
@@ -1489,7 +1511,7 @@
                                 <a
                                     href="https://pragprog.com/titles/jrtest/the-way-of-the-web-tester/"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >pragprog.com — The Way of the Web Tester（公式ページ）</a
                                 >
                                 <span class="ref-desc"
@@ -1505,7 +1527,7 @@
                                 <a
                                     href="https://www.oreilly.com/library/view/the-way-of/9781680502251/"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >oreilly.com — The Way of the Web
                                     Tester（O'Reilly掲載ページ）</a
                                 >
@@ -1523,7 +1545,7 @@
                                 <a
                                     href="https://martinfowler.com/bliki/TestPyramid.html"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >martinfowler.com — TestPyramid（bliki）</a
                                 >
                                 <span class="ref-desc"
@@ -1534,7 +1556,7 @@
                                 <a
                                     href="https://martinfowler.com/articles/practical-test-pyramid.html"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >martinfowler.com — The Practical Test Pyramid</a
                                 >
                                 <span class="ref-desc"
@@ -1546,7 +1568,7 @@
                                 <a
                                     href="https://martinfowler.com/bliki/BroadStackTest.html"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >martinfowler.com — Broad Stack Test（bliki）</a
                                 >
                                 <span class="ref-desc">UIなど広範囲を通すテストの定義と特徴。</span>
@@ -1555,7 +1577,7 @@
                                 <a
                                     href="https://martinfowler.com/bliki/ComponentTest.html"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >martinfowler.com — Component Test（bliki）</a
                                 >
                                 <span class="ref-desc"
@@ -1566,7 +1588,7 @@
                                 <a
                                     href="https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >testing.googleblog.com — Just Say No to More End-to-End
                                     Tests</a
                                 >
@@ -1584,7 +1606,7 @@
                                 <a
                                     href="https://kentcdodds.com/blog/write-tests"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >kentcdodds.com — Write tests. Not too many. Mostly
                                     integration.</a
                                 >
@@ -1597,7 +1619,7 @@
                                 <a
                                     href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >kentcdodds.com — The Testing Trophy and Testing
                                     Classifications</a
                                 >
@@ -1616,7 +1638,7 @@
                                 <a
                                     href="https://playwright.dev/docs/best-practices"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >playwright.dev — Best Practices</a
                                 >
                                 <span class="ref-desc"
@@ -1633,7 +1655,7 @@
                                 <a
                                     href="https://www.browserstack.com/guide/playwright-best-practices"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >browserstack.com — Playwright Best Practices in 2026 (With Code
                                     Examples)</a
                                 >
@@ -1645,7 +1667,7 @@
                                 <a
                                     href="https://getautonoma.com/blog/playwright-best-practices-2026"
                                     target="_blank"
-                                    rel="noopener"
+                                    rel="noopener noreferrer"
                                     >getautonoma.com — Playwright Best Practices: 8 Patterns for
                                     Stable E2E (2026)</a
                                 >
@@ -1665,7 +1687,11 @@
             </main>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js"
+            integrity="sha384-o+g/BxPwhi0C3RK7oQBxQuNimeafQ3GE/ST4iT2BxVI4Wzt60SH4pq9iXVYujjaS"
+            crossorigin="anonymous"
+        ></script>
         <script>
             function dedent(str) {
                 var lines = str
