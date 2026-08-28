@@ -23,7 +23,7 @@
 
 ## この本が生まれた背景
 
-書籍の第I部では、ソフトウェア業界が抱える構造的な問題が描かれています。Standish Group の「CHAOSレポート」など業界調査を引き合いに出しながら、要求を厳密に固めてから作り始めるウォーターフォール型の進め方が、変化の速いソフトウェア開発には適合しにくいことを説明しています。O'Reilly / Pragmatic Bookshelf の公式紹介文でも、壊れたソフトウェアによって米国だけで年間数百億ドル規模の損失が生まれていると述べられており、著者はアジャイルやスクラムを導入しただけでは根本的な解決にならず、技術面のプラクティスが伴わなければ「レガシーコード」を量産し続けてしまうと指摘しています。
+書籍の第I部では、ソフトウェア業界が抱える構造的な問題が描かれています。Standish Group の「CHAOSレポート」など業界調査を引き合いに出しながら、要求を厳密に固めてから作り始めるウォーターフォール型の進め方が、変化の速いソフトウェア開発には適合しにくいことを説明しています。O'Reilly / Pragmatic Bookshelf の公式紹介文でも、壊れたソフトウェアによって年間数百億ドル規模の損失が生まれていると述べられており、著者はアジャイルやスクラムを導入しただけでは根本的な解決にならず、技術面のプラクティスが伴わなければ「レガシーコード」を量産し続けてしまうと指摘しています。
 
 つまりこの本の主題は、
 
@@ -272,7 +272,8 @@ flowchart TB
 
 ## 参考情報源(URL付き)
 
-- [O'Reilly（原著の目次・概要ページ、ユーザー指定URL）](https://www.oreilly.com/library/view/beyond-legacy-code/9781680501827/)
+- [O'Reilly（原著の目次・概要ページ）](https://www.oreilly.com/library/view/beyond-legacy-code/9781680501827/)
+- [The Standish Group 公式サイト（本文で言及した CHAOS Report の発行元）](https://www.standishgroup.com/)
 - [Pragmatic Bookshelf 公式ページ（原著出版元、詳細目次あり）](https://pragprog.com/titles/dblegacy/beyond-legacy-code/)
 - [Agile Alliance 書籍紹介ページ（国際的なアジャイル団体による紹介）](https://agilealliance.org/resources/books/beyond-legacy-code/)
 - [The Agile Revolution ポッドキャスト 第171回（著名な国際的アジャイルコミュニティの人物 Craig Smith が著者 David Bernstein 本人にインタビュー）](https://theagilerevolution.com/2019/10/07/episode-171-beyond-legacy-code-with-david-bernstein/)
