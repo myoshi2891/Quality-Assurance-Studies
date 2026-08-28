@@ -279,7 +279,7 @@ options.setFullReset(true);
 
 `deviceName`だけに頼ると、複数のデバイスやエミュレーターが接続されている環境で意図しない端末が選ばれることがあります。ローカル実行や並列実行の環境では、必ず`avd`か`udid`で対象を明示してください。
 
-一方、**クラウドの実機デバイスファームでは`avd`や`udid`による端末指定は使えません**。`avd`はAppiumが自分でエミュレーターを起動する前提の設定であり、`udid`もベンダー側が管理する端末プールに対しては指定できないためです。クラウド実行では、どの端末で走らせるかを各ベンダー固有のCapabilitiesで指定します（例：BrowserStackは`bstack:options`の`deviceName`／`osVersion`、Sauce Labsは`appium:deviceName`／`appium:platformVersion`と`sauce:options`の組み合わせ）。キー名も、指定できる端末名・OSバージョンの表記もベンダーごとに異なるため、各社のデバイス一覧ドキュメントに従ってください。
+一方、**クラウドの実機デバイスファームでは`avd`や`udid`による端末指定は使えません**。`avd`はAppiumが自分でエミュレーターを起動する前提の設定であり、`udid`もベンダー側が管理する端末プールに対しては指定できないためです。クラウド実行では、どの端末で走らせるかを各ベンダーが定める形式のCapabilitiesで指定します（例：BrowserStackもSauce Labsも、端末とOSの選択はトップレベルの`appium:deviceName`／`appium:platformVersion`で行い、`bstack:options`／`sauce:options`にはアカウント情報やビルド名といったベンダー固有の設定のみを入れます）。キー名も、指定できる端末名・OSバージョンの表記もベンダーごとに異なるため、各社のデバイス一覧ドキュメントに従ってください。
 
 ### リセット系capabilityとテストの独立性
 
@@ -663,6 +663,15 @@ flowchart TD
 ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには`.apk`、iOSシミュレーターには`.app`（クラウド実行では`.app.zip`に圧縮したもの）、iOS実機には`.ipa`を`appium:app`へ渡します。なお、Google Playへの配信形式であるAndroid App Bundle（`.aab`）はAppiumへ直接渡せません。`.aab`を扱う場合は、CIのビルド後に[bundletool](https://developer.android.com/tools/bundletool)で`.apks`を生成し、そこから取り出したユニバーサル`.apk`をテストに使う変換手順をパイプラインへ組み込んでください。`build-apks`では入力の`.aab`を`--bundle`で、出力の`.apks`を`--output`で指定します。生成された`.apks`はZIPアーカイブなので、そこから`universal.apk`を取り出して`appium:app`へ渡します。
 
 ```bash
+# 0) パスワードは引数ではなくパーミッションを絞った一時ファイル経由で渡す
+#    （プロセス一覧やCIのコマンドエコーへ露出させないため）
+KS_PASS_FILE="$(mktemp)"; KEY_PASS_FILE="$(mktemp)"
+chmod 600 "$KS_PASS_FILE" "$KEY_PASS_FILE"
+# ジョブが途中で失敗しても削除されるようにしておく
+trap 'rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"' EXIT
+printf '%s' "$ANDROID_KEYSTORE_PASSWORD" > "$KS_PASS_FILE"
+printf '%s' "$ANDROID_KEY_PASSWORD" > "$KEY_PASS_FILE"
+
 # 1) AAB からユニバーサル APK セット（.apks）を生成する
 bundletool build-apks \
   --bundle=app/build/outputs/bundle/release/app-release.aab \
@@ -670,15 +679,18 @@ bundletool build-apks \
   --mode=universal \
   --overwrite \
   --ks="$ANDROID_KEYSTORE_PATH" \
-  --ks-pass="pass:$ANDROID_KEYSTORE_PASSWORD" \
+  --ks-pass="file:$KS_PASS_FILE" \
   --ks-key-alias="$ANDROID_KEY_ALIAS" \
-  --key-pass="pass:$ANDROID_KEY_PASSWORD"
+  --key-pass="file:$KEY_PASS_FILE"
 
-# 2) .apks（ZIP）から universal.apk を取り出す
+# 2) パスワードファイルを確実に削除する
+rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"
+
+# 3) .apks（ZIP）から universal.apk を取り出す
 unzip -p build/app.apks universal.apk > build/app-universal.apk
 ```
 
-署名オプション（`--ks`／`--ks-pass`／`--ks-key-alias`／`--key-pass`）を省略すると、bundletoolはデバッグ署名鍵で署名します。動作確認だけならそれで足りますが、リリース版と同じ署名で検証したい場合はCIで署名鍵を渡す必要があります。その際、**キーストアファイルとパスワードはリポジトリに置かず、CIのシークレット管理機能で扱ってください**（キーストアはBase64エンコードしてSecretに登録し、ジョブ内で一時ディレクトリへ復元してからパスを渡す、パスワードは環境変数経由で`pass:`形式として渡す、ジョブ終了時に復元したキーストアを削除する、といった手順が一般的です）。`--ks-pass`にパスワードを直書きしたコマンドをログへ出さないよう、CIのコマンドエコー設定にも注意します。
+署名オプション（`--ks`／`--ks-pass`／`--ks-key-alias`／`--key-pass`）を省略すると、bundletoolはデバッグ署名鍵で署名します。動作確認だけならそれで足りますが、リリース版と同じ署名で検証したい場合はCIで署名鍵を渡す必要があります。その際、**キーストアファイルとパスワードはリポジトリに置かず、CIのシークレット管理機能で扱ってください**（キーストアはBase64エンコードしてSecretに登録し、ジョブ内で一時ディレクトリへ復元してからパスを渡す、パスワードはパーミッションを絞った一時ファイルへ書き出して`file:`形式で渡し、bundletoolの完了後に削除する、ジョブ終了時に復元したキーストアを削除する、といった手順が一般的です）。`--ks-pass`／`--key-pass`に`pass:`形式でパスワードを渡すと、値がプロセス引数として`ps`などから見える点にも注意してください（上記のように`file:`形式を使えば回避できます）。あわせて、CIのコマンドエコー設定でシークレットがログへ出力されないようにします。
 
 CI/CDにAppiumテストを組み込む際に押さえておきたいポイントは次の通りです。
 
