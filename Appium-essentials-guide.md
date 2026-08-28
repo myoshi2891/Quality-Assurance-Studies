@@ -237,9 +237,11 @@ options = UiAutomator2Options()
 options.platform_name = "Android"
 options.automation_name = "UiAutomator2"
 options.device_name = "Pixel_7_API_34"
-# エミュレーターを起動して使う場合は avd でAVD名を指定する
+# avd と udid は排他。どちらか一方だけを指定する
+# ここでは avd を有効にし、エミュレーターをAVD名から起動して使う
 options.avd = "Pixel_7_API_34"
-# 実機、または既に起動済みのエミュレーターに接続する場合は udid を指定する
+# 実機、または既に起動済みのエミュレーターに接続する場合は、
+# 上の avd を指定せず、代わりに udid を指定する
 # options.udid = "emulator-5554"   # adb devices で確認できるID
 options.app = "/path/to/your/app.apk"
 # テスト間の独立性を確保するため、アプリのデータを毎回初期化する
@@ -540,7 +542,7 @@ flowchart TD
 | 向いている場面 | アプリ全体でおおよそ同じ応答速度が期待できる小規模なテスト | 画面ごとに読み込み時間が大きく異なる実務的なテストスイート |
 | 注意点 | Explicit Waitと併用すると待機時間が予測できなくなるため、基本的にどちらか一方に統一する |Explicit Waitを使う場合はImplicit Waitを0にしておくのが定石 |
 
-現場のノウハウとして広く共有されているのが、「固定の`sleep`は使わない」という原則です。`sleep(5)`のようなハードコードされた待機は、通信が速いときには無駄に時間を浪費し、通信が遅いときにはタイムアウトしてテストが失敗する、という両方向のデメリットしかありません。ExplicitWaitで「特定の状態になるまで、最大N秒だけポーリングする」という書き方にすることで、平均実行時間の短縮とテストの安定化を同時に達成できます。
+現場のノウハウとして広く共有されているのが、「固定の`sleep`は使わない」という原則です。`sleep(5)`のようなハードコードされた待機は、通信が速いときには無駄に時間を浪費し、通信が遅いときにはタイムアウトしてテストが失敗する、という両方向のデメリットしかありません。Explicit Waitで「特定の状態になるまで、最大N秒だけポーリングする」という書き方にすることで、平均実行時間の短縮とテストの安定化を同時に達成できます。
 
 ### Explicit Waitのコード例（Python）
 
@@ -642,7 +644,7 @@ Appiumのテストを1台のデバイスで直列に実行していると、テ�
 ```mermaid
 flowchart TD
     A["開発者がコードをpush"] --> B["CIパイプラインが起動<br/>GitHub Actions等"]
-    B --> C["アプリをビルド<br/>apk / app"]
+    B --> C["アプリをビルド<br/>Android: .apk / iOSシミュレーター: .app（.app.zip）/ iOS実機: .ipa"]
     C --> E{"実行先を選択"}
     E -->|"ローカルCI内"| D["CI上でAppiumサーバーを起動"]
     D --> F["エミュレーター / シミュレーター"]
@@ -655,6 +657,8 @@ flowchart TD
     J -->|"成功"| K["マージ / デプロイを許可"]
     J -->|"失敗"| L["開発者に通知して修正"]
 ```
+
+ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには`.apk`、iOSシミュレーターには`.app`（クラウド実行では`.app.zip`に圧縮したもの）、iOS実機には`.ipa`を`appium:app`へ渡します。なお、Google Playへの配信形式であるAndroid App Bundle（`.aab`）はAppiumへ直接渡せません。`.aab`を扱う場合は、CIのビルド後に[bundletool](https://developer.android.com/tools/bundletool)で`.apks`を生成し（`bundletool build-apks --mode=universal`）、そこから取り出したユニバーサル`.apk`をテストに使う変換手順をパイプラインへ組み込んでください。
 
 CI/CDにAppiumテストを組み込む際に押さえておきたいポイントは次の通りです。
 
