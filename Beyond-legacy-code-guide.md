@@ -268,21 +268,21 @@ flowchart TB
 
 ## まとめ
 
-『レガシーコードからの脱却』は、アジャイルやスクラムのようなプロセス面の改善だけでは技術的負債の増大を防げないという問題意識から出発し、エクストリーム・プログラミングに由来する技術プラクティスを9つに整理し直した一冊です。書評では、新規性そのものよりも、既存の優れたプラクティスを一貫した理由づけとともに9つへ絞り込んだ点に価値があると整理されています。特定の技術に依存しない普遍的な内容であることが、刊行から年数が経った現在でも読まれ続けている理由と言えます。初学者はまず守破離の「守」の姿勢で1つずつ小さく試し、なぜそのプラクティスが有効なのかを体感しながら身につけていくことが推奨されます。
+『レガシーコードからの脱却』は、アジャイルやスクラムのようなプロセス面の改善だけでは技術的負債の増大を防げないという問題意識から出発し、エクストリーム・プログラミングに由来する技術プラクティスを9つに整理し直した一冊です。書評では、新規性そのものよりも、既存の優れたプラクティスを一貫した理由づけとともに9つへ絞り込んだ点に価値があると整理されています。内容が特定の技術に依存しない点は公式紹介でも書評でも共通して挙げられており、本ガイドとしては、これが刊行から年数を経ても参照しやすい一冊であり続けている要因だと考えています。初学者はまず守破離の「守」の姿勢で1つずつ小さく試し、なぜそのプラクティスが有効なのかを体感しながら身につけていくことが推奨されます。
 
 ## 参考情報源(URL付き)
 
-- O'Reilly（原著の目次・概要ページ、ユーザー指定URL）: https://www.oreilly.com/library/view/beyond-legacy-code/9781680501827/
-- Pragmatic Bookshelf 公式ページ（原著出版元、詳細目次あり）: https://pragprog.com/titles/dblegacy/beyond-legacy-code/
-- Agile Alliance 書籍紹介ページ（国際的なアジャイル団体による紹介）: https://agilealliance.org/resources/books/beyond-legacy-code/
-- The Agile Revolution ポッドキャスト 第171回（著名な国際的アジャイルコミュニティの人物 Craig Smith が著者 David Bernstein 本人にインタビュー）: https://theagilerevolution.com/2019/10/07/episode-171-beyond-legacy-code-with-david-bernstein/
-- Christian Tietze氏のブログ（国際的な開発者によるCLEANコード頭字語の紹介記事）: https://christiantietze.de/posts/2015/09/clean-code/
-- Numerickly（読了レビューと要約記事）: https://www.numerickly.com/2021/08/23/beyond-legacy-code-by-david-scott-bernstein-review-and-summary/
-- 著者 David Scott Bernstein 自身によるCLEANコード解説記事（Goodreads author blog）: https://www.goodreads.com/author_blog_posts/18772891-share-common-quality-practices?tab=book
-- Goodreads 書籍ページ（読者レビュー、CLEAN頭字語への評価コメントを含む）: https://www.goodreads.com/book/show/26088456-beyond-legacy-code
-- O'Reilly Japan 日本語版書誌ページ: https://www.oreilly.com/library/view/9/9784873118864/
-- 株式会社アトラクタ（日本語版訳者の一人 吉羽龍太郎氏が代表を務める会社による紹介ページ）: https://www.attractor.co.jp/book/beyond-legacy-code/
-- irof氏のブログ（日本のアジャイル・テストコミュニティで知られるブロガーによる書評）: https://irof.hateblo.jp/entry/2019/10/02/012433
+- [O'Reilly（原著の目次・概要ページ、ユーザー指定URL）](https://www.oreilly.com/library/view/beyond-legacy-code/9781680501827/)
+- [Pragmatic Bookshelf 公式ページ（原著出版元、詳細目次あり）](https://pragprog.com/titles/dblegacy/beyond-legacy-code/)
+- [Agile Alliance 書籍紹介ページ（国際的なアジャイル団体による紹介）](https://agilealliance.org/resources/books/beyond-legacy-code/)
+- [The Agile Revolution ポッドキャスト 第171回（著名な国際的アジャイルコミュニティの人物 Craig Smith が著者 David Bernstein 本人にインタビュー）](https://theagilerevolution.com/2019/10/07/episode-171-beyond-legacy-code-with-david-bernstein/)
+- [Christian Tietze氏のブログ（国際的な開発者によるCLEANコード頭字語の紹介記事）](https://christiantietze.de/posts/2015/09/clean-code/)
+- [Numerickly（読了レビューと要約記事）](https://www.numerickly.com/2021/08/23/beyond-legacy-code-by-david-scott-bernstein-review-and-summary/)
+- [著者 David Scott Bernstein 自身によるCLEANコード解説記事（Goodreads author blog）](https://www.goodreads.com/author_blog_posts/18772891-share-common-quality-practices?tab=book)
+- [Goodreads 書籍ページ（読者レビュー、CLEAN頭字語への評価コメントを含む）](https://www.goodreads.com/book/show/26088456-beyond-legacy-code)
+- [O'Reilly Japan 日本語版書誌ページ](https://www.oreilly.com/library/view/9/9784873118864/)
+- [株式会社アトラクタ（日本語版訳者の一人 吉羽龍太郎氏が代表を務める会社による紹介ページ）](https://www.attractor.co.jp/book/beyond-legacy-code/)
+- [irof氏のブログ（日本のアジャイル・テストコミュニティで知られるブロガーによる書評）](https://irof.hateblo.jp/entry/2019/10/02/012433)
 
 ---
 
