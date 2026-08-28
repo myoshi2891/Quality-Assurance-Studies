@@ -119,9 +119,9 @@ flowchart TD
 
 ### 5.1 第1章：セキュリティは「機能」ではなく「関心事」
 
-#### 歴史から学ぶ：エストゥイェータ銀行強盗事件（1854年）
+#### 歴史から学ぶ：エスト・ヨータ銀行（Öst-Götha Bank）強盗事件（1854年）
 
-本書の冒頭は、1854年にスウェーデンで実際に起きた銀行強盗事件から始まります。エストゥイェータ銀行は「高品質な錠前」という**セキュリティ機能**に投資していましたが、犯人たちは鍵が外の釘に掛けられたままの裏口から侵入し、頑丈な金庫の扉ではなく、**弱い蝶番**を破壊して押し入りました。
+本書の冒頭は、1854年にスウェーデンで実際に起きた銀行強盗事件から始まります。エスト・ヨータ銀行（Öst-Götha Bank）は「高品質な錠前」という**セキュリティ機能**に投資していましたが、犯人たちは鍵が外の釘に掛けられたままの裏口から侵入し、頑丈な金庫の扉ではなく、**弱い蝶番**を破壊して押し入りました。
 
 この逸話が示すのは、「良い機能を1つ実装すること」と「本当にセキュリティという関心事に応えること」はまったく別物だという教訓です。ソフトウェアでも同様に、「ログイン画面がある」ことと「写真への全アクセスがログインを経由する」ことはイコールではありません。ユーザーストーリーを次のように書き換えることで、初めて本当の関心事が見えてきます。
 
@@ -178,7 +178,7 @@ public class LegacyUser {
     private final String username; // どんな文字列でも入ってしまう
 
     public LegacyUser(String username) {
-        this.username = username; // XSS等の危険な文字列もそのまま保持できてしまう
+        this.username = username; // 制御文字やマークアップを含む文字列もそのまま保持できてしまう
     }
 }
 
@@ -206,7 +206,9 @@ public final class Username {
 }
 ```
 
-`<script>alert(1)</script>` のような文字列は、そもそも `Username` オブジェクトとして**生成すること自体ができません**。セキュリティを意識して書いたわけではなく、「ユーザー名という概念を正確にモデリングした」結果として、副産物的にXSS攻撃の入口が塞がれています。これが「Secure by Design（設計によって安全になる）」の核心です。
+`<script>alert(1)</script>` のような文字列は、そもそも `Username` オブジェクトとして**生成すること自体ができません**。セキュリティを意識して書いたわけではなく、「ユーザー名という概念を正確にモデリングした」結果として、副産物的にこのフィールド経由で危険な入力が入り込む余地が消えています。これが「Secure by Design（設計によって安全になる）」の核心です。
+
+ただし、この許可リストが防いでいるのは**このフィールドが受け付けない入力が混入すること**だけであり、XSS対策として十分なわけではありません。許可された文字だけで構成された値であっても、HTML・属性値・JavaScript・URLなど出力先ごとに適切なエスケープを行う必要があります。入力バリデーションは、文脈に応じた出力エンコーディングの代替にはなりません。
 
 #### 多層防御（Defense in Depth）：Billion Laughs攻撃を例に
 
@@ -237,6 +239,7 @@ flowchart TD
 ポイントは、パーサー設定だけに頼らないことです。著者らはこれを「家の周りにフェンスを立てただけでドアの鍵をかけていない状態」に例えています。仮に1つの防御層が突破されても、次の層が攻撃を食い止められるように設計するのが「多層防御」の考え方です。
 
 > **第1章のまとめ**
+>
 > - セキュリティは「機能」ではなく「関心事」として捉える
 > - 設計とは「意思決定を伴うあらゆる活動」を指し、コードの1行からアーキテクチャまで全てが対象
 > - 汎用的な型（`String` など）で特定の意味を持つ概念を表現するのは危険の温床
@@ -349,7 +352,7 @@ flowchart TD
 
 DDDの「エンティティ」はミュータブル（変更可能）な状態を持つため、値オブジェクトやドメイン・プリミティブよりも扱いが難しくなります。この2つの章では次のような指針が示されます。
 
-- **生成時点で完全な状態にする**：引数なしコンストラクタ（no-arg constructor）でオブジェクトを生成し、後から setter で値を埋めていくパターンは、「一時的に不正な状態」が存在する隙間を生みます。必須項目はコンストラクタで、複雑な組み立てが必要な場合は **Builderパターン** で、生成時点から一貫性を保証します。
+- **生成時点で完全な状態にする**：引数なしコンストラクタ（no-arg constructor）でオブジェクトを生成し、後から setter で値を埋めていくパターンは、「一時的に不正な状態」が存在する隙間を生みます。必須項目はコンストラクタで受け取るのが基本です。複雑な組み立てが必要な場合は **Builderパターン** を使えますが、生成時点の一貫性が保証されるのは、`build()` が必須項目の充足と制約を検証したうえで、生成後に状態を変更できないオブジェクトを返す場合に限られます。単に setter の呼び出しをビルダーへ移し替えただけでは、不正な状態の生成を防げません。
 - **状態遷移を制限する**：エンティティが取り得る状態と、その間の遷移を明示的にモデル化する（多くの場合、状態機械やドメインイベントとして表現する）ことで、「本来あり得ないはずの状態」への遷移を防ぎます。
 
 ```mermaid
@@ -390,7 +393,7 @@ flowchart LR
     R1 --> R2 --> R3 --> R1
 ```
 
-インフラを「使い捨てにできるもの（immutable infrastructure）」として扱うことで、たとえ攻撃者がサーバーに侵入できたとしても、その滞在時間・被害範囲を構造的に小さく抑えられます。
+インフラを「使い捨てにできるもの（immutable infrastructure）」として扱うこと自体は、それだけで侵入の影響を小さくするわけではありません。定期的な自動再構築、短命な資格情報、最小権限の付与、ネットワーク分離といった運用と組み合わせて初めて、攻撃者がサーバーに侵入できた場合の滞在時間と被害範囲を構造的に抑えられます。逆に、長期間有効な資格情報が再構築後のインスタンスへ引き継がれていたり、権限やネットワーク境界が緩いままであれば、再構築しても足がかりは残り続けます。
 
 ### 6.8 第11章（幕間）：ただで手に入る保険
 
@@ -520,28 +523,28 @@ flowchart TD
 
 本ガイドの作成にあたり、以下の一次情報・書評記事を参照しました（2026年8月27日時点でアクセス可能であることを確認済み）。
 
-- Manning Publications 公式書籍ページ: https://www.manning.com/books/secure-by-design
-- Secure by Design 第1章 無料プレビュー（MEAP版PDF, Manning公式）: https://manning-content.s3.amazonaws.com/download/a/78580ef-38c8-4bd1-bc2f-ba4e8c7d7880/Johnsson_SbD_MEAP_V13_ch1.pdf
-- liveBook（Manning）第1章: https://livebook.manning.com/book/secure-by-design/chapter-1/v-5/d5e499
-- liveBook（Manning）第2章（幕間：アンチ・ハムレット）: https://livebook.manning.com/book/secure-by-design/chapter-2/
-- liveBook（Manning）第3章（DDDの中心概念）: https://livebook.manning.com/book/secure-by-design/chapter-3
-- liveBook（Manning）第5章（ドメイン・プリミティブ）: https://livebook.manning.com/book/secure-by-design/chapter-5
-- liveBook（Manning）第13章（マイクロサービス）: https://livebook.manning.com/book/secure-by-design/chapter-13/
-- O'Reilly Online Learning 収録ページ（詳細目次）: https://www.oreilly.com/library/view/secure-by-design/9781617294358/
-- Manning公式ブログ「Domain Primitives: what they are and how you can use them to make more secure software」: https://freecontent.manning.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software/
-- 同記事（Medium転載版）: https://manningbooks.medium.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software-174504696518
-- Daniel Sawano氏個人ブログ（書籍執筆時の草稿記事）: https://software.sawano.se/2017/09/domain-primitives.html
-- Matt Raible（Okta, 国際的に著名なJava/Web開発者）による書評: https://raibledesigns.com/rd/entry/secure_by_design_book_review
-- Adrian Citu によるレビュー記事: https://adriancitu.com/2022/10/05/book-review-secure-by-design/
-- Goodreads 書籍ページ（賛否両論のレビュー集）: https://www.goodreads.com/book/show/33953413-secure-by-design
-- Software Engineering Radio エピソード（著者インタビュー）: https://se-radio.net/2025/09/se-radio-684-dan-bergh-johnsson-and-daniel-deogun-on-secure-by-design/
-- Arrested DevOps ポッドキャスト（著者インタビュー）: https://www.arresteddevops.com/secure-by-design/
-- virtualDDD.com 収録カンファレンス動画「Domain Primitives in Action」: https://virtualddd.com/videos/dan-bergh-johnsson-daniel-deogun-domain-primitives-in-action-making-it-secure-by-design/
-- 同講演 YouTube 版（Explore DDD, Denver）: https://www.youtube.com/watch?v=ogjOKlXHi08
-- Katharina's blog（ドメイン・プリミティブ実践記）: https://katharina.damschen.net/post/2025-11-10-domain-primitives/
-- マイナビ出版 日本語版書籍ページ: https://book.mynavi.jp/ec/products/detail/id=124056
-- kymmt氏によるブログ書評（日本語）: https://blog.kymmt.com/entry/secure-by-design
-- Wikipedia「Secure by design」（一般的な概念としてのSecure by Design、参考として）: https://en.wikipedia.org/wiki/Secure_by_design
+- [Manning Publications 公式書籍ページ](https://www.manning.com/books/secure-by-design)
+- [Secure by Design 第1章 無料プレビュー（MEAP版PDF, Manning公式）](https://manning-content.s3.amazonaws.com/download/a/78580ef-38c8-4bd1-bc2f-ba4e8c7d7880/Johnsson_SbD_MEAP_V13_ch1.pdf)
+- [liveBook（Manning）第1章](https://livebook.manning.com/book/secure-by-design/chapter-1/v-5/d5e499)
+- [liveBook（Manning）第2章（幕間：アンチ・ハムレット）](https://livebook.manning.com/book/secure-by-design/chapter-2/)
+- [liveBook（Manning）第3章（DDDの中心概念）](https://livebook.manning.com/book/secure-by-design/chapter-3)
+- [liveBook（Manning）第5章（ドメイン・プリミティブ）](https://livebook.manning.com/book/secure-by-design/chapter-5)
+- [liveBook（Manning）第13章（マイクロサービス）](https://livebook.manning.com/book/secure-by-design/chapter-13/)
+- [O'Reilly Online Learning 収録ページ（詳細目次）](https://www.oreilly.com/library/view/secure-by-design/9781617294358/)
+- [Manning公式ブログ「Domain Primitives: what they are and how you can use them to make more secure software」](https://freecontent.manning.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software/)
+- [同記事（Medium転載版）](https://manningbooks.medium.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software-174504696518)
+- [Daniel Sawano氏個人ブログ（書籍執筆時の草稿記事）](https://software.sawano.se/2017/09/domain-primitives.html)
+- [Matt Raible（Okta, 国際的に著名なJava/Web開発者）による書評](https://raibledesigns.com/rd/entry/secure_by_design_book_review)
+- [Adrian Citu によるレビュー記事](https://adriancitu.com/2022/10/05/book-review-secure-by-design/)
+- [Goodreads 書籍ページ（賛否両論のレビュー集）](https://www.goodreads.com/book/show/33953413-secure-by-design)
+- [Software Engineering Radio エピソード（著者インタビュー）](https://se-radio.net/2025/09/se-radio-684-dan-bergh-johnsson-and-daniel-deogun-on-secure-by-design/)
+- [Arrested DevOps ポッドキャスト（著者インタビュー）](https://www.arresteddevops.com/secure-by-design/)
+- [virtualDDD.com 収録カンファレンス動画「Domain Primitives in Action」](https://virtualddd.com/videos/dan-bergh-johnsson-daniel-deogun-domain-primitives-in-action-making-it-secure-by-design/)
+- [同講演 YouTube 版（Explore DDD, Denver）](https://www.youtube.com/watch?v=ogjOKlXHi08)
+- [Katharina's blog（ドメイン・プリミティブ実践記）](https://katharina.damschen.net/post/2025-11-10-domain-primitives/)
+- [マイナビ出版 日本語版書籍ページ](https://book.mynavi.jp/ec/products/detail/id=124056)
+- [kymmt氏によるブログ書評（日本語）](https://blog.kymmt.com/entry/secure-by-design)
+- [Wikipedia「Secure by design」（一般的な概念としてのSecure by Design、参考として）](https://en.wikipedia.org/wiki/Secure_by_design)
 
 ---
 
