@@ -103,9 +103,11 @@ flowchart TB
 
 ```mermaid
 flowchart TB
-    Commit["トリガー: コミット / プルリクエスト"] --> Static["静的解析<br/>Lint / 型チェック"]
-    Static --> Unit["ユニットテスト<br/>Small"]
-    Unit --> Integration["統合テスト<br/>Medium"]
+    Commit["トリガー: コミット"] --> StaticC["静的解析<br/>Lint / 型チェック"]
+    StaticC --> UnitC["ユニットテスト<br/>Small"]
+    PR["トリガー: プルリクエスト"] --> StaticP["静的解析<br/>Lint / 型チェック"]
+    StaticP --> UnitP["ユニットテスト<br/>Small"]
+    UnitP --> Integration["統合テスト<br/>Medium"]
     Release["トリガー: リリース前 / ナイトリー"] --> E2E["E2Eテスト<br/>Large"]
     Manual["探索的テスト<br/>手動・CIとは独立して随時実施"]
 ```
@@ -224,17 +226,20 @@ flowchart LR
 
 これらの章のエッセンスは、現代のCI/CDパイプラインにそのまま応用できます。ステップ2で紹介したGoogleのテストサイズ分類と組み合わせると、**トリガーごとに別のパイプライン**としてゲーティング構造を描けます。すべてのテストを毎コミットで回すのではなく、速いテストほど高頻度に、遅いテストほど低頻度に配置するのが要点です。なお、手動の探索的テストはこれらの自動ゲートには含めず、別途スケジュールして実施します。
 
-コミット／プルリクエストのたびに走らせるのは、静的解析とSmall／Mediumテストまでに留めます。
+コミットのたびに走らせるのは静的解析とSmallテストまでに留め、プルリクエストではそれに加えてMediumテストまでを走らせます。
 
 ```mermaid
 flowchart TB
-    Commit["コミット / プルリクエスト<br/>（毎回実行）"] --> Static2["静的解析"]
-    Static2 --> Small["Smallテスト<br/>数秒で完了"]
-    Small --> Medium["Mediumテスト<br/>数分で完了"]
+    Commit["コミット<br/>（毎回実行）"] --> StaticC2["静的解析"]
+    StaticC2 --> SmallC["Smallテスト<br/>数秒で完了"]
+    SmallC -->|"失敗"| Feedback["開発者へ即座にフィードバック"]
+    PR2["プルリクエスト"] --> StaticP2["静的解析"]
+    StaticP2 --> SmallP["Smallテスト<br/>数秒で完了"]
+    SmallP --> Medium["Mediumテスト<br/>数分で完了"]
     Medium --> Merge["マージ可能"]
-    Small -->|"失敗"| Feedback["開発者へ即座にフィードバック"]
+    SmallP -->|"失敗"| Feedback
     Medium -->|"失敗"| Feedback
-    Feedback --> Commit
+    Feedback --> Fix2["修正して再度push"]
 ```
 
 Largeテストとデプロイは、リリース前またはナイトリーなどの定期実行に切り出します。同じLargeテストを流す場合でも、デプロイ先はトリガーによって変わります。ナイトリーの成功はステージング環境への反映までを意味し、本番環境へのデプロイはリリース前のパイプラインが担います。
