@@ -265,30 +265,80 @@
             }
 
             /* ---------- Checklist ---------- */
+            .checklist-progress {
+                color: var(--text-dim);
+                font-size: 0.9rem;
+                margin: 0 0 16px;
+            }
+            .checklist-progress strong {
+                color: var(--accent-2);
+            }
             .checklist {
                 list-style: none;
                 padding: 0;
                 margin: 20px 0;
             }
             .checklist li {
-                position: relative;
-                padding: 12px 16px 12px 42px;
                 margin: 9px 0;
                 background: var(--bg-elevated);
                 border: 1px solid var(--border);
                 border-radius: 9px;
                 overflow-wrap: break-word;
+                transition:
+                    background 0.15s ease,
+                    border-color 0.15s ease;
             }
-            .checklist li::before {
+            .checklist li.done {
+                background: rgba(111, 231, 192, 0.08);
+                border-color: var(--accent);
+            }
+            .check-label {
+                display: flex;
+                align-items: flex-start;
+                gap: 13px;
+                padding: 12px 16px;
+                cursor: pointer;
+                width: 100%;
+            }
+            .check-input {
+                appearance: none;
+                -webkit-appearance: none;
+                flex: none;
+                width: 19px;
+                height: 19px;
+                margin-top: 2px;
+                border: 2px solid var(--accent);
+                border-radius: 5px;
+                background: transparent;
+                cursor: pointer;
+                position: relative;
+            }
+            .check-input:checked {
+                background: var(--accent);
+            }
+            .check-input:checked::after {
                 content: '';
                 position: absolute;
-                left: 14px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 16px;
-                height: 16px;
-                border: 2px solid var(--accent);
-                border-radius: 4px;
+                left: 5px;
+                top: 1px;
+                width: 5px;
+                height: 9px;
+                border: solid var(--bg);
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .check-input:focus-visible {
+                outline: 2px solid var(--accent-2);
+                outline-offset: 2px;
+            }
+            .check-text {
+                flex: 1;
+                padding-top: 1px;
+            }
+            .check-input:checked ~ .check-text {
+                color: var(--text-dim);
+                text-decoration: line-through;
+                text-decoration-color: var(--accent);
             }
 
             /* ---------- References ---------- */
@@ -397,7 +447,7 @@
                             <a
                                 href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >oreilly.com/library/view/beautiful-testing/9780596806934</a
                             >
                         </p>
@@ -435,11 +485,11 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                         ／
-                        <a href="https://www.oreilly.com/pub/pr/2453" target="_blank" rel="noopener"
+                        <a href="https://www.oreilly.com/pub/pr/2453" target="_blank" rel="noopener noreferrer"
                             >oreilly.com/pub/pr/2453</a
                         >
                     </div>
@@ -504,7 +554,7 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                     </div>
@@ -562,7 +612,7 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                     </div>
@@ -665,42 +715,42 @@
                         <a
                             href="https://martinfowler.com/bliki/TestPyramid.html"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >martinfowler.com/bliki/TestPyramid.html</a
                         >
                         ／
                         <a
                             href="https://martinfowler.com/articles/practical-test-pyramid.html"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >martinfowler.com/articles/practical-test-pyramid.html</a
                         >
                         ／
                         <a
                             href="https://kentcdodds.com/blog/write-tests"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >kentcdodds.com/blog/write-tests</a
                         >
                         ／
                         <a
                             href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >kentcdodds.com/blog/the-testing-trophy-and-testing-classifications</a
                         >
                         ／
                         <a
                             href="https://testing.googleblog.com/2010/12/test-sizes.html"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >testing.googleblog.com/2010/12/test-sizes.html</a
                         >
                         ／
                         <a
                             href="https://abseil.io/resources/swe-book/html/ch14.html"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >abseil.io/resources/swe-book/html/ch14.html</a
                         >
                     </div>
@@ -755,7 +805,7 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                     </div>
@@ -850,11 +900,11 @@
                         <a
                             href="https://www.satisfice.com/articles/et-article.pdf"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >satisfice.com/articles/et-article.pdf</a
                         >
                         ／
-                        <a href="https://agiletester.ca/" target="_blank" rel="noopener"
+                        <a href="https://agiletester.ca/" target="_blank" rel="noopener noreferrer"
                             >agiletester.ca</a
                         >
                     </div>
@@ -928,7 +978,7 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                     </div>
@@ -1012,7 +1062,7 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                     </div>
@@ -1056,7 +1106,7 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                     </div>
@@ -1092,7 +1142,7 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                     </div>
@@ -1125,7 +1175,7 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                     </div>
@@ -1174,14 +1224,14 @@
                         <a
                             href="https://matthewboston.com/blog/the-agentic-test-pyramid.html"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >matthewboston.com/blog/the-agentic-test-pyramid.html</a
                         >
                         ／
                         <a
                             href="https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >getautonoma.com/blog/unit-vs-integration-vs-e2e-testing</a
                         >
                     </div>
@@ -1365,14 +1415,14 @@
                         <a
                             href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >oreilly.com/library/view/beautiful-testing/9780596806934</a
                         >
                         ／
                         <a
                             href="https://books.apple.com/us/book/beautiful-testing/id396905423"
                             target="_blank"
-                            rel="noopener"
+                            rel="noopener noreferrer"
                             >books.apple.com/us/book/beautiful-testing/id396905423</a
                         >
                     </div>
@@ -1383,33 +1433,102 @@
                     <div class="prose">
                         <p>初学者が「美しいテスト」を実践するための総まとめです。</p>
                     </div>
-                    <ul class="checklist">
+                    <p class="checklist-progress" id="checklistProgress">
+                        進捗:
+                        <strong
+                            ><span id="checklistDone">0</span> /
+                            <span id="checklistTotal">11</span></strong
+                        >
+                        完了
+                    </p>
+                    <ul class="checklist" id="checklist">
                         <li>
-                            テストを書く前に「誰のためのテストか」「何を満足とみなすか」を言語化した
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >テストを書く前に「誰のためのテストか」「何を満足とみなすか」を言語化した</span
+                                ></label
+                            >
                         </li>
                         <li>
-                            テストの配分（ピラミッド／トロフィー）と、CIでの実行制御（Small／Medium／Largeのテストサイズ）を分けて意識している
-                        </li>
-                        <li>Red → Green → Refactorのサイクルで小さくTDDを回している</li>
-                        <li>
-                            ストーリーレベルの受け入れテストとユニットレベルのTDDテストの役割の違いを理解している
-                        </li>
-                        <li>
-                            自動化できる部分と、探索的テストで人が判断すべき部分を区別している（アジャイルテストの4象限）
-                        </li>
-                        <li>バグには重要度（Severity）と優先度（Priority）を分けて記録している</li>
-                        <li>
-                            テストをすり抜けたバグについて、テストスイート側の改善点を振り返っている
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >テストの配分（ピラミッド／トロフィー）と、CIでの実行制御（Small／Medium／Largeのテストサイズ）を分けて意識している</span
+                                ></label
+                            >
                         </li>
                         <li>
-                            コミット時はSmall/Medium、リリース前・ナイトリーでLargeを実行するようゲーティングしている
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >Red → Green → Refactorのサイクルで小さくTDDを回している</span
+                                ></label
+                            >
                         </li>
                         <li>
-                            パフォーマンステストの結果は関係者と協働で解釈し、犯人探しで終わらせていない
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >ストーリーレベルの受け入れテストとユニットレベルのTDDテストの役割の違いを理解している</span
+                                ></label
+                            >
                         </li>
-                        <li>テストの基準やプロセスをチームで共有し、属人化させていない</li>
                         <li>
-                            LLM/AIエージェントを含む機能については、決定的な部分と非決定的な部分を切り分けてテスト戦略を設計している
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >自動化できる部分と、探索的テストで人が判断すべき部分を区別している（アジャイルテストの4象限）</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >バグには重要度（Severity）と優先度（Priority）を分けて記録している</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >テストをすり抜けたバグについて、テストスイート側の改善点を振り返っている</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >コミット時はSmall/Medium、リリース前・ナイトリーでLargeを実行するようゲーティングしている</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >パフォーマンステストの結果は関係者と協働で解釈し、犯人探しで終わらせていない</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >テストの基準やプロセスをチームで共有し、属人化させていない</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >LLM/AIエージェントを含む機能については、決定的な部分と非決定的な部分を切り分けてテスト戦略を設計している</span
+                                ></label
+                            >
                         </li>
                     </ul>
                 </section>
@@ -1428,7 +1547,7 @@
                             ><a
                                 href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://www.oreilly.com/library/view/beautiful-testing/9780596806934/</a
                             >
                         </li>
@@ -1439,7 +1558,7 @@
                             ><a
                                 href="https://www.oreilly.com/pub/pr/2453"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://www.oreilly.com/pub/pr/2453</a
                             >
                         </li>
@@ -1449,7 +1568,7 @@
                             ><a
                                 href="https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811</a
                             >
                         </li>
@@ -1459,7 +1578,7 @@
                             ><a
                                 href="https://books.apple.com/us/book/beautiful-testing/id396905423"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://books.apple.com/us/book/beautiful-testing/id396905423</a
                             >
                         </li>
@@ -1469,7 +1588,7 @@
                             ><a
                                 href="https://martinfowler.com/bliki/TestPyramid.html"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://martinfowler.com/bliki/TestPyramid.html</a
                             >
                         </li>
@@ -1480,7 +1599,7 @@
                             ><a
                                 href="https://martinfowler.com/articles/practical-test-pyramid.html"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://martinfowler.com/articles/practical-test-pyramid.html</a
                             >
                         </li>
@@ -1491,7 +1610,7 @@
                             ><a
                                 href="https://kentcdodds.com/blog/write-tests"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://kentcdodds.com/blog/write-tests</a
                             >
                         </li>
@@ -1502,7 +1621,7 @@
                             ><a
                                 href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications</a
                             >
                         </li>
@@ -1511,7 +1630,7 @@
                             ><a
                                 href="https://testing.googleblog.com/2010/12/test-sizes.html"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://testing.googleblog.com/2010/12/test-sizes.html</a
                             >
                         </li>
@@ -1522,7 +1641,7 @@
                             ><a
                                 href="https://abseil.io/resources/swe-book/html/ch14.html"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://abseil.io/resources/swe-book/html/ch14.html</a
                             >
                         </li>
@@ -1532,7 +1651,7 @@
                             ><a
                                 href="https://matthewboston.com/blog/the-agentic-test-pyramid.html"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://matthewboston.com/blog/the-agentic-test-pyramid.html</a
                             >
                         </li>
@@ -1543,7 +1662,7 @@
                             ><a
                                 href="https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing</a
                             >
                         </li>
@@ -1551,7 +1670,7 @@
                             <span class="ref-title"
                                 >Lisa Crispin & Janet Gregory – Agile Testing / Agile Testing
                                 Quadrants</span
-                            ><a href="https://agiletester.ca/" target="_blank" rel="noopener"
+                            ><a href="https://agiletester.ca/" target="_blank" rel="noopener noreferrer"
                                 >https://agiletester.ca/</a
                             >
                         </li>
@@ -1560,7 +1679,7 @@
                             ><a
                                 href="https://www.satisfice.com/articles/et-article.pdf"
                                 target="_blank"
-                                rel="noopener"
+                                rel="noopener noreferrer"
                                 >https://www.satisfice.com/articles/et-article.pdf</a
                             >
                         </li>
@@ -1630,6 +1749,31 @@
                         sidebar.classList.remove('open');
                     });
                 });
+
+                // 5. Checklist: toggle "done" styling + live progress counter
+                const checklist = document.getElementById('checklist');
+                if (checklist) {
+                    const checkboxes = checklist.querySelectorAll('.check-input');
+                    const doneCountEl = document.getElementById('checklistDone');
+                    const totalCountEl = document.getElementById('checklistTotal');
+                    if (totalCountEl) totalCountEl.textContent = checkboxes.length;
+
+                    function updateProgress() {
+                        let done = 0;
+                        checkboxes.forEach(function (cb) {
+                            if (cb.checked) done++;
+                        });
+                        if (doneCountEl) doneCountEl.textContent = done;
+                    }
+
+                    checkboxes.forEach(function (cb) {
+                        cb.addEventListener('change', function () {
+                            cb.closest('li').classList.toggle('done', cb.checked);
+                            updateProgress();
+                        });
+                    });
+                    updateProgress();
+                }
 
                 const sections = document.querySelectorAll('.section');
                 const navLinks = document.querySelectorAll('.sidebar nav a');
