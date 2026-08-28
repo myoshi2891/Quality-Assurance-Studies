@@ -270,14 +270,16 @@ options.setFullReset(true);
 
 ### 対象デバイスの指定方法に注意する
 
-`deviceName`は、Appiumが実際に接続先デバイスを決めるための一意なキーではありません。Androidで対象を確実に指定するには、次のどちらかを併用します。
+`deviceName`は、Appiumが実際に接続先デバイスを決めるための一意なキーではありません。ローカル環境（開発マシンやセルフホストのCIランナー）でAndroidの対象を確実に指定するには、次のどちらかを併用します。
 
 | 状況 | 使用するcapability | 説明 |
 |---|---|---|
 | エミュレーターをAppiumに起動させる | `appium:avd`（Java: `setAvd()`） | AVD Managerで作成したAVD名を指定する。該当のエミュレーターが起動していなければAppiumが自動的に起動する。 |
 | 実機、または起動済みのエミュレーターに接続する | `appium:udid`（Java: `setUdid()`） | `adb devices`で表示されるデバイスIDを指定する。複数端末が接続されている環境では必須。 |
 
-`deviceName`だけに頼ると、複数のデバイスやエミュレーターが接続されている環境で意図しない端末が選ばれることがあります。CIや並列実行の環境では、必ず`avd`か`udid`で対象を明示してください。
+`deviceName`だけに頼ると、複数のデバイスやエミュレーターが接続されている環境で意図しない端末が選ばれることがあります。ローカル実行や並列実行の環境では、必ず`avd`か`udid`で対象を明示してください。
+
+一方、**クラウドの実機デバイスファームでは`avd`や`udid`による端末指定は使えません**。`avd`はAppiumが自分でエミュレーターを起動する前提の設定であり、`udid`もベンダー側が管理する端末プールに対しては指定できないためです。クラウド実行では、どの端末で走らせるかを各ベンダー固有のCapabilitiesで指定します（例：BrowserStackは`bstack:options`の`deviceName`／`osVersion`、Sauce Labsは`appium:deviceName`／`appium:platformVersion`と`sauce:options`の組み合わせ）。キー名も、指定できる端末名・OSバージョンの表記もベンダーごとに異なるため、各社のデバイス一覧ドキュメントに従ってください。
 
 ### リセット系capabilityとテストの独立性
 
@@ -630,7 +632,7 @@ options.app = "bs://<uploaded-app-hash>"          # BrowserStackの例
 
 あわせて、クラウド実行では次の2点の設定も必要になります。
 
-- **認証情報**：ベンダーが発行するユーザー名とアクセスキーを、接続先URLに埋め込む（`https://<user>:<accessKey>@hub.<vendor>.com/wd/hub`）か、後述のベンダー固有Capabilities（BrowserStackなら`bstack:options`の`userName`／`accessKey`、Sauce Labsなら`sauce:options`の`username`／`accessKey`）で渡します。**いずれの場合も値はCIのシークレット管理機能（GitHub ActionsのSecretsなど）から環境変数として注入し、テストコードやリポジトリにハードコードしないでください。**
+- **認証情報**：ベンダーが発行するユーザー名とアクセスキーは、**接続先URLではなくベンダー固有のCapabilitiesで渡すことを既定とします**（BrowserStackなら`bstack:options`の`userName`／`accessKey`、Sauce Labsなら`sauce:options`の`username`／`accessKey`）。接続先URLは`https://hub.<vendor>.com/wd/hub`のように資格情報を含まない形にしておけば、URL自体をログやCI設定にそのまま出しても安全です。URLへの埋め込み形式（`https://<user>:<accessKey>@hub.<vendor>.com/wd/hub`）は、ツールの制約でCapabilities経由の指定ができない場合に限って使い、その際は**実行時に環境変数から組み立てて**リポジトリに残さないようにします。**いずれの場合も値はCIのシークレット管理機能（GitHub ActionsのSecretsなど）から環境変数として注入し、テストコードやリポジトリにハードコードしないでください。** あわせて、接続先URLやCapabilitiesをログ・レポート・失敗時のスタックトレースへ出力する箇所ではアクセスキーをマスクします（自前のログ出力では`accessKey`相当の値を`***`へ置換する、CIのシークレットは`add-mask`等でマスク登録する、`--verbose`系のHTTPトレースを本番CIで有効にしない、といった対策を組み合わせます）。
 - **ベンダー固有Capabilities**：セッション名・ビルド名、ログや画面録画の取得可否、社内環境へアクセスするためのローカルトンネルの有効化といった設定は、W3C標準ではなくベンダー独自の名前空間（`bstack:options`、`sauce:options`など）にまとめて指定します。名前空間ごと差し替えれば済むよう、これらの設定は共通のCapabilities組み立て処理に切り出しておくと、ローカル／クラウドの切り替えが容易になります。
 
 実務でよく採用される方針は、「開発中のスモークテストはローカルのエミュレーター/シミュレーターで高速に回し、リリース前の網羅的な回帰テストはクラウド実機デバイスファームで多機種並列実行する」という、フェーズに応じた使い分けです。
@@ -658,7 +660,25 @@ flowchart TD
     J -->|"失敗"| L["開発者に通知して修正"]
 ```
 
-ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには`.apk`、iOSシミュレーターには`.app`（クラウド実行では`.app.zip`に圧縮したもの）、iOS実機には`.ipa`を`appium:app`へ渡します。なお、Google Playへの配信形式であるAndroid App Bundle（`.aab`）はAppiumへ直接渡せません。`.aab`を扱う場合は、CIのビルド後に[bundletool](https://developer.android.com/tools/bundletool)で`.apks`を生成し（`bundletool build-apks --mode=universal`）、そこから取り出したユニバーサル`.apk`をテストに使う変換手順をパイプラインへ組み込んでください。
+ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには`.apk`、iOSシミュレーターには`.app`（クラウド実行では`.app.zip`に圧縮したもの）、iOS実機には`.ipa`を`appium:app`へ渡します。なお、Google Playへの配信形式であるAndroid App Bundle（`.aab`）はAppiumへ直接渡せません。`.aab`を扱う場合は、CIのビルド後に[bundletool](https://developer.android.com/tools/bundletool)で`.apks`を生成し、そこから取り出したユニバーサル`.apk`をテストに使う変換手順をパイプラインへ組み込んでください。`build-apks`では入力の`.aab`を`--bundle`で、出力の`.apks`を`--output`で指定します。生成された`.apks`はZIPアーカイブなので、そこから`universal.apk`を取り出して`appium:app`へ渡します。
+
+```bash
+# 1) AAB からユニバーサル APK セット（.apks）を生成する
+bundletool build-apks \
+  --bundle=app/build/outputs/bundle/release/app-release.aab \
+  --output=build/app.apks \
+  --mode=universal \
+  --overwrite \
+  --ks="$ANDROID_KEYSTORE_PATH" \
+  --ks-pass="pass:$ANDROID_KEYSTORE_PASSWORD" \
+  --ks-key-alias="$ANDROID_KEY_ALIAS" \
+  --key-pass="pass:$ANDROID_KEY_PASSWORD"
+
+# 2) .apks（ZIP）から universal.apk を取り出す
+unzip -p build/app.apks universal.apk > build/app-universal.apk
+```
+
+署名オプション（`--ks`／`--ks-pass`／`--ks-key-alias`／`--key-pass`）を省略すると、bundletoolはデバッグ署名鍵で署名します。動作確認だけならそれで足りますが、リリース版と同じ署名で検証したい場合はCIで署名鍵を渡す必要があります。その際、**キーストアファイルとパスワードはリポジトリに置かず、CIのシークレット管理機能で扱ってください**（キーストアはBase64エンコードしてSecretに登録し、ジョブ内で一時ディレクトリへ復元してからパスを渡す、パスワードは環境変数経由で`pass:`形式として渡す、ジョブ終了時に復元したキーストアを削除する、といった手順が一般的です）。`--ks-pass`にパスワードを直書きしたコマンドをログへ出さないよう、CIのコマンドエコー設定にも注意します。
 
 CI/CDにAppiumテストを組み込む際に押さえておきたいポイントは次の通りです。
 
@@ -678,7 +698,7 @@ CI/CDにAppiumテストを組み込む際に押さえておきたいポイント
 | XPathを第一候補にする | UI階層のわずかな変更で壊れやすく、実行速度も遅い | ID / Accessibility IDを優先し、XPathは最終手段にする |
 | ロケーターをテストコードに直書きする | UI変更のたびに複数ファイルを修正することになる | Page Object Modelでロケーターを1箇所に集約する |
 | Implicit WaitとExplicit Waitを併用する | 待機時間が予測できなくなり、かえって不安定になる | どちらか一方の戦略に統一する |
-| `automationName`を省略する | Appium 2.x以降はドライバーの暗黙デフォルトがないため、意図しないドライバーが選ばれたりエラーになったりする | Capabilitiesで`automationName`を必ず明示する |
+| `automationName`を省略する | Appium 2.x以降はドライバーの暗黙デフォルトがないため、どのドライバーを使うか解決できずセッション作成が失敗する（エラーとして拒否される） | Capabilitiesで`automationName`を必ず明示する |
 | セッション終了処理（`quit()`）を省略する | エミュレーター/実機のリソースが解放されず、後続テストに悪影響を与える | `finally`句やテストフレームワークのteardownフックで確実に呼び出す |
 | すべてのテストをクラウド実機ファームで直列実行する | CI全体の実行時間が長くなり、フィードバックサイクルが遅くなる | テストのレイヤーに応じてエミュレーター/実機/並列実行を使い分ける |
 
