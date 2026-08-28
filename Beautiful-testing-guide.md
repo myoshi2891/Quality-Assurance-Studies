@@ -182,7 +182,7 @@ flowchart TB
 初学者は、まず「自分が今書こうとしているテストはこの4象限のどこに位置するか」＝何を目的としたテストなのかを意識するだけで、自動化すべきか、人手で探索すべきかを検討する足がかりが得られます。探索的テストは「行き当たりばったりのテスト」ではなく、**仮説を立てて検証しながら学習する、規律あるプロセス**であることを覚えておきましょう。
 
 参照:
-<https://www.satisfice.com/articles/et-article.pdf> ／
+<https://satisfice.us/articles/et-article.pdf> ／
 <https://agiletester.ca/>
 
 ---
@@ -407,7 +407,7 @@ flowchart TB
 11. Matthew Boston – The Agentic Test Pyramid（2026年）: <https://matthewboston.com/blog/the-agentic-test-pyramid.html>
 12. Autonoma – Unit vs Integration vs E2E Testing: Testing Pyramid Decision Framework（2026年）: <https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing>
 13. Lisa Crispin & Janet Gregory – Agile Testing / Agile Testing Quadrants: <https://agiletester.ca/>
-14. James Bach – Exploratory Testing Explained: <https://www.satisfice.com/articles/et-article.pdf>
+14. James Bach – Exploratory Testing Explained: <https://satisfice.us/articles/et-article.pdf>
 
 ---
 
