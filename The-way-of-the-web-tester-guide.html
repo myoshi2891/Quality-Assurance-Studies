@@ -378,7 +378,7 @@
     </head>
     <body>
         <div class="layout">
-            <button class="nav-toggle" id="navToggle" aria-label="メニューを開く">☰</button>
+            <button class="nav-toggle" id="navToggle" aria-controls="sidebar" aria-expanded="false" aria-label="メニューを開く">☰</button>
 
             <aside class="sidebar" id="sidebar">
                 <div class="sidebar-title">The Way of<br />the Web Tester</div>
@@ -1775,14 +1775,42 @@
                 var toggle = document.getElementById('navToggle');
                 var sidebar = document.getElementById('sidebar');
                 if (toggle && sidebar) {
+                    // 900px以下ではサイドバーが画面外へ退避するだけで、
+                    // 閉じていてもキーボードフォーカスが届いてしまう。
+                    // inert で閉じている間はフォーカス対象から外す。
+                    var mobileQuery = window.matchMedia('(max-width: 900px)');
+
+                    function syncSidebar() {
+                        var isOpen = sidebar.classList.contains('open');
+                        // デスクトップでは常時表示のため inert を付けない
+                        sidebar.inert = mobileQuery.matches && !isOpen;
+                        toggle.setAttribute('aria-expanded', String(isOpen));
+                        toggle.setAttribute(
+                            'aria-label',
+                            isOpen ? 'メニューを閉じる' : 'メニューを開く'
+                        );
+                    }
+
+                    function setSidebarOpen(isOpen) {
+                        sidebar.classList.toggle('open', isOpen);
+                        syncSidebar();
+                    }
+
                     toggle.addEventListener('click', function () {
-                        sidebar.classList.toggle('open');
+                        setSidebarOpen(!sidebar.classList.contains('open'));
                     });
                     links.forEach(function (l) {
                         l.addEventListener('click', function () {
-                            sidebar.classList.remove('open');
+                            setSidebarOpen(false);
                         });
                     });
+                    // ビューポート幅の変化にも追従させる
+                    if (typeof mobileQuery.addEventListener === 'function') {
+                        mobileQuery.addEventListener('change', syncSidebar);
+                    } else if (typeof mobileQuery.addListener === 'function') {
+                        mobileQuery.addListener(syncSidebar);
+                    }
+                    syncSidebar();
                 }
             });
         </script>
