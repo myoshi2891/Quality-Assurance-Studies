@@ -1002,20 +1002,23 @@
                             これらの章のエッセンスは、現代のCI/CDパイプラインにそのまま応用できます。ステップ2で紹介したGoogleのテストサイズ分類と組み合わせると、<strong>トリガーごとに別のパイプライン</strong>としてゲーティング構造を描けます。すべてのテストを毎コミットで回すのではなく、速いテストほど高頻度に、遅いテストほど低頻度に配置するのが要点です。なお、手動の探索的テストはこれらの自動ゲートには含めず、別途スケジュールして実施します。
                         </p>
                         <p>
-                            コミット／プルリクエストのたびに走らせるのは、静的解析とSmall／Mediumテストまでに留めます。
+                            コミットのたびに走らせるのは静的解析とSmallテストまでに留め、プルリクエストではそれに加えてMediumテストまでを走らせます。
                         </p>
                     </div>
 
                     <div class="mermaid-wrapper">
                         <pre class="mermaid"><script type="text/plain">
             flowchart TB
-                Commit["コミット / プルリクエスト<br/>（毎回実行）"] --> Static2["静的解析"]
-                Static2 --> Small["Smallテスト<br/>数秒で完了"]
-                Small --> Medium["Mediumテスト<br/>数分で完了"]
+                Commit["コミット<br/>（毎回実行）"] --> StaticC2["静的解析"]
+                StaticC2 --> SmallC["Smallテスト<br/>数秒で完了"]
+                SmallC -->|"失敗"| Feedback["開発者へ即座にフィードバック"]
+                PR2["プルリクエスト"] --> StaticP2["静的解析"]
+                StaticP2 --> SmallP["Smallテスト<br/>数秒で完了"]
+                SmallP --> Medium["Mediumテスト<br/>数分で完了"]
                 Medium --> Merge["マージ可能"]
-                Small -->|"失敗"| Feedback["開発者へ即座にフィードバック"]
+                SmallP -->|"失敗"| Feedback
                 Medium -->|"失敗"| Feedback
-                Feedback --> Commit
+                Feedback --> Fix2["修正して再度push"]
         </script></pre>
                     </div>
 
@@ -1163,8 +1166,10 @@
                                 >ホールチーム・アプローチ（Whole-Team Approach）</strong
                             >の実例（Wikitestsのような独自ツールを含む）を紹介しています。「どのストーリーもテストされるまで完了とみなさない（No
                             Story Is "Done" Until It's
-                            Tested）」という原則は、現代のアジャイル開発における「Definition of
-                            Done」の考え方そのものです。
+                            Tested）」という原則は、現代のアジャイル開発において多くのチームが「Definition
+                            of
+                            Done」に含める代表的な要素の一つです（Definition of
+                            Doneはこの原則だけでなく、コードレビューやドキュメント整備などチームが合意した複数の条件で構成されます）。
                         </p>
                         <p>
                             初学者、特にこれから小さなチームやOSSプロジェクトに関わる人へのアドバイスは、「テストを一人で抱え込まない」ことです。テストの基準やプロセスをチーム全員で合意し、ドキュメント化し、新しく参加する人にも伝わる形にしておくことが、長期的に「美しいテスト文化」を維持する鍵になります。
@@ -1204,7 +1209,7 @@
                 end
                 subgraph NonDeterministic["非決定的レイヤー：LLM/エージェント特有"]
                     direction TB
-                    Eval["モデル評価 Evals"] --> Behavior["振る舞いベースのE2E"]
+                    Behavior["振る舞いベースのE2E"] --> Eval["モデル評価 Evals"]
                 end
                 Deterministic --> NonDeterministic
         </script></pre>
@@ -1502,7 +1507,7 @@
                             <label class="check-label"
                                 ><input type="checkbox" class="check-input" /><span
                                     class="check-text"
-                                    >コミット時はSmall/Medium、リリース前・ナイトリーでLargeを実行するようゲーティングしている</span
+                                    >コミット時はSmall、プルリクエスト時はMediumまで、リリース前・ナイトリーでLargeを実行するようゲーティングしている</span
                                 ></label
                             >
                         </li>
