@@ -375,6 +375,10 @@ export default function () {
   // 対象環境は実行時に切り替えられるよう環境変数から受け取る
   //   例: k6 run --env BASE_URL=https://staging.example.com script.js
   const baseUrl = __ENV.BASE_URL;
+  // 未設定のまま実行すると "undefined/products" へリクエストしてしまうため、ここで止める
+  if (!baseUrl) {
+    throw new Error('BASE_URL is required. 例: k6 run --env BASE_URL=https://staging.example.com script.js');
+  }
   const res = http.get(`${baseUrl}/products`);
   check(res, { 'status is 200': (r) => r.status === 200 });
   sleep(1);
