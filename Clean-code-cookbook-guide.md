@@ -390,19 +390,19 @@ AIが生成したコードを、内容を十分に理解しないままコピー
 
 ## 10. 参考文献・出典一覧
 
-- O'Reilly – Clean Code Cookbook（書誌・目次ページ）: https://www.oreilly.com/library/view/clean-code-cookbook/9781098144715/
-- O'Reilly – Clean Code Cookbook, Chapter 1（Clean Code）: https://www.oreilly.com/library/view/clean-code-cookbook/9781098144715/ch01.html
-- Maximiliano Contieri 公式サイト: https://maximilianocontieri.com/
-- Maximiliano Contieri – Code Smells series: https://maximilianocontieri.com/series/code-smells
-- Maximiliano Contieri – Code Smell 316: Nitpicking（2025年12月）: https://maxicontieri.substack.com/p/code-smell-316-nitpicking
-- Maximiliano Contieri / DEV Community – Code Smell 314: Model Collapse（2025年11月）: https://dev.to/mcsee/code-smell-314-model-collapse-5ckc
-- Maximiliano Contieri / HackerNoon – Code Smell 313: "Workslop" in AI-Assisted Programming（2025年11月）: https://hackernoon.com/code-smell-313-workslop-in-ai-assisted-programming
-- Martin Fowler – Bad Smells in Code（『Refactoring』原文PDF）: https://www.laputan.org/pub/patterns/fowler/smells.pdf
-- LinearB Blog – Code Smells: What Are They And How Can I Prevent Them?: https://linearb.io/blog/what-is-a-code-smell
-- Kent Beck's Substack – Software Design: Tidy First?: https://tidyfirst.substack.com/p/management-section-intro-tidy-together
-- Sandor Dargo's Blog – Tidy First? by Kent Beck（書評）: https://www.sandordargo.com/blog/2024/03/16/tidy-first-by-kent-beck
-- thoughtbot – Sandi Metz' Rules For Developers: https://thoughtbot.com/blog/sandi-metz-rules-for-developers
-- InformIT – The Boy Scout Rule（Robert C. Martin, What Is Clean Code?より）: https://www.informit.com/articles/article.aspx?p=1235624&seqNum=6
-- Wikipedia – Design smell（Fowler・R.C. Martinの定義の整理）: https://en.wikipedia.org/wiki/Design_smell
+- [O'Reilly – Clean Code Cookbook（書誌・目次ページ）](https://www.oreilly.com/library/view/clean-code-cookbook/9781098144715/)
+- [O'Reilly – Clean Code Cookbook, Chapter 1（Clean Code）](https://www.oreilly.com/library/view/clean-code-cookbook/9781098144715/ch01.html)
+- [Maximiliano Contieri 公式サイト](https://maximilianocontieri.com/)
+- [Maximiliano Contieri – Code Smells series](https://maximilianocontieri.com/series/code-smells)
+- [Maximiliano Contieri – Code Smell 316: Nitpicking（2025年12月）](https://maxicontieri.substack.com/p/code-smell-316-nitpicking)
+- [Maximiliano Contieri / DEV Community – Code Smell 314: Model Collapse（2025年11月）](https://dev.to/mcsee/code-smell-314-model-collapse-5ckc)
+- [Maximiliano Contieri / HackerNoon – Code Smell 313: "Workslop" in AI-Assisted Programming（2025年11月）](https://hackernoon.com/code-smell-313-workslop-in-ai-assisted-programming)
+- [Martin Fowler – Bad Smells in Code（『Refactoring』原文PDF）](https://www.laputan.org/pub/patterns/fowler/smells.pdf)
+- [LinearB Blog – Code Smells: What Are They And How Can I Prevent Them?](https://linearb.io/blog/what-is-a-code-smell)
+- [Kent Beck's Substack – Software Design: Tidy First?](https://tidyfirst.substack.com/p/management-section-intro-tidy-together)
+- [Sandor Dargo's Blog – Tidy First? by Kent Beck（書評）](https://www.sandordargo.com/blog/2024/03/16/tidy-first-by-kent-beck)
+- [thoughtbot – Sandi Metz' Rules For Developers](https://thoughtbot.com/blog/sandi-metz-rules-for-developers)
+- [InformIT – The Boy Scout Rule（Robert C. Martin, What Is Clean Code?より）](https://www.informit.com/articles/article.aspx?p=1235624&seqNum=6)
+- [Wikipedia – Design smell（Fowler・R.C. Martinの定義の整理）](https://en.wikipedia.org/wiki/Design_smell)
 
 *本ガイドは2026年8月27日時点で参照可能な上記情報をもとに作成しています。書籍の内容そのものの引用は最小限にとどめ、可能な限り独自の説明・独自のコード例で構成しています。*
