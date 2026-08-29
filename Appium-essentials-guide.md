@@ -669,12 +669,24 @@ flowchart TD
 このとき、**`--mode=universal`ではなくテスト対象デバイスのデバイススペックを指定して`.apks`を生成し、その`.apks`をそのまま`appium:app`へ渡す**ことを推奨します。ユニバーサルAPKは単一ファイルにまとまる反面、`dist:fusing`が有効でないDynamic Feature Module（オンデマンド配信のモジュール）が含まれないため、本番配信時とは異なる構成でテストしてしまう恐れがあります。`bundletool get-device-spec`で接続中のデバイス（実機・エミュレーター）のスペックを取得し、`build-apks --device-spec`でそのデバイス向けの分割APK群を生成すれば、実際に配信されるのと同じ分割APKとDynamic Feature Moduleを含む形で検証できます。`build-apks`では入力の`.aab`を`--bundle`で、出力の`.apks`を`--output`で指定します。UiAutomator2ドライバーは`.apks`を受け取ると内部で分割APKをまとめてインストールするため、`.apks`から`universal.apk`を取り出す必要はありません（この処理にはCI上のPATHから`bundletool`が解決できる必要があります）。
 
 ```bash
+# 0) 失敗を握りつぶさないようフェイルファストにする
+set -euo pipefail
+
+# 端末ごとに成果物を分離する（並列実行時に device-spec / .apks が混ざらないようにする）
+#   DEVICE_ID: 対象端末のシリアル（`adb devices` で確認できる値）
+DEVICE_ID="${DEVICE_ID:?対象端末のシリアル（adb devices の値）を指定してください}"
+OUT_DIR="build/${DEVICE_ID}"
+mkdir -p "$OUT_DIR"
+
 # 1) テスト対象デバイス（接続中の実機 / 起動中のエミュレーター）のスペックを取得する
-bundletool get-device-spec --output=build/device-spec.json --overwrite
+bundletool get-device-spec \
+  --device-id="$DEVICE_ID" \
+  --output="$OUT_DIR/device-spec.json" \
+  --overwrite
 
 # 2) 署名オプションを組み立てる
-#    リリース署名用のシークレットが未設定なら、署名オプションは一切付けない
-#    （bundletool が既定のデバッグ署名鍵で署名する）
+#    4つのシークレットは「すべて設定」か「すべて未設定」のいずれかでなければならない
+#    （すべて未設定なら bundletool が既定のデバッグ署名鍵で署名する）
 SIGNING_ARGS=()
 CLEANUP_FILES=()
 if [ -n "${ANDROID_KEYSTORE_PATH:-}" ] \
@@ -696,29 +708,45 @@ if [ -n "${ANDROID_KEYSTORE_PATH:-}" ] \
     --ks-key-alias="$ANDROID_KEY_ALIAS"
     --key-pass="file:$KEY_PASS_FILE"
   )
+elif [ -z "${ANDROID_KEYSTORE_PATH:-}" ] \
+  && [ -z "${ANDROID_KEYSTORE_PASSWORD:-}" ] \
+  && [ -z "${ANDROID_KEY_ALIAS:-}" ] \
+  && [ -z "${ANDROID_KEY_PASSWORD:-}" ]; then
+  # 4つとも未設定 → デバッグ署名鍵へフォールバックする（署名オプションを付けない）
+  :
+else
+  # 一部だけ設定されている状態は設定漏れなので、黙ってデバッグ署名へ落とさず失敗させる
+  echo "ERROR: ANDROID_KEYSTORE_PATH / ANDROID_KEYSTORE_PASSWORD / ANDROID_KEY_ALIAS / ANDROID_KEY_PASSWORD は、4つすべて設定するか4つとも未設定にしてください" >&2
+  exit 1
 fi
 
 # 3) AAB から対象デバイス向けの APK セット（.apks）を生成する
+#    ${ARRAY[@]+"${ARRAY[@]}"} は set -u 環境で空配列を安全に展開するための書き方
 bundletool build-apks \
   --bundle=app/build/outputs/bundle/release/app-release.aab \
-  --output=build/app.apks \
-  --device-spec=build/device-spec.json \
+  --output="$OUT_DIR/app.apks" \
+  --device-spec="$OUT_DIR/device-spec.json" \
   --overwrite \
-  "${SIGNING_ARGS[@]}"
+  ${SIGNING_ARGS[@]+"${SIGNING_ARGS[@]}"}
 
 # 4) パスワードファイルを確実に削除する
-[ ${#CLEANUP_FILES[@]} -gt 0 ] && rm -f "${CLEANUP_FILES[@]}"
+#    シークレット未設定（配列が空）の場合もここで失敗しないようにする
+if [ ${#CLEANUP_FILES[@]} -gt 0 ]; then
+  rm -f "${CLEANUP_FILES[@]}"
+fi
 
-# 5) build/app.apks をそのまま appium:app へ渡す
+# 5) "$OUT_DIR/app.apks" をそのまま appium:app へ渡す
 #    （分割APK・Dynamic Feature Module を含んだ状態でインストールされる）
 ```
+
+なお、上記の手順は**ローカルやセルフホストランナーのように、`adb`から対象端末へ直接到達できるローカル実行を前提**としています。クラウド端末ファーム上で実行する場合は、CI側から対象端末に`adb`で接続できないため`bundletool get-device-spec`を実行できません。クラウド実行では bundletool による変換を行わず、**ベンダーのアップロードAPIへ成果物を登録して払い出されるアプリID（`bs://...`、`lt://...`、`storage:...` など）か、ベンダー側から到達可能なURLを`appium:app`へ渡す**別手順として整理してください。`.aab`をそのまま受け付けて内部で分割APKへ変換するベンダーもあるため、対応形式は利用するサービスのドキュメントで確認します。
 
 上のスクリプトのように、署名オプション（`--ks`／`--ks-pass`／`--ks-key-alias`／`--key-pass`）をすべて省略すると、bundletoolはデバッグ署名鍵で署名します。動作確認だけならそれで足りるため、シークレットが未設定の環境では署名オプションを付けずに実行してください。リリース版と同じ署名で検証したい場合のみ、CIで署名鍵を渡します。その際、**キーストアファイルとパスワードはリポジトリに置かず、CIのシークレット管理機能で扱ってください**（キーストアはBase64エンコードしてSecretに登録し、ジョブ内で一時ディレクトリへ復元してからパスを渡す、パスワードはパーミッションを絞った一時ファイルへ書き出して`file:`形式で渡し、bundletoolの完了後に削除する、ジョブ終了時に復元したキーストアを削除する、といった手順が一般的です）。`--ks-pass`／`--key-pass`に`pass:`形式でパスワードを渡すと、値がプロセス引数として`ps`などから見える点にも注意してください（上記のように`file:`形式を使えば回避できます）。あわせて、CIのコマンドエコー設定でシークレットがログへ出力されないようにします。
 
 CI/CDにAppiumテストを組み込む際に押さえておきたいポイントは次の通りです。
 
 - **テストの独立性を保つ**：並列実行するテストケース同士が同じデバイス状態やアプリデータに依存しないよう設計する。テスト間でアプリの状態がリセットされることを前提にする。
-- **セッションごとに端末識別子とポートを分離する**：同一マシン上で複数セッションを並列実行する場合、識別子とポートが衝突するとセッション同士が干渉して不可解な失敗を起こす。Androidでは `appium:udid`（対象端末の一意な指定）と `appium:systemPort`（UiAutomator2サーバーの待受ポート）を、iOSでは `appium:udid` に加えて `appium:wdaLocalPort`（WebDriverAgentの待受ポート）と `appium:derivedDataPath`（ビルド成果物の格納先）を、**セッションごとに必ず別の値**で指定する。画面録画やスクリーンストリーミングを併用する場合は `appium:mjpegServerPort` も同様にセッションごとへ分離する。さらにAndroidでWebViewやChromeを並列に自動化する場合は、`appium:chromedriverPort`（Chromedriverの待受ポート）と `appium:webviewDevtoolsPort`（WebViewのDevToolsへ接続するためのポート）にもセッションごとに異なる値を指定しておく。未指定の場合、`appium:chromedriverPort`は空きポートが自動的に選択され、`appium:webviewDevtoolsPort`は10900〜11000の範囲から空きポートが選択されるため、既定のままでも必ず衝突するわけではない。ただしポートを確保できなかった場合はセッションが失敗するため、並列度の高いCIではセッションごとに一意な値を明示的に割り当てることを推奨する。
+- **セッションごとに端末識別子とポートを分離する**：同一マシン上で複数セッションを並列実行する場合、識別子とポートが衝突するとセッション同士が干渉して不可解な失敗を起こす。Androidの端末指定は実行形態で使い分ける：Appiumにエミュレーターを起動させる場合は `appium:avd`（起動するAVD名）、実機または起動済みのエミュレーターへ接続する場合は `appium:udid`（対象端末の一意な指定）、クラウド端末ファームでの実行ではベンダー固有のケーパビリティ（`bstack:options` の `deviceName`／`osVersion` など）で対象端末を指定する。そのうえでAndroidでは端末指定に加えて `appium:systemPort`（UiAutomator2サーバーの待受ポート）を、iOSでは `appium:udid` に加えて `appium:wdaLocalPort`（WebDriverAgentの待受ポート）と `appium:derivedDataPath`（ビルド成果物の格納先）を、**セッションごとに必ず別の値**で指定する。画面録画やスクリーンストリーミングを併用する場合は `appium:mjpegServerPort` も同様にセッションごとへ分離する。さらにAndroidでWebViewやChromeを並列に自動化する場合は、`appium:chromedriverPort`（Chromedriverの待受ポート）と `appium:webviewDevtoolsPort`（WebViewのDevToolsへ接続するためのポート）にもセッションごとに異なる値を指定しておく。未指定の場合、`appium:chromedriverPort`は空きポートが自動的に選択され、`appium:webviewDevtoolsPort`は10900〜11000の範囲から空きポートが選択されるため、既定のままでも必ず衝突するわけではない。ただしポートを確保できなかった場合はセッションが失敗するため、並列度の高いCIではセッションごとに一意な値を明示的に割り当てることを推奨する。
 - **失敗時の証跡を残す**：スクリーンショットやAppiumサーバーのログ、可能であれば画面録画を自動保存し、CI上でも失敗原因を追いやすくする。
 - **リトライの扱いに注意する**：一時的なネットワーク遅延などによる偶発的失敗を吸収するためにリトライ機構を入れるチームは多いが、リトライで「隠れた不安定テスト」を放置しないよう、リトライ発生自体もメトリクスとして可視化しておくとよい。
 - **段階的なテスト戦略**：コミットごとに全テストを実機ファームでフル実行するとコストと時間がかさむため、プルリクエスト時はスモークテストのみエミュレーターで実行し、マージ後や夜間バッチで実機ファームによるフル回帰テストを走らせる、といった段階分けが一般的です。
