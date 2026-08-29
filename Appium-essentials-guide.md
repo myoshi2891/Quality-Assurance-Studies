@@ -664,37 +664,56 @@ flowchart TD
     J -->|"失敗"| L["開発者に通知して修正"]
 ```
 
-ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには`.apk`、iOSシミュレーターには`.app`（クラウド実行では`.app.zip`に圧縮したもの）、iOS実機には`.ipa`を`appium:app`へ渡します。なお、Google Playへの配信形式であるAndroid App Bundle（`.aab`）はAppiumへ直接渡せません。`.aab`を扱う場合は、CIのビルド後に[bundletool](https://developer.android.com/tools/bundletool)で`.apks`を生成し、そこから取り出したユニバーサル`.apk`をテストに使う変換手順をパイプラインへ組み込んでください。`build-apks`では入力の`.aab`を`--bundle`で、出力の`.apks`を`--output`で指定します。生成された`.apks`はZIPアーカイブなので、そこから`universal.apk`を取り出して`appium:app`へ渡します。
+ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには`.apk`、iOSシミュレーターには`.app`（クラウド実行では`.app.zip`に圧縮したもの）、iOS実機には`.ipa`を`appium:app`へ渡します。なお、Google Playへの配信形式であるAndroid App Bundle（`.aab`）はAppiumへ直接渡せません。`.aab`を扱う場合は、CIのビルド後に[bundletool](https://developer.android.com/tools/bundletool)で`.apks`を生成する変換手順をパイプラインへ組み込んでください。
+
+このとき、**`--mode=universal`ではなくテスト対象デバイスのデバイススペックを指定して`.apks`を生成し、その`.apks`をそのまま`appium:app`へ渡す**ことを推奨します。ユニバーサルAPKは単一ファイルにまとまる反面、`dist:fusing`が有効でないDynamic Feature Module（オンデマンド配信のモジュール）が含まれないため、本番配信時とは異なる構成でテストしてしまう恐れがあります。`bundletool get-device-spec`で接続中のデバイス（実機・エミュレーター）のスペックを取得し、`build-apks --device-spec`でそのデバイス向けの分割APK群を生成すれば、実際に配信されるのと同じ分割APKとDynamic Feature Moduleを含む形で検証できます。`build-apks`では入力の`.aab`を`--bundle`で、出力の`.apks`を`--output`で指定します。UiAutomator2ドライバーは`.apks`を受け取ると内部で分割APKをまとめてインストールするため、`.apks`から`universal.apk`を取り出す必要はありません（この処理にはCI上のPATHから`bundletool`が解決できる必要があります）。
 
 ```bash
-# 0) パスワードは引数ではなくパーミッションを絞った一時ファイル経由で渡す
-#    （プロセス一覧やCIのコマンドエコーへ露出させないため）
-KS_PASS_FILE="$(mktemp)"; KEY_PASS_FILE="$(mktemp)"
-chmod 600 "$KS_PASS_FILE" "$KEY_PASS_FILE"
-# ジョブが途中で失敗しても削除されるようにしておく
-trap 'rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"' EXIT
-printf '%s' "$ANDROID_KEYSTORE_PASSWORD" > "$KS_PASS_FILE"
-printf '%s' "$ANDROID_KEY_PASSWORD" > "$KEY_PASS_FILE"
+# 1) テスト対象デバイス（接続中の実機 / 起動中のエミュレーター）のスペックを取得する
+bundletool get-device-spec --output=build/device-spec.json --overwrite
 
-# 1) AAB からユニバーサル APK セット（.apks）を生成する
+# 2) 署名オプションを組み立てる
+#    リリース署名用のシークレットが未設定なら、署名オプションは一切付けない
+#    （bundletool が既定のデバッグ署名鍵で署名する）
+SIGNING_ARGS=()
+CLEANUP_FILES=()
+if [ -n "${ANDROID_KEYSTORE_PATH:-}" ] \
+  && [ -n "${ANDROID_KEYSTORE_PASSWORD:-}" ] \
+  && [ -n "${ANDROID_KEY_ALIAS:-}" ] \
+  && [ -n "${ANDROID_KEY_PASSWORD:-}" ]; then
+  # パスワードは引数ではなくパーミッションを絞った一時ファイル経由で渡す
+  # （プロセス一覧やCIのコマンドエコーへ露出させないため）
+  KS_PASS_FILE="$(mktemp)"; KEY_PASS_FILE="$(mktemp)"
+  chmod 600 "$KS_PASS_FILE" "$KEY_PASS_FILE"
+  CLEANUP_FILES=("$KS_PASS_FILE" "$KEY_PASS_FILE")
+  # ジョブが途中で失敗しても削除されるようにしておく
+  trap 'rm -f "${CLEANUP_FILES[@]}"' EXIT
+  printf '%s' "$ANDROID_KEYSTORE_PASSWORD" > "$KS_PASS_FILE"
+  printf '%s' "$ANDROID_KEY_PASSWORD" > "$KEY_PASS_FILE"
+  SIGNING_ARGS=(
+    --ks="$ANDROID_KEYSTORE_PATH"
+    --ks-pass="file:$KS_PASS_FILE"
+    --ks-key-alias="$ANDROID_KEY_ALIAS"
+    --key-pass="file:$KEY_PASS_FILE"
+  )
+fi
+
+# 3) AAB から対象デバイス向けの APK セット（.apks）を生成する
 bundletool build-apks \
   --bundle=app/build/outputs/bundle/release/app-release.aab \
   --output=build/app.apks \
-  --mode=universal \
+  --device-spec=build/device-spec.json \
   --overwrite \
-  --ks="$ANDROID_KEYSTORE_PATH" \
-  --ks-pass="file:$KS_PASS_FILE" \
-  --ks-key-alias="$ANDROID_KEY_ALIAS" \
-  --key-pass="file:$KEY_PASS_FILE"
+  "${SIGNING_ARGS[@]}"
 
-# 2) パスワードファイルを確実に削除する
-rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"
+# 4) パスワードファイルを確実に削除する
+[ ${#CLEANUP_FILES[@]} -gt 0 ] && rm -f "${CLEANUP_FILES[@]}"
 
-# 3) .apks（ZIP）から universal.apk を取り出す
-unzip -p build/app.apks universal.apk > build/app-universal.apk
+# 5) build/app.apks をそのまま appium:app へ渡す
+#    （分割APK・Dynamic Feature Module を含んだ状態でインストールされる）
 ```
 
-署名オプション（`--ks`／`--ks-pass`／`--ks-key-alias`／`--key-pass`）を省略すると、bundletoolはデバッグ署名鍵で署名します。動作確認だけならそれで足りますが、リリース版と同じ署名で検証したい場合はCIで署名鍵を渡す必要があります。その際、**キーストアファイルとパスワードはリポジトリに置かず、CIのシークレット管理機能で扱ってください**（キーストアはBase64エンコードしてSecretに登録し、ジョブ内で一時ディレクトリへ復元してからパスを渡す、パスワードはパーミッションを絞った一時ファイルへ書き出して`file:`形式で渡し、bundletoolの完了後に削除する、ジョブ終了時に復元したキーストアを削除する、といった手順が一般的です）。`--ks-pass`／`--key-pass`に`pass:`形式でパスワードを渡すと、値がプロセス引数として`ps`などから見える点にも注意してください（上記のように`file:`形式を使えば回避できます）。あわせて、CIのコマンドエコー設定でシークレットがログへ出力されないようにします。
+上のスクリプトのように、署名オプション（`--ks`／`--ks-pass`／`--ks-key-alias`／`--key-pass`）をすべて省略すると、bundletoolはデバッグ署名鍵で署名します。動作確認だけならそれで足りるため、シークレットが未設定の環境では署名オプションを付けずに実行してください。リリース版と同じ署名で検証したい場合のみ、CIで署名鍵を渡します。その際、**キーストアファイルとパスワードはリポジトリに置かず、CIのシークレット管理機能で扱ってください**（キーストアはBase64エンコードしてSecretに登録し、ジョブ内で一時ディレクトリへ復元してからパスを渡す、パスワードはパーミッションを絞った一時ファイルへ書き出して`file:`形式で渡し、bundletoolの完了後に削除する、ジョブ終了時に復元したキーストアを削除する、といった手順が一般的です）。`--ks-pass`／`--key-pass`に`pass:`形式でパスワードを渡すと、値がプロセス引数として`ps`などから見える点にも注意してください（上記のように`file:`形式を使えば回避できます）。あわせて、CIのコマンドエコー設定でシークレットがログへ出力されないようにします。
 
 CI/CDにAppiumテストを組み込む際に押さえておきたいポイントは次の通りです。
 
