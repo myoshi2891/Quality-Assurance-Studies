@@ -27,10 +27,10 @@
 
 つまりこの本の主題は、
 
-- 「できあがってしまったレガシーコードをどう改善するか」ではなく
-- 「そもそもレガシーコードを生み出さないためにどう開発するか」
+- 主として「そもそもレガシーコードを生み出さないためにどう開発するか」
+- あわせて「できあがってしまったレガシーコードをどう改善するか」（プラクティス9で扱われる、テストと継ぎ目づくりを土台にしたリファクタリング）
 
-という点にあります。タイトルの「脱却」は、悪くなったコードとの戦い方ではなく、悪くなる土壌そのものを断つための考え方を指しています。
+という2点にあります。タイトルの「脱却」は、悪くなったコードとの戦い方だけを指すのではなく、悪くなる土壌そのものを断つための考え方に重心を置いたものです。
 
 ## レガシーコードとは何か
 
@@ -242,7 +242,8 @@ flowchart TB
 
 初学者向けの第一歩:
 
-- レガシーコードに手を入れる前に、まず現状の振る舞いを固定するテストを書く
+- レガシーコードに手を入れる前に、テストが書ける状態であれば、まず現状の振る舞いを固定するテスト（特性化テスト）を書く
+- テストを書くこと自体が難しい場合は、先に小さく安全なリファクタリングで継ぎ目（Seam）を作り、テストを書ける形にしてから本題の変更に進む
 - 一度に大きく書き換えず、小さな安全なステップに分解する
 - 「動くコードを書く」作業と「コードを整える」作業を区別して意識する
 
@@ -275,15 +276,15 @@ flowchart TB
 - [O'Reilly（原著の目次・概要ページ）](https://www.oreilly.com/library/view/beyond-legacy-code/9781680501827/)
 - [The Standish Group 公式サイト（本文で言及した CHAOS Report の発行元）](https://www.standishgroup.com/)
 - [Pragmatic Bookshelf 公式ページ（原著出版元、詳細目次あり）](https://pragprog.com/titles/dblegacy/beyond-legacy-code/)
-- [Agile Alliance 書籍紹介ページ（国際的なアジャイル団体による紹介）](https://agilealliance.org/resources/books/beyond-legacy-code/)
-- [The Agile Revolution ポッドキャスト 第171回（著名な国際的アジャイルコミュニティの人物 Craig Smith が著者 David Bernstein 本人にインタビュー）](https://theagilerevolution.com/2019/10/07/episode-171-beyond-legacy-code-with-david-bernstein/)
-- [Christian Tietze氏のブログ（国際的な開発者によるCLEANコード頭字語の紹介記事）](https://christiantietze.de/posts/2015/09/clean-code/)
-- [Numerickly（読了レビューと要約記事）](https://www.numerickly.com/2021/08/23/beyond-legacy-code-by-david-scott-bernstein-review-and-summary/)
+- [Agile Alliance 書籍紹介ページ（書籍の紹介記事）](https://agilealliance.org/resources/books/beyond-legacy-code/)
+- [The Agile Revolution ポッドキャスト 第171回（著者 David Bernstein へのインタビュー）](https://theagilerevolution.com/2019/10/07/episode-171-beyond-legacy-code-with-david-bernstein/)
+- [Christian Tietze氏のブログ（CLEANコード頭字語の紹介記事）](https://christiantietze.de/posts/2015/09/clean-code/)
+- [Numerickly（書評と要約記事）](https://www.numerickly.com/2021/08/23/beyond-legacy-code-by-david-scott-bernstein-review-and-summary/)
 - [著者 David Scott Bernstein 自身によるCLEANコード解説記事（Goodreads author blog）](https://www.goodreads.com/author_blog_posts/18772891-share-common-quality-practices?tab=book)
-- [Goodreads 書籍ページ（読者レビュー、CLEAN頭字語への評価コメントを含む）](https://www.goodreads.com/book/show/26088456-beyond-legacy-code)
+- [Goodreads 書籍ページ（読者による書評、CLEAN頭字語へのコメントを含む）](https://www.goodreads.com/book/show/26088456-beyond-legacy-code)
 - [O'Reilly Japan 日本語版書誌ページ](https://www.oreilly.com/library/view/9/9784873118864/)
 - [株式会社アトラクタ（日本語版訳者の一人 吉羽龍太郎氏が代表を務める会社による紹介ページ）](https://www.attractor.co.jp/book/beyond-legacy-code/)
-- [irof氏のブログ（日本のアジャイル・テストコミュニティで知られるブロガーによる書評）](https://irof.hateblo.jp/entry/2019/10/02/012433)
+- [irof氏のブログ（日本語による書評）](https://irof.hateblo.jp/entry/2019/10/02/012433)
 
 ---
 
