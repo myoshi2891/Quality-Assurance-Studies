@@ -668,7 +668,7 @@ flowchart TD
 
 このとき、**`--mode=universal`ではなくテスト対象デバイスのデバイススペックを指定して`.apks`を生成し、その`.apks`をそのまま`appium:app`へ渡す**ことを推奨します。ユニバーサルAPKは単一ファイルにまとまる反面、実際に端末へ配信される分割APKの組み合わせとは異なる構成になるため、本番配信時と違う状態でテストしてしまう恐れがあります。`bundletool get-device-spec`で接続中のデバイス（実機・エミュレーター）のスペックを取得し、`build-apks --device-spec`でそのデバイス向けの分割APK群を生成すれば、実際に配信されるのと同じ分割APK（インストール時に配信されるモジュールを含む）で検証できます。`build-apks`では入力の`.aab`を`--bundle`で、出力の`.apks`を`--output`で指定します。UiAutomator2ドライバーは`.apks`を受け取ると内部で分割APKをまとめてインストールするため、`.apks`から`universal.apk`を取り出す必要はありません（この処理にはCI上のPATHから`bundletool`が解決できる必要があります）。
 
-オンデマンド配信のDynamic Feature Moduleは、上記の`--device-spec`で生成した`.apks`には初期インストール対象として含まれません。オンデマンドモジュールの取得・動作まで検証したい場合は、通常のデバイス向けAPK生成手順とは分けて、`bundletool build-apks --local-testing`で`.apks`を生成し、`bundletool install-apks`で対象端末へインストールする流れを使います。`--local-testing`を付けると分割APKが端末のローカル領域へ配置され、Play Feature Deliveryによるオンデマンド取得をストアからの配信なしでローカル検証できます。
+オンデマンド配信のDynamic Feature Moduleは、上記の`--device-spec`で生成した`.apks`には初期インストール対象として含まれません。オンデマンドモジュールの取得・動作まで検証したい場合は、通常のデバイス向けAPK生成手順とは分けて、`bundletool build-apks --local-testing`で`.apks`を生成し、`bundletool install-apks --apks="$OUT_DIR/app-local-testing.apks" --device-id="$DEVICE_ID"`で対象端末へインストールする流れを使います（`--device-id`を省略すると複数端末が接続されている環境で対象が一意に定まりません）。`--local-testing`を付けると分割APKが端末のローカル領域へ配置され、Play Feature Deliveryによるオンデマンド取得をストアからの配信なしでローカル検証できます。
 
 ```bash
 # 0) 失敗を握りつぶさないようフェイルファストにする
