@@ -165,7 +165,8 @@ flowchart TD
 | コード帯 | 意味 | テストで確認すべきこと |
 |---|---|---|
 | 2xx（200, 201, 204など） | 成功 | 正しいデータ形式・必要なフィールドが返るか、作成系は201＋Locationヘッダーの有無 |
-| 3xx（301, 304など） | リダイレクト／キャッシュ | 想定通りの遷移先か、キャッシュ制御が意図通りか |
+| 3xx（301, 302, 307, 308） | リダイレクト | Locationヘッダーの遷移先が想定通りか、メソッドとボディが維持されるか（307/308） |
+| 304 Not Modified | キャッシュ再検証 | 条件付きGET/HEAD（If-None-Match／If-Modified-Since）で正しく304が返り、ボディが空か |
 | 4xx（400, 401, 403, 404, 409, 429など） | クライアント側エラー | エラーメッセージが分かりやすいか、機密情報を漏らしていないか |
 | 5xx（500, 502, 503など） | サーバー側エラー | 想定外入力でサーバーが落ちていないか、リトライ可能かが分かるか |
 
@@ -254,14 +255,27 @@ import requests
 BASE_URL = os.environ["API_BASE_URL"]
 
 def test_get_user_returns_200_and_expected_fields():
-    # (接続タイムアウト, 読み取りタイムアウト)。前者は接続確立まで、後者はデータを
-    # 受信する間隔の上限であり、リクエスト全体の所要時間の上限ではない。
-    # 「通信が途絶えたまま待ち続ける」ことは防げるが、全体の期限が必要なら別途管理する
-    response = requests.get(f"{BASE_URL}/users/123", timeout=(3.05, 10))
-    assert response.status_code == 200
-    body = response.json()
-    assert body["id"] == 123
-    assert "email" in body
+    # 既存データに依存しないよう、対象ユーザーをテスト内で作成し、最後に必ず削除する
+    created = requests.post(
+        f"{BASE_URL}/users",
+        json={"name": "Taro", "email": "taro@example.com"},
+        timeout=(3.05, 10),
+    )
+    assert created.status_code == 201
+    user_id = created.json()["id"]
+
+    try:
+        # (接続タイムアウト, 読み取りタイムアウト)。前者は接続確立まで、後者はデータを
+        # 受信する間隔の上限であり、リクエスト全体の所要時間の上限ではない。
+        # 「通信が途絶えたまま待ち続ける」ことは防げるが、全体の期限が必要なら別途管理する
+        response = requests.get(f"{BASE_URL}/users/{user_id}", timeout=(3.05, 10))
+        assert response.status_code == 200
+        body = response.json()
+        assert body["id"] == user_id
+        assert "email" in body
+    finally:
+        # 後片付けはアサーションの成否にかかわらず実行する
+        requests.delete(f"{BASE_URL}/users/{user_id}", timeout=(3.05, 10))
 
 def test_create_user_missing_required_field_returns_400():
     response = requests.post(
@@ -476,7 +490,7 @@ flowchart TD
 ```
 
 - **SLI（Service Level Indicator）**：実際に計測する数値（例：p99レイテンシ、成功率）
-- **SLO（Service Level Objective）**：SLIに対する目標値（例：p99レイテンシ300ms以内を99.9%の時間維持する）
+- **SLO（Service Level Objective）**：SLIに対する目標値。**計測窓と分母を必ず明示する**（例①「直近28日間において、1分ごとに算出したp99レイテンシが300ms以内である時間の割合を99.9%以上に保つ」＝時間窓ベース／例②「直近28日間の全リクエストのうち、レイテンシ300ms未満のものを99.9%以上にする」＝リクエストベース）
 - **SLA（Service Level Agreement）**：SLOを外部との約束事として明文化したもの
 - **シンセティックモニタリング**：実ユーザーではなく、定期的に自動実行されるスクリプトで疑似的にAPIを呼び出し、可用性を継続確認する手法（k6のスクリプトを流用できる場合もある）
 
