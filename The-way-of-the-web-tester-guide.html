@@ -1759,8 +1759,10 @@
                                 if (link && entry.isIntersecting) {
                                     links.forEach(function (l) {
                                         l.classList.remove('active');
+                                        l.removeAttribute('aria-current');
                                     });
                                     link.classList.add('active');
+                                    link.setAttribute('aria-current', 'location');
                                 }
                             });
                         },
