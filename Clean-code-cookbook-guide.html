@@ -451,7 +451,7 @@
 </head>
 <body>
 
-<button class="nav-toggle" id="navToggle" aria-label="メニューを開く"><i class="ti ti-menu-2"></i></button>
+<button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-controls="sidebar" aria-expanded="false"><i class="ti ti-menu-2"></i></button>
 
 <div class="layout">
   <nav class="sidebar" id="sidebar">
@@ -677,14 +677,14 @@
         <div class="code-block">
           <div class="code-label"><i class="ti ti-brand-python"></i>Python</div>
           <pre><code><span class="cmt"># Before</span>
-if user.age > 17:
+if user.age &gt; 17:
     grant_access(user)
 
 <span class="cmt"># After</span>
-<span class="cmt"># user.age は満年齢（整数）である前提。この前提のもとで > 17 と >= 18 は同値になる。</span>
+<span class="cmt"># user.age は満年齢（整数）である前提。この前提のもとで &gt; 17 と &gt;= 18 は同値になる。</span>
 LEGAL_ADULT_AGE = 18
 
-if user.age >= LEGAL_ADULT_AGE:
+if user.age &gt;= LEGAL_ADULT_AGE:
     grant_access(user)</code></pre>
         </div>
         <p>数値の意味を名前で表すだけでも、読み手の理解速度は大きく変わります。</p>
@@ -969,7 +969,7 @@ public void ship(Order order) {
         </div>
 
         <div class="footer">本ガイドは2026年8月27日時点で参照可能な情報をもとに作成しています。</div>
-      </div>
+      </section>
     </div>
   </div>
 </div>
@@ -1100,10 +1100,32 @@ flowchart TB
   // Mobile nav toggle
   const navToggle = document.getElementById('navToggle');
   const sidebar = document.getElementById('sidebar');
+  /* サイドバーがオーバーレイ表示になるビューポート幅（CSSの @media と揃える） */
+  const overlayQuery = window.matchMedia('(max-width: 880px)');
+
+  /* 開閉状態を aria 属性と inert へ反映する。
+     閉じている（画面外の）サイドバーを inert にして、リンクをフォーカス対象から外す。
+     デスクトップ幅では常に表示されるため inert は付けない。 */
+  const syncSidebarState = () => {
+    const isOpen = sidebar.classList.contains('open');
+    toggleBtn_aria(isOpen);
+    sidebar.inert = overlayQuery.matches && !isOpen;
+  };
+  function toggleBtn_aria(isOpen){
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+    navToggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
+  }
+
   navToggle.addEventListener('click', () => {
     sidebar.classList.toggle('open');
+    syncSidebarState();
   });
-  navLinks.forEach(a => a.addEventListener('click', () => sidebar.classList.remove('open')));
+  navLinks.forEach(a => a.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    syncSidebarState();
+  }));
+  overlayQuery.addEventListener('change', syncSidebarState);
+  syncSidebarState();
 </script>
 
 </body>
