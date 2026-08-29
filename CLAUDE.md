@@ -232,7 +232,7 @@ Appium は Node.js `^20.19.0 || ^22.12.0 || >=24.0.0` と npm 10 以上を動作
 | サーバーのバージョン確認 | `appium -v` |
 | ドライバー管理 | `appium driver install` / `appium driver doctor` / `appium driver list --installed` |
 | プラグイン管理 | `appium plugin install` / `appium plugin list --installed` |
-| サーバー起動 | `appium`（`--use-plugins` を含む） |
+| サーバー起動 | `appium --address 127.0.0.1`（`--use-plugins` を含む）。既定ではループバックのみにバインドする。リモートCIから接続させる場合に限り、プライベートネットワーク／VPN 内かつファイアウォールで接続元を限定した保護されたネットワーク上であることを確認したうえでバインドアドレスを広げる |
 
 この例外は上記の Appium 関連コマンド（およびその前提となる `node` / `npm` のバージョン確認）のみに適用される。本プロジェクト自体の依存関係管理・スクリプト実行・Node ツールの実行（`bun install` / `bun run build` / `bun test` / `bun run e2e` 等）は、Appium 関連であるかどうかを境界として区別し、従来どおり Bun を使用すること。詳細な背景は [Appium-essentials-guide.md](Appium-essentials-guide.md) の「環境構築ステップバイステップ」節を参照。
 
