@@ -8,6 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+JP:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.12.0/build/styles/atom-one-dark.min.css">
 <style>
   :root{
     --paper: #f7f3ea;
@@ -138,8 +139,7 @@
   }
 
   .content{
-    max-width: 900px;
-    margin: 0 auto;
+    max-width: none;
   }
 
   .hero{
@@ -174,7 +174,6 @@
     color: var(--ink-soft);
     font-size: 1rem;
     margin: 0 0 20px;
-    max-width: 70ch;
   }
 
   .hero-meta{
@@ -339,15 +338,15 @@
   .code-label i{ color: var(--gold-soft); }
   .code-block pre{
     margin:0;
-    background: #211d18;
-    color: #f1e9d8;
-    padding: 18px 20px;
     overflow-x: auto;
+  }
+  .code-block pre code.hljs{
+    display:block;
+    padding: 20px 22px;
     font-size: 1rem;
     line-height: 1.7;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
   }
-  .code-block code{ font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; }
-  .cmt{ color:#9a917f; }
 
   /* ---------- Diagrams ---------- */
   .diagram-card{
@@ -676,12 +675,12 @@
         <h4>コード例（マジックナンバーの整頓）</h4>
         <div class="code-block">
           <div class="code-label"><i class="ti ti-brand-python"></i>Python</div>
-          <pre><code><span class="cmt"># Before</span>
+          <pre><code class="language-python"># Before
 if user.age &gt; 17:
     grant_access(user)
 
-<span class="cmt"># After</span>
-<span class="cmt"># user.age は満年齢（整数）である前提。この前提のもとで &gt; 17 と &gt;= 18 は同値になる。</span>
+# After
+# user.age は満年齢（整数）である前提。この前提のもとで &gt; 17 と &gt;= 18 は同値になる。
 LEGAL_ADULT_AGE = 18
 
 if user.age &gt;= LEGAL_ADULT_AGE:
@@ -694,12 +693,12 @@ if user.age &gt;= LEGAL_ADULT_AGE:
 
         <div class="code-block">
           <div class="code-label"><i class="ti ti-brand-javascript"></i>JavaScript</div>
-          <pre><code><span class="cmt">// Before</span>
+          <pre><code class="language-javascript">// Before
 function calc(a, b, t) {
   return a * b * (1 + t);
 }
 
-<span class="cmt">// After</span>
+// After
 function calculatePriceWithTax(basePrice, quantity, taxRate) {
   return basePrice * quantity * (1 + taxRate);
 }</code></pre>
@@ -710,7 +709,7 @@ function calculatePriceWithTax(basePrice, quantity, taxRate) {
 
         <div class="code-block">
           <div class="code-label"><i class="ti ti-brand-python"></i>Python — メソッドの抽出</div>
-          <pre><code><span class="cmt"># Before</span>
+          <pre><code class="language-python"># Before
 def process_order(order):
     total = 0
     for item in order.items:
@@ -720,7 +719,7 @@ def process_order(order):
     send_email(order.customer_email, f"合計: {total_with_tax}")
     return total_with_tax
 
-<span class="cmt"># After</span>
+# After
 def process_order(order):
     subtotal = calculate_subtotal(order.items)
     total_with_tax = apply_tax(subtotal)
@@ -754,7 +753,7 @@ def notify_customer(email, total):
 
         <div class="code-block">
           <div class="code-label"><i class="ti ti-brand-java"></i>Java — ガード節</div>
-          <pre><code><span class="cmt">// Before</span>
+          <pre><code class="language-java">// Before
 public void ship(Order order) {
     if (order != null) {
         if (order.isPaid()) {
@@ -765,7 +764,7 @@ public void ship(Order order) {
     }
 }
 
-<span class="cmt">// After</span>
+// After
 public void ship(Order order) {
     if (order == null) return;
     if (!order.isPaid()) return;
@@ -1032,7 +1031,10 @@ flowchart TB
 </script>
 
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.12.0/build/highlight.min.js"></script>
 <script>
+  if (window.hljs) { hljs.highlightAll(); }
+
   function dedent(str){
     const lines = str.replace(/^\n/, '').replace(/\n\s*$/, '').split('\n');
     const indents = lines.filter(l => l.trim().length).map(l => l.match(/^\s*/)[0].length);
@@ -1100,21 +1102,18 @@ flowchart TB
   // Mobile nav toggle
   const navToggle = document.getElementById('navToggle');
   const sidebar = document.getElementById('sidebar');
-  /* サイドバーがオーバーレイ表示になるビューポート幅（CSSの @media と揃える） */
+  // サイドバーがオーバーレイ表示になるビューポート幅（CSS の @media と揃える）
   const overlayQuery = window.matchMedia('(max-width: 880px)');
 
-  /* 開閉状態を aria 属性と inert へ反映する。
-     閉じている（画面外の）サイドバーを inert にして、リンクをフォーカス対象から外す。
-     デスクトップ幅では常に表示されるため inert は付けない。 */
+  // 開閉状態を aria 属性と inert へ反映する。
+  // 閉じている（画面外の）サイドバーを inert にしてリンクをフォーカス対象から外す。
+  // デスクトップ幅では常に表示されるため inert は付けない。
   const syncSidebarState = () => {
     const isOpen = sidebar.classList.contains('open');
-    toggleBtn_aria(isOpen);
-    sidebar.inert = overlayQuery.matches && !isOpen;
-  };
-  function toggleBtn_aria(isOpen){
     navToggle.setAttribute('aria-expanded', String(isOpen));
     navToggle.setAttribute('aria-label', isOpen ? 'メニューを閉じる' : 'メニューを開く');
-  }
+    sidebar.inert = overlayQuery.matches && !isOpen;
+  };
 
   navToggle.addEventListener('click', () => {
     sidebar.classList.toggle('open');
