@@ -1,6 +1,6 @@
 # Clean Code Cookbook 実践ガイド：初心者のためのステップバイステップ・ベストプラクティス
 
-> 本ガイドは O'Reilly 刊『Clean Code Cookbook』（著者: Maximiliano Contieri）を軸に、Martin Fowler、Kent Beck、Robert C. Martin（Uncle Bob）、Sandi Metz など世界的に著名な開発者たちの知見を統合し、初学者が実務でそのまま使えるステップバイステップの手順としてまとめたものです。2026年8月27日時点の情報をもとにウェブ調査を行い、根拠となる一次情報のURLを本文および巻末の参考文献に記載しています。
+> 本ガイドは O'Reilly 刊『Clean Code Cookbook』（著者: Maximiliano Contieri）を軸に、Martin Fowler、Kent Beck、Robert C. Martin（Uncle Bob）、Sandi Metz など世界的に著名な開発者たちの知見を統合し、初学者が実務でそのまま使えるステップバイステップの手順としてまとめたものです。2026年8月27日時点の情報をもとにウェブ調査を行い、根拠となる一次情報（著者・出版社による公式ページや原典）または信頼できる二次情報（技術メディアの解説記事など）のURLを本文および巻末の参考文献に記載しています。
 
 ---
 
