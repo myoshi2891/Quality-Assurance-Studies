@@ -227,12 +227,14 @@ Appium は Node.js `^20.19.0 || ^22.12.0 || >=24.0.0` と npm 10 以上を動作
 
 | 用途 | 許可されるコマンド |
 |---|---|
+| 前提バージョン確認 | `node -v` / `npm -v` |
 | サーバー導入 | `npm install -g appium` |
-| ドライバー管理 | `appium driver install` / `appium driver doctor` |
-| プラグイン管理 | `appium plugin install` |
+| サーバーのバージョン確認 | `appium -v` |
+| ドライバー管理 | `appium driver install` / `appium driver doctor` / `appium driver list --installed` |
+| プラグイン管理 | `appium plugin install` / `appium plugin list --installed` |
 | サーバー起動 | `appium`（`--use-plugins` を含む） |
 
-この例外は上記の Appium 関連コマンドのみに適用される。本プロジェクト自体のビルド・テスト（`bun run build` / `bun test` / `bun run e2e` 等）は従来どおり Bun を使用すること。詳細な背景は [Appium-essentials-guide.md](Appium-essentials-guide.md) の「環境構築ステップバイステップ」節を参照。
+この例外は上記の Appium 関連コマンド（およびその前提となる `node` / `npm` のバージョン確認）のみに適用される。本プロジェクト自体の依存関係管理・スクリプト実行・Node ツールの実行（`bun install` / `bun run build` / `bun test` / `bun run e2e` 等）は、Appium 関連であるかどうかを境界として区別し、従来どおり Bun を使用すること。詳細な背景は [Appium-essentials-guide.md](Appium-essentials-guide.md) の「環境構築ステップバイステップ」節を参照。
 
 ### CSS 変更後のキャッシュリセット（必須）
 
