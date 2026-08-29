@@ -1,6 +1,6 @@
 # Web APIテスト実践ガイド ― 初学者のためのステップバイステップ・ベストプラクティス
 
-> 本ガイドは、Mark Winteringham 著『Testing Web APIs』（Manning／O'Reilly）の構成、Martin Fowler・Kent C. Dodds によるテスト戦略論、OWASP・Pact・Postman・Grafana k6 などの業界標準的な情報源をもとに、2026年8月時点の最新知見を踏まえて独自にまとめた解説書です。各セクションの根拠URLは末尾の「参考文献・出典」に記載しています。
+> 本ガイドは、Mark Winteringham 著『Testing Web APIs』（Manning Publications、O'Reillyで閲覧）の構成、Martin Fowler・Kent C. Dodds によるテスト戦略論、OWASP・Pact・Postman・Grafana k6 などの業界標準的な情報源をもとに、2026年8月時点の最新知見を踏まえて独自にまとめた解説書です。各セクションの根拠URLは末尾の「参考文献・出典」に記載しています。
 
 <a id="toc"></a>
 
@@ -183,7 +183,7 @@ flowchart TD
 | 認証情報なし／不正なトークン | 401＋`WWW-Authenticate` ヘッダー（未認証） |
 | 有効な認証情報だが権限が不足 | 403（権限不足） |
 | 存在しないリソースへのアクセス | 404 |
-| 重複作成やべき等性が必要な操作 | 同じリクエストを繰り返しても矛盾した状態にならない |
+| 重複作成やべき等性が必要な操作 | 同じべき等キーで再送しても、1回だけ送った場合とサーバー側の結果が同じになる（リソースの重複作成や副作用の重複が起きない）。仕様でリトライ時の応答を別途定めている場合は、その応答も検証する |
 
 これらは、正常系（ハッピーパス）だけを確認して満足してしまったときに見落とされやすい観点です。設計段階でこの表をテンプレートとして使うと抜けを防げます。
 
@@ -523,7 +523,7 @@ flowchart TD
 
 本ガイドの作成にあたり、以下の情報源を参照しました（2026年8月28日時点で確認）。
 
-1. Mark Winteringham, *Testing Web APIs* (Manning Publications / O'Reilly) ― <https://www.oreilly.com/library/view/testing-web-apis/9781617299537/>
+1. Mark Winteringham, *Testing Web APIs*（Manning Publications、O'Reillyで閲覧） ― <https://www.oreilly.com/library/view/testing-web-apis/9781617299537/>
 2. Ham Vocke, "The Practical Test Pyramid" (martinfowler.com) ― <https://martinfowler.com/articles/practical-test-pyramid.html>
 3. Martin Fowler, "On the Diverse And Fantastical Shapes of Testing" ― <https://martinfowler.com/articles/2021-test-shapes.html>
 4. Kent C. Dodds, "Write tests. Not too many. Mostly integration." ― <https://kentcdodds.com/blog/write-tests>
