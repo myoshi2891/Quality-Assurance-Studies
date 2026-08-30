@@ -1,6 +1,7 @@
 import React from 'react';
 import Mermaid from '../../components/Mermaid';
 import NavBar from './NavBar';
+import Checklist from './Checklist';
 import './github-actions-guide.css';
 
 const DIAGRAM_2_1 = `flowchart TD
@@ -1791,48 +1792,7 @@ export default function GithubActionsGuidePage() {
               <h2>まとめ: プロダクションレディ・チェックリスト</h2>
             </div>
 
-            <ul className="checklist">
-              <li>
-                <span className="box"></span>
-                <span>ワークフロー全体の<code>permissions</code>をread-only(または<code>{'{}'}</code>)にし、必要なジョブにのみ権限を追加しているか</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span>サードパーティアクションはフルコミットSHAでピン留めし、Dependabotで更新を自動化しているか</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span><code>pull_request_target</code>を使う場合、フォークのコードを明示的にチェックアウトしていないか(または権限分離パターンに再設計したか)</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span>クラウド認証はOIDCベースの短命トークンに移行し、長期アクセスキーを避けているか</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span>本番デプロイに対応するEnvironmentにRequired Reviewers・デプロイブランチ制限を設定しているか</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span>セルフホストランナーをパブリックリポジトリで使っていないか、Runner Groupsで信頼境界を分離しているか</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span>リリース成果物にArtifact Attestations(ビルド来歴)を付与しているか</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span>キャッシュキーに依存関係ファイルのハッシュを含め、<code>concurrency</code>で無駄な実行を抑止しているか</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span>失敗時のログ・アーティファクトを保存し、Job SummaryとGitHub CLIでの調査導線を整えているか</span>
-              </li>
-              <li>
-                <span className="box"></span>
-                <span>コストの前提(料金・無料枠)は必ずGitHub公式の最新情報で確認しているか</span>
-              </li>
-            </ul>
+            <Checklist />
           </section>
 
           {/* ============ SECTION 18 ============ */}
