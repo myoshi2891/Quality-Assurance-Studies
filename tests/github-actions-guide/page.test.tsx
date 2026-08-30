@@ -292,6 +292,37 @@ describe('GitHub Actions Guide Page - Comprehensive Suite', () => {
     expect(checklistText).toContain('コストの前提(料金・無料枠)は必ずGitHub公式の最新情報で確認');
   });
 
+  it('toggles checklist item completion state and applies strike-through on click', () => {
+    const { container } = render(<GithubActionsGuidePage />);
+    const checklist = container.querySelector('#sec-17 .checklist');
+    expect(checklist).not.toBeNull();
+
+    const items = checklist?.querySelectorAll('li');
+    expect(items?.length).toBe(10);
+
+    const firstItem = items?.[0] as HTMLElement;
+    expect(firstItem).toBeDefined();
+
+    // Initial state: not checked
+    expect(firstItem.classList.contains('checked')).toBe(false);
+    expect(firstItem.getAttribute('aria-checked')).toBe('false');
+
+    // Click to check
+    fireEvent.click(firstItem);
+    expect(firstItem.classList.contains('checked')).toBe(true);
+    expect(firstItem.getAttribute('aria-checked')).toBe('true');
+
+    // Click again to uncheck
+    fireEvent.click(firstItem);
+    expect(firstItem.classList.contains('checked')).toBe(false);
+    expect(firstItem.getAttribute('aria-checked')).toBe('false');
+
+    // Keyboard support: Space
+    fireEvent.keyDown(firstItem, { key: ' ' });
+    expect(firstItem.classList.contains('checked')).toBe(true);
+    expect(firstItem.getAttribute('aria-checked')).toBe('true');
+  });
+
   it('renders all references and links in section 18', () => {
     const { container } = render(<GithubActionsGuidePage />);
     const sec18 = container.querySelector('#sec-18');
