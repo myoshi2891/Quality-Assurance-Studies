@@ -88,6 +88,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
 
   { href: '/github-actions', label: 'GitHub Actions 入門ガイド', category: 'cicd-devops' },
   { href: '/github-actions-guide', label: 'GitHub Actions 実践・上級ガイド', category: 'cicd-devops' },
+
+  { href: '/playwright-beginner-guide', label: 'Playwright 入門ガイド', category: 'tools-frameworks' },
 ];
 
 const CATEGORY_ORDER: readonly NavCategory[] = [

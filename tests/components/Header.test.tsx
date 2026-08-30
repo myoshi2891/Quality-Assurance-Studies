@@ -48,7 +48,7 @@ describe('Header drawer panel', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('renders 6 category headings (excluding home) when opened', () => {
+  it('renders 7 category headings (excluding home) when opened', () => {
     render(<Header />);
     fireEvent.click(screen.getByRole('button', { name: 'メニューを開く' }));
     const dialog = screen.getByRole('dialog');
@@ -60,6 +60,7 @@ describe('Header drawer panel', () => {
       'ISTQB Specialist',
       'ISTQB Expert',
       'CI/CD & DevOps',
+      'テストツール & フレームワーク',
     ]);
   });
 
