@@ -2,8 +2,8 @@ import { describe, it, expect } from 'bun:test';
 import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 44 entries (home + 8 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert)', () => {
-    expect(NAV_ITEMS).toHaveLength(44);
+  it('contains 45 entries (home + 8 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 1 cicd-devops)', () => {
+    expect(NAV_ITEMS).toHaveLength(45);
   });
 
   it('every item has a unique href', () => {
@@ -34,6 +34,12 @@ describe('NAV_ITEMS', () => {
     expect(ctfl?.category).toBe('istqb-foundation-ext');
   });
 
+  it('classifies /github-actions-guide as cicd-devops', () => {
+    const gha = NAV_ITEMS.find((item: NavItem) => item.href === '/github-actions-guide');
+    expect(gha).toBeDefined();
+    expect(gha?.category).toBe('cicd-devops');
+  });
+
   it('classifies home "/" as home category', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
     expect(home?.category).toBe('home');
@@ -50,12 +56,18 @@ describe('groupByCategory', () => {
       'istqb-advanced',
       'istqb-specialist',
       'istqb-expert',
+      'cicd-devops',
     ]);
   });
 
   it('places 8 items in the foundation group', () => {
     const foundation = groupByCategory(NAV_ITEMS).find((g) => g.category === 'foundation');
     expect(foundation?.items).toHaveLength(8);
+  });
+
+  it('places 1 items in the cicd-devops group', () => {
+    const cicd = groupByCategory(NAV_ITEMS).find((g) => g.category === 'cicd-devops');
+    expect(cicd?.items).toHaveLength(1);
   });
 
   it('assigns a non-empty display title to every group', () => {
