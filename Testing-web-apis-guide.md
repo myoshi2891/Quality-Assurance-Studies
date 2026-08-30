@@ -164,7 +164,8 @@ flowchart TD
 
 | コード帯 | 意味 | テストで確認すべきこと |
 |---|---|---|
-| 2xx（200, 201, 204など） | 成功 | 正しいデータ形式・必要なフィールドが返るか、作成系は201＋Locationヘッダーの有無 |
+| 200 / 201（取得・作成の成功） | 成功（本文あり） | 正しいデータ形式・必要なフィールドが返るか、作成系は201＋Locationヘッダーの有無 |
+| 204 No Content（成功・本文なし） | 成功（本文なし） | レスポンスボディが空であること（RFC 9110上、204に本文は含まれない）。ボディのフィールド検証を書かないこと |
 | 3xx（301, 302, 307, 308） | リダイレクト | Locationヘッダーの遷移先が想定通りか、メソッドとボディが維持されるか（307/308） |
 | 304 Not Modified | キャッシュ再検証 | 条件付きGET/HEAD（If-None-Match／If-Modified-Since）で正しく304が返り、ボディが空か |
 | 4xx（400, 401, 403, 404, 409, 429など） | クライアント側エラー | エラーメッセージが分かりやすいか、機密情報を漏らしていないか |
@@ -274,8 +275,11 @@ def test_get_user_returns_200_and_expected_fields():
         assert body["id"] == user_id
         assert "email" in body
     finally:
-        # 後片付けはアサーションの成否にかかわらず実行する
-        requests.delete(f"{BASE_URL}/users/{user_id}", timeout=(3.05, 10))
+        # 後片付けはアサーションの成否にかかわらず実行する。
+        # 戻り値を捨てると削除失敗（4xx/5xx）に気づけず、残ったデータが後続テストを
+        # 汚染するため、APIが仕様として定める成功ステータスをここでも検証する
+        deleted = requests.delete(f"{BASE_URL}/users/{user_id}", timeout=(3.05, 10))
+        assert deleted.status_code in (200, 204), f"cleanup failed: {deleted.status_code}"
 
 def test_create_user_missing_required_field_returns_400():
     response = requests.post(
