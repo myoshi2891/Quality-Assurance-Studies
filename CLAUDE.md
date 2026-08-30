@@ -197,6 +197,9 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tta-complete-guide/istqb-ctal-tta.css` — テクニカルテストアナリスト(CTAL-TTA)ガイド固有スタイル
 - `app/istqb-ctal-tta-complete-guide/page.tsx` — テクニカルテストアナリスト(CTAL-TTA)ガイドページ
 - `app/istqb-ctal-tta-complete-guide/NavBar.tsx` — CTAL-TTA ページ固有スティッキーナビ（'use client'）
+- `app/github-actions-guide/github-actions-guide.css` — GitHub Actions ガイド固有スタイル
+- `app/github-actions-guide/page.tsx` — GitHub Actions ガイドページ
+- `app/github-actions-guide/NavBar.tsx` — GitHub Actions ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
@@ -420,6 +423,7 @@ bun test        # ユニットテスト成功
 | `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
 | `Ctfl-at-chapter2.html` | `/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles` | ✅ NavBar あり |
 | `Ctfl-at-chapter3-agile-testing-techniques-tools.html` | `/istqb-ctfl-at-chapter3-agile-testing-techniques-tools` | ✅ NavBar あり |
+| `Github-actions-guide.html` | `/github-actions-guide` | ✅ NavBar + aria-current あり |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -435,8 +439,8 @@ bun test        # ユニットテスト成功
 
 ```text
 コンテキスト:
-- **全ガイド移行完了**: プロジェクトルートに存在した全43ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 44 ルート（ホーム + 43 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全44ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 45 ルート（ホーム + 44 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
