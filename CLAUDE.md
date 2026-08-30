@@ -197,6 +197,9 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tta-complete-guide/istqb-ctal-tta.css` — テクニカルテストアナリスト(CTAL-TTA)ガイド固有スタイル
 - `app/istqb-ctal-tta-complete-guide/page.tsx` — テクニカルテストアナリスト(CTAL-TTA)ガイドページ
 - `app/istqb-ctal-tta-complete-guide/NavBar.tsx` — CTAL-TTA ページ固有スティッキーナビ（'use client'）
+- `app/github-actions/github-actions.css` — GitHub Actions 入門ガイド固有スタイル
+- `app/github-actions/page.tsx` — GitHub Actions 入門ガイドページ
+- `app/github-actions/NavBar.tsx` — GitHub Actions 入門ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
 - `app/github-actions-guide/github-actions-guide.css` — GitHub Actions ガイド固有スタイル
 - `app/github-actions-guide/page.tsx` — GitHub Actions ガイドページ
 - `app/github-actions-guide/NavBar.tsx` — GitHub Actions ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）

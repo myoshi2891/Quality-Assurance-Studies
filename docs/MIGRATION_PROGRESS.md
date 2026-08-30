@@ -1,19 +1,27 @@
 # Migration Progress
 
-Updated 2026-08-30
+Updated 2026-08-31
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計45ルート）。
+> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計46ルート）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `7e0cf54` |
+| 最新 HEAD | `85407fe` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（221 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（229 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/08/31: GitHub Actions 初学者向け完全ガイドの Next.js 移行完了
+
+- `app/github-actions/`: ページコンポーネント（Mermaid 9図、全18セクション、コードブロック、テーブル、参考文献を含む完全移行）、スタイル（`.github-actions-beginner-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、aria-current）を実装。
+- `lib/navigation.ts`: `cicd-devops` カテゴリに `/github-actions`（GitHub Actions 入門ガイド）を追加し、将来の書籍・ツール拡張用カテゴリ（`tools-frameworks`, `books-practices`）を定義。
+- `tests/github-actions/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全18リンク、全18セクション、Mermaid 9図、全テーブル、全コードブロック、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全229件）。
+- `Github-actions.html`: `archive/html-archive/cicd/Github-actions.html` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 46 ページ体制に同期。
 
 ## 2026/08/30: GitHub Actions 中級〜上級者向け完全ガイドの Next.js 移行完了
 
