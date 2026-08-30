@@ -128,6 +128,7 @@ describe('groupByCategory extensibility', () => {
       'istqb-advanced',
       'istqb-specialist',
       'istqb-expert',
+      'cicd-devops',
     ]);
   });
 });
