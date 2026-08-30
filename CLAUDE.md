@@ -200,6 +200,7 @@ Next.js App Router 構成:
 - `app/github-actions-guide/github-actions-guide.css` — GitHub Actions ガイド固有スタイル
 - `app/github-actions-guide/page.tsx` — GitHub Actions ガイドページ
 - `app/github-actions-guide/NavBar.tsx` — GitHub Actions ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
+- `app/github-actions-guide/Checklist.tsx` — GitHub Actions プロダクションレディ・チェックリスト（`'use client'`、クリック・キーボードトグル、打消し線、進捗バー対応）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
