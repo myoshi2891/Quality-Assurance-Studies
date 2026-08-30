@@ -108,10 +108,19 @@ describe('Playwright Beginner Guide Page - Comprehensive Test Suite', () => {
     expect(callouts.length).toBeGreaterThan(0);
   });
 
-  it('renders code blocks across sections', () => {
+  it('renders code blocks across sections with syntax highlighting', () => {
     const { container } = render(<PlaywrightBeginnerPage />);
     const codeBlocks = container.querySelectorAll('.code-block');
-    expect(codeBlocks.length).toBeGreaterThan(0);
+    expect(codeBlocks.length).toBeGreaterThanOrEqual(10);
+
+    const codeLines = container.querySelectorAll('.code-line');
+    expect(codeLines.length).toBeGreaterThan(50);
+
+    const keywords = container.querySelectorAll('.code-block .kw');
+    expect(keywords.length).toBeGreaterThan(10);
+
+    const strings = container.querySelectorAll('.code-block .str');
+    expect(strings.length).toBeGreaterThan(10);
   });
 
   it('renders reference list items in references section (sec-18)', () => {

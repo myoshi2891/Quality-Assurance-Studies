@@ -101,8 +101,11 @@
 .playwright-beginner-page .hero {
   position: relative;
   min-height: 0;
-  display: block;
-  padding: 48px 3vw 56px 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 56px 4vw 64px;
   border-bottom: 1px solid var(--border);
   overflow: hidden;
 }
@@ -135,7 +138,7 @@
   border: 1px solid rgba(94, 234, 212, 0.3);
   padding: 6px 14px;
   border-radius: 999px;
-  margin-bottom: 24px;
+  margin: 0 auto 24px;
 }
 
 .playwright-beginner-page .hero-eyebrow .dot {
@@ -148,9 +151,10 @@
 
 .playwright-beginner-page .hero h1 {
   font-size: clamp(2.1rem, 4.2vw, 3.4rem);
-  line-height: 1.2;
-  margin: 0 0 20px;
+  line-height: 1.25;
+  margin: 0 auto 20px;
   max-width: 950px;
+  text-align: center;
 }
 
 .playwright-beginner-page .hero h1 .accent-word {
@@ -161,12 +165,14 @@
   font-size: 1.12rem;
   color: var(--text-secondary);
   max-width: 760px;
-  margin: 0 0 32px;
+  margin: 0 auto 32px;
+  text-align: center;
 }
 
 .playwright-beginner-page .hero-badges {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 10px;
 }
 
@@ -287,6 +293,7 @@
   padding: 56px 0;
   border-bottom: 1px solid var(--border);
   padding-top: 0;
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
 }
 
 .playwright-beginner-page section.chapter:last-of-type {
@@ -304,18 +311,21 @@
 .playwright-beginner-page section.chapter h2 {
   font-size: clamp(1.5rem, 2.6vw, 2rem);
   margin: 0 0 24px;
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
 }
 
 .playwright-beginner-page section.chapter h3 {
   font-size: 1.25rem;
   margin: 36px 0 16px;
   color: var(--text-primary);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
 }
 
 .playwright-beginner-page section.chapter h4 {
   font-size: 1.05rem;
   margin: 26px 0 12px;
   color: var(--accent);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
 }
 
 .playwright-beginner-page section.chapter p {
@@ -433,6 +443,10 @@
 /* ============ Code Blocks ============ */
 .playwright-beginner-page .code-block {
   margin: 20px 0 28px;
+  background: var(--bg-code);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .playwright-beginner-page .code-head {
@@ -442,7 +456,9 @@
   font-family: var(--font-mono);
   font-size: 0.76rem;
   color: var(--text-muted);
-  padding: 0 4px 8px;
+  padding: 10px 16px;
+  background: var(--bg-raised-2);
+  border-bottom: 1px solid var(--border);
 }
 
 .playwright-beginner-page .code-head .lang {
@@ -451,7 +467,53 @@
   padding: 3px 10px;
   border-radius: 6px;
   letter-spacing: 0.03em;
+  font-weight: 600;
 }
+
+.playwright-beginner-page .code-block pre,
+.playwright-beginner-page .code-content {
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 16px 20px;
+  background: transparent;
+  overflow-x: auto;
+  font-family: var(--font-mono);
+}
+
+.playwright-beginner-page .code-line {
+  white-space: pre;
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+}
+
+/* Syntax highlight color tokens */
+.playwright-beginner-page .code-keyword,
+.playwright-beginner-page .kw { color: #f472b6; font-weight: 600; }
+
+.playwright-beginner-page .code-string,
+.playwright-beginner-page .str { color: #5eead4; }
+
+.playwright-beginner-page .code-comment,
+.playwright-beginner-page .cm { color: #64748b; font-style: italic; }
+
+.playwright-beginner-page .code-property,
+.playwright-beginner-page .prop { color: #93c5fd; }
+
+.playwright-beginner-page .code-number,
+.playwright-beginner-page .num { color: #f2b84b; }
+
+.playwright-beginner-page .code-var,
+.playwright-beginner-page .val { color: #e2e8f0; }
+
+.playwright-beginner-page .code-fn,
+.playwright-beginner-page .fn { color: #c084fc; font-weight: 500; }
+
+.playwright-beginner-page .code-punct,
+.playwright-beginner-page .punct { color: #94a3b8; }
 
 /* ============ Mermaid Diagrams ============ */
 .playwright-beginner-page .diagram-wrap {

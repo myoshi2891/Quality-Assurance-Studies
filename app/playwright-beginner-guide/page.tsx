@@ -367,9 +367,11 @@ export default function PlaywrightBeginnerPage() {
                 <span>ターミナル</span>
                 <span className="lang">bash</span>
               </div>
-              <pre><code>{`mkdir my-playwright-tests
-cd my-playwright-tests
-npm init playwright@latest`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="kw">mkdir</span> my-playwright-tests</div>
+                <div className="code-line"><span className="kw">cd</span> my-playwright-tests</div>
+                <div className="code-line"><span className="kw">npm</span> init playwright@latest</div>
+              </div>
             </div>
 
             <p>コマンドを実行すると、対話式のプロンプトがいくつか表示されます。</p>
@@ -446,38 +448,40 @@ npm init playwright@latest`}</code></pre>
                 <span>playwright.config.ts</span>
                 <span className="lang">typescript</span>
               </div>
-              <pre><code>{`import { defineConfig, devices } from '@playwright/test';
-
-export default defineConfig({
-  testDir: './tests',              // テストファイルを探索するディレクトリ
-  fullyParallel: true,             // 全テストを並列実行して高速化
-  forbidOnly: !!process.env.CI,    // CI環境では test.only を禁止（誤コミット防止）
-  retries: process.env.CI ? 2 : 0, // CI環境では失敗時に2回まで自動再試行
-  workers: process.env.CI ? 1 : undefined, // CI環境のワーカー数設定
-  reporter: 'html',                // テスト結果をリッチなHTMLレポートで出力
-
-  use: {
-    baseURL: 'https://example.com', // 相対パス指定時の基準URL
-    trace: 'on-first-retry',        // 失敗して再試行したテストのトレースを記録
-    screenshot: 'only-on-failure',  // 失敗時のみスクリーンショットを保存
-    video: 'retain-on-failure',     // 失敗時のみ動画を保存
-  },
-
-  projects: [
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
-    },
-  ],
-});`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="kw">import</span> &#123; <span className="fn">defineConfig</span>, devices &#125; <span className="kw">from</span> <span className="str">&apos;@playwright/test&apos;</span>;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="kw">export default</span> <span className="fn">defineConfig</span>(&#123;</div>
+                <div className="code-line">  <span className="prop">testDir</span>: <span className="str">&apos;./tests&apos;</span>,              <span className="cm">// テストファイルを探索するディレクトリ</span></div>
+                <div className="code-line">  <span className="prop">fullyParallel</span>: <span className="kw">true</span>,             <span className="cm">// 全テストを並列実行して高速化</span></div>
+                <div className="code-line">  <span className="prop">forbidOnly</span>: !!process.env.<span className="val">CI</span>,    <span className="cm">// CI環境では test.only を禁止（誤コミット防止）</span></div>
+                <div className="code-line">  <span className="prop">retries</span>: process.env.<span className="val">CI</span> ? <span className="num">2</span> : <span className="num">0</span>, <span className="cm">// CI環境では失敗時に2回まで自動再試行</span></div>
+                <div className="code-line">  <span className="prop">workers</span>: process.env.<span className="val">CI</span> ? <span className="num">1</span> : <span className="val">undefined</span>, <span className="cm">// CI環境のワーカー数設定</span></div>
+                <div className="code-line">  <span className="prop">reporter</span>: <span className="str">&apos;html&apos;</span>,                <span className="cm">// テスト結果をリッチなHTMLレポートで出力</span></div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="prop">use</span>: &#123;</div>
+                <div className="code-line">    <span className="prop">baseURL</span>: <span className="str">&apos;https://example.com&apos;</span>, <span className="cm">// 相対パス指定時の基準URL</span></div>
+                <div className="code-line">    <span className="prop">trace</span>: <span className="str">&apos;on-first-retry&apos;</span>,        <span className="cm">// 失敗して再試行したテストのトレースを記録</span></div>
+                <div className="code-line">    <span className="prop">screenshot</span>: <span className="str">&apos;only-on-failure&apos;</span>,  <span className="cm">// 失敗時のみスクリーンショットを保存</span></div>
+                <div className="code-line">    <span className="prop">video</span>: <span className="str">&apos;retain-on-failure&apos;</span>,     <span className="cm">// 失敗時のみ動画を保存</span></div>
+                <div className="code-line">  &#125;,</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="prop">projects</span>: [</div>
+                <div className="code-line">    &#123;</div>
+                <div className="code-line">      <span className="prop">name</span>: <span className="str">&apos;chromium&apos;</span>,</div>
+                <div className="code-line">      <span className="prop">use</span>: &#123; ...devices[<span className="str">&apos;Desktop Chrome&apos;</span>] &#125;,</div>
+                <div className="code-line">    &#125;,</div>
+                <div className="code-line">    &#123;</div>
+                <div className="code-line">      <span className="prop">name</span>: <span className="str">&apos;firefox&apos;</span>,</div>
+                <div className="code-line">      <span className="prop">use</span>: &#123; ...devices[<span className="str">&apos;Desktop Firefox&apos;</span>] &#125;,</div>
+                <div className="code-line">    &#125;,</div>
+                <div className="code-line">    &#123;</div>
+                <div className="code-line">      <span className="prop">name</span>: <span className="str">&apos;webkit&apos;</span>,</div>
+                <div className="code-line">      <span className="prop">use</span>: &#123; ...devices[<span className="str">&apos;Desktop Safari&apos;</span>] &#125;,</div>
+                <div className="code-line">    &#125;,</div>
+                <div className="code-line">  ],</div>
+                <div className="code-line">&#125;);</div>
+              </div>
             </div>
           </section>
 
@@ -494,24 +498,26 @@ export default defineConfig({
                 <span>tests/example.spec.ts</span>
                 <span className="lang">typescript</span>
               </div>
-              <pre><code>{`import { test, expect } from '@playwright/test';
-
-test('トップページのタイトルとリンクを確認する', async ({ page }) => {
-  // 1. 指定したURLへアクセス
-  await page.goto('https://playwright.dev/');
-
-  // 2. ページのタイトルに特定の文字列が含まれているか検証
-  await expect(page).toHaveTitle(/Playwright/);
-
-  // 3. "Get started" というテキストを持つリンクを取得
-  const getStartedLink = page.getByRole('link', { name: 'Get started' });
-
-  // 4. リンクをクリック
-  await getStartedLink.click();
-
-  // 5. 遷移先URLに "intro" が含まれているか検証
-  await expect(page).toHaveURL(/.*intro/);
-});`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="kw">import</span> &#123; test, expect &#125; <span className="kw">from</span> <span className="str">&apos;@playwright/test&apos;</span>;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="fn">test</span>(<span className="str">&apos;トップページのタイトルとリンクを確認する&apos;</span>, <span className="kw">async</span> (&#123; <span className="val">page</span> &#125;) =&gt; &#123;</div>
+                <div className="code-line">  <span className="cm">// 1. 指定したURLへアクセス</span></div>
+                <div className="code-line">  <span className="kw">await</span> page.<span className="fn">goto</span>(<span className="str">&apos;https://playwright.dev/&apos;</span>);</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="cm">// 2. ページのタイトルに特定の文字列が含まれているか検証</span></div>
+                <div className="code-line">  <span className="kw">await</span> <span className="fn">expect</span>(page).<span className="fn">toHaveTitle</span>(/Playwright/);</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="cm">// 3. &quot;Get started&quot; というテキストを持つリンクを取得</span></div>
+                <div className="code-line">  <span className="kw">const</span> <span className="val">getStartedLink</span> = page.<span className="fn">getByRole</span>(<span className="str">&apos;link&apos;</span>, &#123; <span className="prop">name</span>: <span className="str">&apos;Get started&apos;</span> &#125;);</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="cm">// 4. リンクをクリック</span></div>
+                <div className="code-line">  <span className="kw">await</span> getStartedLink.<span className="fn">click</span>();</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="cm">// 5. 遷移先URLに &quot;intro&quot; が含まれているか検証</span></div>
+                <div className="code-line">  <span className="kw">await</span> <span className="fn">expect</span>(page).<span className="fn">toHaveURL</span>(/.*intro/);</div>
+                <div className="code-line">&#125;);</div>
+              </div>
             </div>
 
             <div className="diagram-wrap">
@@ -605,9 +611,11 @@ test('トップページのタイトルとリンクを確認する', async ({ pa
                 <span>ロケーターの絞り込み例</span>
                 <span className="lang">typescript</span>
               </div>
-              <pre><code>{`// "商品A" というテキストを含むリスト項目の中の「購入」ボタンをクリック
-const productCard = page.getByRole('listitem').filter({ hasText: '商品A' });
-await productCard.getByRole('button', { name: '購入' }).click();`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="cm">// &quot;商品A&quot; というテキストを含むリスト項目の中の「購入」ボタンをクリック</span></div>
+                <div className="code-line"><span className="kw">const</span> <span className="val">productCard</span> = page.<span className="fn">getByRole</span>(<span className="str">&apos;listitem&apos;</span>).<span className="fn">filter</span>(&#123; <span className="prop">hasText</span>: <span className="str">&apos;商品A&apos;</span> &#125;);</div>
+                <div className="code-line"><span className="kw">await</span> productCard.<span className="fn">getByRole</span>(<span className="str">&apos;button&apos;</span>, &#123; <span className="prop">name</span>: <span className="str">&apos;購入&apos;</span> &#125;).<span className="fn">click</span>();</div>
+              </div>
             </div>
           </section>
 
@@ -746,10 +754,12 @@ await productCard.getByRole('button', { name: '購入' }).click();`}</code></pre
                 <span>ソフトアサーションの例</span>
                 <span className="lang">typescript</span>
               </div>
-              <pre><code>{`// 途中で失敗しても次のアサーションを実行し、最後にまとめて合否を判定する
-await expect.soft(page.getByTestId('status')).toHaveText('Success');
-await expect.soft(page.getByTestId('name')).toHaveText('Yamada');
-await expect.soft(page.getByTestId('role')).toHaveText('Admin');`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="cm">// 途中で失敗しても次のアサーションを実行し、最後にまとめて合否を判定する</span></div>
+                <div className="code-line"><span className="kw">await</span> expect.<span className="fn">soft</span>(page.<span className="fn">getByTestId</span>(<span className="str">&apos;status&apos;</span>)).<span className="fn">toHaveText</span>(<span className="str">&apos;Success&apos;</span>);</div>
+                <div className="code-line"><span className="kw">await</span> expect.<span className="fn">soft</span>(page.<span className="fn">getByTestId</span>(<span className="str">&apos;name&apos;</span>)).<span className="fn">toHaveText</span>(<span className="str">&apos;Yamada&apos;</span>);</div>
+                <div className="code-line"><span className="kw">await</span> expect.<span className="fn">soft</span>(page.<span className="fn">getByTestId</span>(<span className="str">&apos;role&apos;</span>)).<span className="fn">toHaveText</span>(<span className="str">&apos;Admin&apos;</span>);</div>
+              </div>
             </div>
           </section>
 
@@ -825,8 +835,10 @@ await expect.soft(page.getByTestId('role')).toHaveText('Admin');`}</code></pre>
                 <span>Codegen起動コマンド</span>
                 <span className="lang">bash</span>
               </div>
-              <pre><code>{`# 対象サイトを開いてコード生成を開始
-npx playwright codegen https://example.com`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="cm"># 対象サイトを開いてコード生成を開始</span></div>
+                <div className="code-line"><span className="kw">npx</span> playwright codegen https://example.com</div>
+              </div>
             </div>
 
             <div className="diagram-wrap">
@@ -862,10 +874,12 @@ npx playwright codegen https://example.com`}</code></pre>
                 <span>トレースの確認コマンド</span>
                 <span className="lang">bash</span>
               </div>
-              <pre><code>{`# ローカルで保存された trace.zip を開く
-npx playwright show-trace test-results/.../trace.zip
-
-# または https://trace.playwright.dev にドラッグ&ドロップしてブラウザ上だけで解析可能`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="cm"># ローカルで保存された trace.zip を開く</span></div>
+                <div className="code-line"><span className="kw">npx</span> playwright show-trace test-results/.../trace.zip</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="cm"># または https://trace.playwright.dev にドラッグ&amp;ドロップしてブラウザ上だけで解析可能</span></div>
+              </div>
             </div>
           </section>
 
@@ -892,30 +906,32 @@ npx playwright show-trace test-results/.../trace.zip
                 <span>fixtures.ts</span>
                 <span className="lang">typescript</span>
               </div>
-              <pre><code>{`import { test as base, Page } from '@playwright/test';
-
-// カスタムフィクスチャの型定義
-type MyFixtures = {
-  loggedInPage: Page;
-};
-
-export const test = base.extend<MyFixtures>({
-  loggedInPage: async ({ page }, use) => {
-    // セットアップ: ログイン処理
-    await page.goto('/login');
-    await page.getByLabel('メールアドレス').fill('admin@example.com');
-    await page.getByLabel('パスワード').fill('secret123');
-    await page.getByRole('button', { name: 'ログイン' }).click();
-    await page.waitForURL('/dashboard');
-
-    // テスト本体に page を渡す
-    await use(page);
-
-    // ティアダウン（テスト後のクリーンアップが必要な場合はここに記述）
-  },
-});
-
-export { expect } from '@playwright/test';`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="kw">import</span> &#123; test <span className="kw">as</span> base, Page &#125; <span className="kw">from</span> <span className="str">&apos;@playwright/test&apos;</span>;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="cm">// カスタムフィクスチャの型定義</span></div>
+                <div className="code-line"><span className="kw">type</span> <span className="fn">MyFixtures</span> = &#123;</div>
+                <div className="code-line">  <span className="prop">loggedInPage</span>: Page;</div>
+                <div className="code-line">&#125;;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="kw">export const</span> <span className="val">test</span> = base.<span className="fn">extend</span>&lt;<span className="fn">MyFixtures</span>&gt;(&#123;</div>
+                <div className="code-line">  <span className="prop">loggedInPage</span>: <span className="kw">async</span> (&#123; <span className="val">page</span> &#125;, <span className="val">use</span>) =&gt; &#123;</div>
+                <div className="code-line">    <span className="cm">// セットアップ: ログイン処理</span></div>
+                <div className="code-line">    <span className="kw">await</span> page.<span className="fn">goto</span>(<span className="str">&apos;/login&apos;</span>);</div>
+                <div className="code-line">    <span className="kw">await</span> page.<span className="fn">getByLabel</span>(<span className="str">&apos;メールアドレス&apos;</span>).<span className="fn">fill</span>(<span className="str">&apos;admin@example.com&apos;</span>);</div>
+                <div className="code-line">    <span className="kw">await</span> page.<span className="fn">getByLabel</span>(<span className="str">&apos;パスワード&apos;</span>).<span className="fn">fill</span>(<span className="str">&apos;secret123&apos;</span>);</div>
+                <div className="code-line">    <span className="kw">await</span> page.<span className="fn">getByRole</span>(<span className="str">&apos;button&apos;</span>, &#123; <span className="prop">name</span>: <span className="str">&apos;ログイン&apos;</span> &#125;).<span className="fn">click</span>();</div>
+                <div className="code-line">    <span className="kw">await</span> page.<span className="fn">waitForURL</span>(<span className="str">&apos;/dashboard&apos;</span>);</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">    <span className="cm">// テスト本体に page を渡す</span></div>
+                <div className="code-line">    <span className="kw">await</span> <span className="fn">use</span>(page);</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">    <span className="cm">// ティアダウン（テスト後のクリーンアップが必要な場合はここに記述）</span></div>
+                <div className="code-line">  &#125;,</div>
+                <div className="code-line">&#125;);</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="kw">export</span> &#123; expect &#125; <span className="kw">from</span> <span className="str">&apos;@playwright/test&apos;</span>;</div>
+              </div>
             </div>
           </section>
 
@@ -937,31 +953,33 @@ export { expect } from '@playwright/test';`}</code></pre>
                 <span>models/LoginPage.ts</span>
                 <span className="lang">typescript</span>
               </div>
-              <pre><code>{`import { type Locator, type Page } from '@playwright/test';
-
-export class LoginPage {
-  readonly page: Page;
-  readonly emailInput: Locator;
-  readonly passwordInput: Locator;
-  readonly submitButton: Locator;
-
-  constructor(page: Page) {
-    this.page = page;
-    this.emailInput = page.getByLabel('メールアドレス');
-    this.passwordInput = page.getByLabel('パスワード');
-    this.submitButton = page.getByRole('button', { name: 'ログイン' });
-  }
-
-  async goto() {
-    await this.page.goto('/login');
-  }
-
-  async login(email: string, pass: string) {
-    await this.emailInput.fill(email);
-    await this.passwordInput.fill(pass);
-    await this.submitButton.click();
-  }
-}`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="kw">import</span> &#123; <span className="kw">type</span> Locator, <span className="kw">type</span> Page &#125; <span className="kw">from</span> <span className="str">&apos;@playwright/test&apos;</span>;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="kw">export class</span> <span className="fn">LoginPage</span> &#123;</div>
+                <div className="code-line">  <span className="kw">readonly</span> <span className="prop">page</span>: Page;</div>
+                <div className="code-line">  <span className="kw">readonly</span> <span className="prop">emailInput</span>: Locator;</div>
+                <div className="code-line">  <span className="kw">readonly</span> <span className="prop">passwordInput</span>: Locator;</div>
+                <div className="code-line">  <span className="kw">readonly</span> <span className="prop">submitButton</span>: Locator;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="kw">constructor</span>(<span className="val">page</span>: Page) &#123;</div>
+                <div className="code-line">    <span className="kw">this</span>.<span className="prop">page</span> = page;</div>
+                <div className="code-line">    <span className="kw">this</span>.<span className="prop">emailInput</span> = page.<span className="fn">getByLabel</span>(<span className="str">&apos;メールアドレス&apos;</span>);</div>
+                <div className="code-line">    <span className="kw">this</span>.<span className="prop">passwordInput</span> = page.<span className="fn">getByLabel</span>(<span className="str">&apos;パスワード&apos;</span>);</div>
+                <div className="code-line">    <span className="kw">this</span>.<span className="prop">submitButton</span> = page.<span className="fn">getByRole</span>(<span className="str">&apos;button&apos;</span>, &#123; <span className="prop">name</span>: <span className="str">&apos;ログイン&apos;</span> &#125;);</div>
+                <div className="code-line">  &#125;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="kw">async</span> <span className="fn">goto</span>() &#123;</div>
+                <div className="code-line">    <span className="kw">await this</span>.<span className="prop">page</span>.<span className="fn">goto</span>(<span className="str">&apos;/login&apos;</span>);</div>
+                <div className="code-line">  &#125;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="kw">async</span> <span className="fn">login</span>(<span className="val">email</span>: <span className="kw">string</span>, <span className="val">pass</span>: <span className="kw">string</span>) &#123;</div>
+                <div className="code-line">    <span className="kw">await this</span>.<span className="prop">emailInput</span>.<span className="fn">fill</span>(email);</div>
+                <div className="code-line">    <span className="kw">await this</span>.<span className="prop">passwordInput</span>.<span className="fn">fill</span>(pass);</div>
+                <div className="code-line">    <span className="kw">await this</span>.<span className="prop">submitButton</span>.<span className="fn">click</span>();</div>
+                <div className="code-line">  &#125;</div>
+                <div className="code-line">&#125;</div>
+              </div>
             </div>
 
             <div className="code-block">
@@ -969,16 +987,18 @@ export class LoginPage {
                 <span>tests/login.spec.ts</span>
                 <span className="lang">typescript</span>
               </div>
-              <pre><code>{`import { test, expect } from '@playwright/test';
-import { LoginPage } from '../models/LoginPage';
-
-test('正しい資格情報でログインできること', async ({ page }) => {
-  const loginPage = new LoginPage(page);
-  await loginPage.goto();
-  await loginPage.login('user@example.com', 'password123');
-
-  await expect(page).toHaveURL('/dashboard');
-});`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="kw">import</span> &#123; test, expect &#125; <span className="kw">from</span> <span className="str">&apos;@playwright/test&apos;</span>;</div>
+                <div className="code-line"><span className="kw">import</span> &#123; LoginPage &#125; <span className="kw">from</span> <span className="str">&apos;../models/LoginPage&apos;</span>;</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="fn">test</span>(<span className="str">&apos;正しい資格情報でログインできること&apos;</span>, <span className="kw">async</span> (&#123; <span className="val">page</span> &#125;) =&gt; &#123;</div>
+                <div className="code-line">  <span className="kw">const</span> <span className="val">loginPage</span> = <span className="kw">new</span> <span className="fn">LoginPage</span>(page);</div>
+                <div className="code-line">  <span className="kw">await</span> loginPage.<span className="fn">goto</span>();</div>
+                <div className="code-line">  <span className="kw">await</span> loginPage.<span className="fn">login</span>(<span className="str">&apos;user@example.com&apos;</span>, <span className="str">&apos;password123&apos;</span>);</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="kw">await</span> <span className="fn">expect</span>(page).<span className="fn">toHaveURL</span>(<span className="str">&apos;/dashboard&apos;</span>);</div>
+                <div className="code-line">&#125;);</div>
+              </div>
             </div>
           </section>
 
@@ -1000,24 +1020,26 @@ test('正しい資格情報でログインできること', async ({ page }) => 
                 <span>APIモックのコード例</span>
                 <span className="lang">typescript</span>
               </div>
-              <pre><code>{`test('ユーザー一覧APIをモックして表示を確認する', async ({ page }) => {
-  // /api/users へのGETリクエストを捕捉してダミーJSONを返す
-  await page.route('*/**/api/users', async (route) => {
-    const mockUsers = [
-      { id: 1, name: 'テスト太郎', role: '開発者' },
-      { id: 2, name: 'テスト花子', role: 'デザイナー' },
-    ];
-    await route.fulfill({
-      status: 200,
-      contentType: 'application/json',
-      body: JSON.stringify(mockUsers),
-    });
-  });
-
-  await page.goto('/users');
-  await expect(page.getByText('テスト太郎')).toBeVisible();
-  await expect(page.getByText('テスト花子')).toBeVisible();
-});`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="fn">test</span>(<span className="str">&apos;ユーザー一覧APIをモックして表示を確認する&apos;</span>, <span className="kw">async</span> (&#123; <span className="val">page</span> &#125;) =&gt; &#123;</div>
+                <div className="code-line">  <span className="cm">// /api/users へのGETリクエストを捕捉してダミーJSONを返す</span></div>
+                <div className="code-line">  <span className="kw">await</span> page.<span className="fn">route</span>(<span className="str">&apos;*/**/api/users&apos;</span>, <span className="kw">async</span> (<span className="val">route</span>) =&gt; &#123;</div>
+                <div className="code-line">    <span className="kw">const</span> <span className="val">mockUsers</span> = [</div>
+                <div className="code-line">      &#123; <span className="prop">id</span>: <span className="num">1</span>, <span className="prop">name</span>: <span className="str">&apos;テスト太郎&apos;</span>, <span className="prop">role</span>: <span className="str">&apos;開発者&apos;</span> &#125;,</div>
+                <div className="code-line">      &#123; <span className="prop">id</span>: <span className="num">2</span>, <span className="prop">name</span>: <span className="str">&apos;テスト花子&apos;</span>, <span className="prop">role</span>: <span className="str">&apos;デザイナー&apos;</span> &#125;,</div>
+                <div className="code-line">    ];</div>
+                <div className="code-line">    <span className="kw">await</span> route.<span className="fn">fulfill</span>(&#123;</div>
+                <div className="code-line">      <span className="prop">status</span>: <span className="num">200</span>,</div>
+                <div className="code-line">      <span className="prop">contentType</span>: <span className="str">&apos;application/json&apos;</span>,</div>
+                <div className="code-line">      <span className="prop">body</span>: JSON.<span className="fn">stringify</span>(mockUsers),</div>
+                <div className="code-line">    &#125;);</div>
+                <div className="code-line">  &#125;);</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">  <span className="kw">await</span> page.<span className="fn">goto</span>(<span className="str">&apos;/users&apos;</span>);</div>
+                <div className="code-line">  <span className="kw">await</span> <span className="fn">expect</span>(page.<span className="fn">getByText</span>(<span className="str">&apos;テスト太郎&apos;</span>)).<span className="fn">toBeVisible</span>();</div>
+                <div className="code-line">  <span className="kw">await</span> <span className="fn">expect</span>(page.<span className="fn">getByText</span>(<span className="str">&apos;テスト花子&apos;</span>)).<span className="fn">toBeVisible</span>();</div>
+                <div className="code-line">&#125;);</div>
+              </div>
             </div>
           </section>
 
@@ -1039,39 +1061,41 @@ test('正しい資格情報でログインできること', async ({ page }) => 
                 <span>.github/workflows/playwright.yml</span>
                 <span className="lang">yaml</span>
               </div>
-              <pre><code>{`name: Playwright Tests
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-
-jobs:
-  test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-node@v4
-      with:
-        node-version: 20
-        cache: 'npm'
-
-    - name: Install dependencies
-      run: npm ci
-
-    - name: Install Playwright Browsers
-      run: npx playwright install --with-deps
-
-    - name: Run Playwright tests
-      run: npx playwright test
-
-    - uses: actions/upload-artifact@v4
-      if: always()
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30`}</code></pre>
+              <div className="code-content">
+                <div className="code-line"><span className="kw">name</span>: <span className="str">Playwright Tests</span></div>
+                <div className="code-line"><span className="kw">on</span>:</div>
+                <div className="code-line">  <span className="prop">push</span>:</div>
+                <div className="code-line">    <span className="prop">branches</span>: [ <span className="str">main</span>, <span className="str">master</span> ]</div>
+                <div className="code-line">  <span className="prop">pull_request</span>:</div>
+                <div className="code-line">    <span className="prop">branches</span>: [ <span className="str">main</span>, <span className="str">master</span> ]</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line"><span className="kw">jobs</span>:</div>
+                <div className="code-line">  <span className="prop">test</span>:</div>
+                <div className="code-line">    <span className="prop">timeout-minutes</span>: <span className="num">60</span></div>
+                <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+                <div className="code-line">    <span className="prop">steps</span>:</div>
+                <div className="code-line">    - <span className="kw">uses</span>: actions/checkout@v4</div>
+                <div className="code-line">    - <span className="kw">uses</span>: actions/setup-node@v4</div>
+                <div className="code-line">      <span className="kw">with</span>:</div>
+                <div className="code-line">        <span className="prop">node-version</span>: <span className="num">20</span></div>
+                <div className="code-line">        <span className="prop">cache</span>: <span className="str">&apos;npm&apos;</span></div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">    - <span className="prop">name</span>: Install dependencies</div>
+                <div className="code-line">      <span className="kw">run</span>: npm ci</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">    - <span className="prop">name</span>: Install Playwright Browsers</div>
+                <div className="code-line">      <span className="kw">run</span>: npx playwright install --with-deps</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">    - <span className="prop">name</span>: Run Playwright tests</div>
+                <div className="code-line">      <span className="kw">run</span>: npx playwright test</div>
+                <div className="code-line">&nbsp;</div>
+                <div className="code-line">    - <span className="kw">uses</span>: actions/upload-artifact@v4</div>
+                <div className="code-line">      <span className="kw">if</span>: always()</div>
+                <div className="code-line">      <span className="kw">with</span>:</div>
+                <div className="code-line">        <span className="prop">name</span>: playwright-report</div>
+                <div className="code-line">        <span className="prop">path</span>: playwright-report/</div>
+                <div className="code-line">        <span className="prop">retention-days</span>: <span className="num">30</span></div>
+              </div>
             </div>
           </section>
 
