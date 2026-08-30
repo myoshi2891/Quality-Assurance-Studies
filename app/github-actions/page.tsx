@@ -318,26 +318,26 @@ export default function GithubActionsBeginnerPage() {
               <span className="filename">.github/workflows/github-actions-demo.yml</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`name: GitHub Actions Demo
-run-name: \${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
-jobs:
-  Explore-GitHub-Actions:
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "🎉 The job was automatically triggered by a \${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a \${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is \${{ github.ref }} and your repository is \${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v6
-      - run: echo "💡 The \${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls \${{ github.workspace }}
-      - run: echo "🍏 This job's status is \${{ job.status }}."`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">name</span>: <span className="str">GitHub Actions Demo</span></div>
+              <div className="code-line"><span className="kw">run-name</span>: <span className="val">${'{'}{'{'} github.actor {'}'}{'}'}</span> is testing out GitHub Actions 🚀</div>
+              <div className="code-line"><span className="kw">on</span>: [<span className="prop">push</span>]</div>
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">Explore-GitHub-Actions</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;🎉 The job was automatically triggered by a <span className="val">${'{'}{'{'} github.event_name {'}'}{'}'}</span> event.&quot;</span></div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;🐧 This job is now running on a <span className="val">${'{'}{'{'} runner.os {'}'}{'}'}</span> server hosted by GitHub!&quot;</span></div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;🔎 The name of your branch is <span className="val">${'{'}{'{'} github.ref {'}'}{'}'}</span> and your repository is <span className="val">${'{'}{'{'} github.repository {'}'}{'}'}</span>.&quot;</span></div>
+              <div className="code-line">      - <span className="prop">name</span>: Check out repository code</div>
+              <div className="code-line">        <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;💡 The <span className="val">${'{'}{'{'} github.repository {'}'}{'}'}</span> repository has been cloned to the runner.&quot;</span></div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;🖥️ The workflow is now ready to test your code on the runner.&quot;</span></div>
+              <div className="code-line">      - <span className="prop">name</span>: List files in the repository</div>
+              <div className="code-line">        <span className="kw">run</span>: |</div>
+              <div className="code-line">          ls <span className="val">${'{'}{'{'} github.workspace {'}'}{'}'}</span></div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;🍏 This job&apos;s status is <span className="val">${'{'}{'{'} job.status {'}'}{'}'}</span>.&quot;</span></div>
+            </div>
           </div>
 
           <h3>実行結果を確認する</h3>
@@ -361,7 +361,7 @@ jobs:
           </div>
           <div className="step-item">
             <span className="step-badge">5</span>
-            <p>各ステップのログを展開して詳細を確認できる</p>
+            <p>各ステップをクリックして展開し、実行ログを確認</p>
           </div>
 
           <div className="tip">
@@ -407,10 +407,10 @@ jobs:
               <span className="filename">name / run-name の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`name: CI Pipeline
-run-name: Deploy to \${{ inputs.deploy_target }} by @\${{ github.actor }}`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">name</span>: <span className="str">CI Pipeline</span></div>
+              <div className="code-line"><span className="kw">run-name</span>: Deploy to <span className="val">${'{'}{'{'} inputs.deploy_target {'}'}{'}'}</span> by @<span className="val">${'{'}{'{'} github.actor {'}'}{'}'}</span></div>
+            </div>
           </div>
           <ul>
             <li>
@@ -427,10 +427,10 @@ run-name: Deploy to \${{ inputs.deploy_target }} by @\${{ github.actor }}`}
               <span className="filename">env の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`env:
-  SERVER: production`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">env</span>:</div>
+              <div className="code-line">  <span className="prop">SERVER</span>: production</div>
+            </div>
           </div>
           <p>
             ワークフロー全体・ジョブ単位・ステップ単位のいずれでも<code className="inline">env</code>を設定でき、より具体的なスコープ(ステップ &gt; ジョブ &gt; ワークフロー)の値が優先されます。
@@ -442,12 +442,12 @@ run-name: Deploy to \${{ inputs.deploy_target }} by @\${{ github.actor }}`}
               <span className="filename">defaults の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`defaults:
-  run:
-    shell: bash
-    working-directory: ./scripts`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">defaults</span>:</div>
+              <div className="code-line">  <span className="prop">run</span>:</div>
+              <div className="code-line">    <span className="prop">shell</span>: bash</div>
+              <div className="code-line">    <span className="prop">working-directory</span>: ./scripts</div>
+            </div>
           </div>
           <p>
             すべての<code className="inline">run</code>ステップに適用されるデフォルトのシェルや作業ディレクトリを指定できます。サポートされる<code className="inline">shell</code>の値は以下の通りです。
@@ -658,13 +658,13 @@ run-name: Deploy to \${{ inputs.deploy_target }} by @\${{ github.actor }}`}
               <span className="filename">単一/複数イベントの例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`# 単一イベント
-on: push
-
-# 複数イベント(いずれか1つが発生すれば実行される)
-on: [push, fork]`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="cm"># 単一イベント</span></div>
+              <div className="code-line"><span className="kw">on</span>: <span className="prop">push</span></div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="cm"># 複数イベント(いずれか1つが発生すれば実行される)</span></div>
+              <div className="code-line"><span className="kw">on</span>: [<span className="prop">push</span>, <span className="prop">fork</span>]</div>
+            </div>
           </div>
 
           <h3>ブランチ・タグ・パスによるフィルタリング</h3>
@@ -673,17 +673,17 @@ on: [push, fork]`}
               <span className="filename">フィルタの例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`on:
-  push:
-    branches:
-      - main
-      - 'releases/**'
-    paths:
-      - '**.js'
-    tags:
-      - 'v*.*.*'`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">on</span>:</div>
+              <div className="code-line">  <span className="prop">push</span>:</div>
+              <div className="code-line">    <span className="prop">branches</span>:</div>
+              <div className="code-line">      - main</div>
+              <div className="code-line">      - <span className="str">&apos;releases/**&apos;</span></div>
+              <div className="code-line">    <span className="prop">paths</span>:</div>
+              <div className="code-line">      - <span className="str">&apos;**.js&apos;</span></div>
+              <div className="code-line">    <span className="prop">tags</span>:</div>
+              <div className="code-line">      - <span className="str">&apos;v*.*.*&apos;</span></div>
+            </div>
           </div>
           <ul>
             <li>
@@ -706,12 +706,12 @@ on: [push, fork]`}
               <span className="filename">schedule の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`on:
-  schedule:
-    - cron: '30 5 * * 1-5'
-      timezone: "America/New_York"`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">on</span>:</div>
+              <div className="code-line">  <span className="prop">schedule</span>:</div>
+              <div className="code-line">    - <span className="prop">cron</span>: <span className="str">&apos;30 5 * * 1-5&apos;</span></div>
+              <div className="code-line">      <span className="prop">timezone</span>: <span className="str">&quot;America/New_York&quot;</span></div>
+            </div>
           </div>
 
           <p>cron構文は5つのフィールドから構成されます。</p>
@@ -797,31 +797,31 @@ on: [push, fork]`}
               <span className="filename">workflow_dispatch の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`on:
-  workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-
-jobs:
-  print-tag:
-    runs-on: ubuntu-latest
-    if: \${{ inputs.print_tags }}
-    steps:
-      - run: echo "Log level is \${{ inputs.logLevel }}"`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">on</span>:</div>
+              <div className="code-line">  <span className="prop">workflow_dispatch</span>:</div>
+              <div className="code-line">    <span className="prop">inputs</span>:</div>
+              <div className="code-line">      <span className="prop">logLevel</span>:</div>
+              <div className="code-line">        <span className="prop">description</span>: <span className="str">&apos;Log level&apos;</span></div>
+              <div className="code-line">        <span className="prop">required</span>: <span className="val">true</span></div>
+              <div className="code-line">        <span className="prop">default</span>: <span className="str">&apos;warning&apos;</span></div>
+              <div className="code-line">        <span className="prop">type</span>: choice</div>
+              <div className="code-line">        <span className="prop">options</span>:</div>
+              <div className="code-line">          - info</div>
+              <div className="code-line">          - warning</div>
+              <div className="code-line">          - debug</div>
+              <div className="code-line">      <span className="prop">print_tags</span>:</div>
+              <div className="code-line">        <span className="prop">description</span>: <span className="str">&apos;True to print to STDOUT&apos;</span></div>
+              <div className="code-line">        <span className="prop">required</span>: <span className="val">true</span></div>
+              <div className="code-line">        <span className="prop">type</span>: boolean</div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">print-tag</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="kw">if</span>: <span className="val">${'{'}{'{'} inputs.print_tags {'}'}{'}'}</span></div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;Log level is <span className="val">${'{'}{'{'} inputs.logLevel {'}'}{'}'}</span>&quot;</span></div>
+            </div>
           </div>
           <p>
             <code className="inline">workflow_dispatch</code>はデフォルトブランチ上にワークフローファイルが存在する場合のみUIに表示され、手動でトリガーできます。入力の型には <code className="inline">boolean</code> / <code className="inline">choice</code> / <code className="inline">number</code> / <code className="inline">environment</code> / <code className="inline">string</code> が指定できます。
@@ -865,20 +865,20 @@ jobs:
               <span className="filename">jobs の基本例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`jobs:
-  my_first_job:
-    name: My first job
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Hello"
-  my_second_job:
-    name: My second job
-    needs: my_first_job
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "World"`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">my_first_job</span>:</div>
+              <div className="code-line">    <span className="prop">name</span>: My first job</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;Hello&quot;</span></div>
+              <div className="code-line">  <span className="prop">my_second_job</span>:</div>
+              <div className="code-line">    <span className="prop">name</span>: My second job</div>
+              <div className="code-line">    <span className="prop">needs</span>: my_first_job</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;World&quot;</span></div>
+            </div>
           </div>
 
           <h3>GitHubホスト型ランナー</h3>
@@ -971,13 +971,13 @@ jobs:
               <span className="filename">runs-on の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">build</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+            </div>
           </div>
 
           <h3>セルフホストランナー</h3>
@@ -989,11 +989,11 @@ jobs:
               <span className="filename">self-hosted の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`jobs:
-  build:
-    runs-on: [self-hosted, linux, x64, gpu]`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">build</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: [self-hosted, linux, x64, gpu]</div>
+            </div>
           </div>
           <p>
             複数のラベルを配列で指定すると、<strong>すべてのラベルに一致する</strong>ランナーが選ばれます。
@@ -1005,16 +1005,16 @@ jobs:
               <span className="filename">container の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`jobs:
-  build:
-    runs-on: ubuntu-latest
-    container:
-      image: node:20-bookworm
-    steps:
-      - uses: actions/checkout@v6
-      - run: npm ci`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">build</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">container</span>:</div>
+              <div className="code-line">      <span className="prop">image</span>: node:20-bookworm</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">      - <span className="kw">run</span>: npm ci</div>
+            </div>
           </div>
 
           <p className="muted">
@@ -1069,20 +1069,20 @@ jobs:
               <span className="filename">needs の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`jobs:
-  job1:
-    runs-on: ubuntu-latest
-    steps: [ ]
-  job2:
-    needs: job1
-    runs-on: ubuntu-latest
-    steps: [ ]
-  job3:
-    needs: [job1, job2]
-    runs-on: ubuntu-latest
-    steps: [ ]`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">job1</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>: [ ]</div>
+              <div className="code-line">  <span className="prop">job2</span>:</div>
+              <div className="code-line">    <span className="prop">needs</span>: job1</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>: [ ]</div>
+              <div className="code-line">  <span className="prop">job3</span>:</div>
+              <div className="code-line">    <span className="prop">needs</span>: [job1, job2]</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>: [ ]</div>
+            </div>
           </div>
           <p>
             依存先のジョブが失敗またはスキップされると、それに依存するジョブも通常はスキップされます。依存先の成否に関わらず必ず実行したい場合は<code className="inline">if: {'${{ always() }}'}</code>を使用します。
@@ -1094,14 +1094,14 @@ jobs:
               <span className="filename">if の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`jobs:
-  production-deploy:
-    if: github.repository == 'octo-org/octo-repo-prod'
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">production-deploy</span>:</div>
+              <div className="code-line">    <span className="kw">if</span>: github.repository == <span className="str">&apos;octo-org/octo-repo-prod&apos;</span></div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+            </div>
           </div>
           <div className="danger-box">
             <strong>注意:</strong> <code className="inline">if</code>式の先頭が<code className="inline">!</code>で始まる場合は、YAMLの予約文字と衝突するため<code className="inline">{'${{ }}'}</code>または引用符での囲みが必須です。例: <code className="inline">if: {'${{ !startsWith(github.ref, \'refs/tags/\') }}'}</code>
@@ -1116,11 +1116,11 @@ jobs:
               <span className="filename">concurrency の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`concurrency:
-  group: \${{ github.workflow }}-\${{ github.ref }}
-  cancel-in-progress: true`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">concurrency</span>:</div>
+              <div className="code-line">  <span className="prop">group</span>: <span className="val">${'{'}{'{'} github.workflow {'}'}{'}'}</span>-<span className="val">${'{'}{'{'} github.ref {'}'}{'}'}</span></div>
+              <div className="code-line">  <span className="prop">cancel-in-progress</span>: <span className="val">true</span></div>
+            </div>
           </div>
 
           <p className="muted">
@@ -1164,22 +1164,22 @@ jobs:
               <span className="filename">matrix の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`jobs:
-  test:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
-        node-version: [18, 20, 22]
-    runs-on: \${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v4
-        with:
-          node-version: \${{ matrix.node-version }}
-      - run: npm ci
-      - run: npm test`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">test</span>:</div>
+              <div className="code-line">    <span className="prop">strategy</span>:</div>
+              <div className="code-line">      <span className="prop">matrix</span>:</div>
+              <div className="code-line">        <span className="prop">os</span>: [ubuntu-latest, windows-latest, macos-latest]</div>
+              <div className="code-line">        <span className="prop">node-version</span>: [<span className="num">18</span>, <span className="num">20</span>, <span className="num">22</span>]</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: <span className="val">${'{'}{'{'} matrix.os {'}'}{'}'}</span></div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/setup-node@v4</div>
+              <div className="code-line">        <span className="kw">with</span>:</div>
+              <div className="code-line">          <span className="prop">node-version</span>: <span className="val">${'{'}{'{'} matrix.node-version {'}'}{'}'}</span></div>
+              <div className="code-line">      - <span className="kw">run</span>: npm ci</div>
+              <div className="code-line">      - <span className="kw">run</span>: npm test</div>
+            </div>
           </div>
           <p>
             上記の例では、3種類のOS × 3種類のNode.jsバージョン = <strong>9通りの組み合わせ</strong>でジョブが並列実行されます。
@@ -1200,13 +1200,13 @@ jobs:
               <span className="filename">fail-fast / max-parallel の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`strategy:
-  fail-fast: false
-  max-parallel: 3
-  matrix:
-    node-version: [18, 20, 22]`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">strategy</span>:</div>
+              <div className="code-line">  <span className="prop">fail-fast</span>: <span className="val">false</span></div>
+              <div className="code-line">  <span className="prop">max-parallel</span>: <span className="num">3</span></div>
+              <div className="code-line">  <span className="prop">matrix</span>:</div>
+              <div className="code-line">    <span className="prop">node-version</span>: [<span className="num">18</span>, <span className="num">20</span>, <span className="num">22</span>]</div>
+            </div>
           </div>
 
           <p className="muted">
@@ -1247,13 +1247,13 @@ jobs:
               <span className="filename">secrets の利用例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`steps:
-  - name: Deploy
-    env:
-      API_KEY: \${{ secrets.API_KEY }}
-    run: ./deploy.sh`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">steps</span>:</div>
+              <div className="code-line">  - <span className="prop">name</span>: Deploy</div>
+              <div className="code-line">    <span className="kw">env</span>:</div>
+              <div className="code-line">      <span className="prop">API_KEY</span>: <span className="val">${'{'}{'{'} secrets.API_KEY {'}'}{'}'}</span></div>
+              <div className="code-line">    <span className="kw">run</span>: ./deploy.sh</div>
+            </div>
           </div>
 
           <h3>組織レベル・環境レベルのシークレット</h3>
@@ -1277,10 +1277,10 @@ jobs:
               <span className="filename">vars の利用例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`steps:
-  - run: echo "Deploying to \${{ vars.ENVIRONMENT_NAME }}"`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">steps</span>:</div>
+              <div className="code-line">  - <span className="kw">run</span>: echo <span className="str">&quot;Deploying to <span className="val">${'{'}{'{'} vars.ENVIRONMENT_NAME {'}'}{'}'}</span>&quot;</span></div>
+            </div>
           </div>
 
           <h3>認証情報の権限を最小限にする</h3>
@@ -1350,11 +1350,11 @@ jobs:
               <span className="filename">permissions の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`permissions:
-  contents: read
-  pull-requests: write`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">permissions</span>:</div>
+              <div className="code-line">  <span className="prop">contents</span>: read</div>
+              <div className="code-line">  <span className="prop">pull-requests</span>: write</div>
+            </div>
           </div>
 
           <div className="table-wrap">
@@ -1406,9 +1406,9 @@ jobs:
               <span className="filename">全権限の無効化</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`permissions: {}`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">permissions</span>: {'{}'}</div>
+            </div>
           </div>
 
           <h3>権限フロー図</h3>
@@ -1458,15 +1458,15 @@ jobs:
               <span className="filename">setup-node の cache オプション</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`steps:
-  - uses: actions/checkout@v6
-  - uses: actions/setup-node@v4
-    with:
-      node-version: 20
-      cache: 'npm'
-  - run: npm ci`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">steps</span>:</div>
+              <div className="code-line">  - <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">  - <span className="kw">uses</span>: actions/setup-node@v4</div>
+              <div className="code-line">    <span className="kw">with</span>:</div>
+              <div className="code-line">      <span className="prop">node-version</span>: <span className="num">20</span></div>
+              <div className="code-line">      <span className="prop">cache</span>: <span className="str">&apos;npm&apos;</span></div>
+              <div className="code-line">  - <span className="kw">run</span>: npm ci</div>
+            </div>
           </div>
 
           <p>
@@ -1478,15 +1478,15 @@ jobs:
               <span className="filename">actions/cache の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`steps:
-  - uses: actions/cache@v4
-    with:
-      path: ~/.npm
-      key: \${{ runner.os }}-node-\${{ hashFiles('**/package-lock.json') }}
-      restore-keys: |
-        \${{ runner.os }}-node-`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">steps</span>:</div>
+              <div className="code-line">  - <span className="kw">uses</span>: actions/cache@v4</div>
+              <div className="code-line">    <span className="kw">with</span>:</div>
+              <div className="code-line">      <span className="prop">path</span>: ~/.npm</div>
+              <div className="code-line">      <span className="prop">key</span>: <span className="val">${'{'}{'{'} runner.os {'}'}{'}'}</span>-node-<span className="val">${'{'}{'{'} hashFiles(&apos;**/package-lock.json&apos;) {'}'}{'}'}</span></div>
+              <div className="code-line">      <span className="prop">restore-keys</span>: |</div>
+              <div className="code-line">        <span className="val">${'{'}{'{'} runner.os {'}'}{'}'}</span>-node-</div>
+            </div>
           </div>
 
           <h3>キャッシュとアーティファクトの違い</h3>
@@ -1539,30 +1539,30 @@ jobs:
               <span className="filename">upload-artifact / download-artifact の例</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - run: npm ci && npm run build
-      - name: Upload build artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist-files
-          path: dist/
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dist-files
-          path: dist/
-      - run: echo "デプロイ処理をここに記述"`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">build</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">      - <span className="kw">run</span>: npm ci &amp;&amp; npm run build</div>
+              <div className="code-line">      - <span className="prop">name</span>: Upload build artifact</div>
+              <div className="code-line">        <span className="kw">uses</span>: actions/upload-artifact@v4</div>
+              <div className="code-line">        <span className="kw">with</span>:</div>
+              <div className="code-line">          <span className="prop">name</span>: dist-files</div>
+              <div className="code-line">          <span className="prop">path</span>: dist/</div>
+              <div className="code-line"></div>
+              <div className="code-line">  <span className="prop">deploy</span>:</div>
+              <div className="code-line">    <span className="prop">needs</span>: build</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="prop">name</span>: Download build artifact</div>
+              <div className="code-line">        <span className="kw">uses</span>: actions/download-artifact@v4</div>
+              <div className="code-line">        <span className="kw">with</span>:</div>
+              <div className="code-line">          <span className="prop">name</span>: dist-files</div>
+              <div className="code-line">          <span className="prop">path</span>: dist/</div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;デプロイ処理をここに記述&quot;</span></div>
+            </div>
           </div>
 
           <div className="diagram-card">
@@ -1606,34 +1606,34 @@ jobs:
               <span className="filename">.github/workflows/reusable-build.yml</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`name: Reusable build workflow
-
-on:
-  workflow_call:
-    inputs:
-      config-path:
-        required: true
-        type: string
-    secrets:
-      token:
-        required: true
-    outputs:
-      build-result:
-        description: "ビルド結果"
-        value: \${{ jobs.build.outputs.result }}
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    outputs:
-      result: \${{ steps.build-step.outputs.result }}
-    steps:
-      - uses: actions/checkout@v6
-      - id: build-step
-        run: |
-          echo "result=success" >> "$GITHUB_OUTPUT"`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">name</span>: <span className="str">Reusable build workflow</span></div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">on</span>:</div>
+              <div className="code-line">  <span className="prop">workflow_call</span>:</div>
+              <div className="code-line">    <span className="prop">inputs</span>:</div>
+              <div className="code-line">      <span className="prop">config-path</span>:</div>
+              <div className="code-line">        <span className="prop">required</span>: <span className="val">true</span></div>
+              <div className="code-line">        <span className="prop">type</span>: string</div>
+              <div className="code-line">    <span className="prop">secrets</span>:</div>
+              <div className="code-line">      <span className="prop">token</span>:</div>
+              <div className="code-line">        <span className="prop">required</span>: <span className="val">true</span></div>
+              <div className="code-line">    <span className="prop">outputs</span>:</div>
+              <div className="code-line">      <span className="prop">build-result</span>:</div>
+              <div className="code-line">        <span className="prop">description</span>: <span className="str">&quot;ビルド結果&quot;</span></div>
+              <div className="code-line">        <span className="prop">value</span>: <span className="val">${'{'}{'{'} jobs.build.outputs.result {'}'}{'}'}</span></div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">build</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">outputs</span>:</div>
+              <div className="code-line">      <span className="prop">result</span>: <span className="val">${'{'}{'{'} steps.build-step.outputs.result {'}'}{'}'}</span></div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">      - <span className="prop">id</span>: build-step</div>
+              <div className="code-line">        <span className="kw">run</span>: |</div>
+              <div className="code-line">          echo <span className="str">&quot;result=success&quot;</span> &gt;&gt; <span className="str">&quot;$GITHUB_OUTPUT&quot;</span></div>
+            </div>
           </div>
 
           <h3>呼び出す側(Caller workflow)を作る</h3>
@@ -1642,27 +1642,27 @@ jobs:
               <span className="filename">.github/workflows/ci.yml</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`name: CI
-
-on:
-  push:
-    branches: [main]
-
-jobs:
-  call-reusable:
-    uses: ./.github/workflows/reusable-build.yml
-    with:
-      config-path: .github/config.yml
-    secrets:
-      token: \${{ secrets.GITHUB_TOKEN }}
-
-  use-output:
-    needs: call-reusable
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Build result was \${{ needs.call-reusable.outputs.build-result }}"`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">name</span>: <span className="str">CI</span></div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">on</span>:</div>
+              <div className="code-line">  <span className="prop">push</span>:</div>
+              <div className="code-line">    <span className="prop">branches</span>: [main]</div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">call-reusable</span>:</div>
+              <div className="code-line">    <span className="kw">uses</span>: ./.github/workflows/reusable-build.yml</div>
+              <div className="code-line">    <span className="kw">with</span>:</div>
+              <div className="code-line">      <span className="prop">config-path</span>: .github/config.yml</div>
+              <div className="code-line">    <span className="prop">secrets</span>:</div>
+              <div className="code-line">      <span className="prop">token</span>: <span className="val">${'{'}{'{'} secrets.GITHUB_TOKEN {'}'}{'}'}</span></div>
+              <div className="code-line"></div>
+              <div className="code-line">  <span className="prop">use-output</span>:</div>
+              <div className="code-line">    <span className="prop">needs</span>: call-reusable</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">run</span>: echo <span className="str">&quot;Build result was <span className="val">${'{'}{'{'} needs.call-reusable.outputs.build-result {'}'}{'}'}</span>&quot;</span></div>
+            </div>
           </div>
 
           <h3>呼び出し関係の図</h3>
@@ -1721,82 +1721,82 @@ jobs:
               <span className="filename">.github/workflows/ci-cd.yml</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`name: Node.js CI/CD Pipeline
-
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
-
-permissions:
-  contents: read
-
-concurrency:
-  group: \${{ github.workflow }}-\${{ github.ref }}
-  cancel-in-progress: true
-
-jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run lint
-
-  test:
-    runs-on: \${{ matrix.os }}
-    strategy:
-      fail-fast: false
-      matrix:
-        os: [ubuntu-latest]
-        node-version: [18, 20, 22]
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v4
-        with:
-          node-version: \${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm ci
-      - run: npm test
-
-  build:
-    needs: [lint, test]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v6
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'npm'
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-artifact@v4
-        with:
-          name: production-build
-          path: dist/
-
-  deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    needs: build
-    runs-on: ubuntu-latest
-    environment: production
-    permissions:
-      contents: read
-      id-token: write
-    steps:
-      - uses: actions/download-artifact@v4
-        with:
-          name: production-build
-          path: dist/
-      - name: Deploy
-        run: echo "ここで実際のデプロイコマンドを実行します"`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">name</span>: <span className="str">Node.js CI/CD Pipeline</span></div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">on</span>:</div>
+              <div className="code-line">  <span className="prop">push</span>:</div>
+              <div className="code-line">    <span className="prop">branches</span>: [main]</div>
+              <div className="code-line">  <span className="prop">pull_request</span>:</div>
+              <div className="code-line">    <span className="prop">branches</span>: [main]</div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">permissions</span>:</div>
+              <div className="code-line">  <span className="prop">contents</span>: read</div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">concurrency</span>:</div>
+              <div className="code-line">  <span className="prop">group</span>: <span className="val">${'{'}{'{'} github.workflow {'}'}{'}'}</span>-<span className="val">${'{'}{'{'} github.ref {'}'}{'}'}</span></div>
+              <div className="code-line">  <span className="prop">cancel-in-progress</span>: <span className="val">true</span></div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">jobs</span>:</div>
+              <div className="code-line">  <span className="prop">lint</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/setup-node@v4</div>
+              <div className="code-line">        <span className="kw">with</span>:</div>
+              <div className="code-line">          <span className="prop">node-version</span>: <span className="num">20</span></div>
+              <div className="code-line">          <span className="prop">cache</span>: <span className="str">&apos;npm&apos;</span></div>
+              <div className="code-line">      - <span className="kw">run</span>: npm ci</div>
+              <div className="code-line">      - <span className="kw">run</span>: npm run lint</div>
+              <div className="code-line"></div>
+              <div className="code-line">  <span className="prop">test</span>:</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: <span className="val">${'{'}{'{'} matrix.os {'}'}{'}'}</span></div>
+              <div className="code-line">    <span className="prop">strategy</span>:</div>
+              <div className="code-line">      <span className="prop">fail-fast</span>: <span className="val">false</span></div>
+              <div className="code-line">      <span className="prop">matrix</span>:</div>
+              <div className="code-line">        <span className="prop">os</span>: [ubuntu-latest]</div>
+              <div className="code-line">        <span className="prop">node-version</span>: [<span className="num">18</span>, <span className="num">20</span>, <span className="num">22</span>]</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/setup-node@v4</div>
+              <div className="code-line">        <span className="kw">with</span>:</div>
+              <div className="code-line">          <span className="prop">node-version</span>: <span className="val">${'{'}{'{'} matrix.node-version {'}'}{'}'}</span></div>
+              <div className="code-line">          <span className="prop">cache</span>: <span className="str">&apos;npm&apos;</span></div>
+              <div className="code-line">      - <span className="kw">run</span>: npm ci</div>
+              <div className="code-line">      - <span className="kw">run</span>: npm test</div>
+              <div className="code-line"></div>
+              <div className="code-line">  <span className="prop">build</span>:</div>
+              <div className="code-line">    <span className="prop">needs</span>: [lint, test]</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/checkout@v6</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/setup-node@v4</div>
+              <div className="code-line">        <span className="kw">with</span>:</div>
+              <div className="code-line">          <span className="prop">node-version</span>: <span className="num">20</span></div>
+              <div className="code-line">          <span className="prop">cache</span>: <span className="str">&apos;npm&apos;</span></div>
+              <div className="code-line">      - <span className="kw">run</span>: npm ci</div>
+              <div className="code-line">      - <span className="kw">run</span>: npm run build</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/upload-artifact@v4</div>
+              <div className="code-line">        <span className="kw">with</span>:</div>
+              <div className="code-line">          <span className="prop">name</span>: production-build</div>
+              <div className="code-line">          <span className="prop">path</span>: dist/</div>
+              <div className="code-line"></div>
+              <div className="code-line">  <span className="prop">deploy</span>:</div>
+              <div className="code-line">    <span className="kw">if</span>: github.ref == <span className="str">&apos;refs/heads/main&apos;</span> &amp;&amp; github.event_name == <span className="str">&apos;push&apos;</span></div>
+              <div className="code-line">    <span className="prop">needs</span>: build</div>
+              <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
+              <div className="code-line">    <span className="prop">environment</span>: production</div>
+              <div className="code-line">    <span className="kw">permissions</span>:</div>
+              <div className="code-line">      <span className="prop">contents</span>: read</div>
+              <div className="code-line">      <span className="prop">id-token</span>: write</div>
+              <div className="code-line">    <span className="prop">steps</span>:</div>
+              <div className="code-line">      - <span className="kw">uses</span>: actions/download-artifact@v4</div>
+              <div className="code-line">        <span className="kw">with</span>:</div>
+              <div className="code-line">          <span className="prop">name</span>: production-build</div>
+              <div className="code-line">          <span className="prop">path</span>: dist/</div>
+              <div className="code-line">      - <span className="prop">name</span>: Deploy</div>
+              <div className="code-line">        <span className="kw">run</span>: echo <span className="str">&quot;ここで実際のデプロイコマンドを実行します&quot;</span></div>
+            </div>
           </div>
 
           <h3>このパイプラインのポイント解説</h3>
@@ -1881,13 +1881,13 @@ jobs:
               <span className="filename">バージョン固定の比較</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`# より安全(コミットSHA固定)
-- uses: actions/checkout@8e8a3f4f6c8b3e1e9b1e...
-
-# 一般的だが、タグの再割り当てリスクがある
-- uses: actions/checkout@v6`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="cm"># より安全(コミットSHA固定)</span></div>
+              <div className="code-line">- <span className="kw">uses</span>: actions/checkout@8e8a3f4f6c8b3e1e9b1e...</div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="cm"># 一般的だが、タグの再割り当てリスクがある</span></div>
+              <div className="code-line">- <span className="kw">uses</span>: actions/checkout@v6</div>
+            </div>
           </div>
 
           <h3>pull_request_targetの取り扱い注意</h3>
@@ -1917,18 +1917,18 @@ jobs:
               <span className="filename">OIDCの利用例(AWS)</span>
               <span className="lang-tag">YAML</span>
             </div>
-            <pre className="code-content">
-{`permissions:
-  id-token: write
-  contents: read
-
-steps:
-  - name: Configure AWS credentials
-    uses: aws-actions/configure-aws-credentials@v4
-    with:
-      role-to-assume: arn:aws:iam::123456789012:role/my-github-actions-role
-      aws-region: ap-northeast-1`}
-            </pre>
+            <div className="code-content">
+              <div className="code-line"><span className="kw">permissions</span>:</div>
+              <div className="code-line">  <span className="prop">id-token</span>: write</div>
+              <div className="code-line">  <span className="prop">contents</span>: read</div>
+              <div className="code-line"></div>
+              <div className="code-line"><span className="kw">steps</span>:</div>
+              <div className="code-line">  - <span className="prop">name</span>: Configure AWS credentials</div>
+              <div className="code-line">    <span className="kw">uses</span>: aws-actions/configure-aws-credentials@v4</div>
+              <div className="code-line">    <span className="kw">with</span>:</div>
+              <div className="code-line">      <span className="prop">role-to-assume</span>: arn:aws:iam::123456789012:role/my-github-actions-role</div>
+              <div className="code-line">      <span className="prop">aws-region</span>: ap-northeast-1</div>
+            </div>
           </div>
 
           <h3>シークレットのログ出力に注意</h3>
