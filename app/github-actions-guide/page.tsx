@@ -1552,12 +1552,12 @@ export default function GithubActionsGuidePage() {
               <div className="code-content">
                 <div className="code-line">- <span className="prop">name</span>: Generate test summary</div>
                 <div className="code-line">  <span className="kw">run</span>: |</div>
-                <div className="code-line">    echo "## テスト結果" >> "$GITHUB_STEP_SUMMARY"</div>
-                <div className="code-line">    echo "" >> "$GITHUB_STEP_SUMMARY"</div>
-                <div className="code-line">    echo "| スイート | 成功 | 失敗 | スキップ |" >> "$GITHUB_STEP_SUMMARY"</div>
-                <div className="code-line">    echo "|---|---|---|---|" >> "$GITHUB_STEP_SUMMARY"</div>
-                <div className="code-line">    echo "| Unit | 142 | 0 | 3 |" >> "$GITHUB_STEP_SUMMARY"</div>
-                <div className="code-line">    echo "| Integration | 58 | 2 | 0 |" >> "$GITHUB_STEP_SUMMARY"</div>
+                <div className="code-line">{'    echo "## テスト結果" >> "$GITHUB_STEP_SUMMARY"'}</div>
+                <div className="code-line">{'    echo "" >> "$GITHUB_STEP_SUMMARY"'}</div>
+                <div className="code-line">{'    echo "| スイート | 成功 | 失敗 | スキップ |" >> "$GITHUB_STEP_SUMMARY"'}</div>
+                <div className="code-line">{'    echo "|---|---|---|---|" >> "$GITHUB_STEP_SUMMARY"'}</div>
+                <div className="code-line">{'    echo "| Unit | 142 | 0 | 3 |" >> "$GITHUB_STEP_SUMMARY"'}</div>
+                <div className="code-line">{'    echo "| Integration | 58 | 2 | 0 |" >> "$GITHUB_STEP_SUMMARY"'}</div>
               </div>
             </div>
 
@@ -1767,9 +1767,9 @@ export default function GithubActionsGuidePage() {
                 <div className="code-line">      - <span className="kw">run</span>: aws s3 sync dist/ s3://my-production-bucket --delete</div>
                 <div className="code-line">      - <span className="prop">name</span>: Write deployment summary</div>
                 <div className="code-line">        <span className="kw">run</span>: |</div>
-                <div className="code-line">          echo "## デプロイ完了" >> "$GITHUB_STEP_SUMMARY"</div>
-                <div className="code-line">          echo "- コミット: <span className="val">${'{'}{'{'} github.sha {'}'}{'}'}</span>" >> "$GITHUB_STEP_SUMMARY"</div>
-                <div className="code-line">          echo "- 実行者: <span className="val">${'{'}{'{'} github.actor {'}'}{'}'}</span>" >> "$GITHUB_STEP_SUMMARY"</div>
+                <div className="code-line">{'          echo "## デプロイ完了" >> "$GITHUB_STEP_SUMMARY"'}</div>
+                <div className="code-line">{'          echo "- コミット: '}<span className="val">${'{'}{'{'} github.sha {'}'}{'}'}</span>{'" >> "$GITHUB_STEP_SUMMARY"'}</div>
+                <div className="code-line">{'          echo "- 実行者: '}<span className="val">${'{'}{'{'} github.actor {'}'}{'}'}</span>{'" >> "$GITHUB_STEP_SUMMARY"'}</div>
               </div>
             </div>
 
