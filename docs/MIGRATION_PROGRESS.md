@@ -11,15 +11,15 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `9b646ea` |
+| 最新 HEAD | `5ac669f` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（216 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（220 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
 ## 2026/08/30: GitHub Actions 中級〜上級者向け完全ガイドの Next.js 移行完了
 
 - `app/github-actions-guide/`: ページコンポーネント（Mermaid 6図、全18セクション、コードブロック、テーブル、チェックリスト、参考文献を含む完全移行）、スタイル（`.github-actions-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応、aria-current）を実装。
 - `lib/navigation.ts`: 拡張性を考慮した新カテゴリ `cicd-devops`（「CI/CD & DevOps」）を新設し、`/github-actions-guide` を登録。
-- `tests/github-actions-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全18リンク、全18セクション、Mermaid 6図、チェックリスト、参考文献の存在を検証する厳格なテストスイートを実装して全パス（全216件）。
+- `tests/github-actions-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全18リンク、全18セクション、Mermaid 6図、全7テーブル、全コードブロック、チェックリスト10項目、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全220件）。
 - `Github-actions-guide.html` & `Github-actions.html`: `archive/html-archive/cicd/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 45 ページ体制に同期。
 
