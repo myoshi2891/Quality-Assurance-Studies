@@ -18,7 +18,9 @@ export type NavCategory =
   | 'istqb-advanced'
   | 'istqb-specialist'
   | 'istqb-expert'
-  | 'cicd-devops';
+  | 'cicd-devops'
+  | 'tools-frameworks'
+  | 'books-practices';
 
 export interface NavItem {
   href: string;
@@ -84,7 +86,8 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctel-tm-otm-complete-guide', label: 'オペレーショナルテスト管理(CTEL-TM-OTM)ガイド', category: 'istqb-expert' },
   { href: '/istqb-ctel-tm-mtt-complete-guide', label: 'テストチーム管理(CTEL-TM-MTT)ガイド', category: 'istqb-expert' },
 
-  { href: '/github-actions-guide', label: 'GitHub Actions 完全ガイド', category: 'cicd-devops' },
+  { href: '/github-actions', label: 'GitHub Actions 入門ガイド', category: 'cicd-devops' },
+  { href: '/github-actions-guide', label: 'GitHub Actions 実践・上級ガイド', category: 'cicd-devops' },
 ];
 
 const CATEGORY_ORDER: readonly NavCategory[] = [
@@ -95,6 +98,8 @@ const CATEGORY_ORDER: readonly NavCategory[] = [
   'istqb-specialist',
   'istqb-expert',
   'cicd-devops',
+  'tools-frameworks',
+  'books-practices',
 ];
 
 const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
@@ -105,6 +110,8 @@ const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
   'istqb-specialist': 'ISTQB Specialist',
   'istqb-expert': 'ISTQB Expert',
   'cicd-devops': 'CI/CD & DevOps',
+  'tools-frameworks': 'テストツール & フレームワーク',
+  'books-practices': '名著・実践ガイド',
 };
 
 

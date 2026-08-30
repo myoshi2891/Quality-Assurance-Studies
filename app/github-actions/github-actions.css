@@ -1,0 +1,567 @@
+/* ==========================================================================
+   GitHub Actions Beginner Guide Page Specific Stylesheet
+   Scope: .github-actions-beginner-page
+   ========================================================================== */
+
+.github-actions-beginner-page {
+  --bg: #07111e;
+  --bg-elevated: #0d1b2e;
+  --bg-card: #0f2035;
+  --border: #1c3049;
+  --border-soft: #152640;
+  --text-primary: #e7edf7;
+  --text-secondary: #93a6c2;
+  --text-muted: #5f7593;
+  --accent: #5ec9ff;
+  --accent-soft: #1b3b52;
+  --accent-strong: #8fe3ff;
+  --accent-2: #4ade80;
+  --accent-2-soft: #153a29;
+  --warn: #fbbf24;
+  --warn-soft: #3a2f12;
+  --danger: #f87171;
+  --danger-soft: #3a1616;
+  --radius: 10px;
+  --sidebar-w: 300px;
+  --font-display: 'Space Grotesk', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  --font-body: 'Inter', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, monospace;
+
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.75;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.github-actions-beginner-page * {
+  box-sizing: border-box;
+}
+
+.github-actions-beginner-page a {
+  color: var(--accent);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.github-actions-beginner-page a:hover {
+  color: var(--accent-strong);
+  text-decoration: underline;
+}
+
+/* ============ Sidebar ============ */
+.github-actions-beginner-page .sidebar {
+  position: fixed;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  left: 0;
+  width: var(--sidebar-w);
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+  overflow-y: auto;
+  background: linear-gradient(180deg, #0a1729 0%, #071120 100%);
+  border-right: 1px solid var(--border);
+  padding: 24px 0 40px;
+  z-index: 40;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.github-actions-beginner-page .sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.github-actions-beginner-page .sidebar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+.github-actions-beginner-page .sidebar-brand {
+  padding: 0 24px 18px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 14px;
+}
+
+.github-actions-beginner-page .sidebar-brand .kicker {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  color: var(--accent);
+  text-transform: uppercase;
+  font-weight: 600;
+  display: block;
+}
+
+.github-actions-beginner-page .sidebar-brand h2 {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 700;
+  margin: 6px 0 0;
+  line-height: 1.35;
+  color: var(--text-primary);
+  border: none;
+  padding: 0;
+}
+
+.github-actions-beginner-page .sidebar-nav {
+  padding: 0 10px;
+}
+
+.github-actions-beginner-page .sidebar-nav a {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  font-weight: 500;
+  border-left: 2px solid transparent;
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.github-actions-beginner-page .sidebar-nav a:hover {
+  background: var(--bg-elevated);
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+.github-actions-beginner-page .sidebar-nav a.active {
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  border-left-color: var(--accent);
+  font-weight: 600;
+}
+
+.github-actions-beginner-page .sidebar-nav .nav-index {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  margin-right: 8px;
+  flex-shrink: 0;
+}
+
+/* ============ Main layout ============ */
+.github-actions-beginner-page main {
+  margin-left: var(--sidebar-w);
+  min-height: 100vh;
+  padding: 0 56px 100px;
+  max-width: none;
+  min-width: 0;
+}
+
+.github-actions-beginner-page .hero {
+  min-height: 0;
+  display: block;
+  padding: 48px 0 36px;
+  border-bottom: 1px solid var(--border-soft);
+  margin-bottom: 36px;
+}
+
+.github-actions-beginner-page .hero .kicker {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: inline-block;
+  padding: 5px 12px;
+  border: 1px solid var(--accent-soft);
+  border-radius: 100px;
+  background: var(--accent-soft);
+  font-weight: 600;
+}
+
+.github-actions-beginner-page .hero h1 {
+  font-family: var(--font-display);
+  font-size: 38px;
+  line-height: 1.3;
+  font-weight: 700;
+  margin: 20px 0 16px;
+  max-width: 960px;
+  color: var(--text-primary);
+}
+
+.github-actions-beginner-page .hero p.lead {
+  font-size: 16.5px;
+  color: var(--text-secondary);
+  max-width: 880px;
+  margin: 0 0 12px;
+  line-height: 1.8;
+}
+
+.github-actions-beginner-page .hero .source-note {
+  margin-top: 20px;
+  padding: 14px 18px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+}
+
+.github-actions-beginner-page .hero .source-note a {
+  font-weight: 600;
+}
+
+.github-actions-beginner-page section {
+  padding-top: 32px;
+  margin-top: 8px;
+  scroll-margin-top: 80px;
+}
+
+.github-actions-beginner-page section + section {
+  border-top: 1px solid var(--border-soft);
+}
+
+.github-actions-beginner-page .section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+  display: block;
+  font-weight: 600;
+}
+
+.github-actions-beginner-page h2 {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 18px;
+  color: var(--text-primary);
+  scroll-margin-top: 80px;
+}
+
+.github-actions-beginner-page h3 {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 600;
+  margin: 32px 0 14px;
+  color: var(--text-primary);
+}
+
+.github-actions-beginner-page h4 {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  margin: 22px 0 10px;
+  color: var(--accent-strong);
+}
+
+.github-actions-beginner-page p {
+  margin: 0 0 16px;
+  color: var(--text-primary);
+  max-width: none;
+}
+
+.github-actions-beginner-page p.muted {
+  color: var(--text-secondary);
+  font-size: 0.92rem;
+}
+
+.github-actions-beginner-page strong {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.github-actions-beginner-page code.inline {
+  font-family: var(--font-mono);
+  font-size: 0.9em;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 4px;
+  color: var(--accent);
+}
+
+.github-actions-beginner-page ul,
+.github-actions-beginner-page ol {
+  padding-left: 24px;
+  margin: 0 0 18px;
+  color: var(--text-primary);
+}
+
+.github-actions-beginner-page li {
+  margin-bottom: 8px;
+  line-height: 1.7;
+}
+
+/* ============ Table styling ============ */
+.github-actions-beginner-page .table-wrap {
+  overflow-x: auto;
+  margin: 18px 0 24px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg-card);
+  -webkit-overflow-scrolling: touch;
+}
+
+.github-actions-beginner-page table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  text-align: left;
+}
+
+.github-actions-beginner-page th {
+  background: var(--bg-elevated);
+  color: var(--accent-strong);
+  font-family: var(--font-display);
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+.github-actions-beginner-page td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-soft);
+  color: var(--text-primary);
+  vertical-align: top;
+  line-height: 1.6;
+}
+
+.github-actions-beginner-page tr:last-child td {
+  border-bottom: none;
+}
+
+.github-actions-beginner-page tr:hover td {
+  background: rgba(94, 201, 255, 0.03);
+}
+
+/* ============ Code block styling ============ */
+.github-actions-beginner-page .code-block {
+  background: #0a1729;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 18px 0 24px;
+  overflow: hidden;
+}
+
+.github-actions-beginner-page .code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 16px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+  font-size: 0.85rem;
+}
+
+.github-actions-beginner-page .code-block-header .filename {
+  font-family: var(--font-mono);
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.github-actions-beginner-page .code-block-header .lang-tag {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  background: var(--border-soft);
+  color: var(--accent);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.github-actions-beginner-page .code-content {
+  padding: 16px;
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  color: var(--text-primary);
+  overflow-x: auto;
+  background: #091322;
+  white-space: pre;
+}
+
+.github-actions-beginner-page .code-line {
+  white-space: pre;
+  display: block;
+}
+
+/* Syntax highlight helpers */
+.github-actions-beginner-page .code-keyword { color: #f472b6; font-weight: 600; }
+.github-actions-beginner-page .code-string { color: #4ade80; }
+.github-actions-beginner-page .code-comment { color: #5f7593; font-style: italic; }
+.github-actions-beginner-page .code-property { color: #5ec9ff; }
+.github-actions-beginner-page .code-number { color: #fbbf24; }
+.github-actions-beginner-page .code-var { color: #cbd5e1; }
+
+/* ============ Diagram card (Mermaid) ============ */
+.github-actions-beginner-page .diagram-card {
+  margin: 24px 0;
+  padding: 24px 20px;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+.github-actions-beginner-page .diagram-card .mermaid-wrapper {
+  width: 100%;
+  max-width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.github-actions-beginner-page .diagram-caption {
+  font-size: 0.92rem;
+  color: var(--text-secondary);
+  margin-top: 14px;
+  text-align: center;
+  font-weight: 500;
+}
+
+/* ============ Callouts & Alerts ============ */
+.github-actions-beginner-page .callout {
+  border-left: 4px solid var(--accent);
+  background: var(--bg-card);
+  padding: 16px 20px;
+  border-radius: 0 var(--radius) var(--radius) 0;
+  margin: 18px 0 24px;
+}
+
+.github-actions-beginner-page .callout strong {
+  color: var(--accent-strong);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.github-actions-beginner-page .callout p {
+  margin-bottom: 0;
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+.github-actions-beginner-page .tip {
+  border: 1px solid var(--accent-soft);
+  background: rgba(94, 201, 255, 0.06);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 18px 0 24px;
+  font-size: 0.95rem;
+}
+
+.github-actions-beginner-page .tip strong {
+  color: var(--accent-strong);
+}
+
+.github-actions-beginner-page .danger-box {
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  background: var(--danger-soft);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin: 18px 0 24px;
+  font-size: 0.95rem;
+}
+
+.github-actions-beginner-page .danger-box strong {
+  color: var(--danger);
+}
+
+/* ============ Steps & lists ============ */
+.github-actions-beginner-page .step-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: var(--accent-soft);
+  color: var(--accent-strong);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.github-actions-beginner-page .step-item {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  margin-bottom: 14px;
+}
+
+.github-actions-beginner-page .step-item p {
+  margin: 0;
+}
+
+/* ============ References ============ */
+.github-actions-beginner-page .ref-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 18px 0;
+}
+
+.github-actions-beginner-page .ref-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border-soft);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.github-actions-beginner-page .ref-list li:last-child {
+  border-bottom: none;
+}
+
+.github-actions-beginner-page .ref-list .ref-title {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.github-actions-beginner-page .ref-list .ref-url {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--accent);
+  word-break: break-all;
+}
+
+.github-actions-beginner-page footer.page-footer {
+  margin-top: 60px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-soft);
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 980px) {
+  .github-actions-beginner-page .sidebar {
+    position: relative;
+    top: 0;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .github-actions-beginner-page main {
+    margin-left: 0;
+    padding: 0 20px 80px;
+  }
+
+  .github-actions-beginner-page .hero {
+    padding: 32px 0 24px;
+  }
+
+  .github-actions-beginner-page .hero h1 {
+    font-size: 28px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .github-actions-beginner-page * {
+    transition: none !important;
+    animation: none !important;
+  }
+}
