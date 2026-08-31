@@ -1,5 +1,6 @@
 # Software Testing: A Craftsman's Approach 入門ガイド
-### 〜 Paul C. Jorgensen 著『Software Testing, 4th Edition』で学ぶ、ステップバイステップのテスト設計ベストプラクティス 〜
+
+**〜 Paul C. Jorgensen 著『Software Testing, 4th Edition』で学ぶ、ステップバイステップのテスト設計ベストプラクティス 〜**
 
 > 本ガイドは、O'Reilly / Auerbach Publications から出版されている書籍
 > **Software Testing: A Craftsman's Approach, 4th Edition**（著者: Paul C. Jorgensen）
@@ -7,7 +8,7 @@
 > あわせて、2026年8月時点での業界動向（Martin Fowler、Kent Beck、Google、ThoughtWorks など著名な開発者・組織の発信）も
 > コラムとして補足し、「古典的名著の理論」と「現代の実務」を橋渡しします。
 >
-> 書籍情報の一次ソース: https://www.oreilly.com/library/view/software-testing-4th/9781466560680/
+> 書籍情報の一次ソース: <https://www.oreilly.com/library/view/software-testing-4th/9781466560680/>
 
 ---
 
@@ -32,6 +33,7 @@
 ---
 
 <a id="step0"></a>
+
 ## ステップ0：この本の全体像をつかむ
 
 Jorgensen の本は「テスト技法のカタログ」であると同時に、**なぜその技法が必要なのかを数学的に裏付ける**という珍しい構成を取っています。初学者はまず、全体が5部構成になっていることを押さえましょう。
@@ -59,6 +61,7 @@ flowchart TD
 ---
 
 <a id="step1"></a>
+
 ## ステップ1：テストの基本概念を理解する（第1章対応）
 
 最初の関門は用語の整理です。曖昧なまま進むと、後の技法の意義が理解できなくなります。
@@ -108,6 +111,7 @@ flowchart LR
 ---
 
 <a id="step2"></a>
+
 ## ステップ2：テストを支える数学的基盤を知る（第3〜4章対応）
 
 初学者がつまずきやすいポイントですが、必要なのは「数学の証明ができること」ではなく、**後続の技法を理解するための最小限の語彙**を持つことです。
@@ -140,6 +144,7 @@ flowchart TD
 ---
 
 <a id="step3"></a>
+
 ## ステップ3：境界値分析でテストケースを作る（第5章対応）
 
 **境界値分析（Boundary Value Analysis, BVA）**は、「バグは境界に潜む」という経験則に基づく技法です。入力の最小値・最大値・その近傍（±1）を重点的にテストします。
@@ -180,6 +185,7 @@ flowchart TD
 ---
 
 <a id="step4"></a>
+
 ## ステップ4：同値分割でテストケースを整理する（第6章対応）
 
 境界値分析が「端」に注目するのに対し、**同値分割（Equivalence Class Testing）**は「同じ振る舞いになるはずの入力をグループ化し、各グループから代表値を1つ選ぶ」ことでテストケース数を削減する技法です。
@@ -207,6 +213,7 @@ flowchart TD
 ---
 
 <a id="step5"></a>
+
 ## ステップ5：デシジョンテーブルで複雑な条件を整理する（第7章対応）
 
 条件が複数絡み合う仕様（例：「会員種別が Gold かつ購入額が1万円以上なら10%割引、Silver なら5%割引…」）は、自然言語のまま考えると条件の組合せ漏れが起きやすくなります。**デシジョンテーブル**はこの組合せを表形式で網羅する技法です。
@@ -226,6 +233,7 @@ flowchart TD
 ---
 
 <a id="step6"></a>
+
 ## ステップ6：コードを読んでテストする（パステスト／データフローテスト、第8〜10章対応）
 
 ここからは仕様ではなく**ソースコードそのもの**を根拠にテストを設計する、コードベーステストの領域です。
@@ -263,6 +271,7 @@ flowchart LR
 ---
 
 <a id="step7"></a>
+
 ## ステップ7：単体テストを超えて（統合・システム・OOテスト、第11〜17章対応）
 
 ### ライフサイクルモデルとテストの関係
@@ -333,6 +342,7 @@ flowchart TD
 ---
 
 <a id="step8"></a>
+
 ## ステップ8：テストケース自体の品質を評価する高度な技法（第18〜21章対応）
 
 ここまでの技法は「どんなテストケースを作るか」でした。ここからは「作ったテストケース（あるいはテストプロセスそのもの）は本当に有効か」を問う、一段メタなレベルの技法です。
@@ -392,6 +402,7 @@ flowchart TD
 ---
 
 <a id="step9"></a>
+
 ## ステップ9：レビューで欠陥を早期に見つける（第22章対応）
 
 テスト実行の前に、成果物（要求仕様書・設計書・コード）を人の目でチェックする**技術レビュー**も、Jorgensenは欠陥検出の重要な手段として位置づけています。
@@ -418,6 +429,7 @@ flowchart TD
 ---
 
 <a id="step10"></a>
+
 ## ステップ10：熟達者（Craftsman）になるためのベストプラクティス（第23章対応）
 
 最終章でJorgensenは、自身が選ぶ「テスト優秀性のためのトップ10ベストプラクティス」を提示しています。
@@ -446,6 +458,7 @@ flowchart TD
 ---
 
 <a id="trends2026"></a>
+
 ## 2026年時点の実務トレンドとの接続
 
 Jorgensen の技法群は「テスト設計の考え方」を支える普遍的な基礎ですが、実際の開発現場でどう使われているかは時代とともに変化します。ここでは2026年8月時点で確認できる、著名な開発者・組織の発信内容を要約します。
@@ -484,6 +497,7 @@ QuickCheckの生みの親であるJohn Hughesらの調査によれば、プロ�
 ---
 
 <a id="roadmap"></a>
+
 ## 学習ロードマップ（初学者向け実践プラン）
 
 ```mermaid
@@ -505,6 +519,7 @@ flowchart TD
 ---
 
 <a id="summary"></a>
+
 ## まとめ
 
 Jorgensenの『Software Testing: A Craftsman's Approach』は、境界値分析や同値分割といった「手を動かす技法」と、グラフ理論・集合論という「技法を支える理論」を同じ本の中で往復させることで、テスト設計を「勘と経験の職人芸」から「説明可能な工学」に引き上げようとする一冊です。
@@ -514,33 +529,34 @@ Jorgensenの『Software Testing: A Craftsman's Approach』は、境界値分析�
 ---
 
 <a id="references"></a>
+
 ## 参考文献・出典
 
 ### 書籍・出版社情報
 
 | ソース | URL |
 |---|---|
-| Software Testing, 4th Edition（O'Reilly / Auerbach Publications, Paul C. Jorgensen） 目次・概要 | https://www.oreilly.com/library/view/software-testing-4th/9781466560680/ |
-| Software Testing: A Craftsman's Approach（Goodreads） | https://www.goodreads.com/book/show/38898386-software-testing |
+| Software Testing, 4th Edition（O'Reilly / Auerbach Publications, Paul C. Jorgensen） 目次・概要 | <https://www.oreilly.com/library/view/software-testing-4th/9781466560680/> |
+| Software Testing: A Craftsman's Approach（Goodreads） | <https://www.goodreads.com/book/show/38898386-software-testing> |
 
 ### 現代の実務トレンド（著名な開発者・組織の一次情報）
 
 | ソース | URL |
 |---|---|
-| Martin Fowler's Blog（testingタグ、Test Pyramid関連記事一覧） | https://martinfowler.com/tags/testing.html |
-| Kent Beck「Test Desiderata」（Medium, 2019年） | https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3 |
-| Kent Beck「Desirable Unit Tests」「Composable Tests」（Substack, 2025年） | https://tidyfirst.substack.com/p/desirable-unit-tests |
-| Emily Bache「Test Desiderata 2.0」（2025年12月） | https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/ |
-| Test Desiderata Framework 解説（Beck以降20名以上の専門家の見解を整理） | https://lidonis.github.io/Test-Desiderata/framework.html |
-| Kent Beck（Wikipedia、経歴・TDD確立の経緯） | https://en.wikipedia.org/wiki/Kent_Beck |
-| Google Testing Blog「Flaky Tests at Google and How We Mitigate Them」 | https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html |
-| ThoughtWorks Technology Radar Vol.34（2026年4月, PDF） | https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2026/04/tr_technology_radar_vol_34_en.pdf |
-| ThoughtWorks Technology Radar「Techniques」（ミューテーションテスト解説） | https://www.thoughtworks.com/radar/techniques |
-| ThoughtWorks「Macro trends in the tech industry」（2026年4月） | https://www.thoughtworks.com/en-us/insights/blog/technology-strategy/macro-trends-tech-industry-april-2026 |
-| ThoughtWorks Technology Radar「AI-powered UI testing」 | https://www.thoughtworks.com/en-us/radar/techniques/ai-powered-ui-testing |
-| Software Testing Strategy 2026: The Engineering Guide（テストピラミッド・Google test size解説） | https://www.digitalapplied.com/blog/software-testing-strategy-2026-engineering-reference |
-| Rapid Software Testing（James Bach & Michael Bolton, 探索的テストの現在の到達点） | https://rapid-software-testing.com/what-is-testing-a-conversation-with-james-bach-and-michael-bolton/ |
-| Session-based testing（Wikipedia, James & Jonathan Bach） | https://en.wikipedia.org/wiki/Session-based_testing |
-| Property-Based Testing 解説（John HughesのErlang調査の引用元） | https://yrkan.com/blog/property-based-testing/ |
+| Martin Fowler's Blog（testingタグ、Test Pyramid関連記事一覧） | <https://martinfowler.com/tags/testing.html> |
+| Kent Beck「Test Desiderata」（Medium, 2019年） | <https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3> |
+| Kent Beck「Desirable Unit Tests」「Composable Tests」（Substack, 2025年） | <https://tidyfirst.substack.com/p/desirable-unit-tests> |
+| Emily Bache「Test Desiderata 2.0」（2025年12月） | <https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/> |
+| Test Desiderata Framework 解説（Beck以降20名以上の専門家の見解を整理） | <https://lidonis.github.io/Test-Desiderata/framework.html> |
+| Kent Beck（Wikipedia、経歴・TDD確立の経緯） | <https://en.wikipedia.org/wiki/Kent_Beck> |
+| Google Testing Blog「Flaky Tests at Google and How We Mitigate Them」 | <https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html> |
+| ThoughtWorks Technology Radar Vol.34（2026年4月, PDF） | <https://www.thoughtworks.com/content/dam/thoughtworks/documents/radar/2026/04/tr_technology_radar_vol_34_en.pdf> |
+| ThoughtWorks Technology Radar「Techniques」（ミューテーションテスト解説） | <https://www.thoughtworks.com/radar/techniques> |
+| ThoughtWorks「Macro trends in the tech industry」（2026年4月） | <https://www.thoughtworks.com/en-us/insights/blog/technology-strategy/macro-trends-tech-industry-april-2026> |
+| ThoughtWorks Technology Radar「AI-powered UI testing」 | <https://www.thoughtworks.com/en-us/radar/techniques/ai-powered-ui-testing> |
+| Software Testing Strategy 2026: The Engineering Guide（テストピラミッド・Google test size解説） | <https://www.digitalapplied.com/blog/software-testing-strategy-2026-engineering-reference> |
+| Rapid Software Testing（James Bach & Michael Bolton, 探索的テストの現在の到達点） | <https://rapid-software-testing.com/what-is-testing-a-conversation-with-james-bach-and-michael-bolton/> |
+| Session-based testing（Wikipedia, James & Jonathan Bach） | <https://en.wikipedia.org/wiki/Session-based_testing> |
+| Property-Based Testing 解説（John HughesのErlang調査の引用元） | <https://yrkan.com/blog/property-based-testing/> |
 
 > 検索は2026年8月30日時点の情報に基づいて実施しています。特にAI支援開発関連のトレンドは変化が速い領域のため、最新情報は各ソースの公式サイトを直接ご確認ください。

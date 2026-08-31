@@ -923,7 +923,7 @@ public void ship(Order order) {
               <tr><td>マジックナンバー・文字列</td><td>意味のある定数や値オブジェクトに置き換えられているか</td></tr>
               <tr><td>セキュリティ</td><td>外部入力のサニタイズや検証が行われているか</td></tr>
               <tr><td>AIコード</td><td>AIが生成したコードの内容を自分で説明できるか、レビューを経ているか</td></tr>
-              <tr><td>コミット単位</td><td>変更は小さく、振る舞いを変えずにテストが通る単位でコミットされているか</td></tr>
+              <tr><td>コミット単位</td><td>変更は小さく、整頓（振る舞いを変えない変更）と機能変更を分けたうえで、テストが通る単位でコミットされているか</td></tr>
             </tbody>
           </table>
         </div>
@@ -1024,7 +1024,7 @@ flowchart TB
     Tidy --> Impl
     Q2 -- いいえ --> Later["整頓は後回しにし記録だけ残す"]
     Later --> Impl
-    Impl --> Commit["振る舞いを変えずにテストしてコミットする"]:::done
+    Impl --> Commit["変更後の振る舞いと既存部分をテストしてコミットする"]:::done
 
     classDef hub fill:#e8edfb,stroke:#3d4f91,stroke-width:2px,color:#20264a;
     classDef done fill:#eaf3ec,stroke:#3f6b4a,stroke-width:2px,color:#193322;
