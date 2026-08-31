@@ -45,14 +45,22 @@ P->>B: 条件が満たされるまで再試行
 B-->>P: 条件成立 or タイムアウト
 P-->>T: 成功 / 失敗を報告`;
 
-const DIAGRAM_03 = `flowchart LR
-A["npm init playwright@latest"] --> B["playwright.config.ts<br/>（テスト設定ファイル）"]
-A --> C["package.json / lock file"]
-A --> D["tests/<br/>example.spec.ts"]
-A --> E["ブラウザバイナリの<br/>ダウンロード"]
-E --> F["Chromium"]
-E --> G["Firefox"]
-E --> H["WebKit"]`;
+const DIAGRAM_03 = `flowchart TD
+A["npm init playwright@latest 実行"] --> B["設定ファイル・サンプルの自動生成"]
+A --> C["ブラウザバイナリの自動ダウンロード"]
+subgraph Files["生成される主要ファイル群"]
+B1["playwright.config.ts（設定ファイル）"]
+B2["package.json / package-lock.json"]
+B3["tests/example.spec.ts（サンプルテスト）"]
+B4[".github/workflows/playwright.yml（CIワークフロー）"]
+end
+subgraph Browsers["ダウンロード対象ブラウザ"]
+C1["Chromium"]
+C2["Firefox"]
+C3["WebKit"]
+end
+B --> Files
+C --> Browsers`;
 
 const DIAGRAM_04 = `flowchart TB
 root["プロジェクトルート"]
@@ -65,13 +73,13 @@ root --> gh[".github/workflows/playwright.yml"]
 tests --> spec1["example.spec.ts"]
 examples --> spec2["todo-page 実践例"]`;
 
-const DIAGRAM_05 = `flowchart LR
-A["1. page.goto()<br/>でページに遷移"] --> B["2. ロケーターで<br/>要素を特定"]
-B --> C["3. アクションを実行<br/>（click, fillなど）"]
-C --> D["4. expectで<br/>状態を検証"]
-D --> E{"さらに操作が<br/>必要？"}
-E -- はい --> B
-E -- いいえ --> F["テスト終了"]`;
+const DIAGRAM_05 = `flowchart TD
+A["1. page.goto()<br/>指定URLへアクセスしてページ読み込み"] --> B["2. ロケーター（page.getByRole等）<br/>操作対象の要素を特定"]
+B --> C["3. アクション（click, fill等）<br/>要素の自動待機後に操作を実行"]
+C --> D["4. expect(locator).to*()<br/>Web-Firstアサーションで状態を検証"]
+D --> E{"さらに操作を<br/>続ける？"}
+E -- "はい（次の操作へ）" --> B
+E -- "いいえ（完了）" --> F["テスト成功（パス）"]`;
 
 const DIAGRAM_06 = `flowchart TD
 Start["要素を特定したい"] --> Q1{"ボタン・リンク・見出し等<br/>明確なARIAロールを持つ？"}
@@ -103,13 +111,15 @@ UI --> Q2{"1行ずつ丁寧に<br/>ブレークポイントで<br/>止めたい�
 Q2 -- はい --> Inspector["Playwright Inspector<br/>（--debug フラグ）"]
 Q2 -- いいえ --> VSC["VS Code拡張機能で<br/>ブレークポイントデバッグ"]`;
 
-const DIAGRAM_09 = `flowchart LR
-A["codegen 起動"] --> B["ブラウザ操作を記録"]
-B --> C1["クリック・入力などの<br/>アクション"]
-B --> C2["表示確認・テキスト確認・<br/>値の確認などのアサーション"]
-C1 --> D["コードとして<br/>リアルタイム生成"]
-C2 --> D
-D --> E["'copy'ボタンで<br/>エディタに貼り付け"]`;
+const DIAGRAM_09 = `flowchart TD
+A["npx playwright codegen URL<br/>Codegenツール起動"] --> B["ブラウザ上で人間が通常通り操作"]
+subgraph Capture["自動記録・解析"]
+C1["クリック・入力・選択などの操作"]
+C2["UI上のテキスト・表示の検証アサーション"]
+end
+B --> Capture
+Capture --> D["最適なロケーターを用いた<br/>テストコードをリアルタイム生成"]
+D --> E["生成コードをコピーして<br/>テストファイルへ保存・活用"]`;
 
 const DIAGRAM_10 = `flowchart TD
 A["trace.zip"] --> B["タイムライン表示"]
@@ -127,7 +137,7 @@ subgraph EachTest["各テストごと"]
 T1["test スコープの<br/>自動フィクスチャ"]
 T2["page 生成"]
 T3["beforeEach 実行"]
-T4["テスト本体を実行<br/>（必要なフィクスチャを<br/>遅延構築）"]
+T4["テスト本体を実行<br/>（必要なフィクスチャを遅延構築）"]
 T5["afterEach 実行"]
 T6["page 破棄"]
 T7["自動フィクスチャの<br/>後片付け"]
@@ -136,22 +146,23 @@ W1 --> W2 --> T1
 T1 --> T2 --> T3 --> T4 --> T5 --> T6 --> T7
 T7 -.次のテストへ.-> T1`;
 
-const DIAGRAM_12 = `flowchart LR
-subgraph Before["POMなし"]
-A1["test1.spec.ts<br/>にロケーター直書き"]
-A2["test2.spec.ts<br/>にロケーター直書き"]
-A3["test3.spec.ts<br/>にロケーター直書き"]
+const DIAGRAM_12 = `flowchart TD
+subgraph Before["POM導入前: テストコード内にロケーターが散在"]
+A1["test1.spec.ts<br/>（ロケーター直書き）"]
+A2["test2.spec.ts<br/>（ロケーター直書き）"]
+A3["test3.spec.ts<br/>（ロケーター直書き）"]
 end
-subgraph After["POMあり"]
-B1["LoginPage.ts"]
-B2["DashboardPage.ts"]
+subgraph After["POM導入後: Pageクラスに集約し保守性を向上"]
+B1["LoginPage.ts<br/>（ログイン画面のロケーター・操作）"]
+B2["DashboardPage.ts<br/>（ダッシュボードのロケーター・操作）"]
 C1["test1.spec.ts"]
 C2["test2.spec.ts"]
 C3["test3.spec.ts"]
 C1 --> B1
 C2 --> B1
 C3 --> B2
-end`;
+end
+Before -. "リファクタリング" .-> After`;
 
 const DIAGRAM_13 = `flowchart TD
 A["page.route() でリクエストを捕捉"] --> B{"どう処理する？"}
@@ -159,60 +170,88 @@ B -- "モックデータで即応答" --> C["route.fulfill()<br/>実サーバー
 B -- "実リクエストを許可しつつ改変" --> D["route.continue()<br/>ヘッダー追加など"]
 B -- "リクエストを失敗させる" --> E["route.abort()<br/>ネットワーク断のシミュレーション"]`;
 
-const DIAGRAM_14 = `flowchart LR
-A["push / pull_request"] --> B["リポジトリをチェックアウト"]
-B --> C["Node.jsをセットアップ"]
-C --> D["npm ci で依存関係インストール"]
-D --> E["ブラウザバイナリを<br/>インストール"]
-E --> F["npx playwright test<br/>でテスト実行"]
-F --> G{"テスト結果"}
-G -- 成功 --> H["ワークフロー成功"]
-G -- 失敗 --> I["HTMLレポートを<br/>Artifactとしてアップロード"]
-I --> J["GitHub Actionsの<br/>Artifactsからダウンロードして<br/>ローカルで確認"]`;
+const DIAGRAM_14 = `flowchart TD
+A["Git Push / Pull Request 作成"] --> B["GitHub Actions ワークフロー起動"]
 
-const DIAGRAM_15 = `flowchart TB
-ROOT(("Playwright<br/>ベストプラクティス"))
-subgraph LOC["ロケーター"]
-direction TB
-L1["getByRoleなど<br/>ユーザー視点のロケーターを使う"]
-L2["CSS/XPathの多用を避ける"]
-L3["チェイン・フィルタで絞り込む"]
+subgraph Setup["1. 環境準備"]
+C1["リポジトリをチェックアウト<br/>actions/checkout"]
+C2["Node.js セットアップ<br/>actions/setup-node"]
+C3["依存関係インストール<br/>npm ci"]
+C4["ブラウザバイナリ取得<br/>npx playwright install --with-deps"]
+C1 --> C2 --> C3 --> C4
 end
-subgraph ASSERT["アサーション"]
-direction TB
-A1["Web-firstアサーションを使う"]
-A2["awaitの位置を間違えない"]
-A3["ソフトアサーションを活用する"]
+
+subgraph Exec["2. テスト実行"]
+D["npx playwright test<br/>全ブラウザで並列実行"]
 end
-subgraph DEBUG["デバッグ"]
-direction TB
-D1["UIモードを標準的に使う"]
-D2["CIではトレースビューアーを使う"]
-D3["VS Code拡張機能を活用する"]
+
+subgraph Report["3. 結果判定 & レポート"]
+E{"テスト合否"}
+E -- "成功（Pass）" --> F["ワークフロー完了（Green ✅）"]
+E -- "失敗（Fail）" --> G["HTMLレポート & トレースを保存<br/>actions/upload-artifact"]
+G --> H["開発者がArtifactsをDLして<br/>Trace Viewerで原因調査"]
 end
-subgraph OPS["運用"]
-direction TB
-O1["全ブラウザでテストする"]
-O2["Playwrightを最新版に保つ"]
-O3["CIを毎コミットで走らせる"]
-O4["ESLintでawait漏れを検知する"]
-O5["並列実行とシャーディングを使う"]
+
+B --> Setup
+Setup --> Exec
+Exec --> Report`;
+
+const DIAGRAM_15 = `flowchart TD
+ROOT["Playwright ベストプラクティス"]
+
+subgraph TopRow["設計 & 実装原則"]
+subgraph LOC["1. ロケーター設計"]
+L1["getByRole等ユーザー視点の特定"]
+L2["実装依存のCSS/XPathを避ける"]
+L3["filterやチェインで絞り込む"]
 end
-ROOT --> LOC
-ROOT --> ASSERT
-ROOT --> DEBUG
-ROOT --> OPS`;
+subgraph ASSERT["2. アサーション設計"]
+A1["Web-Firstアサーションで自動待機"]
+A2["すべての非同期処理に await を徹底"]
+A3["複数項目の検証には soft を活用"]
+end
+end
+
+subgraph BottomRow["デバッグ & CI/CD運用原則"]
+subgraph DEBUG["3. デバッグ手法"]
+D1["ローカル開発は UI Mode を標準活用"]
+D2["CI失敗は Trace Viewer で時間旅行調査"]
+D3["Playwright Inspector でステップ実行"]
+end
+subgraph OPS["4. CI/CD & 運用"]
+O1["多ブラウザ（Chromium/Firefox/WebKit）検証"]
+O2["storageState でログイン状態を再利用"]
+O3["並列実行とシャーディングで高速化"]
+end
+end
+
+ROOT --> TopRow
+ROOT --> BottomRow`;
 
 const DIAGRAM_16 = `flowchart TD
-S["Step 0<br/>Node.js環境を用意する"] --> S1["Step 1<br/>npm init playwright@latest<br/>でプロジェクト作成"]
-S1 --> S2["Step 2<br/>example.spec.tsを読み、<br/>page.goto/getByRole/expectの<br/>基本パターンを理解する"]
-S2 --> S3["Step 3<br/>codegenで実サイトを操作し、<br/>生成されたロケーターを確認する"]
-S3 --> S4["Step 4<br/>getByRole/getByLabel/getByText<br/>など各種ロケーターを使い分ける"]
-S4 --> S5["Step 5<br/>UIモードとPlaywright Inspectorで<br/>デバッグに慣れる"]
-S5 --> S6["Step 6<br/>フィクスチャとPage Object Model<br/>でテストを構造化する"]
-S6 --> S7["Step 7<br/>page.routeによる<br/>APIモックを導入する"]
-S7 --> S8["Step 8<br/>GitHub Actions等のCIに<br/>組み込み、trace viewerで<br/>失敗を追えるようにする"]
-S8 --> S9["Step 9<br/>並列実行・シャーディング・<br/>複数ブラウザプロジェクトで<br/>スケールさせる"]`;
+subgraph Phase1["フェーズ 1: 基礎固め（環境構築 〜 基本テスト）"]
+S0["Step 0: Node.js 環境を用意する"]
+S1["Step 1: npm init playwright@latest で初期化"]
+S2["Step 2: example.spec.ts で goto / getByRole / expect の基本を理解"]
+S0 --> S1 --> S2
+end
+
+subgraph Phase2["フェーズ 2: 実践力向上（ロケーター & デバッグ）"]
+S3["Step 3: Codegen でブラウザ操作からコードを自動生成"]
+S4["Step 4: getByRole, getByLabel 等のユーザー視点ロケーターを使いこなす"]
+S5["Step 5: UI Mode & Inspector でステップ実行・デバッグに慣れる"]
+S2 --> S3
+S3 --> S4 --> S5
+end
+
+subgraph Phase3["フェーズ 3: 構造化 & CI/CD運用"]
+S6["Step 6: Fixture と Page Object Model（POM）で保守性の高い構造化"]
+S7["Step 7: page.route を用いた API モック・通信制御"]
+S8["Step 8: GitHub Actions への組み込み & Trace Viewer 活用"]
+S9["Step 9: 複数ブラウザ並列実行・シャーディングでスケール"]
+S5 --> S6
+S6 --> S7 --> S8 --> S9
+end`;
 
 export default function PlaywrightBeginnerPage() {
   return (
