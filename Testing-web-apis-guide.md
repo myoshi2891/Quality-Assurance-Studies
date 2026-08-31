@@ -292,7 +292,9 @@ def _resolve_user_url(created: requests.Response, email: str) -> str:
         except ValueError:
             payload = None
         # 検索APIが想定外の形（配列やエラーボディ）を返しても例外で落とさない
-        items = payload.get("items", []) if isinstance(payload, dict) else []
+        raw_items = payload.get("items") if isinstance(payload, dict) else None
+        # items が None や配列以外で返っても後段のループが壊れないよう空配列に正規化する
+        items = raw_items if isinstance(raw_items, list) else []
         for user in items:
             if not isinstance(user, dict):
                 continue
