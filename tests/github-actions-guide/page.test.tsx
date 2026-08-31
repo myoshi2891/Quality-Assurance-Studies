@@ -303,24 +303,27 @@ describe('GitHub Actions Guide Page - Comprehensive Suite', () => {
     const firstItem = items?.[0] as HTMLElement;
     expect(firstItem).toBeDefined();
 
+    // li は listitem セマンティクスを保ち、role を上書きしない
+    expect(firstItem.getAttribute('role')).toBeNull();
+
+    // 操作対象はネイティブ checkbox（label でラップされ、キーボード操作はブラウザ標準）
+    const input = firstItem.querySelector('input[type="checkbox"]') as HTMLInputElement;
+    expect(input).not.toBeNull();
+    expect(firstItem.querySelector('label')?.contains(input)).toBe(true);
+
     // Initial state: not checked
+    expect(input.checked).toBe(false);
     expect(firstItem.classList.contains('checked')).toBe(false);
-    expect(firstItem.getAttribute('aria-checked')).toBe('false');
 
     // Click to check
-    fireEvent.click(firstItem);
+    fireEvent.click(input);
+    expect(input.checked).toBe(true);
     expect(firstItem.classList.contains('checked')).toBe(true);
-    expect(firstItem.getAttribute('aria-checked')).toBe('true');
 
     // Click again to uncheck
-    fireEvent.click(firstItem);
+    fireEvent.click(input);
+    expect(input.checked).toBe(false);
     expect(firstItem.classList.contains('checked')).toBe(false);
-    expect(firstItem.getAttribute('aria-checked')).toBe('false');
-
-    // Keyboard support: Space
-    fireEvent.keyDown(firstItem, { key: ' ' });
-    expect(firstItem.classList.contains('checked')).toBe(true);
-    expect(firstItem.getAttribute('aria-checked')).toBe('true');
   });
 
   it('renders all references and links in section 18', () => {

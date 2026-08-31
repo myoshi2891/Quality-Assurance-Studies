@@ -100,13 +100,6 @@ export default function Checklist() {
     }));
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent, id: number) => {
-    if (e.key === ' ' || e.key === 'Enter') {
-      e.preventDefault();
-      toggleItem(id);
-    }
-  };
-
   const completedCount = Object.values(checkedItems).filter(Boolean).length;
   const totalCount = CHECKLIST_ITEMS.length;
 
@@ -128,31 +121,32 @@ export default function Checklist() {
         {CHECKLIST_ITEMS.map((item) => {
           const isChecked = !!checkedItems[item.id];
           return (
-            <li
-              key={item.id}
-              className={isChecked ? 'checked' : ''}
-              role="checkbox"
-              aria-checked={isChecked}
-              tabIndex={0}
-              onClick={() => toggleItem(item.id)}
-              onKeyDown={(e) => handleKeyDown(e, item.id)}
-            >
-              <span className={`box ${isChecked ? 'checked' : ''}`} aria-hidden="true">
-                {isChecked && (
-                  <svg
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="3"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="check-icon"
-                  >
-                    <polyline points="20 6 9 17 4 12" />
-                  </svg>
-                )}
-              </span>
-              <span className="item-text">{item.content}</span>
+            <li key={item.id} className={isChecked ? 'checked' : ''}>
+              {/* li の listitem セマンティクスを保つため、role は付けずネイティブ checkbox を内包する */}
+              <label className="checklist-label">
+                <input
+                  type="checkbox"
+                  className="checklist-input"
+                  checked={isChecked}
+                  onChange={() => toggleItem(item.id)}
+                />
+                <span className={`box ${isChecked ? 'checked' : ''}`} aria-hidden="true">
+                  {isChecked && (
+                    <svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="check-icon"
+                    >
+                      <polyline points="20 6 9 17 4 12" />
+                    </svg>
+                  )}
+                </span>
+                <span className="item-text">{item.content}</span>
+              </label>
             </li>
           );
         })}
