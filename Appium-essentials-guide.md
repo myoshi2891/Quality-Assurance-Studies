@@ -679,18 +679,29 @@ flowchart TD
 # セッション開始前に .apks インストールの前提を検証する
 set -euo pipefail
 
-# 1) 実際に使われる UiAutomator2 ドライバーのバージョンを記録する
-appium driver list --installed
+# 1) UiAutomator2 ドライバーが導入されていることを確認し、実際のバージョンを記録する
+DRIVER_LIST="$(appium driver list --installed 2>&1)"
+printf '%s\n' "$DRIVER_LIST"
+if ! printf '%s' "$DRIVER_LIST" | grep -q 'uiautomator2'; then
+  echo "ERROR: uiautomator2 ドライバーが未インストールです（appium driver install uiautomator2@<バージョン> で導入してください）" >&2
+  exit 1
+fi
 
-# 2) bundletool.jar 本体が PATH から解決できることを確認する
-#    （BUNDLETOOL_JAR が設定されていればそちらを優先して確認する）
+# 2) bundletool.jar 本体を解決し、以降のすべての呼び出しで使う実行経路を確定する
+#    （BUNDLETOOL_JAR が設定されていればそちらを優先する）
 if [ -n "${BUNDLETOOL_JAR:-}" ]; then
   [ -f "$BUNDLETOOL_JAR" ] \
     || { echo "ERROR: BUNDLETOOL_JAR が指すファイルが存在しません: $BUNDLETOOL_JAR" >&2; exit 1; }
-elif ! command -v bundletool.jar > /dev/null 2>&1; then
+  BUNDLETOOL_CMD=(java -jar "$BUNDLETOOL_JAR")
+elif BUNDLETOOL_JAR_PATH="$(command -v bundletool.jar 2>/dev/null)"; then
+  BUNDLETOOL_CMD=(java -jar "$BUNDLETOOL_JAR_PATH")
+else
   echo "ERROR: bundletool.jar が PATH 上に見つかりません（bundletool コマンドだけでは不足）" >&2
   exit 1
 fi
+
+# 確定した実行経路で疎通確認する（以降は "${BUNDLETOOL_CMD[@]}" のみを使う）
+"${BUNDLETOOL_CMD[@]}" version
 ```
 
 オンデマンド配信のDynamic Feature Moduleは、上記の`--device-spec`で生成した`.apks`には初期インストール対象として含まれません。オンデマンドモジュールの取得・動作まで検証したい場合は、通常のデバイス向けAPK生成手順とは分けて、`bundletool build-apks --local-testing`で`.apks`を生成し、`bundletool install-apks --apks="$OUT_DIR/app-local-testing.apks" --device-id="$DEVICE_ID"`で対象端末へインストールする流れを使います（`--device-id`を省略すると複数端末が接続されている環境で対象が一意に定まりません）。`--local-testing`を付けると分割APKが端末のローカル領域へ配置され、Play Feature Deliveryによるオンデマンド取得をストアからの配信なしでローカル検証できます。
@@ -705,13 +716,26 @@ DEVICE_ID="${DEVICE_ID:?対象端末のシリアル（adb devices の値）を�
 OUT_DIR="build/${DEVICE_ID}"
 mkdir -p "$OUT_DIR"
 
-# 1) テスト対象デバイス（接続中の実機 / 起動中のエミュレーター）のスペックを取得する
-bundletool get-device-spec \
+# 1) bundletool の実行経路を前提検証と同じ手順で確定する
+#    ドライバーが探すのは bundletool.jar 本体なので、ここでも JAR を java -jar で実行する
+if [ -n "${BUNDLETOOL_JAR:-}" ]; then
+  [ -f "$BUNDLETOOL_JAR" ] \
+    || { echo "ERROR: BUNDLETOOL_JAR が指すファイルが存在しません: $BUNDLETOOL_JAR" >&2; exit 1; }
+  BUNDLETOOL_CMD=(java -jar "$BUNDLETOOL_JAR")
+elif BUNDLETOOL_JAR_PATH="$(command -v bundletool.jar 2>/dev/null)"; then
+  BUNDLETOOL_CMD=(java -jar "$BUNDLETOOL_JAR_PATH")
+else
+  echo "ERROR: bundletool.jar が PATH 上に見つかりません（bundletool コマンドだけでは不足）" >&2
+  exit 1
+fi
+
+# 2) テスト対象デバイス（接続中の実機 / 起動中のエミュレーター）のスペックを取得する
+"${BUNDLETOOL_CMD[@]}" get-device-spec \
   --device-id="$DEVICE_ID" \
   --output="$OUT_DIR/device-spec.json" \
   --overwrite
 
-# 2) 署名オプションを組み立てる
+# 3) 署名オプションを組み立てる
 #    4つのシークレットは「すべて設定」か「すべて未設定」のいずれかでなければならない
 #    （すべて未設定なら bundletool が既定のデバッグ署名鍵で署名する）
 SIGNING_ARGS=()
@@ -747,22 +771,22 @@ else
   exit 1
 fi
 
-# 3) AAB から対象デバイス向けの APK セット（.apks）を生成する
+# 4) AAB から対象デバイス向けの APK セット（.apks）を生成する
 #    ${ARRAY[@]+"${ARRAY[@]}"} は set -u 環境で空配列を安全に展開するための書き方
-bundletool build-apks \
+"${BUNDLETOOL_CMD[@]}" build-apks \
   --bundle=app/build/outputs/bundle/release/app-release.aab \
   --output="$OUT_DIR/app.apks" \
   --device-spec="$OUT_DIR/device-spec.json" \
   --overwrite \
   ${SIGNING_ARGS[@]+"${SIGNING_ARGS[@]}"}
 
-# 4) パスワードファイルを確実に削除する
+# 5) パスワードファイルを確実に削除する
 #    シークレット未設定（配列が空）の場合もここで失敗しないようにする
 if [ ${#CLEANUP_FILES[@]} -gt 0 ]; then
   rm -f "${CLEANUP_FILES[@]}"
 fi
 
-# 5) "$OUT_DIR/app.apks" をそのまま appium:app へ渡す
+# 6) "$OUT_DIR/app.apks" をそのまま appium:app へ渡す
 #    （分割APK・Dynamic Feature Module を含んだ状態でインストールされる）
 ```
 
