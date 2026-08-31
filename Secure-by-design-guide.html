@@ -639,11 +639,12 @@
                 text-align: center;
             }
             footer p {
-                max-width: 620px;
+                max-width: 820px;
                 margin: 0 auto;
                 color: var(--ink-soft);
                 font-size: 1rem;
                 font-style: italic;
+                text-wrap: pretty;
             }
 
             .top-btn {
@@ -681,6 +682,16 @@
                 .shell {
                     display: block;
                     padding: 0;
+                }
+            }
+            @media (min-width: 901px) {
+                /* The sidebar is fixed and sits outside the normal document flow, so the
+       full-bleed hero and footer (both direct children of body, not .shell)
+       need the same left offset as .content — otherwise their content can
+       render underneath the opaque sidebar and get visually clipped. */
+                .cover,
+                footer {
+                    margin-left: var(--toc-w);
                 }
             }
         </style>
@@ -725,7 +736,7 @@
             </div>
             <div class="cover-foot">
                 SHEET 01 / 13 &nbsp;·&nbsp; ドメイン駆動セキュリティ実践ガイド &nbsp;·&nbsp; build
-                2026-08-30-04
+                2026-08-30-05
             </div>
         </header>
 
