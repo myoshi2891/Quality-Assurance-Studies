@@ -285,7 +285,7 @@ options.setFullReset(true);
 
 `noReset`を`true`にすると、セッション開始時にアプリのデータが初期化されず、前のテストが残したログイン状態やキャッシュを引き継ぎます。これは実行時間を短縮できる反面、テストの実行順序に依存する不安定なテストを生みやすく、本ガイドが後述する「テストの独立性を保つ」という方針と衝突します。
 
-したがって、既定では`fullReset`（セッションの前後でアプリのアンインストールと再インストールを行う設定）を使うか、テストのセットアップ／ティアダウンでアプリ固有のクリーンアップを明示的に行ってください。なお`fullReset`は「あらゆるデータが必ず消える」ことを保証する設定ではありません。特にXCUITest（iOS）の実機では、アプリを再インストールしてもキーチェーンや共有コンテナに保存されたデータが残る場合があります。その場合は`mobile: removeApp`による明示的な削除や、アプリ固有のクリーンアップ手段（テスト用APIによるデータリセットなど）を併用してください。ただし`fullReset`は再インストール元となる`appium:app`（APK／IPAのパス）が指定されている場合にのみ使用できます。`appium:appPackage`だけで端末にプリインストール済みのアプリを対象にしている場合は、アンインストール後に再インストールする手段がないため`fullReset`を使ってはいけません。この場合は後述の`mobile: clearApp`か、アプリ固有のクリーンアップ手段を使ってください。ここで注意したいのは、`driver.terminate_app()`と`driver.activate_app()`の組み合わせは**アプリのプロセスを停止して起動し直すだけ**であり、保存済みのデータや認証情報は消えないという点です。データそのものを初期化したい場合は、`fullReset`による再インストール、Androidであれば`mobile: clearApp`（アプリのデータ削除）、あるいはテスト用APIによるデータリセットといった手段を別途使い分けてください。UiAutomator2の`mobile: clearApp`は、対象アプリが**インストール済みかつ停止済み**の状態でのみ実行でき、パッケージ名は`appId`引数で渡す必要があります。したがって、次のようにアプリを終了させてから呼び出します。
+したがって、既定では`fullReset`（セッションの前後でアプリのアンインストールと再インストールを行う設定）を使うか、テストのセットアップ／ティアダウンでアプリ固有のクリーンアップを明示的に行ってください。なお`fullReset`は「あらゆるデータが必ず消える」ことを保証する設定ではありません。特にXCUITest（iOS）の実機では、アプリを再インストールしてもキーチェーンや共有コンテナに保存されたデータが残る場合があります。その場合は`mobile: removeApp`による明示的な削除や、アプリ固有のクリーンアップ手段（テスト用APIによるデータリセットなど）を併用してください。ただし`fullReset`は再インストール元となる`appium:app`が指定されている場合にのみ使用できます。`appium:app`に指定できるのはAPKやIPAのパスだけではなく、**利用するドライバーが対応する形式**であればよく、XCUITestの`.app`／`.app.zip`、UiAutomator2の`.apks`（APKセット）、さらにAppiumサーバー側から到達可能なURL（サーバーがダウンロードしてから使用する）も指定できます。したがって`fullReset`を使えるのは、指定した`appium:app`がそのドライバーの対応形式であり、そこからアプリを再インストールできる場合に限られます。`appium:appPackage`だけで端末にプリインストール済みのアプリを対象にしている場合は、アンインストール後に再インストールする手段がないため`fullReset`を使ってはいけません。この場合は後述の`mobile: clearApp`か、アプリ固有のクリーンアップ手段を使ってください。ここで注意したいのは、`driver.terminate_app()`と`driver.activate_app()`の組み合わせは**アプリのプロセスを停止して起動し直すだけ**であり、保存済みのデータや認証情報は消えないという点です。データそのものを初期化したい場合は、`fullReset`による再インストール、Androidであれば`mobile: clearApp`（アプリのデータ削除）、あるいはテスト用APIによるデータリセットといった手段を別途使い分けてください。UiAutomator2の`mobile: clearApp`は、対象アプリが**インストール済みかつ停止済み**の状態でのみ実行でき、パッケージ名は`appId`引数で渡す必要があります。したがって、次のようにアプリを終了させてから呼び出します。
 
 ```python
 # 対象アプリのパッケージ名を変数にまとめておく
@@ -666,7 +666,32 @@ flowchart TD
 
 ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには`.apk`、iOSシミュレーターには`.app`（クラウド実行では`.app.zip`に圧縮したもの）、iOS実機には`.ipa`を`appium:app`へ渡します。なお、Google Playへの配信形式であるAndroid App Bundle（`.aab`）はAppiumへ直接渡せません。`.aab`を扱う場合は、CIのビルド後に[bundletool](https://developer.android.com/tools/bundletool)で`.apks`を生成する変換手順をパイプラインへ組み込んでください。
 
-このとき、**`--mode=universal`ではなくテスト対象デバイスのデバイススペックを指定して`.apks`を生成し、その`.apks`をそのまま`appium:app`へ渡す**ことを推奨します。ユニバーサルAPKは単一ファイルにまとまる反面、実際に端末へ配信される分割APKの組み合わせとは異なる構成になるため、本番配信時と違う状態でテストしてしまう恐れがあります。`bundletool get-device-spec`で接続中のデバイス（実機・エミュレーター）のスペックを取得し、`build-apks --device-spec`でそのデバイス向けの分割APK群を生成すれば、実際に配信されるのと同じ分割APK（インストール時に配信されるモジュールを含む）で検証できます。`build-apks`では入力の`.aab`を`--bundle`で、出力の`.apks`を`--output`で指定します。UiAutomator2ドライバーは`.apks`を受け取ると内部で分割APKをまとめてインストールするため、`.apks`から`universal.apk`を取り出す必要はありません（この処理にはCI上のPATHから`bundletool`が解決できる必要があります）。
+このとき、**`--mode=universal`ではなくテスト対象デバイスのデバイススペックを指定して`.apks`を生成し、その`.apks`をそのまま`appium:app`へ渡す**ことを推奨します。ユニバーサルAPKは単一ファイルにまとまる反面、実際に端末へ配信される分割APKの組み合わせとは異なる構成になるため、本番配信時と違う状態でテストしてしまう恐れがあります。`bundletool get-device-spec`で接続中のデバイス（実機・エミュレーター）のスペックを取得し、`build-apks --device-spec`でそのデバイス向けの分割APK群を生成すれば、実際に配信されるのと同じ分割APK（インストール時に配信されるモジュールを含む）で検証できます。`build-apks`では入力の`.aab`を`--bundle`で、出力の`.apks`を`--output`で指定します。UiAutomator2ドライバーは`.apks`を受け取ると内部で分割APKをまとめてインストールするため、`.apks`から`universal.apk`を取り出す必要はありません。
+
+ただしこの`.apks`インストールはドライバー側の機能であり、CI環境に次の2つの前提が必要です。
+
+1. **`.apks`に対応したUiAutomator2ドライバーが入っていること。**ドライバーのバージョンによって対応状況や内部実装が変わるため、CIでは`appium driver install uiautomator2@<バージョン>`のようにバージョンを固定し、実際に使われたバージョンをジョブのログへ残してください（未固定のままだと、ドライバー更新でインストール経路が変わったときに原因を切り分けられません）。
+2. **`bundletool.jar`がPATHから解決できること。**ドライバーは`bundletool`というラッパーコマンドではなく、**`bundletool.jar`というファイル名のJAR本体**をPATH上から探します（`BUNDLETOOL_JAR`環境変数で明示することもできます）。パッケージマネージャーで入れた`bundletool`コマンドしかない環境では解決に失敗するため、ダウンロードしたJARを`bundletool.jar`という名前でPATH上のディレクトリへ配置してください。
+
+この2点は、セッション開始前の検証ステップとしてパイプラインに組み込み、前提が崩れていればセッションを張る前に失敗させます。
+
+```bash
+# セッション開始前に .apks インストールの前提を検証する
+set -euo pipefail
+
+# 1) 実際に使われる UiAutomator2 ドライバーのバージョンを記録する
+appium driver list --installed
+
+# 2) bundletool.jar 本体が PATH から解決できることを確認する
+#    （BUNDLETOOL_JAR が設定されていればそちらを優先して確認する）
+if [ -n "${BUNDLETOOL_JAR:-}" ]; then
+  [ -f "$BUNDLETOOL_JAR" ] \
+    || { echo "ERROR: BUNDLETOOL_JAR が指すファイルが存在しません: $BUNDLETOOL_JAR" >&2; exit 1; }
+elif ! command -v bundletool.jar > /dev/null 2>&1; then
+  echo "ERROR: bundletool.jar が PATH 上に見つかりません（bundletool コマンドだけでは不足）" >&2
+  exit 1
+fi
+```
 
 オンデマンド配信のDynamic Feature Moduleは、上記の`--device-spec`で生成した`.apks`には初期インストール対象として含まれません。オンデマンドモジュールの取得・動作まで検証したい場合は、通常のデバイス向けAPK生成手順とは分けて、`bundletool build-apks --local-testing`で`.apks`を生成し、`bundletool install-apks --apks="$OUT_DIR/app-local-testing.apks" --device-id="$DEVICE_ID"`で対象端末へインストールする流れを使います（`--device-id`を省略すると複数端末が接続されている環境で対象が一意に定まりません）。`--local-testing`を付けると分割APKが端末のローカル領域へ配置され、Play Feature Deliveryによるオンデマンド取得をストアからの配信なしでローカル検証できます。
 

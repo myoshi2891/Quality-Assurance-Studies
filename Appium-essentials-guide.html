@@ -1172,7 +1172,7 @@
                         <p>
                             したがって、既定では<code>fullReset</code>（セッションの前後でアプリのアンインストールと再インストールを行う設定）を使うか、テストのセットアップ／ティアダウンでアプリ固有のクリーンアップを明示的に行ってください。なお<code>fullReset</code>は「あらゆるデータが必ず消える」ことを保証する設定ではありません。特にXCUITest（iOS）の実機では、アプリを再インストールしてもキーチェーンや共有コンテナに保存されたデータが残る場合があります。その場合は<code
                                 >mobile: removeApp</code
-                            >による明示的な削除や、アプリ固有のクリーンアップ手段（テスト用APIによるデータリセットなど）を併用してください。ただし<code>fullReset</code>は再インストール元となる<code>appium:app</code>（APK／IPAのパス）が指定されている場合にのみ使用できます。<code>appium:appPackage</code>だけで端末にプリインストール済みのアプリを対象にしている場合は、アンインストール後に再インストールする手段がないため<code>fullReset</code>を使ってはいけません。この場合は後述の<code
+                            >による明示的な削除や、アプリ固有のクリーンアップ手段（テスト用APIによるデータリセットなど）を併用してください。ただし<code>fullReset</code>は再インストール元となる<code>appium:app</code>が指定されている場合にのみ使用できます。<code>appium:app</code>に指定できるのはAPKやIPAのパスだけではなく、<strong>利用するドライバーが対応する形式</strong>であればよく、XCUITestの<code>.app</code>／<code>.app.zip</code>、UiAutomator2の<code>.apks</code>（APKセット）、さらにAppiumサーバー側から到達可能なURL（サーバーがダウンロードしてから使用する）も指定できます。したがって<code>fullReset</code>を使えるのは、指定した<code>appium:app</code>がそのドライバーの対応形式であり、そこからアプリを再インストールできる場合に限られます。<code>appium:appPackage</code>だけで端末にプリインストール済みのアプリを対象にしている場合は、アンインストール後に再インストールする手段がないため<code>fullReset</code>を使ってはいけません。この場合は後述の<code
                                 >mobile: clearApp</code
                             >か、アプリ固有のクリーンアップ手段を使ってください。ここで注意したいのは、<code>driver.terminate_app()</code>と<code>driver.activate_app()</code>の組み合わせは<strong>アプリのプロセスを停止して起動し直すだけ</strong>であり、保存済みのデータや認証情報は消えないという点です。データそのものを初期化したい場合は、<code>fullReset</code>による再インストール、Androidであれば<code
                                 >mobile: clearApp</code
