@@ -239,8 +239,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ```text
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
-- **全ガイド移行完了**: プロジェクトルートに存在した全45ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 46 ルート（ホーム + 45 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全46ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 47 ルート（ホーム + 46 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
