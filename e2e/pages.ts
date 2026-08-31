@@ -57,6 +57,10 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ct-game-complete-guide', h1: /ゲームテスト/ },
   { path: '/istqb-ct-gt-complete-guide', h1: /CT-GT.*ギャンブル産業テスター/s },
   { path: '/istqb-ct-ft-complete-guide', h1: /CT-FT.*Finance Testing/s },
+  { path: '/github-actions', h1: /GitHub Actions 完全ガイド/ },
+  { path: '/github-actions-guide', h1: /GitHub Actions 中級〜上級者向け完全ガイド/ },
+  { path: '/playwright-beginner-guide', h1: /Playwright.*完全入門ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 44;
+export const EXPECTED_PAGE_COUNT = 47;
+

@@ -197,6 +197,16 @@ Next.js App Router 構成:
 - `app/istqb-ctal-tta-complete-guide/istqb-ctal-tta.css` — テクニカルテストアナリスト(CTAL-TTA)ガイド固有スタイル
 - `app/istqb-ctal-tta-complete-guide/page.tsx` — テクニカルテストアナリスト(CTAL-TTA)ガイドページ
 - `app/istqb-ctal-tta-complete-guide/NavBar.tsx` — CTAL-TTA ページ固有スティッキーナビ（'use client'）
+- `app/github-actions/github-actions.css` — GitHub Actions 入門ガイド固有スタイル
+- `app/github-actions/page.tsx` — GitHub Actions 入門ガイドページ
+- `app/github-actions/NavBar.tsx` — GitHub Actions 入門ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
+- `app/github-actions-guide/github-actions-guide.css` — GitHub Actions ガイド固有スタイル
+- `app/github-actions-guide/page.tsx` — GitHub Actions ガイドページ
+- `app/github-actions-guide/NavBar.tsx` — GitHub Actions ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
+- `app/github-actions-guide/Checklist.tsx` — GitHub Actions プロダクションレディ・チェックリスト（`'use client'`、クリック・キーボードトグル、打消し線、進捗バー対応）
+- `app/playwright-beginner-guide/playwright-beginner-guide.css` — Playwright 完全入門ガイド固有スタイル
+- `app/playwright-beginner-guide/page.tsx` — Playwright 完全入門ガイドページ
+- `app/playwright-beginner-guide/NavBar.tsx` — Playwright 完全入門ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
@@ -216,6 +226,25 @@ Next.js App Router 構成:
 移行完了後は `html-archive/` へ移動し、上記テーブルから削除する。
 
 ## 開発規約
+
+### パッケージマネージャー: Bun-only（例外あり）
+
+本リポジトリの依存関係インストール・スクリプト実行・テスト実行は **Bun に統一**する（`bun install` / `bun run <script>` / `bun test`）。`npm` / `yarn` / `pnpm` をプロジェクトのビルド・テスト用途で使用してはならない。
+
+**唯一の例外: Appium のサーバー・ドライバー・プラグイン管理**
+
+Appium は Node.js `^20.19.0 || ^22.12.0 || >=24.0.0` と npm 10 以上を動作要件として明示しており、公式にサポートされる導入手順が `npm` ベースであるため、以下のコマンドに限り Node.js / npm の使用を認める。
+
+| 用途 | 許可されるコマンド |
+|---|---|
+| 前提バージョン確認 | `node -v` / `npm -v` |
+| サーバー導入 | `npm install -g appium` |
+| サーバーのバージョン確認 | `appium -v` |
+| ドライバー管理 | `appium driver install` / `appium driver doctor` / `appium driver list --installed` |
+| プラグイン管理 | `appium plugin install` / `appium plugin list --installed` |
+| サーバー起動 | `appium --address 127.0.0.1`（`--use-plugins` を含む）を推奨構成とする。Appium の既定バインドアドレスは `0.0.0.0`（全インターフェース）であり、`--address 127.0.0.1` を明示しない `appium` 単体での起動は安全な起動方法として扱わない。リモートCIから接続させる場合に限り、プライベートネットワーク／VPN 内かつファイアウォールで接続元を限定した保護されたネットワーク上であることを確認したうえでバインドアドレスを広げる |
+
+この例外は上記の Appium 関連コマンド（およびその前提となる `node` / `npm` のバージョン確認）のみに適用される。本プロジェクト自体の依存関係管理・スクリプト実行・Node ツールの実行（`bun install` / `bun run build` / `bun test` / `bun run e2e` 等）は、Appium 関連であるかどうかを境界として区別し、従来どおり Bun を使用すること。詳細な背景は [Appium-essentials-guide.md](Appium-essentials-guide.md) の「環境構築ステップバイステップ」節を参照。
 
 ### CSS 変更後のキャッシュリセット（必須）
 
@@ -401,6 +430,9 @@ bun test        # ユニットテスト成功
 | `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
 | `Ctfl-at-chapter2.html` | `/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles` | ✅ NavBar あり |
 | `Ctfl-at-chapter3-agile-testing-techniques-tools.html` | `/istqb-ctfl-at-chapter3-agile-testing-techniques-tools` | ✅ NavBar あり |
+| `Github-actions.html` | `/github-actions` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
+| `Github-actions-guide.html` | `/github-actions-guide` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
+| `Playwright-beginner-guide.html` | `/playwright-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -416,8 +448,8 @@ bun test        # ユニットテスト成功
 
 ```text
 コンテキスト:
-- **全ガイド移行完了**: プロジェクトルートに存在した全43ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 44 ルート（ホーム + 43 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全46ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 47 ルート（ホーム + 46 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 

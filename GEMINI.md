@@ -128,6 +128,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctel-tm-sm-complete-guide/page.tsx` (テスト管理戦略 CTEL-TM-SM 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctel-tm-otm-complete-guide/page.tsx` (オペレーショナルテスト管理 CTEL-TM-OTM 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctel-tm-mtt-complete-guide/page.tsx` (テストチーム管理 CTEL-TM-MTT 完全ガイド、`NavBar.tsx` 付き)
+- `app/github-actions/page.tsx` (GitHub Actions 完全ガイド 〜初学者向けステップバイステップ解説〜、`NavBar.tsx` 付き)
+- `app/github-actions-guide/page.tsx` (GitHub Actions 中級〜上級者向け完全ガイド、`NavBar.tsx` 付き)
+- `app/playwright-beginner-guide/page.tsx` (Playwright 完全入門ガイド 〜初学者のためのステップバイステップ解説〜、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
@@ -216,6 +219,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
 | `Ctfl-at-chapter2.html` | `/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles` | ✅ NavBar あり |
 | `Ctfl-at-chapter3-agile-testing-techniques-tools.html` | `/istqb-ctfl-at-chapter3-agile-testing-techniques-tools` | ✅ NavBar あり |
+| `Github-actions.html` | `/github-actions` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
+| `Github-actions-guide.html` | `/github-actions-guide` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
+| `Playwright-beginner-guide.html` | `/playwright-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -233,8 +239,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ```text
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
-- **全ガイド移行完了**: プロジェクトルートに存在した全43ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 44 ルート（ホーム + 43 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全46ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 47 ルート（ホーム + 46 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

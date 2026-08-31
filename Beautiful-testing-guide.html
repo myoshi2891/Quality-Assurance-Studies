@@ -1,0 +1,1813 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            『Beautiful Testing』完全ガイド ― 初学者のためのステップバイステップ・ベストプラクティス
+        </title>
+        <style>
+            :root {
+                --bg: #07111e;
+                --bg-elevated: #0d1a2b;
+                --bg-elevated-2: #101f33;
+                --text: #e7edf7;
+                --text-dim: #94a7c2;
+                --accent: #6fe7c0;
+                --accent-2: #9df5da;
+                --border: #1c2c42;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                padding: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    'Hiragino Kaku Gothic ProN',
+                    'Hiragino Sans',
+                    'Yu Gothic',
+                    'Noto Sans JP',
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    'Segoe UI',
+                    Roboto,
+                    sans-serif;
+                line-height: 1.9;
+                font-size: 16px;
+            }
+            a {
+                color: var(--accent-2);
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+
+            .layout {
+                display: block;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 290px;
+                height: 100vh;
+                overflow-y: auto;
+                padding: 28px 18px 40px;
+                background: var(--bg-elevated);
+                border-right: 1px solid var(--border);
+                z-index: 40;
+            }
+            .sidebar .brand {
+                font-size: 0.78rem;
+                letter-spacing: 0.08em;
+                color: var(--text-dim);
+                text-transform: uppercase;
+                margin: 4px 6px 18px;
+            }
+            .sidebar nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sidebar nav li {
+                margin: 1px 0;
+            }
+            .sidebar nav a {
+                display: block;
+                padding: 9px 12px;
+                border-radius: 8px;
+                font-size: 0.9rem;
+                color: var(--text-dim);
+                line-height: 1.5;
+            }
+            .sidebar nav a:hover {
+                background: rgba(111, 231, 192, 0.1);
+                color: var(--text);
+                text-decoration: none;
+            }
+            .sidebar nav a.active {
+                background: rgba(111, 231, 192, 0.16);
+                color: var(--accent-2);
+                font-weight: 600;
+            }
+
+            .menu-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                left: 14px;
+                z-index: 60;
+                width: 42px;
+                height: 42px;
+                border-radius: 10px;
+                background: var(--bg-elevated-2);
+                border: 1px solid var(--border);
+                color: var(--text);
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                font-size: 1.1rem;
+            }
+
+            /* ---------- Main ---------- */
+            .main {
+                margin-left: 290px;
+                padding: 56px 64px 140px;
+                max-width: none;
+            }
+
+            .hero {
+                max-width: none;
+                margin-bottom: 52px;
+                padding-bottom: 32px;
+                border-bottom: 1px solid var(--border);
+                overflow-wrap: break-word;
+            }
+            .hero h1 {
+                font-size: 2rem;
+                line-height: 1.5;
+                margin: 0 0 20px;
+                background: linear-gradient(90deg, var(--accent), var(--accent-2));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .hero .meta {
+                color: var(--text-dim);
+                font-size: 0.95rem;
+            }
+            .hero .meta p {
+                margin: 4px 0;
+            }
+            .hero .lead {
+                margin-top: 20px;
+                color: var(--text);
+            }
+
+            .section {
+                margin: 68px 0;
+                scroll-margin-top: 24px;
+                max-width: none;
+            }
+            .section h2 {
+                font-size: 1.45rem;
+                border-left: 4px solid var(--accent);
+                padding-left: 14px;
+                margin: 0 0 22px;
+                line-height: 1.5;
+            }
+            .section h3 {
+                font-size: 1.12rem;
+                color: var(--accent-2);
+                margin: 30px 0 12px;
+            }
+
+            .prose {
+                max-width: none;
+                overflow-wrap: break-word;
+            }
+            .prose p {
+                max-width: none;
+                overflow-wrap: break-word;
+                margin: 0 0 18px;
+            }
+            .prose li {
+                overflow-wrap: break-word;
+                margin: 7px 0;
+            }
+            .prose ul,
+            .prose ol {
+                padding-left: 1.5em;
+                margin: 0 0 18px;
+            }
+            .prose strong {
+                color: var(--accent-2);
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 26px 0;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.92rem;
+                min-width: 480px;
+            }
+            th,
+            td {
+                padding: 13px 15px;
+                border-bottom: 1px solid var(--border);
+                text-align: left;
+                vertical-align: top;
+            }
+            th {
+                background: rgba(111, 231, 192, 0.09);
+                color: var(--accent-2);
+                font-weight: 600;
+                white-space: nowrap;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            td strong {
+                color: var(--accent-2);
+            }
+
+            /* ---------- Callout ---------- */
+            .callout {
+                background: var(--bg-elevated);
+                border-left: 4px solid var(--accent-2);
+                padding: 18px 22px;
+                border-radius: 0 10px 10px 0;
+                margin: 26px 0;
+                color: var(--text-dim);
+            }
+            .callout p {
+                margin: 0;
+            }
+            .callout strong {
+                color: var(--text);
+            }
+
+            /* ---------- Mermaid ---------- */
+            .mermaid-wrapper {
+                width: 100%;
+                overflow-x: auto;
+                margin: 30px 0;
+                padding: 20px 0;
+            }
+            pre.mermaid {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                margin: 0;
+                background: transparent;
+                border: none;
+                font-family: inherit;
+            }
+            .mermaid svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+
+            /* ---------- Checklist ---------- */
+            .checklist-progress {
+                color: var(--text-dim);
+                font-size: 0.9rem;
+                margin: 0 0 16px;
+            }
+            .checklist-progress strong {
+                color: var(--accent-2);
+            }
+            .checklist {
+                list-style: none;
+                padding: 0;
+                margin: 20px 0;
+            }
+            .checklist li {
+                margin: 9px 0;
+                background: var(--bg-elevated);
+                border: 1px solid var(--border);
+                border-radius: 9px;
+                overflow-wrap: break-word;
+                transition:
+                    background 0.15s ease,
+                    border-color 0.15s ease;
+            }
+            .checklist li.done {
+                background: rgba(111, 231, 192, 0.08);
+                border-color: var(--accent);
+            }
+            .check-label {
+                display: flex;
+                align-items: flex-start;
+                gap: 13px;
+                padding: 12px 16px;
+                cursor: pointer;
+                width: 100%;
+            }
+            .check-input {
+                appearance: none;
+                -webkit-appearance: none;
+                flex: none;
+                width: 19px;
+                height: 19px;
+                margin-top: 2px;
+                border: 2px solid var(--accent);
+                border-radius: 5px;
+                background: transparent;
+                cursor: pointer;
+                position: relative;
+            }
+            .check-input:checked {
+                background: var(--accent);
+            }
+            .check-input:checked::after {
+                content: '';
+                position: absolute;
+                left: 5px;
+                top: 1px;
+                width: 5px;
+                height: 9px;
+                border: solid var(--bg);
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .check-input:focus-visible {
+                outline: 2px solid var(--accent-2);
+                outline-offset: 2px;
+            }
+            .check-text {
+                flex: 1;
+                padding-top: 1px;
+            }
+            .check-input:checked ~ .check-text {
+                color: var(--text-dim);
+                text-decoration: line-through;
+                text-decoration-color: var(--accent);
+            }
+
+            /* ---------- References ---------- */
+            .section-refs {
+                margin-top: 22px;
+                padding-top: 14px;
+                border-top: 1px dashed var(--border);
+                font-size: 0.86rem;
+                color: var(--text-dim);
+                overflow-wrap: break-word;
+            }
+            .section-refs a {
+                word-break: break-all;
+            }
+            .ref-list {
+                padding-left: 1.5em;
+            }
+            .ref-list li {
+                margin: 12px 0;
+                overflow-wrap: break-word;
+            }
+            .ref-list a {
+                word-break: break-all;
+            }
+            .ref-list .ref-title {
+                color: var(--text);
+                display: block;
+                margin-bottom: 2px;
+            }
+
+            .footer {
+                margin-top: 90px;
+                padding-top: 26px;
+                border-top: 1px solid var(--border);
+                color: var(--text-dim);
+                font-size: 0.85rem;
+            }
+
+            /* ---------- Mobile ---------- */
+            @media (max-width: 900px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 80px 20px 100px;
+                }
+                .menu-toggle {
+                    display: flex;
+                }
+                .hero h1 {
+                    font-size: 1.5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="menu-toggle" id="menuToggle" aria-label="メニュー">☰</button>
+
+        <div class="layout">
+            <aside class="sidebar" id="sidebar">
+                <div class="brand">Beautiful Testing 完全ガイド</div>
+                <nav>
+                    <ul>
+                        <li><a href="#sec-1">1. なぜ「美しい」テストなのか</a></li>
+                        <li><a href="#sec-2">2. 本書の全体構成</a></li>
+                        <li><a href="#sec-3">3. ステップ1：ステークホルダー</a></li>
+                        <li><a href="#sec-4">4. ステップ2：現代の地図</a></li>
+                        <li><a href="#sec-5">5. ステップ3：ユニットテストとTDD</a></li>
+                        <li><a href="#sec-6">6. ステップ4：探索的テスト</a></li>
+                        <li><a href="#sec-7">7. ステップ5：バグ管理</a></li>
+                        <li><a href="#sec-8">8. ステップ6：自動化とCI</a></li>
+                        <li><a href="#sec-9">9. ステップ7：パフォーマンス</a></li>
+                        <li><a href="#sec-10">10. ステップ8：ファジング／ミューテーション</a></li>
+                        <li><a href="#sec-11">11. ステップ9：コミュニティ</a></li>
+                        <li><a href="#sec-12">12. AIエージェント時代の視点</a></li>
+                        <li><a href="#sec-13">13. 章立て早見表</a></li>
+                        <li><a href="#sec-14">14. チェックリスト</a></li>
+                        <li><a href="#sec-15">15. 参考文献・出典</a></li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <main class="main">
+                <header class="hero">
+                    <h1>
+                        『Beautiful Testing』完全ガイド<br />―
+                        初学者のためのステップバイステップ・ベストプラクティス
+                    </h1>
+                    <div class="meta">
+                        <p>
+                            原著:
+                            <em
+                                >Beautiful Testing: Leading Professionals Reveal How They Improve
+                                Software</em
+                            >（O'Reilly Media, 2009年10月刊）
+                        </p>
+                        <p>編者: Adam Goucher / Tim Riley（Mozilla QAディレクター）</p>
+                        <p>
+                            参照元:
+                            <a
+                                href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                            >
+                        </p>
+                    </div>
+                    <p class="lead">
+                        本ガイドは、ソフトウェアテストの古典的名著『Beautiful
+                        Testing』の構成とエッセンスを、2026年時点の現代的なテスト実践（テストピラミッド／テスティングトロフィー／Googleのテストサイズ分類／AIエージェント時代のテストなど）と橋渡ししながら、初学者が実務で使える形に再構成した学習ガイドです。主要な解説セクションの末尾には、根拠とした参考資料のURLを明記しています（チェックリストなど一部のセクションには個別のURLを付していません）。
+                    </p>
+                </header>
+
+                <section class="section" id="sec-1">
+                    <h2>1. はじめに：なぜ「美しい」テストなのか</h2>
+                    <div class="prose">
+                        <p>
+                            『Beautiful Testing』は、Adam GoucherとTim
+                            Rileyが編集し、27名の著名なテスター・開発者が23本のエッセイを寄稿したオムニバス形式の書籍です。表紙の惹句が語るとおり、「ソフトウェアの成功は、優れたアーキテクチャや洗練されたコードと同じくらい、入念なテストに支えられている」という思想が本書全体を貫いています。
+                        </p>
+                        <p>
+                            本書がユニークなのは、テストを単なる「バグ探しの作業」ではなく、<strong>創造性・コミュニケーション・美意識を伴う職人技（クラフト）</strong>として描いている点です。寄稿者にはMicrosoftのAlan
+                            Page、パフォーマンステストの専門家Scott Barber、25年のキャリアを持つRex
+                            Black、アジャイルテストの第一人者Lisa Crispin、数学者John D.
+                            Cookなど、業界で広く知られる実務家・研究者が名を連ねています。また、著者印税はマラリア予防のための慈善活動「Nothing
+                            But
+                            Nets」に全額寄付されるという背景も、本書の「テストへの誠実な姿勢」を象徴しています。
+                        </p>
+                        <p>
+                            初学者がこの本から学ぶべき最大のポイントは、<strong
+                                >「テストのやり方（How）」の前に「テストの目的（Why / For
+                                Whom）」を考える</strong
+                            >という姿勢です。本ガイドでは、この考え方を軸に、原著の各章のエッセンスを実務で使えるステップに分解し、2026年現在の標準的な実践（テストピラミッド、TDD、CI/CD、探索的テストなど）と接続していきます。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                        ／
+                        <a href="https://www.oreilly.com/pub/pr/2453" target="_blank" rel="noopener noreferrer"
+                            >oreilly.com/pub/pr/2453</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-2">
+                    <h2>2. 本書の全体構成（3部構成マップ）</h2>
+                    <div class="prose">
+                        <p>
+                            原著は「Beautiful Testers（美しいテスター）」「Beautiful
+                            Process（美しいプロセス）」「Beautiful
+                            Tools（美しいツール）」の3部・23章で構成されています。まず全体像を俯瞰しましょう。
+                        </p>
+                    </div>
+
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid"><script type="text/plain">
+            %%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%%
+            flowchart TB
+                Book["Beautiful Testing<br/>23エッセイ・27人の著者"] --> P1
+                Book --> P2
+                Book --> P3
+
+                subgraph P1["Part I: Beautiful Testers"]
+                    direction TB
+                    C1["第1章: Was It Good for You?"] --> C2["第2章: ステークホルダーを満たす"] --> C3["第3章: OSSのQAコミュニティ構築"] --> C4["第4章: 協働的パフォーマンステスト"]
+                end
+
+                subgraph P2["Part II: Beautiful Process"]
+                    direction TB
+                    C5["第5章: ファジングテスト"] --> C6["第6章: バグ管理"] --> C7["第7章: XMPPテスト"] --> C8["第8章: 大規模テスト自動化"] --> C9["第9章: 継続的インテグレーション"] --> C10["第10章: 乱数生成器のテスト"] --> C11["第11章: 変更中心テスト"] --> C12["第12章: 実利用環境でのテスト"] --> C13["第13章: 創造的プロセスとしての開発"] --> C14["第14章: テスト駆動開発"] --> C15["第15章: ビジネス成功の礎"] --> C16["第16章: Socialtextの事例"] --> C17["第17章: 効率的なテスト"]
+                end
+
+                subgraph P3["Part III: Beautiful Tools"]
+                    direction TB
+                    C18["第18章: ミューテーションテスト"] --> C19["第19章: リファレンステスト"] --> C20["第20章: ClamAVのテスト"] --> C21["第21章: Windmillでのテスト"] --> C22["第22章: 100万ページのテスト"] --> C23["第23章: マルチマシン環境テスト"]
+                end
+        </script></pre>
+                    </div>
+
+                    <div class="prose">
+                        <ul>
+                            <li>
+                                <strong>Part I（第1〜4章）</strong
+                                >は「誰がテストするのか／誰のためにテストするのか」という人とステークホルダーの視点。
+                            </li>
+                            <li>
+                                <strong>Part II（第5〜17章）</strong
+                                >は最もボリュームが大きく、バグ管理・自動化・TDD・アジャイルなど「プロセス」に焦点を当てます。
+                            </li>
+                            <li>
+                                <strong>Part III（第18〜23章）</strong
+                                >は具体的なOSSプロジェクト（ClamAV、eBox等）での実践事例を通じて「ツール」を学びます。
+                            </li>
+                        </ul>
+                        <p>
+                            初学者は、いきなり全章を読むのではなく、次章以降で示す「9つのステップ」の順で本書のエッセンスをつまみ食いすることをお勧めします。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-3">
+                    <h2>3. ステップ1：誰のためにテストするのかを理解する</h2>
+                    <div class="prose">
+                        <p>
+                            第2章「Beautiful Testing Satisfies
+                            Stakeholders（美しいテストはステークホルダーを満たす）」は、25年のテストキャリアを持つRex
+                            Blackの知見が反映された章とされ、「誰のためにテストするのか（For Whom Do
+                            We
+                            Test?）」という根源的な問いから出発します。本書は、テストの「美しさ」を<strong>外的な美しさ（ユーザーが実際に満足するか）</strong>と<strong>内的な美しさ（開発チームにとって保守しやすく、シグナルが明確か）</strong>の2軸で捉えます。
+                        </p>
+                        <p>
+                            初学者がまず実践すべきことは、テストを書き始める前に以下を自問することです。
+                        </p>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>問い</th>
+                                    <th>具体例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>このテストは誰のためのものか</td>
+                                    <td>
+                                        エンドユーザー／プロダクトマネージャー／運用担当／将来の自分自身
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>何を「満足」とみなすか</td>
+                                    <td>機能要件を満たす／規制要件を満たす／性能要件を満たす</td>
+                                </tr>
+                                <tr>
+                                    <td>失敗したとき誰が困るか</td>
+                                    <td>顧客が使えなくなる／開発者がデバッグに時間を取られる</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            このステークホルダー思考は、後述する「アジャイルテストの4象限」（第6章）や「テストピラミッド／トロフィー」の判断基準にも直結します。「とりあえず全部テストする」のではなく、「誰の、どんな不安を解消するテストか」を先に決めることが、美しいテストの第一歩です。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-4">
+                    <h2>
+                        4. ステップ2：現代の「地図」を持つ ― ピラミッド／トロフィー／テストサイズ
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            『Beautiful
+                            Testing』刊行(2009年)後の約17年（2026年8月時点）で、テスト戦略を可視化する「地図」がいくつも生まれました。初学者はまずこの地図を知っておくと、大量にあるテストの種類を迷わず整理できます。
+                        </p>
+                        <p>
+                            下図は、後述する3つのモデルを統合した唯一の正解モデルでも、必ずこの順に実施しなければならないという規範でもありません。<strong>どのトリガーでどこまでのテストを流すかの一例</strong>として示すものです（速く安く失敗を見つけられるものから先に流す、という考え方）。探索的テストは人手で行うため、CIの直列フローには載せず、独立した活動として並記しています。それぞれのモデルの違いは、直後の比較表で整理します。
+                        </p>
+                    </div>
+
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid"><script type="text/plain">
+            flowchart TB
+                Commit["トリガー: コミット / プルリクエスト"] --> Static["静的解析<br/>Lint / 型チェック"]
+                Static --> Unit["ユニットテスト<br/>Small"]
+                Unit --> Integration["統合テスト<br/>Medium"]
+                Release["トリガー: リリース前 / ナイトリー"] --> E2E["E2Eテスト<br/>Large"]
+                Manual["探索的テスト<br/>手動・CIとは独立して随時実施"]
+        </script></pre>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            代表的な3つのモデルを比較します。これらは「どれか1つを選ぶ」排他的な選択肢ではなく、異なる軸を扱う補完的なモデルです。テストピラミッドとテスティングトロフィーは<strong>テストの配分</strong>（どの層をどれだけ厚く書くか）を論じるモデルであり、Googleのテストサイズは<strong>実行制約</strong>（プロセス・ネットワーク・I/Oをどこまで許すか）でテストを分類する枠組みです。軸が違うため、たとえば「配分はトロフィーに寄せつつ、CIでの実行制御はテストサイズで管理する」といった併用が自然に成立します。いずれも、上図のような実行順序とはさらに別の観点を示すものです。
+                        </p>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>テストピラミッド</th>
+                                    <th>テスティングトロフィー</th>
+                                    <th>Googleのテストサイズ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>提唱者・時期</td>
+                                    <td>
+                                        Mike Cohnが著書で提示、Martin
+                                        Fowlerが2012年のbliki記事で整理
+                                    </td>
+                                    <td>Kent C. Dodds（2018年）</td>
+                                    <td>
+                                        Google Testing Blog（2010年）／書籍『Software Engineering at
+                                        Google』
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>分類軸</td>
+                                    <td>テストの粒度（Unit → Integration → E2E）</td>
+                                    <td>費用対効果（実装コストに対する「確信度」のROI）</td>
+                                    <td>
+                                        実行に必要なリソース（プロセス数・スレッド数・I/Oの有無）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>主張の要旨</td>
+                                    <td>下位（Unit）ほど数を多く、上位（E2E）ほど数を絞る</td>
+                                    <td>
+                                        静的解析を土台に据えつつ、費用対効果が最も高い統合テストを厚く書く
+                                    </td>
+                                    <td>
+                                        テストを「Small／Medium／Large」で分類し、実行速度と隔離性でCIの実行頻度を制御する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>背景にある技術変化</td>
+                                    <td>2009年前後、E2Eツールは遅く不安定だった</td>
+                                    <td>
+                                        Jest・Testing
+                                        Library・Cypressなど高速なJS向けツールの登場により前提が変化
+                                    </td>
+                                    <td>
+                                        数万件規模のテストを継続的に実行するGoogle社内のインフラ事情
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            初学者へのアドバイスは「どれか1つが正解ではない」ということです。フロントエンド開発ならトロフィーの考え方（統合テスト重視）が馴染みやすく、バックエンドのライブラリ開発ならピラミッド（ユニットテスト重視）が向いていることが多く、大規模な社内基盤ではGoogle方式のテストサイズ分類がCI設計に役立ちます。まず自分のプロジェクトがどのモデルに近いかを意識するだけで、「何をどれだけテストすべきか」の判断がぐっと楽になります。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://martinfowler.com/bliki/TestPyramid.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >martinfowler.com/bliki/TestPyramid.html</a
+                        >
+                        ／
+                        <a
+                            href="https://martinfowler.com/articles/practical-test-pyramid.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >martinfowler.com/articles/practical-test-pyramid.html</a
+                        >
+                        ／
+                        <a
+                            href="https://kentcdodds.com/blog/write-tests"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >kentcdodds.com/blog/write-tests</a
+                        >
+                        ／
+                        <a
+                            href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >kentcdodds.com/blog/the-testing-trophy-and-testing-classifications</a
+                        >
+                        ／
+                        <a
+                            href="https://testing.googleblog.com/2010/12/test-sizes.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >testing.googleblog.com/2010/12/test-sizes.html</a
+                        >
+                        ／
+                        <a
+                            href="https://abseil.io/resources/swe-book/html/ch14.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >abseil.io/resources/swe-book/html/ch14.html</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-5">
+                    <h2>5. ステップ3：小さく始める ― ユニットテストとTDD</h2>
+                    <div class="prose">
+                        <p>
+                            第14章「Test-Driven Development: Driving New Standards of
+                            Beauty」では、テスト駆動開発（TDD）が「美しさ」の新しい基準としてアジャイル開発と結びつけて論じられています。TDDの基本サイクルは、Kent
+                            Beckが体系化した
+                            <strong>Red → Green → Refactor</strong> というシンプルな3ステップです。
+                        </p>
+                    </div>
+
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid"><script type="text/plain">
+            flowchart LR
+                A["Red<br/>失敗するテストを書く"] --> B["Green<br/>最小限の実装でパスさせる"]
+                B --> C["Refactor<br/>設計を整える"]
+                C --> A
+        </script></pre>
+                    </div>
+
+                    <div class="prose">
+                        <p>初学者が最初につまずきやすいポイントと、その対策をまとめます。</p>
+                        <ul>
+                            <li>
+                                <strong>いきなり大きなテストを書こうとしてしまう</strong> →
+                                まず「1つのテストで1つの振る舞いだけを検証する」という粒度の方針を守り、テストを小さく刻む。そのうえで、個々のテストの中身はAAAパターン（Arrange＝準備、Act＝実行、Assert＝検証）の3段階で構造を整理すると、何を準備し、何を実行し、何を検証しているのかが読み取りやすくなる。
+                            </li>
+                            <li>
+                                <strong>実装を先に書いてからテストを後付けしてしまう</strong> →
+                                まず失敗するテスト（Red）を書き、それが正しい理由で失敗することを確認してから実装に進む。
+                            </li>
+                            <li>
+                                <strong>リファクタリングを省略してしまう</strong> →
+                                テストがGreenの状態は「安全網が張られた状態」なので、このタイミングでこそ設計を整理する。
+                            </li>
+                        </ul>
+                        <p>
+                            原著が強調するのは、TDDで書かれたテストが単なる検証コードにとどまらない、という点です。ただしすべてのテストが同じ役割を担うわけではありません。ストーリーの完了条件を表現する機能テストは、関係者が読んで仕様を確認できる<strong
+                                >「読める仕様書（Readable
+                                Examples）」であり「恒久的な要求仕様の記録（Permanent Requirement
+                                Artifacts）」</strong
+                            >として機能します。一方、TDDのサイクルで書かれる個々のユニットテストは、主に詳細設計を駆動しフィードバックを速くするための手段であり、実装のリファクタリングに伴って書き換えられたり破棄されたりする前提のものも含まれます。どちらを書く場合でも、「後で読む人（未来の自分やチームメイト）が意図を理解できるか」を常に意識しましょう。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-6">
+                    <h2>6. ステップ4：探索的テストとアジャイルテストの4象限</h2>
+                    <div class="prose">
+                        <p>
+                            第12章「Software in Use」は、O'Reillyの書籍ページに示された章構成・著者情報によれば、医療ソフトウェアのテスト経験を持つKaren
+                            N.
+                            Johnsonによる章で、実利用環境でのテスト（探索的・アドホック・スクリプト化テストの使い分け）を扱います。
+                        </p>
+                        <p>
+                            なお、James Bachの「Exploratory Testing
+                            Explained」は、本章が参考文献として挙げている資料であると確認できたものではありません。ここでは章の内容を理解するための<strong>補足資料</strong>として紹介します（探索的テストの古典的な定義を示す資料として、今も広く参照されています）。
+                        </p>
+                        <p>
+                            探索的テストを構造化して行う代表的な手法が、James BachとJonathan
+                            Bachが考案した<strong
+                                >セッションベース・テストマネジメント（Session-Based Test
+                                Management）</strong
+                            >です。
+                        </p>
+                    </div>
+
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid"><script type="text/plain">
+            flowchart TB
+                Charter["チャーター作成<br/>調査対象と時間枠を決める"] --> Session["セッション実行<br/>集中的に探索する"]
+                Session --> Debrief["デブリーフ<br/>発見を報告・共有する"]
+                Debrief --> Charter
+        </script></pre>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            また、「どこにどんなテストを配置すべきか」を整理するフレームワークとして、<strong>アジャイルテストの4象限</strong>が国際的に広く使われています。原型は2003年にBrian
+                            Marickが示したテスト分類のマトリクスで、それをLisa CrispinとJanet
+                            Gregoryがアジャイル開発の文脈へ適用・発展させ、書籍『Agile
+                            Testing』を通じて広く普及させました。
+                        </p>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>ビジネス視点（Business-facing）</th>
+                                    <th>技術視点（Technology-facing）</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <strong>開発を支援する<br />（Supporting the team）</strong>
+                                    </td>
+                                    <td>
+                                        Q2: ストーリーテスト（例示ベースの受け入れ基準テスト。例:
+                                        Cucumber,
+                                        FitNesse）。<strong>「何を作るか」を具体例で合意し、チームの開発を支援する</strong>ことを目的とするテスト
+                                    </td>
+                                    <td>Q1: ユニットテスト・コンポーネントテスト（TDDの土台）</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <strong
+                                            >製品を批評する<br />（Critiquing the product）</strong
+                                        >
+                                    </td>
+                                    <td>
+                                        Q3:
+                                        探索的テスト・ユーザビリティテスト・ユーザー受け入れテスト（UAT）。<strong>ユーザー視点で「本当に価値があるか」を吟味し、製品を批評する</strong>ことを目的とするテスト
+                                    </td>
+                                    <td>Q4: 性能・セキュリティなど非機能要件のテスト</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout">
+                        <p>
+                            この4象限が分類しているのは、実施時期や実行順序ではなく、テストの<strong>目的</strong>です。同じ「受け入れテスト」という語がQ2とQ3の両方に現れますが、Q2は合意形成のための<strong>例示ベースのストーリーテスト</strong>、Q3は利用者視点で製品を吟味する<strong>批評としてのUAT</strong>であり、目的が異なります。どの象限のテストを自動化し、どれを人手で実行するかは象限だけで決まるものではなく、プロジェクトのリスクや運用上の必要性に応じて判断します。
+                        </p>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            初学者は、まず「自分が今書こうとしているテストはこの4象限のどこに位置するか」＝何を目的としたテストなのかを意識するだけで、自動化すべきか、人手で探索すべきかを検討する足がかりが得られます。探索的テストは「行き当たりばったりのテスト」ではなく、<strong>仮説を立てて検証しながら学習する、規律あるプロセス</strong>であることを覚えておきましょう。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.satisfice.com/articles/et-article.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >satisfice.com/articles/et-article.pdf</a
+                        >
+                        ／
+                        <a href="https://agiletester.ca/" target="_blank" rel="noopener noreferrer"
+                            >agiletester.ca</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-7">
+                    <h2>7. ステップ5：バグを「美しく」管理する</h2>
+                    <div class="prose">
+                        <p>
+                            第6章「Bug Management and Test Case
+                            Effectiveness」は、本書のレビューでも「隠れた名章」と評される内容で、コンピュータ史上最初のバグ報告のエピソードから始まり、「バグとは何か」という定義論、そしてテストケースの効果測定（Test
+                            Case Effectiveness）までを扱います。
+                        </p>
+                        <p>バグの一生は、多くの現場で概ね次のようなライフサイクルをたどります。</p>
+                    </div>
+
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid"><script type="text/plain">
+            flowchart LR
+                Found["発見<br/>報告"] --> Triage["トリアージ<br/>重要度と優先度の判定"]
+                Triage --> Assigned["担当者アサイン"]
+                Assigned --> Fixed["修正"]
+                Fixed --> Verify["検証"]
+                Verify -->|"再現する"| Assigned
+                Verify -->|"解決"| Closed["クローズ"]
+        </script></pre>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            原著は、バグを単なる「不具合の記録」ではなく、<strong>プロダクトの品質を測る計測器</strong>として扱うことを提案しています。特に印象的なのは、「重要度（Severity）」と「優先度（Priority）」を区別する視点です。
+                        </p>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>用語</th>
+                                    <th>意味</th>
+                                    <th>例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>重要度（Severity）</td>
+                                    <td>バグそのものが引き起こす技術的・機能的な影響の大きさ</td>
+                                    <td>データ消失を伴うクラッシュは重要度が高い</td>
+                                </tr>
+                                <tr>
+                                    <td>優先度（Priority）</td>
+                                    <td>ビジネス上、いつ・どの順番で対応すべきかという判断</td>
+                                    <td>
+                                        重要度は低いが、目立つ画面の表示崩れは優先度が高くなることがある
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            さらに本書は、OpenSolarisデスクトップチームの事例を通じて「テストケース効果測定（TCE:
+                            Test Case
+                            Effectiveness）」という考え方を紹介します。これは「テストをすり抜けたバグ（Test
+                            Escape）」を分析し、どのテストを強化すべきかをデータで判断する手法です。初学者は、バグを見つけて直して終わりにするのではなく、<strong>「なぜこのテストで検出できなかったのか」を振り返る習慣</strong>を早いうちから身につけると、テストスイート全体の質が着実に向上します。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-8">
+                    <h2>8. ステップ6：自動化を大規模に育て、CIに組み込む</h2>
+                    <div class="prose">
+                        <p>
+                            第8章「Beautiful Large-Scale Test
+                            Automation」は、Microsoftのテスト自動化専門家Alan
+                            Pageの知見が反映された章とされ、大規模なテスト自動化システムを構築するための基盤（テストインフラ、テスト資材の管理、テスト配布、失敗分析、レポーティング）を体系的に解説しています。
+                        </p>
+                        <p>
+                            また第9章「Beautiful Is Better Than Ugly」（このタイトルはPython
+                            の設計思想「The Zen of
+                            Python」の一節そのものです）は、Python本体の品質を支えるBuildbotによる継続的インテグレーション、リファレンスカウントのリーク検出（Refleak
+                            Testing）、ドキュメントテスト、静的解析・動的解析までを扱い、「地味だが継続的な検証の積み重ねこそが美しい」という思想を示します。
+                        </p>
+                        <p>
+                            これらの章のエッセンスは、現代のCI/CDパイプラインにそのまま応用できます。ステップ2で紹介したGoogleのテストサイズ分類と組み合わせると、<strong>トリガーごとに別のパイプライン</strong>としてゲーティング構造を描けます。すべてのテストを毎コミットで回すのではなく、速いテストほど高頻度に、遅いテストほど低頻度に配置するのが要点です。なお、手動の探索的テストはこれらの自動ゲートには含めず、別途スケジュールして実施します。
+                        </p>
+                        <p>
+                            コミットのたびに走らせるのは静的解析とSmallテストまでに留め、プルリクエストではそれに加えてMediumテストまでを走らせます。
+                        </p>
+                    </div>
+
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid"><script type="text/plain">
+            flowchart TB
+                Commit["コミット<br/>（毎回実行）"] --> StaticC2["静的解析"]
+                StaticC2 --> SmallC["Smallテスト<br/>数秒で完了"]
+                SmallC -->|"失敗"| Feedback["開発者へ即座にフィードバック"]
+                PR2["プルリクエスト"] --> StaticP2["静的解析"]
+                StaticP2 --> SmallP["Smallテスト<br/>数秒で完了"]
+                SmallP --> Medium["Mediumテスト<br/>数分で完了"]
+                Medium --> Merge["マージ可能"]
+                SmallP -->|"失敗"| Feedback
+                Medium -->|"失敗"| Feedback
+                Feedback --> Fix2["修正して再度push"]
+        </script></pre>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            Largeテストとデプロイは、リリース前またはナイトリーなどの定期実行に切り出します。同じLargeテストを流す場合でも、デプロイ先はトリガーによって変わります。ナイトリーの成功はステージング環境への反映までを意味し、本番環境へのデプロイはリリース前のパイプラインが担います。
+                        </p>
+                    </div>
+
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid"><script type="text/plain">
+            flowchart TB
+                Nightly["ナイトリー（定期実行）"] --> Large["Largeテスト<br/>ネットワーク・外部システム連携あり"]
+                Release["リリース前（リリース候補）"] --> Large
+                Large -->|"ナイトリーで成功"| Staging["ステージング環境へデプロイ"]
+                Large -->|"リリース前チェックで成功"| Prod["本番環境へデプロイ"]
+                Large -->|"失敗"| Triage["担当者へ通知しトリアージ"]
+                Triage --> Fix["修正して次サイクルへ"]
+        </script></pre>
+                    </div>
+
+                    <div class="prose">
+                        <p>初学者が自動化を始める際は、次の順番で育てていくのがお勧めです。</p>
+                        <ol>
+                            <li>
+                                まず「実行が速く、壊れにくい」Smallテスト――ネットワーク・データベース・ファイルシステム・外部システムのいずれにもアクセスしないテスト――をコミットのたびに実行できるようにする。ユニットテストが典型例です。
+                            </li>
+                            <li>
+                                次に、データベースやファイルシステムなど単一マシン内のリソースにアクセスするMediumテストをプルリクエスト単位で実行する。複数コンポーネントの結合を検証する統合テストが典型例です。
+                            </li>
+                            <li>
+                                最後に、ネットワーク越しの通信や外部システムとの連携を伴うLargeテストは数を絞り、ナイトリー（ステージングへの反映まで）とリリース前（本番デプロイのゲート）に切り出す。E2Eテストが典型例です。
+                            </li>
+                        </ol>
+                        <p>
+                            なお、Small／Medium／Largeはテストレベル（ユニット／統合／E2E）の言い換えではありません。サイズを決めるのは「そのテストが何にアクセスするか」という実行制約――ネットワーク・データベース・ファイルシステム・外部システムへのアクセスの有無――であり、上に挙げた対応はあくまで典型例です。外部依存をすべてテストダブルに置き換えた統合テストはSmallになり得ますし、実データベースを起動して1つの関数だけを検証するテストはユニットテストであってもMediumに分類されます。
+                        </p>
+                        <p>
+                            「大規模自動化」と聞くと難しく感じますが、本質は「テストインフラを"資産"として設計し、失敗したときに誰が・どこを見ればよいかを明確にする」という地道な積み重ねです。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-9">
+                    <h2>9. ステップ7：パフォーマンステストは「協働」で行う</h2>
+                    <div class="prose">
+                        <p>
+                            第4章「Collaboration Is the Cornerstone of Beautiful Performance
+                            Testing」は、パフォーマンステストの国際的な専門家Scott
+                            Barberの知見が反映された章とされ、「パフォーマンステストを一人のテスターが孤立して行う"計測作業"にしてはいけない」という強いメッセージを発しています。
+                        </p>
+                        <p>本書が紹介する失敗パターンには、次のようなものがあります。</p>
+                        <ul>
+                            <li>
+                                <strong>「100%でないと失敗」という硬直した基準設定</strong>（100%?!?
+                                Fail）：現実的でない完璧主義がかえってチームの協力を妨げる。
+                            </li>
+                            <li>
+                                <strong>メモリリークだと思ったら実は違った</strong>（The Memory Leak
+                                That Wasn't）：表面的な現象だけで原因を決めつけない。
+                            </li>
+                            <li>
+                                <strong>負荷に耐えられないなら、UIを変えるという発想</strong>（Can't
+                                Handle the Load? Change the
+                                UI）：性能問題の解決策はコードの最適化だけとは限らない。
+                            </li>
+                            <li>
+                                <strong>「ネットワークのせいにする」思考停止</strong>（It Can't Be
+                                the
+                                Network）：安易な原因の押し付け合いを避け、関係者全員でデータを見る。
+                            </li>
+                        </ul>
+                        <p>
+                            初学者にとっての教訓はシンプルです。パフォーマンステストの結果は、開発者・インフラ担当・プロダクトオーナーなど複数のステークホルダーと一緒に解釈しないと、誤った結論（あるいは誤った犯人探し）に陥りやすいということです。ステップ1で述べた「誰のためのテストか」という視点は、パフォーマンステストでこそ強く効いてきます。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-10">
+                    <h2>10. ステップ8：ファジングとミューテーションテストで質を深める</h2>
+                    <div class="prose">
+                        <p>
+                            テストがある程度整った後、初学者が次に学ぶとよいのが「テストの"抜け"を見つけるテスト」です。原著には2つの好例があります。
+                        </p>
+                        <h3>
+                            ファジングテスト（第5章「Just Peachy: Making Office Software More
+                            Reliable with Fuzz Testing」）
+                        </h3>
+                        <p>
+                            オフィスソフトウェアの信頼性向上を題材に、意図的に不正・想定外の入力データを大量に投入し、クラッシュや予期しない挙動を発見する手法を解説しています。相互運用性（Interoperability）、ユーザー満足度、セキュリティという3つの観点からファジングの価値が語られます。
+                        </p>
+                        <h3>
+                            ミューテーションテスト（第18章「Seeding Bugs to Find Bugs: Beautiful
+                            Mutation Testing」）
+                        </h3>
+                        <p>
+                            本章はAndreas ZellerとDavid
+                            Schulerによる研究（Javalancheフレームワーク）が土台になっているとみられ、「意図的にコードへ小さなバグ（ミューテーション）を仕込み、既存のテストスイートがそれを検出できるかどうかでテストの"強さ"そのものを測定する」という発想を紹介します。カバレッジ（実行された行数の割合）だけでは測れない、<strong>「本当にテストがバグを捕まえられるか」</strong>を検証する手法です。
+                        </p>
+                        <p>
+                            初学者はまず、通常のユニットテスト・統合テストで「動くこと」を確認する段階を終えたら、次のステップとして「自分のテストスイートは本当に有効か？」を問うために、これらの手法の存在を知っておくとよいでしょう（いきなり自前でミューテーションテストを実装する必要はなく、既存のミューテーションテストツールを使うのが現実的です）。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-11">
+                    <h2>11. ステップ9：コミュニティとプロセスを育てる</h2>
+                    <div class="prose">
+                        <p>
+                            テストは個人の技術だけでなく、<strong>組織・コミュニティのプロセス</strong>としても機能します。第3章「Building
+                            Open Source QA
+                            Communities」は、Mozillaのようなオープンソースプロジェクトにおいて、ボランティアテスターのコミュニティをどう立ち上げ、維持し、彼らのモチベーションを保つかを扱います。コミュニケーション、ボランティアの募集、イベントの運営など、技術というより「人と組織」に関するノウハウが中心です。
+                        </p>
+                        <p>
+                            また第16章「Peeling the Glass Onion at Socialtext」や第15章「Beautiful
+                            Testing As the Cornerstone of Business
+                            Success」は、テスターと開発者が役割を分けずに協働する<strong
+                                >ホールチーム・アプローチ（Whole-Team Approach）</strong
+                            >の実例（Wikitestsのような独自ツールを含む）を紹介しています。「どのストーリーもテストされるまで完了とみなさない（No
+                            Story Is "Done" Until It's
+                            Tested）」という原則は、現代のアジャイル開発において多くのチームが「Definition
+                            of
+                            Done」に含める代表的な要素の一つです（Definition of
+                            Doneはこの原則だけでなく、コードレビューやドキュメント整備などチームが合意した複数の条件で構成されます）。
+                        </p>
+                        <p>
+                            初学者、特にこれから小さなチームやOSSプロジェクトに関わる人へのアドバイスは、「テストを一人で抱え込まない」ことです。テストの基準やプロセスをチーム全員で合意し、ドキュメント化し、新しく参加する人にも伝わる形にしておくことが、長期的に「美しいテスト文化」を維持する鍵になります。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-12">
+                    <h2>12. 現代への架け橋：AIエージェント時代のテストピラミッド（2026年視点）</h2>
+                    <div class="prose">
+                        <p>
+                            『Beautiful
+                            Testing』が刊行された2009年から現在（2026年）までの最大の変化の一つが、<strong>LLM（大規模言語モデル）やAIエージェントを組み込んだソフトウェアの登場</strong>です。テストピラミッドというモデル自体が決定性（Determinism）を要件として定めているわけではありませんが、そこで想定されてきた従来の自動テストは「同じ入力には常に同じ出力が返る」決定的なロジックを対象とするものが中心でした。一方、LLMを含むシステムでは同じプロンプトでも毎回微妙に異なる出力が返ることがあります。
+                        </p>
+                        <p>
+                            2026年に提唱された「Agentic Test
+                            Pyramid（エージェント的テストピラミッド）」という考え方は、Fowlerの伝統的なピラミッドを<strong>置き換えるのではなく拡張する</strong>アプローチを取ります。次の図は元モデルを簡略化したもので、決定的レイヤーに含まれる「静的な不変条件によるトリップワイヤー（Static-invariant tripwires）」の層は省略しています。
+                        </p>
+                    </div>
+
+                    <div class="mermaid-wrapper">
+                        <pre class="mermaid"><script type="text/plain">
+            %%{init: {'flowchart': {'subGraphTitleMargin': {'top': 10, 'bottom': 28}}} }%%
+            flowchart TB
+                subgraph Deterministic["決定的レイヤー：Fowlerのピラミッド"]
+                    direction TB
+                    U["ユニットテスト"] --> I["統合テスト"] --> E["E2Eテスト"]
+                end
+                subgraph NonDeterministic["非決定的レイヤー：LLM/エージェント特有"]
+                    direction TB
+                    Behavior["振る舞いベースのE2E"] --> Eval["モデル評価 Evals"]
+                end
+                Deterministic --> NonDeterministic
+        </script></pre>
+                    </div>
+
+                    <div class="prose">
+                        <p>
+                            この考え方のポイントは、「決定的な部分（従来型のロジック）は今までどおりFowlerのピラミッドに従い、モデル駆動の非決定的な部分だけを新しいレイヤーとして上に積み増す」という点です。バグを検出するコストが最も低いのは依然として下位の決定的なテストであるため、<strong>可能な限り多くのチェックを決定的なテストに"押し下げる"努力</strong>が推奨されています。
+                        </p>
+                        <p>
+                            さらに別の2026年の分析では、AIによるコード生成が高速化する一方で人手によるE2Eテスト作成が追いつかなくなっているため、<strong>E2Eテストの自動生成</strong>が「あれば良い機能」から「戦略的な優先事項」に変わりつつあると指摘されています。『Beautiful
+                            Testing』が説いた「テストは静的な作業ではなく、常に進化する探求である」という思想は、こうした最新の変化の中でも色褪せていません。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://matthewboston.com/blog/the-agentic-test-pyramid.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >matthewboston.com/blog/the-agentic-test-pyramid.html</a
+                        >
+                        ／
+                        <a
+                            href="https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >getautonoma.com/blog/unit-vs-integration-vs-e2e-testing</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-13">
+                    <h2>13. 章立て早見表（原著23章サマリー）</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Part</th>
+                                    <th>章</th>
+                                    <th>タイトル（原題）</th>
+                                    <th>概要</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>I</td>
+                                    <td>1</td>
+                                    <td>Was It Good for You?</td>
+                                    <td>テスト経験を振り返る導入エッセイ</td>
+                                </tr>
+                                <tr>
+                                    <td>I</td>
+                                    <td>2</td>
+                                    <td>Beautiful Testing Satisfies Stakeholders</td>
+                                    <td>ステークホルダーごとの「満足」の定義（Rex Blackの知見）</td>
+                                </tr>
+                                <tr>
+                                    <td>I</td>
+                                    <td>3</td>
+                                    <td>Building Open Source QA Communities</td>
+                                    <td>OSSにおけるボランティアQAコミュニティの構築</td>
+                                </tr>
+                                <tr>
+                                    <td>I</td>
+                                    <td>4</td>
+                                    <td>
+                                        Collaboration Is the Cornerstone of Beautiful Performance
+                                        Testing
+                                    </td>
+                                    <td>協働型パフォーマンステスト（Scott Barberの知見）</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>5</td>
+                                    <td>
+                                        Just Peachy: Making Office Software More Reliable with Fuzz
+                                        Testing
+                                    </td>
+                                    <td>ファジングによる信頼性向上</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>6</td>
+                                    <td>Bug Management and Test Case Effectiveness</td>
+                                    <td>バグ管理とテストケース効果測定</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>7</td>
+                                    <td>Beautiful XMPP Testing</td>
+                                    <td>XMPPプロトコルのユニット・相互運用性テスト</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>8</td>
+                                    <td>Beautiful Large-Scale Test Automation</td>
+                                    <td>大規模テスト自動化基盤（Alan Pageの知見）</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>9</td>
+                                    <td>Beautiful Is Better Than Ugly</td>
+                                    <td>Buildbotによる継続的インテグレーション</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>10</td>
+                                    <td>Testing a Random Number Generator</td>
+                                    <td>乱数生成器のテスト（John D. Cookの知見）</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>11</td>
+                                    <td>Change-Centric Testing</td>
+                                    <td>変更差分に基づくカバレッジ分析</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>12</td>
+                                    <td>Software in Use</td>
+                                    <td>実利用環境・探索的テスト（Karen N. Johnsonの知見）</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>13</td>
+                                    <td>Software Development Is a Creative Process</td>
+                                    <td>アジャイル開発を「パフォーマンス」に例える視点</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>14</td>
+                                    <td>
+                                        Test-Driven Development: Driving New Standards of Beauty
+                                    </td>
+                                    <td>TDDと「美しさ」の再定義</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>15</td>
+                                    <td>
+                                        Beautiful Testing As the Cornerstone of Business Success
+                                    </td>
+                                    <td>ホールチーム・アプローチとビジネス価値</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>16</td>
+                                    <td>Peeling the Glass Onion at Socialtext</td>
+                                    <td>Socialtext社のWikitests事例</td>
+                                </tr>
+                                <tr>
+                                    <td>II</td>
+                                    <td>17</td>
+                                    <td>Beautiful Testing Is Efficient Testing</td>
+                                    <td>効率的なテストのためのヒューリスティクス</td>
+                                </tr>
+                                <tr>
+                                    <td>III</td>
+                                    <td>18</td>
+                                    <td>Seeding Bugs to Find Bugs: Beautiful Mutation Testing</td>
+                                    <td>ミューテーションテスト（Javalanche）</td>
+                                </tr>
+                                <tr>
+                                    <td>III</td>
+                                    <td>19</td>
+                                    <td>Reference Testing As Beautiful Testing</td>
+                                    <td>リファレンステスト（ブラウザ等のレンダリング検証）</td>
+                                </tr>
+                                <tr>
+                                    <td>III</td>
+                                    <td>20</td>
+                                    <td>Clam Anti-Virus: Testing Open Source with Open Tools</td>
+                                    <td>ClamAVにおけるOSSツールでのテスト</td>
+                                </tr>
+                                <tr>
+                                    <td>III</td>
+                                    <td>21</td>
+                                    <td>Web Application Testing with Windmill</td>
+                                    <td>Windmillによるブラウザテスト自動化</td>
+                                </tr>
+                                <tr>
+                                    <td>III</td>
+                                    <td>22</td>
+                                    <td>Testing One Million Web Pages</td>
+                                    <td>大規模Webページ検証の実践</td>
+                                </tr>
+                                <tr>
+                                    <td>III</td>
+                                    <td>23</td>
+                                    <td>Testing Network Services in Multimachine Scenarios</td>
+                                    <td>eBox/ANSTEによるマルチマシン環境テスト</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="callout">
+                        <p>
+                            本書には他にLinda Wilkinson、Martin Schröder、Clint Talbert、Kamran
+                            Khan、Emily Chen、Brian Nitz、Remko Tronçon、Neal Norwitz、Michelle
+                            Levesque、Jeffrey Yasskin、Murali Nandigama、Chris McMahon、Jennitta
+                            Andrea、Lisa Crispin、Matt Heusser、Tomasz Kojm、Adam Christian、Isaac
+                            Clerenciaを含む27名が寄稿しています。個々の章とすべての著者の厳密な対応は原著（目次・各章冒頭）でご確認ください。
+                        </p>
+                    </div>
+                    <div class="section-refs">
+                        参照:
+                        <a
+                            href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >oreilly.com/library/view/beautiful-testing/9780596806934</a
+                        >
+                        ／
+                        <a
+                            href="https://books.apple.com/us/book/beautiful-testing/id396905423"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >books.apple.com/us/book/beautiful-testing/id396905423</a
+                        >
+                    </div>
+                </section>
+
+                <section class="section" id="sec-14">
+                    <h2>14. ベストプラクティス・チェックリスト</h2>
+                    <div class="prose">
+                        <p>初学者が「美しいテスト」を実践するための総まとめです。</p>
+                    </div>
+                    <p class="checklist-progress" id="checklistProgress">
+                        進捗:
+                        <strong
+                            ><span id="checklistDone">0</span> /
+                            <span id="checklistTotal">11</span></strong
+                        >
+                        完了
+                    </p>
+                    <ul class="checklist" id="checklist">
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >テストを書く前に「誰のためのテストか」「何を満足とみなすか」を言語化した</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >テストの配分（ピラミッド／トロフィー）と、CIでの実行制御（Small／Medium／Largeのテストサイズ）を分けて意識している</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >Red → Green → Refactorのサイクルで小さくTDDを回している</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >ストーリーレベルの受け入れテストとユニットレベルのTDDテストの役割の違いを理解している</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >自動化できる部分と、探索的テストで人が判断すべき部分を区別している（アジャイルテストの4象限）</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >バグには重要度（Severity）と優先度（Priority）を分けて記録している</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >テストをすり抜けたバグについて、テストスイート側の改善点を振り返っている</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >コミット時はSmall、プルリクエスト時はMediumまで、リリース前・ナイトリーでLargeを実行するようゲーティングしている</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >パフォーマンステストの結果は関係者と協働で解釈し、犯人探しで終わらせていない</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >テストの基準やプロセスをチームで共有し、属人化させていない</span
+                                ></label
+                            >
+                        </li>
+                        <li>
+                            <label class="check-label"
+                                ><input type="checkbox" class="check-input" /><span
+                                    class="check-text"
+                                    >LLM/AIエージェントを含む機能については、決定的な部分と非決定的な部分を切り分けてテスト戦略を設計している</span
+                                ></label
+                            >
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="section" id="sec-15">
+                    <h2>15. 参考文献・出典</h2>
+                    <div class="prose">
+                        <p>
+                            本ガイドの作成にあたり、2026年8月27日時点の情報をもとに以下の一次情報を参照しました。
+                        </p>
+                    </div>
+                    <ol class="ref-list">
+                        <li>
+                            <span class="ref-title"
+                                >Beautiful Testing（O'Reilly公式ページ／目次全文）</span
+                            ><a
+                                href="https://www.oreilly.com/library/view/beautiful-testing/9780596806934/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://www.oreilly.com/library/view/beautiful-testing/9780596806934/</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Beautiful Testing – New from
+                                O'Reilly（プレスリリース・編者コメント）</span
+                            ><a
+                                href="https://www.oreilly.com/pub/pr/2453"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://www.oreilly.com/pub/pr/2453</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Beautiful Testing（Amazon商品ページ／レビュー詳細）</span
+                            ><a
+                                href="https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://www.amazon.com/Beautiful-Testing-Professionals-Software-Practice/dp/0596159811</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Beautiful Testing（Apple Books／寄稿者全リスト）</span
+                            ><a
+                                href="https://books.apple.com/us/book/beautiful-testing/id396905423"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://books.apple.com/us/book/beautiful-testing/id396905423</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Martin Fowler – Test Pyramid（bliki, 2012年）</span
+                            ><a
+                                href="https://martinfowler.com/bliki/TestPyramid.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://martinfowler.com/bliki/TestPyramid.html</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Martin Fowler / Ham Vocke – The Practical Test
+                                Pyramid（2018年）</span
+                            ><a
+                                href="https://martinfowler.com/articles/practical-test-pyramid.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://martinfowler.com/articles/practical-test-pyramid.html</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Kent C. Dodds – Write tests. Not too many. Mostly
+                                integration.</span
+                            ><a
+                                href="https://kentcdodds.com/blog/write-tests"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://kentcdodds.com/blog/write-tests</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Kent C. Dodds – The Testing Trophy and Testing
+                                Classifications</span
+                            ><a
+                                href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title">Google Testing Blog – Test Sizes（2010年）</span
+                            ><a
+                                href="https://testing.googleblog.com/2010/12/test-sizes.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://testing.googleblog.com/2010/12/test-sizes.html</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Software Engineering at Google, Chapter 14: Larger Testing（Titus
+                                Winters, Tom Manshreck, Hyrum Wright）</span
+                            ><a
+                                href="https://abseil.io/resources/swe-book/html/ch14.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://abseil.io/resources/swe-book/html/ch14.html</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Matthew Boston – The Agentic Test Pyramid（2026年）</span
+                            ><a
+                                href="https://matthewboston.com/blog/the-agentic-test-pyramid.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://matthewboston.com/blog/the-agentic-test-pyramid.html</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Autonoma – Unit vs Integration vs E2E Testing: Testing Pyramid
+                                Decision Framework（2026年）</span
+                            ><a
+                                href="https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://getautonoma.com/blog/unit-vs-integration-vs-e2e-testing</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title"
+                                >Lisa Crispin & Janet Gregory – Agile Testing / Agile Testing
+                                Quadrants</span
+                            ><a href="https://agiletester.ca/" target="_blank" rel="noopener noreferrer"
+                                >https://agiletester.ca/</a
+                            >
+                        </li>
+                        <li>
+                            <span class="ref-title">James Bach – Exploratory Testing Explained</span
+                            ><a
+                                href="https://www.satisfice.com/articles/et-article.pdf"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >https://www.satisfice.com/articles/et-article.pdf</a
+                            >
+                        </li>
+                    </ol>
+                </section>
+
+                <footer class="footer">
+                    <p>
+                        本ガイドは学習目的の要約・再構成であり、原著本文の引用ではありません。詳細な内容は必ず原著『Beautiful
+                        Testing』（O'Reilly）をご参照ください。
+                    </p>
+                </footer>
+            </main>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js"></script>
+        <script>
+            function dedent(str) {
+                const lines = str.replace(/^\n/, '').replace(/\s+$/, '').split('\n');
+                let minIndent = Infinity;
+                for (const line of lines) {
+                    if (line.trim().length === 0) continue;
+                    const m = line.match(/^(\s*)/);
+                    minIndent = Math.min(minIndent, m[1].length);
+                }
+                if (!isFinite(minIndent)) minIndent = 0;
+                return lines.map((l) => l.slice(minIndent)).join('\n');
+            }
+
+            document.addEventListener('DOMContentLoaded', function () {
+                document.querySelectorAll('pre.mermaid').forEach(function (pre) {
+                    const src = pre.querySelector('script[type="text/plain"]');
+                    if (src) {
+                        pre.textContent = dedent(src.textContent);
+                    }
+                });
+
+                if (window.mermaid) {
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'dark',
+                        securityLevel: 'loose',
+                        themeVariables: {
+                            fontSize: '16px',
+                            primaryColor: '#12233a',
+                            primaryTextColor: '#e7edf7',
+                            primaryBorderColor: '#6fe7c0',
+                            lineColor: '#6fe7c0',
+                            clusterBkg: '#0d1a2b',
+                            clusterBorder: '#2a4160',
+                            edgeLabelBackground: '#0d1a2b',
+                        },
+                        flowchart: {
+                            subGraphTitleMargin: { top: 10, bottom: 28 },
+                        },
+                    });
+                    mermaid.run({ querySelector: '.mermaid' });
+                }
+
+                const sidebar = document.getElementById('sidebar');
+                const toggle = document.getElementById('menuToggle');
+                toggle.addEventListener('click', function () {
+                    sidebar.classList.toggle('open');
+                });
+                sidebar.querySelectorAll('a').forEach(function (a) {
+                    a.addEventListener('click', function () {
+                        sidebar.classList.remove('open');
+                    });
+                });
+
+                // 5. Checklist: toggle "done" styling + live progress counter
+                const checklist = document.getElementById('checklist');
+                if (checklist) {
+                    const checkboxes = checklist.querySelectorAll('.check-input');
+                    const doneCountEl = document.getElementById('checklistDone');
+                    const totalCountEl = document.getElementById('checklistTotal');
+                    if (totalCountEl) totalCountEl.textContent = checkboxes.length;
+
+                    function updateProgress() {
+                        let done = 0;
+                        checkboxes.forEach(function (cb) {
+                            if (cb.checked) done++;
+                        });
+                        if (doneCountEl) doneCountEl.textContent = done;
+                    }
+
+                    checkboxes.forEach(function (cb) {
+                        cb.addEventListener('change', function () {
+                            cb.closest('li').classList.toggle('done', cb.checked);
+                            updateProgress();
+                        });
+                    });
+                    updateProgress();
+                }
+
+                const sections = document.querySelectorAll('.section');
+                const navLinks = document.querySelectorAll('.sidebar nav a');
+                const linkMap = {};
+                navLinks.forEach(function (a) {
+                    linkMap[a.getAttribute('href').slice(1)] = a;
+                });
+                const observer = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            const link = linkMap[entry.target.id];
+                            if (!link) return;
+                            if (entry.isIntersecting) {
+                                navLinks.forEach(function (a) {
+                                    a.classList.remove('active');
+                                });
+                                link.classList.add('active');
+                            }
+                        });
+                    },
+                    { rootMargin: '-20% 0px -70% 0px' },
+                );
+                sections.forEach(function (s) {
+                    observer.observe(s);
+                });
+            });
+        </script>
+    </body>
+</html>

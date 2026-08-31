@@ -1,19 +1,44 @@
 # Migration Progress
 
-Updated 2026-08-20
+Updated 2026-08-31
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計44ルート）。
+> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計47ルート）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `784c7a6` |
+| 最新 HEAD | `f16313f` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（209 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（240 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/08/31: Playwright 初学者向け完全入門ガイドの Next.js 移行完了
+
+- `app/playwright-beginner-guide/`: ページコンポーネント（Mermaid 16図、全18セクション、コードブロック、テーブル、参考文献を含む完全移行）、スタイル（`.playwright-beginner-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、aria-current）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリ（「テストツール & フレームワーク」）に `/playwright-beginner-guide`（Playwright 入門ガイド）を追加。
+- `tests/playwright-beginner-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全18リンク、全18セクション、Mermaid 16図、全テーブル、全コードブロック、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全240件）。
+- `Playwright-beginner-guide.html`: `archive/html-archive/playwright/Playwright-beginner-guide.html` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 47 ページ体制に同期。
+
+## 2026/08/31: GitHub Actions 初学者向け完全ガイドの Next.js 移行完了
+
+- `app/github-actions/`: ページコンポーネント（Mermaid 9図、全18セクション、コードブロック、テーブル、参考文献を含む完全移行）、スタイル（`.github-actions-beginner-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、aria-current）を実装。
+- `lib/navigation.ts`: `cicd-devops` カテゴリに `/github-actions`（GitHub Actions 入門ガイド）を追加し、将来の書籍・ツール拡張用カテゴリ（`tools-frameworks`, `books-practices`）を定義。
+- `tests/github-actions/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全18リンク、全18セクション、Mermaid 9図、全テーブル、全コードブロック、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全229件）。
+- `Github-actions.html`: `archive/html-archive/cicd/Github-actions.html` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 46 ページ体制に同期。
+
+## 2026/08/30: GitHub Actions 中級〜上級者向け完全ガイドの Next.js 移行完了
+
+- `app/github-actions-guide/`: ページコンポーネント（Mermaid 6図、全18セクション、コードブロック、テーブル、インタラクティブチェックリスト、参考文献を含む完全移行）、スタイル（`.github-actions-page` スコープ）、NavBar（IntersectionObserver スクロールスパイ、モバイルトグル対応、aria-current）を実装。
+- `app/github-actions-guide/Checklist.tsx`: Section 17のチェックリストをインタラクティブなクライアントコンポーネントとして実装。クリック・キーボード（Space/Enter）によるトグル、チェックマーク表示、打消し線（line-through）と薄色化、リアルタイム進捗バー（達成状況表示）に対応。
+- `lib/navigation.ts`: 拡張性を考慮した新カテゴリ `cicd-devops`（「CI/CD & DevOps」）を新設し、`/github-actions-guide` を登録。
+- `tests/github-actions-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全18リンク、全18セクション、Mermaid 6図、全7テーブル、全コードブロック、チェックリスト10項目のトグル動作・アクセシビリティ、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全221件）。
+- `Github-actions-guide.html`: `archive/html-archive/cicd/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 45 ページ体制に同期。
 
 ## 2026/08/20: CTFL v4.0 Chapter 5 (テスト活動の管理) ガイドの Next.js 移行完了
 
@@ -423,6 +448,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Ctfl-at-chapter1-agile-software-development.html` | `/istqb-ctfl-at-chapter1-agile-software-development` | ✅ NavBar あり |
 | `Ctfl-at-chapter2.html` | `/istqb-ctfl-at-chapter2-fundamental-agile-testing-principles` | ✅ NavBar あり |
 | `Ctfl-at-chapter3-agile-testing-techniques-tools.html` | `/istqb-ctfl-at-chapter3-agile-testing-techniques-tools` | ✅ NavBar あり |
+| `Github-actions.html` | `/github-actions` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
+| `Github-actions-guide.html` | `/github-actions-guide` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
+| `Playwright-beginner-guide.html` | `/playwright-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -440,8 +468,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 ```text
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
-- **CTFL v4.0 Chapter 5 移行完了**: プロジェクトルートに存在した全43ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 44 ルート（ホーム + 43 ガイド）が管理されています。
+- **GitHub Actions ガイド移行完了**: プロジェクトルートに存在した全46ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 47 ルート（ホーム + 46 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

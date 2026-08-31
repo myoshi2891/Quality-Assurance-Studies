@@ -2,8 +2,8 @@ import { describe, it, expect } from 'bun:test';
 import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 44 entries (home + 8 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert)', () => {
-    expect(NAV_ITEMS).toHaveLength(44);
+  it('contains 47 entries (home + 8 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 1 tools-frameworks)', () => {
+    expect(NAV_ITEMS).toHaveLength(47);
   });
 
   it('every item has a unique href', () => {
@@ -34,6 +34,24 @@ describe('NAV_ITEMS', () => {
     expect(ctfl?.category).toBe('istqb-foundation-ext');
   });
 
+  it('classifies /github-actions as cicd-devops', () => {
+    const gha = NAV_ITEMS.find((item: NavItem) => item.href === '/github-actions');
+    expect(gha).toBeDefined();
+    expect(gha?.category).toBe('cicd-devops');
+  });
+
+  it('classifies /github-actions-guide as cicd-devops', () => {
+    const gha = NAV_ITEMS.find((item: NavItem) => item.href === '/github-actions-guide');
+    expect(gha).toBeDefined();
+    expect(gha?.category).toBe('cicd-devops');
+  });
+
+  it('classifies /playwright-beginner-guide as tools-frameworks', () => {
+    const pw = NAV_ITEMS.find((item: NavItem) => item.href === '/playwright-beginner-guide');
+    expect(pw).toBeDefined();
+    expect(pw?.category).toBe('tools-frameworks');
+  });
+
   it('classifies home "/" as home category', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
     expect(home?.category).toBe('home');
@@ -50,12 +68,24 @@ describe('groupByCategory', () => {
       'istqb-advanced',
       'istqb-specialist',
       'istqb-expert',
+      'cicd-devops',
+      'tools-frameworks',
     ]);
   });
 
   it('places 8 items in the foundation group', () => {
     const foundation = groupByCategory(NAV_ITEMS).find((g) => g.category === 'foundation');
     expect(foundation?.items).toHaveLength(8);
+  });
+
+  it('places 2 items in the cicd-devops group', () => {
+    const cicd = groupByCategory(NAV_ITEMS).find((g) => g.category === 'cicd-devops');
+    expect(cicd?.items).toHaveLength(2);
+  });
+
+  it('places 1 item in the tools-frameworks group', () => {
+    const tools = groupByCategory(NAV_ITEMS).find((g) => g.category === 'tools-frameworks');
+    expect(tools?.items).toHaveLength(1);
   });
 
   it('assigns a non-empty display title to every group', () => {
@@ -116,6 +146,8 @@ describe('groupByCategory extensibility', () => {
       'istqb-advanced',
       'istqb-specialist',
       'istqb-expert',
+      'cicd-devops',
+      'tools-frameworks',
     ]);
   });
 });

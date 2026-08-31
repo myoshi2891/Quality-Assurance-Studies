@@ -1,0 +1,1548 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>レガシーコードからの脱却 ― 初学者向け9つのプラクティス実践ガイド</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/dist/tabler-icons.min.css"
+        />
+        <style>
+            :root {
+                --paper: #f7f3ea;
+                --paper-alt: #efe8d8;
+                --paper-card: #fffdf7;
+                --ink: #2b2620;
+                --ink-soft: #5c5548;
+                --ink-faint: #8a8271;
+                --line: #ddd3ba;
+                --indigo: #34406b;
+                --indigo-soft: #5b6b9e;
+                --gold: #a8721f;
+                --gold-soft: #e8d4a8;
+                --forest: #3f6b4f;
+                --forest-soft: #d9e8dd;
+                --plum: #6b3f5c;
+                --plum-soft: #ecdce6;
+                --sidebar-w: 280px;
+                --radius: 10px;
+                --shadow: 0 2px 10px rgba(43, 38, 32, 0.08);
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family: 'Noto Sans JP', sans-serif;
+                font-size: 16px;
+                line-height: 1.85;
+                overflow-wrap: break-word;
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: 'Source Serif 4', serif;
+                color: var(--indigo);
+                line-height: 1.4;
+                font-weight: 700;
+            }
+            a {
+                color: var(--indigo-soft);
+            }
+            .layout {
+                display: block;
+            }
+
+            /* Sidebar */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-w);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--paper-alt);
+                border-right: 1px solid var(--line);
+                padding: 28px 18px 40px;
+                z-index: 50;
+            }
+            .sidebar-brand {
+                font-family: 'Source Serif 4', serif;
+                font-weight: 700;
+                font-size: 1.05rem;
+                color: var(--indigo);
+                margin: 0 0 4px;
+                padding: 0 6px;
+            }
+            .sidebar-sub {
+                font-size: 1rem;
+                color: var(--ink-faint);
+                margin: 0 0 22px;
+                padding: 0 6px;
+            }
+            .nav-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .nav-a {
+                display: flex;
+                align-items: baseline;
+                gap: 10px;
+                padding: 9px 8px;
+                border-radius: 8px;
+                color: var(--ink-soft);
+                text-decoration: none;
+                font-size: 1rem;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .nav-a:hover {
+                background: var(--paper-card);
+            }
+            .nav-a.active {
+                background: var(--paper-card);
+                color: var(--indigo);
+                font-weight: 700;
+                box-shadow: var(--shadow);
+            }
+            .n-num {
+                font-family: 'Source Serif 4', serif;
+                font-size: 1rem;
+                color: var(--gold);
+                font-weight: 700;
+                min-width: 20px;
+            }
+            .nav-sub {
+                list-style: none;
+                margin: 2px 0 6px 30px;
+                padding: 0;
+                border-left: 1px solid var(--line);
+            }
+            .nav-sub .nav-a {
+                font-size: 1rem;
+                padding: 6px 8px;
+            }
+            .sidebar-toggle {
+                display: none;
+            }
+
+            /* Main */
+            .main {
+                margin-left: var(--sidebar-w);
+                padding: 0 0 80px;
+            }
+            .hero {
+                background: linear-gradient(135deg, var(--indigo) 0%, #232d4d 100%);
+                color: var(--paper);
+                padding: 64px 56px 48px;
+            }
+            .hero-kicker {
+                font-size: 1rem;
+                letter-spacing: 0.08em;
+                color: var(--gold-soft);
+                text-transform: uppercase;
+                margin: 0 0 14px;
+                font-weight: 700;
+            }
+            .hero h1 {
+                color: #fff;
+                font-size: 2.1rem;
+                margin: 0 0 18px;
+                max-width: none;
+            }
+            .hero p {
+                color: #e3e0f0;
+                max-width: none;
+                font-size: 1.02rem;
+                margin: 0 0 10px;
+            }
+            .hero-meta {
+                color: #c9c6e0;
+                font-size: 1rem;
+                margin-top: 18px;
+            }
+            .stat-cards {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 16px;
+                margin-top: 32px;
+            }
+            .stat-card {
+                background: rgba(255, 255, 255, 0.08);
+                border: 1px solid rgba(255, 255, 255, 0.18);
+                border-radius: var(--radius);
+                padding: 16px 22px;
+                min-width: 140px;
+            }
+            .stat-num {
+                font-family: 'Source Serif 4', serif;
+                font-size: 1.7rem;
+                font-weight: 700;
+                color: var(--gold-soft);
+            }
+            .stat-label {
+                font-size: 1rem;
+                color: #d8d5ea;
+                margin-top: 2px;
+            }
+
+            .content-wrap {
+                padding: 0 56px;
+                max-width: none;
+            }
+            section {
+                padding: 52px 0;
+                border-bottom: 1px solid var(--line);
+            }
+            section:last-of-type {
+                border-bottom: none;
+            }
+            .section-eyebrow {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-size: 1rem;
+                color: var(--gold);
+                font-weight: 700;
+                letter-spacing: 0.05em;
+                margin-bottom: 8px;
+            }
+            .section-eyebrow i {
+                font-size: 1.1rem;
+            }
+            h2 {
+                font-size: 1.55rem;
+                margin: 0 0 18px;
+            }
+            h3 {
+                font-size: 1.18rem;
+                margin: 34px 0 12px;
+                color: var(--plum);
+            }
+            .prose p {
+                margin: 0 0 16px;
+            }
+            .prose ul,
+            .prose ol {
+                margin: 0 0 16px;
+                padding-left: 1.4em;
+            }
+            .prose li {
+                margin-bottom: 6px;
+            }
+            blockquote.lead {
+                margin: 0 0 28px;
+                padding: 18px 22px;
+                background: var(--paper-card);
+                border-left: 4px solid var(--gold);
+                border-radius: 0 var(--radius) var(--radius) 0;
+                font-size: 1rem;
+                color: var(--ink-soft);
+            }
+            blockquote.lead p {
+                margin: 0 0 6px;
+            }
+            blockquote.lead p:last-child {
+                margin-bottom: 0;
+            }
+
+            /* Tables */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 0 0 24px;
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                background: var(--paper-card);
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 1rem;
+            }
+            thead th {
+                background: var(--indigo);
+                color: #fff;
+                text-align: left;
+                padding: 10px 14px;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 10px 14px;
+                border-top: 1px solid var(--line);
+                vertical-align: top;
+            }
+            tbody tr:nth-child(even) {
+                background: rgba(168, 114, 31, 0.05);
+            }
+
+            /* Callouts */
+            .callout {
+                border-radius: var(--radius);
+                padding: 16px 20px;
+                margin: 0 0 20px;
+                border: 1px solid var(--line);
+            }
+            .callout-title {
+                font-weight: 700;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                margin-bottom: 8px;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+            .callout p {
+                margin: 0 0 8px;
+                font-size: 1rem;
+            }
+            .callout p:last-child {
+                margin-bottom: 0;
+            }
+            .callout ul {
+                margin: 0;
+                padding-left: 1.2em;
+            }
+            .callout li {
+                margin-bottom: 6px;
+                font-size: 1rem;
+            }
+            .callout.practice {
+                background: var(--forest-soft);
+                border-color: #bcd8c5;
+            }
+            .callout.practice .callout-title {
+                color: var(--forest);
+            }
+            .callout.note {
+                background: var(--plum-soft);
+                border-color: #d9c0cf;
+            }
+            .callout.note .callout-title {
+                color: var(--plum);
+            }
+            .callout.source {
+                background: var(--gold-soft);
+                border-color: #dcbd82;
+            }
+            .callout.source .callout-title {
+                color: #7a5416;
+            }
+
+            /* Diagrams */
+            .diagram-container {
+                margin: 8px 0 28px;
+                padding: 20px;
+                background: var(--paper-card);
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                overflow-x: auto;
+                display: flex;
+                justify-content: safe center;
+            }
+            .diagram-container svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .diagram-caption {
+                font-size: 1rem;
+                color: var(--ink-faint);
+                text-align: center;
+                margin: -16px 0 28px;
+            }
+            .diagram-loading {
+                color: var(--ink-faint);
+                font-size: 1rem;
+                padding: 20px;
+            }
+            .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+
+            /* Step list */
+            .step-list {
+                list-style: none;
+                margin: 0 0 24px;
+                padding: 0;
+                counter-reset: step;
+            }
+            .step-list li {
+                counter-increment: step;
+                position: relative;
+                padding: 12px 16px 12px 52px;
+                margin-bottom: 10px;
+                background: var(--paper-card);
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                font-size: 1rem;
+            }
+            .step-list li::before {
+                content: counter(step);
+                position: absolute;
+                left: 14px;
+                top: 12px;
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                background: var(--indigo);
+                color: #fff;
+                font-family: 'Source Serif 4', serif;
+                font-weight: 700;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* References */
+            .ref-group {
+                margin-bottom: 22px;
+            }
+            .ref-group h4 {
+                font-size: 1rem;
+                color: var(--gold);
+                margin: 0 0 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+            .ref-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .ref-list li {
+                padding: 10px 0;
+                border-top: 1px solid var(--line);
+                font-size: 1rem;
+            }
+            .ref-list li:first-child {
+                border-top: none;
+            }
+            .ref-list a {
+                color: var(--indigo);
+                font-weight: 700;
+                text-decoration: none;
+                word-break: break-all;
+            }
+            .ref-list a:hover {
+                text-decoration: underline;
+            }
+            .ref-list .ref-note {
+                display: block;
+                color: var(--ink-soft);
+                font-size: 1rem;
+                margin-top: 3px;
+            }
+
+            footer.site-footer {
+                padding: 32px 56px 56px;
+                font-size: 1rem;
+                color: var(--ink-faint);
+                max-width: none;
+            }
+
+            /* Mobile */
+            .mobile-bar {
+                display: none;
+            }
+            .mobile-bar button,
+            .mobile-bar button i {
+                font-size: 1rem;
+            }
+            @media (max-width: 900px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.2s ease;
+                    box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+                }
+                .main {
+                    margin-left: 0;
+                }
+                .mobile-bar {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    position: sticky;
+                    top: 0;
+                    background: var(--indigo);
+                    color: #fff;
+                    padding: 14px 18px;
+                    z-index: 40;
+                }
+                .mobile-bar button {
+                    background: rgba(255, 255, 255, 0.15);
+                    border: 1px solid rgba(255, 255, 255, 0.3);
+                    color: #fff;
+                    border-radius: 8px;
+                    padding: 6px 10px;
+                    font-size: 1rem;
+                    line-height: 1;
+                }
+                .mobile-bar button i {
+                    font-size: 1rem;
+                }
+                .hero {
+                    padding: 36px 22px 32px;
+                }
+                .content-wrap {
+                    padding: 0 20px;
+                }
+                footer.site-footer {
+                    padding: 24px 20px 40px;
+                }
+                .hero h1 {
+                    font-size: 1.5rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <nav class="sidebar" id="sidebar" aria-label="目次">
+                <p class="sidebar-brand">Beyond Legacy Code</p>
+                <p class="sidebar-sub">初学者向け実践ガイド</p>
+                <ul class="nav-list">
+                    <li>
+                        <a class="nav-a" href="#background"
+                            ><span class="n-num">01</span>この本が生まれた背景</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#what-is-legacy"
+                            ><span class="n-num">02</span>レガシーコードとは何か</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#shu-ha-ri"
+                            ><span class="n-num">03</span>学び方の姿勢: 守破離</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#overview"
+                            ><span class="n-num">04</span>9つのプラクティス全体像</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#practices"
+                            ><span class="n-num">05</span>プラクティス詳細解説</a
+                        >
+                        <ul class="nav-sub">
+                            <li><a class="nav-a" href="#practice-1">1. 目的を先に伝える</a></li>
+                            <li><a class="nav-a" href="#practice-2">2. 小さなバッチで作る</a></li>
+                            <li><a class="nav-a" href="#practice-3">3. 継続的に統合する</a></li>
+                            <li><a class="nav-a" href="#practice-4">4. 協力しあう</a></li>
+                            <li><a class="nav-a" href="#practice-5">5. CLEANなコード</a></li>
+                            <li><a class="nav-a" href="#practice-6">6. まずテストを書く</a></li>
+                            <li>
+                                <a class="nav-a" href="#practice-7">7. テストで振る舞いを明示</a>
+                            </li>
+                            <li><a class="nav-a" href="#practice-8">8. 設計は最後に実装</a></li>
+                            <li><a class="nav-a" href="#practice-9">9. レガシーコードを直す</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#pitfalls"
+                            ><span class="n-num">06</span>つまずきやすいポイント</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#roadmap"
+                            ><span class="n-num">07</span>4週間の実践ロードマップ</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#summary"><span class="n-num">08</span>まとめ</a>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#references"
+                            ><span class="n-num">09</span>参考情報源</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="main">
+                <div class="mobile-bar">
+                    <button type="button" id="navToggle" aria-label="目次を開く" aria-controls="sidebar" aria-expanded="false">
+                        <i class="ti ti-menu-2"></i>
+                    </button>
+                    <strong>Beyond Legacy Code ガイド</strong>
+                </div>
+
+                <div class="hero">
+                    <p class="hero-kicker">初学者向け・実践ガイド</p>
+                    <h1>レガシーコードからの脱却<br />― 9つのプラクティス実践ガイド</h1>
+                    <p>
+                        『Beyond Legacy Code: Nine Practices to Extend the Life (and Value) of Your
+                        Software』(David Scott Bernstein
+                        著)の構成と主張を、初学者向けにステップバイステップで整理し直した解説資料です。書籍本文の引用ではなく、公開されている書誌情報・目次・書評・著者自身の解説記事をもとに要点を独自にまとめています。
+                    </p>
+                    <p class="hero-meta">
+                        原著: Pragmatic Bookshelf, 2015 / 日本語版: オライリー・ジャパン,
+                        2019(吉羽龍太郎・永瀬美穂・原田騎郎・有野雅士 訳)
+                    </p>
+                    <div class="stat-cards">
+                        <div class="stat-card">
+                            <div class="stat-num">9</div>
+                            <div class="stat-label">プラクティス</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">4</div>
+                            <div class="stat-label">目的グループ</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">2015</div>
+                            <div class="stat-label">原著出版</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-num">2019</div>
+                            <div class="stat-label">日本語版出版</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-wrap">
+                    <section id="background">
+                        <p class="section-eyebrow"><i class="ti ti-history"></i>BACKGROUND</p>
+                        <h2>この本が生まれた背景</h2>
+                        <div class="prose">
+                            <p>
+                                書籍の第I部では、ソフトウェア業界が抱える構造的な問題が描かれています。Standish
+                                Groupの「CHAOSレポート」など業界調査を引き合いに出しながら、要求を厳密に固めてから作り始めるウォーターフォール型の進め方が、変化の速いソフトウェア開発には適合しにくいことを説明しています。O'Reilly
+                                / Pragmatic
+                                Bookshelfの公式紹介文でも、壊れたソフトウェアによって年間数百億ドル規模の損失が生まれていると述べられており、著者はアジャイルやスクラムを導入しただけでは根本的な解決にならず、技術面のプラクティスが伴わなければ「レガシーコード」を量産し続けてしまうと指摘しています。
+                            </p>
+                            <p>つまりこの本の主題は、次の2点にあります。</p>
+                            <ul>
+                                <li>
+                                    主として「そもそもレガシーコードを生み出さないためにどう開発するか」
+                                </li>
+                                <li>
+                                    あわせて「できあがってしまったレガシーコードをどう改善するか」(プラクティス9で扱われる、テストと継ぎ目づくりを土台にしたリファクタリング)
+                                </li>
+                            </ul>
+                            <p>
+                                タイトルの「脱却」は、悪くなったコードとの戦い方だけを指すのではなく、悪くなる土壌そのものを断つための考え方に重心を置いたものです。
+                            </p>
+                        </div>
+                        <div class="callout source">
+                            <p class="callout-title"><i class="ti ti-link"></i>出典</p>
+                            <p>
+                                CHAOSレポートの発行元である The Standish Group
+                                の情報は公式サイトで公開されています。書籍の出版情報は Pragmatic
+                                Bookshelf および O'Reilly
+                                の公式ページで確認できます(URLは本ガイド末尾の参考情報源を参照)。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="what-is-legacy">
+                        <p class="section-eyebrow"><i class="ti ti-code-off"></i>DEFINITION</p>
+                        <h2>レガシーコードとは何か</h2>
+                        <div class="prose">
+                            <p>
+                                書籍内での定義は、単に「古いコード」ではなく、<strong>理由を問わず修正・拡張・作業が困難になったコード</strong>を指しています。書かれてから1年しか経っていなくても、テストがなく変更のたびに副作用が起きるようなコードは、この定義においてはすでにレガシーコードです。
+                            </p>
+                            <p>
+                                以下は、レガシーコードが生まれ続ける典型的な悪循環と、9つのプラクティスが目指す好循環を対比した図です。
+                            </p>
+                        </div>
+                        <div id="diagram-vicious" class="diagram-container">
+                            <span class="diagram-loading">図を読み込み中...</span>
+                        </div>
+                        <p class="diagram-caption">図1: 悪循環 ― レガシー化が進むサイクル</p>
+                        <div id="diagram-virtuous" class="diagram-container">
+                            <span class="diagram-loading">図を読み込み中...</span>
+                        </div>
+                        <p class="diagram-caption">
+                            図2: 好循環 ― 9つのプラクティスが目指すサイクル
+                        </p>
+                    </section>
+
+                    <section id="shu-ha-ri">
+                        <p class="section-eyebrow"><i class="ti ti-sparkles"></i>MINDSET</p>
+                        <h2>学び方の姿勢: 守破離</h2>
+                        <div class="prose">
+                            <p>
+                                書籍の第4章では、9つのプラクティスを身につける過程を、日本の武道・芸事に由来する「守破離(Shu-Ha-Ri)」という考え方になぞらえています。初学者はまずこの3段階を意識すると挫折しにくくなります。
+                            </p>
+                        </div>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>段階</th>
+                                        <th>意味</th>
+                                        <th>この本での位置づけ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>守(Shu)</td>
+                                        <td>決められた型を忠実に守る</td>
+                                        <td>まずは9つのプラクティスを教科書どおりに実践してみる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>破(Ha)</td>
+                                        <td>型の背景にある原則を理解し、応用し始める</td>
+                                        <td>
+                                            なぜそのプラクティスが有効なのかを理解し、状況に合わせて調整する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>離(Ri)</td>
+                                        <td>型から離れ、自分たちに合った形を確立する</td>
+                                        <td>
+                                            チームやプロダクトの文脈に最適化された独自のプラクティスへ発展させる
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="callout note">
+                            <p class="callout-title"><i class="ti ti-bulb"></i>補足</p>
+                            <p>
+                                初学者はまず「守」から始め、理由を理解しないままアレンジを加えないことが推奨されています。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="overview">
+                        <p class="section-eyebrow"><i class="ti ti-list-details"></i>OVERVIEW</p>
+                        <h2>9つのプラクティス全体像</h2>
+                        <div class="prose">
+                            <p>
+                                9つのプラクティスは、著者によれば、エクストリーム・プログラミング(XP)・スクラム(Scrum)・リーン(Lean)といったアジャイル手法に由来する実践を、初学者にも扱いやすい形に整理し直したものです(このうちXPを出自とする技術プラクティスが中心に据えられています)。全体は大きく4つの目的グループに分けて理解すると把握しやすくなります。
+                            </p>
+                        </div>
+                        <div id="diagram-overview" class="diagram-container">
+                            <span class="diagram-loading">図を読み込み中...</span>
+                        </div>
+                        <p class="diagram-caption">
+                            図3:
+                            9つのプラクティスの流れ(色が濃いノードは各目的グループの起点、緑は最終到達点)
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>英語名</th>
+                                        <th>日本語名</th>
+                                        <th>ひとことで言うと</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Say What, Why, and for Whom Before How</td>
+                                        <td>やり方より先に目的・理由・対象を伝える</td>
+                                        <td>実装方法の指示ではなく、達成したいゴールを共有する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Build in Small Batches</td>
+                                        <td>小さなバッチで作る</td>
+                                        <td>作業を小さく分割し、早く頻繁にフィードバックを得る</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Integrate Continuously</td>
+                                        <td>継続的に統合する</td>
+                                        <td>変更をこまめに統合し、統合の痛みを分散する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Collaborate</td>
+                                        <td>協力しあう</td>
+                                        <td>ペアプロやモブ、レビューで知識を分散・共有する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Create CLEAN Code</td>
+                                        <td>CLEANなコードを作る</td>
+                                        <td>5つの品質特性を満たすコードを書く</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Write the Test First</td>
+                                        <td>まずテストを書く</td>
+                                        <td>
+                                            テストを実装より先に書き、テスト容易性の高い設計に導く
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Specify Behaviors with Tests</td>
+                                        <td>テストで振る舞いを明示する</td>
+                                        <td>テストを仕様書として扱う</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Implement the Design Last</td>
+                                        <td>設計は最後に実装する</td>
+                                        <td>設計を先に固定せず、小さなサイクルの中で発展させる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>Refactor Legacy Code</td>
+                                        <td>レガシーコードをリファクタリングする</td>
+                                        <td>動作を変えずに構造を継続的に改善する</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="practices">
+                        <p class="section-eyebrow"><i class="ti ti-tools"></i>DEEP DIVE</p>
+                        <h2>プラクティス1から9 詳細解説</h2>
+
+                        <div class="practice-block" id="practice-1">
+                            <h3>プラクティス1: やり方より先に目的・理由・対象を伝える</h3>
+                            <div class="prose">
+                                <p>
+                                    開発チームに実装手順(How)だけを渡すと、要求の背景が失われ、状況が変わったときに柔軟に対応できません。本書では、依頼する側が「How」を「What」に翻訳し、目的・理由・対象者(誰のためか)を先に共有することを勧めています。具体的な手段として、プロダクトオーナーを置くこと、ユーザーストーリーで要求を表現すること、受け入れ基準を明確にして自動化することが挙げられています。
+                                </p>
+                            </div>
+                            <div class="callout practice">
+                                <p class="callout-title">
+                                    <i class="ti ti-checkbox"></i>初学者向けの第一歩
+                                </p>
+                                <ul>
+                                    <li>
+                                        タスクを受け取ったら「これは誰のために、なぜ必要なのか」を確認する習慣をつける
+                                    </li>
+                                    <li>チケットやIssueに実装方法ではなく期待する振る舞いを書く</li>
+                                    <li>受け入れ条件(Acceptance Criteria)を箇条書きで明文化する</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="practice-block" id="practice-2">
+                            <h3>プラクティス2: 小さなバッチで作る</h3>
+                            <div class="prose">
+                                <p>
+                                    大きな作業をひとまとめに進めると、フィードバックが得られるまでの時間が長くなり、認識のズレが手遅れになってから発覚します。バッチサイズを小さくすることで、フィードバックサイクルを短縮し、ビルドを高速化し、スコープを管理しやすくすることが狙いです。ストーリーをタスクに分解し、バックログとして管理する考え方もここに含まれます。
+                                </p>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>バッチサイズ</th>
+                                            <th>フィードバックまでの時間</th>
+                                            <th>リスクの発見</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>大きい(数週間〜数か月)</td>
+                                            <td>遅い</td>
+                                            <td>手遅れになってから発覚しやすい</td>
+                                        </tr>
+                                        <tr>
+                                            <td>小さい(数時間〜数日)</td>
+                                            <td>速い</td>
+                                            <td>早期に軌道修正できる</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="practice-block" id="practice-3">
+                            <h3>プラクティス3: 継続的に統合する</h3>
+                            <div class="prose">
+                                <p>
+                                    このプラクティスは、プロジェクトの「鼓動(ハートビート)」を確立し、ビルドを自動化し、変更を早く頻繁に統合することを指します。「Done」「Done-Done」「Done-Done-Done」のように完了の定義を段階的に区別する考え方も紹介されており、単に動くコードを書いた状態と、リリース可能な状態は別物であることを強調しています。
+                                </p>
+                            </div>
+                            <div id="diagram-ci" class="diagram-container">
+                                <span class="diagram-loading">図を読み込み中...</span>
+                            </div>
+                            <p class="diagram-caption">図4: 継続的インテグレーションの流れ</p>
+                            <div class="callout practice">
+                                <p class="callout-title">
+                                    <i class="ti ti-checkbox"></i>初学者向けの第一歩
+                                </p>
+                                <ul>
+                                    <li>
+                                        1日に複数回、小さな単位でメインブランチに統合することを目指す
+                                    </li>
+                                    <li>ビルドとテストをCIサービスで自動化する</li>
+                                    <li>テストが失敗した状態を放置せず、最優先で直す文化を作る</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="practice-block" id="practice-4">
+                            <h3>プラクティス4: 協力しあう</h3>
+                            <div class="prose">
+                                <p>
+                                    XP由来のプラクティスとして、ペアプログラミング、バディプログラミング、スパイク(時間を区切った調査)、スウォーミングやモブプログラミング、コードレビューとレトロスペクティブの実施が紹介されています。目的は知識を個人に閉じ込めず、チーム全体で学習を増幅させることです。
+                                </p>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>手法</th>
+                                            <th>概要</th>
+                                            <th>向いている場面</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>ペアプログラミング</td>
+                                            <td>2人で1台のマシンを使い常に協働する</td>
+                                            <td>複雑なロジックや設計判断が必要な作業</td>
+                                        </tr>
+                                        <tr>
+                                            <td>バディプログラミング</td>
+                                            <td>別々に作業しつつ定期的にレビューし合う</td>
+                                            <td>ペアほど密着できない状況</td>
+                                        </tr>
+                                        <tr>
+                                            <td>スパイク</td>
+                                            <td>時間を区切って未知の技術を調査する</td>
+                                            <td>見積もりが困難な不確実性の高い作業</td>
+                                        </tr>
+                                        <tr>
+                                            <td>モブプログラミング</td>
+                                            <td>チーム全員で1つの作業に取り組む</td>
+                                            <td>知識共有を最優先したいとき</td>
+                                        </tr>
+                                        <tr>
+                                            <td>コードレビュー</td>
+                                            <td>実装後または実装中に他者がコードを確認する</td>
+                                            <td>品質のばらつきを減らしたいとき</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="practice-block" id="practice-5">
+                            <h3>プラクティス5: CLEANなコードを作る</h3>
+                            <div class="prose">
+                                <p>
+                                    このプラクティスは、Robert C. Martin(Uncle Bob)の『Clean
+                                    Code』や Miško Hevery
+                                    の「Clean Code Talks」といった考え方へのオマージュとして、著者が独自に提唱した<strong>CLEAN</strong>という頭字語で語られています。
+                                </p>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>頭文字</th>
+                                            <th>英語</th>
+                                            <th>意味するコードの性質</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>C</td>
+                                            <td>Cohesive(凝集度が高い)</td>
+                                            <td>1つのクラス・関数が1つの明確な責務だけを持つ</td>
+                                        </tr>
+                                        <tr>
+                                            <td>L</td>
+                                            <td>Loosely Coupled(疎結合)</td>
+                                            <td>
+                                                モジュール同士の依存が最小限で、変更の影響範囲が狭い
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>E</td>
+                                            <td>Encapsulated(カプセル化されている)</td>
+                                            <td>内部の実装詳細が外部から隠蔽されている</td>
+                                        </tr>
+                                        <tr>
+                                            <td>A</td>
+                                            <td>Assertive(自己主張がある)</td>
+                                            <td>
+                                                オブジェクトが自分の責務を自分で果たし、他者に状態を晒しすぎない
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>N</td>
+                                            <td>Nonredundant(重複がない)</td>
+                                            <td>同じ意図のロジックが複数箇所に存在しない</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="callout practice">
+                                <p class="callout-title">
+                                    <i class="ti ti-checkbox"></i>初学者向けの第一歩
+                                </p>
+                                <ul>
+                                    <li>
+                                        1つの関数・クラスが「1つの理由でしか変更されない」状態を意識する
+                                    </li>
+                                    <li>
+                                        他のオブジェクトの内部状態を取得して外部で判断するのではなく、振る舞いをそのオブジェクトに委譲する
+                                    </li>
+                                    <li>
+                                        コピー&amp;ペーストでコードを増やす前に、共通化できないか一度立ち止まる
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="practice-block" id="practice-6">
+                            <h3>プラクティス6: まずテストを書く</h3>
+                            <div class="prose">
+                                <p>
+                                    テストを実装の後に書くのではなく先に書くことで、設計そのものがテストしやすい形に矯正されます。本書ではテスト駆動開発(TDD)が、素早いフィードバックを生み、リファクタリングを支える安全網になり、テストしやすいコードを書く規律を作ると説明されています。あわせて、TDDがうまく機能しない場合の注意点や、チームへの導入方法にも触れられています。
+                                </p>
+                            </div>
+                            <div id="diagram-tdd" class="diagram-container">
+                                <span class="diagram-loading">図を読み込み中...</span>
+                            </div>
+                            <p class="diagram-caption">図5: TDDのRed-Green-Refactorサイクル</p>
+                            <div class="callout practice">
+                                <p class="callout-title">
+                                    <i class="ti ti-checkbox"></i>初学者向けの第一歩
+                                </p>
+                                <ul>
+                                    <li>
+                                        いきなり大きな機能ではなく、1つの小さな振る舞いに対して1つのテストから始める
+                                    </li>
+                                    <li>テストが赤(失敗)であることを必ず確認してから実装に進む</li>
+                                    <li>テストを通すための実装は、まず最小限のコードで済ませる</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="practice-block" id="practice-7">
+                            <h3>プラクティス7: テストで振る舞いを明示する</h3>
+                            <div class="prose">
+                                <p>
+                                    テストを単なる動作確認の手段ではなく、<strong>仕様書(Specification)</strong>として扱う考え方です。テスト名は実装の詳細ではなく期待される振る舞いを表すべきであり、テストは網羅的かつ一意であるべきだとされています。「バグが見つかる」ということは、その振る舞いを保証するテストが存在しなかったことの裏返しである、という捉え方も紹介されています。
+                                </p>
+                            </div>
+                            <div class="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>悪いテスト名の例</th>
+                                            <th>良いテスト名の例</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>test_constructor</td>
+                                            <td>生成直後は初期値が0になっていることを確認する</td>
+                                        </tr>
+                                        <tr>
+                                            <td>test_case1</td>
+                                            <td>在庫が0のとき注文を拒否することを確認する</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="practice-block" id="practice-8">
+                            <h3>プラクティス8: 設計は最後に実装する</h3>
+                            <div class="prose">
+                                <p>
+                                    大規模な設計を最初にすべて固定してしまうと、要求の変化に対応できず、かえって変更コストが増大します。本書では、意図が伝わるコードを書くこと(Program
+                                    by
+                                    Intention)、循環的複雑度を下げること、オブジェクトの生成と利用を分離すること、そして小さなサイクルを積み重ねながら設計を発展させる「創発的設計(Emergent
+                                    Design)」が紹介されています。ソフトウェアは書かれるよりも読まれる回数の方が多いため、読みやすさを優先する姿勢も強調されています。
+                                </p>
+                            </div>
+                            <div class="callout practice">
+                                <p class="callout-title">
+                                    <i class="ti ti-checkbox"></i>初学者向けの第一歩
+                                </p>
+                                <ul>
+                                    <li>
+                                        「あとで使うかもしれない」という理由だけで抽象化や汎用化を先取りしない(YAGNI原則)
+                                    </li>
+                                    <li>
+                                        意味のある名前をつけ、コメントに頼らずコード自体で意図を語らせる
+                                    </li>
+                                    <li>
+                                        設計に行き詰まったら、まず小さくリファクタリングして状況を整理してから次に進む
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="practice-block" id="practice-9">
+                            <h3>プラクティス9: レガシーコードをリファクタリングする</h3>
+                            <div class="prose">
+                                <p>
+                                    最後のプラクティスは、既存のコードに手を入れる場面での指針です。技術的負債を「投資」と「借金」のどちらとして扱うかという視点、コードに変更が必要になったときの判断基準、そしてオープン・クローズドの原則に沿ったリファクタリング技法などが紹介されています。著者は、テストのないレガシーコードに対しては、そのままテストを書ける場合はまず特性化テストを直接追加し、テストを書きにくい場合に限ってテスト用の「継ぎ目(Seam)」を作ってからテストを追加することを勧めています。これはMichael
+                                    Feathersの『Working Effectively with Legacy
+                                    Code』(レガシーコード改善ガイド)の考え方とも重なります。
+                                </p>
+                            </div>
+                            <div id="diagram-refactor" class="diagram-container">
+                                <span class="diagram-loading">図を読み込み中...</span>
+                            </div>
+                            <p class="diagram-caption">図6: レガシーコードを安全に改善する流れ</p>
+                            <div class="callout practice">
+                                <p class="callout-title">
+                                    <i class="ti ti-checkbox"></i>初学者向けの第一歩
+                                </p>
+                                <ul>
+                                    <li>
+                                        レガシーコードに手を入れる前に、テストが書ける状態であれば、まず現状の振る舞いを固定するテスト(特性化テスト)を書く
+                                    </li>
+                                    <li>
+                                        テストを書くこと自体が難しい場合は、先に小さく安全なリファクタリングで継ぎ目(Seam)を作り、テストを書ける形にしてから本題の変更に進む
+                                    </li>
+                                    <li>一度に大きく書き換えず、小さな安全なステップに分解する</li>
+                                    <li>
+                                        「動くコードを書く」作業と「コードを整える」作業を区別して意識する
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="pitfalls">
+                        <p class="section-eyebrow">
+                            <i class="ti ti-alert-triangle"></i>COMMON MISTAKES
+                        </p>
+                        <h2>初学者がつまずきやすいポイント</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>つまずきポイント</th>
+                                        <th>起こりがちな誤解</th>
+                                        <th>対処のヒント</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>CLEANやTDDを一度に完璧に適用しようとする</td>
+                                        <td>最初から高品質でなければ意味がないと考えてしまう</td>
+                                        <td>
+                                            守破離の「守」から始め、小さく試して徐々に習慣化する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>テストを後回しにする</td>
+                                        <td>動くコードができてからテストを書けば十分だと考える</td>
+                                        <td>
+                                            テストを先に書くことで設計自体が整理されることを体感する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>バッチサイズを小さくすることに抵抗を感じる</td>
+                                        <td>小さく分けると非効率に見える</td>
+                                        <td>
+                                            統合の痛みとフィードバック遅延のコストの方が大きいことを意識する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>リファクタリングと機能追加を同時に行う</td>
+                                        <td>「ついでに直しておこう」と混在させてしまう</td>
+                                        <td>
+                                            変更の種類(振る舞いを変えない整理か、機能追加か)を明確に分けてコミットする
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="roadmap">
+                        <p class="section-eyebrow">
+                            <i class="ti ti-calendar-time"></i>GETTING STARTED
+                        </p>
+                        <h2>4週間ではじめる実践ロードマップ</h2>
+                        <div class="prose">
+                            <p>
+                                チーム全体でいきなり9つ全部を導入するのは難しいため、段階的に取り入れる例を示します。あくまで一例であり、チームの状況に合わせて調整してください。
+                            </p>
+                        </div>
+                        <ol class="step-list">
+                            <li>
+                                <strong>1週目(プラクティス1・4)</strong> ―
+                                チケットに目的・理由・対象を書く運用を始め、週1回のレビュー会を設定する
+                            </li>
+                            <li>
+                                <strong>2週目(プラクティス2・3)</strong> ―
+                                作業を小さく分割し、CIで自動ビルド・自動テストを毎コミットで走らせる
+                            </li>
+                            <li>
+                                <strong>3週目(プラクティス6・7)</strong> ―
+                                新規コードに限りテストファーストで実装し、テスト名を振る舞いベースにする
+                            </li>
+                            <li>
+                                <strong>4週目(プラクティス5・8・9)</strong> ―
+                                CLEANの観点でコードレビューし、既存コードの一部に特性化テストを追加してから小さくリファクタリングする
+                            </li>
+                        </ol>
+                    </section>
+
+                    <section id="summary">
+                        <p class="section-eyebrow"><i class="ti ti-flag"></i>WRAP-UP</p>
+                        <h2>まとめ</h2>
+                        <div class="prose">
+                            <p>
+                                『レガシーコードからの脱却』は、アジャイルやスクラムのようなプロセス面の改善だけでは技術的負債の増大を防げないという問題意識から出発し、エクストリーム・プログラミング(XP)・スクラム・リーンに由来する実践を9つのプラクティスへ整理し直した一冊です(9つの中には、テストファーストやリファクタリングのような技術寄りのものと、目的の明確化や協働の進め方のようなチーム運営寄りのものが混在します)。書評では、新規性そのものよりも、既存の優れたプラクティスを一貫した理由づけとともに9つへ絞り込んだ点に価値があると整理されています。内容が特定の技術に依存しない点は公式紹介でも書評でも共通して挙げられており、本ガイドとしては、これが刊行から年数を経ても参照しやすい一冊であり続けている要因だと考えています。初学者はまず守破離の「守」の姿勢で1つずつ小さく試し、なぜそのプラクティスが有効なのかを体感しながら身につけていくことが推奨されます。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="references">
+                        <p class="section-eyebrow"><i class="ti ti-books"></i>SOURCES</p>
+                        <h2>参考情報源(URL付き)</h2>
+                        <div class="prose">
+                            <p>
+                                本ガイドの作成にあたり参照した情報源です。原著の目次・書誌情報に加え、アジャイル・開発コミュニティの記事や、日本語版に関わる情報源をあわせて掲載しています。
+                            </p>
+                        </div>
+
+                        <div class="ref-group">
+                            <h4>公式・出版元の情報</h4>
+                            <ul class="ref-list">
+                                <li>
+                                    <a
+                                        href="https://www.oreilly.com/library/view/beyond-legacy-code/9781680501827/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >O'Reilly ― 原著の目次・概要ページ</a
+                                    ><span class="ref-note"
+                                        >原著の詳細目次を確認できる。</span
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://pragprog.com/titles/dblegacy/beyond-legacy-code/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Pragmatic Bookshelf 公式ページ</a
+                                    ><span class="ref-note"
+                                        >原著出版元。詳細目次と概要が掲載されている。</span
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.oreilly.com/library/view/9/9784873118864/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >O'Reilly Japan 日本語版書誌ページ</a
+                                    ><span class="ref-note"
+                                        >『レガシーコードからの脱却』日本語版の書誌情報。</span
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.standishgroup.com/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >The Standish Group 公式サイト</a
+                                    ><span class="ref-note"
+                                        >本文で言及したCHAOS Reportの発行元。</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <h4>コミュニティ・書評</h4>
+                            <ul class="ref-list">
+                                <li>
+                                    <a
+                                        href="https://agilealliance.org/resources/books/beyond-legacy-code/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Agile Alliance 書籍紹介ページ</a
+                                    ><span class="ref-note"
+                                        >アジャイル団体による書籍紹介。</span
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://theagilerevolution.com/2019/10/07/episode-171-beyond-legacy-code-with-david-bernstein/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >The Agile Revolution ポッドキャスト 第171回</a
+                                    ><span class="ref-note"
+                                        >Craig Smith氏が著者David
+                                        Bernstein本人にインタビュー。</span
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://christiantietze.de/posts/2015/09/clean-code/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Christian Tietze氏のブログ</a
+                                    ><span class="ref-note"
+                                        >CLEANコード頭字語の紹介記事。</span
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.numerickly.com/2021/08/23/beyond-legacy-code-by-david-scott-bernstein-review-and-summary/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Numerickly ― 書評と要約記事</a
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.goodreads.com/author_blog_posts/18772891-share-common-quality-practices?tab=book"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >著者David Scott Bernstein自身によるCLEANコード解説記事</a
+                                    ><span class="ref-note">Goodreads author blog。</span>
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://www.goodreads.com/book/show/26088456-beyond-legacy-code"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Goodreads 書籍ページ</a
+                                    ><span class="ref-note"
+                                        >読者による書評、CLEAN頭字語へのコメントを含む。</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <h4>日本語の情報源</h4>
+                            <ul class="ref-list">
+                                <li>
+                                    <a
+                                        href="https://www.attractor.co.jp/book/beyond-legacy-code/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >株式会社アトラクタ ― 書籍紹介ページ</a
+                                    ><span class="ref-note"
+                                        >日本語版訳者の一人
+                                        吉羽龍太郎氏が代表を務める会社による紹介。</span
+                                    >
+                                </li>
+                                <li>
+                                    <a
+                                        href="https://irof.hateblo.jp/entry/2019/10/02/012433"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >irof氏のブログ ― 書評</a
+                                    ><span class="ref-note"
+                                        >日本語コミュニティによる書評記事。</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="site-footer">
+                    本ガイドは2026年8月27日時点のウェブ検索結果と公開書誌情報をもとに作成した独自の要約・解説であり、原著・訳書の本文を直接引用したものではありません。正確な内容は必ず原著・訳書をご参照ください。
+                </footer>
+            </div>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"
+            integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                themeVariables: {
+                    fontSize: '16px',
+                    primaryColor: '#efe8d8',
+                    primaryTextColor: '#2b2620',
+                    primaryBorderColor: '#c9bfa4',
+                    lineColor: '#8a8271',
+                    background: '#fffdf7',
+                    fontFamily: 'Noto Sans JP, sans-serif',
+                },
+                flowchart: { useMaxWidth: false, htmlLabels: true },
+            });
+
+            const DIAGRAMS = {
+                'diagram-vicious': `flowchart LR
+    classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
+    classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
+    A1[仕様変更や納期優先]:::hub --> A2[場当たり的な修正]:::box
+    A2 --> A3[複雑さと重複の増大]:::box
+    A3 --> A4[バグとリスクの増加]:::box
+    A4 --> A5[変更コストの上昇]:::box
+    A5 --> A1`,
+
+                'diagram-virtuous': `flowchart LR
+    classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
+    classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
+    classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
+    B1[目的と理由を先に共有]:::hub --> B2[小さく作り継続的に統合]:::box
+    B2 --> B3[CLEANなコードとテストで品質確保]:::box
+    B3 --> B4[変更が怖くなくなる]:::box
+    B4 --> B5[すぐにフィードバックを反映できる]:::done
+    B5 --> B1`,
+
+                'diagram-overview': `flowchart TB
+    classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
+    classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
+    classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
+    P1[プラクティス1 目的 理由 対象を先に伝える]:::hub --> P2[プラクティス2 小さなバッチで作る]:::hub
+    P2 --> P3[プラクティス3 継続的に統合する]:::box
+    P3 --> P4[プラクティス4 協力しあう]:::box
+    P4 --> P5[プラクティス5 CLEANなコードを作る]:::hub
+    P5 --> P6[プラクティス6 まずテストを書く]:::box
+    P6 --> P7[プラクティス7 テストで振る舞いを明示する]:::box
+    P7 --> P8[プラクティス8 設計は最後に実装する]:::box
+    P8 --> P9[プラクティス9 レガシーコードをリファクタリングする]:::done`,
+
+                'diagram-ci': `flowchart LR
+    classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
+    classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
+    classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
+    Dev[開発者がコードを変更]:::hub --> Commit[こまめにコミット]:::box
+    Commit --> Build[自動ビルド]:::box
+    Build --> Test[自動テスト実行]:::box
+    Test -->|成功| Merge[メインブランチに統合]:::done
+    Test -->|失敗| Fix[すぐに修正]:::box
+    Fix --> Commit`,
+
+                'diagram-tdd': `flowchart LR
+    classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
+    classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
+    classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
+    Red[Red 失敗するテストを書く]:::hub --> Green[Green テストを通す最小限の実装]:::box
+    Green --> Refactor[Refactor 重複を除去し設計を整える]:::done
+    Refactor --> Red`,
+
+                'diagram-refactor': `flowchart TB
+    classDef box fill:#efe8d8,stroke:#c9bfa4,color:#2b2620
+    classDef hub fill:#34406b,stroke:#232d4d,color:#f7f3ea
+    classDef done fill:#3f6b4f,stroke:#2c4d38,color:#f7f3ea
+    L1[テストのないレガシーコードに直面]:::hub --> L2{そのままテストを書けるか}:::box
+    L2 -->|書ける| L2a[特性化テストを直接追加]:::box
+    L2 -->|書きにくい| L2b[継ぎ目 Seam を作ってから特性化テストを追加]:::box
+    L2a --> L3[テストで現状の振る舞いを固定]:::box
+    L2b --> L3
+    L3 --> L4[小さな単位でリファクタリング]:::box
+    L4 --> L5[テストが通ることを都度確認]:::box
+    L5 --> L6[安全に構造を改善できた状態]:::done`,
+            };
+
+            async function renderDiagrams() {
+                for (const [id, src] of Object.entries(DIAGRAMS)) {
+                    const el = document.getElementById(id);
+                    if (!el) continue;
+                    try {
+                        const { svg } = await mermaid.render(id + '-svg', src);
+                        el.innerHTML = svg;
+                    } catch (e) {
+                        el.innerHTML =
+                            '<span class="diagram-loading">図の描画に失敗しました</span>';
+                        console.error('mermaid render error for', id, e);
+                    }
+                }
+            }
+            renderDiagrams();
+
+            /* Sidebar active-link highlighting */
+            const navLinks = Array.from(document.querySelectorAll('.nav-a'));
+            const navTargets = navLinks
+                .map((a) => ({ link: a, el: document.querySelector(a.getAttribute('href')) }))
+                .filter((t) => t.el);
+
+            /* Scroll-position based highlighting: pick the target whose top is the
+   closest one at or above a reference line near the top of the viewport.
+   More reliable than IntersectionObserver here because nav targets are
+   nested (a whole section AND its short practice sub-sections are both
+   tracked at once), which can make IntersectionObserver's per-batch
+   entry order ambiguous. */
+            function updateActiveNav() {
+                const refLine = window.innerHeight * 0.25;
+                let current = navTargets[0];
+                for (const t of navTargets) {
+                    const rect = t.el.getBoundingClientRect();
+                    if (rect.top <= refLine) {
+                        current = t;
+                    } else {
+                        break;
+                    }
+                }
+                navLinks.forEach((a) => { a.classList.remove('active'); a.removeAttribute('aria-current'); });
+                current.link.classList.add('active');
+                current.link.setAttribute('aria-current', 'location');
+            }
+
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    window.requestAnimationFrame(() => {
+                        updateActiveNav();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            window.addEventListener('resize', updateActiveNav);
+            updateActiveNav();
+
+            /* Mobile nav toggle */
+            const toggleBtn = document.getElementById('navToggle');
+            const sidebarEl = document.getElementById('sidebar');
+            if (toggleBtn) {
+                /* サイドバーがオーバーレイ表示になるビューポート幅（CSSの @media と揃える） */
+                const overlayQuery = window.matchMedia('(max-width: 900px)');
+
+                /* 開閉状態を aria 属性と inert へ反映する。
+                   閉じている（画面外の）サイドバーを inert にして、リンクをフォーカス対象から外す。
+                   デスクトップ幅では常に表示されるため inert は付けない。 */
+                const syncSidebarState = () => {
+                    const isOpen = sidebarEl.classList.contains('open');
+                    toggleBtn.setAttribute('aria-expanded', String(isOpen));
+                    toggleBtn.setAttribute('aria-label', isOpen ? '目次を閉じる' : '目次を開く');
+                    sidebarEl.inert = overlayQuery.matches && !isOpen;
+                };
+
+                toggleBtn.addEventListener('click', () => {
+                    sidebarEl.classList.toggle('open');
+                    syncSidebarState();
+                });
+                navLinks.forEach((a) =>
+                    a.addEventListener('click', () => {
+                        sidebarEl.classList.remove('open');
+                        syncSidebarState();
+                    }),
+                );
+                overlayQuery.addEventListener('change', syncSidebarState);
+                syncSidebarState();
+            }
+        </script>
+    </body>
+</html>

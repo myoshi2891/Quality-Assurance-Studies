@@ -1,0 +1,2530 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Appium Essentials 完全ガイド ― モバイルテスト自動化の基礎とベストプラクティス</title>
+        <meta
+            name="description"
+            content="初学者向けAppiumステップバイステップガイド。アーキテクチャ、Capabilities、ロケーター戦略、Page Object Model、待機戦略、CI/CD統合までを2026年8月時点の最新情報で解説。"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css"
+        />
+        <style>
+            :root {
+                --bg: #07111e;
+                --panel: #0d1b2f;
+                --panel-2: #0f2138;
+                --panel-3: #132a45;
+                --border: rgba(255, 255, 255, 0.09);
+                --text: #dbe4f3;
+                --text-strong: #f4f8ff;
+                --muted: #93a4c3;
+                --accent: #86efc9;
+                --accent-2: #7c9eff;
+                --code-bg: #0a1424;
+                --radius: 14px;
+                --sidebar-w: 310px;
+                --danger: #ff9a8b;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--text);
+                font-family: 'Inter', 'Noto Sans JP', sans-serif;
+                font-size: 16px;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+            }
+            a {
+                color: var(--accent-2);
+            }
+            a:hover {
+                color: var(--accent);
+            }
+
+            /* ---- layout: block, not grid, to avoid the fixed-sidebar shrink trap ---- */
+            .layout {
+                display: block;
+            }
+
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-w);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--panel);
+                border-right: 1px solid var(--border);
+                padding: 28px 22px 40px;
+                z-index: 40;
+            }
+            .sidebar::-webkit-scrollbar {
+                width: 8px;
+            }
+            .sidebar::-webkit-scrollbar-thumb {
+                background: var(--panel-3);
+                border-radius: 8px;
+            }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                font-weight: 800;
+                font-size: 1.15rem;
+                color: var(--text-strong);
+                margin-bottom: 6px;
+            }
+            .brand-mark {
+                width: 34px;
+                height: 34px;
+                border-radius: 9px;
+                background: linear-gradient(135deg, var(--accent), var(--accent-2));
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #07111e;
+                font-weight: 800;
+                font-size: 1rem;
+                flex: 0 0 34px;
+            }
+            .brand-sub {
+                color: var(--muted);
+                font-size: 1rem;
+                margin: 0 0 26px;
+            }
+            .nav-group-label {
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                font-size: 1rem;
+                color: var(--muted);
+                margin: 22px 0 10px;
+                font-weight: 600;
+            }
+            .navlist {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+            .navlist a {
+                display: block;
+                padding: 9px 12px;
+                border-radius: 9px;
+                color: var(--text);
+                text-decoration: none;
+                font-size: 1rem;
+                border-left: 3px solid transparent;
+                transition:
+                    background 0.15s,
+                    color 0.15s,
+                    border-color 0.15s;
+            }
+            .navlist a:hover {
+                background: var(--panel-2);
+                color: var(--text-strong);
+            }
+            .navlist a.active {
+                background: var(--panel-2);
+                color: var(--accent);
+                border-left-color: var(--accent);
+                font-weight: 600;
+            }
+
+            .nav-toggle {
+                display: none;
+                position: fixed;
+                top: 14px;
+                right: 14px;
+                z-index: 60;
+                width: 46px;
+                height: 46px;
+                border-radius: 12px;
+                background: var(--panel-2);
+                border: 1px solid var(--border);
+                color: var(--text-strong);
+                font-size: 1.3rem;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+
+            /* ---- main content: full width beside sidebar, no narrow max-width ---- */
+            .content {
+                margin-left: var(--sidebar-w);
+                padding: 56px 64px 100px;
+                max-width: none;
+            }
+
+            .hero {
+                max-width: none;
+                margin-bottom: 48px;
+            }
+            .chips {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-bottom: 22px;
+            }
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 6px;
+                background: var(--panel-2);
+                border: 1px solid var(--border);
+                color: var(--accent);
+                padding: 6px 14px;
+                border-radius: 999px;
+                font-size: 1rem;
+                font-weight: 600;
+            }
+            .hero h1 {
+                font-size: clamp(28px, 4vw, 46px);
+                line-height: 1.3;
+                margin: 0 0 18px;
+                font-weight: 800;
+                background: linear-gradient(90deg, var(--accent), var(--accent-2));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            .hero p.lead {
+                color: var(--muted);
+                font-size: 1.2rem;
+                max-width: none;
+                margin: 0;
+            }
+
+            .prose {
+                max-width: none;
+            }
+            .prose,
+            .prose p,
+            .prose li {
+                overflow-wrap: break-word;
+            }
+
+            .section {
+                max-width: none;
+                padding: 44px 0;
+                border-top: 1px solid var(--border);
+            }
+            .section:first-of-type {
+                border-top: none;
+                padding-top: 0;
+            }
+            .section h2 {
+                font-size: 1.7rem;
+                color: var(--text-strong);
+                margin: 0 0 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+            }
+            .section h2 .num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 36px;
+                height: 36px;
+                border-radius: 10px;
+                background: var(--panel-2);
+                color: var(--accent);
+                font-size: 1rem;
+                font-weight: 800;
+                flex: 0 0 36px;
+            }
+            .section h3 {
+                font-size: 1.3rem;
+                color: var(--text-strong);
+                margin: 32px 0 14px;
+            }
+            .section p {
+                margin: 0 0 18px;
+            }
+            .section ul,
+            .section ol {
+                margin: 0 0 18px;
+                padding-left: 1.4em;
+            }
+            .section li {
+                margin-bottom: 8px;
+            }
+            strong {
+                color: var(--text-strong);
+            }
+            code:not(pre code) {
+                background: var(--panel-2);
+                border: 1px solid var(--border);
+                border-radius: 6px;
+                padding: 0.15em 0.45em;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 1rem;
+                color: var(--accent);
+            }
+
+            blockquote {
+                margin: 0 0 20px;
+                padding: 16px 20px;
+                background: var(--panel);
+                border-left: 4px solid var(--accent-2);
+                border-radius: 0 10px 10px 0;
+                color: var(--text);
+            }
+            blockquote p:last-child {
+                margin-bottom: 0;
+            }
+
+            .callout {
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-left: 4px solid var(--accent);
+                border-radius: 10px;
+                padding: 20px 22px;
+                margin: 0 0 22px;
+            }
+            .callout-title {
+                font-weight: 700;
+                color: var(--accent);
+                margin-bottom: 8px;
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+            .callout p:last-child {
+                margin-bottom: 0;
+            }
+
+            /* ---- tables ---- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 0 0 22px;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: var(--panel);
+            }
+            th,
+            td {
+                padding: 13px 16px;
+                text-align: left;
+                font-size: 1rem;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            th {
+                background: var(--panel-2);
+                color: var(--text-strong);
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:hover {
+                background: rgba(134, 239, 201, 0.04);
+            }
+
+            /* ---- code blocks ---- */
+            .code-block {
+                margin: 0 0 22px;
+                border-radius: var(--radius);
+                overflow: hidden;
+                border: 1px solid var(--border);
+                background: var(--code-bg);
+            }
+            .code-label {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 9px 18px;
+                background: var(--panel-2);
+                color: var(--muted);
+                font-size: 1rem;
+                font-family: 'JetBrains Mono', monospace;
+                border-bottom: 1px solid var(--border);
+            }
+            .code-block pre {
+                margin: 0;
+                padding: 20px;
+                overflow-x: auto; /* unconditional: does not depend on JS-added hljs class */
+            }
+            .code-block pre code {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 1rem;
+                line-height: 1.7;
+                background: transparent !important;
+            }
+
+            /* ---- mermaid diagrams ---- */
+            .mermaid-wrapper {
+                overflow-x: auto;
+                margin: 0 0 26px;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                background: var(--panel);
+                padding: 8px 0;
+            }
+            pre.mermaid {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                margin: 0;
+                padding: 18px 24px;
+                background: transparent;
+            }
+            .mermaid svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .fig-caption {
+                text-align: center;
+                color: var(--muted);
+                font-size: 1rem;
+                margin: -10px 0 26px;
+            }
+
+            /* ---- checklist (real checkboxes) ---- */
+            .checklist {
+                list-style: none;
+                margin: 0 0 10px;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+            }
+            .checklist li {
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 14px 18px;
+                transition:
+                    opacity 0.15s,
+                    background 0.15s;
+            }
+            .checklist li.done {
+                background: var(--panel-2);
+                opacity: 0.72;
+            }
+            .checklist label {
+                display: flex;
+                align-items: flex-start;
+                gap: 14px;
+                cursor: pointer;
+                font-size: 1rem;
+            }
+            .checklist input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 24px;
+                height: 24px;
+                flex: 0 0 24px;
+                margin-top: 2px;
+                border: 2px solid var(--accent);
+                border-radius: 7px;
+                position: relative;
+                cursor: pointer;
+                background: transparent;
+                font-size: 1rem;
+            }
+            .checklist input[type='checkbox']:checked {
+                background: var(--accent);
+            }
+            .checklist input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 7px;
+                top: 3px;
+                width: 6px;
+                height: 12px;
+                border: solid #07111e;
+                border-width: 0 3px 3px 0;
+                transform: rotate(45deg);
+            }
+            .checklist li.done label {
+                text-decoration: line-through;
+                text-decoration-color: var(--accent);
+            }
+            .checklist-counter {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                color: var(--accent);
+                font-weight: 700;
+                font-size: 1rem;
+                background: var(--panel-2);
+                border: 1px solid var(--border);
+                border-radius: 999px;
+                padding: 8px 16px;
+                margin-bottom: 18px;
+            }
+
+            /* ---- references ---- */
+            .ref-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+            }
+            .ref-list li {
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 14px 18px;
+                display: flex;
+                gap: 14px;
+                align-items: flex-start;
+                font-size: 1rem;
+            }
+            .ref-num {
+                flex: 0 0 30px;
+                height: 30px;
+                border-radius: 8px;
+                background: var(--panel-2);
+                color: var(--accent);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1rem;
+            }
+            .ref-list a {
+                word-break: break-all;
+            }
+
+            .footer {
+                max-width: none;
+                border-top: 1px solid var(--border);
+                padding-top: 32px;
+                color: var(--muted);
+                font-size: 1rem;
+            }
+
+            /* mermaid.js injects a hidden hover-tooltip element into <body>; keep it >=1rem for the no-sub-1rem-text rule even though it is not user-visible content */
+            .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+
+            @media (max-width: 980px) {
+                .nav-toggle {
+                    display: flex;
+                }
+                .sidebar {
+                    transform: translateX(-105%);
+                    transition: transform 0.2s ease;
+                    width: 86vw;
+                    box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
+                }
+                .content {
+                    margin-left: 0;
+                    padding: 80px 22px 70px;
+                }
+                .section h2 {
+                    font-size: 1.4rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <button class="nav-toggle" id="navToggle" aria-label="目次を開く">☰</button>
+
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="brand"><span class="brand-mark">Ap</span>Appium Essentials</div>
+                <p class="brand-sub">完全ガイド ― 2026年8月版</p>
+
+                <div class="nav-group-label">Contents</div>
+                <ul class="navlist">
+                    <li><a href="#about">1. このガイドについて</a></li>
+                    <li><a href="#what-is-appium">2. Appiumとは何か</a></li>
+                    <li><a href="#architecture">3. アーキテクチャを理解する</a></li>
+                    <li><a href="#version-history">4. バージョンの歴史と現在地</a></li>
+                    <li><a href="#setup">5. 環境構築ステップバイステップ</a></li>
+                    <li><a href="#capabilities">6. Capabilitiesを理解する</a></li>
+                    <li><a href="#first-test">7. はじめてのテストを書く</a></li>
+                    <li><a href="#locators">8. 要素を見つけるロケーター戦略</a></li>
+                    <li><a href="#pom">9. Page Object Modelを実践する</a></li>
+                    <li><a href="#waits">10. 待機戦略でテストを安定させる</a></li>
+                    <li><a href="#gestures">11. ジェスチャー操作を自動化する</a></li>
+                    <li><a href="#environments">12. 実機・エミュレーター・クラウド</a></li>
+                    <li><a href="#cicd">13. 並列実行とCI/CD統合</a></li>
+                    <li><a href="#anti-patterns">14. アンチパターンと落とし穴</a></li>
+                    <li><a href="#checklist">15. ベストプラクティスチェックリスト</a></li>
+                    <li><a href="#summary">16. まとめ</a></li>
+                    <li><a href="#references">17. 参考文献と情報源</a></li>
+                </ul>
+            </nav>
+
+            <main class="content">
+                <header class="hero">
+                    <div class="chips">
+                        <span class="chip">Appium 3.x対応</span>
+                        <span class="chip">2026年8月26日更新</span>
+                        <span class="chip">初学者向け</span>
+                    </div>
+                    <h1>
+                        Appium Essentials 完全ガイド<br />―
+                        モバイルテスト自動化の基礎とベストプラクティス
+                    </h1>
+                    <p class="lead">
+                        初学者がゼロからAppiumを使えるようになるための、ステップバイステップ解説書です。2026年8月時点の最新情報（Appium
+                        3.x系）に基づいて執筆しています。
+                    </p>
+                </header>
+
+                <div class="prose">
+                    <section id="about" class="section">
+                        <h2><span class="num">1</span>このガイドについて</h2>
+                        <p>
+                            このガイドは、モバイルアプリのテスト自動化ツール「Appium」を初めて学ぶ人のために書かれています。想定する読者は次のような人です。
+                        </p>
+                        <ul>
+                            <li>Selenium（Web自動化）の経験はあるが、モバイル自動化は初めて</li>
+                            <li>手動テストからテスト自動化にステップアップしたいQAエンジニア</li>
+                            <li>Android/iOSアプリの開発者で、UIテストを自分で組みたい人</li>
+                        </ul>
+                        <p>
+                            出発点として、O'Reilly（Packt Publishing）から出版されている書籍『<a
+                                href="https://www.oreilly.com/library/view/appium-essentials/9781784392482/"
+                                target="_blank"
+                                rel="noopener"
+                                >Appium Essentials</a
+                            >』（著者: Manoj
+                            Hans、2015年刊）を参照しました。同書はAppiumアーキテクチャ、Desired
+                            Capabilities、ロケーター戦略、実機での自動化、ジェスチャー操作といった、Appium学習に必要な骨格となる章立てを持つ良書です。ただし刊行から10年以上が経過しており、当時前提だったAppium
+                            1.x／Selenium JSON Wire Protocolの記述は、現在の主流であるAppium
+                            2.x/3.x系とW3C WebDriverプロトコルの仕様とは異なる点が多くあります。
+                        </p>
+                        <div class="callout">
+                            <div class="callout-title">補足</div>
+                            <p>
+                                本ガイドでは、同書が扱っている「概念の骨格」（アーキテクチャ、Capabilities、ロケーター、実機自動化、ジェスチャー）を踏襲しつつ、2026年8月26日時点の公式ドキュメントおよび著名な国際的開発者・企業ブログの情報で内容を全面的にアップデートしています。具体的な出典は末尾の「参考文献と情報源」にまとめています。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="what-is-appium" class="section">
+                        <h2><span class="num">2</span>Appiumとは何か</h2>
+                        <p>
+                            Appiumは、ネイティブアプリ・モバイルWebアプリ・ハイブリッドアプリのUIを自動操作するための、オープンソースのテスト自動化フレームワークです。著作権はOpenJS
+                            Foundationが保持しており、Apache 2.0ライセンスの下で公開されています。
+                        </p>
+                        <p>
+                            Appiumの大きな特徴は、Web自動化の標準であるSelenium/WebDriverの資産をそのままモバイルに持ち込んだことです。ブラウザ自動化のために策定された「W3C
+                            WebDriverプロトコル」を、Appiumはモバイルやデスクトップの自動化にも採用しています。これにより、Seleniumの経験があるエンジニアは、比較的小さな学習コストでAppiumに移行できます。
+                        </p>
+                        <p>
+                            Appiumが対応する主なプラットフォームと、それを支える「ドライバー」の対応関係は次の通りです。
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>プラットフォーム</th>
+                                        <th>代表的なドライバー</th>
+                                        <th>内部で利用する自動化技術</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Android（ネイティブ/ハイブリッド）</td>
+                                        <td>UiAutomator2</td>
+                                        <td>Google製 UI Automator</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Android（ネイティブ限定・高速）</td>
+                                        <td>Espresso</td>
+                                        <td>Google製 Espresso</td>
+                                    </tr>
+                                    <tr>
+                                        <td>iOS（ネイティブ/ハイブリッド）</td>
+                                        <td>XCUITest</td>
+                                        <td>Apple製 XCUITest</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Windowsデスクトップアプリ</td>
+                                        <td>Windows Driver（代替候補: NovaWindows）</td>
+                                        <td>
+                                            Microsoft製
+                                            WinAppDriver系技術。ただしWinAppDriver自体は2022年以降Microsoftによる保守が停止しているため、保守が継続しているNovaWindowsドライバーが代替候補として挙がっている
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>macOSデスクトップアプリ</td>
+                                        <td>Mac2</td>
+                                        <td>Apple製 XCTest（macOS版）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>モバイル/デスクトップWeb</td>
+                                        <td>各ドライバー経由でSafari/Chrome等を制御</td>
+                                        <td>ブラウザベンダー製WebDriver実装</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            ポイントは、Appium本体（サーバー）が自動化の実処理を行っているわけではないということです。実際にOSやアプリを操作しているのは、それぞれのプラットフォームベンダーが提供する自動化技術（UiAutomator、XCUITestなど）であり、Appiumはそれらを統一的なWebDriver
+                            APIの背後に「ラップ」しているだけ、というのが正確な理解です。この設計方針により、Appiumは「未改造のアプリをそのまま自動化できる」という強みを持っています。
+                        </p>
+                    </section>
+                    <section id="architecture" class="section">
+                        <h2><span class="num">3</span>Appiumのアーキテクチャを理解する</h2>
+                        <p>
+                            Appiumを使いこなすうえで最初につまずきやすいのが、「サーバー」「クライアント」「ドライバー」という3つの言葉の関係です。ここを最初に整理しておくと、後のトラブルシューティングが格段に楽になります。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <pre class="mermaid" id="diagram-arch"></pre>
+                        </div>
+                        <script type="text/plain" data-target="diagram-arch">
+                            flowchart TD
+                                A["テストコード<br/>Python・Java・JavaScriptなど"] --> B["Appiumクライアントライブラリ"]
+                                B -->|"HTTPリクエスト<br/>W3C WebDriverプロトコル"| C["Appiumサーバー<br/>Node.jsプロセス"]
+                                C --> D{"どのドライバーを使うか"}
+                                D -->|"Android"| E["UiAutomator2ドライバー"]
+                                D -->|"Android（ネイティブ限定）"| F["Espressoドライバー"]
+                                D -->|"iOS"| G["XCUITestドライバー"]
+                                D -->|"デスクトップ"| H["Mac2 / Windowsドライバー"]
+                                E --> I["Android実機 / エミュレーター"]
+                                F --> I
+                                G --> J["iOS実機 / シミュレーター"]
+                                H --> K["macOS / Windows PC"]
+                        </script>
+
+                        <p>それぞれの役割は次の通りです。</p>
+                        <ul>
+                            <li>
+                                <strong>テストコード</strong
+                                >：あなたが書くテストスクリプトそのもの。Python、Java、JavaScript、Rubyなど好きな言語で書けます。
+                            </li>
+                            <li>
+                                <strong>Appiumクライアントライブラリ</strong
+                                >：あなたのテストコードの命令（「このボタンをタップして」など）を、HTTPリクエストに変換する薄いラッパーです。<code>Appium-Python-Client</code>や<code>java-client</code>などがこれにあたります。
+                            </li>
+                            <li>
+                                <strong>Appiumサーバー</strong
+                                >：Node.jsで動くHTTPサーバーです。クライアントからのリクエストを受け取り、適切なドライバーに処理を委譲します。サーバー自体は自動化ロジックを持たず、あくまで「交通整理役」です。
+                            </li>
+                            <li>
+                                <strong>ドライバー</strong
+                                >：各プラットフォーム固有の自動化を実際に行うモジュールです。UiAutomator2ドライバーであれば内部でGoogleのUiAutomator2をラップしており、XCUITestドライバーであれば内部でAppleのXCUITestをラップしています。
+                            </li>
+                        </ul>
+                        <div class="callout">
+                            <div class="callout-title">重要なポイント</div>
+                            <p>
+                                <strong
+                                    >Appiumサーバーとテストコードは同じマシンで動かす必要がない</strong
+                                >という点です。WebDriverプロトコルはネットワーク越しのHTTP通信を前提としているため、テストコードは手元のPCで実行し、Appiumサーバーとデバイスはクラウド上のデバイスファーム（BrowserStackやSauce
+                                Labsなど）に置く、という構成が広く使われています。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="version-history" class="section">
+                        <h2><span class="num">4</span>Appiumのバージョンの歴史と現在地</h2>
+                        <p>
+                            Appiumは大きく3つの世代に分けられます。バージョンごとの違いを理解しておくと、ネット上の古い記事と最新のドキュメントを見比べたときに混乱しにくくなります。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <pre class="mermaid" id="diagram-version"></pre>
+                        </div>
+                        <script type="text/plain" data-target="diagram-version">
+                            flowchart TD
+                                A["Appium 1.x<br/>2013年〜"] --> B["JSONWP / MJSONWP対応<br/>ドライバー同梱型"]
+                                B --> C["Appium 2.0<br/>2023年7月GA"]
+                                C --> D["W3C WebDriver専用<br/>ドライバー・プラグイン分離"]
+                                D --> E["Appium 3.x<br/>2025年8月GA"]
+                                E --> F["Node.js 20.19+ / 22.12+ / 24+ が必須<br/>非推奨エンドポイント全廃"]
+                        </script>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>バージョン</th>
+                                        <th>主な特徴</th>
+                                        <th>現在の位置づけ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Appium 1.x</td>
+                                        <td>
+                                            JSON Wire Protocol（JSONWP）/ Mobile
+                                            JSONWPをサポート。ドライバーはサーバーに同梱され、<code>http://localhost:4723/wd/hub</code>が既定のベースパスだった。
+                                        </td>
+                                        <td>
+                                            2022年1月にコアチームによるサポートが終了。Android
+                                            13/iOS 16以降との相性問題があり、新規利用は非推奨。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appium 2.x</td>
+                                        <td>
+                                            2023年7月に正式リリース。W3Cプロトコルのみをサポートし、ドライバーとプラグインをサーバー本体から分離。<code
+                                                >appium driver install</code
+                                            >のような専用CLIでドライバーを個別に管理する方式に変更。カスタムドライバー・プラグインの作成も可能になった。
+                                        </td>
+                                        <td>
+                                            依然として広く使われているが、Appium
+                                            3系への移行が進んでいる世代。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appium 3.x</td>
+                                        <td>
+                                            2025年8月に正式リリース。Node.jsの対応範囲が<code
+                                                >^20.19.0 || ^22.12.0 || &gt;=24.0.0</code
+                                            >（20.19.0以上の20系、22.12.0以上の22系、または24.0.0以上）、npm
+                                            10以上が必須に。奇数メジャー（21系・23系）は対象外。内部で使うExpressをv4からv5へ更新。過去に非推奨化されていたエンドポイントを完全に廃止し、<code>adb_shell</code>のようなセキュリティ関連の機能フラグに<code>uiautomator2:</code>のようなベンダープレフィックスが必須になった。
+                                        </td>
+                                        <td>
+                                            2026年8月時点の最新メジャーバージョン系列。パッチバージョンは頻繁に更新されるため、固定値を覚えるのではなく<code
+                                                >appium -v</code
+                                            >で導入済みバージョンを確認する。
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Appium 2から3への移行は、Appium
+                            1から2への移行ほど破壊的ではありません。インストール方法自体は変わらず、既存環境に対して<code
+                                >npm install -g appium</code
+                            >を実行すれば上書きアップグレードできます。ただし、Node.jsのバージョンが古い場合は先にNode.js自体をアップグレードする必要があります。
+                        </p>
+                        <p>
+                            これから新規にAppiumを学ぶのであれば、Appium
+                            3.x系を前提に学習を始めて問題ありません。
+                        </p>
+                    </section>
+                    <section id="setup" class="section">
+                        <h2><span class="num">5</span>環境構築ステップバイステップ</h2>
+                        <p>
+                            Appiumの環境構築は「Appium本体」と「テスト対象プラットフォームに応じたドライバー」を別々にインストールする、という2段階の考え方を理解すると迷いません。
+                        </p>
+
+                        <div class="callout">
+                            <div class="callout-title">本リポジトリのBun-only方針に対する例外</div>
+                            <p>
+                                本リポジトリはパッケージ管理・スクリプト実行に Bun
+                                を用いる方針ですが、Appium は Node.js
+                                <code>^20.19.0 || ^22.12.0 || &gt;=24.0.0</code> と npm 10
+                                以上を動作要件として明示しているサーバー実装であり、公式にサポートされる導入手順は
+                                <code>npm</code> ベースです。したがって<strong
+                                    >Appium
+                                    のサーバー・ドライバー・プラグインの管理手順に限り、Node.js /
+                                    npm の使用を規約上の例外として認めます</strong
+                                >。具体的には
+                                <code>npm install -g appium</code> によるサーバー導入、<code
+                                    >appium driver install</code
+                                >
+                                によるドライバー管理、<code>appium plugin install</code>
+                                によるプラグインのインストール、および
+                                <code>--use-plugins</code>
+                                を伴うサーバー起動がこの例外の対象です。この例外は Appium
+                                関連コマンドのみに適用され、本プロジェクト自体のビルド・テストは従来どおり
+                                Bun を使用してください。
+                            </p>
+                        </div>
+
+                        <div class="mermaid-wrapper">
+                            <pre class="mermaid" id="diagram-setup"></pre>
+                        </div>
+                        <script type="text/plain" data-target="diagram-setup">
+                            flowchart TD
+                                A["ステップ1<br/>Node.jsをインストール"] --> B["ステップ2<br/>npm install -g appiumでサーバー導入"]
+                                B --> C["ステップ3<br/>プラットフォームドライバーを追加"]
+                                C --> D["ステップ4<br/>appium driver doctorで環境検証"]
+                                D --> E["ステップ5<br/>Appium Inspectorを導入"]
+                                E --> F["ステップ6<br/>appiumコマンドでサーバー起動"]
+                                F --> G["ステップ7<br/>最初のテストスクリプトを実行"]
+                        </script>
+
+                        <h3>ステップ1: Node.jsをインストールする</h3>
+                        <p>
+                            Appium 3.xはNode.js
+                            <code>^20.19.0 || ^22.12.0 || &gt;=24.0.0</code
+                            >（20.19.0以上の20系、22.12.0以上の22系、または24.0.0以上のいずれか）、npm
+                            10以上を要求します。奇数メジャーである21系・23系はサポート対象外です。まずは公式サイトからLTS版のNode.jsを導入し、バージョンを確認します。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label"><span>bash</span></div>
+                            <pre><code id="code-1" class="language-bash"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-1">
+                            node -v
+                            npm -v
+                        </script>
+                        <p>
+                            古いNode.jsが入っている場合は、<code>nvm</code>（Node Version
+                            Manager）などを使って切り替えることをおすすめします。
+                        </p>
+
+                        <h3>ステップ2: Appiumサーバーをインストールする</h3>
+                        <p>
+                            Appium本体はnpmパッケージとして配布されています。グローバルインストールが一般的です。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label"><span>bash</span></div>
+                            <pre><code id="code-2" class="language-bash"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-2">
+                            npm install -g appium
+                            appium -v
+                        </script>
+                        <p>
+                            この時点でインストールされるのは「サーバー本体」だけで、Android用・iOS用のドライバーはまだ何も入っていません。Appium
+                            2.x以降は、ドライバーを必要な分だけ個別に追加する設計になっています。
+                        </p>
+
+                        <h3>ステップ3: プラットフォームドライバーを追加する</h3>
+                        <p>
+                            テスト対象に応じて、必要なドライバーを<code>appium driver</code
+                            >サブコマンドでインストールします。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label"><span>bash</span></div>
+                            <pre><code id="code-3" class="language-bash"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-3">
+                            # Androidを自動化する場合
+                            appium driver install uiautomator2
+
+                            # iOSを自動化する場合（macOSが必要）
+                            appium driver install xcuitest
+
+                            # 現在インストール済みのドライバーを確認する
+                            appium driver list --installed
+                        </script>
+                        <p>
+                            Android向けにはAndroid SDK（Android
+                            Studio経由でのインストールが簡単）、iOS向けにはXcodeとCommand Line
+                            Toolsなど、ドライバーごとに追加の前提ソフトウェアが必要です。これらはドライバーの公式ドキュメントに従って個別に用意します。
+                        </p>
+
+                        <h3>ステップ4: 環境をセルフチェックする</h3>
+                        <p>
+                            Appium
+                            1.x時代は<code>appium-doctor</code>という独立パッケージで環境診断していましたが、現在はAppium本体に統合された<code
+                                >driver doctor</code
+                            >サブコマンドを使います。
+                        </p>
+                        <p>
+                            診断はドライバー単位で行うため、<strong>ステップ3でインストールしたドライバーに対してのみ</strong>実行します。未インストールのドライバーを指定するとエラーになります。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label"><span>bash</span></div>
+                            <pre><code id="code-4" class="language-bash"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-4">
+                            # uiautomator2 をインストールしている場合のみ
+                            appium driver doctor uiautomator2
+
+                            # xcuitest をインストールしている場合のみ（macOS）
+                            appium driver doctor xcuitest
+                        </script>
+                        <p>不足しているSDKや環境変数があれば、ここで警告として表示されます。</p>
+
+                        <h3>ステップ5: Appium Inspectorを導入する</h3>
+                        <p>
+                            Appium
+                            Inspectorは、アプリの画面キャプチャを見ながら要素のロケーター情報（IDやXPathなど）を確認できるGUIツールです。Appiumサーバーとは別のデスクトップアプリとして配布されており、要素の特定にかかる試行錯誤の時間を大幅に短縮してくれます。公式リポジトリからOS別のインストーラーをダウンロードして使用します。
+                        </p>
+
+                        <h3>ステップ6・7: サーバーを起動し、最初のテストを動かす</h3>
+                        <div class="code-block">
+                            <div class="code-label"><span>bash</span></div>
+                            <pre><code id="code-5" class="language-bash"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-5">
+                            appium --address 127.0.0.1
+                        </script>
+                        <p>
+                            <code>http://127.0.0.1:4723</code>でサーバーが起動します（Appium
+                            1.x時代のような<code>/wd/hub</code>パスは不要になっています）。サーバーが起動したら、次章以降で作成するテストスクリプトを実行して疎通確認を行います。
+                        </p>
+
+                        <div class="callout">
+                            <div class="callout-title">セキュリティに関する注意</div>
+                            <p>
+                                Appiumサーバーの既定の待受アドレスは、Appium
+                                2.x／3.xともに<code>0.0.0.0</code>です。起動しただけで同一ネットワーク上の他ホストからサーバーへ到達できてしまううえ、Appiumサーバー自体は認証機構を持ちません。ローカル開発では上記のように<code
+                                    >--address 127.0.0.1</code
+                                >を明示し、ループバックに限定してください。
+                            </p>
+                            <p>
+                                なお、ファイル操作やシェル実行に相当する「安全でない機能」は既定では無効化されており、利用するには<code>--allow-insecure</code>（機能を個別に許可）または<code>--relaxed-security</code>（まとめて緩和）の指定が必要です。Appium
+                                3.xでは<code>--allow-insecure</code>に渡す機能名にドライバーの指定が必須となり、<code>uiautomator2:adb_shell</code>のように<code>&lt;ドライバー名&gt;:&lt;機能名&gt;</code>の形式で記述します。
+                            </p>
+                            <p>
+                                CIやデバイスファームなど<strong>リモートから接続する必要がある場合</strong>は、次を満たした上で公開します。
+                            </p>
+                            <ul>
+                                <li>
+                                    接続元の制限はAppium単体では行えないため、VPN・ファイアウォール（ソースIP制限）・認証付きリバースプロキシのいずれかで到達可能な範囲を絞る。<code>--relaxed-security</code>や<code>--allow-insecure</code>は原則として有効化しない（必要な機能だけを個別に許可する）。
+                                </li>
+                                <li>
+                                    サーバーを直接インターネットに公開せず、VPNまたは信頼済みネットワーク内に閉じる。
+                                </li>
+                                <li>
+                                    外部からアクセスさせる場合はTLSで暗号化する。Appiumサーバー自体は<code>--ssl-cert-path</code>と<code>--ssl-key-path</code>を指定することで<code>https://</code>を直接提供できる。ただしAppiumは認証機構を持たないため、認証が必要な場合はBasic認証やmTLSを設定したリバースプロキシを前段に置く構成にする。
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                    <section id="capabilities" class="section">
+                        <h2><span class="num">6</span>Capabilitiesを理解する</h2>
+                        <p>
+                            Capabilities（能力）は、Appiumセッションを開始する際に「どのプラットフォームの」「どのアプリを」「どのドライバーで」自動化するかをサーバーに伝えるための設定値です。書籍『Appium
+                            Essentials』ではこれを「Desired
+                            Capabilities」と呼んでいますが、この呼び方と実装形式はAppium
+                            2.x以降で大きく変わっています。
+                        </p>
+
+                        <h3>何が変わったのか</h3>
+                        <p>
+                            Appium
+                            1.x時代は、<code>deviceName</code>や<code>app</code>のようなキーをそのままフラットに並べるだけで動作しました。しかしAppium
+                            2.x以降はW3C
+                            WebDriver仕様に準拠したため、標準仕様にないキー（Appium独自の拡張capability）には「ベンダープレフィックス」を付けることが必須になりました。多くの場合、そのプレフィックスは<code>appium:</code>です。
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>世代</th>
+                                        <th>記述例</th>
+                                        <th>備考</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Appium 1.x（旧式）</td>
+                                        <td>
+                                            <code
+                                                >{"deviceName": "Pixel 6", "app":
+                                                "/path/app.apk"}</code
+                                            >
+                                        </td>
+                                        <td>プレフィックスなしでも動作した</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appium 2.x/3.x（現行）</td>
+                                        <td>
+                                            <code
+                                                >{"platformName": "Android", "appium:deviceName":
+                                                "Pixel 6", "appium:automationName": "UiAutomator2",
+                                                "appium:app": "/path/app.apk"}</code
+                                            >
+                                        </td>
+                                        <td>
+                                            <code>platformName</code
+                                            >など一部のW3C標準capability以外には<code>appium:</code>が必要
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appium 2.x/3.x（まとめ記法）</td>
+                                        <td>
+                                            <code>appium:options</code
+                                            >オブジェクトの中に<code>deviceName</code>や<code>automationName</code>をまとめて指定
+                                        </td>
+                                        <td>個々のキーへのプレフィックス付与を省略できる</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            また、Appium
+                            1.xでは「iOSなら自動的にXCUITestが使われる」「Androidなら自動的にUiAutomator2が使われる」といった暗黙のデフォルトがありましたが、Appium
+                            2.x以降はこの暗黙デフォルトが廃止され、<code>automationName</code>を必ず明示する必要があります。
+                        </p>
+
+                        <h3>コード例（Python）</h3>
+                        <div class="code-block">
+                            <div class="code-label"><span>python</span></div>
+                            <pre><code id="code-6" class="language-python"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-6">
+                            from appium.options.android import UiAutomator2Options
+
+                            options = UiAutomator2Options()
+                            options.platform_name = "Android"
+                            options.automation_name = "UiAutomator2"
+                            options.device_name = "Pixel_7_API_34"
+                            # avd と udid は排他。どちらか一方だけを指定する
+                            # ここでは avd を有効にし、エミュレーターをAVD名から起動して使う
+                            options.avd = "Pixel_7_API_34"
+                            # 実機、または既に起動済みのエミュレーターに接続する場合は、
+                            # 上の avd を指定せず、代わりに udid を指定する
+                            # options.udid = "emulator-5554"   # adb devices で確認できるID
+                            options.app = "/path/to/your/app.apk"
+                            # テスト間の独立性を確保するため、アプリのデータを毎回初期化する
+                            options.full_reset = True
+                        </script>
+
+                        <h3>コード例（Java）</h3>
+                        <div class="code-block">
+                            <div class="code-label"><span>java</span></div>
+                            <pre><code id="code-7" class="language-java"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-7">
+                            import io.appium.java_client.android.options.UiAutomator2Options;
+
+                            UiAutomator2Options options = new UiAutomator2Options();
+                            options.setPlatformName("Android");
+                            options.setAutomationName("UiAutomator2");
+                            options.setDeviceName("Pixel_7_API_34");
+                            // エミュレーターを起動して使う場合は setAvd() でAVD名を指定する
+                            options.setAvd("Pixel_7_API_34");
+                            // 実機、または既に起動済みのエミュレーターに接続する場合は setUdid() を指定する
+                            // options.setUdid("emulator-5554");   // adb devices で確認できるID
+                            options.setApp("/path/to/your/app.apk");
+                            // テスト間の独立性を確保するため、アプリのデータを毎回初期化する
+                            options.setFullReset(true);
+                        </script>
+                        <p>
+                            このように、Appium
+                            2系以降の公式クライアントライブラリには<code>UiAutomator2Options</code>や<code>XCUITestOptions</code>といった型安全なオプションクラスが用意されており、キー名のタイプミスを防ぎながらCapabilitiesを組み立てられます。
+                        </p>
+
+                        <h3>対象デバイスの指定方法に注意する</h3>
+                        <p>
+                            <code>deviceName</code
+                            >は、Appiumが実際に接続先デバイスを決めるための一意なキーではありません。ローカル環境（開発マシンやセルフホストのCIランナー）でAndroidの対象を確実に指定するには、次のどちらかを併用します。
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>状況</th>
+                                        <th>使用するcapability</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>エミュレーターをAppiumに起動させる</td>
+                                        <td>
+                                            <code>appium:avd</code>（Java: <code>setAvd()</code>）
+                                        </td>
+                                        <td>
+                                            AVD
+                                            Managerで作成したAVD名を指定する。該当のエミュレーターが起動していなければAppiumが自動的に起動する。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>実機、または起動済みのエミュレーターに接続する</td>
+                                        <td>
+                                            <code>appium:udid</code>（Java: <code>setUdid()</code>）
+                                        </td>
+                                        <td>
+                                            <code>adb devices</code
+                                            >で表示されるデバイスIDを指定する。複数端末が接続されている環境では必須。
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            <code>deviceName</code
+                            >だけに頼ると、複数のデバイスやエミュレーターが接続されている環境で意図しない端末が選ばれることがあります。ローカル実行や並列実行の環境では、必ず<code>avd</code>か<code>udid</code>で対象を明示してください。
+                        </p>
+                        <p>
+                            一方、<strong>クラウドの実機デバイスファームでは<code>avd</code>や<code>udid</code>による端末指定は使えません</strong>。<code>avd</code>はAppiumが自分でエミュレーターを起動する前提の設定であり、<code>udid</code>もベンダー側が管理する端末プールに対しては指定できないためです。クラウド実行では、どの端末で走らせるかを各ベンダーが定める形式のCapabilitiesで指定します（例：BrowserStackもSauce
+                            Labsも、端末とOSの選択はトップレベルの<code>appium:deviceName</code>／<code>appium:platformVersion</code>で行い、<code>bstack:options</code>／<code>sauce:options</code>にはアカウント情報やビルド名といったベンダー固有の設定のみを入れます）。キー名も、指定できる端末名・OSバージョンの表記もベンダーごとに異なるため、各社のデバイス一覧ドキュメントに従ってください。
+                        </p>
+
+                        <h3>リセット系capabilityとテストの独立性</h3>
+                        <p>
+                            <code>noReset</code
+                            >を<code>true</code>にすると、セッション開始時にアプリのデータが初期化されず、前のテストが残したログイン状態やキャッシュを引き継ぎます。これは実行時間を短縮できる反面、テストの実行順序に依存する不安定なテストを生みやすく、本ガイドが後述する「テストの独立性を保つ」という方針と衝突します。
+                        </p>
+                        <p>
+                            したがって、既定では<code>fullReset</code>（セッションの前後でアプリのアンインストールと再インストールを行う設定）を使うか、テストのセットアップ／ティアダウンでアプリ固有のクリーンアップを明示的に行ってください。なお<code>fullReset</code>は「あらゆるデータが必ず消える」ことを保証する設定ではありません。特にXCUITest（iOS）の実機では、アプリを再インストールしてもキーチェーンや共有コンテナに保存されたデータが残る場合があります。その場合は<code
+                                >mobile: removeApp</code
+                            >による明示的な削除や、アプリ固有のクリーンアップ手段（テスト用APIによるデータリセットなど）を併用してください。ただし<code>fullReset</code>は再インストール元となる<code>appium:app</code>が指定されている場合にのみ使用できます。<code>appium:app</code>に指定できるのはAPKやIPAのパスだけではなく、<strong>利用するドライバーが対応する形式</strong>であればよく、XCUITestの<code>.app</code>／<code>.app.zip</code>、UiAutomator2の<code>.apks</code>（APKセット）、さらにAppiumサーバー側から到達可能なURL（サーバーがダウンロードしてから使用する）も指定できます。したがって<code>fullReset</code>を使えるのは、指定した<code>appium:app</code>がそのドライバーの対応形式であり、そこからアプリを再インストールできる場合に限られます。<code>appium:appPackage</code>だけで端末にプリインストール済みのアプリを対象にしている場合は、アンインストール後に再インストールする手段がないため<code>fullReset</code>を使ってはいけません。この場合は後述の<code
+                                >mobile: clearApp</code
+                            >か、アプリ固有のクリーンアップ手段を使ってください。ここで注意したいのは、<code>driver.terminate_app()</code>と<code>driver.activate_app()</code>の組み合わせは<strong>アプリのプロセスを停止して起動し直すだけ</strong>であり、保存済みのデータや認証情報は消えないという点です。データそのものを初期化したい場合は、<code>fullReset</code>による再インストール、Androidであれば<code
+                                >mobile: clearApp</code
+                            >（アプリのデータ削除）、あるいはテスト用APIによるデータリセットといった手段を別途使い分けてください。UiAutomator2の<code
+                                >mobile: clearApp</code
+                            >は、対象アプリが<strong>インストール済みかつ停止済み</strong>の状態でのみ実行でき、パッケージ名は<code>appId</code>引数で渡す必要があります。したがって、次のようにアプリを終了させてから呼び出します。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label"><span>python</span></div>
+                            <pre><code id="code-8" class="language-python"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-8">
+                            # プロセス停止 → データ削除の順に実行する
+                            driver.terminate_app(app_id)
+                            driver.execute_script("mobile: clearApp", {"appId": app_id})
+                        </script>
+                        <p>
+                            <code>noReset</code
+                            >は、初期化コストが極端に高くテスト間で状態を共有しても安全だと確認できた場合に限り、理由をコメントに残したうえで使用します。
+                        </p>
+                    </section>
+                    <section id="first-test" class="section">
+                        <h2><span class="num">7</span>はじめてのテストを書く</h2>
+                        <p>
+                            ここでは、Androidアプリに対してAppiumセッションを開始し、要素を1つ操作するだけの最小構成のテストを、PythonとJavaそれぞれで見てみます。
+                        </p>
+
+                        <h3>Python版（pytest + Appium-Python-Client）</h3>
+                        <div class="code-block">
+                            <div class="code-label"><span>python</span></div>
+                            <pre><code id="code-9" class="language-python"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-9">
+                            import pytest
+                            from appium import webdriver
+                            from appium.options.android import UiAutomator2Options
+                            from appium.webdriver.common.appiumby import AppiumBy
+                            from selenium.webdriver.support.ui import WebDriverWait
+                            from selenium.webdriver.support import expected_conditions as EC
+
+
+                            @pytest.fixture
+                            def driver():
+                                options = UiAutomator2Options()
+                                options.platform_name = "Android"
+                                options.device_name = "Pixel_7_API_34"
+                                options.automation_name = "UiAutomator2"
+                                options.app = "/path/to/your/app.apk"
+                                # 対象デバイスを明示する（前述のとおりdevice_nameだけでは一意に決まらない）
+                                # エミュレーターをAppiumに起動させる場合:
+                                options.avd = "Pixel_7_API_34"
+                                # 実機や起動済みエミュレーターに接続する場合は、avdの代わりにudidを指定する:
+                                # options.udid = "emulator-5554"  # adb devices で確認したデバイスID
+
+                                drv = webdriver.Remote("http://127.0.0.1:4723", options=options)
+                                yield drv
+                                drv.quit()
+
+
+                            def test_login_screen_shows_header(driver):
+                                wait = WebDriverWait(driver, 10)
+                                header = wait.until(
+                                    EC.visibility_of_element_located((AppiumBy.ACCESSIBILITY_ID, "login_header"))
+                                )
+                                assert header.text == "ログイン"
+                        </script>
+
+                        <h3>Java版（TestNG）</h3>
+                        <div class="code-block">
+                            <div class="code-label"><span>java</span></div>
+                            <pre><code id="code-10" class="language-java"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-10">
+                            import io.appium.java_client.AppiumBy;
+                            import io.appium.java_client.android.AndroidDriver;
+                            import io.appium.java_client.android.options.UiAutomator2Options;
+                            import org.openqa.selenium.WebElement;
+                            import org.openqa.selenium.support.ui.ExpectedConditions;
+                            import org.openqa.selenium.support.ui.WebDriverWait;
+                            import org.testng.Assert;
+                            import org.testng.annotations.*;
+
+                            import java.net.URL;
+                            import java.time.Duration;
+
+                            public class LoginScreenTest {
+                                private AndroidDriver driver;
+
+                                @BeforeMethod
+                                public void setUp() throws Exception {
+                                    UiAutomator2Options options = new UiAutomator2Options();
+                                    options.setPlatformName("Android");
+                                    options.setDeviceName("Pixel_7_API_34");
+                                    options.setAutomationName("UiAutomator2");
+                                    options.setApp("/path/to/your/app.apk");
+                                    // 対象デバイスを明示する（deviceNameだけでは一意に決まらない）
+                                    // エミュレーターをAppiumに起動させる場合:
+                                    options.setAvd("Pixel_7_API_34");
+                                    // 実機や起動済みエミュレーターに接続する場合は setAvd()の代わりにsetUdid()を使う:
+                                    // options.setUdid("emulator-5554");  // adb devices で確認したデバイスID
+
+                                    driver = new AndroidDriver(new URL("http://127.0.0.1:4723"), options);
+                                }
+
+                                @Test
+                                public void loginScreenShowsHeader() {
+                                    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+                                    WebElement header = wait.until(
+                                        ExpectedConditions.visibilityOfElementLocated(AppiumBy.accessibilityId("login_header"))
+                                    );
+                                    Assert.assertEquals(header.getText(), "ログイン");
+                                }
+
+                                @AfterMethod
+                                public void tearDown() {
+                                    if (driver != null) {
+                                        driver.quit();
+                                    }
+                                }
+                            }
+                        </script>
+
+                        <p>両言語のコードで共通しているポイントは次の3つです。</p>
+                        <ol>
+                            <li>
+                                <code>UiAutomator2Options</code
+                                >のような型安全なオプションクラスでCapabilitiesを組み立てている
+                            </li>
+                            <li>
+                                セッション開始後は必ず<code>quit()</code>でセッションを終了している（後片付けを忘れるとデバイス/エミュレーターのリソースを圧迫します）
+                            </li>
+                            <li>
+                                要素の取得は固定<code>sleep</code>ではなく、後述する明示的な待機（Explicit
+                                Wait）で行っている
+                            </li>
+                        </ol>
+                    </section>
+                    <section id="locators" class="section">
+                        <h2><span class="num">8</span>要素を見つけるロケーター戦略</h2>
+                        <p>
+                            Appiumのテストが壊れる最大の原因は、多くの場合「不安定なロケーター」です。著名なAppiumプロジェクトの開発者であるJonathan
+                            Lipps氏も、Appiumテストが不安定になる要因の多くは、フレームワーク自体の問題ではなく、待機処理の不備や壊れやすいロケーターの選び方に起因すると指摘しています。ロケーター戦略の優先順位を理解しておくことが、保守しやすいテストへの近道です。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <pre class="mermaid" id="diagram-locator"></pre>
+                        </div>
+                        <script type="text/plain" data-target="diagram-locator">
+                            flowchart TD
+                                A["要素を特定したい"] --> B{"resource-id や<br/>accessibility idがあるか"}
+                                B -->|"ある"| C["ID / AccessibilityIdを使う<br/>最優先"]
+                                B -->|"ない"| D{"プラットフォーム固有の<br/>属性で絞り込めるか"}
+                                D -->|"Android"| E["安定したresource-id /<br/>accessibility idの付与を優先<br/>(-android uiautomatorはレガシー)"]
+                                D -->|"iOS"| F["-ios predicate string<br/>-ios class chainを使う"]
+                                D -->|"判断できない"| G["ClassNameで候補を絞れるか"]
+                                G -->|"絞れる"| H["ClassNameを併用する"]
+                                G -->|"絞れない"| I["最終手段としてXPathを使う<br/>変更に弱いため多用しない"]
+                        </script>
+
+                        <h3>主なロケーター戦略の比較</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ロケーター戦略</th>
+                                        <th>対応プラットフォーム</th>
+                                        <th>特徴・推奨度</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ID（resource-id）</td>
+                                        <td>Android</td>
+                                        <td>
+                                            ネイティブのID属性を利用。高速かつ安定。最優先候補。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Accessibility ID</td>
+                                        <td>Android / iOS</td>
+                                        <td>
+                                            アクセシビリティラベルを利用。クロスプラットフォームで同じ書き方ができ、テストコードの再利用性が高い。最優先候補。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-android uiautomator</code></td>
+                                        <td>Android</td>
+                                        <td>
+                                            UiAutomatorのUiSelectorをそのまま文字列で渡せる。複雑な条件での絞り込みに強いが、UI階層や表示文言の変更に追随しづらいレガシーな選択肢。まずはresource-idやaccessibility
+                                            idを付与してもらう方向で解決し、それが難しい場合の代替手段とする。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-ios predicate string</code></td>
+                                        <td>iOS</td>
+                                        <td>
+                                            NSPredicateベースの柔軟な条件指定。iOS版XPathの代替として推奨される。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>-ios class chain</code></td>
+                                        <td>iOS</td>
+                                        <td>
+                                            XPathとpredicate
+                                            stringのハイブリッド的な記法。階層的な問い合わせをXPathより高速に処理できる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ClassName</td>
+                                        <td>Android / iOS</td>
+                                        <td>
+                                            UI部品の型（ボタン、テキストフィールドなど）で絞り込む。単独では要素を一意に特定しにくいことが多い。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>XPath</td>
+                                        <td>Android / iOS</td>
+                                        <td>
+                                            最も柔軟だが、DOM階層のわずかな変更にも弱く、実行速度も他の戦略より遅い傾向がある。他の戦略で特定できない場合の最終手段とするのが定石。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Image（テンプレート画像）</td>
+                                        <td>Android / iOS</td>
+                                        <td>
+                                            <strong
+                                                >Appium
+                                                2.x以降ではドライバー標準の機能ではなく、別途Imagesプラグインの導入が必要</strong
+                                            >（下記参照）。他の戦略が使えない特殊なケース向けで、解像度やUIの見た目の変化に弱くテストが不安定になりやすい。
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Imageロケーターを使う場合のみ必要な追加セットアップ</h3>
+                        <p>
+                            <code>-image</code>ロケーター戦略は、Appium
+                            2.xでコア機能からプラグインとして分離されました。<code>uiautomator2</code>や<code>xcuitest</code>といったドライバーを入れただけでは利用できず、<code>-image</code>を使うテストがある場合に限り、次の追加セットアップを行います。他のロケーター戦略しか使わないのであれば、前章のドライバー導入手順だけで十分です。
+                        </p>
+                        <div class="code-block">
+                            <div class="code-label"><span>sh</span></div>
+                            <pre><code id="code-11" class="language-bash"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-11">
+                            # 1. Imagesプラグインをインストールする（-image を使う場合のみ）
+                            appium plugin install images
+
+                            # 2. インストール済みプラグインを確認する
+                            appium plugin list --installed
+
+                            # 3. プラグインを有効にしてサーバーを起動する（認証を持たないため接続元をループバックに限定する）
+                            appium --use-plugins=images --address 127.0.0.1
+                        </script>
+                        <p>
+                            プラグインは明示的に有効化しないと読み込まれません。手順3の<code>--use-plugins=images</code>を忘れると、テスト実行時に<code>-image</code>ロケーターが未知の戦略として拒否されます。複数のプラグインを同時に使う場合は<code>--use-plugins=images,other-plugin</code>のようにカンマ区切りで指定します。指定できるのは<code
+                                >appium plugin install</code
+                            >でインストール済みのプラグインだけです。
+                        </p>
+
+                        <p>
+                            要素を実際に調べる際は、前章で紹介したAppium
+                            Inspectorを使い、画面をキャプチャしながらresource-idやaccessibility
+                            idの有無を確認するのが最も効率的です。アプリ開発チームと連携し、主要なUI部品にaccessibility
+                            idやresource-idを付与してもらう「テスト容易性の作り込み」も、長期的には非常に効果の高い施策です。
+                        </p>
+                    </section>
+                    <section id="pom" class="section">
+                        <h2><span class="num">9</span>Page Object Modelを実践する</h2>
+                        <p>
+                            テストが増えてくると、「同じ画面のロケーターが複数のテストファイルに散らばる」という問題が起きます。あるボタンのIDがアプリの改修で変わっただけで、数十個のテストファイルを直さなければならない、という状況です。これを防ぐデザインパターンがPage
+                            Object Model（POM）です。
+                        </p>
+                        <p>
+                            POMの考え方はシンプルです。画面（ページ）ごとに1つのクラスを作り、その画面に関するロケーターと操作メソッドをそのクラスの中に閉じ込めます。テストコード側は「ログインページでIDとパスワードを入力してログインボタンを押す」という意図だけを書き、実際にどのロケーターでどう操作するかはPage
+                            Objectクラスに任せます。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <pre class="mermaid" id="diagram-pom"></pre>
+                        </div>
+                        <script type="text/plain" data-target="diagram-pom">
+                            flowchart TD
+                                A["テストケース<br/>test_login.py"] --> B["Page Object<br/>LoginPage"]
+                                A --> C["Page Object<br/>HomePage"]
+                                B --> D["ロケーター定義"]
+                                B --> E["操作メソッド<br/>enter_id / enter_password / tap_login"]
+                                C --> F["ロケーター定義"]
+                                C --> G["操作メソッド<br/>get_welcome_text"]
+                                D --> H["Appiumドライバー"]
+                                E --> H
+                                F --> H
+                                G --> H
+                        </script>
+
+                        <h3>コード例（Python）</h3>
+                        <div class="code-block">
+                            <div class="code-label"><span>python</span></div>
+                            <pre><code id="code-12" class="language-python"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-12">
+                            from appium.webdriver.common.appiumby import AppiumBy
+                            from selenium.webdriver.support.ui import WebDriverWait
+                            from selenium.webdriver.support import expected_conditions as EC
+
+
+                            class LoginPage:
+                                ID_FIELD = (AppiumBy.ACCESSIBILITY_ID, "login_id_field")
+                                PASSWORD_FIELD = (AppiumBy.ACCESSIBILITY_ID, "login_password_field")
+                                LOGIN_BUTTON = (AppiumBy.ACCESSIBILITY_ID, "login_submit_button")
+
+                                def __init__(self, driver):
+                                    self.driver = driver
+                                    self.wait = WebDriverWait(driver, 10)
+
+                                def enter_id(self, user_id: str):
+                                    field = self.wait.until(EC.visibility_of_element_located(self.ID_FIELD))
+                                    field.send_keys(user_id)
+                                    return self
+
+                                def enter_password(self, password: str):
+                                    field = self.wait.until(EC.visibility_of_element_located(self.PASSWORD_FIELD))
+                                    field.send_keys(password)
+                                    return self
+
+                                def tap_login(self):
+                                    button = self.wait.until(EC.element_to_be_clickable(self.LOGIN_BUTTON))
+                                    button.click()
+                                    return self
+                        </script>
+
+                        <p>テストコード側は次のようにシンプルになります。</p>
+                        <div class="code-block">
+                            <div class="code-label"><span>python</span></div>
+                            <pre><code id="code-13" class="language-python"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-13">
+                            def test_successful_login(driver):
+                                login_page = LoginPage(driver)
+                                login_page.enter_id("demo_user").enter_password("demo_pass").tap_login()
+                        </script>
+
+                        <p>POMを導入する効果は次の3点に集約されます。</p>
+                        <ol>
+                            <li>
+                                <strong>保守性</strong>：UI変更があってもPage
+                                Objectクラス1箇所を直せばよい
+                            </li>
+                            <li>
+                                <strong>可読性</strong
+                                >：テストコードが「業務シナリオ」の記述に集中できる
+                            </li>
+                            <li>
+                                <strong>再利用性</strong
+                                >：複数のテストシナリオで同じ画面操作を使い回せる
+                            </li>
+                        </ol>
+                        <p>
+                            また、Android/iOSで同じユーザーシナリオを検証する場合、Page
+                            Objectの内部実装（ロケーターの種類など）だけをプラットフォームごとに分岐させ、テストシナリオ本体はプラットフォームに依存しないコードとして共通化する、という設計も広く採用されています。
+                        </p>
+                    </section>
+                    <section id="waits" class="section">
+                        <h2><span class="num">10</span>待機戦略でテストを安定させる</h2>
+                        <p>
+                            モバイルアプリはネットワーク通信やアニメーションを伴うことが多く、画面遷移や要素の表示に時間差が生じます。この時間差を正しく吸収できないと、テストは「たまに失敗する」不安定な状態（Flaky
+                            Test）に陥ります。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <pre class="mermaid" id="diagram-wait"></pre>
+                        </div>
+                        <script type="text/plain" data-target="diagram-wait">
+                            flowchart TD
+                                A["要素の出現を待ちたい"] --> B{"固定sleepを<br/>使っていないか"}
+                                B -->|"使っている"| C["アンチパターン<br/>遅くて不安定になる"]
+                                B -->|"使っていない"| D{"待ちたい条件は<br/>要素ごとに異なるか"}
+                                D -->|"はい"| E["WebDriverWaitで<br/>Explicit Waitを使う"]
+                                D -->|"いいえ・全体で統一したい"| F["Implicit Waitを<br/>セッション全体に設定"]
+                                E --> G["Explicit WaitとImplicit Waitを<br/>混在させない"]
+                                F --> G
+                                G --> H["安定したテスト実行"]
+                        </script>
+
+                        <h3>Implicit WaitとExplicit Waitの違い</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>項目</th>
+                                        <th>Implicit Wait（暗黙的待機）</th>
+                                        <th>Explicit Wait（明示的待機）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>適用範囲</td>
+                                        <td>セッション全体に一律で適用される</td>
+                                        <td>個々の要素・条件ごとに個別指定できる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>柔軟性</td>
+                                        <td>低い（すべての検索に同じ時間がかかる）</td>
+                                        <td>高い（可視性・クリック可能性など条件を選べる）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>向いている場面</td>
+                                        <td>
+                                            アプリ全体でおおよそ同じ応答速度が期待できる小規模なテスト
+                                        </td>
+                                        <td>
+                                            画面ごとに読み込み時間が大きく異なる実務的なテストスイート
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>注意点</td>
+                                        <td>
+                                            Explicit
+                                            Waitと併用すると待機時間が予測できなくなるため、基本的にどちらか一方に統一する
+                                        </td>
+                                        <td>
+                                            Explicit Waitを使う場合はImplicit
+                                            Waitを0にしておくのが定石
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            現場のノウハウとして広く共有されているのが、「固定の<code>sleep</code>は使わない」という原則です。<code>sleep(5)</code>のようなハードコードされた待機は、通信が速いときには無駄に時間を浪費し、通信が遅いときにはタイムアウトしてテストが失敗する、という両方向のデメリットしかありません。Explicit
+                            Waitで「特定の状態になるまで、最大N秒だけポーリングする」という書き方にすることで、平均実行時間の短縮とテストの安定化を同時に達成できます。
+                        </p>
+
+                        <h3>Explicit Waitのコード例（Python）</h3>
+                        <div class="code-block">
+                            <div class="code-label"><span>python</span></div>
+                            <pre><code id="code-14" class="language-python"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-14">
+                            from selenium.webdriver.support.ui import WebDriverWait
+                            from selenium.webdriver.support import expected_conditions as EC
+                            from appium.webdriver.common.appiumby import AppiumBy
+
+                            wait = WebDriverWait(driver, 15, poll_frequency=0.5)
+                            element = wait.until(
+                                EC.visibility_of_element_located((AppiumBy.ACCESSIBILITY_ID, "checkout_button"))
+                            )
+                            element.click()
+                        </script>
+                        <p>
+                            ImplicitとExplicitのWaitを同一セッション内で混在させると、「Explicit
+                            Waitのポーリングのたびに、内部的なfindElement呼び出しにImplicit
+                            Waitの待機時間が上乗せされる」といった、直感に反する遅延が発生することが実務でも報告されています。どちらか一方の戦略に統一することを強くおすすめします。
+                        </p>
+                    </section>
+
+                    <section id="gestures" class="section">
+                        <h2><span class="num">11</span>ジェスチャー操作を自動化する</h2>
+                        <p>
+                            スワイプ・スクロール・ロングタップ・ピンチといったタッチジェスチャーは、モバイルアプリのテストにおいて避けて通れません。Appiumは、W3C
+                            WebDriver仕様で定義された「Actionsクラス」（複数の入力ポインターを組み合わせて任意のジェスチャーを合成できる低レベルAPI）と、各ドライバーが独自に提供する<code>mobile:</code>名前空間の高レベルコマンドの、2種類の方法でジェスチャーを実現します。
+                        </p>
+                        <p>
+                            初学者には、まず各ドライバー標準の<code>mobile:</code>コマンドを使うことをおすすめします。W3C
+                            Actions
+                            APIは非常に柔軟な反面、複雑なジェスチャーを一から組み立てる必要があり、学習コストが高いためです。
+                        </p>
+
+                        <h3>代表的な <code>mobile:</code> ジェスチャーコマンド</h3>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ジェスチャー</th>
+                                        <th>Android（UiAutomator2）</th>
+                                        <th>iOS（XCUITest）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>タップ</td>
+                                        <td><code>mobile: clickGesture</code></td>
+                                        <td>標準の<code>click()</code>で代用可能</td>
+                                    </tr>
+                                    <tr>
+                                        <td>ロングプレス</td>
+                                        <td><code>mobile: longClickGesture</code></td>
+                                        <td><code>mobile: touchAndHold</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>スワイプ</td>
+                                        <td><code>mobile: swipeGesture</code></td>
+                                        <td><code>mobile: swipe</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>スクロール</td>
+                                        <td><code>mobile: scrollGesture</code></td>
+                                        <td><code>mobile: scroll</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ドラッグ＆ドロップ</td>
+                                        <td><code>mobile: dragGesture</code></td>
+                                        <td><code>mobile: dragFromToForDuration</code></td>
+                                    </tr>
+                                    <tr>
+                                        <td>ピンチ（拡大縮小）</td>
+                                        <td>
+                                            <code>mobile: pinchOpenGesture</code> /
+                                            <code>mobile: pinchCloseGesture</code>
+                                        </td>
+                                        <td><code>mobile: pinch</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>コード例（Python・Android）</h3>
+                        <div class="code-block">
+                            <div class="code-label"><span>python</span></div>
+                            <pre><code id="code-15" class="language-python"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-15">
+                            driver.execute_script("mobile: scrollGesture", {
+                                "left": 100, "top": 300, "width": 200, "height": 800,
+                                "direction": "down",
+                                "percent": 1.0,
+                            })
+
+                            driver.execute_script("mobile: swipeGesture", {
+                                "left": 100, "top": 800, "width": 200, "height": 400,
+                                "direction": "up",
+                                "percent": 0.75,
+                            })
+                        </script>
+                        <p>
+                            <code>left</code
+                            >・<code>top</code>・<code>width</code>・<code>height</code>でジェスチャーを行う矩形領域を指定し、<code>direction</code>と<code>percent</code>（その領域に対する移動量の割合）で動きを制御する、という設計になっています。座標を直接ハードコードするのではなく、対象要素の<code>elementId</code>を渡すオプションも用意されており、画面サイズの異なる端末間でも同じロジックを再利用しやすくなっています。
+                        </p>
+                        <p>
+                            W3C Actions
+                            APIは、ドライバー標準のジェスチャーコマンドでは表現できない特殊な複合入力（マルチタッチでの複雑な同時操作など）が必要になったときの、より汎用的な選択肢として押さえておくとよいでしょう。
+                        </p>
+                    </section>
+                    <section id="environments" class="section">
+                        <h2>
+                            <span class="num">12</span
+                            >実機・エミュレーター・クラウドデバイスファームでの実行
+                        </h2>
+                        <p>
+                            Appiumのテストは、大きく分けて3つの環境で実行できます。それぞれにトレードオフがあります。
+                        </p>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>実行環境</th>
+                                        <th>メリット</th>
+                                        <th>デメリット</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>エミュレーター（Android）/ シミュレーター（iOS）</td>
+                                        <td>
+                                            無料。CI環境に組み込みやすい。起動・リセットが速い。
+                                        </td>
+                                        <td>
+                                            実機特有の挙動（カメラ、センサー、通知、キャリア差異など）を再現しきれない。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>手元の実機</td>
+                                        <td>実際のハードウェア挙動を検証できる。</td>
+                                        <td>
+                                            保有台数に限りがあり、OSバージョンや機種のカバレッジを増やしにくい。USB接続の管理コストもかかる。
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>クラウド実機デバイスファーム</td>
+                                        <td>
+                                            数百〜数千台規模の実機・OSバージョンの組み合わせに、必要なときだけアクセスできる。CI/CDとの統合機能が充実している。
+                                        </td>
+                                        <td>
+                                            利用料金がかかる。ネットワーク越しの実行になるため、通信環境に依存する部分がある。
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            クラウド型の実機デバイスファームは、BrowserStack App Automate、Sauce
+                            Labs、TestMu
+                            AI（旧LambdaTest）、Kobitonなど複数のベンダーが提供しています。いずれもAppiumクライアントの接続先URLとCapabilitiesを変更するだけで、既存のテストコードをほぼそのまま実機クラウドに向けて実行できる点が共通しています。多くのベンダーがGitHub
+                            ActionsやJenkinsといった主要CIツールとの連携も公式にサポートしています。
+                        </p>
+
+                        <p>
+                            ただし「接続先URLとCapabilitiesを変えるだけ」と言っても、<strong>アプリ本体の指定方法だけはローカル実行と同じにはできません</strong>。本ガイドのこれまでの例で使ってきた<code
+                                >options.app = "/path/to/your/app.apk"</code
+                            >（Python）や<code>options.setApp("/path/to/your/app.apk")</code>（Java）のようなローカルファイルパスは、CIマシン上のパスを指しています。クラウド実行ではAppiumサーバーがベンダー側で動いているため、CIマシンのローカルパスは解決できず、セッション開始時に失敗します。クラウドでは次のいずれかの方法でアプリを配置します。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>事前アップロードしてアプリIDを指定する（推奨）</strong
+                                >：CIのビルドステップで生成したAPK／IPAを、ベンダーのREST
+                                APIまたはCLIでアップロードし、返却されたアプリIDを<code>appium:app</code>に指定する。IDの形式はベンダーごとに異なり、BrowserStackは<code>bs://&lt;hash&gt;</code>、Sauce
+                                Labsは<code>storage:&lt;file-id&gt;</code>といった独自スキームを用いる。Sauce
+                                Labsにはファイル名で参照する<code>storage:filename=&lt;name&gt;</code>という形式もあるが、同名のファイルは最後にアップロードされたものへ解決されるため、<code>app.apk</code>のような固定名のままでは並列実行中の別ジョブがアップロードしたビルドを掴んでしまうおそれがある。<strong>ファイル名で参照する場合は<code>app-&lt;commit-sha&gt;.apk</code>のようにビルドごと（またはジョブごと）に一意な名前を付け、確実性を優先するならアップロード時に返る<code>&lt;file-id&gt;</code>を直接指定してください。</strong>多くのベンダーはビルド名やカスタムIDによる再利用にも対応しているため、意図的に同じビルドを複数ジョブから参照させることもできる。
+                            </li>
+                            <li>
+                                <strong>Appiumサーバーから到達可能なアプリURLを指定する</strong
+                                >：アーティファクトストレージ上のAPK／IPAを、ベンダー側から取得できる公開URLまたは署名付きURLとして<code>appium:app</code>に渡す。社内ネットワーク内のURLは到達できないため、この方式を使う場合は外部から取得可能であることが前提になる。
+                            </li>
+                        </ul>
+                        <div class="code-block">
+                            <div class="code-label"><span>python</span></div>
+                            <pre><code id="code-16" class="language-python"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-16">
+                            # ローカル実行: CIマシン上のパス
+                            options.app = "/path/to/your/app.apk"
+
+                            # クラウド実行: 事前アップロードで得たアプリID、または到達可能なURL
+                            options.app = "bs://<uploaded-app-hash>"          # BrowserStackの例
+                            # options.app = "storage:8b0e1a3c-..."             # Sauce Labsの例（アップロードで得たfile-id）
+                            # options.app = "storage:filename=app-<commit-sha>.apk"  # 名前で参照する場合はビルドごとに一意にする
+                            # options.app = "https://example.com/builds/app.apk"  # URL指定の例
+                        </script>
+
+                        <p>あわせて、クラウド実行では次の2点の設定も必要になります。</p>
+                        <ul>
+                            <li>
+                                <strong>認証情報</strong
+                                >：ベンダーが発行するユーザー名とアクセスキーは、<strong>接続先URLではなくベンダー固有のCapabilitiesで渡すことを既定とします</strong>（BrowserStackなら<code>bstack:options</code>の<code>userName</code>／<code>accessKey</code>、Sauce
+                                Labsなら<code>sauce:options</code>の<code>username</code>／<code>accessKey</code>）。接続先URLは<code>https://hub.&lt;vendor&gt;.com/wd/hub</code>のように資格情報を含まない形にしておけば、URL自体をログやCI設定にそのまま出しても安全です。URLへの埋め込み形式（<code>https://&lt;user&gt;:&lt;accessKey&gt;@hub.&lt;vendor&gt;.com/wd/hub</code>）は、ツールの制約でCapabilities経由の指定ができない場合に限って使い、その際は<strong>実行時に環境変数から組み立てて</strong>リポジトリに残さないようにします。<strong
+                                    >いずれの場合も値はCIのシークレット管理機能（GitHub
+                                    ActionsのSecretsなど）から環境変数として注入し、テストコードやリポジトリにハードコードしないでください。</strong
+                                >あわせて、接続先URLやCapabilitiesをログ・レポート・失敗時のスタックトレースへ出力する箇所ではアクセスキーをマスクします（自前のログ出力では<code>accessKey</code>相当の値を<code>***</code>へ置換する、CIのシークレットは<code>add-mask</code>等でマスク登録する、<code>--verbose</code>系のHTTPトレースを本番CIで有効にしない、といった対策を組み合わせます）。
+                            </li>
+                            <li>
+                                <strong>ベンダー固有Capabilities</strong
+                                >：セッション名・ビルド名、ログや画面録画の取得可否、社内環境へアクセスするためのローカルトンネルの有効化といった設定は、W3C標準ではなくベンダー独自の名前空間（<code>bstack:options</code>、<code>sauce:options</code>など）にまとめて指定します。名前空間ごと差し替えれば済むよう、これらの設定は共通のCapabilities組み立て処理に切り出しておくと、ローカル／クラウドの切り替えが容易になります。
+                            </li>
+                        </ul>
+                        <p>
+                            実務でよく採用される方針は、「開発中のスモークテストはローカルのエミュレーター/シミュレーターで高速に回し、リリース前の網羅的な回帰テストはクラウド実機デバイスファームで多機種並列実行する」という、フェーズに応じた使い分けです。
+                        </p>
+                    </section>
+                    <section id="cicd" class="section">
+                        <h2><span class="num">13</span>並列実行とCI/CD統合</h2>
+                        <p>
+                            Appiumのテストを1台のデバイスで直列に実行していると、テストケースが増えるほどフィードバックが遅くなります。複数のデバイス（エミュレーターや実機ファーム）に対してテストを並列分散させることで、実行時間を大幅に短縮できます。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <pre class="mermaid" id="diagram-cicd"></pre>
+                        </div>
+                        <script type="text/plain" data-target="diagram-cicd">
+                            flowchart TD
+                                A["開発者がコードをpush"] --> B["CIパイプラインが起動<br/>GitHub Actions等"]
+                                B --> C["アプリをビルド<br/>Android: .apk / iOSシミュレーター: .app（.app.zip）/ iOS実機: .ipa"]
+                                C --> E{"実行先を選択"}
+                                E -->|"ローカルCI内"| D["CI上でAppiumサーバーを起動"]
+                                D --> F["エミュレーター / シミュレーター"]
+                                E -->|"クラウド"| R["ベンダーの接続先URLと<br/>Capabilitiesを設定"]
+                                R --> G["実機デバイスファーム<br/>BrowserStack等"]
+                                F --> H["複数デバイスへ<br/>並列にテストを分散"]
+                                G --> H
+                                H --> I["テストレポートを収集"]
+                                I --> J{"すべて成功したか"}
+                                J -->|"成功"| K["マージ / デプロイを許可"]
+                                J -->|"失敗"| L["開発者に通知して修正"]
+                        </script>
+
+                        <p>
+                            ビルド成果物は実行環境ごとに形式が異なります。Androidの実機・エミュレーターには<code>.apk</code>、iOSシミュレーターには<code>.app</code>（クラウド実行では<code>.app.zip</code>に圧縮したもの）、iOS実機には<code>.ipa</code>を<code>appium:app</code>へ渡します。なお、Google
+                            Playへの配信形式であるAndroid App
+                            Bundle（<code>.aab</code>）はAppiumへ直接渡せません。<code>.aab</code>を扱う場合は、CIのビルド後に<a
+                                href="https://developer.android.com/tools/bundletool"
+                                target="_blank"
+                                rel="noopener"
+                                >bundletool</a
+                            >で<code>.apks</code>を生成し、そこから取り出したユニバーサル<code>.apk</code>をテストに使う変換手順をパイプラインへ組み込んでください。<code>build-apks</code>では入力の<code>.aab</code>を<code>--bundle</code>で、出力の<code>.apks</code>を<code>--output</code>で指定します。生成された<code>.apks</code>はZIPアーカイブなので、そこから<code>universal.apk</code>を取り出して<code>appium:app</code>へ渡します。
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-label"><span>bash</span></div>
+                            <pre><code id="code-17" class="language-bash"></code></pre>
+                        </div>
+                        <script type="text/plain" data-target="code-17">
+                            # 0) パスワードは引数ではなくパーミッションを絞った一時ファイル経由で渡す
+                            #    （プロセス一覧やCIのコマンドエコーへ露出させないため）
+                            KS_PASS_FILE="$(mktemp)"; KEY_PASS_FILE="$(mktemp)"
+                            chmod 600 "$KS_PASS_FILE" "$KEY_PASS_FILE"
+                            # ジョブが途中で失敗しても削除されるようにしておく
+                            trap 'rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"' EXIT
+                            printf '%s' "$ANDROID_KEYSTORE_PASSWORD" > "$KS_PASS_FILE"
+                            printf '%s' "$ANDROID_KEY_PASSWORD" > "$KEY_PASS_FILE"
+
+                            # 1) AAB からユニバーサル APK セット（.apks）を生成する
+                            bundletool build-apks \
+                              --bundle=app/build/outputs/bundle/release/app-release.aab \
+                              --output=build/app.apks \
+                              --mode=universal \
+                              --overwrite \
+                              --ks="$ANDROID_KEYSTORE_PATH" \
+                              --ks-pass="file:$KS_PASS_FILE" \
+                              --ks-key-alias="$ANDROID_KEY_ALIAS" \
+                              --key-pass="file:$KEY_PASS_FILE"
+
+                            # 2) パスワードファイルを確実に削除する
+                            rm -f "$KS_PASS_FILE" "$KEY_PASS_FILE"
+
+                            # 3) .apks（ZIP）から universal.apk を取り出す
+                            unzip -p build/app.apks universal.apk > build/app-universal.apk
+                        </script>
+
+                        <p>
+                            署名オプション（<code>--ks</code>／<code>--ks-pass</code>／<code>--ks-key-alias</code>／<code>--key-pass</code>）を省略すると、bundletoolはデバッグ署名鍵で署名します。動作確認だけならそれで足りますが、リリース版と同じ署名で検証したい場合はCIで署名鍵を渡す必要があります。その際、<strong>キーストアファイルとパスワードはリポジトリに置かず、CIのシークレット管理機能で扱ってください</strong>（キーストアはBase64エンコードしてSecretに登録し、ジョブ内で一時ディレクトリへ復元してからパスを渡す、パスワードはパーミッションを絞った一時ファイルへ書き出して<code>file:</code>形式で渡し、bundletoolの完了後に削除する、ジョブ終了時に復元したキーストアを削除する、といった手順が一般的です）。<code>--ks-pass</code>／<code>--key-pass</code>に<code>pass:</code>形式でパスワードを渡すと、値がプロセス引数として<code>ps</code>などから見える点にも注意してください（上記のように<code>file:</code>形式を使えば回避できます）。あわせて、CIのコマンドエコー設定でシークレットがログへ出力されないようにします。
+                        </p>
+
+                        <p>
+                            CI/CDにAppiumテストを組み込む際に押さえておきたいポイントは次の通りです。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>テストの独立性を保つ</strong
+                                >：並列実行するテストケース同士が同じデバイス状態やアプリデータに依存しないよう設計する。テスト間でアプリの状態がリセットされることを前提にする。
+                            </li>
+                            <li>
+                                <strong>セッションごとに端末識別子とポートを分離する</strong
+                                >：同一マシン上で複数セッションを並列実行する場合、識別子とポートが衝突するとセッション同士が干渉して不可解な失敗を起こす。ローカルやセルフホストランナーのように自前でAppiumサーバーを動かす実行形態では、Androidでは
+                                <code>appium:udid</code>（対象端末の一意な指定）と
+                                <code>appium:systemPort</code
+                                >（UiAutomator2サーバーの待受ポート）を、iOSでは
+                                <code>appium:udid</code> に加えて
+                                <code>appium:wdaLocalPort</code>（WebDriverAgentの待受ポート）と
+                                <code>appium:derivedDataPath</code
+                                >（ビルド成果物の格納先）を、<strong>セッションごとに必ず別の値</strong>で指定する。画面録画やスクリーンストリーミングを併用する場合は
+                                <code>appium:mjpegServerPort</code>
+                                も同様にセッションごとへ分離する。さらにAndroidでWebViewやChromeを並列に自動化する場合は、<code>appium:chromedriverPort</code>（Chromedriverの待受ポート）と
+                                <code>appium:webviewDevtoolsPort</code
+                                >（WebViewのDevToolsへ接続するためのポート）にもセッションごとに異なる値を指定しておく。未指定の場合、<code>appium:chromedriverPort</code>は空きポートが自動的に選択され、<code>appium:webviewDevtoolsPort</code>は10900〜11000の範囲から空きポートが選択されるため、既定のままでも必ず衝突するわけではない。ただしポートを確保できなかった場合はセッションが失敗するため、並列度の高いCIではセッションごとに一意な値を明示的に割り当てることを推奨する。なお、ここまでの識別子・ポートの分離は自前でAppiumサーバーを動かす場合の話であり、<strong>クラウド端末ファームでの実行には当てはまらない</strong>。クラウド実行では端末の割り当てもWebDriverAgentのビルド・起動もポート管理もベンダー側が行うため、<code>appium:udid</code>・<code>appium:wdaLocalPort</code>・<code>appium:derivedDataPath</code>・<code>appium:systemPort</code>を利用者が指定する必要はない。対象端末の選択はベンダーが定める形式のCapabilitiesで行い、指定可能な項目は利用するサービスのドキュメントで確認する。
+                            </li>
+                            <li>
+                                <strong>失敗時の証跡を残す</strong
+                                >：スクリーンショットやAppiumサーバーのログ、可能であれば画面録画を自動保存し、CI上でも失敗原因を追いやすくする。
+                            </li>
+                            <li>
+                                <strong>リトライの扱いに注意する</strong
+                                >：一時的なネットワーク遅延などによる偶発的失敗を吸収するためにリトライ機構を入れるチームは多いが、リトライで「隠れた不安定テスト」を放置しないよう、リトライ発生自体もメトリクスとして可視化しておくとよい。
+                            </li>
+                            <li>
+                                <strong>段階的なテスト戦略</strong
+                                >：コミットごとに全テストを実機ファームでフル実行するとコストと時間がかさむため、プルリクエスト時はスモークテストのみエミュレーターで実行し、マージ後や夜間バッチで実機ファームによるフル回帰テストを走らせる、といった段階分けが一般的です。
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="anti-patterns" class="section">
+                        <h2><span class="num">14</span>よくあるアンチパターンと落とし穴</h2>
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>アンチパターン</th>
+                                        <th>何が問題か</th>
+                                        <th>代わりにすべきこと</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>固定<code>sleep</code>を多用する</td>
+                                        <td>
+                                            テストが遅くなる上に、環境によっては待機時間が足りず失敗する
+                                        </td>
+                                        <td>Explicit Waitで条件ベースの待機に置き換える</td>
+                                    </tr>
+                                    <tr>
+                                        <td>XPathを第一候補にする</td>
+                                        <td>UI階層のわずかな変更で壊れやすく、実行速度も遅い</td>
+                                        <td>
+                                            ID / Accessibility IDを優先し、XPathは最終手段にする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ロケーターをテストコードに直書きする</td>
+                                        <td>UI変更のたびに複数ファイルを修正することになる</td>
+                                        <td>Page Object Modelでロケーターを1箇所に集約する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Implicit WaitとExplicit Waitを併用する</td>
+                                        <td>待機時間が予測できなくなり、かえって不安定になる</td>
+                                        <td>どちらか一方の戦略に統一する</td>
+                                    </tr>
+                                    <tr>
+                                        <td><code>automationName</code>を省略する</td>
+                                        <td>
+                                            Appium
+                                            2.x以降はドライバーの暗黙デフォルトがないため、どのドライバーを使うか解決できずセッション作成が失敗する（エラーとして拒否される）
+                                        </td>
+                                        <td>
+                                            Capabilitiesで<code>automationName</code>を必ず明示する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>セッション終了処理（<code>quit()</code>）を省略する</td>
+                                        <td>
+                                            エミュレーター/実機のリソースが解放されず、後続テストに悪影響を与える
+                                        </td>
+                                        <td>
+                                            <code>finally</code
+                                            >句やテストフレームワークのteardownフックで確実に呼び出す
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>すべてのテストをクラウド実機ファームで直列実行する</td>
+                                        <td>
+                                            CI全体の実行時間が長くなり、フィードバックサイクルが遅くなる
+                                        </td>
+                                        <td>
+                                            テストのレイヤーに応じてエミュレーター/実機/並列実行を使い分ける
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <section id="checklist" class="section">
+                        <h2><span class="num">15</span>ベストプラクティスチェックリスト</h2>
+                        <p class="checklist-counter" id="checklistCounter">0 / 10 完了</p>
+                        <ul class="checklist" id="bestPracticeChecklist">
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        ><code>automationName</code
+                                        >を含め、Capabilitiesにベンダープレフィックス（<code>appium:</code>など）を正しく付与しているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >ロケーターはID/Accessibility
+                                        IDを優先し、XPathを乱用していないか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >Page Object
+                                        Modelなどの設計パターンでロケーターと操作ロジックを分離しているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >固定<code>sleep</code>を使わず、Explicit
+                                        Waitで条件ベースの待機を行っているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >ImplicitとExplicit、どちらか一方のWait戦略に統一しているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >セッション終了処理を確実に実行し、リソースリークを防いでいるか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >ジェスチャー操作はハードコードした座標ではなく、要素基準やパーセンテージ指定で組んでいるか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >CI/CDパイプラインに組み込み、失敗時のスクリーンショット・ログを自動保存しているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >テストのレイヤー（スモーク/回帰）に応じて、エミュレーター・実機・クラウドデバイスファームを使い分けているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >Appiumのメジャーバージョン（現在は3.x系）とNode.jsの必須バージョンを把握し、計画的にアップグレードしているか</span
+                                    ></label
+                                >
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="summary" class="section">
+                        <h2><span class="num">16</span>まとめ</h2>
+                        <p>
+                            Appiumは「W3C
+                            WebDriverプロトコルを介して、各プラットフォームベンダー純正の自動化技術をラップする」という一貫した設計思想を持つツールです。この骨格さえ理解してしまえば、Appium
+                            1.xから2.x、3.xへの変化も「サーバーとドライバーの分離が進んだ」「プロトコルがより標準に寄った」という延長線上の出来事として自然に理解できます。
+                        </p>
+                        <p>初学者がまず身につけるべきは、以下の3点に集約されます。</p>
+                        <ol>
+                            <li>
+                                アーキテクチャ（クライアント・サーバー・ドライバーの関係）を理解すること
+                            </li>
+                            <li>
+                                安定したロケーター戦略（ID/Accessibility ID優先）とPage Object
+                                Modelを組み合わせること
+                            </li>
+                            <li>
+                                固定<code>sleep</code>に頼らない、条件ベースの待機戦略を徹底すること
+                            </li>
+                        </ol>
+                        <p>
+                            この3点を押さえたうえで、CI/CD統合やクラウドデバイスファームの活用へとステップアップしていくのが、実務で通用するAppiumスキルへの近道です。
+                        </p>
+                    </section>
+
+                    <section id="references" class="section">
+                        <h2><span class="num">17</span>参考文献と情報源</h2>
+                        <p>
+                            本ガイドの作成にあたり、2026年8月26日時点で参照した主な情報源です。公式ドキュメントおよび、Appiumプロジェクトの主要開発者やBrowserStack・Sauce
+                            Labsなど著名な国際的テスト自動化ベンダーの技術ブログを優先的に参照しました。
+                        </p>
+                        <ol class="ref-list">
+                            <li>
+                                <span class="ref-num">1</span>
+                                <div>
+                                    Appium公式ドキュメント（Getting Started / Quickstart）:
+                                    <a
+                                        href="https://appium.io/docs/en/3.2/quickstart/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appium.io/docs/en/3.2/quickstart/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">2</span>
+                                <div>
+                                    Appium公式ドキュメント（Intro to Appium / アーキテクチャ解説）:
+                                    <a
+                                        href="https://appium.io/docs/en/2.0/intro/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appium.io/docs/en/2.0/intro/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">3</span>
+                                <div>
+                                    Appium公式ドキュメント（Appium Documentation トップページ）:
+                                    <a
+                                        href="https://appium.io/docs/en/2.0/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appium.io/docs/en/2.0/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">4</span>
+                                <div>
+                                    Appium公式ブログ「Migrating to Appium 3」（移行ガイド）:
+                                    <a
+                                        href="https://appium.io/docs/en/3.4/guides/migrating-2-to-3/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appium.io/docs/en/3.4/guides/migrating-2-to-3/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">5</span>
+                                <div>
+                                    Appium公式ブログ「🚀 Appium 3」（リリースアナウンス）:
+                                    <a
+                                        href="https://appium.io/docs/en/3.1/blog/2025/08/07/-appium-3/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appium.io/docs/en/3.1/blog/2025/08/07/-appium-3/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">6</span>
+                                <div>
+                                    Appium公式ドキュメント「Migrating from Appium 1.x to Appium
+                                    2.x」:
+                                    <a
+                                        href="https://appium.io/docs/en/2.16/guides/migrating-1-to-2/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appium.io/docs/en/2.16/guides/migrating-1-to-2/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">7</span>
+                                <div>
+                                    Appium公式ドキュメント「Capabilities」:
+                                    <a
+                                        href="https://appium.io/docs/en/2.0/guides/caps/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appium.io/docs/en/2.0/guides/caps/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">8</span>
+                                <div>
+                                    Appium公式ドキュメント「Install the UiAutomator2 Driver」:
+                                    <a
+                                        href="https://appium.io/docs/en/2.0/quickstart/uiauto2-driver/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appium.io/docs/en/2.0/quickstart/uiauto2-driver/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">9</span>
+                                <div>
+                                    Appium Pro（Appiumプロジェクト主要開発者 Jonathan
+                                    Lipps氏によるニュースレター）「How to Pick the Right Locator
+                                    Strategy」:
+                                    <a
+                                        href="https://appiumpro.com/editions/60-how-to-pick-the-right-locator-strategy"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appiumpro.com/editions/60-how-to-pick-the-right-locator-strategy</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">10</span>
+                                <div>
+                                    Appium Pro「How to Find Elements in iOS (Not) By XPath」:
+                                    <a
+                                        href="https://appiumpro.com/editions/8-how-to-find-elements-in-ios-not-by-xpath"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appiumpro.com/editions/8-how-to-find-elements-in-ios-not-by-xpath</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">11</span>
+                                <div>
+                                    Appium Pro「Installing Appium 2.0 and the Driver and Plugins
+                                    CLI」:
+                                    <a
+                                        href="https://appiumpro.com/editions/122-installing-appium-20-and-the-driver-and-plugins-cli"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://appiumpro.com/editions/122-installing-appium-20-and-the-driver-and-plugins-cli</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">12</span>
+                                <div>
+                                    BrowserStack「Appium Best Practices Every Developer Must Know in
+                                    2026」:
+                                    <a
+                                        href="https://www.browserstack.com/guide/appium-best-practices"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://www.browserstack.com/guide/appium-best-practices</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">13</span>
+                                <div>
+                                    BrowserStack「Effective Locator Strategies in Appium」:
+                                    <a
+                                        href="https://www.browserstack.com/guide/locators-in-appium"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://www.browserstack.com/guide/locators-in-appium</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">14</span>
+                                <div>
+                                    Sauce Labs公式ドキュメント「Appium Versions」:
+                                    <a
+                                        href="https://docs.saucelabs.com/mobile-apps/automated-testing/appium/appium-versions/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://docs.saucelabs.com/mobile-apps/automated-testing/appium/appium-versions/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">15</span>
+                                <div>
+                                    Sauce Labs公式ドキュメント「Migrating to Appium 2 on Sauce
+                                    Labs」:
+                                    <a
+                                        href="https://docs.saucelabs.com/mobile-apps/automated-testing/appium/appium-2-migration/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://docs.saucelabs.com/mobile-apps/automated-testing/appium/appium-2-migration/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">16</span>
+                                <div>
+                                    TestingBot公式ドキュメント「Supported Appium Versions」:
+                                    <a
+                                        href="https://testingbot.com/support/appium/appium2.html"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://testingbot.com/support/appium/appium2.html</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">17</span>
+                                <div>
+                                    TestMu AI（旧LambdaTest）「Latest Version of Appium」:
+                                    <a
+                                        href="https://www.testmuai.com/latest-version/appium-latest-version/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://www.testmuai.com/latest-version/appium-latest-version/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">18</span>
+                                <div>
+                                    TestMu AI（旧LambdaTest）「How to Automate Mobile Gestures With
+                                    Appium」:
+                                    <a
+                                        href="https://www.testmuai.com/learning-hub/appium-gestures/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://www.testmuai.com/learning-hub/appium-gestures/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">19</span>
+                                <div>
+                                    HeadSpin「Automating Mobile Gestures with Appium」:
+                                    <a
+                                        href="https://www.headspin.io/blog/automating-mobile-gestures-with-appium"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://www.headspin.io/blog/automating-mobile-gestures-with-appium</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">20</span>
+                                <div>
+                                    Kobiton「Appium Desired Capabilities Explained」:
+                                    <a
+                                        href="https://kobiton.com/blog/understanding-appium-desired-capabilities/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://kobiton.com/blog/understanding-appium-desired-capabilities/</a
+                                    >
+                                </div>
+                            </li>
+                            <li>
+                                <span class="ref-num">21</span>
+                                <div>
+                                    参考書籍: Manoj Hans 著『Appium Essentials』（Packt Publishing,
+                                    2015年）／O'Reilly掲載ページ:
+                                    <a
+                                        href="https://www.oreilly.com/library/view/appium-essentials/9781784392482/"
+                                        target="_blank"
+                                        rel="noopener"
+                                        >https://www.oreilly.com/library/view/appium-essentials/9781784392482/</a
+                                    >
+                                </div>
+                            </li>
+                        </ol>
+                    </section>
+                </div>
+
+                <footer class="footer">
+                    <p>
+                        Appium Essentials 完全ガイド ― 2026年8月26日時点の情報に基づき作成。原典:
+                        Manoj Hans 著『Appium Essentials』（O'Reilly / Packt
+                        Publishing）。最新の公式情報は
+                        <a href="https://appium.io/" target="_blank" rel="noopener">appium.io</a>
+                        を参照してください。
+                    </p>
+                </footer>
+            </main>
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"></script>
+        <script>
+            (function () {
+                'use strict';
+
+                /* ---- dedent(): strip common leading indentation from <script type="text/plain"> blocks ---- */
+                function dedent(str) {
+                    var lines = str
+                        .replace(/^\n/, '')
+                        .replace(/\n[ \t]*$/, '')
+                        .split('\n');
+                    var indents = lines
+                        .filter(function (l) {
+                            return l.trim().length > 0;
+                        })
+                        .map(function (l) {
+                            var m = l.match(/^[ \t]*/);
+                            return m ? m[0].length : 0;
+                        });
+                    var min = indents.length ? Math.min.apply(null, indents) : 0;
+                    return lines
+                        .map(function (l) {
+                            return l.slice(min);
+                        })
+                        .join('\n');
+                }
+                window.__dedent = dedent;
+
+                /* ---- inject dedented text into every target (code blocks + mermaid sources) ---- */
+                document
+                    .querySelectorAll('script[type="text/plain"][data-target]')
+                    .forEach(function (script) {
+                        var target = document.getElementById(script.getAttribute('data-target'));
+                        if (!target) return;
+                        target.textContent = dedent(script.textContent);
+                    });
+
+                /* ---- syntax highlighting (textContent already set above; hljs escapes internally) ---- */
+                if (window.hljs) {
+                    document.querySelectorAll('.code-block pre code').forEach(function (block) {
+                        hljs.highlightElement(block);
+                    });
+                }
+
+                /* ---- mermaid: dark-navy themed, no shrink, safe-center, no useMaxWidth cap ---- */
+                if (window.mermaid) {
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'base',
+                        themeVariables: {
+                            background: '#07111e',
+                            primaryColor: '#0f2138',
+                            primaryTextColor: '#e7edf7',
+                            primaryBorderColor: '#86efc9',
+                            lineColor: '#7c9eff',
+                            secondaryColor: '#13273f',
+                            secondaryBorderColor: '#7c9eff',
+                            tertiaryColor: '#0f2138',
+                            tertiaryBorderColor: '#86efc9',
+                            edgeLabelBackground: '#0d1b2f',
+                            fontSize: '16px',
+                            fontFamily: "Inter, 'Noto Sans JP', sans-serif",
+                        },
+                        flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' },
+                        securityLevel: 'loose',
+                    });
+                    mermaid.run({ querySelector: '.mermaid' }).catch(function (e) {
+                        console.error('Mermaid render failed:', e);
+                    });
+                }
+
+                /* ---- sidebar: scroll-spy via IntersectionObserver ---- */
+                var sections = document.querySelectorAll('main .section');
+                var navLinks = document.querySelectorAll('.navlist a');
+                var linkMap = new Map();
+                navLinks.forEach(function (a) {
+                    linkMap.set(a.getAttribute('href').slice(1), a);
+                });
+                if ('IntersectionObserver' in window && sections.length) {
+                    var observer = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                var link = linkMap.get(entry.target.id);
+                                if (!link) return;
+                                if (entry.isIntersecting) {
+                                    navLinks.forEach(function (l) {
+                                        l.classList.remove('active');
+                                    });
+                                    link.classList.add('active');
+                                }
+                            });
+                        },
+                        { rootMargin: '-20% 0px -70% 0px' },
+                    );
+                    sections.forEach(function (s) {
+                        observer.observe(s);
+                    });
+                }
+
+                /* ---- mobile sidebar toggle ---- */
+                var toggle = document.getElementById('navToggle');
+                var sidebar = document.getElementById('sidebar');
+                if (toggle && sidebar) {
+                    toggle.addEventListener('click', function () {
+                        sidebar.classList.toggle('open');
+                    });
+                    navLinks.forEach(function (a) {
+                        a.addEventListener('click', function () {
+                            sidebar.classList.remove('open');
+                        });
+                    });
+                }
+
+                /* ---- checklist: real checkboxes, live counter, done-state highlight ---- */
+                var checklist = document.getElementById('bestPracticeChecklist');
+                var counter = document.getElementById('checklistCounter');
+                if (checklist && counter) {
+                    var boxes = checklist.querySelectorAll('input[type="checkbox"]');
+                    function updateCounter() {
+                        var done = checklist.querySelectorAll(
+                            'input[type="checkbox"]:checked',
+                        ).length;
+                        counter.textContent = done + ' / ' + boxes.length + ' 完了';
+                    }
+                    boxes.forEach(function (box) {
+                        box.addEventListener('change', function () {
+                            var li = box.closest('li');
+                            if (li) li.classList.toggle('done', box.checked);
+                            updateCounter();
+                        });
+                    });
+                    updateCounter();
+                }
+            })();
+        </script>
+    </body>
+</html>
