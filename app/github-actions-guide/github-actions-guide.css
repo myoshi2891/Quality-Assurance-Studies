@@ -191,10 +191,10 @@
     .github-actions-page .sidebar.open {
         display: block;
         position: fixed;
-        top: 60px;
+        top: calc(60px + var(--disclaimer-height, 0px));
         left: 0;
         width: 280px;
-        height: calc(100vh - 60px);
+        height: calc(100vh - 60px - var(--disclaimer-height, 0px));
         z-index: 49;
         box-shadow: 4px 0 20px rgba(0, 0, 0, 0.6);
     }

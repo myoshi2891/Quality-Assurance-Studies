@@ -388,7 +388,7 @@ export default function PlaywrightBeginnerPage() {
             <p className="chapter-kicker">03 / 18</p>
             <h2>環境構築とインストール</h2>
             <p>
-              PlaywrightはNode.js（バージョン18以上推奨）環境があれば、1つのコマンドで初期化からブラウザバイナリのダウンロードまで自動で完了します。新規ディレクトリを作成してセットアップする手順を見ていきましょう。
+              PlaywrightはNode.js（メンテナンス中のLTS、バージョン22以上を推奨）環境があれば、1つのコマンドで初期化からブラウザバイナリのダウンロードまで自動で完了します。新規ディレクトリを作成してセットアップする手順を見ていきましょう。
             </p>
 
             <div className="step-flow">
@@ -1116,7 +1116,7 @@ export default function PlaywrightBeginnerPage() {
                 <div className="code-line">    - <span className="kw">uses</span>: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 <span className="cm"># v4.4.0</span></div>
                 <div className="code-line">    - <span className="kw">uses</span>: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 <span className="cm"># v4.4.0</span></div>
                 <div className="code-line">      <span className="kw">with</span>:</div>
-                <div className="code-line">        <span className="prop">node-version</span>: <span className="num">20</span></div>
+                <div className="code-line">        <span className="prop">node-version</span>: <span className="num">22</span></div>
                 <div className="code-line">        <span className="prop">cache</span>: <span className="str">&apos;npm&apos;</span></div>
                 <div className="code-line">&nbsp;</div>
                 <div className="code-line">    - <span className="prop">name</span>: Install dependencies</div>

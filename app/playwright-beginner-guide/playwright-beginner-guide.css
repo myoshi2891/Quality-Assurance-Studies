@@ -563,7 +563,7 @@
 .playwright-beginner-page .mermaid-wrapper svg .nodeLabel,
 .playwright-beginner-page .mermaid-wrapper svg .edgeLabel {
   font-size: 15px !important;
-  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 /* ============ Reference List ============ */
