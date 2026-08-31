@@ -296,6 +296,7 @@ export default function PlaywrightBeginnerPage() {
             <h3>なぜPlaywrightが選ばれるのか</h3>
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">特徴別に見たPlaywrightの強みの比較</caption>
                 <thead>
                   <tr>
                     <th>特徴</th>
@@ -417,6 +418,7 @@ export default function PlaywrightBeginnerPage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">Playwright初期化時の質問と推奨の選択肢</caption>
                 <thead>
                   <tr>
                     <th>質問内容</th>
@@ -593,6 +595,7 @@ export default function PlaywrightBeginnerPage() {
             <h3>推奨ロケーターAPI一覧（優先度順）</h3>
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">推奨ロケーターAPI一覧（優先度順）</caption>
                 <thead>
                   <tr>
                     <th>メソッド</th>
@@ -668,6 +671,7 @@ export default function PlaywrightBeginnerPage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">操作種別ごとのアクションAPI一覧</caption>
                 <thead>
                   <tr>
                     <th>操作種別</th>
@@ -731,6 +735,7 @@ export default function PlaywrightBeginnerPage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">Web-Firstアサーションの主要メソッド一覧</caption>
                 <thead>
                   <tr>
                     <th>検証内容</th>
@@ -818,6 +823,7 @@ export default function PlaywrightBeginnerPage() {
             <h3>主要な実行コマンド</h3>
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">Playwrightの主要な実行コマンド一覧</caption>
                 <thead>
                   <tr>
                     <th>実行モード</th>
@@ -1153,6 +1159,7 @@ export default function PlaywrightBeginnerPage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">ベストプラクティスのカテゴリ別 推奨・非推奨一覧</caption>
                 <thead>
                   <tr>
                     <th>カテゴリ</th>
