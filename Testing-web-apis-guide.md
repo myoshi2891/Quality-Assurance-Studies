@@ -249,41 +249,96 @@ flowchart TD
 
 ```python
 import os
+import uuid
+from urllib.parse import urljoin
 
+import pytest
 import requests
 
 # 環境（dev/staging/prod）ごとに切り替えられるよう環境変数から読み込む
 BASE_URL = os.environ["API_BASE_URL"]
 
-def test_get_user_returns_200_and_expected_fields():
-    # 既存データに依存しないよう、対象ユーザーをテスト内で作成し、最後に必ず削除する
+# (接続タイムアウト, 読み取りタイムアウト)。前者は接続確立まで、後者はデータを
+# 受信する間隔の上限であり、リクエスト全体の所要時間の上限ではない。
+# 「通信が途絶えたまま待ち続ける」ことは防げるが、全体の期限が必要なら別途管理する
+TIMEOUT = (3.05, 10)
+
+
+def _resolve_user_url(created: requests.Response, email: str) -> str:
+    """作成済みユーザーの操作先URLを決める。
+
+    レスポンスボディの id を第一候補としつつ、ボディが不正・id が欠落していても
+    作成済みユーザーを追跡できるよう、Location ヘッダーと一意なメールアドレスでの
+    検索へ順にフォールバックする。
+    """
+    try:
+        user_id = created.json()["id"]
+    except (ValueError, KeyError, TypeError):
+        # ボディがJSONでない／id が無い／構造が想定と違う場合はフォールバックへ回す
+        user_id = None
+    if user_id is not None:
+        return f"{BASE_URL}/users/{user_id}"
+
+    # フォールバック1: 201 とともに返る Location ヘッダー（相対URLのこともある）
+    location = created.headers.get("Location")
+    if location:
+        return urljoin(f"{BASE_URL}/", location)
+
+    # フォールバック2: テストごとに一意にしたメールアドレスで検索して特定する
+    found = requests.get(f"{BASE_URL}/users", params={"email": email}, timeout=TIMEOUT)
+    if found.status_code == 200:
+        for user in found.json().get("items", []):
+            if user.get("email") == email and "id" in user:
+                return f"{BASE_URL}/users/{user['id']}"
+
+    raise AssertionError(
+        f"作成したユーザーを特定できず後片付けができません: email={email} "
+        f"(id・Location・検索のいずれからもURLを解決できませんでした)"
+    )
+
+
+@pytest.fixture
+def created_user_url():
+    """テスト用ユーザーを作成し、そのURLを渡して、最後に必ず削除する。
+
+    識別子の解決と後片付けの登録を同じ try/finally の中で行うことで、
+    「作成には成功したが id を取り出せなかった」場合でもデータを残さない。
+    """
+    # 検索フォールバックが効くよう、メールアドレスはテストごとに一意にする
+    email = f"taro+{uuid.uuid4().hex}@example.com"
     created = requests.post(
         f"{BASE_URL}/users",
-        json={"name": "Taro", "email": "taro@example.com"},
-        timeout=(3.05, 10),
+        json={"name": "Taro", "email": email},
+        timeout=TIMEOUT,
     )
     assert created.status_code == 201
-    user_id = created.json()["id"]
 
+    # ここから先で何が起きても、作成済みユーザーは必ず削除する
+    user_url = None
     try:
-        # (接続タイムアウト, 読み取りタイムアウト)。前者は接続確立まで、後者はデータを
-        # 受信する間隔の上限であり、リクエスト全体の所要時間の上限ではない。
-        # 「通信が途絶えたまま待ち続ける」ことは防げるが、全体の期限が必要なら別途管理する
-        response = requests.get(f"{BASE_URL}/users/{user_id}", timeout=(3.05, 10))
-        assert response.status_code == 200
-        body = response.json()
-        assert body["id"] == user_id
-        assert "email" in body
+        user_url = _resolve_user_url(created, email)
+        yield user_url
     finally:
-        # 後片付けはアサーションの成否にかかわらず実行する。
-        # 戻り値を捨てると削除失敗（4xx/5xx）に気づけず、残ったデータが後続テストを
-        # 汚染するため、APIが仕様として定める成功ステータスをここでも検証する
-        deleted = requests.delete(f"{BASE_URL}/users/{user_id}", timeout=(3.05, 10))
-        assert deleted.status_code in (200, 204), f"cleanup failed: {deleted.status_code}"
+        # URLを解決できなかった場合（= 削除の手掛かりが無い場合）だけ削除を飛ばす
+        if user_url is not None:
+            # 後片付けはアサーションの成否にかかわらず実行する。
+            # 戻り値を捨てると削除失敗（4xx/5xx）に気づけず、残ったデータが後続テストを
+            # 汚染するため、APIが仕様として定める成功ステータスをここでも検証する
+            deleted = requests.delete(user_url, timeout=TIMEOUT)
+            assert deleted.status_code in (200, 204), f"cleanup failed: {deleted.status_code}"
+
+
+def test_get_user_returns_200_and_expected_fields(created_user_url):
+    response = requests.get(created_user_url, timeout=TIMEOUT)
+    assert response.status_code == 200
+    body = response.json()
+    assert "id" in body
+    assert "email" in body
+
 
 def test_create_user_missing_required_field_returns_400():
     response = requests.post(
-        f"{BASE_URL}/users", json={"name": "Taro"}, timeout=(3.05, 10)
+        f"{BASE_URL}/users", json={"name": "Taro"}, timeout=TIMEOUT
     )
     assert response.status_code == 400
     assert "email" in response.json()["errors"]
