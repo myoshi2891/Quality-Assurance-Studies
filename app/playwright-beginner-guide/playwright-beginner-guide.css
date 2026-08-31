@@ -292,7 +292,7 @@
 .playwright-beginner-page section.chapter {
   padding: 48px 0;
   border-bottom: 1px solid var(--border);
-  scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 32px);
 }
 
 .playwright-beginner-page section.chapter:first-of-type {
@@ -314,21 +314,21 @@
 .playwright-beginner-page section.chapter h2 {
   font-size: clamp(1.5rem, 2.6vw, 2rem);
   margin: 0 0 24px;
-  scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 32px);
 }
 
 .playwright-beginner-page section.chapter h3 {
   font-size: 1.25rem;
   margin: 36px 0 16px;
   color: var(--text-primary);
-  scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 32px);
 }
 
 .playwright-beginner-page section.chapter h4 {
   font-size: 1.05rem;
   margin: 26px 0 12px;
   color: var(--accent);
-  scroll-margin-top: calc(60px + var(--disclaimer-height, 48px) + 32px);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 32px);
 }
 
 .playwright-beginner-page section.chapter p {

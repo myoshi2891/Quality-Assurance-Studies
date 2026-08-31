@@ -1113,8 +1113,8 @@ export default function PlaywrightBeginnerPage() {
                 <div className="code-line">    <span className="prop">timeout-minutes</span>: <span className="num">60</span></div>
                 <div className="code-line">    <span className="prop">runs-on</span>: ubuntu-latest</div>
                 <div className="code-line">    <span className="prop">steps</span>:</div>
-                <div className="code-line">    - <span className="kw">uses</span>: actions/checkout@v4</div>
-                <div className="code-line">    - <span className="kw">uses</span>: actions/setup-node@v4</div>
+                <div className="code-line">    - <span className="kw">uses</span>: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 <span className="cm"># v4.4.0</span></div>
+                <div className="code-line">    - <span className="kw">uses</span>: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 <span className="cm"># v4.4.0</span></div>
                 <div className="code-line">      <span className="kw">with</span>:</div>
                 <div className="code-line">        <span className="prop">node-version</span>: <span className="num">20</span></div>
                 <div className="code-line">        <span className="prop">cache</span>: <span className="str">&apos;npm&apos;</span></div>
@@ -1128,7 +1128,7 @@ export default function PlaywrightBeginnerPage() {
                 <div className="code-line">    - <span className="prop">name</span>: Run Playwright tests</div>
                 <div className="code-line">      <span className="kw">run</span>: npx playwright test</div>
                 <div className="code-line">&nbsp;</div>
-                <div className="code-line">    - <span className="kw">uses</span>: actions/upload-artifact@v4</div>
+                <div className="code-line">    - <span className="kw">uses</span>: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 <span className="cm"># v4.6.2</span></div>
                 <div className="code-line">      <span className="kw">if</span>: always()</div>
                 <div className="code-line">      <span className="kw">with</span>:</div>
                 <div className="code-line">        <span className="prop">name</span>: playwright-report</div>
