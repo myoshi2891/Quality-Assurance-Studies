@@ -287,7 +287,15 @@ def _resolve_user_url(created: requests.Response, email: str) -> str:
     # フォールバック2: テストごとに一意にしたメールアドレスで検索して特定する
     found = requests.get(f"{BASE_URL}/users", params={"email": email}, timeout=TIMEOUT)
     if found.status_code == 200:
-        for user in found.json().get("items", []):
+        try:
+            payload = found.json()
+        except ValueError:
+            payload = None
+        # 検索APIが想定外の形（配列やエラーボディ）を返しても例外で落とさない
+        items = payload.get("items", []) if isinstance(payload, dict) else []
+        for user in items:
+            if not isinstance(user, dict):
+                continue
             if user.get("email") == email and "id" in user:
                 return f"{BASE_URL}/users/{user['id']}"
 

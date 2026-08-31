@@ -102,7 +102,7 @@ flowchart TD
     B --> C["Appium 2.0<br/>2023年7月GA"]
     C --> D["W3C WebDriver専用<br/>ドライバー・プラグイン分離"]
     D --> E["Appium 3.x<br/>2025年8月GA"]
-    E --> F["Node.js 20.19+ / 22.12+ / 24+ が必須<br/>非推奨エンドポイント全廃"]
+    E --> F["Node.js ^20.19.0 / ^22.12.0 / >=24.0.0 が必須<br/>非推奨エンドポイント全廃"]
 ```
 
 | バージョン | 主な特徴 | 現在の位置づけ |
@@ -704,7 +704,7 @@ fi
 "${BUNDLETOOL_CMD[@]}" version
 ```
 
-オンデマンド配信のDynamic Feature Moduleは、上記の`--device-spec`で生成した`.apks`には初期インストール対象として含まれません。オンデマンドモジュールの取得・動作まで検証したい場合は、通常のデバイス向けAPK生成手順とは分けて、`bundletool build-apks --local-testing`で`.apks`を生成し、`bundletool install-apks --apks="$OUT_DIR/app-local-testing.apks" --device-id="$DEVICE_ID"`で対象端末へインストールする流れを使います（`--device-id`を省略すると複数端末が接続されている環境で対象が一意に定まりません）。`--local-testing`を付けると分割APKが端末のローカル領域へ配置され、Play Feature Deliveryによるオンデマンド取得をストアからの配信なしでローカル検証できます。
+オンデマンド配信のDynamic Feature Moduleは、上記の`--device-spec`で生成した`.apks`には初期インストール対象として含まれません。オンデマンドモジュールの取得・動作まで検証したい場合は、通常のデバイス向けAPK生成手順とは分けて、`bundletool build-apks --bundle=app/build/outputs/bundle/release/app-release.aab --output="$OUT_DIR/app-local-testing.apks" --local-testing --overwrite`で専用の`.apks`を生成し、続けて`bundletool install-apks --apks="$OUT_DIR/app-local-testing.apks" --device-id="$DEVICE_ID"`で対象端末へインストールする流れを使います（`--device-id`を省略すると複数端末が接続されている環境で対象が一意に定まりません）。`--local-testing`を付けると分割APKが端末のローカル領域へ配置され、Play Feature Deliveryによるオンデマンド取得をストアからの配信なしでローカル検証できます。
 
 ```bash
 # 0) 失敗を握りつぶさないようフェイルファストにする
