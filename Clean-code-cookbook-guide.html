@@ -450,7 +450,7 @@
 </head>
 <body>
 
-<button class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-controls="sidebar" aria-expanded="false"><i class="ti ti-menu-2"></i></button>
+<button type="button" class="nav-toggle" id="navToggle" aria-label="メニューを開く" aria-controls="sidebar" aria-expanded="false"><i class="ti ti-menu-2"></i></button>
 
 <div class="layout">
   <nav class="sidebar" id="sidebar">
@@ -1091,8 +1091,9 @@ flowchart TB
       const idx = sections.indexOf(entry.target);
       if (idx === -1) return;
       if (entry.isIntersecting) {
-        navLinks.forEach(l => l.classList.remove('active'));
+        navLinks.forEach(l => { l.classList.remove('active'); l.removeAttribute('aria-current'); });
         navLinks[idx].classList.add('active');
+        navLinks[idx].setAttribute('aria-current', 'location');
       }
     });
   }, { rootMargin: '-20% 0px -70% 0px' });

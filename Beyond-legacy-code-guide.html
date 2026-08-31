@@ -584,7 +584,7 @@
 
             <div class="main">
                 <div class="mobile-bar">
-                    <button id="navToggle" aria-label="目次を開く" aria-controls="sidebar" aria-expanded="false">
+                    <button type="button" id="navToggle" aria-label="目次を開く" aria-controls="sidebar" aria-expanded="false">
                         <i class="ti ti-menu-2"></i>
                     </button>
                     <strong>Beyond Legacy Code ガイド</strong>
@@ -1495,8 +1495,9 @@
                         break;
                     }
                 }
-                navLinks.forEach((a) => a.classList.remove('active'));
+                navLinks.forEach((a) => { a.classList.remove('active'); a.removeAttribute('aria-current'); });
                 current.link.classList.add('active');
+                current.link.setAttribute('aria-current', 'location');
             }
 
             let ticking = false;
