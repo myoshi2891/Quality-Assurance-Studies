@@ -37,7 +37,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `app/github-actions-guide/Checklist.tsx`: Section 17のチェックリストをインタラクティブなクライアントコンポーネントとして実装。クリック・キーボード（Space/Enter）によるトグル、チェックマーク表示、打消し線（line-through）と薄色化、リアルタイム進捗バー（達成状況表示）に対応。
 - `lib/navigation.ts`: 拡張性を考慮した新カテゴリ `cicd-devops`（「CI/CD & DevOps」）を新設し、`/github-actions-guide` を登録。
 - `tests/github-actions-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全18リンク、全18セクション、Mermaid 6図、全7テーブル、全コードブロック、チェックリスト10項目のトグル動作・アクセシビリティ、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全221件）。
-- `Github-actions-guide.html` & `Github-actions.html`: `archive/html-archive/cicd/` へ移動完了。
+- `Github-actions-guide.html`: `archive/html-archive/cicd/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 45 ページ体制に同期。
 
 ## 2026/08/20: CTFL v4.0 Chapter 5 (テスト活動の管理) ガイドの Next.js 移行完了
