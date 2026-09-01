@@ -5,15 +5,26 @@ Updated 2026-09-01
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計50ルート）。
+> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計51ルート = ガイドライブラリ index + 50 ガイド）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `a6ffa82` |
+| 最新 HEAD | `41b3263` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（275 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（321 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/01: グローバルナビの拡張性改善とガイドライブラリ index 画面の新設
+
+- **背景**: ドロワーが `NAV_ITEMS` 50 件を全件フラット展開しており、高さが項目数に比例して画面外へあふれていた。またルート `/` を 3210 行のガイド記事が占有し、サイトの入口として機能していなかった。
+- `app/page.tsx`: ルートをガイドライブラリ index 画面へ置き換え（ヒーロー + 件数サマリ + カテゴリ別カードグリッド）。`app/GuideIndex.tsx`（`'use client'`）が検索とグリッド描画を担当し、`app/index-page.css` を新設。
+- 旧ホーム本文を `app/modern-software-testing-complete-guide-2025/page.tsx` へ `git mv` で移設し、`foundation`（基礎テスト手法）カテゴリの 1 ページとして登録。合計 51 ルート。
+- `lib/navigation.ts`: `NavItem` に `description`（80 文字以内、必須）を追加、`CATEGORY_ORDER` / `CATEGORY_TITLES` を export、ドロワーと index 画面で共用する `matchesQuery()` を新設。
+- `components/Header.tsx`: ドロワーに検索ボックスと `<details>` アコーディオンを導入。既定は現在ページのカテゴリのみ展開、検索中は全展開。開閉は React state で制御し、Escape・スクロールロック・`aria-current` などの既存 a11y 挙動を維持。開いた直後のフォーカスは検索ボックスへ変更。
+- `tests/lib/navigation-e2e-sync.test.ts`: `lib/navigation.ts` と `e2e/pages.ts` のドリフトを `bun test` で検知するガードを追加。
+- `e2e/pages.ts`: `/` の h1 を index 用に変更、新ルートを追加、`EXPECTED_PAGE_COUNT` を 51 へ更新。
+- テスト: `bun test` 321 pass / `bun run lint` エラーなし / `tsc --noEmit` エラーなし。
 
 ## 2026/09/01: Selenium 初学者向け完全入門ガイドの Next.js 移行完了
 
@@ -496,7 +507,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **Selenium ガイド移行完了**: プロジェクトルートに存在した全49ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 50 ルート（ホーム + 49 ガイド）が管理されています。
+- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

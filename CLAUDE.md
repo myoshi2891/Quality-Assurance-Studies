@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 161 specs)
+bun test             # ユニットテスト (bun test, 321 specs)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 50 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 51 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -77,7 +77,10 @@ Next.js App Router 構成:
 
 - `app/layout.tsx` — ルートレイアウト（メタデータ、グローバルフォント設定）
 - `app/globals.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / utilities` および プレーンセレクタでコンポーネントスタイルを記述
-- `app/page.tsx` — ホームページ
+- `app/page.tsx` — ガイドライブラリ index（ルート `/`）。全ガイドをカテゴリ別カードで一覧する入口
+- `app/GuideIndex.tsx` — index の検索 + カテゴリ別カードグリッド（`'use client'`、`matchesQuery` で絞り込み）
+- `app/index-page.css` — ガイドライブラリ index 固有スタイル
+- `app/modern-software-testing-complete-guide-2025/page.tsx` — 現代ソフトウェアテスト完全ガイド 2025（旧ホーム本文の移設先）
 - `app/ai-test-guide/page.tsx` — AI テストガイドページ
 - `app/ai-guide.css` — AI テストガイド固有スタイル
 - `app/unit-testing-guide/page.tsx` — ユニットテスト完全ガイドページ
@@ -216,7 +219,8 @@ Next.js App Router 構成:
 - `app/selenium-beginner-guide/selenium-beginner-guide.css` — Selenium 完全ガイド固有スタイル
 - `app/selenium-beginner-guide/page.tsx` — Selenium 完全ガイドページ
 - `app/selenium-beginner-guide/NavBar.tsx` — Selenium 完全ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
-- `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
+- `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 51 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -304,6 +308,39 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
    ```tsx
    <a href={`#${id}`} aria-current={activeSection === id ? 'location' : undefined}>
    ```
+
+### グローバルナビの拡張性（ガイド追加時の手順）
+
+グローバルヘッダーのドロワーとガイドライブラリ index（`/`）は、どちらも
+`lib/navigation.ts` の `NAV_ITEMS` から描画される。**新しいガイドページを追加したら、
+`NAV_ITEMS` に 1 件追加するだけでドロワー・index 画面・検索の 3 箇所に反映される。**
+
+```ts
+{ href: '/new-guide',
+  label: '新しいガイド',
+  description: '1 行説明（80 文字以内。index のカード本文かつ検索対象）。',
+  category: 'foundation' },
+```
+
+- `description` は必須。空文字・80 文字超はユニットテストで落ちる
+- `category` は `NavCategory` の 9 種類から選ぶ。新カテゴリが必要な場合は
+  `NavCategory` / `CATEGORY_ORDER` / `CATEGORY_TITLES` の 3 箇所を同期する
+- カテゴリ値はそのまま index のセクション ID になる（`/#istqb-advanced` で直リンク可能）
+- **`e2e/pages.ts` にも同じ path を追加し `EXPECTED_PAGE_COUNT` を更新する。**
+  片方だけ更新すると `tests/lib/navigation-e2e-sync.test.ts` が落ちる
+
+**ドロワーの構造（項目数に対してスケールする設計）:**
+
+| 要素 | 役割 |
+|---|---|
+| `.nav-drawer-pinned` | `/`（全ガイド一覧）への固定リンク。検索でも消えない |
+| `.nav-drawer-search-input` | インクリメンタル検索。`matchesQuery` で label / description / href を部分一致 |
+| `details.nav-drawer-section` | カテゴリ単位の折りたたみ。既定は現在ページのカテゴリのみ展開、検索中は全展開 |
+| `summary.nav-drawer-heading` | `<h2>` を内包（HTML 仕様上 summary は heading 1 個を許容）。件数は `data-count` + CSS `::after` で表示しアクセシブル名を汚さない |
+
+`summary` の `onClick` は `preventDefault()` してネイティブトグルを止め、開閉を React state
+（`openCategories`）に一本化している。テストの決定論性を保つための意図的な設計であり、
+Enter / Space も click を発火するためキーボード操作は失われない。
 
 ### CSS コンポーネントクラス
 
@@ -460,8 +497,8 @@ bun test        # ユニットテスト成功
 
 ```text
 コンテキスト:
-- **全ガイド移行完了**: プロジェクトルートに存在した全49ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 50 ルート（ホーム + 49 ガイド）が管理されています。
+- **全ガイド移行完了**: プロジェクトルートに存在した全HTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 

@@ -76,7 +76,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
     2. `scripts/html-to-tsx.mjs` を使用して、HTML を JSX に変換します。
     3. CSS の詳細度やスコープの問題を手動で修正します（すべてのスタイルがページ固有のクラスの下にスコープされていることを確認してください）。
     4. 元の HTML ファイルを `/html-archive/` ディレクトリに移動します。
-    5. `components/Header.tsx` のナビゲーションと `CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します。
+    5. `lib/navigation.ts` の `NAV_ITEMS` と `e2e/pages.ts` の `PAGES` / `EXPECTED_PAGE_COUNT` に新ルートを追加し、`CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します（`components/Header.tsx` は `NAV_ITEMS` から描画するため直接編集は不要）。
 - **PII / 絶対パスの記載禁止 (CRITICAL):** コミット予定のすべてのファイル（ドキュメント、設定、コード、コメント等）に、ユーザー名を含むローカルの絶対パス（`/Users/` や `/home/`、`C:\Users\` 等）を記載してはなりません。これは個人情報（PII）の流出につながる重大なセキュリティ違反です。AI エージェントは、**コミットを適用する前に、必ず `git diff --cached` でコミット差分を走査し、プレースホルダー (`johndoe`) 以外の絶対パスやローカル名が混入していないことを機械的（`grep`等）に検証するプロセスを自律的かつ自動的に実行してください。**
 - **開発・デバッグ用スクリプトの管理ルール:** 開発中に作成するスクリプトは、その目的が一時的なものか永続的なものかを明確にし、厳格に管理しなければなりません。
   - **一時的なスクリプト (デバッグ・調査用):** ログ解析、単発のデータ抽出等の目的で作成したスクリプトおよび出力された一時ファイルは、作業完了後またはコミット前に必ずリポジトリから物理削除し、決してコミットに含めてはなりません。特にローカル絶対パス（PII）を含むものは、流出防止のため即時削除を徹底してください。作成時にはユーザーに「一時的なスクリプトであること」を明確に報告します。
@@ -84,7 +84,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Migrated Pages (Tracking)
 
-- `app/page.tsx` (ホームページ — 2025 完全ガイド トップ)
+- `app/page.tsx` (ガイドライブラリ index — 全ガイドをカテゴリ別カードで一覧、検索付き)
+- `app/GuideIndex.tsx` (index の検索 + カードグリッド、`'use client'`)
+- `app/modern-software-testing-complete-guide-2025/page.tsx` (現代ソフトウェアテスト完全ガイド 2025 — 旧ホーム本文の移設先)
 - `app/acceptance-testing-guide/page.tsx` (受入テスト完全ガイド、`NavBar.tsx` 付き)
 - `app/ai-test-guide/page.tsx` (AI テスト基礎)
 - `app/bdd-testing-guide/page.tsx` (BDD（ビヘイビア駆動開発）完全ガイド)
@@ -156,6 +158,19 @@ This project is a Next.js (App Router) web application designed as a comprehensi
   <div className="code-line"><span className="code-cyan">Given</span><span className="code-white"> 条件</span></div>
 </div>
 ```
+
+### グローバルナビ（ドロワー / ガイド index）
+
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（51 件）。
+  `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
+- 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
+  `description` は必須（80 文字以内、index のカード本文かつ検索対象）
+- `e2e/pages.ts` にも同じ path を追加し `EXPECTED_PAGE_COUNT` を更新する。
+  片方だけの更新は `tests/lib/navigation-e2e-sync.test.ts` が検知して落ちる
+- ドロワーはガイド数に対してスケールするよう、検索ボックス + `<details>` アコーディオン方式。
+  既定では現在ページのカテゴリのみ展開し、検索中は残ったカテゴリを全展開する
+- `summary` の `onClick` は `preventDefault()` でネイティブトグルを止め、開閉を React state に一本化している。
+  Enter / Space も click を発火するためキーボード操作は維持される
 
 ### ページ固有スティッキーナビ
 
@@ -245,8 +260,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ```text
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
-- **Selenium ガイド移行完了**: プロジェクトルートに存在した全49ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 50 ルート（ホーム + 49 ガイド）が管理されています。
+- **全ガイド移行完了**: 静的 HTML / Markdown の Next.js App Router への移行が完全に終了しました。
+- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

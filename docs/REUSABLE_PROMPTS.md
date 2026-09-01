@@ -1,6 +1,6 @@
 # REUSABLE_PROMPTS.md
 
-最終更新日: 2026-06-10
+最終更新日: 2026-09-01
 
 再利用可能なプロンプト集。Claude Code への依頼文を記録し、同パターンの作業を効率化する。
 
@@ -12,6 +12,7 @@
 
 - [NAV-1] [ページ内スティッキーナビの不具合修正](#nav-1-ページ内スティッキーナビの不具合修正)
 - [NAV-2] [ページ内スティッキーナビの新規追加](#nav-2-ページ内スティッキーナビの新規追加)
+- [NAV-3] [新ガイドをグローバルナビとガイド index に登録](#nav-3-新ガイドをグローバルナビとガイド-index-に登録)
 
 ---
 
@@ -124,6 +125,24 @@
 - [ ] アクティブセクションのリンクがハイライトされる
 
 ---
+
+---
+
+### [NAV-3] 新ガイドをグローバルナビとガイド index に登録
+
+**目的**: 新規ガイドページを、ヘッダードロワー・ガイドライブラリ index（`/`）・スモーク E2E の 3 箇所へ漏れなく登録する
+**単一情報源**: `lib/navigation.ts` の `NAV_ITEMS`（ドロワーと index が共用）／ `e2e/pages.ts` の `PAGES`
+
+> 新しく追加したガイドページ \<ルートパス\> をグローバルナビとガイド index に登録してください。
+>
+> 1. `lib/navigation.ts` の `NAV_ITEMS` に該当カテゴリの位置へ 1 件追加する
+>    - `href` / `label` / `description`（80 文字以内の 1 行説明）/ `category` を指定する
+>    - `description` は index のカード本文かつ検索対象になるため、内容が伝わる文にする
+> 2. `e2e/pages.ts` の `PAGES` に同じ path と h1 の RegExp を追加し、`EXPECTED_PAGE_COUNT` を +1 する
+> 3. `tests/lib/navigation.test.ts` の件数アサーションとカテゴリ件数を更新する
+> 4. `bun test` で `tests/lib/navigation-e2e-sync.test.ts` がパスすることを確認する
+>
+> `components/Header.tsx` と `app/GuideIndex.tsx` は `NAV_ITEMS` から描画するため、直接編集は不要です。
 
 ## テストカバレッジ可視化ダッシュボード生成依頼
 
