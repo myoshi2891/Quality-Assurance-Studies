@@ -226,12 +226,12 @@ describe('Cypress Beginner Guide NavBar Component', () => {
     for (let i = 1; i <= 15; i++) {
       const numStr = i.toString().padStart(2, '0');
       const link = links[i - 1];
-      expect(link.getAttribute('href')).toBe(`#sec-${i}`);
-      expect(link.querySelector('.num')?.textContent).toBe(numStr);
+      expect(link?.getAttribute('href')).toBe(`#sec-${i}`);
+      expect(link?.querySelector('.num')?.textContent).toBe(numStr);
     }
 
     const firstLink = links[0];
-    expect(firstLink.classList.contains('active')).toBe(true);
-    expect(firstLink.getAttribute('aria-current')).toBe('location');
+    expect(firstLink?.classList.contains('active')).toBe(true);
+    expect(firstLink?.getAttribute('aria-current')).toBe('location');
   });
 });

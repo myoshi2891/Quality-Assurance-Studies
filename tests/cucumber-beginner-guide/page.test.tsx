@@ -240,7 +240,7 @@ describe('Cucumber Beginner Guide Page - Comprehensive Test Suite', () => {
       for (let i = 1; i <= 13; i++) {
         const numStr = i.toString().padStart(2, '0');
         const card = summaryCards[i - 1];
-        expect(card.querySelector('.n')?.textContent).toBe(numStr);
+        expect(card?.querySelector('.n')?.textContent).toBe(numStr);
       }
 
       expect(container.textContent).toContain('Example Mapping');
@@ -256,9 +256,9 @@ describe('Cucumber Beginner Guide Page - Comprehensive Test Suite', () => {
       for (let i = 1; i <= 21; i++) {
         const numStr = i.toString().padStart(2, '0');
         const item = refItems[i - 1];
-        expect(item.querySelector('.ref-num')?.textContent).toBe(numStr);
+        expect(item?.querySelector('.ref-num')?.textContent).toBe(numStr);
 
-        const link = item.querySelector('a');
+        const link = item?.querySelector('a');
         expect(link).not.toBeNull();
         expect(link?.getAttribute('href')).toMatch(/^https:\/\/.*cucumber/);
         expect(link?.getAttribute('target')).toBe('_blank');
@@ -296,13 +296,13 @@ describe('Cucumber Beginner Guide NavBar Component', () => {
     for (let i = 1; i <= 16; i++) {
       const numStr = i.toString().padStart(2, '0');
       const link = links[i - 1];
-      expect(link.getAttribute('href')).toBe(`#sec${numStr}`);
-      expect(link.querySelector('.num')?.textContent).toBe(numStr);
+      expect(link?.getAttribute('href')).toBe(`#sec${numStr}`);
+      expect(link?.querySelector('.num')?.textContent).toBe(numStr);
     }
 
     const firstLink = links[0];
-    expect(firstLink.classList.contains('active')).toBe(true);
-    expect(firstLink.getAttribute('aria-current')).toBe('location');
+    expect(firstLink?.classList.contains('active')).toBe(true);
+    expect(firstLink?.getAttribute('aria-current')).toBe('location');
   });
 
   it('renders the sidebar footer with source metadata', () => {

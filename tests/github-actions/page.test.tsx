@@ -150,7 +150,7 @@ describe('GitHub Actions Beginner Guide NavBar Component', () => {
     ];
 
     links.forEach((link, idx) => {
-      expect(link.getAttribute('href')).toBe(expectedHrefs[idx]);
+      expect(link.getAttribute('href')).toBe(expectedHrefs[idx] ?? null);
     });
   });
 });
