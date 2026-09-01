@@ -257,6 +257,7 @@
 .selenium-guide-page section.doc-section {
   margin: 56px 0;
   padding-top: 8px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 
 .selenium-guide-page section.doc-section h2 {

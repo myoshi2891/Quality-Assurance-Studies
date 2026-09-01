@@ -252,7 +252,7 @@
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 0 0 18px;
-  scroll-margin-top: 80px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 
 .cucumber-beginner-page h3 {
@@ -260,7 +260,7 @@
   font-weight: 600;
   color: var(--color-text-primary);
   margin: 32px 0 12px;
-  scroll-margin-top: 80px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
 }
 
 .cucumber-beginner-page h4 {
