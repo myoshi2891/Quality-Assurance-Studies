@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-09-01
+Updated 2026-09-02
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -78,8 +78,8 @@ Next.js App Router 構成:
 - `app/layout.tsx` — ルートレイアウト（メタデータ、グローバルフォント設定）
 - `app/globals.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / utilities` および プレーンセレクタでコンポーネントスタイルを記述
 - `app/page.tsx` — ガイドライブラリ index（ルート `/`）。全ガイドをカテゴリ別カードで一覧する入口
-- `app/GuideIndex.tsx` — index の検索 + カテゴリ別カードグリッド（`'use client'`、`matchesQuery` で絞り込み）
-- `app/index-page.css` — ガイドライブラリ index 固有スタイル
+- `app/GuideIndex.tsx` — index の検索 + レベル別セクション（`'use client'`、`matchesQuery` で絞り込み）
+- `app/index-page.css` — ガイドライブラリ index 固有スタイル（階段ヒーロー・背骨・カード）
 - `app/modern-software-testing-complete-guide-2025/page.tsx` — 現代ソフトウェアテスト完全ガイド 2025（旧ホーム本文の移設先）
 - `app/ai-test-guide/page.tsx` — AI テストガイドページ
 - `app/ai-guide.css` — AI テストガイド固有スタイル
@@ -220,7 +220,7 @@ Next.js App Router 構成:
 - `app/selenium-beginner-guide/page.tsx` — Selenium 完全ガイドページ
 - `app/selenium-beginner-guide/NavBar.tsx` — Selenium 完全ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 51 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 51 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -324,7 +324,8 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
 
 - `description` は必須。空文字・80 文字超はユニットテストで落ちる
 - `category` は `NavCategory` の 9 種類から選ぶ。新カテゴリが必要な場合は
-  `NavCategory` / `CATEGORY_ORDER` / `CATEGORY_TITLES` の 3 箇所を同期する
+  `NavCategory` / `CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` の 4 箇所を同期し、
+  `app/globals.css` の `[data-category='...']` にレベル色（`--level`）を追加する
 - カテゴリ値はそのまま index のセクション ID になる（`/#istqb-advanced` で直リンク可能）
 - **`e2e/pages.ts` にも同じ path を追加し `EXPECTED_PAGE_COUNT` を更新する。**
   片方だけ更新すると `tests/lib/navigation-e2e-sync.test.ts` が落ちる
@@ -341,6 +342,32 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
 `summary` の `onClick` は `preventDefault()` してネイティブトグルを止め、開閉を React state
 （`openCategories`）に一本化している。テストの決定論性を保つための意図的な設計であり、
 Enter / Space も click を発火するためキーボード操作は失われない。
+
+### ガイド index（`/`）のデザイン規約
+
+index は「ISTQB の認定レベルは並列のカテゴリではなく階梯である」という事実を
+デザインの芯に据えている。以下は装飾ではなく情報の符号なので、変更時は意味を壊さないこと。
+
+| 要素 | 何を符号化しているか |
+|---|---|
+| ヒーローの階段（`.climb-stairs` の `.ladder-rung`） | 段の縦位置 = 資格レベルの高さ、バーの伸び = そのレベルのガイド数。各段は該当セクションへのアンカー |
+| 段のインデント（`--step-indent`） | 1 段上がるごとに右へずれることが「登る」ことの符号。蹴上げ線（`::before`）の着地位置はここから幾何学的に決まる |
+| バーの軌道幅（`--bar-col`） | 全段で固定。段をインデントしても量の比較が壊れないための固定幅であり、`1fr` にしてはならない |
+| `data-track` | `certification`（ISTQB 5 レベル）と `practice`（CI/CD・ツール・書籍）の区別。後者は資格階梯の段ではないので階段に積まず「実務の棚」に置く |
+| `CATEGORY_CODES` | ラベルの短縮版ではなく実際の資格略号（CTFL / CTAL / CT-\* / CTEL）。コード自体が資格体系を示す |
+| レベルランプ（`--level`） | 無関係な 8 色ではなく寒色 → 暖色の 1 本のランプ。ランプ上の位置がレベルの高さを示す。実務トラックはランプ外の 1 色（`#7f96b8`）に統合する |
+| セクションの並び順 | 基礎 → CTFL → CTAL → CT-\* → CTEL → 実務。学習の進み方そのもの |
+
+- **レベルランプの定義は `app/globals.css` の `[data-category='...']` にある。** ドロワーも同じ
+  `data-category` を出力するため、この 1 箇所で index とドロワーの色が一致する
+  （`components/Header.tsx` 側に色の指定を書かないこと）
+- `.climb-stairs` は `column-reverse`。文書順（＝カリキュラム順）を保ったまま BASE を最下段に置く。
+  テストは `querySelectorAll` の文書順を検証するので、DOM 側で順序を反転してはならない
+- 書体は index のみ Bricolage Grotesque（`--font-bricolage`）をディスプレイに使う。
+  h1 は日本語なので実際に効くのはガイド総数の数字とラテン略号だけ。そこだけ声が切り替わる混植が狙いなので、
+  `'Noto Sans JP'` を必ず後段に置く。1 ルートでしか使わないため `preload: false`
+- 階段の日本語ラベル（`.ladder-label`）はホバー／フォーカス時のチップ。常時表示すると
+  第二の階段になって蹴上げ線と干渉する。DOM からは外さないこと（リンクのアクセシブル名になる）
 
 ### CSS コンポーネントクラス
 

@@ -85,7 +85,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ## Migrated Pages (Tracking)
 
 - `app/page.tsx` (ガイドライブラリ index — 全ガイドをカテゴリ別カードで一覧、検索付き)
-- `app/GuideIndex.tsx` (index の検索 + カードグリッド、`'use client'`)
+- `app/GuideIndex.tsx` (index の検索 + レベル別セクション、`'use client'`)
 - `app/modern-software-testing-complete-guide-2025/page.tsx` (現代ソフトウェアテスト完全ガイド 2025 — 旧ホーム本文の移設先)
 - `app/acceptance-testing-guide/page.tsx` (受入テスト完全ガイド、`NavBar.tsx` 付き)
 - `app/ai-test-guide/page.tsx` (AI テスト基礎)
@@ -169,6 +169,14 @@ This project is a Next.js (App Router) web application designed as a comprehensi
   片方だけの更新は `tests/lib/navigation-e2e-sync.test.ts` が検知して落ちる
 - ドロワーはガイド数に対してスケールするよう、検索ボックス + `<details>` アコーディオン方式。
   既定では現在ページのカテゴリのみ展開し、検索中は残ったカテゴリを全展開する
+- index（`/`）は ISTQB の認定レベルの階梯を情報構造として使う。ヒーローは階段で、段の縦位置が
+  資格レベルの高さ、バーの伸びがそのレベルのガイド数。バーの軌道幅は全段で固定（`--bar-col`）で、
+  `1fr` にすると量の比較が壊れる。CI/CD・ツール・書籍は階梯の段ではないため `data-track="practice"`
+  として「実務の棚」に分ける。いずれも装飾ではないので変更時に意味を壊さないこと
+- レベル色（`--level`）は寒色 → 暖色の 1 本のランプ。定義は `app/globals.css` の
+  `[data-category='...']` にあり、index とドロワーがこの 1 箇所を共有する
+- 新カテゴリを足す場合は `NavCategory` / `CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` の
+  4 箇所と、`app/globals.css` の `[data-category='...']` のレベル色を同期する
 - `summary` の `onClick` は `preventDefault()` でネイティブトグルを止め、開閉を React state に一本化している。
   Enter / Space も click を発火するためキーボード操作は維持される
 
