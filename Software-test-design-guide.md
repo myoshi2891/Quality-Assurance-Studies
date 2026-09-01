@@ -1,5 +1,6 @@
 # A Practitioner's Guide to Software Test Design 実践ガイド
-### 〜初学者のためのステップバイステップ・ベストプラクティス〜
+
+*〜初学者のためのステップバイステップ・ベストプラクティス〜*
 
 > 本ガイドは、Lee Copeland 著『A Practitioner's Guide to Software Test Design』(Artech House, 2004) を土台にしながら、ISTQB(国際ソフトウェアテスト資格委員会)のシラバスや、Martin Fowler、Cem Kaner、James Bach & Michael Bolton、Ministry of Testing など国際的に著名なテスト実務家・開発者の知見を交え、2026年8月時点の情報でアップデートしてまとめたものです。ASCIIアートは使用せず、フローチャートは Mermaid、比較表や図解は Markdown 記法のみで構成しています。
 
@@ -44,7 +45,20 @@
 | 出版年 | 2004年 |
 | 位置づけ | ブラックボックス／ホワイトボックスのテスト設計技法を、実務的な視点から一冊にまとめた入門〜実践書 |
 
-原著は現在では出版から20年以上が経過していますが、そこで扱われている**同値分割・境界値分析・デシジョンテーブル・状態遷移・ドメインテスト・ペアワイズ・ユースケーステスト・ホワイトボックスカバレッジ**といった技法は、現在の ISTQB Foundation Level シラバス（2024年11月改訂の v4.0.1 が最新版）にもそのまま中核技法として採用されており、今なお「テスト設計の共通言語」としての価値を持っています。
+原著は現在では出版から20年以上が経過していますが、そこで扱われている**同値分割・境界値分析・デシジョンテーブル・状態遷移・ドメインテスト・ペアワイズ・ユースケーステスト・ホワイトボックスカバレッジ**といった技法は、今なお「テスト設計の共通言語」としての価値を持っています。
+
+ただし、Copeland が扱う技法の一覧と ISTQB Foundation Level シラバス（2024年11月改訂の v4.0.1 が最新版）の収録範囲は同一ではありません。初学者が資格学習と併読する際に混乱しやすい点なので、対応関係を整理しておきます。
+
+| Copeland が扱う技法 | CTFL v4.0.1 での扱い |
+|---|---|
+| 同値分割 / 境界値分析 / デシジョンテーブル / 状態遷移 | ブラックボックス技法（4.2節）として収録 |
+| ユースケーステスト | ブラックボックス技法（4.2節）として収録 |
+| ドメインテスト | シラバスの範囲外（上位資格や実務知識として扱われる） |
+| ペアワイズ（直交表・組み合わせ）テスト | シラバスの範囲外 |
+| データフローテスト | シラバスの範囲外 |
+| ホワイトボックスカバレッジ | 4.3節でステートメントテストとブランチテストに限定して収録 |
+
+つまり CTFL v4.0.1 のホワイトボックス領域は**ステートメントテストとブランチテストが中心**であり、本ガイドで後述するパスカバレッジやデータフローテストは、シラバスを超えた実務向けの発展的な内容として読んでください。
 
 ---
 
@@ -133,6 +147,7 @@ flowchart TB
 以降の各技法セクションでは、理解しやすくするために次の共通例を使い回します。
 
 > **架空のシステム「ShopEasy」の注文機能**
+>
 > - 会員登録時に **年齢** を入力する（**18歳〜120歳** のみ登録可能）
 > - 注文確定時、**会員ランク（一般／ゴールド／プラチナ）**、**注文金額**、**クーポンの有無** の組み合わせで **割引率** が決まる
 > - 注文は **カート → 注文確定 → 発送準備 → 発送済み → 配達完了** という状態を遷移し、途中で **キャンセル** も可能
@@ -204,14 +219,20 @@ flowchart TB
 
 **共通例への適用：会員ランク × 注文金額 × クーポンによる割引ルール**
 
-| 条件 | ルール1 | ルール2 | ルール3 | ルール4 | ルール5 |
-|---|---|---|---|---|---|
-| 会員ランクがプラチナか | Yes | Yes | No | No | No |
-| 注文金額が1万円以上か | Yes | No | Yes | No | No |
-| クーポンを持っているか | – | Yes | Yes | Yes | No |
-| **結果：割引率** | **20%** | **15%** | **10%** | **5%** | **0%** |
+まず割引の要件を明確に定義します。**プラチナ会員は基本10%、注文金額が1万円以上なら+5%、クーポンを持っていれば+5%**（非プラチナ会員の基本は0%）とします。条件が3つ・各条件が Yes/No の2値なので、組み合わせは 2³ = 8通りです。8通りすべてを列挙すると次のようになります。
 
-このように整理すると、「一般会員がクーポンなしで1万円未満の注文をした場合」（ルール5）のような、うっかり忘れがちな組み合わせも漏れなく確認できます。
+| 条件 | ルール1 | ルール2 | ルール3 | ルール4 | ルール5 | ルール6 | ルール7 | ルール8 |
+|---|---|---|---|---|---|---|---|---|
+| 会員ランクがプラチナか | Yes | Yes | Yes | Yes | No | No | No | No |
+| 注文金額が1万円以上か | Yes | Yes | No | No | Yes | Yes | No | No |
+| クーポンを持っているか | Yes | No | Yes | No | Yes | No | Yes | No |
+| **結果：割引率** | **20%** | **15%** | **15%** | **10%** | **10%** | **5%** | **5%** | **0%** |
+
+なお、ここでの「会員ランクがプラチナか」が No のケース（ルール5〜8）には、**ゴールド会員も一般会員も含まれます**。つまりこの表は「プラチナか、それ以外か」という2値でしか会員ランクを見ていません。ゴールド会員に固有の割引ルールが要件に存在する場合は、条件を「プラチナ／ゴールド／一般」の3値に拡張する必要があり、その時点で組み合わせは 3 × 2 × 2 = 12通りに増えます。条件の値域を2値に単純化してよいかどうかは、必ず要件に立ち返って確認してください。
+
+このように8通りを漏れなく列挙すると、「一般会員がクーポンなしで1万円未満の注文をした場合」（ルール8）はもちろん、うっかり定義から漏れやすい「一般会員がクーポンなしで1万円以上の注文をした場合」（ルール6）や「プラチナ会員がクーポンなしで1万円未満の注文をした場合」（ルール4）といった組み合わせも確実に押さえられます。
+
+**テーブルの圧縮について**：同じアクションになる列は「–（don't care）」でまとめられますが、圧縮は「その条件が本当に結果に影響しない」ことを確認してから行ってください。上の例ではルール1とルール2の割引率が異なる（20% と 15%）ため、クーポンの列を「–」でまとめることはできません。安易に「–」を置くと、未定義の組み合わせが表から消えてしまいます。
 
 ### 6.4 状態遷移テスト
 
@@ -308,22 +329,31 @@ flowchart TB
 | 技法 | 説明 | カバレッジ基準 |
 |---|---|---|
 | ステートメントカバレッジ | コード中のすべての実行文（ステートメント）を最低1回は実行する | 実行された文の割合 |
-| 分岐（デシジョン）カバレッジ | `if`文などの分岐先（true/false）を両方とも最低1回は通す | 実行された分岐の割合 |
-| 条件カバレッジ | 複合条件（`A && B`など）の各条件を true/false の両方でテストする | 個々の条件の組み合わせ |
+| 分岐カバレッジ（ブランチカバレッジ） | `if`文などの分岐先（true/false）を両方とも最低1回は通す | 実行された分岐の割合 |
+| 条件カバレッジ | 複合条件（`A && B` など）を構成する**各アトミック条件**が、それぞれ true と false の両方を取るようにする（条件の組み合わせを網羅するわけではない） | 個々のアトミック条件のうち true/false 両方を取ったものの割合 |
 | パスカバレッジ | プログラム内のすべての実行経路（パス）を通す | 実行された経路の割合 |
 | データフローテスト | 変数が「定義された箇所」から「使用される箇所」までの経路に着目してテストする | 定義-使用ペアの網羅率 |
 
-### 7.1 カバレッジの強さの関係
+### 7.1 カバレッジの包含関係
 
-一般に、下に行くほど強い（=多くのテストケースを要求する）カバレッジ基準になります。
+カバレッジ基準は「弱い順に一直線に並ぶ」と説明されることがありますが、それは正確ではありません。確実に言えるのは、**分岐カバレッジ100%はステートメントカバレッジ100%を包含する**という関係です。
 
 ```mermaid
 flowchart TB
-    A["ステートメントカバレッジ<br/>（最も弱い）"] --> B["分岐/デシジョンカバレッジ"]
-    B --> C["条件カバレッジ"]
-    C --> D["パスカバレッジ"]
-    D --> E["データフローテスト<br/>（変数の定義-使用に着目）"]
+    B["分岐カバレッジ 100%"] --> A["ステートメントカバレッジ 100% を必ず満たす"]
 ```
+
+一方で、**分岐カバレッジと条件カバレッジのあいだに包含関係はありません**。次のコードで確かめてみましょう。
+
+```java
+if (A || B) {
+    doSomething();
+}
+```
+
+ここで `A = true, B = false` と `A = false, B = false` の2ケースをテストすると、`if` は true と false の両方を通るため**分岐カバレッジは100%**になります。しかし `B` は false しか取っていないため、**条件カバレッジは満たされていません**。逆に `A = true, B = false` と `A = false, B = true` の2ケースなら、`A` も `B` も true/false を両方取るので条件カバレッジは100%ですが、`A || B` は常に true となり、`if` の false 側を一度も通らないため**分岐カバレッジは100%になりません**。
+
+このように、条件カバレッジ・パスカバレッジ・データフローテストのあいだに「必ずこちらが強い」という普遍的な順序関係があるわけではなく、何を強いとみなすかは対象のコード構造に依存します。
 
 **初学者向けポイント**：ステートメントカバレッジ100%を達成しても、`if`文の片方の分岐しか通っていない可能性があります。逆にパスカバレッジは非常に強力ですが、ループを含むコードでは経路の数が爆発的に増えるため、現実的にはステートメント／分岐カバレッジを基本としつつ、リスクの高い箇所だけパスカバレッジやデータフローテストを追加するのが一般的です。
 
@@ -333,20 +363,30 @@ flowchart TB
 
 ### 8.1 技法選択フローチャート
 
+テスト設計では、ひとつの技法だけで十分になることはほとんどありません。下のフローは「最初に当てはまった技法で終わり」ではなく、**Q1からQ5までをすべて順に評価し、当てはまったものを積み上げて組み合わせる**ためのものです。たとえば「同値分割 + 境界値分析」を選んだあとも、条件の組み合わせ・状態・設定項目・業務フローについて引き続き判定し、必要な技法を補助的に追加していきます。
+
 ```mermaid
 flowchart TB
     Start(["テスト対象の性質を確認する"]) --> Q1{"入力に有効範囲・数値レンジがあるか"}
-    Q1 -->|はい| T1["同値分割 + 境界値分析"]
-    Q1 -->|いいえ| Q2{"結果が複数条件の組み合わせで決まるか"}
-    Q2 -->|はい| T2["デシジョンテーブルテスト"]
-    Q2 -->|いいえ| Q3{"同じ入力でも操作履歴によって挙動が変わるか"}
-    Q3 -->|はい| T3["状態遷移テスト"]
-    Q3 -->|いいえ| Q4{"独立した設定項目が多数組み合わさるか"}
-    Q4 -->|はい| T4["ペアワイズ/組み合わせテスト"]
-    Q4 -->|いいえ| Q5{"一連の業務フローを検証したいか"}
-    Q5 -->|はい| T5["ユースケーステスト"]
-    Q5 -->|いいえ| T6["ドメイン分析 / 経験ベーステスト"]
+    Q1 -->|はい| T1["同値分割 + 境界値分析を採用する"]
+    T1 --> Q2{"結果が複数条件の組み合わせで決まるか"}
+    Q1 -->|いいえ| Q2
+    Q2 -->|はい| T2["デシジョンテーブルテストを追加する"]
+    T2 --> Q3{"同じ入力でも操作履歴によって挙動が変わるか"}
+    Q2 -->|いいえ| Q3
+    Q3 -->|はい| T3["状態遷移テストを追加する"]
+    T3 --> Q4{"独立した設定項目が多数組み合わさるか"}
+    Q3 -->|いいえ| Q4
+    Q4 -->|はい| T4["ペアワイズ/組み合わせテストを追加する"]
+    T4 --> Q5{"一連の業務フローを検証したいか"}
+    Q4 -->|いいえ| Q5
+    Q5 -->|はい| T5["ユースケーステストを追加する"]
+    T5 --> Goal["選択した技法を組み合わせて設計する"]
+    Q5 -->|いいえ| Goal
+    Goal --> Fallback["どの技法も選ばれなかった場合は<br/>ドメイン分析 / 経験ベーステストで補う"]
 ```
+
+たとえば「注文金額のレンジがあり、かつ会員ランクとクーポンの組み合わせで結果が決まる」画面であれば、Q1で同値分割・境界値分析を、Q2でデシジョンテーブルテストを選び、両方を組み合わせて設計することになります。
 
 ### 8.2 技法比較表
 
@@ -442,27 +482,31 @@ ThoughtWorks のチーフサイエンティストである Martin Fowler は、�
 本ガイドの作成にあたり、2026年8月時点で以下の情報源を参照しました（原著書籍情報、国際的に著名なテスト実務家・組織の一次情報を優先しています）。
 
 **書籍情報・原著**
-- Google Books（ユーザー提供リンク）: https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y
-- Artech House（出版社公式ページ）: https://us.artechhouse.com/A-Practitioners-Guide-to-Software-Test-Design-P756.aspx
-- Goodreads（書籍レビュー・目次情報）: https://www.goodreads.com/en/book/show/1290169.A_Practitioner_s_Guide_to_Software_Test_Design
+
+- Google Books（ユーザー提供リンク）: <https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y>
+- Artech House（出版社公式ページ）: <https://us.artechhouse.com/A-Practitioners-Guide-to-Software-Test-Design-P756.aspx>
+- Goodreads（書籍レビュー・目次情報）: <https://www.goodreads.com/en/book/show/1290169.A_Practitioner_s_Guide_to_Software_Test_Design>
 
 **国際的な標準・認定団体**
-- ISTQB（国際ソフトウェアテスト資格委員会）公式サイト: https://istqb.org/
-- ISTQB Certified Tester Foundation Level Syllabus v4.0.1（公式PDF, 2024年11月）: https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf
-- ASTQB（米国ソフトウェアテスト資格委員会）4.2 Black-Box Test Techniques 解説: https://astqb.org/4-2-black-box-test-techniques/
+
+- ISTQB（国際ソフトウェアテスト資格委員会）公式サイト: <https://istqb.org/>
+- ISTQB Certified Tester Foundation Level Syllabus v4.0.1（公式PDF, 2024年11月）: <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf>
+- ASTQB（米国ソフトウェアテスト資格委員会）4.2 Black-Box Test Techniques 解説: <https://astqb.org/4-2-black-box-test-techniques/>
 
 **著名な国際的テスト実務家・開発者による一次情報**
-- Martin Fowler（ThoughtWorks チーフサイエンティスト）Testing ガイド: https://martinfowler.com/testing/
-- Martin Fowler, Test Pyramid: https://martinfowler.com/bliki/TestPyramid.html
-- Martin Fowler, Exploratory Testing: https://martinfowler.com/bliki/ExploratoryTesting.html
-- Cem Kaner, Paradigms of Black Box Software Testing（一次資料PDF）: https://kaner.com/pdfs/ParadigmsTutorial.pdf
-- James Bach, Rapid Software Testing Explored（Satisfice, Inc.）: https://www.satisfice.com/rapid-software-testing-explored
-- James Bach & Michael Bolton, Rapid Software Testing 公式サイト: https://rapid-software-testing.com/authors/
-- Ministry of Testing, Test Heuristics Cheat Sheet（Elisabeth Hendrickson 氏ほか）: https://www.ministryoftesting.com/articles/ab1cd85c
+
+- Martin Fowler（ThoughtWorks チーフサイエンティスト）Testing ガイド: <https://martinfowler.com/testing/>
+- Martin Fowler, Test Pyramid: <https://martinfowler.com/bliki/TestPyramid.html>
+- Martin Fowler, Exploratory Testing: <https://martinfowler.com/bliki/ExploratoryTesting.html>
+- Cem Kaner, Paradigms of Black Box Software Testing（一次資料PDF）: <https://kaner.com/pdfs/ParadigmsTutorial.pdf>
+- James Bach, Rapid Software Testing Explored（Satisfice, Inc.）: <https://www.satisfice.com/rapid-software-testing-explored>
+- James Bach & Michael Bolton, Rapid Software Testing 公式サイト: <https://rapid-software-testing.com/authors/>
+- Ministry of Testing, Test Heuristics Cheat Sheet（Elisabeth Hendrickson 氏ほか）: <https://www.ministryoftesting.com/articles/ab1cd85c>
 
 **ペアワイズ／組み合わせテストの参考情報**
-- Pairwise.org（ペアワイズテストの専門情報サイト）: https://www.pairwise.org/
-- Wikipedia, All-pairs testing: https://en.wikipedia.org/wiki/All-pairs_testing
+
+- Pairwise.org（ペアワイズテストの専門情報サイト）: <https://www.pairwise.org/>
+- Wikipedia, All-pairs testing: <https://en.wikipedia.org/wiki/All-pairs_testing>
 
 ---
 
