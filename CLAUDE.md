@@ -25,7 +25,7 @@ bun test             # ユニットテスト (bun test, 161 specs)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 39 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 50 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
