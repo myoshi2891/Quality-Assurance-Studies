@@ -1,12 +1,12 @@
 import { describe, it, expect, afterEach } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
-import Page from '../../app/page';
+import Page from '../../app/modern-software-testing-complete-guide-2025/page';
 
 afterEach(() => {
   cleanup();
 });
 
-describe('Home Page', () => {
+describe('現代ソフトウェアテスト完全ガイド 2025', () => {
   it('renders the main heading containing 羅針盤', () => {
     const heading = render(<Page />).container.querySelector('h1');
     expect(heading).not.toBeNull();
