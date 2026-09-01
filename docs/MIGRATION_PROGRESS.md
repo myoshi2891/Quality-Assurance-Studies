@@ -5,15 +5,23 @@ Updated 2026-09-01
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計49ルート）。
+> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計50ルート）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `7919998` |
+| 最新 HEAD | `a6ffa82` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（264 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（275 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/01: Selenium 初学者向け完全入門ガイドの Next.js 移行完了
+
+- `app/selenium-beginner-guide/`: ページコンポーネント（Mermaid 8図、全16セクション、Prismシンタックスハイライト、全テーブル、コールアウト2種、全参考文献を含む完全移行）、スタイル（`.selenium-guide-page` スコープ、ダークテーマ、sticky nav）、NavBar（IntersectionObserver スクロールスパイ、aria-current）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリ（「テストツール & フレームワーク」）に `/selenium-beginner-guide`（Selenium 完全ガイド）を追加。
+- `tests/selenium-beginner-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全16リンク、全16セクション、Mermaid 8図、全テーブル、全コードブロック、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全275件）。
+- `Selenium-beginner-guide.html`: `archive/html-archive/tools/Selenium-beginner-guide.html` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 50 ページ体制に同期。
 
 ## 2026/09/01: Cypress 初学者向け完全入門ガイドの Next.js 移行完了
 
@@ -469,6 +477,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Playwright-beginner-guide.html` | `/playwright-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
 | `Cucumber-beginner-guide.html` | `/cucumber-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Cypress-beginner-guide.html` | `/cypress-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Selenium-beginner-guide.html` | `/selenium-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -486,8 +495,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 ```text
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
-- **Cypress ガイド移行完了**: プロジェクトルートに存在した全48ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 49 ルート（ホーム + 48 ガイド）が管理されています。
+- **Selenium ガイド移行完了**: プロジェクトルートに存在した全49ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 50 ルート（ホーム + 49 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
