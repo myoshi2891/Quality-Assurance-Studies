@@ -242,6 +242,35 @@ body::before {
     pointer-events: none;
 }
 
+/* ─── レベルランプ ───
+   ISTQB の認定レベルは並列のカテゴリではなく階梯である。無関係な 8 色ではなく
+   寒色 → 暖色の 1 本のランプとして定義し、ランプ上の位置でレベルの高さを符号化する。
+   CI/CD・ツール・書籍は資格階梯の段ではないため、ランプに乗せず 1 色に統合する。
+
+   ガイド index（`/`）とグローバルヘッダーのドロワーはどちらも data-category を
+   出力するため、この 1 箇所を両者が共有する。data-category を持たない要素には
+   影響しない。 */
+[data-category='foundation'] {
+    --level: #4fd1c5;
+}
+[data-category='istqb-foundation-ext'] {
+    --level: #63b3ed;
+}
+[data-category='istqb-advanced'] {
+    --level: #a78bfa;
+}
+[data-category='istqb-specialist'] {
+    --level: #f6ad55;
+}
+[data-category='istqb-expert'] {
+    --level: #f687b3;
+}
+[data-category='cicd-devops'],
+[data-category='tools-frameworks'],
+[data-category='books-practices'] {
+    --level: #7f96b8;
+}
+
 /* ─── NAV ─── */
 .nav-header {
     position: fixed;
@@ -254,7 +283,7 @@ body::before {
     align-items: center;
     gap: 1.5rem;
     padding: 0 2rem;
-    background-color: rgba(10, 14, 26, 0.85);
+    background-color: rgba(7, 10, 18, 0.82);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(99, 179, 237, 0.12);
@@ -278,8 +307,8 @@ body::before {
     width: 40px;
     height: 40px;
     background: transparent;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border: 1px solid var(--hair, rgba(147, 164, 196, 0.14));
+    border-radius: 10px;
     color: var(--color-text-secondary);
     cursor: pointer;
     transition:
@@ -289,8 +318,9 @@ body::before {
 }
 .nav-hamburger:hover {
     color: var(--color-accent-cyan);
-    border-color: var(--color-accent-cyan);
-    background: rgba(99, 179, 237, 0.06);
+    border-color: rgba(79, 209, 197, 0.45);
+    background: rgba(79, 209, 197, 0.07);
+    box-shadow: 0 0 18px -8px var(--color-accent-cyan);
 }
 .nav-hamburger:focus-visible {
     outline: 2px solid var(--color-accent-cyan);
@@ -311,7 +341,7 @@ body::before {
     left: 0;
     right: 0;
     z-index: 45;
-    background-color: rgba(15, 20, 35, 0.98);
+    background-color: rgba(7, 10, 18, 0.98);
     border-bottom: 1px solid var(--color-border);
     padding: 1.25rem clamp(1rem, 4vw, 3rem) 2rem;
     display: flex;
@@ -350,7 +380,7 @@ body::before {
     top: 0;
     z-index: 1;
     padding: 0.35rem 0 0.85rem;
-    background-color: rgba(15, 20, 35, 0.98);
+    background-color: rgba(7, 10, 18, 0.98);
 }
 .nav-drawer-search-input {
     width: 100%;
@@ -358,9 +388,9 @@ body::before {
     font-family: var(--font-body);
     font-size: 13px;
     color: var(--color-text-primary);
-    background: var(--color-bg-card);
+    background: rgba(147, 164, 196, 0.045);
     border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm);
+    border-radius: 999px;
     outline: none;
 }
 .nav-drawer-search-input::placeholder {
@@ -400,8 +430,8 @@ body::before {
     flex: none;
     width: 6px;
     height: 6px;
-    border-right: 1.5px solid var(--color-accent-cyan);
-    border-bottom: 1.5px solid var(--color-accent-cyan);
+    border-right: 1.5px solid var(--level, var(--color-accent-cyan));
+    border-bottom: 1.5px solid var(--level, var(--color-accent-cyan));
     transform: rotate(-45deg);
     transition: transform 0.18s ease;
 }
@@ -427,7 +457,7 @@ body::before {
     font-family: var(--font-mono);
     font-size: 11px;
     font-weight: 600;
-    color: var(--color-accent-cyan);
+    color: var(--level, var(--color-accent-cyan));
     letter-spacing: 0.12em;
     text-transform: uppercase;
     margin: 0;
@@ -455,13 +485,14 @@ body::before {
         border-color 0.15s;
 }
 .nav-drawer-list a:hover {
-    color: var(--color-accent-blue);
-    background: rgba(99, 179, 237, 0.06);
+    color: var(--color-text-primary);
+    background: rgba(147, 164, 196, 0.06);
+    border-left-color: color-mix(in srgb, var(--level, var(--color-accent-cyan)) 45%, transparent);
 }
 .nav-drawer-list a[aria-current='page'] {
-    color: var(--color-accent-cyan);
-    border-left-color: var(--color-accent-cyan);
-    background: rgba(99, 179, 237, 0.08);
+    color: var(--level, var(--color-accent-cyan));
+    border-left-color: var(--level, var(--color-accent-cyan));
+    background: rgba(147, 164, 196, 0.08);
     font-weight: 600;
 }
 @keyframes nav-fade-in {

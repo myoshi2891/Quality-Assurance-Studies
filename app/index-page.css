@@ -41,30 +41,11 @@
     padding-top: 0;
 }
 
-/* --- レベルランプ（data-category が識別子を兼ねる） ---
-   寒色 → 暖色の 1 本のランプ。ランプ上の位置がそのまま資格レベルの高さを示す。
-   実務トラックはランプに乗せず、彩度を落とした 1 色に統合する。 */
-
-.index-page [data-category='foundation'] {
-    --level: #4fd1c5;
-}
-.index-page [data-category='istqb-foundation-ext'] {
-    --level: #63b3ed;
-}
-.index-page [data-category='istqb-advanced'] {
-    --level: #a78bfa;
-}
-.index-page [data-category='istqb-specialist'] {
-    --level: #f6ad55;
-}
-.index-page [data-category='istqb-expert'] {
-    --level: #f687b3;
-}
-.index-page [data-category='cicd-devops'],
-.index-page [data-category='tools-frameworks'],
-.index-page [data-category='books-practices'] {
-    --level: #7f96b8;
-}
+/*
+   レベルランプ（data-category → --level）の定義は globals.css にある。
+   グローバルヘッダーのドロワーも同じ data-category を出力するため、
+   マッピングを 1 箇所に置くことで index とドロワーの色が自動で一致する。
+*/
 
 /* ─────────────  HERO  ───────────── */
 
