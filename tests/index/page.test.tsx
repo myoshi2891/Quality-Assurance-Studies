@@ -6,7 +6,7 @@ mock.module('next/navigation', () => ({
 
 import { render, screen, cleanup, fireEvent, within } from '@testing-library/react';
 import Page from '../../app/page';
-import { NAV_ITEMS, CATEGORY_TITLES, groupByCategory } from '../../lib/navigation';
+import { NAV_ITEMS, CATEGORY_TITLES, CATEGORY_CODES, groupByCategory } from '../../lib/navigation';
 
 afterEach(() => {
   cleanup();
@@ -69,9 +69,86 @@ describe('Guide index page', () => {
     expect(document.querySelector('a.guide-card[href="/"]')).toBeNull();
   });
 
-  it('reports the total guide count', () => {
+  it('reports the total guide count in a dedicated element', () => {
     render(<Page />);
-    expect(screen.getByText(String(GUIDE_ITEMS.length))).toBeDefined();
+    const total = document.querySelector('[data-total-guides]');
+    expect(total?.textContent).toContain(String(GUIDE_ITEMS.length));
+  });
+});
+
+describe('Guide index level ladder (hero signature)', () => {
+  const LEVELS = groupByCategory(NAV_ITEMS).filter((g) => g.category !== 'home');
+
+  it('renders one ladder rung per level, in curriculum order', () => {
+    render(<Page />);
+    const rungs = document.querySelectorAll('[data-ladder-rung]');
+    expect(Array.from(rungs).map((r) => r.getAttribute('data-category'))).toEqual(
+      LEVELS.map((g) => g.category),
+    );
+  });
+
+  it('links each rung to its section so the ladder is navigation, not decoration', () => {
+    render(<Page />);
+    for (const level of LEVELS) {
+      const rung = document.querySelector(`[data-ladder-rung][data-category="${level.category}"]`);
+      expect(rung?.getAttribute('href')).toBe(`#${level.category}`);
+    }
+  });
+
+  it('shows the ISTQB code and guide count on every rung', () => {
+    render(<Page />);
+    for (const level of LEVELS) {
+      const rung = document.querySelector(`[data-ladder-rung][data-category="${level.category}"]`);
+      expect(rung?.textContent).toContain(CATEGORY_CODES[level.category]);
+      expect(rung?.textContent).toContain(String(level.items.length));
+    }
+  });
+
+  it('scales each bar to the level size so the shape of the library is visible', () => {
+    render(<Page />);
+    const max = Math.max(...LEVELS.map((g) => g.items.length));
+    for (const level of LEVELS) {
+      const fill = document.querySelector<HTMLElement>(
+        `[data-ladder-rung][data-category="${level.category}"] .ladder-fill`,
+      );
+      const expected = Math.round((level.items.length / max) * 100);
+      expect(fill?.style.width).toBe(`${expected}%`);
+    }
+  });
+
+  it('gives the widest bar to the largest level (istqb-specialist)', () => {
+    render(<Page />);
+    const widest = document.querySelector<HTMLElement>(
+      '[data-ladder-rung][data-category="istqb-specialist"] .ladder-fill',
+    );
+    expect(widest?.style.width).toBe('100%');
+  });
+});
+
+describe('Guide index level spine', () => {
+  it('labels every section with its ISTQB code', () => {
+    render(<Page />);
+    for (const group of groupByCategory(NAV_ITEMS)) {
+      if (group.category === 'home') continue;
+      const spine = document.querySelector(`section#${group.category} .spine-code`);
+      expect(spine?.textContent).toBe(CATEGORY_CODES[group.category]);
+    }
+  });
+
+  it('tags each section with its category so CSS can colour-code the level', () => {
+    render(<Page />);
+    for (const group of groupByCategory(NAV_ITEMS)) {
+      if (group.category === 'home') continue;
+      const section = document.querySelector(`section#${group.category}`);
+      expect(section?.getAttribute('data-category')).toBe(group.category);
+    }
+  });
+
+  it('shows the guide count beside each section title', () => {
+    render(<Page />);
+    const specialist = groupByCategory(NAV_ITEMS).find((g) => g.category === 'istqb-specialist');
+    const count = document.querySelector('section#istqb-specialist .spine-count');
+    expect(count?.textContent).toContain(String(specialist?.items.length));
   });
 });
 

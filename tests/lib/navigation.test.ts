@@ -5,6 +5,7 @@ import {
   matchesQuery,
   CATEGORY_ORDER,
   CATEGORY_TITLES,
+  CATEGORY_CODES,
   type NavItem,
 } from '../../lib/navigation';
 
@@ -135,6 +136,32 @@ describe('CATEGORY_ORDER / CATEGORY_TITLES', () => {
     for (const item of NAV_ITEMS) {
       expect(CATEGORY_ORDER).toContain(item.category);
     }
+  });
+});
+
+describe('CATEGORY_CODES', () => {
+  it('provides a short code for every ordered category', () => {
+    for (const category of CATEGORY_ORDER) {
+      expect(CATEGORY_CODES[category].trim().length).toBeGreaterThan(0);
+    }
+  });
+
+  it('uses the real ISTQB abbreviations so the code carries information', () => {
+    expect(CATEGORY_CODES['istqb-foundation-ext']).toBe('CTFL');
+    expect(CATEGORY_CODES['istqb-advanced']).toBe('CTAL');
+    expect(CATEGORY_CODES['istqb-specialist']).toBe('CT-*');
+    expect(CATEGORY_CODES['istqb-expert']).toBe('CTEL');
+  });
+
+  it('keeps every code short enough for the level spine (<= 6 chars)', () => {
+    for (const category of CATEGORY_ORDER) {
+      expect(CATEGORY_CODES[category].length).toBeLessThanOrEqual(6);
+    }
+  });
+
+  it('assigns a distinct code to every category', () => {
+    const codes = CATEGORY_ORDER.map((c) => CATEGORY_CODES[c]);
+    expect(new Set(codes).size).toBe(codes.length);
   });
 });
 
