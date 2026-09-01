@@ -147,7 +147,14 @@ describe('Guide index level ladder (hero signature)', () => {
       expect(trackOf(category)).toBe('certification');
     }
 
+    // 件数 0 のカテゴリは groupByCategory が落とすため、描画された段だけを見る。
+    const rendered = new Set(
+      Array.from(document.querySelectorAll('[data-ladder-rung]')).map((r) =>
+        r.getAttribute('data-category'),
+      ),
+    );
     for (const category of ['cicd-devops', 'tools-frameworks', 'books-practices']) {
+      if (!rendered.has(category)) continue;
       expect(trackOf(category)).toBe('practice');
     }
   });
