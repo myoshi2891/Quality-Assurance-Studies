@@ -2,8 +2,8 @@ import { describe, it, expect } from 'bun:test';
 import { NAV_ITEMS, groupByCategory, type NavItem } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 48 entries (home + 8 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 2 tools-frameworks)', () => {
-    expect(NAV_ITEMS).toHaveLength(48);
+  it('contains 49 entries (home + 8 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 3 tools-frameworks)', () => {
+    expect(NAV_ITEMS).toHaveLength(49);
   });
 
   it('every item has a unique href', () => {
@@ -58,6 +58,12 @@ describe('NAV_ITEMS', () => {
     expect(cuc?.category).toBe('tools-frameworks');
   });
 
+  it('classifies /cypress-beginner-guide as tools-frameworks', () => {
+    const cyp = NAV_ITEMS.find((item: NavItem) => item.href === '/cypress-beginner-guide');
+    expect(cyp).toBeDefined();
+    expect(cyp?.category).toBe('tools-frameworks');
+  });
+
   it('classifies home "/" as home category', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
     expect(home?.category).toBe('home');
@@ -89,9 +95,9 @@ describe('groupByCategory', () => {
     expect(cicd?.items).toHaveLength(2);
   });
 
-  it('places 2 items in the tools-frameworks group', () => {
+  it('places 3 items in the tools-frameworks group', () => {
     const tools = groupByCategory(NAV_ITEMS).find((g) => g.category === 'tools-frameworks');
-    expect(tools?.items).toHaveLength(2);
+    expect(tools?.items).toHaveLength(3);
   });
 
   it('assigns a non-empty display title to every group', () => {

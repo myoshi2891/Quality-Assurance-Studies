@@ -91,6 +91,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
 
   { href: '/playwright-beginner-guide', label: 'Playwright 入門ガイド', category: 'tools-frameworks' },
   { href: '/cucumber-beginner-guide', label: 'Cucumber 入門ガイド', category: 'tools-frameworks' },
+  { href: '/cypress-beginner-guide', label: 'Cypress 入門ガイド', category: 'tools-frameworks' },
 ];
 
 const CATEGORY_ORDER: readonly NavCategory[] = [

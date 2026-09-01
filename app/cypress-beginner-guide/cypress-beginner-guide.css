@@ -1,0 +1,549 @@
+/* ==========================================================================
+   Cypress Beginner Guide Page Styles
+   Scoped under .cypress-beginner-page
+   ========================================================================== */
+
+.cypress-beginner-page {
+  --color-background-primary: #0c0d10;
+  --color-background-secondary: #15171c;
+  --color-background-tertiary: #1c1f26;
+  --color-background-info: #14202c;
+  --color-background-danger: #2a1618;
+  --color-background-success: #10241b;
+  --color-background-warning: #2a2113;
+
+  --color-text-primary: #e9eaee;
+  --color-text-secondary: #a7adba;
+  --color-text-tertiary: #6c7280;
+  --color-text-info: #7cb6ea;
+  --color-text-danger: #e8918f;
+  --color-text-success: #7fd7ab;
+  --color-text-warning: #e8c17e;
+
+  --color-border-primary: #2a2d37;
+  --color-border-secondary: #23262e;
+  --color-border-tertiary: #1a1c22;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+    'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+
+  --c-purple-500: #a78bfa;
+  --c-teal-500: #5eead4;
+  --c-coral-500: #fb9271;
+  --c-pink-500: #f472b6;
+  --c-purple-900: #241b3d;
+  --c-teal-900: #0e2b28;
+  --c-coral-900: #331a10;
+  --c-pink-900: #331726;
+
+  --sidebar-width: 300px;
+
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* ---------- Reset globals.css interference ---------- */
+.cypress-beginner-page section {
+  padding-top: 0;
+}
+
+.cypress-beginner-page .hero {
+  min-height: 0;
+  display: block;
+  padding-top: 0;
+}
+
+/* ---------- Sidebar ---------- */
+.cypress-beginner-page .sidebar {
+  width: var(--sidebar-width);
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+  overflow-y: auto;
+  background: var(--color-background-secondary);
+  border-right: 1px solid var(--color-border-tertiary);
+  padding: 28px 20px 60px 20px;
+  z-index: 40;
+}
+
+.cypress-beginner-page .sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.cypress-beginner-page .sidebar-brand svg,
+.cypress-beginner-page .sidebar-brand i {
+  font-size: 20px;
+  color: var(--c-teal-500);
+}
+
+.cypress-beginner-page .sidebar-sub {
+  color: var(--color-text-tertiary);
+  font-size: 12px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  line-height: 1.5;
+}
+
+.cypress-beginner-page .sidebar nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cypress-beginner-page .sidebar nav li a {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: var(--border-radius-md);
+  line-height: 1.4;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.cypress-beginner-page .sidebar nav li a:hover {
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+}
+
+.cypress-beginner-page .sidebar nav li a.active {
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  border-left: 3px solid var(--c-purple-500);
+  padding-left: 7px;
+  font-weight: 500;
+}
+
+.cypress-beginner-page .sidebar nav li a .num {
+  flex-shrink: 0;
+  color: var(--c-purple-500);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  padding-top: 1px;
+}
+
+.cypress-beginner-page .sidebar-footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-tertiary);
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  line-height: 1.6;
+}
+
+.cypress-beginner-page .sidebar-footer a {
+  color: var(--color-text-secondary);
+  text-decoration: none;
+}
+
+.cypress-beginner-page .sidebar-footer a:hover {
+  color: var(--color-text-info);
+  text-decoration: underline;
+}
+
+/* ---------- Main content ---------- */
+.cypress-beginner-page .main-content {
+  flex: 1;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  padding: 56px 64px 120px 64px;
+}
+
+.cypress-beginner-page .content-inner {
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.cypress-beginner-page .doc-header {
+  margin-bottom: 40px;
+}
+
+.cypress-beginner-page .doc-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--c-teal-500);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+}
+
+.cypress-beginner-page .doc-eyebrow svg,
+.cypress-beginner-page .doc-eyebrow i {
+  font-size: 16px;
+}
+
+.cypress-beginner-page h1 {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0 0 18px 0;
+  color: var(--color-text-primary);
+}
+
+.cypress-beginner-page .doc-lede {
+  color: var(--color-text-secondary);
+  font-size: 16px;
+  line-height: 1.75;
+  max-width: 760px;
+  margin-bottom: 0;
+}
+
+.cypress-beginner-page .doc-lede a {
+  color: var(--color-text-info);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cypress-beginner-page h2 {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 64px 0 20px 0;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-tertiary);
+  color: var(--color-text-primary);
+  scroll-margin-top: 84px;
+  display: flex;
+  align-items: center;
+}
+
+.cypress-beginner-page h2:first-of-type {
+  border-top: none;
+  padding-top: 0;
+}
+
+.cypress-beginner-page h3 {
+  font-size: 19px;
+  font-weight: 600;
+  margin: 36px 0 14px 0;
+  color: var(--color-text-primary);
+  scroll-margin-top: 84px;
+}
+
+.cypress-beginner-page h4 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 24px 0 10px 0;
+  color: var(--color-text-primary);
+}
+
+.cypress-beginner-page p {
+  color: var(--color-text-secondary);
+  margin: 0 0 16px 0;
+}
+
+.cypress-beginner-page a {
+  color: var(--color-text-info);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.cypress-beginner-page strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.cypress-beginner-page ul,
+.cypress-beginner-page ol {
+  color: var(--color-text-secondary);
+  padding-left: 22px;
+  margin: 0 0 18px 0;
+}
+
+.cypress-beginner-page li {
+  margin-bottom: 8px;
+}
+
+.cypress-beginner-page li::marker {
+  color: var(--c-purple-500);
+}
+
+.cypress-beginner-page code {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  background: var(--color-background-tertiary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: 5px;
+  padding: 2px 6px;
+  color: var(--c-teal-500);
+}
+
+/* ---------- Code blocks with .code-line ---------- */
+.cypress-beginner-page pre {
+  background: var(--color-background-secondary) !important;
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-lg);
+  padding: 18px 20px !important;
+  overflow-x: auto;
+  margin: 0 0 22px 0 !important;
+  font-size: 13px !important;
+  line-height: 1.65 !important;
+  font-family: var(--font-mono);
+}
+
+.cypress-beginner-page pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: 13px !important;
+  font-family: inherit;
+}
+
+.cypress-beginner-page .code-line {
+  white-space: pre;
+  min-height: 1.5em;
+}
+
+.cypress-beginner-page .code-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  margin-bottom: 6px;
+  text-transform: none;
+}
+
+/* Syntax Highlighting */
+.cypress-beginner-page .token-kw { color: #f472b6; font-weight: 600; }
+.cypress-beginner-page .token-fn { color: #60a5fa; }
+.cypress-beginner-page .token-str { color: #5eead4; }
+.cypress-beginner-page .token-num { color: #fb9271; }
+.cypress-beginner-page .token-cm { color: #6c7280; font-style: italic; }
+.cypress-beginner-page .token-obj { color: #e9eaee; }
+.cypress-beginner-page .token-prop { color: #a78bfa; }
+.cypress-beginner-page .token-punct { color: #9ca3af; }
+
+/* ---------- Tables ---------- */
+.cypress-beginner-page .table-wrap {
+  overflow-x: auto;
+  margin: 0 0 24px 0;
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-lg);
+}
+
+.cypress-beginner-page table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.cypress-beginner-page thead th {
+  text-align: left;
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--color-border-primary);
+  white-space: nowrap;
+}
+
+.cypress-beginner-page tbody td {
+  padding: 12px 16px;
+  color: var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-border-tertiary);
+  vertical-align: top;
+}
+
+.cypress-beginner-page tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cypress-beginner-page tbody td strong {
+  color: var(--color-text-primary);
+}
+
+.cypress-beginner-page tbody td code {
+  white-space: nowrap;
+}
+
+/* ---------- Callouts / citations ---------- */
+.cypress-beginner-page .source-note {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 13px;
+  color: var(--color-text-tertiary);
+  border-left: 2px solid var(--c-purple-500);
+  padding: 4px 0 4px 14px;
+  margin: 4px 0 28px 0;
+}
+
+.cypress-beginner-page .source-note svg,
+.cypress-beginner-page .source-note i {
+  color: var(--c-purple-500);
+  font-size: 14px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.cypress-beginner-page .source-note a {
+  color: var(--color-text-secondary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.cypress-beginner-page .source-note a:hover {
+  color: var(--color-text-info);
+}
+
+.cypress-beginner-page .callout {
+  display: flex;
+  gap: 12px;
+  padding: 16px 18px;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--color-border-primary);
+  margin: 0 0 22px 0;
+  font-size: 14px;
+}
+
+.cypress-beginner-page .callout svg,
+.cypress-beginner-page .callout i {
+  flex-shrink: 0;
+  font-size: 18px;
+  margin-top: 1px;
+}
+
+.cypress-beginner-page .callout p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.cypress-beginner-page .callout-info {
+  background: var(--color-background-info);
+  border-color: rgba(124, 182, 234, 0.3);
+}
+
+.cypress-beginner-page .callout-info svg,
+.cypress-beginner-page .callout-info i {
+  color: var(--color-text-info);
+}
+
+.cypress-beginner-page .callout-danger {
+  background: var(--color-background-danger);
+  border-color: rgba(232, 145, 143, 0.3);
+}
+
+.cypress-beginner-page .callout-danger svg,
+.cypress-beginner-page .callout-danger i {
+  color: var(--color-text-danger);
+}
+
+.cypress-beginner-page .callout-success {
+  background: var(--color-background-success);
+  border-color: rgba(127, 215, 171, 0.3);
+}
+
+.cypress-beginner-page .callout-success svg,
+.cypress-beginner-page .callout-success i {
+  color: var(--color-text-success);
+}
+
+.cypress-beginner-page .callout-warning {
+  background: var(--color-background-warning);
+  border-color: rgba(232, 193, 126, 0.3);
+}
+
+.cypress-beginner-page .callout-warning svg,
+.cypress-beginner-page .callout-warning i {
+  color: var(--color-text-warning);
+}
+
+/* ---------- Mermaid Diagram resets ---------- */
+.cypress-beginner-page .mermaid-wrap {
+  text-align: center;
+  margin: 12px 0 28px 0;
+  padding: 24px;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--border-radius-lg);
+  overflow-x: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cypress-beginner-page .mermaid-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  justify-content: center;
+}
+
+.cypress-beginner-page .mermaid-wrapper svg {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* ---------- Section badges ---------- */
+.cypress-beginner-page .sec-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--border-radius-md);
+  background: var(--c-purple-900);
+  color: var(--c-purple-500);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 600;
+  margin-right: 12px;
+  vertical-align: middle;
+  flex-shrink: 0;
+}
+
+.cypress-beginner-page footer.doc-footer {
+  margin-top: 80px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-tertiary);
+  color: var(--color-text-tertiary);
+  font-size: 13px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .cypress-beginner-page .sidebar {
+    display: none;
+  }
+
+  .cypress-beginner-page .main-content {
+    padding: 32px 24px 80px 24px;
+  }
+
+  .cypress-beginner-page h1 {
+    font-size: 26px;
+  }
+}
