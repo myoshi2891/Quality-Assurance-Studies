@@ -1,12 +1,14 @@
 # 『The Art of Software Testing』から学ぶソフトウェアテスト実践ガイド
-### 初学者のためのステップバイステップ・ベストプラクティス
+
+*初学者のためのステップバイステップ・ベストプラクティス*
 
 > 参考書籍: Glenford J. Myers, Tom Badgett, Corey Sandler『The Art of Software Testing, 3rd Edition』
-> https://www.oreilly.com/library/view/the-art-of/9780471469124/
+> <https://www.oreilly.com/library/view/the-art-of/9781118133156/>
 
 ---
 
 <a id="toc"></a>
+
 ## 目次
 
 - [はじめに](#intro)
@@ -28,6 +30,7 @@
 ---
 
 <a id="intro"></a>
+
 ## はじめに
 
 『The Art of Software Testing』は1979年にGlenford J. Myersが著し、2004年・2012年に改訂された、ソフトウェアテスト分野における最も古典的な書籍の一つです。ハードウェアやプログラミング言語は大きく変わりましたが、この本が説く「テストに対する考え方（心理学）」と「テストケースを設計する方法論」は、今日のアジャイル開発やAI支援開発の時代においても色褪せていません。
@@ -39,6 +42,7 @@
 ---
 
 <a id="ch1"></a>
+
 ## 第1章: テストの心理学 — なぜ「バグを探す」姿勢が重要なのか
 
 Myersが本書の中で最も強調したのは、テストの「目的」に関する定義でした。多くの人は無意識のうちに「プログラムが正しく動くことを証明するためにテストする」と考えてしまいますが、Myersはこれを明確に否定します。その代わりに、彼はテストを「プログラムの誤りを見つけ出す意図を持って実行するプロセス」であると再定義しました。
@@ -69,9 +73,10 @@ flowchart TB
 ---
 
 <a id="ch2"></a>
+
 ## 第2章: ソフトウェアテストの7原則
 
-Myersの心理学的な原則は、その後ISTQB（International Software Testing Qualifications Board）によって体系化され、「テストの7原則」として世界中のテスト教育のベースになっています。初学者はまずこの7つを頭に入れておくと、以降の技法の意味が理解しやすくなります。
+Myersが説いた「テストとは欠陥を見つけるための破壊的な作業である」という心理学的な視点と、ISTQB（International Software Testing Qualifications Board）が Foundation Level シラバスにまとめた「テストの7原則」は、いずれもソフトウェアテストの土台をなす考え方であり、内容の面で強く響き合っています。ただし ISTQB の7原則が Myers の原則を直接体系化したものであるという公式の説明はなく、両者は同じテスト観を共有する別々の系譜として捉えるのが正確です。以下の7原則は ISTQB のシラバスに基づくもので、初学者はまずこの7つを頭に入れておくと、以降の技法の意味が理解しやすくなります。
 
 | # | 原則 | 内容 | 実務での意味 |
 |---|------|------|--------------|
@@ -88,6 +93,7 @@ Myersの心理学的な原則は、その後ISTQB（International Software Testi
 ---
 
 <a id="ch3"></a>
+
 ## 第3章: テストレベルの全体像
 
 Myersは著書の中で、テストを「単体テスト」と「高次テスト（結合・システム・受け入れ・設置テストなど）」に分類しました。この考え方は、現在の開発プロセスにもそのまま受け継がれています。
@@ -115,6 +121,7 @@ flowchart TB
 ---
 
 <a id="ch4"></a>
+
 ## 第4章: ブラックボックステスト技法
 
 ブラックボックステストとは、内部の実装コードを見ずに、入力と出力の関係だけに着目してテストケースを設計する手法です。Myersはこの分野の代表的な技法として「同値分割」と「境界値分析」を紹介しており、これらは今日でも実務で最も使われる技法です。
@@ -151,6 +158,7 @@ Myers自身が強調したように、欠陥は範囲の「境界」付近に集
 ---
 
 <a id="ch5"></a>
+
 ## 第5章: ホワイトボックステスト技法とコードカバレッジ
 
 ホワイトボックステストは、内部のソースコード構造（分岐やループ）に着目してテストケースを設計する手法です。Myersは「どれだけコードを通しても、それだけでは正しさを保証できない」と繰り返し警告しており、この考え方はGoogleのテストエンジニアリングチームが公開している「コードカバレッジのベストプラクティス」にも引き継がれています。
@@ -167,6 +175,7 @@ Googleのテストブログが指摘しているように、カバレッジ率�
 ---
 
 <a id="ch6"></a>
+
 ## 第6章: 非実行型テスト — インスペクション・ウォークスルー・デスクチェック
 
 Myersの著書でもう一つ重要なのが、プログラムを実際に実行せずにレビューする「非実行型テスト」です。現代のコードレビュー文化の原型とも言える考え方です。
@@ -182,6 +191,7 @@ Myersは、これらの人手によるレビューだけでも、実行テスト
 ---
 
 <a id="ch7"></a>
+
 ## 第7章: テストピラミッドと自動テスト戦略
 
 Myersの時代にはまだ「自動テストをどのバランスで書くか」という問題は顕在化していませんでしたが、2010年代以降、Martin Fowlerが自身のサイトで解説し広めた「テストピラミッド」が、この問題に対する標準的な指針になっています。
@@ -199,6 +209,7 @@ Fowlerの考え方の要点は、GUIを介した大規模なE2Eテストばか�
 ---
 
 <a id="ch8"></a>
+
 ## 第8章: テスト駆動開発（TDD）
 
 TDD（Test-Driven Development）は、Kent BeckがExtreme Programmingの一部として体系化した開発手法です。Myersの「テストは欠陥を見つけるためのもの」という思想をさらに一歩進め、「テストを先に書くことで設計そのものを駆動する」という考え方を導入しました。
@@ -223,6 +234,7 @@ flowchart LR
 ---
 
 <a id="ch9"></a>
+
 ## 第9章: 良いテストコードを書くためのFIRST原則
 
 自動テストが増えてくると、「テストコード自体の品質」が課題になります。Robert C. Martin（通称Uncle Bob）は著書『Clean Code』の中で、良い単体テストが備えるべき性質を「FIRST」という頭字語にまとめました。
@@ -240,6 +252,7 @@ flowchart LR
 ---
 
 <a id="ch10"></a>
+
 ## 第10章: デバッグの技法
 
 テストで欠陥を発見した後には、原因を特定して修正する「デバッグ」の工程が必要です。Myersは著書の中でデバッグのアプローチをいくつかに分類しており、その分類は現在でも有効な整理の仕方です。
@@ -260,6 +273,7 @@ flowchart TB
 ---
 
 <a id="ch11"></a>
+
 ## 第11章: 継続的テストとFlaky Testへの対処
 
 CI/CD（継続的インテグレーション／継続的デリバリー）の普及により、テストは「開発の最後にまとめて行うもの」から「コードの変更のたびに自動実行されるもの」へと役割が変わりました。この文脈で近年重要視されているのが「Flaky Test（不安定なテスト）」への対処です。
@@ -272,22 +286,28 @@ flowchart TB
     IntegrationCI --> E2ECI["E2Eテストを実行"]
     E2ECI --> Result{"結果は？"}
     Result -->|すべて成功| Deploy["デプロイ"]
-    Result -->|Flakyな失敗の疑い| Retry["再実行して判定する<br/>頻発する場合は隔離して調査"]
-    Result -->|再現する失敗| Block["マージをブロックし修正する"]
-    Retry --> Result
+    Result -->|失敗あり| Retry["失敗を記録したうえで<br/>同一コミットで再実行する"]
+    Retry --> Judge{"失敗は再現するか？"}
+    Judge -->|再現する| Block["マージをブロックし修正する"]
+    Judge -->|再現しない| Flaky["Flakyと明示的に判定し<br/>担当者をアサインする"]
+    Flaky --> Quarantine["期限付きで隔離する<br/>（例: 2週間以内に調査を完了）"]
+    Quarantine --> Investigate["原因を調査し修正する<br/>期限超過なら削除・再設計"]
+    Quarantine --> GatedDeploy["隔離と調査を条件に<br/>デプロイを継続する"]
 ```
 
-Googleのテストブログによれば、大規模なテストスイートの一定割合は避けがたくFlakyになる傾向があり、その原因は並行処理のタイミング、外部依存、テスト間の状態共有などにあります。重要なのは、Flaky Testを「よくあること」として放置せず、隔離（quarantine）・原因調査・再設計のプロセスを継続的に回すことです。Flaky Testを放置すると、開発者がテストの失敗を信頼しなくなり、テストスイート全体の価値が損なわれてしまいます。
+Googleのテストブログによれば、大規模なテストスイートの一定割合は避けがたくFlakyになる傾向があり、その原因は並行処理のタイミング、外部依存、テスト間の状態共有などにあります。重要なのは、Flaky Testを「よくあること」として放置せず、隔離（quarantine）・原因調査・再設計のプロセスを継続的に回すことです。上図のように、再実行が成功しただけで「すべて成功」の経路に戻してはいけません。最初の失敗は記録として残し、Flakyであることを明示的に判定したうえで、担当者と調査期限をセットにして隔離することが前提になります。Flaky Testを放置すると、開発者がテストの失敗を信頼しなくなり、テストスイート全体の価値が損なわれてしまいます。
 
 ---
 
 <a id="ch12"></a>
+
 ## 第12章: AI時代のソフトウェアテスト（2026年動向）
 
-2026年時点では、AIコーディングアシスタントの普及により、コードの半分以上がAI生成・AI支援によるものになっているという調査結果が複数報告されています。これに伴い、テストのあり方にも変化が生まれています。
+AIコーディングアシスタントの普及に伴い、テストのあり方にも変化が生まれつつあります。ただしこの領域の数値には注意が必要です。調査ごとに「AIが全文を生成したコード」「AIの補完を受けながら人間が書いたコード（AI支援）」「何らかの形でAIが関与したコード」の定義が異なり、同じ「AIによるコードの割合」という表現でも指す対象が揃っていません。以下は確度の高い傾向として押さえておくとよい点です。
 
-- AIが生成したコードは、一見正しく見えても論理的な誤りやセキュリティ上の欠陥を含む割合が高いと報告されており、AI生成コードほど本章までに紹介した原則（境界値分析、テストピラミッド、コードレビュー）を丁寧に適用する必要性が指摘されています。
-- テストケース自体をAIが生成する「AI支援テスト」が普及していますが、業界調査では「テストケースを生成するだけ」にとどまる利用が多く、リスクの特定や設計の質向上まで踏み込めているチームはまだ少数派だと報告されています。
+- AIが関与したコードの比率は近年上昇しているとみられますが、その水準は調査の定義次第で大きく振れます。具体的な割合を引用する際は、必ず出典と「どの範囲をAI由来とみなしたか」をあわせて確認してください。
+- AIが生成したコードには、一見正しく見えても論理的な誤りやセキュリティ上の問題が含まれることがあります。定量的な欠陥率については調査によって結果が分かれており断定はできませんが、レビューとテストの手を緩めてよい根拠は見当たりません。むしろAIの出力に対してこそ、本章までに紹介した原則（境界値分析、テストピラミッド、コードレビュー）を丁寧に適用する価値があります。
+- テストケース自体をAIに生成させる「AI支援テスト」の利用も広がっています。ただし現場での使われ方は「テストケースを量産する」用途に寄りがちで、リスクの特定や設計の質そのものを高めるところまで活用できているかは、チームによって差が大きいのが実情です。
 - セルフヒーリングテスト（UI変更などを自動検知してテストコードを追従させる仕組み）や、変更内容から実行すべきテストを優先順位付けする仕組みなど、テストの「量」より「実行の賢さ」を重視する方向にシフトしています。
 
 これらの動向を踏まえても、根底にあるのは本ガイドで解説してきた古典的な原則です。AIはテストケースの「作成」を助けてくれますが、「何を、なぜテストすべきか」という設計判断は、Myersが説いた心理学的な姿勢と、Fowlerたちが体系化した技法を理解している人間が担う必要があります。
@@ -295,6 +315,7 @@ Googleのテストブログによれば、大規模なテストスイートの�
 ---
 
 <a id="checklist"></a>
+
 ## 実践ステップバイステップ・チェックリスト
 
 初学者がこのガイドの内容を実務に落とし込むための手順をまとめます。
@@ -316,24 +337,25 @@ Googleのテストブログによれば、大規模なテストスイートの�
 ---
 
 <a id="references"></a>
+
 ## 参考文献
 
 本ガイドの作成にあたり、2026年8月30日時点の情報をもとに、書籍および国際的に著名な開発者・組織による記事を参照しました。
 
 | No. | タイトル / 発信者 | URL |
 |-----|--------------------|-----|
-| 1 | The Art of Software Testing, 3rd Edition（Glenford J. Myers, Tom Badgett, Corey Sandler）— O'Reilly | https://www.oreilly.com/library/view/the-art-of/9780471469124/ |
-| 2 | The Art of Software Testing（書評・要約）— Yegor Bugayenko | https://www.yegor256.com/2014/08/22/art-of-software-testing.html |
-| 3 | The Art of Software Testing, from Glenford Myers — José Sobral (Medium) | https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264 |
-| 4 | The Practical Test Pyramid（Ham Vocke, Martin Fowler氏のサイトに掲載） | https://martinfowler.com/articles/practical-test-pyramid.html |
-| 5 | Test Driven Development — Martin Fowler's Bliki | https://martinfowler.com/bliki/TestDrivenDevelopment.html |
-| 6 | Code Coverage Best Practices — Google Testing Blog | https://testing.googleblog.com/2020/08/code-coverage-best-practices.html |
-| 7 | Flaky Tests at Google and How We Mitigate Them — Google Testing Blog | https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html |
-| 8 | FIRST Principles as Solid Rules for Tests（Robert C. Martinの提唱を解説）— DZone | https://dzone.com/articles/first-principles-solid-rules-for-tests |
-| 9 | ISTQB Foundation Level - Seven Testing Principles — ASTQB（ISTQB公認団体） | https://astqb.org/istqb-foundation-level-seven-testing-principles/ |
-| 10 | Using Equivalence Partitioning and Boundary Value Analysis in Black Box Testing — StickyMinds | https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing |
-| 11 | Flaky test — Wikipedia | https://en.wikipedia.org/wiki/Flaky_test |
-| 12 | Top Software Testing Trends in 2026 for QA Leaders — AccelQ | https://www.accelq.com/blog/software-testing-trends/ |
+| 1 | The Art of Software Testing, 3rd Edition（Glenford J. Myers, Tom Badgett, Corey Sandler）— O'Reilly | <https://www.oreilly.com/library/view/the-art-of/9781118133156/> |
+| 2 | The Art of Software Testing（書評・要約）— Yegor Bugayenko | <https://www.yegor256.com/2014/08/22/art-of-software-testing.html> |
+| 3 | The Art of Software Testing, from Glenford Myers — José Sobral (Medium) | <https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264> |
+| 4 | The Practical Test Pyramid（Ham Vocke, Martin Fowler氏のサイトに掲載） | <https://martinfowler.com/articles/practical-test-pyramid.html> |
+| 5 | Test Driven Development — Martin Fowler's Bliki | <https://martinfowler.com/bliki/TestDrivenDevelopment.html> |
+| 6 | Code Coverage Best Practices — Google Testing Blog | <https://testing.googleblog.com/2020/08/code-coverage-best-practices.html> |
+| 7 | Flaky Tests at Google and How We Mitigate Them — Google Testing Blog | <https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html> |
+| 8 | FIRST Principles as Solid Rules for Tests（Robert C. Martinの提唱を解説）— DZone | <https://dzone.com/articles/first-principles-solid-rules-for-tests> |
+| 9 | ISTQB Foundation Level - Seven Testing Principles — ASTQB（ISTQB公認団体） | <https://astqb.org/istqb-foundation-level-seven-testing-principles/> |
+| 10 | Using Equivalence Partitioning and Boundary Value Analysis in Black Box Testing — StickyMinds | <https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing> |
+| 11 | Flaky test — Wikipedia | <https://en.wikipedia.org/wiki/Flaky_test> |
+| 12 | Top Software Testing Trends in 2026 for QA Leaders — AccelQ | <https://www.accelq.com/blog/software-testing-trends/> |
 
 ---
 
