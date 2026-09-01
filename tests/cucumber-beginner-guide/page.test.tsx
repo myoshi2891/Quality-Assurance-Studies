@@ -146,30 +146,45 @@ describe('Cucumber Beginner Guide Page - Comprehensive Test Suite', () => {
       expect(screen.getByText('人間にもコンピュータにも読める形式でシステムの振る舞いを定義する')).toBeDefined();
 
       // Section 2: BDD phases
-      expect(screen.getByText('Discovery')).toBeDefined();
-      expect(screen.getByText('Formulation')).toBeDefined();
-      expect(screen.getByText('Automation')).toBeDefined();
+      const sec02Table = container.querySelector('#sec02 table');
+      expect(sec02Table).not.toBeNull();
+      expect(sec02Table?.textContent).toContain('Discovery');
+      expect(sec02Table?.textContent).toContain('Formulation');
+      expect(sec02Table?.textContent).toContain('Automation');
 
       // Section 3: Gherkin keywords
-      expect(screen.getByText('Scenario Outline / Scenario Template')).toBeDefined();
+      const sec03Table = container.querySelector('#sec03 table');
+      expect(sec03Table).not.toBeNull();
+      expect(sec03Table?.textContent).toContain('Scenario Outline');
+      expect(sec03Table?.textContent).toContain('Scenario Template');
 
       // Section 5: Parameter types
-      expect(screen.getByText('{bigdecimal}')).toBeDefined();
+      const sec05Table = container.querySelector('#sec05 table');
+      expect(sec05Table).not.toBeNull();
+      expect(sec05Table?.textContent).toContain('{bigdecimal}');
+      expect(sec05Table?.textContent).toContain('{int}');
 
       // Section 6: Hooks
-      expect(screen.getByText('BeforeStep')).toBeDefined();
-      expect(screen.getByText('AfterAll')).toBeDefined();
+      const sec06Table = container.querySelector('#sec06 table');
+      expect(sec06Table).not.toBeNull();
+      expect(sec06Table?.textContent).toContain('BeforeStep');
+      expect(sec06Table?.textContent).toContain('AfterAll');
 
       // Section 7: Tag expressions
-      expect(screen.getByText('@wip and not @slow')).toBeDefined();
+      const sec07Table = container.querySelector('#sec07 table');
+      expect(sec07Table).not.toBeNull();
+      expect(sec07Table?.textContent).toContain('@wip and not @slow');
 
       // Section 8: Step execution results
       expect(screen.getByText('Undefined(未定義)')).toBeDefined();
       expect(screen.getByText('Ambiguous(曖昧)')).toBeDefined();
 
       // Section 9: Implementations
-      expect(screen.getByText('Cucumber-JVM')).toBeDefined();
-      expect(screen.getByText('Pytest-BDD')).toBeDefined();
+      const sec09Table = container.querySelector('#sec09 table');
+      expect(sec09Table).not.toBeNull();
+      expect(sec09Table?.textContent).toContain('official');
+      expect(container.querySelector('#sec09')?.textContent).toContain('Cucumber-JVM');
+      expect(container.querySelector('#sec09')?.textContent).toContain('Pytest-BDD');
 
       // Section 11: Reporters
       expect(screen.getByText('message')).toBeDefined();
