@@ -173,8 +173,7 @@
 }
 
 .cypress-beginner-page .content-inner {
-  max-width: 980px;
-  margin: 0 auto;
+  width: 100%;
 }
 
 .cypress-beginner-page .doc-header {
@@ -210,7 +209,6 @@
   color: var(--color-text-secondary);
   font-size: 16px;
   line-height: 1.75;
-  max-width: 760px;
   margin-bottom: 0;
 }
 
@@ -275,8 +273,27 @@
   margin: 0 0 18px 0;
 }
 
+.cypress-beginner-page ul {
+  list-style: disc;
+}
+
+.cypress-beginner-page ol {
+  list-style: decimal;
+}
+
 .cypress-beginner-page li {
   margin-bottom: 8px;
+}
+
+.cypress-beginner-page li > ul {
+  list-style: circle;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.cypress-beginner-page li > ol {
+  margin-top: 6px;
+  margin-bottom: 0;
 }
 
 .cypress-beginner-page li::marker {
