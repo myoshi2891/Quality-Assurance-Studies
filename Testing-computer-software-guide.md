@@ -72,10 +72,10 @@
 | 15 | テストグループのマネジメント |
 | 16 | よくあるソフトウェアの誤りのカタログ |
 
-著者の一人である Cem Kaner はその後、James Bach・Bret Pettichord とともに
-「コンテキスト駆動テスト(Context-Driven Testing)」という考え方を提唱し、
-テストは常に文脈(プロジェクトの制約・目的・リスク)に応じて設計されるべきだという
-思想を広めました。この考え方は本ガイドの探索的テストの章(第10章)でも扱います。
+著者の一人である Cem Kaner はその後、James Bach・Bret Pettichord・Brian Marick
+とともに「コンテキスト駆動テスト(Context-Driven Testing)」を一つの学派として
+2001年に宣言し、テストは常に文脈(プロジェクトの制約・目的・リスク)に応じて
+設計されるべきだという思想を広めました。この考え方は本ガイドの探索的テストの章(第10章)でも扱います。
 
 > 本書自体は電子版が提供されておらず、詳細な原文は書店・図書館等でのみ参照可能です
 > (出典URLは本ガイド末尾の参考文献一覧を参照)。本ガイドは同書の構成を参考にしつつ、
@@ -106,16 +106,22 @@ Software Testing Qualifications Board)の公式シラバスでも、テストは
 
 ソフトウェア開発における広く知られた経験則として、欠陥を発見する工程が後になるほど、
 修正コストが指数関数的に増大するという考え方があります。近年のシフトレフト(shift-left)
-に関する業界資料でも、要件・設計段階で欠陥を見つけた場合と比較して、コーディング段階では
-約10倍、システムテスト段階ではさらに数倍、そして本番環境まで流出すると
-実質100倍規模までコストが跳ね上がるとされています。
+に関する業界資料でも、要件定義・設計段階で欠陥を見つけた場合を基準(1倍)とすると、
+コーディング段階では約6.5倍、システムテスト段階では約15倍、そして本番環境まで
+流出すると約100倍規模までコストが跳ね上がるとされています。
 
-| 欠陥が発見される工程 | 相対的な修正コスト(目安) |
+| 欠陥が発見される工程 | 相対的な修正コスト(要件定義・設計段階を1倍とした目安) |
 | --- | --- |
-| 要件定義・設計段階 | 基準(最も低コスト) |
-| コーディング段階 | 要件定義段階の約2倍 |
-| システムテスト段階 | コーディング段階のさらに約5倍 |
-| 本番リリース後 | 要件定義段階の約100倍規模 |
+| 要件定義・設計段階 | 1倍(基準・最も低コスト) |
+| コーディング段階 | 約6.5倍 |
+| システムテスト段階 | 約15倍 |
+| 本番リリース後 | 約100倍規模 |
+
+> この 1 / 6.5 / 15 / 100 という倍率は、IBM Systems Sciences Institute の推計として
+> 広く引用されてきた目安です(参考文献15)。ただし原典データの追跡可能性には議論があり、
+> 実際の倍率はプロジェクトの規模・アーキテクチャ・リリース形態によって大きく変動します。
+> 「後工程ほど修正コストが跳ね上がる」という傾向自体は、NIST が2002年に公表した
+> ソフトウェアテストの経済影響に関する報告書(参考文献16)でも裏付けられています。
 
 この経験則が、後述する「シフトレフト」や「テスト駆動開発」といった
 「できるだけ早い段階でテストする」考え方の根拠になっています。
@@ -323,10 +329,12 @@ flowchart LR
     EXPLORE --> REPORT["セッションレポートを作成"]
 ```
 
-James Bach・Cem Kaner・Bret Pettichord らは1999年、テストは常にプロジェクトの
-文脈(予算・スケジュール・技術・関係者の価値観)に依存して最適な方法が変わるという
-考え方を「コンテキスト駆動テスト(Context-Driven Testing)」という一つの学派として
-宣言しました。これは「テストケースを網羅的に書いて実行する」という
+Cem Kaner・James Bach・Bret Pettichord・Brian Marick らは2001年、テストは常に
+プロジェクトの文脈(予算・スケジュール・技術・関係者の価値観)に依存して最適な方法が
+変わるという考え方を「コンテキスト駆動テスト(Context-Driven Testing)」という
+一つの学派として宣言しました(第1章で触れたとおり、Kaner らはそれ以前から
+同じ問題意識を共有しており、2001年の『Lessons Learned in Software Testing』
+刊行が学派としての宣言の節目にあたります)。これは「テストケースを網羅的に書いて実行する」という
 factory-style(工場方式)のテストとは対照的に、スキルを持ったテスト担当者による
 継続的な調査・判断を重視するアプローチです。
 
@@ -413,9 +421,9 @@ flowchart LR
     MON -.->|"フィードバック"| REQ
 ```
 
-DORA(DevOps Research and Assessment)の調査でも、コミットのたびに自動テストが
-走る継続的インテグレーションは、エリートパフォーマンスを発揮するチームと
-強く相関する実践の一つとして挙げられています。実務上のコツとして、
+DORA(DevOps Research and Assessment)も、コミットのたびに自動テストが走る
+継続的インテグレーションを、ソフトウェアデリバリのパフォーマンスを高める
+中核ケイパビリティの一つとして挙げています(参考文献17)。実務上のコツとして、
 CIのテストは「10分以内」を目安に高速化することが重要だとされます。
 実行時間が長すぎるテストはやがて開発者に敬遠され、形骸化してしまうためです。
 
@@ -510,34 +518,42 @@ flowchart TB
 ## 18. 参考文献・出典URL一覧
 
 1. Cem Kaner, Jack L. Falk, Hung Quoc Nguyen, *Testing Computer Software* (Google Books書誌情報)
-   https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y
+   <https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y>
 2. ISTQB(International Software Testing Qualifications Board)公式サイト
-   https://istqb.org/
+   <https://istqb.org/>
 3. ISTQB Certified Tester Foundation Level (CTFL) v4.0
-   https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/
+   <https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/>
 4. Martin Fowler / Ham Vocke, "The Practical Test Pyramid"
-   https://martinfowler.com/articles/practical-test-pyramid.html
+   <https://martinfowler.com/articles/practical-test-pyramid.html>
 5. Martin Fowler, "Test Pyramid" (Bliki)
-   https://martinfowler.com/bliki/TestPyramid.html
+   <https://martinfowler.com/bliki/TestPyramid.html>
 6. Martin Fowler, "Test Driven Development" (Bliki)
-   https://www.martinfowler.com/bliki/TestDrivenDevelopment.html
+   <https://www.martinfowler.com/bliki/TestDrivenDevelopment.html>
 7. Google Testing Blog, "Just Say No to More End-to-End Tests" (2015)
-   https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+   <https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html>
 8. Kent C. Dodds, "Static vs Unit vs Integration vs E2E Testing for Frontend Apps"
-   https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+   <https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests>
 9. Kent C. Dodds, "The Testing Trophy and Testing Classifications"
-   https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications
+   <https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications>
 10. Kent C. Dodds, "Write tests. Not too many. Mostly integration."
-    https://kentcdodds.com/blog/write-tests
+    <https://kentcdodds.com/blog/write-tests>
 11. James Bach, Satisfice, Inc.(Rapid Software Testing / Context-Driven School)
-    https://www.satisfice.com/
+    <https://www.satisfice.com/>
 12. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ
-    https://rapid-software-testing.com/authors/
+    <https://rapid-software-testing.com/authors/>
 13. Simon Tatham, "How to Report Bugs Effectively"
-    https://www.chiark.greenend.org.uk/~sgtatham/bugs.html
+    <https://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
 14. Tricentis, "QA trends for 2026: AI, agents, and the future of testing"
-    https://www.tricentis.com/blog/qa-trends-ai-agentic-testing
+    <https://www.tricentis.com/blog/qa-trends-ai-agentic-testing>
+15. IBM Systems Sciences Institute の相対修正コスト推計(第3章の倍率の出典として
+    広く引用されるが、原典データの追跡可能性には議論がある点に注意)
+16. NIST, "The Economic Impacts of Inadequate Infrastructure for Software Testing" (2002)
+    <https://www.nist.gov/publications/economic-impacts-inadequate-infrastructure-software-testing>
+17. DORA, "Continuous integration" (DORA Core ケイパビリティ解説)
+    <https://dora.dev/capabilities/continuous-integration/>
 
 > 上記のうち1〜3は一次情報源(書誌情報・標準化団体)、4〜13は国際的に著名な
 > ソフトウェアエンジニア/テストエンジニア個人が発信している一次情報、14は
-> 2026年時点の業界動向を把握するための業界レポートとして参照しています。
+> 2026年時点の業界動向を把握するための業界レポート、15〜17は本文中の定量的な
+> 主張(修正コストの倍率・継続的インテグレーションの効果)の根拠として
+> 参照しています。
