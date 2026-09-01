@@ -124,6 +124,33 @@ describe('Guide index level ladder (hero signature)', () => {
     );
     expect(widest?.style.width).toBe('100%');
   });
+
+  /*
+    階梯は ISTQB の資格レベルの階段である。CI/CD・ツール・書籍はその階段の段ではなく、
+    横に置かれた実務の棚。両者を同じ段として並べると図が事実と食い違うため、
+    トラックを DOM 上で区別し、CSS が別の色・別の配置を与えられるようにする。
+  */
+  it('separates the certification ladder from the practice shelf', () => {
+    render(<Page />);
+    const trackOf = (category: string) =>
+      document
+        .querySelector(`[data-ladder-rung][data-category="${category}"]`)
+        ?.getAttribute('data-track');
+
+    for (const category of [
+      'foundation',
+      'istqb-foundation-ext',
+      'istqb-advanced',
+      'istqb-specialist',
+      'istqb-expert',
+    ]) {
+      expect(trackOf(category)).toBe('certification');
+    }
+
+    for (const category of ['cicd-devops', 'tools-frameworks', 'books-practices']) {
+      expect(trackOf(category)).toBe('practice');
+    }
+  });
 });
 
 describe('Guide index level spine', () => {
@@ -206,5 +233,29 @@ describe('Guide index category coverage', () => {
       );
       expect(section.querySelectorAll('a.guide-card')).toHaveLength(group.items.length);
     }
+  });
+});
+
+describe('Guide index search feedback', () => {
+  /*
+    50 件を絞り込む画面なので、検索の結果が「今何件か」を数で返す。
+    カードを数えさせないための表示であり、絞り込みの手応えそのもの。
+  */
+  it('reports how many guides the current query matches', () => {
+    render(<Page />);
+    const count = () => document.querySelector('[data-result-count]');
+    expect(count()?.textContent).toContain(String(GUIDE_ITEMS.length));
+
+    fireEvent.change(searchInput(), { target: { value: 'cypress' } });
+    expect(count()?.textContent).toContain('1');
+  });
+
+  /* 空の画面は行き止まりではなく次の一手の案内にする。 */
+  it('offers a way forward when nothing matches', () => {
+    render(<Page />);
+    fireEvent.change(searchInput(), { target: { value: 'zzzz-no-such-guide' } });
+    const hint = document.querySelector('[data-empty-hint]');
+    expect(hint).not.toBeNull();
+    expect(hint?.textContent?.length ?? 0).toBeGreaterThan(0);
   });
 });
