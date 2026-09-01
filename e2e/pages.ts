@@ -60,7 +60,8 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/github-actions', h1: /GitHub Actions 完全ガイド/ },
   { path: '/github-actions-guide', h1: /GitHub Actions 中級〜上級者向け完全ガイド/ },
   { path: '/playwright-beginner-guide', h1: /Playwright.*完全入門ガイド/ },
+  { path: '/cucumber-beginner-guide', h1: /Cucumber.*入門ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 47;
+export const EXPECTED_PAGE_COUNT = 48;
 

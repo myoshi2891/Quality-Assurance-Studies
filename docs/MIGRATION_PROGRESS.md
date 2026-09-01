@@ -1,19 +1,27 @@
 # Migration Progress
 
-Updated 2026-08-31
+Updated 2026-09-01
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計47ルート）。
+> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計48ルート）。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f16313f` |
+| 最新 HEAD | `4656f13` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（240 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（253 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/01: Cucumber 初学者向け完全入門ガイドの Next.js 移行完了
+
+- `app/cucumber-beginner-guide/`: ページコンポーネント（Mermaid 7図、全16セクション、Gherkin/Prismシンタックスハイライト、全テーブル、13枚のまとめカード、21項目の参考文献を含む完全移行）、スタイル（`.cucumber-beginner-page` スコープ、フォレストグリーンダークテーマ）、NavBar（IntersectionObserver スクロールスパイ、aria-current）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリ（「テストツール & フレームワーク」）に `/cucumber-beginner-guide`（Cucumber 入門ガイド）を追加。
+- `tests/cucumber-beginner-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全16リンク、全16セクション、Mermaid 7図、全テーブル、全コードブロック、まとめカード13枚、全参考文献21件の存在を検証する厳格なテストスイートを実装して全パス（全253件）。
+- `Cucumber-beginner-guide.html`: `archive/html-archive/tools/Cucumber-beginner-guide.html` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 48 ページ体制に同期。
 
 ## 2026/08/31: Playwright 初学者向け完全入門ガイドの Next.js 移行完了
 
@@ -451,6 +459,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Github-actions.html` | `/github-actions` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
 | `Github-actions-guide.html` | `/github-actions-guide` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
 | `Playwright-beginner-guide.html` | `/playwright-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
+| `Cucumber-beginner-guide.html` | `/cucumber-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -468,8 +477,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 ```text
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
-- **GitHub Actions ガイド移行完了**: プロジェクトルートに存在した全46ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 47 ルート（ホーム + 46 ガイド）が管理されています。
+- **Cucumber ガイド移行完了**: プロジェクトルートに存在した全47ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- 合計 48 ルート（ホーム + 47 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
