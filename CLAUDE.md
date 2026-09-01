@@ -210,6 +210,9 @@ Next.js App Router 構成:
 - `app/cucumber-beginner-guide/cucumber-beginner-guide.css` — Cucumber 入門ガイド固有スタイル
 - `app/cucumber-beginner-guide/page.tsx` — Cucumber 入門ガイドページ
 - `app/cucumber-beginner-guide/NavBar.tsx` — Cucumber 入門ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
+- `app/cypress-beginner-guide/cypress-beginner-guide.css` — Cypress 入門ガイド固有スタイル
+- `app/cypress-beginner-guide/page.tsx` — Cypress 入門ガイドページ
+- `app/cypress-beginner-guide/NavBar.tsx` — Cypress 入門ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
