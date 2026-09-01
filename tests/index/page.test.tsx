@@ -17,10 +17,11 @@ const GUIDE_ITEMS = NAV_ITEMS.filter((item) => item.category !== 'home');
 const searchInput = () => screen.getByRole('searchbox', { name: 'ガイドを検索' });
 
 describe('Guide index page', () => {
-  it('renders the library heading', () => {
+  it('leads with the organising thesis, not a generic label', () => {
     const heading = render(<Page />).container.querySelector('h1');
     expect(heading).not.toBeNull();
-    expect(heading?.textContent).toMatch(/ガイドライブラリ/);
+    expect(heading?.textContent).toMatch(/登る順/);
+    expect(heading?.textContent).toContain(String(GUIDE_ITEMS.length));
   });
 
   it('renders one section heading per non-empty category', () => {

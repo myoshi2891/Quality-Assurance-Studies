@@ -1,187 +1,401 @@
 /*
- * ガイドライブラリ index 画面（`/`）固有スタイル。
+ * ガイドライブラリ index（`/`）固有スタイル。
+ *
+ * 設計の芯: ISTQB の認定レベルは並列のカテゴリではなく階梯である。
+ * その事実を (1) ヒーローの階梯バー (2) 各セクションのレベル背骨
+ * (3) レベルごとの色 の 3 点で符号化する。色は装飾ではなくレベルの識別子。
  *
  * globals.css の汎用セレクタ（section の padding-top / main の max-width）が
  * このレイアウトでは余白崩れを起こすため、冒頭でリセットする。
  * ヘッダー分のオフセットは .layout-content が持つため、ここでは加算しない。
  */
 
+.index-page.index-page {
+    max-width: none;
+    margin: 0;
+    padding: 0;
+}
+
 .index-page section {
     padding-top: 0;
 }
 
-.index-page.index-page {
-    max-width: none;
-    margin: 0;
-    padding: 3rem 1.5rem 5rem;
+/* --- レベル色（data-category が識別子を兼ねる） --- */
+
+.index-page [data-category='foundation'] {
+    --level: var(--color-accent-cyan);
+}
+.index-page [data-category='istqb-foundation-ext'] {
+    --level: var(--color-accent-blue);
+}
+.index-page [data-category='istqb-advanced'] {
+    --level: var(--color-accent-purple);
+}
+.index-page [data-category='istqb-specialist'] {
+    --level: var(--color-accent-orange);
+}
+.index-page [data-category='istqb-expert'] {
+    --level: var(--color-accent-pink);
+}
+.index-page [data-category='cicd-devops'] {
+    --level: var(--color-accent-green);
+}
+.index-page [data-category='tools-frameworks'] {
+    --level: var(--color-accent-yellow);
+}
+.index-page [data-category='books-practices'] {
+    --level: var(--color-accent-red);
 }
 
-/* --- ヒーロー --- */
+/* ─────────────  HERO  ───────────── */
 
 .index-hero {
-    max-width: 1200px;
-    margin: 0 auto 3rem;
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 3.25rem clamp(1.25rem, 5vw, 4rem) 2.25rem;
 }
 
 .index-eyebrow {
     font-family: var(--font-mono);
-    font-size: 0.8rem;
-    letter-spacing: 0.18em;
-    color: var(--color-accent-cyan);
-    margin-bottom: 0.75rem;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.22em;
+    color: var(--color-text-muted);
+    margin-bottom: 1.5rem;
 }
 
 .index-title {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 3.25rem);
-    font-weight: 800;
-    line-height: 1.15;
+    font-family: var(--font-grotesk), 'Noto Sans JP', sans-serif;
+    font-size: clamp(2.4rem, 7vw, 4.75rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.08;
     color: var(--color-text-primary);
-    margin-bottom: 1rem;
+    margin: 0 0 1.4rem;
 }
 
 .index-lead {
-    max-width: 46rem;
-    font-size: 1rem;
-    line-height: 1.9;
+    max-width: 34rem;
+    font-size: 0.95rem;
+    line-height: 2;
     color: var(--color-text-secondary);
+    margin: 0 0 1rem;
 }
 
-.index-stats {
-    display: flex;
-    gap: 2.5rem;
-    margin-top: 2rem;
-}
-
-.index-stat dt {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
+.index-meta {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.16em;
     color: var(--color-text-muted);
-}
-
-.index-stat dd {
-    font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--color-accent-blue);
     margin: 0;
 }
 
-/* --- 検索 --- */
+/* ─── 階梯（signature）: バー長 = そのレベルのガイド数 ─── */
 
-.guide-index {
-    max-width: 1200px;
-    margin: 0 auto;
+/*
+  バーは比較のための図なので、伸ばしきらず読み比べられる幅に収める。
+  幅いっぱいに伸ばすと 3px の帯が罫線に見え、量の差が読めなくなる。
+*/
+.ladder {
+    display: flex;
+    flex-direction: column;
+    max-width: 44rem;
+    margin-top: 2.25rem;
+    border-top: 1px solid var(--color-border);
 }
 
+.ladder-rung {
+    display: grid;
+    grid-template-columns: 4.25rem minmax(0, 12rem) minmax(0, 1fr) 2rem;
+    align-items: center;
+    gap: 1.1rem;
+    padding: 0.58rem 0.25rem;
+    border-bottom: 1px solid var(--color-border);
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.ladder-rung:hover {
+    background: rgba(232, 240, 254, 0.03);
+}
+
+.ladder-rung:focus-visible {
+    outline: 2px solid var(--level);
+    outline-offset: -2px;
+}
+
+.ladder-code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--level);
+}
+
+.ladder-label {
+    font-size: 12px;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color 0.2s ease;
+}
+
+.ladder-rung:hover .ladder-label {
+    color: var(--color-text-primary);
+}
+
+.ladder-bar {
+    display: block;
+    height: 4px;
+    background: rgba(232, 240, 254, 0.05);
+}
+
+.ladder-fill {
+    display: block;
+    height: 100%;
+    background: var(--level);
+    transform-origin: left center;
+    animation: ladder-grow 0.75s cubic-bezier(0.16, 1, 0.3, 1) backwards;
+}
+
+/* 上の段から順に伸ばし、階梯を一度だけ読ませる */
+.ladder-rung:nth-child(1) .ladder-fill { animation-delay: 0.05s; }
+.ladder-rung:nth-child(2) .ladder-fill { animation-delay: 0.12s; }
+.ladder-rung:nth-child(3) .ladder-fill { animation-delay: 0.19s; }
+.ladder-rung:nth-child(4) .ladder-fill { animation-delay: 0.26s; }
+.ladder-rung:nth-child(5) .ladder-fill { animation-delay: 0.33s; }
+.ladder-rung:nth-child(6) .ladder-fill { animation-delay: 0.40s; }
+.ladder-rung:nth-child(7) .ladder-fill { animation-delay: 0.47s; }
+.ladder-rung:nth-child(8) .ladder-fill { animation-delay: 0.54s; }
+
+@keyframes ladder-grow {
+    from {
+        transform: scaleX(0);
+    }
+    to {
+        transform: scaleX(1);
+    }
+}
+
+.ladder-count {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--color-text-muted);
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ─────────────  BODY  ───────────── */
+
+.guide-index {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 0 clamp(1.25rem, 5vw, 4rem) 6rem;
+}
+
+/*
+  50 件を絞り込む画面なので、検索窓は結果を見ながら打てる位置に留める。
+  静止時は罫線 1 本だが、貼り付いている間はカードが透けないよう地色を敷く。
+*/
 .guide-index-search {
     position: sticky;
     top: calc(60px + var(--disclaimer-height, 0px));
-    z-index: 30;
+    z-index: 20;
     padding: 0.75rem 0 1.5rem;
-    background: linear-gradient(
-        to bottom,
-        var(--color-bg-primary) 70%,
-        rgba(10, 14, 26, 0)
-    );
+    /* 罫線基調のページなので、フェードでにじませずハードエッジで切る */
+    background: var(--color-bg-primary);
 }
 
+/* 箱ではなく罫線。ページ全体の罫線の語彙に合わせる */
 .guide-index-search-input {
     width: 100%;
-    padding: 0.85rem 1.1rem;
+    padding: 0.7rem 0 0.7rem 0.1rem;
     font-family: var(--font-body);
     font-size: 0.95rem;
     color: var(--color-text-primary);
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-sm, 8px);
+    background: transparent;
+    border: 0;
+    border-bottom: 1px solid var(--color-border-bright);
+    border-radius: 0;
     outline: none;
+    transition: border-color 0.2s ease;
 }
 
 .guide-index-search-input::placeholder {
     color: var(--color-text-muted);
 }
 
-.guide-index-search-input:focus-visible {
-    border-color: var(--color-border-bright);
-    box-shadow: var(--shadow-glow-blue);
+.guide-index-search-input:focus {
+    border-bottom-color: var(--color-accent-cyan);
 }
 
 .guide-index-empty {
-    padding: 3rem 0;
-    text-align: center;
-    color: var(--color-text-secondary);
+    padding: 4rem 0;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    color: var(--color-text-muted);
 }
 
-/* --- カテゴリセクション --- */
+/* ─── レベルセクション + 背骨 ─── */
 
-.index-page .guide-index-section {
-    padding: 0 0 3rem;
-    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 4rem);
-}
-
-.guide-index-heading {
-    font-family: var(--font-display);
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    color: var(--color-accent-cyan);
-    padding-bottom: 0.6rem;
-    margin-bottom: 1.25rem;
-    border-bottom: 1px solid var(--color-border);
-}
-
-/* --- ガイドカード --- */
-
-.guide-card-grid {
+.index-page .guide-section {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-    gap: 1rem;
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: 0 3rem;
+    padding: 0 0 2.75rem;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 5rem);
+}
+
+.guide-section-spine {
+    position: sticky;
+    top: calc(60px + var(--disclaimer-height, 0px) + 5.5rem);
+    align-self: start;
+    padding-top: 0.9rem;
+    border-top: 2px solid var(--level);
+}
+
+.spine-code {
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--level);
+    margin-bottom: 0.5rem;
+}
+
+.guide-section-title {
+    font-family: var(--font-grotesk), 'Noto Sans JP', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    margin: 0 0 0.4rem;
+}
+
+.spine-count {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--color-text-muted);
+}
+
+/* ─── ガイドカード: 箱をやめ、レベル色の縦罫で所属を示す ─── */
+
+/*
+  最終行はカード数が列数で割り切れず欠けるため、リスト側にも下罫を引いて
+  グリッドを閉じる（カードの下罫とは同位置で重なるだけ）。
+*/
+.guide-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+    gap: 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
 }
 
 .guide-card {
     display: block;
-    padding: 1.15rem 1.25rem;
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-DEFAULT, 12px);
+    padding: 1.15rem 1.25rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    border-left: 2px solid transparent;
     text-decoration: none;
-    transition: background-color 0.18s ease, border-color 0.18s ease, transform 0.18s ease;
+    transition:
+        border-left-color 0.18s ease,
+        background-color 0.18s ease;
 }
 
 .guide-card:hover {
-    background: var(--color-bg-card-hover);
-    border-color: var(--color-border-bright);
-    transform: translateY(-2px);
+    border-left-color: var(--level);
+    background: rgba(232, 240, 254, 0.025);
 }
 
 .guide-card:focus-visible {
-    outline: 2px solid var(--color-accent-blue);
-    outline-offset: 2px;
+    outline: 2px solid var(--level);
+    outline-offset: -2px;
 }
 
 .guide-card-title {
-    font-family: var(--font-display);
-    font-size: 0.95rem;
-    font-weight: 700;
-    line-height: 1.5;
+    font-family: var(--font-grotesk), 'Noto Sans JP', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    line-height: 1.55;
+    letter-spacing: -0.005em;
     color: var(--color-text-primary);
-    margin-bottom: 0.5rem;
+    margin: 0 0 0.45rem;
+    transition: color 0.18s ease;
+}
+
+.guide-card:hover .guide-card-title {
+    color: var(--level);
 }
 
 .guide-card-desc {
-    font-size: 0.8rem;
-    line-height: 1.75;
+    font-size: 0.78rem;
+    line-height: 1.85;
     color: var(--color-text-secondary);
     margin: 0;
 }
 
-@media (prefers-reduced-motion: reduce) {
-    .guide-card {
-        transition: none;
+/* ─────────────  RESPONSIVE  ───────────── */
+
+@media (max-width: 900px) {
+    .index-page .guide-section {
+        grid-template-columns: 1fr;
+        gap: 0;
     }
 
-    .guide-card:hover {
-        transform: none;
+    .guide-section-spine {
+        position: static;
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .guide-section-title {
+        margin: 0;
+    }
+
+    .spine-code,
+    .guide-section-title {
+        margin-bottom: 0;
+    }
+
+    .spine-count {
+        margin-left: auto;
+    }
+
+    /* 1 カラムでは背骨と本文の左端を揃える */
+    .guide-card {
+        padding-left: 0.85rem;
+        padding-right: 0;
+    }
+}
+
+@media (max-width: 560px) {
+    .ladder-rung {
+        grid-template-columns: 3.75rem 1fr 2rem;
+        gap: 0.75rem;
+    }
+
+    /* 幅が足りない場合はラベルを落とし、コード・バー・件数だけ残す */
+    .ladder-label {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .ladder-fill {
+        animation: none;
+    }
+
+    .guide-card,
+    .guide-card-title,
+    .ladder-rung,
+    .ladder-label {
+        transition: none;
     }
 }

@@ -1,11 +1,11 @@
 import type { Metadata } from 'next';
 import './index-page.css';
 import GuideIndex from './GuideIndex';
-import { NAV_ITEMS, groupByCategory } from '../lib/navigation';
+import { NAV_ITEMS, groupByCategory, CATEGORY_CODES } from '../lib/navigation';
 
 export const metadata: Metadata = {
   title: 'QA_STUDIES ガイドライブラリ',
-  description: 'ISTQB 準拠のテスト学習ガイドをカテゴリ別に一覧できるインデックス。',
+  description: 'ISTQB 準拠のテスト学習ガイドを、基礎から Expert まで登る順に並べたインデックス。',
 };
 
 /**
@@ -16,32 +16,58 @@ export const metadata: Metadata = {
  * `/modern-software-testing-complete-guide-2025` へ移設し、ここは全ガイドへの
  * 導線に専念する。
  *
- * @returns The JSX element for the index layout (hero summary + searchable category grid)
+ * ヒーローの階梯（ladder）は装飾ではなく、ISTQB の実際の資格レベルを段として並べ、
+ * バー長をそのレベルのガイド数に比例させたもの。ライブラリの偏り（Specialist に量が
+ * 集中している事実）がそのまま形として読め、各段はそのセクションへのアンカーになる。
+ *
+ * @returns The JSX element for the index layout (level ladder hero + searchable level sections)
  */
 export default function Home() {
-  const guideCount = NAV_ITEMS.filter((item) => item.category !== 'home').length;
-  const categoryCount = groupByCategory(NAV_ITEMS).filter((g) => g.category !== 'home').length;
+  const levels = groupByCategory(NAV_ITEMS).filter((g) => g.category !== 'home');
+  const guideCount = levels.reduce((sum, g) => sum + g.items.length, 0);
+  const largest = Math.max(...levels.map((g) => g.items.length));
 
   return (
     <main className="index-page">
-      <section className="index-hero">
-        <p className="index-eyebrow">QA_STUDIES</p>
-        <h1 className="index-title">ガイドライブラリ</h1>
+      <header className="index-hero">
+        <p className="index-eyebrow">QA_STUDIES / LIBRARY</p>
+        <h1 className="index-title">
+          登る順に並べた、
+          <br />
+          {guideCount} のガイド。
+        </h1>
         <p className="index-lead">
           ISTQB シラバスと現場実践をもとにしたテスト学習ガイド集。
-          カテゴリから辿るか、検索で目的のガイドへ直接移動できる。
+          レベルから辿るか、検索で直接開く。
         </p>
-        <dl className="index-stats">
-          <div className="index-stat">
-            <dt>ガイド</dt>
-            <dd>{guideCount}</dd>
-          </div>
-          <div className="index-stat">
-            <dt>カテゴリ</dt>
-            <dd>{categoryCount}</dd>
-          </div>
-        </dl>
-      </section>
+        <p className="index-meta">
+          <span data-total-guides>{guideCount} GUIDES</span>
+          <span aria-hidden="true"> · </span>
+          <span>{levels.length} LEVELS</span>
+        </p>
+
+        <nav className="ladder" aria-label="レベル別ガイド数">
+          {levels.map((level) => (
+            <a
+              key={level.category}
+              href={`#${level.category}`}
+              className="ladder-rung"
+              data-ladder-rung
+              data-category={level.category}
+            >
+              <span className="ladder-code">{CATEGORY_CODES[level.category]}</span>
+              <span className="ladder-label">{level.title}</span>
+              <span className="ladder-bar" aria-hidden="true">
+                <span
+                  className="ladder-fill"
+                  style={{ width: `${Math.round((level.items.length / largest) * 100)}%` }}
+                />
+              </span>
+              <span className="ladder-count">{level.items.length}</span>
+            </a>
+          ))}
+        </nav>
+      </header>
 
       <GuideIndex />
     </main>

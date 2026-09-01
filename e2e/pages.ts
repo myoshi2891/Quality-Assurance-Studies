@@ -13,7 +13,7 @@ export interface PageMeta {
 }
 
 export const PAGES: readonly PageMeta[] = [
-  { path: '/', h1: /ガイドライブラリ/ },
+  { path: '/', h1: /登る順に並べた/ },
   { path: '/modern-software-testing-complete-guide-2025', h1: /羅針盤/ },
   { path: '/acceptance-testing-guide', h1: /Acceptance.*Testing/s },
   { path: '/ai-test-guide', h1: /AIシステム.*テスト/s },

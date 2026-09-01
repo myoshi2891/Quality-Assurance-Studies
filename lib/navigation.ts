@@ -127,6 +127,23 @@ export const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
 };
 
 /**
+ * カテゴリの短縮コード。ISTQB の実際の資格略号をそのまま使うため、
+ * ラベルの短縮版ではなく「そのレベルが何の資格体系か」という情報を運ぶ。
+ * ガイド index のヒーロー階梯とレベル背骨で表示する。
+ */
+export const CATEGORY_CODES: Readonly<Record<NavCategory, string>> = {
+  'home': 'INDEX',
+  'foundation': 'BASE',
+  'istqb-foundation-ext': 'CTFL',
+  'istqb-advanced': 'CTAL',
+  'istqb-specialist': 'CT-*',
+  'istqb-expert': 'CTEL',
+  'cicd-devops': 'CI/CD',
+  'tools-frameworks': 'TOOLS',
+  'books-practices': 'BOOKS',
+};
+
+/**
  * Organizes navigation items into ordered groups by their category.
  *
  * @param items - The navigation items to group

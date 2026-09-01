@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_JP, JetBrains_Mono, DM_Sans } from 'next/font/google';
+import { Noto_Sans_JP, JetBrains_Mono, DM_Sans, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import Header from '../components/Header';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
@@ -17,6 +17,19 @@ const jetBrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-mono',
+});
+
+/*
+  ガイド index（`/`）専用のディスプレイ書体。
+  CTAL-TTA / CT-AI といったラテン略号だけがこの声に切り替わる混植を狙う。
+  1 ルートでしか使わないため preload はしない。
+*/
+const spaceGrotesk = Space_Grotesk({
+  weight: ['500', '600', '700'],
+  subsets: ['latin'],
+  preload: false,
+  display: 'swap',
+  variable: '--font-grotesk',
 });
 
 const dmSans = DM_Sans({
@@ -45,7 +58,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable}`}>
+    <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable} ${spaceGrotesk.variable}`}>
       <body>
         <Header />
         <DisclaimerBanner />
