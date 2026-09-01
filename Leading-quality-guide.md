@@ -1,5 +1,6 @@
 # Leading Quality 実践ガイド
-### ―― 偉大なリーダーはいかにして高品質なソフトウェアを届け、成長を加速させるのか ――
+
+*―― 偉大なリーダーはいかにして高品質なソフトウェアを届け、成長を加速させるのか ――*
 
 > 📘 書籍情報（正式版）
 > **タイトル**: *Leading Quality: How Great Leaders Deliver High-Quality Software and Accelerate Growth*
@@ -368,13 +369,13 @@ flowchart TD
 
 | 種別 | タイトル／概要 | URL |
 |---|---|---|
-| 公式サイト | Leading Quality Book 公式サイト（著者プロフィール・書籍概要） | https://www.leadingqualitybook.com/ |
-| 著者インタビュー（国際的な技術メディア InfoQ） | "Q&A on the Book Leading Quality"（Ben Linders氏によるRonald Cummings-Johnへのインタビュー） | https://www.infoq.com/articles/book-review-leading-quality/ |
-| 無料サンプル章（出版社公式配布） | 第3章「Leading a Culture of Quality」無料サンプルPDF | https://cdn2.hubspot.net/hubfs/540930/Leading%20Quality_%20FREE%20sample%20Chapter%203.pdf |
-| ポッドキャスト書き起こし（国際的なテスト自動化ポッドキャスト TestGuild） | "Leading Quality with Ronald Cummings-John"（Joe Colantonio氏によるインタビュー） | https://testguild.com/podcast/a326-ronald/ |
-| 書評（国際的なアジャイル/テスト専門家 Derk-Jan de Grood氏） | "Leading Quality – Review of the book" | https://djdegrood.wordpress.com/2019/11/28/leading-quality-review-of-the-book-by-ronald-cummings-john-and-owais-peer/ |
-| 書籍要点まとめ | Mentoring Club による本書のキーインサイト紹介ページ | https://www.mentoring-club.com/our-library/ronald-cummings---john-owais-peer-leading-quality---how-great-leaders-deliver-high-quality-software-and-accelerate-growth |
-| 書籍販売ページ（正式タイトル・著者・ISBN確認用） | Amazon.com 商品ページ | https://www.amazon.com/dp/B07W16KG12 |
-| 参考記事（本文中で言及） | Cindy Sridharan "Testing in Production, the Safe Way" | https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1 |
+| 公式サイト | Leading Quality Book 公式サイト（著者プロフィール・書籍概要） | <https://www.leadingqualitybook.com/> |
+| 著者インタビュー（国際的な技術メディア InfoQ） | "Q&A on the Book Leading Quality"（Ben Linders氏によるRonald Cummings-Johnへのインタビュー） | <https://www.infoq.com/articles/book-review-leading-quality/> |
+| 無料サンプル章（出版社公式配布） | 無料サンプル章のリクエストフォーム（公式サイト内。氏名とメールアドレスを登録すると入手できる） | <https://www.leadingqualitybook.com/#freeFooter> |
+| ポッドキャスト書き起こし（国際的なテスト自動化ポッドキャスト TestGuild） | "Leading Quality with Ronald Cummings-John"（Joe Colantonio氏によるインタビュー） | <https://testguild.com/podcast/a326-ronald/> |
+| 書評（国際的なアジャイル/テスト専門家 Derk-Jan de Grood氏） | "Leading Quality – Review of the book" | <https://djdegrood.wordpress.com/2019/11/28/leading-quality-review-of-the-book-by-ronald-cummings-john-and-owais-peer/> |
+| 書籍要点まとめ | Mentoring Club による本書のキーインサイト紹介ページ | <https://www.mentoring-club.com/our-library/ronald-cummings---john-owais-peer-leading-quality---how-great-leaders-deliver-high-quality-software-and-accelerate-growth> |
+| 書籍販売ページ（正式タイトル・著者・ISBN確認用） | Amazon.com 商品ページ | <https://www.amazon.com/dp/B07W16KG12> |
+| 参考記事（本文中で言及） | Cindy Sridharan "Testing in Production, the Safe Way" | <https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1> |
 
 > ⚠️ **注記**: ご共有いただいたScribdのリンク（`scribd.com/document/753313361/...`）は、書籍全文の無断アップロードである可能性が高いため、著作権保護の観点から本ガイド作成にあたって参照していません。本ガイドの内容は、上記の公式サイト・出版社配布の無料サンプル・著者本人へのインタビュー記事など、正規に公開されている情報のみに基づいています。書籍の全文を読みたい場合は、公式サイトまたはAmazon等の正規販売チャネルからの購入をおすすめします。
