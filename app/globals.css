@@ -313,30 +313,118 @@ body::before {
     z-index: 45;
     background-color: rgba(15, 20, 35, 0.98);
     border-bottom: 1px solid var(--color-border);
-    padding: 2rem clamp(1rem, 4vw, 3rem);
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 2rem;
+    padding: 1.25rem clamp(1rem, 4vw, 3rem) 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
     max-height: calc(100vh - 60px);
     overflow-y: auto;
     box-shadow: var(--shadow-DEFAULT);
     animation: nav-slide-down 0.22s ease-out;
 }
+/*
+  ドロワーの直下要素は幅を揃えて中央寄せする。
+  カテゴリは <details> で折りたたむため、ドロワーの高さは
+  項目数ではなくカテゴリ数に比例して頭打ちになる。
+*/
+.nav-drawer > * {
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+}
+.nav-drawer-pinned {
+    padding-bottom: 0.35rem;
+}
+.nav-drawer-pinned a {
+    color: var(--color-text-primary);
+    font-weight: 600;
+}
+.nav-drawer-search {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding: 0.35rem 0 0.85rem;
+    background-color: rgba(15, 20, 35, 0.98);
+}
+.nav-drawer-search-input {
+    width: 100%;
+    padding: 0.6rem 0.85rem;
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: var(--color-text-primary);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    outline: none;
+}
+.nav-drawer-search-input::placeholder {
+    color: var(--color-text-muted);
+}
+.nav-drawer-search-input:focus-visible {
+    border-color: var(--color-border-bright);
+    box-shadow: var(--shadow-glow-blue);
+}
+.nav-drawer-empty {
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 13px;
+    color: var(--color-text-secondary);
+}
 .nav-drawer-section {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+}
+.nav-drawer-section[open] {
+    padding-bottom: 0.6rem;
 }
 .nav-drawer-heading {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.7rem 0.25rem;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+}
+.nav-drawer-heading::-webkit-details-marker {
+    display: none;
+}
+/* 開閉状態を示すシェブロン（装飾） */
+.nav-drawer-heading::before {
+    content: '';
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-right: 1.5px solid var(--color-accent-cyan);
+    border-bottom: 1.5px solid var(--color-accent-cyan);
+    transform: rotate(-45deg);
+    transition: transform 0.18s ease;
+}
+.nav-drawer-section[open] > .nav-drawer-heading::before {
+    transform: rotate(45deg);
+}
+/* 件数バッジ（装飾。アクセシブル名には含めない） */
+.nav-drawer-heading::after {
+    content: attr(data-count);
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--color-text-muted);
+}
+.nav-drawer-heading:hover {
+    background: rgba(99, 179, 237, 0.05);
+}
+.nav-drawer-heading:focus-visible {
+    outline: 2px solid var(--color-accent-cyan);
+    outline-offset: -2px;
+}
+.nav-drawer-heading h2 {
     font-family: var(--font-mono);
     font-size: 11px;
     font-weight: 600;
     color: var(--color-accent-cyan);
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    margin: 0 0 0.5rem;
-    padding-bottom: 0.4rem;
-    border-bottom: 1px solid var(--color-border);
+    margin: 0;
 }
 .nav-drawer-list {
     list-style: none;
@@ -1252,8 +1340,7 @@ footer a {
         padding: 0 1rem;
     }
     .nav-drawer {
-        padding: 1.5rem 1rem;
-        gap: 1.5rem;
+        padding: 1rem 1rem 1.5rem;
     }
     .hero {
         padding-top: 80px;
@@ -1353,5 +1440,8 @@ footer a,
         animation: none !important;
         opacity: 1 !important;
         transform: none !important;
+    }
+    .nav-drawer-heading::before {
+        transition: none;
     }
 }

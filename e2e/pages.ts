@@ -13,7 +13,8 @@ export interface PageMeta {
 }
 
 export const PAGES: readonly PageMeta[] = [
-  { path: '/', h1: /羅針盤/ },
+  { path: '/', h1: /ガイドライブラリ/ },
+  { path: '/modern-software-testing-complete-guide-2025', h1: /羅針盤/ },
   { path: '/acceptance-testing-guide', h1: /Acceptance.*Testing/s },
   { path: '/ai-test-guide', h1: /AIシステム.*テスト/s },
   { path: '/bdd-testing-guide', h1: /BDD（ビヘイビア駆動開発）/ },
@@ -65,5 +66,5 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/selenium-beginner-guide', h1: /Selenium.*完全ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 50;
+export const EXPECTED_PAGE_COUNT = 51;
 
