@@ -374,8 +374,8 @@ flowchart TD
 | 無料サンプル章（出版社公式配布） | 無料サンプル章のリクエストフォーム（公式サイト内。氏名とメールアドレスを登録すると入手できる） | <https://www.leadingqualitybook.com/#freeFooter> |
 | ポッドキャスト書き起こし（国際的なテスト自動化ポッドキャスト TestGuild） | "Leading Quality with Ronald Cummings-John"（Joe Colantonio氏によるインタビュー） | <https://testguild.com/podcast/a326-ronald/> |
 | 書評（国際的なアジャイル/テスト専門家 Derk-Jan de Grood氏） | "Leading Quality – Review of the book" | <https://djdegrood.wordpress.com/2019/11/28/leading-quality-review-of-the-book-by-ronald-cummings-john-and-owais-peer/> |
-| 書籍要点まとめ | Mentoring Club による本書のキーインサイト紹介ページ | <https://www.mentoring-club.com/our-library/ronald-cummings---john-owais-peer-leading-quality---how-great-leaders-deliver-high-quality-software-and-accelerate-growth> |
-| 書籍販売ページ（正式タイトル・著者・ISBN確認用） | Amazon.com 商品ページ | <https://www.amazon.com/dp/B07W16KG12> |
+| 書籍要点まとめ | Mentoring Club による本書のキーインサイト紹介ページ | <https://www.mentoring-club.com/bookshelf/ronald-cummings---john-owais-peer-leading-quality---how-great-leaders-deliver-high-quality-software-and-accelerate-growth> |
+| 書籍販売ページ（正式タイトル・著者・ISBN確認用） | Amazon.com 商品ページ（紙版・ISBN 9781916185807） | <https://www.amazon.com/Leading-Quality-Leaders-Software-Accelerate/dp/1916185800> |
 | 参考記事（本文中で言及） | Cindy Sridharan "Testing in Production, the Safe Way" | <https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1> |
 
 > ⚠️ **注記**: ご共有いただいたScribdのリンク（`scribd.com/document/753313361/...`）は、書籍全文の無断アップロードである可能性が高いため、著作権保護の観点から本ガイド作成にあたって参照していません。本ガイドの内容は、上記の公式サイト・出版社配布の無料サンプル・著者本人へのインタビュー記事など、正規に公開されている情報のみに基づいています。書籍の全文を読みたい場合は、公式サイトまたはAmazon等の正規販売チャネルからの購入をおすすめします。
