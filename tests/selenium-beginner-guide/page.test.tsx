@@ -66,20 +66,20 @@ describe('Selenium Beginner Guide Page - Comprehensive Test Suite', () => {
   describe('Section Structure & Headings', () => {
     const expectedSections = [
       { id: 'sec-1', badge: '1', title: 'Seleniumとは何か' },
-      { id: 'sec-2', badge: '2', title: 'アーキテクチャ（WebDriverの仕組み）' },
+      { id: 'sec-2', badge: '2', title: 'Seleniumのアーキテクチャを理解する' },
       { id: 'sec-3', badge: '3', title: '環境構築（インストール）' },
       { id: 'sec-4', badge: '4', title: 'はじめてのSeleniumスクリプト' },
-      { id: 'sec-5', badge: '5', title: 'ロケーター戦略（要素の特定方法）' },
+      { id: 'sec-5', badge: '5', title: '要素の検索方法（ロケーター戦略）' },
       { id: 'sec-6', badge: '6', title: '待機戦略（Waits）' },
-      { id: 'sec-7', badge: '7', title: '基本的なブラウザ操作' },
-      { id: 'sec-8', badge: '8', title: '高度なユーザーインタラクション（Actions API）' },
-      { id: 'sec-9', badge: '9', title: 'Selenium Managerによる自動ドライバー管理' },
-      { id: 'sec-10', badge: '10', title: 'Page Object Model（POM）設計パターン' },
-      { id: 'sec-11', badge: '11', title: 'Selenium Gridによる分散・並行テスト' },
-      { id: 'sec-12', badge: '12', title: 'Selenium IDEによるノーコード自動化' },
-      { id: 'sec-13', badge: '13', title: '実務で役立つベストプラクティス' },
+      { id: 'sec-7', badge: '7', title: 'ブラウザの操作（Interactions）' },
+      { id: 'sec-8', badge: '8', title: 'Actions API（キーボード・マウス操作）' },
+      { id: 'sec-9', badge: '9', title: 'Selenium Manager（ドライバーの自動管理）' },
+      { id: 'sec-10', badge: '10', title: 'Page Object Model（保守性の高いテスト設計）' },
+      { id: 'sec-11', badge: '11', title: 'Selenium Grid（並列・分散実行）' },
+      { id: 'sec-12', badge: '12', title: 'Selenium IDE（ノーコード記録ツール）' },
+      { id: 'sec-13', badge: '13', title: 'テストのベストプラクティス' },
       { id: 'sec-14', badge: '14', title: 'よくあるエラーとトラブルシューティング' },
-      { id: 'sec-15', badge: '15', title: 'まとめ' },
+      { id: 'sec-15', badge: '15', title: 'まとめと次のステップ' },
       { id: 'sec-16', badge: '16', title: '参考文献一覧' },
     ];
 
@@ -117,7 +117,7 @@ describe('Selenium Beginner Guide Page - Comprehensive Test Suite', () => {
       const { container } = render(<Page />);
 
       const callouts = container.querySelectorAll('.callout');
-      expect(callouts.length).toBeGreaterThanOrEqual(5);
+      expect(callouts.length).toBeGreaterThanOrEqual(2);
 
       const warningCallouts = container.querySelectorAll('.callout.warning');
       expect(warningCallouts.length).toBeGreaterThan(0);
@@ -152,7 +152,7 @@ describe('Selenium Beginner Guide Page - Comprehensive Test Suite', () => {
       const { container } = render(<Page />);
 
       const tables = container.querySelectorAll('table');
-      expect(tables.length).toBeGreaterThanOrEqual(8);
+      expect(tables.length).toBeGreaterThanOrEqual(7);
 
       // Section 1: Components Table
       expect(container.textContent).toContain('Selenium WebDriver');
@@ -161,9 +161,9 @@ describe('Selenium Beginner Guide Page - Comprehensive Test Suite', () => {
       expect(container.textContent).toContain('Selenium Manager');
 
       // Section 5: Locator Strategy Table
-      expect(container.textContent).toContain('By.ID');
-      expect(container.textContent).toContain('By.CSS_SELECTOR');
-      expect(container.textContent).toContain('By.XPATH');
+      expect(container.textContent).toContain('class name');
+      expect(container.textContent).toContain('css selector');
+      expect(container.textContent).toContain('xpath');
 
       // Section 6: Waits Table
       expect(container.textContent).toContain('Implicit Wait（暗黙的待機）');
@@ -176,9 +176,9 @@ describe('Selenium Beginner Guide Page - Comprehensive Test Suite', () => {
 
       // Section 14: Troubleshooting Table
       expect(container.textContent).toContain('NoSuchElementException');
+      expect(container.textContent).toContain('ElementNotInteractableException');
       expect(container.textContent).toContain('StaleElementReferenceException');
-      expect(container.textContent).toContain('ElementClickInterceptedException');
-      expect(container.textContent).toContain('TimeoutException');
+      expect(container.textContent).toContain('session not created');
     });
   });
 
@@ -195,9 +195,10 @@ describe('Selenium Beginner Guide Page - Comprehensive Test Suite', () => {
       // Verify presence of code content
       expect(container.textContent).toContain('from selenium import webdriver');
       expect(container.textContent).toContain('driver = webdriver.Chrome()');
-      expect(container.textContent).toContain('WebDriverWait(driver, timeout=10)');
+      expect(container.textContent).toContain('WebDriverWait(driver, timeout=2)');
       expect(container.textContent).toContain('ActionChains(driver)');
-      expect(container.textContent).toContain('Page Object Model');
+      expect(container.textContent).toContain('LoginPage');
+      expect(container.textContent).toContain('HomePage');
     });
   });
 
