@@ -62,7 +62,8 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/playwright-beginner-guide', h1: /Playwright.*完全入門ガイド/ },
   { path: '/cucumber-beginner-guide', h1: /Cucumber.*入門ガイド/ },
   { path: '/cypress-beginner-guide', h1: /Cypress.*入門ガイド/ },
+  { path: '/selenium-beginner-guide', h1: /Selenium.*完全ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 49;
+export const EXPECTED_PAGE_COUNT = 50;
 

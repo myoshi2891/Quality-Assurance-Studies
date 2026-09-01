@@ -213,6 +213,9 @@ Next.js App Router 構成:
 - `app/cypress-beginner-guide/cypress-beginner-guide.css` — Cypress 入門ガイド固有スタイル
 - `app/cypress-beginner-guide/page.tsx` — Cypress 入門ガイドページ
 - `app/cypress-beginner-guide/NavBar.tsx` — Cypress 入門ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
+- `app/selenium-beginner-guide/selenium-beginner-guide.css` — Selenium 完全ガイド固有スタイル
+- `app/selenium-beginner-guide/page.tsx` — Selenium 完全ガイドページ
+- `app/selenium-beginner-guide/NavBar.tsx` — Selenium 完全ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
