@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, waitFor } from '@testing-library/react';
+import { render, screen, cleanup, waitFor, act } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/cucumber-beginner-guide/page';
@@ -319,5 +319,45 @@ describe('Cucumber Beginner Guide NavBar Component', () => {
     expect(footer?.textContent).toContain('情報源:');
     expect(footer?.textContent).toContain('cucumber.io/docs');
     expect(footer?.textContent).toContain('取得時点: 2026年7月');
+  });
+
+  it('keeps the section with the higher intersection ratio active when a later notification reports a barely visible section', () => {
+    // IntersectionObserver は交差状態が変化した要素のみを通知する。
+    // 後続バッチで sec02(0.1) だけが届いても、sec01(0.8) がアクティブのままであること。
+    let capturedCallback: IntersectionObserverCallback | null = null;
+    const savedIO = window.IntersectionObserver;
+    window.IntersectionObserver = class {
+      constructor(cb: IntersectionObserverCallback) {
+        capturedCallback = cb;
+      }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    } as unknown as typeof IntersectionObserver;
+
+    try {
+      const { container } = render(<NavBar />);
+      const observer = {} as IntersectionObserver;
+      const entryFor = (id: string, ratio: number) =>
+        ({
+          target: { id } as Element,
+          isIntersecting: ratio > 0,
+          intersectionRatio: ratio,
+        }) as IntersectionObserverEntry;
+
+      const notify = capturedCallback as unknown as IntersectionObserverCallback;
+      act(() => {
+        notify([entryFor('sec01', 0.8)], observer);
+      });
+      act(() => {
+        notify([entryFor('sec02', 0.1)], observer);
+      });
+
+      const active = container.querySelector('#toc a.active');
+      expect(active?.getAttribute('href')).toBe('#sec01');
+      expect(active?.getAttribute('aria-current')).toBe('location');
+    } finally {
+      window.IntersectionObserver = savedIO;
+    }
   });
 });
