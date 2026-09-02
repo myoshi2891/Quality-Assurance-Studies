@@ -7,7 +7,7 @@
 > **著者**: Ronald Cummings-John / Owais Peer（Global App Testing 共同創業者、Testathon® 発案者）
 > **発行**: 2019年／ROI Press
 >
-> ※ ご質問中の副題（"Build Winning Teams and Software Fast"）は、実際に出版されている書籍の正式な副題とは異なります。本ガイドは実在する正式版の書籍情報・著者インタビュー・書評などの一次/二次情報に基づいて作成しています。
+> ※ 流通している副題「Build Winning Teams and Software Fast」は、実際に出版されている書籍の正式な副題ではありません。本ガイドは実在する正式版の書籍情報・著者インタビュー・書評などの一次/二次情報に基づいて作成しています。
 
 ---
 
@@ -378,4 +378,4 @@ flowchart TD
 | 書籍販売ページ（正式タイトル・著者・ISBN確認用） | Amazon.com 商品ページ（紙版・ISBN 9781916185807） | <https://www.amazon.com/Leading-Quality-Leaders-Software-Accelerate/dp/1916185800> |
 | 参考記事（本文中で言及） | Cindy Sridharan "Testing in Production, the Safe Way" | <https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1> |
 
-> ⚠️ **注記**: ご共有いただいたScribdのリンク（`scribd.com/document/753313361/...`）は、書籍全文の無断アップロードである可能性が高いため、著作権保護の観点から本ガイド作成にあたって参照していません。本ガイドの内容は、上記の公式サイト・出版社配布の無料サンプル・著者本人へのインタビュー記事など、正規に公開されている情報のみに基づいています。書籍の全文を読みたい場合は、公式サイトまたはAmazon等の正規販売チャネルからの購入をおすすめします。
+> ⚠️ **注記**: Scribd 上の書籍全文のアップロードは、無断アップロードである可能性が高いため、著作権保護の観点から本ガイド作成にあたって参照していません。本ガイドの内容は、上記の公式サイト・出版社配布の無料サンプル・著者本人へのインタビュー記事など、正規に公開されている情報のみに基づいています。書籍の全文を読みたい場合は、公式サイトまたはAmazon等の正規販売チャネルからの購入をおすすめします。
