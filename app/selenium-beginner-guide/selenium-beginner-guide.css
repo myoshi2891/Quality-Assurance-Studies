@@ -107,6 +107,16 @@
   font-weight: 600;
 }
 
+.selenium-guide-page .sidebar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.selenium-guide-page .sidebar-list li {
+  margin: 0;
+}
+
 .selenium-guide-page .sidebar a {
   display: flex;
   align-items: center;

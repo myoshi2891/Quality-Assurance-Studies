@@ -58,10 +58,12 @@ export default function NavBar() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
+        const intersecting = entries.filter((e) => e.isIntersecting);
+        if (intersecting.length === 0) return;
+        intersecting.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        const best = intersecting[0];
+        if (best && best.target.id) {
+          setActiveId(best.target.id);
         }
       },
       {
@@ -107,34 +109,37 @@ export default function NavBar() {
       {NAV_GROUPS.map((group) => (
         <React.Fragment key={group.groupLabel}>
           <div className="nav-group-label">{group.groupLabel}</div>
-          {group.items.map((item) => {
-            const isActive = activeId === item.id;
-            return (
-              <a
-                key={item.id}
-                href={`#${item.id}`}
-                className={isActive ? 'active' : ''}
-                aria-current={isActive ? 'location' : undefined}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="15"
-                  height="15"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <circle cx="12" cy="12" r="9" />
-                  <path d="M12 8v4l3 3" />
-                </svg>
-                <span>{item.label}</span>
-              </a>
-            );
-          })}
+          <ul className="sidebar-list" aria-label={group.groupLabel}>
+            {group.items.map((item) => {
+              const isActive = activeId === item.id;
+              return (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className={isActive ? 'active' : ''}
+                    aria-current={isActive ? 'location' : undefined}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="15"
+                      height="15"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      aria-hidden="true"
+                    >
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 8v4l3 3" />
+                    </svg>
+                    <span>{item.label}</span>
+                  </a>
+                </li>
+              );
+            })}
+          </ul>
         </React.Fragment>
       ))}
     </nav>

@@ -562,7 +562,7 @@
 
 @media (prefers-reduced-motion: reduce) {
     .ladder-fill,
-    .climb-stairs .ladder-rung::before {
+    .climb-stairs .ladder-rung:not(:first-of-type)::before {
         animation: none;
     }
 
