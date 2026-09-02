@@ -1478,6 +1478,9 @@ footer a,
         opacity: 1 !important;
         transform: none !important;
     }
+    .nav-drawer {
+        animation: none;
+    }
     .nav-drawer-heading::before {
         transition: none;
     }

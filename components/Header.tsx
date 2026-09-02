@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS, groupByCategory, matchesQuery, type NavCategory } from '../lib/navigation';
@@ -41,8 +41,17 @@ export default function Header({ className }: HeaderProps) {
 
   const close = useCallback(() => setIsOpen(false), []);
 
-  /** リンク経由でドロワーを閉じる。フォーカスは遷移先に委ねる。 */
-  const closeForNavigation = useCallback(() => {
+  /**
+   * リンク経由でドロワーを閉じる。フォーカスは遷移先に委ねる。
+   *
+   * 修飾キー付き・主ボタン以外のクリックはブラウザが別タブ／別ウィンドウで開き、
+   * Next.js のクライアント遷移が起きない。この場合ドロワーは開いたままが正しいので、
+   * 開閉状態もフォーカス復帰フラグも変更しない。
+   */
+  const closeForNavigation = useCallback((e: MouseEvent<HTMLAnchorElement>) => {
+    if (e.defaultPrevented) return;
+    if (e.button !== 0) return;
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
     restoreFocusRef.current = false;
     setIsOpen(false);
   }, []);
