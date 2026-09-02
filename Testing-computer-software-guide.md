@@ -547,7 +547,7 @@ flowchart TB
 14. Tricentis, "QA trends for 2026: AI, agents, and the future of testing"
     <https://www.tricentis.com/blog/qa-trends-ai-agentic-testing>
 15. NIST, "The Economic Impacts of Inadequate Infrastructure for Software Testing" (2002)
-    <https://www.nist.gov/publications/economic-impacts-inadequate-infrastructure-software-testing>
+    <https://www.nist.gov/document/report02-3pdf>
 16. DORA, "Continuous integration" (DORA Core ケイパビリティ解説)
     <https://dora.dev/capabilities/continuous-integration/>
 
