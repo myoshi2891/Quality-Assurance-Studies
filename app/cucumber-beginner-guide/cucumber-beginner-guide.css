@@ -173,6 +173,8 @@
   border-bottom: 1px solid var(--color-border-tertiary);
   max-width: none;
   width: 100%;
+  /* 目次リンクは section の id を指すため、固定ヘッダー + 免責バナー分を退避させる */
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .cucumber-beginner-page section.doc-section p,
