@@ -1,6 +1,8 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+
+import { useScrollSpy } from '../../lib/useScrollSpy';
 
 interface NavSection {
   id: string;
@@ -27,57 +29,12 @@ const SECTIONS: readonly NavSection[] = [
   { id: 'sec16', index: '16', title: '参考文献一覧' },
 ];
 
+// 読み取り帯・節 ID はモジュールスコープに置き、useScrollSpy の依存参照を安定させる。
+const SECTION_IDS: readonly string[] = SECTIONS.map((sec) => sec.id);
+const SCROLL_SPY_BAND = { top: 0.15, bottom: 0.3 } as const;
+
 export default function NavBar() {
-  const [activeId, setActiveId] = useState<string>('sec01');
-
-  useEffect(() => {
-    const sectionIds = SECTIONS.map((sec) => sec.id);
-
-    // IntersectionObserver は交差状態が「変化した」要素のみを通知するため、
-    // 通知バッチ内だけで比較すると、既に大きく見えている節が候補から漏れる。
-    // 全観測対象の交差率を保持し、常に全体から最大の節を選ぶ。
-    const ratios = new Map<string, number>();
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            ratios.set(entry.target.id, entry.intersectionRatio);
-          } else {
-            ratios.delete(entry.target.id);
-          }
-        }
-
-        // 文書順に走査し、同率の場合は先に現れる節を優先する（決定論的な選択）。
-        let bestId = '';
-        let bestRatio = -1;
-        for (const id of sectionIds) {
-          const ratio = ratios.get(id);
-          if (ratio !== undefined && ratio > bestRatio) {
-            bestRatio = ratio;
-            bestId = id;
-          }
-        }
-        if (bestId) {
-          setActiveId(bestId);
-        }
-      },
-      {
-        rootMargin: '-15% 0px -70% 0px',
-        threshold: 0,
-      }
-    );
-
-    SECTIONS.forEach((sec) => {
-      const el = document.getElementById(sec.id);
-      if (el) {
-        observer.observe(el);
-      }
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  const activeId = useScrollSpy(SECTION_IDS, SCROLL_SPY_BAND);
 
   return (
     <aside className="sidebar">

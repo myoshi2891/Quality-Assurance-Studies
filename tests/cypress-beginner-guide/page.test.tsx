@@ -240,43 +240,65 @@ describe('Cypress Beginner Guide NavBar Component', () => {
     expect(firstLink?.getAttribute('aria-current')).toBe('location');
   });
 
-  it('keeps the section with the higher intersection ratio active when a later notification reports a barely visible section', () => {
-    // IntersectionObserver は交差状態が変化した要素のみを通知する。
-    // 後続バッチで sec-2(0.1) だけが届いても、sec-1(0.8) がアクティブのままであること。
-    let capturedCallback: IntersectionObserverCallback | null = null;
-    const savedIO = window.IntersectionObserver;
-    window.IntersectionObserver = class {
-      constructor(cb: IntersectionObserverCallback) {
-        capturedCallback = cb;
-      }
-      observe() {}
-      unobserve() {}
-      disconnect() {}
-    } as unknown as typeof IntersectionObserver;
+  it('re-evaluates section visibility on scroll so the active link follows a ratio reversal', async () => {
+    // 交差状態（どちらの節も読み取り帯に重なったまま）を維持しつつ、
+    // 可視率だけが逆転するケース。IntersectionObserver の intersectionRatio を
+    // 保持する実装では threshold: 0 のため通知が来ず、追従できなかった。
+    const BAND_TOP = 0.15;
+    const BAND_BOTTOM = 0.3;
+    const viewportHeight = window.innerHeight;
+    const bandTop = viewportHeight * BAND_TOP;
+    const bandBottom = viewportHeight * BAND_BOTTOM;
+    const bandHeight = bandBottom - bandTop;
+
+    const rects: Record<string, { top: number; bottom: number }> = {
+      // 帯の 75% を先頭節が、25% を次節が占める初期状態。
+      'sec-1': { top: bandTop - 100, bottom: bandTop + bandHeight * 0.75 },
+      'sec-2': { top: bandTop + bandHeight * 0.75, bottom: bandBottom + 400 },
+    };
+
+    const stubs = Object.keys(rects).map((id) => {
+      const el = document.createElement('div');
+      el.id = id;
+      el.getBoundingClientRect = () => {
+        const { top, bottom } = rects[id]!;
+        return {
+          top,
+          bottom,
+          left: 0,
+          right: 0,
+          width: 0,
+          height: bottom - top,
+          x: 0,
+          y: top,
+          toJSON: () => ({}),
+        } as DOMRect;
+      };
+      document.body.appendChild(el);
+      return el;
+    });
 
     try {
       const { container } = render(<NavBar />);
-      const observer = {} as IntersectionObserver;
-      const entryFor = (id: string, ratio: number) =>
-        ({
-          target: { id } as Element,
-          isIntersecting: ratio > 0,
-          intersectionRatio: ratio,
-        }) as IntersectionObserverEntry;
 
-      const notify = capturedCallback as unknown as IntersectionObserverCallback;
-      act(() => {
-        notify([entryFor('sec-1', 0.8)], observer);
-      });
-      act(() => {
-        notify([entryFor('sec-2', 0.1)], observer);
+      await waitFor(() => {
+        expect(container.querySelector('.sidebar nav a.active')?.getAttribute('href')).toBe('#sec-1');
       });
 
-      const active = container.querySelector('.sidebar nav a.active');
-      expect(active?.getAttribute('href')).toBe('#sec-1');
-      expect(active?.getAttribute('aria-current')).toBe('location');
+      // スクロールで可視率が逆転（帯の 25% / 75%）。交差状態自体は両節とも維持される。
+      rects['sec-1'] = { top: bandTop - 400, bottom: bandTop + bandHeight * 0.25 };
+      rects['sec-2'] = { top: bandTop + bandHeight * 0.25, bottom: bandBottom + 100 };
+      act(() => {
+        window.dispatchEvent(new Event('scroll'));
+      });
+
+      await waitFor(() => {
+        const active = container.querySelector('.sidebar nav a.active');
+        expect(active?.getAttribute('href')).toBe('#sec-2');
+        expect(active?.getAttribute('aria-current')).toBe('location');
+      });
     } finally {
-      window.IntersectionObserver = savedIO;
+      stubs.forEach((el) => el.remove());
     }
   });
 });
