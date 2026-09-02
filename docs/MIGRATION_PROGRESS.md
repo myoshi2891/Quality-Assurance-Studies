@@ -23,7 +23,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `app/page.tsx`: ヒーローに階梯（signature）を新設。各レベルのバー長がそのレベルのガイド数に比例し、Specialist に量が偏っている事実が形として読める。各段は該当セクションへのアンカー。
 - `app/GuideIndex.tsx`: レベル別セクション + sticky なレベル背骨（コード・タイトル・件数）。カードは箱をやめ罫線グリッド + レベル色の縦罫へ。
 - `app/index-page.css`: レベル色を `[data-category='...']` の `--level` として定義し、上罫・コード・ホバー罫で一貫使用。
-- `app/layout.tsx`: index 専用ディスプレイ書体として Space Grotesk（`--font-grotesk`、`preload: false`）を追加。ラテン略号だけが別の声になる混植を狙う。
+- `app/layout.tsx`: index 専用ディスプレイ書体として Bricolage Grotesque（`--font-bricolage`、`preload: false`）を追加。ラテン略号だけが別の声になる混植を狙う。
 - h1 を汎用ラベルから主題（「登る順に並べた、50 のガイド。」）へ変更し、`tests/index` と `e2e/pages.ts` の h1 期待値を更新。
 - テスト: `bun test` 333 pass / `bun run lint` エラーなし / `tsc --noEmit` エラーなし。
 
