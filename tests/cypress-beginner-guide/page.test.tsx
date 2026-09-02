@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, act, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/cypress-beginner-guide/page';
@@ -125,11 +125,16 @@ describe('Cypress Beginner Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Mermaid Visual Diagrams', () => {
-    it('renders all 5 Mermaid diagrams wrapped in .mermaid-wrap containers', () => {
+    it('renders all 5 Mermaid diagrams wrapped in .mermaid-wrap containers', async () => {
       const { container } = render(<Page />);
 
       const diagramWraps = container.querySelectorAll('.mermaid-wrap');
       expect(diagramWraps.length).toBe(5);
+
+      // mermaid.render は非同期のため、SVG 注入完了まで待って実際の描画を検証する
+      await waitFor(() => {
+        expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(5);
+      });
     });
   });
 
@@ -233,5 +238,45 @@ describe('Cypress Beginner Guide NavBar Component', () => {
     const firstLink = links[0];
     expect(firstLink?.classList.contains('active')).toBe(true);
     expect(firstLink?.getAttribute('aria-current')).toBe('location');
+  });
+
+  it('keeps the section with the higher intersection ratio active when a later notification reports a barely visible section', () => {
+    // IntersectionObserver は交差状態が変化した要素のみを通知する。
+    // 後続バッチで sec-2(0.1) だけが届いても、sec-1(0.8) がアクティブのままであること。
+    let capturedCallback: IntersectionObserverCallback | null = null;
+    const savedIO = window.IntersectionObserver;
+    window.IntersectionObserver = class {
+      constructor(cb: IntersectionObserverCallback) {
+        capturedCallback = cb;
+      }
+      observe() {}
+      unobserve() {}
+      disconnect() {}
+    } as unknown as typeof IntersectionObserver;
+
+    try {
+      const { container } = render(<NavBar />);
+      const observer = {} as IntersectionObserver;
+      const entryFor = (id: string, ratio: number) =>
+        ({
+          target: { id } as Element,
+          isIntersecting: ratio > 0,
+          intersectionRatio: ratio,
+        }) as IntersectionObserverEntry;
+
+      const notify = capturedCallback as unknown as IntersectionObserverCallback;
+      act(() => {
+        notify([entryFor('sec-1', 0.8)], observer);
+      });
+      act(() => {
+        notify([entryFor('sec-2', 0.1)], observer);
+      });
+
+      const active = container.querySelector('.sidebar nav a.active');
+      expect(active?.getAttribute('href')).toBe('#sec-1');
+      expect(active?.getAttribute('aria-current')).toBe('location');
+    } finally {
+      window.IntersectionObserver = savedIO;
+    }
   });
 });

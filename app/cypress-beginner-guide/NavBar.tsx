@@ -30,14 +30,34 @@ export default function NavBar() {
   const [activeId, setActiveId] = useState<string>('sec-1');
 
   useEffect(() => {
+    const sectionIds = SECTIONS.map((sec) => sec.id);
+
+    // IntersectionObserver は交差状態が「変化した」要素のみを通知するため、
+    // 通知バッチ内だけで比較すると、既に大きく見えている節が候補から漏れる。
+    // 全観測対象の交差率を保持し、常に全体から最大の節を選ぶ。
+    const ratios = new Map<string, number>();
     const observer = new IntersectionObserver(
       (entries) => {
-        const intersecting = entries.filter((e) => e.isIntersecting);
-        if (intersecting.length === 0) return;
-        intersecting.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        const best = intersecting[0];
-        if (best && best.target.id) {
-          setActiveId(best.target.id);
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            ratios.set(entry.target.id, entry.intersectionRatio);
+          } else {
+            ratios.delete(entry.target.id);
+          }
+        }
+
+        // 文書順に走査し、同率の場合は先に現れる節を優先する（決定論的な選択）。
+        let bestId = '';
+        let bestRatio = -1;
+        for (const id of sectionIds) {
+          const ratio = ratios.get(id);
+          if (ratio !== undefined && ratio > bestRatio) {
+            bestRatio = ratio;
+            bestId = id;
+          }
+        }
+        if (bestId) {
+          setActiveId(bestId);
         }
       },
       {
