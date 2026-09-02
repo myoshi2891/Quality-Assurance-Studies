@@ -11,6 +11,14 @@ describe('navigation registry ↔ e2e page registry', () => {
   const navHrefs = NAV_ITEMS.map((item) => item.href);
   const e2ePaths = PAGES.map((page) => page.path);
 
+  it('contains no duplicate hrefs in the navigation registry', () => {
+    expect(new Set(navHrefs).size).toBe(navHrefs.length);
+  });
+
+  it('contains no duplicate paths in the e2e page registry', () => {
+    expect(new Set(e2ePaths).size).toBe(e2ePaths.length);
+  });
+
   it('keeps EXPECTED_PAGE_COUNT in sync with the PAGES array', () => {
     expect(PAGES).toHaveLength(EXPECTED_PAGE_COUNT);
   });

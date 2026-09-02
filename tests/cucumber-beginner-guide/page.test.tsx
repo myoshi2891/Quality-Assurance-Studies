@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/cucumber-beginner-guide/page';
@@ -109,7 +109,7 @@ describe('Cucumber Beginner Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Mermaid Diagrams & Visual Workflow', () => {
-    it('renders exactly 7 Mermaid diagram containers with captions across the document', () => {
+    it('renders exactly 7 Mermaid diagram containers with captions across the document', async () => {
       const { container } = render(<Page />);
 
       const diagramWraps = container.querySelectorAll('.mermaid-wrap');
@@ -117,6 +117,12 @@ describe('Cucumber Beginner Guide Page - Comprehensive Test Suite', () => {
 
       const captions = container.querySelectorAll('.mermaid-caption');
       expect(captions.length).toBe(7);
+
+      // Mermaid は useEffect 内で非同期に描画されるため、SVG の注入完了を待つ。
+      // ラッパーと caption だけを見ると描画失敗（例外時の代替表示）を検知できない。
+      await waitFor(() => {
+        expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(7);
+      });
 
       const expectedCaptions = [
         '図: Gherkinステップ・Step Definition・テスト対象システムの関係',
