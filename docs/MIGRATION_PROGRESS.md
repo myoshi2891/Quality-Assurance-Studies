@@ -22,7 +22,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `lib/navigation.ts`: `CATEGORY_CODES` を追加。ラベルの短縮版ではなく実際の資格略号を使い、コード自体が資格体系を示す。
 - `app/page.tsx`: ヒーローに階梯（signature）を新設。各レベルのバー長がそのレベルのガイド数に比例し、Specialist に量が偏っている事実が形として読める。各段は該当セクションへのアンカー。
 - `app/GuideIndex.tsx`: レベル別セクション + sticky なレベル背骨（コード・タイトル・件数）。カードは箱をやめ罫線グリッド + レベル色の縦罫へ。
-- `app/index-page.css`: レベル色を `[data-category='...']` の `--level` として定義し、上罫・コード・ホバー罫で一貫使用。
+- `app/globals.css`: レベル色を `[data-category='...']` の `--level` として定義（index とドロワーで共有する単一定義）。`app/index-page.css` はその値を参照するのみで、上罫・コード・ホバー罫に一貫適用する。
 - `app/layout.tsx`: index 専用ディスプレイ書体として Bricolage Grotesque（`--font-bricolage`、`preload: false`）を追加。ラテン略号だけが別の声になる混植を狙う。
 - h1 を汎用ラベルから主題（「登る順に並べた、50 のガイド。」）へ変更し、`tests/index` と `e2e/pages.ts` の h1 期待値を更新。
 - テスト: `bun test` 333 pass / `bun run lint` エラーなし / `tsc --noEmit` エラーなし。
@@ -518,7 +518,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 ```text
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
-- **Selenium ガイド移行完了**: プロジェクトルートに存在した全49ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
+- **Selenium ガイド移行完了**: プロジェクトルートに存在した全てのHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
 - 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が管理されています。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
