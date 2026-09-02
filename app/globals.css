@@ -337,7 +337,7 @@ body::before {
 }
 .nav-drawer {
     position: fixed;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
     left: 0;
     right: 0;
     z-index: 45;
@@ -347,7 +347,7 @@ body::before {
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
-    max-height: calc(100vh - 60px);
+    max-height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     overflow-y: auto;
     box-shadow: var(--shadow-DEFAULT);
     animation: nav-slide-down 0.22s ease-out;

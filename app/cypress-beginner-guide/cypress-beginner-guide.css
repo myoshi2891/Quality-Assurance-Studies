@@ -552,8 +552,22 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 900px) {
+  /* サイドバー（目次）は非表示にせず通常フローへ落とす。
+     モバイルでも NavBar の全セクションリンクへ到達できるようにするため。 */
+  .cypress-beginner-page {
+    flex-direction: column;
+  }
+
   .cypress-beginner-page .sidebar {
-    display: none;
+    width: 100%;
+    position: relative;
+    top: 0;
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border-tertiary);
+    padding: 20px 24px 24px 24px;
   }
 
   .cypress-beginner-page .main-content {

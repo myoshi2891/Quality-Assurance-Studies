@@ -34,8 +34,18 @@ export default function Header({ className }: HeaderProps) {
   const [query, setQuery] = useState('');
   const [openCategories, setOpenCategories] = useState<Set<NavCategory>>(() => new Set());
   const searchRef = useRef<HTMLInputElement>(null);
+  const hamburgerRef = useRef<HTMLButtonElement>(null);
+  // ドロワーを閉じた後にハンバーガーへフォーカスを戻すか。
+  // 画面遷移を伴う閉じ方（リンククリック）では遷移先のフォーカスを奪わないよう false にする。
+  const restoreFocusRef = useRef(true);
 
   const close = useCallback(() => setIsOpen(false), []);
+
+  /** リンク経由でドロワーを閉じる。フォーカスは遷移先に委ねる。 */
+  const closeForNavigation = useCallback(() => {
+    restoreFocusRef.current = false;
+    setIsOpen(false);
+  }, []);
 
   const open = useCallback(() => {
     setQuery('');
@@ -83,6 +93,10 @@ export default function Header({ className }: HeaderProps) {
     searchRef.current?.focus();
     return () => {
       document.body.style.overflow = previous;
+      // Escape / オーバーレイなど遷移を伴わない閉じ方では、
+      // フォーカスを起点のハンバーガーへ戻す（キーボード操作の迷子を防ぐ）。
+      if (restoreFocusRef.current) hamburgerRef.current?.focus();
+      restoreFocusRef.current = true;
     };
   }, [isOpen]);
 
@@ -92,6 +106,7 @@ export default function Header({ className }: HeaderProps) {
         QA_STUDIES
       </Link>
       <button
+        ref={hamburgerRef}
         type="button"
         className="nav-hamburger"
         aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
@@ -131,7 +146,7 @@ export default function Header({ className }: HeaderProps) {
                 <li>
                   <Link
                     href={homeItem.href}
-                    onClick={close}
+                    onClick={closeForNavigation}
                     aria-current={pathname === homeItem.href ? 'page' : undefined}
                   >
                     {homeItem.label}
@@ -179,7 +194,7 @@ export default function Header({ className }: HeaderProps) {
                       <li key={item.href}>
                         <Link
                           href={item.href}
-                          onClick={close}
+                          onClick={closeForNavigation}
                           aria-current={pathname === item.href ? 'page' : undefined}
                         >
                           {item.label}
