@@ -363,6 +363,13 @@
             ul.checklist input[type='checkbox']:hover {
                 border-color: var(--steel);
             }
+            /* appearance: none でネイティブのフォーカスリングが消えるため、
+               キーボード操作時にどのチェックボックスへ来ているかを明示する。 */
+            ul.checklist input[type='checkbox']:focus-visible {
+                outline: 3px solid var(--steel);
+                outline-offset: 2px;
+                border-color: var(--steel);
+            }
             ul.checklist input[type='checkbox']:checked {
                 background: var(--steel);
                 border-color: var(--steel);

@@ -473,7 +473,7 @@
     </head>
     <body>
         <div class="mobile-bar">
-            <button id="menuToggle" aria-label="メニューを開く">
+            <button id="menuToggle" aria-label="メニューを開く" aria-controls="sidebar" aria-expanded="false">
                 <i class="ti ti-menu-2"></i>
             </button>
             <span>The Art of Software Testing 実践ガイド</span>
@@ -1482,7 +1482,11 @@
             </main>
         </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"
+            integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk"
+            crossorigin="anonymous"
+        ></script>
         <script>
             (function () {
                 'use strict';
@@ -1618,14 +1622,35 @@
                     var backdrop = document.getElementById('backdrop');
                     if (!toggle || !sidebar || !backdrop) return;
 
+                    /* モバイル幅では画面外のサイドバーをフォーカス順から外す。
+                       CSS の translateX(-100%) は見えなくするだけで、
+                       Tab キーと支援技術には依然としてリンクが残るため。 */
+                    var mobile = window.matchMedia('(max-width: 900px)');
+
+                    function syncInert() {
+                        var hidden = mobile.matches && !sidebar.classList.contains('open');
+                        if (hidden) sidebar.setAttribute('inert', '');
+                        else sidebar.removeAttribute('inert');
+                        toggle.setAttribute(
+                            'aria-expanded',
+                            sidebar.classList.contains('open') ? 'true' : 'false',
+                        );
+                    }
+
                     function open() {
                         sidebar.classList.add('open');
                         backdrop.classList.add('open');
+                        syncInert();
                     }
                     function close() {
                         sidebar.classList.remove('open');
                         backdrop.classList.remove('open');
+                        syncInert();
                     }
+
+                    syncInert();
+                    if (mobile.addEventListener) mobile.addEventListener('change', syncInert);
+                    else mobile.addListener(syncInert);
 
                     toggle.addEventListener('click', function () {
                         if (sidebar.classList.contains('open')) close();
