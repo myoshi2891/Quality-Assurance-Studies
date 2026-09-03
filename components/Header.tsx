@@ -193,6 +193,9 @@ export default function Header({ className }: HeaderProps) {
                       // ネイティブのトグルを止め、開閉状態を React state に一本化する。
                       // Enter / Space も click を発火するためキーボード操作は維持される。
                       e.preventDefault();
+                      // 検索中は全カテゴリを強制展開しているため、クリックしても表示は変わらない。
+                      // ここで state を反転させると検索解除後に意図しない開閉状態が残るので、何もしない。
+                      if (isFiltering) return;
                       toggleCategory(g.category);
                     }}
                   >
