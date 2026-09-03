@@ -1,11 +1,13 @@
 # Migration Progress
 
-Updated 2026-09-01
+Updated 2026-09-03
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計51ルート = ガイドライブラリ index + 50 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 51 ルート = ガイドライブラリ index + 50 ガイド）。
+>
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
@@ -518,8 +520,9 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 ```text
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
-- **Selenium ガイド移行完了**: プロジェクトルートに存在した全てのHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が管理されています。
+- **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
+- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown と `Leading-quality-guide.html` などの HTML が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
