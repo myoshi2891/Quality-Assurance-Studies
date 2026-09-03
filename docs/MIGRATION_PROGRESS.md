@@ -506,9 +506,15 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ### 未移行（プロジェクトルートに残存）
 
+登録済みガイドの移行は完了しているが、プロジェクトルートには App Router に未登録の静的ドキュメントが残っている。
+これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
+
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| (なし) | | | 全てのガイドの移行が完了しました |
+| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `Clean-code-cookbook-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Secure-by-design-guide.md` / `Software-test-design-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md` / `Testing-web-apis-guide.md` / `The-way-of-the-web-tester-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
+| 書籍ガイド系 HTML（`Leading-quality-guide.html` / `Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `Clean-code-cookbook-guide.html` / `Secure-by-design-guide.html` / `Software-testing-craftsmans-approach-guide.html` / `Testing-web-apis-guide.html` / `The-way-of-the-web-tester-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
+| ツール系ドキュメント（`Appium-essentials-guide.md` / `Appium-essentials-guide.html` / `Owasp-zap-beginner-guide.html` / `Playwright-intermediate-advanced-guide.html` / `Sonarqube.html` / `Sonarqube-intermediate.html`） | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
+| `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
 
 ## 既知の留保事項
 
