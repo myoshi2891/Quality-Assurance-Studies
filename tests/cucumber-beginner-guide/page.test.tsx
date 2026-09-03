@@ -294,10 +294,11 @@ describe('Cucumber Beginner Guide External Link Safety', () => {
     externalLinks.forEach((link) => {
       const href = link.getAttribute('href');
       expect(link.getAttribute('target')).toBe('_blank');
-      const rel = link.getAttribute('rel') ?? '';
-      // href をメッセージ代わりに含め、欠落したリンクを特定できるようにする
-      expect(`${href} :: ${rel}`).toContain('noopener');
-      expect(`${href} :: ${rel}`).toContain('noreferrer');
+      // rel は空白区切りのトークン集合。部分一致では href 側の文字列を誤検出するためトークン単位で検証する
+      const relTokens = (link.getAttribute('rel') ?? '').split(/\s+/).filter(Boolean);
+      // href を比較値に含め、欠落したリンクを差分から特定できるようにする
+      expect([href, relTokens.includes('noopener')]).toEqual([href, true]);
+      expect([href, relTokens.includes('noreferrer')]).toEqual([href, true]);
     });
   });
 });
