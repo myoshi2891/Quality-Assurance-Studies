@@ -269,6 +269,7 @@ describe('Cucumber Beginner Guide Page - Comprehensive Test Suite', () => {
         expect(link?.getAttribute('href')).toMatch(/^https:\/\/.*cucumber/);
         expect(link?.getAttribute('target')).toBe('_blank');
         expect(link?.getAttribute('rel')).toContain('noopener');
+        expect(link?.getAttribute('rel')).toContain('noreferrer');
       }
     });
 
@@ -279,6 +280,24 @@ describe('Cucumber Beginner Guide Page - Comprehensive Test Suite', () => {
       expect(footerNote).not.toBeNull();
       expect(footerNote?.textContent).toContain('Cucumber公式ドキュメントは継続的に更新されています');
       expect(footerNote?.textContent).toContain('2026年7月');
+    });
+  });
+});
+
+describe('Cucumber Beginner Guide External Link Safety', () => {
+  it('gives every external https link target="_blank" and rel with noopener + noreferrer', () => {
+    const { container } = render(<Page />);
+
+    const externalLinks = container.querySelectorAll('a[href^="https://"]');
+    expect(externalLinks.length).toBeGreaterThan(0);
+
+    externalLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      expect(link.getAttribute('target')).toBe('_blank');
+      const rel = link.getAttribute('rel') ?? '';
+      // href をメッセージ代わりに含め、欠落したリンクを特定できるようにする
+      expect(`${href} :: ${rel}`).toContain('noopener');
+      expect(`${href} :: ${rel}`).toContain('noreferrer');
     });
   });
 });

@@ -58,6 +58,7 @@ describe('Cypress Beginner Guide Page - Comprehensive Test Suite', () => {
       expect(whyCypressLink).not.toBeNull();
       expect(whyCypressLink?.getAttribute('target')).toBe('_blank');
       expect(whyCypressLink?.getAttribute('rel')).toContain('noopener');
+      expect(whyCypressLink?.getAttribute('rel')).toContain('noreferrer');
 
       const cypressIoLink = lede?.querySelector('a[href="https://www.cypress.io/"]');
       expect(cypressIoLink).not.toBeNull();
@@ -107,6 +108,7 @@ describe('Cypress Beginner Guide Page - Comprehensive Test Suite', () => {
         expect(link).not.toBeNull();
         expect(link?.getAttribute('target')).toBe('_blank');
         expect(link?.getAttribute('rel')).toContain('noopener');
+        expect(link?.getAttribute('rel')).toContain('noreferrer');
       });
     });
 
@@ -200,6 +202,8 @@ describe('Cypress Beginner Guide Page - Comprehensive Test Suite', () => {
       const realworldLink = container.querySelector('a[href="https://github.com/cypress-io/cypress-realworld-app"]');
       expect(realworldLink).not.toBeNull();
       expect(realworldLink?.getAttribute('target')).toBe('_blank');
+      expect(realworldLink?.getAttribute('rel')).toContain('noopener');
+      expect(realworldLink?.getAttribute('rel')).toContain('noreferrer');
     });
 
     it('renders the document footer note', () => {
@@ -208,6 +212,24 @@ describe('Cypress Beginner Guide Page - Comprehensive Test Suite', () => {
       const footer = container.querySelector('footer.doc-footer');
       expect(footer).not.toBeNull();
       expect(footer?.textContent).toContain('学習・社内共有目的で作成された二次資料');
+    });
+  });
+});
+
+describe('Cypress Beginner Guide External Link Safety', () => {
+  it('gives every external https link target="_blank" and rel with noopener + noreferrer', () => {
+    const { container } = render(<Page />);
+
+    const externalLinks = container.querySelectorAll('a[href^="https://"]');
+    expect(externalLinks.length).toBeGreaterThan(0);
+
+    externalLinks.forEach((link) => {
+      const href = link.getAttribute('href');
+      expect(link.getAttribute('target')).toBe('_blank');
+      const rel = link.getAttribute('rel') ?? '';
+      // href をメッセージ代わりに含め、欠落したリンクを特定できるようにする
+      expect(`${href} :: ${rel}`).toContain('noopener');
+      expect(`${href} :: ${rel}`).toContain('noreferrer');
     });
   });
 });
