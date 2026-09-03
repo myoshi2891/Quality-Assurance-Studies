@@ -79,7 +79,7 @@ export default function GuideIndex() {
             <div className="guide-section-spine">
               <span className="spine-code">{CATEGORY_CODES[level.category]}</span>
               <h2 className="guide-section-title">{level.title}</h2>
-              <span className="spine-count">{level.items.length} guides</span>
+              <span className="spine-count">{level.items.length}件</span>
             </div>
             <div className="guide-list">
               {level.items.map((item) => (
