@@ -207,9 +207,17 @@ describe('Guide index search', () => {
     render(<Page />);
     const target = GUIDE_ITEMS.find((i) => i.href === '/github-actions');
     if (!target) throw new Error('expected /github-actions in NAV_ITEMS');
-    const token = target.description.slice(0, 4);
+    // description にのみ現れ、どの label にも含まれない語で引く。
+    // label 経由のヒットでは通らないことを保証するためのトークン選択。
+    const token = '第一歩';
+    expect(target.description).toContain(token);
+    expect(GUIDE_ITEMS.every((i) => !i.label.includes(token))).toBe(true);
+
     fireEvent.change(searchInput(), { target: { value: token } });
-    expect(document.querySelectorAll('a.guide-card').length).toBeGreaterThan(0);
+    const hrefs = Array.from(document.querySelectorAll('a.guide-card')).map((a) =>
+      a.getAttribute('href'),
+    );
+    expect(hrefs).toContain('/github-actions');
   });
 
   it('shows an empty state when nothing matches', () => {
