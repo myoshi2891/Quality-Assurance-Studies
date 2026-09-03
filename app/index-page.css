@@ -553,10 +553,13 @@
         --code-col: 3rem;
         --col-gap: 0.6rem;
         --step-indent: 0.6rem;
+        /* 狭幅でも軌道は固定幅のまま縮める。1fr にすると段ごとにバーの
+           軌道長が変わり、量の比較（バーの伸び）が壊れる */
+        --bar-col: 8rem;
     }
 
     .ladder-rung {
-        grid-template-columns: var(--code-col) minmax(0, 1fr) 1.75rem;
+        grid-template-columns: var(--code-col) var(--bar-col) 1.75rem;
     }
 }
 
