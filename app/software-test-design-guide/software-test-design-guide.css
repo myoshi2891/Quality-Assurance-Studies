@@ -320,6 +320,18 @@
     background: transparent !important;
 }
 
+/* テーブルのアクセシブル名（caption）を表ラベルとして視覚化する */
+.software-test-design-page table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--ink-soft);
+    background: var(--card);
+    border-bottom: 1px solid var(--line);
+}
+
 .software-test-design-page thead th,
 .software-test-design-page th {
     background: var(--indigo-dark) !important;

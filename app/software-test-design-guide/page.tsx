@@ -179,6 +179,7 @@ export default function SoftwareTestDesignGuidePage() {
               <h3>書籍情報</h3>
               <div className="table-wrap">
                 <table>
+                  <caption>書籍情報</caption>
                   <thead>
                     <tr>
                       <th>項目</th>
@@ -225,6 +226,7 @@ export default function SoftwareTestDesignGuidePage() {
               </p>
               <div className="table-wrap">
                 <table>
+                  <caption>Copeland が扱う技法と CTFL v4.0.1 での扱いの対応</caption>
                   <thead>
                     <tr>
                       <th>Copeland が扱う技法</th>
@@ -311,6 +313,7 @@ export default function SoftwareTestDesignGuidePage() {
               <h3>テストケースを構成する要素</h3>
               <div className="table-wrap">
                 <table>
+                  <caption>テストケースを構成する要素</caption>
                   <thead>
                     <tr>
                       <th>要素</th>
@@ -365,6 +368,7 @@ export default function SoftwareTestDesignGuidePage() {
               <h3>原著の章構成（概要）</h3>
               <div className="table-wrap">
                 <table>
+                  <caption>原著の章構成（概要）</caption>
                   <thead>
                     <tr>
                       <th>章</th>
@@ -600,6 +604,7 @@ export default function SoftwareTestDesignGuidePage() {
               <h4>共通例への適用：会員登録の年齢入力（18〜120歳が有効）</h4>
               <div className="table-wrap">
                 <table>
+                  <caption>会員登録の年齢入力（有効範囲 18〜120歳）の同値クラス</caption>
                   <thead>
                     <tr>
                       <th>同値クラス</th>
@@ -682,6 +687,7 @@ export default function SoftwareTestDesignGuidePage() {
               <h4>共通例への適用：年齢入力（有効範囲 18〜120）</h4>
               <div className="table-wrap">
                 <table>
+                  <caption>年齢入力（有効範囲 18〜120）の境界値テストケース</caption>
                   <thead>
                     <tr>
                       <th>境界</th>
@@ -794,6 +800,7 @@ export default function SoftwareTestDesignGuidePage() {
               </p>
               <div className="table-wrap">
                 <table>
+                  <caption>会員ランク × 注文金額 × クーポンによる割引ルールのデシジョンテーブル</caption>
                   <thead>
                     <tr>
                       <th>条件</th>
@@ -1000,6 +1007,7 @@ export default function SoftwareTestDesignGuidePage() {
               </p>
               <div className="table-wrap">
                 <table>
+                  <caption>チェックアウト画面の環境組み合わせテストケース</caption>
                   <thead>
                     <tr>
                       <th>No.</th>
@@ -1121,6 +1129,7 @@ export default function SoftwareTestDesignGuidePage() {
               </p>
               <div className="table-wrap">
                 <table>
+                  <caption>ホワイトボックステスト技法とカバレッジ基準</caption>
                   <thead>
                     <tr>
                       <th>技法</th>
@@ -1263,6 +1272,7 @@ export default function SoftwareTestDesignGuidePage() {
               <h3>技法比較表</h3>
               <div className="table-wrap">
                 <table>
+                  <caption>テスト技法の比較表</caption>
                   <thead>
                     <tr>
                       <th>技法</th>
@@ -1332,6 +1342,7 @@ export default function SoftwareTestDesignGuidePage() {
               <h3>テストレベルと技法の対応</h3>
               <div className="table-wrap">
                 <table>
+                  <caption>テストレベルと技法の対応</caption>
                   <thead>
                     <tr>
                       <th>テストレベル</th>
@@ -1386,6 +1397,7 @@ export default function SoftwareTestDesignGuidePage() {
             <div className="prose">
               <div className="table-wrap">
                 <table>
+                  <caption>よくあるアンチパターンと改善策</caption>
                   <thead>
                     <tr>
                       <th>アンチパターン</th>

@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/software-test-design-guide/page';
@@ -170,7 +170,8 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Mermaid Diagrams Integration', () => {
-    it('renders all 5 Mermaid diagrams with correct wrappers and captions', () => {
+    it('renders all 5 Mermaid diagrams with correct wrappers and captions', async () => {
+      mermaidRenderMock.mockClear();
       const { container } = render(<Page />);
 
       const diagrams = [
@@ -189,6 +190,19 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
         const target = sec?.querySelector('.mermaid-target');
         expect(target).not.toBeNull();
       });
+
+      // Mermaid は非同期に SVG を注入するため、静的な .mermaid-target の存在確認だけでは
+      // 「描画されたこと」を検証できない。実際に注入された SVG まで待って確認する。
+      await waitFor(() => {
+        diagrams.forEach((diag) => {
+          const target = container.querySelector(
+            `section#${diag.sectionId} .mermaid-target [data-testid="mock-mermaid"]`
+          );
+          expect(target).not.toBeNull();
+        });
+      });
+
+      expect(mermaidRenderMock).toHaveBeenCalledTimes(5);
     });
   });
 
