@@ -630,10 +630,13 @@ export default function TestingWebApisGuidePage() {
                     <div className="code-line"></div>
                     <div className="code-line"><span className="hljs-meta">@pytest.fixture</span></div>
                     <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">created_user_url</span>():</div>
-                    <div className="code-line">    <span className="hljs-string">&quot;&quot;&quot;テスト用ユーザーを作成し、そのURLを渡して、最後に必ず削除する。</span></div>
+                    <div className="code-line">    <span className="hljs-string">&quot;&quot;&quot;テスト用ユーザーを作成し、そのURLを渡して、最後に削除する。</span></div>
                     <div className="code-line"></div>
                     <div className="code-line"><span className="hljs-string">    識別子の解決と後片付けの登録を同じ try/finally の中で行うことで、</span></div>
-                    <div className="code-line"><span className="hljs-string">    「作成には成功したが id を取り出せなかった」場合でもデータを残さない。</span></div>
+                    <div className="code-line"><span className="hljs-string">    「作成には成功したが id を取り出せなかった」場合でも、Locationヘッダーや</span></div>
+                    <div className="code-line"><span className="hljs-string">    一意なメールアドレスでの検索から削除先を復元して後片付けを試みる。</span></div>
+                    <div className="code-line"><span className="hljs-string">    ただし、そのいずれからもURLを解決できない場合は削除できないため、</span></div>
+                    <div className="code-line"><span className="hljs-string">    AssertionError を送出して「消し残しがある」ことを明示的に失敗として知らせる。</span></div>
                     <div className="code-line"><span className="hljs-string">    &quot;&quot;&quot;</span></div>
                     <div className="code-line">    <span className="hljs-comment"># 検索フォールバックが効くよう、メールアドレスはテストごとに一意にする</span></div>
                     <div className="code-line">    email = <span className="hljs-string">f&quot;taro+</span>{'{'}uuid.uuid4().hex{'}'}<span className="hljs-string">@example.com&quot;</span></div>
@@ -644,7 +647,7 @@ export default function TestingWebApisGuidePage() {
                     <div className="code-line">    )</div>
                     <div className="code-line">    <span className="hljs-keyword">assert</span> created.status_code == <span className="hljs-number">201</span></div>
                     <div className="code-line"></div>
-                    <div className="code-line">    <span className="hljs-comment"># ここから先で何が起きても、作成済みユーザーは必ず削除する</span></div>
+                    <div className="code-line">    <span className="hljs-comment"># ここから先で何が起きても、削除先を解決できている限り必ず削除する</span></div>
                     <div className="code-line">    user_url = <span className="hljs-literal">None</span></div>
                     <div className="code-line">    <span className="hljs-keyword">try</span>:</div>
                     <div className="code-line">        user_url = _resolve_user_url(created, email)</div>
