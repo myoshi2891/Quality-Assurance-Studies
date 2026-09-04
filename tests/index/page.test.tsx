@@ -259,10 +259,10 @@ describe('Guide index search feedback', () => {
   it('reports how many guides the current query matches', () => {
     render(<Page />);
     const count = () => document.querySelector('[data-result-count]');
-    expect(count()?.textContent).toContain(String(GUIDE_ITEMS.length));
+    expect(count()?.textContent).toBe(`${GUIDE_ITEMS.length} 件`);
 
     fireEvent.change(searchInput(), { target: { value: 'cypress' } });
-    expect(count()?.textContent).toContain('1');
+    expect(count()?.textContent).toBe(`1 / ${GUIDE_ITEMS.length}`);
   });
 
   /* 空の画面は行き止まりではなく次の一手の案内にする。 */
