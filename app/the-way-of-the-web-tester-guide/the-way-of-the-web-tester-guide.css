@@ -425,13 +425,18 @@
 @media (max-width: 900px) {
     .the-way-of-the-web-tester-page .sidebar {
         transform: translateX(-100%);
-        transition: transform 0.2s ease;
+        /* 画面外のリンクがフォーカスを受け取らないよう不可視化する */
+        visibility: hidden;
+        /* visibility は transform 完了後に切り替え、閉じるアニメを保つ */
+        transition: transform 0.2s ease, visibility 0s linear 0.2s;
         box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
         z-index: 60;
     }
 
     .the-way-of-the-web-tester-page .sidebar.open {
         transform: translateX(0);
+        visibility: visible;
+        transition: transform 0.2s ease, visibility 0s linear 0s;
     }
 
     .the-way-of-the-web-tester-page .sidebar-backdrop {
@@ -449,6 +454,8 @@
 
     .the-way-of-the-web-tester-page .nav-toggle {
         display: block;
+        /* 閉じるボタンがサイドバー(60)・バックドロップ(55)より前面に来るようにする */
+        z-index: 61;
     }
 
     .the-way-of-the-web-tester-page .hero h1 {
