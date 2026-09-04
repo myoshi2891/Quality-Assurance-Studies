@@ -343,6 +343,13 @@ describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
         expect(link.getAttribute('href')).toMatch(/^https?:\/\//);
       });
     });
+
+    it('ensures ref-list has list-style: none to avoid duplicate native numbering', () => {
+      const { container } = render(<Page />);
+      const refList = container.querySelector('ol.ref-list');
+      expect(refList).not.toBeNull();
+      expect(refList?.getAttribute('style')).toContain('list-style: none');
+    });
   });
 
   describe('Footer Section', () => {
