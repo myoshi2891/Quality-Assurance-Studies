@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-07-15
+Updated 2026-09-02
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -18,14 +18,14 @@ bun run dev          # 開発サーバー起動（HMR あり）
 bun run build        # 本番ビルド（.next/ へ出力）
 bun start            # ビルド成果物をプロダクションモードで起動
 bun run lint         # ESLint 実行
-bun test             # ユニットテスト (bun test, 161 specs)
+bun test             # ユニットテスト (bun test, 336 specs)
 ```
 
 ### E2E テスト (Playwright)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 39 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 51 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -77,7 +77,10 @@ Next.js App Router 構成:
 
 - `app/layout.tsx` — ルートレイアウト（メタデータ、グローバルフォント設定）
 - `app/globals.css` — Tailwind v4 の `@theme` ブロックでデザイントークンを定義し、`@layer base / utilities` および プレーンセレクタでコンポーネントスタイルを記述
-- `app/page.tsx` — ホームページ
+- `app/page.tsx` — ガイドライブラリ index（ルート `/`）。全ガイドをカテゴリ別カードで一覧する入口
+- `app/GuideIndex.tsx` — index の検索 + レベル別セクション（`'use client'`、`matchesQuery` で絞り込み）
+- `app/index-page.css` — ガイドライブラリ index 固有スタイル（階段ヒーロー・背骨・カード）
+- `app/modern-software-testing-complete-guide-2025/page.tsx` — 現代ソフトウェアテスト完全ガイド 2025（旧ホーム本文の移設先）
 - `app/ai-test-guide/page.tsx` — AI テストガイドページ
 - `app/ai-guide.css` — AI テストガイド固有スタイル
 - `app/unit-testing-guide/page.tsx` — ユニットテスト完全ガイドページ
@@ -207,11 +210,22 @@ Next.js App Router 構成:
 - `app/playwright-beginner-guide/playwright-beginner-guide.css` — Playwright 完全入門ガイド固有スタイル
 - `app/playwright-beginner-guide/page.tsx` — Playwright 完全入門ガイドページ
 - `app/playwright-beginner-guide/NavBar.tsx` — Playwright 完全入門ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
-- `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）
+- `app/cucumber-beginner-guide/cucumber-beginner-guide.css` — Cucumber 入門ガイド固有スタイル
+- `app/cucumber-beginner-guide/page.tsx` — Cucumber 入門ガイドページ
+- `app/cucumber-beginner-guide/NavBar.tsx` — Cucumber 入門ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `app/cypress-beginner-guide/cypress-beginner-guide.css` — Cypress 入門ガイド固有スタイル
+- `app/cypress-beginner-guide/page.tsx` — Cypress 入門ガイドページ
+- `app/cypress-beginner-guide/NavBar.tsx` — Cypress 入門ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `app/selenium-beginner-guide/selenium-beginner-guide.css` — Selenium 完全ガイド固有スタイル
+- `app/selenium-beginner-guide/page.tsx` — Selenium 完全ガイドページ
+- `app/selenium-beginner-guide/NavBar.tsx` — Selenium 完全ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
+- `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。cucumber / cypress / selenium の各 NavBar が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 51 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
-- `/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動）
+- `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり）
 
 ## 移行進行状況
 
@@ -221,9 +235,9 @@ Next.js App Router 構成:
 
 | ファイル | 対応する予定ルート | 状態 |
 |---|---|---|
-| なし | - | ✅ 全て完了 |
+| 書籍ガイド系 Markdown 一式 / `Leading-quality-guide.html` ほかルート直下の HTML | 未定 | ⏸ ルート登録対象外（静的ドキュメントとして残置） |
 
-移行完了後は `html-archive/` へ移動し、上記テーブルから削除する。
+移行完了後は `archive/html-archive/` へ移動し、上記テーブルから削除する。
 
 ## 開発規約
 
@@ -266,7 +280,7 @@ rm -rf .next && bun run dev
 
 変換スクリプトに頼るのではなく、Markdown ソースファイル自体が標準的な仕様に準拠していることを最優先します。
 
-- **コミット前必須検証 (Gate Condition):** Markdownファイルを編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` の手順に従い、リント検証コマンド（`node node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行してエラーが 0 件であることを確認してください。
+- **コミット前必須検証 (Gate Condition):** Markdownファイルを編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` の手順に従い、リント検証コマンド（`bun node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行してエラーが 0 件であることを確認してください。
 - 言語指定のないコードブロック（```）によるテキストの囲みは避け、引用（>）や適切な見出しを使用してください。
 - 表や図（Mermaid）はコードブロック内に閉じ込めず、Markdown 上で直接レンダリング可能な形で記述してください。
 - 共通の Markdown 整形ツール: `bun scripts/format-markdown.mjs <file>`
@@ -295,6 +309,66 @@ HTML から移行した `<nav>` がページ内アンカーリンク + `Intersec
    ```tsx
    <a href={`#${id}`} aria-current={activeSection === id ? 'location' : undefined}>
    ```
+
+### グローバルナビの拡張性（ガイド追加時の手順）
+
+グローバルヘッダーのドロワーとガイドライブラリ index（`/`）は、どちらも
+`lib/navigation.ts` の `NAV_ITEMS` から描画される。**新しいガイドページを追加したら、
+`NAV_ITEMS` に 1 件追加するだけでドロワー・index 画面・検索の 3 箇所に反映される。**
+
+```ts
+{ href: '/new-guide',
+  label: '新しいガイド',
+  description: '1 行説明（80 文字以内。index のカード本文かつ検索対象）。',
+  category: 'foundation' },
+```
+
+- `description` は必須。空文字・80 文字超はユニットテストで落ちる
+- `category` は `NavCategory` の 9 種類から選ぶ。新カテゴリが必要な場合は
+  `NavCategory` / `CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` の 4 箇所を同期し、
+  `app/globals.css` の `[data-category='...']` にレベル色（`--level`）を追加する
+- カテゴリ値はそのまま index のセクション ID になる（`/#istqb-advanced` で直リンク可能）
+- **`e2e/pages.ts` にも同じ path を追加し `EXPECTED_PAGE_COUNT` を更新する。**
+  片方だけ更新すると `tests/lib/navigation-e2e-sync.test.ts` が落ちる
+
+**ドロワーの構造（項目数に対してスケールする設計）:**
+
+| 要素 | 役割 |
+|---|---|
+| `.nav-drawer-pinned` | `/`（全ガイド一覧）への固定リンク。検索でも消えない |
+| `.nav-drawer-search-input` | インクリメンタル検索。`matchesQuery` で label / description / href を部分一致 |
+| `details.nav-drawer-section` | カテゴリ単位の折りたたみ。既定は現在ページのカテゴリのみ展開、検索中は全展開 |
+| `summary.nav-drawer-heading` | `<h2>` を内包（HTML 仕様上 summary は heading 1 個を許容）。件数は `data-count` + CSS `::after` で表示しアクセシブル名を汚さない |
+
+`summary` の `onClick` は `preventDefault()` してネイティブトグルを止め、開閉を React state
+（`openCategories`）に一本化している。テストの決定論性を保つための意図的な設計であり、
+Enter / Space も click を発火するためキーボード操作は失われない。
+
+### ガイド index（`/`）のデザイン規約
+
+index は「ISTQB の認定レベルは並列のカテゴリではなく階梯である」という事実を
+デザインの芯に据えている。以下は装飾ではなく情報の符号なので、変更時は意味を壊さないこと。
+
+| 要素 | 何を符号化しているか |
+|---|---|
+| ヒーローの階段（`.climb-stairs` の `.ladder-rung`） | 段の縦位置 = 資格レベルの高さ、バーの伸び = そのレベルのガイド数。各段は該当セクションへのアンカー |
+| 段のインデント（`--step-indent`） | 1 段上がるごとに右へずれることが「登る」ことの符号。蹴上げ線（`::before`）の着地位置はここから幾何学的に決まる |
+| バーの軌道幅（`--bar-col`） | 全段で固定。段をインデントしても量の比較が壊れないための固定幅であり、`1fr` にしてはならない |
+| `data-track` | `certification`（ISTQB 5 レベル）と `practice`（CI/CD・ツール・書籍）の区別。後者は資格階梯の段ではないので階段に積まず「実務の棚」に置く |
+| `CATEGORY_CODES` | ラベルの短縮版ではなく実際の資格略号（CTFL / CTAL / CT-\* / CTEL）。コード自体が資格体系を示す |
+| レベルランプ（`--level`） | 無関係な 8 色ではなく寒色 → 暖色の 1 本のランプ。ランプ上の位置がレベルの高さを示す。実務トラックはランプ外の 1 色（`#7f96b8`）に統合する |
+| セクションの並び順 | 基礎 → CTFL → CTAL → CT-\* → CTEL → 実務。学習の進み方そのもの |
+
+- **レベルランプの定義は `app/globals.css` の `[data-category='...']` にある。** ドロワーも同じ
+  `data-category` を出力するため、この 1 箇所で index とドロワーの色が一致する
+  （`components/Header.tsx` 側に色の指定を書かないこと）
+- `.climb-stairs` は `column-reverse`。文書順（＝カリキュラム順）を保ったまま BASE を最下段に置く。
+  テストは `querySelectorAll` の文書順を検証するので、DOM 側で順序を反転してはならない
+- 書体は index のみ Bricolage Grotesque（`--font-bricolage`）をディスプレイに使う。
+  h1 は日本語なので実際に効くのはガイド総数の数字とラテン略号だけ。そこだけ声が切り替わる混植が狙いなので、
+  `'Noto Sans JP'` を必ず後段に置く。1 ルートでしか使わないため `preload: false`
+- 階段の日本語ラベル（`.ladder-label`）はホバー／フォーカス時のチップ。常時表示すると
+  第二の階段になって蹴上げ線と干渉する。DOM からは外さないこと（リンクのアクセシブル名になる）
 
 ### CSS コンポーネントクラス
 
@@ -422,7 +496,7 @@ bun test        # ユニットテスト成功
 | `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
 | `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-tm-mtt-complete-guide.html` | `/istqb-ctel-tm-mtt-complete-guide` | ✅ NavBar あり |
-| `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
+| `modern-software-testing-complete-guide-2025.html` | `/modern-software-testing-complete-guide-2025` | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
 | `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
@@ -433,12 +507,15 @@ bun test        # ユニットテスト成功
 | `Github-actions.html` | `/github-actions` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
 | `Github-actions-guide.html` | `/github-actions-guide` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
 | `Playwright-beginner-guide.html` | `/playwright-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
+| `Cucumber-beginner-guide.html` | `/cucumber-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Cypress-beginner-guide.html` | `/cypress-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Selenium-beginner-guide.html` | `/selenium-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| (なし) | | | |
+| 書籍ガイド系 Markdown 一式 / `Leading-quality-guide.html` ほかルート直下の HTML | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未決定 |
 
 ## 既知の留保事項
 
@@ -448,8 +525,9 @@ bun test        # ユニットテスト成功
 
 ```text
 コンテキスト:
-- **全ガイド移行完了**: プロジェクトルートに存在した全46ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 47 ルート（ホーム + 46 ガイド）が管理されています。
+- **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
+- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
@@ -458,7 +536,7 @@ bun test        # ユニットテスト成功
 ローカル検証は `bun run lint` と `bun test` で行う。
 
 【指示】
-全ガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
+登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
 ```
 
 ---

@@ -1,19 +1,68 @@
 # Migration Progress
 
-Updated 2026-08-31
+Updated 2026-09-03
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 全ガイド移行完了**: 静的HTML/MarkdownからNext.js App Routerへの完全移行が完了しました（合計47ルート）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 51 ルート = ガイドライブラリ index + 50 ガイド）。
+>
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `f16313f` |
+| 最新 HEAD | `28cbc98` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（240 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（336 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/01: ガイド index を ISTQB 認定レベルの階梯で再設計
+
+- **背景**: 新設した index が「暗い背景 + アクセント 1 色 + 均一なカードグリッド」という、題材と無関係な既定形だった。
+- **設計の芯**: 8 カテゴリは並列ではなく ISTQB の実際の階梯（基礎 → CTFL → CTAL → CT-* → CTEL → 実務）であるという事実を、装飾ではなく情報として符号化した。
+- `lib/navigation.ts`: `CATEGORY_CODES` を追加。ラベルの短縮版ではなく実際の資格略号を使い、コード自体が資格体系を示す。
+- `app/page.tsx`: ヒーローに階梯（signature）を新設。各レベルのバー長がそのレベルのガイド数に比例し、Specialist に量が偏っている事実が形として読める。各段は該当セクションへのアンカー。
+- `app/GuideIndex.tsx`: レベル別セクション + sticky なレベル背骨（コード・タイトル・件数）。カードは箱をやめ罫線グリッド + レベル色の縦罫へ。
+- `app/globals.css`: レベル色を `[data-category='...']` の `--level` として定義（index とドロワーで共有する単一定義）。`app/index-page.css` はその値を参照するのみで、上罫・コード・ホバー罫に一貫適用する。
+- `app/layout.tsx`: index 専用ディスプレイ書体として Bricolage Grotesque（`--font-bricolage`、`preload: false`）を追加。ラテン略号だけが別の声になる混植を狙う。
+- h1 を汎用ラベルから主題（「登る順に並べた、50 のガイド。」）へ変更し、`tests/index` と `e2e/pages.ts` の h1 期待値を更新。
+- テスト: `bun test` 333 pass / `bun run lint` エラーなし / `tsc --noEmit` エラーなし。
+
+## 2026/09/01: グローバルナビの拡張性改善とガイドライブラリ index 画面の新設
+
+- **背景**: ドロワーが `NAV_ITEMS` 50 件を全件フラット展開しており、高さが項目数に比例して画面外へあふれていた。またルート `/` を 3210 行のガイド記事が占有し、サイトの入口として機能していなかった。
+- `app/page.tsx`: ルートをガイドライブラリ index 画面へ置き換え（ヒーロー + 件数サマリ + カテゴリ別カードグリッド）。`app/GuideIndex.tsx`（`'use client'`）が検索とグリッド描画を担当し、`app/index-page.css` を新設。
+- 旧ホーム本文を `app/modern-software-testing-complete-guide-2025/page.tsx` へ `git mv` で移設し、`foundation`（基礎テスト手法）カテゴリの 1 ページとして登録。合計 51 ルート。
+- `lib/navigation.ts`: `NavItem` に `description`（80 文字以内、必須）を追加、`CATEGORY_ORDER` / `CATEGORY_TITLES` を export、ドロワーと index 画面で共用する `matchesQuery()` を新設。
+- `components/Header.tsx`: ドロワーに検索ボックスと `<details>` アコーディオンを導入。既定は現在ページのカテゴリのみ展開、検索中は全展開。開閉は React state で制御し、Escape・スクロールロック・`aria-current` などの既存 a11y 挙動を維持。開いた直後のフォーカスは検索ボックスへ変更。
+- `tests/lib/navigation-e2e-sync.test.ts`: `lib/navigation.ts` と `e2e/pages.ts` のドリフトを `bun test` で検知するガードを追加。
+- `e2e/pages.ts`: `/` の h1 を index 用に変更、新ルートを追加、`EXPECTED_PAGE_COUNT` を 51 へ更新。
+- テスト: `bun test` 321 pass / `bun run lint` エラーなし / `tsc --noEmit` エラーなし。
+
+## 2026/09/01: Selenium 初学者向け完全入門ガイドの Next.js 移行完了
+
+- `app/selenium-beginner-guide/`: ページコンポーネント（Mermaid 8図、全16セクション、Prismシンタックスハイライト、全テーブル、コールアウト2種、全参考文献を含む完全移行）、スタイル（`.selenium-guide-page` スコープ、ダークテーマ、sticky nav）、NavBar（IntersectionObserver スクロールスパイ、aria-current）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリ（「テストツール & フレームワーク」）に `/selenium-beginner-guide`（Selenium 完全ガイド）を追加。
+- `tests/selenium-beginner-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全16リンク、全16セクション、Mermaid 8図、全テーブル、全コードブロック、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全275件）。
+- `Selenium-beginner-guide.html`: `archive/html-archive/tools/Selenium-beginner-guide.html` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 50 ページ体制に同期。
+
+## 2026/09/01: Cypress 初学者向け完全入門ガイドの Next.js 移行完了
+
+- `app/cypress-beginner-guide/`: ページコンポーネント（Mermaid 5図、全15セクション、Prismシンタックスハイライト、全テーブル、コールアウト3種、全参考文献を含む完全移行）、スタイル（`.cypress-beginner-page` スコープ、ダークテーマ、sticky nav）、NavBar（IntersectionObserver スクロールスパイ、aria-current）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリ（「テストツール & フレームワーク」）に `/cypress-beginner-guide`（Cypress 入門ガイド）を追加。
+- `tests/cypress-beginner-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全15リンク、全15セクション、Mermaid 5図、全テーブル、全コードブロック、全参考文献リンクの存在を検証する厳格なテストスイートを実装して全パス（全264件）。
+- `Cypress-beginner-guide.html`: `archive/html-archive/tools/Cypress-beginner-guide.html` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 49 ページ体制に同期。
+
+## 2026/09/01: Cucumber 初学者向け完全入門ガイドの Next.js 移行完了
+
+- `app/cucumber-beginner-guide/`: ページコンポーネント（Mermaid 7図、全16セクション、Gherkin/Prismシンタックスハイライト、全テーブル、13枚のまとめカード、21項目の参考文献を含む完全移行）、スタイル（`.cucumber-beginner-page` スコープ、フォレストグリーンダークテーマ）、NavBar（IntersectionObserver スクロールスパイ、aria-current）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリ（「テストツール & フレームワーク」）に `/cucumber-beginner-guide`（Cucumber 入門ガイド）を追加。
+- `tests/cucumber-beginner-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全16リンク、全16セクション、Mermaid 7図、全テーブル、全コードブロック、まとめカード13枚、全参考文献21件の存在を検証する厳格なテストスイートを実装して全パス（全253件）。
+- `Cucumber-beginner-guide.html`: `archive/html-archive/tools/Cucumber-beginner-guide.html` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 48 ページ体制に同期。
 
 ## 2026/08/31: Playwright 初学者向け完全入門ガイドの Next.js 移行完了
 
@@ -440,7 +489,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
 | `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-tm-mtt-complete-guide.html` | `/istqb-ctel-tm-mtt-complete-guide` | ✅ NavBar あり |
-| `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
+| `modern-software-testing-complete-guide-2025.html` | `/modern-software-testing-complete-guide-2025` | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
 | `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
@@ -451,12 +500,21 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Github-actions.html` | `/github-actions` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
 | `Github-actions-guide.html` | `/github-actions-guide` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
 | `Playwright-beginner-guide.html` | `/playwright-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
+| `Cucumber-beginner-guide.html` | `/cucumber-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Cypress-beginner-guide.html` | `/cypress-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Selenium-beginner-guide.html` | `/selenium-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
+登録済みガイドの移行は完了しているが、プロジェクトルートには App Router に未登録の静的ドキュメントが残っている。
+これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
+
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| (なし) | | | 全てのガイドの移行が完了しました |
+| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `Clean-code-cookbook-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Secure-by-design-guide.md` / `Software-test-design-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md` / `Testing-web-apis-guide.md` / `The-way-of-the-web-tester-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
+| 書籍ガイド系 HTML（`Leading-quality-guide.html` / `Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `Clean-code-cookbook-guide.html` / `Secure-by-design-guide.html` / `Software-testing-craftsmans-approach-guide.html` / `Testing-web-apis-guide.html` / `The-way-of-the-web-tester-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
+| ツール系ドキュメント（`Appium-essentials-guide.md` / `Appium-essentials-guide.html` / `Owasp-zap-beginner-guide.html` / `Playwright-intermediate-advanced-guide.html` / `Sonarqube.html` / `Sonarqube-intermediate.html`） | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
+| `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
 
 ## 既知の留保事項
 
@@ -468,10 +526,11 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 ```text
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
-- **GitHub Actions ガイド移行完了**: プロジェクトルートに存在した全46ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 47 ルート（ホーム + 46 ガイド）が管理されています。
+- **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
+- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown と `Leading-quality-guide.html` などの HTML が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-全ガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
+登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
 ```

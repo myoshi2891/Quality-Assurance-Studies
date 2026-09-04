@@ -13,7 +13,8 @@ export interface PageMeta {
 }
 
 export const PAGES: readonly PageMeta[] = [
-  { path: '/', h1: /羅針盤/ },
+  { path: '/', h1: /登る順に並べた/ },
+  { path: '/modern-software-testing-complete-guide-2025', h1: /羅針盤/ },
   { path: '/acceptance-testing-guide', h1: /Acceptance.*Testing/s },
   { path: '/ai-test-guide', h1: /AIシステム.*テスト/s },
   { path: '/bdd-testing-guide', h1: /BDD（ビヘイビア駆動開発）/ },
@@ -60,7 +61,10 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/github-actions', h1: /GitHub Actions 完全ガイド/ },
   { path: '/github-actions-guide', h1: /GitHub Actions 中級〜上級者向け完全ガイド/ },
   { path: '/playwright-beginner-guide', h1: /Playwright.*完全入門ガイド/ },
+  { path: '/cucumber-beginner-guide', h1: /Cucumber.*入門ガイド/ },
+  { path: '/cypress-beginner-guide', h1: /Cypress.*入門ガイド/ },
+  { path: '/selenium-beginner-guide', h1: /Selenium.*完全ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 47;
+export const EXPECTED_PAGE_COUNT = 51;
 

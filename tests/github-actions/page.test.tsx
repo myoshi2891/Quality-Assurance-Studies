@@ -149,8 +149,11 @@ describe('GitHub Actions Beginner Guide NavBar Component', () => {
       '#sec-references',
     ];
 
-    links.forEach((link, idx) => {
-      expect(link.getAttribute('href')).toBe(expectedHrefs[idx]);
-    });
+    expect(links.length).toBe(expectedHrefs.length);
+
+    const actualHrefs = Array.from(links).map((link) =>
+      link.getAttribute('href')
+    );
+    expect(actualHrefs).toEqual(expectedHrefs);
   });
 });

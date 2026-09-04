@@ -1,0 +1,1673 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>『The Art of Software Testing』から学ぶソフトウェアテスト実践ガイド</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+        />
+        <style>
+            :root {
+                --paper: #faf7f0;
+                --paper-card: #ffffff;
+                --paper-alt: #f2ede1;
+                --ink: #2a2420;
+                --ink-soft: #6b6055;
+                --indigo: #3d4a7a;
+                --indigo-dark: #2c3557;
+                --indigo-tint: #eef0fb;
+                --gold: #a97a1f;
+                --gold-tint: #f6ecd9;
+                --forest: #3f6b4a;
+                --plum: #6b3f6b;
+                --border: #e3dcc9;
+                --sidebar-width: 300px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family: 'Source Serif 4', Georgia, serif;
+                font-size: 1rem;
+                line-height: 1.8;
+                -webkit-font-smoothing: antialiased;
+            }
+            .layout {
+                display: block;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-width);
+                background: var(--paper-alt);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 2rem 1.25rem 3rem;
+                font-family: 'Inter', system-ui, sans-serif;
+                z-index: 50;
+                transition: transform 0.25s ease;
+            }
+            .sidebar .brand {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-family: 'Source Serif 4', serif;
+                font-weight: 700;
+                font-size: 1.15rem;
+                color: var(--indigo-dark);
+                margin-bottom: 0.35rem;
+            }
+            .sidebar .brand i {
+                font-size: 1.4rem;
+                color: var(--gold);
+            }
+            .sidebar .brand-sub {
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin: 0 0 1.75rem 0;
+            }
+            .sidebar nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sidebar nav li {
+                margin-bottom: 0.15rem;
+            }
+            .sidebar nav a {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                padding: 0.55rem 0.7rem;
+                border-radius: 0.5rem;
+                color: var(--ink-soft);
+                text-decoration: none;
+                font-size: 1rem;
+                line-height: 1.3;
+                transition:
+                    background 0.15s ease,
+                    color 0.15s ease;
+            }
+            .sidebar nav a i {
+                font-size: 1.05rem;
+                width: 1.3rem;
+                text-align: center;
+                flex-shrink: 0;
+                color: var(--indigo);
+            }
+            .sidebar nav a:hover {
+                background: var(--paper-card);
+                color: var(--ink);
+            }
+            .sidebar nav a.active {
+                background: var(--indigo-tint);
+                color: var(--indigo-dark);
+                font-weight: 600;
+            }
+            .sidebar nav a.active i {
+                color: var(--indigo-dark);
+            }
+            .sidebar-foot {
+                margin-top: 2rem;
+                padding-top: 1rem;
+                border-top: 1px solid var(--border);
+                font-size: 1rem;
+                color: var(--ink-soft);
+            }
+
+            /* ---------- Mobile bar ---------- */
+            .mobile-bar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 56px;
+                background: var(--paper-alt);
+                border-bottom: 1px solid var(--border);
+                align-items: center;
+                padding: 0 1rem;
+                z-index: 60;
+                font-family: 'Inter', system-ui, sans-serif;
+            }
+            .mobile-bar button {
+                background: none;
+                border: none;
+                font-size: 1.4rem;
+                color: var(--indigo-dark);
+                cursor: pointer;
+                padding: 0.4rem;
+                line-height: 1;
+            }
+            .mobile-bar span {
+                margin-left: 0.5rem;
+                font-weight: 600;
+                color: var(--indigo-dark);
+                font-size: 1rem;
+            }
+            .sidebar-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(42, 36, 32, 0.35);
+                z-index: 40;
+            }
+
+            /* ---------- Main content ---------- */
+            .main {
+                margin-left: var(--sidebar-width);
+                max-width: none;
+                padding: 3.5rem 4rem 6rem;
+            }
+            .hero {
+                max-width: none;
+            }
+            .hero .kicker {
+                font-family: 'Inter', system-ui, sans-serif;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                font-size: 1rem;
+                color: var(--gold);
+                font-weight: 600;
+                margin-bottom: 0.75rem;
+            }
+            .hero h1 {
+                font-size: 2.3rem;
+                line-height: 1.35;
+                margin: 0 0 0.75rem 0;
+                color: var(--indigo-dark);
+            }
+            .hero .subtitle {
+                font-size: 1.25rem;
+                color: var(--ink-soft);
+                font-style: italic;
+                margin: 0 0 1.75rem 0;
+            }
+
+            .prose,
+            .prose p,
+            .prose li {
+                overflow-wrap: break-word;
+            }
+            .prose p {
+                margin: 0 0 1.15rem 0;
+            }
+            .prose h3 {
+                font-size: 1.3rem;
+                color: var(--indigo-dark);
+                margin: 1.75rem 0 0.75rem;
+            }
+            .prose ol,
+            .prose ul {
+                padding-left: 1.4rem;
+            }
+            .prose li {
+                margin-bottom: 0.5rem;
+            }
+
+            section.chapter {
+                margin-top: 3.5rem;
+                padding-top: 2.5rem;
+                border-top: 1px solid var(--border);
+            }
+            section.chapter:first-of-type {
+                border-top: none;
+            }
+            .section-head {
+                display: flex;
+                align-items: center;
+                gap: 0.85rem;
+                margin-bottom: 1.25rem;
+            }
+            .section-head .chip {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 0.65rem;
+                background: var(--indigo-tint);
+                color: var(--indigo-dark);
+                font-size: 1.3rem;
+                flex-shrink: 0;
+            }
+            .section-head h2 {
+                font-size: 1.55rem;
+                margin: 0;
+                color: var(--indigo-dark);
+                line-height: 1.4;
+            }
+
+            /* ---------- Callouts ---------- */
+            .callout {
+                border-left: 4px solid var(--indigo);
+                background: var(--indigo-tint);
+                border-radius: 0.35rem;
+                padding: 1rem 1.25rem;
+                margin: 1.25rem 0;
+                font-size: 1rem;
+                font-family: 'Inter', system-ui, sans-serif;
+                color: var(--ink);
+            }
+            .callout .callout-title {
+                font-weight: 700;
+                color: var(--indigo-dark);
+                margin-bottom: 0.3rem;
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .callout.source {
+                border-left-color: var(--gold);
+                background: var(--gold-tint);
+            }
+            .callout.source .callout-title {
+                color: var(--gold);
+            }
+            .callout.note {
+                border-left-color: var(--plum);
+                background: #f3ecf3;
+            }
+            .callout.note .callout-title {
+                color: var(--plum);
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 1.5rem 0;
+                border: 1px solid var(--border);
+                border-radius: 0.5rem;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: var(--paper-card);
+                font-family: 'Inter', system-ui, sans-serif;
+                font-size: 1rem;
+            }
+            thead th {
+                background: var(--indigo-dark);
+                color: #fff;
+                text-align: left;
+                padding: 0.75rem 0.9rem;
+                white-space: nowrap;
+                font-weight: 600;
+            }
+            tbody td {
+                padding: 0.7rem 0.9rem;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            tbody tr:nth-child(even) {
+                background: var(--paper-alt);
+            }
+
+            /* ---------- Diagrams ---------- */
+            .diagram-fig {
+                margin: 1.75rem 0;
+            }
+            .diagram-wrap {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                padding: 1rem 0;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 0.6rem;
+            }
+            .diagram-wrap svg {
+                flex-shrink: 0;
+                height: auto;
+            }
+            .fig-caption {
+                font-family: 'Inter', system-ui, sans-serif;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                text-align: center;
+                margin-top: 0.6rem;
+            }
+
+            /* ---------- Checklist ---------- */
+            .step-list {
+                list-style: none;
+                padding: 0;
+                margin: 1.5rem 0;
+            }
+            .step-list li {
+                display: flex;
+                gap: 1rem;
+                align-items: flex-start;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 0.6rem;
+                padding: 0.9rem 1.1rem;
+                margin-bottom: 0.7rem;
+            }
+            .step-list .num {
+                flex-shrink: 0;
+                width: 2rem;
+                height: 2rem;
+                border-radius: 50%;
+                background: var(--indigo);
+                color: #fff;
+                font-family: 'Inter', system-ui, sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* ---------- References ---------- */
+            .ref-group {
+                margin-bottom: 1.75rem;
+            }
+            .ref-group h3 {
+                font-size: 1.15rem;
+                color: var(--indigo-dark);
+                margin: 0 0 0.75rem 0;
+                font-family: 'Inter', system-ui, sans-serif;
+            }
+            .ref-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .ref-item {
+                display: flex;
+                gap: 0.75rem;
+                padding: 0.75rem 0;
+                border-bottom: 1px solid var(--border);
+                font-family: 'Inter', system-ui, sans-serif;
+                font-size: 1rem;
+            }
+            .ref-item:last-child {
+                border-bottom: none;
+            }
+            .ref-item .ref-no {
+                color: var(--gold);
+                font-weight: 700;
+                flex-shrink: 0;
+                width: 1.6rem;
+            }
+            .ref-item .ref-body {
+                flex: 1;
+                min-width: 0;
+            }
+            .ref-item .ref-title {
+                color: var(--ink);
+                display: block;
+                margin-bottom: 0.15rem;
+            }
+            .ref-url {
+                color: var(--indigo);
+                word-break: break-all;
+                text-decoration: none;
+            }
+            .ref-url:hover {
+                text-decoration: underline;
+            }
+
+            footer {
+                margin-top: 4rem;
+                padding-top: 2rem;
+                border-top: 1px solid var(--border);
+                font-family: 'Inter', system-ui, sans-serif;
+                font-size: 1rem;
+                color: var(--ink-soft);
+            }
+
+            /* ---------- Responsive ---------- */
+            @media (max-width: 900px) {
+                .mobile-bar {
+                    display: flex;
+                }
+                .sidebar {
+                    transform: translateX(-100%);
+                    width: 82vw;
+                    max-width: 340px;
+                    top: 56px;
+                    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .sidebar-backdrop.open {
+                    display: block;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 4.5rem 1.25rem 4rem;
+                }
+                .hero h1 {
+                    font-size: 1.7rem;
+                }
+                .hero .subtitle {
+                    font-size: 1.05rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mobile-bar">
+            <button id="menuToggle" aria-label="メニューを開く" aria-controls="sidebar" aria-expanded="false">
+                <i class="ti ti-menu-2"></i>
+            </button>
+            <span>The Art of Software Testing 実践ガイド</span>
+        </div>
+        <div class="sidebar-backdrop" id="backdrop"></div>
+
+        <div class="layout">
+            <aside class="sidebar" id="sidebar">
+                <div class="brand"><i class="ti ti-bug"></i>Testing Guide</div>
+                <p class="brand-sub">The Art of Software Testing 実践ガイド</p>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#intro" data-nav><i class="ti ti-book-2"></i>はじめに</a>
+                        </li>
+                        <li>
+                            <a href="#ch1" data-nav
+                                ><i class="ti ti-bug"></i>第1章: テストの心理学</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch2" data-nav
+                                ><i class="ti ti-list-check"></i>第2章: テストの7原則</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch3" data-nav
+                                ><i class="ti ti-stack-2"></i>第3章: テストレベル</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch4" data-nav
+                                ><i class="ti ti-box"></i>第4章: ブラックボックス技法</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch5" data-nav
+                                ><i class="ti ti-code"></i>第5章: ホワイトボックスとカバレッジ</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch6" data-nav
+                                ><i class="ti ti-eye"></i>第6章: 非実行型テスト</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch7" data-nav
+                                ><i class="ti ti-triangle"></i>第7章: テストピラミッド</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch8" data-nav><i class="ti ti-refresh"></i>第8章: TDD</a>
+                        </li>
+                        <li>
+                            <a href="#ch9" data-nav><i class="ti ti-award"></i>第9章: FIRST原則</a>
+                        </li>
+                        <li>
+                            <a href="#ch10" data-nav
+                                ><i class="ti ti-search"></i>第10章: デバッグの技法</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch11" data-nav
+                                ><i class="ti ti-git-branch"></i>第11章: 継続的テストとFlaky Test</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#ch12" data-nav
+                                ><i class="ti ti-robot"></i>第12章: AI時代のテスト</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#checklist" data-nav
+                                ><i class="ti ti-checklist"></i>実践チェックリスト</a
+                            >
+                        </li>
+                        <li>
+                            <a href="#references" data-nav><i class="ti ti-link"></i>参考文献</a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="sidebar-foot">2026年8月時点の情報に基づく</div>
+            </aside>
+
+            <main class="main">
+                <div class="hero">
+                    <p class="kicker">Beginner Guide &middot; Step-by-Step Best Practices</p>
+                    <h1>
+                        『The Art of Software Testing』から学ぶ<br />ソフトウェアテスト実践ガイド
+                    </h1>
+                    <p class="subtitle">初学者のためのステップバイステップ・ベストプラクティス</p>
+                    <div class="callout source">
+                        <div class="callout-title"><i class="ti ti-book-2"></i>参考書籍</div>
+                        Glenford J. Myers, Tom Badgett, Corey Sandler『The Art of Software Testing,
+                        3rd Edition』<br />
+                        <a
+                            class="ref-url"
+                            href="https://www.oreilly.com/library/view/the-art-of/9781118133156/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >https://www.oreilly.com/library/view/the-art-of/9781118133156/</a
+                        >
+                    </div>
+                </div>
+
+                <section class="chapter prose" id="intro">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-book-2"></i></span>
+                        <h2>はじめに</h2>
+                    </div>
+                    <p>
+                        『The Art of Software Testing』は1979年にGlenford J.
+                        Myersが著し、2004年・2012年に改訂された、ソフトウェアテスト分野における最も古典的な書籍の一つです。ハードウェアやプログラミング言語は大きく変わりましたが、この本が説く「テストに対する考え方（心理学）」と「テストケースを設計する方法論」は、今日のアジャイル開発やAI支援開発の時代においても色褪せていません。
+                    </p>
+                    <p>
+                        このガイドは、その古典的な原則を土台としながら、Martin Fowler、Kent
+                        Beck、Robert C. Martin（Uncle
+                        Bob）、Googleのテストエンジニアリングチームなど、国際的に著名な開発者たちが発展させてきた現代のベストプラクティス（テストピラミッド、TDD、FIRST原則、Flaky
+                        Test対策など）を組み合わせ、初学者が最初の一歩を踏み出せるように、ステップバイステップで解説するものです。
+                    </p>
+                    <p>
+                        対象読者は、これからソフトウェアテストを学ぶプログラマー・QAエンジニアの初学者です。各章は独立して読める構成になっていますが、順番に読み進めることで、テストの考え方
+                        → 技法 → 実践の流れが自然につながるようになっています。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch1">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-bug"></i></span>
+                        <h2>第1章: テストの心理学 — なぜ「バグを探す」姿勢が重要なのか</h2>
+                    </div>
+                    <p>
+                        Myersが本書の中で最も強調したのは、テストの「目的」に関する定義でした。多くの人は無意識のうちに「プログラムが正しく動くことを証明するためにテストする」と考えてしまいますが、Myersはこれを明確に否定します。その代わりに、彼はテストを「プログラムの誤りを見つけ出す意図を持って実行するプロセス」であると再定義しました。
+                    </p>
+                    <p>
+                        この違いは些細な言葉遊びに見えるかもしれませんが、実務においては大きな差を生みます。「動作を証明したい」という気持ちでテストを設計すると、人は無意識に「失敗しなさそうな入力」ばかりを選んでしまい、結果として欠陥を見逃しやすくなります。逆に「壊してやろう」という意図を持つと、境界値や異常系など、欠陥が潜んでいそうな箇所を積極的に狙うようになり、テストの価値（欠陥発見率）が高まります。
+                    </p>
+                    <p>
+                        Myersはさらに、「良いテストケースとは、まだ見つかっていない欠陥を発見する確率が高いテストケースである」「成功したテストケースとは、まだ見つかっていない欠陥を検出できたテストケースである」という2つの原則を示しました。一般的な業務用語で言う「テストが成功した（＝エラーが出なかった）」という感覚とは、正反対の定義になっている点に注意してください。
+                    </p>
+
+                    <figure class="diagram-fig">
+                        <div class="diagram-wrap"><div id="diag-ch1"></div></div>
+                        <p class="fig-caption">
+                            図:
+                            「証明したい」という思い込みと、Myersが提唱する「発見する」心構えの違い
+                        </p>
+                    </figure>
+
+                    <p>
+                        この心構えの転換は、後述するテストピラミッドやTDD、境界値分析といった、あらゆる現代的な技法の土台になっています。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch2">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-list-check"></i></span>
+                        <h2>第2章: ソフトウェアテストの7原則</h2>
+                    </div>
+                    <p>
+                        Myersが説いた「テストとは欠陥を見つけるための破壊的な作業である」という心理学的な視点と、ISTQB（International
+                        Software Testing Qualifications Board）が Foundation Level
+                        シラバスにまとめた「テストの7原則」は、いずれもソフトウェアテストの土台をなす考え方であり、内容の面で強く響き合っています。ただし
+                        ISTQB の7原則が Myers
+                        の原則を直接体系化したものであるという公式の説明はなく、両者は同じテスト観を共有する別々の系譜として捉えるのが正確です。以下の7原則は
+                        ISTQB
+                        のシラバスに基づくもので、初学者はまずこの7つを頭に入れておくと、以降の技法の意味が理解しやすくなります。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>原則</th>
+                                    <th>内容</th>
+                                    <th>実務での意味</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>
+                                        テストは欠陥があることは示せるが、欠陥がないことは示せない
+                                    </td>
+                                    <td>
+                                        どれだけテストしても「バグゼロ」を証明することはできない
+                                    </td>
+                                    <td>「全テスト成功＝安全」と過信しない</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>全数テストは不可能</td>
+                                    <td>
+                                        入力の組み合わせは無限に近く、すべてを網羅することは非現実的
+                                    </td>
+                                    <td>リスクベースで優先順位をつけて選択する</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>早期テストの原則</td>
+                                    <td>
+                                        開発の早い段階でテスト活動を始めるほど欠陥修正コストが下がる
+                                    </td>
+                                    <td>要件定義・設計段階からテスト観点を洗い出す</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>欠陥の偏在（クラスタリング）</td>
+                                    <td>
+                                        欠陥は一部のモジュールに集中する傾向がある（パレートの法則的）
+                                    </td>
+                                    <td>複雑・変更頻度の高い箇所を重点的にテストする</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>殺虫剤のパラドックス</td>
+                                    <td>
+                                        同じテストを繰り返すだけでは新しい欠陥は見つからなくなる
+                                    </td>
+                                    <td>テストケースを定期的に見直し・追加する</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>テストは状況に依存する</td>
+                                    <td>
+                                        医療機器と社内ダッシュボードでは求められるテストの厳格さが異なる
+                                    </td>
+                                    <td>プロジェクトのリスクに応じてテスト戦略を調整する</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>「バグゼロ」の誤信</td>
+                                    <td>
+                                        バグがなくてもユーザーのニーズを満たさなければ失敗作である
+                                    </td>
+                                    <td>機能要件だけでなくユーザー価値も検証する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="callout source">
+                        <div class="callout-title"><i class="ti ti-certificate"></i>出典</div>
+                        ASTQB（ISTQB公認団体）による解説を要約 — 詳細は参考文献を参照してください。
+                    </div>
+                </section>
+
+                <section class="chapter prose" id="ch3">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-stack-2"></i></span>
+                        <h2>第3章: テストレベルの全体像</h2>
+                    </div>
+                    <p>
+                        Myersは著書の中で、テストを「単体テスト」と「高次テスト（結合・システム・受け入れ・設置テストなど）」に分類しました。この考え方は、現在の開発プロセスにもそのまま受け継がれています。
+                    </p>
+
+                    <figure class="diagram-fig">
+                        <div class="diagram-wrap"><div id="diag-ch3"></div></div>
+                        <p class="fig-caption">
+                            図: 要件定義からリリース判定までのテストレベルの流れ
+                        </p>
+                    </figure>
+
+                    <p>各テストレベルの目的を表にまとめます。</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>テストレベル</th>
+                                    <th>目的</th>
+                                    <th>対象</th>
+                                    <th>主な実施者</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>単体テスト</td>
+                                    <td>関数・クラス単位のロジックが正しいか検証する</td>
+                                    <td>個々のモジュール</td>
+                                    <td>開発者</td>
+                                </tr>
+                                <tr>
+                                    <td>結合テスト</td>
+                                    <td>
+                                        モジュール間のインターフェースが正しく連携するか検証する
+                                    </td>
+                                    <td>複数モジュールの組み合わせ</td>
+                                    <td>開発者・QA</td>
+                                </tr>
+                                <tr>
+                                    <td>システムテスト</td>
+                                    <td>システム全体が仕様どおりに動作するか検証する</td>
+                                    <td>システム全体</td>
+                                    <td>QAチーム</td>
+                                </tr>
+                                <tr>
+                                    <td>受け入れテスト</td>
+                                    <td>ユーザーの要求を満たしているか、ビジネス視点で検証する</td>
+                                    <td>システム全体</td>
+                                    <td>顧客・プロダクトオーナー</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="chapter prose" id="ch4">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-box"></i></span>
+                        <h2>第4章: ブラックボックステスト技法</h2>
+                    </div>
+                    <p>
+                        ブラックボックステストとは、内部の実装コードを見ずに、入力と出力の関係だけに着目してテストケースを設計する手法です。Myersはこの分野の代表的な技法として「同値分割」と「境界値分析」を紹介しており、これらは今日でも実務で最も使われる技法です。
+                    </p>
+
+                    <h3>4.1 同値分割（Equivalence Partitioning）</h3>
+                    <p>
+                        入力データを「同じ挙動をするはずのグループ（同値クラス）」に分割し、各グループから代表値を1つずつ選んでテストする技法です。これにより、無限に近い入力パターンを現実的な数のテストケースに絞り込めます。
+                    </p>
+                    <p>例: 「年齢18〜65歳のみ会員登録できるサービス」の場合</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>区分</th>
+                                    <th>範囲</th>
+                                    <th>代表値の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>無効パーティション（下限未満）</td>
+                                    <td>18歳未満</td>
+                                    <td>10</td>
+                                </tr>
+                                <tr>
+                                    <td>有効パーティション</td>
+                                    <td>18〜65歳</td>
+                                    <td>30</td>
+                                </tr>
+                                <tr>
+                                    <td>無効パーティション（上限超過）</td>
+                                    <td>65歳超</td>
+                                    <td>80</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>4.2 境界値分析（Boundary Value Analysis）</h3>
+                    <p>
+                        Myers自身が強調したように、欠陥は範囲の「境界」付近に集中しやすい性質があります（オフバイワンエラーなど）。境界値分析は、同値分割で求めた境界の直前・直後・境界そのものの値を重点的にテストする技法です。
+                    </p>
+                    <p>
+                        先ほどの例（18〜65歳）で境界値分析を行うと、以下のようなテストケースになります。
+                    </p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>テストケース</th>
+                                    <th>入力値</th>
+                                    <th>期待結果</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>下限境界の直前</td>
+                                    <td>17</td>
+                                    <td>登録拒否</td>
+                                </tr>
+                                <tr>
+                                    <td>下限境界</td>
+                                    <td>18</td>
+                                    <td>登録許可</td>
+                                </tr>
+                                <tr>
+                                    <td>下限境界の直後</td>
+                                    <td>19</td>
+                                    <td>登録許可</td>
+                                </tr>
+                                <tr>
+                                    <td>上限境界の直前</td>
+                                    <td>64</td>
+                                    <td>登録許可</td>
+                                </tr>
+                                <tr>
+                                    <td>上限境界</td>
+                                    <td>65</td>
+                                    <td>登録許可</td>
+                                </tr>
+                                <tr>
+                                    <td>上限境界の直後</td>
+                                    <td>66</td>
+                                    <td>登録拒否</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        同値分割だけなら3件（10 / 30 /
+                        80）ですが、これに境界値分析の6件を追加すると合計9件のテストケースになります。境界値分析は同値分割を置き換えるものではなく、境界付近を上乗せで厚くする技法であり、少ないコストで欠陥の出やすい箇所を効率よくカバーできます。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch5">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-code"></i></span>
+                        <h2>第5章: ホワイトボックステスト技法とコードカバレッジ</h2>
+                    </div>
+                    <p>
+                        ホワイトボックステストは、内部のソースコード構造（分岐やループ）に着目してテストケースを設計する手法です。Myersは「どれだけコードを通しても、それだけでは正しさを保証できない」と繰り返し警告しており、この考え方はGoogleのテストエンジニアリングチームが公開している「コードカバレッジのベストプラクティス」にも引き継がれています。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>カバレッジ種別</th>
+                                    <th>意味</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ステートメント（命令網羅）</td>
+                                    <td>すべての行が最低1回実行されたか</td>
+                                    <td>最も基本的だが弱い基準</td>
+                                </tr>
+                                <tr>
+                                    <td>ブランチ（分岐網羅）</td>
+                                    <td>すべてのif/switch分岐の両方が実行されたか</td>
+                                    <td>ステートメントより厳格</td>
+                                </tr>
+                                <tr>
+                                    <td>条件網羅</td>
+                                    <td>複雑な論理式の各条件が真偽両方をとったか</td>
+                                    <td>AND/OR条件のバグを検出しやすい</td>
+                                </tr>
+                                <tr>
+                                    <td>パス網羅</td>
+                                    <td>すべての実行経路を網羅したか</td>
+                                    <td>理論上最も厳格だが現実的には組み合わせ爆発を起こす</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Googleのテストブログが指摘しているように、カバレッジ率が高いこと自体は「そのコードを実行した」ことを示すに過ぎず、「意味のある検証（アサーション）をした」ことは保証しません。カバレッジは目的ではなく、テストの抜け漏れを見つけるための手がかりとして使うのが健全な運用です。ミューテーションテスト（コードにわざと小さなバグを注入し、テストがそれを検知できるか確認する手法）を併用すると、カバレッジだけでは見えない「見せかけのテスト」を発見できます。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch6">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-eye"></i></span>
+                        <h2>
+                            第6章: 非実行型テスト — インスペクション・ウォークスルー・デスクチェック
+                        </h2>
+                    </div>
+                    <p>
+                        Myersの著書でもう一つ重要なのが、プログラムを実際に実行せずにレビューする「非実行型テスト」です。現代のコードレビュー文化の原型とも言える考え方です。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>手法</th>
+                                    <th>進め方</th>
+                                    <th>向いている場面</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>インスペクション</td>
+                                    <td>
+                                        作成者含む3〜4名で、チェックリストに沿って一行ずつ声に出して確認する
+                                    </td>
+                                    <td>重要なモジュールの品質を厳格に担保したいとき</td>
+                                </tr>
+                                <tr>
+                                    <td>ウォークスルー</td>
+                                    <td>
+                                        グループで簡単なテストケースを使い、プログラムの実行を人力でたどる
+                                    </td>
+                                    <td>設計の妥当性を早期に確認したいとき</td>
+                                </tr>
+                                <tr>
+                                    <td>デスクチェック</td>
+                                    <td>個人でコードを静かに読み返し、論理的な誤りを探す</td>
+                                    <td>個人作業の最終確認、レビュー前のセルフチェック</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Myersは、これらの人手によるレビューだけでも、実行テストと同程度、あるいはそれ以上の欠陥を発見できると述べています。現代のプルリクエストレビューやペアプログラミングも、この考え方の延長線上にあります。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch7">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-triangle"></i></span>
+                        <h2>第7章: テストピラミッドと自動テスト戦略</h2>
+                    </div>
+                    <p>
+                        Myersの時代にはまだ「自動テストをどのバランスで書くか」という問題は顕在化していませんでしたが、2010年代以降、Martin
+                        Fowlerが自身のサイトで解説し広めた「テストピラミッド」が、この問題に対する標準的な指針になっています。
+                    </p>
+
+                    <figure class="diagram-fig">
+                        <div class="diagram-wrap"><div id="diag-ch7"></div></div>
+                        <p class="fig-caption">
+                            図: 単体テストを厚く、E2Eテストを薄くするテストピラミッドの配分
+                        </p>
+                    </figure>
+
+                    <p>
+                        Fowlerの考え方の要点は、GUIを介した大規模なE2Eテストばかりに頼ると、実行が遅く、失敗の原因特定が難しく（Flakyになりやすく）、フィードバックサイクルが遅くなるという点です。そのため、下層の単体テストを厚く、上層のE2Eテストを薄くする「ピラミッド型」の配分が推奨されています。Googleのテストブログでも、大きすぎるテストは非決定的（non-deterministic）になりやすいことが繰り返し指摘されています。
+                    </p>
+                    <p>
+                        なお、ピラミッドの層の名前や境界線はチームによって解釈が分かれるため、Fowlerのサイトに掲載されている実践的な解説記事（The
+                        Practical Test
+                        Pyramid）では、「まず自分たちのチームにおける各層の定義を明確にすること」が最初のステップとして推奨されています。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch8">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-refresh"></i></span>
+                        <h2>第8章: テスト駆動開発（TDD）</h2>
+                    </div>
+                    <p>
+                        TDD（Test-Driven Development）は、Kent BeckがExtreme
+                        Programmingの一部として体系化した開発手法です。Myersの「テストは欠陥を見つけるためのもの」という思想をさらに一歩進め、「テストを先に書くことで設計そのものを駆動する」という考え方を導入しました。
+                    </p>
+
+                    <figure class="diagram-fig">
+                        <div class="diagram-wrap"><div id="diag-ch8"></div></div>
+                        <p class="fig-caption">図: Red → Green → Refactor を繰り返すTDDサイクル</p>
+                    </figure>
+
+                    <p>
+                        この「Red → Green →
+                        Refactor」サイクルを短い時間単位（数分〜十数分）で繰り返すのがTDDの基本です。Kent
+                        Beckは、TDDの目的を「開発中の恐怖心を取り除くこと」だと説明しています。テストという安全網があることで、開発者は思い切ったリファクタリングや設計変更に踏み出せるようになります。
+                    </p>
+                    <p>初学者がTDDを始める際のステップは以下の通りです。</p>
+                    <ol>
+                        <li>実装したい機能を、最も小さい単位のテストケースとして書き出す</li>
+                        <li>そのテストを実行し、失敗する（Red）ことを確認する</li>
+                        <li>テストを通すために必要最小限のコードだけを書く（Green）</li>
+                        <li>
+                            テストが通った状態を保ちながら、重複や汚いコードを整理する（Refactor）
+                        </li>
+                        <li>次の小さなテストケースに進み、1〜4を繰り返す</li>
+                    </ol>
+                </section>
+
+                <section class="chapter prose" id="ch9">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-award"></i></span>
+                        <h2>第9章: 良いテストコードを書くためのFIRST原則</h2>
+                    </div>
+                    <p>
+                        自動テストが増えてくると、「テストコード自体の品質」が課題になります。Robert
+                        C. Martin（通称Uncle Bob）は著書『Clean
+                        Code』の中で、良い単体テストが備えるべき性質を「FIRST」という頭字語にまとめました。
+                    </p>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>頭文字</th>
+                                    <th>原則</th>
+                                    <th>意味</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>F</td>
+                                    <td>Fast（高速）</td>
+                                    <td>
+                                        テストは高速に実行できるべき。遅いと開発者が実行を嫌がる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>I</td>
+                                    <td>Independent（独立）</td>
+                                    <td>
+                                        テスト同士が依存せず、どの順番で実行しても結果が変わらない
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>R</td>
+                                    <td>Repeatable（繰り返し可能）</td>
+                                    <td>どの環境で実行しても同じ結果が得られる</td>
+                                </tr>
+                                <tr>
+                                    <td>S</td>
+                                    <td>Self-Validating（自己検証可能）</td>
+                                    <td>
+                                        テスト結果が合否（true/false）としてコード自身で判定できる。人間が目視で判定しない
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>T</td>
+                                    <td>Timely（適時性）</td>
+                                    <td>
+                                        テストはプロダクションコードを書くのと同じタイミング、できれば直前に書く
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        これらはMyersが提示した「テストケースは反復可能で、期待結果を明確に持つべき」という原則と本質的に同じ方向性を持っており、古典的な原則が現代のコーディング規約に形を変えて息づいていることが分かります。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch10">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-search"></i></span>
+                        <h2>第10章: デバッグの技法</h2>
+                    </div>
+                    <p>
+                        テストで欠陥を発見した後には、原因を特定して修正する「デバッグ」の工程が必要です。Myersは著書の中でデバッグのアプローチをいくつかに分類しており、その分類は現在でも有効な整理の仕方です。
+                    </p>
+
+                    <figure class="diagram-fig">
+                        <div class="diagram-wrap"><div id="diag-ch10"></div></div>
+                        <p class="fig-caption">
+                            図: 力任せ法・逆行法・原因除去法という3つのデバッグアプローチ
+                        </p>
+                    </figure>
+
+                    <p>
+                        特にMyersが推奨するのは「原因除去法（帰納法・演繹法による推論）」です。やみくもにコードを追いかけるのではなく、症状を整理し、「もしこの仮説が正しければ、他にどんな現象が起きるはずか」を論理的に組み立てて検証を絞り込んでいくアプローチです。これはTDDにおける「小さな失敗テストから仮説を検証する」という発想とも親和性が高い考え方です。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch11">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-git-branch"></i></span>
+                        <h2>第11章: 継続的テストとFlaky Testへの対処</h2>
+                    </div>
+                    <p>
+                        CI/CD（継続的インテグレーション／継続的デリバリー）の普及により、テストは「開発の最後にまとめて行うもの」から「コードの変更のたびに自動実行されるもの」へと役割が変わりました。この文脈で近年重要視されているのが「Flaky
+                        Test（不安定なテスト）」への対処です。
+                    </p>
+
+                    <figure class="diagram-fig">
+                        <div class="diagram-wrap"><div id="diag-ch11"></div></div>
+                        <p class="fig-caption">
+                            図: CIパイプラインにおけるテスト失敗の判定とFlaky Testの隔離フロー
+                        </p>
+                    </figure>
+
+                    <p>
+                        Googleのテストブログによれば、大規模なテストスイートの一定割合は避けがたくFlakyになる傾向があり、その原因は並行処理のタイミング、外部依存、テスト間の状態共有などにあります。重要なのは、Flaky
+                        Testを「よくあること」として放置せず、隔離（quarantine）・原因調査・再設計のプロセスを継続的に回すことです。上図のように、再実行が成功しただけで「すべて成功」の経路に戻してはいけません。最初の失敗は記録として残し、Flakyであることを明示的に判定したうえで、担当者と調査期限をセットにして隔離することが前提になります。Flaky
+                        Testを放置すると、開発者がテストの失敗を信頼しなくなり、テストスイート全体の価値が損なわれてしまいます。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="ch12">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-robot"></i></span>
+                        <h2>第12章: AI時代のソフトウェアテスト（2026年動向）</h2>
+                    </div>
+                    <p>
+                        AIコーディングアシスタントの普及に伴い、テストのあり方にも変化が生まれつつあります。ただしこの領域の数値には注意が必要です。調査ごとに「AIが全文を生成したコード」「AIの補完を受けながら人間が書いたコード（AI支援）」「何らかの形でAIが関与したコード」の定義が異なり、同じ「AIによるコードの割合」という表現でも指す対象が揃っていません。以下は確度の高い傾向として押さえておくとよい点です。
+                    </p>
+                    <ul>
+                        <li>
+                            AIが関与したコードの比率は近年上昇しているとみられますが、その水準は調査の定義次第で大きく振れます。具体的な割合を引用する際は、必ず出典と「どの範囲をAI由来とみなしたか」をあわせて確認してください。
+                        </li>
+                        <li>
+                            AIが生成したコードには、一見正しく見えても論理的な誤りやセキュリティ上の問題が含まれることがあります。定量的な欠陥率については調査によって結果が分かれており断定はできませんが、レビューとテストの手を緩めてよい根拠は見当たりません。むしろAIの出力に対してこそ、本章までに紹介した原則（境界値分析、テストピラミッド、コードレビュー）を丁寧に適用する価値があります。
+                        </li>
+                        <li>
+                            テストケース自体をAIに生成させる「AI支援テスト」の利用も広がっています。ただし現場での使われ方は「テストケースを量産する」用途に寄りがちで、リスクの特定や設計の質そのものを高めるところまで活用できているかは、チームによって差が大きいのが実情です。
+                        </li>
+                        <li>
+                            セルフヒーリングテスト（UI変更などを自動検知してテストコードを追従させる仕組み）や、変更内容から実行すべきテストを優先順位付けする仕組みなど、テストの「量」より「実行の賢さ」を重視する方向にシフトしています。
+                        </li>
+                    </ul>
+
+                    <div class="callout note">
+                        <div class="callout-title"><i class="ti ti-alert-triangle"></i>注意</div>
+                        AI関連の統計は調査元によって定義や数値が大きく異なります。本章の記述はあくまで傾向の整理であり、具体的な数値の引用には出典の確認が必要です。
+                    </div>
+
+                    <p>
+                        これらの動向を踏まえても、根底にあるのは本ガイドで解説してきた古典的な原則です。AIはテストケースの「作成」を助けてくれますが、「何を、なぜテストすべきか」という設計判断は、Myersが説いた心理学的な姿勢と、Fowlerたちが体系化した技法を理解している人間が担う必要があります。
+                    </p>
+                </section>
+
+                <section class="chapter prose" id="checklist">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-checklist"></i></span>
+                        <h2>実践ステップバイステップ・チェックリスト</h2>
+                    </div>
+                    <p>初学者がこのガイドの内容を実務に落とし込むための手順をまとめます。</p>
+                    <ol class="step-list">
+                        <li>
+                            <span class="num">1</span
+                            ><span
+                                >まず自分の中の「証明したい」という気持ちを「壊してやろう」という意図に切り替える（第1章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">2</span
+                            ><span
+                                >テストの7原則を頭に入れ、「全部テストする」ことを目指さず、リスクベースで優先順位をつける（第2章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">3</span
+                            ><span
+                                >要件からテスト観点を洗い出し、単体・結合・システム・受け入れの各レベルで何を検証するか整理する（第3章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">4</span
+                            ><span
+                                >入力に対しては同値分割で代表値を選び、境界値分析で境界付近を重点的にテストする（第4章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">5</span
+                            ><span
+                                >カバレッジ計測を導入しつつ、カバレッジ率を過信せず抜け漏れ発見の手がかりとして使う（第5章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">6</span
+                            ><span
+                                >コードレビューやペアプログラミングを、非実行型テストの一種として意識的に活用する（第6章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">7</span
+                            ><span
+                                >自動テストはテストピラミッドを意識し、単体テストを厚く、E2Eテストを薄く配分する（第7章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">8</span
+                            ><span
+                                >可能な範囲でTDDのRed-Green-Refactorサイクルを実践し、小さく安全に開発を進める（第8章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">9</span
+                            ><span
+                                >書いたテストコード自体がFIRST原則を満たしているか定期的に振り返る（第9章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">10</span
+                            ><span
+                                >バグが見つかったら、力任せに追いかける前に症状を整理し仮説検証で絞り込む（第10章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">11</span
+                            ><span
+                                >CI/CDにテストを組み込み、Flaky
+                                Testを見つけたら放置せず隔離・調査する（第11章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">12</span
+                            ><span
+                                >AIが生成したコードや、AIが生成したテストケースにも、これまでの原則をそのまま適用して品質を確認する（第12章）</span
+                            >
+                        </li>
+                        <li>
+                            <span class="num">13</span
+                            ><span
+                                >一定期間ごとにテストケース自体を見直し、殺虫剤のパラドックスに陥っていないか確認する（第2章・第11章）</span
+                            >
+                        </li>
+                    </ol>
+                </section>
+
+                <section class="chapter prose" id="references">
+                    <div class="section-head">
+                        <span class="chip"><i class="ti ti-link"></i></span>
+                        <h2>参考文献</h2>
+                    </div>
+                    <p>
+                        本ガイドの作成にあたり、2026年8月30日時点の情報をもとに、書籍および国際的に著名な開発者・組織による記事を参照しました。
+                    </p>
+
+                    <div class="ref-group">
+                        <h3>書籍</h3>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <span class="ref-no">1</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >The Art of Software Testing, 3rd Edition（Glenford J.
+                                        Myers, Tom Badgett, Corey Sandler）— O'Reilly</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://www.oreilly.com/library/view/the-art-of/9781118133156/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://www.oreilly.com/library/view/the-art-of/9781118133156/</a
+                                    >
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-group">
+                        <h3>著名な開発者による解説記事</h3>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <span class="ref-no">2</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >The Art of Software Testing（書評・要約）— Yegor
+                                        Bugayenko</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://www.yegor256.com/2014/08/22/art-of-software-testing.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://www.yegor256.com/2014/08/22/art-of-software-testing.html</a
+                                    >
+                                </div>
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-no">3</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >The Art of Software Testing, from Glenford Myers — José
+                                        Sobral (Medium)</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264</a
+                                    >
+                                </div>
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-no">4</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >The Practical Test Pyramid（Ham Vocke, Martin
+                                        Fowler氏のサイトに掲載）</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://martinfowler.com/articles/practical-test-pyramid.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://martinfowler.com/articles/practical-test-pyramid.html</a
+                                    >
+                                </div>
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-no">5</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >Test Driven Development — Martin Fowler's Bliki</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://martinfowler.com/bliki/TestDrivenDevelopment.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://martinfowler.com/bliki/TestDrivenDevelopment.html</a
+                                    >
+                                </div>
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-no">8</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >FIRST Principles as Solid Rules for Tests（Robert C.
+                                        Martinの提唱を解説）— DZone</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://dzone.com/articles/first-principles-solid-rules-for-tests"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://dzone.com/articles/first-principles-solid-rules-for-tests</a
+                                    >
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-group">
+                        <h3>公式ブログ・標準化団体</h3>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <span class="ref-no">6</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >Code Coverage Best Practices — Google Testing Blog</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://testing.googleblog.com/2020/08/code-coverage-best-practices.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://testing.googleblog.com/2020/08/code-coverage-best-practices.html</a
+                                    >
+                                </div>
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-no">7</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >Flaky Tests at Google and How We Mitigate Them — Google
+                                        Testing Blog</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html</a
+                                    >
+                                </div>
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-no">9</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >ISTQB Foundation Level - Seven Testing Principles —
+                                        ASTQB（ISTQB公認団体）</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://astqb.org/istqb-foundation-level-seven-testing-principles/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://astqb.org/istqb-foundation-level-seven-testing-principles/</a
+                                    >
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-group">
+                        <h3>技法解説・業界動向</h3>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <span class="ref-no">10</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >Using Equivalence Partitioning and Boundary Value Analysis
+                                        in Black Box Testing — StickyMinds</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing</a
+                                    >
+                                </div>
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-no">11</span>
+                                <div class="ref-body">
+                                    <span class="ref-title">Flaky test — Wikipedia</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://en.wikipedia.org/wiki/Flaky_test"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://en.wikipedia.org/wiki/Flaky_test</a
+                                    >
+                                </div>
+                            </li>
+                            <li class="ref-item">
+                                <span class="ref-no">12</span>
+                                <div class="ref-body">
+                                    <span class="ref-title"
+                                        >Top Software Testing Trends in 2026 for QA Leaders —
+                                        AccelQ</span
+                                    ><a
+                                        class="ref-url"
+                                        href="https://www.accelq.com/blog/software-testing-trends/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://www.accelq.com/blog/software-testing-trends/</a
+                                    >
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <footer>
+                    本ガイドは2026年8月時点で公開されている情報をもとに作成されています。ツールや統計データは今後更新される可能性があるため、最新情報は各参考文献の一次情報を直接ご確認ください。
+                </footer>
+            </main>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"
+            integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            (function () {
+                'use strict';
+
+                var DIAGRAMS = {
+                    'diag-ch1':
+                        'flowchart TB\n    subgraph OldWay["よくある誤解（避けるべき考え方）"]\n        direction TB\n        A1["目的: 正しく動くことを証明する"] --> A2["無意識に成功しそうな入力ばかり選ぶ"]\n        A2 --> A3["境界値や異常系を見落としやすい"]\n    end\n\n    subgraph NewWay["Myersが提唱する心構え（推奨）"]\n        direction TB\n        B1["目的: 誤りを見つけ出す"] --> B2["意図的に壊れそうな入力を選ぶ"]\n        B2 --> B3["欠陥発見率の高いテストケースが増える"]\n    end\n\n    OldWay ~~~ NewWay',
+
+                    'diag-ch3':
+                        'flowchart TB\n    Req["要件定義"] --> Design["設計"]\n    Design --> Code["実装"]\n    Code --> UT["単体テスト<br/>Unit Test"]\n    UT --> IT["結合テスト<br/>Integration Test"]\n    IT --> ST["システムテスト<br/>System Test"]\n    ST --> AT["受け入れテスト<br/>Acceptance Test"]\n    AT --> Release["リリース判定"]',
+
+                    'diag-ch7':
+                        'flowchart TB\n    Unit["単体テスト（数が多い・高速・安定）"] --> Integration["結合テスト（中程度の数・中速）"]\n    Integration --> E2E["E2E / UIテスト（数が少ない・低速・壊れやすい）"]',
+
+                    'diag-ch8':
+                        'flowchart LR\n    Red["Red<br/>失敗するテストを書く"] --> Green["Green<br/>テストを通す最小限の実装をする"]\n    Green --> Refactor["Refactor<br/>重複を排除し設計を整える"]\n    Refactor --> Red',
+
+                    'diag-ch10':
+                        'flowchart TB\n    Bug["テストで欠陥を発見"] --> Approach{"どのアプローチを取るか"}\n    Approach -->|力任せ法| Brute["メモリダンプや大量のログを総当たりで調べる<br/>手軽だが非効率"]\n    Approach -->|逆行法| Backtrack["失敗が現れた箇所から実行を逆にたどる<br/>小規模なバグに有効"]\n    Approach -->|原因除去法| Induction["症状を整理し仮説を立てて検証する<br/>Myersが最も推奨する方法"]\n    Brute --> Fix["修正を行い再テストで検証する"]\n    Backtrack --> Fix\n    Induction --> Fix',
+
+                    'diag-ch11':
+                        'flowchart TB\n    Commit["コードをコミット"] --> Pipeline["CIパイプラインを起動"]\n    Pipeline --> UnitCI["単体テストを実行"]\n    UnitCI --> IntegrationCI["結合テストを実行"]\n    IntegrationCI --> E2ECI["E2Eテストを実行"]\n    E2ECI --> Result{"結果は？"}\n    Result -->|すべて成功| Deploy["デプロイ"]\n    Result -->|失敗あり| Retry["失敗を記録したうえで<br/>同一コミットで再実行する"]\n    Retry --> Judge{"失敗は再現するか？"}\n    Judge -->|再現する| Block["マージをブロックし修正する"]\n    Judge -->|再現しない| Flaky["Flakyと明示的に判定し<br/>担当者をアサインする"]\n    Flaky --> Quarantine["期限付きで隔離する<br/>（例: 2週間以内に調査を完了）"]\n    Quarantine --> Investigate["原因を調査し修正する<br/>期限超過なら削除・再設計"]\n    Quarantine --> GatedDeploy["隔離と調査を条件に<br/>デプロイを継続する"]',
+                };
+
+                function initMermaid() {
+                    window.mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'base',
+                        themeVariables: {
+                            primaryColor: '#eef0fb',
+                            primaryBorderColor: '#3d4a7a',
+                            primaryTextColor: '#2a2420',
+                            lineColor: '#6b6055',
+                            secondaryColor: '#f6ecd9',
+                            tertiaryColor: '#faf7f0',
+                            fontFamily: "Inter, 'Noto Sans JP', sans-serif",
+                            fontSize: '16px',
+                            edgeLabelBackground: '#faf7f0',
+                        },
+                        flowchart: {
+                            htmlLabels: true,
+                            curve: 'basis',
+                            subGraphTitleMargin: { top: 10, bottom: 28 },
+                        },
+                    });
+                }
+
+                function postProcessSvg(svgEl) {
+                    if (!svgEl) return;
+                    svgEl.removeAttribute('width');
+                    svgEl.removeAttribute('height');
+                    var vb = svgEl.getAttribute('viewBox');
+                    if (vb) {
+                        var parts = vb.trim().split(/\s+/).map(Number);
+                        if (parts.length === 4) {
+                            var w = parts[2],
+                                h = parts[3] + 15;
+                            svgEl.setAttribute(
+                                'viewBox',
+                                parts[0] + ' ' + parts[1] + ' ' + parts[2] + ' ' + h,
+                            );
+                            svgEl.style.width = w + 'px';
+                        }
+                    }
+                    svgEl.style.maxWidth = 'none';
+                    svgEl.style.height = 'auto';
+                    svgEl.style.overflow = 'visible';
+                    svgEl.style.flexShrink = '0';
+                }
+
+                async function renderAllDiagrams() {
+                    initMermaid();
+                    var ids = Object.keys(DIAGRAMS);
+                    for (var i = 0; i < ids.length; i++) {
+                        var id = ids[i];
+                        var container = document.getElementById(id);
+                        if (!container) continue;
+                        try {
+                            var result = await window.mermaid.render(id + '-svg', DIAGRAMS[id]);
+                            container.innerHTML = result.svg;
+                            postProcessSvg(container.querySelector('svg'));
+                        } catch (e) {
+                            container.innerHTML =
+                                '<p style="color:#a33;padding:1rem;">図の描画に失敗しました。</p>';
+                            console.error('Mermaid render error:', id, e);
+                        }
+                    }
+                }
+
+                /* ---------- Sidebar nav highlighting ---------- */
+                function setupNavHighlight() {
+                    var links = Array.prototype.slice.call(
+                        document.querySelectorAll('nav a[data-nav]'),
+                    );
+                    var sections = links
+                        .map(function (a) {
+                            return document.getElementById(a.getAttribute('href').slice(1));
+                        })
+                        .filter(Boolean);
+
+                    if (!('IntersectionObserver' in window) || sections.length === 0) return;
+
+                    var map = {};
+                    links.forEach(function (a) {
+                        map[a.getAttribute('href').slice(1)] = a;
+                    });
+
+                    var observer = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                var link = map[entry.target.id];
+                                if (!link) return;
+                                if (entry.isIntersecting) {
+                                    links.forEach(function (l) {
+                                        l.classList.remove('active');
+                                    });
+                                    link.classList.add('active');
+                                }
+                            });
+                        },
+                        { rootMargin: '-20% 0px -70% 0px', threshold: 0 },
+                    );
+
+                    sections.forEach(function (s) {
+                        observer.observe(s);
+                    });
+                }
+
+                /* ---------- Mobile menu ---------- */
+                function setupMobileMenu() {
+                    var toggle = document.getElementById('menuToggle');
+                    var sidebar = document.getElementById('sidebar');
+                    var backdrop = document.getElementById('backdrop');
+                    if (!toggle || !sidebar || !backdrop) return;
+
+                    /* モバイル幅では画面外のサイドバーをフォーカス順から外す。
+                       CSS の translateX(-100%) は見えなくするだけで、
+                       Tab キーと支援技術には依然としてリンクが残るため。 */
+                    var mobile = window.matchMedia('(max-width: 900px)');
+
+                    function syncInert() {
+                        var hidden = mobile.matches && !sidebar.classList.contains('open');
+                        if (hidden) sidebar.setAttribute('inert', '');
+                        else sidebar.removeAttribute('inert');
+                        toggle.setAttribute(
+                            'aria-expanded',
+                            sidebar.classList.contains('open') ? 'true' : 'false',
+                        );
+                    }
+
+                    function open() {
+                        sidebar.classList.add('open');
+                        backdrop.classList.add('open');
+                        syncInert();
+                    }
+                    function close() {
+                        sidebar.classList.remove('open');
+                        backdrop.classList.remove('open');
+                        syncInert();
+                    }
+
+                    syncInert();
+                    if (mobile.addEventListener) mobile.addEventListener('change', syncInert);
+                    else mobile.addListener(syncInert);
+
+                    toggle.addEventListener('click', function () {
+                        if (sidebar.classList.contains('open')) close();
+                        else open();
+                    });
+                    backdrop.addEventListener('click', close);
+                    sidebar.querySelectorAll('a[data-nav]').forEach(function (a) {
+                        a.addEventListener('click', close);
+                    });
+                }
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    renderAllDiagrams();
+                    setupNavHighlight();
+                    setupMobileMenu();
+                });
+            })();
+        </script>
+    </body>
+</html>

@@ -1,0 +1,635 @@
+/* ==========================================================================
+   Cucumber Beginner Guide Page Specific Stylesheet
+   Scope: .cucumber-beginner-page
+   ========================================================================== */
+
+.cucumber-beginner-page {
+  --color-background-primary: #141811;
+  --color-background-secondary: #1b2118;
+  --color-background-tertiary: #232b1f;
+  --color-background-info: #16232b;
+  --color-background-danger: #2b1a18;
+  --color-background-success: #17281c;
+  --color-background-warning: #2b2416;
+
+  --color-text-primary: #e9ede4;
+  --color-text-secondary: #aab5a0;
+  --color-text-tertiary: #75806e;
+  --color-text-info: #7fb0c9;
+  --color-text-danger: #d98a7e;
+  --color-text-success: #8fc98a;
+  --color-text-warning: #d8b46b;
+
+  --color-border-tertiary: #232b1f;
+  --color-border-secondary: #2e3728;
+  --color-border-primary: #3c4636;
+
+  --color-accent: #8bab6f;
+  --color-accent-strong: #a3c489;
+  --color-accent-soft: #4b5c3f;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+    'Hiragino Sans', 'Yu Gothic', sans-serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+  --border-radius-xl: 16px;
+
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 400;
+  min-height: 100vh;
+  width: 100%;
+}
+
+.cucumber-beginner-page * {
+  box-sizing: border-box;
+}
+
+.cucumber-beginner-page a {
+  color: var(--color-accent-strong);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.cucumber-beginner-page a:hover {
+  text-decoration: underline;
+}
+
+.cucumber-beginner-page .layout {
+  display: grid;
+  grid-template-columns: 296px 1fr;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* ============ Sidebar ============ */
+.cucumber-beginner-page .sidebar {
+  position: sticky;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+  overflow-y: auto;
+  border-right: 1px solid var(--color-border-secondary);
+  background: var(--color-background-secondary);
+  padding: 28px 20px 40px;
+  z-index: 40;
+}
+
+.cucumber-beginner-page .sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.cucumber-beginner-page .sidebar-brand .mark {
+  width: 30px;
+  height: 30px;
+  border-radius: var(--border-radius-md);
+  background: var(--color-accent-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-accent-strong);
+  font-weight: 500;
+  font-size: 15px;
+}
+
+.cucumber-beginner-page .sidebar-brand .name {
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--color-text-primary);
+}
+
+.cucumber-beginner-page .sidebar-sub {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin: 0 0 22px 40px;
+}
+
+.cucumber-beginner-page .sidebar nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.cucumber-beginner-page .sidebar nav a {
+  color: var(--color-text-secondary);
+  font-size: 13px;
+  padding: 8px 10px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+}
+
+.cucumber-beginner-page .sidebar nav a .num {
+  color: var(--color-text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  min-width: 16px;
+}
+
+.cucumber-beginner-page .sidebar nav a:hover {
+  background: var(--color-background-tertiary);
+  text-decoration: none;
+  color: var(--color-text-primary);
+}
+
+.cucumber-beginner-page .sidebar nav a.active {
+  background: var(--color-background-tertiary);
+  color: var(--color-accent-strong);
+  font-weight: 500;
+}
+
+.cucumber-beginner-page .sidebar-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-border-tertiary);
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+}
+
+.cucumber-beginner-page .sidebar-footer a {
+  color: var(--color-text-secondary);
+}
+
+/* ============ Main Content ============ */
+.cucumber-beginner-page .content {
+  width: 100%;
+  padding: 0 0 80px;
+  max-width: none;
+  margin: 0;
+  min-width: 0;
+}
+
+/* globals.css のリセット */
+.cucumber-beginner-page section.doc-section {
+  padding: 48px 56px;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  max-width: none;
+  width: 100%;
+  /* 目次リンクは section の id を指すため、固定ヘッダー + 免責バナー分を退避させる */
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
+}
+
+.cucumber-beginner-page section.doc-section p,
+.cucumber-beginner-page section.doc-section li {
+  max-width: 1100px;
+}
+
+.cucumber-beginner-page section.doc-section:last-of-type {
+  border-bottom: none;
+}
+
+.cucumber-beginner-page .hero {
+  min-height: 0;
+  display: block;
+  padding: 56px 56px 40px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  background:
+    radial-gradient(circle at 12% 20%, rgba(139, 171, 111, 0.1), transparent 45%),
+    var(--color-background-primary);
+}
+
+.cucumber-beginner-page .hero .eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-accent-strong);
+  font-weight: 500;
+  margin-bottom: 14px;
+}
+
+.cucumber-beginner-page .hero h1 {
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.35;
+  margin: 0 0 14px;
+  color: var(--color-text-primary);
+}
+
+.cucumber-beginner-page .hero p.lead {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  max-width: 760px;
+  margin: 0 0 22px;
+}
+
+.cucumber-beginner-page .hero-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.cucumber-beginner-page .badge {
+  font-size: 12px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-secondary);
+  background: var(--color-background-secondary);
+  display: inline-flex;
+  align-items: center;
+}
+
+.cucumber-beginner-page .badge.accent {
+  border-color: var(--color-accent-soft);
+  color: var(--color-accent-strong);
+}
+
+.cucumber-beginner-page .section-kicker {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin-bottom: 8px;
+}
+
+.cucumber-beginner-page h2 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 0 0 18px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+
+.cucumber-beginner-page h3 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  margin: 32px 0 12px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+
+.cucumber-beginner-page h4 {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-accent-strong);
+  margin: 22px 0 8px;
+}
+
+.cucumber-beginner-page p {
+  color: var(--color-text-secondary);
+  margin: 0 0 14px;
+}
+
+.cucumber-beginner-page strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.cucumber-beginner-page ul,
+.cucumber-beginner-page ol {
+  color: var(--color-text-secondary);
+  padding-left: 22px;
+  margin: 0 0 16px;
+}
+
+.cucumber-beginner-page li {
+  margin-bottom: 6px;
+}
+
+.cucumber-beginner-page li > ul,
+.cucumber-beginner-page li > ol {
+  margin-top: 6px;
+}
+
+.cucumber-beginner-page .callout {
+  display: flex;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border-secondary);
+  background: var(--color-background-info);
+  margin: 18px 0;
+  font-size: 14px;
+}
+
+.cucumber-beginner-page .callout .icon {
+  color: var(--color-text-info);
+  font-size: 16px;
+  flex-shrink: 0;
+}
+
+.cucumber-beginner-page .callout p {
+  margin: 0;
+  color: var(--color-text-secondary);
+}
+
+.cucumber-beginner-page .callout strong {
+  color: var(--color-text-info);
+}
+
+/* ============ Tables ============ */
+.cucumber-beginner-page .table-wrap {
+  overflow-x: auto;
+  margin: 18px 0 22px;
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-lg);
+  background: var(--color-background-secondary);
+}
+
+.cucumber-beginner-page table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+}
+
+.cucumber-beginner-page thead th {
+  text-align: left;
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  white-space: nowrap;
+}
+
+.cucumber-beginner-page tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  color: var(--color-text-secondary);
+  vertical-align: top;
+}
+
+.cucumber-beginner-page tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.cucumber-beginner-page tbody code,
+.cucumber-beginner-page p code,
+.cucumber-beginner-page li code,
+.cucumber-beginner-page h4 code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--color-background-tertiary);
+  color: var(--color-accent-strong);
+  padding: 2px 6px;
+  border-radius: 5px;
+}
+
+/* ============ Code Blocks ============ */
+.cucumber-beginner-page pre:not(.mermaid) {
+  position: relative;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 18px 18px 16px;
+  overflow-x: auto;
+  margin: 16px 0 22px;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.cucumber-beginner-page pre:not(.mermaid) code {
+  font-family: var(--font-mono);
+  background: none;
+  padding: 0;
+  color: var(--color-text-primary);
+}
+
+.cucumber-beginner-page .code-line {
+  white-space: pre;
+  min-height: 1.6em;
+}
+
+.cucumber-beginner-page pre[data-lang]::before {
+  content: attr(data-lang);
+  position: absolute;
+  top: -1px;
+  right: 0;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-text-tertiary);
+  background: var(--color-background-tertiary);
+  padding: 4px 10px;
+  border-radius: 0 var(--border-radius-lg) 0 var(--border-radius-md);
+  border-left: 1px solid var(--color-border-secondary);
+  border-bottom: 1px solid var(--color-border-secondary);
+}
+
+/* Syntax Highlighting */
+.cucumber-beginner-page .token.keyword,
+.cucumber-beginner-page .kw {
+  color: #ffb454;
+  font-weight: 600;
+}
+.cucumber-beginner-page .token.string,
+.cucumber-beginner-page .str {
+  color: #79c0ff;
+}
+.cucumber-beginner-page .token.number,
+.cucumber-beginner-page .num {
+  color: #d2a8ff;
+}
+.cucumber-beginner-page .token.comment,
+.cucumber-beginner-page .cm {
+  color: #8b949e;
+  font-style: italic;
+}
+.cucumber-beginner-page .token.function,
+.cucumber-beginner-page .fn {
+  color: #ff9bce;
+}
+.cucumber-beginner-page .token.class-name,
+.cucumber-beginner-page .cls {
+  color: #79c0ff;
+}
+.cucumber-beginner-page .token.annotation,
+.cucumber-beginner-page .ann {
+  color: #8b949e;
+}
+.cucumber-beginner-page .token.punctuation {
+  color: var(--color-text-secondary);
+}
+.cucumber-beginner-page .token.operator {
+  color: var(--color-text-secondary);
+}
+.cucumber-beginner-page .token.property {
+  color: #ffb454;
+}
+.cucumber-beginner-page .token.boolean {
+  color: #d2a8ff;
+}
+
+/* Gherkin custom tokens */
+.cucumber-beginner-page .gk-keyword {
+  color: #ffb454;
+  font-weight: 600;
+}
+.cucumber-beginner-page .gk-step {
+  color: #7ee787;
+  font-weight: 600;
+}
+.cucumber-beginner-page .gk-string {
+  color: #79c0ff;
+}
+.cucumber-beginner-page .gk-comment {
+  color: #8b949e;
+  font-style: italic;
+}
+.cucumber-beginner-page .gk-tag {
+  color: #ff9bce;
+  font-weight: 500;
+}
+.cucumber-beginner-page .gk-param {
+  color: #ffa198;
+}
+.cucumber-beginner-page .gk-number {
+  color: #d2a8ff;
+}
+.cucumber-beginner-page .gk-pipe {
+  color: #6e7681;
+}
+
+/* ============ Mermaid ============ */
+.cucumber-beginner-page .mermaid-wrap {
+  text-align: center;
+  margin: 20px 0 26px;
+  padding: 20px 12px;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-secondary);
+  border-radius: var(--border-radius-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.cucumber-beginner-page .mermaid-wrap .mermaid-wrapper {
+  max-width: 100% !important;
+  width: 100%;
+  background: transparent !important;
+  border: none !important;
+  display: flex;
+  justify-content: center;
+}
+
+.cucumber-beginner-page .mermaid-wrap svg {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.cucumber-beginner-page .mermaid-caption {
+  text-align: center;
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  margin-top: -14px;
+  margin-bottom: 24px;
+}
+
+/* ============ References ============ */
+.cucumber-beginner-page .ref-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.cucumber-beginner-page .ref-list li {
+  display: flex;
+  gap: 14px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  font-size: 14px;
+  align-items: baseline;
+}
+
+.cucumber-beginner-page .ref-list li:last-child {
+  border-bottom: none;
+}
+
+.cucumber-beginner-page .ref-list .ref-num {
+  font-family: var(--font-mono);
+  color: var(--color-text-tertiary);
+  font-size: 12px;
+  min-width: 20px;
+}
+
+.cucumber-beginner-page .ref-list .ref-title {
+  color: var(--color-text-primary);
+  min-width: 260px;
+}
+
+.cucumber-beginner-page .ref-list .ref-url {
+  color: var(--color-text-secondary);
+  word-break: break-all;
+}
+
+.cucumber-beginner-page hr.divider {
+  border: none;
+  border-top: 1px solid var(--color-border-tertiary);
+  margin: 32px 0;
+}
+
+.cucumber-beginner-page .summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 12px;
+  margin: 18px 0 26px;
+}
+
+.cucumber-beginner-page .summary-card {
+  border: 1px solid var(--color-border-secondary);
+  background: var(--color-background-secondary);
+  border-radius: var(--border-radius-lg);
+  padding: 14px 16px;
+}
+
+.cucumber-beginner-page .summary-card .n {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--color-accent-strong);
+  margin-bottom: 6px;
+}
+
+.cucumber-beginner-page .summary-card p {
+  margin: 0;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.cucumber-beginner-page .summary-card strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 14px;
+}
+
+.cucumber-beginner-page .footer-note {
+  padding: 32px 56px 60px;
+  color: var(--color-text-tertiary);
+  font-size: 13px;
+}
+
+/* ============ Responsive ============ */
+@media (max-width: 900px) {
+  .cucumber-beginner-page .layout {
+    grid-template-columns: 1fr;
+  }
+  .cucumber-beginner-page .sidebar {
+    position: relative;
+    top: 0;
+    height: auto;
+  }
+  .cucumber-beginner-page .hero,
+  .cucumber-beginner-page section.doc-section,
+  .cucumber-beginner-page .footer-note {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cucumber-beginner-page * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

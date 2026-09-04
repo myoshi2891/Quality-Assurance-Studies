@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Noto_Sans_JP, JetBrains_Mono, DM_Sans } from 'next/font/google';
+import { Noto_Sans_JP, JetBrains_Mono, DM_Sans, Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 import Header from '../components/Header';
 import { DisclaimerBanner } from '../components/DisclaimerBanner';
@@ -17,6 +17,20 @@ const jetBrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   display: 'swap',
   variable: '--font-mono',
+});
+
+/*
+  ガイド index（`/`）専用のディスプレイ書体。
+  h1 は日本語なので、この書体が実際に効くのはガイド総数の数字と
+  CTAL-TTA / CT-AI といったラテン略号だけ。そこだけ声が切り替わる混植を狙う。
+  1 ルートでしか使わないため preload はしない。
+*/
+const bricolage = Bricolage_Grotesque({
+  weight: ['600', '800'],
+  subsets: ['latin'],
+  preload: false,
+  display: 'swap',
+  variable: '--font-bricolage',
 });
 
 const dmSans = DM_Sans({
@@ -45,7 +59,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable}`}>
+    <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable} ${bricolage.variable}`}>
       <body>
         <Header />
         <DisclaimerBanner />

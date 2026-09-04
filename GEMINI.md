@@ -1,6 +1,6 @@
 # Project Overview
 
-Updated 2026-07-15
+Updated 2026-09-01
 
 This project is a Next.js (App Router) web application designed as a comprehensive learning resource and guide for Quality Assurance (QA) and Software Testing. It provides extensive documentation on modern software testing methodologies (Unit, Functional, Integration, E2E, BDD, Security, Accessibility) as well as AI system testing based on ISTQB CT-AI and CT-GenAI standards.
 
@@ -64,7 +64,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - **Styling Approach:** Tailwind CSS utility classes are the primary styling mechanism.
 - **Content Language:** The main content and documentation are written in Japanese. Always preserve this localized context when updating or adding new content.
 - **Markdown Conventions:** すべての Markdown ドキュメントは `.markdownlint.json` に準拠する必要があります。
-  - **コミット前必須検証 (Gate Condition):** Markdownファイルを新規作成または編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` をロードし、そこに定義されたリント検証コマンド（`node node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行して、エラーが 0 件であることを検証しなければなりません。
+  - **コミット前必須検証 (Gate Condition):** Markdownファイルを新規作成または編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` をロードし、そこに定義されたリント検証コマンド（`bun node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行して、エラーが 0 件であることを検証しなければなりません。
   - 一般的な問題（見出しのスペース、リンク、末尾の改行など）を自動整形して修正するには、次を実行します: `bun scripts/format-markdown.mjs <file>`
   - **エラー修正の原則:** マークダウンのエラー修正時は、スクリプトによる一括修正を禁止します。無理に一括での修正を行わず、必ずステップバイステップで確実に正確な修正を最優先してください。
 - **Markdown Standardization:** 変換スクリプトに頼るのではなく、Markdown ソースファイル自体が標準的な仕様に準拠していることを最優先します。
@@ -75,8 +75,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
     1. `scripts/extract-css.mjs` を使用して、CSS 変数を抽出しマッピングします。
     2. `scripts/html-to-tsx.mjs` を使用して、HTML を JSX に変換します。
     3. CSS の詳細度やスコープの問題を手動で修正します（すべてのスタイルがページ固有のクラスの下にスコープされていることを確認してください）。
-    4. 元の HTML ファイルを `/html-archive/` ディレクトリに移動します。
-    5. `components/Header.tsx` のナビゲーションと `CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します。
+    4. 元の HTML ファイルを `archive/html-archive/` ディレクトリ（カテゴリ別サブディレクトリあり: `cicd/` `ctal/` `ctel/` `ctfl/` `tools/` など）に移動します。
+    5. `lib/navigation.ts` の `NAV_ITEMS` と `e2e/pages.ts` の `PAGES` / `EXPECTED_PAGE_COUNT` に新ルートを追加し、`CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します（`components/Header.tsx` は `NAV_ITEMS` から描画するため直接編集は不要）。
 - **PII / 絶対パスの記載禁止 (CRITICAL):** コミット予定のすべてのファイル（ドキュメント、設定、コード、コメント等）に、ユーザー名を含むローカルの絶対パス（`/Users/` や `/home/`、`C:\Users\` 等）を記載してはなりません。これは個人情報（PII）の流出につながる重大なセキュリティ違反です。AI エージェントは、**コミットを適用する前に、必ず `git diff --cached` でコミット差分を走査し、プレースホルダー (`johndoe`) 以外の絶対パスやローカル名が混入していないことを機械的（`grep`等）に検証するプロセスを自律的かつ自動的に実行してください。**
 - **開発・デバッグ用スクリプトの管理ルール:** 開発中に作成するスクリプトは、その目的が一時的なものか永続的なものかを明確にし、厳格に管理しなければなりません。
   - **一時的なスクリプト (デバッグ・調査用):** ログ解析、単発のデータ抽出等の目的で作成したスクリプトおよび出力された一時ファイルは、作業完了後またはコミット前に必ずリポジトリから物理削除し、決してコミットに含めてはなりません。特にローカル絶対パス（PII）を含むものは、流出防止のため即時削除を徹底してください。作成時にはユーザーに「一時的なスクリプトであること」を明確に報告します。
@@ -84,7 +84,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ## Migrated Pages (Tracking)
 
-- `app/page.tsx` (ホームページ — 2025 完全ガイド トップ)
+- `app/page.tsx` (ガイドライブラリ index — 全ガイドをカテゴリ別カードで一覧、検索付き)
+- `app/GuideIndex.tsx` (index の検索 + レベル別セクション、`'use client'`)
+- `app/modern-software-testing-complete-guide-2025/page.tsx` (現代ソフトウェアテスト完全ガイド 2025 — 旧ホーム本文の移設先)
 - `app/acceptance-testing-guide/page.tsx` (受入テスト完全ガイド、`NavBar.tsx` 付き)
 - `app/ai-test-guide/page.tsx` (AI テスト基礎)
 - `app/bdd-testing-guide/page.tsx` (BDD（ビヘイビア駆動開発）完全ガイド)
@@ -131,6 +133,9 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/github-actions/page.tsx` (GitHub Actions 完全ガイド 〜初学者向けステップバイステップ解説〜、`NavBar.tsx` 付き)
 - `app/github-actions-guide/page.tsx` (GitHub Actions 中級〜上級者向け完全ガイド、`NavBar.tsx` 付き)
 - `app/playwright-beginner-guide/page.tsx` (Playwright 完全入門ガイド 〜初学者のためのステップバイステップ解説〜、`NavBar.tsx` 付き)
+- `app/cucumber-beginner-guide/page.tsx` (Cucumber 入門ガイド 〜BDDではじめる自動テスト〜、`NavBar.tsx` 付き)
+- `app/cypress-beginner-guide/page.tsx` (Cypress 入門ガイド 〜初学者のためのステップバイステップ解説〜、`NavBar.tsx` 付き)
+- `app/selenium-beginner-guide/page.tsx` (Selenium 完全ガイド 〜初心者のためのステップバイステップ解説〜、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
@@ -153,6 +158,27 @@ This project is a Next.js (App Router) web application designed as a comprehensi
   <div className="code-line"><span className="code-cyan">Given</span><span className="code-white"> 条件</span></div>
 </div>
 ```
+
+### グローバルナビ（ドロワー / ガイド index）
+
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（51 件）。
+  `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
+- 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
+  `description` は必須（80 文字以内、index のカード本文かつ検索対象）
+- `e2e/pages.ts` にも同じ path を追加し `EXPECTED_PAGE_COUNT` を更新する。
+  片方だけの更新は `tests/lib/navigation-e2e-sync.test.ts` が検知して落ちる
+- ドロワーはガイド数に対してスケールするよう、検索ボックス + `<details>` アコーディオン方式。
+  既定では現在ページのカテゴリのみ展開し、検索中は残ったカテゴリを全展開する
+- index（`/`）は ISTQB の認定レベルの階梯を情報構造として使う。ヒーローは階段で、段の縦位置が
+  資格レベルの高さ、バーの伸びがそのレベルのガイド数。バーの軌道幅は全段で固定（`--bar-col`）で、
+  `1fr` にすると量の比較が壊れる。CI/CD・ツール・書籍は階梯の段ではないため `data-track="practice"`
+  として「実務の棚」に分ける。いずれも装飾ではないので変更時に意味を壊さないこと
+- レベル色（`--level`）は寒色 → 暖色の 1 本のランプ。定義は `app/globals.css` の
+  `[data-category='...']` にあり、index とドロワーがこの 1 箇所を共有する
+- 新カテゴリを足す場合は `NavCategory` / `CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` の
+  4 箇所と、`app/globals.css` の `[data-category='...']` のレベル色を同期する
+- `summary` の `onClick` は `preventDefault()` でネイティブトグルを止め、開閉を React state に一本化している。
+  Enter / Space も click を発火するためキーボード操作は維持される
 
 ### ページ固有スティッキーナビ
 
@@ -211,7 +237,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `istqb-ctel-tm-sm-complete-guide.html` | `/istqb-ctel-tm-sm-complete-guide` | ✅ NavBar あり |
 | `ISTQB-CTEL-TM-OTM-Guide.html` | `/istqb-ctel-tm-otm-complete-guide` | ✅ NavBar あり |
 | `istqb-ctel-tm-mtt-complete-guide.html` | `/istqb-ctel-tm-mtt-complete-guide` | ✅ NavBar あり |
-| `modern-software-testing-complete-guide-2025.html` | `/` (ホームページ) | ✅ |
+| `modern-software-testing-complete-guide-2025.html` | `/modern-software-testing-complete-guide-2025` | ✅ |
 | `software-testing-methodologies-guide.html` | `/software-testing-methodologies-guide` | ✅ |
 | `unit-testing-guide.html` | `/unit-testing-guide` | ✅ |
 | `istqb-ct-gt-complete-guide.html` | `/istqb-ct-gt-complete-guide` | ✅ NavBar + aria-current あり |
@@ -222,12 +248,15 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Github-actions.html` | `/github-actions` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
 | `Github-actions-guide.html` | `/github-actions-guide` | ✅ NavBar + aria-current あり (archive/html-archive/cicd/) |
 | `Playwright-beginner-guide.html` | `/playwright-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
+| `Cucumber-beginner-guide.html` | `/cucumber-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Cypress-beginner-guide.html` | `/cypress-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Selenium-beginner-guide.html` | `/selenium-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| (なし) | | | 全てのガイドの移行が完了しました |
+| 書籍ガイド系 Markdown 一式 / `Leading-quality-guide.html` ほかルート直下の HTML | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未決定 |
 
 ## 既知の留保事項
 
@@ -239,10 +268,11 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 ```text
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
-- **全ガイド移行完了**: プロジェクトルートに存在した全46ルート分のHTMLおよびMarkdownファイルの Next.js App Router への移行が完全に終了しました。
-- 合計 47 ルート（ホーム + 46 ガイド）が管理されています。
+- **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
+- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
-全ガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
+登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。
 ```

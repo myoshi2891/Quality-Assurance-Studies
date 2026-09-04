@@ -1,0 +1,581 @@
+/* ==========================================================================
+   Selenium Beginner Guide Page Styles
+   Scoped under .selenium-guide-page
+   ========================================================================== */
+
+.selenium-guide-page {
+  --color-background-primary: #0d1117;
+  --color-background-secondary: #151b23;
+  --color-background-tertiary: #1e2530;
+  --color-text-primary: #e6edf3;
+  --color-text-secondary: #9aa4b2;
+  --color-text-tertiary: #6b7280;
+  --color-border-primary: #30363d;
+  --color-border-secondary: #262c35;
+  --color-border-tertiary: #1e2530;
+
+  --c-purple: #a371f7;
+  --c-teal: #39c5cf;
+  --c-coral: #ff7b72;
+  --c-pink: #f778ba;
+  --c-blue: #58a6ff;
+  --c-green: #3fb950;
+  --c-amber: #d29922;
+  --c-red: #f85149;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+    'Noto Sans JP', 'Yu Gothic', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', 'SF Mono', Consolas,
+    'Liberation Mono', Menlo, monospace;
+
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+
+  display: flex;
+  align-items: flex-start;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--color-background-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* ---------- Reset globals.css interference ---------- */
+.selenium-guide-page section {
+  padding-top: 0;
+}
+
+.selenium-guide-page .hero {
+  min-height: 0;
+  display: block;
+  padding-top: 0;
+}
+
+/* ---------- Sidebar ---------- */
+.selenium-guide-page .sidebar {
+  position: sticky;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+  width: 300px;
+  flex: 0 0 300px;
+  overflow-y: auto;
+  background: var(--color-background-secondary);
+  border-right: 1px solid var(--color-border-primary);
+  padding: 24px 16px 40px;
+  z-index: 40;
+}
+
+.selenium-guide-page .sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 4px 8px 20px;
+  border-bottom: 1px solid var(--color-border-secondary);
+  margin-bottom: 16px;
+}
+
+.selenium-guide-page .sidebar-brand svg,
+.selenium-guide-page .sidebar-brand i {
+  font-size: 22px;
+  color: var(--c-teal);
+  flex-shrink: 0;
+}
+
+.selenium-guide-page .sidebar-brand span {
+  font-weight: 600;
+  font-size: 15px;
+  color: var(--color-text-primary);
+}
+
+.selenium-guide-page .sidebar-brand small {
+  display: block;
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+}
+
+.selenium-guide-page .nav-group-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-text-tertiary);
+  padding: 14px 8px 6px;
+  font-weight: 600;
+}
+
+.selenium-guide-page .sidebar-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.selenium-guide-page .sidebar-list li {
+  margin: 0;
+}
+
+.selenium-guide-page .sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 8px;
+  border-radius: var(--radius-md);
+  color: var(--color-text-secondary);
+  text-decoration: none;
+  font-size: 13.5px;
+  line-height: 1.4;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.selenium-guide-page .sidebar a svg,
+.selenium-guide-page .sidebar a i {
+  font-size: 15px;
+  color: var(--color-text-tertiary);
+  flex-shrink: 0;
+}
+
+.selenium-guide-page .sidebar a:hover {
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+}
+
+.selenium-guide-page .sidebar a.active {
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  border-left: 3px solid var(--c-teal);
+  padding-left: 5px;
+  font-weight: 500;
+}
+
+.selenium-guide-page .sidebar a.active svg,
+.selenium-guide-page .sidebar a.active i {
+  color: var(--c-teal);
+}
+
+/* ---------- Main content (full width, no max-width cap) ---------- */
+.selenium-guide-page .content {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none;
+  margin: 0;
+  padding: 48px 56px 96px;
+}
+
+.selenium-guide-page .content-inner {
+  width: 100%;
+}
+
+.selenium-guide-page .page-header {
+  margin-bottom: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--color-border-primary);
+}
+
+.selenium-guide-page .badges {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+
+.selenium-guide-page .badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--color-background-tertiary);
+  border: 1px solid var(--color-border-primary);
+  color: var(--color-text-secondary);
+}
+
+.selenium-guide-page .badge svg,
+.selenium-guide-page .badge i {
+  font-size: 13px;
+  color: var(--c-teal);
+}
+
+.selenium-guide-page h1.page-title {
+  font-size: 30px;
+  font-weight: 600;
+  margin: 0 0 12px;
+  line-height: 1.35;
+  color: var(--color-text-primary);
+}
+
+.selenium-guide-page .page-subtitle {
+  font-size: 16px;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+.selenium-guide-page .page-subtitle a {
+  color: var(--c-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---------- Callouts ---------- */
+.selenium-guide-page .callout {
+  display: flex;
+  gap: 12px;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-left: 3px solid var(--c-blue);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  margin: 20px 0;
+}
+
+.selenium-guide-page .callout.warning {
+  border-left-color: var(--c-amber);
+}
+
+.selenium-guide-page .callout.danger {
+  border-left-color: var(--c-red);
+}
+
+.selenium-guide-page .callout svg,
+.selenium-guide-page .callout i {
+  font-size: 18px;
+  color: var(--c-blue);
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.selenium-guide-page .callout.warning svg,
+.selenium-guide-page .callout.warning i {
+  color: var(--c-amber);
+}
+
+.selenium-guide-page .callout.danger svg,
+.selenium-guide-page .callout.danger i {
+  color: var(--c-red);
+}
+
+.selenium-guide-page .callout p {
+  margin: 0;
+  font-size: 14.5px;
+  color: var(--color-text-secondary);
+}
+
+/* ---------- Sections ---------- */
+.selenium-guide-page section.doc-section {
+  margin: 56px 0;
+  padding-top: 8px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+
+.selenium-guide-page section.doc-section h2 {
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 16px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--color-border-primary);
+  color: var(--color-text-primary);
+}
+
+.selenium-guide-page section.doc-section h2 .num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: var(--radius-md);
+  background: var(--color-background-tertiary);
+  border: 1px solid var(--color-border-primary);
+  color: var(--c-teal);
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.selenium-guide-page h3 {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 30px 0 12px;
+  color: var(--color-text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.selenium-guide-page h3 .step-icon {
+  color: var(--c-purple);
+  flex-shrink: 0;
+}
+
+.selenium-guide-page p {
+  color: var(--color-text-secondary);
+  margin: 0 0 14px;
+  line-height: 1.7;
+}
+
+.selenium-guide-page a {
+  color: var(--c-blue);
+  text-decoration: none;
+}
+
+.selenium-guide-page a:hover {
+  text-decoration: underline;
+}
+
+.selenium-guide-page strong {
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+.selenium-guide-page ul,
+.selenium-guide-page ol {
+  color: var(--color-text-secondary);
+  padding-left: 22px;
+  margin: 0 0 16px;
+}
+
+.selenium-guide-page ul {
+  list-style: disc;
+}
+
+.selenium-guide-page ol {
+  list-style: decimal;
+}
+
+.selenium-guide-page li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+.selenium-guide-page li > ul {
+  list-style: circle;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.selenium-guide-page li > ol {
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+/* ---------- Inline Code & Code Blocks ---------- */
+.selenium-guide-page code:not([class*='language-']) {
+  font-family: var(--font-mono);
+  background: var(--color-background-tertiary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: 5px;
+  padding: 1px 6px;
+  font-size: 13.5px;
+  color: var(--c-teal);
+}
+
+.selenium-guide-page pre {
+  background: var(--color-background-secondary);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-primary);
+  font-size: 13.5px;
+  font-family: var(--font-mono);
+  margin: 16px 0 22px;
+  padding: 16px 20px;
+  overflow-x: auto;
+  line-height: 1.65;
+  color: #abb2bf;
+}
+
+.selenium-guide-page .code-line {
+  white-space: pre;
+  min-height: 1.5em;
+}
+
+/* Code Syntax Highlighting Tokens (Prism Tomorrow Theme Inspired) */
+.selenium-guide-page .token.comment { color: #5c6370; font-style: italic; }
+.selenium-guide-page .token.keyword { color: var(--c-purple); font-weight: 500; }
+.selenium-guide-page .token.string { color: #98c379; }
+.selenium-guide-page .token.function { color: var(--c-blue); }
+.selenium-guide-page .token.number { color: #d19a66; }
+.selenium-guide-page .token.operator { color: var(--c-teal); }
+.selenium-guide-page .token.class-name { color: #e5c07b; }
+.selenium-guide-page .token.variable { color: var(--color-text-primary); }
+.selenium-guide-page .token.punctuation { color: #abb2bf; }
+.selenium-guide-page .token.builtin { color: var(--c-teal); }
+.selenium-guide-page .token.property { color: var(--c-coral); }
+
+/* ---------- Tables ---------- */
+.selenium-guide-page .table-wrap {
+  overflow-x: auto;
+  margin: 18px 0 26px;
+}
+
+.selenium-guide-page table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 14px;
+  background: var(--color-background-secondary);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  border: 1px solid var(--color-border-primary);
+}
+
+.selenium-guide-page thead th {
+  text-align: left;
+  background: var(--color-background-tertiary);
+  color: var(--color-text-primary);
+  font-weight: 600;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-primary);
+  white-space: nowrap;
+}
+
+.selenium-guide-page tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  color: var(--color-text-secondary);
+  vertical-align: top;
+}
+
+.selenium-guide-page tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.selenium-guide-page tbody tr:hover td {
+  background: var(--color-background-tertiary);
+}
+
+/* ---------- Mermaid diagrams ---------- */
+.selenium-guide-page .diagram-wrap {
+  text-align: center;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-lg);
+  padding: 24px 16px;
+  margin: 20px 0 28px;
+}
+
+.selenium-guide-page .diagram-wrap .mermaid-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  display: flex;
+  justify-content: center;
+}
+
+.selenium-guide-page .diagram-wrap svg {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+.selenium-guide-page .diagram-caption {
+  text-align: center;
+  font-size: 12.5px;
+  color: var(--color-text-tertiary);
+  margin-top: 12px;
+}
+
+/* ---------- Section Reference Box & Ref list ---------- */
+.selenium-guide-page .section-refs {
+  margin-top: 22px;
+  padding: 14px 18px;
+  background: var(--color-background-secondary);
+  border: 1px solid var(--color-border-primary);
+  border-radius: var(--radius-md);
+}
+
+.selenium-guide-page .section-refs .label {
+  font-size: 12px;
+  color: var(--color-text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.selenium-guide-page .section-refs .label svg,
+.selenium-guide-page .section-refs .label i {
+  color: var(--c-teal);
+  font-size: 14px;
+}
+
+.selenium-guide-page .section-refs ul {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.selenium-guide-page .section-refs li {
+  font-size: 13px;
+  margin-bottom: 5px;
+  word-break: break-all;
+}
+
+.selenium-guide-page .ref-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.selenium-guide-page .ref-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 0;
+  border-bottom: 1px solid var(--color-border-tertiary);
+  font-size: 13.5px;
+}
+
+.selenium-guide-page .ref-list li svg,
+.selenium-guide-page .ref-list li i {
+  color: var(--c-teal);
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.selenium-guide-page .ref-list a {
+  word-break: break-all;
+}
+
+/* ---------- Page Footer ---------- */
+.selenium-guide-page footer.page-footer {
+  margin-top: 60px;
+  padding-top: 28px;
+  border-top: 1px solid var(--color-border-primary);
+  color: var(--color-text-tertiary);
+  font-size: 13px;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  /* サイドバー（目次）は非表示にせず通常フローへ落とす。
+     モバイルでも NavBar の全セクションリンクへ到達できるようにするため。 */
+  .selenium-guide-page {
+    flex-direction: column;
+  }
+
+  .selenium-guide-page .sidebar {
+    width: 100%;
+    flex: 0 0 auto;
+    position: relative;
+    top: 0;
+    height: auto;
+    max-height: none;
+    overflow-y: visible;
+    border-right: none;
+    border-bottom: 1px solid var(--color-border-primary);
+    padding: 20px 20px 24px;
+  }
+
+  .selenium-guide-page .content {
+    padding: 32px 20px 64px;
+  }
+}

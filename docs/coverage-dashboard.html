@@ -957,7 +957,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
       <h1 class="mc-title">QA_Studies — Test <span class="accent">Coverage Radar</span></h1>
       <p class="mc-sub">ISTQB 準拠のテスト学習サイトが、自身のテストカバレッジを正面から監査する自己言及的ダッシュボード。教えている内容と実装の差分を可視化し、次に書くべきテストを優先度付きで提示します。</p>
       <div class="mc-meta">
-        <span><strong>Updated</strong> <time datetime="2026-07-15">2026-07-15</time></span>
+        <span><strong>Updated</strong> <time datetime="2026-09-01">2026-09-01</time></span>
         <span><strong>Branch</strong> dev</span>
         <span><strong>Runtime</strong> Bun 1.3.5 · Next 16.2.6 · React 19.2.6</span>
         <span id="mc-scope"><strong>Scope</strong> 32 pages · 3 components · 4 libs · 5 scripts</span>
@@ -987,7 +987,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
     <article class="kpi" data-tone="cyan">
       <div class="kpi-num" id="kpi-total-files">0<span class="unit">files</span></div>
       <div class="kpi-lbl">Test Files Total</div>
-      <p class="kpi-desc">Bun test runner + @testing-library/react + happy-dom 構成。Vitest/Jest/Playwright は未導入。</p>
+      <p class="kpi-desc">ユニットは Bun test runner + @testing-library/react + happy-dom、E2E / a11y は @playwright/test + axe-core 構成。Vitest / Jest は未導入。</p>
     </article>
     <article class="kpi" data-tone="ok">
       <div class="kpi-num" id="kpi-pages-tested">0<span class="unit">/ 0</span></div>
@@ -1058,7 +1058,7 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
 
   <!-- ====================== INVENTORY ====================== -->
   <section class="mc-section" aria-labelledby="h-inv">
-    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">47 files</span></h2>
+    <h2 id="h-inv">Existing Test Inventory <span class="num" id="inv-total">66 files</span></h2>
     <p class="lede">現存するテストファイルの完全リスト。グループをクリックして展開すると個別ファイルパスを表示します。</p>
 
     <div class="inventory-grid">
@@ -1177,7 +1177,8 @@ table.istqb .status[data-st="gap"] { background: rgba(252, 129, 129, 0.12); colo
    Update these arrays when tests are added.
    ============================================================ */
 const pages = [
-  { path: '/', topic: 'ホーム — 2025 完全ガイド トップ', tested: true },
+  { path: '/', topic: 'ガイドライブラリ index — 全ガイド一覧 + 検索', tested: true },
+  { path: '/modern-software-testing-complete-guide-2025', topic: '現代ソフトウェアテスト完全ガイド 2025', tested: true },
   { path: '/acceptance-testing-guide', topic: '受入テスト', tested: true },
   { path: '/ai-test-guide', topic: 'AI テスト基礎', tested: true },
   { path: '/bdd-testing-guide', topic: 'BDD（ビヘイビア駆動開発）', tested: true },
@@ -1223,7 +1224,10 @@ const pages = [
   { path: '/istqb-ctfl-at-chapter3-agile-testing-techniques-tools', topic: 'ISTQB Foundation — Agile Ch3', tested: true },
   { path: '/github-actions', topic: 'CI/CD & DevOps — GitHub Actions 入門', tested: true },
   { path: '/github-actions-guide', topic: 'CI/CD & DevOps — GitHub Actions', tested: true },
-  { path: '/playwright-beginner-guide', topic: 'テストツール & フレームワーク — Playwright 入門', tested: true }
+  { path: '/playwright-beginner-guide', topic: 'テストツール & フレームワーク — Playwright 入門', tested: true },
+  { path: '/cucumber-beginner-guide', topic: 'テストツール & フレームワーク — Cucumber 入門', tested: true },
+  { path: '/cypress-beginner-guide', topic: 'テストツール & フレームワーク — Cypress 入門', tested: true },
+  { path: '/selenium-beginner-guide', topic: 'テストツール & フレームワーク — Selenium 完全ガイド', tested: true }
 ];
 const DATA = {
   matrix: [
@@ -1247,7 +1251,7 @@ const DATA = {
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
         { state: 'gap', value: '0', label: 'Gap' },
-        { state: 'partial', value: 'partial', label: 'Partial', note: 'DisclaimerBanner aria-label asserted. Header/Mermaid not.' },
+        { state: 'partial', value: 'partial', label: 'Partial', note: 'Header: aria-expanded / aria-controls / aria-current / focus / scroll-lock asserted. DisclaimerBanner aria-label asserted. Mermaid not.' },
         { state: 'na', value: '—', label: 'N/A' }
       ]
     },
@@ -1365,7 +1369,8 @@ const DATA = {
 
   inventory: {
     pages: [
-      'tests/home/page.test.tsx',
+      'tests/index/page.test.tsx',
+      'tests/modern-software-testing-complete-guide-2025/page.test.tsx',
       'tests/acceptance-testing-guide/page.test.tsx',
       'tests/ai-test-guide/page.test.tsx',
       'tests/bdd-testing-guide/page.test.tsx',
@@ -1374,8 +1379,11 @@ const DATA = {
       'tests/integration-system-testing-guide/page.test.tsx',
       'tests/software-testing-methodologies-guide/page.test.tsx',
       'tests/unit-testing-guide/page.test.tsx',
+      'tests/istqb-ctfl-complete-guide/page.test.tsx',
       'tests/istqb-ctfl-at-complete-guide/page.test.tsx',
+      'tests/istqb-ctfl-at-chapter1-agile-software-development/page.test.tsx',
       'tests/istqb-ct-ai-complete-guide/page.test.tsx',
+      'tests/istqb-ct-gt-complete-guide/page.test.tsx',
       'tests/istqb-ct-act-complete-guide/page.test.tsx',
       'tests/istqb-ct-genai-complete-guide/page.test.tsx',
       'tests/istqb-ct-mat-complete-guide/page.test.tsx',
@@ -1408,7 +1416,10 @@ const DATA = {
       'tests/istqb-ctfl-at-chapter3-agile-testing-techniques-tools/page.test.tsx',
       'tests/github-actions/page.test.tsx',
       'tests/github-actions-guide/page.test.tsx',
-      'tests/playwright-beginner-guide/page.test.tsx'
+      'tests/playwright-beginner-guide/page.test.tsx',
+      'tests/cucumber-beginner-guide/page.test.tsx',
+      'tests/cypress-beginner-guide/page.test.tsx',
+      'tests/selenium-beginner-guide/page.test.tsx'
     ],
     components: [
       'tests/components/Header.test.tsx',
@@ -1417,8 +1428,8 @@ const DATA = {
     ],
     lib: [
       'tests/lib/navigation.test.ts',
+      'tests/lib/navigation-e2e-sync.test.ts',
       'tests/lib/dependencies.test.ts',
-      'tests/istqb-ct-aut-complete-guide.test.ts',
       'tests/lhci-config.test.ts'
     ],
     scripts: [
