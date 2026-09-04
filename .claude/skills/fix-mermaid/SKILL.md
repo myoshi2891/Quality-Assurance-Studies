@@ -437,14 +437,20 @@ export default function Mermaid({ chart }: { chart: string }) {
 > **セレクターは必ず `.mermaid-wrapper` 配下かつエッジラベル要素にスコープする。** 特に `span` / `text` を単独で書くとページ全体の文字要素へ波及するため禁止。
 >
 > ```css
-> /* ✅ Mermaid のエッジラベル内部だけを対象にする */
+> /* ✅ Mermaid のエッジラベル内部だけを対象にする（文字色のみ） */
 > .mermaid-wrapper .edgeLabel,
 > .mermaid-wrapper .edgeLabel span,
-> .mermaid-wrapper .edgeLabel text,
-> .mermaid-wrapper .edgeLabels rect {
+> .mermaid-wrapper .edgeLabel text {
 >   background-color: var(--card) !important;
 >   color: var(--ink) !important;
 >   fill: var(--ink) !important;
+>   stroke: none !important;
+> }
+>
+> /* ラベル背景の rect は SVG なので background-color ではなく fill で塗る。
+>    var(--ink) は文字色専用。rect に使うと背景がインク色で潰れる */
+> .mermaid-wrapper .edgeLabels rect {
+>   fill: var(--card) !important;   /* 背景を透過させたい場合は transparent */
 >   stroke: none !important;
 > }
 >
