@@ -64,7 +64,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - **Styling Approach:** Tailwind CSS utility classes are the primary styling mechanism.
 - **Content Language:** The main content and documentation are written in Japanese. Always preserve this localized context when updating or adding new content.
 - **Markdown Conventions:** すべての Markdown ドキュメントは `.markdownlint.json` に準拠する必要があります。
-  - **コミット前必須検証 (Gate Condition):** Markdownファイルを新規作成または編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` をロードし、そこに定義されたリント検証コマンド（`node node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行して、エラーが 0 件であることを検証しなければなりません。
+  - **コミット前必須検証 (Gate Condition):** Markdownファイルを新規作成または編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` をロードし、そこに定義されたリント検証コマンド（`bun node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行して、エラーが 0 件であることを検証しなければなりません。
   - 一般的な問題（見出しのスペース、リンク、末尾の改行など）を自動整形して修正するには、次を実行します: `bun scripts/format-markdown.mjs <file>`
   - **エラー修正の原則:** マークダウンのエラー修正時は、スクリプトによる一括修正を禁止します。無理に一括での修正を行わず、必ずステップバイステップで確実に正確な修正を最優先してください。
 - **Markdown Standardization:** 変換スクリプトに頼るのではなく、Markdown ソースファイル自体が標準的な仕様に準拠していることを最優先します。
@@ -75,7 +75,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
     1. `scripts/extract-css.mjs` を使用して、CSS 変数を抽出しマッピングします。
     2. `scripts/html-to-tsx.mjs` を使用して、HTML を JSX に変換します。
     3. CSS の詳細度やスコープの問題を手動で修正します（すべてのスタイルがページ固有のクラスの下にスコープされていることを確認してください）。
-    4. 元の HTML ファイルを `/html-archive/` ディレクトリに移動します。
+    4. 元の HTML ファイルを `archive/html-archive/` ディレクトリ（カテゴリ別サブディレクトリあり: `cicd/` `ctal/` `ctel/` `ctfl/` `tools/` など）に移動します。
     5. `lib/navigation.ts` の `NAV_ITEMS` と `e2e/pages.ts` の `PAGES` / `EXPECTED_PAGE_COUNT` に新ルートを追加し、`CLAUDE.md`, `GEMINI.md` のアーキテクチャ情報を更新します（`components/Header.tsx` は `NAV_ITEMS` から描画するため直接編集は不要）。
 - **PII / 絶対パスの記載禁止 (CRITICAL):** コミット予定のすべてのファイル（ドキュメント、設定、コード、コメント等）に、ユーザー名を含むローカルの絶対パス（`/Users/` や `/home/`、`C:\Users\` 等）を記載してはなりません。これは個人情報（PII）の流出につながる重大なセキュリティ違反です。AI エージェントは、**コミットを適用する前に、必ず `git diff --cached` でコミット差分を走査し、プレースホルダー (`johndoe`) 以外の絶対パスやローカル名が混入していないことを機械的（`grep`等）に検証するプロセスを自律的かつ自動的に実行してください。**
 - **開発・デバッグ用スクリプトの管理ルール:** 開発中に作成するスクリプトは、その目的が一時的なものか永続的なものかを明確にし、厳格に管理しなければなりません。

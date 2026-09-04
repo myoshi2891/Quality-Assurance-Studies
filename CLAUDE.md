@@ -225,7 +225,7 @@ Next.js App Router 構成:
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
-- `/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動）
+- `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり）
 
 ## 移行進行状況
 
@@ -237,7 +237,7 @@ Next.js App Router 構成:
 |---|---|---|
 | 書籍ガイド系 Markdown 一式 / `Leading-quality-guide.html` ほかルート直下の HTML | 未定 | ⏸ ルート登録対象外（静的ドキュメントとして残置） |
 
-移行完了後は `html-archive/` へ移動し、上記テーブルから削除する。
+移行完了後は `archive/html-archive/` へ移動し、上記テーブルから削除する。
 
 ## 開発規約
 
@@ -280,7 +280,7 @@ rm -rf .next && bun run dev
 
 変換スクリプトに頼るのではなく、Markdown ソースファイル自体が標準的な仕様に準拠していることを最優先します。
 
-- **コミット前必須検証 (Gate Condition):** Markdownファイルを編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` の手順に従い、リント検証コマンド（`node node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行してエラーが 0 件であることを確認してください。
+- **コミット前必須検証 (Gate Condition):** Markdownファイルを編集した場合は、コミットする前に必ず `.claude/skills/markdown-formatter/SKILL.md` の手順に従い、リント検証コマンド（`bun node_modules/markdownlint-cli/markdownlint.js <file_path>` など）を実行してエラーが 0 件であることを確認してください。
 - 言語指定のないコードブロック（```）によるテキストの囲みは避け、引用（>）や適切な見出しを使用してください。
 - 表や図（Mermaid）はコードブロック内に閉じ込めず、Markdown 上で直接レンダリング可能な形で記述してください。
 - 共通の Markdown 整形ツール: `bun scripts/format-markdown.mjs <file>`
