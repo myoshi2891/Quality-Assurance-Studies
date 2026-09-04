@@ -13,9 +13,22 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `ff9b759` |
+| 最新 HEAD | `f3706e5` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/05: HTML移行スキルおよび規約体系の抜本的ブラッシュアップ
+
+- **テーブル文字色およびグローバル干渉リセットの制度化**:
+  - `globals.css` の汎用セレクタ（特に `td { color: var(--color-text-secondary); }`（`#8ea3c3`、薄い青灰色））がページ固有のテーブルに干渉して文字色を薄くする問題（ユーザーからの「文字の色が違わない？特に表の。。」の指摘）に対し、`table` / `tbody td` / `thead th` / `td strong` / `td code` / `tbody tr:hover td` 等の完全リセットCSSテンプレートを `.claude/skills/html-to-nextjs-migration/SKILL.md`、`GEMINI.md`、`CLAUDE.md` に標準規定。
+- **構成要素インベントリ事前作成と網羅的テストスイートのTDD義務化**:
+  - 図解・表・コード・コールアウト・参考文献などの移行抜け漏れを防ぐため、HTML移行着手前に元HTMLの全構成要素（全見出し、全TOCリンク、全Mermaid図解、全表、全コードブロック、全コールアウト、全参考文献）の棚卸しインベントリを作成し、Redフェーズのテストスイート（`tests/<page-slug>/page.test.tsx`）で1対1のアサーションとして網羅することを `.claude/rules/tdd-mandatory-cycle.md` およびスキルに義務化。
+- **エディトリアル・ペーパーテーマ（原著デザイン）の忠実再現を最優先原則化**:
+  - 従来の古い「統一ダークテーマへの強制変換」の記述を撤廃し、書籍ガイド等の紙の背景（`#f7f4ed`）・インク文字（`#212121`）など、原著固有のエレガントなトーン＆マナーを崩さず完全に再現することを最優先原則として明文化。
+- **サンドボックス環境におけるビルド実行禁止ルールの統一整合**:
+  - Antigravityサンドボックス環境でのメモリ逼迫・クラッシュ防止のため、`bun run build` / `npm run build` を自律実行せず、テストとリンター（`npm test`, `npm run lint`）で検証し、本番ビルド確認はユーザーへ依頼するルールを `.claude/rules/migration-progress-sync.md`、`.claude/rules/tdd-mandatory-cycle.md`、スキル等で一元化。
+- **コミット前 PII スキャンの Gate Condition 化**:
+  - コミット前に `git diff --cached` でローカル絶対パス（`/Users/` 等）を機械的に走査・検証するプロセスを必須化。
 
 ## 2026/09/04: セキュア・バイ・デザイン実践ガイドのNext.js移行完了
 
