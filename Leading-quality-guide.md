@@ -377,6 +377,6 @@ flowchart TD
 | 書籍要点まとめ | Mentoring Club による本書のキーインサイト紹介ページ | <https://www.mentoring-club.com/bookshelf/ronald-cummings---john-owais-peer-leading-quality---how-great-leaders-deliver-high-quality-software-and-accelerate-growth> |
 | 書籍販売ページ（正式タイトル・著者・ISBN確認用） | Amazon.com 商品ページ（紙版・ISBN 9781916185807） | <https://www.amazon.com/Leading-Quality-Leaders-Software-Accelerate/dp/1916185800> |
 | 参考記事（本文中で言及） | Cindy Sridharan "Testing in Production, the Safe Way" | <https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1> |
-| 一次資料（CISQ） | "The Cost of Poor Quality Software in the US: A 2018 Report"（本文の約2.8兆ドルの根拠。調査対象は**米国内**の組織に限定され、金額は**米ドル建て**） | <https://www.it-cisq.org/wp-content/uploads/sites/2/2020/08/The-Cost-of-Poor-Quality-Software-in-the-US-2018-Report.pdf> |
+| 一次資料（CISQ） | "The Cost of Poor Quality Software in the US: A 2018 Report"（本文の約2.8兆ドルの根拠。調査対象は**米国内**の組織に限定され、金額は**米ドル建て**） | <https://www.it-cisq.org/wp-content/uploads/sites/6/2023/09/The-Cost-of-Poor-Quality-Software-in-the-US-2018-Report.pdf> |
 
 > ⚠️ **注記**: Scribd 上の書籍全文のアップロードは、無断アップロードである可能性が高いため、著作権保護の観点から本ガイド作成にあたって参照していません。本ガイドの内容は、上記の公式サイト・出版社配布の無料サンプル・著者本人へのインタビュー記事など、正規に公開されている情報のみに基づいています。書籍の全文を読みたい場合は、公式サイトまたはAmazon等の正規販売チャネルからの購入をおすすめします。
