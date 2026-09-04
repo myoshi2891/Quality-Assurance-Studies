@@ -13,7 +13,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `ada3650` |
+| 最新 HEAD | `2ecfb17` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -21,7 +21,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 - **デザイン忠実再現**: 原著HTML固有の深みのあるネイビーダークテーマ（背景 `#07111e`、パネル `#0d1a2e`、アクセント `#7c9eff` / `#6dd3c7`）を忠実に復元。
 - **Mermaid図解の完全移植**: テストピラミッド、テスティングトロフィー、リスクベース選択フロー、基本HTTPテストの流れ、探索的テストサイクル、Pact契約テストシーケンス、負荷テスト種類、セキュリティテスト組み込み、CI/CDパイプライン、本番観測サイクルの全10図解を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止やレスポンシブ表示最適化を適用。
-- **コードブロック**: Python (pytest + requests によるfixture/クリーンアップ/リクエスト検証) および JavaScript (k6 によるしきい値設定・負荷テスト実行) の2コードブロックを完全移植。
+- **コードブロック**: Python (pytest + requests によるfixture/クリーンアップ/リクエスト検証) および JavaScript (k6 によるしきい値設定・負荷テスト実行) の2コードブロックを完全移植。Atom One Dark 仕様のトークン構文ハイライト（`.hljs-*`）および `.code-line` による静的整形を適用。
 - **テーブル & インタラクティブチェックリスト**: ピラミッド比較、HTTPステータスコード観点、基本テストセット、代表的ツール比較、契約テストvsスキーマ、負荷テスト指標、OWASP API Security Top 10、よくある落とし穴とアンチパターンの全8テーブル、およびSection 14のインタラクティブチェックリスト（進捗カウント、チェック状態連動）を完全移植。
 - `app/testing-web-apis-guide/`: ページコンポーネント、スタイル（`.testing-web-apis-page` スコープ、globals.css干渉リセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全15セクションリンク、TOCグルーフラベル、モバイルトグル対応、`aria-current`）、Checklistコンポーネントを実装。
 - `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/testing-web-apis-guide`（Web APIテスト実践ガイド）を追加（全54件）。
