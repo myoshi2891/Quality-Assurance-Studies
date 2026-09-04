@@ -13,13 +13,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `0640984` |
+| 最新 HEAD | `5e505cb` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（363 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
-## 2026/09/04: Clean Code Cookbook 実践ガイドの Next.js 移行完了
+## 2026/09/04: Clean Code Cookbook 実践ガイドのデザイン完全再現とNext.js移行完了
 
-- `app/clean-code-cookbook-guide/`: ページコンポーネント（Mermaid 4図、全10セクション、シンタックスハイライト、全6テーブル、コールアウト2種、Sandi Metz スタットカード4枚、AI時代のコードスメル3トピック、全14項目の参考文献を含む完全移行）、スタイル（`.clean-code-cookbook-page` スコープ、ダークテーマ、sticky nav）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、モバイルトグル対応、`aria-current`）を実装。
+- **デザイン忠実再現**: 元HTML固有のエレガントなエディトリアル・ペーパーデザイン（温かみのある紙の背景 `#f7f3ea`、インク色文字 `#2a2420`、明朝体・セリフ書体 `Noto Serif JP`/`Source Serif 4`）を忠実に復元。
+- **アイコン完全同期**: サイドバー・セクションヘッダー・コールアウト・チップ等のアイコンをすべて元HTML準拠の Tabler Icons（`ti-book-2`, `ti-bulb`, `ti-list-details`, `ti-route`, `ti-ruler-2`, `ti-users`, `ti-robot`, `ti-checklist`, `ti-flag`, `ti-link`, `ti-sparkles`, `ti-calendar`, `ti-stack-2`, `ti-quote`, `ti-info-circle`, `ti-brand-python`, `ti-brand-javascript`, `ti-brand-java`）の繊細な線画スタイルへ完全同期。
+- **図解（Mermaidダイアグラム）のスタイル復元**: グローバルのダークテーマによるノードの黒潰れを解消し、元HTML通りの `base` テーマ・淡いクリーム背景（`#efe8d8`）＋ゴールド枠線（`#ad7f22`）、`:::hub`（薄青 `#e8edfb`）、`:::done`（薄緑 `#eaf3ec`）の配色を完全再現。
+- **コードブロックのシンタックスハイライト**: Python, JavaScript, Java の全4コードブロックに対し、Atom One Dark 仕様のトークンハイライト（コメント、キーワード、関数名、文字列、数値、定数）を適用。
+- `app/clean-code-cookbook-guide/`: ページコンポーネント、スタイル（`.clean-code-cookbook-page` スコープ、ペーパーテーマ、sticky nav）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、モバイルトグル対応、`aria-current`）を実装。
 - `lib/navigation.ts`: 予約カテゴリ `books-practices` の表示タイトルを `'Recommended Books'` に設定し、`/clean-code-cookbook-guide`（Clean Code Cookbook 実践ガイド）を追加（全52件）。
 - `tests/clean-code-cookbook-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全10リンク、全10セクション、Mermaid 4図、全テーブル、全コードブロック、Sandi Metz スタットカード4枚、AI時代のコードスメル3トピック、全参考文献14件の存在を検証する厳格なテストスイートを実装して全パス（18 pass / 209 expect()）。
 - `Clean-code-cookbook-guide.html` & `Clean-code-cookbook-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
