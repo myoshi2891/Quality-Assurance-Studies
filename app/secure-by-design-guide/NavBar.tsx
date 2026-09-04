@@ -113,6 +113,8 @@ export default function NavBar() {
       setShowTopBtn(h.scrollTop > 500);
     };
 
+    // 初期表示・リロード時のスクロール位置復元にも追従させるため一度即時実行する
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -135,7 +137,7 @@ export default function NavBar() {
           aria-controls="tocPanel"
           aria-label={isOpen ? '目次を閉じる' : '目次を開く'}
         >
-          <span>目次を開く</span>
+          <span>{isOpen ? '目次を閉じる' : '目次を開く'}</span>
           <span className={`chev ${isOpen ? 'open' : ''}`} aria-hidden="true">
             ▾
           </span>

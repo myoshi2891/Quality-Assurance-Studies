@@ -277,69 +277,70 @@ export default function SecureByDesignGuidePage() {
             </h2>
             <div className="table-wrap">
               <table>
+                <caption>書籍『Secure by Design』の基本情報</caption>
                 <tbody>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>原題</strong>
-                    </td>
+                    </th>
                     <td>
                       <em>Secure by Design</em>
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>著者</strong>
-                    </td>
+                    </th>
                     <td>Dan Bergh Johnsson, Daniel Deogun, Daniel Sawano</td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>序文</strong>
-                    </td>
+                    </th>
                     <td>
                       Daniel Terhorst-North（BDD＝振舞い駆動開発の提唱者として著名）
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>出版社</strong>
-                    </td>
+                    </th>
                     <td>Manning Publications</td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>出版年</strong>
-                    </td>
+                    </th>
                     <td>2019年9月</td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>ISBN</strong>
-                    </td>
+                    </th>
                     <td>978-1-61729-435-8</td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>ページ数</strong>
-                    </td>
+                    </th>
                     <td>約400ページ</td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>翻訳版</strong>
-                    </td>
+                    </th>
                     <td>日本語、ロシア語、簡体字中国語</td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>日本語版出版社</strong>
-                    </td>
+                    </th>
                     <td>マイナビ出版（Compass Booksシリーズ）</td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>対象読者</strong>
-                    </td>
+                    </th>
                     <td>
                       Java や C#（.NETプラットフォーム）といった静的型付け言語で、ある程度アプリケーション設計の経験がある開発者
                     </td>
@@ -348,7 +349,7 @@ export default function SecureByDesignGuidePage() {
               </table>
             </div>
 
-            <h4>著者について</h4>
+            <h3>著者について</h3>
             <ul>
               <li>
                 <strong>Dan Bergh Johnsson</strong> ─ スウェーデンのコンサルティング会社 Omegapoint のシニアコンサルタント兼VP。アジャイル、DDD、コード品質、セキュリティの交差点で長年活動し、「ドメイン駆動セキュリティ」という概念の創始者の一人。
@@ -373,9 +374,10 @@ export default function SecureByDesignGuidePage() {
               本書は技術書として広く読まれており、著名な開発者からのレビューも多数存在します。ここでは肯定的な評価と、あわせて批判的な視点の両方を公平に紹介します。
             </p>
 
-            <h4>好意的な評価</h4>
+            <h3>好意的な評価</h3>
             <div className="table-wrap">
               <table>
+                <caption>世界の開発者からの好意的な評価</caption>
                 <thead>
                   <tr>
                     <th>評者</th>
@@ -434,7 +436,7 @@ export default function SecureByDesignGuidePage() {
               </table>
             </div>
 
-            <h4>批判的な視点</h4>
+            <h3>批判的な視点</h3>
             <div className="callout callout--caveat">
               <svg
                 className="ic"
@@ -524,6 +526,7 @@ export default function SecureByDesignGuidePage() {
             </p>
             <div className="table-wrap">
               <table>
+                <caption>CIA-T：4つの古典的なセキュリティ関心事</caption>
                 <thead>
                   <tr>
                     <th>頭文字</th>
@@ -833,6 +836,7 @@ export default function SecureByDesignGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>通常の値オブジェクトとドメイン・プリミティブの比較</caption>
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -1171,6 +1175,7 @@ export default function SecureByDesignGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>導入ロードマップの各ステップと該当章</caption>
                 <thead>
                   <tr>
                     <th>ステップ</th>

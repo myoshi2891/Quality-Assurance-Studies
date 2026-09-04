@@ -516,6 +516,33 @@
   color: #eaf4fb !important;
 }
 
+/* 行見出し（tbody の th[scope="row"]）は表頭ではないため、
+   thead 用のネイビー背景・大文字モノスペースを打ち消して
+   従来の「左列＝強調テキスト」の見た目を保つ */
+.secure-by-design-page tbody th[scope='row'] {
+  background: var(--card) !important;
+  color: var(--navy) !important;
+  font-family: var(--sans) !important;
+  font-weight: 700 !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+  line-height: 1.7 !important;
+  white-space: nowrap !important;
+}
+
+/* テーブルのアクセシブル名（caption）は視覚的にも表のラベルとして機能させる */
+.secure-by-design-page table caption {
+  caption-side: top;
+  text-align: left;
+  padding: 11px 14px;
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--ink-soft, var(--navy));
+  background: var(--card);
+  border-bottom: 1px solid var(--line);
+}
+
 .secure-by-design-page tbody td,
 .secure-by-design-page td {
   padding: 11px 14px !important;
