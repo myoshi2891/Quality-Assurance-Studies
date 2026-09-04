@@ -1,0 +1,726 @@
+/* ==========================================================================
+   Software Test Design Guide Styles
+   Scoped under .software-test-design-page
+   Faithful recreation of the original warm editorial paper/book design
+   ========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css');
+
+.software-test-design-page {
+    --paper: #faf6ee;
+    --paper-2: #f2e9d8;
+    --card: #fffdf8;
+    --ink: #241f1a;
+    --ink-soft: #5b5347;
+    --indigo: #34408f;
+    --indigo-dark: #232c66;
+    --indigo-soft: #e6e9f7;
+    --gold: #a9760f;
+    --gold-soft: #f3e6c8;
+    --forest: #2f6b42;
+    --forest-soft: #e2efe3;
+    --plum: #6d3b6d;
+    --plum-soft: #f2e5f1;
+    --line: #e3d9c8;
+    --code-bg: #1e1a17;
+    --sidebar-w: 300px;
+
+    display: block;
+    min-height: 100vh;
+    width: 100%;
+    max-width: 100%;
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.8;
+}
+
+.software-test-design-page * {
+    box-sizing: border-box;
+}
+
+.software-test-design-page .ui {
+    font-family: 'Inter', -apple-system, sans-serif;
+}
+
+.software-test-design-page a {
+    color: var(--indigo);
+    text-decoration: none;
+}
+
+.software-test-design-page a:hover {
+    color: var(--indigo-dark);
+    text-decoration: underline;
+}
+
+/* ---------- Layout & globals.css Interference Resets ---------- */
+.software-test-design-page .layout {
+    display: block;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.software-test-design-page section {
+    padding-top: 0;
+}
+
+.software-test-design-page .hero {
+    min-height: 0;
+    display: block;
+    padding: 4rem 4rem 3rem;
+    border-bottom: 1px solid var(--line);
+    background: linear-gradient(180deg, var(--paper-2), var(--paper));
+}
+
+.software-test-design-page .content {
+    margin-left: var(--sidebar-w);
+    max-width: none !important;
+    width: auto !important;
+    padding: 0 0 6rem;
+}
+
+/* ---------- Sidebar Navigation ---------- */
+.software-test-design-page .sidebar {
+    position: fixed;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    left: 0;
+    bottom: 0;
+    width: var(--sidebar-w);
+    background: var(--card);
+    border-right: 1px solid var(--line);
+    overflow-y: auto;
+    padding: 1.75rem 1.25rem 3rem;
+    z-index: 40;
+}
+
+.software-test-design-page .sidebar-brand {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--indigo-dark);
+    margin: 0 0 0.25rem;
+    line-height: 1.4;
+}
+
+.software-test-design-page .sidebar-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.5rem;
+}
+
+.software-test-design-page .nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+
+.software-test-design-page .nav-list li {
+    margin: 0;
+}
+
+.software-test-design-page .nav-a {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.5rem 0.6rem;
+    border-radius: 0.5rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: background 0.15s, color 0.15s;
+}
+
+.software-test-design-page .nav-a:hover {
+    text-decoration: none;
+}
+
+.software-test-design-page .nav-a .n-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    min-width: 1.6rem;
+}
+
+.software-test-design-page .nav-a:hover {
+    background: var(--gold-soft);
+    color: var(--ink);
+}
+
+.software-test-design-page .nav-a.active {
+    background: var(--indigo-soft);
+    color: var(--indigo-dark);
+}
+
+.software-test-design-page .nav-a.active .n-num {
+    color: var(--indigo-dark);
+}
+
+/* ---------- Hero Section ---------- */
+.software-test-design-page .hero .eyebrow {
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin: 0 0 0.75rem;
+}
+
+.software-test-design-page .hero h1 {
+    font-size: 2.4rem;
+    line-height: 1.3;
+    margin: 0 0 0.75rem;
+    color: var(--indigo-dark);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+}
+
+.software-test-design-page .hero .subtitle {
+    font-size: 1.15rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.75rem;
+    font-family: 'Source Serif 4', Georgia, serif;
+}
+
+.software-test-design-page .hero-quote {
+    background: var(--card);
+    border-left: 4px solid var(--gold);
+    padding: 1.25rem 1.5rem;
+    border-radius: 0.25rem 0.75rem 0.75rem 0.25rem;
+    color: var(--ink-soft);
+    font-size: 1rem;
+}
+
+.software-test-design-page .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.software-test-design-page .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.8rem;
+    border-radius: 999px;
+    background: var(--indigo-soft);
+    color: var(--indigo-dark);
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+/* ---------- Content Sections ---------- */
+.software-test-design-page .section {
+    padding: 3.25rem 4rem;
+    border-bottom: 1px solid var(--line);
+    max-width: none;
+}
+
+.software-test-design-page .section:nth-child(even) {
+    background: rgba(242, 233, 216, 0.35);
+}
+
+.software-test-design-page .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.software-test-design-page .section-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--gold);
+    background: var(--gold-soft);
+    border-radius: 0.5rem;
+    padding: 0.15rem 0.65rem;
+}
+
+.software-test-design-page .section h2 {
+    font-size: 1.7rem;
+    margin: 0;
+    color: var(--indigo-dark);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+}
+
+.software-test-design-page .prose {
+    max-width: none;
+}
+
+.software-test-design-page .prose p,
+.software-test-design-page .prose li {
+    overflow-wrap: break-word;
+}
+
+.software-test-design-page .prose h3 {
+    font-size: 1.25rem;
+    color: var(--indigo-dark);
+    margin: 2rem 0 0.75rem;
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 700;
+}
+
+.software-test-design-page .prose h4 {
+    font-size: 1.05rem;
+    color: var(--ink);
+    margin: 1.5rem 0 0.5rem;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+}
+
+/* Tailwind Preflight リセット対応：リストマーカーの復元 */
+.software-test-design-page .prose ul:not(.checklist):not(.ref-list):not(.nav-list) {
+    list-style-type: disc !important;
+    padding-left: 1.4rem;
+    margin: 1rem 0;
+}
+
+.software-test-design-page .prose ol:not(.step-list) {
+    list-style-type: decimal !important;
+    padding-left: 1.4rem;
+    margin: 1rem 0;
+}
+
+.software-test-design-page .prose li {
+    margin-bottom: 0.4rem;
+}
+
+.software-test-design-page .lede {
+    font-size: 1.08rem;
+    color: var(--ink-soft);
+}
+
+/* ---------- Tables ---------- */
+.software-test-design-page .table-wrap {
+    overflow-x: auto;
+    margin: 1.5rem 0;
+    border: 1px solid var(--line);
+    border-radius: 0.6rem;
+}
+
+.software-test-design-page table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+}
+
+.software-test-design-page thead th {
+    background: var(--indigo-dark);
+    color: #fff;
+    text-align: left;
+    padding: 0.7rem 0.9rem;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.software-test-design-page tbody td {
+    padding: 0.65rem 0.9rem;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+}
+
+.software-test-design-page tbody tr:nth-child(even) {
+    background: var(--paper-2);
+}
+
+.software-test-design-page tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.software-test-design-page td strong {
+    color: var(--indigo-dark);
+}
+
+/* ---------- Callouts ---------- */
+.software-test-design-page .callout {
+    display: flex;
+    gap: 0.9rem;
+    padding: 1.1rem 1.3rem;
+    border-radius: 0.7rem;
+    margin: 1.5rem 0;
+    font-size: 1rem;
+}
+
+.software-test-design-page .callout i {
+    font-size: 1.3rem;
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.software-test-design-page .callout strong {
+    display: block;
+    margin-bottom: 0.3rem;
+    font-family: 'Inter', sans-serif;
+}
+
+.software-test-design-page .callout p {
+    margin: 0;
+}
+
+.software-test-design-page .callout.source {
+    background: var(--forest-soft);
+    color: #173821;
+}
+
+.software-test-design-page .callout.source i {
+    color: var(--forest);
+}
+
+.software-test-design-page .callout.source strong {
+    color: var(--forest);
+}
+
+.software-test-design-page .callout.note {
+    background: var(--plum-soft);
+    color: #3a1f3a;
+}
+
+.software-test-design-page .callout.note i {
+    color: var(--plum);
+}
+
+.software-test-design-page .callout.note strong {
+    color: var(--plum);
+}
+
+/* ---------- Step list ---------- */
+.software-test-design-page .step-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.25rem 0 !important;
+}
+
+.software-test-design-page .step-list li {
+    display: flex;
+    gap: 1rem;
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--line);
+    margin-bottom: 0;
+}
+
+.software-test-design-page .step-list li:first-child {
+    border-top: none;
+}
+
+.software-test-design-page .step-num {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    background: var(--indigo);
+    min-width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.software-test-design-page .step-body p {
+    margin: 0.2rem 0 0;
+}
+
+.software-test-design-page .step-body strong {
+    color: var(--indigo-dark);
+}
+
+/* ---------- Mermaid ---------- */
+.software-test-design-page .mermaid-wrapper {
+    margin: 1.75rem 0;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.software-test-design-page .diagram-caption {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.software-test-design-page .mermaid-target {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 0.8rem;
+    padding: 1.5rem 1rem;
+    display: flex;
+    justify-content: safe center;
+    overflow-x: auto;
+}
+
+.software-test-design-page .mermaid-target svg {
+    flex-shrink: 0;
+    height: auto;
+    max-width: 100%;
+}
+
+.software-test-design-page .mermaid-loading {
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    padding: 2rem;
+}
+
+/* Mermaid 分岐エッジラベルの黒潰れ防止 */
+.software-test-design-page .mermaid-wrapper .edgeLabel,
+.software-test-design-page .mermaid-wrapper .edgeLabels rect,
+.software-test-design-page .mermaid-wrapper span.edgeLabel {
+    background-color: var(--card) !important;
+    color: var(--ink) !important;
+    fill: var(--ink) !important;
+    stroke: none !important;
+    font-weight: 700 !important;
+    overflow: visible !important;
+}
+
+/* ---------- Code Blocks ---------- */
+.software-test-design-page .code-block {
+    margin: 1.25rem 0;
+    border-radius: 0.7rem;
+    overflow: hidden;
+    border: 1px solid #000;
+}
+
+.software-test-design-page .code-block .code-label {
+    background: #141110;
+    color: #c9a227;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.45rem 0.9rem;
+    letter-spacing: 0.03em;
+}
+
+.software-test-design-page .code-block pre {
+    margin: 0;
+    background: var(--code-bg);
+    overflow-x: auto;
+    padding: 1rem 1.2rem;
+}
+
+.software-test-design-page .code-block code {
+    font-family: 'SFMono-Regular', Consolas, Menlo, monospace;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #abb2bf;
+}
+
+.software-test-design-page .code-line {
+    white-space: pre;
+}
+
+.software-test-design-page .code-kw {
+    color: #c678dd;
+    font-weight: 600;
+}
+
+.software-test-design-page .code-fn {
+    color: #61afef;
+}
+
+/* ---------- Checklist ---------- */
+.software-test-design-page .checklist {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.25rem 0 !important;
+}
+
+.software-test-design-page .checklist li {
+    border-top: 1px solid var(--line);
+    margin-bottom: 0;
+}
+
+.software-test-design-page .checklist li:first-child {
+    border-top: none;
+}
+
+.software-test-design-page .checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    padding: 0.75rem 0.25rem;
+    cursor: pointer;
+}
+
+.software-test-design-page .checklist input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.3rem;
+    height: 1.3rem;
+    min-width: 1.3rem;
+    border: 2px solid var(--indigo);
+    border-radius: 0.35rem;
+    margin-top: 0.15rem;
+    position: relative;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.software-test-design-page .checklist input[type='checkbox']:checked {
+    background: var(--indigo);
+    border-color: var(--indigo);
+}
+
+.software-test-design-page .checklist input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 0.34rem;
+    top: 0.08rem;
+    width: 0.32rem;
+    height: 0.65rem;
+    border: solid #fff;
+    border-width: 0 0.18rem 0.18rem 0;
+    transform: rotate(45deg);
+}
+
+.software-test-design-page .checklist li.done span {
+    color: var(--ink-soft);
+    text-decoration: line-through;
+}
+
+.software-test-design-page .checklist-counter {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    color: var(--indigo-dark);
+    background: var(--indigo-soft);
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    margin-bottom: 1rem;
+    font-size: 1rem;
+}
+
+/* ---------- References ---------- */
+.software-test-design-page .ref-group {
+    margin-bottom: 1.75rem;
+}
+
+.software-test-design-page .ref-group h3 {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.software-test-design-page .ref-list {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.software-test-design-page .ref-list li {
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--line);
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 0;
+}
+
+.software-test-design-page .ref-list li:first-child {
+    border-top: none;
+}
+
+.software-test-design-page .ref-list a {
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.software-test-design-page .ref-list .ref-note {
+    display: block;
+    color: var(--ink-soft);
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem;
+    margin: 0.3rem 0;
+}
+
+.software-test-design-page .ref-url {
+    display: block;
+    color: var(--ink-soft);
+    font-size: 0.9rem;
+    word-break: break-all;
+    margin-top: 0.2rem;
+}
+
+/* ---------- Footer ---------- */
+.software-test-design-page .footer {
+    padding: 2.5rem 4rem;
+    font-family: 'Inter', sans-serif;
+    color: var(--ink-soft);
+    font-size: 1rem;
+    border-top: 1px solid var(--line);
+    background: var(--paper-2);
+}
+
+/* ---------- Mobile ---------- */
+.software-test-design-page .menu-toggle {
+    display: none;
+}
+
+@media (max-width: 920px) {
+    .software-test-design-page {
+        --sidebar-w: 270px;
+    }
+    .software-test-design-page .menu-toggle {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        position: fixed;
+        top: calc(70px + var(--disclaimer-height, 0px));
+        left: 1rem;
+        z-index: 45;
+        background: var(--indigo-dark);
+        color: #fff;
+        border: none;
+        padding: 0.6rem 1rem;
+        border-radius: 999px;
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        font-size: 1rem;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+    .software-test-design-page .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.2s ease;
+        box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+    }
+    .software-test-design-page .sidebar.open {
+        transform: translateX(0);
+    }
+    .software-test-design-page .sidebar-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.4);
+        z-index: 39;
+    }
+    .software-test-design-page .content {
+        margin-left: 0;
+    }
+    .software-test-design-page .hero,
+    .software-test-design-page .section,
+    .software-test-design-page .footer {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+    .software-test-design-page .hero {
+        padding-top: 5.5rem;
+    }
+}

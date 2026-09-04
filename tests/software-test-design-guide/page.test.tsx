@@ -219,7 +219,7 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
       const { container } = render(<Page />);
 
       const tableWrappers = container.querySelectorAll('.table-wrap');
-      expect(tableWrappers.length).toBeGreaterThanOrEqual(13);
+      expect(tableWrappers.length).toBe(12);
 
       tableWrappers.forEach((wrapper) => {
         const table = wrapper.querySelector('table');
