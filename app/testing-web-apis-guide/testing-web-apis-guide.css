@@ -656,7 +656,10 @@
         width: 280px;
         height: calc(100vh - 60px - var(--disclaimer-height, 0px));
         transform: translateX(-100%);
-        transition: transform 0.25s ease;
+        /* 画面外のリンクがフォーカスを受け取らないよう不可視化する */
+        visibility: hidden;
+        /* visibility は transform 完了後に切り替え、閉じるアニメを保つ */
+        transition: transform 0.25s ease, visibility 0s linear 0.25s;
         z-index: 60;
         border-right: 1px solid var(--border);
         box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
@@ -664,6 +667,8 @@
 
     .testing-web-apis-page .sidebar.open {
         transform: translateX(0);
+        visibility: visible;
+        transition: transform 0.25s ease, visibility 0s linear 0s;
     }
 
     .testing-web-apis-page .sidebar-backdrop {

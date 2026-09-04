@@ -558,7 +558,7 @@ export default function TestingWebApisGuidePage() {
                   <code className="hljs language-python">
                     <div className="code-line"><span className="hljs-keyword">import</span> os</div>
                     <div className="code-line"><span className="hljs-keyword">import</span> uuid</div>
-                    <div className="code-line"><span className="hljs-keyword">from</span> urllib.parse <span className="hljs-keyword">import</span> urljoin</div>
+                    <div className="code-line"><span className="hljs-keyword">from</span> urllib.parse <span className="hljs-keyword">import</span> urljoin, urlsplit</div>
                     <div className="code-line"></div>
                     <div className="code-line"><span className="hljs-keyword">import</span> pytest</div>
                     <div className="code-line"><span className="hljs-keyword">import</span> requests</div>
@@ -570,6 +570,22 @@ export default function TestingWebApisGuidePage() {
                     <div className="code-line"><span className="hljs-comment"># 受信する間隔の上限であり、リクエスト全体の所要時間の上限ではない。</span></div>
                     <div className="code-line"><span className="hljs-comment"># 「通信が途絶えたまま待ち続ける」ことは防げるが、全体の期限が必要なら別途管理する</span></div>
                     <div className="code-line"><span className="hljs-variable constant_">TIMEOUT</span> = (<span className="hljs-number">3.05</span>, <span className="hljs-number">10</span>)</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">_is_safe_user_url</span>(<span className="hljs-params">candidate: <span className="hljs-built_in">str</span></span>) -&gt; <span className="hljs-built_in">bool</span>:</div>
+                    <div className="code-line"><span className="hljs-string">    &quot;&quot;&quot;BASE_URL と同一オリジンかつ /users/ 配下を指すURLだけを許可する。</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-string">    Location ヘッダーはサーバーが自由に決められる値なので、外部オリジンや</span></div>
+                    <div className="code-line"><span className="hljs-string">    想定外のパスをそのまま後続の GET・DELETE に渡すと意図しない相手を操作しうる。</span></div>
+                    <div className="code-line"><span className="hljs-string">    &quot;&quot;&quot;</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="hljs-keyword">def</span> <span className="hljs-title function_">origin</span>(<span className="hljs-params">url: <span className="hljs-built_in">str</span></span>) -&gt; <span className="hljs-built_in">tuple</span>[<span className="hljs-built_in">str</span>, <span className="hljs-built_in">str</span> | <span className="hljs-literal">None</span>, <span className="hljs-built_in">int</span>]:</div>
+                    <div className="code-line">        parts = urlsplit(url)</div>
+                    <div className="code-line">        <span className="hljs-keyword">return</span> (parts.scheme, parts.hostname, parts.port <span className="hljs-keyword">or</span> (<span className="hljs-number">443</span> <span className="hljs-keyword">if</span> parts.scheme == <span className="hljs-string">&quot;https&quot;</span> <span className="hljs-keyword">else</span> <span className="hljs-number">80</span>))</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="hljs-keyword">if</span> origin(candidate) != origin(<span className="hljs-variable constant_">BASE_URL</span>):</div>
+                    <div className="code-line">        <span className="hljs-keyword">return</span> <span className="hljs-literal">False</span></div>
+                    <div className="code-line">    <span className="hljs-keyword">return</span> urlsplit(candidate).path.startswith(urlsplit(<span className="hljs-variable constant_">BASE_URL</span>).path.rstrip(<span className="hljs-string">&quot;/&quot;</span>) + <span className="hljs-string">&quot;/users/&quot;</span>)</div>
                     <div className="code-line"></div>
                     <div className="code-line"></div>
                     <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">_resolve_user_url</span>(created: requests.Response, email: <span className="hljs-built_in">str</span>) -&gt; <span className="hljs-built_in">str</span>:</div>
@@ -590,7 +606,10 @@ export default function TestingWebApisGuidePage() {
                     <div className="code-line">    <span className="hljs-comment"># フォールバック1: 201 とともに返る Location ヘッダー（相対URLのこともある）</span></div>
                     <div className="code-line">    location = created.headers.get(<span className="hljs-string">&quot;Location&quot;</span>)</div>
                     <div className="code-line">    <span className="hljs-keyword">if</span> location:</div>
-                    <div className="code-line">        <span className="hljs-keyword">return</span> urljoin(<span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/&quot;</span>, location)</div>
+                    <div className="code-line">        resolved = urljoin(<span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/&quot;</span>, location)</div>
+                    <div className="code-line">        <span className="hljs-comment"># 外部オリジンや /users/ 配下以外を指す Location は信頼せず、検索へ回す</span></div>
+                    <div className="code-line">        <span className="hljs-keyword">if</span> _is_safe_user_url(resolved):</div>
+                    <div className="code-line">            <span className="hljs-keyword">return</span> resolved</div>
                     <div className="code-line"></div>
                     <div className="code-line">    <span className="hljs-comment"># フォールバック2: テストごとに一意にしたメールアドレスで検索して特定する</span></div>
                     <div className="code-line">    found = requests.get(<span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users&quot;</span>, params={'{'}<span className="hljs-string">&quot;email&quot;</span>: email{'}'}, timeout=<span className="hljs-variable constant_">TIMEOUT</span>)</div>
