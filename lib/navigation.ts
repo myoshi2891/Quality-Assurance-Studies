@@ -103,6 +103,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/clean-code-cookbook-guide', label: 'Clean Code Cookbook 実践ガイド', description: 'コードスメルの発見・分類から8ステップの改善、Sandi Metzのルールまで。', category: 'books-practices' },
   { href: '/the-way-of-the-web-tester-guide', label: 'The Way of the Web Tester 実践ガイド', description: 'テストピラミッドの基礎からUI/API/単体テストの実践、テスティングトロフィーまで。', category: 'books-practices' },
   { href: '/testing-web-apis-guide', label: 'Web APIテスト実践ガイド', description: 'Mark Winteringham『Testing Web APIs』に基づくリスクベースAPIテスト、契約・性能・セキュリティ実践。', category: 'books-practices' },
+  { href: '/software-test-design-guide', label: 'ソフトウェアテスト設計実践ガイド', description: 'Lee Copeland『A Practitioner\'s Guide to Software Test Design』に基づくテスト設計技法体系。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
