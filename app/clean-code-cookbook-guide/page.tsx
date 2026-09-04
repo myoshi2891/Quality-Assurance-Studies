@@ -10,42 +10,84 @@ export const metadata: Metadata = {
     'O’Reilly 刊『Clean Code Cookbook』（著者: Maximiliano Contieri）を軸に、Fowler、Beck、Uncle Bob、Sandi Metzなどの知見を統合した初学者向けステップバイステップ実践ガイド。',
 };
 
-const DIAGRAM_1 = `flowchart TB
-A["読みやすいコード"] --> B["バグの発見が早くなる"]
-A --> C["新しいメンバーが早く戦力化する"]
-A --> D["変更にかかる時間が短くなる"]
-B --> E["技術的負債が蓄積しにくい"]
-C --> E
-D --> E
-E --> F["開発チームの持続可能な速度が保たれる"]`;
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#fffdf8",
+    "primaryColor": "#efe8d8",
+    "primaryTextColor": "#2a2420",
+    "primaryBorderColor": "#ad7f22",
+    "lineColor": "#5b5248",
+    "secondaryColor": "#f4e7ee",
+    "tertiaryColor": "#f2ecdf",
+    "mainBkg": "#efe8d8",
+    "nodeBorder": "#ad7f22",
+    "nodeTextColor": "#2a2420",
+    "fontFamily": "'Noto Sans JP', sans-serif",
+    "fontSize": "16px"
+  },
+  "flowchart": {
+    "useMaxWidth": false,
+    "htmlLabels": true,
+    "curve": "basis"
+  }
+}}%%`;
 
-const DIAGRAM_2 = `flowchart TB
-A["コードを読んで違和感に気づく"] --> B["スメルの種類を分類する"]
-B --> C{"安全網となるテストは十分か"}
-C -- はい --> E["小さな一歩でリファクタリングする"]
-C -- いいえ --> D["先にテストを追加する"]
-D --> E
-E --> F["テストを実行して挙動が変わっていないか確認する"]
-F --> G{"問題は解消したか"}
-G -- いいえ --> B
-G -- はい --> H["小さくコミットする"]
-H --> I["次のコードへ進む"]
-I --> A`;
+const DIAGRAM_1 = `${MERMAID_CONFIG}
+flowchart TB
+    A["読みやすいコード"]:::hub --> B["バグの発見が早くなる"]
+    A --> C["新しいメンバーが早く戦力化する"]
+    A --> D["変更にかかる時間が短くなる"]
+    B --> E["技術的負債が蓄積しにくい"]
+    C --> E
+    D --> E
+    E --> F["開発チームの持続可能な速度が保たれる"]:::done
 
-const DIAGRAM_3 = `flowchart TB
-R["Red: 失敗するテストを先に書く"] --> G["Green: 最小限のコードでテストを通す"]
-G --> Ref["Refactor: 重複やコードスメルを取り除く"]
-Ref --> R`;
+    classDef default fill:#efe8d8,stroke:#ad7f22,stroke-width:1.5px,color:#2a2420;
+    classDef hub fill:#e8edfb,stroke:#3d4f91,stroke-width:2px,color:#20264a;
+    classDef done fill:#eaf3ec,stroke:#3f6b4a,stroke-width:2px,color:#193322;`;
 
-const DIAGRAM_4 = `flowchart TB
-S["新しい変更に着手する前に"] --> Q1{"今のコードは変更しやすい状態か"}
-Q1 -- はい --> Impl["そのまま機能を実装する"]
-Q1 -- いいえ --> Q2{"整頓のコストは今回の変更で回収できるか"}
-Q2 -- はい --> Tidy["先に小さく整頓する Tidy First"]
-Tidy --> Impl
-Q2 -- いいえ --> Later["整頓は後回しにし記録だけ残す"]
-Later --> Impl
-Impl --> Commit["変更後の振る舞いと既存部分をテストしてコミットする"]`;
+const DIAGRAM_2 = `${MERMAID_CONFIG}
+flowchart TB
+    A["コードを読んで違和感に気づく"]:::hub --> B["スメルの種類を分類する"]
+    B --> C{"安全網となるテストは十分か"}
+    C -- はい --> E["小さな一歩でリファクタリングする"]
+    C -- いいえ --> D["先にテストを追加する"]
+    D --> E
+    E --> F["テストを実行して挙動が変わっていないか確認する"]
+    F --> G{"問題は解消したか"}
+    G -- いいえ --> B
+    G -- はい --> H["小さくコミットする"]:::done
+    H --> I["次のコードへ進む"]
+    I --> A
+
+    classDef default fill:#efe8d8,stroke:#ad7f22,stroke-width:1.5px,color:#2a2420;
+    classDef hub fill:#e8edfb,stroke:#3d4f91,stroke-width:2px,color:#20264a;
+    classDef done fill:#eaf3ec,stroke:#3f6b4a,stroke-width:2px,color:#193322;`;
+
+const DIAGRAM_3 = `${MERMAID_CONFIG}
+flowchart TB
+    R["Red 失敗するテストを先に書く"]:::hub --> G["Green 最小限のコードでテストを通す"]
+    G --> Ref["Refactor 重複やコードスメルを取り除く"]
+    Ref --> R
+
+    classDef default fill:#efe8d8,stroke:#ad7f22,stroke-width:1.5px,color:#2a2420;
+    classDef hub fill:#e8edfb,stroke:#3d4f91,stroke-width:2px,color:#20264a;`;
+
+const DIAGRAM_4 = `${MERMAID_CONFIG}
+flowchart TB
+    S["新しい変更に着手する前に"]:::hub --> Q1{"今のコードは変更しやすい状態か"}
+    Q1 -- はい --> Impl["そのまま機能を実装する"]
+    Q1 -- いいえ --> Q2{"整頓のコストは今回の変更で回収できるか"}
+    Q2 -- はい --> Tidy["先に小さく整頓する Tidy First"]
+    Tidy --> Impl
+    Q2 -- いいえ --> Later["整頓は後回しにし記録だけ残す"]
+    Later --> Impl
+    Impl --> Commit["変更後の振る舞いと既存部分をテストしてコミットする"]:::done
+
+    classDef default fill:#efe8d8,stroke:#ad7f22,stroke-width:1.5px,color:#2a2420;
+    classDef hub fill:#e8edfb,stroke:#3d4f91,stroke-width:2px,color:#20264a;
+    classDef done fill:#eaf3ec,stroke:#3f6b4a,stroke-width:2px,color:#193322;`;
 
 export default function CleanCodeCookbookGuidePage() {
   return (
@@ -57,20 +99,7 @@ export default function CleanCodeCookbookGuidePage() {
           {/* ============ HERO ============ */}
           <div className="hero">
             <span className="eyebrow">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="15"
-                height="15"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M12 3l1.912 5.813a2 2 0 001.275 1.275L21 12l-5.813 1.912a2 2 0 00-1.275 1.275L12 21l-1.912-5.813a2 2 0 00-1.275-1.275L3 12l5.813-1.912a2 2 0 001.275-1.275L12 3z" />
-              </svg>
+              <i className="ti ti-sparkles" aria-hidden="true" />
               <span>初心者向け実践ガイド</span>
             </span>
             <h1>Clean Code Cookbook 実践ガイド</h1>
@@ -79,57 +108,15 @@ export default function CleanCodeCookbookGuidePage() {
             </p>
             <div className="hero-meta">
               <span className="chip">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-                  <line x1="16" y1="2" x2="16" y2="6" />
-                  <line x1="8" y1="2" x2="8" y2="6" />
-                  <line x1="3" y1="10" x2="21" y2="10" />
-                </svg>
+                <i className="ti ti-calendar" aria-hidden="true" />
                 <span>2026年8月27日時点の情報</span>
               </span>
               <span className="chip">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
+                <i className="ti ti-stack-2" aria-hidden="true" />
                 <span>全25章 → 8ステップに再構成</span>
               </span>
               <span className="chip">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>一次情報または信頼できる二次情報のURLを本文・巻末に明記</span>
               </span>
             </div>
@@ -139,16 +126,7 @@ export default function CleanCodeCookbookGuidePage() {
           <section id="sec-1">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M19 4v16H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h12zm-8 4H9v2h2V8zm6 0h-4v2h4V8zm0 4h-4v2h4v-2zm-6 0H9v2h2v-2z" />
-                </svg>
+                <i className="ti ti-book-2" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 01</span>
@@ -171,7 +149,7 @@ export default function CleanCodeCookbookGuidePage() {
                 <tbody>
                   <tr>
                     <td>タイトル</td>
-                    <td><strong>Clean Code Cookbook</strong></td>
+                    <td>Clean Code Cookbook</td>
                   </tr>
                   <tr>
                     <td>著者</td>
@@ -211,16 +189,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="callout note">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                </svg>
+                <i className="ti ti-info-circle" aria-hidden="true" />
                 <span>補足</span>
               </div>
               <p>
@@ -233,16 +202,7 @@ export default function CleanCodeCookbookGuidePage() {
           <section id="sec-2">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M9 21h6v-2H9v2zm3-19C7.48 2 3.82 5.66 3.82 10.18c0 2.8 1.4 5.28 3.54 6.77V18a1 1 0 0 0 1 1h7.28a1 1 0 0 0 1-1v-1.05c2.14-1.49 3.54-3.97 3.54-6.77C20.18 5.66 16.52 2 12 2z" />
-                </svg>
+                <i className="ti ti-bulb" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 02</span>
@@ -264,16 +224,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="callout source">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>出典</span>
               </div>
               <p>
@@ -306,16 +257,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="callout source">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>出典</span>
               </div>
               <p>
@@ -347,16 +289,7 @@ export default function CleanCodeCookbookGuidePage() {
           <section id="sec-3">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z" />
-                </svg>
+                <i className="ti ti-list-details" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 03</span>
@@ -370,16 +303,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="callout note">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z" />
-                </svg>
+                <i className="ti ti-info-circle" aria-hidden="true" />
                 <span>補足</span>
               </div>
               <p>
@@ -397,23 +321,23 @@ export default function CleanCodeCookbookGuidePage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>A. 設計の基礎</strong></td>
+                    <td>A. 設計の基礎</td>
                     <td>1章 Clean Code／2章 公理の設定 Setting Up the Axioms／6章 宣言的コード</td>
                   </tr>
                   <tr>
-                    <td><strong>B. オブジェクト指向設計</strong></td>
+                    <td>B. オブジェクト指向設計</td>
                     <td>3章 貧血モデル／4章 プリミティブ執着／17章 結合度／18章 グローバル／19章 階層</td>
                   </tr>
                   <tr>
-                    <td><strong>C. 可読性とコミュニケーション</strong></td>
+                    <td>C. 可読性とコミュニケーション</td>
                     <td>7章 命名／8章 コメント／9章 標準</td>
                   </tr>
                   <tr>
-                    <td><strong>D. 複雑さの制御</strong></td>
+                    <td>D. 複雑さの制御</td>
                     <td>5章 可変性／10章 複雑さ／11章 肥大化／12章 YAGNI／16章 早すぎる最適化／23章 メタプログラミング／24章 型</td>
                   </tr>
                   <tr>
-                    <td><strong>E. 安全性と品質保証</strong></td>
+                    <td>E. 安全性と品質保証</td>
                     <td>13章 フェイルファスト／14章 If文／15章 Null／20章 テスト／21章 技術的負債／22章 例外／25章 セキュリティ</td>
                   </tr>
                 </tbody>
@@ -463,16 +387,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="callout source">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>出典</span>
               </div>
               <p>
@@ -492,16 +407,7 @@ export default function CleanCodeCookbookGuidePage() {
           <section id="sec-4">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 14.59L8.41 12 9.83 10.59l3.17 3.18 5.17-5.18L19.59 10z" />
-                </svg>
+                <i className="ti ti-route" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 04</span>
@@ -569,34 +475,21 @@ export default function CleanCodeCookbookGuidePage() {
             <h4>コード例（マジックナンバーの整頓）</h4>
             <div className="code-block">
               <div className="code-label">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2a10 10 0 0 0-3 19.54V17a3 3 0 0 1-3-3H4.46A10 10 0 1 0 12 2z" />
-                </svg>
+                <i className="ti ti-brand-python" aria-hidden="true" />
                 <span>Python</span>
               </div>
               <pre>
-                <code>
-                  {`# Before
-if user.age > 17:
-    grant_access(user)
-
-# After
-# user.age は満年齢（整数）である前提。この前提のもとで > 17 と >= 18 は同値になる。
-LEGAL_ADULT_AGE = 18
-
-if user.age >= LEGAL_ADULT_AGE:
-    grant_access(user)`}
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="hljs-comment"># Before</span></div>
+                  <div className="code-line"><span className="hljs-keyword">if</span> user.age &gt; <span className="hljs-number">17</span>:</div>
+                  <div className="code-line">    grant_access(user)</div>
+                  <div className="code-line"></div>
+                  <div className="code-line"><span className="hljs-comment"># After</span></div>
+                  <div className="code-line"><span className="hljs-comment"># user.age は満年齢（整数）である前提。この前提のもとで &gt; 17 と &gt;= 18 は同値になる。</span></div>
+                  <div className="code-line"><span className="hljs-variable constant_">LEGAL_ADULT_AGE</span> = <span className="hljs-number">18</span></div>
+                  <div className="code-line"></div>
+                  <div className="code-line"><span className="hljs-keyword">if</span> user.age &gt;= <span className="hljs-variable constant_">LEGAL_ADULT_AGE</span>:</div>
+                  <div className="code-line">    grant_access(user)</div>
                 </code>
               </pre>
             </div>
@@ -609,34 +502,20 @@ if user.age >= LEGAL_ADULT_AGE:
 
             <div className="code-block">
               <div className="code-label">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                  <path d="M16 8v8M8 8v8" />
-                </svg>
+                <i className="ti ti-brand-javascript" aria-hidden="true" />
                 <span>JavaScript</span>
               </div>
               <pre>
-                <code>
-                  {`// Before
-function calc(a, b, t) {
-  return a * b * (1 + t);
-}
-
-// After
-function calculatePriceWithTax(basePrice, quantity, taxRate) {
-  return basePrice * quantity * (1 + taxRate);
-}`}
+                <code className="hljs language-javascript">
+                  <div className="code-line"><span className="hljs-comment">// Before</span></div>
+                  <div className="code-line"><span className="hljs-keyword">function</span> <span className="hljs-title function_">calc</span>(<span className="hljs-params">a, b, t</span>) &#123;</div>
+                  <div className="code-line">  <span className="hljs-keyword">return</span> a * b * (<span className="hljs-number">1</span> + t);</div>
+                  <div className="code-line">&#125;</div>
+                  <div className="code-line"></div>
+                  <div className="code-line"><span className="hljs-comment">// After</span></div>
+                  <div className="code-line"><span className="hljs-keyword">function</span> <span className="hljs-title function_">calculatePriceWithTax</span>(<span className="hljs-params">basePrice, quantity, taxRate</span>) &#123;</div>
+                  <div className="code-line">  <span className="hljs-keyword">return</span> basePrice * quantity * (<span className="hljs-number">1</span> + taxRate);</div>
+                  <div className="code-line">&#125;</div>
                 </code>
               </pre>
             </div>
@@ -648,49 +527,36 @@ function calculatePriceWithTax(basePrice, quantity, taxRate) {
 
             <div className="code-block">
               <div className="code-label">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2a10 10 0 0 0-3 19.54V17a3 3 0 0 1-3-3H4.46A10 10 0 1 0 12 2z" />
-                </svg>
+                <i className="ti ti-brand-python" aria-hidden="true" />
                 <span>Python — メソッドの抽出</span>
               </div>
               <pre>
-                <code>
-                  {`# Before
-def process_order(order):
-    total = 0
-    for item in order.items:
-        total += item.price * item.quantity
-    tax = total * 0.1
-    total_with_tax = total + tax
-    send_email(order.customer_email, f"合計: {total_with_tax}")
-    return total_with_tax
-
-# After
-def process_order(order):
-    subtotal = calculate_subtotal(order.items)
-    total_with_tax = apply_tax(subtotal)
-    notify_customer(order.customer_email, total_with_tax)
-    return total_with_tax
-
-def calculate_subtotal(items):
-    return sum(item.price * item.quantity for item in items)
-
-def apply_tax(amount, tax_rate=0.1):
-    return amount * (1 + tax_rate)
-
-def notify_customer(email, total):
-    send_email(email, f"合計: {total}")`}
+                <code className="hljs language-python">
+                  <div className="code-line"><span className="hljs-comment"># Before</span></div>
+                  <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">process_order</span>(<span className="hljs-params">order</span>):</div>
+                  <div className="code-line">    total = <span className="hljs-number">0</span></div>
+                  <div className="code-line">    <span className="hljs-keyword">for</span> item <span className="hljs-keyword">in</span> order.items:</div>
+                  <div className="code-line">        total += item.price * item.quantity</div>
+                  <div className="code-line">    tax = total * <span className="hljs-number">0.1</span></div>
+                  <div className="code-line">    total_with_tax = total + tax</div>
+                  <div className="code-line">    send_email(order.customer_email, <span className="hljs-string">f&quot;合計: &#123;total_with_tax&#125;&quot;</span>)</div>
+                  <div className="code-line">    <span className="hljs-keyword">return</span> total_with_tax</div>
+                  <div className="code-line"></div>
+                  <div className="code-line"><span className="hljs-comment"># After</span></div>
+                  <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">process_order</span>(<span className="hljs-params">order</span>):</div>
+                  <div className="code-line">    subtotal = calculate_subtotal(order.items)</div>
+                  <div className="code-line">    total_with_tax = apply_tax(subtotal)</div>
+                  <div className="code-line">    notify_customer(order.customer_email, total_with_tax)</div>
+                  <div className="code-line">    <span className="hljs-keyword">return</span> total_with_tax</div>
+                  <div className="code-line"></div>
+                  <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">calculate_subtotal</span>(<span className="hljs-params">items</span>):</div>
+                  <div className="code-line">    <span className="hljs-keyword">return</span> <span className="hljs-built_in">sum</span>(item.price * item.quantity <span className="hljs-keyword">for</span> item <span className="hljs-keyword">in</span> items)</div>
+                  <div className="code-line"></div>
+                  <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">apply_tax</span>(<span className="hljs-params">amount, tax_rate=<span className="hljs-number">0.1</span></span>):</div>
+                  <div className="code-line">    <span className="hljs-keyword">return</span> amount * (<span className="hljs-number">1</span> + tax_rate)</div>
+                  <div className="code-line"></div>
+                  <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">notify_customer</span>(<span className="hljs-params">email, total</span>):</div>
+                  <div className="code-line">    send_email(email, <span className="hljs-string">f&quot;合計: &#123;total&#125;&quot;</span>)</div>
                 </code>
               </pre>
             </div>
@@ -711,22 +577,22 @@ def notify_customer(email, total):
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>深くネストしたif文</strong></td>
+                    <td>深くネストしたif文</td>
                     <td>可読性が低く分岐を追いにくい</td>
                     <td>ガード節（早期return）で平坦化する</td>
                   </tr>
                   <tr>
-                    <td><strong>種類ごとの分岐 switch/if-elseif</strong></td>
+                    <td>種類ごとの分岐 switch/if-elseif</td>
                     <td>種類が増えるたびに分岐を修正する必要がある</td>
                     <td>ポリモーフィズム（多態性）に置き換える</td>
                   </tr>
                   <tr>
-                    <td><strong>nullチェックの散在</strong></td>
+                    <td>nullチェックの散在</td>
                     <td><code>if (x != null)</code> があちこちに存在する</td>
                     <td>Null Object パターンで代替する</td>
                   </tr>
                   <tr>
-                    <td><strong>空のcatchブロック</strong></td>
+                    <td>空のcatchブロック</td>
                     <td>例外が握りつぶされ原因不明のバグになる</td>
                     <td>例外を握りつぶさず、適切な粒度で再送出・記録する</td>
                   </tr>
@@ -736,43 +602,30 @@ def notify_customer(email, total):
 
             <div className="code-block">
               <div className="code-label">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  aria-hidden="true"
-                >
-                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-                </svg>
+                <i className="ti ti-brand-java" aria-hidden="true" />
                 <span>Java — ガード節</span>
               </div>
               <pre>
-                <code>
-                  {`// Before
-public void ship(Order order) {
-    if (order != null) {
-        if (order.isPaid()) {
-            if (!order.isShipped()) {
-                dispatch(order);
-            }
-        }
-    }
-}
-
-// After
-public void ship(Order order) {
-    if (order == null) return;
-    if (!order.isPaid()) return;
-    if (order.isShipped()) return;
-
-    dispatch(order);
-}`}
+                <code className="hljs language-java">
+                  <div className="code-line"><span className="hljs-comment">// Before</span></div>
+                  <div className="code-line"><span className="hljs-keyword">public</span> <span className="hljs-keyword">void</span> <span className="hljs-title function_">ship</span>(<span className="hljs-params">Order order</span>) &#123;</div>
+                  <div className="code-line">    <span className="hljs-keyword">if</span> (order != <span className="hljs-literal">null</span>) &#123;</div>
+                  <div className="code-line">        <span className="hljs-keyword">if</span> (order.isPaid()) &#123;</div>
+                  <div className="code-line">            <span className="hljs-keyword">if</span> (!order.isShipped()) &#123;</div>
+                  <div className="code-line">                dispatch(order);</div>
+                  <div className="code-line">            &#125;</div>
+                  <div className="code-line">        &#125;</div>
+                  <div className="code-line">    &#125;</div>
+                  <div className="code-line">&#125;</div>
+                  <div className="code-line"></div>
+                  <div className="code-line"><span className="hljs-comment">// After</span></div>
+                  <div className="code-line"><span className="hljs-keyword">public</span> <span className="hljs-keyword">void</span> <span className="hljs-title function_">ship</span>(<span className="hljs-params">Order order</span>) &#123;</div>
+                  <div className="code-line">    <span className="hljs-keyword">if</span> (order == <span className="hljs-literal">null</span>) <span className="hljs-keyword">return</span>;</div>
+                  <div className="code-line">    <span className="hljs-keyword">if</span> (!order.isPaid()) <span className="hljs-keyword">return</span>;</div>
+                  <div className="code-line">    <span className="hljs-keyword">if</span> (!order.isShipped()) <span className="hljs-keyword">return</span>;</div>
+                  <div className="code-line"></div>
+                  <div className="code-line">    dispatch(order);</div>
+                  <div className="code-line">&#125;</div>
                 </code>
               </pre>
             </div>
@@ -784,16 +637,7 @@ public void ship(Order order) {
 
             <div className="callout source">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>出典</span>
               </div>
               <p>
@@ -817,16 +661,7 @@ public void ship(Order order) {
           <section id="sec-5">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z" />
-                </svg>
+                <i className="ti ti-ruler-2" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 05</span>
@@ -867,19 +702,19 @@ public void ship(Order order) {
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>クラスの行数</strong></td>
+                    <td>クラスの行数</td>
                     <td>1クラスは100行を超えない</td>
                   </tr>
                   <tr>
-                    <td><strong>メソッドの行数</strong></td>
+                    <td>メソッドの行数</td>
                     <td>1メソッドは5行を超えない</td>
                   </tr>
                   <tr>
-                    <td><strong>引数の数</strong></td>
+                    <td>引数の数</td>
                     <td>メソッドの引数は4個まで</td>
                   </tr>
                   <tr>
-                    <td><strong>コントローラの責務</strong></td>
+                    <td>コントローラの責務</td>
                     <td>1つのコントローラアクションはインスタンス化するオブジェクトを1つまでにする</td>
                   </tr>
                 </tbody>
@@ -892,16 +727,7 @@ public void ship(Order order) {
 
             <div className="callout source">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>出典</span>
               </div>
               <p>
@@ -921,16 +747,7 @@ public void ship(Order order) {
           <section id="sec-6">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z" />
-                </svg>
+                <i className="ti ti-users" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 06</span>
@@ -950,7 +767,7 @@ public void ship(Order order) {
                 </thead>
                 <tbody>
                   <tr>
-                    <td><strong>Martin Fowler</strong></td>
+                    <td>Martin Fowler</td>
                     <td>『Refactoring』著者、リファクタリングカタログの体系化</td>
                     <td>コードスメルは「表面的な兆候」であり、深い問題を示唆するサインである</td>
                     <td>
@@ -964,7 +781,7 @@ public void ship(Order order) {
                     </td>
                   </tr>
                   <tr>
-                    <td><strong>Kent Beck</strong></td>
+                    <td>Kent Beck</td>
                     <td>XPの創始者、TDDの普及者、『Tidy First?』著者</td>
                     <td>大きなリファクタリングより、数分〜数時間で終わる小さな「整頓」を積み重ねる方が持続可能</td>
                     <td>
@@ -978,7 +795,7 @@ public void ship(Order order) {
                     </td>
                   </tr>
                   <tr>
-                    <td><strong>Robert C. Martin</strong></td>
+                    <td>Robert C. Martin</td>
                     <td>『Clean Code』『Clean Architecture』著者、SOLID原則の提唱者</td>
                     <td>「触れたコードは来たときより綺麗にして帰る」というボーイスカウト・ルールを提唱</td>
                     <td>
@@ -992,7 +809,7 @@ public void ship(Order order) {
                     </td>
                   </tr>
                   <tr>
-                    <td><strong>Sandi Metz</strong></td>
+                    <td>Sandi Metz</td>
                     <td>『Practical Object-Oriented Design in Ruby』著者</td>
                     <td>クラス100行・メソッド5行など、判断に迷ったときの具体的な数値基準を提供</td>
                     <td>
@@ -1006,7 +823,7 @@ public void ship(Order order) {
                     </td>
                   </tr>
                   <tr>
-                    <td><strong>Maximiliano Contieri</strong></td>
+                    <td>Maximiliano Contieri</td>
                     <td>『Clean Code Cookbook』著者、コードスメルシリーズを500本以上執筆</td>
                     <td>コードスメルは「意見」であり絶対的なルールではなく、文脈に応じた判断が必要</td>
                     <td>
@@ -1024,20 +841,11 @@ public void ship(Order order) {
             </div>
           </section>
 
-          {/* ============ 7. AI時代 ============ */}
+          {/* ============ 7. AI時代の新しい動向 ============ */}
           <section id="sec-7">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M19 9h-2V7a5 5 0 0 0-10 0v2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2zM9 7a3 3 0 0 1 6 0v2H9V7zm10 12H5v-8h14v8zM9 13a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 9 13zm6 0a1.5 1.5 0 1 0 1.5 1.5A1.5 1.5 0 0 0 15 13z" />
-                </svg>
+                <i className="ti ti-robot" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 07</span>
@@ -1055,16 +863,7 @@ public void ship(Order order) {
             </p>
             <div className="callout source">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>出典</span>
               </div>
               <p>
@@ -1085,16 +884,7 @@ public void ship(Order order) {
             </p>
             <div className="callout source">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>出典</span>
               </div>
               <p>
@@ -1115,16 +905,7 @@ public void ship(Order order) {
             </p>
             <div className="callout source">
               <div className="callout-title">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.75-2-2-2H4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8zm14 0c3 0 7-1 7-8V5c0-1.25-.75-2-2-2h-4c-1.25 0-2 .75-2 2v6c0 7 1 8 3 8z" />
-                </svg>
+                <i className="ti ti-quote" aria-hidden="true" />
                 <span>出典</span>
               </div>
               <p>
@@ -1140,24 +921,15 @@ public void ship(Order order) {
             </div>
           </section>
 
-          {/* ============ 8. チェックリスト ============ */}
+          {/* ============ 8. 保存版チェックリスト ============ */}
           <section id="sec-8">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-8.29 13.29a1 1 0 0 1-1.41 0L6.71 13.7a1 1 0 0 1 1.41-1.41L10 14.17l5.88-5.88a1 1 0 1 1 1.41 1.41z" />
-                </svg>
+                <i className="ti ti-checklist" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 08</span>
-                <h2>保存版チェックリスト</h2>
+                <h2>初学者のための「今日から使える」保存版チェックリスト</h2>
               </div>
             </div>
 
@@ -1174,19 +946,58 @@ public void ship(Order order) {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr><td><strong>命名</strong></td><td>変数・関数・クラス名が「何をするか」を説明しているか</td></tr>
-                  <tr><td><strong>関数の大きさ</strong></td><td>1つの関数が1つのことだけを行っているか</td></tr>
-                  <tr><td><strong>クラスの大きさ</strong></td><td>クラスが単一の責務に絞られているか（目安: 100行、メソッド5行）</td></tr>
-                  <tr><td><strong>重複</strong></td><td>同じロジックが複数箇所にコピーされていないか</td></tr>
-                  <tr><td><strong>条件分岐</strong></td><td>ネストが深すぎないか、ポリモーフィズムで置き換えられないか</td></tr>
-                  <tr><td><strong>Null</strong></td><td>Nullチェックが散在せず、Null Objectなどで代替できないか</td></tr>
-                  <tr><td><strong>例外</strong></td><td>例外を握りつぶしていないか、適切な粒度で扱っているか</td></tr>
-                  <tr><td><strong>テスト</strong></td><td>変更前にテストが存在するか、テストが実際の振る舞いを検証しているか</td></tr>
-                  <tr><td><strong>コメント</strong></td><td>コメントに頼らず、コード自体で意図が伝わるか</td></tr>
-                  <tr><td><strong>マジックナンバー・文字列</strong></td><td>意味のある定数や値オブジェクトに置き換えられているか</td></tr>
-                  <tr><td><strong>セキュリティ</strong></td><td>外部入力のサニタイズや検証が行われているか</td></tr>
-                  <tr><td><strong>AIコード</strong></td><td>AIが生成したコードの内容を自分で説明できるか、レビューを経ているか</td></tr>
-                  <tr><td><strong>コミット単位</strong></td><td>変更は小さく、整頓（振る舞いを変えない変更）と機能変更を分けたうえで、ボーイスカウト・ルールに基づきテストが通る単位でコミットされているか</td></tr>
+                  <tr>
+                    <td>命名</td>
+                    <td>変数・関数・クラス名が「何をするか」を説明しているか</td>
+                  </tr>
+                  <tr>
+                    <td>関数の大きさ</td>
+                    <td>1つの関数が1つのことだけを行っているか</td>
+                  </tr>
+                  <tr>
+                    <td>クラスの大きさ</td>
+                    <td>クラスが単一の責務に絞られているか（目安: 100行、メソッド5行）</td>
+                  </tr>
+                  <tr>
+                    <td>重複</td>
+                    <td>同じロジックが複数箇所にコピーされていないか</td>
+                  </tr>
+                  <tr>
+                    <td>条件分岐</td>
+                    <td>ネストが深すぎないか、ポリモーフィズムで置き換えられないか</td>
+                  </tr>
+                  <tr>
+                    <td>Null</td>
+                    <td>Nullチェックが散在せず、Null Objectなどで代替できないか</td>
+                  </tr>
+                  <tr>
+                    <td>例外</td>
+                    <td>例外を握りつぶしていないか、適切な粒度で扱っているか</td>
+                  </tr>
+                  <tr>
+                    <td>テスト</td>
+                    <td>変更前にテストが存在するか、テストが実際の振る舞いを検証しているか</td>
+                  </tr>
+                  <tr>
+                    <td>コメント</td>
+                    <td>コメントに頼らず、コード自体で意図が伝わるか</td>
+                  </tr>
+                  <tr>
+                    <td>マジックナンバー・文字列</td>
+                    <td>意味のある定数や値オブジェクトに置き換えられているか</td>
+                  </tr>
+                  <tr>
+                    <td>セキュリティ</td>
+                    <td>外部入力のサニタイズや検証が行われているか</td>
+                  </tr>
+                  <tr>
+                    <td>AIコード</td>
+                    <td>AIが生成したコードの内容を自分で説明できるか、レビューを経ているか</td>
+                  </tr>
+                  <tr>
+                    <td>コミット単位</td>
+                    <td>変更は小さく、整頓（振る舞いを変えない変更）と機能変更を分けたうえで、テストが通る単位でコミットされているか</td>
+                  </tr>
                 </tbody>
               </table>
             </div>
@@ -1196,16 +1007,7 @@ public void ship(Order order) {
           <section id="sec-9">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M14.4 6L14 4H5v17h2v-7h5.6l.4 2h7V6h-5.6z" />
-                </svg>
+                <i className="ti ti-flag" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 09</span>
@@ -1222,29 +1024,20 @@ public void ship(Order order) {
             </p>
           </section>
 
-          {/* ============ 10. 参考文献 ============ */}
+          {/* ============ 10. 参考文献・出典 ============ */}
           <section id="sec-10">
             <div className="section-head">
               <div className="section-icon">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="22"
-                  height="22"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  aria-hidden="true"
-                >
-                  <path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z" />
-                </svg>
+                <i className="ti ti-link" aria-hidden="true" />
               </div>
               <div>
                 <span className="section-num">SECTION 10</span>
-                <h2>参考文献・出典一覧</h2>
+                <h2>参考文献・一次情報リンク</h2>
               </div>
             </div>
 
             <div className="card ref-group">
-              <ol className="ref-list">
+              <ol className="ref-list" style={{ listStyle: 'none', padding: 0 }}>
                 <li>
                   <span className="ref-num">01</span>
                   <span>
@@ -1458,9 +1251,7 @@ public void ship(Order order) {
               </ol>
             </div>
 
-            <div className="footer">
-              本ガイドは2026年8月27日時点で参照可能な情報をもとに作成しています。
-            </div>
+            <div className="footer">本ガイドは2026年8月27日時点で参照可能な情報をもとに作成しています。</div>
           </section>
         </div>
       </main>

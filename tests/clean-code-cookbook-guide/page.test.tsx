@@ -113,7 +113,7 @@ describe('Clean Code Cookbook Guide Page - Comprehensive Test Suite', () => {
       { id: 'sec-7', num: 'SECTION 07', title: 'AI時代の新しいコードスメル（2025〜2026年の動向）' },
       { id: 'sec-8', num: 'SECTION 08', title: '保存版チェックリスト' },
       { id: 'sec-9', num: 'SECTION 09', title: 'まとめ' },
-      { id: 'sec-10', num: 'SECTION 10', title: '参考文献・出典一覧' },
+      { id: 'sec-10', num: 'SECTION 10', title: '参考文献・一次情報リンク' },
     ];
 
     it.each(expectedSections)(
@@ -210,7 +210,7 @@ describe('Clean Code Cookbook Guide Page - Comprehensive Test Suite', () => {
       const sec8Table = container.querySelector('#sec-8 table');
       expect(sec8Table?.textContent).toContain('命名');
       expect(sec8Table?.textContent).toContain('関数の大きさ');
-      expect(sec8Table?.textContent).toContain('ボーイスカウト・ルール');
+      expect(sec8Table?.textContent).toContain('コミット単位');
       expect(sec8Table?.querySelectorAll('tbody tr').length).toBe(13);
     });
   });

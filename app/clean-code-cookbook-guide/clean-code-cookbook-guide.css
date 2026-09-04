@@ -1,48 +1,67 @@
 /* ==========================================================================
    Clean Code Cookbook Guide Styles
    Scoped under .clean-code-cookbook-page
-   Dark Theme Adaptation for QA_Studies
+   Faithful recreation of the original warm editorial paper/book design
    ========================================================================== */
 
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+JP:wght@600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css');
+
 .clean-code-cookbook-page {
-  --paper: #0d1117;
-  --paper-2: #161b22;
-  --paper-3: #21262d;
-  --card: #161b22;
-  --ink: #e6edf3;
-  --ink-soft: #8b949e;
-  --ink-faint: #6e7681;
-
-  --indigo: #58a6ff;
-  --indigo-soft: rgba(56, 139, 253, 0.15);
-  --gold: #d29922;
-  --gold-soft: rgba(210, 153, 34, 0.15);
-  --forest: #3fb950;
-  --forest-soft: rgba(63, 185, 80, 0.15);
-  --plum: #bc8cff;
-  --plum-soft: rgba(188, 140, 255, 0.15);
-
-  --line: #30363d;
-  --line-subtle: #21262d;
-  --shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
-  --radius: 12px;
+  --paper: #f7f3ea;
+  --paper-2: #efe8d8;
+  --paper-3: #f2ecdf;
+  --card: #fffdf8;
+  --ink: #2a2420;
+  --ink-soft: #5b5248;
+  --ink-faint: #8a8072;
+  --indigo: #3d4f91;
+  --indigo-soft: #e8edfb;
+  --gold: #ad7f22;
+  --gold-soft: #f3e6c5;
+  --forest: #3f6b4a;
+  --forest-soft: #eaf3ec;
+  --plum: #7a3b56;
+  --plum-soft: #f4e7ee;
+  --line: #ddd2ba;
+  --shadow: 0 2px 10px rgba(42, 36, 32, 0.06);
+  --radius: 14px;
 
   display: block;
   min-height: 100vh;
   width: 100%;
   background: var(--paper);
   color: var(--ink);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
-    'Noto Sans JP', sans-serif;
+  font-family: 'Noto Sans JP', 'Source Serif 4', -apple-system, BlinkMacSystemFont, sans-serif;
   line-height: 1.85;
   font-size: 16px;
 }
 
-/* ---------- Reset globals.css interference ---------- */
+/* ---------- Typography ---------- */
+.clean-code-cookbook-page h1,
+.clean-code-cookbook-page h2,
+.clean-code-cookbook-page h3,
+.clean-code-cookbook-page h4 {
+  font-family: 'Noto Serif JP', 'Source Serif 4', 'Hiragino Mincho ProN', 'Yu Mincho', 'YuMincho', serif !important;
+  color: var(--ink);
+  line-height: 1.5;
+  letter-spacing: 0.01em;
+}
+
+.clean-code-cookbook-page a {
+  color: var(--indigo);
+  text-decoration-thickness: 1px;
+}
+
+.clean-code-cookbook-page a:hover {
+  color: var(--plum);
+}
+
+/* ---------- Reset & Scroll Anchor Margins ---------- */
 .clean-code-cookbook-page section {
   padding-top: 0;
   margin-bottom: 60px;
-  scroll-margin-top: 84px;
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 24px);
 }
 
 .clean-code-cookbook-page .hero {
@@ -60,7 +79,7 @@
   width: 300px;
   background: var(--paper-2);
   border-right: 1px solid var(--line);
-  padding: 24px 18px;
+  padding: 28px 20px;
   overflow-y: auto;
   z-index: 40;
 }
@@ -69,22 +88,27 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  font-family: 'Noto Serif JP', 'Source Serif 4', 'Hiragino Mincho ProN', serif !important;
   font-weight: 700;
   font-size: 1.05rem;
   color: var(--indigo);
   margin-bottom: 6px;
 }
 
+.clean-code-cookbook-page .sidebar .brand i,
 .clean-code-cookbook-page .sidebar .brand svg {
-  flex-shrink: 0;
+  font-size: 1.3rem;
+  width: 1.3em;
+  height: 1.3em;
   color: var(--indigo);
+  flex-shrink: 0;
 }
 
 .clean-code-cookbook-page .sidebar .brand-sub {
-  font-size: 0.85rem;
+  font-size: 1rem;
   color: var(--ink-soft);
-  margin-bottom: 22px;
-  padding-bottom: 16px;
+  margin-bottom: 26px;
+  padding-bottom: 20px;
   border-bottom: 1px solid var(--line);
   line-height: 1.5;
 }
@@ -96,25 +120,29 @@
 }
 
 .clean-code-cookbook-page .nav-list li {
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .clean-code-cookbook-page .nav-a {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 8px 12px;
-  border-radius: 8px;
+  padding: 9px 12px;
+  border-radius: 10px;
   color: var(--ink-soft);
   text-decoration: none;
-  font-size: 0.92rem;
+  font-size: 1rem;
   transition: background 0.15s ease, color 0.15s ease;
 }
 
+.clean-code-cookbook-page .nav-a i,
 .clean-code-cookbook-page .nav-a svg {
-  font-size: 1rem;
-  flex-shrink: 0;
+  font-size: 1.05rem;
+  width: 1.2em;
+  height: 1.2em;
+  text-align: center;
   color: var(--ink-faint);
+  flex-shrink: 0;
   transition: color 0.15s ease;
 }
 
@@ -123,6 +151,7 @@
   color: var(--ink);
 }
 
+.clean-code-cookbook-page .nav-a:hover i,
 .clean-code-cookbook-page .nav-a:hover svg {
   color: var(--ink);
 }
@@ -133,6 +162,7 @@
   font-weight: 600;
 }
 
+.clean-code-cookbook-page .nav-a.active i,
 .clean-code-cookbook-page .nav-a.active svg {
   color: var(--indigo);
 }
@@ -141,7 +171,7 @@
   margin-top: 24px;
   padding-top: 16px;
   border-top: 1px solid var(--line);
-  font-size: 0.82rem;
+  font-size: 1rem;
   color: var(--ink-faint);
 }
 
@@ -151,9 +181,9 @@
   top: calc(70px + var(--disclaimer-height, 0px));
   left: 14px;
   z-index: 45;
-  background: var(--paper-3);
-  color: var(--ink);
-  border: 1px solid var(--line);
+  background: var(--indigo);
+  color: #ffffff;
+  border: none;
   width: 42px;
   height: 42px;
   border-radius: 10px;
@@ -171,8 +201,9 @@
 /* ---------- Main content ---------- */
 .clean-code-cookbook-page .main {
   margin-left: 300px;
-  padding: 36px 48px 100px;
-  max-width: 1060px;
+  padding: 56px 48px 100px;
+  background: var(--paper);
+  min-height: 100vh;
 }
 
 .clean-code-cookbook-page .content {
@@ -181,10 +212,10 @@
 
 /* ---------- Hero ---------- */
 .clean-code-cookbook-page .hero {
-  background: linear-gradient(135deg, rgba(22, 27, 34, 0.9), rgba(33, 38, 45, 0.7));
+  background: linear-gradient(135deg, var(--card), var(--paper-3));
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 36px 36px 30px;
+  padding: 40px 40px 34px;
   margin-bottom: 44px;
   box-shadow: var(--shadow);
 }
@@ -193,30 +224,38 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  letter-spacing: 0.04em;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
   color: var(--indigo);
   background: var(--indigo-soft);
-  border: 1px solid rgba(88, 166, 255, 0.3);
-  padding: 4px 12px;
+  padding: 6px 14px;
   border-radius: 999px;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
+}
+
+.clean-code-cookbook-page .hero .eyebrow i,
+.clean-code-cookbook-page .hero .eyebrow svg {
+  font-size: 1.05rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--indigo);
+  flex-shrink: 0;
 }
 
 .clean-code-cookbook-page .hero h1 {
   font-size: 2rem;
   margin: 0 0 14px;
+  font-family: 'Noto Serif JP', 'Source Serif 4', 'Hiragino Mincho ProN', serif !important;
   color: var(--ink);
-  line-height: 1.35;
-  font-weight: 700;
+  line-height: 1.5;
 }
 
 .clean-code-cookbook-page .hero p.lead {
   color: var(--ink-soft);
   font-size: 1rem;
-  line-height: 1.75;
   margin: 0 0 20px;
+  line-height: 1.85;
 }
 
 .clean-code-cookbook-page .hero-meta {
@@ -229,16 +268,20 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  font-size: 0.84rem;
+  font-size: 1rem;
   color: var(--ink-soft);
   background: var(--paper);
   border: 1px solid var(--line);
-  padding: 5px 12px;
+  padding: 6px 12px;
   border-radius: 999px;
 }
 
+.clean-code-cookbook-page .chip i,
 .clean-code-cookbook-page .chip svg {
   color: var(--gold);
+  font-size: 1.05rem;
+  width: 1.05rem;
+  height: 1.05rem;
   flex-shrink: 0;
 }
 
@@ -248,35 +291,42 @@
   align-items: center;
   gap: 14px;
   margin-bottom: 22px;
-  border-bottom: 1px solid var(--line-subtle);
-  padding-bottom: 14px;
 }
 
 .clean-code-cookbook-page .section-icon {
   flex: 0 0 auto;
   width: 44px;
   height: 44px;
-  border-radius: 10px;
+  border-radius: 12px;
   background: var(--indigo-soft);
   color: var(--indigo);
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(88, 166, 255, 0.25);
+  font-size: 1.3rem;
+}
+
+.clean-code-cookbook-page .section-icon i,
+.clean-code-cookbook-page .section-icon svg {
+  font-size: 1.3rem;
+  width: 1.3em;
+  height: 1.3em;
+  color: var(--indigo);
+  flex-shrink: 0;
 }
 
 .clean-code-cookbook-page .section-head h2 {
-  font-size: 1.45rem;
+  font-size: 1.5rem;
   margin: 0;
+  font-family: 'Noto Serif JP', 'Source Serif 4', 'Hiragino Mincho ProN', serif !important;
   color: var(--ink);
-  font-weight: 700;
-  line-height: 1.3;
+  line-height: 1.5;
 }
 
 .clean-code-cookbook-page .section-num {
-  font-size: 0.8rem;
-  color: var(--indigo);
-  font-weight: 700;
+  font-size: 1rem;
+  color: var(--ink-faint);
+  font-weight: 600;
   letter-spacing: 0.08em;
   display: block;
   margin-bottom: 2px;
@@ -285,15 +335,14 @@
 .clean-code-cookbook-page h3 {
   font-size: 1.18rem;
   margin: 32px 0 12px;
-  color: var(--ink);
-  font-weight: 600;
+  font-family: 'Noto Serif JP', 'Source Serif 4', 'Hiragino Mincho ProN', serif !important;
 }
 
 .clean-code-cookbook-page h4 {
   font-size: 1.02rem;
   margin: 22px 0 10px;
   color: var(--indigo);
-  font-weight: 600;
+  font-family: 'Noto Serif JP', 'Source Serif 4', 'Hiragino Mincho ProN', serif !important;
 }
 
 .clean-code-cookbook-page p {
@@ -328,7 +377,7 @@
   background: var(--card);
   border: 1px solid var(--line);
   border-radius: var(--radius);
-  padding: 24px 26px;
+  padding: 26px 28px;
   margin: 20px 0;
   box-shadow: var(--shadow);
 }
@@ -346,22 +395,22 @@
 .clean-code-cookbook-page table {
   border-collapse: collapse;
   width: 100%;
-  font-size: 0.94rem;
+  font-size: 1rem;
 }
 
 .clean-code-cookbook-page thead th {
   text-align: left;
   background: var(--paper-3);
   color: var(--ink);
-  font-weight: 600;
+  font-weight: 700;
   padding: 12px 16px;
-  border-bottom: 1px solid var(--line);
+  border-bottom: 2px solid var(--line);
   white-space: nowrap;
 }
 
 .clean-code-cookbook-page tbody td {
   padding: 12px 16px;
-  border-bottom: 1px solid var(--line-subtle);
+  border-bottom: 1px solid var(--line);
   color: var(--ink-soft);
   vertical-align: top;
 }
@@ -371,7 +420,7 @@
 }
 
 .clean-code-cookbook-page tbody tr:hover {
-  background: rgba(255, 255, 255, 0.02);
+  background: var(--paper-3);
 }
 
 .clean-code-cookbook-page td strong,
@@ -382,10 +431,10 @@
 /* ---------- Callouts ---------- */
 .clean-code-cookbook-page .callout {
   border-radius: var(--radius);
-  padding: 16px 20px;
+  padding: 18px 22px;
   margin: 18px 0;
   border: 1px solid var(--line);
-  font-size: 0.94rem;
+  font-size: 1rem;
 }
 
 .clean-code-cookbook-page .callout-title {
@@ -394,32 +443,29 @@
   gap: 8px;
   font-weight: 700;
   margin-bottom: 6px;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
+.clean-code-cookbook-page .callout-title i,
 .clean-code-cookbook-page .callout-title svg {
+  font-size: 1.15rem;
+  width: 1.15em;
+  height: 1.15em;
   flex-shrink: 0;
 }
 
 .clean-code-cookbook-page .callout p {
   margin: 0;
   color: var(--ink-soft);
-  line-height: 1.65;
 }
 
 .clean-code-cookbook-page .callout a {
   word-break: break-all;
-  color: var(--indigo);
-  text-decoration: underline;
-}
-
-.clean-code-cookbook-page .callout a:hover {
-  color: #a5d6ff;
 }
 
 .clean-code-cookbook-page .callout.source {
   background: var(--indigo-soft);
-  border-color: rgba(88, 166, 255, 0.35);
+  border-color: #c7d2f2;
 }
 
 .clean-code-cookbook-page .callout.source .callout-title {
@@ -428,7 +474,7 @@
 
 .clean-code-cookbook-page .callout.note {
   background: var(--gold-soft);
-  border-color: rgba(210, 153, 34, 0.35);
+  border-color: #e6cf9a;
 }
 
 .clean-code-cookbook-page .callout.note .callout-title {
@@ -440,42 +486,62 @@
   margin: 18px 0;
   border-radius: var(--radius);
   overflow: hidden;
-  border: 1px solid var(--line);
-  background: #0d1117;
+  border: 1px solid #3a3530;
   box-shadow: var(--shadow);
+  background: #282c34;
 }
 
 .clean-code-cookbook-page .code-label {
-  background: #161b22;
-  color: #c9d1d9;
-  font-size: 0.85rem;
-  letter-spacing: 0.04em;
+  background: #26221d;
+  color: #d8cdb8;
+  font-size: 1rem;
+  letter-spacing: 0.06em;
   padding: 8px 16px;
+  font-family: 'Noto Sans JP', sans-serif;
   display: flex;
   align-items: center;
   gap: 8px;
-  border-bottom: 1px solid var(--line);
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
+.clean-code-cookbook-page .code-label i,
 .clean-code-cookbook-page .code-label svg {
-  color: var(--gold);
+  font-size: 1.05rem;
+  width: 1.05rem;
+  height: 1.05rem;
+  color: var(--gold-soft);
   flex-shrink: 0;
 }
 
 .clean-code-cookbook-page .code-block pre {
   margin: 0;
   overflow-x: auto;
-  padding: 16px 20px;
 }
 
 .clean-code-cookbook-page .code-block pre code {
   display: block;
-  font-size: 0.9rem;
+  padding: 20px 22px;
+  font-size: 1rem;
   line-height: 1.7;
-  font-family: 'JetBrains Mono', Consolas, 'Liberation Mono', Menlo, monospace;
-  color: #e6edf3;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  color: #abb2bf;
+  background: #282c34;
 }
+
+.clean-code-cookbook-page .code-line {
+  white-space: pre;
+}
+
+/* Atom One Dark Syntax Tokens */
+.clean-code-cookbook-page .hljs-comment { color: #5c6370; font-style: italic; }
+.clean-code-cookbook-page .hljs-keyword { color: #c678dd; }
+.clean-code-cookbook-page .hljs-title.function_,
+.clean-code-cookbook-page .hljs-function { color: #61afef; }
+.clean-code-cookbook-page .hljs-string { color: #98c379; }
+.clean-code-cookbook-page .hljs-number { color: #d19a66; }
+.clean-code-cookbook-page .hljs-literal { color: #56b6c2; }
+.clean-code-cookbook-page .hljs-params { color: #e06c75; }
+.clean-code-cookbook-page .hljs-built_in { color: #e5c07b; }
+.clean-code-cookbook-page .hljs-variable.constant_ { color: #d19a66; }
 
 /* ---------- Diagrams ---------- */
 .clean-code-cookbook-page .diagram-card {
@@ -488,10 +554,10 @@
 }
 
 .clean-code-cookbook-page .diagram-caption {
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--ink-faint);
   text-align: center;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
 .clean-code-cookbook-page .diagram-wrap {
@@ -508,6 +574,24 @@
   border: none !important;
   padding: 0 !important;
   box-shadow: none !important;
+}
+
+/* Mermaid SVG 内部のテキストフォントとカラーの確実な適用 */
+.clean-code-cookbook-page .mermaid-wrapper text {
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/* Mermaid 通常ノードを確実に元HTMLのクリーム背景＋ゴールド枠線＋インク文字色に保つ */
+.clean-code-cookbook-page .mermaid-wrapper svg .node:not(.hub):not(.done) rect,
+.clean-code-cookbook-page .mermaid-wrapper svg .node:not(.hub):not(.done) polygon,
+.clean-code-cookbook-page .mermaid-wrapper svg .node:not(.hub):not(.done) circle {
+  fill: #efe8d8 !important;
+  stroke: #ad7f22 !important;
+}
+.clean-code-cookbook-page .mermaid-wrapper svg .node:not(.hub):not(.done) .label,
+.clean-code-cookbook-page .mermaid-wrapper svg .node:not(.hub):not(.done) text {
+  color: #2a2420 !important;
+  fill: #2a2420 !important;
 }
 
 /* ---------- Stat cards ---------- */
@@ -528,14 +612,14 @@
 }
 
 .clean-code-cookbook-page .stat-card .num {
+  font-family: 'Noto Serif JP', 'Source Serif 4', 'Hiragino Mincho ProN', serif !important;
   font-size: 1.6rem;
   color: var(--indigo);
   font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
 }
 
 .clean-code-cookbook-page .stat-card .lbl {
-  font-size: 0.88rem;
+  font-size: 1rem;
   color: var(--ink-soft);
   margin-top: 4px;
 }
@@ -555,8 +639,8 @@
   display: flex;
   gap: 12px;
   padding: 12px 0;
-  border-bottom: 1px solid var(--line-subtle);
-  font-size: 0.94rem;
+  border-bottom: 1px solid var(--line);
+  font-size: 1rem;
 }
 
 .clean-code-cookbook-page .ref-list li:last-child {
@@ -567,22 +651,16 @@
   flex: 0 0 auto;
   color: var(--gold);
   font-weight: 700;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: 'Noto Serif JP', serif;
 }
 
 .clean-code-cookbook-page .ref-list a {
   word-break: break-all;
-  color: var(--indigo);
-  text-decoration: underline;
-}
-
-.clean-code-cookbook-page .ref-list a:hover {
-  color: #a5d6ff;
 }
 
 .clean-code-cookbook-page .ref-list .ref-src {
   color: var(--ink-faint);
-  font-size: 0.88rem;
+  font-size: 1rem;
   display: block;
   margin-top: 2px;
 }
@@ -590,7 +668,7 @@
 .clean-code-cookbook-page .footer {
   text-align: center;
   color: var(--ink-faint);
-  font-size: 0.88rem;
+  font-size: 1rem;
   padding: 30px 0 10px;
   border-top: 1px solid var(--line);
   margin-top: 40px;
@@ -600,8 +678,8 @@
 @media (max-width: 880px) {
   .clean-code-cookbook-page .sidebar {
     transform: translateX(-100%);
-    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6);
+    transition: transform 0.2s ease;
+    box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);
   }
 
   .clean-code-cookbook-page .sidebar.open {
@@ -615,21 +693,21 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.4);
     z-index: 39;
   }
 
   .clean-code-cookbook-page .main {
     margin-left: 0;
-    padding: 60px 20px 80px;
+    padding: 70px 20px 80px;
   }
 
   .clean-code-cookbook-page .nav-toggle {
-    display: flex;
+    display: block;
   }
 
   .clean-code-cookbook-page .hero {
-    padding: 24px 20px;
+    padding: 28px 22px;
   }
 
   .clean-code-cookbook-page .hero h1 {
