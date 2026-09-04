@@ -381,6 +381,24 @@
     margin: 0.6rem 0 1.5rem;
 }
 
+/* figure 化により figcaption が .mermaid-wrapper の内側へ入るため、
+   下マージンの二重付与を打ち消す */
+.testing-web-apis-page .mermaid-wrapper figcaption.fig-cap {
+    margin: 0.9rem 0 0;
+}
+
+/* テーブルのアクセシブル名（caption）を表ラベルとして視覚化する */
+.testing-web-apis-page table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-dimmer);
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+}
+
 /* ---------- Code Blocks ---------- */
 .testing-web-apis-page .code-block {
     margin: 0 0 1.75rem;
