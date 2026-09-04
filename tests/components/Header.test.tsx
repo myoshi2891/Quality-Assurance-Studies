@@ -59,7 +59,7 @@ describe('Header drawer panel', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('renders 7 category headings (excluding home) when opened', () => {
+  it('renders 8 category headings (excluding home) when opened', () => {
     const dialog = openDrawer();
     const headings = within(dialog).getAllByRole('heading', { level: 2 });
     expect(headings.map((h) => h.textContent)).toEqual([
@@ -70,6 +70,7 @@ describe('Header drawer panel', () => {
       'ISTQB Expert',
       'CI/CD & DevOps',
       'テストツール & フレームワーク',
+      'Recommended Books',
     ]);
   });
 
@@ -95,7 +96,7 @@ describe('Header drawer accordion', () => {
   it('renders each category as a collapsible details element', () => {
     openDrawer();
     const sections = document.querySelectorAll('details[data-category]');
-    expect(sections).toHaveLength(7);
+    expect(sections).toHaveLength(8);
   });
 
   it('collapses every category by default on the index route', () => {

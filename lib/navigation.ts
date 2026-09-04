@@ -100,6 +100,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/cucumber-beginner-guide', label: 'Cucumber 入門ガイド', description: 'Gherkin による実行可能仕様とステップ定義の書き方。', category: 'tools-frameworks' },
   { href: '/cypress-beginner-guide', label: 'Cypress 入門ガイド', description: 'ブラウザ内実行モデルを活かしたテスト作成とデバッグ。', category: 'tools-frameworks' },
   { href: '/selenium-beginner-guide', label: 'Selenium 完全ガイド', description: 'WebDriver の仕組み、待機戦略、Grid によるスケール実行。', category: 'tools-frameworks' },
+  { href: '/clean-code-cookbook-guide', label: 'Clean Code Cookbook 実践ガイド', description: 'コードスメルの発見・分類から8ステップの改善、Sandi Metzのルールまで。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
@@ -123,7 +124,7 @@ export const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
   'istqb-expert': 'ISTQB Expert',
   'cicd-devops': 'CI/CD & DevOps',
   'tools-frameworks': 'テストツール & フレームワーク',
-  'books-practices': '名著・実践ガイド',
+  'books-practices': 'Recommended Books',
 };
 
 /**
