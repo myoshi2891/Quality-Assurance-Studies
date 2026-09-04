@@ -1555,7 +1555,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Google Books（ユーザー提供リンク）
                     </a>
@@ -1567,7 +1567,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://us.artechhouse.com/A-Practitioners-Guide-to-Software-Test-Design-P756.aspx"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Artech House（出版社公式ページ）
                     </a>
@@ -1579,7 +1579,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://www.goodreads.com/en/book/show/1290169.A_Practitioner_s_Guide_to_Software_Test_Design"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Goodreads（書籍レビュー・目次情報）
                     </a>
@@ -1594,7 +1594,7 @@ export default function SoftwareTestDesignGuidePage() {
                 <h3><i className="ti ti-certificate" aria-hidden="true" /> 国際的な標準・認定団体</h3>
                 <ul className="ref-list">
                   <li>
-                    <a href="https://istqb.org/" target="_blank" rel="noopener">
+                    <a href="https://istqb.org/" target="_blank" rel="noopener noreferrer">
                       ISTQB（国際ソフトウェアテスト資格委員会）公式サイト
                     </a>
                     <span className="ref-url">https://istqb.org/</span>
@@ -1603,7 +1603,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       ISTQB Certified Tester Foundation Level Syllabus
                       v4.0.1（公式PDF, 2024年9月15日付）
@@ -1616,7 +1616,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://astqb.org/4-2-black-box-test-techniques/"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       ASTQB（米国ソフトウェアテスト資格委員会）4.2 Black-Box Test
                       Techniques 解説
@@ -1638,7 +1638,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://martinfowler.com/testing/"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Martin Fowler（ThoughtWorks チーフサイエンティスト）Testing
                       ガイド
@@ -1649,7 +1649,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://martinfowler.com/bliki/TestPyramid.html"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Martin Fowler, Test Pyramid
                     </a>
@@ -1661,7 +1661,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://martinfowler.com/bliki/ExploratoryTesting.html"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Martin Fowler, Exploratory Testing
                     </a>
@@ -1673,7 +1673,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://kaner.com/pdfs/ParadigmsTutorial.pdf"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Cem Kaner, Paradigms of Black Box Software
                       Testing（一次資料PDF）
@@ -1686,7 +1686,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://www.satisfice.com/rapid-software-testing-explored"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       James Bach, Rapid Software Testing Explored（Satisfice,
                       Inc.）
@@ -1699,7 +1699,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://rapid-software-testing.com/authors/"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       James Bach &amp; Michael Bolton, Rapid Software Testing
                       公式サイト
@@ -1712,7 +1712,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://www.ministryoftesting.com/articles/ab1cd85c"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Ministry of Testing, Test Heuristics Cheat Sheet（Elisabeth
                       Hendrickson 氏ほか）
@@ -1734,7 +1734,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://doi.org/10.6028/NIST.SP.800-142"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       D. Richard Kuhn, Raghu N. Kacker, Yu Lei, Practical
                       Combinatorial Testing — NIST Special Publication
@@ -1752,7 +1752,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       NIST, Combinatorial Methods for Trust and Assurance（ACTS
                       プロジェクト公式ページ）
@@ -1768,7 +1768,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://www.pairwise.org/"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Pairwise.org（ペアワイズテストの専門情報サイト）
                     </a>
@@ -1778,7 +1778,7 @@ export default function SoftwareTestDesignGuidePage() {
                     <a
                       href="https://en.wikipedia.org/wiki/All-pairs_testing"
                       target="_blank"
-                      rel="noopener"
+                      rel="noopener noreferrer"
                     >
                       Wikipedia, All-pairs testing
                     </a>

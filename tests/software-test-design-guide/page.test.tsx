@@ -296,7 +296,10 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
 
       externalLinks?.forEach((a) => {
         expect(a.getAttribute('target')).toBe('_blank');
-        expect(a.getAttribute('rel')).toContain('noopener');
+        // target="_blank" との契約: noopener と noreferrer の両方を必須とする
+        const rel = a.getAttribute('rel') ?? '';
+        expect(rel).toContain('noopener');
+        expect(rel).toContain('noreferrer');
       });
     });
   });
