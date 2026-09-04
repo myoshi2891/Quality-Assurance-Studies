@@ -44,9 +44,13 @@ npm test tests/<page-slug>/page.test.tsx
 npm run lint
 
 # 2. コミット予定差分の PII / ローカル絶対パス機械的走査【必須 Gate Condition】
-#    追加行に /Users/ や /home/ 等の絶対パスが出力された場合はコミットを中止し、相対パスへ修正する
-git diff --cached | grep -E '^\+[^+]' | grep -E '(/Users/|/home/|C:\\Users\\)' | grep -vE 'johndoe' \
-  && echo "PII detected — abort commit" || echo "PII check passed"
+#    検出時は終了コード 1 で失敗させ、コミットを中止して相対パスへ修正する
+#    （grep パターン自身が自己一致しないよう文字クラスで 1 文字を分割している）
+if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|C:\\Us[e]rs\\)'; then
+  echo "PII detected — abort commit" >&2
+  exit 1
+fi
+echo "PII check passed"
 
 # 3. 最新コミットハッシュの取得
 git rev-parse --short HEAD

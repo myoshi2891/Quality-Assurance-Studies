@@ -47,7 +47,16 @@ paths:
 
 - コードの重複削除、読みやすさの向上、リンターエラーの修正。
 - **重要（サンドボックス環境のビルド制約）**: Antigravityのサンドボックス環境においては、ビルドのバックグラウンド実行が正常にハンドリングされずローカルメモリを過度に圧迫しクラッシュを引き起こす問題があるため、AIエージェントは自律的・自動的に本番ビルドコマンド（`bun run build`、`npm run build` 等）を実行してはならない。検証はテストおよび `bun run lint`（または `npm run lint`）で行い、本番ビルドの確認はユーザーへ依頼すること。
-- **コミット前必須検証 (PII スキャン)**: `git diff --cached | grep -E "(/Users/|/home/|[A-Za-z]:\\\\Users\\\\)"` でローカル絶対パスが混入していないことを検証。
+- **コミット前必須検証 (PII スキャン)**: 以下を実行し、検出時は終了コード 1 で失敗させてコミットを中止する（grep パターン自身が自己一致しないよう文字クラスで 1 文字を分割している）。
+
+  ```bash
+  if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|C:\\Us[e]rs\\)'; then
+    echo "PII detected — abort commit" >&2
+    exit 1
+  fi
+  echo "PII check passed"
+  ```
+
 - **コミット**: `refactor(<scope>): <clean up or optimization>`
 
 ### ステップ 4: Docs Sync（進捗同期）
