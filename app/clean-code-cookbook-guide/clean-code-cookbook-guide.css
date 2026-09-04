@@ -768,6 +768,9 @@
 /* ---------- Responsive ---------- */
 @media (max-width: 880px) {
   .clean-code-cookbook-page .sidebar {
+    /* sticky のままだと非表示時も 300px の flex 幅を占有し main を圧迫するため fixed で流れから外す */
+    position: fixed;
+    left: 0;
     transform: translateX(-100%);
     transition: transform 0.2s ease;
     box-shadow: 4px 0 16px rgba(0, 0, 0, 0.15);

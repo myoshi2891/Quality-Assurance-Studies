@@ -37,12 +37,18 @@ export default function NavBar() {
     setIsOpen(false);
   }, []);
 
+  // CSS の @media (max-width: 880px) と対応。デスクトップ幅では inert を付けない
+  const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth > 880) {
+      const mobile = window.innerWidth <= 880;
+      setIsMobile(mobile);
+      if (!mobile) {
         setIsOpen(false);
       }
     };
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -69,10 +75,12 @@ export default function NavBar() {
         />
       )}
 
+      {/* inert: 画面外へ退避した閉状態のサイドバーがフォーカス・読み上げ対象に残るのを防ぐ */}
       <nav
         className={`sidebar ${isOpen ? 'open' : ''}`}
         id="sidebar"
         aria-label="Clean Code Cookbook 目次"
+        inert={isMobile && !isOpen}
       >
         <div className="brand">
           <i className="ti ti-book-2" aria-hidden="true" />

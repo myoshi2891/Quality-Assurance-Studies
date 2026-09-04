@@ -624,7 +624,7 @@ export default function CleanCodeCookbookGuidePage() {
                   <div className="code-line"><span className="hljs-keyword">public</span> <span className="hljs-keyword">void</span> <span className="hljs-title function_">ship</span>(<span className="hljs-params">Order order</span>) &#123;</div>
                   <div className="code-line">    <span className="hljs-keyword">if</span> (order == <span className="hljs-literal">null</span>) <span className="hljs-keyword">return</span>;</div>
                   <div className="code-line">    <span className="hljs-keyword">if</span> (!order.isPaid()) <span className="hljs-keyword">return</span>;</div>
-                  <div className="code-line">    <span className="hljs-keyword">if</span> (!order.isShipped()) <span className="hljs-keyword">return</span>;</div>
+                  <div className="code-line">    <span className="hljs-keyword">if</span> (order.isShipped()) <span className="hljs-keyword">return</span>;</div>
                   <div className="code-line"></div>
                   <div className="code-line">    dispatch(order);</div>
                   <div className="code-line">&#125;</div>
