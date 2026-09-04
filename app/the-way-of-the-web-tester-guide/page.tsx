@@ -139,6 +139,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h3>3層の役割</h3>
             <div className="table-wrap">
               <table>
+                <caption>3層の役割</caption>
                 <thead>
                   <tr>
                     <th>層</th>
@@ -219,6 +220,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h3>基本的なCSSセレクタ早見表</h3>
             <div className="table-wrap">
               <table>
+                <caption>CSSセレクタ早見表</caption>
                 <thead>
                   <tr>
                     <th>セレクタ</th>
@@ -323,6 +325,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h3>レガシーシステムでよくある落とし穴</h3>
             <div className="table-wrap">
               <table>
+                <caption>レガシーシステムの落とし穴</caption>
                 <thead>
                   <tr>
                     <th>落とし穴</th>
@@ -371,6 +374,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h3>HTTPの基本用語</h3>
             <div className="table-wrap">
               <table>
+                <caption>HTTP基本用語</caption>
                 <thead>
                   <tr>
                     <th>用語</th>
@@ -420,6 +424,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>HTTPメソッドのテスト観点</caption>
                 <thead>
                   <tr>
                     <th>メソッド</th>
@@ -506,6 +511,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h3>単体テストが優れている理由</h3>
             <div className="table-wrap">
               <table>
+                <caption>UIテストと単体テストの比較</caption>
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -583,6 +589,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h3>静的型付け vs 動的型付け（テスト設計への影響）</h3>
             <div className="table-wrap">
               <table>
+                <caption>静的型付けと動的型付けの比較</caption>
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -666,6 +673,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>テストコードのスタイル</caption>
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -749,6 +757,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h3>モックの功罪</h3>
             <div className="table-wrap">
               <table>
+                <caption>モックの功罪</caption>
                 <thead>
                   <tr>
                     <th>メリット</th>
@@ -846,6 +855,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h3>テストピラミッド と テスティングトロフィーの比較</h3>
             <div className="table-wrap">
               <table>
+                <caption>テストピラミッドとテスティングトロフィーの比較</caption>
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -903,6 +913,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>Playwrightのベストプラクティス</caption>
                 <thead>
                   <tr>
                     <th>プラクティス</th>
@@ -978,6 +989,7 @@ export default function TheWayOfTheWebTesterGuidePage() {
             <h2>16. ベストプラクティス総まとめチェックリスト</h2>
             <div className="table-wrap">
               <table>
+                <caption>ベストプラクティス総まとめチェックリスト</caption>
                 <thead>
                   <tr>
                     <th>#</th>

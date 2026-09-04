@@ -312,8 +312,17 @@ describe('The Way of the Web Tester Guide Page - Comprehensive Test Suite', () =
     it('renders all 6 callouts and all 12 tables throughout the page', () => {
       const { container } = render(<Page />);
 
+      // 総数だけでは配置ミス（同一セクションへの重複や欠落）を検出できないため、
+      // callout を持つべきセクションごとに存在を検証する
+      const calloutSectionIds = ['sec-2', 'sec-3', 'sec-6', 'sec-7', 'sec-14', 'sec-15'];
+      calloutSectionIds.forEach((id) => {
+        const section = container.querySelector(`section#${id}`);
+        expect(section).not.toBeNull();
+        expect(section?.querySelector('.callout')).not.toBeNull();
+      });
+
       const callouts = container.querySelectorAll('.callout');
-      expect(callouts.length).toBe(6);
+      expect(callouts.length).toBe(calloutSectionIds.length);
 
       const tables = container.querySelectorAll('.table-wrap table');
       expect(tables.length).toBe(12);
