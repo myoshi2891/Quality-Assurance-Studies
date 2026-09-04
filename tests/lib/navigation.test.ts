@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 52 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 4 tools-frameworks + 1 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(52);
+  it('contains 53 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 4 tools-frameworks + 2 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(53);
   });
 
   it('every item has a unique href', () => {
@@ -93,6 +93,12 @@ describe('NAV_ITEMS', () => {
 
   it('classifies /clean-code-cookbook-guide as books-practices', () => {
     const book = NAV_ITEMS.find((item: NavItem) => item.href === '/clean-code-cookbook-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
+  it('classifies /the-way-of-the-web-tester-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/the-way-of-the-web-tester-guide');
     expect(book).toBeDefined();
     expect(book?.category).toBe('books-practices');
   });
@@ -202,9 +208,9 @@ describe('groupByCategory', () => {
     expect(tools?.items).toHaveLength(4);
   });
 
-  it('places 1 item in the books-practices group', () => {
+  it('places 2 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(1);
+    expect(books?.items).toHaveLength(2);
     expect(books?.title).toBe('Recommended Books');
   });
 

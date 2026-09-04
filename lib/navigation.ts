@@ -101,6 +101,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/cypress-beginner-guide', label: 'Cypress 入門ガイド', description: 'ブラウザ内実行モデルを活かしたテスト作成とデバッグ。', category: 'tools-frameworks' },
   { href: '/selenium-beginner-guide', label: 'Selenium 完全ガイド', description: 'WebDriver の仕組み、待機戦略、Grid によるスケール実行。', category: 'tools-frameworks' },
   { href: '/clean-code-cookbook-guide', label: 'Clean Code Cookbook 実践ガイド', description: 'コードスメルの発見・分類から8ステップの改善、Sandi Metzのルールまで。', category: 'books-practices' },
+  { href: '/the-way-of-the-web-tester-guide', label: 'The Way of the Web Tester 実践ガイド', description: 'テストピラミッドの基礎からUI/API/単体テストの実践、テスティングトロフィーまで。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
