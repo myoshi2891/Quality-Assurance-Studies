@@ -40,26 +40,50 @@ Provide the complete, ordered workflow for converting a standalone HTML page (wi
 
 1. **タスク設計の段階（`task.md` の作成時）**:
    - `task.md` 内のタスクを「Red（テスト失敗とコミット）」「Green（実装とコミット）」「Refactor（リファクタ/ビルド/Linter修正とコミット）」「Docs Sync（進捗同期とコミット）」のコミット単位に明確に構造化してください。
-2. **実装前のテスト作成（Red）**:
-   - 移行先のコード（`page.tsx` や `NavBar.tsx` 等）を実装する前に、必ず失敗するユニットテストを作成してコミットしてください。
-3. **一括コミットの厳禁**:
-   - テスト、実装、カバレッジ更新、ドキュメント更新を一つのコミットにまとめず、フェーズごとに分割コミットを行ってください。
+2. **実装前のテスト作成（Red）**
+3. **厳格な網羅的テストスイート（Redフェーズ）の作成【抜け漏れ防止の絶対ルール】**:
+   - 移行漏れ（図解、表、コードブロック、コールアウト、参考文献等の欠落）を未然に防ぐため、`tests/<page-slug>/page.test.tsx` に以下の検証を**漏れなく網羅したテストスイート**を作成して失敗させます：
+     - **H1 & ヘッダー情報**: メインタイトル、サブタイトル、メタデータブロック
+     - **サイドバーTOCリンク**: 目次の全アンカーリンク数および `href="#secX"` の完全一致
+     - **全セクション・サブセクション**: H2/H3/H4 見出しの存在と順序
+     - **全 Mermaid 図解**: 全FIG番号（例: `FIG. 01`〜`FIG. 13`）および `<Mermaid chart={...} />` の存在
+     - **全テーブル**: 全テーブル要素数、各表の `<th>` ヘッダーおよび代表セルの存在
+     - **全コードブロック**: プログラミング言語構文および `.code-line` ラッパーの存在
+     - **全コールアウト・カード**: 警告、引用、比較カード、スタットカードの存在
+     - **全参考文献**: 全外部リンクの総数、URL、および `target="_blank"`, `rel="noopener noreferrer"` 属性の検証
+     - **ナビゲーション機能**: プログレスバー、モバイルトグル、トップ戻るボタン等の存在
+4. **一括コミットの厳禁**:
+   - テスト（Red）、実装（Green）、ナビ・アーカイブ（Navigation）、ドキュメント（Docs）を一つのコミットにまとめず、各フェーズで必ず分割コミットを行ってください。
 
-### Phase 1: Analysis — Audit the Source HTML
+### Phase 1: Analysis — Audit the Source HTML & Create Component Inventory
 
-Before writing any code, read the source HTML and extract:
+Before writing any code, read the source HTML thoroughly and create a **Component Inventory Checklist** to prevent any omissions:
 
-1. **CSS Custom Properties** — List all `:root` variables (colors, fonts, radii, shadows)
-2. **Unique Component Classes** — Classes not present in `app/globals.css` (page-specific UI)
-3. **Font Families** — Check if fonts match `layout.tsx` (Noto Sans JP, JetBrains Mono, DM Sans). `layout.tsx` assigns `--font-display` to DM Sans, `--font-body` to Noto Sans JP, `--font-mono` to JetBrains Mono. If the HTML uses different fonts (e.g., `Playfair Display`, `Plus Jakarta Sans`, `Sora`), note these as needing replacement with these project fonts
-4. **Animation Keyframes** — List all `@keyframes` names; rename camelCase to kebab-case
-5. **Sections / IDs** — Map the HTML structure to plan the page.tsx component tree
+1. **構成要素インベントリ（抜け漏れ防止の事前棚卸し）の作成【必須】**:
+   - **見出し・セクション数**: H1〜H4の構造、全セクション数・ID一覧
+   - **目次（TOC）リンク数**: サイドバー・ドロワーに含まれる全リンクのアンカー先
+   - **Mermaid図解数**: 全ダイアグラム（FIG番号、チャート種別 `flowchart`, `stateDiagram`, `sequenceDiagram` 等）
+   - **テーブル数**: 全表の名称・列構成・行数・セル内のインラインコードや強調要素
+   - **コードブロック数**: プログラミング言語、行数、ハイライト構文
+   - **コールアウト・カード数**: 警告、引用、スタットカード、比較グリッド
+   - **参考文献リンク数**: 全外部リンク（URL、タイトル、セキュリティ属性）
+   - **インタラクティブ要素**: チェックリスト、タブ、プログレスバー等
+   ※ このインベントリの全項目は、**Phase 1（Redフェーズ）のテストスイートで1対1のアサーションとして網羅**します。
 
-### Phase 2: CSS Variable Mapping
+2. **CSS Custom Properties** — List all `:root` variables (colors, fonts, radii, shadows)
+3. **Unique Component Classes** — Classes not present in `app/globals.css` (page-specific UI)
+4. **Font Families** — Check if fonts match `layout.tsx` or require external Google Fonts (`Source Serif 4`, `Noto Serif JP`, `Cinzel`, `Inter` 等). If specific editorial fonts are needed for paper themes, import them at the top of the page-specific CSS or via `layout.tsx`.
+5. **Animation Keyframes** — List all `@keyframes` names; rename camelCase to kebab-case
 
-Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NOT define HTML-local variables in the project.
+### Phase 2: CSS Variable & Theme Mapping
 
-#### Mapping Template (apply to each source HTML)
+#### テーマ設計の原則【最重要】
+
+- **書籍ガイド・独自エディトリアルデザインの忠実再現**: 書籍ガイド（Recommended Books）や固有のエディトリアル・ペーパーテーマ（温かみのある紙の背景 `#f5f6f2` / `#faf6ee`、インク色文字 `#181c1e` / `#241f1a`、セリフ書体等）を持つHTMLは、**原著HTMLのデザインを忠実に再現します**。無理にグローバルのダークテーマに統一してはなりません。
+- **globals.css 干渉の完全排除**: 独自テーマ（特にライト/ペーパーテーマ）を実装する場合、ページ固有クラス（例: `.secure-by-design-page`）でスコープを作成し、`globals.css` のダークテーマ用要素セレクタ（特に `td { color: #8ea3c3 }` など）が漏れ出さないよう、**Phase 3b に示すテーブル・文字色リセットを完全に適用してください**。
+- **標準ダークテーマページの場合**: 既存のダークテーマに統合する一般的な解説ページでは、HTMLのローカル変数を `globals.css` の `@theme` トークンへマッピングします。
+
+#### Mapping Template (標準ダークテーマ用)
 
 | HTML Variable | Project Token | Notes |
 | --- | --- | --- |
@@ -72,31 +96,6 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | Font display | `--font-display` | Resolved by next/font/google in layout.tsx |
 | Font body | `--font-body` | Resolved by next/font/google in layout.tsx |
 | Font mono | `--font-mono` | Resolved by next/font/google in layout.tsx |
-
-#### unit-testing-guide.html (Warm Editorial Theme) → Project Tokens
-
-| HTML Variable | Project Token | Notes |
-| --- | --- | --- |
-| `--cream` | `--color-bg-primary` | Light → dark theme conversion |
-| `--cream2` | `--color-bg-secondary` | |
-| `--cream3` | `--color-bg-card` | |
-| `--ink` | `--color-text-primary` | Inverted from dark-on-light |
-| `--ink2` / `--ink3` | `--color-text-secondary` | |
-| `--ink4` | `--color-text-muted` | |
-| `--green` / `--green2` | `--color-accent-green` | Unify variations |
-| `--green3` | N/A | Use `rgba(104, 211, 145, alpha)` |
-| `--amber` | `--color-accent-orange` | |
-| `--red` | `--color-accent-red` | |
-| `--blue` | `--color-accent-blue` | |
-| `--purple` | `--color-accent-purple` | |
-| `--border` | `--color-border` | |
-| `--border2` | `--color-border-bright` | |
-| `--r` | `--radius-DEFAULT` | 12px |
-| `--rs` | `--radius-sm` | 8px |
-| `--font-display` (`Playfair Display`) | `--font-display` (Sora) | Font replacement |
-| `--font-body` (`Plus Jakarta Sans`) | `--font-body` (Noto Sans JP) | Font replacement |
-
-**Critical**: The project uses a **unified dark theme**. Light-theme HTML pages must be re-themed to match the dark color system. Do not attempt to preserve the original light color scheme.
 
 ### Phase 3: Create Page-Specific CSS File
 
@@ -111,6 +110,9 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 
 | Issue | Wrong | Correct |
 | --- | --- | --- |
+| **テーブル文字色消失（薄水色グレー化）** | `td` に `color` 指定なし → `globals.css` の `td { color: var(--color-text-secondary); }`（`#8ea3c3`）が当たり文字が薄くなる | `.my-page tbody td, .my-page td { color: var(--ink) !important; font-size: 1rem !important; }` および `.my-page td * { color: var(--ink); }` でインク色を強制適用 |
+| **テーブルヘッダー・ホバー崩れ** | `th { white-space: nowrap }` や `tr:hover td` の青背景が干渉 | `.my-page thead th { background: var(--navy) !important; color: #eaf4fb !important; white-space: normal !important; }`、`.my-page tbody tr:hover td { background: #fafbf8 !important; }` でリセット |
+| **`strong` タグの白飛び** | `globals.css` の `td strong`, `.callout strong { color: var(--color-text-primary); }` が当たり白背景で文字が消える | `.my-page td strong { color: var(--navy) !important; }`, `.my-page strong, .my-page .callout strong { color: var(--navy-deep) !important; }` を明示指定 |
 | Invalid property | `scrollbar-: none;` | `scrollbar-width: none;` |
 | z-index duplication | `nav { z-index: 100; }` in CSS + `z-50` in JSX | Single source: Tailwind `z-50` in JSX only |
 | Responsive outside @media | `.box { grid-template-columns: 1fr; }` at root | Wrap in `@media (max-width: 768px) { ... }` |
@@ -127,55 +129,156 @@ Map every HTML CSS variable to the project's `globals.css` `@theme` token. Do NO
 | globals `main` 干渉 | `main { max-width: 1100px; margin: 0 auto; }` で幅が制限・中央寄せになる | `.page-layout .main { flex: 1 1 auto; max-width: none !important; width: 100% !important; margin: 0 !important; }` で画面いっぱいに広げる |
 | Mermaid 図の表示圧縮 | ページ固有 Flexbox と `globals.css` の `.mermaid-wrapper` (max-width) が競合し、図が極端に縮小される | ページ固有 CSS で `.mermaid-wrapper` の `max-width: 100% !important` 化と背景・ボーダーの透明化リセットを適用 |
 | Mermaid エッジラベルの黒潰れ/色崩れ | `Mermaid.tsx` のグローバルダークテーマ設定や SVG 内部構造（`foreignObject`, `rect`）と競合し、分岐テキスト（はい/いいえ）が黒四角に潰れる | ページ固有 CSS で `.mermaid-wrapper .edgeLabel`, `.edgeLabels rect`, `span`, `text` に `background-color: var(--card) !important; color: var(--ink) !important; fill: var(--ink) !important; stroke: none !important; font-weight: 700 !important; overflow: visible !important;` を指定し、無駄な背景色を排除して文字のみクリアに表示する |
-| リストの点（マーカー）消失 | Tailwind Preflight が `ul`, `ol` を `list-style: none` にリセットし、箇条書きの点（•）が消える | ページ固有 CSS で `.page-layout ul.plain` 等のリスト**コンテナ**に `list-style-type: disc !important;`（順序付きは `decimal !important;`）を指定して復元する。`display: list-item` は `ul`/`ol` に付けない（コンテナ自身がマーカーを持ってしまう）。`li` の `display` が別途上書きされマーカーが出ない場合に限り、その `li` へ `display: list-item` を指定する |
+| リストの点（マーカー）消失 | Tailwind Preflight が `ul`, `ol` を `list-style: none` にリセットし、箇条書きの点（•）が消える | ページ固有 CSS で `.page-layout ul.plain` 等のリスト**コンテナ**に `list-style-type: disc !important;`（順序付きは `decimal !important;`）を指定して復元する |
 | コードブロックCSSの欠落 | ページ固有 CSS に `.code-block` や `.code-line` 等の定義が抜けている | ページ固有 CSS に `.code-block`, `.code-line` および `.code-keyword` 等のシンタックスハイライト定義を追加してインデント・配色を適用する |
 | 機械翻訳調の誤記（of） | Mermaid 等の中に「成果物 of 誤り」「インタフェース of 検証」などの直訳表現が残る | 機械翻訳で発生しやすい「A of B」の直訳を「AのB」といった適切な日本語表現に修正する |
 
-### Phase 3b: 独自レイアウト（サイドバー付きドキュメントページ）の globals.css 干渉リセット
+### Phase 3b: 独自レイアウト & テーマの globals.css 干渉リセット【最重要】
 
-サイドバーナビ＋メインコンテンツの2カラムレイアウト（`display: flex` で独自スコープを持つページ）を実装する場合、`globals.css` の汎用セレクターが干渉し**大きな余白崩れ**を引き起こす。必ず以下をページ固有 CSS でリセットすること。
+サイドバーナビ＋メインコンテンツのレイアウトや、エディトリアル・ペーパーテーマ等の独自テーマを持つページを実装する場合、`globals.css` の汎用セレクター（レイアウト余白だけでなく、**テーブル・文字色・フォントサイズ**）が深刻な干渉を引き起こす。必ず以下をページ固有 CSS で完全にリセットすること。
 
-#### 干渉の仕組み
+#### 干渉の仕組み一覧
 
-| globals.css の定義 | 干渉の症状 |
-| --- | --- |
-| `body { padding-top: var(--disclaimer-height) }` | body 全体が disclaimer 分下にずれる（意図通り） |
-| `.layout-content { padding-top: 60px }` | layout-content がヘッダー分下にずれる（意図通り） |
-| `section { padding-top: 5rem }` | 全 `<section>` に 80px の上余白が付く → ヒーロー等がずれる |
-| `.hero { min-height: 100vh; display: flex; justify-content: center }` | ヒーローが全画面高さになりコンテンツが中央に押し下がる |
-| `main { max-width: 1100px; margin: 0 auto }` | `<main>` 要素の幅が 1100px に制限・中央寄せになる |
+| globals.css の定義 | 干渉の症状 | 必須リセット対策 |
+| --- | --- | --- |
+| `body { padding-top: var(--disclaimer-height) }` | body 全体が disclaimer 分下にずれる | 意図通りのためそのまま活用 |
+| `.layout-content { padding-top: 60px }` | layout-content がヘッダー分下にずれる | 意図通りのためそのまま活用（ラッパーに `margin-top: 60px` を付けない） |
+| `section { padding-top: 5rem }` | 全 `<section>` に 80px の上余白が付く → ヒーロー等がずれる | `.my-page-layout section { padding-top: 0; }` |
+| `.hero { min-height: 100vh; display: flex; }` | ヒーローが全画面高さになりコンテンツが押し下がる | `.my-page-layout .hero { min-height: 0; display: block; padding-top: 0; }` |
+| `main { max-width: 1100px; margin: 0 auto }` | `<main>` 要素の幅が 1100px に制限・中央寄せになる | `.my-page-layout .main { flex: 1 1 auto; max-width: none !important; width: 100% !important; margin: 0 !important; }` |
+| **`td { color: var(--color-text-secondary); }`** | **全テーブルの文字色が薄い青灰色（`#8ea3c3`）になり、白背景で視認性が崩壊する** | **`.my-page-layout tbody td, .my-page-layout td { color: var(--ink) !important; font-size: 1rem !important; }`** |
+| **`th { white-space: nowrap; color: var(--color-accent-blue); }`** | **表頭テキストが折り返されず横にはみ出る、青文字になる** | **`.my-page-layout thead th { background: var(--navy) !important; color: #eaf4fb !important; white-space: normal !important; }`** |
+| **`tr:hover td { background: rgba(99, 179, 237, 0.03); }`** | **テーブルホバー時に青灰色のオーバーレイが重なる** | **`.my-page-layout tbody tr:hover td { background: #fafbf8 !important; }`** |
+| **`td strong, .callout strong { color: var(--color-text-primary); }`** | **強調文字が薄い白水色（`#e8f0fe`）になり白背景で文字が消える** | **`.my-page-layout td strong { color: var(--navy) !important; font-weight: 700 !important; }`, `.my-page-layout strong { color: var(--navy-deep) !important; }`** |
 
-#### 必須リセット CSS テンプレート
+#### 必須リセット CSS テンプレート（レイアウト ＆ テーブル完全版）
 
 ```css
-/* layout-content が padding-top: 60px を持つため、ページ固有 wrapper に margin-top は不要 */
+/* 1. レイアウト余白のリセット */
 .my-page-layout {
     display: flex;
     min-height: 100vh;
     width: 100%;
-    /* margin-top: 60px は書かない */
 }
 
-/* globals.css の section { padding-top: 5rem } をリセット */
 .my-page-layout section {
     padding-top: 0;
 }
 
-/* globals.css の .hero { min-height: 100vh } をリセット */
 .my-page-layout .hero {
     min-height: 0;
     display: block;
     padding-top: 0;
-    /* ページ固有の余白はここに追加 */
 }
 
-/* globals.css の main { max-width: 1100px; margin: 0 auto } をリセット */
-.my-page-layout .main {
-    flex: 1;
+.my-page-layout .main,
+.my-page-layout .content {
+    flex: 1 1 auto;
     min-width: 0;
-    max-width: none;
-    margin: 0;
-    padding: 24px 20px;
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 48px 64px 100px;
+}
+
+/* 2. テーブル＆テキスト色の完全リセット（globals.css 侵食の完全遮断） */
+.my-page-layout table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card) !important;
+    color: var(--ink) !important;
+    font-size: 1rem !important;
+    font-family: var(--sans) !important;
+}
+
+.my-page-layout thead tr {
+    background: var(--navy) !important;
+    border-bottom: 1px solid var(--line) !important;
+}
+
+.my-page-layout thead th,
+.my-page-layout th {
+    background: var(--navy) !important;
+    color: #eaf4fb !important;
+    font-family: var(--mono) !important;
+    font-size: 1rem !important;
+    letter-spacing: 0.05em !important;
+    text-transform: uppercase !important;
+    font-weight: 500 !important;
+    padding: 11px 14px !important;
+    text-align: left !important;
+    border: none !important;
+    border-bottom: 1px solid var(--line) !important;
+    vertical-align: top !important;
+    white-space: normal !important;
+}
+
+.my-page-layout thead th * {
+    color: #eaf4fb !important;
+}
+
+.my-page-layout tbody td,
+.my-page-layout td {
+    padding: 11px 14px !important;
+    text-align: left !important;
+    border-bottom: 1px solid var(--line) !important;
+    vertical-align: top !important;
+    color: var(--ink) !important;
+    font-family: var(--sans) !important;
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+}
+
+.my-page-layout td *,
+.my-page-layout tbody td * {
+    color: var(--ink);
+}
+
+.my-page-layout tbody tr {
+    background: var(--card) !important;
+}
+
+.my-page-layout tbody tr:hover,
+.my-page-layout tbody tr:hover td,
+.my-page-layout tr:hover td {
+    background: #fafbf8 !important;
+}
+
+.my-page-layout tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.my-page-layout td strong,
+.my-page-layout tbody td strong {
+    color: var(--navy) !important;
+    font-weight: 700 !important;
+}
+
+.my-page-layout td em,
+.my-page-layout tbody td em {
+    color: var(--ink) !important;
+    font-style: italic !important;
+}
+
+.my-page-layout td code,
+.my-page-layout tbody td code {
+    font-family: var(--mono) !important;
+    background: #edeee8 !important;
+    border: 1px solid var(--line) !important;
+    padding: 1px 5px !important;
+    border-radius: 3px !important;
+    font-size: 0.95em !important;
+    color: var(--navy-deep) !important;
+}
+
+/* 3. 強調・コールアウトの白飛び防止 */
+.my-page-layout strong {
+    color: var(--navy-deep) !important;
+    font-weight: 700;
+}
+
+.my-page-layout .callout strong {
+    color: var(--navy-deep) !important;
 }
 ```
 
@@ -333,22 +436,31 @@ Also recalculate the overall coverage percentage (`--coverage` CSS variable and 
 
 ### Phase 6: Verification
 
-#### Build Verification
+#### Test & Lint Verification（サンドボックス環境必須ルール）
+
+> [!IMPORTANT]
+> **サンドボックス環境におけるビルド実行禁止ルール:**
+> Antigravityのサンドボックス環境においては、ビルドのバックグラウンド実行が正常にハンドリングされずローカルメモリを過度に圧迫しクラッシュを引き起こす問題が確認されています。
+> そのため、AIエージェントは**自律的・自動的に本番ビルドコマンド（`bun run build`、`npm run build` 等）を実行してはなりません**。
+> ローカルでの検証は、必ずテストおよびLinterで実施し、本番ビルドの検証が必要な場合はユーザーへ依頼してください。
 
 ```bash
-rm -rf .next && bun run build
+# 1. ページ固有テストの実行
+npm test tests/<page-slug>/page.test.tsx
+
+# 2. ナビゲーション整合性テストの実行
+npm test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
+
+# 3. Linter の実行
+npm run lint
 ```
-
-Common build failures:
-
-- Unclosed JSX tags
-- `class` not converted to `className` in JSX (keep `class` inside `dangerouslySetInnerHTML`)
-- Missing closing `/>` on void elements
-- Unescaped `{` or `}` in JSX text (use `{'{'}` or `{'}'}`)
 
 #### Visual Verification Checklist
 
 - [ ] Page renders without console errors
+- [ ] **テーブルの文字色が薄くならず、濃いインク色（`var(--ink)`）で明瞭に表示されているか**（`globals.css` の `td { color: #8ea3c3 }` が当たっていないか）
+- [ ] **テーブルヘッダー（`thead th`）、強調（`strong`）、インラインコード（`code`）、ホバー背景（`tr:hover td`）が正しくレンダリングされているか**
+- [ ] **構成要素インベントリの全図解・全表・全コード・全コールアウト・全参考文献に抜け漏れがないか**
 - [ ] All `<pre>` code blocks display as multi-line
 - [ ] Syntax highlighting colors render (`.kw`, `.str`, `.cm`, `.fn`, `.cls`, `.num`)
 - [ ] **`.code-block` 内の各行が正しく改行されている**（`{"\n"}` を使っている箇所がないか確認。あれば `<div className="code-line">` ラッパーに置換）
@@ -371,8 +483,12 @@ Common build failures:
 **ゲート条件**: 1ページの `git commit` 完了後、次 HTML を `Read` し始める前に必ず実施する。
 
 ```bash
-bun run build     # ビルド成功を確認
-bun run lint      # ESLint エラーなし
+# 1. テストとLinterの通過を確認（ビルドコマンドは実行しない）
+npm test tests/<page-slug>/page.test.tsx
+npm run lint
+
+# 2. コミット予定差分の PII / ローカル絶対パス機械的走査【必須 Gate Condition】
+git diff --cached | grep -E "(/Users/|/home/|[A-Za-z]:\\\\Users\\\\)" || echo "PII check passed"
 ```
 
 その後 `docs/MIGRATION_PROGRESS.md` の以下を更新してコミット:
@@ -380,7 +496,7 @@ bun run lint      # ESLint エラーなし
 | フィールド | 更新内容 |
 |---|---|
 | `最新 HEAD` | `git rev-parse --short HEAD` の実値 |
-| `次の作業` | 次セッションで最初に着手するページ（例: `istqb-ct-mbt-complete-guide.html 移行`） |
+| `次の作業` | 次セッションで最初に着手するページ |
 | `再開プロンプト` | 上記と整合した内容 |
 
 手順の詳細は `.claude/rules/migration-progress-sync.md` を参照。
@@ -409,6 +525,10 @@ Do NOT redefine these in page-specific CSS. Use them directly in TSX:
 
 ## Constraints
 
+- **Always reset table and text styling against globals.css interference** — `globals.css` の `td { color: var(--color-text-secondary); }`（`#8ea3c3`）等によるテーブル文字色の薄れや白飛びを防ぐため、必ずページ固有 CSS で `table`, `tbody td`, `thead th`, `td strong`, `td code`, `tbody tr:hover td` 等に `color: var(--ink) !important;` などの完全リセットを適用すること
+- **Always perform complete component inventory audit before coding** — 移行着手前に元HTMLの全構成要素（見出し、TOC、Mermaid全図解、全表、全コード、全コールアウト、全参考文献）のインベントリ表を作成し、Redフェーズのテストスイートで漏れなく網羅すること
+- **Never run production build autonomously in sandbox environment** — サンドボックス環境クラッシュ防止のため、AIエージェントは自律的・自動的に本番ビルド（`bun run build` / `npm run build`）を実行してはならない。検証は `npm test` と `npm run lint` で行い、ビルド確認はユーザーへ依頼すること
+- **Always scan cached diff for PII and local absolute paths before commit** — コミット前に必ず `git diff --cached` でローカル絶対パス（`/Users/` 等）の混入を機械的に走査・検証すること
 - **Never import external fonts via `<link>` tags** — Use `next/font/google` in `layout.tsx` only. If a new font is needed, add it to `layout.tsx` with a CSS variable
 - **Never define duplicate CSS variables** in page CSS that already exist in `globals.css @theme`
 - **Never use `@layer components`** for page-specific styles — plain CSS only for proper specificity

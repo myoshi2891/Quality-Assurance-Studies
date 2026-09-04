@@ -433,6 +433,16 @@ index は「ISTQB の認定レベルは並列のカテゴリではなく階梯�
 
 詳細は `.claude/skills/html-to-nextjs-migration/SKILL.md` の Phase 3b を参照。
 
+### テーブル文字色と globals.css 干渉リセット（CRITICAL GOTCHA）
+
+`globals.css` に定義された要素セレクタ（特に `td { color: var(--color-text-secondary); }`（`#8ea3c3`、薄い青灰色）、`th { white-space: nowrap; }`、`td strong { color: var(--color-text-primary); }`、`tr:hover td` 等）が、ページ固有のテーブルに干渉して文字色を薄くさせたりレイアウトを崩す重大な不具合が頻発します。
+ページ固有 CSS では必ず `.my-page-layout tbody td, .my-page-layout td` に対して `color: var(--ink) !important;` および `font-size: 1rem !important;` を指定し、`thead th`、`td strong`、`td code`、`tbody tr:hover td` などの完全リセットを適用してください。
+
+### 構成要素インベントリ作成と網羅的テストスイート（抜け漏れ防止の絶対ルール）
+
+移行着手前に元HTMLの全構成要素（H1〜H4見出し、全TOCリンク、全Mermaid図解、全テーブル、全コードブロック、全コールアウト・カード、全参考文献）を棚卸しする「構成要素インベントリ」を作成してください。
+Redフェーズのテストスイート（`tests/<page-slug>/page.test.tsx`）では、上記インベントリの全項目を1対1でアサーションとして網羅し、デザインや図解・表の抜け漏れを機械的にゼロにしてください。
+
 ### 開発・デバッグ用スクリプトの管理ルール
 
 一時的に作成する開発・調査用スクリプトと、永続的にリポジトリに残すスクリプトを厳密に区別して管理します。

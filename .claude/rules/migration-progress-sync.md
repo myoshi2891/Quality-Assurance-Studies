@@ -31,11 +31,19 @@ HTML → Next.js 移行セッションでは、**コンテキストが逼迫す�
 
 ## 手順
 
-### 1. ビルド確認
+### 1. テスト・Linter確認 & PII スキャン
+
+> [!IMPORTANT]
+> **サンドボックス環境におけるビルド実行禁止ルール:**
+> Antigravityのサンドボックス環境においては、ビルドのバックグラウンド実行が正常にハンドリングされずローカルメモリを過度に圧迫しクラッシュを引き起こす問題があるため、AIエージェントは**自律的・自動的に本番ビルドコマンド（`bun run build`、`npm run build` 等）を実行してはなりません**。
+> 検証はテスト（`bun test` または `npm test`）と Linter（`bun run lint` または `npm run lint`）で実施し、本番ビルドの成否確認はユーザーに依頼してください。
 
 ```bash
-bun run build   # ビルド成功を確認
-bun run lint    # ESLint エラーなし
+# 1. テストとLinterの検証
+npm test tests/<page-slug>/page.test.tsx
+npm run lint
+
+# 2. 最新コミットハッシュの取得
 git rev-parse --short HEAD
 ```
 

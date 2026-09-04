@@ -203,6 +203,16 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - **`prefers-reduced-motion` の罠**: 進捗バーなど `max-width: 0` から `100%` へアニメーションで伸ばす要素は、「視覚効果を減らす」環境下で `animation: none` となると幅 0 のまま消えてしまいます。必ず `@media (prefers-reduced-motion: reduce)` ブロック内で `max-width: 100% !important;` などを設定し、最終的な視認性を確保してください。
 - **ResizeObserver による無限ループ防止**: DisclaimerBanner などで要素の高さを監視し、CSS変数を介して他の要素に高さを伝える場合、監視対象の高さが微小に変化し続けることで無限レイアウト再計算ループが発生する危険があります。高さを更新する際は、前回保存した高さ（`lastHeight`）と現在の高さの差分が実際に異なる場合のみ更新するように、必ずガード処理を入れてください。
 
+### テーブル文字色と `globals.css` 干渉リセット（CRITICAL GOTCHA）
+
+- `globals.css` に定義された要素セレクタ（特に `td { color: var(--color-text-secondary); }`（`#8ea3c3`、薄い青灰色）、`th { white-space: nowrap; }`、`td strong { color: var(--color-text-primary); }`、`tr:hover td` 等）が、ページ固有のテーブルに干渉して文字色を薄くさせたりレイアウトを崩す重大な不具合が頻発します。
+- ページ固有 CSS では必ず `.my-page-layout tbody td, .my-page-layout td` に対して `color: var(--ink) !important;` および `font-size: 1rem !important;` を指定し、`thead th`、`td strong`、`td code`、`tbody tr:hover td` などの完全リセットを適用してください（詳細は `.claude/skills/html-to-nextjs-migration/SKILL.md` の Phase 3b 参照）。
+
+### 構成要素インベントリ作成と網羅的テストスイート（抜け漏れ防止の絶対ルール）
+
+- 移行着手前に元HTMLの全構成要素（H1〜H4見出し、全TOCリンク、全Mermaid図解、全テーブル、全コードブロック、全コールアウト・カード、全参考文献）を棚卸しする「構成要素インベントリ」を作成してください。
+- Redフェーズのテストスイート（`tests/<page-slug>/page.test.tsx`）では、上記インベントリの全項目を1対1でアサーションとして網羅し、デザインや図解・表の抜け漏れを機械的にゼロにしてください。
+
 ## 移行状況テーブル
 
 ### 移行完了（html-archive/ に移動済み）
