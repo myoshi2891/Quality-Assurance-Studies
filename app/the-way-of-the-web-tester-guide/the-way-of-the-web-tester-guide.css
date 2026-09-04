@@ -26,6 +26,8 @@
 /* globals.css 干渉リセット */
 .the-way-of-the-web-tester-page section {
     padding-top: 0;
+    /* #sec-* へのアンカー遷移時に固定ヘッダー(60px)＋ディスクレーマーの下へ隠れないようにする */
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
 }
 
 .the-way-of-the-web-tester-page .hero {

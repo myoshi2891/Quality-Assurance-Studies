@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/the-way-of-the-web-tester-guide/page';
@@ -9,16 +9,18 @@ afterEach(() => cleanup());
 
 let originalMermaidRender: typeof mermaid.render;
 let originalIntersectionObserver: typeof window.IntersectionObserver;
+let mermaidRenderMock: ReturnType<typeof mock>;
 
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
   originalIntersectionObserver = window.IntersectionObserver;
-  mermaid.render = mock(async () => {
+  mermaidRenderMock = mock(async () => {
     return {
       svg: '<svg data-testid="mock-mermaid"></svg>',
       diagramType: 'flowchart',
     };
-  }) as unknown as typeof mermaid.render;
+  });
+  mermaid.render = mermaidRenderMock as unknown as typeof mermaid.render;
 
   const mockIntersectionObserver = mock(() => {
     return {
@@ -255,11 +257,21 @@ describe('The Way of the Web Tester Guide Page - Comprehensive Test Suite', () =
   });
 
   describe('Mermaid Diagrams Integration', () => {
-    it('renders all 6 Mermaid diagrams across the guide', () => {
+    it('renders all 6 Mermaid diagrams across the guide', async () => {
+      // 先行テストの render で積み上がった呼び出し履歴を捨て、この render 分だけを数える
+      mermaidRenderMock.mockClear();
+
       const { container } = render(<Page />);
 
       const mermaidElements = container.querySelectorAll('.mermaid-wrapper');
       expect(mermaidElements.length).toBe(6);
+
+      // Mermaid は useEffect 内で非同期に描画される。ラッパー数だけを見ると
+      // 未描画・描画失敗・空 SVG でもテストが通ってしまうため、注入完了を待って実 SVG を数える。
+      await waitFor(() => {
+        expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(6);
+      });
+      expect(mermaidRenderMock).toHaveBeenCalledTimes(6);
 
       // sec-2 (Test Pyramid)
       expect(container.querySelector('#sec-2 .mermaid-wrapper')).not.toBeNull();
