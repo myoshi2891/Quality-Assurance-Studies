@@ -251,6 +251,33 @@ describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
       expect(jsCode?.textContent).toContain('http_req_duration:');
       expect(jsCode?.textContent).toContain('export default function ()');
     });
+
+    it('applies syntax highlighting classes and code-line elements in code blocks', () => {
+      const { container } = render(<Page />);
+
+      const codeBlocks = container.querySelectorAll('.code-block');
+      const pyCode = codeBlocks[0];
+      const jsCode = codeBlocks[1];
+
+      // Code line wrappers
+      const pyLines = pyCode.querySelectorAll('.code-line');
+      expect(pyLines.length).toBeGreaterThan(10);
+      const jsLines = jsCode.querySelectorAll('.code-line');
+      expect(jsLines.length).toBeGreaterThan(10);
+
+      // Syntax highlighting spans
+      const pyKeywords = pyCode.querySelectorAll('.hljs-keyword');
+      expect(pyKeywords.length).toBeGreaterThan(0);
+      const pyStrings = pyCode.querySelectorAll('.hljs-string');
+      expect(pyStrings.length).toBeGreaterThan(0);
+      const pyComments = pyCode.querySelectorAll('.hljs-comment');
+      expect(pyComments.length).toBeGreaterThan(0);
+
+      const jsKeywords = jsCode.querySelectorAll('.hljs-keyword');
+      expect(jsKeywords.length).toBeGreaterThan(0);
+      const jsStrings = jsCode.querySelectorAll('.hljs-string');
+      expect(jsStrings.length).toBeGreaterThan(0);
+    });
   });
 
   describe('Tables Integration', () => {
