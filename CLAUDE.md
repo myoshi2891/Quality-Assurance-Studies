@@ -219,13 +219,17 @@ Next.js App Router 構成:
 - `app/selenium-beginner-guide/selenium-beginner-guide.css` — Selenium 完全ガイド固有スタイル
 - `app/selenium-beginner-guide/page.tsx` — Selenium 完全ガイドページ
 - `app/selenium-beginner-guide/NavBar.tsx` — Selenium 完全ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `app/clean-code-cookbook-guide/clean-code-cookbook-guide.css` — Clean Code Cookbook 実践ガイド固有スタイル
+- `app/clean-code-cookbook-guide/page.tsx` — Clean Code Cookbook 実践ガイドページ
+- `app/clean-code-cookbook-guide/NavBar.tsx` — Clean Code Cookbook 実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
-- `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。cucumber / cypress / selenium の各 NavBar が共用する
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 51 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。cucumber / cypress / selenium / clean-code-cookbook の各 NavBar が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 52 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
-- `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり）
+- `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり: `books/` `cicd/` `tools/` 等）
+- `archive/md-archive/` — 移行済みの元 Markdown ファイルの保管場所（カテゴリ別サブディレクトリあり: `books/` `tools/` 等）
 
 ## 移行進行状況
 

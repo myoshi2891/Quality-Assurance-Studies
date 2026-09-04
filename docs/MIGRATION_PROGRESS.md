@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-09-03
+Updated 2026-09-04
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 51 ルート = ガイドライブラリ index + 50 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 52 ルート = ガイドライブラリ index + 51 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,9 +13,17 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `28cbc98` |
+| 最新 HEAD | `0640984` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（336 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `npm test`（363 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/04: Clean Code Cookbook 実践ガイドの Next.js 移行完了
+
+- `app/clean-code-cookbook-guide/`: ページコンポーネント（Mermaid 4図、全10セクション、シンタックスハイライト、全6テーブル、コールアウト2種、Sandi Metz スタットカード4枚、AI時代のコードスメル3トピック、全14項目の参考文献を含む完全移行）、スタイル（`.clean-code-cookbook-page` スコープ、ダークテーマ、sticky nav）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: 予約カテゴリ `books-practices` の表示タイトルを `'Recommended Books'` に設定し、`/clean-code-cookbook-guide`（Clean Code Cookbook 実践ガイド）を追加（全52件）。
+- `tests/clean-code-cookbook-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全10リンク、全10セクション、Mermaid 4図、全テーブル、全コードブロック、Sandi Metz スタットカード4枚、AI時代のコードスメル3トピック、全参考文献14件の存在を検証する厳格なテストスイートを実装して全パス（18 pass / 209 expect()）。
+- `Clean-code-cookbook-guide.html` & `Clean-code-cookbook-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts`、`tests/components/Header.test.tsx` など）を最新の 52 ページ体制に同期。
 
 ## 2026/09/01: ガイド index を ISTQB 認定レベルの階梯で再設計
 
