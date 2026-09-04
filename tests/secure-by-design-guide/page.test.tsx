@@ -159,9 +159,9 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
       const { container } = render(<Page />);
 
       const subsections = [
-        { id: 'sec5-1', title: '第1章：なぜ設計がセキュリティを左右するのか' },
+        { id: 'sec5-1', title: '第1章：セキュリティは「機能」ではなく「関心事」' },
         { id: 'sec5-2', title: '第2章（幕間）：アンチ・ハムレット' },
-        { id: 'sec6-1', title: '第3章：DDDの中心概念' },
+        { id: 'sec6-1', title: '第3章：ドメイン駆動設計（DDD）の中心概念' },
         { id: 'sec6-2', title: '第4章：セキュリティを促進するコード構造を支える3つの柱' },
         { id: 'sec6-3', title: '第5章：ドメイン・プリミティブ' },
         { id: 'sec6-4', title: '第6章・第7章：状態の整合性と複雑さの軽減' },
@@ -237,24 +237,25 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
       expect(t2?.textContent).toContain('Matt Raible');
       expect(t2?.textContent).toContain('Manning公式ページ');
 
-      // 3. 機能 vs 関心事の対比テーブル
+      // 3. CIA-T テーブル
       const t3 = tableWraps[2]?.querySelector('table');
-      expect(t3?.textContent).toContain('観点');
-      expect(t3?.textContent).toContain('機能として捉えた場合');
-      expect(t3?.textContent).toContain('関心事（設計）として捉えた場合');
-      expect(t3?.textContent).toContain('優先順位の競合');
+      expect(t3?.textContent).toContain('頭文字');
+      expect(t3?.textContent).toContain('Confidentiality');
+      expect(t3?.textContent).toContain('Integrity');
+      expect(t3?.textContent).toContain('Availability');
+      expect(t3?.textContent).toContain('Traceability');
 
-      // 4. バリデーション順序テーブル
+      // 4. ドメイン・プリミティブの観点テーブル
       const t4 = tableWraps[3]?.querySelector('table');
-      expect(t4?.textContent).toContain('検査の種類');
-      expect(t4?.textContent).toContain('① 出所チェック');
-      expect(t4?.textContent).toContain('⑤ 意味チェック');
+      expect(t4?.textContent).toContain('観点');
+      expect(t4?.textContent).toContain('通常の値オブジェクト');
+      expect(t4?.textContent).toContain('ドメイン・プリミティブ');
 
       // 5. ロードマップテーブル
       const t5 = tableWraps[4]?.querySelector('table');
-      expect(t5?.textContent).toContain('Step 1');
-      expect(t5?.textContent).toContain('Step 9');
-      expect(t5?.textContent).toContain('主な成果物');
+      expect(t5?.textContent).toContain('関心事として再定義');
+      expect(t5?.textContent).toContain('探索的セキュリティ活動の継続');
+      expect(t5?.textContent).toContain('目的');
     });
   });
 
@@ -277,13 +278,16 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
     it('renders caveat and quote callouts with icons', () => {
       const { container } = render(<Page />);
 
-      const caveat = container.querySelector('.callout.callout--caveat');
-      expect(caveat).not.toBeNull();
-      expect(caveat?.textContent).toContain('入力バリデーションは、文脈に応じた出力エンコーディングの代替にはなりません');
+      const caveats = container.querySelectorAll('.callout.callout--caveat');
+      expect(caveats.length).toBeGreaterThanOrEqual(3);
+      expect(caveats[0]?.textContent).toContain('ただし、良い設計はあくまでリスクを下げる手段であって');
+      expect(caveats[1]?.textContent).toContain('Goodreadsなどでは');
+      expect(caveats[2]?.textContent).toContain('入力バリデーションは、文脈に応じた出力エンコーディングの代替にはなりません');
 
-      const quote = container.querySelector('.callout.callout--quote');
-      expect(quote).not.toBeNull();
-      expect(quote?.textContent).toContain('Good design is the best form of security');
+      const quotes = container.querySelectorAll('.callout.callout--quote');
+      expect(quotes.length).toBeGreaterThanOrEqual(2);
+      expect(quotes[0]?.textContent).toContain('セキュリティは「機能（feature）」ではなく「関心事（concern）」である');
+      expect(quotes[quotes.length - 1]?.textContent).toContain('Good design is the best form of security');
     });
 
     it('renders limitation cards in card-grid', () => {
@@ -302,18 +306,18 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('References List & Footer', () => {
-    it('renders references list with 11 items and footer', () => {
+    it('renders references list with 22 items and footer', () => {
       const { container } = render(<Page />);
 
       const refList = container.querySelector('.ref-list');
       expect(refList).not.toBeNull();
 
       const items = refList?.querySelectorAll('li');
-      expect(items?.length).toBe(11);
+      expect(items?.length).toBe(22);
 
       const footer = container.querySelector('footer');
       expect(footer).not.toBeNull();
-      expect(footer?.textContent).toContain('Secure by Design');
+      expect(footer?.textContent).toContain('マイナビ出版');
     });
   });
 });
