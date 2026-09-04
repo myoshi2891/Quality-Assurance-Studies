@@ -494,34 +494,34 @@ ThoughtWorks のチーフサイエンティストである Martin Fowler は、�
 
 **書籍情報・原著**
 
-- Google Books（ユーザー提供リンク）: <a href="https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y" target="_blank" rel="noopener noreferrer">https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y</a>
-- Artech House（出版社公式ページ）: <https://us.artechhouse.com/A-Practitioners-Guide-to-Software-Test-Design-P756.aspx>
-- Goodreads（書籍レビュー・目次情報）: <https://www.goodreads.com/en/book/show/1290169.A_Practitioner_s_Guide_to_Software_Test_Design>
+- Google Books（ユーザー提供リンク）: <a href="https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&amp;redir_esc=y" target="_blank" rel="noopener noreferrer">https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y</a>
+- Artech House（出版社公式ページ）: <a href="https://us.artechhouse.com/A-Practitioners-Guide-to-Software-Test-Design-P756.aspx" target="_blank" rel="noopener noreferrer">https://us.artechhouse.com/A-Practitioners-Guide-to-Software-Test-Design-P756.aspx</a>
+- Goodreads（書籍レビュー・目次情報）: <a href="https://www.goodreads.com/en/book/show/1290169.A_Practitioner_s_Guide_to_Software_Test_Design" target="_blank" rel="noopener noreferrer">https://www.goodreads.com/en/book/show/1290169.A_Practitioner_s_Guide_to_Software_Test_Design</a>
 
 **国際的な標準・認定団体**
 
-- ISTQB（国際ソフトウェアテスト資格委員会）公式サイト: <https://istqb.org/>
-- ISTQB Certified Tester Foundation Level Syllabus v4.0.1（公式PDF, 2024年9月15日付）: <https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf>
-- ASTQB（米国ソフトウェアテスト資格委員会）4.2 Black-Box Test Techniques 解説: <https://astqb.org/4-2-black-box-test-techniques/>
+- ISTQB（国際ソフトウェアテスト資格委員会）公式サイト: <a href="https://istqb.org/" target="_blank" rel="noopener noreferrer">https://istqb.org/</a>
+- ISTQB Certified Tester Foundation Level Syllabus v4.0.1（公式PDF, 2024年9月15日付）: <a href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf" target="_blank" rel="noopener noreferrer">https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf</a>
+- ASTQB（米国ソフトウェアテスト資格委員会）4.2 Black-Box Test Techniques 解説: <a href="https://astqb.org/4-2-black-box-test-techniques/" target="_blank" rel="noopener noreferrer">https://astqb.org/4-2-black-box-test-techniques/</a>
 
 **著名な国際的テスト実務家・開発者による一次情報**
 
-- Martin Fowler（ThoughtWorks チーフサイエンティスト）Testing ガイド: <https://martinfowler.com/testing/>
-- Martin Fowler, Test Pyramid: <https://martinfowler.com/bliki/TestPyramid.html>
-- Martin Fowler, Exploratory Testing: <https://martinfowler.com/bliki/ExploratoryTesting.html>
-- Cem Kaner, Paradigms of Black Box Software Testing（一次資料PDF）: <https://kaner.com/pdfs/ParadigmsTutorial.pdf>
-- James Bach, Rapid Software Testing Explored（Satisfice, Inc.）: <https://www.satisfice.com/rapid-software-testing-explored>
-- James Bach & Michael Bolton, Rapid Software Testing 公式サイト: <https://rapid-software-testing.com/authors/>
-- Ministry of Testing, Test Heuristics Cheat Sheet（Elisabeth Hendrickson 氏ほか）: <https://www.ministryoftesting.com/articles/ab1cd85c>
+- Martin Fowler（ThoughtWorks チーフサイエンティスト）Testing ガイド: <a href="https://martinfowler.com/testing/" target="_blank" rel="noopener noreferrer">https://martinfowler.com/testing/</a>
+- Martin Fowler, Test Pyramid: <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/bliki/TestPyramid.html</a>
+- Martin Fowler, Exploratory Testing: <a href="https://martinfowler.com/bliki/ExploratoryTesting.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/bliki/ExploratoryTesting.html</a>
+- Cem Kaner, Paradigms of Black Box Software Testing（一次資料PDF）: <a href="https://kaner.com/pdfs/ParadigmsTutorial.pdf" target="_blank" rel="noopener noreferrer">https://kaner.com/pdfs/ParadigmsTutorial.pdf</a>
+- James Bach, Rapid Software Testing Explored（Satisfice, Inc.）: <a href="https://www.satisfice.com/rapid-software-testing-explored" target="_blank" rel="noopener noreferrer">https://www.satisfice.com/rapid-software-testing-explored</a>
+- James Bach & Michael Bolton, Rapid Software Testing 公式サイト: <a href="https://rapid-software-testing.com/authors/" target="_blank" rel="noopener noreferrer">https://rapid-software-testing.com/authors/</a>
+- Ministry of Testing, Test Heuristics Cheat Sheet（Elisabeth Hendrickson 氏ほか）: <a href="https://www.ministryoftesting.com/articles/ab1cd85c" target="_blank" rel="noopener noreferrer">https://www.ministryoftesting.com/articles/ab1cd85c</a>
 
 **ペアワイズ／組み合わせテストの参考情報**
 
-- D. Richard Kuhn, Raghu N. Kacker, Yu Lei, *Practical Combinatorial Testing*, NIST Special Publication 800-142（NIST, 2010年10月）: <https://doi.org/10.6028/NIST.SP.800-142>
+- D. Richard Kuhn, Raghu N. Kacker, Yu Lei, *Practical Combinatorial Testing*, NIST Special Publication 800-142（NIST, 2010年10月）: <a href="https://doi.org/10.6028/NIST.SP.800-142" target="_blank" rel="noopener noreferrer">https://doi.org/10.6028/NIST.SP.800-142</a>
   — 「欠陥の大部分は比較的少数のパラメータの相互作用によって生じる」という t-way 組み合わせテストの前提を示した一次資料。本ガイド 6.6 節のペアワイズの根拠。
-- NIST, Combinatorial Methods for Trust and Assurance（ACTS プロジェクト公式ページ）: <https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software>
+- NIST, Combinatorial Methods for Trust and Assurance（ACTS プロジェクト公式ページ）: <a href="https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software" target="_blank" rel="noopener noreferrer">https://csrc.nist.gov/projects/automated-combinatorial-testing-for-software</a>
   — 1999〜2004年の一連の NIST 調査に基づき「ソフトウェアのバグ・障害の大部分は1〜2個のパラメータに起因し、3個以上が関与するものは順次少なくなる」と述べている一次情報。
-- Pairwise.org（ペアワイズテストの専門情報サイト）: <https://www.pairwise.org/>
-- Wikipedia, All-pairs testing: <https://en.wikipedia.org/wiki/All-pairs_testing>
+- Pairwise.org（ペアワイズテストの専門情報サイト）: <a href="https://www.pairwise.org/" target="_blank" rel="noopener noreferrer">https://www.pairwise.org/</a>
+- Wikipedia, All-pairs testing: <a href="https://en.wikipedia.org/wiki/All-pairs_testing" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/All-pairs_testing</a>
 
 ---
 
