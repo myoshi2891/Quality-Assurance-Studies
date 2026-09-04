@@ -137,6 +137,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/cypress-beginner-guide/page.tsx` (Cypress 入門ガイド 〜初学者のためのステップバイステップ解説〜、`NavBar.tsx` 付き)
 - `app/selenium-beginner-guide/page.tsx` (Selenium 完全ガイド 〜初心者のためのステップバイステップ解説〜、`NavBar.tsx` 付き)
 - `app/clean-code-cookbook-guide/page.tsx` (Clean Code Cookbook 実践ガイド、`NavBar.tsx` 付き)
+- `app/the-way-of-the-web-tester-guide/page.tsx` (The Way of the Web Tester 実践ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
@@ -253,6 +254,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Cypress-beginner-guide.html` | `/cypress-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Selenium-beginner-guide.html` | `/selenium-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Clean-code-cookbook-guide.html` | `/clean-code-cookbook-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `The-way-of-the-web-tester-guide.html` | `/the-way-of-the-web-tester-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -271,7 +273,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 52 ルート（ガイドライブラリ index + 51 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 53 ルート（ガイドライブラリ index + 52 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
