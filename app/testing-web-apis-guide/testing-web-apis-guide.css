@@ -225,21 +225,22 @@
     margin: 0 0 1.15rem;
 }
 
-.testing-web-apis-page .prose ul,
-.testing-web-apis-page .prose ol {
+.testing-web-apis-page .prose ul:not(.ref-list),
+.testing-web-apis-page .prose ol:not(.ref-list) {
     margin: 0 0 1.25rem;
     padding-left: 1.4rem;
 }
 
-.testing-web-apis-page .prose ul {
+.testing-web-apis-page .prose ul:not(.ref-list) {
     list-style-type: disc !important;
 }
 
-.testing-web-apis-page .prose ol {
+.testing-web-apis-page .prose ol:not(.ref-list) {
     list-style-type: decimal !important;
 }
 
-.testing-web-apis-page .prose li {
+.testing-web-apis-page .prose ul:not(.ref-list) li,
+.testing-web-apis-page .prose ol:not(.ref-list) li {
     margin-bottom: 0.5rem;
     max-width: none;
     overflow-wrap: break-word;
@@ -541,19 +542,33 @@
     margin-bottom: 1.5rem;
 }
 
-.testing-web-apis-page .ref-list {
+.testing-web-apis-page .ref-list,
+.testing-web-apis-page ol.ref-list,
+.testing-web-apis-page .prose ol.ref-list {
     list-style: none !important;
+    list-style-type: none !important;
     padding: 0 !important;
     margin: 0;
     counter-reset: refnum;
 }
 
-.testing-web-apis-page .ref-list li {
+.testing-web-apis-page .ref-list li,
+.testing-web-apis-page ol.ref-list li,
+.testing-web-apis-page .prose ol.ref-list li {
+    list-style: none !important;
+    list-style-type: none !important;
     counter-increment: refnum;
     padding: 0.9rem 1rem 0.9rem 3.5rem;
     position: relative;
     border-bottom: 1px solid var(--border);
     margin-bottom: 0;
+}
+
+.testing-web-apis-page .ref-list li::marker,
+.testing-web-apis-page ol.ref-list li::marker,
+.testing-web-apis-page .prose ol.ref-list li::marker {
+    display: none !important;
+    content: "" !important;
 }
 
 .testing-web-apis-page .ref-list li:last-child {

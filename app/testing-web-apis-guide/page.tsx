@@ -1042,7 +1042,7 @@ export default function TestingWebApisGuidePage() {
                 本ガイドの作成にあたり、以下の情報源を参照しました（2026年8月28日時点で確認）。
               </p>
               <div className="ref-wrap">
-                <ol className="ref-list">
+                <ol className="ref-list" style={{ listStyle: 'none', padding: 0 }}>
                   <li>
                     <span className="ref-title">
                       Mark Winteringham, <em>Testing Web APIs</em>（Manning Publications、O&apos;Reillyで閲覧）
