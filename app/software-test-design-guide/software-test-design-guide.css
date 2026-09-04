@@ -312,51 +312,66 @@
 }
 
 .software-test-design-page table {
-    border-collapse: collapse;
-    width: 100%;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    border-collapse: collapse !important;
+    width: 100% !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    font-size: 1rem !important;
     color: var(--ink) !important;
-    background: transparent;
+    background: transparent !important;
 }
 
-.software-test-design-page thead th {
+.software-test-design-page thead th,
+.software-test-design-page th {
     background: var(--indigo-dark) !important;
-    color: #fff !important;
-    text-align: left;
-    padding: 0.7rem 0.9rem;
-    font-weight: 600;
-    white-space: nowrap;
-    border: none;
+    color: #ffffff !important;
+    text-align: left !important;
+    padding: 0.7rem 0.9rem !important;
+    font-weight: 600 !important;
+    white-space: nowrap !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    font-size: 1rem !important;
+    letter-spacing: normal !important;
+    border: none !important;
 }
 
-.software-test-design-page tbody td {
-    padding: 0.65rem 0.9rem;
-    border-bottom: 1px solid var(--line);
-    vertical-align: top;
+.software-test-design-page tbody td,
+.software-test-design-page td {
+    padding: 0.65rem 0.9rem !important;
+    border-bottom: 1px solid var(--line) !important;
+    vertical-align: top !important;
     color: var(--ink) !important;
-    line-height: 1.7;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    font-size: 1rem !important;
+    line-height: 1.7 !important;
+}
+
+.software-test-design-page td *,
+.software-test-design-page tbody td * {
+    color: var(--ink);
 }
 
 .software-test-design-page tbody tr {
-    background: transparent;
+    background: transparent !important;
 }
 
 .software-test-design-page tbody tr:nth-child(even) {
     background: var(--paper-2) !important;
 }
 
-.software-test-design-page tbody tr:hover td {
+.software-test-design-page tbody tr:hover td,
+.software-test-design-page tr:hover td {
     background: transparent !important;
 }
 
 .software-test-design-page tbody tr:last-child td {
-    border-bottom: none;
+    border-bottom: none !important;
 }
 
-.software-test-design-page td strong {
+.software-test-design-page td strong,
+.software-test-design-page tbody td strong,
+.software-test-design-page td b {
     color: var(--indigo-dark) !important;
-    font-weight: 700;
+    font-weight: 700 !important;
 }
 
 /* ---------- Callouts ---------- */
@@ -522,22 +537,42 @@
     overflow: visible !important;
     font-size: 15px !important;
     line-height: 1.5 !important;
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    color: #241f1a !important;
 }
 
 .software-test-design-page .mermaid-target text {
-    font-family: 'Inter', sans-serif !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    fill: #241f1a !important;
+    color: #241f1a !important;
+}
+
+/* 全ノードの共通テキスト色（ダークモードの #e8f0fe 継承を完全に遮断） */
+.software-test-design-page .mermaid-target svg .node text,
+.software-test-design-page .mermaid-target svg .node .label,
+.software-test-design-page .mermaid-target svg .node .nodeLabel,
+.software-test-design-page .mermaid-target svg .node foreignObject,
+.software-test-design-page .mermaid-target svg .node foreignObject div,
+.software-test-design-page .mermaid-target svg .node foreignObject span,
+.software-test-design-page .mermaid-target svg .node foreignObject p {
+    color: #241f1a !important;
+    fill: #241f1a !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
 }
 
 /* 通常ノード: クリーム/白背景＋インディゴ枠線＋インク文字色 */
 .software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) rect,
 .software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) polygon,
-.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) circle {
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) circle,
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) path {
     fill: #fffdf8 !important;
     stroke: #34408f !important;
+    stroke-width: 1.5px !important;
 }
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) text,
 .software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) .label,
-.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) text {
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) .nodeLabel,
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) foreignObject * {
     color: #241f1a !important;
     fill: #241f1a !important;
 }
@@ -545,12 +580,18 @@
 /* hubノード: ゴールドソフト背景＋ゴールド枠線＋インク文字色 */
 .software-test-design-page .mermaid-target svg .node.hub rect,
 .software-test-design-page .mermaid-target svg .node.hub polygon,
-.software-test-design-page .mermaid-target svg .node.hub circle {
+.software-test-design-page .mermaid-target svg .node.hub circle,
+.software-test-design-page .mermaid-target svg .node.hub path {
     fill: #f3e6c8 !important;
     stroke: #a9760f !important;
+    stroke-width: 1.5px !important;
 }
+.software-test-design-page .mermaid-target svg .node.hub text,
 .software-test-design-page .mermaid-target svg .node.hub .label,
-.software-test-design-page .mermaid-target svg .node.hub text {
+.software-test-design-page .mermaid-target svg .node.hub .nodeLabel,
+.software-test-design-page .mermaid-target svg .node.hub foreignObject,
+.software-test-design-page .mermaid-target svg .node.hub foreignObject div,
+.software-test-design-page .mermaid-target svg .node.hub foreignObject span {
     color: #241f1a !important;
     fill: #241f1a !important;
 }
@@ -558,12 +599,18 @@
 /* doneノード: フォレストソフト背景＋フォレスト枠線＋濃緑文字色 */
 .software-test-design-page .mermaid-target svg .node.done rect,
 .software-test-design-page .mermaid-target svg .node.done polygon,
-.software-test-design-page .mermaid-target svg .node.done circle {
+.software-test-design-page .mermaid-target svg .node.done circle,
+.software-test-design-page .mermaid-target svg .node.done path {
     fill: #e2efe3 !important;
     stroke: #2f6b42 !important;
+    stroke-width: 1.5px !important;
 }
+.software-test-design-page .mermaid-target svg .node.done text,
 .software-test-design-page .mermaid-target svg .node.done .label,
-.software-test-design-page .mermaid-target svg .node.done text {
+.software-test-design-page .mermaid-target svg .node.done .nodeLabel,
+.software-test-design-page .mermaid-target svg .node.done foreignObject,
+.software-test-design-page .mermaid-target svg .node.done foreignObject div,
+.software-test-design-page .mermaid-target svg .node.done foreignObject span {
     color: #16321f !important;
     fill: #16321f !important;
 }
@@ -573,7 +620,8 @@
     stroke: #5b5347 !important;
     stroke-width: 1.5px !important;
 }
-.software-test-design-page .mermaid-target .marker {
+.software-test-design-page .mermaid-target .marker,
+.software-test-design-page .mermaid-target marker path {
     fill: #5b5347 !important;
     stroke: #5b5347 !important;
 }
@@ -590,6 +638,7 @@
     fill: #241f1a !important;
     font-weight: 700 !important;
     font-size: 13px !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
     border-radius: 4px !important;
     padding: 2px 6px !important;
 }
@@ -605,8 +654,10 @@
 .software-test-design-page .mermaid-target .edgeLabel div {
     background-color: transparent !important;
     color: #241f1a !important;
+    fill: #241f1a !important;
     font-weight: 700 !important;
     font-size: 13px !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
     line-height: 1.4 !important;
 }
 .software-test-design-page .mermaid-target .edgeLabel text,
@@ -615,27 +666,68 @@
     color: #241f1a !important;
     font-weight: 700 !important;
     font-size: 13px !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
 }
 
 /* 状態遷移図（stateDiagram-v2）のサポート */
 .software-test-design-page .mermaid-target .statediagram-state rect,
-.software-test-design-page .mermaid-target .stateGroup rect {
+.software-test-design-page .mermaid-target .stateGroup rect,
+.software-test-design-page .mermaid-target .state-box {
     fill: #fffdf8 !important;
     stroke: #34408f !important;
+    stroke-width: 1.5px !important;
 }
 .software-test-design-page .mermaid-target .statediagram-state text,
-.software-test-design-page .mermaid-target .stateGroup text {
+.software-test-design-page .mermaid-target .stateGroup text,
+.software-test-design-page .mermaid-target .statediagram-state .label,
+.software-test-design-page .mermaid-target .stateGroup .label,
+.software-test-design-page .mermaid-target .statediagram-state foreignObject,
+.software-test-design-page .mermaid-target .statediagram-state foreignObject *,
+.software-test-design-page .mermaid-target .stateGroup foreignObject,
+.software-test-design-page .mermaid-target .stateGroup foreignObject * {
     fill: #241f1a !important;
     color: #241f1a !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    font-weight: 600 !important;
 }
 .software-test-design-page .mermaid-target .start-state,
 .software-test-design-page .mermaid-target .end-state,
-.software-test-design-page .mermaid-target .statediagram-state circle {
+.software-test-design-page .mermaid-target .statediagram-state circle,
+.software-test-design-page .mermaid-target .state-start,
+.software-test-design-page .mermaid-target .state-end {
     fill: #34408f !important;
     stroke: #34408f !important;
 }
-.software-test-design-page .mermaid-target .transition {
+.software-test-design-page .mermaid-target .transition,
+.software-test-design-page .mermaid-target .transition path {
     stroke: #5b5347 !important;
+    stroke-width: 1.5px !important;
+}
+.software-test-design-page .mermaid-target .transition rect,
+.software-test-design-page .mermaid-target .transition-label rect,
+.software-test-design-page .mermaid-target g.edgeLabel rect,
+.software-test-design-page .mermaid-target .state-transition rect {
+    fill: #f3e6c8 !important;
+    stroke: #d8ccbc !important;
+    stroke-width: 1px !important;
+    rx: 4px !important;
+    ry: 4px !important;
+    opacity: 1 !important;
+}
+.software-test-design-page .mermaid-target .transition text,
+.software-test-design-page .mermaid-target .transition .label,
+.software-test-design-page .mermaid-target .transition foreignObject *,
+.software-test-design-page .mermaid-target .transition-label,
+.software-test-design-page .mermaid-target .transition-label text,
+.software-test-design-page .mermaid-target g.edgeLabel text,
+.software-test-design-page .mermaid-target g.edgeLabel span,
+.software-test-design-page .mermaid-target .state-transition text {
+    fill: #241f1a !important;
+    color: #241f1a !important;
+    background-color: transparent !important;
+    font-family: 'Inter', -apple-system, sans-serif !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
 }
 
 .software-test-design-page .mermaid-loading {
