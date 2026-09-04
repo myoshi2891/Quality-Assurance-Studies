@@ -142,6 +142,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">『Clean Code Cookbook』の書誌情報</caption>
                 <thead>
                   <tr>
                     <th>項目</th>
@@ -315,6 +316,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">本ガイド独自の学習用カテゴリーと該当する章</caption>
                 <thead>
                   <tr>
                     <th>カテゴリー</th>
@@ -350,6 +352,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">原著 全25章の一覧（原題と内容の要点）</caption>
                 <thead>
                   <tr>
                     <th>章</th>
@@ -570,6 +573,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">条件分岐・Null・例外に関するスメルと対処パターン</caption>
                 <thead>
                   <tr>
                     <th>スメル</th>
@@ -696,6 +700,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">Sandi Metz の4つのルール</caption>
                 <thead>
                   <tr>
                     <th>ルール</th>
@@ -759,6 +764,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">世界的に著名な開発者のクリーンコードに関する視点</caption>
                 <thead>
                   <tr>
                     <th>開発者</th>
@@ -941,6 +947,7 @@ export default function CleanCodeCookbookGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption className="sr-only">コミット前・コードレビュー用チェックリスト</caption>
                 <thead>
                   <tr>
                     <th>観点</th>
