@@ -85,7 +85,7 @@
 /* ---------- Sidebar Navigation ---------- */
 .software-test-design-page .sidebar {
     position: fixed;
-    top: calc(60px + var(--disclaimer-height, 0px));
+    top: calc(60px + var(--disclaimer-height, 42px));
     left: 0;
     bottom: 0;
     width: var(--sidebar-w);
@@ -223,6 +223,7 @@
     padding: 3.25rem 4rem;
     border-bottom: 1px solid var(--line);
     max-width: none;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 50px) + 24px) !important;
 }
 
 .software-test-design-page .section:nth-child(even) {
@@ -307,6 +308,7 @@
     margin: 1.5rem 0;
     border: 1px solid var(--line);
     border-radius: 0.6rem;
+    background: var(--card);
 }
 
 .software-test-design-page table {
@@ -314,25 +316,38 @@
     width: 100%;
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
+    color: var(--ink) !important;
+    background: transparent;
 }
 
 .software-test-design-page thead th {
-    background: var(--indigo-dark);
-    color: #fff;
+    background: var(--indigo-dark) !important;
+    color: #fff !important;
     text-align: left;
     padding: 0.7rem 0.9rem;
     font-weight: 600;
     white-space: nowrap;
+    border: none;
 }
 
 .software-test-design-page tbody td {
     padding: 0.65rem 0.9rem;
     border-bottom: 1px solid var(--line);
     vertical-align: top;
+    color: var(--ink) !important;
+    line-height: 1.7;
+}
+
+.software-test-design-page tbody tr {
+    background: transparent;
 }
 
 .software-test-design-page tbody tr:nth-child(even) {
-    background: var(--paper-2);
+    background: var(--paper-2) !important;
+}
+
+.software-test-design-page tbody tr:hover td {
+    background: transparent !important;
 }
 
 .software-test-design-page tbody tr:last-child td {
@@ -340,7 +355,8 @@
 }
 
 .software-test-design-page td strong {
-    color: var(--indigo-dark);
+    color: var(--indigo-dark) !important;
+    font-weight: 700;
 }
 
 /* ---------- Callouts ---------- */
@@ -438,6 +454,7 @@
 
 /* ---------- Mermaid ---------- */
 .software-test-design-page .mermaid-wrapper {
+    display: block !important;
     margin: 1.75rem 0;
     width: 100%;
     max-width: 100% !important;
@@ -448,6 +465,7 @@
 }
 
 .software-test-design-page .diagram-caption {
+    display: block !important;
     font-family: 'Inter', sans-serif;
     font-size: 1rem;
     font-weight: 700;
@@ -455,16 +473,20 @@
     margin-bottom: 0.6rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
+    width: 100%;
 }
 
 .software-test-design-page .mermaid-target {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: 0.8rem;
-    padding: 1.5rem 1rem;
-    display: flex;
-    justify-content: safe center;
-    overflow-x: auto;
+    background: var(--card) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 0.8rem !important;
+    padding: 2rem 1rem !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    overflow-x: auto !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
 }
 
 /* 内側の Mermaid コンポーネントが生成する mermaid-wrapper のリセット */
