@@ -143,7 +143,7 @@ describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
       expect(sec2?.textContent).toContain('Kent C. Dodds');
 
       const sec3 = container.querySelector('#section-3');
-      expect(sec3?.textContent).toContain('リスクベースの準備');
+      expect(sec3?.textContent).toContain('テスト計画とリスクベース思考');
       expect(sec3?.textContent).toContain('品質特性');
 
       const sec4 = container.querySelector('#section-4');
