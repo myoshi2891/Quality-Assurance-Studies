@@ -297,14 +297,14 @@ describe('The Way of the Web Tester Guide Page - Comprehensive Test Suite', () =
   });
 
   describe('Callouts & Tables Count', () => {
-    it('renders all 5 callouts and all 8 tables throughout the page', () => {
+    it('renders all 6 callouts and all 12 tables throughout the page', () => {
       const { container } = render(<Page />);
 
       const callouts = container.querySelectorAll('.callout');
-      expect(callouts.length).toBe(5);
+      expect(callouts.length).toBe(6);
 
       const tables = container.querySelectorAll('.table-wrap table');
-      expect(tables.length).toBe(8);
+      expect(tables.length).toBe(12);
     });
   });
 });

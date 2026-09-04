@@ -1,0 +1,459 @@
+/* ==========================================================================
+   The Way of the Web Tester Guide - Page-Specific Styles
+   ========================================================================== */
+
+.the-way-of-the-web-tester-page {
+    --tw-bg: #07111e;
+    --tw-bg-alt: #0b1626;
+    --tw-text: #e6edf7;
+    --tw-text-dim: #9fb0cc;
+    --tw-accent: #7c9eff;
+    --tw-accent-soft: rgba(124, 158, 255, 0.12);
+    --tw-border: rgba(124, 158, 255, 0.16);
+    --tw-green: #4ade80;
+    --tw-red: #f87171;
+    --tw-radius: 8px;
+
+    background: var(--tw-bg);
+    color: var(--tw-text);
+    min-height: 100vh;
+    width: 100%;
+    display: block;
+    line-height: 1.85;
+    font-size: 16px;
+}
+
+/* globals.css 干渉リセット */
+.the-way-of-the-web-tester-page section {
+    padding-top: 0;
+}
+
+.the-way-of-the-web-tester-page .hero {
+    min-height: 0;
+    display: block;
+    padding-top: 0;
+    padding-bottom: 36px;
+    border-bottom: 1px solid var(--tw-border);
+    margin-bottom: 44px;
+    max-width: none;
+}
+
+.the-way-of-the-web-tester-page .main {
+    flex: 1 1 auto;
+    max-width: none !important;
+    width: auto !important;
+    margin: 0 !important;
+    margin-left: 280px !important;
+    padding: 56px 64px 100px;
+    background: transparent;
+}
+
+/* サイドバー（デスクトップ） */
+.the-way-of-the-web-tester-page .sidebar {
+    position: fixed;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    left: 0;
+    width: 280px;
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    overflow-y: auto;
+    background: var(--tw-bg-alt);
+    border-right: 1px solid var(--tw-border);
+    padding: 28px 20px 60px;
+    z-index: 40;
+}
+
+.the-way-of-the-web-tester-page .sidebar-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--tw-accent);
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.the-way-of-the-web-tester-page .sidebar-sub {
+    font-size: 0.75rem;
+    color: var(--tw-text-dim);
+    margin-bottom: 24px;
+}
+
+.the-way-of-the-web-tester-page nav.side-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.the-way-of-the-web-tester-page .nav-link {
+    color: var(--tw-text-dim);
+    text-decoration: none;
+    font-size: 0.86rem;
+    padding: 8px 10px;
+    border-radius: 6px;
+    transition: background 0.15s, color 0.15s;
+    border-left: 2px solid transparent;
+    display: block;
+}
+
+.the-way-of-the-web-tester-page .nav-link:hover {
+    background: var(--tw-accent-soft);
+    color: var(--tw-text);
+}
+
+.the-way-of-the-web-tester-page .nav-link.active {
+    background: var(--tw-accent-soft);
+    color: var(--tw-accent);
+    font-weight: 600;
+    border-left: 2px solid var(--tw-accent);
+}
+
+.the-way-of-the-web-tester-page .nav-toggle {
+    display: none;
+    position: fixed;
+    top: calc(74px + var(--disclaimer-height, 0px));
+    left: 14px;
+    z-index: 50;
+    background: var(--tw-bg-alt);
+    color: var(--tw-text);
+    border: 1px solid var(--tw-border);
+    border-radius: 6px;
+    width: 42px;
+    height: 42px;
+    font-size: 1.25rem;
+    cursor: pointer;
+}
+
+.the-way-of-the-web-tester-page .sidebar-backdrop {
+    display: none;
+}
+
+/* ヒーローセクション */
+.the-way-of-the-web-tester-page .eyebrow {
+    color: var(--tw-accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin: 0 0 14px;
+}
+
+.the-way-of-the-web-tester-page .hero h1 {
+    font-size: 2.3rem;
+    margin: 0 0 12px;
+    line-height: 1.35;
+    max-width: none;
+    background: linear-gradient(90deg, #7c9eff, #b7c9ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.the-way-of-the-web-tester-page .subtitle {
+    font-size: 1.1rem;
+    color: var(--tw-text-dim);
+    margin: 0 0 20px;
+}
+
+.the-way-of-the-web-tester-page .hero-note {
+    color: var(--tw-text-dim);
+    font-size: 0.95rem;
+    max-width: none;
+    margin: 0;
+}
+
+.the-way-of-the-web-tester-page .hero-note a {
+    color: var(--tw-accent);
+}
+
+.the-way-of-the-web-tester-page .stat-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.the-way-of-the-web-tester-page .stat-card {
+    background: var(--tw-bg-alt);
+    border: 1px solid var(--tw-border);
+    border-radius: var(--tw-radius);
+    padding: 14px 22px;
+    min-width: 110px;
+    text-align: center;
+}
+
+.the-way-of-the-web-tester-page .stat-num {
+    display: block;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--tw-accent);
+}
+
+.the-way-of-the-web-tester-page .stat-label {
+    display: block;
+    font-size: 0.76rem;
+    color: var(--tw-text-dim);
+    margin-top: 4px;
+}
+
+/* セクション & タイポグラフィ */
+.the-way-of-the-web-tester-page .section {
+    margin-bottom: 60px;
+    max-width: none;
+}
+
+.the-way-of-the-web-tester-page .section h2 {
+    font-size: 1.55rem;
+    color: var(--tw-text);
+    border-left: 4px solid var(--tw-accent);
+    padding-left: 14px;
+    margin: 0 0 22px;
+    line-height: 1.5;
+}
+
+.the-way-of-the-web-tester-page .section h3 {
+    font-size: 1.15rem;
+    color: var(--tw-accent);
+    margin: 30px 0 12px;
+}
+
+.the-way-of-the-web-tester-page .section h4 {
+    font-size: 1.02rem;
+    color: var(--tw-text);
+    margin: 24px 0 10px;
+}
+
+.the-way-of-the-web-tester-page .prose,
+.the-way-of-the-web-tester-page .prose p,
+.the-way-of-the-web-tester-page .prose li {
+    overflow-wrap: break-word;
+    max-width: none;
+}
+
+.the-way-of-the-web-tester-page p {
+    margin: 0 0 16px;
+    color: var(--tw-text);
+}
+
+/* Tailwind Preflight リセット対策: リストマーカーの復元 */
+.the-way-of-the-web-tester-page .prose ul:not(.ref-list) {
+    list-style-type: disc !important;
+    display: block !important;
+    padding-left: 1.5em !important;
+    margin: 0 0 16px !important;
+}
+
+.the-way-of-the-web-tester-page .prose ol {
+    list-style-type: decimal !important;
+    display: block !important;
+    padding-left: 1.5em !important;
+    margin: 0 0 16px !important;
+}
+
+.the-way-of-the-web-tester-page .prose ul:not(.ref-list) li,
+.the-way-of-the-web-tester-page .prose ol li {
+    display: list-item !important;
+    margin-bottom: 7px;
+}
+
+.the-way-of-the-web-tester-page strong {
+    color: #ffffff;
+}
+
+.the-way-of-the-web-tester-page em {
+    color: var(--tw-text-dim);
+}
+
+.the-way-of-the-web-tester-page code {
+    background: var(--tw-accent-soft);
+    color: #c9d6ff;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', 'SFMono-Regular', Consolas, Menlo, monospace;
+    font-size: 0.9em;
+}
+
+/* テーブルスタイル */
+.the-way-of-the-web-tester-page .table-wrap {
+    overflow-x: auto;
+    margin: 22px 0;
+    border: 1px solid var(--tw-border);
+    border-radius: var(--tw-radius);
+}
+
+.the-way-of-the-web-tester-page table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.92rem;
+    min-width: 520px;
+}
+
+.the-way-of-the-web-tester-page th,
+.the-way-of-the-web-tester-page td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--tw-border);
+    text-align: left;
+    vertical-align: top;
+}
+
+.the-way-of-the-web-tester-page thead th {
+    color: var(--tw-accent);
+    background: var(--tw-bg-alt);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.the-way-of-the-web-tester-page tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.the-way-of-the-web-tester-page tbody tr:hover {
+    background: rgba(124, 158, 255, 0.05);
+}
+
+/* コールアウト */
+.the-way-of-the-web-tester-page .callout {
+    border-left: 3px solid var(--tw-accent);
+    background: var(--tw-accent-soft);
+    padding: 16px 20px;
+    border-radius: 6px;
+    margin: 22px 0;
+}
+
+.the-way-of-the-web-tester-page .callout-label {
+    color: var(--tw-accent);
+    font-weight: 700;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin: 0 0 8px;
+}
+
+.the-way-of-the-web-tester-page .callout p {
+    margin: 0;
+    color: var(--tw-text);
+}
+
+.the-way-of-the-web-tester-page .callout p + p {
+    margin-top: 10px;
+}
+
+/* Mermaid 図解スタイル & リセット */
+.the-way-of-the-web-tester-page .mermaid-wrapper {
+    width: 100%;
+    max-width: 100% !important;
+    overflow-x: auto;
+    margin: 26px 0;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+}
+
+.the-way-of-the-web-tester-page .mermaid-wrapper svg {
+    max-width: 100% !important;
+    height: auto;
+    flex-shrink: 0;
+}
+
+.the-way-of-the-web-tester-page .mermaid-wrapper .edgeLabel,
+.the-way-of-the-web-tester-page .mermaid-wrapper .edgeLabels rect,
+.the-way-of-the-web-tester-page .mermaid-wrapper .edgeLabels span,
+.the-way-of-the-web-tester-page .mermaid-wrapper .edgeLabels text {
+    background-color: var(--tw-bg-alt) !important;
+    color: var(--tw-text) !important;
+    fill: var(--tw-text) !important;
+    stroke: none !important;
+    font-weight: 600 !important;
+    overflow: visible !important;
+}
+
+/* 参考文献リスト */
+.the-way-of-the-web-tester-page .ref-group {
+    margin-bottom: 30px;
+}
+
+.the-way-of-the-web-tester-page .ref-group h3 {
+    margin-top: 0;
+}
+
+.the-way-of-the-web-tester-page .ref-list {
+    list-style: none !important;
+    padding-left: 0 !important;
+    margin: 0 !important;
+}
+
+.the-way-of-the-web-tester-page .ref-list li {
+    padding: 12px 16px;
+    background: var(--tw-bg-alt);
+    border: 1px solid var(--tw-border);
+    border-radius: 6px;
+    margin-bottom: 10px;
+    display: block !important;
+}
+
+.the-way-of-the-web-tester-page .ref-list a {
+    color: var(--tw-accent);
+    text-decoration: none;
+    word-break: break-all;
+    font-weight: 600;
+}
+
+.the-way-of-the-web-tester-page .ref-list a:hover {
+    text-decoration: underline;
+}
+
+.the-way-of-the-web-tester-page .ref-desc {
+    display: block;
+    color: var(--tw-text-dim);
+    font-size: 0.85rem;
+    margin-top: 6px;
+}
+
+/* フッター */
+.the-way-of-the-web-tester-page .footer {
+    border-top: 1px solid var(--tw-border);
+    padding-top: 24px;
+    margin-top: 60px;
+    color: var(--tw-text-dim);
+    font-size: 0.85rem;
+    font-style: italic;
+    max-width: none;
+}
+
+/* レスポンシブ対応 (900px以下) */
+@media (max-width: 900px) {
+    .the-way-of-the-web-tester-page .sidebar {
+        transform: translateX(-100%);
+        transition: transform 0.2s ease;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+        z-index: 60;
+    }
+
+    .the-way-of-the-web-tester-page .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .the-way-of-the-web-tester-page .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 55;
+    }
+
+    .the-way-of-the-web-tester-page .main {
+        margin-left: 0 !important;
+        padding: 84px 20px 60px;
+    }
+
+    .the-way-of-the-web-tester-page .nav-toggle {
+        display: block;
+    }
+
+    .the-way-of-the-web-tester-page .hero h1 {
+        font-size: 1.7rem;
+    }
+
+    .the-way-of-the-web-tester-page table {
+        min-width: 460px;
+    }
+}
