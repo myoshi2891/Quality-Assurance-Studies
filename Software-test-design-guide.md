@@ -494,7 +494,7 @@ ThoughtWorks のチーフサイエンティストである Martin Fowler は、�
 
 **書籍情報・原著**
 
-- Google Books（ユーザー提供リンク）: <https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y>
+- Google Books（ユーザー提供リンク）: <a href="https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y" target="_blank" rel="noopener noreferrer">https://books.google.co.jp/books/about/A_Practitioner_s_Guide_to_Software_Test.html?id=dMX_C8z9PfMC&redir_esc=y</a>
 - Artech House（出版社公式ページ）: <https://us.artechhouse.com/A-Practitioners-Guide-to-Software-Test-Design-P756.aspx>
 - Goodreads（書籍レビュー・目次情報）: <https://www.goodreads.com/en/book/show/1290169.A_Practitioner_s_Guide_to_Software_Test_Design>
 

@@ -521,7 +521,7 @@ flowchart TB
 ## 18. 参考文献・出典URL一覧
 
 1. Cem Kaner, Jack L. Falk, Hung Quoc Nguyen, *Testing Computer Software* (Google Books書誌情報)
-   <https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y>
+   <a href="https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y" target="_blank" rel="noopener noreferrer">https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y</a>
 2. ISTQB(International Software Testing Qualifications Board)公式サイト
    <https://istqb.org/>
 3. ISTQB Certified Tester Foundation Level (CTFL) v4.0

@@ -1,6 +1,6 @@
 # 初学者のための実践ガイド：Agile Testing: A Practical Guide for Testers and Agile Teams
 
-> 本ガイドは、Lisa Crispin と Janet Gregory の共著書『**Agile Testing: A Practical Guide for Testers and Agile Teams**』（Addison-Wesley Professional, 2009年／O'Reilly版: <https://www.oreilly.com/library/view/agile-testing-a/9780321616944/>）の内容を、初めてアジャイルテストに触れる方向けにステップ・バイ・ステップで解説したものです。あわせて、著者らのその後の発信（ブログ・カンファレンス講演など）や、Martin Fowler・Elisabeth Hendrickson・Gojko Adzic といった著名な国際的開発者・テスト専門家の解説も参照し、2026年9月時点での「現在どう語られているか」も補足しています。
+> 本ガイドは、Lisa Crispin と Janet Gregory の共著書『**Agile Testing: A Practical Guide for Testers and Agile Teams**』（Addison-Wesley Professional, 2009年／O'Reilly版: <a href="https://www.oreilly.com/library/view/agile-testing-a/9780321616944/" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/agile-testing-a/9780321616944/</a>）の内容を、初めてアジャイルテストに触れる方向けにステップ・バイ・ステップで解説したものです。あわせて、著者らのその後の発信（ブログ・カンファレンス講演など）や、Martin Fowler・Elisabeth Hendrickson・Gojko Adzic といった著名な国際的開発者・テスト専門家の解説も参照し、2026年9月時点での「現在どう語られているか」も補足しています。
 
 ---
 

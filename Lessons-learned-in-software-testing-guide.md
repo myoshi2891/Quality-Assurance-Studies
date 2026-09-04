@@ -391,7 +391,7 @@ flowchart LR
 
 本ガイドの作成にあたり、2026年8月31日時点で参照した情報源は以下の通りです。
 
-- [Lessons Learned in Software Testing: A Context-Driven Approach（O'Reilly / Wiley 書籍ページ、目次全体を含む）](https://www.oreilly.com/library/view/lessons-learned-in/9780471081128/)
+- <a href="https://www.oreilly.com/library/view/lessons-learned-in/9780471081128/" target="_blank" rel="noopener noreferrer">Lessons Learned in Software Testing: A Context-Driven Approach（O'Reilly / Wiley 書籍ページ、目次全体を含む）</a>
 - [Lessons Learned in Software Testing（Wiley 公式出版社ページ）](https://www.wiley.com/en-us/Lessons+Learned+in+Software+Testing:+A+Context-Driven+Approach-p-9780471081128)
 - [Lessons Learned in Software Testing（Goodreads レビュー・概要ページ）](https://www.goodreads.com/book/show/26258294)
 - [Context-Driven Testing 公式サイト ー コンテキスト駆動学派の7原則](https://context-driven-testing.com/)

@@ -3,7 +3,7 @@
 *初学者のためのステップバイステップ・ベストプラクティス*
 
 > 参考書籍: Glenford J. Myers, Tom Badgett, Corey Sandler『The Art of Software Testing, 3rd Edition』
-> <https://www.oreilly.com/library/view/the-art-of/9781118133156/>
+> <a href="https://www.oreilly.com/library/view/the-art-of/9781118133156/" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/the-art-of/9781118133156/</a>
 
 ---
 
