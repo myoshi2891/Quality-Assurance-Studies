@@ -5,7 +5,7 @@ Updated 2026-09-04
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 54 ルート = ガイドライブラリ index + 53 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 55 ルート = ガイドライブラリ index + 54 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,9 +13,21 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `eca45e0` |
+| 最新 HEAD | `06c08b9` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/04: ソフトウェアテスト設計実践ガイドのNext.js移行完了
+
+- **デザイン忠実再現**: 原著HTML固有のエディトリアル・ペーパーデザイン（温かみのある紙の背景 `#faf6ee`, `#f2e9d8`、インク色文字 `#241f1a`、セリフ書体 `Source Serif 4`、サンセリフUI `Inter`）を忠実に復元。
+- **Mermaid図解の完全移植**: プロセス全体像、注文状態遷移、ユースケースフロー、ホワイトボックスカバレッジ包含関係、技法選択フローの全5図解を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止やレスポンシブ表示最適化を適用。
+- **コードブロック**: セクション13のJava短絡評価ORおよび非短絡ORの2コードブロックを完全移植。`.code-line` による静的整形および構文ハイライトを適用。
+- **テーブル & インタラクティブチェックリスト**: 書籍情報、CTFL v4.0.1対応表、テストケース構成要素、原著章構成、同値分割、境界値分析、デシジョンテーブル、ペアワイズ、カバレッジ、技法比較表、テストレベル対応表、アンチパターンの全12テーブル、およびセクション15のインタラクティブチェックリスト（進捗カウント、チェック状態連動、打消し線）を完全移植。
+- `app/software-test-design-guide/`: ページコンポーネント、専用スタイル（`.software-test-design-page` スコープ、globals.css干渉リセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全19セクションリンク、モバイルトグル対応、`aria-current`）、Checklistコンポーネントを実装。
+- `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/software-test-design-guide`（ソフトウェアテスト設計実践ガイド）を追加（全55件）。
+- `tests/software-test-design-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全19リンク、全19セクション、Mermaid 5図、コードブロック2点、全12テーブル、チェックリスト動作、全参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 251 expect()）。
+- `Software-test-design-guide.html` & `Software-test-design-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 55 ページ体制に同期。
 
 ## 2026/09/04: Web APIテスト実践ガイドのNext.js移行完了
 
@@ -542,6 +554,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Clean-code-cookbook-guide.html` | `/clean-code-cookbook-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `The-way-of-the-web-tester-guide.html` | `/the-way-of-the-web-tester-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Testing-web-apis-guide.html` | `/testing-web-apis-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Software-test-design-guide.html` | `/software-test-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -550,7 +563,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Secure-by-design-guide.md` / `Software-test-design-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
+| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Secure-by-design-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
 | 書籍ガイド系 HTML（`Leading-quality-guide.html` / `Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `Secure-by-design-guide.html` / `Software-testing-craftsmans-approach-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
 | ツール系ドキュメント（`Appium-essentials-guide.md` / `Appium-essentials-guide.html` / `Owasp-zap-beginner-guide.html` / `Playwright-intermediate-advanced-guide.html` / `Sonarqube.html` / `Sonarqube-intermediate.html`） | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
@@ -566,7 +579,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 53 ルート（ガイドライブラリ index + 52 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 55 ルート（ガイドライブラリ index + 54 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown と `Leading-quality-guide.html` などの HTML が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
