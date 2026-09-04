@@ -104,6 +104,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/the-way-of-the-web-tester-guide', label: 'The Way of the Web Tester 実践ガイド', description: 'テストピラミッドの基礎からUI/API/単体テストの実践、テスティングトロフィーまで。', category: 'books-practices' },
   { href: '/testing-web-apis-guide', label: 'Web APIテスト実践ガイド', description: 'Mark Winteringham『Testing Web APIs』に基づくリスクベースAPIテスト、契約・性能・セキュリティ実践。', category: 'books-practices' },
   { href: '/software-test-design-guide', label: 'ソフトウェアテスト設計実践ガイド', description: 'Lee Copeland『A Practitioner\'s Guide to Software Test Design』に基づくテスト設計技法体系。', category: 'books-practices' },
+  { href: '/secure-by-design-guide', label: 'セキュア・バイ・デザイン実践ガイド', description: 'ドメイン駆動設計（DDD）と型を活用し、脆弱性が原理的に生まれ得ない堅牢なコードを設計する。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
