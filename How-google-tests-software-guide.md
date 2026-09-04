@@ -3,7 +3,7 @@
 ## ― Googleのソフトウェアテスト文化を初学者向けにステップバイステップで解説 ―
 
 > 原書: *How Google Tests Software*（James A. Whittaker, Jason Arbon, Jeff Carollo 著、Addison-Wesley Professional、2012年3月刊）
-> 参考: [Google Books 紹介ページ](https://books.google.co.jp/books/about/How_Google_Tests_Software.html?id=vHlTOVTKHeUC&redir_esc=y)
+> 参考: <a href="https://books.google.co.jp/books/about/How_Google_Tests_Software.html?id=vHlTOVTKHeUC&redir_esc=y" target="_blank" rel="noopener noreferrer">Google Books 紹介ページ</a>
 
 ---
 
