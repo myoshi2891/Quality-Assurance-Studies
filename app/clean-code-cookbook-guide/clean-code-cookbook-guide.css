@@ -27,9 +27,10 @@
   --shadow: 0 2px 10px rgba(42, 36, 32, 0.06);
   --radius: 14px;
 
-  display: block;
+  display: flex;
   min-height: 100vh;
   width: 100%;
+  max-width: 100%;
   background: var(--paper);
   color: var(--ink);
   font-family: 'Noto Sans JP', 'Source Serif 4', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -72,11 +73,11 @@
 
 /* ---------- Sidebar ---------- */
 .clean-code-cookbook-page .sidebar {
-  position: fixed;
-  top: calc(60px + var(--disclaimer-height, 0px));
-  left: 0;
-  bottom: 0;
   width: 300px;
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
   background: var(--paper-2);
   border-right: 1px solid var(--line);
   padding: 28px 20px;
@@ -198,16 +199,20 @@
   display: none;
 }
 
-/* ---------- Main content ---------- */
+/* ---------- Main content (画面いっぱいに広げる) ---------- */
 .clean-code-cookbook-page .main {
-  margin-left: 300px;
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: none !important;
+  margin: 0 !important;
+  width: 100% !important;
   padding: 56px 48px 100px;
   background: var(--paper);
-  min-height: 100vh;
 }
 
 .clean-code-cookbook-page .content {
-  max-width: none;
+  max-width: none !important;
+  width: 100% !important;
 }
 
 /* ---------- Hero ---------- */
@@ -361,10 +366,20 @@
   margin: 0 0 16px;
 }
 
+/* Tailwind preflight が list-style:none にリセットするため disc/decimal を明示的に指定 */
+.clean-code-cookbook-page ul.plain {
+  list-style-type: disc !important;
+}
+
+.clean-code-cookbook-page ol.plain {
+  list-style-type: decimal !important;
+}
+
 .clean-code-cookbook-page ul.plain li,
 .clean-code-cookbook-page ol.plain li {
   margin-bottom: 8px;
   color: var(--ink-soft);
+  display: list-item !important;
 }
 
 .clean-code-cookbook-page ul.plain li strong,
@@ -576,6 +591,29 @@
   box-shadow: none !important;
 }
 
+.clean-code-cookbook-page .mermaid-wrapper svg {
+  display: block;
+  margin: 0 auto;
+  height: auto !important;
+  overflow: visible !important;
+  font-size: 1rem !important;
+}
+
+.clean-code-cookbook-page .mermaid-wrapper foreignObject {
+  overflow: visible !important;
+}
+
+/* edgeLabel（分岐テキスト）: foreignObject内のdivとspanで構成されるため visibility確保 */
+.clean-code-cookbook-page .mermaid-wrapper foreignObject > div,
+.clean-code-cookbook-page .mermaid-wrapper .nodeLabel,
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel,
+.clean-code-cookbook-page .mermaid-wrapper .label {
+  overflow: visible !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
 /* Mermaid SVG 内部のテキストフォントとカラーの確実な適用 */
 .clean-code-cookbook-page .mermaid-wrapper text {
   font-family: 'Noto Sans JP', sans-serif !important;
@@ -592,6 +630,59 @@
 .clean-code-cookbook-page .mermaid-wrapper svg .node:not(.hub):not(.done) text {
   color: #2a2420 !important;
   fill: #2a2420 !important;
+}
+
+/* Mermaid エッジラベル（分岐の文字「はい」「いいえ」等）の表示修正（ピンク背景を排除し文字のみクリアに表示） */
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabels,
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel,
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel * {
+  overflow: visible !important;
+}
+
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel {
+  background-color: var(--card, #fffdf8) !important;
+  color: #2a2420 !important;
+  fill: #2a2420 !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  border-radius: 4px !important;
+  padding: 2px 4px !important;
+}
+
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel rect,
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabels rect,
+.clean-code-cookbook-page .mermaid-wrapper .label-container {
+  fill: var(--card, #fffdf8) !important;
+  stroke: none !important;
+  opacity: 1 !important;
+}
+
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel span,
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel p,
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel div {
+  background-color: transparent !important;
+  color: #2a2420 !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  line-height: 1.4 !important;
+}
+
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel text,
+.clean-code-cookbook-page .mermaid-wrapper .edgeLabel tspan {
+  fill: #2a2420 !important;
+  color: #2a2420 !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+}
+
+.clean-code-cookbook-page .mermaid-wrapper .edgePaths path {
+  stroke: #5b5248 !important;
+  stroke-width: 1.5px !important;
+}
+
+.clean-code-cookbook-page .mermaid-wrapper .marker {
+  fill: #5b5248 !important;
+  stroke: #5b5248 !important;
 }
 
 /* ---------- Stat cards ---------- */
