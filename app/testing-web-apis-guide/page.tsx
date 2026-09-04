@@ -117,131 +117,6 @@ D -- "いいえ" --> F["合成監視(シンセティックモニタリング)で
 E --> F
 F --> C`;
 
-const PYTHON_CODE = `import os
-import uuid
-from urllib.parse import urljoin
-
-import pytest
-import requests
-
-# 環境（dev/staging/prod）ごとに切り替えられるよう環境変数から読み込む
-BASE_URL = os.environ["API_BASE_URL"]
-
-# (接続タイムアウト, 読み取りタイムアウト)。前者は接続確立まで、後者はデータを
-# 受信する間隔の上限であり、リクエスト全体の所要時間の上限ではない。
-# 「通信が途絶えたまま待ち続ける」ことは防げるが、全体の期限が必要なら別途管理する
-TIMEOUT = (3.05, 10)
-
-
-def _resolve_user_url(created: requests.Response, email: str) -> str:
-    """作成済みユーザーの操作先URLを決める。
-
-    レスポンスボディの id を第一候補としつつ、ボディが不正・id が欠落していても
-    作成済みユーザーを追跡できるよう、Location ヘッダーと一意なメールアドレスでの
-    検索へ順にフォールバックする。
-    """
-    try:
-        user_id = created.json()["id"]
-    except (ValueError, KeyError, TypeError):
-        # ボディがJSONでない／id が無い／構造が想定と違う場合はフォールバックへ回す
-        user_id = None
-    if user_id is not None:
-        return f"{BASE_URL}/users/{user_id}"
-
-    # フォールバック1: 201 とともに返る Location ヘッダー（相対URLのこともある）
-    location = created.headers.get("Location")
-    if location:
-        return urljoin(f"{BASE_URL}/", location)
-
-    # フォールバック2: テストごとに一意にしたメールアドレスで検索して特定する
-    found = requests.get(f"{BASE_URL}/users", params={"email": email}, timeout=TIMEOUT)
-    if found.status_code == 200:
-        for user in found.json().get("items", []):
-            if user.get("email") == email and "id" in user:
-                return f"{BASE_URL}/users/{user['id']}"
-
-    raise AssertionError(
-        f"作成したユーザーを特定できず後片付けができません: email={email} "
-        f"(id・Location・検索のいずれからもURLを解決できませんでした)"
-    )
-
-
-@pytest.fixture
-def created_user_url():
-    """テスト用ユーザーを作成し、そのURLを渡して、最後に必ず削除する。
-
-    識別子の解決と後片付けの登録を同じ try/finally の中で行うことで、
-    「作成には成功したが id を取り出せなかった」場合でもデータを残さない。
-    """
-    # 検索フォールバックが効くよう、メールアドレスはテストごとに一意にする
-    email = f"taro+{uuid.uuid4().hex}@example.com"
-    created = requests.post(
-        f"{BASE_URL}/users",
-        json={"name": "Taro", "email": email},
-        timeout=TIMEOUT,
-    )
-    assert created.status_code == 201
-
-    # ここから先で何が起きても、作成済みユーザーは必ず削除する
-    user_url = None
-    try:
-        user_url = _resolve_user_url(created, email)
-        yield user_url
-    finally:
-        # URLを解決できなかった場合（= 削除の手掛かりが無い場合）だけ削除を飛ばす
-        if user_url is not None:
-            # 後片付けはアサーションの成否にかかわらず実行する。
-            # 戻り値を捨てると削除失敗（4xx/5xx）に気づけず、残ったデータが後続テストを
-            # 汚染するため、APIが仕様として定める成功ステータスをここでも検証する
-            deleted = requests.delete(user_url, timeout=TIMEOUT)
-            assert deleted.status_code in (200, 204), f"cleanup failed: {deleted.status_code}"
-
-
-def test_get_user_returns_200_and_expected_fields(created_user_url):
-    response = requests.get(created_user_url, timeout=TIMEOUT)
-    assert response.status_code == 200
-    body = response.json()
-    assert "id" in body
-    assert "email" in body
-
-
-def test_create_user_missing_required_field_returns_400():
-    response = requests.post(
-        f"{BASE_URL}/users", json={"name": "Taro"}, timeout=TIMEOUT
-    )
-    assert response.status_code == 400
-    assert "email" in response.json()["errors"]`;
-
-const K6_CODE = `import http from 'k6/http';
-import { check, sleep } from 'k6';
-
-export const options = {
-  stages: [
-    { duration: '30s', target: 20 },
-    { duration: '1m', target: 20 },
-    { duration: '20s', target: 0 },
-  ],
-  thresholds: {
-    http_req_duration: ['p(95) < 500'],
-    http_req_failed: ['rate < 0.01'],
-    // check が1件でも失敗したらCIを失敗させる
-    checks: ['rate == 1'],
-  },
-};
-
-export default function () {
-  // 対象環境は実行時に切り替えられるよう環境変数から受け取る
-  //   例: k6 run --env BASE_URL=https://staging.example.com script.js
-  const baseUrl = __ENV.BASE_URL;
-  // 未設定のまま実行すると "undefined/products" へリクエストしてしまうため、ここで止める
-  if (!baseUrl) {
-    throw new Error('BASE_URL is required. 例: k6 run --env BASE_URL=https://staging.example.com script.js');
-  }
-  const res = http.get(\`\${baseUrl}/products\`);
-  check(res, { 'status is 200': (r) => r.status === 200 });
-  sleep(1);
-}`;
-
 export default function TestingWebApisGuidePage() {
   return (
     <div className="testing-web-apis-page">
@@ -680,7 +555,102 @@ export default function TestingWebApisGuidePage() {
               <div className="code-block">
                 <div className="code-label">Python · pytest + requests</div>
                 <pre>
-                  <code>{PYTHON_CODE}</code>
+                  <code className="hljs language-python">
+                    <div className="code-line"><span className="hljs-keyword">import</span> os</div>
+                    <div className="code-line"><span className="hljs-keyword">import</span> uuid</div>
+                    <div className="code-line"><span className="hljs-keyword">from</span> urllib.parse <span className="hljs-keyword">import</span> urljoin</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-keyword">import</span> pytest</div>
+                    <div className="code-line"><span className="hljs-keyword">import</span> requests</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-comment"># 環境（dev/staging/prod）ごとに切り替えられるよう環境変数から読み込む</span></div>
+                    <div className="code-line"><span className="hljs-variable constant_">BASE_URL</span> = os.environ[<span className="hljs-string">&quot;API_BASE_URL&quot;</span>]</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-comment"># (接続タイムアウト, 読み取りタイムアウト)。前者は接続確立まで、後者はデータを</span></div>
+                    <div className="code-line"><span className="hljs-comment"># 受信する間隔の上限であり、リクエスト全体の所要時間の上限ではない。</span></div>
+                    <div className="code-line"><span className="hljs-comment"># 「通信が途絶えたまま待ち続ける」ことは防げるが、全体の期限が必要なら別途管理する</span></div>
+                    <div className="code-line"><span className="hljs-variable constant_">TIMEOUT</span> = (<span className="hljs-number">3.05</span>, <span className="hljs-number">10</span>)</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">_resolve_user_url</span>(created: requests.Response, email: <span className="hljs-built_in">str</span>) -&gt; <span className="hljs-built_in">str</span>:</div>
+                    <div className="code-line">    <span className="hljs-string">&quot;&quot;&quot;作成済みユーザーの操作先URLを決める。</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-string">    レスポンスボディの id を第一候補としつつ、ボディが不正・id が欠落していても</span></div>
+                    <div className="code-line"><span className="hljs-string">    作成済みユーザーを追跡できるよう、Location ヘッダーと一意なメールアドレスでの</span></div>
+                    <div className="code-line"><span className="hljs-string">    検索へ順にフォールバックする。</span></div>
+                    <div className="code-line"><span className="hljs-string">    &quot;&quot;&quot;</span></div>
+                    <div className="code-line">    <span className="hljs-keyword">try</span>:</div>
+                    <div className="code-line">        user_id = created.json()[<span className="hljs-string">&quot;id&quot;</span>]</div>
+                    <div className="code-line">    <span className="hljs-keyword">except</span> (<span className="hljs-built_in">ValueError</span>, <span className="hljs-built_in">KeyError</span>, <span className="hljs-built_in">TypeError</span>):</div>
+                    <div className="code-line">        <span className="hljs-comment"># ボディがJSONでない／id が無い／構造が想定と違う場合はフォールバックへ回す</span></div>
+                    <div className="code-line">        user_id = <span className="hljs-literal">None</span></div>
+                    <div className="code-line">    <span className="hljs-keyword">if</span> user_id <span className="hljs-keyword">is</span> <span className="hljs-keyword">not</span> <span className="hljs-literal">None</span>:</div>
+                    <div className="code-line">        <span className="hljs-keyword">return</span> <span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users/</span>{'{'}user_id{'}'}<span className="hljs-string">&quot;</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="hljs-comment"># フォールバック1: 201 とともに返る Location ヘッダー（相対URLのこともある）</span></div>
+                    <div className="code-line">    location = created.headers.get(<span className="hljs-string">&quot;Location&quot;</span>)</div>
+                    <div className="code-line">    <span className="hljs-keyword">if</span> location:</div>
+                    <div className="code-line">        <span className="hljs-keyword">return</span> urljoin(<span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/&quot;</span>, location)</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="hljs-comment"># フォールバック2: テストごとに一意にしたメールアドレスで検索して特定する</span></div>
+                    <div className="code-line">    found = requests.get(<span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users&quot;</span>, params={'{'}<span className="hljs-string">&quot;email&quot;</span>: email{'}'}, timeout=<span className="hljs-variable constant_">TIMEOUT</span>)</div>
+                    <div className="code-line">    <span className="hljs-keyword">if</span> found.status_code == <span className="hljs-number">200</span>:</div>
+                    <div className="code-line">        <span className="hljs-keyword">for</span> user <span className="hljs-keyword">in</span> found.json().get(<span className="hljs-string">&quot;items&quot;</span>, []):</div>
+                    <div className="code-line">            <span className="hljs-keyword">if</span> user.get(<span className="hljs-string">&quot;email&quot;</span>) == email <span className="hljs-keyword">and</span> <span className="hljs-string">&quot;id&quot;</span> <span className="hljs-keyword">in</span> user:</div>
+                    <div className="code-line">                <span className="hljs-keyword">return</span> <span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users/</span>{'{'}user[<span className="hljs-string">&apos;id&apos;</span>]{'}'}<span className="hljs-string">&quot;</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="hljs-keyword">raise</span> <span className="hljs-built_in">AssertionError</span>(</div>
+                    <div className="code-line">        <span className="hljs-string">f&quot;作成したユーザーを特定できず後片付けができません: email=</span>{'{'}email{'}'}<span className="hljs-string"> &quot;</span></div>
+                    <div className="code-line">        <span className="hljs-string">f&quot;(id・Location・検索のいずれからもURLを解決できませんでした)&quot;</span></div>
+                    <div className="code-line">    )</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-meta">@pytest.fixture</span></div>
+                    <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">created_user_url</span>():</div>
+                    <div className="code-line">    <span className="hljs-string">&quot;&quot;&quot;テスト用ユーザーを作成し、そのURLを渡して、最後に必ず削除する。</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-string">    識別子の解決と後片付けの登録を同じ try/finally の中で行うことで、</span></div>
+                    <div className="code-line"><span className="hljs-string">    「作成には成功したが id を取り出せなかった」場合でもデータを残さない。</span></div>
+                    <div className="code-line"><span className="hljs-string">    &quot;&quot;&quot;</span></div>
+                    <div className="code-line">    <span className="hljs-comment"># 検索フォールバックが効くよう、メールアドレスはテストごとに一意にする</span></div>
+                    <div className="code-line">    email = <span className="hljs-string">f&quot;taro+</span>{'{'}uuid.uuid4().hex{'}'}<span className="hljs-string">@example.com&quot;</span></div>
+                    <div className="code-line">    created = requests.post(</div>
+                    <div className="code-line">        <span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users&quot;</span>,</div>
+                    <div className="code-line">        json={'{'}<span className="hljs-string">&quot;name&quot;</span>: <span className="hljs-string">&quot;Taro&quot;</span>, <span className="hljs-string">&quot;email&quot;</span>: email{'}'},</div>
+                    <div className="code-line">        timeout=<span className="hljs-variable constant_">TIMEOUT</span>,</div>
+                    <div className="code-line">    )</div>
+                    <div className="code-line">    <span className="hljs-keyword">assert</span> created.status_code == <span className="hljs-number">201</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">    <span className="hljs-comment"># ここから先で何が起きても、作成済みユーザーは必ず削除する</span></div>
+                    <div className="code-line">    user_url = <span className="hljs-literal">None</span></div>
+                    <div className="code-line">    <span className="hljs-keyword">try</span>:</div>
+                    <div className="code-line">        user_url = _resolve_user_url(created, email)</div>
+                    <div className="code-line">        <span className="hljs-keyword">yield</span> user_url</div>
+                    <div className="code-line">    <span className="hljs-keyword">finally</span>:</div>
+                    <div className="code-line">        <span className="hljs-comment"># URLを解決できなかった場合（= 削除の手掛かりが無い場合）だけ削除を飛ばす</span></div>
+                    <div className="code-line">        <span className="hljs-keyword">if</span> user_url <span className="hljs-keyword">is</span> <span className="hljs-keyword">not</span> <span className="hljs-literal">None</span>:</div>
+                    <div className="code-line">            <span className="hljs-comment"># 後片付けはアサーションの成否にかかわらず実行する。</span></div>
+                    <div className="code-line">            <span className="hljs-comment"># 戻り値を捨てると削除失敗（4xx/5xx）に気づけず、残ったデータが後続テストを</span></div>
+                    <div className="code-line">            <span className="hljs-comment"># 汚染するため、APIが仕様として定める成功ステータスをここでも検証する</span></div>
+                    <div className="code-line">            deleted = requests.delete(user_url, timeout=<span className="hljs-variable constant_">TIMEOUT</span>)</div>
+                    <div className="code-line">            <span className="hljs-keyword">assert</span> deleted.status_code <span className="hljs-keyword">in</span> (<span className="hljs-number">200</span>, <span className="hljs-number">204</span>), <span className="hljs-string">f&quot;cleanup failed: </span>{'{'}deleted.status_code{'}'}<span className="hljs-string">&quot;</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">test_get_user_returns_200_and_expected_fields</span>(created_user_url):</div>
+                    <div className="code-line">    response = requests.get(created_user_url, timeout=<span className="hljs-variable constant_">TIMEOUT</span>)</div>
+                    <div className="code-line">    <span className="hljs-keyword">assert</span> response.status_code == <span className="hljs-number">200</span></div>
+                    <div className="code-line">    body = response.json()</div>
+                    <div className="code-line">    <span className="hljs-keyword">assert</span> <span className="hljs-string">&quot;id&quot;</span> <span className="hljs-keyword">in</span> body</div>
+                    <div className="code-line">    <span className="hljs-keyword">assert</span> <span className="hljs-string">&quot;email&quot;</span> <span className="hljs-keyword">in</span> body</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">test_create_user_missing_required_field_returns_400</span>():</div>
+                    <div className="code-line">    response = requests.post(</div>
+                    <div className="code-line">        <span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users&quot;</span>, json={'{'}<span className="hljs-string">&quot;name&quot;</span>: <span className="hljs-string">&quot;Taro&quot;</span>{'}'}, timeout=<span className="hljs-variable constant_">TIMEOUT</span></div>
+                    <div className="code-line">    )</div>
+                    <div className="code-line">    <span className="hljs-keyword">assert</span> response.status_code == <span className="hljs-number">400</span></div>
+                    <div className="code-line">    <span className="hljs-keyword">assert</span> <span className="hljs-string">&quot;email&quot;</span> <span className="hljs-keyword">in</span> response.json()[<span className="hljs-string">&quot;errors&quot;</span>]</div>
+                  </code>
                 </pre>
               </div>
             </section>
@@ -808,7 +778,37 @@ export default function TestingWebApisGuidePage() {
               <div className="code-block">
                 <div className="code-label">JavaScript · k6</div>
                 <pre>
-                  <code>{K6_CODE}</code>
+                  <code className="hljs language-javascript">
+                    <div className="code-line"><span className="hljs-keyword">import</span> http <span className="hljs-keyword">from</span> <span className="hljs-string">&apos;k6/http&apos;</span>;</div>
+                    <div className="code-line"><span className="hljs-keyword">import</span> {'{'} check, sleep {'}'} <span className="hljs-keyword">from</span> <span className="hljs-string">&apos;k6&apos;</span>;</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">const</span> <span className="hljs-variable constant_">options</span> = {'{'}</div>
+                    <div className="code-line">  <span className="hljs-attr">stages</span>: [</div>
+                    <div className="code-line">    {'{'} <span className="hljs-attr">duration</span>: <span className="hljs-string">&apos;30s&apos;</span>, <span className="hljs-attr">target</span>: <span className="hljs-number">20</span> {'}'},</div>
+                    <div className="code-line">    {'{'} <span className="hljs-attr">duration</span>: <span className="hljs-string">&apos;1m&apos;</span>, <span className="hljs-attr">target</span>: <span className="hljs-number">20</span> {'}'},</div>
+                    <div className="code-line">    {'{'} <span className="hljs-attr">duration</span>: <span className="hljs-string">&apos;20s&apos;</span>, <span className="hljs-attr">target</span>: <span className="hljs-number">0</span> {'}'},</div>
+                    <div className="code-line">  ],</div>
+                    <div className="code-line">  <span className="hljs-attr">thresholds</span>: {'{'}</div>
+                    <div className="code-line">    <span className="hljs-attr">http_req_duration</span>: [<span className="hljs-string">&apos;p(95) &lt; 500&apos;</span>],</div>
+                    <div className="code-line">    <span className="hljs-attr">http_req_failed</span>: [<span className="hljs-string">&apos;rate &lt; 0.01&apos;</span>],</div>
+                    <div className="code-line">    <span className="hljs-comment">// check が1件でも失敗したらCIを失敗させる</span></div>
+                    <div className="code-line">    <span className="hljs-attr">checks</span>: [<span className="hljs-string">&apos;rate == 1&apos;</span>],</div>
+                    <div className="code-line">  {'}'},</div>
+                    <div className="code-line">{'}'};</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">default</span> <span className="hljs-keyword">function</span> () {'{'}</div>
+                    <div className="code-line">  <span className="hljs-comment">// 対象環境は実行時に切り替えられるよう環境変数から受け取る</span></div>
+                    <div className="code-line">  <span className="hljs-comment">//   例: k6 run --env BASE_URL=https://staging.example.com script.js</span></div>
+                    <div className="code-line">  <span className="hljs-keyword">const</span> baseUrl = __ENV.<span className="hljs-property">BASE_URL</span>;</div>
+                    <div className="code-line">  <span className="hljs-comment">// 未設定のまま実行すると &quot;undefined/products&quot; へリクエストしてしまうため、ここで止める</span></div>
+                    <div className="code-line">  <span className="hljs-keyword">if</span> (!baseUrl) {'{'}</div>
+                    <div className="code-line">    <span className="hljs-keyword">throw</span> <span className="hljs-keyword">new</span> <span className="hljs-title class_">Error</span>(<span className="hljs-string">&apos;BASE_URL is required. 例: k6 run --env BASE_URL=https://staging.example.com script.js&apos;</span>);</div>
+                    <div className="code-line">  {'}'}</div>
+                    <div className="code-line">  <span className="hljs-keyword">const</span> res = http.<span className="hljs-title function_">get</span>(<span className="hljs-string">`</span>${'{'}baseUrl{'}'}<span className="hljs-string">/products`</span>);</div>
+                    <div className="code-line">  <span className="hljs-title function_">check</span>(res, {'{'} <span className="hljs-string">&apos;status is 200&apos;</span>: (r) =&gt; r.<span className="hljs-property">status</span> === <span className="hljs-number">200</span> {'}'});</div>
+                    <div className="code-line">  <span className="hljs-title function_">sleep</span>(<span className="hljs-number">1</span>);</div>
+                    <div className="code-line">{'}'}</div>
+                  </code>
                 </pre>
               </div>
               <p>
