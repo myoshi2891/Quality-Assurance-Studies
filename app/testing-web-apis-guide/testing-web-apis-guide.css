@@ -580,6 +580,18 @@
     text-align: center;
 }
 
+/* ---------- Accessibility & Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .testing-web-apis-page *,
+    .testing-web-apis-page *::before,
+    .testing-web-apis-page *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
 /* ---------- Responsive (Mobile) ---------- */
 @media (max-width: 900px) {
     .testing-web-apis-page .sidebar {
