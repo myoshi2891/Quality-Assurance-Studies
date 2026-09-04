@@ -174,11 +174,11 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
       const { container } = render(<Page />);
 
       const diagrams = [
-        { sectionId: 's04', caption: '図解：テスト設計プロセスの全体像' },
-        { sectionId: 's09', caption: '図解：オンラインショップ注文の状態遷移図' },
-        { sectionId: 's12', caption: '図解：注文ユースケースのフロー分岐' },
-        { sectionId: 's13', caption: '図解：ホワイトボックスカバレッジの包含関係' },
-        { sectionId: 's14', caption: '図解：初学者のためのテスト技法選択フロー' },
+        { sectionId: 's04', caption: '図1 — テスト設計プロセス全体の流れ' },
+        { sectionId: 's09', caption: '図2 — 注文ステータスの状態遷移図' },
+        { sectionId: 's12', caption: '図3 — 「商品を注文する」ユースケースフロー' },
+        { sectionId: 's13', caption: '図4 — 分岐カバレッジとステートメントカバレッジの関係' },
+        { sectionId: 's14', caption: '図5 — テスト技法の選択フロー' },
       ];
 
       diagrams.forEach((diag) => {

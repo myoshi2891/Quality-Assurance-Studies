@@ -64,6 +64,7 @@
 
 .software-test-design-page section {
     padding-top: 0;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 24px);
 }
 
 .software-test-design-page .hero {
@@ -440,6 +441,10 @@
     margin: 1.75rem 0;
     width: 100%;
     max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
 }
 
 .software-test-design-page .diagram-caption {
@@ -462,10 +467,153 @@
     overflow-x: auto;
 }
 
+/* 内側の Mermaid コンポーネントが生成する mermaid-wrapper のリセット */
+.software-test-design-page .mermaid-target .mermaid-wrapper {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex;
+    justify-content: center;
+}
+
 .software-test-design-page .mermaid-target svg {
     flex-shrink: 0;
-    height: auto;
-    max-width: 100%;
+    height: auto !important;
+    max-width: 100% !important;
+    display: block;
+    margin: 0 auto;
+    overflow: visible !important;
+}
+
+.software-test-design-page .mermaid-target foreignObject {
+    overflow: visible !important;
+}
+
+.software-test-design-page .mermaid-target foreignObject > div,
+.software-test-design-page .mermaid-target .nodeLabel,
+.software-test-design-page .mermaid-target .edgeLabel,
+.software-test-design-page .mermaid-target .label {
+    overflow: visible !important;
+    font-size: 15px !important;
+    line-height: 1.5 !important;
+    font-family: 'Inter', sans-serif !important;
+}
+
+.software-test-design-page .mermaid-target text {
+    font-family: 'Inter', sans-serif !important;
+}
+
+/* 通常ノード: クリーム/白背景＋インディゴ枠線＋インク文字色 */
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) rect,
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) polygon,
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) circle {
+    fill: #fffdf8 !important;
+    stroke: #34408f !important;
+}
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) .label,
+.software-test-design-page .mermaid-target svg .node:not(.hub):not(.done) text {
+    color: #241f1a !important;
+    fill: #241f1a !important;
+}
+
+/* hubノード: ゴールドソフト背景＋ゴールド枠線＋インク文字色 */
+.software-test-design-page .mermaid-target svg .node.hub rect,
+.software-test-design-page .mermaid-target svg .node.hub polygon,
+.software-test-design-page .mermaid-target svg .node.hub circle {
+    fill: #f3e6c8 !important;
+    stroke: #a9760f !important;
+}
+.software-test-design-page .mermaid-target svg .node.hub .label,
+.software-test-design-page .mermaid-target svg .node.hub text {
+    color: #241f1a !important;
+    fill: #241f1a !important;
+}
+
+/* doneノード: フォレストソフト背景＋フォレスト枠線＋濃緑文字色 */
+.software-test-design-page .mermaid-target svg .node.done rect,
+.software-test-design-page .mermaid-target svg .node.done polygon,
+.software-test-design-page .mermaid-target svg .node.done circle {
+    fill: #e2efe3 !important;
+    stroke: #2f6b42 !important;
+}
+.software-test-design-page .mermaid-target svg .node.done .label,
+.software-test-design-page .mermaid-target svg .node.done text {
+    color: #16321f !important;
+    fill: #16321f !important;
+}
+
+/* エッジ（線・矢印） */
+.software-test-design-page .mermaid-target .edgePaths path {
+    stroke: #5b5347 !important;
+    stroke-width: 1.5px !important;
+}
+.software-test-design-page .mermaid-target .marker {
+    fill: #5b5347 !important;
+    stroke: #5b5347 !important;
+}
+
+/* エッジラベル（不足、十分、はい、いいえ等の分岐文字） */
+.software-test-design-page .mermaid-target .edgeLabels,
+.software-test-design-page .mermaid-target .edgeLabel,
+.software-test-design-page .mermaid-target .edgeLabel * {
+    overflow: visible !important;
+}
+.software-test-design-page .mermaid-target .edgeLabel {
+    background-color: var(--card, #fffdf8) !important;
+    color: #241f1a !important;
+    fill: #241f1a !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+}
+.software-test-design-page .mermaid-target .edgeLabel rect,
+.software-test-design-page .mermaid-target .edgeLabels rect,
+.software-test-design-page .mermaid-target .label-container {
+    fill: var(--card, #fffdf8) !important;
+    stroke: none !important;
+    opacity: 1 !important;
+}
+.software-test-design-page .mermaid-target .edgeLabel span,
+.software-test-design-page .mermaid-target .edgeLabel p,
+.software-test-design-page .mermaid-target .edgeLabel div {
+    background-color: transparent !important;
+    color: #241f1a !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    line-height: 1.4 !important;
+}
+.software-test-design-page .mermaid-target .edgeLabel text,
+.software-test-design-page .mermaid-target .edgeLabel tspan {
+    fill: #241f1a !important;
+    color: #241f1a !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+}
+
+/* 状態遷移図（stateDiagram-v2）のサポート */
+.software-test-design-page .mermaid-target .statediagram-state rect,
+.software-test-design-page .mermaid-target .stateGroup rect {
+    fill: #fffdf8 !important;
+    stroke: #34408f !important;
+}
+.software-test-design-page .mermaid-target .statediagram-state text,
+.software-test-design-page .mermaid-target .stateGroup text {
+    fill: #241f1a !important;
+    color: #241f1a !important;
+}
+.software-test-design-page .mermaid-target .start-state,
+.software-test-design-page .mermaid-target .end-state,
+.software-test-design-page .mermaid-target .statediagram-state circle {
+    fill: #34408f !important;
+    stroke: #34408f !important;
+}
+.software-test-design-page .mermaid-target .transition {
+    stroke: #5b5347 !important;
 }
 
 .software-test-design-page .mermaid-loading {

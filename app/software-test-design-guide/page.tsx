@@ -11,7 +11,35 @@ export const metadata: Metadata = {
     "Lee Copeland 著『A Practitioner's Guide to Software Test Design』に基づくテスト設計技法の完全解説ガイド。同値分割・境界値分析・デシジョンテーブル・状態遷移・ペアワイズ・ユースケース・ホワイトボックステストまで網羅。",
 };
 
-const DIAGRAM_PROCESS = `flowchart TB
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#fffdf8",
+    "primaryColor": "#fffdf8",
+    "primaryTextColor": "#241f1a",
+    "primaryBorderColor": "#34408f",
+    "lineColor": "#5b5347",
+    "secondaryColor": "#f3e6c8",
+    "secondaryTextColor": "#241f1a",
+    "tertiaryColor": "#f2e5f1",
+    "edgeLabelBackground": "#fffdf8",
+    "mainBkg": "#fffdf8",
+    "nodeBorder": "#34408f",
+    "nodeTextColor": "#241f1a",
+    "fontFamily": "'Inter', -apple-system, sans-serif",
+    "fontSize": "15px"
+  },
+  "flowchart": {
+    "useMaxWidth": false,
+    "htmlLabels": true
+  },
+  "stateDiagram": {
+    "useMaxWidth": false
+  }
+}}%%`;
+
+const DIAGRAM_PROCESS = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#f3e6c8,stroke:#a9760f,color:#241f1a
     classDef done fill:#e2efe3,stroke:#2f6b42,color:#16321f
     A["要件・仕様・ユーザーストーリーを理解する"] --> B["テストベースを分析する"]
@@ -28,7 +56,8 @@ const DIAGRAM_PROCESS = `flowchart TB
     class A hub
     class K done`;
 
-const DIAGRAM_STATE = `stateDiagram-v2
+const DIAGRAM_STATE = `${MERMAID_CONFIG}
+stateDiagram-v2
     [*] --> カート中
     カート中 --> 注文確定: 注文を確定する
     カート中 --> カート中: 商品を追加削除する
@@ -40,7 +69,8 @@ const DIAGRAM_STATE = `stateDiagram-v2
     キャンセル済み --> [*]
     配達完了 --> [*]`;
 
-const DIAGRAM_USECASE = `flowchart TB
+const DIAGRAM_USECASE = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#f3e6c8,stroke:#a9760f,color:#241f1a
     classDef done fill:#e2efe3,stroke:#2f6b42,color:#16321f
     Start(["カートに商品がある状態から開始する"]) --> Step1["注文内容を確認する"]
@@ -57,10 +87,12 @@ const DIAGRAM_USECASE = `flowchart TB
     class Start hub
     class End done`;
 
-const DIAGRAM_COVERAGE = `flowchart TB
+const DIAGRAM_COVERAGE = `${MERMAID_CONFIG}
+flowchart TB
     B["分岐カバレッジ100%"] --> A["ステートメントカバレッジ100%を必ず満たす"]`;
 
-const DIAGRAM_SELECT = `flowchart TB
+const DIAGRAM_SELECT = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#f3e6c8,stroke:#a9760f,color:#241f1a
     classDef done fill:#e2efe3,stroke:#2f6b42,color:#16321f
     Start(["テスト対象の性質を確認する"])
@@ -402,7 +434,7 @@ export default function SoftwareTestDesignGuidePage() {
                 まず、個別の技法に入る前に、テスト設計が開発プロセス全体の中でどのステップで行われるかを俯瞰します。
               </p>
               <div className="mermaid-wrapper">
-                <div className="diagram-caption">図解：テスト設計プロセスの全体像</div>
+                <div className="diagram-caption">図1 — テスト設計プロセス全体の流れ</div>
                 <div className="mermaid-target" id="diagram-process">
                   <Mermaid chart={DIAGRAM_PROCESS} />
                 </div>
@@ -890,7 +922,7 @@ export default function SoftwareTestDesignGuidePage() {
               </ol>
               <h4>共通例への適用：注文ステータスの遷移</h4>
               <div className="mermaid-wrapper">
-                <div className="diagram-caption">図解：オンラインショップ注文の状態遷移図</div>
+                <div className="diagram-caption">図2 — 注文ステータスの状態遷移図</div>
                 <div className="mermaid-target" id="diagram-state">
                   <Mermaid chart={DIAGRAM_STATE} />
                 </div>
@@ -1054,7 +1086,7 @@ export default function SoftwareTestDesignGuidePage() {
               <h4>共通例への適用：「商品を注文する」ユースケース</h4>
               <div className="mermaid-wrapper">
                 <div className="diagram-caption">
-                  図解：注文ユースケースのフロー分岐
+                  図3 — 「商品を注文する」ユースケースフロー
                 </div>
                 <div className="mermaid-target" id="diagram-usecase">
                   <Mermaid chart={DIAGRAM_USECASE} />
@@ -1134,7 +1166,7 @@ export default function SoftwareTestDesignGuidePage() {
               </p>
               <div className="mermaid-wrapper">
                 <div className="diagram-caption">
-                  図解：ホワイトボックスカバレッジの包含関係
+                  図4 — 分岐カバレッジとステートメントカバレッジの関係
                 </div>
                 <div className="mermaid-target" id="diagram-coverage">
                   <Mermaid chart={DIAGRAM_COVERAGE} />
@@ -1209,7 +1241,7 @@ export default function SoftwareTestDesignGuidePage() {
                 テスト設計では、ひとつの技法だけで十分になることはほとんどありません。下のフローは「最初に当てはまった技法で終わり」ではなく、<strong>Q1からQ5までをすべて順に評価し、当てはまったものを積み上げて組み合わせる</strong>ためのものです。たとえば「同値分割＋境界値分析」を選んだあとも、条件の組み合わせ・状態・設定項目・業務フローについて引き続き判定し、必要な技法を補助的に追加していきます。
               </p>
               <div className="mermaid-wrapper">
-                <div className="diagram-caption">図解：初学者のためのテスト技法選択フロー</div>
+                <div className="diagram-caption">図5 — テスト技法の選択フロー</div>
                 <div className="mermaid-target" id="diagram-select">
                   <Mermaid chart={DIAGRAM_SELECT} />
                 </div>
