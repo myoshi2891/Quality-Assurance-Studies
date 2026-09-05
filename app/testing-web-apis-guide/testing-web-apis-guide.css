@@ -343,6 +343,17 @@
 }
 
 /* ---------- Mermaid Diagrams ---------- */
+/* 外側の <figure>。パネル装飾は内側の .mermaid-wrapper が担うため、
+   ここでは前後の余白だけを持たせる（Tailwind Preflight が figure の既定 margin を消すため明示する） */
+.testing-web-apis-page .mermaid-figure {
+    margin: 0 0 1.5rem;
+}
+
+.testing-web-apis-page .mermaid-figure .mermaid-wrapper {
+    margin-bottom: 0;
+}
+
+/* Mermaid コンポーネントが出力する内側の div */
 .testing-web-apis-page .mermaid-wrapper {
     overflow-x: auto;
     margin: 0 0 1.5rem;
@@ -381,9 +392,9 @@
     margin: 0.6rem 0 1.5rem;
 }
 
-/* figure 化により figcaption が .mermaid-wrapper の内側へ入るため、
+/* figcaption は .mermaid-figure の直下（パネルの外）に並ぶため、
    下マージンの二重付与を打ち消す */
-.testing-web-apis-page .mermaid-wrapper figcaption.fig-cap {
+.testing-web-apis-page .mermaid-figure figcaption.fig-cap {
     margin: 0.9rem 0 0;
 }
 

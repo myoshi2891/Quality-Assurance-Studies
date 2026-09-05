@@ -191,7 +191,7 @@ export default function TestingWebApisGuidePage() {
                 では、単体テストを土台に多く配置し、統合テストを中間層に、E2E（エンドツーエンド）テストを頂点に少数だけ配置するという構成が紹介されています。
               </p>
 
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_TEST_PYRAMID} />
                 <figcaption className="fig-cap">
                   図1: テストピラミッド（下ほど多く・高速、上ほど少なく・低速）
@@ -204,7 +204,7 @@ export default function TestingWebApisGuidePage() {
                 というブログ記事で、開発ツールの進化により統合テストが以前ほど遅くも壊れやすくもなくなったと指摘し、統合テストに比重を置く「テスティング・トロフィー」という考え方を提唱しました。静的解析（Lint/型チェック）を最下層に加え、単体テストよりも統合テストを厚くする点がピラミッドとの大きな違いです。
               </p>
 
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_TESTING_TROPHY} />
                 <figcaption className="fig-cap">
                   図2: テスティング・トロフィー（統合テストが最も厚い層になる）
@@ -257,7 +257,7 @@ export default function TestingWebApisGuidePage() {
                 は著書『Testing Web APIs』の中で、品質特性（正確性・パフォーマンス・セキュリティ・可用性など）ごとにリスクを洗い出し、テスト活動を選ぶ「リスクドリブン」なアプローチを提唱しています。
               </p>
 
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_RISK_DRIVEN} />
                 <figcaption className="fig-cap">
                   図3: リスクベースでテスト活動を選ぶ流れ
@@ -317,7 +317,7 @@ export default function TestingWebApisGuidePage() {
               </h2>
 
               <h3>5.1 テストの基本的な流れ</h3>
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_HTTP_FLOW} />
                 <figcaption className="fig-cap">図4: 基本的なAPIテストの流れ</figcaption>
               </figure>
@@ -444,7 +444,7 @@ export default function TestingWebApisGuidePage() {
                 は「チャーター（探索の目的・範囲を短く書いたメモ）」を用意し、時間を区切ってセッション形式で実施する方法を紹介しています。
               </p>
 
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_EXPLORATORY} />
                 <figcaption className="fig-cap">
                   図5: 探索的テストのセッションサイクル
@@ -697,7 +697,7 @@ export default function TestingWebApisGuidePage() {
               </p>
 
               <h3>8.2 契約テストの流れ</h3>
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_PACT_FLOW} />
                 <figcaption className="fig-cap">図6: Pactによる契約テストの流れ</figcaption>
               </figure>
@@ -797,7 +797,7 @@ export default function TestingWebApisGuidePage() {
               </div>
 
               <h3>9.2 負荷テストの種類</h3>
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_LOAD_TEST_TYPES} />
                 <figcaption className="fig-cap">図7: 目的別に見る負荷テストの種類</figcaption>
               </figure>
@@ -921,7 +921,7 @@ export default function TestingWebApisGuidePage() {
               </div>
 
               <h3>10.1 テストに組み込む方法</h3>
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_SECURITY_FLOW} />
                 <figcaption className="fig-cap">図8: セキュリティテストの組み込み方</figcaption>
               </figure>
@@ -940,7 +940,7 @@ export default function TestingWebApisGuidePage() {
                 自動テストは、実行されて初めて価値を持ちます。コミットやプルリクエストのたびに自動実行される状態を作ることが、テスト戦略の完成形です。
               </p>
 
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_CICD_FLOW} />
                 <figcaption className="fig-cap">
                   図9: CI/CDパイプラインにおけるテストの位置づけ
@@ -973,7 +973,7 @@ export default function TestingWebApisGuidePage() {
                 事前のテストだけでは、実際の本番トラフィックが持つ多様性（想定外の入力、実際の負荷パターン、サードパーティの挙動変化など）を完全には再現できません。そのため、本番環境そのものを観測し続ける「テスティング・イン・プロダクション」という考え方も、近年のAPIテスト戦略に含まれるようになっています。
               </p>
 
-              <figure className="mermaid-wrapper">
+              <figure className="mermaid-figure">
                 <Mermaid chart={DIAGRAM_PROD_OBSERVATION} />
                 <figcaption className="fig-cap">
                   図10: 本番環境の継続的な観測サイクル
