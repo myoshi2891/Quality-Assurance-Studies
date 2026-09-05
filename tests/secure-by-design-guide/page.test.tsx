@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/secure-by-design-guide/page';
@@ -183,8 +183,15 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Mermaid Diagrams Integration', () => {
-    it('renders all 13 Mermaid diagram plates with correct figcaptions and diagram wrappers', () => {
+    it('renders all 13 Mermaid diagram plates with correct figcaptions and diagram wrappers', async () => {
+      mermaidRenderMock.mockClear();
       const { container } = render(<Page />);
+
+      // Mermaid の描画は非同期のため、SVG が注入されるまで待つ
+      await waitFor(() => {
+        expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(13);
+      });
+      expect(mermaidRenderMock).toHaveBeenCalledTimes(13);
 
       const plates = container.querySelectorAll('figure.plate');
       expect(plates.length).toBe(13);

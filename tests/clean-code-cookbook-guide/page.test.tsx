@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/clean-code-cookbook-guide/page';
@@ -9,16 +9,18 @@ afterEach(() => cleanup());
 
 let originalMermaidRender: typeof mermaid.render;
 let originalIntersectionObserver: typeof window.IntersectionObserver;
+let mermaidRenderMock: ReturnType<typeof mock>;
 
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
   originalIntersectionObserver = window.IntersectionObserver;
-  mermaid.render = mock(async () => {
+  mermaidRenderMock = mock(async () => {
     return {
       svg: '<svg data-testid="mock-mermaid"></svg>',
       diagramType: 'flowchart',
     };
-  }) as unknown as typeof mermaid.render;
+  });
+  mermaid.render = mermaidRenderMock as unknown as typeof mermaid.render;
 
   const mockIntersectionObserver = mock(() => {
     return {
@@ -135,8 +137,15 @@ describe('Clean Code Cookbook Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Mermaid Diagrams', () => {
-    it('renders all 4 diagrams with captions', () => {
+    it('renders all 4 diagrams with captions', async () => {
+      mermaidRenderMock.mockClear();
       const { container } = render(<Page />);
+
+      // Mermaid の描画は非同期のため、SVG が注入されるまで待つ
+      await waitFor(() => {
+        expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(4);
+      });
+      expect(mermaidRenderMock).toHaveBeenCalledTimes(4);
 
       const diagrams = container.querySelectorAll('.diagram-card');
       expect(diagrams.length).toBe(4);
