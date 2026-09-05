@@ -454,7 +454,7 @@ export default function SoftwareTestDesignGuidePage() {
                   <Mermaid chart={DIAGRAM_PROCESS} />
                 </div>
               </div>
-              <h4>各ステップのポイント</h4>
+              <h3>各ステップのポイント</h3>
               <ol className="step-list">
                 <li>
                   <span className="step-num">1</span>
@@ -572,7 +572,7 @@ export default function SoftwareTestDesignGuidePage() {
                 <strong>考え方</strong>
                 ：入力（または出力）を、「同じ挙動をするはず」の値のグループ（同値クラス）に分割し、各グループから代表値を1つ選んでテストする技法です。全部の値を試す代わりに、各グループの代表だけをテストすれば十分だと考えます。
               </p>
-              <h4>手順</h4>
+              <h3>手順</h3>
               <ol className="step-list">
                 <li>
                   <span className="step-num">1</span>
@@ -601,7 +601,7 @@ export default function SoftwareTestDesignGuidePage() {
                   </div>
                 </li>
               </ol>
-              <h4>共通例への適用：会員登録の年齢入力（18〜120歳が有効）</h4>
+              <h3>共通例への適用：会員登録の年齢入力（18〜120歳が有効）</h3>
               <div className="table-wrap">
                 <table>
                   <caption>会員登録の年齢入力（有効範囲 18〜120歳）の同値クラス</caption>
@@ -659,7 +659,7 @@ export default function SoftwareTestDesignGuidePage() {
                 <strong>考え方</strong>
                 ：「バグは範囲の境界付近に集中しやすい」という経験則に基づき、同値クラスの<strong>端の値とその前後</strong>を重点的にテストする技法です。境界値分析は同値分割を土台にした技法であり、単独ではなくペアで使われます。
               </p>
-              <h4>手順（2点境界値分析の場合）</h4>
+              <h3>手順（2点境界値分析の場合）</h3>
               <ol className="step-list">
                 <li>
                   <span className="step-num">1</span>
@@ -684,7 +684,7 @@ export default function SoftwareTestDesignGuidePage() {
                   </div>
                 </li>
               </ol>
-              <h4>共通例への適用：年齢入力（有効範囲 18〜120）</h4>
+              <h3>共通例への適用：年齢入力（有効範囲 18〜120）</h3>
               <div className="table-wrap">
                 <table>
                   <caption>年齢入力（有効範囲 18〜120）の境界値テストケース</caption>
@@ -755,7 +755,7 @@ export default function SoftwareTestDesignGuidePage() {
                 <strong>考え方</strong>
                 ：出力（振る舞い）が<strong>複数の条件の組み合わせ</strong>によって決まる場合に有効な技法です。条件と結果（アクション）を表形式に整理することで、「業務ルールの抜け漏れ」を視覚的に発見できます。ISTQBシラバスでも「複雑なビジネスルールを記録するための効果的な方法」として紹介されています。
               </p>
-              <h4>手順</h4>
+              <h3>手順</h3>
               <ol className="step-list">
                 <li>
                   <span className="step-num">1</span>
@@ -792,7 +792,7 @@ export default function SoftwareTestDesignGuidePage() {
                   </div>
                 </li>
               </ol>
-              <h4>共通例への適用：会員ランク × 注文金額 × クーポンによる割引ルール</h4>
+              <h3>共通例への適用：会員ランク × 注文金額 × クーポンによる割引ルール</h3>
               <p>
                 まず割引の要件を明確に定義します。<strong>プラチナ会員は基本10%、注文金額が1万円以上なら+5%、クーポンを持っていれば+5%</strong>（非プラチナ会員の基本は0%）とします。条件が3つ・各条件が
                 Yes/No の2値なので、組み合わせは 2³ =
@@ -899,7 +899,7 @@ export default function SoftwareTestDesignGuidePage() {
                 [ガード条件] /
                 アクション」という記法でラベル付けされると定義されています。
               </p>
-              <h4>手順</h4>
+              <h3>手順</h3>
               <ol className="step-list">
                 <li>
                   <span className="step-num">1</span>
@@ -938,7 +938,7 @@ export default function SoftwareTestDesignGuidePage() {
                   </div>
                 </li>
               </ol>
-              <h4>共通例への適用：注文ステータスの遷移</h4>
+              <h3>共通例への適用：注文ステータスの遷移</h3>
               <div className="mermaid-wrapper">
                 <div className="diagram-caption">図2 — 注文ステータスの状態遷移図</div>
                 <div className="mermaid-target" id="diagram-state">
@@ -998,7 +998,7 @@ export default function SoftwareTestDesignGuidePage() {
                   </p>
                 </div>
               </div>
-              <h4>共通例への適用：チェックアウト画面の環境組み合わせ</h4>
+              <h3>共通例への適用：チェックアウト画面の環境組み合わせ</h3>
               <p>
                 パラメータが「ブラウザ（3種）× OS（3種）×
                 決済方法（3種）」の場合、全組み合わせは 3×3×3 =
@@ -1102,7 +1102,7 @@ export default function SoftwareTestDesignGuidePage() {
                 <strong>考え方</strong>
                 ：機能単位ではなく、<strong>ユーザーが目的を達成するまでの一連の業務フロー</strong>を検証する技法です。「基本フロー（正常系）」と「代替フロー」「例外フロー」を明示することで、実際の利用シーンに即したテストケースを作れます。
               </p>
-              <h4>共通例への適用：「商品を注文する」ユースケース</h4>
+              <h3>共通例への適用：「商品を注文する」ユースケース</h3>
               <div className="mermaid-wrapper">
                 <div className="diagram-caption">
                   図3 — 「商品を注文する」ユースケースフロー
