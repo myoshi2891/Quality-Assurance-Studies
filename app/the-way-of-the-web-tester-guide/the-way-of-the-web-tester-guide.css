@@ -148,6 +148,14 @@
     -webkit-text-fill-color: transparent;
 }
 
+/* 強制カラーモードではグラデーション文字が不可視になるため通常描画へ戻す */
+@media (forced-colors: active) {
+    .the-way-of-the-web-tester-page .hero h1 {
+        background: none;
+        -webkit-text-fill-color: currentColor;
+    }
+}
+
 .the-way-of-the-web-tester-page .subtitle {
     font-size: 1.1rem;
     color: var(--tw-text-dim);
