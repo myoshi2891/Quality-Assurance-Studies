@@ -561,6 +561,7 @@ export default function TestingWebApisGuidePage() {
                 <pre>
                   <code className="hljs language-python">
                     <div className="code-line"><span className="hljs-keyword">import</span> os</div>
+                    <div className="code-line"><span className="hljs-keyword">import</span> re</div>
                     <div className="code-line"><span className="hljs-keyword">import</span> uuid</div>
                     <div className="code-line"><span className="hljs-keyword">from</span> urllib.parse <span className="hljs-keyword">import</span> urljoin, urlsplit</div>
                     <div className="code-line"></div>
@@ -592,6 +593,20 @@ export default function TestingWebApisGuidePage() {
                     <div className="code-line">    <span className="hljs-keyword">return</span> urlsplit(candidate).path.startswith(urlsplit(<span className="hljs-variable constant_">BASE_URL</span>).path.rstrip(<span className="hljs-string">&quot;/&quot;</span>) + <span className="hljs-string">&quot;/users/&quot;</span>)</div>
                     <div className="code-line"></div>
                     <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">_user_url</span>(<span className="hljs-params">user_id: <span className="hljs-built_in">object</span></span>) -&gt; <span className="hljs-built_in">str</span> | <span className="hljs-literal">None</span>:</div>
+                    <div className="code-line"><span className="hljs-string">    &quot;&quot;&quot;id が単一パスセグメントであることを検証してからURLを組み立てる。</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="hljs-string">    id は API 契約上ひとつのパスセグメント。&quot;../admin&quot; のような値をそのまま</span></div>
+                    <div className="code-line"><span className="hljs-string">    埋め込むと別のリソースを指すURLになりうるため、形式を検査したうえで</span></div>
+                    <div className="code-line"><span className="hljs-string">    組み立て後のURLも _is_safe_user_url で再確認する。</span></div>
+                    <div className="code-line"><span className="hljs-string">    &quot;&quot;&quot;</span></div>
+                    <div className="code-line">    candidate = <span className="hljs-built_in">str</span>(user_id)</div>
+                    <div className="code-line">    <span className="hljs-keyword">if</span> <span className="hljs-keyword">not</span> re.fullmatch(<span className="hljs-string">r&quot;[A-Za-z0-9._~-]+&quot;</span>, candidate) <span className="hljs-keyword">or</span> candidate <span className="hljs-keyword">in</span> {'{'}<span className="hljs-string">&quot;.&quot;</span>, <span className="hljs-string">&quot;..&quot;</span>{'}'}:</div>
+                    <div className="code-line">        <span className="hljs-keyword">return</span> <span className="hljs-literal">None</span></div>
+                    <div className="code-line">    url = <span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users/</span>{'{'}candidate{'}'}<span className="hljs-string">&quot;</span></div>
+                    <div className="code-line">    <span className="hljs-keyword">return</span> url <span className="hljs-keyword">if</span> _is_safe_user_url(url) <span className="hljs-keyword">else</span> <span className="hljs-literal">None</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"></div>
                     <div className="code-line"><span className="hljs-keyword">def</span> <span className="hljs-title function_">_resolve_user_url</span>(created: requests.Response, email: <span className="hljs-built_in">str</span>) -&gt; <span className="hljs-built_in">str</span>:</div>
                     <div className="code-line">    <span className="hljs-string">&quot;&quot;&quot;作成済みユーザーの操作先URLを決める。</span></div>
                     <div className="code-line"></div>
@@ -605,7 +620,10 @@ export default function TestingWebApisGuidePage() {
                     <div className="code-line">        <span className="hljs-comment"># ボディがJSONでない／id が無い／構造が想定と違う場合はフォールバックへ回す</span></div>
                     <div className="code-line">        user_id = <span className="hljs-literal">None</span></div>
                     <div className="code-line">    <span className="hljs-keyword">if</span> user_id <span className="hljs-keyword">is</span> <span className="hljs-keyword">not</span> <span className="hljs-literal">None</span>:</div>
-                    <div className="code-line">        <span className="hljs-keyword">return</span> <span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users/</span>{'{'}user_id{'}'}<span className="hljs-string">&quot;</span></div>
+                    <div className="code-line">        <span className="hljs-comment"># 契約どおりの単一セグメントか検証し、不正なら検索フォールバックへ回す</span></div>
+                    <div className="code-line">        url = _user_url(user_id)</div>
+                    <div className="code-line">        <span className="hljs-keyword">if</span> url <span className="hljs-keyword">is</span> <span className="hljs-keyword">not</span> <span className="hljs-literal">None</span>:</div>
+                    <div className="code-line">            <span className="hljs-keyword">return</span> url</div>
                     <div className="code-line"></div>
                     <div className="code-line">    <span className="hljs-comment"># フォールバック1: 201 とともに返る Location ヘッダー（相対URLのこともある）</span></div>
                     <div className="code-line">    location = created.headers.get(<span className="hljs-string">&quot;Location&quot;</span>)</div>
@@ -620,7 +638,9 @@ export default function TestingWebApisGuidePage() {
                     <div className="code-line">    <span className="hljs-keyword">if</span> found.status_code == <span className="hljs-number">200</span>:</div>
                     <div className="code-line">        <span className="hljs-keyword">for</span> user <span className="hljs-keyword">in</span> found.json().get(<span className="hljs-string">&quot;items&quot;</span>, []):</div>
                     <div className="code-line">            <span className="hljs-keyword">if</span> user.get(<span className="hljs-string">&quot;email&quot;</span>) == email <span className="hljs-keyword">and</span> <span className="hljs-string">&quot;id&quot;</span> <span className="hljs-keyword">in</span> user:</div>
-                    <div className="code-line">                <span className="hljs-keyword">return</span> <span className="hljs-string">f&quot;</span>{'{'}<span className="hljs-variable constant_">BASE_URL</span>{'}'}<span className="hljs-string">/users/</span>{'{'}user[<span className="hljs-string">&apos;id&apos;</span>]{'}'}<span className="hljs-string">&quot;</span></div>
+                    <div className="code-line">                url = _user_url(user[<span className="hljs-string">&quot;id&quot;</span>])</div>
+                    <div className="code-line">                <span className="hljs-keyword">if</span> url <span className="hljs-keyword">is</span> <span className="hljs-keyword">not</span> <span className="hljs-literal">None</span>:</div>
+                    <div className="code-line">                    <span className="hljs-keyword">return</span> url</div>
                     <div className="code-line"></div>
                     <div className="code-line">    <span className="hljs-keyword">raise</span> <span className="hljs-built_in">AssertionError</span>(</div>
                     <div className="code-line">        <span className="hljs-string">f&quot;作成したユーザーを特定できず後片付けができません: email=</span>{'{'}email{'}'}<span className="hljs-string"> &quot;</span></div>
