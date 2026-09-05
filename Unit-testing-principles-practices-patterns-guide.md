@@ -1,13 +1,14 @@
 # 『Unit Testing Principles, Practices, and Patterns』完全ガイド ― 初学者のためのステップバイステップ ベストプラクティス
 
 > 原著: *Unit Testing Principles, Practices, and Patterns*（Vladimir Khorikov 著 / Manning Publications, 2020年1月刊, 304ページ, ISBN 978-1-61729-627-7）
-> 出版社ページ: https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/
+> 出版社ページ: <https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/>
 
 この記事は、ソフトウェアテスト分野で国際的に高く評価されている上記書籍の考え方を土台に、初学者でも迷わず実践できるよう「ステップ形式」で再構成した学習ガイドです。あわせて、Martin Fowler・Kent Beck・Kent C. Dodds・Ian Cooper・Gary Bernhardt といった著名な国際的開発者の発信内容、および2025〜2026年にかけての最新の議論（Test Desiderata 2.0、AI生成コードのテストなど）も参照し、現在の実務にそのまま使える形にまとめています。参照したソースのURLはすべて末尾の「参考文献・情報源」にまとめています。
 
 ---
 
 <a id="toc"></a>
+
 ## 目次
 
 - [この記事の対象読者と使い方](#about)
@@ -31,6 +32,7 @@
 ---
 
 <a id="about"></a>
+
 ## この記事の対象読者と使い方
 
 | 項目 | 内容 |
@@ -43,6 +45,7 @@
 ---
 
 <a id="step1"></a>
+
 ## Step 1: ユニットテストの「本当の目的」を理解する
 
 多くのチームは「カバレッジ80%達成」のような数値目標を掲げますが、これは本質的な目的ではありません。Khorikovはこの本の冒頭で、コードカバレッジのような指標は**簡単に操作できてしまう**ため、テストスイートの質を測る指標としては信頼できないと指摘しています。たとえばループや条件分岐を一切検証せずに実行だけする空疎なテストでも、カバレッジ数値は上がってしまいます。
@@ -69,6 +72,7 @@ flowchart TB
 ---
 
 <a id="step2"></a>
+
 ## Step 2: そもそも「ユニットテスト」とは何か
 
 「ユニットテスト」という言葉は現場でかなり曖昧に使われています。Khorikovは次の3つの性質を満たすテストを「ユニットテスト」と定義しています。
@@ -86,6 +90,7 @@ flowchart TB
 ---
 
 <a id="step3"></a>
+
 ## Step 3: 二大流派 ― classical school と London school
 
 ユニットテストの世界には、大きく分けて2つの学派（流派）が存在します。本書はこの対比を軸に構成されており、著者自身は classical school（別名: Detroit school / Chicago school）の立場を取っています。
@@ -104,6 +109,7 @@ flowchart TB
 ---
 
 <a id="step4"></a>
+
 ## Step 4: ユニットテストの解剖学 ― AAAパターン
 
 良いユニットテストは、例外なく次の3つのセクションで構成すべきだと本書は説きます。これは**AAAパターン（Arrange-Act-Assert）**と呼ばれ、xUnit系フレームワーク全般で共通する基本構造です。
@@ -141,6 +147,7 @@ account.残高 が 100 のままであることを確認する
 ---
 
 <a id="step5"></a>
+
 ## Step 5: 良いユニットテストの「4本柱」
 
 本書の核となる概念が、この「4本柱（Four Pillars）」です。あるテストが本当に価値を持つかどうかを、次の4つの観点でスコアリング（0〜1の連続値）して評価します。
@@ -176,6 +183,7 @@ flowchart TB
 ---
 
 <a id="step6"></a>
+
 ## Step 6: モックとテストの壊れやすさ（fragility）
 
 ### モックとスタブの違い
@@ -211,6 +219,7 @@ flowchart TB
 ---
 
 <a id="step7"></a>
+
 ## Step 7: テストダブルの分類 ― Dummy / Fake / Stub / Spy / Mock
 
 テストダブルという用語自体は、Gerard Meszaros が著書『xUnit Test Patterns』で導入し、Martin Fowlerの記事「Mocks Aren't Stubs」によって広く普及しました。5種類の分類を整理すると次のようになります。
@@ -241,6 +250,7 @@ Fowler自身も、**状態検証（Stub/Fakeで十分なケース）を優先し
 ---
 
 <a id="step8"></a>
+
 ## Step 8: 3つのテストスタイルと関数型アーキテクチャ
 
 本書は、ユニットテストの書き方を3つのスタイルに分類し、優劣を明確に示しています。
@@ -275,6 +285,7 @@ flowchart TB
 ---
 
 <a id="step9"></a>
+
 ## Step 9: 価値あるテストへのリファクタリング ― Humble Objectパターン
 
 「テストしにくいコード」の多くは、**複雑なロジック**と**外部依存との協調**が同じクラスの中に同居していることが原因です。本書は、この2つを分離する手法として**Humble Object パターン**を紹介しています。
@@ -303,6 +314,7 @@ flowchart TB
 ---
 
 <a id="step10"></a>
+
 ## Step 10: 統合テスト（Integration Testing）の実践
 
 ### なぜ統合テストが必要か
@@ -318,14 +330,20 @@ flowchart TB
 | **Managed dependency（管理された依存）** | 自チームが完全にコントロールできる、かつ他システムから直接観測されない依存 | 自チーム所有のリレーショナルDB | **モックにせず、実物（または実物に近いテスト用インスタンス）を使ってテストする** |
 | **Unmanaged dependency（管理されていない依存）** | 外部から観測される、または自チームがスキーマ・挙動を制御できない依存 | 決済API、メール送信サービス、他チームが所有するメッセージキュー | **アプリケーションの境界でのみモックに置き換える** |
 
+判定は「制御できるか」と「外部から観測されるか」の2つを**両方**満たすかどうかで行います。Managed dependency は「自チームが制御でき、**かつ**外部から直接観測されない」場合に限られ、いずれか一方でも欠ける（制御できない、**または**外部から観測される）場合は Unmanaged dependency として扱います。
+
 ```mermaid
 flowchart TB
-    D["外部依存を洗い出す"] --> Q{"その依存の状態は<br/>外部の第三者から直接観測されるか？<br/>（自チームだけが所有・変更できるか？）"}
-    Q -- "いいえ（自チームだけが見る/持つ）" --> Managed["Managed Dependency<br/>実物を使ってテストする<br/>（例: 自チーム所有DB）"]
-    Q -- "はい（外部にも見える/共有）" --> Unmanaged["Unmanaged Dependency<br/>境界でモックに置き換える<br/>（例: 決済API, メール送信）"]
+    D["外部依存を洗い出す"] --> Q1{"自チームがスキーマと挙動を<br/>制御できるか？"}
+    Q1 -- "いいえ（他チーム/外部が所有）" --> Unmanaged["Unmanaged Dependency<br/>制御できない、または外部から観測される<br/>境界でモックに置き換える<br/>（例: 決済API, メール送信, 外部公開テーブル）"]
+    Q1 -- "はい（自チームが所有）" --> Q2{"その依存の状態は外部の<br/>第三者から直接観測されるか？"}
+    Q2 -- "はい（外部にも見える/共有）" --> Unmanaged
+    Q2 -- "いいえ（自チームだけが見る）" --> Managed["Managed Dependency<br/>制御でき、かつ外部から観測されない<br/>実物を使ってテストする<br/>（例: 自チーム専用DB）"]
 ```
 
-この分類により、「DBはモックすべきか？」という初学者が必ずぶつかる疑問に明確な答えが出ます。**自チームが所有するDBはmanaged dependencyなので、モックせずに実物（テスト用インスタンス）を使う**のが正解です。
+この分類により、「DBはモックすべきか？」という初学者が必ずぶつかる疑問に明確な答えが出ます。**自チームが所有し、かつ外部から直接観測されないDBはmanaged dependencyなので、モックせずに実物（テスト用インスタンス）を使う**のが正解です。
+
+ただし「自チーム所有」であることだけでは判定できません。同じDBでも、他システムが直接参照するテーブルやビュー、外部連携用に公開しているスキーマのように**外部から観測される部分は unmanaged dependency として扱います**。この場合、そのテーブルの構造は外部との契約になり、自由に変更できないためです。所有権ではなく「観測可能性」が境界を決める、と覚えてください。
 
 ### 統合テストのベストプラクティス（本書の要点）
 
@@ -336,6 +354,7 @@ flowchart TB
 ---
 
 <a id="step11"></a>
+
 ## Step 11: モッキングのベストプラクティス
 
 Step 6・Step 10の内容を踏まえ、本書が示すモッキングの実践的なルールを整理します。
@@ -351,6 +370,7 @@ Step 6・Step 10の内容を踏まえ、本書が示すモッキングの実践�
 ---
 
 <a id="step12"></a>
+
 ## Step 12: データベースのテスト
 
 本書はデータベースを含む統合テストについて、次のような具体的な実践方法を紹介しています。
@@ -377,6 +397,7 @@ Step 6・Step 10の内容を踏まえ、本書が示すモッキングの実践�
 ---
 
 <a id="step13"></a>
+
 ## Step 13: よくあるアンチパターンと対処法
 
 本書の最終章では、現場で頻出する6つのアンチパターンが具体的に列挙されています。
@@ -387,12 +408,13 @@ Step 6・Step 10の内容を踏まえ、本書が示すモッキングの実践�
 | 2 | テストのためだけにプライベート状態を公開する | カプセル化が崩れ、本番コードの設計が歪む | 公開すべき状態が「観測可能な振る舞い」の一部なら公開してよいが、テストのためだけの公開は避ける |
 | 3 | ドメイン知識をテストに漏出させる | 本番コードと同じ計算ロジックをテストコード内に複製してしまい、バグがあっても両方が同じ間違え方をして検知できない | テストでは、事前に計算しておいた「決め打ちの期待値」を使う |
 | 4 | コード汚染（production code pollution） | テストのためだけの分岐やフラグが本番コードに混入し、可読性・安全性が下がる | テスト用の分岐はHumble Objectパターンなどで本番コードの外に追い出す |
-| 5 | 具象クラスをモック化する | モックは本来インターフェース（抽象）に対して使うべきもので、具象クラスをモック化すると設計の意図が不明瞭になる | 境界にあたる部分は最初からインターフェースとして設計し、それをモック化する |
+| 5 | モック対象を「具象クラスかどうか」で決める | 具象クラスをモック化すること自体が誤りなのではなく、アプリケーション内部の実装詳細をモック化してしまうことが問題。逆に「抽象だからモックしてよい」と考えると、内部のインターフェースまでモック化してリファクタリング耐性を失う | モック対象は**アプリケーション境界**と**managed / unmanaged の分類**で選ぶ（境界を越える unmanaged dependency のみモック化する）。インターフェースは、実装が複数あるなど本当に抽象として意味がある場合か、上記のモック化に必要な場合にのみ導入し、単一実装のためだけに機械的に作らない |
 | 6 | 時間（現在時刻）の扱い | `Now()` を直接コード内で呼び出すと、実行するたびに結果が変わり再現性がなくなる | 現在時刻を返す「クロック（Clock）」を抽象化して注入し、テストでは固定値を返すFake Clockに差し替える |
 
 ---
 
 <a id="checklist"></a>
+
 ## まとめ: 実践チェックリスト
 
 ここまでの内容を、日々のコードレビューやテスト作成時に使えるチェックリストとして整理します。
@@ -404,13 +426,14 @@ Step 6・Step 10の内容を踏まえ、本書が示すモッキングの実践�
 - [ ] モックを使っている場合、それは「アプリケーション境界を越えたunmanaged dependency」に対してだけか
 - [ ] DBなどmanaged dependencyを不必要にモック化していないか
 - [ ] 4本柱（回帰保護・リファクタリング耐性・速さ・保守性）のうち、極端に低いものがないか
-- [ ] 純粋なロジックはOutput-basedテストで検証できる形（Functional Core）に切り出せていないか
+- [ ] 純粋なロジックをOutput-basedテストで検証できる形（Functional Core）に切り出せているか
 - [ ] プライベートメソッド・プライベート状態を無理にテストしようとしていないか
 - [ ] 現在時刻やランダム値など非決定的な要素を、注入可能な形に抽象化しているか
 
 ---
 
 <a id="update2026"></a>
+
 ## 2026年時点の補足: 議論はどう発展したか
 
 本書が刊行された2020年以降も、著名な国際的開発者たちによって「良いテストとは何か」という議論は活発に続いています。2025年末から2026年にかけての最新動向を補足します。
@@ -464,52 +487,64 @@ Martin Fowlerが提唱した「テストピラミッド」に対し、Kent C. Do
 ---
 
 <a id="references"></a>
+
 ## 参考文献・情報源
 
 本記事の作成にあたり、以下の一次情報・著名開発者の発信を参照しました（2026年9月5日時点で確認）。
 
 **書籍本体・出版社情報**
-- O'Reilly（書籍ページ・目次）: https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/
-- Manning Publications（出版社公式ページ）: https://www.manning.com/books/unit-testing
-- 著者Vladimir Khorikov氏のブログ掲載チャプター抜粋: https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf
+
+- O'Reilly（書籍ページ・目次）: <https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/>
+- Manning Publications（出版社公式ページ）: <https://www.manning.com/books/unit-testing>
+- 著者Vladimir Khorikov氏のブログ掲載チャプター抜粋: <https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf>
 
 **著者インタビュー**
-- Tech Lead Journal「#58 Principles for Writing Valuable Unit Tests - Vladimir Khorikov」: https://techleadjournal.dev/episodes/58/
+
+- Tech Lead Journal「#58 Principles for Writing Valuable Unit Tests - Vladimir Khorikov」: <https://techleadjournal.dev/episodes/58/>
 
 **Martin Fowler（著名な国際的ソフトウェアアーキテクト）**
-- 「Mocks Aren't Stubs」: https://martinfowler.com/articles/mocksArentStubs.html
+
+- 「Mocks Aren't Stubs」: <https://martinfowler.com/articles/mocksArentStubs.html>
 
 **Kent Beck（Extreme Programming / TDDの提唱者）**
-- 「Test Desiderata」（2019年、原著論考）: https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3
-- 「Composable Tests」（2025年11月、続編）: https://newsletter.kentbeck.com/p/composable-tests
-- Test Desiderata 公式まとめページ: https://kentbeck.github.io/TestDesiderata/
+
+- 「Test Desiderata」（2019年、原著論考）: <https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3>
+- 「Composable Tests」（2025年11月、続編）: <https://newsletter.kentbeck.com/p/composable-tests>
+- Test Desiderata 公式まとめページ: <https://kentbeck.github.io/TestDesiderata/>
 
 **Emily Bache（テストコーチ、Test Desiderata 2.0提唱者）**
-- 「Test Desiderata 2.0」（2025年12月）: https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/
-- Test Desiderata 2.0フレームワーク解説: https://lidonis.github.io/Test-Desiderata/framework.html
+
+- 「Test Desiderata 2.0」（2025年12月）: <https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/>
+- Test Desiderata 2.0フレームワーク解説: <https://lidonis.github.io/Test-Desiderata/framework.html>
 
 **Kent C. Dodds（React Testing Library作者）**
-- 「Write tests. Not too many. Mostly integration.」: https://kentcdodds.com/blog/write-tests
-- 「The Testing Trophy and Testing Classifications」: https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications
-- 「Static vs Unit vs Integration vs E2E Testing for Frontend Apps」: https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests
+
+- 「Write tests. Not too many. Mostly integration.」: <https://kentcdodds.com/blog/write-tests>
+- 「The Testing Trophy and Testing Classifications」: <https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications>
+- 「Static vs Unit vs Integration vs E2E Testing for Frontend Apps」: <https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests>
 
 **Ian Cooper（.NETコミュニティ、ロンドン.NETユーザーグループ創設者）**
-- 講演「TDD, Where Did It All Go Wrong?」（InfoQ）: https://www.infoq.com/presentations/tdd-original/
+
+- 講演「TDD, Where Did It All Go Wrong?」（InfoQ）: <https://www.infoq.com/presentations/tdd-original/>
 
 **Gary Bernhardt（Destroy All Software創設者）**
-- 講演「Boundaries」（Functional Core, Imperative Shellの提唱）: https://www.destroyallsoftware.com/talks/boundaries
+
+- 講演「Boundaries」（Functional Core, Imperative Shellの提唱）: <https://www.destroyallsoftware.com/talks/boundaries>
 
 **Oliver Drotbohm（Spring Data等のメンテナ、著名なSpringエコシステム開発者）**
-- 「Rethinking Spring Application Integration Testing」（2025年12月、4本柱の実務適用例）: https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/
+
+- 「Rethinking Spring Application Integration Testing」（2025年12月、4本柱の実務適用例）: <https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/>
 
 **AI生成コードのテスト（2026年の最新動向）**
-- 「Testing AI-Generated Code: Best Practices for 2026」: https://skyramp.dev/blog/testing-ai-generated-code
-- 「How to Test AI-Generated Code: Best Practices & Checklist (2026)」: https://testdino.com/blog/how-to-test-ai-generated-code
+
+- 「Testing AI-Generated Code: Best Practices for 2026」: <https://skyramp.dev/blog/testing-ai-generated-code>
+- 「How to Test AI-Generated Code: Best Practices & Checklist (2026)」: <https://testdino.com/blog/how-to-test-ai-generated-code>
 
 **その他、書籍の要点整理**
-- 4 Pillars of Good Unit Tests（要点まとめ）: https://notesbylex.com/4-pillars-of-good-unit-tests
-- Unit Testing Principles（要点まとめ、2025年1月）: https://olano.dev/blog/unit-testing-principles/
-- テストダブルの実務ガイド（2026年）: https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained
+
+- 4 Pillars of Good Unit Tests（要点まとめ）: <https://notesbylex.com/4-pillars-of-good-unit-tests>
+- Unit Testing Principles（要点まとめ、2025年1月）: <https://olano.dev/blog/unit-testing-principles/>
+- テストダブルの実務ガイド（2026年）: <https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained>
 
 ---
 
