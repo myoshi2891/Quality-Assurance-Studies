@@ -32,14 +32,14 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 ## 2026/09/04: セキュア・バイ・デザイン実践ガイドのNext.js移行完了
 
-- **デザイン忠実再現**: 原著HTML固有の洗練されたエレガント・ペーパーデザイン（温かみのある紙の背景 `#f7f4ed`、インク色文字 `#212121`、ネイビーカバー `#0f2b48`、セリフ書体 `Cinzel`/`Newsreader`/`Crimson Pro`、サンセリフUI `Inter`）を忠実に復元。
+- **デザイン忠実再現**: 原著HTML固有の洗練されたエレガント・ペーパーデザイン（温かみのある紙の背景 `#f5f6f2`、インク色文字 `#181c1e`、ネイビーカバー `#153152`、セリフ書体 `Source Serif 4`/`Noto Serif JP`、サンセリフUI `Inter`/`Noto Sans JP`、等幅 `IBM Plex Mono`）を忠実に復元。
 - **Mermaid図解の完全移植**: 本書の全体構成、機能vs関心事、従来型アプローチの3つの限界、XML入力への多層防御、浅いモデリングvs深いモデリング、DDDの基本語彙、バリデーションの推奨順序、ドメイン・プリミティブの生成フロー、エンティティの状態遷移、クラウド思考の3つのR、レガシーコードへの3つの移行戦略、マイクロサービス間の検証境界とログの扱い、導入ロードマップの全13図解（FIG. 01〜FIG. 13）を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止や枠線の視認性最適化を適用。
 - **コードブロック**: Java ドメイン・プリミティブ（Username: 不変値オブジェクト、自己バリデーション、カプセル化）のコードブロックを完全移植。`.code-line` による静的改行整形および構文ハイライトを適用。
 - **テーブル & コールアウト**: 書籍情報、世界の開発者評価、CIA-Tマトリクス、通常値オブジェクト vs ドメイン・プリミティブ、ロードマップの全5テーブル、および重要定義・引用・警告などのコールアウトを完全移植。
 - **参考文献**: 22件の参考文献リスト（外部リンク、セキュリティ属性 `rel="noopener noreferrer"`）を完全移行。
 - `app/secure-by-design-guide/`: ページコンポーネント、専用スタイル（`.secure-by-design-page` スコープ、globals.css干渉リセット、Mermaid枠線・エッジラベルリセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全11セクション・サブセクションリンク、モバイルトグル対応、`aria-current`、読了プログレスバー、トップ戻るボタン）を実装。
 - `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/secure-by-design-guide`（セキュア・バイ・デザイン実践ガイド）を追加（全56件）。
-- `tests/secure-by-design-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全11リンク、全11セクション、Mermaid全13図、Javaコードブロック、全5テーブル、全22参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 110 expect()）。
+- `tests/secure-by-design-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全11リンク、全11セクション、Mermaid全13図、Javaコードブロック、全5テーブル（caption・thead・tbody の全セルを順序込みで検証）、全22参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（12 pass / 347 expect()）。
 - `Secure-by-design-guide.html` & `Secure-by-design-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 56 ページ体制に同期。
 
@@ -51,7 +51,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **テーブル & インタラクティブチェックリスト**: 書籍情報、CTFL v4.0.1対応表、テストケース構成要素、原著章構成、同値分割、境界値分析、デシジョンテーブル、ペアワイズ、カバレッジ、技法比較表、テストレベル対応表、アンチパターンの全12テーブル、およびセクション15のインタラクティブチェックリスト（進捗カウント、チェック状態連動、打消し線）を完全移植。
 - `app/software-test-design-guide/`: ページコンポーネント、専用スタイル（`.software-test-design-page` スコープ、globals.css干渉リセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全19セクションリンク、モバイルトグル対応、`aria-current`）、Checklistコンポーネントを実装。
 - `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/software-test-design-guide`（ソフトウェアテスト設計実践ガイド）を追加（全55件）。
-- `tests/software-test-design-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全19リンク、全19セクション、Mermaid 5図、コードブロック2点、全12テーブル、チェックリスト動作、全参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（10 pass / 251 expect()）。
+- `tests/software-test-design-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全19リンク、全19セクション、Mermaid 5図、コードブロック2点、全12テーブル、全10コールアウト（種別・見出しの順序を固定）、チェックリスト動作、全参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（11 pass / 303 expect()）。
 - `Software-test-design-guide.html` & `Software-test-design-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 55 ページ体制に同期。
 
@@ -64,7 +64,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **テーブル & インタラクティブチェックリスト**: ピラミッド比較、HTTPステータスコード観点、基本テストセット、代表的ツール比較、契約テストvsスキーマ、負荷テスト指標、OWASP API Security Top 10、よくある落とし穴とアンチパターンの全8テーブル、およびSection 14のインタラクティブチェックリスト（進捗カウント、チェック状態連動）を完全移植。
 - `app/testing-web-apis-guide/`: ページコンポーネント、スタイル（`.testing-web-apis-page` スコープ、globals.css干渉リセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全15セクションリンク、TOCグルーフラベル、モバイルトグル対応、`aria-current`）、Checklistコンポーネントを実装。
 - `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/testing-web-apis-guide`（Web APIテスト実践ガイド）を追加（全54件）。
-- `tests/testing-web-apis-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全15リンク、全15セクション、Mermaid 10図、コードブロック2点、テーブル、チェックリスト動作、全15参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス。
+- `tests/testing-web-apis-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全15リンク、全15セクション、Mermaid 10図、コードブロック2点、全8テーブル（所属セクション・caption・見出し行・先頭行・行数を固定）、チェックリスト全10項目（id / label[for] / 文言）の動作、全15参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（14 pass / 322 expect()）。
 - `Testing-web-apis-guide.html` & `Testing-web-apis-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 54 ページ体制に同期。
 
