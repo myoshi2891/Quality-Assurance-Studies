@@ -70,7 +70,7 @@ describe('Header drawer panel', () => {
       'ISTQB Expert',
       'CI/CD & DevOps',
       'テストツール & フレームワーク',
-      'Recommended Books',
+      '名著・実践ガイド',
     ]);
   });
 

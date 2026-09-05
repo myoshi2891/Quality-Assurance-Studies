@@ -229,7 +229,7 @@ describe('groupByCategory', () => {
   it('places 5 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
     expect(books?.items).toHaveLength(5);
-    expect(books?.title).toBe('Recommended Books');
+    expect(books?.title).toBe('名著・実践ガイド');
   });
 
   it('assigns a non-empty display title to every group', () => {

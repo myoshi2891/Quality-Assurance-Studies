@@ -128,7 +128,7 @@ export const CATEGORY_TITLES: Readonly<Record<NavCategory, string>> = {
   'istqb-expert': 'ISTQB Expert',
   'cicd-devops': 'CI/CD & DevOps',
   'tools-frameworks': 'テストツール & フレームワーク',
-  'books-practices': 'Recommended Books',
+  'books-practices': '名著・実践ガイド',
 };
 
 /**
