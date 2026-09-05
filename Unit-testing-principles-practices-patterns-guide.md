@@ -1,7 +1,7 @@
 # 『Unit Testing Principles, Practices, and Patterns』完全ガイド ― 初学者のためのステップバイステップ ベストプラクティス
 
 > 原著: *Unit Testing Principles, Practices, and Patterns*（Vladimir Khorikov 著 / Manning Publications, 2020年1月刊, 304ページ, ISBN 978-1-61729-627-7）
-> 出版社ページ: <https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/>
+> 出版社ページ: <a href="https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/</a>
 
 この記事は、ソフトウェアテスト分野で国際的に高く評価されている上記書籍の考え方を土台に、初学者でも迷わず実践できるよう「ステップ形式」で再構成した学習ガイドです。あわせて、Martin Fowler・Kent Beck・Kent C. Dodds・Ian Cooper・Gary Bernhardt といった著名な国際的開発者の発信内容、および2025〜2026年にかけての最新の議論（Test Desiderata 2.0、AI生成コードのテストなど）も参照し、現在の実務にそのまま使える形にまとめています。参照したソースのURLはすべて末尾の「参考文献・情報源」にまとめています。
 
@@ -494,57 +494,57 @@ Martin Fowlerが提唱した「テストピラミッド」に対し、Kent C. Do
 
 **書籍本体・出版社情報**
 
-- O'Reilly（書籍ページ・目次）: <https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/>
-- Manning Publications（出版社公式ページ）: <https://www.manning.com/books/unit-testing>
-- 著者Vladimir Khorikov氏のブログ掲載チャプター抜粋: <https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf>
+- O'Reilly（書籍ページ・目次）: <a href="https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/</a>
+- Manning Publications（出版社公式ページ）: <a href="https://www.manning.com/books/unit-testing" target="_blank" rel="noopener noreferrer">https://www.manning.com/books/unit-testing</a>
+- 著者Vladimir Khorikov氏のブログ掲載チャプター抜粋: <a href="https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf" target="_blank" rel="noopener noreferrer">https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf</a>
 
 **著者インタビュー**
 
-- Tech Lead Journal「#58 Principles for Writing Valuable Unit Tests - Vladimir Khorikov」: <https://techleadjournal.dev/episodes/58/>
+- Tech Lead Journal「#58 Principles for Writing Valuable Unit Tests - Vladimir Khorikov」: <a href="https://techleadjournal.dev/episodes/58/" target="_blank" rel="noopener noreferrer">https://techleadjournal.dev/episodes/58/</a>
 
 **Martin Fowler（著名な国際的ソフトウェアアーキテクト）**
 
-- 「Mocks Aren't Stubs」: <https://martinfowler.com/articles/mocksArentStubs.html>
+- 「Mocks Aren't Stubs」: <a href="https://martinfowler.com/articles/mocksArentStubs.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/articles/mocksArentStubs.html</a>
 
 **Kent Beck（Extreme Programming / TDDの提唱者）**
 
-- 「Test Desiderata」（2019年、原著論考）: <https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3>
-- 「Composable Tests」（2025年11月、続編）: <https://newsletter.kentbeck.com/p/composable-tests>
-- Test Desiderata 公式まとめページ: <https://kentbeck.github.io/TestDesiderata/>
+- 「Test Desiderata」（2019年、原著論考）: <a href="https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3" target="_blank" rel="noopener noreferrer">https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3</a>
+- 「Composable Tests」（2025年11月、続編）: <a href="https://newsletter.kentbeck.com/p/composable-tests" target="_blank" rel="noopener noreferrer">https://newsletter.kentbeck.com/p/composable-tests</a>
+- Test Desiderata 公式まとめページ: <a href="https://kentbeck.github.io/TestDesiderata/" target="_blank" rel="noopener noreferrer">https://kentbeck.github.io/TestDesiderata/</a>
 
 **Emily Bache（テストコーチ、Test Desiderata 2.0提唱者）**
 
-- 「Test Desiderata 2.0」（2025年12月）: <https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/>
-- Test Desiderata 2.0フレームワーク解説: <https://lidonis.github.io/Test-Desiderata/framework.html>
+- 「Test Desiderata 2.0」（2025年12月）: <a href="https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/" target="_blank" rel="noopener noreferrer">https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/</a>
+- Test Desiderata 2.0フレームワーク解説: <a href="https://lidonis.github.io/Test-Desiderata/framework.html" target="_blank" rel="noopener noreferrer">https://lidonis.github.io/Test-Desiderata/framework.html</a>
 
 **Kent C. Dodds（React Testing Library作者）**
 
-- 「Write tests. Not too many. Mostly integration.」: <https://kentcdodds.com/blog/write-tests>
-- 「The Testing Trophy and Testing Classifications」: <https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications>
-- 「Static vs Unit vs Integration vs E2E Testing for Frontend Apps」: <https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests>
+- 「Write tests. Not too many. Mostly integration.」: <a href="https://kentcdodds.com/blog/write-tests" target="_blank" rel="noopener noreferrer">https://kentcdodds.com/blog/write-tests</a>
+- 「The Testing Trophy and Testing Classifications」: <a href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications" target="_blank" rel="noopener noreferrer">https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications</a>
+- 「Static vs Unit vs Integration vs E2E Testing for Frontend Apps」: <a href="https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests" target="_blank" rel="noopener noreferrer">https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests</a>
 
 **Ian Cooper（.NETコミュニティ、ロンドン.NETユーザーグループ創設者）**
 
-- 講演「TDD, Where Did It All Go Wrong?」（InfoQ）: <https://www.infoq.com/presentations/tdd-original/>
+- 講演「TDD, Where Did It All Go Wrong?」（InfoQ）: <a href="https://www.infoq.com/presentations/tdd-original/" target="_blank" rel="noopener noreferrer">https://www.infoq.com/presentations/tdd-original/</a>
 
 **Gary Bernhardt（Destroy All Software創設者）**
 
-- 講演「Boundaries」（Functional Core, Imperative Shellの提唱）: <https://www.destroyallsoftware.com/talks/boundaries>
+- 講演「Boundaries」（Functional Core, Imperative Shellの提唱）: <a href="https://www.destroyallsoftware.com/talks/boundaries" target="_blank" rel="noopener noreferrer">https://www.destroyallsoftware.com/talks/boundaries</a>
 
 **Oliver Drotbohm（Spring Data等のメンテナ、著名なSpringエコシステム開発者）**
 
-- 「Rethinking Spring Application Integration Testing」（2025年12月、4本柱の実務適用例）: <https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/>
+- 「Rethinking Spring Application Integration Testing」（2025年12月、4本柱の実務適用例）: <a href="https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/" target="_blank" rel="noopener noreferrer">https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/</a>
 
 **AI生成コードのテスト（2026年の最新動向）**
 
-- 「Testing AI-Generated Code: Best Practices for 2026」: <https://skyramp.dev/blog/testing-ai-generated-code>
-- 「How to Test AI-Generated Code: Best Practices & Checklist (2026)」: <https://testdino.com/blog/how-to-test-ai-generated-code>
+- 「Testing AI-Generated Code: Best Practices for 2026」: <a href="https://skyramp.dev/blog/testing-ai-generated-code" target="_blank" rel="noopener noreferrer">https://skyramp.dev/blog/testing-ai-generated-code</a>
+- 「How to Test AI-Generated Code: Best Practices & Checklist (2026)」: <a href="https://testdino.com/blog/how-to-test-ai-generated-code" target="_blank" rel="noopener noreferrer">https://testdino.com/blog/how-to-test-ai-generated-code</a>
 
 **その他、書籍の要点整理**
 
-- 4 Pillars of Good Unit Tests（要点まとめ）: <https://notesbylex.com/4-pillars-of-good-unit-tests>
-- Unit Testing Principles（要点まとめ、2025年1月）: <https://olano.dev/blog/unit-testing-principles/>
-- テストダブルの実務ガイド（2026年）: <https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained>
+- 4 Pillars of Good Unit Tests（要点まとめ）: <a href="https://notesbylex.com/4-pillars-of-good-unit-tests" target="_blank" rel="noopener noreferrer">https://notesbylex.com/4-pillars-of-good-unit-tests</a>
+- Unit Testing Principles（要点まとめ、2025年1月）: <a href="https://olano.dev/blog/unit-testing-principles/" target="_blank" rel="noopener noreferrer">https://olano.dev/blog/unit-testing-principles/</a>
+- テストダブルの実務ガイド（2026年）: <a href="https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained" target="_blank" rel="noopener noreferrer">https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained</a>
 
 ---
 

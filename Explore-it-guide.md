@@ -2,7 +2,7 @@
 
 > 原著: *Explore It!: Reduce Risk and Increase Confidence with Exploratory Testing*
 > 著者: Elisabeth Hendrickson（Pragmatic Bookshelf, 2013年初版）
-> 参照ページ: https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html
+> 参照ページ: <a href="https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html</a>
 
 本ガイドは、ソフトウェアテストの古典的名著と評される『Explore It!』の内容を、**探索的テスト（Exploratory Testing）を初めて学ぶ方**に向けて、ステップバイステップのベストプラクティスとして整理し直したものです。図解はすべてMermaidで作成し、比較・整理はMarkdown表を用いています。
 
@@ -109,14 +109,14 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-    S1["Step1<br/>基礎を理解する<br/>(チェックと探索の違い)"] --> S2["Step2<br/>チャーターを書く"]
-    S2 --> S3["Step3<br/>タイムボックスされた<br/>セッションを実施"]
-    S3 --> S4["Step4<br/>観察する<br/>(見えないものを見える化)"]
-    S4 --> S5["Step5<br/>変化(バリエーション)を<br/>意図的に加える"]
-    S5 --> S6["Step6<br/>結果を評価する<br/>(オラクルを選ぶ)"]
-    S6 --> S7["Step7<br/>次元を加える<br/>(順序/エンティティ/状態/生態系)"]
-    S7 --> S8["Step8<br/>コンテキストに応じて適用<br/>(API/既存システム/要件)"]
-    S8 --> S9["Step9<br/>デブリーフィングし<br/>次のチャーターへ活かす"]
+    S1["準備<br/>基礎を理解する<br/>(チェックと探索の違い)"] --> S2["Step1<br/>チャーターを書く"]
+    S2 --> S3["Step2<br/>タイムボックスされた<br/>セッションを実施"]
+    S3 --> S4["Step3<br/>観察する<br/>(見えないものを見える化)"]
+    S4 --> S5["Step4<br/>変化(バリエーション)を<br/>意図的に加える"]
+    S5 --> S6["Step5<br/>結果を評価する<br/>(オラクルを選ぶ)"]
+    S6 --> S7["Step6<br/>次元を加える<br/>(順序/エンティティ/状態/生態系)"]
+    S7 --> S8["Step7<br/>コンテキストに応じて適用<br/>(API/既存システム/要件)"]
+    S8 --> S9["Step8<br/>デブリーフィングし<br/>次のチャーターへ活かす"]
     S9 -.->|継続的に繰り返す| S2
 ```
 
@@ -419,27 +419,27 @@ Hendricksonは、James Lyndsay・Dale Emeryと共に **「Test Heuristics Cheat 
 
 | No. | ソース | URL |
 |---|---|---|
-| 1 | O'Reilly Online Learning「Explore It!」書誌情報・目次 | https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html |
-| 2 | Amazon「Explore It!」書籍紹介（著者略歴・Janet Gregoryによる推薦文を含む） | https://www.amazon.com/Explore-Increase-Confidence-Exploratory-Testing/dp/1937785025 |
-| 3 | Hexawise Blog「Book Review of "Explore It!"」 | https://hexawise.com/posts/book-review-of-explore-it-elisabeth-hendricksons-excellent-new-book-on-software-testing |
-| 4 | LogiGear Blog「Book Review: Elizabeth Hendrickson's Explore It!」 | https://www.logigear.com/blogs/test-methods/Book-Review-Elizabeth-Hendricksons-Explore-It |
-| 5 | Steveo1967 Blog「Book Review - Explore it! by Elisabeth Hendrickson」 | http://steveo1967.blogspot.com/2013/11/book-review-explore-it-by-elizabeth.html |
-| 6 | Test Engineering Notes「Beyond the test case: 5 Insights from Elisabeth Hendrickson's 'Explore It!'」（2026年） | https://testengineeringnotes.com/posts/2026-07-02-explore-it-review/ |
-| 7 | Martin Fowler「bliki: Exploratory Testing」 | https://martinfowler.com/bliki/ExploratoryTesting.html |
-| 8 | Martin Fowler「Testing Guide」 | https://martinfowler.com/testing/ |
-| 9 | Wikipedia「Exploratory testing」（Cem Kaner, James Marcus Bachの定義を含む） | https://en.wikipedia.org/wiki/Exploratory_testing |
-| 10 | Wikipedia「Session-based testing」（James Bach, Jonathan Bachの手法解説） | https://en.wikipedia.org/wiki/Session-based_testing |
-| 11 | TechWell「Use Session-Based Testing to Structure Exploratory Testing」 | https://www.techwell.com/techwell-insights/2013/02/use-session-based-testing-structure-exploratory-testing |
-| 12 | Virtuoso QA「What is Session Based Test Management (SBTM)?」 | https://www.virtuosoqa.com/post/session-based-test-management |
-| 13 | Tricentis Blog「Exploratory Testing Techniques: Session-based Testing」 | https://www.tricentis.com/blog/exploratory-testing-techniques-session-based-testing |
-| 14 | The Testing-Library-Project「Session-Based Test Management by James Bach」 | https://tstlibrary.wordpress.com/whitepapers/session-based-test-management-by-james-bach/ |
-| 15 | yrkan.com「Test Charter Writing for Exploratory Testing」 | https://yrkan.com/blog/test-charter-writing/ |
-| 16 | Xray Blog「How to use test charters for effective exploratory testing」 | https://www.getxray.app/blog/test-charters-exploratory-testing |
-| 17 | Medium (Karlo Smid / Tentamen)「Testing Heuristics Cheat Sheet」 | https://tentamen.medium.com/testing-heuristics-cheat-sheet-tentamen-software-testing-blog-c6979f20caf0 |
-| 18 | BBST Courses「Elisabeth Hendrickson, James Lyndsay, and Dale Emery: Test Heuristics Cheat Sheet」 | https://bbst.courses/elisabeth-hendrickson-james-lyndsay-and-dale-emery-test-heuristics-cheat-sheet/ |
-| 19 | Ministry of Testing「Test Heuristics Cheat Sheet」 | https://www.ministryoftesting.com/articles/ab1cd85c |
-| 20 | testomat.io「Software Testing Trends 2026」 | https://testomat.io/blog/software-testing-trends/ |
-| 21 | PC Tech Magazine「Best AI Agents for Software Testing in 2026」 | https://pctechmag.com/2026/04/best-ai-agents-for-software-testing-in-2026/ |
-| 22 | QASkills.sh「Agentic AI Testing: The Complete Guide to AI Agent Test Automation 2026」 | https://qaskills.sh/blog/agentic-ai-testing-guide-2026 |
+| 1 | O'Reilly Online Learning「Explore It!」書誌情報・目次 | <a href="https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html</a> |
+| 2 | Amazon「Explore It!」書籍紹介（著者略歴・Janet Gregoryによる推薦文を含む） | <a href="https://www.amazon.com/Explore-Increase-Confidence-Exploratory-Testing/dp/1937785025" target="_blank" rel="noopener noreferrer">https://www.amazon.com/Explore-Increase-Confidence-Exploratory-Testing/dp/1937785025</a> |
+| 3 | Hexawise Blog「Book Review of "Explore It!"」 | <a href="https://hexawise.com/posts/book-review-of-explore-it-elisabeth-hendricksons-excellent-new-book-on-software-testing" target="_blank" rel="noopener noreferrer">https://hexawise.com/posts/book-review-of-explore-it-elisabeth-hendricksons-excellent-new-book-on-software-testing</a> |
+| 4 | LogiGear Blog「Book Review: Elizabeth Hendrickson's Explore It!」 | <a href="https://www.logigear.com/blogs/test-methods/Book-Review-Elizabeth-Hendricksons-Explore-It" target="_blank" rel="noopener noreferrer">https://www.logigear.com/blogs/test-methods/Book-Review-Elizabeth-Hendricksons-Explore-It</a> |
+| 5 | Steveo1967 Blog「Book Review - Explore it! by Elisabeth Hendrickson」 | <a href="http://steveo1967.blogspot.com/2013/11/book-review-explore-it-by-elizabeth.html" target="_blank" rel="noopener noreferrer">http://steveo1967.blogspot.com/2013/11/book-review-explore-it-by-elizabeth.html</a> |
+| 6 | Test Engineering Notes「Beyond the test case: 5 Insights from Elisabeth Hendrickson's 'Explore It!'」（2026年） | <a href="https://testengineeringnotes.com/posts/2026-07-02-explore-it-review/" target="_blank" rel="noopener noreferrer">https://testengineeringnotes.com/posts/2026-07-02-explore-it-review/</a> |
+| 7 | Martin Fowler「bliki: Exploratory Testing」 | <a href="https://martinfowler.com/bliki/ExploratoryTesting.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/bliki/ExploratoryTesting.html</a> |
+| 8 | Martin Fowler「Testing Guide」 | <a href="https://martinfowler.com/testing/" target="_blank" rel="noopener noreferrer">https://martinfowler.com/testing/</a> |
+| 9 | Wikipedia「Exploratory testing」（Cem Kaner, James Marcus Bachの定義を含む） | <a href="https://en.wikipedia.org/wiki/Exploratory_testing" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Exploratory_testing</a> |
+| 10 | Wikipedia「Session-based testing」（James Bach, Jonathan Bachの手法解説） | <a href="https://en.wikipedia.org/wiki/Session-based_testing" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Session-based_testing</a> |
+| 11 | TechWell「Use Session-Based Testing to Structure Exploratory Testing」 | <a href="https://www.techwell.com/techwell-insights/2013/02/use-session-based-testing-structure-exploratory-testing" target="_blank" rel="noopener noreferrer">https://www.techwell.com/techwell-insights/2013/02/use-session-based-testing-structure-exploratory-testing</a> |
+| 12 | Virtuoso QA「What is Session Based Test Management (SBTM)?」 | <a href="https://www.virtuosoqa.com/post/session-based-test-management" target="_blank" rel="noopener noreferrer">https://www.virtuosoqa.com/post/session-based-test-management</a> |
+| 13 | Tricentis Blog「Exploratory Testing Techniques: Session-based Testing」 | <a href="https://www.tricentis.com/blog/exploratory-testing-techniques-session-based-testing" target="_blank" rel="noopener noreferrer">https://www.tricentis.com/blog/exploratory-testing-techniques-session-based-testing</a> |
+| 14 | The Testing-Library-Project「Session-Based Test Management by James Bach」 | <a href="https://tstlibrary.wordpress.com/whitepapers/session-based-test-management-by-james-bach/" target="_blank" rel="noopener noreferrer">https://tstlibrary.wordpress.com/whitepapers/session-based-test-management-by-james-bach/</a> |
+| 15 | yrkan.com「Test Charter Writing for Exploratory Testing」 | <a href="https://yrkan.com/blog/test-charter-writing/" target="_blank" rel="noopener noreferrer">https://yrkan.com/blog/test-charter-writing/</a> |
+| 16 | Xray Blog「How to use test charters for effective exploratory testing」 | <a href="https://www.getxray.app/blog/test-charters-exploratory-testing" target="_blank" rel="noopener noreferrer">https://www.getxray.app/blog/test-charters-exploratory-testing</a> |
+| 17 | Medium (Karlo Smid / Tentamen)「Testing Heuristics Cheat Sheet」 | <a href="https://tentamen.medium.com/testing-heuristics-cheat-sheet-tentamen-software-testing-blog-c6979f20caf0" target="_blank" rel="noopener noreferrer">https://tentamen.medium.com/testing-heuristics-cheat-sheet-tentamen-software-testing-blog-c6979f20caf0</a> |
+| 18 | BBST Courses「Elisabeth Hendrickson, James Lyndsay, and Dale Emery: Test Heuristics Cheat Sheet」 | <a href="https://bbst.courses/elisabeth-hendrickson-james-lyndsay-and-dale-emery-test-heuristics-cheat-sheet/" target="_blank" rel="noopener noreferrer">https://bbst.courses/elisabeth-hendrickson-james-lyndsay-and-dale-emery-test-heuristics-cheat-sheet/</a> |
+| 19 | Ministry of Testing「Test Heuristics Cheat Sheet」 | <a href="https://www.ministryoftesting.com/articles/ab1cd85c" target="_blank" rel="noopener noreferrer">https://www.ministryoftesting.com/articles/ab1cd85c</a> |
+| 20 | testomat.io「Software Testing Trends 2026」 | <a href="https://testomat.io/blog/software-testing-trends/" target="_blank" rel="noopener noreferrer">https://testomat.io/blog/software-testing-trends/</a> |
+| 21 | PC Tech Magazine「Best AI Agents for Software Testing in 2026」 | <a href="https://pctechmag.com/2026/04/best-ai-agents-for-software-testing-in-2026/" target="_blank" rel="noopener noreferrer">https://pctechmag.com/2026/04/best-ai-agents-for-software-testing-in-2026/</a> |
+| 22 | QASkills.sh「Agentic AI Testing: The Complete Guide to AI Agent Test Automation 2026」 | <a href="https://qaskills.sh/blog/agentic-ai-testing-guide-2026" target="_blank" rel="noopener noreferrer">https://qaskills.sh/blog/agentic-ai-testing-guide-2026</a> |
 
 > 注記：本ガイドは上記ソースおよび公開されている書籍の目次情報をもとに、初学者向けに要約・再構成したものであり、原著からの長文引用は行っていません。より詳細で正確な内容は、必ず原著『Explore It!』（Elisabeth Hendrickson著、Pragmatic Bookshelf）をご参照ください。
