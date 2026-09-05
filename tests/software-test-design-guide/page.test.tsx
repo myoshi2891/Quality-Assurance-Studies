@@ -248,6 +248,41 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
         expect(caption?.textContent?.trim().length ?? 0).toBeGreaterThan(0);
       });
     });
+
+    it('renders the complete ordered inventory of callouts with their variants', () => {
+      const { container } = render(<Page />);
+
+      // 元 HTML の callout インベントリ。種別と見出しを出現順で 1 対 1 に固定する。
+      const expectedCallouts: ReadonlyArray<{ variant: 'note' | 'source'; heading: string }> = [
+        { variant: 'note', heading: 'ポイント' },
+        { variant: 'note', heading: '架空のシステム「ShopEasy」の注文機能' },
+        { variant: 'note', heading: '注意点' },
+        { variant: 'source', heading: '出典に基づく補足' },
+        { variant: 'note', heading: 'テーブルの圧縮について' },
+        { variant: 'note', heading: '共通例への適用' },
+        { variant: 'source', heading: '出典' },
+        { variant: 'note', heading: '注意' },
+        { variant: 'note', heading: '初学者向けポイント' },
+        { variant: 'source', heading: '出典' },
+      ];
+
+      const callouts = container.querySelectorAll('.callout');
+      expect(callouts.length).toBe(expectedCallouts.length);
+
+      // 種別ごとの内訳も固定し、note / source の取り違えを検出する
+      expect(container.querySelectorAll('.callout.note').length).toBe(
+        expectedCallouts.filter((callout) => callout.variant === 'note').length,
+      );
+      expect(container.querySelectorAll('.callout.source').length).toBe(
+        expectedCallouts.filter((callout) => callout.variant === 'source').length,
+      );
+
+      const actualCallouts = Array.from(callouts).map((callout) => ({
+        variant: callout.classList.contains('source') ? 'source' : 'note',
+        heading: callout.querySelector('strong')?.textContent?.trim() ?? '',
+      }));
+      expect(actualCallouts).toEqual(expectedCallouts.map((callout) => ({ ...callout })));
+    });
   });
 
   describe('Interactive Checklist Component', () => {

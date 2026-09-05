@@ -190,6 +190,14 @@
     font-weight: 800;
 }
 
+/* 強制カラーモードでは背景クリップが効かず見出しが消えるため、単色へフォールバックする */
+@media (forced-colors: active) {
+    .testing-web-apis-page .hero h1 {
+        background: none;
+        -webkit-text-fill-color: currentColor;
+    }
+}
+
 .testing-web-apis-page .hero p.lede {
     font-size: 1.12rem;
     color: var(--text-dim);

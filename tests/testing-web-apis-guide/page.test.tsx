@@ -308,22 +308,129 @@ describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Tables Integration', () => {
-    it('renders all tables with proper wrappers and headers', () => {
+    it('renders the complete inventory of 8 tables with section, caption, headers and first row', () => {
       const { container } = render(<Page />);
 
-      const tables = container.querySelectorAll('.table-wrap table');
-      expect(tables.length).toBeGreaterThanOrEqual(7);
+      // 元 HTML の表インベントリ。所属セクション・caption・見出し行・先頭行・行数を 1 対 1 で固定する。
+      const expectedTables: ReadonlyArray<{
+        sectionId: string;
+        caption: string;
+        head: readonly string[];
+        firstRow: readonly string[];
+        rowCount: number;
+      }> = [
+        {
+          sectionId: 'section-2',
+          caption: 'テストピラミッドとテスティング・トロフィーの比較',
+          head: ['モデル', '最重要視する層', '向いている状況', '注意点'],
+          firstRow: [
+            'ピラミッド型',
+            '単体テスト',
+            '複雑なビジネスロジック・計算処理が多いサービス',
+            'API結合部分の不具合を見落としやすい',
+          ],
+          rowCount: 2,
+        },
+        {
+          sectionId: 'section-5',
+          caption: '代表的なHTTPステータスコードとテスト観点',
+          head: ['コード帯', '意味', 'テストで確認すべきこと'],
+          firstRow: ['200 OK', 'リクエスト成功', 'レスポンスボディのデータ構造・型・値が仕様通りか'],
+          rowCount: 9,
+        },
+        {
+          sectionId: 'section-5',
+          caption: '初学者が最初に書くべき基本テストセット',
+          head: ['テスト観点', '目的', 'リクエスト例', '期待される結果'],
+          firstRow: [
+            'ハッピーパス（正常系）',
+            '最も基本的なユースケースが動作することを確認',
+            '全必須パラメータを含む正しいPOST',
+            '201 Created + 作成されたリソースのJSON',
+          ],
+          rowCount: 5,
+        },
+        {
+          sectionId: 'section-7',
+          caption: '代表的なAPIテストツールの比較',
+          head: ['ツール', '主な用途', '特徴', '学習コスト（目安）'],
+          firstRow: [
+            'Postman / Newman',
+            '手動確認〜CI組み込みまで幅広く対応',
+            'GUIで直感的、JavaScriptでアサーション記述、コレクション共有が容易',
+            '低',
+          ],
+          rowCount: 7,
+        },
+        {
+          sectionId: 'section-8',
+          caption: '契約テストとスキーマ検証の違い',
+          head: ['観点', 'スキーマ検証（Schemathesis/Dreddなど）', '契約テスト（Pactなど）'],
+          firstRow: [
+            '検証対象',
+            '「仕様書通りに実装されているか」',
+            '「特定のコンシューマーが実際に使う形と一致するか」',
+          ],
+          rowCount: 3,
+        },
+        {
+          sectionId: 'section-9',
+          caption: 'APIのパフォーマンスで測定すべき指標',
+          head: ['指標', '内容'],
+          firstRow: ['レイテンシ（p95 / p99）', 'リクエストの95%・99%が何ミリ秒以内に返るか'],
+          rowCount: 4,
+        },
+        {
+          sectionId: 'section-10',
+          caption: 'OWASP API Security Top 10（2023年版）',
+          head: ['順位', '名称（2023年版）', '概要'],
+          firstRow: [
+            'API1',
+            'Broken Object Level Authorization',
+            '他人のリソースIDを指定するだけでアクセスできてしまう不備',
+          ],
+          rowCount: 10,
+        },
+        {
+          sectionId: 'section-13',
+          caption: 'よくある落とし穴とアンチパターンおよび改善策',
+          head: ['アンチパターン', 'なぜ問題か', '改善策'],
+          firstRow: [
+            'ハッピーパスしかテストしない',
+            '実際の障害の多くは異常系・境界値から生まれる',
+            '5章の基本テストセット表を必ずチェックリスト化する',
+          ],
+          rowCount: 7,
+        },
+      ];
 
-      const tableText = container.textContent || '';
-      expect(tableText).toContain('ピラミッド型');
-      expect(tableText).toContain('トロフィー型');
-      expect(tableText).toContain('200 OK');
-      expect(tableText).toContain('400 Bad Request');
-      expect(tableText).toContain('Postman / Newman');
-      expect(tableText).toContain('Schemathesis');
-      expect(tableText).toContain('レイテンシ（p95 / p99）');
-      expect(tableText).toContain('Broken Object Level Authorization');
-      expect(tableText).toContain('ハッピーパスしかテストしない');
+      const normalize = (value: string | null | undefined): string =>
+        (value ?? '').replace(/\s+/g, ' ').trim();
+
+      const tables = container.querySelectorAll('.table-wrap table');
+      expect(tables.length).toBe(expectedTables.length);
+
+      expectedTables.forEach((expectedTable, idx) => {
+        const table = tables[idx];
+        expect(table).toBeDefined();
+        if (!table) return;
+
+        expect(table.closest('section')?.getAttribute('id')).toBe(expectedTable.sectionId);
+        expect(normalize(table.querySelector('caption')?.textContent)).toBe(expectedTable.caption);
+
+        const head = Array.from(table.querySelectorAll('thead th')).map((cell) =>
+          normalize(cell.textContent),
+        );
+        expect(head).toEqual([...expectedTable.head]);
+
+        const bodyRows = table.querySelectorAll('tbody tr');
+        expect(bodyRows.length).toBe(expectedTable.rowCount);
+
+        const firstRow = Array.from(bodyRows[0]?.querySelectorAll('th, td') ?? []).map((cell) =>
+          normalize(cell.textContent),
+        );
+        expect(firstRow).toEqual([...expectedTable.firstRow]);
+      });
     });
   });
 
@@ -331,8 +438,37 @@ describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
     it('renders 10 checklist items and updates progress label on toggle', () => {
       const { container } = render(<Checklist />);
 
+      // 元 HTML のチェック項目インベントリ。id / label[for] / 表示文言を 1 対 1 で固定する。
+      const expectedItems: ReadonlyArray<{ id: string; text: string }> = [
+        { id: 'chk-1', text: '対象APIの仕様（OpenAPIなど）を確認・整備したか' },
+        { id: 'chk-2', text: '品質特性とリスクを洗い出し、優先度を付けたか' },
+        { id: 'chk-3', text: '各エンドポイントで正常系・異常系・境界値のテストケースを設計したか' },
+        { id: 'chk-4', text: '探索的テストのチャーターを用意し、実際に手を動かして触ったか' },
+        { id: 'chk-5', text: '自動テストが独立して実行でき、記述的な名前を持っているか' },
+        { id: 'chk-6', text: 'サービス間連携がある場合、契約テストの導入を検討したか' },
+        { id: 'chk-7', text: '性能テストのしきい値（レイテンシ・エラー率など）を事前に決めたか' },
+        { id: 'chk-8', text: 'OWASP API Security Top 10の代表的な観点を自動テストに含めたか' },
+        { id: 'chk-9', text: 'CI/CDパイプラインで、速いテストから遅いテストへ段階的に実行されているか' },
+        { id: 'chk-10', text: '本番環境のSLI/SLOを定義し、継続的に監視しているか' },
+      ];
+
       const checkboxes = container.querySelectorAll('input[type="checkbox"]');
-      expect(checkboxes.length).toBe(10);
+      expect(checkboxes.length).toBe(expectedItems.length);
+
+      const items = container.querySelectorAll('li');
+      expect(items.length).toBe(expectedItems.length);
+
+      expectedItems.forEach((expectedItem, idx) => {
+        const item = items[idx];
+        expect(item).toBeDefined();
+        if (!item) return;
+
+        const input = item.querySelector('input[type="checkbox"]');
+        const label = item.querySelector('label');
+        expect(input?.getAttribute('id')).toBe(expectedItem.id);
+        expect(label?.getAttribute('for')).toBe(expectedItem.id);
+        expect((label?.textContent ?? '').replace(/\s+/g, ' ').trim()).toBe(expectedItem.text);
+      });
 
       const progress = container.querySelector('.checklist-progress');
       expect(progress?.textContent).toContain('0 / 10 完了');

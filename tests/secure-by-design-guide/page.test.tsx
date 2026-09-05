@@ -285,45 +285,218 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Tables Integration', () => {
-    it('renders all 5 table-wrap blocks with correct structure and key contents', () => {
+    it('renders all 5 table-wrap blocks with the complete ordered structure of every table', () => {
       const { container } = render(<Page />);
 
       const tableWraps = container.querySelectorAll('.table-wrap');
       expect(tableWraps.length).toBe(5);
 
-      // 1. 書籍情報テーブル
-      const t1 = tableWraps[0]?.querySelector('table');
-      expect(t1?.textContent).toContain('原題');
-      expect(t1?.textContent).toContain('Secure by Design');
-      expect(t1?.textContent).toContain('ISBN');
-      expect(t1?.textContent).toContain('978-1-61729-435-8');
+      // 元 HTML の構成要素インベントリ。caption / thead / tbody の全セルを順序込みで固定する。
+      const expectedTables: ReadonlyArray<{
+        caption: string;
+        head: readonly string[];
+        rows: ReadonlyArray<readonly string[]>;
+      }> = [
+        {
+          caption: '書籍『Secure by Design』の基本情報',
+          head: [],
+          rows: [
+            [
+              '原題',
+              'Secure by Design',
+            ],
+            [
+              '著者',
+              'Dan Bergh Johnsson, Daniel Deogun, Daniel Sawano',
+            ],
+            [
+              '序文',
+              'Daniel Terhorst-North（BDD＝振舞い駆動開発の提唱者として著名）',
+            ],
+            [
+              '出版社',
+              'Manning Publications',
+            ],
+            [
+              '出版年',
+              '2019年9月',
+            ],
+            [
+              'ISBN',
+              '978-1-61729-435-8',
+            ],
+            [
+              'ページ数',
+              '約400ページ',
+            ],
+            [
+              '翻訳版',
+              '日本語、ロシア語、簡体字中国語',
+            ],
+            [
+              '日本語版出版社',
+              'マイナビ出版（Compass Booksシリーズ）',
+            ],
+            [
+              '対象読者',
+              'Java や C#（.NETプラットフォーム）といった静的型付け言語で、ある程度アプリケーション設計の経験がある開発者',
+            ],
+          ],
+        },
+        {
+          caption: '世界の開発者からの好意的な評価',
+          head: ['評者', 'コメントの要旨', '出典'],
+          rows: [
+            [
+              'Daniel Terhorst-North（序文、BDDの提唱者として国際的に著名）',
+              '単なる「セキュリティを真剣に扱おう」という掛け声ではなく、設計の検討から実際のコードまで一貫した実例を豊富に示す、実践的で行動につながる一冊だと評価',
+              'Manning公式ページ',
+            ],
+            [
+              'Matt Raible（当時Okta所属、Java/Spring/Angular分野で国際的に著名）',
+              '「ドメイン・プリミティブの例が気に入りすぎて、自分のマイクロサービスセキュリティに関するブログ記事でも引用した」と述べ、5段階評価で満点を付けている',
+              'raibledesigns.com',
+            ],
+            [
+              'Jeremy Lange, Sertifi',
+              'DDDと優れた設計原則への優れた入門書であり、良い設計こそが最良のセキュリティ形態になり得ることを示す"目からうろこ"の内容と評価',
+              'Manning公式ページ',
+            ],
+            [
+              'Adrian Citu（技術ブロガー）',
+              'ソフトウェアエンジニアが読むべきセキュリティ書籍リストに入れたいと明言',
+              'adriancitu.com',
+            ],
+          ],
+        },
+        {
+          caption: 'CIA-T：4つの古典的なセキュリティ関心事',
+          head: ['頭文字', '意味', '説明', '具体例'],
+          rows: [
+            [
+              'C',
+              'Confidentiality（機密性）',
+              '秘密にすべき情報を秘密のまま保つこと',
+              '診療記録が第三者に漏れないこと',
+            ],
+            [
+              'I',
+              'Integrity（完全性）',
+              'データが許可された方法でしか変更されないこと',
+              '選挙の投票結果が改ざんされていないこと',
+            ],
+            [
+              'A',
+              'Availability（可用性）',
+              '必要なときにデータ・機能が使えること',
+              '消防が火災発生場所の情報に即座にアクセスできること',
+            ],
+            [
+              'T',
+              'Traceability（追跡可能性）',
+              '誰が・いつ・何を変更/参照したかを追跡できること',
+              '処理内容や文脈によっては、GDPR（EU一般データ保護規則）のアカウンタビリティやセキュリティの要請から、監査可能な記録が必要になる',
+            ],
+          ],
+        },
+        {
+          caption: '通常の値オブジェクトとドメイン・プリミティブの比較',
+          head: ['観点', '通常の値オブジェクト', 'ドメイン・プリミティブ'],
+          rows: [
+            [
+              '不変性',
+              '推奨される',
+              '必須',
+            ],
+            [
+              '不変条件（invariant）',
+              '持つこともある',
+              '必ず持ち、生成時点で強制される',
+            ],
+            [
+              '言語プリミティブ（int, String など）や null の使用',
+              '許容されることがある',
+              'ドメインの概念を表すためには使用禁止',
+            ],
+            [
+              '目的',
+              'ドメインの概念をモデル化する',
+              'モデル化に加え、コンストラクタまたは明示的な変換の時点で不変条件を実行時検証し、以後は「検証済みの型」として扱えるようにする',
+            ],
+          ],
+        },
+        {
+          caption: '導入ロードマップの各ステップと該当章',
+          head: ['ステップ', '目的', '該当章'],
+          rows: [
+            [
+              '1関心事として再定義',
+              '「何のためにこの機能が必要か」を明確化し、抜け道を塞ぐ範囲を正しく捉える',
+              '第1章',
+            ],
+            [
+              '2ユビキタス言語の確立',
+              '開発者とビジネス側の認識のズレ（＝設計ミス）を減らす',
+              '第3章',
+            ],
+            [
+              '3曖昧な型の棚卸し',
+              'どこに危険が潜んでいるかを可視化する',
+              '第1, 12章',
+            ],
+            [
+              '4ドメイン・プリミティブ化',
+              '「不正な状態そのものを作れなくする」',
+              '第4, 5章',
+            ],
+            [
+              '5不変性・フェイルファスト・順序',
+              'データ整合性と早期検知を両立する',
+              '第4章',
+            ],
+            [
+              '6コンテキスト境界とAPI契約',
+              'サービスをまたいだ際の意味の取り違えを防ぐ',
+              '第3, 13章',
+            ],
+            [
+              '7継続的なセキュリティテスト',
+              '一度作った安全性を退行させない',
+              '第8章',
+            ],
+            [
+              '8障害処理とインフラの使い捨て化',
+              '可用性を高め、侵入後の被害範囲を縮小する',
+              '第9, 10章',
+            ],
+            [
+              '9探索的セキュリティ活動の継続',
+              '設計だけではカバーできない領域を補う',
+              '第14章',
+            ],
+          ],
+        },
+      ];
 
-      // 2. 世界の開発者からの評価テーブル
-      const t2 = tableWraps[1]?.querySelector('table');
-      expect(t2?.textContent).toContain('評者');
-      expect(t2?.textContent).toContain('Daniel Terhorst-North');
-      expect(t2?.textContent).toContain('Matt Raible');
-      expect(t2?.textContent).toContain('Manning公式ページ');
+      expectedTables.forEach((expectedTable, tableIdx) => {
+        const table = tableWraps[tableIdx]?.querySelector('table');
+        expect(table).not.toBeNull();
 
-      // 3. CIA-T テーブル
-      const t3 = tableWraps[2]?.querySelector('table');
-      expect(t3?.textContent).toContain('頭文字');
-      expect(t3?.textContent).toContain('Confidentiality');
-      expect(t3?.textContent).toContain('Integrity');
-      expect(t3?.textContent).toContain('Availability');
-      expect(t3?.textContent).toContain('Traceability');
+        const normalize = (value: string | null | undefined): string =>
+          (value ?? '').replace(/\s+/g, ' ').trim();
 
-      // 4. ドメイン・プリミティブの観点テーブル
-      const t4 = tableWraps[3]?.querySelector('table');
-      expect(t4?.textContent).toContain('観点');
-      expect(t4?.textContent).toContain('通常の値オブジェクト');
-      expect(t4?.textContent).toContain('ドメイン・プリミティブ');
+        expect(normalize(table?.querySelector('caption')?.textContent)).toBe(expectedTable.caption);
 
-      // 5. ロードマップテーブル
-      const t5 = tableWraps[4]?.querySelector('table');
-      expect(t5?.textContent).toContain('関心事として再定義');
-      expect(t5?.textContent).toContain('探索的セキュリティ活動の継続');
-      expect(t5?.textContent).toContain('目的');
+        const headCells = Array.from(table?.querySelectorAll('thead th') ?? []).map((cell) =>
+          normalize(cell.textContent),
+        );
+        expect(headCells).toEqual([...expectedTable.head]);
+
+        const bodyRows = Array.from(table?.querySelectorAll('tbody tr') ?? []).map((row) =>
+          Array.from(row.querySelectorAll('th, td')).map((cell) => normalize(cell.textContent)),
+        );
+        expect(bodyRows).toEqual(expectedTable.rows.map((row) => [...row]));
+      });
     });
   });
 

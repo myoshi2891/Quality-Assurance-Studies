@@ -570,7 +570,8 @@
   background: #fafbf8 !important;
 }
 
-.secure-by-design-page tbody tr:last-child td {
+.secure-by-design-page tbody tr:last-child td,
+.secure-by-design-page tbody tr:last-child th[scope='row'] {
   border-bottom: none !important;
 }
 
