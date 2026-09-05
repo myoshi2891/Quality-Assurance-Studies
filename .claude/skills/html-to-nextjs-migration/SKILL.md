@@ -487,24 +487,24 @@ bun run lint
 承認を得ずに自動でコミットを作成してはなりません。
 </ai_agent_directive>
 
-**ゲート条件**: 1ページの `git commit` 完了後、次 HTML を `Read` し始める前に必ず実施する。
+**ゲート条件**: PII スキャンは **`git add` 後・最初の `git commit` 実行前**に必ず行う（コミット後は staged 差分が空になり検査が空振りするため）。コミット完了後は、次 HTML を `Read` し始める前に `docs/MIGRATION_PROGRESS.md` の同期まで済ませる。
 
 ```bash
 # 1. テストとLinterの通過を確認（ビルドコマンドは実行しない）
 bun test tests/<page-slug>/page.test.tsx
 bun run lint
 
-# 2. コミット予定差分の PII / ローカル絶対パス機械的走査【必須 Gate Condition】
+# 2. `git add` 後・`git commit` 実行前に staged 差分を走査する【必須 Gate Condition】
 #    検出時は終了コード 1 で失敗させ、コミットを中止して相対パスへ修正する
 #    （grep パターン自身が自己一致しないよう文字クラスで 1 文字を分割している）
-if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|C:\\Us[e]rs\\)'; then
+if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
   echo "PII detected — abort commit" >&2
   exit 1
 fi
 echo "PII check passed"
 ```
 
-その後 `docs/MIGRATION_PROGRESS.md` の以下を更新してコミット:
+PII チェック通過後に `git commit` を実行する。その後 `docs/MIGRATION_PROGRESS.md` の以下を更新し、同じ手順（`git add` → PII スキャン → `git commit`）で再度コミットする:
 
 | フィールド | 更新内容 |
 |---|---|
