@@ -322,6 +322,15 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
       const items = refList?.querySelectorAll('li');
       expect(items?.length).toBe(22);
 
+      // 全 22 件の外部リンクに tabnabbing 対策の属性が付いていること
+      const refLinks = refList?.querySelectorAll('a');
+      expect(refLinks?.length).toBe(22);
+      refLinks?.forEach((link) => {
+        expect(link.getAttribute('target')).toBe('_blank');
+        expect(link.getAttribute('rel')).toContain('noopener');
+        expect(link.getAttribute('rel')).toContain('noreferrer');
+      });
+
       const footer = container.querySelector('footer');
       expect(footer).not.toBeNull();
       expect(footer?.textContent).toContain('マイナビ出版');

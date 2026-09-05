@@ -326,6 +326,15 @@ describe('The Way of the Web Tester Guide Page - Comprehensive Test Suite', () =
 
       const tables = container.querySelectorAll('.table-wrap table');
       expect(tables.length).toBe(12);
+
+      // 全 12 表に thead / tbody と空でない caption が揃っていること
+      tables.forEach((table) => {
+        expect(table.querySelector('thead')).not.toBeNull();
+        expect(table.querySelector('tbody')).not.toBeNull();
+        const caption = table.querySelector('caption');
+        expect(caption).not.toBeNull();
+        expect(caption?.textContent?.trim().length ?? 0).toBeGreaterThan(0);
+      });
     });
   });
 });

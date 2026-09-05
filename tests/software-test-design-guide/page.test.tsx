@@ -242,6 +242,10 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
         expect(thead).not.toBeNull();
         const tbody = table?.querySelector('tbody');
         expect(tbody).not.toBeNull();
+        // スクリーンリーダー向けに各表へ空でない caption が付いていること
+        const caption = table?.querySelector('caption');
+        expect(caption).not.toBeNull();
+        expect(caption?.textContent?.trim().length ?? 0).toBeGreaterThan(0);
       });
     });
   });

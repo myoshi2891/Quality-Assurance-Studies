@@ -317,6 +317,7 @@ describe('Clean Code Cookbook Guide Page - Comprehensive Test Suite', () => {
         expect(link?.getAttribute('href')).toBe(expected.url);
         expect(link?.getAttribute('target')).toBe('_blank');
         expect(link?.getAttribute('rel')).toContain('noopener');
+        expect(link?.getAttribute('rel')).toContain('noreferrer');
       });
     });
   });
