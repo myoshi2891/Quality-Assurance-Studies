@@ -93,9 +93,21 @@ git rev-parse --short HEAD
 進捗ファイルは**コード変更とは別のコミット**にする。ステージは常にファイルを明示指定し、
 `git diff --cached` で意図した 1 ファイルだけが含まれることを確認してからユーザーへ承認を求める。
 
+ステージ後は**承認を求める前に**、この差分に対して再度 PII / ローカル絶対パスの機械的走査を行う。
+手順 1 の走査はコード変更の差分に対するものであり、進捗ファイルの差分は覆っていないため省略できない。
+
 ```bash
 git add docs/MIGRATION_PROGRESS.md
 git diff --cached --name-only   # docs/MIGRATION_PROGRESS.md のみであることを確認する
+
+# ステージ済み差分の PII / ローカル絶対パス走査【必須 Gate Condition】
+# 検出時はコミットを中止し、相対パス（または ~/ 形式）へ修正してからやり直す
+if git diff --cached | grep -E '^\+[^+]' | grep -E '(/Us[e]rs/|/ho[m]e/|[A-Za-z]:\\[Uu][Ss][Ee][Rr][Ss]\\|\\\\[A-Za-z0-9._-]+\\[Uu][Ss][Ee][Rr][Ss]\\)'; then
+  echo "PII detected — abort commit" >&2
+  exit 1
+fi
+echo "PII check passed"
+
 # ここでコミットメッセージ案をユーザーへ提示し、明示的な承認を得る
 git commit -m "chore(docs): update docs/MIGRATION_PROGRESS.md — <作業内容の1行要約>"
 ```
