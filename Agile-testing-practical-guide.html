@@ -20,7 +20,7 @@
         />
         <script
             src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"
-            integrity="sha384-o+g/BxPwhi0C3RK7oQBxQuNimeafQ3GE/ST4iT2BxVI4Wzt60SH4pq9iXVYujjaS"
+            integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk"
             crossorigin="anonymous"
         ></script>
         <style>
@@ -255,23 +255,25 @@
             /* ---------- Tables ---------- */
             .table-wrap {
                 overflow-x: auto;
+                overflow-y: hidden;
                 margin: 1.6rem 0;
                 border: 1px solid var(--border);
                 border-radius: 12px;
+            }
+            .table-title {
+                background: var(--paper-card-2);
+                padding: 0.9rem 1.1rem;
+                font-family: 'Source Sans 3', sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                color: var(--ink);
+                border-bottom: 1px solid var(--border);
             }
             table {
                 width: 100%;
                 border-collapse: collapse;
                 font-size: 1rem;
                 background: var(--paper-card);
-            }
-            caption {
-                caption-side: top;
-                text-align: left;
-                font-family: 'Source Sans 3', sans-serif;
-                font-weight: 600;
-                padding: 0.9rem 1.1rem 0;
-                font-size: 1rem;
             }
             th,
             td {
@@ -290,8 +292,19 @@
             tr:last-child td {
                 border-bottom: none;
             }
+            tr:last-child th {
+                border-bottom: none;
+            }
             td strong {
                 color: var(--indigo);
+            }
+            /* key-value style tables (a <th> row-label in every row, not a single header row):
+     use a quieter neutral label column instead of the strong header-row accent color */
+            .kv-table th {
+                background: var(--paper-card-2);
+                color: var(--ink);
+                font-weight: 700;
+                width: 11rem;
             }
 
             /* ---------- Callouts ---------- */
@@ -722,10 +735,8 @@
                         </p>
 
                         <div class="table-wrap">
-                            <table>
-                                <caption>
-                                    書誌情報
-                                </caption>
+                            <div class="table-title">書誌情報</div>
+                            <table class="kv-table">
                                 <tbody>
                                     <tr>
                                         <th>原題</th>
@@ -784,10 +795,8 @@
                         </p>
 
                         <div class="table-wrap">
+                            <div class="table-title">本書の構成マップ</div>
                             <table>
-                                <caption>
-                                    本書の構成マップ
-                                </caption>
                                 <thead>
                                     <tr>
                                         <th>Part</th>
