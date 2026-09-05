@@ -180,6 +180,67 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
         expect(el?.textContent).toContain(sub.title);
       });
     });
+
+    it('renders every h4 sub-subsection heading', () => {
+      const { container } = render(<Page />);
+
+      const expectedH4 = [
+        '歴史から学ぶ：エスト・ヨータ銀行（Öst-Götha Bank）強盗事件（1854年）',
+        'CIA-T：4つの古典的なセキュリティ関心事',
+        '「従来型アプローチ」の3つの限界',
+        '設計視点で同じ問題を解く：ドメイン・プリミティブの初歩',
+        '多層防御（Defense in Depth）：Billion Laughs攻撃を例に',
+        '柱1：不変性（Immutability）',
+        '柱2：契約による設計とフェイルファスト（Fail Fast）',
+        '柱3：バリデーションの正しい順序',
+      ];
+
+      const h4s = container.querySelectorAll('h4');
+      expect(h4s.length).toBe(expectedH4.length);
+      expectedH4.forEach((title, idx) => {
+        expect(h4s[idx]?.textContent).toContain(title);
+      });
+    });
+
+    it('keeps h3 and h4 headings in the contracted document order', () => {
+      const { container } = render(<Page />);
+
+      // 見出しは階層構造そのものが契約。h3 / h4 の並びが崩れれば読者の読み順が壊れる
+      const expectedOrder: ReadonlyArray<{ level: 'H3' | 'H4'; title: string }> = [
+        { level: 'H3', title: '著者について' },
+        { level: 'H3', title: '好意的な評価' },
+        { level: 'H3', title: '批判的な視点' },
+        { level: 'H3', title: '第1章：セキュリティは「機能」ではなく「関心事」' },
+        { level: 'H4', title: '歴史から学ぶ：エスト・ヨータ銀行（Öst-Götha Bank）強盗事件（1854年）' },
+        { level: 'H4', title: 'CIA-T：4つの古典的なセキュリティ関心事' },
+        { level: 'H4', title: '「従来型アプローチ」の3つの限界' },
+        { level: 'H4', title: '設計視点で同じ問題を解く：ドメイン・プリミティブの初歩' },
+        { level: 'H4', title: '多層防御（Defense in Depth）：Billion Laughs攻撃を例に' },
+        { level: 'H3', title: '第2章（幕間）：アンチ・ハムレット' },
+        { level: 'H3', title: '第3章：ドメイン駆動設計（DDD）の中心概念' },
+        { level: 'H3', title: '第4章：セキュリティを促進するコード構造を支える3つの柱' },
+        { level: 'H4', title: '柱1：不変性（Immutability）' },
+        { level: 'H4', title: '柱2：契約による設計とフェイルファスト（Fail Fast）' },
+        { level: 'H4', title: '柱3：バリデーションの正しい順序' },
+        { level: 'H3', title: '第5章：ドメイン・プリミティブ' },
+        { level: 'H3', title: '第6章・第7章：状態の整合性と複雑さの軽減' },
+        { level: 'H3', title: '第8章：デリバリーパイプラインの活用' },
+        { level: 'H3', title: '第9章：安全な障害処理' },
+        { level: 'H3', title: '第10章：クラウド思考によるメリット' },
+        { level: 'H3', title: '第11章（幕間）：ただで手に入る保険' },
+        { level: 'H3', title: '第12章：レガシーコードへの適用' },
+        { level: 'H3', title: '第13章：マイクロサービスへの適用' },
+        { level: 'H3', title: '第14章：まとめ' },
+      ];
+
+      const headings = container.querySelectorAll('h3, h4');
+      expect(headings.length).toBe(expectedOrder.length);
+      expectedOrder.forEach((expected, idx) => {
+        const heading = headings[idx];
+        expect(heading?.tagName).toBe(expected.level);
+        expect(heading?.textContent).toContain(expected.title);
+      });
+    });
   });
 
   describe('Mermaid Diagrams Integration', () => {

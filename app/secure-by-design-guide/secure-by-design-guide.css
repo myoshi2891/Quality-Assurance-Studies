@@ -701,8 +701,15 @@
   margin: 0 !important;
 }
 
+/* エッジラベルの背景板。SVG の rect に background-color は効かないため fill で塗る。
+   ラベル文字と同じ規則にまとめると rect まで明色で塗り潰されるので必ず分離する。 */
+.secure-by-design-page .mermaid-wrapper .edgeLabels rect {
+  fill: #0F2338 !important;
+  stroke: none !important;
+}
+
+/* エッジラベルの文字。HTML ラベル(span)は color、SVG ラベル(text)は fill で色が決まる。 */
 .secure-by-design-page .mermaid-wrapper .edgeLabel,
-.secure-by-design-page .mermaid-wrapper .edgeLabels rect,
 .secure-by-design-page .mermaid-wrapper .edgeLabels span,
 .secure-by-design-page .mermaid-wrapper .edgeLabels text {
   background-color: #0F2338 !important;

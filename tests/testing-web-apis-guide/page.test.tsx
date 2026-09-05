@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/testing-web-apis-guide/page';
@@ -212,8 +212,35 @@ describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Mermaid Diagrams Integration', () => {
-    it('renders all 10 Mermaid diagrams across the guide', () => {
+    it('renders all 10 Mermaid diagrams across the guide', async () => {
+      mermaidRenderMock.mockClear();
       const { container } = render(<Page />);
+
+      // Mermaid の描画は非同期のため、SVG が注入されるまで待つ
+      await waitFor(() => {
+        expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(10);
+      });
+      expect(mermaidRenderMock).toHaveBeenCalledTimes(10);
+
+      // mermaid.render(id, chart) の第2引数が各図のチャート定義であることを文書順に検証する
+      const charts = mermaidRenderMock.mock.calls.map((call) => String(call[1]));
+      const expectedCharts: ReadonlyArray<{ type: string; marker: string }> = [
+        { type: 'flowchart TB', marker: '少数: E2Eテスト（画面を含む一連のユーザーシナリオ）' },
+        { type: 'flowchart TB', marker: '最も厚い: 統合テスト' },
+        { type: 'flowchart TD', marker: '品質特性を定義する' },
+        { type: 'flowchart TD', marker: 'テスト対象のリクエストを組み立てる' },
+        { type: 'flowchart TD', marker: 'チャーターを決める' },
+        { type: 'sequenceDiagram', marker: 'can-i-deploy でデプロイ可否を確認' },
+        { type: 'flowchart TD', marker: 'ソークテスト' },
+        { type: 'flowchart TD', marker: '脅威モデリング' },
+        { type: 'flowchart TD', marker: '本番環境への段階的デプロイ' },
+        { type: 'flowchart TD', marker: 'SLI（サービスレベル指標）を決める' },
+      ];
+      expect(charts.length).toBe(expectedCharts.length);
+      expectedCharts.forEach((expected, idx) => {
+        expect(charts[idx]?.startsWith(expected.type)).toBe(true);
+        expect(charts[idx]).toContain(expected.marker);
+      });
 
       const captions = container.querySelectorAll('figcaption.fig-cap');
       expect(captions.length).toBe(10);
