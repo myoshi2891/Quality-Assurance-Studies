@@ -35,13 +35,13 @@ HTML → Next.js 移行セッションでは、**コンテキストが逼迫す�
 
 > [!IMPORTANT]
 > **サンドボックス環境におけるビルド実行禁止ルール:**
-> Antigravityのサンドボックス環境においては、ビルドのバックグラウンド実行が正常にハンドリングされずローカルメモリを過度に圧迫しクラッシュを引き起こす問題があるため、AIエージェントは**自律的・自動的に本番ビルドコマンド（`bun run build`、`npm run build` 等）を実行してはなりません**。
-> 検証はテスト（`bun test` または `npm test`）と Linter（`bun run lint` または `npm run lint`）で実施し、本番ビルドの成否確認はユーザーに依頼してください。
+> Antigravityのサンドボックス環境においては、ビルドのバックグラウンド実行が正常にハンドリングされずローカルメモリを過度に圧迫しクラッシュを引き起こす問題があるため、AIエージェントは**自律的・自動的に本番ビルドコマンド（`bun run build` 等）を実行してはなりません**。
+> 検証はテスト（`bun test`）と Linter（`bun run lint`）で実施し、本番ビルドの成否確認はユーザーに依頼してください。
 
 ```bash
 # 1. テストとLinterの検証
-npm test tests/<page-slug>/page.test.tsx
-npm run lint
+bun test tests/<page-slug>/page.test.tsx
+bun run lint
 
 # 2. コミット予定差分の PII / ローカル絶対パス機械的走査【必須 Gate Condition】
 #    検出時は終了コード 1 で失敗させ、コミットを中止して相対パスへ修正する

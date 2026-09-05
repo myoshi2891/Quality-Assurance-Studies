@@ -441,18 +441,18 @@ Also recalculate the overall coverage percentage (`--coverage` CSS variable and 
 > [!IMPORTANT]
 > **サンドボックス環境におけるビルド実行禁止ルール:**
 > Antigravityのサンドボックス環境においては、ビルドのバックグラウンド実行が正常にハンドリングされずローカルメモリを過度に圧迫しクラッシュを引き起こす問題が確認されています。
-> そのため、AIエージェントは**自律的・自動的に本番ビルドコマンド（`bun run build`、`npm run build` 等）を実行してはなりません**。
+> そのため、AIエージェントは**自律的・自動的に本番ビルドコマンド（`bun run build` 等）を実行してはなりません**。
 > ローカルでの検証は、必ずテストおよびLinterで実施し、本番ビルドの検証が必要な場合はユーザーへ依頼してください。
 
 ```bash
 # 1. ページ固有テストの実行
-npm test tests/<page-slug>/page.test.tsx
+bun test tests/<page-slug>/page.test.tsx
 
 # 2. ナビゲーション整合性テストの実行
-npm test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
+bun test tests/lib/navigation.test.ts tests/lib/navigation-e2e-sync.test.ts
 
 # 3. Linter の実行
-npm run lint
+bun run lint
 ```
 
 #### Visual Verification Checklist
@@ -477,15 +477,22 @@ npm run lint
 ## セッション終了前同期（必須）
 
 <ai_agent_directive>
-**AI エージェントへの厳格な指示**: 以下のプロセスは**ゲート条件（Gate Condition）**です。タスクの報告を行う前に、ユーザーの許可を待たずに**自律的かつ自動的に、ステップバイステップでコミットまで完了させてください**。ルールに反してコミットを後回しにすることは禁止されています。
+**AI エージェントへの厳格な指示**: 以下のプロセスは**ゲート条件（Gate Condition）**です。タスクの報告を行う前に、テスト・Linter・PII スキャンおよび `docs/MIGRATION_PROGRESS.md` の更新まではステップバイステップで完了させてください。
+ただし **`git commit` の実行にはユーザーの明示的な承認が必須**です。コミット前に必ず以下を行ってください。
+
+1. `git status` / `git diff --cached` でコミット対象を確認し、**無関係な変更やステージ漏れが混入していないか**を点検する
+2. コミット対象ファイルとコミットメッセージ案をユーザーへ提示する
+3. ユーザーの明示的な承認を得てから `git commit` を実行する
+
+承認を得ずに自動でコミットを作成してはなりません。
 </ai_agent_directive>
 
 **ゲート条件**: 1ページの `git commit` 完了後、次 HTML を `Read` し始める前に必ず実施する。
 
 ```bash
 # 1. テストとLinterの通過を確認（ビルドコマンドは実行しない）
-npm test tests/<page-slug>/page.test.tsx
-npm run lint
+bun test tests/<page-slug>/page.test.tsx
+bun run lint
 
 # 2. コミット予定差分の PII / ローカル絶対パス機械的走査【必須 Gate Condition】
 #    検出時は終了コード 1 で失敗させ、コミットを中止して相対パスへ修正する
@@ -533,7 +540,7 @@ Do NOT redefine these in page-specific CSS. Use them directly in TSX:
 
 - **Always reset table and text styling against globals.css interference** — `globals.css` の `td { color: var(--color-text-secondary); }`（`#8ea3c3`）等によるテーブル文字色の薄れや白飛びを防ぐため、必ずページ固有 CSS で `table`, `tbody td`, `thead th`, `td strong`, `td code`, `tbody tr:hover td` 等に `color: var(--ink) !important;` などの完全リセットを適用すること
 - **Always perform complete component inventory audit before coding** — 移行着手前に元HTMLの全構成要素（見出し、TOC、Mermaid全図解、全表、全コード、全コールアウト、全参考文献）のインベントリ表を作成し、Redフェーズのテストスイートで漏れなく網羅すること
-- **Never run production build autonomously in sandbox environment** — サンドボックス環境クラッシュ防止のため、AIエージェントは自律的・自動的に本番ビルド（`bun run build` / `npm run build`）を実行してはならない。検証は `npm test` と `npm run lint` で行い、ビルド確認はユーザーへ依頼すること
+- **Never run production build autonomously in sandbox environment** — サンドボックス環境クラッシュ防止のため、AIエージェントは自律的・自動的に本番ビルド（`bun run build`）を実行してはならない。検証は `bun test` と `bun run lint` で行い、ビルド確認はユーザーへ依頼すること
 - **Always scan cached diff for PII and local absolute paths before commit** — コミット前に必ず `git diff --cached` でローカル絶対パス（`/Users/` 等）の混入を機械的に走査・検証すること
 - **Never import external fonts via `<link>` tags** — Use `next/font/google` in `layout.tsx` only. If a new font is needed, add it to `layout.tsx` with a CSS variable
 - **Never define duplicate CSS variables** in page CSS that already exist in `globals.css @theme`
