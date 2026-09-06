@@ -975,8 +975,8 @@
         /* 画面外の目次リンクがキーボードフォーカスを受け取らないよう不可視化する */
         visibility: hidden;
         pointer-events: none;
-        /* visibility は transform 完了後に切り替え、閉じるアニメーションを保つ */
-        transition: transform 0.2s ease, visibility 0s linear 0.2s;
+        /* 閉じた瞬間に visibility を切り替え、内部リンクを Tab 順から即座に外す */
+        transition: transform 0.2s ease, visibility 0s linear 0s;
         box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
     }
     .software-test-design-page .sidebar.open {
