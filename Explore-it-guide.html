@@ -25,7 +25,7 @@
                 --paper: #f2ede0;
                 --danger: #a5462f;
                 --radius: 2px;
-                --maxw: 760px;
+                --maxw: 100%;
             }
             * {
                 box-sizing: border-box;
@@ -65,7 +65,7 @@
                 background: var(--paper);
                 padding: 0.1em 0.4em;
                 border-radius: var(--radius);
-                font-size: 0.9em;
+                font-size: 1rem;
             }
 
             /* ---------- Layout shell ---------- */
@@ -87,7 +87,7 @@
             }
             nav.toc .brand {
                 font-family: 'Shippori Mincho', serif;
-                font-size: 0.95rem;
+                font-size: 1rem;
                 color: var(--ink-soft);
                 margin-bottom: 6px;
             }
@@ -110,7 +110,7 @@
             nav.toc a {
                 display: block;
                 padding: 7px 10px;
-                font-size: 0.85rem;
+                font-size: 1rem;
                 color: var(--ink-soft);
                 text-decoration: none;
                 border-left: 2px solid transparent;
@@ -135,7 +135,7 @@
                 align-items: center;
                 gap: 8px;
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 0.72rem;
+                font-size: 1rem;
                 color: var(--brass);
                 border: 1px solid var(--brass-soft);
                 padding: 4px 10px;
@@ -145,12 +145,12 @@
             .hero h1 {
                 font-size: 2.5rem;
                 margin: 0 0 14px;
-                max-width: 14ch;
+                max-width: var(--maxw);
             }
             .hero .sub {
                 font-size: 1.08rem;
                 color: var(--ink-soft);
-                max-width: 56ch;
+                max-width: var(--maxw);
                 margin: 0 0 28px;
             }
             .bookcard {
@@ -161,12 +161,12 @@
                 border: 1px solid var(--line);
                 padding: 20px 24px;
                 max-width: 560px;
-                font-size: 0.92rem;
+                font-size: 1rem;
             }
             .bookcard dt {
                 color: var(--ink-faint);
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 0.72rem;
+                font-size: 1rem;
                 text-transform: uppercase;
                 letter-spacing: 0.06em;
                 padding-top: 2px;
@@ -205,7 +205,7 @@
             }
             .sec-tag .num {
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 0.85rem;
+                font-size: 1rem;
                 color: var(--surface);
                 background: var(--pine-deep);
                 padding: 3px 9px;
@@ -215,7 +215,7 @@
             }
             .sec-tag .label {
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 0.72rem;
+                font-size: 1rem;
                 color: var(--ink-faint);
                 letter-spacing: 0.08em;
             }
@@ -252,12 +252,12 @@
             table {
                 width: 100%;
                 border-collapse: collapse;
-                font-size: 0.92rem;
+                font-size: 1rem;
             }
             thead th {
                 text-align: left;
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 0.72rem;
+                font-size: 1rem;
                 letter-spacing: 0.04em;
                 color: var(--ink-soft);
                 border-bottom: 2px solid var(--pine-deep);
@@ -286,17 +286,28 @@
             }
             .figure .cap {
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 0.72rem;
+                font-size: 1rem;
                 color: var(--ink-faint);
                 padding: 9px 16px;
                 border-bottom: 1px solid var(--line);
                 letter-spacing: 0.03em;
             }
-            .figure .mermaid {
+            .figure .mermaid-target {
                 padding: 22px 16px;
                 display: flex;
                 justify-content: center;
                 overflow-x: auto;
+                min-height: 60px;
+            }
+            .figure .mermaid-target svg {
+                display: block;
+                margin: 0 auto;
+                height: auto !important;
+            }
+            .mm-loading {
+                color: var(--ink-faint);
+                font-size: 1rem;
+                font-family: 'JetBrains Mono', monospace;
             }
 
             /* ---------- Callouts ---------- */
@@ -304,7 +315,7 @@
                 background: var(--paper);
                 border-left: 3px solid var(--brass);
                 padding: 16px 20px;
-                font-size: 0.93rem;
+                font-size: 1rem;
                 color: var(--ink-soft);
                 margin: 22px 0 26px;
             }
@@ -324,7 +335,7 @@
                 display: block;
                 margin-top: 8px;
                 font-family: 'Zen Kaku Gothic New', sans-serif;
-                font-size: 0.78rem;
+                font-size: 1rem;
                 font-style: normal;
                 color: var(--ink-faint);
             }
@@ -332,7 +343,7 @@
             /* ---------- code template ---------- */
             pre.tmpl {
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 0.85rem;
+                font-size: 1rem;
                 background: var(--pine-deep);
                 color: #eef4f1;
                 padding: 18px 20px;
@@ -356,7 +367,7 @@
                 gap: 12px;
                 padding: 11px 0;
                 border-bottom: 1px solid var(--line);
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
             .checklist input[type='checkbox'] {
                 appearance: none;
@@ -409,21 +420,21 @@
             .stepgrid div {
                 border: 1px solid var(--line);
                 padding: 12px 10px;
-                font-size: 0.78rem;
+                font-size: 1rem;
                 color: var(--ink-soft);
             }
             .stepgrid div b {
                 display: block;
                 color: var(--pine-deep);
                 font-family: 'JetBrains Mono', monospace;
-                font-size: 0.7rem;
+                font-size: 1rem;
                 margin-bottom: 4px;
             }
 
             footer {
                 max-width: var(--maxw);
                 color: var(--ink-faint);
-                font-size: 0.82rem;
+                font-size: 1rem;
                 padding-top: 24px;
                 border-top: 1px solid var(--line);
             }
@@ -468,14 +479,14 @@
                     <li><a href="#why">02 ｜ なぜ探索的テストか</a></li>
                     <li><a href="#elements">03 ｜ 本質的要素</a></li>
                     <li><a href="#roadmap">04 ｜ 実践ロードマップ</a></li>
-                    <li><a href="#step1">Step1 ｜ チャーターを書く</a></li>
-                    <li><a href="#step2">Step2 ｜ セッション構造化</a></li>
-                    <li><a href="#step3">Step3 ｜ 観察力を鍛える</a></li>
-                    <li><a href="#step4">Step4 ｜ バリエーション発見</a></li>
-                    <li><a href="#step5">Step5 ｜ 結果を評価する</a></li>
-                    <li><a href="#step6">Step6 ｜ 次元を加える</a></li>
-                    <li><a href="#step7">Step7 ｜ コンテキスト適用</a></li>
-                    <li><a href="#step8">Step8 ｜ デブリーフィング</a></li>
+                    <li><a href="#step1">05 ｜ Step1: チャーターを書く</a></li>
+                    <li><a href="#step2">06 ｜ Step2: セッション構造化</a></li>
+                    <li><a href="#step3">07 ｜ Step3: 観察力を鍛える</a></li>
+                    <li><a href="#step4">08 ｜ Step4: バリエーション発見</a></li>
+                    <li><a href="#step5">09 ｜ Step5: 結果を評価する</a></li>
+                    <li><a href="#step6">10 ｜ Step6: 次元を加える</a></li>
+                    <li><a href="#step7">11 ｜ Step7: コンテキスト適用</a></li>
+                    <li><a href="#step8">12 ｜ Step8: デブリーフィング</a></li>
                     <li><a href="#cheatsheet">13 ｜ ヒューリスティック</a></li>
                     <li><a href="#ai2026">14 ｜ 2026年とAI時代</a></li>
                     <li><a href="#checklist">15 ｜ チェックリスト</a></li>
@@ -609,13 +620,8 @@
 
                     <div class="figure">
                         <div class="cap">FIGURE 02-A ｜ チェックと探索の違い</div>
-                        <div class="mermaid">
-                            flowchart LR subgraph Checking["チェック（Checking）: 事前に台本を書く"]
-                            direction TB A1[要件・仕様] --> A2[事前にテストケースを設計] A2 -->
-                            A3[手順どおりに実行] A3 --> A4{期待結果と一致?} A4 -->|Yes| A5[合格] A4
-                            -->|No| A6[不合格] end subgraph Exploring["探索（Exploring）:
-                            学習と設計と実行が同時進行"] direction TB B1[学習 Learn] -->
-                            B2[次の一手を設計 Design] B2 --> B3[実行して観察 Execute] B3 --> B1 end
+                        <div class="mermaid-target" id="diag-0">
+                            <span class="mm-loading">図を準備中です…</span>
                         </div>
                     </div>
                     <p>
@@ -691,16 +697,8 @@
                     </p>
                     <div class="figure">
                         <div class="cap">FIGURE 04-A ｜ 探索的テストの実践ループ</div>
-                        <div class="mermaid">
-                            flowchart TD S1["準備<br />基礎を理解する<br />(チェックと探索の違い)"]
-                            --> S2["Step1<br />チャーターを書く"] S2 --> S3["Step2<br />タイムボックスされた<br />セッションを実施"]
-                            S3 --> S4["Step3<br />観察する<br />(見えないものを見える化)"] S4 -->
-                            S5["Step4<br />変化(バリエーション)を<br />意図的に加える"] S5 -->
-                            S6["Step5<br />結果を評価する<br />(オラクルを選ぶ)"] S6 -->
-                            S7["Step6<br />次元を加える<br />(順序/エンティティ/状態/生態系)"] S7
-                            --> S8["Step7<br />コンテキストに応じて適用<br />(API/既存システム/要件)"]
-                            S8 --> S9["Step8<br />デブリーフィングし<br />次のチャーターへ活かす"]
-                            S9 -.->|継続的に繰り返す| S2
+                        <div class="mermaid-target" id="diag-1">
+                            <span class="mm-loading">図を準備中です…</span>
                         </div>
                     </div>
                     <div class="stepgrid">
@@ -788,15 +786,8 @@
 
                     <div class="figure">
                         <div class="cap">FIGURE S1-A ｜ チャーター作成の流れ</div>
-                        <div class="mermaid">
-                            flowchart TD Start[探索を始めたい] --> Q1{何が気になっている?} Q1
-                            -->|仕様や要求から| Src1[要件/仕様書を読む] Q1 -->|過去の不具合から|
-                            Src2[バグ履歴・障害報告を見る] Q1 -->|ステークホルダーの懸念から|
-                            Src3[ステークホルダーに聞く] Src1 --> Draft[チャーター案を作成<br />Explore/With/To
-                            discover] Src2 --> Draft Src3 --> Draft Draft -->
-                            Check{ミッションは1つ<br />かつ時間内に収まるか?} Check -->|No|
-                            Split[チャーターを分割/絞り込む] Split --> Draft Check -->|Yes|
-                            Ready[セッション実施へ]
+                        <div class="mermaid-target" id="diag-2">
+                            <span class="mm-loading">図を準備中です…</span>
                         </div>
                     </div>
 
@@ -826,13 +817,8 @@
 
                     <div class="figure">
                         <div class="cap">FIGURE S2-A ｜ SBTMの基本サイクル</div>
-                        <div class="mermaid">
-                            flowchart TD C[チャーター作成] --> S["セッション開始<br />(45〜120分、目安90分の<br />タイムボックス／中断禁止)"]
-                            S --> T[テストを設計しながら実行] T --> B[不具合の調査・報告] T -->
-                            N[新たな疑問・派生チャーターの発見] B --> R[セッションレポート作成] N
-                            --> R R --> D["デブリーフィング<br />(マネージャー/チームとの振り返り)"]
-                            D --> Metric[セッションメトリクスの記録] Metric -->
-                            C2[次のチャーターへ反映] C2 -.-> C
+                        <div class="mermaid-target" id="diag-3">
+                            <span class="mm-loading">図を準備中です…</span>
                         </div>
                     </div>
 
@@ -910,12 +896,8 @@
 
                     <div class="figure">
                         <div class="cap">FIGURE S3-A ｜ 観察範囲を広げるチェックポイント</div>
-                        <div class="mermaid">
-                            flowchart LR Action[操作を実行する] --> UI[画面上の見た目を確認] Action
-                            --> Log[コンソール/ログを確認] Action --> State[内部状態・DBを確認]
-                            Action --> Perf[応答時間や負荷を確認] UI --> Judge{異常はないか?} Log
-                            --> Judge State --> Judge Perf --> Judge Judge
-                            -->|見えない異常があるかも| Widen[観察範囲をさらに広げる]
+                        <div class="mermaid-target" id="diag-4">
+                            <span class="mm-loading">図を準備中です…</span>
                         </div>
                     </div>
                 </section>
@@ -1091,10 +1073,8 @@
                     <h3>CRUDのライフサイクルを図で捉える（第7章）</h3>
                     <div class="figure">
                         <div class="cap">FIGURE S6-A ｜ CRUD ライフサイクル</div>
-                        <div class="mermaid">
-                            flowchart LR Create[作成 Create] --> Read[参照 Read] Read -->
-                            Update[更新 Update] Update --> Delete[削除 Delete] Delete
-                            -.->|削除後に再作成できるか?<br />関連データはどうなるか?| Create
+                        <div class="mermaid-target" id="diag-5">
+                            <span class="mm-loading">図を準備中です…</span>
                         </div>
                     </div>
 
@@ -1104,12 +1084,8 @@
                     </p>
                     <div class="figure">
                         <div class="cap">FIGURE S6-B ｜ 認証機能の状態遷移モデル</div>
-                        <div class="mermaid">
-                            stateDiagram-v2 [*] --> 未ログイン 未ログイン --> ログイン試行中:
-                            ログインボタン押下 ログイン試行中 --> ログイン済み: 認証成功
-                            ログイン試行中 --> 未ログイン: 認証失敗 ログイン済み --> 未ログイン:
-                            ログアウト ログイン済み --> アカウントロック: 連続失敗を検知
-                            アカウントロック --> 未ログイン: 一定時間経過 or 管理者解除
+                        <div class="mermaid-target" id="diag-6">
+                            <span class="mm-loading">図を準備中です…</span>
                         </div>
                     </div>
                     <p>
@@ -1119,12 +1095,8 @@
                     <h3>エコシステムと信頼境界の図（第9章）</h3>
                     <div class="figure">
                         <div class="cap">FIGURE S6-C ｜ システムのエコシステムと信頼境界</div>
-                        <div class="mermaid">
-                            flowchart LR User[ユーザー] -->|HTTPS| WebApp[Webアプリケーション]
-                            WebApp -->|API呼び出し| PaymentAPI[外部決済API] WebApp -->|クエリ|
-                            DB[(データベース)] WebApp -->|Webhook|
-                            ExternalService[サードパーティ連携サービス] subgraph
-                            Trust["信頼境界（自社が管理する範囲）"] WebApp DB end
+                        <div class="mermaid-target" id="diag-7">
+                            <span class="mm-loading">図を準備中です…</span>
                         </div>
                     </div>
                     <p>
@@ -1686,12 +1658,115 @@
         </div>
 
         <script>
-            // Mermaid本体は2系統のCDNから読み込みを試み、両方失敗した場合のみ
-            // 図のプレーンテキストをそのまま表示するフォールバックに切り替える。
-            // (社内ネットワークやアドブロッカーで片方のCDNがブロックされても表示が壊れないようにするため)
-            function loadScript(src) {
+            const DIAGRAMS = {
+                'diag-0': `flowchart LR
+    subgraph Checking["チェック（Checking）: 事前に台本を書く"]
+        direction TB
+        A1[要件・仕様] --> A2[事前にテストケースを設計]
+        A2 --> A3[手順どおりに実行]
+        A3 --> A4{期待結果と一致?}
+        A4 -->|Yes| A5[合格]
+        A4 -->|No| A6[不合格]
+    end
+
+    subgraph Exploring["探索（Exploring）: 学習と設計と実行が同時進行"]
+        direction TB
+        B1[学習 Learn] --> B2[次の一手を設計 Design]
+        B2 --> B3[実行して観察 Execute]
+        B3 --> B1
+    end`,
+                'diag-1': `flowchart TD
+    S1["準備<br/>基礎を理解する<br/>(チェックと探索の違い)"] --> S2["Step1<br/>チャーターを書く"]
+    S2 --> S3["Step2<br/>タイムボックスされた<br/>セッションを実施"]
+    S3 --> S4["Step3<br/>観察する<br/>(見えないものを見える化)"]
+    S4 --> S5["Step4<br/>変化(バリエーション)を<br/>意図的に加える"]
+    S5 --> S6["Step5<br/>結果を評価する<br/>(オラクルを選ぶ)"]
+    S6 --> S7["Step6<br/>次元を加える<br/>(順序/エンティティ/状態/生態系)"]
+    S7 --> S8["Step7<br/>コンテキストに応じて適用<br/>(API/既存システム/要件)"]
+    S8 --> S9["Step8<br/>デブリーフィングし<br/>次のチャーターへ活かす"]
+    S9 -.->|継続的に繰り返す| S2`,
+                'diag-2': `flowchart TD
+    Start[探索を始めたい] --> Q1{何が気になっている?}
+    Q1 -->|仕様や要求から| Src1[要件/仕様書を読む]
+    Q1 -->|過去の不具合から| Src2[バグ履歴・障害報告を見る]
+    Q1 -->|ステークホルダーの懸念から| Src3[ステークホルダーに聞く]
+    Src1 --> Draft[チャーター案を作成<br/>Explore/With/To discover]
+    Src2 --> Draft
+    Src3 --> Draft
+    Draft --> Check{ミッションは1つ<br/>かつ時間内に収まるか?}
+    Check -->|No| Split[チャーターを分割/絞り込む]
+    Split --> Draft
+    Check -->|Yes| Ready[セッション実施へ]`,
+                'diag-3': `flowchart TD
+    C[チャーター作成] --> S["セッション開始<br/>(45〜120分、目安90分の<br/>タイムボックス／中断禁止)"]
+    S --> T[テストを設計しながら実行]
+    T --> B[不具合の調査・報告]
+    T --> N[新たな疑問・派生チャーターの発見]
+    B --> R[セッションレポート作成]
+    N --> R
+    R --> D["デブリーフィング<br/>(マネージャー/チームとの振り返り)"]
+    D --> Metric[セッションメトリクスの記録]
+    Metric --> C2[次のチャーターへ反映]
+    C2 -.-> C`,
+                'diag-4': `flowchart LR
+    Action[操作を実行する] --> UI[画面上の見た目を確認]
+    Action --> Log[コンソール/ログを確認]
+    Action --> State[内部状態・DBを確認]
+    Action --> Perf[応答時間や負荷を確認]
+    UI --> Judge{異常はないか?}
+    Log --> Judge
+    State --> Judge
+    Perf --> Judge
+    Judge -->|見えない異常があるかも| Widen[観察範囲をさらに広げる]`,
+                'diag-5': `flowchart LR
+    Create[作成 Create] --> Read[参照 Read]
+    Read --> Update[更新 Update]
+    Update --> Delete[削除 Delete]
+    Delete -.->|削除後に再作成できるか?<br/>関連データはどうなるか?| Create`,
+                'diag-6': `stateDiagram-v2
+    [*] --> 未ログイン
+    未ログイン --> ログイン試行中: ログインボタン押下
+    ログイン試行中 --> ログイン済み: 認証成功
+    ログイン試行中 --> 未ログイン: 認証失敗
+    ログイン済み --> 未ログイン: ログアウト
+    ログイン済み --> アカウントロック: 連続失敗を検知
+    アカウントロック --> 未ログイン: 一定時間経過 or 管理者解除`,
+                'diag-7': `flowchart LR
+    User[ユーザー] -->|HTTPS| WebApp[Webアプリケーション]
+    WebApp -->|API呼び出し| PaymentAPI[外部決済API]
+    WebApp -->|クエリ| DB[(データベース)]
+    WebApp -->|Webhook| ExternalService[サードパーティ連携サービス]
+
+    subgraph Trust["信頼境界（自社が管理する範囲）"]
+        WebApp
+        DB
+    end`,
+            };
+
+            // ============================================================
+            // Mermaid描画パイプライン（IDEフォーマッター耐性版）
+            //
+            // 背景: <div class="mermaid">に生のMermaid構文を直接書く方式は、
+            // エディタ/フォーマッター（VS CodeのHTML整形、Prettier等）が保存時に
+            // テキストとして再整形（行の連結・インデント付加）してしまい、
+            // 「1ステートメント1行」を前提とするMermaidパーサーを壊すことがある。
+            // これを避けるため、図の定義はすべてJSテンプレートリテラル文字列として
+            // DIAGRAMS に保持し（文字列の中身はフォーマッターが書き換えない）、
+            // 対応する空の <div id="diag-N"> へ mermaid.render() の結果を注入する。
+            // ============================================================
+
+            // mermaid@10.9.1 の SRI ハッシュ。cdnjs / jsdelivr の配信バイトは同一。
+            var MERMAID_SRI =
+                'sha512-6a80OTZVmEJhqYJUmYd5z8yHUCDlYnj6q9XwB/gKOEyNQV/Q8u+XeSG59a2ZKFEHGTYzgfOQKYEBtrZV7vBr+Q==';
+
+            function loadScript(src, integrity) {
                 return new Promise(function (resolve, reject) {
                     var s = document.createElement('script');
+                    // integrity 検証には CORS 取得が必須なため crossOrigin を先に設定する
+                    if (integrity) {
+                        s.integrity = integrity;
+                        s.crossOrigin = 'anonymous';
+                    }
                     s.src = src;
                     s.onload = function () {
                         resolve();
@@ -1703,60 +1778,133 @@
                 });
             }
 
-            function showFallback() {
-                document.querySelectorAll('.figure .mermaid').forEach(function (el) {
-                    var raw = el.textContent.trim();
-                    el.innerHTML =
-                        '<div style="width:100%;">' +
-                        '<div style="color:#a5462f;font-size:.82rem;margin-bottom:10px;">' +
-                        '⚠ 図を描画できませんでした（ネットワーク接続、または広告ブロッカーなどをご確認ください）。以下は図の定義（Mermaid記法）です。' +
-                        '</div>' +
-                        '<pre style="white-space:pre-wrap;word-break:break-word;background:#f2ede0;padding:14px 16px;font-size:.78rem;color:#1c2b2c;font-family:\'JetBrains Mono\',monospace;text-align:left;">' +
-                        raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
-                        '</pre>' +
-                        '</div>';
+            function showFallbackFor(id, reason) {
+                var el = document.getElementById(id);
+                if (!el) return;
+                var raw = DIAGRAMS[id] || '';
+                el.innerHTML =
+                    '<div style="width:100%;">' +
+                    '<div style="color:#a5462f;font-size:1rem;margin-bottom:10px;">' +
+                    '⚠ 図を描画できませんでした（' +
+                    reason +
+                    '）。以下は図の定義（Mermaid記法）です。' +
+                    '</div>' +
+                    '<pre style="white-space:pre-wrap;word-break:break-word;background:#f2ede0;padding:14px 16px;font-size:1rem;color:#1c2b2c;font-family:\'JetBrains Mono\',monospace;text-align:left;">' +
+                    raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+                    '</pre>' +
+                    '</div>';
+            }
+
+            function showFallbackAll(reason) {
+                Object.keys(DIAGRAMS).forEach(function (id) {
+                    showFallbackFor(id, reason);
                 });
+            }
+
+            // Mermaid v10がSVGに付与する固定px幅を、viewBox由来の自然な幅+
+            // maxWidth:100%に置き換える（幅0のまま伸びきる/巨大化するのを防ぐ）。
+            function applySvgFixups(svgEl) {
+                svgEl.removeAttribute('width');
+                svgEl.removeAttribute('height');
+                svgEl.style.height = 'auto';
+                var viewBox = svgEl.getAttribute('viewBox');
+                if (viewBox) {
+                    var parts = viewBox.split(/\s+/).map(Number);
+                    if (
+                        parts.length === 4 &&
+                        parts.every(function (n) {
+                            return isFinite(n);
+                        })
+                    ) {
+                        svgEl.style.width = parts[2] + 'px';
+                    }
+                }
+                svgEl.style.maxWidth = '100%';
+            }
+
+            function waitForFonts() {
+                if (document.fonts && document.fonts.ready) {
+                    return Promise.race([
+                        document.fonts.ready,
+                        new Promise(function (resolve) {
+                            setTimeout(resolve, 2500);
+                        }),
+                    ]);
+                }
+                return Promise.resolve();
+            }
+
+            function renderAllDiagrams() {
+                return Promise.all(
+                    Object.keys(DIAGRAMS).map(function (id) {
+                        var source = DIAGRAMS[id];
+                        return mermaid
+                            .render('svg-' + id, source)
+                            .then(function (result) {
+                                var el = document.getElementById(id);
+                                if (el) {
+                                    el.innerHTML = result.svg;
+                                }
+                                var svgEl = el ? el.querySelector('svg') : null;
+                                if (svgEl) {
+                                    applySvgFixups(svgEl);
+                                }
+                            })
+                            .catch(function (err) {
+                                console.error('mermaid render error for ' + id + ':', err);
+                                showFallbackFor(id, 'ブラウザ環境固有の描画エラー');
+                            });
+                    }),
+                );
             }
 
             function runMermaid() {
                 if (typeof mermaid === 'undefined') {
-                    showFallback();
+                    showFallbackAll('ライブラリの読み込みに失敗しました');
                     return;
                 }
-                try {
-                    mermaid.initialize({
-                        startOnLoad: false,
-                        theme: 'base',
-                        themeVariables: {
-                            primaryColor: '#f2ede0',
-                            primaryBorderColor: '#2b6e5f',
-                            primaryTextColor: '#1c2b2c',
-                            lineColor: '#b0762c',
-                            secondaryColor: '#e3c497',
-                            tertiaryColor: '#faf9f5',
-                            fontFamily: '"Zen Kaku Gothic New", sans-serif',
-                        },
-                        flowchart: { curve: 'basis' },
-                    });
-                    mermaid.run({ querySelector: '.mermaid' }).catch(function (err) {
-                        console.error('mermaid run error:', err);
-                        showFallback();
-                    });
-                } catch (err) {
-                    console.error('mermaid init error:', err);
-                    showFallback();
-                }
+                waitForFonts().then(function () {
+                    try {
+                        mermaid.initialize({
+                            startOnLoad: false,
+                            securityLevel: 'loose',
+                            theme: 'base',
+                            themeVariables: {
+                                primaryColor: '#f2ede0',
+                                primaryBorderColor: '#2b6e5f',
+                                primaryTextColor: '#1c2b2c',
+                                lineColor: '#b0762c',
+                                secondaryColor: '#e3c497',
+                                tertiaryColor: '#faf9f5',
+                                fontFamily:
+                                    '"Hiragino Kaku Gothic ProN","Yu Gothic","Meiryo",sans-serif',
+                            },
+                            flowchart: { curve: 'basis' },
+                        });
+                        renderAllDiagrams();
+                    } catch (err) {
+                        console.error('mermaid init error:', err);
+                        showFallbackAll('初期化エラー');
+                    }
+                });
             }
 
-            loadScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js')
+            loadScript(
+                'https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js',
+                MERMAID_SRI,
+            )
                 .then(runMermaid)
                 .catch(function () {
-                    // 1つ目のCDNが失敗した場合、別のCDNで再試行する
-                    loadScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js')
+                    loadScript(
+                        'https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js',
+                        MERMAID_SRI,
+                    )
                         .then(runMermaid)
                         .catch(function (err) {
                             console.error('mermaid load error (both CDNs failed):', err);
-                            showFallback();
+                            showFallbackAll(
+                                'ネットワーク接続、または広告ブロッカーなどをご確認ください',
+                            );
                         });
                 });
         </script>
