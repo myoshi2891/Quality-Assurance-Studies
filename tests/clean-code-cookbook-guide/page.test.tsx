@@ -37,6 +37,136 @@ afterAll(() => {
   window.IntersectionObserver = originalIntersectionObserver;
 });
 
+// 元 HTML の構成要素インベントリ。件数の下限確認ではなく、
+// 出現順の固定配列との 1 対 1 照合で欠落・余剰・並び替えを検出する。
+const EXPECTED_SUBHEADINGS: ReadonlyArray<{
+  sectionId: string;
+  h3: readonly string[];
+  h4: readonly string[];
+}> = [
+  { sectionId: 'sec-1', h3: [], h4: [] },
+  {
+    sectionId: 'sec-2',
+    h3: [
+      '2.1 コードスメルとは何か',
+      '2.2 リファクタリングとは何か',
+      '2.3 なぜクリーンコードが重要なのか',
+    ],
+    h4: [],
+  },
+  { sectionId: 'sec-3', h3: [], h4: [] },
+  {
+    sectionId: 'sec-4',
+    h3: [
+      'ステップ1：コードスメルに気づく（発見）',
+      'ステップ2：スメルを分類する',
+      'ステップ3：変更前にテストの安全網を用意する',
+      'ステップ4：小さな一歩から始める（Tidy First の考え方）',
+      'ステップ5：名前を改善する',
+      'ステップ6：関数とクラスを小さく保つ',
+      'ステップ7：条件分岐・Null・例外を安全にする',
+      'ステップ8：小さくコミットし、継続的に磨き続ける',
+    ],
+    h4: ['コード例（マジックナンバーの整頓）'],
+  },
+  { sectionId: 'sec-5', h3: [], h4: [] },
+  { sectionId: 'sec-6', h3: [], h4: [] },
+  {
+    sectionId: 'sec-7',
+    h3: [
+      '7.1 Workslop（ワークスロップ）コード',
+      '7.2 Model Collapse（モデル崩壊）パターン',
+      '7.3 Nitpicking（枝葉末節への固執）',
+    ],
+    h4: [],
+  },
+  { sectionId: 'sec-8', h3: [], h4: [] },
+  { sectionId: 'sec-9', h3: [], h4: [] },
+  { sectionId: 'sec-10', h3: [], h4: [] },
+];
+
+const EXPECTED_CALLOUTS: ReadonlyArray<{
+  sectionId: string;
+  variant: 'note' | 'source';
+  title: string;
+}> = [
+  { sectionId: 'sec-1', variant: 'note', title: '補足' },
+  { sectionId: 'sec-2', variant: 'source', title: '出典' },
+  { sectionId: 'sec-2', variant: 'source', title: '出典' },
+  { sectionId: 'sec-3', variant: 'note', title: '補足' },
+  { sectionId: 'sec-3', variant: 'source', title: '出典' },
+  { sectionId: 'sec-4', variant: 'source', title: '出典' },
+  { sectionId: 'sec-5', variant: 'source', title: '出典' },
+  { sectionId: 'sec-7', variant: 'source', title: '出典' },
+  { sectionId: 'sec-7', variant: 'source', title: '出典' },
+  { sectionId: 'sec-7', variant: 'source', title: '出典' },
+];
+
+const EXPECTED_CARDS: ReadonlyArray<{
+  sectionId: string;
+  variant: 'diagram-card' | 'stat-card' | 'card';
+}> = [
+  { sectionId: 'sec-2', variant: 'diagram-card' },
+  { sectionId: 'sec-4', variant: 'diagram-card' },
+  { sectionId: 'sec-4', variant: 'diagram-card' },
+  { sectionId: 'sec-4', variant: 'diagram-card' },
+  { sectionId: 'sec-5', variant: 'stat-card' },
+  { sectionId: 'sec-5', variant: 'stat-card' },
+  { sectionId: 'sec-5', variant: 'stat-card' },
+  { sectionId: 'sec-5', variant: 'stat-card' },
+  { sectionId: 'sec-10', variant: 'card' },
+];
+
+const EXPECTED_TABLES: ReadonlyArray<{
+  section: string;
+  caption: string;
+  headers: readonly string[];
+  rows: number;
+}> = [
+  {
+    section: 'sec-1',
+    caption: '『Clean Code Cookbook』の書誌情報',
+    headers: ['項目', '内容'],
+    rows: 8,
+  },
+  {
+    section: 'sec-3',
+    caption: '本ガイド独自の学習用カテゴリーと該当する章',
+    headers: ['カテゴリー', '該当する章'],
+    rows: 5,
+  },
+  {
+    section: 'sec-3',
+    caption: '原著 全25章の一覧（原題と内容の要点）',
+    headers: ['章', '原題', '内容の要点'],
+    rows: 25,
+  },
+  {
+    section: 'sec-4',
+    caption: '条件分岐・Null・例外に関するスメルと対処パターン',
+    headers: ['スメル', '症状', '対処パターン'],
+    rows: 4,
+  },
+  {
+    section: 'sec-5',
+    caption: 'Sandi Metz の4つのルール',
+    headers: ['ルール', '内容'],
+    rows: 4,
+  },
+  {
+    section: 'sec-6',
+    caption: '世界的に著名な開発者のクリーンコードに関する視点',
+    headers: ['開発者', '代表的な功績', 'クリーンコードに関する視点（要約）', '出典'],
+    rows: 5,
+  },
+  {
+    section: 'sec-8',
+    caption: 'コミット前・コードレビュー用チェックリスト',
+    headers: ['観点', 'チェック項目'],
+    rows: 13,
+  },
+];
+
 describe('Clean Code Cookbook Guide Page - Comprehensive Test Suite', () => {
   describe('Hero Section & Metadata', () => {
     it('renders the main hero header with eyebrow, title, lead, and chips', () => {
@@ -134,6 +264,59 @@ describe('Clean Code Cookbook Guide Page - Comprehensive Test Suite', () => {
         expect(h2?.textContent).toContain(title);
       },
     );
+
+    it('renders the complete ordered inventory of h3 and h4 subheadings', () => {
+      const { container } = render(<Page />);
+
+      // 元 HTML の小見出しインベントリ。セクションごとに出現順で 1 対 1 固定する。
+      EXPECTED_SUBHEADINGS.forEach(({ sectionId, h3, h4 }) => {
+        const section = container.querySelector(`section#${sectionId}`);
+        expect(section).not.toBeNull();
+        expect(
+          Array.from(section?.querySelectorAll('h3') ?? []).map((el) => el.textContent?.trim()),
+        ).toEqual([...h3]);
+        expect(
+          Array.from(section?.querySelectorAll('h4') ?? []).map((el) => el.textContent?.trim()),
+        ).toEqual([...h4]);
+      });
+
+      // ページ全体の総数も固定し、インベントリ外のセクションに小見出しが増えていないことを担保する
+      const totalH3 = EXPECTED_SUBHEADINGS.reduce((sum, s) => sum + s.h3.length, 0);
+      const totalH4 = EXPECTED_SUBHEADINGS.reduce((sum, s) => sum + s.h4.length, 0);
+      expect(container.querySelectorAll('h3').length).toBe(totalH3);
+      expect(container.querySelectorAll('h4').length).toBe(totalH4);
+    });
+
+    it('renders the complete ordered inventory of callouts with their variants', () => {
+      const { container } = render(<Page />);
+
+      const callouts = Array.from(container.querySelectorAll('.callout'));
+      expect(callouts.length).toBe(EXPECTED_CALLOUTS.length);
+
+      callouts.forEach((callout, index) => {
+        const expected = EXPECTED_CALLOUTS[index];
+        expect(callout.closest('section')?.id).toBe(expected.sectionId);
+        expect(callout.classList.contains(expected.variant)).toBe(true);
+        expect(callout.querySelector('.callout-title')?.textContent?.trim()).toBe(
+          expected.title,
+        );
+      });
+    });
+
+    it('renders the complete ordered inventory of cards', () => {
+      const { container } = render(<Page />);
+
+      const cards = Array.from(
+        container.querySelectorAll('.diagram-card, .stat-card, .card'),
+      );
+      expect(cards.length).toBe(EXPECTED_CARDS.length);
+
+      cards.forEach((card, index) => {
+        const expected = EXPECTED_CARDS[index];
+        expect(card.closest('section')?.id).toBe(expected.sectionId);
+        expect(card.classList.contains(expected.variant)).toBe(true);
+      });
+    });
   });
 
   describe('Mermaid Diagrams', () => {
@@ -169,8 +352,19 @@ describe('Clean Code Cookbook Guide Page - Comprehensive Test Suite', () => {
     it('renders all required tables with headers and content', () => {
       const { container } = render(<Page />);
 
-      const tables = container.querySelectorAll('.table-wrap table');
-      expect(tables.length).toBeGreaterThanOrEqual(7);
+      // 表は出現順の固定インベントリと 1 対 1 で照合する（欠落・余剰・並び替えの検出）
+      const tables = Array.from(container.querySelectorAll('.table-wrap table'));
+      expect(tables.length).toBe(EXPECTED_TABLES.length);
+
+      tables.forEach((table, index) => {
+        const expected = EXPECTED_TABLES[index];
+        expect(table.closest('section')?.id).toBe(expected.section);
+        expect(table.querySelector('caption')?.textContent?.trim()).toBe(expected.caption);
+        expect(
+          Array.from(table.querySelectorAll('thead th')).map((th) => th.textContent?.trim()),
+        ).toEqual([...expected.headers]);
+        expect(table.querySelectorAll('tbody tr').length).toBe(expected.rows);
+      });
 
       // sec-1: 書誌情報テーブル
       const sec1Table = container.querySelector('#sec-1 table');

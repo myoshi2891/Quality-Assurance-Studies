@@ -124,11 +124,20 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
       const toggle = container.querySelector('#menuToggle') as HTMLButtonElement;
       const sidebar = container.querySelector('#sidebar') as HTMLElement;
 
+      // 開閉状態はクラスだけでなく、スクリーンリーダーへ伝わる aria 属性でも検証する
       expect(sidebar.classList.contains('open')).toBe(false);
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+      expect(toggle.getAttribute('aria-label')).toBe('目次を開く');
+
       fireEvent.click(toggle);
       expect(sidebar.classList.contains('open')).toBe(true);
+      expect(toggle.getAttribute('aria-expanded')).toBe('true');
+      expect(toggle.getAttribute('aria-label')).toBe('目次を閉じる');
+
       fireEvent.click(toggle);
       expect(sidebar.classList.contains('open')).toBe(false);
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+      expect(toggle.getAttribute('aria-label')).toBe('目次を開く');
     });
   });
 
@@ -229,6 +238,40 @@ describe('Software Test Design Guide Page - Comprehensive Test Suite', () => {
   });
 
   describe('Tables Integration', () => {
+    it('renders the complete inventory of ol.step-list with sequential step numbers', () => {
+      const { container } = render(<Page />);
+
+      // 元 HTML の手順リストインベントリ。セクションと項目数を 1 対 1 で固定する。
+      const expectedStepLists: ReadonlyArray<{ sectionId: string; count: number }> = [
+        { sectionId: 's04', count: 7 },
+        { sectionId: 's06', count: 4 },
+        { sectionId: 's07', count: 3 },
+        { sectionId: 's08', count: 5 },
+        { sectionId: 's09', count: 5 },
+      ];
+
+      // ページ全体の step-list 総数が期待インベントリと一致すること（余剰の検出）
+      expect(container.querySelectorAll('ol.step-list').length).toBe(
+        expectedStepLists.length,
+      );
+
+      expectedStepLists.forEach(({ sectionId, count }) => {
+        const list = container.querySelector(`section#${sectionId} ol.step-list`);
+        expect(list).not.toBeNull();
+
+        const items = list?.querySelectorAll('li') ?? [];
+        expect(items.length).toBe(count);
+
+        // 手順番号は 1 から連番であること（重複・欠番の検出）
+        const nums = Array.from(list?.querySelectorAll('.step-num') ?? []).map(
+          (el) => el.textContent?.trim(),
+        );
+        expect(nums).toEqual(
+          Array.from({ length: count }, (_, i) => String(i + 1)),
+        );
+      });
+    });
+
     it('renders responsive table wrappers with headers across relevant sections', () => {
       const { container } = render(<Page />);
 

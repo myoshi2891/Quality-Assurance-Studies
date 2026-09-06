@@ -38,6 +38,25 @@ afterAll(() => {
   window.IntersectionObserver = originalIntersectionObserver;
 });
 
+// 元 HTML の参考文献インベントリ。表示名（= URL 文字列）と href を出現順で固定する。
+const EXPECTED_REFERENCES: ReadonlyArray<{ label: string; href: string }> = [
+  { label: 'https://www.oreilly.com/library/view/testing-web-apis/9781617299537/', href: 'https://www.oreilly.com/library/view/testing-web-apis/9781617299537/' },
+  { label: 'https://martinfowler.com/articles/practical-test-pyramid.html', href: 'https://martinfowler.com/articles/practical-test-pyramid.html' },
+  { label: 'https://martinfowler.com/articles/2021-test-shapes.html', href: 'https://martinfowler.com/articles/2021-test-shapes.html' },
+  { label: 'https://kentcdodds.com/blog/write-tests', href: 'https://kentcdodds.com/blog/write-tests' },
+  { label: 'https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications', href: 'https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications' },
+  { label: 'https://owasp.org/API-Security/editions/2023/en/0x11-t10/', href: 'https://owasp.org/API-Security/editions/2023/en/0x11-t10/' },
+  { label: 'https://owasp.org/blog/2023/07/03/owasp-api-top10-2023', href: 'https://owasp.org/blog/2023/07/03/owasp-api-top10-2023' },
+  { label: 'https://docs.pact.io/', href: 'https://docs.pact.io/' },
+  { label: 'https://docs.pact.io/consumer', href: 'https://docs.pact.io/consumer' },
+  { label: 'https://pactflow.io/what-is-consumer-driven-contract-testing/', href: 'https://pactflow.io/what-is-consumer-driven-contract-testing/' },
+  { label: 'https://www.postman.com/postman-best-practices/api-test-automation/', href: 'https://www.postman.com/postman-best-practices/api-test-automation/' },
+  { label: 'https://grafana.com/docs/k6/latest/get-started/', href: 'https://grafana.com/docs/k6/latest/get-started/' },
+  { label: 'https://grafana.com/docs/k6/latest/testing-guides/api-load-testing/', href: 'https://grafana.com/docs/k6/latest/testing-guides/api-load-testing/' },
+  { label: 'https://schemathesis.io/', href: 'https://schemathesis.io/' },
+  { label: 'https://www.ministryoftesting.com/courses/let-s-build-an-api-checking-framework-mark-winteringham', href: 'https://www.ministryoftesting.com/courses/let-s-build-an-api-checking-framework-mark-winteringham' },
+];
+
 describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
   describe('Hero Section & Metadata', () => {
     it('renders the main hero header with eyebrow, title, lede, and chips', () => {
@@ -495,15 +514,19 @@ describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
       const { container } = render(<Page />);
 
       const refItems = container.querySelectorAll('.ref-list li');
-      expect(refItems.length).toBe(15);
+      expect(refItems.length).toBe(EXPECTED_REFERENCES.length);
 
-      const refLinks = container.querySelectorAll('.ref-list a');
-      expect(refLinks.length).toBe(15);
+      // 参考文献は出現順の固定インベントリと 1 対 1 で照合する。
+      // 件数の下限確認では並び替え・差し替え・欠落を検出できないため。
+      const refLinks = Array.from(container.querySelectorAll('.ref-list a'));
+      expect(refLinks.length).toBe(EXPECTED_REFERENCES.length);
 
-      refLinks.forEach((link) => {
+      refLinks.forEach((link, index) => {
+        const expected = EXPECTED_REFERENCES[index];
+        expect(link.textContent?.trim()).toBe(expected.label);
+        expect(link.getAttribute('href')).toBe(expected.href);
         expect(link.getAttribute('target')).toBe('_blank');
         expect(link.getAttribute('rel')).toBe('noopener noreferrer');
-        expect(link.getAttribute('href')).toMatch(/^https?:\/\//);
       });
     });
 

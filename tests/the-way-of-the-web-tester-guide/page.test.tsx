@@ -37,6 +37,104 @@ afterAll(() => {
   window.IntersectionObserver = originalIntersectionObserver;
 });
 
+// 元 HTML の参考文献インベントリ。表示名・URL を出現順で固定する。
+const EXPECTED_REFERENCES: ReadonlyArray<{ label: string; href: string }> = [
+  { label: 'pragprog.com — The Way of the Web Tester（公式ページ）', href: 'https://pragprog.com/titles/jrtest/the-way-of-the-web-tester/' },
+  { label: "oreilly.com — The Way of the Web Tester（O'Reilly掲載ページ）", href: 'https://www.oreilly.com/library/view/the-way-of/9781680502251/' },
+  { label: 'martinfowler.com — TestPyramid（bliki）', href: 'https://martinfowler.com/bliki/TestPyramid.html' },
+  { label: 'martinfowler.com — The Practical Test Pyramid', href: 'https://martinfowler.com/articles/practical-test-pyramid.html' },
+  { label: 'martinfowler.com — Broad Stack Test（bliki）', href: 'https://martinfowler.com/bliki/BroadStackTest.html' },
+  { label: 'martinfowler.com — Component Test（bliki）', href: 'https://martinfowler.com/bliki/ComponentTest.html' },
+  { label: 'testing.googleblog.com — Just Say No to More End-to-End Tests', href: 'https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html' },
+  { label: 'kentcdodds.com — Write tests. Not too many. Mostly integration.', href: 'https://kentcdodds.com/blog/write-tests' },
+  { label: 'kentcdodds.com — The Testing Trophy and Testing Classifications', href: 'https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications' },
+  { label: 'playwright.dev — Best Practices', href: 'https://playwright.dev/docs/best-practices' },
+  { label: 'browserstack.com — Playwright Best Practices in 2026 (With Code Examples)', href: 'https://www.browserstack.com/guide/playwright-best-practices' },
+  { label: 'getautonoma.com — Playwright Best Practices: 8 Patterns for Stable E2E (2026)', href: 'https://getautonoma.com/blog/playwright-best-practices-2026' },
+];
+
+// 元 HTML の表インベントリ。セクション・キャプション・列見出し・各行の先頭セルを
+// 出現順で固定する。行本文の全セルまでは複製せず、行数と列数の一致で欠落・余剰を検出する。
+const EXPECTED_TABLES: ReadonlyArray<{
+  section: string;
+  caption: string;
+  headers: readonly string[];
+  rowHeads: readonly string[];
+}> = [
+  {
+    section: 'sec-2',
+    caption: '3層の役割',
+    headers: ['層', '検証対象', '実行速度', '実行コスト', '壊れやすさ', '主な担当ツール例'],
+    rowHeads: ['UIテスト', '統合テスト', '単体テスト'],
+  },
+  {
+    section: 'sec-3',
+    caption: 'CSSセレクタ早見表',
+    headers: ['セレクタ', '意味', '例'],
+    rowHeads: ['#id', '.class', 'element', '[attr="value"]', 'parent child', 'parent > child', ':nth-child(n)'],
+  },
+  {
+    section: 'sec-4',
+    caption: 'レガシーシステムの落とし穴',
+    headers: ['落とし穴', '内容', '対策'],
+    rowHeads: ['CSSクラス名が頻繁に変わる', 'ページの読み込みタイミングがずれる', 'テストごとにデータが汚染される'],
+  },
+  {
+    section: 'sec-5',
+    caption: 'HTTP基本用語',
+    headers: ['用語', '意味'],
+    rowHeads: ['リクエスト（Request）', 'レスポンス（Response）', 'ステータスコード', 'ヘッダー', 'ボディ'],
+  },
+  {
+    section: 'sec-6',
+    caption: 'HTTPメソッドのテスト観点',
+    headers: ['メソッド', '目的', '意図されたべき等性（実際の保証はAPI契約次第）', 'テストで確認すべきこと'],
+    rowHeads: ['GET', 'POST', 'PUT', 'DELETE'],
+  },
+  {
+    section: 'sec-7',
+    caption: 'UIテストと単体テストの比較',
+    headers: ['観点', 'UIテスト', '単体テスト'],
+    rowHeads: ['実行速度', '失敗原因の特定', '外部依存', '保守コスト'],
+  },
+  {
+    section: 'sec-8',
+    caption: '静的型付けと動的型付けの比較',
+    headers: ['観点', '静的型付け（例: TypeScript）', '動的型付け（例: 素のJavaScript）'],
+    rowHeads: ['型エラーの検出タイミング', '単体テストの役割', 'IDEの補完・安全性'],
+  },
+  {
+    section: 'sec-10',
+    caption: 'テストコードのスタイル',
+    headers: ['観点', '悪い例の特徴', '改善のポイント'],
+    rowHeads: ['命名', 'スペーシング', '重複'],
+  },
+  {
+    section: 'sec-12',
+    caption: 'モックの功罪',
+    headers: ['メリット', 'デメリット（原著でいう「モックの沼」）'],
+    rowHeads: ['外部依存なしに高速にテストできる', '異常系（エラー発生時など）を再現しやすい', 'ネットワークやDBの不安定さを排除できる'],
+  },
+  {
+    section: 'sec-14',
+    caption: 'テストピラミッドとテスティングトロフィーの比較',
+    headers: ['観点', 'テストピラミッド（2012年〜）', 'テスティングトロフィー（2018年〜）'],
+    rowHeads: ['厚くすることを推す層', '前提', '静的解析の扱い', '主な提唱者', '向いている領域'],
+  },
+  {
+    section: 'sec-15',
+    caption: 'Playwrightのベストプラクティス',
+    headers: ['プラクティス', '内容', '原著の考え方との関係'],
+    rowHeads: ['ユーザー向けロケーターを優先する', '自動待機を活用する', 'テストを独立させる', 'Web-firstアサーションを使う', 'CIでは並列実行・シャーディングを行う', 'トレースビューアでデバッグする'],
+  },
+  {
+    section: 'sec-16',
+    caption: 'ベストプラクティス総まとめチェックリスト',
+    headers: ['#', 'チェック項目'],
+    rowHeads: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11'],
+  },
+];
+
 describe('The Way of the Web Tester Guide Page - Comprehensive Test Suite', () => {
   describe('Hero Section & Metadata', () => {
     it('renders the main hero header with eyebrow, title, subtitle, note, and stat cards', () => {
@@ -294,7 +392,24 @@ describe('The Way of the Web Tester Guide Page - Comprehensive Test Suite', () =
   });
 
   describe('External References & Security Attributes', () => {
-    it('ensures external links have rel="noopener noreferrer" and target="_blank"', () => {
+    it('renders the complete ordered inventory of reference links', () => {
+      const { container } = render(<Page />);
+
+      // 参考文献は .ref-list に限定し、出現順の固定インベントリと 1 対 1 で照合する。
+      // 全外部リンクを対象にした下限件数チェックでは、参考文献の欠落・並び替えを検出できない。
+      const refLinks = Array.from(container.querySelectorAll('.ref-list a'));
+      expect(refLinks.length).toBe(EXPECTED_REFERENCES.length);
+
+      refLinks.forEach((link, index) => {
+        const expected = EXPECTED_REFERENCES[index];
+        expect(link.textContent?.trim()).toBe(expected.label);
+        expect(link.getAttribute('href')).toBe(expected.href);
+        expect(link.getAttribute('target')).toBe('_blank');
+        expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+      });
+    });
+
+    it('ensures every external link has rel="noopener noreferrer" and target="_blank"', () => {
       const { container } = render(<Page />);
 
       const externalLinks = Array.from(container.querySelectorAll('a[href^="http"]'));
@@ -324,16 +439,39 @@ describe('The Way of the Web Tester Guide Page - Comprehensive Test Suite', () =
       const callouts = container.querySelectorAll('.callout');
       expect(callouts.length).toBe(calloutSectionIds.length);
 
-      const tables = container.querySelectorAll('.table-wrap table');
-      expect(tables.length).toBe(12);
+      // 全 12 表を出現順で固定インベントリと 1 対 1 照合する
+      const tables = Array.from(container.querySelectorAll('.table-wrap table'));
+      expect(tables.length).toBe(EXPECTED_TABLES.length);
 
-      // 全 12 表に thead / tbody と空でない caption が揃っていること
-      tables.forEach((table) => {
+      tables.forEach((table, index) => {
+        const expected = EXPECTED_TABLES[index];
+
+        expect(table.closest('section')?.id).toBe(expected.section);
+
+        const caption = table.querySelector('caption');
+        expect(caption?.textContent?.trim()).toBe(expected.caption);
+
         expect(table.querySelector('thead')).not.toBeNull();
         expect(table.querySelector('tbody')).not.toBeNull();
-        const caption = table.querySelector('caption');
-        expect(caption).not.toBeNull();
-        expect(caption?.textContent?.trim().length ?? 0).toBeGreaterThan(0);
+
+        const headers = Array.from(table.querySelectorAll('thead th')).map((th) =>
+          th.textContent?.trim(),
+        );
+        expect(headers).toEqual([...expected.headers]);
+
+        const rows = Array.from(table.querySelectorAll('tbody tr'));
+        expect(rows.length).toBe(expected.rowHeads.length);
+
+        rows.forEach((row, rowIndex) => {
+          const cells = Array.from(row.querySelectorAll('th, td'));
+          // 列数が見出しと一致すること（セル欠落・colspan 崩れの検出）
+          expect(cells.length).toBe(expected.headers.length);
+          // 行の識別子となる先頭セルが期待どおりの順序で並ぶこと
+          expect(cells[0]?.textContent?.trim()).toBe(expected.rowHeads[rowIndex]);
+          cells.forEach((cell) => {
+            expect(cell.textContent?.trim().length ?? 0).toBeGreaterThan(0);
+          });
+        });
       });
     });
   });

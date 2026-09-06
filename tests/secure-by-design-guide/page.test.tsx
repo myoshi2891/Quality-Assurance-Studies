@@ -37,6 +37,32 @@ afterAll(() => {
   window.IntersectionObserver = originalIntersectionObserver;
 });
 
+// 元 HTML の参考文献インベントリ。表示名・URL を出現順で固定する。
+const EXPECTED_REFERENCES: ReadonlyArray<{ label: string; href: string }> = [
+  { label: 'Manning Publications 公式書籍ページ', href: 'https://www.manning.com/books/secure-by-design' },
+  { label: 'Secure by Design 第1章 無料プレビュー（MEAP版PDF, Manning公式）', href: 'https://manning-content.s3.amazonaws.com/download/a/78580ef-38c8-4bd1-bc2f-ba4e8c7d7880/Johnsson_SbD_MEAP_V13_ch1.pdf' },
+  { label: 'liveBook（Manning）第1章', href: 'https://livebook.manning.com/book/secure-by-design/chapter-1/v-5/d5e499' },
+  { label: 'liveBook（Manning）第2章（幕間：アンチ・ハムレット）', href: 'https://livebook.manning.com/book/secure-by-design/chapter-2/' },
+  { label: 'liveBook（Manning）第3章（DDDの中心概念）', href: 'https://livebook.manning.com/book/secure-by-design/chapter-3' },
+  { label: 'liveBook（Manning）第5章（ドメイン・プリミティブ）', href: 'https://livebook.manning.com/book/secure-by-design/chapter-5' },
+  { label: 'liveBook（Manning）第13章（マイクロサービス）', href: 'https://livebook.manning.com/book/secure-by-design/chapter-13/' },
+  { label: "O'Reilly Online Learning 収録ページ（詳細目次）", href: 'https://www.oreilly.com/library/view/secure-by-design/9781617294358/' },
+  { label: 'Manning公式ブログ「Domain Primitives」記事', href: 'https://freecontent.manning.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software/' },
+  { label: '同記事（Medium転載版）', href: 'https://manningbooks.medium.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software-174504696518' },
+  { label: 'Daniel Sawano氏個人ブログ（書籍執筆時の草稿記事）', href: 'https://software.sawano.se/2017/09/domain-primitives.html' },
+  { label: 'Matt Raible（Okta）による書評', href: 'https://raibledesigns.com/rd/entry/secure_by_design_book_review' },
+  { label: 'Adrian Citu によるレビュー記事', href: 'https://adriancitu.com/2022/10/05/book-review-secure-by-design/' },
+  { label: 'Goodreads 書籍ページ（賛否両論のレビュー集）', href: 'https://www.goodreads.com/book/show/33953413-secure-by-design' },
+  { label: 'Software Engineering Radio エピソード（著者インタビュー）', href: 'https://se-radio.net/2025/09/se-radio-684-dan-bergh-johnsson-and-daniel-deogun-on-secure-by-design/' },
+  { label: 'Arrested DevOps ポッドキャスト（著者インタビュー）', href: 'https://www.arresteddevops.com/secure-by-design/' },
+  { label: 'virtualDDD.com 収録カンファレンス動画', href: 'https://virtualddd.com/videos/dan-bergh-johnsson-daniel-deogun-domain-primitives-in-action-making-it-secure-by-design/' },
+  { label: '同講演 YouTube 版（Explore DDD, Denver）', href: 'https://www.youtube.com/watch?v=ogjOKlXHi08' },
+  { label: "Katharina's blog（ドメイン・プリミティブ実践記）", href: 'https://katharina.damschen.net/post/2025-11-10-domain-primitives/' },
+  { label: 'マイナビ出版 日本語版書籍ページ', href: 'https://book.mynavi.jp/ec/products/detail/id=124056' },
+  { label: 'kymmt氏によるブログ書評（日本語）', href: 'https://blog.kymmt.com/entry/secure-by-design' },
+  { label: 'Wikipedia「Secure by design」（一般的な概念の参考として）', href: 'https://en.wikipedia.org/wiki/Secure_by_design' },
+];
+
 describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
   describe('Hero Header & Title Block', () => {
     it('renders the cover header with eyebrow, title, subtitle, thesis, and titleblock items', () => {
@@ -554,15 +580,18 @@ describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
       expect(refList).not.toBeNull();
 
       const items = refList?.querySelectorAll('li');
-      expect(items?.length).toBe(22);
+      expect(items?.length).toBe(EXPECTED_REFERENCES.length);
 
-      // 全 22 件の外部リンクに tabnabbing 対策の属性が付いていること
-      const refLinks = refList?.querySelectorAll('a');
-      expect(refLinks?.length).toBe(22);
-      refLinks?.forEach((link) => {
+      // 参考文献は出現順の固定インベントリと 1 対 1 で照合する。
+      // 件数の下限確認では並び替え・差し替え・欠落を検出できないため。
+      const refLinks = Array.from(refList?.querySelectorAll('a') ?? []);
+      expect(refLinks.length).toBe(EXPECTED_REFERENCES.length);
+      refLinks.forEach((link, index) => {
+        const expected = EXPECTED_REFERENCES[index];
+        expect(link.textContent?.trim()).toBe(expected.label);
+        expect(link.getAttribute('href')).toBe(expected.href);
         expect(link.getAttribute('target')).toBe('_blank');
-        expect(link.getAttribute('rel')).toContain('noopener');
-        expect(link.getAttribute('rel')).toContain('noreferrer');
+        expect(link.getAttribute('rel')).toBe('noopener noreferrer');
       });
 
       const footer = container.querySelector('footer');
