@@ -1,0 +1,1764 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Explore It! を読み解く ― 探索的テスト実践フィールドガイド</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;600&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --bg: #faf9f5;
+                --surface: #ffffff;
+                --ink: #1c2b2c;
+                --ink-soft: #55676a;
+                --ink-faint: #8a9598;
+                --pine: #2b6e5f;
+                --pine-deep: #1d4d43;
+                --brass: #b0762c;
+                --brass-soft: #e3c497;
+                --line: #e1ddd0;
+                --paper: #f2ede0;
+                --danger: #a5462f;
+                --radius: 2px;
+                --maxw: 760px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--bg);
+                color: var(--ink);
+                font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif;
+                line-height: 1.9;
+                font-size: 16px;
+                -webkit-font-smoothing: antialiased;
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: 'Shippori Mincho', serif;
+                font-weight: 600;
+                color: var(--pine-deep);
+                line-height: 1.5;
+                letter-spacing: 0.01em;
+            }
+            a {
+                color: var(--pine);
+                text-decoration-thickness: 1px;
+                text-underline-offset: 3px;
+            }
+            a:hover {
+                color: var(--brass);
+            }
+            code {
+                font-family: 'JetBrains Mono', monospace;
+                background: var(--paper);
+                padding: 0.1em 0.4em;
+                border-radius: var(--radius);
+                font-size: 0.9em;
+            }
+
+            /* ---------- Layout shell ---------- */
+            .shell {
+                display: grid;
+                grid-template-columns: 264px minmax(0, 1fr);
+                width: 100%;
+            }
+            nav.toc {
+                position: sticky;
+                top: 0;
+                left: 0;
+                align-self: start;
+                height: 100vh;
+                overflow-y: auto;
+                padding: 40px 20px 40px 32px;
+                border-right: 1px solid var(--line);
+                background: var(--bg);
+            }
+            nav.toc .brand {
+                font-family: 'Shippori Mincho', serif;
+                font-size: 0.95rem;
+                color: var(--ink-soft);
+                margin-bottom: 6px;
+            }
+            nav.toc .brand strong {
+                display: block;
+                font-size: 1.15rem;
+                color: var(--pine-deep);
+                font-weight: 700;
+            }
+            nav.toc ol {
+                list-style: none;
+                margin: 28px 0 0;
+                padding: 0;
+                border-top: 1px solid var(--line);
+                padding-top: 20px;
+            }
+            nav.toc li {
+                margin: 0 0 3px;
+            }
+            nav.toc a {
+                display: block;
+                padding: 7px 10px;
+                font-size: 0.85rem;
+                color: var(--ink-soft);
+                text-decoration: none;
+                border-left: 2px solid transparent;
+                line-height: 1.5;
+            }
+            nav.toc a:hover {
+                color: var(--pine-deep);
+                border-left-color: var(--brass-soft);
+                background: var(--paper);
+            }
+            main {
+                width: 100%;
+                padding: 56px 48px 120px;
+            }
+
+            /* ---------- Hero ---------- */
+            .hero {
+                margin-bottom: 64px;
+            }
+            .hero .kicker {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.72rem;
+                color: var(--brass);
+                border: 1px solid var(--brass-soft);
+                padding: 4px 10px;
+                border-radius: 20px;
+                margin-bottom: 22px;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+                margin: 0 0 14px;
+                max-width: 14ch;
+            }
+            .hero .sub {
+                font-size: 1.08rem;
+                color: var(--ink-soft);
+                max-width: 56ch;
+                margin: 0 0 28px;
+            }
+            .bookcard {
+                display: grid;
+                grid-template-columns: auto 1fr;
+                gap: 6px 20px;
+                background: var(--paper);
+                border: 1px solid var(--line);
+                padding: 20px 24px;
+                max-width: 560px;
+                font-size: 0.92rem;
+            }
+            .bookcard dt {
+                color: var(--ink-faint);
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.72rem;
+                text-transform: uppercase;
+                letter-spacing: 0.06em;
+                padding-top: 2px;
+            }
+            .bookcard dd {
+                margin: 0;
+                color: var(--ink);
+            }
+            .bookcard a {
+                word-break: break-all;
+            }
+
+            .lede {
+                max-width: var(--maxw);
+                color: var(--ink-soft);
+                border-left: 3px solid var(--pine);
+                padding-left: 18px;
+                margin: 36px 0 0;
+            }
+
+            /* ---------- Sections ---------- */
+            section {
+                max-width: var(--maxw);
+                margin: 0 0 76px;
+                padding-top: 12px;
+                border-top: 1px solid var(--line);
+            }
+            section:first-of-type {
+                border-top: none;
+            }
+            .sec-tag {
+                display: flex;
+                align-items: baseline;
+                gap: 14px;
+                margin-bottom: 18px;
+            }
+            .sec-tag .num {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.85rem;
+                color: var(--surface);
+                background: var(--pine-deep);
+                padding: 3px 9px;
+            }
+            .sec-tag .num.step {
+                background: var(--brass);
+            }
+            .sec-tag .label {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.72rem;
+                color: var(--ink-faint);
+                letter-spacing: 0.08em;
+            }
+            h2 {
+                font-size: 1.55rem;
+                margin: 0 0 6px;
+            }
+            h3 {
+                font-size: 1.12rem;
+                margin: 34px 0 12px;
+                color: var(--pine);
+            }
+            p {
+                margin: 0 0 16px;
+            }
+            ul,
+            ol.plain {
+                margin: 0 0 18px;
+                padding-left: 1.3em;
+            }
+            li {
+                margin-bottom: 6px;
+            }
+            strong {
+                color: var(--pine-deep);
+                font-weight: 700;
+            }
+
+            /* ---------- Tables ---------- */
+            .tblwrap {
+                overflow-x: auto;
+                margin: 22px 0 26px;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.92rem;
+            }
+            thead th {
+                text-align: left;
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.72rem;
+                letter-spacing: 0.04em;
+                color: var(--ink-soft);
+                border-bottom: 2px solid var(--pine-deep);
+                padding: 10px 14px;
+                font-weight: 500;
+            }
+            tbody td {
+                padding: 11px 14px;
+                border-bottom: 1px solid var(--line);
+                vertical-align: top;
+            }
+            tbody tr:nth-child(even) {
+                background: #f6f4ee;
+            }
+            tbody td:first-child {
+                color: var(--pine-deep);
+                font-weight: 700;
+                white-space: nowrap;
+            }
+
+            /* ---------- Mermaid figure frame ---------- */
+            .figure {
+                background: var(--surface);
+                border: 1px solid var(--line);
+                margin: 26px 0 30px;
+            }
+            .figure .cap {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.72rem;
+                color: var(--ink-faint);
+                padding: 9px 16px;
+                border-bottom: 1px solid var(--line);
+                letter-spacing: 0.03em;
+            }
+            .figure .mermaid {
+                padding: 22px 16px;
+                display: flex;
+                justify-content: center;
+                overflow-x: auto;
+            }
+
+            /* ---------- Callouts ---------- */
+            .note {
+                background: var(--paper);
+                border-left: 3px solid var(--brass);
+                padding: 16px 20px;
+                font-size: 0.93rem;
+                color: var(--ink-soft);
+                margin: 22px 0 26px;
+            }
+            .note strong {
+                color: var(--brass);
+            }
+            .quote {
+                font-family: 'Shippori Mincho', serif;
+                font-size: 1.05rem;
+                color: var(--pine-deep);
+                border-top: 1px solid var(--line);
+                border-bottom: 1px solid var(--line);
+                padding: 18px 0;
+                margin: 26px 0;
+            }
+            .quote cite {
+                display: block;
+                margin-top: 8px;
+                font-family: 'Zen Kaku Gothic New', sans-serif;
+                font-size: 0.78rem;
+                font-style: normal;
+                color: var(--ink-faint);
+            }
+
+            /* ---------- code template ---------- */
+            pre.tmpl {
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.85rem;
+                background: var(--pine-deep);
+                color: #eef4f1;
+                padding: 18px 20px;
+                overflow-x: auto;
+                margin: 20px 0 26px;
+                line-height: 1.7;
+            }
+            pre.tmpl .k {
+                color: var(--brass-soft);
+            }
+
+            /* ---------- checklist ---------- */
+            .checklist {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .checklist li {
+                display: flex;
+                align-items: flex-start;
+                gap: 12px;
+                padding: 11px 0;
+                border-bottom: 1px solid var(--line);
+                font-size: 0.95rem;
+            }
+            .checklist input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                flex: 0 0 18px;
+                width: 18px;
+                height: 18px;
+                margin: 2px 0 0;
+                border: 1.5px solid var(--brass);
+                background: var(--surface);
+                cursor: pointer;
+                position: relative;
+                display: inline-block;
+            }
+            .checklist input[type='checkbox']:hover {
+                border-color: var(--pine);
+            }
+            .checklist input[type='checkbox']:checked {
+                background: var(--pine);
+                border-color: var(--pine);
+            }
+            .checklist input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 5px;
+                top: 1px;
+                width: 5px;
+                height: 9px;
+                border: solid var(--surface);
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .checklist label {
+                cursor: pointer;
+                flex: 1;
+            }
+            .checklist input[type='checkbox']:checked ~ label {
+                color: var(--ink-faint);
+                text-decoration: line-through;
+                text-decoration-color: var(--ink-faint);
+            }
+
+            /* ---------- roadmap step index ---------- */
+            .stepgrid {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 10px;
+                margin: 0 0 20px;
+            }
+            .stepgrid div {
+                border: 1px solid var(--line);
+                padding: 12px 10px;
+                font-size: 0.78rem;
+                color: var(--ink-soft);
+            }
+            .stepgrid div b {
+                display: block;
+                color: var(--pine-deep);
+                font-family: 'JetBrains Mono', monospace;
+                font-size: 0.7rem;
+                margin-bottom: 4px;
+            }
+
+            footer {
+                max-width: var(--maxw);
+                color: var(--ink-faint);
+                font-size: 0.82rem;
+                padding-top: 24px;
+                border-top: 1px solid var(--line);
+            }
+
+            @media (max-width: 900px) {
+                .shell {
+                    grid-template-columns: 1fr;
+                }
+                nav.toc {
+                    position: relative;
+                    height: auto;
+                    border-right: none;
+                    border-bottom: 1px solid var(--line);
+                }
+                main {
+                    padding: 40px 22px 90px;
+                }
+                .hero h1 {
+                    font-size: 1.9rem;
+                    max-width: none;
+                }
+                .stepgrid {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .bookcard {
+                    grid-template-columns: 1fr;
+                }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                html {
+                    scroll-behavior: auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="shell">
+            <nav class="toc" aria-label="目次">
+                <div class="brand">Field Guide<strong>Explore It!</strong></div>
+                <ol>
+                    <li><a href="#overview">01 ｜ この本はどんな本か</a></li>
+                    <li><a href="#why">02 ｜ なぜ探索的テストか</a></li>
+                    <li><a href="#elements">03 ｜ 本質的要素</a></li>
+                    <li><a href="#roadmap">04 ｜ 実践ロードマップ</a></li>
+                    <li><a href="#step1">Step1 ｜ チャーターを書く</a></li>
+                    <li><a href="#step2">Step2 ｜ セッション構造化</a></li>
+                    <li><a href="#step3">Step3 ｜ 観察力を鍛える</a></li>
+                    <li><a href="#step4">Step4 ｜ バリエーション発見</a></li>
+                    <li><a href="#step5">Step5 ｜ 結果を評価する</a></li>
+                    <li><a href="#step6">Step6 ｜ 次元を加える</a></li>
+                    <li><a href="#step7">Step7 ｜ コンテキスト適用</a></li>
+                    <li><a href="#step8">Step8 ｜ デブリーフィング</a></li>
+                    <li><a href="#cheatsheet">13 ｜ ヒューリスティック</a></li>
+                    <li><a href="#ai2026">14 ｜ 2026年とAI時代</a></li>
+                    <li><a href="#checklist">15 ｜ チェックリスト</a></li>
+                    <li><a href="#references">16 ｜ 出典URL一覧</a></li>
+                </ol>
+            </nav>
+
+            <main>
+                <div class="hero">
+                    <span class="kicker">FIELD GUIDE · SOFTWARE QA</span>
+                    <h1>Explore It! を読み解く</h1>
+                    <p class="sub">
+                        初学者のための探索的テスト実践フィールドガイド。原著の要点をステップバイステップのベストプラクティスとして再構成しました。
+                    </p>
+                    <dl class="bookcard">
+                        <dt>原著</dt>
+                        <dd>
+                            Explore It!: Reduce Risk and Increase Confidence with Exploratory
+                            Testing
+                        </dd>
+                        <dt>著者</dt>
+                        <dd>Elisabeth Hendrickson</dd>
+                        <dt>出版</dt>
+                        <dd>Pragmatic Bookshelf, 2013年初版</dd>
+                        <dt>参照元</dt>
+                        <dd>
+                            <a
+                                href="https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >oreilly.com/library/view/explore-it/9781941222584</a
+                            >
+                        </dd>
+                    </dl>
+                    <p class="lede">
+                        図解はすべて Mermaid
+                        で作成し、比較・整理には表を用いています。ASCIIアートによる図解は使用していません。2026年9月5日時点の情報をWeb検索で確認し、末尾に出典URLを一覧化しています。
+                    </p>
+                </div>
+
+                <!-- 01 -->
+                <section id="overview">
+                    <div class="sec-tag">
+                        <span class="num">01</span><span class="label">OVERVIEW</span>
+                    </div>
+                    <h2>この本はどんな本か</h2>
+                    <p>
+                        <strong>Elisabeth Hendrickson</strong>
+                        は1980年からコードを書き始めたベテランのテスター・開発者・アジャイル実践者で、2010年にAgile
+                        AllianceのGordon Pask
+                        Award（アジャイルコミュニティへの貢献に贈られる賞）を受賞しています。GoogleのTech
+                        Talkでのアジャイルテスト講演や、後述する「Test Heuristics Cheat
+                        Sheet」でも広く知られる人物です。
+                    </p>
+                    <p>
+                        <code>Agile Testing</code>の共著者であるJanet
+                        Gregoryは、本書について「開発チームの全員の机に置かれるべき本であり、探索的テストをチームに導入する際にいつも持ち歩いている本だ」という趣旨の推薦の言葉を寄せています。
+                    </p>
+                    <p>本書は3部構成・全13章＋付録2つで構成されています。</p>
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Part</th>
+                                    <th>テーマ</th>
+                                    <th>主な内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Part 1</td>
+                                    <td>Establishing Foundations（基礎を固める）</td>
+                                    <td>チャーター、観察、バリエーション探し、結果評価</td>
+                                </tr>
+                                <tr>
+                                    <td>Part 2</td>
+                                    <td>Adding Dimensions（次元を加える）</td>
+                                    <td>操作の順序、エンティティと関係、状態遷移、エコシステム</td>
+                                </tr>
+                                <tr>
+                                    <td>Part 3</td>
+                                    <td>Putting It in Context（文脈に当てはめる）</td>
+                                    <td>
+                                        UIがない場合、既存システム、要件定義の場、テスト戦略全体への統合
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        対象読者は「初級から上級まで」とされており、テスターに限らず開発者・プロダクトオーナーが読んでも実践的な発見がある構成になっています。
+                    </p>
+                </section>
+
+                <!-- 02 -->
+                <section id="why">
+                    <div class="sec-tag">
+                        <span class="num">02</span
+                        ><span class="label">WHY EXPLORATORY TESTING</span>
+                    </div>
+                    <h2>なぜ探索的テストが必要なのか</h2>
+                    <h3>チェック（Checking）と探索（Exploring）は別物</h3>
+                    <p>
+                        ThoughtWorksのチーフサイエンティストであり、多くのソフトウェア開発者に影響を与えてきた<strong
+                            >Martin Fowler</strong
+                        >は、自身のbliki（ブログ+wiki）で探索的テストを次のように整理しています。
+                    </p>
+                    <ul>
+                        <li>
+                            <strong>スクリプト化されたテスト（Checking）</strong
+                            >：あらかじめ書かれた手順と期待結果に沿って実行し、一致しなければ失敗と判定する。
+                        </li>
+                        <li>
+                            <strong>探索的テスト（Exploring）</strong
+                            >：ソフトウェアの特性そのものを探りながら、発見した挙動が「妥当」か「不具合」かをその場で判断していく、学習・設計・実行が一体化したスタイル。
+                        </li>
+                    </ul>
+                    <p>
+                        Fowlerは自動化されたセルフテストの強力な推進者として知られますが、それでも「自動テストは頑丈なバグ捕獲網を提供するが、その網が本当に必要な範囲を覆っているかどうかを確かめるには探索的テストが必要だ」という趣旨を述べています。
+                    </p>
+                    <p>
+                        探索的テストという用語自体は<strong>Cem Kaner</strong
+                        >が1984年に提唱したとされ、Wikipediaに引用されている定義では「個々のテスターが自身の作業品質を継続的に最適化する、個人の自由と責任を重視するテストスタイルであり、テストに関連する学習・設計・実行・結果解釈を、プロジェクトを通じて並行して行う相互補完的な活動として扱うもの」とされています。<strong
+                            >James Marcus Bach</strong
+                        >とKanerは、探索的テストは手法というより「思考様式（マインドセット）」であり、わずかに探索的なもの（曖昧・緩いスクリプト）から完全に自由な探索まで連続体をなす、とも説明しています。
+                    </p>
+                    <div class="quote">
+                        探索的テストとは、テスト対象のソフトウェアについて学習しながら、同時にテストを設計・実行し、直前のテストで得たフィードバックを次のテストに活かしていく活動である。
+                        <cite>Elisabeth Hendrickson の定義として広く引用される言葉（意訳）</cite>
+                    </div>
+
+                    <div class="figure">
+                        <div class="cap">FIGURE 02-A ｜ チェックと探索の違い</div>
+                        <div class="mermaid">
+                            flowchart LR subgraph Checking["チェック（Checking）: 事前に台本を書く"]
+                            direction TB A1[要件・仕様] --> A2[事前にテストケースを設計] A2 -->
+                            A3[手順どおりに実行] A3 --> A4{期待結果と一致?} A4 -->|Yes| A5[合格] A4
+                            -->|No| A6[不合格] end subgraph Exploring["探索（Exploring）:
+                            学習と設計と実行が同時進行"] direction TB B1[学習 Learn] -->
+                            B2[次の一手を設計 Design] B2 --> B3[実行して観察 Execute] B3 --> B1 end
+                        </div>
+                    </div>
+                    <p>
+                        チェックは「安全網（セーフティネット）」であり、探索はその網がカバーしきれていない領域を能動的に探しに行く活動、という対比がよく使われます。実務では両者は対立するものではなく、状況に応じて配分が変わる<strong>連続体</strong>として組み合わせて使うのが基本です。
+                    </p>
+                </section>
+
+                <!-- 03 -->
+                <section id="elements">
+                    <div class="sec-tag">
+                        <span class="num">03</span><span class="label">CORE ELEMENTS</span>
+                    </div>
+                    <h2>探索的テストの本質的要素</h2>
+                    <p>
+                        本書 第1章（On Testing and
+                        Exploration）では、探索的テストを成立させる要素として次のようなものが挙げられています。
+                    </p>
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>要素</th>
+                                    <th>説明</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>タイムボックス化されたセッション</td>
+                                    <td>
+                                        探索を「時間で区切った作業単位」として扱い、集中と説明責任を両立させる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>チャーター（憲章／指針）</td>
+                                    <td>
+                                        何を、何を使って、何のために探索するかを事前に短く言語化する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>同時並行の学習・設計・実行</td>
+                                    <td>
+                                        あらかじめ全テストを設計せず、直前の結果から次の一手を組み立てる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>観察力</td>
+                                    <td>
+                                        画面だけでなくログ・コンソール・裏側の状態まで注意深く見る
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>バリエーションの発見</td>
+                                    <td>
+                                        「変化しうるもの（変数）」を洗い出し、意図的にそれを変えてみる
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        これらは独立した技法ではなく、<strong>1つのセッションの中で循環的に使われるスキルセット</strong>である点が本書の重要なメッセージです。
+                    </p>
+                </section>
+
+                <!-- 04 -->
+                <section id="roadmap">
+                    <div class="sec-tag">
+                        <span class="num">04</span><span class="label">ROADMAP</span>
+                    </div>
+                    <h2>実践ロードマップ（全体像）</h2>
+                    <p>
+                        初学者がゼロから探索的テストを実務に取り入れる際の全体の流れを、本書の構成に沿って1つのループとして可視化すると、以下のようになります。
+                    </p>
+                    <div class="figure">
+                        <div class="cap">FIGURE 04-A ｜ 探索的テストの実践ループ</div>
+                        <div class="mermaid">
+                            flowchart TD S1["準備<br />基礎を理解する<br />(チェックと探索の違い)"]
+                            --> S2["Step1<br />チャーターを書く"] S2 --> S3["Step2<br />タイムボックスされた<br />セッションを実施"]
+                            S3 --> S4["Step3<br />観察する<br />(見えないものを見える化)"] S4 -->
+                            S5["Step4<br />変化(バリエーション)を<br />意図的に加える"] S5 -->
+                            S6["Step5<br />結果を評価する<br />(オラクルを選ぶ)"] S6 -->
+                            S7["Step6<br />次元を加える<br />(順序/エンティティ/状態/生態系)"] S7
+                            --> S8["Step7<br />コンテキストに応じて適用<br />(API/既存システム/要件)"]
+                            S8 --> S9["Step8<br />デブリーフィングし<br />次のチャーターへ活かす"]
+                            S9 -.->|継続的に繰り返す| S2
+                        </div>
+                    </div>
+                    <div class="stepgrid">
+                        <div><b>STEP 1</b>チャーター作成</div>
+                        <div><b>STEP 2</b>セッション構造化</div>
+                        <div><b>STEP 3</b>観察</div>
+                        <div><b>STEP 4</b>バリエーション</div>
+                        <div><b>STEP 5</b>結果評価</div>
+                        <div><b>STEP 6</b>次元追加</div>
+                        <div><b>STEP 7</b>文脈適用</div>
+                        <div><b>STEP 8</b>デブリーフィング</div>
+                    </div>
+                    <p>以降のセクションで、各ステップを順番に詳しく解説します。</p>
+                </section>
+
+                <!-- STEP1 -->
+                <section id="step1">
+                    <div class="sec-tag">
+                        <span class="num step">1</span
+                        ><span class="label">CHARTER YOUR EXPLORATIONS</span>
+                    </div>
+                    <h2>チャーター（探索の指針）を書く</h2>
+                    <p>
+                        本書 第2章「Charter Your
+                        Explorations」の中心テーマです。探索的テストは自由度が高い分、<strong>何も指針がないと「ただ画面をクリックしているだけ」になりがち</strong>です。それを防ぐのがチャーター（憲章）です。
+                    </p>
+
+                    <h3>シンプルなチャーターテンプレート</h3>
+                    <p>多くの実務者・ブログ記事で紹介されている基本形は次の3要素です。</p>
+                    <pre
+                        class="tmpl"
+                    ><span class="k">Explore</span>（探索対象）　　　　: [対象領域・機能]
+<span class="k">With</span>（使うもの）　　　　　 : [使用するツール・データ・リソース]
+<span class="k">To discover</span>（発見したいこと）: [気になっているリスク・情報・不具合]</pre>
+
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>項目</th>
+                                    <th>記入例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Explore（対象）</td>
+                                    <td>新規会員登録フォーム</td>
+                                </tr>
+                                <tr>
+                                    <td>With（使うもの）</td>
+                                    <td>全角文字・絵文字・非常に長い文字列を含むテストデータ</td>
+                                </tr>
+                                <tr>
+                                    <td>To discover（目的）</td>
+                                    <td>
+                                        入力バリデーションの抜け漏れと、エラーメッセージの分かりやすさ
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        このテンプレートの利点は、「何を厳密にやるか」ではなく「どこに焦点を当て、何を使い、何を知りたいのか」という<strong>方向性だけ</strong>を示す点です。手順を細かく書きすぎるとチャーターの目的である「自由な探索」を阻害してしまうため、具体的すぎず、かといって曖昧すぎない粒度が重要とされています。
+                    </p>
+
+                    <h3>良いチャーターの条件</h3>
+                    <ul>
+                        <li>
+                            <strong>1つのミッションが明確である</strong
+                            >（複数の目的を1つのチャーターに詰め込まない）
+                        </li>
+                        <li>
+                            <strong>リスクや疑問に基づいている</strong
+                            >（仕様・過去の不具合・ステークホルダーの懸念などから発想する）
+                        </li>
+                        <li>
+                            <strong>時間内に完了できる粒度である</strong
+                            >（大きすぎる場合は分割する）
+                        </li>
+                        <li>
+                            <strong>対象外（スコープ外）も明示できるとなお良い</strong
+                            >（後の解釈のブレを防ぐ）
+                        </li>
+                    </ul>
+
+                    <div class="figure">
+                        <div class="cap">FIGURE S1-A ｜ チャーター作成の流れ</div>
+                        <div class="mermaid">
+                            flowchart TD Start[探索を始めたい] --> Q1{何が気になっている?} Q1
+                            -->|仕様や要求から| Src1[要件/仕様書を読む] Q1 -->|過去の不具合から|
+                            Src2[バグ履歴・障害報告を見る] Q1 -->|ステークホルダーの懸念から|
+                            Src3[ステークホルダーに聞く] Src1 --> Draft[チャーター案を作成<br />Explore/With/To
+                            discover] Src2 --> Draft Src3 --> Draft Draft -->
+                            Check{ミッションは1つ<br />かつ時間内に収まるか?} Check -->|No|
+                            Split[チャーターを分割/絞り込む] Split --> Draft Check -->|Yes|
+                            Ready[セッション実施へ]
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <strong>補足｜</strong
+                        >本書ではチャーターを事前に大量生成しておく「チャーター・ライブラリ」を作る発想や、「悪夢の見出しゲーム（The
+                        Nightmare Headline Game）」—
+                        もしこの機能が原因でニュースの見出しになるとしたら、それはどんな見出しか？を考えることでリスクを洗い出す
+                        — といった、チャーターのアイデア出しを支援するワークも紹介されています。
+                    </div>
+                </section>
+
+                <!-- STEP2 -->
+                <section id="step2">
+                    <div class="sec-tag">
+                        <span class="num step">2</span
+                        ><span class="label">SESSION-BASED TEST MANAGEMENT</span>
+                    </div>
+                    <h2>セッションを構造化する</h2>
+                    <p>
+                        チャーターを書いたら、実際に<strong>タイムボックス化されたセッション</strong>として実行します。ここで参照される代表的な方法論が、<strong
+                            >James Bach と Jonathan Bach（兄弟）</strong
+                        >が2000年に考案した
+                        <strong>Session-Based Test Management（SBTM）</strong>
+                        です。これは探索的テストに対してよく向けられる「再現性がない」「測定できない」「説明責任が果たせない」という批判に応えるために生まれた仕組みで、探索的テストに構造とアカウンタビリティを与えるものとして広く実務で採用されています。
+                    </p>
+
+                    <div class="figure">
+                        <div class="cap">FIGURE S2-A ｜ SBTMの基本サイクル</div>
+                        <div class="mermaid">
+                            flowchart TD C[チャーター作成] --> S["セッション開始<br />(45〜120分、目安90分の<br />タイムボックス／中断禁止)"]
+                            S --> T[テストを設計しながら実行] T --> B[不具合の調査・報告] T -->
+                            N[新たな疑問・派生チャーターの発見] B --> R[セッションレポート作成] N
+                            --> R R --> D["デブリーフィング<br />(マネージャー/チームとの振り返り)"]
+                            D --> Metric[セッションメトリクスの記録] Metric -->
+                            C2[次のチャーターへ反映] C2 -.-> C
+                        </div>
+                    </div>
+
+                    <h3>セッションの長さの目安</h3>
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>種類</th>
+                                    <th>目安時間</th>
+                                    <th>主な用途</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ショート</td>
+                                    <td>〜45分程度</td>
+                                    <td>集中しにくい環境、細かい機能確認</td>
+                                </tr>
+                                <tr>
+                                    <td>ノーマル</td>
+                                    <td>60〜90分</td>
+                                    <td>標準的な探索セッション。90分が最適とされることが多い</td>
+                                </tr>
+                                <tr>
+                                    <td>ロング</td>
+                                    <td>90〜120分以上</td>
+                                    <td>複雑な機能、深く追いかけたい調査</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        セッション中はメール・チャット通知などをオフにし、<strong>中断されない集中した時間</strong>として扱うことがポイントです。セッション終了後は「デブリーフィング（振り返り）」を行い、発見した情報・不具合・新たな疑問をチームに共有します（詳細はStep
+                        8）。
+                    </p>
+                </section>
+
+                <!-- STEP3 -->
+                <section id="step3">
+                    <div class="sec-tag">
+                        <span class="num step">3</span
+                        ><span class="label">OBSERVE THE DETAILS</span>
+                    </div>
+                    <h2>観察力を鍛える ― 見えないものを見えるようにする</h2>
+                    <p>
+                        本書 第3章「Observe the
+                        Details」のテーマです。この章でHendricksonが取り上げる有名な例え話が「<strong
+                            >ムーンウォークするクマ（Moonwalking Bear）</strong
+                        >」で、注意を1点に向けていると、視界の中の明らかな異常にすら気づかなくなるという<strong
+                            >非注意性盲目（inattentional blindness）</strong
+                        >の心理学的現象を指しています。テスターも同様に、「期待した結果が出たかどうか」だけに注意を向けていると、画面の隅で起きている別の異常を見逃してしまう、というのがこの章の教訓です。
+                    </p>
+
+                    <h3>観察のためのベストプラクティス</h3>
+                    <ul>
+                        <li>
+                            <strong
+                                >期待した結果だけでなく、画面全体・周辺の変化にも意識的に注意を向ける</strong
+                            >
+                        </li>
+                        <li>
+                            <strong>テスタビリティ（testability）を高める</strong
+                            >：ログ出力、デバッグコンソール、管理画面などを積極的に活用する
+                        </li>
+                        <li>
+                            <strong>コンソールやログを常時確認する</strong
+                            >：UI上は正常に見えても、裏側でエラーが出ていることは珍しくない
+                        </li>
+                        <li>
+                            <strong>「何も表示されない」ことも1つの情報として扱う</strong
+                            >：エラーが握りつぶされて画面に何も出ないケースこそ危険な場合がある
+                        </li>
+                    </ul>
+
+                    <div class="figure">
+                        <div class="cap">FIGURE S3-A ｜ 観察範囲を広げるチェックポイント</div>
+                        <div class="mermaid">
+                            flowchart LR Action[操作を実行する] --> UI[画面上の見た目を確認] Action
+                            --> Log[コンソール/ログを確認] Action --> State[内部状態・DBを確認]
+                            Action --> Perf[応答時間や負荷を確認] UI --> Judge{異常はないか?} Log
+                            --> Judge State --> Judge Perf --> Judge Judge
+                            -->|見えない異常があるかも| Widen[観察範囲をさらに広げる]
+                        </div>
+                    </div>
+                </section>
+
+                <!-- STEP4 -->
+                <section id="step4">
+                    <div class="sec-tag">
+                        <span class="num step">4</span
+                        ><span class="label">FIND INTERESTING VARIATIONS</span>
+                    </div>
+                    <h2>「面白い変化（バリエーション）」を見つける</h2>
+                    <p>
+                        本書 第4章「Find Interesting
+                        Variations」は、複数のレビュー記事で「本書の中で最も価値が高い章」「ソフトウェアテスト本の中で一番好きな章」と評されるほど、実務者からの評価が高い章です。LogiGear社のブログでは、この章だけで書籍の価格に見合う価値がある、と評されています。
+                    </p>
+                    <p>
+                        この章の核心は、「<strong>変数（variables）とは、変化しうるすべてのもの</strong>」という考え方です。
+                    </p>
+
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>変数の種類</th>
+                                    <th>具体例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>入力変数</td>
+                                    <td>フォームの入力値、アップロードファイル、APIパラメータ</td>
+                                </tr>
+                                <tr>
+                                    <td>出力変数</td>
+                                    <td>表示されるメッセージ、レスポンス、生成されるファイル</td>
+                                </tr>
+                                <tr>
+                                    <td>隠れた変数</td>
+                                    <td>セッション状態、キャッシュ、タイムゾーン、ロケール設定</td>
+                                </tr>
+                                <tr>
+                                    <td>微妙な変数</td>
+                                    <td>
+                                        文字エンコーディング、浮動小数点の丸め、並び順、同時実行のタイミング
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        「微妙な変数（subtle
+                        variables）」ほど見落とされやすく、それが原因で大きな不具合（本書の言う
+                        "Subtle Variables, Big Disasters"）につながることが強調されています。
+                    </p>
+
+                    <h3>バリエーションを見つけるための問いかけ</h3>
+                    <ul>
+                        <li>
+                            この画面・機能に関わる「変数」を、思いつく限りすべて書き出してみたか？
+                        </li>
+                        <li>
+                            入力だけでなく、環境・タイミング・順序・組み合わせも変数として捉えられているか？
+                        </li>
+                        <li>
+                            「普段は固定だと思っている値」（言語設定、通貨、日付書式など）は、本当に固定か？
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- STEP5 -->
+                <section id="step5">
+                    <div class="sec-tag">
+                        <span class="num step">5</span><span class="label">EVALUATE RESULTS</span>
+                    </div>
+                    <h2>結果を評価する（オラクル問題）</h2>
+                    <p>
+                        本書 第5章「Evaluate
+                        Results」のテーマです。探索的テストでは事前に「正解」が書かれたテストケースが存在しないため、<strong>「これは正しい挙動か、それともバグか」をその場で判断する基準（オラクル）</strong>が必要になります。
+                    </p>
+
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>オラクルの種類</th>
+                                    <th>判断基準の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Never / Always ヒューリスティック</td>
+                                    <td>
+                                        「絶対に〜してはいけない」「常に〜であるべき」という一般原則（例：クレジットカード番号を平文でログに出力してはいけない）
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>代替リソース</td>
+                                    <td>
+                                        仕様書、既存の類似機能、競合製品、過去のバージョンとの比較
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>近似</td>
+                                    <td>
+                                        厳密な正解がなくても「おおよそ妥当な範囲」で判断する（パフォーマンス値など）
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        初学者にとって重要なのは、<strong>「仕様書に書いていないから正解が分からない」という状態でも、判断のための手がかりは複数存在する</strong>という点です。オラクルを複数持っておくことで、仕様の不備そのものにも気づきやすくなります。
+                    </p>
+                </section>
+
+                <!-- STEP6 -->
+                <section id="step6">
+                    <div class="sec-tag">
+                        <span class="num step">6</span><span class="label">ADDING DIMENSIONS</span>
+                    </div>
+                    <h2>探索に「次元」を加える</h2>
+                    <p>
+                        Part 2「Adding
+                        Dimensions」（第6〜9章）では、探索の「切り口」を広げるための具体的な技法が紹介されます。基礎スキル（チャーター・観察・バリエーション・評価）を土台に、以下の4つの視点を追加していきます。
+                    </p>
+
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>章</th>
+                                    <th>次元</th>
+                                    <th>中心的な問い</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>第6章</td>
+                                    <td>操作の順序・組み合わせ</td>
+                                    <td>
+                                        名詞（対象）と動詞（操作）を洗い出し、想定外の順番で操作したらどうなるか？
+                                        ランダムなナビゲーションやペルソナを使うとどんな発見があるか？
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>第7章</td>
+                                    <td>エンティティと依存関係</td>
+                                    <td>
+                                        データのCRUD各操作は整合しているか？
+                                        データの流れを最後まで追えるか？
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>第8章</td>
+                                    <td>状態と遷移</td>
+                                    <td>
+                                        システムには「状態」と「イベント」がいくつ存在するか？
+                                        想定していない遷移が起きないか？
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>第9章</td>
+                                    <td>システムを取り巻く環境</td>
+                                    <td>
+                                        このシステムは何と連携しているか？
+                                        信頼境界はどこにあるか？「もし〜だったら」を問い続ける
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>CRUDのライフサイクルを図で捉える（第7章）</h3>
+                    <div class="figure">
+                        <div class="cap">FIGURE S6-A ｜ CRUD ライフサイクル</div>
+                        <div class="mermaid">
+                            flowchart LR Create[作成 Create] --> Read[参照 Read] Read -->
+                            Update[更新 Update] Update --> Delete[削除 Delete] Delete
+                            -.->|削除後に再作成できるか?<br />関連データはどうなるか?| Create
+                        </div>
+                    </div>
+
+                    <h3>状態遷移モデルの例（第8章）</h3>
+                    <p>
+                        本書では、状態モデル図を描くことで「想定していない遷移」や「本来あってはならない状態」を見つけやすくなる、という技法が紹介されています。例えば認証機能を単純化すると次のようになります。
+                    </p>
+                    <div class="figure">
+                        <div class="cap">FIGURE S6-B ｜ 認証機能の状態遷移モデル</div>
+                        <div class="mermaid">
+                            stateDiagram-v2 [*] --> 未ログイン 未ログイン --> ログイン試行中:
+                            ログインボタン押下 ログイン試行中 --> ログイン済み: 認証成功
+                            ログイン試行中 --> 未ログイン: 認証失敗 ログイン済み --> 未ログイン:
+                            ログアウト ログイン済み --> アカウントロック: 連続失敗を検知
+                            アカウントロック --> 未ログイン: 一定時間経過 or 管理者解除
+                        </div>
+                    </div>
+                    <p>
+                        この図を描いた上で、「ログイン試行中に別タブでログアウトしたら？」「ロック中に正しいパスワードを入力したら？」のように、<strong>図に描かれていない・想定されていない遷移</strong>を意図的に探しにいくのが、状態モデルを使った探索の勘所です。
+                    </p>
+
+                    <h3>エコシステムと信頼境界の図（第9章）</h3>
+                    <div class="figure">
+                        <div class="cap">FIGURE S6-C ｜ システムのエコシステムと信頼境界</div>
+                        <div class="mermaid">
+                            flowchart LR User[ユーザー] -->|HTTPS| WebApp[Webアプリケーション]
+                            WebApp -->|API呼び出し| PaymentAPI[外部決済API] WebApp -->|クエリ|
+                            DB[(データベース)] WebApp -->|Webhook|
+                            ExternalService[サードパーティ連携サービス] subgraph
+                            Trust["信頼境界（自社が管理する範囲）"] WebApp DB end
+                        </div>
+                    </div>
+                    <p>
+                        信頼境界をまたぐポイント（図でいえば外部決済APIやサードパーティ連携との接続部分）は、探索的テストで重点的に狙うべきリスクの高い領域として本書で強調されています。
+                    </p>
+                </section>
+
+                <!-- STEP7 -->
+                <section id="step7">
+                    <div class="sec-tag">
+                        <span class="num step">7</span
+                        ><span class="label">PUTTING IT IN CONTEXT</span>
+                    </div>
+                    <h2>コンテキストに応じて探索を適用する</h2>
+                    <p>
+                        Part 3「Putting It in
+                        Context」（第10〜13章）では、探索的テストを様々な現場の状況に適用する方法が紹介されます。
+                    </p>
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>章</th>
+                                    <th>状況</th>
+                                    <th>ポイント</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>第10章</td>
+                                    <td>UIが存在しない対象（API、言語、Webサービス）</td>
+                                    <td>
+                                        REPLやコンソールを使い、不具合の「性質を特徴づける」ことに焦点を当てる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>第11章</td>
+                                    <td>既存の（ドキュメントが乏しい）システム</td>
+                                    <td>
+                                        「偵察セッション」から始め、観察内容を共有し、ステークホルダーへのインタビューから疑問を集める
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>第12章</td>
+                                    <td>要件定義の会議そのもの</td>
+                                    <td>
+                                        会議に同席し「〜性（-ilities）」に耳を傾け、アクティブリーディングでチャーターの種を見つける
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>第13章</td>
+                                    <td>プロジェクト全体</td>
+                                    <td>
+                                        テスト戦略への組み込み、ペア探索、根本原因の発見、探索の見積もり
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p>
+                        第13章でHendricksonが述べている考え方として、「テスト戦略にチェックと探索の両方が含まれ、チームがテストで得られた情報をもとに行動するとき、非常に高品質なソフトウェアが生まれる」という趣旨のメッセージが紹介されています。これは、探索的テストを「片手間の作業」ではなく、<strong>チーム全体の意思決定プロセスの一部</strong>として位置づける本書の一貫した主張の集約点といえます。
+                    </p>
+                </section>
+
+                <!-- STEP8 -->
+                <section id="step8">
+                    <div class="sec-tag">
+                        <span class="num step">8</span
+                        ><span class="label">DEBRIEF &amp; ITERATE</span>
+                    </div>
+                    <h2>デブリーフィングと継続的改善</h2>
+                    <p>
+                        セッションを実施したら終わりではなく、<strong>デブリーフィング（debrief）</strong>を通じて次のサイクルに知見をつなげることが重要です。
+                    </p>
+                    <h3>デブリーフィングで確認すべきこと</h3>
+                    <ul>
+                        <li>
+                            このセッションで<strong>何を学んだか</strong>（機能そのものについて／システムのリスクについて）
+                        </li>
+                        <li><strong>見つかった不具合</strong>とその重要度</li>
+                        <li>
+                            チャーターから<strong>外れた（off-charter）</strong>探索があった場合、それは正当だったか
+                        </li>
+                        <li>
+                            次のセッションで<strong>チャーターにすべき新しい疑問</strong>が生まれたか
+                        </li>
+                        <li>
+                            「もう十分に探索した」と判断できる材料は何か（第13章「How to Tell When
+                            You Have Explored Enough」のテーマ）
+                        </li>
+                    </ul>
+                    <p>
+                        デブリーフィングの内容は、ステークホルダーへの報告や、チーム内のナレッジとして蓄積される「有用な知恵の断片（Capturing
+                        Useful Nuggets of Wisdom）」としても活用されます。
+                    </p>
+                </section>
+
+                <!-- 13 -->
+                <section id="cheatsheet">
+                    <div class="sec-tag">
+                        <span class="num">13</span><span class="label">CHEAT SHEET</span>
+                    </div>
+                    <h2>テストヒューリスティック・チートシート</h2>
+                    <p>
+                        Hendricksonは、James Lyndsay・Dale Emeryと共に
+                        <strong>「Test Heuristics Cheat Sheet」</strong>
+                        という2ページのチートシートを作成しており、BBST（Black Box Software
+                        Testing）コースの必読教材にも採用されるなど、探索的テスト分野で広く参照されている資料です。このチートシートは本書と対で使われることが多く、探索セッション中に「次に何を試すか」のアイデア出しを助けるツールです。
+                    </p>
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>カテゴリ</th>
+                                    <th>着眼点の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Variable Analysis</td>
+                                    <td>入力・出力・隠れた変数・微妙な変数をすべて洗い出す</td>
+                                </tr>
+                                <tr>
+                                    <td>Touch Points</td>
+                                    <td>
+                                        このデータ・機能が影響を及ぼす他の画面・システムはどこか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Boundaries</td>
+                                    <td>最小値・最大値・ゼロ・空・境界を1つ超えた値</td>
+                                </tr>
+                                <tr>
+                                    <td>CRUD</td>
+                                    <td>作成・参照・更新・削除の一連の整合性</td>
+                                </tr>
+                                <tr>
+                                    <td>Configurations</td>
+                                    <td>OS・ブラウザ・言語設定・画面解像度などの組み合わせ</td>
+                                </tr>
+                                <tr>
+                                    <td>Interruptions</td>
+                                    <td>処理中に通信が切れる、ページを閉じる、戻るボタンを押す</td>
+                                </tr>
+                                <tr>
+                                    <td>Sequences</td>
+                                    <td>操作の順番を変える、通常と逆順で行う</td>
+                                </tr>
+                                <tr>
+                                    <td>State Analysis</td>
+                                    <td>取りうる状態と、その間の遷移をすべて洗い出す</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="note">
+                        このチートシートは複数の教育プラットフォーム（Ministry of
+                        Testingなど）で改訂・拡張版が公開されています。詳細は参考文献セクションのURLを参照してください。
+                    </div>
+                </section>
+
+                <!-- 14 -->
+                <section id="ai2026">
+                    <div class="sec-tag">
+                        <span class="num">14</span><span class="label">2026 &amp; AI</span>
+                    </div>
+                    <h2>2026年現在：AI時代における探索的テストの位置づけ</h2>
+                    <p>
+                        2026年時点の業界動向を確認すると、AIエージェントによる自動テスト生成・自己修復（self-healing）テストの活用が急速に広がっている一方で、<strong>探索的テストの重要性はむしろ再確認されている</strong>という論調が複数の業界メディアで見られます。
+                    </p>
+                    <ul>
+                        <li>
+                            回帰テストやスモークテスト、APIコントラクトテストのような「予測可能で反復的な作業」はAIエージェントに任せ、人間のテスターは<strong>探索的で判断力を要する作業や、ステークホルダーとの対話が必要な作業</strong>に集中する、という役割分担が2026年の実務トレンドとして紹介されています。
+                        </li>
+                        <li>
+                            AIエージェントは新機能を自律的に操作して問題を発見する探索的カバレッジを提供し始めていますが、「ユーザビリティ評価」「アクセシビリティ評価」「複雑な探索的テスト」「新規状況でのビジネス文脈の理解」については、依然として人間の判断に及ばないとされています。
+                        </li>
+                        <li>
+                            チャーターに基づく構造化された探索セッションを、スプリントの中に定期的に組み込むチームが増えている、という指摘もあります。
+                        </li>
+                    </ul>
+                    <p>
+                        つまり、『Explore
+                        It!』が2013年に体系化した「チャーター」「セッション」「観察」「バリエーション」といった基本スキルは、AIがテストを支援する時代においても、<strong>人間が担うべき探索的テストの核となる思考法</strong>として引き続き有効である、というのが2026年時点での大方の見方です。
+                    </p>
+                </section>
+
+                <!-- 15 -->
+                <section id="checklist">
+                    <div class="sec-tag">
+                        <span class="num">15</span><span class="label">CHECKLIST</span>
+                    </div>
+                    <h2>初学者向けチェックリスト</h2>
+                    <p>
+                        はじめて探索的テストのセッションを行う際に確認するとよいポイントをまとめました。
+                    </p>
+                    <ul class="checklist">
+                        <li>
+                            <input type="checkbox" id="cl1" /><label for="cl1"
+                                >チャーター（Explore / With / To
+                                discover）を1文〜数行で書いたか</label
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" id="cl2" /><label for="cl2"
+                                >セッションの時間（60〜90分が目安）を決め、タイムボックス化したか</label
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" id="cl3" /><label for="cl3"
+                                >セッション中は通知をオフにし、集中できる環境を作ったか</label
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" id="cl4" /><label for="cl4"
+                                >画面だけでなく、ログ・コンソール・レスポンスにも注意を向けたか</label
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" id="cl5" /><label for="cl5"
+                                >入力・出力・隠れた変数・微妙な変数を意識的に変化させてみたか</label
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" id="cl6" /><label for="cl6"
+                                >「これは正しいか？」を判断するための根拠（オラクル）を複数持っているか</label
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" id="cl7" /><label for="cl7"
+                                >操作の順序・エンティティの関係・状態遷移・外部連携のいずれかの視点を加えたか</label
+                            >
+                        </li>
+                        <li>
+                            <input type="checkbox" id="cl8" /><label for="cl8"
+                                >セッション終了後にデブリーフィングを行い、発見と次のチャーター候補を記録したか</label
+                            >
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 16 -->
+                <section id="references">
+                    <div class="sec-tag">
+                        <span class="num">16</span><span class="label">REFERENCES</span>
+                    </div>
+                    <h2>参考文献・出典URL一覧</h2>
+                    <p>
+                        本ガイドの作成にあたり、2026年9月5日時点でWeb検索により確認した一次情報・著名な実務者による解説記事を以下に示します。
+                    </p>
+                    <div class="tblwrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>ソース</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>O'Reilly Online Learning「Explore It!」書誌情報・目次</td>
+                                    <td>
+                                        <a
+                                            href="https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >oreilly.com/…/f_0000.html</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>
+                                        Amazon「Explore It!」書籍紹介（著者略歴・Janet
+                                        Gregory推薦文）
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.amazon.com/Explore-Increase-Confidence-Exploratory-Testing/dp/1937785025"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >amazon.com/dp/1937785025</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Hexawise Blog「Book Review of "Explore It!"」</td>
+                                    <td>
+                                        <a
+                                            href="https://hexawise.com/posts/book-review-of-explore-it-elisabeth-hendricksons-excellent-new-book-on-software-testing"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >hexawise.com/posts/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>
+                                        LogiGear Blog「Book Review: Elizabeth Hendrickson's Explore
+                                        It!」
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.logigear.com/blogs/test-methods/Book-Review-Elizabeth-Hendricksons-Explore-It"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >logigear.com/blogs/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Steveo1967 Blog「Book Review - Explore it!」</td>
+                                    <td>
+                                        <a
+                                            href="http://steveo1967.blogspot.com/2013/11/book-review-explore-it-by-elizabeth.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >steveo1967.blogspot.com/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>
+                                        Test Engineering Notes「5 Insights from Explore
+                                        It!」（2026年）
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://testengineeringnotes.com/posts/2026-07-02-explore-it-review/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >testengineeringnotes.com/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Martin Fowler「bliki: Exploratory Testing」</td>
+                                    <td>
+                                        <a
+                                            href="https://martinfowler.com/bliki/ExploratoryTesting.html"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >martinfowler.com/bliki/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>8</td>
+                                    <td>Martin Fowler「Testing Guide」</td>
+                                    <td>
+                                        <a
+                                            href="https://martinfowler.com/testing/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >martinfowler.com/testing/</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>9</td>
+                                    <td>Wikipedia「Exploratory testing」</td>
+                                    <td>
+                                        <a
+                                            href="https://en.wikipedia.org/wiki/Exploratory_testing"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >en.wikipedia.org/wiki/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>10</td>
+                                    <td>Wikipedia「Session-based testing」</td>
+                                    <td>
+                                        <a
+                                            href="https://en.wikipedia.org/wiki/Session-based_testing"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >en.wikipedia.org/wiki/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>11</td>
+                                    <td>
+                                        TechWell「Use Session-Based Testing to Structure Exploratory
+                                        Testing」
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.techwell.com/techwell-insights/2013/02/use-session-based-testing-structure-exploratory-testing"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >techwell.com/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>12</td>
+                                    <td>
+                                        Virtuoso QA「What is Session Based Test Management (SBTM)?」
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.virtuosoqa.com/post/session-based-test-management"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >virtuosoqa.com/post/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>13</td>
+                                    <td>Tricentis Blog「Session-based Testing」</td>
+                                    <td>
+                                        <a
+                                            href="https://www.tricentis.com/blog/exploratory-testing-techniques-session-based-testing"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >tricentis.com/blog/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>14</td>
+                                    <td>The Testing-Library-Project「SBTM by James Bach」</td>
+                                    <td>
+                                        <a
+                                            href="https://tstlibrary.wordpress.com/whitepapers/session-based-test-management-by-james-bach/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >tstlibrary.wordpress.com/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>15</td>
+                                    <td>
+                                        yrkan.com「Test Charter Writing for Exploratory Testing」
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://yrkan.com/blog/test-charter-writing/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >yrkan.com/blog/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>16</td>
+                                    <td>
+                                        Xray Blog「How to use test charters for effective
+                                        exploratory testing」
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://www.getxray.app/blog/test-charters-exploratory-testing"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >getxray.app/blog/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>17</td>
+                                    <td>
+                                        Medium (Karlo Smid / Tentamen)「Testing Heuristics Cheat
+                                        Sheet」
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://tentamen.medium.com/testing-heuristics-cheat-sheet-tentamen-software-testing-blog-c6979f20caf0"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >tentamen.medium.com/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>18</td>
+                                    <td>BBST Courses「Test Heuristics Cheat Sheet」</td>
+                                    <td>
+                                        <a
+                                            href="https://bbst.courses/elisabeth-hendrickson-james-lyndsay-and-dale-emery-test-heuristics-cheat-sheet/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >bbst.courses/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>19</td>
+                                    <td>Ministry of Testing「Test Heuristics Cheat Sheet」</td>
+                                    <td>
+                                        <a
+                                            href="https://www.ministryoftesting.com/articles/ab1cd85c"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >ministryoftesting.com/articles/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>20</td>
+                                    <td>testomat.io「Software Testing Trends 2026」</td>
+                                    <td>
+                                        <a
+                                            href="https://testomat.io/blog/software-testing-trends/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >testomat.io/blog/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>21</td>
+                                    <td>
+                                        PC Tech Magazine「Best AI Agents for Software Testing in
+                                        2026」
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://pctechmag.com/2026/04/best-ai-agents-for-software-testing-in-2026/"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >pctechmag.com/2026/04/…</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>22</td>
+                                    <td>QASkills.sh「Agentic AI Testing Guide 2026」</td>
+                                    <td>
+                                        <a
+                                            href="https://qaskills.sh/blog/agentic-ai-testing-guide-2026"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >qaskills.sh/blog/…</a
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <footer>
+                        注記：本ガイドは上記ソースおよび公開されている書籍の目次情報をもとに、初学者向けに要約・再構成したものであり、原著からの長文引用は行っていません。より詳細で正確な内容は、必ず原著『Explore
+                        It!』（Elisabeth Hendrickson著、Pragmatic Bookshelf）をご参照ください。
+                    </footer>
+                </section>
+            </main>
+        </div>
+
+        <script>
+            // Mermaid本体は2系統のCDNから読み込みを試み、両方失敗した場合のみ
+            // 図のプレーンテキストをそのまま表示するフォールバックに切り替える。
+            // (社内ネットワークやアドブロッカーで片方のCDNがブロックされても表示が壊れないようにするため)
+            function loadScript(src) {
+                return new Promise(function (resolve, reject) {
+                    var s = document.createElement('script');
+                    s.src = src;
+                    s.onload = function () {
+                        resolve();
+                    };
+                    s.onerror = function () {
+                        reject(new Error('failed to load ' + src));
+                    };
+                    document.head.appendChild(s);
+                });
+            }
+
+            function showFallback() {
+                document.querySelectorAll('.figure .mermaid').forEach(function (el) {
+                    var raw = el.textContent.trim();
+                    el.innerHTML =
+                        '<div style="width:100%;">' +
+                        '<div style="color:#a5462f;font-size:.82rem;margin-bottom:10px;">' +
+                        '⚠ 図を描画できませんでした（ネットワーク接続、または広告ブロッカーなどをご確認ください）。以下は図の定義（Mermaid記法）です。' +
+                        '</div>' +
+                        '<pre style="white-space:pre-wrap;word-break:break-word;background:#f2ede0;padding:14px 16px;font-size:.78rem;color:#1c2b2c;font-family:\'JetBrains Mono\',monospace;text-align:left;">' +
+                        raw.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;') +
+                        '</pre>' +
+                        '</div>';
+                });
+            }
+
+            function runMermaid() {
+                if (typeof mermaid === 'undefined') {
+                    showFallback();
+                    return;
+                }
+                try {
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'base',
+                        themeVariables: {
+                            primaryColor: '#f2ede0',
+                            primaryBorderColor: '#2b6e5f',
+                            primaryTextColor: '#1c2b2c',
+                            lineColor: '#b0762c',
+                            secondaryColor: '#e3c497',
+                            tertiaryColor: '#faf9f5',
+                            fontFamily: '"Zen Kaku Gothic New", sans-serif',
+                        },
+                        flowchart: { curve: 'basis' },
+                    });
+                    mermaid.run({ querySelector: '.mermaid' }).catch(function (err) {
+                        console.error('mermaid run error:', err);
+                        showFallback();
+                    });
+                } catch (err) {
+                    console.error('mermaid init error:', err);
+                    showFallback();
+                }
+            }
+
+            loadScript('https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.9.1/mermaid.min.js')
+                .then(runMermaid)
+                .catch(function () {
+                    // 1つ目のCDNが失敗した場合、別のCDNで再試行する
+                    loadScript('https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js')
+                        .then(runMermaid)
+                        .catch(function (err) {
+                            console.error('mermaid load error (both CDNs failed):', err);
+                            showFallback();
+                        });
+                });
+        </script>
+    </body>
+</html>
