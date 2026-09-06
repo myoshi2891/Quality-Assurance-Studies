@@ -719,6 +719,8 @@
 
     .testing-web-apis-page .nav-toggle {
         display: flex;
+        /* 閉じるボタンがサイドバー(60)・バックドロップ(55)より前面に来るようにする */
+        z-index: 61;
     }
 
     .testing-web-apis-page .main {
