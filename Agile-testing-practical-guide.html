@@ -1,0 +1,2018 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            初学者のための実践ガイド | Agile Testing: A Practical Guide for Testers and Agile Teams
+        </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+            integrity="sha384-ND+q1IVc0KDElX60dZaqKc7Xl9cdxd2PpU2JfVUHcurCkFVtVLFdt9vJfxtHSL3p"
+            crossorigin="anonymous"
+        />
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"
+            integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk"
+            crossorigin="anonymous"
+        ></script>
+        <style>
+            :root {
+                --paper: #faf6ee;
+                --paper-card: #fffaf0;
+                --paper-card-2: #fdf3d8;
+                --ink: #2b2416;
+                --ink-soft: #5b503c;
+                --border: #e4d9c0;
+                --indigo: #4c3fae;
+                --indigo-soft: #eef0ff;
+                --gold: #a8790f;
+                --gold-soft: #fdf3d8;
+                --forest: #2f6f4e;
+                --forest-soft: #e7f3ea;
+                --plum: #6b3fa0;
+                --plum-soft: #f3ecfb;
+                --sidebar-w: 308px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                font-size: 16px;
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family: 'Source Serif 4', Georgia, serif;
+                font-size: 1rem;
+                line-height: 1.9;
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: 'Source Sans 3', 'Hiragino Sans', sans-serif;
+                color: var(--ink);
+                line-height: 1.4;
+            }
+            a {
+                color: var(--indigo);
+            }
+            .layout {
+                display: block;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-w);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--paper-card);
+                border-right: 1px solid var(--border);
+                padding: 2rem 1.4rem 3rem;
+                font-family: 'Source Sans 3', sans-serif;
+                z-index: 80;
+            }
+            .side-brand {
+                display: flex;
+                align-items: center;
+                gap: 0.7rem;
+                margin-bottom: 1.6rem;
+            }
+            .side-brand .ti {
+                font-size: 1.6rem;
+                color: var(--indigo);
+            }
+            .side-brand span {
+                font-weight: 700;
+                font-size: 1.05rem;
+                line-height: 1.35;
+            }
+            .side-nav {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .side-nav li + li {
+                margin-top: 0.15rem;
+            }
+            .side-nav a {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                text-decoration: none;
+                color: var(--ink-soft);
+                padding: 0.6rem 0.7rem;
+                border-radius: 8px;
+                font-size: 1rem;
+                font-weight: 500;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .side-nav a .ti {
+                font-size: 1.15rem;
+                width: 1.4rem;
+                text-align: center;
+                color: var(--indigo);
+            }
+            .side-nav a:hover {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+            }
+            .side-nav a.active {
+                background: var(--indigo);
+                color: #fff;
+            }
+            .side-nav a.active .ti {
+                color: #fff;
+            }
+            .sidebar-close {
+                display: none;
+            }
+
+            /* ---------- Main ---------- */
+            .main {
+                margin-left: var(--sidebar-w);
+                width: auto;
+                max-width: none;
+                padding: 0 4rem 6rem;
+            }
+            .hero {
+                max-width: none;
+                padding: 4rem 0 2.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+            .hero .eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-family: 'Source Sans 3', sans-serif;
+                font-weight: 700;
+                letter-spacing: 0.04em;
+                color: var(--indigo);
+                background: var(--indigo-soft);
+                padding: 0.4rem 0.9rem;
+                border-radius: 999px;
+                font-size: 1rem;
+                margin-bottom: 1.3rem;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+                margin: 0 0 1rem;
+                font-weight: 700;
+                background: linear-gradient(90deg, var(--indigo), var(--plum));
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: transparent;
+            }
+            .hero p.lead {
+                font-size: 1.2rem;
+                color: var(--ink-soft);
+                max-width: none;
+                margin: 0 0 1.6rem;
+            }
+            .chip-row {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+            }
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                background: var(--paper);
+                border: 1px solid var(--border);
+                border-radius: 999px;
+                padding: 0.45rem 1rem;
+                font-size: 1rem;
+                font-family: 'Source Sans 3', sans-serif;
+                color: var(--ink-soft);
+            }
+            .chip .ti {
+                color: var(--indigo);
+            }
+
+            section {
+                padding: 3.4rem 0;
+                border-bottom: 1px solid var(--border);
+                overflow-wrap: break-word;
+            }
+            section:last-of-type {
+                border-bottom: none;
+            }
+            section h2 {
+                display: flex;
+                align-items: center;
+                gap: 0.9rem;
+                font-size: 1.65rem;
+                margin: 0 0 1.4rem;
+            }
+            .icon-badge {
+                flex: none;
+                width: 2.9rem;
+                height: 2.9rem;
+                border-radius: 13px;
+                background: var(--indigo-soft);
+                color: var(--indigo);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.45rem;
+            }
+            section h3 {
+                font-size: 1.25rem;
+                margin: 2rem 0 0.9rem;
+            }
+            .prose p,
+            .prose li {
+                overflow-wrap: break-word;
+            }
+            .prose p {
+                margin: 0 0 1.1rem;
+            }
+            .kicker {
+                font-family: 'Source Sans 3', sans-serif;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                font-weight: 600;
+                margin: 0 0 1.2rem;
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                overflow-y: hidden;
+                margin: 1.6rem 0;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+            }
+            .table-title {
+                background: var(--paper-card-2);
+                padding: 0.9rem 1.1rem;
+                font-family: 'Source Sans 3', sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                color: var(--ink);
+                border-bottom: 1px solid var(--border);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 1rem;
+                background: var(--paper-card);
+            }
+            th,
+            td {
+                padding: 0.85rem 1.1rem;
+                border-bottom: 1px solid var(--border);
+                text-align: left;
+                vertical-align: top;
+                font-size: 1rem;
+            }
+            th {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+                font-family: 'Source Sans 3', sans-serif;
+                font-weight: 700;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+            tr:last-child th {
+                border-bottom: none;
+            }
+            td strong {
+                color: var(--indigo);
+            }
+            /* key-value style tables (a <th> row-label in every row, not a single header row):
+     use a quieter neutral label column instead of the strong header-row accent color */
+            .kv-table th {
+                background: var(--paper-card-2);
+                color: var(--ink);
+                font-weight: 700;
+                width: 11rem;
+            }
+
+            /* ---------- Callouts ---------- */
+            .callout {
+                border-left: 4px solid var(--indigo);
+                background: var(--indigo-soft);
+                padding: 1.1rem 1.3rem;
+                border-radius: 0 10px 10px 0;
+                margin: 1.6rem 0;
+                font-size: 1rem;
+            }
+            .callout.source {
+                border-left-color: var(--gold);
+                background: var(--gold-soft);
+            }
+            .callout.note {
+                border-left-color: var(--forest);
+                background: var(--forest-soft);
+            }
+            .callout-title {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-family: 'Source Sans 3', sans-serif;
+                font-weight: 700;
+                margin-bottom: 0.5rem;
+                font-size: 1rem;
+            }
+            .callout.source .callout-title {
+                color: var(--gold);
+            }
+            .callout.note .callout-title {
+                color: var(--forest);
+            }
+            .callout p {
+                margin: 0;
+            }
+
+            /* ---------- Mermaid ---------- */
+            .mmd-wrap {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 2rem 0;
+                padding: 1.4rem 0.5rem;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+            }
+            .mmd-wrap svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .mmd-caption {
+                text-align: center;
+                font-family: 'Source Sans 3', sans-serif;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin-top: -1rem;
+                margin-bottom: 2rem;
+            }
+            .mmd-error {
+                padding: 1rem;
+                color: var(--gold);
+                font-family: 'Source Sans 3', sans-serif;
+                font-size: 1rem;
+            }
+
+            /* ---------- Quadrant matrix highlight cells ---------- */
+            .q-cell {
+                font-size: 1rem;
+            }
+            .q-tag {
+                display: inline-block;
+                font-family: 'Source Sans 3', sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                padding: 0.15rem 0.55rem;
+                border-radius: 6px;
+                margin-bottom: 0.4rem;
+            }
+            .q1 .q-tag {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+            }
+            .q2 .q-tag {
+                background: var(--plum-soft);
+                color: var(--plum);
+            }
+            .q3 .q-tag {
+                background: var(--gold-soft);
+                color: var(--gold);
+            }
+            .q4 .q-tag {
+                background: var(--forest-soft);
+                color: var(--forest);
+            }
+
+            /* ---------- Step list ---------- */
+            .step-list {
+                list-style: none;
+                counter-reset: step;
+                padding: 0;
+                margin: 1.6rem 0;
+            }
+            .step-list li {
+                counter-increment: step;
+                position: relative;
+                padding: 0.85rem 0 0.85rem 3.4rem;
+                border-bottom: 1px solid var(--border);
+                font-size: 1rem;
+            }
+            .step-list li:last-child {
+                border-bottom: none;
+            }
+            .step-list li::before {
+                content: counter(step);
+                position: absolute;
+                left: 0;
+                top: 0.6rem;
+                width: 2.1rem;
+                height: 2.1rem;
+                border-radius: 50%;
+                background: var(--indigo);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-family: 'Source Sans 3', sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+            }
+
+            /* ---------- Checklist (plain list, no custom checkbox component) ---------- */
+            .checklist {
+                list-style: none;
+                padding: 0;
+                margin: 1.6rem 0;
+            }
+            .checklist li {
+                display: flex;
+                gap: 0.7rem;
+                align-items: flex-start;
+                padding: 0.75rem 0;
+                border-bottom: 1px dashed var(--border);
+                font-size: 1rem;
+            }
+            .checklist li:last-child {
+                border-bottom: none;
+            }
+            .checklist li .ti {
+                color: var(--forest);
+                font-size: 1.2rem;
+                margin-top: 0.15rem;
+                flex: none;
+            }
+
+            /* ---------- Reference list ---------- */
+            .ref-group {
+                margin-bottom: 2.2rem;
+            }
+            .ref-group h3 {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-size: 1.1rem;
+                margin: 0 0 0.8rem;
+            }
+            .ref-group h3 .ti {
+                color: var(--indigo);
+            }
+            .ref-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            .ref-item {
+                padding: 0.9rem 0;
+                border-bottom: 1px solid var(--border);
+                font-size: 1rem;
+            }
+            .ref-item:last-child {
+                border-bottom: none;
+            }
+            .ref-item .ref-title {
+                font-weight: 600;
+                display: block;
+                margin-bottom: 0.25rem;
+            }
+            .ref-url {
+                word-break: break-all;
+                font-family: 'Source Sans 3', sans-serif;
+                font-size: 1rem;
+                color: var(--indigo);
+                text-decoration: none;
+            }
+            .ref-url:hover {
+                text-decoration: underline;
+            }
+
+            footer {
+                padding: 2.6rem 0 4rem;
+                font-family: 'Source Sans 3', sans-serif;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                font-style: italic;
+            }
+
+            /* ---------- Mermaid injected elements ---------- */
+            .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+
+            /* ---------- Mobile ---------- */
+            .mobile-bar,
+            .mobile-bar * {
+                font-size: 1rem;
+            }
+            .mobile-bar {
+                display: none;
+                position: sticky;
+                top: 0;
+                z-index: 70;
+                background: var(--paper-card);
+                border-bottom: 1px solid var(--border);
+                padding: 0.8rem 1.1rem;
+                align-items: center;
+                gap: 0.9rem;
+                font-family: 'Source Sans 3', sans-serif;
+                font-weight: 700;
+            }
+            .mobile-bar button {
+                background: var(--indigo-soft);
+                border: none;
+                color: var(--indigo);
+                width: 2.4rem;
+                height: 2.4rem;
+                border-radius: 9px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.2rem;
+            }
+            input,
+            button {
+                font-family: inherit;
+                font-size: 1rem;
+            }
+
+            @media (max-width: 960px) {
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    width: 82vw;
+                    max-width: 340px;
+                    box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .sidebar-close {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: absolute;
+                    top: 1.2rem;
+                    right: 1.2rem;
+                    width: 2.2rem;
+                    height: 2.2rem;
+                    border-radius: 8px;
+                    background: var(--indigo-soft);
+                    color: var(--indigo);
+                    border: none;
+                    font-size: 1.1rem;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 0 1.3rem 4rem;
+                }
+                .hero {
+                    padding: 2.4rem 0 2rem;
+                }
+                .hero h1 {
+                    font-size: 1.85rem;
+                }
+                .mobile-bar {
+                    display: flex;
+                }
+                .overlay {
+                    display: none;
+                    position: fixed;
+                    inset: 0;
+                    background: rgba(20, 15, 5, 0.35);
+                    z-index: 55;
+                }
+                .overlay.show {
+                    display: block;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="layout">
+            <div class="mobile-bar">
+                <button id="sidebarToggle" aria-label="メニューを開く">
+                    <i class="ti ti-menu-2"></i>
+                </button>
+                <span>Agile Testing 実践ガイド</span>
+            </div>
+            <div class="overlay" id="overlay"></div>
+
+            <aside class="sidebar" id="sidebar">
+                <button class="sidebar-close" id="sidebarClose" aria-label="メニューを閉じる">
+                    <i class="ti ti-x"></i>
+                </button>
+                <div class="side-brand">
+                    <i class="ti ti-notebook"></i>
+                    <span>初学者のための実践ガイド<br />Agile Testing</span>
+                </div>
+                <ul class="side-nav">
+                    <li>
+                        <a href="#about"><i class="ti ti-book"></i>この本について</a>
+                    </li>
+                    <li>
+                        <a href="#step1"
+                            ><i class="ti ti-git-branch"></i>ステップ1: アジャイルテストとは</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#step2"><i class="ti ti-list-numbers"></i>ステップ2: 10の原則</a>
+                    </li>
+                    <li>
+                        <a href="#step3"
+                            ><i class="ti ti-users-group"></i>ステップ3: 組織課題とホールチーム</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#step4"
+                            ><i class="ti ti-layout-grid"></i>ステップ4: アジャイルテストの4象限</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#step5"
+                            ><i class="ti ti-pyramid"></i>ステップ5: 自動化とテストピラミッド</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#step6"><i class="ti ti-puzzle"></i>ステップ6: Power of Three</a>
+                    </li>
+                    <li>
+                        <a href="#step7"
+                            ><i class="ti ti-refresh"></i>ステップ7: イテレーションサイクル</a
+                        >
+                    </li>
+                    <li>
+                        <a href="#step8"><i class="ti ti-search"></i>ステップ8: 探索的テスト</a>
+                    </li>
+                    <li>
+                        <a href="#step9"><i class="ti ti-trophy"></i>ステップ9: 7つの成功要因</a>
+                    </li>
+                    <li>
+                        <a href="#step10"><i class="ti ti-timeline"></i>ステップ10: 思想の進化</a>
+                    </li>
+                    <li>
+                        <a href="#checklist"><i class="ti ti-checklist"></i>実践チェックリスト</a>
+                    </li>
+                    <li>
+                        <a href="#pitfalls"><i class="ti ti-alert-triangle"></i>よくある落とし穴</a>
+                    </li>
+                    <li>
+                        <a href="#references"><i class="ti ti-link"></i>参考文献・出典URL</a>
+                    </li>
+                </ul>
+            </aside>
+
+            <main class="main">
+                <div class="hero">
+                    <span class="eyebrow"><i class="ti ti-book"></i>BOOK GUIDE</span>
+                    <h1>
+                        初学者のための実践ガイド<br />Agile Testing: A Practical Guide for Testers
+                        and Agile Teams
+                    </h1>
+                    <p class="lead">
+                        Lisa Crispin と Janet Gregory
+                        の共著書をもとに、初めてアジャイルテストに触れる方向けにステップ・バイ・ステップで解説します。
+                        あわせて Martin Fowler・Elisabeth Hendrickson・Gojko Adzic
+                        など著名な国際的開発者・テスト専門家の解説も参照し、
+                        2026年9月時点での「現在どう語られているか」も補足しています。
+                    </p>
+                    <div class="chip-row">
+                        <span class="chip"
+                            ><i class="ti ti-users"></i>著者: Lisa Crispin, Janet Gregory</span
+                        >
+                        <span class="chip"
+                            ><i class="ti ti-building"></i>Addison-Wesley Professional</span
+                        >
+                        <span class="chip"><i class="ti ti-calendar"></i>初版 2009年</span>
+                        <span class="chip"
+                            ><i class="ti ti-external-link"></i
+                            ><a
+                                class="ref-url"
+                                href="https://www.oreilly.com/library/view/agile-testing-a/9780321616944/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >O'Reilly掲載ページ</a
+                            ></span
+                        >
+                    </div>
+                </div>
+
+                <section id="about">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-book"></i></span>この本について
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            この本は、テスターとQAマネージャーが「アジャイルチームの中でテスターは何をすべきか」という長年の疑問に答えるために書かれた、
+                            アジャイルテスト分野における最初期の体系的な実践書のひとつです。単なる理論書ではなく、実際のアジャイルチームで働いていた著者らの経験と、
+                            寄稿された数多くの実例(ストーリー)で構成されているのが特徴です。
+                        </p>
+                        <p>
+                            著名なアジャイル開発者であり ThoughtWorks のチーフサイエンティストである
+                            Martin Fowler と同時代に活動してきた Gojko Adzic(『Specification by
+                            Example』著者)は自身のブログで、この本が「テスターにとって長らく不足していた実践的な指針を埋める、
+                            間違いなく優れた本」だと評しています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">書誌情報</div>
+                            <table class="kv-table">
+                                <tbody>
+                                    <tr>
+                                        <th>原題</th>
+                                        <td>
+                                            <em
+                                                >Agile Testing: A Practical Guide for Testers and
+                                                Agile Teams</em
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>著者</th>
+                                        <td>Lisa Crispin、Janet Gregory</td>
+                                    </tr>
+                                    <tr>
+                                        <th>出版社</th>
+                                        <td>
+                                            Addison-Wesley Professional(Addison-Wesley Signature
+                                            Series)
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>初版</th>
+                                        <td>2008年12月(2009年刊行)</td>
+                                    </tr>
+                                    <tr>
+                                        <th>ページ数</th>
+                                        <td>576ページ</td>
+                                    </tr>
+                                    <tr>
+                                        <th>序文</th>
+                                        <td>Mike Cohn、Brian Marick</td>
+                                    </tr>
+                                    <tr>
+                                        <th>対象レベル</th>
+                                        <td>初級〜中級</td>
+                                    </tr>
+                                    <tr>
+                                        <th>O'Reilly掲載ページ</th>
+                                        <td>
+                                            <a
+                                                class="ref-url"
+                                                href="https://www.oreilly.com/library/view/agile-testing-a/9780321616944/"
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                >oreilly.com/library/view/agile-testing-a/9780321616944</a
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            本のコンテンツは大きく6部・21章から構成されています。本ガイドの各ステップがどこに対応するかは次のとおりです。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">本書の構成マップ</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Part</th>
+                                        <th>主な内容</th>
+                                        <th>本ガイドの対応ステップ</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Part I. Introduction</td>
+                                        <td>アジャイルテストの定義 / 10の原則</td>
+                                        <td>ステップ1・2</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part II. Organizational Challenges</td>
+                                        <td>文化的課題 / チームの物理配置 / プロセス移行</td>
+                                        <td>ステップ3</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part III. The Agile Testing Quadrants</td>
+                                        <td>4象限による分類とツールキット</td>
+                                        <td>ステップ4</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part IV. Automation</td>
+                                        <td>自動化を阻む壁と戦略</td>
+                                        <td>ステップ5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part V. An Iteration in the Life of a Tester</td>
+                                        <td>計画からリリースまでの1イテレーション</td>
+                                        <td>ステップ6・7</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part VI. Summary</td>
+                                        <td>成功の鍵となる7要因</td>
+                                        <td>ステップ9</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="step1">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-git-branch"></i></span>ステップ1:
+                        アジャイルテストとは何か
+                    </h2>
+                    <p class="kicker">原著 第1〜2章「What Is Agile Testing, Anyway?」</p>
+                    <div class="prose">
+                        <p>
+                            まず押さえるべきは、アジャイルテストは<strong>「テストという工程」ではなく「チーム全体で品質をつくり込む考え方」</strong>だという点です。
+                            従来型(ウォーターフォール的)の開発では、テストは開発の後工程として独立したフェーズになりがちでした。
+                        </p>
+
+                        <div class="mmd-wrap" data-diagram-id="flow-traditional">
+                            <p class="mmd-error">図を読み込み中です...</p>
+                        </div>
+                        <p class="mmd-caption">図1: 従来型(テスト後工程型)の開発フロー</p>
+
+                        <p>
+                            このモデルの問題は、バグの発見が遅く、手戻りコストが大きいことです。これに対しアジャイルテストでは、テストは開発と並行して継続的に行われ、
+                            チーム全員(プログラマー・テスター・プロダクトオーナーなど)が品質に責任を持ちます。
+                        </p>
+
+                        <div class="mmd-wrap" data-diagram-id="flow-agile">
+                            <p class="mmd-error">図を読み込み中です...</p>
+                        </div>
+                        <p class="mmd-caption">図2: アジャイルにおける継続的テストフロー</p>
+
+                        <p>
+                            この違いこそが本書の出発点であり、著者らは「品質は最後にテストして作り込むものではなく、開発の最初から全員で作り込むものだ」という考え方を
+                            一貫して主張しています。
+                        </p>
+                    </div>
+                </section>
+
+                <section id="step2">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-list-numbers"></i></span>ステップ2:
+                        アジャイルテスターの10の原則
+                    </h2>
+                    <p class="kicker">原著 第2章</p>
+                    <div class="prose">
+                        <p>
+                            著者らは、XP(エクストリーム・プログラミング)の価値観とアジャイル宣言の原則を踏まえ、アジャイルテスターに求められる姿勢を10の原則としてまとめています。
+                            開発者コミュニティでもよく引用される要約(Jeff Langr と Tim Ottinger
+                            による "Agile in a Flash"
+                            カード)を基に、初学者向けに整理すると次のようになります。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>原則</th>
+                                        <th>初学者向けポイント</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>継続的にフィードバックを提供する</td>
+                                        <td>受け入れ基準を明確にし、進捗を早く・頻繁に伝える</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>顧客に価値を届ける</td>
+                                        <td>
+                                            受け入れテストで「スコープが膨らんでいないか」を常にチェックする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>対面のコミュニケーションを可能にする</td>
+                                        <td>テスターは顧客と開発者の翻訳者になれる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>勇気を持つ</td>
+                                        <td>
+                                            短いイテレーションで動くソフトウェアを出し続ける覚悟を持つ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>シンプルさを保つ</td>
+                                        <td>過剰な作り込みを避け、必要十分なテストにとどめる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>継続的な改善を実践する</td>
+                                        <td>ふりかえり(レトロスペクティブ)に必ず参加する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>変化に対応する</td>
+                                        <td>仕様変更にも耐えられるよう自動テストを整備する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>自己組織化する</td>
+                                        <td>チームの誰もがテスト作業を担える状態を目指す</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>人にフォーカスする</td>
+                                        <td>
+                                            テスターを下請けではなく対等な貢献者として扱う文化をつくる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>楽しむ</td>
+                                        <td>
+                                            プロセスを主体的に動かせることが、テスターの働きがいになる
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout source">
+                            <div class="callout-title"><i class="ti ti-quote"></i>出典</div>
+                            <p>
+                                Crispin, L. &amp; Gregory, J. <em>Agile Testing</em>,
+                                Addison-Wesley, 2009(第2章)。要約は Jeff Langr / Tim Ottinger, "Ten
+                                Principles for Agile Testers", Agile in a Flash, 2009 を参照 (Lisa
+                                Crispin
+                                自身のブログでも「うまくまとめられている」と紹介されています)。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="step3">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-users-group"></i></span>ステップ3:
+                        組織的な課題とホールチームアプローチ
+                    </h2>
+                    <p class="kicker">
+                        原著 第3〜5章: Cultural Challenges / Team Logistics / Transitioning Typical
+                        Processes
+                    </p>
+                    <div class="prose">
+                        <p>
+                            アジャイルへの移行で最も難しいのは、ツールや技術ではなく「組織文化」です。本書はこの部分に3章を割いており、代表的な課題は次のとおりです。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>課題領域</th>
+                                        <th>従来型の状態</th>
+                                        <th>アジャイルで目指す状態</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>組織構造</td>
+                                        <td>テスターは独立したQA部門に所属</td>
+                                        <td>テスターは機能横断チームの一員</td>
+                                    </tr>
+                                    <tr>
+                                        <td>物理配置 / コミュニケーション</td>
+                                        <td>部署ごとに離れた席・非同期連絡が中心</td>
+                                        <td>
+                                            同じチームで密に対面(またはリモートでも高頻度)コミュニケーション
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>役割意識</td>
+                                        <td>テスターがバグを見つける責任者</td>
+                                        <td>品質はチーム全員の責任</td>
+                                    </tr>
+                                    <tr>
+                                        <td>プロセス</td>
+                                        <td>フェーズゲート型の承認プロセス</td>
+                                        <td>継続的な検証と早期フィードバック</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            この考え方の中心にあるのが<strong
+                                >ホールチームアプローチ(Whole-Team Approach)</strong
+                            >です。Lisa Crispin は自身のブログで、
+                            これは本書の「成功の鍵となる7要因」の第1番目に挙げるほど重要な原則だとし、「チーム全員が最高品質を届けることにコミットしない限り、
+                            長期的な成功はあり得ない」という趣旨を述べています。
+                        </p>
+
+                        <div class="mmd-wrap" data-diagram-id="whole-team">
+                            <p class="mmd-error">図を読み込み中です...</p>
+                        </div>
+                        <p class="mmd-caption">図3: ホールチームアプローチの構造</p>
+                    </div>
+                </section>
+
+                <section id="step4">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-layout-grid"></i></span>ステップ4:
+                        アジャイルテストの4象限(Agile Testing Quadrants)
+                    </h2>
+                    <p class="kicker">原著 第6〜12章: The Agile Testing Quadrants</p>
+                    <div class="prose">
+                        <p>
+                            本書で最も有名な概念が、この「4象限(Agile Testing
+                            Quadrants)」です。もともと Brian Marick が提唱した
+                            「アジャイルテストマトリクス」を、Crispin と Gregory
+                            がチームの実践に合わせて発展させたもので、Lisa Crispin
+                            は2024年のブログ記事で 「20年以上使い続けている」と述べ、著書『Agile
+                            Testing Condensed』掲載の最新版図を公開しています(原案者である Brian
+                            Marick への クレジットも重視されています)。
+                        </p>
+                        <p>
+                            この図は「(1)テストの目的がビジネス向けか技術向けか」「(2)テストがチームを支援する(開発を導く)ものかプロダクトを批評するものか」という
+                            2つの軸で、テストの種類を4つに分類する<strong
+                                >思考の道具(thinking tool)</strong
+                            >です。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>ビジネス視点で捉える(Business-Facing)</th>
+                                        <th>技術視点で捉える(Technology-Facing)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>チームを支援する</strong
+                                            ><br />(開発を導くテスト)
+                                        </td>
+                                        <td class="q-cell q2">
+                                            <span class="q-tag">Q2</span
+                                            ><br />機能テスト、ストーリーテスト、プロトタイプ、受け入れ基準の具体例(ATDD/BDD)
+                                        </td>
+                                        <td class="q-cell q1">
+                                            <span class="q-tag">Q1</span
+                                            ><br />ユニットテスト、コンポーネントテスト。CIで完全自動化されるべき領域
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>プロダクトを批評する</strong
+                                            ><br />(できたものを検証)
+                                        </td>
+                                        <td class="q-cell q3">
+                                            <span class="q-tag">Q3</span
+                                            ><br />探索的テスト、シナリオテスト、ユーザビリティテスト、UAT/アルファ・ベータテスト。多くは手動
+                                        </td>
+                                        <td class="q-cell q4">
+                                            <span class="q-tag">Q4</span
+                                            ><br />性能・負荷・セキュリティ・保守性・互換性などの非機能テスト
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>初学者がまず意識すべきポイントは次の3つです。</p>
+                        <ul>
+                            <li>
+                                <strong>4象限に「実施順序」はない</strong>(Lisa Crispin
+                                自身がブログで繰り返し強調している点です)。プロジェクトやチームの状況に応じて重み付けを変えてよい思考ツールです。
+                            </li>
+                            <li>
+                                Q1・Q4は「技術的な観点」、Q2・Q3は「ビジネス /
+                                ユーザーの観点」という軸で捉えると理解しやすい。
+                            </li>
+                            <li>
+                                Q1・Q2は「開発を導く」=
+                                コードを書く前・書いている最中に使う。Q3・Q4は「できたものを批評する」=
+                                完成に近づいてから使う。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="step5">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-pyramid"></i></span>ステップ5:
+                        テスト自動化戦略とテストピラミッド
+                    </h2>
+                    <p class="kicker">
+                        原著 第13〜14章: Why We Want to Automate Tests and What Holds Us Back / An
+                        Agile Test Automation Strategy
+                    </p>
+                    <div class="prose">
+                        <p>
+                            Q1(技術視点でチームを支援するテスト)を実現する上で欠かせないのが自動化戦略です。本書ではテスト自動化を阻む典型的な壁
+                            (スキル不足、ツール選定の失敗、経営層の理解不足など)を挙げたうえで、どのレイヤーにどれだけテストを持つべきかという指針を示します。
+                        </p>
+                        <p>
+                            この考え方は、Mike Cohn が提唱し、ThoughtWorks のチーフサイエンティスト
+                            Martin Fowler が広く一般化した 「<strong
+                                >テストピラミッド(Test Pyramid)</strong
+                            >」とも強く結びついています。Fowler は自身のサイトで、テストピラミッドを
+                            「異なる粒度の自動テストをどう使うべきかを考えるための比喩」と説明し、「GUIを通しで実行する高コストなテストより、
+                            低レベルなユニットテストをはるかに多く持つべきだ」という原則を提示しています。
+                        </p>
+
+                        <div class="mmd-wrap" data-diagram-id="pyramid">
+                            <p class="mmd-error">図を読み込み中です...</p>
+                        </div>
+                        <p class="mmd-caption">図4: テスト自動化戦略における3つのレイヤー</p>
+
+                        <p>初学者向けの実践ステップは次のとおりです。</p>
+                        <ol class="step-list">
+                            <li>
+                                <strong>まずユニットテストの土台を作る</strong>:
+                                最も数を増やしやすく、実行も速いレイヤー。
+                            </li>
+                            <li>
+                                <strong>サービス / APIレベルの統合テストを追加する</strong>:
+                                ユニットテストではカバーできない、コンポーネント間の結合部分を検証。
+                            </li>
+                            <li>
+                                <strong>UI / E2Eテストは最小限に絞る</strong>:
+                                壊れやすく実行が遅いため、重要なユーザーシナリオに限定する。
+                            </li>
+                        </ol>
+
+                        <div class="callout note">
+                            <div class="callout-title"><i class="ti ti-bulb"></i>補足</div>
+                            <p>
+                                Martin Fowler
+                                は2021年の記事で、チームによっては「ピラミッド」よりも「ハニカム(蜂の巣)」や「トロフィー」型
+                                (ユニットテストより統合テストを厚めにする考え方)を好む場合があるとも紹介しており、テストピラミッドは唯一絶対の正解ではなく、
+                                システムの性質に応じて調整すべき指針であることも初学者は知っておくとよいでしょう。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="step6">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-puzzle"></i></span>ステップ6: Power
+                        of Three(Three Amigos)と受け入れテスト
+                    </h2>
+                    <p class="kicker">
+                        原著 第8〜9章: Business-Facing Tests that Support the Team /
+                        そのツールキット
+                    </p>
+                    <div class="prose">
+                        <p>
+                            Q2(ビジネス視点でチームを支援するテスト)を実現する代表的なプラクティスが、<strong
+                                >Power of Three(通称 Three Amigos)</strong
+                            >です。
+                            これは、プロダクトオーナー(ビジネス)、開発者、テスターの3者が要件定義の初期段階から一緒に会話し、具体例(Examples)を通じて
+                            認識を合わせる手法です。
+                        </p>
+
+                        <div class="mmd-wrap" data-diagram-id="power-of-three">
+                            <p class="mmd-error">図を読み込み中です...</p>
+                        </div>
+                        <p class="mmd-caption">図5: Power of Three による共通理解の形成</p>
+
+                        <p>
+                            Janet Gregory と Lisa Crispin は、あるポッドキャスト(Tech Lead Journal,
+                            2022年)の中で、この Power of Three の考え方が
+                            「ホリスティックテスティング」実践の中核にもなっていると説明しています。3者が事前に会話することで、コードが書かれる前に
+                            曖昧さを解消でき、手戻りを大幅に減らせるのがメリットです。
+                        </p>
+                    </div>
+                </section>
+
+                <section id="step7">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-refresh"></i></span>ステップ7:
+                        テスターのイテレーションサイクル
+                    </h2>
+                    <p class="kicker">原著 第15〜20章: An Iteration in the Life of a Tester</p>
+                    <div class="prose">
+                        <p>
+                            本書の中核となるもう一つのパートが、実際の1イテレーション(スプリント)を通してテスターが何をするかを時系列で描いた部分です。
+                            初学者はこの流れをそのまま自分のチームに当てはめて考えると理解しやすくなります。
+                        </p>
+
+                        <div class="mmd-wrap" data-diagram-id="iteration-cycle">
+                            <p class="mmd-error">図を読み込み中です...</p>
+                        </div>
+                        <p class="mmd-caption">図6: テスターのイテレーションサイクル</p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ステップ</th>
+                                        <th>原著の章</th>
+                                        <th>テスターの主な活動</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>リリース / テーマ計画</td>
+                                        <td>第15章</td>
+                                        <td>大きな受け入れ基準の洗い出し、リスクの洗い出し</td>
+                                    </tr>
+                                    <tr>
+                                        <td>助走(Hit the Ground Running)</td>
+                                        <td>第16章</td>
+                                        <td>ストーリーの事前準備、テスト観点の整理</td>
+                                    </tr>
+                                    <tr>
+                                        <td>イテレーションキックオフ</td>
+                                        <td>第17章</td>
+                                        <td>Power of Threeでの会話、受け入れ基準の合意</td>
+                                    </tr>
+                                    <tr>
+                                        <td>コーディングとテスト</td>
+                                        <td>第18章</td>
+                                        <td>開発と並行したテスト設計・自動化・探索的テスト</td>
+                                    </tr>
+                                    <tr>
+                                        <td>イテレーションのまとめ</td>
+                                        <td>第19章</td>
+                                        <td>デモ、ふりかえり、未完了項目の扱い</td>
+                                    </tr>
+                                    <tr>
+                                        <td>確実なリリース</td>
+                                        <td>第20章</td>
+                                        <td>リリース判定、UAT、本番影響の確認</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            このサイクルが1回で終わらず、次のイテレーションへ継続的にループしていく点が、従来型の「テストフェーズ」との決定的な違いです。
+                        </p>
+                    </div>
+                </section>
+
+                <section id="step8">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-search"></i></span>ステップ8:
+                        探索的テストという技法
+                    </h2>
+                    <p class="kicker">
+                        Q3の中核技法として原著でも扱われ、著者らのその後の発信でも繰り返し重視されているテーマ
+                    </p>
+                    <div class="prose">
+                        <p>
+                            Q3(ビジネス視点でプロダクトを批評するテスト)の代表格が<strong
+                                >探索的テスト(Exploratory Testing)</strong
+                            >です。用語自体は Cem Kaner が1980年代に提唱し、James Bach
+                            らが定義を発展させたものですが、Crispin と Gregory
+                            はこれをアジャイルテストの 必須スキルとして本書に組み込みました。
+                        </p>
+                        <p>
+                            探索的テストの第一人者である Elisabeth Hendrickson は、著書『Explore
+                            It!』の中で、探索的テストを「事前にすべてのテストケースを
+                            設計するのではなく、小さく素早い実験を設計・実行し、直前の学びを次の一手に活かす」プロセスだと説明しています。ポイントは次の3つです。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>同時並行で行う</strong>:
+                                ソフトウェアについて学びながら、テストを設計し、実行する。
+                            </li>
+                            <li>
+                                <strong>でたらめに触ることではない</strong>:
+                                目的を持った調査であり、通常は「チャーター(何を確認したいかの簡潔な宣言)」を用いて範囲を絞る。
+                            </li>
+                            <li>
+                                <strong>タイムボックスで管理する</strong>:
+                                セッションベースドテストマネジメントなどの手法で、探索の時間と成果を管理する。
+                            </li>
+                        </ul>
+
+                        <div class="callout source">
+                            <div class="callout-title"><i class="ti ti-quote"></i>出典</div>
+                            <p>
+                                Hendrickson の同書には、Janet Gregory
+                                自身が「チームメンバー全員の机に置いておくべき一冊」という推薦コメントを寄せています。
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="step9">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-trophy"></i></span>ステップ9:
+                        成功の鍵となる7つの要因
+                    </h2>
+                    <p class="kicker">原著 第21章: Key Success Factors(本のまとめにあたる章)</p>
+                    <div class="prose">
+                        <p>
+                            本書の最終章では、アジャイルテストを機能させるための7つの成功要因が示されています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>成功要因</th>
+                                        <th>初学者向けポイント</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>ホールチームアプローチを使う</td>
+                                        <td>品質はテスターだけの責任にしない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>アジャイルなテストマインドセットを持つ</td>
+                                        <td>
+                                            バグ探しではなく価値の実現を支援する姿勢に切り替える
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>回帰テストを自動化する</td>
+                                        <td>変化に強いチームであるための土台をつくる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>フィードバックを提供し、また受け取る</td>
+                                        <td>
+                                            デモ・レトロスペクティブ・日々の会話を通じて双方向に
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>基盤となるプラクティスを整える</td>
+                                        <td>
+                                            継続的インテグレーション、テスト環境、技術的負債の管理など
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>顧客と協働する</td>
+                                        <td>
+                                            ビジネス側を向こう側の人にせず、一緒にテストをつくる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>全体像を見る</td>
+                                        <td>
+                                            個々のテストではなく、プロダクト全体の価値提供という視点を持つ
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="callout source">
+                            <div class="callout-title"><i class="ti ti-quote"></i>出典</div>
+                            <p>
+                                InfoQ, "Book Excerpt: Agile Testing"(第21章 Key Success Factors
+                                の抜粋紹介)
+                            </p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="step10">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-timeline"></i></span>ステップ10:
+                        この本の思想はどう進化したか(2014〜2026)
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            2009年の初版刊行後も、Crispin と Gregory
+                            は継続的にこの分野をアップデートし続けています。初学者は「本の内容がそのまま現在の実務に
+                            使えるのか」が気になるところですが、著者ら自身の発信を追う限り、<strong
+                                >基本概念(ホールチームアプローチ・4象限・探索的テスト)は
+                                今も有効であり、その上に新しい実践が積み重ねられてきた</strong
+                            >、というのが実情です。
+                        </p>
+
+                        <div class="mmd-wrap" data-diagram-id="evolution-timeline">
+                            <p class="mmd-error">図を読み込み中です...</p>
+                        </div>
+                        <p class="mmd-caption">図7: 本書の思想の進化タイムライン</p>
+
+                        <p>特に注目すべき動きは次の2つです。</p>
+
+                        <h3>1. ホリスティックテスティング(Holistic Testing Model)</h3>
+                        <p>
+                            Janet Gregory
+                            が2021年に提唱した考え方で、テスト活動を「開発ライフサイクル全体を取り巻く、終わりのない円環」として可視化する
+                            モデルです。Lisa Crispin
+                            は自身のブログで、「チームが品質とテストへのホールチームアプローチに合意した後、テスト戦略をどう
+                            組み立てればよいか」という悩みに答えるためのツールだと説明しています。
+                        </p>
+
+                        <div class="mmd-wrap" data-diagram-id="holistic-loop">
+                            <p class="mmd-error">図を読み込み中です...</p>
+                        </div>
+                        <p class="mmd-caption">
+                            図8: Holistic Testing Model における継続的なテストの円環
+                        </p>
+
+                        <h3>2. AI・エージェント型QEへの拡張</h3>
+                        <p>
+                            2026年に入り、Lisa Crispin は DORA(DevOps Research and
+                            Assessment)チームが公開した「AI Capabilities Model」について、 Beyond
+                            Quality ポッドキャストのホストら(Maryia Tuleika、Vitaly
+                            Shapovalov、Anupam Krishnamurthy)と議論した内容をブログで
+                            紹介しています。ここでは「AIエージェントは時間とともに劣化するため継続的なテストが必要」「セキュリティ上の落とし穴に注意」
+                            といった論点とともに、<strong>ペアリングやアンサンブル(複数人での協働)の重要性はAI時代にこそ増している</strong>という見解が
+                            共有されています。これは、本書が一貫して主張してきた「テストはチームで行うもの」という思想が、AI時代にも形を変えて生き続けていることを
+                            示す好例です。
+                        </p>
+                    </div>
+                </section>
+
+                <section id="checklist">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-checklist"></i></span
+                        >実践チェックリスト: 明日から始める7ステップ
+                    </h2>
+                    <div class="prose">
+                        <p>
+                            初めてアジャイルテストに取り組むチーム・個人向けの、実践的な第一歩です。
+                        </p>
+                        <ul class="checklist">
+                            <li>
+                                <i class="ti ti-circle-check"></i
+                                >チーム全員で「品質は誰の責任か」を話し合い、ホールチームアプローチを合言葉にする
+                            </li>
+                            <li>
+                                <i class="ti ti-circle-check"></i
+                                >現在のテストを4象限(Q1〜Q4)に仕分けし、抜け・偏りを可視化する
+                            </li>
+                            <li>
+                                <i class="ti ti-circle-check"></i
+                                >最も数の少ないユニットテスト(Q1)から自動化の土台を作り始める
+                            </li>
+                            <li>
+                                <i class="ti ti-circle-check"></i>ストーリー着手前にPower of
+                                Three(プロダクトオーナー・開発者・テスター)で会話する時間を確保する
+                            </li>
+                            <li>
+                                <i class="ti ti-circle-check"></i
+                                >探索的テストの時間をイテレーションに明示的に組み込み、チャーターを書く習慣をつける
+                            </li>
+                            <li>
+                                <i class="ti ti-circle-check"></i
+                                >イテレーションの終わりに、7つの成功要因のどれが弱いかをふりかえりで確認する
+                            </li>
+                            <li>
+                                <i class="ti ti-circle-check"></i
+                                >AIツールを導入する場合も、「チームでの協働」を置き換えるのではなく補強する形で使う
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section id="pitfalls">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-alert-triangle"></i></span
+                        >よくある落とし穴
+                    </h2>
+                    <div class="prose">
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>落とし穴</th>
+                                        <th>症状</th>
+                                        <th>対処法</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>テスターだけが品質責任者になっている</td>
+                                        <td>
+                                            開発者がテストに無関心、リリース前にテスターだけが忙しい
+                                        </td>
+                                        <td>ホールチームアプローチをふりかえりで再確認する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Q1・Q4を軽視している</td>
+                                        <td>手動のQ2・Q3ばかりでリグレッションの自動防御がない</td>
+                                        <td>まずQ1(ユニットテスト)から自動化に着手する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4象限を実施順序だと誤解している</td>
+                                        <td>Q1が終わらないとQ2に進めないと思い込む</td>
+                                        <td>
+                                            4象限は分類のための思考ツールであり、順序ではないと理解する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            探索的テストを行き当たりばったりの作業だと誤解している
+                                        </td>
+                                        <td>成果が記録されず再現できない</td>
+                                        <td>
+                                            チャーターとセッションベースドテストマネジメントを導入する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>E2Eテストに偏重している</td>
+                                        <td>テストが遅く、頻繁に壊れる</td>
+                                        <td>
+                                            テストピラミッドの比率を見直し、下位レイヤーを厚くする
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="references">
+                    <h2>
+                        <span class="icon-badge"><i class="ti ti-link"></i></span>参考文献・出典URL
+                    </h2>
+                    <div class="prose">
+                        <div class="ref-group">
+                            <h3><i class="ti ti-book"></i>書籍情報</h3>
+                            <ul class="ref-list">
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >Lisa Crispin, Janet Gregory. Agile Testing: A Practical
+                                        Guide for Testers and Agile Teams(O'Reilly掲載ページ /
+                                        目次)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://www.oreilly.com/library/view/agile-testing-a/9780321616944/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://www.oreilly.com/library/view/agile-testing-a/9780321616944/</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title">Amazon 書籍ページ(書誌情報)</span>
+                                    <a
+                                        class="ref-url"
+                                        href="https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3><i class="ti ti-user"></i>Lisa Crispin のブログ</h3>
+                            <ul class="ref-list">
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >"The Agile Testing Quadrants"(2024年・最新版4象限図)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://lisacrispin.com/2024/10/11/the-agile-testing-quadrants/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://lisacrispin.com/2024/10/11/the-agile-testing-quadrants/</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >"Using the Agile Testing Quadrants"(2011年)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title">"The Whole Team Approach"(2009年)</span>
+                                    <a
+                                        class="ref-url"
+                                        href="https://lisacrispin.com/2009/01/30/the-whole-team-approach/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://lisacrispin.com/2009/01/30/the-whole-team-approach/</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >"Learn how to apply the Holistic Testing
+                                        Model"(2023年)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://lisacrispin.com/2023/05/15/holistic-testing-model-mini-book/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://lisacrispin.com/2023/05/15/holistic-testing-model-mini-book/</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >"AI, testing, and the DORA AI Capabilities
+                                        Model"(2026年4月)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://lisacrispin.com/2026/04/20/ai-testing-and-the-dora-ai-capabilities-model/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://lisacrispin.com/2026/04/20/ai-testing-and-the-dora-ai-capabilities-model/</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3><i class="ti ti-pyramid"></i>Martin Fowler / ThoughtWorks</h3>
+                            <ul class="ref-list">
+                                <li class="ref-item">
+                                    <span class="ref-title">"TestPyramid"(Bliki)</span>
+                                    <a
+                                        class="ref-url"
+                                        href="https://martinfowler.com/bliki/TestPyramid.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://martinfowler.com/bliki/TestPyramid.html</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >Ham Vocke, "The Practical Test Pyramid"</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://martinfowler.com/articles/practical-test-pyramid.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://martinfowler.com/articles/practical-test-pyramid.html</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >"On the Diverse And Fantastical Shapes of
+                                        Testing"(2021年)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://martinfowler.com/articles/2021-test-shapes.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://martinfowler.com/articles/2021-test-shapes.html</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3><i class="ti ti-users-group"></i>その他の著名な専門家・出典</h3>
+                            <ul class="ref-list">
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >Jeff Langr, Tim Ottinger, "Ten Principles for Agile
+                                        Testers", Agile in a Flash(2009年)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://agileinaflash.blogspot.com/2009/03/ten-principles-for-agile-testers.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://agileinaflash.blogspot.com/2009/03/ten-principles-for-agile-testers.html</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >Elisabeth Hendrickson, Explore It!: Reduce Risk and
+                                        Increase Confidence with Exploratory Testing(Pragmatic
+                                        Programmers)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://pragprog.com/titles/ehxta/explore-it/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://pragprog.com/titles/ehxta/explore-it/</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >Gojko Adzic, "Agile Testing (Crispin/Gregory) is a great
+                                        book, long overdue"(書評)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://gojko.net/2009/02/23/agile-testing-crispingregory-is-a-great-book-long-overdue/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://gojko.net/2009/02/23/agile-testing-crispingregory-is-a-great-book-long-overdue/</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >Tech Lead Journal, "#92 - Agile and Holistic Testing -
+                                        Janet Gregory & Lisa Crispin"(2022年)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://techleadjournal.dev/episodes/92/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://techleadjournal.dev/episodes/92/</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >PMI Disciplined Agile, "Testing
+                                        Quadrants"(4象限の背景解説)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://www.pmi.org/disciplined-agile/agile/testingquadrants"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://www.pmi.org/disciplined-agile/agile/testingquadrants</a
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <span class="ref-title"
+                                        >InfoQ, "Book Excerpt: Agile Testing"(第21章 Key Success
+                                        Factors の抜粋紹介)</span
+                                    >
+                                    <a
+                                        class="ref-url"
+                                        href="https://www.infoq.com/articles/agile-testing-book-excerpt/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >https://www.infoq.com/articles/agile-testing-book-excerpt/</a
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <footer>
+                    本ガイドは2026年9月2日時点で確認できる公開情報をもとに作成しています。各リンク先の内容は今後更新される可能性があるため、
+                    最新の議論については著者らのブログ(lisacrispin.com、agiletester.ca)を直接ご確認ください。
+                </footer>
+            </main>
+        </div>
+
+        <script>
+            (function () {
+                'use strict';
+
+                var DIAGRAMS = {
+                    'flow-traditional': `
+      flowchart TD
+      A["要件定義"] --> B["設計"]
+      B --> C["実装"]
+      C --> D["テスト工程 QAチームが担当"]
+      D --> E["リリース"]
+      D -.->|バグ発見・手戻り| C
+      classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+      class D hub
+    `,
+                    'flow-agile': `
+      flowchart TD
+      A["イテレーション計画"] --> B["要件をチーム全員で理解"]
+      B --> C["開発とテストを並行して実施"]
+      C --> D["継続的インテグレーションで自動テストを実行"]
+      D --> E["探索的テストで手動検証"]
+      E --> F["リリース可能な状態"]
+      F --> A
+      classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
+      class F done
+    `,
+                    'whole-team': `
+      flowchart TB
+      PO["プロダクトオーナー"] --> Team["ひとつのクロスファンクショナルチーム"]
+      DEV["開発者"] --> Team
+      QA["テスター"] --> Team
+      OPS["運用担当"] --> Team
+      Team --> Q["共有された品質責任"]
+      classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+      classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
+      class Team hub
+      class Q done
+    `,
+                    pyramid: `
+      flowchart TB
+      N["ユニットテスト 数が多く高速で低コスト"] --> S["サービスAPIテスト 中間レイヤー"]
+      S --> U["UI E2Eテスト 数が少なく低速で高コスト"]
+      classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+      class N hub
+    `,
+                    'power-of-three': `
+      flowchart TB
+      PO["プロダクトオーナー ビジネス側"] --> M["共通理解と受け入れ基準"]
+      DEV["開発者"] --> M
+      QA["テスター"] --> M
+      M --> AC["実行可能な受け入れテスト ATDD BDD"]
+      classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+      class M hub
+    `,
+                    'iteration-cycle': `
+      flowchart TB
+      A["リリース テーマ計画 全体像の把握"] --> B["助走 ストーリーの事前準備"]
+      B --> C["イテレーションキックオフ"]
+      C --> D["コーディングとテストを同時進行"]
+      D --> E["イテレーションの振り返りとまとめ"]
+      E --> F["確実なリリース"]
+      F --> A
+      classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
+      class F done
+    `,
+                    'evolution-timeline': `
+      flowchart TB
+      B1["2009年 Agile Testing 初版刊行"] --> B2["2014年 More Agile Testing 刊行 スケーリングやDevOpsを追加"]
+      B2 --> B3["2021年 Janet Gregory が Holistic Testing Model を提唱"]
+      B3 --> B4["2023年 Agile Testing Condensed で4象限を刷新"]
+      B4 --> B5["2025〜2026年 生成AI・エージェント型QEへの拡張が進行中"]
+      classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+      class B5 hub
+    `,
+                    'holistic-loop': `
+      flowchart TB
+      P["計画"] --> D["開発"]
+      D --> T["テストと自動化"]
+      T --> R["リリース"]
+      R --> O["本番監視 オブザーバビリティ"]
+      O --> P
+      classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
+      class T done
+    `,
+                };
+
+                function dedent(str) {
+                    var lines = str.replace(/^\n/, '').replace(/\s+$/, '').split('\n');
+                    var indents = lines
+                        .filter(function (l) {
+                            return l.trim().length > 0;
+                        })
+                        .map(function (l) {
+                            return l.match(/^ */)[0].length;
+                        });
+                    var min = indents.length ? Math.min.apply(null, indents) : 0;
+                    return lines
+                        .map(function (l) {
+                            return l.slice(min);
+                        })
+                        .join('\n');
+                }
+
+                function initMermaid() {
+                    if (typeof mermaid === 'undefined') {
+                        console.error('mermaid failed to load from CDN');
+                        return;
+                    }
+                    mermaid.initialize({
+                        startOnLoad: false,
+                        theme: 'base',
+                        securityLevel: 'loose',
+                        themeVariables: {
+                            background: '#faf6ee',
+                            primaryColor: '#fffaf0',
+                            primaryTextColor: '#2b2416',
+                            primaryBorderColor: '#4c3fae',
+                            lineColor: '#8a7a5c',
+                            secondaryColor: '#eef0ff',
+                            tertiaryColor: '#fdf3d8',
+                            fontFamily: 'Source Sans 3, sans-serif',
+                            fontSize: '16px',
+                        },
+                        flowchart: {
+                            useMaxWidth: false,
+                            htmlLabels: true,
+                            curve: 'basis',
+                        },
+                    });
+
+                    var nodes = document.querySelectorAll('[data-diagram-id]');
+                    nodes.forEach(function (el, idx) {
+                        var id = el.getAttribute('data-diagram-id');
+                        var src = DIAGRAMS[id] ? dedent(DIAGRAMS[id]) : '';
+                        if (!src) return;
+                        mermaid
+                            .render('mmd-svg-' + id + '-' + idx, src)
+                            .then(function (result) {
+                                el.innerHTML = result.svg;
+                                var svgEl = el.querySelector('svg');
+                                if (svgEl) {
+                                    var vb = svgEl.viewBox && svgEl.viewBox.baseVal;
+                                    svgEl.removeAttribute('width');
+                                    svgEl.removeAttribute('height');
+                                    if (vb && vb.width) {
+                                        svgEl.style.width = vb.width + 'px';
+                                    }
+                                    svgEl.style.maxWidth = '100%';
+                                    svgEl.style.height = 'auto';
+                                    svgEl.style.overflow = 'visible';
+                                    svgEl.style.flexShrink = '0';
+                                    if (vb && vb.height) {
+                                        svgEl.setAttribute(
+                                            'viewBox',
+                                            [vb.x, vb.y, vb.width, vb.height + 15].join(' '),
+                                        );
+                                    }
+                                }
+                            })
+                            .catch(function (err) {
+                                el.innerHTML = '<p class="mmd-error">図の描画に失敗しました</p>';
+                                console.error('mermaid render error', id, err);
+                            });
+                    });
+                }
+
+                function initNav() {
+                    var sections = document.querySelectorAll('main section[id]');
+                    var navLinks = document.querySelectorAll('.side-nav a');
+                    var map = {};
+                    navLinks.forEach(function (a) {
+                        map[a.getAttribute('href').slice(1)] = a;
+                    });
+                    if (!('IntersectionObserver' in window)) return;
+                    var observer = new IntersectionObserver(
+                        function (entries) {
+                            entries.forEach(function (entry) {
+                                var link = map[entry.target.id];
+                                if (!link) return;
+                                if (entry.isIntersecting) {
+                                    navLinks.forEach(function (l) {
+                                        l.classList.remove('active');
+                                    });
+                                    link.classList.add('active');
+                                }
+                            });
+                        },
+                        { rootMargin: '-20% 0px -70% 0px' },
+                    );
+                    sections.forEach(function (s) {
+                        observer.observe(s);
+                    });
+                }
+
+                function initMobileNav() {
+                    var sidebar = document.getElementById('sidebar');
+                    var overlay = document.getElementById('overlay');
+                    var openBtn = document.getElementById('sidebarToggle');
+                    var closeBtn = document.getElementById('sidebarClose');
+
+                    function open() {
+                        sidebar.classList.add('open');
+                        overlay.classList.add('show');
+                    }
+                    function close() {
+                        sidebar.classList.remove('open');
+                        overlay.classList.remove('show');
+                    }
+                    if (openBtn) openBtn.addEventListener('click', open);
+                    if (closeBtn) closeBtn.addEventListener('click', close);
+                    if (overlay) overlay.addEventListener('click', close);
+                    document.querySelectorAll('.side-nav a').forEach(function (a) {
+                        a.addEventListener('click', close);
+                    });
+                }
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    initMermaid();
+                    initNav();
+                    initMobileNav();
+                });
+            })();
+        </script>
+    </body>
+</html>

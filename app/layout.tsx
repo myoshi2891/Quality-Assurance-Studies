@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Noto_Sans_JP, JetBrains_Mono, DM_Sans, Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 import Header from '../components/Header';
@@ -43,6 +43,15 @@ const dmSans = DM_Sans({
 export const metadata: Metadata = {
   title: 'QA Studies & AI Test Guide',
   description: 'AIシステムのテストおよびQAに関する学習リソース',
+};
+
+/*
+  ファビコン（app/icon.svg・app/favicon.ico・app/apple-icon.png）は
+  App Router のファイル規約で自動的に <link> 化されるため metadata.icons は書かない。
+  themeColor だけはモバイルブラウザのクロームをサイトのダーク背景に合わせるために明示する。
+*/
+export const viewport: Viewport = {
+  themeColor: '#0a0e1a',
 };
 
 /**

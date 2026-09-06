@@ -1,0 +1,1949 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            Lessons Learned in Software Testing 実践ガイド ー 初学者のためのステップバイステップ解説
+        </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+        />
+        <style>
+            :root {
+                --paper: #faf7f2;
+                --paper-2: #f1ebe0;
+                --paper-3: #e9e1d2;
+                --ink: #2b2621;
+                --ink-soft: #6b6258;
+                --ink-faint: #9c9184;
+                --indigo: #3b4d8f;
+                --indigo-dark: #263569;
+                --gold: #b8860b;
+                --gold-soft: #e9c874;
+                --forest: #3f6b4a;
+                --plum: #6b3b5e;
+                --border: rgba(43, 38, 33, 0.14);
+                --shadow: 0 12px 32px rgba(43, 38, 33, 0.1);
+                --radius: 14px;
+                --sidebar-width: 308px;
+                --hero-1: #1b2340;
+                --hero-2: #3b4d8f;
+                --hero-3: #c9a227;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+                    'Noto Sans JP', 'Yu Gothic', sans-serif;
+                font-size: 16px;
+                line-height: 1.8;
+            }
+            h1,
+            h2,
+            h3,
+            .hero,
+            .brand {
+                font-family: 'Source Serif 4', 'Hiragino Mincho ProN', serif;
+            }
+            a {
+                color: var(--indigo);
+            }
+            .layout {
+                display: block;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-width);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--paper-2);
+                border-right: 1px solid var(--border);
+                padding: 2rem 1.35rem 3rem;
+                z-index: 50;
+            }
+            .sidebar .brand {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                font-size: 1.3rem;
+                color: var(--indigo-dark);
+                margin-bottom: 0.35rem;
+                line-height: 1.4;
+            }
+            .sidebar .brand-sub {
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin-bottom: 1.75rem;
+                display: block;
+            }
+            .sidebar nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0.2rem;
+            }
+            .sidebar nav a {
+                display: flex;
+                align-items: center;
+                gap: 0.7rem;
+                padding: 0.55rem 0.7rem;
+                border-radius: 9px;
+                color: var(--ink-soft);
+                text-decoration: none;
+                font-size: 1rem;
+                line-height: 1.4;
+            }
+            .sidebar nav a .n-num {
+                flex: 0 0 auto;
+                width: 1.9rem;
+                height: 1.9rem;
+                border-radius: 50%;
+                background: var(--paper-3);
+                color: var(--ink-soft);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                font-weight: 700;
+            }
+            .sidebar nav a:hover {
+                background: var(--paper-3);
+                color: var(--indigo-dark);
+            }
+            .sidebar nav a.active {
+                background: #fff;
+                color: var(--indigo-dark);
+                font-weight: 700;
+                box-shadow: var(--shadow);
+            }
+            .sidebar nav a.active .n-num {
+                background: var(--indigo);
+                color: #fff;
+            }
+
+            /* ---------- Main ---------- */
+            .main {
+                margin-left: var(--sidebar-width);
+                max-width: none;
+            }
+            .mobile-bar {
+                display: none;
+            }
+            .mobile-bar,
+            .mobile-bar * {
+                font-size: 1rem;
+            }
+
+            .hero {
+                background: linear-gradient(
+                    135deg,
+                    var(--hero-1) 0%,
+                    var(--hero-2) 48%,
+                    var(--hero-3) 100%
+                );
+                color: #fdf6e3;
+                padding: 4.5rem 3.5rem 3.75rem;
+            }
+            .hero h1 {
+                font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+                margin: 0 0 1rem;
+                line-height: 1.35;
+            }
+            .hero p.lead {
+                font-size: 1.15rem;
+                max-width: 70ch;
+                opacity: 0.94;
+                margin: 0 0 1.75rem;
+            }
+            .hero .badge-row {
+                display: flex;
+                gap: 0.65rem;
+                flex-wrap: wrap;
+            }
+            .badge {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                background: rgba(255, 255, 255, 0.14);
+                border: 1px solid rgba(255, 255, 255, 0.4);
+                padding: 0.45rem 0.95rem;
+                border-radius: 999px;
+                font-size: 1rem;
+            }
+
+            .prose {
+                padding: 2.75rem 3.5rem 6rem;
+                max-width: none;
+            }
+            .prose > section {
+                margin-bottom: 1rem;
+            }
+            .prose h2 {
+                font-size: 1.85rem;
+                color: var(--indigo-dark);
+                margin: 3rem 0 1.25rem;
+                padding-bottom: 0.6rem;
+                border-bottom: 2px solid var(--gold-soft);
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+            }
+            .prose h2 i {
+                color: var(--gold);
+                font-size: 1.5rem;
+            }
+            .prose h3 {
+                font-size: 1.3rem;
+                color: var(--ink);
+                margin: 2rem 0 0.85rem;
+            }
+            .prose p {
+                margin: 1rem 0;
+                overflow-wrap: break-word;
+            }
+            .prose ul,
+            .prose ol {
+                padding-left: 1.4rem;
+            }
+            .prose li {
+                margin: 0.45rem 0;
+                overflow-wrap: break-word;
+            }
+            .prose strong {
+                color: var(--indigo-dark);
+            }
+            blockquote.lede {
+                margin: 0 0 2rem;
+                padding: 1.25rem 1.5rem;
+                background: var(--paper-2);
+                border-left: 4px solid var(--indigo);
+                border-radius: 0 var(--radius) var(--radius) 0;
+                color: var(--ink-soft);
+            }
+            blockquote.lede p {
+                margin: 0.4rem 0;
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                margin: 1.5rem 0;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: #fff;
+                font-size: 1rem;
+                min-width: 480px;
+            }
+            th,
+            td {
+                padding: 0.9rem 1.1rem;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            thead th {
+                background: var(--paper-3);
+                color: var(--indigo-dark);
+                font-weight: 700;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            /* ---------- Callouts ---------- */
+            .callout {
+                border-left: 4px solid var(--indigo);
+                background: var(--paper-2);
+                border-radius: 0 var(--radius) var(--radius) 0;
+                padding: 1.15rem 1.5rem;
+                margin: 1.5rem 0;
+            }
+            .callout .callout-title {
+                font-weight: 700;
+                color: var(--indigo-dark);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                margin-bottom: 0.5rem;
+                font-size: 1.02rem;
+            }
+            .callout p {
+                margin: 0.5rem 0;
+            }
+            .callout p:last-child {
+                margin-bottom: 0;
+            }
+            .callout.note {
+                border-left-color: var(--plum);
+            }
+            .callout.note .callout-title {
+                color: var(--plum);
+            }
+            .callout.source {
+                border-left-color: var(--gold);
+            }
+            .callout.source .callout-title {
+                color: #8a6708;
+            }
+
+            /* ---------- Step list ---------- */
+            .step-list {
+                list-style: none;
+                margin: 1.5rem 0;
+                padding: 0;
+                counter-reset: step;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .step-list li {
+                position: relative;
+                padding: 0.15rem 0 0.15rem 3.4rem;
+                min-height: 2.3rem;
+            }
+            .step-list li::before {
+                counter-increment: step;
+                content: counter(step);
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 2.3rem;
+                height: 2.3rem;
+                border-radius: 50%;
+                background: var(--indigo);
+                color: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-weight: 700;
+                font-size: 1.05rem;
+            }
+
+            /* ---------- Diagrams ---------- */
+            figure.diagram {
+                margin: 2rem 0;
+            }
+            .mermaid-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                padding: 1.5rem 1rem;
+                background: #fff;
+                border-radius: var(--radius);
+                border: 1px solid var(--border);
+            }
+            .mermaid-wrapper svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            figcaption {
+                text-align: center;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin-top: 0.7rem;
+            }
+
+            /* ---------- Checklist ---------- */
+            .checklist-counter {
+                display: inline-block;
+                font-weight: 700;
+                color: var(--indigo-dark);
+                background: var(--paper-2);
+                border-radius: 999px;
+                padding: 0.5rem 1.1rem;
+                margin-bottom: 1rem;
+                font-size: 1.05rem;
+            }
+            .checklist {
+                list-style: none;
+                padding: 0;
+                margin: 0 0 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+            .checklist li {
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: 11px;
+            }
+            .checklist label {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                padding: 0.85rem 1.1rem;
+                cursor: pointer;
+            }
+            .checklist input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 1.4rem;
+                height: 1.4rem;
+                flex: 0 0 auto;
+                margin-top: 0.1rem;
+                border: 2px solid var(--indigo);
+                border-radius: 6px;
+                position: relative;
+                font-size: 1rem;
+            }
+            .checklist input[type='checkbox']:checked {
+                background: var(--indigo);
+            }
+            .checklist input[type='checkbox']:checked::after {
+                content: '\2713';
+                color: #fff;
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            .checklist li.done label span {
+                color: var(--ink-faint);
+                text-decoration: line-through;
+            }
+            .checklist label span {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            /* ---------- References ---------- */
+            .ref-group {
+                margin: 1.75rem 0 2.5rem;
+            }
+            .ref-group h3 {
+                color: var(--indigo-dark);
+                font-size: 1.15rem;
+                margin: 0 0 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .ref-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0.9rem;
+            }
+            .ref-item {
+                background: #fff;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 1.1rem 1.35rem;
+            }
+            .ref-item .ref-title {
+                font-weight: 700;
+                color: var(--indigo-dark);
+                font-size: 1.05rem;
+            }
+            .ref-item .ref-title a {
+                color: inherit;
+                text-decoration: none;
+            }
+            .ref-item .ref-title a:hover {
+                text-decoration: underline;
+            }
+            .ref-item .ref-desc {
+                color: var(--ink-soft);
+                margin-top: 0.4rem;
+                font-size: 1rem;
+            }
+            .ref-item .ref-url {
+                display: block;
+                margin-top: 0.55rem;
+                font-size: 1rem;
+                color: var(--indigo);
+                word-break: break-all;
+            }
+
+            .footer {
+                padding: 2.5rem 3.5rem 4rem;
+                color: var(--ink-soft);
+                border-top: 1px solid var(--border);
+                font-size: 1rem;
+            }
+
+            /* ---------- Mobile ---------- */
+            @media (max-width: 960px) {
+                .sidebar {
+                    position: fixed;
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                    box-shadow: var(--shadow);
+                    width: min(320px, 84vw);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .main {
+                    margin-left: 0;
+                }
+                .mobile-bar {
+                    display: flex;
+                    position: sticky;
+                    top: 0;
+                    z-index: 40;
+                    background: var(--paper);
+                    border-bottom: 1px solid var(--border);
+                    padding: 0.85rem 1.1rem;
+                    align-items: center;
+                    gap: 0.8rem;
+                }
+                .mobile-bar button {
+                    font-size: 1rem;
+                    border: 1px solid var(--border);
+                    background: #fff;
+                    border-radius: 9px;
+                    padding: 0.55rem 0.8rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.45rem;
+                }
+                .mobile-bar .brand-sm {
+                    font-size: 1.05rem;
+                    color: var(--indigo-dark);
+                    font-weight: 700;
+                }
+                .hero {
+                    padding: 3rem 1.5rem 2.5rem;
+                }
+                .prose {
+                    padding: 2rem 1.25rem 4rem;
+                }
+                .footer {
+                    padding: 2rem 1.25rem 3rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <header class="mobile-bar">
+            <button id="mobileToggle" type="button" aria-label="目次を開く">
+                <i class="ti ti-menu-2"></i> 目次
+            </button>
+            <span class="brand-sm">Lessons Learned in Software Testing</span>
+        </header>
+
+        <div class="layout">
+            <aside class="sidebar" id="sidebar">
+                <span class="brand"><i class="ti ti-headlights"></i> Testing Lessons</span>
+                <span class="brand-sub">初学者向けステップバイステップガイド</span>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="#intro"><span class="n-num">1</span>はじめに</a>
+                        </li>
+                        <li>
+                            <a href="#overview"><span class="n-num">2</span>本書の全体マップ</a>
+                        </li>
+                        <li>
+                            <a href="#step1"><span class="n-num">3</span>テスターの役割</a>
+                        </li>
+                        <li>
+                            <a href="#step2"><span class="n-num">4</span>テスターのように考える</a>
+                        </li>
+                        <li>
+                            <a href="#step3"><span class="n-num">5</span>テスト技法を使い分ける</a>
+                        </li>
+                        <li>
+                            <a href="#step4"><span class="n-num">6</span>バグアドボカシー</a>
+                        </li>
+                        <li>
+                            <a href="#step5"><span class="n-num">7</span>テスト自動化</a>
+                        </li>
+                        <li>
+                            <a href="#step6"><span class="n-num">8</span>テストの文書化</a>
+                        </li>
+                        <li>
+                            <a href="#step7"><span class="n-num">9</span>プログラマーとの協働</a>
+                        </li>
+                        <li>
+                            <a href="#step8"><span class="n-num">10</span>プロジェクト管理</a>
+                        </li>
+                        <li>
+                            <a href="#step9"><span class="n-num">11</span>チーム管理</a>
+                        </li>
+                        <li>
+                            <a href="#step10"><span class="n-num">12</span>キャリアを築く</a>
+                        </li>
+                        <li>
+                            <a href="#step11"><span class="n-num">13</span>テスト戦略の立案</a>
+                        </li>
+                        <li>
+                            <a href="#appendix"><span class="n-num">14</span>7つの原則</a>
+                        </li>
+                        <li>
+                            <a href="#modern"><span class="n-num">15</span>AI時代のテスト</a>
+                        </li>
+                        <li>
+                            <a href="#summary"><span class="n-num">16</span>チェックリスト</a>
+                        </li>
+                        <li>
+                            <a href="#references"><span class="n-num">17</span>参考文献</a>
+                        </li>
+                    </ul>
+                </nav>
+            </aside>
+
+            <div class="main">
+                <div class="hero">
+                    <h1>
+                        Lessons Learned in Software Testing<br />実践ガイド ー
+                        初学者のためのステップバイステップ解説
+                    </h1>
+                    <p class="lead">
+                        テスト分野の古典 "Lessons Learned in Software Testing: A Context-Driven
+                        Approach" (Cem Kaner, James Bach, Bret Pettichord 著, Wiley, 2001年刊)
+                        の構成と考え方をベースに、
+                        初学者が最初につまずくポイントを解消しながら読み進められるように再構成しました。
+                    </p>
+                    <div class="badge-row">
+                        <span class="badge"
+                            ><i class="ti ti-book"></i> 全11章 293レッスンの要点</span
+                        >
+                        <span class="badge"
+                            ><i class="ti ti-chart-dots-3"></i> Mermaid図解 5点</span
+                        >
+                        <span class="badge"
+                            ><i class="ti ti-calendar"></i> 2026年8月時点の情報を反映</span
+                        >
+                    </div>
+                </div>
+
+                <div class="prose">
+                    <!-- 1. はじめに -->
+                    <section id="intro">
+                        <h2>
+                            <i class="ti ti-flag-3"></i>1. はじめに ー
+                            この本が「テストの古典」と呼ばれる理由
+                        </h2>
+                        <p>
+                            "Lessons Learned in Software Testing"
+                            は、テスト業界で「コンテキスト駆動学派 (Context-Driven School)」の
+                            創始者として知られる3人の専門家による共著です。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>著者</th>
+                                        <th>略歴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cem Kaner</td>
+                                        <td>
+                                            元フロリダ工科大学教授(同大学名誉教授。法学・実験心理学の博士号を保有)。"Testing
+                                            Computer Software" "Bad Software"
+                                            などの著者としても知られる、テスト分野の第一人者
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>James Bach</td>
+                                        <td>
+                                            Satisfice, Inc. の創業者。Apple や Borland
+                                            での競争の激しいソフトウェア開発経験を持ち、探索的テストやリスクベーステストの体系化に貢献
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bret Pettichord</td>
+                                        <td>
+                                            独立コンサルタント。Software Testing Hotlist
+                                            の編集者としても著名
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            本書は、3人が持つ合計30年以上(後年の紹介では50年以上)のテスト経験から抽出した、
+                            <strong>293個の「レッスン」</strong
+                            >を11章にまとめた構成になっています。各レッスンは
+                            「主張(アサーション)」とその解説・具体例のペアで構成されており、体系的な教科書というよりも
+                            「経験則集」に近いスタイルが特徴です。
+                        </p>
+
+                        <p>
+                            本書の根底にあるのが
+                            <strong>コンテキスト駆動アプローチ (Context-Driven Approach)</strong>
+                            という考え方です。
+                            これは「唯一絶対の正しいテスト手法は存在せず、テストのやり方はプロジェクトの状況(コンテキスト)に応じて
+                            選択すべきである」という思想で、後にコンテキスト駆動学派として世界中のテストコミュニティに広がりました。
+                        </p>
+                    </section>
+
+                    <!-- 2. 全体マップ -->
+                    <section id="overview">
+                        <h2><i class="ti ti-map-2"></i>2. 本書の全体マップ</h2>
+                        <p>
+                            11の章は、大きく「基礎編」「実践編」「運用編」「発展編」の4つの塊として捉えると理解しやすくなります。
+                        </p>
+
+                        <figure class="diagram">
+                            <div class="mermaid-wrapper" id="diag-overview"></div>
+                            <figcaption>
+                                図1: 本書11章の全体マップ(基礎編 → 実践編 → 運用編 → 発展編)
+                            </figcaption>
+                        </figure>
+
+                        <p>
+                            初学者は、まず「基礎編」で自分の役割と思考の型を理解し、「実践編」で具体的な技術
+                            (技法・バグ報告・自動化)
+                            を身につけ、「運用編」でチームや他職種との協働を学び、
+                            最終的に「発展編」でキャリアと戦略という長期的視点を得る、という順序で読み進めると理解が深まります。
+                        </p>
+                    </section>
+
+                    <!-- 3. Step1 -->
+                    <section id="step1">
+                        <h2>
+                            <i class="ti ti-headlights"></i>3. ステップ1: テスターの役割を理解する
+                        </h2>
+                        <p>
+                            第1章(レッスン1〜15)は、「テスターとは何をする人か」という最も基本的な問いを扱います。
+                            初学者がまず誤解しやすいポイントを整理します。
+                        </p>
+
+                        <h3>押さえるべき考え方</h3>
+                        <ul>
+                            <li>
+                                <strong>テスターはプロジェクトの「ヘッドライト」である</strong>:
+                                進行方向に何があるか(リスクや問題)を関係者より先に照らし出す役割であり、後から結果を採点する「審判」ではありません。
+                            </li>
+                            <li>
+                                <strong>テストの目的(ミッション)が、やることすべてを決める</strong>:
+                                品質を上げること自体が目的なのではなく、「誰のために、何を明らかにするためにテストするのか」を最初に定義する必要があります。
+                            </li>
+                            <li>
+                                <strong>テスターは複数の利害関係者にサービスを提供する</strong>:
+                                開発者、プロダクトマネージャー、経営層、エンドユーザーなど、テスターが向き合う相手は一人ではありません。
+                            </li>
+                            <li>
+                                <strong>すべてのバグを見つけることはできない</strong>:
+                                時間もリソースも有限である以上、「十分なテスト」とは「関係者が意思決定できるだけの情報が揃った状態」を指します。
+                            </li>
+                            <li>
+                                <strong>テスターはゲートキーパー(門番)になってはいけない</strong>:
+                                リリースの可否を最終決定するのはテスターではなく、組織がその権限を与えた意思決定者(プロダクトオーナー、マネジメント層、リリース判定会議など、体制によって異なる)です。テスターの役割は判断材料を提供することにあります。
+                            </li>
+                        </ul>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>よくある誤解</th>
+                                        <th>実際の考え方</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>「バグをゼロにするのが自分の仕事」</td>
+                                        <td>
+                                            バグをゼロにすることは不可能。重要なバグを早く見つけることが仕事
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>「テストに合格したらリリースしてよい」</td>
+                                        <td>
+                                            テスト結果は判断材料の一つに過ぎず、リリース可否の最終権限は組織が定めた意思決定者にあり、テスターにはない。テスターは判断材料の提供に責任を持つ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>「テストは開発が終わってから始まる工程」</td>
+                                        <td>
+                                            テストの機会は、要件定義からリリース後まで、成果物が人から人へ引き渡されるあらゆる場面に存在する
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    <!-- 4. Step2 -->
+                    <section id="step2">
+                        <h2><i class="ti ti-brain"></i>4. ステップ2: テスターのように考える</h2>
+                        <p>
+                            第2章(レッスン16〜47)は、テストという行為を支える認知的な土台を扱います。
+                            本書の中でも最も哲学的で、かつ実務に直結する部分です。
+                        </p>
+
+                        <h3>核心となる考え方</h3>
+                        <ul>
+                            <li>
+                                <strong>テストは「認識論(epistemology)」の応用である</strong>:
+                                テストとは、突き詰めれば「私たちは何を知っており、何を知らないのか」を明らかにする活動です。
+                            </li>
+                            <li>
+                                <strong>テストはあなたの頭の中で起きている</strong>:
+                                テストケースを実行する行為そのものより、何を確認すべきかを考え、結果をどう解釈するかという思考プロセスの方が本質的です。
+                            </li>
+                            <li>
+                                <strong>すべてのテストは何らかのモデルに基づいている</strong>:
+                                プロダクト・ユーザー・リスクについて自分が持っている「モデル(頭の中の地図)」の精度が、テストの質を左右します。
+                            </li>
+                            <li>
+                                <strong>探索とは深く考えることである</strong>:
+                                探索的テストは行き当たりばったりにクリックすることではなく、学習・設計・実行を同時並行で行う高度な思考活動です。
+                            </li>
+                            <li>
+                                <strong>直感は良い出発点だが、悪い結論である</strong>:
+                                「なんとなく大丈夫そう」という感覚はテストのきっかけとしては有用ですが、それだけで「合格」と判断してはいけません。
+                            </li>
+                            <li>
+                                <strong>バイアスは避けられないが、管理はできる</strong>:
+                                自分が思い込みによって見落としをしている可能性を常に自覚し、意図的に視点を変える工夫(別の担当者によるレビュー、時間を置いての再確認など)が有効です。
+                            </li>
+                            <li>
+                                <strong>新鮮な目が失敗を見つける</strong>:
+                                同じ人が長時間見続けたプロダクトには「馴れ」による見落としが発生しやすいため、新しいメンバーやペアテストの視点が重要です。
+                            </li>
+                        </ul>
+
+                        <h3>実践のヒント</h3>
+                        <ol>
+                            <li>
+                                テストを始める前に「このテストで何を明らかにしたいのか」を一文で言語化する。
+                            </li>
+                            <li>
+                                「なぜこの結果になったのか」を説明できない場合は、まだ理解が浅いというサインと捉える。
+                            </li>
+                            <li>
+                                手順書に従うだけでなく、「この手順は本当に今のリスクに対して適切か」を都度問い直す。
+                            </li>
+                        </ol>
+                    </section>
+
+                    <!-- 5. Step3 -->
+                    <section id="step3">
+                        <h2><i class="ti ti-apps"></i>5. ステップ3: テスト技法を使い分ける</h2>
+                        <p>
+                            第3章(レッスン48〜54)では、数多く存在するテスト技法を、5つの視点から整理するフレームワークが紹介されています。
+                        </p>
+
+                        <figure class="diagram">
+                            <div class="mermaid-wrapper" id="diag-techniques"></div>
+                            <figcaption>図2: テスト技法を捉える5つの視点</figcaption>
+                        </figure>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>視点</th>
+                                        <th>焦点</th>
+                                        <th>具体例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>人ベース</td>
+                                        <td>誰がテストするか</td>
+                                        <td>
+                                            初心者テスター、ドメイン専門家、エンドユーザーによるテスト
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>カバレッジベース</td>
+                                        <td>何をテストするか</td>
+                                        <td>機能一覧、画面遷移、コードパスに基づく網羅</td>
+                                    </tr>
+                                    <tr>
+                                        <td>問題ベース</td>
+                                        <td>なぜテストするか(リスク)</td>
+                                        <td>
+                                            セキュリティリスク、性能リスク、過去の不具合傾向に基づくテスト
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>活動ベース</td>
+                                        <td>どのように進めるか</td>
+                                        <td>探索的テスト、スクリプトテスト、ペアテスト</td>
+                                    </tr>
+                                    <tr>
+                                        <td>評価ベース</td>
+                                        <td>合否をどう判定するか(オラクル)</td>
+                                        <td>
+                                            仕様書との比較、過去バージョンとの比較、ユーザー期待との比較
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            重要なのは、これらは互いに排他的な分類ではなく「同じ技法を、異なる視点から見ている」に過ぎないという点です。
+                            たとえば「探索的テスト」は活動ベースの技法であると同時に、テスターの経験(人ベース)にも強く依存します。
+                        </p>
+
+                        <h3>補足: 組み合わせテスト(オールペア法)の考え方</h3>
+                        <p>
+                            本書には、入力項目が多い場合にすべての組み合わせを網羅するのが非現実的なときの手法として、
+                            <strong>オールペア法 (All-Pairs Technique)</strong>
+                            の考え方も紹介されています。
+                        </p>
+                        <ol class="step-list">
+                            <li>各入力項目を「ドメイン分割(同値分割)」して代表値を洗い出す。</li>
+                            <li>
+                                まず、各項目の値が最低1回は登場する組み合わせ(オールシングル)を作る。
+                            </li>
+                            <li>
+                                次に、任意の2項目の値の組み合わせがすべて最低1回は登場するように調整する(オールペア)。
+                            </li>
+                            <li>
+                                網羅率とテストケース数のバランスを見ながら、実務上必要な組み合わせのみに絞り込む。
+                            </li>
+                        </ol>
+                    </section>
+
+                    <!-- 6. Step4 -->
+                    <section id="step4">
+                        <h2>
+                            <i class="ti ti-bug"></i>6. ステップ4:
+                            優れたバグレポートを書く(バグアドボカシー)
+                        </h2>
+                        <p>
+                            第4章(レッスン55〜101)は本書の中でも特にボリュームが大きく、
+                            <strong>「バグアドボカシー (Bug Advocacy)」</strong>
+                            という独自の概念を扱っています。
+                            これは単なる「不具合報告の書き方」ではなく、「見つけた不具合を実際に修正してもらうための説得力ある伝え方」を指します。
+                        </p>
+
+                        <figure class="diagram">
+                            <div class="mermaid-wrapper" id="diag-bug"></div>
+                            <figcaption>図3: バグレポートのライフサイクル</figcaption>
+                        </figure>
+
+                        <h3>押さえるべき原則</h3>
+                        <ul>
+                            <li>
+                                <strong>バグレポートはあなた自身を映す「代理人」である</strong>:
+                                報告の質が低いと、それだけで不具合そのものが軽視されてしまいます。
+                            </li>
+                            <li>
+                                <strong>1つのバグには1つのレポート</strong>:
+                                複数の問題を1つのレポートにまとめると、一部だけ修正されて残りが放置されるリスクが生じます。
+                            </li>
+                            <li>
+                                <strong>サマリー行が最も重要</strong>:
+                                トリアージ担当者はまずサマリーしか読まないため、内容が一目でわかる要約力が求められます。
+                            </li>
+                            <li>
+                                <strong>severity(深刻度)と priority(優先度)は別物</strong>:
+                                深刻度は「問題の技術的な大きさ」、優先度は「今すぐ直すべきかどうかというビジネス判断」であり、この2つを混同しないことが重要です。
+                            </li>
+                            <li>
+                                <strong>再現しないバグも必ず報告する</strong>:
+                                「たまにしか起きない不具合」は、将来的に重大な障害の前兆(いわゆる時限爆弾)である可能性があるため、再現できないからといって握りつぶしてはいけません。
+                            </li>
+                            <li>
+                                <strong>誇張しない、決めつけない</strong>:
+                                問題を正確に報告することが重要で、原因を決めつけて報告すると誤った修正判断につながる可能性があります。
+                            </li>
+                            <li>
+                                <strong>修正されたことを鵜呑みにしない</strong>:
+                                プログラマーが「直した」と言っても、必ず自分で検証してからクローズする習慣が信頼性を担保します。
+                            </li>
+                        </ul>
+
+                        <div class="callout source">
+                            <div class="callout-title">
+                                <i class="ti ti-quote"></i>現代の視点:
+                                バグアドボカシーは「調査」の技術である
+                            </div>
+                            <p>
+                                国際的なテストコミュニティでも、バグアドボカシーの考え方は現在も引き継がれています。
+                                フィンランドを拠点とする著名なテスト専門家 Maaret Pyhäjärvi
+                                は、2024年のブログ記事でバグアドボカシーを
+                                「バグ報告の授業ではなく、バグ調査の授業である」と位置づけ、単に「動きませんでした」と伝えるだけでは
+                                逆効果であり、最短の再現手順を見つけ、必要なログを添えて、多忙で余裕のない相手にも読んでもらえる報告に
+                                仕上げる作業そのものに価値があると論じています。
+                            </p>
+                        </div>
+                    </section>
+
+                    <!-- 7. Step5 -->
+                    <section id="step5">
+                        <h2><i class="ti ti-robot"></i>7. ステップ5: テスト自動化を正しく使う</h2>
+                        <p>
+                            第5章(レッスン102〜141)は、「自動化すれば楽になる」という単純な思い込みに警鐘を鳴らす内容が中心です。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>誤解</th>
+                                        <th>本書の立場</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>自動化の目的はコスト削減</td>
+                                        <td>
+                                            目的は「開発プロセスの速度を上げること」「手動では届かない範囲までテストの手を広げること」
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>100%自動化が理想</td>
+                                        <td>
+                                            自動化率を目標にすること自体がリスクであり、状況に応じた自動化戦略を選ぶべき
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>自動化はツールを買えば済む</td>
+                                        <td>
+                                            自動化は立派な「ソフトウェア開発プロジェクト」であり、設計・レビュー・保守が必要
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>自動テストは資産が増えるほど良い</td>
+                                        <td>
+                                            保守されない自動テストはやがて壊れて放置され、誰も気づかないまま無価値化する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>汚いテスト手順を自動化すれば改善する</td>
+                                        <td>
+                                            「汚いプロセスを自動化しても、速く汚くなるだけ」であり、自動化前にテスト設計を見直すべき
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            とりわけ重要な指摘が、<strong
+                                >「テスタビリティ (testability)
+                                への投資は、しばしば自動化そのものへの投資よりも
+                                価値が高い」</strong
+                            >という考え方です。テスタビリティとは、プロダクトの内部状態を外から観測・制御しやすくする
+                            設計上の工夫(ログ出力、テスト用API、状態のリセット機能など)を指し、これがあるだけで手動・自動を問わず
+                            テスト全体の効率が大きく向上します。
+                        </p>
+                    </section>
+
+                    <!-- 8. Step6 -->
+                    <section id="step6">
+                        <h2><i class="ti ti-file-text"></i>8. ステップ6: テストを文書化する</h2>
+                        <p>
+                            第6章(レッスン142〜149)は短い章ですが、実務で頻繁に議論になるテーマ、「どこまでドキュメントを書くべきか」を扱います。
+                        </p>
+                        <ul>
+                            <li>
+                                テンプレートを使うべきかどうかは状況次第であり、「テンプレートを使えば自動的に品質が上がる」という考え方にも「テンプレートは形骸化するので不要」という考え方にも、どちらにも一理あります。
+                            </li>
+                            <li>
+                                標準規格を使うかどうかも、プロジェクトの契約形態や監査要件に応じて判断すべきであり、無条件に採用・排除するものではありません。なお本書が前提としていた
+                                IEEE 829
+                                は既に廃止された旧世代のテストドキュメント標準であり、現行の標準は
+                                ISO/IEC/IEEE
+                                29119-3:2021(テスト文書化)です。ただし契約や監査要件によっては、いまなお
+                                IEEE 829 形式の文書が求められる場合があります。
+                            </li>
+                            <li>
+                                ドキュメントを作る前に、「そもそも何のためにこの文書が必要なのか」という要件分析を行うべきであり、これはソフトウェア開発と同じ考え方が当てはまります。
+                            </li>
+                            <li>
+                                テスト文書化の目的は、最終的には「1文・3要素以内」で説明できるくらいまでシンプルに絞り込めるはずです。
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 9. Step7 -->
+                    <section id="step7">
+                        <h2><i class="ti ti-users"></i>9. ステップ7: プログラマーと協働する</h2>
+                        <p>
+                            第7章(レッスン150〜156)は短いながらも、テスターと開発者の関係性という、現場で最も摩擦が生まれやすいテーマを扱っています。
+                        </p>
+                        <ul>
+                            <li>
+                                プログラマーがどう考えるかを理解する努力をすることが、協働の出発点になります。
+                            </li>
+                            <li>
+                                信頼は一朝一夕には築けないため、日々の小さなやり取りの積み重ねが重要です。
+                            </li>
+                            <li>
+                                批判の矛先は「仕事の成果物」に向けるべきであり、「人」に向けてはなりません。
+                            </li>
+                            <li>
+                                プログラマーは自分の仕事について話すのを好む傾向があるため、質問を投げかけることが関係構築の近道になります。
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 10. Step8 -->
+                    <section id="step8">
+                        <h2>
+                            <i class="ti ti-clipboard-list"></i>10. ステップ8:
+                            テストプロジェクトを管理する
+                        </h2>
+                        <p>
+                            第8章(レッスン157〜209)は本書で最もボリュームが大きい章の一つで、日々のテストプロジェクト運営の実務的な知恵が詰まっています。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong
+                                    >「サービス文化」を作る。「コントロール文化」を作ろうとしない</strong
+                                >:
+                                テストチームは開発を統制する部隊ではなく、価値ある情報を提供するサービス部門であるという自己認識を持つべきです。
+                            </li>
+                            <li>
+                                <strong
+                                    >テスターが管理するのは「テストという名のサブプロジェクト」であり、開発プロジェクト全体ではない</strong
+                                >: 権限の範囲を正しく認識することが、無用な軋轢を避けます。
+                            </li>
+                            <li>
+                                <strong>スモークテストでビルドの受け入れ可否を判断する</strong>:
+                                本格的なテストを始める前に、最低限の動作確認で「テスト可能な品質か」をふるいにかけます。
+                            </li>
+                            <li>
+                                <strong>セッションベースドテスト管理</strong>:
+                                探索的テストのセッションに「チャーター(憲章、目的)」を与え、時間を区切って実施・記録することで、自由度の高い探索的テストにも説明責任を持たせられます。
+                            </li>
+                            <li>
+                                <strong>バグ件数だけで進捗を語らない</strong>:
+                                バグの発見数はテストの深さや対象範囲によって大きく変わるため、単一の指標に頼った進捗管理は危険であり、複数の独立した指標を組み合わせるべきです。
+                            </li>
+                            <li>
+                                <strong>バランスドスコアカードで複数の観点から状況を報告する</strong
+                                >:
+                                進捗・品質・リスクなど、複数軸で状況を可視化することが、経営層への説明責任にもつながります。
+                            </li>
+                            <li>
+                                <strong>テスターはリリースの可否そのものにサインオフしない</strong>:
+                                「テストを自分が納得する水準まで実施した」という事実にサインオフするのであり、リリースの承認そのものは別の意思決定者の役割です。
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 11. Step9 -->
+                    <section id="step9">
+                        <h2>
+                            <i class="ti ti-user-star"></i>11. ステップ9: テストチームを管理する
+                        </h2>
+                        <p>
+                            第9章(レッスン210〜244)は、テストリーダーやテストマネージャー向けの内容ですが、初学者が「良いチームとはどういうものか」を理解するうえでも有用です。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>スタッフを「幹部」として扱う</strong>:
+                                単なる作業者としてではなく、判断力を信頼される専門職として扱うことで、モチベーションと成果の両方が向上します。
+                            </li>
+                            <li>
+                                <strong>新人テスターの立ち上げ方には型がある</strong>:
+                                いきなり複雑な機能を任せるのではなく、まず既存ドキュメントとソフトウェアの突き合わせや、過去のバグの再確認といった作業から慣らしていくことが推奨されています。
+                            </li>
+                            <li>
+                                <strong>士気はチームの重要な資産である</strong>:
+                                過度な残業を強いること、スタッフが理不尽な扱いを受けることを放置しないことが、長期的なチームの生産性を守ります。
+                            </li>
+                            <li>
+                                <strong>採用は合議制で、誠実さを最重視する</strong>:
+                                スキルの高さだけでなく、チームの合意形成や人としての誠実さを重視した採用判断が推奨されています。
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 12. Step10 -->
+                    <section id="step10">
+                        <h2>
+                            <i class="ti ti-briefcase"></i>12. ステップ10:
+                            テスターとしてのキャリアを築く
+                        </h2>
+                        <p>
+                            第10章(レッスン245〜273)は、テスターという職種を「一生の専門職」としてどう育てていくかという、キャリア論に近い内容です。
+                        </p>
+                        <ul>
+                            <li>
+                                自分のキャリアの方向性を主体的に選び、追求することが重要であり、会社の都合に流されるだけのキャリア形成は避けるべきです。
+                            </li>
+                            <li>
+                                テスターとしての専門性は、必ずしもプログラマーより収入が低いことを意味しません。
+                            </li>
+                            <li>
+                                カンファレンスは「参加する」だけでなく「議論に加わる」場として活用します。
+                            </li>
+                            <li>
+                                履歴書やポートフォリオは、自分を売り込むための積極的なツールとして設計します。
+                            </li>
+                            <li>
+                                スクリプト言語やプログラミング言語の習得は、テスターとしての可能性を広げる投資です。
+                            </li>
+                            <li>
+                                資格取得そのものを目的化しすぎることには注意が必要であり、短期間で得られる資格に過信しすぎないことが望ましいとされています。
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 13. Step11 -->
+                    <section id="step11">
+                        <h2>
+                            <i class="ti ti-target-arrow"></i>13. ステップ11: テスト戦略を立案する
+                        </h2>
+                        <p>
+                            第11章(レッスン274〜293)は本書の集大成にあたる章で、個々の技法やレッスンを、プロジェクト全体の「戦略」としてどう統合するかを扱っています。
+                        </p>
+
+                        <h3>戦略を考えるための3つの基本的な問い</h3>
+                        <ol>
+                            <li><strong>なぜテストするのか(why bother)</strong></li>
+                            <li><strong>誰が気にするのか(who cares)</strong></li>
+                            <li><strong>どこまでやるのか(how much)</strong></li>
+                        </ol>
+
+                        <h3>押さえるべき原則</h3>
+                        <ul>
+                            <li>
+                                <strong
+                                    >本当の「テスト計画」とは、あなたのテストプロセスを導く一連の考え方そのものであり、文書そのものではない</strong
+                                >。文書はその考え方を伝えるための一つの手段に過ぎません。
+                            </li>
+                            <li>
+                                <strong>テスト計画はコンテキストに合わせて設計する</strong>:
+                                他プロジェクトの計画をそのまま流用する「先祖崇拝」的な使い回しには注意が必要です。
+                            </li>
+                            <li>
+                                <strong>最初に立てた戦略は、常に間違っている</strong>:
+                                プロジェクトの状況は刻々と変化するため、最初の戦略は仮説にすぎず、継続的に見直すことが前提となります。
+                            </li>
+                            <li>
+                                <strong>プロダクトの成熟度に応じてテストの深さを変える</strong>:
+                                開発初期と終盤とでは、適切なテストの重点は異なります。
+                            </li>
+                        </ul>
+
+                        <h3>コンテキスト駆動テスト計画を「進化」させる7ステップ</h3>
+                        <p>
+                            本書には、テスト計画を一度作って終わりにするのではなく、継続的に更新していくための実践的な7ステップの流れが紹介されています。
+                        </p>
+
+                        <figure class="diagram">
+                            <div class="mermaid-wrapper" id="diag-plan"></div>
+                            <figcaption>
+                                図4: コンテキスト駆動テスト計画を進化させる7ステップループ
+                            </figcaption>
+                        </figure>
+
+                        <p>
+                            このループが示す通り、テスト計画は一度作って完成させる「成果物」ではなく、プロジェクトの状況変化に合わせて
+                            回し続ける「プロセス」だという点が、本書全体を貫く最大のメッセージの一つです。
+                        </p>
+                    </section>
+
+                    <!-- 14. Appendix -->
+                    <section id="appendix">
+                        <h2>
+                            <i class="ti ti-scale"></i>14. 付録: コンテキスト駆動学派の7つの原則
+                        </h2>
+                        <p>
+                            本書の付録Aでは、コンテキスト駆動学派の立場を7つの原則として整理しています(原文は英語ですが、要旨を日本語でまとめます)。
+                        </p>
+
+                        <div class="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>番号</th>
+                                        <th>原則の要旨</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            ある状況における実践の価値は、その状況に強く依存する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>
+                                            どんな状況にも通用する「ベストプラクティス」は存在せず、その時々の「良い実践」があるだけである
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>
+                                            人はプロジェクトにおいて、単なる歯車ではなく、他のどんな要素よりも重要な存在である
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>
+                                            プロジェクトの進行は基本的に予測不可能であり、成功は人の能力と創造性に強く依存する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>
+                                            プロダクトとは、ある問題に対する解決策である。その問題が解決されていなければ、プロダクトは機能していない
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>
+                                            良いソフトウェアテストとは、知的で困難な、頭脳労働としてのプロセスである
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>
+                                            私たちの仕事が価値を持つのは、対象となるプロジェクトの文脈の中に置かれたときだけである
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            これらの原則は、後年「アジャイルテスト」や「探索的テストの体系化」といった潮流の理論的な土台としても引用され続けています。
+                        </p>
+                    </section>
+
+                    <!-- 15. Modern -->
+                    <section id="modern">
+                        <h2>
+                            <i class="ti ti-sparkles"></i>15. 現代における実践 ー
+                            AI時代のテスト(2026年時点の視点)
+                        </h2>
+                        <p>
+                            "Lessons Learned in Software Testing"
+                            が刊行されたのは2001年ですが、その中核にある
+                            「コンテキストに応じて判断する」という思想は、生成AIやエージェント型AIがテスト工程に組み込まれ始めた
+                            2026年の現在においても、色あせるどころかむしろ重要性を増しています。国際的に著名なテスト専門家たちの
+                            直近の発信を見てみましょう。
+                        </p>
+
+                        <h3>Rapid Software Testing ー 本書の思想の直系の後継</h3>
+                        <p>
+                            本書の共著者である James Bach と、長年のパートナーである Michael Bolton
+                            は、2006年から 「ラピッドソフトウェアテスティング (Rapid Software
+                            Testing, RST)」という方法論・マインドセットを
+                            共同開発してきました。そして2025年11月には、両者の共著による解説書
+                            "Taking Testing Seriously: The Rapid Software Testing Approach"
+                            が刊行されています。 この新著は RST
+                            の体系を初めて本格的にまとめた決定版とされ、不確実性や時間的制約の中でも本質的な問題を
+                            見つけ出すための考え方を扱っており、"Lessons Learned in Software
+                            Testing" からの直接的な発展形といえる内容です。
+                        </p>
+
+                        <h3>エージェント型AIとテスターの役割の変化</h3>
+                        <p>
+                            決済プラットフォーム企業でデベロッパーリレーションズを率いる著名なテスト自動化専門家
+                            Angie Jones は、
+                            2025年のインタビューで、従来のチャット形式の生成AIと、自律的にタスクを実行する「エージェント型AI」の
+                            違いについて解説しています。チャット型AIは提案止まりで、実装は人間が手作業で行う必要があるのに対し、
+                            エージェント型AIはより自律的にタスクを遂行できる点が異なるとされています。この変化は、本書が説く
+                            「テスターは判断材料を集める役割であり、最終判断は人が下す」という原則を、AI時代にどう適用するかという
+                            新しい問いを投げかけています。
+                        </p>
+
+                        <div class="callout source">
+                            <div class="callout-title">
+                                <i class="ti ti-quote"></i>「シグナル対ノイズ」という新しい課題
+                            </div>
+                            <p>
+                                テスト自動化プラットフォームを提供する Applitools
+                                は、2026年の分析記事の中で、AIの活用が進むほど
+                                テストから得られる情報の量は増える一方、その質(シグナル)と単なる雑音(ノイズ)の見極めが最大の
+                                ボトルネックになっていると指摘しています。信頼性・説明可能性・再現性のある結果を重視する組織ほど、
+                                2026年のテスト戦略として優位に立つとされており、これは本書が繰り返し説く「バグレポートの説得力」
+                                「オラクル(合否判定基準)の妥当性」といった原則と本質的に同じ課題であるといえます。
+                            </p>
+                        </div>
+
+                        <div class="callout note">
+                            <div class="callout-title">
+                                <i class="ti ti-info-circle"></i>コミュニティでの継続的な議論
+                            </div>
+                            <p>
+                                国際的なテスターコミュニティ Ministry of Testing
+                                のフォーラムでも、2025年末から2026年にかけて
+                                「AIエージェントの普及によってQAの役割はどう変わるのか」という議論のスレッドが立てられています。
+                                そのスレッドでは、AIがテストケース生成やテストデータ作成、回帰テストの高速化を担う一方で、QAの役割は
+                                「リスクベースの戦略立案」や「継続的品質(シフトレフトとシフトライトの両方)」、そしてAI機能を含む
+                                プロダクトに対する「ガバナンスとセキュリティ」により重点を移していくという見方が、一部の参加者から
+                                示されています。ただしこれはスレッド1件と少数の返信の範囲で確認できた見解であり、コミュニティ全体の
+                                合意を示すものではない点に留意してください。
+                            </p>
+                        </div>
+
+                        <figure class="diagram">
+                            <div class="mermaid-wrapper" id="diag-ai"></div>
+                            <figcaption>
+                                図5: 開発ライフサイクルにおけるテスターの判断とAIの役割分担
+                            </figcaption>
+                        </figure>
+
+                        <p>
+                            このように、AIはテスト業務の「効率化の担い手」として存在感を増していますが、「何をテストすべきか」
+                            「その結果を信頼してよいか」を判断する部分は、依然として人間のテスターの技能と判断に委ねられています。
+                            これはまさに、本書がコンテキスト駆動アプローチとして20年以上前から主張してきた立場と一致しています。
+                        </p>
+                    </section>
+
+                    <!-- 16. Summary -->
+                    <section id="summary">
+                        <h2>
+                            <i class="ti ti-list-check"></i>16. まとめ ー
+                            明日から使えるチェックリスト
+                        </h2>
+                        <span class="checklist-counter" id="checklistCounter">0 / 9 完了</span>
+                        <ul class="checklist">
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >テストを始める前に「このテストで何を明らかにしたいのか」を言語化したか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >自分をリリースの「ゲートキーパー」だと誤解していないか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >バグレポートは、忙しい相手にも一目で伝わるサマリーになっているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >severity(深刻度)と priority(優先度)を混同していないか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >再現しないバグを「再現しないから」という理由で握りつぶしていないか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >自動化する前に、そもそものテスト手順が整理されているか(汚いプロセスのまま自動化していないか)</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >テスト計画を「一度作って終わりの文書」ではなく「回し続けるプロセス」として扱っているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >AIが生成した結果を無条件に信頼せず、シグナルとノイズを見極めているか</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <label
+                                    ><input type="checkbox" /><span
+                                        >今のテストのやり方は、今のプロジェクトのコンテキスト(状況)に本当に合っているか</span
+                                    ></label
+                                >
+                            </li>
+                        </ul>
+                    </section>
+
+                    <!-- 17. References -->
+                    <section id="references">
+                        <h2><i class="ti ti-link"></i>17. 参考文献・出典</h2>
+                        <p>
+                            本ガイドの作成にあたり、2026年8月31日時点で参照した情報源は以下の通りです。
+                        </p>
+
+                        <div class="ref-group">
+                            <h3><i class="ti ti-book-2"></i>原著と公式情報</h3>
+                            <ul class="ref-list">
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://www.oreilly.com/library/view/lessons-learned-in/9780471081128/"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Lessons Learned in Software Testing: A Context-Driven
+                                            Approach</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">
+                                        O'Reilly / Wiley
+                                        書籍ページ。目次全体(全11章293レッスンの見出し)を含む
+                                    </div>
+                                    <span class="ref-url"
+                                        >https://www.oreilly.com/library/view/lessons-learned-in/9780471081128/</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://www.wiley.com/en-us/Lessons+Learned+in+Software+Testing:+A+Context-Driven+Approach-p-9780471081128"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Lessons Learned in Software Testing</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">Wiley 公式出版社ページ</div>
+                                    <span class="ref-url"
+                                        >https://www.wiley.com/en-us/Lessons+Learned+in+Software+Testing:+A+Context-Driven+Approach-p-9780471081128</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://www.goodreads.com/book/show/26258294"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Lessons Learned in Software Testing (Goodreads)</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">レビュー・概要ページ</div>
+                                    <span class="ref-url"
+                                        >https://www.goodreads.com/book/show/26258294</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://context-driven-testing.com/"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Context-Driven Testing 公式サイト</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">コンテキスト駆動学派の7原則の出典</div>
+                                    <span class="ref-url">https://context-driven-testing.com/</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-users-group"></i>James Bach / Michael Bolton / Cem
+                                Kaner
+                            </h3>
+                            <ul class="ref-list">
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://www.satisfice.com/"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Satisfice, Inc. ー James Bach 公式サイト</a
+                                        >
+                                    </div>
+                                    <span class="ref-url">https://www.satisfice.com/</span>
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://www.thoughtworks.com/insights/blog/disruptive-testing-part-1-james-bach"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Disruptive Testing: Part 1 ー James Bach
+                                            インタビュー</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">Thoughtworks Insights</div>
+                                    <span class="ref-url"
+                                        >https://www.thoughtworks.com/insights/blog/disruptive-testing-part-1-james-bach</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://developsense.com/about-michael-bolton"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >About Michael Bolton ー DevelopSense</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">
+                                        "Taking Testing Seriously" (2025年11月刊) の紹介を含む
+                                    </div>
+                                    <span class="ref-url"
+                                        >https://developsense.com/about-michael-bolton</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://www.amazon.com/Taking-Testing-Seriously-Software-Approach/dp/1394253192"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Taking Testing Seriously: The Rapid Software Testing
+                                            Approach</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">書籍情報(2025年11月刊)</div>
+                                    <span class="ref-url"
+                                        >https://www.amazon.com/Taking-Testing-Seriously-Software-Approach/dp/1394253192</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a href="https://kaner.com/" target="_blank" rel="noopener"
+                                            >Cem Kaner 公式サイト</a
+                                        >
+                                    </div>
+                                    <span class="ref-url">https://kaner.com/</span>
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://kaner.com/pdfs/BugAdvocacy.pdf"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Bug Advocacy (Cem Kaner, PDF資料)</a
+                                        >
+                                    </div>
+                                    <span class="ref-url"
+                                        >https://kaner.com/pdfs/BugAdvocacy.pdf</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://bbst.courses/bbst-bug-advocacy/"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >BBST Bug Advocacy コース概要</a
+                                        >
+                                    </div>
+                                    <span class="ref-url"
+                                        >https://bbst.courses/bbst-bug-advocacy/</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://visible-quality.blogspot.com/2024/02/contemporary-bug-advocacy.html"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >A Seasoned Tester's Crystal Ball: Contemporary Bug
+                                            Advocacy</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">Maaret Pyhäjärvi, 2024年</div>
+                                    <span class="ref-url"
+                                        >https://visible-quality.blogspot.com/2024/02/contemporary-bug-advocacy.html</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3><i class="ti ti-robot"></i>2026年時点のAIとテストに関する動向</h3>
+                            <ul class="ref-list">
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://saucelabs.com/resources/blog/agentic-ai-and-the-future-of-software-testing-a-q-and-a-with-angie-jones"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Agentic AI and the Future of Software Testing</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">Angie Jones インタビュー(Sauce Labs)</div>
+                                    <span class="ref-url"
+                                        >https://saucelabs.com/resources/blog/agentic-ai-and-the-future-of-software-testing-a-q-and-a-with-angie-jones</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://applitools.com/blog/ai-testing-strategy-in-2026/"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >AI Testing in 2026: Why Signal, Trust, and Intentional
+                                            Choices Matter More Than Ever</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">Applitools</div>
+                                    <span class="ref-url"
+                                        >https://applitools.com/blog/ai-testing-strategy-in-2026/</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://club.ministryoftesting.com/t/how-will-software-qa-change-in-2026-with-ai-agents-and-which-qa-roles-will-be-most-valuable/86992"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >How will Software QA change in 2026 with AI/Agents</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">
+                                        ディスカッションスレッド(Ministry of Testing)
+                                    </div>
+                                    <span class="ref-url"
+                                        >https://club.ministryoftesting.com/t/how-will-software-qa-change-in-2026-with-ai-agents-and-which-qa-roles-will-be-most-valuable/86992</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://www.n-ix.com/software-testing-best-practices/"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >Software testing best practices for 2026</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">N-iX</div>
+                                    <span class="ref-url"
+                                        >https://www.n-ix.com/software-testing-best-practices/</span
+                                    >
+                                </li>
+                                <li class="ref-item">
+                                    <div class="ref-title">
+                                        <a
+                                            href="https://www.evozon.com/how-ai-is-redefining-software-testing-practices-in-2026/"
+                                            target="_blank"
+                                            rel="noopener"
+                                            >How AI Is Redefining Software Testing Practices in
+                                            2026</a
+                                        >
+                                    </div>
+                                    <div class="ref-desc">Evozon</div>
+                                    <span class="ref-url"
+                                        >https://www.evozon.com/how-ai-is-redefining-software-testing-practices-in-2026/</span
+                                    >
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+
+                <div class="footer">
+                    本ガイドは教育目的の要約・解説であり、原著の文章を逐語的に引用したものではありません。
+                    正確な原文や全293レッスンの詳細については、上記リンクから原著(Wiley刊)をご参照ください。
+                </div>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"></script>
+        <script>
+            const DIAGRAMS = {
+                'diag-overview': `flowchart TB
+    subgraph S1["基礎編 テスターとしての土台"]
+        A1["第1章 テスターの役割"]
+        A2["第2章 テスターの思考法"]
+        A1 --> A2
+    end
+    subgraph S2["実践編 手を動かす技術"]
+        B1["第3章 テスト技法"]
+        B2["第4章 バグアドボカシー"]
+        B3["第5章 テスト自動化"]
+        B1 --> B2 --> B3
+    end
+    subgraph S3["運用編 現場で人と回す"]
+        C1["第6章 テストの文書化"]
+        C2["第7章 プログラマーとの協働"]
+        C3["第8章 プロジェクト管理"]
+        C4["第9章 チーム管理"]
+        C1 --> C2 --> C3 --> C4
+    end
+    subgraph S4["発展編 キャリアと戦略"]
+        D1["第10章 キャリア形成"]
+        D2["第11章 テスト戦略の立案"]
+        D1 --> D2
+    end
+    S1 --> S2 --> S3 --> S4`,
+
+                'diag-techniques': `flowchart TB
+    P["人ベースの技法"] --> Hub["状況に応じて組み合わせるテスト技法"]
+    C["カバレッジベースの技法"] --> Hub
+    R["問題ベースの技法"] --> Hub
+    Ac["活動ベースの技法"] --> Hub
+    E["評価ベースの技法"] --> Hub
+    classDef hub fill:#e9c874,stroke:#8a6708,stroke-width:2px,color:#241a00
+    class Hub hub`,
+
+                'diag-bug': `flowchart TB
+    A["バグを発見する"] --> B["再現条件を調査する"]
+    B --> C["説得力のある報告を書く"]
+    C --> D["トリアージで優先度を議論する"]
+    D --> E{"修正されるか"}
+    E -->|"修正される"| F["修正内容を検証する"]
+    E -->|"延期される"| G["延期理由を記録し追跡し続ける"]
+    F --> H{"正しく直っているか"}
+    H -->|"はい"| I["レポートをクローズする"]
+    H -->|"いいえ"| C
+    G --> J["次のリリース判断時に再度取り上げる"]
+    classDef done fill:#cfe3d6,stroke:#3f6b4a,stroke-width:2px,color:#123319
+    class I done`,
+
+                'diag-plan': `flowchart TB
+    S1["1 主要な課題を把握する"] --> S2["2 ミッションを明確にする"]
+    S2 --> S3["3 プロダクトを分析する"]
+    S3 --> S4["4 プロダクトリスクを分析する"]
+    S4 --> S5["5 テスト戦略を設計する"]
+    S5 --> S6["6 ロジスティクスを計画する"]
+    S6 --> S7["7 計画を共有する"]
+    S7 -.->|"新しい情報をもとに再び見直す"| S1
+    classDef hub fill:#e9c874,stroke:#8a6708,stroke-width:2px,color:#241a00
+    class S5 hub`,
+
+                'diag-ai': `flowchart LR
+    Plan["計画"] --> Dev["開発"]
+    Dev --> CI["CI CDでのテスト自動化"]
+    CI --> Prod["本番運用"]
+    Tester["テスターの探索的思考と判断"] -.->|"リスクを見極める"| Plan
+    Tester -.->|"バグアドボカシー"| Dev
+    AI["AI支援のテスト生成と保守"] -.->|"効率化を提供"| CI
+    Tester -.->|"シグナルを検証しノイズを除く"| CI
+    classDef done fill:#cfe3d6,stroke:#3f6b4a,stroke-width:2px,color:#123319
+    class Prod done`,
+            };
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                themeVariables: {
+                    background: '#faf7f2',
+                    primaryColor: '#eef1fa',
+                    primaryBorderColor: '#3b4d8f',
+                    primaryTextColor: '#2b2621',
+                    lineColor: '#6b6258',
+                    secondaryColor: '#f1ebe0',
+                    tertiaryColor: '#f1ebe0',
+                    clusterBkg: '#f1ebe0',
+                    clusterBorder: '#c9a227',
+                    edgeLabelBackground: '#faf7f2',
+                    fontFamily:
+                        '-apple-system,BlinkMacSystemFont,Segoe UI,Hiragino Kaku Gothic ProN,Noto Sans JP,sans-serif',
+                    fontSize: '16px',
+                },
+                flowchart: {
+                    useMaxWidth: false,
+                    htmlLabels: true,
+                    subGraphTitleMargin: { top: 10, bottom: 28 },
+                },
+            });
+
+            async function renderDiagrams() {
+                for (const [id, src] of Object.entries(DIAGRAMS)) {
+                    const container = document.getElementById(id);
+                    if (!container) continue;
+                    try {
+                        const { svg } = await mermaid.render(id + '-svg', src);
+                        container.innerHTML = svg;
+                        const svgEl = container.querySelector('svg');
+                        if (svgEl) {
+                            const vb = svgEl.viewBox && svgEl.viewBox.baseVal;
+                            svgEl.removeAttribute('width');
+                            svgEl.removeAttribute('height');
+                            if (vb && vb.width) {
+                                svgEl.style.width = vb.width + 'px';
+                                svgEl.setAttribute(
+                                    'viewBox',
+                                    `${vb.x} ${vb.y} ${vb.width} ${vb.height + 15}`,
+                                );
+                            }
+                            svgEl.style.maxWidth = '100%';
+                            svgEl.style.height = 'auto';
+                            svgEl.style.overflow = 'visible';
+                            svgEl.style.flexShrink = '0';
+                        }
+                    } catch (err) {
+                        container.innerHTML =
+                            '<p style="color:#a33;padding:1rem;">図の描画に失敗しました。</p>';
+                        console.error('mermaid render failed for', id, err);
+                    }
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', () => {
+                renderDiagrams();
+
+                // Sidebar active-link highlighting
+                const navLinks = Array.from(document.querySelectorAll('.sidebar nav a'));
+                const sections = Array.from(document.querySelectorAll('.main section[id]'));
+                const observer = new IntersectionObserver(
+                    (entries) => {
+                        entries.forEach((entry) => {
+                            if (!entry.isIntersecting) return;
+                            const id = entry.target.id;
+                            navLinks.forEach((l) => l.classList.remove('active'));
+                            const active = document.querySelector(`.sidebar nav a[href="#${id}"]`);
+                            if (active) active.classList.add('active');
+                        });
+                    },
+                    { rootMargin: '-20% 0px -70% 0px' },
+                );
+                sections.forEach((s) => observer.observe(s));
+
+                // Mobile sidebar toggle
+                const toggleBtn = document.getElementById('mobileToggle');
+                const sidebar = document.getElementById('sidebar');
+                if (toggleBtn && sidebar) {
+                    toggleBtn.addEventListener('click', () => sidebar.classList.toggle('open'));
+                    navLinks.forEach((l) =>
+                        l.addEventListener('click', () => sidebar.classList.remove('open')),
+                    );
+                }
+
+                // Checklist counter
+                const checklistBoxes = Array.from(
+                    document.querySelectorAll(".checklist input[type='checkbox']"),
+                );
+                const counterEl = document.getElementById('checklistCounter');
+                function updateCounter() {
+                    const total = checklistBoxes.length;
+                    const done = checklistBoxes.filter((cb) => cb.checked).length;
+                    if (counterEl) counterEl.textContent = `${done} / ${total} 完了`;
+                    checklistBoxes.forEach((cb) => {
+                        const li = cb.closest('li');
+                        if (li) li.classList.toggle('done', cb.checked);
+                    });
+                }
+                checklistBoxes.forEach((cb) => cb.addEventListener('change', updateCounter));
+                updateCounter();
+            });
+        </script>
+    </body>
+</html>

@@ -64,7 +64,12 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/cucumber-beginner-guide', h1: /Cucumber.*入門ガイド/ },
   { path: '/cypress-beginner-guide', h1: /Cypress.*入門ガイド/ },
   { path: '/selenium-beginner-guide', h1: /Selenium.*完全ガイド/ },
+  { path: '/clean-code-cookbook-guide', h1: /Clean Code Cookbook 実践ガイド/ },
+  { path: '/the-way-of-the-web-tester-guide', h1: /The Way of the Web Tester.*実践ガイド/ },
+  { path: '/testing-web-apis-guide', h1: /Web APIテスト実践ガイド/ },
+  { path: '/software-test-design-guide', h1: /Software Test Design.*実践ガイド/s },
+  { path: '/secure-by-design-guide', h1: /セキュア・バイ・デザイン/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 51;
+export const EXPECTED_PAGE_COUNT = 56;
 

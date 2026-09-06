@@ -392,21 +392,21 @@ flowchart LR
 本ガイドの作成にあたり、2026年8月31日時点で参照した情報源は以下の通りです。
 
 - <a href="https://www.oreilly.com/library/view/lessons-learned-in/9780471081128/" target="_blank" rel="noopener noreferrer">Lessons Learned in Software Testing: A Context-Driven Approach（O'Reilly / Wiley 書籍ページ、目次全体を含む）</a>
-- [Lessons Learned in Software Testing（Wiley 公式出版社ページ）](https://www.wiley.com/en-us/Lessons+Learned+in+Software+Testing:+A+Context-Driven+Approach-p-9780471081128)
-- [Lessons Learned in Software Testing（Goodreads レビュー・概要ページ）](https://www.goodreads.com/book/show/26258294)
-- [Context-Driven Testing 公式サイト ー コンテキスト駆動学派の7原則](https://context-driven-testing.com/)
-- [Satisfice, Inc. ー James Bach 公式サイト](https://www.satisfice.com/)
-- [Disruptive Testing: Part 1 ー James Bach インタビュー（Thoughtworks）](https://www.thoughtworks.com/insights/blog/disruptive-testing-part-1-james-bach)
-- [About Michael Bolton ー DevelopSense（『Taking Testing Seriously』2025年11月刊の紹介を含む）](https://developsense.com/about-michael-bolton)
-- [Taking Testing Seriously: The Rapid Software Testing Approach（書籍情報）](https://www.amazon.com/Taking-Testing-Seriously-Software-Approach/dp/1394253192)
-- [Cem Kaner 公式サイト](https://kaner.com/)
-- [Bug Advocacy（Cem Kaner、PDF資料）](https://kaner.com/pdfs/BugAdvocacy.pdf)
-- [BBST Bug Advocacy コース概要](https://bbst.courses/bbst-bug-advocacy/)
-- [A Seasoned Tester's Crystal Ball: Contemporary Bug Advocacy（Maaret Pyhäjärvi、2024年）](https://visible-quality.blogspot.com/2024/02/contemporary-bug-advocacy.html)
-- [Agentic AI and the Future of Software Testing ー Angie Jones インタビュー（Sauce Labs）](https://saucelabs.com/resources/blog/agentic-ai-and-the-future-of-software-testing-a-q-and-a-with-angie-jones)
-- [AI Testing in 2026: Why Signal, Trust, and Intentional Choices Matter More Than Ever（Applitools）](https://applitools.com/blog/ai-testing-strategy-in-2026/)
-- [How will Software QA change in 2026 with AI/Agents ー ディスカッション（Ministry of Testing）](https://club.ministryoftesting.com/t/how-will-software-qa-change-in-2026-with-ai-agents-and-which-qa-roles-will-be-most-valuable/86992)
-- [Software testing best practices for 2026（N-iX）](https://www.n-ix.com/software-testing-best-practices/)
-- [How AI Is Redefining Software Testing Practices in 2026（Evozon）](https://www.evozon.com/how-ai-is-redefining-software-testing-practices-in-2026/)
+- <a href="https://www.wiley.com/en-us/Lessons+Learned+in+Software+Testing:+A+Context-Driven+Approach-p-9780471081128" target="_blank" rel="noopener noreferrer">Lessons Learned in Software Testing（Wiley 公式出版社ページ）</a>
+- <a href="https://www.goodreads.com/book/show/26258294" target="_blank" rel="noopener noreferrer">Lessons Learned in Software Testing（Goodreads レビュー・概要ページ）</a>
+- <a href="https://context-driven-testing.com/" target="_blank" rel="noopener noreferrer">Context-Driven Testing 公式サイト ー コンテキスト駆動学派の7原則</a>
+- <a href="https://www.satisfice.com/" target="_blank" rel="noopener noreferrer">Satisfice, Inc. ー James Bach 公式サイト</a>
+- <a href="https://www.thoughtworks.com/insights/blog/disruptive-testing-part-1-james-bach" target="_blank" rel="noopener noreferrer">Disruptive Testing: Part 1 ー James Bach インタビュー（Thoughtworks）</a>
+- <a href="https://developsense.com/about-michael-bolton" target="_blank" rel="noopener noreferrer">About Michael Bolton ー DevelopSense（『Taking Testing Seriously』2025年11月刊の紹介を含む）</a>
+- <a href="https://www.amazon.com/Taking-Testing-Seriously-Software-Approach/dp/1394253192" target="_blank" rel="noopener noreferrer">Taking Testing Seriously: The Rapid Software Testing Approach（書籍情報）</a>
+- <a href="https://kaner.com/" target="_blank" rel="noopener noreferrer">Cem Kaner 公式サイト</a>
+- <a href="https://kaner.com/pdfs/BugAdvocacy.pdf" target="_blank" rel="noopener noreferrer">Bug Advocacy（Cem Kaner、PDF資料）</a>
+- <a href="https://bbst.courses/bbst-bug-advocacy/" target="_blank" rel="noopener noreferrer">BBST Bug Advocacy コース概要</a>
+- <a href="https://visible-quality.blogspot.com/2024/02/contemporary-bug-advocacy.html" target="_blank" rel="noopener noreferrer">A Seasoned Tester's Crystal Ball: Contemporary Bug Advocacy（Maaret Pyhäjärvi、2024年）</a>
+- <a href="https://saucelabs.com/resources/blog/agentic-ai-and-the-future-of-software-testing-a-q-and-a-with-angie-jones" target="_blank" rel="noopener noreferrer">Agentic AI and the Future of Software Testing ー Angie Jones インタビュー（Sauce Labs）</a>
+- <a href="https://applitools.com/blog/ai-testing-strategy-in-2026/" target="_blank" rel="noopener noreferrer">AI Testing in 2026: Why Signal, Trust, and Intentional Choices Matter More Than Ever（Applitools）</a>
+- <a href="https://club.ministryoftesting.com/t/how-will-software-qa-change-in-2026-with-ai-agents-and-which-qa-roles-will-be-most-valuable/86992" target="_blank" rel="noopener noreferrer">How will Software QA change in 2026 with AI/Agents ー ディスカッション（Ministry of Testing）</a>
+- <a href="https://www.n-ix.com/software-testing-best-practices/" target="_blank" rel="noopener noreferrer">Software testing best practices for 2026（N-iX）</a>
+- <a href="https://www.evozon.com/how-ai-is-redefining-software-testing-practices-in-2026/" target="_blank" rel="noopener noreferrer">How AI Is Redefining Software Testing Practices in 2026（Evozon）</a>
 
 > 本ガイドは教育目的の要約・解説であり、原著の文章を逐語的に引用したものではありません。正確な原文や全293レッスンの詳細については、上記リンクから原著（Wiley刊）をご参照ください。

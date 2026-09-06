@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 51 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 4 tools-frameworks)', () => {
-    expect(NAV_ITEMS).toHaveLength(51);
+  it('contains 56 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 4 tools-frameworks + 5 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(56);
   });
 
   it('every item has a unique href', () => {
@@ -89,6 +89,36 @@ describe('NAV_ITEMS', () => {
     const sel = NAV_ITEMS.find((item: NavItem) => item.href === '/selenium-beginner-guide');
     expect(sel).toBeDefined();
     expect(sel?.category).toBe('tools-frameworks');
+  });
+
+  it('classifies /clean-code-cookbook-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/clean-code-cookbook-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
+  it('classifies /the-way-of-the-web-tester-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/the-way-of-the-web-tester-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
+  it('classifies /testing-web-apis-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/testing-web-apis-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
+  it('classifies /software-test-design-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/software-test-design-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
+  it('classifies /secure-by-design-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/secure-by-design-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
   });
 
   it('classifies home "/" as home category and labels it as the guide index', () => {
@@ -177,6 +207,7 @@ describe('groupByCategory', () => {
       'istqb-expert',
       'cicd-devops',
       'tools-frameworks',
+      'books-practices',
     ]);
   });
 
@@ -193,6 +224,12 @@ describe('groupByCategory', () => {
   it('places 4 items in the tools-frameworks group', () => {
     const tools = groupByCategory(NAV_ITEMS).find((g) => g.category === 'tools-frameworks');
     expect(tools?.items).toHaveLength(4);
+  });
+
+  it('places 5 items in the books-practices group', () => {
+    const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
+    expect(books?.items).toHaveLength(5);
+    expect(books?.title).toBe('名著・実践ガイド');
   });
 
   it('assigns a non-empty display title to every group', () => {
@@ -241,13 +278,16 @@ describe('groupByCategory extensibility', () => {
   });
 
   it('surfaces the reserved books-practices category once it receives an item', () => {
+    const withoutBooks = NAV_ITEMS.filter((i) => i.category !== 'books-practices');
+    expect(groupByCategory(withoutBooks).some((g) => g.category === 'books-practices')).toBe(false);
+
     const book: NavItem = {
       href: '/leading-quality-guide',
       label: 'Leading Quality ガイド',
       description: '品質文化とリーダーシップを扱う名著ガイド。',
       category: 'books-practices',
     };
-    const groups = groupByCategory([...NAV_ITEMS, book]);
+    const groups = groupByCategory([...withoutBooks, book]);
     expect(groups.map((g) => g.category)).toEqual([
       'home',
       'foundation',

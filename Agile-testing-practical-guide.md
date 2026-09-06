@@ -34,7 +34,7 @@
 | ページ数 | 576ページ |
 | 序文 | Mike Cohn、Brian Marick |
 | 対象レベル | 初級〜中級 |
-| O'Reilly掲載ページ | <https://www.oreilly.com/library/view/agile-testing-a/9780321616944/> |
+| O'Reilly掲載ページ | <a href="https://www.oreilly.com/library/view/agile-testing-a/9780321616944/" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/agile-testing-a/9780321616944/</a> |
 
 この本は、テスターとQAマネージャーが「アジャイルチームの中でテスターは何をすべきか」という長年の疑問に答えるために書かれた、アジャイルテスト分野における最初期の体系的な実践書のひとつです。単なる理論書ではなく、実際のアジャイルチームで働いていた著者らの経験と、寄稿された数多くの実例（ストーリー）で構成されているのが特徴です。
 
@@ -317,21 +317,21 @@ flowchart TB
 
 ## 参考文献・出典URL
 
-- Lisa Crispin, Janet Gregory. *Agile Testing: A Practical Guide for Testers and Agile Teams*（O'Reilly掲載ページ／目次） — <https://www.oreilly.com/library/view/agile-testing-a/9780321616944/>
-- Amazon 書籍ページ（書誌情報） — <https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468>
-- Lisa Crispin, *"The Agile Testing Quadrants"*（2024年・最新版4象限図） — <https://lisacrispin.com/2024/10/11/the-agile-testing-quadrants/>
-- Lisa Crispin, *"Using the Agile Testing Quadrants"*（2011年） — <https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/>
-- Lisa Crispin, *"The Whole Team Approach"*（2009年） — <https://lisacrispin.com/2009/01/30/the-whole-team-approach/>
-- Lisa Crispin, *"Learn how to apply the Holistic Testing Model"*（2023年） — <https://lisacrispin.com/2023/05/15/holistic-testing-model-mini-book/>
-- Lisa Crispin, *"AI, testing, and the DORA AI Capabilities Model"*（2026年4月） — <https://lisacrispin.com/2026/04/20/ai-testing-and-the-dora-ai-capabilities-model/>
-- Jeff Langr, Tim Ottinger, *"Ten Principles for Agile Testers"*, Agile in a Flash（2009年） — <http://agileinaflash.blogspot.com/2009/03/ten-principles-for-agile-testers.html>
-- Martin Fowler, *"TestPyramid"*（Bliki） — <https://martinfowler.com/bliki/TestPyramid.html>
-- Martin Fowler / Ham Vocke, *"The Practical Test Pyramid"* — <https://martinfowler.com/articles/practical-test-pyramid.html>
-- Martin Fowler, *"On the Diverse And Fantastical Shapes of Testing"*（2021年） — <https://martinfowler.com/articles/2021-test-shapes.html>
-- Elisabeth Hendrickson, *Explore It!: Reduce Risk and Increase Confidence with Exploratory Testing*（Pragmatic Programmers） — <https://pragprog.com/titles/ehxta/explore-it/>
-- Gojko Adzic, *"Agile Testing (Crispin/Gregory) is a great book, long overdue"*（書評） — <https://gojko.net/2009/02/23/agile-testing-crispingregory-is-a-great-book-long-overdue/>
-- Tech Lead Journal, *"#92 - Agile and Holistic Testing - Janet Gregory & Lisa Crispin"*（2022年） — <https://techleadjournal.dev/episodes/92/>
-- PMI Disciplined Agile, *"Testing Quadrants"*（4象限の背景解説） — <https://www.pmi.org/disciplined-agile/agile/testingquadrants>
-- InfoQ, *"Book Excerpt: Agile Testing"*（第21章「Key Success Factors」の抜粋紹介） — <https://www.infoq.com/articles/agile-testing-book-excerpt/>
+- Lisa Crispin, Janet Gregory. *Agile Testing: A Practical Guide for Testers and Agile Teams*（O'Reilly掲載ページ／目次） — <a href="https://www.oreilly.com/library/view/agile-testing-a/9780321616944/" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/agile-testing-a/9780321616944/</a>
+- Amazon 書籍ページ（書誌情報） — <a href="https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468" target="_blank" rel="noopener noreferrer">https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468</a>
+- Lisa Crispin, *"The Agile Testing Quadrants"*（2024年・最新版4象限図） — <a href="https://lisacrispin.com/2024/10/11/the-agile-testing-quadrants/" target="_blank" rel="noopener noreferrer">https://lisacrispin.com/2024/10/11/the-agile-testing-quadrants/</a>
+- Lisa Crispin, *"Using the Agile Testing Quadrants"*（2011年） — <a href="https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/" target="_blank" rel="noopener noreferrer">https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/</a>
+- Lisa Crispin, *"The Whole Team Approach"*（2009年） — <a href="https://lisacrispin.com/2009/01/30/the-whole-team-approach/" target="_blank" rel="noopener noreferrer">https://lisacrispin.com/2009/01/30/the-whole-team-approach/</a>
+- Lisa Crispin, *"Learn how to apply the Holistic Testing Model"*（2023年） — <a href="https://lisacrispin.com/2023/05/15/holistic-testing-model-mini-book/" target="_blank" rel="noopener noreferrer">https://lisacrispin.com/2023/05/15/holistic-testing-model-mini-book/</a>
+- Lisa Crispin, *"AI, testing, and the DORA AI Capabilities Model"*（2026年4月） — <a href="https://lisacrispin.com/2026/04/20/ai-testing-and-the-dora-ai-capabilities-model/" target="_blank" rel="noopener noreferrer">https://lisacrispin.com/2026/04/20/ai-testing-and-the-dora-ai-capabilities-model/</a>
+- Jeff Langr, Tim Ottinger, *"Ten Principles for Agile Testers"*, Agile in a Flash（2009年） — <a href="https://agileinaflash.blogspot.com/2009/03/ten-principles-for-agile-testers.html" target="_blank" rel="noopener noreferrer">https://agileinaflash.blogspot.com/2009/03/ten-principles-for-agile-testers.html</a>
+- Martin Fowler, *"TestPyramid"*（Bliki） — <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/bliki/TestPyramid.html</a>
+- Martin Fowler / Ham Vocke, *"The Practical Test Pyramid"* — <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/articles/practical-test-pyramid.html</a>
+- Martin Fowler, *"On the Diverse And Fantastical Shapes of Testing"*（2021年） — <a href="https://martinfowler.com/articles/2021-test-shapes.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/articles/2021-test-shapes.html</a>
+- Elisabeth Hendrickson, *Explore It!: Reduce Risk and Increase Confidence with Exploratory Testing*（Pragmatic Programmers） — <a href="https://pragprog.com/titles/ehxta/explore-it/" target="_blank" rel="noopener noreferrer">https://pragprog.com/titles/ehxta/explore-it/</a>
+- Gojko Adzic, *"Agile Testing (Crispin/Gregory) is a great book, long overdue"*（書評） — <a href="https://gojko.net/2009/02/23/agile-testing-crispingregory-is-a-great-book-long-overdue/" target="_blank" rel="noopener noreferrer">https://gojko.net/2009/02/23/agile-testing-crispingregory-is-a-great-book-long-overdue/</a>
+- Tech Lead Journal, *"#92 - Agile and Holistic Testing - Janet Gregory & Lisa Crispin"*（2022年） — <a href="https://techleadjournal.dev/episodes/92/" target="_blank" rel="noopener noreferrer">https://techleadjournal.dev/episodes/92/</a>
+- PMI Disciplined Agile, *"Testing Quadrants"*（4象限の背景解説） — <a href="https://www.pmi.org/disciplined-agile/agile/testingquadrants" target="_blank" rel="noopener noreferrer">https://www.pmi.org/disciplined-agile/agile/testingquadrants</a>
+- InfoQ, *"Book Excerpt: Agile Testing"*（第21章「Key Success Factors」の抜粋紹介） — <a href="https://www.infoq.com/articles/agile-testing-book-excerpt/" target="_blank" rel="noopener noreferrer">https://www.infoq.com/articles/agile-testing-book-excerpt/</a>
 
 *本ガイドは2026年9月2日時点で確認できる公開情報をもとに作成しています。各リンク先の内容は今後更新される可能性があるため、最新の議論については著者らのブログ（lisacrispin.com、agiletester.ca）を直接ご確認ください。*

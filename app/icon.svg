@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32" role="img" aria-label="QA Studies">
+  <!--
+    ガイド index（/）のデザイン芯「階段＝資格レベルの階梯」を縮約したアイコン。
+    段が上がるほど寒色から暖色へ移るのは globals.css のレベルランプと同じ符号で、
+    グラデーションの向き（左下から右上）は index のヒーローの階段と一致させている。
+    16px でも段差が読めるよう、塗りではなく太いストロークで階段の稜線だけを描く。
+  -->
+  <defs>
+    <linearGradient id="qa-level-ramp" x1="4" y1="26" x2="28" y2="6" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#4fd1c5"/>
+      <stop offset="0.5" stop-color="#a78bfa"/>
+      <stop offset="1" stop-color="#f687b3"/>
+    </linearGradient>
+  </defs>
+  <rect width="32" height="32" rx="7" fill="#0a0e1a"/>
+  <rect x="0.5" y="0.5" width="31" height="31" rx="6.5" fill="none" stroke="#63b3ed" stroke-opacity="0.28"/>
+  <path d="M4 26h7v-7h7v-7h7V5" fill="none" stroke="url(#qa-level-ramp)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

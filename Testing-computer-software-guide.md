@@ -521,37 +521,37 @@ flowchart TB
 ## 18. 参考文献・出典URL一覧
 
 1. Cem Kaner, Jack L. Falk, Hung Quoc Nguyen, *Testing Computer Software* (Google Books書誌情報)
-   <a href="https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y" target="_blank" rel="noopener noreferrer">https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y</a>
+   <a href="https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&amp;redir_esc=y" target="_blank" rel="noopener noreferrer">https://books.google.co.jp/books/about/Testing_Computer_Software.html?id=67JQAAAAMAAJ&redir_esc=y</a>
 2. ISTQB(International Software Testing Qualifications Board)公式サイト
-   <https://istqb.org/>
+   <a href="https://istqb.org/" target="_blank" rel="noopener noreferrer">https://istqb.org/</a>
 3. ISTQB Certified Tester Foundation Level (CTFL) v4.0
-   <https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/>
+   <a href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/" target="_blank" rel="noopener noreferrer">https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/</a>
 4. Martin Fowler / Ham Vocke, "The Practical Test Pyramid"
-   <https://martinfowler.com/articles/practical-test-pyramid.html>
+   <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/articles/practical-test-pyramid.html</a>
 5. Martin Fowler, "Test Pyramid" (Bliki)
-   <https://martinfowler.com/bliki/TestPyramid.html>
+   <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/bliki/TestPyramid.html</a>
 6. Martin Fowler, "Test Driven Development" (Bliki)
-   <https://www.martinfowler.com/bliki/TestDrivenDevelopment.html>
+   <a href="https://www.martinfowler.com/bliki/TestDrivenDevelopment.html" target="_blank" rel="noopener noreferrer">https://www.martinfowler.com/bliki/TestDrivenDevelopment.html</a>
 7. Google Testing Blog, "Just Say No to More End-to-End Tests" (2015)
-   <https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html>
+   <a href="https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html" target="_blank" rel="noopener noreferrer">https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html</a>
 8. Kent C. Dodds, "Static vs Unit vs Integration vs E2E Testing for Frontend Apps"
-   <https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests>
+   <a href="https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests" target="_blank" rel="noopener noreferrer">https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests</a>
 9. Kent C. Dodds, "The Testing Trophy and Testing Classifications"
-   <https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications>
+   <a href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications" target="_blank" rel="noopener noreferrer">https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications</a>
 10. Kent C. Dodds, "Write tests. Not too many. Mostly integration."
-    <https://kentcdodds.com/blog/write-tests>
+    <a href="https://kentcdodds.com/blog/write-tests" target="_blank" rel="noopener noreferrer">https://kentcdodds.com/blog/write-tests</a>
 11. James Bach, Satisfice, Inc.(Rapid Software Testing / Context-Driven School)
-    <https://www.satisfice.com/>
+    <a href="https://www.satisfice.com/" target="_blank" rel="noopener noreferrer">https://www.satisfice.com/</a>
 12. James Bach & Michael Bolton, Rapid Software Testing 著者紹介ページ
-    <https://rapid-software-testing.com/authors/>
+    <a href="https://rapid-software-testing.com/authors/" target="_blank" rel="noopener noreferrer">https://rapid-software-testing.com/authors/</a>
 13. Simon Tatham, "How to Report Bugs Effectively"
-    <https://www.chiark.greenend.org.uk/~sgtatham/bugs.html>
+    <a href="https://www.chiark.greenend.org.uk/~sgtatham/bugs.html" target="_blank" rel="noopener noreferrer">https://www.chiark.greenend.org.uk/~sgtatham/bugs.html</a>
 14. Tricentis, "QA trends for 2026: AI, agents, and the future of testing"
-    <https://www.tricentis.com/blog/qa-trends-ai-agentic-testing>
+    <a href="https://www.tricentis.com/blog/qa-trends-ai-agentic-testing" target="_blank" rel="noopener noreferrer">https://www.tricentis.com/blog/qa-trends-ai-agentic-testing</a>
 15. NIST, "The Economic Impacts of Inadequate Infrastructure for Software Testing" (2002)
-    <https://www.nist.gov/document/report02-3pdf>
+    <a href="https://www.nist.gov/document/report02-3pdf" target="_blank" rel="noopener noreferrer">https://www.nist.gov/document/report02-3pdf</a>
 16. DORA, "Continuous integration" (DORA Core ケイパビリティ解説)
-    <https://dora.dev/capabilities/continuous-integration/>
+    <a href="https://dora.dev/capabilities/continuous-integration/" target="_blank" rel="noopener noreferrer">https://dora.dev/capabilities/continuous-integration/</a>
 
 > 上記のうち1〜3は一次情報源(書誌情報・標準化団体)、4〜13は国際的に著名な
 > ソフトウェアエンジニア/テストエンジニア個人が発信している一次情報、14は

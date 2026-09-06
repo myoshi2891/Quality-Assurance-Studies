@@ -1,0 +1,742 @@
+/* ==========================================================================
+   Testing Web APIs Guide - Page-Specific Styles
+   ========================================================================== */
+
+.testing-web-apis-page {
+    --bg: #07111e;
+    --panel: #0d1a2e;
+    --panel-2: #132238;
+    --border: #1e3050;
+    --accent: #7c9eff;
+    --accent-2: #6dd3c7;
+    --text: #e8eefc;
+    --text-dim: #a9b8d6;
+    --text-dimmer: #7c8bab;
+    --danger: #ff8a8a;
+    --ok: #7ee0a8;
+    --warn: #ffd27c;
+    --sidebar-w: 300px;
+
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.85;
+    font-size: 16px;
+    min-height: 100vh;
+    width: 100%;
+}
+
+.testing-web-apis-page * {
+    box-sizing: border-box;
+}
+
+.testing-web-apis-page a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.testing-web-apis-page a:hover {
+    text-decoration: underline;
+}
+
+.testing-web-apis-page .layout {
+    display: block;
+    position: relative;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.testing-web-apis-page section {
+    padding-top: 0;
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
+}
+
+.testing-web-apis-page .hero {
+    min-height: 0;
+    display: block;
+    padding: 3rem 0 2.5rem;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 2.75rem;
+    max-width: none;
+}
+
+.testing-web-apis-page .main {
+    flex: 1 1 auto;
+    max-width: none !important;
+    width: auto !important;
+    margin: 0 !important;
+    margin-left: var(--sidebar-w) !important;
+    padding: 0 3.5rem 5rem;
+    background: transparent;
+}
+
+/* ---------- Sidebar (Desktop) ---------- */
+.testing-web-apis-page .sidebar {
+    position: fixed;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    left: 0;
+    width: var(--sidebar-w);
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    overflow-y: auto;
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    padding: 1.75rem 1.25rem 2.5rem;
+    z-index: 40;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+}
+
+.testing-web-apis-page .sidebar .brand {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.35rem;
+    letter-spacing: 0.02em;
+}
+
+.testing-web-apis-page .sidebar .brand-sub {
+    font-size: 0.85rem;
+    color: var(--text-dimmer);
+    margin: 0 0 1.5rem;
+}
+
+.testing-web-apis-page .sidebar nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.testing-web-apis-page .sidebar a.nav-link {
+    display: block;
+    padding: 0.55rem 0.7rem;
+    border-radius: 8px;
+    color: var(--text-dim);
+    font-size: 0.92rem;
+    line-height: 1.4;
+    border-left: 2px solid transparent;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.testing-web-apis-page .sidebar a.nav-link:hover {
+    background: var(--panel-2);
+    color: var(--text);
+}
+
+.testing-web-apis-page .sidebar a.nav-link.active {
+    background: var(--panel-2);
+    color: var(--accent);
+    border-left: 2px solid var(--accent);
+    font-weight: 600;
+}
+
+.testing-web-apis-page .sidebar .toc-group-label {
+    font-size: 0.78rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-dimmer);
+    margin: 1.25rem 0 0.4rem 0.7rem;
+    font-weight: 700;
+}
+
+.testing-web-apis-page .sidebar .toc-group-label:first-of-type {
+    margin-top: 0.5rem;
+}
+
+/* ---------- Mobile Toggle & Backdrop ---------- */
+.testing-web-apis-page .nav-toggle {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 50;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: #07111e;
+    border: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    align-items: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.testing-web-apis-page .sidebar-backdrop {
+    display: none;
+}
+
+/* ---------- Hero ---------- */
+.testing-web-apis-page .hero .eyebrow {
+    display: inline-block;
+    font-size: 0.9rem;
+    color: var(--accent-2);
+    background: rgba(109, 211, 199, 0.1);
+    border: 1px solid rgba(109, 211, 199, 0.35);
+    padding: 0.3rem 0.8rem;
+    border-radius: 999px;
+    margin-bottom: 1.25rem;
+    letter-spacing: 0.02em;
+}
+
+.testing-web-apis-page .hero h1 {
+    font-size: 2.4rem;
+    line-height: 1.35;
+    margin: 0 0 1rem;
+    background: linear-gradient(90deg, var(--accent), var(--accent-2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 800;
+}
+
+/* 強制カラーモードでは背景クリップが効かず見出しが消えるため、単色へフォールバックする */
+@media (forced-colors: active) {
+    .testing-web-apis-page .hero h1 {
+        background: none;
+        -webkit-text-fill-color: currentColor;
+    }
+}
+
+.testing-web-apis-page .hero p.lede {
+    font-size: 1.12rem;
+    color: var(--text-dim);
+    max-width: none;
+    margin: 0 0 1.5rem;
+    line-height: 1.8;
+}
+
+.testing-web-apis-page .hero .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+}
+
+.testing-web-apis-page .chip {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+}
+
+/* ---------- Prose & Typography ---------- */
+.testing-web-apis-page .prose {
+    max-width: none;
+    overflow-wrap: break-word;
+}
+
+.testing-web-apis-page .prose p {
+    max-width: none;
+    overflow-wrap: break-word;
+    margin: 0 0 1.15rem;
+}
+
+.testing-web-apis-page .prose ul:not(.ref-list),
+.testing-web-apis-page .prose ol:not(.ref-list) {
+    margin: 0 0 1.25rem;
+    padding-left: 1.4rem;
+}
+
+.testing-web-apis-page .prose ul:not(.ref-list) {
+    list-style-type: disc !important;
+}
+
+.testing-web-apis-page .prose ol:not(.ref-list) {
+    list-style-type: decimal !important;
+}
+
+.testing-web-apis-page .prose ul:not(.ref-list) li,
+.testing-web-apis-page .prose ol:not(.ref-list) li {
+    margin-bottom: 0.5rem;
+    max-width: none;
+    overflow-wrap: break-word;
+}
+
+.testing-web-apis-page .prose strong {
+    color: var(--text);
+}
+
+.testing-web-apis-page .section {
+    max-width: none;
+    padding-top: 1rem;
+    margin-bottom: 3.5rem;
+}
+
+.testing-web-apis-page .section h2 {
+    font-size: 1.65rem;
+    color: var(--text);
+    margin: 0 0 1.25rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+}
+
+.testing-web-apis-page .section h2 .num {
+    color: var(--accent);
+    font-size: 0.95rem;
+    font-weight: 700;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.2rem 0.6rem;
+}
+
+.testing-web-apis-page .section h3 {
+    font-size: 1.25rem;
+    color: var(--text);
+    margin: 2rem 0 1rem;
+}
+
+/* ---------- Blockquote / Callout ---------- */
+.testing-web-apis-page blockquote.callout {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    padding: 1.1rem 1.4rem;
+    border-radius: 10px;
+    margin: 0 0 1.75rem;
+    color: var(--text-dim);
+}
+
+.testing-web-apis-page blockquote.callout p {
+    margin: 0;
+}
+
+.testing-web-apis-page blockquote.callout.warn {
+    border-left-color: var(--warn);
+}
+
+/* ---------- Tables ---------- */
+.testing-web-apis-page .table-wrap {
+    overflow-x: auto;
+    margin: 0 0 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.testing-web-apis-page table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 560px;
+    font-size: 0.95rem;
+}
+
+.testing-web-apis-page thead th {
+    background: var(--panel-2);
+    color: var(--accent-2);
+    text-align: left;
+    padding: 0.75rem 1rem;
+    font-weight: 700;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+}
+
+.testing-web-apis-page tbody td {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-dim);
+    vertical-align: top;
+}
+
+.testing-web-apis-page tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.testing-web-apis-page tbody tr:hover td {
+    background: rgba(124, 158, 255, 0.05);
+}
+
+/* ---------- Mermaid Diagrams ---------- */
+/* 外側の <figure>。パネル装飾は内側の .mermaid-wrapper が担うため、
+   ここでは前後の余白だけを持たせる（Tailwind Preflight が figure の既定 margin を消すため明示する） */
+.testing-web-apis-page .mermaid-figure {
+    margin: 0 0 1.5rem;
+}
+
+.testing-web-apis-page .mermaid-figure .mermaid-wrapper {
+    margin-bottom: 0;
+}
+
+/* Mermaid コンポーネントが出力する内側の div */
+.testing-web-apis-page .mermaid-wrapper {
+    overflow-x: auto;
+    margin: 0 0 1.5rem;
+    padding: 1.5rem 1rem;
+    background: var(--panel) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 100% !important;
+}
+
+.testing-web-apis-page .mermaid-wrapper svg {
+    max-width: 100% !important;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Mermaid 分岐エッジラベルの黒潰れ防止 */
+.testing-web-apis-page .mermaid-wrapper .edgeLabel,
+.testing-web-apis-page .mermaid-wrapper .edgeLabels rect,
+.testing-web-apis-page .mermaid-wrapper span.edgeLabel,
+.testing-web-apis-page .mermaid-wrapper .edgeLabel rect {
+    background-color: var(--panel) !important;
+    color: var(--text) !important;
+    fill: var(--text) !important;
+    stroke: none !important;
+    font-weight: 700 !important;
+    overflow: visible !important;
+}
+
+.testing-web-apis-page figcaption.fig-cap {
+    text-align: center;
+    color: var(--text-dimmer);
+    font-size: 0.92rem;
+    margin: 0.6rem 0 1.5rem;
+}
+
+/* figcaption は .mermaid-figure の直下（パネルの外）に並ぶため、
+   下マージンの二重付与を打ち消す */
+.testing-web-apis-page .mermaid-figure figcaption.fig-cap {
+    margin: 0.9rem 0 0;
+}
+
+/* テーブルのアクセシブル名（caption）を表ラベルとして視覚化する */
+.testing-web-apis-page table caption {
+    caption-side: top;
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--text-dimmer);
+    background: var(--panel);
+    border-bottom: 1px solid var(--border);
+}
+
+/* ---------- Code Blocks ---------- */
+.testing-web-apis-page .code-block {
+    margin: 0 0 1.75rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background: #0b1526;
+}
+
+.testing-web-apis-page .code-block .code-label {
+    font-size: 0.88rem;
+    color: var(--text-dimmer);
+    padding: 0.55rem 1rem;
+    border-bottom: 1px solid var(--border);
+    background: var(--panel-2);
+    letter-spacing: 0.02em;
+    font-family: var(--font-mono, monospace);
+}
+
+.testing-web-apis-page .code-block pre {
+    margin: 0;
+    padding: 1.1rem 1.25rem;
+    overflow-x: auto;
+}
+
+.testing-web-apis-page .code-block code {
+    font-family: var(--font-mono, 'SFMono-Regular', Consolas, Menlo, monospace);
+    font-size: 0.92rem;
+    line-height: 1.7;
+    background: transparent !important;
+    color: #e8eefc;
+    white-space: pre;
+    display: block;
+}
+
+.testing-web-apis-page .code-block .code-line {
+    white-space: pre;
+    min-height: 1.5em;
+}
+
+/* ---------- Code Syntax Highlighting (Atom One Dark) ---------- */
+.testing-web-apis-page .hljs-comment {
+    color: #5c6370;
+    font-style: italic;
+}
+.testing-web-apis-page .hljs-keyword {
+    color: #c678dd;
+}
+.testing-web-apis-page .hljs-title.function_,
+.testing-web-apis-page .hljs-function {
+    color: #61afef;
+}
+.testing-web-apis-page .hljs-string {
+    color: #98c379;
+}
+.testing-web-apis-page .hljs-number {
+    color: #d19a66;
+}
+.testing-web-apis-page .hljs-literal {
+    color: #56b6c2;
+}
+.testing-web-apis-page .hljs-params {
+    color: #e06c75;
+}
+.testing-web-apis-page .hljs-built_in {
+    color: #e5c07b;
+}
+.testing-web-apis-page .hljs-variable.constant_ {
+    color: #d19a66;
+}
+.testing-web-apis-page .hljs-meta {
+    color: #61afef;
+}
+.testing-web-apis-page .hljs-property {
+    color: #e06c75;
+}
+.testing-web-apis-page .hljs-attr {
+    color: #d19a66;
+}
+
+/* ---------- Checklist ---------- */
+.testing-web-apis-page .checklist {
+    list-style: none !important;
+    margin: 0 0 1rem;
+    padding: 0 !important;
+}
+
+.testing-web-apis-page .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    margin-bottom: 0.6rem;
+    background: var(--panel);
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.testing-web-apis-page .checklist li.done {
+    background: rgba(126, 224, 168, 0.07);
+    border-color: rgba(126, 224, 168, 0.35);
+}
+
+.testing-web-apis-page .checklist input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 1.3rem;
+    height: 1.3rem;
+    min-width: 1.3rem;
+    border: 2px solid var(--accent);
+    border-radius: 6px;
+    margin-top: 0.15rem;
+    cursor: pointer;
+    position: relative;
+    background: var(--panel-2);
+}
+
+.testing-web-apis-page .checklist input[type='checkbox']:checked {
+    background: var(--ok);
+    border-color: var(--ok);
+}
+
+.testing-web-apis-page .checklist input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 0.4rem;
+    top: 0.12rem;
+    width: 0.32rem;
+    height: 0.65rem;
+    border: solid #07111e;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.testing-web-apis-page .checklist label {
+    cursor: pointer;
+    color: var(--text-dim);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.testing-web-apis-page .checklist li.done label {
+    color: var(--text);
+}
+
+.testing-web-apis-page .checklist-progress {
+    color: var(--accent-2);
+    font-weight: 700;
+    margin: 0 0 1.25rem;
+    font-size: 1rem;
+}
+
+/* ---------- Reference List ---------- */
+.testing-web-apis-page .ref-wrap {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--panel);
+    margin-bottom: 1.5rem;
+}
+
+.testing-web-apis-page .ref-list,
+.testing-web-apis-page ol.ref-list,
+.testing-web-apis-page .prose ol.ref-list {
+    list-style: none !important;
+    list-style-type: none !important;
+    padding: 0 !important;
+    margin: 0;
+    counter-reset: refnum;
+}
+
+.testing-web-apis-page .ref-list li,
+.testing-web-apis-page ol.ref-list li,
+.testing-web-apis-page .prose ol.ref-list li {
+    list-style: none !important;
+    list-style-type: none !important;
+    counter-increment: refnum;
+    padding: 0.9rem 1rem 0.9rem 3.5rem;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 0;
+}
+
+.testing-web-apis-page .ref-list li::marker,
+.testing-web-apis-page ol.ref-list li::marker,
+.testing-web-apis-page .prose ol.ref-list li::marker {
+    display: none !important;
+    content: "" !important;
+}
+
+.testing-web-apis-page .ref-list li:last-child {
+    border-bottom: none;
+}
+
+.testing-web-apis-page .ref-list li::before {
+    content: counter(refnum);
+    position: absolute;
+    left: 0.8rem;
+    top: 0.85rem;
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 0.85rem;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.testing-web-apis-page .ref-title {
+    color: var(--text);
+    display: block;
+    margin-bottom: 0.2rem;
+    font-weight: 500;
+}
+
+.testing-web-apis-page .ref-url {
+    color: var(--text-dimmer);
+    font-size: 0.88rem;
+    word-break: break-all;
+    display: block;
+}
+
+.testing-web-apis-page .ref-url a {
+    color: var(--text-dimmer);
+    text-decoration: underline;
+}
+
+.testing-web-apis-page .ref-url a:hover {
+    color: var(--accent);
+}
+
+.testing-web-apis-page .disclaimer {
+    font-size: 0.88rem;
+    color: var(--text-dimmer);
+    border-top: 1px dashed var(--border);
+    padding-top: 1.25rem;
+    margin-top: 1.5rem;
+    line-height: 1.7;
+}
+
+.testing-web-apis-page .footer {
+    max-width: none;
+    border-top: 1px solid var(--border);
+    padding-top: 2rem;
+    margin-top: 2rem;
+    color: var(--text-dimmer);
+    font-size: 0.92rem;
+    text-align: center;
+}
+
+/* ---------- Accessibility & Motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+    .testing-web-apis-page *,
+    .testing-web-apis-page *::before,
+    .testing-web-apis-page *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ---------- Responsive (Mobile) ---------- */
+@media (max-width: 900px) {
+    .testing-web-apis-page .sidebar {
+        position: fixed;
+        top: calc(60px + var(--disclaimer-height, 0px));
+        left: 0;
+        width: 280px;
+        height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+        transform: translateX(-100%);
+        /* 画面外のリンクがフォーカスを受け取らないよう不可視化する */
+        visibility: hidden;
+        /* 閉じた瞬間に visibility を切り替え、内部リンクを Tab 順から即座に外す */
+        transition: transform 0.25s ease, visibility 0s linear 0s;
+        z-index: 60;
+        border-right: 1px solid var(--border);
+        box-shadow: 4px 0 20px rgba(0, 0, 0, 0.5);
+    }
+
+    .testing-web-apis-page .sidebar.open {
+        transform: translateX(0);
+        visibility: visible;
+        transition: transform 0.25s ease, visibility 0s linear 0s;
+    }
+
+    .testing-web-apis-page .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 55;
+        top: calc(60px + var(--disclaimer-height, 0px));
+    }
+
+    .testing-web-apis-page .nav-toggle {
+        display: flex;
+        /* 閉じるボタンがサイドバー(60)・バックドロップ(55)より前面に来るようにする */
+        z-index: 61;
+    }
+
+    .testing-web-apis-page .main {
+        margin-left: 0 !important;
+        padding: 0 1.25rem 3rem;
+    }
+
+    .testing-web-apis-page .hero {
+        padding: 2rem 0 1.75rem;
+    }
+
+    .testing-web-apis-page .hero h1 {
+        font-size: 1.85rem;
+    }
+
+    .testing-web-apis-page table {
+        min-width: 480px;
+    }
+}
