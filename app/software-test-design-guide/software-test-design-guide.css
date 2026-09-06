@@ -749,14 +749,22 @@
 }
 
 /* Mermaid 分岐エッジラベルの黒潰れ防止 */
+/* テキスト側: 文字色（fill）をインクに固定する */
 .software-test-design-page .mermaid-wrapper .edgeLabel,
-.software-test-design-page .mermaid-wrapper .edgeLabels rect,
 .software-test-design-page .mermaid-wrapper span.edgeLabel {
     background-color: var(--card) !important;
     color: var(--ink) !important;
     fill: var(--ink) !important;
     stroke: none !important;
     font-weight: 700 !important;
+    overflow: visible !important;
+}
+
+/* 背景の <rect> は SVG のため background-color が効かない。
+   fill にインクを指定すると黒潰れするのでカード色を塗る。 */
+.software-test-design-page .mermaid-wrapper .edgeLabels rect {
+    fill: var(--card) !important;
+    stroke: none !important;
     overflow: visible !important;
 }
 
