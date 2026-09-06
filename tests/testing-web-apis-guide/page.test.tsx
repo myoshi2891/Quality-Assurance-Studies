@@ -530,11 +530,22 @@ describe('Testing Web APIs Guide Page - Comprehensive Test Suite', () => {
       });
     });
 
-    it('ensures ref-list has list-style: none to avoid duplicate native numbering', () => {
+    it('renders ref-list items without literal numbering so the CSS counter is the sole source', () => {
       const { container } = render(<Page />);
       const refList = container.querySelector('ol.ref-list');
       expect(refList).not.toBeNull();
-      expect(refList?.getAttribute('style')).toContain('list-style: none');
+
+      // 採番は .ref-list li::before の CSS カウンタが担う。
+      // インライン style ではなく、カウンタが前提とする DOM 構造
+      // （li 直下が .ref-title / .ref-url で、本文に手書きの連番を持たない）を検証する。
+      const items = Array.from(refList?.querySelectorAll(':scope > li') ?? []);
+      expect(items.length).toBe(EXPECTED_REFERENCES.length);
+
+      items.forEach((item) => {
+        expect(item.querySelector('.ref-title')).not.toBeNull();
+        expect(item.querySelector('.ref-url')).not.toBeNull();
+        expect(item.textContent?.trimStart() ?? '').not.toMatch(/^\d+\s*[.)]/);
+      });
     });
   });
 
