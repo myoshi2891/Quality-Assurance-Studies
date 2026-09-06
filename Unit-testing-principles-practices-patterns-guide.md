@@ -467,8 +467,8 @@ Kent Beckが2019年に示した12の性質は次の通りです。
 |---|---|
 | 本番での成功を予測できるか（Predict success） | Behavioral、実行品質（性能など） |
 | 速いフィードバックが得られるか（Fast feedback） | Isolated、最小限のデータ、並列実行可能性 |
-| 継続的な設計変更を支援できるか（Support design change） | Composable、Structure-insensitive、設計への圧力（Design Pressure） |
-| 保有コストを最小化できるか（Minimize cost of ownership） | Readable、Writable、Deterministic、Diagnosable（失敗原因の特定しやすさ） |
+| 継続的な設計変更を支援できるか（Support design change） | Composable、設計への圧力（Design Pressure） |
+| 保有コストを最小化できるか（Minimize cost of ownership） | Readable、Writable、Deterministic、Diagnosable（失敗原因の特定しやすさ）、Structure-insensitive |
 
 この再整理は、Khorikovの「4本柱」と非常に近い発想であり、**「予測力」「速さ」「設計変更への耐性（＝リファクタリング耐性）」「保守コスト」**という軸に世界的な議論が収束しつつあることがわかります。
 
