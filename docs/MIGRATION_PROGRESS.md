@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-09-03
+Updated 2026-09-05
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 51 ルート = ガイドライブラリ index + 50 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 56 ルート = ガイドライブラリ index + 55 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,9 +13,83 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `28cbc98` |
+| 最新 HEAD | `1325134` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（336 pass）成功（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/05: HTML移行スキルおよび規約体系の抜本的ブラッシュアップ
+
+- **テーブル文字色およびグローバル干渉リセットの制度化**:
+  - `globals.css` の汎用セレクタ（特に `td { color: var(--color-text-secondary); }`（`#8ea3c3`、薄い青灰色））がページ固有のテーブルに干渉して文字色を薄くする問題（ユーザーからの「文字の色が違わない？特に表の。。」の指摘）に対し、`table` / `tbody td` / `thead th` / `td strong` / `td code` / `tbody tr:hover td` 等の完全リセットCSSテンプレートを `.claude/skills/html-to-nextjs-migration/SKILL.md`、`GEMINI.md`、`CLAUDE.md` に標準規定。
+- **構成要素インベントリ事前作成と網羅的テストスイートのTDD義務化**:
+  - 図解・表・コード・コールアウト・参考文献などの移行抜け漏れを防ぐため、HTML移行着手前に元HTMLの全構成要素（全見出し、全TOCリンク、全Mermaid図解、全表、全コードブロック、全コールアウト、全参考文献）の棚卸しインベントリを作成し、Redフェーズのテストスイート（`tests/<page-slug>/page.test.tsx`）で1対1のアサーションとして網羅することを `.claude/rules/tdd-mandatory-cycle.md` およびスキルに義務化。
+- **エディトリアル・ペーパーテーマ（原著デザイン）の忠実再現を最優先原則化**:
+  - 従来の古い「統一ダークテーマへの強制変換」の記述を撤廃し、書籍ガイド等の紙の背景（`#f7f4ed`）・インク文字（`#212121`）など、原著固有のエレガントなトーン＆マナーを崩さず完全に再現することを最優先原則として明文化。
+- **サンドボックス環境におけるビルド実行禁止ルールの統一整合**:
+  - Antigravityサンドボックス環境でのメモリ逼迫・クラッシュ防止のため、`bun run build` を自律実行せず、テストとリンター（`bun test`, `bun run lint`）で検証し、本番ビルド確認はユーザーへ依頼するルールを `.claude/rules/migration-progress-sync.md`、`.claude/rules/tdd-mandatory-cycle.md`、スキル等で一元化。
+- **コミット前 PII スキャンの Gate Condition 化**:
+  - コミット前に `git diff --cached` でステージ済み差分を走査し、ローカル絶対パス（ユーザーのホームディレクトリを含む形式）が混入していないことを機械的に検証するプロセスを必須化。
+
+## 2026/09/04: セキュア・バイ・デザイン実践ガイドのNext.js移行完了
+
+- **デザイン忠実再現**: 原著HTML固有の洗練されたエレガント・ペーパーデザイン（温かみのある紙の背景 `#f5f6f2`、インク色文字 `#181c1e`、ネイビーカバー `#153152`、セリフ書体 `Source Serif 4`/`Noto Serif JP`、サンセリフUI `Inter`/`Noto Sans JP`、等幅 `IBM Plex Mono`）を忠実に復元。
+- **Mermaid図解の完全移植**: 本書の全体構成、機能vs関心事、従来型アプローチの3つの限界、XML入力への多層防御、浅いモデリングvs深いモデリング、DDDの基本語彙、バリデーションの推奨順序、ドメイン・プリミティブの生成フロー、エンティティの状態遷移、クラウド思考の3つのR、レガシーコードへの3つの移行戦略、マイクロサービス間の検証境界とログの扱い、導入ロードマップの全13図解（FIG. 01〜FIG. 13）を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止や枠線の視認性最適化を適用。
+- **コードブロック**: Java ドメイン・プリミティブ（Username: 不変値オブジェクト、自己バリデーション、カプセル化）のコードブロックを完全移植。`.code-line` による静的改行整形および構文ハイライトを適用。
+- **テーブル & コールアウト**: 書籍情報、世界の開発者評価、CIA-Tマトリクス、通常値オブジェクト vs ドメイン・プリミティブ、ロードマップの全5テーブル、および重要定義・引用・警告などのコールアウトを完全移植。
+- **参考文献**: 22件の参考文献リスト（外部リンク、セキュリティ属性 `rel="noopener noreferrer"`）を完全移行。
+- `app/secure-by-design-guide/`: ページコンポーネント、専用スタイル（`.secure-by-design-page` スコープ、globals.css干渉リセット、Mermaid枠線・エッジラベルリセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全11セクション・サブセクションリンク、モバイルトグル対応、`aria-current`、読了プログレスバー、トップ戻るボタン）を実装。
+- `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/secure-by-design-guide`（セキュア・バイ・デザイン実践ガイド）を追加（全56件）。
+- `tests/secure-by-design-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全11リンク、全11セクション、Mermaid全13図、Javaコードブロック、全5テーブル（caption・thead・tbody の全セルを順序込みで検証）、全22参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（12 pass / 347 expect()）。
+- `Secure-by-design-guide.html` & `Secure-by-design-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 56 ページ体制に同期。
+
+## 2026/09/04: ソフトウェアテスト設計実践ガイドのNext.js移行完了
+
+- **デザイン忠実再現**: 原著HTML固有のエディトリアル・ペーパーデザイン（温かみのある紙の背景 `#faf6ee`, `#f2e9d8`、インク色文字 `#241f1a`、セリフ書体 `Source Serif 4`、サンセリフUI `Inter`）を忠実に復元。
+- **Mermaid図解の完全移植**: プロセス全体像、注文状態遷移、ユースケースフロー、ホワイトボックスカバレッジ包含関係、技法選択フローの全5図解を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止やレスポンシブ表示最適化を適用。
+- **コードブロック**: セクション13のJava短絡評価ORおよび非短絡ORの2コードブロックを完全移植。`.code-line` による静的整形および構文ハイライトを適用。
+- **テーブル & インタラクティブチェックリスト**: 書籍情報、CTFL v4.0.1対応表、テストケース構成要素、原著章構成、同値分割、境界値分析、デシジョンテーブル、ペアワイズ、カバレッジ、技法比較表、テストレベル対応表、アンチパターンの全12テーブル、およびセクション15のインタラクティブチェックリスト（進捗カウント、チェック状態連動、打消し線）を完全移植。
+- `app/software-test-design-guide/`: ページコンポーネント、専用スタイル（`.software-test-design-page` スコープ、globals.css干渉リセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全19セクションリンク、モバイルトグル対応、`aria-current`）、Checklistコンポーネントを実装。
+- `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/software-test-design-guide`（ソフトウェアテスト設計実践ガイド）を追加（全55件）。
+- `tests/software-test-design-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全19リンク、全19セクション、Mermaid 5図、コードブロック2点、全12テーブル、全10コールアウト（種別・見出しの順序を固定）、チェックリスト動作、全参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（11 pass / 303 expect()）。
+- `Software-test-design-guide.html` & `Software-test-design-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 55 ページ体制に同期。
+
+## 2026/09/04: Web APIテスト実践ガイドのNext.js移行完了
+
+- **デザイン忠実再現**: 原著HTML固有の深みのあるネイビーダークテーマ（背景 `#07111e`、パネル `#0d1a2e`、アクセント `#7c9eff` / `#6dd3c7`）を忠実に復元。
+- **Mermaid図解の完全移植**: テストピラミッド、テスティングトロフィー、リスクベース選択フロー、基本HTTPテストの流れ、探索的テストサイクル、Pact契約テストシーケンス、負荷テスト種類、セキュリティテスト組み込み、CI/CDパイプライン、本番観測サイクルの全10図解を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止やレスポンシブ表示最適化を適用。
+- **コードブロック**: Python (pytest + requests によるfixture/クリーンアップ/リクエスト検証) および JavaScript (k6 によるしきい値設定・負荷テスト実行) の2コードブロックを完全移植。Atom One Dark 仕様のトークン構文ハイライト（`.hljs-*`）および `.code-line` による静的整形を適用。
+- **参考文献リストのスタイル最適化**: `.prose ol` のスタイル干渉によるネイティブ番号（白文字の1. 2. ...）の重複表示を `:not(.ref-list)` および `list-style: none !important` により排除し、元HTML通りの青いサークルバッジ番号のみが表示されるよう修正。
+- **テーブル & インタラクティブチェックリスト**: ピラミッド比較、HTTPステータスコード観点、基本テストセット、代表的ツール比較、契約テストvsスキーマ、負荷テスト指標、OWASP API Security Top 10、よくある落とし穴とアンチパターンの全8テーブル、およびSection 14のインタラクティブチェックリスト（進捗カウント、チェック状態連動）を完全移植。
+- `app/testing-web-apis-guide/`: ページコンポーネント、スタイル（`.testing-web-apis-page` スコープ、globals.css干渉リセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全15セクションリンク、TOCグルーフラベル、モバイルトグル対応、`aria-current`）、Checklistコンポーネントを実装。
+- `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/testing-web-apis-guide`（Web APIテスト実践ガイド）を追加（全54件）。
+- `tests/testing-web-apis-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全15リンク、全15セクション、Mermaid 10図、コードブロック2点、全8テーブル（所属セクション・caption・見出し行・先頭行・行数を固定）、チェックリスト全10項目（id / label[for] / 文言）の動作、全15参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（14 pass / 322 expect()）。
+- `Testing-web-apis-guide.html` & `Testing-web-apis-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 54 ページ体制に同期。
+
+## 2026/09/04: The Way of the Web Tester 実践ガイドのNext.js移行完了
+
+- **デザイン忠実再現**: 原著HTML固有の洗練されたネイビーダークテーマ（背景 `#07111e`, `#0b1626`、アクセント `#7c9eff`、角丸 `8px`）を忠実に復元。
+- **Mermaid図解の完全移植**: テストピラミッド、HTTP通信、ピラミッド実践フロー、ポート＆アダプター、TDD、テスティングトロフィーの全6図解を共通 `<Mermaid>` コンポーネントへ移植。エッジラベルの黒潰れ防止やSVG表示最適化を適用。
+- **テーブル & コールアウト**: 3層の役割、CSSセレクタ早見表、落とし穴、HTTP基本用語、RESTful 4メソッド、単体テスト優位性、型付け比較、コードスタイル改善、モック功罪、トロフィー比較、Playwrightプラクティス、総まとめチェックリストの全12テーブル、および補足・注意点など全6コールアウトを完全移植。
+- `app/the-way-of-the-web-tester-guide/`: ページコンポーネント、スタイル（`.the-way-of-the-web-tester-page` スコープ、globals.css干渉リセット、Tailwindリストマーカー復元）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、全18セクションリンク、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `books-practices`（Recommended Books）カテゴリに `/the-way-of-the-web-tester-guide`（The Way of the Web Tester 実践ガイド）を追加（全53件）。
+- `tests/the-way-of-the-web-tester-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全18リンク、全18セクション、Mermaid 6図、全12テーブル、全6コールアウト、全参考文献外部リンク（セキュリティ属性付き）の存在を検証する厳格なテストスイートを実装して全パス（9 pass / 221 expect()）。
+- `The-way-of-the-web-tester-guide.html` & `The-way-of-the-web-tester-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 53 ページ体制に同期。
+
+## 2026/09/04: Clean Code Cookbook 実践ガイドのデザイン完全再現とNext.js移行完了
+
+- **デザイン忠実再現**: 元HTML固有のエレガントなエディトリアル・ペーパーデザイン（温かみのある紙の背景 `#f7f3ea`、インク色文字 `#2a2420`、明朝体・セリフ書体 `Noto Serif JP`/`Source Serif 4`）を忠実に復元。
+- **アイコン完全同期**: サイドバー・セクションヘッダー・コールアウト・チップ等のアイコンをすべて元HTML準拠の Tabler Icons（`ti-book-2`, `ti-bulb`, `ti-list-details`, `ti-route`, `ti-ruler-2`, `ti-users`, `ti-robot`, `ti-checklist`, `ti-flag`, `ti-link`, `ti-sparkles`, `ti-calendar`, `ti-stack-2`, `ti-quote`, `ti-info-circle`, `ti-brand-python`, `ti-brand-javascript`, `ti-brand-java`）の繊細な線画スタイルへ完全同期。
+- **図解（Mermaidダイアグラム）のスタイル復元**: グローバルのダークテーマによるノードの黒潰れを解消し、元HTML通りの `base` テーマ・淡いクリーム背景（`#efe8d8`）＋ゴールド枠線（`#ad7f22`）、`:::hub`（薄青 `#e8edfb`）、`:::done`（薄緑 `#eaf3ec`）の配色を完全再現。
+- **コードブロックのシンタックスハイライト**: Python, JavaScript, Java の全4コードブロックに対し、Atom One Dark 仕様のトークンハイライト（コメント、キーワード、関数名、文字列、数値、定数）を適用。
+- `app/clean-code-cookbook-guide/`: ページコンポーネント、スタイル（`.clean-code-cookbook-page` スコープ、ペーパーテーマ、sticky nav）、NavBar（`lib/useScrollSpy.ts` スクロールスパイ、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: 予約カテゴリ `books-practices` の表示タイトルを `'Recommended Books'` に設定し、`/clean-code-cookbook-guide`（Clean Code Cookbook 実践ガイド）を追加（全52件）。
+- `tests/clean-code-cookbook-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、サイドバー目次全10リンク、全10セクション、Mermaid 4図、全テーブル、全コードブロック、Sandi Metz スタットカード4枚、AI時代のコードスメル3トピック、全参考文献14件の存在を検証する厳格なテストスイートを実装して全パス（18 pass / 209 expect()）。
+- `Clean-code-cookbook-guide.html` & `Clean-code-cookbook-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`docs/coverage-dashboard.html`、`e2e/pages.ts`、`lib/navigation.ts`、`tests/components/Header.test.tsx` など）を最新の 52 ページ体制に同期。
 
 ## 2026/09/01: ガイド index を ISTQB 認定レベルの階梯で再設計
 
@@ -503,6 +577,11 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Cucumber-beginner-guide.html` | `/cucumber-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Cypress-beginner-guide.html` | `/cypress-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Selenium-beginner-guide.html` | `/selenium-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Clean-code-cookbook-guide.html` | `/clean-code-cookbook-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `The-way-of-the-web-tester-guide.html` | `/the-way-of-the-web-tester-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Testing-web-apis-guide.html` | `/testing-web-apis-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Software-test-design-guide.html` | `/software-test-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Secure-by-design-guide.html` | `/secure-by-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -511,8 +590,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `Clean-code-cookbook-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Secure-by-design-guide.md` / `Software-test-design-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md` / `Testing-web-apis-guide.md` / `The-way-of-the-web-tester-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
-| 書籍ガイド系 HTML（`Leading-quality-guide.html` / `Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `Clean-code-cookbook-guide.html` / `Secure-by-design-guide.html` / `Software-testing-craftsmans-approach-guide.html` / `Testing-web-apis-guide.html` / `The-way-of-the-web-tester-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
+| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `How-google-tests-software-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
+| 書籍ガイド系 HTML（`Leading-quality-guide.html` / `Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `How-google-tests-software-guide.html` / `Software-testing-craftsmans-approach-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
 | ツール系ドキュメント（`Appium-essentials-guide.md` / `Appium-essentials-guide.html` / `Owasp-zap-beginner-guide.html` / `Playwright-intermediate-advanced-guide.html` / `Sonarqube.html` / `Sonarqube-intermediate.html`） | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
 
@@ -527,7 +606,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 56 ルート（ガイドライブラリ index + 55 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown と `Leading-quality-guide.html` などの HTML が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 

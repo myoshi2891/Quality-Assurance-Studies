@@ -1,0 +1,602 @@
+import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
+import mermaid from 'mermaid';
+import React from 'react';
+import Page from '../../app/secure-by-design-guide/page';
+import NavBar from '../../app/secure-by-design-guide/NavBar';
+
+afterEach(() => cleanup());
+
+let originalMermaidRender: typeof mermaid.render;
+let originalIntersectionObserver: typeof window.IntersectionObserver;
+let mermaidRenderMock: ReturnType<typeof mock>;
+
+beforeAll(() => {
+  originalMermaidRender = mermaid.render;
+  originalIntersectionObserver = window.IntersectionObserver;
+  mermaidRenderMock = mock(async () => {
+    return {
+      svg: '<svg data-testid="mock-mermaid"></svg>',
+      diagramType: 'flowchart',
+    };
+  });
+  mermaid.render = mermaidRenderMock as unknown as typeof mermaid.render;
+
+  const mockIntersectionObserver = mock(() => {
+    return {
+      observe: () => null,
+      unobserve: () => null,
+      disconnect: () => null,
+    };
+  });
+  window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
+});
+
+afterAll(() => {
+  mermaid.render = originalMermaidRender;
+  window.IntersectionObserver = originalIntersectionObserver;
+});
+
+// 元 HTML の参考文献インベントリ。表示名・URL を出現順で固定する。
+const EXPECTED_REFERENCES: ReadonlyArray<{ label: string; href: string }> = [
+  { label: 'Manning Publications 公式書籍ページ', href: 'https://www.manning.com/books/secure-by-design' },
+  { label: 'Secure by Design 第1章 無料プレビュー（MEAP版PDF, Manning公式）', href: 'https://manning-content.s3.amazonaws.com/download/a/78580ef-38c8-4bd1-bc2f-ba4e8c7d7880/Johnsson_SbD_MEAP_V13_ch1.pdf' },
+  { label: 'liveBook（Manning）第1章', href: 'https://livebook.manning.com/book/secure-by-design/chapter-1/v-5/d5e499' },
+  { label: 'liveBook（Manning）第2章（幕間：アンチ・ハムレット）', href: 'https://livebook.manning.com/book/secure-by-design/chapter-2/' },
+  { label: 'liveBook（Manning）第3章（DDDの中心概念）', href: 'https://livebook.manning.com/book/secure-by-design/chapter-3' },
+  { label: 'liveBook（Manning）第5章（ドメイン・プリミティブ）', href: 'https://livebook.manning.com/book/secure-by-design/chapter-5' },
+  { label: 'liveBook（Manning）第13章（マイクロサービス）', href: 'https://livebook.manning.com/book/secure-by-design/chapter-13/' },
+  { label: "O'Reilly Online Learning 収録ページ（詳細目次）", href: 'https://www.oreilly.com/library/view/secure-by-design/9781617294358/' },
+  { label: 'Manning公式ブログ「Domain Primitives」記事', href: 'https://freecontent.manning.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software/' },
+  { label: '同記事（Medium転載版）', href: 'https://manningbooks.medium.com/domain-primitives-what-they-are-and-how-you-can-use-them-to-make-more-secure-software-174504696518' },
+  { label: 'Daniel Sawano氏個人ブログ（書籍執筆時の草稿記事）', href: 'https://software.sawano.se/2017/09/domain-primitives.html' },
+  { label: 'Matt Raible（Okta）による書評', href: 'https://raibledesigns.com/rd/entry/secure_by_design_book_review' },
+  { label: 'Adrian Citu によるレビュー記事', href: 'https://adriancitu.com/2022/10/05/book-review-secure-by-design/' },
+  { label: 'Goodreads 書籍ページ（賛否両論のレビュー集）', href: 'https://www.goodreads.com/book/show/33953413-secure-by-design' },
+  { label: 'Software Engineering Radio エピソード（著者インタビュー）', href: 'https://se-radio.net/2025/09/se-radio-684-dan-bergh-johnsson-and-daniel-deogun-on-secure-by-design/' },
+  { label: 'Arrested DevOps ポッドキャスト（著者インタビュー）', href: 'https://www.arresteddevops.com/secure-by-design/' },
+  { label: 'virtualDDD.com 収録カンファレンス動画', href: 'https://virtualddd.com/videos/dan-bergh-johnsson-daniel-deogun-domain-primitives-in-action-making-it-secure-by-design/' },
+  { label: '同講演 YouTube 版（Explore DDD, Denver）', href: 'https://www.youtube.com/watch?v=ogjOKlXHi08' },
+  { label: "Katharina's blog（ドメイン・プリミティブ実践記）", href: 'https://katharina.damschen.net/post/2025-11-10-domain-primitives/' },
+  { label: 'マイナビ出版 日本語版書籍ページ', href: 'https://book.mynavi.jp/ec/products/detail/id=124056' },
+  { label: 'kymmt氏によるブログ書評（日本語）', href: 'https://blog.kymmt.com/entry/secure-by-design' },
+  { label: 'Wikipedia「Secure by design」（一般的な概念の参考として）', href: 'https://en.wikipedia.org/wiki/Secure_by_design' },
+];
+
+describe('Secure by Design Guide Page - Comprehensive Test Suite', () => {
+  describe('Hero Header & Title Block', () => {
+    it('renders the cover header with eyebrow, title, subtitle, thesis, and titleblock items', () => {
+      const { container } = render(<Page />);
+
+      const h1 = screen.getByRole('heading', { level: 1 });
+      expect(h1).toBeDefined();
+      expect(h1.textContent).toContain('セキュア・バイ・デザイン');
+
+      const eyebrow = container.querySelector('.cover .eyebrow');
+      expect(eyebrow).not.toBeNull();
+      expect(eyebrow?.textContent).toContain('Book Guide · 初学者向け解説');
+
+      const subtitle = container.querySelector('.cover .subtitle');
+      expect(subtitle).not.toBeNull();
+      expect(subtitle?.textContent).toContain('安全なソフトウェア設計 完全ガイド');
+
+      const thesis = container.querySelector('.cover .thesis');
+      expect(thesis).not.toBeNull();
+      expect(thesis?.textContent).toContain('セキュリティは「機能」ではなく「関心事」である');
+
+      const titleblock = container.querySelector('.cover .titleblock');
+      expect(titleblock).not.toBeNull();
+      expect(titleblock?.textContent).toContain('Secure by Design');
+      expect(titleblock?.textContent).toContain('Bergh Johnsson / Deogun / Sawano');
+      expect(titleblock?.textContent).toContain('Manning Publications');
+      expect(titleblock?.textContent).toContain('マイナビ出版');
+      expect(titleblock?.textContent).toContain('978-1-61729-435-8');
+
+      const foot = container.querySelector('.cover .cover-foot');
+      expect(foot).not.toBeNull();
+      expect(foot?.textContent).toContain('SHEET 01 / 13');
+    });
+  });
+
+  describe('NavBar (Sidebar TOC)', () => {
+    it('renders sidebar TOC with title kicker, all section links, and subsection links', () => {
+      const { container } = render(<NavBar />);
+
+      const panel = container.querySelector('.toc-panel');
+      expect(panel).not.toBeNull();
+
+      const kicker = container.querySelector('.toc-kicker');
+      expect(kicker?.textContent).toContain('目次 / Index');
+
+      const expectedMainLinks = [
+        { href: '#sec1', num: '01', label: 'この本は何を解決するのか' },
+        { href: '#sec2', num: '02', label: '書籍情報と著者' },
+        { href: '#sec3', num: '03', label: '世界の開発者からの評価' },
+        { href: '#sec4', num: '04', label: '本書全体のマップ' },
+        { href: '#sec5', num: '05', label: 'Part 1: 導入編' },
+        { href: '#sec6', num: '06', label: 'Part 2: 基礎編' },
+        { href: '#sec7', num: '07', label: 'Part 3: 応用編' },
+        { href: '#sec8', num: '08', label: '実践ロードマップ' },
+        { href: '#sec9', num: '09', label: '本書の限界' },
+        { href: '#sec10', num: '10', label: 'さらに学ぶリソース' },
+        { href: '#sec11', num: '11', label: '参考文献・出典' },
+      ];
+
+      expectedMainLinks.forEach((link) => {
+        const a = container.querySelector(`.toc-panel a[href="${link.href}"]`);
+        expect(a).not.toBeNull();
+        expect(a?.textContent).toContain(link.num);
+        expect(a?.textContent).toContain(link.label);
+      });
+
+      const expectedSubLinks = [
+        { href: '#sec5-1', label: '5.1 設計とセキュリティ' },
+        { href: '#sec5-2', label: '5.2 アンチ・ハムレット' },
+        { href: '#sec6-1', label: '6.1 DDDの中心概念' },
+        { href: '#sec6-2', label: '6.2 セキュアなコード構造' },
+        { href: '#sec6-3', label: '6.3 ドメイン・プリミティブ' },
+        { href: '#sec6-4', label: '6.4 状態の整合性' },
+        { href: '#sec6-5', label: '6.5 パイプライン活用' },
+        { href: '#sec6-6', label: '6.6 安全な障害処理' },
+        { href: '#sec6-7', label: '6.7 クラウド思考' },
+        { href: '#sec6-8', label: '6.8 幕間：保険' },
+        { href: '#sec7-1', label: '7.1 レガシーコード' },
+        { href: '#sec7-2', label: '7.2 マイクロサービス' },
+        { href: '#sec7-3', label: '7.3 まとめ' },
+      ];
+
+      expectedSubLinks.forEach((sub) => {
+        const a = container.querySelector(`.toc-sub a[href="${sub.href}"]`);
+        expect(a).not.toBeNull();
+        expect(a?.textContent).toContain(sub.label);
+      });
+    });
+  });
+
+  describe('Sections Content Integrity', () => {
+    it('renders all 11 main sections with correct IDs and headings', () => {
+      const { container } = render(<Page />);
+
+      const sections = [
+        { id: 'sec1', num: '01', title: 'この本は何を解決するのか' },
+        { id: 'sec2', num: '02', title: '書籍情報と著者' },
+        { id: 'sec3', num: '03', title: '世界の開発者からの評価' },
+        { id: 'sec4', num: '04', title: '本書全体のマップ' },
+        { id: 'sec5', num: '05', title: 'Part 1: 導入編' },
+        { id: 'sec6', num: '06', title: 'Part 2: 基礎編' },
+        { id: 'sec7', num: '07', title: 'Part 3: 応用編' },
+        { id: 'sec8', num: '08', title: '初学者向け ステップバイステップ実践ロードマップ' },
+        { id: 'sec9', num: '09', title: '批判的な視点（本書の限界）' },
+        { id: 'sec10', num: '10', title: 'さらに学ぶためのリソース' },
+        { id: 'sec11', num: '11', title: '参考文献・出典' },
+      ];
+
+      sections.forEach((sec) => {
+        const el = container.querySelector(`section#${sec.id}`);
+        expect(el).not.toBeNull();
+        const num = el?.querySelector('h2 .num');
+        expect(num?.textContent?.trim()).toBe(sec.num);
+        const h2 = el?.querySelector('h2');
+        expect(h2?.textContent).toContain(sec.title);
+      });
+    });
+
+    it('renders subsections in Part 1, Part 2, and Part 3 with correct IDs and headings', () => {
+      const { container } = render(<Page />);
+
+      const subsections = [
+        { id: 'sec5-1', title: '第1章：セキュリティは「機能」ではなく「関心事」' },
+        { id: 'sec5-2', title: '第2章（幕間）：アンチ・ハムレット' },
+        { id: 'sec6-1', title: '第3章：ドメイン駆動設計（DDD）の中心概念' },
+        { id: 'sec6-2', title: '第4章：セキュリティを促進するコード構造を支える3つの柱' },
+        { id: 'sec6-3', title: '第5章：ドメイン・プリミティブ' },
+        { id: 'sec6-4', title: '第6章・第7章：状態の整合性と複雑さの軽減' },
+        { id: 'sec6-5', title: '第8章：デリバリーパイプラインの活用' },
+        { id: 'sec6-6', title: '第9章：安全な障害処理' },
+        { id: 'sec6-7', title: '第10章：クラウド思考によるメリット' },
+        { id: 'sec6-8', title: '第11章（幕間）：ただで手に入る保険' },
+        { id: 'sec7-1', title: '第12章：レガシーコードへの適用' },
+        { id: 'sec7-2', title: '第13章：マイクロサービスへの適用' },
+        { id: 'sec7-3', title: '第14章：まとめ' },
+      ];
+
+      subsections.forEach((sub) => {
+        const el = container.querySelector(`h3#${sub.id}`);
+        expect(el).not.toBeNull();
+        expect(el?.textContent).toContain(sub.title);
+      });
+    });
+
+    it('renders every h4 sub-subsection heading', () => {
+      const { container } = render(<Page />);
+
+      const expectedH4 = [
+        '歴史から学ぶ：エスト・ヨータ銀行（Öst-Götha Bank）強盗事件（1854年）',
+        'CIA-T：4つの古典的なセキュリティ関心事',
+        '「従来型アプローチ」の3つの限界',
+        '設計視点で同じ問題を解く：ドメイン・プリミティブの初歩',
+        '多層防御（Defense in Depth）：Billion Laughs攻撃を例に',
+        '柱1：不変性（Immutability）',
+        '柱2：契約による設計とフェイルファスト（Fail Fast）',
+        '柱3：バリデーションの正しい順序',
+      ];
+
+      const h4s = container.querySelectorAll('h4');
+      expect(h4s.length).toBe(expectedH4.length);
+      expectedH4.forEach((title, idx) => {
+        expect(h4s[idx]?.textContent).toContain(title);
+      });
+    });
+
+    it('keeps h3 and h4 headings in the contracted document order', () => {
+      const { container } = render(<Page />);
+
+      // 見出しは階層構造そのものが契約。h3 / h4 の並びが崩れれば読者の読み順が壊れる
+      const expectedOrder: ReadonlyArray<{ level: 'H3' | 'H4'; title: string }> = [
+        { level: 'H3', title: '著者について' },
+        { level: 'H3', title: '好意的な評価' },
+        { level: 'H3', title: '批判的な視点' },
+        { level: 'H3', title: '第1章：セキュリティは「機能」ではなく「関心事」' },
+        { level: 'H4', title: '歴史から学ぶ：エスト・ヨータ銀行（Öst-Götha Bank）強盗事件（1854年）' },
+        { level: 'H4', title: 'CIA-T：4つの古典的なセキュリティ関心事' },
+        { level: 'H4', title: '「従来型アプローチ」の3つの限界' },
+        { level: 'H4', title: '設計視点で同じ問題を解く：ドメイン・プリミティブの初歩' },
+        { level: 'H4', title: '多層防御（Defense in Depth）：Billion Laughs攻撃を例に' },
+        { level: 'H3', title: '第2章（幕間）：アンチ・ハムレット' },
+        { level: 'H3', title: '第3章：ドメイン駆動設計（DDD）の中心概念' },
+        { level: 'H3', title: '第4章：セキュリティを促進するコード構造を支える3つの柱' },
+        { level: 'H4', title: '柱1：不変性（Immutability）' },
+        { level: 'H4', title: '柱2：契約による設計とフェイルファスト（Fail Fast）' },
+        { level: 'H4', title: '柱3：バリデーションの正しい順序' },
+        { level: 'H3', title: '第5章：ドメイン・プリミティブ' },
+        { level: 'H3', title: '第6章・第7章：状態の整合性と複雑さの軽減' },
+        { level: 'H3', title: '第8章：デリバリーパイプラインの活用' },
+        { level: 'H3', title: '第9章：安全な障害処理' },
+        { level: 'H3', title: '第10章：クラウド思考によるメリット' },
+        { level: 'H3', title: '第11章（幕間）：ただで手に入る保険' },
+        { level: 'H3', title: '第12章：レガシーコードへの適用' },
+        { level: 'H3', title: '第13章：マイクロサービスへの適用' },
+        { level: 'H3', title: '第14章：まとめ' },
+      ];
+
+      const headings = container.querySelectorAll('h3, h4');
+      expect(headings.length).toBe(expectedOrder.length);
+      expectedOrder.forEach((expected, idx) => {
+        const heading = headings[idx];
+        expect(heading?.tagName).toBe(expected.level);
+        expect(heading?.textContent).toContain(expected.title);
+      });
+    });
+  });
+
+  describe('Mermaid Diagrams Integration', () => {
+    it('renders all 13 Mermaid diagram plates with correct figcaptions and diagram wrappers', async () => {
+      mermaidRenderMock.mockClear();
+      const { container } = render(<Page />);
+
+      // Mermaid の描画は非同期のため、SVG が注入されるまで待つ
+      await waitFor(() => {
+        expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(13);
+      });
+      expect(mermaidRenderMock).toHaveBeenCalledTimes(13);
+
+      const plates = container.querySelectorAll('figure.plate');
+      expect(plates.length).toBe(13);
+
+      const expectedCaptions = [
+        'FIG. 01 — 本書の全体構成と読み進め方',
+        'FIG. 02 — 機能として捉える場合 vs 関心事として捉える場合',
+        'FIG. 03 — 従来型アプローチが構造的に抱える3つの限界',
+        'FIG. 04 — XML入力に対する多層防御の3つの層',
+        'FIG. 05 — 浅いモデリング と 深いモデリング の対比',
+        'FIG. 06 — DDDの基本語彙とその関係',
+        'FIG. 07 — バリデーションの推奨順序',
+        'FIG. 08 — ドメイン・プリミティブの生成フロー',
+        'FIG. 09 — エンティティの状態遷移をモデル化する例',
+        'FIG. 10 — クラウド思考の3つのR',
+        'FIG. 11 — レガシーコードへの3つの移行戦略',
+        'FIG. 12 — マイクロサービス間の検証境界とログの扱い',
+        'FIG. 13 — 導入ロードマップ（Step 1〜9）',
+      ];
+
+      plates.forEach((plate, idx) => {
+        const figcaption = plate.querySelector('figcaption');
+        expect(figcaption).not.toBeNull();
+        expect(figcaption?.textContent).toContain(expectedCaptions[idx]);
+
+        const mermaidWrapper = plate.querySelector('.mermaid');
+        expect(mermaidWrapper).not.toBeNull();
+      });
+    });
+  });
+
+  describe('Tables Integration', () => {
+    it('renders all 5 table-wrap blocks with the complete ordered structure of every table', () => {
+      const { container } = render(<Page />);
+
+      const tableWraps = container.querySelectorAll('.table-wrap');
+      expect(tableWraps.length).toBe(5);
+
+      // 元 HTML の構成要素インベントリ。caption / thead / tbody の全セルを順序込みで固定する。
+      const expectedTables: ReadonlyArray<{
+        caption: string;
+        head: readonly string[];
+        rows: ReadonlyArray<readonly string[]>;
+      }> = [
+        {
+          caption: '書籍『Secure by Design』の基本情報',
+          head: [],
+          rows: [
+            [
+              '原題',
+              'Secure by Design',
+            ],
+            [
+              '著者',
+              'Dan Bergh Johnsson, Daniel Deogun, Daniel Sawano',
+            ],
+            [
+              '序文',
+              'Daniel Terhorst-North（BDD＝振舞い駆動開発の提唱者として著名）',
+            ],
+            [
+              '出版社',
+              'Manning Publications',
+            ],
+            [
+              '出版年',
+              '2019年9月',
+            ],
+            [
+              'ISBN',
+              '978-1-61729-435-8',
+            ],
+            [
+              'ページ数',
+              '約400ページ',
+            ],
+            [
+              '翻訳版',
+              '日本語、ロシア語、簡体字中国語',
+            ],
+            [
+              '日本語版出版社',
+              'マイナビ出版（Compass Booksシリーズ）',
+            ],
+            [
+              '対象読者',
+              'Java や C#（.NETプラットフォーム）といった静的型付け言語で、ある程度アプリケーション設計の経験がある開発者',
+            ],
+          ],
+        },
+        {
+          caption: '世界の開発者からの好意的な評価',
+          head: ['評者', 'コメントの要旨', '出典'],
+          rows: [
+            [
+              'Daniel Terhorst-North（序文、BDDの提唱者として国際的に著名）',
+              '単なる「セキュリティを真剣に扱おう」という掛け声ではなく、設計の検討から実際のコードまで一貫した実例を豊富に示す、実践的で行動につながる一冊だと評価',
+              'Manning公式ページ',
+            ],
+            [
+              'Matt Raible（当時Okta所属、Java/Spring/Angular分野で国際的に著名）',
+              '「ドメイン・プリミティブの例が気に入りすぎて、自分のマイクロサービスセキュリティに関するブログ記事でも引用した」と述べ、5段階評価で満点を付けている',
+              'raibledesigns.com',
+            ],
+            [
+              'Jeremy Lange, Sertifi',
+              'DDDと優れた設計原則への優れた入門書であり、良い設計こそが最良のセキュリティ形態になり得ることを示す"目からうろこ"の内容と評価',
+              'Manning公式ページ',
+            ],
+            [
+              'Adrian Citu（技術ブロガー）',
+              'ソフトウェアエンジニアが読むべきセキュリティ書籍リストに入れたいと明言',
+              'adriancitu.com',
+            ],
+          ],
+        },
+        {
+          caption: 'CIA-T：4つの古典的なセキュリティ関心事',
+          head: ['頭文字', '意味', '説明', '具体例'],
+          rows: [
+            [
+              'C',
+              'Confidentiality（機密性）',
+              '秘密にすべき情報を秘密のまま保つこと',
+              '診療記録が第三者に漏れないこと',
+            ],
+            [
+              'I',
+              'Integrity（完全性）',
+              'データが許可された方法でしか変更されないこと',
+              '選挙の投票結果が改ざんされていないこと',
+            ],
+            [
+              'A',
+              'Availability（可用性）',
+              '必要なときにデータ・機能が使えること',
+              '消防が火災発生場所の情報に即座にアクセスできること',
+            ],
+            [
+              'T',
+              'Traceability（追跡可能性）',
+              '誰が・いつ・何を変更/参照したかを追跡できること',
+              '処理内容や文脈によっては、GDPR（EU一般データ保護規則）のアカウンタビリティやセキュリティの要請から、監査可能な記録が必要になる',
+            ],
+          ],
+        },
+        {
+          caption: '通常の値オブジェクトとドメイン・プリミティブの比較',
+          head: ['観点', '通常の値オブジェクト', 'ドメイン・プリミティブ'],
+          rows: [
+            [
+              '不変性',
+              '推奨される',
+              '必須',
+            ],
+            [
+              '不変条件（invariant）',
+              '持つこともある',
+              '必ず持ち、生成時点で強制される',
+            ],
+            [
+              '言語プリミティブ（int, String など）や null の使用',
+              '許容されることがある',
+              'ドメインの概念を表すためには使用禁止',
+            ],
+            [
+              '目的',
+              'ドメインの概念をモデル化する',
+              'モデル化に加え、コンストラクタまたは明示的な変換の時点で不変条件を実行時検証し、以後は「検証済みの型」として扱えるようにする',
+            ],
+          ],
+        },
+        {
+          caption: '導入ロードマップの各ステップと該当章',
+          head: ['ステップ', '目的', '該当章'],
+          rows: [
+            [
+              '1関心事として再定義',
+              '「何のためにこの機能が必要か」を明確化し、抜け道を塞ぐ範囲を正しく捉える',
+              '第1章',
+            ],
+            [
+              '2ユビキタス言語の確立',
+              '開発者とビジネス側の認識のズレ（＝設計ミス）を減らす',
+              '第3章',
+            ],
+            [
+              '3曖昧な型の棚卸し',
+              'どこに危険が潜んでいるかを可視化する',
+              '第1, 12章',
+            ],
+            [
+              '4ドメイン・プリミティブ化',
+              '「不正な状態そのものを作れなくする」',
+              '第4, 5章',
+            ],
+            [
+              '5不変性・フェイルファスト・順序',
+              'データ整合性と早期検知を両立する',
+              '第4章',
+            ],
+            [
+              '6コンテキスト境界とAPI契約',
+              'サービスをまたいだ際の意味の取り違えを防ぐ',
+              '第3, 13章',
+            ],
+            [
+              '7継続的なセキュリティテスト',
+              '一度作った安全性を退行させない',
+              '第8章',
+            ],
+            [
+              '8障害処理とインフラの使い捨て化',
+              '可用性を高め、侵入後の被害範囲を縮小する',
+              '第9, 10章',
+            ],
+            [
+              '9探索的セキュリティ活動の継続',
+              '設計だけではカバーできない領域を補う',
+              '第14章',
+            ],
+          ],
+        },
+      ];
+
+      expectedTables.forEach((expectedTable, tableIdx) => {
+        const table = tableWraps[tableIdx]?.querySelector('table');
+        expect(table).not.toBeNull();
+
+        const normalize = (value: string | null | undefined): string =>
+          (value ?? '').replace(/\s+/g, ' ').trim();
+
+        expect(normalize(table?.querySelector('caption')?.textContent)).toBe(expectedTable.caption);
+
+        const headCells = Array.from(table?.querySelectorAll('thead th') ?? []).map((cell) =>
+          normalize(cell.textContent),
+        );
+        expect(headCells).toEqual([...expectedTable.head]);
+
+        const bodyRows = Array.from(table?.querySelectorAll('tbody tr') ?? []).map((row) =>
+          Array.from(row.querySelectorAll('th, td')).map((cell) => normalize(cell.textContent)),
+        );
+        expect(bodyRows).toEqual(expectedTable.rows.map((row) => [...row]));
+      });
+    });
+  });
+
+  describe('Code Block & Syntax Highlighting', () => {
+    it('renders Java code block for Username domain primitive with code-line formatting', () => {
+      const { container } = render(<Page />);
+
+      const codeBlock = container.querySelector('pre.code');
+      expect(codeBlock).not.toBeNull();
+      expect(codeBlock?.textContent).toContain('public final class Username');
+      expect(codeBlock?.textContent).toContain('IllegalArgumentException');
+      expect(codeBlock?.textContent).toContain('ALLOWED');
+
+      const lines = codeBlock?.querySelectorAll('.code-line');
+      expect(lines && lines.length).toBeGreaterThan(15);
+    });
+  });
+
+  describe('Callouts & Limitation Cards', () => {
+    it('renders caveat and quote callouts with icons', () => {
+      const { container } = render(<Page />);
+
+      const caveats = container.querySelectorAll('.callout.callout--caveat');
+      expect(caveats.length).toBeGreaterThanOrEqual(3);
+      expect(caveats[0]?.textContent).toContain('ただし、良い設計はあくまでリスクを下げる手段であって');
+      expect(caveats[1]?.textContent).toContain('Goodreadsなどでは');
+      expect(caveats[2]?.textContent).toContain('入力バリデーションは、文脈に応じた出力エンコーディングの代替にはなりません');
+
+      const quotes = container.querySelectorAll('.callout.callout--quote');
+      expect(quotes.length).toBeGreaterThanOrEqual(2);
+      expect(quotes[0]?.textContent).toContain('セキュリティは「機能（feature）」ではなく「関心事（concern）」である');
+      expect(quotes[quotes.length - 1]?.textContent).toContain('Good design is the best form of security');
+    });
+
+    it('renders limitation cards in card-grid', () => {
+      const { container } = render(<Page />);
+
+      const cardGrid = container.querySelector('.card-grid');
+      expect(cardGrid).not.toBeNull();
+
+      const cards = cardGrid?.querySelectorAll('.lim-card');
+      expect(cards?.length).toBe(4);
+      expect(cards?.[0]?.textContent).toContain('限界 1');
+      expect(cards?.[1]?.textContent).toContain('限界 2');
+      expect(cards?.[2]?.textContent).toContain('限界 3');
+      expect(cards?.[3]?.textContent).toContain('限界 4');
+    });
+  });
+
+  describe('References List & Footer', () => {
+    it('renders references list with 22 items and footer', () => {
+      const { container } = render(<Page />);
+
+      const refList = container.querySelector('.ref-list');
+      expect(refList).not.toBeNull();
+
+      const items = refList?.querySelectorAll('li');
+      expect(items?.length).toBe(EXPECTED_REFERENCES.length);
+
+      // 参考文献は出現順の固定インベントリと 1 対 1 で照合する。
+      // 件数の下限確認では並び替え・差し替え・欠落を検出できないため。
+      const refLinks = Array.from(refList?.querySelectorAll('a') ?? []);
+      expect(refLinks.length).toBe(EXPECTED_REFERENCES.length);
+      refLinks.forEach((link, index) => {
+        const expected = EXPECTED_REFERENCES[index];
+        expect(link.textContent?.trim()).toBe(expected.label);
+        expect(link.getAttribute('href')).toBe(expected.href);
+        expect(link.getAttribute('target')).toBe('_blank');
+        expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+      });
+
+      const footer = container.querySelector('footer');
+      expect(footer).not.toBeNull();
+      expect(footer?.textContent).toContain('マイナビ出版');
+    });
+  });
+});

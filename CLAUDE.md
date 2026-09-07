@@ -219,13 +219,31 @@ Next.js App Router 構成:
 - `app/selenium-beginner-guide/selenium-beginner-guide.css` — Selenium 完全ガイド固有スタイル
 - `app/selenium-beginner-guide/page.tsx` — Selenium 完全ガイドページ
 - `app/selenium-beginner-guide/NavBar.tsx` — Selenium 完全ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `app/clean-code-cookbook-guide/clean-code-cookbook-guide.css` — Clean Code Cookbook 実践ガイド固有スタイル
+- `app/clean-code-cookbook-guide/page.tsx` — Clean Code Cookbook 実践ガイドページ
+- `app/clean-code-cookbook-guide/NavBar.tsx` — Clean Code Cookbook 実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `app/the-way-of-the-web-tester-guide/the-way-of-the-web-tester-guide.css` — The Way of the Web Tester 実践ガイド固有スタイル
+- `app/the-way-of-the-web-tester-guide/page.tsx` — The Way of the Web Tester 実践ガイドページ
+- `app/the-way-of-the-web-tester-guide/NavBar.tsx` — The Way of the Web Tester 実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `app/testing-web-apis-guide/testing-web-apis-guide.css` — Web APIテスト実践ガイド固有スタイル
+- `app/testing-web-apis-guide/page.tsx` — Web APIテスト実践ガイドページ
+- `app/testing-web-apis-guide/NavBar.tsx` — Web APIテスト実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `app/testing-web-apis-guide/Checklist.tsx` — Web APIテスト実践ガイド セクション14用インタラクティブチェックリスト（`'use client'`）
+- `app/software-test-design-guide/software-test-design-guide.css` — ソフトウェアテスト設計実践ガイド固有スタイル
+- `app/software-test-design-guide/page.tsx` — ソフトウェアテスト設計実践ガイドページ
+- `app/software-test-design-guide/NavBar.tsx` — ソフトウェアテスト設計実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
+- `app/software-test-design-guide/Checklist.tsx` — ソフトウェアテスト設計実践ガイド セクション15用インタラクティブチェックリスト（`'use client'`）
+- `app/secure-by-design-guide/secure-by-design-guide.css` — セキュア・バイ・デザイン実践ガイド固有スタイル
+- `app/secure-by-design-guide/page.tsx` — セキュア・バイ・デザイン実践ガイドページ
+- `app/secure-by-design-guide/NavBar.tsx` — セキュア・バイ・デザイン実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応、読了プログレスバー、トップ戻るボタン）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
-- `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。cucumber / cypress / selenium の各 NavBar が共用する
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 51 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。cucumber / cypress / selenium / clean-code-cookbook / the-way-of-the-web-tester / testing-web-apis / software-test-design / secure-by-design の各 NavBar が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 56 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
-- `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり）
+- `archive/html-archive/` — 移行済みの元 HTML ファイルの保管場所（移行後にここへ移動。カテゴリ別サブディレクトリあり: `books/` `cicd/` `tools/` 等）
+- `archive/md-archive/` — 移行済みの元 Markdown ファイルの保管場所（カテゴリ別サブディレクトリあり: `books/` `tools/` 等）
 
 ## 移行進行状況
 
@@ -415,6 +433,16 @@ index は「ISTQB の認定レベルは並列のカテゴリではなく階梯�
 
 詳細は `.claude/skills/html-to-nextjs-migration/SKILL.md` の Phase 3b を参照。
 
+### テーブル文字色と globals.css 干渉リセット（CRITICAL GOTCHA）
+
+`globals.css` に定義された要素セレクタ（特に `td { color: var(--color-text-secondary); }`（`#8ea3c3`、薄い青灰色）、`th { white-space: nowrap; }`、`td strong { color: var(--color-text-primary); }`、`tr:hover td` 等）が、ページ固有のテーブルに干渉して文字色を薄くさせたりレイアウトを崩す重大な不具合が頻発します。
+ページ固有 CSS では必ず `.my-page-layout tbody td, .my-page-layout td` に対して `color: var(--ink) !important;` および `font-size: 1rem !important;` を指定し、`thead th`、`td strong`、`td code`、`tbody tr:hover td` などの完全リセットを適用してください。
+
+### 構成要素インベントリ作成と網羅的テストスイート（抜け漏れ防止の絶対ルール）
+
+移行着手前に元HTMLの全構成要素（H1〜H4見出し、全TOCリンク、全Mermaid図解、全テーブル、全コードブロック、全コールアウト・カード、全参考文献）を棚卸しする「構成要素インベントリ」を作成してください。
+Redフェーズのテストスイート（`tests/<page-slug>/page.test.tsx`）では、上記インベントリの全項目を1対1でアサーションとして網羅し、デザインや図解・表の抜け漏れを機械的にゼロにしてください。
+
 ### 開発・デバッグ用スクリプトの管理ルール
 
 一時的に作成する開発・調査用スクリプトと、永続的にリポジトリに残すスクリプトを厳密に区別して管理します。
@@ -510,6 +538,11 @@ bun test        # ユニットテスト成功
 | `Cucumber-beginner-guide.html` | `/cucumber-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Cypress-beginner-guide.html` | `/cypress-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Selenium-beginner-guide.html` | `/selenium-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Clean-code-cookbook-guide.html` | `/clean-code-cookbook-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `The-way-of-the-web-tester-guide.html` | `/the-way-of-the-web-tester-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Testing-web-apis-guide.html` | `/testing-web-apis-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Software-test-design-guide.html` | `/software-test-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Secure-by-design-guide.html` | `/secure-by-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -526,7 +559,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 51 ルート（ガイドライブラリ index + 50 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 56 ルート（ガイドライブラリ index + 55 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。

@@ -344,18 +344,18 @@ AIコーディングアシスタントの普及に伴い、テストのあり方
 
 | No. | タイトル / 発信者 | URL |
 |-----|--------------------|-----|
-| 1 | The Art of Software Testing, 3rd Edition（Glenford J. Myers, Tom Badgett, Corey Sandler）— O'Reilly | <https://www.oreilly.com/library/view/the-art-of/9781118133156/> |
-| 2 | The Art of Software Testing（書評・要約）— Yegor Bugayenko | <https://www.yegor256.com/2014/08/22/art-of-software-testing.html> |
-| 3 | The Art of Software Testing, from Glenford Myers — José Sobral (Medium) | <https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264> |
-| 4 | The Practical Test Pyramid（Ham Vocke, Martin Fowler氏のサイトに掲載） | <https://martinfowler.com/articles/practical-test-pyramid.html> |
-| 5 | Test Driven Development — Martin Fowler's Bliki | <https://martinfowler.com/bliki/TestDrivenDevelopment.html> |
-| 6 | Code Coverage Best Practices — Google Testing Blog | <https://testing.googleblog.com/2020/08/code-coverage-best-practices.html> |
-| 7 | Flaky Tests at Google and How We Mitigate Them — Google Testing Blog | <https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html> |
-| 8 | FIRST Principles as Solid Rules for Tests（Robert C. Martinの提唱を解説）— DZone | <https://dzone.com/articles/first-principles-solid-rules-for-tests> |
-| 9 | ISTQB Foundation Level - Seven Testing Principles — ASTQB（ISTQB公認団体） | <https://astqb.org/istqb-foundation-level-seven-testing-principles/> |
-| 10 | Using Equivalence Partitioning and Boundary Value Analysis in Black Box Testing — StickyMinds | <https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing> |
-| 11 | Flaky test — Wikipedia | <https://en.wikipedia.org/wiki/Flaky_test> |
-| 12 | Top Software Testing Trends in 2026 for QA Leaders — AccelQ | <https://www.accelq.com/blog/software-testing-trends/> |
+| 1 | The Art of Software Testing, 3rd Edition（Glenford J. Myers, Tom Badgett, Corey Sandler）— O'Reilly | <a href="https://www.oreilly.com/library/view/the-art-of/9781118133156/" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/the-art-of/9781118133156/</a> |
+| 2 | The Art of Software Testing（書評・要約）— Yegor Bugayenko | <a href="https://www.yegor256.com/2014/08/22/art-of-software-testing.html" target="_blank" rel="noopener noreferrer">https://www.yegor256.com/2014/08/22/art-of-software-testing.html</a> |
+| 3 | The Art of Software Testing, from Glenford Myers — José Sobral (Medium) | <a href="https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264" target="_blank" rel="noopener noreferrer">https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264</a> |
+| 4 | The Practical Test Pyramid（Ham Vocke, Martin Fowler氏のサイトに掲載） | <a href="https://martinfowler.com/articles/practical-test-pyramid.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/articles/practical-test-pyramid.html</a> |
+| 5 | Test Driven Development — Martin Fowler's Bliki | <a href="https://martinfowler.com/bliki/TestDrivenDevelopment.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/bliki/TestDrivenDevelopment.html</a> |
+| 6 | Code Coverage Best Practices — Google Testing Blog | <a href="https://testing.googleblog.com/2020/08/code-coverage-best-practices.html" target="_blank" rel="noopener noreferrer">https://testing.googleblog.com/2020/08/code-coverage-best-practices.html</a> |
+| 7 | Flaky Tests at Google and How We Mitigate Them — Google Testing Blog | <a href="https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html" target="_blank" rel="noopener noreferrer">https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html</a> |
+| 8 | FIRST Principles as Solid Rules for Tests（Robert C. Martinの提唱を解説）— DZone | <a href="https://dzone.com/articles/first-principles-solid-rules-for-tests" target="_blank" rel="noopener noreferrer">https://dzone.com/articles/first-principles-solid-rules-for-tests</a> |
+| 9 | ISTQB Foundation Level - Seven Testing Principles — ASTQB（ISTQB公認団体） | <a href="https://astqb.org/istqb-foundation-level-seven-testing-principles/" target="_blank" rel="noopener noreferrer">https://astqb.org/istqb-foundation-level-seven-testing-principles/</a> |
+| 10 | Using Equivalence Partitioning and Boundary Value Analysis in Black Box Testing — StickyMinds | <a href="https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing" target="_blank" rel="noopener noreferrer">https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing</a> |
+| 11 | Flaky test — Wikipedia | <a href="https://en.wikipedia.org/wiki/Flaky_test" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Flaky_test</a> |
+| 12 | Top Software Testing Trends in 2026 for QA Leaders — AccelQ | <a href="https://www.accelq.com/blog/software-testing-trends/" target="_blank" rel="noopener noreferrer">https://www.accelq.com/blog/software-testing-trends/</a> |
 
 ---
 

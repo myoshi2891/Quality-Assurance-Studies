@@ -433,6 +433,30 @@ export default function Mermaid({ chart }: { chart: string }) {
 ```
 
 > `.edgeLabel *` に `fill:#fff` を当てない。エッジラベルの背景 `rect` が白く塗り潰される。色を当てるのは**ラベルテキストのみ・`color` のみ**に留める。
+> 独自テーマやライト基調ページに Mermaid を配置する際、`components/Mermaid.tsx` のグローバル dark テーマ設定との競合でエッジラベル（分岐の「はい」「いいえ」等）の背景がダークグレー四角形に潰れる場合がある。この場合はページ固有 CSS で背景をカード同化（または透明）、文字色を高コントラストなインク色、枠線を `none` に設定し、余計な彩色背景をつけず文字のみをクリアに視認できるようにする。
+> **セレクターは必ず `.mermaid-wrapper` 配下かつエッジラベル要素にスコープする。** 特に `span` / `text` を単独で書くとページ全体の文字要素へ波及するため禁止。
+>
+> ```css
+> /* ✅ Mermaid のエッジラベル内部だけを対象にする（文字色のみ） */
+> .mermaid-wrapper .edgeLabel,
+> .mermaid-wrapper .edgeLabel span,
+> .mermaid-wrapper .edgeLabel text {
+>   background-color: var(--card) !important;
+>   color: var(--ink) !important;
+>   fill: var(--ink) !important;
+>   stroke: none !important;
+> }
+>
+> /* ラベル背景の rect は SVG なので background-color ではなく fill で塗る。
+>    var(--ink) は文字色専用。rect に使うと背景がインク色で潰れる */
+> .mermaid-wrapper .edgeLabels rect {
+>   fill: var(--card) !important;   /* 背景を透過させたい場合は transparent */
+>   stroke: none !important;
+> }
+>
+> /* ❌ ページ全体の span / text に波及する */
+> .mermaid-wrapper .edgeLabel, .edgeLabels rect, span, text { ... }
+> ```
 
 ### 外側 DOMPurify による過剰サニタイズで図が壊れる（QA_Studies 実地 2026年6月）
 
