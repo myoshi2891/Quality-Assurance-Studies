@@ -1,0 +1,2232 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Specification by Example 実践ガイド ― 初学者のためのステップバイステップ入門</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Serif+JP:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css"
+        />
+        <style>
+            :root {
+                --paper: #f7f2e6;
+                --paper-card: #fffcf6;
+                --paper-card-2: #efe4c9;
+                --ink: #2b2620;
+                --ink-soft: #6b6152;
+                --indigo: #3b4a91;
+                --indigo-soft: rgba(59, 74, 145, 0.1);
+                --gold: #a8720b;
+                --forest: #3f6b4a;
+                --plum: #7a3f6b;
+                --border: #ddd1ae;
+                --radius: 12px;
+                --shadow: 0 2px 14px rgba(43, 38, 32, 0.08);
+                --sidebar-w: 288px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family:
+                    'Noto Sans JP',
+                    'Hiragino Sans',
+                    'Yu Gothic',
+                    -apple-system,
+                    BlinkMacSystemFont,
+                    sans-serif;
+                font-size: 16px;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: 'Source Serif 4', 'Noto Serif JP', serif;
+                color: var(--ink);
+                font-weight: 700;
+                line-height: 1.4;
+            }
+            a {
+                color: var(--indigo);
+            }
+            p,
+            li {
+                overflow-wrap: break-word;
+            }
+
+            /* ---------- layout ---------- */
+            .layout {
+                display: block;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-w);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--paper-card);
+                border-right: 1px solid var(--border);
+                padding: 1.75rem 1.25rem 3rem;
+                z-index: 50;
+                transition: transform 0.25s ease;
+            }
+            .sidebar-brand {
+                font-family: 'Source Serif 4', 'Noto Serif JP', serif;
+                font-weight: 700;
+                font-size: 1.05rem;
+                color: var(--indigo);
+                margin: 0 0 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .sidebar-brand .ti {
+                font-size: 1.3rem;
+            }
+            .nav-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .nav-a {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                padding: 0.55rem 0.7rem;
+                border-radius: 8px;
+                color: var(--ink-soft);
+                text-decoration: none;
+                font-size: 1rem;
+                font-weight: 500;
+                margin-bottom: 0.15rem;
+            }
+            .nav-a .ti {
+                font-size: 1.05rem;
+                flex: 0 0 auto;
+                color: var(--indigo);
+            }
+            .nav-a:hover {
+                background: var(--indigo-soft);
+                color: var(--ink);
+            }
+            .nav-a.active {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+                font-weight: 700;
+            }
+            .nav-sub {
+                list-style: none;
+                margin: 0.15rem 0 0.4rem 1.9rem;
+                padding: 0;
+                border-left: 1px solid var(--border);
+            }
+            .nav-sub a {
+                display: block;
+                padding: 0.3rem 0.6rem;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                text-decoration: none;
+            }
+            .nav-sub a:hover {
+                color: var(--indigo);
+            }
+
+            .mobile-bar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                height: 56px;
+                background: var(--paper-card);
+                border-bottom: 1px solid var(--border);
+                align-items: center;
+                padding: 0 1rem;
+                z-index: 60;
+                font-size: 1rem;
+            }
+            .mobile-bar,
+            .mobile-bar * {
+                font-size: 1rem;
+            }
+            .mobile-bar button {
+                background: none;
+                border: none;
+                color: var(--indigo);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-weight: 700;
+                cursor: pointer;
+            }
+            .mobile-bar button .ti {
+                font-size: 1.4rem;
+            }
+
+            .main {
+                margin-left: var(--sidebar-w);
+                max-width: none;
+                padding: 0 0 4rem;
+            }
+
+            /* ---------- hero ---------- */
+            .hero {
+                padding: 3.5rem 3.5rem 2.5rem;
+                border-bottom: 1px solid var(--border);
+                max-width: none;
+            }
+            .hero h1 {
+                font-size: 2.15rem;
+                margin: 0 0 0.9rem;
+            }
+            .hero .lede {
+                font-size: 1.05rem;
+                color: var(--ink-soft);
+                max-width: none;
+                margin: 0 0 1rem;
+            }
+            .hero .audience {
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.1rem 1.4rem;
+                box-shadow: var(--shadow);
+            }
+            .hero .audience h4 {
+                font-size: 1rem;
+                margin: 0 0 0.5rem;
+                color: var(--indigo);
+            }
+            .hero .audience ul {
+                margin: 0;
+                padding-left: 1.2rem;
+            }
+
+            /* ---------- sections ---------- */
+            .section {
+                padding: 2.6rem 3.5rem;
+                border-bottom: 1px solid var(--border);
+                max-width: none;
+            }
+            .section h2 {
+                font-size: 1.55rem;
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                margin: 0 0 1.3rem;
+            }
+            .section h2 .ti {
+                color: var(--indigo);
+                font-size: 1.3rem;
+            }
+            .section h3 {
+                font-size: 1.2rem;
+                margin: 2.2rem 0 1rem;
+                padding-left: 0.7rem;
+                border-left: 4px solid var(--indigo);
+            }
+            .prose p {
+                margin: 0 0 1.1rem;
+                max-width: none;
+            }
+            .prose ul,
+            .prose ol {
+                margin: 0 0 1.1rem;
+                padding-left: 1.4rem;
+            }
+            .prose li {
+                margin-bottom: 0.4rem;
+            }
+
+            /* ---------- callouts ---------- */
+            .callout {
+                border-radius: var(--radius);
+                padding: 1.1rem 1.4rem;
+                margin: 0 0 1.4rem;
+                display: flex;
+                gap: 0.8rem;
+                box-shadow: var(--shadow);
+            }
+            .callout .ti {
+                font-size: 1.3rem;
+                flex: 0 0 auto;
+                margin-top: 0.1rem;
+            }
+            .callout-info {
+                background: var(--indigo-soft);
+                border: 1px solid rgba(59, 74, 145, 0.25);
+            }
+            .callout-info .ti {
+                color: var(--indigo);
+            }
+            .callout-warn {
+                background: rgba(168, 114, 11, 0.1);
+                border: 1px solid rgba(168, 114, 11, 0.28);
+            }
+            .callout-warn .ti {
+                color: var(--gold);
+            }
+            .callout p {
+                margin: 0;
+            }
+            .callout.source {
+                background: transparent;
+                border: none;
+                border-left: 3px solid var(--indigo);
+                border-radius: 0;
+                padding: 0.35rem 0 0.35rem 1rem;
+                margin: 0 0 1.5rem;
+                box-shadow: none;
+                font-size: 1rem;
+                color: var(--ink-soft);
+            }
+            .callout.source .ti {
+                font-size: 1rem;
+                color: var(--indigo);
+            }
+            .callout.source a {
+                word-break: break-word;
+            }
+
+            /* ---------- tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                overflow-y: hidden;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                margin: 0 0 1.6rem;
+                box-shadow: var(--shadow);
+            }
+            .table-title {
+                background: var(--paper-card-2);
+                padding: 0.7rem 1.1rem;
+                font-weight: 700;
+                border-bottom: 1px solid var(--border);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .table-title .ti {
+                color: var(--indigo);
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                background: var(--paper-card);
+                font-size: 1rem;
+            }
+            th,
+            td {
+                padding: 0.75rem 1rem;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+                vertical-align: top;
+            }
+            th {
+                background: var(--indigo-soft);
+                color: var(--ink);
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            tr:last-child td {
+                border-bottom: none;
+            }
+
+            /* ---------- mermaid ---------- */
+            .mermaid-wrap {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                padding: 1.2rem 0;
+                margin: 0 0 1.6rem;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                box-shadow: var(--shadow);
+            }
+            .mermaid-wrap svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .mermaid-caption {
+                text-align: center;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin: -1rem 0 1.6rem;
+            }
+
+            /* ---------- code blocks ---------- */
+            .code-block {
+                background: #1b1f2a;
+                border-radius: var(--radius);
+                margin: 0 0 1.6rem;
+                overflow: hidden;
+                box-shadow: var(--shadow);
+            }
+            .code-block .code-title {
+                background: #12151d;
+                color: #c9d1d9;
+                padding: 0.6rem 1.1rem;
+                font-size: 1rem;
+                font-family: monospace;
+                border-bottom: 1px solid #2a2f3a;
+            }
+            .code-block pre {
+                margin: 0;
+                padding: 1.1rem 1.3rem;
+                overflow-x: auto;
+            }
+            .code-block code {
+                font-size: 1rem;
+                line-height: 1.7;
+            }
+
+            /* ---------- checklist ---------- */
+            .check-list {
+                list-style: none;
+                margin: 0 0 1rem;
+                padding: 0;
+            }
+            .check-list li {
+                display: flex;
+                gap: 0.7rem;
+                align-items: flex-start;
+                padding: 0.6rem 0.8rem;
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                margin-bottom: 0.6rem;
+                background: var(--paper-card);
+                cursor: pointer;
+                user-select: none;
+                transition:
+                    background 0.15s ease,
+                    border-color 0.15s ease;
+            }
+            .check-list li:hover {
+                background: var(--indigo-soft);
+            }
+            .check-list li:focus-visible {
+                outline: 2px solid var(--indigo);
+                outline-offset: 2px;
+            }
+            .check-list li .check-icon {
+                color: var(--ink-soft);
+                font-size: 1.15rem;
+                margin-top: 0.1rem;
+                flex: 0 0 auto;
+            }
+            .check-list li.checked {
+                background: var(--paper-card-2);
+                border-color: var(--forest);
+            }
+            .check-list li.checked .check-icon {
+                color: var(--forest);
+            }
+            .check-list li.checked .check-text {
+                text-decoration: line-through;
+                text-decoration-color: var(--forest);
+                color: var(--ink-soft);
+            }
+            .check-list .check-progress {
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin: 0 0 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .check-list .check-progress .ti {
+                color: var(--forest);
+            }
+
+            /* ---------- references ---------- */
+            .ref-group {
+                margin-bottom: 1.8rem;
+            }
+            .ref-group h4 {
+                font-size: 1rem;
+                color: var(--plum);
+                margin: 0 0 0.7rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .ref-group h4 .ti {
+                font-size: 1.05rem;
+            }
+            .ref-list {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .ref-item {
+                padding: 0.55rem 0.8rem;
+                border: 1px solid var(--border);
+                border-radius: 8px;
+                margin-bottom: 0.5rem;
+                background: var(--paper-card);
+                font-size: 1rem;
+            }
+            .ref-item a {
+                word-break: break-word;
+            }
+            .ref-item .ti {
+                color: var(--indigo);
+                margin-right: 0.4rem;
+            }
+
+            /* ---------- footer ---------- */
+            .footer {
+                padding: 2.5rem 3.5rem;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                max-width: none;
+            }
+
+            /* ---------- misc ---------- */
+            strong {
+                color: var(--ink);
+            }
+            code {
+                background: var(--paper-card-2);
+                padding: 0.1rem 0.35rem;
+                border-radius: 5px;
+                font-size: 1em;
+            }
+            .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+
+            @media (max-width: 900px) {
+                .mobile-bar {
+                    display: flex;
+                }
+                .sidebar {
+                    transform: translateX(-100%);
+                    top: 56px;
+                    height: calc(100vh - 56px);
+                }
+                body.sidebar-open .sidebar {
+                    transform: translateX(0);
+                }
+                .main {
+                    margin-left: 0;
+                    padding-top: 56px;
+                }
+                .hero,
+                .section,
+                .footer {
+                    padding-left: 1.4rem;
+                    padding-right: 1.4rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mobile-bar">
+            <button id="menuToggle" aria-label="メニューを開く">
+                <i class="ti ti-menu-2"></i>メニュー
+            </button>
+        </div>
+
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-brand"><i class="ti ti-books"></i>SbE 実践ガイド</div>
+                <ul class="nav-list">
+                    <li>
+                        <a class="nav-a" href="#s1"><i class="ti ti-bulb"></i>1. SbEとは何か</a>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s2"
+                            ><i class="ti ti-alert-triangle"></i>2. なぜ必要なのか</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s3"><i class="ti ti-history"></i>3. 歴史的背景</a>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s4"><i class="ti ti-route"></i>4. 7つのパターン</a>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s5"
+                            ><i class="ti ti-list-check"></i>5. 実践ガイド</a
+                        >
+                        <ul class="nav-sub">
+                            <li><a href="#s5-1">5-1 ゴールとスコープ</a></li>
+                            <li><a href="#s5-2">5-2 Three Amigos</a></li>
+                            <li><a href="#s5-3">5-3 Example Mapping</a></li>
+                            <li><a href="#s5-4">5-4 仕様の洗練</a></li>
+                            <li><a href="#s5-5">5-5 検証の自動化</a></li>
+                            <li><a href="#s5-6">5-6 頻繁な検証</a></li>
+                            <li><a href="#s5-7">5-7 Living Documentation</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s6"><i class="ti ti-code"></i>6. Gherkinの書き方</a>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s7"><i class="ti ti-bug"></i>7. アンチパターン</a>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s8"><i class="ti ti-tools"></i>8. ツール</a>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s9"
+                            ><i class="ti ti-checkbox"></i>9. チェックリスト</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s10"><i class="ti ti-flag-check"></i>10. まとめ</a>
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#s11"><i class="ti ti-link"></i>11. 参考文献</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="main">
+                <header class="hero">
+                    <h1>
+                        Specification by Example 実践ガイド ― 初学者のためのステップバイステップ入門
+                    </h1>
+                    <p class="lede">
+                        本ガイドは、Gojko Adzic著『Specification by Example: How Successful Teams
+                        Deliver the Right Software』(<a
+                            href="https://www.oreilly.com/library/view/specification-by-example/9781617290084/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >O'Reilly掲載ページ</a
+                        >)を軸に、Martin Fowler、Dan North、Cucumber開発チーム(Matt Wynne / Aslak
+                        Hellesøy)、George Dinwiddie、Cyrille
+                        Martraireなど、著名かつ国際的に活動するソフトウェア開発者・専門家の一次情報を2026年9月5日時点でウェブ調査したうえで作成しています。各主張の根拠URLは本文中のリンクおよび末尾の「参考文献・出典」に明記しています。
+                    </p>
+                    <div class="audience">
+                        <h4>対象読者</h4>
+                        <ul>
+                            <li>Specification by Example(以下、SbE)という言葉を初めて聞いた方</li>
+                            <li>BDD(ふるまい駆動開発)やGherkin記法との関係が曖昧なままの方</li>
+                            <li>
+                                「仕様書がすぐ陳腐化する」「QA・開発・ビジネスの認識がズレる」という課題を抱えるチームのメンバー
+                            </li>
+                        </ul>
+                    </div>
+                </header>
+
+                <!-- 1 -->
+                <section class="section prose" id="s1">
+                    <h2><i class="ti ti-bulb"></i>1. Specification by Exampleとは何か</h2>
+                    <p>
+                        Specification by Example(実例による仕様化)とは、<strong
+                            >具体的で現実的な「例」を使ってソフトウェアの要件を協働で定義し、その例をそのまま自動テストとして継続的に実行することで、「検証済みの例がカバーする範囲に限って」最新かつ信頼できるドキュメント(Living
+                            Documentation)を維持する</strong
+                        >開発プラクティスです。裏を返せば、例として書き起こされていない要件、誤った前提で書かれた例、自動テスト化されていない例については信頼性は保証されません。ドキュメントの信頼性は、あくまで「自動テストが通っている具体例の範囲」に限定されます。
+                    </p>
+                    <p>
+                        この言葉と体系を世に広めたのは、UK在住のコンサルタントであるGojko
+                        Adzic氏です。氏は2011年に出版した書籍の中で、世界中の30チーム・50以上のプロジェクトを調査した経験から、この手法を効果的に機能させるための「7つのキー・プロセスパターン」を導き出しました。同書は2012年のJolt
+                        Award(最優秀書籍部門)を受賞しています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://www.oreilly.com/library/view/specification-by-example/9781617290084/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Specification by Example(O'Reilly掲載ページ)</a
+                        >
+                        /
+                        <a
+                            href="https://gojko.net/books/specification-by-example/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Gojko Adzic公式サイトの書籍紹介ページ</a
+                        >
+                    </p>
+
+                    <h3>SbEがもたらす4つの効果</h3>
+                    <p>
+                        O'Reillyの書籍紹介によれば、この手法がもたらす主な効果は次の4点に整理されています。
+                    </p>
+                    <div class="table-wrap">
+                        <div class="table-title">
+                            <i class="ti ti-list-check"></i>SbEがもたらす主な効果
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>もたらされる効果</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>生きた・信頼できるドキュメントの生成</td>
+                                    <td>実行可能な例＝ドキュメントとなり、コードと乖離しない</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>期待値の明確化と検証の効率化</td>
+                                    <td>「合格 / 不合格」を誰もが一目で判断できる</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>手戻りの削減</td>
+                                    <td>実装前に認識のズレを解消できる</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>「正しいものを作れている」という確信</td>
+                                    <td>ビジネス側と開発側の双方が安心して開発を進められる</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://www.oreilly.com/library/view/specification-by-example/9781617290084/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Specification by Example(O'Reilly掲載ページ)</a
+                        >
+                    </p>
+
+                    <div class="callout callout-info">
+                        <i class="ti ti-bulb"></i>
+                        <p>
+                            <strong>初学者向けポイント:</strong>
+                            SbEは特定のツール(CucumberやGherkinなど)を指す言葉ではありません。あくまで「例を中心に協働で仕様を作り、それを自動検証し、ドキュメントとして維持し続ける」という<strong>プロセス・考え方</strong>です。ツールはその実現手段の一つに過ぎません。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 2 -->
+                <section class="section prose" id="s2">
+                    <h2>
+                        <i class="ti ti-alert-triangle"></i>2. なぜ必要なのか:
+                        従来の要件定義が抱える問題
+                    </h2>
+                    <p>
+                        Martin Fowler氏(ThoughtWorks)は2004年のブログ記事「Specification By
+                        Example」の中で、伝統的な仕様の書き方(事前条件・事後条件を厳密に定義する形式手法やDesign
+                        by
+                        Contractなど)には限界があると指摘しています。事前条件・事後条件を正確に書き切ることは、実際のコードを書くのと同じくらい難しい場合が多く、一方で「例」を使えば非技術者にとっても格段に理解しやすくなる、という趣旨を述べています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://martinfowler.com/bliki/SpecificationByExample.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Martin Fowler「bliki: Specification By Example」</a
+                        >
+                    </p>
+                    <p>
+                        さらにFowler氏は、例だけでは全ての振る舞いを網羅できないという弱点も認めた上で、「例による仕様は、理論的には不完全でも、実務においては形式手法より価値が高いことが多い」という立場を取っています。つまりSbEは万能ではなく、<strong>「対話」を代替するものではなく、対話を促進するための道具</strong>である点が重要です。
+                    </p>
+                    <p>
+                        同記事は、仕様をテストとして先に書く「ダブルチェック」の価値にも触れています。同じ振る舞いをコード(実装)とテスト(例)という異なる手段で二重に表現することで、誤りを発見しやすくなるという考え方です。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://martinfowler.com/bliki/SpecificationByExample.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Martin Fowler「bliki: Specification By Example」</a
+                        >
+                    </p>
+
+                    <h3>現場でよくある問題の整理</h3>
+                    <div class="table-wrap">
+                        <div class="table-title">
+                            <i class="ti ti-alert-triangle"></i
+                            >従来の要件定義の問題とSbEの解決の方向性
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>従来の要件定義でよくある問題</th>
+                                    <th>SbEが提供する解決の方向性</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ドキュメントが実装から乖離し、誰も信用しなくなる</td>
+                                    <td>
+                                        例＝自動テストなので、失敗すればすぐドキュメントの陳腐化がわかる
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>要件が曖昧なまま実装に着手し、手戻りが発生する</td>
+                                    <td>実装前にThree Amigosで具体例をすり合わせる</td>
+                                </tr>
+                                <tr>
+                                    <td>ビジネス・QA・開発の間で用語や理解が食い違う</td>
+                                    <td>共通言語(ユビキタス言語)としての具体例を用いる</td>
+                                </tr>
+                                <tr>
+                                    <td>テストが「実装の後付け」になり形骸化する</td>
+                                    <td>例を先に合意し、それをそのまま検証基準にする</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- 3 -->
+                <section class="section prose" id="s3">
+                    <h2>
+                        <i class="ti ti-history"></i>3. 歴史的背景: BDDからSpecification by
+                        Exampleへ
+                    </h2>
+                    <p>
+                        SbEは突然生まれた概念ではなく、2000年代前半からのTDD(テスト駆動開発)・BDD(ふるまい駆動開発)の系譜の上に成立しています。年表で整理すると以下の通りです。
+                    </p>
+
+                    <div class="mermaid-wrap"><div class="mermaid" id="diag-history"></div></div>
+                    <p class="mermaid-caption">図1: BDDからSpecification by Exampleに至る年表</p>
+
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://martinfowler.com/bliki/SpecificationByExample.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Martin Fowler「bliki: Specification By Example」</a
+                        >(2002年のワークショップで用語に触れた経緯を本人が記述)/
+                        <a
+                            href="https://cucumber.io/docs/bdd/history/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「History of BDD」</a
+                        >
+                        /
+                        <a
+                            href="https://dannorth.net/blog/introducing-bdd/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Dan North「Introducing BDD」(本人ブログ)</a
+                        >
+                    </p>
+
+                    <p>
+                        Cucumber公式ドキュメントによれば、BDDはDaniel Terhorst-North(Dan
+                        North)氏が2000年代初頭に提唱したもので、TDDに対する応答として生まれました。氏は「テスト」という言葉が持つ誤解(何をテストすべきか、どこまでテストすべきかが曖昧になりがちな点)を避けるために「振る舞い(behaviour)」という言葉を使い始め、これが新人プログラマーへのコーチングを大きく改善したと述べています。2003年には「JBehave」というJUnitに代わるツールの開発に着手しました。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/docs/bdd/history/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「History of BDD」</a
+                        >
+                        /
+                        <a
+                            href="https://dannorth.net/blog/introducing-bdd/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Dan North「Introducing BDD」</a
+                        >
+                    </p>
+
+                    <p>
+                        Given-When-Thenという構造については、Dan North氏とChris
+                        Matts氏が2004年ごろに考案したものです。Martin
+                        Fowler氏はこれを「振る舞いを記述するスタイル」として自身のbliki内で整理し、多くのテストフレームワーク(Cucumberなど)で構造化の手段として採用されていると説明しています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://martinfowler.com/bliki/GivenWhenThen.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Martin Fowler「bliki: Given When Then」</a
+                        >
+                    </p>
+
+                    <p>
+                        そして2011年、Gojko
+                        Adzic氏がこれらの流れを実務的なプロセスパターンとして体系化し、「Specification
+                        by Example」という書籍にまとめました。Dan
+                        North氏自身も、この本を「方法論としてのBDDを扱った書籍の中で最も近いもの」と評しています(Gojko
+                        Adzic氏の公式サイトに掲載されたレビューコメントより)。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://gojko.net/books/specification-by-example/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Gojko Adzic公式サイトの書籍紹介ページ</a
+                        >
+                    </p>
+
+                    <p>
+                        なお、SbEやBDDが生み出す「実行可能な仕様＝ドキュメント」という考え方は、その後Cyrille
+                        Martraire氏(Arolla社CTO、Paris Software Crafters
+                        community創設者)によって2019年の書籍『Living Documentation: Continuous
+                        Knowledge Sharing by
+                        Design』としてさらに一般化・拡張されています。詳細はステップ7で解説します。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://www.oreilly.com/library/view/living-documentation-continuous/9780134689418/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Living Documentation(O'Reilly掲載ページ)</a
+                        >
+                    </p>
+                </section>
+
+                <!-- 4 -->
+                <section class="section prose" id="s4">
+                    <h2><i class="ti ti-route"></i>4. 全体プロセス: 7つのキー・プロセスパターン</h2>
+                    <p>
+                        Gojko Adzic氏は書籍第2部「Key Process
+                        Patterns」で、SbEを実践するチームに共通する7つのパターンを紹介しています。これらは厳密な手順(ウォーターフォール)ではなく、チームが「次の作業に取り掛かる準備ができたとき」に、循環的(サイクリック)に繰り返される緩やかなガイドラインとして提示されている点が重要です。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://gist.github.com/rpivo/1469476d9c4cd3ea41f8709eaae94920"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >The Key Process Patterns From Specification by Example(要約まとめ)</a
+                        >
+                        /
+                        <a
+                            href="https://www.oreilly.com/library/view/specification-by-example/9781617290084/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Specification by Example(O'Reilly目次ページ)</a
+                        >
+                    </p>
+
+                    <div class="mermaid-wrap"><div class="mermaid" id="diag-cycle"></div></div>
+                    <p class="mermaid-caption">
+                        図2: SbEの7つのキー・プロセスパターン(循環プロセス)
+                    </p>
+
+                    <h3>各パターンの目的一覧</h3>
+                    <div class="table-wrap">
+                        <div class="table-title">
+                            <i class="ti ti-route"></i>7つのキー・プロセスパターンと目的
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>パターン名(原著)</th>
+                                    <th>目的・問いかけ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td>Deriving scope from goals</td>
+                                    <td>
+                                        このビジネスゴールを達成するために、本当に必要な機能は何か
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Specifying collaboratively</td>
+                                    <td>
+                                        ビジネス・開発・QAが一緒に仕様を作れているか(Three Amigos)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>Illustrating using examples</td>
+                                    <td>
+                                        抽象的なルールを、誰もが誤解しない具体例で説明できているか
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>Refining the specification</td>
+                                    <td>その例は曖昧さなく、実行可能な形になっているか</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>Automating validation without changing specifications</td>
+                                    <td>人間が読む形式を保ったまま、自動テスト化できているか</td>
+                                </tr>
+                                <tr>
+                                    <td>6</td>
+                                    <td>Validating frequently</td>
+                                    <td>CI/CDで継続的に、素早く検証できているか</td>
+                                </tr>
+                                <tr>
+                                    <td>7</td>
+                                    <td>Evolving a documentation system</td>
+                                    <td>検証済みの例は、資産として整理・維持されているか</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://www.oreilly.com/library/view/specification-by-example/9781617290084/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Specification by Example(O'Reilly目次ページ)</a
+                        >
+                    </p>
+                </section>
+
+                <!-- 5 -->
+                <section class="section prose" id="s5">
+                    <h2><i class="ti ti-list-check"></i>5. ステップ・バイ・ステップ実践ガイド</h2>
+                    <p>
+                        ここからは、初めてSbEに取り組むチームを想定し、各パターンを実践レベルの手順に分解して解説します。
+                    </p>
+
+                    <h3 id="s5-1">ステップ1: ゴールからスコープを導く</h3>
+                    <p>
+                        書籍の要約記事によれば、Gojko
+                        Adzic氏はこのパターンを「曖昧な要求をそのまま鵜呑みにせず、まずビジネスゴールに立ち返る」プロセスとして説明しています。チームは顧客のビジネスゴールから出発し、そのゴールを達成するために本当に必要なスコープを協働で定義します。ビジネス側は「何を」「なぜ」実現したいかという意図と期待価値の伝達に集中し、開発側はそれをより安く・早く・保守しやすい形で実現する解決策を提案する、という役割分担が推奨されています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://gist.github.com/rpivo/1469476d9c4cd3ea41f8709eaae94920"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >The Key Process Patterns From Specification by Example(要約まとめ)</a
+                        >
+                    </p>
+                    <p><strong>実践のポイント</strong></p>
+                    <ul>
+                        <li>「この機能は何のビジネス指標に効くのか」を常に問い直す</li>
+                        <li>
+                            ゴールが曖昧なままだと、後続のスコープ・具体例・仕様のすべてが弱くなる(同記事はこの因果関係を明確に指摘しています)
+                        </li>
+                        <li>大きすぎる要求は、ゴールを軸に分割する</li>
+                    </ul>
+
+                    <h3 id="s5-2">ステップ2: 協働で仕様化する (Three Amigos)</h3>
+                    <p>
+                        このパターンの中核が「Three
+                        Amigos(3人の仲間)」と呼ばれる仕様ワークショップです。ビジネス視点・開発視点・QA(テスト)視点の最低3つの立場が同席し、実装に着手する前に共通理解を作ります。
+                    </p>
+
+                    <div class="mermaid-wrap"><div class="mermaid" id="diag-amigos"></div></div>
+                    <p class="mermaid-caption">図3: Three Amigosの3つの視点</p>
+
+                    <p>
+                        「Three Amigos」という用語自体は、Gojko
+                        Adzic氏ではなくアジャイルコーチのGeorge
+                        Dinwiddie氏が2009年のブログ記事で最初に用いたとAgile
+                        Allianceの用語集は説明しています。3人ちょうどという意味ではなく、少なくともビジネス・開発・テストの3つの視点を集めるべきだという「姿勢」を指す言葉である点が強調されています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://agilealliance.org/glossary/three-amigos/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Agile Alliance「What are the Three Amigos in Agile?」</a
+                        >
+                    </p>
+                    <p><strong>実践のポイント</strong></p>
+                    <ul>
+                        <li>
+                            実装に着手する<strong>前</strong>に、15〜30分程度の短いセッションとして開催する
+                        </li>
+                        <li>
+                            目的は「合意された仕様書を作ること」ではなく「認識のズレをその場で発見すること」
+                        </li>
+                        <li>
+                            ビジネス側が一方的に要求を提示する「契約」の場にしない。むしろ「解決したい問題」を提示し、チーム全体で解決策を考える対話の場にする
+                        </li>
+                    </ul>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://johnfergusonsmart.com/three-amigos-requirements-discovery/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >John Ferguson Smart「The anatomy of a Three Amigos Requirements
+                            Discovery workshop」</a
+                        >
+                    </p>
+
+                    <h3 id="s5-3">ステップ3: 具体例で説明する (Example Mapping)</h3>
+                    <p>
+                        Three Amigosの会話を構造化する代表的な技法が、Cucumberの共同創業者であるMatt
+                        Wynne氏が考案した「Example
+                        Mapping(例のマッピング)」です。氏はセントルイスでチームをトレーニングしていた際にこの手法を発案したと、自身のプロフィールページで説明しています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://mattwynne.net/about"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Matt Wynne「About」</a
+                        >
+                    </p>
+
+                    <p>Example Mappingでは、4色の索引カードを使って会話の内容を可視化します。</p>
+                    <div class="table-wrap">
+                        <div class="table-title">
+                            <i class="ti ti-cards"></i>Example Mappingの4色カード
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>カードの色</th>
+                                    <th>意味</th>
+                                    <th>内容の例</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>黄色</td>
+                                    <td>ストーリー</td>
+                                    <td>対象のユーザーストーリーそのもの</td>
+                                </tr>
+                                <tr>
+                                    <td>青色</td>
+                                    <td>ルール</td>
+                                    <td>受け入れ基準・ビジネスルール(ストーリーの下に配置)</td>
+                                </tr>
+                                <tr>
+                                    <td>緑色</td>
+                                    <td>具体例</td>
+                                    <td>各ルールを裏付ける具体的なシナリオ(ルールの下に配置)</td>
+                                </tr>
+                                <tr>
+                                    <td>赤色</td>
+                                    <td>疑問</td>
+                                    <td>その場で答えが出ない質問・保留事項</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/docs/bdd/example-mapping/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「Example Mapping」</a
+                        >
+                        /
+                        <a
+                            href="https://cucumber.io/blog/bdd/example-mapping-introduction/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Matt Wynne「Introducing Example Mapping」</a
+                        >
+                    </p>
+
+                    <div class="mermaid-wrap"><div class="mermaid" id="diag-mapping"></div></div>
+                    <p class="mermaid-caption">図4: Example Mappingのカード構造</p>
+
+                    <p>
+                        Matt Wynne氏は自身の記事の中で、Example
+                        Mappingの狙いを「ストーリーの中の最も小さなふるまいの単位にズームインし、ルールを切り分け、本当にやるべき中核を見つけ、残りは後回しにできるようにすること」だと説明しています。またCucumberチームでは、セッション開始から25分経過した時点でメンバーが親指を立てる簡易投票を行い、そのストーリーを次のスプリントに取り込めるかどうかを判断しているとも述べています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://medium.com/@mattwynne/introducing-example-mapping-42ccd15f8adf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Matt Wynne「Introducing Example Mapping」(Medium転載版)</a
+                        >
+                    </p>
+                    <p><strong>実践のポイント</strong></p>
+                    <ul>
+                        <li>ルールとサンプル(具体例)の違いを最初に全員で理解しておく</li>
+                        <li>
+                            疑問(赤カード)が多く出るストーリーは、まだ実装に着手すべきではないサイン
+                        </li>
+                        <li>1セッションは時間を区切る(20〜30分が目安)</li>
+                        <li>
+                            Example
+                            Mappingで洗い出した緑カードが、次のステップ「仕様の洗練」でGherkinシナリオの土台になる
+                        </li>
+                    </ul>
+
+                    <h3 id="s5-4">ステップ4: 仕様を洗練する</h3>
+                    <p>
+                        Example
+                        Mappingで出てきた具体例は、まだラフな会話の産物です。このステップでは、それらを曖昧さのない、実行可能な形へと磨き上げます。Cucumber公式ドキュメントは、良いGherkinの条件として「システムの意図された振る舞い(What)を記述し、実装の詳細(How)を記述しない」ことを最重要原則として挙げています。詳しい書き方は本ガイドの6章でまとめて解説します。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/docs/bdd/better-gherkin/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「Writing better Gherkin」</a
+                        >
+                    </p>
+                    <p><strong>実践のポイント</strong></p>
+                    <ul>
+                        <li>1シナリオにつき、検証するふるまいは1つだけに絞る</li>
+                        <li>
+                            具体的な入力値・期待値を用いる(「正しいパスワード」ではなく「パスワードが
+                            <code>Secret123</code> の場合」のように)
+                        </li>
+                        <li>
+                            誰が読んでも同じ解釈になるかを、ドメインに詳しくない第三者に読んでもらってチェックする
+                        </li>
+                    </ul>
+
+                    <h3 id="s5-5">ステップ5: 仕様を変えずに検証を自動化する</h3>
+                    <p>
+                        このパターン名が示す通り、重要なのは「自動化のためにシナリオの文面を技術寄りに書き換えない」という点です。仕様(Gherkinのシナリオ)はあくまで人間が読むためのものであり、その裏側の実装(ステップ定義)だけを技術的に構築します。Cucumberチームは、UIの操作手順をそのままシナリオに落とし込む書き方(実装への依存)を代表的なアンチパターンとして警告しています。詳細は7章で扱います。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/docs/guides/anti-patterns/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「Anti-patterns」</a
+                        >
+                    </p>
+                    <p><strong>実践のポイント</strong></p>
+                    <ul>
+                        <li>シナリオの文面(Gherkin)とステップ定義(実装コード)を明確に分離する</li>
+                        <li>UIの実装が変わってもシナリオ文面は変わらないように設計する</li>
+                        <li>
+                            ドメインロジック層・APIレイヤーなど、UIより下のレイヤーで検証できる構成を検討する
+                        </li>
+                    </ul>
+
+                    <h3 id="s5-6">ステップ6: 頻繁に検証する</h3>
+                    <p>
+                        例が自動テストとして実装されたら、CI(継続的インテグレーション)パイプラインに組み込み、コード変更のたびに実行します。これにより、仕様と実装の乖離をリアルタイムで検知できます。
+                    </p>
+
+                    <div class="mermaid-wrap"><div class="mermaid" id="diag-ci"></div></div>
+                    <p class="mermaid-caption">図5: 頻繁な検証を支えるCIパイプライン</p>
+
+                    <p><strong>実践のポイント</strong></p>
+                    <ul>
+                        <li>
+                            失敗したシナリオを「テストが壊れた」と見なすだけでなく、「仕様と実装のどちらが正しいか」を毎回議論する
+                        </li>
+                        <li>
+                            実行が遅いシナリオ(E2E中心のもの)はCIのボトルネックになりやすいため、レイヤーを見直す
+                        </li>
+                        <li>
+                            頻度が低いとこの仕組み全体の価値が薄れるため、少なくとも1日に何度も実行できる速度を目指す
+                        </li>
+                    </ul>
+
+                    <h3 id="s5-7">
+                        ステップ7: ドキュメントシステムを進化させる (Living Documentation)
+                    </h3>
+                    <p>
+                        自動検証され続けている例の集合は、単なるテストコードではなく「常に正しいことが保証されたドキュメント」＝Living
+                        Documentation(生きたドキュメント)として機能します。この概念をさらに体系化したのが、Arolla社CTOのCyrille
+                        Martraire氏による2019年の書籍『Living Documentation: Continuous Knowledge
+                        Sharing by Design』です。
+                    </p>
+                    <p>
+                        InfoQのインタビューでMartraire氏は、従来のドキュメントが抱える根本的な問題は「信用できないこと」(情報が欠落・陳腐化・誤解を招く状態になりがちなこと)だと述べ、コードと同じペースで進化するドキュメントを目指すべきだと主張しています。氏はドメイン駆動設計(DDD)の考え方を応用し、ビジネスゴールの設定からドメイン知識、アーキテクチャ、設計、デプロイに至るまで、あらゆる局面でドキュメントを「生かす」手法を体系化しました。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://www.infoq.com/articles/book-review-living-documentation/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >InfoQ「Q&A with Cyrille Martraire on the Book Living Documentation」</a
+                        >
+                        /
+                        <a
+                            href="https://www.oreilly.com/library/view/living-documentation-continuous/9780134689418/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Living Documentation(O'Reilly掲載ページ)</a
+                        >
+                    </p>
+                    <p><strong>実践のポイント</strong></p>
+                    <ul>
+                        <li>
+                            Gherkinのフィーチャーファイルは、単なるテストではなく「読み物」として整理する(タグ・カテゴリ分けなど)
+                        </li>
+                        <li>
+                            ドキュメントの生成・公開自体もCIで自動化し、常に最新版が閲覧できる状態を保つ
+                        </li>
+                        <li>古くなった・使われなくなったシナリオは放置せず、定期的に棚卸しする</li>
+                    </ul>
+                </section>
+
+                <!-- 6 -->
+                <section class="section prose" id="s6">
+                    <h2>
+                        <i class="ti ti-code"></i>6. Given-When-Then /
+                        Gherkinの書き方ベストプラクティス
+                    </h2>
+                    <p>
+                        Gherkinは、SbEやBDDで書かれた具体例を構造化するための代表的な記法です。Given(前提条件)・When(操作・イベント)・Then(期待される結果)という3つの要素で1つの振る舞いを表現します。この型は、Dan
+                        North氏とChris Matts氏がBDDの一部として考案したものだと、Martin
+                        Fowler氏がbliki内で説明しています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://martinfowler.com/bliki/GivenWhenThen.html"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Martin Fowler「bliki: Given When Then」</a
+                        >
+                    </p>
+
+                    <div class="mermaid-wrap"><div class="mermaid" id="diag-gwt"></div></div>
+                    <p class="mermaid-caption">図6: Given-When-Thenの構造</p>
+
+                    <p>
+                        Cucumber公式ドキュメント「Writing better
+                        Gherkin」は、良いシナリオを書くための最も重要な原則として「システムの意図された振る舞い(What)を記述し、実装の詳細(How)を記述しないこと」を挙げています。実装手順(ボタンをクリックする、フィールドに入力する、など)をそのまま書いてしまうと、UIの実装が変わるたびにシナリオを書き換える必要が生じ、本来の「振る舞いの意図」がぼやけてしまうと説明されています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/docs/bdd/better-gherkin/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「Writing better Gherkin」</a
+                        >
+                    </p>
+
+                    <div class="table-wrap">
+                        <div class="table-title"><i class="ti ti-code"></i>WhatとHowの書き分け</div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>観点</th>
+                                    <th>悪い例(実装手順＝Howに寄りすぎ)</th>
+                                    <th>良い例(意図＝Whatを記述)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ログイン処理</td>
+                                    <td>
+                                        <code>When</code>
+                                        ユーザー名フィールドに"Bob"と入力し、パスワードフィールドに"secret"と入力し、ログインボタンをクリックする
+                                    </td>
+                                    <td><code>When</code> "Bob"としてログインする</td>
+                                </tr>
+                                <tr>
+                                    <td>検索操作</td>
+                                    <td>
+                                        <code>When</code>
+                                        検索ボックスをクリックし、"りんご"と入力し、検索アイコンを押す
+                                    </td>
+                                    <td><code>When</code> "りんご"を検索する</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/docs/bdd/better-gherkin/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「Writing better Gherkin」</a
+                        >
+                    </p>
+
+                    <h3>Gherkinシナリオの実例</h3>
+                    <p>
+                        「What(意図)」を記述する良い例を、実際のフィーチャーファイル形式で示します。
+                    </p>
+                    <div class="code-block">
+                        <div class="code-title">login.feature</div>
+                        <pre><code class="language-gherkin">Feature: ログイン
+
+  Scenario: 正しい認証情報でログインする
+    Given ユーザー "Bob" が登録済みである
+    When "Bob" としてログインする
+    Then ダッシュボード画面が表示される
+
+  Scenario: 誤ったパスワードでログインする
+    Given ユーザー "Bob" が登録済みである
+    When "Bob" として誤ったパスワードでログインする
+    Then エラーメッセージ "認証に失敗しました" が表示される</code></pre>
+                    </div>
+
+                    <h3>書き方の基本ルール(まとめ)</h3>
+                    <ul>
+                        <li>
+                            Given / When /
+                            Thenの3要素で1シナリオを構成する(複数条件を並べる場合は<code>And</code>
+                            / <code>But</code>を使う)
+                        </li>
+                        <li>1シナリオでは1つのふるまいだけを検証する</li>
+                        <li>
+                            実装用語(ボタン、フィールド、クリックなど)ではなく、ビジネス用語で記述する
+                        </li>
+                        <li>具体的な値を使う(曖昧な代名詞や一般論を避ける)</li>
+                        <li>シナリオ名は「何を検証しているか」が一目でわかる名前にする</li>
+                    </ul>
+                </section>
+
+                <!-- 7 -->
+                <section class="section prose" id="s7">
+                    <h2><i class="ti ti-bug"></i>7. よくあるアンチパターンと回避策</h2>
+                    <p>
+                        Cucumberの中核開発者であるSteve Tooke氏・Aslak Hellesøy氏・Matt
+                        Wynne氏によるポッドキャストを基にした公式ブログ記事「Cucumber
+                        anti-patterns」では、現場で頻発する失敗パターンが具体的に整理されています。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/blog/bdd/cucumber-antipatterns-part-one/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式ブログ「Cucumber anti-patterns (part #1)」</a
+                        >
+                        /
+                        <a
+                            href="https://cucumber.io/blog/bdd/cucumber-anti-patterns-part-two/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >「Cucumber anti-patterns (part #2)」</a
+                        >
+                        /
+                        <a
+                            href="https://cucumber.io/docs/guides/anti-patterns/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「Anti-patterns」ドキュメント</a
+                        >
+                    </p>
+
+                    <div class="table-wrap">
+                        <div class="table-title">
+                            <i class="ti ti-bug"></i>よくあるアンチパターンと回避策
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>アンチパターン</th>
+                                    <th>何が問題か</th>
+                                    <th>回避策</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>非技術者だけでシナリオを書く</td>
+                                    <td>
+                                        自動化の段階で書き直しが必要になり、プロダクトオーナーが「自分が書いた内容と違う」と感じ、仕様への当事者意識を失う
+                                    </td>
+                                    <td>Three Amigosで最初から共同執筆する</td>
+                                </tr>
+                                <tr>
+                                    <td>1シナリオに複数の検証結果を詰め込む</td>
+                                    <td>
+                                        何を検証しているのかが不明瞭になり、ドキュメントとしても機能しなくなる
+                                    </td>
+                                    <td>1シナリオ＝1つのふるまいに分割する</td>
+                                </tr>
+                                <tr>
+                                    <td>UI操作をそのままシナリオに書く(実装への依存)</td>
+                                    <td>
+                                        UIの変更のたびにシナリオが壊れる。E2Eテストに依存するため実行が遅く不安定になる
+                                    </td>
+                                    <td>
+                                        ふるまい(What)を記述し、UI操作の詳細はステップ定義側に隠蔽する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>抽象的すぎるシナリオ(ビジネスルールの言い換えに留まる)</td>
+                                    <td>
+                                        実装者が「裏側で何が起きるべきか」を具体的に判断できない
+                                    </td>
+                                    <td>具体的な入力値・期待値を明記する</td>
+                                </tr>
+                                <tr>
+                                    <td>冗長で長すぎるシナリオ</td>
+                                    <td>
+                                        本質的でない詳細(incidental
+                                        detail)でストーリーの意図が埋もれる
+                                    </td>
+                                    <td>
+                                        Example Mappingの段階で本質的なルールと具体例だけに絞り込む
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/blog/bdd/cucumber-antipatterns-part-one/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式ブログ「Cucumber anti-patterns (part #1)」</a
+                        >
+                        /
+                        <a
+                            href="https://cucumber.io/blog/bdd/cucumber-anti-patterns-part-two/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >「Cucumber anti-patterns (part #2)」</a
+                        >
+                    </p>
+
+                    <p>
+                        同記事では、Cucumberは本質的には「テストツール」である以前に「ドメインに対する自分たちの理解を検証するためのツール」であるという考え方が繰り返し強調されています。全員がGherkinの文面に合意して初めて実装に着手できる、という順序を守ることが、これらのアンチパターンを避ける最大のポイントです。
+                    </p>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/blog/bdd/cucumber-antipatterns-part-one/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式ブログ「Cucumber anti-patterns (part #1)」</a
+                        >
+                    </p>
+                </section>
+
+                <!-- 8 -->
+                <section class="section prose" id="s8">
+                    <h2><i class="ti ti-tools"></i>8. 主要ツールエコシステム</h2>
+                    <p>
+                        SbE /
+                        BDDを実践するための代表的なオープンソースツールを整理します。いずれもGherkin(またはそれに準ずる自然言語記法)でシナリオを記述し、対応言語のステップ定義と結びつけて自動実行する点は共通しています。
+                    </p>
+
+                    <div class="table-wrap">
+                        <div class="table-title">
+                            <i class="ti ti-tools"></i>SbE / BDD 主要ツール一覧
+                        </div>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ツール</th>
+                                    <th>主な対象言語</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Cucumber</td>
+                                    <td>Ruby / Java / JavaScript / Kotlin など多数</td>
+                                    <td>
+                                        Gherkin構文を広めた代表的な実装。Example
+                                        Mapping・Anti-patternsなど実践知の発信元でもある
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>JBehave</td>
+                                    <td>Java</td>
+                                    <td>
+                                        Dan
+                                        North氏が2003年に開発を始めた、歴史上最初期のBDDフレームワーク
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Behave</td>
+                                    <td>Python</td>
+                                    <td>Pythonエコシステムで広く使われるGherkin実装</td>
+                                </tr>
+                                <tr>
+                                    <td>Reqnroll(旧SpecFlow)</td>
+                                    <td>.NET</td>
+                                    <td>
+                                        .NET向けの代表的なGherkin実装。SpecFlowは2024年末に開発元Tricentisによって公式にEnd-of-Life(提供終了)が発表され、コミュニティによるフォークであるReqnrollが後継として開発が続けられている
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p class="callout source">
+                        <i class="ti ti-link"></i>出典:
+                        <a
+                            href="https://cucumber.io/docs/bdd/history/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Cucumber公式「History of BDD」</a
+                        >
+                        /
+                        <a
+                            href="https://reqnroll.net/news/2025/01/specflow-end-of-life-has-been-announced/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >Reqnroll公式「SpecFlow end-of-life has been announced」</a
+                        >
+                        /
+                        <a href="https://reqnroll.net/" target="_blank" rel="noopener noreferrer"
+                            >Reqnroll公式サイト</a
+                        >
+                    </p>
+
+                    <div class="callout callout-warn">
+                        <i class="ti ti-alert-triangle"></i>
+                        <p>
+                            <strong>注意:</strong>
+                            ツールはあくまで「⑤検証を自動化する」パターンを実現する手段です。ツール導入から入ってしまう(＝Three
+                            AmigosやExample
+                            Mappingを省略していきなりGherkinファイルを書き始める)ことは、7章で紹介したアンチパターンの温床になりやすい点に注意してください。
+                        </p>
+                    </div>
+                </section>
+
+                <!-- 9 -->
+                <section class="section prose" id="s9">
+                    <h2><i class="ti ti-checkbox"></i>9. 初学者向けチェックリスト</h2>
+                    <p>
+                        はじめてチームにSbEを導入する際の最初の一歩として、以下を確認してみてください。クリック(またはEnter/Space)でチェックのオン・オフを切り替えられます。
+                    </p>
+                    <p class="check-progress" id="checkProgress">
+                        <i class="ti ti-circle-check"></i
+                        ><span id="checkProgressText">0 / 8 完了</span>
+                    </p>
+                    <ul class="check-list" id="checklist9">
+                        <li
+                            class="check-item"
+                            role="checkbox"
+                            aria-checked="false"
+                            tabindex="0"
+                            data-idx="0"
+                        >
+                            <i class="ti ti-circle check-icon"></i
+                            ><span class="check-text"
+                                >対象の機能・ストーリーが、どのビジネスゴールに紐づくか説明できる(ステップ1)</span
+                            >
+                        </li>
+                        <li
+                            class="check-item"
+                            role="checkbox"
+                            aria-checked="false"
+                            tabindex="0"
+                            data-idx="1"
+                        >
+                            <i class="ti ti-circle check-icon"></i
+                            ><span class="check-text"
+                                >実装に着手する前に、ビジネス・開発・QAが同席するThree
+                                Amigosの場を設けている(ステップ2)</span
+                            >
+                        </li>
+                        <li
+                            class="check-item"
+                            role="checkbox"
+                            aria-checked="false"
+                            tabindex="0"
+                            data-idx="2"
+                        >
+                            <i class="ti ti-circle check-icon"></i
+                            ><span class="check-text"
+                                >Example
+                                Mappingの4色カード(黄＝ストーリー、青＝ルール、緑＝具体例、赤＝疑問)の意味をチーム全員が理解している(ステップ3)</span
+                            >
+                        </li>
+                        <li
+                            class="check-item"
+                            role="checkbox"
+                            aria-checked="false"
+                            tabindex="0"
+                            data-idx="3"
+                        >
+                            <i class="ti ti-circle check-icon"></i
+                            ><span class="check-text"
+                                >シナリオが「What(何が起きるか)」で書かれており、「How(どう操作するか)」に踏み込みすぎていない(ステップ4・6章)</span
+                            >
+                        </li>
+                        <li
+                            class="check-item"
+                            role="checkbox"
+                            aria-checked="false"
+                            tabindex="0"
+                            data-idx="4"
+                        >
+                            <i class="ti ti-circle check-icon"></i
+                            ><span class="check-text"
+                                >Gherkinの文面と、その裏側の実装(ステップ定義)が分離されている(ステップ5)</span
+                            >
+                        </li>
+                        <li
+                            class="check-item"
+                            role="checkbox"
+                            aria-checked="false"
+                            tabindex="0"
+                            data-idx="5"
+                        >
+                            <i class="ti ti-circle check-icon"></i
+                            ><span class="check-text"
+                                >シナリオがCIパイプラインに組み込まれ、日常的に自動実行されている(ステップ6)</span
+                            >
+                        </li>
+                        <li
+                            class="check-item"
+                            role="checkbox"
+                            aria-checked="false"
+                            tabindex="0"
+                            data-idx="6"
+                        >
+                            <i class="ti ti-circle check-icon"></i
+                            ><span class="check-text"
+                                >実行され続けているシナリオを「生きたドキュメント」として整理・公開する仕組みがある(ステップ7)</span
+                            >
+                        </li>
+                        <li
+                            class="check-item"
+                            role="checkbox"
+                            aria-checked="false"
+                            tabindex="0"
+                            data-idx="7"
+                        >
+                            <i class="ti ti-circle check-icon"></i
+                            ><span class="check-text"
+                                >1シナリオが1つのふるまいだけを検証している(7章のアンチパターン対策)</span
+                            >
+                        </li>
+                    </ul>
+                </section>
+
+                <!-- 10 -->
+                <section class="section prose" id="s10">
+                    <h2><i class="ti ti-flag-check"></i>10. まとめ</h2>
+                    <p>
+                        Specification by
+                        Exampleは、「具体例を使って仕様をすり合わせ、その例をそのまま自動テストとして走らせ続けることで、常に正しいドキュメントを保つ」という一貫した思想です。Gojko
+                        Adzic氏が体系化した7つのプロセスパターンは、ゴール設定から始まり、Three
+                        AmigosやExample
+                        Mappingによる協働、Gherkinによる仕様の洗練、自動化、頻繁な検証、そしてLiving
+                        Documentationへの進化という一連の流れとしてつながっています。
+                    </p>
+                    <p>
+                        重要なのは、どのツールを使うかではなく、<strong>「実装の前に、具体例を使って認識を揃える」という順序を守ること</strong>です。この順序さえ守れれば、Gherkinを使わずとも、あるいは別のツールを使っても、SbEの本質的な価値(生きたドキュメント、手戻りの削減、正しいものを作れているという確信)を得ることができます。
+                    </p>
+                </section>
+
+                <!-- 11 -->
+                <section class="section prose" id="s11">
+                    <h2><i class="ti ti-link"></i>11. 参考文献・出典</h2>
+                    <p>
+                        本ガイドの作成にあたり、2026年9月5日時点で以下の一次情報源をウェブ調査し参照しました。
+                    </p>
+
+                    <div class="ref-group">
+                        <h4>
+                            <i class="ti ti-user"></i>Gojko Adzic(Specification by
+                            Exampleの提唱者・Neuri Consulting LLPパートナー)
+                        </h4>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://www.oreilly.com/library/view/specification-by-example/9781617290084/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Specification by Example(O'Reilly掲載ページ)</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://gojko.net/books/specification-by-example/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Gojko Adzic公式サイト: 書籍紹介ページ</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://gist.github.com/rpivo/1469476d9c4cd3ea41f8709eaae94920"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >The Key Process Patterns From Specification by
+                                    Example(要約まとめ、GitHub Gist)</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-group">
+                        <h4>
+                            <i class="ti ti-user"></i>Martin
+                            Fowler(ThoughtWorks、著名なソフトウェア開発者・国際的講演者)
+                        </h4>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://martinfowler.com/bliki/SpecificationByExample.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >bliki: Specification By Example</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://martinfowler.com/bliki/GivenWhenThen.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >bliki: Given When Then</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-group">
+                        <h4>
+                            <i class="ti ti-user"></i>Dan North / Cucumber開発チーム(Matt
+                            Wynne、Aslak Hellesøy、Steve Tooke)
+                        </h4>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://dannorth.net/blog/introducing-bdd/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Dan North「Introducing BDD」(本人ブログ)</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://cucumber.io/docs/bdd/history/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Cucumber公式「History of BDD」</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://cucumber.io/docs/bdd/example-mapping/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Cucumber公式「Example Mapping」ドキュメント</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://cucumber.io/blog/bdd/example-mapping-introduction/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Matt Wynne「Introducing Example
+                                    Mapping」(Cucumber公式ブログ)</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://medium.com/@mattwynne/introducing-example-mapping-42ccd15f8adf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Matt Wynne「Introducing Example Mapping」(Medium転載版)</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://mattwynne.net/about"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Matt Wynne「About」(本人プロフィール)</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://cucumber.io/docs/bdd/better-gherkin/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Cucumber公式「Writing better Gherkin」</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://cucumber.io/docs/guides/anti-patterns/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Cucumber公式「Anti-patterns」ドキュメント</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://cucumber.io/blog/bdd/cucumber-antipatterns-part-one/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Cucumber公式ブログ「Cucumber anti-patterns (part #1)」</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://cucumber.io/blog/bdd/cucumber-anti-patterns-part-two/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Cucumber公式ブログ「Cucumber anti-patterns (part #2)」</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-group">
+                        <h4>
+                            <i class="ti ti-user"></i>George Dinwiddie(アジャイルコーチ、Three
+                            Amigosの提唱者)
+                        </h4>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://agilealliance.org/glossary/three-amigos/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Agile Alliance「What are the Three Amigos in Agile?」</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://johnfergusonsmart.com/three-amigos-requirements-discovery/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >John Ferguson Smart「The anatomy of a Three Amigos Requirements
+                                    Discovery workshop」</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-group">
+                        <h4>
+                            <i class="ti ti-user"></i>Cyrille
+                            Martraire(Arolla社CTO・共同創業者、Paris Software Crafters
+                            community創設者)
+                        </h4>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://www.oreilly.com/library/view/living-documentation-continuous/9780134689418/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Living Documentation: Continuous Knowledge Sharing by
+                                    Design(O'Reilly掲載ページ)</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://www.infoq.com/articles/book-review-living-documentation/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >InfoQ「Q&A with Cyrille Martraire on the Book Living
+                                    Documentation」</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="ref-group">
+                        <h4><i class="ti ti-tools"></i>ツールエコシステム関連</h4>
+                        <ul class="ref-list">
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://reqnroll.net/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Reqnroll公式サイト</a
+                                >
+                            </li>
+                            <li class="ref-item">
+                                <i class="ti ti-external-link"></i
+                                ><a
+                                    href="https://reqnroll.net/news/2025/01/specflow-end-of-life-has-been-announced/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Reqnroll公式「SpecFlow end-of-life has been announced」</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <p>
+                        Specification by Example 実践ガイド ― 初学者のためのステップバイステップ入門
+                        / 作成日: 2026年9月5日時点の一次情報に基づく
+                    </p>
+                </footer>
+            </main>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/languages/gherkin.min.js"></script>
+        <script>
+            /* ---------- Mermaid: live client-side render (never ship static SVG) ---------- */
+            const DIAGRAMS = {
+                'diag-history': `flowchart TB
+    classDef hub fill:#f5d78e,stroke:#a8720b,stroke-width:2px,color:#241a00;
+    classDef done fill:#cfe8d6,stroke:#3f6b4a,stroke-width:2px,color:#12281a;
+    Y2002["2002年 XP Agile Universeのワークショップでmartin Fowlerが用語に出会う"] --> Y2003["2003年 Dan NorthがJBehaveの開発を開始"]
+    Y2003 --> Y2004["2004年 Dan NorthとChris MattsがGiven-When-Thenの型を提案"]
+    Y2004 --> Y2006["2006年 Dan Northが論文Introducing BDDを発表"]
+    Y2006 --> Y2011["2011年 Gojko Adzicが書籍Specification by Exampleを出版"]
+    Y2011 --> Y2019["2019年 Cyrille Martraireが書籍Living Documentationを出版"]
+    class Y2011 hub;
+    class Y2019 done;`,
+
+                'diag-cycle': `flowchart TB
+    classDef hub fill:#f5d78e,stroke:#a8720b,stroke-width:2px,color:#241a00;
+    classDef done fill:#cfe8d6,stroke:#3f6b4a,stroke-width:2px,color:#12281a;
+    A["① ゴールからスコープを導く Deriving Scope from Goals"] --> B["② 協働で仕様化する Specifying Collaboratively"]
+    B --> C["③ 具体例で説明する Illustrating Using Examples"]
+    C --> D["④ 仕様を洗練する Refining the Specification"]
+    D --> E["⑤ 検証を自動化する Automating Validation"]
+    E --> F["⑥ 頻繁に検証する Validating Frequently"]
+    F --> G["⑦ 生きたドキュメントへ進化させる Evolving a Documentation System"]
+    G -->|"次のイテレーションへ"| A
+    class A hub;
+    class G done;`,
+
+                'diag-amigos': `flowchart LR
+    classDef hub fill:#f5d78e,stroke:#a8720b,stroke-width:2px,color:#241a00;
+    classDef done fill:#cfe8d6,stroke:#3f6b4a,stroke-width:2px,color:#12281a;
+    BIZ["ビジネス視点 プロダクトオーナー・BA"] --> MEET["仕様ワークショップ Three Amigosミーティング"]
+    DEV["開発視点 エンジニア"] --> MEET
+    QA["品質視点 テスター・QA"] --> MEET
+    MEET --> RESULT["共通理解と受け入れ基準の合意"]
+    class MEET hub;
+    class RESULT done;`,
+
+                'diag-mapping': `flowchart TB
+    S["ストーリー 黄色カード"] --> R1["ルール1 青色カード"]
+    S --> R2["ルール2 青色カード"]
+    R1 --> E1["具体例A 緑色カード"]
+    R1 --> E2["具体例B 緑色カード"]
+    R2 --> E3["具体例C 緑色カード"]
+    S --> Q["未解決の疑問 赤色カード"]`,
+
+                'diag-gwt': `flowchart LR
+    classDef done fill:#cfe8d6,stroke:#3f6b4a,stroke-width:2px,color:#12281a;
+    G1["Given 前提条件"] --> W1["When 操作・イベント"]
+    W1 --> T1["Then 期待される結果"]
+    class T1 done;`,
+
+                'diag-ci': `flowchart TB
+    classDef hub fill:#f5d78e,stroke:#a8720b,stroke-width:2px,color:#241a00;
+    classDef done fill:#cfe8d6,stroke:#3f6b4a,stroke-width:2px,color:#12281a;
+    C1["コードを変更してコミット"] --> CI["CIパイプラインが起動"]
+    CI --> RUN["Gherkinシナリオを自動実行"]
+    RUN --> PASS{"すべて合格?"}
+    PASS -->|"Yes"| DOC["生きたドキュメントとして公開"]
+    PASS -->|"No"| FIX["失敗箇所を修正し仕様を再確認"]
+    FIX --> C1
+    class C1 hub;
+    class DOC done;`,
+            };
+
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                themeVariables: {
+                    background: '#fffcf6',
+                    primaryColor: '#fffaf0',
+                    primaryTextColor: '#2b2620',
+                    primaryBorderColor: '#3b4a91',
+                    lineColor: '#6b6152',
+                    secondaryColor: '#efe4c9',
+                    tertiaryColor: '#fffaf0',
+                    fontFamily: '"Noto Sans JP","Hiragino Sans","Yu Gothic",sans-serif',
+                    fontSize: '16px',
+                },
+                flowchart: {
+                    useMaxWidth: false,
+                    htmlLabels: true,
+                    subGraphTitleMargin: { top: 10, bottom: 28 },
+                },
+            });
+
+            async function renderDiagrams() {
+                for (const [id, src] of Object.entries(DIAGRAMS)) {
+                    const container = document.getElementById(id);
+                    if (!container) continue;
+                    try {
+                        const { svg, bindFunctions } = await mermaid.render(id + '-svg', src);
+                        container.innerHTML = svg;
+                        if (bindFunctions) bindFunctions(container);
+                        const svgEl = container.querySelector('svg');
+                        if (svgEl) {
+                            svgEl.removeAttribute('width');
+                            svgEl.removeAttribute('height');
+                            const viewBox = svgEl.getAttribute('viewBox');
+                            if (viewBox) {
+                                const parts = viewBox.split(/\s+/).map(Number);
+                                if (parts.length === 4) {
+                                    const isFlowchart = src.trim().startsWith('flowchart');
+                                    parts[3] = parts[3] + (isFlowchart ? 15 : 110);
+                                    svgEl.setAttribute('viewBox', parts.join(' '));
+                                    svgEl.style.width = parts[2] + 'px';
+                                }
+                            }
+                            svgEl.style.maxWidth = 'none';
+                            svgEl.style.height = 'auto';
+                            svgEl.style.overflow = 'visible';
+                            svgEl.style.flexShrink = '0';
+                        }
+                    } catch (err) {
+                        container.innerHTML =
+                            '<p style="color:#a8720b;padding:1rem;">図の描画に失敗しました: ' +
+                            String(err) +
+                            '</p>';
+                        console.error('Mermaid render error for', id, err);
+                    }
+                }
+            }
+            renderDiagrams();
+
+            /* ---------- highlight.js ---------- */
+            if (window.hljs) {
+                hljs.highlightAll();
+            }
+
+            /* ---------- sidebar scroll-spy (rAF throttled, 25% viewport threshold) ---------- */
+            const navLinks = Array.from(document.querySelectorAll('.nav-a'));
+            const sections = Array.from(document.querySelectorAll('.section[id]'));
+            function updateActive() {
+                const threshold = window.innerHeight * 0.25;
+                let currentId = sections.length ? sections[0].id : null;
+                sections.forEach((sec) => {
+                    const rect = sec.getBoundingClientRect();
+                    if (rect.top <= threshold) currentId = sec.id;
+                });
+                navLinks.forEach((link) => {
+                    link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+                });
+            }
+            let ticking = false;
+            window.addEventListener('scroll', () => {
+                if (!ticking) {
+                    requestAnimationFrame(() => {
+                        updateActive();
+                        ticking = false;
+                    });
+                    ticking = true;
+                }
+            });
+            updateActive();
+
+            /* ---------- checklist: toggle + strikethrough + persistence ---------- */
+            (function initChecklist() {
+                const STORAGE_KEY = 'sbe-guide-checklist-v1';
+                const items = Array.from(document.querySelectorAll('#checklist9 .check-item'));
+                const progressText = document.getElementById('checkProgressText');
+                const progressIcon = document.querySelector('#checkProgress .ti');
+                if (!items.length) return;
+
+                let saved = {};
+                try {
+                    saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+                } catch (e) {
+                    saved = {};
+                }
+
+                function persist() {
+                    const state = {};
+                    items.forEach((li) => {
+                        state[li.dataset.idx] = li.classList.contains('checked');
+                    });
+                    try {
+                        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+                    } catch (e) {
+                        /* storage unavailable, ignore */
+                    }
+                }
+
+                function updateProgress() {
+                    const done = items.filter((li) => li.classList.contains('checked')).length;
+                    if (progressText)
+                        progressText.textContent = done + ' / ' + items.length + ' 完了';
+                    if (progressIcon)
+                        progressIcon.className =
+                            'ti ' +
+                            (done === items.length ? 'ti-circle-check' : 'ti-circle-dashed');
+                }
+
+                function setChecked(li, checked) {
+                    const icon = li.querySelector('.check-icon');
+                    li.classList.toggle('checked', checked);
+                    li.setAttribute('aria-checked', String(checked));
+                    if (icon)
+                        icon.className =
+                            'ti check-icon ' + (checked ? 'ti-circle-check' : 'ti-circle');
+                }
+
+                function toggle(li) {
+                    setChecked(li, !li.classList.contains('checked'));
+                    persist();
+                    updateProgress();
+                }
+
+                items.forEach((li) => {
+                    if (saved[li.dataset.idx]) setChecked(li, true);
+                    li.addEventListener('click', () => toggle(li));
+                    li.addEventListener('keydown', (e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                            e.preventDefault();
+                            toggle(li);
+                        }
+                    });
+                });
+                updateProgress();
+            })();
+
+            /* ---------- mobile sidebar toggle ---------- */
+            const menuToggle = document.getElementById('menuToggle');
+            if (menuToggle) {
+                menuToggle.addEventListener('click', () => {
+                    document.body.classList.toggle('sidebar-open');
+                });
+            }
+            document.querySelectorAll('.nav-a, .nav-sub a').forEach((a) => {
+                a.addEventListener('click', () => document.body.classList.remove('sidebar-open'));
+            });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,2578 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            Unit Testing Principles, Practices, and Patterns 完全ガイド ―
+            初学者のためのステップバイステップ ベストプラクティス
+        </title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700;8..60,900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+            integrity="sha384-ND+q1IVc0KDElX60dZaqKc7Xl9cdxd2PpU2JfVUHcurCkFVtVLFdt9vJfxtHSL3p"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/styles/atom-one-dark.min.css"
+            integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07"
+            crossorigin="anonymous"
+        />
+        <style>
+            :root {
+                --paper: #f5f0e3;
+                --paper-card: #fffdf7;
+                --paper-card-2: #eee2c8;
+                --ink: #2b2318;
+                --ink-soft: #6b6152;
+                --border: #e2d5b8;
+                --indigo: #34419e;
+                --indigo-soft: #e7e9fa;
+                --gold: #a8721f;
+                --gold-soft: #f8ecd3;
+                --forest: #2f6f4e;
+                --forest-soft: #e3f1e9;
+                --plum: #7c3f61;
+                --plum-soft: #f5e8ee;
+                --code-bg: #1c2330;
+                --code-ink: #dbe1ec;
+                --sidebar-w: 300px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family: 'Source Serif 4', Georgia, 'Hiragino Mincho ProN', serif;
+                font-size: 1rem;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: 'Source Serif 4', Georgia, serif;
+                color: var(--ink);
+                line-height: 1.4;
+                font-weight: 700;
+            }
+            a {
+                color: var(--indigo);
+            }
+            input,
+            button,
+            select,
+            textarea {
+                font-size: 1rem;
+                font-family: inherit;
+            }
+            .mermaidTooltip {
+                font-size: 1rem !important;
+            }
+
+            /* ===== Layout ===== */
+            .layout {
+                display: block;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-w);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--paper-card);
+                border-right: 1px solid var(--border);
+                padding: 1.75rem 1.25rem 3rem;
+                font-family: 'Inter', system-ui, sans-serif;
+                z-index: 40;
+            }
+            .sidebar-brand {
+                font-weight: 700;
+                font-size: 1.05rem;
+                color: var(--indigo);
+                margin-bottom: 0.25rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .sidebar-sub {
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin-bottom: 1.5rem;
+            }
+            .side-nav {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0.15rem;
+            }
+            .side-link {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                text-decoration: none;
+                color: var(--ink-soft);
+                padding: 0.5rem 0.6rem;
+                border-radius: 8px;
+                font-size: 1rem;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .side-num {
+                flex-shrink: 0;
+                width: 1.6rem;
+                height: 1.6rem;
+                border-radius: 50%;
+                background: var(--paper-card-2);
+                color: var(--ink-soft);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                font-weight: 600;
+            }
+            .side-link:hover {
+                background: var(--paper-card-2);
+                color: var(--ink);
+            }
+            .side-link.active {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+                font-weight: 700;
+            }
+            .side-link.active .side-num {
+                background: var(--indigo);
+                color: #fff;
+            }
+
+            .content {
+                margin-left: var(--sidebar-w);
+                max-width: none;
+                padding: 3.5rem 4.5rem 6rem;
+            }
+            .mobile-bar,
+            .mobile-bar * {
+                font-size: 1rem;
+            }
+            .mobile-bar {
+                display: none;
+            }
+
+            /* ===== Hero ===== */
+            .hero {
+                padding-bottom: 2.5rem;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 3rem;
+            }
+            .hero-eyebrow {
+                font-family: 'Inter', sans-serif;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--gold);
+                font-size: 1rem;
+            }
+            .hero h1 {
+                font-size: clamp(2rem, 4vw, 3rem);
+                margin: 0.5rem 0 1rem;
+                background: linear-gradient(100deg, var(--indigo), var(--plum) 55%, var(--gold));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: transparent;
+                -webkit-text-fill-color: transparent;
+            }
+            .hero p.lead {
+                font-size: 1.2rem;
+                color: var(--ink-soft);
+                max-width: none;
+            }
+            .book-card {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 1px;
+                background: var(--border);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+                overflow: hidden;
+                margin-top: 1.75rem;
+            }
+            @media (max-width: 900px) {
+                .book-card {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+            @media (max-width: 560px) {
+                .book-card {
+                    grid-template-columns: 1fr;
+                }
+            }
+            .book-card div {
+                background: var(--paper-card);
+                padding: 1rem 1.25rem;
+                font-family: 'Inter', sans-serif;
+            }
+            .book-card .label {
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin-bottom: 0.25rem;
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .book-card .value {
+                font-size: 1.05rem;
+                font-weight: 700;
+                color: var(--ink);
+            }
+            .book-card .value a {
+                color: var(--indigo);
+                word-break: break-all;
+            }
+
+            /* ===== Sections ===== */
+            .section {
+                margin-bottom: 4rem;
+                scroll-margin-top: 1.5rem;
+            }
+            .section-head {
+                display: flex;
+                align-items: baseline;
+                gap: 0.9rem;
+                margin-bottom: 1.25rem;
+            }
+            .section-badge {
+                font-family: 'Inter', sans-serif;
+                font-weight: 700;
+                font-size: 1rem;
+                color: #fff;
+                background: var(--indigo);
+                padding: 0.3rem 0.8rem;
+                border-radius: 999px;
+                flex-shrink: 0;
+            }
+            .section h2 {
+                font-size: 1.7rem;
+                margin: 0;
+            }
+            .prose,
+            .prose p,
+            .prose li {
+                overflow-wrap: break-word;
+            }
+            .prose {
+                font-size: 1.08rem;
+            }
+            .prose h3 {
+                font-size: 1.25rem;
+                margin-top: 2rem;
+            }
+            .prose ul,
+            .prose ol {
+                padding-left: 1.4rem;
+            }
+            .prose li {
+                margin-bottom: 0.4rem;
+            }
+            .prose strong {
+                color: var(--plum);
+            }
+
+            /* ===== Tables ===== */
+            .table-wrap {
+                overflow-x: auto;
+                overflow-y: hidden;
+                border-radius: 12px;
+                border: 1px solid var(--border);
+                margin: 1.75rem 0;
+                background: var(--paper-card);
+            }
+            .table-title {
+                background: var(--paper-card-2);
+                padding: 0.7rem 1.1rem;
+                font-weight: 700;
+                font-family: 'Inter', sans-serif;
+                font-size: 1rem;
+                border-bottom: 1px solid var(--border);
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                font-family: 'Inter', sans-serif;
+                font-size: 1rem;
+                min-width: 560px;
+            }
+            th,
+            td {
+                padding: 0.75rem 1rem;
+                border-bottom: 1px solid var(--border);
+                text-align: left;
+                vertical-align: top;
+            }
+            thead th {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            tbody tr:last-child td {
+                border-bottom: none;
+            }
+            .kv-table th {
+                background: var(--paper-card-2);
+                color: var(--ink);
+            }
+
+            /* ===== Callouts ===== */
+            .callout {
+                border-left: 4px solid var(--gold);
+                background: var(--gold-soft);
+                padding: 1.1rem 1.3rem;
+                border-radius: 0 12px 12px 0;
+                margin: 1.75rem 0;
+                font-size: 1.05rem;
+            }
+            .callout.forest {
+                border-color: var(--forest);
+                background: var(--forest-soft);
+            }
+            .callout.plum {
+                border-color: var(--plum);
+                background: var(--plum-soft);
+            }
+            .callout .source {
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+                margin-top: 0.6rem;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                font-family: 'Inter', sans-serif;
+            }
+            .callout .source a {
+                color: var(--ink-soft);
+                text-decoration: underline;
+            }
+
+            /* ===== Mermaid ===== */
+            .mermaid-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                padding: 0.75rem 0;
+                margin: 2rem 0;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 14px;
+            }
+            .mermaid-wrapper svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .mermaid-target {
+                padding: 1rem;
+            }
+            .diagram-caption {
+                font-family: 'Inter', sans-serif;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                text-align: center;
+                margin-top: -1.25rem;
+                margin-bottom: 2rem;
+            }
+
+            /* ===== Code blocks ===== */
+            .code-block {
+                background: var(--code-bg);
+                border-radius: 12px;
+                margin: 1.75rem 0;
+                overflow: hidden;
+            }
+            .code-block .code-label {
+                color: #9fb0c9;
+                font-family: 'Inter', sans-serif;
+                font-size: 1rem;
+                padding: 0.6rem 1.1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+                display: flex;
+                align-items: center;
+                gap: 0.4rem;
+            }
+            .code-block pre {
+                margin: 0;
+                overflow-x: auto;
+                padding: 1.1rem 1.3rem;
+            }
+            .code-block code {
+                font-family: 'SFMono-Regular', Consolas, 'Menlo', monospace;
+                font-size: 1rem;
+                color: var(--code-ink);
+                background: none;
+            }
+
+            /* ===== Checklist ===== */
+            .checklist-counter {
+                font-family: 'Inter', sans-serif;
+                font-weight: 700;
+                color: var(--indigo);
+                margin-bottom: 1rem;
+                font-size: 1.05rem;
+            }
+            .checklist {
+                list-style: none;
+                padding: 0;
+                margin: 1.5rem 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0.65rem;
+            }
+            .checklist li {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 0.85rem 1.1rem;
+                transition: background 0.15s;
+            }
+            .checklist li.done {
+                background: var(--forest-soft);
+            }
+            .checklist input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 1.4rem;
+                height: 1.4rem;
+                border: 2px solid var(--indigo);
+                border-radius: 6px;
+                flex-shrink: 0;
+                margin-top: 0.15rem;
+                cursor: pointer;
+                position: relative;
+                background: #fff;
+            }
+            .checklist input[type='checkbox']:checked {
+                background: var(--indigo);
+            }
+            .checklist input[type='checkbox']:checked::after {
+                content: '\2713';
+                color: #fff;
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+            }
+            .checklist label {
+                cursor: pointer;
+                font-size: 1.05rem;
+            }
+            .checklist li.done label {
+                text-decoration: line-through;
+                color: var(--ink-soft);
+            }
+
+            /* ===== References ===== */
+            .ref-group {
+                margin: 0 0 2.25rem;
+            }
+            .ref-group h3 {
+                font-family: 'Inter', sans-serif;
+                font-size: 1.05rem;
+                text-transform: uppercase;
+                letter-spacing: 0.03em;
+                color: var(--ink-soft);
+                margin: 0 0 0.9rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            .ref-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 0.9rem;
+            }
+            .ref-card {
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                padding: 1rem 1.15rem;
+                font-family: 'Inter', sans-serif;
+            }
+            .ref-card .ref-title {
+                color: var(--indigo);
+                font-weight: 700;
+                text-decoration: none;
+                font-size: 1.03rem;
+                display: block;
+                margin-bottom: 0.35rem;
+            }
+            .ref-card .ref-title:hover {
+                text-decoration: underline;
+            }
+            .ref-card .ref-url {
+                word-break: break-all;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                display: block;
+            }
+
+            .note-final {
+                font-style: italic;
+                color: var(--ink-soft);
+                font-size: 1.02rem;
+                border-top: 1px solid var(--border);
+                padding-top: 1.5rem;
+                margin-top: 2.5rem;
+            }
+            .footer {
+                font-family: 'Inter', sans-serif;
+                color: var(--ink-soft);
+                font-size: 1rem;
+                padding-top: 2rem;
+                border-top: 1px solid var(--border);
+            }
+
+            /* ===== Mobile ===== */
+            @media (max-width: 900px) {
+                .mobile-bar {
+                    display: flex;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    height: 56px;
+                    z-index: 60;
+                    background: var(--paper-card);
+                    border-bottom: 1px solid var(--border);
+                    align-items: center;
+                    padding: 0 1rem;
+                    gap: 0.6rem;
+                }
+                .mobile-bar button {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    background: var(--indigo);
+                    color: #fff;
+                    border: none;
+                    padding: 0.5rem 0.9rem;
+                    border-radius: 8px;
+                    cursor: pointer;
+                    font-weight: 600;
+                }
+                .sidebar {
+                    top: 56px;
+                    height: calc(100vh - 56px);
+                    transform: translateX(-100%);
+                    transition: transform 0.25s ease;
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .content {
+                    margin-left: 0;
+                    padding: 4.75rem 1.25rem 4rem;
+                }
+                .hero h1 {
+                    font-size: 1.7rem;
+                }
+                table {
+                    min-width: 480px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mobile-bar">
+            <button id="mobileToggle" aria-label="メニューを開く">
+                <i class="ti ti-menu-2"></i>メニュー
+            </button>
+        </div>
+
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-brand"><i class="ti ti-test-pipe"></i>Unit Testing Guide</div>
+                <div class="sidebar-sub">初学者のためのステップバイステップ ベストプラクティス</div>
+                <ul class="side-nav">
+                    <li>
+                        <a class="side-link" href="#about"
+                            ><span class="side-num">-</span><span>対象読者と使い方</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step1"
+                            ><span class="side-num">1</span><span>本当の目的</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step2"
+                            ><span class="side-num">2</span><span>定義</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step3"
+                            ><span class="side-num">3</span><span>二大流派</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step4"
+                            ><span class="side-num">4</span><span>AAAパターン</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step5"
+                            ><span class="side-num">5</span><span>4本柱</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step6"
+                            ><span class="side-num">6</span><span>モックと壊れやすさ</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step7"
+                            ><span class="side-num">7</span><span>テストダブル分類</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step8"
+                            ><span class="side-num">8</span><span>3つのスタイル</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step9"
+                            ><span class="side-num">9</span><span>Humble Object</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step10"
+                            ><span class="side-num">10</span><span>統合テスト</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step11"
+                            ><span class="side-num">11</span><span>モッキング実践</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step12"
+                            ><span class="side-num">12</span><span>DBのテスト</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#step13"
+                            ><span class="side-num">13</span><span>アンチパターン</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#checklist"
+                            ><span class="side-num"
+                                ><i class="ti ti-checkbox" style="font-size: 1rem"></i></span
+                            ><span>実践チェックリスト</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#update2026"
+                            ><span class="side-num"
+                                ><i class="ti ti-sparkles" style="font-size: 1rem"></i></span
+                            ><span>2026年の補足</span></a
+                        >
+                    </li>
+                    <li>
+                        <a class="side-link" href="#references"
+                            ><span class="side-num"
+                                ><i class="ti ti-link" style="font-size: 1rem"></i></span
+                            ><span>参考文献・情報源</span></a
+                        >
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="content">
+                <header class="hero">
+                    <div class="hero-eyebrow">Book Guide</div>
+                    <h1>Unit Testing Principles, Practices, and Patterns 完全ガイド</h1>
+                    <p class="lead">初学者のためのステップバイステップ ベストプラクティス</p>
+                    <p>
+                        この記事は、ソフトウェアテスト分野で国際的に高く評価されている書籍<em
+                            >Unit Testing Principles, Practices, and Patterns</em
+                        >（Vladimir Khorikov
+                        著）の考え方を土台に、初学者でも迷わず実践できるよう「ステップ形式」で再構成した学習ガイドです。あわせて、Martin
+                        Fowler・Kent Beck・Kent C. Dodds・Ian Cooper・Gary Bernhardt
+                        といった著名な国際的開発者の発信内容、および2025〜2026年にかけての最新の議論（Test
+                        Desiderata
+                        2.0、AI生成コードのテストなど）も参照し、現在の実務にそのまま使える形にまとめています。参照したソースのURLはすべて末尾の「参考文献・情報源」にまとめています。
+                    </p>
+                    <div class="book-card">
+                        <div>
+                            <div class="label"><i class="ti ti-book"></i>書名</div>
+                            <div class="value">
+                                Unit Testing Principles, Practices, and Patterns
+                            </div>
+                        </div>
+                        <div>
+                            <div class="label"><i class="ti ti-user"></i>著者</div>
+                            <div class="value">Vladimir Khorikov</div>
+                        </div>
+                        <div>
+                            <div class="label"><i class="ti ti-building"></i>出版社</div>
+                            <div class="value">Manning Publications</div>
+                        </div>
+                        <div>
+                            <div class="label"><i class="ti ti-calendar"></i>刊行</div>
+                            <div class="value">2020年1月 / 304ページ</div>
+                        </div>
+                        <div>
+                            <div class="label"><i class="ti ti-barcode"></i>ISBN</div>
+                            <div class="value">978-1-61729-627-7</div>
+                        </div>
+                        <div>
+                            <div class="label"><i class="ti ti-external-link"></i>出版社ページ</div>
+                            <div class="value">
+                                <a
+                                    href="https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >O'Reilly で見る</a
+                                >
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <section class="section" id="about">
+                    <div class="section-head">
+                        <span class="section-badge">Guide</span>
+                        <h2>この記事の対象読者と使い方</h2>
+                    </div>
+                    <div class="prose">
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-info-circle"></i>本ガイドの前提
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>項目</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>対象読者</td>
+                                        <td>
+                                            ユニットテストの書き方は知っているが、「何を」「どこまで」「どう」テストすべきか迷っている初〜中級エンジニア
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>前提知識</td>
+                                        <td>
+                                            任意の言語で xUnit系フレームワーク（JUnit, pytest, Jest,
+                                            xUnit.net など）を使ったテストを書いたことがある
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>使用言語</td>
+                                        <td>
+                                            原著はC#だが、考え方自体はどの言語・フレームワークにも応用できるため、本記事のコード例は擬似コード中心で表記する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>ゴール</td>
+                                        <td>
+                                            「テストの本数」ではなく「テストの価値」で品質を判断できるようになること
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="step1">
+                    <div class="section-head">
+                        <span class="section-badge">Step 01</span>
+                        <h2>ユニットテストの「本当の目的」を理解する</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            多くのチームは「カバレッジ80%達成」のような数値目標を掲げますが、これは本質的な目的ではありません。Khorikovはこの本の冒頭で、コードカバレッジのような指標は<strong>簡単に操作できてしまう</strong>ため、テストスイートの質を測る指標としては信頼できないと指摘しています。たとえばループや条件分岐を一切検証せずに実行だけする空疎なテストでも、カバレッジ数値は上がってしまいます。
+                        </p>
+                        <p>
+                            ユニットテストの本当の目的は、<strong>「ソフトウェアプロジェクトの持続的成長を可能にすること」</strong>です。テストが無い、またはテストが壊れやすいプロジェクトでは、次のような悪循環に陥ります。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <div class="mermaid-target" id="diag-0"></div>
+                        </div>
+                        <p class="diagram-caption">
+                            図1: 悪循環（左）と良い循環（右）― テストの目的は「持続的成長」
+                        </p>
+
+                        <p>
+                            ポイントは、<strong>「テストの数を増やすこと」ではなく「後述する4本柱を満たす価値の高いテストを選び取ること」</strong>がゴールだという点です。価値の低いテストは書かない方がまし、というのが本書全体を貫く姿勢です。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="step2">
+                    <div class="section-head">
+                        <span class="section-badge">Step 02</span>
+                        <h2>そもそも「ユニットテスト」とは何か</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            「ユニットテスト」という言葉は現場でかなり曖昧に使われています。Khorikovは次の3つの性質を満たすテストを「ユニットテスト」と定義しています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-list-check"></i>ユニットテストの3つの性質
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>性質</th>
+                                        <th>説明</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>小さな「振る舞いの単位」を検証する</td>
+                                        <td>
+                                            「1つのクラス」や「1つのメソッド」という<strong>コードの単位</strong>ではなく、意味のある<strong>振る舞い（behavior）の単位</strong>を検証する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>高速に実行できる</td>
+                                        <td>
+                                            ミリ秒〜数十ミリ秒のオーダーで完了し、何百回実行しても苦にならない
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>他のテストから隔離されている</td>
+                                        <td>
+                                            あるテストの結果が、他のテストの実行順序や実行有無に影響されない
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            ここで重要なのは3つ目の「隔離」の解釈です。「隔離」を<strong
+                                >テスト対象のコード（SUT: System Under
+                                Test）を他のクラスから隔離すること</strong
+                            >だと考えるか、<strong>テスト自体を他のテストから隔離すること</strong>だと考えるかで、後述する2つの流派が分かれます。
+                        </p>
+
+                        <div class="callout">
+                            <div>
+                                補足: 「1ユニット =
+                                1メソッド」という誤解は非常によくあるアンチパターンの温床です。振る舞いは複数のクラス・メソッドにまたがって実装されることが多く、テストはその振る舞い単位に対して書くべきだ、という考え方は
+                                Ian Cooper氏の講演「TDD, Where Did It All Go
+                                Wrong?」でも強調されています（詳細はStep 3・参考文献参照）。
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="step3">
+                    <div class="section-head">
+                        <span class="section-badge">Step 03</span>
+                        <h2>二大流派 ― classical school と London school</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            ユニットテストの世界には、大きく分けて2つの学派（流派）が存在します。本書はこの対比を軸に構成されており、著者自身は
+                            classical school（別名: Detroit school / Chicago
+                            school）の立場を取っています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-arrows-split"></i>classical school vs London school
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>観点</th>
+                                        <th>classical school（Detroit / Chicago）</th>
+                                        <th>London school（mockist）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>「隔離」の対象</td>
+                                        <td>テストケース同士を隔離する</td>
+                                        <td>SUT（テスト対象）を協働オブジェクトから隔離する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>テスト対象の粒度</td>
+                                        <td>クラスの集合体（振る舞いの単位）</td>
+                                        <td>基本的に1クラス単位</td>
+                                    </tr>
+                                    <tr>
+                                        <td>依存への対応</td>
+                                        <td>
+                                            <strong
+                                                >共有され、かつ可変な依存（例:
+                                                静的なグローバル状態、外部サービス）のみ</strong
+                                            >をテストダブルに置き換える
+                                        </td>
+                                        <td>
+                                            不変なオブジェクト以外のほぼ全ての依存をモックに置き換える
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>設計への影響</td>
+                                        <td>
+                                            大きな依存グラフの塊が悪い設計の兆候として自然に見える
+                                        </td>
+                                        <td>
+                                            依存を全てインターフェース越しに注入する設計（DIコンテナ多用）に誘導しやすい
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>代表的な文献</td>
+                                        <td>Kent Beck『Test-Driven Development: By Example』</td>
+                                        <td>
+                                            Steve Freeman &amp; Nat Pryce『Growing Object-Oriented
+                                            Software, Guided by Tests』
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>失敗しやすいテストの特徴</td>
+                                        <td>大きな結合度の高いクラス群に気づきにくい</td>
+                                        <td>
+                                            モックの多用によりテストが実装詳細に強く結合し、壊れやすくなる
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            どちらが「正しい」というより、<strong>モックをどこまで使うか</strong>という判断軸の違いだと理解するのが実務的です。次のStep
+                            5・Step 6で扱う「4本柱」と「observable
+                            behavior」の考え方を理解すると、この対立を統一的に説明できるようになります。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="step4">
+                    <div class="section-head">
+                        <span class="section-badge">Step 04</span>
+                        <h2>ユニットテストの解剖学 ― AAAパターン</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            良いユニットテストは、例外なく次の3つのセクションで構成すべきだと本書は説きます。これは<strong>AAAパターン（Arrange-Act-Assert）</strong>と呼ばれ、xUnit系フレームワーク全般で共通する基本構造です。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <div class="mermaid-target" id="diag-1"></div>
+                        </div>
+                        <p class="diagram-caption">図2: AAAパターンの流れ</p>
+
+                        <p>擬似コードで表すと次のようになります。</p>
+
+                        <div class="code-block">
+                            <div class="code-label"><i class="ti ti-code"></i>pseudocode</div>
+                            <pre><code class="language-plaintext">テスト名: 残高が不足している場合、出金は失敗する
+
+// Arrange（準備）
+account := 口座を作成する(残高: 100)
+
+// Act（実行）
+result := account.出金する(金額: 200)
+
+// Assert（検証）
+result が失敗であることを確認する
+account.残高 が 100 のままであることを確認する</code></pre>
+                        </div>
+
+                        <h3>実践のポイント</h3>
+                        <ul>
+                            <li>
+                                <strong>Actセクションは1行にする</strong>:
+                                複数のメソッド呼び出しがActに並ぶ場合、テスト対象の振る舞いの単位が誤って分割されているサインです。
+                            </li>
+                            <li>
+                                <strong>命名は「非プログラマにも伝わる文章」にする</strong>:
+                                実装の詳細（メソッド名やクラス名）をテスト名に含めるのではなく、「その振る舞いを業務ドメインの言葉でどう説明するか」を意識します。例:
+                                <code>Test1_出金_異常系</code> ではなく
+                                <code>残高が不足している場合、出金は失敗する</code>
+                                のように書きます。
+                            </li>
+                            <li>
+                                <strong
+                                    ><code>should_be</code> のような曖昧な言い回しは避ける</strong
+                                >:
+                                テストは「事実」を確認するものなので、<code>is</code>（〜である）のような言い切りの文体が推奨されます。
+                            </li>
+                            <li>
+                                <strong
+                                    >パラメータ化テストは「同じ結論」を導くケースにのみ使う</strong
+                                >:
+                                正常系1パターン・異常系1パターンのように出力の種類が同じ場合はパラメータ化してよいですが、出力の意味が異なる場合はテスト名の説明力が落ちるため個別に書きます。
+                            </li>
+                            <li>
+                                <strong>アサーションライブラリで可読性を上げる</strong>:
+                                <code>Assert.That(actual, Is.EqualTo(expected))</code>
+                                のような流暢なAPIを使うと、Assertセクションの意図がより明確になります。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="step5">
+                    <div class="section-head">
+                        <span class="section-badge">Step 05</span>
+                        <h2>良いユニットテストの「4本柱」</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            本書の核となる概念が、この「4本柱（Four
+                            Pillars）」です。あるテストが本当に価値を持つかどうかを、次の4つの観点でスコアリング（0〜1の連続値）して評価します。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-columns"></i>良いユニットテストの4本柱
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>柱</th>
+                                        <th>説明</th>
+                                        <th>満たさない場合に起こること</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>
+                                            <strong>回帰に対する保護</strong>（Protection against
+                                            regressions）
+                                        </td>
+                                        <td>
+                                            バグを実際に埋め込んだとき、そのテストが検知できる確率
+                                        </td>
+                                        <td>バグが本番まで流出する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>
+                                            <strong>リファクタリング耐性</strong>（Resistance to
+                                            refactoring）
+                                        </td>
+                                        <td>
+                                            振る舞いを変えずに内部実装だけを変更したとき、テストが誤って失敗しない度合い
+                                        </td>
+                                        <td>
+                                            「偽陽性（false
+                                            positive）」が多発し、テストが信頼されなくなる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>
+                                            <strong>速いフィードバック</strong>（Fast feedback）
+                                        </td>
+                                        <td>テストの実行がどれだけ高速か</td>
+                                        <td>開発者がテストを頻繁に回さなくなる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td><strong>保守のしやすさ</strong>（Maintainability）</td>
+                                        <td>テストコード自体がどれだけ理解・保守しやすいか</td>
+                                        <td>テストのメンテナンスコストが開発速度を圧迫する</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>なぜ「掛け算」で考えるのか</h3>
+                        <p>
+                            Khorikovは、この4つのスコアを<strong>足し算ではなく掛け算</strong>でイメージすべきだと述べています。どれか1つでも極端に低い（0に近い）と、他がどれだけ高くても全体の価値はゼロに近づいてしまう、という考え方です。
+                        </p>
+
+                        <h3>理想のテストは存在しない ― 3つの極端な例</h3>
+                        <p>
+                            4本柱を同時に完璧に満たすテストは原理的に作れません。本書は次の3つの「極端な例」を挙げて、トレードオフの構造を説明しています。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <div class="mermaid-target" id="diag-2"></div>
+                        </div>
+                        <p class="diagram-caption">図3: 4本柱のトレードオフ ― 3つの極端な例</p>
+
+                        <p>
+                            実務上もっとも見落とされがちで、かつもっとも重要なのが2本目の柱「リファクタリング耐性」です。これは、<strong>テストが実装の詳細にどれだけ結合しているか</strong>によって決まります。テストは実装の手順（how）ではなく、コードがもたらす<strong
+                                >観測可能な結果（observable behavior）</strong
+                            >を検証すべきだ、という原則がここから導かれます（次のStep
+                            6で詳しく扱います）。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="step6">
+                    <div class="section-head">
+                        <span class="section-badge">Step 06</span>
+                        <h2>モックとテストの壊れやすさ（fragility）</h2>
+                    </div>
+                    <div class="prose">
+                        <h3>モックとスタブの違い</h3>
+                        <p>本書では、テストダブル全般を大きく2種類に分けて説明します。</p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-git-compare"></i>モック vs スタブ
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>種類</th>
+                                        <th>検証の方向</th>
+                                        <th>目的</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>スタブ</strong></td>
+                                        <td>状態検証（state verification）</td>
+                                        <td>
+                                            SUTに「間接的な入力」を与えるための道具。呼ばれ方そのものは検証しない
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>モック</strong></td>
+                                        <td>振る舞い検証（behavior verification）</td>
+                                        <td>
+                                            SUTが協働オブジェクトに対して行った「間接的な出力（＝呼び出し）」を検証するための道具
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            この区別はMartin FowlerがGerard Meszarosの分類を紹介した記事「Mocks
+                            Aren't
+                            Stubs」で広く知られるようになりました。ポイントは、<strong>スタブへの呼び出しをテストの中でアサーションしてしまうと、それは事実上モックとして使っていることになる</strong>、という点です。この誤用が、次に説明する「壊れやすさ」の主要な原因になります。
+                        </p>
+
+                        <h3>observable behavior と implementation detail</h3>
+                        <p>
+                            テストが実装の詳細（例:
+                            内部でどのプライベートメソッドが何回呼ばれたか）に結合していると、リファクタリングのたびにテストが（振る舞いは変わっていないのに）失敗する「偽陽性」が発生します。本書はこれを避けるために、次のルールを提示しています。
+                        </p>
+                        <ul>
+                            <li>
+                                テストは、SUTが外部に公開している<strong
+                                    >観測可能な振る舞い（observable behavior）</strong
+                                >だけを検証する。
+                            </li>
+                            <li>
+                                あるコードが観測可能な振る舞いの一部と言えるのは、次のいずれかを満たす場合である。
+                                <ol>
+                                    <li>
+                                        クライアントの目的達成を助ける「操作（コマンド or
+                                        クエリ）」を公開している
+                                    </li>
+                                    <li>
+                                        クライアントが目的達成のために依存する「状態」を公開している
+                                    </li>
+                                    <li>
+                                        アプリケーションの境界を越えて外部システムに影響を与える副作用（side
+                                        effect）を引き起こす
+                                    </li>
+                                </ol>
+                            </li>
+                            <li>
+                                上記に当てはまらない内部実装（プライベートメソッド、内部でのみ使うヘルパークラスなど）は、テストの対象にしてはいけない。
+                            </li>
+                        </ul>
+
+                        <h3>モックとテスト壊れやすさの関係</h3>
+                        <p>
+                            モックを多用するほど、テストは実装の「手順」に強く結合します。したがって本書は次の指針を打ち出します。
+                        </p>
+
+                        <div class="callout plum">
+                            <div>
+                                <strong
+                                    >モックは、アプリケーションの境界を越えた「共有された可変な依存（unmanaged
+                                    dependency）」に対してのみ使う。</strong
+                                >
+                            </div>
+                        </div>
+
+                        <p>
+                            これはStep 3の classical/London school
+                            の対立を統一的に説明する原則でもあります。境界内部の協働オブジェクト（自分のドメインモデルなど）まで律儀にモック化してしまうと、リファクタリング耐性が大きく損なわれます。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="step7">
+                    <div class="section-head">
+                        <span class="section-badge">Step 07</span>
+                        <h2>テストダブルの分類 ― Dummy / Fake / Stub / Spy / Mock</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            テストダブルという用語自体は、Gerard Meszaros が著書『xUnit Test
+                            Patterns』で導入し、Martin Fowlerの記事「Mocks Aren't
+                            Stubs」によって広く普及しました。5種類の分類を整理すると次のようになります。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-category"></i>テストダブルの5分類
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>種類</th>
+                                        <th>実際に使われるか</th>
+                                        <th>特徴</th>
+                                        <th>典型的な用途</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Dummy</strong></td>
+                                        <td>使われない</td>
+                                        <td>パラメータの穴埋めのためだけに渡される</td>
+                                        <td>引数として必須だがテストでは無関係な値</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Fake</strong></td>
+                                        <td>使われる（簡易実装）</td>
+                                        <td>動作する実装を持つが、本番用途には向かない近道実装</td>
+                                        <td>インメモリDB、インメモリキューなど</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Stub</strong></td>
+                                        <td>使われる</td>
+                                        <td>
+                                            あらかじめ決められた回答を返す。呼ばれ方自体は検証しない
+                                        </td>
+                                        <td>外部APIのレスポンスを固定して与えたいとき</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Spy</strong></td>
+                                        <td>使われる</td>
+                                        <td>Stubに「呼ばれた記録」を残す機能を足したもの</td>
+                                        <td>呼び出し回数や引数を後から確認したいとき</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Mock</strong></td>
+                                        <td>使われる</td>
+                                        <td>事前に「期待する呼ばれ方」を設定し、それを検証する</td>
+                                        <td>
+                                            メール送信・決済実行など、副作用の発生自体を確認したいとき
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>どちらを使うべきかの判断フロー</h3>
+                        <p>
+                            「状態を確認したいのか」「振る舞い（呼び出し）を確認したいのか」で使い分けます。Martin
+                            Fowlerが提唱する「state verification（状態検証） vs behavior
+                            verification（振る舞い検証）」の考え方を、意思決定フローチャートにすると次のようになります。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <div class="mermaid-target" id="diag-3"></div>
+                        </div>
+                        <p class="diagram-caption">図4: テストダブルの選び方 ― 意思決定フロー</p>
+
+                        <p>
+                            Fowler自身も、<strong>状態検証（Stub/Fakeで十分なケース）を優先し、Mockは本当に副作用の発生自体が仕様であるときだけ使う</strong>ことを推奨しています。これはKhorikovの「モックは境界を越えたunmanaged
+                            dependencyにのみ使う」という指針と一致します。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="step8">
+                    <div class="section-head">
+                        <span class="section-badge">Step 08</span>
+                        <h2>3つのテストスタイルと関数型アーキテクチャ</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            本書は、ユニットテストの書き方を3つのスタイルに分類し、優劣を明確に示しています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-adjustments"></i>3つのテストスタイル
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>スタイル</th>
+                                        <th>検証方法</th>
+                                        <th>モックの必要性</th>
+                                        <th>リファクタリング耐性</th>
+                                        <th>備考</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Output-based</strong>（出力ベース）</td>
+                                        <td>戻り値を検証する</td>
+                                        <td>不要（副作用がないため）</td>
+                                        <td>最も高い</td>
+                                        <td>純粋関数に対してのみ適用できる</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>State-based</strong>（状態ベース）</td>
+                                        <td>実行後のオブジェクトやDBの状態を検証する</td>
+                                        <td>場合による</td>
+                                        <td>高い</td>
+                                        <td>もっとも一般的に使えるスタイル</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Communication-based</strong
+                                            >（コミュニケーションベース）
+                                        </td>
+                                        <td>協働オブジェクトへの呼び出しをモックで検証する</td>
+                                        <td>必須</td>
+                                        <td>最も低い</td>
+                                        <td>
+                                            実装詳細に結合しやすく、乱用すると壊れやすいテストの温床になる
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>関数型アーキテクチャ ― Functional Core, Imperative Shell</h3>
+                        <p>
+                            Output-basedスタイルを最大限に活用するための設計指針として、本書はGary
+                            Bernhardt氏が講演「Boundaries」で提唱した<strong
+                                >Functional Core, Imperative Shell</strong
+                            >の考え方を紹介しています。ビジネスロジックを副作用のない純粋な計算（Functional
+                            Core）として切り出し、DBアクセスや外部APIといった副作用は薄い外殻（Imperative
+                            Shell）に押し出す、という設計です。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <div class="mermaid-target" id="diag-4"></div>
+                        </div>
+                        <p class="diagram-caption">図5: Functional Core, Imperative Shell</p>
+
+                        <p>
+                            この構造の利点は明確です。Functional
+                            Coreの部分は入力と出力だけを見ればよいため、<strong>モックが一切不要なOutput-basedテスト</strong>を大量に書けます。副作用を伴う統合テストはImperative
+                            Shellの薄い部分にだけ集中させればよく、テストピラミッド全体の効率が大きく向上します。
+                        </p>
+
+                        <div class="callout forest">
+                            <div>
+                                なお、この設計思想は Hexagonal Architecture（Alistair Cockburn）や
+                                Ports and Adapters
+                                とも本質的に同じ発想であり、複数の著名開発者が独立に「発見」してきた考え方であることも押さえておくとよいでしょう。
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="step9">
+                    <div class="section-head">
+                        <span class="section-badge">Step 09</span>
+                        <h2>価値あるテストへのリファクタリング ― Humble Objectパターン</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            「テストしにくいコード」の多くは、<strong>複雑なロジック</strong>と<strong>外部依存との協調</strong>が同じクラスの中に同居していることが原因です。本書は、この2つを分離する手法として<strong
+                                >Humble Object パターン</strong
+                            >を紹介しています。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <div class="mermaid-target" id="diag-5"></div>
+                        </div>
+                        <p class="diagram-caption">
+                            図6: Humble Objectパターンによるリファクタリング
+                        </p>
+
+                        <p>分離の効果は次の通りです。</p>
+                        <ul>
+                            <li>
+                                <strong>Domain Logic</strong> はFunctional
+                                Coreと同様、外部依存を持たないためOutput-basedテストで大量にカバーできる。
+                            </li>
+                            <li>
+                                <strong>Humble Controller</strong>
+                                はロジックをほぼ持たず「つなぐだけ」の薄い層になるため、そもそもユニットテストで厳密に検証する必要性が下がる（必要であれば少数の統合テストでカバーする）。
+                            </li>
+                            <li>
+                                結果として、テスト全体の<strong>保守コストを増やさずに回帰保護を最大化</strong>できる。
+                            </li>
+                        </ul>
+                        <p>
+                            このパターンは、コントローラー層・UIロジック・バッチ処理の入り口など、「テストが書きにくい」と感じるあらゆる場所に応用できます。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="step10">
+                    <div class="section-head">
+                        <span class="section-badge">Step 10</span>
+                        <h2>統合テスト（Integration Testing）の実践</h2>
+                    </div>
+                    <div class="prose">
+                        <h3>なぜ統合テストが必要か</h3>
+                        <p>
+                            ユニットテストだけでは、実際のデータベースや外部サービスとの接続部分の不具合を検知できません。本書は、<strong>ユニットテストではカバーしきれない「境界」を検証するために統合テストが不可欠</strong>だとしつつ、統合テストをどこまで書くべきかについて明確な指針を示しています。
+                        </p>
+
+                        <h3>「管理された依存」と「管理されていない依存」</h3>
+                        <p>依存関係を次の2種類に分類するのが最大のポイントです。</p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-network"></i>Managed dependency vs Unmanaged
+                                dependency
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>依存の種類</th>
+                                        <th>定義</th>
+                                        <th>例</th>
+                                        <th>テストでの扱い</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <strong>Managed dependency</strong>（管理された依存）
+                                        </td>
+                                        <td>
+                                            自チームが完全にコントロールできる、かつ他システムから直接観測されない依存
+                                        </td>
+                                        <td>自チーム所有のリレーショナルDB</td>
+                                        <td>
+                                            <strong
+                                                >モックにせず、実物（または実物に近いテスト用インスタンス）を使ってテストする</strong
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <strong>Unmanaged dependency</strong
+                                            >（管理されていない依存）
+                                        </td>
+                                        <td>
+                                            外部から観測される、または自チームがスキーマ・挙動を制御できない依存
+                                        </td>
+                                        <td>
+                                            決済API、メール送信サービス、他チームが所有するメッセージキュー
+                                        </td>
+                                        <td>
+                                            <strong
+                                                >アプリケーションの境界でのみモックに置き換える</strong
+                                            >
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            判定は「制御できるか」と「外部から観測されるか」の2つを<strong>両方</strong>満たすかどうかで行います。Managed
+                            dependency
+                            は「自チームが制御でき、<strong>かつ</strong>外部から直接観測されない」場合に限られ、いずれか一方でも欠ける（制御できない、<strong>または</strong>外部から観測される）場合は
+                            Unmanaged dependency として扱います。
+                        </p>
+
+                        <div class="mermaid-wrapper">
+                            <div class="mermaid-target" id="diag-6"></div>
+                        </div>
+                        <p class="diagram-caption">
+                            図7: Managed / Unmanaged dependency の判定フロー
+                        </p>
+
+                        <p>
+                            この分類により、「DBはモックすべきか？」という初学者が必ずぶつかる疑問に明確な答えが出ます。<strong
+                                >自チームが所有し、かつ外部から直接観測されないDBはmanaged
+                                dependencyなので、モックせずに実物（テスト用インスタンス）を使う</strong
+                            >のが正解です。
+                        </p>
+
+                        <p>
+                            ただし「自チーム所有」であることだけでは判定できません。同じDBでも、他システムが直接参照するテーブルやビュー、外部連携用に公開しているスキーマのように<strong
+                                >外部から観測される部分は unmanaged dependency
+                                として扱います</strong
+                            >。この場合、そのテーブルの構造は外部との契約になり、自由に変更できないためです。所有権ではなく「観測可能性」が境界を決める、と覚えてください。
+                        </p>
+
+                        <h3>統合テストのベストプラクティス（本書の要点）</h3>
+                        <ol>
+                            <li>
+                                ドメインロジックのすべてのユースケースをユニットテストで網羅し、統合テストは「正常系1本＋主要な異常系少数」に絞る。
+                            </li>
+                            <li>
+                                統合テストの対象は「自分のコードが管理する部分」までとし、サードパーティのライブラリ自体の中身はテストしない。
+                            </li>
+                            <li>
+                                ログ出力のような横断的関心事は、外部から観測可能な重要なログのみを対象にテストし、すべてのログをテストしようとしない。
+                            </li>
+                        </ol>
+                    </div>
+                </section>
+
+                <section class="section" id="step11">
+                    <div class="section-head">
+                        <span class="section-badge">Step 11</span>
+                        <h2>モッキングのベストプラクティス</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            Step 6・Step
+                            10の内容を踏まえ、本書が示すモッキングの実践的なルールを整理します。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-checklist"></i>モッキングのベストプラクティス
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ベストプラクティス</th>
+                                        <th>理由</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>モックは unmanaged dependency に対してのみ使う</td>
+                                        <td>
+                                            managed
+                                            dependencyをモック化すると実装詳細への結合が生まれ、リファクタリング耐性が落ちる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>モックの検証は「アプリケーションの境界」でのみ行う</td>
+                                        <td>
+                                            境界の内側（ドメインオブジェクト同士のやり取り）まで検証すると壊れやすいテストになる
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>1つの外部依存に対するモックの数を最小限にする</td>
+                                        <td>
+                                            サードパーティAPIを直接あちこちでモックせず、自作のアダプター（Facade）でラップしてからそのアダプターだけをモックする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>戻り値のないコマンド呼び出しの検証にモックを使う</td>
+                                        <td>
+                                            戻り値があるクエリはStub/Fakeで代替できることが多く、モックは副作用の確認に本質的な役割を持つ場合に限定する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>モックの設定・検証コードは共通化する</td>
+                                        <td>
+                                            モックのセットアップが各テストにコピペされると保守性が急激に下がる
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="step12">
+                    <div class="section-head">
+                        <span class="section-badge">Step 12</span>
+                        <h2>データベースのテスト</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            本書はデータベースを含む統合テストについて、次のような具体的な実践方法を紹介しています。
+                        </p>
+
+                        <h3>トランザクション管理</h3>
+                        <p>
+                            各テストの実行後にデータベースの状態を確実に元に戻す必要があります。代表的な2つの方式は次の通りです。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-database"></i>トランザクション管理の方式
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>方式</th>
+                                        <th>概要</th>
+                                        <th>メリット</th>
+                                        <th>デメリット</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>トランザクションロールバック方式</td>
+                                        <td>
+                                            テスト開始時にトランザクションを開始し、テスト終了時にコミットせずロールバックする
+                                        </td>
+                                        <td>高速、後始末が確実</td>
+                                        <td>
+                                            DB製品によっては本番コードのトランザクション制御と干渉することがある
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>クリーンアップ方式</td>
+                                        <td>各テスト前後に対象テーブルを明示的に初期化する</td>
+                                        <td>トランザクション制御に依存しないため汎用的</td>
+                                        <td>ロールバック方式よりやや低速になりがち</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>テストデータのライフサイクル</h3>
+                        <ul>
+                            <li>
+                                テストデータは各テストの Arrange
+                                セクション内で明示的に作成し、他のテストと共有しない。
+                            </li>
+                            <li>
+                                「あらかじめ用意された共有フィクスチャ」に依存すると、テスト同士が意図せず結合し、実行順序に依存する不安定なテスト（flaky
+                                test）を生む原因になる。
+                            </li>
+                            <li>
+                                共通のセットアップコードは、共有フィクスチャとしてではなく「ヘルパーメソッド／ファクトリ関数」として抽出し、各テストが自分の意思で呼び出す形にする。
+                            </li>
+                        </ul>
+
+                        <h3>並列実行時の注意</h3>
+                        <p>
+                            複数のテストを並列実行する場合、同じテーブル・同じ行に対する競合が発生しないよう、テストごとに独立したデータ（例:
+                            ランダムなIDや専用スキーマ）を使う設計が推奨されます。
+                        </p>
+                    </div>
+                </section>
+
+                <section class="section" id="step13">
+                    <div class="section-head">
+                        <span class="section-badge">Step 13</span>
+                        <h2>よくあるアンチパターンと対処法</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            本書の最終章では、現場で頻出する6つのアンチパターンが具体的に列挙されています。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-alert-triangle"></i>6つのアンチパターン
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>アンチパターン</th>
+                                        <th>何が問題か</th>
+                                        <th>対処法</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>プライベートメソッドを直接テストする</td>
+                                        <td>
+                                            実装詳細への結合が生まれ、リファクタリング耐性が失われる
+                                        </td>
+                                        <td>
+                                            プライベートメソッドは、それを利用する公開APIを通して間接的にテストする
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>テストのためだけにプライベート状態を公開する</td>
+                                        <td>カプセル化が崩れ、本番コードの設計が歪む</td>
+                                        <td>
+                                            公開すべき状態が「観測可能な振る舞い」の一部なら公開してよいが、テストのためだけの公開は避ける
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>ドメイン知識をテストに漏出させる</td>
+                                        <td>
+                                            本番コードと同じ計算ロジックをテストコード内に複製してしまい、バグがあっても両方が同じ間違え方をして検知できない
+                                        </td>
+                                        <td>
+                                            テストでは、事前に計算しておいた「決め打ちの期待値」を使う
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>コード汚染（production code pollution）</td>
+                                        <td>
+                                            テストのためだけの分岐やフラグが本番コードに混入し、可読性・安全性が下がる
+                                        </td>
+                                        <td>
+                                            テスト用の分岐はHumble
+                                            Objectパターンなどで本番コードの外に追い出す
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>モック対象を「具象クラスかどうか」で決める</td>
+                                        <td>
+                                            具象クラスをモック化すること自体が誤りなのではなく、アプリケーション内部の実装詳細をモック化してしまうことが問題。逆に「抽象だからモックしてよい」と考えると、内部のインターフェースまでモック化してリファクタリング耐性を失う
+                                        </td>
+                                        <td>
+                                            モック対象は<strong>アプリケーション境界</strong>と<strong
+                                                >managed / unmanaged の分類</strong
+                                            >で選ぶ（境界を越える unmanaged dependency
+                                            のみモック化する）。インターフェースは、実装が複数あるなど本当に抽象として意味がある場合か、上記のモック化に必要な場合にのみ導入し、単一実装のためだけに機械的に作らない
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>時間（現在時刻）の扱い</td>
+                                        <td>
+                                            <code>Now()</code>
+                                            を直接コード内で呼び出すと、実行するたびに結果が変わり再現性がなくなる
+                                        </td>
+                                        <td>
+                                            現在時刻を返す「クロック（Clock）」を抽象化して注入し、テストでは固定値を返すFake
+                                            Clockに差し替える
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="section" id="checklist">
+                    <div class="section-head">
+                        <span class="section-badge"><i class="ti ti-checkbox"></i></span>
+                        <h2>まとめ: 実践チェックリスト</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            ここまでの内容を、日々のコードレビューやテスト作成時に使えるチェックリストとして整理します。クリックしてチェックを付けられます。
+                        </p>
+                        <div class="checklist-counter">
+                            <span id="checklistCount">0</span> / 10 完了
+                        </div>
+                        <ul class="checklist" id="checklistItems">
+                            <li>
+                                <input type="checkbox" id="chk1" /><label for="chk1"
+                                    >このテストは「1つのメソッド」ではなく「1つの意味のある振る舞い」を検証しているか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk2" /><label for="chk2"
+                                    >Arrange / Act / Assert
+                                    が明確に分かれており、Actは実質1行になっているか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk3" /><label for="chk3"
+                                    >テスト名は非プログラマにも伝わる文章になっているか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk4" /><label for="chk4"
+                                    >このテストは「観測可能な振る舞い」だけを検証しており、内部実装の手順を検証していないか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk5" /><label for="chk5"
+                                    >モックを使っている場合、それは「アプリケーション境界を越えたunmanaged
+                                    dependency」に対してだけか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk6" /><label for="chk6"
+                                    >DBなどmanaged dependencyを不必要にモック化していないか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk7" /><label for="chk7"
+                                    >4本柱（回帰保護・リファクタリング耐性・速さ・保守性）のうち、極端に低いものがないか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk8" /><label for="chk8"
+                                    >純粋なロジックをOutput-basedテストで検証できる形（Functional
+                                    Core）に切り出せているか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk9" /><label for="chk9"
+                                    >プライベートメソッド・プライベート状態を無理にテストしようとしていないか</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="chk10" /><label for="chk10"
+                                    >現在時刻やランダム値など非決定的な要素を、注入可能な形に抽象化しているか</label
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="update2026">
+                    <div class="section-head">
+                        <span class="section-badge"><i class="ti ti-sparkles"></i></span>
+                        <h2>2026年時点の補足: 議論はどう発展したか</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            本書が刊行された2020年以降も、著名な国際的開発者たちによって「良いテストとは何か」という議論は活発に続いています。2025年末から2026年にかけての最新動向を補足します。
+                        </p>
+
+                        <h3>Kent Beckの「Composable Tests」（2025年11月）</h3>
+                        <p>
+                            Kent Beckは2019年に発表した「Test
+                            Desiderata」（良いテストが持つべき12の性質）の続編として、2025年11月に「Composable
+                            Tests」という論考を公開しました。ここでは、単に個々のテストを「分離（Isolated）」させるだけでなく、<strong>テストを組み合わせ（Composable）て冗長な検証を削減しながら予測力（Predictive）を落とさない</strong>という考え方が掘り下げられています。重複したテストをただ削除するのではなく、後発のテストから重複部分を取り除いて「合成」することで、同じ検出力をより少ないコードで維持できると説明されています。
+                        </p>
+
+                        <p>Kent Beckが2019年に示した12の性質は次の通りです。</p>
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-list-numbers"></i>Test Desiderata（Kent Beck, 2019）
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>性質（英語）</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Isolated</td>
+                                        <td>他のテストの結果に影響されない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Composable</td>
+                                        <td>
+                                            テストを自由に組み合わせて実行しても結果が変わらない
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Fast</td>
+                                        <td>高速に実行できる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Inspiring</td>
+                                        <td>テストが通ることで自信が持てる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Writable</td>
+                                        <td>テスト対象のコストに対して安価に書ける</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>Readable</td>
+                                        <td>読み手にとって理解しやすい</td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>Behavioral</td>
+                                        <td>コードの振る舞いが変わればテスト結果も変わる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>Structure-insensitive</td>
+                                        <td>コードの内部構造が変わってもテスト結果は変わらない</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>Automated</td>
+                                        <td>人手を介さず自動実行できる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>Specific</td>
+                                        <td>失敗したとき原因が明確にわかる</td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>Deterministic</td>
+                                        <td>何も変えなければ結果は常に同じ</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>Predictive</td>
+                                        <td>テストが通れば本番でも成功すると予測できる</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h3>Emily Bacheによる「Test Desiderata 2.0」（2025年12月）</h3>
+                        <p>
+                            著名なテストコーチであるEmily
+                            Bacheは、2025年12月にBeckの12性質を再整理した「Test Desiderata
+                            2.0」を提案しました。Bacheは、Beckのリストが「個々のテストの性質」と「テストスイート全体の性質」を混在させていた点に着目し、20名以上のテスト専門家（Kent
+                            Beck、Kent C. Dodds、Dave Farley、Michael Feathers、Steve
+                            Freeman、Kevlin
+                            Henneyなど）の知見を分析した上で、次の4つの「メタ目標」の下に各性質を再配置しました。
+                        </p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-target-arrow"></i>Test Desiderata 2.0（Emily Bache,
+                                2025）
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>メタ目標</th>
+                                        <th>対応する個々の性質（例）</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>本番での成功を予測できるか（Predict success）</td>
+                                        <td>Behavioral、実行品質（性能など）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>速いフィードバックが得られるか（Fast feedback）</td>
+                                        <td>Isolated、最小限のデータ、並列実行可能性</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            継続的な設計変更を支援できるか（Support design change）
+                                        </td>
+                                        <td>Composable、設計への圧力（Design Pressure）</td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            保有コストを最小化できるか（Minimize cost of ownership）
+                                        </td>
+                                        <td>
+                                            Readable、Writable、Deterministic、Diagnosable（失敗原因の特定しやすさ）、Structure-insensitive
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <p>
+                            この再整理は、Khorikovの「4本柱」と非常に近い発想であり、<strong>「予測力」「速さ」「設計変更への耐性（＝リファクタリング耐性）」「保守コスト」</strong>という軸に世界的な議論が収束しつつあることがわかります。
+                        </p>
+
+                        <h3>テストピラミッドとテスティングトロフィー、そして現在地</h3>
+                        <p>
+                            Martin Fowlerが提唱した「テストピラミッド」に対し、Kent C. Dodds（React
+                            Testing
+                            Libraryの作者）は2018年、ツールの進化（Jest、Cypressなど）を背景に「テスティングトロフィー」を提唱しました。これは、ユニットテストの比重を下げ、統合テストの比重を最大化する考え方です。2026年現在も、フロントエンド領域を中心にトロフィーモデルは広く参照されていますが、いずれのモデルも「実装詳細ではなく振る舞いを検証する」という本書の主張と矛盾するものではなく、<strong>「どの粒度のテストに比重を置くか」というチューニングの違い</strong>として理解するのが実務的です。
+                        </p>
+
+                        <h3>AI生成コードのテスト（2026年の新しい論点）</h3>
+                        <p>
+                            2026年に入り、AIコーディングアシスタントが生成するコードの割合が急増したことを受け、「AIが書いたコードをどうテストするか」という新しい論点が広がっています。特に強調されているのが以下の点です。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Verification Paradox（検証のパラドックス）</strong>:
+                                コードを書いたAIモデル自身にテストも書かせると、同じ思考の偏り（バイアス）がテストにも継承され、欠陥を見逃しやすい。コード生成とテスト生成は独立した情報源（仕様書・スキーマ・実トレースなど）に基づかせるべきだとされています。
+                            </li>
+                            <li>
+                                <strong>振る舞いカバレッジの重視</strong>:
+                                行カバレッジは「実行されたか」しか示さないため、ミューテーションテスト（意図的にロジックを壊してテストが検知できるか確認する手法）やプロパティベーステストを組み合わせ、「本当に正しさを検証できているか」を確認する動きが広がっています。
+                            </li>
+                            <li>
+                                これらの新しい実践も、根底にあるのは本書の4本柱のうち特に「回帰に対する保護」を強化する取り組みであり、Khorikovが2020年に示した原則が土台として今も通用していることがわかります。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="section" id="references">
+                    <div class="section-head">
+                        <span class="section-badge"><i class="ti ti-link"></i></span>
+                        <h2>参考文献・情報源</h2>
+                    </div>
+                    <div class="prose">
+                        <p>
+                            本記事の作成にあたり、以下の一次情報・著名開発者の発信を参照しました（2026年9月5日時点で確認）。
+                        </p>
+
+                        <div class="ref-group">
+                            <h3><i class="ti ti-book-2"></i>書籍本体・出版社情報</h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >O'Reilly（書籍ページ・目次）</a
+                                    ><span class="ref-url"
+                                        >https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://www.manning.com/books/unit-testing"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Manning Publications（出版社公式ページ）</a
+                                    ><span class="ref-url"
+                                        >https://www.manning.com/books/unit-testing</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >著者Khorikov氏ブログ掲載チャプター抜粋</a
+                                    ><span class="ref-url"
+                                        >https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3><i class="ti ti-microphone-2"></i>著者インタビュー</h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://techleadjournal.dev/episodes/58/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Tech Lead Journal #58 ― Vladimir Khorikov</a
+                                    ><span class="ref-url"
+                                        >https://techleadjournal.dev/episodes/58/</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-user-star"></i>Martin
+                                Fowler（著名な国際的ソフトウェアアーキテクト）
+                            </h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://martinfowler.com/articles/mocksArentStubs.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Mocks Aren't Stubs</a
+                                    ><span class="ref-url"
+                                        >https://martinfowler.com/articles/mocksArentStubs.html</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-user-star"></i>Kent Beck（Extreme Programming /
+                                TDDの提唱者）
+                            </h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Test Desiderata（2019年、原著論考）</a
+                                    ><span class="ref-url"
+                                        >https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://newsletter.kentbeck.com/p/composable-tests"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Composable Tests（2025年11月、続編）</a
+                                    ><span class="ref-url"
+                                        >https://newsletter.kentbeck.com/p/composable-tests</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://kentbeck.github.io/TestDesiderata/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Test Desiderata 公式まとめページ</a
+                                    ><span class="ref-url"
+                                        >https://kentbeck.github.io/TestDesiderata/</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-user-star"></i>Emily Bache（テストコーチ、Test
+                                Desiderata 2.0提唱者）
+                            </h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Test Desiderata 2.0（2025年12月）</a
+                                    ><span class="ref-url"
+                                        >https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://lidonis.github.io/Test-Desiderata/framework.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Test Desiderata 2.0 フレームワーク解説</a
+                                    ><span class="ref-url"
+                                        >https://lidonis.github.io/Test-Desiderata/framework.html</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-user-star"></i>Kent C. Dodds（React Testing
+                                Library作者）
+                            </h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://kentcdodds.com/blog/write-tests"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Write tests. Not too many. Mostly integration.</a
+                                    ><span class="ref-url"
+                                        >https://kentcdodds.com/blog/write-tests</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >The Testing Trophy and Testing Classifications</a
+                                    ><span class="ref-url"
+                                        >https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Static vs Unit vs Integration vs E2E Testing</a
+                                    ><span class="ref-url"
+                                        >https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-user-star"></i>Ian
+                                Cooper（.NETコミュニティ、ロンドン.NETユーザーグループ創設者）
+                            </h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://www.infoq.com/presentations/tdd-original/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >TDD, Where Did It All Go Wrong?（InfoQ）</a
+                                    ><span class="ref-url"
+                                        >https://www.infoq.com/presentations/tdd-original/</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-user-star"></i>Gary Bernhardt（Destroy All
+                                Software創設者）
+                            </h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://www.destroyallsoftware.com/talks/boundaries"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Boundaries（Functional Core, Imperative Shellの提唱）</a
+                                    ><span class="ref-url"
+                                        >https://www.destroyallsoftware.com/talks/boundaries</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-user-star"></i>Oliver Drotbohm（Spring
+                                Data等のメンテナ）
+                            </h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Rethinking Spring Application Integration
+                                        Testing（2025年12月）</a
+                                    ><span class="ref-url"
+                                        >https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3>
+                                <i class="ti ti-robot"></i>AI生成コードのテスト（2026年の最新動向）
+                            </h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://skyramp.dev/blog/testing-ai-generated-code"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Testing AI-Generated Code: Best Practices for 2026</a
+                                    ><span class="ref-url"
+                                        >https://skyramp.dev/blog/testing-ai-generated-code</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://testdino.com/blog/how-to-test-ai-generated-code"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >How to Test AI-Generated Code: Best Practices &amp;
+                                        Checklist (2026)</a
+                                    ><span class="ref-url"
+                                        >https://testdino.com/blog/how-to-test-ai-generated-code</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ref-group">
+                            <h3><i class="ti ti-notes"></i>その他、書籍の要点整理</h3>
+                            <div class="ref-grid">
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://notesbylex.com/4-pillars-of-good-unit-tests"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >4 Pillars of Good Unit Tests（要点まとめ）</a
+                                    ><span class="ref-url"
+                                        >https://notesbylex.com/4-pillars-of-good-unit-tests</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://olano.dev/blog/unit-testing-principles/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Unit Testing Principles（要点まとめ、2025年1月）</a
+                                    ><span class="ref-url"
+                                        >https://olano.dev/blog/unit-testing-principles/</span
+                                    >
+                                </div>
+                                <div class="ref-card">
+                                    <a
+                                        class="ref-title"
+                                        href="https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >テストダブルの実務ガイド（2026年）</a
+                                    ><span class="ref-url"
+                                        >https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained</span
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <p class="note-final">
+                            本記事は上記ソースの内容を要約・再構成した学習ガイドであり、原著書籍の文章を逐語的に引用するものではありません。詳細な実装例やC#による具体的なコードサンプルについては、必ず原著書籍（Manning
+                            Publications刊）を参照してください。
+                        </p>
+                    </div>
+                </section>
+
+                <footer class="footer">
+                    <p>
+                        Unit Testing Principles, Practices, and Patterns 完全ガイド ― Classic
+                        Software Testing Books companion series
+                    </p>
+                </footer>
+            </main>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.10.0/build/highlight.min.js"
+            integrity="sha384-GdEWAbCjn+ghjX0gLx7/N1hyTVmPAjdC2OvoAA0RyNcAOhqwtT8qnbCxWle2+uJX"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.min.js"
+            integrity="sha384-o+g/BxPwhi0C3RK7oQBxQuNimeafQ3GE/ST4iT2BxVI4Wzt60SH4pq9iXVYujjaS"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            // ---- highlight.js ----
+            if (typeof hljs !== 'undefined') {
+                hljs.highlightAll();
+            }
+
+            // ---- Mermaid live client-side rendering ----
+            const DIAGRAMS = {
+                'diag-0': `flowchart TB
+    A["テストがない、または壊れやすい"] --> B["リファクタリングが怖くなる"]
+    B --> C["技術的負債が蓄積し、コードが腐敗する"]
+    C --> D["変更コストが増大し開発速度が低下する"]
+    D --> A
+
+    E["価値あるテストスイートを持つ"] --> F["安心してリファクタリングできる"]
+    F --> G["設計を継続的に改善できる"]
+    G --> H["開発速度が長期にわたり維持される"]
+    H --> E
+
+    D ~~~ E`,
+                'diag-1': `flowchart LR
+    A["Arrange<br/>テスト対象と入力データを準備する"] --> B["Act<br/>テスト対象のメソッドを実行する"]
+    B --> C["Assert<br/>結果を検証する"]`,
+                'diag-2': `flowchart TB
+    Start["あるテストを4本柱で評価する"] --> E2E["End-to-Endテスト"]
+    Start --> Trivial["些末（trivial）なテスト<br/>例: 単純なgetter/setterのテスト"]
+    Start --> Brittle["壊れやすい（brittle）テスト<br/>例: 実装の内部呼び出し順序を検証するテスト"]
+
+    E2E --> E2ERes["回帰への保護◎ / リファクタリング耐性◎<br/>速いフィードバック×"]
+    Trivial --> TrivialRes["リファクタリング耐性◎ / 速いフィードバック◎<br/>回帰への保護×"]
+    Brittle --> BrittleRes["回帰への保護◎ / 速いフィードバック◎<br/>リファクタリング耐性×"]`,
+                'diag-3': `flowchart TB
+    Q1["このテストで何を確認したいか？"] --> Q2{"外部への副作用そのものが<br/>重要な結果か？<br/>例: メール送信, 決済API呼び出し"}
+    Q2 -- "はい（振る舞い検証）" --> Mock["Mock を使う<br/>（呼び出しの有無・内容を検証）"]
+    Q2 -- "いいえ（状態検証で十分）" --> Q3{"戻り値を制御したいだけか？"}
+    Q3 -- "はい" --> Stub["Stub を使う"]
+    Q3 -- "いいえ、呼ばれた記録も見たい" --> Spy["Spy を使う"]`,
+                'diag-4': `flowchart TB
+    subgraph Shell["Imperative Shell（副作用を扱う薄い層）"]
+        In["入力の取得<br/>（DB読み込み・HTTPリクエストなど）"]
+        Out["出力の反映<br/>（DB書き込み・メール送信など）"]
+    end
+    subgraph Core["Functional Core（純粋な計算ロジック）"]
+        Logic["ビジネスルールの計算<br/>（入力→出力の純粋関数）"]
+    end
+    In --> Logic
+    Logic --> Out`,
+                'diag-5': `flowchart TB
+    subgraph Before["リファクタリング前"]
+        B1["Controller<br/>（ロジック + DB呼び出し + HTTP処理が混在）"]
+    end
+    subgraph After["リファクタリング後"]
+        A1["Humble Controller<br/>（外部との協調のみ・薄い）"]
+        A2["Domain Logic<br/>（複雑な判断ロジックのみ・純粋）"]
+        A1 --> A2
+    end
+    B1 -.->|"責務を分離する"| A1`,
+                'diag-6': `flowchart TB
+    D["外部依存を洗い出す"] --> Q1{"自チームがスキーマと挙動を<br/>制御できるか？"}
+    Q1 -- "いいえ（他チーム/外部が所有）" --> Unmanaged["Unmanaged Dependency<br/>制御できない、または外部から観測される<br/>境界でモックに置き換える<br/>（例: 決済API, メール送信, 外部公開テーブル）"]
+    Q1 -- "はい（自チームが所有）" --> Q2{"その依存の状態は外部の<br/>第三者から直接観測されるか？"}
+    Q2 -- "はい（外部にも見える/共有）" --> Unmanaged
+    Q2 -- "いいえ（自チームだけが見る）" --> Managed["Managed Dependency<br/>制御でき、かつ外部から観測されない<br/>実物を使ってテストする<br/>（例: 自チーム専用DB）"]`,
+            };
+
+            if (typeof mermaid !== 'undefined') {
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'base',
+                    securityLevel: 'loose',
+                    themeVariables: {
+                        fontFamily: 'Inter, sans-serif',
+                        fontSize: '16px',
+                        primaryColor: '#eef0fb',
+                        primaryBorderColor: '#34419e',
+                        primaryTextColor: '#2b2318',
+                        lineColor: '#8a8170',
+                        secondaryColor: '#f8ecd3',
+                        tertiaryColor: '#fffdf7',
+                        clusterBkg: '#f3ecd8',
+                        clusterBorder: '#c9b98a',
+                        edgeLabelBackground: '#fffdf7',
+                    },
+                    flowchart: {
+                        htmlLabels: true,
+                        curve: 'basis',
+                        subGraphTitleMargin: { top: 15, bottom: 70 },
+                    },
+                });
+
+                async function renderDiagrams() {
+                    for (const [id, src] of Object.entries(DIAGRAMS)) {
+                        const container = document.getElementById(id);
+                        if (!container) continue;
+                        try {
+                            const { svg } = await mermaid.render(id + '-svg', src);
+                            container.innerHTML = svg;
+                            const svgEl = container.querySelector('svg');
+                            if (svgEl) {
+                                svgEl.removeAttribute('width');
+                                svgEl.removeAttribute('height');
+                                const vb = svgEl.viewBox && svgEl.viewBox.baseVal;
+                                if (vb && vb.width) {
+                                    svgEl.style.width = vb.width + 'px';
+                                    svgEl.setAttribute(
+                                        'viewBox',
+                                        vb.x + ' ' + vb.y + ' ' + vb.width + ' ' + (vb.height + 15),
+                                    );
+                                }
+                                svgEl.style.maxWidth = 'none';
+                                svgEl.style.height = 'auto';
+                                svgEl.style.flexShrink = '0';
+                                svgEl.style.overflow = 'visible';
+                            }
+                        } catch (e) {
+                            container.innerHTML =
+                                '<p style="color:#a33;font-family:Inter,sans-serif;">図の描画に失敗しました。</p>';
+                            console.error('Mermaid render error for', id, e);
+                        }
+                    }
+                }
+                renderDiagrams();
+            }
+
+            // ---- Sidebar navigation: scroll-position based active highlighting ----
+            const sideLinks = Array.from(document.querySelectorAll('.side-link'));
+            const sections = Array.from(document.querySelectorAll('main.content section[id]'));
+            function updateActiveNav() {
+                const scrollPos = window.scrollY + window.innerHeight * 0.25;
+                let currentId = sections.length ? sections[0].id : null;
+                for (const sec of sections) {
+                    if (sec.offsetTop <= scrollPos) currentId = sec.id;
+                }
+                sideLinks.forEach((a) => {
+                    a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+                });
+            }
+            let navTicking = false;
+            window.addEventListener(
+                'scroll',
+                () => {
+                    if (!navTicking) {
+                        requestAnimationFrame(() => {
+                            updateActiveNav();
+                            navTicking = false;
+                        });
+                        navTicking = true;
+                    }
+                },
+                { passive: true },
+            );
+            window.addEventListener('resize', () => requestAnimationFrame(updateActiveNav));
+            updateActiveNav();
+
+            // ---- Mobile sidebar toggle ----
+            const mobileToggle = document.getElementById('mobileToggle');
+            const sidebarEl = document.getElementById('sidebar');
+            if (mobileToggle && sidebarEl) {
+                mobileToggle.addEventListener('click', () => sidebarEl.classList.toggle('open'));
+                sideLinks.forEach((a) =>
+                    a.addEventListener('click', () => {
+                        if (window.innerWidth <= 900) sidebarEl.classList.remove('open');
+                    }),
+                );
+            }
+
+            // ---- Checklist interactivity ----
+            const checklistItems = document.querySelectorAll(
+                '#checklistItems input[type=checkbox]',
+            );
+            const checklistCount = document.getElementById('checklistCount');
+            function updateChecklist() {
+                let done = 0;
+                checklistItems.forEach((cb) => {
+                    const li = cb.closest('li');
+                    if (cb.checked) {
+                        li.classList.add('done');
+                        done++;
+                    } else {
+                        li.classList.remove('done');
+                    }
+                });
+                if (checklistCount) checklistCount.textContent = String(done);
+            }
+            checklistItems.forEach((cb) => cb.addEventListener('change', updateChecklist));
+            updateChecklist();
+        </script>
+    </body>
+</html>
