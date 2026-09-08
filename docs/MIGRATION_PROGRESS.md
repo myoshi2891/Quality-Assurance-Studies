@@ -13,20 +13,25 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `2f57a1d` |
+| 最新 HEAD | `ea2be85` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test` / `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
-## 2026/09/08: SonarQube 完全解説ガイド（中級〜上級者向け）のNext.js完全移行
+## 2026/09/08: SonarQube 完全解説ガイド（中級〜上級者向け）のNext.js完全移行 & UI/UX改善
 
-- **デザイン忠実再現**: 元HTML固有のダークテーマUI（背景 `--bg: #0b0f14`、サーフェス `--surface: #12181f`、エレベーテッド `--surface-raised: #1c232c`、アクセント `--accent: #3b82f6`、紫 `--purple: #a78bfa`、緑 `--green: #34d399`、赤 `--red: #f87171`、黄 `--amber: #fbbf24`、Tabler Icons `@tabler/icons-webfont`）を忠実に復元。
-- **Mermaid図解の完全移植**: プロダクトファミリーとエコシステム全体像、内部アーキテクチャ(Web/CE/ES/DB)、Data Center Edition高可用性構成、Clean Code属性から格付けへのマッピング、Security Hotspotライフサイクル、Quality Profile継承モデル、New Code Definition判定ロジック、Quality Gate評価フロー、プルリクエスト解析フロー、Agent Centric Development Cycle(ACDC)の全10図解（`DIAGRAM_1`〜`DIAGRAM_10`）を共通 `<Mermaid>` コンポーネントへ移植。
-- **コードブロック**: 全4箇所のコードブロック（Docker起動コマンド、SQALE計算モデルyaml、GitHub Actionsワークフローyaml、Claude Code MCPサーバー登録コマンド）を完全移植。`<div className="code-line">` による静的改行整形と構文ハイライトを適用。
+- **デザイン忠実再現 & UI/UX改善**:
+  - 元HTML固有のダークテーマUI（背景 `--bg: #0b0f15`、サーフェス `--surface: #111822`、エレベーテッド `--surface-raised: #1a2330`、Tabler Icons `@tabler/icons-webfont`）を忠実に復元。
+  - **メインコンテンツ横幅の全幅化**: `.content-inner` の `max-width: 980px` 制約を撤廃し、画面幅を最大限に活用するモダンなフルワイズレイアウト（`width: 100%; max-width: none !important;`）を適用。
+  - **文字コントラストの大幅向上**: WCAG 2.1 AAA基準レベルを意識し、主要テキストを `#ffffff`（最大コントラスト白）、セカンダリテキストを `#cbd5e1`（明度30%UP）、テーブルセル・リスト・コールアウト文字色を視認性の高い高輝度カラーへ全面改善。
+- **Mermaid図解の完全移植**: プロダクトファミリーとエコシステム全体像、内部アーキテクチャ(Web/CE/ES/DB)、Data Center Edition高老化構成、Clean Code属性から格付けへのマッピング、Security Hotspotライフサイクル、Quality Profile継承モデル、New Code Definition判定ロジック、Quality Gate評価フロー、プルリクエスト解析フロー、Agent Centric Development Cycle(ACDC)の全10図解（`DIAGRAM_1`〜`DIAGRAM_10`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **コードブロック & シンタックスハイライト**:
+  - 全4箇所のコードブロック（Docker起動コマンド、SQALE計算モデル、GitHub Actionsワークフロー、Claude Code MCPサーバー設定）に `.code-block` コンテナとヘッダー（言語バッジ、タイトル）を実装。
+  - `.code-keyword`, `.code-string`, `.code-comment`, `.code-property`, `.code-var`, `.code-operator`, `.code-fn`, `.code-punct` 等のトークンによる鮮明なシンタックスハイライトを完全適用。
 - **テーブル & コールアウト**: 4コアコンポーネント、主要ディレクトリ構成、5大エディション機能比較、料金目安、SonarQube Cloudプラン比較、スキャナー選定マトリクス、Standard vs MQR、Clean Code Taxonomy 4カテゴリ、Issue 4種別、Copy vs Extend、セキュリティルール2分類、Maintainability Ratingグリッド、Reliability Rating条件、New Code 4オプション、Quality Gateデフォルト条件、ブランチ分析 vs PR分析、主要CI/CD対応状況、MCP Server形態、Sonar Vortexフェーズ、トラブルシューティング、参考文献一覧（48行）の全21テーブル、および全3箇所の重要コールアウトを完全移植。
 - **全セクション参考文献**: 各章末尾および第21章の参考文献リスト（104件の外部リンク、セキュリティ属性 `rel="noopener noreferrer"`）を完全移行。
 - `app/sonarqube-intermediate-guide/`: ページコンポーネント、専用スタイル（`.sonarqube-page` スコープ、globals.css干渉リセット、テーブル文字色・ホバーリセット、Tailwindリストマーカー復元）、NavBar（スクロールスパイ、全22セクションリンク、モバイルトグル対応、`aria-current`）を実装。
 - `lib/navigation.ts`: `tools-frameworks` カテゴリに `/sonarqube-intermediate-guide`（SonarQube 完全解説ガイド）を追加（全58件）。
-- `tests/sonarqube-intermediate-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全22リンク、全22セクション、全10Mermaid図、全4コードブロック、全21テーブル、全3コールアウト、全参考文献外部リンクの存在を検証する厳格なテストスイートを実装して全パス（28 pass / 375 expect()）。
+- `tests/sonarqube-intermediate-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全22リンク、全22セクション、全10Mermaid図、全4コードブロック（ハイライト検証含む）、全21テーブル、全3コールアウト、全参考文献外部リンクの存在を検証する厳格なテストスイートを実装して全パス（29 pass / 388 expect()）。
 - `Sonarqube-intermediate.html`: `archive/html-archive/tools/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 58 ページ体制に同期。
 
