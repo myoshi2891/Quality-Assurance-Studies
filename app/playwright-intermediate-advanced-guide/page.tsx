@@ -77,6 +77,50 @@ const DIAGRAM_5 = `graph TB
     W1 -.->|"プロセス間通信不可(状態共有なし)"| W2
     W2 -.-> W3`;
 
+const DIAGRAM_7 = `flowchart TD
+    A["テスト実行"] --> B{"失敗した?"}
+    B -- Yes --> C["trace.zip を自動生成(on-first-retryの場合)"]
+    B -- No --> D["トレースなし(設定次第)"]
+    C --> E["bunx playwright show-report"]
+    E --> F["HTMLレポート内のトレースアイコンをクリック"]
+    F --> G["Trace Viewerが開く"]
+    G --> H["タイムライン上でアクションを1つずつ確認"]
+    H --> I["DOMスナップショット閲覧 + DevTools起動可能"]
+    H --> J["ネットワークログ確認"]
+    H --> K["コンソールログ確認"]`;
+
+const DIAGRAM_8 = `flowchart LR
+    A["page.routeFromHAR() update: true"] --> B["実際にAPIへアクセスしHARファイルへ記録"]
+    B --> C["HARファイルをバージョン管理にコミット"]
+    C --> D["update: false で再実行"]
+    D --> E["記録済みHARからレスポンスを再生(実APIは呼ばれない)"]`;
+
+const DIAGRAM_9 = `flowchart TD
+    Start(["テストはサーバー側状態を変更するか?"]) -->|変更しない| Basic
+    Start -->|"変更する(例: 設定変更テストが並列実行される)"| Worker
+    Basic["基本戦略: 全テストで共有アカウント1つ"] --> BasicDetail["setupプロジェクトで1回だけログイン → storageState.jsonを保存 → 全テストプロジェクトがdependenciesで参照"]
+    Worker["中級戦略: Workerごとに専用アカウント"] --> WorkerDetail["parallelIndexでWorker固有のアカウントを払い出し → Worker単位でstorageStateをキャッシュ"]
+    BasicDetail --> Roles{"複数ロール(admin/user等)が必要か?"}
+    WorkerDetail --> Roles
+    Roles -- Yes --> Multi["複数回ログインしロールごとにstorageStateを保存 test.use()で使い分け"]
+    Roles -- No --> Done["完了"]
+    Multi --> Together{"複数ロールを1テスト内で同時に操作するか?"}
+    Together -- Yes --> Contexts["browser.newContext()で複数のBrowserContextを生成し同時に操作"]
+    Together -- No --> Done`;
+
+const DIAGRAM_10 = `flowchart LR
+    subgraph PRE["前提条件の準備(APIで高速化)"]
+        A["APIでテストデータを作成"]
+    end
+    subgraph UI["UI検証"]
+        B["ブラウザでページ遷移・操作"]
+        C["UI上で期待通り表示されるか検証"]
+    end
+    subgraph POST["事後条件の検証(APIで確実に)"]
+        D["APIでサーバー側状態を検証"]
+    end
+    A --> B --> C --> D`;
+
 const DIAGRAM_6 = `flowchart LR
     Push["git push"] --> Matrix["Actions Matrix shardIndex: [1,2,3,4]"]
     Matrix --> S1["Shard 1/4"]
@@ -1542,7 +1586,736 @@ bunx playwright test --shard=4/4`}</code></pre>
                 
 
                 
-        </main>
+        
+<div className="divider"></div>
+
+{/* ============ CATEGORY 3 ============ */}
+<section className="doc-section" id="sec-12">
+                    <h2 className="sec-title"><span className="idx">12</span>Trace Viewerによるデバッグ</h2>
+
+                    <p>
+                        <strong>Trace Viewer</strong
+                        >は、記録されたテスト実行の軌跡(トレース)を探索できるGUIツールです。各アクションの
+                        前後でページがどう変化したかを、タイムラインを操作しながら視覚的に確認できます。
+                    </p>
+
+                    <h3 className="sub-title">12.1 トレースの記録設定</h3>
+                    <p>
+                        デフォルトの設定テンプレートでは、CI環境で「最初のリトライ時にのみ」トレースを記録するようになっています
+                        (常時記録は性能への影響が大きいため非推奨)。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">playwright.config.ts</div>
+                        <pre><code className="language-typescript">{`export default defineConfig({
+  retries: process.env.CI ? 2 : 0,
+  use: {
+    trace: 'on-first-retry', // 失敗したテストの最初のリトライでのみ記録
+  },
+});`}</code></pre>
+                    </div>
+                    
+
+                    <p>ローカルで強制的に記録したい場合:</p>
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`bunx playwright test --trace on`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">12.2 トレースの閲覧フロー</h3>
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_7} />
+</div>
+                    
+
+                    <p>
+                        Trace
+                        Viewerでは、各アクション実行前後のDOMスナップショットを完全にインタラクティブな形で再現でき、
+                        ブラウザのDevToolsをその場で開いてHTML/CSSを検証することも可能です。ネットワークリクエスト・コンソールログ・
+                        実行時のログ(要素が可視になるまでの待機など)も同時に確認できます。
+                    </p>
+
+                    <h3 className="sub-title">12.3 UI Modeとの使い分け</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ツール</th>
+                                    <th>主な用途</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>UI Mode(<code>--ui</code>)</td>
+                                    <td>
+                                        ローカル開発中の<strong>リアルタイム</strong>デバッグ・ウォッチモード
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Trace Viewer</td>
+                                    <td>
+                                        <strong>CI環境で失敗したテスト</strong
+                                        >の事後解析(共有可能なPWAとして)
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/trace-viewer-intro"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/trace-viewer-intro</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/trace-viewer"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/trace-viewer</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-ui-mode"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-ui-mode</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 13 ============ */}
+                <section className="doc-section" id="sec-13">
+                    <h2 className="sec-title">
+                        <span className="idx">13</span>ネットワークインターセプションとAPIモック
+                    </h2>
+
+                    <p>
+                        Playwrightは、ページが発行するHTTP(S)リクエスト(XHR・fetchを含む)をすべて追跡・変更・モックするAPIを
+                        提供します。
+                    </p>
+
+                    <h3 className="sub-title">13.1 APIレスポンスの完全モック</h3>
+                    <div className="code-block">
+                        <div className="code-label">mock-api.spec.ts</div>
+                        <pre><code className="language-typescript">{`test('APIをモックしフルーツ一覧を表示する', async ({ page }) => {
+  await page.route('*/**/api/v1/fruits', async route => {
+    const json = [{ name: 'Strawberry', id: 21 }];
+    await route.fulfill({ json });
+  });
+
+  await page.goto('https://demo.playwright.dev/api-mocking');
+  await expect(page.getByText('Strawberry')).toBeVisible();
+});`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        このパターンでは実際のAPIには一切リクエストが送信されず、指定したモックデータでレスポンスが完結します。
+                    </p>
+
+                    <h3 className="sub-title">13.2 実際のレスポンスを部分的に改変</h3>
+                    <p>
+                        実サーバーへのリクエストは発生させつつ、レスポンスボディだけを差し替えることも可能です。
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">mock-partial.spec.ts</div>
+                        <pre><code className="language-typescript">{`test('実APIのレスポンスに要素を追加する', async ({ page }) => {
+  await page.route('*/**/api/v1/fruits', async route => {
+    const response = await route.fetch();
+    const json = await response.json();
+    json.push({ name: 'Loquat', id: 100 });
+    await route.fulfill({ response, json });
+  });
+
+  await page.goto('https://demo.playwright.dev/api-mocking');
+  await expect(page.getByText('Loquat', { exact: true })).toBeVisible();
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">13.3 HARファイルによる記録・再生</h3>
+                    <p>
+                        HAR(HTTP
+                        Archive)ファイルはページロード時に発生した全通信の記録です。これをテストのモックデータとして
+                        再利用できます。
+                    </p>
+
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_8} />
+</div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">har-replay.spec.ts</div>
+                        <pre><code className="language-typescript">{`await page.routeFromHAR('./hars/fruit.har', {
+  url: '*/**/api/v1/fruits',
+  update: false, // true にすると実データでHARを更新する
+});`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        HAR再生はURLとHTTPメソッドを厳密に照合し、POSTの場合はペイロードも厳密照合します。複数のエントリが
+                        一致する場合はヘッダー一致数が最も多いものが選択されます。
+                    </p>
+
+                    <h3 className="sub-title">13.4 WebSocketのモック</h3>
+                    <div className="code-block">
+                        <div className="code-label">websocket-mock.spec.ts</div>
+                        <pre><code className="language-typescript">{`await page.routeWebSocket('wss://example.com/ws', ws => {
+  ws.onMessage(message => {
+    if (message === 'request') ws.send('response');
+  });
+});`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        実サーバーに接続しつつ、メッセージの一部だけを書き換える「中間者」的な使い方も可能です。
+                    </p>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/mock"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/mock</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/network"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/network</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 14 ============ */}
+                <section className="doc-section" id="sec-14">
+                    <h2 className="sec-title"><span className="idx">14</span>認証状態の再利用戦略</h2>
+
+                    <p>
+                        Playwrightはテストごとに独立したBrowserContextで実行されるため、毎回ログインフローを繰り返すのは非効率です。
+                        公式ドキュメントは認証状態(Cookie・LocalStorage・IndexedDB)をファイルに保存し、テスト開始時に再利用する複数の
+                        戦略を提示しています。
+                    </p>
+
+                    <h3 className="sub-title">14.1 認証戦略の選択フロー</h3>
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_9} />
+</div>
+                    
+
+                    <h3 className="sub-title">14.2 基本戦略: 共有アカウント</h3>
+                    <div className="code-block">
+                        <div className="code-label">tests/auth.setup.ts</div>
+                        <pre><code className="language-typescript">{`import { test as setup, expect } from '@playwright/test';
+import path from 'path';
+
+const authFile = path.join(__dirname, '../playwright/.auth/user.json');
+
+setup('authenticate', async ({ page }) => {
+  await page.goto('https://example.com/login');
+  await page.getByLabel('Username').fill('username');
+  await page.getByLabel('Password').fill('password');
+  await page.getByRole('button', { name: 'Sign in' }).click();
+  await page.waitForURL('https://example.com/');
+  await page.context().storageState({ path: authFile });
+});`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">playwright.config.ts</div>
+                        <pre><code className="language-typescript">{`export default defineConfig({
+  projects: [
+    { name: 'setup', testMatch: /.*\\.setup\\.ts/ },
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json' },
+      dependencies: ['setup'],
+    },
+  ],
+});`}</code></pre>
+                    </div>
+                    
+
+                    <div className="callout warn">
+                        <div className="icon">⚠</div>
+                        <p>
+                            <strong>重要</strong>:
+                            <code>playwright/.auth</code
+                            >ディレクトリは機密情報(Cookie・トークン)を含むため、
+                            必ず<code>.gitignore</code>に追加してください。
+                        </p>
+                    </div>
+
+                    <h3 className="sub-title">14.3 中級戦略: Workerごとに専用アカウント</h3>
+                    <p>
+                        サーバー側状態を変更するテスト(設定変更のテストなど)が並列実行される場合、共有アカウントでは競合が
+                        起きます。この場合はWorkerごとに一意なアカウントを用意します。
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">worker-auth.ts</div>
+                        <pre><code className="language-typescript">{`export const test = baseTest.extend<{}, { workerStorageState: string }>({
+  storageState: ({ workerStorageState }, use) => use(workerStorageState),
+  workerStorageState: [async ({ browser }, use) => {
+    const id = test.info().parallelIndex;
+    const fileName = path.resolve(test.info().project.outputDir, \`.auth/\${id}.json\`);
+    if (fs.existsSync(fileName)) {
+      await use(fileName);
+      return;
+    }
+    const page = await browser.newPage({ storageState: undefined });
+    const account = await acquireAccount(id);
+    await page.goto('/login');
+    // ... ログイン処理 ...
+    await page.context().storageState({ path: fileName });
+    await page.close();
+    await use(fileName);
+  }, { scope: 'worker' }],
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">14.4 APIリクエストによる認証(UIを経由しない高速化)</h3>
+                    <div className="code-block">
+                        <div className="code-label">api-auth.setup.ts</div>
+                        <pre><code className="language-typescript">{`setup('authenticate via API', async ({ request }) => {
+  await request.post('https://example.com/login', {
+    form: { user: 'user', password: 'password' },
+  });
+  await request.storageState({ path: 'playwright/.auth/user.json' });
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">14.5 複数ロールの同時操作</h3>
+                    <div className="code-block">
+                        <div className="code-label">multi-role.spec.ts</div>
+                        <pre><code className="language-typescript">{`test('adminとuserが同時にやり取りする', async ({ browser }) => {
+  const adminContext = await browser.newContext({ storageState: 'playwright/.auth/admin.json' });
+  const userContext = await browser.newContext({ storageState: 'playwright/.auth/user.json' });
+  const adminPage = await adminContext.newPage();
+  const userPage = await userContext.newPage();
+  // ... 両方のページを操作 ...
+  await adminContext.close();
+  await userContext.close();
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">14.6 Passkeys(WebAuthn)への対応</h3>
+                    <p>
+                        <code>browserContext.credentials</code
+                        >は仮想WebAuthn認証器として機能し、パスキー認証にも対応します。
+                        Cookie系と異なり<code>storageState</code>ではなく<code
+                            >credentials.create()</code
+                        >
+                        /
+                        <code>credentials.install()</code
+                        >で<strong>命令的に</strong>シードする点が特徴です。
+                    </p>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/auth"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/auth</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/api-testing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/api-testing</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 15 ============ */}
+                <section className="doc-section" id="sec-15">
+                    <h2 className="sec-title">
+                        <span className="idx">15</span>Visual Regression Testing(視覚的回帰テスト)
+                    </h2>
+
+                    <p>
+                        Playwright
+                        Testは<code>expect(page).toHaveScreenshot()</code>によって、スクリーンショットの生成と比較を
+                        組み込みでサポートします。初回実行時に基準画像(ゴールデンファイル)が生成され、以降の実行はそれと比較されます。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">visual.spec.ts</div>
+                        <pre><code className="language-typescript">{`test('トップページの見た目を検証', async ({ page }) => {
+  await page.goto('https://playwright.dev');
+  await expect(page).toHaveScreenshot();
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">15.1 注意点: 環境依存性</h3>
+                    <p>
+                        ブラウザのレンダリングはOS・バージョン・設定・ハードウェア・電源状態(バッテリー/電源接続)・headlessモード
+                        などで変わり得ます。基準画像を生成した環境と同一環境で実行することが、視覚的テストの安定運用の前提条件です
+                        (多くの場合、CI上のLinuxコンテナに統一します)。
+                    </p>
+
+                    <h3 className="sub-title">15.2 スナップショットの命名規則</h3>
+                    <div className="code-block">
+                        <div className="code-label">directory structure</div>
+                        <pre><code className="language-text">{`example.spec.ts-snapshots/
+  example-test-1-chromium-darwin.png`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        <code>chromium-darwin</code
+                        >の部分はブラウザ名とOSを表し、レンダリング差異のため環境ごとに個別の
+                        スナップショットが必要になります。複数プロジェクト構成の場合は<code>chromium</code>の部分がプロジェクト名に
+                        置き換わります。
+                    </p>
+
+                    <h3 className="sub-title">15.3 基準画像の更新</h3>
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`bunx playwright test --update-snapshots`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">15.4 差分許容度とノイズ除去</h3>
+                    <div className="code-block">
+                        <div className="code-label">threshold.spec.ts</div>
+                        <pre><code className="language-typescript">{`// 数ピクセルの差異は許容する
+await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        動的要素(広告・iframe等)を除外したい場合は、カスタムCSSを適用してからスクリーンショットを撮ることで
+                        決定論性を高められます。
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">screenshot-style.spec.ts</div>
+                        <pre><code className="language-typescript">{`// screenshot.css
+// iframe { visibility: hidden; }
+
+await expect(page).toHaveScreenshot({
+  stylePath: path.join(__dirname, 'screenshot.css'),
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">15.5 非画像スナップショット</h3>
+                    <div className="code-block">
+                        <div className="code-label">text-snapshot.spec.ts</div>
+                        <pre><code className="language-typescript">{`expect(await page.textContent('.hero__title')).toMatchSnapshot('hero.txt');`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        テキストや任意のバイナリデータの比較にも対応しており、Playwrightがコンテンツタイプを自動判定して
+                        適切な比較アルゴリズムを選びます。
+                    </p>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-snapshots"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-snapshots</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 16 ============ */}
+                <section className="doc-section" id="sec-16">
+                    <h2 className="sec-title">
+                        <span className="idx">16</span>API Testing(バックエンドAPIテスト)
+                    </h2>
+
+                    <p>
+                        Playwrightはブラウザ操作だけでなく、Node.jsから直接HTTPリクエストを送信する<code>APIRequestContext</code>も
+                        提供します。ブラウザを起動せずにサーバーAPIそのものを検証したい場合や、UIテストの前提条件(サーバー側状態)を
+                        準備する場合に有用です。
+                    </p>
+
+                    <h3 className="sub-title">16.1 設定とベーステスト</h3>
+                    <div className="code-block">
+                        <div className="code-label">playwright.config.ts</div>
+                        <pre><code className="language-typescript">{`export default defineConfig({
+  use: {
+    baseURL: 'https://api.example.com',
+    extraHTTPHeaders: {
+      'Accept': 'application/vnd.example.v1+json',
+      'Authorization': \`token \${process.env.API_TOKEN}\`,
+    },
+  },
+});`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">api.spec.ts</div>
+                        <pre><code className="language-typescript">{`test('Issueを作成できる', async ({ request }) => {
+  const newIssue = await request.post('/repos/org/repo/issues', {
+    data: { title: '[Bug] report', body: '説明文' },
+  });
+  expect(newIssue.ok()).toBeTruthy();
+});`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        <code>request</code
+                        >フィクスチャは組み込みであり、<code>baseURL</code>や<code>extraHTTPHeaders</code>などの
+                        設定を自動的に引き継ぎます。
+                    </p>
+
+                    <h3 className="sub-title">16.2 UIテストとAPIテストの併用パターン</h3>
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_10} />
+</div>
+                    
+
+                    <ul>
+                        <li>
+                            <strong>事前条件の準備</strong>:
+                            UIを経由せずAPIでデータを作成し、UIテストの実行時間を短縮する
+                        </li>
+                        <li>
+                            <strong>事後条件の検証</strong>:
+                            UI上の操作結果が実際にサーバーへ反映されたかをAPI経由で確認する
+                        </li>
+                    </ul>
+
+                    <div className="code-block">
+                        <div className="code-label">combined.spec.ts</div>
+                        <pre><code className="language-typescript">{`test.beforeAll(async ({ playwright }) => {
+  apiContext = await playwright.request.newContext({ baseURL: 'https://api.example.com' });
+});
+
+test.afterAll(async () => {
+  await apiContext.dispose();
+});
+
+test('最後に作成したIssueが一覧の先頭に表示される', async ({ page }) => {
+  await apiContext.post('/repos/org/repo/issues', { data: { title: 'Feature request' } });
+  await page.goto('https://example.com/org/repo/issues');
+  await expect(page.locator("[data-hovercard-type='issue']").first()).toHaveText('Feature request');
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">16.3 認証状態の相互運用性</h3>
+                    <p>
+                        <code>storageState</code
+                        >は<code>BrowserContext</code>と<code>APIRequestContext</code>の間で相互運用可能です。
+                        APIでログインしてCookieを取得し、それをブラウザコンテキストの初期状態として使うことで、UIログインを完全に
+                        省略できます。
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">interop.spec.ts</div>
+                        <pre><code className="language-typescript">{`const requestContext = await request.newContext();
+await requestContext.get('https://api.example.com/login');
+await requestContext.storageState({ path: 'state.json' });
+
+const context = await browser.newContext({ storageState: 'state.json' });`}</code></pre>
+                    </div>
+                    
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/api-testing"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/api-testing</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/auth"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/auth</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 17 ============ */}
+                <section className="doc-section" id="sec-17">
+                    <h2 className="sec-title"><span className="idx">17</span>UI ModeとVS Code拡張機能</h2>
+
+                    <h3 className="sub-title">17.1 UI Mode</h3>
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`bunx playwright test --ui`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        UI
+                        Modeは「タイムトラベル」型のデバッグ体験を提供する統合ビューです。主な機能は以下の通りです。
+                    </p>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>機能</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>テストサイドバー</td>
+                                    <td>
+                                        全テストファイルを表示し、個別・グループ単位で実行/監視/デバッグ可能
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>フィルタリング</td>
+                                    <td>
+                                        テスト名・プロジェクト・@tag・実行結果(合格/失敗/スキップ)で絞り込み
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>タイムラインビュー</td>
+                                    <td>
+                                        ナビゲーションとアクションを色分けして表示し、アクション単位でスナップショットを確認
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DOMスナップショットのポップアウト</td>
+                                    <td>
+                                        別ウィンドウで開き、DevTools(HTML/CSS/Console)を直接使って調査可能
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pick Locator</td>
+                                    <td>
+                                        DOMスナップショット上でホバーするとLocatorをリアルタイム表示、クリックでプレイグラウンドに追加
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Watch Mode</td>
+                                    <td>
+                                        監視アイコンをクリックすると、コード変更時にテストを自動再実行
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Network / Console タブ</td>
+                                    <td>
+                                        各アクション実行時のネットワークリクエストやコンソールログを確認
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Docker・GitHub
+                        Codespaces環境では、<code>--ui-host=0.0.0.0</code>でブラウザ経由のUI
+                        Mode利用も可能です
+                        (ネットワーク越しにトレース・パスワード等が閲覧可能になる点に注意)。
+                    </p>
+
+                    <h3 className="sub-title">17.2 VS Code拡張機能</h3>
+                    <p>VS Code拡張は次の機能を提供します。</p>
+                    <ul>
+                        <li>ブレークポイントを使ったライブデバッグ</li>
+                        <li>
+                            Locatorをクリックするとブラウザ上で対応要素がハイライトされる「Show
+                            Browsers」機能
+                        </li>
+                        <li>
+                            テスト失敗時に詳細なエラーメッセージ(期待値 vs
+                            実際の値、コールログ)をエディタ上に表示
+                        </li>
+                        <li>Copilotによる「Fix with AI」提案(失敗の原因分析とコード修正案)</li>
+                        <li>Trace Viewerの自動起動によるステップバイステップ解析</li>
+                    </ul>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-ui-mode"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-ui-mode</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/getting-started-vscode"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/getting-started-vscode</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 18 ============ */}
+                
+</main>
       </div>
     </div>
   );
