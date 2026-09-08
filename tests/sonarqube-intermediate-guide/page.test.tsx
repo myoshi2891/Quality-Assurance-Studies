@@ -93,6 +93,10 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
     const getCallback = (window as unknown as Record<string, unknown>).__intersectionCallback as () => IntersectionObserverCallback | null;
     const callback = getCallback();
 
+    // callback が null のままだと以下のアサーションが丸ごとスキップされ、
+    // リグレッションテストが常に緑になってしまうため先に存在を検証する
+    expect(callback).not.toBeNull();
+
     if (callback) {
       const fakeSection = document.createElement('section');
       fakeSection.id = 'architecture';

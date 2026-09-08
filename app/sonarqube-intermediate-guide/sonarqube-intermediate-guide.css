@@ -671,12 +671,18 @@
     top: calc(60px + var(--disclaimer-height, 0px));
     height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     transform: translateX(-100%);
-    transition: transform 0.2s ease;
+    /* 閉じている間はフォーカス・ポインタ操作の対象から外す */
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.2s ease, visibility 0s linear 0.2s;
     box-shadow: 0 0 0 1px var(--color-border-primary);
   }
 
   .sonarqube-page .sidebar.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.2s ease, visibility 0s linear 0s;
   }
 
   .sonarqube-page .content {
