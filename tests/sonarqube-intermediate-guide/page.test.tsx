@@ -352,4 +352,135 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       });
     });
   });
+
+  describe('Category 3: 実践・運用・CI/CD編 (Sections 11〜15)', () => {
+    it('renders sections 11 to 15 with correct IDs, kickers, and headings', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const expectedSections = [
+        { id: 'clean-as-you-code', kicker: 'SECTION 11', title: 'Clean as You Code と New Code Definition' },
+        { id: 'quality-gates', kicker: 'SECTION 12', title: 'Quality Gates ― リリース可否の自動判定' },
+        { id: 'branch-pr', kicker: 'SECTION 13', title: 'ブランチ分析とプルリクエスト分析' },
+        { id: 'cicd', kicker: 'SECTION 14', title: 'CI/CD統合の実践 ― GitHub Actionsによる構築例' },
+        { id: 'ide', kicker: 'SECTION 15', title: 'IDE統合 ― SonarQube for IDE と Connected Mode' },
+      ];
+
+      expectedSections.forEach(({ id, kicker, title }) => {
+        const sec = container.querySelector(`section#${id}`);
+        expect(sec).not.toBeNull();
+        const secKicker = sec?.querySelector('.section-kicker');
+        expect(secKicker?.textContent).toContain(kicker);
+        const h2 = sec?.querySelector('h2');
+        expect(h2?.textContent?.replace(/\s+/g, '')).toBe(title.replace(/\s+/g, ''));
+      });
+    });
+
+    it('renders subheadings (h3) in sections 11 to 15', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const expectedSubheadings = [
+        '11.1 New Code Definitionの4つのオプション',
+        '11.2 判定ロジック',
+        '12.1 Sonar way Quality Gateのデフォルト条件',
+        '12.2 Fudge Factor(判定の緩和機構)',
+        '12.3 評価フロー',
+        '12.4 運用上のポイント',
+        '13.1 ブランチ分析とPR分析の違い',
+        '13.2 プルリクエスト解析のフロー',
+        '14.1 基本ワークフロー(GitHub Secretsの準備)',
+        '14.2 公式SonarQube Scan GitHub Actionによる構成例',
+        '設計上の重要ポイント',
+        '14.3 主要CI/CDプラットフォームの対応状況',
+        '15.1 Connected Modeで同期される情報',
+        '15.2 AIアシスタント連携ツール群(VS Code / Copilot等)',
+      ];
+
+      const h3Elements = container.querySelectorAll(
+        'section#clean-as-you-code h3, section#quality-gates h3, section#branch-pr h3, section#cicd h3, section#ide h3'
+      );
+      const foundTitles = Array.from(h3Elements).map((el) => el.textContent?.trim() || '');
+
+      expectedSubheadings.forEach((expected) => {
+        expect(foundTitles.some((t) => t.includes(expected) || expected.includes(t))).toBe(true);
+      });
+    });
+
+    it('renders Mermaid diagrams in sections 11, 12, 13 (Diag 7〜9)', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const sec11Mermaid = container.querySelectorAll('section#clean-as-you-code .mermaid-wrap');
+      expect(sec11Mermaid.length).toBe(1);
+
+      const sec12Mermaid = container.querySelectorAll('section#quality-gates .mermaid-wrap');
+      expect(sec12Mermaid.length).toBe(1);
+
+      const sec13Mermaid = container.querySelectorAll('section#branch-pr .mermaid-wrap');
+      expect(sec13Mermaid.length).toBe(1);
+    });
+
+    it('renders Tables 14 through 17 in sections 11 to 14 with correct headers and rows', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      // Section 11: Table 14
+      const t14 = container.querySelector('section#clean-as-you-code table');
+      expect(t14).not.toBeNull();
+      const t14Headers = Array.from(t14?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t14Headers).toEqual(['オプション', '定義', '利用可能レベル', '推奨シーン']);
+      expect(t14?.querySelectorAll('tbody tr').length).toBe(4);
+
+      // Section 12: Table 15
+      const t15 = container.querySelector('section#quality-gates table');
+      expect(t15).not.toBeNull();
+      const t15Headers = Array.from(t15?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t15Headers).toEqual(['条件(新規コードに適用)', 'デフォルト閾値', '備考']);
+      expect(t15?.querySelectorAll('tbody tr').length).toBe(7);
+
+      // Section 13: Table 16
+      const t16 = container.querySelector('section#branch-pr table');
+      expect(t16).not.toBeNull();
+      const t16Headers = Array.from(t16?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t16Headers).toEqual(['項目', 'ブランチ分析', 'プルリクエスト分析']);
+      expect(t16?.querySelectorAll('tbody tr').length).toBe(4);
+
+      // Section 14: Table 17
+      const t17 = container.querySelector('section#cicd table');
+      expect(t17).not.toBeNull();
+      const t17Headers = Array.from(t17?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t17Headers).toEqual(['プラットフォーム', '統合方式']);
+      expect(t17?.querySelectorAll('tbody tr').length).toBe(6);
+    });
+
+    it('renders GitHub Actions code block in section 14 and Callout 3 in section 12', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const sec14Code = container.querySelector('section#cicd pre code');
+      expect(sec14Code).not.toBeNull();
+      expect(sec14Code?.textContent).toContain('SonarQube Analysis');
+      expect(sec14Code?.textContent).toContain('SonarSource/sonarqube-scan-action@v5');
+      expect(sec14Code?.textContent).toContain('SonarSource/sonarqube-quality-gate-action@master');
+
+      const callout3 = container.querySelector('section#quality-gates .callout');
+      expect(callout3).not.toBeNull();
+      expect(callout3?.textContent).toContain('Reliability/Security/Maintainability Ratingの3条件は');
+    });
+
+    it('renders reference links blocks in sections 11 to 15 with target="_blank"', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const refBlocks = container.querySelectorAll(
+        'section#clean-as-you-code .refs, section#quality-gates .refs, section#branch-pr .refs, section#cicd .refs, section#ide .refs'
+      );
+      expect(refBlocks.length).toBe(5);
+
+      refBlocks.forEach((block) => {
+        const links = block.querySelectorAll('a');
+        expect(links.length).toBeGreaterThan(0);
+        links.forEach((a) => {
+          expect(a.getAttribute('target')).toBe('_blank');
+          expect(a.getAttribute('rel')).toContain('noopener');
+        });
+      });
+    });
+  });
 });
+
