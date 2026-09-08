@@ -85,6 +85,11 @@ DECORATE --> GATECHECK{"Quality Gate"}
 GATECHECK -->|"Passed"| ALLOW["マージ可能"]
 GATECHECK -->|"Failed"| DENY["マージブロック"]`;
 
+const DIAGRAM_10 = `flowchart LR
+GUIDE["Guide: コンテキスト注入"] --> VERIFY["Verify: リアルタイム検証"]
+VERIFY --> SOLVE["Solve: 既存負債の自動修正"]
+SOLVE --> GUIDE`;
+
 export default function SonarQubeIntermediateGuidePage() {
   return (
     <div className="sonarqube-page">
@@ -1859,6 +1864,801 @@ export default function SonarQubeIntermediateGuidePage() {
                   </li>
                 </ul>
               </div>
+            </section>
+
+            {/* 16 */}
+            <section className="doc-section" id="ai-agents">
+              <span className="section-kicker"><i className="ti ti-robot"></i>SECTION 16</span>
+              <h2>
+                AIエージェント時代のSonarQube ― MCP Server / Agentic Analysis / Sonar Vortex
+              </h2>
+              <p>
+                このセクションは2026年時点で最も動きの速い領域です。AIコーディングエージェントが書くコードの量が急増する中(SonarSourceは「AIエージェントがエンタープライズコードの40%以上の生成に関与している」と述べています)、SonarSourceは「検証(Verification)」を軸にした新製品群を矢継ぎ早に投入しています。
+              </p>
+
+              <h3>16.1 Agent Centric Development Cycle(ACDC)という設計思想</h3>
+              <p>
+                SonarSourceは、AIエージェント時代の開発ループを
+                <strong>Guide &rarr; Verify &rarr; Solve</strong> の3段階として再定義しています。
+              </p>
+              <div className="mermaid-wrap">
+                <Mermaid chart={DIAGRAM_10} />
+              </div>
+
+              <h3>16.2 SonarQube MCP Server</h3>
+              <p>
+                <strong>SonarQube MCP Server</strong> は、Model Context
+                Protocol(MCP)を通じてAIコーディングエージェント(Claude
+                Code、Cursor、GitHub Copilot、Windsurf、Gemini
+                CLI等)にSonarQubeの機能をツールとして公開するサーバーです。「プロジェクトのQuality
+                Gateステータスを問い合わせる」「依存関係のリスクを検索する」「Issueのステータスを更新する・False
+                Positiveとしてマークする」といった操作を、エージェントが自然言語の指示から実行できます。
+              </p>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>形態</th>
+                      <th>対象</th>
+                      <th>特徴</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ネイティブ管理型MCPエンドポイント</td>
+                      <td>SonarQube Cloud</td>
+                      <td>インストール不要、ゼロコンフィグ</td>
+                    </tr>
+                    <tr>
+                      <td>Dockerコンテナ(セルフホスト)</td>
+                      <td>SonarQube Server / ローカル開発</td>
+                      <td>
+                        <code>sonarsource/sonarqube-mcp</code> イメージで起動
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                2026.3リリースでは、SonarQube Server自体が
+                <code>/mcp</code>
+                エンドポイントをネイティブにホストできるようになり、外部のDockerコンテナを別途運用する必要がなくなりました。管理者はトークンベースの<strong>グローバルkill-switch</strong>でAIエージェントからのアクセスを一括制御できるため、セキュリティポリシー・情報統制の観点でも導入しやすい設計になっています。
+              </p>
+              <pre>
+                <code className="language-bash">
+                  <div className="code-line"># Claude CodeにSonarQube MCP Serverを追加する例</div>
+                  <div className="code-line">claude mcp add sonarqube \</div>
+                  <div className="code-line">  --env SONARQUBE_TOKEN=$SONAR_USER_TOKEN \</div>
+                  <div className="code-line">  --env SONARQUBE_URL=$SONAR_URL \</div>
+                  <div className="code-line">  -- docker run --init --pull=always -i --rm \</div>
+                  <div className="code-line">     -e SONARQUBE_TOKEN -e SONARQUBE_URL sonarsource/sonarqube-mcp</div>
+                </code>
+              </pre>
+
+              <h3>16.3 Sonar Vortex(旧: Agentic Analysis + Context Augmentation)</h3>
+              <p>
+                2026年6月30日、SonarSourceは
+                <strong>Sonar Vortex</strong>
+                を正式発表しました。これは、それまでベータ提供されていた2つの機能 &mdash;
+                <strong>Sonar Context Augmentation</strong>
+                (コード生成前にプロジェクト固有の文脈を提供)と
+                <strong>SonarQube Agentic Analysis</strong>
+                (生成後のコードをリアルタイム検証)を統合した製品です。
+              </p>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>フェーズ</th>
+                      <th>機能</th>
+                      <th>効果</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Guide(生成前)</strong></td>
+                      <td>
+                        Context Augmentation:
+                        クラス階層・呼び出しフロー・コーディング規約・依存関係の健全性情報をAIエージェントに事前注入
+                      </td>
+                      <td>トークン消費量を最大36%削減</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Verify(生成後)</strong></td>
+                      <td>
+                        Agentic Analysis:
+                        直近のCIフルスキャンのコンテキストを再利用し、クロスファイルの問題を数秒で検証
+                      </td>
+                      <td>ソフトウェア欠陥を最大92%削減(公式発表値)</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                技術的な肝は「CI相当の精度を、CIでは実現不可能な速さで提供する」二段階アプローチです。通常のCI実行時に解析コンテキストを収集・保存しておき、エージェントが検証を必要とするタイミングでそのコンテキストをオンデマンドに復元することで、単一/複数ファイルの検証を数秒で完了させます。利用要件は、SonarQube
+                Cloudの有償プラン(Teams/Enterprise)、直近のSonarQubeプロジェクトスキャン、MCP対応のAIコーディングツールです。
+              </p>
+
+              <h3>16.4 SonarQube Remediation Agent</h3>
+              <p>
+                同じく2026年6月30日にGA(一般提供開始)された
+                <strong>SonarQube Remediation Agent</strong> は、Sonar Vortexとは逆方向 &mdash;
+                <strong>既存コードベースに蓄積した技術的負債を自律的に解消する</strong>
+                エージェントです。SonarQubeダッシュボード上で過去のIssue(脆弱性・アーキテクチャの逸脱・保守性負債)をエージェントにアサインすると、非同期でバックグラウンド処理が走り、修正を生成
+                &rarr; Sonarの解析エンジンで検証 &rarr;
+                マージ可能な状態のPRとして提出、という一連の流れを人手を介さず実行します。
+              </p>
+
+              <h3>16.5 AI CodeFix</h3>
+              <p>
+                <strong>AI CodeFix</strong>
+                は、検出されたIssue(バグ・脆弱性)に対してLLMベースのワンクリック修正案を提示する機能です。2026.2リリース以降は<strong>モデルアグノスティック化</strong>され、単一プロバイダーへのロックインなしに複数のLLMプロバイダーを接続できるようになりました。対応言語はJava,
+                JavaScript, TypeScript, Python, C#, C++で、拡大が続いています。
+              </p>
+
+              <h3>16.6 なぜこれが重要か</h3>
+              <p>
+                Addy
+                Osmani氏(2026年6月)の言葉を借りれば、「無人で動くループは、無人でミスを重ねるループでもある」という課題意識が、これら一連の製品群の背景にあります。単一ファイルのリンターはファイル間の依存関係を理解できず、PRレビューやCIでの検出は「もう手遅れ」なタイミングです。SonarQubeのAIエージェント統合戦略は、<strong>検証をエージェントのコーディングループの内側に移動させる</strong>ことで、この構造的なギャップを埋めようとしています。
+              </p>
+
+              <div className="refs">
+                <div className="refs-label"><i className="ti ti-link"></i>参考</div>
+                <ul>
+                  <li>
+                    <a
+                      href="https://www.sonarsource.com/products/sonarqube/mcp-server/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      MCP Server: Agentic Code Assurance
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.sonarsource.com/products/sonarqube/agentic-analysis/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Agentic Analysis
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/SonarSource/sonarqube-mcp-server"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      SonarQube MCP Server(GitHub)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.sonarsource.com/blog/introducing-sonar-vortex/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Introducing Sonar Vortex and the SonarQube Remediation Agent
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/agent-centric-development-cycle/developer-tools/mcp-server/about-the-mcp-server"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      About the MCP Server(ACDC)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.sonarsource.com/products/sonarqube/whats-new/2026-3/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      SonarQube Server 2026.3 Release
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://www.sonarsource.com/blog/announcing-sonarqube-server-2026-3/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Announcing SonarQube Server 2026.3
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            {/* 17 */}
+            <section className="doc-section" id="enterprise">
+              <span className="section-kicker">
+                <i className="ti ti-building-skyscraper"></i>SECTION 17
+              </span>
+              <h2>
+                エンタープライズ機能 ― Portfolio・コンプライアンスレポート・Data Center Edition
+              </h2>
+              <h3>17.1 Portfolio(ポートフォリオ管理)</h3>
+              <p>
+                Enterprise
+                Edition以上で利用できるPortfolio機能は、複数プロジェクトを束ねて組織横断的な健全性指標・リスクインサイトを可視化する機能です。数百プロジェクトを運用する大規模組織で、「全社的にどこにリスクが集中しているか」を経営層にも分かる形で提示できます。PDFレポートをオンデマンドまたはスケジュール実行でエクスポートし、監査対応にも利用できます。
+              </p>
+              <h3>17.2 コンプライアンスレポート</h3>
+              <p>
+                OWASP Top 10、CWE Top 25、NIST
+                SSDF、STIG、CASAなど、複数の業界標準に基づく準拠状況レポートを自動生成できます。AI生成コードを含むコードベース全体が規制要件・データセキュリティ標準に適合しているかを継続的に検証する目的で設計されています。
+              </p>
+              <h3>17.3 Data Center Edition再訪</h3>
+              <p>
+                第2章で解説した高可用性クラスタ構成に加え、Data Center
+                Editionは水平スケーリング(ノード追加によるCompute
+                Engine処理能力の向上)を主目的としています。SonarQube
+                Serverのダウンタイムが許容できない、CI/CDパイプラインのボトルネックになってはいけない、という組織に適しています。
+              </p>
+              <div className="refs">
+                <div className="refs-label"><i className="ti ti-link"></i>参考</div>
+                <ul>
+                  <li>
+                    <a
+                      href="https://www.sonarsource.com/products/sonarqube/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      SonarQube homepage(エンタープライズ機能)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/server-installation/data-center-edition/dce-topology"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      DCE topology
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            {/* 18 */}
+            <section className="doc-section" id="best-practices">
+              <span className="section-kicker"><i className="ti ti-checklist"></i>SECTION 18</span>
+              <h2>実践ベストプラクティス集</h2>
+              <ul className="practice-list">
+                <li>
+                  <span className="num">1</span>
+                  <span>
+                    <strong>Quality Profileは必ずSonar wayから継承する。</strong>
+                    ゼロから作る、あるいはコピーで独立させると、新しいルールの追随が手作業になり、負債化します。
+                  </span>
+                </li>
+                <li>
+                  <span className="num">2</span>
+                  <span>
+                    <strong>New Code DefinitionはReference Branchを基本にする。</strong>
+                    フィーチャーブランチ運用が主流の現在、日数指定よりも意図が明確で、マージ後のIssueステータス引き継ぎもスムーズです。
+                  </span>
+                </li>
+                <li>
+                  <span className="num">3</span>
+                  <span>
+                    <strong>Quality Gateの「Issue数 &gt; 0で失敗」条件を積極的に採用する。</strong>
+                    Rating系条件(A未満で失敗)だけでは新規コードへの負債混入を防ぎきれません。
+                  </span>
+                </li>
+                <li>
+                  <span className="num">4</span>
+                  <span>
+                    <strong><code>fetch-depth: 0</code> を必ず設定する。</strong>
+                    シャロークローンによるblame情報欠落は、New Code Definitionの誤判定・PRデコレーション不具合の最頻出原因です。
+                  </span>
+                </li>
+                <li>
+                  <span className="num">5</span>
+                  <span>
+                    <strong>
+                      Community Buildで運用を始める場合でも、PRベース開発をしているなら早期にDeveloper Editionへの移行を検討する。
+                    </strong>
+                    ダッシュボードを見に行く運用は形骸化しやすいというのが実務者の共通見解です。
+                  </span>
+                </li>
+                <li>
+                  <span className="num">6</span>
+                  <span>
+                    <strong>MQR Modeへの移行は計画的に行う。</strong>
+                    既存のCustom Quality Gateは、モードを切り替えると更新アイコンが表示され、手動での確認・更新作業が必要になります。
+                  </span>
+                </li>
+                <li>
+                  <span className="num">7</span>
+                  <span>
+                    <strong>AIコーディングエージェントを使うチームでは、MCP Serverの導入を早期に検討する。</strong>
+                    Guide(コンテキスト注入)とVerify(リアルタイム検証)を組み合わせることで、PRレビューに到達する前に大半の問題を解消できます。
+                  </span>
+                </li>
+                <li>
+                  <span className="num">8</span>
+                  <span>
+                    <strong>Taint Analysisが必要な言語・プロジェクトでは、Community Buildの限界を正しく認識する。</strong>
+                    SQLインジェクション等の注入系脆弱性の検出には商用エディションが前提です。
+                  </span>
+                </li>
+              </ul>
+            </section>
+
+            {/* 19 */}
+            <section className="doc-section" id="troubleshooting">
+              <span className="section-kicker"><i className="ti ti-tool"></i>SECTION 19</span>
+              <h2>トラブルシューティング</h2>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>症状</th>
+                      <th>主な原因</th>
+                      <th>対処</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>Missing blame information</code></td>
+                      <td>シャロークローン、Git submodule設定漏れ</td>
+                      <td>
+                        CIの checkout ステップで <code>fetch-depth: 0</code> を設定
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>PRにコメントが投稿されない</td>
+                      <td>
+                        <code>permissions</code> に <code>pull-requests: write</code> が不足 / エディション非対応
+                      </td>
+                      <td>
+                        ワークフローのpermissionsを確認 / Developer Edition以上かを確認
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Quality Gateが常にNot Computed</td>
+                      <td>解析が1回のみ実行 / New Code Definition未設定</td>
+                      <td>2回目の解析を実行 / New Code Definitionを設定</td>
+                    </tr>
+                    <tr>
+                      <td>Elasticsearchが起動しない</td>
+                      <td>rootユーザーで実行している</td>
+                      <td>専用の非rootユーザーでSonarQubeを起動する</td>
+                    </tr>
+                    <tr>
+                      <td>MS SQL Serverでデッドロックが多発</td>
+                      <td><code>READ_COMMITTED_SNAPSHOT</code> が無効</td>
+                      <td>
+                        <code>ALTER DATABASE ... SET READ_COMMITTED_SNAPSHOT ON</code> を実行
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>Maven/Gradleの解析結果が不完全</td>
+                      <td>SonarScanner CLIを誤用している</td>
+                      <td>SonarScanner for Maven / Gradleに切り替える</td>
+                    </tr>
+                    <tr>
+                      <td>MQR Mode切替後にゲートの挙動が変化</td>
+                      <td>モードごとにメトリクス体系が異なる</td>
+                      <td>更新アイコン付きのゲート/条件を1つずつ確認・更新</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="refs">
+                <div className="refs-label"><i className="ti ti-link"></i>参考</div>
+                <ul>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/10.6/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Adding analysis to GitHub Actions workflow
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/8.9/setup-and-upgrade/install-the-server"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Install the server(DB要件)
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            {/* 20 */}
+            <section className="doc-section" id="summary">
+              <span className="section-kicker">
+                <i className="ti ti-flag-check"></i>SECTION 20
+              </span>
+              <h2>まとめ</h2>
+              <p>
+                SonarQubeを単なる「Lintツールの延長」として捉えると、その真価の半分も引き出せません。本ガイドで解説した通り、SonarQubeの本質は以下の3層構造にあります。
+              </p>
+              <ol>
+                <li>
+                  <strong>品質モデル層:</strong> Clean Code Taxonomy と MQR Mode により、「何が良いコードか」を多面的・定量的に定義する
+                </li>
+                <li>
+                  <strong>ガバナンス層:</strong> Quality Profile / Quality Gate / New Code Definition の組み合わせにより、Clean as You Codeという現実的な改善戦略を組織全体に強制する
+                </li>
+                <li>
+                  <strong>検証ループ層:</strong> IDE・CI/CD・そして2026年以降はAIエージェントのコーディングループそのものに検証を埋め込み、問題がPRに到達する前に解消する
+                </li>
+              </ol>
+              <p>
+                特に第16章で解説したMCP Server・Sonar Vortex・Remediation
+                Agentは、AIエージェントが書くコード量が加速度的に増える中で、SonarQubeが「静的解析ツール」から「AI開発ガバナンス基盤」へと役割を拡張していることを示しています。今後もリリースサイクルが速いため、本ガイドの情報は定期的に一次情報(docs.sonarsource.com)と突き合わせて更新することを推奨します。
+              </p>
+            </section>
+
+            {/* 21 */}
+            <section className="doc-section" id="references">
+              <span className="section-kicker"><i className="ti ti-books"></i>SECTION 21</span>
+              <h2>参考文献・情報源一覧</h2>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>#</th>
+                      <th>タイトル</th>
+                      <th>URL</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>1</td>
+                      <td>Homepage | SonarQube Server</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server" target="_blank" rel="noopener noreferrer">docs.sonarsource.com/sonarqube-server</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>2</td>
+                      <td>Code Quality, Security &amp; Static Analysis Tool</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/products/sonarqube/" target="_blank" rel="noopener noreferrer">sonarsource.com/products/sonarqube</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>3</td>
+                      <td>Server components | SonarQube Server</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/server-installation/server-components-overview" target="_blank" rel="noopener noreferrer">Server components</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>4</td>
+                      <td>Reference architecture (DE and EE)</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/latest/setup-and-upgrade/reference-architectures/up-to-10m-loc/" target="_blank" rel="noopener noreferrer">Reference architecture</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>5</td>
+                      <td>DCE topology | SonarQube Server</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/server-installation/data-center-edition/dce-topology" target="_blank" rel="noopener noreferrer">DCE topology</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>6</td>
+                      <td>Compute Engine (DeepWiki)</td>
+                      <td>
+                        <a href="https://deepwiki.com/SonarSource/sonarqube/12-compute-engine" target="_blank" rel="noopener noreferrer">DeepWiki</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>7</td>
+                      <td>SonarQube Compare Editions</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/blog/sonarqube-compare-editions/" target="_blank" rel="noopener noreferrer">Compare Editions</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>8</td>
+                      <td>SonarQube Pricing in 2026</td>
+                      <td>
+                        <a href="https://dev.to/rahulxsingh/sonarqube-pricing-in-2026-community-developer-enterprise-and-cloud-costs-explained-bdg" target="_blank" rel="noopener noreferrer">dev.to</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>9</td>
+                      <td>SonarQube Community vs Enterprise</td>
+                      <td>
+                        <a href="https://dev.to/rahulxsingh/sonarqube-community-vs-enterprise-comparison-2j0d" target="_blank" rel="noopener noreferrer">dev.to</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>10</td>
+                      <td>SonarQube Community vs Developer Edition</td>
+                      <td>
+                        <a href="https://dev.to/rahulxsingh/sonarqube-community-vs-developer-edition-24oo" target="_blank" rel="noopener noreferrer">dev.to</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>11</td>
+                      <td>SonarQube Review 2026</td>
+                      <td>
+                        <a href="https://appsecsanta.com/sonarqube" target="_blank" rel="noopener noreferrer">appsecsanta.com</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>12</td>
+                      <td>公式Pricingページ</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/plans-and-pricing/" target="_blank" rel="noopener noreferrer">plans-and-pricing</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>13</td>
+                      <td>Install the server | 10.0</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/10.0/setup-and-upgrade/install-the-server" target="_blank" rel="noopener noreferrer">Install the server</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>14</td>
+                      <td>General requirements | 2026.1 LTA</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/2026.1/analyzing-source-code/scanners/scanner-environment/general-requirements" target="_blank" rel="noopener noreferrer">General requirements</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>15</td>
+                      <td>SonarScanner CLI</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/scanners/sonarscanner" target="_blank" rel="noopener noreferrer">SonarScanner CLI</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>16</td>
+                      <td>SonarScanner for Maven</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/scanners/sonarscanner-for-maven" target="_blank" rel="noopener noreferrer">for Maven</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>17</td>
+                      <td>SonarScanner for Gradle</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/analyzing-source-code/scanners/sonarscanner-for-gradle" target="_blank" rel="noopener noreferrer">for Gradle</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>18</td>
+                      <td>Understanding quality gates</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-gates/introduction-to-quality-gates" target="_blank" rel="noopener noreferrer">Quality gates</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>19</td>
+                      <td>Software qualities | 2026.1 LTA</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/2026.1/quality-standards-administration/managing-rules/software-qualities" target="_blank" rel="noopener noreferrer">Software qualities</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>20</td>
+                      <td>Changing instance modes | 10.8</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/10.8/user-guide/code-metrics/changing-modes" target="_blank" rel="noopener noreferrer">Changing modes</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>21</td>
+                      <td>MQR mode | SonarQube Server</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/instance-administration/analysis-functions/instance-mode/mqr-mode" target="_blank" rel="noopener noreferrer">MQR mode</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>22</td>
+                      <td>SonarQube glossary | 10.8</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/10.8/glossary" target="_blank" rel="noopener noreferrer">Glossary</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>23</td>
+                      <td>Understanding quality profiles</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-profiles/understanding-quality-profiles" target="_blank" rel="noopener noreferrer">Quality profiles</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>24</td>
+                      <td>Security-related rules</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-rules/security-related-rules" target="_blank" rel="noopener noreferrer">Security rules</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>25</td>
+                      <td>Managing Security Hotspots</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/user-guide/security-hotspots" target="_blank" rel="noopener noreferrer">Security Hotspots</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>26</td>
+                      <td>Hotspot vs vulnerability</td>
+                      <td>
+                        <a href="https://www.bitegarden.com/differences-hotspots-vulnerabilities" target="_blank" rel="noopener noreferrer">bitegarden.com</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>27</td>
+                      <td>SonarQube Advanced Security</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/products/sonarqube/advanced-security/" target="_blank" rel="noopener noreferrer">Advanced Security</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>28</td>
+                      <td>Understanding measures and metrics</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/latest/user-guide/code-metrics/metrics-definition/" target="_blank" rel="noopener noreferrer">Metrics</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>29</td>
+                      <td>Longitudinal Evaluation of OSS Maintainability</td>
+                      <td>
+                        <a href="https://arxiv.org/pdf/2003.00447" target="_blank" rel="noopener noreferrer">arXiv</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>30</td>
+                      <td>About new code</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/latest/core-concepts/clean-as-you-code/about-new-code/" target="_blank" rel="noopener noreferrer">About new code</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>31</td>
+                      <td>Setting up Clean as You Code | 10.7</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/10.7/project-administration/setting-up-clean-as-you-code" target="_blank" rel="noopener noreferrer">Setting up</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>32</td>
+                      <td>Defining new code | 10.5</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/10.5/project-administration/clean-as-you-code-settings/defining-new-code" target="_blank" rel="noopener noreferrer">Defining new code</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>33</td>
+                      <td>Official SonarQube Scan (Marketplace)</td>
+                      <td>
+                        <a href="https://github.com/marketplace/actions/official-sonarqube-scan" target="_blank" rel="noopener noreferrer">GitHub Marketplace</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>34</td>
+                      <td>Adding analysis to GH Actions (10.5)</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/10.5/devops-platform-integration/github-integration/adding-sonarqube-analysis-to-your-workflow" target="_blank" rel="noopener noreferrer">GH Actions integration</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>35</td>
+                      <td>Adding analysis to GH Actions (10.6)</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/10.6/devops-platform-integration/github-integration/adding-analysis-to-github-actions-workflow" target="_blank" rel="noopener noreferrer">GH Actions integration</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>36</td>
+                      <td>SonarQube Pull Request Comment</td>
+                      <td>
+                        <a href="https://github.com/marketplace/actions/sonarqube-pull-request-comment" target="_blank" rel="noopener noreferrer">GitHub Marketplace</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>37</td>
+                      <td>MCP Server: Agentic Code Assurance</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/products/sonarqube/mcp-server/" target="_blank" rel="noopener noreferrer">MCP Server</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>38</td>
+                      <td>Agentic Analysis</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/products/sonarqube/agentic-analysis/" target="_blank" rel="noopener noreferrer">Agentic Analysis</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>39</td>
+                      <td>SonarQube MCP Server (GitHub)</td>
+                      <td>
+                        <a href="https://github.com/SonarSource/sonarqube-mcp-server" target="_blank" rel="noopener noreferrer">GitHub</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>40</td>
+                      <td>Introducing Sonar Vortex</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/blog/introducing-sonar-vortex/" target="_blank" rel="noopener noreferrer">Sonar Vortex</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>41</td>
+                      <td>About the MCP Server | ACDC</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/agent-centric-development-cycle/developer-tools/mcp-server/about-the-mcp-server" target="_blank" rel="noopener noreferrer">ACDC</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>42</td>
+                      <td>SonarQube Server 2026.3 Release</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/products/sonarqube/whats-new/2026-3/" target="_blank" rel="noopener noreferrer">2026.3 Release</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>43</td>
+                      <td>Announcing SonarQube Server 2026.3</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/blog/announcing-sonarqube-server-2026-3/" target="_blank" rel="noopener noreferrer">Announcement</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>44</td>
+                      <td>LTA to LTA release notes | 2026.1</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/2026.1/server-update-and-maintenance/lta-to-lta-release-notes" target="_blank" rel="noopener noreferrer">Release notes</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>45</td>
+                      <td>Release notes(最新)</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-server/server-update-and-maintenance/release-notes" target="_blank" rel="noopener noreferrer">Release notes</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>46</td>
+                      <td>AI agents | VS Code</td>
+                      <td>
+                        <a href="https://docs.sonarsource.com/sonarqube-for-vs-code/ai-capabilities/agents" target="_blank" rel="noopener noreferrer">AI agents</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>47</td>
+                      <td>Sonar Launches Vortex &amp; Remediation Agent</td>
+                      <td>
+                        <a href="https://www.prnewswire.com/news-releases/sonar-launches-sonar-vortex-and-sonarqube-remediation-agent-to-improve-agentic-effectiveness-302814173.html" target="_blank" rel="noopener noreferrer">PR Newswire</a>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td>48</td>
+                      <td>SonarQube Agentic Analysis Beta Program</td>
+                      <td>
+                        <a href="https://www.sonarsource.com/blog/agentic-analysis-beta/" target="_blank" rel="noopener noreferrer">Beta Program</a>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p className="final-note">
+                本ガイドは2026年7月時点の公開情報に基づいて作成されています。SonarQubeはリリースサイクルが速いプロダクトのため、恒久的な仕様として引用する際は必ず
+                docs.sonarsource.com の最新版ドキュメントで裏取りしてください。
+              </p>
+              <footer className="doc-footer">
+                SonarQube 完全解説ガイド &mdash; Intermediate &amp; Advanced Edition
+              </footer>
             </section>
           </div>
         </main>
