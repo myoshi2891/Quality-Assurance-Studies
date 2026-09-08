@@ -68,7 +68,10 @@ export default function NavBar() {
         const visible = entries.filter((e) => e.isIntersecting);
         if (visible.length > 0) {
           visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-          setActiveId(visible[0].target.id);
+          const topEntry = visible[0];
+          if (topEntry) {
+            setActiveId(topEntry.target.id);
+          }
         }
       },
       {
