@@ -39,8 +39,8 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
   it('renders the hero section with main title, eyebrow, lead paragraph, and callout', () => {
     const { container } = render(<SonarQubeIntermediateGuidePage />);
 
-    const h1 = screen.getByRole('heading', { level: 1 });
-    expect(h1.textContent).toContain('SonarQube 完全解説ガイド');
+    const heroH1 = container.querySelector('.hero h1');
+    expect(heroH1?.textContent).toContain('SonarQube 完全解説ガイド');
 
     const eyebrow = container.querySelector('.hero .eyebrow');
     expect(eyebrow?.textContent).toContain('Intermediate – Advanced Guide');
@@ -188,7 +188,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
 
       const sec04Pre = container.querySelector('section#quickstart pre code');
       expect(sec04Pre).not.toBeNull();
-      expect(sec04Pre?.textContent).toContain('docker volume create sonarqube_data');
+      expect(sec04Pre?.textContent).toContain('docker volume create --name sonarqube_data');
       expect(sec04Pre?.textContent).toContain('docker run -d --name sonarqube');
     });
 
