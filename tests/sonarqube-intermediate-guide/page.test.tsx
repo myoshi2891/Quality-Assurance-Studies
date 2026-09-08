@@ -20,7 +20,10 @@ beforeAll(() => {
     };
   }) as unknown as typeof mermaid.render;
 
-  const mockIntersectionObserver = mock(() => {
+  let intersectionCallback: IntersectionObserverCallback | null = null;
+
+  const mockIntersectionObserver = mock((callback: IntersectionObserverCallback) => {
+    intersectionCallback = callback;
     return {
       observe: () => null,
       unobserve: () => null,
@@ -28,6 +31,7 @@ beforeAll(() => {
     };
   });
   window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
+  (window as unknown as Record<string, unknown>).__intersectionCallback = () => intersectionCallback;
 });
 
 afterAll(() => {
@@ -80,6 +84,39 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
     expect(badges).toHaveLength(2);
     expect(badges[0]?.textContent).toBe('Server 2026.3');
     expect(badges[1]?.textContent).toBe('2026.1 LTA');
+  });
+
+  it('activates the TOC link for a section when IntersectionObserver fires an intersecting entry (regression)', async () => {
+    const { act } = await import('@testing-library/react');
+    const { container } = render(<NavBar />);
+
+    const getCallback = (window as unknown as Record<string, unknown>).__intersectionCallback as () => IntersectionObserverCallback | null;
+    const callback = getCallback();
+
+    if (callback) {
+      const fakeSection = document.createElement('section');
+      fakeSection.id = 'architecture';
+      const fakeEntry = {
+        target: fakeSection,
+        isIntersecting: true,
+        intersectionRatio: 0.8,
+        boundingClientRect: {} as DOMRectReadOnly,
+        intersectionRect: {} as DOMRectReadOnly,
+        rootBounds: null,
+        time: 0,
+      } as IntersectionObserverEntry;
+
+      act(() => {
+        callback([fakeEntry], {} as IntersectionObserver);
+      });
+
+      const tocLinks = container.querySelectorAll('nav.toc a');
+      const architectureLink = Array.from(tocLinks).find(
+        (a) => a.getAttribute('href') === '#architecture'
+      );
+      expect(architectureLink?.classList.contains('active')).toBe(true);
+      expect(architectureLink?.getAttribute('aria-current')).toBe('location');
+    }
   });
 
   describe('Category 1: 基礎・アーキテクチャ・導入編 (Sections 00〜05)', () => {
