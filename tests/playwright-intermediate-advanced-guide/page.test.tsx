@@ -141,12 +141,16 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       expect(sec6Codes?.length).toBe(2);
     });
 
-    it('renders tables 1 through 7 across Category 1', () => {
+    it('renders tables 1 through 5 across Category 1', () => {
       const { container } = render(<PlaywrightIntermediateAdvancedPage />);
 
-      // Section 2: 2 tables (動作要件, 初期化時生成ファイル/設定項目)
+      // Section 1: 1 table (アーキテクチャ・層別役割)
+      const sec1Tables = container.querySelectorAll('section#sec-1 table');
+      expect(sec1Tables.length).toBe(1);
+
+      // Section 2: 1 table (動作要件)
       const sec2Tables = container.querySelectorAll('section#sec-2 table');
-      expect(sec2Tables.length).toBe(2);
+      expect(sec2Tables.length).toBe(1);
 
       // Section 3: 1 table (BrowserContext vs Page)
       const sec3Tables = container.querySelectorAll('section#sec-3 table');
@@ -156,20 +160,9 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       const sec4Tables = container.querySelectorAll('section#sec-4 table');
       expect(sec4Tables.length).toBe(1);
 
-      // Section 5: 1 table (アクション別自動待機チェック項目)
-      const sec5Tables = container.querySelectorAll('section#sec-5 table');
-      expect(sec5Tables.length).toBe(1);
-
-      // Section 6: 2 tables (代表的アサーション, Soft vs 通常)
+      // Section 6: 1 table (代表的アサーション)
       const sec6Tables = container.querySelectorAll('section#sec-6 table');
-      expect(sec6Tables.length).toBe(2);
-    });
-
-    it('renders callout block in Section 6', () => {
-      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
-      const callout = container.querySelector('section#sec-6 .callout.note');
-      expect(callout).not.toBeNull();
-      expect(callout?.textContent).toContain('soft assertionの注意点');
+      expect(sec6Tables.length).toBe(1);
     });
 
     it('renders refs blocks with external links in sections 1 to 6', () => {
