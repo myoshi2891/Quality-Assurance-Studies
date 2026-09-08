@@ -56,7 +56,7 @@
 
 .playwright-intermediate-advanced-page .sidebar {
   position: fixed;
-  top: 60px;
+  top: calc(60px + var(--disclaimer-height, 0px));
   left: 0;
   bottom: 0;
   width: var(--sidebar-w);
@@ -175,7 +175,7 @@
 .playwright-intermediate-advanced-page .sidebar-toggle {
   display: none;
   position: fixed;
-  top: 76px;
+  top: calc(76px + var(--disclaimer-height, 0px));
   left: 16px;
   z-index: 45;
   background: var(--bg-elevated);
@@ -274,6 +274,7 @@
 .playwright-intermediate-advanced-page section.doc-section {
   padding-top: 36px;
   margin-top: -20px;
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .playwright-intermediate-advanced-page section.doc-section:first-of-type {
