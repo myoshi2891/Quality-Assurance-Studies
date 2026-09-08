@@ -44,6 +44,55 @@ const DIAGRAM_2 = `graph LR
     CTX2 --> P2["Page"]
     CTX1 -.->|"Cookie/Storage/権限は互いに影響しない"| CTX2`;
 
+const DIAGRAM_4 = `sequenceDiagram
+    participant W as Worker起動
+    participant AutoW as autoWorkerFixture
+    participant BA as beforeAll
+    participant AutoT as autoTestFixture
+    participant Page as pageフィクスチャ
+    participant T1 as テスト1
+    participant WF as workerFixture
+    participant TF as testFixture
+    participant T2 as テスト2
+    participant AA as afterAll
+    W->>AutoW: セットアップ(自動・Worker単位)
+    AutoW->>BA: beforeAll実行
+    BA->>AutoT: autoTestFixtureセットアップ
+    AutoT->>Page: pageセットアップ
+    Page->>T1: テスト1実行
+    T1-->>Page: ティアダウン(テスト単位)
+    Note over T2: 2つ目のテストで初めてworkerFixtureが必要になる
+    Page->>WF: workerFixtureを遅延セットアップ
+    WF->>TF: testFixtureセットアップ
+    TF->>T2: テスト2実行
+    T2-->>TF: ティアダウン
+    TF-->>AA: afterAll実行
+    AA-->>WF: Worker終了時にティアダウン`;
+
+const DIAGRAM_5 = `graph TB
+    Runner["テストランナー"]
+    Runner --> W1["Worker 1 (file-a.spec.ts, file-d.spec.ts)"]
+    Runner --> W2["Worker 2 (file-b.spec.ts)"]
+    Runner --> W3["Worker 3 (file-c.spec.ts)"]
+    W1 -.->|"プロセス間通信不可(状態共有なし)"| W2
+    W2 -.-> W3`;
+
+const DIAGRAM_6 = `flowchart LR
+    Push["git push"] --> Matrix["Actions Matrix shardIndex: [1,2,3,4]"]
+    Matrix --> S1["Shard 1/4"]
+    Matrix --> S2["Shard 2/4"]
+    Matrix --> S3["Shard 3/4"]
+    Matrix --> S4["Shard 4/4"]
+    S1 --> Blob1["blob-report-1"]
+    S2 --> Blob2["blob-report-2"]
+    S3 --> Blob3["blob-report-3"]
+    S4 --> Blob4["blob-report-4"]
+    Blob1 --> Merge["merge-reportsジョブ (needs: すべてのShard)"]
+    Blob2 --> Merge
+    Blob3 --> Merge
+    Blob4 --> Merge
+    Merge --> HTML["統合HTMLレポート"]`;
+
 const DIAGRAM_3 = `flowchart TD
     Start(["アクション呼び出し (例: locator.click())"]) --> Resolve{"Locatorが1要素に解決?"}
     Resolve -- 複数要素 --> StrictErr["Strictモード違反エラー"]
@@ -807,6 +856,691 @@ await page.getByRole('link', { name: 'next page' }).click();`}</code></pre>
                 <div className="divider"></div>
 
                 {/* ============ SECTION 7 ============ */}
+<section className="doc-section" id="sec-7">
+                    <h2 className="sec-title">
+                        <span className="idx">07</span>Test Fixtures(テストフィクスチャ)
+                    </h2>
+
+                    <p>
+                        Playwright
+                        Testは<strong>フィクスチャ</strong>という概念を中心に設計されています。フィクスチャとは、
+                        テストに必要な環境(前提条件)を用意し、テストにはそれ以外の情報を渡さない仕組みです。フィクスチャはテスト間で
+                        分離されており、共通のセットアップコードを持つテストを「意味」でグルーピングできるようになります。
+                    </p>
+
+                    <h3 className="sub-title">7.1 Fixtureなしとありの比較</h3>
+                    <p>
+                        <strong>Fixtureを使わない場合</strong
+                        >(before/afterフックによる典型的な構成):
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">without-fixtures.spec.ts</div>
+                        <pre><code className="language-typescript">{`import { test } from '@playwright/test';
+import { TodoPage } from './todo-page';
+
+test.describe('todo tests', () => {
+  let todoPage: TodoPage;
+
+  test.beforeEach(async ({ page }) => {
+    todoPage = new TodoPage(page);
+    await todoPage.goto();
+    await todoPage.addItem('item1');
+  });
+
+  test.afterEach(async () => {
+    await todoPage.removeAll();
+  });
+
+  test('adds an item', async () => {
+    await todoPage.addItem('my item');
+  });
+});`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        <strong>Fixtureを使う場合</strong
+                        >(<code>test.extend()</code>でセットアップ/ティアダウンをカプセル化):
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">with-fixtures.spec.ts</div>
+                        <pre><code className="language-typescript">{`import { test as base } from '@playwright/test';
+import { TodoPage } from './todo-page';
+
+const test = base.extend<{ todoPage: TodoPage }>({
+  todoPage: async ({ page }, use) => {
+    const todoPage = new TodoPage(page);
+    await todoPage.goto();
+    await todoPage.addItem('item1');
+    await use(todoPage);          // ← ここでテスト本体が実行される
+    await todoPage.removeAll();   // ← テスト終了後にティアダウン
+  },
+});
+
+test('adds an item', async ({ todoPage }) => {
+  await todoPage.addItem('my item');
+});`}</code></pre>
+                    </div>
+                    
+
+                    <p>フィクスチャは次の利点を持ちます。</p>
+                    <ul>
+                        <li>
+                            <strong>カプセル化</strong>: セットアップとティアダウンが1箇所にまとまる
+                        </li>
+                        <li><strong>再利用性</strong>: 複数のテストファイルで使い回せる</li>
+                        <li>
+                            <strong>オンデマンド</strong>:
+                            テストが実際に必要とするフィクスチャのみセットアップされる
+                        </li>
+                        <li><strong>合成可能</strong>: フィクスチャ同士が依存し合える</li>
+                        <li>
+                            <strong>柔軟性</strong>:
+                            テストごとに任意のフィクスチャの組み合わせが可能
+                        </li>
+                    </ul>
+
+                    <h3 className="sub-title">7.2 Worker-scopedフィクスチャ</h3>
+                    <p>
+                        Playwright
+                        Testは複数のWorkerプロセスでテストファイルを並列実行します。フィクスチャには「テストスコープ
+                        (デフォルト)」と「ワーカースコープ」があり、後者は<strong>Workerプロセスにつき1回だけ</strong>セットアップされ、
+                        そのWorkerが実行する全テストで再利用されます。DBセットアップや外部サービス起動など、コストの高い初期化に
+                        向いています。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">worker-fixture.ts</div>
+                        <pre><code className="language-typescript">{`import { test as base } from '@playwright/test';
+
+type Account = { username: string; password: string };
+
+export const test = base.extend<{}, { account: Account }>({
+  account: [async ({ browser }, use, workerInfo) => {
+    const username = \`user-\${workerInfo.workerIndex}\`;
+    const page = await browser.newPage();
+    await page.goto('/signup');
+    await page.getByLabel('User Name').fill(username);
+    await page.getByText('Sign up').click();
+    await page.close();
+    await use({ username, password: 'verysecure' });
+  }, { scope: 'worker' }],
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">7.3 Automatic Fixtures(自動フィクスチャ)</h3>
+                    <p>
+                        <code>{'{ auto: true }'}</code
+                        >を付けると、テストが明示的に要求しなくても常にセットアップされます。失敗時のログ
+                        収集など「常に動いてほしい」補助的な処理に向いています。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">auto-fixture.ts</div>
+                        <pre><code className="language-typescript">{`export const test = base.extend<{ saveLogsOnFailure: void }>({
+  saveLogsOnFailure: [async ({}, use, testInfo) => {
+    await use();
+    if (testInfo.status !== testInfo.expectedStatus) {
+      // 失敗時のみログを添付する処理をここに書く
+    }
+  }, { auto: true }],
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">7.4 実行順序を理解する</h3>
+                    <p>フィクスチャの実行順序には明確なルールがあります。</p>
+                    <ul>
+                        <li>
+                            フィクスチャAがフィクスチャBに依存する場合、<strong>Bは常にAより先にセットアップされ、Aより後にティアダウン</strong>される
+                        </li>
+                        <li>
+                            非自動フィクスチャは<strong>遅延評価</strong>され、テスト/フックが実際に必要とした時点で初めてセットアップされる
+                        </li>
+                        <li>
+                            テストスコープのフィクスチャは各テスト後にティアダウンされ、ワーカースコープのフィクスチャはWorkerプロセス終了時にのみティアダウンされる
+                        </li>
+                    </ul>
+
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_4} />
+</div>
+                    
+
+                    <h3 className="sub-title">7.5 複数モジュールのフィクスチャ合成</h3>
+                    <div className="code-block">
+                        <div className="code-label">merge-fixtures.ts</div>
+                        <pre><code className="language-typescript">{`import { mergeTests } from '@playwright/test';
+import { test as dbTest } from './database-fixtures';
+import { test as a11yTest } from './a11y-fixtures';
+
+export const test = mergeTests(dbTest, a11yTest);`}</code></pre>
+                    </div>
+                    
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-parallel"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-parallel</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 8 ============ */}
+                <section className="doc-section" id="sec-8">
+                    <h2 className="sec-title">
+                        <span className="idx">08</span>Page Object Model(POM)設計パターン
+                    </h2>
+
+                    <p>
+                        大規模なテストスイートでは、テストの可読性と保守性を高めるために<strong
+                            >Page Object Model</strong
+                        >の導入が 推奨されています。Page
+                        Objectはアプリケーションの特定の画面(あるいは画面の一部)を表すクラスで、要素の
+                        Locatorを1箇所に集約し、画面固有の操作を高レベルAPIとして提供します。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">playwright-dev-page.ts</div>
+                        <pre><code className="language-typescript">{`import { expect, type Locator, type Page } from '@playwright/test';
+
+export class PlaywrightDevPage {
+  readonly page: Page;
+  readonly getStartedLink: Locator;
+  readonly gettingStartedHeader: Locator;
+
+  constructor(page: Page) {
+    this.page = page;
+    this.getStartedLink = page.getByRole('link', { name: 'Get started' });
+    this.gettingStartedHeader = page.getByRole('heading', { name: 'Installation' });
+  }
+
+  async goto() {
+    await this.page.goto('https://playwright.dev');
+  }
+
+  async clickGetStarted() {
+    await this.getStartedLink.first().click();
+    await expect(this.gettingStartedHeader).toBeVisible();
+  }
+}`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">example.spec.ts</div>
+                        <pre><code className="language-typescript">{`import { test, expect } from '@playwright/test';
+import { PlaywrightDevPage } from './playwright-dev-page';
+
+test('Get Startedからインストールページへ遷移できる', async ({ page }) => {
+  const devPage = new PlaywrightDevPage(page);
+  await devPage.goto();
+  await devPage.clickGetStarted();
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">8.1 POM単体からFixture統合されたPOMへ</h3>
+                    <p>
+                        POMは単体でも有用ですが、実務では第7章のFixtureと組み合わせることで真価を発揮します。テストごとに
+                        <code>new TodoPage(page)</code
+                        >と書く代わりに、フィクスチャとして注入すればテストコードから初期化・後始末の
+                        ノイズが消えます。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">fixtures.ts</div>
+                        <pre><code className="language-typescript">{`import { test as base } from '@playwright/test';
+import { PlaywrightDevPage } from './playwright-dev-page';
+
+export const test = base.extend<{ devPage: PlaywrightDevPage }>({
+  devPage: async ({ page }, use) => {
+    const devPage = new PlaywrightDevPage(page);
+    await devPage.goto();
+    await use(devPage);
+  },
+});`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">example.spec.ts</div>
+                        <pre><code className="language-typescript">{`import { test } from './fixtures';
+
+test('Get Startedからインストールページへ遷移できる', async ({ devPage }) => {
+  await devPage.clickGetStarted();
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">8.2 POM設計のポイント</h3>
+                    <ul>
+                        <li>
+                            Locatorはコンストラクタで一括初期化し、テストコードに直接CSS/XPathを書かせない
+                        </li>
+                        <li>
+                            画面固有の「意味のある操作」(例:
+                            <code>login()</code
+                            >、<code>addToCart()</code>)をメソッド化し、内部実装の変更をPOM内に閉じ込める
+                        </li>
+                        <li>
+                            アサーションをPOM内に持たせるかは議論があるが、<strong>画面遷移の確認など操作の一部として自然なもの</strong>はPOM内に置き、<strong>ビジネスロジックの検証</strong>はテスト側に置くと責務が分離しやすい
+                        </li>
+                    </ul>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/pom"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/pom</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 9 ============ */}
+                <section className="doc-section" id="sec-9">
+                    <h2 className="sec-title"><span className="idx">09</span>並列実行とWorkerプロセス</h2>
+
+                    <p>
+                        Playwright
+                        Testは<strong>デフォルトで並列実行</strong>されます。複数のWorkerプロセス(OSプロセスとして独立)が
+                        同時に起動し、各Workerが自分自身のブラウザインスタンスを持ちます。デフォルトでは<strong
+                            >テストファイル単位</strong
+                        >
+                        が並列化の粒度であり、同一ファイル内のテストは順番に、同じWorkerプロセス内で実行されます。
+                    </p>
+
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_5} />
+</div>
+                    
+
+                    <h3 className="sub-title">9.1 Worker数の制御</h3>
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`bunx playwright test --workers 4`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">playwright.config.ts</div>
+                        <pre><code className="language-typescript">{`export default defineConfig({
+  workers: process.env.CI ? 2 : undefined, // CIでは絞り、ローカルはCPUコア数に応じて自動
+});`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        並列化を無効化(デバッグ時など)したい場合は<code>--workers=1</code>を指定します。
+                    </p>
+
+                    <h3 className="sub-title">9.2 ファイル内並列化(fullyParallel)</h3>
+                    <p>
+                        デフォルトでは同一ファイル内のテストは順番に実行されますが、
+                        <code>{"test.describe.configure({ mode: 'parallel' })"}</code
+                        >または設定ファイルの<code>fullyParallel: true</code>
+                        によって、ファイル内のテストも並列化できます。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">parallel-in-file.spec.ts</div>
+                        <pre><code className="language-typescript">{`test.describe.configure({ mode: 'parallel' });
+
+test('独立したテストA', async ({ page }) => { /* ... */ });
+test('独立したテストB', async ({ page }) => { /* ... */ });`}</code></pre>
+                    </div>
+                    
+
+                    <div className="callout warn">
+                        <div className="icon">⚠</div>
+                        <p>
+                            <strong>注意</strong>:
+                            並列テストは別々のWorkerプロセスで実行されるため、グローバル変数や状態を共有できません。
+                            各テストは<code>beforeAll</code>/<code>afterAll</code>を含む関連フックをそれぞれ独立して実行します。
+                        </p>
+                    </div>
+
+                    <h3 className="sub-title">9.3 Serialモード(非推奨だが必要な場面もある)</h3>
+                    <p>
+                        相互に依存するテストは<code
+                            >{"test.describe.configure({ mode: 'serial' })"}</code
+                        >でグループ化できますが、
+                        公式ドキュメントは「通常はテストを独立させる方が良い」と明言しています。1つが失敗すると後続はすべてスキップ
+                        されます。
+                    </p>
+
+                    <h3 className="sub-title">9.4 Worker単位でのデータ分離</h3>
+                    <p>
+                        <code>testInfo.workerIndex</code
+                        >を使うことで、Worker間でテストデータ(DBユーザー等)を安全に分離できます。
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">worker-scoped-data.ts</div>
+                        <pre><code className="language-typescript">{`export const test = baseTest.extend<{}, { dbUserName: string }>({
+  dbUserName: [async ({}, use) => {
+    const userName = \`user-\${test.info().workerIndex}\`;
+    await createUserInTestDatabase(userName);
+    await use(userName);
+    await deleteUserFromTestDatabase(userName);
+  }, { scope: 'worker' }],
+});`}</code></pre>
+                    </div>
+                    
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-parallel"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-parallel</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-fixtures"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-fixtures</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 10 ============ */}
+                <section className="doc-section" id="sec-10">
+                    <h2 className="sec-title">
+                        <span className="idx">10</span>Sharding(シャーディング)によるスケールアウト
+                    </h2>
+
+                    <p>
+                        1台のマシンでの並列化には限界があります。<strong>Sharding</strong>は、テストスイート全体を複数の「シャード」に
+                        分割し、複数のマシン(典型的にはCIのジョブ)で同時に実行する仕組みです。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`bunx playwright test --shard=1/4
+bunx playwright test --shard=2/4
+bunx playwright test --shard=3/4
+bunx playwright test --shard=4/4`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        4台で並列実行すれば、理論上テストスイート全体の実行時間を1/4に短縮できます。
+                    </p>
+
+                    <h3 className="sub-title">10.1 シャードのバランシング</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>設定</th>
+                                    <th>分割の粒度</th>
+                                    <th>特徴</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>fullyParallel: true</code></td>
+                                    <td>個々のテスト単位</td>
+                                    <td>シャード間でテスト数が均等に分配されやすい(推奨)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>fullyParallel</code>なし(デフォルト)</td>
+                                    <td>ファイル単位</td>
+                                    <td>
+                                        ファイルごとのテスト数に偏りがあるとシャード間の負荷が不均衡になりやすい
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 className="sub-title">10.2 レポートのマージ</h3>
+                    <p>
+                        シャードごとに生成された個別レポートを1つに統合するには、<code>blob</code>レポーターを使います。
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">playwright.config.ts</div>
+                        <pre><code className="language-typescript">{`export default defineConfig({
+  reporter: process.env.CI ? 'blob' : 'html',
+});`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`bunx playwright merge-reports --reporter html ./all-blob-reports`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">10.3 GitHub Actionsでのシャーディング例</h3>
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_6} />
+</div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">.github/workflows/playwright.yml(抜粋)</div>
+                        <pre><code className="language-yaml">{`jobs:
+  playwright-tests:
+    strategy:
+      fail-fast: false
+      matrix:
+        shardIndex: [1, 2, 3, 4]
+        shardTotal: [4]
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: lts/*
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install --frozen-lockfile
+      - run: bunx playwright install --with-deps
+      - run: bunx playwright test --shard=\${{ matrix.shardIndex }}/\${{ matrix.shardTotal }}
+      - uses: actions/upload-artifact@v4
+        if: \${{ !cancelled() }}
+        with:
+          name: blob-report-\${{ matrix.shardIndex }}
+          path: blob-report
+          retention-days: 1
+
+  merge-reports:
+    if: \${{ !cancelled() }}
+    needs: [playwright-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: oven-sh/setup-bun@v2
+      - uses: actions/download-artifact@v5
+        with:
+          path: all-blob-reports
+          pattern: blob-report-*
+          merge-multiple: true
+      - run: bunx playwright merge-reports --reporter html ./all-blob-reports
+      - uses: actions/upload-artifact@v4
+        with:
+          name: html-report
+          path: playwright-report`}</code></pre>
+                    </div>
+                    
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-sharding"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-sharding</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-parallel"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-parallel</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-reporters"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-reporters</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 11 ============ */}
+                <section className="doc-section" id="sec-11">
+                    <h2 className="sec-title"><span className="idx">11</span>リトライとFlakyテスト対策</h2>
+
+                    <p>
+                        失敗したテストを自動的に再試行する仕組みが<strong>Retries</strong>です。デフォルトでは無効ですが、CI環境では
+                        有効化するのが一般的です。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`bunx playwright test --retries=3`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">playwright.config.ts</div>
+                        <pre><code className="language-typescript">{`export default defineConfig({
+  retries: process.env.CI ? 2 : 0,
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">11.1 テストの分類</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>分類</th>
+                                    <th>意味</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>passed</td>
+                                    <td>初回実行で合格</td>
+                                </tr>
+                                <tr>
+                                    <td>flaky</td>
+                                    <td>初回は失敗したがリトライで合格</td>
+                                </tr>
+                                <tr>
+                                    <td>failed</td>
+                                    <td>初回・リトライすべてで失敗</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <p>
+                        Workerプロセスはテストが1つでも失敗すると<strong>破棄され、新しいWorkerプロセスが起動</strong>します。これは、
+                        失敗したテストが残した副作用(グローバル状態の汚染など)が後続テストに影響しないようにするための設計です。
+                        リトライが有効な場合、新しいWorkerプロセスは失敗したテストからやり直します。
+                    </p>
+
+                    <h3 className="sub-title">11.2 リトライ回数はテストの中からも参照できる</h3>
+                    <div className="code-block">
+                        <div className="code-label">retry-aware.spec.ts</div>
+                        <pre><code className="language-typescript">{`test('サーバー状態に依存するテスト', async ({ page }, testInfo) => {
+  if (testInfo.retry) {
+    await cleanUpServerSideCache();
+  }
+  // ...
+});`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">11.3 Flaky対策の本質</h3>
+                    <p>
+                        リトライは<strong>対症療法</strong>であり、根本原因(不十分な待機、不安定なテストデータ、外部依存のブレ)への
+                        対応が本筋です。第4〜6章のLocator戦略・Auto-waiting・Web-Firstアサーションを正しく使うことが、最も効果的な
+                        Flaky対策になります。
+                    </p>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-retries"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-retries</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/best-practices"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/best-practices</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 12 ============ */}
+                
+
                 
         </main>
       </div>

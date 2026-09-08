@@ -235,14 +235,11 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       expect(container.querySelectorAll('section#sec-11 .code-block').length).toBe(3);
     });
 
-    it('renders tables across Category 2 (sections 8, 9, 11)', () => {
+    it('renders tables across Category 2 (sections 10, 11)', () => {
       const { container } = render(<PlaywrightIntermediateAdvancedPage />);
 
-      // Section 8: 1 table
-      expect(container.querySelectorAll('section#sec-8 table').length).toBe(1);
-
-      // Section 9: 1 table
-      expect(container.querySelectorAll('section#sec-9 table').length).toBe(1);
+      // Section 10: 1 table
+      expect(container.querySelectorAll('section#sec-10 table').length).toBe(1);
 
       // Section 11: 1 table
       expect(container.querySelectorAll('section#sec-11 table').length).toBe(1);
@@ -252,7 +249,7 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       const { container } = render(<PlaywrightIntermediateAdvancedPage />);
       const callout = container.querySelector('section#sec-9 .callout.warn');
       expect(callout).not.toBeNull();
-      expect(callout?.textContent).toContain('Workerをまたぐ状態共有');
+      expect(callout?.textContent).toContain('並列テストは別々のWorkerプロセスで実行されるため');
     });
 
     it('renders refs blocks with external links in sections 7 to 11', () => {
