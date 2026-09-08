@@ -176,4 +176,94 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       }
     });
   });
+
+  describe('Category 2: 設計・構造編 (Sections 07〜11)', () => {
+    it('renders sections 07 to 11 with correct IDs and titles', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      const expectedSections = [
+        { id: 'sec-7', title: '07Test Fixtures(テストフィクスチャ)' },
+        { id: 'sec-8', title: '08Page Object Model(POM)設計パターン' },
+        { id: 'sec-9', title: '09並列実行とWorkerプロセス' },
+        { id: 'sec-10', title: '10Sharding(シャーディング)によるスケールアウト' },
+        { id: 'sec-11', title: '11リトライとFlakyテスト対策' },
+      ];
+
+      expectedSections.forEach(({ id, title }) => {
+        const sec = container.querySelector(`section#${id}`);
+        expect(sec).not.toBeNull();
+        const h2 = sec?.querySelector('h2.sec-title');
+        expect(h2?.textContent?.replace(/\s+/g, '')).toBe(title.replace(/\s+/g, ''));
+      });
+    });
+
+    it('renders Mermaid diagrams 4, 5, and 6 in Category 2', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 7: Mermaid 4 (Fixturesシーケンス図)
+      const sec7 = container.querySelector('section#sec-7');
+      expect(sec7).not.toBeNull();
+      expect(sec7?.querySelector('.mermaid-container')).not.toBeNull();
+
+      // Section 9: Mermaid 5 (Worker並列実行図)
+      const sec9 = container.querySelector('section#sec-9');
+      expect(sec9).not.toBeNull();
+      expect(sec9?.querySelector('.mermaid-container')).not.toBeNull();
+
+      // Section 10: Mermaid 6 (Sharding実行図)
+      const sec10 = container.querySelector('section#sec-10');
+      expect(sec10).not.toBeNull();
+      expect(sec10?.querySelector('.mermaid-container')).not.toBeNull();
+    });
+
+    it('renders code blocks 13 through 32 in Category 2', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 7: code-13 to code-17 (5)
+      expect(container.querySelectorAll('section#sec-7 .code-block').length).toBe(5);
+
+      // Section 8: code-18 to code-21 (4)
+      expect(container.querySelectorAll('section#sec-8 .code-block').length).toBe(4);
+
+      // Section 9: code-22 to code-25 (4)
+      expect(container.querySelectorAll('section#sec-9 .code-block').length).toBe(4);
+
+      // Section 10: code-26 to code-29 (4)
+      expect(container.querySelectorAll('section#sec-10 .code-block').length).toBe(4);
+
+      // Section 11: code-30 to code-32 (3)
+      expect(container.querySelectorAll('section#sec-11 .code-block').length).toBe(3);
+    });
+
+    it('renders tables across Category 2 (sections 8, 9, 11)', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 8: 1 table
+      expect(container.querySelectorAll('section#sec-8 table').length).toBe(1);
+
+      // Section 9: 1 table
+      expect(container.querySelectorAll('section#sec-9 table').length).toBe(1);
+
+      // Section 11: 1 table
+      expect(container.querySelectorAll('section#sec-11 table').length).toBe(1);
+    });
+
+    it('renders callout warning block in Section 9', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+      const callout = container.querySelector('section#sec-9 .callout.warn');
+      expect(callout).not.toBeNull();
+      expect(callout?.textContent).toContain('Workerをまたぐ状態共有');
+    });
+
+    it('renders refs blocks with external links in sections 7 to 11', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+      for (let i = 7; i <= 11; i++) {
+        const sec = container.querySelector(`section#sec-${i}`);
+        const refs = sec?.querySelector('.refs');
+        expect(refs).not.toBeNull();
+        const links = refs?.querySelectorAll('a');
+        expect(links?.length).toBeGreaterThanOrEqual(1);
+      }
+    });
+  });
 });
