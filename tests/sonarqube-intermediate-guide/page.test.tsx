@@ -55,7 +55,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
 
     const callout = container.querySelector('.hero .callout');
     expect(callout?.textContent).toContain('執筆時点の最新情報:');
-    expect(callout?.textContent).toContain('2026.3');
+    expect(callout?.textContent).toContain('2026.4');
     expect(callout?.textContent).toContain('2026.1 LTA');
   });
 

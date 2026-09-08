@@ -90,7 +90,7 @@ export default function NavBar() {
           </div>
           <p>中級者〜上級者向けステップバイステップガイド</p>
           <div className="sidebar-badges">
-            <span className="badge accent">Server 2026.3</span>
+            <span className="badge accent">Server 2026.4</span>
             <span className="badge">2026.1 LTA</span>
           </div>
         </div>

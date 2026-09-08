@@ -112,7 +112,7 @@ export default function SonarQubeIntermediateGuidePage() {
                 <i className="ti ti-alert-circle"></i>
                 <div>
                   <strong>執筆時点の最新情報:</strong> SonarQube Serverの最新版は
-                  <strong>2026.3</strong>(Long-Term Active版は
+                  <strong>2026.4</strong>(Long-Term Active版は
                   <strong>2026.1 LTA</strong>
                   )です。2025年からカレンダーバージョニングを採用しており、旧「SonarQube」ブランドは「SonarQube
                   Server」(セルフホスト)と「SonarQube
@@ -1938,7 +1938,7 @@ export default function SonarQubeIntermediateGuidePage() {
                 </table>
               </div>
               <p>
-                2026.3リリースでは、SonarQube Server自体が
+                2026.4リリースでは、SonarQube Server自体が
                 <code>/mcp</code>
                 エンドポイントをネイティブにホストできるようになり、外部のDockerコンテナを別途運用する必要がなくなりました。管理者はトークンベースの<strong>グローバルkill-switch</strong>でAIエージェントからのアクセスを一括制御できるため、セキュリティポリシー・情報統制の観点でも導入しやすい設計になっています。
               </p>
@@ -2080,7 +2080,7 @@ export default function SonarQubeIntermediateGuidePage() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      SonarQube Server 2026.3 Release
+                      SonarQube Server 2026.4 Release
                     </a>
                   </li>
                   <li>
@@ -2089,7 +2089,7 @@ export default function SonarQubeIntermediateGuidePage() {
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Announcing SonarQube Server 2026.3
+                      Announcing SonarQube Server 2026.4
                     </a>
                   </li>
                 </ul>
@@ -2626,14 +2626,14 @@ export default function SonarQubeIntermediateGuidePage() {
                     </tr>
                     <tr>
                       <td>42</td>
-                      <td>SonarQube Server 2026.3 Release</td>
+                      <td>SonarQube Server 2026.4 Release</td>
                       <td>
                         <a href="https://www.sonarsource.com/products/sonarqube/whats-new/2026-3/" target="_blank" rel="noopener noreferrer">2026.3 Release</a>
                       </td>
                     </tr>
                     <tr>
                       <td>43</td>
-                      <td>Announcing SonarQube Server 2026.3</td>
+                      <td>Announcing SonarQube Server 2026.4</td>
                       <td>
                         <a href="https://www.sonarsource.com/blog/announcing-sonarqube-server-2026-3/" target="_blank" rel="noopener noreferrer">Announcement</a>
                       </td>
