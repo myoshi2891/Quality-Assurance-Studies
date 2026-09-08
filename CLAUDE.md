@@ -213,6 +213,9 @@ Next.js App Router 構成:
 - `app/playwright-intermediate-advanced-guide/playwright-intermediate-advanced-guide.css` — Playwright 実践ガイド（中上級）固有スタイル
 - `app/playwright-intermediate-advanced-guide/page.tsx` — Playwright 実践ガイド（中上級）ページ
 - `app/playwright-intermediate-advanced-guide/NavBar.tsx` — Playwright 実践ガイド（中上級）ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
+- `app/sonarqube-intermediate-guide/sonarqube-intermediate-guide.css` — SonarQube 完全解説ガイド固有スタイル
+- `app/sonarqube-intermediate-guide/page.tsx` — SonarQube 完全解説ガイドページ
+- `app/sonarqube-intermediate-guide/NavBar.tsx` — SonarQube 完全解説ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
 - `app/cucumber-beginner-guide/cucumber-beginner-guide.css` — Cucumber 入門ガイド固有スタイル
 - `app/cucumber-beginner-guide/page.tsx` — Cucumber 入門ガイドページ
 - `app/cucumber-beginner-guide/NavBar.tsx` — Cucumber 入門ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
@@ -546,6 +549,8 @@ bun test        # ユニットテスト成功
 | `Testing-web-apis-guide.html` | `/testing-web-apis-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Software-test-design-guide.html` | `/software-test-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Secure-by-design-guide.html` | `/secure-by-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Playwright-intermediate-advanced-guide.html` | `/playwright-intermediate-advanced-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
+| `Sonarqube-intermediate.html` | `/sonarqube-intermediate-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -562,7 +567,7 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 56 ルート（ガイドライブラリ index + 55 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 58 ルート（ガイドライブラリ index + 57 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。

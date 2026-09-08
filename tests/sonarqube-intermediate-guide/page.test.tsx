@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, cleanup } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import SonarQubeIntermediateGuidePage from '../../app/sonarqube-intermediate-guide/page';

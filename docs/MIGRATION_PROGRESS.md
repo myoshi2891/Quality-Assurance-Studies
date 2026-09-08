@@ -1,11 +1,11 @@
 # Migration Progress
 
-Updated 2026-09-05
+Updated 2026-09-08
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 57 ルート = ガイドライブラリ index + 56 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 58 ルート = ガイドライブラリ index + 57 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,9 +13,22 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `1525667` |
+| 最新 HEAD | `748081f` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test` / `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/08: SonarQube 完全解説ガイド（中級〜上級者向け）のNext.js完全移行
+
+- **デザイン忠実再現**: 元HTML固有のダークテーマUI（背景 `--bg: #0b0f14`、サーフェス `--surface: #12181f`、エレベーテッド `--surface-raised: #1c232c`、アクセント `--accent: #3b82f6`、紫 `--purple: #a78bfa`、緑 `--green: #34d399`、赤 `--red: #f87171`、黄 `--amber: #fbbf24`、Tabler Icons `@tabler/icons-webfont`）を忠実に復元。
+- **Mermaid図解の完全移植**: プロダクトファミリーとエコシステム全体像、内部アーキテクチャ(Web/CE/ES/DB)、Data Center Edition高可用性構成、Clean Code属性から格付けへのマッピング、Security Hotspotライフサイクル、Quality Profile継承モデル、New Code Definition判定ロジック、Quality Gate評価フロー、プルリクエスト解析フロー、Agent Centric Development Cycle(ACDC)の全10図解（`DIAGRAM_1`〜`DIAGRAM_10`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **コードブロック**: 全4箇所のコードブロック（Docker起動コマンド、SQALE計算モデルyaml、GitHub Actionsワークフローyaml、Claude Code MCPサーバー登録コマンド）を完全移植。`<div className="code-line">` による静的改行整形と構文ハイライトを適用。
+- **テーブル & コールアウト**: 4コアコンポーネント、主要ディレクトリ構成、5大エディション機能比較、料金目安、SonarQube Cloudプラン比較、スキャナー選定マトリクス、Standard vs MQR、Clean Code Taxonomy 4カテゴリ、Issue 4種別、Copy vs Extend、セキュリティルール2分類、Maintainability Ratingグリッド、Reliability Rating条件、New Code 4オプション、Quality Gateデフォルト条件、ブランチ分析 vs PR分析、主要CI/CD対応状況、MCP Server形態、Sonar Vortexフェーズ、トラブルシューティング、参考文献一覧（48行）の全21テーブル、および全3箇所の重要コールアウトを完全移植。
+- **全セクション参考文献**: 各章末尾および第21章の参考文献リスト（104件の外部リンク、セキュリティ属性 `rel="noopener noreferrer"`）を完全移行。
+- `app/sonarqube-intermediate-guide/`: ページコンポーネント、専用スタイル（`.sonarqube-page` スコープ、globals.css干渉リセット、テーブル文字色・ホバーリセット、Tailwindリストマーカー復元）、NavBar（スクロールスパイ、全22セクションリンク、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリに `/sonarqube-intermediate-guide`（SonarQube 完全解説ガイド）を追加（全58件）。
+- `tests/sonarqube-intermediate-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全22リンク、全22セクション、全10Mermaid図、全4コードブロック、全21テーブル、全3コールアウト、全参考文献外部リンクの存在を検証する厳格なテストスイートを実装して全パス（28 pass / 375 expect()）。
+- `Sonarqube-intermediate.html`: `archive/html-archive/tools/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 58 ページ体制に同期。
 
 ## 2026/09/08: Playwright実践ガイド（中級者〜上級者向け）のNext.js完全移行
 
@@ -595,6 +608,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Testing-web-apis-guide.html` | `/testing-web-apis-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Software-test-design-guide.html` | `/software-test-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Secure-by-design-guide.html` | `/secure-by-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Playwright-intermediate-advanced-guide.html` | `/playwright-intermediate-advanced-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
+| `Sonarqube-intermediate.html` | `/sonarqube-intermediate-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -605,7 +620,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 |---|---|---|---|
 | 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `How-google-tests-software-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
 | 書籍ガイド系 HTML（`Leading-quality-guide.html` / `Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `How-google-tests-software-guide.html` / `Software-testing-craftsmans-approach-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
-| ツール系ドキュメント（`Appium-essentials-guide.md` / `Appium-essentials-guide.html` / `Owasp-zap-beginner-guide.html` / `Playwright-intermediate-advanced-guide.html` / `Sonarqube.html` / `Sonarqube-intermediate.html`） | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
+| ツール系ドキュメント（`Appium-essentials-guide.md` / `Appium-essentials-guide.html` / `Owasp-zap-beginner-guide.html` / `Sonarqube.html`） | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
 
 ## 既知の留保事項
@@ -619,7 +634,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 56 ルート（ガイドライブラリ index + 55 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 58 ルート（ガイドライブラリ index + 57 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown と `Leading-quality-guide.html` などの HTML が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
