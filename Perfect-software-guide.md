@@ -1,5 +1,6 @@
 # 『Perfect Software: And Other Illusions about Testing』初学者ガイド
-### ジェラルド・M・ワインバーグに学ぶ「テストの限界」と実践ベストプラクティス
+
+*ジェラルド・M・ワインバーグに学ぶ「テストの限界」と実践ベストプラクティス*
 
 > 本ガイドは、ソフトウェアテストの古典 *Perfect Software: And Other Illusions about Testing*（Gerald M. Weinberg, Dorset House, 2008）を、テストを学び始めたばかりの方向けに、ステップ・バイ・ステップで解説するものです。ASCII アートは使用せず、図解はすべて Mermaid、表はすべて Markdown 記法で作成しています。巻末に、2026年9月時点でのウェブ調査に基づく参考ソース（著名な国際的テスト専門家の発言・記事を含む）を掲載しています。
 
@@ -393,25 +394,25 @@ flowchart TB
 本ガイドの作成にあたり、2026年9月時点でウェブ調査を行い、以下のソースを参照しました（可能な限り、著名な国際的テスト専門家・コンサルタントによる発言・記事を優先して参照しています）。
 
 1. Gerald M. Weinberg 公式サイト（書籍紹介ページ／James Bach・Michael Bolton・Pradeep Soundararajan・Fiona Charles の推薦文掲載）
-   https://geraldmweinberg.com/Site/Perfect_Software.html
+   [https://geraldmweinberg.com/Site/Perfect_Software.html](https://geraldmweinberg.com/Site/Perfect_Software.html)
 2. Markus Gärtner（国際的に知られるアジャイル/テストコンサルタント）によるワインバーグ追悼レビュー連載記事
-   https://www.shino.de/2022/11/28/remembering-jerry-weinberg-perfect-software-and-other-illusions-about-testing/
+   [https://www.shino.de/2022/11/28/remembering-jerry-weinberg-perfect-software-and-other-illusions-about-testing/](https://www.shino.de/2022/11/28/remembering-jerry-weinberg-perfect-software-and-other-illusions-about-testing/)
 3. Perfect Software 引用集（ダイクストラの引用を含む）— Goodreads
-   https://www.goodreads.com/work/quotes/4107583-perfect-software-and-other-illusions-about-testing
+   [https://www.goodreads.com/work/quotes/4107583-perfect-software-and-other-illusions-about-testing](https://www.goodreads.com/work/quotes/4107583-perfect-software-and-other-illusions-about-testing)
 4. Perfect Software 各章タイトル・要点抜粋 — Leanpub
-   https://leanpub.com/perfectsoftware
+   [https://leanpub.com/perfectsoftware](https://leanpub.com/perfectsoftware)
 5. Dwayne Phillips によるレビュー
-   https://dwaynephillips.net/reviews/PerfectSoftware.html
+   [https://dwaynephillips.net/reviews/PerfectSoftware.html](https://dwaynephillips.net/reviews/PerfectSoftware.html)
 6. Sunish Chabba による書籍要約記事 — Medium
-   https://sunishchabba.medium.com/summary-of-the-book-perfect-software-and-other-illusions-about-testing-7ebb2eaa34dd
+   [https://sunishchabba.medium.com/summary-of-the-book-perfect-software-and-other-illusions-about-testing-7ebb2eaa34dd](https://sunishchabba.medium.com/summary-of-the-book-perfect-software-and-other-illusions-about-testing-7ebb2eaa34dd)
 7. Victoria Markosyan による学びの整理記事 — Medium
-   https://vicajoy.medium.com/perfect-software-and-other-illusions-about-testing-lessons-learned-from-the-book-by-gerald-m-aa4cbb893266
+   [https://vicajoy.medium.com/perfect-software-and-other-illusions-about-testing-lessons-learned-from-the-book-by-gerald-m-aa4cbb893266](https://vicajoy.medium.com/perfect-software-and-other-illusions-about-testing-lessons-learned-from-the-book-by-gerald-m-aa4cbb893266)
 8. Bebugging（バグの埋め込み手法）解説 — Wikipedia
-   https://en.wikipedia.org/wiki/Bebugging
+   [https://en.wikipedia.org/wiki/Bebugging](https://en.wikipedia.org/wiki/Bebugging)
 9. James Bach へのインタビュー（推薦図書として本書を紹介）— Hexawise Blog
-   https://hexawise.com/posts/testing-smarter-with-james-bach
+   [https://hexawise.com/posts/testing-smarter-with-james-bach](https://hexawise.com/posts/testing-smarter-with-james-bach)
 10. Software Engineering Radio, Episode 280: Gerald Weinberg on Bugs, Errors and Software Quality
-    https://se-radio.net/2017/01/se-radio-episode-280-gerald-weinberg-on-bugs-errors-and-software-quality/
+    [https://se-radio.net/2017/01/se-radio-episode-280-gerald-weinberg-on-bugs-errors-and-software-quality/](https://se-radio.net/2017/01/se-radio-episode-280-gerald-weinberg-on-bugs-errors-and-software-quality/)
 
 ---
 

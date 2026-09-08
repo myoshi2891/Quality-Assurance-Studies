@@ -1,5 +1,6 @@
 # 『Working Effectively with Legacy Code』完全ガイド
-### ― 初学者のためのステップバイステップ実践法 ―
+
+*― 初学者のためのステップバイステップ実践法 ―*
 
 > 原著: *Working Effectively with Legacy Code*（Michael C. Feathers 著、Prentice Hall PTR / Pearson、2004年9月刊、全464ページ）
 > 本ガイドは同書の考え方・技法を初学者向けに要約・整理した学習用の副読資料です。詳細な手順やコード例は必ず原著（[O'Reilly版書誌ページ](https://www.oreilly.com/library/view/working-effectively-with/0131177052/)）を参照してください。
@@ -58,7 +59,7 @@
 
 多くの人は「レガシーコード」と聞くと、「もう誰も触れない古いコード」「読みにくくて汚いコード」を想像します。しかし Feathers はまったく違う切り口で定義しています。
 
-彼の定義を一言で言えば、**自動テストで保護されていないコードはすべてレガシーコードである**、というものです[[2]](#19-参考文献出典)[[19]](#19-参考文献出典)。書かれてから1週間しか経っていない新しいコードであっても、テストがなければそれは既に「レガシーコード」だと考えます。逆に、10年前に書かれたコードでも手厚いテストで守られていれば、Feathers の定義上はレガシーコードとは呼びません。
+彼の定義を一言で言えば、**自動テストで保護されていないコードはすべてレガシーコードである**、というものです[[2]](#19-参考文献出典)、[[19]](#19-参考文献出典)。書かれてから1週間しか経っていない新しいコードであっても、テストがなければそれは既に「レガシーコード」だと考えます。逆に、10年前に書かれたコードでも手厚いテストで守られていれば、Feathers の定義上はレガシーコードとは呼びません。
 
 この定義が重要なのは、「テストがない＝変更のたびに何が壊れるか分からない」という状態そのものが問題の本質だ、と焦点を絞ってくれるからです。読みやすさやアーキテクチャの綺麗さよりも、まず「安全に変更できるか」を最優先の物差しにする、という考え方です。
 
@@ -78,7 +79,7 @@ flowchart TD
 - テストを書くには、テストしやすい形にコードを変更する必要がある
 - しかし今はテストがないので、その変更自体が安全かどうか分からない
 
-Feathers はこれを**「レガシーコードのジレンマ」**と呼び、これを解消する鍵は「ごく小さく、保守的な、テスト導入前の下準備的リファクタリング」であるとしています。多少コードの見た目が悪くなっても、それはテストという保護network を手に入れるまでの一時的な「傷」であり、テストが揃った後で治せばよい、という割り切りが重要です。
+Feathers はこれを**「レガシーコードのジレンマ」**と呼び、これを解消する鍵は「ごく小さく、保守的な、テスト導入前の下準備的リファクタリング」であるとしています。多少コードの見た目が悪くなっても、それはテストという保護網を手に入れるまでの一時的な「傷」であり、テストが揃った後で治せばよい、という割り切りが重要です。
 
 ```mermaid
 flowchart TD
@@ -93,7 +94,7 @@ flowchart TD
 
 ## 5. レガシーコード変更アルゴリズム（5ステップ）
 
-Feathers は、レガシーコードに変更を加えるときの一般的な手順を、次の5ステップのアルゴリズムとして提示しています[[13]](#19-参考文献出典)[[14]](#19-参考文献出典)[[15]](#19-参考文献出典)。この5ステップこそが本書全体を貫く背骨であり、以降の6〜10章はこの各ステップを詳しく掘り下げたものです。
+Feathers は、レガシーコードに変更を加えるときの一般的な手順を、次の5ステップのアルゴリズムとして提示しています[[13]](#19-参考文献出典)、[[14]](#19-参考文献出典)、[[15]](#19-参考文献出典)。この5ステップこそが本書全体を貫く背骨であり、以降の6〜10章はこの各ステップを詳しく掘り下げたものです。
 
 ```mermaid
 flowchart TD
@@ -124,7 +125,7 @@ flowchart TD
 
 ## 7. ステップ2：テストポイントを見つける（Effect Sketch）
 
-変更点が決まったら、次に「どこでテストを書けば、その変更が正しく行われたことを確認できるか」を考えます。Feathers はこれを**「前向きの推論（reasoning forward）」**あるいは**「Effect Sketch（効果のスケッチ）」**と呼びます[[23]](#19-参考文献出典)[[61-gist]](#19-参考文献出典)。
+変更点が決まったら、次に「どこでテストを書けば、その変更が正しく行われたことを確認できるか」を考えます。Feathers はこれを**「前向きの推論（reasoning forward）」**あるいは**「Effect Sketch（効果のスケッチ）」**と呼びます[[23]](#19-参考文献出典)、[[61-gist]](#19-参考文献出典)。
 
 通常のデバッグでは「結果からその原因を遡る」後ろ向きの推論をしますが、レガシーコードで変更を安全に行うためには逆に「この変更を行ったら、プログラムの他の結果にどう影響が伝播しうるか」を前もって描く必要があります。この影響の伝わり方を図にしたものが Effect Sketch であり、これによって「どのクラスの、どのメソッドの、どの戻り値や状態を確認すればよいか」というテストポイントの候補が見えてきます。
 
@@ -155,7 +156,7 @@ flowchart TD
     Class -->|"単体で動かせない"| Separation["分離の問題<br/>依存をインターフェース化して外部依存を切り離す"]
 ```
 
-これらの問題を解決する際の考え方として登場するのが**「シーム（Seam）」**という概念です。シームとは、あるコードそのものを編集しなくても、その振る舞いを変更できる箇所のことです[[13-informit]](#19-参考文献出典)[[16-php]](#19-参考文献出典)。Google のエンジニアである Mike Bland も自身のブログで、このシームの概念とレガシーコードの定義を、ソフトウェア設計における重要な洞察として繰り返し取り上げています[[5]](#19-参考文献出典)。
+これらの問題を解決する際の考え方として登場するのが**「シーム（Seam）」**という概念です。シームとは、あるコードそのものを編集しなくても、その振る舞いを変更できる箇所のことです[[13-informit]](#19-参考文献出典)、[[16-php]](#19-参考文献出典)。Google のエンジニアである Mike Bland も自身のブログで、このシームの概念とレガシーコードの定義を、ソフトウェア設計における重要な洞察として繰り返し取り上げています[[5]](#19-参考文献出典)。
 
 代表的なシームには次の3種類があります。
 
@@ -311,7 +312,7 @@ Understand Legacy Code の運営者 Nicolas Carlo は、「ゴールデンマス
 
 ## 15. より大きなスケールへ：Strangler Fig パターンとの関係
 
-Feathers の技法の多くは、メソッドやクラスといった「コードレベル」でのミクロな安全策です。一方で、システム全体、あるいはモノリシックなアプリケーション全体を段階的に置き換えていくマクロな戦略として広く知られているのが、Martin Fowler が提唱した**Strangler Fig パターン（絞め殺しの木パターン）**です[[19]](#19-参考文献出典)[[27]](#19-参考文献出典)。
+Feathers の技法の多くは、メソッドやクラスといった「コードレベル」でのミクロな安全策です。一方で、システム全体、あるいはモノリシックなアプリケーション全体を段階的に置き換えていくマクロな戦略として広く知られているのが、Martin Fowler が提唱した**Strangler Fig パターン（絞め殺しの木パターン）**です[[19]](#19-参考文献出典)、[[27]](#19-参考文献出典)。
 
 このパターンは、宿主となる木に巻きついて成長し、最終的に宿主に取って代わる「絞め殺しの木（strangler fig）」という植物に由来しています。一気に書き直す「ビッグバン・リライト」の代わりに、新しい実装を少しずつ既存システムの周りに構築し、機能単位で置き換えを進めていく、という考え方です[[24]](#19-参考文献出典)。
 
@@ -398,38 +399,38 @@ flowchart TD
 
 | # | 出典 | URL |
 |---|---|---|
-| [2] | DaedTech（Erik Dietrich）「Characterization Tests」 | https://daedtech.com/characterization-tests/ |
-| [3] | Understand Legacy Code（Nicolas Carlo）「The key points of Working Effectively with Legacy Code」 | https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/ |
-| [4] | 同上 | https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/ |
-| [5] | Mike Bland（Google）「Legacy code, seams, and the most important design guideline」 | https://mike-bland.com/2023/08/23/legacy-code-seams-and-the-most-important-design-guideline.html |
-| [6] | Global Book Summary Project「Working Effectively with Legacy Code」 | https://booksummaryproject.com/book53 |
-| [7] | Hell Read「Working Effectively with Legacy Code By Michael Feathers」 | https://hellread.com/2025/08/15/working-effectively-with-legacy-code-by-michael-feathers/ |
-| [9] | Mark Needham「Book Club: Working Effectively With Legacy Code - Chapters 6 & 7」 | https://www.markhneedham.com/blog/2009/10/26/book-club-working-effectively-with-legacy-code-chapters-6-7-michael-feathers/ |
-| [10] | Michael Feathers（InformIT）「Seams | Testing Effectively With Legacy Code」 | https://www.informit.com/articles/article.aspx?p=359417&seqNum=2 |
-| [12-gist] | GitHub Gist（jeremy-w）「Notes on Michael Feathers' Working Effectively with Legacy Code」 | https://gist.github.com/jeremy-w/6774525 |
-| [13] | Agile in a Flash（Tim Ottinger）「Legacy Code Change Algorithm」 | http://agileinaflash.blogspot.com/2009/03/legacy-code-change-algorithm.html |
-| [13-informit] | 同上（InformIT） | https://www.informit.com/articles/article.aspx?p=359417&seqNum=2 |
-| [14] | Medium（Nitesh Ranjan）「6 Takeaways from Working Effectively with Legacy Code」 | https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98 |
-| [15] | O'Reilly Online Learning「Working Effectively with Legacy Code」書誌・目次ページ | https://www.oreilly.com/library/view/working-effectively-with/0131177052/ |
-| [16] | Emily Bache（97 Things, Medium）「Approval Testing」 | https://medium.com/97-things/approval-testing-33946cde4aa8 |
-| [16-php] | Packagist「php-object-seam」（Feathersのシーム定義引用元） | https://packagist.org/packages/robvanaarle/php-object-seam |
-| [17] | GitHub（codecop）「dependency-breaking-katas」 | https://www.github.com/codecop/dependency-breaking-katas |
-| [19] | Wikipedia「Strangler fig pattern」 | https://en.wikipedia.org/wiki/Strangler_fig_pattern |
-| [20] | Shopify Engineering「Refactoring Legacy Code with the Strangler Fig Pattern」 | https://shopify.engineering/refactoring-legacy-code-strangler-fig-pattern |
-| [21] | University of Minnesota CSE「Code Freeze 2025 Keynote Speaker: Michael Feathers」 | https://cse.umn.edu/umsec/code-freeze-2025-keynote-speaker-michael-feathers |
-| [22] | Martin Fowler / ThoughtWorks「Exploring Generative AI」 | https://www.martinfowler.com/articles/exploring-gen-ai.html |
-| [23] | SlidePlayer（Cory Foy）「Getting Unstuck: Working with Legacy Code and Data」 | https://slideplayer.com/slide/4484335/ |
-| [24] | vFunction「The Strangler Architecture Pattern for Modernization」 | https://vfunction.com/blog/strangler-architecture-pattern-for-modernization/ |
-| [25] | Microsoft Learn「Strangler Fig Pattern - Azure Architecture Center」 | https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig |
-| [27] | Wikipedia「Strangler fig pattern」 | https://en.wikipedia.org/wiki/Strangler_fig_pattern |
-| [32] | Understand Legacy Code「What's the difference between Regression, Characterization, and Approval Tests?」 | https://understandlegacycode.com/blog/characterization-tests-or-approval-tests/ |
-| [38] | Developer Fusion「Herding Code 117: Llewellyn Falco on Approval Tests」 | https://www.developerfusion.com/media/122649/herding-code-117-llewellyn-falcon-on-approval-tests/ |
-| [41] | Medium（Nitesh Ranjan）「6 Takeaways from Working Effectively with Legacy Code」 | https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98 |
-| [42] | tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」 | https://tamerlan.dev/working-effectively-with-legacy-code/ |
-| [44] | Taswar Bhatti「Learn The Sprout Method for adding new functionality」 | https://taswar.zeytinsoft.com/learn-the-sprout-method-for-adding-new-functionality/ |
-| [45] | Understand Legacy Code「The key points of Working Effectively with Legacy Code」 | https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/ |
-| [50] | Wondel.ai Skills「Legacy Code — AI Agent Skill」 | https://skills.wondel.ai/skills/working-with-legacy-code/ |
-| [51] | Anthropic「2026 Agentic Coding Trends Report」 | https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf |
-| [61-gist] | GitHub Gist（jonnyjava）「Working effectively with legacy code summary」 | https://gist.github.com/jonnyjava/42883d4e464167f81e2ee60a488a5ded |
+| [2] | DaedTech（Erik Dietrich）「Characterization Tests」 | [https://daedtech.com/characterization-tests/](https://daedtech.com/characterization-tests/) |
+| [3] | Understand Legacy Code（Nicolas Carlo）「The key points of Working Effectively with Legacy Code」 | [https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/](https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/) |
+| [4] | 同上 | [https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/](https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/) |
+| [5] | Mike Bland（Google）「Legacy code, seams, and the most important design guideline」 | [https://mike-bland.com/2023/08/23/legacy-code-seams-and-the-most-important-design-guideline.html](https://mike-bland.com/2023/08/23/legacy-code-seams-and-the-most-important-design-guideline.html) |
+| [6] | Global Book Summary Project「Working Effectively with Legacy Code」 | [https://booksummaryproject.com/book53](https://booksummaryproject.com/book53) |
+| [7] | Hell Read「Working Effectively with Legacy Code By Michael Feathers」 | [https://hellread.com/2025/08/15/working-effectively-with-legacy-code-by-michael-feathers/](https://hellread.com/2025/08/15/working-effectively-with-legacy-code-by-michael-feathers/) |
+| [9] | Mark Needham「Book Club: Working Effectively With Legacy Code - Chapters 6 & 7」 | [https://www.markhneedham.com/blog/2009/10/26/book-club-working-effectively-with-legacy-code-chapters-6-7-michael-feathers/](https://www.markhneedham.com/blog/2009/10/26/book-club-working-effectively-with-legacy-code-chapters-6-7-michael-feathers/) |
+| [10] | Michael Feathers（InformIT）「Seams \| Testing Effectively With Legacy Code」 | [https://www.informit.com/articles/article.aspx?p=359417&seqNum=2](https://www.informit.com/articles/article.aspx?p=359417&seqNum=2) |
+| [12-gist] | GitHub Gist（jeremy-w）「Notes on Michael Feathers' Working Effectively with Legacy Code」 | [https://gist.github.com/jeremy-w/6774525](https://gist.github.com/jeremy-w/6774525) |
+| [13] | Agile in a Flash（Tim Ottinger）「Legacy Code Change Algorithm」 | [http://agileinaflash.blogspot.com/2009/03/legacy-code-change-algorithm.html](http://agileinaflash.blogspot.com/2009/03/legacy-code-change-algorithm.html) |
+| [13-informit] | 同上（InformIT） | [https://www.informit.com/articles/article.aspx?p=359417&seqNum=2](https://www.informit.com/articles/article.aspx?p=359417&seqNum=2) |
+| [14] | Medium（Nitesh Ranjan）「6 Takeaways from Working Effectively with Legacy Code」 | [https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98](https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98) |
+| [15] | O'Reilly Online Learning「Working Effectively with Legacy Code」書誌・目次ページ | [https://www.oreilly.com/library/view/working-effectively-with/0131177052/](https://www.oreilly.com/library/view/working-effectively-with/0131177052/) |
+| [16] | Emily Bache（97 Things, Medium）「Approval Testing」 | [https://medium.com/97-things/approval-testing-33946cde4aa8](https://medium.com/97-things/approval-testing-33946cde4aa8) |
+| [16-php] | Packagist「php-object-seam」（Feathersのシーム定義引用元） | [https://packagist.org/packages/robvanaarle/php-object-seam](https://packagist.org/packages/robvanaarle/php-object-seam) |
+| [17] | GitHub（codecop）「dependency-breaking-katas」 | [https://www.github.com/codecop/dependency-breaking-katas](https://www.github.com/codecop/dependency-breaking-katas) |
+| [19] | Wikipedia「Strangler fig pattern」 | [https://en.wikipedia.org/wiki/Strangler_fig_pattern](https://en.wikipedia.org/wiki/Strangler_fig_pattern) |
+| [20] | Shopify Engineering「Refactoring Legacy Code with the Strangler Fig Pattern」 | [https://shopify.engineering/refactoring-legacy-code-strangler-fig-pattern](https://shopify.engineering/refactoring-legacy-code-strangler-fig-pattern) |
+| [21] | University of Minnesota CSE「Code Freeze 2025 Keynote Speaker: Michael Feathers」 | [https://cse.umn.edu/umsec/code-freeze-2025-keynote-speaker-michael-feathers](https://cse.umn.edu/umsec/code-freeze-2025-keynote-speaker-michael-feathers) |
+| [22] | Martin Fowler / ThoughtWorks「Exploring Generative AI」 | [https://www.martinfowler.com/articles/exploring-gen-ai.html](https://www.martinfowler.com/articles/exploring-gen-ai.html) |
+| [23] | SlidePlayer（Cory Foy）「Getting Unstuck: Working with Legacy Code and Data」 | [https://slideplayer.com/slide/4484335/](https://slideplayer.com/slide/4484335/) |
+| [24] | vFunction「The Strangler Architecture Pattern for Modernization」 | [https://vfunction.com/blog/strangler-architecture-pattern-for-modernization/](https://vfunction.com/blog/strangler-architecture-pattern-for-modernization/) |
+| [25] | Microsoft Learn「Strangler Fig Pattern - Azure Architecture Center」 | [https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig](https://learn.microsoft.com/en-us/azure/architecture/patterns/strangler-fig) |
+| [27] | Wikipedia「Strangler fig pattern」 | [https://en.wikipedia.org/wiki/Strangler_fig_pattern](https://en.wikipedia.org/wiki/Strangler_fig_pattern) |
+| [32] | Understand Legacy Code「What's the difference between Regression, Characterization, and Approval Tests?」 | [https://understandlegacycode.com/blog/characterization-tests-or-approval-tests/](https://understandlegacycode.com/blog/characterization-tests-or-approval-tests/) |
+| [38] | Developer Fusion「Herding Code 117: Llewellyn Falco on Approval Tests」 | [https://www.developerfusion.com/media/122649/herding-code-117-llewellyn-falcon-on-approval-tests/](https://www.developerfusion.com/media/122649/herding-code-117-llewellyn-falcon-on-approval-tests/) |
+| [41] | Medium（Nitesh Ranjan）「6 Takeaways from Working Effectively with Legacy Code」 | [https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98](https://medium.com/@nitesh.ranja/6-takeaways-from-working-effectively-with-legacy-code-by-michael-feathers-bc9fa5e63f98) |
+| [42] | tamerlan.dev「Working Effectively with Legacy Code: Chapter 6 Summary」 | [https://tamerlan.dev/working-effectively-with-legacy-code/](https://tamerlan.dev/working-effectively-with-legacy-code/) |
+| [44] | Taswar Bhatti「Learn The Sprout Method for adding new functionality」 | [https://taswar.zeytinsoft.com/learn-the-sprout-method-for-adding-new-functionality/](https://taswar.zeytinsoft.com/learn-the-sprout-method-for-adding-new-functionality/) |
+| [45] | Understand Legacy Code「The key points of Working Effectively with Legacy Code」 | [https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/](https://understandlegacycode.com/blog/key-points-of-working-effectively-with-legacy-code/) |
+| [50] | Wondel.ai Skills「Legacy Code — AI Agent Skill」 | [https://skills.wondel.ai/skills/working-with-legacy-code/](https://skills.wondel.ai/skills/working-with-legacy-code/) |
+| [51] | Anthropic「2026 Agentic Coding Trends Report」 | [https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf](https://resources.anthropic.com/hubfs/2026%20Agentic%20Coding%20Trends%20Report.pdf) |
+| [61-gist] | GitHub Gist（jonnyjava）「Working effectively with legacy code summary」 | [https://gist.github.com/jonnyjava/42883d4e464167f81e2ee60a488a5ded](https://gist.github.com/jonnyjava/42883d4e464167f81e2ee60a488a5ded) |
 
 > 注：本ガイドは各出典を要約・言い換えたものであり、原文からの逐語的な引用は最小限（15語未満）に留めています。より正確で網羅的な内容は、必ず原著および各出典元をご確認ください。
