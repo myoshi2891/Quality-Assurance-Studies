@@ -58,9 +58,9 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
   it('renders the sidebar navigation with all 22 TOC links and icons', () => {
     const { container } = render(<NavBar />);
 
-    const tocLinks = container.querySelectorAll('.toc a');
-    expect(tocLinks.length).toBe(22);
-    expect(TOC_ITEMS.length).toBe(22);
+    const tocLinks = container.querySelectorAll('nav.toc a');
+    expect(tocLinks).toHaveLength(22);
+    expect(TOC_ITEMS).toHaveLength(22);
 
     const expectedHrefs = [
       '#overview', '#ecosystem', '#architecture', '#editions', '#quickstart', '#scanners',
@@ -70,16 +70,16 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
     ];
 
     expectedHrefs.forEach((href, idx) => {
-      expect(tocLinks[idx].getAttribute('href')).toBe(href);
+      expect(tocLinks[idx]?.getAttribute('href')).toBe(href);
     });
 
     // Verify brand
     const brandH1 = container.querySelector('.sidebar-brand h1');
     expect(brandH1?.textContent).toBe('SonarQube 完全解説');
     const badges = container.querySelectorAll('.sidebar-badges .badge');
-    expect(badges.length).toBe(2);
-    expect(badges[0].textContent).toBe('Server 2026.3');
-    expect(badges[1].textContent).toBe('2026.1 LTA');
+    expect(badges).toHaveLength(2);
+    expect(badges[0]?.textContent).toBe('Server 2026.3');
+    expect(badges[1]?.textContent).toBe('2026.1 LTA');
   });
 
   describe('Category 1: 基礎・アーキテクチャ・導入編 (Sections 00〜05)', () => {
@@ -133,10 +133,10 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const { container } = render(<SonarQubeIntermediateGuidePage />);
 
       const sec01Mermaid = container.querySelectorAll('section#ecosystem .mermaid-wrap');
-      expect(sec01Mermaid.length).toBe(1);
+      expect(sec01Mermaid).toHaveLength(1);
 
       const sec02Mermaid = container.querySelectorAll('section#architecture .mermaid-wrap');
-      expect(sec02Mermaid.length).toBe(2);
+      expect(sec02Mermaid).toHaveLength(2);
     });
 
     it('renders Tables 1 through 6 in sections 00, 02, 03, 05 with correct headers and rows', () => {
@@ -147,40 +147,46 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       expect(t1).not.toBeNull();
       const t1Headers = Array.from(t1?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t1Headers).toEqual(['旧称', '現称', '位置づけ']);
-      expect(t1?.querySelectorAll('tbody tr').length).toBe(4);
+      expect(t1?.querySelectorAll('tbody tr')).toHaveLength(4);
 
       // Table 2 (architecture)
       const t2 = container.querySelector('section#architecture table');
       expect(t2).not.toBeNull();
       const t2Headers = Array.from(t2?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t2Headers).toEqual(['コンポーネント', '役割']);
-      expect(t2?.querySelectorAll('tbody tr').length).toBe(4);
+      expect(t2?.querySelectorAll('tbody tr')).toHaveLength(4);
 
       // Table 3, 4, 5 (editions)
       const editionTables = container.querySelectorAll('section#editions table');
-      expect(editionTables.length).toBe(3);
+      expect(editionTables).toHaveLength(3);
 
       // Table 3
-      const t3Headers = Array.from(editionTables[0].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      const t3 = editionTables[0];
+      expect(t3).toBeDefined();
+      const t3Headers = Array.from(t3?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t3Headers).toEqual(['機能', 'Community Build', 'Developer Edition', 'Enterprise Edition', 'Data Center Edition']);
-      expect(editionTables[0].querySelectorAll('tbody tr').length).toBe(11);
+      expect(t3?.querySelectorAll('tbody tr')).toHaveLength(11);
 
       // Table 4
-      const t4Headers = Array.from(editionTables[1].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      const t4 = editionTables[1];
+      expect(t4).toBeDefined();
+      const t4Headers = Array.from(t4?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t4Headers).toEqual(['エディション', '目安価格帯(年額)', '備考']);
-      expect(editionTables[1].querySelectorAll('tbody tr').length).toBe(4);
+      expect(t4?.querySelectorAll('tbody tr')).toHaveLength(4);
 
       // Table 5
-      const t5Headers = Array.from(editionTables[2].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      const t5 = editionTables[2];
+      expect(t5).toBeDefined();
+      const t5Headers = Array.from(t5?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t5Headers).toEqual(['プラン', '概要']);
-      expect(editionTables[2].querySelectorAll('tbody tr').length).toBe(3);
+      expect(t5?.querySelectorAll('tbody tr')).toHaveLength(3);
 
       // Table 6 (scanners)
       const t6 = container.querySelector('section#scanners table');
       expect(t6).not.toBeNull();
       const t6Headers = Array.from(t6?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t6Headers).toEqual(['スキャナー', '対象', '備考']);
-      expect(t6?.querySelectorAll('tbody tr').length).toBe(7);
+      expect(t6?.querySelectorAll('tbody tr')).toHaveLength(7);
     });
 
     it('renders docker code block in section 04', () => {
@@ -198,7 +204,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const refBlocks = container.querySelectorAll(
         'section#overview .refs, section#ecosystem .refs, section#architecture .refs, section#editions .refs, section#quickstart .refs, section#scanners .refs'
       );
-      expect(refBlocks.length).toBe(6);
+      expect(refBlocks).toHaveLength(6);
 
       refBlocks.forEach((block) => {
         const links = block.querySelectorAll('a');
@@ -264,13 +270,13 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const { container } = render(<SonarQubeIntermediateGuidePage />);
 
       const sec06Mermaid = container.querySelectorAll('section#quality-model .mermaid-wrap');
-      expect(sec06Mermaid.length).toBe(1);
+      expect(sec06Mermaid).toHaveLength(1);
 
       const sec07Mermaid = container.querySelectorAll('section#issue-types .mermaid-wrap');
-      expect(sec07Mermaid.length).toBe(1);
+      expect(sec07Mermaid).toHaveLength(1);
 
       const sec08Mermaid = container.querySelectorAll('section#quality-profiles .mermaid-wrap');
-      expect(sec08Mermaid.length).toBe(1);
+      expect(sec08Mermaid).toHaveLength(1);
     });
 
     it('renders Tables 7 through 13 in sections 06 to 10 with correct headers and rows', () => {
@@ -278,46 +284,54 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
 
       // Section 06: Tables 7 & 8
       const sec06Tables = container.querySelectorAll('section#quality-model table');
-      expect(sec06Tables.length).toBe(2);
-      const t7Headers = Array.from(sec06Tables[0].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(sec06Tables).toHaveLength(2);
+      const t7 = sec06Tables[0];
+      expect(t7).toBeDefined();
+      const t7Headers = Array.from(t7?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t7Headers).toEqual(['項目', 'Standard Experience(従来型)', 'MQR Mode(新方式)']);
-      expect(sec06Tables[0].querySelectorAll('tbody tr').length).toBe(4);
+      expect(t7?.querySelectorAll('tbody tr')).toHaveLength(4);
 
-      const t8Headers = Array.from(sec06Tables[1].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      const t8 = sec06Tables[1];
+      expect(t8).toBeDefined();
+      const t8Headers = Array.from(t8?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t8Headers).toEqual(['カテゴリ', '意味', '含まれる属性']);
-      expect(sec06Tables[1].querySelectorAll('tbody tr').length).toBe(4);
+      expect(t8?.querySelectorAll('tbody tr')).toHaveLength(4);
 
       // Section 07: Table 9
       const t9 = container.querySelector('section#issue-types table');
       expect(t9).not.toBeNull();
       const t9Headers = Array.from(t9?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t9Headers).toEqual(['種別', '定義', '対応する Software Quality']);
-      expect(t9?.querySelectorAll('tbody tr').length).toBe(4);
+      expect(t9?.querySelectorAll('tbody tr')).toHaveLength(4);
 
       // Section 08: Table 10
       const t10 = container.querySelector('section#quality-profiles table');
       expect(t10).not.toBeNull();
       const t10Headers = Array.from(t10?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t10Headers).toEqual(['方式', '挙動', '用途']);
-      expect(t10?.querySelectorAll('tbody tr').length).toBe(2);
+      expect(t10?.querySelectorAll('tbody tr')).toHaveLength(2);
 
       // Section 09: Table 11
       const t11 = container.querySelector('section#security table');
       expect(t11).not.toBeNull();
       const t11Headers = Array.from(t11?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t11Headers).toEqual(['ルールタイプ', '検出対象', '使用技術']);
-      expect(t11?.querySelectorAll('tbody tr').length).toBe(2);
+      expect(t11?.querySelectorAll('tbody tr')).toHaveLength(2);
 
       // Section 10: Tables 12 & 13
       const sec10Tables = container.querySelectorAll('section#technical-debt table');
-      expect(sec10Tables.length).toBe(2);
-      const t12Headers = Array.from(sec10Tables[0].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(sec10Tables).toHaveLength(2);
+      const t12 = sec10Tables[0];
+      expect(t12).toBeDefined();
+      const t12Headers = Array.from(t12?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t12Headers).toEqual(['格付け', '技術的負債比率の範囲', '意味']);
-      expect(sec10Tables[0].querySelectorAll('tbody tr').length).toBe(5);
+      expect(t12?.querySelectorAll('tbody tr')).toHaveLength(5);
 
-      const t13Headers = Array.from(sec10Tables[1].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      const t13 = sec10Tables[1];
+      expect(t13).toBeDefined();
+      const t13Headers = Array.from(t13?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t13Headers).toEqual(['格付け', 'Reliability Ratingの条件例']);
-      expect(sec10Tables[1].querySelectorAll('tbody tr').length).toBe(5);
+      expect(t13?.querySelectorAll('tbody tr')).toHaveLength(5);
     });
 
     it('renders SQALE yaml code block in section 10 and Callout 2 in section 07', () => {
@@ -340,7 +354,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const refBlocks = container.querySelectorAll(
         'section#quality-model .refs, section#issue-types .refs, section#quality-profiles .refs, section#security .refs, section#technical-debt .refs'
       );
-      expect(refBlocks.length).toBe(5);
+      expect(refBlocks).toHaveLength(5);
 
       refBlocks.forEach((block) => {
         const links = block.querySelectorAll('a');
@@ -409,13 +423,13 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const { container } = render(<SonarQubeIntermediateGuidePage />);
 
       const sec11Mermaid = container.querySelectorAll('section#clean-as-you-code .mermaid-wrap');
-      expect(sec11Mermaid.length).toBe(1);
+      expect(sec11Mermaid).toHaveLength(1);
 
       const sec12Mermaid = container.querySelectorAll('section#quality-gates .mermaid-wrap');
-      expect(sec12Mermaid.length).toBe(1);
+      expect(sec12Mermaid).toHaveLength(1);
 
       const sec13Mermaid = container.querySelectorAll('section#branch-pr .mermaid-wrap');
-      expect(sec13Mermaid.length).toBe(1);
+      expect(sec13Mermaid).toHaveLength(1);
     });
 
     it('renders Tables 14 through 17 in sections 11 to 14 with correct headers and rows', () => {
@@ -426,28 +440,28 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       expect(t14).not.toBeNull();
       const t14Headers = Array.from(t14?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t14Headers).toEqual(['オプション', '定義', '利用可能レベル', '推奨シーン']);
-      expect(t14?.querySelectorAll('tbody tr').length).toBe(4);
+      expect(t14?.querySelectorAll('tbody tr')).toHaveLength(4);
 
       // Section 12: Table 15
       const t15 = container.querySelector('section#quality-gates table');
       expect(t15).not.toBeNull();
       const t15Headers = Array.from(t15?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t15Headers).toEqual(['条件(新規コードに適用)', 'デフォルト閾値', '備考']);
-      expect(t15?.querySelectorAll('tbody tr').length).toBe(7);
+      expect(t15?.querySelectorAll('tbody tr')).toHaveLength(7);
 
       // Section 13: Table 16
       const t16 = container.querySelector('section#branch-pr table');
       expect(t16).not.toBeNull();
       const t16Headers = Array.from(t16?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t16Headers).toEqual(['項目', 'ブランチ分析', 'プルリクエスト分析']);
-      expect(t16?.querySelectorAll('tbody tr').length).toBe(4);
+      expect(t16?.querySelectorAll('tbody tr')).toHaveLength(4);
 
       // Section 14: Table 17
       const t17 = container.querySelector('section#cicd table');
       expect(t17).not.toBeNull();
       const t17Headers = Array.from(t17?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t17Headers).toEqual(['プラットフォーム', '統合方式']);
-      expect(t17?.querySelectorAll('tbody tr').length).toBe(6);
+      expect(t17?.querySelectorAll('tbody tr')).toHaveLength(6);
     });
 
     it('renders GitHub Actions code block in section 14 and Callout 3 in section 12', () => {
@@ -470,7 +484,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const refBlocks = container.querySelectorAll(
         'section#clean-as-you-code .refs, section#quality-gates .refs, section#branch-pr .refs, section#cicd .refs, section#ide .refs'
       );
-      expect(refBlocks.length).toBe(5);
+      expect(refBlocks).toHaveLength(5);
 
       refBlocks.forEach((block) => {
         const links = block.querySelectorAll('a');
@@ -533,7 +547,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const { container } = render(<SonarQubeIntermediateGuidePage />);
 
       const sec16Mermaid = container.querySelectorAll('section#ai-agents .mermaid-wrap');
-      expect(sec16Mermaid.length).toBe(1);
+      expect(sec16Mermaid).toHaveLength(1);
     });
 
     it('renders Tables 18, 19, 20, 21 with correct structure and row counts', () => {
@@ -541,28 +555,32 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
 
       // Section 16: Tables 18 & 19
       const sec16Tables = container.querySelectorAll('section#ai-agents table');
-      expect(sec16Tables.length).toBe(2);
-      const t18Headers = Array.from(sec16Tables[0].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(sec16Tables).toHaveLength(2);
+      const t18 = sec16Tables[0];
+      expect(t18).toBeDefined();
+      const t18Headers = Array.from(t18?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t18Headers).toEqual(['形態', '対象', '特徴']);
-      expect(sec16Tables[0].querySelectorAll('tbody tr').length).toBe(2);
+      expect(t18?.querySelectorAll('tbody tr')).toHaveLength(2);
 
-      const t19Headers = Array.from(sec16Tables[1].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      const t19 = sec16Tables[1];
+      expect(t19).toBeDefined();
+      const t19Headers = Array.from(t19?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t19Headers).toEqual(['フェーズ', '機能', '効果']);
-      expect(sec16Tables[1].querySelectorAll('tbody tr').length).toBe(2);
+      expect(t19?.querySelectorAll('tbody tr')).toHaveLength(2);
 
       // Section 19: Table 20
       const t20 = container.querySelector('section#troubleshooting table');
       expect(t20).not.toBeNull();
       const t20Headers = Array.from(t20?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t20Headers).toEqual(['症状', '主な原因', '対処']);
-      expect(t20?.querySelectorAll('tbody tr').length).toBe(7);
+      expect(t20?.querySelectorAll('tbody tr')).toHaveLength(7);
 
       // Section 21: Table 21
       const t21 = container.querySelector('section#references table');
       expect(t21).not.toBeNull();
       const t21Headers = Array.from(t21?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
       expect(t21Headers).toEqual(['#', 'タイトル', 'URL']);
-      expect(t21?.querySelectorAll('tbody tr').length).toBe(48);
+      expect(t21?.querySelectorAll('tbody tr')).toHaveLength(48);
     });
 
     it('renders MCP bash code block in section 16 and practice list in section 18', () => {
@@ -574,7 +592,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       expect(sec16Code?.textContent).toContain('sonarsource/sonarqube-mcp');
 
       const practiceListItems = container.querySelectorAll('section#best-practices .practice-list li');
-      expect(practiceListItems.length).toBe(8);
+      expect(practiceListItems).toHaveLength(8);
       const nums = Array.from(practiceListItems).map((li) => li.querySelector('.num')?.textContent?.trim());
       expect(nums).toEqual(['1', '2', '3', '4', '5', '6', '7', '8']);
     });
@@ -585,7 +603,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const refBlocks = container.querySelectorAll(
         'section#ai-agents .refs, section#enterprise .refs, section#troubleshooting .refs'
       );
-      expect(refBlocks.length).toBe(3);
+      expect(refBlocks).toHaveLength(3);
 
       refBlocks.forEach((block) => {
         const links = block.querySelectorAll('a');
@@ -613,16 +631,16 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const { container } = render(<SonarQubeIntermediateGuidePage />);
 
       const allSections = container.querySelectorAll('section.doc-section');
-      expect(allSections.length).toBe(22);
+      expect(allSections).toHaveLength(22);
 
       const allMermaids = container.querySelectorAll('.mermaid-wrap');
-      expect(allMermaids.length).toBe(10);
+      expect(allMermaids).toHaveLength(10);
 
       const allTables = container.querySelectorAll('table');
-      expect(allTables.length).toBe(21);
+      expect(allTables).toHaveLength(21);
 
       const allPre = container.querySelectorAll('pre code');
-      expect(allPre.length).toBe(4);
+      expect(allPre).toHaveLength(4);
     });
 
     it('renders rich syntax highlighting across all 4 code blocks', () => {
