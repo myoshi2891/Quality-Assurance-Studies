@@ -633,23 +633,29 @@ export default function SonarQubeIntermediateGuidePage() {
                 本番環境では公式にDockerイメージまたはHelm
                 Chart(Kubernetes/OpenShift)での構築が推奨されており、ZIPインストールは両者が利用できない場合の最終手段とされています。
               </p>
-              <pre>
-                <code className="language-bash">
-                  <div className="code-line"># データ永続化用のボリュームを作成(bind mountではなくvolumeを使うこと。</div>
-                  <div className="code-line"># bind mountを使うとプラグインが正しく展開されない)</div>
-                  <div className="code-line">docker volume create --name sonarqube_data</div>
-                  <div className="code-line">docker volume create --name sonarqube_logs</div>
-                  <div className="code-line">docker volume create --name sonarqube_extensions</div>
-                  <div className="code-line"></div>
-                  <div className="code-line"># 評価用: 組み込みH2データベースで起動(本番非推奨)</div>
-                  <div className="code-line">docker run -d --name sonarqube \</div>
-                  <div className="code-line">  -p 9000:9000 \</div>
-                  <div className="code-line">  -v sonarqube_data:/opt/sonarqube/data \</div>
-                  <div className="code-line">  -v sonarqube_logs:/opt/sonarqube/logs \</div>
-                  <div className="code-line">  -v sonarqube_extensions:/opt/sonarqube/extensions \</div>
-                  <div className="code-line">  sonarqube:community</div>
-                </code>
-              </pre>
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span className="code-title"><i className="ti ti-terminal-2"></i>Docker Quickstart Setup</span>
+                  <span className="code-lang">BASH</span>
+                </div>
+                <pre>
+                  <code className="language-bash">
+                    <div className="code-line"><span className="code-comment"># データ永続化用のボリュームを作成(bind mountではなくvolumeを使うこと。</span></div>
+                    <div className="code-line"><span className="code-comment"># bind mountを使うとプラグインが正しく展開されない)</span></div>
+                    <div className="code-line"><span className="code-keyword">docker</span> <span className="code-property">volume</span> <span className="code-fn">create</span> <span className="code-flag">--name</span> sonarqube_data</div>
+                    <div className="code-line"><span className="code-keyword">docker</span> <span className="code-property">volume</span> <span className="code-fn">create</span> <span className="code-flag">--name</span> sonarqube_logs</div>
+                    <div className="code-line"><span className="code-keyword">docker</span> <span className="code-property">volume</span> <span className="code-fn">create</span> <span className="code-flag">--name</span> sonarqube_extensions</div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-comment"># 評価用: 組み込みH2データベースで起動(本番非推奨)</span></div>
+                    <div className="code-line"><span className="code-keyword">docker</span> <span className="code-fn">run</span> <span className="code-flag">-d</span> <span className="code-flag">--name</span> sonarqube \</div>
+                    <div className="code-line">  <span className="code-flag">-p</span> <span className="code-number">9000</span>:<span className="code-number">9000</span> \</div>
+                    <div className="code-line">  <span className="code-flag">-v</span> sonarqube_data:<span className="code-string">/opt/sonarqube/data</span> \</div>
+                    <div className="code-line">  <span className="code-flag">-v</span> sonarqube_logs:<span className="code-string">/opt/sonarqube/logs</span> \</div>
+                    <div className="code-line">  <span className="code-flag">-v</span> sonarqube_extensions:<span className="code-string">/opt/sonarqube/extensions</span> \</div>
+                    <div className="code-line">  <span className="code-string">sonarqube:community</span></div>
+                  </code>
+                </pre>
+              </div>
               <p>
                 起動後、ブラウザで <code>http://localhost:9000</code> にアクセスし、初期資格情報(<code>admin</code> / <code>admin</code>)でログインします(初回ログイン時に強制変更)。
               </p>
@@ -1200,17 +1206,23 @@ export default function SonarQubeIntermediateGuidePage() {
               </p>
 
               <h3>10.1 計算式</h3>
-              <pre>
-                <code className="language-yaml">
-                  <div className="code-line">技術的負債 (Technical Debt / sqale_index)</div>
-                  <div className="code-line">  = すべての保守性Issueの修正見積時間の合計(分単位、1日=8時間換算)</div>
-                  <div className="code-line"></div>
-                  <div className="code-line">技術的負債比率 (Technical Debt Ratio / sqale_debt_ratio)</div>
-                  <div className="code-line">  = 技術的負債 ÷ (1行あたりの開発コスト × 総行数)</div>
-                  <div className="code-line"></div>
-                  <div className="code-line">  ※ 1行あたりの開発コストはデフォルトで30分(DB設定でカスタマイズ可能)</div>
-                </code>
-              </pre>
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span className="code-title"><i className="ti ti-math-function"></i>SQALE Debt Calculation Formula</span>
+                  <span className="code-lang">FORMULA</span>
+                </div>
+                <pre>
+                  <code className="language-yaml">
+                    <div className="code-line"><span className="code-property">技術的負債 (Technical Debt / sqale_index)</span></div>
+                    <div className="code-line">  <span className="code-operator">=</span> <span className="code-string">すべての保守性Issueの修正見積時間の合計(分単位、1日=8時間換算)</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-property">技術的負債比率 (Technical Debt Ratio / sqale_debt_ratio)</span></div>
+                    <div className="code-line">  <span className="code-operator">=</span> 技術的負債 <span className="code-operator">÷</span> (1行あたりの開発コスト <span className="code-operator">×</span> 総行数)</div>
+                    <div className="code-line"></div>
+                    <div className="code-line">  <span className="code-comment">※ 1行あたりの開発コストはデフォルトで30分(DB設定でカスタマイズ可能)</span></div>
+                  </code>
+                </pre>
+              </div>
 
               <h3>10.2 Maintainability Rating(保守性格付け)グリッド</h3>
               <p>
@@ -1672,46 +1684,52 @@ export default function SonarQubeIntermediateGuidePage() {
               </ul>
 
               <h3>14.2 公式SonarQube Scan GitHub Actionによる構成例</h3>
-              <pre>
-                <code className="language-yaml">
-                  <div className="code-line"># .github/workflows/sonarqube.yml</div>
-                  <div className="code-line">name: SonarQube Analysis</div>
-                  <div className="code-line"></div>
-                  <div className="code-line">on:</div>
-                  <div className="code-line">  push:</div>
-                  <div className="code-line">    branches:</div>
-                  <div className="code-line">      - main</div>
-                  <div className="code-line">      - develop</div>
-                  <div className="code-line">      - &apos;releases/**&apos;</div>
-                  <div className="code-line">  pull_request:</div>
-                  <div className="code-line">    types: [opened, synchronize, reopened]</div>
-                  <div className="code-line"></div>
-                  <div className="code-line">jobs:</div>
-                  <div className="code-line">  sonarqube:</div>
-                  <div className="code-line">    runs-on: ubuntu-latest</div>
-                  <div className="code-line">    permissions:</div>
-                  <div className="code-line">      contents: read</div>
-                  <div className="code-line">      pull-requests: write   # PRへのコメント投稿に必要</div>
-                  <div className="code-line">    steps:</div>
-                  <div className="code-line">      - name: Checkout</div>
-                  <div className="code-line">        uses: actions/checkout@v6</div>
-                  <div className="code-line">        with:</div>
-                  <div className="code-line">          # シャロークローンを無効化(blame情報の欠落を防ぐため必須)</div>
-                  <div className="code-line">          fetch-depth: 0</div>
-                  <div className="code-line"></div>
-                  <div className="code-line">      - name: SonarQube Scan</div>
-                  <div className="code-line">        uses: SonarSource/sonarqube-scan-action@v5</div>
-                  <div className="code-line">        env:</div>
-                  <div className="code-line">{'          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}'}</div>
-                  <div className="code-line">{'          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}'}</div>
-                  <div className="code-line"></div>
-                  <div className="code-line">      - name: SonarQube Quality Gate Check</div>
-                  <div className="code-line">        uses: SonarSource/sonarqube-quality-gate-action@master</div>
-                  <div className="code-line">        timeout-minutes: 5</div>
-                  <div className="code-line">        env:</div>
-                  <div className="code-line">{'          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}'}</div>
-                </code>
-              </pre>
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span className="code-title"><i className="ti ti-brand-github"></i>.github/workflows/sonarqube.yml</span>
+                  <span className="code-lang">YAML</span>
+                </div>
+                <pre>
+                  <code className="language-yaml">
+                    <div className="code-line"><span className="code-comment"># .github/workflows/sonarqube.yml</span></div>
+                    <div className="code-line"><span className="code-property">name</span><span className="code-punct">:</span> <span className="code-string">SonarQube Analysis</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-property">on</span><span className="code-punct">:</span></div>
+                    <div className="code-line">  <span className="code-property">push</span><span className="code-punct">:</span></div>
+                    <div className="code-line">    <span className="code-property">branches</span><span className="code-punct">:</span></div>
+                    <div className="code-line">      <span className="code-punct">-</span> <span className="code-string">main</span></div>
+                    <div className="code-line">      <span className="code-punct">-</span> <span className="code-string">develop</span></div>
+                    <div className="code-line">      <span className="code-punct">-</span> <span className="code-string">&apos;releases/**&apos;</span></div>
+                    <div className="code-line">  <span className="code-property">pull_request</span><span className="code-punct">:</span></div>
+                    <div className="code-line">    <span className="code-property">types</span><span className="code-punct">:</span> <span className="code-punct">[</span><span className="code-string">opened</span><span className="code-punct">,</span> <span className="code-string">synchronize</span><span className="code-punct">,</span> <span className="code-string">reopened</span><span className="code-punct">]</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line"><span className="code-property">jobs</span><span className="code-punct">:</span></div>
+                    <div className="code-line">  <span className="code-property">sonarqube</span><span className="code-punct">:</span></div>
+                    <div className="code-line">    <span className="code-property">runs-on</span><span className="code-punct">:</span> <span className="code-string">ubuntu-latest</span></div>
+                    <div className="code-line">    <span className="code-property">permissions</span><span className="code-punct">:</span></div>
+                    <div className="code-line">      <span className="code-property">contents</span><span className="code-punct">:</span> <span className="code-string">read</span></div>
+                    <div className="code-line">      <span className="code-property">pull-requests</span><span className="code-punct">:</span> <span className="code-string">write</span>   <span className="code-comment"># PRへのコメント投稿に必要</span></div>
+                    <div className="code-line">    <span className="code-property">steps</span><span className="code-punct">:</span></div>
+                    <div className="code-line">      <span className="code-punct">-</span> <span className="code-property">name</span><span className="code-punct">:</span> <span className="code-string">Checkout</span></div>
+                    <div className="code-line">        <span className="code-property">uses</span><span className="code-punct">:</span> <span className="code-string">actions/checkout@v6</span></div>
+                    <div className="code-line">        <span className="code-property">with</span><span className="code-punct">:</span></div>
+                    <div className="code-line">          <span className="code-comment"># シャロークローンを無効化(blame情報の欠落を防ぐため必須)</span></div>
+                    <div className="code-line">          <span className="code-property">fetch-depth</span><span className="code-punct">:</span> <span className="code-number">0</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">      <span className="code-punct">-</span> <span className="code-property">name</span><span className="code-punct">:</span> <span className="code-string">SonarQube Scan</span></div>
+                    <div className="code-line">        <span className="code-property">uses</span><span className="code-punct">:</span> <span className="code-string">SonarSource/sonarqube-scan-action@v5</span></div>
+                    <div className="code-line">        <span className="code-property">env</span><span className="code-punct">:</span></div>
+                    <div className="code-line">          <span className="code-property">SONAR_TOKEN</span><span className="code-punct">:</span> <span className="code-var">{'${{ secrets.SONAR_TOKEN }}'}</span></div>
+                    <div className="code-line">          <span className="code-property">SONAR_HOST_URL</span><span className="code-punct">:</span> <span className="code-var">{'${{ vars.SONAR_HOST_URL }}'}</span></div>
+                    <div className="code-line"></div>
+                    <div className="code-line">      <span className="code-punct">-</span> <span className="code-property">name</span><span className="code-punct">:</span> <span className="code-string">SonarQube Quality Gate Check</span></div>
+                    <div className="code-line">        <span className="code-property">uses</span><span className="code-punct">:</span> <span className="code-string">SonarSource/sonarqube-quality-gate-action@master</span></div>
+                    <div className="code-line">        <span className="code-property">timeout-minutes</span><span className="code-punct">:</span> <span className="code-number">5</span></div>
+                    <div className="code-line">        <span className="code-property">env</span><span className="code-punct">:</span></div>
+                    <div className="code-line">          <span className="code-property">SONAR_TOKEN</span><span className="code-punct">:</span> <span className="code-var">{'${{ secrets.SONAR_TOKEN }}'}</span></div>
+                  </code>
+                </pre>
+              </div>
 
               <h3>設計上の重要ポイント</h3>
               <ul>
@@ -1924,16 +1942,22 @@ export default function SonarQubeIntermediateGuidePage() {
                 <code>/mcp</code>
                 エンドポイントをネイティブにホストできるようになり、外部のDockerコンテナを別途運用する必要がなくなりました。管理者はトークンベースの<strong>グローバルkill-switch</strong>でAIエージェントからのアクセスを一括制御できるため、セキュリティポリシー・情報統制の観点でも導入しやすい設計になっています。
               </p>
-              <pre>
-                <code className="language-bash">
-                  <div className="code-line"># Claude CodeにSonarQube MCP Serverを追加する例</div>
-                  <div className="code-line">claude mcp add sonarqube \</div>
-                  <div className="code-line">  --env SONARQUBE_TOKEN=$SONAR_USER_TOKEN \</div>
-                  <div className="code-line">  --env SONARQUBE_URL=$SONAR_URL \</div>
-                  <div className="code-line">  -- docker run --init --pull=always -i --rm \</div>
-                  <div className="code-line">     -e SONARQUBE_TOKEN -e SONARQUBE_URL sonarsource/sonarqube-mcp</div>
-                </code>
-              </pre>
+              <div className="code-block">
+                <div className="code-block-header">
+                  <span className="code-title"><i className="ti ti-terminal-2"></i>Claude Code MCP Server Configuration</span>
+                  <span className="code-lang">BASH</span>
+                </div>
+                <pre>
+                  <code className="language-bash">
+                    <div className="code-line"><span className="code-comment"># Claude CodeにSonarQube MCP Serverを追加する例</span></div>
+                    <div className="code-line"><span className="code-keyword">claude</span> <span className="code-property">mcp</span> <span className="code-fn">add</span> sonarqube \</div>
+                    <div className="code-line">  <span className="code-flag">--env</span> SONARQUBE_TOKEN=<span className="code-var">$SONAR_USER_TOKEN</span> \</div>
+                    <div className="code-line">  <span className="code-flag">--env</span> SONARQUBE_URL=<span className="code-var">$SONAR_URL</span> \</div>
+                    <div className="code-line">  <span className="code-punct">--</span> <span className="code-keyword">docker</span> <span className="code-fn">run</span> <span className="code-flag">--init</span> <span className="code-flag">--pull=always</span> <span className="code-flag">-i</span> <span className="code-flag">--rm</span> \</div>
+                    <div className="code-line">     <span className="code-flag">-e</span> SONARQUBE_TOKEN <span className="code-flag">-e</span> SONARQUBE_URL <span className="code-string">sonarsource/sonarqube-mcp</span></div>
+                  </code>
+                </pre>
+              </div>
 
               <h3>16.3 Sonar Vortex(旧: Agentic Analysis + Context Augmentation)</h3>
               <p>

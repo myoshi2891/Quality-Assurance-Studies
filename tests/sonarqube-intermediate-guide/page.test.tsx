@@ -624,7 +624,37 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       const allPre = container.querySelectorAll('pre code');
       expect(allPre.length).toBe(4);
     });
+
+    it('renders rich syntax highlighting across all 4 code blocks', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      // Section 04: Docker bash code block
+      const sec04Block = container.querySelector('section#quickstart .code-block, section#quickstart pre');
+      expect(sec04Block).not.toBeNull();
+      expect(sec04Block?.querySelectorAll('.code-comment').length).toBeGreaterThan(0);
+      expect(sec04Block?.querySelectorAll('.code-keyword').length).toBeGreaterThan(0);
+
+      // Section 10: SQALE formula code block
+      const sec10Block = container.querySelector('section#technical-debt .code-block, section#technical-debt pre');
+      expect(sec10Block).not.toBeNull();
+      expect(sec10Block?.querySelectorAll('.code-operator, .code-fn, .code-property').length).toBeGreaterThan(0);
+      expect(sec10Block?.querySelectorAll('.code-comment').length).toBeGreaterThan(0);
+
+      // Section 14: GitHub Actions YAML code block
+      const sec14Block = container.querySelector('section#cicd .code-block, section#cicd pre');
+      expect(sec14Block).not.toBeNull();
+      expect(sec14Block?.querySelectorAll('.code-property').length).toBeGreaterThan(0);
+      expect(sec14Block?.querySelectorAll('.code-string').length).toBeGreaterThan(0);
+      expect(sec14Block?.querySelectorAll('.code-var').length).toBeGreaterThan(0);
+
+      // Section 16: Claude Code MCP bash code block
+      const sec16Block = container.querySelector('section#ai-agents .code-block, section#ai-agents pre');
+      expect(sec16Block).not.toBeNull();
+      expect(sec16Block?.querySelectorAll('.code-comment').length).toBeGreaterThan(0);
+      expect(sec16Block?.querySelectorAll('.code-keyword').length).toBeGreaterThan(0);
+    });
   });
 });
+
 
 

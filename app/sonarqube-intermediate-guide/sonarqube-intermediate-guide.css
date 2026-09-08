@@ -1,28 +1,28 @@
 @import url('https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css');
 
 .sonarqube-page {
-  --color-background-primary: #0d1117;
-  --color-background-secondary: #12181f;
-  --color-background-tertiary: #1c232c;
-  --color-background-info: #0d2438;
-  --color-background-danger: #3a1219;
-  --color-background-success: #0f2a1d;
-  --color-background-warning: #33270b;
+  --color-background-primary: #0b0f15;
+  --color-background-secondary: #111822;
+  --color-background-tertiary: #1a2330;
+  --color-background-info: #0d2847;
+  --color-background-danger: #3b141d;
+  --color-background-success: #0f3322;
+  --color-background-warning: #38290a;
 
-  --color-text-primary: #e6edf3;
-  --color-text-secondary: #9aa4b2;
-  --color-text-tertiary: #6b7684;
-  --color-text-info: #6fb3f2;
-  --color-text-danger: #f584a0;
-  --color-text-success: #7ee2a8;
-  --color-text-warning: #eec06a;
+  --color-text-primary: #ffffff;
+  --color-text-secondary: #cbd5e1;
+  --color-text-tertiary: #94a3b8;
+  --color-text-info: #38bdf8;
+  --color-text-danger: #f87171;
+  --color-text-success: #4ade80;
+  --color-text-warning: #fbbf24;
 
-  --color-border-primary: #2a323d;
-  --color-border-secondary: #1f262e;
-  --color-border-tertiary: #171d24;
+  --color-border-primary: #334155;
+  --color-border-secondary: #1e293b;
+  --color-border-tertiary: #151e2b;
 
-  --color-accent: #a78bfa;
-  --color-accent-2: #4fd1c5;
+  --color-accent: #c084fc;
+  --color-accent-2: #2dd4bf;
 
   --font-sans: -apple-system, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif;
   --font-mono: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
@@ -56,9 +56,10 @@
 .sonarqube-page .content {
   flex: 1 1 auto;
   min-width: 0;
+  width: 100%;
   max-width: none !important;
   margin: 0 !important;
-  padding: 48px 56px 100px;
+  padding: 40px 48px 100px;
 }
 
 /* ---------- レイアウト ---------- */
@@ -131,7 +132,7 @@
 
 .sonarqube-page .badge.accent {
   color: var(--color-accent-2);
-  border-color: rgba(79, 209, 197, 0.35);
+  border-color: rgba(45, 212, 191, 0.45);
 }
 
 .sonarqube-page nav.toc {
@@ -167,8 +168,9 @@
 }
 
 .sonarqube-page nav.toc a.active {
-  background: rgba(167, 139, 250, 0.12);
+  background: rgba(192, 132, 252, 0.16);
   color: var(--color-accent);
+  font-weight: 600;
 }
 
 .sonarqube-page nav.toc a.active i {
@@ -176,7 +178,8 @@
 }
 
 .sonarqube-page .content-inner {
-  max-width: 980px;
+  max-width: none !important;
+  width: 100%;
 }
 
 /* ---------- タイポグラフィ ---------- */
@@ -194,7 +197,7 @@
 
 .sonarqube-page header.hero h1 {
   font-size: 34px;
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.3;
   margin: 0 0 14px;
   color: var(--color-text-primary);
@@ -203,8 +206,9 @@
 .sonarqube-page header.hero .lead {
   font-size: 16px;
   color: var(--color-text-secondary);
-  max-width: 760px;
+  max-width: none;
   margin: 0 0 16px;
+  line-height: 1.8;
 }
 
 .sonarqube-page .callout {
@@ -213,8 +217,8 @@
   padding: 16px 18px;
   border-radius: var(--border-radius-lg);
   background: var(--color-background-info);
-  border: 1px solid rgba(111, 179, 242, 0.25);
-  font-size: 14px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  font-size: 14.5px;
   color: var(--color-text-secondary);
   margin-top: 24px;
   margin-bottom: 16px;
@@ -222,7 +226,7 @@
 
 .sonarqube-page .callout i {
   color: var(--color-text-info);
-  font-size: 18px;
+  font-size: 19px;
   flex-shrink: 0;
   margin-top: 2px;
 }
@@ -232,8 +236,8 @@
 }
 
 .sonarqube-page section.doc-section {
-  padding-top: 32px !important;
-  margin-top: 8px;
+  padding-top: 36px !important;
+  margin-top: 12px;
   border-top: 1px solid var(--color-border-secondary);
   scroll-margin-top: calc(84px + var(--disclaimer-height, 0px));
 }
@@ -247,9 +251,10 @@
   align-items: center;
   gap: 8px;
   font-size: 12px;
-  font-weight: 600;
-  color: var(--color-text-tertiary);
+  font-weight: 700;
+  color: var(--color-accent-2);
   margin-bottom: 8px;
+  letter-spacing: 0.05em;
 }
 
 .sonarqube-page .section-kicker i {
@@ -259,27 +264,30 @@
 
 .sonarqube-page h2 {
   font-size: 26px;
-  font-weight: 600;
-  margin: 0 0 16px;
+  font-weight: 700;
+  margin: 0 0 18px;
   color: var(--color-text-primary);
+  line-height: 1.35;
 }
 
 .sonarqube-page h3 {
   font-size: 19px;
   font-weight: 600;
-  margin: 32px 0 12px;
+  margin: 36px 0 14px;
   color: var(--color-text-primary);
+  line-height: 1.4;
 }
 
 .sonarqube-page p {
   margin: 0 0 16px;
   color: var(--color-text-secondary);
+  line-height: 1.75;
 }
 
 .sonarqube-page p strong,
 .sonarqube-page li strong {
   color: var(--color-text-primary) !important;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 /* ---------- リスト装飾の完全復元 ---------- */
@@ -300,50 +308,152 @@
 .sonarqube-page li {
   display: list-item !important;
   margin-bottom: 8px;
+  line-height: 1.7;
 }
 
 .sonarqube-page a {
   color: var(--color-text-info);
   text-decoration: none;
+  font-weight: 500;
 }
 
 .sonarqube-page a:hover {
   text-decoration: underline;
+  color: #7dd3fc;
 }
 
-/* ---------- コードブロック ---------- */
+/* ---------- インラインコード ---------- */
 .sonarqube-page code {
   font-family: var(--font-mono);
-  font-size: 13px;
+  font-size: 13.5px;
   background: var(--color-background-tertiary);
-  padding: 2px 6px;
+  padding: 2px 7px;
   border-radius: 5px;
   color: var(--color-text-warning);
+  border: 1px solid var(--color-border-primary);
+}
+
+/* ---------- コードブロックコンテナ & ハイライト ---------- */
+.sonarqube-page .code-block {
+  margin: 0 0 24px;
+  border-radius: var(--border-radius-lg);
+  border: 1px solid var(--color-border-primary);
+  background: #090d14;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+}
+
+.sonarqube-page .code-block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 18px;
+  background: var(--color-background-secondary);
+  border-bottom: 1px solid var(--color-border-primary);
+  font-size: 12.5px;
+}
+
+.sonarqube-page .code-block-header .code-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  color: var(--color-text-secondary);
+  font-weight: 600;
+}
+
+.sonarqube-page .code-block-header .code-title i {
+  color: var(--color-accent);
+  font-size: 15px;
+}
+
+.sonarqube-page .code-block-header .code-lang {
+  font-family: var(--font-mono);
+  font-size: 11.5px;
+  padding: 2px 8px;
+  border-radius: var(--border-radius-md);
+  background: var(--color-background-tertiary);
+  color: var(--color-accent-2);
+  border: 1px solid var(--color-border-primary);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.05em;
 }
 
 .sonarqube-page pre {
-  margin: 0 0 20px;
-  border-radius: var(--border-radius-lg);
-  border: 1px solid var(--color-border-primary);
+  margin: 0;
+  border: none;
+  border-radius: 0;
   overflow-x: auto;
-  background: var(--color-background-tertiary) !important;
+  background: transparent !important;
   padding: 18px 20px !important;
 }
 
 .sonarqube-page pre code {
-  background: none;
-  padding: 0;
-  color: inherit;
-  font-size: 13px;
+  background: none !important;
+  border: none !important;
+  padding: 0 !important;
+  color: var(--color-text-primary);
+  font-size: 13.5px;
+  font-family: var(--font-mono);
   white-space: pre;
+  display: block;
+  line-height: 1.65;
 }
 
 .sonarqube-page .code-line {
   white-space: pre;
-  line-height: 1.6;
+  line-height: 1.65;
+  display: block;
 }
 
-/* ---------- テーブル (globals.css 干渉の完全遮断) ---------- */
+/* シンタックスハイライト・トークン */
+.sonarqube-page .code-comment {
+  color: #94a3b8;
+  font-style: italic;
+}
+
+.sonarqube-page .code-keyword {
+  color: #f472b6;
+  font-weight: 600;
+}
+
+.sonarqube-page .code-string {
+  color: #4ade80;
+}
+
+.sonarqube-page .code-property {
+  color: #38bdf8;
+  font-weight: 500;
+}
+
+.sonarqube-page .code-var {
+  color: #fcd34d;
+}
+
+.sonarqube-page .code-number {
+  color: #fbbf24;
+}
+
+.sonarqube-page .code-operator {
+  color: #c084fc;
+  font-weight: 600;
+}
+
+.sonarqube-page .code-fn {
+  color: #818cf8;
+  font-weight: 500;
+}
+
+.sonarqube-page .code-flag {
+  color: #67e8f9;
+}
+
+.sonarqube-page .code-punct {
+  color: #94a3b8;
+}
+
+/* ---------- テーブル (globals.css 干渉の完全遮断 & コントラスト強化) ---------- */
 .sonarqube-page .table-wrap {
   overflow-x: auto;
   margin: 0 0 24px;
@@ -355,16 +465,16 @@
 .sonarqube-page table {
   border-collapse: collapse;
   width: 100%;
-  font-size: 13.5px;
+  font-size: 14px;
 }
 
 .sonarqube-page thead th,
 .sonarqube-page th {
   background: var(--color-background-tertiary) !important;
-  color: var(--color-text-primary) !important;
+  color: #ffffff !important;
   text-align: left !important;
-  font-weight: 600 !important;
-  padding: 11px 16px !important;
+  font-weight: 700 !important;
+  padding: 12px 18px !important;
   border: none !important;
   border-bottom: 1px solid var(--color-border-primary) !important;
   white-space: nowrap !important;
@@ -372,12 +482,13 @@
 
 .sonarqube-page tbody td,
 .sonarqube-page td {
-  padding: 11px 16px !important;
+  padding: 12px 18px !important;
   border: none !important;
   border-bottom: 1px solid var(--color-border-secondary) !important;
   color: var(--color-text-secondary) !important;
-  font-size: 13.5px !important;
+  font-size: 14px !important;
   vertical-align: top !important;
+  line-height: 1.65 !important;
 }
 
 .sonarqube-page tbody tr:last-child td {
