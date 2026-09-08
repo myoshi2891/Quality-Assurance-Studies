@@ -426,7 +426,7 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       const { container } = render(<PlaywrightIntermediateAdvancedPage />);
       const callout = container.querySelector('section#sec-19 .callout.warn');
       expect(callout).not.toBeNull();
-      expect(callout?.textContent).toContain('shm-size');
+      expect(callout?.textContent).toContain('Playwrightバージョンを完全に一致させる');
     });
 
     it('renders document footer', () => {

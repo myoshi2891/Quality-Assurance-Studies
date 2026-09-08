@@ -108,6 +108,28 @@ const DIAGRAM_9 = `flowchart TD
     Together -- Yes --> Contexts["browser.newContext()で複数のBrowserContextを生成し同時に操作"]
     Together -- No --> Done`;
 
+const DIAGRAM_11 = `flowchart TD
+    A["git push / PR"] --> B["リポジトリをclone"]
+    B --> C["Node.jsをセットアップ"]
+    C --> D["bun install --frozen-lockfile"]
+    D --> E["bunx playwright install --with-deps"]
+    E --> F["bunx playwright test"]
+    F --> G{"テスト結果"}
+    G -- 合格 --> H["HTMLレポートをArtifactへアップロード"]
+    G -- 失敗 --> H
+    H --> I["GitHub Actions ActionsタブでArtifact確認"]
+    I --> J["bunx playwright show-report でローカル閲覧"]
+    J --> K["Trace Viewerで失敗箇所を特定"]`;
+
+const DIAGRAM_12 = `graph LR
+    subgraph DC["Docker Container"]
+        Server["Playwright Server (ws://0.0.0.0:3000)"]
+    end
+    subgraph HM["ホスト / 別マシン"]
+        Test["bunx playwright test (PW_TEST_CONNECT_WS_ENDPOINT経由)"]
+    end
+    Test -->|WebSocket接続| Server`;
+
 const DIAGRAM_10 = `flowchart LR
     subgraph PRE["前提条件の準備(APIで高速化)"]
         A["APIでテストデータを作成"]
@@ -2315,6 +2337,850 @@ const context = await browser.newContext({ storageState: 'state.json' });`}</cod
 
                 {/* ============ SECTION 18 ============ */}
                 
+
+<div className="divider"></div>
+
+{/* ============ CATEGORY 4 ============ */}
+<section className="doc-section" id="sec-18">
+                    <h2 className="sec-title"><span className="idx">18</span>CI/CD統合(GitHub Actions)</h2>
+
+                    <h3 className="sub-title">18.1 基本ワークフロー</h3>
+                    <p>
+                        <code>bun create playwright</code>実行時にGitHub
+                        Actionsワークフローの追加を選択すると、以下の
+                        <code>.github/workflows/playwright.yml</code>が自動生成されます。
+                    </p>
+
+                    <div className="code-block">
+                        <div className="code-label">.github/workflows/playwright.yml</div>
+                        <pre><code className="language-yaml">{`name: Playwright Tests
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+jobs:
+  test:
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v5
+    - uses: oven-sh/setup-bun@v2
+      with:
+        bun-version: latest
+    - name: Install dependencies
+      run: bun install --frozen-lockfile
+    - name: Install Playwright Browsers
+      run: bunx playwright install --with-deps
+    - name: Run Playwright tests
+      run: bunx playwright test
+    - uses: actions/upload-artifact@v4
+      if: \${{ !cancelled() }}
+      with:
+        name: playwright-report
+        path: playwright-report/
+        retention-days: 30`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">18.2 CI/CDパイプライン全体像</h3>
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_11} />
+</div>
+                    
+
+                    <h3 className="sub-title">18.3 レポートの閲覧</h3>
+                    <p>
+                        Artifactとしてダウンロードした<code>playwright-report</code>はローカルでの直接表示(ファイルを開くだけ)では
+                        正しく動作しないため、Webサーバー越しに閲覧する必要があります。
+                    </p>
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`bunx playwright show-report name-of-extracted-report-folder`}</code></pre>
+                    </div>
+                    
+
+                    <h3 className="sub-title">18.4 CI最適化のポイント</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>施策</th>
+                                    <th>効果</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Linux(Ubuntu)ランナーを使用</td>
+                                    <td>クラウドCIのコストが最も低い</td>
+                                </tr>
+                                <tr>
+                                    <td>必要なブラウザのみインストール</td>
+                                    <td>
+                                        <code>bunx playwright install chromium --with-deps</code
+                                        >のように絞り込みダウンロード時間を短縮
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sharding併用</td>
+                                    <td>複数ジョブに分散し実行時間を短縮(第10章参照)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>retries</code>をCIのみ有効化</td>
+                                    <td>ローカルでは0、CIでは2程度に設定するのが定石</td>
+                                </tr>
+                                <tr>
+                                    <td>Secretsの取り扱い</td>
+                                    <td>
+                                        トレース・レポート・コンソールログには機密情報が含まれ得るため、信頼できるArtifactストアにのみアップロードするか暗号化する
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 className="sub-title">18.5 レポートのWeb公開(Azure Storageの例)</h3>
+                    <p>
+                        Artifactのzipダウンロードは不便なため、Azure
+                        Storageの静的Webサイトホスティングを使い、CIのジョブ内で
+                        HTMLレポートを直接公開URLとしてアップロードする方法も紹介されています。Service
+                        Principalの発行・Storage Blob Data Contributorロールの付与・GitHub Actions
+                        Secretsへの認証情報登録が前提条件です。
+                    </p>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/ci-intro"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/ci-intro</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/ci"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/ci</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-sharding"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-sharding</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 19 ============ */}
+                <section className="doc-section" id="sec-19">
+                    <h2 className="sec-title"><span className="idx">19</span>Docker活用</h2>
+
+                    <p>
+                        公式は<code>mcr.microsoft.com/playwright</code>イメージを提供しており、ブラウザ本体とOS依存ライブラリを
+                        含みますが、Playwrightパッケージ自体は含まれないため別途インストールが必要です。
+                    </p>
+
+                    <h3 className="sub-title">19.1 基本的な使い方</h3>
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`docker pull mcr.microsoft.com/playwright:v1.61.0-noble
+docker run -it --rm --ipc=host mcr.microsoft.com/playwright:v1.61.0-noble /bin/bash`}</code></pre>
+                    </div>
+                    
+
+                    <p>
+                        信頼できるコード(自社のE2Eテストなど)を実行する場合はrootユーザーで問題ありませんが、Chromiumの
+                        サンドボックスがrootでは無効化される点に留意してください。信頼できないWebサイトをクロールする用途では、
+                        専用ユーザー+seccompプロファイルの利用が推奨されます。
+                    </p>
+
+                    <h3 className="sub-title">19.2 推奨Docker設定</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>設定</th>
+                                    <th>理由</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>--init</code>フラグ</td>
+                                    <td>PID=1プロセスのゾンビプロセス化を防止</td>
+                                </tr>
+                                <tr>
+                                    <td><code>--ipc=host</code></td>
+                                    <td>
+                                        Chromium利用時、これがないとメモリ不足でクラッシュしやすい
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><code>--cap-add=SYS_ADMIN</code>(開発時のみ)</td>
+                                    <td>Chromium起動時の謎のエラーを回避</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 className="sub-title">19.3 リモートPlaywrightサーバー</h3>
+                    <p>
+                        Dockerコンテナ内でPlaywright
+                        Serverを起動し、ホスト側やCIの別マシンからテストを実行することも可能です。
+                        サポート外のLinuxディストリビューションでの実行や、リモート実行シナリオに有用です。
+                    </p>
+
+                    <div className="mermaid-container">
+  <Mermaid chart={DIAGRAM_12} />
+</div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`docker run -p 3000:3000 --rm --init -it --workdir ` + '/ho' + `me/pwuser --user pwuser \\
+  mcr.microsoft.com/playwright:v1.61.0-noble \\
+  /bin/sh -c "npx -y playwright@1.61.0 run-server --port 3000 --host 0.0.0.0"`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">bash</div>
+                        <pre><code className="language-bash">{`PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ bunx playwright test`}</code></pre>
+                    </div>
+                    
+
+                    <div className="callout warn">
+                        <div className="icon">⚠</div>
+                        <p>
+                            <strong>重要</strong>:
+                            リモート実行時は、テスト側とサーバー側のPlaywrightバージョンを完全に一致させる
+                            必要があります。
+                        </p>
+                    </div>
+
+                    <h3 className="sub-title">19.4 自前イメージのビルド</h3>
+                    <div className="code-block">
+                        <div className="code-label">Dockerfile</div>
+                        <pre><code className="language-dockerfile">{`FROM node:20-bookworm
+RUN bunx playwright@1.61.0 install --with-deps`}</code></pre>
+                    </div>
+                    
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/docker"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/docker</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/ci"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/ci</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 20 ============ */}
+                <section className="doc-section" id="sec-20">
+                    <h2 className="sec-title"><span className="idx">20</span>ベストプラクティス総まとめ</h2>
+
+                    <p>
+                        公式ドキュメントの「Best
+                        Practices」ガイドが提示する原則を、実務での適用ポイントとともに整理します。
+                    </p>
+
+                    <h3 className="sub-title">20.1 テスト哲学</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>原則</th>
+                                    <th>内容</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>ユーザーに見える振る舞いを検証する</td>
+                                    <td>
+                                        関数名や内部実装(配列かどうか、CSSクラス名)ではなく、エンドユーザーが見て操作できるものだけをテスト対象にする
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>テストを可能な限り独立させる</td>
+                                    <td>
+                                        各テストは自分専用のlocalStorage・sessionStorage・Cookie・データで動くべき。beforeEachで共通処理を括り出しつつ、シンプルなテストでは多少の重複を許容する方が読みやすい場合もある
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>サードパーティ依存をテストしない</td>
+                                    <td>
+                                        外部リンク・外部サーバーはネットワークAPIでモックし、自分が制御できる範囲だけを検証する
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>DBを使う場合は状態を制御する</td>
+                                    <td>
+                                        ステージング環境を固定化し、視覚的回帰テストではOS・ブラウザバージョンを揃える
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 className="sub-title">20.2 実装レベルのベストプラクティス</h3>
+                    <div className="code-block">
+                        <div className="code-label">good-vs-bad-locators.ts</div>
+                        <pre><code className="language-typescript">{`// 👍 推奨: ユーザー視点のLocator
+page.getByRole('button', { name: 'submit' });
+
+// 👎 非推奨: DOM構造に依存した壊れやすいセレクタ
+page.locator('button.buttonIcon.episode-actions-later');`}</code></pre>
+                    </div>
+                    
+
+                    <div className="code-block">
+                        <div className="code-label">good-vs-bad-assertions.ts</div>
+                        <pre><code className="language-typescript">{`// 👍 推奨: Web-Firstアサーション(自動リトライ)
+await expect(page.getByText('welcome')).toBeVisible();
+
+// 👎 非推奨: 即時判定(リトライなし)
+expect(await page.getByText('welcome').isVisible()).toBe(true);`}</code></pre>
+                    </div>
+                    
+
+                    <ul>
+                        <li>
+                            <strong>Locatorを使う</strong>:
+                            自動待機とリトライ可能性の恩恵を最大限活用する
+                        </li>
+                        <li>
+                            <strong>チェーンとフィルタを活用する</strong>:
+                            特定範囲に検索スコープを絞ることで壊れにくいLocatorを構築する
+                        </li>
+                        <li>
+                            <strong>codegenで生成する</strong>:
+                            <code>bunx playwright codegen &lt;URL&gt;</code
+                            >はロール・テキスト・test-idを優先した堅牢なLocatorを自動生成する
+                        </li>
+                        <li>
+                            <strong>デバッグ環境を整備する</strong>: ローカルはVS
+                            Code拡張機能でのライブデバッグ、CIはTrace Viewerを使い分ける
+                        </li>
+                        <li>
+                            <strong>全ブラウザでテストする</strong>:
+                            <code>projects</code
+                            >設定でChromium/Firefox/WebKitを横断し、対象ユーザー全体をカバーする
+                        </li>
+                        <li>
+                            <strong>依存を最新に保つ</strong>:
+                            <code>bun add -d @playwright/test@latest</code
+                            >で最新ブラウザに追従し、リリース前に不具合を検知する
+                        </li>
+                        <li>
+                            <strong>CIで頻繁に実行する</strong>:
+                            可能であれば全コミット・全PRで実行し、Linux + Shardingで高速化する
+                        </li>
+                        <li>
+                            <strong>リンティングを導入する</strong>:
+                            <code>@typescript-eslint/no-floating-promises</code
+                            >で<code>await</code>忘れを機械的に検出する
+                        </li>
+                        <li>
+                            <strong>並列化とシャーディングを併用する</strong>:
+                            単一ファイル内の独立したテストは<code>fullyParallel</code>で、マシン単位のスケールは<code>--shard</code>で対応する
+                        </li>
+                    </ul>
+
+                    <h3 className="sub-title">20.3 生産性を高めるテクニック</h3>
+                    <ul>
+                        <li>
+                            <strong>Soft Assertions</strong>:
+                            1テスト内の複数の検証観点を独立してレポートし、1つ目の失敗で処理を止めない
+                        </li>
+                        <li>
+                            <strong>UI Modeでのウォッチモード</strong>:
+                            コード変更のたびに自動でテストを再実行し、開発ループを短縮する
+                        </li>
+                        <li>
+                            <strong>codegenで迷わずLocatorを取得する</strong>:
+                            手動でセレクタを推測せず、生成→調整のフローに乗る
+                        </li>
+                    </ul>
+
+                    <h3 className="sub-title">20.4 章横断チェックリスト</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>チェック項目</th>
+                                    <th>対応章</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Locatorの優先順位(role &gt; label &gt; text &gt; testid &gt;
+                                        CSS/XPath)を守っているか
+                                    </td>
+                                    <td>第4章</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        手動isVisible()ではなくWeb-Firstアサーションを使っているか
+                                    </td>
+                                    <td>第6章</td>
+                                </tr>
+                                <tr>
+                                    <td>セットアップ/ティアダウンをFixtureに集約できているか</td>
+                                    <td>第7章</td>
+                                </tr>
+                                <tr>
+                                    <td>Locatorの集約先としてPOMを活用しているか</td>
+                                    <td>第8章</td>
+                                </tr>
+                                <tr>
+                                    <td>CIでのみretriesを有効化しているか</td>
+                                    <td>第11章</td>
+                                </tr>
+                                <tr>
+                                    <td><code>trace: 'on-first-retry'</code>を設定しているか</td>
+                                    <td>第12章</td>
+                                </tr>
+                                <tr>
+                                    <td>外部依存はネットワークモックで切り離しているか</td>
+                                    <td>第13章</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        認証はUIログインを毎回繰り返さずstorageStateで再利用しているか
+                                    </td>
+                                    <td>第14章</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        大規模スイートはSharding+blobレポートのマージで運用しているか
+                                    </td>
+                                    <td>第10章・第18章</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className="refs">
+                        <div className="refs-label">参照URL</div>
+                        <ul>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/best-practices"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/best-practices</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/locators"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/locators</a
+                                >
+                            </li>
+                            <li>
+                                <a
+                                    href="https://playwright.dev/docs/test-assertions"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://playwright.dev/docs/test-assertions</a
+                                >
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <div className="divider"></div>
+
+                {/* ============ SECTION 21 ============ */}
+                <section className="doc-section" id="sec-21">
+                    <h2 className="sec-title"><span className="idx">21</span>参考文献一覧</h2>
+
+                    <p>本ガイド作成にあたり参照した情報源の一覧です(2026年7月時点)。</p>
+
+                    <h3 className="sub-title">Playwright公式ドキュメント</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ページ</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Installation(Getting Started)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/intro"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/intro</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Locators</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/locators"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/locators</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Other locators</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/other-locators"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/other-locators</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Auto-waiting</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/actionability"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/actionability</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Assertions</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-assertions"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-assertions</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Fixtures</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-fixtures"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-fixtures</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Page object models</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/pom"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/pom</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Parallelism</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-parallel"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-parallel</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Sharding</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-sharding"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-sharding</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Retries</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-retries"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-retries</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Trace viewer(イントロ)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/trace-viewer-intro"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/trace-viewer-intro</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Trace viewer(詳細)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/trace-viewer"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/trace-viewer</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Mock APIs</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/mock"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/mock</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Network</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/network"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/network</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Authentication</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/auth"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/auth</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Visual comparisons</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-snapshots"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-snapshots</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>API testing</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/api-testing"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/api-testing</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>UI Mode</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-ui-mode"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-ui-mode</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Getting started (VS Code)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/getting-started-vscode"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/getting-started-vscode</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Setting up CI</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/ci-intro"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/ci-intro</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Continuous Integration</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/ci"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/ci</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Docker</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/docker"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/docker</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Best Practices</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/best-practices"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/best-practices</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Isolation(Browser contexts)</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/browser-contexts"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/browser-contexts</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Test configuration</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-configuration"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-configuration</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Reporters</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/test-reporters"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/test-reporters</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Pages</td>
+                                    <td>
+                                        <a
+                                            href="https://playwright.dev/docs/pages"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >playwright.dev/docs/pages</a
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3 className="sub-title">その他の信頼できる情報源</h3>
+                    <div className="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ページ</th>
+                                    <th>URL</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Microsoft Learn: Introduction to Playwright for end-to-end
+                                        testing
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="https://learn.microsoft.com/en-us/shows/getting-started-with-end-to-end-testing-with-playwright/introduction-to-playwright-for-end-to-end-testing"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >learn.microsoft.com</a
+                                        >
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Playwright公式GitHubリポジトリ</td>
+                                    <td>
+                                        <a
+                                            href="https://github.com/microsoft/playwright"
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            >github.com/microsoft/playwright</a
+                                        >
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <footer className="doc-footer">
+                    本ガイドはPlaywright公式ドキュメント(2026年7月時点の内容)を基に、中級〜上級者向けに再構成・要約したものです。
+                    実装の詳細な最新仕様は必ず公式ドキュメントを一次情報として参照してください。
+                </footer>
+            
 </main>
       </div>
     </div>
