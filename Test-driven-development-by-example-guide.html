@@ -267,10 +267,14 @@
                 }
                 .sidebar {
                     transform: translateX(-100%);
+                    visibility: hidden;
+                    transition: transform 0.25s ease, visibility 0s linear 0.25s;
                     padding-top: 5.4rem;
                 }
                 .sidebar.open {
                     transform: translateX(0);
+                    visibility: visible;
+                    transition: transform 0.25s ease, visibility 0s linear 0s;
                 }
                 .sidebar-backdrop.open {
                     display: block;
@@ -620,7 +624,7 @@
     <body>
         <div class="sidebar-backdrop" id="backdrop"></div>
         <div class="mobile-bar" id="mobileBar">
-            <button id="mobileToggle" aria-label="メニューを開閉する">
+            <button id="mobileToggle" aria-label="メニューを開閉する" aria-controls="sidebar" aria-expanded="false">
                 <i class="ti ti-menu-2" id="mobileIcon"></i>
             </button>
             <span class="mobile-title">TDD: By Example ガイド</span>
@@ -1772,11 +1776,13 @@ def 税込み価格(小計):
                 sidebar.classList.add('open');
                 backdrop.classList.add('open');
                 mobileIcon.className = 'ti ti-x';
+                mobileToggle.setAttribute('aria-expanded', 'true');
             }
             function closeSidebar() {
                 sidebar.classList.remove('open');
                 backdrop.classList.remove('open');
                 mobileIcon.className = 'ti ti-menu-2';
+                mobileToggle.setAttribute('aria-expanded', 'false');
             }
             mobileToggle.addEventListener('click', () => {
                 sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
