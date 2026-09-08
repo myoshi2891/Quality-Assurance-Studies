@@ -448,6 +448,59 @@
   display: block;
 }
 
+.playwright-intermediate-advanced-page .code-line {
+  display: block;
+  min-height: 1.65em;
+  white-space: pre;
+}
+
+/* minimal custom highlight.js token palette matching design system */
+.playwright-intermediate-advanced-page .hljs-keyword,
+.playwright-intermediate-advanced-page .hljs-built_in,
+.playwright-intermediate-advanced-page .hljs-type {
+  color: #7dd3fc;
+}
+
+.playwright-intermediate-advanced-page .hljs-string {
+  color: var(--accent-strong);
+}
+
+.playwright-intermediate-advanced-page .hljs-number,
+.playwright-intermediate-advanced-page .hljs-literal {
+  color: var(--warn);
+}
+
+.playwright-intermediate-advanced-page .hljs-comment {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+.playwright-intermediate-advanced-page .hljs-function,
+.playwright-intermediate-advanced-page .hljs-title {
+  color: #c4b5fd;
+}
+
+.playwright-intermediate-advanced-page .hljs-attr,
+.playwright-intermediate-advanced-page .hljs-property,
+.playwright-intermediate-advanced-page .hljs-attribute {
+  color: #93c5fd;
+}
+
+.playwright-intermediate-advanced-page .hljs-tag,
+.playwright-intermediate-advanced-page .hljs-name {
+  color: #7dd3fc;
+}
+
+.playwright-intermediate-advanced-page .hljs-punctuation,
+.playwright-intermediate-advanced-page .hljs-operator {
+  color: var(--text-secondary);
+}
+
+.playwright-intermediate-advanced-page .hljs-variable,
+.playwright-intermediate-advanced-page .hljs-params {
+  color: var(--text-primary);
+}
+
 /* ===== Mermaid ===== */
 .playwright-intermediate-advanced-page .mermaid-container {
   width: 100%;

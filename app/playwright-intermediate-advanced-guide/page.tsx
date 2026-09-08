@@ -320,7 +320,9 @@ export default function PlaywrightIntermediateAdvancedPage() {
                     <h3 className="sub-title">2.1 インストール</h3>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bun create playwright`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bun</span> create <span className="hljs-keyword">playwright</span></div>
+                        </code></pre>
                     </div>
                     
 
@@ -341,11 +343,13 @@ export default function PlaywrightIntermediateAdvancedPage() {
                     <p>セットアップ後に生成される構成は以下の通りです。</p>
                     <div className="code-block">
                         <div className="code-label">directory structure</div>
-                        <pre><code className="language-text">{`playwright.config.ts     # テスト設定(対象ブラウザ・タイムアウト・リトライ・レポーター等を集約)
-package.json
-package-lock.json
-tests/
-  example.spec.ts        # 最小構成のサンプルテスト`}</code></pre>
+                        <pre><code className="language-text">
+                        <div className="code-line">playwright.config.ts     <span className="hljs-comment"># テスト設定(対象ブラウザ・タイムアウト・リトライ・レポーター等を集約)</span></div>
+                        <div className="code-line">package.json</div>
+                        <div className="code-line">package-lock.json</div>
+                        <div className="code-line">tests/</div>
+                        <div className="code-line">  example.spec.ts        <span className="hljs-comment"># 最小構成のサンプルテスト</span></div>
+                        </code></pre>
                     </div>
                     
 
@@ -384,27 +388,31 @@ tests/
                     <h3 className="sub-title">2.3 テストの実行とレポート確認</h3>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`# 全テスト実行(Chromium/Firefox/WebKitで並列)
-bunx playwright test
-
-# 特定ブラウザのみ
-bunx playwright test --project=chromium
-
-# 特定ファイルのみ
-bunx playwright test tests/example.spec.ts
-
-# ヘッド付きモード(ブラウザウィンドウを表示)
-bunx playwright test --headed
-
-# UI Mode(推奨: 開発時のデバッグ体験)
-bunx playwright test --ui`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-comment"># 全テスト実行(Chromium/Firefox/WebKitで並列)</span></div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment"># 特定ブラウザのみ</span></div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--project</span>=chromium</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment"># 特定ファイルのみ</span></div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test tests/example.spec.ts</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment"># ヘッド付きモード(ブラウザウィンドウを表示)</span></div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--headed</span></div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment"># UI Mode(推奨: 開発時のデバッグ体験)</span></div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--ui</span></div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`# HTMLレポートを表示
-bunx playwright show-report`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-comment"># HTMLレポートを表示</span></div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> show-report</div>
+                        </code></pre>
                     </div>
                     
 
@@ -416,9 +424,11 @@ bunx playwright show-report`}</code></pre>
                     <h3 className="sub-title">2.4 バージョン更新</h3>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bun add -d @playwright/test@latest
-bunx playwright install --with-deps
-bunx playwright --version`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bun</span> add <span className="hljs-attr">-d</span> @<span className="hljs-keyword">playwright</span>/test@latest</div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> install <span className="hljs-attr">--with-deps</span></div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> <span className="hljs-attr">--version</span></div>
+                        </code></pre>
                     </div>
                     
 
@@ -510,12 +520,14 @@ bunx playwright --version`}</code></pre>
 
                     <div className="code-block">
                         <div className="code-label">basic.spec.ts</div>
-                        <pre><code className="language-typescript">{`import { test, expect } from '@playwright/test';
-
-test('basic test', async ({ page }) => {
-  await page.goto('https://playwright.dev/');
-  await expect(page).toHaveTitle(/Playwright/);
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span>, <span className="hljs-built_in">expect</span> &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'basic test'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'https://playwright.dev/'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page).<span className="hljs-title function_">toHaveTitle</span>(/Playwright/);</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -642,9 +654,11 @@ test('basic test', async ({ page }) => {
 
                     <div className="code-block">
                         <div className="code-label">locators-basic.spec.ts</div>
-                        <pre><code className="language-typescript">{`await page.getByRole('button', { name: 'Sign in' }).click();
-await page.getByLabel('Password').fill('secret-password');
-await expect(page.getByText('Welcome, John!')).toBeVisible();`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'button'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Sign in'</span> &#125;).<span className="hljs-title function_">click</span>();</div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByLabel</span>(<span className="hljs-string">'Password'</span>).<span className="hljs-title function_">fill</span>(<span className="hljs-string">'secret-password'</span>);</div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'Welcome, John!'</span>)).<span className="hljs-title function_">toBeVisible</span>();</div>
+                        </code></pre>
                     </div>
                     
 
@@ -654,13 +668,15 @@ await expect(page.getByText('Welcome, John!')).toBeVisible();`}</code></pre>
                     </p>
                     <div className="code-block">
                         <div className="code-label">playwright.config.ts</div>
-                        <pre><code className="language-typescript">{`import { defineConfig } from '@playwright/test';
-
-export default defineConfig({
-  use: {
-    testIdAttribute: 'data-pw',
-  },
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; defineConfig &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">default</span> <span className="hljs-title function_">defineConfig</span>(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">use</span>: &#123;</div>
+                        <div className="code-line">    <span className="hljs-attr">testIdAttribute</span>: <span className="hljs-string">'data-pw'</span>,</div>
+                        <div className="code-line">  &#125;,</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -672,19 +688,21 @@ export default defineConfig({
                     </p>
                     <div className="code-block">
                         <div className="code-label">filter-example.spec.ts</div>
-                        <pre><code className="language-typescript">{`// テキストで絞り込み
-await page
-  .getByRole('listitem')
-  .filter({ hasText: 'Product 2' })
-  .getByRole('button', { name: 'Add to cart' })
-  .click();
-
-// 子孫ロケーターの有無で絞り込み(見出しに"Product 2"を含むリスト項目)
-await page
-  .getByRole('listitem')
-  .filter({ has: page.getByRole('heading', { name: 'Product 2' }) })
-  .getByRole('button', { name: 'Add to cart' })
-  .click();`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-comment">// テキストで絞り込み</span></div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> page</div>
+                        <div className="code-line">  .<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'listitem'</span>)</div>
+                        <div className="code-line">  .<span className="hljs-title function_">filter</span>(&#123; <span className="hljs-attr">hasText</span>: <span className="hljs-string">'Product 2'</span> &#125;)</div>
+                        <div className="code-line">  .<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'button'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Add to cart'</span> &#125;)</div>
+                        <div className="code-line">  .<span className="hljs-title function_">click</span>();</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment">// 子孫ロケーターの有無で絞り込み(見出しに&quot;Product 2&quot;を含むリスト項目)</span></div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> page</div>
+                        <div className="code-line">  .<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'listitem'</span>)</div>
+                        <div className="code-line">  .<span className="hljs-title function_">filter</span>(&#123; <span className="hljs-attr">has</span>: page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'heading'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Product 2'</span> &#125;) &#125;)</div>
+                        <div className="code-line">  .<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'button'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Add to cart'</span> &#125;)</div>
+                        <div className="code-line">  .<span className="hljs-title function_">click</span>();</div>
+                        </code></pre>
                     </div>
                     
 
@@ -694,13 +712,15 @@ await page
                     </p>
                     <div className="code-block">
                         <div className="code-label">and-or-example.spec.ts</div>
-                        <pre><code className="language-typescript">{`// role と title の両方に一致
-const button = page.getByRole('button').and(page.getByTitle('Subscribe'));
-
-// どちらかが表示されたら処理を分岐(2要素同時出現時はstrictエラーになるためfirst()で回避)
-const newEmail = page.getByRole('button', { name: 'New' });
-const dialog = page.getByText('Confirm security settings');
-await expect(newEmail.or(dialog).first()).toBeVisible();`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-comment">// role と title の両方に一致</span></div>
+                        <div className="code-line"><span className="hljs-keyword">const</span> button = page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'button'</span>).<span className="hljs-title function_">and</span>(page.<span className="hljs-title function_">getByTitle</span>(<span className="hljs-string">'Subscribe'</span>));</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment">// どちらかが表示されたら処理を分岐(2要素同時出現時はstrictエラーになるためfirst()で回避)</span></div>
+                        <div className="code-line"><span className="hljs-keyword">const</span> newEmail = page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'button'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'New'</span> &#125;);</div>
+                        <div className="code-line"><span className="hljs-keyword">const</span> dialog = page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'Confirm security settings'</span>);</div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(newEmail.<span className="hljs-title function_">or</span>(dialog).<span className="hljs-title function_">first</span>()).<span className="hljs-title function_">toBeVisible</span>();</div>
+                        </code></pre>
                     </div>
                     
 
@@ -838,11 +858,13 @@ await expect(newEmail.or(dialog).first()).toBeVisible();`}</code></pre>
 
                     <div className="code-block">
                         <div className="code-label">assertions.spec.ts</div>
-                        <pre><code className="language-typescript">{`// 👍 推奨: 表示されるまで自動的に待機・リトライする
-await expect(page.getByText('Welcome')).toBeVisible();
-
-// 👎 非推奨: 即座に判定し、リトライしない(Flakyの温床)
-expect(await page.getByText('Welcome').isVisible()).toBe(true);`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-comment">// 👍 推奨: 表示されるまで自動的に待機・リトライする</span></div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'Welcome'</span>)).<span className="hljs-title function_">toBeVisible</span>();</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment">// 👎 非推奨: 即座に判定し、リトライしない(Flakyの温床)</span></div>
+                        <div className="code-line"><span className="hljs-built_in">expect</span>(<span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'Welcome'</span>).<span className="hljs-title function_">isVisible</span>()).<span className="hljs-title function_">toBe</span>(<span className="hljs-built_in">true</span>);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -890,9 +912,11 @@ expect(await page.getByText('Welcome').isVisible()).toBe(true);`}</code></pre>
 
                     <div className="code-block">
                         <div className="code-label">soft-assertion.spec.ts</div>
-                        <pre><code className="language-typescript">{`await expect.soft(page.getByTestId('status')).toHaveText('Success');
-// 上のアサーションが失敗してもテストは継続する
-await page.getByRole('link', { name: 'next page' }).click();`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>.<span className="hljs-title function_">soft</span>(page.<span className="hljs-title function_">getByTestId</span>(<span className="hljs-string">'status'</span>)).<span className="hljs-title function_">toHaveText</span>(<span className="hljs-string">'Success'</span>);</div>
+                        <div className="code-line"><span className="hljs-comment">// 上のアサーションが失敗してもテストは継続する</span></div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'link'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'next page'</span> &#125;).<span className="hljs-title function_">click</span>();</div>
+                        </code></pre>
                     </div>
                     
 
@@ -941,26 +965,28 @@ await page.getByRole('link', { name: 'next page' }).click();`}</code></pre>
                     </p>
                     <div className="code-block">
                         <div className="code-label">without-fixtures.spec.ts</div>
-                        <pre><code className="language-typescript">{`import { test } from '@playwright/test';
-import { TodoPage } from './todo-page';
-
-test.describe('todo tests', () => {
-  let todoPage: TodoPage;
-
-  test.beforeEach(async ({ page }) => {
-    todoPage = new TodoPage(page);
-    await todoPage.goto();
-    await todoPage.addItem('item1');
-  });
-
-  test.afterEach(async () => {
-    await todoPage.removeAll();
-  });
-
-  test('adds an item', async () => {
-    await todoPage.addItem('my item');
-  });
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span> &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; TodoPage &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'./todo-page'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>.<span className="hljs-title function_">describe</span>(<span className="hljs-string">'todo tests'</span>, () =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">let</span> <span className="hljs-attr">todoPage</span>: TodoPage;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-built_in">test</span>.<span className="hljs-title function_">beforeEach</span>(<span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                        <div className="code-line">    todoPage = <span className="hljs-keyword">new</span> <span className="hljs-title function_">TodoPage</span>(page);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> todoPage.<span className="hljs-title function_">goto</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> todoPage.<span className="hljs-title function_">addItem</span>(<span className="hljs-string">'item1'</span>);</div>
+                        <div className="code-line">  &#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-built_in">test</span>.<span className="hljs-title function_">afterEach</span>(<span className="hljs-keyword">async</span> () =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> todoPage.<span className="hljs-title function_">removeAll</span>();</div>
+                        <div className="code-line">  &#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-built_in">test</span>(<span className="hljs-string">'adds an item'</span>, <span className="hljs-keyword">async</span> () =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> todoPage.<span className="hljs-title function_">addItem</span>(<span className="hljs-string">'my item'</span>);</div>
+                        <div className="code-line">  &#125;);</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -970,22 +996,24 @@ test.describe('todo tests', () => {
                     </p>
                     <div className="code-block">
                         <div className="code-label">with-fixtures.spec.ts</div>
-                        <pre><code className="language-typescript">{`import { test as base } from '@playwright/test';
-import { TodoPage } from './todo-page';
-
-const test = base.extend<{ todoPage: TodoPage }>({
-  todoPage: async ({ page }, use) => {
-    const todoPage = new TodoPage(page);
-    await todoPage.goto();
-    await todoPage.addItem('item1');
-    await use(todoPage);          // ← ここでテスト本体が実行される
-    await todoPage.removeAll();   // ← テスト終了後にティアダウン
-  },
-});
-
-test('adds an item', async ({ todoPage }) => {
-  await todoPage.addItem('my item');
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span> <span className="hljs-keyword">as</span> base &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; TodoPage &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'./todo-page'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">const</span> <span className="hljs-built_in">test</span> = base.<span className="hljs-property">extend</span>&lt;&#123; <span className="hljs-attr">todoPage</span>: TodoPage &#125;&gt;(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">todoPage</span>: <span className="hljs-keyword">async</span> (&#123; page &#125;, use) =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> todoPage = <span className="hljs-keyword">new</span> <span className="hljs-title function_">TodoPage</span>(page);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> todoPage.<span className="hljs-title function_">goto</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> todoPage.<span className="hljs-title function_">addItem</span>(<span className="hljs-string">'item1'</span>);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">use</span>(todoPage);          <span className="hljs-comment">// ← ここでテスト本体が実行される</span></div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> todoPage.<span className="hljs-title function_">removeAll</span>();   <span className="hljs-comment">// ← テスト終了後にティアダウン</span></div>
+                        <div className="code-line">  &#125;,</div>
+                        <div className="code-line">&#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'adds an item'</span>, <span className="hljs-keyword">async</span> (&#123; todoPage &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> todoPage.<span className="hljs-title function_">addItem</span>(<span className="hljs-string">'my item'</span>);</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1017,21 +1045,23 @@ test('adds an item', async ({ todoPage }) => {
 
                     <div className="code-block">
                         <div className="code-label">worker-fixture.ts</div>
-                        <pre><code className="language-typescript">{`import { test as base } from '@playwright/test';
-
-type Account = { username: string; password: string };
-
-export const test = base.extend<{}, { account: Account }>({
-  account: [async ({ browser }, use, workerInfo) => {
-    const username = \`user-\${workerInfo.workerIndex}\`;
-    const page = await browser.newPage();
-    await page.goto('/signup');
-    await page.getByLabel('User Name').fill(username);
-    await page.getByText('Sign up').click();
-    await page.close();
-    await use({ username, password: 'verysecure' });
-  }, { scope: 'worker' }],
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span> <span className="hljs-keyword">as</span> base &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">type</span> Account = &#123; <span className="hljs-attr">username</span>: <span className="hljs-built_in">string</span>; <span className="hljs-attr">password</span>: <span className="hljs-built_in">string</span> &#125;;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">const</span> <span className="hljs-built_in">test</span> = base.<span className="hljs-property">extend</span>&lt;&#123;&#125;, &#123; <span className="hljs-attr">account</span>: Account &#125;&gt;(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">account</span>: [<span className="hljs-keyword">async</span> (&#123; browser &#125;, use, workerInfo) =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> username = <span className="hljs-string">`user-$&#123;workerInfo.workerIndex&#125;`</span>;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> page = <span className="hljs-keyword">await</span> browser.<span className="hljs-title function_">newPage</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'/signup'</span>);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByLabel</span>(<span className="hljs-string">'User Name'</span>).<span className="hljs-title function_">fill</span>(username);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'Sign up'</span>).<span className="hljs-title function_">click</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">close</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">use</span>(&#123; username, <span className="hljs-attr">password</span>: <span className="hljs-string">'verysecure'</span> &#125;);</div>
+                        <div className="code-line">  &#125;, &#123; <span className="hljs-attr">scope</span>: <span className="hljs-string">'worker'</span> &#125;],</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1044,14 +1074,16 @@ export const test = base.extend<{}, { account: Account }>({
 
                     <div className="code-block">
                         <div className="code-label">auto-fixture.ts</div>
-                        <pre><code className="language-typescript">{`export const test = base.extend<{ saveLogsOnFailure: void }>({
-  saveLogsOnFailure: [async ({}, use, testInfo) => {
-    await use();
-    if (testInfo.status !== testInfo.expectedStatus) {
-      // 失敗時のみログを添付する処理をここに書く
-    }
-  }, { auto: true }],
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">const</span> <span className="hljs-built_in">test</span> = base.<span className="hljs-property">extend</span>&lt;&#123; <span className="hljs-attr">saveLogsOnFailure</span>: <span className="hljs-keyword">void</span> &#125;&gt;(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">saveLogsOnFailure</span>: [<span className="hljs-keyword">async</span> (&#123;&#125;, use, testInfo) =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">use</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">if</span> (testInfo.<span className="hljs-property">status</span> !== testInfo.<span className="hljs-property">expectedStatus</span>) &#123;</div>
+                        <div className="code-line">      <span className="hljs-comment">// 失敗時のみログを添付する処理をここに書く</span></div>
+                        <div className="code-line">    &#125;</div>
+                        <div className="code-line">  &#125;, &#123; <span className="hljs-attr">auto</span>: <span className="hljs-built_in">true</span> &#125;],</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1077,11 +1109,13 @@ export const test = base.extend<{}, { account: Account }>({
                     <h3 className="sub-title">7.5 複数モジュールのフィクスチャ合成</h3>
                     <div className="code-block">
                         <div className="code-label">merge-fixtures.ts</div>
-                        <pre><code className="language-typescript">{`import { mergeTests } from '@playwright/test';
-import { test as dbTest } from './database-fixtures';
-import { test as a11yTest } from './a11y-fixtures';
-
-export const test = mergeTests(dbTest, a11yTest);`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; mergeTests &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span> <span className="hljs-keyword">as</span> dbTest &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'./database-fixtures'</span>;</div>
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span> <span className="hljs-keyword">as</span> a11yTest &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'./a11y-fixtures'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">const</span> <span className="hljs-built_in">test</span> = <span className="hljs-title function_">mergeTests</span>(dbTest, a11yTest);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1126,41 +1160,45 @@ export const test = mergeTests(dbTest, a11yTest);`}</code></pre>
 
                     <div className="code-block">
                         <div className="code-label">playwright-dev-page.ts</div>
-                        <pre><code className="language-typescript">{`import { expect, type Locator, type Page } from '@playwright/test';
-
-export class PlaywrightDevPage {
-  readonly page: Page;
-  readonly getStartedLink: Locator;
-  readonly gettingStartedHeader: Locator;
-
-  constructor(page: Page) {
-    this.page = page;
-    this.getStartedLink = page.getByRole('link', { name: 'Get started' });
-    this.gettingStartedHeader = page.getByRole('heading', { name: 'Installation' });
-  }
-
-  async goto() {
-    await this.page.goto('https://playwright.dev');
-  }
-
-  async clickGetStarted() {
-    await this.getStartedLink.first().click();
-    await expect(this.gettingStartedHeader).toBeVisible();
-  }
-}`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">expect</span>, <span className="hljs-keyword">type</span> <span className="hljs-built_in">Locator</span>, <span className="hljs-keyword">type</span> <span className="hljs-built_in">Page</span> &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">class</span> PlaywrightDevPage &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">readonly</span> <span className="hljs-attr">page</span>: <span className="hljs-built_in">Page</span>;</div>
+                        <div className="code-line">  <span className="hljs-keyword">readonly</span> <span className="hljs-attr">getStartedLink</span>: <span className="hljs-built_in">Locator</span>;</div>
+                        <div className="code-line">  <span className="hljs-keyword">readonly</span> <span className="hljs-attr">gettingStartedHeader</span>: <span className="hljs-built_in">Locator</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-title function_">constructor</span>(<span className="hljs-attr">page</span>: <span className="hljs-built_in">Page</span>) &#123;</div>
+                        <div className="code-line">    this.<span className="hljs-property">page</span> = page;</div>
+                        <div className="code-line">    this.<span className="hljs-property">getStartedLink</span> = page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'link'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Get started'</span> &#125;);</div>
+                        <div className="code-line">    this.<span className="hljs-property">gettingStartedHeader</span> = page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'heading'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Installation'</span> &#125;);</div>
+                        <div className="code-line">  &#125;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-keyword">async</span> <span className="hljs-title function_">goto</span>() &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> this.<span className="hljs-property">page</span>.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'https://playwright.dev'</span>);</div>
+                        <div className="code-line">  &#125;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-keyword">async</span> <span className="hljs-title function_">clickGetStarted</span>() &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> this.<span className="hljs-property">getStartedLink</span>.<span className="hljs-title function_">first</span>().<span className="hljs-title function_">click</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(this.<span className="hljs-property">gettingStartedHeader</span>).<span className="hljs-title function_">toBeVisible</span>();</div>
+                        <div className="code-line">  &#125;</div>
+                        <div className="code-line">&#125;</div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">example.spec.ts</div>
-                        <pre><code className="language-typescript">{`import { test, expect } from '@playwright/test';
-import { PlaywrightDevPage } from './playwright-dev-page';
-
-test('Get Startedからインストールページへ遷移できる', async ({ page }) => {
-  const devPage = new PlaywrightDevPage(page);
-  await devPage.goto();
-  await devPage.clickGetStarted();
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span>, <span className="hljs-built_in">expect</span> &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; PlaywrightDevPage &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'./playwright-dev-page'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'Get Startedからインストールページへ遷移できる'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">const</span> devPage = <span className="hljs-keyword">new</span> <span className="hljs-title function_">PlaywrightDevPage</span>(page);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> devPage.<span className="hljs-title function_">goto</span>();</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> devPage.<span className="hljs-title function_">clickGetStarted</span>();</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1174,26 +1212,30 @@ test('Get Startedからインストールページへ遷移できる', async ({ 
 
                     <div className="code-block">
                         <div className="code-label">fixtures.ts</div>
-                        <pre><code className="language-typescript">{`import { test as base } from '@playwright/test';
-import { PlaywrightDevPage } from './playwright-dev-page';
-
-export const test = base.extend<{ devPage: PlaywrightDevPage }>({
-  devPage: async ({ page }, use) => {
-    const devPage = new PlaywrightDevPage(page);
-    await devPage.goto();
-    await use(devPage);
-  },
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span> <span className="hljs-keyword">as</span> base &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; PlaywrightDevPage &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'./playwright-dev-page'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">const</span> <span className="hljs-built_in">test</span> = base.<span className="hljs-property">extend</span>&lt;&#123; <span className="hljs-attr">devPage</span>: PlaywrightDevPage &#125;&gt;(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">devPage</span>: <span className="hljs-keyword">async</span> (&#123; page &#125;, use) =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> devPage = <span className="hljs-keyword">new</span> <span className="hljs-title function_">PlaywrightDevPage</span>(page);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> devPage.<span className="hljs-title function_">goto</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">use</span>(devPage);</div>
+                        <div className="code-line">  &#125;,</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">example.spec.ts</div>
-                        <pre><code className="language-typescript">{`import { test } from './fixtures';
-
-test('Get Startedからインストールページへ遷移できる', async ({ devPage }) => {
-  await devPage.clickGetStarted();
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span> &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'./fixtures'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'Get Startedからインストールページへ遷移できる'</span>, <span className="hljs-keyword">async</span> (&#123; devPage &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> devPage.<span className="hljs-title function_">clickGetStarted</span>();</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1258,15 +1300,19 @@ test('Get Startedからインストールページへ遷移できる', async ({ 
                     <h3 className="sub-title">9.1 Worker数の制御</h3>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bunx playwright test --workers 4`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--workers</span> </div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">playwright.config.ts</div>
-                        <pre><code className="language-typescript">{`export default defineConfig({
-  workers: process.env.CI ? 2 : undefined, // CIでは絞り、ローカルはCPUコア数に応じて自動
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">default</span> <span className="hljs-title function_">defineConfig</span>(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">workers</span>: process.<span className="hljs-property">env</span>.<span className="hljs-property">CI</span> ? <span className="hljs-number">2</span> : <span className="hljs-built_in">undefined</span>, <span className="hljs-comment">// CIでは絞り、ローカルはCPUコア数に応じて自動</span></div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1284,10 +1330,12 @@ test('Get Startedからインストールページへ遷移できる', async ({ 
 
                     <div className="code-block">
                         <div className="code-label">parallel-in-file.spec.ts</div>
-                        <pre><code className="language-typescript">{`test.describe.configure({ mode: 'parallel' });
-
-test('独立したテストA', async ({ page }) => { /* ... */ });
-test('独立したテストB', async ({ page }) => { /* ... */ });`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">test</span>.<span className="hljs-property">describe</span>.<span className="hljs-title function_">configure</span>(&#123; <span className="hljs-attr">mode</span>: <span className="hljs-string">'parallel'</span> &#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'独立したテストA'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123; <span className="hljs-comment">/* ... */</span> &#125;);</div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'独立したテストB'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123; <span className="hljs-comment">/* ... */</span> &#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1316,14 +1364,16 @@ test('独立したテストB', async ({ page }) => { /* ... */ });`}</code></pre
                     </p>
                     <div className="code-block">
                         <div className="code-label">worker-scoped-data.ts</div>
-                        <pre><code className="language-typescript">{`export const test = baseTest.extend<{}, { dbUserName: string }>({
-  dbUserName: [async ({}, use) => {
-    const userName = \`user-\${test.info().workerIndex}\`;
-    await createUserInTestDatabase(userName);
-    await use(userName);
-    await deleteUserFromTestDatabase(userName);
-  }, { scope: 'worker' }],
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">const</span> <span className="hljs-built_in">test</span> = baseTest.<span className="hljs-property">extend</span>&lt;&#123;&#125;, &#123; <span className="hljs-attr">dbUserName</span>: <span className="hljs-built_in">string</span> &#125;&gt;(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">dbUserName</span>: [<span className="hljs-keyword">async</span> (&#123;&#125;, use) =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> userName = <span className="hljs-string">`user-$&#123;test.info().workerIndex&#125;`</span>;</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">createUserInTestDatabase</span>(userName);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">use</span>(userName);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">deleteUserFromTestDatabase</span>(userName);</div>
+                        <div className="code-line">  &#125;, &#123; <span className="hljs-attr">scope</span>: <span className="hljs-string">'worker'</span> &#125;],</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1365,10 +1415,12 @@ test('独立したテストB', async ({ page }) => { /* ... */ });`}</code></pre
 
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bunx playwright test --shard=1/4
-bunx playwright test --shard=2/4
-bunx playwright test --shard=3/4
-bunx playwright test --shard=4/4`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--shard</span>=/</div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--shard</span>=/</div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--shard</span>=/</div>
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--shard</span>=/</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1409,15 +1461,19 @@ bunx playwright test --shard=4/4`}</code></pre>
                     </p>
                     <div className="code-block">
                         <div className="code-label">playwright.config.ts</div>
-                        <pre><code className="language-typescript">{`export default defineConfig({
-  reporter: process.env.CI ? 'blob' : 'html',
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">default</span> <span className="hljs-title function_">defineConfig</span>(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">reporter</span>: process.<span className="hljs-property">env</span>.<span className="hljs-property">CI</span> ? <span className="hljs-string">'blob'</span> : <span className="hljs-string">'html'</span>,</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bunx playwright merge-reports --reporter html ./all-blob-reports`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> merge-reports <span className="hljs-attr">--reporter</span> html ./all-blob-reports</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1429,46 +1485,48 @@ bunx playwright test --shard=4/4`}</code></pre>
 
                     <div className="code-block">
                         <div className="code-label">.github/workflows/playwright.yml(抜粋)</div>
-                        <pre><code className="language-yaml">{`jobs:
-  playwright-tests:
-    strategy:
-      fail-fast: false
-      matrix:
-        shardIndex: [1, 2, 3, 4]
-        shardTotal: [4]
-    steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v5
-        with:
-          node-version: lts/*
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install --frozen-lockfile
-      - run: bunx playwright install --with-deps
-      - run: bunx playwright test --shard=\${{ matrix.shardIndex }}/\${{ matrix.shardTotal }}
-      - uses: actions/upload-artifact@v4
-        if: \${{ !cancelled() }}
-        with:
-          name: blob-report-\${{ matrix.shardIndex }}
-          path: blob-report
-          retention-days: 1
-
-  merge-reports:
-    if: \${{ !cancelled() }}
-    needs: [playwright-tests]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: oven-sh/setup-bun@v2
-      - uses: actions/download-artifact@v5
-        with:
-          path: all-blob-reports
-          pattern: blob-report-*
-          merge-multiple: true
-      - run: bunx playwright merge-reports --reporter html ./all-blob-reports
-      - uses: actions/upload-artifact@v4
-        with:
-          name: html-report
-          path: playwright-report`}</code></pre>
+                        <pre><code className="language-yaml">
+                        <div className="code-line"><span className="hljs-attr">jobs</span>:</div>
+                        <div className="code-line">  <span className="hljs-attr">playwright-tests</span>:</div>
+                        <div className="code-line">    <span className="hljs-attr">strategy</span>:</div>
+                        <div className="code-line">      <span className="hljs-attr">fail-fast</span>: <span className="hljs-literal">false</span></div>
+                        <div className="code-line">      <span className="hljs-attr">matrix</span>:</div>
+                        <div className="code-line">        <span className="hljs-attr">shardIndex</span>: [1, 2, 3, 4]</div>
+                        <div className="code-line">        <span className="hljs-attr">shardTotal</span>: [4]</div>
+                        <div className="code-line">    <span className="hljs-attr">steps</span>:</div>
+                        <div className="code-line">      - uses: actions/checkout@v5</div>
+                        <div className="code-line">      - uses: actions/setup-node@v5</div>
+                        <div className="code-line">        <span className="hljs-attr">with</span>:</div>
+                        <div className="code-line">          <span className="hljs-attr">node-version</span>: lts/*</div>
+                        <div className="code-line">      - uses: oven-sh/setup-bun@v2</div>
+                        <div className="code-line">      - run: bun install --frozen-lockfile</div>
+                        <div className="code-line">      - run: bunx playwright install --with-deps</div>
+                        <div className="code-line">      - run: bunx playwright test --shard=$&#123;&#123; matrix.shardIndex &#125;&#125;/$&#123;&#123; matrix.shardTotal &#125;&#125;</div>
+                        <div className="code-line">      - uses: actions/upload-artifact@v4</div>
+                        <div className="code-line">        <span className="hljs-attr">if</span>: $&#123;&#123; !cancelled() &#125;&#125;</div>
+                        <div className="code-line">        <span className="hljs-attr">with</span>:</div>
+                        <div className="code-line">          <span className="hljs-attr">name</span>: blob-report-$&#123;&#123; matrix.shardIndex &#125;&#125;</div>
+                        <div className="code-line">          <span className="hljs-attr">path</span>: blob-report</div>
+                        <div className="code-line">          <span className="hljs-attr">retention-days</span>: <span className="hljs-number">1</span></div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-attr">merge-reports</span>:</div>
+                        <div className="code-line">    <span className="hljs-attr">if</span>: $&#123;&#123; !cancelled() &#125;&#125;</div>
+                        <div className="code-line">    <span className="hljs-attr">needs</span>: [playwright-tests]</div>
+                        <div className="code-line">    <span className="hljs-attr">runs-on</span>: ubuntu-latest</div>
+                        <div className="code-line">    <span className="hljs-attr">steps</span>:</div>
+                        <div className="code-line">      - uses: actions/checkout@v5</div>
+                        <div className="code-line">      - uses: oven-sh/setup-bun@v2</div>
+                        <div className="code-line">      - uses: actions/download-artifact@v5</div>
+                        <div className="code-line">        <span className="hljs-attr">with</span>:</div>
+                        <div className="code-line">          <span className="hljs-attr">path</span>: all-blob-reports</div>
+                        <div className="code-line">          <span className="hljs-attr">pattern</span>: blob-report-*</div>
+                        <div className="code-line">          <span className="hljs-attr">merge-multiple</span>: <span className="hljs-literal">true</span></div>
+                        <div className="code-line">      - run: bunx playwright merge-reports --reporter html ./all-blob-reports</div>
+                        <div className="code-line">      - uses: actions/upload-artifact@v4</div>
+                        <div className="code-line">        <span className="hljs-attr">with</span>:</div>
+                        <div className="code-line">          <span className="hljs-attr">name</span>: html-report</div>
+                        <div className="code-line">          <span className="hljs-attr">path</span>: playwright-report</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1516,15 +1574,19 @@ bunx playwright test --shard=4/4`}</code></pre>
 
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bunx playwright test --retries=3`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--retries</span>=</div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">playwright.config.ts</div>
-                        <pre><code className="language-typescript">{`export default defineConfig({
-  retries: process.env.CI ? 2 : 0,
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">default</span> <span className="hljs-title function_">defineConfig</span>(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">retries</span>: process.<span className="hljs-property">env</span>.<span className="hljs-property">CI</span> ? <span className="hljs-number">2</span> : <span className="hljs-number">0</span>,</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1563,12 +1625,14 @@ bunx playwright test --shard=4/4`}</code></pre>
                     <h3 className="sub-title">11.2 リトライ回数はテストの中からも参照できる</h3>
                     <div className="code-block">
                         <div className="code-label">retry-aware.spec.ts</div>
-                        <pre><code className="language-typescript">{`test('サーバー状態に依存するテスト', async ({ page }, testInfo) => {
-  if (testInfo.retry) {
-    await cleanUpServerSideCache();
-  }
-  // ...
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'サーバー状態に依存するテスト'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;, testInfo) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">if</span> (testInfo.<span className="hljs-property">retry</span>) &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">cleanUpServerSideCache</span>();</div>
+                        <div className="code-line">  &#125;</div>
+                        <div className="code-line">  <span className="hljs-comment">// ...</span></div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1629,19 +1693,23 @@ bunx playwright test --shard=4/4`}</code></pre>
 
                     <div className="code-block">
                         <div className="code-label">playwright.config.ts</div>
-                        <pre><code className="language-typescript">{`export default defineConfig({
-  retries: process.env.CI ? 2 : 0,
-  use: {
-    trace: 'on-first-retry', // 失敗したテストの最初のリトライでのみ記録
-  },
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">default</span> <span className="hljs-title function_">defineConfig</span>(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">retries</span>: process.<span className="hljs-property">env</span>.<span className="hljs-property">CI</span> ? <span className="hljs-number">2</span> : <span className="hljs-number">0</span>,</div>
+                        <div className="code-line">  <span className="hljs-attr">use</span>: &#123;</div>
+                        <div className="code-line">    <span className="hljs-attr">trace</span>: <span className="hljs-string">'on-first-retry'</span>, <span className="hljs-comment">// 失敗したテストの最初のリトライでのみ記録</span></div>
+                        <div className="code-line">  &#125;,</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
                     <p>ローカルで強制的に記録したい場合:</p>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bunx playwright test --trace on`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--trace</span> on</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1732,15 +1800,17 @@ bunx playwright test --shard=4/4`}</code></pre>
                     <h3 className="sub-title">13.1 APIレスポンスの完全モック</h3>
                     <div className="code-block">
                         <div className="code-label">mock-api.spec.ts</div>
-                        <pre><code className="language-typescript">{`test('APIをモックしフルーツ一覧を表示する', async ({ page }) => {
-  await page.route('*/**/api/v1/fruits', async route => {
-    const json = [{ name: 'Strawberry', id: 21 }];
-    await route.fulfill({ json });
-  });
-
-  await page.goto('https://demo.playwright.dev/api-mocking');
-  await expect(page.getByText('Strawberry')).toBeVisible();
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'APIをモックしフルーツ一覧を表示する'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">route</span>(<span className="hljs-string">'*/**/api/v1/fruits'</span>, <span className="hljs-keyword">async</span> route =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> json = [&#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Strawberry'</span>, <span className="hljs-attr">id</span>: <span className="hljs-number">21</span> &#125;];</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> route.<span className="hljs-title function_">fulfill</span>(&#123; json &#125;);</div>
+                        <div className="code-line">  &#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'https://demo.playwright.dev/api-mocking'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'Strawberry'</span>)).<span className="hljs-title function_">toBeVisible</span>();</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1754,17 +1824,19 @@ bunx playwright test --shard=4/4`}</code></pre>
                     </p>
                     <div className="code-block">
                         <div className="code-label">mock-partial.spec.ts</div>
-                        <pre><code className="language-typescript">{`test('実APIのレスポンスに要素を追加する', async ({ page }) => {
-  await page.route('*/**/api/v1/fruits', async route => {
-    const response = await route.fetch();
-    const json = await response.json();
-    json.push({ name: 'Loquat', id: 100 });
-    await route.fulfill({ response, json });
-  });
-
-  await page.goto('https://demo.playwright.dev/api-mocking');
-  await expect(page.getByText('Loquat', { exact: true })).toBeVisible();
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'実APIのレスポンスに要素を追加する'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">route</span>(<span className="hljs-string">'*/**/api/v1/fruits'</span>, <span className="hljs-keyword">async</span> route =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> response = <span className="hljs-keyword">await</span> route.<span className="hljs-title function_">fetch</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> json = <span className="hljs-keyword">await</span> response.<span className="hljs-title function_">json</span>();</div>
+                        <div className="code-line">    json.<span className="hljs-title function_">push</span>(&#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Loquat'</span>, <span className="hljs-attr">id</span>: <span className="hljs-number">100</span> &#125;);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> route.<span className="hljs-title function_">fulfill</span>(&#123; response, json &#125;);</div>
+                        <div className="code-line">  &#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'https://demo.playwright.dev/api-mocking'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'Loquat'</span>, &#123; <span className="hljs-attr">exact</span>: <span className="hljs-built_in">true</span> &#125;)).<span className="hljs-title function_">toBeVisible</span>();</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1782,10 +1854,12 @@ bunx playwright test --shard=4/4`}</code></pre>
 
                     <div className="code-block">
                         <div className="code-label">har-replay.spec.ts</div>
-                        <pre><code className="language-typescript">{`await page.routeFromHAR('./hars/fruit.har', {
-  url: '*/**/api/v1/fruits',
-  update: false, // true にすると実データでHARを更新する
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">await</span> page.<span className="hljs-title function_">routeFromHAR</span>(<span className="hljs-string">'./hars/fruit.har'</span>, &#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">url</span>: <span className="hljs-string">'*/**/api/v1/fruits'</span>,</div>
+                        <div className="code-line">  <span className="hljs-attr">update</span>: <span className="hljs-built_in">false</span>, <span className="hljs-comment">// true にすると実データでHARを更新する</span></div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1797,11 +1871,13 @@ bunx playwright test --shard=4/4`}</code></pre>
                     <h3 className="sub-title">13.4 WebSocketのモック</h3>
                     <div className="code-block">
                         <div className="code-label">websocket-mock.spec.ts</div>
-                        <pre><code className="language-typescript">{`await page.routeWebSocket('wss://example.com/ws', ws => {
-  ws.onMessage(message => {
-    if (message === 'request') ws.send('response');
-  });
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">await</span> page.<span className="hljs-title function_">routeWebSocket</span>(<span className="hljs-string">'wss://example.com/ws'</span>, ws =&gt; &#123;</div>
+                        <div className="code-line">  ws.<span className="hljs-title function_">onMessage</span>(message =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">if</span> (message === <span className="hljs-string">'request'</span>) ws.<span className="hljs-title function_">send</span>(<span className="hljs-string">'response'</span>);</div>
+                        <div className="code-line">  &#125;);</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1853,34 +1929,38 @@ bunx playwright test --shard=4/4`}</code></pre>
                     <h3 className="sub-title">14.2 基本戦略: 共有アカウント</h3>
                     <div className="code-block">
                         <div className="code-label">tests/auth.setup.ts</div>
-                        <pre><code className="language-typescript">{`import { test as setup, expect } from '@playwright/test';
-import path from 'path';
-
-const authFile = path.join(__dirname, '../playwright/.auth/user.json');
-
-setup('authenticate', async ({ page }) => {
-  await page.goto('https://example.com/login');
-  await page.getByLabel('Username').fill('username');
-  await page.getByLabel('Password').fill('password');
-  await page.getByRole('button', { name: 'Sign in' }).click();
-  await page.waitForURL('https://example.com/');
-  await page.context().storageState({ path: authFile });
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">import</span> &#123; <span className="hljs-built_in">test</span> <span className="hljs-keyword">as</span> setup, <span className="hljs-built_in">expect</span> &#125; <span className="hljs-keyword">from</span> <span className="hljs-string">'@playwright/test'</span>;</div>
+                        <div className="code-line"><span className="hljs-keyword">import</span> path <span className="hljs-keyword">from</span> <span className="hljs-string">'path'</span>;</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">const</span> authFile = path.<span className="hljs-title function_">join</span>(__dirname, <span className="hljs-string">'../playwright/.auth/user.json'</span>);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-title function_">setup</span>(<span className="hljs-string">'authenticate'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'https://example.com/login'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByLabel</span>(<span className="hljs-string">'Username'</span>).<span className="hljs-title function_">fill</span>(<span className="hljs-string">'username'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByLabel</span>(<span className="hljs-string">'Password'</span>).<span className="hljs-title function_">fill</span>(<span className="hljs-string">'password'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'button'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'Sign in'</span> &#125;).<span className="hljs-title function_">click</span>();</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">waitForURL</span>(<span className="hljs-string">'https://example.com/'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">context</span>().<span className="hljs-title function_">storageState</span>(&#123; <span className="hljs-attr">path</span>: authFile &#125;);</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">playwright.config.ts</div>
-                        <pre><code className="language-typescript">{`export default defineConfig({
-  projects: [
-    { name: 'setup', testMatch: /.*\\.setup\\.ts/ },
-    {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'], storageState: 'playwright/.auth/user.json' },
-      dependencies: ['setup'],
-    },
-  ],
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">default</span> <span className="hljs-title function_">defineConfig</span>(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">projects</span>: [</div>
+                        <div className="code-line">    &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'setup'</span>, <span className="hljs-attr">testMatch</span>: /.*\.<span className="hljs-property">setup</span>\.<span className="hljs-property">ts</span>/ &#125;,</div>
+                        <div className="code-line">    &#123;</div>
+                        <div className="code-line">      <span className="hljs-attr">name</span>: <span className="hljs-string">'chromium'</span>,</div>
+                        <div className="code-line">      <span className="hljs-attr">use</span>: &#123; ...<span className="hljs-property">devices</span>[<span className="hljs-string">'Desktop Chrome'</span>], <span className="hljs-attr">storageState</span>: <span className="hljs-string">'playwright/.auth/user.json'</span> &#125;,</div>
+                        <div className="code-line">      <span className="hljs-attr">dependencies</span>: [<span className="hljs-string">'setup'</span>],</div>
+                        <div className="code-line">    &#125;,</div>
+                        <div className="code-line">  ],</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -1901,51 +1981,57 @@ setup('authenticate', async ({ page }) => {
                     </p>
                     <div className="code-block">
                         <div className="code-label">worker-auth.ts</div>
-                        <pre><code className="language-typescript">{`export const test = baseTest.extend<{}, { workerStorageState: string }>({
-  storageState: ({ workerStorageState }, use) => use(workerStorageState),
-  workerStorageState: [async ({ browser }, use) => {
-    const id = test.info().parallelIndex;
-    const fileName = path.resolve(test.info().project.outputDir, \`.auth/\${id}.json\`);
-    if (fs.existsSync(fileName)) {
-      await use(fileName);
-      return;
-    }
-    const page = await browser.newPage({ storageState: undefined });
-    const account = await acquireAccount(id);
-    await page.goto('/login');
-    // ... ログイン処理 ...
-    await page.context().storageState({ path: fileName });
-    await page.close();
-    await use(fileName);
-  }, { scope: 'worker' }],
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">const</span> <span className="hljs-built_in">test</span> = baseTest.<span className="hljs-property">extend</span>&lt;&#123;&#125;, &#123; <span className="hljs-attr">workerStorageState</span>: <span className="hljs-built_in">string</span> &#125;&gt;(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">storageState</span>: (&#123; workerStorageState &#125;, use) =&gt; <span className="hljs-title function_">use</span>(workerStorageState),</div>
+                        <div className="code-line">  <span className="hljs-attr">workerStorageState</span>: [<span className="hljs-keyword">async</span> (&#123; browser &#125;, use) =&gt; &#123;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> id = <span className="hljs-built_in">test</span>.<span className="hljs-title function_">info</span>().<span className="hljs-property">parallelIndex</span>;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> fileName = path.<span className="hljs-title function_">resolve</span>(<span className="hljs-built_in">test</span>.<span className="hljs-title function_">info</span>().<span className="hljs-property">project</span>.<span className="hljs-property">outputDir</span>, <span className="hljs-string">`.auth/$&#123;id&#125;.json`</span>);</div>
+                        <div className="code-line">    <span className="hljs-keyword">if</span> (fs.<span className="hljs-title function_">existsSync</span>(fileName)) &#123;</div>
+                        <div className="code-line">      <span className="hljs-keyword">await</span> <span className="hljs-title function_">use</span>(fileName);</div>
+                        <div className="code-line">      <span className="hljs-keyword">return</span>;</div>
+                        <div className="code-line">    &#125;</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> page = <span className="hljs-keyword">await</span> browser.<span className="hljs-title function_">newPage</span>(&#123; <span className="hljs-attr">storageState</span>: <span className="hljs-built_in">undefined</span> &#125;);</div>
+                        <div className="code-line">    <span className="hljs-keyword">const</span> account = <span className="hljs-keyword">await</span> <span className="hljs-title function_">acquireAccount</span>(id);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'/login'</span>);</div>
+                        <div className="code-line">    <span className="hljs-comment">// ... ログイン処理 ...</span></div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">context</span>().<span className="hljs-title function_">storageState</span>(&#123; <span className="hljs-attr">path</span>: fileName &#125;);</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">close</span>();</div>
+                        <div className="code-line">    <span className="hljs-keyword">await</span> <span className="hljs-title function_">use</span>(fileName);</div>
+                        <div className="code-line">  &#125;, &#123; <span className="hljs-attr">scope</span>: <span className="hljs-string">'worker'</span> &#125;],</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
                     <h3 className="sub-title">14.4 APIリクエストによる認証(UIを経由しない高速化)</h3>
                     <div className="code-block">
                         <div className="code-label">api-auth.setup.ts</div>
-                        <pre><code className="language-typescript">{`setup('authenticate via API', async ({ request }) => {
-  await request.post('https://example.com/login', {
-    form: { user: 'user', password: 'password' },
-  });
-  await request.storageState({ path: 'playwright/.auth/user.json' });
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-title function_">setup</span>(<span className="hljs-string">'authenticate via API'</span>, <span className="hljs-keyword">async</span> (&#123; request &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> request.<span className="hljs-title function_">post</span>(<span className="hljs-string">'https://example.com/login'</span>, &#123;</div>
+                        <div className="code-line">    <span className="hljs-attr">form</span>: &#123; <span className="hljs-attr">user</span>: <span className="hljs-string">'user'</span>, <span className="hljs-attr">password</span>: <span className="hljs-string">'password'</span> &#125;,</div>
+                        <div className="code-line">  &#125;);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> request.<span className="hljs-title function_">storageState</span>(&#123; <span className="hljs-attr">path</span>: <span className="hljs-string">'playwright/.auth/user.json'</span> &#125;);</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
                     <h3 className="sub-title">14.5 複数ロールの同時操作</h3>
                     <div className="code-block">
                         <div className="code-label">multi-role.spec.ts</div>
-                        <pre><code className="language-typescript">{`test('adminとuserが同時にやり取りする', async ({ browser }) => {
-  const adminContext = await browser.newContext({ storageState: 'playwright/.auth/admin.json' });
-  const userContext = await browser.newContext({ storageState: 'playwright/.auth/user.json' });
-  const adminPage = await adminContext.newPage();
-  const userPage = await userContext.newPage();
-  // ... 両方のページを操作 ...
-  await adminContext.close();
-  await userContext.close();
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'adminとuserが同時にやり取りする'</span>, <span className="hljs-keyword">async</span> (&#123; browser &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">const</span> adminContext = <span className="hljs-keyword">await</span> browser.<span className="hljs-title function_">newContext</span>(&#123; <span className="hljs-attr">storageState</span>: <span className="hljs-string">'playwright/.auth/admin.json'</span> &#125;);</div>
+                        <div className="code-line">  <span className="hljs-keyword">const</span> userContext = <span className="hljs-keyword">await</span> browser.<span className="hljs-title function_">newContext</span>(&#123; <span className="hljs-attr">storageState</span>: <span className="hljs-string">'playwright/.auth/user.json'</span> &#125;);</div>
+                        <div className="code-line">  <span className="hljs-keyword">const</span> adminPage = <span className="hljs-keyword">await</span> adminContext.<span className="hljs-title function_">newPage</span>();</div>
+                        <div className="code-line">  <span className="hljs-keyword">const</span> userPage = <span className="hljs-keyword">await</span> userContext.<span className="hljs-title function_">newPage</span>();</div>
+                        <div className="code-line">  <span className="hljs-comment">// ... 両方のページを操作 ...</span></div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> adminContext.<span className="hljs-title function_">close</span>();</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> userContext.<span className="hljs-title function_">close</span>();</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2008,10 +2094,12 @@ setup('authenticate', async ({ page }) => {
 
                     <div className="code-block">
                         <div className="code-label">visual.spec.ts</div>
-                        <pre><code className="language-typescript">{`test('トップページの見た目を検証', async ({ page }) => {
-  await page.goto('https://playwright.dev');
-  await expect(page).toHaveScreenshot();
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'トップページの見た目を検証'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'https://playwright.dev'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page).<span className="hljs-title function_">toHaveScreenshot</span>();</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2025,8 +2113,10 @@ setup('authenticate', async ({ page }) => {
                     <h3 className="sub-title">15.2 スナップショットの命名規則</h3>
                     <div className="code-block">
                         <div className="code-label">directory structure</div>
-                        <pre><code className="language-text">{`example.spec.ts-snapshots/
-  example-test-1-chromium-darwin.png`}</code></pre>
+                        <pre><code className="language-text">
+                        <div className="code-line">example.spec.ts-snapshots/</div>
+                        <div className="code-line">  example-test-1-chromium-darwin.png</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2040,15 +2130,19 @@ setup('authenticate', async ({ page }) => {
                     <h3 className="sub-title">15.3 基準画像の更新</h3>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bunx playwright test --update-snapshots`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--update-snapshots</span></div>
+                        </code></pre>
                     </div>
                     
 
                     <h3 className="sub-title">15.4 差分許容度とノイズ除去</h3>
                     <div className="code-block">
                         <div className="code-label">threshold.spec.ts</div>
-                        <pre><code className="language-typescript">{`// 数ピクセルの差異は許容する
-await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-comment">// 数ピクセルの差異は許容する</span></div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page).<span className="hljs-title function_">toHaveScreenshot</span>(&#123; <span className="hljs-attr">maxDiffPixels</span>: <span className="hljs-number">100</span> &#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2058,19 +2152,23 @@ await expect(page).toHaveScreenshot({ maxDiffPixels: 100 });`}</code></pre>
                     </p>
                     <div className="code-block">
                         <div className="code-label">screenshot-style.spec.ts</div>
-                        <pre><code className="language-typescript">{`// screenshot.css
-// iframe { visibility: hidden; }
-
-await expect(page).toHaveScreenshot({
-  stylePath: path.join(__dirname, 'screenshot.css'),
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-comment">// screenshot.css</span></div>
+                        <div className="code-line"><span className="hljs-comment">// iframe &#123; visibility: hidden; &#125;</span></div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page).<span className="hljs-title function_">toHaveScreenshot</span>(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">stylePath</span>: path.<span className="hljs-title function_">join</span>(__dirname, <span className="hljs-string">'screenshot.css'</span>),</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
                     <h3 className="sub-title">15.5 非画像スナップショット</h3>
                     <div className="code-block">
                         <div className="code-label">text-snapshot.spec.ts</div>
-                        <pre><code className="language-typescript">{`expect(await page.textContent('.hero__title')).toMatchSnapshot('hero.txt');`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">expect</span>(<span className="hljs-keyword">await</span> page.<span className="hljs-title function_">textContent</span>(<span className="hljs-string">'.hero__title'</span>)).<span className="hljs-title function_">toMatchSnapshot</span>(<span className="hljs-string">'hero.txt'</span>);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2111,26 +2209,30 @@ await expect(page).toHaveScreenshot({
                     <h3 className="sub-title">16.1 設定とベーステスト</h3>
                     <div className="code-block">
                         <div className="code-label">playwright.config.ts</div>
-                        <pre><code className="language-typescript">{`export default defineConfig({
-  use: {
-    baseURL: 'https://api.example.com',
-    extraHTTPHeaders: {
-      'Accept': 'application/vnd.example.v1+json',
-      'Authorization': \`token \${process.env.API_TOKEN}\`,
-    },
-  },
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">export</span> <span className="hljs-keyword">default</span> <span className="hljs-title function_">defineConfig</span>(&#123;</div>
+                        <div className="code-line">  <span className="hljs-attr">use</span>: &#123;</div>
+                        <div className="code-line">    <span className="hljs-attr">baseURL</span>: <span className="hljs-string">'https://api.example.com'</span>,</div>
+                        <div className="code-line">    <span className="hljs-attr">extraHTTPHeaders</span>: &#123;</div>
+                        <div className="code-line">      <span className="hljs-string">'Accept'</span>: <span className="hljs-string">'application/vnd.example.v1+json'</span>,</div>
+                        <div className="code-line">      <span className="hljs-string">'Authorization'</span>: <span className="hljs-string">`token $&#123;process.env.API_TOKEN&#125;`</span>,</div>
+                        <div className="code-line">    &#125;,</div>
+                        <div className="code-line">  &#125;,</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">api.spec.ts</div>
-                        <pre><code className="language-typescript">{`test('Issueを作成できる', async ({ request }) => {
-  const newIssue = await request.post('/repos/org/repo/issues', {
-    data: { title: '[Bug] report', body: '説明文' },
-  });
-  expect(newIssue.ok()).toBeTruthy();
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'Issueを作成できる'</span>, <span className="hljs-keyword">async</span> (&#123; request &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">const</span> newIssue = <span className="hljs-keyword">await</span> request.<span className="hljs-title function_">post</span>(<span className="hljs-string">'/repos/org/repo/issues'</span>, &#123;</div>
+                        <div className="code-line">    <span className="hljs-attr">data</span>: &#123; <span className="hljs-attr">title</span>: <span className="hljs-string">'[Bug] report'</span>, <span className="hljs-attr">body</span>: <span className="hljs-string">'説明文'</span> &#125;,</div>
+                        <div className="code-line">  &#125;);</div>
+                        <div className="code-line">  <span className="hljs-built_in">expect</span>(newIssue.<span className="hljs-title function_">ok</span>()).<span className="hljs-title function_">toBeTruthy</span>();</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2159,19 +2261,21 @@ await expect(page).toHaveScreenshot({
 
                     <div className="code-block">
                         <div className="code-label">combined.spec.ts</div>
-                        <pre><code className="language-typescript">{`test.beforeAll(async ({ playwright }) => {
-  apiContext = await playwright.request.newContext({ baseURL: 'https://api.example.com' });
-});
-
-test.afterAll(async () => {
-  await apiContext.dispose();
-});
-
-test('最後に作成したIssueが一覧の先頭に表示される', async ({ page }) => {
-  await apiContext.post('/repos/org/repo/issues', { data: { title: 'Feature request' } });
-  await page.goto('https://example.com/org/repo/issues');
-  await expect(page.locator("[data-hovercard-type='issue']").first()).toHaveText('Feature request');
-});`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-built_in">test</span>.<span className="hljs-title function_">beforeAll</span>(<span className="hljs-keyword">async</span> (&#123; playwright &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  apiContext = <span className="hljs-keyword">await</span> playwright.<span className="hljs-property">request</span>.<span className="hljs-title function_">newContext</span>(&#123; <span className="hljs-attr">baseURL</span>: <span className="hljs-string">'https://api.example.com'</span> &#125;);</div>
+                        <div className="code-line">&#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>.<span className="hljs-title function_">afterAll</span>(<span className="hljs-keyword">async</span> () =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> apiContext.<span className="hljs-title function_">dispose</span>();</div>
+                        <div className="code-line">&#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-built_in">test</span>(<span className="hljs-string">'最後に作成したIssueが一覧の先頭に表示される'</span>, <span className="hljs-keyword">async</span> (&#123; page &#125;) =&gt; &#123;</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> apiContext.<span className="hljs-title function_">post</span>(<span className="hljs-string">'/repos/org/repo/issues'</span>, &#123; <span className="hljs-attr">data</span>: &#123; <span className="hljs-attr">title</span>: <span className="hljs-string">'Feature request'</span> &#125; &#125;);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> page.<span className="hljs-title function_">goto</span>(<span className="hljs-string">'https://example.com/org/repo/issues'</span>);</div>
+                        <div className="code-line">  <span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page.<span className="hljs-title function_">locator</span>(<span className="hljs-string">&quot;[data-hovercard-type='issue']&quot;</span>).<span className="hljs-title function_">first</span>()).<span className="hljs-title function_">toHaveText</span>(<span className="hljs-string">'Feature request'</span>);</div>
+                        <div className="code-line">&#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2184,11 +2288,13 @@ test('最後に作成したIssueが一覧の先頭に表示される', async ({ 
                     </p>
                     <div className="code-block">
                         <div className="code-label">interop.spec.ts</div>
-                        <pre><code className="language-typescript">{`const requestContext = await request.newContext();
-await requestContext.get('https://api.example.com/login');
-await requestContext.storageState({ path: 'state.json' });
-
-const context = await browser.newContext({ storageState: 'state.json' });`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-keyword">const</span> requestContext = <span className="hljs-keyword">await</span> request.<span className="hljs-title function_">newContext</span>();</div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> requestContext.<span className="hljs-keyword">get</span>(<span className="hljs-string">'https://api.example.com/login'</span>);</div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> requestContext.<span className="hljs-title function_">storageState</span>(&#123; <span className="hljs-attr">path</span>: <span className="hljs-string">'state.json'</span> &#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-keyword">const</span> context = <span className="hljs-keyword">await</span> browser.<span className="hljs-title function_">newContext</span>(&#123; <span className="hljs-attr">storageState</span>: <span className="hljs-string">'state.json'</span> &#125;);</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2224,7 +2330,9 @@ const context = await browser.newContext({ storageState: 'state.json' });`}</cod
                     <h3 className="sub-title">17.1 UI Mode</h3>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bunx playwright test --ui`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test <span className="hljs-attr">--ui</span></div>
+                        </code></pre>
                     </div>
                     
 
@@ -2353,33 +2461,35 @@ const context = await browser.newContext({ storageState: 'state.json' });`}</cod
 
                     <div className="code-block">
                         <div className="code-label">.github/workflows/playwright.yml</div>
-                        <pre><code className="language-yaml">{`name: Playwright Tests
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-jobs:
-  test:
-    timeout-minutes: 60
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v5
-    - uses: oven-sh/setup-bun@v2
-      with:
-        bun-version: latest
-    - name: Install dependencies
-      run: bun install --frozen-lockfile
-    - name: Install Playwright Browsers
-      run: bunx playwright install --with-deps
-    - name: Run Playwright tests
-      run: bunx playwright test
-    - uses: actions/upload-artifact@v4
-      if: \${{ !cancelled() }}
-      with:
-        name: playwright-report
-        path: playwright-report/
-        retention-days: 30`}</code></pre>
+                        <pre><code className="language-yaml">
+                        <div className="code-line"><span className="hljs-attr">name</span>: Playwright Tests</div>
+                        <div className="code-line"><span className="hljs-attr">on</span>:</div>
+                        <div className="code-line">  <span className="hljs-attr">push</span>:</div>
+                        <div className="code-line">    <span className="hljs-attr">branches</span>: [ main, master ]</div>
+                        <div className="code-line">  <span className="hljs-attr">pull_request</span>:</div>
+                        <div className="code-line">    <span className="hljs-attr">branches</span>: [ main, master ]</div>
+                        <div className="code-line"><span className="hljs-attr">jobs</span>:</div>
+                        <div className="code-line">  <span className="hljs-attr">test</span>:</div>
+                        <div className="code-line">    <span className="hljs-attr">timeout-minutes</span>: <span className="hljs-number">60</span></div>
+                        <div className="code-line">    <span className="hljs-attr">runs-on</span>: ubuntu-latest</div>
+                        <div className="code-line">    <span className="hljs-attr">steps</span>:</div>
+                        <div className="code-line">    - uses: actions/checkout@v5</div>
+                        <div className="code-line">    - uses: oven-sh/setup-bun@v2</div>
+                        <div className="code-line">      <span className="hljs-attr">with</span>:</div>
+                        <div className="code-line">        <span className="hljs-attr">bun-version</span>: latest</div>
+                        <div className="code-line">    - name: Install dependencies</div>
+                        <div className="code-line">      <span className="hljs-attr">run</span>: bun install --frozen-lockfile</div>
+                        <div className="code-line">    - name: Install Playwright Browsers</div>
+                        <div className="code-line">      <span className="hljs-attr">run</span>: bunx playwright install --with-deps</div>
+                        <div className="code-line">    - name: Run Playwright tests</div>
+                        <div className="code-line">      <span className="hljs-attr">run</span>: bunx playwright test</div>
+                        <div className="code-line">    - uses: actions/upload-artifact@v4</div>
+                        <div className="code-line">      <span className="hljs-attr">if</span>: $&#123;&#123; !cancelled() &#125;&#125;</div>
+                        <div className="code-line">      <span className="hljs-attr">with</span>:</div>
+                        <div className="code-line">        <span className="hljs-attr">name</span>: playwright-report</div>
+                        <div className="code-line">        <span className="hljs-attr">path</span>: playwright-report/</div>
+                        <div className="code-line">        <span className="hljs-attr">retention-days</span>: <span className="hljs-number">30</span></div>
+                        </code></pre>
                     </div>
                     
 
@@ -2396,7 +2506,9 @@ jobs:
                     </p>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`bunx playwright show-report name-of-extracted-report-folder`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> show-report name-of-extracted-report-folder</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2493,8 +2605,10 @@ jobs:
                     <h3 className="sub-title">19.1 基本的な使い方</h3>
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`docker pull mcr.microsoft.com/playwright:v1.61.0-noble
-docker run -it --rm --ipc=host mcr.microsoft.com/playwright:v1.61.0-noble /bin/bash`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">docker</span> pull mcr.microsoft.com/<span className="hljs-keyword">playwright</span>:v1..<span className="hljs-attr">-noble</span></div>
+                        <div className="code-line"><span className="hljs-keyword">docker</span> run <span className="hljs-attr">-it</span> <span className="hljs-attr">--rm</span> <span className="hljs-attr">--ipc</span>=host mcr.microsoft.com/<span className="hljs-keyword">playwright</span>:v1..<span className="hljs-attr">-noble</span> /bin/bash</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2546,15 +2660,19 @@ docker run -it --rm --ipc=host mcr.microsoft.com/playwright:v1.61.0-noble /bin/b
 
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`docker run -p 3000:3000 --rm --init -it --workdir ` + '/ho' + `me/pwuser --user pwuser \\
-  mcr.microsoft.com/playwright:v1.61.0-noble \\
-  /bin/sh -c "npx -y playwright@1.61.0 run-server --port 3000 --host 0.0.0.0"`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line"><span className="hljs-keyword">docker</span> run <span className="hljs-attr">-p</span> : <span className="hljs-attr">--rm</span> <span className="hljs-attr">--init</span> <span className="hljs-attr">-it</span> <span className="hljs-attr">--workdir</span> {'/ho' + 'me/pwuser'} <span className="hljs-attr">--user</span> pwuser \</div>
+                        <div className="code-line">  mcr.microsoft.com/<span className="hljs-keyword">playwright</span>:v1..<span className="hljs-attr">-noble</span> \</div>
+                        <div className="code-line">  /bin/<span className="hljs-keyword">sh</span> <span className="hljs-attr">-c</span> <span className="hljs-string">&quot;npx -y playwright@1.61.0 run-server --port 3000 --host 0.0.0.0&quot;</span></div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">bash</div>
-                        <pre><code className="language-bash">{`PW_TEST_CONNECT_WS_ENDPOINT=ws://127.0.0.1:3000/ bunx playwright test`}</code></pre>
+                        <pre><code className="language-bash">
+                        <div className="code-line">PW_TEST_CONNECT_WS_ENDPOINT=ws://...:/ <span className="hljs-keyword">bunx</span> <span className="hljs-keyword">playwright</span> test</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2570,8 +2688,10 @@ docker run -it --rm --ipc=host mcr.microsoft.com/playwright:v1.61.0-noble /bin/b
                     <h3 className="sub-title">19.4 自前イメージのビルド</h3>
                     <div className="code-block">
                         <div className="code-label">Dockerfile</div>
-                        <pre><code className="language-dockerfile">{`FROM node:20-bookworm
-RUN bunx playwright@1.61.0 install --with-deps`}</code></pre>
+                        <pre><code className="language-dockerfile">
+                        <div className="code-line"><span className="hljs-keyword">FROM</span> node:20-bookworm</div>
+                        <div className="code-line"><span className="hljs-keyword">RUN</span> bunx playwright@1.61.0 install --with-deps</div>
+                        </code></pre>
                     </div>
                     
 
@@ -2650,21 +2770,25 @@ RUN bunx playwright@1.61.0 install --with-deps`}</code></pre>
                     <h3 className="sub-title">20.2 実装レベルのベストプラクティス</h3>
                     <div className="code-block">
                         <div className="code-label">good-vs-bad-locators.ts</div>
-                        <pre><code className="language-typescript">{`// 👍 推奨: ユーザー視点のLocator
-page.getByRole('button', { name: 'submit' });
-
-// 👎 非推奨: DOM構造に依存した壊れやすいセレクタ
-page.locator('button.buttonIcon.episode-actions-later');`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-comment">// 👍 推奨: ユーザー視点のLocator</span></div>
+                        <div className="code-line">page.<span className="hljs-title function_">getByRole</span>(<span className="hljs-string">'button'</span>, &#123; <span className="hljs-attr">name</span>: <span className="hljs-string">'submit'</span> &#125;);</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment">// 👎 非推奨: DOM構造に依存した壊れやすいセレクタ</span></div>
+                        <div className="code-line">page.<span className="hljs-title function_">locator</span>(<span className="hljs-string">'button.buttonIcon.episode-actions-later'</span>);</div>
+                        </code></pre>
                     </div>
                     
 
                     <div className="code-block">
                         <div className="code-label">good-vs-bad-assertions.ts</div>
-                        <pre><code className="language-typescript">{`// 👍 推奨: Web-Firstアサーション(自動リトライ)
-await expect(page.getByText('welcome')).toBeVisible();
-
-// 👎 非推奨: 即時判定(リトライなし)
-expect(await page.getByText('welcome').isVisible()).toBe(true);`}</code></pre>
+                        <pre><code className="language-typescript">
+                        <div className="code-line"><span className="hljs-comment">// 👍 推奨: Web-Firstアサーション(自動リトライ)</span></div>
+                        <div className="code-line"><span className="hljs-keyword">await</span> <span className="hljs-built_in">expect</span>(page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'welcome'</span>)).<span className="hljs-title function_">toBeVisible</span>();</div>
+                        <div className="code-line"></div>
+                        <div className="code-line"><span className="hljs-comment">// 👎 非推奨: 即時判定(リトライなし)</span></div>
+                        <div className="code-line"><span className="hljs-built_in">expect</span>(<span className="hljs-keyword">await</span> page.<span className="hljs-title function_">getByText</span>(<span className="hljs-string">'welcome'</span>).<span className="hljs-title function_">isVisible</span>()).<span className="hljs-title function_">toBe</span>(<span className="hljs-built_in">true</span>);</div>
+                        </code></pre>
                     </div>
                     
 

@@ -458,5 +458,17 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       // Exactly 3 callouts (sections 9, 14, 19)
       expect(container.querySelectorAll('.callout').length).toBe(3);
     });
+
+    it('verifies syntax highlighting tokens and code-line wrappers are present in code blocks', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+      const codeLines = container.querySelectorAll('.code-block .code-line');
+      expect(codeLines.length).toBeGreaterThan(100);
+
+      const hljsKeywords = container.querySelectorAll('.code-block .hljs-keyword');
+      expect(hljsKeywords.length).toBeGreaterThan(20);
+
+      const hljsStrings = container.querySelectorAll('.code-block .hljs-string');
+      expect(hljsStrings.length).toBeGreaterThan(20);
+    });
   });
 });
