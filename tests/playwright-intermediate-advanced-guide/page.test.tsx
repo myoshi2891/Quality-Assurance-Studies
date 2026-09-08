@@ -263,4 +263,100 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       }
     });
   });
+
+  describe('Category 3: デバッグ・応用編 (Sections 12〜17)', () => {
+    it('renders sections 12 to 17 with correct IDs and titles', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      const expectedSections = [
+        { id: 'sec-12', title: '12Trace Viewerによるデバッグ' },
+        { id: 'sec-13', title: '13ネットワークインターセプションとAPIモック' },
+        { id: 'sec-14', title: '14認証状態の再利用戦略' },
+        { id: 'sec-15', title: '15Visual Regression Testing(視覚的回帰テスト)' },
+        { id: 'sec-16', title: '16API Testing(バックエンドAPIテスト)' },
+        { id: 'sec-17', title: '17UI ModeとVS Code拡張機能' },
+      ];
+
+      expectedSections.forEach(({ id, title }) => {
+        const sec = container.querySelector(`section#${id}`);
+        expect(sec).not.toBeNull();
+        const h2 = sec?.querySelector('h2.sec-title');
+        expect(h2?.textContent?.replace(/\s+/g, '')).toBe(title.replace(/\s+/g, ''));
+      });
+    });
+
+    it('renders Mermaid diagrams 7, 8, 9, and 10 in Category 3', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 12: Mermaid 7
+      const sec12 = container.querySelector('section#sec-12');
+      expect(sec12).not.toBeNull();
+      expect(sec12?.querySelector('.mermaid-container')).not.toBeNull();
+
+      // Section 13: Mermaid 8
+      const sec13 = container.querySelector('section#sec-13');
+      expect(sec13).not.toBeNull();
+      expect(sec13?.querySelector('.mermaid-container')).not.toBeNull();
+
+      // Section 14: Mermaid 9
+      const sec14 = container.querySelector('section#sec-14');
+      expect(sec14).not.toBeNull();
+      expect(sec14?.querySelector('.mermaid-container')).not.toBeNull();
+
+      // Section 16: Mermaid 10
+      const sec16 = container.querySelector('section#sec-16');
+      expect(sec16).not.toBeNull();
+      expect(sec16?.querySelector('.mermaid-container')).not.toBeNull();
+    });
+
+    it('renders code blocks 33 through 54 in Category 3', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 12: code-33 to code-34 (2)
+      expect(container.querySelectorAll('section#sec-12 .code-block').length).toBe(2);
+
+      // Section 13: code-35 to code-38 (4)
+      expect(container.querySelectorAll('section#sec-13 .code-block').length).toBe(4);
+
+      // Section 14: code-39 to code-43 (5)
+      expect(container.querySelectorAll('section#sec-14 .code-block').length).toBe(5);
+
+      // Section 15: code-44 to code-49 (6)
+      expect(container.querySelectorAll('section#sec-15 .code-block').length).toBe(6);
+
+      // Section 16: code-50 to code-53 (4)
+      expect(container.querySelectorAll('section#sec-16 .code-block').length).toBe(4);
+
+      // Section 17: code-54 (1)
+      expect(container.querySelectorAll('section#sec-17 .code-block').length).toBe(1);
+    });
+
+    it('renders tables across Category 3 (sections 12, 17)', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 12: 1 table
+      expect(container.querySelectorAll('section#sec-12 table').length).toBe(1);
+
+      // Section 17: 1 table
+      expect(container.querySelectorAll('section#sec-17 table').length).toBe(1);
+    });
+
+    it('renders callout warning block in Section 14', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+      const callout = container.querySelector('section#sec-14 .callout.warn');
+      expect(callout).not.toBeNull();
+      expect(callout?.textContent).toContain('playwright/.auth');
+    });
+
+    it('renders refs blocks with external links in sections 12 to 17', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+      for (let i = 12; i <= 17; i++) {
+        const sec = container.querySelector(`section#sec-${i}`);
+        const refs = sec?.querySelector('.refs');
+        expect(refs).not.toBeNull();
+        const links = refs?.querySelectorAll('a');
+        expect(links?.length).toBeGreaterThanOrEqual(1);
+      }
+    });
+  });
 });
