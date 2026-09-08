@@ -51,8 +51,8 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
 
     const chips = container.querySelectorAll('.hero .chip');
     expect(chips.length).toBeGreaterThanOrEqual(4);
-    expect(chips[0].textContent).toContain('全21章');
-    expect(chips[1].textContent).toContain('TypeScript');
+    expect(chips[0]?.textContent).toContain('全21章');
+    expect(chips[1]?.textContent).toContain('TypeScript');
   });
 
   it('renders the sidebar navigation with all 21 TOC links grouped into 4 categories', () => {
@@ -69,15 +69,15 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
     ];
 
     expectedHrefs.forEach((href, idx) => {
-      expect(tocLinks[idx].getAttribute('href')).toBe(href);
+      expect(tocLinks[idx]?.getAttribute('href')).toBe(href);
     });
 
     const groupLabels = container.querySelectorAll('.nav-group-label');
     expect(groupLabels.length).toBe(4);
-    expect(groupLabels[0].textContent).toBe('基礎編');
-    expect(groupLabels[1].textContent).toBe('設計・構造編');
-    expect(groupLabels[2].textContent).toBe('デバッグ・応用編');
-    expect(groupLabels[3].textContent).toBe('運用編');
+    expect(groupLabels[0]?.textContent).toBe('基礎編');
+    expect(groupLabels[1]?.textContent).toBe('設計・構造編');
+    expect(groupLabels[2]?.textContent).toBe('デバッグ・応用編');
+    expect(groupLabels[3]?.textContent).toBe('運用編');
   });
 
   describe('Category 1: 基礎編 (Sections 01〜06)', () => {
