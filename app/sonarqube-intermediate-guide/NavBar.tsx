@@ -100,6 +100,7 @@ export default function NavBar() {
               key={item.id}
               href={`#${item.id}`}
               className={activeId === item.id ? 'active' : ''}
+              aria-current={activeId === item.id ? 'location' : undefined}
               onClick={closeSidebar}
             >
               <i className={`ti ${item.icon}`}></i>
