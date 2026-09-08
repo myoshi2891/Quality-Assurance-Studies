@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 56 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 4 tools-frameworks + 5 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(56);
+  it('contains 57 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 5 tools-frameworks + 5 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(57);
   });
 
   it('every item has a unique href', () => {
@@ -221,9 +221,9 @@ describe('groupByCategory', () => {
     expect(cicd?.items).toHaveLength(2);
   });
 
-  it('places 4 items in the tools-frameworks group', () => {
+  it('places 5 items in the tools-frameworks group', () => {
     const tools = groupByCategory(NAV_ITEMS).find((g) => g.category === 'tools-frameworks');
-    expect(tools?.items).toHaveLength(4);
+    expect(tools?.items).toHaveLength(5);
   });
 
   it('places 5 items in the books-practices group', () => {

@@ -61,6 +61,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/github-actions', h1: /GitHub Actions 完全ガイド/ },
   { path: '/github-actions-guide', h1: /GitHub Actions 中級〜上級者向け完全ガイド/ },
   { path: '/playwright-beginner-guide', h1: /Playwright.*完全入門ガイド/ },
+  { path: '/playwright-intermediate-advanced-guide', h1: /Playwright.*実践ガイド/ },
   { path: '/cucumber-beginner-guide', h1: /Cucumber.*入門ガイド/ },
   { path: '/cypress-beginner-guide', h1: /Cypress.*入門ガイド/ },
   { path: '/selenium-beginner-guide', h1: /Selenium.*完全ガイド/ },
@@ -71,5 +72,5 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/secure-by-design-guide', h1: /セキュア・バイ・デザイン/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 56;
+export const EXPECTED_PAGE_COUNT = 57;
 

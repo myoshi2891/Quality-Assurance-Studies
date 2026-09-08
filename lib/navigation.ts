@@ -97,6 +97,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/github-actions-guide', label: 'GitHub Actions 実践・上級ガイド', description: '再利用ワークフロー、マトリクス、セキュリティ、コスト最適化。', category: 'cicd-devops' },
 
   { href: '/playwright-beginner-guide', label: 'Playwright 入門ガイド', description: 'ロケーター・自動待機・トレースまでを押さえるE2E自動化入門。', category: 'tools-frameworks' },
+  { href: '/playwright-intermediate-advanced-guide', label: 'Playwright 実践ガイド', description: 'アーキテクチャ・フィクスチャ・認証再利用・シャーディングまでの中上級解説。', category: 'tools-frameworks' },
   { href: '/cucumber-beginner-guide', label: 'Cucumber 入門ガイド', description: 'Gherkin による実行可能仕様とステップ定義の書き方。', category: 'tools-frameworks' },
   { href: '/cypress-beginner-guide', label: 'Cypress 入門ガイド', description: 'ブラウザ内実行モデルを活かしたテスト作成とデバッグ。', category: 'tools-frameworks' },
   { href: '/selenium-beginner-guide', label: 'Selenium 完全ガイド', description: 'WebDriver の仕組み、待機戦略、Grid によるスケール実行。', category: 'tools-frameworks' },
