@@ -293,11 +293,13 @@ Bossavit自身も、この種の「業界のleprechaun（言い伝えだけの�
 
 2026年9月現在、Crosbyが説いた「品質コスト」の考え方は、AIによるコード生成が普及した開発現場で新しい形の再評価を受けています。
 
-DevOps Research and Assessment（DORA）チームの2026年版レポート（*Accelerate*の著者であるDr. Nicole Forsgren、Jez Humble、Gene Kimらが創始したプロジェクト、現在はGoogleが運営）は、AI支援開発の普及によってコード生成のスループットが上がる一方で、プルリクエストのレビュー時間の中央値が大幅に増加し、レビューなしでマージされるPRの割合も増えているという「品質と安定性のシグナルの悪化」を報告しています。DORAはこれを**「検証税（verification tax）」**——AIが生成したコードの信頼性・セキュリティ・アーキテクチャ整合性を確認するために追加でかかるコスト——と呼んでいます。
+DevOps Research and Assessment（DORA）チームの公式レポート「[2025 DORA State of AI-assisted Software Development report](https://dora.dev/research/2025/ai-assisted-software-development/)」（*Accelerate*の著者であるDr. Nicole Forsgren、Jez Humble、Gene Kimらが創始したプロジェクト、現在はGoogleが運営）では、AI支援開発の普及によってコード生成のスループットが上がる一方で、AIが生成したコードの信頼性・セキュリティ・アーキテクチャ整合性を確認するために追加でかかるコストを**「検証税（verification tax）」**と定義しています。また、2026年の「[ROI of AI-assisted Software Development report](https://dora.dev/research/2026/roi-of-ai-assisted-software-development/)」等の関連資料でも、AI導入の投資対効果と検証負担の関係が継続して分析されています。
+
+なお、プルリクエストのレビュー時間の中央値の大幅な増加や、レビューなしでマージされるPR割合の増加といった具体的な開発メトリクスの変化は、[Faros AIの分析](https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025)や[Kodusの二次資料](https://kodus.io/en/dora-accelerate-state-of-devops/)に基づく報告・考察として示されています。
 
 これはまさに、Crosbyが1979年に定義した「評価コスト（appraisal cost）」が、AIコーディングという新しい変数によって形を変えて再浮上している状況だと読むことができます。コード生成という「予防（=最初から正しく書く）」の一部をAIに委譲した結果、「評価（=それが本当に正しいかを確認する）」の負荷がむしろ増大している、というのが2026年時点での業界の実感です。Crosby流に言えば、**予防コストの内訳が変化しただけであり、「品質コストの総和を最小化する」という命題自体は今も有効**だと言えるでしょう。
 
-> 出典：本セクションはDORA/Faros AIの分析（2026年）を参照しています。具体的な数値やレポートの詳細は日々更新されるため、最新情報は下記参考文献のリンクから直接ご確認ください。
+> 出典：本セクションの「検証税」の概念はDORA公式の「2025 DORA State of AI-assisted Software Development report」に基づき、レビュー時間中央値やマージ割合等の周辺数値はFaros AIおよびKodusの二次資料（2025/2026年）を参照しています。詳細情報は下記参考文献のリンクから直接ご確認ください。
 
 ---
 
@@ -414,6 +416,10 @@ Crosbyの『Quality Is Free』が半世紀近く読み継がれている理由�
   [https://modelviewculture.com/pieces/the-making-of-myths](https://modelviewculture.com/pieces/the-making-of-myths)
 - BudgetOverrun.com - Boehm's Cost-of-Change Curve: Does a Bug Really Cost 100x More Late?
   [https://budgetoverrun.com/cost-of-change-curve](https://budgetoverrun.com/cost-of-change-curve)
+- DORA - 2025 DORA State of AI-assisted Software Development report
+  [https://dora.dev/research/2025/ai-assisted-software-development/](https://dora.dev/research/2025/ai-assisted-software-development/)
+- DORA - 2026 ROI of AI-assisted Software Development report
+  [https://dora.dev/research/2026/roi-of-ai-assisted-software-development/](https://dora.dev/research/2026/roi-of-ai-assisted-software-development/)
 - Faros AI - DORA Report 2025/2026 Key Takeaways: AI Impact on Dev Metrics
   [https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025](https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025)
 - Kodus.io - DORA 2026: The ROI of AI in Software Development Runs Through Code Review（「検証税」の解説）
