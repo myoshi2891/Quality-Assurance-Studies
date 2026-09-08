@@ -208,7 +208,7 @@ flowchart TD
 | スペシフィケーションテスト（仕様テスト） | コードが「あるべき」通りに動くかを検証する | 実装前（TDDの通常フロー） |
 | キャラクタリゼーションテスト | コードの「実際の」挙動を記録し、以後の変更で崩れていないかを検知する | 既存コードに手を入れる前 |
 
-この区別は書籍『The Cucumber Book』でも取り上げられており、業界の広い範囲で共有された分類として扱われています[[9]](#ref-9)。
+この区別は書籍『The Cucumber Book』でも取り上げられており、業界の広い範囲で共有された分類として扱われています[[cucumber-book]](#ref-cucumber-book)。
 
 ---
 
@@ -406,6 +406,7 @@ flowchart TD
 | <a id="ref-6"></a>[6] | Global Book Summary Project「Working Effectively with Legacy Code」 | [https://booksummaryproject.com/book53](https://booksummaryproject.com/book53) |
 | <a id="ref-7"></a>[7] | Hell Read「Working Effectively with Legacy Code By Michael Feathers」 | [https://hellread.com/2025/08/15/working-effectively-with-legacy-code-by-michael-feathers/](https://hellread.com/2025/08/15/working-effectively-with-legacy-code-by-michael-feathers/) |
 | <a id="ref-9"></a>[9] | Mark Needham「Book Club: Working Effectively With Legacy Code - Chapters 6 & 7」 | [https://www.markhneedham.com/blog/2009/10/26/book-club-working-effectively-with-legacy-code-chapters-6-7-michael-feathers/](https://www.markhneedham.com/blog/2009/10/26/book-club-working-effectively-with-legacy-code-chapters-6-7-michael-feathers/) |
+| <a id="ref-cucumber-book"></a>[cucumber-book] | Matt Wynne & Aslak Hellesøy『The Cucumber Book: Behaviour-Driven Development for Testers and Developers』 (Pragmatic Bookshelf, 2012) | 書誌情報 |
 | <a id="ref-10"></a>[10] | Michael Feathers（InformIT）「Seams \| Testing Effectively With Legacy Code」 | [https://www.informit.com/articles/article.aspx?p=359417&seqNum=2](https://www.informit.com/articles/article.aspx?p=359417&seqNum=2) |
 | <a id="ref-12-gist"></a>[12-gist] | GitHub Gist（jeremy-w）「Notes on Michael Feathers' Working Effectively with Legacy Code」 | [https://gist.github.com/jeremy-w/6774525](https://gist.github.com/jeremy-w/6774525) |
 | <a id="ref-13"></a>[13] | Agile in a Flash（Tim Ottinger）「Legacy Code Change Algorithm」 | [http://agileinaflash.blogspot.com/2009/03/legacy-code-change-algorithm.html](http://agileinaflash.blogspot.com/2009/03/legacy-code-change-algorithm.html) |

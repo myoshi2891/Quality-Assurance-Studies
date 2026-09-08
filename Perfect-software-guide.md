@@ -100,8 +100,8 @@ flowchart TB
 
 本書のタイトルにある「完璧なソフトウェア」は、皮肉を込めた言葉です。ワインバーグは、テストによって「バグが0件であること」を証明することはできないと繰り返し説きます。この考え方の源流として本書が冒頭で引用しているのが、計算機科学の先駆者エドガー・ダイクストラの有名な言葉です。
 
-> "Testing may convincingly demonstrate the presence of bugs, but can never demonstrate their absence."
-> —Edsger W. Dijkstra（1974年の論文 "Programming as a discipline of mathematical nature" より）
+> "Program testing can be used to show the presence of bugs, but never to show their absence!"
+> —Edsger W. Dijkstra（"The Humble Programmer", ACM Turing Lecture 1972, EWD 340 より）
 
 日本語で言えば「テストはバグの存在を示すことはできても、バグが存在しないことを証明することは決してできない」という意味です。本書全体のテーマは、この一文に集約されていると言っても過言ではありません。
 

@@ -105,7 +105,7 @@ flowchart TB
 | Part II: The xUnit Example | 18〜24章 | xUnit系テストフレームワークそのものをTDDで作る | テストフレームワークの内部構造の理解、インフラコードもTDDで作れることの実証 |
 | Part III: Patterns for Test-Driven Development | 25〜32章 | TDDに関する65個のパターン集と考察 | テストパターン、設計パターン、リファクタリングパターンの語彙、TDDの限界と応用範囲 |
 
-各パートの終わりには「Retrospective（回顧）」という振り返り章が置かれており、実装しながら得られた気づきや設計上の教訓がまとめられているのも本書の特徴です。
+Part I と Part II の末尾には「Retrospective（回顧）」という振り返り章が置かれており、実装しながら得られた気づきや設計上の教訓がまとめられています。なお、Part III の締めくくりとなる第32章は「Mastering TDD」というタイトルで、TDD の適用範囲と限界について考察しています。
 
 ---
 
