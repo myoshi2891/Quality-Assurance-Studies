@@ -482,5 +482,149 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       });
     });
   });
+
+  describe('Category 4: AIエージェント・エンタープライズ・総括編 (Sections 16〜21)', () => {
+    it('renders sections 16 to 21 with correct IDs, kickers, and headings', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const expectedSections = [
+        { id: 'ai-agents', kicker: 'SECTION 16', title: 'AIエージェント時代のSonarQube ― MCP Server / Agentic Analysis / Sonar Vortex' },
+        { id: 'enterprise', kicker: 'SECTION 17', title: 'エンタープライズ機能 ― Portfolio・コンプライアンスレポート・Data Center Edition' },
+        { id: 'best-practices', kicker: 'SECTION 18', title: '実践ベストプラクティス集' },
+        { id: 'troubleshooting', kicker: 'SECTION 19', title: 'トラブルシューティング' },
+        { id: 'summary', kicker: 'SECTION 20', title: 'まとめ' },
+        { id: 'references', kicker: 'SECTION 21', title: '参考文献・情報源一覧' },
+      ];
+
+      expectedSections.forEach(({ id, kicker, title }) => {
+        const sec = container.querySelector(`section#${id}`);
+        expect(sec).not.toBeNull();
+        const secKicker = sec?.querySelector('.section-kicker');
+        expect(secKicker?.textContent).toContain(kicker);
+        const h2 = sec?.querySelector('h2');
+        expect(h2?.textContent?.replace(/\s+/g, '')).toBe(title.replace(/\s+/g, ''));
+      });
+    });
+
+    it('renders subheadings (h3) in sections 16 and 17', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const expectedSubheadings = [
+        '16.1 Agent Centric Development Cycle(ACDC)という設計思想',
+        '16.2 SonarQube MCP Server',
+        '16.3 Sonar Vortex(旧: Agentic Analysis + Context Augmentation)',
+        '16.4 SonarQube Remediation Agent',
+        '16.5 AI CodeFix',
+        '16.6 なぜこれが重要か',
+        '17.1 Portfolio(ポートフォリオ管理)',
+        '17.2 コンプライアンスレポート',
+        '17.3 Data Center Edition再訪',
+      ];
+
+      const h3Elements = container.querySelectorAll('section#ai-agents h3, section#enterprise h3');
+      const foundTitles = Array.from(h3Elements).map((el) => el.textContent?.trim() || '');
+
+      expectedSubheadings.forEach((expected) => {
+        expect(foundTitles.some((t) => t.includes(expected) || expected.includes(t))).toBe(true);
+      });
+    });
+
+    it('renders Mermaid diagram in section 16 (Diag 10)', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const sec16Mermaid = container.querySelectorAll('section#ai-agents .mermaid-wrap');
+      expect(sec16Mermaid.length).toBe(1);
+    });
+
+    it('renders Tables 18, 19, 20, 21 with correct structure and row counts', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      // Section 16: Tables 18 & 19
+      const sec16Tables = container.querySelectorAll('section#ai-agents table');
+      expect(sec16Tables.length).toBe(2);
+      const t18Headers = Array.from(sec16Tables[0].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(t18Headers).toEqual(['形態', '対象', '特徴']);
+      expect(sec16Tables[0].querySelectorAll('tbody tr').length).toBe(2);
+
+      const t19Headers = Array.from(sec16Tables[1].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(t19Headers).toEqual(['フェーズ', '機能', '効果']);
+      expect(sec16Tables[1].querySelectorAll('tbody tr').length).toBe(2);
+
+      // Section 19: Table 20
+      const t20 = container.querySelector('section#troubleshooting table');
+      expect(t20).not.toBeNull();
+      const t20Headers = Array.from(t20?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t20Headers).toEqual(['症状', '主な原因', '対処']);
+      expect(t20?.querySelectorAll('tbody tr').length).toBe(7);
+
+      // Section 21: Table 21
+      const t21 = container.querySelector('section#references table');
+      expect(t21).not.toBeNull();
+      const t21Headers = Array.from(t21?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t21Headers).toEqual(['#', 'タイトル', 'URL']);
+      expect(t21?.querySelectorAll('tbody tr').length).toBe(48);
+    });
+
+    it('renders MCP bash code block in section 16 and practice list in section 18', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const sec16Code = container.querySelector('section#ai-agents pre code');
+      expect(sec16Code).not.toBeNull();
+      expect(sec16Code?.textContent).toContain('claude mcp add sonarqube');
+      expect(sec16Code?.textContent).toContain('sonarsource/sonarqube-mcp');
+
+      const practiceListItems = container.querySelectorAll('section#best-practices .practice-list li');
+      expect(practiceListItems.length).toBe(8);
+      const nums = Array.from(practiceListItems).map((li) => li.querySelector('.num')?.textContent?.trim());
+      expect(nums).toEqual(['1', '2', '3', '4', '5', '6', '7', '8']);
+    });
+
+    it('renders reference links blocks in sections 16, 17, 19 with target="_blank"', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const refBlocks = container.querySelectorAll(
+        'section#ai-agents .refs, section#enterprise .refs, section#troubleshooting .refs'
+      );
+      expect(refBlocks.length).toBe(3);
+
+      refBlocks.forEach((block) => {
+        const links = block.querySelectorAll('a');
+        expect(links.length).toBeGreaterThan(0);
+        links.forEach((a) => {
+          expect(a.getAttribute('target')).toBe('_blank');
+          expect(a.getAttribute('rel')).toContain('noopener');
+        });
+      });
+    });
+
+    it('renders final note and document footer in section 21', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const finalNote = container.querySelector('.final-note');
+      expect(finalNote).not.toBeNull();
+      expect(finalNote?.textContent).toContain('本ガイドは2026年7月時点の公開情報に基づいて作成されています');
+
+      const docFooter = container.querySelector('.doc-footer');
+      expect(docFooter).not.toBeNull();
+      expect(docFooter?.textContent).toContain('SonarQube 完全解説ガイド');
+    });
+
+    it('satisfies overall inventory count: 22 sections, 10 diagrams, 21 tables, 4 code blocks', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const allSections = container.querySelectorAll('section.doc-section');
+      expect(allSections.length).toBe(22);
+
+      const allMermaids = container.querySelectorAll('.mermaid-wrap');
+      expect(allMermaids.length).toBe(10);
+
+      const allTables = container.querySelectorAll('table');
+      expect(allTables.length).toBe(21);
+
+      const allPre = container.querySelectorAll('pre code');
+      expect(allPre.length).toBe(4);
+    });
+  });
 });
+
 
