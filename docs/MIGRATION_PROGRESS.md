@@ -5,7 +5,7 @@ Updated 2026-09-05
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 56 ルート = ガイドライブラリ index + 55 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 57 ルート = ガイドライブラリ index + 56 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -13,9 +13,22 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `1325134` |
+| 最新 HEAD | `1525667` |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test` / `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/08: Playwright実践ガイド（中級者〜上級者向け）のNext.js完全移行
+
+- **デザイン忠実再現**: 元HTML固有の洗練されたダークサイバーUI（背景 `--bg: #07111e`、エレベーテッド `--bg-elevated: #0d1b2e`、カード `--bg-card: #0b1622`、アクセント `--accent: #2dd4bf`、ボーダー `--border: rgba(255,255,255,0.08)`、等幅フォント `JetBrains Mono`）を忠実に復元。
+- **Mermaid図解の完全移植**: アーキテクチャ図、BrowserContext分離図、Auto-waitingフロー図、Fixtures実行順序シーケンス図、Worker並列実行図、Sharding実行図、Trace閲覧フロー、HAR記録再生フロー、認証戦略フロー、API/UI相互運用フロー、CI/CDパイプライン全体像、リモートPlaywrightサーバーアーキテクチャの全12図解（`mermaid-1`〜`mermaid-12`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **コードブロック**: 全62箇所のコードブロック（`code-1`〜`code-62`）を完全移植。TypeScript / Bash / YAML / Dockerfile などの構文ハイライトと `.code-label` による言語バッジを適用。
+- **テーブル & コールアウト**: 動作要件、BrowserContext vs Page、Locators優先順位、アサーション一覧、シャード比較、Flaky分類、Trace vs UI Mode、チェックリストなど全15テーブル、および全3箇所の重要・警告コールアウト（Workerデータ分離、認証情報保護、shm-size）を完全移植。
+- **全セクション参考文献**: 各章末尾および第21章の参考文献リスト（外部リンク、セキュリティ属性 `rel="noopener noreferrer"`）を完全移行。
+- `app/playwright-intermediate-advanced-guide/`: ページコンポーネント、専用スタイル（`.playwright-intermediate-advanced-page` スコープ、globals.css干渉リセット、テーブル文字色・ホバーリセット、Tailwindリストマーカー復元）、NavBar（スクロールスパイ、全21セクションリンク、4カテゴリーグルーフラベル、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリに `/playwright-intermediate-advanced-guide`（Playwright 実践ガイド）を追加（全57件）。
+- `tests/playwright-intermediate-advanced-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全21リンク、全21セクション、全12Mermaid図、全62コードブロック、全15テーブル、全3コールアウト、全参考文献外部リンクの存在を検証する厳格なテストスイートを実装して全パス（26 pass / 195 expect()）。
+- `Playwright-intermediate-advanced-guide.html`: `archive/html-archive/playwright/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 57 ページ体制に同期。
 
 ## 2026/09/05: HTML移行スキルおよび規約体系の抜本的ブラッシュアップ
 

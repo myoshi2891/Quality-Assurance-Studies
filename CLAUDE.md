@@ -210,6 +210,9 @@ Next.js App Router 構成:
 - `app/playwright-beginner-guide/playwright-beginner-guide.css` — Playwright 完全入門ガイド固有スタイル
 - `app/playwright-beginner-guide/page.tsx` — Playwright 完全入門ガイドページ
 - `app/playwright-beginner-guide/NavBar.tsx` — Playwright 完全入門ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
+- `app/playwright-intermediate-advanced-guide/playwright-intermediate-advanced-guide.css` — Playwright 実践ガイド（中上級）固有スタイル
+- `app/playwright-intermediate-advanced-guide/page.tsx` — Playwright 実践ガイド（中上級）ページ
+- `app/playwright-intermediate-advanced-guide/NavBar.tsx` — Playwright 実践ガイド（中上級）ページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応）
 - `app/cucumber-beginner-guide/cucumber-beginner-guide.css` — Cucumber 入門ガイド固有スタイル
 - `app/cucumber-beginner-guide/page.tsx` — Cucumber 入門ガイドページ
 - `app/cucumber-beginner-guide/NavBar.tsx` — Cucumber 入門ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応）
