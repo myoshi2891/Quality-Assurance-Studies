@@ -359,4 +359,104 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       }
     });
   });
+
+  describe('Category 4: 運用編 & 参考文献 (Sections 18〜21)', () => {
+    it('renders sections 18 to 21 with correct IDs and titles', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      const expectedSections = [
+        { id: 'sec-18', title: '18CI/CD統合(GitHub Actions)' },
+        { id: 'sec-19', title: '19Docker活用' },
+        { id: 'sec-20', title: '20ベストプラクティス総まとめ' },
+        { id: 'sec-21', title: '21参考文献一覧' },
+      ];
+
+      expectedSections.forEach(({ id, title }) => {
+        const sec = container.querySelector(`section#${id}`);
+        expect(sec).not.toBeNull();
+        const h2 = sec?.querySelector('h2.sec-title');
+        expect(h2?.textContent?.replace(/\s+/g, '')).toBe(title.replace(/\s+/g, ''));
+      });
+    });
+
+    it('renders Mermaid diagrams 11 and 12 in Category 4', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 18: Mermaid 11
+      const sec18 = container.querySelector('section#sec-18');
+      expect(sec18).not.toBeNull();
+      expect(sec18?.querySelector('.mermaid-container')).not.toBeNull();
+
+      // Section 19: Mermaid 12
+      const sec19 = container.querySelector('section#sec-19');
+      expect(sec19).not.toBeNull();
+      expect(sec19?.querySelector('.mermaid-container')).not.toBeNull();
+    });
+
+    it('renders code blocks 55 through 62 in Category 4', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 18: code-55 to code-56 (2)
+      expect(container.querySelectorAll('section#sec-18 .code-block').length).toBe(2);
+
+      // Section 19: code-57 to code-60 (4)
+      expect(container.querySelectorAll('section#sec-19 .code-block').length).toBe(4);
+
+      // Section 20: code-61 to code-62 (2)
+      expect(container.querySelectorAll('section#sec-20 .code-block').length).toBe(2);
+    });
+
+    it('renders tables across Category 4 (sections 18, 19, 20, 21)', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // Section 18: 1 table
+      expect(container.querySelectorAll('section#sec-18 table').length).toBe(1);
+
+      // Section 19: 1 table
+      expect(container.querySelectorAll('section#sec-19 table').length).toBe(1);
+
+      // Section 20: 2 tables
+      expect(container.querySelectorAll('section#sec-20 table').length).toBe(2);
+
+      // Section 21: 2 tables
+      expect(container.querySelectorAll('section#sec-21 table').length).toBe(2);
+    });
+
+    it('renders callout warning block in Section 19', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+      const callout = container.querySelector('section#sec-19 .callout.warn');
+      expect(callout).not.toBeNull();
+      expect(callout?.textContent).toContain('shm-size');
+    });
+
+    it('renders document footer', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+      const footer = container.querySelector('footer.doc-footer');
+      expect(footer).not.toBeNull();
+      expect(footer?.textContent).toContain('一次情報として参照してください');
+    });
+  });
+
+  describe('Full Page Comprehensive Inventory Verification', () => {
+    it('verifies all 21 sections, 12 mermaid diagrams, 62 code blocks, and 15 tables', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // All 21 sections exist
+      for (let i = 1; i <= 21; i++) {
+        expect(container.querySelector(`section#sec-${i}`)).not.toBeNull();
+      }
+
+      // Exactly 12 mermaid containers
+      expect(container.querySelectorAll('.mermaid-container').length).toBe(12);
+
+      // Exactly 62 code blocks
+      expect(container.querySelectorAll('.code-block').length).toBe(62);
+
+      // Exactly 15 tables
+      expect(container.querySelectorAll('table').length).toBe(15);
+
+      // Exactly 3 callouts (sections 9, 14, 19)
+      expect(container.querySelectorAll('.callout').length).toBe(3);
+    });
+  });
 });
