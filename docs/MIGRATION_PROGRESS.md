@@ -13,7 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `4c26c5a` |
+| 最新 HEAD | `978a0ed` |
+| 最新コミット内容 | docs(books): Quality-is-free構成図・解説詳細化およびLegacy-code参照リンクのID記法修正 |
 | 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
