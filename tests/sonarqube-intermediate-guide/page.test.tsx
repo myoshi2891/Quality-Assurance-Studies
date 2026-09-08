@@ -210,4 +210,146 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       });
     });
   });
+
+  describe('Category 2: 品質モデル・Issue・セキュリティ編 (Sections 06〜10)', () => {
+    it('renders sections 06 to 10 with correct IDs, kickers, and headings', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const expectedSections = [
+        { id: 'quality-model', kicker: 'SECTION 06', title: '品質モデルを理解する ― Clean Code Taxonomy と MQR Mode' },
+        { id: 'issue-types', kicker: 'SECTION 07', title: 'Issueの分類 ― Bug / Vulnerability / Code Smell / Security Hotspot' },
+        { id: 'quality-profiles', kicker: 'SECTION 08', title: 'Quality Profiles ― ルールセットの管理と継承' },
+        { id: 'security', kicker: 'SECTION 09', title: 'セキュリティ分析の内部構造 ― Taint Analysis と SAST/SCA' },
+        { id: 'technical-debt', kicker: 'SECTION 10', title: '技術的負債とメトリクス ― SQALEモデル' },
+      ];
+
+      expectedSections.forEach(({ id, kicker, title }) => {
+        const sec = container.querySelector(`section#${id}`);
+        expect(sec).not.toBeNull();
+        const secKicker = sec?.querySelector('.section-kicker');
+        expect(secKicker?.textContent).toContain(kicker);
+        const h2 = sec?.querySelector('h2');
+        expect(h2?.textContent?.replace(/\s+/g, '')).toBe(title.replace(/\s+/g, ''));
+      });
+    });
+
+    it('renders subheadings (h3) in sections 06 to 10', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const expectedSubheadings = [
+        '6.1 Standard Experience vs MQR Mode',
+        '6.2 Clean Code Taxonomy(4つの属性カテゴリ)',
+        '7.1 Security HotspotとVulnerabilityの決定的な違い',
+        '8.1 コピー(Copy) vs 継承(Extend)',
+        '8.2 補足機能',
+        '9.1 セキュリティルールの2分類',
+        '9.2 セキュリティ標準との対応付け',
+        '9.3 SonarQube Advanced Security(SCA・シークレット検出)',
+        '10.1 計算式',
+        '10.2 Maintainability Rating(保守性格付け)グリッド',
+        '10.3 全体コード vs 新規コードの二重管理',
+      ];
+
+      const h3Elements = container.querySelectorAll(
+        'section#quality-model h3, section#issue-types h3, section#quality-profiles h3, section#security h3, section#technical-debt h3'
+      );
+      const foundTitles = Array.from(h3Elements).map((el) => el.textContent?.trim() || '');
+
+      expectedSubheadings.forEach((expected) => {
+        expect(foundTitles.some((t) => t.includes(expected) || expected.includes(t))).toBe(true);
+      });
+    });
+
+    it('renders Mermaid diagrams in sections 06, 07, 08 (Diag 4〜6)', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const sec06Mermaid = container.querySelectorAll('section#quality-model .mermaid-wrap');
+      expect(sec06Mermaid.length).toBe(1);
+
+      const sec07Mermaid = container.querySelectorAll('section#issue-types .mermaid-wrap');
+      expect(sec07Mermaid.length).toBe(1);
+
+      const sec08Mermaid = container.querySelectorAll('section#quality-profiles .mermaid-wrap');
+      expect(sec08Mermaid.length).toBe(1);
+    });
+
+    it('renders Tables 7 through 13 in sections 06 to 10 with correct headers and rows', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      // Section 06: Tables 7 & 8
+      const sec06Tables = container.querySelectorAll('section#quality-model table');
+      expect(sec06Tables.length).toBe(2);
+      const t7Headers = Array.from(sec06Tables[0].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(t7Headers).toEqual(['項目', 'Standard Experience(従来型)', 'MQR Mode(新方式)']);
+      expect(sec06Tables[0].querySelectorAll('tbody tr').length).toBe(4);
+
+      const t8Headers = Array.from(sec06Tables[1].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(t8Headers).toEqual(['カテゴリ', '意味', '含まれる属性']);
+      expect(sec06Tables[1].querySelectorAll('tbody tr').length).toBe(4);
+
+      // Section 07: Table 9
+      const t9 = container.querySelector('section#issue-types table');
+      expect(t9).not.toBeNull();
+      const t9Headers = Array.from(t9?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t9Headers).toEqual(['種別', '定義', '対応する Software Quality']);
+      expect(t9?.querySelectorAll('tbody tr').length).toBe(4);
+
+      // Section 08: Table 10
+      const t10 = container.querySelector('section#quality-profiles table');
+      expect(t10).not.toBeNull();
+      const t10Headers = Array.from(t10?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t10Headers).toEqual(['方式', '挙動', '用途']);
+      expect(t10?.querySelectorAll('tbody tr').length).toBe(2);
+
+      // Section 09: Table 11
+      const t11 = container.querySelector('section#security table');
+      expect(t11).not.toBeNull();
+      const t11Headers = Array.from(t11?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+      expect(t11Headers).toEqual(['ルールタイプ', '検出対象', '使用技術']);
+      expect(t11?.querySelectorAll('tbody tr').length).toBe(2);
+
+      // Section 10: Tables 12 & 13
+      const sec10Tables = container.querySelectorAll('section#technical-debt table');
+      expect(sec10Tables.length).toBe(2);
+      const t12Headers = Array.from(sec10Tables[0].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(t12Headers).toEqual(['格付け', '技術的負債比率の範囲', '意味']);
+      expect(sec10Tables[0].querySelectorAll('tbody tr').length).toBe(5);
+
+      const t13Headers = Array.from(sec10Tables[1].querySelectorAll('th')).map((th) => th.textContent?.trim());
+      expect(t13Headers).toEqual(['格付け', 'Reliability Ratingの条件例']);
+      expect(sec10Tables[1].querySelectorAll('tbody tr').length).toBe(5);
+    });
+
+    it('renders SQALE yaml code block in section 10 and Callout 2 in section 07', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const sec10Pre = container.querySelector('section#technical-debt pre code');
+      expect(sec10Pre).not.toBeNull();
+      expect(sec10Pre?.textContent).toContain('技術的負債 (Technical Debt / sqale_index)');
+      expect(sec10Pre?.textContent).toContain('技術的負債比率 (Technical Debt Ratio / sqale_debt_ratio)');
+
+      const callout2 = container.querySelector('section#issue-types .callout');
+      expect(callout2).not.toBeNull();
+      expect(callout2?.textContent).toContain('2026年時点のトレンド:');
+      expect(callout2?.textContent).toContain('SonarSourceは分類の単純化を進めており');
+    });
+
+    it('renders reference links blocks in sections 06 to 10 with target="_blank"', () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+
+      const refBlocks = container.querySelectorAll(
+        'section#quality-model .refs, section#issue-types .refs, section#quality-profiles .refs, section#security .refs, section#technical-debt .refs'
+      );
+      expect(refBlocks.length).toBe(5);
+
+      refBlocks.forEach((block) => {
+        const links = block.querySelectorAll('a');
+        expect(links.length).toBeGreaterThan(0);
+        links.forEach((a) => {
+          expect(a.getAttribute('target')).toBe('_blank');
+          expect(a.getAttribute('rel')).toContain('noopener');
+        });
+      });
+    });
+  });
 });
