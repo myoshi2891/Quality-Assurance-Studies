@@ -54,6 +54,37 @@ SONARWAY["Sonar way (組み込み)"] -->|"継承"| CUSTOM1["自社標準プロ�
 CUSTOM1 -->|"継承"| CUSTOM2["プロジェクトA用"]
 CUSTOM1 -->|"継承"| CUSTOM3["プロジェクトB用"]`;
 
+const DIAGRAM_7 = `flowchart TD
+START["New Code Definitionを設定"] --> TYPE{"どのオプション?"}
+TYPE -->|"Reference Branch"| RB["参照ブランチとの差分計算"]
+TYPE -->|"Number of Days"| ND["開始日 = 現在日 - X日"]
+TYPE -->|"Previous Version"| PV["開始日 = バージョン更新日"]
+RB --> MARK["対象行を新規コードとしてマーキング"]
+ND --> MARK
+PV --> MARK
+MARK --> GATE["Quality Gateの新規コード条件を適用"]`;
+
+const DIAGRAM_8 = `flowchart TD
+START["解析開始"] --> CALC["メトリクス計算"]
+CALC --> FUDGE{"新規行数 >= 20行?"}
+FUDGE -->|"No"| SKIP["重複/カバレッジ条件をスキップ"]
+FUDGE -->|"Yes"| FULL["全条件を評価"]
+SKIP --> CHECK{"条件を満たすか?"}
+FULL --> CHECK
+CHECK -->|"Yes"| PASS["Passed (緑)"]
+CHECK -->|"No"| FAIL["Failed (赤)"]
+PASS --> MERGE["マージ許可"]
+FAIL --> BLOCK["マージブロック"]`;
+
+const DIAGRAM_9 = `flowchart TD
+PR["PR作成/更新"] --> TRIGGER["CI/CDトリガー"]
+TRIGGER --> SCAN["差分を解析"]
+SCAN --> COMPARE["ターゲットブランチと比較"]
+COMPARE --> DECORATE["PRへのデコレーション"]
+DECORATE --> GATECHECK{"Quality Gate"}
+GATECHECK -->|"Passed"| ALLOW["マージ可能"]
+GATECHECK -->|"Failed"| DENY["マージブロック"]`;
+
 export default function SonarQubeIntermediateGuidePage() {
   return (
     <div className="sonarqube-page">
@@ -1287,6 +1318,543 @@ export default function SonarQubeIntermediateGuidePage() {
                       rel="noopener noreferrer"
                     >
                       Longitudinal Evaluation of OSS Maintainability(学術論文)
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            {/* 11 */}
+            <section className="doc-section" id="clean-as-you-code">
+              <span className="section-kicker"><i className="ti ti-sparkles"></i>SECTION 11</span>
+              <h2>Clean as You Code と New Code Definition</h2>
+              <p>
+                <strong>Clean as You Code</strong>
+                は、SonarQubeが提唱する品質改善方法論であり、「既存のレガシーコードを一括で直そうとするのではなく、新しく書く・変更するコードを常にクリーンに保つ」ことに焦点を当てます。これにより、数百万行規模のレガシーコードベースでも現実的に品質改善を進められます。
+              </p>
+              <p>
+                この方法論を技術的に支えるのが
+                <strong>New Code Definition(NCD、新規コード定義)</strong>
+                です。SonarQubeが「どこからどこまでを新規コードとみなすか」を決める設定で、グローバル・プロジェクト・ブランチの各レベルで設定できます。
+              </p>
+
+              <h3>11.1 New Code Definitionの4つのオプション</h3>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>オプション</th>
+                      <th>定義</th>
+                      <th>利用可能レベル</th>
+                      <th>推奨シーン</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><strong>Previous Version</strong></td>
+                      <td>プロジェクトの現在のバージョンが上がってからの変更分</td>
+                      <td>グローバル/プロジェクト/ブランチ</td>
+                      <td>定期リリースを行うプロジェクト</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Number of Days</strong></td>
+                      <td>現在時刻からX日前までの変更(最大90日、デフォルト30日)</td>
+                      <td>グローバル/プロジェクト/ブランチ</td>
+                      <td>継続的デリバリーを行うプロジェクト</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Reference Branch</strong></td>
+                      <td>指定したブランチとのSCM差分</td>
+                      <td>プロジェクト/ブランチ</td>
+                      <td>フィーチャーブランチ運用のプロジェクト(推奨)</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Specific Analysis</strong></td>
+                      <td>過去の特定の解析時点からの差分(Web API経由のみ設定可)</td>
+                      <td>ブランチ(Developer以上)/プロジェクト(Community Build)</td>
+                      <td>自動化されたバルクインポート時</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p>
+                <strong>実務上の注意:</strong> Number of
+                Days以外のオプションを使う場合、マージ時にファストフォワードマージ(GitHubのSquash
+                and MergeやRebase and
+                Merge)を使うことが推奨されています。理由は、マージコミットを作ると、そのコミットのblame情報(誰がいつ書いたか)が最新化され、新規コードの判定が正しく機能するためです。
+              </p>
+
+              <h3>11.2 判定ロジック</h3>
+              <p>
+                Reference
+                Branchオプションの場合、解析対象ブランチと参照ブランチの現在の状態をSCM情報(Gitのblame等)を使って比較します。それ以外のオプションでは「新規コード期間の開始日」を算出し、その日以降に変更された全ファイルの該当行が黄色くハイライトされます。そのハイライトされた行を主・副の発生箇所に持つIssueが「新規コードのIssue」として分類されます。
+              </p>
+
+              <div className="mermaid-wrap">
+                <Mermaid chart={DIAGRAM_7} />
+              </div>
+
+              <div className="refs">
+                <div className="refs-label"><i className="ti ti-link"></i>参考</div>
+                <ul>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/latest/core-concepts/clean-as-you-code/about-new-code/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      About new code
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/10.7/project-administration/setting-up-clean-as-you-code"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Setting up Clean as You Code
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/10.5/project-administration/clean-as-you-code-settings/defining-new-code"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Defining new code
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            {/* 12 */}
+            <section className="doc-section" id="quality-gates">
+              <span className="section-kicker"><i className="ti ti-gauge"></i>SECTION 12</span>
+              <h2>Quality Gates ― リリース可否の自動判定</h2>
+              <p>
+                <strong>Quality Gate(品質ゲート)</strong>
+                は「このコードはリリース可能な状態か?」という問いに答えるための、一連の条件(Condition)の集合です。各条件は「新規コード」または「全体コード」のいずれかに対して定義され、分析結果がすべての条件を満たせば
+                <strong>Passed(緑)</strong>、1つでも満たさなければ
+                <strong>Failed(赤)</strong> と判定されます。
+              </p>
+
+              <h3>12.1 Sonar way Quality Gateのデフォルト条件</h3>
+              <p>
+                Sonar way Quality
+                Gateは、意図的に「新規コードのみ」を対象とした条件で構成されています。これは前述のClean
+                as You Code思想の直接的な実装です。
+              </p>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>条件(新規コードに適用)</th>
+                      <th>デフォルト閾値</th>
+                      <th>備考</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Issue数</td>
+                      <td>0件を超えたら失敗(推奨設定)</td>
+                      <td>新規コードを完全にクリーンに保つための最も厳格な条件</td>
+                    </tr>
+                    <tr>
+                      <td>Reliability Rating</td>
+                      <td>A未満で失敗</td>
+                      <td>―</td>
+                    </tr>
+                    <tr>
+                      <td>Security Rating</td>
+                      <td>A未満で失敗</td>
+                      <td>―</td>
+                    </tr>
+                    <tr>
+                      <td>Maintainability Rating</td>
+                      <td>A未満で失敗</td>
+                      <td>―</td>
+                    </tr>
+                    <tr>
+                      <td>Security Hotspots Reviewed</td>
+                      <td>100%未満で失敗</td>
+                      <td>未レビューのHotspotが残っているとNG</td>
+                    </tr>
+                    <tr>
+                      <td>Coverage</td>
+                      <td>設定値未満で失敗(調整可能)</td>
+                      <td>―</td>
+                    </tr>
+                    <tr>
+                      <td>Duplicated Lines</td>
+                      <td>設定値超過で失敗(調整可能)</td>
+                      <td>―</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="callout">
+                <i className="ti ti-bulb"></i>
+                <div>
+                  Reliability/Security/Maintainability
+                  Ratingの3条件は、格付けが「A未満」であることを許容する分、若干の技術的負債の混入を許してしまいます。より厳格に運用したい場合は「Issue数が0件を超えたら失敗」という条件を使うことで、新規コードを完全にIssueフリーに保てます。
+                </div>
+              </div>
+
+              <h3>12.2 Fudge Factor(判定の緩和機構)</h3>
+              <p>
+                小さな変更(数行のホットフィックス等)が重複率やカバレッジの条件で不当に失敗しないよう、
+                <strong>Fudge Factor</strong>
+                という仕組みがデフォルトで働きます。新規行数が20行未満の場合、重複行・カバレッジに関する条件判定はスキップされます。
+              </p>
+
+              <h3>12.3 評価フロー</h3>
+              <div className="mermaid-wrap">
+                <Mermaid chart={DIAGRAM_8} />
+              </div>
+
+              <h3>12.4 運用上のポイント</h3>
+              <ul>
+                <li>
+                  プロジェクトごとに異なるQuality
+                  Gateを割り当てられます(Webアプリとバックエンドで求めるカバレッジ水準を変える、など)
+                </li>
+                <li>
+                  Quality Gateへの変更権限は「Administer Quality
+                  Gates」権限を持つユーザーに限定されます。さらにEnterprise
+                  Edition以上では、特定のQuality
+                  Gateだけを特定の担当者グループに管理委譲できます
+                </li>
+                <li>
+                  Quality
+                  Gate状態の変化(Passed→Failed、Failed→Passed)はメール通知の対象にでき、PRデコレーション・CIパイプラインのステータスにも反映されます
+                </li>
+                <li>
+                  プルリクエスト解析では「新規コードに関する条件のみ」が適用されます(全体コードの条件は評価されません)
+                </li>
+              </ul>
+              <div className="refs">
+                <div className="refs-label"><i className="ti ti-link"></i>参考</div>
+                <ul>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/quality-standards-administration/managing-quality-gates/introduction-to-quality-gates"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Understanding quality gates
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/10.8/instance-administration/analysis-functions/quality-gates"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Quality gates 10.8
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            {/* 13 */}
+            <section className="doc-section" id="branch-pr">
+              <span className="section-kicker">
+                <i className="ti ti-git-pull-request"></i>SECTION 13
+              </span>
+              <h2>ブランチ分析とプルリクエスト分析</h2>
+              <p>
+                Community
+                Buildは<strong>メインブランチ1本のみ</strong>の解析に制限されており、フィーチャーブランチやプルリクエストの解析はDeveloper
+                Edition以上(またはSonarQube Cloud)でのみ利用できます。
+              </p>
+
+              <h3>13.1 ブランチ分析とPR分析の違い</h3>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>項目</th>
+                      <th>ブランチ分析</th>
+                      <th>プルリクエスト分析</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>対象</td>
+                      <td>名前付きの長寿命/短命ブランチ</td>
+                      <td>オープン中のプルリクエスト/マージリクエスト</td>
+                    </tr>
+                    <tr>
+                      <td>Quality Gate適用範囲</td>
+                      <td>新規コード条件 + 全体コード条件</td>
+                      <td>新規コード条件のみ</td>
+                    </tr>
+                    <tr>
+                      <td>結果の表示場所</td>
+                      <td>SonarQube Server/Cloud のUI</td>
+                      <td>PR/MRのコメント・チェックステータス + SonarQube UI</td>
+                    </tr>
+                    <tr>
+                      <td>New Code Definitionの基準</td>
+                      <td>グローバル/プロジェクト設定に従う</td>
+                      <td>ターゲットブランチとの差分が新規コード</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <h3>13.2 プルリクエスト解析のフロー</h3>
+              <div className="mermaid-wrap">
+                <Mermaid chart={DIAGRAM_9} />
+              </div>
+
+              <p>
+                PRデコレーションは、対象のDevOpsプラットフォーム(GitHub, GitLab,
+                Bitbucket, Azure
+                DevOps)のブランチ保護ルールと組み合わせることで、「Quality
+                Gateが赤のPRはマージできない」という強制力を持たせられます。GitHubの場合、Settings
+                &gt; Branches &gt; Branch protection
+                rulesでSonarQubeのステータスチェックを必須化します。
+              </p>
+
+              <div className="refs">
+                <div className="refs-label"><i className="ti ti-link"></i>参考</div>
+                <ul>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/discovering/code-analysis/pull-request-analysis.md"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Pull request analysis
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://dev.to/rahulxsingh/sonarqube-community-vs-developer-edition-24oo"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      SonarQube Community vs Developer(PRデコレーション解説)
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            {/* 14 */}
+            <section className="doc-section" id="cicd">
+              <span className="section-kicker">
+                <i className="ti ti-brand-github"></i>SECTION 14
+              </span>
+              <h2>CI/CD統合の実践 ― GitHub Actionsによる構築例</h2>
+              <h3>14.1 基本ワークフロー(GitHub Secretsの準備)</h3>
+              <p>
+                GitHub
+                ActionsでSonarQube解析を行うには、まずリポジトリのSecretsに以下を登録します。
+              </p>
+              <ul>
+                <li>
+                  <code>SONAR_TOKEN</code>:
+                  SonarQube上で発行したユーザートークンまたはプロジェクトトークン
+                </li>
+                <li>
+                  <code>SONAR_HOST_URL</code>: SonarQube
+                  Serverのアクセス先URL(SonarQube Cloudの場合は不要な場合あり)
+                </li>
+              </ul>
+
+              <h3>14.2 公式SonarQube Scan GitHub Actionによる構成例</h3>
+              <pre>
+                <code className="language-yaml">
+                  <div className="code-line"># .github/workflows/sonarqube.yml</div>
+                  <div className="code-line">name: SonarQube Analysis</div>
+                  <div className="code-line"></div>
+                  <div className="code-line">on:</div>
+                  <div className="code-line">  push:</div>
+                  <div className="code-line">    branches:</div>
+                  <div className="code-line">      - main</div>
+                  <div className="code-line">      - develop</div>
+                  <div className="code-line">      - &apos;releases/**&apos;</div>
+                  <div className="code-line">  pull_request:</div>
+                  <div className="code-line">    types: [opened, synchronize, reopened]</div>
+                  <div className="code-line"></div>
+                  <div className="code-line">jobs:</div>
+                  <div className="code-line">  sonarqube:</div>
+                  <div className="code-line">    runs-on: ubuntu-latest</div>
+                  <div className="code-line">    permissions:</div>
+                  <div className="code-line">      contents: read</div>
+                  <div className="code-line">      pull-requests: write   # PRへのコメント投稿に必要</div>
+                  <div className="code-line">    steps:</div>
+                  <div className="code-line">      - name: Checkout</div>
+                  <div className="code-line">        uses: actions/checkout@v6</div>
+                  <div className="code-line">        with:</div>
+                  <div className="code-line">          # シャロークローンを無効化(blame情報の欠落を防ぐため必須)</div>
+                  <div className="code-line">          fetch-depth: 0</div>
+                  <div className="code-line"></div>
+                  <div className="code-line">      - name: SonarQube Scan</div>
+                  <div className="code-line">        uses: SonarSource/sonarqube-scan-action@v5</div>
+                  <div className="code-line">        env:</div>
+                  <div className="code-line">{'          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}'}</div>
+                  <div className="code-line">{'          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}'}</div>
+                  <div className="code-line"></div>
+                  <div className="code-line">      - name: SonarQube Quality Gate Check</div>
+                  <div className="code-line">        uses: SonarSource/sonarqube-quality-gate-action@master</div>
+                  <div className="code-line">        timeout-minutes: 5</div>
+                  <div className="code-line">        env:</div>
+                  <div className="code-line">{'          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}'}</div>
+                </code>
+              </pre>
+
+              <h3>設計上の重要ポイント</h3>
+              <ul>
+                <li>
+                  <code>fetch-depth: 0</code>
+                  は必須級の設定です。シャロークローンのままだとSCMのblame情報が取得できず、「Missing
+                  blame information」エラーやNew Code Definitionの誤判定が発生します
+                </li>
+                <li>
+                  Quality Gateの成否をワークフローの成功/失敗に直結させたい場合、
+                  <code>sonarqube-quality-gate-action</code>
+                  を使うか、スキャナーに
+                  <code>-Dsonar.qualitygate.wait=true</code>
+                  を渡してポーリングさせます
+                </li>
+                <li>
+                  Developer Edition以上では、GitHub
+                  Actions上で実行されるスキャナーが<strong>ブランチ・PRの情報を自動検出</strong>するため、明示的なパラメータ指定は基本的に不要です
+                </li>
+                <li>
+                  モノレポ構成の場合は、プロジェクトごとにジョブを分割し、
+                  <code>projectBaseDir</code>
+                  でパスを指定します
+                </li>
+              </ul>
+
+              <h3>14.3 主要CI/CDプラットフォームの対応状況</h3>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>プラットフォーム</th>
+                      <th>統合方式</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>GitHub Actions</td>
+                      <td>SonarQube Scan Action(公式)</td>
+                    </tr>
+                    <tr>
+                      <td>GitLab CI/CD</td>
+                      <td>GitLab統合(ネイティブMR分析対応)</td>
+                    </tr>
+                    <tr>
+                      <td>Azure DevOps</td>
+                      <td>専用Extension(タスクとして提供)</td>
+                    </tr>
+                    <tr>
+                      <td>Jenkins</td>
+                      <td>専用Plugin(宣言的パイプライン対応)</td>
+                    </tr>
+                    <tr>
+                      <td>Bitbucket Pipelines</td>
+                      <td>Bitbucket Cloud統合</td>
+                    </tr>
+                    <tr>
+                      <td>CircleCI / 汎用CI</td>
+                      <td>SonarScanner CLIを直接呼び出し</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div className="refs">
+                <div className="refs-label"><i className="ti ti-link"></i>参考</div>
+                <ul>
+                  <li>
+                    <a
+                      href="https://github.com/marketplace/actions/official-sonarqube-scan"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Official SonarQube Scan (GitHub Marketplace)
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server/10.5/devops-platform-integration/github-integration/adding-sonarqube-analysis-to-your-workflow"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Adding analysis to GitHub Actions workflow
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://github.com/marketplace/actions/sonarqube-pull-request-comment"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      SonarQube Pull Request Comment Action
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </section>
+
+            {/* 15 */}
+            <section className="doc-section" id="ide">
+              <span className="section-kicker"><i className="ti ti-code"></i>SECTION 15</span>
+              <h2>IDE統合 ― SonarQube for IDE と Connected Mode</h2>
+              <p>
+                <strong>SonarQube for IDE</strong>(旧SonarLint)は、VS Code、IntelliJ
+                IDEA、Visual
+                Studio、Eclipseで動作する無料のIDE拡張です。単体でもオフライン解析が可能ですが、真価を発揮するのは
+                <strong>Connected Mode</strong> でサーバーと接続したときです。
+              </p>
+              <h3>15.1 Connected Modeで同期される情報</h3>
+              <ul>
+                <li>プロジェクトのQuality Profile(有効化されたルールセット)</li>
+                <li>New Code Definition(何が新規コードか)</li>
+                <li>
+                  サーバー側で解決済み(False Positive・Won&apos;t
+                  Fix等)とマークされたIssueの状態
+                </li>
+                <li>Quality Gateの変化・新規Issue割り当てのスマート通知</li>
+              </ul>
+              <p>
+                これにより、「IDEで警告が出るが、サーバー側では対応不要と判断済み」といった不整合を防ぎ、開発者はローカルとCI/CDで一貫した基準のもとで作業できます。
+              </p>
+              <h3>15.2 AIアシスタント連携ツール群(VS Code / Copilot等)</h3>
+              <p>
+                近年のSonarQube for IDEは、GitHub Copilot Agent ModeやCursor等のAI
+                IDE向けに、自然言語で操作可能な専用ツール群を提供しています。たとえば「このファイルの新しい脆弱性を教えて」と自然言語で質問すると、SonarQube
+                MCP
+                Serverを介してCopilotがSonarQubeに問い合わせ、結果をエディタ内に返します。Connected
+                Mode設定済みの環境であれば、ワンクリックでMCP
+                Serverの設定を生成できる機能も用意されています。
+              </p>
+              <div className="refs">
+                <div className="refs-label"><i className="ti ti-link"></i>参考</div>
+                <ul>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-server"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      SonarQube for IDE Homepage
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="https://docs.sonarsource.com/sonarqube-for-vs-code/ai-capabilities/agents"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      AI agents | VS Code
                     </a>
                   </li>
                 </ul>
