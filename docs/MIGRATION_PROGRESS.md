@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `d1f6e8f` |
-| 最新コミット内容 | fix(leading-quality): restore hero dotted line position, sidebar sticky toc, responsive navigation, and mermaid styles |
+| 最新 HEAD | `a8462fa` |
+| 最新コミット内容 | fix(leading-quality): restore mermaid node borders and fix edge label black fill bug |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
