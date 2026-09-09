@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `1a8b8b4` |
-| 最新コミット内容 | feat(leading-quality): implement Category E (experts, sources, footer) and integrate navigation |
+| 最新 HEAD | `184b95c` |
+| 最新コミット内容 | fix(leading-quality): decouple NAV_ITEMS from client component to fix SSR map error and add null check in tests |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
