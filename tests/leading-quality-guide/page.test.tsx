@@ -297,3 +297,67 @@ describe('Leading Quality Guide - Category C (Steps 5 to 8: #step5 to #step8)', 
     expect(sectionStep8?.textContent).toContain('「1つのUIが世界中どこでも同じように機能する」という思い込みを捨てる');
   });
 });
+
+describe('Leading Quality Guide - Category D (Steps 9 to 10 & #roadmap)', () => {
+  it('renders section #step9 with heading, Cindy Sridharan reference, prerequisite list, and checklist', () => {
+    const { container } = render(<Page />);
+    const sectionStep9 = container.querySelector('section#step9');
+    expect(sectionStep9).not.toBeNull();
+
+    expect(sectionStep9?.querySelector('.step-tag')?.textContent).toBe('STEP 09 / 10');
+    expect(sectionStep9?.querySelector('h2')?.textContent).toContain('本番環境でのテスト（Testing in Production）');
+    expect(sectionStep9?.textContent).toContain('Cindy Sridharan');
+    expect(sectionStep9?.textContent).toContain('すべてのチームに向いているわけではない');
+
+    expect(sectionStep9?.querySelector('h3')?.textContent).toBe('実践のポイント（本番テストを始める前のチェック）');
+
+    const checkboxes = sectionStep9?.querySelectorAll('input[type="checkbox"]');
+    expect(checkboxes?.length).toBe(4);
+    expect(sectionStep9?.textContent).toContain('フィーチャーフラグなどで機能の有効/無効を即座に切り替えられるか');
+    expect(sectionStep9?.textContent).toContain('カナリアリリースや段階的ロールアウトの仕組みがあるか');
+    expect(sectionStep9?.textContent).toContain('異常検知・ロールバックを自動化できているか');
+    expect(sectionStep9?.textContent).toContain('本番影響を最小化する（一部ユーザーのみ対象にする等）仕組みがあるか');
+  });
+
+  it('renders section #step10 with heading, diag-7 diagram, insight callout, and persuasion text', () => {
+    const { container } = render(<Page />);
+    const sectionStep10 = container.querySelector('section#step10');
+    expect(sectionStep10).not.toBeNull();
+
+    expect(sectionStep10?.querySelector('.step-tag')?.textContent).toBe('STEP 10 / 10');
+    expect(sectionStep10?.querySelector('h2')?.textContent).toContain('ビジョンを描き、チームを鼓舞する');
+
+    const callout = sectionStep10?.querySelector('.callout.insight');
+    expect(callout).not.toBeNull();
+    expect(callout?.querySelector('.label')?.textContent).toBe('着眼点');
+    expect(callout?.textContent).toContain('個人 → 会社との整合 → チーム');
+
+    expect(sectionStep10?.textContent).toContain('説得力・影響力（Persuasion & Influence）');
+  });
+
+  it('renders section #roadmap with heading, diag-8 diagram, and 10-step roadmap table', () => {
+    const { container } = render(<Page />);
+    const sectionRoadmap = container.querySelector('section#roadmap');
+    expect(sectionRoadmap).not.toBeNull();
+
+    const h2 = sectionRoadmap?.querySelector('h2');
+    expect(h2?.textContent).toContain('まとめ：品質リーダーへのロードマップ');
+    expect(h2?.querySelector('.num')?.textContent).toBe('02');
+
+    const table = sectionRoadmap?.querySelector('table.roadmap-table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(10);
+    expect(table?.textContent).toContain('品質ナラティブの理解');
+    expect(table?.textContent).toContain('所有権ナラティブ');
+    expect(table?.textContent).toContain('How-to-Testナラティブ');
+    expect(table?.textContent).toContain('価値ナラティブ');
+    expect(table?.textContent).toContain('成熟度に応じた戦略');
+    expect(table?.textContent).toContain('継続的テスト');
+    expect(table?.textContent).toContain('ペアリング');
+    expect(table?.textContent).toContain('ローカルペルソナ');
+    expect(table?.textContent).toContain('本番テスト');
+    expect(table?.textContent).toContain('ビジョン');
+  });
+});
