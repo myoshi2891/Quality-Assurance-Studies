@@ -710,7 +710,437 @@ export default function HowGoogleTestsSoftwareGuidePage() {
               </li>
             </ul>
           </section>
+
+          {/* Section: s13 */}
+          <section className="block" id="s13">
+            <h2>
+              <span className="num">13</span>原著の章立て一覧
+            </h2>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>章</th>
+                    <th>タイトル（原題）</th>
+                    <th>主な内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>第1章</td>
+                    <td>Introduction to Google Software Testing</td>
+                    <td>Googleのテスト思想の全体像、開発とテストの融合という基本方針</td>
+                  </tr>
+                  <tr>
+                    <td>第2章</td>
+                    <td>The Software Engineer in Test</td>
+                    <td>SETの役割、テストサイズの定義、Test Certified制度</td>
+                  </tr>
+                  <tr>
+                    <td>第3章</td>
+                    <td>The Test Engineer</td>
+                    <td>TEの役割、ACC分析、10分間テストプラン、クラウドソーシングとツール活用</td>
+                  </tr>
+                  <tr>
+                    <td>第4章</td>
+                    <td>The Test Engineering Manager</td>
+                    <td>TEM/SETチームの採用・育成、組織運営、複数名へのインタビュー集</td>
+                  </tr>
+                  <tr>
+                    <td>第5章</td>
+                    <td>Improving How Google Tests Software</td>
+                    <td>
+                      テストの将来像、ドッグフーディング／クラウドソーシングの拡大、テストコストをゼロに近づけるという理想
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          {/* Section: s14 */}
+          <section className="block" id="s14">
+            <h2>
+              <span className="num">14</span>まとめ：持ち帰るべき10のポイント
+            </h2>
+            <ul className="check-list">
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  「品質」は「テスト」とイコールではなく、開発プロセス全体で作り込むものである。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  テストは専任の「テスター」だけの仕事ではなく、コードを書いた人自身の責任でもある。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  テストは「単体／結合／システム」ではなく、実行に必要なリソース量（Small/Medium/Large）で分類すると議論が建設的になる。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  リスクベースでテスト対象を絞り込むACC分析は、完璧な計画書より素早い優先順位付けを重視する。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  「10分間テストプラン」のように、まず短時間で要点を洗い出すことがテスト計画の第一歩になる。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  フレーキーテストは放置せず、原因（テスト側かコード側か）を切り分けて修正・隔離するルールを持つ。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  品質改善は一足飛びではなく、Test Certifiedのような段階的なマイルストーンで進める。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  クラウドソーシングやドッグフーディングは、社内リソースだけでは網羅できない検証を補完する。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  継続的ビルド・プレサブミットチェック・コードレビューという複数の関門が、品質を支える仕組みの土台になる。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-checkbox" aria-hidden="true" />
+                <div>
+                  Googleの組織・役職名・発信手段は14年間で大きく変化しており、「今のGoogle」を知るには本書だけでなく後継の情報源も合わせて参照するとよい。
+                </div>
+              </li>
+            </ul>
+          </section>
+
+          {/* Section: s15 */}
+          <section className="block" id="s15">
+            <h2>
+              <span className="num">15</span>参考文献・出典URL一覧
+            </h2>
+
+            <div className="ref-group-title">
+              <i className="ti ti-book" aria-hidden="true" />
+              書籍・公式レビュー
+            </div>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>出典</th>
+                    <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Google Books（原著紹介ページ・本記事の起点）</td>
+                    <td>
+                      <a
+                        href="https://books.google.co.jp/books/about/How_Google_Tests_Software.html?id=vHlTOVTKHeUC&redir_esc=y"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        books.google.co.jp
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Amazon（書籍情報・著者略歴）</td>
+                    <td>
+                      <a
+                        href="https://www.amazon.com/Google-Tests-Software-James-Whittaker/dp/0321803027"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        amazon.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>O'Reilly（書籍情報・目次インデックス）</td>
+                    <td>
+                      <a
+                        href="https://www.oreilly.com/library/view/how-google-tests/9780132851572/index.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        oreilly.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      InfoQ「Interview and Book Review: How Google Tests Software」（Craig Smith）
+                    </td>
+                    <td>
+                      <a
+                        href="https://www.infoq.com/articles/how-google-tests-software/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        infoq.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>InfoQ 提供のサンプル第3章PDF</td>
+                    <td>
+                      <a
+                        href="https://res.infoq.com/articles/how-google-tests-software/en/resources/SampleChapter-Chapter3.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        res.infoq.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Software Testing Magazine によるレビュー</td>
+                    <td>
+                      <a
+                        href="https://www.softwaretestingmagazine.com/knowledge/how-google-tests-software-by-james-whittaker/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        softwaretestingmagazine.com
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="ref-group-title">
+              <i className="ti ti-brand-google" aria-hidden="true" />
+              Google公式テストブログ
+            </div>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>出典</th>
+                    <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Google Testing Blog トップページ（2026年7月時点の最新記事を確認）</td>
+                    <td>
+                      <a
+                        href="https://testing.googleblog.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        testing.googleblog.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>「Test Sizes」（Small/Medium/Largeの解説）</td>
+                    <td>
+                      <a
+                        href="https://testing.googleblog.com/2010/12/test-sizes.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        testing.googleblog.com/2010/12/test-sizes.html
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>「What Test Engineers do at Google」</td>
+                    <td>
+                      <a
+                        href="https://testing.googleblog.com/2016/09/what-test-engineers-do-at-google.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        testing.googleblog.com/2016/09/…
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      「From QA to Engineering Productivity」（SET→SETIへの改称の経緯）
+                    </td>
+                    <td>
+                      <a
+                        href="https://testing.googleblog.com/2016/03/from-qa-to-engineering-productivity.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        testing.googleblog.com/2016/03/…
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>「Evolution of GTAC and Engineering Productivity」</td>
+                    <td>
+                      <a
+                        href="https://testing.googleblog.com/2017/07/evolution-of-gtac-and-engineering.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        testing.googleblog.com/2017/07/…
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>「TotT: Avoiding Flakey Tests」（2008年）</td>
+                    <td>
+                      <a
+                        href="https://testing.googleblog.com/2008/04/tott-avoiding-flakey-tests.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        testing.googleblog.com/2008/04/…
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Google Test Automation Conference（GTAC）公式概要</td>
+                    <td>
+                      <a
+                        href="https://developers.google.com/google-test-automation-conference"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        developers.google.com
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="ref-group-title">
+              <i className="ti ti-world" aria-hidden="true" />
+              著名な国際的エンジニア・専門メディアによる解説
+            </div>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>出典</th>
+                    <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      Mike Bland（元Testing Grouplet中心メンバー）「Small, Medium, Large」
+                    </td>
+                    <td>
+                      <a
+                        href="https://mike-bland.com/2011/11/01/small-medium-large.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        mike-bland.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Mike Bland「Test Certified」</td>
+                    <td>
+                      <a
+                        href="https://mike-bland.com/2011/10/18/test-certified.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        mike-bland.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Mike Bland「The Practice of Testing」</td>
+                    <td>
+                      <a
+                        href="https://mike-bland.com/2012/09/11/practice-of-testing.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        mike-bland.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      StickyMinds「Google's New Methodology for Risk-driven Testing」（ACC分析の解説）
+                    </td>
+                    <td>
+                      <a
+                        href="https://www.stickyminds.com/presentation/googles-new-methodology-risk-driven-testing"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        stickyminds.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      InformIT「Using Other Influences for Planning」（ACC手法の詳細解説）
+                    </td>
+                    <td>
+                      <a
+                        href="https://www.informit.com/articles/article.aspx?p=2253544&seqNum=3"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        informit.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Software Engineering at Google（無料公開・後継書籍、第12章 Unit Testing）
+                    </td>
+                    <td>
+                      <a
+                        href="https://abseil.io/resources/swe-book/html/ch12.html"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        abseil.io
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Wikipedia「Flaky test」</td>
+                    <td>
+                      <a
+                        href="https://en.wikipedia.org/wiki/Flaky_test"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        en.wikipedia.org
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
         </div>
+
+        <footer className="page-footer">
+          本ガイドは2026年9月4日時点で確認できる公開情報をもとに作成しています。Googleの組織体制やツールの状況は今後も変化する可能性があるため、最新情報は上記のGoogle公式テストブログ等で随時ご確認ください。
+        </footer>
       </main>
     </div>
   );
