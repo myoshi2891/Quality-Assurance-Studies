@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useCallback } from 'react';
+import { useScrollSpy } from '../../lib/useScrollSpy';
 
 export interface NavItemType {
   href: string;
@@ -27,8 +28,29 @@ export const NAV_ITEMS: readonly NavItemType[] = [
   { href: '#s15', label: '15. 参考文献', icon: 'ti ti-link' },
 ] as const;
 
+const SECTION_IDS: readonly string[] = [
+  'about',
+  's1',
+  's2',
+  's3',
+  's4',
+  's5',
+  's6',
+  's7',
+  's8',
+  's9',
+  's10',
+  's11',
+  's12',
+  's13',
+  's14',
+  's15',
+] as const;
+
+const SCROLL_SPY_BAND = { top: 0.15, bottom: 0.35 } as const;
+
 export default function NavBar() {
-  const [activeId, setActiveId] = useState<string>('about');
+  const activeId = useScrollSpy(SECTION_IDS, SCROLL_SPY_BAND);
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const toggleSidebar = useCallback(() => {
@@ -47,33 +69,6 @@ export default function NavBar() {
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  useEffect(() => {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
-
-    const sections = NAV_ITEMS.map((item) => document.querySelector(item.href)).filter(
-      Boolean
-    ) as HTMLElement[];
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting);
-        if (visible.length > 0) {
-          visible.sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-          if (visible[0].target.id) {
-            setActiveId(visible[0].target.id);
-          }
-        }
-      },
-      { rootMargin: '-15% 0px -70% 0px', threshold: [0, 1] }
-    );
-
-    sections.forEach((s) => observer.observe(s));
-
-    return () => {
-      observer.disconnect();
-    };
   }, []);
 
   const introItems = NAV_ITEMS.slice(0, 1);
