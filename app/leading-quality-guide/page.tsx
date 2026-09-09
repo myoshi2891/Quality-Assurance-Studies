@@ -1,5 +1,5 @@
-import React from 'react';
 import Mermaid from '../../components/Mermaid';
+import Checklist from './Checklist';
 import NavBar, { NAV_ITEMS } from './NavBar';
 import './leading-quality-guide.css';
 
@@ -77,6 +77,30 @@ const DIAGRAM_6 = `flowchart TD
     style Dev fill:#142433,stroke:#142433,color:#ffffff
     style Design fill:#F2E4D0,stroke:#B8722E,color:#142433
     style PM fill:#E4E9F2,stroke:#3B5A80,color:#142433`;
+
+const DIAGRAM_7 = `flowchart TD
+    PV["① 個人のビジョン<br/>自分は何を実現したいか"] --> Check{"② 会社のビジョンと<br/>方向性が一致しているか？"}
+    Check -->|一致している| DV["③ 部門・チームのビジョン<br/>6ヶ月/12ヶ月後の理想像"]
+    Check -->|一致していない| Rethink["キャリアの方向性を<br/>再検討する"]
+    DV --> Daily["④ チームの日々の意思決定・行動"]
+    style PV fill:#F2E4D0,stroke:#B8722E,color:#142433
+    style DV fill:#E4E9F2,stroke:#3B5A80,color:#142433
+    style Daily fill:#DCEAE1,stroke:#2E6E49,color:#142433`;
+
+const DIAGRAM_8 = `flowchart TD
+    Start(("スタート")) --> Step1["Step 1<br/>品質ナラティブを言語化"]
+    Step1 --> Step2["Step 2<br/>所有権を全員に広げる"]
+    Step2 --> Step3["Step 3<br/>テスト手法の思い込みを捨てる"]
+    Step3 --> Step4["Step 4<br/>品質を売上の言葉で語る"]
+    Step4 --> Step5["Step 5<br/>成熟度に応じ戦略を見直す"]
+    Step5 --> Step6["Step 6<br/>継続的テストを設計"]
+    Step6 --> Step7["Step 7<br/>ペアリングで文化を浸透"]
+    Step7 --> Step8["Step 8<br/>ローカルペルソナを考慮"]
+    Step8 --> Step9["Step 9<br/>本番テストの土台を整備"]
+    Step9 --> Step10["Step 10<br/>ビジョンを描き鼓舞する"]
+    Step10 --> Goal(("品質文化が<br/>根付いた組織"))
+    style Start fill:#142433,stroke:#142433,color:#ffffff
+    style Goal fill:#142433,stroke:#142433,color:#ffffff`;
 
 export default function LeadingQualityGuidePage() {
   return (
@@ -588,6 +612,136 @@ export default function LeadingQualityGuidePage() {
             <p>
               このステップの狙いは、「1つのUIが世界中どこでも同じように機能する」という思い込みを捨てることです。前述のインドネシアの「姓」フィールドの例も、まさにローカルペルソナへの配慮不足から生まれた問題でした。
             </p>
+          </section>
+
+          {/* Section: #step9 */}
+          <section id="step9">
+            <span className="step-tag">STEP 09 / 10</span>
+            <h2>本番環境でのテスト（Testing in Production）</h2>
+            <p>
+              「本番環境でテストする」という考え方には抵抗を感じる人も多いはずです。著者は、テスト自動化・ソフトウェア観測可能性（Observability）の分野で知られるエンジニア
+              <strong>Cindy Sridharan</strong> の記事「Testing in Production, the Safe
+              Way」を引用しながら、次のように整理しています。
+            </p>
+            <ul>
+              <li>
+                本番環境でのテストは、
+                <strong>すべてのチームに向いているわけではない</strong>
+              </li>
+              <li>
+                実施するには、高度なインフラと、そもそも「本番でテストしやすい」設計思想が前提になる
+              </li>
+              <li>
+                十分な自動化基盤が整っていることが、安全に本番テストを行うための土台になる
+              </li>
+            </ul>
+            <h3>実践のポイント（本番テストを始める前のチェック）</h3>
+            <Checklist />
+          </section>
+
+          {/* Section: #step10 */}
+          <section id="step10">
+            <span className="step-tag">STEP 10 / 10</span>
+            <h2>ビジョンを描き、チームを鼓舞する</h2>
+            <p>
+              著者が本書の最後に置いた（本来は冒頭に置きたかったと語る）テーマが「ビジョン」です。リーダーがまず自分自身の人生の方向性（個人のビジョン）を明確にし、それが会社のビジョンと重なっているかを確認する。そのうえで、チーム・部門のビジョンを描くという順序を提唱しています。
+            </p>
+            <div className="diagram notranslate" translate="no">
+              <div className="diagram-live notranslate" translate="no" id="diag-7">
+                <Mermaid chart={DIAGRAM_7} />
+              </div>
+            </div>
+            <div className="callout insight">
+              <span className="label">着眼点</span>
+              <p>
+                著者は、多くの人が会社のビジョンそのものより「その会社が自分個人のビジョン実現に役立つかどうか」を気にしている、と指摘しています。リーダーがこの順番（個人
+                → 会社との整合 →
+                チーム）を意識することで、初めてチームを本気で鼓舞できるとしています。
+              </p>
+            </div>
+            <p>
+              また、リーダーシップに不可欠なもう一つのスキルとして、著者は説得力・影響力（Persuasion
+              &amp;
+              Influence）を挙げています。エンジニアリング出身の人ほど「説得」をネガティブに捉えがちですが、相手のゴールや懸念を理解し、論理的に語ることは、家庭でも職場でも役立つ普遍的なスキルだと述べています。
+            </p>
+          </section>
+
+          {/* Section: #roadmap */}
+          <section id="roadmap">
+            <h2>
+              <span className="num">02</span> まとめ：品質リーダーへのロードマップ
+            </h2>
+            <p>
+              ここまでの10ステップを、実践する順番の目安として1つのフローにまとめます（あくまで目安であり、組織の状況に応じて並び替えて構いません）。
+            </p>
+            <div className="diagram notranslate" translate="no">
+              <div className="diagram-live notranslate" translate="no" id="diag-8">
+                <Mermaid chart={DIAGRAM_8} />
+              </div>
+            </div>
+            <div className="table-wrap">
+              <table className="roadmap-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>ステップ</th>
+                    <th>一言でいうと</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>01</td>
+                    <td>品質ナラティブの理解</td>
+                    <td>自社の「品質の語られ方」を可視化する</td>
+                  </tr>
+                  <tr>
+                    <td>02</td>
+                    <td>所有権ナラティブ</td>
+                    <td>品質を全員の仕事にする</td>
+                  </tr>
+                  <tr>
+                    <td>03</td>
+                    <td>How-to-Testナラティブ</td>
+                    <td>銀の弾丸探しをやめる</td>
+                  </tr>
+                  <tr>
+                    <td>04</td>
+                    <td>価値ナラティブ</td>
+                    <td>品質を「売上・成長」の言葉で語る</td>
+                  </tr>
+                  <tr>
+                    <td>05</td>
+                    <td>成熟度に応じた戦略</td>
+                    <td>プロダクトの段階ごとに戦略を見直す</td>
+                  </tr>
+                  <tr>
+                    <td>06</td>
+                    <td>継続的テスト</td>
+                    <td>テストを開発ライフサイクル全体に広げる</td>
+                  </tr>
+                  <tr>
+                    <td>07</td>
+                    <td>ペアリング</td>
+                    <td>職種を越えた共感で品質文化を育てる</td>
+                  </tr>
+                  <tr>
+                    <td>08</td>
+                    <td>ローカルペルソナ</td>
+                    <td>「世界中どこでも同じ」という思い込みを捨てる</td>
+                  </tr>
+                  <tr>
+                    <td>09</td>
+                    <td>本番テスト</td>
+                    <td>安全に本番環境で学ぶ仕組みを整える</td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>ビジョン</td>
+                    <td>個人→会社→チームの順でビジョンを揃える</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </section>
         </main>
       </div>
