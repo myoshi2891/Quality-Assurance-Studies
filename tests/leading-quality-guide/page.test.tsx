@@ -1,0 +1,135 @@
+import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
+import { render, screen, cleanup } from '@testing-library/react';
+import mermaid from 'mermaid';
+import React from 'react';
+import Page from '../../app/leading-quality-guide/page';
+import NavBar, { NAV_ITEMS } from '../../app/leading-quality-guide/NavBar';
+
+afterEach(() => cleanup());
+
+let originalMermaidRender: typeof mermaid.render;
+let originalIntersectionObserver: typeof window.IntersectionObserver;
+let mermaidRenderMock: ReturnType<typeof mock>;
+
+beforeAll(() => {
+  originalMermaidRender = mermaid.render;
+  originalIntersectionObserver = window.IntersectionObserver;
+  mermaidRenderMock = mock(async () => {
+    return {
+      svg: '<svg data-testid="mock-mermaid"></svg>',
+      diagramType: 'flowchart',
+    };
+  });
+  mermaid.render = mermaidRenderMock as unknown as typeof mermaid.render;
+
+  const mockIntersectionObserver = mock(() => {
+    return {
+      observe: () => null,
+      unobserve: () => null,
+      disconnect: () => null,
+    };
+  });
+  window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
+});
+
+afterAll(() => {
+  mermaid.render = originalMermaidRender;
+  window.IntersectionObserver = originalIntersectionObserver;
+});
+
+describe('Leading Quality Guide - Category A (Foundation, Hero, NavBar, Intro & #why)', () => {
+  it('renders within the scoped root container', () => {
+    const { container } = render(<Page />);
+    const root = container.querySelector('.leading-quality-page');
+    expect(root).not.toBeNull();
+  });
+
+  it('renders hero section with kicker, h1, lede, and book-card info', () => {
+    render(<Page />);
+    const h1 = screen.getByRole('heading', { level: 1 });
+    expect(h1.textContent).toBe('品質を、経営の言葉で語れるリーダーになる。');
+
+    expect(screen.getByText('LEADERSHIP × QUALITY ENGINEERING GUIDE')).not.toBeNull();
+    expect(
+      screen.getByText(/『Leading Quality』が説く、品質をテストチームの仕事から経営アジェンダへと引き上げるための10のステップ/)
+    ).not.toBeNull();
+
+    expect(
+      screen.getByText('Leading Quality: How Great Leaders Deliver High-Quality Software and Accelerate Growth')
+    ).not.toBeNull();
+    expect(
+      screen.getByText(/著者：Ronald Cummings-John \/ Owais Peer（Global App Testing 共同創業者）/)
+    ).not.toBeNull();
+    expect(
+      screen.getByText(/流通している副題「Build Winning Teams and Software Fast」は、実際に出版されている正式な副題ではありません/)
+    ).not.toBeNull();
+  });
+
+  it('renders all 14 navigation items in NavBar', () => {
+    render(<NavBar />);
+    expect(NAV_ITEMS).toHaveLength(14);
+    expect(NAV_ITEMS[0]).toEqual({ href: '#why', label: 'なぜ品質は経営課題か' });
+    expect(NAV_ITEMS[1]).toEqual({ href: '#step1', label: 'Step 1 — 品質ナラティブ' });
+    expect(NAV_ITEMS[2]).toEqual({ href: '#step2', label: 'Step 2 — 所有権' });
+    expect(NAV_ITEMS[3]).toEqual({ href: '#step3', label: 'Step 3 — How-to-Test' });
+    expect(NAV_ITEMS[4]).toEqual({ href: '#step4', label: 'Step 4 — 価値の言語化' });
+    expect(NAV_ITEMS[5]).toEqual({ href: '#step5', label: 'Step 5 — 成熟度戦略' });
+    expect(NAV_ITEMS[6]).toEqual({ href: '#step6', label: 'Step 6 — 継続的テスト' });
+    expect(NAV_ITEMS[7]).toEqual({ href: '#step7', label: 'Step 7 — ペアリング' });
+    expect(NAV_ITEMS[8]).toEqual({ href: '#step8', label: 'Step 8 — ローカルペルソナ' });
+    expect(NAV_ITEMS[9]).toEqual({ href: '#step9', label: 'Step 9 — 本番テスト' });
+    expect(NAV_ITEMS[10]).toEqual({ href: '#step10', label: 'Step 10 — ビジョン' });
+    expect(NAV_ITEMS[11]).toEqual({ href: '#roadmap', label: 'まとめ：ロードマップ' });
+    expect(NAV_ITEMS[12]).toEqual({ href: '#experts', label: '専門家の評価' });
+    expect(NAV_ITEMS[13]).toEqual({ href: '#sources', label: '参考文献・出典' });
+  });
+
+  it('renders introduction section with 3-part table and diag-0 diagram', () => {
+    const { container } = render(<Page />);
+    expect(
+      screen.getByText(/本書は3部構成で、品質を「テストチームの仕事」から「経営・リーダーシップの課題」へと引き上げる考え方を説きます/)
+    ).not.toBeNull();
+
+    const tables = container.querySelectorAll('table');
+    expect(tables.length).toBeGreaterThanOrEqual(1);
+    const introTable = tables[0];
+    expect(introTable.textContent).toContain('Section 1');
+    expect(introTable.textContent).toContain('品質リーダーになる（Becoming a Leader of Quality）');
+    expect(introTable.textContent).toContain('Step 1〜4');
+    expect(introTable.textContent).toContain('Section 2');
+    expect(introTable.textContent).toContain('戦略的な品質判断を極める（Mastering Your Strategic Quality Decisions）');
+    expect(introTable.textContent).toContain('Step 5〜8');
+    expect(introTable.textContent).toContain('Section 3');
+    expect(introTable.textContent).toContain('チームを率いて成長を加速する（Leading Your Team to Accelerate Growth）');
+    expect(introTable.textContent).toContain('Step 9〜10');
+
+    expect(
+      screen.getByText(/対象読者は、CTO・VPoE・QAリード・プロダクトオーナーはもちろん/)
+    ).not.toBeNull();
+  });
+
+  it('renders section #why with heading, CISQ data, 3Cs table, American Airlines case, and point callout', () => {
+    const { container } = render(<Page />);
+    const sectionWhy = container.querySelector('section#why');
+    expect(sectionWhy).not.toBeNull();
+
+    const h2 = sectionWhy?.querySelector('h2');
+    expect(h2?.textContent).toContain('なぜ品質は「経営課題」なのか');
+    expect(h2?.querySelector('.num')?.textContent).toBe('01');
+
+    expect(sectionWhy?.textContent).toContain('低品質なソフトウェアが米国内の組織にもたらした損失は約2.8兆米ドル（USD）');
+    expect(sectionWhy?.textContent).toContain('アメリカン航空の休暇スケジューリングシステムの不具合');
+    expect(sectionWhy?.textContent).toContain('1万5000便以上のフライト');
+
+    const table3Cs = sectionWhy?.querySelector('table');
+    expect(table3Cs).not.toBeNull();
+    expect(table3Cs?.textContent).toContain('Customer（顧客）');
+    expect(table3Cs?.textContent).toContain('Company（会社）');
+    expect(table3Cs?.textContent).toContain('Career（キャリア）');
+
+    const callout = sectionWhy?.querySelector('.callout');
+    expect(callout).not.toBeNull();
+    expect(callout?.querySelector('.label')?.textContent).toBe('ポイント');
+    expect(callout?.textContent).toContain('品質問題は「顧客」「会社」「個人のキャリア」の3方向に同時にダメージを与える');
+  });
+});
