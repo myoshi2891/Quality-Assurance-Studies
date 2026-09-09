@@ -19,7 +19,7 @@ export default function IstqbCtflCompleteGuide() {
                 <section className="hero">
                     <div className="hero-badge">ISTQB Syllabus v4.0.1 準拠 | 2026年6月更新</div>
                     <h1>ISTQB Certified Tester Foundation Level (CTFL) v4.0<br />完全解説ガイド</h1>
-                    <p style={{color: "var(--color-text-secondary)", fontSize: "14px"}}>
+                    <p style={{color: "var(--color-text-secondary)", fontSize: "1rem"}}>
                         中級者〜上級者向け。試験配点・技法の実践計算・よく混同される用語まで、
                         シラバス v4.0.1 の全6章をステップバイステップで解説します。
                     </p>
@@ -55,17 +55,17 @@ export default function IstqbCtflCompleteGuide() {
                             </div>
                             <div className="meta-card">
                                 <div className="label">形式</div>
-                                <div className="value" style={{fontSize: "15px"}}>クローズドブック</div>
+                                <div className="value" style={{fontSize: "1rem"}}>クローズドブック</div>
                                 <div className="sub">持ち込み不可</div>
                             </div>
                             <div className="meta-card">
                                 <div className="label">有効期限</div>
-                                <div className="value" style={{fontSize: "15px"}}>終身有効</div>
+                                <div className="value" style={{fontSize: "1rem"}}>終身有効</div>
                                 <div className="sub">更新不要</div>
                             </div>
                             <div className="meta-card">
                                 <div className="label">前提条件</div>
-                                <div className="value" style={{fontSize: "15px"}}>なし</div>
+                                <div className="value" style={{fontSize: "1rem"}}>なし</div>
                                 <div className="sub">誰でも受験可能</div>
                             </div>
                         </div>
@@ -873,7 +873,7 @@ style CB fill:#1e2536,stroke:#8b5cf6,color:#ddd6fe`} />
                                 </tr>
                             </tbody>
                         </table>
-                        <p style={{fontSize: "13px", color: "var(--color-text-secondary)"}}>
+                        <p style={{fontSize: "1rem", color: "var(--color-text-secondary)"}}>
                             ルール 2 と 3 が同じアクション（再審査）→ 収入条件を「Don&apos;t
                             Care」に統合して最小化可能。
                         </p>
@@ -1455,7 +1455,7 @@ style S7 fill:#0f766e,stroke:#14b8a6,color:#99f6e4`} />
                 <section>
                     <h2 id="references">参考文献・公式リソース</h2>
                     <p
-                        style={{fontSize: "13px", color: "var(--color-text-secondary)", marginBottom: "16px"}}
+                        style={{fontSize: "1rem", color: "var(--color-text-secondary)", marginBottom: "16px"}}
                     >
                         本ガイドの作成にあたり参照したすべての URL
                         を掲載しています。試験前には必ず公式サイトで最新情報を確認してください。
