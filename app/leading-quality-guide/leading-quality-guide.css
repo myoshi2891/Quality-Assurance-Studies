@@ -446,20 +446,6 @@
     overflow: visible;
 }
 
-/* Mermaid エッジラベルと矩形のスコープリセット */
-.leading-quality-page .mermaid-wrapper .edgeLabels rect {
-    fill: var(--paper) !important;
-    stroke: none !important;
-}
-
-.leading-quality-page .mermaid-wrapper .edgeLabel,
-.leading-quality-page .mermaid-wrapper .edgeLabel span,
-.leading-quality-page .mermaid-wrapper .edgeLabel text {
-    background-color: var(--paper) !important;
-    color: var(--ink) !important;
-    fill: var(--ink) !important;
-    font-weight: 700 !important;
-}
 
 /* ---------- Checklist ---------- */
 .leading-quality-page ul.checklist {
@@ -576,33 +562,66 @@
     stroke: var(--ink) !important;
 }
 
-/* エッジラベルの背景板（rect）: SVG rect に background-color は効かないため fill で塗る。
-   fill に黒色を指定すると黒潰れするため、必ず背景色（var(--paper)）を指定し、文字規則と完全に分離する。 */
-.leading-quality-page .mermaid-wrapper .edgeLabels rect,
-.leading-quality-page .mermaid-wrapper .edgeLabel rect,
-.leading-quality-page .mermaid-wrapper .label-container {
-    fill: var(--paper) !important;
-    stroke: none !important;
-}
-
-/* エッジラベルのコンテナ */
-.leading-quality-page .mermaid-wrapper .edgeLabel {
-    background-color: var(--paper) !important;
-    stroke: none !important;
+/* エッジラベル（矢印上の分岐テキスト「一致している」「移行」「フィードバック」等）:
+   元HTMLの secondaryColor (#F2E4D0 = 薄いアンバー/クリーム色) と ink色文字 (#142433) で美しいピルとして明瞭表示 */
+.leading-quality-page .mermaid-wrapper .edgeLabels,
+.leading-quality-page .mermaid-wrapper .edgeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabel * {
     overflow: visible !important;
 }
 
-/* エッジラベルの文字: HTML要素(span/p)は color、SVGテキスト(text)は fill で塗る */
-.leading-quality-page .mermaid-wrapper .edgeLabel span,
-.leading-quality-page .mermaid-wrapper .edgeLabel p,
-.leading-quality-page .mermaid-wrapper .edgeLabels span,
-.leading-quality-page .mermaid-wrapper .edgeLabels text {
-    color: var(--ink) !important;
-    fill: var(--ink) !important;
-    font-size: 13px !important;
-    font-weight: 600 !important;
+.leading-quality-page .mermaid-wrapper .edgeLabels rect,
+.leading-quality-page .mermaid-wrapper .edgeLabel rect,
+.leading-quality-page .mermaid-wrapper .label-container,
+.leading-quality-page .mermaid-wrapper g.edgeLabel rect,
+.leading-quality-page .mermaid-wrapper g.edgeLabels rect {
+    fill: #F2E4D0 !important;
+    background-color: #F2E4D0 !important;
     stroke: none !important;
-    background-color: transparent !important;
+    opacity: 1 !important;
+    rx: 4px !important;
+    ry: 4px !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabel {
+    background-color: #F2E4D0 !important;
+    color: var(--ink, #142433) !important;
+    fill: var(--ink, #142433) !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabel span,
+.leading-quality-page .mermaid-wrapper span.edgeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabels span,
+.leading-quality-page .mermaid-wrapper .edgeLabel p,
+.leading-quality-page .mermaid-wrapper .edgeLabel div,
+.leading-quality-page .mermaid-wrapper g.edgeLabel foreignObject div span {
+    background-color: #F2E4D0 !important;
+    color: var(--ink, #142433) !important;
+    fill: var(--ink, #142433) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+    display: inline-block !important;
+    border: none !important;
+    box-shadow: none !important;
+    stroke: none !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabel text,
+.leading-quality-page .mermaid-wrapper .edgeLabel tspan,
+.leading-quality-page .mermaid-wrapper .edgeLabels text,
+.leading-quality-page .mermaid-wrapper .edgeLabels tspan {
+    fill: var(--ink, #142433) !important;
+    color: var(--ink, #142433) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    stroke: none !important;
 }
 
 /* ノードの外枠（枠線）と背景色の復元:
