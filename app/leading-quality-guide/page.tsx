@@ -743,8 +743,255 @@ export default function LeadingQualityGuidePage() {
               </table>
             </div>
           </section>
+
+          {/* Section: #experts */}
+          <section id="experts">
+            <h2>
+              <span className="num">03</span> 国際的な専門家からの評価
+            </h2>
+            <p>
+              本書には、国際的に著名なソフトウェアテスト／エンジニアリング関係者から推薦の声が寄せられています（要旨のみ紹介）。
+            </p>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>推薦者</th>
+                    <th>肩書</th>
+                    <th>コメントの要旨</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Michael Lopp</td>
+                    <td>
+                      Slack, VP of Product Engineering／『Managing Humans』著者
+                    </td>
+                    <td>
+                      品質という視点は製品・企業を差別化する鍵であり、本書はその考え方を養う助けになる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>James Bach</td>
+                    <td>『Lessons Learned in Software Testing』著者</td>
+                    <td>品質の危機は、常にリーダーシップの危機から始まると指摘</td>
+                  </tr>
+                  <tr>
+                    <td>Alan Page</td>
+                    <td>
+                      Unity Technologies, Quality Director／ポッドキャスト「AB
+                      Testing」共同ホスト
+                    </td>
+                    <td>
+                      高品質なソフトウェアは「品質の文化」を持つチームから生まれ、それには強いリーダーシップが必要だと評価
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Dan Ashby</td>
+                    <td>
+                      Photobox, Head of Quality Engineering（元eBay, Head of
+                      Testing）
+                    </td>
+                    <td>
+                      本書は品質リーダーシップに向けた業界全体のムーブメントの始まりだと評価
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ilya Sakharov</td>
+                    <td>HelloFresh, Director of QA</td>
+                    <td>
+                      経営層・マネージャーが「なぜ品質に投資すべきか」を理解する助けになると評価
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Suyash Sonwalkar</td>
+                    <td>Coinbase, Quality and Automation Lead</td>
+                    <td>
+                      企業の成長段階を問わず、品質投資を後押しするフレームワークを提供していると評価
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              また、国際的に著名なテスト自動化ポッドキャスト「TestGuild」のホストであるJoe
+              Colantonio氏や、Agile/品質分野で著名なコンサルタント・InfoQ寄稿者のBen
+              Linders氏による著者インタビューでも、本書のコンセプトが詳しく取り上げられています（出典は次章参照）。
+            </p>
+          </section>
+
+          {/* Section: #sources */}
+          <section id="sources">
+            <h2>
+              <span className="num">04</span> 参考文献・出典
+            </h2>
+            <p>
+              本ガイドは以下の一次・二次情報源をもとに作成しました（2026年8月30日時点で確認）。
+            </p>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>種別</th>
+                    <th>タイトル／概要</th>
+                    <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>公式サイト</td>
+                    <td>
+                      Leading Quality Book
+                      公式サイト（著者プロフィール・書籍概要）
+                    </td>
+                    <td>
+                      <a
+                        href="https://www.leadingqualitybook.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        leadingqualitybook.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>著者インタビュー（InfoQ）</td>
+                    <td>
+                      &quot;Q&amp;A on the Book Leading Quality&quot;（Ben
+                      Linders氏によるインタビュー）
+                    </td>
+                    <td>
+                      <a
+                        href="https://www.infoq.com/articles/book-review-leading-quality/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        infoq.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>一次資料（CISQ）</td>
+                    <td>
+                      &quot;The Cost of Poor Quality Software in the US: A 2018
+                      Report&quot;（本文の約2.8兆ドルの根拠。調査対象は
+                      <strong>米国内</strong>
+                      の組織に限定され、金額は
+                      <strong>米ドル建て</strong>）
+                    </td>
+                    <td>
+                      <a
+                        href="https://www.it-cisq.org/wp-content/uploads/sites/6/2023/09/The-Cost-of-Poor-Quality-Software-in-the-US-2018-Report.pdf"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        it-cisq.org (PDF)
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>無料サンプル章</td>
+                    <td>出版社公式サイトのリクエストフォーム経由で入手可能</td>
+                    <td>
+                      <a
+                        href="https://www.leadingqualitybook.com/#freeFooter"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        leadingqualitybook.com/#freeFooter
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ポッドキャスト（TestGuild）</td>
+                    <td>
+                      &quot;Leading Quality with Ronald Cummings-John&quot;（Joe
+                      Colantonio氏インタビュー）
+                    </td>
+                    <td>
+                      <a
+                        href="https://testguild.com/podcast/a326-ronald/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        testguild.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>書評</td>
+                    <td>
+                      Derk-Jan de
+                      Grood氏（国際的なアジャイル/テスト専門家）による書評
+                    </td>
+                    <td>
+                      <a
+                        href="https://djdegrood.wordpress.com/2019/11/28/leading-quality-review-of-the-book-by-ronald-cummings-john-and-owais-peer/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        djdegrood.wordpress.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>書籍要点まとめ</td>
+                    <td>Mentoring Clubによるキーインサイト紹介ページ</td>
+                    <td>
+                      <a
+                        href="https://www.mentoring-club.com/bookshelf/ronald-cummings---john-owais-peer-leading-quality---how-great-leaders-deliver-high-quality-software-and-accelerate-growth"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        mentoring-club.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>書籍販売ページ</td>
+                    <td>Amazon.com 商品ページ（ISBN 9781916185807）</td>
+                    <td>
+                      <a
+                        href="https://www.amazon.com/Leading-Quality-Leaders-Software-Accelerate/dp/1916185800"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        amazon.com
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>参考記事</td>
+                    <td>Cindy Sridharan &quot;Testing in Production, the Safe Way&quot;</td>
+                    <td>
+                      <a
+                        href="https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        medium.com
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="callout warn">
+              <span className="label">注記</span>
+              <p>
+                Scribd 上の書籍全文のアップロードは、無断アップロードである可能性が高いため、著作権保護の観点から本ガイド作成にあたって参照していません。本ガイドの内容は、公式サイト・出版社配布の無料サンプル・著者本人へのインタビュー記事など、正規に公開されている情報のみに基づいています。書籍の全文を読みたい場合は、公式サイトまたはAmazon等の正規販売チャネルからの購入をおすすめします。
+              </p>
+            </div>
+          </section>
         </main>
       </div>
+
+      <footer>
+        <div className="layout-footer">
+          Leading Quality 実践ガイド ――
+          本ページは教育・学習目的の要約であり、書籍本文の再配布ではありません。原著の詳細は公式サイトまたは正規販売チャネルをご覧ください。
+        </div>
+      </footer>
     </div>
   );
 }

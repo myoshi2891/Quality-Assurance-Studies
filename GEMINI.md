@@ -144,6 +144,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/secure-by-design-guide/page.tsx` (セキュア・バイ・デザイン実践ガイド、`NavBar.tsx` 付き)
 - `app/sonarqube-intermediate-guide/page.tsx` (SonarQube 完全解説ガイド、`NavBar.tsx` 付き)
 - `app/how-google-tests-software-guide/page.tsx` (How Google Tests Software 完全ガイド、`NavBar.tsx` 付き)
+- `app/leading-quality-guide/page.tsx` (Leading Quality 実践ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
@@ -277,12 +278,13 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Playwright-intermediate-advanced-guide.html` | `/playwright-intermediate-advanced-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
 | `Sonarqube-intermediate.html` | `/sonarqube-intermediate-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `How-google-tests-software-guide.html` | `/how-google-tests-software-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Leading-quality-guide.html` | `/leading-quality-guide` | ✅ NavBar あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系 Markdown 一式 / `Leading-quality-guide.html` ほかルート直下の HTML | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未決定 |
+| なし | - | ✅ 全て完了 | 書籍ガイド系 Markdown 一式等はアーカイブへ移行済み |
 
 ## 既知の留保事項
 
