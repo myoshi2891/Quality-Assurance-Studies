@@ -73,7 +73,8 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/secure-by-design-guide', h1: /セキュア・バイ・デザイン/ },
   { path: '/how-google-tests-software-guide', h1: /How Google Tests Software.*完全ガイド/s },
   { path: '/leading-quality-guide', h1: /品質を、経営の言葉で語れるリーダーになる/ },
+  { path: '/agile-testing-practical-guide', h1: /初学者のための実践ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 60;
+export const EXPECTED_PAGE_COUNT = 61;
 

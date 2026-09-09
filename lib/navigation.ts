@@ -109,6 +109,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/secure-by-design-guide', label: 'セキュア・バイ・デザイン実践ガイド', description: 'ドメイン駆動設計（DDD）と型を活用し、脆弱性が原理的に生まれ得ない堅牢なコードを設計する。', category: 'books-practices' },
   { href: '/how-google-tests-software-guide', label: 'How Google Tests Software 完全ガイド', description: 'Googleのテスト文化、SET/TE/TEM、Small/Medium/Large、ACC分析、Test Certified、フレーキー対策まで。', category: 'books-practices' },
   { href: '/leading-quality-guide', label: 'Leading Quality 実践ガイド', description: '品質をテストチームの仕事から経営アジェンダへ引き上げる、品質リーダーシップの10ステップ。', category: 'books-practices' },
+  { href: '/agile-testing-practical-guide', label: 'Agile Testing 実践ガイド', description: 'アジャイルテスターの10原則、4象限、テストピラミッド、探索的テストを初学者向けに体系的に解説。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

@@ -61,10 +61,10 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
     const chips = container.querySelectorAll('.hero .chip');
     expect(chips.length).toBe(4);
-    expect(chips[0].textContent).toContain('Lisa Crispin & Janet Gregory');
-    expect(chips[1].textContent).toContain('Addison-Wesley Professional / 2009年');
-    expect(chips[2].textContent).toContain('アジャイルテストの原則・4象限・自動化戦略');
-    expect(chips[3].textContent).toContain('初学者〜中級テスター・アジャイルチーム全員');
+    expect(chips[0].textContent).toContain('Lisa Crispin, Janet Gregory');
+    expect(chips[1].textContent).toContain('Addison-Wesley Professional');
+    expect(chips[2].textContent).toContain('初版 2009年');
+    expect(chips[3].textContent).toContain("O'Reilly掲載ページ");
   });
 
   it('renders NavBar with 14 TOC links matching exact href and labels', () => {
