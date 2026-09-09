@@ -133,3 +133,92 @@ describe('Leading Quality Guide - Category A (Foundation, Hero, NavBar, Intro & 
     expect(callout?.textContent).toContain('品質問題は「顧客」「会社」「個人のキャリア」の3方向に同時にダメージを与える');
   });
 });
+
+describe('Leading Quality Guide - Category B (Steps 1 to 4: #step1 to #step4)', () => {
+  it('renders section #step1 with heading, diag-1 diagram, and 3 narratives table', () => {
+    const { container } = render(<Page />);
+    const sectionStep1 = container.querySelector('section#step1');
+    expect(sectionStep1).not.toBeNull();
+
+    expect(sectionStep1?.querySelector('.step-tag')?.textContent).toBe('STEP 01 / 10');
+    expect(sectionStep1?.querySelector('h2')?.textContent).toContain('3つの「品質ナラティブ（物語）」を理解する');
+    expect(sectionStep1?.textContent).toContain('品質ナラティブ（Quality Narrative）');
+
+    const table = sectionStep1?.querySelector('table');
+    expect(table).not.toBeNull();
+    expect(table?.textContent).toContain('所有権');
+    expect(table?.textContent).toContain('How-to-Test');
+    expect(table?.textContent).toContain('価値');
+    expect(table?.textContent).toContain('QA・テスターだけの責任にしてしまう');
+    expect(table?.textContent).toContain('銀の弾丸思考');
+    expect(table?.textContent).toContain('リスク低減の話ばかりで、売上・成長への貢献を語らない');
+  });
+
+  it('renders section #step2 with heading, practical points, and diag-2 diagram', () => {
+    const { container } = render(<Page />);
+    const sectionStep2 = container.querySelector('section#step2');
+    expect(sectionStep2).not.toBeNull();
+
+    expect(sectionStep2?.querySelector('.step-tag')?.textContent).toBe('STEP 02 / 10');
+    expect(sectionStep2?.querySelector('h2')?.textContent).toContain('所有権ナラティブ ―― 品質を全員のものにする');
+    expect(sectionStep2?.querySelector('h3')?.textContent).toBe('実践のポイント');
+
+    const listItems = sectionStep2?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(sectionStep2?.textContent).toContain('Definition of Done');
+    expect(sectionStep2?.textContent).toContain('チーム全体の学び');
+    expect(sectionStep2?.textContent).toContain('開発者・デザイナー・PMを必ず同席させる');
+  });
+
+  it('renders section #step3 with heading, Elisabeth Hendrickson reference, questions table, and callout', () => {
+    const { container } = render(<Page />);
+    const sectionStep3 = container.querySelector('section#step3');
+    expect(sectionStep3).not.toBeNull();
+
+    expect(sectionStep3?.querySelector('.step-tag')?.textContent).toBe('STEP 03 / 10');
+    expect(sectionStep3?.querySelector('h2')?.textContent).toContain('How-to-Testナラティブ ―― 銀の弾丸を捨てる');
+    expect(sectionStep3?.textContent).toContain('Elisabeth Hendrickson');
+
+    const table = sectionStep3?.querySelector('table');
+    expect(table).not.toBeNull();
+    expect(table?.textContent).toContain('知りたいこと（テストの問い）');
+    expect(table?.textContent).toContain('適したテストの例');
+    expect(table?.textContent).toContain('機能テスト・回帰テスト');
+    expect(table?.textContent).toContain('探索的テスト・ユーザビリティテスト');
+    expect(table?.textContent).toContain('負荷テスト・パフォーマンステスト');
+    expect(table?.textContent).toContain('セキュリティテスト');
+    expect(table?.textContent).toContain('監視・本番環境でのテスト');
+
+    const callout = sectionStep3?.querySelector('.callout');
+    expect(callout).not.toBeNull();
+    expect(callout?.querySelector('.label')?.textContent).toBe('ポイント');
+    expect(callout?.textContent).toContain('「何を自動化するか」より先に「何を学びたいか」を定義する');
+  });
+
+  it('renders section #step4 with heading, 3 metrics table, Indonesia last name episode, diag-3, and practical points', () => {
+    const { container } = render(<Page />);
+    const sectionStep4 = container.querySelector('section#step4');
+    expect(sectionStep4).not.toBeNull();
+
+    expect(sectionStep4?.querySelector('.step-tag')?.textContent).toBe('STEP 04 / 10');
+    expect(sectionStep4?.querySelector('h2')?.textContent).toContain('価値ナラティブ ―― 品質を売上の言葉で語る');
+    expect(sectionStep4?.textContent).toContain('growth metric');
+
+    const table = sectionStep4?.querySelector('table');
+    expect(table).not.toBeNull();
+    expect(table?.textContent).toContain('アテンション型');
+    expect(table?.textContent).toContain('トランザクション型');
+    expect(table?.textContent).toContain('プロダクティビティ型');
+    expect(table?.textContent).toContain('Airbnb');
+    expect(table?.textContent).toContain('Slack');
+
+    expect(sectionStep4?.textContent).toContain('姓（Last Name）');
+    expect(sectionStep4?.textContent).toContain('インドネシアでは姓を持たない人も多く');
+
+    expect(sectionStep4?.querySelector('h3')?.textContent).toBe('実践のポイント');
+    const listItems = sectionStep4?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(sectionStep4?.textContent).toContain('「これは何ドルの節約/損失回避になるか」');
+    expect(sectionStep4?.textContent).toContain('事業指標への影響');
+  });
+});
