@@ -64,6 +64,23 @@ F --> A
 classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
 class F done`;
 
+const DIAGRAM_EVOLUTION_TIMELINE = `flowchart TB
+B1["2009年 Agile Testing 初版刊行"] --> B2["2014年 More Agile Testing 刊行 スケーリングやDevOpsを追加"]
+B2 --> B3["2021年 Janet Gregory が Holistic Testing Model を提唱"]
+B3 --> B4["2023年 Agile Testing Condensed で4象限を刷新"]
+B4 --> B5["2025〜2026年 生成AI・エージェント型QEへの拡張が進行中"]
+classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+class B5 hub`;
+
+const DIAGRAM_HOLISTIC_LOOP = `flowchart TB
+P["計画"] --> D["開発"]
+D --> T["テストと自動化"]
+T --> R["リリース"]
+R --> O["本番監視 オブザーバビリティ"]
+O --> P
+classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
+class T done`;
+
 export default function AgileTestingPracticalGuidePage() {
   return (
     <div className="agile-testing-practical-page">
@@ -698,12 +715,457 @@ export default function AgileTestingPracticalGuidePage() {
           </div>
         </section>
 
-        {/* Placeholder sections for Category D */}
-        <section id="step9" />
-        <section id="step10" />
-        <section id="checklist" />
-        <section id="pitfalls" />
-        <section id="references" />
+        {/* ---------- Step 9 ---------- */}
+        <section id="step9">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-trophy" aria-hidden="true" />
+            </span>
+            ステップ9: 成功の鍵となる7つの要因
+          </h2>
+          <p className="kicker">原著 第21章: Key Success Factors(本のまとめにあたる章)</p>
+          <div className="prose">
+            <p>
+              本書の最終章では、アジャイルテストを機能させるための7つの成功要因が示されています。
+            </p>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>成功要因</th>
+                    <th>初学者向けポイント</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>ホールチームアプローチを使う</td>
+                    <td>品質はテスターだけの責任にしない</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>アジャイルなテストマインドセットを持つ</td>
+                    <td>バグ探しではなく価値の実現を支援する姿勢に切り替える</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>回帰テストを自動化する</td>
+                    <td>変化に強いチームであるための土台をつくる</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>フィードバックを提供し、また受け取る</td>
+                    <td>デモ・レトロスペクティブ・日々の会話を通じて双方向に</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>基盤となるプラクティスを整える</td>
+                    <td>継続的インテグレーション、テスト環境、技術的負債の管理など</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>顧客と協働する</td>
+                    <td>ビジネス側を向こう側の人にせず、一緒にテストをつくる</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>全体像を見る</td>
+                    <td>個々のテストではなく、プロダクト全体の価値提供という視点を持つ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="callout source">
+              <div className="callout-title">
+                <i className="ti ti-quote" aria-hidden="true" />
+                出典
+              </div>
+              <p>
+                InfoQ, &quot;Book Excerpt: Agile Testing&quot;(第21章 Key Success Factors の抜粋紹介)
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Step 10 ---------- */}
+        <section id="step10">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-timeline" aria-hidden="true" />
+            </span>
+            ステップ10: この本の思想はどう進化したか(2014〜2026)
+          </h2>
+          <div className="prose">
+            <p>
+              2009年の初版刊行後も、Crispin と Gregory は継続的にこの分野をアップデートし続けています。初学者は「本の内容がそのまま現在の実務に使えるのか」が気になるところですが、著者ら自身の発信を追う限り、<strong>基本概念(ホールチームアプローチ・4象限・探索的テスト)は今も有効であり、その上に新しい実践が積み重ねられてきた</strong>、というのが実情です。
+            </p>
+
+            <div className="mmd-wrap" data-diagram-id="evolution-timeline">
+              <Mermaid chart={DIAGRAM_EVOLUTION_TIMELINE} />
+            </div>
+            <p className="mmd-caption">図7: 本書の思想の進化タイムライン</p>
+
+            <p>特に注目すべき動きは次の2つです。</p>
+
+            <h3>1. ホリスティックテスティング(Holistic Testing Model)</h3>
+            <p>
+              Janet Gregory が2021年に提唱した考え方で、テスト活動を「開発ライフサイクル全体を取り巻く、終わりのない円環」として可視化するモデルです。Lisa Crispin は自身のブログで、「チームが品質とテストへのホールチームアプローチに合意した後、テスト戦略をどう組み立てればよいか」という悩みに答えるためのツールだと説明しています。
+            </p>
+
+            <div className="mmd-wrap" data-diagram-id="holistic-loop">
+              <Mermaid chart={DIAGRAM_HOLISTIC_LOOP} />
+            </div>
+            <p className="mmd-caption">
+              図8: Holistic Testing Model における継続的なテストの円環
+            </p>
+
+            <h3>2. AI・エージェント型QEへの拡張</h3>
+            <p>
+              2026年に入り、Lisa Crispin は DORA(DevOps Research and Assessment)チームが公開した「AI Capabilities Model」について、 Beyond Quality ポッドキャストのホストら(Maryia Tuleika、Vitaly Shapovalov、Anupam Krishnamurthy)と議論した内容をブログで紹介しています。ここでは「AIエージェントは時間とともに劣化するため継続的なテストが必要」「セキュリティ上の落とし穴に注意」といった論点とともに、<strong>ペアリングやアンサンブル(複数人での協働)の重要性はAI時代にこそ増している</strong>という見解が共有されています。これは、本書が一貫して主張してきた「テストはチームで行うもの」という思想が、AI時代にも形を変えて生き続けていることを示す好例です。
+            </p>
+          </div>
+        </section>
+
+        {/* ---------- Checklist ---------- */}
+        <section id="checklist">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-checklist" aria-hidden="true" />
+            </span>
+            実践チェックリスト: 明日から始める7ステップ
+          </h2>
+          <div className="prose">
+            <p>
+              初めてアジャイルテストに取り組むチーム・個人向けの、実践的な第一歩です。
+            </p>
+            <ul className="checklist">
+              <li>
+                <i className="ti ti-circle-check" aria-hidden="true" />
+                チーム全員で「品質は誰の責任か」を話し合い、ホールチームアプローチを合言葉にする
+              </li>
+              <li>
+                <i className="ti ti-circle-check" aria-hidden="true" />
+                現在のテストを4象限(Q1〜Q4)に仕分けし、抜け・偏りを可視化する
+              </li>
+              <li>
+                <i className="ti ti-circle-check" aria-hidden="true" />
+                最も数の少ないユニットテスト(Q1)から自動化の土台を作り始める
+              </li>
+              <li>
+                <i className="ti ti-circle-check" aria-hidden="true" />
+                ストーリー着手前にPower of Three(プロダクトオーナー・開発者・テスター)で会話する時間を確保する
+              </li>
+              <li>
+                <i className="ti ti-circle-check" aria-hidden="true" />
+                探索的テストの時間をイテレーションに明示的に組み込み、チャーターを書く習慣をつける
+              </li>
+              <li>
+                <i className="ti ti-circle-check" aria-hidden="true" />
+                イテレーションの終わりに、7つの成功要因のどれが弱いかをふりかえりで確認する
+              </li>
+              <li>
+                <i className="ti ti-circle-check" aria-hidden="true" />
+                AIツールを導入する場合も、「チームでの協働」を置き換えるのではなく補強する形で使う
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* ---------- Pitfalls ---------- */}
+        <section id="pitfalls">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-alert-triangle" aria-hidden="true" />
+            </span>
+            よくある落とし穴
+          </h2>
+          <div className="prose">
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>落とし穴</th>
+                    <th>症状</th>
+                    <th>対処法</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>テスターだけが品質責任者になっている</td>
+                    <td>開発者がテストに無関心、リリース前にテスターだけが忙しい</td>
+                    <td>ホールチームアプローチをふりかえりで再確認する</td>
+                  </tr>
+                  <tr>
+                    <td>Q1・Q4を軽視している</td>
+                    <td>手動のQ2・Q3ばかりでリグレッションの自動防御がない</td>
+                    <td>まずQ1(ユニットテスト)から自動化に着手する</td>
+                  </tr>
+                  <tr>
+                    <td>4象限を実施順序だと誤解している</td>
+                    <td>Q1が終わらないとQ2に進めないと思い込む</td>
+                    <td>4象限は分類のための思考ツールであり、順序ではないと理解する</td>
+                  </tr>
+                  <tr>
+                    <td>探索的テストを行き当たりばったりの作業だと誤解している</td>
+                    <td>成果が記録されず再現できない</td>
+                    <td>チャーターとセッションベースドテストマネジメントを導入する</td>
+                  </tr>
+                  <tr>
+                    <td>E2Eテストに偏重している</td>
+                    <td>テストが遅く、頻繁に壊れる</td>
+                    <td>テストピラミッドの比率を見直し、下位レイヤーを厚くする</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- References ---------- */}
+        <section id="references">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-link" aria-hidden="true" />
+            </span>
+            参考文献・出典URL
+          </h2>
+          <div className="prose">
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-book" aria-hidden="true" />
+                書籍情報
+              </h3>
+              <ul className="ref-list">
+                <li className="ref-item">
+                  <span className="ref-title">
+                    Lisa Crispin, Janet Gregory. Agile Testing: A Practical Guide for Testers and Agile Teams(O&apos;Reilly掲載ページ / 目次)
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://www.oreilly.com/library/view/agile-testing-a/9780321616944/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.oreilly.com/library/view/agile-testing-a/9780321616944/
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">Amazon 書籍ページ(書誌情報)</span>
+                  <a
+                    className="ref-url"
+                    href="https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-user" aria-hidden="true" />
+                Lisa Crispin のブログ
+              </h3>
+              <ul className="ref-list">
+                <li className="ref-item">
+                  <span className="ref-title">&quot;The Agile Testing Quadrants&quot;(2024年・最新版4象限図)</span>
+                  <a
+                    className="ref-url"
+                    href="https://lisacrispin.com/2024/10/11/the-agile-testing-quadrants/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://lisacrispin.com/2024/10/11/the-agile-testing-quadrants/
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">&quot;Using the Agile Testing Quadrants&quot;(2011年)</span>
+                  <a
+                    className="ref-url"
+                    href="https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">&quot;The Whole Team Approach&quot;(2009年)</span>
+                  <a
+                    className="ref-url"
+                    href="https://lisacrispin.com/2009/01/30/the-whole-team-approach/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://lisacrispin.com/2009/01/30/the-whole-team-approach/
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">&quot;Learn how to apply the Holistic Testing Model&quot;(2023年)</span>
+                  <a
+                    className="ref-url"
+                    href="https://lisacrispin.com/2023/05/15/holistic-testing-model-mini-book/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://lisacrispin.com/2023/05/15/holistic-testing-model-mini-book/
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">&quot;AI, testing, and the DORA AI Capabilities Model&quot;(2026年4月)</span>
+                  <a
+                    className="ref-url"
+                    href="https://lisacrispin.com/2026/04/20/ai-testing-and-the-dora-ai-capabilities-model/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://lisacrispin.com/2026/04/20/ai-testing-and-the-dora-ai-capabilities-model/
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-pyramid" aria-hidden="true" />
+                Martin Fowler / ThoughtWorks
+              </h3>
+              <ul className="ref-list">
+                <li className="ref-item">
+                  <span className="ref-title">&quot;TestPyramid&quot;(Bliki)</span>
+                  <a
+                    className="ref-url"
+                    href="https://martinfowler.com/bliki/TestPyramid.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://martinfowler.com/bliki/TestPyramid.html
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">Ham Vocke, &quot;The Practical Test Pyramid&quot;</span>
+                  <a
+                    className="ref-url"
+                    href="https://martinfowler.com/articles/practical-test-pyramid.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://martinfowler.com/articles/practical-test-pyramid.html
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">&quot;On the Diverse And Fantastical Shapes of Testing&quot;(2021年)</span>
+                  <a
+                    className="ref-url"
+                    href="https://martinfowler.com/articles/2021-test-shapes.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://martinfowler.com/articles/2021-test-shapes.html
+                  </a>
+                </li>
+              </ul>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-users-group" aria-hidden="true" />
+                その他の著名な専門家・出典
+              </h3>
+              <ul className="ref-list">
+                <li className="ref-item">
+                  <span className="ref-title">
+                    Jeff Langr, Tim Ottinger, &quot;Ten Principles for Agile Testers&quot;, Agile in a Flash(2009年)
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://agileinaflash.blogspot.com/2009/03/ten-principles-for-agile-testers.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://agileinaflash.blogspot.com/2009/03/ten-principles-for-agile-testers.html
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">
+                    Elisabeth Hendrickson, Explore It!: Reduce Risk and Increase Confidence with Exploratory Testing(Pragmatic Programmers)
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://pragprog.com/titles/ehxta/explore-it/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://pragprog.com/titles/ehxta/explore-it/
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">
+                    Gojko Adzic, &quot;Agile Testing (Crispin/Gregory) is a great book, long overdue&quot;(書評)
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://gojko.net/2009/02/23/agile-testing-crispingregory-is-a-great-book-long-overdue/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://gojko.net/2009/02/23/agile-testing-crispingregory-is-a-great-book-long-overdue/
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">
+                    Tech Lead Journal, &quot;#92 - Agile and Holistic Testing - Janet Gregory &amp; Lisa Crispin&quot;(2022年)
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://techleadjournal.dev/episodes/92/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://techleadjournal.dev/episodes/92/
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">
+                    PMI Disciplined Agile, &quot;Testing Quadrants&quot;(4象限の背景解説)
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://www.pmi.org/disciplined-agile/agile/testingquadrants"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.pmi.org/disciplined-agile/agile/testingquadrants
+                  </a>
+                </li>
+                <li className="ref-item">
+                  <span className="ref-title">
+                    InfoQ, &quot;Book Excerpt: Agile Testing&quot;(第21章 Key Success Factors の抜粋紹介)
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://www.infoq.com/articles/agile-testing-book-excerpt/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.infoq.com/articles/agile-testing-book-excerpt/
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Footer ---------- */}
+        <footer>
+          本ガイドは2026年9月2日時点で確認できる公開情報をもとに作成しています。各リンク先の内容は今後更新される可能性があるため、
+          最新の議論については著者らのブログ(lisacrispin.com、agiletester.ca)を直接ご確認ください。
+        </footer>
       </main>
     </div>
   );
