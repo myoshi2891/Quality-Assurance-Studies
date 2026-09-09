@@ -42,27 +42,37 @@
 .leading-quality-page .hero {
     min-height: 0 !important;
     display: block !important;
-    padding: 76px 24px 64px !important;
+    padding: calc(76px + var(--disclaimer-height, 0px) + 16px) 24px 64px !important;
     background: var(--ink) !important;
     color: #edf1f4 !important;
-    position: relative;
-    overflow: hidden;
-    width: 100%;
+    position: relative !important;
+    overflow: hidden !important;
+    width: 100% !important;
+}
+
+.leading-quality-page .hero::before {
+    content: none !important;
+    display: none !important;
 }
 
 .leading-quality-page .hero::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 6px;
+    content: '' !important;
+    position: absolute !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 6px !important;
     background: repeating-linear-gradient(
         90deg,
         var(--amber) 0 18px,
         transparent 18px 30px
-    );
-    opacity: 0.85;
+    ) !important;
+    opacity: 0.85 !important;
+    transform: none !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
 }
 
 .leading-quality-page .hero-inner {
@@ -137,6 +147,61 @@
     max-width: none !important;
     width: 100% !important;
     margin: 0 !important;
+}
+
+/* ---------- Sidebar Navigation (TOC) ---------- */
+.leading-quality-page nav.toc {
+    position: sticky !important;
+    top: calc(60px + var(--disclaimer-height, 0px) + 20px) !important;
+    max-height: calc(100vh - 60px - var(--disclaimer-height, 0px) - 30px) !important;
+    overflow-y: auto !important;
+    padding-top: 48px !important;
+    font-size: 13.6px !important;
+    align-self: start !important;
+    scrollbar-width: thin;
+}
+
+.leading-quality-page nav.toc .toc-label {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace) !important;
+    font-size: 11.5px !important;
+    letter-spacing: 0.08em !important;
+    color: var(--ink-soft) !important;
+    margin-bottom: 10px !important;
+    display: block !important;
+}
+
+.leading-quality-page nav.toc ol {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-left: 2px solid var(--line) !important;
+}
+
+.leading-quality-page nav.toc li {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.leading-quality-page nav.toc a {
+    display: block !important;
+    padding: 6px 0 6px 14px !important;
+    color: var(--ink-soft) !important;
+    text-decoration: none !important;
+    border-left: 2px solid transparent !important;
+    margin-left: -2px !important;
+    transition: color 0.15s, border-left-color 0.15s !important;
+}
+
+.leading-quality-page nav.toc a:hover {
+    color: var(--amber) !important;
+    border-left-color: var(--amber) !important;
+}
+
+.leading-quality-page nav.toc a.active {
+    color: var(--amber) !important;
+    border-left-color: var(--amber) !important;
+    font-weight: 600 !important;
 }
 
 /* ---------- Typography ---------- */
@@ -468,6 +533,105 @@
     text-decoration-color: var(--line);
 }
 
+/* ---------- Diagrams & Mermaid ---------- */
+.leading-quality-page .diagram {
+    background: var(--paper) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 8px !important;
+    padding: 20px 12px !important;
+    margin: 22px 0 !important;
+    overflow-x: auto !important;
+}
+
+.leading-quality-page .diagram .mermaid-wrapper,
+.leading-quality-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    overflow: visible !important;
+}
+
+.leading-quality-page .mermaid-wrapper svg {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* 矢印（エッジ線・マーカー） */
+.leading-quality-page .mermaid-wrapper .edgePath path,
+.leading-quality-page .mermaid-wrapper .flowchart-link {
+    stroke: var(--ink) !important;
+    stroke-width: 1.5px !important;
+}
+
+.leading-quality-page .mermaid-wrapper marker path {
+    fill: var(--ink) !important;
+    stroke: var(--ink) !important;
+}
+
+/* エッジラベル（矢印の横の文字「移行」「一致している」「フィードバック」等） */
+.leading-quality-page .mermaid-wrapper .edgeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabels span,
+.leading-quality-page .mermaid-wrapper .edgeLabels text {
+    background-color: var(--paper) !important;
+    color: var(--ink) !important;
+    fill: var(--ink) !important;
+    font-size: 13.5px !important;
+    font-weight: 500 !important;
+    overflow: visible !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabel rect,
+.leading-quality-page .mermaid-wrapper .edgeLabels rect,
+.leading-quality-page .mermaid-wrapper .label-container {
+    fill: var(--paper) !important;
+    stroke: none !important;
+}
+
+/* ノード内のフォントと基本文字色 */
+.leading-quality-page .mermaid-wrapper .node text,
+.leading-quality-page .mermaid-wrapper .node .nodeLabel,
+.leading-quality-page .mermaid-wrapper .node .label,
+.leading-quality-page .mermaid-wrapper .node span {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif !important;
+    font-size: 14.5px !important;
+    color: var(--ink) !important;
+    fill: var(--ink) !important;
+    line-height: 1.4 !important;
+}
+
+/* 白文字指定されたノード（style ... color:#ffffff のノード） */
+.leading-quality-page .mermaid-wrapper .node[style*="color: #ffffff"] text,
+.leading-quality-page .mermaid-wrapper .node[style*="color:#ffffff"] text,
+.leading-quality-page .mermaid-wrapper .node[style*="color: #ffffff"] .nodeLabel,
+.leading-quality-page .mermaid-wrapper .node[style*="color:#ffffff"] .nodeLabel,
+.leading-quality-page .mermaid-wrapper .node[style*="color: #ffffff"] span,
+.leading-quality-page .mermaid-wrapper .node[style*="color:#ffffff"] span,
+.leading-quality-page .mermaid-wrapper .node[style*="color: rgb(255, 255, 255)"] text,
+.leading-quality-page .mermaid-wrapper .node[style*="color: rgb(255, 255, 255)"] .nodeLabel,
+.leading-quality-page .mermaid-wrapper .node[style*="color: rgb(255, 255, 255)"] span {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+}
+
+/* foreignObject のオーバーフロー確保 */
+.leading-quality-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.leading-quality-page .mermaid-wrapper foreignObject > div,
+.leading-quality-page .mermaid-wrapper .nodeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabel {
+    overflow: visible !important;
+}
+
 /* ---------- Code block fallback ---------- */
 .leading-quality-page .code-block {
     background: #1e293b;
@@ -509,47 +673,64 @@
 
 @media (max-width: 960px) {
     .leading-quality-page .layout {
-        grid-template-columns: 1fr;
-        padding: 0 20px;
+        grid-template-columns: 1fr !important;
+        padding: 0 20px !important;
+        gap: 0 !important;
+    }
+
+    .leading-quality-page nav.toc.desktop {
+        display: none !important;
     }
 
     .leading-quality-page main {
-        padding-top: 8px;
+        padding-top: 8px !important;
     }
 
     .leading-quality-page .mobile-toc {
-        display: block;
-        margin: 28px 0 8px;
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 4px 18px;
+        display: block !important;
+        margin: 28px 0 8px !important;
+        border: 1px solid var(--line) !important;
+        border-radius: 8px !important;
+        padding: 4px 18px !important;
+        background: var(--paper) !important;
     }
 
     .leading-quality-page .mobile-toc summary {
-        cursor: pointer;
-        padding: 12px 0;
-        font-family: var(--font-mono, 'IBM Plex Mono', monospace);
-        font-size: 12.5px;
-        letter-spacing: 0.06em;
-        color: var(--ink-soft);
+        cursor: pointer !important;
+        padding: 12px 0 !important;
+        font-family: var(--font-mono, 'IBM Plex Mono', monospace) !important;
+        font-size: 12.5px !important;
+        letter-spacing: 0.06em !important;
+        color: var(--ink-soft) !important;
+        outline: none !important;
     }
 
     .leading-quality-page .mobile-toc ol {
-        list-style: none;
-        padding-left: 0;
-        margin: 0 0 14px;
+        list-style: none !important;
+        padding-left: 0 !important;
+        margin: 0 0 14px !important;
+    }
+
+    .leading-quality-page .mobile-toc li {
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
 
     .leading-quality-page .mobile-toc a {
-        color: var(--ink-soft);
-        text-decoration: none;
-        display: block;
-        padding: 6px 0;
+        color: var(--ink-soft) !important;
+        text-decoration: none !important;
+        display: block !important;
+        padding: 6px 0 !important;
+    }
+
+    .leading-quality-page .mobile-toc a:hover {
+        color: var(--amber) !important;
     }
 }
 
 @media (max-width: 520px) {
     .leading-quality-page .hero {
-        padding: 56px 18px 48px !important;
+        padding: calc(56px + var(--disclaimer-height, 0px) + 16px) 18px 48px !important;
     }
 }
