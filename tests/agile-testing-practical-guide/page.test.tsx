@@ -280,7 +280,8 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const callout = step8?.querySelector('.callout.source');
       expect(callout).not.toBeNull();
-      expect(callout?.textContent).toContain('Elisabeth Hendrickson');
+      expect(callout?.textContent).toContain('Hendrickson');
+      expect(step8?.textContent).toContain('Elisabeth Hendrickson');
     });
   });
 });

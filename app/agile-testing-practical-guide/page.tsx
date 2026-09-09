@@ -40,6 +40,30 @@ classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
 class Team hub
 class Q done`;
 
+const DIAGRAM_PYRAMID = `flowchart TB
+N["ユニットテスト 数が多く高速で低コスト"] --> S["サービスAPIテスト 中間レイヤー"]
+S --> U["UI E2Eテスト 数が少なく低速で高コスト"]
+classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+class N hub`;
+
+const DIAGRAM_POWER_OF_THREE = `flowchart TB
+PO["プロダクトオーナー ビジネス側"] --> M["共通理解と受け入れ基準"]
+DEV["開発者"] --> M
+QA["テスター"] --> M
+M --> AC["実行可能な受け入れテスト ATDD BDD"]
+classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+class M hub`;
+
+const DIAGRAM_ITERATION_CYCLE = `flowchart TB
+A["リリース テーマ計画 全体像の把握"] --> B["助走 ストーリーの事前準備"]
+B --> C["イテレーションキックオフ"]
+C --> D["コーディングとテストを同時進行"]
+D --> E["イテレーションの振り返りとまとめ"]
+E --> F["確実なリリース"]
+F --> A
+classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
+class F done`;
+
 export default function AgileTestingPracticalGuidePage() {
   return (
     <div className="agile-testing-practical-page">
@@ -479,11 +503,202 @@ export default function AgileTestingPracticalGuidePage() {
           </div>
         </section>
 
-        {/* Placeholder sections for Category C, D */}
-        <section id="step5" />
-        <section id="step6" />
-        <section id="step7" />
-        <section id="step8" />
+        {/* ---------- Step 5 ---------- */}
+        <section id="step5">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-pyramid" aria-hidden="true" />
+            </span>
+            ステップ5: テスト自動化戦略とテストピラミッド
+          </h2>
+          <p className="kicker">
+            原著 第13〜14章: Why We Want to Automate Tests and What Holds Us Back / An Agile Test Automation Strategy
+          </p>
+          <div className="prose">
+            <p>
+              Q1(技術視点でチームを支援するテスト)を実現する上で欠かせないのが自動化戦略です。本書ではテスト自動化を阻む典型的な壁 (スキル不足、ツール選定の失敗、経営層の理解不足など)を挙げたうえで、どのレイヤーにどれだけテストを持つべきかという指針を示します。
+            </p>
+            <p>
+              この考え方は、Mike Cohn が提唱し、ThoughtWorks のチーフサイエンティスト Martin Fowler が広く一般化した「<strong>テストピラミッド(Test Pyramid)</strong>」とも強く結びついています。Fowler は自身のサイトで、テストピラミッドを「異なる粒度の自動テストをどう使うべきかを考えるための比喩」と説明し、「GUIを通しで実行する高コストなテストより、低レベルなユニットテストをはるかに多く持つべきだ」という原則を提示しています。
+            </p>
+
+            <div className="mmd-wrap" data-diagram-id="pyramid">
+              <Mermaid chart={DIAGRAM_PYRAMID} />
+            </div>
+            <p className="mmd-caption">図4: テスト自動化戦略における3つのレイヤー</p>
+
+            <p>初学者向けの実践ステップは次のとおりです。</p>
+            <ol className="step-list">
+              <li>
+                <strong>まずユニットテストの土台を作る</strong>:
+                最も数を増やしやすく、実行も速いレイヤー。
+              </li>
+              <li>
+                <strong>サービス / APIレベルの統合テストを追加する</strong>:
+                ユニットテストではカバーできない、コンポーネント間の結合部分を検証。
+              </li>
+              <li>
+                <strong>UI / E2Eテストは最小限に絞る</strong>:
+                壊れやすく実行が遅いため、重要なユーザーシナリオに限定する。
+              </li>
+            </ol>
+
+            <div className="callout note">
+              <div className="callout-title">
+                <i className="ti ti-bulb" aria-hidden="true" />
+                補足
+              </div>
+              <p>
+                Martin Fowler は2021年の記事で、チームによっては「ピラミッド」よりも「ハニカム(蜂の巣)」や「トロフィー」型 (ユニットテストより統合テストを厚めにする考え方)を好む場合があるとも紹介しており、テストピラミッドは唯一絶対の正解ではなく、システムの性質に応じて調整すべき指針であることも初学者は知っておくとよいでしょう。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Step 6 ---------- */}
+        <section id="step6">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-puzzle" aria-hidden="true" />
+            </span>
+            ステップ6: Power of Three(Three Amigos)と受け入れテスト
+          </h2>
+          <p className="kicker">
+            原著 第8〜9章: Business-Facing Tests that Support the Team / そのツールキット
+          </p>
+          <div className="prose">
+            <p>
+              Q2(ビジネス視点でチームを支援するテスト)を実現する代表的なプラクティスが、<strong>Power of Three(通称 Three Amigos)</strong>です。
+              これは、プロダクトオーナー(ビジネス)、開発者、テスターの3者が要件定義の初期段階から一緒に会話し、具体例(Examples)を通じて認識を合わせる手法です。
+            </p>
+
+            <div className="mmd-wrap" data-diagram-id="power-of-three">
+              <Mermaid chart={DIAGRAM_POWER_OF_THREE} />
+            </div>
+            <p className="mmd-caption">図5: Power of Three による共通理解の形成</p>
+
+            <p>
+              Janet Gregory と Lisa Crispin は、あるポッドキャスト(Tech Lead Journal, 2022年)の中で、この Power of Three の考え方が「ホリスティックテスティング」実践の中核にもなっていると説明しています。3者が事前に会話することで、コードが書かれる前に曖昧さを解消でき、手戻りを大幅に減らせるのがメリットです。
+            </p>
+          </div>
+        </section>
+
+        {/* ---------- Step 7 ---------- */}
+        <section id="step7">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-refresh" aria-hidden="true" />
+            </span>
+            ステップ7: テスターのイテレーションサイクル
+          </h2>
+          <p className="kicker">原著 第15〜20章: An Iteration in the Life of a Tester</p>
+          <div className="prose">
+            <p>
+              本書の中核となるもう一つのパートが、実際の1イテレーション(スプリント)を通してテスターが何をするかを時系列で描いた部分です。
+              初学者はこの流れをそのまま自分のチームに当てはめて考えると理解しやすくなります。
+            </p>
+
+            <div className="mmd-wrap" data-diagram-id="iteration-cycle">
+              <Mermaid chart={DIAGRAM_ITERATION_CYCLE} />
+            </div>
+            <p className="mmd-caption">図6: テスターのイテレーションサイクル</p>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ステップ</th>
+                    <th>原著の章</th>
+                    <th>テスターの主な活動</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>リリース / テーマ計画</td>
+                    <td>第15章</td>
+                    <td>大きな受け入れ基準の洗い出し、リスクの洗い出し</td>
+                  </tr>
+                  <tr>
+                    <td>助走(Hit the Ground Running)</td>
+                    <td>第16章</td>
+                    <td>ストーリーの事前準備、テスト観点の整理</td>
+                  </tr>
+                  <tr>
+                    <td>イテレーションキックオフ</td>
+                    <td>第17章</td>
+                    <td>Power of Threeでの会話、受け入れ基準の合意</td>
+                  </tr>
+                  <tr>
+                    <td>コーディングとテスト</td>
+                    <td>第18章</td>
+                    <td>開発と並行したテスト設計・自動化・探索的テスト</td>
+                  </tr>
+                  <tr>
+                    <td>イテレーションのまとめ</td>
+                    <td>第19章</td>
+                    <td>デモ、ふりかえり、未完了項目の扱い</td>
+                  </tr>
+                  <tr>
+                    <td>確実なリリース</td>
+                    <td>第20章</td>
+                    <td>リリース判定、UAT、本番影響の確認</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              このサイクルが1回で終わらず、次のイテレーションへ継続的にループしていく点が、従来型の「テストフェーズ」との決定的な違いです。
+            </p>
+          </div>
+        </section>
+
+        {/* ---------- Step 8 ---------- */}
+        <section id="step8">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-search" aria-hidden="true" />
+            </span>
+            ステップ8: 探索的テストという技法
+          </h2>
+          <p className="kicker">
+            Q3の中核技法として原著でも扱われ、著者らのその後の発信でも繰り返し重視されているテーマ
+          </p>
+          <div className="prose">
+            <p>
+              Q3(ビジネス視点でプロダクトを批評するテスト)の代表格が<strong>探索的テスト(Exploratory Testing)</strong>です。用語自体は Cem Kaner が1980年代に提唱し、James Bach らが定義を発展させたものですが、Crispin と Gregory はこれをアジャイルテストの必須スキルとして本書に組み込みました。
+            </p>
+            <p>
+              探索的テストの第一人者である Elisabeth Hendrickson は、著書『Explore It!』の中で、探索的テストを「事前にすべてのテストケースを設計するのではなく、小さく素早い実験を設計・実行し、直前の学びを次の一手に活かす」プロセスだと説明しています。ポイントは次の3つです。
+            </p>
+            <ul>
+              <li>
+                <strong>同時並行で行う</strong>:
+                ソフトウェアについて学びながら、テストを設計し、実行する。
+              </li>
+              <li>
+                <strong>でたらめに触ることではない</strong>:
+                目的を持った調査であり、通常は「チャーター(何を確認したいかの簡潔な宣言)」を用いて範囲を絞る。
+              </li>
+              <li>
+                <strong>タイムボックスで管理する</strong>:
+                セッションベースドテストマネジメントなどの手法で、探索の時間と成果を管理する。
+              </li>
+            </ul>
+
+            <div className="callout source">
+              <div className="callout-title">
+                <i className="ti ti-quote" aria-hidden="true" />
+                出典
+              </div>
+              <p>
+                Hendrickson の同書には、Janet Gregory 自身が「チームメンバー全員の机に置いておくべき一冊」という推薦コメントを寄せています。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Placeholder sections for Category D */}
         <section id="step9" />
         <section id="step10" />
         <section id="checklist" />
