@@ -93,15 +93,16 @@ describe('Leading Quality Guide - Category A (Foundation, Hero, NavBar, Intro & 
     const tables = container.querySelectorAll('table');
     expect(tables.length).toBeGreaterThanOrEqual(1);
     const introTable = tables[0];
-    expect(introTable.textContent).toContain('Section 1');
-    expect(introTable.textContent).toContain('品質リーダーになる（Becoming a Leader of Quality）');
-    expect(introTable.textContent).toContain('Step 1〜4');
-    expect(introTable.textContent).toContain('Section 2');
-    expect(introTable.textContent).toContain('戦略的な品質判断を極める（Mastering Your Strategic Quality Decisions）');
-    expect(introTable.textContent).toContain('Step 5〜8');
-    expect(introTable.textContent).toContain('Section 3');
-    expect(introTable.textContent).toContain('チームを率いて成長を加速する（Leading Your Team to Accelerate Growth）');
-    expect(introTable.textContent).toContain('Step 9〜10');
+    expect(introTable).toBeDefined();
+    expect(introTable?.textContent).toContain('Section 1');
+    expect(introTable?.textContent).toContain('品質リーダーになる（Becoming a Leader of Quality）');
+    expect(introTable?.textContent).toContain('Step 1〜4');
+    expect(introTable?.textContent).toContain('Section 2');
+    expect(introTable?.textContent).toContain('戦略的な品質判断を極める（Mastering Your Strategic Quality Decisions）');
+    expect(introTable?.textContent).toContain('Step 5〜8');
+    expect(introTable?.textContent).toContain('Section 3');
+    expect(introTable?.textContent).toContain('チームを率いて成長を加速する（Leading Your Team to Accelerate Growth）');
+    expect(introTable?.textContent).toContain('Step 9〜10');
 
     expect(
       screen.getByText(/対象読者は、CTO・VPoE・QAリード・プロダクトオーナーはもちろん/)

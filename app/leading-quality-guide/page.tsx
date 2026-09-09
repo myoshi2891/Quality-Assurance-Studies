@@ -1,6 +1,7 @@
 import Mermaid from '../../components/Mermaid';
 import Checklist from './Checklist';
-import NavBar, { NAV_ITEMS } from './NavBar';
+import NavBar from './NavBar';
+import { NAV_ITEMS } from './nav-items';
 import './leading-quality-guide.css';
 
 const DIAGRAM_0 = `flowchart LR
