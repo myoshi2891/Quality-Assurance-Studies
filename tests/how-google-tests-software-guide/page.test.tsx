@@ -276,3 +276,70 @@ describe('How Google Tests Software Guide - Category C (Sections 6-9: Test Certi
     expect(callout?.textContent).toContain('Tech on the Toilet');
   });
 });
+
+describe('How Google Tests Software Guide - Category D (Sections 10-12: Steps, Evolution, Critique)', () => {
+  it('renders section #s10 with 8 steps in step-list', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s10');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('初学者のためのステップバイステップ導入ガイド');
+
+    const stepList = section?.querySelector('ol.step-list');
+    expect(stepList).not.toBeNull();
+    const steps = stepList?.querySelectorAll('li');
+    expect(steps?.length).toBe(8);
+
+    expect(steps?.[0].textContent).toContain('開発とテストを分離しない文化をつくる');
+    expect(steps?.[1].textContent).toContain('既存のテストをSmall／Medium／Largeに分類し、可視化する');
+    expect(steps?.[2].textContent).toContain('継続的ビルドとプレサブミットチェックを導入する');
+    expect(steps?.[3].textContent).toContain('ACC分析でリスクマップを作り、10分間テストプランから始める');
+    expect(steps?.[4].textContent).toContain('フレーキーテストをゼロトレランスで扱うルールを決める');
+    expect(steps?.[5].textContent).toContain('小さく始めて成熟度のはしごを登る');
+    expect(steps?.[6].textContent).toContain('品質にまつわる知識を共有する仕組みを作る');
+    expect(steps?.[7].textContent).toContain('自動化できる領域を継続的に広げ、テストコストをゼロに近づける');
+  });
+
+  it('renders section #s11 with 2012 vs 2026 evolution table (7 rows)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s11');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('2012年から2026年までの進化：何が変わり、何が変わらなかったか');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+    expect(headers).toEqual(['2012年の書籍での呼称・概念', '2026年現在の状況']);
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(7);
+    expect(rows?.[0].textContent).toContain('SET（Software Engineer in Test）');
+    expect(rows?.[0].textContent).toContain('SETI');
+    expect(rows?.[1].textContent).toContain('TE（Test Engineer）');
+    expect(rows?.[2].textContent).toContain('GTAC（外部カンファレンス）');
+    expect(rows?.[3].textContent).toContain('Testing on the Toilet（TotT）');
+    expect(rows?.[4].textContent).toContain('Google Test Analytics（ACC用ツール）');
+    expect(rows?.[5].textContent).toContain('書籍そのもの');
+    expect(rows?.[6].textContent).toContain('GoogleTest（gtest、C++用ユニットテストライブラリ）');
+  });
+
+  it('renders section #s12 with 5 critique items in check-list', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s12');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('批判的視点・初学者が誤解しやすいポイント');
+
+    const checkList = section?.querySelector('ul.check-list');
+    expect(checkList).not.toBeNull();
+    const items = checkList?.querySelectorAll('li');
+    expect(items?.length).toBe(5);
+
+    expect(items?.[0].textContent).toContain('「Googleだからできた」問題');
+    expect(items?.[1].textContent).toContain('章ごとの筆致の違い');
+    expect(items?.[2].textContent).toContain('著者全員がその後Googleを退職している');
+    expect(items?.[3].textContent).toContain('Agile用語をあえて使わない');
+    expect(items?.[4].textContent).toContain('「テスターを増やすな」という主張の文脈');
+  });
+});

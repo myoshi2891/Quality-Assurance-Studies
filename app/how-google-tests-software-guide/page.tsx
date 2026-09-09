@@ -507,6 +507,209 @@ export default function HowGoogleTestsSoftwareGuidePage() {
               </div>
             </div>
           </section>
+
+          {/* Section: s10 */}
+          <section className="block" id="s10">
+            <h2>
+              <span className="num">10</span>初学者のためのステップバイステップ導入ガイド
+            </h2>
+            <p>
+              ここまでの内容を踏まえ、自分のチーム・プロジェクトにGoogle流の考え方を取り入れるための8つのステップを紹介します。書籍の著者インタビューでも「Googleがやってきたことをコピーして、自分たちのソフトウェアエンジニアリングDNAの一部にしてしまうのが良い」とアドバイスされています。
+            </p>
+            <ol className="step-list">
+              <li>
+                <span className="step-num" />
+                <div>
+                  <div className="step-title">開発とテストを分離しない文化をつくる</div>
+                  <p>
+                    「テストは専任者の仕事」という前提を捨て、コードを書いたエンジニア自身がテストにも責任を持つ体制を目指します。
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num" />
+                <div>
+                  <div className="step-title">
+                    既存のテストをSmall／Medium／Largeに分類し、可視化する
+                  </div>
+                  <p>
+                    実行時間・依存関係を基準に分類するだけで、「なぜこのテストスイートは遅いのか」が可視化されます。
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num" />
+                <div>
+                  <div className="step-title">
+                    継続的ビルドとプレサブミットチェックを導入する
+                  </div>
+                  <p>
+                    「テストのないコード変更はマージしない」というルールを、ツールで強制できる形にします。
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num" />
+                <div>
+                  <div className="step-title">
+                    ACC分析でリスクマップを作り、10分間テストプランから始める
+                  </div>
+                  <p>
+                    完璧な計画書を目指さず、まず10分でCapability（できること）を洗い出すところから始めます。
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num" />
+                <div>
+                  <div className="step-title">
+                    フレーキーテストをゼロトレランスで扱うルールを決める
+                  </div>
+                  <p>
+                    「失敗しても気にしない」文化が定着する前に、原因切り分けと隔離のルールを明文化します。
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num" />
+                <div>
+                  <div className="step-title">小さく始めて成熟度のはしごを登る</div>
+                  <p>
+                    Test Certifiedのように、まず1〜5日で達成できる最初のマイルストーン（継続的ビルド・カバレッジ計測・テスト分類）から着手します。
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num" />
+                <div>
+                  <div className="step-title">
+                    品質にまつわる知識を共有する仕組みを作る
+                  </div>
+                  <p>
+                    TotTのように、短く・定期的に・実例ベースで知見を発信する仕組み（社内Wiki、Slackの定期投稿など）を用意します。
+                  </p>
+                </div>
+              </li>
+              <li>
+                <span className="step-num" />
+                <div>
+                  <div className="step-title">
+                    自動化できる領域を継続的に広げ、テストコストをゼロに近づける
+                  </div>
+                  <p>
+                    書籍の最終章が示唆するように、「自動化・クラウドソーシングでテストコストを下げ続ける」ことをゴールに、定期的に見直します。
+                  </p>
+                </div>
+              </li>
+            </ol>
+          </section>
+
+          {/* Section: s11 */}
+          <section className="block" id="s11">
+            <h2>
+              <span className="num">11</span>2012年から2026年までの進化：何が変わり、何が変わらなかったか
+            </h2>
+            <p>
+              書籍出版から14年が経った2026年9月時点で、Googleのテスト組織・文化がどう変化したかを整理します。
+            </p>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>2012年の書籍での呼称・概念</th>
+                    <th>2026年現在の状況</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>SET（Software Engineer in Test）</td>
+                    <td>
+                      2016年にSETI（Software Engineer, Tools &amp; Infrastructure）へ改称。テスト自動化に留まらず、IDE拡張・リリース自動化・本番監視まで含む「Engineering Productivity」全体を担う役割へ拡大
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>TE（Test Engineer）</td>
+                    <td>
+                      現在も採用が続く職種。製品品質の権威として、リリース候補の自動検証や、機能横断の品質戦略を担う
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>GTAC（外部カンファレンス）</td>
+                    <td>
+                      2006年から毎年開催されていたが、2017年の開催を最後に休止。アーカイブ動画は現在も公開されている
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Testing on the Toilet（TotT）</td>
+                    <td>
+                      2024年末ごろから「Tech on the Toilet」に改称され、テストに限らないエンジニアリング実践知を扱う連載として2026年現在も継続中
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Google Test Analytics（ACC用ツール）</td>
+                    <td>
+                      オープンソース版としては公開されていたが、ACCという考え方自体は後継書籍やチームのプラクティスに引き継がれている
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>書籍そのもの</td>
+                    <td>
+                      後継として『Software Engineering at Google』（2020年、O'Reilly、Titus Winters・Tom Manshreck・Hyrum Wright著）が、より成熟した時代のテスト文化を無料公開している
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>GoogleTest（gtest、C++用ユニットテストライブラリ）</td>
+                    <td>
+                      オープンソースとして開発が継続しており、Android・Chromium・LLVMなどで利用され続けている
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              変わらなかった点としては、「開発とテストを一体化させる」という根本思想、テストをリソース消費量で分類する考え方（Small/Medium/Large）、そしてリスクベースでテスト対象を絞り込む発想（ACCの精神）が、形を変えながらも一貫して受け継がれていることが挙げられます。一方で、組織構造や役職名、外部発信の形（カンファレンスからブログ連載へ）は大きく変化しています。
+            </p>
+          </section>
+
+          {/* Section: s12 */}
+          <section className="block" id="s12">
+            <h2>
+              <span className="num">12</span>批判的視点・初学者が誤解しやすいポイント
+            </h2>
+            <p>本書を読む・参考にする際に注意すべき点もあります。</p>
+            <ul className="check-list">
+              <li>
+                <i className="ti ti-alert-triangle" aria-hidden="true" />
+                <div>
+                  <strong>「Googleだからできた」問題</strong>：著者自身がインタビューで先回りして反論していますが、「潤沢なリソースがあるからこそ実現できた」という批判は根強くあります。著者は「私たちは優れたテスターだったからGoogleになれたのであり、Googleだから優れたテスターになれたわけではない」と反論していますが、スタートアップや小規模チームがそのまま適用しようとすると、体制や採用基準の面でハードルが高い部分もあります。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-alert-triangle" aria-hidden="true" />
+                <div>
+                  <strong>章ごとの筆致の違い</strong>：InfoQのレビュー（Craig Smith氏）では、3人の著者が分担して執筆したことで、章ごとに文体や構成の一貫性がやや欠ける点が指摘されています。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-alert-triangle" aria-hidden="true" />
+                <div>
+                  <strong>著者全員がその後Googleを退職している</strong>：同レビューでは、執筆時点でGoogleに在籍していた3人の著者が、出版後に全員Googleを離れたという事実にも触れられています。書籍の内容がある種の「過渡期のスナップショット」であることを念頭に置くとよいでしょう。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-alert-triangle" aria-hidden="true" />
+                <div>
+                  <strong>Agile用語をあえて使わない</strong>：著者インタビューでは「Googleはスクラムやスクラムマスターといった用語にはこだわらず、独自の高速な開発プロセスを築いてきた」と説明されています。アジャイル方法論の教科書的な実践とは異なる用語体系である点に注意が必要です。
+                </div>
+              </li>
+              <li>
+                <i className="ti ti-alert-triangle" aria-hidden="true" />
+                <div>
+                  <strong>「テスターを増やすな」という主張の文脈</strong>：書籍では意図的にテスターの人数を絞る方針が語られますが、これは「開発者自身がテストに責任を持つ」文化とセットで初めて機能する主張であり、単に人員を削減するだけでは同じ効果は得られません。
+                </div>
+              </li>
+            </ul>
+          </section>
         </div>
       </main>
     </div>
