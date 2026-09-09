@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 58 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 6 tools-frameworks + 5 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(58);
+  it('contains 59 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 6 tools-frameworks + 6 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(59);
   });
 
   it('every item has a unique href', () => {
@@ -127,18 +127,25 @@ describe('NAV_ITEMS', () => {
     expect(book?.category).toBe('books-practices');
   });
 
+  it('classifies /how-google-tests-software-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/how-google-tests-software-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
   it('classifies home "/" as home category and labels it as the guide index', () => {
     const home = NAV_ITEMS.find((item: NavItem) => item.href === '/');
+    expect(home).toBeDefined();
     expect(home?.category).toBe('home');
     expect(home?.label).toBe('全ガイド一覧');
   });
 
   it('registers the relocated 羅針盤 guide under foundation', () => {
-    const moved = NAV_ITEMS.find(
-      (item: NavItem) => item.href === '/modern-software-testing-complete-guide-2025',
+    const rashinban = NAV_ITEMS.find(
+      (item: NavItem) => item.href === '/modern-software-testing-complete-guide-2025'
     );
-    expect(moved).toBeDefined();
-    expect(moved?.category).toBe('foundation');
+    expect(rashinban).toBeDefined();
+    expect(rashinban?.category).toBe('foundation');
   });
 
   it('contains exactly one item in the home category', () => {
@@ -164,7 +171,7 @@ describe('CATEGORY_ORDER / CATEGORY_TITLES', () => {
 
   it('provides a non-empty title for every ordered category', () => {
     for (const category of CATEGORY_ORDER) {
-      expect(CATEGORY_TITLES[category].length).toBeGreaterThan(0);
+      expect(CATEGORY_TITLES[category].trim().length).toBeGreaterThan(0);
     }
   });
 
@@ -232,9 +239,9 @@ describe('groupByCategory', () => {
     expect(tools?.items).toHaveLength(6);
   });
 
-  it('places 5 items in the books-practices group', () => {
+  it('places 6 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(5);
+    expect(books?.items).toHaveLength(6);
     expect(books?.title).toBe('名著・実践ガイド');
   });
 
