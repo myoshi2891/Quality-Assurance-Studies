@@ -576,23 +576,65 @@
     stroke: var(--ink) !important;
 }
 
-/* エッジラベル（矢印の横の文字「移行」「一致している」「フィードバック」等） */
-.leading-quality-page .mermaid-wrapper .edgeLabel,
-.leading-quality-page .mermaid-wrapper .edgeLabels span,
-.leading-quality-page .mermaid-wrapper .edgeLabels text {
-    background-color: var(--paper) !important;
-    color: var(--ink) !important;
-    fill: var(--ink) !important;
-    font-size: 13.5px !important;
-    font-weight: 500 !important;
-    overflow: visible !important;
-}
-
-.leading-quality-page .mermaid-wrapper .edgeLabel rect,
+/* エッジラベルの背景板（rect）: SVG rect に background-color は効かないため fill で塗る。
+   fill に黒色を指定すると黒潰れするため、必ず背景色（var(--paper)）を指定し、文字規則と完全に分離する。 */
 .leading-quality-page .mermaid-wrapper .edgeLabels rect,
+.leading-quality-page .mermaid-wrapper .edgeLabel rect,
 .leading-quality-page .mermaid-wrapper .label-container {
     fill: var(--paper) !important;
     stroke: none !important;
+}
+
+/* エッジラベルのコンテナ */
+.leading-quality-page .mermaid-wrapper .edgeLabel {
+    background-color: var(--paper) !important;
+    stroke: none !important;
+    overflow: visible !important;
+}
+
+/* エッジラベルの文字: HTML要素(span/p)は color、SVGテキスト(text)は fill で塗る */
+.leading-quality-page .mermaid-wrapper .edgeLabel span,
+.leading-quality-page .mermaid-wrapper .edgeLabel p,
+.leading-quality-page .mermaid-wrapper .edgeLabels span,
+.leading-quality-page .mermaid-wrapper .edgeLabels text {
+    color: var(--ink) !important;
+    fill: var(--ink) !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    stroke: none !important;
+    background-color: transparent !important;
+}
+
+/* ノードの外枠（枠線）と背景色の復元:
+   style 指定のないデフォルトノード（QN, ON1, HT1, VN1, Step 1〜10 など）に白背景と濃紺枠線を付与 */
+.leading-quality-page .mermaid-wrapper .node rect,
+.leading-quality-page .mermaid-wrapper .node polygon,
+.leading-quality-page .mermaid-wrapper .node circle,
+.leading-quality-page .mermaid-wrapper .node path {
+    fill: #ffffff;
+    stroke: var(--ink);
+    stroke-width: 1.5px;
+}
+
+/* style で fill が指定されていないノードには白背景と濃紺インク枠線を強制 */
+.leading-quality-page .mermaid-wrapper .node:not([style*="fill"]) rect,
+.leading-quality-page .mermaid-wrapper .node:not([style*="fill"]) polygon,
+.leading-quality-page .mermaid-wrapper .node:not([style*="fill"]) circle,
+.leading-quality-page .mermaid-wrapper .node:not([style*="fill"]) path {
+    fill: #ffffff !important;
+    stroke: var(--ink) !important;
+    stroke-width: 1.5px !important;
+}
+
+/* サブグラフ（クラスタ）の枠線 */
+.leading-quality-page .mermaid-wrapper .cluster rect {
+    stroke-width: 1.5px !important;
+}
+
+.leading-quality-page .mermaid-wrapper .cluster span.nodeLabel {
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    color: var(--ink) !important;
 }
 
 /* ノード内のフォントと基本文字色 */
