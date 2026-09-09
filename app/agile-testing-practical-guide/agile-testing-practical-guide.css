@@ -425,7 +425,11 @@
 /* Mermaid Edge Labels / Node text reset */
 .agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabel,
 .agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabel span,
-.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabel text {
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabel p,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabel text,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabels .edgeLabel,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabels .label,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabels rect {
   background-color: var(--paper-card) !important;
   color: var(--ink) !important;
   fill: var(--ink) !important;
@@ -433,9 +437,70 @@
   font-weight: 600 !important;
 }
 
-.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabels rect {
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabels rect,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .edgeLabel rect {
   fill: var(--paper-card) !important;
   stroke: none !important;
+}
+
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node .label {
+  font-family: 'Source Sans 3', 'Noto Sans JP', sans-serif !important;
+  font-size: 15px !important;
+}
+
+/* ---------- Mermaid Node & Label Color Enforcement ---------- */
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) rect,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) polygon,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) circle,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) .basic,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) .label-container {
+  fill: #fffaf0 !important;
+  stroke: #4c3fae !important;
+  stroke-width: 1.5px !important;
+}
+
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) .label,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) text,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) span,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node:not(.hub):not(.done) p {
+  color: #2b2416 !important;
+  fill: #2b2416 !important;
+}
+
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub rect,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub polygon,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub circle,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub .basic,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub .label-container {
+  fill: #c9a227 !important;
+  stroke: #8a6d1a !important;
+  stroke-width: 2px !important;
+}
+
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub .label,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub text,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub span,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.hub p {
+  color: #2b2416 !important;
+  fill: #2b2416 !important;
+}
+
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done rect,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done polygon,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done circle,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done .basic,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done .label-container {
+  fill: #2f6f4e !important;
+  stroke: #1f4d36 !important;
+  stroke-width: 2px !important;
+}
+
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done .label,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done text,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done span,
+.agile-testing-practical-page .mmd-wrap .mermaid-wrapper .node.done p {
+  color: #faf6ee !important;
+  fill: #faf6ee !important;
 }
 
 .agile-testing-practical-page .mmd-caption {

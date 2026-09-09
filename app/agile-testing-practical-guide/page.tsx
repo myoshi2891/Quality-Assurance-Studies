@@ -10,7 +10,40 @@ export const metadata: Metadata = {
     'Lisa Crispin と Janet Gregory の共著書をもとに、初めてアジャイルテストに触れる方向けにステップ・バイ・ステップで解説。アジャイルテスターの10原則、ホールチームアプローチ、4象限、テストピラミッド、探索的テストまで網羅。',
 };
 
-const DIAGRAM_FLOW_TRADITIONAL = `flowchart TD
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#faf6ee",
+    "primaryColor": "#fffaf0",
+    "primaryTextColor": "#2b2416",
+    "primaryBorderColor": "#4c3fae",
+    "lineColor": "#8a7a5c",
+    "secondaryColor": "#eef0ff",
+    "secondaryTextColor": "#2b2416",
+    "tertiaryColor": "#fdf3d8",
+    "tertiaryTextColor": "#2b2416",
+    "textColor": "#2b2416",
+    "nodeTextColor": "#2b2416",
+    "titleColor": "#2b2416",
+    "edgeLabelColor": "#2b2416",
+    "edgeLabelBackground": "#faf6ee",
+    "mainBkg": "#fffaf0",
+    "nodeBorder": "#4c3fae",
+    "clusterBkg": "#faf6ee",
+    "clusterBorder": "#8a7a5c",
+    "fontFamily": "'Source Sans 3', 'Noto Sans JP', sans-serif",
+    "fontSize": "16px"
+  },
+  "flowchart": {
+    "useMaxWidth": false,
+    "htmlLabels": true,
+    "curve": "basis"
+  }
+}}%%`;
+
+const DIAGRAM_FLOW_TRADITIONAL = `${MERMAID_CONFIG}
+flowchart TD
+classDef default fill:#fffaf0,stroke:#4c3fae,stroke-width:1.5px,color:#2b2416;
 A["要件定義"] --> B["設計"]
 B --> C["実装"]
 C --> D["テスト工程 QAチームが担当"]
@@ -19,7 +52,9 @@ D -.->|バグ発見・手戻り| C
 classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
 class D hub`;
 
-const DIAGRAM_FLOW_AGILE = `flowchart TD
+const DIAGRAM_FLOW_AGILE = `${MERMAID_CONFIG}
+flowchart TD
+classDef default fill:#fffaf0,stroke:#4c3fae,stroke-width:1.5px,color:#2b2416;
 A["イテレーション計画"] --> B["要件をチーム全員で理解"]
 B --> C["開発とテストを並行して実施"]
 C --> D["継続的インテグレーションで自動テストを実行"]
@@ -29,7 +64,9 @@ F --> A
 classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
 class F done`;
 
-const DIAGRAM_WHOLE_TEAM = `flowchart TB
+const DIAGRAM_WHOLE_TEAM = `${MERMAID_CONFIG}
+flowchart TB
+classDef default fill:#fffaf0,stroke:#4c3fae,stroke-width:1.5px,color:#2b2416;
 PO["プロダクトオーナー"] --> Team["ひとつのクロスファンクショナルチーム"]
 DEV["開発者"] --> Team
 QA["テスター"] --> Team
@@ -40,13 +77,17 @@ classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
 class Team hub
 class Q done`;
 
-const DIAGRAM_PYRAMID = `flowchart TB
+const DIAGRAM_PYRAMID = `${MERMAID_CONFIG}
+flowchart TB
+classDef default fill:#fffaf0,stroke:#4c3fae,stroke-width:1.5px,color:#2b2416;
 N["ユニットテスト 数が多く高速で低コスト"] --> S["サービスAPIテスト 中間レイヤー"]
 S --> U["UI E2Eテスト 数が少なく低速で高コスト"]
 classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
 class N hub`;
 
-const DIAGRAM_POWER_OF_THREE = `flowchart TB
+const DIAGRAM_POWER_OF_THREE = `${MERMAID_CONFIG}
+flowchart TB
+classDef default fill:#fffaf0,stroke:#4c3fae,stroke-width:1.5px,color:#2b2416;
 PO["プロダクトオーナー ビジネス側"] --> M["共通理解と受け入れ基準"]
 DEV["開発者"] --> M
 QA["テスター"] --> M
@@ -54,7 +95,9 @@ M --> AC["実行可能な受け入れテスト ATDD BDD"]
 classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
 class M hub`;
 
-const DIAGRAM_ITERATION_CYCLE = `flowchart TB
+const DIAGRAM_ITERATION_CYCLE = `${MERMAID_CONFIG}
+flowchart TB
+classDef default fill:#fffaf0,stroke:#4c3fae,stroke-width:1.5px,color:#2b2416;
 A["リリース テーマ計画 全体像の把握"] --> B["助走 ストーリーの事前準備"]
 B --> C["イテレーションキックオフ"]
 C --> D["コーディングとテストを同時進行"]
@@ -64,7 +107,9 @@ F --> A
 classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
 class F done`;
 
-const DIAGRAM_EVOLUTION_TIMELINE = `flowchart TB
+const DIAGRAM_EVOLUTION_TIMELINE = `${MERMAID_CONFIG}
+flowchart TB
+classDef default fill:#fffaf0,stroke:#4c3fae,stroke-width:1.5px,color:#2b2416;
 B1["2009年 Agile Testing 初版刊行"] --> B2["2014年 More Agile Testing 刊行 スケーリングやDevOpsを追加"]
 B2 --> B3["2021年 Janet Gregory が Holistic Testing Model を提唱"]
 B3 --> B4["2023年 Agile Testing Condensed で4象限を刷新"]
@@ -72,7 +117,9 @@ B4 --> B5["2025〜2026年 生成AI・エージェント型QEへの拡張が進�
 classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
 class B5 hub`;
 
-const DIAGRAM_HOLISTIC_LOOP = `flowchart TB
+const DIAGRAM_HOLISTIC_LOOP = `${MERMAID_CONFIG}
+flowchart TB
+classDef default fill:#fffaf0,stroke:#4c3fae,stroke-width:1.5px,color:#2b2416;
 P["計画"] --> D["開発"]
 D --> T["テストと自動化"]
 T --> R["リリース"]
