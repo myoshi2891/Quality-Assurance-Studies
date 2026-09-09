@@ -29,6 +29,17 @@ F --> A
 classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
 class F done`;
 
+const DIAGRAM_WHOLE_TEAM = `flowchart TB
+PO["プロダクトオーナー"] --> Team["ひとつのクロスファンクショナルチーム"]
+DEV["開発者"] --> Team
+QA["テスター"] --> Team
+OPS["運用担当"] --> Team
+Team --> Q["共有された品質責任"]
+classDef hub fill:#c9a227,stroke:#8a6d1a,stroke-width:2px,color:#2b2416;
+classDef done fill:#2f6f4e,stroke:#1f4d36,stroke-width:2px,color:#faf6ee;
+class Team hub
+class Q done`;
+
 export default function AgileTestingPracticalGuidePage() {
   return (
     <div className="agile-testing-practical-page">
@@ -235,10 +246,240 @@ export default function AgileTestingPracticalGuidePage() {
           </div>
         </section>
 
-        {/* Placeholder sections for Category B, C, D */}
-        <section id="step2" />
-        <section id="step3" />
-        <section id="step4" />
+        {/* ---------- Step 2 ---------- */}
+        <section id="step2">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-list-numbers" aria-hidden="true" />
+            </span>
+            ステップ2: アジャイルテスターの10の原則
+          </h2>
+          <p className="kicker">原著 第2章</p>
+          <div className="prose">
+            <p>
+              著者らは、XP(エクストリーム・プログラミング)の価値観とアジャイル宣言の原則を踏まえ、アジャイルテスターに求められる姿勢を10の原則としてまとめています。
+              開発者コミュニティでもよく引用される要約(Jeff Langr と Tim Ottinger による &quot;Agile in a Flash&quot; カード)を基に、初学者向けに整理すると次のようになります。
+            </p>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>原則</th>
+                    <th>初学者向けポイント</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>継続的にフィードバックを提供する</td>
+                    <td>受け入れ基準を明確にし、進捗を早く・頻繁に伝える</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>顧客に価値を届ける</td>
+                    <td>受け入れテストで「スコープが膨らんでいないか」を常にチェックする</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>対面のコミュニケーションを可能にする</td>
+                    <td>テスターは顧客と開発者の翻訳者になれる</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>勇気を持つ</td>
+                    <td>短いイテレーションで動くソフトウェアを出し続ける覚悟を持つ</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>シンプルさを保つ</td>
+                    <td>過剰な作り込みを避け、必要十分なテストにとどめる</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>継続的な改善を実践する</td>
+                    <td>ふりかえり(レトロスペクティブ)に必ず参加する</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>変化に対応する</td>
+                    <td>仕様変更にも耐えられるよう自動テストを整備する</td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>自己組織化する</td>
+                    <td>チームの誰もがテスト作業を担える状態を目指す</td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>人にフォーカスする</td>
+                    <td>テスターを下請けではなく対等な貢献者として扱う文化をつくる</td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>楽しむ</td>
+                    <td>プロセスを主体的に動かせることが、テスターの働きがいになる</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="callout source">
+              <div className="callout-title">
+                <i className="ti ti-quote" aria-hidden="true" />
+                出典
+              </div>
+              <p>
+                Crispin, L. &amp; Gregory, J. <em>Agile Testing</em>, Addison-Wesley, 2009(第2章)。要約は Jeff Langr / Tim Ottinger, &quot;Ten Principles for Agile Testers&quot;, Agile in a Flash, 2009 を参照 (Lisa Crispin 自身のブログでも「うまくまとめられている」と紹介されています)。
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* ---------- Step 3 ---------- */}
+        <section id="step3">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-users-group" aria-hidden="true" />
+            </span>
+            ステップ3: 組織的な課題とホールチームアプローチ
+          </h2>
+          <p className="kicker">
+            原著 第3〜5章: Cultural Challenges / Team Logistics / Transitioning Typical Processes
+          </p>
+          <div className="prose">
+            <p>
+              アジャイルへの移行で最も難しいのは、ツールや技術ではなく「組織文化」です。本書はこの部分に3章を割いており、代表的な課題は次のとおりです。
+            </p>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>課題領域</th>
+                    <th>従来型の状態</th>
+                    <th>アジャイルで目指す状態</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>組織構造</td>
+                    <td>テスターは独立したQA部門に所属</td>
+                    <td>テスターは機能横断チームの一員</td>
+                  </tr>
+                  <tr>
+                    <td>物理配置 / コミュニケーション</td>
+                    <td>部署ごとに離れた席・非同期連絡が中心</td>
+                    <td>同じチームで密に対面(またはリモートでも高頻度)コミュニケーション</td>
+                  </tr>
+                  <tr>
+                    <td>役割意識</td>
+                    <td>テスターがバグを見つける責任者</td>
+                    <td>品質はチーム全員の責任</td>
+                  </tr>
+                  <tr>
+                    <td>プロセス</td>
+                    <td>フェーズゲート型の承認プロセス</td>
+                    <td>継続的な検証と早期フィードバック</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              この考え方の中心にあるのが<strong>ホールチームアプローチ(Whole-Team Approach)</strong>です。Lisa Crispin は自身のブログで、
+              これは本書の「成功の鍵となる7要因」の第1番目に挙げるほど重要な原則だとし、「チーム全員が最高品質を届けることにコミットしない限り、長期的な成功はあり得ない」という趣旨を述べています。
+            </p>
+
+            <div className="mmd-wrap" data-diagram-id="whole-team">
+              <Mermaid chart={DIAGRAM_WHOLE_TEAM} />
+            </div>
+            <p className="mmd-caption">図3: ホールチームアプローチの構造</p>
+          </div>
+        </section>
+
+        {/* ---------- Step 4 ---------- */}
+        <section id="step4">
+          <h2>
+            <span className="icon-badge">
+              <i className="ti ti-layout-grid" aria-hidden="true" />
+            </span>
+            ステップ4: アジャイルテストの4象限(Agile Testing Quadrants)
+          </h2>
+          <p className="kicker">原著 第6〜12章: The Agile Testing Quadrants</p>
+          <div className="prose">
+            <p>
+              本書で最も有名な概念が、この「4象限(Agile Testing Quadrants)」です。もともと Brian Marick が提唱した「アジャイルテストマトリクス」を、Crispin と Gregory がチームの実践に合わせて発展させたもので、Lisa Crispin は2024年のブログ記事で「20年以上使い続けている」と述べ、著書『Agile Testing Condensed』掲載の最新版図を公開しています(原案者である Brian Marick へのクレジットも重視されています)。
+            </p>
+            <p>
+              この図は「(1)テストの目的がビジネス向けか技術向けか」「(2)テストがチームを支援する(開発を導く)ものかプロダクトを批評するものか」という2つの軸で、テストの種類を4つに分類する<strong>思考の道具(thinking tool)</strong>です。
+            </p>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th></th>
+                    <th>ビジネス視点で捉える(Business-Facing)</th>
+                    <th>技術視点で捉える(Technology-Facing)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>チームを支援する</strong>
+                      <br />
+                      (開発を導くテスト)
+                    </td>
+                    <td className="q-cell q2">
+                      <span className="q-tag">Q2</span>
+                      <br />
+                      機能テスト、ストーリーテスト、プロトタイプ、受け入れ基準の具体例(ATDD/BDD)
+                    </td>
+                    <td className="q-cell q1">
+                      <span className="q-tag">Q1</span>
+                      <br />
+                      ユニットテスト、コンポーネントテスト。CIで完全自動化されるべき領域
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>プロダクトを批評する</strong>
+                      <br />
+                      (できたものを検証)
+                    </td>
+                    <td className="q-cell q3">
+                      <span className="q-tag">Q3</span>
+                      <br />
+                      探索的テスト、シナリオテスト、ユーザビリティテスト、UAT/アルファ・ベータテスト。多くは手動
+                    </td>
+                    <td className="q-cell q4">
+                      <span className="q-tag">Q4</span>
+                      <br />
+                      性能・負荷・セキュリティ・保守性・互換性などの非機能テスト
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>初学者がまず意識すべきポイントは次の3つです。</p>
+            <ul>
+              <li>
+                <strong>4象限に「実施順序」はない</strong>(Lisa Crispin 自身がブログで繰り返し強調している点です)。プロジェクトやチームの状況に応じて重み付けを変えてよい思考ツールです。
+              </li>
+              <li>
+                Q1・Q4は「技術的な観点」、Q2・Q3は「ビジネス / ユーザーの観点」という軸で捉えると理解しやすい。
+              </li>
+              <li>
+                Q1・Q2は「開発を導く」= コードを書く前・書いている最中に使う。Q3・Q4は「できたものを批評する」= 完成に近づいてから使う。
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* Placeholder sections for Category C, D */}
         <section id="step5" />
         <section id="step6" />
         <section id="step7" />
