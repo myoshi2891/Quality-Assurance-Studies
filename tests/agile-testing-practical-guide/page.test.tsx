@@ -142,4 +142,70 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
     expect(captions?.[0].textContent).toContain('図1: 従来型(テスト後工程型)の開発フロー');
     expect(captions?.[1].textContent).toContain('図2: アジャイルにおける継続的テストフロー');
   });
+
+  describe('Category B (Steps 2 to 4)', () => {
+    it('renders section #step2 with 10 principles table and source callout', () => {
+      const { container } = render(<Page />);
+      const step2 = container.querySelector('section#step2');
+      expect(step2).not.toBeNull();
+
+      const h2 = step2?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ2: アジャイルテスターの10の原則');
+
+      const table = step2?.querySelector('table');
+      expect(table).not.toBeNull();
+      const rows = table?.querySelectorAll('tbody tr');
+      expect(rows?.length).toBe(10);
+      expect(rows?.[0].textContent).toContain('継続的にフィードバックを提供する');
+      expect(rows?.[9].textContent).toContain('楽しむ');
+
+      const callout = step2?.querySelector('.callout.source');
+      expect(callout).not.toBeNull();
+      expect(callout?.textContent).toContain('出典');
+      expect(callout?.textContent).toContain('Crispin, L. & Gregory, J.');
+    });
+
+    it('renders section #step3 with organizational challenges table and whole-team diagram', () => {
+      const { container } = render(<Page />);
+      const step3 = container.querySelector('section#step3');
+      expect(step3).not.toBeNull();
+
+      const h2 = step3?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ3: 組織的な課題とホールチームアプローチ');
+
+      const table = step3?.querySelector('table');
+      expect(table).not.toBeNull();
+      const rows = table?.querySelectorAll('tbody tr');
+      expect(rows?.length).toBe(4);
+      expect(rows?.[0].textContent).toContain('組織構造');
+      expect(rows?.[1].textContent).toContain('物理配置 / コミュニケーション');
+      expect(rows?.[2].textContent).toContain('役割意識');
+      expect(rows?.[3].textContent).toContain('プロセス');
+
+      const caption = step3?.querySelector('.mmd-caption');
+      expect(caption?.textContent).toContain('図3: ホールチームアプローチの構造');
+    });
+
+    it('renders section #step4 with 4 quadrants matrix table and key takeaways list', () => {
+      const { container } = render(<Page />);
+      const step4 = container.querySelector('section#step4');
+      expect(step4).not.toBeNull();
+
+      const h2 = step4?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ4: アジャイルテストの4象限(Agile Testing Quadrants)');
+
+      const table = step4?.querySelector('table');
+      expect(table).not.toBeNull();
+      expect(table?.textContent).toContain('ビジネス視点で捉える(Business-Facing)');
+      expect(table?.textContent).toContain('技術視点で捉える(Technology-Facing)');
+
+      const qTags = step4?.querySelectorAll('.q-tag');
+      expect(qTags?.length).toBe(4);
+      expect(Array.from(qTags || []).map((t) => t.textContent)).toEqual(['Q2', 'Q1', 'Q3', 'Q4']);
+
+      const listItems = step4?.querySelectorAll('ul li');
+      expect(listItems?.length).toBe(3);
+      expect(listItems?.[0].textContent).toContain('4象限に「実施順序」はない');
+    });
+  });
 });
