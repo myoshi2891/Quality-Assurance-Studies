@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `2069346` |
-| 最新コミット内容 | chore(archive): move Agile-testing-practical-guide to archive and sync docs |
+| 最新 HEAD | `a092836` |
+| 最新コミット内容 | fix(agile-testing): faithfully style mermaid diagrams with paper theme and clear edge labels |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
