@@ -284,4 +284,101 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       expect(step8?.textContent).toContain('Elisabeth Hendrickson');
     });
   });
+
+  describe('Category D (Steps 9-10, Checklist, Pitfalls, References, Footer)', () => {
+    it('renders section #step9 with 7 key success factors table and source callout', () => {
+      const { container } = render(<Page />);
+      const step9 = container.querySelector('section#step9');
+      expect(step9).not.toBeNull();
+
+      const h2 = step9?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ9: 成功の鍵となる7つの要因');
+
+      const table = step9?.querySelector('table');
+      expect(table).not.toBeNull();
+      const rows = table?.querySelectorAll('tbody tr');
+      expect(rows?.length).toBe(7);
+      expect(rows?.[0].textContent).toContain('ホールチームアプローチを使う');
+      expect(rows?.[6].textContent).toContain('全体像を見る');
+
+      const callout = step9?.querySelector('.callout.source');
+      expect(callout).not.toBeNull();
+      expect(callout?.textContent).toContain('InfoQ');
+    });
+
+    it('renders section #step10 with evolution timeline and holistic loop diagrams, plus 2 h3 headings', () => {
+      const { container } = render(<Page />);
+      const step10 = container.querySelector('section#step10');
+      expect(step10).not.toBeNull();
+
+      const h2 = step10?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ10: この本の思想はどう進化したか(2014〜2026)');
+
+      const h3s = step10?.querySelectorAll('h3');
+      expect(h3s?.length).toBe(2);
+      expect(h3s?.[0].textContent).toContain('1. ホリスティックテスティング(Holistic Testing Model)');
+      expect(h3s?.[1].textContent).toContain('2. AI・エージェント型QEへの拡張');
+
+      const captions = step10?.querySelectorAll('.mmd-caption');
+      expect(captions?.length).toBe(2);
+      expect(captions?.[0].textContent).toContain('図7: 本書の思想の進化タイムライン');
+      expect(captions?.[1].textContent).toContain('図8: Holistic Testing Model における継続的なテストの円環');
+    });
+
+    it('renders section #checklist with 7 action items', () => {
+      const { container } = render(<Page />);
+      const checklistSection = container.querySelector('section#checklist');
+      expect(checklistSection).not.toBeNull();
+
+      const h2 = checklistSection?.querySelector('h2');
+      expect(h2?.textContent).toContain('実践チェックリスト: 明日から始める7ステップ');
+
+      const items = checklistSection?.querySelectorAll('ul.checklist li');
+      expect(items?.length).toBe(7);
+      expect(items?.[0].textContent).toContain('ホールチームアプローチを合言葉にする');
+      expect(items?.[6].textContent).toContain('AIツールを導入する場合も');
+    });
+
+    it('renders section #pitfalls with 5 common pitfalls table', () => {
+      const { container } = render(<Page />);
+      const pitfalls = container.querySelector('section#pitfalls');
+      expect(pitfalls).not.toBeNull();
+
+      const h2 = pitfalls?.querySelector('h2');
+      expect(h2?.textContent).toContain('よくある落とし穴');
+
+      const table = pitfalls?.querySelector('table');
+      expect(table).not.toBeNull();
+      const rows = table?.querySelectorAll('tbody tr');
+      expect(rows?.length).toBe(5);
+      expect(rows?.[0].textContent).toContain('テスターだけが品質責任者になっている');
+      expect(rows?.[4].textContent).toContain('E2Eテストに偏重している');
+    });
+
+    it('renders section #references with 4 ref-groups and 16 external links having proper target and rel', () => {
+      const { container } = render(<Page />);
+      const references = container.querySelector('section#references');
+      expect(references).not.toBeNull();
+
+      const h2 = references?.querySelector('h2');
+      expect(h2?.textContent).toContain('参考文献・出典URL');
+
+      const refGroups = references?.querySelectorAll('.ref-group');
+      expect(refGroups?.length).toBe(4);
+
+      const links = references?.querySelectorAll('a.ref-url');
+      expect(links?.length).toBe(16);
+      links?.forEach((link) => {
+        expect(link.getAttribute('target')).toBe('_blank');
+        expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+      });
+    });
+
+    it('renders footer with copyright and educational notice', () => {
+      const { container } = render(<Page />);
+      const footer = container.querySelector('footer');
+      expect(footer).not.toBeNull();
+      expect(footer?.textContent).toContain('本ガイドは2026年9月2日時点で確認できる公開情報をもとに作成しています');
+    });
+  });
 });
