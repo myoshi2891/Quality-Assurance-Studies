@@ -1,0 +1,555 @@
+/* ==========================================================================
+   Leading Quality 実践ガイド ―― ページ固有スタイル
+   スコープ: .leading-quality-page
+   ========================================================================== */
+
+.leading-quality-page {
+    --ink: #142433;
+    --ink-soft: #3e5266;
+    --paper: #eff2f1;
+    --paper-deep: #e4e9e7;
+    --amber: #b8722e;
+    --amber-soft: #f2e4d0;
+    --green: #2e6e49;
+    --green-soft: #dceae1;
+    --steel: #3b5a80;
+    --steel-soft: #e4e9f2;
+    --red: #a23b34;
+    --red-soft: #f3e3e1;
+    --line: #d7dddb;
+    --max: 760px;
+
+    background: #ffffff;
+    color: var(--ink);
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    font-size: 16.5px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.leading-quality-page section {
+    padding-top: 0 !important;
+    margin-bottom: 64px;
+}
+
+.leading-quality-page section:last-of-type {
+    margin-bottom: 96px;
+}
+
+.leading-quality-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    padding: 76px 24px 64px !important;
+    background: var(--ink) !important;
+    color: #edf1f4 !important;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.leading-quality-page .hero::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 6px;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--amber) 0 18px,
+        transparent 18px 30px
+    );
+    opacity: 0.85;
+}
+
+.leading-quality-page .hero-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+}
+
+.leading-quality-page .hero .kicker {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: #d9a55f;
+    margin-bottom: 18px;
+    display: block;
+}
+
+.leading-quality-page .hero h1 {
+    font-family: var(--font-serif, 'Source Serif 4', 'Noto Serif JP', serif);
+    font-size: clamp(28px, 4.4vw, 42px);
+    color: #ffffff !important;
+    margin: 0 0 18px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+}
+
+.leading-quality-page .hero p.lede {
+    font-size: 17.5px;
+    color: #c6d0d9;
+    max-width: 56ch;
+    margin: 0 0 34px;
+}
+
+.leading-quality-page .book-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    padding: 18px 22px;
+    font-size: 14.5px;
+    color: #cfd8df;
+}
+
+.leading-quality-page .book-card strong {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.leading-quality-page .book-card .note {
+    display: block;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    color: #9faebb;
+    font-size: 13.3px;
+    line-height: 1.7;
+}
+
+/* ---------- Layout & Main ---------- */
+.leading-quality-page .layout {
+    width: 100%;
+    margin: 0;
+    padding: 0 32px 0 24px;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+}
+
+.leading-quality-page main {
+    padding-top: 48px;
+    min-width: 0;
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* ---------- Typography ---------- */
+.leading-quality-page h1,
+.leading-quality-page h2,
+.leading-quality-page h3 {
+    font-family: var(--font-serif, 'Source Serif 4', 'Noto Serif JP', serif);
+    color: var(--ink);
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+}
+
+.leading-quality-page h2 {
+    font-size: 26px;
+    margin: 0 0 6px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+}
+
+.leading-quality-page h2 .num {
+    color: var(--amber);
+    font-weight: 600;
+}
+
+.leading-quality-page h3 {
+    font-size: 18.5px;
+    margin: 30px 0 10px;
+}
+
+.leading-quality-page p {
+    margin: 0 0 16px;
+}
+
+.leading-quality-page .step-tag {
+    display: block;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 12.5px;
+    letter-spacing: 0.09em;
+    color: var(--steel);
+    margin-bottom: 8px;
+}
+
+.leading-quality-page .tag {
+    display: inline-block;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    color: var(--amber);
+    background: var(--amber-soft);
+    border: 1px solid #ddbf95;
+    padding: 2px 9px;
+    border-radius: 3px;
+}
+
+.leading-quality-page a {
+    color: var(--steel);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.leading-quality-page a:hover {
+    color: var(--amber);
+}
+
+/* ---------- List Styling (Tailwind Reset復元) ---------- */
+.leading-quality-page ul:not(.checklist) {
+    list-style-type: disc !important;
+    padding-left: 24px;
+    margin: 0 0 16px;
+}
+
+.leading-quality-page ol.plain {
+    list-style-type: decimal !important;
+    padding-left: 24px;
+    margin: 0 0 16px;
+}
+
+.leading-quality-page li {
+    margin-bottom: 6px;
+    display: list-item !important;
+}
+
+/* ---------- Callouts ---------- */
+.leading-quality-page .callout {
+    border-left: 3px solid var(--amber);
+    background: var(--amber-soft);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 22px 0;
+}
+
+.leading-quality-page .callout .label {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--amber);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.leading-quality-page .callout p:last-child {
+    margin-bottom: 0;
+}
+
+.leading-quality-page .callout.definition {
+    border-left-color: var(--steel);
+    background: var(--steel-soft);
+}
+
+.leading-quality-page .callout.definition .label {
+    color: var(--steel);
+}
+
+.leading-quality-page .callout.insight {
+    border-left-color: var(--green);
+    background: var(--green-soft);
+}
+
+.leading-quality-page .callout.insight .label {
+    color: var(--green);
+}
+
+.leading-quality-page .callout.warn {
+    border-left-color: var(--red);
+    background: var(--red-soft);
+}
+
+.leading-quality-page .callout.warn .label {
+    color: var(--red);
+}
+
+/* ---------- Table Styling (globals.css 干渉リセット) ---------- */
+.leading-quality-page .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.leading-quality-page table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14.8px !important;
+    background: #ffffff !important;
+    color: var(--ink) !important;
+}
+
+.leading-quality-page caption {
+    text-align: left;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+}
+
+.leading-quality-page thead tr {
+    background: var(--paper) !important;
+    border-bottom: 2px solid var(--ink) !important;
+}
+
+.leading-quality-page thead th,
+.leading-quality-page th {
+    text-align: left;
+    padding: 10px 14px !important;
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid var(--ink) !important;
+    white-space: normal !important;
+    vertical-align: top;
+}
+
+.leading-quality-page tbody td,
+.leading-quality-page td {
+    text-align: left;
+    padding: 10px 14px !important;
+    border-bottom: 1px solid var(--line) !important;
+    vertical-align: top;
+    color: var(--ink) !important;
+    font-size: 14.8px !important;
+    line-height: 1.7 !important;
+}
+
+.leading-quality-page tbody tr:hover td {
+    background: var(--paper) !important;
+}
+
+.leading-quality-page td strong {
+    color: var(--ink) !important;
+    font-weight: 700;
+}
+
+.leading-quality-page strong {
+    color: var(--ink) !important;
+    font-weight: 600;
+}
+
+.leading-quality-page .roadmap-table td:first-child {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    color: var(--steel);
+    width: 34px;
+}
+
+/* ---------- Diagrams & Mermaid ---------- */
+.leading-quality-page .diagram {
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 20px 12px;
+    margin: 22px 0;
+    overflow-x: auto;
+}
+
+.leading-quality-page .diagram-live {
+    display: flex;
+    justify-content: center;
+}
+
+.leading-quality-page .mermaid-wrapper {
+    width: 100% !important;
+    max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    display: flex;
+    justify-content: center;
+}
+
+.leading-quality-page .mermaid-wrapper svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+.leading-quality-page .mermaid-wrapper foreignObject {
+    overflow: visible;
+}
+
+.leading-quality-page .mermaid-wrapper foreignObject > div,
+.leading-quality-page .mermaid-wrapper .nodeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabel {
+    overflow: visible;
+}
+
+/* Mermaid エッジラベルと矩形のスコープリセット */
+.leading-quality-page .mermaid-wrapper .edgeLabels rect {
+    fill: var(--paper) !important;
+    stroke: none !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabel span,
+.leading-quality-page .mermaid-wrapper .edgeLabel text {
+    background-color: var(--paper) !important;
+    color: var(--ink) !important;
+    fill: var(--ink) !important;
+    font-weight: 700 !important;
+}
+
+/* ---------- Checklist ---------- */
+.leading-quality-page ul.checklist {
+    list-style: none !important;
+    padding-left: 0 !important;
+}
+
+.leading-quality-page ul.checklist li {
+    margin-bottom: 2px;
+    display: block !important;
+}
+
+.leading-quality-page ul.checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.leading-quality-page ul.checklist label:hover {
+    background: var(--paper);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    background: #fff;
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:hover {
+    border-color: var(--steel);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:focus-visible {
+    outline: 3px solid var(--steel);
+    outline-offset: 2px;
+    border-color: var(--steel);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:checked {
+    background: var(--steel);
+    border-color: var(--steel);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:checked + span {
+    color: var(--ink-soft);
+    text-decoration: line-through;
+    text-decoration-color: var(--line);
+}
+
+/* ---------- Code block fallback ---------- */
+.leading-quality-page .code-block {
+    background: #1e293b;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+    overflow-x: auto;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.leading-quality-page .code-line {
+    white-space: pre;
+}
+
+/* ---------- Footer ---------- */
+.leading-quality-page footer {
+    background: var(--ink);
+    color: #aebac5;
+    padding: 40px 24px 56px;
+    font-size: 13.6px;
+}
+
+.leading-quality-page footer .layout-footer {
+    max-width: var(--max);
+    margin: 0 auto;
+}
+
+.leading-quality-page footer a {
+    color: #cfe0ee;
+}
+
+/* ---------- Responsive ---------- */
+.leading-quality-page .mobile-toc {
+    display: none;
+}
+
+@media (max-width: 960px) {
+    .leading-quality-page .layout {
+        grid-template-columns: 1fr;
+        padding: 0 20px;
+    }
+
+    .leading-quality-page main {
+        padding-top: 8px;
+    }
+
+    .leading-quality-page .mobile-toc {
+        display: block;
+        margin: 28px 0 8px;
+        border: 1px solid var(--line);
+        border-radius: 8px;
+        padding: 4px 18px;
+    }
+
+    .leading-quality-page .mobile-toc summary {
+        cursor: pointer;
+        padding: 12px 0;
+        font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+        font-size: 12.5px;
+        letter-spacing: 0.06em;
+        color: var(--ink-soft);
+    }
+
+    .leading-quality-page .mobile-toc ol {
+        list-style: none;
+        padding-left: 0;
+        margin: 0 0 14px;
+    }
+
+    .leading-quality-page .mobile-toc a {
+        color: var(--ink-soft);
+        text-decoration: none;
+        display: block;
+        padding: 6px 0;
+    }
+}
+
+@media (max-width: 520px) {
+    .leading-quality-page .hero {
+        padding: 56px 18px 48px !important;
+    }
+}
