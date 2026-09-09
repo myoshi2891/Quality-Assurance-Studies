@@ -361,3 +361,75 @@ describe('Leading Quality Guide - Category D (Steps 9 to 10 & #roadmap)', () => 
     expect(table?.textContent).toContain('ビジョン');
   });
 });
+
+describe('Leading Quality Guide - Category E (Experts, Sources, Footer)', () => {
+  it('renders section #experts with heading, experts table with 6 leaders, and interview text', () => {
+    const { container } = render(<Page />);
+    const sectionExperts = container.querySelector('section#experts');
+    expect(sectionExperts).not.toBeNull();
+
+    const h2 = sectionExperts?.querySelector('h2');
+    expect(h2?.textContent).toContain('国際的な専門家からの評価');
+    expect(h2?.querySelector('.num')?.textContent).toBe('03');
+
+    const table = sectionExperts?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(6);
+    expect(table?.textContent).toContain('Michael Lopp');
+    expect(table?.textContent).toContain('James Bach');
+    expect(table?.textContent).toContain('Alan Page');
+    expect(table?.textContent).toContain('Dan Ashby');
+    expect(table?.textContent).toContain('Ilya Sakharov');
+    expect(table?.textContent).toContain('Suyash Sonwalkar');
+
+    expect(sectionExperts?.textContent).toContain('TestGuild');
+    expect(sectionExperts?.textContent).toContain('Joe Colantonio');
+    expect(sectionExperts?.textContent).toContain('Ben Linders');
+  });
+
+  it('renders section #sources with heading, 9 reference links with proper target/rel, and warning callout', () => {
+    const { container } = render(<Page />);
+    const sectionSources = container.querySelector('section#sources');
+    expect(sectionSources).not.toBeNull();
+
+    const h2 = sectionSources?.querySelector('h2');
+    expect(h2?.textContent).toContain('参考文献・出典');
+    expect(h2?.querySelector('.num')?.textContent).toBe('04');
+
+    const table = sectionSources?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(9);
+
+    const links = sectionSources?.querySelectorAll('table a');
+    expect(links?.length).toBe(9);
+    links?.forEach((link) => {
+      expect(link.getAttribute('target')).toBe('_blank');
+      expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+    });
+
+    expect(table?.textContent).toContain('leadingqualitybook.com');
+    expect(table?.textContent).toContain('infoq.com');
+    expect(table?.textContent).toContain('it-cisq.org');
+    expect(table?.textContent).toContain('testguild.com');
+    expect(table?.textContent).toContain('djdegrood.wordpress.com');
+    expect(table?.textContent).toContain('mentoring-club.com');
+    expect(table?.textContent).toContain('amazon.com');
+    expect(table?.textContent).toContain('medium.com');
+
+    const callout = sectionSources?.querySelector('.callout.warn');
+    expect(callout).not.toBeNull();
+    expect(callout?.querySelector('.label')?.textContent).toBe('注記');
+    expect(callout?.textContent).toContain('Scribd 上の書籍全文のアップロード');
+  });
+
+  it('renders footer with copyright/educational notice', () => {
+    const { container } = render(<Page />);
+    const footer = container.querySelector('footer');
+    expect(footer).not.toBeNull();
+    expect(footer?.textContent).toContain('Leading Quality 実践ガイド ―― 本ページは教育・学習目的の要約であり');
+  });
+});
