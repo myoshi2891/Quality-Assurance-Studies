@@ -222,3 +222,78 @@ describe('Leading Quality Guide - Category B (Steps 1 to 4: #step1 to #step4)', 
     expect(sectionStep4?.textContent).toContain('事業指標への影響');
   });
 });
+
+describe('Leading Quality Guide - Category C (Steps 5 to 8: #step5 to #step8)', () => {
+  it('renders section #step5 with heading, diag-4 diagram, and maturity table', () => {
+    const { container } = render(<Page />);
+    const sectionStep5 = container.querySelector('section#step5');
+    expect(sectionStep5).not.toBeNull();
+
+    expect(sectionStep5?.querySelector('.step-tag')?.textContent).toBe('STEP 05 / 10');
+    expect(sectionStep5?.querySelector('h2')?.textContent).toContain('プロダクトの成熟度に応じて戦略を変える');
+
+    const table = sectionStep5?.querySelector('table');
+    expect(table).not.toBeNull();
+    expect(table?.textContent).toContain('プロダクトマーケットフィット期');
+    expect(table?.textContent).toContain('予測可能性期');
+    expect(table?.textContent).toContain('スケール期');
+    expect(table?.textContent).toContain('「正しいものを作れているか」の検証');
+    expect(table?.textContent).toContain('自動化への投資を本格化させる');
+    expect(table?.textContent).toContain('自動化と探索的テストのバランスを取り直す');
+  });
+
+  it('renders section #step6 with heading, definition callout, diag-5 diagram, and benefits list', () => {
+    const { container } = render(<Page />);
+    const sectionStep6 = container.querySelector('section#step6');
+    expect(sectionStep6).not.toBeNull();
+
+    expect(sectionStep6?.querySelector('.step-tag')?.textContent).toBe('STEP 06 / 10');
+    expect(sectionStep6?.querySelector('h2')?.textContent).toContain('継続的テスト（Continuous Testing）を設計する');
+
+    const callout = sectionStep6?.querySelector('.callout.definition');
+    expect(callout).not.toBeNull();
+    expect(callout?.querySelector('.label')?.textContent).toBe('定義');
+    expect(callout?.textContent).toContain('継続的テストとは、開発ライフサイクルのあらゆる段階でアプリケーションをテストする能力のことである');
+
+    expect(sectionStep6?.querySelector('h3')?.textContent).toBe('この視点を採用するメリット');
+    const listItems = sectionStep6?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(sectionStep6?.textContent).toContain('問題の先回り');
+    expect(sectionStep6?.textContent).toContain('テスタビリティの作り込み');
+    expect(sectionStep6?.textContent).toContain('手戻りコストの削減');
+  });
+
+  it('renders section #step7 with heading, pairing points, diag-6 diagram, and practical points', () => {
+    const { container } = render(<Page />);
+    const sectionStep7 = container.querySelector('section#step7');
+    expect(sectionStep7).not.toBeNull();
+
+    expect(sectionStep7?.querySelector('.step-tag')?.textContent).toBe('STEP 07 / 10');
+    expect(sectionStep7?.querySelector('h2')?.textContent).toContain('ペアリングで品質文化を組織に浸透させる');
+    expect(sectionStep7?.textContent).toContain('Atlassian');
+
+    expect(sectionStep7?.querySelector('h3')?.textContent).toBe('実践のポイント');
+    const uls = sectionStep7?.querySelectorAll('ul');
+    expect(uls?.length).toBe(2);
+    expect(sectionStep7?.textContent).toContain('定例のペア作業（モブテスト・ペアテスト）を週次で設定する');
+    expect(sectionStep7?.textContent).toContain('相互理解');
+  });
+
+  it('renders section #step8 with heading, companies table, and explanation', () => {
+    const { container } = render(<Page />);
+    const sectionStep8 = container.querySelector('section#step8');
+    expect(sectionStep8).not.toBeNull();
+
+    expect(sectionStep8?.querySelector('.step-tag')?.textContent).toBe('STEP 08 / 10');
+    expect(sectionStep8?.querySelector('h2')?.textContent).toContain('ローカルペルソナを意識したテスト戦略');
+
+    const table = sectionStep8?.querySelector('table');
+    expect(table).not.toBeNull();
+    expect(table?.textContent).toContain('Airbnb');
+    expect(table?.textContent).toContain('Google（Google Mapsなど）');
+    expect(table?.textContent).toContain('Global App Testing（著者らの会社）');
+    expect(table?.textContent).toContain('105カ国以上・数万人のテスター');
+
+    expect(sectionStep8?.textContent).toContain('「1つのUIが世界中どこでも同じように機能する」という思い込みを捨てる');
+  });
+});
