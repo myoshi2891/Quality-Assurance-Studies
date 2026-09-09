@@ -48,6 +48,36 @@ const DIAGRAM_3 = `flowchart TD
     style C fill:#DCEAE1,stroke:#2E6E49,color:#142433
     style D fill:#142433,stroke:#142433,color:#ffffff`;
 
+const DIAGRAM_4 = `flowchart LR
+    S1["① プロダクト<br/>マーケットフィット期<br/>（正しいものを<br/>作れているか検証）"] --> S2["② 予測可能性期<br/>（Predictability Stage）<br/>基盤・自動化への投資"]
+    S2 --> S3["③ スケール期<br/>（Scaling Stage）<br/>自動化と探索的テストの<br/>バランス"]
+    style S1 fill:#F2E4D0,stroke:#B8722E,color:#142433
+    style S2 fill:#E4E9F2,stroke:#3B5A80,color:#142433
+    style S3 fill:#DCEAE1,stroke:#2E6E49,color:#142433`;
+
+const DIAGRAM_5 = `flowchart LR
+    Idea["アイデア・企画"] --> Design["設計"]
+    Design --> Code["実装"]
+    Code --> Build["ビルド／CI"]
+    Build --> Release["リリース"]
+    Release --> Prod["本番運用"]
+    Prod -.フィードバック.-> Idea
+    style Idea fill:#F2E4D0,stroke:#B8722E,color:#142433
+    style Design fill:#F2E4D0,stroke:#B8722E,color:#142433
+    style Code fill:#E4E9F2,stroke:#3B5A80,color:#142433
+    style Build fill:#E4E9F2,stroke:#3B5A80,color:#142433
+    style Release fill:#DCEAE1,stroke:#2E6E49,color:#142433
+    style Prod fill:#DCEAE1,stroke:#2E6E49,color:#142433`;
+
+const DIAGRAM_6 = `flowchart TD
+    QA["QAエンジニア"] <--> Dev["開発者"]
+    Design["デザイナー"] <--> Dev
+    Dev <--> PM["プロダクトマネージャー"]
+    style QA fill:#DCEAE1,stroke:#2E6E49,color:#142433
+    style Dev fill:#142433,stroke:#142433,color:#ffffff
+    style Design fill:#F2E4D0,stroke:#B8722E,color:#142433
+    style PM fill:#E4E9F2,stroke:#3B5A80,color:#142433`;
+
 export default function LeadingQualityGuidePage() {
   return (
     <div className="leading-quality-page">
@@ -401,6 +431,163 @@ export default function LeadingQualityGuidePage() {
                 経営層への報告は「見つけたバグの数」ではなく「事業指標への影響」で語る
               </li>
             </ul>
+          </section>
+
+          {/* Section: #step5 */}
+          <section id="step5">
+            <span className="step-tag">STEP 05 / 10</span>
+            <h2>プロダクトの成熟度に応じて戦略を変える</h2>
+            <p>
+              書籍第5章では、プロダクトのライフサイクル（成熟度）によって、最適な品質戦略・テスト戦略が変化することが解説されています。「今のやり方が6ヶ月後・12ヶ月後にも正しいとは限らない」という前提を持つことが重要です。
+            </p>
+            <div className="diagram notranslate" translate="no">
+              <div className="diagram-live notranslate" translate="no" id="diag-4">
+                <Mermaid chart={DIAGRAM_4} />
+              </div>
+            </div>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>段階</th>
+                    <th>主な目的</th>
+                    <th>テスト戦略の重心</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>プロダクトマーケットフィット期</td>
+                    <td>「正しいものを作れているか」の検証</td>
+                    <td>ユニットテスト中心、フル自動化は急がない</td>
+                  </tr>
+                  <tr>
+                    <td>予測可能性期</td>
+                    <td>安定した基盤の構築</td>
+                    <td>自動化への投資を本格化させる</td>
+                  </tr>
+                  <tr>
+                    <td>スケール期</td>
+                    <td>効率的な拡大</td>
+                    <td>自動化と探索的テストのバランスを取り直す</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              著者は「一部のチームは、この評価を継続的にやり直すべきなのに、一度決めたやり方に固執してしまう」と指摘しています。プロダクトの変化・顧客動向の変化・チームスキルの変化のいずれかが起きたら、戦略を見直すタイミングです。
+            </p>
+          </section>
+
+          {/* Section: #step6 */}
+          <section id="step6">
+            <span className="step-tag">STEP 06 / 10</span>
+            <h2>継続的テスト（Continuous Testing）を設計する</h2>
+            <p>
+              「継続的テスト」と聞くと、CI/CDパイプラインでの自動テスト実行を思い浮かべる方が多いかもしれません。しかし著者はより広い定義を採用しています。
+            </p>
+            <div className="callout definition">
+              <span className="label">定義</span>
+              <p>
+                継続的テストとは、開発ライフサイクルのあらゆる段階でアプリケーションをテストする能力のことである。コードが1行も書かれる前から、リリース後の運用に至るまで、テストは継続する。
+              </p>
+            </div>
+            <div className="diagram notranslate" translate="no">
+              <div className="diagram-live notranslate" translate="no" id="diag-5">
+                <Mermaid chart={DIAGRAM_5} />
+              </div>
+            </div>
+            <h3>この視点を採用するメリット</h3>
+            <ul>
+              <li>
+                <strong>問題の先回り</strong> ――
+                コードが書かれる前に「アイデアそのもの」や「設計」を検証できる
+              </li>
+              <li>
+                <strong>テスタビリティの作り込み</strong> ――
+                TDDなどを通じて、最初から「テストしやすい設計」を意識できる
+              </li>
+              <li>
+                <strong>手戻りコストの削減</strong> ――
+                後工程で見つかるほど修正コストが高くなるバグを、早期に発見できる
+              </li>
+            </ul>
+          </section>
+
+          {/* Section: #step7 */}
+          <section id="step7">
+            <span className="step-tag">STEP 07 / 10</span>
+            <h2>ペアリングで品質文化を組織に浸透させる</h2>
+            <p>
+              著者はInfoQインタビューの中で、ペアリング（Pairing）が品質文化の浸透に有効だと述べています。ポイントは「共感（empathy）」の構築です。
+            </p>
+            <ul>
+              <li>
+                QAエンジニアと開発者がペアを組むことで、開発者は「品質を意識するとはどういうことか」を体感的に理解する
+              </li>
+              <li>
+                デザイナーと開発者がペアを組むことで、デザイン意図が実装に正しく反映されやすくなる
+              </li>
+              <li>
+                例として、Atlassianでは品質チームと開発者のペアリングが実践されている
+              </li>
+            </ul>
+            <div className="diagram notranslate" translate="no">
+              <div className="diagram-live notranslate" translate="no" id="diag-6">
+                <Mermaid chart={DIAGRAM_6} />
+              </div>
+            </div>
+            <h3>実践のポイント</h3>
+            <ul>
+              <li>定例のペア作業（モブテスト・ペアテスト）を週次で設定する</li>
+              <li>
+                ペアリングの目的を「作業の分担」ではなく「相互理解」として位置づける
+              </li>
+              <li>
+                異なる職種間のインタラクションが増えるほど、プロダクト全体への理解が深まり、結果的に品質が向上する
+              </li>
+            </ul>
+          </section>
+
+          {/* Section: #step8 */}
+          <section id="step8">
+            <span className="step-tag">STEP 08 / 10</span>
+            <h2>ローカルペルソナを意識したテスト戦略</h2>
+            <p>
+              マーケティングや製品企画で使われる「ペルソナ」は、多くの場合かなり大まかな人物像（例：「エンタープライズのAaron」）です。しかしエンジニアリング・品質の観点では、利用されるOS・デバイス・地域の組み合わせすべてが1つの「ローカルペルソナ」になり得ます。
+            </p>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>企業の取り組み例</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Airbnb</td>
+                    <td>
+                      エンジニアを実際の現地に派遣し、ローカライズ版アプリの使われ方を体感させる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Google（Google Mapsなど）</td>
+                    <td>
+                      世界各地の既存ユーザーに、新機能（3Dストリートビューなど）のローカルテストを依頼
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Global App Testing（著者らの会社）</td>
+                    <td>
+                      105カ国以上・数万人のテスターを活用したクラウドテスティング
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              このステップの狙いは、「1つのUIが世界中どこでも同じように機能する」という思い込みを捨てることです。前述のインドネシアの「姓」フィールドの例も、まさにローカルペルソナへの配慮不足から生まれた問題でした。
+            </p>
           </section>
         </main>
       </div>
