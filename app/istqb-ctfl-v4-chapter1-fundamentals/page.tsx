@@ -1104,7 +1104,7 @@ style TR fill:#134e4a,stroke:#14b8a6,color:#ccfbf1`} />
                                     <tr>
                                         <td>
                                             <strong>テスト管理ロール</strong><br />
-                                            <span style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>
+                                            <span style={{ fontSize: '1rem', color: 'var(--color-text-muted)' }}>
                                                 Test Management Role
                                             </span>
                                         </td>
@@ -1116,7 +1116,7 @@ style TR fill:#134e4a,stroke:#14b8a6,color:#ccfbf1`} />
                                     <tr>
                                         <td>
                                             <strong>テストロール</strong><br />
-                                            <span style={{ fontSize: '12px', color: 'var(--color-text-muted)' }}>
+                                            <span style={{ fontSize: '1rem', color: 'var(--color-text-muted)' }}>
                                                 Testing Role
                                             </span>
                                         </td>

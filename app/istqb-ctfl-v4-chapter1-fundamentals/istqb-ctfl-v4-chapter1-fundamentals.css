@@ -54,7 +54,7 @@
     display: inline-block;
     background: var(--color-bg-card-hover, #1a2238);
     color: var(--color-accent-purple, #b794f4);
-    font-size: 11px;
+    font-size: 1rem;
     font-weight: 500;
     padding: 2px 8px;
     border-radius: 4px;
@@ -64,14 +64,14 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .sidebar-title {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary, #e8f0fe);
     line-height: 1.4;
 }
 
 .istqb-ctfl-v4-chapter1-page .sidebar-sub {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     margin-top: 4px;
 }
@@ -82,7 +82,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .nav-section-label {
-    font-size: 11px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-muted, #85a9df);
     text-transform: uppercase;
@@ -93,7 +93,7 @@
 .istqb-ctfl-v4-chapter1-page .nav-item {
     display: block;
     padding: 6px 16px;
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     text-decoration: none;
     border-left: 2px solid transparent;
@@ -115,7 +115,7 @@
 
 .istqb-ctfl-v4-chapter1-page .nav-item-sub {
     padding-left: 28px;
-    font-size: 12px;
+    font-size: 1rem;
 }
 
 .istqb-ctfl-v4-chapter1-page .sidebar-stats {
@@ -141,7 +141,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .stat-label {
-    font-size: 10px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     margin-top: 2px;
     text-transform: uppercase;
@@ -163,7 +163,7 @@
     border: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
     border-radius: 6px;
     padding: 4px 10px;
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
 }
 
@@ -186,7 +186,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .section-number {
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-accent-purple, #b794f4);
     letter-spacing: 0.06em;
@@ -201,7 +201,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .section-title-en {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-muted, #85a9df);
     margin-top: 2px;
     font-weight: 400;
@@ -232,7 +232,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .subsubsection-title {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary, #e8f0fe);
     margin-bottom: 10px;
@@ -250,7 +250,7 @@
 .istqb-ctfl-v4-chapter1-page table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 1rem;
 }
 
 .istqb-ctfl-v4-chapter1-page thead {
@@ -260,7 +260,7 @@
 .istqb-ctfl-v4-chapter1-page th {
     text-align: left;
     padding: 10px 14px;
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-muted, #85a9df);
     text-transform: uppercase;
@@ -272,6 +272,7 @@
     padding: 10px 14px;
     border-bottom: 1px solid var(--color-border, rgba(99, 179, 237, 0.12));
     color: var(--color-text-secondary, #8ea3c3);
+    font-size: 1rem;
     vertical-align: top;
     line-height: 1.6;
 }
@@ -290,7 +291,7 @@
     padding: 16px 18px;
     margin: 16px 0;
     border-left: 3px solid;
-    font-size: 14px;
+    font-size: 1rem;
     line-height: 1.7;
 }
 
@@ -320,7 +321,7 @@
 
 .istqb-ctfl-v4-chapter1-page .callout-title {
     font-weight: 500;
-    font-size: 14px;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     margin-bottom: 6px;
@@ -365,7 +366,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .diagram-label {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     text-align: center;
     margin-top: 10px;
@@ -390,7 +391,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .lo-id {
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-accent-purple, #b794f4);
     font-family: var(--font-mono, monospace);
@@ -399,7 +400,7 @@
 
 .istqb-ctfl-v4-chapter1-page .lo-level {
     display: inline-block;
-    font-size: 11px;
+    font-size: 1rem;
     padding: 1px 6px;
     border-radius: 4px;
     font-weight: 500;
@@ -425,7 +426,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .lo-text {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     line-height: 1.5;
 }
@@ -512,13 +513,13 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .principle-name-en {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-muted, #85a9df);
     margin-bottom: 8px;
 }
 
 .istqb-ctfl-v4-chapter1-page .principle-desc {
-    font-size: 14px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     line-height: 1.65;
 }
@@ -526,7 +527,7 @@
 .istqb-ctfl-v4-chapter1-page .principle-tag {
     display: inline-block;
     margin-top: 8px;
-    font-size: 12px;
+    font-size: 1rem;
     padding: 2px 8px;
     border-radius: 4px;
     background: var(--color-bg-card, #131929);
@@ -547,7 +548,7 @@
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    font-size: 14px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     line-height: 1.6;
 }
@@ -591,19 +592,19 @@
     align-items: center;
     justify-content: center;
     color: var(--color-accent-purple, #b794f4);
-    font-size: 14px;
+    font-size: 1rem;
     flex-shrink: 0;
 }
 
 .istqb-ctfl-v4-chapter1-page .ref-title {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary, #e8f0fe);
     margin-bottom: 2px;
 }
 
 .istqb-ctfl-v4-chapter1-page .ref-url {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-accent-blue, #63b3ed);
     text-decoration: none;
     word-break: break-all;
@@ -615,7 +616,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .ref-note {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     margin-top: 2px;
 }
@@ -636,20 +637,20 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .glossary-ja {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary, #e8f0fe);
 }
 
 .istqb-ctfl-v4-chapter1-page .glossary-en {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-accent-purple, #b794f4);
     font-family: var(--font-mono, monospace);
     margin-bottom: 4px;
 }
 
 .istqb-ctfl-v4-chapter1-page .glossary-def {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     line-height: 1.5;
 }
@@ -677,14 +678,14 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .skill-name {
-    font-size: 13px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary, #e8f0fe);
     margin-bottom: 4px;
 }
 
 .istqb-ctfl-v4-chapter1-page .skill-desc {
-    font-size: 11px;
+    font-size: 1rem;
     color: var(--color-text-muted, #85a9df);
     line-height: 1.4;
 }
@@ -717,26 +718,26 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .indep-title {
-    font-size: 13px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary, #e8f0fe);
     margin-bottom: 4px;
 }
 
 .istqb-ctfl-v4-chapter1-page .indep-actor {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     margin-bottom: 8px;
 }
 
 .istqb-ctfl-v4-chapter1-page .indep-merit {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-accent-green, #68d391);
     margin-bottom: 2px;
 }
 
 .istqb-ctfl-v4-chapter1-page .indep-demerit {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-accent-red, #fc8181);
 }
 
@@ -777,7 +778,7 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .activity-step {
-    font-size: 11px;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     color: var(--color-text-secondary, #8ea3c3);
@@ -796,26 +797,26 @@
 }
 
 .istqb-ctfl-v4-chapter1-page .activity-name {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary, #e8f0fe);
     margin-bottom: 2px;
 }
 
 .istqb-ctfl-v4-chapter1-page .activity-name-en {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-text-muted, #85a9df);
     margin-bottom: 6px;
 }
 
 .istqb-ctfl-v4-chapter1-page .activity-desc {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-secondary, #8ea3c3);
     line-height: 1.5;
 }
 
 .istqb-ctfl-v4-chapter1-page .activity-output {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-accent-cyan, #4fd1c5);
     margin-top: 6px;
 }
