@@ -28,6 +28,40 @@ class A,B,C,D,E,G,H,I box;
 class F hub;
 class J done;`;
 
+const DIAGRAM_ROLES = `flowchart LR
+DEV["ソフトウェアエンジニア SWE"] -->|コードレビュー| SET["SET テスト自動化基盤の開発"]
+SET -->|テスト基盤を提供| DEV
+TE["TE リスク分析と品質保証"] -->|リスクマップを提示| DEV
+SET <-->|密接に協働| TE
+TEM["TEM 採用と品質戦略"] --> SET
+TEM --> TE
+classDef box fill:#fbf7ec,stroke:#c9bd9a,color:#24211c,stroke-width:1px;
+classDef hub fill:#33417a,stroke:#232c56,color:#fbf7ec,stroke-width:1px;
+classDef done fill:#2f5d43,stroke:#1f3f2c,color:#fbf7ec,stroke-width:1px;
+class DEV,SET,TE box;
+class TEM hub;`;
+
+const DIAGRAM_SIZES = `flowchart TB
+L["Largeテスト 全体の約1割 本番同等環境で実行"] --> M["Mediumテスト 全体の約2割 複数プロセスが連携"] --> S["Smallテスト 全体の約7割 単一プロセス内で高速に実行"]
+classDef box fill:#fbf7ec,stroke:#c9bd9a,color:#24211c,stroke-width:1px;
+classDef hub fill:#33417a,stroke:#232c56,color:#fbf7ec,stroke-width:1px;
+classDef done fill:#2f5d43,stroke:#1f3f2c,color:#fbf7ec,stroke-width:1px;
+class L,M box;
+class S done;`;
+
+const DIAGRAM_ACC = `flowchart TB
+A["Attributes 属性 製品を形容する言葉"] --> CAP["Capabilities 能力"]
+C["Components 構成要素 製品を構成する部品"] --> CAP
+CAP --> RISK["リスク評価 発生確率と影響度"]
+RISK --> HEATMAP["リスクヒートマップ"]
+HEATMAP --> TESTS["テストケースとテスト計画"]
+classDef box fill:#fbf7ec,stroke:#c9bd9a,color:#24211c,stroke-width:1px;
+classDef hub fill:#33417a,stroke:#232c56,color:#fbf7ec,stroke-width:1px;
+classDef done fill:#2f5d43,stroke:#1f3f2c,color:#fbf7ec,stroke-width:1px;
+class A,C,RISK,HEATMAP box;
+class CAP hub;
+class TESTS done;`;
+
 export default function HowGoogleTestsSoftwareGuidePage() {
   return (
     <div className="how-google-tests-page">
@@ -136,6 +170,197 @@ export default function HowGoogleTestsSoftwareGuidePage() {
                 </p>
               </div>
             </div>
+          </section>
+
+          {/* Section: s3 */}
+          <section className="block" id="s3">
+            <h2>
+              <span className="num">3</span>3つのテストエンジニアリングの役割
+            </h2>
+            <p>
+              書籍の第2〜4章は、それぞれ異なる役割に割り当てられています。この3つの役割の関係を理解することが、本書を読み解く鍵になります。
+            </p>
+
+            <div className="diagram-card">
+              <div className="diagram-scroll">
+                <div className="mermaid" id="dg-roles">
+                  <Mermaid chart={DIAGRAM_ROLES} />
+                </div>
+              </div>
+              <p className="diagram-caption">図2: SET・TE・TEMの3つの役割の関係</p>
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>役割</th>
+                    <th>略称</th>
+                    <th>主な仕事</th>
+                    <th>求められるスキル</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Software Engineer in Test</td>
+                    <td>SET</td>
+                    <td>
+                      テスト自動化基盤・実行環境の開発、既存コードのテスタビリティ改善、継続的ビルド／プレサブミット環境の整備
+                    </td>
+                    <td>
+                      ソフトウェアエンジニアと同等のコーディング力に加え、テスト設計・ツール開発の専門性
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test Engineer</td>
+                    <td>TE</td>
+                    <td>
+                      リスク分析（ACC分析）、テスト計画立案、探索的テスト、クラウドソーシングの活用、バグレポートの精査
+                    </td>
+                    <td>
+                      対象プロダクトのドメイン知識、コーディング力、ユーザー視点での品質へのこだわり
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Test Engineering Manager</td>
+                    <td>TEM</td>
+                    <td>
+                      SET/TEチームの採用・育成、組織横断の品質戦略の立案、他部門との調整
+                    </td>
+                    <td>マネジメント経験に加えて技術的バックグラウンド</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              書籍のTE章では、「テストを体系的に教える学校が少ないため、コーディング力と品質へのこだわりを兼ね備えたTEを採用するのは、どの会社にとっても難しい」という趣旨の指摘がなされています。つまりGoogle自身も、この3つの役割にふさわしい人材確保に苦労してきたことが率直に語られている点は、初学者にとって参考になるでしょう。
+            </p>
+          </section>
+
+          {/* Section: s4 */}
+          <section className="block" id="s4">
+            <h2>
+              <span className="num">4</span>テストサイズという考え方：Small / Medium / Large
+            </h2>
+            <p>
+              Googleのテスト文化を象徴する概念の一つが、テストを「単体・結合・システム」のような従来の分類ではなく、<strong>実行に必要なリソース（プロセス数・メモリ・実行時間・依存先）を基準にした「Small／Medium／Large」という3段階</strong>で分類する方式です。
+            </p>
+            <p>
+              この仕組みは、Testing Grouplet の Mike Bland 氏らが中心となって整備したもので、旧来のビルドルールを廃止し、サイズ属性を持つ新しいテストルールに統合する形でビルドシステムに組み込まれました。新人研修では、Smallを底辺、Largeを頂点とするピラミッド図としてこの比率が説明されていたといいます。
+            </p>
+
+            <div className="diagram-card">
+              <div className="diagram-scroll">
+                <div className="mermaid" id="dg-sizes">
+                  <Mermaid chart={DIAGRAM_SIZES} />
+                </div>
+              </div>
+              <p className="diagram-caption">
+                図3: Small / Medium / Large の関係（上ほど広範囲・下ほど高速で数が多い）
+              </p>
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>サイズ</th>
+                    <th>実行範囲</th>
+                    <th>許可される依存関係</th>
+                    <th>目安の実行時間</th>
+                    <th>目安の構成比</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Small</td>
+                    <td>単一プロセス内</td>
+                    <td>不可（ネットワーク・ディスクI/O・他プロセス禁止）</td>
+                    <td>数十ミリ秒〜1秒未満</td>
+                    <td>約70%</td>
+                  </tr>
+                  <tr>
+                    <td>Medium</td>
+                    <td>単一マシン内の複数プロセス</td>
+                    <td>localhost通信のみ許可</td>
+                    <td>数秒〜1分未満</td>
+                    <td>約20%</td>
+                  </tr>
+                  <tr>
+                    <td>Large</td>
+                    <td>複数マシン・本番同等環境</td>
+                    <td>外部ネットワーク・実サービス呼び出し可</td>
+                    <td>数分以上</td>
+                    <td>約10%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              Mike Bland 氏自身がブログで振り返っているとおり、この「70/20/10」という比率は厳密な統計から導かれたものではなく、あくまで議論の出発点として感覚的に決めた数字だったといいます。それでも、この語彙が定着したことで、社内での議論が「テストの呼び方」を巡る不毛な論争から「テストの目的」を巡る建設的な議論へとシフトした点が重要だとされています。
+            </p>
+            <p>
+              この分類は後に、<strong>TAP（Test Automation Platform）</strong>と呼ばれる社内基盤にも受け継がれ、「Smallを最優先、次にMedium、最後にLarge」という順序で実行し、分散実行環境と高速なフィードバックループを提供する仕組みへと発展しました。
+            </p>
+          </section>
+
+          {/* Section: s5 */}
+          <section className="block" id="s5">
+            <h2>
+              <span className="num">5</span>リスクベースのテスト計画：ACC分析と10分間テストプラン
+            </h2>
+            <p>
+              TE章の中核をなすのが、<strong>ACC（Attribute・Component・Capability）分析</strong>と呼ばれるリスクベースのテスト計画手法です。従来の分厚いテスト計画書を書く代わりに、対象システムを3つの要素に素早く分解し、リスクの高い部分から優先的にテストする考え方です。
+            </p>
+
+            <div className="diagram-card">
+              <div className="diagram-scroll">
+                <div className="mermaid" id="dg-acc">
+                  <Mermaid chart={DIAGRAM_ACC} />
+                </div>
+              </div>
+              <p className="diagram-caption">図4: ACC分析からテストケースを導くまでの流れ</p>
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ACCの要素</th>
+                    <th>品詞のたとえ</th>
+                    <th>ECサイトを例にした場合</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Attribute（属性）</td>
+                    <td>形容詞</td>
+                    <td>「速い」「安全」「使いやすい」</td>
+                  </tr>
+                  <tr>
+                    <td>Component（構成要素）</td>
+                    <td>名詞</td>
+                    <td>「カート」「検索」「決済」「レビュー」</td>
+                  </tr>
+                  <tr>
+                    <td>Capability（能力）</td>
+                    <td>動詞（属性×構成要素の交差点）</td>
+                    <td>「安全にカートへ商品を追加できる」「速く検索結果を絞り込める」</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              Google社内では、この分析結果を記録・可視化するために<strong>Google Test Analytics（GTA）</strong>という社内ツールが開発され、後にオープンソースとしても公開されました。リスクは「発生確率（Frequency of Failure）」と「影響度（Impact）」の2軸で評価され、最終的に優先度の高い領域を示す「リスクヒートマップ」が生成されます。
+            </p>
+
+            <h3>10分間テストプラン</h3>
+            <p>
+              著者の James Whittaker は、あるとき参加者に「10分間で製品のテスト計画を書いてもらう」という実験を行いました。時間制約があるため、参加者は長い文章ではなく、箇条書きや表形式で要点だけをまとめる傾向がありました。この実験から得られた結論は、<strong>「テスト計画は完璧である必要はなく、まず何をテストすべきか（＝Capability）を素早く洗い出すことこそが本質だ」</strong>というものです。ACC分析は、この10分間テストプランを体系化したものと位置づけられています。
+            </p>
           </section>
         </div>
       </main>

@@ -125,3 +125,89 @@ describe('How Google Tests Software Guide - Category A (Foundation, Hero, NavBar
     expect(callout?.textContent).toContain('テストを「専門のテスターだけの仕事」と捉えず');
   });
 });
+
+describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Sizes, ACC)', () => {
+  it('renders section #s3 with roles table and dg-roles diagram', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s3');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('3つのテストエンジニアリングの役割');
+
+    const mermaidEl = section?.querySelector('#dg-roles');
+    expect(mermaidEl).not.toBeNull();
+    expect(section?.textContent).toContain('図2: SET・TE・TEMの3つの役割の関係');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+    expect(headers).toEqual(['役割', '略称', '主な仕事', '求められるスキル']);
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0].textContent).toContain('Software Engineer in Test');
+    expect(rows?.[0].textContent).toContain('SET');
+    expect(rows?.[1].textContent).toContain('Test Engineer');
+    expect(rows?.[1].textContent).toContain('TE');
+    expect(rows?.[2].textContent).toContain('Test Engineering Manager');
+    expect(rows?.[2].textContent).toContain('TEM');
+  });
+
+  it('renders section #s4 with test sizes table and dg-sizes diagram', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s4');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('テストサイズという考え方：Small / Medium / Large');
+
+    const mermaidEl = section?.querySelector('#dg-sizes');
+    expect(mermaidEl).not.toBeNull();
+    expect(section?.textContent).toContain('図3: Small / Medium / Large の関係');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+    expect(headers).toEqual(['サイズ', '実行範囲', '許可される依存関係', '目安の実行時間', '目安の構成比']);
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0].textContent).toContain('Small');
+    expect(rows?.[0].textContent).toContain('約70%');
+    expect(rows?.[1].textContent).toContain('Medium');
+    expect(rows?.[1].textContent).toContain('約20%');
+    expect(rows?.[2].textContent).toContain('Large');
+    expect(rows?.[2].textContent).toContain('約10%');
+
+    expect(section?.textContent).toContain('TAP（Test Automation Platform）');
+  });
+
+  it('renders section #s5 with ACC table, dg-acc diagram, and 10分間テストプラン h3', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s5');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('リスクベースのテスト計画：ACC分析と10分間テストプラン');
+
+    const mermaidEl = section?.querySelector('#dg-acc');
+    expect(mermaidEl).not.toBeNull();
+    expect(section?.textContent).toContain('図4: ACC分析からテストケースを導くまでの流れ');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
+    expect(headers).toEqual(['ACCの要素', '品詞のたとえ', 'ECサイトを例にした場合']);
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0].textContent).toContain('Attribute（属性）');
+    expect(rows?.[0].textContent).toContain('形容詞');
+    expect(rows?.[1].textContent).toContain('Component（構成要素）');
+    expect(rows?.[1].textContent).toContain('名詞');
+    expect(rows?.[2].textContent).toContain('Capability（能力）');
+    expect(rows?.[2].textContent).toContain('動詞');
+
+    const h3 = section?.querySelector('h3');
+    expect(h3?.textContent).toBe('10分間テストプラン');
+    expect(section?.textContent).toContain('Google Test Analytics（GTA）');
+  });
+});
