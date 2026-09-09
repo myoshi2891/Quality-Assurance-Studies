@@ -10,11 +10,13 @@ afterEach(() => cleanup());
 let originalMermaidRender: typeof mermaid.render;
 let originalIntersectionObserver: typeof window.IntersectionObserver;
 let mermaidRenderMock: ReturnType<typeof mock>;
+const renderedCharts: string[] = [];
 
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
   originalIntersectionObserver = window.IntersectionObserver;
-  mermaidRenderMock = mock(async () => {
+  mermaidRenderMock = mock(async (_id: string, text: string) => {
+    renderedCharts.push(text);
     return {
       svg: '<svg data-testid="mock-mermaid"></svg>',
       diagramType: 'flowchart',
@@ -379,6 +381,23 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       const footer = container.querySelector('footer');
       expect(footer).not.toBeNull();
       expect(footer?.textContent).toContain('本ガイドは2026年9月2日時点で確認できる公開情報をもとに作成しています');
+    });
+  });
+
+  describe('Diagram Paper Theme Styling (Faithful Recreation)', () => {
+    it('applies editorial paper theme variables to all 8 mermaid diagrams', () => {
+      renderedCharts.length = 0;
+      render(<Page />);
+      expect(renderedCharts.length).toBe(8);
+
+      renderedCharts.forEach((chart) => {
+        expect(chart).toContain('%%{init:');
+        expect(chart).toContain('"theme": "base"');
+        expect(chart).toContain('"primaryColor": "#fffaf0"');
+        expect(chart).toContain('"primaryTextColor": "#2b2416"');
+        expect(chart).toContain('"primaryBorderColor": "#4c3fae"');
+        expect(chart).toContain('"edgeLabelBackground": "#faf6ee"');
+      });
     });
   });
 });
