@@ -82,7 +82,7 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
     expect(brandH1?.textContent).toBe('SonarQube 完全解説');
     const badges = container.querySelectorAll('.sidebar-badges .badge');
     expect(badges).toHaveLength(2);
-    expect(badges[0]?.textContent).toBe('Server 2026.3');
+    expect(badges[0]?.textContent).toBe('Server 2026.4');
     expect(badges[1]?.textContent).toBe('2026.1 LTA');
   });
 
