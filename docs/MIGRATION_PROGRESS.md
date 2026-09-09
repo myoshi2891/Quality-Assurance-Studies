@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `a8462fa` |
-| 最新コミット内容 | fix(leading-quality): restore mermaid node borders and fix edge label black fill bug |
+| 最新 HEAD | `75c11ef` |
+| 最新コミット内容 | fix(leading-quality): style mermaid edge labels with amber-soft background and ink text |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
