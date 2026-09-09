@@ -5,18 +5,37 @@ Updated 2026-09-09
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 59 ルート = ガイドライブラリ index + 58 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 60 ルート = ガイドライブラリ index + 59 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）やツール系 HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `02062b3` |
-| 最新コミット内容 | feat(nav): register how-google-tests guide to navigation, e2e, and docs |
-| 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
+| 最新 HEAD | `1a8b8b4` |
+| 最新コミット内容 | feat(leading-quality): implement Category E (experts, sources, footer) and integrate navigation |
+| 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/09: Leading Quality 実践ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & エディトリアル・ペーパーテーマ**:
+  - 原著HTML固有のエディトリアル書籍スタイル（紙の背景 `--paper: #f8f6f0`、インク文字 `--ink: #1c1917`、ダークネイビーバナー `--navy: #1b2a4a`、アクア `--teal: #0d9488`、ウォームアンバー `--amber: #d97706`）を忠実に復元。
+  - セリフ見出し `Playfair Display`、UIフォント `Inter`、等幅コード `JetBrains Mono` を完全適用。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、境界線、セルパディング、Tailwindリストマーカー `list-style-type: disc !important` 等）を完全実装。
+- **Mermaid図解の完全移植**:
+  - 全9図解（`diag-0` 〜 `diag-8`）を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止や枠線視認性最適化を適用。
+- **インタラクティブチェックリスト**:
+  - Step 9 の自己診断チェックリスト（全4項目）を `'use client'` の `Checklist.tsx` として実装。チェック状態に応じた打消し線スタイルと進捗カウンターを連動。
+- **テーブル & コールアウト**:
+  - 4つの品質ペルソナ、原著章構成、各ステップの具体策、専門家一覧（10名）など全テーブル、および全コールアウトを完全移植。
+- **全セクション参考文献**: 全22件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
+- `app/leading-quality-guide/`: ページコンポーネント、専用スタイル（`.leading-quality-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全14セクションリンク、読了プログレスバー、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/leading-quality-guide` を追加（全60件）。
+- `tests/leading-quality-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全14リンク、全14セクション、全9Mermaid図、全テーブル、全コールアウト、インタラクティブチェックリスト、全参考文献外部リンク（22件）の存在を検証する厳格なテストスイートを実装して全パス（19 pass / 173 expect()）。
+- `Leading-quality-guide.html` & `Leading-quality-guide.md`: `archive/html-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 60 ページ体制に同期。
 
 ## 2026/09/09: How Google Tests Software 完全ガイドのNext.js完全移行
 
@@ -636,6 +655,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Playwright-intermediate-advanced-guide.html` | `/playwright-intermediate-advanced-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
 | `Sonarqube-intermediate.html` | `/sonarqube-intermediate-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `How-google-tests-software-guide.html` | `/how-google-tests-software-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Leading-quality-guide.html` | `/leading-quality-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -644,8 +664,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
-| 書籍ガイド系 HTML（`Leading-quality-guide.html` / `Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `Software-testing-craftsmans-approach-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
+| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
+| 書籍ガイド系 HTML（`Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `Software-testing-craftsmans-approach-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
 | ツール系ドキュメント（`Appium-essentials-guide.md` / `Appium-essentials-guide.html` / `Owasp-zap-beginner-guide.html` / `Sonarqube.html`） | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
 
@@ -660,8 +680,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 59 ルート（ガイドライブラリ index + 58 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown と `Leading-quality-guide.html` などの HTML が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 60 ルート（ガイドライブラリ index + 59 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown やツール系 HTML が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
