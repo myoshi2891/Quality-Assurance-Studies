@@ -208,4 +208,79 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       expect(listItems?.[0].textContent).toContain('4象限に「実施順序」はない');
     });
   });
+
+  describe('Category C (Steps 5 to 8)', () => {
+    it('renders section #step5 with test pyramid diagram, step-list of 3 layers, and note callout', () => {
+      const { container } = render(<Page />);
+      const step5 = container.querySelector('section#step5');
+      expect(step5).not.toBeNull();
+
+      const h2 = step5?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ5: テスト自動化戦略とテストピラミッド');
+
+      const caption = step5?.querySelector('.mmd-caption');
+      expect(caption?.textContent).toContain('図4: テスト自動化戦略における3つのレイヤー');
+
+      const stepList = step5?.querySelectorAll('ol.step-list li');
+      expect(stepList?.length).toBe(3);
+      expect(stepList?.[0].textContent).toContain('まずユニットテストの土台を作る');
+      expect(stepList?.[1].textContent).toContain('サービス / APIレベルの統合テストを追加する');
+      expect(stepList?.[2].textContent).toContain('UI / E2Eテストは最小限に絞る');
+
+      const note = step5?.querySelector('.callout.note');
+      expect(note).not.toBeNull();
+      expect(note?.textContent).toContain('補足');
+      expect(note?.textContent).toContain('Martin Fowler');
+    });
+
+    it('renders section #step6 with Power of Three diagram', () => {
+      const { container } = render(<Page />);
+      const step6 = container.querySelector('section#step6');
+      expect(step6).not.toBeNull();
+
+      const h2 = step6?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ6: Power of Three(Three Amigos)と受け入れテスト');
+
+      const caption = step6?.querySelector('.mmd-caption');
+      expect(caption?.textContent).toContain('図5: Power of Three による共通理解の形成');
+    });
+
+    it('renders section #step7 with iteration cycle diagram and 6-step activity table', () => {
+      const { container } = render(<Page />);
+      const step7 = container.querySelector('section#step7');
+      expect(step7).not.toBeNull();
+
+      const h2 = step7?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ7: テスターのイテレーションサイクル');
+
+      const caption = step7?.querySelector('.mmd-caption');
+      expect(caption?.textContent).toContain('図6: テスターのイテレーションサイクル');
+
+      const table = step7?.querySelector('table');
+      expect(table).not.toBeNull();
+      const rows = table?.querySelectorAll('tbody tr');
+      expect(rows?.length).toBe(6);
+      expect(rows?.[0].textContent).toContain('リリース / テーマ計画');
+      expect(rows?.[5].textContent).toContain('確実なリリース');
+    });
+
+    it('renders section #step8 with exploratory testing points list and source callout', () => {
+      const { container } = render(<Page />);
+      const step8 = container.querySelector('section#step8');
+      expect(step8).not.toBeNull();
+
+      const h2 = step8?.querySelector('h2');
+      expect(h2?.textContent).toContain('ステップ8: 探索的テストという技法');
+
+      const listItems = step8?.querySelectorAll('ul li');
+      expect(listItems?.length).toBe(3);
+      expect(listItems?.[0].textContent).toContain('同時並行で行う');
+      expect(listItems?.[1].textContent).toContain('でたらめに触ることではない');
+      expect(listItems?.[2].textContent).toContain('タイムボックスで管理する');
+
+      const callout = step8?.querySelector('.callout.source');
+      expect(callout).not.toBeNull();
+      expect(callout?.textContent).toContain('Elisabeth Hendrickson');
+    });
+  });
 });
