@@ -62,6 +62,39 @@ class A,C,RISK,HEATMAP box;
 class CAP hub;
 class TESTS done;`;
 
+const DIAGRAM_CERTIFIED = `flowchart TB
+L1["レベル1 継続的ビルド導入とテスト分類"] --> L2["レベル2 フレーキーテストの隔離と修正"] --> L3["レベル3 カバレッジ向上と品質目標設定"] --> L4["レベル4以上 品質文化の他チームへの伝播"]
+classDef box fill:#fbf7ec,stroke:#c9bd9a,color:#24211c,stroke-width:1px;
+classDef hub fill:#33417a,stroke:#232c56,color:#fbf7ec,stroke-width:1px;
+classDef done fill:#2f5d43,stroke:#1f3f2c,color:#fbf7ec,stroke-width:1px;
+class L1,L2,L3 box;
+class L4 done;`;
+
+const DIAGRAM_FLAKY = `flowchart TD
+START["テストが不安定 たまに失敗する"] --> Q1{"同じ入力同じコードで結果が変わるか"}
+Q1 -->|変わらない 常に失敗| BUG["本物のバグとして修正する"]
+Q1 -->|変わる 非決定的| Q2{"原因はテストコードか本番コードか"}
+Q2 -->|テストコードの欠陥| FIX1["時刻や乱数や外部依存をモックに置き換える"]
+Q2 -->|本番コードの非決定性| FIX2["競合状態や実行順序への依存を解消する"]
+FIX1 --> RERUN["継続的ビルド上で安定性を再監視する"]
+FIX2 --> RERUN
+RERUN --> DONE["安定を確認し通常のテストへ戻す"]
+classDef box fill:#fbf7ec,stroke:#c9bd9a,color:#24211c,stroke-width:1px;
+classDef hub fill:#33417a,stroke:#232c56,color:#fbf7ec,stroke-width:1px;
+classDef done fill:#2f5d43,stroke:#1f3f2c,color:#fbf7ec,stroke-width:1px;
+class START,BUG,FIX1,FIX2,RERUN box;
+class Q1,Q2 hub;
+class DONE done;`;
+
+const DIAGRAM_CI = `flowchart LR
+CODE["コード変更 CL"] --> PRESUBMIT["プレサブミットチェック"] --> REVIEW["コードレビュー"] --> COMMIT["メインラインへコミット"] --> CI["継続的ビルド 全テストサイズを実行"] --> DASH["テストダッシュボードで可視化"] --> RELEASE["カナリアリリース"]
+classDef box fill:#fbf7ec,stroke:#c9bd9a,color:#24211c,stroke-width:1px;
+classDef hub fill:#33417a,stroke:#232c56,color:#fbf7ec,stroke-width:1px;
+classDef done fill:#2f5d43,stroke:#1f3f2c,color:#fbf7ec,stroke-width:1px;
+class CODE,PRESUBMIT,REVIEW,COMMIT,DASH box;
+class CI hub;
+class RELEASE done;`;
+
 export default function HowGoogleTestsSoftwareGuidePage() {
   return (
     <div className="how-google-tests-page">
@@ -361,6 +394,118 @@ export default function HowGoogleTestsSoftwareGuidePage() {
             <p>
               著者の James Whittaker は、あるとき参加者に「10分間で製品のテスト計画を書いてもらう」という実験を行いました。時間制約があるため、参加者は長い文章ではなく、箇条書きや表形式で要点だけをまとめる傾向がありました。この実験から得られた結論は、<strong>「テスト計画は完璧である必要はなく、まず何をテストすべきか（＝Capability）を素早く洗い出すことこそが本質だ」</strong>というものです。ACC分析は、この10分間テストプランを体系化したものと位置づけられています。
             </p>
+          </section>
+
+          {/* Section: s6 */}
+          <section className="block" id="s6">
+            <h2>
+              <span className="num">6</span>Test Certified：品質改善のはしご
+            </h2>
+            <p>
+              Test Certified（通称「TC」）は、チームが自動テストの成熟度を段階的に高めていくためのマイルストーン制度です。Mike Bland 氏は「厳密には12ステップではないが、12ステップ・プログラムのようなもの」と表現しています。
+            </p>
+
+            <div className="diagram-card">
+              <div className="diagram-scroll">
+                <div className="mermaid" id="dg-certified">
+                  <Mermaid chart={DIAGRAM_CERTIFIED} />
+                </div>
+              </div>
+              <p className="diagram-caption">図5: Test Certifiedの成熟度レベル</p>
+            </div>
+
+            <p>
+              レベル1は「1日〜5日程度で達成できる」ように設計されており、まずは現状を可視化するための土台（継続的ビルド、カバレッジ計測、テストサイズの分類、フレーキーテストの洗い出し）を整えることに主眼が置かれています。
+            </p>
+            <div className="callout gold">
+              <i className="ti ti-bulb" aria-hidden="true" />
+              <div>
+                <div className="callout-title">面白い副次効果</div>
+                <p>
+                  Test Certified Mentorに登録すると、テスト人材が慢性的に不足している社内で、通常なら得られないはずのテスト人材の支援を受けられたといいます。成熟度向上の取り組み自体が、希少なテストリソースを引き寄せる仕組みとしても機能していたわけです。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Section: s7 */}
+          <section className="block" id="s7">
+            <h2>
+              <span className="num">7</span>フレーキーテスト（不安定なテスト）との戦い方
+            </h2>
+            <p>
+              フレーキーテストとは、<strong>コードを変更していないのに、実行するたびに成功したり失敗したりする</strong>非決定的なテストのことです。Googleでは2008年の時点ですでにTotT（Testing on the Toilet）でこの問題を取り上げており、現在に至るまで継続的な関心事となっています。
+            </p>
+            <p>原因は大きく2つに分類されます。</p>
+            <ol>
+              <li>テスト対象のコード自体に非決定的な欠陥がある（競合状態など）</li>
+              <li>テストコード自体に欠陥がある（時刻・乱数・外部依存・共有リソースへの依存など）</li>
+            </ol>
+
+            <div className="diagram-card">
+              <div className="diagram-scroll">
+                <div className="mermaid" id="dg-flaky">
+                  <Mermaid chart={DIAGRAM_FLAKY} />
+                </div>
+              </div>
+              <p className="diagram-caption">
+                図6: フレーキーテストの原因切り分けと対処フロー
+              </p>
+            </div>
+
+            <p>
+              Googleでは、フレーキーテストを放置すると「テストが失敗しても誰も気にしなくなる」という信頼崩壊が起きることを重視し、原因不明のまま無視するのではなく、原因を切り分けて修正するか、一時的に隔離するかを明確にルール化しています。この考え方は、後継書籍『Software Engineering at Google』（2020年）でも引き続き重要なテーマとして扱われています。
+            </p>
+          </section>
+
+          {/* Section: s8 */}
+          <section className="block" id="s8">
+            <h2>
+              <span className="num">8</span>クラウドソーシングとドッグフーディング
+            </h2>
+            <p>
+              書籍の著者インタビュー（InfoQ掲載）によると、Googleが外部から全面的に取り入れた数少ない「テスト手法」がクラウドソーシングだったといいます。ベータテスターや一般ユーザーからのフィードバックを活用し、社内リソースだけでは網羅しきれない多様な環境・利用シナリオでの検証を補完する狙いがあります。
+            </p>
+            <p>
+              また、Google社内では自社製品を社員自身が日常的に使う「ドッグフーディング」も広く実践されており、例えばChromeの品質改善では、社内向けの先行ビルドを配布して問題を早期に発見する取り組みが行われてきました。書籍のレビューによれば、Google社内で開発された<strong>BITE（Browser Integrated Test Environment）</strong>という、ブラウザに統合されたテスト支援ツールも紹介されています。
+            </p>
+            <p>
+              著者の一人は「オープンソースコミュニティ（特にSeleniumやWebDriver）に関わり続けることが、最新のテスト手法をキャッチアップする最良の方法だ」とも語っており、Googleが商用テストツールよりもオープンソースへの貢献を重視してきた姿勢がうかがえます。
+            </p>
+          </section>
+
+          {/* Section: s9 */}
+          <section className="block" id="s9">
+            <h2>
+              <span className="num">9</span>継続的インテグレーションと「Testing on the Toilet」文化
+            </h2>
+            <p>
+              Googleでは、コードの変更（CL: Changelist）がメインラインに取り込まれるまでに、プレサブミットチェック・コードレビュー・継続的ビルドという複数の関門を通過します。
+            </p>
+
+            <div className="diagram-card">
+              <div className="diagram-scroll">
+                <div className="mermaid" id="dg-ci">
+                  <Mermaid chart={DIAGRAM_CI} />
+                </div>
+              </div>
+              <p className="diagram-caption">
+                図7: コード変更からリリースまでの継続的インテグレーションの流れ
+              </p>
+            </div>
+
+            <p>
+              この文化を支えてきたもう一つの仕組みが、社内トイレの個室に1枚ものの記事を掲示する<strong>Testing on the Toilet（TotT）</strong>です。2007年1月に始まったこの取り組みは、コードレビューでの良い応答の仕方、テストダブル（フェイク／モック）の使い分け、変更検出だけのテスト（Change-Detector Tests）を避ける方法など、実践的なトピックを継続的に発信してきました。
+            </p>
+            <div className="callout forest">
+              <i className="ti ti-calendar-event" aria-hidden="true" />
+              <div>
+                <div className="callout-title">2026年9月時点の最新動向</div>
+                <p>
+                  Google公式テストブログ（testing.googleblog.com）は稼働を続けており、直近では2026年7月21日付で「Prefactoring（先行リファクタリング）」という記事が公開されています。興味深いことに、この連載は2024年12月ごろから<strong>「Tech on the Toilet」</strong>という名称に変わっており、テストに限らずコードレビューでの効果的な返信の仕方や、マップのルックアップ処理の最適化など、より広範なソフトウェアエンジニアリングの実践知を扱うようになっています。
+                </p>
+              </div>
+            </div>
           </section>
         </div>
       </main>

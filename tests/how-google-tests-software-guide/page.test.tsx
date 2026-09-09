@@ -211,3 +211,68 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
     expect(section?.textContent).toContain('Google Test Analytics（GTA）');
   });
 });
+
+describe('How Google Tests Software Guide - Category C (Sections 6-9: Test Certified, Flaky, CI)', () => {
+  it('renders section #s6 with Test Certified diagram and gold callout', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s6');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Test Certified：品質改善のはしご');
+
+    const mermaidEl = section?.querySelector('#dg-certified');
+    expect(mermaidEl).not.toBeNull();
+    expect(section?.textContent).toContain('図5: Test Certifiedの成熟度レベル');
+
+    const callout = section?.querySelector('.callout.gold');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('面白い副次効果');
+    expect(callout?.textContent).toContain('Test Certified Mentorに登録すると');
+  });
+
+  it('renders section #s7 with flaky tests diagram and causes list', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s7');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('フレーキーテスト（不安定なテスト）との戦い方');
+
+    const ol = section?.querySelector('ol');
+    expect(ol).not.toBeNull();
+    expect(ol?.children.length).toBe(2);
+    expect(ol?.children[0].textContent).toContain('テスト対象のコード自体に非決定的な欠陥がある');
+    expect(ol?.children[1].textContent).toContain('テストコード自体に欠陥がある');
+
+    const mermaidEl = section?.querySelector('#dg-flaky');
+    expect(mermaidEl).not.toBeNull();
+    expect(section?.textContent).toContain('図6: フレーキーテストの原因切り分けと対処フロー');
+  });
+
+  it('renders section #s8 with crowdsourcing, dogfooding, and BITE tool', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s8');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('クラウドソーシングとドッグフーディング');
+
+    expect(section?.textContent).toContain('BITE（Browser Integrated Test Environment）');
+    expect(section?.textContent).toContain('SeleniumやWebDriver');
+  });
+
+  it('renders section #s9 with CI diagram and forest callout', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#s9');
+    expect(section).not.toBeNull();
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('継続的インテグレーションと「Testing on the Toilet」文化');
+
+    const mermaidEl = section?.querySelector('#dg-ci');
+    expect(mermaidEl).not.toBeNull();
+    expect(section?.textContent).toContain('図7: コード変更からリリースまでの継続的インテグレーションの流れ');
+
+    const callout = section?.querySelector('.callout.forest');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('2026年9月時点の最新動向');
+    expect(callout?.textContent).toContain('Tech on the Toilet');
+  });
+});
