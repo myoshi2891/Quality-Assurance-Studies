@@ -422,6 +422,65 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
       expect(container.querySelectorAll('section#sec-21 table').length).toBe(2);
     });
 
+    it('verifies every reference in Section 21 by name, label, and href', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      // 参考文献は件数だけでは URL の差し替え・並べ替えを検知できないため、
+      // 2 つの表の全行をページ名・表示ラベル・href まで文書順に 1 対 1 で検証する。
+      const expectedReferenceTables: [string, string, string][][] = [
+        [
+          ['Installation(Getting Started)', 'playwright.dev/docs/intro', 'https://playwright.dev/docs/intro'],
+          ['Locators', 'playwright.dev/docs/locators', 'https://playwright.dev/docs/locators'],
+          ['Other locators', 'playwright.dev/docs/other-locators', 'https://playwright.dev/docs/other-locators'],
+          ['Auto-waiting', 'playwright.dev/docs/actionability', 'https://playwright.dev/docs/actionability'],
+          ['Assertions', 'playwright.dev/docs/test-assertions', 'https://playwright.dev/docs/test-assertions'],
+          ['Fixtures', 'playwright.dev/docs/test-fixtures', 'https://playwright.dev/docs/test-fixtures'],
+          ['Page object models', 'playwright.dev/docs/pom', 'https://playwright.dev/docs/pom'],
+          ['Parallelism', 'playwright.dev/docs/test-parallel', 'https://playwright.dev/docs/test-parallel'],
+          ['Sharding', 'playwright.dev/docs/test-sharding', 'https://playwright.dev/docs/test-sharding'],
+          ['Retries', 'playwright.dev/docs/test-retries', 'https://playwright.dev/docs/test-retries'],
+          ['Trace viewer(イントロ)', 'playwright.dev/docs/trace-viewer-intro', 'https://playwright.dev/docs/trace-viewer-intro'],
+          ['Trace viewer(詳細)', 'playwright.dev/docs/trace-viewer', 'https://playwright.dev/docs/trace-viewer'],
+          ['Mock APIs', 'playwright.dev/docs/mock', 'https://playwright.dev/docs/mock'],
+          ['Network', 'playwright.dev/docs/network', 'https://playwright.dev/docs/network'],
+          ['Authentication', 'playwright.dev/docs/auth', 'https://playwright.dev/docs/auth'],
+          ['Visual comparisons', 'playwright.dev/docs/test-snapshots', 'https://playwright.dev/docs/test-snapshots'],
+          ['API testing', 'playwright.dev/docs/api-testing', 'https://playwright.dev/docs/api-testing'],
+          ['UI Mode', 'playwright.dev/docs/test-ui-mode', 'https://playwright.dev/docs/test-ui-mode'],
+          ['Getting started (VS Code)', 'playwright.dev/docs/getting-started-vscode', 'https://playwright.dev/docs/getting-started-vscode'],
+          ['Setting up CI', 'playwright.dev/docs/ci-intro', 'https://playwright.dev/docs/ci-intro'],
+          ['Continuous Integration', 'playwright.dev/docs/ci', 'https://playwright.dev/docs/ci'],
+          ['Docker', 'playwright.dev/docs/docker', 'https://playwright.dev/docs/docker'],
+          ['Best Practices', 'playwright.dev/docs/best-practices', 'https://playwright.dev/docs/best-practices'],
+          ['Isolation(Browser contexts)', 'playwright.dev/docs/browser-contexts', 'https://playwright.dev/docs/browser-contexts'],
+          ['Test configuration', 'playwright.dev/docs/test-configuration', 'https://playwright.dev/docs/test-configuration'],
+          ['Reporters', 'playwright.dev/docs/test-reporters', 'https://playwright.dev/docs/test-reporters'],
+          ['Pages', 'playwright.dev/docs/pages', 'https://playwright.dev/docs/pages'],
+        ],
+        [
+          ['Microsoft Learn: Introduction to Playwright for end-to-end testing', 'learn.microsoft.com', 'https://learn.microsoft.com/en-us/shows/getting-started-with-end-to-end-testing-with-playwright/introduction-to-playwright-for-end-to-end-testing'],
+          ['Playwright公式GitHubリポジトリ', 'github.com/microsoft/playwright', 'https://github.com/microsoft/playwright'],
+        ],
+      ];
+
+      const tables = container.querySelectorAll('section#sec-21 table');
+      expect(tables.length).toBe(expectedReferenceTables.length);
+
+      expectedReferenceTables.forEach((expectedRows, tIdx) => {
+        const rows = tables[tIdx]?.querySelectorAll('tbody tr');
+        expect(rows?.length).toBe(expectedRows.length);
+        expectedRows.forEach(([name, label, href], rIdx) => {
+          const tds = rows?.[rIdx]?.querySelectorAll('td');
+          expect(tds?.[0]?.textContent).toBe(name);
+          const anchorEl = tds?.[1]?.querySelector('a');
+          expect(anchorEl?.textContent).toBe(label);
+          expect(anchorEl?.getAttribute('href')).toBe(href);
+          expect(anchorEl?.getAttribute('target')).toBe('_blank');
+          expect(anchorEl?.getAttribute('rel')).toBe('noopener noreferrer');
+        });
+      });
+    });
+
     it('renders callout warning block in Section 19', () => {
       const { container } = render(<PlaywrightIntermediateAdvancedPage />);
       const callout = container.querySelector('section#sec-19 .callout.warn');
@@ -438,21 +497,194 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
   });
 
   describe('Full Page Comprehensive Inventory Verification', () => {
-    it('verifies all 21 sections, 12 mermaid diagrams, 62 code blocks, and 15 tables', () => {
+    // 全 21 セクションの構成要素インベントリ。
+    // 総数だけを数えると「別セクションに移動した」「入れ替わった」変更を検知できないため、
+    // 図・コードブロック・表を「どのセクションに、どの順序で、いくつ」まで 1 対 1 で固定する。
+    const SECTION_INVENTORY: {
+      id: string;
+      diagrams: number;
+      codeLabels: string[];
+      tableHeaders: string[][];
+    }[] = [
+        {
+          id: 'sec-1',
+          diagrams: 1,
+          codeLabels: [],
+          tableHeaders: [['層', '役割', '特徴']],
+        },
+        {
+          id: 'sec-2',
+          diagrams: 0,
+          codeLabels: ['bash', 'directory structure', 'bash', 'bash', 'bash'],
+          tableHeaders: [['項目', '要件']],
+        },
+        {
+          id: 'sec-3',
+          diagrams: 1,
+          codeLabels: ['basic.spec.ts'],
+          tableHeaders: [['フィクスチャ', '型', '説明']],
+        },
+        {
+          id: 'sec-4',
+          diagrams: 0,
+          codeLabels: ['locators-basic.spec.ts', 'playwright.config.ts', 'filter-example.spec.ts', 'and-or-example.spec.ts'],
+          tableHeaders: [['優先度', 'メソッド', '用途']],
+        },
+        {
+          id: 'sec-5',
+          diagrams: 1,
+          codeLabels: [],
+          tableHeaders: [],
+        },
+        {
+          id: 'sec-6',
+          diagrams: 0,
+          codeLabels: ['assertions.spec.ts', 'soft-assertion.spec.ts'],
+          tableHeaders: [['カテゴリ', '代表例']],
+        },
+        {
+          id: 'sec-7',
+          diagrams: 1,
+          codeLabels: ['without-fixtures.spec.ts', 'with-fixtures.spec.ts', 'worker-fixture.ts', 'auto-fixture.ts', 'merge-fixtures.ts'],
+          tableHeaders: [],
+        },
+        {
+          id: 'sec-8',
+          diagrams: 0,
+          codeLabels: ['playwright-dev-page.ts', 'example.spec.ts', 'fixtures.ts', 'example.spec.ts'],
+          tableHeaders: [],
+        },
+        {
+          id: 'sec-9',
+          diagrams: 1,
+          codeLabels: ['bash', 'playwright.config.ts', 'parallel-in-file.spec.ts', 'worker-scoped-data.ts'],
+          tableHeaders: [],
+        },
+        {
+          id: 'sec-10',
+          diagrams: 1,
+          codeLabels: ['bash', 'playwright.config.ts', 'bash', '.github/workflows/playwright.yml(抜粋)'],
+          tableHeaders: [['設定', '分割の粒度', '特徴']],
+        },
+        {
+          id: 'sec-11',
+          diagrams: 0,
+          codeLabels: ['bash', 'playwright.config.ts', 'retry-aware.spec.ts'],
+          tableHeaders: [['分類', '意味']],
+        },
+        {
+          id: 'sec-12',
+          diagrams: 1,
+          codeLabels: ['playwright.config.ts', 'bash'],
+          tableHeaders: [['ツール', '主な用途']],
+        },
+        {
+          id: 'sec-13',
+          diagrams: 1,
+          codeLabels: ['mock-api.spec.ts', 'mock-partial.spec.ts', 'har-replay.spec.ts', 'websocket-mock.spec.ts'],
+          tableHeaders: [],
+        },
+        {
+          id: 'sec-14',
+          diagrams: 1,
+          codeLabels: ['tests/auth.setup.ts', 'playwright.config.ts', 'worker-auth.ts', 'api-auth.setup.ts', 'multi-role.spec.ts'],
+          tableHeaders: [],
+        },
+        {
+          id: 'sec-15',
+          diagrams: 0,
+          codeLabels: ['visual.spec.ts', 'directory structure', 'bash', 'threshold.spec.ts', 'screenshot-style.spec.ts', 'text-snapshot.spec.ts'],
+          tableHeaders: [],
+        },
+        {
+          id: 'sec-16',
+          diagrams: 1,
+          codeLabels: ['playwright.config.ts', 'api.spec.ts', 'combined.spec.ts', 'interop.spec.ts'],
+          tableHeaders: [],
+        },
+        {
+          id: 'sec-17',
+          diagrams: 0,
+          codeLabels: ['bash'],
+          tableHeaders: [['機能', '内容']],
+        },
+        {
+          id: 'sec-18',
+          diagrams: 1,
+          codeLabels: ['.github/workflows/playwright.yml', 'bash'],
+          tableHeaders: [['施策', '効果']],
+        },
+        {
+          id: 'sec-19',
+          diagrams: 1,
+          codeLabels: ['bash', 'bash', 'bash', 'Dockerfile'],
+          tableHeaders: [['設定', '理由']],
+        },
+        {
+          id: 'sec-20',
+          diagrams: 0,
+          codeLabels: ['good-vs-bad-locators.ts', 'good-vs-bad-assertions.ts'],
+          tableHeaders: [['原則', '内容'], ['チェック項目', '対応章']],
+        },
+        {
+          id: 'sec-21',
+          diagrams: 0,
+          codeLabels: [],
+          tableHeaders: [['ページ', 'URL'], ['ページ', 'URL']],
+        },
+    ];
+
+    it('verifies every section owns exactly its expected diagrams, code blocks, and tables', () => {
       const { container } = render(<PlaywrightIntermediateAdvancedPage />);
 
-      // All 21 sections exist
-      for (let i = 1; i <= 21; i++) {
-        expect(container.querySelector(`section#sec-${i}`)).not.toBeNull();
-      }
+      expect(SECTION_INVENTORY.length).toBe(21);
 
-      // Exactly 12 mermaid containers
+      SECTION_INVENTORY.forEach((expected) => {
+        const section = container.querySelector(`section#${expected.id}`);
+        expect(section).not.toBeNull();
+
+        // 図: 当該セクションが持つ mermaid コンテナ数
+        expect(section?.querySelectorAll('.mermaid-container').length).toBe(expected.diagrams);
+
+        // コードブロック: code-label を識別子として順序どおりに突き合わせる
+        const codeBlocks = section?.querySelectorAll('.code-block');
+        expect(codeBlocks?.length).toBe(expected.codeLabels.length);
+        expected.codeLabels.forEach((label, idx) => {
+          expect(codeBlocks?.[idx]?.querySelector('.code-label')?.textContent).toBe(label);
+        });
+
+        // 表: 見出し行（th）を識別子として順序どおりに突き合わせる
+        const tables = section?.querySelectorAll('table');
+        expect(tables?.length).toBe(expected.tableHeaders.length);
+        expected.tableHeaders.forEach((headers, idx) => {
+          const ths = tables?.[idx]?.querySelectorAll('thead th');
+          expect(ths?.length).toBe(headers.length);
+          headers.forEach((header, col) => {
+            expect(ths?.[col]?.textContent).toBe(header);
+          });
+        });
+      });
+    });
+
+    it('verifies page-wide totals match the sum of the per-section inventory', () => {
+      const { container } = render(<PlaywrightIntermediateAdvancedPage />);
+
+      const sum = (pick: (e: (typeof SECTION_INVENTORY)[number]) => number) =>
+        SECTION_INVENTORY.reduce((acc, e) => acc + pick(e), 0);
+
+      expect(container.querySelectorAll('.mermaid-container').length).toBe(
+        sum((e) => e.diagrams)
+      );
       expect(container.querySelectorAll('.mermaid-container').length).toBe(12);
 
-      // Exactly 62 code blocks
+      expect(container.querySelectorAll('.code-block').length).toBe(
+        sum((e) => e.codeLabels.length)
+      );
       expect(container.querySelectorAll('.code-block').length).toBe(62);
 
-      // Exactly 15 tables
+      expect(container.querySelectorAll('table').length).toBe(
+        sum((e) => e.tableHeaders.length)
+      );
       expect(container.querySelectorAll('table').length).toBe(15);
 
       // Exactly 3 callouts (sections 9, 14, 19)

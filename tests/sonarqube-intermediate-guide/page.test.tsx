@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, cleanup } from '@testing-library/react';
+import { render, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import SonarQubeIntermediateGuidePage from '../../app/sonarqube-intermediate-guide/page';
@@ -700,6 +700,15 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
 
       const allPre = container.querySelectorAll('pre code');
       expect(allPre).toHaveLength(4);
+    });
+
+    it('injects rendered SVG for all 10 Mermaid diagrams', async () => {
+      const { container } = render(<SonarQubeIntermediateGuidePage />);
+      // mermaid.render() は useEffect 内の非同期処理のため、10 図すべての SVG が
+      // 注入されるまで待つ。.mermaid-wrap の個数だけでは描画成功を検証できない。
+      await waitFor(() =>
+        expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(10)
+      );
     });
 
     it('renders rich syntax highlighting across all 4 code blocks', () => {
