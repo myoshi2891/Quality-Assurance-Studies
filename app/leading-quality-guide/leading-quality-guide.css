@@ -746,6 +746,15 @@
         outline: none !important;
     }
 
+    /* outline: none でネイティブのフォーカスリングを消しているため、
+       キーボード操作時は代替のフォーカス表示を必ず出す */
+    .leading-quality-page .mobile-toc summary:focus-visible {
+        outline: 3px solid var(--steel) !important;
+        outline-offset: 2px !important;
+        border-radius: 4px !important;
+        color: var(--ink) !important;
+    }
+
     .leading-quality-page .mobile-toc ol {
         list-style: none !important;
         padding-left: 0 !important;
