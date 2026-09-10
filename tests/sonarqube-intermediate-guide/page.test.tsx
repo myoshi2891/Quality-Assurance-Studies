@@ -9,6 +9,7 @@ afterEach(() => cleanup());
 
 let originalMermaidRender: typeof mermaid.render;
 let originalIntersectionObserver: typeof window.IntersectionObserver;
+const observedElements: Element[] = [];
 
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
@@ -25,7 +26,12 @@ beforeAll(() => {
   const mockIntersectionObserver = mock((callback: IntersectionObserverCallback) => {
     intersectionCallback = callback;
     return {
-      observe: () => null,
+      // observe() に渡された実要素を記録し、NavBar が document 上の
+      // section を実際に監視対象にしているかを検証できるようにする
+      observe: (el: Element) => {
+        observedElements.push(el);
+        return null;
+      },
       unobserve: () => null,
       disconnect: () => null,
     };
@@ -88,6 +94,12 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
 
   it('activates the TOC link for a section when IntersectionObserver fires an intersecting entry (regression)', async () => {
     const { act } = await import('@testing-library/react');
+
+    observedElements.length = 0;
+    const architecture = document.createElement('section');
+    architecture.id = 'architecture';
+    document.body.appendChild(architecture);
+
     const { container } = render(<NavBar />);
 
     const getCallback = (window as unknown as Record<string, unknown>).__intersectionCallback as () => IntersectionObserverCallback | null;
@@ -98,10 +110,14 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
     expect(callback).not.toBeNull();
 
     if (callback) {
-      const fakeSection = document.createElement('section');
-      fakeSection.id = 'architecture';
+      // NavBar が document 上の section#architecture を observe できたことを確認する。
+      // 切り離した要素を捏造すると getElementById 経路が壊れても緑になってしまう。
+      const architectureSection = document.getElementById('architecture');
+      expect(architectureSection).not.toBeNull();
+      expect(observedElements).toContain(architectureSection as Element);
+
       const fakeEntry = {
-        target: fakeSection,
+        target: architectureSection as Element,
         isIntersecting: true,
         intersectionRatio: 0.8,
         boundingClientRect: {} as DOMRectReadOnly,
@@ -121,6 +137,8 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
       expect(architectureLink?.classList.contains('active')).toBe(true);
       expect(architectureLink?.getAttribute('aria-current')).toBe('location');
     }
+
+    architecture.remove();
   });
 
   describe('Category 1: 基礎・アーキテクチャ・導入編 (Sections 00〜05)', () => {

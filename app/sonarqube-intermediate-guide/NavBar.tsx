@@ -79,13 +79,13 @@ export default function NavBar() {
         aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
         onClick={toggleSidebar}
       >
-        <i className={isOpen ? 'ti ti-x' : 'ti ti-menu-2'}></i>
+        <i className={isOpen ? 'ti ti-x' : 'ti ti-menu-2'} aria-hidden="true"></i>
       </button>
 
       <aside className={`sidebar ${isOpen ? 'open' : ''}`} id="sidebar">
         <div className="sidebar-brand">
           <div className="logo-row">
-            <i className="ti ti-shield-check-filled"></i>
+            <i className="ti ti-shield-check-filled" aria-hidden="true"></i>
             <h1>SonarQube 完全解説</h1>
           </div>
           <p>中級者〜上級者向けステップバイステップガイド</p>
@@ -94,7 +94,7 @@ export default function NavBar() {
             <span className="badge">2026.1 LTA</span>
           </div>
         </div>
-        <nav className="toc" id="toc">
+        <nav className="toc" id="toc" aria-label="ページ内目次">
           {TOC_ITEMS.map((item) => (
             <a
               key={item.id}
@@ -103,7 +103,7 @@ export default function NavBar() {
               aria-current={activeId === item.id ? 'location' : undefined}
               onClick={closeSidebar}
             >
-              <i className={`ti ${item.icon}`}></i>
+              <i className={`ti ${item.icon}`} aria-hidden="true"></i>
               {item.label}
             </a>
           ))}
