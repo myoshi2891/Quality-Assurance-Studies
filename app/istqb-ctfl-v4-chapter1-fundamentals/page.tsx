@@ -16,7 +16,7 @@ export default function Page() {
                         <br />
                         <span
                             style={{
-                                fontSize: '18px',
+                                fontSize: '1.125rem',
                                 color: 'var(--color-text-secondary)',
                                 fontWeight: 400,
                             }}
