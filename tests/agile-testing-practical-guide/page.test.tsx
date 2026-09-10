@@ -118,14 +118,37 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
     expect(kvTable?.textContent).toContain('Addison-Wesley Professional');
     expect(kvTable?.textContent).toContain('2009年1月 (初版)');
 
-    // Table 2: Book structure map
+    // Table 2: Book structure map（全 6 行を Part / 主な内容 / 対応ステップまで 1 対 1 で検証）
     const structTable = tables?.[1];
-    expect(structTable?.textContent).toContain('Part I: はじめに');
-    expect(structTable?.textContent).toContain('Part II: 組織的な課題への対処');
-    expect(structTable?.textContent).toContain('Part III: アジャイルテストの4象限');
-    expect(structTable?.textContent).toContain('Part IV: 自動化');
-    expect(structTable?.textContent).toContain('Part V: テスターのイテレーションライフ');
-    expect(structTable?.textContent).toContain('Part VI: 成功への鍵');
+    const expectedStructRows = [
+      ['Part I: はじめに (Part I. Introduction)', 'アジャイルテストの定義 / 10の原則', 'ステップ1・2'],
+      [
+        'Part II: 組織的な課題への対処 (Part II. Organizational Challenges)',
+        '文化的課題 / チームの物理配置 / プロセス移行',
+        'ステップ3',
+      ],
+      [
+        'Part III: アジャイルテストの4象限 (Part III. The Agile Testing Quadrants)',
+        '4象限による分類とツールキット',
+        'ステップ4',
+      ],
+      ['Part IV: 自動化 (Part IV. Automation)', '自動化を阻む壁と戦略', 'ステップ5'],
+      [
+        'Part V: テスターのイテレーションライフ (Part V. An Iteration in the Life of a Tester)',
+        '計画からリリースまでの1イテレーション',
+        'ステップ6・7',
+      ],
+      ['Part VI: 成功への鍵 (Part VI. Summary)', '成功の鍵となる7要因', 'ステップ9'],
+    ];
+    const structRows = structTable?.querySelectorAll('tbody tr');
+    expect(structRows?.length).toBe(expectedStructRows.length);
+    expectedStructRows.forEach((cells, idx) => {
+      const tds = structRows?.[idx]?.querySelectorAll('td');
+      expect(tds?.length).toBe(3);
+      cells.forEach((cell, col) => {
+        expect(tds?.[col]?.textContent).toBe(cell);
+      });
+    });
   });
 
   it('renders section #step1 with traditional vs agile flow diagrams', () => {
@@ -156,10 +179,28 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const table = step2?.querySelector('table');
       expect(table).not.toBeNull();
+      // 10 原則すべてを「#・原則・初学者向けポイント」まで 1 対 1 で検証する
+      const expectedPrinciples = [
+        ['1', '継続的にフィードバックを提供する', '受け入れ基準を明確にし、進捗を早く・頻繁に伝える'],
+        ['2', '顧客に価値を届ける', '受け入れテストで「スコープが膨らんでいないか」を常にチェックする'],
+        ['3', '対面のコミュニケーションを可能にする', 'テスターは顧客と開発者の翻訳者になれる'],
+        ['4', '勇気を持つ', '短いイテレーションで動くソフトウェアを出し続ける覚悟を持つ'],
+        ['5', 'シンプルさを保つ', '過剰な作り込みを避け、必要十分なテストにとどめる'],
+        ['6', '継続的な改善を実践する', 'ふりかえり(レトロスペクティブ)に必ず参加する'],
+        ['7', '変化に対応する', '仕様変更にも耐えられるよう自動テストを整備する'],
+        ['8', '自己組織化する', 'チームの誰もがテスト作業を担える状態を目指す'],
+        ['9', '人にフォーカスする', 'テスターを下請けではなく対等な貢献者として扱う文化をつくる'],
+        ['10', '楽しむ', 'プロセスを主体的に動かせることが、テスターの働きがいになる'],
+      ];
       const rows = table?.querySelectorAll('tbody tr');
-      expect(rows?.length).toBe(10);
-      expect(rows?.[0]?.textContent).toContain('継続的にフィードバックを提供する');
-      expect(rows?.[9]?.textContent).toContain('楽しむ');
+      expect(rows?.length).toBe(expectedPrinciples.length);
+      expectedPrinciples.forEach((cells, idx) => {
+        const tds = rows?.[idx]?.querySelectorAll('td');
+        expect(tds?.length).toBe(3);
+        cells.forEach((cell, col) => {
+          expect(tds?.[col]?.textContent).toBe(cell);
+        });
+      });
 
       const callout = step2?.querySelector('.callout.source');
       expect(callout).not.toBeNull();
@@ -205,9 +246,16 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       expect(qTags?.length).toBe(4);
       expect(Array.from(qTags || []).map((t) => t.textContent)).toEqual(['Q2', 'Q1', 'Q3', 'Q4']);
 
+      const expectedStep4Points = [
+        '4象限に「実施順序」はない(Lisa Crispin 自身がブログで繰り返し強調している点です)。プロジェクトやチームの状況に応じて重み付けを変えてよい思考ツールです。',
+        'Q1・Q4は「技術的な観点」、Q2・Q3は「ビジネス / ユーザーの観点」という軸で捉えると理解しやすい。',
+        'Q1・Q2は「開発を導く」= コードを書く前・書いている最中に使う。Q3・Q4は「できたものを批評する」= 完成に近づいてから使う。',
+      ];
       const listItems = step4?.querySelectorAll('ul li');
-      expect(listItems?.length).toBe(3);
-      expect(listItems?.[0]?.textContent).toContain('4象限に「実施順序」はない');
+      expect(listItems?.length).toBe(expectedStep4Points.length);
+      expectedStep4Points.forEach((text, idx) => {
+        expect(listItems?.[idx]?.textContent).toBe(text);
+      });
     });
   });
 
@@ -260,10 +308,23 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const table = step7?.querySelector('table');
       expect(table).not.toBeNull();
+      const expectedIterationRows = [
+        ['リリース / テーマ計画', '第15章', '大きな受け入れ基準の洗い出し、リスクの洗い出し'],
+        ['助走(Hit the Ground Running)', '第16章', 'ストーリーの事前準備、テスト観点の整理'],
+        ['イテレーションキックオフ', '第17章', 'Power of Threeでの会話、受け入れ基準の合意'],
+        ['コーディングとテスト', '第18章', '開発と並行したテスト設計・自動化・探索的テスト'],
+        ['イテレーションのまとめ', '第19章', 'デモ、ふりかえり、未完了項目の扱い'],
+        ['確実なリリース', '第20章', 'リリース判定、UAT、本番影響の確認'],
+      ];
       const rows = table?.querySelectorAll('tbody tr');
-      expect(rows?.length).toBe(6);
-      expect(rows?.[0]?.textContent).toContain('リリース / テーマ計画');
-      expect(rows?.[5]?.textContent).toContain('確実なリリース');
+      expect(rows?.length).toBe(expectedIterationRows.length);
+      expectedIterationRows.forEach((cells, idx) => {
+        const tds = rows?.[idx]?.querySelectorAll('td');
+        expect(tds?.length).toBe(3);
+        cells.forEach((cell, col) => {
+          expect(tds?.[col]?.textContent).toBe(cell);
+        });
+      });
     });
 
     it('renders section #step8 with exploratory testing points list and source callout', () => {
@@ -274,11 +335,16 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       const h2 = step8?.querySelector('h2');
       expect(h2?.textContent).toContain('ステップ8: 探索的テストという技法');
 
+      const expectedStep8Points = [
+        '同時並行で行う: ソフトウェアについて学びながら、テストを設計し、実行する。',
+        'でたらめに触ることではない: 目的を持った調査であり、通常は「チャーター(何を確認したいかの簡潔な宣言)」を用いて範囲を絞る。',
+        'タイムボックスで管理する: セッションベースドテストマネジメントなどの手法で、探索の時間と成果を管理する。',
+      ];
       const listItems = step8?.querySelectorAll('ul li');
-      expect(listItems?.length).toBe(3);
-      expect(listItems?.[0]?.textContent).toContain('同時並行で行う');
-      expect(listItems?.[1]?.textContent).toContain('でたらめに触ることではない');
-      expect(listItems?.[2]?.textContent).toContain('タイムボックスで管理する');
+      expect(listItems?.length).toBe(expectedStep8Points.length);
+      expectedStep8Points.forEach((text, idx) => {
+        expect(listItems?.[idx]?.textContent).toBe(text);
+      });
 
       const callout = step8?.querySelector('.callout.source');
       expect(callout).not.toBeNull();
@@ -298,10 +364,24 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const table = step9?.querySelector('table');
       expect(table).not.toBeNull();
+      const expectedSuccessRows = [
+        ['1', 'ホールチームアプローチを使う', '品質はテスターだけの責任にしない'],
+        ['2', 'アジャイルなテストマインドセットを持つ', 'バグ探しではなく価値の実現を支援する姿勢に切り替える'],
+        ['3', '回帰テストを自動化する', '変化に強いチームであるための土台をつくる'],
+        ['4', 'フィードバックを提供し、また受け取る', 'デモ・レトロスペクティブ・日々の会話を通じて双方向に'],
+        ['5', '基盤となるプラクティスを整える', '継続的インテグレーション、テスト環境、技術的負債の管理など'],
+        ['6', '顧客と協働する', 'ビジネス側を向こう側の人にせず、一緒にテストをつくる'],
+        ['7', '全体像を見る', '個々のテストではなく、プロダクト全体の価値提供という視点を持つ'],
+      ];
       const rows = table?.querySelectorAll('tbody tr');
-      expect(rows?.length).toBe(7);
-      expect(rows?.[0]?.textContent).toContain('ホールチームアプローチを使う');
-      expect(rows?.[6]?.textContent).toContain('全体像を見る');
+      expect(rows?.length).toBe(expectedSuccessRows.length);
+      expectedSuccessRows.forEach((cells, idx) => {
+        const tds = rows?.[idx]?.querySelectorAll('td');
+        expect(tds?.length).toBe(3);
+        cells.forEach((cell, col) => {
+          expect(tds?.[col]?.textContent).toBe(cell);
+        });
+      });
 
       const callout = step9?.querySelector('.callout.source');
       expect(callout).not.toBeNull();
@@ -335,10 +415,20 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       const h2 = checklistSection?.querySelector('h2');
       expect(h2?.textContent).toContain('実践チェックリスト: 明日から始める7ステップ');
 
+      const expectedChecklist = [
+        'チーム全員で「品質は誰の責任か」を話し合い、ホールチームアプローチを合言葉にする',
+        '現在のテストを4象限(Q1〜Q4)に仕分けし、抜け・偏りを可視化する',
+        '最も増やしやすいユニットテスト(Q1)から自動化の土台を作り始める',
+        'ストーリー着手前にPower of Three(プロダクトオーナー・開発者・テスター)で会話する時間を確保する',
+        '探索的テストの時間をイテレーションに明示的に組み込み、チャーターを書く習慣をつける',
+        'イテレーションの終わりに、7つの成功要因のどれが弱いかをふりかえりで確認する',
+        'AIツールを導入する場合も、「チームでの協働」を置き換えるのではなく補強する形で使う',
+      ];
       const items = checklistSection?.querySelectorAll('ul.checklist li');
-      expect(items?.length).toBe(7);
-      expect(items?.[0]?.textContent).toContain('ホールチームアプローチを合言葉にする');
-      expect(items?.[6]?.textContent).toContain('AIツールを導入する場合も');
+      expect(items?.length).toBe(expectedChecklist.length);
+      expectedChecklist.forEach((text, idx) => {
+        expect(items?.[idx]?.textContent).toBe(text);
+      });
     });
 
     it('renders section #pitfalls with 5 common pitfalls table', () => {
@@ -351,10 +441,42 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const table = pitfalls?.querySelector('table');
       expect(table).not.toBeNull();
+      const expectedPitfallRows = [
+        [
+          'テスターだけが品質責任者になっている',
+          '開発者がテストに無関心、リリース前にテスターだけが忙しい',
+          'ホールチームアプローチをふりかえりで再確認する',
+        ],
+        [
+          'Q1・Q4を軽視している',
+          '手動のQ2・Q3ばかりでリグレッションの自動防御がない',
+          'まずQ1(ユニットテスト)から自動化に着手する',
+        ],
+        [
+          '4象限を実施順序だと誤解している',
+          'Q1が終わらないとQ2に進めないと思い込む',
+          '4象限は分類のための思考ツールであり、順序ではないと理解する',
+        ],
+        [
+          '探索的テストを行き当たりばったりの作業だと誤解している',
+          '成果が記録されず再現できない',
+          'チャーターとセッションベースドテストマネジメントを導入する',
+        ],
+        [
+          'E2Eテストに偏重している',
+          'テストが遅く、頻繁に壊れる',
+          'テストピラミッドの比率を見直し、下位レイヤーを厚くする',
+        ],
+      ];
       const rows = table?.querySelectorAll('tbody tr');
-      expect(rows?.length).toBe(5);
-      expect(rows?.[0]?.textContent).toContain('テスターだけが品質責任者になっている');
-      expect(rows?.[4]?.textContent).toContain('E2Eテストに偏重している');
+      expect(rows?.length).toBe(expectedPitfallRows.length);
+      expectedPitfallRows.forEach((cells, idx) => {
+        const tds = rows?.[idx]?.querySelectorAll('td');
+        expect(tds?.length).toBe(3);
+        cells.forEach((cell, col) => {
+          expect(tds?.[col]?.textContent).toBe(cell);
+        });
+      });
     });
 
     it('renders section #references with 4 ref-groups and 16 external links having proper target and rel', () => {
@@ -365,15 +487,112 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       const h2 = references?.querySelector('h2');
       expect(h2?.textContent).toContain('参考文献・出典URL');
 
+      // 4 グループ × 全 16 件を「グループ見出し・出典名・URL」まで文書順に 1 対 1 で検証する
+      const expectedRefGroups: { heading: string; items: [string, string][] }[] = [
+        {
+          heading: '書籍情報',
+          items: [
+            [
+              "Lisa Crispin, Janet Gregory. Agile Testing: A Practical Guide for Testers and Agile Teams(O'Reilly掲載ページ / 目次)",
+              'https://www.oreilly.com/library/view/agile-testing-a/9780321616944/',
+            ],
+            [
+              'Amazon 書籍ページ(書誌情報)',
+              'https://www.amazon.com/Agile-Testing-Practical-Guide-Testers/dp/0321534468',
+            ],
+          ],
+        },
+        {
+          heading: 'Lisa Crispin のブログ',
+          items: [
+            [
+              '"The Agile Testing Quadrants"(2024年・最新版4象限図)',
+              'https://lisacrispin.com/2024/10/11/the-agile-testing-quadrants/',
+            ],
+            [
+              '"Using the Agile Testing Quadrants"(2011年)',
+              'https://lisacrispin.com/2011/11/08/using-the-agile-testing-quadrants/',
+            ],
+            [
+              '"The Whole Team Approach"(2009年)',
+              'https://lisacrispin.com/2009/01/30/the-whole-team-approach/',
+            ],
+            [
+              '"Learn how to apply the Holistic Testing Model"(2023年)',
+              'https://lisacrispin.com/2023/05/15/holistic-testing-model-mini-book/',
+            ],
+            [
+              '"AI, testing, and the DORA AI Capabilities Model"(2026年4月)',
+              'https://lisacrispin.com/2026/04/20/ai-testing-and-the-dora-ai-capabilities-model/',
+            ],
+          ],
+        },
+        {
+          heading: 'Martin Fowler / ThoughtWorks',
+          items: [
+            ['"TestPyramid"(Bliki)', 'https://martinfowler.com/bliki/TestPyramid.html'],
+            [
+              'Ham Vocke, "The Practical Test Pyramid"',
+              'https://martinfowler.com/articles/practical-test-pyramid.html',
+            ],
+            [
+              '"On the Diverse And Fantastical Shapes of Testing"(2021年)',
+              'https://martinfowler.com/articles/2021-test-shapes.html',
+            ],
+          ],
+        },
+        {
+          heading: 'その他の著名な専門家・出典',
+          items: [
+            [
+              'Jeff Langr, Tim Ottinger, "Ten Principles for Agile Testers", Agile in a Flash(2009年)',
+              'https://agileinaflash.blogspot.com/2009/03/ten-principles-for-agile-testers.html',
+            ],
+            [
+              'Elisabeth Hendrickson, Explore It!: Reduce Risk and Increase Confidence with Exploratory Testing(Pragmatic Programmers)',
+              'https://pragprog.com/titles/ehxta/explore-it/',
+            ],
+            [
+              'Gojko Adzic, "Agile Testing (Crispin/Gregory) is a great book, long overdue"(書評)',
+              'https://gojko.net/2009/02/23/agile-testing-crispingregory-is-a-great-book-long-overdue/',
+            ],
+            [
+              'Tech Lead Journal, "#92 - Agile and Holistic Testing - Janet Gregory & Lisa Crispin"(2022年)',
+              'https://techleadjournal.dev/episodes/92/',
+            ],
+            [
+              'PMI Disciplined Agile, "Testing Quadrants"(4象限の背景解説)',
+              'https://www.pmi.org/disciplined-agile/agile/testingquadrants',
+            ],
+            [
+              'InfoQ, "Book Excerpt: Agile Testing"(第21章 Key Success Factors の抜粋紹介)',
+              'https://www.infoq.com/articles/agile-testing-book-excerpt/',
+            ],
+          ],
+        },
+      ];
+
       const refGroups = references?.querySelectorAll('.ref-group');
-      expect(refGroups?.length).toBe(4);
+      expect(refGroups?.length).toBe(expectedRefGroups.length);
+      expectedRefGroups.forEach((group, gIdx) => {
+        const groupEl = refGroups?.[gIdx];
+        expect(groupEl?.querySelector('h3')?.textContent?.trim()).toBe(group.heading);
+
+        const groupItems = groupEl?.querySelectorAll('li.ref-item');
+        expect(groupItems?.length).toBe(group.items.length);
+        group.items.forEach(([title, url], iIdx) => {
+          const item = groupItems?.[iIdx];
+          expect(item?.querySelector('.ref-title')?.textContent).toBe(title);
+          const anchor = item?.querySelector('a.ref-url');
+          expect(anchor?.getAttribute('href')).toBe(url);
+          expect(anchor?.textContent).toBe(url);
+          expect(anchor?.getAttribute('target')).toBe('_blank');
+          expect(anchor?.getAttribute('rel')).toBe('noopener noreferrer');
+        });
+      });
 
       const links = references?.querySelectorAll('a.ref-url');
       expect(links?.length).toBe(16);
-      links?.forEach((link) => {
-        expect(link.getAttribute('target')).toBe('_blank');
-        expect(link.getAttribute('rel')).toBe('noopener noreferrer');
-      });
     });
 
     it('renders footer with copyright and educational notice', () => {
@@ -381,6 +600,27 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       const footer = container.querySelector('footer');
       expect(footer).not.toBeNull();
       expect(footer?.textContent).toContain('本ガイドは2026年9月2日時点で確認できる公開情報をもとに作成しています');
+    });
+  });
+
+  describe('Diagram Inventory', () => {
+    it('renders all 8 mermaid diagram captions in document order', () => {
+      const { container } = render(<Page />);
+      const expectedCaptions = [
+        '図1: 従来型(テスト後工程型)の開発フロー',
+        '図2: アジャイルにおける継続的テストフロー',
+        '図3: ホールチームアプローチの構造',
+        '図4: テスト自動化戦略における3つのレイヤー',
+        '図5: Power of Three による共通理解の形成',
+        '図6: テスターのイテレーションサイクル',
+        '図7: 本書の思想の進化タイムライン',
+        '図8: Holistic Testing Model における継続的なテストの円環',
+      ];
+      const captions = container.querySelectorAll('.mmd-caption');
+      expect(captions.length).toBe(expectedCaptions.length);
+      expectedCaptions.forEach((text, idx) => {
+        expect(captions[idx]?.textContent?.trim()).toBe(text);
+      });
     });
   });
 

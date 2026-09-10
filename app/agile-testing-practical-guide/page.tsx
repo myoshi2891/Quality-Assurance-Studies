@@ -198,6 +198,7 @@ export default function AgileTestingPracticalGuidePage() {
             <div className="table-wrap">
               <div className="table-title">書誌情報</div>
               <table className="kv-table">
+                <caption>『Agile Testing』の書誌情報（原題・著者・出版社・ページ数ほか）</caption>
                 <tbody>
                   <tr>
                     <th>原題</th>
@@ -253,6 +254,7 @@ export default function AgileTestingPracticalGuidePage() {
             <div className="table-wrap">
               <div className="table-title">本書の構成マップ</div>
               <table>
+                <caption>本書6部21章の構成と本ガイドの対応ステップの対応表</caption>
                 <thead>
                   <tr>
                     <th>Part</th>
@@ -351,6 +353,7 @@ export default function AgileTestingPracticalGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>アジャイルテスターの10の原則と初学者向けポイント</caption>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -443,6 +446,7 @@ export default function AgileTestingPracticalGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>組織的な課題領域ごとの従来型の状態とアジャイルで目指す状態</caption>
                 <thead>
                   <tr>
                     <th>課題領域</th>
@@ -506,11 +510,14 @@ export default function AgileTestingPracticalGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>アジャイルテストの4象限（ビジネス視点／技術視点 × チーム支援／プロダクト批評）</caption>
                 <thead>
                   <tr>
-                    <th></th>
-                    <th>ビジネス視点で捉える(Business-Facing)</th>
-                    <th>技術視点で捉える(Technology-Facing)</th>
+                    <th scope="col">
+                      <span className="visually-hidden">テストがチームに果たす役割</span>
+                    </th>
+                    <th scope="col">ビジネス視点で捉える(Business-Facing)</th>
+                    <th scope="col">技術視点で捉える(Technology-Facing)</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -669,6 +676,7 @@ export default function AgileTestingPracticalGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>イテレーション各ステップと対応する原著の章・テスターの主な活動</caption>
                 <thead>
                   <tr>
                     <th>ステップ</th>
@@ -778,6 +786,7 @@ export default function AgileTestingPracticalGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>アジャイルテスト成功の鍵となる7つの要因と初学者向けポイント</caption>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -932,6 +941,7 @@ export default function AgileTestingPracticalGuidePage() {
           <div className="prose">
             <div className="table-wrap">
               <table>
+                <caption>よくある落とし穴とその症状・対処法</caption>
                 <thead>
                   <tr>
                     <th>落とし穴</th>

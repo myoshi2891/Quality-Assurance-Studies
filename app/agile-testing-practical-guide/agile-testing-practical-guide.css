@@ -288,6 +288,21 @@
   border-bottom: 1px solid var(--border);
 }
 
+/* テーブルのアクセシブル名 / 補助テキスト。原著HTMLの見た目を保つため視覚的にのみ隠す
+   （display:none や visibility:hidden は支援技術からも消えるため使わない） */
+.agile-testing-practical-page table caption,
+.agile-testing-practical-page .visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
 .agile-testing-practical-page table {
   width: 100%;
   border-collapse: collapse;
@@ -692,7 +707,8 @@
 .agile-testing-practical-page .mobile-bar {
   display: none;
   position: sticky;
-  top: 60px;
+  /* Header 60px + DisclaimerBanner の高さ分だけ下げ、バナーと重ならないようにする */
+  top: calc(60px + var(--disclaimer-height, 0px));
   z-index: 45;
   background: var(--paper-card);
   border-bottom: 1px solid var(--border);
