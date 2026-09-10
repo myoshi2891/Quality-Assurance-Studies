@@ -18,7 +18,7 @@ D --> E["Test Certified制度とテストサイズ分類を整備"]
 C --> F["2012年 書籍 How Google Tests Software 出版"]
 E --> F
 F --> G["2016年 SET職をSETIへ改称"]
-G --> H["2017年 GTAC最終開催"]
+G --> H["2016年 GTAC最終開催<br/>（2017年は中止告知のみ）"]
 H --> I["2020年 後継書籍 Software Engineering at Google 刊行"]
 I --> J["2024年以降 Tech on the Toiletとして継続"]
 classDef box fill:#fbf7ec,stroke:#c9bd9a,color:#24211c,stroke-width:1px;
@@ -302,6 +302,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
                     <th>実行範囲</th>
                     <th>許可される依存関係</th>
                     <th>目安の実行時間</th>
+                    <th>公式の時間制限</th>
                     <th>目安の構成比</th>
                   </tr>
                 </thead>
@@ -311,6 +312,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
                     <td>単一プロセス内</td>
                     <td>不可（ネットワーク・ディスクI/O・他プロセス禁止）</td>
                     <td>数十ミリ秒〜1秒未満</td>
+                    <td>60秒</td>
                     <td>約70%</td>
                   </tr>
                   <tr>
@@ -318,6 +320,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
                     <td>単一マシン内の複数プロセス</td>
                     <td>localhost通信のみ許可</td>
                     <td>数秒〜1分未満</td>
+                    <td>300秒</td>
                     <td>約20%</td>
                   </tr>
                   <tr>
@@ -325,10 +328,21 @@ export default function HowGoogleTestsSoftwareGuidePage() {
                     <td>複数マシン・本番同等環境</td>
                     <td>外部ネットワーク・実サービス呼び出し可</td>
                     <td>数分以上</td>
+                    <td>900秒以上</td>
                     <td>約10%</td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+
+            <div className="callout indigo">
+              <i className="ti ti-clock" aria-hidden="true" />
+              <div>
+                <div className="callout-title">「目安の実行時間」と「公式の時間制限」は別物</div>
+                <p>
+                  「目安の実行時間」は各サイズがおおよそどれくらいで終わるかという実務上の感覚値、「公式の時間制限」はGoogleのビルド／テストインフラ（Bazel）がサイズごとに課す<strong>タイムアウト上限</strong>です。900秒を超えるものはenormous相当として個別に扱います。テストをどのサイズで設計するかを考えるときは前者を、CI上でテストが打ち切られる境界を考えるときは後者を見てください。
+                </p>
+              </div>
             </div>
 
             <p>
@@ -636,7 +650,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
                   <tr>
                     <td>GTAC（外部カンファレンス）</td>
                     <td>
-                      2006年から毎年開催されていたが、2017年の開催を最後に休止。アーカイブ動画は現在も公開されている
+                      2006年から毎年開催されていたが、最終開催は2016年。2017年7月のブログ「Evolution of GTAC and Engineering Productivity」で以降の開催中止が告知されただけで、2017年に実際の開催はなかった。アーカイブ動画は現在も公開されている
                     </td>
                   </tr>
                   <tr>

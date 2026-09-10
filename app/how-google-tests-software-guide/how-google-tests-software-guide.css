@@ -219,7 +219,7 @@
 .how-google-tests-page .mobile-bar {
   display: none;
   position: sticky;
-  top: 60px;
+  top: calc(60px + var(--disclaimer-height, 0px));
   left: 0;
   right: 0;
   height: 3.4rem;

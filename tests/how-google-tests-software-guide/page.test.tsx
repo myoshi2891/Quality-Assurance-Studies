@@ -167,7 +167,7 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
     const table = section?.querySelector('table');
     expect(table).not.toBeNull();
     const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
-    expect(headers).toEqual(['サイズ', '実行範囲', '許可される依存関係', '目安の実行時間', '目安の構成比']);
+    expect(headers).toEqual(['サイズ', '実行範囲', '許可される依存関係', '目安の実行時間', '公式の時間制限', '目安の構成比']);
 
     const rows = table?.querySelectorAll('tbody tr');
     expect(rows?.length).toBe(3);
