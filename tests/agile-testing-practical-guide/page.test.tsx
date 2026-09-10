@@ -116,7 +116,7 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
     expect(kvTable?.textContent).toContain('Agile Testing: A Practical Guide for Testers and Agile Teams');
     expect(kvTable?.textContent).toContain('Lisa Crispin, Janet Gregory');
     expect(kvTable?.textContent).toContain('Addison-Wesley Professional');
-    expect(kvTable?.textContent).toContain('2009年1月 (初版)');
+    expect(kvTable?.textContent).toContain('2008年12月 (2009年刊行)');
 
     // Table 2: Book structure map（全 6 行を Part / 主な内容 / 対応ステップまで 1 対 1 で検証）
     const structTable = tables?.[1];
@@ -130,7 +130,7 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       [
         'Part III: アジャイルテストの4象限 (Part III. The Agile Testing Quadrants)',
         '4象限による分類とツールキット',
-        'ステップ4',
+        'ステップ4・8',
       ],
       ['Part IV: 自動化 (Part IV. Automation)', '自動化を阻む壁と戦略', 'ステップ5'],
       [

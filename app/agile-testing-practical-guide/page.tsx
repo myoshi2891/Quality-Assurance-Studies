@@ -216,7 +216,7 @@ export default function AgileTestingPracticalGuidePage() {
                   </tr>
                   <tr>
                     <th>初版</th>
-                    <td>2008年12月 (2009年1月 (初版) 刊行)</td>
+                    <td>2008年12月 (2009年刊行)</td>
                   </tr>
                   <tr>
                     <th>ページ数</th>
@@ -276,7 +276,7 @@ export default function AgileTestingPracticalGuidePage() {
                   <tr>
                     <td>Part III: アジャイルテストの4象限 (Part III. The Agile Testing Quadrants)</td>
                     <td>4象限による分類とツールキット</td>
-                    <td>ステップ4</td>
+                    <td>ステップ4・8</td>
                   </tr>
                   <tr>
                     <td>Part IV: 自動化 (Part IV. Automation)</td>
