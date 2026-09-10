@@ -171,7 +171,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（59 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（61 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -286,7 +286,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| なし | - | ✅ 全て完了 | 書籍ガイド系 Markdown 一式等はアーカイブへ移行済み |
+| 書籍ガイド系 Markdown / HTML 一式（`Appium-essentials-guide.*`、`Working-effectively-with-legacy-code-guide.*` ほか） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとしてプロジェクトルートに残置。ルート化の判断は未決定 |
 
 ## 既知の留保事項
 

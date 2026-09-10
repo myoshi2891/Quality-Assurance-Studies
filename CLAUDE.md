@@ -25,7 +25,7 @@ bun test             # ユニットテスト (bun test, 336 specs)
 
 ```sh
 bun run e2e:install  # 初回のみ: chromium バイナリ取得 (~150 MB)
-bun run e2e          # 全 58 ルートのスモーク E2E (webServer 自動起動)
+bun run e2e          # 全 61 ルートのスモーク E2E (webServer 自動起動)
 bun run e2e:ui       # Playwright UI モードで対話実行
 bun run lhci:autorun # Lighthouse CI 自動実行（本番ビルドの品質予算検証）
 bun run e2e:report   # 直近の HTML レポートを表示
@@ -569,7 +569,7 @@ bun test        # ユニットテスト成功
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| なし | - | ✅ 全て完了 | 書籍ガイド系 Markdown 一式等はアーカイブへ移行済み |
+| 書籍ガイド系 Markdown / HTML 一式（`Appium-essentials-guide.*`、`Working-effectively-with-legacy-code-guide.*` ほか） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとしてプロジェクトルートに残置。ルート化の判断は未決定 |
 
 ## 既知の留保事項
 

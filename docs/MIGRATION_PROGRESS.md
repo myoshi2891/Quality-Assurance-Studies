@@ -16,7 +16,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `a092836` |
 | 最新コミット内容 | fix(agile-testing): faithfully style mermaid diagrams with paper theme and clear edge labels |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
 ## 2026/09/09: Agile Testing 実践ガイドのNext.js完全移行
 
@@ -44,13 +44,13 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **Mermaid図解の完全移植**:
   - 全9図解（`diag-0` 〜 `diag-8`）を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止や枠線視認性最適化を適用。
 - **インタラクティブチェックリスト**:
-  - Step 9 の自己診断チェックリスト（全4項目）を `'use client'` の `Checklist.tsx` として実装。チェック状態に応じた打消し線スタイルと進捗カウンターを連動。
+  - Step 9 の自己診断チェックリスト（全4項目）を `'use client'` の `Checklist.tsx` として実装。チェック状態に応じた打消し線スタイルを連動（進捗カウンターは未実装）。
 - **テーブル & コールアウト**:
-  - 4つの品質ペルソナ、原著章構成、各ステップの具体策、専門家一覧（10名）など全テーブル、および全コールアウトを完全移植。
-- **全セクション参考文献**: 全22件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
-- `app/leading-quality-guide/`: ページコンポーネント、専用スタイル（`.leading-quality-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全14セクションリンク、読了プログレスバー、モバイルトグル対応、`aria-current`）を実装。
+  - 4つの品質ペルソナ、原著章構成、各ステップの具体策、専門家一覧（6名）など全テーブル、および全コールアウトを完全移植。
+- **全セクション参考文献**: 全9件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
+- `app/leading-quality-guide/`: ページコンポーネント、専用スタイル（`.leading-quality-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全14セクションリンク、`aria-current="location"`）を実装。モバイル目次は `page.tsx` の `<details className="mobile-toc">` で提供（読了プログレスバーは未実装）。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/leading-quality-guide` を追加（全60件）。
-- `tests/leading-quality-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全14リンク、全14セクション、全9Mermaid図、全テーブル、全コールアウト、インタラクティブチェックリスト、全参考文献外部リンク（22件）の存在を検証する厳格なテストスイートを実装して全パス（19 pass / 173 expect()）。
+- `tests/leading-quality-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全14リンク、全14セクション、全9Mermaid図、全テーブル、全コールアウト、インタラクティブチェックリスト、全参考文献外部リンク（9件）の存在を検証する厳格なテストスイートを実装。
 - `Leading-quality-guide.html` & `Leading-quality-guide.md`: `archive/html-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 60 ページ体制に同期。
 
