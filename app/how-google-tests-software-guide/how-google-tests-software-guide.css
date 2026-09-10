@@ -669,6 +669,10 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
+  /* サイドバーが fixed になるモバイルでは、.mobile-bar と .main を縦積みにする */
+  .how-google-tests-page {
+    display: block;
+  }
   .how-google-tests-page .sidebar {
     position: fixed;
     top: calc(60px + var(--disclaimer-height, 0px));
@@ -693,6 +697,10 @@
   }
   .how-google-tests-page .mobile-bar {
     display: flex;
+  }
+  /* sticky な .mobile-bar の高さ分、アンカー着地位置を下げて見出しが隠れないようにする */
+  .how-google-tests-page section.block {
+    scroll-margin-top: calc(70px + 3.4rem + var(--disclaimer-height, 0px));
   }
   .how-google-tests-page .backdrop.open {
     display: block;

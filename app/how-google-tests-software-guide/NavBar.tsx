@@ -82,6 +82,7 @@ export default function NavBar() {
           id="hamburgerBtn"
           aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
           aria-expanded={isOpen}
+          aria-controls="sidebar"
           onClick={toggleSidebar}
         >
           <i className={isOpen ? 'ti ti-x' : 'ti ti-menu-2'} aria-hidden="true" />
