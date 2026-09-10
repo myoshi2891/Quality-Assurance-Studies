@@ -38,8 +38,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/09: Leading Quality 実践ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & エディトリアル・ペーパーテーマ**:
-  - 原著HTML固有のエディトリアル書籍スタイル（紙の背景 `--paper: #f8f6f0`、インク文字 `--ink: #1c1917`、ダークネイビーバナー `--navy: #1b2a4a`、アクア `--teal: #0d9488`、ウォームアンバー `--amber: #d97706`）を忠実に復元。
-  - セリフ見出し `Playfair Display`、UIフォント `Inter`、等幅コード `JetBrains Mono` を完全適用。
+  - 原著HTML固有のエディトリアル書籍スタイル（紙の背景 `--paper: #eff2f1`、インク文字 `--ink: #142433`、スチールブルー `--steel: #3b5a80`、グリーン `--green: #2e6e49`、ウォームアンバー `--amber: #b8722e`）を忠実に復元。
+  - セリフ見出し `Source Serif 4`、UIフォント `Inter`、等幅コード `IBM Plex Mono` を完全適用。
   - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、境界線、セルパディング、Tailwindリストマーカー `list-style-type: disc !important` 等）を完全実装。
 - **Mermaid図解の完全移植**:
   - 全9図解（`diag-0` 〜 `diag-8`）を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止や枠線視認性最適化を適用。
