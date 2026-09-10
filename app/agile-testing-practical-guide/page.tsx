@@ -522,11 +522,11 @@ export default function AgileTestingPracticalGuidePage() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>チームを支援する</strong>
                       <br />
                       (開発を導くテスト)
-                    </td>
+                    </th>
                     <td className="q-cell q2">
                       <span className="q-tag">Q2</span>
                       <br />
@@ -539,11 +539,11 @@ export default function AgileTestingPracticalGuidePage() {
                     </td>
                   </tr>
                   <tr>
-                    <td>
+                    <th scope="row">
                       <strong>プロダクトを批評する</strong>
                       <br />
                       (できたものを検証)
-                    </td>
+                    </th>
                     <td className="q-cell q3">
                       <span className="q-tag">Q3</span>
                       <br />
