@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/how-google-tests-software-guide/page';
@@ -96,7 +96,7 @@ describe('How Google Tests Software Guide - Category A (Foundation, Hero, NavBar
     expect(section?.textContent).toContain('Testing Grouplet創設メンバーである Mike Bland 氏');
   });
 
-  it('renders section #s1 with heading, content, and Mermaid diagram dg-history', () => {
+  it('renders section #s1 with heading, content, and Mermaid diagram dg-history', async () => {
     const { container } = render(<Page />);
     const section = container.querySelector('section#s1');
     expect(section).not.toBeNull();
@@ -106,6 +106,10 @@ describe('How Google Tests Software Guide - Category A (Foundation, Hero, NavBar
     
     const mermaidEl = section?.querySelector('#dg-history');
     expect(mermaidEl).not.toBeNull();
+    // mermaid.render() は useEffect 内の非同期処理のため、SVG が実際に注入されるまで待つ。
+    await waitFor(() =>
+      expect(mermaidEl?.querySelector('[data-testid="mock-mermaid"]')).not.toBeNull()
+    );
     expect(section?.textContent).toContain('図1: Googleのテスト文化が形成された歴史的な流れ');
   });
 
@@ -127,7 +131,7 @@ describe('How Google Tests Software Guide - Category A (Foundation, Hero, NavBar
 });
 
 describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Sizes, ACC)', () => {
-  it('renders section #s3 with roles table and dg-roles diagram', () => {
+  it('renders section #s3 with roles table and dg-roles diagram', async () => {
     const { container } = render(<Page />);
     const section = container.querySelector('section#s3');
     expect(section).not.toBeNull();
@@ -136,6 +140,10 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
 
     const mermaidEl = section?.querySelector('#dg-roles');
     expect(mermaidEl).not.toBeNull();
+    // mermaid.render() は useEffect 内の非同期処理のため、SVG が実際に注入されるまで待つ。
+    await waitFor(() =>
+      expect(mermaidEl?.querySelector('[data-testid="mock-mermaid"]')).not.toBeNull()
+    );
     expect(section?.textContent).toContain('図2: SET・TE・TEMの3つの役割の関係');
 
     const table = section?.querySelector('table');
@@ -153,7 +161,7 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
     expect(rows?.[2]?.textContent).toContain('TEM');
   });
 
-  it('renders section #s4 with test sizes table and dg-sizes diagram', () => {
+  it('renders section #s4 with test sizes table and dg-sizes diagram', async () => {
     const { container } = render(<Page />);
     const section = container.querySelector('section#s4');
     expect(section).not.toBeNull();
@@ -162,6 +170,10 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
 
     const mermaidEl = section?.querySelector('#dg-sizes');
     expect(mermaidEl).not.toBeNull();
+    // mermaid.render() は useEffect 内の非同期処理のため、SVG が実際に注入されるまで待つ。
+    await waitFor(() =>
+      expect(mermaidEl?.querySelector('[data-testid="mock-mermaid"]')).not.toBeNull()
+    );
     expect(section?.textContent).toContain('図3: Small / Medium / Large の関係');
 
     const table = section?.querySelector('table');
@@ -181,7 +193,7 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
     expect(section?.textContent).toContain('TAP（Test Automation Platform）');
   });
 
-  it('renders section #s5 with ACC table, dg-acc diagram, and 10分間テストプラン h3', () => {
+  it('renders section #s5 with ACC table, dg-acc diagram, and 10分間テストプラン h3', async () => {
     const { container } = render(<Page />);
     const section = container.querySelector('section#s5');
     expect(section).not.toBeNull();
@@ -190,6 +202,10 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
 
     const mermaidEl = section?.querySelector('#dg-acc');
     expect(mermaidEl).not.toBeNull();
+    // mermaid.render() は useEffect 内の非同期処理のため、SVG が実際に注入されるまで待つ。
+    await waitFor(() =>
+      expect(mermaidEl?.querySelector('[data-testid="mock-mermaid"]')).not.toBeNull()
+    );
     expect(section?.textContent).toContain('図4: ACC分析からテストケースを導くまでの流れ');
 
     const table = section?.querySelector('table');
@@ -213,7 +229,7 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
 });
 
 describe('How Google Tests Software Guide - Category C (Sections 6-9: Test Certified, Flaky, CI)', () => {
-  it('renders section #s6 with Test Certified diagram and gold callout', () => {
+  it('renders section #s6 with Test Certified diagram and gold callout', async () => {
     const { container } = render(<Page />);
     const section = container.querySelector('section#s6');
     expect(section).not.toBeNull();
@@ -222,6 +238,10 @@ describe('How Google Tests Software Guide - Category C (Sections 6-9: Test Certi
 
     const mermaidEl = section?.querySelector('#dg-certified');
     expect(mermaidEl).not.toBeNull();
+    // mermaid.render() は useEffect 内の非同期処理のため、SVG が実際に注入されるまで待つ。
+    await waitFor(() =>
+      expect(mermaidEl?.querySelector('[data-testid="mock-mermaid"]')).not.toBeNull()
+    );
     expect(section?.textContent).toContain('図5: Test Certifiedの成熟度レベル');
 
     const callout = section?.querySelector('.callout.gold');
@@ -230,7 +250,7 @@ describe('How Google Tests Software Guide - Category C (Sections 6-9: Test Certi
     expect(callout?.textContent).toContain('Test Certified Mentorに登録すると');
   });
 
-  it('renders section #s7 with flaky tests diagram and causes list', () => {
+  it('renders section #s7 with flaky tests diagram and causes list', async () => {
     const { container } = render(<Page />);
     const section = container.querySelector('section#s7');
     expect(section).not.toBeNull();
@@ -245,6 +265,10 @@ describe('How Google Tests Software Guide - Category C (Sections 6-9: Test Certi
 
     const mermaidEl = section?.querySelector('#dg-flaky');
     expect(mermaidEl).not.toBeNull();
+    // mermaid.render() は useEffect 内の非同期処理のため、SVG が実際に注入されるまで待つ。
+    await waitFor(() =>
+      expect(mermaidEl?.querySelector('[data-testid="mock-mermaid"]')).not.toBeNull()
+    );
     expect(section?.textContent).toContain('図6: フレーキーテストの原因切り分けと対処フロー');
   });
 
@@ -259,7 +283,7 @@ describe('How Google Tests Software Guide - Category C (Sections 6-9: Test Certi
     expect(section?.textContent).toContain('SeleniumやWebDriver');
   });
 
-  it('renders section #s9 with CI diagram and forest callout', () => {
+  it('renders section #s9 with CI diagram and forest callout', async () => {
     const { container } = render(<Page />);
     const section = container.querySelector('section#s9');
     expect(section).not.toBeNull();
@@ -268,6 +292,10 @@ describe('How Google Tests Software Guide - Category C (Sections 6-9: Test Certi
 
     const mermaidEl = section?.querySelector('#dg-ci');
     expect(mermaidEl).not.toBeNull();
+    // mermaid.render() は useEffect 内の非同期処理のため、SVG が実際に注入されるまで待つ。
+    await waitFor(() =>
+      expect(mermaidEl?.querySelector('[data-testid="mock-mermaid"]')).not.toBeNull()
+    );
     expect(section?.textContent).toContain('図7: コード変更からリリースまでの継続的インテグレーションの流れ');
 
     const callout = section?.querySelector('.callout.forest');
@@ -444,6 +472,15 @@ describe('How Google Tests Software Guide - Category E (Sections 13-15 & Footer:
       expect(link.getAttribute('target')).toBe('_blank');
       expect(link.getAttribute('rel')).toBe('noopener noreferrer');
     });
+  });
+
+  it('injects rendered SVG for all 7 Mermaid diagrams', async () => {
+    const { container } = render(<Page />);
+    // 7 図すべてが mermaid.render() を経て SVG を注入し終えるまで待つ。
+    // コンテナ（#dg-*）の存在だけでは描画成功を検証できない。
+    await waitFor(() =>
+      expect(container.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(7)
+    );
   });
 
   it('renders page footer with disclaimer text', () => {

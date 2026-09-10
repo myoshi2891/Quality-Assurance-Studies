@@ -225,6 +225,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>SET・TE・TEMの3つの役割と主な仕事・求められるスキル</caption>
                 <thead>
                   <tr>
                     <th>役割</th>
@@ -296,6 +297,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>テストサイズ（Small / Medium / Large）ごとの実行範囲・依存関係・時間制限・構成比</caption>
                 <thead>
                   <tr>
                     <th>サイズ</th>
@@ -373,6 +375,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
 
             <div className="table-wrap">
               <table>
+                <caption>ACC分析の3要素と品詞のたとえ・ECサイトを例にした場合</caption>
                 <thead>
                   <tr>
                     <th>ACCの要素</th>
@@ -628,6 +631,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
             </p>
             <div className="table-wrap">
               <table>
+                <caption>2012年の書籍での呼称・概念と2026年現在の状況の対比</caption>
                 <thead>
                   <tr>
                     <th>2012年の書籍での呼称・概念</th>
@@ -732,6 +736,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
             </h2>
             <div className="table-wrap">
               <table>
+                <caption>原著の章立て一覧（章・原題・主な内容）</caption>
                 <thead>
                   <tr>
                     <th>章</th>
@@ -853,6 +858,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
             </div>
             <div className="table-wrap">
               <table>
+                <caption>参考文献: 書籍・公式レビューの出典とURL一覧</caption>
                 <thead>
                   <tr>
                     <th>出典</th>
@@ -944,6 +950,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
             </div>
             <div className="table-wrap">
               <table>
+                <caption>参考文献: Google公式テストブログの出典とURL一覧</caption>
                 <thead>
                   <tr>
                     <th>出典</th>
@@ -1047,6 +1054,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
             </div>
             <div className="table-wrap">
               <table>
+                <caption>参考文献: 著名な国際的エンジニア・専門メディアによる解説の出典とURL一覧</caption>
                 <thead>
                   <tr>
                     <th>出典</th>
