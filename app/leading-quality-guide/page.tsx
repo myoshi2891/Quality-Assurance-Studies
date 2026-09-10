@@ -25,20 +25,20 @@ const DIAGRAM_1 = `flowchart TD
     style VN fill:#E4E9F2,stroke:#3B5A80,color:#142433`;
 
 const DIAGRAM_2 = `flowchart LR
-    subgraph 現状["よくある状態（属人化）"]
+    subgraph Current["よくある状態（属人化）"]
         direction TB
         QAonly["QA/テスターのみが<br/>品質に責任を持つ"]
     end
-    subgraph 理想["目指す状態（全員参加）"]
+    subgraph Ideal["目指す状態（全員参加）"]
         direction TB
         Dev["開発者"] --- PM["プロダクトマネージャー"]
         PM --- Design["デザイナー"]
         Design --- QA["QA/テスター"]
         QA --- Dev
     end
-    現状 -.移行.-> 理想
-    style 現状 fill:#F3E3E1,stroke:#A23B34
-    style 理想 fill:#DCEAE1,stroke:#2E6E49`;
+    Current -.移行.-> Ideal
+    style Current fill:#F3E3E1,stroke:#A23B34
+    style Ideal fill:#DCEAE1,stroke:#2E6E49`;
 
 const DIAGRAM_3 = `flowchart TD
     A["品質チームの発見:<br/>姓の必須入力が<br/>サインアップを妨げている"] --> B["修正を実施"]
@@ -155,6 +155,7 @@ export default function LeadingQualityGuidePage() {
             </p>
             <div className="table-wrap">
               <table>
+                <caption>本書3部構成とセクション・テーマ・対応ステップの対応表</caption>
                 <thead>
                   <tr>
                     <th>セクション</th>
@@ -217,6 +218,7 @@ export default function LeadingQualityGuidePage() {
             <p>さらに著者らは、品質問題の影響を「3つのC」という切り口で整理しています。</p>
             <div className="table-wrap">
               <table>
+                <caption>品質が事業に効く3つのC（Customer・Company・Career）と具体例</caption>
                 <thead>
                   <tr>
                     <th>3つのC</th>
@@ -277,6 +279,7 @@ export default function LeadingQualityGuidePage() {
             </div>
             <div className="table-wrap">
               <table>
+                <caption>3つの品質ナラティブと、その問いかけおよびありがちな失敗</caption>
                 <thead>
                   <tr>
                     <th>ナラティブ</th>
@@ -349,6 +352,7 @@ export default function LeadingQualityGuidePage() {
             </p>
             <div className="table-wrap">
               <table>
+                <caption>知りたいこと（テストの問い）と、それに適したテスト手法の対応表</caption>
                 <thead>
                   <tr>
                     <th>知りたいこと（テストの問い）</th>
@@ -401,6 +405,7 @@ export default function LeadingQualityGuidePage() {
             </p>
             <div className="table-wrap">
               <table>
+                <caption>成長指標の3タイプ（アテンション型・トランザクション型・プロダクティビティ型）と代表企業の例</caption>
                 <thead>
                   <tr>
                     <th>成長指標のタイプ</th>
@@ -472,6 +477,7 @@ export default function LeadingQualityGuidePage() {
             </div>
             <div className="table-wrap">
               <table>
+                <caption>プロダクト成熟度の各段階と、主な目的およびテスト戦略の重心</caption>
                 <thead>
                   <tr>
                     <th>段階</th>
@@ -582,6 +588,7 @@ export default function LeadingQualityGuidePage() {
             </p>
             <div className="table-wrap">
               <table>
+                <caption>ローカルペルソナを意識したテスト戦略の企業取り組み例</caption>
                 <thead>
                   <tr>
                     <th>企業の取り組み例</th>
@@ -682,6 +689,7 @@ export default function LeadingQualityGuidePage() {
             </div>
             <div className="table-wrap">
               <table className="roadmap-table">
+                <caption>品質リーダーシップ10ステップのロードマップ一覧</caption>
                 <thead>
                   <tr>
                     <th>#</th>
@@ -755,6 +763,7 @@ export default function LeadingQualityGuidePage() {
             </p>
             <div className="table-wrap">
               <table>
+                <caption>本書への推薦者と、その肩書およびコメントの要旨</caption>
                 <thead>
                   <tr>
                     <th>推薦者</th>
@@ -831,6 +840,7 @@ export default function LeadingQualityGuidePage() {
             </p>
             <div className="table-wrap">
               <table>
+                <caption>参考文献・出典の種別、タイトル／概要、URL 一覧</caption>
                 <thead>
                   <tr>
                     <th>種別</th>

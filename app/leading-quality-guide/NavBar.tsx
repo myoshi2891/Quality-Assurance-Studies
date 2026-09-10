@@ -49,15 +49,7 @@ export default function NavBar() {
               <a
                 href={item.href}
                 className={isActive ? 'active' : ''}
-                style={
-                  isActive
-                    ? {
-                        color: 'var(--amber)',
-                        borderLeftColor: 'var(--amber)',
-                        fontWeight: 600,
-                      }
-                    : undefined
-                }
+                aria-current={isActive ? 'location' : undefined}
               >
                 {item.label}
               </a>

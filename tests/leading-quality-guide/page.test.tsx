@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/leading-quality-guide/page';
@@ -84,7 +84,7 @@ describe('Leading Quality Guide - Category A (Foundation, Hero, NavBar, Intro & 
     expect(NAV_ITEMS[13]).toEqual({ href: '#sources', label: '参考文献・出典' });
   });
 
-  it('renders introduction section with 3-part table and diag-0 diagram', () => {
+  it('renders introduction section with 3-part table and all 9 mermaid diagrams', async () => {
     const { container } = render(<Page />);
     expect(
       screen.getByText(/本書は3部構成で、品質を「テストチームの仕事」から「経営・リーダーシップの課題」へと引き上げる考え方を説きます/)
@@ -107,6 +107,28 @@ describe('Leading Quality Guide - Category A (Foundation, Hero, NavBar, Intro & 
     expect(
       screen.getByText(/対象読者は、CTO・VPoE・QAリード・プロダクトオーナーはもちろん/)
     ).not.toBeNull();
+
+    // Mermaid は useEffect 内の async 処理を経て SVG を注入するため、描画完了を待つ。
+    const wrappers = container.querySelectorAll('.diagram-live .mermaid-wrapper');
+    expect(wrappers.length).toBe(9);
+    await waitFor(() => {
+      wrappers.forEach((wrapper) => {
+        expect(wrapper.querySelector('svg')).not.toBeNull();
+      });
+    });
+
+    const diagramIds = Array.from(container.querySelectorAll('.diagram-live')).map((el) => el.id);
+    expect(diagramIds).toEqual([
+      'diag-0',
+      'diag-1',
+      'diag-2',
+      'diag-3',
+      'diag-4',
+      'diag-5',
+      'diag-6',
+      'diag-7',
+      'diag-8',
+    ]);
   });
 
   it('renders section #why with heading, CISQ data, 3Cs table, American Airlines case, and point callout', () => {

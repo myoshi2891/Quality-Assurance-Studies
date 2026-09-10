@@ -33,6 +33,8 @@
 .leading-quality-page section {
     padding-top: 0 !important;
     margin-bottom: 64px;
+    /* 固定ヘッダー(60px) + DisclaimerBanner 分だけアンカー着地点を下げる */
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .leading-quality-page section:last-of-type {
@@ -42,7 +44,7 @@
 .leading-quality-page .hero {
     min-height: 0 !important;
     display: block !important;
-    padding: calc(76px + var(--disclaimer-height, 0px) + 16px) 24px 64px !important;
+    padding: 92px 24px 64px !important;
     background: var(--ink) !important;
     color: #edf1f4 !important;
     position: relative !important;
@@ -403,47 +405,25 @@
     width: 34px;
 }
 
-/* ---------- Diagrams & Mermaid ---------- */
-.leading-quality-page .diagram {
-    background: var(--paper);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 20px 12px;
-    margin: 22px 0;
-    overflow-x: auto;
+/* テーブルのアクセシブル名。原著HTMLの見た目を保つため視覚的には隠す */
+.leading-quality-page table caption {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
 }
 
+/* ---------- Diagrams (layout only) ---------- */
+/* .diagram / .mermaid-wrapper / svg / foreignObject の基準値は
+   後段の「Diagrams & Mermaid」ブロックに一本化している。ここには固有定義のみ置く。 */
 .leading-quality-page .diagram-live {
     display: flex;
     justify-content: center;
-}
-
-.leading-quality-page .mermaid-wrapper {
-    width: 100% !important;
-    max-width: 100% !important;
-    background: transparent !important;
-    border: none !important;
-    box-shadow: none !important;
-    padding: 0 !important;
-    display: flex;
-    justify-content: center;
-}
-
-.leading-quality-page .mermaid-wrapper svg {
-    display: block;
-    margin: 0 auto;
-    max-width: 100% !important;
-    height: auto !important;
-}
-
-.leading-quality-page .mermaid-wrapper foreignObject {
-    overflow: visible;
-}
-
-.leading-quality-page .mermaid-wrapper foreignObject > div,
-.leading-quality-page .mermaid-wrapper .nodeLabel,
-.leading-quality-page .mermaid-wrapper .edgeLabel {
-    overflow: visible;
 }
 
 
@@ -519,7 +499,7 @@
     text-decoration-color: var(--line);
 }
 
-/* ---------- Diagrams & Mermaid ---------- */
+/* ---------- Diagrams & Mermaid（基準ブロック：ここが単一の変更点） ---------- */
 .leading-quality-page .diagram {
     background: var(--paper) !important;
     border: 1px solid var(--line) !important;
@@ -792,6 +772,6 @@
 
 @media (max-width: 520px) {
     .leading-quality-page .hero {
-        padding: calc(56px + var(--disclaimer-height, 0px) + 16px) 18px 48px !important;
+        padding: 72px 18px 48px !important;
     }
 }
