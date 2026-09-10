@@ -269,7 +269,7 @@ Next.js App Router 構成:
 
 | ファイル | 対応する予定ルート | 状態 |
 |---|---|---|
-| 書籍ガイド系 Markdown 一式 / `Leading-quality-guide.html` ほかルート直下の HTML | 未定 | ⏸ ルート登録対象外（静的ドキュメントとして残置） |
+| 書籍ガイド系 Markdown 一式 ほかルート直下の HTML | 未定 | ⏸ ルート登録対象外（静的ドキュメントとして残置） |
 
 移行完了後は `archive/html-archive/` へ移動し、上記テーブルから削除する。
 
