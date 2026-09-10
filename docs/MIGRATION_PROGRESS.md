@@ -29,7 +29,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - アジャイルテスト10の原則、アジャイルテストの4象限（Q1〜Q4）、イテレーション各期の活動、7つの成功要因、よくある落とし穴5選の全5テーブルを完全移植。
   - 10ステップの構成要素（`.step-item`）、実践チェックリスト（`ul.checklist`）、引用（Cunningham 氏・Crispin 氏・Gregory 氏のことば）、アジャイルテスターの役割カードを完全移植。
 - **全セクション参考文献**: 全16件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
-- `app/agile-testing-practical-guide/`: ページコンポーネント、専用スタイル（`.agile-testing-practical-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全15セクションリンク、読了プログレスバー、モバイルトグル対応、`aria-current`）を実装。
+- `app/agile-testing-practical-guide/`: ページコンポーネント、専用スタイル（`.agile-testing-practical-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全15セクションリンク、モバイルトグル対応、`aria-current`）を実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/agile-testing-practical-guide` を追加（全61件）。
 - `tests/agile-testing-practical-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全15リンク、全15セクション、全5Mermaid図、全5テーブル、全コールアウト、全リスト、全参考文献外部リンク（16件）の存在を検証する厳格なテストスイートを実装して全パス（18 pass / 182 expect()）。
 - `Agile-testing-practical-guide.html` & `Agile-testing-practical-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
@@ -67,7 +67,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 8ステップ導入ガイド（`ol.step-list`）、批判的視点（`ul.check-list`）、要点まとめ10箇条（`ul.check-list`）を完全移植。
   - 重要引用（James Whittaker 氏のことば）、インディゴ・ゴールド・フォレストの全コールアウトを完全移植。
 - **参考文献**: 全21件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
-- `app/how-google-tests-software-guide/`: ページコンポーネント、専用スタイル（`.how-google-tests-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全16セクションリンク、読了プログレスバー、モバイルトグル対応、`aria-current`）を実装。
+- `app/how-google-tests-software-guide/`: ページコンポーネント、専用スタイル（`.how-google-tests-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全16セクションリンク、モバイルトグル対応、`aria-current`）を実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/how-google-tests-software-guide` を追加（全59件）。
 - `tests/how-google-tests-software-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全16リンク、全16セクション、全7Mermaid図、全8テーブル、全コールアウト、全リスト、全参考文献外部リンク（21件）の存在を検証する厳格なテストスイートを実装して全パス（20 pass / 173 expect()）。
 - `How-google-tests-software-guide.html` & `How-google-tests-software-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。

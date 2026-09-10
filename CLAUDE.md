@@ -244,14 +244,14 @@ Next.js App Router 構成:
 - `app/secure-by-design-guide/NavBar.tsx` — セキュア・バイ・デザイン実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応、読了プログレスバー、トップ戻るボタン）
 - `app/how-google-tests-software-guide/how-google-tests-software-guide.css` — How Google Tests Software 完全ガイド固有スタイル
 - `app/how-google-tests-software-guide/page.tsx` — How Google Tests Software 完全ガイドページ
-- `app/how-google-tests-software-guide/NavBar.tsx` — How Google Tests Software 完全ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応、読了プログレスバー、トップ戻るボタン）
+- `app/how-google-tests-software-guide/NavBar.tsx` — How Google Tests Software 完全ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応、モバイルトグル対応）
 - `app/leading-quality-guide/leading-quality-guide.css` — Leading Quality 実践ガイド固有スタイル
 - `app/leading-quality-guide/page.tsx` — Leading Quality 実践ガイドページ
 - `app/leading-quality-guide/NavBar.tsx` — Leading Quality 実践ガイドページ固有スティッキーナビ（`'use client'`）
 - `app/leading-quality-guide/Checklist.tsx` — Leading Quality 実践ガイド セクション9用インタラクティブチェックリスト（`'use client'`）
 - `app/agile-testing-practical-guide/agile-testing-practical-guide.css` — Agile Testing 実践ガイド固有スタイル
 - `app/agile-testing-practical-guide/page.tsx` — Agile Testing 実践ガイドページ
-- `app/agile-testing-practical-guide/NavBar.tsx` — Agile Testing 実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応、読了プログレスバー、モバイルトグル対応）
+- `app/agile-testing-practical-guide/NavBar.tsx` — Agile Testing 実践ガイドページ固有スティッキーナビ（`'use client'`、`lib/useScrollSpy.ts` でアクティブリンク制御、`aria-current` 対応、モバイルトグル対応）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
 - `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。cucumber / cypress / selenium / clean-code-cookbook / the-way-of-the-web-tester / testing-web-apis / software-test-design / secure-by-design / how-google-tests-software / agile-testing-practical の各 NavBar が共用する
 - `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 61 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
