@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import PlaywrightIntermediateAdvancedPage from '../../app/playwright-intermediate-advanced-guide/page';
@@ -634,7 +634,7 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
         },
     ];
 
-    it('verifies every section owns exactly its expected diagrams, code blocks, and tables', () => {
+    it('verifies every section owns exactly its expected diagrams, code blocks, and tables', async () => {
       const { container } = render(<PlaywrightIntermediateAdvancedPage />);
 
       expect(SECTION_INVENTORY.length).toBe(21);
@@ -664,6 +664,17 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
           });
         });
       });
+
+      // Mermaid は非同期描画のため、コンテナの存在だけでなく SVG 注入完了まで待って検証する
+      for (const expected of SECTION_INVENTORY) {
+        if (expected.diagrams === 0) continue;
+        const section = container.querySelector(`section#${expected.id}`);
+        await waitFor(() =>
+          expect(section?.querySelectorAll('[data-testid="mock-mermaid"]').length).toBe(
+            expected.diagrams
+          )
+        );
+      }
     });
 
     it('verifies page-wide totals match the sum of the per-section inventory', () => {
