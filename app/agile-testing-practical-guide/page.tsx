@@ -899,7 +899,7 @@ export default function AgileTestingPracticalGuidePage() {
               </li>
               <li>
                 <i className="ti ti-circle-check" aria-hidden="true" />
-                最も数の少ないユニットテスト(Q1)から自動化の土台を作り始める
+                最も増やしやすいユニットテスト(Q1)から自動化の土台を作り始める
               </li>
               <li>
                 <i className="ti ti-circle-check" aria-hidden="true" />

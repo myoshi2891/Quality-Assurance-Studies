@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/agile-testing-practical-guide/page';
@@ -63,10 +63,10 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
     const chips = container.querySelectorAll('.hero .chip');
     expect(chips.length).toBe(4);
-    expect(chips[0].textContent).toContain('Lisa Crispin, Janet Gregory');
-    expect(chips[1].textContent).toContain('Addison-Wesley Professional');
-    expect(chips[2].textContent).toContain('初版 2009年');
-    expect(chips[3].textContent).toContain("O'Reilly掲載ページ");
+    expect(chips[0]?.textContent).toContain('Lisa Crispin, Janet Gregory');
+    expect(chips[1]?.textContent).toContain('Addison-Wesley Professional');
+    expect(chips[2]?.textContent).toContain('初版 2009年');
+    expect(chips[3]?.textContent).toContain("O'Reilly掲載ページ");
   });
 
   it('renders NavBar with 14 TOC links matching exact href and labels', () => {
@@ -91,8 +91,8 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
     ];
 
     expectedNav.forEach((item, idx) => {
-      expect(NAV_ITEMS[idx].href).toBe(item.href);
-      expect(NAV_ITEMS[idx].label).toBe(item.label);
+      expect(NAV_ITEMS[idx]?.href).toBe(item.href);
+      expect(NAV_ITEMS[idx]?.label).toBe(item.label);
     });
 
     const links = container.querySelectorAll('.side-nav a');
@@ -141,8 +141,8 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
     const captions = step1?.querySelectorAll('.mmd-caption');
     expect(captions?.length).toBe(2);
-    expect(captions?.[0].textContent).toContain('図1: 従来型(テスト後工程型)の開発フロー');
-    expect(captions?.[1].textContent).toContain('図2: アジャイルにおける継続的テストフロー');
+    expect(captions?.[0]?.textContent).toContain('図1: 従来型(テスト後工程型)の開発フロー');
+    expect(captions?.[1]?.textContent).toContain('図2: アジャイルにおける継続的テストフロー');
   });
 
   describe('Category B (Steps 2 to 4)', () => {
@@ -158,8 +158,8 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       expect(table).not.toBeNull();
       const rows = table?.querySelectorAll('tbody tr');
       expect(rows?.length).toBe(10);
-      expect(rows?.[0].textContent).toContain('継続的にフィードバックを提供する');
-      expect(rows?.[9].textContent).toContain('楽しむ');
+      expect(rows?.[0]?.textContent).toContain('継続的にフィードバックを提供する');
+      expect(rows?.[9]?.textContent).toContain('楽しむ');
 
       const callout = step2?.querySelector('.callout.source');
       expect(callout).not.toBeNull();
@@ -179,10 +179,10 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       expect(table).not.toBeNull();
       const rows = table?.querySelectorAll('tbody tr');
       expect(rows?.length).toBe(4);
-      expect(rows?.[0].textContent).toContain('組織構造');
-      expect(rows?.[1].textContent).toContain('物理配置 / コミュニケーション');
-      expect(rows?.[2].textContent).toContain('役割意識');
-      expect(rows?.[3].textContent).toContain('プロセス');
+      expect(rows?.[0]?.textContent).toContain('組織構造');
+      expect(rows?.[1]?.textContent).toContain('物理配置 / コミュニケーション');
+      expect(rows?.[2]?.textContent).toContain('役割意識');
+      expect(rows?.[3]?.textContent).toContain('プロセス');
 
       const caption = step3?.querySelector('.mmd-caption');
       expect(caption?.textContent).toContain('図3: ホールチームアプローチの構造');
@@ -207,7 +207,7 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const listItems = step4?.querySelectorAll('ul li');
       expect(listItems?.length).toBe(3);
-      expect(listItems?.[0].textContent).toContain('4象限に「実施順序」はない');
+      expect(listItems?.[0]?.textContent).toContain('4象限に「実施順序」はない');
     });
   });
 
@@ -225,9 +225,9 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const stepList = step5?.querySelectorAll('ol.step-list li');
       expect(stepList?.length).toBe(3);
-      expect(stepList?.[0].textContent).toContain('まずユニットテストの土台を作る');
-      expect(stepList?.[1].textContent).toContain('サービス / APIレベルの統合テストを追加する');
-      expect(stepList?.[2].textContent).toContain('UI / E2Eテストは最小限に絞る');
+      expect(stepList?.[0]?.textContent).toContain('まずユニットテストの土台を作る');
+      expect(stepList?.[1]?.textContent).toContain('サービス / APIレベルの統合テストを追加する');
+      expect(stepList?.[2]?.textContent).toContain('UI / E2Eテストは最小限に絞る');
 
       const note = step5?.querySelector('.callout.note');
       expect(note).not.toBeNull();
@@ -262,8 +262,8 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       expect(table).not.toBeNull();
       const rows = table?.querySelectorAll('tbody tr');
       expect(rows?.length).toBe(6);
-      expect(rows?.[0].textContent).toContain('リリース / テーマ計画');
-      expect(rows?.[5].textContent).toContain('確実なリリース');
+      expect(rows?.[0]?.textContent).toContain('リリース / テーマ計画');
+      expect(rows?.[5]?.textContent).toContain('確実なリリース');
     });
 
     it('renders section #step8 with exploratory testing points list and source callout', () => {
@@ -276,9 +276,9 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const listItems = step8?.querySelectorAll('ul li');
       expect(listItems?.length).toBe(3);
-      expect(listItems?.[0].textContent).toContain('同時並行で行う');
-      expect(listItems?.[1].textContent).toContain('でたらめに触ることではない');
-      expect(listItems?.[2].textContent).toContain('タイムボックスで管理する');
+      expect(listItems?.[0]?.textContent).toContain('同時並行で行う');
+      expect(listItems?.[1]?.textContent).toContain('でたらめに触ることではない');
+      expect(listItems?.[2]?.textContent).toContain('タイムボックスで管理する');
 
       const callout = step8?.querySelector('.callout.source');
       expect(callout).not.toBeNull();
@@ -300,8 +300,8 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       expect(table).not.toBeNull();
       const rows = table?.querySelectorAll('tbody tr');
       expect(rows?.length).toBe(7);
-      expect(rows?.[0].textContent).toContain('ホールチームアプローチを使う');
-      expect(rows?.[6].textContent).toContain('全体像を見る');
+      expect(rows?.[0]?.textContent).toContain('ホールチームアプローチを使う');
+      expect(rows?.[6]?.textContent).toContain('全体像を見る');
 
       const callout = step9?.querySelector('.callout.source');
       expect(callout).not.toBeNull();
@@ -318,13 +318,13 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const h3s = step10?.querySelectorAll('h3');
       expect(h3s?.length).toBe(2);
-      expect(h3s?.[0].textContent).toContain('1. ホリスティックテスティング(Holistic Testing Model)');
-      expect(h3s?.[1].textContent).toContain('2. AI・エージェント型QEへの拡張');
+      expect(h3s?.[0]?.textContent).toContain('1. ホリスティックテスティング(Holistic Testing Model)');
+      expect(h3s?.[1]?.textContent).toContain('2. AI・エージェント型QEへの拡張');
 
       const captions = step10?.querySelectorAll('.mmd-caption');
       expect(captions?.length).toBe(2);
-      expect(captions?.[0].textContent).toContain('図7: 本書の思想の進化タイムライン');
-      expect(captions?.[1].textContent).toContain('図8: Holistic Testing Model における継続的なテストの円環');
+      expect(captions?.[0]?.textContent).toContain('図7: 本書の思想の進化タイムライン');
+      expect(captions?.[1]?.textContent).toContain('図8: Holistic Testing Model における継続的なテストの円環');
     });
 
     it('renders section #checklist with 7 action items', () => {
@@ -337,8 +337,8 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const items = checklistSection?.querySelectorAll('ul.checklist li');
       expect(items?.length).toBe(7);
-      expect(items?.[0].textContent).toContain('ホールチームアプローチを合言葉にする');
-      expect(items?.[6].textContent).toContain('AIツールを導入する場合も');
+      expect(items?.[0]?.textContent).toContain('ホールチームアプローチを合言葉にする');
+      expect(items?.[6]?.textContent).toContain('AIツールを導入する場合も');
     });
 
     it('renders section #pitfalls with 5 common pitfalls table', () => {
@@ -353,8 +353,8 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       expect(table).not.toBeNull();
       const rows = table?.querySelectorAll('tbody tr');
       expect(rows?.length).toBe(5);
-      expect(rows?.[0].textContent).toContain('テスターだけが品質責任者になっている');
-      expect(rows?.[4].textContent).toContain('E2Eテストに偏重している');
+      expect(rows?.[0]?.textContent).toContain('テスターだけが品質責任者になっている');
+      expect(rows?.[4]?.textContent).toContain('E2Eテストに偏重している');
     });
 
     it('renders section #references with 4 ref-groups and 16 external links having proper target and rel', () => {
@@ -385,10 +385,12 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
   });
 
   describe('Diagram Paper Theme Styling (Faithful Recreation)', () => {
-    it('applies editorial paper theme variables to all 8 mermaid diagrams', () => {
+    it('applies editorial paper theme variables to all 8 mermaid diagrams', async () => {
       renderedCharts.length = 0;
       render(<Page />);
-      expect(renderedCharts.length).toBe(8);
+      // Mermaid の描画は useEffect 内の async 処理（document.fonts.ready 待ち）を経るため、
+      // 8 図すべてが mermaid.render() に渡されるまで待つ。
+      await waitFor(() => expect(renderedCharts.length).toBe(8));
 
       renderedCharts.forEach((chart) => {
         expect(chart).toContain('%%{init:');

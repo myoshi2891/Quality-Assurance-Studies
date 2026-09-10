@@ -42,6 +42,8 @@
   padding-bottom: 3.4rem !important;
   border-bottom: 1px solid var(--border);
   overflow-wrap: break-word;
+  /* 固定ヘッダー(60px) + DisclaimerBanner 分だけアンカー着地点を下げる */
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .agile-testing-practical-page section:last-of-type {
@@ -732,7 +734,10 @@
     position: fixed;
     top: calc(60px + var(--disclaimer-height, 0px));
     transform: translateX(-100%);
-    transition: transform 0.25s ease;
+    /* 閉じている間はフォーカス順・支援技術から除外する。
+       visibility の切り替えはスライドアウト完了後に遅延させ、退場アニメを保つ。 */
+    visibility: hidden;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
     width: 82vw;
     max-width: 340px;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.25);
@@ -740,6 +745,8 @@
   }
   .agile-testing-practical-page .sidebar.open {
     transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.25s ease, visibility 0s linear 0s;
   }
   .agile-testing-practical-page .sidebar-close {
     display: flex;
