@@ -179,7 +179,18 @@ describe('How Google Tests Software Guide - Category B (Sections 3-5: Roles, Siz
     const table = section?.querySelector('table');
     expect(table).not.toBeNull();
     const headers = Array.from(table?.querySelectorAll('th') || []).map((th) => th.textContent?.trim());
-    expect(headers).toEqual(['サイズ', '実行範囲', '許可される依存関係', '目安の実行時間', '公式の時間制限', '目安の構成比']);
+    expect(headers).toEqual([
+      'サイズ',
+      '実行範囲',
+      '許可される依存関係',
+      '目安の実行時間',
+      '当時の時間制限（2010年時点）',
+      '目安の構成比',
+    ]);
+
+    // 「900秒超 = enormous」という現行 Bazel には当てはまらない記述を再発させない。
+    expect(section?.textContent).not.toContain('900秒を超えるものはenormous');
+    expect(section?.textContent).toContain('enormous＝3600秒');
 
     const rows = table?.querySelectorAll('tbody tr');
     expect(rows?.length).toBe(3);

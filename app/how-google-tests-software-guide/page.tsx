@@ -297,14 +297,16 @@ export default function HowGoogleTestsSoftwareGuidePage() {
 
             <div className="table-wrap">
               <table>
-                <caption>テストサイズ（Small / Medium / Large）ごとの実行範囲・依存関係・時間制限・構成比</caption>
+                <caption>
+                  テストサイズ（Small / Medium / Large）ごとの実行範囲・依存関係・時間制限・構成比（時間制限は2010年当時の目安）
+                </caption>
                 <thead>
                   <tr>
                     <th>サイズ</th>
                     <th>実行範囲</th>
                     <th>許可される依存関係</th>
                     <th>目安の実行時間</th>
-                    <th>公式の時間制限</th>
+                    <th>当時の時間制限（2010年時点）</th>
                     <th>目安の構成比</th>
                   </tr>
                 </thead>
@@ -330,7 +332,7 @@ export default function HowGoogleTestsSoftwareGuidePage() {
                     <td>複数マシン・本番同等環境</td>
                     <td>外部ネットワーク・実サービス呼び出し可</td>
                     <td>数分以上</td>
-                    <td>900秒以上</td>
+                    <td>900秒</td>
                     <td>約10%</td>
                   </tr>
                 </tbody>
@@ -340,9 +342,15 @@ export default function HowGoogleTestsSoftwareGuidePage() {
             <div className="callout indigo">
               <i className="ti ti-clock" aria-hidden="true" />
               <div>
-                <div className="callout-title">「目安の実行時間」と「公式の時間制限」は別物</div>
+                <div className="callout-title">「目安の実行時間」と「時間制限」は別物</div>
                 <p>
-                  「目安の実行時間」は各サイズがおおよそどれくらいで終わるかという実務上の感覚値、「公式の時間制限」はGoogleのビルド／テストインフラ（Bazel）がサイズごとに課す<strong>タイムアウト上限</strong>です。900秒を超えるものはenormous相当として個別に扱います。テストをどのサイズで設計するかを考えるときは前者を、CI上でテストが打ち切られる境界を考えるときは後者を見てください。
+                  「目安の実行時間」は各サイズがおおよそどれくらいで終わるかという実務上の感覚値です。一方の「当時の時間制限」は、2010年のGoogle Testing Blogがテストサイズを紹介した際に示した<strong>歴史的な目安</strong>であり、現在のツールの仕様をそのまま表したものではありません。テストをどのサイズで設計するかを考えるときは前者を、当時のGoogleがどこに境界を引いていたかを知りたいときは後者を見てください。
+                </p>
+                <p>
+                  現在の<strong>Bazel</strong>では、<code>size</code>属性から既定の<code>timeout</code>が導かれ、
+                  small＝60秒、medium＝300秒、large＝900秒、enormous＝3600秒となります。ただし
+                  <code>timeout</code>属性は<code>size</code>とは独立に明示指定でき、明示した場合はそちらが優先されます。
+                  つまり「実行時間が900秒を超えたらenormous」という関係ではなく、サイズはリソース制約の宣言、タイムアウトは打ち切り境界の宣言として別々に決まります。
                 </p>
               </div>
             </div>
