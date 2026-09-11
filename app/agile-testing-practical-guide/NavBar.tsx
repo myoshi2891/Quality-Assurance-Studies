@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { useScrollSpy } from '../../lib/useScrollSpy';
 
 export interface NavItemType {
@@ -48,13 +48,21 @@ const SCROLL_SPY_BAND = { top: 0.15, bottom: 0.35 } as const;
 export default function NavBar() {
   const activeId = useScrollSpy(SECTION_IDS, SCROLL_SPY_BAND);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
 
   const toggleSidebar = useCallback(() => {
     setIsOpen((prev) => !prev);
   }, []);
 
   const closeSidebar = useCallback(() => {
+    // サイドバー内にフォーカスが残ったまま閉じると、非表示要素上にフォーカスが
+    // 取り残される。閉じる前に判定し、トグルボタンへフォーカスを戻す。
+    const focusWasInside = sidebarRef.current?.contains(document.activeElement) ?? false;
     setIsOpen(false);
+    if (focusWasInside) {
+      toggleRef.current?.focus();
+    }
   }, []);
 
   useEffect(() => {
@@ -73,6 +81,7 @@ export default function NavBar() {
         <button
           type="button"
           id="sidebarToggle"
+          ref={toggleRef}
           aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
           aria-expanded={isOpen}
           aria-controls="sidebar"
@@ -90,7 +99,12 @@ export default function NavBar() {
         aria-hidden="true"
       />
 
-      <aside className={`sidebar ${isOpen ? 'open' : ''}`} id="sidebar" aria-label="目次">
+      <aside
+        ref={sidebarRef}
+        className={`sidebar ${isOpen ? 'open' : ''}`}
+        id="sidebar"
+        aria-label="目次"
+      >
         <button
           type="button"
           className="sidebar-close"

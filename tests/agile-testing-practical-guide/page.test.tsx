@@ -249,7 +249,7 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
       const expectedStep4Points = [
         '4象限に「実施順序」はない(Lisa Crispin 自身がブログで繰り返し強調している点です)。プロジェクトやチームの状況に応じて重み付けを変えてよい思考ツールです。',
         'Q1・Q4は「技術的な観点」、Q2・Q3は「ビジネス / ユーザーの観点」という軸で捉えると理解しやすい。',
-        'Q1・Q2は「開発を導く」= コードを書く前・書いている最中に使う。Q3・Q4は「できたものを批評する」= 完成に近づいてから使う。',
+        'Q1・Q2は「チームを支援する」、Q3・Q4は「プロダクトを批評する」という目的の違いで捉える。これはテストが果たす役割の分類であり、実施時期や順序を表すものではない。',
       ];
       const listItems = step4?.querySelectorAll('ul li');
       expect(listItems?.length).toBe(expectedStep4Points.length);

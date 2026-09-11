@@ -78,6 +78,18 @@ export default function NavBar() {
     };
   }, []);
 
+  // デスクトップ幅（CSS の 960px ブレークポイント超）へ戻したら、
+  // モバイル用サイドバーの開閉状態をリセットしてレイアウトと同期させる。
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 960) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const toggleSidebar = () => setIsOpen((prev) => !prev);
   const closeSidebar = () => setIsOpen(false);
 
