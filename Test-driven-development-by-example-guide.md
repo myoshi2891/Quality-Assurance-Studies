@@ -368,7 +368,7 @@ flowchart TD
 - <a href="https://martinfowler.com/articles/is-tdd-dead/" target="_blank" rel="noopener noreferrer">Martin Fowler, "Is TDD Dead?"（Kent Beck・DHHとの対話シリーズ）</a>
 - <a href="https://dhh.dk/2014/tdd-is-dead-long-live-testing.html" target="_blank" rel="noopener noreferrer">David Heinemeier Hansson, "TDD is dead. Long live testing."（2014年）</a>
 - <a href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html" target="_blank" rel="noopener noreferrer">Robert C. Martin（Uncle Bob）, "The Cycles of TDD"（Three Laws of TDDの解説）</a>
-- <a href="https://newsletter.kentbeck.com/p/canon-tdd" target="_blank" rel="noopener noreferrer">Kent Beck, "Canon TDD"（2023年、規範的TDDの再定義）</a>
+- <a href="https://newsletter.kentbeck.com/p/canon-tdd" target="_blank" rel="noopener noreferrer">Kent Beck, "Canon TDD"（2023年、Kent Beckが自身のTDD手順を整理した記事）</a>
 - <a href="https://newsletter.kentbeck.com/p/augmented-coding-beyond-the-vibes" target="_blank" rel="noopener noreferrer">Kent Beck, "Augmented Coding: Beyond the Vibes"（AI時代のTDDに関する考察）</a>
 - <a href="https://newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent" target="_blank" rel="noopener noreferrer">The Pragmatic Engineer, "TDD, AI agents and coding with Kent Beck"（Gergely Oroszによるインタビュー）</a>
 - <a href="https://kentbeck.com/" target="_blank" rel="noopener noreferrer">Kent Beck 公式サイト（近年の活動・Canon TDD講演等の紹介）</a>
