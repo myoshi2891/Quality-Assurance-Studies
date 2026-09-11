@@ -1,6 +1,6 @@
 # Migration Progress
 
-Updated 2026-09-09
+Updated 2026-09-11
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `a092836` |
-| 最新コミット内容 | fix(agile-testing): faithfully style mermaid diagrams with paper theme and clear edge labels |
+| 最新 HEAD | `ce56ed1` |
+| 最新コミット内容 | docs(quality-is-free): Quality is FreeガイドのHTML版を追加およびMarkdownの表現を微修正 |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -46,7 +46,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **インタラクティブチェックリスト**:
   - Step 9 の自己診断チェックリスト（全4項目）を `'use client'` の `Checklist.tsx` として実装。チェック状態に応じた打消し線スタイルを連動（進捗カウンターは未実装）。
 - **テーブル & コールアウト**:
-  - 4つの品質ペルソナ、原著章構成、各ステップの具体策、専門家一覧（6名）など全テーブル、および全コールアウトを完全移植。
+  - 全10テーブル（本書3部構成とセクション対応表、品質が事業に効く3つのC、3つの品質ナラティブ、テストの問いと手法の対応表、成長指標の3タイプ、プロダクト成熟度の段階別テスト戦略、ローカルペルソナを意識したテスト戦略の企業取り組み例、品質リーダーシップ10ステップのロードマップ一覧、推薦者一覧（6名）、参考文献・出典一覧）、および全コールアウトを完全移植。
 - **全セクション参考文献**: 全9件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
 - `app/leading-quality-guide/`: ページコンポーネント、専用スタイル（`.leading-quality-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全14セクションリンク、`aria-current="location"`）を実装。モバイル目次は `page.tsx` の `<details className="mobile-toc">` で提供（読了プログレスバーは未実装）。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/leading-quality-guide` を追加（全60件）。
