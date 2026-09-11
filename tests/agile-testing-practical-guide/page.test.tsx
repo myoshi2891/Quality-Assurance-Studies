@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, waitFor } from '@testing-library/react';
+import { render, screen, cleanup, waitFor, act, fireEvent } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/agile-testing-practical-guide/page';
@@ -67,6 +67,49 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
     expect(chips[1]?.textContent).toContain('Addison-Wesley Professional');
     expect(chips[2]?.textContent).toContain('初版 2009年');
     expect(chips[3]?.textContent).toContain("O'Reilly掲載ページ");
+  });
+
+  it('returns focus to the menu toggle when shrinking back to mobile width (a11y regression)', () => {
+    const { container } = render(<NavBar />);
+    const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;
+    const firstLink = container.querySelector('.side-nav a') as HTMLAnchorElement;
+    const originalWidth = window.innerWidth;
+
+    try {
+      // デスクトップ幅ではサイドバーが常時表示なので、リンクへフォーカスできる。
+      act(() => {
+        Object.defineProperty(window, 'innerWidth', {
+          configurable: true,
+          writable: true,
+          value: 1280,
+        });
+        fireEvent(window, new Event('resize'));
+      });
+      firstLink.focus();
+      expect((document.activeElement as HTMLElement | null)?.getAttribute('href')).toBe(
+        firstLink.getAttribute('href')
+      );
+
+      // モバイル幅へ縮めるとサイドバーは visibility: hidden になる。
+      act(() => {
+        Object.defineProperty(window, 'innerWidth', {
+          configurable: true,
+          writable: true,
+          value: 800,
+        });
+        fireEvent(window, new Event('resize'));
+      });
+
+      // 不可視になったサイドバー内ではなく、トグルボタンへフォーカスが戻る。
+      expect((document.activeElement as HTMLElement | null)?.id).toBe('sidebarToggle');
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    } finally {
+      Object.defineProperty(window, 'innerWidth', {
+        configurable: true,
+        writable: true,
+        value: originalWidth,
+      });
+    }
   });
 
   it('renders NavBar with 14 TOC links matching exact href and labels', () => {
