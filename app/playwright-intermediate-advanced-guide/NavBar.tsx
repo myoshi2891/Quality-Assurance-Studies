@@ -63,15 +63,28 @@ export default function NavBar() {
 
   useEffect(() => {
     const allSections = NAV_GROUPS.flatMap((g) => g.items);
+    // IntersectionObserver のコールバックは「状態が変化したターゲット」しか渡さない。
+    // 差分だけで可視率を比較すると、交差したままのより大きな節を取りこぼすため、
+    // 全ターゲットの最新エントリを保持したうえで選択する。
+    const latestEntries = new Map<Element, IntersectionObserverEntry>();
+
     const observer = new IntersectionObserver(
       (entries) => {
-        const visible = entries.filter((e) => e.isIntersecting);
-        if (visible.length > 0) {
-          visible.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-          const topEntry = visible[0];
-          if (topEntry) {
-            setActiveId(topEntry.target.id);
+        for (const entry of entries) {
+          latestEntries.set(entry.target, entry);
+        }
+
+        let topEntry: IntersectionObserverEntry | null = null;
+        for (const entry of latestEntries.values()) {
+          if (!entry.isIntersecting) continue;
+          if (topEntry && entry.intersectionRatio <= topEntry.intersectionRatio) {
+            continue;
           }
+          topEntry = entry;
+        }
+
+        if (topEntry) {
+          setActiveId(topEntry.target.id);
         }
       },
       {
