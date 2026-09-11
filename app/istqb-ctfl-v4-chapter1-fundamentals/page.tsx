@@ -881,7 +881,7 @@ style P7 fill:#2e1065,stroke:#a855f7,color:#e9d5ff`}
                                             <tr>
                                                 <td>医療機器（安全クリティカル）</td>
                                                 <td>
-                                                    Respective documentation・高い独立性・規制準拠
+                                                    厳格な文書化・高い独立性・規制準拠
                                                 </td>
                                             </tr>
                                             <tr>
