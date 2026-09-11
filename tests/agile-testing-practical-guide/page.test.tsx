@@ -218,12 +218,34 @@ describe('Agile Testing Practical Guide - Category A (Hero, About, Step 1, Navig
 
       const table = step3?.querySelector('table');
       expect(table).not.toBeNull();
+      // 4 つの課題領域すべてを「課題領域・従来型の状態・アジャイルで目指す状態」まで 1 対 1 で検証する
+      const expectedChallenges = [
+        [
+          '組織構造',
+          'テスターは独立したQA部門に所属',
+          'テスターは機能横断チームの一員',
+        ],
+        [
+          '物理配置 / コミュニケーション',
+          '部署ごとに離れた席・非同期連絡が中心',
+          '同じチームで密に対面(またはリモートでも高頻度)コミュニケーション',
+        ],
+        ['役割意識', 'テスターがバグを見つける責任者', '品質はチーム全員の責任'],
+        [
+          'プロセス',
+          'フェーズゲート型の承認プロセス',
+          '継続的な検証と早期フィードバック',
+        ],
+      ];
       const rows = table?.querySelectorAll('tbody tr');
-      expect(rows?.length).toBe(4);
-      expect(rows?.[0]?.textContent).toContain('組織構造');
-      expect(rows?.[1]?.textContent).toContain('物理配置 / コミュニケーション');
-      expect(rows?.[2]?.textContent).toContain('役割意識');
-      expect(rows?.[3]?.textContent).toContain('プロセス');
+      expect(rows?.length).toBe(expectedChallenges.length);
+      expectedChallenges.forEach((cells, idx) => {
+        const tds = rows?.[idx]?.querySelectorAll('td');
+        expect(tds?.length).toBe(3);
+        cells.forEach((cell, col) => {
+          expect(tds?.[col]?.textContent).toBe(cell);
+        });
+      });
 
       const caption = step3?.querySelector('.mmd-caption');
       expect(caption?.textContent).toContain('図3: ホールチームアプローチの構造');

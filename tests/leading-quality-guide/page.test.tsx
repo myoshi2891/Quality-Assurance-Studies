@@ -94,15 +94,41 @@ describe('Leading Quality Guide - Category A (Foundation, Hero, NavBar, Intro & 
     expect(tables.length).toBeGreaterThanOrEqual(1);
     const introTable = tables[0];
     expect(introTable).toBeDefined();
-    expect(introTable?.textContent).toContain('Section 1');
-    expect(introTable?.textContent).toContain('品質リーダーになる（Becoming a Leader of Quality）');
-    expect(introTable?.textContent).toContain('Step 1〜4');
-    expect(introTable?.textContent).toContain('Section 2');
-    expect(introTable?.textContent).toContain('戦略的な品質判断を極める（Mastering Your Strategic Quality Decisions）');
-    expect(introTable?.textContent).toContain('Step 5〜8');
-    expect(introTable?.textContent).toContain('Section 3');
-    expect(introTable?.textContent).toContain('チームを率いて成長を加速する（Leading Your Team to Accelerate Growth）');
-    expect(introTable?.textContent).toContain('Step 9〜10');
+
+    // 3 部構成表を「セクション・テーマ・対応ステップ」まで出現順に 1 対 1 で検証する
+    const expectedIntroHeaders = ['セクション', 'テーマ', '対応ステップ'];
+    const introHeaders = introTable?.querySelectorAll('thead th');
+    expect(introHeaders?.length).toBe(expectedIntroHeaders.length);
+    expectedIntroHeaders.forEach((header, col) => {
+      expect(introHeaders?.[col]?.textContent).toBe(header);
+    });
+
+    const expectedIntroRows = [
+      [
+        'Section 1',
+        '品質リーダーになる（Becoming a Leader of Quality）',
+        'Step 1〜4',
+      ],
+      [
+        'Section 2',
+        '戦略的な品質判断を極める（Mastering Your Strategic Quality Decisions）',
+        'Step 5〜8',
+      ],
+      [
+        'Section 3',
+        'チームを率いて成長を加速する（Leading Your Team to Accelerate Growth）',
+        'Step 9〜10',
+      ],
+    ];
+    const introRows = introTable?.querySelectorAll('tbody tr');
+    expect(introRows?.length).toBe(expectedIntroRows.length);
+    expectedIntroRows.forEach((cells, idx) => {
+      const tds = introRows?.[idx]?.querySelectorAll('td');
+      expect(tds?.length).toBe(3);
+      cells.forEach((cell, col) => {
+        expect(tds?.[col]?.textContent).toBe(cell);
+      });
+    });
 
     expect(
       screen.getByText(/対象読者は、CTO・VPoE・QAリード・プロダクトオーナーはもちろん/)
@@ -434,24 +460,72 @@ describe('Leading Quality Guide - Category E (Experts, Sources, Footer)', () => 
     const table = sectionSources?.querySelector('table');
     expect(table).not.toBeNull();
 
-    const rows = table?.querySelectorAll('tbody tr');
-    expect(rows?.length).toBe(9);
+    // 9 件の出典を「種別・リンク表示名・href」まで出現順に 1 対 1 で検証する
+    const expectedSources = [
+      {
+        kind: '公式サイト',
+        text: 'leadingqualitybook.com',
+        href: 'https://www.leadingqualitybook.com/',
+      },
+      {
+        kind: '著者インタビュー（InfoQ）',
+        text: 'infoq.com',
+        href: 'https://www.infoq.com/articles/book-review-leading-quality/',
+      },
+      {
+        kind: '一次資料（CISQ）',
+        text: 'it-cisq.org (PDF)',
+        href: 'https://www.it-cisq.org/wp-content/uploads/sites/6/2023/09/The-Cost-of-Poor-Quality-Software-in-the-US-2018-Report.pdf',
+      },
+      {
+        kind: '無料サンプル章',
+        text: 'leadingqualitybook.com/#freeFooter',
+        href: 'https://www.leadingqualitybook.com/#freeFooter',
+      },
+      {
+        kind: 'ポッドキャスト（TestGuild）',
+        text: 'testguild.com',
+        href: 'https://testguild.com/podcast/a326-ronald/',
+      },
+      {
+        kind: '書評',
+        text: 'djdegrood.wordpress.com',
+        href: 'https://djdegrood.wordpress.com/2019/11/28/leading-quality-review-of-the-book-by-ronald-cummings-john-and-owais-peer/',
+      },
+      {
+        kind: '書籍要点まとめ',
+        text: 'mentoring-club.com',
+        href: 'https://www.mentoring-club.com/bookshelf/ronald-cummings---john-owais-peer-leading-quality---how-great-leaders-deliver-high-quality-software-and-accelerate-growth',
+      },
+      {
+        kind: '書籍販売ページ',
+        text: 'amazon.com',
+        href: 'https://www.amazon.com/Leading-Quality-Leaders-Software-Accelerate/dp/1916185800',
+      },
+      {
+        kind: '参考記事',
+        text: 'medium.com',
+        href: 'https://medium.com/@copyconstruct/testing-in-production-the-safe-way-18ca102d0ef1',
+      },
+    ];
 
-    const links = sectionSources?.querySelectorAll('table a');
-    expect(links?.length).toBe(9);
-    links?.forEach((link) => {
-      expect(link.getAttribute('target')).toBe('_blank');
-      expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(expectedSources.length);
+    expectedSources.forEach((source, idx) => {
+      const tds = rows?.[idx]?.querySelectorAll('td');
+      expect(tds?.length).toBe(3);
+      expect(tds?.[0]?.textContent).toBe(source.kind);
+
+      const link = tds?.[2]?.querySelector('a');
+      expect(link).not.toBeNull();
+      expect(link?.textContent).toBe(source.text);
+      expect(link?.getAttribute('href')).toBe(source.href);
+      expect(link?.getAttribute('target')).toBe('_blank');
+      expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
     });
 
-    expect(table?.textContent).toContain('leadingqualitybook.com');
-    expect(table?.textContent).toContain('infoq.com');
-    expect(table?.textContent).toContain('it-cisq.org');
-    expect(table?.textContent).toContain('testguild.com');
-    expect(table?.textContent).toContain('djdegrood.wordpress.com');
-    expect(table?.textContent).toContain('mentoring-club.com');
-    expect(table?.textContent).toContain('amazon.com');
-    expect(table?.textContent).toContain('medium.com');
+    const links = sectionSources?.querySelectorAll('table a');
+    expect(links?.length).toBe(expectedSources.length);
 
     const callout = sectionSources?.querySelector('.callout.warn');
     expect(callout).not.toBeNull();
