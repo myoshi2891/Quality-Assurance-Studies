@@ -67,8 +67,8 @@ export default function Page() {
 C1["Chapter 1: テストの基礎<br/>語彙・思考モデルの確立"]
 C2["Chapter 2: SDLCとテスト<br/>130分 / 6問"]
 C3["Chapter 3: 静的テスト<br/>80分 / 4問"]
-C4["Chapter 4: テスト分析と設計<br/>390分 / 12問"]
-C5["Chapter 5: テスト活動の管理<br/>335分 / 10問"]
+C4["Chapter 4: テスト分析と設計<br/>390分 / 11問"]
+C5["Chapter 5: テスト活動の管理<br/>335分 / 9問"]
 C6["Chapter 6: テストツール<br/>20分 / 2問"]
 C1 --> C2
 C1 --> C3
@@ -85,7 +85,7 @@ style C5 fill:#134e4a,stroke:#14b8a6,color:#ccfbf1`}
                         </div>
                         <div className="callout callout-warning">
                             <div className="callout-title">試験戦略</div>
-                            Chapter 4（390分・12問）と Chapter 5（335分・10問）で試験の 55%
+                            Chapter 4（390分・11問）と Chapter 5（335分・9問）の合計 20 問で試験の 50%
                             を占めます。Chapter 1
                             の用語を固めておかないと、これらの章の問題文を正確に解釈できません。
                         </div>
