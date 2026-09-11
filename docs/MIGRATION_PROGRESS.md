@@ -79,7 +79,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 元HTML固有のダークテーマUI（背景 `--bg: #0b0f15`、サーフェス `--surface: #111822`、エレベーテッド `--surface-raised: #1a2330`、Tabler Icons `@tabler/icons-webfont`）を忠実に復元。
   - **メインコンテンツ横幅の全幅化**: `.content-inner` の `max-width: 980px` 制約を撤廃し、画面幅を最大限に活用するモダンなフルワイズレイアウト（`width: 100%; max-width: none !important;`）を適用。
   - **文字コントラストの大幅向上**: WCAG 2.1 AAA基準レベルを意識し、主要テキストを `#ffffff`（最大コントラスト白）、セカンダリテキストを `#cbd5e1`（明度30%UP）、テーブルセル・リスト・コールアウト文字色を視認性の高い高輝度カラーへ全面改善。
-- **Mermaid図解の完全移植**: プロダクトファミリーとエコシステム全体像、内部アーキテクチャ(Web/CE/ES/DB)、Data Center Edition高老化構成、Clean Code属性から格付けへのマッピング、Security Hotspotライフサイクル、Quality Profile継承モデル、New Code Definition判定ロジック、Quality Gate評価フロー、プルリクエスト解析フロー、Agent Centric Development Cycle(ACDC)の全10図解（`DIAGRAM_1`〜`DIAGRAM_10`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **Mermaid図解の完全移植**: プロダクトファミリーとエコシステム全体像、内部アーキテクチャ(Web/CE/ES/DB)、Data Center Edition高可用性構成、Clean Code属性から格付けへのマッピング、Security Hotspotライフサイクル、Quality Profile継承モデル、New Code Definition判定ロジック、Quality Gate評価フロー、プルリクエスト解析フロー、Agent Centric Development Cycle(ACDC)の全10図解（`DIAGRAM_1`〜`DIAGRAM_10`）を共通 `<Mermaid>` コンポーネントへ移植。
 - **コードブロック & シンタックスハイライト**:
   - 全4箇所のコードブロック（Docker起動コマンド、SQALE計算モデル、GitHub Actionsワークフロー、Claude Code MCPサーバー設定）に `.code-block` コンテナとヘッダー（言語バッジ、タイトル）を実装。
   - `.code-keyword`, `.code-string`, `.code-comment`, `.code-property`, `.code-var`, `.code-operator`, `.code-fn`, `.code-punct` 等のトークンによる鮮明なシンタックスハイライトを完全適用。

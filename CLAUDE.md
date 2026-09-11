@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Updated 2026-09-02
+Updated 2026-09-11
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
@@ -265,13 +265,13 @@ Next.js App Router 構成:
 
 移行作業の詳細（HEAD・次タスク・再開プロンプト）は `docs/MIGRATION_PROGRESS.md` を参照。
 
-**未移行 HTML（プロジェクトルートに残存）:**
+**未移行の静的ドキュメント（Markdown / HTML、プロジェクトルートに残存）:**
 
 | ファイル | 対応する予定ルート | 状態 |
 |---|---|---|
 | 書籍ガイド系 Markdown 一式 ほかルート直下の HTML | 未定 | ⏸ ルート登録対象外（静的ドキュメントとして残置） |
 
-移行完了後は `archive/html-archive/` へ移動し、上記テーブルから削除する。
+移行完了後は、HTML を `archive/html-archive/` へ、Markdown を `archive/md-archive/` へ移動し、上記テーブルから削除する。
 
 ## 開発規約
 
