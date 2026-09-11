@@ -94,7 +94,7 @@ style C5 fill:#134e4a,stroke:#14b8a6,color:#ccfbf1`}
                     <div className="subsection">
                         <h3 className="subsection-title">学習目標 (Learning Objectives) 一覧</h3>
                         <p>
-                            Chapter 1 には全 14 の LO があります。K1（記憶）= 2件、K2（理解）= 12件
+                            Chapter 1 には全 14 の LO があります。K1（記憶）= 3件、K2（理解）= 11件
                             が試験の出題レベルです。
                         </p>
                         <div className="lo-grid">
@@ -2048,7 +2048,8 @@ style L3 fill:#3b2800,stroke:#f59e0b,color:#fef3c7`}
                         <div className="callout-title">バージョン情報</div>
                         本ガイドは ISTQB CTFL Syllabus <strong>v4.0.1</strong>
                         （2024-09-15）に準拠しています。v4.0.1 は v4.0
-                        の著作権・ロゴ更新のみで、試験出題内容に変更はありません。v3.1
+                        に対するエラータ（正誤表）反映版で、著作権・ロゴの更新に加えて学習目標・キーワード・用語・本文の記述誤りが訂正されています。シラバスの構成とカバーする範囲は v4.0
+                        から変わっていません。v3.1
                         シラバスは英語試験について <strong>2024年5月9日</strong>{' '}
                         をもって終了しています。
                     </div>
