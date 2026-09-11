@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, waitFor } from '@testing-library/react';
+import { render, screen, cleanup, waitFor, fireEvent } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/leading-quality-guide/page';
@@ -340,6 +340,16 @@ describe('Leading Quality Guide - Category D (Steps 9 to 10 & #roadmap)', () => 
     expect(sectionStep9?.textContent).toContain('カナリアリリースや段階的ロールアウトの仕組みがあるか');
     expect(sectionStep9?.textContent).toContain('異常検知・ロールバックを自動化できているか');
     expect(sectionStep9?.textContent).toContain('本番影響を最小化する（一部ユーザーのみ対象にする等）仕組みがあるか');
+
+    // 状態遷移: 未チェック → チェック → 未チェック
+    const firstCheckbox = sectionStep9?.querySelector<HTMLInputElement>('input[type="checkbox"]');
+    if (!firstCheckbox) throw new Error('チェックリストの先頭チェックボックスが見つかりません');
+
+    expect(firstCheckbox.checked).toBe(false);
+    fireEvent.click(firstCheckbox);
+    expect(firstCheckbox.checked).toBe(true);
+    fireEvent.click(firstCheckbox);
+    expect(firstCheckbox.checked).toBe(false);
   });
 
   it('renders section #step10 with heading, diag-7 diagram, insight callout, and persuasion text', () => {
