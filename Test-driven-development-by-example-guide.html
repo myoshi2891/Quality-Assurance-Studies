@@ -1689,52 +1689,67 @@ def 税込み価格(小計):
             };
 
             /* ---------- Mermaid: live client-side render (never ship build-time-rendered static SVG) ---------- */
-            mermaid.initialize({
-                startOnLoad: false,
-                theme: 'base',
-                themeVariables: {
-                    fontFamily: '"Noto Sans JP",sans-serif',
-                    fontSize: '16px',
-                    primaryColor: '#e8ebf7',
-                    primaryBorderColor: '#3c4f91',
-                    primaryTextColor: '#2a2118',
-                    lineColor: '#8a7f6a',
-                    secondaryColor: '#f1e9d6',
-                    tertiaryColor: '#fffdf8',
-                },
-                flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' },
-            });
+            /* CDN の読み込みに失敗しても後続のモバイルメニュー・チェックリスト登録を止めないよう、
+               mermaid の存在を確認してから初期化・描画する。 */
+            if (window.mermaid) {
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'base',
+                    themeVariables: {
+                        fontFamily: '"Noto Sans JP",sans-serif',
+                        fontSize: '16px',
+                        primaryColor: '#e8ebf7',
+                        primaryBorderColor: '#3c4f91',
+                        primaryTextColor: '#2a2118',
+                        lineColor: '#8a7f6a',
+                        secondaryColor: '#f1e9d6',
+                        tertiaryColor: '#fffdf8',
+                    },
+                    flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' },
+                });
 
-            async function renderAllDiagrams() {
-                for (const [id, src] of Object.entries(DIAGRAMS)) {
-                    const container = document.getElementById(id);
-                    if (!container) continue;
-                    try {
-                        const { svg } = await mermaid.render('svg-' + id, src);
-                        container.innerHTML = svg;
-                        const svgEl = container.querySelector('svg');
-                        if (svgEl) {
-                            svgEl.removeAttribute('width');
-                            svgEl.removeAttribute('height');
-                            const vb = svgEl.viewBox && svgEl.viewBox.baseVal;
-                            if (vb && vb.width) {
-                                svgEl.style.width = vb.width + 'px';
+                async function renderAllDiagrams() {
+                    for (const [id, src] of Object.entries(DIAGRAMS)) {
+                        const container = document.getElementById(id);
+                        if (!container) continue;
+                        try {
+                            const { svg } = await mermaid.render('svg-' + id, src);
+                            container.innerHTML = svg;
+                            const svgEl = container.querySelector('svg');
+                            if (svgEl) {
+                                svgEl.removeAttribute('width');
+                                svgEl.removeAttribute('height');
+                                const vb = svgEl.viewBox && svgEl.viewBox.baseVal;
+                                if (vb && vb.width) {
+                                    svgEl.style.width = vb.width + 'px';
+                                }
+                                svgEl.style.maxWidth = 'none';
+                                svgEl.style.height = 'auto';
+                                svgEl.style.overflow = 'visible';
+                                svgEl.style.flexShrink = '0';
                             }
-                            svgEl.style.maxWidth = 'none';
-                            svgEl.style.height = 'auto';
-                            svgEl.style.overflow = 'visible';
-                            svgEl.style.flexShrink = '0';
+                        } catch (err) {
+                            container.innerHTML =
+                                '<p style="color:#a33;padding:1rem;">図の描画に失敗しました: ' +
+                                id +
+                                '</p>';
+                            console.error('Mermaid render error for', id, err);
                         }
-                    } catch (err) {
+                    }
+                }
+                renderAllDiagrams();
+            } else {
+                console.error('Mermaid を読み込めなかったため、図の描画をスキップしました。');
+                for (const id of Object.keys(DIAGRAMS)) {
+                    const container = document.getElementById(id);
+                    if (container) {
                         container.innerHTML =
-                            '<p style="color:#a33;padding:1rem;">図の描画に失敗しました: ' +
+                            '<p style="color:#a33;padding:1rem;">図を読み込めませんでした（Mermaid 未読み込み）: ' +
                             id +
                             '</p>';
-                        console.error('Mermaid render error for', id, err);
                     }
                 }
             }
-            renderAllDiagrams();
 
             /* ---------- highlight.js ---------- */
             if (window.hljs) {
