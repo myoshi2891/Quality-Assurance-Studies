@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, cleanup, waitFor } from '@testing-library/react';
+import { render, cleanup, waitFor, act } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import SonarQubeIntermediateGuidePage from '../../app/sonarqube-intermediate-guide/page';
@@ -9,7 +9,6 @@ afterEach(() => cleanup());
 
 let originalMermaidRender: typeof mermaid.render;
 let originalIntersectionObserver: typeof window.IntersectionObserver;
-const observedElements: Element[] = [];
 
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
@@ -21,23 +20,14 @@ beforeAll(() => {
     };
   }) as unknown as typeof mermaid.render;
 
-  let intersectionCallback: IntersectionObserverCallback | null = null;
-
-  const mockIntersectionObserver = mock((callback: IntersectionObserverCallback) => {
-    intersectionCallback = callback;
+  const mockIntersectionObserver = mock(() => {
     return {
-      // observe() に渡された実要素を記録し、NavBar が document 上の
-      // section を実際に監視対象にしているかを検証できるようにする
-      observe: (el: Element) => {
-        observedElements.push(el);
-        return null;
-      },
+      observe: () => null,
       unobserve: () => null,
       disconnect: () => null,
     };
   });
   window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
-  (window as unknown as Record<string, unknown>).__intersectionCallback = () => intersectionCallback;
 });
 
 afterAll(() => {
@@ -92,53 +82,65 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
     expect(badges[1]?.textContent).toBe('2026.1 LTA');
   });
 
-  it('activates the TOC link for a section when IntersectionObserver fires an intersecting entry (regression)', async () => {
-    const { act } = await import('@testing-library/react');
+  it('re-evaluates section visibility on scroll so the active TOC link follows a ratio reversal (regression)', async () => {
+    // 交差状態（どちらの節も読み取り帯に重なったまま）を維持しつつ、可視率だけが逆転するケース。
+    // IntersectionObserver の intersectionRatio を保持する実装では通知が来ず追従できなかった。
+    const BAND_TOP = 0.15;
+    const BAND_BOTTOM = 0.3;
+    const viewportHeight = window.innerHeight;
+    const bandTop = viewportHeight * BAND_TOP;
+    const bandBottom = viewportHeight * BAND_BOTTOM;
+    const bandHeight = bandBottom - bandTop;
 
-    observedElements.length = 0;
-    const architecture = document.createElement('section');
-    architecture.id = 'architecture';
-    document.body.appendChild(architecture);
+    const rects: Record<string, { top: number; bottom: number }> = {
+      // 帯の 75% を 'ecosystem' が、25% を 'architecture' が占める初期状態。
+      ecosystem: { top: bandTop - 100, bottom: bandTop + bandHeight * 0.75 },
+      architecture: { top: bandTop + bandHeight * 0.75, bottom: bandBottom + 400 },
+    };
 
-    const { container } = render(<NavBar />);
+    const stubs = Object.keys(rects).map((id) => {
+      const el = document.createElement('section');
+      el.id = id;
+      el.getBoundingClientRect = () => {
+        const { top, bottom } = rects[id]!;
+        return {
+          top,
+          bottom,
+          left: 0,
+          right: 0,
+          width: 0,
+          height: bottom - top,
+          x: 0,
+          y: top,
+          toJSON: () => ({}),
+        } as DOMRect;
+      };
+      document.body.appendChild(el);
+      return el;
+    });
 
-    const getCallback = (window as unknown as Record<string, unknown>).__intersectionCallback as () => IntersectionObserverCallback | null;
-    const callback = getCallback();
+    try {
+      const { container } = render(<NavBar />);
 
-    // callback が null のままだと以下のアサーションが丸ごとスキップされ、
-    // リグレッションテストが常に緑になってしまうため先に存在を検証する
-    expect(callback).not.toBeNull();
-
-    if (callback) {
-      // NavBar が document 上の section#architecture を observe できたことを確認する。
-      // 切り離した要素を捏造すると getElementById 経路が壊れても緑になってしまう。
-      const architectureSection = document.getElementById('architecture');
-      expect(architectureSection).not.toBeNull();
-      expect(observedElements).toContain(architectureSection as Element);
-
-      const fakeEntry = {
-        target: architectureSection as Element,
-        isIntersecting: true,
-        intersectionRatio: 0.8,
-        boundingClientRect: {} as DOMRectReadOnly,
-        intersectionRect: {} as DOMRectReadOnly,
-        rootBounds: null,
-        time: 0,
-      } as IntersectionObserverEntry;
-
-      act(() => {
-        callback([fakeEntry], {} as IntersectionObserver);
+      await waitFor(() => {
+        expect(container.querySelector('nav.toc a.active')?.getAttribute('href')).toBe('#ecosystem');
       });
 
-      const tocLinks = container.querySelectorAll('nav.toc a');
-      const architectureLink = Array.from(tocLinks).find(
-        (a) => a.getAttribute('href') === '#architecture'
-      );
-      expect(architectureLink?.classList.contains('active')).toBe(true);
-      expect(architectureLink?.getAttribute('aria-current')).toBe('location');
-    }
+      // スクロールで可視率が逆転（帯の 25% / 75%）。交差状態自体は両節とも維持される。
+      rects['ecosystem'] = { top: bandTop - 400, bottom: bandTop + bandHeight * 0.25 };
+      rects['architecture'] = { top: bandTop + bandHeight * 0.25, bottom: bandBottom + 100 };
+      act(() => {
+        window.dispatchEvent(new Event('scroll'));
+      });
 
-    architecture.remove();
+      await waitFor(() => {
+        const active = container.querySelector('nav.toc a.active');
+        expect(active?.getAttribute('href')).toBe('#architecture');
+        expect(active?.getAttribute('aria-current')).toBe('location');
+      });
+    } finally {
+      stubs.forEach((el) => el.remove());
+    }
   });
 
   describe('Category 1: 基礎・アーキテクチャ・導入編 (Sections 00〜05)', () => {

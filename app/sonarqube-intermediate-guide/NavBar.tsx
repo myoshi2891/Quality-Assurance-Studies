@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 
+import { useScrollSpy } from '../../lib/useScrollSpy';
+
 export interface TocItem {
   id: string;
   icon: string;
@@ -33,50 +35,13 @@ export const TOC_ITEMS: readonly TocItem[] = [
   { id: 'references', icon: 'ti-books', label: '21. 参考文献一覧' },
 ];
 
+// 読み取り帯・節 ID はモジュールスコープに置き、useScrollSpy の依存参照を安定させる。
+const SECTION_IDS: readonly string[] = TOC_ITEMS.map((item) => item.id);
+const SCROLL_SPY_BAND = { top: 0.15, bottom: 0.3 } as const;
+
 export default function NavBar() {
-  const [activeId, setActiveId] = useState<string>('overview');
+  const activeId = useScrollSpy(SECTION_IDS, SCROLL_SPY_BAND);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    // IntersectionObserver のコールバックは「状態が変化したターゲット」しか渡さない。
-    // 差分だけで可視率を比較すると、交差したままのより大きな節を取りこぼすため、
-    // 全ターゲットの最新エントリを保持したうえで選択する。
-    const latestEntries = new Map<Element, IntersectionObserverEntry>();
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          latestEntries.set(entry.target, entry);
-        }
-
-        let topEntry: IntersectionObserverEntry | null = null;
-        for (const entry of latestEntries.values()) {
-          if (!entry.isIntersecting) continue;
-          if (topEntry && entry.intersectionRatio <= topEntry.intersectionRatio) {
-            continue;
-          }
-          topEntry = entry;
-        }
-
-        if (topEntry) {
-          setActiveId(topEntry.target.id);
-        }
-      },
-      {
-        rootMargin: '-15% 0px -70% 0px',
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      }
-    );
-
-    TOC_ITEMS.forEach((item) => {
-      const el = document.getElementById(item.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   // デスクトップ幅（CSS の 960px ブレークポイント超）へ戻したら、
   // モバイル用サイドバーの開閉状態をリセットしてレイアウトと同期させる。

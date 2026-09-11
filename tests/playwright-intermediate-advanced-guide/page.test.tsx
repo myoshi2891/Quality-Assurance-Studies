@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, waitFor } from '@testing-library/react';
+import { render, screen, cleanup, waitFor, act } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import PlaywrightIntermediateAdvancedPage from '../../app/playwright-intermediate-advanced-guide/page';
@@ -712,6 +712,68 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
 
       const hljsStrings = container.querySelectorAll('.code-block .hljs-string');
       expect(hljsStrings.length).toBeGreaterThan(20);
+    });
+  });
+  describe('NavBar scroll spy', () => {
+    it('re-evaluates section visibility on scroll so the active link follows a ratio reversal (regression)', async () => {
+      // 交差状態（どちらの節も読み取り帯に重なったまま）を維持しつつ、可視率だけが逆転するケース。
+      // IntersectionObserver の intersectionRatio を保持する実装では通知が来ず追従できなかった。
+      const BAND_TOP = 0.15;
+      const BAND_BOTTOM = 0.3;
+      const viewportHeight = window.innerHeight;
+      const bandTop = viewportHeight * BAND_TOP;
+      const bandBottom = viewportHeight * BAND_BOTTOM;
+      const bandHeight = bandBottom - bandTop;
+
+      const rects: Record<string, { top: number; bottom: number }> = {
+        // 帯の 75% を 'sec-1' が、25% を 'sec-2' が占める初期状態。
+        'sec-1': { top: bandTop - 100, bottom: bandTop + bandHeight * 0.75 },
+        'sec-2': { top: bandTop + bandHeight * 0.75, bottom: bandBottom + 400 },
+      };
+
+      const stubs = Object.keys(rects).map((id) => {
+        const el = document.createElement('section');
+        el.id = id;
+        el.getBoundingClientRect = () => {
+          const { top, bottom } = rects[id]!;
+          return {
+            top,
+            bottom,
+            left: 0,
+            right: 0,
+            width: 0,
+            height: bottom - top,
+            x: 0,
+            y: top,
+            toJSON: () => ({}),
+          } as DOMRect;
+        };
+        document.body.appendChild(el);
+        return el;
+      });
+
+      try {
+        const { container } = render(<NavBar />);
+
+        await waitFor(() => {
+          expect(container.querySelector('.toc a.active')?.getAttribute('href')).toBe('#sec-1');
+        });
+
+        // スクロールで可視率が逆転（帯の 25% / 75%）。交差状態自体は両節とも維持される。
+        rects['sec-1'] = { top: bandTop - 400, bottom: bandTop + bandHeight * 0.25 };
+        rects['sec-2'] = { top: bandTop + bandHeight * 0.25, bottom: bandBottom + 100 };
+        act(() => {
+          window.dispatchEvent(new Event('scroll'));
+        });
+
+        await waitFor(() => {
+          const active = container.querySelector('.toc a.active');
+          expect(active?.getAttribute('href')).toBe('#sec-2');
+          expect(active?.getAttribute('aria-current')).toBe('location');
+        });
+      } finally {
+        stubs.forEach((el) => el.remove());
+      }
     });
   });
 });

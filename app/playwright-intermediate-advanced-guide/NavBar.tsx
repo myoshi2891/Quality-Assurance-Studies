@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from 'react';
 
+import { useScrollSpy } from '../../lib/useScrollSpy';
+
 interface NavItem {
   id: string;
   num: string;
@@ -57,51 +59,15 @@ const NAV_GROUPS: readonly NavGroup[] = [
   },
 ];
 
+// 読み取り帯・節 ID はモジュールスコープに置き、useScrollSpy の依存参照を安定させる。
+const SECTION_IDS: readonly string[] = NAV_GROUPS.flatMap((group) =>
+  group.items.map((item) => item.id)
+);
+const SCROLL_SPY_BAND = { top: 0.15, bottom: 0.3 } as const;
+
 export default function NavBar() {
-  const [activeId, setActiveId] = useState<string>('sec-1');
+  const activeId = useScrollSpy(SECTION_IDS, SCROLL_SPY_BAND);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  useEffect(() => {
-    const allSections = NAV_GROUPS.flatMap((g) => g.items);
-    // IntersectionObserver のコールバックは「状態が変化したターゲット」しか渡さない。
-    // 差分だけで可視率を比較すると、交差したままのより大きな節を取りこぼすため、
-    // 全ターゲットの最新エントリを保持したうえで選択する。
-    const latestEntries = new Map<Element, IntersectionObserverEntry>();
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          latestEntries.set(entry.target, entry);
-        }
-
-        let topEntry: IntersectionObserverEntry | null = null;
-        for (const entry of latestEntries.values()) {
-          if (!entry.isIntersecting) continue;
-          if (topEntry && entry.intersectionRatio <= topEntry.intersectionRatio) {
-            continue;
-          }
-          topEntry = entry;
-        }
-
-        if (topEntry) {
-          setActiveId(topEntry.target.id);
-        }
-      },
-      {
-        rootMargin: '-15% 0px -70% 0px',
-        threshold: [0, 0.25, 0.5, 0.75, 1],
-      }
-    );
-
-    allSections.forEach((item) => {
-      const el = document.getElementById(item.id);
-      if (el) observer.observe(el);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
 
   // デスクトップ幅へ戻った際にモバイル用の開閉状態をリセットする
   useEffect(() => {
