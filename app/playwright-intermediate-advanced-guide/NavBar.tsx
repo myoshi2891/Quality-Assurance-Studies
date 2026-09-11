@@ -90,6 +90,17 @@ export default function NavBar() {
     };
   }, []);
 
+  // デスクトップ幅へ戻った際にモバイル用の開閉状態をリセットする
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 960) {
+        setIsOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const toggleSidebar = () => setIsOpen((prev) => !prev);
   const closeSidebar = () => setIsOpen(false);
 
