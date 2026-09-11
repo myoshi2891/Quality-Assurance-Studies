@@ -1,0 +1,1919 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Quality Is Free 入門ガイド ― 品質はなぜタダなのか</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+            integrity="sha384-ND+q1IVc0KDElX60dZaqKc7Xl9cdxd2PpU2JfVUHcurCkFVtVLFdt9vJfxtHSL3p"
+            crossorigin="anonymous"
+        />
+        <style>
+            :root {
+                --paper: #faf6ec;
+                --paper-card: #fffdf7;
+                --paper-card-2: #f2ecdd;
+                --ink: #2a241c;
+                --ink-soft: #6b6255;
+                --border: #e6ddc7;
+                --indigo: #413d8a;
+                --indigo-dark: #2e2a66;
+                --indigo-soft: rgba(65, 61, 143, 0.08);
+                --gold: #b9852c;
+                --forest: #2f6b4f;
+                --plum: #7a3f63;
+                --hub-fill: #c9c4ef;
+                --hub-text: #221f52;
+                --done-fill: #bfe4d2;
+                --done-text: #123722;
+                --sidebar-w: 290px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family:
+                    'Noto Sans JP',
+                    system-ui,
+                    -apple-system,
+                    sans-serif;
+                line-height: 1.85;
+                font-size: 16px;
+                -webkit-font-smoothing: antialiased;
+            }
+            .layout {
+                display: block;
+            }
+            a {
+                color: var(--indigo-dark);
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: 'Noto Sans JP', system-ui, sans-serif;
+                font-weight: 700;
+                color: var(--ink);
+                line-height: 1.4;
+            }
+            .accent-serif {
+                font-family: 'Source Serif 4', serif;
+            }
+
+            /* ---------- Sidebar ---------- */
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                bottom: 0;
+                width: var(--sidebar-w);
+                background: var(--paper-card);
+                border-right: 1px solid var(--border);
+                overflow-y: auto;
+                padding: 1.75rem 1.25rem 3rem;
+                z-index: 50;
+            }
+            .sidebar-title {
+                font-family: 'Source Serif 4', serif;
+                font-size: 1.15rem;
+                font-weight: 700;
+                color: var(--indigo-dark);
+                margin: 0 0 0.2rem;
+            }
+            .sidebar-sub {
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin: 0 0 1.5rem;
+            }
+            .nav-group-label {
+                font-size: 1rem;
+                letter-spacing: 0.05em;
+                color: var(--ink-soft);
+                text-transform: uppercase;
+                margin: 1.1rem 0 0.4rem;
+                padding-left: 0.6rem;
+                font-weight: 700;
+            }
+            .sidebar ul,
+            .sidebar nav ul {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .sidebar li {
+                list-style: none;
+            }
+            .nav-a {
+                display: flex;
+                align-items: center;
+                gap: 0.55rem;
+                padding: 0.5rem 0.6rem;
+                border-radius: 0.5rem;
+                color: var(--ink-soft);
+                text-decoration: none;
+                font-size: 1rem;
+                transition:
+                    background 0.15s,
+                    color 0.15s;
+            }
+            .nav-a i {
+                font-size: 1.05rem;
+                color: var(--indigo);
+                flex-shrink: 0;
+            }
+            .nav-a:hover {
+                background: var(--indigo-soft);
+                color: var(--ink);
+            }
+            .nav-a.active {
+                background: var(--indigo-soft);
+                color: var(--indigo-dark);
+                font-weight: 700;
+            }
+            .n-num {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                width: 1.7rem;
+                height: 1.7rem;
+                border-radius: 50%;
+                background: var(--paper-card-2);
+                color: var(--ink-soft);
+                font-size: 1rem;
+                font-weight: 700;
+                flex-shrink: 0;
+            }
+            .nav-a.active .n-num {
+                background: var(--indigo);
+                color: #fff;
+            }
+
+            /* ---------- Main ---------- */
+            .main {
+                margin-left: var(--sidebar-w);
+                min-height: 100vh;
+            }
+            .content {
+                padding: 0 3rem 5rem;
+                max-width: none;
+            }
+            .content p,
+            .content li {
+                overflow-wrap: break-word;
+            }
+
+            .hero {
+                padding: 3.5rem 3rem 2.5rem;
+                background: linear-gradient(
+                    135deg,
+                    var(--indigo-dark),
+                    var(--indigo) 60%,
+                    var(--plum)
+                );
+                color: #fdfbf6;
+            }
+            .hero-kicker {
+                font-size: 1rem;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                opacity: 0.85;
+                margin: 0 0 0.8rem;
+                font-weight: 700;
+            }
+            .hero h1 {
+                font-family: 'Source Serif 4', serif;
+                color: #fff;
+                font-size: 2.3rem;
+                line-height: 1.35;
+                margin: 0 0 1rem;
+                font-weight: 700;
+            }
+            .hero p {
+                font-size: 1.05rem;
+                opacity: 0.92;
+                max-width: 56rem;
+                margin: 0;
+            }
+
+            section {
+                padding: 3rem 0;
+                border-bottom: 1px solid var(--border);
+            }
+            section:last-of-type {
+                border-bottom: none;
+            }
+            .sec-head {
+                display: flex;
+                align-items: center;
+                gap: 0.7rem;
+                margin-bottom: 1.4rem;
+            }
+            .sec-head i {
+                font-size: 1.4rem;
+                color: #fff;
+                background: var(--indigo);
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 0.7rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .sec-head h2 {
+                font-size: 1.5rem;
+                margin: 0;
+            }
+            .sec-head .n-badge {
+                font-family: 'Source Serif 4', serif;
+                font-weight: 700;
+                color: var(--ink-soft);
+                font-size: 1rem;
+            }
+
+            blockquote {
+                margin: 1.5rem 0;
+                padding: 1rem 1.4rem;
+                background: var(--paper-card-2);
+                border-left: 4px solid var(--gold);
+                border-radius: 0.4rem;
+                color: var(--ink);
+            }
+            strong {
+                color: var(--indigo-dark);
+            }
+
+            /* ---------- Tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                overflow-y: hidden;
+                border: 1px solid var(--border);
+                border-radius: 0.6rem;
+                margin: 1.5rem 0;
+                background: var(--paper-card);
+            }
+            .table-title {
+                background: var(--paper-card-2);
+                color: var(--ink);
+                font-weight: 700;
+                padding: 0.7rem 1rem;
+                border-bottom: 1px solid var(--border);
+                font-size: 1rem;
+            }
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                font-size: 1rem;
+            }
+            th,
+            td {
+                padding: 0.7rem 0.9rem;
+                text-align: left;
+                border-bottom: 1px solid var(--border);
+            }
+            thead th {
+                background: var(--indigo-dark);
+                color: #fff;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            tbody tr:nth-child(even) {
+                background: rgba(65, 61, 143, 0.045);
+            }
+            tbody tr:hover {
+                background: var(--indigo-soft);
+            }
+
+            .kv-table th {
+                background: transparent;
+                color: var(--ink-soft);
+                font-weight: 700;
+                border-right: 1px solid var(--border);
+                width: 11rem;
+                white-space: nowrap;
+            }
+            .kv-table tr:hover {
+                background: var(--indigo-soft);
+            }
+            .kv-table tbody tr:nth-child(even) {
+                background: transparent;
+            }
+
+            /* ---------- Mermaid diagrams ---------- */
+            .diagram-block {
+                margin: 1.8rem 0;
+            }
+            .diagram-caption {
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin-bottom: 0.6rem;
+                font-weight: 500;
+            }
+            .mermaid-wrapper {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                padding: 1.2rem;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 0.8rem;
+            }
+            .mermaid-wrapper svg {
+                flex-shrink: 0;
+            }
+            .diagram-loading {
+                font-size: 1rem;
+                color: var(--ink-soft);
+                padding: 2rem;
+                text-align: center;
+                width: 100%;
+            }
+
+            /* ---------- Checklist ---------- */
+            .checklist {
+                list-style: none;
+                margin: 1.5rem 0;
+                padding: 0;
+            }
+            .checklist li {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.8rem;
+                padding: 0.8rem 1rem;
+                border: 1px solid var(--border);
+                border-radius: 0.6rem;
+                margin-bottom: 0.6rem;
+                background: var(--paper-card);
+                transition: background 0.15s;
+            }
+            .checklist li.done {
+                background: var(--indigo-soft);
+            }
+            .checklist li.done label,
+            .checklist input[type='checkbox']:checked + label {
+                text-decoration: line-through;
+                color: var(--ink-soft);
+            }
+            .checklist input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 1.3rem;
+                height: 1.3rem;
+                border: 2px solid var(--indigo);
+                border-radius: 0.35rem;
+                flex-shrink: 0;
+                margin-top: 0.15rem;
+                cursor: pointer;
+                position: relative;
+            }
+            .checklist input[type='checkbox']:checked {
+                background: var(--indigo);
+            }
+            .checklist input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 0.32rem;
+                top: 0.05rem;
+                width: 0.35rem;
+                height: 0.7rem;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .checklist label {
+                cursor: pointer;
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+            .checklist-counter {
+                display: inline-block;
+                margin-bottom: 1rem;
+                padding: 0.4rem 1rem;
+                background: var(--gold);
+                color: #fff;
+                border-radius: 2rem;
+                font-weight: 700;
+                font-size: 1rem;
+            }
+
+            /* ---------- Reference cards ---------- */
+            .ref-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.9rem;
+                margin-top: 1.5rem;
+            }
+            .ref-card {
+                border: 1px solid var(--border);
+                border-radius: 0.7rem;
+                padding: 0.9rem 1.1rem;
+                background: var(--paper-card);
+            }
+            .ref-card .ref-title {
+                font-weight: 700;
+                color: var(--ink);
+                margin-bottom: 0.25rem;
+                font-size: 1rem;
+            }
+            .ref-card .ref-note {
+                color: var(--ink-soft);
+                font-size: 1rem;
+                margin-bottom: 0.4rem;
+            }
+            .ref-card .ref-url {
+                font-size: 1rem;
+                color: var(--indigo-dark);
+                word-break: break-all;
+            }
+
+            /* ---------- Tags ---------- */
+            .tag {
+                display: inline-block;
+                padding: 0.15rem 0.7rem;
+                border-radius: 1rem;
+                background: var(--indigo-soft);
+                color: var(--indigo-dark);
+                font-size: 1rem;
+                font-weight: 700;
+                margin-right: 0.4rem;
+            }
+
+            /* ---------- Footer ---------- */
+            .footer {
+                padding: 2.5rem 3rem;
+                color: var(--ink-soft);
+                font-size: 1rem;
+                border-top: 1px solid var(--border);
+            }
+
+            /* ---------- Mobile ---------- */
+            .mobile-bar,
+            .mobile-bar * {
+                font-size: 1rem;
+            }
+            .mobile-bar {
+                display: none;
+                position: sticky;
+                top: 0;
+                z-index: 60;
+                background: var(--paper-card);
+                border-bottom: 1px solid var(--border);
+                padding: 0.8rem 1rem;
+                align-items: center;
+                justify-content: space-between;
+            }
+            .mobile-bar .m-title {
+                font-weight: 700;
+                color: var(--indigo-dark);
+            }
+            #mobileToggle {
+                background: var(--indigo);
+                color: #fff;
+                border: none;
+                border-radius: 0.5rem;
+                width: 2.4rem;
+                height: 2.4rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+            }
+            sup {
+                font-size: 1rem;
+                vertical-align: super;
+                line-height: 0;
+            }
+
+            @media (max-width: 960px) {
+                .mobile-bar {
+                    display: flex;
+                }
+                .sidebar {
+                    transform: translateX(-100%);
+                    transition: transform 0.2s ease;
+                    box-shadow: 0 0 30px rgba(0, 0, 0, 0.25);
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                }
+                .main {
+                    margin-left: 0;
+                }
+                .content {
+                    padding: 0 1.2rem 3rem;
+                }
+                .hero {
+                    padding: 2rem 1.2rem;
+                }
+                .hero h1 {
+                    font-size: 1.6rem;
+                }
+                .footer {
+                    padding: 2rem 1.2rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="mobile-bar">
+            <span class="m-title">Quality Is Free 入門ガイド</span>
+            <button id="mobileToggle" aria-label="メニューを開く">
+                <i class="ti ti-menu-2"></i>
+            </button>
+        </div>
+
+        <div class="layout">
+            <nav class="sidebar" id="sidebar">
+                <div class="sidebar-title accent-serif">Quality Is Free</div>
+                <p class="sidebar-sub">初学者向け実践ガイド</p>
+                <ul>
+                    <li>
+                        <a class="nav-a" href="#sec1"
+                            ><span class="n-num">1</span><i class="ti ti-book-2"></i>はじめに</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec2"
+                            ><span class="n-num">2</span><i class="ti ti-user"></i>著者紹介</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec3"
+                            ><span class="n-num">3</span
+                            ><i class="ti ti-list-tree"></i>本書の構成</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec4"
+                            ><span class="n-num">4</span
+                            ><i class="ti ti-certificate"></i>4つの絶対原則</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec5"
+                            ><span class="n-num">5</span
+                            ><i class="ti ti-currency-dollar"></i>品質コスト</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec6"
+                            ><span class="n-num">6</span><i class="ti ti-stairs"></i>14ステップ</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec7"
+                            ><span class="n-num">7</span
+                            ><i class="ti ti-chart-dots"></i>成熟度グリッド</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec8"
+                            ><span class="n-num">8</span
+                            ><i class="ti ti-git-branch"></i>ソフトウェアへの応用</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec9"
+                            ><span class="n-num">9</span><i class="ti ti-scale"></i>批判的に読む</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec10"
+                            ><span class="n-num">10</span
+                            ><i class="ti ti-robot"></i>2026年の現在地</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec11"
+                            ><span class="n-num">11</span
+                            ><i class="ti ti-route"></i>実践ステップガイド</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec12"
+                            ><span class="n-num">12</span
+                            ><i class="ti ti-square-check"></i>実践チェックリスト</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec13"
+                            ><span class="n-num">13</span
+                            ><i class="ti ti-map"></i>学習ロードマップ</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec14"
+                            ><span class="n-num">14</span><i class="ti ti-flag-3"></i>まとめ</a
+                        >
+                    </li>
+                    <li>
+                        <a class="nav-a" href="#sec15"
+                            ><span class="n-num">15</span><i class="ti ti-link"></i>参考文献</a
+                        >
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="main">
+                <header class="hero">
+                    <p class="hero-kicker">Classic Software Testing Books Series</p>
+                    <h1>
+                        Quality Is Free 入門ガイド<br />品質はなぜ「タダ」なのか、ソフトウェアエンジニアのための実践ステップ
+                    </h1>
+                    <p>
+                        Philip B. Crosby『Quality Is Free: The Art of Making Quality Certain』(1979)
+                        を、初めて品質管理・ソフトウェアテストを学ぶ人向けに、ステップバイステップで解説する副読ガイドです。
+                    </p>
+                </header>
+
+                <div class="content">
+                    <section id="sec0">
+                        <div class="table-wrap">
+                            <div class="table-title">書籍情報</div>
+                            <table class="kv-table">
+                                <tbody>
+                                    <tr>
+                                        <th>タイトル</th>
+                                        <td>
+                                            <em
+                                                >Quality Is Free: The Art of Making Quality
+                                                Certain</em
+                                            >
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>著者</th>
+                                        <td>Philip B. Crosby</td>
+                                    </tr>
+                                    <tr>
+                                        <th>初版</th>
+                                        <td>1979年（McGraw-Hill）</td>
+                                    </tr>
+                                    <tr>
+                                        <th>参照版</th>
+                                        <td>
+                                            New American Library, 1980（270ページ、ISBN 0451624688 /
+                                            9780451624680）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>ジャンル</th>
+                                        <td>
+                                            品質マネジメント／TQM（Total Quality Management）の古典
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>一言で言うと</th>
+                                        <td>
+                                            「品質を追求することは、それ自体が最もコストの低い経営戦略である」ことを、豊富な実例で説く本
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            参考:
+                            <a
+                                href="https://books.google.com/books/about/Quality_is_Free.html?id=3TMQt73LDooC"
+                                target="_blank"
+                                rel="noopener"
+                                >Google Books - Quality is Free</a
+                            >
+                        </p>
+                    </section>
+
+                    <section id="sec1">
+                        <div class="sec-head">
+                            <i class="ti ti-book-2"></i>
+                            <h2>1. はじめに</h2>
+                        </div>
+                        <p>
+                            「品質を上げようとすると、コストも納期も増える」——多くのエンジニアが一度はそう感じたことがあるはずです。Crosbyはこの本の中で、その直感こそが誤りだと主張します。
+                        </p>
+                        <p>
+                            彼の主張はシンプルです。<strong
+                                >不良品や欠陥（バグ）を作ってしまうことにこそ本当のコストがかかっており、最初から正しく作ること（Do
+                                It Right The First Time,
+                                DIRFT）は、実は最も安く済む方法である。</strong
+                            >
+                            だからこそ「品質はタダ」なのです。
+                        </p>
+                        <p>
+                            この本は製造業（電話交換機や電子部品の工場）を舞台にしていますが、ここで語られる考え方——「品質コスト」「予防と評価と失敗コスト」「品質管理の成熟度」——は、そのままソフトウェア開発における「シフトレフト」「テスト自動化」「静的解析」「DevOpsの品質ゲート」といった現代的な実践の理論的な祖先にあたります。実際、後述するようにソフトウェアの成熟度モデルであるCMM（Capability
+                            Maturity
+                            Model）は、Crosbyの品質管理成熟度グリッドを直接の起源としています。
+                        </p>
+                        <p>初学者がこの本から学ぶべき最大のポイントは次の一文に集約されます。</p>
+                        <blockquote>
+                            品質とは「良さ」や「豪華さ」のような曖昧な概念ではなく、<strong
+                                >「要求への適合（conformance to requirements）」</strong
+                            >という、測定可能な事柄である。
+                        </blockquote>
+                        <p>
+                            この定義を持つだけで、「テストとは何をする作業なのか」「バグとは何なのか」という問いに、初学者でも一貫した答えを出せるようになります。
+                        </p>
+                    </section>
+
+                    <section id="sec2">
+                        <div class="sec-head">
+                            <i class="ti ti-user"></i>
+                            <h2>2. 著者紹介</h2>
+                        </div>
+                        <p>
+                            Philip B.
+                            Crosby（1926年〜2001年、米国ウェストバージニア州ウィーリング生まれ）は、第二次世界大戦と朝鮮戦争に従軍したのち、品質管理の世界に入りました。ライン検査員からキャリアをスタートし、Martin社（のちのMartin
+                            Marietta）で「ゼロ・ディフェクト（Zero
+                            Defects）」プログラムを立ち上げ、その後ITT社で14年間にわたりコーポレート・バイスプレジデントとして品質管理を統括しました。
+                        </p>
+                        <p>
+                            1979年に独立し、コンサルティング会社Philip Crosby Associates,
+                            Inc.を設立すると同時に本書『Quality Is
+                            Free』を出版し、一躍「品質グル（Quality
+                            Guru）」として世界的な名声を得ます。W. Edwards Deming、Joseph M.
+                            Juranと並んで、20世紀の品質マネジメント運動を代表する人物の一人です。
+                        </p>
+                        <p>
+                            Crosbyの立場の特徴は、DemingやJuranのような統計的手法（SPC等）に頼るのではなく、<strong>経営とマネジメントの姿勢そのもの</strong>に焦点を当てた点にあります。「品質は管理されるものではなく、引き起こされるものだ（Quality
+                            has to be caused, not
+                            controlled）」という言葉が、彼の哲学をよく表しています。
+                        </p>
+                    </section>
+
+                    <section id="sec3">
+                        <div class="sec-head">
+                            <i class="ti ti-list-tree"></i>
+                            <h2>3. 本書の構成</h2>
+                        </div>
+                        <p>本書は3部・13章構成になっています。</p>
+                        <div class="diagram-block">
+                            <div class="diagram-caption">
+                                図1: Quality Is Free の全体構成（Part One〜Three）
+                            </div>
+                            <div class="mermaid-wrapper" id="dg-structure">
+                                <div class="diagram-loading">図を読み込み中です…</div>
+                            </div>
+                        </div>
+                        <p>
+                            Part One「The
+                            Understanding」では、品質の定義から成熟度グリッド、品質コスト、14ステップの改善プログラムまで、Crosbyの理論と手法が体系的に提示されます。Part
+                            Two「The Doing」は、架空の企業「HPA
+                            Corporation」を舞台に、その改善プログラムがどのように導入され、どのような抵抗にあい、どう定着していくかを、プロジェクトの経緯（第10章）と実施の記録（第11章）という物語形式で追体験させるパートです。Part
+                            Three「The
+                            Tools」は、そのHPA社ケーススタディを研修教材として使うためのインストラクターガイド（第12章）と、読者が自組織で実践するためのツール「Make
+                            Certain」（第13章）で構成されています。この「理論→ケーススタディ→実践のための道具立て」という三段構えの構成自体が、多くの現代的な技術書に踏襲されている定番パターンです。
+                        </p>
+                    </section>
+
+                    <section id="sec4">
+                        <div class="sec-head">
+                            <i class="ti ti-certificate"></i>
+                            <h2>4. 品質の4つの絶対原則</h2>
+                        </div>
+                        <p>
+                            Crosbyの思想の中核が、この「4つの絶対原則（Four Absolutes of Quality
+                            Management）」です。それぞれが「世間でよくある誤解」に対するアンチテーゼとして提示されています。
+                        </p>
+                        <div class="diagram-block">
+                            <div class="diagram-caption">図2: 品質の4つの絶対原則</div>
+                            <div class="mermaid-wrapper" id="dg-absolutes">
+                                <div class="diagram-loading">図を読み込み中です…</div>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <div class="table-title">4つの絶対原則とソフトウェアでの読み替え</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>絶対原則</th>
+                                        <th>よくある誤解</th>
+                                        <th>Crosbyの主張</th>
+                                        <th>ソフトウェアでの読み替え</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>品質の定義</td>
+                                        <td>品質＝「良いもの」「豪華なもの」という曖昧な感覚</td>
+                                        <td>品質とは<strong>要求仕様への適合</strong>である</td>
+                                        <td>
+                                            「良いコード」ではなく「受け入れ基準を満たしているか」で判断する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>品質を生むシステム</td>
+                                        <td>検査を強化すれば品質は上がる</td>
+                                        <td>
+                                            品質を生むのは<strong>予防</strong>であり、検査は既に起きた不良を見つけるだけ
+                                        </td>
+                                        <td>
+                                            後工程のテストだけに頼らず、設計レビューやペアプログラミングで上流から欠陥を防ぐ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>パフォーマンス基準</td>
+                                        <td>「まあこのくらいのバグは仕方ない」という許容ライン</td>
+                                        <td>基準は<strong>ゼロ・ディフェクト</strong>であるべき</td>
+                                        <td>
+                                            「バグ密度の目標値」ではなく「そもそも作り込まない」文化（TDD、静的解析の強制）
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>測定方法</td>
+                                        <td>品質指数やスコアのような抽象的な指標</td>
+                                        <td>品質は<strong>不適合のコスト（金額）</strong>で測る</td>
+                                        <td>
+                                            インシデント対応工数、リワーク時間、本番障害の損失額を金額で可視化する
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            初学者がつまずきやすいのは3番目の「ゼロ・ディフェクト」です。これは「絶対にミスを許さない恐怖政治」という意味ではなく、<strong>「妥協的な合格ラインを設定した瞬間に、そこまでの不良は許容されてしまう」という人間心理への警鐘</strong>として読むのが正しい理解です。
+                        </p>
+                    </section>
+
+                    <section id="sec5">
+                        <div class="sec-head">
+                            <i class="ti ti-currency-dollar"></i>
+                            <h2>5. 品質コスト</h2>
+                        </div>
+                        <p>
+                            Crosbyが本書のタイトルの根拠としているのが、この「品質コスト（Cost of
+                            Quality, COQ）」というフレームワークです。
+                        </p>
+                        <div class="diagram-block">
+                            <div class="diagram-caption">
+                                図3: 品質コストの内訳（適合コストと不適合コスト）
+                            </div>
+                            <div class="mermaid-wrapper" id="dg-coq">
+                                <div class="diagram-loading">図を読み込み中です…</div>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <div class="table-title">品質コストの4分類とソフトウェア開発の例</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>分類</th>
+                                        <th>意味</th>
+                                        <th>製造業の例</th>
+                                        <th>ソフトウェア開発の例</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>予防コスト</td>
+                                        <td>不良を未然に防ぐための投資</td>
+                                        <td>作業標準書、教育訓練</td>
+                                        <td>
+                                            コーディング規約、設計レビュー、TDD、静的解析ツールの導入
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>評価コスト</td>
+                                        <td>不良がないかを確認するための投資</td>
+                                        <td>抜き取り検査、監査</td>
+                                        <td>
+                                            単体・結合・E2Eテスト、コードレビュー、QAによる手動テスト
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>内部失敗コスト</td>
+                                        <td>リリース前に見つかった不良の手直し費用</td>
+                                        <td>手直し、廃棄、再検査</td>
+                                        <td>
+                                            リリース前のバグ修正、再テスト、手戻りによる工数超過
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>外部失敗コスト</td>
+                                        <td>顧客に届いた後に発覚した不良の費用</td>
+                                        <td>クレーム対応、返品、保証費用</td>
+                                        <td>
+                                            本番障害対応、緊急パッチ、SLA違反の賠償、顧客離反、ブランド毀損
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Crosbyの核心的な主張は、<strong>「予防コストへの投資を増やすと、評価コストと失敗コスト（特に外部失敗コスト）は、それを大きく上回る幅で減少する」</strong>というものです。適合コスト（POC）を適切に払うことで、不適合コスト（PONC）という「本来払わなくてよかったはずの罰金」を減らせる——だから差し引きで品質は「タダ」以上に「儲かる」というロジックです。
+                        </p>
+                        <p>
+                            多くの品質マネジメントの文献で、Crosbyのこの「conformance to
+                            requirements」という定義そのものが引用されています。ソフトウェア品質管理の分野で高く評価されているGerald
+                            M. Weinberg（<em>Perfect Software</em
+                            >の著者としても知られる、ソフトウェアテスト分野の国際的権威）も、著書『Quality
+                            Software Management: Systems
+                            Thinking』の中でCrosbyのこの定義を出発点として自身の議論を展開しています。
+                        </p>
+                    </section>
+
+                    <section id="sec6">
+                        <div class="sec-head">
+                            <i class="ti ti-stairs"></i>
+                            <h2>6. 品質改善の14ステップ</h2>
+                        </div>
+                        <p>
+                            品質を組織に定着させるための実行プログラムが、有名な「14ステップ」です。Crosbyはこれを1つの部署やプロジェクトから始め、全社に広げていくロードマップとして提示しています。
+                        </p>
+                        <div class="diagram-block">
+                            <div class="diagram-caption">
+                                図4: 品質改善の14ステップ（フェーズごとに色分け）
+                            </div>
+                            <div class="mermaid-wrapper" id="dg-steps">
+                                <div class="diagram-loading">図を読み込み中です…</div>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <div class="table-title">14ステップ一覧</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Step</th>
+                                        <th>名称</th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>経営層のコミットメント</td>
+                                        <td>経営陣が品質改善への本気度を明確に、全員に伝える</td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>品質改善チームの結成</td>
+                                        <td>各部門から代表者を集めた横断チームを作る</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>品質の測定</td>
+                                        <td>
+                                            現状の品質問題がどこにあるかを可視化する仕組みを作る
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>品質コストの算定</td>
+                                        <td>
+                                            不良によって実際にいくら失っているかを金額で算出する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>品質意識の向上</td>
+                                        <td>品質について前向きに話す文化を、全従業員に広める</td>
+                                    </tr>
+                                    <tr>
+                                        <td>6</td>
+                                        <td>是正処置</td>
+                                        <td>
+                                            見つかった問題を、その場しのぎでなく根本から解決する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>7</td>
+                                        <td>ゼロ・ディフェクト計画委員会</td>
+                                        <td>
+                                            ゼロ・ディフェクトの考え方を検討し、導入計画を立てる特別委員会
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>8</td>
+                                        <td>監督者訓練</td>
+                                        <td>現場の管理職に品質の考え方と実践方法を教育する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>9</td>
+                                        <td>ゼロ・ディフェクト・デー</td>
+                                        <td>
+                                            「品質への姿勢が変わった」ことを全員に体感させるイベントを開く
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>10</td>
+                                        <td>目標設定</td>
+                                        <td>
+                                            各チーム・各個人が、具体的で測定可能な改善目標を設定する
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>11</td>
+                                        <td>エラー原因の除去</td>
+                                        <td>
+                                            従業員自身が「目標達成の障害」を報告し、それを組織が取り除く
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>12</td>
+                                        <td>表彰</td>
+                                        <td>金銭ではなく、公の場での承認・称賛で貢献を評価する</td>
+                                    </tr>
+                                    <tr>
+                                        <td>13</td>
+                                        <td>品質評議会</td>
+                                        <td>
+                                            品質担当者たちが定期的に集まり、知見を共有し合う場を設ける
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>14</td>
+                                        <td>もう一度繰り返す</td>
+                                        <td>
+                                            プログラムは12〜18ヶ月で一巡する。その後、新しいメンバーで再スタートする
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            ここで特に強調しておきたいのが<strong>Step 12（表彰）</strong
+                            >です。Crosbyは金銭的報酬よりも「公の場での承認」の方が効果的だと述べています。これはのちの行動科学・モチベーション研究（内発的動機づけの理論）とも符合する、先見性のある指摘です。
+                        </p>
+                        <p>
+                            また<strong>Step 14（もう一度繰り返す）</strong
+                            >は、品質改善が「一度導入して終わり」のプロジェクトではなく、<strong>継続的なサイクル</strong>であることを明示しています。この考え方は、現代のアジャイル開発における「レトロスペクティブ」や、DevOpsにおける「継続的改善（Kaizen）」の思想と直接つながっています。
+                        </p>
+                    </section>
+
+                    <section id="sec7">
+                        <div class="sec-head">
+                            <i class="ti ti-chart-dots"></i>
+                            <h2>7. 成熟度グリッド</h2>
+                        </div>
+                        <p>
+                            Crosbyは、組織の品質に対する成熟度を測るための簡易ツールとして「品質管理成熟度グリッド（Quality
+                            Management Maturity Grid,
+                            QMMG）」を提示しました。これは「経営者の品質理解」「問題処理」「品質コスト」など6つのカテゴリーについて、組織が5段階のどこにいるかを診断する5×6のマトリクスです。
+                        </p>
+                        <div class="diagram-block">
+                            <div class="diagram-caption">図5: 品質管理成熟度グリッドの5段階</div>
+                            <div class="mermaid-wrapper" id="dg-maturity">
+                                <div class="diagram-loading">図を読み込み中です…</div>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <div class="table-title">成熟度グリッドの5段階</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>段階</th>
+                                        <th>名称</th>
+                                        <th>特徴</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>Uncertainty（不確実）</td>
+                                        <td>
+                                            品質は理解されておらず、問題への対応は事後的・反応的
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>2</td>
+                                        <td>Awakening（気づき）</td>
+                                        <td>
+                                            品質の重要性に気づき始めるが、取り組みは断片的で場当たり的
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>3</td>
+                                        <td>Enlightenment（啓発）</td>
+                                        <td>予防を重視した体系だった手法・基準が整い始める</td>
+                                    </tr>
+                                    <tr>
+                                        <td>4</td>
+                                        <td>Wisdom（英知）</td>
+                                        <td>品質改善が組織文化の一部として定着している</td>
+                                    </tr>
+                                    <tr>
+                                        <td>5</td>
+                                        <td>Certainty（確信）</td>
+                                        <td>
+                                            品質マネジメントが特別な取り組みではなく、日常業務そのものになっている
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            このグリッドは、10年後に登場するソフトウェア工学のCapability Maturity
+                            Model（CMM）の直接の先駆けと位置づけられています。ソフトウェアの成熟度モデル（CMM/CMMI）に馴染みのあるエンジニアであれば、「Initial
+                            → Repeatable → Defined → Managed →
+                            Optimizing」という5段階の構造がCrosbyのこのグリッドと酷似していることにすぐ気づくはずです。つまり、私たちが日常的に接しているソフトウェアプロセス成熟度という概念のルーツは、1979年のこの本にまで遡れるのです。
+                        </p>
+                    </section>
+
+                    <section id="sec8">
+                        <div class="sec-head">
+                            <i class="ti ti-git-branch"></i>
+                            <h2>8. ソフトウェア開発への応用</h2>
+                        </div>
+                        <p>
+                            Crosbyの「予防にコストをかけるほど、失敗コストは大きく減る」という主張は、現代の「シフトレフト（Shift-Left）」というプラクティスの理論的な原点そのものです。
+                        </p>
+                        <p>
+                            シフトレフトとは、テストや品質保証の活動を開発ライフサイクルのできるだけ早い段階（左側）に移すという考え方です。要件定義や設計の段階で欠陥を見つけて修正する方が、コーディング後・リリース後に見つけて修正するよりも、一般に手間もコストも小さく済むという経験則に基づいています。多くのシフトレフト解説記事では、これを「テスト工程で見つけた不具合は、設計段階で見つけるより約15倍のコストがかかり、本番環境まで到達すると約100倍のコストになる」といった具体的な倍率で語ることがよくあります。
+                        </p>
+                        <div class="diagram-block">
+                            <div class="diagram-caption">
+                                図6: モダンなCI/CDパイプラインにおける品質ゲート
+                            </div>
+                            <div class="mermaid-wrapper" id="dg-pipeline">
+                                <div class="diagram-loading">図を読み込み中です…</div>
+                            </div>
+                        </div>
+                        <p>
+                            このパイプラインの各ステージが、そのまま第5章の品質コスト分類に対応しています。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>予防コスト</strong
+                                >：要件定義・設計・静的解析・コーディング規約
+                            </li>
+                            <li>
+                                <strong>評価コスト</strong
+                                >：コードレビュー・自動テスト・ステージングでの受け入れテスト
+                            </li>
+                            <li>
+                                <strong>内部失敗コスト</strong
+                                >：CIで検出されたテスト失敗の修正、レビュー指摘の手直し
+                            </li>
+                            <li>
+                                <strong>外部失敗コスト</strong
+                                >：本番監視でのインシデント、緊急パッチ、ポストモーテム対応
+                            </li>
+                        </ul>
+                        <p>
+                            ただし、次の章で触れる通り、「後工程になるほど何倍コストが増えるか」という<strong>具体的な倍率の数字そのもの</strong>については、ソフトウェア工学コミュニティの中で重要な異論が提起されています。ベストプラクティスとして重要なのは、「予防への投資は方向性として正しい」という結論であり、「N倍」という数字を鵜呑みにしないことです。
+                        </p>
+                    </section>
+
+                    <section id="sec9">
+                        <div class="sec-head">
+                            <i class="ti ti-scale"></i>
+                            <h2>9. 批判的に読む</h2>
+                        </div>
+                        <p>
+                            権威ある本の主張であっても鵜呑みにせず、根拠を検証する姿勢が欠かせません。Crosbyの品質コストの考え方自体は現在も広く支持されていますが、そこから派生して業界で独り歩きした「欠陥修正コストの指数関数的増大カーブ」（しばしば「1x/6.5x/15x/100x」のような表で紹介される）については、近年の調査で重大な疑義が呈されています。
+                        </p>
+                        <p>
+                            フランスの著名なアジャイル実践者であり、2006年のAgile AllianceのGordon
+                            Pask賞受賞者でもあるLaurent Bossavitは、著書<em
+                                >The Leprechauns of Software Engineering</em
+                            >（2013年初版）の中で、この「コスト曲線」の出典を丹念に遡り、しばしば根拠として引用される「IBM
+                            System Science
+                            Institute」の研究について、公表された論文としての実在が確認できないことを指摘しました。この調査はBudgetOverrun.comなど、複数の独立した検証記事でも追認されています。
+                        </p>
+                        <div class="diagram-block">
+                            <div class="diagram-caption">図7: 「コスト曲線」の主張と検証結果</div>
+                            <div class="mermaid-wrapper" id="dg-critique">
+                                <div class="diagram-loading">図を読み込み中です…</div>
+                            </div>
+                        </div>
+                        <div class="table-wrap">
+                            <div class="table-title">コスト曲線をめぐる論点整理</div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>論点</th>
+                                        <th>評価</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            「後工程で見つかった不具合ほど修正コストが高い」という<strong
+                                                >方向性</strong
+                                            >
+                                        </td>
+                                        <td>
+                                            Barry BoehmやBoehm and
+                                            Basili（2001）など複数の独立研究が支持しており、経験則として妥当性が高い
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            「1x/6.5x/15x/100x」のような<strong
+                                                >具体的な固定倍率</strong
+                                            >
+                                        </td>
+                                        <td>
+                                            出典が孫引きの繰り返しによって誇張・単純化されたものであり、元となる一次データが確認できない
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>実務上の教訓</td>
+                                        <td>
+                                            シフトレフトという<strong>方向性の判断</strong>には使ってよいが、ROI試算などに<strong>具体的な倍率の数字</strong>をそのまま流用するのは避けるべき
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Bossavit自身も、この種の「業界のleprechaun（言い伝えだけの妖精）」を暴くことの目的は、シフトレフトや予防重視という結論そのものを否定することではなく、「なぜそれが正しいと言えるのか」を自分の頭で検証する姿勢を、ソフトウェア工学というまだ若い専門分野に根付かせることにある、と述べています。これはCrosby自身が本書で繰り返し説く「品質は測定できるものでなければならない」という精神とも、実は矛盾しません。数字を使うなら、その数字の出所を必ず確認する——これもまた一つの「品質」の実践です。
+                        </p>
+                    </section>
+
+                    <section id="sec10">
+                        <div class="sec-head">
+                            <i class="ti ti-robot"></i>
+                            <h2>10. 2026年の現在地</h2>
+                        </div>
+                        <p>
+                            2026年9月現在、Crosbyが説いた「品質コスト」の考え方は、AIによるコード生成が普及した開発現場で新しい形の再評価を受けています。
+                        </p>
+                        <p>
+                            DevOps Research and Assessment（DORA）チームの公式レポート「<a
+                                href="https://dora.dev/research/2025/dora-report/"
+                                target="_blank"
+                                rel="noopener"
+                                >2025 DORA State of AI-assisted Software Development report</a
+                            >」（<em>Accelerate</em>の著者であるDr. Nicole Forsgren、Jez
+                            Humble、Gene
+                            Kimらが創始したプロジェクト、現在はGoogleが運営）では、AI支援開発の普及によってデリバリのスループットが増大する一方で、デリバリの不安定性もあわせて増大するという関係が示されています。この現象をより踏み込んで論じたのが、DORAチームの2026年3月10日付の公式記事「<a
+                                href="https://dora.dev/insights/balancing-ai-tensions/"
+                                target="_blank"
+                                rel="noopener"
+                                >Balancing AI tensions: Moving from AI adoption to effective SDLC
+                                use</a
+                            >」です。同記事は、コードを書く時間が短縮されても、その分の時間がAI生成コードの信頼性・セキュリティ・アーキテクチャ整合性を確認する監査作業に再配分される——<strong
+                                >「検証税（verification tax）」</strong
+                            >と呼ばれる負担——という構造を指摘し、その負荷がとりわけコードレビュー担当者に集中すると述べています。また、AI導入の投資対効果そのものについては「<a
+                                href="https://dora.dev/ai/roi/report/"
+                                target="_blank"
+                                rel="noopener"
+                                >ROI of AI-assisted Software Development report</a
+                            >」で別途分析されています。
+                        </p>
+                        <p>
+                            なお、プルリクエストのレビュー時間の中央値の大幅な増加や、レビューなしでマージされるPR割合の増加といった具体的な開発メトリクスの変化は、<a
+                                href="https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025"
+                                target="_blank"
+                                rel="noopener"
+                                >Faros AIの分析</a
+                            >や<a
+                                href="https://kodus.io/en/dora-accelerate-state-of-devops/"
+                                target="_blank"
+                                rel="noopener"
+                                >Kodusの二次資料</a
+                            >に基づく報告・考察として示されています。
+                        </p>
+                        <p>
+                            これはまさに、Crosbyが1979年に定義した「評価コスト（appraisal
+                            cost）」が、AIコーディングという新しい変数によって形を変えて再浮上している状況だと読むことができます。コード生成という「予防（=最初から正しく書く）」の一部をAIに委譲した結果、「評価（=それが本当に正しいかを確認する）」の負荷がむしろ増大している、というのが2026年時点での業界の実感です。Crosby流に言えば、<strong>予防コストの内訳が変化しただけであり、「品質コストの総和を最小化する」という命題自体は今も有効</strong>だと言えるでしょう。
+                        </p>
+                        <blockquote>
+                            出典：本セクションの「検証税（verification
+                            tax）」の概念はDORAの公式記事「Balancing AI
+                            tensions」（2026年3月10日）に基づき、AI導入の投資対効果に関する記述は「ROI
+                            of AI-assisted Software Development
+                            report」に基づいています。また、レビュー時間中央値やマージ割合等の周辺数値はFaros
+                            AIおよびKodusの二次資料（2025/2026年）を参照しています。詳細情報は下記参考文献のリンクから直接ご確認ください。
+                        </blockquote>
+                    </section>
+
+                    <section id="sec11">
+                        <div class="sec-head">
+                            <i class="ti ti-route"></i>
+                            <h2>11. 実践ステップバイステップガイド</h2>
+                        </div>
+                        <p>
+                            ここからは、Crosbyの14ステップを、ソフトウェア開発チーム（特にQA・テストの体制がまだ整っていないチーム）向けに読み替えた、実践的なステップバイステップガイドです。初学者のチームリーダーやQAエンジニアが、明日から着手できるレベルまで具体化しています。
+                        </p>
+
+                        <h3>
+                            <span class="tag">ステップ1</span
+                            >経営層・プロダクトオーナーの合意を取る（原著Step 1-2に対応）
+                        </h3>
+                        <ol>
+                            <li>
+                                「品質にコストをかけることは投資であり、後工程の失敗コストを削減する」というROIの論理を、具体的な過去のインシデント事例（本番障害の対応時間、緊急パッチのコストなど）を使って説明する。
+                            </li>
+                            <li>
+                                QA・テストエンジニア、開発リード、プロダクトオーナーからなる横断的な「品質改善チーム」を小さく作る（最初は3〜5人で十分）。
+                            </li>
+                        </ol>
+
+                        <h3>
+                            <span class="tag">ステップ2</span>現状の品質コストを可視化する（原著Step
+                            3-5に対応）
+                        </h3>
+                        <ol>
+                            <li>
+                                過去3ヶ月分のバグチケット・インシデントを集計し、それぞれが「いつの工程で作り込まれ、いつ発見されたか」を分類する。
+                            </li>
+                            <li>
+                                各バグの修正にかかった実工数（開発・レビュー・再テスト・デプロイ）を概算し、「予防コスト／評価コスト／内部失敗コスト／外部失敗コスト」の4分類で集計する。
+                            </li>
+                            <li>
+                                この集計結果をチーム全体に共有し、「品質について前向きに話す」きっかけを作る（原著のStep
+                                5「品質意識の向上」に相当）。
+                            </li>
+                        </ol>
+
+                        <h3>
+                            <span class="tag">ステップ3</span>是正のサイクルを作る（原著Step
+                            6-7に対応）
+                        </h3>
+                        <ol>
+                            <li>
+                                見つかった問題のうち、繰り返し発生しているもの（同じ種類のバグが何度も起きている等）を特定し、根本原因（レビュー基準の欠如、テストカバレッジの不足、要件の曖昧さなど）を分析する。
+                            </li>
+                            <li>
+                                「ゼロ・ディフェクト」に相当する目標として、例えば「重大度Highのインシデントを本番環境で二度と出さない」といった、チームが本気で目指せる具体的な旗印を立てる。
+                            </li>
+                        </ol>
+
+                        <h3>
+                            <span class="tag">ステップ4</span>チームの実行力を高める（原著Step
+                            8-10に対応）
+                        </h3>
+                        <ol>
+                            <li>
+                                テックリードやチームリーダーに対して、コードレビューの質の高め方、テスト設計の基本（境界値分析、同値分割など）を教育する。
+                            </li>
+                            <li>
+                                「品質week」のようなイベントを企画し、技術的負債の解消やテストカバレッジ向上に集中して取り組む機会を作る（原著のStep
+                                9「ゼロ・ディフェクト・デー」に相当）。
+                            </li>
+                            <li>
+                                チームやスプリントごとに、測定可能な品質目標（例：「クリティカルパスのE2Eテストカバレッジを80%まで引き上げる」）を設定する。
+                            </li>
+                        </ol>
+
+                        <h3>
+                            <span class="tag">ステップ5</span>現場の声を吸い上げる（原著Step
+                            11に対応）
+                        </h3>
+                        <ol>
+                            <li>
+                                「なぜこのバグが起きたか」ではなく「何が目標達成の障害になっているか」をエンジニア自身に報告してもらう仕組み（レトロスペクティブ、Slackチャンネルなど）を作る。
+                            </li>
+                            <li>
+                                報告された障害（例：CIが遅い、テスト環境が不安定、要件が頻繁に変わる）を、チームまたは組織として実際に取り除く。
+                            </li>
+                        </ol>
+
+                        <h3>
+                            <span class="tag">ステップ6</span>承認し、定着させ、繰り返す（原著Step
+                            12-14に対応）
+                        </h3>
+                        <ol>
+                            <li>
+                                品質改善に貢献した個人やチームを、金銭的インセンティブよりも「公の場での称賛」で評価する。
+                            </li>
+                            <li>
+                                品質に関わる関係者（QA、SRE、開発リードなど）が定期的に集まり、知見を共有する場（品質評議会に相当するミーティング）を設ける。
+                            </li>
+                            <li>
+                                このサイクル全体を一度きりで終わらせず、四半期〜半期ごとに新しい目標を立てて繰り返す。
+                            </li>
+                        </ol>
+                    </section>
+
+                    <section id="sec12">
+                        <div class="sec-head">
+                            <i class="ti ti-square-check"></i>
+                            <h2>12. 実践チェックリスト</h2>
+                        </div>
+                        <p>
+                            チームの現状と照らし合わせながら、実際にチェックを入れて進捗を確認してください。
+                        </p>
+                        <span class="checklist-counter"
+                            ><span id="checkCount">0</span> / 11 完了</span
+                        >
+                        <ul class="checklist" id="qifChecklist">
+                            <li>
+                                <input type="checkbox" id="cl1" /><label for="cl1"
+                                    >品質改善に対する経営層・プロダクトオーナーの合意を得た</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl2" /><label for="cl2"
+                                    >品質改善のための横断チームを結成した</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl3" /><label for="cl3"
+                                    >過去のバグ・インシデントを「予防／評価／内部失敗／外部失敗」の4分類で可視化した</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl4" /><label for="cl4"
+                                    >繰り返し発生している不具合の根本原因を分析した</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl5" /><label for="cl5"
+                                    >チームが目指すべき具体的な品質目標を設定した</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl6" /><label for="cl6"
+                                    >コードレビュー・テスト設計に関する教育の機会を設けた</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl7" /><label for="cl7"
+                                    >現場のエンジニアが「目標達成の障害」を報告できる仕組みを作った</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl8" /><label for="cl8"
+                                    >品質改善への貢献を公の場で称賛する仕組みを作った</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl9" /><label for="cl9"
+                                    >品質に関わる知見を共有する定例の場を設けた</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl10" /><label for="cl10"
+                                    >一度きりで終わらせず、次のサイクルの計画を立てた</label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl11" /><label for="cl11"
+                                    >「後工程ほどコストがN倍」という数字を鵜呑みにせず、自分たちのチームの実データで検証している</label
+                                >
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="sec13">
+                        <div class="sec-head">
+                            <i class="ti ti-map"></i>
+                            <h2>13. 学習ロードマップ</h2>
+                        </div>
+                        <div class="diagram-block">
+                            <div class="diagram-caption">図8: Quality Is Free の次に読むべき本</div>
+                            <div class="mermaid-wrapper" id="dg-roadmap">
+                                <div class="diagram-loading">図を読み込み中です…</div>
+                            </div>
+                        </div>
+                        <ul>
+                            <li>
+                                <strong>次に読むべき本（品質哲学を深める）</strong>：Gerald M.
+                                Weinberg『Perfect Software: And Other Illusions about Testing』
+                            </li>
+                            <li>
+                                <strong>次に読むべき本（統計的品質管理の視点を加える）</strong>：W.
+                                Edwards Deming『Out of the Crisis』
+                            </li>
+                            <li>
+                                <strong
+                                    >次に読むべき本（現代のDevOps文脈で品質と速度の両立を学ぶ）</strong
+                                >：Forsgren, Humble, Kim『Accelerate』
+                            </li>
+                            <li>
+                                <strong
+                                    >次に読むべき本（数字を鵜呑みにしない批判的思考を鍛える）</strong
+                                >：Laurent Bossavit『The Leprechauns of Software Engineering』
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="sec14">
+                        <div class="sec-head">
+                            <i class="ti ti-flag-3"></i>
+                            <h2>14. まとめ</h2>
+                        </div>
+                        <p>
+                            Crosbyの『Quality Is
+                            Free』が半世紀近く読み継がれている理由は、その主張がシンプルで、かつ現代のソフトウェア開発の実践——シフトレフト、CI/CDの品質ゲート、TDD、DevOpsの継続的改善——のほぼすべてに、理論的な骨格を提供しているからです。
+                        </p>
+                        <p>
+                            初学者がこの本、そして本ガイドから持ち帰るべき教訓は次の3点に集約できます。
+                        </p>
+                        <ol>
+                            <li>
+                                <strong
+                                    >品質とは曖昧な感覚ではなく、「要求への適合」という測定可能な事柄である。</strong
+                                >
+                            </li>
+                            <li>
+                                <strong
+                                    >不良を後工程で見つけるより、最初から作り込まない（予防する）方が、総合的なコストは小さくなる。</strong
+                                >
+                            </li>
+                            <li>
+                                <strong
+                                    >ただし、その根拠として引用される具体的な数字は、必ず自分の頭とチームの実データで検証する。</strong
+                                >これはCrosby自身が説いた「品質は測定せよ」という精神の、最も誠実な実践です。
+                            </li>
+                        </ol>
+                    </section>
+
+                    <section id="sec15">
+                        <div class="sec-head">
+                            <i class="ti ti-link"></i>
+                            <h2>15. 参考文献</h2>
+                        </div>
+                        <p>
+                            本ガイドの作成にあたり、以下の情報源を参照しました（2026年9月8日時点でアクセス可能なものを確認）。
+                        </p>
+                        <div class="ref-list">
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Google Books - Quality is Free: The Art of Making Quality
+                                    Certain
+                                </div>
+                                <div class="ref-note">書誌情報</div>
+                                <div class="ref-url">
+                                    https://books.google.com/books/about/Quality_is_Free.html?id=3TMQt73LDooC
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Internet Archive - Quality is free: the art of making quality
+                                    certain
+                                </div>
+                                <div class="ref-note">
+                                    全13章の目次（Part One The Understanding / Part Two The Doing /
+                                    Part Three The Tools）を確認
+                                </div>
+                                <div class="ref-url">
+                                    https://archive.org/details/qualityisfree00cros
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Wikipedia - Quality Management Maturity Grid
+                                </div>
+                                <div class="ref-note">CMMとの関係を含む解説</div>
+                                <div class="ref-url">
+                                    https://en.wikipedia.org/wiki/Quality_Management_Maturity_Grid
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    ASQ Quality Progress（2005年12月号）再録 - Crosby's 14 Steps To
+                                    Improvement
+                                </div>
+                                <div class="ref-note">原著者Philip B. Crosby自身による解説</div>
+                                <div class="ref-url">
+                                    https://www.agiledevelopment.org/download/qp1205crosby.pdf
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Quality Gurus - Philip Crosby: The Man Who Said "Quality is
+                                    Free"
+                                </div>
+                                <div class="ref-note">経歴・4つの絶対原則の解説</div>
+                                <div class="ref-url">
+                                    https://www.qualitygurus.com/philip-crosby/
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    MindTools - Crosby's 14 Steps for Improvement
+                                </div>
+                                <div class="ref-url">
+                                    https://www.mindtools.com/a5zr4t0/crosbys-14-steps-for-improvement/
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Cognidox - Where are you on the Quality Management Maturity
+                                    Grid?
+                                </div>
+                                <div class="ref-url">
+                                    https://www.cognidox.com/blog/where-are-you-on-the-quality-management-maturity-grid
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Rob Nagler - BookNotes: Quality Software Management Vol.1
+                                    Systems Thinking
+                                </div>
+                                <div class="ref-note">
+                                    Gerald M. Weinberg著、Crosbyの品質定義への言及を含む
+                                </div>
+                                <div class="ref-url">
+                                    https://www.robnagler.com/1993/12/31/Quality-Software-Management.html
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Laurent Bossavit - The Leprechauns of Software Engineering
+                                </div>
+                                <div class="ref-note">Leanpub、コスト曲線の出典検証</div>
+                                <div class="ref-url">https://leanpub.com/leprechauns</div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Model View Culture - "The Making of Myths" by Laurent Bossavit
+                                </div>
+                                <div class="ref-url">
+                                    https://modelviewculture.com/pieces/the-making-of-myths
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    BudgetOverrun.com - Boehm's Cost-of-Change Curve: Does a Bug
+                                    Really Cost 100x More Late?
+                                </div>
+                                <div class="ref-url">
+                                    https://budgetoverrun.com/cost-of-change-curve
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    DORA - 2025 DORA State of AI-assisted Software Development
+                                    report
+                                </div>
+                                <div class="ref-url">
+                                    https://dora.dev/research/2025/dora-report/
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    DORA - Balancing AI tensions: Moving from AI adoption to
+                                    effective SDLC use（2026年3月10日）
+                                </div>
+                                <div class="ref-note">「検証税（verification tax）」の出典</div>
+                                <div class="ref-url">
+                                    https://dora.dev/insights/balancing-ai-tensions/
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    DORA - ROI of AI-assisted Software Development report
+                                </div>
+                                <div class="ref-url">https://dora.dev/ai/roi/report/</div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Faros AI - DORA Report 2025/2026 Key Takeaways: AI Impact on Dev
+                                    Metrics
+                                </div>
+                                <div class="ref-url">
+                                    https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025
+                                </div>
+                            </div>
+                            <div class="ref-card">
+                                <div class="ref-title">
+                                    Kodus.io - DORA 2026: The ROI of AI in Software Development Runs
+                                    Through Code Review
+                                </div>
+                                <div class="ref-url">
+                                    https://kodus.io/en/dora-accelerate-state-of-devops/
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+
+                <footer class="footer">
+                    本ガイドはPhilip B. Crosby『Quality Is
+                    Free』の学習補助を目的とした独自解説であり、原著の文章を逐語的に引用したものではありません。原著の詳細な内容については、参考文献のGoogle
+                    Booksリンクまたは書籍そのものをご参照ください。
+                </footer>
+            </main>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"
+            integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            mermaid.initialize({
+                startOnLoad: false,
+                theme: 'base',
+                themeVariables: {
+                    background: 'transparent',
+                    primaryColor: '#fffdf7',
+                    primaryTextColor: '#2a241c',
+                    primaryBorderColor: '#413d8a',
+                    lineColor: '#413d8a',
+                    secondaryColor: '#f2ecdd',
+                    tertiaryColor: '#faf6ec',
+                    fontFamily: 'Noto Sans JP, system-ui, sans-serif',
+                    fontSize: '16px',
+                },
+                flowchart: { htmlLabels: true, curve: 'basis' },
+            });
+
+            const DIAGRAMS = {
+                'dg-structure': `flowchart TB
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#413d8a,stroke-width:1px;
+    ROOT[Quality Is Free 全体構成]
+    ROOT --> P1[Part One The Understanding]
+    P1 --> C1[品質を確実にする]
+    C1 --> C2[品質とは何か]
+    C2 --> C3[品質管理成熟度グリッド]
+    C3 --> C4[品質コスト]
+    C4 --> C5[14ステップ改善プログラム]
+    C5 --> P2[Part Two The Doing HPA Corporation]
+    P2 --> C6[プロジェクトの経緯]
+    C6 --> C7[プログラムの実施]
+    C7 --> P3[Part Three The Tools]
+    P3 --> C8[HPA社ケーススタディ指導者ガイド]
+    C8 --> C9[Make Certain実践ツール]
+    class P1,P2,P3 hub`,
+
+                'dg-absolutes': `flowchart TB
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#413d8a,stroke-width:1px;
+    ROOT[品質の4つの絶対原則]
+    ROOT --> D1[定義　要求への適合]
+    ROOT --> D2[システム　予防が中心]
+    ROOT --> D3[基準　ゼロディフェクト]
+    ROOT --> D4[測定　不適合コストで測る]
+    class ROOT hub`,
+
+                'dg-coq': `flowchart TB
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#413d8a,stroke-width:1px;
+    COQ[品質コスト COQ]
+    COQ --> POC[適合コスト POC]
+    COQ --> PONC[不適合コスト PONC]
+    POC --> PREV[予防コスト　設計レビュー・教育・標準策定]
+    POC --> APPR[評価コスト　テスト・QA・コードレビュー]
+    PONC --> INT[内部失敗コスト　リリース前のバグ修正・手戻り]
+    PONC --> EXT[外部失敗コスト　本番障害・サポート対応・信頼損失]
+    class COQ hub`,
+
+                'dg-steps': `flowchart TB
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#413d8a,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#2f6b4f,stroke-width:1px;
+    S1[Step1 経営層のコミットメント]
+    S1 --> S2[Step2 品質改善チームの結成]
+    S2 --> S3[Step3 品質の測定]
+    S3 --> S4[Step4 品質コストの算定]
+    S4 --> S5[Step5 品質意識の向上]
+    S5 --> S6[Step6 是正処置]
+    S6 --> S7[Step7 ゼロディフェクト計画委員会]
+    S7 --> S8[Step8 監督者訓練]
+    S8 --> S9[Step9 ゼロディフェクトデー]
+    S9 --> S10[Step10 目標設定]
+    S10 --> S11[Step11 エラー原因の除去]
+    S11 --> S12[Step12 表彰]
+    S12 --> S13[Step13 品質評議会]
+    S13 --> S14[Step14 もう一度繰り返す]
+    S14 -.->|12から18ヶ月後に再始動| S1
+    class S1,S3,S6,S12 hub
+    class S14 done`,
+
+                'dg-maturity': `flowchart TB
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#413d8a,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#2f6b4f,stroke-width:1px;
+    L1[Stage1 Uncertainty 品質は場当たり的　経営層は無関心]
+    L1 --> L2[Stage2 Awakening 問題意識は生まれるが対応は断片的]
+    L2 --> L3[Stage3 Enlightenment 予防重視の体系立った取り組みが始まる]
+    L3 --> L4[Stage4 Wisdom 品質が組織文化に根付く]
+    L4 --> L5[Stage5 Certainty 品質マネジメントが日常業務そのものになる]
+    L5 -.->|後年のCMMとCMMIの原型に| CMM[ソフトウェアCMMへ]
+    class L1 hub
+    class L5,CMM done`,
+
+                'dg-critique': `flowchart TB
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#413d8a,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#2f6b4f,stroke-width:1px;
+    CLAIM[よく引用される主張　1x 6.5x 15x 100xという固定倍率表]
+    CLAIM --> SRC[出典を遡ると根拠不明　IBM System Science Institute研究は実在が未確認]
+    EVID[複数の独立した研究が支持する点　Boehm 1981とBoehm and Basili 2001]
+    EVID --> DIR[方向性は妥当　後工程での修正ほど一般に高コスト]
+    DIR --> CAUTION[ただし正確な倍率を数値として引用するのは避ける]
+    class CLAIM hub
+    class CAUTION done`,
+
+                'dg-pipeline': `flowchart TB
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#413d8a,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#2f6b4f,stroke-width:1px;
+    REQ[要件定義　受け入れ基準を明文化]
+    REQ --> DESIGN[設計　アーキテクチャレビュー]
+    DESIGN --> CODE[実装　TDD ペアプログラミング]
+    CODE --> STATIC[静的解析とLint　CIパイプライン]
+    STATIC --> REVIEW[コードレビュー]
+    REVIEW --> TEST[自動テスト　単体 結合 E2E]
+    TEST --> STAGE[ステージング環境　受け入れテスト]
+    STAGE --> PROD[本番リリース]
+    PROD --> MONITOR[本番監視とSLO　インシデント対応]
+    MONITOR -.->|フィードバックをシフトレフト| REQ
+    class REQ hub
+    class MONITOR done`,
+
+                'dg-roadmap': `flowchart TB
+    classDef hub fill:#c9c4ef,color:#221f52,stroke:#413d8a,stroke-width:1px;
+    classDef done fill:#bfe4d2,color:#123722,stroke:#2f6b4f,stroke-width:1px;
+    START[Quality Is Freeを読了]
+    START --> B1[Perfect Software　Gerald M Weinberg]
+    START --> B2[Out of the Crisis　W Edwards Deming]
+    START --> B3[Accelerate　Forsgren Humble Kim]
+    START --> B4[The Leprechauns of Software Engineering　Laurent Bossavit]
+    B1 --> NEXT[ソフトウェア品質への応用を深める]
+    B2 --> NEXT
+    B3 --> NEXT
+    B4 --> NEXT
+    class START hub
+    class NEXT done`,
+            };
+
+            async function renderDiagrams() {
+                const entries = Object.entries(DIAGRAMS);
+                for (const [id, src] of entries) {
+                    const container = document.getElementById(id);
+                    if (!container) continue;
+                    try {
+                        const renderId = 'm-' + id + '-' + Math.random().toString(36).slice(2);
+                        const { svg } = await mermaid.render(renderId, src);
+                        container.innerHTML = svg;
+                        const svgEl = container.querySelector('svg');
+                        if (svgEl) {
+                            const vb = svgEl.getAttribute('viewBox');
+                            let w = 700;
+                            if (vb) {
+                                const parts = vb.split(/\s+/);
+                                w = parseFloat(parts[2]) || 700;
+                            }
+                            svgEl.removeAttribute('width');
+                            svgEl.removeAttribute('height');
+                            svgEl.style.display = 'block';
+                            svgEl.style.width = w + 'px';
+                            svgEl.style.maxWidth = 'none';
+                            svgEl.style.height = 'auto';
+                            svgEl.style.flexShrink = '0';
+                            svgEl.style.overflow = 'visible';
+                        }
+                    } catch (err) {
+                        container.innerHTML =
+                            '<div class="diagram-loading">図の読み込みに失敗しました</div>';
+                        console.error('Mermaid render error for', id, err);
+                    }
+                }
+            }
+            renderDiagrams();
+
+            /* ---- checklist counter ---- */
+            const checklist = document.getElementById('qifChecklist');
+            const checkCount = document.getElementById('checkCount');
+            function updateCheckCount() {
+                const boxes = checklist.querySelectorAll('input[type=checkbox]');
+                let n = 0;
+                boxes.forEach((b) => {
+                    b.closest('li').classList.toggle('done', b.checked);
+                    if (b.checked) n++;
+                });
+                checkCount.textContent = n;
+            }
+            checklist.addEventListener('change', updateCheckCount);
+            updateCheckCount();
+
+            /* ---- mobile menu ---- */
+            const sidebar = document.getElementById('sidebar');
+            const mobileToggle = document.getElementById('mobileToggle');
+            mobileToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+            sidebar.querySelectorAll('.nav-a').forEach((a) => {
+                a.addEventListener('click', () => sidebar.classList.remove('open'));
+            });
+
+            /* ---- sidebar active highlight ---- */
+            const navLinks = Array.from(document.querySelectorAll('.nav-a'));
+            const sectionEls = navLinks
+                .map((a) => document.querySelector(a.getAttribute('href')))
+                .filter(Boolean);
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        const id = '#' + entry.target.id;
+                        const link = navLinks.find((a) => a.getAttribute('href') === id);
+                        if (!link) return;
+                        if (entry.isIntersecting) {
+                            navLinks.forEach((a) => a.classList.remove('active'));
+                            link.classList.add('active');
+                        }
+                    });
+                },
+                { rootMargin: '-20% 0px -70% 0px' },
+            );
+            sectionEls.forEach((el) => observer.observe(el));
+        </script>
+    </body>
+</html>
