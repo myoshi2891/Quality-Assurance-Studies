@@ -122,7 +122,7 @@ export default function NavBar() {
                   className={`navlink ${isActive ? 'active' : ''}`}
                   href={item.href}
                   onClick={closeSidebar}
-                  aria-current={isActive ? 'true' : undefined}
+                  aria-current={isActive ? 'location' : undefined}
                 >
                   <i className={item.icon} aria-hidden="true" />
                   {item.label}
@@ -142,7 +142,7 @@ export default function NavBar() {
                   className={`navlink ${isActive ? 'active' : ''}`}
                   href={item.href}
                   onClick={closeSidebar}
-                  aria-current={isActive ? 'true' : undefined}
+                  aria-current={isActive ? 'location' : undefined}
                 >
                   <i className={item.icon} aria-hidden="true" />
                   {item.label}
