@@ -70,6 +70,17 @@ export default function RootLayout({
   return (
     <html lang="ja" className={`${notoSansJP.variable} ${jetBrainsMono.variable} ${dmSans.variable} ${bricolage.variable}`}>
       <body>
+        {/*
+          Tabler アイコンフォント。CSS の @import はページ CSS を読み終えるまで
+          発見されず往復が直列化するため、レイアウトで <link> として一元的に読む。
+          React 19 が rel="stylesheet" / rel="preconnect" を <head> へ巻き上げる。
+        */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="" />
+        <link
+          rel="stylesheet"
+          precedence="default"
+          href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+        />
         <Header />
         <DisclaimerBanner />
         <div className="layout-content">{children}</div>
