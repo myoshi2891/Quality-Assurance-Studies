@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useScrollSpy } from '../../lib/useScrollSpy';
 
@@ -42,6 +42,8 @@ const SCROLL_SPY_BAND = { top: 0.15, bottom: 0.3 } as const;
 export default function NavBar() {
   const activeId = useScrollSpy(SECTION_IDS, SCROLL_SPY_BAND);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
 
   // デスクトップ幅（CSS の 960px ブレークポイント超）へ戻したら、
   // モバイル用サイドバーの開閉状態をリセットしてレイアウトと同期させる。
@@ -56,11 +58,20 @@ export default function NavBar() {
   }, []);
 
   const toggleSidebar = () => setIsOpen((prev) => !prev);
-  const closeSidebar = () => setIsOpen(false);
+  const closeSidebar = () => {
+    // サイドバー内にフォーカスが残ったまま閉じると、非表示要素上にフォーカスが
+    // 取り残される。閉じる前に判定し、トグルボタンへフォーカスを戻す。
+    const focusWasInside = sidebarRef.current?.contains(document.activeElement) ?? false;
+    setIsOpen(false);
+    if (focusWasInside) {
+      toggleRef.current?.focus();
+    }
+  };
 
   return (
     <>
       <button
+        ref={toggleRef}
         type="button"
         className="menu-toggle"
         id="menuToggle"
@@ -72,7 +83,7 @@ export default function NavBar() {
         <i className={isOpen ? 'ti ti-x' : 'ti ti-menu-2'} aria-hidden="true"></i>
       </button>
 
-      <aside className={`sidebar ${isOpen ? 'open' : ''}`} id="sidebar">
+      <aside ref={sidebarRef} className={`sidebar ${isOpen ? 'open' : ''}`} id="sidebar">
         <div className="sidebar-brand">
           <div className="logo-row">
             <i className="ti ti-shield-check-filled" aria-hidden="true"></i>

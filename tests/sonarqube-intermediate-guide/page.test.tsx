@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, cleanup, waitFor, act } from '@testing-library/react';
+import { render, cleanup, waitFor, act, fireEvent } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import SonarQubeIntermediateGuidePage from '../../app/sonarqube-intermediate-guide/page';
@@ -141,6 +141,34 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
     } finally {
       stubs.forEach((el) => el.remove());
     }
+  });
+
+  it('returns focus to the menu toggle when a TOC link closes the mobile sidebar (a11y regression)', () => {
+    const { container } = render(<NavBar />);
+    const toggle = container.querySelector('#menuToggle') as HTMLButtonElement;
+    const sidebar = container.querySelector('aside.sidebar') as HTMLElement;
+    const firstLink = container.querySelector('nav.toc a') as HTMLAnchorElement;
+
+    act(() => {
+      fireEvent.click(toggle);
+    });
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(sidebar.className).toContain('open');
+
+    // サイドバー内のリンクにフォーカスがある状態で閉じる（実ブラウザのクリック相当）。
+    firstLink.focus();
+    // DOM ノードを toBe で比較するとランナーがノード全体を直列化するため、識別子で照合する。
+    expect((document.activeElement as HTMLElement | null)?.getAttribute('href')).toBe(
+      firstLink.getAttribute('href')
+    );
+
+    act(() => {
+      fireEvent.click(firstLink);
+    });
+
+    expect(sidebar.className).not.toContain('open');
+    // 非表示になったサイドバー内ではなく、トグルボタンへフォーカスが戻る。
+    expect((document.activeElement as HTMLElement | null)?.id).toBe('menuToggle');
   });
 
   describe('Category 1: 基礎・アーキテクチャ・導入編 (Sections 00〜05)', () => {
