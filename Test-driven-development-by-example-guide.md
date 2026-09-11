@@ -2,7 +2,7 @@
 
 > 原著: *Test-Driven Development: By Example*（Kent Beck 著／Addison-Wesley Professional／2002年11月／240ページ）
 > 本ガイドは、この古典的名著の構成と考え方を初学者向けに整理し直した学習用ドキュメントです。
-> 原文の引用は最小限にとどめ、内容は要約・再構成しています。詳細は書籍の購入・閲覧をおすすめします（[O'Reilly該当ページ](https://www.oreilly.com/library/view/test-driven-development/0321146530/)）。
+> 原文の引用は最小限にとどめ、内容は要約・再構成しています。詳細は書籍の購入・閲覧をおすすめします（<a href="https://www.oreilly.com/library/view/test-driven-development/0321146530/" target="_blank" rel="noopener noreferrer">O'Reilly該当ページ</a>）。
 
 ---
 
@@ -375,4 +375,4 @@ flowchart TD
 
 ---
 
-*本ドキュメントはKent Beckの著書『Test-Driven Development: By Example』の内容を、初学者向けに要約・再構成した学習補助資料です。書籍本文の逐語的な引用は行っていません。正確な原文とコード例は、必ず原著（[O'Reillyページ](https://www.oreilly.com/library/view/test-driven-development/0321146530/)）をご参照ください。*
+*本ドキュメントはKent Beckの著書『Test-Driven Development: By Example』の内容を、初学者向けに要約・再構成した学習補助資料です。書籍本文の逐語的な引用は行っていません。正確な原文とコード例は、必ず原著（<a href="https://www.oreilly.com/library/view/test-driven-development/0321146530/" target="_blank" rel="noopener noreferrer">O'Reillyページ</a>）をご参照ください。*

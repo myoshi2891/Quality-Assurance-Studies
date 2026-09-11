@@ -1778,10 +1778,14 @@ def 税込み価格(小計):
                 mobileToggle.setAttribute('aria-expanded', 'true');
             }
             function closeSidebar() {
+                // サイドバー内にフォーカスが残ったまま閉じると、非表示要素上に
+                // フォーカスが取り残される。閉じる前に判定してトグルへ戻す。
+                const focusWasInside = sidebar.contains(document.activeElement);
                 sidebar.classList.remove('open');
                 backdrop.classList.remove('open');
                 mobileIcon.className = 'ti ti-menu-2';
                 mobileToggle.setAttribute('aria-expanded', 'false');
+                if (focusWasInside) mobileToggle.focus();
             }
             mobileToggle.addEventListener('click', () => {
                 sidebar.classList.contains('open') ? closeSidebar() : openSidebar();

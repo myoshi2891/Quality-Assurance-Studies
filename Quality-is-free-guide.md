@@ -14,7 +14,7 @@
 | ジャンル | 品質マネジメント／TQM（Total Quality Management）の古典 |
 | 一言で言うと | 「品質を追求することは、それ自体が最もコストの低い経営戦略である」ことを、豊富な実例で説く本 |
 
-参考: [Google Books - Quality is Free](https://books.google.com/books/about/Quality_is_Free.html?id=3TMQt73LDooC)
+参考: <a href="https://books.google.com/books/about/Quality_is_Free.html?id=3TMQt73LDooC" target="_blank" rel="noopener noreferrer">Google Books - Quality is Free</a>
 
 ---
 
@@ -297,9 +297,9 @@ Bossavit自身も、この種の「業界のleprechaun（言い伝えだけの�
 
 2026年9月現在、Crosbyが説いた「品質コスト」の考え方は、AIによるコード生成が普及した開発現場で新しい形の再評価を受けています。
 
-DevOps Research and Assessment（DORA）チームの公式レポート「[2025 DORA State of AI-assisted Software Development report](https://dora.dev/research/2025/dora-report/)」（*Accelerate*の著者であるDr. Nicole Forsgren、Jez Humble、Gene Kimらが創始したプロジェクト、現在はGoogleが運営）では、AI支援開発の普及によってデリバリのスループットが増大する一方で、デリバリの不安定性もあわせて増大するという関係が示されています。この現象をより踏み込んで論じたのが、DORAチームの2026年3月10日付の公式記事「[Balancing AI tensions: Moving from AI adoption to effective SDLC use](https://dora.dev/insights/balancing-ai-tensions/)」です。同記事は、コードを書く時間が短縮されても、その分の時間がAI生成コードの信頼性・セキュリティ・アーキテクチャ整合性を確認する監査作業に再配分される——「**検証税（verification tax）**」と呼ばれる負担——という構造を指摘し、その負荷がとりわけコードレビュー担当者に集中すると述べています。また、AI導入の投資対効果そのものについては「[ROI of AI-assisted Software Development report](https://dora.dev/ai/roi/report/)」で別途分析されています。
+DevOps Research and Assessment（DORA）チームの公式レポート「<a href="https://dora.dev/research/2025/dora-report/" target="_blank" rel="noopener noreferrer">2025 DORA State of AI-assisted Software Development report</a>」（*Accelerate*の著者であるDr. Nicole Forsgren、Jez Humble、Gene Kimらが創始したプロジェクト、現在はGoogleが運営）では、AI支援開発の普及によってデリバリのスループットが増大する一方で、デリバリの不安定性もあわせて増大するという関係が示されています。この現象をより踏み込んで論じたのが、DORAチームの2026年3月10日付の公式記事「<a href="https://dora.dev/insights/balancing-ai-tensions/" target="_blank" rel="noopener noreferrer">Balancing AI tensions: Moving from AI adoption to effective SDLC use</a>」です。同記事は、コードを書く時間が短縮されても、その分の時間がAI生成コードの信頼性・セキュリティ・アーキテクチャ整合性を確認する監査作業に再配分される——「**検証税（verification tax）**」と呼ばれる負担——という構造を指摘し、その負荷がとりわけコードレビュー担当者に集中すると述べています。また、AI導入の投資対効果そのものについては「<a href="https://dora.dev/ai/roi/report/" target="_blank" rel="noopener noreferrer">ROI of AI-assisted Software Development report</a>」で別途分析されています。
 
-なお、プルリクエストのレビュー時間の中央値の大幅な増加や、レビューなしでマージされるPR割合の増加といった具体的な開発メトリクスの変化は、[Faros AIの分析](https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025)や[Kodusの二次資料](https://kodus.io/en/dora-accelerate-state-of-devops/)に基づく報告・考察として示されています。
+なお、プルリクエストのレビュー時間の中央値の大幅な増加や、レビューなしでマージされるPR割合の増加といった具体的な開発メトリクスの変化は、<a href="https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025" target="_blank" rel="noopener noreferrer">Faros AIの分析</a>や<a href="https://kodus.io/en/dora-accelerate-state-of-devops/" target="_blank" rel="noopener noreferrer">Kodusの二次資料</a>に基づく報告・考察として示されています。
 
 これはまさに、Crosbyが1979年に定義した「評価コスト（appraisal cost）」が、AIコーディングという新しい変数によって形を変えて再浮上している状況だと読むことができます。コード生成という「予防（=最初から正しく書く）」の一部をAIに委譲した結果、「評価（=それが本当に正しいかを確認する）」の負荷がむしろ増大している、というのが2026年時点での業界の実感です。Crosby流に言えば、**予防コストの内訳が変化しただけであり、「品質コストの総和を最小化する」という命題自体は今も有効**だと言えるでしょう。
 
@@ -401,35 +401,35 @@ Crosbyの『Quality Is Free』が半世紀近く読み継がれている理由�
 本ガイドの作成にあたり、以下の情報源を参照しました（2026年9月8日時点でアクセス可能なものを確認）。
 
 - Google Books - *Quality is Free: The Art of Making Quality Certain*（書誌情報）
-  [https://books.google.com/books/about/Quality_is_Free.html?id=3TMQt73LDooC](https://books.google.com/books/about/Quality_is_Free.html?id=3TMQt73LDooC)
+  <a href="https://books.google.com/books/about/Quality_is_Free.html?id=3TMQt73LDooC" target="_blank" rel="noopener noreferrer">https://books.google.com/books/about/Quality_is_Free.html?id=3TMQt73LDooC</a>
 - Wikipedia - Quality Management Maturity Grid（CMMとの関係を含む解説）
-  [https://en.wikipedia.org/wiki/Quality_Management_Maturity_Grid](https://en.wikipedia.org/wiki/Quality_Management_Maturity_Grid)
+  <a href="https://en.wikipedia.org/wiki/Quality_Management_Maturity_Grid" target="_blank" rel="noopener noreferrer">https://en.wikipedia.org/wiki/Quality_Management_Maturity_Grid</a>
 - ASQ *Quality Progress*（2005年12月号）再録 - Crosby's 14 Steps To Improvement（原著者Philip B. Crosby自身による解説）
-  [https://www.agiledevelopment.org/download/qp1205crosby.pdf](https://www.agiledevelopment.org/download/qp1205crosby.pdf)
+  <a href="https://www.agiledevelopment.org/download/qp1205crosby.pdf" target="_blank" rel="noopener noreferrer">https://www.agiledevelopment.org/download/qp1205crosby.pdf</a>
 - Quality Gurus - Philip Crosby: The Man Who Said "Quality is Free"（経歴・4つの絶対原則の解説）
-  [https://www.qualitygurus.com/philip-crosby/](https://www.qualitygurus.com/philip-crosby/)
+  <a href="https://www.qualitygurus.com/philip-crosby/" target="_blank" rel="noopener noreferrer">https://www.qualitygurus.com/philip-crosby/</a>
 - MindTools - Crosby's 14 Steps for Improvement
-  [https://www.mindtools.com/a5zr4t0/crosbys-14-steps-for-improvement/](https://www.mindtools.com/a5zr4t0/crosbys-14-steps-for-improvement/)
+  <a href="https://www.mindtools.com/a5zr4t0/crosbys-14-steps-for-improvement/" target="_blank" rel="noopener noreferrer">https://www.mindtools.com/a5zr4t0/crosbys-14-steps-for-improvement/</a>
 - Cognidox - Where are you on the Quality Management Maturity Grid?
-  [https://www.cognidox.com/blog/where-are-you-on-the-quality-management-maturity-grid](https://www.cognidox.com/blog/where-are-you-on-the-quality-management-maturity-grid)
+  <a href="https://www.cognidox.com/blog/where-are-you-on-the-quality-management-maturity-grid" target="_blank" rel="noopener noreferrer">https://www.cognidox.com/blog/where-are-you-on-the-quality-management-maturity-grid</a>
 - Rob Nagler - BookNotes: *Quality Software Management Vol.1 Systems Thinking*（Gerald M. Weinberg著、Crosbyの品質定義への言及を含む）
-  [https://www.robnagler.com/1993/12/31/Quality-Software-Management.html](https://www.robnagler.com/1993/12/31/Quality-Software-Management.html)
+  <a href="https://www.robnagler.com/1993/12/31/Quality-Software-Management.html" target="_blank" rel="noopener noreferrer">https://www.robnagler.com/1993/12/31/Quality-Software-Management.html</a>
 - Laurent Bossavit - *The Leprechauns of Software Engineering*（Leanpub、コスト曲線の出典検証）
-  [https://leanpub.com/leprechauns](https://leanpub.com/leprechauns)
+  <a href="https://leanpub.com/leprechauns" target="_blank" rel="noopener noreferrer">https://leanpub.com/leprechauns</a>
 - Model View Culture - "The Making of Myths" by Laurent Bossavit
-  [https://modelviewculture.com/pieces/the-making-of-myths](https://modelviewculture.com/pieces/the-making-of-myths)
+  <a href="https://modelviewculture.com/pieces/the-making-of-myths" target="_blank" rel="noopener noreferrer">https://modelviewculture.com/pieces/the-making-of-myths</a>
 - BudgetOverrun.com - Boehm's Cost-of-Change Curve: Does a Bug Really Cost 100x More Late?
-  [https://budgetoverrun.com/cost-of-change-curve](https://budgetoverrun.com/cost-of-change-curve)
+  <a href="https://budgetoverrun.com/cost-of-change-curve" target="_blank" rel="noopener noreferrer">https://budgetoverrun.com/cost-of-change-curve</a>
 - DORA - 2025 DORA State of AI-assisted Software Development report
-  [https://dora.dev/research/2025/dora-report/](https://dora.dev/research/2025/dora-report/)
+  <a href="https://dora.dev/research/2025/dora-report/" target="_blank" rel="noopener noreferrer">https://dora.dev/research/2025/dora-report/</a>
 - DORA - 2026 ROI of AI-assisted Software Development report
-  [https://dora.dev/ai/roi/report/](https://dora.dev/ai/roi/report/)
+  <a href="https://dora.dev/ai/roi/report/" target="_blank" rel="noopener noreferrer">https://dora.dev/ai/roi/report/</a>
 - Faros AI - DORA Report 2025/2026 Key Takeaways: AI Impact on Dev Metrics
-  [https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025](https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025)
+  <a href="https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025" target="_blank" rel="noopener noreferrer">https://www.faros.ai/blog/key-takeaways-from-the-dora-report-2025</a>
 - Kodus.io - DORA 2026: The ROI of AI in Software Development Runs Through Code Review（「検証税」の解説）
-  [https://kodus.io/en/dora-accelerate-state-of-devops/](https://kodus.io/en/dora-accelerate-state-of-devops/)
+  <a href="https://kodus.io/en/dora-accelerate-state-of-devops/" target="_blank" rel="noopener noreferrer">https://kodus.io/en/dora-accelerate-state-of-devops/</a>
 - DORA - "Balancing AI tensions: Moving from AI adoption to effective SDLC use" (2026年3月10日、「検証税」の出典)
-  [https://dora.dev/insights/balancing-ai-tensions/](https://dora.dev/insights/balancing-ai-tensions/)
+  <a href="https://dora.dev/insights/balancing-ai-tensions/" target="_blank" rel="noopener noreferrer">https://dora.dev/insights/balancing-ai-tensions/</a>
 
 ---
 
