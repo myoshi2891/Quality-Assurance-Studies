@@ -101,7 +101,7 @@ flowchart TB
 本書のタイトルにある「完璧なソフトウェア」は、皮肉を込めた言葉です。ワインバーグは、テストによって「バグが0件であること」を証明することはできないと繰り返し説きます。この考え方の源流として本書が冒頭で引用しているのが、計算機科学の先駆者エドガー・ダイクストラの有名な言葉です。
 
 > "Program testing can be used to show the presence of bugs, but never to show their absence!"
-> —Edsger W. Dijkstra（"The Humble Programmer", ACM Turing Lecture 1972, EWD 340 より）
+> —Edsger W. Dijkstra（"Structured Programming", 1969, EWD 268 より）
 
 日本語で言えば「テストはバグの存在を示すことはできても、バグが存在しないことを証明することは決してできない」という意味です。本書全体のテーマは、この一文に集約されていると言っても過言ではありません。
 
@@ -416,6 +416,8 @@ flowchart TB
    [https://hexawise.com/posts/testing-smarter-with-james-bach](https://hexawise.com/posts/testing-smarter-with-james-bach)
 10. Software Engineering Radio, Episode 280: Gerald Weinberg on Bugs, Errors and Software Quality
     [https://se-radio.net/2017/01/se-radio-episode-280-gerald-weinberg-on-bugs-errors-and-software-quality/](https://se-radio.net/2017/01/se-radio-episode-280-gerald-weinberg-on-bugs-errors-and-software-quality/)
+11. Edsger W. Dijkstra, "Structured Programming"（1969年8月、EWD 268）— 本文で引用したダイクストラの原典（E.W. Dijkstra Archive 公式トランスクリプション）
+    [https://www.cs.utexas.edu/~EWD/transcriptions/EWD02xx/EWD268.html](https://www.cs.utexas.edu/~EWD/transcriptions/EWD02xx/EWD268.html)
 
 ---
 
