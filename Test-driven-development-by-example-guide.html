@@ -1000,31 +1000,84 @@
                             図: 税込み価格計算の例でRed-Green-Refactorを追体験する
                         </p>
 
+                        <p>
+                            以下は<strong>1つのファイルを 5 回書き換えていく過程</strong>です。各ステップのコードブロックはその時点のファイル全体を表しており、<code>pytest tax_example.py</code> を実行するとそのステップのテストが走ります。1つのブロックに全ステップを並べて書くと、後から定義した<code>税込み価格</code>が先の定義を上書きしてしまい、Red が Red として観測できなくなる点に注意してください。
+                        </p>
+
                         <div class="code-block">
                             <div class="code-head">
-                                <span>tax_example.py</span><span>Python</span>
+                                <span>ステップ1: Red — tax_example.py</span><span>Python</span>
                             </div>
-                            <pre><code class="language-python"># ステップ1: Red - まだ関数がないので失敗するテストを書く
+                            <pre><code class="language-python"># まだ 税込み価格 が存在しないので NameError で失敗する（これが Red）
 def test_税込み価格_0円の場合は0円():
-    assert 税込み価格(0) == 0
+    assert 税込み価格(0) == 0</code></pre>
+                        </div>
 
-# ステップ2: Green - Fake Itでとにかく通す
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ2: Green (Fake It) — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python"># ベタ書きの 0 を返すだけで、今あるテストは通る（Fake It）
 def 税込み価格(小計):
     return 0
 
-# ステップ3: Red - 2つ目のテストを追加する
-def test_税込み価格_100円の場合は110円():
-    assert 税込み価格(100) == 110
 
-# ステップ4: Green - Triangulateで一般化する
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ3: Red — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python">def 税込み価格(小計):
+    return 0
+
+
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0
+
+
+# 2つ目のテストを追加する。0 を返す実装では 110 にならず失敗する（Red）
+def test_税込み価格_100円の場合は110円():
+    assert 税込み価格(100) == 110</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ4: Green (Triangulate) — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python"># 2つの例が揃ったことで、ベタ書きでは足りず一般化せざるを得なくなる（Triangulate）
 def 税込み価格(小計):
     return int(小計 * 1.1)
 
-# ステップ5: Refactor - マジックナンバーを定数に抽出する
+
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0
+
+
+def test_税込み価格_100円の場合は110円():
+    assert 税込み価格(100) == 110</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ5: Refactor — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python"># テストを緑に保ったまま、マジックナンバー 1.1 を意味のある定数へ抽出する
 消費税率 = 0.10
 
+
 def 税込み価格(小計):
-    return int(小計 * (1 + 消費税率))</code></pre>
+    return int(小計 * (1 + 消費税率))
+
+
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0
+
+
+def test_税込み価格_100円の場合は110円():
+    assert 税込み価格(100) == 110</code></pre>
                         </div>
                         <p>
                             このように、<strong>テストが増えるたびにベタ書きから一般化へと実装を育てていく</strong>流れこそがTDDの基本形です。
@@ -1762,23 +1815,54 @@ def 税込み価格(小計):
                 .map((a) => document.querySelector(a.getAttribute('href')))
                 .filter(Boolean);
 
-            const observer = new IntersectionObserver(
-                (entries) => {
-                    entries.forEach((entry) => {
-                        const link = document.querySelector(
-                            '.nav-a[href="#' + entry.target.id + '"]',
-                        );
-                        if (!link) return;
-                        if (entry.isIntersecting) {
-                            navLinks.forEach((a) => a.classList.remove('active'));
-                            link.classList.add('active');
-                        }
-                    });
-                },
-                { rootMargin: '-20% 0px -70% 0px', threshold: 0 },
-            );
+            /*
+             * IntersectionObserver + threshold: 0 は「交差状態が変化した瞬間」しか
+             * 通知しないため、複数の節が読み取り帯に入ったまま重なり量が逆転しても
+             * アクティブ判定が古いまま固まる（上方向スクロールで顕著）。
+             * ここではスクロール／リサイズのたびに各節と読み取り帯の重なりを実測し、
+             * 重なりが最大の節をアクティブとして選ぶ。
+             * 読み取り帯は旧 rootMargin '-20% 0px -70% 0px' と同じ
+             * ビューポート上端 20% 〜 30% の範囲。
+             */
+            const BAND_TOP_RATIO = 0.2;
+            const BAND_BOTTOM_RATIO = 0.3;
+            let spyFrame = 0;
 
-            sections.forEach((sec) => observer.observe(sec));
+            function pickActiveSection() {
+                spyFrame = 0;
+                const viewportHeight = window.innerHeight;
+                const bandTop = viewportHeight * BAND_TOP_RATIO;
+                const bandBottom = viewportHeight * BAND_BOTTOM_RATIO;
+
+                // 文書順に走査し、重なりが同じ場合は先に現れる節を優先する（決定論的な選択）。
+                let best = null;
+                let bestOverlap = 0;
+                for (const sec of sections) {
+                    const rect = sec.getBoundingClientRect();
+                    const overlap =
+                        Math.min(rect.bottom, bandBottom) - Math.max(rect.top, bandTop);
+                    if (overlap > bestOverlap) {
+                        bestOverlap = overlap;
+                        best = sec;
+                    }
+                }
+                // 帯に重なる節が無い区間（ページ最上部など）では直前の選択を維持する。
+                if (!best) return;
+
+                const link = document.querySelector('.nav-a[href="#' + best.id + '"]');
+                if (!link || link.classList.contains('active')) return;
+                navLinks.forEach((a) => a.classList.remove('active'));
+                link.classList.add('active');
+            }
+
+            function scheduleActiveSection() {
+                if (spyFrame !== 0) return;
+                spyFrame = window.requestAnimationFrame(pickActiveSection);
+            }
+
+            pickActiveSection();
+            window.addEventListener('scroll', scheduleActiveSection, { passive: true });
+            window.addEventListener('resize', scheduleActiveSection);
 
             /* ---------- mobile menu toggle ---------- */
             const sidebar = document.getElementById('sidebar');
