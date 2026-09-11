@@ -108,7 +108,7 @@
 }
 
 .istqb-ctfl-layout .sidebar-logo h2 {
-    font-size: 13px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--c-purple-400);
     letter-spacing: 0.04em;
@@ -117,7 +117,7 @@
 }
 
 .istqb-ctfl-layout .sidebar-logo span {
-    font-size: 11px;
+    font-size: 1rem;
     color: var(--color-text-tertiary);
     display: block;
     margin-top: 4px;
@@ -128,7 +128,7 @@
 }
 
 .istqb-ctfl-layout .nav-label {
-    font-size: 11px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-tertiary);
     text-transform: uppercase;
@@ -139,7 +139,7 @@
 .istqb-ctfl-layout .nav-link {
     display: block;
     padding: 6px 8px;
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-secondary);
     text-decoration: none;
     border-radius: var(--border-radius-md);
@@ -166,7 +166,7 @@
 }
 
 .istqb-ctfl-layout .nav-sub .nav-link {
-    font-size: 12px;
+    font-size: 1rem;
     padding: 4px 8px;
     color: var(--color-text-tertiary);
 }
@@ -207,7 +207,7 @@
     background: var(--color-background-tertiary);
     border: 1px solid var(--c-purple-800);
     color: var(--c-purple-300);
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 500;
     padding: 4px 10px;
     border-radius: 20px;
@@ -250,7 +250,7 @@
 }
 
 .istqb-ctfl-layout h4 {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--c-teal-400);
     margin-top: 20px;
@@ -289,7 +289,7 @@
 }
 
 .istqb-ctfl-layout .meta-card .label {
-    font-size: 11px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-tertiary);
     text-transform: uppercase;
@@ -304,7 +304,7 @@
 }
 
 .istqb-ctfl-layout .meta-card .sub {
-    font-size: 12px;
+    font-size: 1rem;
     color: var(--color-text-tertiary);
     margin-top: 2px;
 }
@@ -312,7 +312,7 @@
 .istqb-ctfl-layout table {
     width: 100%;
     border-collapse: collapse;
-    font-size: 14px;
+    font-size: 1rem;
     margin: 16px 0 24px;
 }
 
@@ -320,7 +320,7 @@
     background: var(--color-background-tertiary);
     color: var(--color-text-secondary);
     font-weight: 500;
-    font-size: 12px;
+    font-size: 1rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
     padding: 10px 14px;
@@ -332,6 +332,7 @@
     padding: 9px 14px;
     border-bottom: 1px solid var(--color-border-tertiary);
     color: var(--color-text-primary);
+    font-size: 1rem;
     vertical-align: top;
 }
 
@@ -388,7 +389,7 @@
     border-radius: var(--border-radius-lg);
     padding: 14px 18px;
     margin: 16px 0;
-    font-size: 14px;
+    font-size: 1rem;
     border-left: 3px solid;
 }
 
@@ -422,7 +423,7 @@
 
 .istqb-ctfl-layout .tag {
     display: inline-block;
-    font-size: 11px;
+    font-size: 1rem;
     font-weight: 500;
     padding: 2px 8px;
     border-radius: 4px;
@@ -473,7 +474,7 @@
 }
 
 .istqb-ctfl-layout .principle-card .num {
-    font-size: 11px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--c-purple-400);
     text-transform: uppercase;
@@ -482,7 +483,7 @@
 }
 
 .istqb-ctfl-layout .principle-card h4 {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--color-text-primary);
     margin: 0 0 6px 0;
@@ -491,7 +492,7 @@
 }
 
 .istqb-ctfl-layout .principle-card p {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-secondary);
     margin: 0;
     line-height: 1.5;
@@ -509,13 +510,13 @@
 }
 
 .istqb-ctfl-layout .chapter-bar .ch-name {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-primary);
     flex: 1;
 }
 
 .istqb-ctfl-layout .chapter-bar .ch-count {
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--c-purple-300);
     min-width: 40px;
@@ -543,7 +544,7 @@
 
 .istqb-ctfl-layout code {
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 1rem;
     background: var(--color-background-tertiary);
     color: var(--c-coral-300);
     padding: 2px 6px;
@@ -563,7 +564,7 @@
     background: none;
     padding: 0;
     color: var(--color-text-primary);
-    font-size: 13px;
+    font-size: 1rem;
 }
 
 .istqb-ctfl-layout .url-list {
@@ -580,7 +581,7 @@
     gap: 10px;
     padding: 8px 0;
     border-bottom: 1px solid var(--color-border-tertiary);
-    font-size: 13px;
+    font-size: 1rem;
 }
 
 .istqb-ctfl-layout .url-item:last-child {
@@ -596,7 +597,7 @@
 
 .istqb-ctfl-layout .url-item a {
     color: var(--c-teal-400);
-    font-size: 12px;
+    font-size: 1rem;
     word-break: break-all;
 }
 
@@ -615,7 +616,7 @@
 }
 
 .istqb-ctfl-layout .box h4 {
-    font-size: 13px;
+    font-size: 1rem;
     font-weight: 500;
     color: var(--c-teal-400);
     margin: 0 0 10px 0;
@@ -629,7 +630,7 @@
 }
 
 .istqb-ctfl-layout .box ul li {
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-secondary);
     padding: 4px 0;
     padding-left: 14px;
@@ -654,7 +655,7 @@
     width: 28px;
     height: 28px;
     border-radius: 50%;
-    font-size: 12px;
+    font-size: 1rem;
     font-weight: 500;
 }
 
@@ -679,7 +680,7 @@
     background: var(--color-background-secondary);
     border: 1px solid var(--color-border-secondary);
     border-radius: var(--border-radius-lg);
-    font-size: 13px;
+    font-size: 1rem;
     color: var(--color-text-tertiary);
     text-align: center;
 }
@@ -712,7 +713,7 @@
     border-radius: var(--border-radius-lg);
     padding: 1.25rem 1.5rem;
     font-family: var(--font-mono);
-    font-size: 13px;
+    font-size: 1rem;
     line-height: 1.6;
     overflow-x: auto;
     margin: 16px 0;
@@ -731,7 +732,7 @@
     position: absolute;
     top: 0.5rem;
     right: 0.8rem;
-    font-size: 11px;
+    font-size: 1rem;
     color: var(--color-text-tertiary);
     letter-spacing: 0.1em;
 }

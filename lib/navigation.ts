@@ -97,14 +97,19 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/github-actions-guide', label: 'GitHub Actions 実践・上級ガイド', description: '再利用ワークフロー、マトリクス、セキュリティ、コスト最適化。', category: 'cicd-devops' },
 
   { href: '/playwright-beginner-guide', label: 'Playwright 入門ガイド', description: 'ロケーター・自動待機・トレースまでを押さえるE2E自動化入門。', category: 'tools-frameworks' },
+  { href: '/playwright-intermediate-advanced-guide', label: 'Playwright 実践ガイド', description: 'アーキテクチャ・フィクスチャ・認証再利用・シャーディングまでの中上級解説。', category: 'tools-frameworks' },
   { href: '/cucumber-beginner-guide', label: 'Cucumber 入門ガイド', description: 'Gherkin による実行可能仕様とステップ定義の書き方。', category: 'tools-frameworks' },
   { href: '/cypress-beginner-guide', label: 'Cypress 入門ガイド', description: 'ブラウザ内実行モデルを活かしたテスト作成とデバッグ。', category: 'tools-frameworks' },
   { href: '/selenium-beginner-guide', label: 'Selenium 完全ガイド', description: 'WebDriver の仕組み、待機戦略、Grid によるスケール実行。', category: 'tools-frameworks' },
+  { href: '/sonarqube-intermediate-guide', label: 'SonarQube 完全解説ガイド', description: 'アーキテクチャ、品質モデル、Clean as You Code、CI/CD連携、AIエージェント対応までの中上級解説。', category: 'tools-frameworks' },
   { href: '/clean-code-cookbook-guide', label: 'Clean Code Cookbook 実践ガイド', description: 'コードスメルの発見・分類から8ステップの改善、Sandi Metzのルールまで。', category: 'books-practices' },
   { href: '/the-way-of-the-web-tester-guide', label: 'The Way of the Web Tester 実践ガイド', description: 'テストピラミッドの基礎からUI/API/単体テストの実践、テスティングトロフィーまで。', category: 'books-practices' },
   { href: '/testing-web-apis-guide', label: 'Web APIテスト実践ガイド', description: 'Mark Winteringham『Testing Web APIs』に基づくリスクベースAPIテスト、契約・性能・セキュリティ実践。', category: 'books-practices' },
   { href: '/software-test-design-guide', label: 'ソフトウェアテスト設計実践ガイド', description: 'Lee Copeland『A Practitioner\'s Guide to Software Test Design』に基づくテスト設計技法体系。', category: 'books-practices' },
   { href: '/secure-by-design-guide', label: 'セキュア・バイ・デザイン実践ガイド', description: 'ドメイン駆動設計（DDD）と型を活用し、脆弱性が原理的に生まれ得ない堅牢なコードを設計する。', category: 'books-practices' },
+  { href: '/how-google-tests-software-guide', label: 'How Google Tests Software 完全ガイド', description: 'Googleのテスト文化、SET/TE/TEM、Small/Medium/Large、ACC分析、Test Certified、フレーキー対策まで。', category: 'books-practices' },
+  { href: '/leading-quality-guide', label: 'Leading Quality 実践ガイド', description: '品質をテストチームの仕事から経営アジェンダへ引き上げる、品質リーダーシップの10ステップ。', category: 'books-practices' },
+  { href: '/agile-testing-practical-guide', label: 'Agile Testing 実践ガイド', description: 'アジャイルテスターの10原則、4象限、テストピラミッド、探索的テストを初学者向けに体系的に解説。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

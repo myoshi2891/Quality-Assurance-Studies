@@ -1,0 +1,786 @@
+/* ==========================================================================
+   Leading Quality 実践ガイド ―― ページ固有スタイル
+   スコープ: .leading-quality-page
+   ========================================================================== */
+
+.leading-quality-page {
+    --ink: #142433;
+    --ink-soft: #3e5266;
+    --paper: #eff2f1;
+    --paper-deep: #e4e9e7;
+    --amber: #b8722e;
+    --amber-soft: #f2e4d0;
+    --green: #2e6e49;
+    --green-soft: #dceae1;
+    --steel: #3b5a80;
+    --steel-soft: #e4e9f2;
+    --red: #a23b34;
+    --red-soft: #f3e3e1;
+    --line: #d7dddb;
+    --max: 760px;
+
+    background: #ffffff;
+    color: var(--ink);
+    font-family: 'Inter', 'Noto Sans JP', sans-serif;
+    font-size: 16.5px;
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.leading-quality-page section {
+    padding-top: 0 !important;
+    margin-bottom: 64px;
+    /* 固定ヘッダー(60px) + DisclaimerBanner 分だけアンカー着地点を下げる */
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
+}
+
+.leading-quality-page section:last-of-type {
+    margin-bottom: 96px;
+}
+
+.leading-quality-page .hero {
+    min-height: 0 !important;
+    display: block !important;
+    padding: 92px 24px 64px !important;
+    background: var(--ink) !important;
+    color: #edf1f4 !important;
+    position: relative !important;
+    overflow: hidden !important;
+    width: 100% !important;
+}
+
+.leading-quality-page .hero::before {
+    content: none !important;
+    display: none !important;
+}
+
+.leading-quality-page .hero::after {
+    content: '' !important;
+    position: absolute !important;
+    top: auto !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    height: 6px !important;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--amber) 0 18px,
+        transparent 18px 30px
+    ) !important;
+    opacity: 0.85 !important;
+    transform: none !important;
+    pointer-events: none !important;
+    z-index: 2 !important;
+}
+
+.leading-quality-page .hero-inner {
+    max-width: var(--max);
+    margin: 0 auto;
+}
+
+.leading-quality-page .hero .kicker {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    color: #d9a55f;
+    margin-bottom: 18px;
+    display: block;
+}
+
+.leading-quality-page .hero h1 {
+    font-family: var(--font-serif, 'Source Serif 4', 'Noto Serif JP', serif);
+    font-size: clamp(28px, 4.4vw, 42px);
+    color: #ffffff !important;
+    margin: 0 0 18px;
+    font-weight: 600;
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+}
+
+.leading-quality-page .hero p.lede {
+    font-size: 17.5px;
+    color: #c6d0d9;
+    max-width: 56ch;
+    margin: 0 0 34px;
+}
+
+.leading-quality-page .book-card {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 6px;
+    padding: 18px 22px;
+    font-size: 14.5px;
+    color: #cfd8df;
+}
+
+.leading-quality-page .book-card strong {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+.leading-quality-page .book-card .note {
+    display: block;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    color: #9faebb;
+    font-size: 13.3px;
+    line-height: 1.7;
+}
+
+/* ---------- Layout & Main ---------- */
+.leading-quality-page .layout {
+    width: 100%;
+    margin: 0;
+    padding: 0 32px 0 24px;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    gap: 48px;
+    align-items: start;
+}
+
+.leading-quality-page main {
+    padding-top: 48px;
+    min-width: 0;
+    max-width: none !important;
+    width: 100% !important;
+    margin: 0 !important;
+}
+
+/* ---------- Sidebar Navigation (TOC) ---------- */
+.leading-quality-page nav.toc {
+    position: sticky !important;
+    top: calc(60px + var(--disclaimer-height, 0px) + 20px) !important;
+    max-height: calc(100vh - 60px - var(--disclaimer-height, 0px) - 30px) !important;
+    overflow-y: auto !important;
+    padding-top: 48px !important;
+    font-size: 13.6px !important;
+    align-self: start !important;
+    scrollbar-width: thin;
+}
+
+.leading-quality-page nav.toc .toc-label {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace) !important;
+    font-size: 11.5px !important;
+    letter-spacing: 0.08em !important;
+    color: var(--ink-soft) !important;
+    margin-bottom: 10px !important;
+    display: block !important;
+}
+
+.leading-quality-page nav.toc ol {
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border-left: 2px solid var(--line) !important;
+}
+
+.leading-quality-page nav.toc li {
+    margin: 0 !important;
+    padding: 0 !important;
+    list-style: none !important;
+}
+
+.leading-quality-page nav.toc a {
+    display: block !important;
+    padding: 6px 0 6px 14px !important;
+    color: var(--ink-soft) !important;
+    text-decoration: none !important;
+    border-left: 2px solid transparent !important;
+    margin-left: -2px !important;
+    transition: color 0.15s, border-left-color 0.15s !important;
+}
+
+.leading-quality-page nav.toc a:hover {
+    color: var(--amber) !important;
+    border-left-color: var(--amber) !important;
+}
+
+.leading-quality-page nav.toc a.active {
+    color: var(--amber) !important;
+    border-left-color: var(--amber) !important;
+    font-weight: 600 !important;
+}
+
+/* ---------- Typography ---------- */
+.leading-quality-page h1,
+.leading-quality-page h2,
+.leading-quality-page h3 {
+    font-family: var(--font-serif, 'Source Serif 4', 'Noto Serif JP', serif);
+    color: var(--ink);
+    line-height: 1.35;
+    letter-spacing: 0.01em;
+}
+
+.leading-quality-page h2 {
+    font-size: 26px;
+    margin: 0 0 6px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+}
+
+.leading-quality-page h2 .num {
+    color: var(--amber);
+    font-weight: 600;
+}
+
+.leading-quality-page h3 {
+    font-size: 18.5px;
+    margin: 30px 0 10px;
+}
+
+.leading-quality-page p {
+    margin: 0 0 16px;
+}
+
+.leading-quality-page .step-tag {
+    display: block;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 12.5px;
+    letter-spacing: 0.09em;
+    color: var(--steel);
+    margin-bottom: 8px;
+}
+
+.leading-quality-page .tag {
+    display: inline-block;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 12.5px;
+    letter-spacing: 0.06em;
+    color: var(--amber);
+    background: var(--amber-soft);
+    border: 1px solid #ddbf95;
+    padding: 2px 9px;
+    border-radius: 3px;
+}
+
+.leading-quality-page a {
+    color: var(--steel);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.leading-quality-page a:hover {
+    color: var(--amber);
+}
+
+/* ---------- List Styling (Tailwind Reset復元) ---------- */
+.leading-quality-page ul:not(.checklist) {
+    list-style-type: disc !important;
+    padding-left: 24px;
+    margin: 0 0 16px;
+}
+
+.leading-quality-page ol.plain {
+    list-style-type: decimal !important;
+    padding-left: 24px;
+    margin: 0 0 16px;
+}
+
+.leading-quality-page li {
+    margin-bottom: 6px;
+    display: list-item !important;
+}
+
+/* ---------- Callouts ---------- */
+.leading-quality-page .callout {
+    border-left: 3px solid var(--amber);
+    background: var(--amber-soft);
+    padding: 14px 18px;
+    border-radius: 0 6px 6px 0;
+    margin: 22px 0;
+}
+
+.leading-quality-page .callout .label {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--amber);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.leading-quality-page .callout p:last-child {
+    margin-bottom: 0;
+}
+
+.leading-quality-page .callout.definition {
+    border-left-color: var(--steel);
+    background: var(--steel-soft);
+}
+
+.leading-quality-page .callout.definition .label {
+    color: var(--steel);
+}
+
+.leading-quality-page .callout.insight {
+    border-left-color: var(--green);
+    background: var(--green-soft);
+}
+
+.leading-quality-page .callout.insight .label {
+    color: var(--green);
+}
+
+.leading-quality-page .callout.warn {
+    border-left-color: var(--red);
+    background: var(--red-soft);
+}
+
+.leading-quality-page .callout.warn .label {
+    color: var(--red);
+}
+
+/* ---------- Table Styling (globals.css 干渉リセット) ---------- */
+.leading-quality-page .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+
+.leading-quality-page table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14.8px !important;
+    background: #ffffff !important;
+    color: var(--ink) !important;
+}
+
+.leading-quality-page caption {
+    text-align: left;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+}
+
+.leading-quality-page thead tr {
+    background: var(--paper) !important;
+    border-bottom: 2px solid var(--ink) !important;
+}
+
+.leading-quality-page thead th,
+.leading-quality-page th {
+    text-align: left;
+    padding: 10px 14px !important;
+    background: var(--paper) !important;
+    color: var(--ink) !important;
+    font-weight: 600 !important;
+    border-bottom: 2px solid var(--ink) !important;
+    white-space: normal !important;
+    vertical-align: top;
+}
+
+.leading-quality-page tbody td,
+.leading-quality-page td {
+    text-align: left;
+    padding: 10px 14px !important;
+    border-bottom: 1px solid var(--line) !important;
+    vertical-align: top;
+    color: var(--ink) !important;
+    font-size: 14.8px !important;
+    line-height: 1.7 !important;
+}
+
+.leading-quality-page tbody tr:hover td {
+    background: var(--paper) !important;
+}
+
+.leading-quality-page td strong {
+    color: var(--ink) !important;
+    font-weight: 700;
+}
+
+.leading-quality-page strong {
+    color: var(--ink) !important;
+    font-weight: 600;
+}
+
+.leading-quality-page .roadmap-table td:first-child {
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    color: var(--steel);
+    width: 34px;
+}
+
+/* テーブルのアクセシブル名。原著HTMLの見た目を保つため視覚的には隠す */
+.leading-quality-page table caption {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip-path: inset(50%) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* ---------- Diagrams (layout only) ---------- */
+/* .diagram / .mermaid-wrapper / svg / foreignObject の基準値は
+   後段の「Diagrams & Mermaid」ブロックに一本化している。ここには固有定義のみ置く。 */
+.leading-quality-page .diagram-live {
+    display: flex;
+    justify-content: center;
+}
+
+
+/* ---------- Checklist ---------- */
+.leading-quality-page ul.checklist {
+    list-style: none !important;
+    padding-left: 0 !important;
+}
+
+.leading-quality-page ul.checklist li {
+    margin-bottom: 2px;
+    display: block !important;
+}
+
+.leading-quality-page ul.checklist label {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.leading-quality-page ul.checklist label:hover {
+    background: var(--paper);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox'] {
+    appearance: none;
+    -webkit-appearance: none;
+    flex: 0 0 auto;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    border: 1.5px solid var(--ink-soft);
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    background: #fff;
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:hover {
+    border-color: var(--steel);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:focus-visible {
+    outline: 3px solid var(--steel);
+    outline-offset: 2px;
+    border-color: var(--steel);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:checked {
+    background: var(--steel);
+    border-color: var(--steel);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:checked::after {
+    content: '';
+    position: absolute;
+    left: 5px;
+    top: 1px;
+    width: 5px;
+    height: 9px;
+    border: solid #fff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.leading-quality-page ul.checklist input[type='checkbox']:checked + span {
+    color: var(--ink-soft);
+    text-decoration: line-through;
+    text-decoration-color: var(--line);
+}
+
+/* ---------- Diagrams & Mermaid（基準ブロック：ここが単一の変更点） ---------- */
+.leading-quality-page .diagram {
+    background: var(--paper) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 8px !important;
+    padding: 20px 12px !important;
+    margin: 22px 0 !important;
+    overflow-x: auto !important;
+}
+
+.leading-quality-page .diagram .mermaid-wrapper,
+.leading-quality-page .mermaid-wrapper {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    overflow: visible !important;
+}
+
+.leading-quality-page .mermaid-wrapper svg {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 0 auto !important;
+}
+
+/* 矢印（エッジ線・マーカー） */
+.leading-quality-page .mermaid-wrapper .edgePath path,
+.leading-quality-page .mermaid-wrapper .flowchart-link {
+    stroke: var(--ink) !important;
+    stroke-width: 1.5px !important;
+}
+
+.leading-quality-page .mermaid-wrapper marker path {
+    fill: var(--ink) !important;
+    stroke: var(--ink) !important;
+}
+
+/* エッジラベル（矢印上の分岐テキスト「一致している」「移行」「フィードバック」等）:
+   元HTMLの secondaryColor (#F2E4D0 = 薄いアンバー/クリーム色) と ink色文字 (#142433) で美しいピルとして明瞭表示 */
+.leading-quality-page .mermaid-wrapper .edgeLabels,
+.leading-quality-page .mermaid-wrapper .edgeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabel * {
+    overflow: visible !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabels rect,
+.leading-quality-page .mermaid-wrapper .edgeLabel rect,
+.leading-quality-page .mermaid-wrapper .label-container,
+.leading-quality-page .mermaid-wrapper g.edgeLabel rect,
+.leading-quality-page .mermaid-wrapper g.edgeLabels rect {
+    fill: #F2E4D0 !important;
+    background-color: #F2E4D0 !important;
+    stroke: none !important;
+    opacity: 1 !important;
+    rx: 4px !important;
+    ry: 4px !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabel {
+    background-color: #F2E4D0 !important;
+    color: var(--ink, #142433) !important;
+    fill: var(--ink, #142433) !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabel span,
+.leading-quality-page .mermaid-wrapper span.edgeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabels span,
+.leading-quality-page .mermaid-wrapper .edgeLabel p,
+.leading-quality-page .mermaid-wrapper .edgeLabel div,
+.leading-quality-page .mermaid-wrapper g.edgeLabel foreignObject div span {
+    background-color: #F2E4D0 !important;
+    color: var(--ink, #142433) !important;
+    fill: var(--ink, #142433) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    line-height: 1.4 !important;
+    border-radius: 4px !important;
+    padding: 2px 6px !important;
+    display: inline-block !important;
+    border: none !important;
+    box-shadow: none !important;
+    stroke: none !important;
+}
+
+.leading-quality-page .mermaid-wrapper .edgeLabel text,
+.leading-quality-page .mermaid-wrapper .edgeLabel tspan,
+.leading-quality-page .mermaid-wrapper .edgeLabels text,
+.leading-quality-page .mermaid-wrapper .edgeLabels tspan {
+    fill: var(--ink, #142433) !important;
+    color: var(--ink, #142433) !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    stroke: none !important;
+}
+
+/* ノードの外枠（枠線）と背景色の復元:
+   style 指定のないデフォルトノード（QN, ON1, HT1, VN1, Step 1〜10 など）に白背景と濃紺枠線を付与 */
+.leading-quality-page .mermaid-wrapper .node rect,
+.leading-quality-page .mermaid-wrapper .node polygon,
+.leading-quality-page .mermaid-wrapper .node circle,
+.leading-quality-page .mermaid-wrapper .node path {
+    fill: #ffffff;
+    stroke: var(--ink);
+    stroke-width: 1.5px;
+}
+
+/* style で fill が指定されていないノードには白背景と濃紺インク枠線を強制 */
+.leading-quality-page .mermaid-wrapper .node:not([style*="fill"]) rect,
+.leading-quality-page .mermaid-wrapper .node:not([style*="fill"]) polygon,
+.leading-quality-page .mermaid-wrapper .node:not([style*="fill"]) circle,
+.leading-quality-page .mermaid-wrapper .node:not([style*="fill"]) path {
+    fill: #ffffff !important;
+    stroke: var(--ink) !important;
+    stroke-width: 1.5px !important;
+}
+
+/* サブグラフ（クラスタ）の枠線 */
+.leading-quality-page .mermaid-wrapper .cluster rect {
+    stroke-width: 1.5px !important;
+}
+
+.leading-quality-page .mermaid-wrapper .cluster span.nodeLabel {
+    font-weight: 600 !important;
+    font-size: 14px !important;
+    color: var(--ink) !important;
+}
+
+/* ノード内のフォントと基本文字色 */
+.leading-quality-page .mermaid-wrapper .node text,
+.leading-quality-page .mermaid-wrapper .node .nodeLabel,
+.leading-quality-page .mermaid-wrapper .node .label,
+.leading-quality-page .mermaid-wrapper .node span {
+    font-family: 'Inter', 'Noto Sans JP', sans-serif !important;
+    font-size: 14.5px !important;
+    color: var(--ink) !important;
+    fill: var(--ink) !important;
+    line-height: 1.4 !important;
+}
+
+/* 白文字指定されたノード（style ... color:#ffffff のノード） */
+.leading-quality-page .mermaid-wrapper .node[style*="color: #ffffff"] text,
+.leading-quality-page .mermaid-wrapper .node[style*="color:#ffffff"] text,
+.leading-quality-page .mermaid-wrapper .node[style*="color: #ffffff"] .nodeLabel,
+.leading-quality-page .mermaid-wrapper .node[style*="color:#ffffff"] .nodeLabel,
+.leading-quality-page .mermaid-wrapper .node[style*="color: #ffffff"] span,
+.leading-quality-page .mermaid-wrapper .node[style*="color:#ffffff"] span,
+.leading-quality-page .mermaid-wrapper .node[style*="color: rgb(255, 255, 255)"] text,
+.leading-quality-page .mermaid-wrapper .node[style*="color: rgb(255, 255, 255)"] .nodeLabel,
+.leading-quality-page .mermaid-wrapper .node[style*="color: rgb(255, 255, 255)"] span {
+    color: #ffffff !important;
+    fill: #ffffff !important;
+}
+
+/* foreignObject のオーバーフロー確保 */
+.leading-quality-page .mermaid-wrapper foreignObject {
+    overflow: visible !important;
+}
+
+.leading-quality-page .mermaid-wrapper foreignObject > div,
+.leading-quality-page .mermaid-wrapper .nodeLabel,
+.leading-quality-page .mermaid-wrapper .edgeLabel {
+    overflow: visible !important;
+}
+
+/* ---------- Code block fallback ---------- */
+.leading-quality-page .code-block {
+    background: #1e293b;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 20px 0;
+    overflow-x: auto;
+    font-family: var(--font-mono, 'IBM Plex Mono', monospace);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.leading-quality-page .code-line {
+    white-space: pre;
+}
+
+/* ---------- Footer ---------- */
+.leading-quality-page footer {
+    background: var(--ink);
+    color: #aebac5;
+    padding: 40px 24px 56px;
+    font-size: 13.6px;
+}
+
+.leading-quality-page footer .layout-footer {
+    max-width: var(--max);
+    margin: 0 auto;
+}
+
+.leading-quality-page footer a {
+    color: #cfe0ee;
+}
+
+/* ---------- Responsive ---------- */
+.leading-quality-page .mobile-toc {
+    display: none;
+}
+
+@media (max-width: 960px) {
+    .leading-quality-page .layout {
+        grid-template-columns: 1fr !important;
+        padding: 0 20px !important;
+        gap: 0 !important;
+    }
+
+    .leading-quality-page nav.toc.desktop {
+        display: none !important;
+    }
+
+    .leading-quality-page main {
+        padding-top: 8px !important;
+    }
+
+    .leading-quality-page .mobile-toc {
+        display: block !important;
+        margin: 28px 0 8px !important;
+        border: 1px solid var(--line) !important;
+        border-radius: 8px !important;
+        padding: 4px 18px !important;
+        background: var(--paper) !important;
+    }
+
+    .leading-quality-page .mobile-toc summary {
+        cursor: pointer !important;
+        padding: 12px 0 !important;
+        font-family: var(--font-mono, 'IBM Plex Mono', monospace) !important;
+        font-size: 12.5px !important;
+        letter-spacing: 0.06em !important;
+        color: var(--ink-soft) !important;
+        outline: none !important;
+    }
+
+    /* outline: none でネイティブのフォーカスリングを消しているため、
+       キーボード操作時は代替のフォーカス表示を必ず出す */
+    .leading-quality-page .mobile-toc summary:focus-visible {
+        outline: 3px solid var(--steel) !important;
+        outline-offset: 2px !important;
+        border-radius: 4px !important;
+        color: var(--ink) !important;
+    }
+
+    .leading-quality-page .mobile-toc ol {
+        list-style: none !important;
+        padding-left: 0 !important;
+        margin: 0 0 14px !important;
+    }
+
+    .leading-quality-page .mobile-toc li {
+        list-style: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .leading-quality-page .mobile-toc a {
+        color: var(--ink-soft) !important;
+        text-decoration: none !important;
+        display: block !important;
+        padding: 6px 0 !important;
+    }
+
+    .leading-quality-page .mobile-toc a:hover {
+        color: var(--amber) !important;
+    }
+}
+
+@media (max-width: 520px) {
+    .leading-quality-page .hero {
+        padding: 72px 18px 48px !important;
+    }
+}

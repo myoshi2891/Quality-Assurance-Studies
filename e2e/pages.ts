@@ -61,15 +61,20 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/github-actions', h1: /GitHub Actions 完全ガイド/ },
   { path: '/github-actions-guide', h1: /GitHub Actions 中級〜上級者向け完全ガイド/ },
   { path: '/playwright-beginner-guide', h1: /Playwright.*完全入門ガイド/ },
+  { path: '/playwright-intermediate-advanced-guide', h1: /Playwright.*実践ガイド/ },
   { path: '/cucumber-beginner-guide', h1: /Cucumber.*入門ガイド/ },
   { path: '/cypress-beginner-guide', h1: /Cypress.*入門ガイド/ },
   { path: '/selenium-beginner-guide', h1: /Selenium.*完全ガイド/ },
+  { path: '/sonarqube-intermediate-guide', h1: /SonarQube 完全解説ガイド/ },
   { path: '/clean-code-cookbook-guide', h1: /Clean Code Cookbook 実践ガイド/ },
   { path: '/the-way-of-the-web-tester-guide', h1: /The Way of the Web Tester.*実践ガイド/ },
   { path: '/testing-web-apis-guide', h1: /Web APIテスト実践ガイド/ },
   { path: '/software-test-design-guide', h1: /Software Test Design.*実践ガイド/s },
   { path: '/secure-by-design-guide', h1: /セキュア・バイ・デザイン/ },
+  { path: '/how-google-tests-software-guide', h1: /How Google Tests Software.*完全ガイド/s },
+  { path: '/leading-quality-guide', h1: /品質を、経営の言葉で語れるリーダーになる/ },
+  { path: '/agile-testing-practical-guide', h1: /初学者のための実践ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 56;
+export const EXPECTED_PAGE_COUNT = 61;
 

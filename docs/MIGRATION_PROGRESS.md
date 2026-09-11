@@ -1,21 +1,108 @@
 # Migration Progress
 
-Updated 2026-09-05
+Updated 2026-09-11
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 56 ルート = ガイドライブラリ index + 55 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 61 ルート = ガイドライブラリ index + 60 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の書籍ガイド系 Markdown（`Agile-testing-practical-guide.md`・`Testing-computer-software-guide.md` ほか）と `Leading-quality-guide.html` などの HTML が残っています。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 31 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `1325134` |
-| 次の作業 | 新しい機能追加またはE2Eテストの拡充 |
+| 最新 HEAD | `ce56ed1` |
+| 最新コミット内容 | docs(quality-is-free): Quality is FreeガイドのHTML版を追加およびMarkdownの表現を微修正 |
+| 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/09: Agile Testing 実践ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & エディトリアル・ペーパーテーマ**:
+  - 原著HTML固有のエディトリアル書籍スタイル（紙の背景 `--paper: #faf6ee`、インク文字 `--ink: #2b2416`、アクセント `--accent: #4c3fae`、アクセントソフト `--accent-soft: #ede9f6`、フォント `Newsreader`, `Noto Serif JP`, `Inter`, `JetBrains Mono`）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、セル背景、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、`.step-list` 丸数字カウンター、`.checklist` アイコン装飾等）を完全実装。
+- **Mermaid図解の完全移植**:
+  - 全5図解（ホールチームアプローチ `diag-whole-team`、テストピラミッド `diag-pyramid`、Power of Three `diag-power-of-three`、イテレーションサイクル `diag-iteration-cycle`、アジャイルテスト進化タイムライン `diag-evolution-timeline`）および Holistic Loop HTML図を共通 `<Mermaid>` コンポーネントへ移植。エッジラベル背景と枠線の高視認性スタイルを適用。
+- **テーブル & リスト & コールアウト**:
+  - アジャイルテスト10の原則、アジャイルテストの4象限（Q1〜Q4）、イテレーション各期の活動、7つの成功要因、よくある落とし穴5選の全5テーブルを完全移植。
+  - 10ステップの構成要素（`.step-item`）、実践チェックリスト（`ul.checklist`）、引用（Cunningham 氏・Crispin 氏・Gregory 氏のことば）、アジャイルテスターの役割カードを完全移植。
+- **全セクション参考文献**: 全16件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
+- `app/agile-testing-practical-guide/`: ページコンポーネント、専用スタイル（`.agile-testing-practical-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全15セクションリンク、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/agile-testing-practical-guide` を追加（全61件）。
+- `tests/agile-testing-practical-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全15リンク、全15セクション、全5Mermaid図、全5テーブル、全コールアウト、全リスト、全参考文献外部リンク（16件）の存在を検証する厳格なテストスイートを実装して全パス（18 pass / 182 expect()）。
+- `Agile-testing-practical-guide.html` & `Agile-testing-practical-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 61 ページ体制に同期。
+
+## 2026/09/09: Leading Quality 実践ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & エディトリアル・ペーパーテーマ**:
+  - 原著HTML固有のエディトリアル書籍スタイル（紙の背景 `--paper: #eff2f1`、インク文字 `--ink: #142433`、スチールブルー `--steel: #3b5a80`、グリーン `--green: #2e6e49`、ウォームアンバー `--amber: #b8722e`）を忠実に復元。
+  - セリフ見出し `Source Serif 4`、UIフォント `Inter`、等幅コード `IBM Plex Mono` を完全適用。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、境界線、セルパディング、Tailwindリストマーカー `list-style-type: disc !important` 等）を完全実装。
+- **Mermaid図解の完全移植**:
+  - 全9図解（`diag-0` 〜 `diag-8`）を共通 `<Mermaid>` コンポーネントへ移植。分岐エッジラベルの黒潰れ防止や枠線視認性最適化を適用。
+- **インタラクティブチェックリスト**:
+  - Step 9 の自己診断チェックリスト（全4項目）を `'use client'` の `Checklist.tsx` として実装。チェック状態に応じた打消し線スタイルを連動（進捗カウンターは未実装）。
+- **テーブル & コールアウト**:
+  - 全10テーブル（本書3部構成とセクション対応表、品質が事業に効く3つのC、3つの品質ナラティブ、テストの問いと手法の対応表、成長指標の3タイプ、プロダクト成熟度の段階別テスト戦略、ローカルペルソナを意識したテスト戦略の企業取り組み例、品質リーダーシップ10ステップのロードマップ一覧、推薦者一覧（6名）、参考文献・出典一覧）、および全コールアウトを完全移植。
+- **全セクション参考文献**: 全9件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
+- `app/leading-quality-guide/`: ページコンポーネント、専用スタイル（`.leading-quality-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全14セクションリンク、`aria-current="location"`）を実装。モバイル目次は `page.tsx` の `<details className="mobile-toc">` で提供（読了プログレスバーは未実装）。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/leading-quality-guide` を追加（全60件）。
+- `tests/leading-quality-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全14リンク、全14セクション、全9Mermaid図、全テーブル、全コールアウト、インタラクティブチェックリスト、全参考文献外部リンク（9件）の存在を検証する厳格なテストスイートを実装。
+- `Leading-quality-guide.html` & `Leading-quality-guide.md`: `archive/html-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 60 ページ体制に同期。
+
+## 2026/09/09: How Google Tests Software 完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & エディトリアル・ペーパーテーマ**:
+  - 原著HTML固有のエディトリアル書籍スタイル（紙の背景 `--bg: #f8f6f0`、インク文字 `--ink: #1c1917`、ダークネイビーバナー `--navy: #1b2a4a`、アクア `--teal: #0d9488`、ウォームアンバー `--amber: #d97706`）を忠実に復元。
+  - セリフ見出し `Playfair Display`、UIフォント `Inter`、等幅コード `JetBrains Mono` を完全適用。
+  - `globals.css` 干渉リセット（テーブル文字色、境界線、セルパディング、Tailwindリストマーカー等）を完全実装。
+- **Mermaid図解の完全移植**:
+  - テスト文化の進化（`dg-history`）、エンジニアリング3役の責務境界（`dg-roles`）、テストサイズとピラミッド（`dg-sizes`）、ACCモデル（`dg-acc`）、Test Certifiedプログラム5段階（`dg-certified`）、フレーキーテスト対策ライフサイクル（`dg-flaky`）、CIと自動化パイプライン（`dg-ci`）の全7図解を共通 `<Mermaid>` コンポーネントへ移植。
+- **テーブル & リスト & コールアウト**:
+  - 原著基本情報、エンジニアリング役割比較、テストサイズ（70/20/10）、ACC分析マトリクス、フレーキー対策、2012年原著 vs 2026年現代開発7行比較、原著章立て構成、参考文献3表の全8テーブルを完全移植。
+  - 8ステップ導入ガイド（`ol.step-list`）、批判的視点（`ul.check-list`）、要点まとめ10箇条（`ul.check-list`）を完全移植。
+  - 重要引用（James Whittaker 氏のことば）、インディゴ・ゴールド・フォレストの全コールアウトを完全移植。
+- **参考文献**: 全21件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
+- `app/how-google-tests-software-guide/`: ページコンポーネント、専用スタイル（`.how-google-tests-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全16セクションリンク、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/how-google-tests-software-guide` を追加（全59件）。
+- `tests/how-google-tests-software-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全16リンク、全16セクション、全7Mermaid図、全8テーブル、全コールアウト、全リスト、全参考文献外部リンク（21件）の存在を検証する厳格なテストスイートを実装して全パス（20 pass / 173 expect()）。
+- `How-google-tests-software-guide.html` & `How-google-tests-software-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 59 ページ体制に同期。
+
+## 2026/09/08: SonarQube 完全解説ガイド（中級〜上級者向け）のNext.js完全移行 & UI/UX改善
+
+- **デザイン忠実再現 & UI/UX改善**:
+  - 元HTML固有のダークテーマUI（背景 `--bg: #0b0f15`、サーフェス `--surface: #111822`、エレベーテッド `--surface-raised: #1a2330`、Tabler Icons `@tabler/icons-webfont`）を忠実に復元。
+  - **メインコンテンツ横幅の全幅化**: `.content-inner` の `max-width: 980px` 制約を撤廃し、画面幅を最大限に活用するモダンなフルワイズレイアウト（`width: 100%; max-width: none !important;`）を適用。
+  - **文字コントラストの大幅向上**: WCAG 2.1 AAA基準レベルを意識し、主要テキストを `#ffffff`（最大コントラスト白）、セカンダリテキストを `#cbd5e1`（明度30%UP）、テーブルセル・リスト・コールアウト文字色を視認性の高い高輝度カラーへ全面改善。
+- **Mermaid図解の完全移植**: プロダクトファミリーとエコシステム全体像、内部アーキテクチャ(Web/CE/ES/DB)、Data Center Edition高可用性構成、Clean Code属性から格付けへのマッピング、Security Hotspotライフサイクル、Quality Profile継承モデル、New Code Definition判定ロジック、Quality Gate評価フロー、プルリクエスト解析フロー、Agent Centric Development Cycle(ACDC)の全10図解（`DIAGRAM_1`〜`DIAGRAM_10`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **コードブロック & シンタックスハイライト**:
+  - 全4箇所のコードブロック（Docker起動コマンド、SQALE計算モデル、GitHub Actionsワークフロー、Claude Code MCPサーバー設定）に `.code-block` コンテナとヘッダー（言語バッジ、タイトル）を実装。
+  - `.code-keyword`, `.code-string`, `.code-comment`, `.code-property`, `.code-var`, `.code-operator`, `.code-fn`, `.code-punct` 等のトークンによる鮮明なシンタックスハイライトを完全適用。
+- **テーブル & コールアウト**: 4コアコンポーネント、主要ディレクトリ構成、5大エディション機能比較、料金目安、SonarQube Cloudプラン比較、スキャナー選定マトリクス、Standard vs MQR、Clean Code Taxonomy 4カテゴリ、Issue 4種別、Copy vs Extend、セキュリティルール2分類、Maintainability Ratingグリッド、Reliability Rating条件、New Code 4オプション、Quality Gateデフォルト条件、ブランチ分析 vs PR分析、主要CI/CD対応状況、MCP Server形態、Sonar Vortexフェーズ、トラブルシューティング、参考文献一覧（48行）の全21テーブル、および全3箇所の重要コールアウトを完全移植。
+- **全セクション参考文献**: 各章末尾および第21章の参考文献リスト（104件の外部リンク、セキュリティ属性 `rel="noopener noreferrer"`）を完全移行。
+- `app/sonarqube-intermediate-guide/`: ページコンポーネント、専用スタイル（`.sonarqube-page` スコープ、globals.css干渉リセット、テーブル文字色・ホバーリセット、Tailwindリストマーカー復元）、NavBar（スクロールスパイ、全22セクションリンク、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリに `/sonarqube-intermediate-guide`（SonarQube 完全解説ガイド）を追加（全58件）。
+- `tests/sonarqube-intermediate-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全22リンク、全22セクション、全10Mermaid図、全4コードブロック（ハイライト検証含む）、全21テーブル、全3コールアウト、全参考文献外部リンクの存在を検証する厳格なテストスイートを実装して全パス（29 pass / 388 expect()）。
+- `Sonarqube-intermediate.html`: `archive/html-archive/tools/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 58 ページ体制に同期。
+
+## 2026/09/08: Playwright実践ガイド（中級者〜上級者向け）のNext.js完全移行
+
+- **デザイン忠実再現**: 元HTML固有の洗練されたダークサイバーUI（背景 `--bg: #07111e`、エレベーテッド `--bg-elevated: #0d1b2e`、カード `--bg-card: #0b1622`、アクセント `--accent: #2dd4bf`、ボーダー `--border: rgba(255,255,255,0.08)`、等幅フォント `JetBrains Mono`）を忠実に復元。
+- **Mermaid図解の完全移植**: アーキテクチャ図、BrowserContext分離図、Auto-waitingフロー図、Fixtures実行順序シーケンス図、Worker並列実行図、Sharding実行図、Trace閲覧フロー、HAR記録再生フロー、認証戦略フロー、API/UI相互運用フロー、CI/CDパイプライン全体像、リモートPlaywrightサーバーアーキテクチャの全12図解（`mermaid-1`〜`mermaid-12`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **コードブロック**: 全62箇所のコードブロック（`code-1`〜`code-62`）を完全移植。TypeScript / Bash / YAML / Dockerfile などの構文ハイライトと `.code-label` による言語バッジを適用。
+- **テーブル & コールアウト**: 動作要件、BrowserContext vs Page、Locators優先順位、アサーション一覧、シャード比較、Flaky分類、Trace vs UI Mode、チェックリストなど全15テーブル、および全3箇所の重要・警告コールアウト（Workerデータ分離、認証情報保護、shm-size）を完全移植。
+- **全セクション参考文献**: 各章末尾および第21章の参考文献リスト（外部リンク、セキュリティ属性 `rel="noopener noreferrer"`）を完全移行。
+- `app/playwright-intermediate-advanced-guide/`: ページコンポーネント、専用スタイル（`.playwright-intermediate-advanced-page` スコープ、globals.css干渉リセット、テーブル文字色・ホバーリセット、Tailwindリストマーカー復元）、NavBar（スクロールスパイ、全21セクションリンク、4カテゴリーグルーフラベル、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリに `/playwright-intermediate-advanced-guide`（Playwright 実践ガイド）を追加（全57件）。
+- `tests/playwright-intermediate-advanced-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全21リンク、全21セクション、全12Mermaid図、全62コードブロック、全15テーブル、全3コールアウト、全参考文献外部リンクの存在を検証する厳格なテストスイートを実装して全パス（26 pass / 195 expect()）。
+- `Playwright-intermediate-advanced-guide.html`: `archive/html-archive/playwright/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 57 ページ体制に同期。
 
 ## 2026/09/05: HTML移行スキルおよび規約体系の抜本的ブラッシュアップ
 
@@ -582,17 +669,24 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Testing-web-apis-guide.html` | `/testing-web-apis-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Software-test-design-guide.html` | `/software-test-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Secure-by-design-guide.html` | `/secure-by-design-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Playwright-intermediate-advanced-guide.html` | `/playwright-intermediate-advanced-guide` | ✅ NavBar + aria-current あり (archive/html-archive/playwright/) |
+| `Sonarqube-intermediate.html` | `/sonarqube-intermediate-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `How-google-tests-software-guide.html` | `/how-google-tests-software-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Leading-quality-guide.html` | `/leading-quality-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Agile-testing-practical-guide.html` | `/agile-testing-practical-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-登録済みガイドの移行は完了しているが、プロジェクトルートには App Router に未登録の静的ドキュメントが残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 31 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
+この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
+ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系 Markdown（`Agile-testing-practical-guide.md` / `Art-of-software-testing-guide.md` / `Beautiful-testing-guide.md` / `Beyond-legacy-code-guide.md` / `How-google-tests-software-guide.md` / `Leading-quality-guide.md` / `Lessons-learned-in-software-testing-guide.md` / `Software-testing-craftsmans-approach-guide.md` / `Testing-computer-software-guide.md`） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置 |
-| 書籍ガイド系 HTML（`Leading-quality-guide.html` / `Art-of-software-testing-guide.html` / `Beautiful-testing-guide.html` / `Beyond-legacy-code-guide.html` / `How-google-tests-software-guide.html` / `Software-testing-craftsmans-approach-guide.html`） | 未定 | ⏸ ルート登録対象外 | 同上（Markdown と対になる HTML 版） |
-| ツール系ドキュメント（`Appium-essentials-guide.md` / `Appium-essentials-guide.html` / `Owasp-zap-beginner-guide.html` / `Playwright-intermediate-advanced-guide.html` / `Sonarqube.html` / `Sonarqube-intermediate.html`） | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
+| 書籍ガイド系（HTML + Markdown の 13 ペア = 26 ファイル）: `Art-of-software-testing-guide.*` / `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Explore-it-guide.*` / `Lessons-learned-in-software-testing-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Test-driven-development-by-example-guide.*` / `Testing-computer-software-guide.*` / `Unit-testing-principles-practices-patterns-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| ツール系（3 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` / `Owasp-zap-beginner-guide.html` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
+| `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 | `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
 
 ## 既知の留保事項
@@ -606,8 +700,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 56 ルート（ガイドライブラリ index + 55 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の書籍ガイド系 Markdown と `Leading-quality-guide.html` などの HTML が残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 61 ルート（ガイドライブラリ index + 60 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 31 ファイル（書籍ガイド系の HTML/Markdown 13 ペア、Appium/OWASP ZAP などのツール系 3 ファイル、`Sonarqube.html`、`Istqb-ctfl-v4-chapter6.html`）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

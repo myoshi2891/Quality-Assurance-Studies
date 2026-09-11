@@ -94,7 +94,7 @@ export default function NavBar() {
             
             <div className="nav-section">
                 <div className="nav-label">
-                    Chapter 4 <span className="tag tag-coral" style={{ fontSize: '10px', marginLeft: '4px' }}>最重要</span>
+                    Chapter 4 <span className="tag tag-coral" style={{ fontSize: '1rem', marginLeft: '4px' }}>最重要</span>
                 </div>
                 <a href="#ch4" className="nav-link">テスト分析・設計</a>
                 <div className="nav-sub">

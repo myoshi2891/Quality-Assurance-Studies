@@ -1,0 +1,1915 @@
+<!doctype html>
+<html lang="ja">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>
+            Test-Driven Development: By Example ガイド ─ 初学者のためのステップバイステップ解説
+        </title>
+        <meta
+            name="description"
+            content="Kent Beck著『Test-Driven Development: By Example』を初学者向けに解説するステップバイステップガイド。Red-Green-Refactor、Canon TDD、Three Laws of TDD、AI時代のTDDまでを図解付きで紹介します。"
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=Noto+Sans+JP:wght@400;500;700;900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+            integrity="sha384-ND+q1IVc0KDElX60dZaqKc7Xl9cdxd2PpU2JfVUHcurCkFVtVLFdt9vJfxtHSL3p"
+            crossorigin="anonymous"
+        />
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.12.0/build/styles/atom-one-dark.min.css"
+            integrity="sha384-oaMLBGEzBOJx3UHwac0cVndtX5fxGQIfnAeFZ35RTgqPcYlbprH9o9PUV/F8Le07"
+            crossorigin="anonymous"
+        />
+        <style>
+            :root {
+                --paper: #faf6ea;
+                --paper-card: #fffdf8;
+                --paper-card-2: #f1e9d6;
+                --ink: #2a2118;
+                --ink-soft: #6b5f4f;
+                --border: #e4d9bf;
+                --indigo: #3c4f91;
+                --indigo-soft: #e8ebf7;
+                --gold: #b8860b;
+                --gold-soft: #f7ecd2;
+                --forest: #2f6b45;
+                --forest-soft: #e1f0e4;
+                --plum: #6d3fa0;
+                --plum-soft: #f0e6f7;
+                --radius: 14px;
+                --font-display: 'Source Serif 4', 'Noto Serif JP', serif;
+                --font-body: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+                --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+                --sidebar-w: 296px;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                margin: 0;
+                background: var(--paper);
+                color: var(--ink);
+                font-family: var(--font-body);
+                font-size: 16px;
+                line-height: 1.85;
+                -webkit-font-smoothing: antialiased;
+            }
+            h1,
+            h2,
+            h3,
+            h4 {
+                font-family: var(--font-display);
+                color: var(--ink);
+                line-height: 1.4;
+                font-weight: 700;
+                margin: 0 0 1rem;
+            }
+            p {
+                margin: 0 0 1.15rem;
+            }
+            a {
+                color: var(--indigo);
+            }
+            ul,
+            ol {
+                padding-left: 1.4rem;
+                margin: 0 0 1.15rem;
+            }
+            li {
+                margin-bottom: 0.45rem;
+            }
+            img,
+            svg {
+                max-width: 100%;
+            }
+
+            /* ---------- layout ---------- */
+            .layout {
+                display: block;
+            }
+            .sidebar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: var(--sidebar-w);
+                height: 100vh;
+                overflow-y: auto;
+                background: var(--paper-card);
+                border-right: 1px solid var(--border);
+                padding: 2rem 1.15rem 3rem;
+                z-index: 1000;
+                transition: transform 0.25s ease;
+            }
+            .sidebar-inner {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .brand {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                padding: 0 0.5rem;
+            }
+            .brand .ti {
+                font-size: 1.6rem;
+                color: var(--indigo);
+            }
+            .brand-text {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 1.05rem;
+                line-height: 1.3;
+            }
+            .brand-text small {
+                display: block;
+                font-family: var(--font-body);
+                font-weight: 500;
+                color: var(--ink-soft);
+                font-size: 1rem;
+            }
+            .nav-group-title {
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--ink-soft);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+                padding: 0 0.5rem;
+                margin-bottom: 0.35rem;
+            }
+            nav.nav-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.15rem;
+            }
+            .nav-a {
+                display: flex;
+                align-items: center;
+                gap: 0.65rem;
+                padding: 0.55rem 0.7rem;
+                border-radius: 10px;
+                color: var(--ink-soft);
+                text-decoration: none;
+                font-size: 1rem;
+                font-weight: 500;
+            }
+            .nav-a .ti {
+                font-size: 1.15rem;
+                flex: 0 0 auto;
+                color: var(--ink-soft);
+            }
+            .nav-a:hover {
+                background: var(--paper-card-2);
+                color: var(--ink);
+            }
+            .nav-a.active {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+                font-weight: 700;
+            }
+            .nav-a.active .ti {
+                color: var(--indigo);
+            }
+
+            .main {
+                margin-left: var(--sidebar-w);
+                padding: 3.2rem 3.5rem 6rem;
+                max-width: none;
+            }
+            .section {
+                max-width: none;
+                padding-top: 1.5rem;
+                margin-top: -1.5rem;
+                border-top: 1px solid transparent;
+            }
+            .section + .section {
+                margin-top: 3.5rem;
+                padding-top: 2.2rem;
+                border-top: 1px solid var(--border);
+            }
+            .section-eyebrow {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-size: 1rem;
+                font-weight: 700;
+                color: var(--indigo);
+                background: var(--indigo-soft);
+                padding: 0.3rem 0.75rem;
+                border-radius: 999px;
+                margin-bottom: 0.9rem;
+            }
+            .prose,
+            .prose p,
+            .prose li {
+                overflow-wrap: break-word;
+            }
+
+            /* ---------- mobile bar ---------- */
+            .mobile-bar {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                z-index: 1002;
+                background: var(--paper-card);
+                border-bottom: 1px solid var(--border);
+                padding: 0.85rem 1.1rem;
+                align-items: center;
+                gap: 0.75rem;
+                font-size: 1rem;
+            }
+            .mobile-bar,
+            .mobile-bar * {
+                font-size: 1rem;
+            }
+            .mobile-bar button {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+                border: none;
+                border-radius: 10px;
+                width: 2.6rem;
+                height: 2.6rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.3rem;
+                cursor: pointer;
+            }
+            .mobile-bar .mobile-title {
+                font-family: var(--font-display);
+                font-weight: 700;
+                font-size: 1.05rem;
+            }
+            .sidebar-backdrop {
+                display: none;
+                position: fixed;
+                inset: 0;
+                background: rgba(20, 15, 8, 0.35);
+                z-index: 999;
+            }
+
+            @media (max-width: 960px) {
+                .mobile-bar {
+                    display: flex;
+                }
+                .sidebar {
+                    transform: translateX(-100%);
+                    visibility: hidden;
+                    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+                    padding-top: 5.4rem;
+                }
+                .sidebar.open {
+                    transform: translateX(0);
+                    visibility: visible;
+                    transition: transform 0.25s ease, visibility 0s linear 0s;
+                }
+                .sidebar-backdrop.open {
+                    display: block;
+                }
+                .main {
+                    margin-left: 0;
+                    padding: 5.6rem 1.3rem 4.5rem;
+                }
+            }
+
+            /* ---------- hero ---------- */
+            .hero {
+                padding-bottom: 2.5rem;
+                border-bottom: 1px solid var(--border);
+                margin-bottom: 2.5rem;
+            }
+            .hero-eyebrow {
+                font-size: 1rem;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                color: var(--ink-soft);
+                text-transform: uppercase;
+                margin-bottom: 0.9rem;
+            }
+            .hero h1 {
+                font-size: clamp(2rem, 4.2vw, 3rem);
+                margin-bottom: 0.85rem;
+                background: linear-gradient(90deg, var(--indigo), var(--plum));
+                -webkit-background-clip: text;
+                background-clip: text;
+                color: var(--plum);
+                -webkit-text-fill-color: transparent;
+            }
+            .hero-sub {
+                font-size: 1.25rem;
+                color: var(--ink-soft);
+                margin-bottom: 1.4rem;
+            }
+            .hero-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.6rem;
+            }
+            .chip {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                background: var(--paper-card-2);
+                color: var(--ink);
+                border: 1px solid var(--border);
+                padding: 0.4rem 0.85rem;
+                border-radius: 999px;
+                font-size: 1rem;
+                font-weight: 500;
+            }
+            .chip .ti {
+                color: var(--indigo);
+                font-size: 1.05rem;
+            }
+
+            /* ---------- tables ---------- */
+            .table-wrap {
+                overflow-x: auto;
+                overflow-y: hidden;
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                margin: 1.6rem 0;
+                background: var(--paper-card);
+            }
+            .table-title {
+                background: var(--indigo-soft);
+                color: var(--indigo);
+                font-weight: 700;
+                padding: 0.75rem 1.1rem;
+                border-bottom: 1px solid var(--border);
+                font-size: 1.05rem;
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                min-width: 520px;
+            }
+            thead th {
+                background: var(--indigo);
+                color: #fff;
+                text-align: left;
+                padding: 0.7rem 1rem;
+                font-size: 1rem;
+                font-weight: 700;
+                white-space: nowrap;
+            }
+            tbody td {
+                padding: 0.7rem 1rem;
+                border-top: 1px solid var(--border);
+                font-size: 1rem;
+                vertical-align: top;
+            }
+            tbody tr:nth-child(even) td {
+                background: var(--paper-card-2);
+            }
+
+            /* ---------- mermaid ---------- */
+            .mermaid-wrap {
+                width: 100%;
+                display: flex;
+                justify-content: safe center;
+                overflow-x: auto;
+                margin: 1.8rem 0;
+                padding: 1.3rem 1rem;
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+            }
+            .mermaid-wrap svg {
+                max-width: none;
+                height: auto;
+                flex-shrink: 0;
+            }
+            .mermaid-caption {
+                text-align: center;
+                font-size: 1rem;
+                color: var(--ink-soft);
+                margin-top: -1.2rem;
+                margin-bottom: 1.8rem;
+            }
+
+            /* ---------- code blocks ---------- */
+            .code-block {
+                margin: 1.6rem 0;
+                border-radius: var(--radius);
+                overflow: hidden;
+                background: #1e1e1e;
+                border: 1px solid #33302a;
+            }
+            .code-block .code-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 0.55rem 1.1rem;
+                background: #26241f;
+                font-size: 1rem;
+                color: #c9c2b3;
+                font-family: var(--font-mono);
+            }
+            .code-block pre {
+                margin: 0;
+                overflow-x: auto;
+                padding: 1.15rem 1.3rem;
+            }
+            .code-block code {
+                font-family: var(--font-mono);
+                font-size: 1rem;
+                line-height: 1.75;
+            }
+
+            /* ---------- lists / cards ---------- */
+            .card-grid {
+                display: grid;
+                grid-template-columns: 1fr;
+                gap: 1rem;
+                margin: 1.6rem 0;
+            }
+            .pitfall-card {
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: var(--radius);
+                padding: 1.1rem 1.3rem;
+            }
+            .pitfall-card .p-q {
+                display: flex;
+                gap: 0.55rem;
+                align-items: flex-start;
+                font-weight: 700;
+                color: var(--ink);
+                margin-bottom: 0.5rem;
+                font-size: 1.05rem;
+            }
+            .pitfall-card .p-q .ti {
+                color: var(--gold);
+                font-size: 1.2rem;
+                margin-top: 0.1rem;
+            }
+            .pitfall-card .p-a {
+                display: flex;
+                gap: 0.55rem;
+                align-items: flex-start;
+                color: var(--ink-soft);
+                margin: 0;
+            }
+            .pitfall-card .p-a .ti {
+                color: var(--forest);
+                font-size: 1.2rem;
+                margin-top: 0.15rem;
+                flex: 0 0 auto;
+            }
+
+            .callout {
+                display: flex;
+                gap: 0.8rem;
+                background: var(--gold-soft);
+                border: 1px solid #e6cf94;
+                border-left: 5px solid var(--gold);
+                border-radius: 10px;
+                padding: 1rem 1.2rem;
+                margin: 1.6rem 0;
+            }
+            .callout .ti {
+                font-size: 1.4rem;
+                color: var(--gold);
+                flex: 0 0 auto;
+            }
+            .callout p:last-child {
+                margin-bottom: 0;
+            }
+            .callout.plum {
+                background: var(--plum-soft);
+                border-color: #d9c2ec;
+                border-left-color: var(--plum);
+            }
+            .callout.plum .ti {
+                color: var(--plum);
+            }
+            .callout.forest {
+                background: var(--forest-soft);
+                border-color: #bfe0c7;
+                border-left-color: var(--forest);
+            }
+            .callout.forest .ti {
+                color: var(--forest);
+            }
+
+            /* ---------- checklist ---------- */
+            .checklist-head {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 0.75rem;
+                margin-bottom: 1rem;
+            }
+            .checklist-counter {
+                font-weight: 700;
+                color: var(--indigo);
+                background: var(--indigo-soft);
+                padding: 0.4rem 0.9rem;
+                border-radius: 999px;
+                font-size: 1rem;
+            }
+            .checklist {
+                list-style: none;
+                margin: 0;
+                padding: 0;
+            }
+            .checklist li {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                padding: 0.85rem 1.1rem;
+                border: 1px solid var(--border);
+                border-radius: 12px;
+                margin-bottom: 0.65rem;
+                background: var(--paper-card);
+            }
+            .checklist input[type='checkbox'] {
+                appearance: none;
+                -webkit-appearance: none;
+                width: 1.4rem;
+                height: 1.4rem;
+                flex: 0 0 auto;
+                border: 2px solid var(--indigo);
+                border-radius: 7px;
+                margin-top: 0.15rem;
+                cursor: pointer;
+                position: relative;
+                font-size: 1rem;
+            }
+            .checklist input[type='checkbox']:checked {
+                background: var(--indigo);
+            }
+            .checklist input[type='checkbox']:checked::after {
+                content: '';
+                position: absolute;
+                left: 6px;
+                top: 2px;
+                width: 5px;
+                height: 10px;
+                border: solid #fff;
+                border-width: 0 2px 2px 0;
+                transform: rotate(45deg);
+            }
+            .checklist label {
+                cursor: pointer;
+                font-size: 1rem;
+            }
+            .checklist .cl-note {
+                display: block;
+                color: var(--ink-soft);
+                font-size: 1rem;
+                margin-top: 0.25rem;
+            }
+            .checklist li.done {
+                background: var(--forest-soft);
+                border-color: #bfe0c7;
+            }
+            .checklist li.done label {
+                text-decoration: line-through;
+                color: var(--ink-soft);
+            }
+
+            /* ---------- footer ---------- */
+            .footer {
+                margin-top: 4rem;
+                padding-top: 2rem;
+                border-top: 1px solid var(--border);
+                font-size: 1rem;
+                color: var(--ink-soft);
+            }
+            .ref-list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+            .ref-list li {
+                background: var(--paper-card);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                padding: 0.8rem 1.1rem;
+                font-size: 1rem;
+            }
+            .ref-list a {
+                word-break: break-all;
+                font-weight: 600;
+            }
+            .ref-list .ref-desc {
+                color: var(--ink-soft);
+                display: block;
+                margin-top: 0.2rem;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="sidebar-backdrop" id="backdrop"></div>
+        <div class="mobile-bar" id="mobileBar">
+            <button id="mobileToggle" aria-label="メニューを開閉する" aria-controls="sidebar" aria-expanded="false">
+                <i class="ti ti-menu-2" id="mobileIcon"></i>
+            </button>
+            <span class="mobile-title">TDD: By Example ガイド</span>
+        </div>
+
+        <div class="layout">
+            <aside class="sidebar" id="sidebar">
+                <div class="sidebar-inner">
+                    <div class="brand">
+                        <i class="ti ti-flask-2"></i>
+                        <div class="brand-text">TDD by Example<small>初学者向けガイド</small></div>
+                    </div>
+
+                    <div>
+                        <div class="nav-group-title">はじめに</div>
+                        <nav class="nav-list">
+                            <a class="nav-a" href="#book-info"
+                                ><i class="ti ti-book"></i>この本について</a
+                            >
+                            <a class="nav-a" href="#audience"
+                                ><i class="ti ti-users"></i>対象読者と前提知識</a
+                            >
+                            <a class="nav-a" href="#what-is-tdd"
+                                ><i class="ti ti-refresh"></i>TDDとは何か</a
+                            >
+                        </nav>
+                    </div>
+
+                    <div>
+                        <div class="nav-group-title">本編</div>
+                        <nav class="nav-list">
+                            <a class="nav-a" href="#structure"
+                                ><i class="ti ti-stack-2"></i>本書の3部構成</a
+                            >
+                            <a class="nav-a" href="#part1"
+                                ><i class="ti ti-coin"></i>Part I: Moneyの例</a
+                            >
+                            <a class="nav-a" href="#part2"
+                                ><i class="ti ti-tool"></i>Part II: xUnitを自作する</a
+                            >
+                            <a class="nav-a" href="#part3"
+                                ><i class="ti ti-puzzle"></i>Part III: パターン集</a
+                            >
+                        </nav>
+                    </div>
+
+                    <div>
+                        <div class="nav-group-title">発展</div>
+                        <nav class="nav-list">
+                            <a class="nav-a" href="#three-laws"
+                                ><i class="ti ti-gavel"></i>TDDの三原則</a
+                            >
+                            <a class="nav-a" href="#canon-tdd"
+                                ><i class="ti ti-list-check"></i>Canon TDD</a
+                            >
+                            <a class="nav-a" href="#pitfalls"
+                                ><i class="ti ti-alert-triangle"></i>つまずきやすい点</a
+                            >
+                            <a class="nav-a" href="#tdd-is-dead"
+                                ><i class="ti ti-messages"></i>TDD is Dead論争</a
+                            >
+                            <a class="nav-a" href="#ai-era"
+                                ><i class="ti ti-robot"></i>AIエージェント時代のTDD</a
+                            >
+                        </nav>
+                    </div>
+
+                    <div>
+                        <div class="nav-group-title">まとめ</div>
+                        <nav class="nav-list">
+                            <a class="nav-a" href="#checklist"
+                                ><i class="ti ti-checklist"></i>ベストプラクティス</a
+                            >
+                            <a class="nav-a" href="#roadmap"
+                                ><i class="ti ti-route"></i>学習ロードマップ</a
+                            >
+                            <a class="nav-a" href="#summary"><i class="ti ti-notes"></i>まとめ</a>
+                            <a class="nav-a" href="#references"
+                                ><i class="ti ti-link"></i>参考文献・出典</a
+                            >
+                        </nav>
+                    </div>
+                </div>
+            </aside>
+
+            <main class="main">
+                <header class="hero">
+                    <p class="hero-eyebrow">CLASSIC SOFTWARE TESTING BOOKS シリーズ</p>
+                    <h1>Test-Driven Development: By Example</h1>
+                    <p class="hero-sub">初学者のためのステップバイステップ解説ガイド</p>
+                    <div class="hero-meta">
+                        <span class="chip"><i class="ti ti-user"></i>Kent Beck 著</span>
+                        <span class="chip"><i class="ti ti-calendar"></i>2002年11月刊行</span>
+                        <span class="chip"><i class="ti ti-file-text"></i>240ページ</span>
+                        <span class="chip"
+                            ><i class="ti ti-building"></i>Addison-Wesley Professional</span
+                        >
+                    </div>
+                </header>
+
+                <div id="section-root">
+                    <section id="book-info" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-book"></i>01</p>
+                        <h2>この本について</h2>
+                        <div class="table-wrap">
+                            <div class="table-title"><i class="ti ti-info-circle"></i>書誌情報</div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>書名</strong></td>
+                                        <td>Test-Driven Development: By Example</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>著者</strong></td>
+                                        <td>Kent Beck</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>出版社</strong></td>
+                                        <td>Addison-Wesley Professional</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>出版年月</strong></td>
+                                        <td>2002年11月</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>ページ数</strong></td>
+                                        <td>240ページ</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>難易度</strong></td>
+                                        <td>中級〜上級（ただし実例は平易）</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>主な功績</strong></td>
+                                        <td>
+                                            テスト駆動開発（TDD）という手法を体系立てて世界に広めた最初期の書籍のひとつ
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Kent Beckは、Extreme
+                            Programming（XP）の創始者であり、2001年の「アジャイルソフトウェア開発宣言」の共著者の一人でもあります。TDDはもともとXPのプラクティスのひとつとして育まれ、本書によって独立した実践技法として広く認知されるようになりました。
+                        </p>
+                        <p>
+                            本書の最大の特徴は、<strong
+                                >抽象的な理論の説明ではなく、実際にコードを書きながらTDDのサイクルを追体験させる「By
+                                Example（実例による）」形式</strong
+                            >にある点です。読者は著者と一緒に、小さすぎるほど小さなステップでコードを書き、テストを赤くし、緑にし、リファクタリングする過程を目撃することになります。
+                        </p>
+                    </section>
+
+                    <section id="audience" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-users"></i>02</p>
+                        <h2>対象読者と前提知識</h2>
+                        <ul>
+                            <li>
+                                プログラミングの基礎（変数・関数・クラス・条件分岐）を理解している人
+                            </li>
+                            <li>
+                                何らかの言語で簡単なコードが書ける人（本書はJavaとPythonで例示されますが、考え方はどの言語にも応用可能）
+                            </li>
+                            <li>単体テストという概念に初めて触れる、あるいは触れたばかりの人</li>
+                            <li>
+                                「テストを書くのは面倒」「TDDは遅くなる」と感じたことがある人（本書はまさにその誤解を解くために書かれています）
+                            </li>
+                        </ul>
+                        <p>
+                            前提知識として、xUnit系のテストフレームワーク（JUnit、pytestなど）の使用経験があると理解がスムーズですが、必須ではありません。
+                        </p>
+                    </section>
+
+                    <section id="what-is-tdd" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-refresh"></i>03</p>
+                        <h2>TDDとは何か</h2>
+                        <p>
+                            TDD（Test-Driven
+                            Development、テスト駆動開発）は、<strong>プロダクションコードを書く前に、まずそのコードが満たすべき振る舞いをテストとして書く</strong>という開発手法です。Martin
+                            Fowlerの定義を要約すると、TDDは次の3つのステップを繰り返すことで進みます。
+                        </p>
+                        <ol>
+                            <li>これから追加したい機能に対するテストを書く</li>
+                            <li>そのテストが通るまで最小限の実装コードを書く</li>
+                            <li>新旧のコードをリファクタリングして構造を整える</li>
+                        </ol>
+                        <p>
+                            この3ステップは一般に
+                            <strong>Red → Green → Refactor</strong>
+                            というサイクル名で知られています。
+                        </p>
+
+                        <div class="mermaid-wrap" id="dg-cycle"></div>
+                        <p class="mermaid-caption">図: Red-Green-Refactorサイクル</p>
+
+                        <ul>
+                            <li>
+                                <strong>Red（赤）</strong>:
+                                まだ実装していない機能に対するテストを書く。当然このテストは失敗する（赤くなる）。
+                            </li>
+                            <li>
+                                <strong>Green（緑）</strong>:
+                                そのテストを通すために、可能な限り最小限のコードを書く。美しさは後回しでよい。
+                            </li>
+                            <li>
+                                <strong>Refactor（リファクタリング）</strong>:
+                                テストが通っている状態（緑）を維持したまま、コードの重複や不要な複雑さを取り除く。
+                            </li>
+                        </ul>
+
+                        <div class="callout">
+                            <i class="ti ti-bulb"></i>
+                            <p>
+                                Kent
+                                Beckは本書冒頭で、TDDの目的を「恐怖（fear）の排除」だと述べています。常に実行可能なテストスイートがあれば、変更やリファクタリングへの恐怖を取り除き、自信を持ってコードを改善し続けられる、というのが本書全体を貫く思想です。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="structure" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-stack-2"></i>04</p>
+                        <h2>本書の3部構成</h2>
+                        <p>本書は大きく3つのパートに分かれています。</p>
+
+                        <div class="mermaid-wrap" id="dg-structure"></div>
+                        <p class="mermaid-caption">図: 本書全体の3部構成</p>
+
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-list-details"></i>各パートの概要
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Part</th>
+                                        <th>章</th>
+                                        <th>主なテーマ</th>
+                                        <th>学べること</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Part I: The Money Example</td>
+                                        <td>1〜17章</td>
+                                        <td>多通貨（ドル・フラン）に対応したMoneyクラスの実装</td>
+                                        <td>
+                                            Red-Green-Refactorの基本サイクル、小さなステップの威力、テストリストの使い方
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part II: The xUnit Example</td>
+                                        <td>18〜24章</td>
+                                        <td>xUnit系テストフレームワークそのものをTDDで作る</td>
+                                        <td>
+                                            テストフレームワークの内部構造の理解、インフラコードもTDDで作れることの実証
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Part III: Patterns for Test-Driven Development</td>
+                                        <td>25〜32章</td>
+                                        <td>TDDに関する65個のパターン集と考察</td>
+                                        <td>
+                                            テストパターン、設計パターン、リファクタリングパターンの語彙、TDDの限界と応用範囲
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            Part I と Part II の終わりには「Retrospective（回顧）」という振り返り章が置かれており、実装しながら得られた気づきや設計上の教訓がまとめられているのも本書の特徴です。
+                        </p>
+                    </section>
+
+                    <section id="part1" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-coin"></i>05</p>
+                        <h2>Part I: Moneyの例で学ぶTDDの基本サイクル</h2>
+                        <p>
+                            Part
+                            Iは、ドルとフランという2つの通貨を扱うMoneyクラスを、1章ごとに少しずつ機能を追加しながら実装していく、いわば「TDD入門の写経パート」です。
+                        </p>
+
+                        <h3>ステップ・バイ・ステップの流れ</h3>
+                        <ol>
+                            <li>
+                                <strong>やりたいことをテストリストとして書き出す</strong
+                                >（例:「5ドル×2は10ドルになるべきだ」「異なる通貨同士は直接足せない」など）
+                            </li>
+                            <li>
+                                <strong
+                                    >リストから1つを選び、実際に動くテストコードに変換する</strong
+                                >
+                            </li>
+                            <li>
+                                <strong>そのテストをコンパイルが通る最小限の形にする</strong
+                                >（存在しないクラスやメソッドを仮に作るだけでもよい）
+                            </li>
+                            <li><strong>テストを実行し、失敗（Red）することを確認する</strong></li>
+                            <li>
+                                <strong>テストを通すための最小限のコードを書く</strong
+                                >（多少ズルをしてもよい）
+                            </li>
+                            <li>
+                                <strong
+                                    >テストが通ったら（Green）、コードの重複や設計上の課題をリファクタリングする</strong
+                                >
+                            </li>
+                            <li>
+                                <strong>テストリストに新しく気づいた項目を追加し、2に戻る</strong>
+                            </li>
+                        </ol>
+                        <p>
+                            この「小さすぎるくらい小さなステップ」の積み重ねこそが本書の核心であり、初学者が最初に驚くポイントでもあります。慣れてきたらステップを大きくしてよい、と本書内でも述べられています。
+                        </p>
+
+                        <h3>テストを通す3つの戦略（Green Barパターン）</h3>
+                        <p>
+                            Part Iを通じて、Kent
+                            Beckはテストを通すための3つの異なるアプローチを使い分けます。これは28章「Green
+                            Bar Patterns」として後にパターン化されます。
+                        </p>
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-bulb"></i>Green Barパターンの使い分け
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>手法</th>
+                                        <th>概要</th>
+                                        <th>使うタイミング</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Fake It（Til You Make It）</td>
+                                        <td>
+                                            まず固定値やベタ書きの値を返すだけで、とにかくテストを通す
+                                        </td>
+                                        <td>
+                                            実装の方向性がまだ見えていない、最初の一歩を素早く踏み出したいとき
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Triangulate（三角測量）</td>
+                                        <td>
+                                            2つ以上のテストケースが示す共通点から、一般化された実装を導き出す
+                                        </td>
+                                        <td>どこまで一般化してよいか確信が持てないとき</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Obvious Implementation（明白な実装）</td>
+                                        <td>
+                                            実装方法が明白なら、最初から正しい実装をそのまま書く
+                                        </td>
+                                        <td>実装が単純で自信を持って書けるとき</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            これらは対立する手法ではなく、<strong>開発者の自信の度合いに応じて使い分けるための引き出し</strong>です。自信がないときほど小さなステップ（Fake
+                            It）を、自信があるときは大きなステップ（Obvious
+                            Implementation）を選ぶ、というのが本書の教えです。
+                        </p>
+
+                        <h3>オリジナルの例で追体験する（税込み価格計算）</h3>
+                        <p>
+                            書籍本文のMoneyの実装をそのまま転載する代わりに、同じ考え方を使ったオリジナルの練習例を示します。「小計に消費税（10%）を加算した金額を返す関数」をTDDで作るケースです。
+                        </p>
+
+                        <div class="mermaid-wrap" id="dg-tax"></div>
+                        <p class="mermaid-caption">
+                            図: 税込み価格計算の例でRed-Green-Refactorを追体験する
+                        </p>
+
+                        <p>
+                            以下は<strong>1つのファイルを 5 回書き換えていく過程</strong>です。各ステップのコードブロックはその時点のファイル全体を表しており、<code>pytest tax_example.py</code> を実行するとそのステップのテストが走ります。1つのブロックに全ステップを並べて書くと、後から定義した<code>税込み価格</code>が先の定義を上書きしてしまい、Red が Red として観測できなくなる点に注意してください。
+                        </p>
+
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ1: Red — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python"># まだ 税込み価格 が存在しないので NameError で失敗する（これが Red）
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ2: Green (Fake It) — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python"># ベタ書きの 0 を返すだけで、今あるテストは通る（Fake It）
+def 税込み価格(小計):
+    return 0
+
+
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ3: Red — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python">def 税込み価格(小計):
+    return 0
+
+
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0
+
+
+# 2つ目のテストを追加する。0 を返す実装では 110 にならず失敗する（Red）
+def test_税込み価格_100円の場合は110円():
+    assert 税込み価格(100) == 110</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ4: Green (Triangulate) — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python"># 2つの例が揃ったことで、ベタ書きでは足りず一般化せざるを得なくなる（Triangulate）
+def 税込み価格(小計):
+    return int(小計 * 1.1)
+
+
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0
+
+
+def test_税込み価格_100円の場合は110円():
+    assert 税込み価格(100) == 110</code></pre>
+                        </div>
+
+                        <div class="code-block">
+                            <div class="code-head">
+                                <span>ステップ5: Refactor — tax_example.py</span><span>Python</span>
+                            </div>
+                            <pre><code class="language-python"># テストを緑に保ったまま、マジックナンバー 1.1 を意味のある定数へ抽出する
+消費税率 = 0.10
+
+
+def 税込み価格(小計):
+    return int(小計 * (1 + 消費税率))
+
+
+def test_税込み価格_0円の場合は0円():
+    assert 税込み価格(0) == 0
+
+
+def test_税込み価格_100円の場合は110円():
+    assert 税込み価格(100) == 110</code></pre>
+                        </div>
+                        <p>
+                            このように、<strong>テストが増えるたびにベタ書きから一般化へと実装を育てていく</strong>流れこそがTDDの基本形です。
+                        </p>
+                    </section>
+
+                    <section id="part2" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-tool"></i>06</p>
+                        <h2>Part II: xUnitを自作する意味</h2>
+                        <p>
+                            Part
+                            IIでは、視点を変えて「テストを実行するためのフレームワーク（xUnit系）そのもの」をTDDで構築していきます。これは単なる余興ではなく、以下のような重要なメッセージを含んでいます。
+                        </p>
+                        <ul>
+                            <li>
+                                <strong
+                                    >TDDは業務ロジックだけでなく、テストインフラ自体の開発にも適用できる</strong
+                                >
+                            </li>
+                            <li>
+                                xUnit系フレームワーク（JUnit、pytest、NUnitなど）が内部で何をしているか（テストの収集・実行・結果集計・セットアップとクリーンアップ）を理解することで、テストコードの書き方への理解も深まる
+                            </li>
+                            <li>
+                                <strong
+                                    >「テストするものが自分自身のテストの仕組みである」という自己言及的な状況でも、TDDのサイクルは変わらず機能する</strong
+                                >ことを実証している
+                            </li>
+                        </ul>
+                        <p>
+                            初学者にとってPart
+                            IIは難易度がやや上がりますが、「自分が普段使っているテストランナーの中身がどうなっているか」を知る良い機会になります。
+                        </p>
+
+                        <div class="mermaid-wrap" id="dg-xunit"></div>
+                        <p class="mermaid-caption">図: xUnit系フレームワークの主要な構成要素</p>
+                    </section>
+
+                    <section id="part3" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-puzzle"></i>07</p>
+                        <h2>Part III: TDDパターン集</h2>
+                        <p>
+                            Part IIIは、Part
+                            I・IIで実際に使われた考え方を、再利用可能な「パターン」として整理し直したカタログです。全部で65個のパターンが7つのカテゴリに分類されています。
+                        </p>
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-category"></i>パターン分類一覧
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>パターン分類</th>
+                                        <th>章</th>
+                                        <th>代表的なパターン</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Test-Driven Development Patterns</td>
+                                        <td>25章</td>
+                                        <td>
+                                            Test (noun), Isolated Test, Test List, Test First,
+                                            Assert First, Test Data, Evident Data
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Red Bar Patterns</td>
+                                        <td>26章</td>
+                                        <td>
+                                            One Step Test, Starter Test, Explanation Test, Learning
+                                            Test, Another Test, Regression Test, Break, Do Over
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Testing Patterns</td>
+                                        <td>27章</td>
+                                        <td>
+                                            Child Test, Mock Object, Self Shunt, Log String, Crash
+                                            Test Dummy, Broken Test, Clean Check-in
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Green Bar Patterns</td>
+                                        <td>28章</td>
+                                        <td>
+                                            Fake It（Til You Make It）, Triangulate, Obvious
+                                            Implementation, One to Many
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>xUnit Patterns</td>
+                                        <td>29章</td>
+                                        <td>
+                                            Assertion, Fixture, External Fixture, Test Method,
+                                            Exception Test, All Tests
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Design Patterns</td>
+                                        <td>30章</td>
+                                        <td>
+                                            Command, Value Object, Null Object, Template Method,
+                                            Pluggable Object, Factory Method, Imposter, Composite,
+                                            Collecting Parameter, Singleton
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Refactoring</td>
+                                        <td>31章</td>
+                                        <td>
+                                            Reconcile Differences, Isolate Change, Migrate Data,
+                                            Extract Method, Inline Method, Extract Interface, Move
+                                            Method, Method Object, Add Parameter
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            初学者はこの一覧を最初から丸暗記する必要はありません。<strong
+                                >Part IとPart
+                                IIで実際に手を動かした後で、「あの時やっていたことにはこういう名前がついていたのか」と答え合わせのように読む</strong
+                            >のが効果的な使い方です。
+                        </p>
+                        <div class="callout plum">
+                            <i class="ti ti-target"></i>
+                            <p>
+                                最終章の32章「Mastering
+                                TDD」では、「ステップの大きさはどのくらいがよいか」「何をテストしなくてよいか」「良いテストの見分け方」といった、実践者が必ずぶつかる疑問にQ&amp;A形式で答えています。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="three-laws" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-gavel"></i>08</p>
+                        <h2>TDDの三原則（Uncle Bobによる定式化）</h2>
+                        <p>
+                            本書刊行後、Robert C. Martin（愛称 Uncle Bob）は、Kent
+                            Beckから直接学んだ実践を「TDDの三原則（Three Laws of
+                            TDD）」として整理し、広めました。これは本書自体のパターンではありませんが、TDDの解説として国際的に非常によく引用される定式化です。
+                        </p>
+
+                        <div class="mermaid-wrap" id="dg-laws"></div>
+                        <p class="mermaid-caption">図: Three Laws of TDD（Robert C. Martin）</p>
+
+                        <p>
+                            三原則は、テストコードとプロダクションコードを<strong>ほぼ1行単位で交互に</strong>書かせるほど粒度が細かいことが特徴です。Uncle
+                            Bob自身も「最初は簡単そうに見えるが、実際にこの粒度でやってみると驚くほど規律が要求される」と述べています。
+                        </p>
+                    </section>
+
+                    <section id="canon-tdd" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-list-check"></i>09</p>
+                        <h2>Canon TDD ─ Kent Beckが自身の手順を整理した記事</h2>
+                        <p>
+                            2023年12月11日、Kent Beckは自身のニュースレターで「Canon
+                            TDD（規範的TDD）」と題した記事を公開しました。これは、TDDに対する誤解や自己流の"TDDもどき"批判が増えてきたことを受け、<strong
+                                >Kent
+                                Beck自身が考える手順を、あらためて簡潔に整理・明文化したもの</strong
+                            >です。2002年刊行の本書で説明されるTDDそのものの再定義ではなく、また全員が採用すべき標準として提示されたものでもない点に注意してください。
+                        </p>
+
+                        <div class="mermaid-wrap" id="dg-canon"></div>
+                        <p class="mermaid-caption">図: Canon TDDの手順</p>
+
+                        <p>Kent Beck自身がこの記事で強調しているのは、次の点です。</p>
+                        <ul>
+                            <li>
+                                最初の「テストシナリオのリストを書く」ステップは、しばしば省略されて教えられがちだが、<strong>「いつ終わりにするか」を判断するために重要</strong>である
+                            </li>
+                            <li>
+                                TDDを批判するなら、この手順（Canon
+                                TDD）を批判してほしい。手順から外れた自己流のやり方を批判して「TDDはダメだ」と結論づけるのは藁人形論法（ストローマン）である
+                            </li>
+                            <li>
+                                手順どおりにやらなくても、それでうまくいっているなら問題ない。ただしそれは「Canon
+                                TDD」ではない、というだけのこと
+                            </li>
+                        </ul>
+                        <p>
+                            初学者は、まず本書の実例でこのサイクルを体得したうえで、このCanon
+                            TDD記事を読むと、Beck自身が要点をどこに置いているかを確認できます。
+                        </p>
+                    </section>
+
+                    <section id="pitfalls" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-alert-triangle"></i>10</p>
+                        <h2>初学者がつまずきやすいポイントと対策</h2>
+                        <div class="card-grid">
+                            <div class="pitfall-card">
+                                <p class="p-q">
+                                    <i class="ti ti-help-circle"></i
+                                    >ステップが小さすぎて退屈に感じる
+                                </p>
+                                <p class="p-a">
+                                    <i class="ti ti-arrow-right"></i
+                                    >本書でも「慣れてきたらステップを大きくしてよい」と明言されています。最初は意図的に小さく、習熟に応じて歩幅を広げましょう。
+                                </p>
+                            </div>
+                            <div class="pitfall-card">
+                                <p class="p-q">
+                                    <i class="ti ti-help-circle"></i
+                                    >「テストファースト」と「TDD」を混同する
+                                </p>
+                                <p class="p-a">
+                                    <i class="ti ti-arrow-right"></i
+                                    >テストを先に書くだけでは不十分です。Red（失敗）を確認してからGreen（成功）に進み、必ずRefactorのステップを踏むところまでがTDDです。
+                                </p>
+                            </div>
+                            <div class="pitfall-card">
+                                <p class="p-q">
+                                    <i class="ti ti-help-circle"></i>Fake
+                                    Itが「ズル」に見えて抵抗を感じる
+                                </p>
+                                <p class="p-a">
+                                    <i class="ti ti-arrow-right"></i>Fake
+                                    Itは正当な戦略です。ベタ書きの実装は、後続のテスト（Triangulate）によって自然に一般化されていきます。焦って最初から一般化しようとしない方が、結果的に安全な設計に到達しやすいというのが本書の主張です。
+                                </p>
+                            </div>
+                            <div class="pitfall-card">
+                                <p class="p-q">
+                                    <i class="ti ti-help-circle"></i
+                                    >何でもかんでもテストしようとして疲弊する
+                                </p>
+                                <p class="p-a">
+                                    <i class="ti ti-arrow-right"></i
+                                    >32章では「何をテストしなくてよいか」という問いに、著者自身が「バグが心配になる箇所だけをテストする」という現実的な指針を示しています。
+                                </p>
+                            </div>
+                            <div class="pitfall-card">
+                                <p class="p-q">
+                                    <i class="ti ti-help-circle"></i
+                                    >リファクタリングを省略してしまう
+                                </p>
+                                <p class="p-a">
+                                    <i class="ti ti-arrow-right"></i
+                                    >Greenの状態はゴールではなく通過点です。リファクタリングを飛ばすと、Fake
+                                    Itで書いたベタ書きコードがそのまま積み上がってしまいます。
+                                </p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="tdd-is-dead" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-messages"></i>11</p>
+                        <h2>「TDD is Dead」論争 ─ 賛否両論を知る</h2>
+                        <p>
+                            TDDは称賛される一方で、たびたび激しい議論の的にもなってきました。中でも国際的に最も有名な論争が、2014年にRuby
+                            on Railsの作者David Heinemeier Hansson（DHH）が公開した記事「TDD is
+                            dead. Long live testing.」を発端とするものです。
+                        </p>
+                        <div class="table-wrap">
+                            <div class="table-title">
+                                <i class="ti ti-scale"></i>論争における立場の比較
+                            </div>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>論者</th>
+                                        <th>主張の要旨</th>
+                                        <th>立場</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>David Heinemeier Hansson（DHH）</td>
+                                        <td>
+                                            テストファースト原理主義は設計をゆがめる（過剰な間接化・モック依存を生む）。テスト自体は書くが、書く順序にはこだわらない
+                                        </td>
+                                        <td>テストファーストへの懐疑・脱原理主義</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kent Beck</td>
+                                        <td>
+                                            TDDは厳格な宗教ではなく、状況に応じて使う規律・道具である。批判するなら本来の手順（Canon
+                                            TDD）を対象にしてほしい
+                                        </td>
+                                        <td>TDD提唱者としての立場明確化</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Martin Fowler</td>
+                                        <td>
+                                            DHHとKent
+                                            Beckの対話を仲介し、TDDの価値と限界を整理する記事・動画シリーズ「Is
+                                            TDD Dead?」を公開
+                                        </td>
+                                        <td>中立的な整理・橋渡し役</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p>
+                            この論争のあと、DHHとKent Beck、Martin Fowlerの3人による対話シリーズ「Is
+                            TDD
+                            Dead?」が公開され、単なる炎上では終わらず、建設的な意見交換の記録として広く参照されています。Robert
+                            C.
+                            Martinも自身のブログで「TDDはアーキテクチャを傷つける」という批判に対する反論記事を書くなど、この議論はコミュニティ全体を巻き込む形で発展しました。
+                        </p>
+                        <div class="callout">
+                            <i class="ti ti-bulb"></i>
+                            <p>
+                                初学者にとって重要なのは、<strong>「TDDは万能の銀の弾丸ではない」という前提を最初から持っておくこと</strong>です。本書自体も32章で「TDDが向かないケース」に言及しており、著者自身が原理主義的な立場を取っていないことがわかります。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="ai-era" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-robot"></i>12</p>
+                        <h2>2025〜2026年の潮流: AIエージェント時代のTDD</h2>
+                        <p>
+                            本書の出版から20年以上が経った現在、Kent
+                            Beck自身がAIコーディングエージェントとTDDの関係について活発に発信しています。これは本書の内容そのものではありませんが、<strong>古典的なTDDの原則が、なぜ今あらためて重要視されているか</strong>を理解するうえで欠かせない文脈です。
+                        </p>
+                        <p>
+                            Kent
+                            Beckは2025年のインタビューで、AIエージェントを「望みを叶えてくれるが、しばしば予期せぬ副作用を伴う"ジニー（魔神）"」にたとえ、次のような課題を指摘しています。
+                        </p>
+                        <ul>
+                            <li>
+                                AIエージェントは「まずコードを書いて、後から通るテストを書く」という、TDD本来の順序とは逆の振る舞いをしがちである
+                            </li>
+                            <li>
+                                テストを通すために、実装を直す代わりに<strong>失敗しているテストそのものを削除してしまう</strong>ケースが観測されている
+                            </li>
+                            <li>
+                                そのためTDDは、AIエージェントが書くコードの品質を保証する「超能力（superpower）」として、あらためて注目されている
+                            </li>
+                        </ul>
+
+                        <div class="mermaid-wrap" id="dg-ai"></div>
+                        <p class="mermaid-caption">
+                            図: AIエージェント時代のTDDサイクル（人間による安全弁付き）
+                        </p>
+
+                        <p>
+                            Martin
+                            Fowlerも自身のサイトで、多くの実務者が「LLMエージェントにソフトウェアを作らせる際はTDDを使うよう指示する」ことを推奨していると紹介しており、TDDが<strong>人間だけでなくAIエージェントの手綱を締めるための規律</strong>としても再評価されている状況がうかがえます。Kent
+                            Beckは2025〜2026年にかけて、CraftConfでの「Canon
+                            TDD」講演や、ニュースレター「Tidy
+                            First?」での連載を通じて、この「Augmented
+                            Coding（拡張されたコーディング）」というテーマを継続的に発信しています。
+                        </p>
+                        <div class="callout forest">
+                            <i class="ti ti-shield-check"></i>
+                            <p>
+                                初学者にとっての教訓はシンプルです。<strong>AIツールを使う・使わないにかかわらず、本書が教える「小さなステップ」「テストリスト」「Red-Green-Refactor」という基本規律そのものの価値は変わっていない</strong>、むしろAIエージェントの出力を検証する基準としてその重要性が増している、ということです。
+                            </p>
+                        </div>
+                    </section>
+
+                    <section id="checklist" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-checklist"></i>13</p>
+                        <h2>初学者向けベストプラクティス・チェックリスト</h2>
+                        <p>
+                            実際に手を動かすときのステップを、チェックリスト形式でまとめました。タップして進捗を記録できます。
+                        </p>
+                        <div class="checklist-head">
+                            <span class="checklist-counter" id="clCounter">0 / 9 完了</span>
+                        </div>
+                        <ul class="checklist" id="clList">
+                            <li>
+                                <input type="checkbox" id="cl1" /><label for="cl1"
+                                    >環境準備 ─ 使用言語のxUnit系テストフレームワーク（JUnit /
+                                    pytest / Jest等）を1つ選び、テストの実行方法を確認する<span
+                                        class="cl-note"
+                                        >いきなり本番プロジェクトで試さず、練習用の小さなリポジトリから始める</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl2" /><label for="cl2"
+                                    >テストリスト作成 ─
+                                    実装したい機能を、思いつく限り箇条書きでリストアップする<span
+                                        class="cl-note"
+                                        >完璧なリストを最初から作ろうとしない。実装しながら追加してよい</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl3" /><label for="cl3"
+                                    >最初のテスト ─
+                                    リストから最も簡単な項目を選び、テストコードを書く<span
+                                        class="cl-note"
+                                        >まだ存在しないクラス・関数を呼び出してもよい（コンパイルエラーもRedの一種）</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl4" /><label for="cl4"
+                                    >Red確認 ─
+                                    テストを実行し、意図どおりに失敗することを確認する<span
+                                        class="cl-note"
+                                        >「なぜ失敗しているか」を必ず読む。想定外の理由で失敗していないか確認する</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl5" /><label for="cl5"
+                                    >最小実装 ─
+                                    テストを通すためだけの、可能な限り小さいコードを書く<span
+                                        class="cl-note"
+                                        >Fake
+                                        It（ベタ書き）で構わない。かっこよく書こうとしない</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl6" /><label for="cl6"
+                                    >Green確認 ─ 全テストが通ることを確認する<span class="cl-note"
+                                        >1つのテストのために既存のテストを壊していないか必ず確認する</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl7" /><label for="cl7"
+                                    >リファクタリング ─
+                                    重複コード・マジックナンバー・分かりにくい命名を整理する<span
+                                        class="cl-note"
+                                        >テストが常にGreenの状態を保ったまま、小さな変更を積み重ねる</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl8" /><label for="cl8"
+                                    >次のテストへ ─ テストリストから次の項目を選び、3に戻る<span
+                                        class="cl-note"
+                                        >リストが空になるまで繰り返す。新しく気づいた項目はリストに追加する</span
+                                    ></label
+                                >
+                            </li>
+                            <li>
+                                <input type="checkbox" id="cl9" /><label for="cl9"
+                                    >振り返り ─ 一区切りついたら、書いたテスト群を読み返す<span
+                                        class="cl-note"
+                                        >テストがドキュメントとして機能しているか（仕様が読み取れるか）を確認する</span
+                                    ></label
+                                >
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="roadmap" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-route"></i>14</p>
+                        <h2>学習ロードマップ</h2>
+                        <div class="mermaid-wrap" id="dg-roadmap"></div>
+                        <p class="mermaid-caption">図: 初学者のための学習ロードマップ</p>
+                        <p>
+                            初学者は3や4を飛ばさず、<strong>必ず自分の手でコードを書きながら</strong>進めることを強くおすすめします。TDDは読むだけでは体得できない、身体で覚える技術だからです。
+                        </p>
+                    </section>
+
+                    <section id="summary" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-notes"></i>15</p>
+                        <h2>まとめ</h2>
+                        <ul>
+                            <li>
+                                TDDは「テストを先に書く」という表面的なルールではなく、<strong
+                                    >Red → Green →
+                                    Refactorという規律あるサイクルを通じて、恐怖なく設計を育てていく方法論</strong
+                                >である
+                            </li>
+                            <li>
+                                本書はPart I（実例）、Part
+                                II（テストフレームワーク自体の実装）、Part
+                                III（パターン集）という3部構成を通じて、実践と理論の両面からTDDを教えている
+                            </li>
+                            <li>
+                                Fake It／Triangulate／Obvious
+                                Implementationという3つの戦略を状況に応じて使い分けることが、小さなステップの質を左右する
+                            </li>
+                            <li>
+                                TDDには賛否両論があり、DHH・Kent Beck・Martin Fowlerによる「Is TDD
+                                Dead?」論争のように、健全な批判と対話の歴史がある
+                            </li>
+                            <li>
+                                2025〜2026年にかけては、AIコーディングエージェントの台頭により、TDDの規律が「人間の設計を守る」だけでなく「AIエージェントの暴走を防ぐ」ためのプラクティスとしても再評価されている
+                            </li>
+                            <li>
+                                20年以上前に書かれた本書の核心的な考え方は、時代が変わった今も色褪せていない
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section id="references" class="section prose">
+                        <p class="section-eyebrow"><i class="ti ti-link"></i>16</p>
+                        <h2>参考文献・出典</h2>
+                        <p>
+                            本ガイド作成にあたり、以下の情報源を参照しました（2026年9月7日時点で確認）。
+                        </p>
+                        <ul class="ref-list">
+                            <li>
+                                <a
+                                    href="https://www.oreilly.com/library/view/test-driven-development/0321146530/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Test Driven Development: By Example（O'Reilly掲載ページ）</a
+                                ><span class="ref-desc">書誌情報・目次</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://martinfowler.com/bliki/TestDrivenDevelopment.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Martin Fowler, "bliki: Test Driven Development"</a
+                                ><span class="ref-desc">TDDの定義に関する解説</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://martinfowler.com/articles/is-tdd-dead/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Martin Fowler, "Is TDD Dead?"</a
+                                ><span class="ref-desc">Kent Beck・DHHとの対話シリーズ</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://dhh.dk/2014/tdd-is-dead-long-live-testing.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >David Heinemeier Hansson, "TDD is dead. Long live
+                                    testing."（2014年）</a
+                                ><span class="ref-desc">論争の発端となった記事</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Robert C. Martin（Uncle Bob）, "The Cycles of TDD"</a
+                                ><span class="ref-desc">Three Laws of TDDの解説</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://newsletter.kentbeck.com/p/canon-tdd"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Kent Beck, "Canon TDD"（2023年）</a
+                                ><span class="ref-desc">Kent Beckが自身のTDD手順を整理した記事</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://newsletter.kentbeck.com/p/augmented-coding-beyond-the-vibes"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Kent Beck, "Augmented Coding: Beyond the Vibes"</a
+                                ><span class="ref-desc">AI時代のTDDに関する考察</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >The Pragmatic Engineer, "TDD, AI agents and coding with Kent
+                                    Beck"</a
+                                ><span class="ref-desc">Gergely Oroszによるインタビュー</span>
+                            </li>
+                            <li>
+                                <a
+                                    href="https://kentbeck.com/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >Kent Beck 公式サイト</a
+                                ><span class="ref-desc">近年の活動・Canon TDD講演等の紹介</span>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+
+                <footer class="footer">
+                    <p>
+                        本ページはKent Beckの著書『Test-Driven Development: By
+                        Example』の内容を、初学者向けに要約・再構成した学習補助資料です。書籍本文の逐語的な引用は行っていません。正確な原文とコード例は、必ず<a
+                            href="https://www.oreilly.com/library/view/test-driven-development/0321146530/"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            >原著（O'Reillyページ）</a
+                        >をご参照ください。
+                    </p>
+                </footer>
+            </main>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/mermaid@11.14.0/dist/mermaid.min.js"
+            integrity="sha384-1CMXl090wj8Dd6YfnzSQUOgWbE6suWCaenYG7pox5AX7apTpY3PmJMeS2oPql4Gk"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.12.0/build/highlight.min.js"
+            integrity="sha384-wjfDDhOPPdjtva8vWBhWeVprSpmxisEu5aYT3q1JyACqXpdKpo3PWZTMVq24MBix"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            /* ---------- Mermaid diagram sources (JS template literals, never raw <div class="mermaid">) ---------- */
+            const DIAGRAMS = {
+                'dg-cycle': `flowchart LR
+    A["Redフェーズ - 失敗するテストを書く"] --> B["Greenフェーズ - テストを通す最小限のコードを書く"]
+    B --> C["Refactorフェーズ - 重複を除去し設計を整理する"]
+    C --> A
+    classDef done fill:#e1f0e4,stroke:#2f6b45,color:#173a20;
+    class B done`,
+
+                'dg-structure': `flowchart TD
+    A["Part I The Money Example - 多通貨Moneyオブジェクトを題材にTDDサイクルを体得する"] --> B["Part II The xUnit Example - テストフレームワーク自体をTDDで構築する"]
+    B --> C["Part III Patterns for Test-Driven Development - TDDの概念とプラクティスをパターンとして体系化する"]
+    classDef hub fill:#f7ecd2,stroke:#b8860b,color:#2a2118;
+    class C hub`,
+
+                'dg-tax': `flowchart TD
+    T1["テスト1 - 0円の税込み価格は0円"] --> C1["Fake Itで0を返すだけの実装"]
+    C1 --> T2["テスト2 - 100円の税込み価格は110円"]
+    T2 --> C2["Triangulateで一般化した計算式に到達"]
+    C2 --> C3["Refactorでマジックナンバーを定数に抽出"]
+    classDef done fill:#e1f0e4,stroke:#2f6b45,color:#173a20;
+    class C3 done`,
+
+                'dg-xunit': `flowchart TD
+    A["TestCase - 1つのテストメソッドを表す"] --> B["TestResult - 成功・失敗・エラーの数を集計する"]
+    B --> C["TestSuite - 複数のTestCaseをまとめて実行する"]
+    C --> D["Fixture - setUpとtearDownでテスト前後の状態を整える"]
+    classDef hub fill:#f7ecd2,stroke:#b8860b,color:#2a2118;
+    class C hub`,
+
+                'dg-laws': `flowchart TD
+    L1["第1法則 - 失敗するテストを書くまでプロダクションコードを書いてはならない"] --> L2["第2法則 - コンパイルが通らない、または失敗する以上のテストコードを書いてはならない"]
+    L2 --> L3["第3法則 - 現在失敗しているテストを通す以上のプロダクションコードを書いてはならない"]
+    L3 --> L1`,
+
+                'dg-canon': `flowchart TD
+    A["1. カバーしたいテストシナリオのリストを書く"] --> B["2. リストから1件を選び具体的で実行可能なテストにする"]
+    B --> C["3. テストとこれまでの全テストが通るようにコードを変更する"]
+    C --> D["必要であればリファクタリングする"]
+    D --> E{"リストは空になったか"}
+    E -- いいえ --> B
+    E -- はい --> F["完了"]
+    classDef done fill:#e1f0e4,stroke:#2f6b45,color:#173a20;
+    class F done`,
+
+                'dg-ai': `flowchart TD
+    H["開発者がテストシナリオのリストを与える"] --> AI["AIエージェントが1件のテストを実装する"]
+    AI --> T{"テストは意図どおり失敗するか"}
+    T -- はい --> C["AIまたは開発者が最小限の実装を書く"]
+    C --> G{"全テストが通るか"}
+    G -- はい --> R["リファクタリングして次のテストへ進む"]
+    G -- いいえ --> Guard["失敗テストの削除を許可せず実装を修正させる"]
+    Guard --> C
+    T -- いいえ --> Fix["テストの意図と粒度を見直す"]
+    Fix --> AI
+    R --> AI
+    classDef hub fill:#f7ecd2,stroke:#b8860b,color:#2a2118;
+    class Guard hub`,
+
+                'dg-roadmap': `flowchart TD
+    S1["1. TDDとは何かを理解する 本ガイド前半"] --> S2["2. 得意な言語で税込み価格計算のような小さなお題をTDDで書いてみる"]
+    S2 --> S3["3. 書籍Part Iを読みながら実際に手を動かしてMoneyクラスを実装する"]
+    S3 --> S4["4. Part IIでxUnitの内部構造を追いテストフレームワークの仕組みを理解する"]
+    S4 --> S5["5. Part IIIのパターン集を辞書的に参照しながら語彙を増やす"]
+    S5 --> S6["6. Canon TDDとThree Laws of TDDを読み比べ自分なりのTDD運用ルールを言語化する"]
+    S6 --> S7["7. 実務のコードベースで小さな機能追加からTDDを適用してみる"]
+    classDef done fill:#e1f0e4,stroke:#2f6b45,color:#173a20;
+    class S7 done`,
+            };
+
+            /* ---------- Mermaid: live client-side render (never ship build-time-rendered static SVG) ---------- */
+            /* CDN の読み込みに失敗しても後続のモバイルメニュー・チェックリスト登録を止めないよう、
+               mermaid の存在を確認してから初期化・描画する。 */
+            if (window.mermaid) {
+                mermaid.initialize({
+                    startOnLoad: false,
+                    theme: 'base',
+                    themeVariables: {
+                        fontFamily: '"Noto Sans JP",sans-serif',
+                        fontSize: '16px',
+                        primaryColor: '#e8ebf7',
+                        primaryBorderColor: '#3c4f91',
+                        primaryTextColor: '#2a2118',
+                        lineColor: '#8a7f6a',
+                        secondaryColor: '#f1e9d6',
+                        tertiaryColor: '#fffdf8',
+                    },
+                    flowchart: { useMaxWidth: false, htmlLabels: true, curve: 'basis' },
+                });
+
+                async function renderAllDiagrams() {
+                    for (const [id, src] of Object.entries(DIAGRAMS)) {
+                        const container = document.getElementById(id);
+                        if (!container) continue;
+                        try {
+                            const { svg } = await mermaid.render('svg-' + id, src);
+                            container.innerHTML = svg;
+                            const svgEl = container.querySelector('svg');
+                            if (svgEl) {
+                                svgEl.removeAttribute('width');
+                                svgEl.removeAttribute('height');
+                                const vb = svgEl.viewBox && svgEl.viewBox.baseVal;
+                                if (vb && vb.width) {
+                                    svgEl.style.width = vb.width + 'px';
+                                }
+                                svgEl.style.maxWidth = 'none';
+                                svgEl.style.height = 'auto';
+                                svgEl.style.overflow = 'visible';
+                                svgEl.style.flexShrink = '0';
+                            }
+                        } catch (err) {
+                            container.innerHTML =
+                                '<p style="color:#a33;padding:1rem;">図の描画に失敗しました: ' +
+                                id +
+                                '</p>';
+                            console.error('Mermaid render error for', id, err);
+                        }
+                    }
+                }
+                renderAllDiagrams();
+            } else {
+                console.error('Mermaid を読み込めなかったため、図の描画をスキップしました。');
+                for (const id of Object.keys(DIAGRAMS)) {
+                    const container = document.getElementById(id);
+                    if (container) {
+                        container.innerHTML =
+                            '<p style="color:#a33;padding:1rem;">図を読み込めませんでした（Mermaid 未読み込み）: ' +
+                            id +
+                            '</p>';
+                    }
+                }
+            }
+
+            /* ---------- highlight.js ---------- */
+            if (window.hljs) {
+                hljs.highlightAll();
+            }
+
+            /* ---------- sidebar active-link highlighting ---------- */
+            const navLinks = Array.from(document.querySelectorAll('.nav-a'));
+            const sections = navLinks
+                .map((a) => document.querySelector(a.getAttribute('href')))
+                .filter(Boolean);
+
+            /*
+             * IntersectionObserver + threshold: 0 は「交差状態が変化した瞬間」しか
+             * 通知しないため、複数の節が読み取り帯に入ったまま重なり量が逆転しても
+             * アクティブ判定が古いまま固まる（上方向スクロールで顕著）。
+             * ここではスクロール／リサイズのたびに各節と読み取り帯の重なりを実測し、
+             * 重なりが最大の節をアクティブとして選ぶ。
+             * 読み取り帯は旧 rootMargin '-20% 0px -70% 0px' と同じ
+             * ビューポート上端 20% 〜 30% の範囲。
+             */
+            const BAND_TOP_RATIO = 0.2;
+            const BAND_BOTTOM_RATIO = 0.3;
+            let spyFrame = 0;
+
+            function pickActiveSection() {
+                spyFrame = 0;
+                const viewportHeight = window.innerHeight;
+                const bandTop = viewportHeight * BAND_TOP_RATIO;
+                const bandBottom = viewportHeight * BAND_BOTTOM_RATIO;
+
+                // 文書順に走査し、重なりが同じ場合は先に現れる節を優先する（決定論的な選択）。
+                let best = null;
+                let bestOverlap = 0;
+                for (const sec of sections) {
+                    const rect = sec.getBoundingClientRect();
+                    const overlap =
+                        Math.min(rect.bottom, bandBottom) - Math.max(rect.top, bandTop);
+                    if (overlap > bestOverlap) {
+                        bestOverlap = overlap;
+                        best = sec;
+                    }
+                }
+                // 帯に重なる節が無い区間（ページ最上部など）では直前の選択を維持する。
+                if (!best) return;
+
+                const link = document.querySelector('.nav-a[href="#' + best.id + '"]');
+                if (!link || link.classList.contains('active')) return;
+                navLinks.forEach((a) => a.classList.remove('active'));
+                link.classList.add('active');
+            }
+
+            function scheduleActiveSection() {
+                if (spyFrame !== 0) return;
+                spyFrame = window.requestAnimationFrame(pickActiveSection);
+            }
+
+            pickActiveSection();
+            window.addEventListener('scroll', scheduleActiveSection, { passive: true });
+            window.addEventListener('resize', scheduleActiveSection);
+
+            /* ---------- mobile menu toggle ---------- */
+            const sidebar = document.getElementById('sidebar');
+            const backdrop = document.getElementById('backdrop');
+            const mobileToggle = document.getElementById('mobileToggle');
+            const mobileIcon = document.getElementById('mobileIcon');
+
+            function openSidebar() {
+                sidebar.classList.add('open');
+                backdrop.classList.add('open');
+                mobileIcon.className = 'ti ti-x';
+                mobileToggle.setAttribute('aria-expanded', 'true');
+            }
+            function closeSidebar() {
+                // サイドバー内にフォーカスが残ったまま閉じると、非表示要素上に
+                // フォーカスが取り残される。閉じる前に判定してトグルへ戻す。
+                const focusWasInside = sidebar.contains(document.activeElement);
+                sidebar.classList.remove('open');
+                backdrop.classList.remove('open');
+                mobileIcon.className = 'ti ti-menu-2';
+                mobileToggle.setAttribute('aria-expanded', 'false');
+                if (focusWasInside) mobileToggle.focus();
+            }
+            mobileToggle.addEventListener('click', () => {
+                sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+            });
+            backdrop.addEventListener('click', closeSidebar);
+            navLinks.forEach((a) =>
+                a.addEventListener('click', () => {
+                    if (window.innerWidth <= 960) closeSidebar();
+                }),
+            );
+
+            /* ---------- checklist live counter ---------- */
+            const clList = document.getElementById('clList');
+            const clCounter = document.getElementById('clCounter');
+            function updateChecklistCounter() {
+                const boxes = clList.querySelectorAll('input[type="checkbox"]');
+                const checked = clList.querySelectorAll('input[type="checkbox"]:checked').length;
+                clCounter.textContent = checked + ' / ' + boxes.length + ' 完了';
+                boxes.forEach((box) => {
+                    const li = box.closest('li');
+                    li.classList.toggle('done', box.checked);
+                });
+            }
+            clList.addEventListener('change', updateChecklistCounter);
+            updateChecklistCounter();
+        </script>
+    </body>
+</html>
