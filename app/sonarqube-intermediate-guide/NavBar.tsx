@@ -51,11 +51,18 @@ export default function NavBar() {
     const handleResize = () => {
       if (window.innerWidth > 960) {
         setIsOpen(false);
+        return;
+      }
+      // モバイル幅へ戻ると閉じたサイドバーは visibility: hidden になる。
+      // デスクトップ幅でサイドバー内リンクへ当たっていたフォーカスが
+      // 不可視要素に取り残されないよう、トグルボタンへ戻す。
+      if (!isOpen && sidebarRef.current?.contains(document.activeElement)) {
+        toggleRef.current?.focus();
       }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isOpen]);
 
   const toggleSidebar = () => setIsOpen((prev) => !prev);
   const closeSidebar = () => {

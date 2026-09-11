@@ -171,6 +171,49 @@ describe('SonarQube Intermediate-Advanced Guide Page - Comprehensive Test Suite'
     expect((document.activeElement as HTMLElement | null)?.id).toBe('menuToggle');
   });
 
+  it('returns focus to the menu toggle when shrinking back to mobile width (a11y regression)', () => {
+    const { container } = render(<NavBar />);
+    const toggle = container.querySelector('#menuToggle') as HTMLButtonElement;
+    const firstLink = container.querySelector('nav.toc a') as HTMLAnchorElement;
+    const originalWidth = window.innerWidth;
+
+    try {
+      // デスクトップ幅ではサイドバーが常時表示なので、リンクへフォーカスできる。
+      act(() => {
+        Object.defineProperty(window, 'innerWidth', {
+          configurable: true,
+          writable: true,
+          value: 1280,
+        });
+        fireEvent(window, new Event('resize'));
+      });
+      firstLink.focus();
+      expect((document.activeElement as HTMLElement | null)?.getAttribute('href')).toBe(
+        firstLink.getAttribute('href')
+      );
+
+      // モバイル幅へ縮めるとサイドバーは visibility: hidden になる。
+      act(() => {
+        Object.defineProperty(window, 'innerWidth', {
+          configurable: true,
+          writable: true,
+          value: 800,
+        });
+        fireEvent(window, new Event('resize'));
+      });
+
+      // 不可視になったサイドバー内ではなく、トグルボタンへフォーカスが戻る。
+      expect((document.activeElement as HTMLElement | null)?.id).toBe('menuToggle');
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    } finally {
+      Object.defineProperty(window, 'innerWidth', {
+        configurable: true,
+        writable: true,
+        value: originalWidth,
+      });
+    }
+  });
+
   describe('Category 1: 基礎・アーキテクチャ・導入編 (Sections 00〜05)', () => {
     it('renders sections 00 to 05 with correct IDs, kickers, and headings', () => {
       const { container } = render(<SonarQubeIntermediateGuidePage />);
