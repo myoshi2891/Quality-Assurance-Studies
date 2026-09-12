@@ -46,6 +46,32 @@ quadrant-4 "汎用性と学習容易さの両立"
 "Selenium": [0.35, 0.3]
 "Cypress": [0.7, 0.65]`;
 
+const DIAGRAM_2 = `flowchart LR
+A["ツール導入の意思決定"] --> B{"継続的に投資対効果を評価しているか"}
+B -->|"Yes"| C["利点が実現: 効率と品質が向上"]
+B -->|"No"| D["リスクが顕在化: 過度な依存や相互運用性の問題"]
+C --> E["テストプロセス全体が改善する"]
+D --> F["ツール利用が形骸化する"]`;
+
+const DIAGRAM_3 = `flowchart TD
+S1["キャプチャ・リプレイ方式"] --> S2["データ駆動テスト"]
+S2 --> S3["キーワード駆動テスト"]
+S1 -.欠点.-> N1["変更に弱くスケールしない"]
+S2 -.利点.-> N2["データ追加だけでテスト拡張が可能"]
+S3 -.利点.-> N3["非技術者もテスト定義に参加可能"]`;
+
+const DIAGRAM_4 = `flowchart TD
+TM["テスト管理ツール"]
+RM["要求管理ツール"]
+CM["構成管理・バージョン管理ツール"]
+DM["欠陥管理ツール"]
+CI["CI・CDツール"]
+RM <--> TM
+CM <--> TM
+DM <--> TM
+CI <--> TM
+TM --> REPORT["トレーサビリティ・進捗レポート"]`;
+
 export default function Chapter6Page() {
     return (
         <div className="ctfl-v4-ch6-page">
@@ -659,6 +685,330 @@ export default function Chapter6Page() {
                                         rel="noopener noreferrer"
                                     >
                                         Test Tool Classification（ISTQB Foundation, 一般解説）
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    {/* 3. 6.2 */}
+                    <section id="s62">
+                        <h2>
+                            <span>⚖️</span>3. 6.2 テスト自動化の利点とリスク（Benefits and Risks of Test Automation）
+                        </h2>
+
+                        <div id="s62-1">
+                            <h3>3.1 導入の大前提</h3>
+                            <p>
+                                シラバスが強調する最も重要なポイントは、<strong>「ツールを導入するだけでは成功は保証されない」</strong>という点です。ツールの導入・維持・トレーニングには継続的な投資が必要であり、リスクの分析と対策（mitigation）が不可欠です。
+                            </p>
+                            <div className="callout info">
+                                <span className="callout-icon">💬</span>
+                                <p>
+                                    出典を要約:
+                                    単にツールを取得しただけでは効果は得られず、ツール導入・保守・教育に継続的な工数が必要であり、そこにはリスクも伴うため分析と緩和策が求められる。
+                                </p>
+                            </div>
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://astqb.org/6-2-benefits-and-risks-of-test-automation/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB Foundation Level Syllabus - 6.2 Benefits and Risks of
+                                        Test Automation（ASTQB）
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="s62-2">
+                            <h3>3.2 テスト自動化・ツール活用の利点</h3>
+                            <div className="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>利点</th>
+                                            <th>説明</th>
+                                            <th>具体例</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="hl">🔁 反復作業の削減</td>
+                                            <td>人手による繰り返し作業を減らす</td>
+                                            <td>
+                                                回帰テストの再実行、同一テストデータの再入力、コーディング規約チェック
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">📋 一貫性・再現性の向上</td>
+                                            <td>同じ手順・頻度でテストを実行できる</td>
+                                            <td>要求から導出したテストを常に同一順序で実行</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">📊 客観的な評価</td>
+                                            <td>人的バイアスを排した測定が可能</td>
+                                            <td>静的コード指標、カバレッジ測定値</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">📈 情報アクセスの容易化</td>
+                                            <td>テスト状況に関する情報を素早く得られる</td>
+                                            <td>進捗統計、欠陥発生率、性能グラフ</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="s62-3">
+                            <h3>3.3 テスト自動化・ツール活用のリスク</h3>
+                            <div className="table-wrap">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>リスク</th>
+                                            <th>説明</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td className="hl">非現実的な期待</td>
+                                            <td>
+                                                ツールが「すべての欠陥を防いでくれる」といった過大な期待を持ってしまう
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">導入コスト・工数の過小評価</td>
+                                            <td>初期導入にかかる時間・費用・労力を見誤る</td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">継続的便益達成コストの過小評価</td>
+                                            <td>
+                                                プロセス変更や継続的改善を伴わなければ、真の便益は得られない
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">テスト資産保守コストの過小評価</td>
+                                            <td>
+                                                自動化によって生成されたテストスクリプト・データの保守負荷を軽視しがち
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">ツールへの過度な依存</td>
+                                            <td>
+                                                テスト設計そのものを軽視し、手動テストが適切な場面でも自動化に固執する
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">バージョン管理の軽視</td>
+                                            <td>
+                                                テスト資産（スクリプト・データ）の構成管理（Chapter
+                                                5, 5.4節）を怠る
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">他ツールとの相互運用性の欠如</td>
+                                            <td>
+                                                要求管理・構成管理・欠陥管理ツール等、複数ベンダーのツール間連携の問題
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">ベンダー・プロジェクトリスク</td>
+                                            <td>
+                                                ツールベンダーの廃業・ツール廃止・買収、OSSプロジェクトの停止によるサポート断絶
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td className="hl">ベンダーサポートの質</td>
+                                            <td>
+                                                サポート・アップグレード・不具合修正への対応が不十分な場合がある
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="s62-4">
+                            <h3>3.4 利点とリスクの構造的理解</h3>
+                            <div className="diagram-card">
+                                <div className="diagram-target">
+                                    <Mermaid chart={DIAGRAM_2} />
+                                </div>
+                                <div className="diagram-caption">
+                                    図3: 継続投資の有無が利点実現とリスク顕在化を分岐させる
+                                </div>
+                            </div>
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://astqb.org/6-2-benefits-and-risks-of-test-automation/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB Foundation Level Syllabus - 6.2 Benefits and Risks of
+                                        Test Automation（ASTQB）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/potential-benefits-and-risks-of-tool-support-for-testing-for-all-tools/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Potential Benefits and Risks of Tool Support for
+                                        Testing（一般解説）
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    {/* 4. FL-6.2.2 */}
+                    <section id="s623">
+                        <h2>
+                            <span>⚙️</span>4. FL-6.2.2: 特定ツール種別に関する特別な考慮事項
+                        </h2>
+                        <p>
+                            v4.0 のキーワードである
+                            <strong>data-driven testing（データ駆動テスト）</strong>、
+                            <strong>keyword-driven testing（キーワード駆動テスト）</strong>、
+                            <strong>scripting language（スクリプト言語）</strong>
+                            は、主にテスト実行ツールの文脈で登場します。
+                        </p>
+
+                        <div id="s623-1">
+                            <h3>4.1 テスト実行ツール: スクリプティング手法の進化</h3>
+                            <p>
+                                テスト実行の自動化アプローチは、成熟度に応じて次のように整理できます。
+                            </p>
+
+                            <div className="diagram-card">
+                                <div className="diagram-target">
+                                    <Mermaid chart={DIAGRAM_3} />
+                                </div>
+                                <div className="diagram-caption">
+                                    図4: テスト実行自動化における成熟度モデル
+                                </div>
+                            </div>
+
+                            <ul className="plain">
+                                <li>
+                                    <b>データ駆動テスト（data-driven testing）:</b>
+                                    汎用の制御スクリプトが、表形式のデータ（入力値・期待結果）を読み込みながら同じ操作を繰り返す手法。スクリプト作成という技術的に難しい作業は一度で済み、以降はテストデータの追加だけでテストケースを拡張できる。
+                                </li>
+                                <li>
+                                    <b>キーワード駆動テスト（keyword-driven testing）:</b>
+                                    データ駆動テストをさらに発展させ、データファイルに「アクションワード（操作を表すキーワード）」を含める手法。スクリプト言語に不慣れなテスト担当者でも、キーワードを組み合わせることでテストを定義できる。
+                                </li>
+                                <li>
+                                    <b>スクリプト言語（scripting language）:</b>
+                                    実行可能なテストスクリプトを記述するためのプログラミング言語。どの手法を採用しても、スクリプト自体の実装には専門知識（テスト担当者自身、または自動化専門の開発者）が必要になる。
+                                </li>
+                            </ul>
+                            <p>
+                                いずれの手法でも、実際の結果と期待結果の比較（動的な比較、またはテスト実行後のバッチ比較）が必要になる点は共通しています。
+                            </p>
+
+                            <div className="code-label">
+                                キーワード駆動テストのデータ表現イメージ（CSV）
+                            </div>
+                            <div className="code-block">
+                                <div className="code-line">keyword,target,value</div>
+                                <div className="code-line">open_browser,https://example.com/login,</div>
+                                <div className="code-line">input_text,#username,tanaka_taro</div>
+                                <div className="code-line">input_text,#password,P@ssw0rd</div>
+                                <div className="code-line">click,#login-button,</div>
+                                <div className="code-line">assert_text,#welcome-message,ようこそ、田中太郎さん</div>
+                            </div>
+
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/special-considerations-for-some-types-of-tools/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Special Considerations for Some Types of Tools（一般解説,
+                                        データ駆動/キーワード駆動）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://glossary.istqb.org/en_US/term/keyword-driven-testing"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        keyword-driven testing — ISTQB公式用語集
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://medium.com/@mehmetbarannakipoglu/test-tools-chapter-vi-of-istqb-ctfl-5b0a93a79b93"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Test Tools - Chapter VI of ISTQB（データ駆動/キーワード駆動の実務解説）
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div id="s623-2">
+                            <h3>4.2 静的解析ツールに関する考慮事項</h3>
+                            <p>
+                                静的解析ツールは、コード実行を伴わずに欠陥候補を検出できるため、<strong>コンポーネントテストより前、あるいは開発者自身がコミット前に実行する</strong>ことで最大の効果を発揮します（Chapter
+                                3,
+                                3.1.2節「静的テストの価値」を参照）。アーキテクトが設計標準への準拠を確認する目的で使うこともあります。CIパイプラインに組み込むことで、シフトレフト（Chapter
+                                2, 2.1.5節）を実践する代表的な手段となります。
+                            </p>
+                        </div>
+
+                        <div id="s623-3">
+                            <h3>4.3 テスト管理ツールに関する考慮事項</h3>
+                            <p>
+                                テスト管理ツールは単体で機能するのではなく、<strong>要求管理ツール、構成管理（バージョン管理）ツール、欠陥管理ツール、CI/CDツールなど多数のツールと連携する</strong>ことで真価を発揮します。組織にとって有用なレポート（Chapter
+                                5,
+                                5.3.2節）を生成するには、これらのツール間でデータが一貫して流通する必要があります。
+                            </p>
+
+                            <div className="diagram-card">
+                                <div className="diagram-target">
+                                    <Mermaid chart={DIAGRAM_4} />
+                                </div>
+                                <div className="diagram-caption">
+                                    図5: テスト管理ツールを中心とした他ツールとの相互運用
+                                </div>
+                            </div>
+
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://astqb.org/6-2-benefits-and-risks-of-test-automation/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB Foundation Level Syllabus - 6.2 Benefits and Risks of
+                                        Test Automation（ASTQB）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB CTFL v4.0.1 公式シラバス PDF（Chapter 5, 3 関連節）
                                     </a>
                                 </li>
                             </ul>
