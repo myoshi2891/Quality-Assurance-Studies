@@ -473,13 +473,13 @@ export default function OwaspZapBeginnerGuidePage() {
             <h3>Docker での起動例</h3>
             <pre>
               <code className="language-bash">
-                <div className="code-line"># stable イメージを取得</div>
-                <div className="code-line">docker pull ghcr.io/zaproxy/zaproxy:stable</div>
+                <div className="code-line"><span className="code-comment"># stable イメージを取得</span></div>
+                <div className="code-line"><span className="code-func">docker</span> <span className="code-cyan">pull</span> ghcr.io/zaproxy/zaproxy:stable</div>
                 <div className="code-line"></div>
-                <div className="code-line"># デスクトップUIなしでAPIサーバーとして起動（daemonモード）</div>
-                <div className="code-line">docker run -u zap -p 8080:8080 -i ghcr.io/zaproxy/zaproxy:stable zap.sh \</div>
-                <div className="code-line">  -daemon -host 0.0.0.0 -port 8080 \</div>
-                <div className="code-line">  -config api.addrs.addr.name=.* -config api.addrs.addr.regex=true</div>
+                <div className="code-line"><span className="code-comment"># デスクトップUIなしでAPIサーバーとして起動（daemonモード）</span></div>
+                <div className="code-line"><span className="code-func">docker</span> <span className="code-cyan">run</span> <span className="code-flag">-u</span> zap <span className="code-flag">-p</span> <span className="code-number">8080</span>:<span className="code-number">8080</span> <span className="code-flag">-i</span> ghcr.io/zaproxy/zaproxy:stable zap.sh \</div>
+                <div className="code-line">  <span className="code-flag">-daemon</span> <span className="code-flag">-host</span> 0.0.0.0 <span className="code-flag">-port</span> <span className="code-number">8080</span> \</div>
+                <div className="code-line">  <span className="code-flag">-config</span> api.addrs.addr.name=.* <span className="code-flag">-config</span> api.addrs.addr.regex=true</div>
               </code>
             </pre>
 
@@ -2068,30 +2068,30 @@ export default function OwaspZapBeginnerGuidePage() {
 
             <h3>API 呼び出し例（Python, zaproxy パッケージ）</h3>
             <div className="code-block">
-              <div className="code-line">from zapv2 import ZAPv2</div>
+              <div className="code-line"><span className="code-keyword">from</span> zapv2 <span className="code-keyword">import</span> <span className="code-func">ZAPv2</span></div>
               <div className="code-line"></div>
-              <div className="code-line">zap = ZAPv2(apikey=&apos;your-api-key&apos;,</div>
-              <div className="code-line">            proxies={`{`}&apos;http&apos;: &apos;http://localhost:8080&apos;, &apos;https&apos;: &apos;http://localhost:8080&apos;{`}`})</div>
+              <div className="code-line">zap = <span className="code-func">ZAPv2</span>(apikey=<span className="code-string">&apos;your-api-key&apos;</span>,</div>
+              <div className="code-line">            proxies={`{`}<span className="code-string">&apos;http&apos;</span>: <span className="code-string">&apos;http://localhost:8080&apos;</span>, <span className="code-string">&apos;https&apos;</span>: <span className="code-string">&apos;http://localhost:8080&apos;</span>{`}`})</div>
               <div className="code-line"></div>
-              <div className="code-line">target = &apos;https://your-test-target.example.com&apos;</div>
+              <div className="code-line">target = <span className="code-string">&apos;https://your-test-target.example.com&apos;</span></div>
               <div className="code-line"></div>
-              <div className="code-line"># Spiderを開始</div>
-              <div className="code-line">scan_id = zap.spider.scan(target)</div>
-              <div className="code-line">while int(zap.spider.status(scan_id)) &lt; 100:</div>
-              <div className="code-line">    print(f&apos;Spider progress: {'{'}zap.spider.status(scan_id){'}'}%&apos;)</div>
+              <div className="code-line"><span className="code-comment"># Spiderを開始</span></div>
+              <div className="code-line">scan_id = zap.spider.<span className="code-func">scan</span>(target)</div>
+              <div className="code-line"><span className="code-keyword">while</span> <span className="code-func">int</span>(zap.spider.<span className="code-func">status</span>(scan_id)) &lt; <span className="code-number">100</span>:</div>
+              <div className="code-line">    <span className="code-func">print</span>(<span className="code-string">f&apos;Spider progress: </span>{'{'}zap.spider.<span className="code-func">status</span>(scan_id){'}'}<span className="code-string">%&apos;</span>)</div>
               <div className="code-line"></div>
-              <div className="code-line"># Passive Scanの完了を待つ</div>
-              <div className="code-line">while int(zap.pscan.records_to_scan) &gt; 0:</div>
-              <div className="code-line">    pass</div>
+              <div className="code-line"><span className="code-comment"># Passive Scanの完了を待つ</span></div>
+              <div className="code-line"><span className="code-keyword">while</span> <span className="code-func">int</span>(zap.pscan.records_to_scan) &gt; <span className="code-number">0</span>:</div>
+              <div className="code-line">    <span className="code-keyword">pass</span></div>
               <div className="code-line"></div>
-              <div className="code-line"># Active Scanを開始</div>
-              <div className="code-line">ascan_id = zap.ascan.scan(target)</div>
-              <div className="code-line">while int(zap.ascan.status(ascan_id)) &lt; 100:</div>
-              <div className="code-line">    print(f&apos;Active Scan progress: {'{'}zap.ascan.status(ascan_id){'}'}%&apos;)</div>
+              <div className="code-line"><span className="code-comment"># Active Scanを開始</span></div>
+              <div className="code-line">ascan_id = zap.ascan.<span className="code-func">scan</span>(target)</div>
+              <div className="code-line"><span className="code-keyword">while</span> <span className="code-func">int</span>(zap.ascan.<span className="code-func">status</span>(ascan_id)) &lt; <span className="code-number">100</span>:</div>
+              <div className="code-line">    <span className="code-func">print</span>(<span className="code-string">f&apos;Active Scan progress: </span>{'{'}zap.ascan.<span className="code-func">status</span>(ascan_id){'}'}<span className="code-string">%&apos;</span>)</div>
               <div className="code-line"></div>
-              <div className="code-line"># 結果を取得</div>
-              <div className="code-line">alerts = zap.core.alerts(baseurl=target)</div>
-              <div className="code-line">print(f&apos;検出されたアラート数: {'{'}len(alerts){'}'}&apos;)</div>
+              <div className="code-line"><span className="code-comment"># 結果を取得</span></div>
+              <div className="code-line">alerts = zap.core.<span className="code-func">alerts</span>(baseurl=target)</div>
+              <div className="code-line"><span className="code-func">print</span>(<span className="code-string">f&apos;検出されたアラート数: </span>{'{'}<span className="code-func">len</span>(alerts){'}'}<span className="code-string">&apos;</span>)</div>
             </div>
 
             <div className="refs">
@@ -2169,51 +2169,51 @@ export default function OwaspZapBeginnerGuidePage() {
 
             <h3>YAML の基本構造の例</h3>
             <div className="code-block">
-              <div className="code-line">env:</div>
-              <div className="code-line">  contexts:</div>
-              <div className="code-line">    - name: &quot;my-app&quot;</div>
-              <div className="code-line">      urls:</div>
-              <div className="code-line">        - &quot;https://your-test-target.example.com&quot;</div>
-              <div className="code-line">      includePaths:</div>
-              <div className="code-line">        - &quot;https://your-test-target.example.com/.*&quot;</div>
-              <div className="code-line">  parameters:</div>
-              <div className="code-line">    failOnError: true</div>
-              <div className="code-line">    failOnWarning: false</div>
-              <div className="code-line">    progressToStdout: true</div>
+              <div className="code-line"><span className="code-keyword">env</span>:</div>
+              <div className="code-line">  <span className="code-prop">contexts</span>:</div>
+              <div className="code-line">    - <span className="code-prop">name</span>: <span className="code-string">&quot;my-app&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">urls</span>:</div>
+              <div className="code-line">        - <span className="code-string">&quot;https://your-test-target.example.com&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">includePaths</span>:</div>
+              <div className="code-line">        - <span className="code-string">&quot;https://your-test-target.example.com/.*&quot;</span></div>
+              <div className="code-line">  <span className="code-prop">parameters</span>:</div>
+              <div className="code-line">    <span className="code-prop">failOnError</span>: <span className="code-keyword">true</span></div>
+              <div className="code-line">    <span className="code-prop">failOnWarning</span>: <span className="code-keyword">false</span></div>
+              <div className="code-line">    <span className="code-prop">progressToStdout</span>: <span className="code-keyword">true</span></div>
               <div className="code-line"></div>
-              <div className="code-line">jobs:</div>
-              <div className="code-line">  - type: spider</div>
-              <div className="code-line">    parameters:</div>
-              <div className="code-line">      context: &quot;my-app&quot;</div>
-              <div className="code-line">      url: &quot;https://your-test-target.example.com&quot;</div>
-              <div className="code-line">      maxDuration: 5</div>
+              <div className="code-line"><span className="code-keyword">jobs</span>:</div>
+              <div className="code-line">  - <span className="code-prop">type</span>: <span className="code-cyan">spider</span></div>
+              <div className="code-line">    <span className="code-prop">parameters</span>:</div>
+              <div className="code-line">      <span className="code-prop">context</span>: <span className="code-string">&quot;my-app&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">url</span>: <span className="code-string">&quot;https://your-test-target.example.com&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">maxDuration</span>: <span className="code-number">5</span></div>
               <div className="code-line"></div>
-              <div className="code-line">  - type: passiveScan-wait</div>
-              <div className="code-line">    parameters:</div>
-              <div className="code-line">      maxDuration: 5</div>
+              <div className="code-line">  - <span className="code-prop">type</span>: <span className="code-cyan">passiveScan-wait</span></div>
+              <div className="code-line">    <span className="code-prop">parameters</span>:</div>
+              <div className="code-line">      <span className="code-prop">maxDuration</span>: <span className="code-number">5</span></div>
               <div className="code-line"></div>
-              <div className="code-line">  - type: activeScan</div>
-              <div className="code-line">    parameters:</div>
-              <div className="code-line">      context: &quot;my-app&quot;</div>
-              <div className="code-line">      policy: &quot;Default Policy&quot;</div>
+              <div className="code-line">  - <span className="code-prop">type</span>: <span className="code-cyan">activeScan</span></div>
+              <div className="code-line">    <span className="code-prop">parameters</span>:</div>
+              <div className="code-line">      <span className="code-prop">context</span>: <span className="code-string">&quot;my-app&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">policy</span>: <span className="code-string">&quot;Default Policy&quot;</span></div>
               <div className="code-line"></div>
-              <div className="code-line">  - type: report</div>
-              <div className="code-line">    parameters:</div>
-              <div className="code-line">      template: &quot;modern&quot;</div>
-              <div className="code-line">      reportDir: &quot;/zap/wrk&quot;</div>
-              <div className="code-line">      reportFile: &quot;zap-report&quot;</div>
-              <div className="code-line">      reportTitle: &quot;ZAP Scan Report&quot;</div>
+              <div className="code-line">  - <span className="code-prop">type</span>: <span className="code-cyan">report</span></div>
+              <div className="code-line">    <span className="code-prop">parameters</span>:</div>
+              <div className="code-line">      <span className="code-prop">template</span>: <span className="code-string">&quot;modern&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">reportDir</span>: <span className="code-string">&quot;/zap/wrk&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">reportFile</span>: <span className="code-string">&quot;zap-report&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">reportTitle</span>: <span className="code-string">&quot;ZAP Scan Report&quot;</span></div>
               <div className="code-line"></div>
-              <div className="code-line">  - type: exitStatus</div>
-              <div className="code-line">    parameters:</div>
-              <div className="code-line">      errorLevel: &quot;High&quot;</div>
-              <div className="code-line">      warnLevel: &quot;Medium&quot;</div>
+              <div className="code-line">  - <span className="code-prop">type</span>: <span className="code-cyan">exitStatus</span></div>
+              <div className="code-line">    <span className="code-prop">parameters</span>:</div>
+              <div className="code-line">      <span className="code-prop">errorLevel</span>: <span className="code-string">&quot;High&quot;</span></div>
+              <div className="code-line">      <span className="code-prop">warnLevel</span>: <span className="code-string">&quot;Medium&quot;</span></div>
             </div>
 
             <h3>実行方法</h3>
             <div className="code-block">
-              <div className="code-line"># デスクトップUIを表示せずに自動実行し、完了後に終了</div>
-              <div className="code-line">./zap.sh -cmd -autorun zap.yaml</div>
+              <div className="code-line"><span className="code-comment"># デスクトップUIを表示せずに自動実行し、完了後に終了</span></div>
+              <div className="code-line"><span className="code-func">./zap.sh</span> <span className="code-flag">-cmd</span> <span className="code-flag">-autorun</span> <span className="code-cyan">zap.yaml</span></div>
             </div>
 
             <p>
@@ -2397,32 +2397,32 @@ export default function OwaspZapBeginnerGuidePage() {
 
             <h3>Docker での実行例（Baseline Scan）</h3>
             <div className="code-block">
-              <div className="code-line">docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable \</div>
-              <div className="code-line">  zap-baseline.py -t https://your-test-target.example.com \</div>
-              <div className="code-line">  -r baseline-report.html</div>
+              <div className="code-line"><span className="code-func">docker</span> <span className="code-cyan">run</span> <span className="code-flag">-v</span> <span className="code-var">$(pwd)</span>:/zap/wrk/:rw <span className="code-flag">-t</span> ghcr.io/zaproxy/zaproxy:stable \</div>
+              <div className="code-line">  <span className="code-func">zap-baseline.py</span> <span className="code-flag">-t</span> <span className="code-string">https://your-test-target.example.com</span> \</div>
+              <div className="code-line">  <span className="code-flag">-r</span> <span className="code-string">baseline-report.html</span></div>
             </div>
 
             <h3>GitHub Actions での実行例</h3>
             <div className="code-block">
-              <div className="code-line">name: ZAP Baseline Scan</div>
-              <div className="code-line">on: [push]</div>
+              <div className="code-line"><span className="code-keyword">name</span>: <span className="code-string">ZAP Baseline Scan</span></div>
+              <div className="code-line"><span className="code-keyword">on</span>: [<span className="code-cyan">push</span>]</div>
               <div className="code-line"></div>
-              <div className="code-line">jobs:</div>
-              <div className="code-line">  zap_scan:</div>
-              <div className="code-line">    runs-on: ubuntu-latest</div>
-              <div className="code-line">    name: Scan the web application</div>
-              <div className="code-line">    steps:</div>
-              <div className="code-line">      - name: Checkout</div>
-              <div className="code-line">        uses: actions/checkout@v5</div>
+              <div className="code-line"><span className="code-keyword">jobs</span>:</div>
+              <div className="code-line">  <span className="code-prop">zap_scan</span>:</div>
+              <div className="code-line">    <span className="code-prop">runs-on</span>: <span className="code-cyan">ubuntu-latest</span></div>
+              <div className="code-line">    <span className="code-prop">name</span>: <span className="code-string">Scan the web application</span></div>
+              <div className="code-line">    <span className="code-prop">steps</span>:</div>
+              <div className="code-line">      - <span className="code-prop">name</span>: <span className="code-string">Checkout</span></div>
+              <div className="code-line">        <span className="code-keyword">uses</span>: <span className="code-cyan">actions/checkout@v5</span></div>
               <div className="code-line"></div>
-              <div className="code-line">      - name: ZAP Scan</div>
-              <div className="code-line">        uses: zaproxy/action-baseline@v0.15.0</div>
-              <div className="code-line">        with:</div>
-              <div className="code-line">          token: {'${{ secrets.GITHUB_TOKEN }}'}</div>
-              <div className="code-line">          docker_name: &apos;ghcr.io/zaproxy/zaproxy:stable&apos;</div>
-              <div className="code-line">          target: &apos;https://your-test-target.example.com&apos;</div>
-              <div className="code-line">          rules_file_name: &apos;.zap/rules.tsv&apos;</div>
-              <div className="code-line">          cmd_options: &apos;-a&apos;</div>
+              <div className="code-line">      - <span className="code-prop">name</span>: <span className="code-string">ZAP Scan</span></div>
+              <div className="code-line">        <span className="code-keyword">uses</span>: <span className="code-cyan">zaproxy/action-baseline@v0.15.0</span></div>
+              <div className="code-line">        <span className="code-keyword">with</span>:</div>
+              <div className="code-line">          <span className="code-prop">token</span>: <span className="code-var">{'${{ secrets.GITHUB_TOKEN }}'}</span></div>
+              <div className="code-line">          <span className="code-prop">docker_name</span>: <span className="code-string">&apos;ghcr.io/zaproxy/zaproxy:stable&apos;</span></div>
+              <div className="code-line">          <span className="code-prop">target</span>: <span className="code-string">&apos;https://your-test-target.example.com&apos;</span></div>
+              <div className="code-line">          <span className="code-prop">rules_file_name</span>: <span className="code-string">&apos;.zap/rules.tsv&apos;</span></div>
+              <div className="code-line">          <span className="code-prop">cmd_options</span>: <span className="code-string">&apos;-a&apos;</span></div>
             </div>
 
             <p>

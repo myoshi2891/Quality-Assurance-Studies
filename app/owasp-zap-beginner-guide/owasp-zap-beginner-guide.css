@@ -308,20 +308,69 @@
   margin: 0 0 20px;
 }
 
-.owasp-zap-layout pre code {
+.owasp-zap-layout pre code,
+.owasp-zap-layout .code-block {
   display: block;
   padding: 18px 20px;
   border-radius: var(--border-radius-md);
   background: #12161f !important;
   overflow-x: auto;
+  font-family: var(--font-mono, monospace);
   font-size: 13px;
   line-height: 1.6;
   border: 1px solid var(--color-border-tertiary);
   color: var(--color-text-primary) !important;
+  margin: 0 0 20px;
 }
 
 .owasp-zap-layout .code-line {
   white-space: pre;
+}
+
+/* Syntax highlighting */
+.owasp-zap-layout .code-keyword,
+.owasp-zap-layout .kw {
+  color: #ff7b72;
+  font-weight: 600;
+}
+
+.owasp-zap-layout .code-string,
+.owasp-zap-layout .str {
+  color: #a5d6ff;
+}
+
+.owasp-zap-layout .code-comment,
+.owasp-zap-layout .cm {
+  color: #8b949e;
+  font-style: italic;
+}
+
+.owasp-zap-layout .code-func,
+.owasp-zap-layout .fn {
+  color: #d2a8ff;
+}
+
+.owasp-zap-layout .code-prop,
+.owasp-zap-layout .code-property {
+  color: #7ee787;
+}
+
+.owasp-zap-layout .code-cyan,
+.owasp-zap-layout .code-val {
+  color: #79c0ff;
+}
+
+.owasp-zap-layout .code-number,
+.owasp-zap-layout .code-num {
+  color: #79c0ff;
+}
+
+.owasp-zap-layout .code-flag {
+  color: #ffa657;
+}
+
+.owasp-zap-layout .code-var {
+  color: #ffa657;
 }
 
 /* ---------- Tables（globals.css の完全干渉排除） ---------- */
