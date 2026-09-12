@@ -1,6 +1,6 @@
 import React from 'react';
-import { describe, it, expect, vi } from 'bun:test';
-import { render, screen } from '@testing-library/react';
+import { describe, it, expect, vi, afterEach } from 'bun:test';
+import { render, screen, cleanup } from '@testing-library/react';
 import Chapter6Page from '../../app/istqb-ctfl-v4-chapter6-test-tools/page';
 
 // Mock Mermaid diagram component to avoid browser render issues in test env
@@ -9,6 +9,9 @@ vi.mock('../../components/Mermaid', () => ({
 }));
 
 describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
+    afterEach(() => {
+        cleanup();
+    });
     describe('Category 2: Hero & Overview & Learning Objectives (Sections 0-1)', () => {
         it('renders the header with eyebrow, h1, subtitle, and official notice box', () => {
             render(<Chapter6Page />);
