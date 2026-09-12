@@ -35,43 +35,60 @@ function collectTestFiles(dir: string): string[] {
 
 /**
  * コメント「本文」だけを除去し、実コードは残す（注意書きの引用で誤検知しないため）。
- * 行単位で丸ごと捨てると、同一行で閉じたブロックコメントの後ろに続く
- * mock.module 呼び出しまで検査対象から消えてしまうため、テキスト単位で除去する。
  *
- * 行コメントは行頭だけでなく実コード末尾（`doSomething(); // ...`）にも現れるため、
- * 文字列リテラル（`'` `"` \`）の内側かどうかを1文字ずつ追跡し、リテラル外で見つけた
- * `//` 以降のみをコメントとして切り捨てる。これにより URL など文字列内の `//` を
- * 誤ってコメント開始と判定しない。
+ * 正規表現 `/\/\*[\s\S]*?\*\//` で一括除去する旧実装は文字列リテラルの中身を
+ * 認識しないため、文字列内に未終端のブロックコメント開始記号（スラッシュ+
+ * アスタリスク）が含まれると、非貪欲マッチがその文字列を飛び越えて後続の
+ * 実コード上の本物のブロックコメントの終了記号まで到達し、間に挟まった本物の
+ * mock.module 呼び出しごと削除してしまう（＝違反の見逃し）。
+ *
+ * そのため単一パスの字句走査に置き換える。文字列リテラル（`'` `"` \`）に
+ * 入っている間はエスケープを追跡しつつ内容を素通しし、リテラルの外側でのみ
+ * 行コメント（スラッシュ2つ）とブロックコメントを本文除去する。
  */
-function stripLineComment(line: string): string {
+function stripComments(source: string): string {
+    let result = '';
     let quote: '"' | "'" | '`' | null = null;
-    for (let i = 0; i < line.length; i++) {
-        const ch = line[i];
+    let i = 0;
+    while (i < source.length) {
+        const ch = source[i];
+
         if (quote) {
-            if (ch === '\\') {
-                i++; // エスケープされた次の文字は判定対象から外す
+            result += ch;
+            if (ch === '\\' && i + 1 < source.length) {
+                result += source[i + 1]; // エスケープされた次の文字は判定対象から外し素通しする
+                i += 2;
                 continue;
             }
             if (ch === quote) quote = null;
+            i++;
             continue;
         }
+
         if (ch === '"' || ch === "'" || ch === '`') {
             quote = ch;
+            result += ch;
+            i++;
             continue;
         }
-        if (ch === '/' && line[i + 1] === '/') {
-            return line.slice(0, i);
-        }
-    }
-    return line;
-}
 
-function stripComments(source: string): string {
-    return source
-        .replace(/\/\*[\s\S]*?\*\//g, '') // ブロックコメント（複数行・同一行を問わず本文のみ）
-        .split('\n')
-        .map(stripLineComment)
-        .join('\n');
+        if (ch === '/' && source[i + 1] === '/') {
+            i += 2;
+            while (i < source.length && source[i] !== '\n') i++;
+            continue;
+        }
+
+        if (ch === '/' && source[i + 1] === '*') {
+            i += 2;
+            while (i < source.length && !(source[i] === '*' && source[i + 1] === '/')) i++;
+            i += 2; // 終端の */ を読み飛ばす（未終端の場合も範囲外アクセスにはならない）
+            continue;
+        }
+
+        result += ch;
+        i++;
+    }
+    return result;
 }
 
 describe('mermaid モックの分離', () => {
@@ -98,5 +115,15 @@ describe('mermaid モックの分離', () => {
     it('文字列リテラル内の // はコメント開始とみなさず本文を保持する', () => {
         const source = "const url = 'https://example.com/mermaid-docs';\n";
         expect(stripComments(source)).toContain('https://example.com/mermaid-docs');
+    });
+
+    it('文字列リテラル内の未終端 /* に惑わされず、後続の実コードの mock.module 呼び出しを見逃さない（回帰テスト）', () => {
+        // 文字列リテラルの中身を認識しない旧実装では、この /* が文字列内で閉じていない
+        // ため非貪欲マッチが後方の本物のブロックコメントまで飛び越え、間の
+        // mock.module(...) 呼び出しごと消えてしまっていた（誤検知の見逃し）。
+        const source =
+            "const s = 'unterminated /* comment';\nmock.module('mermaid', () => ({}));\n/* actual trailing comment */\n";
+        expect(stripComments(source)).toContain("mock.module('mermaid'");
+        expect(FORBIDDEN.test(stripComments(source))).toBe(true);
     });
 });
