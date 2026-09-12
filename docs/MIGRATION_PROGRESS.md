@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `0495365` |
-| 最新コミット内容 | feat(lessons-learned): complete migration, register navigation, and archive source files |
+| 最新 HEAD | `63dba28` |
+| 最新コミット内容 | fix(lessons-learned): restore 1px sidebar border and enforce paper theme on mermaid diagrams |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -23,9 +23,10 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **デザイン忠実再現 & ペーパー・アカデミックテーマ**:
   - 原著HTML固有のクラシック・ペーパーテーマ（背景 `--bg: #fdfcf9`、カード `--card-bg: #ffffff`、文字 `--text: #2d3748`、ネイビーブルー `--accent: #1a365d`、アンバー `--accent-warm: #c05621`、フォント `Lora`, `Noto Serif JP`, `Inter`, `JetBrains Mono`）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `var(--text) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、順序付きリスト `list-style-type: decimal !important`、`.callout`、`.lesson-card`、`.metric-card`、`.step-list`、`.quote-box` 等）を完全実装。
-- **Mermaid図解の完全移植 & クラシック・ペーパーテーマ復元 (fix-mermaidスキル準拠)**:
+  - **サイドバー境界線 & スクロールバートラック透明化**: `sidebar` のスクロールバートラックによって生じていたダークカラー（`#070a14`）の太帯を `::-webkit-scrollbar-track { background: transparent !important; }` で完全に解消し、元HTMLの繊細な1px境界線（`border-right: 1px solid var(--border)`）に復元。オフセットも `var(--disclaimer-height)` に連動し、各セクションに `scroll-margin-top` を設定。
+- **Mermaid図解の完全移植 & クラシック・ペーパーテーマ復元**:
   - 全5図解（コンテキスト駆動テストの7原則 `#diag-context`、テスト技法の5つの視点 `#diag-techniques`、バグライフサイクルとアドボカシー `#diag-bug`、テスト計画・戦略の多層構造 `#diag-plan`、LLM・AI時代のテスト `#diag-ai`）を共通 `<Mermaid>` コンポーネントへ移植。
-  - `components/Mermaid.tsx` のグローバル dark テーマ設定との競合を解消するため、各ダイアグラムに `%%{init: { "theme": "base", ... }}%%` を適用し、ペーパーテーマ色（ノード `#f7fafc`、枠線 `#2b6cb0`、テキスト `#2d3748`、クラスタ `#edf2f7`、エッジ `#c05621`）を完全定義。全角記号を半角・標準記号へ正規化。
+  - `components/Mermaid.tsx` のグローバル dark テーマ設定との競合を解消するため、CSSで通常ノード（淡いラベンダーブルー `#eef1fa`、インディゴ枠線 `#3b4d8f`、テキスト `#2b2621`）、サブグラフ（薄ベージュ `#f1ebe0`、アンバー枠線 `#c9a227`）、ハブノード（ゴールド `#e9c874`）、完了ノード（ミントグリーン `#cfe3d6`）、エッジ線（ウォームグレー `#6b6258`）、エッジラベル（背景 `#faf7f2`）のスタイルを完全強制適用。元HTMLのデザインを100%忠実に再現。
 - **インタラクティブ・チェックリスト**:
   - セクション16に配置された初学者向け9項目チェックリスト（`SummaryChecklist.tsx`、`'use client'`）を実装。動的な達成率カウンター付き。
 - **テーブル & コールアウト & レッスンカード**:

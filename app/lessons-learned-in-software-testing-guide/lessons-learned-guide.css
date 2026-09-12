@@ -72,18 +72,42 @@
   font-weight: 700;
 }
 
+/* ---------- Section Anchor Offset ---------- */
+.lessons-learned-layout section[id] {
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
+}
+
 /* ---------- Sidebar ---------- */
 .lessons-learned-layout .sidebar {
   position: fixed;
-  top: 60px;
+  top: calc(60px + var(--disclaimer-height, 0px));
   left: 0;
   width: var(--sidebar-width);
-  height: calc(100vh - 60px);
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
   overflow-y: auto;
   background: var(--paper-2);
   border-right: 1px solid var(--border);
   padding: 2rem 1.35rem 3rem;
   z-index: 40;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(43, 108, 176, 0.25) transparent;
+}
+
+.lessons-learned-layout .sidebar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.lessons-learned-layout .sidebar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.lessons-learned-layout .sidebar::-webkit-scrollbar-thumb {
+  background: rgba(43, 108, 176, 0.25) !important;
+  border-radius: 2px;
+}
+
+.lessons-learned-layout .sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--indigo) !important;
 }
 
 .lessons-learned-layout .sidebar .brand {
@@ -416,6 +440,7 @@
   background: #fff !important;
   border-radius: var(--radius);
   border: 1px solid var(--border) !important;
+  box-shadow: var(--shadow);
 }
 
 .lessons-learned-layout .mermaid-wrapper svg {
@@ -423,6 +448,7 @@
   height: auto;
   flex-shrink: 0;
   margin: 0 auto;
+  background: transparent !important;
 }
 
 .lessons-learned-layout figcaption {
@@ -432,19 +458,142 @@
   margin-top: 0.7rem;
 }
 
-/* Mermaid エッジラベルの視認性担保 */
-.lessons-learned-layout .mermaid-wrapper .edgeLabel,
-.lessons-learned-layout .mermaid-wrapper .edgeLabel span,
-.lessons-learned-layout .mermaid-wrapper .edgeLabel text {
-  background-color: var(--paper-2) !important;
-  color: var(--ink) !important;
-  fill: var(--ink) !important;
-  font-weight: 700 !important;
-  stroke: none !important;
+/* 通常ノード（四角形・角丸・円・パス等）: 淡いラベンダーブルー背景、インディゴ枠線 */
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) rect,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) circle,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) ellipse,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) polygon,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) path,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) .basic,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) .label-container {
+  fill: #eef1fa !important;
+  stroke: #3b4d8f !important;
+  stroke-width: 1.5px !important;
 }
 
-.lessons-learned-layout .mermaid-wrapper .edgeLabels rect {
-  fill: var(--paper-2) !important;
+/* 通常ノード内のテキスト色・書体 */
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) .label,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) .label text,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) .nodeLabel,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) .nodeLabel *,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) text,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) span,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) p,
+.lessons-learned-layout .mermaid-wrapper .node:not(.hub):not(.done) div {
+  color: #2b2621 !important;
+  fill: #2b2621 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* クラス .hub ノード（ハイライト・重要ハブ）: 黄色/ゴールド系 */
+.lessons-learned-layout .mermaid-wrapper .node.hub rect,
+.lessons-learned-layout .mermaid-wrapper .node.hub circle,
+.lessons-learned-layout .mermaid-wrapper .node.hub ellipse,
+.lessons-learned-layout .mermaid-wrapper .node.hub polygon,
+.lessons-learned-layout .mermaid-wrapper .node.hub path,
+.lessons-learned-layout .mermaid-wrapper .node.hub .basic,
+.lessons-learned-layout .mermaid-wrapper .node.hub .label-container {
+  fill: #e9c874 !important;
+  stroke: #8a6708 !important;
+  stroke-width: 2px !important;
+}
+
+.lessons-learned-layout .mermaid-wrapper .node.hub .label,
+.lessons-learned-layout .mermaid-wrapper .node.hub .label text,
+.lessons-learned-layout .mermaid-wrapper .node.hub .nodeLabel,
+.lessons-learned-layout .mermaid-wrapper .node.hub .nodeLabel *,
+.lessons-learned-layout .mermaid-wrapper .node.hub text,
+.lessons-learned-layout .mermaid-wrapper .node.hub span,
+.lessons-learned-layout .mermaid-wrapper .node.hub p,
+.lessons-learned-layout .mermaid-wrapper .node.hub div {
+  color: #241a00 !important;
+  fill: #241a00 !important;
+  font-weight: 700 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif !important;
+  font-size: 15px !important;
+}
+
+/* クラス .done ノード（完了・正常終了）: ミントグリーン系 */
+.lessons-learned-layout .mermaid-wrapper .node.done rect,
+.lessons-learned-layout .mermaid-wrapper .node.done circle,
+.lessons-learned-layout .mermaid-wrapper .node.done ellipse,
+.lessons-learned-layout .mermaid-wrapper .node.done polygon,
+.lessons-learned-layout .mermaid-wrapper .node.done path,
+.lessons-learned-layout .mermaid-wrapper .node.done .basic,
+.lessons-learned-layout .mermaid-wrapper .node.done .label-container {
+  fill: #cfe3d6 !important;
+  stroke: #3f6b4a !important;
+  stroke-width: 2px !important;
+}
+
+.lessons-learned-layout .mermaid-wrapper .node.done .label,
+.lessons-learned-layout .mermaid-wrapper .node.done .label text,
+.lessons-learned-layout .mermaid-wrapper .node.done .nodeLabel,
+.lessons-learned-layout .mermaid-wrapper .node.done .nodeLabel *,
+.lessons-learned-layout .mermaid-wrapper .node.done text,
+.lessons-learned-layout .mermaid-wrapper .node.done span,
+.lessons-learned-layout .mermaid-wrapper .node.done p,
+.lessons-learned-layout .mermaid-wrapper .node.done div {
+  color: #123319 !important;
+  fill: #123319 !important;
+  font-weight: 700 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif !important;
+  font-size: 15px !important;
+}
+
+/* サブグラフ（クラスタ）の背景・枠線 */
+.lessons-learned-layout .mermaid-wrapper .cluster rect {
+  fill: #f1ebe0 !important;
+  stroke: #c9a227 !important;
+  stroke-width: 1.5px !important;
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+/* サブグラフ（クラスタ）のタイトルラベル */
+.lessons-learned-layout .mermaid-wrapper .cluster .label,
+.lessons-learned-layout .mermaid-wrapper .cluster .label text,
+.lessons-learned-layout .mermaid-wrapper .cluster text,
+.lessons-learned-layout .mermaid-wrapper .cluster span {
+  color: #2b2621 !important;
+  fill: #2b2621 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+/* エッジ（接続線と矢印マーカー） */
+.lessons-learned-layout .mermaid-wrapper .edgePath .path,
+.lessons-learned-layout .mermaid-wrapper .flowchart-link {
+  stroke: #6b6258 !important;
+  stroke-width: 1.5px !important;
+}
+
+.lessons-learned-layout .mermaid-wrapper .marker,
+.lessons-learned-layout .mermaid-wrapper marker path {
+  fill: #6b6258 !important;
+  stroke: #6b6258 !important;
+}
+
+/* エッジラベル（文字と背景） */
+.lessons-learned-layout .mermaid-wrapper .edgeLabel,
+.lessons-learned-layout .mermaid-wrapper .edgeLabel span,
+.lessons-learned-layout .mermaid-wrapper .edgeLabel p,
+.lessons-learned-layout .mermaid-wrapper .edgeLabel text,
+.lessons-learned-layout .mermaid-wrapper .edgeLabels .label {
+  color: #2b2621 !important;
+  fill: #2b2621 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  background-color: #faf7f2 !important;
+}
+
+.lessons-learned-layout .mermaid-wrapper .edgeLabels rect,
+.lessons-learned-layout .mermaid-wrapper .edgeLabel rect {
+  fill: #faf7f2 !important;
   stroke: none !important;
 }
 
@@ -592,7 +741,8 @@
 @media (max-width: 960px) {
   .lessons-learned-layout .sidebar {
     position: fixed;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
     transform: translateX(-100%);
     transition: transform 0.25s ease;
     box-shadow: var(--shadow);
@@ -611,7 +761,7 @@
   .lessons-learned-layout .mobile-bar {
     display: flex;
     position: sticky;
-    top: 60px;
+    top: calc(60px + var(--disclaimer-height, 0px));
     z-index: 40;
     background: var(--paper);
     border-bottom: 1px solid var(--border);
