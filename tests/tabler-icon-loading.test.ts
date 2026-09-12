@@ -26,7 +26,8 @@ function collectCssFiles(dir: string): string[] {
 describe('Tabler アイコンフォントの読み込み', () => {
   it('ページ固有 CSS に Tabler の CDN @import が残っていない', () => {
     const offenders = collectCssFiles(APP).filter((file) =>
-      /@import\s+url\(['"]?https:\/\/cdn\.jsdelivr\.net\/npm\/@tabler\/icons-webfont/.test(
+      // url(...) 形式と、直接文字列を書く @import "https://..." 形式の両方を検出する
+      /@import\s+(?:url\(\s*)?['"]?https:\/\/cdn\.jsdelivr\.net\/npm\/@tabler\/icons-webfont/.test(
         readFileSync(file, 'utf8')
       )
     );
