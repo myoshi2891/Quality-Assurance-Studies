@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/lessons-learned-in-software-testing-guide/page';
@@ -515,6 +515,27 @@ describe('Lessons Learned Guide - Category 1 (Hero, NavBar, Section 01-04)', () 
     expect(footer).not.toBeNull();
     expect(footer?.textContent).toContain('本ガイドは教育目的の要約・解説であり');
     expect(footer?.textContent).toContain('原著(Wiley刊)をご参照ください');
+  });
+
+  it('renders all 5 Mermaid diagrams from non-empty chart definitions', async () => {
+    // 他テストの描画分が混ざらないよう、計測はこのテストのレンダー分だけに限定する
+    renderedCharts.length = 0;
+    const { container } = render(<Page />);
+
+    const wrappers = container.querySelectorAll('figure.diagram .mermaid-wrapper');
+    expect(wrappers.length).toBe(5);
+
+    // Mermaid は非同期描画のため、全図の SVG 注入完了を待ってから件数を突き合わせる
+    await waitFor(() => {
+      expect(container.querySelectorAll('svg[data-testid="mock-mermaid"]').length).toBe(
+        wrappers.length,
+      );
+    });
+    expect(renderedCharts.length).toBe(wrappers.length);
+
+    renderedCharts.forEach((chart) => {
+      expect(chart.trim().length).toBeGreaterThan(0);
+    });
   });
 });
 

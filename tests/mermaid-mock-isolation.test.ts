@@ -52,5 +52,8 @@ describe('mermaid モックの分離', () => {
     it('共有 mermaid モックは happydom-setup.ts の 1 箇所のみで登録される', () => {
         const setup = readFileSync(join(TESTS_DIR, '..', 'happydom-setup.ts'), 'utf8');
         expect(setup).toContain("mock.module('mermaid'");
+        // 「含まれる」だけでは二重登録を見逃すため、登録は 1 箇所だけであることを数で確認する
+        const registrations = setup.match(/mock\.module\(\s*['"`]mermaid['"`]/g) ?? [];
+        expect(registrations).toHaveLength(1);
     });
 });
