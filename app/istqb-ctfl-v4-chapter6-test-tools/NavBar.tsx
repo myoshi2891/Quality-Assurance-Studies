@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface NavItem {
     id: string;
@@ -61,6 +61,7 @@ const NAV_GROUPS: NavGroup[] = [
 export default function NavBar() {
     const [isOpen, setIsOpen] = useState(false);
     const [activeId, setActiveId] = useState<string>('pos');
+    const toggleRef = useRef<HTMLButtonElement>(null);
 
     useEffect(() => {
         const allItems = NAV_GROUPS.flatMap((g) => g.items);
@@ -100,6 +101,11 @@ export default function NavBar() {
         if (element) {
             element.scrollIntoView({ behavior: 'smooth', block: 'start' });
             setActiveId(id);
+            // メニューを閉じる前にトグルへフォーカスを戻す。
+            // 閉じた瞬間にリンクが DOM から消え、フォーカスが body へ飛ぶのを防ぐ
+            if (isOpen) {
+                toggleRef.current?.focus({ preventScroll: true });
+            }
             setIsOpen(false);
             window.history.pushState(null, '', `#${id}`);
         }
@@ -108,6 +114,7 @@ export default function NavBar() {
     return (
         <>
             <button
+                ref={toggleRef}
                 type="button"
                 className="mobile-nav-toggle"
                 onClick={() => setIsOpen(!isOpen)}

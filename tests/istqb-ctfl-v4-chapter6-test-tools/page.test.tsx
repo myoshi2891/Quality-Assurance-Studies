@@ -1,12 +1,38 @@
 import React from 'react';
-import { describe, it, expect, vi, afterEach } from 'bun:test';
+import { describe, it, expect, mock, beforeAll, beforeEach, afterAll, afterEach } from 'bun:test';
 import { render, screen, cleanup } from '@testing-library/react';
+import mermaid from 'mermaid';
 import Chapter6Page from '../../app/istqb-ctfl-v4-chapter6-test-tools/page';
 
-// Mock Mermaid diagram component to avoid browser render issues in test env
-vi.mock('../../components/Mermaid', () => ({
-    default: ({ chart }: { chart: string }) => <div data-testid="mermaid">{chart}</div>,
-}));
+// ⚠️ vi.mock / mock.module は components/Mermaid をプロセス全体で恒久的に差し替えるため、
+//    後続の全テストファイルがスタブを掴んでしまい `mock-mermaid` 待ちが必ずタイムアウトする。
+//    happydom-setup.ts が用意した共有 mermaid モックの render だけを一時的に差し替え、
+//    描画に渡された chart 定義を収集する方式に統一する（他ページテストと同じ流儀）。
+let renderedCharts: string[] = [];
+let originalMermaidRender: typeof mermaid.render;
+
+beforeAll(() => {
+    originalMermaidRender = mermaid.render;
+    mermaid.render = mock(async (_id: string, chart: string) => {
+        renderedCharts.push(chart);
+        return { svg: '<svg data-testid="mock-mermaid"></svg>', diagramType: 'flowchart' };
+    }) as unknown as typeof mermaid.render;
+});
+
+afterAll(() => {
+    mermaid.render = originalMermaidRender;
+});
+
+beforeEach(() => {
+    renderedCharts = [];
+});
+
+/** ページを描画し、Mermaid へ渡された全 chart 定義が揃うまで待つ。 */
+async function renderAndCollectCharts(): Promise<string[]> {
+    render(<Chapter6Page />);
+    await screen.findAllByTestId('mock-mermaid');
+    return renderedCharts;
+}
 
 describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
     afterEach(() => {
@@ -33,7 +59,7 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             // Table in section 0
             expect(sec0?.textContent).toContain('学習時間目安');
             expect(sec0?.textContent).toContain('出題数目安');
-            expect(sec0?.textContent).toContain('約2〜3問');
+            expect(sec0?.textContent).toContain('2問（5%）');
             expect(sec0?.textContent).toContain('data-driven testing');
             expect(sec0?.textContent).toContain('keyword-driven testing');
 
@@ -120,10 +146,8 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(table?.textContent).toContain('オープンソースコミュニティ');
         });
 
-        it('renders Mermaid diagrams diag-0 and diag-1 in section 2', () => {
-            render(<Chapter6Page />);
-            const mermaids = screen.getAllByTestId('mermaid');
-            const charts = mermaids.map((m) => m.textContent || '');
+        it('renders Mermaid diagrams diag-0 and diag-1 in section 2', async () => {
+            const charts = await renderAndCollectCharts();
             const hasDiag0 = charts.some((c) => c.includes('基本テストプロセス') && c.includes('テスト管理ツール'));
             const hasDiag1 = charts.some((c) => c.includes('quadrantChart') && c.includes('Playwright'));
             expect(hasDiag0).toBe(true);
@@ -202,10 +226,8 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(lines && lines.length).toBeGreaterThanOrEqual(5);
         });
 
-        it('renders Mermaid diagrams diag-2, diag-3, and diag-4 across sections 3 and 4', () => {
-            render(<Chapter6Page />);
-            const mermaids = screen.getAllByTestId('mermaid');
-            const charts = mermaids.map((m) => m.textContent || '');
+        it('renders Mermaid diagrams diag-2, diag-3, and diag-4 across sections 3 and 4', async () => {
+            const charts = await renderAndCollectCharts();
             const hasDiag2 = charts.some((c) => c.includes('ツール導入の意思決定') && c.includes('継続的に投資対効果を評価しているか'));
             const hasDiag3 = charts.some((c) => c.includes('キャプチャ・リプレイ方式') && c.includes('データ駆動テスト'));
             const hasDiag4 = charts.some((c) => c.includes('テスト管理ツール') && c.includes('要求管理ツール'));
@@ -216,15 +238,13 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
     });
 
     describe('Category 5: Sections 5 to 8: Practical Workflow, Summary, Quiz, and References', () => {
-        it('renders Section 5 (実務補足：ツール導入の意思決定プロセス) with Mermaid diag-5 and warning callout', () => {
-            render(<Chapter6Page />);
+        it('renders Section 5 (実務補足：ツール導入の意思決定プロセス) with Mermaid diag-5 and warning callout', async () => {
+            const charts = await renderAndCollectCharts();
             const sec5 = document.getElementById('s5');
             expect(sec5).not.toBeNull();
             expect(sec5?.textContent).toContain('5. シラバス範囲外の実務補足: ツール導入の意思決定プロセス');
             expect(sec5?.textContent).toContain('examinable content には含まれません');
 
-            const mermaids = screen.getAllByTestId('mermaid');
-            const charts = mermaids.map((m) => m.textContent || '');
             const hasDiag5 = charts.some((c) => c.includes('組織の成熟度・強み弱みを評価') && c.includes('パイロットプロジェクトで試行'));
             expect(hasDiag5).toBe(true);
         });

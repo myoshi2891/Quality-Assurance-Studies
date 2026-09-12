@@ -47,8 +47,14 @@
 /* ---------- globals.css interference resets ---------- */
 .ctfl-v4-ch6-page section {
     padding-top: 0;
-    scroll-margin-top: 24px;
     margin-bottom: 56px;
+}
+
+/* 固定ヘッダー(60px) + DisclaimerBanner 分だけアンカー位置を下げる。
+   サイドバーの遷移先は section だけでなく s61-1 などの div も含むため両方に適用する */
+.ctfl-v4-ch6-page section,
+.ctfl-v4-ch6-page div[id^='s6'] {
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 0px) + 24px);
 }
 
 .ctfl-v4-ch6-page .hero {
@@ -735,7 +741,7 @@
     .ctfl-v4-ch6-page .sidebar {
         display: none;
         position: fixed;
-        top: 60px;
+        top: calc(60px + var(--disclaimer-height, 0px));
         left: 0;
         bottom: 0;
         width: 280px;

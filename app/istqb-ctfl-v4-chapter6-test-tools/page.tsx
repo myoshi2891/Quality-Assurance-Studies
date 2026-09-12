@@ -123,7 +123,7 @@ export default function Chapter6Page() {
                             Chapter 6 は CTFL v4.0
                             シラバスの中で<strong>最も短い章</strong>です。学習時間の目安は
                             <strong>20分</strong>
-                            、6章全体（1,135分）に占める割合はわずか約1.8%ですが、試験では実務的な理解を問う問題が出題されます。
+                            、全6章（1,135分）に占める割合はわずか約1.8%ですが、試験では実務的な理解を問う問題が出題されます。
                         </p>
 
                         <div className="table-wrap">
@@ -150,7 +150,7 @@ export default function Chapter6Page() {
                                         <td className="hl">出題数目安</td>
                                         <td>
                                             40問中
-                                            約2〜3問（chapter配点は出典により変動、目安として7.5%程度）
+                                            2問（5%）
                                         </td>
                                     </tr>
                                     <tr>
