@@ -405,4 +405,169 @@ describe('OWASP ZAP Complete Guide - Category 1: 導入 (intro, disclaimer, feat
     expect(refLinks?.length).toBe(3);
     expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/pentest/');
   });
+
+  it('renders Section 10: Spider（クローラー） (#spider)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#spider');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 10');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('Spider（クローラー）');
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(2);
+    expect(h3s?.[0].textContent).toBe('通常の Spider と Ajax Spider の違い');
+    expect(h3s?.[1].textContent).toBe('使い方');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(4);
+    expect(rows?.[0].textContent).toContain('解析対象');
+    expect(rows?.[1].textContent).toContain('動作方式');
+    expect(rows?.[2].textContent).toContain('速度');
+    expect(rows?.[3].textContent).toContain('向いているアプリ');
+
+    const steps = section?.querySelectorAll('ol li');
+    expect(steps?.length).toBe(4);
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(4);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/features/spider/');
+  });
+
+  it('renders Section 11: Passive Scan（受動的スキャン） (#passive-scan)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#passive-scan');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 11');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('Passive Scan（受動的スキャン）');
+
+    const callout = section?.querySelector('.callout.callout-success');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('Passive Scan は安全なため、本番環境に対しても実行可能です');
+
+    const h3 = section?.querySelector('h3');
+    expect(h3?.textContent).toBe('Passive Scan で検出できる代表例');
+
+    const items = section?.querySelectorAll('ul li');
+    expect(items?.length).toBeGreaterThanOrEqual(5);
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(3);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/features/pscan/');
+  });
+
+  it('renders Section 12: Active Scan（能動的スキャン） (#active-scan)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#active-scan');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 12');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('Active Scan（能動的スキャン）');
+
+    const callout = section?.querySelector('.callout.callout-danger');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('Active Scan は実際に攻撃を行うため、必ず許可を得た対象・テスト環境に対してのみ実行してください');
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(2);
+    expect(h3s?.[0].textContent).toBe('実行の流れ');
+    expect(h3s?.[1].textContent).toBe('Active Scan の入力ベクトル設定');
+
+    const steps = section?.querySelectorAll('ol li');
+    expect(steps?.length).toBe(5);
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(4);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/features/ascan/');
+  });
+
+  it('renders Section 13: 基本的なペネトレーションテストの流れ (#pentest-flow)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#pentest-flow');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 13');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('基本的なペネトレーションテストの流れ');
+
+    // Mermaid diagram
+    const mermaidWrap = section?.querySelector('.mermaid-diagram');
+    expect(mermaidWrap).not.toBeNull();
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].textContent).toContain('① Explore');
+    expect(rows?.[1].textContent).toContain('② Spider');
+    expect(rows?.[2].textContent).toContain('③ Forced Browse');
+    expect(rows?.[3].textContent).toContain('④ Active Scan');
+    expect(rows?.[4].textContent).toContain('⑤ Manual Test');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(4);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/pentest/');
+  });
+
+  it('renders Section 14: Alerts（検出結果）の見方 (#alerts)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#alerts');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 14');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('Alerts（検出結果）の見方');
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(2);
+    expect(h3s?.[0].textContent).toBe('Alert の主なフィールド');
+    expect(h3s?.[1].textContent).toBe('Risk × Confidence の考え方');
+
+    const tables = section?.querySelectorAll('table');
+    expect(tables?.length).toBe(2);
+
+    const fieldRows = tables?.[0].querySelectorAll('tbody tr');
+    expect(fieldRows?.length).toBe(9);
+    expect(fieldRows?.[0].textContent).toContain('Name');
+    expect(fieldRows?.[1].textContent).toContain('URL');
+    expect(fieldRows?.[2].textContent).toContain('Risk（リスク）');
+    expect(fieldRows?.[3].textContent).toContain('Confidence（確信度）');
+
+    const matrixRows = tables?.[1].querySelectorAll('tbody tr');
+    expect(matrixRows?.length).toBe(4);
+    expect(matrixRows?.[0].textContent).toContain('High');
+    expect(matrixRows?.[1].textContent).toContain('Medium');
+    expect(matrixRows?.[2].textContent).toContain('Low');
+    expect(matrixRows?.[3].textContent).toContain('Informational');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(5);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/features/alerts/');
+  });
 });
