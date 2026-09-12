@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/owasp-zap-beginner-guide/page';
@@ -37,6 +37,33 @@ beforeAll(() => {
 afterAll(() => {
   mermaid.render = originalMermaidRender;
   window.IntersectionObserver = originalIntersectionObserver;
+});
+
+describe('OWASP ZAP Complete Guide - Mermaid diagrams', () => {
+  it('actually renders a diagram for every .mermaid-diagram container with a non-empty chart', async () => {
+    // Arrange: この検証専用に収集済み chart をリセットする
+    renderedCharts.length = 0;
+
+    // Act
+    const { container } = render(<Page />);
+    const diagramContainers = container.querySelectorAll('.mermaid-diagram');
+
+    // Assert: 実描画の完了を待ってから件数を突き合わせる。
+    // コンテナの存在確認だけでは、Mermaid.tsx が空の chart で早期 return する経路
+    // （mermaid.render を呼ばず SVG も挿入しない）を見逃す
+    expect(diagramContainers.length).toBe(6);
+    await waitFor(() => {
+      const rendered = container.querySelectorAll(
+        '.mermaid-diagram svg[data-testid="mock-mermaid"]'
+      );
+      expect(rendered.length).toBe(diagramContainers.length);
+    });
+
+    expect(renderedCharts.length).toBe(diagramContainers.length);
+    renderedCharts.forEach((chart) => {
+      expect(chart.trim().length).toBeGreaterThan(0);
+    });
+  });
 });
 
 describe('OWASP ZAP Complete Guide - Category 1: 導入 (intro, disclaimer, features, install)', () => {

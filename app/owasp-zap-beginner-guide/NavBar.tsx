@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface TocItem {
   id: string;
@@ -76,6 +76,7 @@ export const TOC_ITEMS: TocItem[] = TOC_GROUPS.flatMap((g) => g.items);
 export default function NavBar() {
   const [activeId, setActiveId] = useState<string>('intro');
   const [sidebarOpen, setSidebarOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -107,15 +108,23 @@ export default function NavBar() {
   };
 
   const closeSidebar = () => {
+    // 閉じる前にトグルへフォーカスを戻す（閉じたサイドバーは visibility: hidden で
+    // フォーカス不可になるため、閉じた後ではフォーカスが body へ飛ぶ）
+    if (sidebarOpen) {
+      toggleRef.current?.focus({ preventScroll: true });
+    }
     setSidebarOpen(false);
   };
 
   return (
     <>
       <button
+        ref={toggleRef}
         className="sidebar-toggle"
         id="sidebarToggle"
-        aria-label="メニューを開く"
+        aria-label={sidebarOpen ? 'メニューを閉じる' : 'メニューを開く'}
+        aria-expanded={sidebarOpen}
+        aria-controls="sidebar"
         onClick={toggleSidebar}
       >
         <i className="ti ti-menu-2"></i>
