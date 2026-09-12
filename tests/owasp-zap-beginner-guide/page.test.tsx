@@ -570,4 +570,130 @@ describe('OWASP ZAP Complete Guide - Category 1: 導入 (intro, disclaimer, feat
     expect(refLinks?.length).toBe(5);
     expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/features/alerts/');
   });
+
+  it('renders Section 15: Authentication（認証）の設定 (#authentication)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#authentication');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 15');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('Authentication（認証）の設定');
+
+    // Mermaid diagram
+    const mermaidWrap = section?.querySelector('.mermaid-diagram');
+    expect(mermaidWrap).not.toBeNull();
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(3);
+    expect(h3s?.[0].textContent).toBe('各ステップの概要');
+    expect(h3s?.[1].textContent).toBe('実践的な設定手順（フォームベース認証の例）');
+    expect(h3s?.[2].textContent).toBe('Forced User Mode との違い');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].textContent).toContain('Context 作成');
+    expect(rows?.[1].textContent).toContain('Session Management Method');
+    expect(rows?.[2].textContent).toContain('Authentication Method');
+    expect(rows?.[3].textContent).toContain('Verification Strategy');
+    expect(rows?.[4].textContent).toContain('Users');
+
+    const steps = section?.querySelectorAll('ol li');
+    expect(steps?.length).toBe(6);
+
+    expect(section?.textContent).toContain('Forced User Mode');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(7);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/features/authentication/');
+  });
+
+  it('renders Section 16: Scan Policy（スキャンポリシー） (#scan-policy)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#scan-policy');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 16');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('Scan Policy（スキャンポリシー）');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].textContent).toContain('Default Policy');
+    expect(rows?.[1].textContent).toContain('API Policy');
+    expect(rows?.[2].textContent).toContain('Developer Standard / Full / CI-CD Policy');
+    expect(rows?.[3].textContent).toContain('QA Standard / Full / CI-CD Policy');
+    expect(rows?.[4].textContent).toContain('Penetration Tester Policy');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(3);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/');
+  });
+
+  it('renders Section 17: HUD（Heads Up Display） (#hud)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#hud');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 17');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('HUD（Heads Up Display）');
+
+    const callout = section?.querySelector('.callout.callout-warning');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('重要な留意点');
+    expect(callout?.textContent).toContain('HUD は開発が活発ではなくなっており');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(4);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/addons/hud/');
+  });
+
+  it('renders Section 18: レポートの生成 (#reports)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#reports');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 18');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('レポートの生成');
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(2);
+    expect(h3s?.[0].textContent).toBe('主なレポートテンプレート');
+    expect(h3s?.[1].textContent).toBe('生成方法');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(8);
+    expect(rows?.[0].textContent).toContain('Modern HTML Report');
+    expect(rows?.[1].textContent).toContain('Traditional HTML');
+    expect(rows?.[2].textContent).toContain('Risk and Confidence HTML');
+    expect(rows?.[7].textContent).toContain('SARIF JSON Report');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(5);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/addons/report-generation/');
+  });
 });
