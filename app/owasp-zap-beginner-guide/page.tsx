@@ -30,6 +30,13 @@ const DIAGRAM_MODE = `stateDiagram-v2
     ATTACK --> Protected
     Protected --> Standard`;
 
+const DIAGRAM_PENTEST_FLOW = `flowchart TD
+    A["① Explore（手動探索）"] --> B["② Spider（クローリング）"]
+    B --> C["③ Forced Browse"]
+    C --> D["④ Active Scan"]
+    D --> E["⑤ Manual Test"]`;
+
+
 
 export default function OwaspZapBeginnerGuidePage() {
   return (
@@ -950,9 +957,568 @@ export default function OwaspZapBeginnerGuidePage() {
               </ul>
             </div>
           </section>
+
+          {/* 10. Spider */}
+          <section id="spider">
+            <div className="section-eyebrow">
+              <i className="ti ti-network"></i>SECTION 10
+            </div>
+            <h2>Spider（クローラー）</h2>
+            <p>
+              <strong>Spider</strong>
+              は、対象アプリケーション内のリンクを自動的にたどり、URL
+              を網羅的に発見する機能です。HTML の <code>&lt;a&gt;</code> タグや
+              <code>&lt;form&gt;</code> タグなどを解析してリンクを収集します。
+            </p>
+
+            <h3>通常の Spider と Ajax Spider の違い</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>項目</th>
+                    <th>Spider（通常）</th>
+                    <th>Ajax Spider</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>解析対象</td>
+                    <td>静的 HTML のリンク・フォーム</td>
+                    <td>JavaScript によって動的生成される DOM / リンク</td>
+                  </tr>
+                  <tr>
+                    <td>動作方式</td>
+                    <td>HTTP リクエストを直接解析</td>
+                    <td>
+                      実ブラウザ（Selenium
+                      経由）でページを描画してリンクを収集
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>速度</td>
+                    <td>高速</td>
+                    <td>低速（実ブラウザ起動のため）</td>
+                  </tr>
+                  <tr>
+                    <td>向いているアプリ</td>
+                    <td>従来型の MPA（マルチページアプリ）</td>
+                    <td>
+                      SPA（React/Vue などの JavaScript
+                      フレームワーク使用アプリ）
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>両方を組み合わせて使うことで、より網羅的な URL 収集が可能になります。</p>
+
+            <h3>使い方</h3>
+            <ol>
+              <li>
+                Sites タブで対象ノードを右クリック →「Attack」→「Spider…」を選択。
+              </li>
+              <li>Spider dialog でスコープや最大深度、Context/User などを設定。</li>
+              <li>「Start Scan」で実行。</li>
+              <li>Spider タブで進捗と発見された URL のリストを確認。</li>
+            </ol>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/spider/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Spider (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/spider/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Spider Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/ajax-spider/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – AJAX Spider Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/spider/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Spider dialog
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 11. Passive scan */}
+          <section id="passive-scan">
+            <div className="section-eyebrow">
+              <i className="ti ti-eye"></i>SECTION 11
+            </div>
+            <h2>Passive Scan（受動的スキャン）</h2>
+            <p>
+              <strong>Passive Scan（受動的スキャン）</strong> は、ZAP
+              を通過したすべてのトラフィックをバックグラウンドで解析し、<strong>攻撃ペイロードを一切送信せずに</strong>検出できる問題を報告する機能です。ZAP
+              を起動してブラウザ経由でアクセスするだけで、常にバックグラウンドで動作しています。
+            </p>
+
+            <h3>Passive Scan で検出できる代表例</h3>
+            <ul>
+              <li>
+                セキュリティ関連 HTTP
+                ヘッダーの欠落（<code>X-Content-Type-Options</code>、
+                <code>Content-Security-Policy</code>
+                など）
+              </li>
+              <li>
+                Cookie の <code>Secure</code> / <code>HttpOnly</code> 属性の欠落
+              </li>
+              <li>ソースコード内のコメントに含まれる機密情報の可能性</li>
+              <li>
+                脆弱なバージョンの JavaScript ライブラリ（Retire.js
+                アドオンとの連携）
+              </li>
+              <li>サーバーのバージョン情報の露出</li>
+            </ul>
+
+            <div className="callout callout-success">
+              <i className="ti ti-shield-check"></i>
+              <p>
+                Passive Scan は安全なため、本番環境に対しても実行可能です（Active
+                Scan とは異なり攻撃を行わないため）。
+              </p>
+            </div>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/pscan/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Passive Scan (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/passive-scanner/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Passive Scanner Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/passive-scan-rules/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Passive Scan Rules
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 12. Active scan */}
+          <section id="active-scan">
+            <div className="section-eyebrow">
+              <i className="ti ti-radar-2"></i>SECTION 12
+            </div>
+            <h2>Active Scan（能動的スキャン）</h2>
+            <p>
+              <strong>Active Scan（能動的スキャン）</strong>
+              は、既知の攻撃パターン（ペイロード）を対象アプリケーションに実際に送信し、その応答から脆弱性の有無を判定する機能です。SQL
+              インジェクション、Cross-Site
+              Scripting（XSS）、コマンドインジェクションなどを検出できます。
+            </p>
+
+            <div className="callout callout-danger">
+              <i className="ti ti-alert-octagon"></i>
+              <p>
+                <strong>重要</strong>：Active Scan
+                は実際に攻撃を行うため、必ず許可を得た対象・テスト環境に対してのみ実行してください。データの破損や意図しない副作用（メール送信、レコード削除など）が発生する可能性があります。
+              </p>
+            </div>
+
+            <h3>実行の流れ</h3>
+            <ol>
+              <li>
+                Spider などで URL を十分に収集しておく（Active Scan は「発見済みの
+                URL」に対してのみ攻撃を行うため）。
+              </li>
+              <li>
+                Sites タブでノードを右クリック →「Attack」→「Active Scan…」を選択。
+              </li>
+              <li>
+                Scan Policy
+                を選択し、スキャン対象の入力ベクトル（クエリパラメータ、POST
+                データ、Cookie、HTTP ヘッダーなど）を確認。
+              </li>
+              <li>「Start Scan」で実行。</li>
+              <li>
+                Active Scan タブで進捗を確認し、完了後は Alerts タブで結果を確認。
+              </li>
+            </ol>
+
+            <h3>Active Scan の入力ベクトル設定</h3>
+            <p>
+              デフォルトでは URL クエリパラメータと POST
+              パラメータが対象ですが、Options &gt; Active Scan Input Vectors 画面で
+              Cookie
+              やヘッダーもスキャン対象に含めるよう変更できます（誤検知や負荷増大とのトレードオフに注意）。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/ascan/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Active Scan (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/active-scan-rules/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Active Scan Rules
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/advascan/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Active Scan dialog
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/options/ascaninput/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Options Active Scan Input Vectors screen
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 13. Pentest flow */}
+          <section id="pentest-flow">
+            <div className="section-eyebrow">
+              <i className="ti ti-route"></i>SECTION 13
+            </div>
+            <h2>基本的なペネトレーションテストの流れ</h2>
+            <p>
+              ZAP 公式ドキュメントでは、基本的なペネトレーションテストの流れを次の 5
+              ステップで説明しています。
+            </p>
+
+            <div className="mermaid-diagram">
+              <Mermaid chart={DIAGRAM_PENTEST_FLOW} />
+            </div>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ステップ</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>① Explore</td>
+                    <td>
+                      ブラウザでアプリのすべての機能・リンク・フォームを操作する。複数ロールがある場合はロールごとに実施
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>② Spider</td>
+                    <td>
+                      Spider / Ajax Spider を使い、見逃した URL
+                      や動的生成リンクを発見する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>③ Forced Browse</td>
+                    <td>
+                      「Forced
+                      Browse」アドオンを使い、リンクされていないファイルやディレクトリ（バックアップファイルなど）を辞書ベースで探索する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>④ Active Scan</td>
+                    <td>Active Scanner で基本的な脆弱性を検出する</td>
+                  </tr>
+                  <tr>
+                    <td>⑤ Manual Test</td>
+                    <td>
+                      自動化では見つからない論理的な脆弱性（認可不備など）を
+                      OWASP Testing Guide を参考に手動でテストする
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              自動化された ①〜④
+              のステップだけでも基本的な脆弱性は発見できますが、認可制御の不備やビジネスロジックの欠陥など、<strong>自動スキャンでは検出できない問題</strong>を見つけるためには
+              ⑤ の手動テストが不可欠です。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/pentest/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – A Basic Penetration Test
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/forced-browse/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Forced Browse Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.owasp.org/wstg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    OWASP Testing Guide
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAPping the OWASP Top 10（ZAP ドキュメントトップ）
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 14. Alerts */}
+          <section id="alerts">
+            <div className="section-eyebrow">
+              <i className="ti ti-bell-ringing"></i>SECTION 14
+            </div>
+            <h2>Alerts（検出結果）の見方</h2>
+            <p>
+              ZAP
+              がスキャン中に検出した問題は<strong>Alert（アラート）</strong>として記録されます。Alerts
+              タブでは、検出されたすべてのアラートがツリー形式で一覧表示されます。
+            </p>
+
+            <h3>Alert の主なフィールド</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>フィールド</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Name</td>
+                    <td>
+                      アラート名（例：「Cross Site Scripting (Reflected)」）
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>URL</td>
+                    <td>検出された URL（正規化された URL）</td>
+                  </tr>
+                  <tr>
+                    <td>Risk（リスク）</td>
+                    <td>深刻度：Informational / Low / Medium / High</td>
+                  </tr>
+                  <tr>
+                    <td>Confidence（確信度）</td>
+                    <td>
+                      検出結果の確からしさ：Low / Medium / High（人が手動で
+                      False Positive / Confirmed に変更可能）
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Parameter</td>
+                    <td>攻撃対象となったパラメータ名</td>
+                  </tr>
+                  <tr>
+                    <td>Description</td>
+                    <td>問題の詳細説明</td>
+                  </tr>
+                  <tr>
+                    <td>Solution</td>
+                    <td>
+                      一般的な対処方法（ソースコードを解析しているわけではないため一般論に留まる）
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Reference</td>
+                    <td>詳細情報へのリンク</td>
+                  </tr>
+                  <tr>
+                    <td>Tags</td>
+                    <td>関連タグ（CWE、OWASP Top 10 カテゴリなど）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Risk × Confidence の考え方</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Risk ＼ Confidence</th>
+                    <th>Low</th>
+                    <th>Medium</th>
+                    <th>High</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>High</td>
+                    <td>要確認（誤検知の可能性あり）</td>
+                    <td>優先度高</td>
+                    <td>最優先で対応</td>
+                  </tr>
+                  <tr>
+                    <td>Medium</td>
+                    <td>参考情報として確認</td>
+                    <td>通常の優先度</td>
+                    <td>優先的に確認</td>
+                  </tr>
+                  <tr>
+                    <td>Low</td>
+                    <td>参考情報</td>
+                    <td>参考情報</td>
+                    <td>低リスクだが確実</td>
+                  </tr>
+                  <tr>
+                    <td>Informational</td>
+                    <td>情報提供のみ</td>
+                    <td>情報提供のみ</td>
+                    <td>情報提供のみ</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              ZAP
+              が検出する全アラートの一覧は公式サイトに常時公開されています。個々のアラートには固有の
+              Alert Reference（ID）があり、静的なページ URL が割り当てられています。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/alerts/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Alerts (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/alerts/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – 全アラート一覧
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/alerttags/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Alert Tags 一覧
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/tabs/alerts/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Alerts tab (UI)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/addalert/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Add Alert dialog
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
         </div>
       </main>
     </div>
   );
 }
+
 
