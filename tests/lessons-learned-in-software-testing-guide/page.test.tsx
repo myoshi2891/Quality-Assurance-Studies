@@ -283,5 +283,74 @@ describe('Lessons Learned Guide - Category 1 (Hero, NavBar, Section 01-04)', () 
 
     expect(sec7?.textContent).toContain('テスタビリティ (testability) への投資');
   });
+
+  it('renders Section 8: ステップ6: テストを文書化する (#step6) with list of principles', () => {
+    const { container } = render(<Page />);
+    const sec8 = container.querySelector('#step6');
+    expect(sec8).not.toBeNull();
+
+    const h2 = sec8?.querySelector('h2');
+    expect(h2?.textContent).toContain('8. ステップ6: テストを文書化する');
+
+    const list = sec8?.querySelectorAll('ul li');
+    expect(list?.length).toBe(4);
+    expect(list?.[0].textContent).toContain('テンプレートを使うべきかどうかは状況次第');
+    expect(list?.[1].textContent).toContain('ISO/IEC/IEEE 29119-3:2021');
+    expect(list?.[1].textContent).toContain('IEEE 829');
+    expect(list?.[2].textContent).toContain('そもそも何のためにこの文書が必要なのか');
+    expect(list?.[3].textContent).toContain('1文・3要素以内');
+  });
+
+  it('renders Section 9: ステップ7: プログラマーと協働する (#step7) with list of principles', () => {
+    const { container } = render(<Page />);
+    const sec9 = container.querySelector('#step7');
+    expect(sec9).not.toBeNull();
+
+    const h2 = sec9?.querySelector('h2');
+    expect(h2?.textContent).toContain('9. ステップ7: プログラマーと協働する');
+
+    const list = sec9?.querySelectorAll('ul li');
+    expect(list?.length).toBe(4);
+    expect(list?.[0].textContent).toContain('プログラマーがどう考えるかを理解する努力');
+    expect(list?.[1].textContent).toContain('信頼は一朝一夕には築けない');
+    expect(list?.[2].textContent).toContain('批判の矛先は「仕事の成果物」に向けるべきであり、「人」に向けてはなりません');
+    expect(list?.[3].textContent).toContain('質問を投げかけることが関係構築の近道');
+  });
+
+  it('renders Section 10: ステップ8: テストプロジェクトを管理する (#step8) with management principles', () => {
+    const { container } = render(<Page />);
+    const sec10 = container.querySelector('#step8');
+    expect(sec10).not.toBeNull();
+
+    const h2 = sec10?.querySelector('h2');
+    expect(h2?.textContent).toContain('10. ステップ8: テストプロジェクトを管理する');
+
+    const list = sec10?.querySelectorAll('ul li');
+    expect(list?.length).toBe(7);
+    expect(list?.[0].textContent).toContain('「サービス文化」を作る。「コントロール文化」を作ろうとしない');
+    expect(list?.[1].textContent).toContain('テスターが管理するのは「テストという名のサブプロジェクト」');
+    expect(list?.[2].textContent).toContain('スモークテストでビルドの受け入れ可否を判断する');
+    expect(list?.[3].textContent).toContain('セッションベースドテスト管理');
+    expect(list?.[4].textContent).toContain('バグ件数だけで進捗を語らない');
+    expect(list?.[5].textContent).toContain('バランスドスコアカードで複数の観点から状況を報告する');
+    expect(list?.[6].textContent).toContain('テスターはリリースの可否そのものにサインオフしない');
+  });
+
+  it('renders Section 11: ステップ9: テストチームを管理する (#step9) with team management principles', () => {
+    const { container } = render(<Page />);
+    const sec11 = container.querySelector('#step9');
+    expect(sec11).not.toBeNull();
+
+    const h2 = sec11?.querySelector('h2');
+    expect(h2?.textContent).toContain('11. ステップ9: テストチームを管理する');
+
+    const list = sec11?.querySelectorAll('ul li');
+    expect(list?.length).toBe(4);
+    expect(list?.[0].textContent).toContain('スタッフを「幹部」として扱う');
+    expect(list?.[1].textContent).toContain('新人テスターの立ち上げ方には型がある');
+    expect(list?.[2].textContent).toContain('士気はチームの重要な資産である');
+    expect(list?.[3].textContent).toContain('採用は合議制で、誠実さを最重視する');
+  });
 });
+
 
