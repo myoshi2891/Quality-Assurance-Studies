@@ -5,18 +5,38 @@ Updated 2026-09-12
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 63 ルート = ガイドライブラリ index + 62 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 64 ルート = ガイドライブラリ index + 63 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 28 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 27 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `9f85a6f` |
-| 最新コミット内容 | chore(explore-it): archive source files and sync documentation |
+| 最新 HEAD | `2a0b8a1` |
+| 最新コミット内容 | feat(owasp-zap): implement category 6 - troubleshooting, best-practices, resources, doc-footer |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/12: OWASP ZAP 完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & ダークサイバーテーマ**:
+  - 原著HTML固有のダークテーマ（背景 `--bg-primary: #0b0f19`、カード `--bg-card: #121827`、ネオンブルー `--accent: #3b82f6`、オレンジ `--accent-orange: #f97316`、レッド `--risk-high: #ef4444` 等）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--text-primary) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、順序付きリスト `list-style-type: decimal !important`、`.checklist` 装飾、`.callout` 等）を完全実装。
+- **Mermaid図解の完全移植**:
+  - 全6図解（アーキテクチャ `diagram-architecture`、動作モード遷移 `diagram-mode`、ペンテストの流れ `diagram-pentest-flow`、認証設定フロー `diagram-auth`、自動化フレームワーク実行フロー `diagram-automation`、CI/CDパイプライン全体 `diagram-cicd`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **コードブロック & 改行保持**:
+  - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れ（スペース化）を完全に防止（Python, YAML, Bash）。
+- **テーブル & コールアウト & 外部リンク**:
+  - 全22テーブル（機能比較表、動作モード表、スキャンポリシー表、レポートテンプレート表、トラブルシューティング表、学習リソース一覧など）を完全移植。
+  - コールアウト（警告・情報・危険など計7件）を完全移植。
+  - 全120件以上の参考文献・公式ドキュメント外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全25セクションリンク（6グループアコーディオン）、モバイルトグル対応の `NavBar.tsx` を実装。
+- `app/owasp-zap-beginner-guide/`: ページコンポーネント、専用スタイル（`.owasp-zap-layout` スコープ、globals.css干渉リセット）、NavBarを実装。
+- `lib/navigation.ts`: `tools-frameworks` カテゴリに `/owasp-zap-beginner-guide` を追加（全64件）。
+- `tests/owasp-zap-beginner-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全25リンク、全25セクション、全Mermaid図、全テーブル、全コールアウト、全コードブロック、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（28 pass / 408 expect()）。
+- `Owasp-zap-beginner-guide.html`: `archive/html-archive/tools/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 64 ページ体制に同期。
 
 ## 2026/09/12: Explore It! 探索的テスト実践ガイドのNext.js完全移行
 
@@ -716,10 +736,11 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `Agile-testing-practical-guide.html` | `/agile-testing-practical-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-test-tools` | ✅ NavBar + aria-current あり (archive/html-archive/ctfl/) |
 | `Explore-it-guide.html` | `/explore-it-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Owasp-zap-beginner-guide.html` | `/owasp-zap-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 28 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 27 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -727,7 +748,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
 | 書籍ガイド系（HTML + Markdown の 12 ペア = 24 ファイル）: `Art-of-software-testing-guide.*` / `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Lessons-learned-in-software-testing-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Test-driven-development-by-example-guide.*` / `Testing-computer-software-guide.*` / `Unit-testing-principles-practices-patterns-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
-| ツール系（3 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` / `Owasp-zap-beginner-guide.html` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
+| ツール系（2 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 
 ## 既知の留保事項
@@ -741,8 +762,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 63 ルート（ガイドライブラリ index + 62 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 28 ファイル（書籍ガイド系の HTML/Markdown 12 ペア、Appium/OWASP ZAP などのツール系 3 ファイル、`Sonarqube.html`）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 64 ルート（ガイドライブラリ index + 63 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 27 ファイル（書籍ガイド系の HTML/Markdown 12 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

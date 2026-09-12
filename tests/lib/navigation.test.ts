@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 63 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 6 tools-frameworks + 9 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(63);
+  it('contains 64 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 9 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(64);
   });
 
   it('every item has a unique href', () => {
@@ -95,6 +95,12 @@ describe('NAV_ITEMS', () => {
     const sel = NAV_ITEMS.find((item: NavItem) => item.href === '/selenium-beginner-guide');
     expect(sel).toBeDefined();
     expect(sel?.category).toBe('tools-frameworks');
+  });
+
+  it('classifies /owasp-zap-beginner-guide as tools-frameworks', () => {
+    const zap = NAV_ITEMS.find((item: NavItem) => item.href === '/owasp-zap-beginner-guide');
+    expect(zap).toBeDefined();
+    expect(zap?.category).toBe('tools-frameworks');
   });
 
   it('classifies /clean-code-cookbook-guide as books-practices', () => {
@@ -252,9 +258,9 @@ describe('groupByCategory', () => {
     expect(cicd?.items).toHaveLength(2);
   });
 
-  it('places 6 items in the tools-frameworks group', () => {
+  it('places 7 items in the tools-frameworks group', () => {
     const tools = groupByCategory(NAV_ITEMS).find((g) => g.category === 'tools-frameworks');
-    expect(tools?.items).toHaveLength(6);
+    expect(tools?.items).toHaveLength(7);
   });
 
   it('places 9 items in the books-practices group', () => {
