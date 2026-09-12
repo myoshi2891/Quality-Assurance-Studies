@@ -86,19 +86,19 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/12: ISTQB CTFL v4.0 第6章（テストツール）完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & ダークサイバーテーマ**:
-  - 原著HTML固有のダークテーマ（背景 `--bg-primary: #0a0e17`、カード `--bg-card: #121824`、ネオンシアン `--accent-cyan: #00f0ff`、ネオンパープル `--accent-purple: #a855f7`、グリーン `--accent-green: #10b981`）を忠実に復元。
+  - 原著HTML固有のダークテーマ（背景 `--bg-primary: #0a0e17`、カード `--bg-card: #131d30`、アクセント `--c-teal-200: #67e8f9`）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `var(--text-primary) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、番号付きリスト `.ordered-list`、Mermaid 枠線・エッジラベル高コントラスト）を完全実装。
 - **Mermaid図解の完全移植**:
-  - 全6図解（ツール分類マインドマップ `DIAGRAM_0`、ツール選定クアドラント `DIAGRAM_1`、ROIタイムライン `DIAGRAM_2`、データ駆動/キーワード駆動 `DIAGRAM_3`、パイロットプロジェクト手順 `DIAGRAM_4`、意思決定フロー `DIAGRAM_5`）を共通 `<Mermaid>` コンポーネントへ移植（`.diagram-card > .diagram-target` でラップ）。
+  - 全6図解（基本テストプロセスとツール分類の支援関係図 `DIAGRAM_0`、E2Eテスト自動化ツールの選定クアドラント `DIAGRAM_1`、ツール導入の投資対効果継続評価に関する意思決定フロー `DIAGRAM_2`、キャプチャ・リプレイ→データ駆動→キーワード駆動の自動化アプローチ比較 `DIAGRAM_3`、テスト管理ツールと関連ツール（要求・構成・欠陥・CI/CD）の連携図 `DIAGRAM_4`、ツール導入・パイロット試行の意思決定フロー `DIAGRAM_5`）を共通 `<Mermaid>` コンポーネントへ移植（`.diagram-card > .diagram-target` でラップ）。
 - **コードブロック & 改行保持**:
   - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れ（スペース化）を完全に防止（YAML、CSV データ）。
 - **テーブル & インタラクティブ演習問題 & 外部リンク**:
   - 章の位置づけ（学習時間配分）表、学習目標（LO）表、E2Eツール比較表（Playwright vs Selenium vs Cypress）、利点表、リスク表、まとめ表の全6テーブルを完全移植。
-  - 3問の演習問題カード（`<details className="quiz-card">`）および正解・解説トグルを完全移植。
+  - 3問の演習問題カード（`<div className="quiz-card">` 内に `<details>` を配置）および正解・解説トグルを完全移植。
   - 全15件以上の参考文献・公式ドキュメント外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
 - `app/istqb-ctfl-v4-chapter6-test-tools/`: ページコンポーネント、専用スタイル（`.ctfl-v4-ch6-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全9セクション・サブ項目を含む全18リンク、モバイルトグル対応、`aria-current`）を実装。
 - `lib/navigation.ts`: `istqb-foundation-ext` カテゴリに `/istqb-ctfl-v4-chapter6-test-tools` を追加（全62件）。
-- `tests/istqb-ctfl-v4-chapter6-test-tools/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全リンク、全9セクション、全6Mermaid図、全6テーブル、全コールアウト、全コードブロック、演習問題、全外部リンク（15件以上）の存在を検証する厳格なテストスイートを実装して全パス（17 pass）。
+- `tests/istqb-ctfl-v4-chapter6-test-tools/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全リンク、全9セクション、全6Mermaid図、全6テーブル、全コールアウト、全コードブロック、演習問題、全外部リンク（15件以上）の存在を検証する厳格なテストスイートを実装して全パス（18 pass）。
 - `Istqb-ctfl-v4-chapter6.html`: `archive/html-archive/ctfl/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 62 ページ体制に同期。
 
