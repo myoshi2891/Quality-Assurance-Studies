@@ -186,6 +186,11 @@
   font-weight: 700;
 }
 
+/* モバイル用 目次トグル（デスクトップでは非表示＝従来どおり常時展開） */
+.explore-it-layout nav.toc .toc-toggle {
+  display: none;
+}
+
 .explore-it-layout nav.toc ol {
   list-style: none;
   margin: 28px 0 0;
@@ -707,6 +712,36 @@
     height: auto;
     border-right: none;
     border-bottom: 1px solid var(--line);
+  }
+
+  .explore-it-layout nav.toc .toc-toggle {
+    display: block;
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px 12px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--pine-deep);
+    text-align: left;
+    background: var(--paper);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+  }
+
+  .explore-it-layout nav.toc .toc-toggle:focus-visible {
+    outline: 2px solid var(--pine);
+    outline-offset: 2px;
+  }
+
+  /* 折りたたみ時は目次本体を隠し、本文を画面上部へ引き上げる */
+  .explore-it-layout nav.toc ol {
+    display: none;
+  }
+
+  .explore-it-layout nav.toc ol.open {
+    display: block;
   }
 
   .explore-it-layout main {

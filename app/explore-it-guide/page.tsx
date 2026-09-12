@@ -195,6 +195,7 @@ export default function ExploreItGuidePage() {
           <p>本書は3部構成・全13章＋付録2つで構成されています。</p>
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">本書の3部構成と各パートのテーマ・主な内容</caption>
               <thead>
                 <tr>
                   <th>Part</th>
@@ -288,6 +289,7 @@ export default function ExploreItGuidePage() {
           </p>
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">探索的テストの本質的要素とその説明</caption>
               <thead>
                 <tr>
                   <th>要素</th>
@@ -396,6 +398,7 @@ export default function ExploreItGuidePage() {
 
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">チャーターのテンプレート項目と記入例</caption>
               <thead>
                 <tr>
                   <th>項目</th>
@@ -488,6 +491,7 @@ export default function ExploreItGuidePage() {
           <h3>セッションの長さの目安</h3>
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">探索セッションの種類別の目安時間と主な用途</caption>
               <thead>
                 <tr>
                   <th>種類</th>
@@ -581,6 +585,7 @@ export default function ExploreItGuidePage() {
 
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">バリエーションを生む変数の種類と具体例</caption>
               <thead>
                 <tr>
                   <th>変数の種類</th>
@@ -636,6 +641,7 @@ export default function ExploreItGuidePage() {
 
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">オラクルの種類と判断基準の例</caption>
               <thead>
                 <tr>
                   <th>オラクルの種類</th>
@@ -682,6 +688,7 @@ export default function ExploreItGuidePage() {
 
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">第6〜9章で扱う探索の次元と中心的な問い</caption>
               <thead>
                 <tr>
                   <th>章</th>
@@ -771,6 +778,7 @@ export default function ExploreItGuidePage() {
           </p>
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">第10〜13章で扱うコンテキスト別の適用ポイント</caption>
               <thead>
                 <tr>
                   <th>章</th>
@@ -868,6 +876,7 @@ export default function ExploreItGuidePage() {
           </p>
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">テストヒューリスティックのカテゴリと着眼点の例</caption>
               <thead>
                 <tr>
                   <th>カテゴリ</th>
@@ -1022,6 +1031,7 @@ export default function ExploreItGuidePage() {
           </p>
           <div className="tblwrap">
             <table>
+              <caption className="sr-only">参考文献・出典のソースとURL一覧</caption>
               <thead>
                 <tr>
                   <th>No.</th>

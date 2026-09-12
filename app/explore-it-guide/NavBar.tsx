@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 
 export interface TocItem {
   id: string;
@@ -27,8 +27,37 @@ export const TOC_ITEMS: TocItem[] = [
   { id: 'references', num: '16', label: '出典URL一覧' },
 ];
 
+const TOC_LIST_ID = 'explore-it-toc-list';
+
 export default function NavBar() {
   const [activeId, setActiveId] = useState<string>('overview');
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const listRef = useRef<HTMLOListElement>(null);
+
+  const toggleToc = useCallback(() => {
+    setIsOpen((prev) => !prev);
+  }, []);
+
+  const closeToc = useCallback(() => {
+    setIsOpen(false);
+  }, []);
+
+  // 開いた直後は先頭リンクへフォーカスを移し、キーボード操作を目次内で継続できるようにする
+  useEffect(() => {
+    if (!isOpen) return;
+    listRef.current?.querySelector('a')?.focus();
+  }, [isOpen]);
+
+  // Escape で閉じたときはトグルボタンへフォーカスを戻す（フォーカスの迷子を防ぐ）
+  const handleKeyDown = useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
+      if (event.key !== 'Escape' || !isOpen) return;
+      setIsOpen(false);
+      toggleRef.current?.focus();
+    },
+    [isOpen]
+  );
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -56,17 +85,28 @@ export default function NavBar() {
   }, []);
 
   return (
-    <nav className="toc" aria-label="目次">
+    <nav className="toc" aria-label="目次" onKeyDown={handleKeyDown}>
       <div className="brand">
         Field Guide<strong>Explore It!</strong>
       </div>
-      <ol>
+      <button
+        type="button"
+        ref={toggleRef}
+        className="toc-toggle"
+        aria-expanded={isOpen}
+        aria-controls={TOC_LIST_ID}
+        onClick={toggleToc}
+      >
+        {isOpen ? '目次を閉じる' : '目次を開く'}
+      </button>
+      <ol id={TOC_LIST_ID} ref={listRef} className={isOpen ? 'open' : undefined}>
         {TOC_ITEMS.map((item) => (
           <li key={item.id}>
             <a
               href={`#${item.id}`}
               className={activeId === item.id ? 'active' : ''}
               aria-current={activeId === item.id ? 'location' : undefined}
+              onClick={closeToc}
             >
               {item.num} ｜ {item.label}
             </a>
