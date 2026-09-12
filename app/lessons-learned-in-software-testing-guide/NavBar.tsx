@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface TocItem {
   id: string;
@@ -31,6 +31,7 @@ export const TOC_ITEMS: TocItem[] = [
 export default function NavBar() {
   const [activeId, setActiveId] = useState<string>('intro');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll('.prose section[id]'));
@@ -59,6 +60,11 @@ export default function NavBar() {
   };
 
   const handleLinkClick = () => {
+    // 閉じる前にトグルへフォーカスを戻す（閉じたサイドバーは visibility: hidden で
+    // フォーカス不可になるため、閉じた後ではフォーカスが body へ飛ぶ）
+    if (isOpen) {
+      toggleRef.current?.focus({ preventScroll: true });
+    }
     setIsOpen(false);
   };
 
@@ -66,9 +72,12 @@ export default function NavBar() {
     <>
       <header className="mobile-bar">
         <button
+          ref={toggleRef}
           id="mobileToggle"
           type="button"
-          aria-label="目次を開く"
+          aria-label={isOpen ? '目次を閉じる' : '目次を開く'}
+          aria-expanded={isOpen}
+          aria-controls="sidebar"
           onClick={handleToggle}
         >
           <i className="ti ti-menu-2"></i> 目次

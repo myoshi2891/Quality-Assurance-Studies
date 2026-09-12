@@ -468,7 +468,8 @@ describe('Lessons Learned Guide - Category 1 (Hero, NavBar, Section 01-04)', () 
 
     const counter = sec16?.querySelector('.checklist-counter');
     expect(counter).not.toBeNull();
-    expect(counter?.textContent).toContain('9 完了');
+    // 初期表示は必ず未完了。toContain('9 完了') だと「9 / 9 完了」も通ってしまう
+    expect(counter?.textContent).toBe('0 / 9 完了');
 
     const checkboxes = sec16?.querySelectorAll('.checklist input[type="checkbox"]');
     expect(checkboxes?.length).toBe(9);

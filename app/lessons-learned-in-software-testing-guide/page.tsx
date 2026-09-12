@@ -128,6 +128,7 @@ export default function LessonsLearnedPage() {
 
             <div className="table-wrap">
               <table>
+                <caption>本書の著者3名と略歴</caption>
                 <thead>
                   <tr>
                     <th>著者</th>
@@ -240,6 +241,7 @@ export default function LessonsLearnedPage() {
 
             <div className="table-wrap">
               <table>
+                <caption>テスターの役割をめぐるよくある誤解と本書の考え方</caption>
                 <thead>
                   <tr>
                     <th>よくある誤解</th>
@@ -344,6 +346,7 @@ export default function LessonsLearnedPage() {
 
             <div className="table-wrap">
               <table>
+                <caption>テスト技法を捉える5つの視点: 焦点と具体例</caption>
                 <thead>
                   <tr>
                     <th>視点</th>
@@ -491,6 +494,7 @@ export default function LessonsLearnedPage() {
 
             <div className="table-wrap">
               <table>
+                <caption>テスト自動化についての誤解と本書の立場</caption>
                 <thead>
                   <tr>
                     <th>誤解</th>
@@ -771,6 +775,7 @@ export default function LessonsLearnedPage() {
 
             <div className="table-wrap">
               <table>
+                <caption>コンテキスト駆動学派の7つの原則</caption>
                 <thead>
                   <tr>
                     <th>番号</th>
