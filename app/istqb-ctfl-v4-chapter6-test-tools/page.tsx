@@ -72,6 +72,15 @@ DM <--> TM
 CI <--> TM
 TM --> REPORT["トレーサビリティ・進捗レポート"]`;
 
+const DIAGRAM_5 = `flowchart TD
+A["組織の成熟度・強み弱みを評価"] --> B["ツール導入の目的・要件を明確化"]
+B --> C["候補ツールを機能・サポート・コストで評価"]
+C --> D["パイロットプロジェクトで試行"]
+D --> E{"パイロットの結果は目的に合致するか"}
+E -->|"Yes"| F["ガイドラインを策定し段階的に組織展開"]
+E -->|"No"| G["要件を見直すか別ツールを再評価"]
+F --> H["継続的なトレーニングと教訓収集"]`;
+
 export default function Chapter6Page() {
     return (
         <div className="ctfl-v4-ch6-page">
@@ -1014,6 +1023,413 @@ export default function Chapter6Page() {
                             </ul>
                         </div>
                     </section>
+
+                    {/* 5. 実務補足 */}
+                    <section id="s5">
+                        <h2>
+                            <span>🗺️</span>5. シラバス範囲外の実務補足: ツール導入の意思決定プロセス
+                        </h2>
+                        <div className="callout warning">
+                            <span className="callout-icon">⚠️</span>
+                            <p>
+                                <strong>注意:</strong> 以下は v4.0 シラバスの examinable content
+                                には含まれません（v3.1 以前には「6.2.1 主要なツール選定の原則」「6.2.2
+                                組織へのツール導入（パイロットプロジェクト）」「6.2.3
+                                ツール成功要因」という節が存在しましたが、v4.0
+                                では削除されています）。試験対策としては不要ですが、実務でツール導入を検討する際の一般的な流れとして紹介します。
+                            </p>
+                        </div>
+
+                        <div className="diagram-card">
+                            <div className="diagram-target">
+                                <Mermaid chart={DIAGRAM_5} />
+                            </div>
+                            <div className="diagram-caption">
+                                図6: 実務でのツール導入意思決定フロー（シラバス範囲外・参考情報）
+                            </div>
+                        </div>
+
+                        <ul className="ref-list">
+                            <li>
+                                <span className="ref-icon">🔗</span>
+                                <a
+                                    href="https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    ISTQB CTFL v4.0 Overview（旧版との章構成比較、削除内容の明記）
+                                </a>
+                            </li>
+                            <li>
+                                <span className="ref-icon">🔗</span>
+                                <a
+                                    href="https://astqb.org/assets/documents/CTFL-2018-Syllabus.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Certified Tester Foundation Level Syllabus
+                                    v3.1.1（旧シラバス、参考比較用）
+                                </a>
+                            </li>
+                        </ul>
+                    </section>
+
+                    {/* 6. まとめ */}
+                    <section id="summary">
+                        <h2>
+                            <span>✅</span>6. 章のまとめ
+                        </h2>
+                        <div className="table-wrap">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>ポイント</th>
+                                        <th>要約</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td className="hl">ツールの範囲</td>
+                                        <td>
+                                            専用自動化ツールに限らず、テスト活動を支援するあらゆるツールを含む広い概念
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="hl">分類軸</td>
+                                        <td>
+                                            テストプロセスの活動（Chapter
+                                            1）に対応させて分類するのがシラバスの立場
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="hl">9カテゴリ</td>
+                                        <td>
+                                            汎用／テスト管理／静的テスト／設計・実装／実行・カバレッジ／非機能／DevOps／コラボレーション／スケーラビリティ支援
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="hl">導入の大原則</td>
+                                        <td>
+                                            ツール取得だけでは成功は保証されない。継続的な投資（保守・教育・プロセス改善）が前提
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="hl">利点</td>
+                                        <td>
+                                            反復作業削減、一貫性・再現性向上、客観的評価、情報アクセスの容易化
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="hl">主要リスク</td>
+                                        <td>
+                                            過大な期待、コスト過小評価、過度な依存、相互運用性・ベンダーリスク
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="hl">テスト実行ツールの発展</td>
+                                        <td>
+                                            キャプチャ・リプレイ → データ駆動 →
+                                            キーワード駆動という成熟度の流れ
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="hl">静的解析ツール</td>
+                                        <td>
+                                            コンポーネントテスト以前・コミット前に使うことで最大効果。シフトレフトを支える
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="hl">テスト管理ツール</td>
+                                        <td>
+                                            単体では機能せず、要求管理・構成管理・欠陥管理・CI/CDとの連携が鍵
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </section>
+
+                    {/* 7. 演習 */}
+                    <section id="quiz">
+                        <h2>
+                            <span>📝</span>7. 演習問題（自己チェック用）
+                        </h2>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                <span className="badge k1">Q1 K1</span> &nbsp;次のうち、v4.0
+                                シラバスのキーワードとして明記されているものはどれか。
+                            </div>
+                            <div className="quiz-options">
+                                A. probe effect　B. data-driven testing　C. pilot project　D. test comparator
+                            </div>
+                            <details>
+                                <summary>解答を見る</summary>
+                                B. data-driven testing（キーワード駆動テストと共に v4.0
+                                のキーワードとして明記されている）
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                <span className="badge k2">Q2 K2</span>
+                                &nbsp;あるチームが「テスト自動化ツールを導入すればテスト担当者の専門知識が不要になる」と考えている。これはシラバスのどの原則に反するか説明せよ。
+                            </div>
+                            <details>
+                                <summary>解答例を見る</summary>
+                                「非現実的な期待（unrealistic
+                                expectations）」というリスクに該当する。ツールはテスト活動を支援するものであり、テストは本質的に知的活動（Chapter
+                                1, 1.1節）であるため、専門知識の代替にはならない。
+                            </details>
+                        </div>
+
+                        <div className="quiz-card">
+                            <div className="quiz-q">
+                                <span className="badge k2">Q3 K2</span>
+                                &nbsp;静的解析ツールを開発者のコミット前に実行することの利点を、シフトレフトの観点から説明せよ。
+                            </div>
+                            <details>
+                                <summary>解答例を見る</summary>
+                                コード実行を伴わずに早期に欠陥を検出できるため、Chapter 3
+                                で学んだ「早期テストの原則」およびシフトレフト（Chapter 2,
+                                2.1.5節）を実践でき、後工程での修正コストを抑制できる。
+                            </details>
+                        </div>
+                    </section>
+
+                    {/* 8. 参照URL */}
+                    <section id="refs">
+                        <h2>
+                            <span>🔗</span>8. 参照URL一覧（全節共通）
+                        </h2>
+
+                        <div className="ref-group">
+                            <div className="ref-group-title">公式一次情報源</div>
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB CTFL v4.0.1 公式シラバス PDF
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqb.org/certifications/certified-tester-foundation-level-ctfl-v4-0/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB CTFL v4.0 公式ページ
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqb.org/istqb-releases-certified-tester-foundation-level-v4-0-ctfl/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB CTFL v4.0 リリース発表
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqb.org/help/ctfl-v40/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB CTFL v4.0 FAQ
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://glossary.istqb.org/en_US/term/keyword-driven-testing"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        keyword-driven testing — ISTQB公式用語集
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="ref-group">
+                            <div className="ref-group-title">
+                                公式内容のミラー・要約（ASTQB＝米国ISTQB加盟団体）
+                            </div>
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://astqb.org/6-1-tool-support-for-testing/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        6.1 Tool Support for Testing（ASTQB）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://astqb.org/6-2-benefits-and-risks-of-test-automation/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        6.2 Benefits and Risks of Test Automation（ASTQB）
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="ref-group">
+                            <div className="ref-group-title">学習補助・比較解説</div>
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://www.istqb.guru/ctfl-v4-syllabus-chapter-by-chapter-deep-dive/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB CTFL v4.0 Syllabus Explained: Chapter-by-Chapter（ISTQB Guru）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://www.testing101.net/post/overview-of-the-istqb-certified-tester-foundation-level-ctfl-v4-0-new"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        ISTQB CTFL v4.0 Overview（章構成の新旧比較）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://medium.com/@mehmetbarannakipoglu/test-tools-chapter-vi-of-istqb-ctfl-5b0a93a79b93"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Test Tools - Chapter VI of ISTQB — CTFL
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/test-tool-classification/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Test Tool Classification（一般解説）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/potential-benefits-and-risks-of-tool-support-for-testing-for-all-tools/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Potential Benefits and Risks of Tool Support for Testing（一般解説）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://istqbfoundation.wordpress.com/2017/09/18/special-considerations-for-some-types-of-tools/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Special Considerations for Some Types of Tools（一般解説）
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="ref-group">
+                            <div className="ref-group-title">
+                                2026年時点の実務ツール市場動向（発展知識・シラバス範囲外）
+                            </div>
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://www.vervali.com/blog/web-services-testing-automation-tools-comparison-2026-selenium-vs-playwright-vs-cypress-and-beyond/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Selenium vs Playwright vs Cypress 2026（Vervali Systems）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://tech-insider.org/playwright-vs-cypress-vs-selenium-2026/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Playwright vs Cypress vs Selenium: 2026 比較（Tech Insider）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://testdino.com/blog/best-test-automation-tools"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Best Test Automation Tools in 2026（TestDino）
+                                    </a>
+                                </li>
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://stackoverflow.blog/2026/06/15/selenium-vs-cypress-vs-playwright-choosing-your-test-automation-framework/"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Selenium vs Cypress vs Playwright（Stack Overflow Blog, 2026）
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div className="ref-group">
+                            <div className="ref-group-title">旧シラバス（比較参考用）</div>
+                            <ul className="ref-list">
+                                <li>
+                                    <span className="ref-icon">🔗</span>
+                                    <a
+                                        href="https://astqb.org/assets/documents/CTFL-2018-Syllabus.pdf"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                    >
+                                        Certified Tester Foundation Level Syllabus v3.1.1（GASQ, PDF）
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+
+                    <footer>
+                        本ガイドは学習補助を目的とした二次資料です。試験対策の最終確認には、必ず{' '}
+                        <a
+                            href="https://istqb.org/wp-content/uploads/2024/11/ISTQB_CTFL_Syllabus_v4.0.1.pdf"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                        >
+                            ISTQB® 公式シラバス
+                        </a>{' '}
+                        の原文をご確認ください。ISTQB® は International Software Testing
+                        Qualifications Board の登録商標です。
+                    </footer>
                 </div>
             </main>
         </div>
