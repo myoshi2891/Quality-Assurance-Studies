@@ -128,6 +128,7 @@ export default function Chapter6Page() {
 
                         <div className="table-wrap">
                             <table>
+                                <caption className="sr-only">Chapter 6 の位置づけ（学習時間・出題比率などの基本情報）</caption>
                                 <thead>
                                     <tr>
                                         <th>項目</th>
@@ -235,6 +236,7 @@ export default function Chapter6Page() {
                         </h2>
                         <div className="table-wrap">
                             <table>
+                                <caption className="sr-only">Chapter 6 の学習目標一覧（ID・K-level・目標内容）</caption>
                                 <thead>
                                     <tr>
                                         <th>ID</th>
@@ -498,6 +500,7 @@ export default function Chapter6Page() {
 
                             <div className="table-wrap">
                                 <table>
+                                    <caption className="sr-only">テスト実行・カバレッジツールの比較（Playwright・Selenium・Cypress）</caption>
                                     <thead>
                                         <tr>
                                             <th>項目</th>
@@ -737,6 +740,7 @@ export default function Chapter6Page() {
                             <h3>3.2 テスト自動化・ツール活用の利点</h3>
                             <div className="table-wrap">
                                 <table>
+                                    <caption className="sr-only">テスト自動化・ツール活用の利点と具体例</caption>
                                     <thead>
                                         <tr>
                                             <th>利点</th>
@@ -776,6 +780,7 @@ export default function Chapter6Page() {
                             <h3>3.3 テスト自動化・ツール活用のリスク</h3>
                             <div className="table-wrap">
                                 <table>
+                                    <caption className="sr-only">テスト自動化・ツール活用のリスクと説明</caption>
                                     <thead>
                                         <tr>
                                             <th>リスク</th>
@@ -1081,6 +1086,7 @@ export default function Chapter6Page() {
                         </h2>
                         <div className="table-wrap">
                             <table>
+                                <caption className="sr-only">Chapter 6 章のまとめ（ポイントと要約）</caption>
                                 <thead>
                                     <tr>
                                         <th>ポイント</th>
