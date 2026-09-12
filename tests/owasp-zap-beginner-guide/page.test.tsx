@@ -696,4 +696,149 @@ describe('OWASP ZAP Complete Guide - Category 1: 導入 (intro, disclaimer, feat
     expect(refLinks?.length).toBe(5);
     expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/addons/report-generation/');
   });
+
+  it('renders Section 19: ZAP API (#api)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#api');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 19');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('ZAP API');
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(3);
+    expect(h3s?.[0].textContent).toBe('API の基本');
+    expect(h3s?.[1].textContent).toBe('クライアントライブラリ');
+    expect(h3s?.[2].textContent).toBe('API 呼び出し例（Python, zaproxy パッケージ）');
+
+    const codeBlock = section?.querySelector('.code-block');
+    expect(codeBlock).not.toBeNull();
+    expect(codeBlock?.textContent).toContain('from zapv2 import ZAPv2');
+    expect(codeBlock?.textContent).toContain('zap = ZAPv2');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(4);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/features/api/');
+  });
+
+  it('renders Section 20: Automation Framework（自動化） (#automation-framework)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#automation-framework');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 20');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('Automation Framework（自動化）');
+
+    const mermaidWrap = section?.querySelector('.mermaid-diagram');
+    expect(mermaidWrap).not.toBeNull();
+
+    const callout = section?.querySelector('.callout.callout-info');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('ジョブは YAML');
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(3);
+    expect(h3s?.[0].textContent).toBe('実行の流れ（イメージ）');
+    expect(h3s?.[1].textContent).toBe('YAML の基本構造の例');
+    expect(h3s?.[2].textContent).toBe('実行方法');
+
+    const codeBlocks = section?.querySelectorAll('.code-block');
+    expect(codeBlocks?.length).toBe(2);
+    expect(codeBlocks?.[0].textContent).toContain('env:');
+    expect(codeBlocks?.[0].textContent).toContain('contexts:');
+    expect(codeBlocks?.[1].textContent).toContain('./zap.sh -cmd -autorun zap.yaml');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(8);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/automate/automation-framework/');
+  });
+
+  it('renders Section 21: Docker と CI/CD 連携 (#docker-cicd)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#docker-cicd');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 21');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('Docker と CI/CD 連携');
+
+    const tables = section?.querySelectorAll('table');
+    expect(tables?.length).toBe(2);
+    const rows1 = tables?.[0].querySelectorAll('tbody tr');
+    expect(rows1?.length).toBe(3);
+    expect(rows1?.[0].textContent).toContain('zap-baseline.py');
+    expect(rows1?.[1].textContent).toContain('zap-full-scan.py');
+    expect(rows1?.[2].textContent).toContain('zap-api-scan.py');
+
+    const rows2 = tables?.[1].querySelectorAll('tbody tr');
+    expect(rows2?.length).toBe(4);
+    expect(rows2?.[0].textContent).toContain('0');
+    expect(rows2?.[1].textContent).toContain('1');
+
+    const codeBlocks = section?.querySelectorAll('.code-block');
+    expect(codeBlocks?.length).toBe(2);
+    expect(codeBlocks?.[0].textContent).toContain('docker run -v $(pwd):/zap/wrk/:rw');
+    expect(codeBlocks?.[1].textContent).toContain('name: ZAP Baseline Scan');
+
+    const mermaidWrap = section?.querySelector('.mermaid-diagram');
+    expect(mermaidWrap).not.toBeNull();
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(8);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/docker/');
+  });
+
+  it('renders Section 22: スクリプティングと拡張（Add-ons / Script Console） (#scripting)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#scripting');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 22');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('スクリプティングと拡張（Add-ons / Script Console）');
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(2);
+    expect(h3s?.[0].textContent).toBe('Add-on（アドオン）と Marketplace');
+    expect(h3s?.[1].textContent).toBe('Script Console');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0].textContent).toContain('JavaScript');
+    expect(rows?.[1].textContent).toContain('Python');
+    expect(rows?.[2].textContent).toContain('Ruby / Groovy / Kotlin');
+
+    const listItems = section?.querySelectorAll('ul:not(.refs ul) li');
+    expect(listItems?.length).toBe(5);
+    expect(listItems?.[0].textContent).toContain('Authentication Script');
+    expect(listItems?.[1].textContent).toContain('Active/Passive Rule Script');
+    expect(listItems?.[2].textContent).toContain('HTTP Sender Script');
+    expect(listItems?.[3].textContent).toContain('Proxy Script');
+    expect(listItems?.[4].textContent).toContain('Standalone Script');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(6);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/addons/');
+  });
 });
+
