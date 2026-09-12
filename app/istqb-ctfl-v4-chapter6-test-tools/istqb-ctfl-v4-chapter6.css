@@ -1,0 +1,732 @@
+/* ==========================================================================
+   ISTQB CTFL v4.0 Chapter 6: Test Tools Styles
+   Scoped under .ctfl-v4-ch6-page to avoid globals.css pollution
+   ========================================================================== */
+
+.ctfl-v4-ch6-page {
+    --bg-primary: var(--color-bg-primary, #0a0c10);
+    --bg-secondary: var(--color-bg-secondary, #12151b);
+    --bg-tertiary: var(--color-bg-card, #1a1e26);
+    --bg-info: rgba(26, 75, 120, 0.25);
+    --bg-danger: rgba(90, 25, 30, 0.25);
+    --bg-success: rgba(20, 70, 50, 0.25);
+    --bg-warning: rgba(80, 60, 20, 0.25);
+
+    --text-primary: var(--color-text-primary, #e7eaee);
+    --text-secondary: var(--color-text-secondary, #a3abb8);
+    --text-tertiary: var(--color-text-muted, #6b7280);
+    --text-info: #7cb8ea;
+    --text-danger: #e88a8a;
+    --text-success: #7fd9a8;
+    --text-warning: #e8c47f;
+
+    --border-tertiary: #1c2028;
+    --border-secondary: var(--color-border, #232833);
+    --border-primary: var(--color-border-bright, #2c313c);
+
+    --radius-md: var(--radius-sm, 8px);
+    --radius-lg: var(--radius-DEFAULT, 12px);
+    --radius-xl: 16px;
+
+    --content-max: 1600px;
+    --sidebar-w: 308px;
+
+    --c-teal-200: #a9e2e0;
+
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', sans-serif);
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* ---------- globals.css interference resets ---------- */
+.ctfl-v4-ch6-page section {
+    padding-top: 0;
+    scroll-margin-top: 24px;
+    margin-bottom: 56px;
+}
+
+.ctfl-v4-ch6-page .hero {
+    min-height: 0;
+    display: block;
+    padding-top: 0;
+}
+
+.ctfl-v4-ch6-page .main {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none !important;
+    margin: 0 !important;
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+    padding: 0 40px;
+}
+
+.ctfl-v4-ch6-page .content {
+    width: 100%;
+    max-width: var(--content-max);
+    padding: 48px 8px 140px;
+}
+
+/* ---------- Sidebar ---------- */
+.ctfl-v4-ch6-page .sidebar {
+    width: var(--sidebar-w);
+    flex-shrink: 0;
+    position: sticky;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    align-self: flex-start;
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    overflow-y: auto;
+    background: var(--bg-secondary);
+    border-right: 1px solid var(--border-tertiary);
+    padding: 28px 18px 60px;
+    z-index: 40;
+    scrollbar-width: thin;
+    scrollbar-color: var(--border-primary) transparent;
+}
+
+.ctfl-v4-ch6-page .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+.ctfl-v4-ch6-page .sidebar::-webkit-scrollbar-thumb {
+    background: var(--border-primary);
+    border-radius: 4px;
+}
+
+.ctfl-v4-ch6-page .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 10px 20px;
+    border-bottom: 1px solid var(--border-tertiary);
+    margin-bottom: 18px;
+}
+
+.ctfl-v4-ch6-page .brand-icon {
+    font-size: 22px;
+}
+
+.ctfl-v4-ch6-page .brand-text .t1 {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    letter-spacing: 0.04em;
+}
+
+.ctfl-v4-ch6-page .brand-text .t2 {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text-primary);
+}
+
+.ctfl-v4-ch6-page .nav-group-wrapper {
+    margin-bottom: 8px;
+}
+
+.ctfl-v4-ch6-page .nav-label {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 14px 10px 6px;
+    font-weight: 600;
+}
+
+.ctfl-v4-ch6-page .nav-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.ctfl-v4-ch6-page .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 8px 10px;
+    border-radius: var(--radius-md);
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.ctfl-v4-ch6-page .nav-link-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-tertiary);
+    flex-shrink: 0;
+    transition: background 0.15s, transform 0.15s;
+}
+
+.ctfl-v4-ch6-page .nav-link:hover {
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
+}
+
+.ctfl-v4-ch6-page .nav-link.active {
+    background: var(--bg-info);
+    color: var(--text-info);
+    font-weight: 500;
+}
+
+.ctfl-v4-ch6-page .nav-link.active .nav-link-bullet {
+    background: var(--text-info);
+    transform: scale(1.3);
+}
+
+.ctfl-v4-ch6-page .nav-link.nav-sub {
+    padding-left: 24px;
+    font-size: 12.5px;
+}
+
+.ctfl-v4-ch6-page .mobile-nav-toggle {
+    display: none;
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 50;
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 18px;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    align-items: center;
+    gap: 6px;
+}
+
+/* ---------- Page Header ---------- */
+.ctfl-v4-ch6-page .page-header {
+    margin-bottom: 36px;
+}
+
+.ctfl-v4-ch6-page .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-info);
+    background: var(--bg-info);
+    border: 1px solid var(--border-primary);
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+    font-weight: 500;
+}
+
+.ctfl-v4-ch6-page h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0 0 10px;
+    color: var(--text-primary);
+    line-height: 1.4;
+}
+
+.ctfl-v4-ch6-page .subtitle {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 900px;
+    line-height: 1.6;
+}
+
+.ctfl-v4-ch6-page .notice-box {
+    margin-top: 20px;
+    padding: 16px 18px;
+    border-radius: var(--radius-lg);
+    background: var(--bg-tertiary);
+    border: 1px solid var(--border-secondary);
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+}
+
+.ctfl-v4-ch6-page .notice-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    line-height: 1.4;
+}
+
+.ctfl-v4-ch6-page .notice-box a {
+    color: var(--text-info);
+    text-decoration: none;
+}
+.ctfl-v4-ch6-page .notice-box a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Typography & Sections ---------- */
+.ctfl-v4-ch6-page h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border-tertiary);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.ctfl-v4-ch6-page h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 32px 0 14px;
+}
+
+.ctfl-v4-ch6-page h4 {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--text-info);
+    margin: 24px 0 10px;
+}
+
+.ctfl-v4-ch6-page p {
+    color: var(--text-secondary);
+    margin: 0 0 14px;
+}
+
+.ctfl-v4-ch6-page strong {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+}
+
+/* ---------- Callouts ---------- */
+.ctfl-v4-ch6-page .callout {
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    margin: 18px 0;
+    border: 1px solid var(--border-secondary);
+    font-size: 13.5px;
+    display: flex;
+    gap: 12px;
+}
+
+.ctfl-v4-ch6-page .callout-icon {
+    font-size: 18px;
+    flex-shrink: 0;
+    line-height: 1.4;
+}
+
+.ctfl-v4-ch6-page .callout.info {
+    background: var(--bg-info);
+    border-color: rgba(124, 184, 234, 0.3);
+}
+.ctfl-v4-ch6-page .callout.warning {
+    background: var(--bg-warning);
+    border-color: rgba(232, 196, 127, 0.3);
+}
+.ctfl-v4-ch6-page .callout.danger {
+    background: var(--bg-danger);
+    border-color: rgba(232, 138, 138, 0.3);
+}
+.ctfl-v4-ch6-page .callout.success {
+    background: var(--bg-success);
+    border-color: rgba(127, 217, 168, 0.3);
+}
+
+.ctfl-v4-ch6-page .callout p {
+    margin: 0;
+    color: var(--text-secondary);
+}
+.ctfl-v4-ch6-page .callout p + p {
+    margin-top: 8px;
+}
+
+/* ---------- Tables & Resets against globals.css ---------- */
+.ctfl-v4-ch6-page .table-wrap {
+    overflow-x: auto;
+    margin: 18px 0;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-secondary);
+    background: var(--bg-secondary);
+}
+
+.ctfl-v4-ch6-page table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+.ctfl-v4-ch6-page thead tr {
+    background: var(--bg-tertiary) !important;
+}
+
+.ctfl-v4-ch6-page thead th {
+    background: var(--bg-tertiary) !important;
+    color: var(--text-primary) !important;
+    text-align: left;
+    padding: 11px 14px;
+    font-weight: 600;
+    border-bottom: 1px solid var(--border-primary);
+    white-space: nowrap;
+}
+
+.ctfl-v4-ch6-page tbody td {
+    padding: 11px 14px;
+    color: var(--text-secondary) !important;
+    border-bottom: 1px solid var(--border-tertiary);
+    vertical-align: top;
+    line-height: 1.6;
+}
+
+.ctfl-v4-ch6-page tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.ctfl-v4-ch6-page tbody tr:hover,
+.ctfl-v4-ch6-page tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.02) !important;
+}
+
+.ctfl-v4-ch6-page td.hl,
+.ctfl-v4-ch6-page td strong {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+}
+
+/* ---------- Badges / Pills ---------- */
+.ctfl-v4-ch6-page .badge {
+    display: inline-block;
+    padding: 2px 9px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.ctfl-v4-ch6-page .badge.k1 {
+    background: var(--bg-info);
+    color: var(--text-info);
+    border: 1px solid rgba(124, 184, 234, 0.3);
+}
+
+.ctfl-v4-ch6-page .badge.k2 {
+    background: var(--bg-success);
+    color: var(--text-success);
+    border: 1px solid rgba(127, 217, 168, 0.3);
+}
+
+.ctfl-v4-ch6-page .badge.scope-out {
+    background: var(--bg-warning);
+    color: var(--text-warning);
+    border: 1px solid rgba(232, 196, 127, 0.3);
+}
+
+/* ---------- Category Grid ---------- */
+.ctfl-v4-ch6-page .cat-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 14px;
+    margin: 18px 0;
+}
+
+.ctfl-v4-ch6-page .cat-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+}
+
+.ctfl-v4-ch6-page .cat-card .num {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    background: var(--bg-tertiary);
+    color: var(--text-info);
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.ctfl-v4-ch6-page .cat-card h4 {
+    margin: 0 0 6px;
+    font-size: 14px;
+    color: var(--text-primary);
+}
+
+.ctfl-v4-ch6-page .cat-card p {
+    font-size: 13px;
+    margin: 0 0 8px;
+    flex: 1;
+}
+
+.ctfl-v4-ch6-page .cat-card .examples {
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+.ctfl-v4-ch6-page .cat-card .examples b {
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* ---------- Mermaid Diagram Card ---------- */
+.ctfl-v4-ch6-page .diagram-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-xl);
+    padding: 22px;
+    margin: 20px 0;
+}
+
+.ctfl-v4-ch6-page .diagram-caption {
+    font-size: 12.5px;
+    color: var(--text-tertiary);
+    margin-top: 12px;
+    text-align: center;
+}
+
+.ctfl-v4-ch6-page .diagram-target {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.ctfl-v4-ch6-page .mermaid-wrapper {
+    width: 100%;
+    max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    display: flex;
+    justify-content: center;
+}
+
+.ctfl-v4-ch6-page .mermaid-wrapper svg {
+    max-width: 100% !important;
+    height: auto !important;
+}
+
+/* Mermaid edge labels & nodes readability */
+.ctfl-v4-ch6-page .mermaid-wrapper .edgeLabel,
+.ctfl-v4-ch6-page .mermaid-wrapper .edgeLabel span,
+.ctfl-v4-ch6-page .mermaid-wrapper .edgeLabel text {
+    background-color: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+    fill: var(--text-primary) !important;
+    font-weight: 600 !important;
+    stroke: none !important;
+}
+
+.ctfl-v4-ch6-page .mermaid-wrapper .edgeLabels rect {
+    fill: var(--bg-secondary) !important;
+    stroke: none !important;
+}
+
+/* ---------- Code Blocks with .code-line ---------- */
+.ctfl-v4-ch6-page .code-block {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    overflow-x: auto;
+    margin: 16px 0;
+    font-family: var(--font-mono, 'SFMono-Regular', Consolas, Menlo, monospace);
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.ctfl-v4-ch6-page .code-line {
+    white-space: pre;
+}
+
+.ctfl-v4-ch6-page .code-label {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.ctfl-v4-ch6-page code {
+    font-family: var(--font-mono, 'SFMono-Regular', Consolas, Menlo, monospace);
+    font-size: 12.5px;
+}
+
+.ctfl-v4-ch6-page p code,
+.ctfl-v4-ch6-page li code,
+.ctfl-v4-ch6-page td code {
+    background: var(--bg-tertiary);
+    padding: 2px 6px;
+    border-radius: 5px;
+    color: var(--text-info);
+    font-size: 12.5px;
+    border: 1px solid var(--border-tertiary);
+}
+
+.ctfl-v4-ch6-page .token-key {
+    color: var(--c-teal-200);
+}
+.ctfl-v4-ch6-page .token-string {
+    color: var(--text-success);
+}
+.ctfl-v4-ch6-page .token-comment {
+    color: var(--text-tertiary);
+    font-style: italic;
+}
+
+/* ---------- Lists ---------- */
+.ctfl-v4-ch6-page ul.plain {
+    margin: 0 0 14px;
+    padding-left: 20px;
+    color: var(--text-secondary);
+    list-style-type: disc !important;
+}
+
+.ctfl-v4-ch6-page ul.plain li {
+    margin-bottom: 8px;
+    font-size: 14.5px;
+}
+
+.ctfl-v4-ch6-page ul.plain b {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+/* ---------- Reference List ---------- */
+.ctfl-v4-ch6-page .ref-list {
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+.ctfl-v4-ch6-page .ref-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border-tertiary);
+    font-size: 13px;
+}
+
+.ctfl-v4-ch6-page .ref-list li:last-child {
+    border-bottom: none;
+}
+
+.ctfl-v4-ch6-page .ref-icon {
+    color: var(--text-tertiary);
+    font-size: 13px;
+    margin-top: 3px;
+    flex-shrink: 0;
+}
+
+.ctfl-v4-ch6-page .ref-list a {
+    color: var(--text-info);
+    text-decoration: none;
+}
+.ctfl-v4-ch6-page .ref-list a:hover {
+    text-decoration: underline;
+}
+
+.ctfl-v4-ch6-page .ref-group {
+    margin-bottom: 22px;
+}
+
+.ctfl-v4-ch6-page .ref-group-title {
+    font-size: 12px;
+    color: var(--text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+/* ---------- Quiz Card ---------- */
+.ctfl-v4-ch6-page .quiz-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-secondary);
+    border-radius: var(--radius-lg);
+    padding: 18px 20px;
+    margin-bottom: 14px;
+}
+
+.ctfl-v4-ch6-page .quiz-q {
+    color: var(--text-primary);
+    font-size: 14.5px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.ctfl-v4-ch6-page .quiz-options {
+    font-size: 13.5px;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+}
+
+.ctfl-v4-ch6-page details {
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    border: 1px solid var(--border-tertiary);
+}
+
+.ctfl-v4-ch6-page details summary {
+    cursor: pointer;
+    color: var(--text-info);
+    font-weight: 600;
+}
+
+.ctfl-v4-ch6-page details[open] summary {
+    margin-bottom: 8px;
+}
+
+/* ---------- Footer ---------- */
+.ctfl-v4-ch6-page footer {
+    margin-top: 60px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-tertiary);
+    font-size: 12px;
+    color: var(--text-tertiary);
+}
+
+.ctfl-v4-ch6-page footer a {
+    color: var(--text-info);
+    text-decoration: none;
+}
+.ctfl-v4-ch6-page footer a:hover {
+    text-decoration: underline;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+    .ctfl-v4-ch6-page .sidebar {
+        display: none;
+        position: fixed;
+        top: 60px;
+        left: 0;
+        bottom: 0;
+        width: 280px;
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.6);
+    }
+    .ctfl-v4-ch6-page .sidebar.open {
+        display: block;
+    }
+    .ctfl-v4-ch6-page .mobile-nav-toggle {
+        display: flex;
+    }
+    .ctfl-v4-ch6-page .main {
+        padding: 0 16px;
+    }
+    .ctfl-v4-ch6-page .content {
+        padding: 32px 4px 100px;
+    }
+}

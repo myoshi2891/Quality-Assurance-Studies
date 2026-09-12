@@ -47,6 +47,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctfl-v4-chapter3-static-testing', h1: /静的テスト/ },
   { path: '/istqb-ctfl-v4-chapter4-test-analysis-and-design', h1: /テスト分析・設計/ },
   { path: '/istqb-ctfl-v4-chapter5-test-management', h1: /テスト活動の管理/ },
+  { path: '/istqb-ctfl-v4-chapter6-test-tools', h1: /テストツール/ },
   { path: '/istqb-ctfl-complete-guide', h1: /Certified Tester Foundation Level/ },
   { path: '/software-testing-methodologies-guide', h1: /Test.*Methodologies/s },
   { path: '/unit-testing-guide', h1: /良いコードの証明.*良いテスト/s },
@@ -76,5 +77,5 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/agile-testing-practical-guide', h1: /初学者のための実践ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 61;
+export const EXPECTED_PAGE_COUNT = 62;
 
