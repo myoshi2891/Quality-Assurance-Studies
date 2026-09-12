@@ -826,7 +826,9 @@ describe('OWASP ZAP Complete Guide - Category 1: 導入 (intro, disclaimer, feat
     expect(rows?.[1].textContent).toContain('Python');
     expect(rows?.[2].textContent).toContain('Ruby / Groovy / Kotlin');
 
-    const listItems = section?.querySelectorAll('ul:not(.refs ul) li');
+    const allLists = section?.querySelectorAll('ul');
+    const scriptList = allLists?.[0];
+    const listItems = scriptList?.querySelectorAll('li');
     expect(listItems?.length).toBe(5);
     expect(listItems?.[0].textContent).toContain('Authentication Script');
     expect(listItems?.[1].textContent).toContain('Active/Passive Rule Script');

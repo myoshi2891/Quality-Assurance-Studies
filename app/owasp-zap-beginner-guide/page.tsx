@@ -43,6 +43,23 @@ const DIAGRAM_AUTH = `flowchart TD
     D --> E["⑤ Userを定義"]
     E --> F["認証済み状態でSpider/Active Scan"]`;
 
+const DIAGRAM_AUTOMATION = `flowchart TD
+    Env["envセクション"] --> Spider["spider job"]
+    Spider --> AjaxSpider["spiderAjax job"]
+    AjaxSpider --> PScanWait["passiveScan-wait job"]
+    PScanWait --> AScan["activeScan job"]
+    AScan --> Report["report job"]
+    Report --> ExitStatus["exitStatus job"]`;
+
+const DIAGRAM_CICD = `flowchart LR
+    Commit["コードのpush"] --> CI["CI/CDパイプライン起動"]
+    CI --> Build["ステージングへデプロイ"]
+    Build --> ZAPScan["ZAP Baseline/Full Scan"]
+    ZAPScan --> Report["レポート生成"]
+    Report --> Gate{"FAILあり?"}
+    Gate -->|Yes| Block["パイプライン失敗"]
+    Gate -->|No| Pass["次のステージへ"]`;
+
 
 
 export default function OwaspZapBeginnerGuidePage() {
@@ -1999,6 +2016,638 @@ export default function OwaspZapBeginnerGuidePage() {
                     rel="noopener noreferrer"
                   >
                     ZAP – Report Generation API
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 19. API */}
+          <section id="api">
+            <div className="section-eyebrow">
+              <i className="ti ti-terminal-2"></i>SECTION 19
+            </div>
+            <h2>ZAP API</h2>
+            <p>
+              ZAP のほぼすべての機能は<strong>REST API</strong>
+              経由で操作できます。デスクトップモード・Daemon
+              モードいずれでもデフォルトで有効です。
+            </p>
+
+            <h3>API の基本</h3>
+            <ul>
+              <li>
+                レスポンス形式は
+                <strong>JSON / XML / HTML / OTHER</strong> から選択可能。
+              </li>
+              <li>
+                URL
+                例：<code>http://localhost:8080/JSON/core/view/version/</code>（
+                <code>view</code>
+                = 情報取得、<code>action</code> = 操作実行、<code>other</code> =
+                ファイル転送等）
+              </li>
+              <li>
+                ブラウザから <code>http://zap/</code>（ZAP 経由でプロキシ中）または
+                <code>http://localhost:8080/</code> にアクセスすると、API
+                を試せる簡易 Web UI が使える。
+              </li>
+              <li>
+                悪意あるサイトから ZAP API へアクセスされることを防ぐため、
+                <strong>API キー</strong>
+                の設定が強く推奨されている（隔離環境を除く）。
+              </li>
+            </ul>
+
+            <h3>クライアントライブラリ</h3>
+            <p>
+              Java、Python、Node.js
+              用の公式クライアントライブラリが提供されており、直接 HTTP
+              リクエストを組み立てなくても API を呼び出せます。
+            </p>
+
+            <h3>API 呼び出し例（Python, zaproxy パッケージ）</h3>
+            <div className="code-block">
+              <div className="code-line">from zapv2 import ZAPv2</div>
+              <div className="code-line"></div>
+              <div className="code-line">zap = ZAPv2(apikey=&apos;your-api-key&apos;,</div>
+              <div className="code-line">            proxies={`{`}&apos;http&apos;: &apos;http://localhost:8080&apos;, &apos;https&apos;: &apos;http://localhost:8080&apos;{`}`})</div>
+              <div className="code-line"></div>
+              <div className="code-line">target = &apos;https://your-test-target.example.com&apos;</div>
+              <div className="code-line"></div>
+              <div className="code-line"># Spiderを開始</div>
+              <div className="code-line">scan_id = zap.spider.scan(target)</div>
+              <div className="code-line">while int(zap.spider.status(scan_id)) &lt; 100:</div>
+              <div className="code-line">    print(f&apos;Spider progress: {'{'}zap.spider.status(scan_id){'}'}%&apos;)</div>
+              <div className="code-line"></div>
+              <div className="code-line"># Passive Scanの完了を待つ</div>
+              <div className="code-line">while int(zap.pscan.records_to_scan) &gt; 0:</div>
+              <div className="code-line">    pass</div>
+              <div className="code-line"></div>
+              <div className="code-line"># Active Scanを開始</div>
+              <div className="code-line">ascan_id = zap.ascan.scan(target)</div>
+              <div className="code-line">while int(zap.ascan.status(ascan_id)) &lt; 100:</div>
+              <div className="code-line">    print(f&apos;Active Scan progress: {'{'}zap.ascan.status(ascan_id){'}'}%&apos;)</div>
+              <div className="code-line"></div>
+              <div className="code-line"># 結果を取得</div>
+              <div className="code-line">alerts = zap.core.alerts(baseurl=target)</div>
+              <div className="code-line">print(f&apos;検出されたアラート数: {'{'}len(alerts){'}'}&apos;)</div>
+            </div>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/api/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – API (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/api/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP API Reference
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/options/api/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Options API screen
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/zaproxy/zap-api-docs"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub - zaproxy/zap-api-docs
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 20. Automation framework */}
+          <section id="automation-framework">
+            <div className="section-eyebrow">
+              <i className="ti ti-robot"></i>SECTION 20
+            </div>
+            <h2>Automation Framework（自動化）</h2>
+            <p>
+              <strong>Automation Framework</strong> は、ZAP を 1 つの YAML
+              ファイルで制御できる公式の自動化の仕組みです。特定のコンテナ技術に縛られず柔軟性が高いため、非自明な（＝単純な
+              baseline/full scan では足りない）自動化には Automation Framework
+              の利用が推奨されています。
+            </p>
+
+            <h3>実行の流れ（イメージ）</h3>
+            <div className="mermaid-diagram">
+              <Mermaid chart={DIAGRAM_AUTOMATION} />
+            </div>
+
+            <div className="callout callout-info">
+              <i className="ti ti-info-circle"></i>
+              <p>
+                ジョブは YAML
+                ファイルに記述した<strong>上から下の順</strong>で実行されます。例えば
+                <code>passiveScan-wait</code> は Spider/Import
+                より前に置いても意味がありません。
+              </p>
+            </div>
+
+            <h3>YAML の基本構造の例</h3>
+            <div className="code-block">
+              <div className="code-line">env:</div>
+              <div className="code-line">  contexts:</div>
+              <div className="code-line">    - name: &quot;my-app&quot;</div>
+              <div className="code-line">      urls:</div>
+              <div className="code-line">        - &quot;https://your-test-target.example.com&quot;</div>
+              <div className="code-line">      includePaths:</div>
+              <div className="code-line">        - &quot;https://your-test-target.example.com/.*&quot;</div>
+              <div className="code-line">  parameters:</div>
+              <div className="code-line">    failOnError: true</div>
+              <div className="code-line">    failOnWarning: false</div>
+              <div className="code-line">    progressToStdout: true</div>
+              <div className="code-line"></div>
+              <div className="code-line">jobs:</div>
+              <div className="code-line">  - type: spider</div>
+              <div className="code-line">    parameters:</div>
+              <div className="code-line">      context: &quot;my-app&quot;</div>
+              <div className="code-line">      url: &quot;https://your-test-target.example.com&quot;</div>
+              <div className="code-line">      maxDuration: 5</div>
+              <div className="code-line"></div>
+              <div className="code-line">  - type: passiveScan-wait</div>
+              <div className="code-line">    parameters:</div>
+              <div className="code-line">      maxDuration: 5</div>
+              <div className="code-line"></div>
+              <div className="code-line">  - type: activeScan</div>
+              <div className="code-line">    parameters:</div>
+              <div className="code-line">      context: &quot;my-app&quot;</div>
+              <div className="code-line">      policy: &quot;Default Policy&quot;</div>
+              <div className="code-line"></div>
+              <div className="code-line">  - type: report</div>
+              <div className="code-line">    parameters:</div>
+              <div className="code-line">      template: &quot;modern&quot;</div>
+              <div className="code-line">      reportDir: &quot;/zap/wrk&quot;</div>
+              <div className="code-line">      reportFile: &quot;zap-report&quot;</div>
+              <div className="code-line">      reportTitle: &quot;ZAP Scan Report&quot;</div>
+              <div className="code-line"></div>
+              <div className="code-line">  - type: exitStatus</div>
+              <div className="code-line">    parameters:</div>
+              <div className="code-line">      errorLevel: &quot;High&quot;</div>
+              <div className="code-line">      warnLevel: &quot;Medium&quot;</div>
+            </div>
+
+            <h3>実行方法</h3>
+            <div className="code-block">
+              <div className="code-line"># デスクトップUIを表示せずに自動実行し、完了後に終了</div>
+              <div className="code-line">./zap.sh -cmd -autorun zap.yaml</div>
+            </div>
+
+            <p>
+              主な代表的ジョブには、<code>spider</code>（通常のクロール）、<code>spiderAjax</code>（Ajax
+              Spider）、<code>passiveScan-config</code> /{' '}
+              <code>passiveScan-wait</code>（受動スキャン設定・待機）、
+              <code>activeScan</code> / <code>activeScan-config</code> /{' '}
+              <code>activeScan-policy</code>（能動スキャン関連）、<code>openapi</code>
+              {' '}/ <code>soap</code> / <code>graphql</code>
+              （各仕様のインポート）、<code>requestor</code>（任意のリクエスト送信）、<code>replacer</code>（文字列置換）、<code>delay</code>（待機）、<code>report</code>（レポート生成）、<code>exitStatus</code>（終了コード制御）などがあり、対応するアドオンによってジョブの種類は拡張されます。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/automate/automation-framework/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Automation Framework
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/about/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Automation Framework Add-on - About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/environment/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Automation Framework - Environment
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/gui/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Automation Framework - GUI
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/job-ascan/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Automation Framework - activeScan Job
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/job-spider/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Automation Framework - spider Job
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/job-exitstatus/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Automation Framework - exitStatus Job
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/automation-framework/tests/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Automation Framework - Job Tests
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 21. Docker CI/CD */}
+          <section id="docker-cicd">
+            <div className="section-eyebrow">
+              <i className="ti ti-brand-docker"></i>SECTION 21
+            </div>
+            <h2>Docker と CI/CD 連携</h2>
+            <p>
+              ZAP を CI/CD パイプラインで自動実行するための代表的な方法として、
+              <strong>パッケージスキャン（Docker スクリプト）</strong>
+              と、それをラップする<strong>GitHub Actions</strong>
+              が提供されています。
+            </p>
+
+            <h3>パッケージスキャンの種類</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>スクリプト</th>
+                    <th>内容</th>
+                    <th>攻撃の有無</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><code>zap-baseline.py</code></td>
+                    <td>
+                      デフォルト 1 分間 Spider を実行し、Passive Scan
+                      の結果を待って報告。高速で CI 向き
+                    </td>
+                    <td>なし（受動的のみ）</td>
+                  </tr>
+                  <tr>
+                    <td><code>zap-full-scan.py</code></td>
+                    <td>
+                      Spider（時間制限なし）＋任意で Ajax Spider ＋ Active
+                      Scan を実行
+                    </td>
+                    <td>あり（能動的攻撃を実施）</td>
+                  </tr>
+                  <tr>
+                    <td><code>zap-api-scan.py</code></td>
+                    <td>
+                      OpenAPI/Swagger または GraphQL の定義から API
+                      を能動的にスキャン
+                    </td>
+                    <td>あり</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              いずれのスクリプトも Automation Framework
+              へ移行が進められており、内部的に YAML
+              プランを生成・実行する仕組みに統合されつつあります。
+            </p>
+
+            <h3>終了コードによる結果判定</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>終了コード</th>
+                    <th>意味</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>0</td>
+                    <td>成功（FAIL 該当なし）</td>
+                  </tr>
+                  <tr>
+                    <td>1</td>
+                    <td>少なくとも 1 件の FAIL あり</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>WARN のみで FAIL なし</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>その他の失敗（スキャン自体の実行エラーなど）</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Docker での実行例（Baseline Scan）</h3>
+            <div className="code-block">
+              <div className="code-line">docker run -v $(pwd):/zap/wrk/:rw -t ghcr.io/zaproxy/zaproxy:stable \</div>
+              <div className="code-line">  zap-baseline.py -t https://your-test-target.example.com \</div>
+              <div className="code-line">  -r baseline-report.html</div>
+            </div>
+
+            <h3>GitHub Actions での実行例</h3>
+            <div className="code-block">
+              <div className="code-line">name: ZAP Baseline Scan</div>
+              <div className="code-line">on: [push]</div>
+              <div className="code-line"></div>
+              <div className="code-line">jobs:</div>
+              <div className="code-line">  zap_scan:</div>
+              <div className="code-line">    runs-on: ubuntu-latest</div>
+              <div className="code-line">    name: Scan the web application</div>
+              <div className="code-line">    steps:</div>
+              <div className="code-line">      - name: Checkout</div>
+              <div className="code-line">        uses: actions/checkout@v5</div>
+              <div className="code-line"></div>
+              <div className="code-line">      - name: ZAP Scan</div>
+              <div className="code-line">        uses: zaproxy/action-baseline@v0.15.0</div>
+              <div className="code-line">        with:</div>
+              <div className="code-line">          token: {'${{ secrets.GITHUB_TOKEN }}'}</div>
+              <div className="code-line">          docker_name: &apos;ghcr.io/zaproxy/zaproxy:stable&apos;</div>
+              <div className="code-line">          target: &apos;https://your-test-target.example.com&apos;</div>
+              <div className="code-line">          rules_file_name: &apos;.zap/rules.tsv&apos;</div>
+              <div className="code-line">          cmd_options: &apos;-a&apos;</div>
+            </div>
+
+            <p>
+              <code>zaproxy/action-baseline</code> は Baseline Scan をラップした公式
+              GitHub Action で、検出されたアラートを GitHub の Issue
+              として自動的に作成・更新することもできます。ルールファイル（<code>rules.tsv</code>）を使えば、特定のルール
+              ID を <code>IGNORE</code> に設定して誤検知を除外できます。
+            </p>
+
+            <h3>CI/CD パイプライン全体のイメージ</h3>
+            <div className="mermaid-diagram">
+              <Mermaid chart={DIAGRAM_CICD} />
+            </div>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/docker/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – ZAP Docker Documentation
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/docker/about/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – ZAP Docker User Guide
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/docker/baseline-scan/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Baseline Scan
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/docker/full-scan/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Full Scan
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/zaproxy/action-baseline"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub - zaproxy/action-baseline
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/marketplace/actions/zap-baseline-scan"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub Marketplace - ZAP Baseline Scan
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/zaproxy/zaproxy/blob/main/docker/zap-baseline.py"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub - zaproxy/zaproxy - docker/zap-baseline.py（ソースコード）
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/zaproxy/zaproxy/blob/main/docker/zap-full-scan.py"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub - zaproxy/zaproxy - docker/zap-full-scan.py（ソースコード）
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 22. Scripting */}
+          <section id="scripting">
+            <div className="section-eyebrow">
+              <i className="ti ti-code"></i>SECTION 22
+            </div>
+            <h2>スクリプティングと拡張（Add-ons / Script Console）</h2>
+
+            <h3>Add-on（アドオン）と Marketplace</h3>
+            <p>
+              ZAP のコア機能はあえて最小限に保たれており、多くの追加機能は
+              <strong>Marketplace</strong>
+              から個別にインストールするアドオンとして提供されています。Access Control
+              Testing、GraphQL Support、OpenAPI Support、SOAP
+              Support、WebSockets、Retire.js（脆弱な JS ライブラリ検出）、Postman
+              Support など、目的に応じて数十種類のアドオンが公開されています。
+            </p>
+
+            <h3>Script Console</h3>
+            <p>
+              <strong>Script Console</strong>
+              アドオンを使うと、以下のような複数のスクリプト言語で ZAP
+              の挙動をカスタマイズできます。
+            </p>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>言語</th>
+                    <th>用途例</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>JavaScript（GraalVM JavaScript）</td>
+                    <td>標準で利用可能なスクリプト言語</td>
+                  </tr>
+                  <tr>
+                    <td>Python（Jython 経由）</td>
+                    <td>Python に慣れたエンジニア向け</td>
+                  </tr>
+                  <tr>
+                    <td>Ruby / Groovy / Kotlin</td>
+                    <td>それぞれ追加アドオンとして提供</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              スクリプトは以下のような種類に分類され、それぞれ異なるタイミング・目的で実行されます。
+            </p>
+            <ul>
+              <li>
+                <strong>Authentication Script</strong>：カスタム認証フローの実装
+              </li>
+              <li>
+                <strong>Active/Passive Rule Script</strong>：独自の検査ロジックの追加
+              </li>
+              <li>
+                <strong>HTTP Sender Script</strong>：すべての送受信メッセージに介入
+              </li>
+              <li>
+                <strong>Proxy Script</strong>：プロキシ通過時の挙動をカスタマイズ
+              </li>
+              <li>
+                <strong>Standalone Script</strong>：単体で実行するユーティリティスクリプト
+              </li>
+            </ul>
+            <p>
+              コミュニティが公開しているスクリプト集（Community Scripts
+              アドオン）も利用可能です。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Add-ons 一覧
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/marketplace/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Marketplace (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/script-console/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Script Console Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/scripts/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Scripts (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/community-scripts/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Community Scripts
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/zaproxy/community-scripts"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub - zaproxy/community-scripts
                   </a>
                 </li>
               </ul>
