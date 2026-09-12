@@ -1,6 +1,6 @@
 import React from 'react';
 import { describe, it, expect, mock, beforeAll, beforeEach, afterAll, afterEach } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import Chapter6Page from '../../app/istqb-ctfl-v4-chapter6-test-tools/page';
 
@@ -27,10 +27,18 @@ beforeEach(() => {
     renderedCharts = [];
 });
 
-/** ページを描画し、Mermaid へ渡された全 chart 定義が揃うまで待つ。 */
+/** ページ内の Mermaid 図の総数。全件の描画完了を待つ基準に使う。 */
+const MERMAID_CHART_COUNT = 6;
+
+/**
+ * ページを描画し、Mermaid へ渡された全 chart 定義が揃うまで待つ。
+ * findAllByTestId は 1 件見つかった時点で解決するため、件数で待ち切る。
+ */
 async function renderAndCollectCharts(): Promise<string[]> {
     render(<Chapter6Page />);
-    await screen.findAllByTestId('mock-mermaid');
+    await waitFor(() => {
+        expect(screen.getAllByTestId('mock-mermaid').length).toBe(MERMAID_CHART_COUNT);
+    });
     return renderedCharts;
 }
 

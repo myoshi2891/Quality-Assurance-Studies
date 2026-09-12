@@ -4,6 +4,7 @@ import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import NavBar from '../../app/istqb-ctfl-v4-chapter6-test-tools/NavBar';
 
 let originalIntersectionObserver: typeof window.IntersectionObserver;
+let originalScrollIntoView: PropertyDescriptor | undefined;
 
 beforeAll(() => {
     originalIntersectionObserver = window.IntersectionObserver;
@@ -13,12 +14,19 @@ beforeAll(() => {
         disconnect: () => null,
     }));
     window.IntersectionObserver = mockIntersectionObserver as unknown as typeof IntersectionObserver;
-    // happy-dom は scrollIntoView を実装していないためスタブする
+    // happy-dom は scrollIntoView を実装していないためスタブする（afterAll で必ず復元）
+    originalScrollIntoView = Object.getOwnPropertyDescriptor(Element.prototype, 'scrollIntoView');
     Element.prototype.scrollIntoView = mock(() => undefined) as unknown as typeof Element.prototype.scrollIntoView;
 });
 
 afterAll(() => {
     window.IntersectionObserver = originalIntersectionObserver;
+    // 他テストファイルへスタブが漏れないよう、元の記述子を復元（元々無ければ削除）
+    if (originalScrollIntoView) {
+        Object.defineProperty(Element.prototype, 'scrollIntoView', originalScrollIntoView);
+    } else {
+        delete (Element.prototype as Partial<Element>).scrollIntoView;
+    }
 });
 
 afterEach(() => {
