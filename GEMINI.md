@@ -105,6 +105,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/istqb-ctfl-v4-chapter3-static-testing/page.tsx` (CTFL v4.0 第3章 静的テスト、`NavBar.tsx` 付き)
 - `app/istqb-ctfl-v4-chapter4-test-analysis-and-design/page.tsx` (CTFL v4.0 第4章 テスト分析・設計、`NavBar.tsx` 付き)
 - `app/istqb-ctfl-v4-chapter5-test-management/page.tsx` (CTFL v4.0 第5章 テスト活動の管理、`NavBar.tsx` 付き)
+- `app/istqb-ctfl-v4-chapter6-test-tools/page.tsx` (CTFL v4.0 第6章 テストツール、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tae-complete-guide/page.tsx` (テスト自動化 CTAL-TAE 完全ガイド)
 - `app/istqb-ctal-ta-complete-guide/page.tsx` (テストアナリスト CTAL-TA 完全ガイド、`NavBar.tsx` 付き)
 - `app/istqb-ctal-tm-complete-guide/page.tsx` (テスト管理 CTAL-TM 完全ガイド、`NavBar.tsx` 付き)
@@ -281,10 +282,11 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `How-google-tests-software-guide.html` | `/how-google-tests-software-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Leading-quality-guide.html` | `/leading-quality-guide` | ✅ NavBar あり (archive/html-archive/books/) |
 | `Agile-testing-practical-guide.html` | `/agile-testing-practical-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-test-tools` | ✅ NavBar + aria-current あり (archive/html-archive/ctfl/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 31 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 30 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -294,7 +296,6 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | 書籍ガイド系（HTML + Markdown の 13 ペア = 26 ファイル）: `Art-of-software-testing-guide.*` / `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Explore-it-guide.*` / `Lessons-learned-in-software-testing-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Test-driven-development-by-example-guide.*` / `Testing-computer-software-guide.*` / `Unit-testing-principles-practices-patterns-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（3 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` / `Owasp-zap-beginner-guide.html` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
 
 ## 既知の留保事項
 
@@ -307,8 +308,8 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 61 ルート（ガイドライブラリ index + 60 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 31 ファイル（書籍ガイド系の HTML/Markdown 13 ペア、Appium/OWASP ZAP などのツール系 3 ファイル、`Sonarqube.html`、`Istqb-ctfl-v4-chapter6.html`）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 62 ルート（ガイドライブラリ index + 61 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 30 ファイル（書籍ガイド系の HTML/Markdown 13 ペア、Appium/OWASP ZAP などのツール系 3 ファイル、`Sonarqube.html`）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】

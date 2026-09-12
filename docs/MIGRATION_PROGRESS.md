@@ -1,22 +1,41 @@
 # Migration Progress
 
-Updated 2026-09-11
+Updated 2026-09-12
 
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 61 ルート = ガイドライブラリ index + 60 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 62 ルート = ガイドライブラリ index + 61 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 31 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 30 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `ce56ed1` |
-| 最新コミット内容 | docs(quality-is-free): Quality is FreeガイドのHTML版を追加およびMarkdownの表現を微修正 |
+| 最新 HEAD | `6b89876` |
+| 最新コミット内容 | feat(ctfl-ch6): implement sections 5-8 practical workflow, summary, quiz, and references |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+
+## 2026/09/12: ISTQB CTFL v4.0 第6章（テストツール）完全ガイドのNext.js完全移行
+
+- **デザイン忠実再現 & ダークサイバーテーマ**:
+  - 原著HTML固有のダークテーマ（背景 `--bg-primary: #0a0e17`、カード `--bg-card: #121824`、ネオンシアン `--accent-cyan: #00f0ff`、ネオンパープル `--accent-purple: #a855f7`、グリーン `--accent-green: #10b981`）を忠実に復元。
+  - `globals.css` 干渉リセット（テーブル文字色 `var(--text-primary) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、番号付きリスト `.ordered-list`、Mermaid 枠線・エッジラベル高コントラスト）を完全実装。
+- **Mermaid図解の完全移植**:
+  - 全6図解（ツール分類マインドマップ `diag-0`、ツール選定クアドラント `diag-1`、ROIタイムライン `diag-2`、データ駆動/キーワード駆動 `diag-3`、パイロットプロジェクト手順 `diag-4`、意思決定フロー `diag-5`）を共通 `<Mermaid>` コンポーネントへ移植。
+- **コードブロック & 改行保持**:
+  - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れ（スペース化）を完全に防止（YAML、CSV データ）。
+- **テーブル & インタラクティブ演習問題 & 外部リンク**:
+  - E2Eツール比較表（Playwright vs Selenium vs Cypress）、利点表、リスク表、まとめ表の全4テーブルを完全移植。
+  - 3問の演習問題カード（`<details className="quiz-card">`）および正解・解説トグルを完全移植。
+  - 全15件以上の参考文献・公式ドキュメント外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
+- `app/istqb-ctfl-v4-chapter6-test-tools/`: ページコンポーネント、専用スタイル（`.istqb-ctfl-v4-ch6-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全9セクションリンク、モバイルトグル対応、`aria-current`）を実装。
+- `lib/navigation.ts`: `istqb-foundation` カテゴリに `/istqb-ctfl-v4-chapter6-test-tools` を追加（全62件）。
+- `tests/istqb-ctfl-v4-chapter6-test-tools/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全リンク、全9セクション、全6Mermaid図、全4テーブル、全コールアウト、全コードブロック、演習問題、全外部リンク（15件以上）の存在を検証する厳格なテストスイートを実装して全パス（17 pass）。
+- `Istqb-ctfl-v4-chapter6.html`: `archive/html-archive/ctfl/` へ移動完了。
+- 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 62 ページ体制に同期。
 
 ## 2026/09/09: Agile Testing 実践ガイドのNext.js完全移行
 
@@ -674,10 +693,11 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | `How-google-tests-software-guide.html` | `/how-google-tests-software-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Leading-quality-guide.html` | `/leading-quality-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Agile-testing-practical-guide.html` | `/agile-testing-practical-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-test-tools` | ✅ NavBar + aria-current あり (archive/html-archive/ctfl/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 31 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 30 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -687,7 +707,6 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | 書籍ガイド系（HTML + Markdown の 13 ペア = 26 ファイル）: `Art-of-software-testing-guide.*` / `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Explore-it-guide.*` / `Lessons-learned-in-software-testing-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Test-driven-development-by-example-guide.*` / `Testing-computer-software-guide.*` / `Unit-testing-principles-practices-patterns-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（3 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` / `Owasp-zap-beginner-guide.html` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-*`（仮） | ⏸ ルート登録対象外 | CTFL v4.0 の章ガイドで唯一未登録。ルート化の可否は未決定 |
 
 ## 既知の留保事項
 
@@ -700,8 +719,8 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 61 ルート（ガイドライブラリ index + 60 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 31 ファイル（書籍ガイド系の HTML/Markdown 13 ペア、Appium/OWASP ZAP などのツール系 3 ファイル、`Sonarqube.html`、`Istqb-ctfl-v4-chapter6.html`）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 62 ルート（ガイドライブラリ index + 61 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 30 ファイル（書籍ガイド系の HTML/Markdown 13 ペア、Appium/OWASP ZAP などのツール系 3 ファイル、`Sonarqube.html`）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
