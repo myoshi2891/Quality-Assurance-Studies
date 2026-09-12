@@ -51,4 +51,80 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(sec1?.textContent).toContain('特別な考慮事項を記憶している');
         });
     });
+
+    describe('Category 3: Section 2: 6.1 テストツールによる支援 (Tool Support for Testing)', () => {
+        it('renders Section 2 with all subsections (2.1 to 2.5)', () => {
+            render(<Chapter6Page />);
+            const sec2 = document.getElementById('s61');
+            expect(sec2).not.toBeNull();
+            expect(sec2?.textContent).toContain('2. 6.1 テストツールによる支援');
+
+            expect(document.getElementById('s61-1')).not.toBeNull();
+            expect(document.getElementById('s61-1')?.textContent).toContain('2.1 テストツールとは何か');
+            expect(document.getElementById('s61-1')?.textContent).toContain('スプレッドシートでさえも');
+
+            expect(document.getElementById('s61-2')).not.toBeNull();
+            expect(document.getElementById('s61-2')?.textContent).toContain('2.2 v4.0 シラバスにおけるツール分類（9カテゴリ）');
+
+            expect(document.getElementById('s61-3')).not.toBeNull();
+            expect(document.getElementById('s61-3')?.textContent).toContain('2.3 テストプロセスとツール分類の関係図');
+
+            expect(document.getElementById('s61-4')).not.toBeNull();
+            expect(document.getElementById('s61-4')?.textContent).toContain('2.4 各カテゴリの詳細と現在（2026年）の代表的ツール例');
+
+            expect(document.getElementById('s61-5')).not.toBeNull();
+            expect(document.getElementById('s61-5')?.textContent).toContain('2.5 侵入的ツールと「プローブ効果」');
+            expect(document.getElementById('s61-5')?.textContent).toContain('プローブ効果（probe effect）');
+        });
+
+        it('renders all 9 category cards in section 2.2', () => {
+            render(<Chapter6Page />);
+            const cards = document.querySelectorAll('.cat-card');
+            expect(cards.length).toBe(9);
+            const cardTitles = Array.from(cards).map((c) => c.querySelector('h4')?.textContent);
+            expect(cardTitles).toEqual([
+                '汎用ツール',
+                'テスト管理ツール',
+                '静的テストツール',
+                'テスト設計・実装ツール',
+                'テスト実行・カバレッジツール',
+                '非機能テストツール',
+                'DevOpsツール',
+                'コラボレーションツール',
+                'スケーラビリティ・デプロイ標準化支援ツール',
+            ]);
+        });
+
+        it('renders the GitHub Actions CI code block with .code-line wrappers in section 2.4', () => {
+            render(<Chapter6Page />);
+            const codeBlock = document.querySelector('#s61-4 .code-block');
+            expect(codeBlock).not.toBeNull();
+            expect(codeBlock?.textContent).toContain('name: static-analysis');
+            expect(codeBlock?.textContent).toContain('on: [pull_request]');
+            expect(codeBlock?.textContent).toContain('SonarSource/sonarqube-scan-action@v3');
+            const lines = codeBlock?.querySelectorAll('.code-line');
+            expect(lines && lines.length).toBeGreaterThan(5);
+        });
+
+        it('renders the E2E tools comparison table (Playwright vs Selenium vs Cypress) in section 2.4', () => {
+            render(<Chapter6Page />);
+            const table = document.querySelector('#s61-4 table');
+            expect(table).not.toBeNull();
+            expect(table?.textContent).toContain('Playwright');
+            expect(table?.textContent).toContain('Selenium');
+            expect(table?.textContent).toContain('Cypress');
+            expect(table?.textContent).toContain('Microsoft');
+            expect(table?.textContent).toContain('オープンソースコミュニティ');
+        });
+
+        it('renders Mermaid diagrams diag-0 and diag-1 in section 2', () => {
+            render(<Chapter6Page />);
+            const mermaids = screen.getAllByTestId('mermaid');
+            const charts = mermaids.map((m) => m.textContent || '');
+            const hasDiag0 = charts.some((c) => c.includes('基本テストプロセス') && c.includes('テスト管理ツール'));
+            const hasDiag1 = charts.some((c) => c.includes('quadrantChart') && c.includes('Playwright'));
+            expect(hasDiag0).toBe(true);
+            expect(hasDiag1).toBe(true);
+        });
+    });
 });
