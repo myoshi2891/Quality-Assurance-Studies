@@ -120,7 +120,7 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(document.activeElement).toBe(toggle ?? null);
   });
 
-  it('closes the TOC when a TOC link is activated', () => {
+  it('closes the TOC when a TOC link is activated and returns focus to the toggle', () => {
     const { container } = render(<NavBar />);
     const toggle = container.querySelector<HTMLButtonElement>('nav.toc .toc-toggle');
 
@@ -130,6 +130,8 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     const firstLink = container.querySelector<HTMLAnchorElement>('nav.toc ol li a');
     fireEvent.click(firstLink as HTMLAnchorElement);
     expect(toggle?.getAttribute('aria-expanded')).toBe('false');
+    // 閉じたあとフォーカスが body へ飛ばず、可視のトグルへ戻ること
+    expect(document.activeElement).toBe(toggle ?? null);
   });
 
   it('renders navigation bar with brand and all 16 TOC anchors', () => {

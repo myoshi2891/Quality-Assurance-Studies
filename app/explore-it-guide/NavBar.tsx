@@ -39,9 +39,14 @@ export default function NavBar() {
     setIsOpen((prev) => !prev);
   }, []);
 
+  // 閉じる前にトグルへフォーカスを戻す。
+  // 閉じた瞬間に目次が display:none となり、フォーカスが body へ飛ぶのを防ぐ
   const closeToc = useCallback(() => {
+    if (isOpen) {
+      toggleRef.current?.focus({ preventScroll: true });
+    }
     setIsOpen(false);
-  }, []);
+  }, [isOpen]);
 
   // 開いた直後は先頭リンクへフォーカスを移し、キーボード操作を目次内で継続できるようにする
   useEffect(() => {
