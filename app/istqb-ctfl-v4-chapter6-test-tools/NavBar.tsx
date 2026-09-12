@@ -41,7 +41,7 @@ const NAV_GROUPS: NavGroup[] = [
         ],
     },
     {
-        label: 'FL-6.2.2 特別な考慮事項',
+        label: '実務補足: ツール種別ごとの考慮事項',
         items: [
             { id: 's623-1', label: '4.1 テスト実行ツール', isSub: true },
             { id: 's623-2', label: '4.2 静的解析ツール', isSub: true },

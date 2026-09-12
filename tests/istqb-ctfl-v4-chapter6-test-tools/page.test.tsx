@@ -68,8 +68,7 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(sec0?.textContent).toContain('学習時間目安');
             expect(sec0?.textContent).toContain('出題数目安');
             expect(sec0?.textContent).toContain('2問（5%）');
-            expect(sec0?.textContent).toContain('data-driven testing');
-            expect(sec0?.textContent).toContain('keyword-driven testing');
+            expect(sec0?.textContent).toContain('test automation（テスト自動化）');
 
             // Callout in section 0
             expect(sec0?.textContent).toContain('v4.0 では基礎知識のみに絞られ');
@@ -82,10 +81,10 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(sec1?.textContent).toContain('1. 学習目標（Learning Objectives）');
             expect(sec1?.textContent).toContain('FL-6.1.1');
             expect(sec1?.textContent).toContain('FL-6.2.1');
-            expect(sec1?.textContent).toContain('FL-6.2.2');
-            expect(sec1?.textContent).toContain('さまざまな種類のテストツールを分類できる');
-            expect(sec1?.textContent).toContain('潜在的な利点とリスクを要約できる');
-            expect(sec1?.textContent).toContain('特別な考慮事項を記憶している');
+            // v4.0.1 の Chapter 6 は LO が 2 件のみ。FL-6.2.2 は v3.1 以前の残骸なので存在してはならない
+            expect(sec1?.textContent).not.toContain('FL-6.2.2');
+            expect(sec1?.textContent).toContain('さまざまな種類のテストツールがテストをどのように支援するかを説明できる');
+            expect(sec1?.textContent).toContain('テスト自動化の利点とリスクを想起できる');
         });
     });
 
@@ -163,7 +162,7 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
         });
     });
 
-    describe('Category 4: Sections 3 & 4: 6.2 利点とリスク & FL-6.2.2 特別な考慮事項', () => {
+    describe('Category 4: Sections 3 & 4: 6.2 利点とリスク & 実務補足（ツール種別ごとの考慮事項）', () => {
         it('renders Section 3 with all subsections (3.1 to 3.4)', () => {
             render(<Chapter6Page />);
             const sec3 = document.getElementById('s62');
@@ -204,11 +203,14 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(riskTable?.textContent).toContain('ベンダー・プロジェクトリスク');
         });
 
-        it('renders Section 4 (FL-6.2.2 特定ツール種別に関する特別な考慮事項) with subsections (4.1 to 4.3)', () => {
+        it('renders Section 4 (シラバス範囲外の実務補足) with subsections (4.1 to 4.3)', () => {
             render(<Chapter6Page />);
             const sec4 = document.getElementById('s623');
             expect(sec4).not.toBeNull();
-            expect(sec4?.textContent).toContain('4. FL-6.2.2: 特定ツール種別に関する特別な考慮事項');
+            expect(sec4?.textContent).toContain('4. シラバス範囲外の実務補足: 特定ツール種別に関する考慮事項');
+            // 試験範囲外であること、および公式キーワードが test automation のみであることを明示する
+            expect(sec4?.textContent).toContain('examinable content');
+            expect(sec4?.textContent).toContain('test automation（テスト自動化）');
 
             expect(document.getElementById('s623-1')).not.toBeNull();
             expect(document.getElementById('s623-1')?.textContent).toContain('4.1 テスト実行ツール: スクリプティング手法の進化');
@@ -282,7 +284,7 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
 
             // Q1
             expect(sec7?.textContent).toContain('Q1 K1');
-            expect(sec7?.textContent).toContain('data-driven testing');
+            expect(sec7?.textContent).toContain('B. test automation（Chapter 6 の公式キーワードはこの 1 語のみ。');
 
             // Q2
             expect(sec7?.textContent).toContain('Q2 K2');

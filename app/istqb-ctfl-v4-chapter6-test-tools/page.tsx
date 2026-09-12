@@ -165,9 +165,7 @@ export default function Chapter6Page() {
                                     <tr>
                                         <td className="hl">キーワード</td>
                                         <td>
-                                            data-driven testing（データ駆動テスト）, keyword-driven
-                                            testing（キーワード駆動テスト）, scripting
-                                            language（スクリプト言語）
+                                            test automation（テスト自動化）
                                         </td>
                                     </tr>
                                 </tbody>
@@ -251,25 +249,16 @@ export default function Chapter6Page() {
                                             <span className="badge k2">K2</span>
                                         </td>
                                         <td>
-                                            テストプロセスの活動やソフトウェアライフサイクルに応じて、さまざまな種類のテストツールを分類できる
+                                            さまざまな種類のテストツールがテストをどのように支援するかを説明できる
                                         </td>
                                     </tr>
                                     <tr>
                                         <td className="hl">FL-6.2.1</td>
                                         <td>
-                                            <span className="badge k2">K2</span>
-                                        </td>
-                                        <td>
-                                            テスト自動化とツールサポートの潜在的な利点とリスクを要約できる
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td className="hl">FL-6.2.2</td>
-                                        <td>
                                             <span className="badge k1">K1</span>
                                         </td>
                                         <td>
-                                            テスト実行ツール、静的解析ツール、テスト管理ツールに関する特別な考慮事項を記憶している
+                                            テスト自動化の利点とリスクを想起できる
                                         </td>
                                     </tr>
                                 </tbody>
@@ -883,18 +872,24 @@ export default function Chapter6Page() {
                         </div>
                     </section>
 
-                    {/* 4. FL-6.2.2 */}
+                    {/* 4. 実務補足: ツール種別ごとの考慮事項（試験範囲外） */}
                     <section id="s623">
                         <h2>
-                            <span>⚙️</span>4. FL-6.2.2: 特定ツール種別に関する特別な考慮事項
+                            <span>⚙️</span>4. シラバス範囲外の実務補足: 特定ツール種別に関する考慮事項
                         </h2>
-                        <p>
-                            v4.0 のキーワードである
-                            <strong>data-driven testing（データ駆動テスト）</strong>、
-                            <strong>keyword-driven testing（キーワード駆動テスト）</strong>、
-                            <strong>scripting language（スクリプト言語）</strong>
-                            は、主にテスト実行ツールの文脈で登場します。
-                        </p>
+                        <div className="callout warning">
+                            <span className="callout-icon">⚠️</span>
+                            <p>
+                                <strong>注意:</strong> 以下は v4.0.1 シラバスの examinable content
+                                には含まれません。Chapter 6 の公式キーワードは
+                                <strong>test automation（テスト自動化）</strong>
+                                のみで、
+                                <strong>data-driven testing（データ駆動テスト）</strong>、
+                                <strong>keyword-driven testing（キーワード駆動テスト）</strong>、
+                                <strong>scripting language（スクリプト言語）</strong>
+                                は v3.1 以前のキーワードであり v4.0 で削除されています。試験対策としては不要ですが、実務でテスト実行ツールを扱う際の基礎概念として紹介します。
+                            </p>
+                        </div>
 
                         <div id="s623-1">
                             <h3>4.1 テスト実行ツール: スクリプティング手法の進化</h3>
@@ -1163,16 +1158,16 @@ export default function Chapter6Page() {
 
                         <div className="quiz-card">
                             <div className="quiz-q">
-                                <span className="badge k1">Q1 K1</span> &nbsp;次のうち、v4.0
-                                シラバスのキーワードとして明記されているものはどれか。
+                                <span className="badge k1">Q1 K1</span> &nbsp;次のうち、v4.0.1
+                                シラバスの Chapter 6 のキーワードとして明記されているものはどれか。
                             </div>
                             <div className="quiz-options">
-                                A. probe effect　B. data-driven testing　C. pilot project　D. test comparator
+                                A. probe effect　B. test automation　C. pilot project　D. data-driven testing
                             </div>
                             <details>
                                 <summary>解答を見る</summary>
-                                B. data-driven testing（キーワード駆動テストと共に v4.0
-                                のキーワードとして明記されている）
+                                B. test automation（Chapter 6 の公式キーワードはこの 1 語のみ。他の 3
+                                つは v3.1 以前のキーワードで v4.0 では削除されている）
                             </details>
                         </div>
 
