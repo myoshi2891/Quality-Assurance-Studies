@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/explore-it-guide/page';
@@ -144,7 +144,7 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(rows?.[2]?.textContent).toContain('Putting It in Context');
   });
 
-  it('renders Section 02: Why Exploratory Testing (#why) with h2, h3, quote, and Mermaid figure 02-A', () => {
+  it('renders Section 02: Why Exploratory Testing (#why) with h2, h3, quote, and Mermaid figure 02-A', async () => {
     const { container } = render(<Page />);
     const sec = container.querySelector('section#why');
     expect(sec).not.toBeNull();
@@ -169,7 +169,9 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
 
     const figure = sec?.querySelector('.figure');
     expect(figure?.querySelector('.cap')?.textContent).toContain('FIGURE 02-A ｜ チェックと探索の違い');
-    expect(figure?.querySelector('.mermaid-wrapper, .mermaid-target')).not.toBeNull();
+    await waitFor(() => {
+      expect(figure?.querySelector('svg[data-testid="mock-mermaid"]')).not.toBeNull();
+    });
   });
 
   it('renders Section 03: Core Elements (#elements) with sec-tag, h2, and elements table', () => {
@@ -195,7 +197,7 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(rows?.[4]?.textContent).toContain('バリエーションの発見');
   });
 
-  it('renders Section 04: Roadmap (#roadmap) with sec-tag, h2, Mermaid figure 04-A, and stepgrid', () => {
+  it('renders Section 04: Roadmap (#roadmap) with sec-tag, h2, Mermaid figure 04-A, and stepgrid', async () => {
     const { container } = render(<Page />);
     const sec = container.querySelector('section#roadmap');
     expect(sec).not.toBeNull();
@@ -209,7 +211,9 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
 
     const figure = sec?.querySelector('.figure');
     expect(figure?.querySelector('.cap')?.textContent).toContain('FIGURE 04-A ｜ 探索的テストの実践ループ');
-    expect(figure?.querySelector('.mermaid-wrapper, .mermaid-target')).not.toBeNull();
+    await waitFor(() => {
+      expect(figure?.querySelector('svg[data-testid="mock-mermaid"]')).not.toBeNull();
+    });
 
     const stepgrid = sec?.querySelector('.stepgrid');
     expect(stepgrid).not.toBeNull();
@@ -221,7 +225,7 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(steps?.[7]?.textContent).toContain('デブリーフィング');
   });
 
-  it('renders Section 05: Step 1 Charter (#step1) with template, table, list, figure, and note', () => {
+  it('renders Section 05: Step 1 Charter (#step1) with template, table, list, figure, and note', async () => {
     const { container } = render(<Page />);
     const sec = container.querySelector('section#step1');
     expect(sec).not.toBeNull();
@@ -249,14 +253,16 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
 
     const figure = sec?.querySelector('.figure');
     expect(figure?.querySelector('.cap')?.textContent).toContain('FIGURE S1-A ｜ チャーター作成の流れ');
-    expect(figure?.querySelector('.mermaid-wrapper, .mermaid-target')).not.toBeNull();
+    await waitFor(() => {
+      expect(figure?.querySelector('svg[data-testid="mock-mermaid"]')).not.toBeNull();
+    });
 
     const note = sec?.querySelector('.note');
     expect(note?.textContent).toContain('補足｜');
     expect(note?.textContent).toContain('悪夢の見出しゲーム');
   });
 
-  it('renders Section 06: Step 2 Session (#step2) with SBTM figure and durations table', () => {
+  it('renders Section 06: Step 2 Session (#step2) with SBTM figure and durations table', async () => {
     const { container } = render(<Page />);
     const sec = container.querySelector('section#step2');
     expect(sec).not.toBeNull();
@@ -273,7 +279,9 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
 
     const figure = sec?.querySelector('.figure');
     expect(figure?.querySelector('.cap')?.textContent).toContain('FIGURE S2-A ｜ SBTMの基本サイクル');
-    expect(figure?.querySelector('.mermaid-wrapper, .mermaid-target')).not.toBeNull();
+    await waitFor(() => {
+      expect(figure?.querySelector('svg[data-testid="mock-mermaid"]')).not.toBeNull();
+    });
 
     const table = sec?.querySelector('table');
     expect(table).not.toBeNull();
@@ -284,7 +292,7 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(rows?.[2]?.textContent).toContain('ロング');
   });
 
-  it('renders Section 07: Step 3 Observe Details (#step3) with list and Mermaid figure', () => {
+  it('renders Section 07: Step 3 Observe Details (#step3) with list and Mermaid figure', async () => {
     const { container } = render(<Page />);
     const sec = container.querySelector('section#step3');
     expect(sec).not.toBeNull();
@@ -304,7 +312,9 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
 
     const figure = sec?.querySelector('.figure');
     expect(figure?.querySelector('.cap')?.textContent).toContain('FIGURE S3-A ｜ 観察範囲を広げるチェックポイント');
-    expect(figure?.querySelector('.mermaid-wrapper, .mermaid-target')).not.toBeNull();
+    await waitFor(() => {
+      expect(figure?.querySelector('svg[data-testid="mock-mermaid"]')).not.toBeNull();
+    });
   });
 
   it('renders Section 08: Step 4 Find Variations (#step4) with variables table and inquiry list', () => {
