@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `63dba28` |
-| 最新コミット内容 | fix(lessons-learned): restore 1px sidebar border and enforce paper theme on mermaid diagrams |
+| 最新 HEAD | `782e594` |
+| 最新コミット内容 | fix(lessons-learned): remove bullet points from checklist and references list items |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 

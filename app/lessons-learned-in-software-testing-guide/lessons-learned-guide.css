@@ -268,12 +268,12 @@
 }
 
 /* ---------- リストマーカー復元 ---------- */
-.lessons-learned-layout .prose ul {
+.lessons-learned-layout .prose ul:not(.checklist):not(.ref-list) {
   list-style-type: disc !important;
   padding-left: 1.4rem !important;
 }
 
-.lessons-learned-layout .prose ol {
+.lessons-learned-layout .prose ol:not(.step-list) {
   list-style-type: decimal !important;
   padding-left: 1.4rem !important;
 }
@@ -609,8 +609,10 @@
   font-size: 1.05rem;
 }
 
+.lessons-learned-layout ul.checklist,
 .lessons-learned-layout .checklist {
   list-style: none !important;
+  list-style-type: none !important;
   padding: 0 !important;
   margin: 0 0 1.5rem;
   display: flex;
@@ -619,6 +621,8 @@
 }
 
 .lessons-learned-layout .checklist li {
+  list-style: none !important;
+  list-style-type: none !important;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 11px;
@@ -685,8 +689,10 @@
   gap: 0.5rem;
 }
 
+.lessons-learned-layout ul.ref-list,
 .lessons-learned-layout .ref-list {
   list-style: none !important;
+  list-style-type: none !important;
   padding: 0 !important;
   margin: 0;
   display: flex;
@@ -694,7 +700,10 @@
   gap: 0.9rem;
 }
 
+.lessons-learned-layout .ref-list li,
 .lessons-learned-layout .ref-item {
+  list-style: none !important;
+  list-style-type: none !important;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 12px;
