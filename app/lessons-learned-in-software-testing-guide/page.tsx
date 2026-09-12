@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Mermaid from '../../components/Mermaid';
 import NavBar from './NavBar';
+import SummaryChecklist from './SummaryChecklist';
 import './lessons-learned-guide.css';
 
 export const metadata: Metadata = {
@@ -69,6 +70,17 @@ S6 --> S7["7 計画を共有する"]
 S7 -.->|"新しい情報をもとに再び見直す"| S1
 classDef hub fill:#e9c874,stroke:#8a6708,stroke-width:2px,color:#241a00
 class S5 hub`;
+
+const DIAGRAM_AI = `flowchart LR
+Plan["計画"] --> Dev["開発"]
+Dev --> CI["CI CDでのテスト自動化"]
+CI --> Prod["本番運用"]
+Tester["テスターの探索的思考と判断"] -.->|"リスクを見極める"| Plan
+Tester -.->|"バグアドボカシー"| Dev
+AI["AI支援のテスト生成と保守"] -.->|"効率化を提供"| CI
+Tester -.->|"シグナルを検証しノイズを除く"| CI
+classDef done fill:#cfe3d6,stroke:#3f6b4a,stroke-width:2px,color:#123319
+class Prod done`;
 
 export default function LessonsLearnedPage() {
   return (
@@ -816,8 +828,393 @@ export default function LessonsLearnedPage() {
               これらの原則は、後年「アジャイルテスト」や「探索的テストの体系化」といった潮流の理論的な土台としても引用され続けています。
             </p>
           </section>
+
+          {/* 15. Modern */}
+          <section id="modern">
+            <h2>
+              <i className="ti ti-sparkles"></i>15. 現代における実践 ー
+              AI時代のテスト(2026年時点の視点)
+            </h2>
+            <p>
+              &quot;Lessons Learned in Software Testing&quot;
+              が刊行されたのは2001年ですが、その中核にある
+              「コンテキストに応じて判断する」という思想は、生成AIやエージェント型AIがテスト工程に組み込まれ始めた
+              2026年の現在においても、色あせるどころかむしろ重要性を増しています。国際的に著名なテスト専門家たちの
+              直近の発信を見てみましょう。
+            </p>
+
+            <h3>Rapid Software Testing ー 本書の思想の直系の後継</h3>
+            <p>
+              本書の共著者である James Bach と、長年のパートナーである Michael Bolton
+              は、2006年から 「ラピッドソフトウェアテスティング (Rapid Software
+              Testing, RST)」という方法論・マインドセットを
+              共同開発してきました。そして2025年11月には、両者の共著による解説書
+              &quot;Taking Testing Seriously: The Rapid Software Testing Approach&quot;
+              が刊行されています。 この新著は RST
+              の体系を初めて本格的にまとめた決定版とされ、不確実性や時間的制約の中でも本質的な問題を
+              見つけ出すための考え方を扱っており、&quot;Lessons Learned in Software
+              Testing&quot; からの直接的な発展形といえる内容です。
+            </p>
+
+            <h3>エージェント型AIとテスターの役割の変化</h3>
+            <p>
+              決済プラットフォーム企業でデベロッパーリレーションズを率いる著名なテスト自動化専門家
+              Angie Jones は、
+              2025年のインタビューで、従来のチャット形式の生成AIと、自律的にタスクを実行する「エージェント型AI」の
+              違いについて解説しています。チャット型AIは提案止まりで、実装は人間が手作業で行う必要があるのに対し、
+              エージェント型AIはより自律的にタスクを遂行できる点が異なるとされています。この変化は、本書が説く
+              「テスターは判断材料を集める役割であり、最終判断は人が下す」という原則を、AI時代にどう適用するかという
+              新しい問いを投げかけています。
+            </p>
+
+            <div className="callout source">
+              <div className="callout-title">
+                <i className="ti ti-quote"></i>「シグナル対ノイズ」という新しい課題
+              </div>
+              <p>
+                テスト自動化プラットフォームを提供する Applitools
+                は、2026年の分析記事の中で、AIの活用が進むほど
+                テストから得られる情報の量は増える一方、その質(シグナル)と単なる雑音(ノイズ)の見極めが最大の
+                ボトルネックになっていると指摘しています。信頼性・説明可能性・再現性のある結果を重視する組織ほど、
+                2026年のテスト戦略として優位に立つとされており、これは本書が繰り返し説く「バグレポートの説得力」
+                「オラクル(合否判定基準)の妥当性」といった原則と本質的に同じ課題であるといえます。
+              </p>
+            </div>
+
+            <div className="callout note">
+              <div className="callout-title">
+                <i className="ti ti-info-circle"></i>コミュニティでの継続的な議論
+              </div>
+              <p>
+                国際的なテスターコミュニティ Ministry of Testing
+                のフォーラムでも、2025年末から2026年にかけて
+                「AIエージェントの普及によってQAの役割はどう変わるのか」という議論のスレッドが立てられています。
+                そのスレッドでは、AIがテストケース生成やテストデータ作成、回帰テストの高速化を担う一方で、QAの役割は
+                「リスクベースの戦略立案」や「継続的品質(シフトレフトとシフトライトの両方)」、そしてAI機能を含む
+                プロダクトに対する「ガバナンスとセキュリティ」により重点を移していくという見方が、一部の参加者から
+                示されています。ただしこれはスレッド1件と少数の返信の範囲で確認できた見解であり、コミュニティ全体の
+                合意を示すものではない点に留意してください。
+              </p>
+            </div>
+
+            <figure className="diagram">
+              <div className="mermaid-wrapper" id="diag-ai">
+                <Mermaid chart={DIAGRAM_AI} />
+              </div>
+              <figcaption>
+                図5: 開発ライフサイクルにおけるテスターの判断とAIの役割分担
+              </figcaption>
+            </figure>
+
+            <p>
+              このように、AIはテスト業務の「効率化の担い手」として存在感を増していますが、「何をテストすべきか」
+              「その結果を信頼してよいか」を判断する部分は、依然として人間のテスターの技能と判断に委ねられています。
+              これはまさに、本書がコンテキスト駆動アプローチとして20年以上前から主張してきた立場と一致しています。
+            </p>
+          </section>
+
+          {/* 16. Summary */}
+          <section id="summary">
+            <h2>
+              <i className="ti ti-list-check"></i>16. まとめ ー
+              明日から使えるチェックリスト
+            </h2>
+            <SummaryChecklist />
+          </section>
+
+          {/* 17. References */}
+          <section id="references">
+            <h2>
+              <i className="ti ti-link"></i>17. 参考文献・出典
+            </h2>
+            <p>
+              本ガイドの作成にあたり、2026年8月31日時点で参照した情報源は以下の通りです。
+            </p>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-book-2"></i>原著と公式情報
+              </h3>
+              <ul className="ref-list">
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://www.oreilly.com/library/view/lessons-learned-in/9780471081128/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Lessons Learned in Software Testing: A Context-Driven Approach
+                    </a>
+                  </div>
+                  <div className="ref-desc">
+                    O&apos;Reilly / Wiley
+                    書籍ページ。目次全体(全11章293レッスンの見出し)を含む
+                  </div>
+                  <span className="ref-url">
+                    https://www.oreilly.com/library/view/lessons-learned-in/9780471081128/
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://www.wiley.com/en-us/Lessons+Learned+in+Software+Testing:+A+Context-Driven+Approach-p-9780471081128"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Lessons Learned in Software Testing
+                    </a>
+                  </div>
+                  <div className="ref-desc">Wiley 公式出版社ページ</div>
+                  <span className="ref-url">
+                    https://www.wiley.com/en-us/Lessons+Learned+in+Software+Testing:+A+Context-Driven+Approach-p-9780471081128
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://www.goodreads.com/book/show/26258294"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Lessons Learned in Software Testing (Goodreads)
+                    </a>
+                  </div>
+                  <div className="ref-desc">レビュー・概要ページ</div>
+                  <span className="ref-url">
+                    https://www.goodreads.com/book/show/26258294
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://context-driven-testing.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Context-Driven Testing 公式サイト
+                    </a>
+                  </div>
+                  <div className="ref-desc">コンテキスト駆動学派の7原則の出典</div>
+                  <span className="ref-url">https://context-driven-testing.com/</span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-users-group"></i>James Bach / Michael Bolton / Cem Kaner
+              </h3>
+              <ul className="ref-list">
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://www.satisfice.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Satisfice, Inc. ー James Bach 公式サイト
+                    </a>
+                  </div>
+                  <span className="ref-url">https://www.satisfice.com/</span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://www.thoughtworks.com/insights/blog/disruptive-testing-part-1-james-bach"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Disruptive Testing: Part 1 ー James Bach インタビュー
+                    </a>
+                  </div>
+                  <div className="ref-desc">Thoughtworks Insights</div>
+                  <span className="ref-url">
+                    https://www.thoughtworks.com/insights/blog/disruptive-testing-part-1-james-bach
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://developsense.com/about-michael-bolton"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      About Michael Bolton ー DevelopSense
+                    </a>
+                  </div>
+                  <div className="ref-desc">
+                    &quot;Taking Testing Seriously&quot; (2025年11月刊) の紹介を含む
+                  </div>
+                  <span className="ref-url">
+                    https://developsense.com/about-michael-bolton
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://www.amazon.com/Taking-Testing-Seriously-Software-Approach/dp/1394253192"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Taking Testing Seriously: The Rapid Software Testing Approach
+                    </a>
+                  </div>
+                  <div className="ref-desc">書籍情報(2025年11月刊)</div>
+                  <span className="ref-url">
+                    https://www.amazon.com/Taking-Testing-Seriously-Software-Approach/dp/1394253192
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://kaner.com/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Cem Kaner 公式サイト
+                    </a>
+                  </div>
+                  <span className="ref-url">https://kaner.com/</span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://kaner.com/pdfs/BugAdvocacy.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Bug Advocacy (Cem Kaner, PDF資料)
+                    </a>
+                  </div>
+                  <span className="ref-url">https://kaner.com/pdfs/BugAdvocacy.pdf</span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://bbst.courses/bbst-bug-advocacy/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      BBST Bug Advocacy コース概要
+                    </a>
+                  </div>
+                  <span className="ref-url">https://bbst.courses/bbst-bug-advocacy/</span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://visible-quality.blogspot.com/2024/02/contemporary-bug-advocacy.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      A Seasoned Tester&apos;s Crystal Ball: Contemporary Bug Advocacy
+                    </a>
+                  </div>
+                  <div className="ref-desc">Maaret Pyhäjärvi, 2024年</div>
+                  <span className="ref-url">
+                    https://visible-quality.blogspot.com/2024/02/contemporary-bug-advocacy.html
+                  </span>
+                </li>
+              </ul>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-robot"></i>2026年時点のAIとテストに関する動向
+              </h3>
+              <ul className="ref-list">
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://saucelabs.com/resources/blog/agentic-ai-and-the-future-of-software-testing-a-q-and-a-with-angie-jones"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Agentic AI and the Future of Software Testing
+                    </a>
+                  </div>
+                  <div className="ref-desc">
+                    Angie Jones インタビュー(Sauce Labs)
+                  </div>
+                  <span className="ref-url">
+                    https://saucelabs.com/resources/blog/agentic-ai-and-the-future-of-software-testing-a-q-and-a-with-angie-jones
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://applitools.com/blog/ai-testing-strategy-in-2026/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      AI Testing in 2026: Why Signal, Trust, and Intentional Choices
+                      Matter More Than Ever
+                    </a>
+                  </div>
+                  <div className="ref-desc">Applitools</div>
+                  <span className="ref-url">
+                    https://applitools.com/blog/ai-testing-strategy-in-2026/
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://club.ministryoftesting.com/t/how-will-software-qa-change-in-2026-with-ai-agents-and-which-qa-roles-will-be-most-valuable/86992"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      How will Software QA change in 2026 with AI/Agents
+                    </a>
+                  </div>
+                  <div className="ref-desc">
+                    ディスカッションスレッド(Ministry of Testing)
+                  </div>
+                  <span className="ref-url">
+                    https://club.ministryoftesting.com/t/how-will-software-qa-change-in-2026-with-ai-agents-and-which-qa-roles-will-be-most-valuable/86992
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://www.n-ix.com/software-testing-best-practices/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Software testing best practices for 2026
+                    </a>
+                  </div>
+                  <div className="ref-desc">N-iX</div>
+                  <span className="ref-url">
+                    https://www.n-ix.com/software-testing-best-practices/
+                  </span>
+                </li>
+                <li className="ref-item">
+                  <div className="ref-title">
+                    <a
+                      href="https://www.evozon.com/how-ai-is-redefining-software-testing-practices-in-2026/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      How AI Is Redefining Software Testing Practices in 2026
+                    </a>
+                  </div>
+                  <div className="ref-desc">Evozon</div>
+                  <span className="ref-url">
+                    https://www.evozon.com/how-ai-is-redefining-software-testing-practices-in-2026/
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </div>
+
+        {/* Footer */}
+        <div className="footer">
+          本ガイドは教育目的の要約・解説であり、原著の文章を逐語的に引用したものではありません。
+          正確な原文や全293レッスンの詳細については、上記リンクから原著(Wiley刊)をご参照ください。
         </div>
       </div>
     </div>
   );
 }
+
