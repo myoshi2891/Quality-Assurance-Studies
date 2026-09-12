@@ -428,7 +428,95 @@ describe('Lessons Learned Guide - Category 1 (Hero, NavBar, Section 01-04)', () 
     expect(rows?.[5].textContent).toContain('良いソフトウェアテストとは、知的で困難な、頭脳労働としてのプロセスである');
     expect(rows?.[6].textContent).toContain('私たちの仕事が価値を持つのは、対象となるプロジェクトの文脈の中に置かれたときだけである');
   });
+
+  it('renders Section 15: 現代における実践 (#modern) with 2 H3s, 2 callouts, and Mermaid figure 5', () => {
+    const { container } = render(<Page />);
+    const sec15 = container.querySelector('#modern');
+    expect(sec15).not.toBeNull();
+
+    const h2 = sec15?.querySelector('h2');
+    expect(h2?.textContent).toContain('15. 現代における実践 ー AI時代のテスト(2026年時点の視点)');
+
+    const h3s = sec15?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(2);
+    expect(h3s?.[0].textContent).toBe('Rapid Software Testing ー 本書の思想の直系の後継');
+    expect(h3s?.[1].textContent).toBe('エージェント型AIとテスターの役割の変化');
+
+    const calloutSource = sec15?.querySelector('.callout.source');
+    expect(calloutSource).not.toBeNull();
+    expect(calloutSource?.textContent).toContain('「シグナル対ノイズ」という新しい課題');
+    expect(calloutSource?.textContent).toContain('Applitools');
+
+    const calloutNote = sec15?.querySelector('.callout.note');
+    expect(calloutNote).not.toBeNull();
+    expect(calloutNote?.textContent).toContain('コミュニティでの継続的な議論');
+    expect(calloutNote?.textContent).toContain('Ministry of Testing');
+
+    const figure = sec15?.querySelector('figure.diagram');
+    expect(figure).not.toBeNull();
+    const figcaption = figure?.querySelector('figcaption');
+    expect(figcaption?.textContent).toBe('図5: 開発ライフサイクルにおけるテスターの判断とAIの役割分担');
+  });
+
+  it('renders Section 16: まとめ・チェックリスト (#summary) with 9 checkboxes and counter', () => {
+    const { container } = render(<Page />);
+    const sec16 = container.querySelector('#summary');
+    expect(sec16).not.toBeNull();
+
+    const h2 = sec16?.querySelector('h2');
+    expect(h2?.textContent).toContain('16. まとめ ー 明日から使えるチェックリスト');
+
+    const counter = sec16?.querySelector('.checklist-counter');
+    expect(counter).not.toBeNull();
+    expect(counter?.textContent).toContain('9 完了');
+
+    const checkboxes = sec16?.querySelectorAll('.checklist input[type="checkbox"]');
+    expect(checkboxes?.length).toBe(9);
+
+    const labels = sec16?.querySelectorAll('.checklist label span');
+    expect(labels?.[0].textContent).toContain('テストを始める前に「このテストで何を明らかにしたいのか」を言語化したか');
+    expect(labels?.[1].textContent).toContain('自分をリリースの「ゲートキーパー」だと誤解していないか');
+    expect(labels?.[2].textContent).toContain('バグレポートは、忙しい相手にも一目で伝わるサマリーになっているか');
+    expect(labels?.[3].textContent).toContain('severity(深刻度)と priority(優先度)を混同していないか');
+    expect(labels?.[4].textContent).toContain('再現しないバグを「再現しないから」という理由で握りつぶしていないか');
+    expect(labels?.[5].textContent).toContain('自動化する前に、そもそものテスト手順が整理されているか');
+    expect(labels?.[6].textContent).toContain('テスト計画を「一度作って終わりの文書」ではなく「回し続けるプロセス」として扱っているか');
+    expect(labels?.[7].textContent).toContain('AIが生成した結果を無条件に信頼せず、シグナルとノイズを見極めているか');
+    expect(labels?.[8].textContent).toContain('今のテストのやり方は、今のプロジェクトのコンテキスト(状況)に本当に合っているか');
+  });
+
+  it('renders Section 17: 参考文献・出典 (#references) with 3 groups and 17 reference items', () => {
+    const { container } = render(<Page />);
+    const sec17 = container.querySelector('#references');
+    expect(sec17).not.toBeNull();
+
+    const h2 = sec17?.querySelector('h2');
+    expect(h2?.textContent).toContain('17. 参考文献・出典');
+
+    const groups = sec17?.querySelectorAll('.ref-group');
+    expect(groups?.length).toBe(3);
+
+    const items = sec17?.querySelectorAll('.ref-item');
+    expect(items?.length).toBe(17);
+
+    const links = sec17?.querySelectorAll('.ref-item a');
+    expect(links?.length).toBe(17);
+    links.forEach((link) => {
+      expect(link.getAttribute('target')).toBe('_blank');
+      const rel = link.getAttribute('rel');
+      expect(rel).toMatch(/noopener/);
+    });
+  });
+
+  it('renders footer with educational note and source citation', () => {
+    const { container } = render(<Page />);
+    const footer = container.querySelector('.footer');
+    expect(footer).not.toBeNull();
+    expect(footer?.textContent).toContain('本ガイドは教育目的の要約・解説であり');
+    expect(footer?.textContent).toContain('原著(Wiley刊)をご参照ください');
+  });
 });
+
 
 
 
