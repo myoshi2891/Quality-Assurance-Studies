@@ -351,6 +351,84 @@ describe('Lessons Learned Guide - Category 1 (Hero, NavBar, Section 01-04)', () 
     expect(list?.[2].textContent).toContain('士気はチームの重要な資産である');
     expect(list?.[3].textContent).toContain('採用は合議制で、誠実さを最重視する');
   });
+
+  it('renders Section 12: ステップ10: キャリアを築く (#step10) with career advice list', () => {
+    const { container } = render(<Page />);
+    const sec12 = container.querySelector('#step10');
+    expect(sec12).not.toBeNull();
+
+    const h2 = sec12?.querySelector('h2');
+    expect(h2?.textContent).toContain('12. ステップ10: テスターとしてのキャリアを築く');
+
+    const list = sec12?.querySelectorAll('ul li');
+    expect(list?.length).toBe(6);
+    expect(list?.[0].textContent).toContain('自分のキャリアの方向性を主体的に選び');
+    expect(list?.[1].textContent).toContain('必ずしもプログラマーより収入が低いことを意味しません');
+    expect(list?.[2].textContent).toContain('カンファレンスは「参加する」だけでなく「議論に加わる」場');
+    expect(list?.[3].textContent).toContain('履歴書やポートフォリオは、自分を売り込むための積極的なツール');
+    expect(list?.[4].textContent).toContain('スクリプト言語やプログラミング言語の習得');
+    expect(list?.[5].textContent).toContain('資格取得そのものを目的化しすぎることには注意が必要');
+  });
+
+  it('renders Section 13: ステップ11: テスト戦略を立案する (#step11) with 3 questions, principles, and Mermaid', () => {
+    const { container } = render(<Page />);
+    const sec13 = container.querySelector('#step11');
+    expect(sec13).not.toBeNull();
+
+    const h2 = sec13?.querySelector('h2');
+    expect(h2?.textContent).toContain('13. ステップ11: テスト戦略を立案する');
+
+    const h3s = sec13?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(3);
+    expect(h3s?.[0].textContent).toBe('戦略を考えるための3つの基本的な問い');
+    expect(h3s?.[1].textContent).toBe('押さえるべき原則');
+    expect(h3s?.[2].textContent).toBe('コンテキスト駆動テスト計画を「進化」させる7ステップ');
+
+    const questions = sec13?.querySelectorAll('ol li');
+    expect(questions?.length).toBe(3);
+    expect(questions?.[0].textContent).toContain('なぜテストするのか(why bother)');
+    expect(questions?.[1].textContent).toContain('誰が気にするのか(who cares)');
+    expect(questions?.[2].textContent).toContain('どこまでやるのか(how much)');
+
+    const principles = sec13?.querySelectorAll('ul li');
+    expect(principles?.length).toBe(4);
+    expect(principles?.[0].textContent).toContain('本当の「テスト計画」とは、あなたのテストプロセスを導く一連の考え方そのものであり');
+    expect(principles?.[1].textContent).toContain('テスト計画はコンテキストに合わせて設計する');
+    expect(principles?.[2].textContent).toContain('最初に立てた戦略は、常に間違っている');
+    expect(principles?.[3].textContent).toContain('プロダクトの成熟度に応じてテストの深さを変える');
+
+    const figure = sec13?.querySelector('figure.diagram');
+    expect(figure).not.toBeNull();
+    const figcaption = figure?.querySelector('figcaption');
+    expect(figcaption?.textContent).toBe('図4: コンテキスト駆動テスト計画を進化させる7ステップループ');
+  });
+
+  it('renders Section 14: 付録: コンテキスト駆動学派の7つの原則 (#appendix) with Table 5', () => {
+    const { container } = render(<Page />);
+    const sec14 = container.querySelector('#appendix');
+    expect(sec14).not.toBeNull();
+
+    const h2 = sec14?.querySelector('h2');
+    expect(h2?.textContent).toContain('14. 付録: コンテキスト駆動学派の7つの原則');
+
+    const table = sec14?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const headers = table?.querySelectorAll('thead th');
+    expect(headers?.[0].textContent).toBe('番号');
+    expect(headers?.[1].textContent).toBe('原則の要旨');
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(7);
+    expect(rows?.[0].textContent).toContain('ある状況における実践の価値は、その状況に強く依存する');
+    expect(rows?.[1].textContent).toContain('どんな状況にも通用する「ベストプラクティス」は存在せず');
+    expect(rows?.[2].textContent).toContain('人はプロジェクトにおいて、単なる歯車ではなく');
+    expect(rows?.[3].textContent).toContain('プロジェクトの進行は基本的に予測不可能であり');
+    expect(rows?.[4].textContent).toContain('プロダクトとは、ある問題に対する解決策である');
+    expect(rows?.[5].textContent).toContain('良いソフトウェアテストとは、知的で困難な、頭脳労働としてのプロセスである');
+    expect(rows?.[6].textContent).toContain('私たちの仕事が価値を持つのは、対象となるプロジェクトの文脈の中に置かれたときだけである');
+  });
 });
+
 
 
