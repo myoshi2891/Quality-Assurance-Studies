@@ -815,6 +815,496 @@ export default function ExploreItGuidePage() {
             Useful Nuggets of Wisdom）」としても活用されます。
           </p>
         </section>
+
+        {/* 13 */}
+        <section id="cheatsheet">
+          <div className="sec-tag">
+            <span className="num">13</span>
+            <span className="label">CHEAT SHEET</span>
+          </div>
+          <h2>テストヒューリスティック・チートシート</h2>
+          <p>
+            Hendricksonは、James Lyndsay・Dale Emeryと共に
+            <strong>「Test Heuristics Cheat Sheet」</strong>
+            という2ページのチートシートを作成しており、BBST（Black Box Software
+            Testing）コースの必読教材にも採用されるなど、探索的テスト分野で広く参照されている資料です。このチートシートは本書と対で使われることが多く、探索セッション中に「次に何を試すか」のアイデア出しを助けるツールです。
+          </p>
+          <div className="tblwrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>カテゴリ</th>
+                  <th>着眼点の例</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Variable Analysis</td>
+                  <td>入力・出力・隠れた変数・微妙な変数をすべて洗い出す</td>
+                </tr>
+                <tr>
+                  <td>Touch Points</td>
+                  <td>このデータ・機能が影響を及ぼす他の画面・システムはどこか</td>
+                </tr>
+                <tr>
+                  <td>Boundaries</td>
+                  <td>最小値・最大値・ゼロ・空・境界を1つ超えた値</td>
+                </tr>
+                <tr>
+                  <td>CRUD</td>
+                  <td>作成・参照・更新・削除の一連の整合性</td>
+                </tr>
+                <tr>
+                  <td>Configurations</td>
+                  <td>OS・ブラウザ・言語設定・画面解像度などの組み合わせ</td>
+                </tr>
+                <tr>
+                  <td>Interruptions</td>
+                  <td>処理中に通信が切れる、ページを閉じる、戻るボタンを押す</td>
+                </tr>
+                <tr>
+                  <td>Sequences</td>
+                  <td>操作の順番を変える、通常と逆順で行う</td>
+                </tr>
+                <tr>
+                  <td>State Analysis</td>
+                  <td>取りうる状態と、その間の遷移をすべて洗い出す</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div className="note">
+            このチートシートは複数の教育プラットフォーム（Ministry of
+            Testingなど）で改訂・拡張版が公開されています。詳細は参考文献セクションのURLを参照してください。
+          </div>
+        </section>
+
+        {/* 14 */}
+        <section id="ai2026">
+          <div className="sec-tag">
+            <span className="num">14</span>
+            <span className="label">2026 &amp; AI</span>
+          </div>
+          <h2>2026年現在：AI時代における探索的テストの位置づけ</h2>
+          <p>
+            2026年時点の業界動向を確認すると、AIエージェントによる自動テスト生成・自己修復（self-healing）テストの活用が急速に広がっている一方で、
+            <strong>探索的テストの重要性はむしろ再確認されている</strong>
+            という論調が複数の業界メディアで見られます。
+          </p>
+          <ul>
+            <li>
+              回帰テストやスモークテスト、APIコントラクトテストのような「予測可能で反復的な作業」はAIエージェントに任せ、人間のテスターは
+              <strong>探索的で判断力を要する作業や、ステークホルダーとの対話が必要な作業</strong>
+              に集中する、という役割分担が2026年の実務トレンドとして紹介されています。
+            </li>
+            <li>
+              AIエージェントは新機能を自律的に操作して問題を発見する探索的カバレッジを提供し始めていますが、「ユーザビリティ評価」「アクセシビリティ評価」「複雑な探索的テスト」「新規状況でのビジネス文脈の理解」については、依然として人間の判断に及ばないとされています。
+            </li>
+            <li>
+              チャーターに基づく構造化された探索セッションを、スプリントの中に定期的に組み込むチームが増えている、という指摘もあります。
+            </li>
+          </ul>
+          <p>
+            つまり、『Explore It!』が2013年に体系化した「チャーター」「セッション」「観察」「バリエーション」といった基本スキルは、AIがテストを支援する時代においても、
+            <strong>人間が担うべき探索的テストの核となる思考法</strong>
+            として引き続き有効である、というのが2026年時点での大方の見方です。
+          </p>
+        </section>
+
+        {/* 15 */}
+        <section id="checklist">
+          <div className="sec-tag">
+            <span className="num">15</span>
+            <span className="label">CHECKLIST</span>
+          </div>
+          <h2>初学者向けチェックリスト</h2>
+          <p>
+            はじめて探索的テストのセッションを行う際に確認するとよいポイントをまとめました。
+          </p>
+          <ul className="checklist">
+            <li>
+              <input type="checkbox" id="cl1" />
+              <label htmlFor="cl1">
+                チャーター（Explore / With / To discover）を1文〜数行で書いたか
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="cl2" />
+              <label htmlFor="cl2">
+                セッションの時間（60〜90分が目安）を決め、タイムボックス化したか
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="cl3" />
+              <label htmlFor="cl3">
+                セッション中は通知をオフにし、集中できる環境を作ったか
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="cl4" />
+              <label htmlFor="cl4">
+                画面だけでなく、ログ・コンソール・レスポンスにも注意を向けたか
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="cl5" />
+              <label htmlFor="cl5">
+                入力・出力・隠れた変数・微妙な変数を意識的に変化させてみたか
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="cl6" />
+              <label htmlFor="cl6">
+                「これは正しいか？」を判断するための根拠（オラクル）を複数持っているか
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="cl7" />
+              <label htmlFor="cl7">
+                操作の順序・エンティティの関係・状態遷移・外部連携のいずれかの視点を加えたか
+              </label>
+            </li>
+            <li>
+              <input type="checkbox" id="cl8" />
+              <label htmlFor="cl8">
+                セッション終了後にデブリーフィングを行い、発見と次のチャーター候補を記録したか
+              </label>
+            </li>
+          </ul>
+        </section>
+
+        {/* 16 */}
+        <section id="references">
+          <div className="sec-tag">
+            <span className="num">16</span>
+            <span className="label">REFERENCES</span>
+          </div>
+          <h2>参考文献・出典URL一覧</h2>
+          <p>
+            本ガイドの作成にあたり、2026年9月5日時点でWeb検索により確認した一次情報・著名な実務者による解説記事を以下に示します。
+          </p>
+          <div className="tblwrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>No.</th>
+                  <th>ソース</th>
+                  <th>URL</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td>
+                  <td>O&apos;Reilly Online Learning「Explore It!」書誌情報・目次</td>
+                  <td>
+                    <a
+                      href="https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      oreilly.com/…/f_0000.html
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>2</td>
+                  <td>
+                    Amazon「Explore It!」書籍紹介（著者略歴・Janet Gregory推薦文）
+                  </td>
+                  <td>
+                    <a
+                      href="https://www.amazon.com/Explore-Increase-Confidence-Exploratory-Testing/dp/1937785025"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      amazon.com/dp/1937785025
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>3</td>
+                  <td>Hexawise Blog「Book Review of &quot;Explore It!&quot;」</td>
+                  <td>
+                    <a
+                      href="https://hexawise.com/posts/book-review-of-explore-it-elisabeth-hendricksons-excellent-new-book-on-software-testing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      hexawise.com/posts/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>
+                    LogiGear Blog「Book Review: Elizabeth Hendrickson&apos;s Explore It!」
+                  </td>
+                  <td>
+                    <a
+                      href="https://www.logigear.com/blogs/test-methods/Book-Review-Elizabeth-Hendricksons-Explore-It"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      logigear.com/blogs/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>5</td>
+                  <td>Steveo1967 Blog「Book Review - Explore it!」</td>
+                  <td>
+                    <a
+                      href="http://steveo1967.blogspot.com/2013/11/book-review-explore-it-by-elizabeth.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      steveo1967.blogspot.com/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>6</td>
+                  <td>
+                    Test Engineering Notes「5 Insights from Explore It!」（2026年）
+                  </td>
+                  <td>
+                    <a
+                      href="https://testengineeringnotes.com/posts/2026-07-02-explore-it-review/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      testengineeringnotes.com/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>7</td>
+                  <td>Martin Fowler「bliki: Exploratory Testing」</td>
+                  <td>
+                    <a
+                      href="https://martinfowler.com/bliki/ExploratoryTesting.html"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      martinfowler.com/bliki/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>8</td>
+                  <td>Martin Fowler「Testing Guide」</td>
+                  <td>
+                    <a
+                      href="https://martinfowler.com/testing/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      martinfowler.com/testing/
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>9</td>
+                  <td>Wikipedia「Exploratory testing」</td>
+                  <td>
+                    <a
+                      href="https://en.wikipedia.org/wiki/Exploratory_testing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      en.wikipedia.org/wiki/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>10</td>
+                  <td>Wikipedia「Session-based testing」</td>
+                  <td>
+                    <a
+                      href="https://en.wikipedia.org/wiki/Session-based_testing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      en.wikipedia.org/wiki/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>11</td>
+                  <td>
+                    TechWell「Use Session-Based Testing to Structure Exploratory Testing」
+                  </td>
+                  <td>
+                    <a
+                      href="https://www.techwell.com/techwell-insights/2013/02/use-session-based-testing-structure-exploratory-testing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      techwell.com/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>12</td>
+                  <td>
+                    Virtuoso QA「What is Session Based Test Management (SBTM)?」
+                  </td>
+                  <td>
+                    <a
+                      href="https://www.virtuosoqa.com/post/session-based-test-management"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      virtuosoqa.com/post/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>13</td>
+                  <td>Tricentis Blog「Session-based Testing」</td>
+                  <td>
+                    <a
+                      href="https://www.tricentis.com/blog/exploratory-testing-techniques-session-based-testing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      tricentis.com/blog/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>14</td>
+                  <td>The Testing-Library-Project「SBTM by James Bach」</td>
+                  <td>
+                    <a
+                      href="https://tstlibrary.wordpress.com/whitepapers/session-based-test-management-by-james-bach/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      tstlibrary.wordpress.com/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>15</td>
+                  <td>
+                    yrkan.com「Test Charter Writing for Exploratory Testing」
+                  </td>
+                  <td>
+                    <a
+                      href="https://yrkan.com/blog/test-charter-writing/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      yrkan.com/blog/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>16</td>
+                  <td>
+                    Xray Blog「How to use test charters for effective exploratory testing」
+                  </td>
+                  <td>
+                    <a
+                      href="https://www.getxray.app/blog/test-charters-exploratory-testing"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      getxray.app/blog/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>17</td>
+                  <td>
+                    Medium (Karlo Smid / Tentamen)「Testing Heuristics Cheat Sheet」
+                  </td>
+                  <td>
+                    <a
+                      href="https://tentamen.medium.com/testing-heuristics-cheat-sheet-tentamen-software-testing-blog-c6979f20caf0"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      tentamen.medium.com/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>18</td>
+                  <td>BBST Courses「Test Heuristics Cheat Sheet」</td>
+                  <td>
+                    <a
+                      href="https://bbst.courses/elisabeth-hendrickson-james-lyndsay-and-dale-emery-test-heuristics-cheat-sheet/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      bbst.courses/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>19</td>
+                  <td>Ministry of Testing「Test Heuristics Cheat Sheet」</td>
+                  <td>
+                    <a
+                      href="https://www.ministryoftesting.com/articles/ab1cd85c"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      ministryoftesting.com/articles/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>20</td>
+                  <td>testomat.io「Software Testing Trends 2026」</td>
+                  <td>
+                    <a
+                      href="https://testomat.io/blog/software-testing-trends/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      testomat.io/blog/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>21</td>
+                  <td>
+                    PC Tech Magazine「Best AI Agents for Software Testing in 2026」
+                  </td>
+                  <td>
+                    <a
+                      href="https://pctechmag.com/2026/04/best-ai-agents-for-software-testing-in-2026/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      pctechmag.com/2026/04/…
+                    </a>
+                  </td>
+                </tr>
+                <tr>
+                  <td>22</td>
+                  <td>QASkills.sh「Agentic AI Testing Guide 2026」</td>
+                  <td>
+                    <a
+                      href="https://qaskills.sh/blog/agentic-ai-testing-guide-2026"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      qaskills.sh/blog/…
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <footer>
+            注記：本ガイドは上記ソースおよび公開されている書籍の目次情報をもとに、初学者向けに要約・再構成したものであり、原著からの長文引用は行っていません。より詳細で正確な内容は、必ず原著『Explore
+            It!』（Elisabeth Hendrickson著、Pragmatic Bookshelf）をご参照ください。
+          </footer>
+        </section>
       </main>
     </div>
   );

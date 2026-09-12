@@ -433,6 +433,112 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(list?.querySelectorAll('li').length).toBe(5);
     expect(sec?.textContent).toContain('Capturing Useful Nuggets of Wisdom');
   });
+  it('renders Section 13: Cheat Sheet (#cheatsheet) with sec-tag, h2, table, and note', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#cheatsheet');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num')?.textContent).toBe('13');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('CHEAT SHEET');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('テストヒューリスティック・チートシート');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(8);
+    expect(rows?.[0]?.textContent).toContain('Variable Analysis');
+    expect(rows?.[1]?.textContent).toContain('Touch Points');
+    expect(rows?.[2]?.textContent).toContain('Boundaries');
+    expect(rows?.[3]?.textContent).toContain('CRUD');
+    expect(rows?.[4]?.textContent).toContain('Configurations');
+    expect(rows?.[5]?.textContent).toContain('Interruptions');
+    expect(rows?.[6]?.textContent).toContain('Sequences');
+    expect(rows?.[7]?.textContent).toContain('State Analysis');
+
+    const note = sec?.querySelector('.note');
+    expect(note?.textContent).toContain('Ministry of Testing');
+  });
+
+  it('renders Section 14: 2026 & AI (#ai2026) with sec-tag, h2, trend list, and summary', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#ai2026');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num')?.textContent).toBe('14');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('2026 & AI');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('2026年現在：AI時代における探索的テストの位置づけ');
+
+    const list = sec?.querySelector('ul');
+    const items = list?.querySelectorAll('li');
+    expect(items?.length).toBe(3);
+    expect(items?.[0]?.textContent).toContain('回帰テストやスモークテスト');
+    expect(items?.[1]?.textContent).toContain('ユーザビリティ評価');
+    expect(items?.[2]?.textContent).toContain('チャーターに基づく構造化');
+
+    expect(sec?.textContent).toContain('人間が担うべき探索的テストの核となる思考法');
+  });
+
+  it('renders Section 15: Checklist (#checklist) with sec-tag, h2, and 8 checkboxes', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#checklist');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num')?.textContent).toBe('15');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('CHECKLIST');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('初学者向けチェックリスト');
+
+    const checklist = sec?.querySelector('ul.checklist');
+    expect(checklist).not.toBeNull();
+    const items = checklist?.querySelectorAll('li');
+    expect(items?.length).toBe(8);
+
+    const checkboxes = checklist?.querySelectorAll('input[type="checkbox"]');
+    expect(checkboxes?.length).toBe(8);
+
+    for (let i = 1; i <= 8; i++) {
+      const cb = checklist?.querySelector(`input#cl${i}`);
+      const label = checklist?.querySelector(`label[for="cl${i}"]`);
+      expect(cb).not.toBeNull();
+      expect(label).not.toBeNull();
+    }
+  });
+
+  it('renders Section 16: References (#references) with sec-tag, h2, 22 reference items, and footer', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#references');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num')?.textContent).toBe('16');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('REFERENCES');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('参考文献・出典URL一覧');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(22);
+
+    const links = table?.querySelectorAll('a[target="_blank"][rel="noopener noreferrer"]');
+    expect(links?.length).toBe(22);
+
+    expect(rows?.[0]?.textContent).toContain("O'Reilly Online Learning");
+    expect(rows?.[21]?.textContent).toContain('QASkills.sh');
+
+    const footer = sec?.querySelector('footer');
+    expect(footer).not.toBeNull();
+    expect(footer?.textContent).toContain('注記：本ガイドは上記ソースおよび公開されている書籍の目次情報をもとに');
+  });
 });
 
 
