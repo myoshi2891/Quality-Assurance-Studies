@@ -29,6 +29,10 @@ export const TOC_ITEMS: TocItem[] = [
 
 const TOC_LIST_ID = 'explore-it-toc-list';
 
+// explore-it-guide.css の @media (max-width: 900px) と対になる値。
+// この幅以下では未展開の目次が display:none になる
+const MOBILE_BREAKPOINT = 900;
+
 export default function NavBar() {
   const [activeId, setActiveId] = useState<string>('overview');
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -63,6 +67,24 @@ export default function NavBar() {
     },
     [isOpen]
   );
+
+  // デスクトップ幅では目次が常時展開されるため、リンクへフォーカスしたまま
+  // 900px 以下へ縮むと目次が display:none となりフォーカスが body へ迷子になる。
+  // 隠れる前に可視のトグルへ退避させる
+  useEffect(() => {
+    const handleResize = () => {
+      if (isOpen || window.innerWidth > MOBILE_BREAKPOINT) return;
+      const list = listRef.current;
+      const active = document.activeElement;
+      if (!list || !active || !list.contains(active)) return;
+      toggleRef.current?.focus({ preventScroll: true });
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [isOpen]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(

@@ -134,6 +134,38 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(document.activeElement).toBe(toggle ?? null);
   });
 
+  it('returns focus to the toggle when the viewport shrinks to the mobile breakpoint while a TOC link is focused', () => {
+    const { container } = render(<NavBar />);
+    const toggle = container.querySelector<HTMLButtonElement>('nav.toc .toc-toggle');
+    const firstLink = container.querySelector<HTMLAnchorElement>('nav.toc ol li a');
+    const originalWidth = window.innerWidth;
+    const setWidth = (width: number) => {
+      Object.defineProperty(window, 'innerWidth', { value: width, configurable: true, writable: true });
+    };
+
+    try {
+      // デスクトップ幅では目次が常時展開されるので、リンクへ直接フォーカスできる
+      setWidth(1280);
+      firstLink?.focus();
+      expect(document.activeElement).toBe(firstLink ?? null);
+
+      // 900px 超のリサイズでは目次は隠れないためフォーカスを動かさない
+      fireEvent(window, new Event('resize'));
+      expect(document.activeElement).toBe(firstLink ?? null);
+
+      // 900px 以下へ縮むと未展開の目次が display:none になるため、トグルへ退避させる
+      setWidth(900);
+      fireEvent(window, new Event('resize'));
+      expect(document.activeElement).toBe(toggle ?? null);
+    } finally {
+      Object.defineProperty(window, 'innerWidth', {
+        value: originalWidth,
+        configurable: true,
+        writable: true,
+      });
+    }
+  });
+
   it('renders navigation bar with brand and all 16 TOC anchors', () => {
     const { container } = render(<NavBar />);
     const nav = container.querySelector('nav.toc');
