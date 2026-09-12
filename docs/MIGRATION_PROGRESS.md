@@ -25,12 +25,12 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - `globals.css` 干渉リセット（テーブル文字色 `var(--text) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、順序付きリスト `list-style-type: decimal !important`、`.callout`、`.lesson-card`、`.metric-card`、`.step-list`、`.quote-box` 等）を完全実装。
   - **サイドバー境界線 & スクロールバートラック透明化**: `sidebar` のスクロールバートラックによって生じていたダークカラー（`#070a14`）の太帯を `::-webkit-scrollbar-track { background: transparent !important; }` で完全に解消し、元HTMLの繊細な1px境界線（`border-right: 1px solid var(--border)`）に復元。オフセットも `var(--disclaimer-height)` に連動し、各セクションに `scroll-margin-top` を設定。
 - **Mermaid図解の完全移植 & クラシック・ペーパーテーマ復元**:
-  - 全5図解（コンテキスト駆動テストの7原則 `#diag-context`、テスト技法の5つの視点 `#diag-techniques`、バグライフサイクルとアドボカシー `#diag-bug`、テスト計画・戦略の多層構造 `#diag-plan`、LLM・AI時代のテスト `#diag-ai`）を共通 `<Mermaid>` コンポーネントへ移植。
+  - 全5図解（本書11章の全体マップ `#diag-overview`、テスト技法の5つの視点 `#diag-techniques`、バグライフサイクルとアドボカシー `#diag-bug`、テスト計画・戦略の多層構造 `#diag-plan`、LLM・AI時代のテスト `#diag-ai`）を共通 `<Mermaid>` コンポーネントへ移植。
   - `components/Mermaid.tsx` のグローバル dark テーマ設定との競合を解消するため、CSSで通常ノード（淡いラベンダーブルー `#eef1fa`、インディゴ枠線 `#3b4d8f`、テキスト `#2b2621`）、サブグラフ（薄ベージュ `#f1ebe0`、アンバー枠線 `#c9a227`）、ハブノード（ゴールド `#e9c874`）、完了ノード（ミントグリーン `#cfe3d6`）、エッジ線（ウォームグレー `#6b6258`）、エッジラベル（背景 `#faf7f2`）のスタイルを完全強制適用。元HTMLのデザインを100%忠実に再現。
 - **インタラクティブ・チェックリスト**:
   - セクション16に配置された初学者向け9項目チェックリスト（`SummaryChecklist.tsx`、`'use client'`）を実装。動的な達成率カウンター付き。
 - **テーブル & コールアウト & レッスンカード**:
-  - 全5テーブル（11章構成一覧、コンテキスト駆動テストの7つの原則、技法5視点、自動化の誤解と現実、Kanerらの重要格言集）を完全移植。
+  - 全5テーブル（本書の著者3名と略歴、テスターの役割をめぐるよくある誤解、テスト技法を捉える5つの視点、テスト自動化についての誤解と本書の立場、コンテキスト駆動学派の7つの原則）を完全移植。
   - コールアウト3件（バグアドボカシー、マネジメントへの報告、AI時代の心得）を完全移植。
   - 原著293レッスンの主要レッスンカード（`.lesson-card`、`.rule-card`）を完全移植。
 - **参考文献 & 外部リンク**:
@@ -38,7 +38,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全17セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/lessons-learned-in-software-testing-guide/`: ページコンポーネント、専用スタイル（`.lessons-learned-layout` スコープ、globals.css干渉リセット）、NavBar、SummaryChecklistを実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/lessons-learned-in-software-testing-guide` を追加（全65件）。
-- `tests/lessons-learned-in-software-testing-guide/page.test.tsx`: TDD 必須サイクルに従い、全17セクション、全5Mermaid図、全5テーブル、全コールアウト、全コードブロック、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（21 pass / 299 expect()）。
+- `tests/lessons-learned-in-software-testing-guide/page.test.tsx`: TDD 必須サイクルに従い、全17セクション、全5Mermaid図、全5テーブル、全コールアウト、全コードブロック、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（22 pass / 299 expect()）。
 - `Lessons-learned-in-software-testing-guide.html` & `Lessons-learned-in-software-testing-guide.md`: `archive/html-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 65 ページ体制に同期。
 
