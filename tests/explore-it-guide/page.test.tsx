@@ -220,4 +220,140 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(steps?.[7]?.textContent).toContain('STEP 8');
     expect(steps?.[7]?.textContent).toContain('デブリーフィング');
   });
+
+  it('renders Section 05: Step 1 Charter (#step1) with template, table, list, figure, and note', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#step1');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num.step')?.textContent).toBe('1');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('CHARTER YOUR EXPLORATIONS');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('チャーター（探索の指針）を書く');
+
+    const tmpl = sec?.querySelector('pre.tmpl');
+    expect(tmpl).not.toBeNull();
+    expect(tmpl?.textContent).toContain('Explore');
+    expect(tmpl?.textContent).toContain('With');
+    expect(tmpl?.textContent).toContain('To discover');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0]?.textContent).toContain('Explore（対象）');
+    expect(rows?.[1]?.textContent).toContain('With（使うもの）');
+    expect(rows?.[2]?.textContent).toContain('To discover（目的）');
+
+    const figure = sec?.querySelector('.figure');
+    expect(figure?.querySelector('.cap')?.textContent).toContain('FIGURE S1-A ｜ チャーター作成の流れ');
+    expect(figure?.querySelector('.mermaid-wrapper, .mermaid-target')).not.toBeNull();
+
+    const note = sec?.querySelector('.note');
+    expect(note?.textContent).toContain('補足｜');
+    expect(note?.textContent).toContain('悪夢の見出しゲーム');
+  });
+
+  it('renders Section 06: Step 2 Session (#step2) with SBTM figure and durations table', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#step2');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num.step')?.textContent).toBe('2');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('SESSION-BASED TEST MANAGEMENT');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('セッションを構造化する');
+
+    expect(sec?.textContent).toContain('James Bach と Jonathan Bach');
+    expect(sec?.textContent).toContain('Session-Based Test Management（SBTM）');
+
+    const figure = sec?.querySelector('.figure');
+    expect(figure?.querySelector('.cap')?.textContent).toContain('FIGURE S2-A ｜ SBTMの基本サイクル');
+    expect(figure?.querySelector('.mermaid-wrapper, .mermaid-target')).not.toBeNull();
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0]?.textContent).toContain('ショート');
+    expect(rows?.[1]?.textContent).toContain('ノーマル');
+    expect(rows?.[2]?.textContent).toContain('ロング');
+  });
+
+  it('renders Section 07: Step 3 Observe Details (#step3) with list and Mermaid figure', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#step3');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num.step')?.textContent).toBe('3');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('OBSERVE THE DETAILS');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('観察力を鍛える ― 見えないものを見えるようにする');
+
+    expect(sec?.textContent).toContain('ムーンウォークするクマ');
+    expect(sec?.textContent).toContain('非注意性盲目');
+
+    const list = sec?.querySelector('ul');
+    expect(list?.querySelectorAll('li').length).toBe(4);
+
+    const figure = sec?.querySelector('.figure');
+    expect(figure?.querySelector('.cap')?.textContent).toContain('FIGURE S3-A ｜ 観察範囲を広げるチェックポイント');
+    expect(figure?.querySelector('.mermaid-wrapper, .mermaid-target')).not.toBeNull();
+  });
+
+  it('renders Section 08: Step 4 Find Variations (#step4) with variables table and inquiry list', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#step4');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num.step')?.textContent).toBe('4');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('FIND INTERESTING VARIATIONS');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('「面白い変化（バリエーション）」を見つける');
+
+    expect(sec?.textContent).toContain('LogiGear');
+    expect(sec?.textContent).toContain('Subtle Variables, Big Disasters');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(4);
+    expect(rows?.[0]?.textContent).toContain('入力変数');
+    expect(rows?.[1]?.textContent).toContain('出力変数');
+    expect(rows?.[2]?.textContent).toContain('隠れた変数');
+    expect(rows?.[3]?.textContent).toContain('微妙な変数');
+
+    const list = sec?.querySelector('ul');
+    expect(list?.querySelectorAll('li').length).toBe(3);
+  });
+
+  it('renders Section 09: Step 5 Evaluate Results (#step5) with oracles table', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#step5');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num.step')?.textContent).toBe('5');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('EVALUATE RESULTS');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('結果を評価する（オラクル問題）');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0]?.textContent).toContain('Never / Always ヒューリスティック');
+    expect(rows?.[1]?.textContent).toContain('代替リソース');
+    expect(rows?.[2]?.textContent).toContain('近似');
+  });
 });
+
