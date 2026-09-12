@@ -211,4 +211,82 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(hasDiag4).toBe(true);
         });
     });
+
+    describe('Category 5: Sections 5 to 8: Practical Workflow, Summary, Quiz, and References', () => {
+        it('renders Section 5 (実務補足：ツール導入の意思決定プロセス) with Mermaid diag-5 and warning callout', () => {
+            render(<Chapter6Page />);
+            const sec5 = document.getElementById('s5');
+            expect(sec5).not.toBeNull();
+            expect(sec5?.textContent).toContain('5. シラバス範囲外の実務補足: ツール導入の意思決定プロセス');
+            expect(sec5?.textContent).toContain('examinable content には含まれません');
+
+            const mermaids = screen.getAllByTestId('mermaid');
+            const charts = mermaids.map((m) => m.textContent || '');
+            const hasDiag5 = charts.some((c) => c.includes('組織の成熟度・強み弱みを評価') && c.includes('パイロットプロジェクトで試行'));
+            expect(hasDiag5).toBe(true);
+        });
+
+        it('renders Section 6 (章のまとめ) with summary table', () => {
+            render(<Chapter6Page />);
+            const sec6 = document.getElementById('summary');
+            expect(sec6).not.toBeNull();
+            expect(sec6?.textContent).toContain('6. 章のまとめ');
+            const table = sec6?.querySelector('table');
+            expect(table).not.toBeNull();
+            expect(table?.textContent).toContain('ツールの範囲');
+            expect(table?.textContent).toContain('分類軸');
+            expect(table?.textContent).toContain('9カテゴリ');
+            expect(table?.textContent).toContain('導入の大原則');
+            expect(table?.textContent).toContain('主要リスク');
+            expect(table?.textContent).toContain('テスト実行ツールの発展');
+        });
+
+        it('renders Section 7 (演習問題) with 3 quiz cards and details/summary elements', () => {
+            render(<Chapter6Page />);
+            const sec7 = document.getElementById('quiz');
+            expect(sec7).not.toBeNull();
+            expect(sec7?.textContent).toContain('7. 演習問題（自己チェック用）');
+            const cards = sec7?.querySelectorAll('.quiz-card');
+            expect(cards && cards.length).toBe(3);
+
+            // Q1
+            expect(sec7?.textContent).toContain('Q1 K1');
+            expect(sec7?.textContent).toContain('data-driven testing');
+
+            // Q2
+            expect(sec7?.textContent).toContain('Q2 K2');
+            expect(sec7?.textContent).toContain('非現実的な期待（unrealistic expectations）');
+
+            // Q3
+            expect(sec7?.textContent).toContain('Q3 K2');
+            expect(sec7?.textContent).toContain('静的解析ツールを開発者のコミット前に実行することの利点');
+        });
+
+        it('renders Section 8 (参照URL一覧) with grouped external references having target="_blank" and rel="noopener noreferrer"', () => {
+            render(<Chapter6Page />);
+            const sec8 = document.getElementById('refs');
+            expect(sec8).not.toBeNull();
+            expect(sec8?.textContent).toContain('8. 参照URL一覧（全節共通）');
+            expect(sec8?.textContent).toContain('公式一次情報源');
+            expect(sec8?.textContent).toContain('公式内容のミラー・要約');
+            expect(sec8?.textContent).toContain('学習補助・比較解説');
+            expect(sec8?.textContent).toContain('2026年時点の実務ツール市場動向');
+            expect(sec8?.textContent).toContain('旧シラバス（比較参考用）');
+
+            const links = sec8?.querySelectorAll('a');
+            expect(links && links.length).toBeGreaterThanOrEqual(15);
+            links?.forEach((link) => {
+                expect(link.getAttribute('target')).toBe('_blank');
+                expect(link.getAttribute('rel')).toContain('noopener');
+            });
+        });
+
+        it('renders page footer with ISTQB trademark notice', () => {
+            render(<Chapter6Page />);
+            const footer = document.querySelector('footer');
+            expect(footer).not.toBeNull();
+            expect(footer?.textContent).toContain('本ガイドは学習補助を目的とした二次資料です');
+            expect(footer?.textContent).toContain('International Software Testing Qualifications Board の登録商標です');
+        });
+    });
 });
