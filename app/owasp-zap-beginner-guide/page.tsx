@@ -2653,10 +2653,701 @@ export default function OwaspZapBeginnerGuidePage() {
               </ul>
             </div>
           </section>
+
+          {/* 23. Troubleshooting */}
+          <section id="troubleshooting">
+            <div className="section-eyebrow">
+              <i className="ti ti-bug"></i>SECTION 23
+            </div>
+            <h2>よくあるトラブルと対処法</h2>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>症状</th>
+                    <th>主な原因</th>
+                    <th>対処法</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ブラウザ経由の通信が Sites/History に表示されない</td>
+                    <td>
+                      ブラウザまたは ZAP
+                      のプロキシ設定が誤っている、対象アプリが起動していない
+                    </td>
+                    <td>
+                      ブラウザのプロキシ設定と ZAP の Local Proxy
+                      設定（アドレス・ポート）を再確認する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>HTTPS サイトで証明書エラーが出る</td>
+                    <td>
+                      ZAP の Root CA 証明書がブラウザ/OS に信頼されていない
+                    </td>
+                    <td>
+                      Options &gt; Dynamic SSL Certificates
+                      から証明書を再エクスポートし、ブラウザに信頼済み証明書としてインポートする
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Spider が「No seeds available」で失敗する</td>
+                    <td>
+                      対象 URL が Context
+                      に含まれていない、またはアクセスできない
+                    </td>
+                    <td>
+                      Context の URL 設定を確認し、対象 URL
+                      に直接一度アクセスしてから再実行する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Docker コンテナから対象アプリに到達できない</td>
+                    <td>
+                      Docker のネットワーク分離により、別コンテナ・localhost
+                      にアクセスできない
+                    </td>
+                    <td>
+                      Docker ネットワーク（<code>--net</code>
+                      オプション）を作成し、ZAP
+                      コンテナと対象アプリコンテナを同じネットワークに参加させる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Ajax Spider が動かない（no_implementor error 等）</td>
+                    <td>
+                      Ajax Spider アドオンや WebDriver
+                      アドオンが未インストール
+                    </td>
+                    <td>
+                      Marketplace から AJAX Spider アドオンおよび対応する
+                      WebDriver アドオンをインストールする
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Active Scan の結果に誤検知（False Positive）が多い</td>
+                    <td>
+                      Scan Policy の Alert Threshold
+                      が低すぎる、対象アプリ特有の応答パターンによる誤判定
+                    </td>
+                    <td>
+                      Scan Policy の Threshold/Strength
+                      を調整する、または個別アラートを「Mark as False
+                      Positive」に設定する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>CI 上で Baseline Scan がタイムアウトする</td>
+                    <td>
+                      Spider の実行時間（デフォルト1分）や Passive Scan
+                      待機時間が不足
+                    </td>
+                    <td>
+                      <code>-m</code>（分）オプションや{' '}
+                      <code>-T</code>（待機時間上限）オプションを調整する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      ウイルス対策ソフトが ZAP のインストーラーを誤検知する
+                    </td>
+                    <td>署名なしバイナリであることに起因する既知の問題</td>
+                    <td>
+                      公式ダウンロードページのチェックサムで検証し、必要に応じて例外設定する
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/docker/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Diagnosing Docker Problems
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/download/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Download（アンチウイルス誤検知に関する記載）
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/faq/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – FAQ
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 24. Best practices */}
+          <section id="best-practices">
+            <div className="section-eyebrow">
+              <i className="ti ti-star"></i>SECTION 24
+            </div>
+            <h2>ベストプラクティスまとめ</h2>
+            <ol>
+              <li>
+                <strong>必ず許可された対象のみをテストする。</strong>学習中は OWASP
+                Juice Shop などの意図的脆弱アプリを使う。
+              </li>
+              <li>
+                <strong>Protected Mode を基本とし、Scope を明確に設定する。</strong>
+                誤って意図しない対象を攻撃するリスクを減らす。
+              </li>
+              <li>
+                <strong>
+                  手動探索（Explore）を先に行ってから Spider/Active Scan
+                  を実行する。
+                </strong>
+                自動化だけでは到達できないページを減らす。
+              </li>
+              <li>
+                <strong>
+                  Passive Scan
+                  の結果は本番環境でも比較的安全に活用できる。
+                </strong>
+                一方 Active Scan は必ずステージング環境以下で実施する。
+              </li>
+              <li>
+                <strong>
+                  CI/CD には Automation Framework または Baseline/Full Scan の
+                  Docker/GitHub Actions を組み込む。
+                </strong>
+                継続的にセキュリティリグレッションを検知できる体制を作る。
+              </li>
+              <li>
+                <strong>
+                  Alert の Risk と Confidence
+                  の両方を見て優先順位をつける。
+                </strong>
+                High Risk かつ High Confidence のものから対応する。
+              </li>
+              <li>
+                <strong>
+                  誤検知は個別に False Positive としてマークし、Alert Filter
+                  で自動化する。
+                </strong>
+                レポートのノイズを減らす。
+              </li>
+              <li>
+                <strong>API キーを必ず設定する。</strong>ZAP API
+                が意図せず外部からアクセスされるリスクを避ける。
+              </li>
+              <li>
+                <strong>
+                  自動スキャンだけに頼らず、OWASP Testing Guide
+                  に基づいた手動テストを組み合わせる。
+                </strong>
+                認可制御やビジネスロジックの脆弱性は自動検出が困難なため。
+              </li>
+            </ol>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/pentest/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – A Basic Penetration Test
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/alert-filters/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Alert Filters Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.owasp.org/wstg"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    OWASP Testing Guide
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 25. Resources */}
+          <section id="resources">
+            <div className="section-eyebrow">
+              <i className="ti ti-books"></i>SECTION 25
+            </div>
+            <h2>学習リソース・参考 URL 一覧</h2>
+
+            <h3>公式ドキュメント</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>リソース</th>
+                    <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>ZAP 公式サイト</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ドキュメントトップ</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Desktop User Guide</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/desktop/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/desktop/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Getting Started</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/desktop/start/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/desktop/start/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Features 一覧</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/desktop/start/features/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/desktop/start/features/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Add-ons 一覧</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/desktop/addons/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/desktop/addons/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>API リファレンス</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/api/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/api/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Automate ZAP</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/automate/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/automate/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Automation Framework</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/automate/automation-framework/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/automate/automation-framework/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Docker Documentation</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/docker/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/docker/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>全アラート一覧</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/alerts/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/alerts/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Alert Tags 一覧</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/alerttags/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/alerttags/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ダウンロードページ</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/download/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/download/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>FAQ</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/faq/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/faq/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ロードマップ</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/docs/roadmap/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/docs/roadmap/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>ブログ</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/blog/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/blog/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>動画一覧（ZAP Chat 等）</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/videos/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/videos/
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>コミュニティ</td>
+                    <td>
+                      <a
+                        href="https://www.zaproxy.org/community/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        zaproxy.org/community/
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>GitHub リポジトリ</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>リポジトリ</th>
+                    <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>zaproxy/zaproxy（コア）</td>
+                    <td>
+                      <a
+                        href="https://github.com/zaproxy/zaproxy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github.com/zaproxy/zaproxy
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>zaproxy/zap-extensions（アドオン）</td>
+                    <td>
+                      <a
+                        href="https://github.com/zaproxy/zap-extensions"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github.com/zaproxy/zap-extensions
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>zaproxy/zap-hud（HUD）</td>
+                    <td>
+                      <a
+                        href="https://github.com/zaproxy/zap-hud"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github.com/zaproxy/zap-hud
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>zaproxy/community-scripts</td>
+                    <td>
+                      <a
+                        href="https://github.com/zaproxy/community-scripts"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github.com/zaproxy/community-scripts
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>zaproxy/zap-api-docs</td>
+                    <td>
+                      <a
+                        href="https://github.com/zaproxy/zap-api-docs"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github.com/zaproxy/zap-api-docs
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>zaproxy/action-baseline（GitHub Action）</td>
+                    <td>
+                      <a
+                        href="https://github.com/zaproxy/action-baseline"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github.com/zaproxy/action-baseline
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>zaproxy/zaproxy-website（サイトのソース）</td>
+                    <td>
+                      <a
+                        href="https://github.com/zaproxy/zaproxy-website"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github.com/zaproxy/zaproxy-website
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>GitHub Organization 全体</td>
+                    <td>
+                      <a
+                        href="https://github.com/zaproxy"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        github.com/zaproxy
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>学習用の脆弱アプリケーション</h3>
+            <div className="callout callout-danger">
+              <i className="ti ti-alert-triangle"></i>
+              <p>
+                許可なくインターネット上の他サイトを攻撃しないこと。以下は学習目的で公開されている、意図的に脆弱性を含んだアプリケーションです。
+              </p>
+            </div>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>アプリ</th>
+                    <th>用途</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>OWASP Juice Shop</td>
+                    <td>
+                      モダンな SPA
+                      構成の意図的脆弱アプリ。認証テストの学習にも利用される
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Google Firing Range</td>
+                    <td>
+                      各種 XSS
+                      パターンなどをテストするための公開テストターゲット
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>bodgeit</td>
+                    <td>
+                      フォームベース認証のサンプルとして ZAP
+                      公式ドキュメントでも使用される
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>関連する外部標準・団体</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>リソース</th>
+                    <th>URL</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>OWASP Testing Guide</td>
+                    <td>
+                      <a
+                        href="https://www.owasp.org/wstg"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        owasp.org/wstg
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>OWASP 本体</td>
+                    <td>
+                      <a
+                        href="https://owasp.org/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        owasp.org
+                      </a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Checkmarx（ZAP スポンサー企業）</td>
+                    <td>
+                      <a
+                        href="https://checkmarx.com/product/zap/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        checkmarx.com/product/zap/
+                      </a>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="doc-footer">
+              本ガイドでは、ZAP のインストールから基本的な UI 操作、Spider・Passive
+              Scan・Active Scan といったコア機能、Context・Scope・Authentication
+              などのテスト対象定義、Automation Framework と Docker/CI-CD
+              連携による自動化、レポート生成、そしてトラブルシューティングまでを一通り解説しました。次のステップとしては、OWASP
+              Juice Shop
+              などの学習用アプリケーションに対して本ガイドの手順を一通り試し、その後は各章の公式ドキュメントリンクから興味のある機能を深掘りしていくことをお勧めします。
+            </div>
+          </section>
         </div>
       </main>
     </div>
   );
 }
+
 
 
