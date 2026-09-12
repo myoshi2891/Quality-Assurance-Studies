@@ -37,11 +37,41 @@ function collectTestFiles(dir: string): string[] {
  * コメント「本文」だけを除去し、実コードは残す（注意書きの引用で誤検知しないため）。
  * 行単位で丸ごと捨てると、同一行で閉じたブロックコメントの後ろに続く
  * mock.module 呼び出しまで検査対象から消えてしまうため、テキスト単位で除去する。
+ *
+ * 行コメントは行頭だけでなく実コード末尾（`doSomething(); // ...`）にも現れるため、
+ * 文字列リテラル（`'` `"` \`）の内側かどうかを1文字ずつ追跡し、リテラル外で見つけた
+ * `//` 以降のみをコメントとして切り捨てる。これにより URL など文字列内の `//` を
+ * 誤ってコメント開始と判定しない。
  */
+function stripLineComment(line: string): string {
+    let quote: '"' | "'" | '`' | null = null;
+    for (let i = 0; i < line.length; i++) {
+        const ch = line[i];
+        if (quote) {
+            if (ch === '\\') {
+                i++; // エスケープされた次の文字は判定対象から外す
+                continue;
+            }
+            if (ch === quote) quote = null;
+            continue;
+        }
+        if (ch === '"' || ch === "'" || ch === '`') {
+            quote = ch;
+            continue;
+        }
+        if (ch === '/' && line[i + 1] === '/') {
+            return line.slice(0, i);
+        }
+    }
+    return line;
+}
+
 function stripComments(source: string): string {
     return source
         .replace(/\/\*[\s\S]*?\*\//g, '') // ブロックコメント（複数行・同一行を問わず本文のみ）
-        .replace(/^\s*\/\/.*$/gm, ''); // 行頭から始まる行コメント
+        .split('\n')
+        .map(stripLineComment)
+        .join('\n');
 }
 
 describe('mermaid モックの分離', () => {
@@ -58,5 +88,15 @@ describe('mermaid モックの分離', () => {
         // 「含まれる」だけでは二重登録を見逃すため、登録は 1 箇所だけであることを数で確認する
         const registrations = setup.match(/mock\.module\(\s*['"`]mermaid['"`]/g) ?? [];
         expect(registrations).toHaveLength(1);
+    });
+
+    it('実コード末尾の行コメント内の mock.module 呼び出しも除去される（回帰テスト）', () => {
+        const source = "doSomething(); // mock.module('mermaid', () => ({}))\n";
+        expect(FORBIDDEN.test(stripComments(source))).toBe(false);
+    });
+
+    it('文字列リテラル内の // はコメント開始とみなさず本文を保持する', () => {
+        const source = "const url = 'https://example.com/mermaid-docs';\n";
+        expect(stripComments(source)).toContain('https://example.com/mermaid-docs');
     });
 });
