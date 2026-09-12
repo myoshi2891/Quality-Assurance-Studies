@@ -322,4 +322,26 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(footer?.textContent).toContain('International Software Testing Qualifications Board の登録商標です');
         });
     });
+
+    describe('Category 6: Table captions (accessibility)', () => {
+        it('renders exactly one caption per table for all 6 tables with the expected text', () => {
+            render(<Chapter6Page />);
+            const expectedCaptions: [string, string][] = [
+                ['#pos table', 'Chapter 6 の位置づけ（学習時間・出題比率などの基本情報）'],
+                ['#lo table', 'Chapter 6 の学習目標一覧（ID・K-level・目標内容）'],
+                ['#s61-4 table', 'テスト実行・カバレッジツールの比較（Playwright・Selenium・Cypress）'],
+                ['#s62-2 table', 'テスト自動化・ツール活用の利点と具体例'],
+                ['#s62-3 table', 'テスト自動化・ツール活用のリスクと説明'],
+                ['#summary table', 'Chapter 6 章のまとめ（ポイントと要約）'],
+            ];
+
+            expectedCaptions.forEach(([selector, expectedText]) => {
+                const table = document.querySelector(selector);
+                expect(table).not.toBeNull();
+                const captions = table?.querySelectorAll('caption');
+                expect(captions?.length).toBe(1);
+                expect(captions?.[0]?.textContent).toBe(expectedText);
+            });
+        });
+    });
 });

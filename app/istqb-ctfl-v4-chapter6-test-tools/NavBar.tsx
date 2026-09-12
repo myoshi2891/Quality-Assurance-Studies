@@ -95,6 +95,19 @@ export default function NavBar() {
         return () => observer.disconnect();
     }, []);
 
+    useEffect(() => {
+        const mql = window.matchMedia('(max-width: 980px)');
+        const handleChange = (e: MediaQueryListEvent) => {
+            if (!e.matches || isOpen) return;
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar?.contains(document.activeElement)) {
+                toggleRef.current?.focus({ preventScroll: true });
+            }
+        };
+        mql.addEventListener('change', handleChange);
+        return () => mql.removeEventListener('change', handleChange);
+    }, [isOpen]);
+
     const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
         e.preventDefault();
         const element = document.getElementById(id);

@@ -41,7 +41,7 @@ y-axis "学習コスト高" --> "学習コスト低"
 quadrant-1 "モダンチームに最適"
 quadrant-2 "学習容易だが対象限定"
 quadrant-3 "エンタープライズ向け高機能"
-quadrant-4 "汎用性と学習容易さの両立"
+quadrant-4 "モダンWeb向けだが学習コスト高"
 "Playwright": [0.8, 0.75]
 "Selenium": [0.35, 0.3]
 "Cypress": [0.7, 0.65]`;
