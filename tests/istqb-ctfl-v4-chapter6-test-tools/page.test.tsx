@@ -127,4 +127,88 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(hasDiag1).toBe(true);
         });
     });
+
+    describe('Category 4: Sections 3 & 4: 6.2 利点とリスク & FL-6.2.2 特別な考慮事項', () => {
+        it('renders Section 3 with all subsections (3.1 to 3.4)', () => {
+            render(<Chapter6Page />);
+            const sec3 = document.getElementById('s62');
+            expect(sec3).not.toBeNull();
+            expect(sec3?.textContent).toContain('3. 6.2 テスト自動化の利点とリスク');
+
+            expect(document.getElementById('s62-1')).not.toBeNull();
+            expect(document.getElementById('s62-1')?.textContent).toContain('3.1 導入の大前提');
+            expect(document.getElementById('s62-1')?.textContent).toContain('ツールを導入するだけでは成功は保証されない');
+
+            expect(document.getElementById('s62-2')).not.toBeNull();
+            expect(document.getElementById('s62-2')?.textContent).toContain('3.2 テスト自動化・ツール活用の利点');
+
+            expect(document.getElementById('s62-3')).not.toBeNull();
+            expect(document.getElementById('s62-3')?.textContent).toContain('3.3 テスト自動化・ツール活用のリスク');
+
+            expect(document.getElementById('s62-4')).not.toBeNull();
+            expect(document.getElementById('s62-4')?.textContent).toContain('3.4 利点とリスクの構造的理解');
+        });
+
+        it('renders the benefits table in section 3.2 and risks table in section 3.3', () => {
+            render(<Chapter6Page />);
+            // Benefits table
+            const benTable = document.querySelector('#s62-2 table');
+            expect(benTable).not.toBeNull();
+            expect(benTable?.textContent).toContain('反復作業の削減');
+            expect(benTable?.textContent).toContain('一貫性・再現性の向上');
+            expect(benTable?.textContent).toContain('客観的な評価');
+            expect(benTable?.textContent).toContain('情報アクセスの容易化');
+
+            // Risks table
+            const riskTable = document.querySelector('#s62-3 table');
+            expect(riskTable).not.toBeNull();
+            expect(riskTable?.textContent).toContain('非現実的な期待');
+            expect(riskTable?.textContent).toContain('導入コスト・工数の過小評価');
+            expect(riskTable?.textContent).toContain('ツールへの過度な依存');
+            expect(riskTable?.textContent).toContain('他ツールとの相互運用性の欠如');
+            expect(riskTable?.textContent).toContain('ベンダー・プロジェクトリスク');
+        });
+
+        it('renders Section 4 (FL-6.2.2 特定ツール種別に関する特別な考慮事項) with subsections (4.1 to 4.3)', () => {
+            render(<Chapter6Page />);
+            const sec4 = document.getElementById('s623');
+            expect(sec4).not.toBeNull();
+            expect(sec4?.textContent).toContain('4. FL-6.2.2: 特定ツール種別に関する特別な考慮事項');
+
+            expect(document.getElementById('s623-1')).not.toBeNull();
+            expect(document.getElementById('s623-1')?.textContent).toContain('4.1 テスト実行ツール: スクリプティング手法の進化');
+            expect(document.getElementById('s623-1')?.textContent).toContain('データ駆動テスト（data-driven testing）');
+            expect(document.getElementById('s623-1')?.textContent).toContain('キーワード駆動テスト（keyword-driven testing）');
+            expect(document.getElementById('s623-1')?.textContent).toContain('スクリプト言語（scripting language）');
+
+            expect(document.getElementById('s623-2')).not.toBeNull();
+            expect(document.getElementById('s623-2')?.textContent).toContain('4.2 静的解析ツールに関する考慮事項');
+
+            expect(document.getElementById('s623-3')).not.toBeNull();
+            expect(document.getElementById('s623-3')?.textContent).toContain('4.3 テスト管理ツールに関する考慮事項');
+        });
+
+        it('renders the keyword-driven CSV code block with .code-line wrappers in section 4.1', () => {
+            render(<Chapter6Page />);
+            const codeBlock = document.querySelector('#s623-1 .code-block');
+            expect(codeBlock).not.toBeNull();
+            expect(codeBlock?.textContent).toContain('keyword,target,value');
+            expect(codeBlock?.textContent).toContain('open_browser,https://example.com/login,');
+            expect(codeBlock?.textContent).toContain('input_text,#username,tanaka_taro');
+            const lines = codeBlock?.querySelectorAll('.code-line');
+            expect(lines && lines.length).toBeGreaterThanOrEqual(5);
+        });
+
+        it('renders Mermaid diagrams diag-2, diag-3, and diag-4 across sections 3 and 4', () => {
+            render(<Chapter6Page />);
+            const mermaids = screen.getAllByTestId('mermaid');
+            const charts = mermaids.map((m) => m.textContent || '');
+            const hasDiag2 = charts.some((c) => c.includes('ツール導入の意思決定') && c.includes('継続的に投資対効果を評価しているか'));
+            const hasDiag3 = charts.some((c) => c.includes('キャプチャ・リプレイ方式') && c.includes('データ駆動テスト'));
+            const hasDiag4 = charts.some((c) => c.includes('テスト管理ツール') && c.includes('要求管理ツール'));
+            expect(hasDiag2).toBe(true);
+            expect(hasDiag3).toBe(true);
+            expect(hasDiag4).toBe(true);
+        });
+    });
 });
