@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import NavBar from './NavBar';
+import Mermaid from '../../components/Mermaid';
 import './owasp-zap-beginner-guide.css';
 
 export const metadata: Metadata = {
@@ -8,6 +9,27 @@ export const metadata: Metadata = {
   description:
     'ZAP 公式ドキュメントの一次情報をもとに、初学者が ZAP (Zed Attack Proxy) を体系的に学べるようステップバイステップでまとめたガイド。インストール、プロキシ設定、Spider、Passive/Active Scan、認証、自動化までを網羅。',
 };
+
+const DIAGRAM_ARCHITECTURE = `flowchart LR
+    Browser["Webブラウザ"] -->|プロキシ経由| ZAP["ZAP Proxy"]
+    ZAP --> Target["対象Webアプリケーション"]
+    Target --> ZAP
+    ZAP --> Browser
+    ZAP -.-> PScan["Passive Scanner"]
+    ZAP -.-> Spider["Spider / Ajax Spider"]
+    ZAP -.-> AScan["Active Scanner"]
+    PScan -.-> Alerts["Alerts"]
+    Spider -.-> Alerts
+    AScan -.-> Alerts`;
+
+const DIAGRAM_MODE = `stateDiagram-v2
+    [*] --> Standard
+    Standard --> Safe
+    Safe --> Protected
+    Protected --> ATTACK
+    ATTACK --> Protected
+    Protected --> Standard`;
+
 
 export default function OwaspZapBeginnerGuidePage() {
   return (
@@ -465,8 +487,472 @@ export default function OwaspZapBeginnerGuidePage() {
               </ul>
             </div>
           </section>
+
+          {/* 5. Architecture */}
+          <section id="architecture">
+            <div className="section-eyebrow">
+              <i className="ti ti-sitemap"></i>SECTION 05
+            </div>
+            <h2>全体アーキテクチャと基本用語</h2>
+            <p>
+              ZAP の核心は「<strong>manipulator-in-the-middle proxy</strong>」（ZAP
+              公式が用いる呼称。いわゆる中間者プロキシ）であるという点です。ブラウザや自動テストツールの通信を
+              ZAP
+              経由にすることで、すべてのリクエスト・レスポンスを観察・記録・改変できます。
+            </p>
+
+            <div className="mermaid-diagram">
+              <Mermaid chart={DIAGRAM_ARCHITECTURE} />
+            </div>
+
+            <h3>基本用語まとめ</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>用語</th>
+                    <th>説明</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Sites Tree</td>
+                    <td>
+                      アクセスしたすべての URL をツリー構造で表示するパネル
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>History</td>
+                    <td>送受信されたすべてのリクエスト/レスポンスの一覧</td>
+                  </tr>
+                  <tr>
+                    <td>Context</td>
+                    <td>テスト対象の URL 群を関連付ける論理的なグループ</td>
+                  </tr>
+                  <tr>
+                    <td>Scope</td>
+                    <td>
+                      現在テスト対象としている URL の集合（Context
+                      をスコープに追加して定義）
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Mode</td>
+                    <td>
+                      ZAP の動作制限レベル（Safe / Protected / Standard / ATTACK）
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Alert</td>
+                    <td>ZAP が検出した問題（脆弱性の可能性がある事象）</td>
+                  </tr>
+                  <tr>
+                    <td>Session</td>
+                    <td>
+                      現在の ZAP の作業状態。ファイルとして保存・再読み込み可能
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/intercept/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Manipulator-in-the-middle Proxy
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/sitestree/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Sites Tree
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/tabs/sites/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Sites tab (UI)
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 6. Proxy setup */}
+          <section id="proxy-setup">
+            <div className="section-eyebrow">
+              <i className="ti ti-plug"></i>SECTION 06
+            </div>
+            <h2>起動とプロキシ設定</h2>
+            <p>
+              ZAP を最大限活用するには、ブラウザ（または自動テストツール）の通信を ZAP
+              経由にする必要があります。
+            </p>
+
+            <h3>手順</h3>
+            <ol>
+              <li>ZAP を起動する。</li>
+              <li>
+                ZAP の Local Proxy の待受アドレス・ポート（デフォルトは
+                <code>localhost:8080</code>）を確認する（Tools &gt; Options &gt;
+                Local Servers/Proxies）。
+              </li>
+              <li>ブラウザのプロキシ設定を ZAP のアドレス・ポートに設定する。</li>
+              <li>ブラウザから対象アプリケーションへアクセスしてみる。</li>
+              <li>
+                <strong>Sites</strong> タブ・<strong>History</strong>
+                タブに通信が記録されれば成功。
+              </li>
+            </ol>
+            <p>
+              Quick Start タブの「<strong>Manual Explore</strong>」機能を使うと、ZAP
+              用に事前設定されたブラウザプロファイルをワンクリックで起動できるため、既存のブラウザ設定を変更したくない場合に便利です。
+            </p>
+
+            <h3>HTTPS 通信を見るために</h3>
+            <p>
+              HTTPS の内容まで解析するには、ZAP が生成する
+              <strong>Root CA 証明書</strong>をブラウザ／OS
+              の信頼済みルート証明書としてインストールする必要があります（Tools &gt;
+              Options &gt; Dynamic SSL Certificates からエクスポート可能）。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Getting Started
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/proxies/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Configuring Proxies
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/options/dynsslcert/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Dynamic SSL Certificates
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 7. Quick Start */}
+          <section id="quickstart">
+            <div className="section-eyebrow">
+              <i className="ti ti-bolt"></i>SECTION 07
+            </div>
+            <h2>Quick Start：最速でスキャンを試す</h2>
+            <p>
+              <strong>Quick Start</strong>
+              アドオンはデフォルトでインストールされており、初学者が最も簡単に ZAP
+              を使い始められる入口です。
+            </p>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>機能</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Automated Scan</td>
+                    <td>
+                      URL を 1 つ入力するだけで、Spider（通常 or Ajax）→
+                      Active Scan を自動的に実行
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Manual Explore</td>
+                    <td>
+                      ZAP 経由でプロキシ設定済みのブラウザを起動し、HUD
+                      を有効にするかどうかも選択できる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Learn More</td>
+                    <td>ローカル／オンラインの学習リソースへのリンク集</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Automated Scan を試す</h3>
+            <ol>
+              <li>Quick Start タブを開く。</li>
+              <li>
+                「URL to attack」に対象 URL（例：学習用アプリの URL）を入力する。
+              </li>
+              <li>「Attack」ボタンをクリックする。</li>
+              <li>Spider が URL を収集し、続けて Active Scan が自動実行される。</li>
+              <li>完了後、下部の Alerts タブに検出結果が一覧表示される。</li>
+            </ol>
+
+            <div className="callout callout-warning">
+              <i className="ti ti-alert-triangle"></i>
+              <p>
+                Automated Scan は Active
+                Scan（実際の攻撃ペイロード送信）まで自動実行するため、許可のない対象や本番環境には絶対に使用しないでください。
+              </p>
+            </div>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/quick-start/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Quick Start Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/quick-start/cmdline/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Quick Start Command Line
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 8. Context Scope Mode */}
+          <section id="scsm">
+            <div className="section-eyebrow">
+              <i className="ti ti-target-arrow"></i>SECTION 08
+            </div>
+            <h2>Sites Tree・Context・Scope・Mode</h2>
+            <p>初学者がつまずきやすい 4 つの概念を整理します。</p>
+
+            <h3>Context（コンテキスト）</h3>
+            <p>
+              Context は、一連の URL をひとつのまとまり（＝ひとつの Web
+              アプリケーション）として関連付ける仕組みです。Context
+              は<strong>正規表現（regex）</strong>で定義され、その正規表現は URL
+              全体にマッチする必要があります。複数の Web
+              アプリをテストするシステムでは、アプリごとに Context
+              を分けて定義することが推奨されています。
+            </p>
+            <p>Context には以下のような付随情報を関連付けられます。</p>
+            <ul>
+              <li>認証方式（Authentication Method）</li>
+              <li>セッション管理方式（Session Management Method）</li>
+              <li>ユーザー定義（Users）</li>
+              <li>除外 URL、構造修飾子（Structural Modifiers）など</li>
+            </ul>
+
+            <h3>Scope（スコープ）</h3>
+            <p>
+              Scope は「現在テスト対象としている URL の集合」であり、Context
+              をスコープに追加することで定義されます。デフォルトでは何もスコープに入っていません。Scope
+              は以下に影響します。
+            </p>
+            <ul>
+              <li>Protected Mode で「危険な操作」を実行できる対象</li>
+              <li>History タブなどでの表示フィルタ</li>
+            </ul>
+
+            <h3>Mode（モード）</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Mode</th>
+                    <th>説明</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Safe</td>
+                    <td>危険な操作を一切許可しない</td>
+                  </tr>
+                  <tr>
+                    <td>Protected</td>
+                    <td>Scope 内の URL に対してのみ危険な操作を許可</td>
+                  </tr>
+                  <tr>
+                    <td>Standard</td>
+                    <td>制限なし（デフォルト）</td>
+                  </tr>
+                  <tr>
+                    <td>ATTACK</td>
+                    <td>
+                      Scope 内で新しく発見されたノードを自動的に Active Scan
+                      する
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="mermaid-diagram">
+              <Mermaid chart={DIAGRAM_MODE} />
+            </div>
+
+            <p>
+              初学者は、意図しない対象を誤って攻撃しないよう
+              <strong>Protected Mode</strong>
+              の利用が推奨されています。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/contexts/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Contexts
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/scope/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Scope
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/modes/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Modes
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/session/contexts/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Session Context screens
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 9. Manual explore */}
+          <section id="manual-explore">
+            <div className="section-eyebrow">
+              <i className="ti ti-hand-click"></i>SECTION 09
+            </div>
+            <h2>手動探索（Explore）と MITM プロキシ</h2>
+            <p>
+              自動化されたスキャンだけでは、フォーム入力やログイン後の画面など、実際にユーザーが操作しないと到達できないページを見逃すことがあります。そのため
+              ZAP
+              を使ったテストの最初のステップとして「<strong>手動探索（Explore）</strong>」が推奨されます。
+            </p>
+
+            <h3>手動探索の考え方</h3>
+            <ol>
+              <li>ZAP 経由でプロキシ設定したブラウザで対象アプリを開く。</li>
+              <li>
+                すべてのリンクをクリックし、すべてのボタンを押し、すべてのフォームに入力・送信する。
+              </li>
+              <li>
+                アプリが複数のロール（一般ユーザー・管理者など）を持つ場合は、ロールごとに別セッションで探索する。
+              </li>
+              <li>
+                これにより Sites Tree・History に多くの URL
+                とリクエストパターンが記録され、後続の Spider・Active Scan
+                の精度が上がる。
+              </li>
+            </ol>
+
+            <h3>Breakpoints（ブレークポイント）</h3>
+            <p>
+              リクエストやレスポンスをその場で書き換えてテストしたい場合は、
+              <strong>Breakpoints</strong>
+              機能を使います。特定の条件に一致した通信を一時停止し、内容を編集してから送信できます。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/pentest/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – A Basic Penetration Test
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/breakpoints/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Breakpoints
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/intercept/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Manipulator-in-the-middle Proxy
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
         </div>
       </main>
     </div>
   );
 }
+
