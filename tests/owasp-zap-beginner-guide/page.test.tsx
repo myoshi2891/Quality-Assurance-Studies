@@ -842,5 +842,93 @@ describe('OWASP ZAP Complete Guide - Category 1: 導入 (intro, disclaimer, feat
     expect(refLinks?.length).toBe(6);
     expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/addons/');
   });
+
+  it('renders Section 23: よくあるトラブルと対処法 (#troubleshooting)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#troubleshooting');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 23');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('よくあるトラブルと対処法');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(8);
+    expect(rows?.[0].textContent).toContain('ブラウザ経由の通信が Sites/History に表示されない');
+    expect(rows?.[1].textContent).toContain('HTTPS サイトで証明書エラーが出る');
+    expect(rows?.[7].textContent).toContain('ウイルス対策ソフトが ZAP のインストーラーを誤検知する');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(3);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/docker/');
+  });
+
+  it('renders Section 24: ベストプラクティスまとめ (#best-practices)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#best-practices');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 24');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('ベストプラクティスまとめ');
+
+    const steps = section?.querySelectorAll('ol li');
+    expect(steps?.length).toBe(9);
+    expect(steps?.[0].textContent).toContain('必ず許可された対象のみをテストする');
+    expect(steps?.[8].textContent).toContain('OWASP Testing Guide');
+
+    const refs = section?.querySelector('.refs');
+    expect(refs).not.toBeNull();
+    const refLinks = refs?.querySelectorAll('ul li a');
+    expect(refLinks?.length).toBe(3);
+    expect(refLinks?.[0].getAttribute('href')).toBe('https://www.zaproxy.org/docs/desktop/start/pentest/');
+  });
+
+  it('renders Section 25: 学習リソース・参考 URL 一覧 (#resources) and .doc-footer', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#resources');
+    expect(section).not.toBeNull();
+
+    const eyebrow = section?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('SECTION 25');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('学習リソース・参考 URL 一覧');
+
+    const h3s = section?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(4);
+    expect(h3s?.[0].textContent).toBe('公式ドキュメント');
+    expect(h3s?.[1].textContent).toBe('GitHub リポジトリ');
+    expect(h3s?.[2].textContent).toBe('学習用の脆弱アプリケーション');
+    expect(h3s?.[3].textContent).toBe('関連する外部標準・団体');
+
+    const tables = section?.querySelectorAll('table');
+    expect(tables?.length).toBe(4);
+    const rows1 = tables?.[0].querySelectorAll('tbody tr');
+    expect(rows1?.length).toBe(18);
+    const rows2 = tables?.[1].querySelectorAll('tbody tr');
+    expect(rows2?.length).toBe(8);
+    const rows3 = tables?.[2].querySelectorAll('tbody tr');
+    expect(rows3?.length).toBe(3);
+    const rows4 = tables?.[3].querySelectorAll('tbody tr');
+    expect(rows4?.length).toBe(3);
+
+    const callout = section?.querySelector('.callout.callout-danger');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('許可なくインターネット上の他サイトを攻撃しないこと');
+
+    const footer = section?.querySelector('.doc-footer');
+    expect(footer).not.toBeNull();
+    expect(footer?.textContent).toContain('本ガイドでは、ZAP のインストールから');
+  });
 });
+
 
