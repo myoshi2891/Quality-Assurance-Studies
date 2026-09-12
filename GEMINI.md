@@ -149,6 +149,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/agile-testing-practical-guide/page.tsx` (Agile Testing 実践ガイド、`NavBar.tsx` 付き)
 - `app/explore-it-guide/page.tsx` (Explore It! 探索的テスト実践ガイド、`NavBar.tsx` 付き)
 - `app/owasp-zap-beginner-guide/page.tsx` (OWASP ZAP 完全ガイド、`NavBar.tsx` 付き)
+- `app/lessons-learned-in-software-testing-guide/page.tsx` (Lessons Learned in Software Testing 実践ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
@@ -174,7 +175,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 
 ### グローバルナビ（ドロワー / ガイド index）
 
-- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（61 件）。
+- ルートの Single Source of Truth は `lib/navigation.ts` の `NAV_ITEMS`（65 件）。
   `components/Header.tsx` のドロワーと `app/page.tsx` のガイドライブラリ index が共用する
 - 新ガイド追加時は `NAV_ITEMS` に `{ href, label, description, category }` を 1 件追加するだけでよい。
   `description` は必須（80 文字以内、index のカード本文かつ検索対象）
@@ -287,17 +288,18 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Istqb-ctfl-v4-chapter6.html` | `/istqb-ctfl-v4-chapter6-test-tools` | ✅ NavBar + aria-current あり (archive/html-archive/ctfl/) |
 | `Explore-it-guide.html` | `/explore-it-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Owasp-zap-beginner-guide.html` | `/owasp-zap-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
+| `Lessons-learned-in-software-testing-guide.html` | `/lessons-learned-in-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 27 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 25 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 12 ペア = 24 ファイル）: `Art-of-software-testing-guide.*` / `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Lessons-learned-in-software-testing-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Test-driven-development-by-example-guide.*` / `Testing-computer-software-guide.*` / `Unit-testing-principles-practices-patterns-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 11 ペア = 22 ファイル）: `Art-of-software-testing-guide.*` / `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Test-driven-development-by-example-guide.*` / `Testing-computer-software-guide.*` / `Unit-testing-principles-practices-patterns-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（2 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 
@@ -312,9 +314,13 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 64 ルート（ガイドライブラリ index + 63 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 27 ファイル（書籍ガイド系の HTML/Markdown 12 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 65 ルート（ガイドライブラリ index + 64 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 25 ファイル（書籍ガイド系の HTML/Markdown 11 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
+
+【ビルド検証の制約】
+サンドボックス環境では `bun run build` を直接実行しない。ビルド確認が必要な場合はユーザーに実行を依頼すること。
+ローカル検証は `bun run lint` と `bun test` で行う。
 
 【指示】
 登録済みガイドの Next.js 移行が完了しました。今後の品質向上、E2Eテストの拡充、または新しい機能追加について指示を仰ぎます。

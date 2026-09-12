@@ -113,6 +113,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/leading-quality-guide', label: 'Leading Quality 実践ガイド', description: '品質をテストチームの仕事から経営アジェンダへ引き上げる、品質リーダーシップの10ステップ。', category: 'books-practices' },
   { href: '/agile-testing-practical-guide', label: 'Agile Testing 実践ガイド', description: 'アジャイルテスターの10原則、4象限、テストピラミッド、探索的テストを初学者向けに体系的に解説。', category: 'books-practices' },
   { href: '/explore-it-guide', label: 'Explore It! 実践ガイド', description: 'Elisabeth Hendrickson『Explore It!』に基づく探索的テスト実践フィールドガイド。チャーター、観察、ヒューリスティクスを網羅。', category: 'books-practices' },
+  { href: '/lessons-learned-in-software-testing-guide', label: 'Lessons Learned 実践ガイド', description: 'Cem Kanerらによるテスト古典『Lessons Learned in Software Testing』に基づくコンテキスト駆動テスト実践ガイド。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
