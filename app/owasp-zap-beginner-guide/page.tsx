@@ -36,6 +36,13 @@ const DIAGRAM_PENTEST_FLOW = `flowchart TD
     C --> D["④ Active Scan"]
     D --> E["⑤ Manual Test"]`;
 
+const DIAGRAM_AUTH = `flowchart TD
+    A["① Contextを作成"] --> B["② Session Management Method設定"]
+    B --> C["③ Authentication Method設定"]
+    C --> D["④ Verification Strategy設定"]
+    D --> E["⑤ Userを定義"]
+    E --> F["認証済み状態でSpider/Active Scan"]`;
+
 
 
 export default function OwaspZapBeginnerGuidePage() {
@@ -1510,6 +1517,488 @@ export default function OwaspZapBeginnerGuidePage() {
                     rel="noopener noreferrer"
                   >
                     ZAP – Add Alert dialog
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 15. Authentication */}
+          <section id="authentication">
+            <div className="section-eyebrow">
+              <i className="ti ti-lock"></i>SECTION 15
+            </div>
+            <h2>Authentication（認証）の設定</h2>
+            <p>
+              ログインが必要なアプリケーションを効果的にテストするには、ZAP
+              に認証情報を設定する必要があります。設定の全体フローは次の通りです。
+            </p>
+
+            <div className="mermaid-diagram">
+              <Mermaid chart={DIAGRAM_AUTH} />
+            </div>
+
+            <h3>各ステップの概要</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ステップ</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Context 作成</td>
+                    <td>
+                      テスト対象アプリの URL をすべて含む Context を用意する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Session Management Method</td>
+                    <td>
+                      アプリが使用しているセッション管理方式（Cookie
+                      ベース、HTTP
+                      認証ベース、スクリプトベースなど）に合わせて設定
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Authentication Method</td>
+                    <td>
+                      フォームベース認証、HTTP/NTLM 認証、JSON
+                      ベース認証、スクリプトベース認証、ブラウザベース認証（Selenium
+                      経由）など、アプリに合った方式を選択
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Verification Strategy</td>
+                    <td>
+                      ZAP が「ログイン済みか」を判定する方法。Logged-in /
+                      Logged-out Indicator や特定 URL
+                      へのポーリングなどで判定する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Users</td>
+                    <td>
+                      Context に紐づくユーザー（ユーザー名・パスワードなど）を
+                      1 人以上定義する
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>実践的な設定手順（フォームベース認証の例）</h3>
+            <ol>
+              <li>ブラウザを ZAP 経由でプロキシ設定し、対象アプリにログインする。</li>
+              <li>
+                History タブでログイン時の POST リクエストを見つけ、右クリック
+                →「Flag as Context」→「Default Context: Form-based Login
+                Request」を選択。
+              </li>
+              <li>
+                開いたダイアログでユーザー名・パスワードに対応するパラメータを指定する。
+              </li>
+              <li>
+                ログイン後の画面から、ログイン中であることを示す要素を選択し、右クリックして「Flag
+                as Context」→「Authentication Logged-in Indicator」を指定する。
+              </li>
+              <li>
+                Session Properties &gt; Users
+                で実際のユーザー（ID/パスワード）を登録する。
+              </li>
+              <li>
+                以降、Spider や Active Scan のダイアログでこの User
+                を選択すれば、認証済み状態でスキャンできる。
+              </li>
+            </ol>
+
+            <h3>Forced User Mode との違い</h3>
+            <p>
+              「Forced User Mode」はツールバーのボタンで有効化でき、ZAP
+              を通過するすべての通信を指定ユーザーの視点として扱う機能です。<strong>あくまで手動テスト用</strong>であり、自動化（Automation
+              Framework や API 経由のスクリプト）では、より確実な代替手段（Context
+              の認証設定＋ User 指定）を使うことが推奨されています。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/authentication/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Authentication (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/authmethods/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Authentication Methods
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/authstrategies/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Authentication Verification Strategies
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/users/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Users (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/authentication-helper/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Authentication Helper Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/session/context-auth/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Session Context Authentication screen
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/api/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP API Reference – Getting Authenticated（BodgeIt
+                    を使った実践例）
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 16. Scan policy */}
+          <section id="scan-policy">
+            <div className="section-eyebrow">
+              <i className="ti ti-adjustments"></i>SECTION 16
+            </div>
+            <h2>Scan Policy（スキャンポリシー）</h2>
+            <p>
+              <strong>Scan Policy</strong> は、Active Scan
+              がどの検査ルールをどの強度（Attack Strength）・しきい値（Alert
+              Threshold）で実行するかを定義する設定セットです。用途に応じてあらかじめ複数のポリシーが用意されています。
+            </p>
+
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>ポリシー名</th>
+                    <th>想定用途</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Default Policy</td>
+                    <td>汎用的なデフォルト設定</td>
+                  </tr>
+                  <tr>
+                    <td>API Policy</td>
+                    <td>API（REST/GraphQL/SOAP 等）向けに調整された設定</td>
+                  </tr>
+                  <tr>
+                    <td>Developer Standard / Full / CI-CD Policy</td>
+                    <td>
+                      開発者が開発中に使うことを想定した設定（CI/CD
+                      版は高速・軽量）
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>QA Standard / Full / CI-CD Policy</td>
+                    <td>
+                      QA
+                      エンジニアが機能テストと合わせて使うことを想定した設定
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Penetration Tester Policy</td>
+                    <td>経験豊富なペンテスターが徹底的に検査するための設定</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              CI/CD パイプラインに組み込む場合は、実行時間を抑えられる<strong
+              >CI/CD 系ポリシー</strong
+              >を選ぶことが一般的です。独自のポリシーを作成し、特定のルールだけを有効化・強度調整することもできます。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/start/features/scanpolicy/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Scan Policy (Feature)
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/scan-policies/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Scan Policies Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/ui/dialogs/scanpolicymgr/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Scan Policy Manager dialog
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 17. HUD */}
+          <section id="hud">
+            <div className="section-eyebrow">
+              <i className="ti ti-device-desktop"></i>SECTION 17
+            </div>
+            <h2>HUD（Heads Up Display）</h2>
+            <p>
+              <strong>HUD</strong> は、ZAP
+              の主要機能をブラウザ上にオーバーレイ表示するインターフェースで、対象アプリの画面を見ながら
+              ZAP のツールやアラートを直接操作できるユニークな仕組みです。特に Web
+              セキュリティ初学者にとって、デスクトップ UI
+              とブラウザを行き来せずに済む点がメリットとして紹介されてきました。
+            </p>
+
+            <div className="callout callout-warning">
+              <i className="ti ti-alert-triangle"></i>
+              <p>
+                <strong>重要な留意点</strong>：2026 年時点で、HUD
+                は開発が活発ではなくなっており、デフォルトで無効化されています。ブラウザのセキュリティ機能の変更に伴い動作が不安定になることがあるため、公式もメンテナンス協力者を募集している状況です。利用する場合は、この点を理解した上で試験的な機能として扱うことを推奨します。
+              </p>
+            </div>
+
+            <p>
+              HUD を有効化する場合は、Quick Start タブの「Manual Explore」から HUD
+              対応ブラウザ（Firefox/Chrome）を起動するか、Options
+              画面から手動で有効化します。
+            </p>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/hud/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – The HUD Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://github.com/zaproxy/zap-hud"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    GitHub - zaproxy/zap-hud（現状の開発状況の記載）
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/addons/hud/changelog/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP HUD Changelog
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/hud/options/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Options HUD screen
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          {/* 18. Reports */}
+          <section id="reports">
+            <div className="section-eyebrow">
+              <i className="ti ti-report"></i>SECTION 18
+            </div>
+            <h2>レポートの生成</h2>
+            <p>
+              スキャンが完了したら、結果を関係者に共有するためのレポートを生成します。ZAP
+              は「Report
+              Generation」アドオンにより多様な形式のレポートテンプレートを標準搭載しています。
+            </p>
+
+            <h3>主なレポートテンプレート</h3>
+            <div className="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>テンプレート</th>
+                    <th>形式</th>
+                    <th>特徴</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Modern HTML Report</td>
+                    <td>HTML</td>
+                    <td>
+                      テーマ・オプションを選べる現行の標準的な HTML レポート
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Traditional HTML（+ Requests/Responses）</td>
+                    <td>HTML</td>
+                    <td>
+                      従来型の HTML
+                      レポート。リクエスト/レスポンス全文を含むバリエーションあり
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Risk and Confidence HTML</td>
+                    <td>HTML</td>
+                    <td>
+                      Risk × Confidence のマトリクスに主眼を置いたレポート
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>Traditional XML（+ Requests/Responses）</td>
+                    <td>XML</td>
+                    <td>他システムとの連携用</td>
+                  </tr>
+                  <tr>
+                    <td>Traditional JSON（+ Requests/Responses）</td>
+                    <td>JSON</td>
+                    <td>他システムとの連携・自動処理用</td>
+                  </tr>
+                  <tr>
+                    <td>Traditional Markdown Report</td>
+                    <td>Markdown</td>
+                    <td>Wiki やドキュメントへの貼り付けに便利</td>
+                  </tr>
+                  <tr>
+                    <td>Traditional PDF</td>
+                    <td>PDF</td>
+                    <td>そのまま配布可能な形式</td>
+                  </tr>
+                  <tr>
+                    <td>SARIF JSON Report</td>
+                    <td>JSON（SARIF形式）</td>
+                    <td>
+                      GitHub Code Scanning など SARIF 対応ツールとの連携用
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>生成方法</h3>
+            <ul>
+              <li>
+                <strong>デスクトップ UI</strong>：Report メニュー →「Generate
+                Report...」から対象 Context/Site、Risk/Confidence
+                のフィルタ、テンプレートを選択して生成。
+              </li>
+              <li>
+                <strong>API 経由</strong>：<code>core</code> や{' '}
+                <code>reports</code> API を呼び出してプログラム的に生成（Automation
+                Framework の <code>report</code> ジョブでも生成可能）。
+              </li>
+            </ul>
+
+            <div className="refs">
+              <div className="refs-title">
+                <i className="ti ti-link"></i>参考 URL
+              </div>
+              <ul>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/report-generation/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Report Generation Add-on
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/report-generation/create/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Creating Reports
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/report-generation/templates/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Report Templates 一覧
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/report-generation/report-sarif-json/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – SARIF JSON Report
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.zaproxy.org/docs/desktop/addons/report-generation/api/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ZAP – Report Generation API
                   </a>
                 </li>
               </ul>
