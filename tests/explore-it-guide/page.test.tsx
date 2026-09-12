@@ -638,8 +638,37 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     const links = table?.querySelectorAll('a[target="_blank"][rel="noopener noreferrer"]');
     expect(links?.length).toBe(22);
 
-    expect(rows?.[0]?.textContent).toContain("O'Reilly Online Learning");
-    expect(rows?.[21]?.textContent).toContain('QASkills.sh');
+    const expectedReferences: [string, string][] = [
+      ["O'Reilly Online Learning「Explore It!」書誌情報・目次", 'https://www.oreilly.com/library/view/explore-it/9781941222584/f_0000.html'],
+      ['Amazon「Explore It!」書籍紹介（著者略歴・Janet Gregory推薦文）', 'https://www.amazon.com/Explore-Increase-Confidence-Exploratory-Testing/dp/1937785025'],
+      ['Hexawise Blog「Book Review of "Explore It!"」', 'https://hexawise.com/posts/book-review-of-explore-it-elisabeth-hendricksons-excellent-new-book-on-software-testing'],
+      ["LogiGear Blog「Book Review: Elizabeth Hendrickson's Explore It!」", 'https://www.logigear.com/blogs/test-methods/Book-Review-Elizabeth-Hendricksons-Explore-It'],
+      ['Steveo1967 Blog「Book Review - Explore it!」', 'http://steveo1967.blogspot.com/2013/11/book-review-explore-it-by-elizabeth.html'],
+      ['Test Engineering Notes「5 Insights from Explore It!」（2026年）', 'https://testengineeringnotes.com/posts/2026-07-02-explore-it-review/'],
+      ['Martin Fowler「bliki: Exploratory Testing」', 'https://martinfowler.com/bliki/ExploratoryTesting.html'],
+      ['Martin Fowler「Testing Guide」', 'https://martinfowler.com/testing/'],
+      ['Wikipedia「Exploratory testing」', 'https://en.wikipedia.org/wiki/Exploratory_testing'],
+      ['Wikipedia「Session-based testing」', 'https://en.wikipedia.org/wiki/Session-based_testing'],
+      ['TechWell「Use Session-Based Testing to Structure Exploratory Testing」', 'https://www.techwell.com/techwell-insights/2013/02/use-session-based-testing-structure-exploratory-testing'],
+      ['Virtuoso QA「What is Session Based Test Management (SBTM)?」', 'https://www.virtuosoqa.com/post/session-based-test-management'],
+      ['Tricentis Blog「Session-based Testing」', 'https://www.tricentis.com/blog/exploratory-testing-techniques-session-based-testing'],
+      ['The Testing-Library-Project「SBTM by James Bach」', 'https://tstlibrary.wordpress.com/whitepapers/session-based-test-management-by-james-bach/'],
+      ['yrkan.com「Test Charter Writing for Exploratory Testing」', 'https://yrkan.com/blog/test-charter-writing/'],
+      ['Xray Blog「How to use test charters for effective exploratory testing」', 'https://www.getxray.app/blog/test-charters-exploratory-testing'],
+      ['Medium (Karlo Smid / Tentamen)「Testing Heuristics Cheat Sheet」', 'https://tentamen.medium.com/testing-heuristics-cheat-sheet-tentamen-software-testing-blog-c6979f20caf0'],
+      ['BBST Courses「Test Heuristics Cheat Sheet」', 'https://bbst.courses/elisabeth-hendrickson-james-lyndsay-and-dale-emery-test-heuristics-cheat-sheet/'],
+      ['Ministry of Testing「Test Heuristics Cheat Sheet」', 'https://www.ministryoftesting.com/articles/ab1cd85c'],
+      ['testomat.io「Software Testing Trends 2026」', 'https://testomat.io/blog/software-testing-trends/'],
+      ['PC Tech Magazine「Best AI Agents for Software Testing in 2026」', 'https://pctechmag.com/2026/04/best-ai-agents-for-software-testing-in-2026/'],
+      ['QASkills.sh「Agentic AI Testing Guide 2026」', 'https://qaskills.sh/blog/agentic-ai-testing-guide-2026'],
+    ];
+
+    expectedReferences.forEach(([sourceName, href], i) => {
+      const row = rows?.[i];
+      expect(row?.textContent).toContain(sourceName);
+      const link = row?.querySelector('a[target="_blank"][rel="noopener noreferrer"]');
+      expect(link?.getAttribute('href')).toBe(href);
+    });
 
     const footer = sec?.querySelector('footer');
     expect(footer).not.toBeNull();
