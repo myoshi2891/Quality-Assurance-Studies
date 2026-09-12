@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `443030d` |
-| 最新コミット内容 | fix(lessons-learned): remove nested mermaid-wrapper to prevent double border around diagrams |
+| 最新 HEAD | `623ec7c` |
+| 最新コミット内容 | `test: enhance test isolation for mermaid mock and diagram assertions` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -89,16 +89,16 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 原著HTML固有のダークテーマ（背景 `--bg-primary: #0a0e17`、カード `--bg-card: #121824`、ネオンシアン `--accent-cyan: #00f0ff`、ネオンパープル `--accent-purple: #a855f7`、グリーン `--accent-green: #10b981`）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `var(--text-primary) !important`、セル背景、Tailwindリストマーカー `list-style-type: disc !important`、番号付きリスト `.ordered-list`、Mermaid 枠線・エッジラベル高コントラスト）を完全実装。
 - **Mermaid図解の完全移植**:
-  - 全6図解（ツール分類マインドマップ `diag-0`、ツール選定クアドラント `diag-1`、ROIタイムライン `diag-2`、データ駆動/キーワード駆動 `diag-3`、パイロットプロジェクト手順 `diag-4`、意思決定フロー `diag-5`）を共通 `<Mermaid>` コンポーネントへ移植。
+  - 全6図解（ツール分類マインドマップ `DIAGRAM_0`、ツール選定クアドラント `DIAGRAM_1`、ROIタイムライン `DIAGRAM_2`、データ駆動/キーワード駆動 `DIAGRAM_3`、パイロットプロジェクト手順 `DIAGRAM_4`、意思決定フロー `DIAGRAM_5`）を共通 `<Mermaid>` コンポーネントへ移植（`.diagram-card > .diagram-target` でラップ）。
 - **コードブロック & 改行保持**:
   - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れ（スペース化）を完全に防止（YAML、CSV データ）。
 - **テーブル & インタラクティブ演習問題 & 外部リンク**:
-  - E2Eツール比較表（Playwright vs Selenium vs Cypress）、利点表、リスク表、まとめ表の全4テーブルを完全移植。
+  - 章の位置づけ（学習時間配分）表、学習目標（LO）表、E2Eツール比較表（Playwright vs Selenium vs Cypress）、利点表、リスク表、まとめ表の全6テーブルを完全移植。
   - 3問の演習問題カード（`<details className="quiz-card">`）および正解・解説トグルを完全移植。
   - 全15件以上の参考文献・公式ドキュメント外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
-- `app/istqb-ctfl-v4-chapter6-test-tools/`: ページコンポーネント、専用スタイル（`.istqb-ctfl-v4-ch6-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全9セクションリンク、モバイルトグル対応、`aria-current`）を実装。
+- `app/istqb-ctfl-v4-chapter6-test-tools/`: ページコンポーネント、専用スタイル（`.ctfl-v4-ch6-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全9セクション・サブ項目を含む全18リンク、モバイルトグル対応、`aria-current`）を実装。
 - `lib/navigation.ts`: `istqb-foundation-ext` カテゴリに `/istqb-ctfl-v4-chapter6-test-tools` を追加（全62件）。
-- `tests/istqb-ctfl-v4-chapter6-test-tools/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全リンク、全9セクション、全6Mermaid図、全4テーブル、全コールアウト、全コードブロック、演習問題、全外部リンク（15件以上）の存在を検証する厳格なテストスイートを実装して全パス（17 pass）。
+- `tests/istqb-ctfl-v4-chapter6-test-tools/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全リンク、全9セクション、全6Mermaid図、全6テーブル、全コールアウト、全コードブロック、演習問題、全外部リンク（15件以上）の存在を検証する厳格なテストスイートを実装して全パス（17 pass）。
 - `Istqb-ctfl-v4-chapter6.html`: `archive/html-archive/ctfl/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 62 ページ体制に同期。
 
