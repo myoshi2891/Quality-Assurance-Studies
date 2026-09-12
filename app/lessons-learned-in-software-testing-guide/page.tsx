@@ -188,7 +188,7 @@ export default function LessonsLearnedPage() {
             </p>
 
             <figure className="diagram">
-              <div className="mermaid-wrapper" id="diag-overview">
+              <div id="diag-overview">
                 <Mermaid chart={DIAGRAM_OVERVIEW} />
               </div>
               <figcaption>
@@ -336,7 +336,7 @@ export default function LessonsLearnedPage() {
             </p>
 
             <figure className="diagram">
-              <div className="mermaid-wrapper" id="diag-techniques">
+              <div id="diag-techniques">
                 <Mermaid chart={DIAGRAM_TECHNIQUES} />
               </div>
               <figcaption>図2: テスト技法を捉える5つの視点</figcaption>
@@ -426,7 +426,7 @@ export default function LessonsLearnedPage() {
             </p>
 
             <figure className="diagram">
-              <div className="mermaid-wrapper" id="diag-bug">
+              <div id="diag-bug">
                 <Mermaid chart={DIAGRAM_BUG} />
               </div>
               <figcaption>図3: バグレポートのライフサイクル</figcaption>
@@ -746,7 +746,7 @@ export default function LessonsLearnedPage() {
             </p>
 
             <figure className="diagram">
-              <div className="mermaid-wrapper" id="diag-plan">
+              <div id="diag-plan">
                 <Mermaid chart={DIAGRAM_PLAN} />
               </div>
               <figcaption>
@@ -898,7 +898,7 @@ export default function LessonsLearnedPage() {
             </div>
 
             <figure className="diagram">
-              <div className="mermaid-wrapper" id="diag-ai">
+              <div id="diag-ai">
                 <Mermaid chart={DIAGRAM_AI} />
               </div>
               <figcaption>
