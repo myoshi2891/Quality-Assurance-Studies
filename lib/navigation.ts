@@ -111,6 +111,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/how-google-tests-software-guide', label: 'How Google Tests Software 完全ガイド', description: 'Googleのテスト文化、SET/TE/TEM、Small/Medium/Large、ACC分析、Test Certified、フレーキー対策まで。', category: 'books-practices' },
   { href: '/leading-quality-guide', label: 'Leading Quality 実践ガイド', description: '品質をテストチームの仕事から経営アジェンダへ引き上げる、品質リーダーシップの10ステップ。', category: 'books-practices' },
   { href: '/agile-testing-practical-guide', label: 'Agile Testing 実践ガイド', description: 'アジャイルテスターの10原則、4象限、テストピラミッド、探索的テストを初学者向けに体系的に解説。', category: 'books-practices' },
+  { href: '/explore-it-guide', label: 'Explore It! 実践ガイド', description: 'Elisabeth Hendrickson『Explore It!』に基づく探索的テスト実践フィールドガイド。チャーター、観察、ヒューリスティクスを網羅。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
