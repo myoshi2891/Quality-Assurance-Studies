@@ -1,0 +1,652 @@
+/* ============================================================
+   Lessons Learned in Software Testing 実践ガイド 専用スタイルシート
+   エディトリアル・ペーパーテーマ & globals.css 干渉完全リセット
+   ============================================================ */
+
+.lessons-learned-layout {
+  --paper: #faf7f2;
+  --paper-2: #f1ebe0;
+  --paper-3: #e9e1d2;
+  --ink: #2b2621;
+  --ink-soft: #6b6258;
+  --ink-faint: #9c9184;
+  --indigo: #3b4d8f;
+  --indigo-dark: #263569;
+  --gold: #b8860b;
+  --gold-soft: #e9c874;
+  --forest: #3f6b4a;
+  --plum: #6b3b5e;
+  --border: rgba(43, 38, 33, 0.14);
+  --shadow: 0 12px 32px rgba(43, 38, 33, 0.1);
+  --radius: 14px;
+  --sidebar-width: 308px;
+  --hero-1: #1b2340;
+  --hero-2: #3b4d8f;
+  --hero-3: #c9a227;
+
+  display: block;
+  width: 100%;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+    'Noto Sans JP', 'Yu Gothic', sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.lessons-learned-layout section {
+  padding-top: 0 !important;
+  margin-bottom: 1rem;
+}
+
+.lessons-learned-layout .hero {
+  min-height: 0 !important;
+  display: block !important;
+  padding-top: 0 !important;
+}
+
+.lessons-learned-layout .main {
+  margin-left: var(--sidebar-width);
+  max-width: none !important;
+  width: auto !important;
+  flex: 1 1 auto;
+}
+
+/* ---------- Typography ---------- */
+.lessons-learned-layout h1,
+.lessons-learned-layout h2,
+.lessons-learned-layout h3,
+.lessons-learned-layout .hero,
+.lessons-learned-layout .brand {
+  font-family: 'Source Serif 4', 'Hiragino Mincho ProN', serif;
+}
+
+.lessons-learned-layout a {
+  color: var(--indigo);
+}
+
+.lessons-learned-layout strong {
+  color: var(--indigo-dark) !important;
+  font-weight: 700;
+}
+
+/* ---------- Sidebar ---------- */
+.lessons-learned-layout .sidebar {
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: var(--sidebar-width);
+  height: calc(100vh - 60px);
+  overflow-y: auto;
+  background: var(--paper-2);
+  border-right: 1px solid var(--border);
+  padding: 2rem 1.35rem 3rem;
+  z-index: 40;
+}
+
+.lessons-learned-layout .sidebar .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.3rem;
+  color: var(--indigo-dark);
+  margin-bottom: 0.35rem;
+  line-height: 1.4;
+}
+
+.lessons-learned-layout .sidebar .brand-sub {
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.75rem;
+  display: block;
+}
+
+.lessons-learned-layout .sidebar nav ul {
+  list-style: none !important;
+  margin: 0;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.lessons-learned-layout .sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 9px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 1rem;
+  line-height: 1.4;
+}
+
+.lessons-learned-layout .sidebar nav a .n-num {
+  flex: 0 0 auto;
+  width: 1.9rem;
+  height: 1.9rem;
+  border-radius: 50%;
+  background: var(--paper-3);
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.lessons-learned-layout .sidebar nav a:hover {
+  background: var(--paper-3);
+  color: var(--indigo-dark);
+}
+
+.lessons-learned-layout .sidebar nav a.active {
+  background: #fff;
+  color: var(--indigo-dark);
+  font-weight: 700;
+  box-shadow: var(--shadow);
+}
+
+.lessons-learned-layout .sidebar nav a.active .n-num {
+  background: var(--indigo);
+  color: #fff;
+}
+
+/* ---------- Mobile Bar ---------- */
+.lessons-learned-layout .mobile-bar {
+  display: none;
+}
+
+.lessons-learned-layout .mobile-bar,
+.lessons-learned-layout .mobile-bar * {
+  font-size: 1rem;
+}
+
+/* ---------- Hero ---------- */
+.lessons-learned-layout .hero {
+  background: linear-gradient(
+    135deg,
+    var(--hero-1) 0%,
+    var(--hero-2) 48%,
+    var(--hero-3) 100%
+  );
+  color: #fdf6e3;
+  padding: 4.5rem 3.5rem 3.75rem !important;
+}
+
+.lessons-learned-layout .hero h1 {
+  font-size: clamp(1.9rem, 3.6vw, 2.9rem);
+  margin: 0 0 1rem;
+  line-height: 1.35;
+  color: #fdf6e3 !important;
+}
+
+.lessons-learned-layout .hero p.lead {
+  font-size: 1.15rem;
+  max-width: 70ch;
+  opacity: 0.94;
+  margin: 0 0 1.75rem;
+  color: #fdf6e3 !important;
+}
+
+.lessons-learned-layout .hero .badge-row {
+  display: flex;
+  gap: 0.65rem;
+  flex-wrap: wrap;
+}
+
+.lessons-learned-layout .badge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: rgba(255, 255, 255, 0.14);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  color: #fdf6e3 !important;
+}
+
+/* ---------- Prose Content ---------- */
+.lessons-learned-layout .prose {
+  padding: 2.75rem 3.5rem 6rem;
+  max-width: none;
+}
+
+.lessons-learned-layout .prose h2 {
+  font-size: 1.85rem;
+  color: var(--indigo-dark);
+  margin: 3rem 0 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 2px solid var(--gold-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.lessons-learned-layout .prose h2 i {
+  color: var(--gold);
+  font-size: 1.5rem;
+}
+
+.lessons-learned-layout .prose h3 {
+  font-size: 1.3rem;
+  color: var(--ink);
+  margin: 2rem 0 0.85rem;
+}
+
+.lessons-learned-layout .prose p {
+  margin: 1rem 0;
+  overflow-wrap: break-word;
+}
+
+/* ---------- リストマーカー復元 ---------- */
+.lessons-learned-layout .prose ul {
+  list-style-type: disc !important;
+  padding-left: 1.4rem !important;
+}
+
+.lessons-learned-layout .prose ol {
+  list-style-type: decimal !important;
+  padding-left: 1.4rem !important;
+}
+
+.lessons-learned-layout .prose li {
+  margin: 0.45rem 0;
+  overflow-wrap: break-word;
+}
+
+/* ---------- Tables & globals.css 干渉リセット ---------- */
+.lessons-learned-layout .table-wrap {
+  overflow-x: auto;
+  margin: 1.5rem 0;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+}
+
+.lessons-learned-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff !important;
+  font-size: 1rem !important;
+  min-width: 480px;
+}
+
+.lessons-learned-layout th,
+.lessons-learned-layout td {
+  padding: 0.9rem 1.1rem !important;
+  text-align: left !important;
+  border-bottom: 1px solid var(--border) !important;
+  vertical-align: top !important;
+}
+
+.lessons-learned-layout thead th {
+  background: var(--paper-3) !important;
+  color: var(--indigo-dark) !important;
+  font-weight: 700 !important;
+  white-space: normal !important;
+}
+
+.lessons-learned-layout thead th * {
+  color: var(--indigo-dark) !important;
+}
+
+.lessons-learned-layout tbody td,
+.lessons-learned-layout td {
+  color: var(--ink) !important;
+  font-size: 1rem !important;
+  line-height: 1.8 !important;
+}
+
+.lessons-learned-layout td * {
+  color: var(--ink);
+}
+
+.lessons-learned-layout tbody tr {
+  background: #fff !important;
+}
+
+.lessons-learned-layout tbody tr:hover td {
+  background: #fafbf8 !important;
+}
+
+.lessons-learned-layout tbody tr:last-child td {
+  border-bottom: none !important;
+}
+
+.lessons-learned-layout td strong {
+  color: var(--indigo-dark) !important;
+  font-weight: 700 !important;
+}
+
+/* ---------- Callouts ---------- */
+.lessons-learned-layout .callout {
+  border-left: 4px solid var(--indigo);
+  background: var(--paper-2);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 1.15rem 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.lessons-learned-layout .callout .callout-title {
+  font-weight: 700;
+  color: var(--indigo-dark);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.02rem;
+}
+
+.lessons-learned-layout .callout p {
+  margin: 0.5rem 0;
+}
+
+.lessons-learned-layout .callout p:last-child {
+  margin-bottom: 0;
+}
+
+.lessons-learned-layout .callout.note {
+  border-left-color: var(--plum);
+}
+
+.lessons-learned-layout .callout.note .callout-title {
+  color: var(--plum);
+}
+
+.lessons-learned-layout .callout.source {
+  border-left-color: var(--gold);
+}
+
+.lessons-learned-layout .callout.source .callout-title {
+  color: #8a6708;
+}
+
+/* ---------- Step list ---------- */
+.lessons-learned-layout .step-list {
+  list-style: none !important;
+  margin: 1.5rem 0;
+  padding: 0 !important;
+  counter-reset: step;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.lessons-learned-layout .step-list li {
+  position: relative;
+  padding: 0.15rem 0 0.15rem 3.4rem !important;
+  min-height: 2.3rem;
+  display: list-item;
+}
+
+.lessons-learned-layout .step-list li::before {
+  counter-increment: step;
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2.3rem;
+  height: 2.3rem;
+  border-radius: 50%;
+  background: var(--indigo);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+/* ---------- Diagrams & Mermaid ---------- */
+.lessons-learned-layout figure.diagram {
+  margin: 2rem 0;
+}
+
+.lessons-learned-layout .mermaid-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+  display: flex;
+  justify-content: center;
+  overflow-x: auto;
+  padding: 1.5rem 1rem;
+  background: #fff !important;
+  border-radius: var(--radius);
+  border: 1px solid var(--border) !important;
+}
+
+.lessons-learned-layout .mermaid-wrapper svg {
+  max-width: 100% !important;
+  height: auto;
+  flex-shrink: 0;
+  margin: 0 auto;
+}
+
+.lessons-learned-layout figcaption {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-top: 0.7rem;
+}
+
+/* Mermaid エッジラベルの視認性担保 */
+.lessons-learned-layout .mermaid-wrapper .edgeLabel,
+.lessons-learned-layout .mermaid-wrapper .edgeLabel span,
+.lessons-learned-layout .mermaid-wrapper .edgeLabel text {
+  background-color: var(--paper-2) !important;
+  color: var(--ink) !important;
+  fill: var(--ink) !important;
+  font-weight: 700 !important;
+  stroke: none !important;
+}
+
+.lessons-learned-layout .mermaid-wrapper .edgeLabels rect {
+  fill: var(--paper-2) !important;
+  stroke: none !important;
+}
+
+/* ---------- Checklist ---------- */
+.lessons-learned-layout .checklist-counter {
+  display: inline-block;
+  font-weight: 700;
+  color: var(--indigo-dark);
+  background: var(--paper-2);
+  border-radius: 999px;
+  padding: 0.5rem 1.1rem;
+  margin-bottom: 1rem;
+  font-size: 1.05rem;
+}
+
+.lessons-learned-layout .checklist {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 0 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.lessons-learned-layout .checklist li {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+}
+
+.lessons-learned-layout .checklist label {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem 1.1rem;
+  cursor: pointer;
+}
+
+.lessons-learned-layout .checklist input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  flex: 0 0 auto;
+  margin-top: 0.1rem;
+  border: 2px solid var(--indigo);
+  border-radius: 6px;
+  position: relative;
+  font-size: 1rem;
+  background: #fff;
+}
+
+.lessons-learned-layout .checklist input[type='checkbox']:checked {
+  background: var(--indigo);
+}
+
+.lessons-learned-layout .checklist input[type='checkbox']:checked::after {
+  content: '\2713';
+  color: #fff;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+}
+
+.lessons-learned-layout .checklist li.done label span {
+  color: var(--ink-faint);
+  text-decoration: line-through;
+}
+
+.lessons-learned-layout .checklist label span {
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* ---------- References ---------- */
+.lessons-learned-layout .ref-group {
+  margin: 1.75rem 0 2.5rem;
+}
+
+.lessons-learned-layout .ref-group h3 {
+  color: var(--indigo-dark);
+  font-size: 1.15rem;
+  margin: 0 0 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.lessons-learned-layout .ref-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.lessons-learned-layout .ref-item {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.1rem 1.35rem;
+}
+
+.lessons-learned-layout .ref-item .ref-title {
+  font-weight: 700;
+  color: var(--indigo-dark);
+  font-size: 1.05rem;
+}
+
+.lessons-learned-layout .ref-item .ref-title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.lessons-learned-layout .ref-item .ref-title a:hover {
+  text-decoration: underline;
+}
+
+.lessons-learned-layout .ref-item .ref-desc {
+  color: var(--ink-soft);
+  margin-top: 0.4rem;
+  font-size: 1rem;
+}
+
+.lessons-learned-layout .ref-item .ref-url {
+  display: block;
+  margin-top: 0.55rem;
+  font-size: 1rem;
+  color: var(--indigo);
+  word-break: break-all;
+}
+
+.lessons-learned-layout .footer {
+  padding: 2.5rem 3.5rem 4rem;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--border);
+  font-size: 1rem;
+}
+
+/* ---------- Mobile (960px以下) ---------- */
+@media (max-width: 960px) {
+  .lessons-learned-layout .sidebar {
+    position: fixed;
+    top: 60px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: var(--shadow);
+    width: min(320px, 84vw);
+    z-index: 50;
+  }
+
+  .lessons-learned-layout .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .lessons-learned-layout .main {
+    margin-left: 0 !important;
+  }
+
+  .lessons-learned-layout .mobile-bar {
+    display: flex;
+    position: sticky;
+    top: 60px;
+    z-index: 40;
+    background: var(--paper);
+    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 1.1rem;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .lessons-learned-layout .mobile-bar button {
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 9px;
+    padding: 0.55rem 0.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    cursor: pointer;
+  }
+
+  .lessons-learned-layout .mobile-bar .brand-sm {
+    font-size: 1.05rem;
+    color: var(--indigo-dark);
+    font-weight: 700;
+  }
+
+  .lessons-learned-layout .hero {
+    padding: 3rem 1.5rem 2.5rem !important;
+  }
+
+  .lessons-learned-layout .prose {
+    padding: 2rem 1.25rem 4rem;
+  }
+
+  .lessons-learned-layout .footer {
+    padding: 2rem 1.25rem 3rem;
+  }
+}
