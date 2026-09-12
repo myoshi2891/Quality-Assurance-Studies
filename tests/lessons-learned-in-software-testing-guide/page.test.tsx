@@ -502,7 +502,7 @@ describe('Lessons Learned Guide - Category 1 (Hero, NavBar, Section 01-04)', () 
 
     const links = sec17?.querySelectorAll('.ref-item a');
     expect(links?.length).toBe(17);
-    links.forEach((link) => {
+    Array.from(links ?? []).forEach((link) => {
       expect(link.getAttribute('target')).toBe('_blank');
       const rel = link.getAttribute('rel');
       expect(rel).toMatch(/noopener/);
