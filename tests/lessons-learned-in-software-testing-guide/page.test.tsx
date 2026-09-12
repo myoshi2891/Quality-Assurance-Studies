@@ -187,4 +187,101 @@ describe('Lessons Learned Guide - Category 1 (Hero, NavBar, Section 01-04)', () 
     const tipsList = sec4?.querySelectorAll('ol li');
     expect(tipsList?.length).toBe(3);
   });
+
+  it('renders Section 5: ステップ3: テスト技法を使い分ける (#step3) with Mermaid, table, and step-list', () => {
+    const { container } = render(<Page />);
+    const sec5 = container.querySelector('#step3');
+    expect(sec5).not.toBeNull();
+
+    const h2 = sec5?.querySelector('h2');
+    expect(h2?.textContent).toContain('5. ステップ3: テスト技法を使い分ける');
+
+    const figure = sec5?.querySelector('figure.diagram');
+    expect(figure).not.toBeNull();
+    const figcaption = figure?.querySelector('figcaption');
+    expect(figcaption?.textContent).toBe('図2: テスト技法を捉える5つの視点');
+
+    const table = sec5?.querySelector('table');
+    expect(table).not.toBeNull();
+    const headers = table?.querySelectorAll('thead th');
+    expect(headers?.[0].textContent).toBe('視点');
+    expect(headers?.[1].textContent).toBe('焦点');
+    expect(headers?.[2].textContent).toBe('具体例');
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].textContent).toContain('人ベース');
+    expect(rows?.[1].textContent).toContain('カバレッジベース');
+    expect(rows?.[2].textContent).toContain('問題ベース');
+    expect(rows?.[3].textContent).toContain('活動ベース');
+    expect(rows?.[4].textContent).toContain('評価ベース');
+
+    const h3 = sec5?.querySelector('h3');
+    expect(h3?.textContent).toBe('補足: 組み合わせテスト(オールペア法)の考え方');
+
+    const stepList = sec5?.querySelectorAll('ol.step-list li');
+    expect(stepList?.length).toBe(4);
+    expect(stepList?.[0].textContent).toContain('各入力項目を「ドメイン分割(同値分割)」して代表値を洗い出す');
+    expect(stepList?.[1].textContent).toContain('各項目の値が最低1回は登場する組み合わせ(オールシングル)を作る');
+    expect(stepList?.[2].textContent).toContain('任意の2項目の値の組み合わせがすべて最低1回は登場するように調整する(オールペア)');
+    expect(stepList?.[3].textContent).toContain('網羅率とテストケース数のバランスを見ながら');
+  });
+
+  it('renders Section 6: ステップ4: バグアドボカシー (#step4) with Mermaid, principles, and callout', () => {
+    const { container } = render(<Page />);
+    const sec6 = container.querySelector('#step4');
+    expect(sec6).not.toBeNull();
+
+    const h2 = sec6?.querySelector('h2');
+    expect(h2?.textContent).toContain('6. ステップ4: 優れたバグレポートを書く(バグアドボカシー)');
+
+    const figure = sec6?.querySelector('figure.diagram');
+    expect(figure).not.toBeNull();
+    const figcaption = figure?.querySelector('figcaption');
+    expect(figcaption?.textContent).toBe('図3: バグレポートのライフサイクル');
+
+    const h3 = sec6?.querySelector('h3');
+    expect(h3?.textContent).toBe('押さえるべき原則');
+
+    const list = sec6?.querySelectorAll('ul li');
+    expect(list?.length).toBe(7);
+    expect(list?.[0].textContent).toContain('バグレポートはあなた自身を映す「代理人」である');
+    expect(list?.[1].textContent).toContain('1つのバグには1つのレポート');
+    expect(list?.[2].textContent).toContain('サマリー行が最も重要');
+    expect(list?.[3].textContent).toContain('severity(深刻度)と priority(優先度)は別物');
+    expect(list?.[4].textContent).toContain('再現しないバグも必ず報告する');
+    expect(list?.[5].textContent).toContain('誇張しない、決めつけない');
+    expect(list?.[6].textContent).toContain('修正されたことを鵜呑みにしない');
+
+    const callout = sec6?.querySelector('.callout.source');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('現代の視点: バグアドボカシーは「調査」の技術である');
+    expect(callout?.textContent).toContain('Maaret Pyhäjärvi');
+  });
+
+  it('renders Section 7: ステップ5: テスト自動化を正しく使う (#step5) with misconception table', () => {
+    const { container } = render(<Page />);
+    const sec7 = container.querySelector('#step5');
+    expect(sec7).not.toBeNull();
+
+    const h2 = sec7?.querySelector('h2');
+    expect(h2?.textContent).toContain('7. ステップ5: テスト自動化を正しく使う');
+
+    const table = sec7?.querySelector('table');
+    expect(table).not.toBeNull();
+    const ths = table?.querySelectorAll('thead th');
+    expect(ths?.[0].textContent).toBe('誤解');
+    expect(ths?.[1].textContent).toBe('本書の立場');
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].textContent).toContain('自動化の目的はコスト削減');
+    expect(rows?.[1].textContent).toContain('100%自動化が理想');
+    expect(rows?.[2].textContent).toContain('自動化はツールを買えば済む');
+    expect(rows?.[3].textContent).toContain('自動テストは資産が増えるほど良い');
+    expect(rows?.[4].textContent).toContain('汚いテスト手順を自動化すれば改善する');
+
+    expect(sec7?.textContent).toContain('テスタビリティ (testability) への投資');
+  });
 });
+
