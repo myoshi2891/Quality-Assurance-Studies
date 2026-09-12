@@ -33,12 +33,15 @@ function collectTestFiles(dir: string): string[] {
     return found;
 }
 
-/** コメント行を除いた実コードだけを対象にする（注意書きの引用で誤検知しないため）。 */
+/**
+ * コメント「本文」だけを除去し、実コードは残す（注意書きの引用で誤検知しないため）。
+ * 行単位で丸ごと捨てると、同一行で閉じたブロックコメントの後ろに続く
+ * mock.module 呼び出しまで検査対象から消えてしまうため、テキスト単位で除去する。
+ */
 function stripComments(source: string): string {
     return source
-        .split('\n')
-        .filter((line) => !/^\s*(\/\/|\/\*|\*)/.test(line))
-        .join('\n');
+        .replace(/\/\*[\s\S]*?\*\//g, '') // ブロックコメント（複数行・同一行を問わず本文のみ）
+        .replace(/^\s*\/\/.*$/gm, ''); // 行頭から始まる行コメント
 }
 
 describe('mermaid モックの分離', () => {
