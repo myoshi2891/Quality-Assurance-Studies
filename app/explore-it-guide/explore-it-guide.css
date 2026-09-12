@@ -142,15 +142,34 @@
 /* ---------- サイドバー目次 (NavBar) ---------- */
 .explore-it-layout nav.toc {
   position: sticky;
-  top: 60px;
+  top: calc(60px + var(--disclaimer-height, 0px));
   left: 0;
   align-self: start;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
   overflow-y: auto;
   padding: 40px 20px 40px 32px;
   border-right: 1px solid var(--line);
   background: var(--bg);
   z-index: 40;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(176, 118, 44, 0.25) transparent;
+}
+
+.explore-it-layout nav.toc::-webkit-scrollbar {
+  width: 4px;
+}
+
+.explore-it-layout nav.toc::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.explore-it-layout nav.toc::-webkit-scrollbar-thumb {
+  background: rgba(176, 118, 44, 0.25) !important;
+  border-radius: 2px;
+}
+
+.explore-it-layout nav.toc::-webkit-scrollbar-thumb:hover {
+  background: var(--brass) !important;
 }
 
 .explore-it-layout nav.toc .brand {
@@ -363,7 +382,7 @@
   font-weight: 700 !important;
 }
 
-/* ---------- Mermaid ダイアグラム ---------- */
+/* ---------- Mermaid ダイアグラム (エディトリアル・ペーパーテーマ) ---------- */
 .explore-it-layout .figure {
   background: var(--surface);
   border: 1px solid var(--line);
@@ -385,6 +404,7 @@
   justify-content: center;
   overflow-x: auto;
   min-height: 60px;
+  background: var(--surface) !important;
 }
 
 .explore-it-layout .mermaid-wrapper {
@@ -402,22 +422,126 @@
   margin: 0 auto;
   max-width: 100% !important;
   height: auto !important;
+  background: transparent !important;
 }
 
-/* エッジラベル・分岐テキストの可視性確保 */
+/* ノード（四角形・角丸・菱形・円など）の背景色と枠線 */
+.explore-it-layout .mermaid-wrapper .node rect,
+.explore-it-layout .mermaid-wrapper .node circle,
+.explore-it-layout .mermaid-wrapper .node ellipse,
+.explore-it-layout .mermaid-wrapper .node polygon,
+.explore-it-layout .mermaid-wrapper .node path,
+.explore-it-layout .mermaid-wrapper .node .basic,
+.explore-it-layout .mermaid-wrapper .node .label-container {
+  fill: #f2ede0 !important;
+  stroke: #2b6e5f !important;
+  stroke-width: 1.5px !important;
+}
+
+/* ノード内のテキスト色・書体（子孫セレクタで改行2行目以降も完全適用） */
+.explore-it-layout .mermaid-wrapper .node .label,
+.explore-it-layout .mermaid-wrapper .node .label text,
+.explore-it-layout .mermaid-wrapper .node .nodeLabel,
+.explore-it-layout .mermaid-wrapper .node .nodeLabel *,
+.explore-it-layout .mermaid-wrapper .node text,
+.explore-it-layout .mermaid-wrapper .node span,
+.explore-it-layout .mermaid-wrapper .node p,
+.explore-it-layout .mermaid-wrapper .node div {
+  color: #1c2b2c !important;
+  fill: #1c2b2c !important;
+  font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* サブグラフ（クラスタ）の背景・枠線・タイトル */
+.explore-it-layout .mermaid-wrapper .cluster rect {
+  fill: #faf9f5 !important;
+  stroke: #e1ddd0 !important;
+  stroke-width: 1.5px !important;
+}
+
+.explore-it-layout .mermaid-wrapper .cluster .label,
+.explore-it-layout .mermaid-wrapper .cluster .label text,
+.explore-it-layout .mermaid-wrapper .cluster text,
+.explore-it-layout .mermaid-wrapper .cluster span {
+  color: #1d4d43 !important;
+  fill: #1d4d43 !important;
+  font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+}
+
+/* エッジ（接続線・矢印） */
+.explore-it-layout .mermaid-wrapper .edgePath .path,
+.explore-it-layout .mermaid-wrapper .flowchart-link {
+  stroke: #b0762c !important;
+  stroke-width: 1.5px !important;
+}
+
+.explore-it-layout .mermaid-wrapper .marker,
+.explore-it-layout .mermaid-wrapper marker path {
+  fill: #b0762c !important;
+  stroke: #b0762c !important;
+}
+
+/* エッジラベル（テキストと背景）: fix-mermaid スキル準拠 */
 .explore-it-layout .mermaid-wrapper .edgeLabel,
 .explore-it-layout .mermaid-wrapper .edgeLabel span,
-.explore-it-layout .mermaid-wrapper .edgeLabel text {
-  background-color: var(--surface) !important;
-  color: var(--ink) !important;
-  fill: var(--ink) !important;
-  font-weight: 700 !important;
+.explore-it-layout .mermaid-wrapper .edgeLabel p,
+.explore-it-layout .mermaid-wrapper .edgeLabel text,
+.explore-it-layout .mermaid-wrapper .edgeLabels .label {
+  background-color: var(--surface, #ffffff) !important;
+  color: #1c2b2c !important;
+  fill: #1c2b2c !important;
+  font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
   stroke: none !important;
 }
 
-.explore-it-layout .mermaid-wrapper .edgeLabels rect {
-  fill: var(--surface) !important;
+.explore-it-layout .mermaid-wrapper .edgeLabels rect,
+.explore-it-layout .mermaid-wrapper .edgeLabel rect {
+  fill: var(--surface, #ffffff) !important;
   stroke: none !important;
+}
+
+/* 状態遷移図（stateDiagram-v2）専用スタイル */
+.explore-it-layout .mermaid-wrapper .statediagram-state rect.basic,
+.explore-it-layout .mermaid-wrapper .statediagram-state rect {
+  fill: #f2ede0 !important;
+  stroke: #2b6e5f !important;
+  stroke-width: 1.5px !important;
+}
+
+.explore-it-layout .mermaid-wrapper .statediagram-state .state-title,
+.explore-it-layout .mermaid-wrapper .statediagram-state text,
+.explore-it-layout .mermaid-wrapper .statediagram-state .state-title * {
+  color: #1c2b2c !important;
+  fill: #1c2b2c !important;
+  font-family: 'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif !important;
+  font-size: 14px !important;
+}
+
+.explore-it-layout .mermaid-wrapper .statediagram-state circle {
+  fill: #2b6e5f !important;
+  stroke: #1d4d43 !important;
+}
+
+.explore-it-layout .mermaid-wrapper .transition {
+  stroke: #b0762c !important;
+  stroke-width: 1.5px !important;
+}
+
+/* foreignObject のオーバーフロー解除（文字切れ・右端切れ対策） */
+.explore-it-layout .mermaid-wrapper foreignObject {
+  overflow: visible !important;
+}
+
+.explore-it-layout .mermaid-wrapper foreignObject > div,
+.explore-it-layout .mermaid-wrapper .nodeLabel,
+.explore-it-layout .mermaid-wrapper .edgeLabel {
+  overflow: visible !important;
 }
 
 /* ---------- Callouts ---------- */

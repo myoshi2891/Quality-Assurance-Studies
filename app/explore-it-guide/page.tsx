@@ -10,8 +10,38 @@ export const metadata: Metadata = {
     'Elisabeth Hendrickson『Explore It!』に基づく探索的テスト実践フィールドガイド。チャーター、観察、ヒューリスティクスを網羅。',
 };
 
-const DIAGRAM_0 = `flowchart LR
-subgraph Checking["チェック（Checking）: 事前に台本を書く"]
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#f2ede0",
+    "primaryBorderColor": "#2b6e5f",
+    "primaryTextColor": "#1c2b2c",
+    "lineColor": "#b0762c",
+    "secondaryColor": "#e3c497",
+    "secondaryTextColor": "#1c2b2c",
+    "tertiaryColor": "#faf9f5",
+    "tertiaryTextColor": "#1c2b2c",
+    "mainBkg": "#f2ede0",
+    "nodeBorder": "#2b6e5f",
+    "nodeTextColor": "#1c2b2c",
+    "textColor": "#1c2b2c",
+    "titleColor": "#1d4d43",
+    "edgeLabelBackground": "#ffffff",
+    "clusterBkg": "#faf9f5",
+    "clusterBorder": "#e1ddd0",
+    "fontFamily": "'Zen Kaku Gothic New', 'Hiragino Sans', sans-serif",
+    "fontSize": "14px"
+  },
+  "flowchart": {
+    "curve": "basis",
+    "htmlLabels": true
+  }
+}}%%`;
+
+const DIAGRAM_0 = `${MERMAID_CONFIG}
+flowchart LR
+subgraph Checking["チェック Checking : 事前に台本を書く"]
     direction TB
     A1["要件・仕様"] --> A2["事前にテストケースを設計"]
     A2 --> A3["手順どおりに実行"]
@@ -20,14 +50,15 @@ subgraph Checking["チェック（Checking）: 事前に台本を書く"]
     A4 -->|No| A6["不合格"]
 end
 
-subgraph Exploring["探索（Exploring）: 学習と設計と実行が同時進行"]
+subgraph Exploring["探索 Exploring : 学習と設計と実行が同時進行"]
     direction TB
     B1["学習 Learn"] --> B2["次の一手を設計 Design"]
     B2 --> B3["実行して観察 Execute"]
     B3 --> B1
 end`;
 
-const DIAGRAM_1 = `flowchart TD
+const DIAGRAM_1 = `${MERMAID_CONFIG}
+flowchart TD
 S1["準備<br/>基礎を理解する<br/>(チェックと探索の違い)"] --> S2["Step1<br/>チャーターを書く"]
 S2 --> S3["Step2<br/>タイムボックスされた<br/>セッションを実施"]
 S3 --> S4["Step3<br/>観察する<br/>(見えないものを見える化)"]
@@ -38,7 +69,8 @@ S7 --> S8["Step7<br/>コンテキストに応じて適用<br/>(API/既存シス�
 S8 --> S9["Step8<br/>デブリーフィングし<br/>次のチャーターへ活かす"]
 S9 -.->|継続的に繰り返す| S2`;
 
-const DIAGRAM_2 = `flowchart TD
+const DIAGRAM_2 = `${MERMAID_CONFIG}
+flowchart TD
 Start["探索を始めたい"] --> Q1{"何が気になっている?"}
 Q1 -->|仕様や要求から| Src1["要件/仕様書を読む"]
 Q1 -->|過去の不具合から| Src2["バグ履歴・障害報告を見る"]
@@ -51,19 +83,21 @@ Check -->|No| Split["チャーターを分割/絞り込む"]
 Split --> Draft
 Check -->|Yes| Ready["セッション実施へ"]`;
 
-const DIAGRAM_3 = `flowchart TD
-C["チャーター作成"] --> S["セッション開始<br/>(45〜120分、目安90分の<br/>タイムボックス／中断禁止)"]
+const DIAGRAM_3 = `${MERMAID_CONFIG}
+flowchart TD
+C["チャーター作成"] --> S["セッション開始<br/>(45-120分、目安90分の<br/>タイムボックス／中断禁止)"]
 S --> T["テストを設計しながら実行"]
 T --> B["不具合の調査・報告"]
 T --> N["新たな疑問・派生チャーターの発見"]
 B --> R["セッションレポート作成"]
 N --> R
-R --> D["デブリーフィング<br/>(マネージャー/チームとの振り返り)"]
+R --> D["デブリーフィング<br/>(マネージャーやチームとの振り返り)"]
 D --> Metric["セッションメトリクスの記録"]
 Metric --> C2["次のチャーターへ反映"]
 C2 -.-> C`;
 
-const DIAGRAM_4 = `flowchart LR
+const DIAGRAM_4 = `${MERMAID_CONFIG}
+flowchart LR
 Action["操作を実行する"] --> UI["画面上の見た目を確認"]
 Action --> Log["コンソール/ログを確認"]
 Action --> State["内部状態・DBを確認"]
@@ -74,13 +108,15 @@ State --> Judge
 Perf --> Judge
 Judge -->|見えない異常があるかも| Widen["観察範囲をさらに広げる"]`;
 
-const DIAGRAM_5 = `flowchart LR
+const DIAGRAM_5 = `${MERMAID_CONFIG}
+flowchart LR
 Create["作成 Create"] --> Read["参照 Read"]
 Read --> Update["更新 Update"]
 Update --> Delete["削除 Delete"]
 Delete -.->|削除後に再作成できるか?<br/>関連データはどうなるか?| Create`;
 
-const DIAGRAM_6 = `stateDiagram-v2
+const DIAGRAM_6 = `${MERMAID_CONFIG}
+stateDiagram-v2
 [*] --> 未ログイン
 未ログイン --> ログイン試行中: ログインボタン押下
 ログイン試行中 --> ログイン済み: 認証成功
@@ -89,13 +125,14 @@ const DIAGRAM_6 = `stateDiagram-v2
 ログイン済み --> アカウントロック: 連続失敗を検知
 アカウントロック --> 未ログイン: 一定時間経過 or 管理者解除`;
 
-const DIAGRAM_7 = `flowchart LR
+const DIAGRAM_7 = `${MERMAID_CONFIG}
+flowchart LR
 User["ユーザー"] -->|HTTPS| WebApp["Webアプリケーション"]
 WebApp -->|API呼び出し| PaymentAPI["外部決済API"]
 WebApp -->|クエリ| DB[("データベース")]
 WebApp -->|Webhook| ExternalService["サードパーティ連携サービス"]
 
-subgraph Trust["信頼境界（自社が管理する範囲）"]
+subgraph Trust["信頼境界: 自社が管理する範囲"]
     WebApp
     DB
 end`;
