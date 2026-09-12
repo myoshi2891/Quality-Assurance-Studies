@@ -16,7 +16,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 | 最新 HEAD | `443030d` |
 | 最新コミット内容 | fix(lessons-learned): remove nested mermaid-wrapper to prevent double border around diagrams |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
-| ビルド状態 | ✅ `npm test`（全テスト pass）成功、`npm run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
+| ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
 ## 2026/09/12: Lessons Learned in Software Testing 実践ガイドのNext.js完全移行
 
@@ -97,7 +97,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 3問の演習問題カード（`<details className="quiz-card">`）および正解・解説トグルを完全移植。
   - 全15件以上の参考文献・公式ドキュメント外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
 - `app/istqb-ctfl-v4-chapter6-test-tools/`: ページコンポーネント、専用スタイル（`.istqb-ctfl-v4-ch6-page` スコープ、globals.css干渉リセット）、NavBar（スクロールスパイ、全9セクションリンク、モバイルトグル対応、`aria-current`）を実装。
-- `lib/navigation.ts`: `istqb-foundation` カテゴリに `/istqb-ctfl-v4-chapter6-test-tools` を追加（全62件）。
+- `lib/navigation.ts`: `istqb-foundation-ext` カテゴリに `/istqb-ctfl-v4-chapter6-test-tools` を追加（全62件）。
 - `tests/istqb-ctfl-v4-chapter6-test-tools/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全リンク、全9セクション、全6Mermaid図、全4テーブル、全コールアウト、全コードブロック、演習問題、全外部リンク（15件以上）の存在を検証する厳格なテストスイートを実装して全パス（17 pass）。
 - `Istqb-ctfl-v4-chapter6.html`: `archive/html-archive/ctfl/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 62 ページ体制に同期。
