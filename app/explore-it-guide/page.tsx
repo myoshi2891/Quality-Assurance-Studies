@@ -74,6 +74,32 @@ State --> Judge
 Perf --> Judge
 Judge -->|見えない異常があるかも| Widen["観察範囲をさらに広げる"]`;
 
+const DIAGRAM_5 = `flowchart LR
+Create["作成 Create"] --> Read["参照 Read"]
+Read --> Update["更新 Update"]
+Update --> Delete["削除 Delete"]
+Delete -.->|削除後に再作成できるか?<br/>関連データはどうなるか?| Create`;
+
+const DIAGRAM_6 = `stateDiagram-v2
+[*] --> 未ログイン
+未ログイン --> ログイン試行中: ログインボタン押下
+ログイン試行中 --> ログイン済み: 認証成功
+ログイン試行中 --> 未ログイン: 認証失敗
+ログイン済み --> 未ログイン: ログアウト
+ログイン済み --> アカウントロック: 連続失敗を検知
+アカウントロック --> 未ログイン: 一定時間経過 or 管理者解除`;
+
+const DIAGRAM_7 = `flowchart LR
+User["ユーザー"] -->|HTTPS| WebApp["Webアプリケーション"]
+WebApp -->|API呼び出し| PaymentAPI["外部決済API"]
+WebApp -->|クエリ| DB[("データベース")]
+WebApp -->|Webhook| ExternalService["サードパーティ連携サービス"]
+
+subgraph Trust["信頼境界（自社が管理する範囲）"]
+    WebApp
+    DB
+end`;
+
 export default function ExploreItGuidePage() {
   return (
     <div className="explore-it-layout">
@@ -603,6 +629,190 @@ export default function ExploreItGuidePage() {
             初学者にとって重要なのは、
             <strong>「仕様書に書いていないから正解が分からない」という状態でも、判断のための手がかりは複数存在する</strong>
             という点です。オラクルを複数持っておくことで、仕様の不備そのものにも気づきやすくなります。
+          </p>
+        </section>
+
+        {/* STEP6 */}
+        <section id="step6">
+          <div className="sec-tag">
+            <span className="num step">6</span>
+            <span className="label">ADDING DIMENSIONS</span>
+          </div>
+          <h2>探索に「次元」を加える</h2>
+          <p>
+            Part 2「Adding Dimensions」（第6〜9章）では、探索の「切り口」を広げるための具体的な技法が紹介されます。基礎スキル（チャーター・観察・バリエーション・評価）を土台に、以下の4つの視点を追加していきます。
+          </p>
+
+          <div className="tblwrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>章</th>
+                  <th>次元</th>
+                  <th>中心的な問い</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>第6章</td>
+                  <td>操作の順序・組み合わせ</td>
+                  <td>
+                    名詞（対象）と動詞（操作）を洗い出し、想定外の順番で操作したらどうなるか？
+                    ランダムなナビゲーションやペルソナを使うとどんな発見があるか？
+                  </td>
+                </tr>
+                <tr>
+                  <td>第7章</td>
+                  <td>エンティティと依存関係</td>
+                  <td>
+                    データのCRUD各操作は整合しているか？ データの流れを最後まで追えるか？
+                  </td>
+                </tr>
+                <tr>
+                  <td>第8章</td>
+                  <td>状態と遷移</td>
+                  <td>
+                    システムには「状態」と「イベント」がいくつ存在するか？ 想定していない遷移が起きないか？
+                  </td>
+                </tr>
+                <tr>
+                  <td>第9章</td>
+                  <td>システムを取り巻く環境</td>
+                  <td>
+                    このシステムは何と連携しているか？ 信頼境界はどこにあるか？「もし〜だったら」を問い続ける
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>CRUDのライフサイクルを図で捉える（第7章）</h3>
+          <div className="figure">
+            <div className="cap">FIGURE S6-A ｜ CRUD ライフサイクル</div>
+            <div className="mermaid-target">
+              <Mermaid chart={DIAGRAM_5} />
+            </div>
+          </div>
+
+          <h3>状態遷移モデルの例（第8章）</h3>
+          <p>
+            本書では、状態モデル図を描くことで「想定していない遷移」や「本来あってはならない状態」を見つけやすくなる、という技法が紹介されています。例えば認証機能を単純化すると次のようになります。
+          </p>
+          <div className="figure">
+            <div className="cap">FIGURE S6-B ｜ 認証機能の状態遷移モデル</div>
+            <div className="mermaid-target">
+              <Mermaid chart={DIAGRAM_6} />
+            </div>
+          </div>
+          <p>
+            この図を描いた上で、「ログイン試行中に別タブでログアウトしたら？」「ロック中に正しいパスワードを入力したら？」のように、
+            <strong>図に描かれていない・想定されていない遷移</strong>
+            を意図的に探しにいくのが、状態モデルを使った探索の勘所です。
+          </p>
+
+          <h3>エコシステムと信頼境界の図（第9章）</h3>
+          <div className="figure">
+            <div className="cap">FIGURE S6-C ｜ システムのエコシステムと信頼境界</div>
+            <div className="mermaid-target">
+              <Mermaid chart={DIAGRAM_7} />
+            </div>
+          </div>
+          <p>
+            信頼境界をまたぐポイント（図でいえば外部決済APIやサードパーティ連携との接続部分）は、探索的テストで重点的に狙うべきリスクの高い領域として本書で強調されています。
+          </p>
+        </section>
+
+        {/* STEP7 */}
+        <section id="step7">
+          <div className="sec-tag">
+            <span className="num step">7</span>
+            <span className="label">PUTTING IT IN CONTEXT</span>
+          </div>
+          <h2>コンテキストに応じて探索を適用する</h2>
+          <p>
+            Part 3「Putting It in Context」（第10〜13章）では、探索的テストを様々な現場の状況に適用する方法が紹介されます。
+          </p>
+          <div className="tblwrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>章</th>
+                  <th>状況</th>
+                  <th>ポイント</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>第10章</td>
+                  <td>UIが存在しない対象（API、言語、Webサービス）</td>
+                  <td>
+                    REPLやコンソールを使い、不具合の「性質を特徴づける」ことに焦点を当てる
+                  </td>
+                </tr>
+                <tr>
+                  <td>第11章</td>
+                  <td>既存の（ドキュメントが乏しい）システム</td>
+                  <td>
+                    「偵察セッション」から始め、観察内容を共有し、ステークホルダーへのインタビューから疑問を集める
+                  </td>
+                </tr>
+                <tr>
+                  <td>第12章</td>
+                  <td>要件定義の会議そのもの</td>
+                  <td>
+                    会議に同席し「〜性（-ilities）」に耳を傾け、アクティブリーディングでチャーターの種を見つける
+                  </td>
+                </tr>
+                <tr>
+                  <td>第13章</td>
+                  <td>プロジェクト全体</td>
+                  <td>
+                    テスト戦略への組み込み、ペア探索、根本原因の発見、探索の見積もり
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            第13章でHendricksonが述べている考え方として、「テスト戦略にチェックと探索の両方が含まれ、チームがテストで得られた情報をもとに行動するとき、非常に高品質なソフトウェアが生まれる」という趣旨のメッセージが紹介されています。これは、探索的テストを「片手間の作業」ではなく、
+            <strong>チーム全体の意思決定プロセスの一部</strong>
+            として位置づける本書の一貫した主張の集約点といえます。
+          </p>
+        </section>
+
+        {/* STEP8 */}
+        <section id="step8">
+          <div className="sec-tag">
+            <span className="num step">8</span>
+            <span className="label">DEBRIEF &amp; ITERATE</span>
+          </div>
+          <h2>デブリーフィングと継続的改善</h2>
+          <p>
+            セッションを実施したら終わりではなく、
+            <strong>デブリーフィング（debrief）</strong>
+            を通じて次のサイクルに知見をつなげることが重要です。
+          </p>
+          <h3>デブリーフィングで確認すべきこと</h3>
+          <ul>
+            <li>
+              このセッションで<strong>何を学んだか</strong>（機能そのものについて／システムのリスクについて）
+            </li>
+            <li>
+              <strong>見つかった不具合</strong>とその重要度
+            </li>
+            <li>
+              チャーターから<strong>外れた（off-charter）</strong>探索があった場合、それは正当だったか
+            </li>
+            <li>
+              次のセッションで<strong>チャーターにすべき新しい疑問</strong>が生まれたか
+            </li>
+            <li>
+              「もう十分に探索した」と判断できる材料は何か（第13章「How to Tell When You Have Explored Enough」のテーマ）
+            </li>
+          </ul>
+          <p>
+            デブリーフィングの内容は、ステークホルダーへの報告や、チーム内のナレッジとして蓄積される「有用な知恵の断片（Capturing
+            Useful Nuggets of Wisdom）」としても活用されます。
           </p>
         </section>
       </main>

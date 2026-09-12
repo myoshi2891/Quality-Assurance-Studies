@@ -355,5 +355,84 @@ describe('Explore It! Guide - Category 1 (Hero, NavBar, Section 01-04)', () => {
     expect(rows?.[1]?.textContent).toContain('代替リソース');
     expect(rows?.[2]?.textContent).toContain('近似');
   });
+
+  it('renders Section 10: Step 6 Adding Dimensions (#step6) with dimensions table, 3 H3s and 3 Mermaid figures', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#step6');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num.step')?.textContent).toBe('6');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('ADDING DIMENSIONS');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('探索に「次元」を加える');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(4);
+    expect(rows?.[0]?.textContent).toContain('第6章');
+    expect(rows?.[0]?.textContent).toContain('操作の順序・組み合わせ');
+    expect(rows?.[1]?.textContent).toContain('第7章');
+    expect(rows?.[1]?.textContent).toContain('エンティティと依存関係');
+    expect(rows?.[2]?.textContent).toContain('第8章');
+    expect(rows?.[2]?.textContent).toContain('状態と遷移');
+    expect(rows?.[3]?.textContent).toContain('第9章');
+    expect(rows?.[3]?.textContent).toContain('システムを取り巻く環境');
+
+    const figures = sec?.querySelectorAll('.figure');
+    expect(figures?.length).toBe(3);
+    expect(figures?.[0]?.querySelector('.cap')?.textContent).toContain('FIGURE S6-A ｜ CRUD ライフサイクル');
+    expect(figures?.[1]?.querySelector('.cap')?.textContent).toContain('FIGURE S6-B ｜ 認証機能の状態遷移モデル');
+    expect(figures?.[2]?.querySelector('.cap')?.textContent).toContain('FIGURE S6-C ｜ システムのエコシステムと信頼境界');
+  });
+
+  it('renders Section 11: Step 7 Context (#step7) with context table', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#step7');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num.step')?.textContent).toBe('7');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('PUTTING IT IN CONTEXT');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('コンテキストに応じて探索を適用する');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(4);
+    expect(rows?.[0]?.textContent).toContain('第10章');
+    expect(rows?.[0]?.textContent).toContain('UIが存在しない対象');
+    expect(rows?.[1]?.textContent).toContain('第11章');
+    expect(rows?.[1]?.textContent).toContain('既存の（ドキュメントが乏しい）システム');
+    expect(rows?.[2]?.textContent).toContain('第12章');
+    expect(rows?.[2]?.textContent).toContain('要件定義の会議そのもの');
+    expect(rows?.[3]?.textContent).toContain('第13章');
+    expect(rows?.[3]?.textContent).toContain('プロジェクト全体');
+  });
+
+  it('renders Section 12: Step 8 Debrief & Iterate (#step8) with confirmation list and nuggets concept', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('section#step8');
+    expect(sec).not.toBeNull();
+
+    const secTag = sec?.querySelector('.sec-tag');
+    expect(secTag?.querySelector('.num.step')?.textContent).toBe('8');
+    expect(secTag?.querySelector('.label')?.textContent).toBe('DEBRIEF & ITERATE');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('デブリーフィングと継続的改善');
+
+    const h3 = sec?.querySelector('h3');
+    expect(h3?.textContent).toBe('デブリーフィングで確認すべきこと');
+
+    const list = sec?.querySelector('ul');
+    expect(list?.querySelectorAll('li').length).toBe(5);
+    expect(sec?.textContent).toContain('Capturing Useful Nuggets of Wisdom');
+  });
 });
+
 
