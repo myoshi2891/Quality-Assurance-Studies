@@ -80,6 +80,8 @@ export default function RootLayout({
           rel="stylesheet"
           precedence="default"
           href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.46.0/dist/tabler-icons.min.css"
+          integrity="sha384-ND+q1IVc0KDElX60dZaqKc7Xl9cdxd2PpU2JfVUHcurCkFVtVLFdt9vJfxtHSL3p"
+          crossOrigin="anonymous"
         />
         <Header />
         <DisclaimerBanner />
