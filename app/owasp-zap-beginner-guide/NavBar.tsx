@@ -103,6 +103,19 @@ export default function NavBar() {
     };
   }, []);
 
+  useEffect(() => {
+    const mql = window.matchMedia('(max-width: 900px)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (!e.matches || sidebarOpen) return;
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar?.contains(document.activeElement)) {
+        toggleRef.current?.focus({ preventScroll: true });
+      }
+    };
+    mql.addEventListener('change', handleChange);
+    return () => mql.removeEventListener('change', handleChange);
+  }, [sidebarOpen]);
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
