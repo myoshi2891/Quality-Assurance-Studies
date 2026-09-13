@@ -395,4 +395,109 @@ describe('Art of Software Testing Guide - Category 3 (Ch7-Ch10: Pyramid, TDD, FI
   });
 });
 
+describe('Art of Software Testing Guide - Category 4 (Ch11-Ch12, Checklist, References, Footer)', () => {
+  it('renders Section 11: 継続的テストとFlaky Testへの対処 (#ch11) with Mermaid diagram diag-ch11', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#ch11');
+    expect(sec).not.toBeNull();
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('第11章: 継続的テストとFlaky Testへの対処');
+
+    const diag = sec?.querySelector('#diag-ch11');
+    expect(diag).not.toBeNull();
+
+    const caption = sec?.querySelector('.fig-caption');
+    expect(caption?.textContent).toContain('CIパイプラインにおけるテスト失敗の判定とFlaky Testの隔離フロー');
+  });
+
+  it('renders Section 12: AI時代のソフトウェアテスト (#ch12) with 4-item list and note callout', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#ch12');
+    expect(sec).not.toBeNull();
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('第12章: AI時代のソフトウェアテスト（2026年動向）');
+
+    const ul = sec?.querySelector('ul');
+    expect(ul).not.toBeNull();
+
+    const items = ul?.querySelectorAll('li');
+    expect(items?.length).toBe(4);
+    expect(items?.[0].textContent).toContain('AIが関与したコードの比率は近年上昇しているとみられますが');
+    expect(items?.[1].textContent).toContain('AIが生成したコードには、一見正しく見えても論理的な誤りや');
+    expect(items?.[2].textContent).toContain('テストケース自体をAIに生成させる「AI支援テスト」');
+    expect(items?.[3].textContent).toContain('セルフヒーリングテスト');
+
+    const callout = sec?.querySelector('.callout.note');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('注意');
+    expect(callout?.textContent).toContain('AI関連の統計は調査元によって定義や数値が大きく異なります');
+  });
+
+  it('renders Section: 実践ステップバイステップ・チェックリスト (#checklist) with 13-item numbered list', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#checklist');
+    expect(sec).not.toBeNull();
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('実践ステップバイステップ・チェックリスト');
+
+    const list = sec?.querySelector('ol.step-list');
+    expect(list).not.toBeNull();
+
+    const items = list?.querySelectorAll('li');
+    expect(items?.length).toBe(13);
+
+    for (let i = 1; i <= 13; i++) {
+      const item = items?.[i - 1];
+      const numSpan = item?.querySelector('.num');
+      expect(numSpan?.textContent).toBe(String(i));
+    }
+
+    expect(items?.[0].textContent).toContain('まず自分の中の「証明したい」という気持ちを「壊してやろう」');
+    expect(items?.[12].textContent).toContain('一定期間ごとにテストケース自体を見直し、殺虫剤のパラドックス');
+  });
+
+  it('renders Section: 参考文献 (#references) with 4 groups and 12 external reference links', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#references');
+    expect(sec).not.toBeNull();
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('参考文献');
+
+    const groups = sec?.querySelectorAll('.ref-group');
+    expect(groups?.length).toBe(4);
+
+    const groupTitles = Array.from(groups || []).map((g) => g.querySelector('h3')?.textContent);
+    expect(groupTitles).toEqual([
+      '書籍',
+      '著名な開発者による解説記事',
+      '公式ブログ・標準化団体',
+      '技法解説・業界動向',
+    ]);
+
+    const refItems = sec?.querySelectorAll('.ref-item');
+    expect(refItems?.length).toBe(12);
+
+    const links = sec?.querySelectorAll('a.ref-url');
+    expect(links?.length).toBe(12);
+
+    links?.forEach((link) => {
+      expect(link.getAttribute('target')).toBe('_blank');
+      expect(link.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(link.getAttribute('href')).toMatch(/^https?:\/\//);
+    });
+  });
+
+  it('renders footer with copyright and update notice', () => {
+    const { container } = render(<Page />);
+    const footer = container.querySelector('footer');
+    expect(footer).not.toBeNull();
+    expect(footer?.textContent).toContain('本ガイドは2026年8月時点で公開されている情報をもとに作成されています');
+  });
+});
+
+
 
