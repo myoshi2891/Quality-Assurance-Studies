@@ -295,7 +295,7 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(sec7?.textContent).toContain('静的解析ツールを開発者のコミット前に実行することの利点');
         });
 
-        it('renders Section 8 (参照URL一覧) with grouped external references having target="_blank" and rel="noopener noreferrer"', () => {
+        it('renders Section 8 (参照URL一覧) with grouped external references', () => {
             render(<Chapter6Page />);
             const sec8 = document.getElementById('refs');
             expect(sec8).not.toBeNull();
@@ -306,11 +306,19 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             expect(sec8?.textContent).toContain('2026年時点の実務ツール市場動向');
             expect(sec8?.textContent).toContain('旧シラバス（比較参考用）');
 
-            const links = sec8?.querySelectorAll('a');
-            expect(links && links.length).toBeGreaterThanOrEqual(15);
-            links?.forEach((link) => {
+            const sec8Links = sec8?.querySelectorAll('a');
+            expect(sec8Links && sec8Links.length).toBeGreaterThanOrEqual(15);
+        });
+
+        it('renders every page-wide external link with target="_blank" and rel="noopener noreferrer"', () => {
+            render(<Chapter6Page />);
+            const links = document.querySelectorAll('a[href^="http"]');
+            expect(links.length).toBeGreaterThanOrEqual(15);
+            links.forEach((link) => {
                 expect(link.getAttribute('target')).toBe('_blank');
-                expect(link.getAttribute('rel')).toContain('noopener');
+                const rel = link.getAttribute('rel');
+                expect(rel).toContain('noopener');
+                expect(rel).toContain('noreferrer');
             });
         });
 
