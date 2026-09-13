@@ -555,7 +555,7 @@ export default function Chapter6Page() {
                             <div className="callout warning">
                                 <span className="callout-icon">⚠️</span>
                                 <p>
-                                    上記は市場調査記事に基づく傾向であり、Claudeの学習データのカットオフ以降の情報を含むため、最新動向は必ず一次情報でご確認ください。
+                                    上記は2026年時点の市場調査記事に基づく傾向であり、時間の経過とともに変化する可能性があるため、最新動向は本セクション末尾の参考文献に記載した2026年の市場調査記事および各ツールの公式ドキュメントをあわせてご確認ください。
                                 </p>
                             </div>
 
