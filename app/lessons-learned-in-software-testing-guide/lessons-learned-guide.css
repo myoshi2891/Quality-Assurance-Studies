@@ -773,7 +773,8 @@
     transition: transform 0.25s ease, visibility 0.25s ease;
     box-shadow: var(--shadow);
     width: min(320px, 84vw);
-    z-index: 50;
+    /* .mobile-bar のトグルボタン（z-index: 40）より下にして、開いた状態でも閉じる操作を隠さない */
+    z-index: 35;
   }
 
   .lessons-learned-layout .sidebar.open {
