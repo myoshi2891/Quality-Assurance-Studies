@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { useScrollSpy } from '../../lib/useScrollSpy';
 
@@ -68,24 +68,42 @@ const SCROLL_SPY_BAND = { top: 0.15, bottom: 0.3 } as const;
 export default function NavBar() {
   const activeId = useScrollSpy(SECTION_IDS, SCROLL_SPY_BAND);
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const sidebarRef = useRef<HTMLElement>(null);
 
   // デスクトップ幅へ戻った際にモバイル用の開閉状態をリセットする
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth > 960) {
         setIsOpen(false);
+        return;
+      }
+      // モバイル幅へ戻ると閉じたサイドバーは visibility: hidden になる。
+      // デスクトップ幅でサイドバー内リンクへ当たっていたフォーカスが
+      // 不可視要素に取り残されないよう、トグルボタンへ戻す。
+      if (!isOpen && sidebarRef.current?.contains(document.activeElement)) {
+        toggleRef.current?.focus();
       }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isOpen]);
 
   const toggleSidebar = () => setIsOpen((prev) => !prev);
-  const closeSidebar = () => setIsOpen(false);
+  const closeSidebar = () => {
+    // サイドバー内にフォーカスが残ったまま閉じると、非表示要素上にフォーカスが
+    // 取り残される。閉じる前に判定し、トグルボタンへフォーカスを戻す。
+    const focusWasInside = sidebarRef.current?.contains(document.activeElement) ?? false;
+    setIsOpen(false);
+    if (focusWasInside) {
+      toggleRef.current?.focus();
+    }
+  };
 
   return (
     <>
       <button
+        ref={toggleRef}
         type="button"
         className="sidebar-toggle"
         id="sidebarToggle"
@@ -97,7 +115,12 @@ export default function NavBar() {
         ☰
       </button>
 
-      <aside className={`sidebar ${isOpen ? 'open' : ''}`} id="sidebar" aria-label="ページ内目次">
+      <aside
+        ref={sidebarRef}
+        className={`sidebar ${isOpen ? 'open' : ''}`}
+        id="sidebar"
+        aria-label="ページ内目次"
+      >
         <div className="brand">
           <div className="brand-mark">PW</div>
           <div className="brand-text">Playwright Guide</div>

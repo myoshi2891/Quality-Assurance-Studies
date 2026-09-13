@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 61 entries (home + 9 foundation + 10 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 6 tools-frameworks + 8 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(61);
+  it('contains 65 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 10 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(65);
   });
 
   it('every item has a unique href', () => {
@@ -97,6 +97,12 @@ describe('NAV_ITEMS', () => {
     expect(sel?.category).toBe('tools-frameworks');
   });
 
+  it('classifies /owasp-zap-beginner-guide as tools-frameworks', () => {
+    const zap = NAV_ITEMS.find((item: NavItem) => item.href === '/owasp-zap-beginner-guide');
+    expect(zap).toBeDefined();
+    expect(zap?.category).toBe('tools-frameworks');
+  });
+
   it('classifies /clean-code-cookbook-guide as books-practices', () => {
     const book = NAV_ITEMS.find((item: NavItem) => item.href === '/clean-code-cookbook-guide');
     expect(book).toBeDefined();
@@ -141,6 +147,18 @@ describe('NAV_ITEMS', () => {
 
   it('classifies /agile-testing-practical-guide as books-practices', () => {
     const book = NAV_ITEMS.find((item: NavItem) => item.href === '/agile-testing-practical-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
+  it('classifies /explore-it-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/explore-it-guide');
+    expect(book).toBeDefined();
+    expect(book?.category).toBe('books-practices');
+  });
+
+  it('classifies /lessons-learned-in-software-testing-guide as books-practices', () => {
+    const book = NAV_ITEMS.find((item: NavItem) => item.href === '/lessons-learned-in-software-testing-guide');
     expect(book).toBeDefined();
     expect(book?.category).toBe('books-practices');
   });
@@ -246,14 +264,14 @@ describe('groupByCategory', () => {
     expect(cicd?.items).toHaveLength(2);
   });
 
-  it('places 6 items in the tools-frameworks group', () => {
+  it('places 7 items in the tools-frameworks group', () => {
     const tools = groupByCategory(NAV_ITEMS).find((g) => g.category === 'tools-frameworks');
-    expect(tools?.items).toHaveLength(6);
+    expect(tools?.items).toHaveLength(7);
   });
 
-  it('places 8 items in the books-practices group', () => {
+  it('places 10 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(8);
+    expect(books?.items).toHaveLength(10);
     expect(books?.title).toBe('名著・実践ガイド');
   });
 
