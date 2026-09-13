@@ -20,6 +20,7 @@ P4 --> P5["テスト実装"]
 P5 --> P6["テスト実行"]
 P6 --> P7["テスト完了"]
 end
+T1["汎用ツール"] -.支援.-> PROC
 T2["テスト管理ツール"] -.支援.-> P1
 T2 -.支援.-> P2
 T2 -.支援.-> P7
@@ -473,6 +474,8 @@ export default function Chapter6Page() {
                                 <div className="code-line">      - <span className="token-key">name</span>: <span className="token-string">Quality gate check</span></div>
                                 <div className="code-line">        <span className="token-key">uses</span>: SonarSource/sonarqube-quality-gate-action@v1</div>
                                 <div className="code-line">        <span className="token-key">timeout-minutes</span>: 5</div>
+                                <div className="code-line">        <span className="token-key">env</span>:</div>
+                                <div className="code-line">          <span className="token-key">SONAR_TOKEN</span>: {'${{ secrets.SONAR_TOKEN }}'}</div>
                             </div>
 
                             <h4>テスト設計・実装ツール</h4>
