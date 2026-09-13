@@ -1198,7 +1198,8 @@ export default function Chapter6Page() {
 
                         <div className="quiz-card">
                             <div className="quiz-q">
-                                <span className="badge k2">Q3 K2</span>
+                                <span className="badge k2">Q3 K2</span>{' '}
+                                <span className="badge scope-out">試験範囲外の実務補足</span>
                                 &nbsp;静的解析ツールを開発者のコミット前に実行することの利点を、シフトレフトの観点から説明せよ。
                             </div>
                             <details>

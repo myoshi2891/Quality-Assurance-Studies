@@ -293,6 +293,10 @@ describe('ISTQB CTFL v4.0 Chapter 6: Test Tools Page Suite', () => {
             // Q3
             expect(sec7?.textContent).toContain('Q3 K2');
             expect(sec7?.textContent).toContain('静的解析ツールを開発者のコミット前に実行することの利点');
+            const q3Card = cards ? cards[2] : null;
+            expect(
+                q3Card?.querySelector('.badge.scope-out')?.textContent
+            ).toBe('試験範囲外の実務補足');
         });
 
         it('renders Section 8 (参照URL一覧) with grouped external references', () => {
