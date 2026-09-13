@@ -112,7 +112,13 @@ export default function NavBar() {
         e.preventDefault();
         const element = document.getElementById(id);
         if (element) {
-            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            const prefersReducedMotion = window.matchMedia(
+                '(prefers-reduced-motion: reduce)'
+            ).matches;
+            element.scrollIntoView({
+                behavior: prefersReducedMotion ? 'auto' : 'smooth',
+                block: 'start',
+            });
             setActiveId(id);
             // メニューを閉じる前にトグルへフォーカスを戻す。
             // 閉じた瞬間にリンクが DOM から消え、フォーカスが body へ飛ぶのを防ぐ
