@@ -306,3 +306,93 @@ describe('Art of Software Testing Guide - Category 2 (Ch4-Ch6: Techniques & Cove
   });
 });
 
+describe('Art of Software Testing Guide - Category 3 (Ch7-Ch10: Pyramid, TDD, FIRST, Debugging)', () => {
+  it('renders Section 7: テストピラミッドと自動テスト戦略 (#ch7) with Mermaid diagram diag-ch7', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#ch7');
+    expect(sec).not.toBeNull();
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('第7章: テストピラミッドと自動テスト戦略');
+
+    const diag = sec?.querySelector('#diag-ch7');
+    expect(diag).not.toBeNull();
+
+    const caption = sec?.querySelector('.fig-caption');
+    expect(caption?.textContent).toContain('単体テストを厚く、E2Eテストを薄くするテストピラミッドの配分');
+  });
+
+  it('renders Section 8: テスト駆動開発（TDD） (#ch8) with Mermaid diagram diag-ch8 and 5-step list', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#ch8');
+    expect(sec).not.toBeNull();
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('第8章: テスト駆動開発（TDD）');
+
+    const diag = sec?.querySelector('#diag-ch8');
+    expect(diag).not.toBeNull();
+
+    const caption = sec?.querySelector('.fig-caption');
+    expect(caption?.textContent).toContain('Red → Green → Refactor を繰り返すTDDサイクル');
+
+    const ol = sec?.querySelector('ol');
+    expect(ol).not.toBeNull();
+
+    const items = ol?.querySelectorAll('li');
+    expect(items?.length).toBe(5);
+    expect(items?.[0].textContent).toContain('実装したい機能を、最も小さい単位のテストケースとして書き出す');
+    expect(items?.[1].textContent).toContain('そのテストを実行し、失敗する（Red）ことを確認する');
+    expect(items?.[2].textContent).toContain('テストを通すために必要最小限のコードだけを書く（Green）');
+    expect(items?.[3].textContent).toContain('テストが通った状態を保ちながら、重複や汚いコードを整理する（Refactor）');
+    expect(items?.[4].textContent).toContain('次の小さなテストケースに進み、1〜4を繰り返す');
+  });
+
+  it('renders Section 9: 良いテストコードを書くためのFIRST原則 (#ch9) with 5-row table', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#ch9');
+    expect(sec).not.toBeNull();
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('第9章: 良いテストコードを書くためのFIRST原則');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const ths = table?.querySelectorAll('thead th');
+    expect(ths?.length).toBe(3);
+    expect(ths?.[0].textContent).toBe('頭文字');
+    expect(ths?.[1].textContent).toBe('原則');
+    expect(ths?.[2].textContent).toBe('意味');
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].textContent).toContain('F');
+    expect(rows?.[0].textContent).toContain('Fast（高速）');
+    expect(rows?.[1].textContent).toContain('I');
+    expect(rows?.[1].textContent).toContain('Independent（独立）');
+    expect(rows?.[2].textContent).toContain('R');
+    expect(rows?.[2].textContent).toContain('Repeatable（繰り返し可能）');
+    expect(rows?.[3].textContent).toContain('S');
+    expect(rows?.[3].textContent).toContain('Self-Validating（自己検証可能）');
+    expect(rows?.[4].textContent).toContain('T');
+    expect(rows?.[4].textContent).toContain('Timely（適時性）');
+  });
+
+  it('renders Section 10: デバッグの技法 (#ch10) with Mermaid diagram diag-ch10', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#ch10');
+    expect(sec).not.toBeNull();
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('第10章: デバッグの技法');
+
+    const diag = sec?.querySelector('#diag-ch10');
+    expect(diag).not.toBeNull();
+
+    const caption = sec?.querySelector('.fig-caption');
+    expect(caption?.textContent).toContain('力任せ法・逆行法・原因除去法という3つのデバッグアプローチ');
+  });
+});
+
+
