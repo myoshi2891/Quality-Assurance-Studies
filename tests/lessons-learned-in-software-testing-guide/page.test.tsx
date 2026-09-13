@@ -506,6 +506,7 @@ describe('Lessons Learned Guide - Category 1 (Hero, NavBar, Section 01-04)', () 
       expect(link.getAttribute('target')).toBe('_blank');
       const rel = link.getAttribute('rel');
       expect(rel).toMatch(/noopener/);
+      expect(rel).toMatch(/noreferrer/);
     });
   });
 
