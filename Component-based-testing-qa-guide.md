@@ -569,37 +569,37 @@ Googleのテストブログは、E2Eテストへの過度な依存がパイプ�
 
 ### 学術文献・専門書籍
 
-- **[1]** Jerry Gao, H.-S. J. Tsao, Ye Wu, *Testing and Quality Assurance for Component-based Software*, Artech House, 2003. Google Books: <https://books.google.co.jp/books/about/Testing_and_Quality_Assurance_for_Compon.html?id=oUEwDwAAQBAJ&redir_esc=y>
-- **[2]** Clemens Szyperski, *Component Software: Beyond Object-Oriented Programming*, Addison-Wesley, 1998（定義の引用に関する解説）: <https://arxiv.org/pdf/0906.1667>
-- **[3]** *A Practical Guide to Testing Object-Oriented Software* — Component Models（Szyperskiの定義をテストの文脈で解説）: <https://www.oreilly.com/library/view/a-practical-guide/0201325640/0201325640_ch10lev1sec1.html>
-- **[4]** ISTQB Glossary, *Component Testing* / *Component Integration Testing*: <https://glossary.istqb.org/en_US/term/component-testing-4-3>、<https://istqb-glossary.page/component-integration-testing/>
+- **[1]** Jerry Gao, H.-S. J. Tsao, Ye Wu, *Testing and Quality Assurance for Component-based Software*, Artech House, 2003. Google Books: <a href="https://books.google.co.jp/books/about/Testing_and_Quality_Assurance_for_Compon.html?id=oUEwDwAAQBAJ&redir_esc=y" target="_blank" rel="noopener noreferrer">https://books.google.co.jp/books/about/Testing_and_Quality_Assurance_for_Compon.html?id=oUEwDwAAQBAJ&redir_esc=y</a>
+- **[2]** Clemens Szyperski, *Component Software: Beyond Object-Oriented Programming*, Addison-Wesley, 1998（定義の引用に関する解説）: <a href="https://arxiv.org/pdf/0906.1667" target="_blank" rel="noopener noreferrer">https://arxiv.org/pdf/0906.1667</a>
+- **[3]** *A Practical Guide to Testing Object-Oriented Software* — Component Models（Szyperskiの定義をテストの文脈で解説）: <a href="https://www.oreilly.com/library/view/a-practical-guide/0201325640/0201325640_ch10lev1sec1.html" target="_blank" rel="noopener noreferrer">https://www.oreilly.com/library/view/a-practical-guide/0201325640/0201325640_ch10lev1sec1.html</a>
+- **[4]** ISTQB Glossary, *Component Testing* / *Component Integration Testing*: <a href="https://glossary.istqb.org/en_US/term/component-testing-4-3" target="_blank" rel="noopener noreferrer">https://glossary.istqb.org/en_US/term/component-testing-4-3</a>、<a href="https://istqb-glossary.page/component-integration-testing/" target="_blank" rel="noopener noreferrer">https://istqb-glossary.page/component-integration-testing/</a>
 
 ### Martin Fowler / ThoughtWorks
 
-- **[5]** Martin Fowler, *TestPyramid* (bliki): <https://martinfowler.com/bliki/TestPyramid.html>
-- **[9]** Toby Clemson, *Testing Strategies in a Microservice Architecture*, martinfowler.com, 2014: <https://martinfowler.com/articles/microservice-testing/>
-- **[10]** Martin Fowler, *Software Testing Guide*: <https://martinfowler.com/testing/>
-- **[11]** Martin Fowler, *TestDouble* / *IntegrationTest* (test categories タグ一覧): <https://martinfowler.com/tags/test%20categories.html>
-- **[13]** Ian Robinson, *Consumer-Driven Contracts: A Service Evolution Pattern*, martinfowler.com, 2006: <https://www.martinfowler.com/articles/consumerDrivenContracts.html>
+- **[5]** Martin Fowler, *TestPyramid* (bliki): <a href="https://martinfowler.com/bliki/TestPyramid.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/bliki/TestPyramid.html</a>
+- **[9]** Toby Clemson, *Testing Strategies in a Microservice Architecture*, martinfowler.com, 2014: <a href="https://martinfowler.com/articles/microservice-testing/" target="_blank" rel="noopener noreferrer">https://martinfowler.com/articles/microservice-testing/</a>
+- **[10]** Martin Fowler, *Software Testing Guide*: <a href="https://martinfowler.com/testing/" target="_blank" rel="noopener noreferrer">https://martinfowler.com/testing/</a>
+- **[11]** Martin Fowler, *TestDouble* / *IntegrationTest* (test categories タグ一覧): <a href="https://martinfowler.com/tags/test%20categories.html" target="_blank" rel="noopener noreferrer">https://martinfowler.com/tags/test%20categories.html</a>
+- **[13]** Ian Robinson, *Consumer-Driven Contracts: A Service Evolution Pattern*, martinfowler.com, 2006: <a href="https://www.martinfowler.com/articles/consumerDrivenContracts.html" target="_blank" rel="noopener noreferrer">https://www.martinfowler.com/articles/consumerDrivenContracts.html</a>
 
 ### Google
 
-- **[6]** Google Testing Blog, *Just Say No to More End-to-End Tests*, 2015: <https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html>
-- **[7]** Google Testing Blog, *Test Sizes*, 2010: <https://testing.googleblog.com/2010/12/test-sizes.html>
-- **[8]** *Software Engineering at Google* — Chapter 14: Larger Testing: <https://abseil.io/resources/swe-book/html/ch14.html>
+- **[6]** Google Testing Blog, *Just Say No to More End-to-End Tests*, 2015: <a href="https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html" target="_blank" rel="noopener noreferrer">https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html</a>
+- **[7]** Google Testing Blog, *Test Sizes*, 2010: <a href="https://testing.googleblog.com/2010/12/test-sizes.html" target="_blank" rel="noopener noreferrer">https://testing.googleblog.com/2010/12/test-sizes.html</a>
+- **[8]** *Software Engineering at Google* — Chapter 14: Larger Testing: <a href="https://abseil.io/resources/swe-book/html/ch14.html" target="_blank" rel="noopener noreferrer">https://abseil.io/resources/swe-book/html/ch14.html</a>
 
 ### 標準・非営利団体
 
-- **[15]** OWASP, *Component Analysis*: <https://owasp.org/www-community/Component_Analysis>
-- **[16]** OWASP Dependency-Check: <https://owasp.github.io/www-project-dependency-check/>
+- **[15]** OWASP, *Component Analysis*: <a href="https://owasp.org/www-community/Component_Analysis" target="_blank" rel="noopener noreferrer">https://owasp.org/www-community/Component_Analysis</a>
+- **[16]** OWASP Dependency-Check: <a href="https://owasp.github.io/www-project-dependency-check/" target="_blank" rel="noopener noreferrer">https://owasp.github.io/www-project-dependency-check/</a>
 
 ### ツール公式ドキュメント
 
-- **[12]** Pact Docs, *Introduction*: <https://docs.pact.io/>
-- **[14]** Pact Docs, *How Pact Works*: <https://docs.pact.io/getting_started/how_pact_works>
-- **[17]** Testcontainers, *Getting Started*: <https://testcontainers.com/getting-started/>
-- **[18]** Docker, *Testcontainers: Testing with Real Dependencies*: <https://www.docker.com/blog/testcontainers-testing-with-real-dependencies/>
-- **[19]** PIT Mutation Testing, 公式サイト: <https://pitest.org/>
+- **[12]** Pact Docs, *Introduction*: <a href="https://docs.pact.io/" target="_blank" rel="noopener noreferrer">https://docs.pact.io/</a>
+- **[14]** Pact Docs, *How Pact Works*: <a href="https://docs.pact.io/getting_started/how_pact_works" target="_blank" rel="noopener noreferrer">https://docs.pact.io/getting_started/how_pact_works</a>
+- **[17]** Testcontainers, *Getting Started*: <a href="https://testcontainers.com/getting-started/" target="_blank" rel="noopener noreferrer">https://testcontainers.com/getting-started/</a>
+- **[18]** Docker, *Testcontainers: Testing with Real Dependencies*: <a href="https://www.docker.com/blog/testcontainers-testing-with-real-dependencies/" target="_blank" rel="noopener noreferrer">https://www.docker.com/blog/testcontainers-testing-with-real-dependencies/</a>
+- **[19]** PIT Mutation Testing, 公式サイト: <a href="https://pitest.org/" target="_blank" rel="noopener noreferrer">https://pitest.org/</a>
 
 ---
 
