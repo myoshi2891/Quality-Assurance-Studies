@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, waitFor, act } from '@testing-library/react';
+import { render, screen, cleanup, waitFor, act, fireEvent } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import PlaywrightIntermediateAdvancedPage from '../../app/playwright-intermediate-advanced-guide/page';
@@ -775,5 +775,75 @@ describe('Playwright Intermediate-Advanced Guide Page - Comprehensive Test Suite
         stubs.forEach((el) => el.remove());
       }
     });
+  });
+  it('returns focus to the sidebar toggle when a TOC link closes the mobile sidebar (a11y regression)', () => {
+    const { container } = render(<NavBar />);
+    const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;
+    const sidebar = container.querySelector('aside.sidebar') as HTMLElement;
+    const firstLink = container.querySelector('.toc a') as HTMLAnchorElement;
+
+    act(() => {
+      fireEvent.click(toggle);
+    });
+    expect(toggle.getAttribute('aria-expanded')).toBe('true');
+    expect(sidebar.className).toContain('open');
+
+    // サイドバー内のリンクにフォーカスがある状態で閉じる（実ブラウザのクリック相当）。
+    firstLink.focus();
+    // DOM ノードを toBe で比較するとランナーがノード全体を直列化するため、識別子で照合する。
+    expect((document.activeElement as HTMLElement | null)?.getAttribute('href')).toBe(
+      firstLink.getAttribute('href')
+    );
+
+    act(() => {
+      fireEvent.click(firstLink);
+    });
+
+    expect(sidebar.className).not.toContain('open');
+    // 非表示になったサイドバー内ではなく、トグルボタンへフォーカスが戻る。
+    expect((document.activeElement as HTMLElement | null)?.id).toBe('sidebarToggle');
+  });
+
+  it('returns focus to the sidebar toggle when shrinking back to mobile width (a11y regression)', () => {
+    const { container } = render(<NavBar />);
+    const toggle = container.querySelector('#sidebarToggle') as HTMLButtonElement;
+    const firstLink = container.querySelector('.toc a') as HTMLAnchorElement;
+    const originalWidth = window.innerWidth;
+
+    try {
+      // デスクトップ幅ではサイドバーが常時表示なので、リンクへフォーカスできる。
+      act(() => {
+        Object.defineProperty(window, 'innerWidth', {
+          configurable: true,
+          writable: true,
+          value: 1280,
+        });
+        fireEvent(window, new Event('resize'));
+      });
+      firstLink.focus();
+      expect((document.activeElement as HTMLElement | null)?.getAttribute('href')).toBe(
+        firstLink.getAttribute('href')
+      );
+
+      // モバイル幅へ縮めると閉じたサイドバーは visibility: hidden になる。
+      act(() => {
+        Object.defineProperty(window, 'innerWidth', {
+          configurable: true,
+          writable: true,
+          value: 800,
+        });
+        fireEvent(window, new Event('resize'));
+      });
+
+      // 不可視になったサイドバー内ではなく、トグルボタンへフォーカスが戻る。
+      expect((document.activeElement as HTMLElement | null)?.id).toBe('sidebarToggle');
+      expect(toggle.getAttribute('aria-expanded')).toBe('false');
+    } finally {
+      Object.defineProperty(window, 'innerWidth', {
+        configurable: true,
+        writable: true,
+        value: originalWidth,
+      });
+    }
   });
 });

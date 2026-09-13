@@ -1,24 +1,33 @@
-import { describe, it, expect, afterEach, mock } from 'bun:test';
+import { describe, it, expect, beforeAll, afterAll, afterEach, mock } from 'bun:test';
+import { render, cleanup, waitFor } from '@testing-library/react';
+import mermaid from 'mermaid';
+import Mermaid from '../../components/Mermaid';
 
-let renderImpl: (id: string, chart: string) => Promise<{ svg: string }> = async () => ({
-  svg: '<svg data-testid="mermaid-svg"><g>ok</g></svg>',
+// ⚠️ mock.module('mermaid') はモジュールレジストリをプロセス全体で恒久的に差し替えるため、
+//    後続テストファイルが happydom-setup.ts の共有モック（既定 SVG: mock-mermaid）ではなく
+//    本ファイルのスタブを掴んでしまう。共有モックの render プロパティだけを
+//    beforeAll で退避・差し替え、afterAll で復元する可逆な方式に統一する
+//    （他ページテストと同じ流儀）。
+const DEFAULT_SVG = '<svg data-testid="mermaid-svg"><g>ok</g></svg>';
+const defaultRenderImpl = async () => ({ svg: DEFAULT_SVG });
+
+let renderImpl: (id: string, chart: string) => Promise<{ svg: string }> = defaultRenderImpl;
+let originalMermaidRender: typeof mermaid.render;
+
+beforeAll(() => {
+  originalMermaidRender = mermaid.render;
+  mermaid.render = mock((id: string, chart: string) =>
+    renderImpl(id, chart),
+  ) as unknown as typeof mermaid.render;
 });
 
-mock.module('mermaid', () => ({
-  default: {
-    initialize: () => {},
-    render: (id: string, chart: string) => renderImpl(id, chart),
-  },
-}));
-
-import { render, cleanup, waitFor } from '@testing-library/react';
-import Mermaid from '../../components/Mermaid';
+afterAll(() => {
+  mermaid.render = originalMermaidRender;
+});
 
 afterEach(() => {
   cleanup();
-  renderImpl = async () => ({
-    svg: '<svg data-testid="mermaid-svg"><g>ok</g></svg>',
-  });
+  renderImpl = defaultRenderImpl;
 });
 
 describe('Mermaid component', () => {

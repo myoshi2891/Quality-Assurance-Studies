@@ -47,6 +47,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/istqb-ctfl-v4-chapter3-static-testing', h1: /静的テスト/ },
   { path: '/istqb-ctfl-v4-chapter4-test-analysis-and-design', h1: /テスト分析・設計/ },
   { path: '/istqb-ctfl-v4-chapter5-test-management', h1: /テスト活動の管理/ },
+  { path: '/istqb-ctfl-v4-chapter6-test-tools', h1: /テストツール/ },
   { path: '/istqb-ctfl-complete-guide', h1: /Certified Tester Foundation Level/ },
   { path: '/software-testing-methodologies-guide', h1: /Test.*Methodologies/s },
   { path: '/unit-testing-guide', h1: /良いコードの証明.*良いテスト/s },
@@ -74,7 +75,10 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/how-google-tests-software-guide', h1: /How Google Tests Software.*完全ガイド/s },
   { path: '/leading-quality-guide', h1: /品質を、経営の言葉で語れるリーダーになる/ },
   { path: '/agile-testing-practical-guide', h1: /初学者のための実践ガイド/ },
+  { path: '/explore-it-guide', h1: /Explore It! を読み解く/ },
+  { path: '/owasp-zap-beginner-guide', h1: /OWASP ZAP 完全ガイド/ },
+  { path: '/lessons-learned-in-software-testing-guide', h1: /Lessons Learned in Software Testing.*実践ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 61;
+export const EXPECTED_PAGE_COUNT = 65;
 
