@@ -32,6 +32,24 @@ IT --> ST["システムテスト<br/>System Test"]
 ST --> AT["受け入れテスト<br/>Acceptance Test"]
 AT --> Release["リリース判定"]`;
 
+const DIAGRAM_CH7 = `flowchart TB
+Unit["単体テスト（数が多い・高速・安定）"] --> Integration["結合テスト（中程度の数・中速）"]
+Integration --> E2E["E2E / UIテスト（数が少ない・低速・壊れやすい）"]`;
+
+const DIAGRAM_CH8 = `flowchart LR
+Red["Red<br/>失敗するテストを書く"] --> Green["Green<br/>テストを通す最小限の実装をする"]
+Green --> Refactor["Refactor<br/>重複を排除し設計を整える"]
+Refactor --> Red`;
+
+const DIAGRAM_CH10 = `flowchart TB
+Bug["テストで欠陥を発見"] --> Approach{"どのアプローチを取るか"}
+Approach -->|力任せ法| Brute["メモリダンプや大量のログを総当たりで調べる<br/>手軽だが非効率"]
+Approach -->|逆行法| Backtrack["失敗が現れた箇所から実行を逆にたどる<br/>小規模なバグに有効"]
+Approach -->|原因除去法| Induction["症状を整理し仮説を立てて検証する<br/>Myersが最も推奨する方法"]
+Brute --> Fix["修正を行い再テストで検証する"]
+Backtrack --> Fix
+Induction --> Fix`;
+
 export default function ArtOfSoftwareTestingPage() {
   return (
     <div className="art-of-testing-layout">
@@ -454,6 +472,159 @@ export default function ArtOfSoftwareTestingPage() {
 
           <p>
             Myersは、これらの人手によるレビューだけでも、実行テストと同程度、あるいはそれ以上の欠陥を発見できると述べています。現代のプルリクエストレビューやペアプログラミングも、この考え方の延長線上にあります。
+          </p>
+        </section>
+
+        {/* 第7章 */}
+        <section className="chapter prose" id="ch7">
+          <div className="section-head">
+            <span className="chip">
+              <i className="ti ti-triangle"></i>
+            </span>
+            <h2>第7章: テストピラミッドと自動テスト戦略</h2>
+          </div>
+          <p>
+            Myersの時代にはまだ「自動テストをどのバランスで書くか」という問題は顕在化していませんでしたが、2010年代以降、Martin Fowlerが自身のサイトで解説し広めた「テストピラミッド」が、この問題に対する標準的な指針になっています。
+          </p>
+
+          <figure className="diagram-fig">
+            <div className="diagram-wrap" id="diag-ch7">
+              <Mermaid chart={DIAGRAM_CH7} />
+            </div>
+            <p className="fig-caption">
+              図: 単体テストを厚く、E2Eテストを薄くするテストピラミッドの配分
+            </p>
+          </figure>
+
+          <p>
+            Fowlerの考え方の要点は、GUIを介した大規模なE2Eテストばかりに頼ると、実行が遅く、失敗の原因特定が難しく（Flakyになりやすく）、フィードバックサイクルが遅くなるという点です。そのため、下層の単体テストを厚く、上層のE2Eテストを薄くする「ピラミッド型」の配分が推奨されています。Googleのテストブログでも、大きすぎるテストは非決定的（non-deterministic）になりやすいことが繰り返し指摘されています。
+          </p>
+          <p>
+            なお、ピラミッドの層の名前や境界線はチームによって解釈が分かれるため、Fowlerのサイトに掲載されている実践的な解説記事（The Practical Test Pyramid）では、「まず自分たちのチームにおける各層の定義を明確にすること」が最初のステップとして推奨されています。
+          </p>
+        </section>
+
+        {/* 第8章 */}
+        <section className="chapter prose" id="ch8">
+          <div className="section-head">
+            <span className="chip">
+              <i className="ti ti-refresh"></i>
+            </span>
+            <h2>第8章: テスト駆動開発（TDD）</h2>
+          </div>
+          <p>
+            TDD（Test-Driven Development）は、Kent BeckがExtreme Programmingの一部として体系化した開発手法です。Myersの「テストは欠陥を見つけるためのもの」という思想をさらに一歩進め、「テストを先に書くことで設計そのものを駆動する」という考え方を導入しました。
+          </p>
+
+          <figure className="diagram-fig">
+            <div className="diagram-wrap" id="diag-ch8">
+              <Mermaid chart={DIAGRAM_CH8} />
+            </div>
+            <p className="fig-caption">図: Red &rarr; Green &rarr; Refactor を繰り返すTDDサイクル</p>
+          </figure>
+
+          <p>
+            この「Red &rarr; Green &rarr; Refactor」サイクルを短い時間単位（数分〜十数分）で繰り返すのがTDDの基本です。Kent Beckは、TDDの目的を「開発中の恐怖心を取り除くこと」だと説明しています。テストという安全網があることで、開発者は思い切ったリファクタリングや設計変更に踏み出せるようになります。
+          </p>
+          <p>初学者がTDDを始める際のステップは以下の通りです。</p>
+          <ol>
+            <li>実装したい機能を、最も小さい単位のテストケースとして書き出す</li>
+            <li>そのテストを実行し、失敗する（Red）ことを確認する</li>
+            <li>テストを通すために必要最小限のコードだけを書く（Green）</li>
+            <li>
+              テストが通った状態を保ちながら、重複や汚いコードを整理する（Refactor）
+            </li>
+            <li>次の小さなテストケースに進み、1〜4を繰り返す</li>
+          </ol>
+        </section>
+
+        {/* 第9章 */}
+        <section className="chapter prose" id="ch9">
+          <div className="section-head">
+            <span className="chip">
+              <i className="ti ti-award"></i>
+            </span>
+            <h2>第9章: 良いテストコードを書くためのFIRST原則</h2>
+          </div>
+          <p>
+            自動テストが増えてくると、「テストコード自体の品質」が課題になります。Robert C. Martin（通称Uncle Bob）は著書『Clean Code』の中で、良い単体テストが備えるべき性質を「FIRST」という頭字語にまとめました。
+          </p>
+
+          <div className="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>頭文字</th>
+                  <th>原則</th>
+                  <th>意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>F</td>
+                  <td>Fast（高速）</td>
+                  <td>
+                    テストは高速に実行できるべき。遅いと開発者が実行を嫌がる
+                  </td>
+                </tr>
+                <tr>
+                  <td>I</td>
+                  <td>Independent（独立）</td>
+                  <td>
+                    テスト同士が依存せず、どの順番で実行しても結果が変わらない
+                  </td>
+                </tr>
+                <tr>
+                  <td>R</td>
+                  <td>Repeatable（繰り返し可能）</td>
+                  <td>どの環境で実行しても同じ結果が得られる</td>
+                </tr>
+                <tr>
+                  <td>S</td>
+                  <td>Self-Validating（自己検証可能）</td>
+                  <td>
+                    テスト結果が合否（true/false）としてコード自身で判定できる。人間が目視で判定しない
+                  </td>
+                </tr>
+                <tr>
+                  <td>T</td>
+                  <td>Timely（適時性）</td>
+                  <td>
+                    テストはプロダクションコードを書くのと同じタイミング、できれば直前に書く
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>
+            これらはMyersが提示した「テストケースは反復可能で、期待結果を明確に持つべき」という原則と本質的に同じ方向性を持っており、古典的な原則が現代のコーディング規約に形を変えて息づいていることが分かります。
+          </p>
+        </section>
+
+        {/* 第10章 */}
+        <section className="chapter prose" id="ch10">
+          <div className="section-head">
+            <span className="chip">
+              <i className="ti ti-search"></i>
+            </span>
+            <h2>第10章: デバッグの技法</h2>
+          </div>
+          <p>
+            テストで欠陥を発見した後には、原因を特定して修正する「デバッグ」の工程が必要です。Myersは著書の中でデバッグのアプローチをいくつかに分類しており、その分類は現在でも有効な整理の仕方です。
+          </p>
+
+          <figure className="diagram-fig">
+            <div className="diagram-wrap" id="diag-ch10">
+              <Mermaid chart={DIAGRAM_CH10} />
+            </div>
+            <p className="fig-caption">
+              図: 力任せ法・逆行法・原因除去法という3つのデバッグアプローチ
+            </p>
+          </figure>
+
+          <p>
+            特にMyersが推奨するのは「原因除去法（帰納法・演繹法による推論）」です。やみくもにコードを追いかけるのではなく、症状を整理し、「もしこの仮説が正しければ、他にどんな現象が起きるはずか」を論理的に組み立てて検証を絞り込んでいくアプローチです。これはTDDにおける「小さな失敗テストから仮説を検証する」という発想とも親和性が高い考え方です。
           </p>
         </section>
       </main>
