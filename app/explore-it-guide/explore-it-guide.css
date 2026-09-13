@@ -37,6 +37,7 @@
   margin: 0 0 76px;
   border-top: 1px solid var(--line);
   max-width: var(--maxw);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .explore-it-layout section:first-of-type {
