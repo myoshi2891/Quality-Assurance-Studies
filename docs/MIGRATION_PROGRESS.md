@@ -77,7 +77,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 初学者向けチェックリスト（`ul.checklist`、全8項目）、チャーターテンプレート（`pre.tmpl`）、重要引用（Elisabeth Hendricksonのことば）を完全移植。
 - **全セクション参考文献**: 全22件の参考文献外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全16セクションリンク、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
-- `app/explore-it-guide/`: ページコンポーネント、専用スタイル（`.explore-it-page` スコープ、globals.css干渉リセット）、NavBarを実装。
+- `app/explore-it-guide/`: ページコンポーネント、専用スタイル（`.explore-it-layout` スコープ、globals.css干渉リセット）、NavBarを実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/explore-it-guide` を追加（全63件）。
 - `tests/explore-it-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全16リンク、全16セクション、全8Mermaid図、全10テーブル、全コールアウト、全チェックリスト、全参考文献外部リンク（22件）の存在を検証する厳格なテストスイートを実装して全パス（19 pass / 243 expect()）。
 - `Explore-it-guide.html` & `Explore-it-guide.md`: `archive/html-archive/books/` へ移動完了。
