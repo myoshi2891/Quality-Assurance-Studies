@@ -1127,20 +1127,29 @@ export default function Chapter6Page() {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="hl">テスト実行ツールの発展</td>
+                                        <td className="hl">
+                                            テスト実行ツールの発展{' '}
+                                            <span className="badge scope-out">試験範囲外の実務補足</span>
+                                        </td>
                                         <td>
                                             キャプチャ・リプレイ → データ駆動 →
                                             キーワード駆動という成熟度の流れ
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="hl">静的解析ツール</td>
+                                        <td className="hl">
+                                            静的解析ツール{' '}
+                                            <span className="badge scope-out">試験範囲外の実務補足</span>
+                                        </td>
                                         <td>
                                             コンポーネントテスト以前・コミット前に使うことで最大効果。シフトレフトを支える
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td className="hl">テスト管理ツール</td>
+                                        <td className="hl">
+                                            テスト管理ツール{' '}
+                                            <span className="badge scope-out">試験範囲外の実務補足</span>
+                                        </td>
                                         <td>
                                             単体では機能せず、要求管理・構成管理・欠陥管理・CI/CDとの連携が鍵
                                         </td>

@@ -59,7 +59,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/istqb-ctfl-v4-chapter3-static-testing', label: 'CTFL v4.0 第3章 静的テスト', description: 'レビューと静的解析による、実行前の欠陥検出プロセス。', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-v4-chapter4-test-analysis-and-design', label: 'CTFL v4.0 第4章 テスト分析・設計', description: '同値分割・境界値・デシジョンテーブルなどのテスト技法。', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-v4-chapter5-test-management', label: 'CTFL v4.0 第5章 テスト活動の管理', description: 'テスト計画・リスクベースドテスト・監視と制御・欠陥管理。', category: 'istqb-foundation-ext' },
-  { href: '/istqb-ctfl-v4-chapter6-test-tools', label: 'CTFL v4.0 第6章 テストツール', description: 'テストツールの分類・自動化の利点とリスク・特別な考慮事項。', category: 'istqb-foundation-ext' },
+  { href: '/istqb-ctfl-v4-chapter6-test-tools', label: 'CTFL v4.0 第6章 テストツール', description: 'テストツールの分類・自動化の利点とリスク・試験範囲外の実務補足。', category: 'istqb-foundation-ext' },
 
   { href: '/istqb-ctfl-at-complete-guide', label: 'アジャイル(CTFL-AT)ガイド', description: 'Foundation Level Agile Tester シラバスの全体像。', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-at-chapter1-agile-software-development', label: 'CTFL-AT 1章 アジャイル開発', description: 'アジャイルの価値と原則、チーム全体アプローチと早期フィードバック。', category: 'istqb-foundation-ext' },
