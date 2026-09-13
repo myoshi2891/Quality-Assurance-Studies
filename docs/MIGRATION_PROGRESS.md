@@ -54,7 +54,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 全22テーブル（機能比較表、動作モード表、スキャンポリシー表、レポートテンプレート表、トラブルシューティング表、学習リソース一覧など）を完全移植。
   - コールアウト（警告・情報・危険など計7件）を完全移植。
   - 全120件以上の参考文献・公式ドキュメント外部リンク（セキュリティ属性 `rel="noopener noreferrer"`、`target="_blank"`）を完全移植。
-- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全25セクションリンク（6グループアコーディオン）、モバイルトグル対応の `NavBar.tsx` を実装。
+- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全25セクションリンク（6グループ構成）、モバイルトグル対応の `NavBar.tsx` を実装。
 - `app/owasp-zap-beginner-guide/`: ページコンポーネント、専用スタイル（`.owasp-zap-layout` スコープ、globals.css干渉リセット）、NavBarを実装。
 - `lib/navigation.ts`: `tools-frameworks` カテゴリに `/owasp-zap-beginner-guide` を追加（全64件）。
 - `tests/owasp-zap-beginner-guide/page.test.tsx`: TDD 必須サイクルに従い、H1見出し、TOC全25リンク、全25セクション、全Mermaid図、全テーブル、全コールアウト、全コードブロック、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（28 pass / 408 expect()）。
