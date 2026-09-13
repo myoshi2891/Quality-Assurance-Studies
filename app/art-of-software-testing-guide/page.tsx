@@ -50,6 +50,21 @@ Brute --> Fix["修正を行い再テストで検証する"]
 Backtrack --> Fix
 Induction --> Fix`;
 
+const DIAGRAM_CH11 = `flowchart TB
+Commit["コードをコミット"] --> Pipeline["CIパイプラインを起動"]
+Pipeline --> UnitCI["単体テストを実行"]
+UnitCI --> IntegrationCI["結合テストを実行"]
+IntegrationCI --> E2ECI["E2Eテストを実行"]
+E2ECI --> Result{"結果は？"}
+Result -->|すべて成功| Deploy["デプロイ"]
+Result -->|失敗あり| Retry["失敗を記録したうえで<br/>同一コミットで再実行する"]
+Retry --> Judge{"失敗は再現するか？"}
+Judge -->|再現する| Block["マージをブロックし修正する"]
+Judge -->|再現しない| Flaky["Flakyと明示的に判定し<br/>担当者をアサインする"]
+Flaky --> Quarantine["期限付きで隔離する<br/>（例: 2週間以内に調査を完了）"]
+Quarantine --> Investigate["原因を調査し修正する<br/>期限超過なら削除・再設計"]
+Quarantine --> GatedDeploy["隔離と調査を条件に<br/>デプロイを継続する"]`;
+
 export default function ArtOfSoftwareTestingPage() {
   return (
     <div className="art-of-testing-layout">
@@ -627,6 +642,392 @@ export default function ArtOfSoftwareTestingPage() {
             特にMyersが推奨するのは「原因除去法（帰納法・演繹法による推論）」です。やみくもにコードを追いかけるのではなく、症状を整理し、「もしこの仮説が正しければ、他にどんな現象が起きるはずか」を論理的に組み立てて検証を絞り込んでいくアプローチです。これはTDDにおける「小さな失敗テストから仮説を検証する」という発想とも親和性が高い考え方です。
           </p>
         </section>
+
+        {/* 第11章 */}
+        <section className="chapter prose" id="ch11">
+          <div className="section-head">
+            <span className="chip">
+              <i className="ti ti-git-branch"></i>
+            </span>
+            <h2>第11章: 継続的テストとFlaky Testへの対処</h2>
+          </div>
+          <p>
+            CI/CD（継続的インテグレーション／継続的デリバリー）の普及により、テストは「開発の最後にまとめて行うもの」から「コードの変更のたびに自動実行されるもの」へと役割が変わりました。この文脈で近年重要視されているのが「Flaky Test（不安定なテスト）」への対処です。
+          </p>
+
+          <figure className="diagram-fig">
+            <div className="diagram-wrap" id="diag-ch11">
+              <Mermaid chart={DIAGRAM_CH11} />
+            </div>
+            <p className="fig-caption">
+              図: CIパイプラインにおけるテスト失敗の判定とFlaky Testの隔離フロー
+            </p>
+          </figure>
+
+          <p>
+            Googleのテストブログによれば、大規模なテストスイートの一定割合は避けがたくFlakyになる傾向があり、その原因は並行処理のタイミング、外部依存、テスト間の状態共有などにあります。重要なのは、Flaky Testを「よくあること」として放置せず、隔離（quarantine）・原因調査・再設計のプロセスを継続的に回すことです。上図のように、再実行が成功しただけで「すべて成功」の経路に戻してはいけません。最初の失敗は記録として残し、Flakyであることを明示的に判定したうえで、担当者と調査期限をセットにして隔離することが前提になります。Flaky Testを放置すると、開発者がテストの失敗を信頼しなくなり、テストスイート全体の価値が損なわれてしまいます。
+          </p>
+        </section>
+
+        {/* 第12章 */}
+        <section className="chapter prose" id="ch12">
+          <div className="section-head">
+            <span className="chip">
+              <i className="ti ti-robot"></i>
+            </span>
+            <h2>第12章: AI時代のソフトウェアテスト（2026年動向）</h2>
+          </div>
+          <p>
+            AIコーディングアシスタントの普及に伴い、テストのあり方にも変化が生まれつつあります。ただしこの領域の数値には注意が必要です。調査ごとに「AIが全文を生成したコード」「AIの補完を受けながら人間が書いたコード（AI支援）」「何らかの形でAIが関与したコード」の定義が異なり、同じ「AIによるコードの割合」という表現でも指す対象が揃っていません。以下は確度の高い傾向として押さえておくとよい点です。
+          </p>
+          <ul>
+            <li>
+              AIが関与したコードの比率は近年上昇しているとみられますが、その水準は調査の定義次第で大きく振れます。具体的な割合を引用する際は、必ず出典と「どの範囲をAI由来とみなしたか」をあわせて確認してください。
+            </li>
+            <li>
+              AIが生成したコードには、一見正しく見えても論理的な誤りやセキュリティ上の問題が含まれることがあります。定量的な欠陥率については調査によって結果が分かれており断定はできませんが、レビューとテストの手を緩めてよい根拠は見当たりません。むしろAIの出力に対してこそ、本章までに紹介した原則（境界値分析、テストピラミッド、コードレビュー）を丁寧に適用する価値があります。
+            </li>
+            <li>
+              テストケース自体をAIに生成させる「AI支援テスト」の利用も広がっています。ただし現場での使われ方は「テストケースを量産する」用途に寄りがちで、リスクの特定や設計の質そのものを高めるところまで活用できているかは、チームによって差が大きいのが実情です。
+            </li>
+            <li>
+              セルフヒーリングテスト（UI変更などを自動検知してテストコードを追従させる仕組み）や、変更内容から実行すべきテストを優先順位付けする仕組みなど、テストの「量」より「実行の賢さ」を重視する方向にシフトしています。
+            </li>
+          </ul>
+
+          <div className="callout note">
+            <div className="callout-title">
+              <i className="ti ti-alert-triangle"></i>注意
+            </div>
+            AI関連の統計は調査元によって定義や数値が大きく異なります。本章の記述はあくまで傾向の整理であり、具体的な数値の引用には出典の確認が必要です。
+          </div>
+
+          <p>
+            これらの動向を踏まえても、根底にあるのは本ガイドで解説してきた古典的な原則です。AIはテストケースの「作成」を助けてくれますが、「何を、なぜテストすべきか」という設計判断は、Myersが説いた心理学的な姿勢と、Fowlerたちが体系化した技法を理解している人間が担う必要があります。
+          </p>
+        </section>
+
+        {/* 実践チェックリスト */}
+        <section className="chapter prose" id="checklist">
+          <div className="section-head">
+            <span className="chip">
+              <i className="ti ti-checklist"></i>
+            </span>
+            <h2>実践ステップバイステップ・チェックリスト</h2>
+          </div>
+          <p>初学者がこのガイドの内容を実務に落とし込むための手順をまとめます。</p>
+          <ol className="step-list">
+            <li>
+              <span className="num">1</span>
+              <span>
+                まず自分の中の「証明したい」という気持ちを「壊してやろう」という意図に切り替える（第1章）
+              </span>
+            </li>
+            <li>
+              <span className="num">2</span>
+              <span>
+                テストの7原則を頭に入れ、「全部テストする」ことを目指さず、リスクベースで優先順位をつける（第2章）
+              </span>
+            </li>
+            <li>
+              <span className="num">3</span>
+              <span>
+                要件からテスト観点を洗い出し、単体・結合・システム・受け入れの各レベルで何を検証するか整理する（第3章）
+              </span>
+            </li>
+            <li>
+              <span className="num">4</span>
+              <span>
+                入力に対しては同値分割で代表値を選び、境界値分析で境界付近を重点的にテストする（第4章）
+              </span>
+            </li>
+            <li>
+              <span className="num">5</span>
+              <span>
+                カバレッジ計測を導入しつつ、カバレッジ率を過信せず抜け漏れ発見の手がかりとして使う（第5章）
+              </span>
+            </li>
+            <li>
+              <span className="num">6</span>
+              <span>
+                コードレビューやペアプログラミングを、非実行型テストの一種として意識的に活用する（第6章）
+              </span>
+            </li>
+            <li>
+              <span className="num">7</span>
+              <span>
+                自動テストはテストピラミッドを意識し、単体テストを厚く、E2Eテストを薄く配分する（第7章）
+              </span>
+            </li>
+            <li>
+              <span className="num">8</span>
+              <span>
+                可能な範囲でTDDのRed-Green-Refactorサイクルを実践し、小さく安全に開発を進める（第8章）
+              </span>
+            </li>
+            <li>
+              <span className="num">9</span>
+              <span>
+                書いたテストコード自体がFIRST原則を満たしているか定期的に振り返る（第9章）
+              </span>
+            </li>
+            <li>
+              <span className="num">10</span>
+              <span>
+                バグが見つかったら、力任せに追いかける前に症状を整理し仮説検証で絞り込む（第10章）
+              </span>
+            </li>
+            <li>
+              <span className="num">11</span>
+              <span>
+                CI/CDにテストを組み込み、Flaky Testを見つけたら放置せず隔離・調査する（第11章）
+              </span>
+            </li>
+            <li>
+              <span className="num">12</span>
+              <span>
+                AIが生成したコードや、AIが生成したテストケースにも、これまでの原則をそのまま適用して品質を確認する（第12章）
+              </span>
+            </li>
+            <li>
+              <span className="num">13</span>
+              <span>
+                一定期間ごとにテストケース自体を見直し、殺虫剤のパラドックスに陥っていないか確認する（第2章・第11章）
+              </span>
+            </li>
+          </ol>
+        </section>
+
+        {/* 参考文献 */}
+        <section className="chapter prose" id="references">
+          <div className="section-head">
+            <span className="chip">
+              <i className="ti ti-link"></i>
+            </span>
+            <h2>参考文献</h2>
+          </div>
+          <p>
+            本ガイドの作成にあたり、2026年8月30日時点の情報をもとに、書籍および国際的に著名な開発者・組織による記事を参照しました。
+          </p>
+
+          <div className="ref-group">
+            <h3>書籍</h3>
+            <ul className="ref-list">
+              <li className="ref-item">
+                <span className="ref-no">1</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    The Art of Software Testing, 3rd Edition（Glenford J. Myers, Tom Badgett, Corey Sandler）— O&apos;Reilly
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://www.oreilly.com/library/view/the-art-of/9781118133156/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.oreilly.com/library/view/the-art-of/9781118133156/
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div className="ref-group">
+            <h3>著名な開発者による解説記事</h3>
+            <ul className="ref-list">
+              <li className="ref-item">
+                <span className="ref-no">2</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    The Art of Software Testing（書評・要約）— Yegor Bugayenko
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://www.yegor256.com/2014/08/22/art-of-software-testing.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.yegor256.com/2014/08/22/art-of-software-testing.html
+                  </a>
+                </div>
+              </li>
+              <li className="ref-item">
+                <span className="ref-no">3</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    The Art of Software Testing, from Glenford Myers — José Sobral (Medium)
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://medium.com/@JSobral/the-art-of-software-testing-from-glenford-myers-871ac1073264
+                  </a>
+                </div>
+              </li>
+              <li className="ref-item">
+                <span className="ref-no">4</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    The Practical Test Pyramid（Ham Vocke, Martin Fowler氏のサイトに掲載）
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://martinfowler.com/articles/practical-test-pyramid.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://martinfowler.com/articles/practical-test-pyramid.html
+                  </a>
+                </div>
+              </li>
+              <li className="ref-item">
+                <span className="ref-no">5</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    Test Driven Development — Martin Fowler&apos;s Bliki
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://martinfowler.com/bliki/TestDrivenDevelopment.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://martinfowler.com/bliki/TestDrivenDevelopment.html
+                  </a>
+                </div>
+              </li>
+              <li className="ref-item">
+                <span className="ref-no">8</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    FIRST Principles as Solid Rules for Tests（Robert C. Martinの提唱を解説）— DZone
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://dzone.com/articles/first-principles-solid-rules-for-tests"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://dzone.com/articles/first-principles-solid-rules-for-tests
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div className="ref-group">
+            <h3>公式ブログ・標準化団体</h3>
+            <ul className="ref-list">
+              <li className="ref-item">
+                <span className="ref-no">6</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    Code Coverage Best Practices — Google Testing Blog
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://testing.googleblog.com/2020/08/code-coverage-best-practices.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://testing.googleblog.com/2020/08/code-coverage-best-practices.html
+                  </a>
+                </div>
+              </li>
+              <li className="ref-item">
+                <span className="ref-no">7</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    Flaky Tests at Google and How We Mitigate Them — Google Testing Blog
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://testing.googleblog.com/2016/05/flaky-tests-at-google-and-how-we.html
+                  </a>
+                </div>
+              </li>
+              <li className="ref-item">
+                <span className="ref-no">9</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    ISTQB Foundation Level - Seven Testing Principles — ASTQB（ISTQB公認団体）
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://astqb.org/istqb-foundation-level-seven-testing-principles/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://astqb.org/istqb-foundation-level-seven-testing-principles/
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+
+          <div className="ref-group">
+            <h3>技法解説・業界動向</h3>
+            <ul className="ref-list">
+              <li className="ref-item">
+                <span className="ref-no">10</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    Using Equivalence Partitioning and Boundary Value Analysis in Black Box Testing — StickyMinds
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.stickyminds.com/article/using-equivalence-partitioning-and-boundary-value-analysis-black-box-testing
+                  </a>
+                </div>
+              </li>
+              <li className="ref-item">
+                <span className="ref-no">11</span>
+                <div className="ref-body">
+                  <span className="ref-title">Flaky test — Wikipedia</span>
+                  <a
+                    className="ref-url"
+                    href="https://en.wikipedia.org/wiki/Flaky_test"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://en.wikipedia.org/wiki/Flaky_test
+                  </a>
+                </div>
+              </li>
+              <li className="ref-item">
+                <span className="ref-no">12</span>
+                <div className="ref-body">
+                  <span className="ref-title">
+                    Top Software Testing Trends in 2026 for QA Leaders — AccelQ
+                  </span>
+                  <a
+                    className="ref-url"
+                    href="https://www.accelq.com/blog/software-testing-trends/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.accelq.com/blog/software-testing-trends/
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <footer>
+          本ガイドは2026年8月時点で公開されている情報をもとに作成されています。ツールや統計データは今後更新される可能性があるため、最新情報は各参考文献の一次情報を直接ご確認ください。
+        </footer>
       </main>
     </div>
   );
