@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `495c3f2` |
-| 最新コミット内容 | `chore(archive): move art-of-software-testing-guide source files to archive` |
+| 最新 HEAD | `a202983` |
+| 最新コミット内容 | `fix(art-of-software-testing): fix mermaid palette, remove duplicate border, and adjust header padding` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
