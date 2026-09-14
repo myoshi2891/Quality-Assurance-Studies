@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `4dda5f6` |
-| 最新コミット内容 | `feat(unit-testing-guide): implement category 5 checklist, 2026 updates, and references` |
+| 最新 HEAD | `17cf55b` |
+| 最新コミット内容 | `docs(migration): archive unit-testing guide and sync tracking documents` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
