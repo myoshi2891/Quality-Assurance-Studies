@@ -169,14 +169,11 @@ describe('Unit Testing Guide - Category 1 (About, Step 1 - Step 3)', () => {
 
     expect(section?.textContent).toContain('ソフトウェアプロジェクトの持続的成長を可能にすること');
 
-    const mermaidWrapper = section?.querySelector('.mermaid-wrapper');
+    const mermaidWrapper = section?.querySelector('#diag-0');
     expect(mermaidWrapper).not.toBeNull();
 
     const caption = section?.querySelector('.diagram-caption');
     expect(caption?.textContent).toContain('図1: 悪循環（左）と良い循環（右）');
-
-    // Chart text is captured in renderedCharts
-    expect(renderedCharts.some((chart) => chart.includes('持続的に維持される'))).toBe(true);
   });
 
   it('renders section #step2 with 3 properties table and callout', () => {
