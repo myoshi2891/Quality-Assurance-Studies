@@ -230,3 +230,104 @@ describe('Unit Testing Guide - Category 1 (About, Step 1 - Step 3)', () => {
     expect(rows?.[5].textContent).toContain('失敗しやすいテストの特徴');
   });
 });
+
+describe('Unit Testing Guide - Category 2 (Step 4 - Step 6)', () => {
+  it('renders section #step4 with AAA pattern, diagram 1, code-block, and points list', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step4');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 04');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('ユニットテストの解剖学 ― AAAパターン');
+
+    const diag = section?.querySelector('#diag-1');
+    expect(diag).not.toBeNull();
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図2: AAAパターンの流れ');
+
+    const codeBlock = section?.querySelector('.code-block');
+    expect(codeBlock).not.toBeNull();
+    expect(codeBlock?.querySelector('.code-label')?.textContent).toContain('pseudocode');
+
+    const codeLines = codeBlock?.querySelectorAll('.code-line');
+    expect(codeLines?.length).toBeGreaterThan(0);
+    expect(codeBlock?.textContent).toContain('テスト名: 残高が不足している場合、出金は失敗する');
+    expect(codeBlock?.textContent).toContain('Arrange（準備）');
+    expect(codeBlock?.textContent).toContain('Act（実行）');
+    expect(codeBlock?.textContent).toContain('Assert（検証）');
+
+    const points = section?.querySelectorAll('ul li');
+    expect(points?.length).toBe(5);
+    expect(points?.[0].textContent).toContain('Actセクションは1行にする');
+    expect(points?.[1].textContent).toContain('命名は「非プログラマにも伝わる文章」にする');
+    expect(points?.[2].textContent).toContain('should_be のような曖昧な言い回しは避ける');
+    expect(points?.[3].textContent).toContain('パラメータ化テストは「同じ結論」を導くケースにのみ使う');
+    expect(points?.[4].textContent).toContain('アサーションライブラリで可読性を上げる');
+  });
+
+  it('renders section #step5 with 4 pillars table, multiplication concept, and diagram 2', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step5');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 05');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('良いユニットテストの「4本柱」');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(4);
+    expect(rows?.[0].textContent).toContain('回帰に対する保護');
+    expect(rows?.[1].textContent).toContain('リファクタリング耐性');
+    expect(rows?.[2].textContent).toContain('速いフィードバック');
+    expect(rows?.[3].textContent).toContain('保守のしやすさ');
+
+    expect(section?.textContent).toContain('なぜ「掛け算」で考えるのか');
+    expect(section?.textContent).toContain('理想のテストは存在しない ― 3つの極端な例');
+
+    const diag = section?.querySelector('#diag-2');
+    expect(diag).not.toBeNull();
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図3: 4本柱のトレードオフ ― 3つの極端な例');
+  });
+
+  it('renders section #step6 with mocks vs stubs table, observable behavior, and plum callout', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step6');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 06');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('モックとテストの壊れやすさ（fragility）');
+
+    expect(section?.textContent).toContain('モックとスタブの違い');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(2);
+    expect(rows?.[0].textContent).toContain('スタブ');
+    expect(rows?.[0].textContent).toContain('状態検証（state verification）');
+    expect(rows?.[1].textContent).toContain('モック');
+    expect(rows?.[1].textContent).toContain('振る舞い検証（behavior verification）');
+
+    expect(section?.textContent).toContain('observable behavior と implementation detail');
+    const nestedOl = section?.querySelectorAll('ol li');
+    expect(nestedOl?.length).toBe(3);
+
+    const callout = section?.querySelector('.callout.plum');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('モックは、アプリケーションの境界を越えた「共有された可変な依存（unmanaged dependency）」に対してのみ使う');
+  });
+});
