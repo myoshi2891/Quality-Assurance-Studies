@@ -229,3 +229,131 @@ describe('TDD by Example Guide - Category 1 (Hero, NavBar, Ch01-Ch04)', () => {
     expect(sec?.textContent).toContain('Part I と Part II の終わりには「Retrospective（回顧）」という振り返り章が置かれており');
   });
 });
+
+describe('TDD by Example Guide - Category 2 (Ch05-Ch07: Money, xUnit, Patterns)', () => {
+  it('renders Section 05: Part I: Moneyの例 (#part1) with 3 H3s, ol, table, Mermaid dg-tax, and 5 code blocks', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#part1');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('05');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('Part I: Moneyの例で学ぶTDDの基本サイクル');
+
+    const h3s = sec?.querySelectorAll('h3');
+    expect(h3s?.length).toBe(3);
+    expect(h3s?.[0].textContent).toBe('ステップ・バイ・ステップの流れ');
+    expect(h3s?.[1].textContent).toBe('テストを通す3つの戦略（Green Barパターン）');
+    expect(h3s?.[2].textContent).toBe('オリジナルの例で追体験する（税込み価格計算）');
+
+    const olItems = sec?.querySelectorAll('ol li');
+    expect(olItems?.length).toBe(7);
+    expect(olItems?.[0].textContent).toContain('やりたいことをテストリストとして書き出す');
+    expect(olItems?.[1].textContent).toContain('リストから1つを選び、実際に動くテストコードに変換する');
+    expect(olItems?.[2].textContent).toContain('そのテストをコンパイルが通る最小限の形にする');
+    expect(olItems?.[3].textContent).toContain('テストを実行し、失敗（Red）することを確認する');
+    expect(olItems?.[4].textContent).toContain('テストを通すための最小限のコードを書く');
+    expect(olItems?.[5].textContent).toContain('テストが通ったら（Green）、コードの重複や設計上の課題をリファクタリングする');
+    expect(olItems?.[6].textContent).toContain('テストリストに新しく気づいた項目を追加し、2に戻る');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0].textContent).toContain('Fake It（Til You Make It）');
+    expect(rows?.[1].textContent).toContain('Triangulate（三角測量）');
+    expect(rows?.[2].textContent).toContain('Obvious Implementation（明白な実装）');
+
+    const diag = sec?.querySelector('#dg-tax');
+    expect(diag).not.toBeNull();
+    const caption = sec?.querySelector('.mermaid-caption');
+    expect(caption?.textContent).toContain('図: 税込み価格計算の例でRed-Green-Refactorを追体験する');
+
+    const codeBlocks = sec?.querySelectorAll('.code-block');
+    expect(codeBlocks?.length).toBe(5);
+
+    const heads = sec?.querySelectorAll('.code-head');
+    expect(heads?.[0].textContent).toContain('ステップ1: Red — tax_example.py');
+    expect(heads?.[1].textContent).toContain('ステップ2: Green (Fake It) — tax_example.py');
+    expect(heads?.[2].textContent).toContain('ステップ3: Red — tax_example.py');
+    expect(heads?.[3].textContent).toContain('ステップ4: Green (Triangulate) — tax_example.py');
+    expect(heads?.[4].textContent).toContain('ステップ5: Refactor — tax_example.py');
+
+    codeBlocks?.forEach((cb) => {
+      const lines = cb.querySelectorAll('.code-line');
+      expect(lines.length).toBeGreaterThan(0);
+    });
+
+    expect(codeBlocks?.[0].textContent).toContain('assert 税込み価格(0) == 0');
+    expect(codeBlocks?.[1].textContent).toContain('return 0');
+    expect(codeBlocks?.[2].textContent).toContain('assert 税込み価格(100) == 110');
+    expect(codeBlocks?.[3].textContent).toContain('return int(小計 * 1.1)');
+    expect(codeBlocks?.[4].textContent).toContain('消費税率 = 0.10');
+  });
+
+  it('renders Section 06: Part II: xUnitを自作する意味 (#part2) with ul list and Mermaid dg-xunit', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#part2');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('06');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('Part II: xUnitを自作する意味');
+
+    const listItems = sec?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(listItems?.[0].textContent).toContain('TDDは業務ロジックだけでなく、テストインフラ自体の開発にも適用できる');
+    expect(listItems?.[1].textContent).toContain('xUnit系フレームワーク（JUnit、pytest、NUnitなど）が内部で何をしているか');
+    expect(listItems?.[2].textContent).toContain('「テストするものが自分自身のテストの仕組みである」という自己言及的な状況でも');
+
+    const diag = sec?.querySelector('#dg-xunit');
+    expect(diag).not.toBeNull();
+    const caption = sec?.querySelector('.mermaid-caption');
+    expect(caption?.textContent).toContain('図: xUnit系フレームワークの主要な構成要素');
+  });
+
+  it('renders Section 07: Part III: TDDパターン集 (#part3) with 7-category table and plum callout', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#part3');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('07');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('Part III: TDDパターン集');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const ths = table?.querySelectorAll('thead th');
+    expect(ths?.length).toBe(3);
+    expect(ths?.[0].textContent).toBe('パターン分類');
+    expect(ths?.[1].textContent).toBe('章');
+    expect(ths?.[2].textContent).toBe('代表的なパターン');
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(7);
+    expect(rows?.[0].textContent).toContain('Test-Driven Development Patterns');
+    expect(rows?.[0].textContent).toContain('25章');
+    expect(rows?.[1].textContent).toContain('Red Bar Patterns');
+    expect(rows?.[1].textContent).toContain('26章');
+    expect(rows?.[2].textContent).toContain('Testing Patterns');
+    expect(rows?.[2].textContent).toContain('27章');
+    expect(rows?.[3].textContent).toContain('Green Bar Patterns');
+    expect(rows?.[3].textContent).toContain('28章');
+    expect(rows?.[4].textContent).toContain('xUnit Patterns');
+    expect(rows?.[4].textContent).toContain('29章');
+    expect(rows?.[5].textContent).toContain('Design Patterns');
+    expect(rows?.[5].textContent).toContain('30章');
+    expect(rows?.[6].textContent).toContain('Refactoring');
+    expect(rows?.[6].textContent).toContain('31章');
+
+    const callout = sec?.querySelector('.callout.plum');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('最終章の32章「Mastering TDD」では');
+  });
+});
