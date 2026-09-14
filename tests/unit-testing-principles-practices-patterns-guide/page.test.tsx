@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/unit-testing-principles-practices-patterns-guide/page';
@@ -520,5 +520,98 @@ describe('Unit Testing Guide - Category 4 (Step 10 - Step 13)', () => {
     expect(rows?.[3].textContent).toContain('コード汚染（production code pollution）');
     expect(rows?.[4].textContent).toContain('モック対象を「具象クラスかどうか」で決める');
     expect(rows?.[5].textContent).toContain('時間（現在時刻）の扱い');
+  });
+});
+
+describe('Unit Testing Guide - Category 5 (Checklist, 2026 Updates, References)', () => {
+  it('renders section #checklist with interactive checklist items and counter', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#checklist');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('まとめ: 実践チェックリスト');
+
+    const counter = section?.querySelector('#checklistCount');
+    expect(counter).not.toBeNull();
+    expect(counter?.textContent).toBe('0');
+
+    const items = section?.querySelectorAll('.checklist li');
+    expect(items?.length).toBe(10);
+
+    const firstCheckbox = items?.[0].querySelector('input[type="checkbox"]') as HTMLInputElement;
+    expect(firstCheckbox).not.toBeNull();
+    expect(firstCheckbox.checked).toBe(false);
+
+    // Simulate clicking checkbox
+    fireEvent.click(firstCheckbox);
+    expect(firstCheckbox.checked).toBe(true);
+    expect(counter?.textContent).toBe('1');
+    expect(items?.[0].classList.contains('done')).toBe(true);
+  });
+
+  it('renders section #update2026 with 12 desiderata and 2.0 meta-goals', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#update2026');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('2026年時点の補足: 議論はどう発展したか');
+
+    const h3s = Array.from(section?.querySelectorAll('h3') || []).map((h) => h.textContent);
+    expect(h3s).toContain('Kent Beckの「Composable Tests」（2025年11月）');
+    expect(h3s).toContain('Emily Bacheによる「Test Desiderata 2.0」（2025年12月）');
+    expect(h3s).toContain('テストピラミッドとテスティングトロフィー、そして現在地');
+    expect(h3s).toContain('AI生成コードのテスト（2026年の新しい論点）');
+
+    const tables = section?.querySelectorAll('table');
+    expect(tables?.length).toBe(2);
+
+    // Table 12: 12 Desiderata
+    const table1Rows = tables?.[0].querySelectorAll('tbody tr');
+    expect(table1Rows?.length).toBe(12);
+    expect(table1Rows?.[0].textContent).toContain('Isolated');
+    expect(table1Rows?.[11].textContent).toContain('Predictive');
+
+    // Table 13: Desiderata 2.0
+    const table2Rows = tables?.[1].querySelectorAll('tbody tr');
+    expect(table2Rows?.length).toBe(4);
+    expect(table2Rows?.[0].textContent).toContain('本番での成功を予測できるか（Predict success）');
+    expect(table2Rows?.[3].textContent).toContain('保有コストを最小化できるか（Minimize cost of ownership）');
+
+    // AI generated testing list
+    expect(section?.textContent).toContain('Verification Paradox（検証のパラドックス）');
+    expect(section?.textContent).toContain('振る舞いカバレッジの重視');
+  });
+
+  it('renders section #references with 21 reference cards in categorized groups', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#references');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('参考文献・情報源');
+
+    const groups = section?.querySelectorAll('.ref-group');
+    expect(groups?.length).toBeGreaterThanOrEqual(8);
+
+    const cards = section?.querySelectorAll('.ref-card');
+    expect(cards?.length).toBe(21);
+
+    // Check card links structure
+    cards?.forEach((card) => {
+      const link = card.querySelector('a.ref-title');
+      expect(link).not.toBeNull();
+      expect(link?.getAttribute('target')).toBe('_blank');
+      expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
+
+      const urlSpan = card.querySelector('.ref-url');
+      expect(urlSpan).not.toBeNull();
+      expect(urlSpan?.textContent).toBe(link?.getAttribute('href'));
+    });
+
+    const noteFinal = section?.querySelector('.note-final');
+    expect(noteFinal).not.toBeNull();
+    expect(noteFinal?.textContent).toContain('本記事は上記ソースの内容を要約・再構成した学習ガイドであり');
   });
 });
