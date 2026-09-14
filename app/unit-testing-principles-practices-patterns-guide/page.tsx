@@ -21,6 +21,19 @@ H --> E
 
 D ~~~ E`;
 
+const DIAGRAM_1 = `flowchart LR
+A["Arrange<br/>テスト対象と入力データを準備する"] --> B["Act<br/>テスト対象のメソッドを実行する"]
+B --> C["Assert<br/>結果を検証する"]`;
+
+const DIAGRAM_2 = `flowchart TB
+Start["あるテストを4本柱で評価する"] --> E2E["End-to-Endテスト"]
+Start --> Trivial["些末(trivial)なテスト<br/>例: 単純なgetter/setterのテスト"]
+Start --> Brittle["壊れやすい(brittle)テスト<br/>例: 実装の内部呼び出し順序を検証するテスト"]
+
+E2E --> E2ERes["回帰への保護◎ / リファクタリング耐性◎<br/>速いフィードバック×"]
+Trivial --> TrivialRes["リファクタリング耐性◎ / 速いフィードバック◎<br/>回帰への保護×"]
+Brittle --> BrittleRes["回帰への保護◎ / 速いフィードバック◎<br/>リファクタリング耐性×"]`;
+
 export default function Page() {
   return (
     <div className="unit-testing-layout">
@@ -278,9 +291,236 @@ export default function Page() {
             </p>
           </div>
         </section>
-        <section className="section" id="step4"></section>
-        <section className="section" id="step5"></section>
-        <section className="section" id="step6"></section>
+        {/* ===== Step 04 ===== */}
+        <section className="section" id="step4">
+          <div className="section-head">
+            <span className="section-badge">Step 04</span>
+            <h2>ユニットテストの解剖学 ― AAAパターン</h2>
+          </div>
+          <div className="prose">
+            <p>
+              良いユニットテストは、例外なく次の3つのセクションで構成すべきだと本書は説きます。これは<strong>AAAパターン（Arrange-Act-Assert）</strong>と呼ばれ、xUnit系フレームワーク全般で共通する基本構造です。
+            </p>
+
+            <div className="mermaid-wrapper" id="diag-1">
+              <Mermaid chart={DIAGRAM_1} />
+            </div>
+            <p className="diagram-caption">図2: AAAパターンの流れ</p>
+
+            <p>擬似コードで表すと次のようになります。</p>
+
+            <div className="code-block">
+              <div className="code-label"><i className="ti ti-code"></i>pseudocode</div>
+              <pre>
+                <div className="code-line">テスト名: 残高が不足している場合、出金は失敗する</div>
+                <div className="code-line"></div>
+                <div className="code-line">// Arrange（準備）</div>
+                <div className="code-line">account := 口座を作成する(残高: 100)</div>
+                <div className="code-line"></div>
+                <div className="code-line">// Act（実行）</div>
+                <div className="code-line">result := account.出金する(金額: 200)</div>
+                <div className="code-line"></div>
+                <div className="code-line">// Assert（検証）</div>
+                <div className="code-line">result が失敗であることを確認する</div>
+                <div className="code-line">account.残高 が 100 のままであることを確認する</div>
+              </pre>
+            </div>
+
+            <h3>実践のポイント</h3>
+            <ul>
+              <li>
+                <strong>Actセクションは1行にする</strong>: 複数のメソッド呼び出しがActに並ぶ場合、テスト対象の振る舞いの単位が誤って分割されているサインです。
+              </li>
+              <li>
+                <strong>命名は「非プログラマにも伝わる文章」にする</strong>: 実装の詳細（メソッド名やクラス名）をテスト名に含めるのではなく、「その振る舞いを業務ドメインの言葉でどう説明するか」を意識します。例: <code>Test1_出金_異常系</code> ではなく <code>残高が不足している場合、出金は失敗する</code> のように書きます。
+              </li>
+              <li>
+                <strong><code>should_be</code> のような曖昧な言い回しは避ける</strong>: テストは「事実」を確認するものなので、<code>is</code>（〜である）のような言い切りの文体が推奨されます。
+              </li>
+              <li>
+                <strong>パラメータ化テストは「同じ結論」を導くケースにのみ使う</strong>: 正常系1パターン・異常系1パターンのように出力の種類が同じ場合はパラメータ化してよいですが、出力の意味が異なる場合はテスト名の説明力が落ちるため個別に書きます。
+              </li>
+              <li>
+                <strong>アサーションライブラリで可読性を上げる</strong>: <code>Assert.That(actual, Is.EqualTo(expected))</code> のような流暢なAPIを使うと、Assertセクションの意図がより明確になります。
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* ===== Step 05 ===== */}
+        <section className="section" id="step5">
+          <div className="section-head">
+            <span className="section-badge">Step 05</span>
+            <h2>良いユニットテストの「4本柱」</h2>
+          </div>
+          <div className="prose">
+            <p>
+              本書の核となる概念が、この「4本柱（Four Pillars）」です。あるテストが本当に価値を持つかどうかを、次の4つの観点でスコアリング（0〜1の連続値）して評価します。
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-columns"></i>良いユニットテストの4本柱
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>柱</th>
+                    <th>説明</th>
+                    <th>満たさない場合に起こること</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>
+                      <strong>回帰に対する保護</strong>（Protection against regressions）
+                    </td>
+                    <td>
+                      バグを実際に埋め込んだとき、そのテストが検知できる確率
+                    </td>
+                    <td>バグが本番まで流出する</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>
+                      <strong>リファクタリング耐性</strong>（Resistance to refactoring）
+                    </td>
+                    <td>
+                      振る舞いを変えずに内部実装だけを変更したとき、テストが誤って失敗しない度合い
+                    </td>
+                    <td>
+                      「偽陽性（false positive）」が多発し、テストが信頼されなくなる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>
+                      <strong>速いフィードバック</strong>（Fast feedback）
+                    </td>
+                    <td>テストの実行がどれだけ高速か</td>
+                    <td>開発者がテストを頻繁に回さなくなる</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td><strong>保守のしやすさ</strong>（Maintainability）</td>
+                    <td>テストコード自体がどれだけ理解・保守しやすいか</td>
+                    <td>テストのメンテナンスコストが開発速度を圧迫する</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>なぜ「掛け算」で考えるのか</h3>
+            <p>
+              Khorikovは、この4つのスコアを<strong>足し算ではなく掛け算</strong>でイメージすべきだと述べています。どれか1つでも極端に低い（0に近い）と、他がどれだけ高くても全体の価値はゼロに近づいてしまう、という考え方です。
+            </p>
+
+            <h3>理想のテストは存在しない ― 3つの極端な例</h3>
+            <p>
+              4本柱を同時に完璧に満たすテストは原理的に作れません。本書は次の3つの「極端な例」を挙げて、トレードオフの構造を説明しています。
+            </p>
+
+            <div className="mermaid-wrapper" id="diag-2">
+              <Mermaid chart={DIAGRAM_2} />
+            </div>
+            <p className="diagram-caption">図3: 4本柱のトレードオフ ― 3つの極端な例</p>
+
+            <p>
+              実務上もっとも見落とされがちで、かつもっとも重要なのが2本目の柱「リファクタリング耐性」です。これは、<strong>テストが実装の詳細にどれだけ結合しているか</strong>によって決まります。テストは実装の手順（how）ではなく、コードがもたらす<strong>観測可能な結果（observable behavior）</strong>を検証すべきだ、という原則がここから導かれます（次のStep 6で詳しく扱います）。
+            </p>
+          </div>
+        </section>
+
+        {/* ===== Step 06 ===== */}
+        <section className="section" id="step6">
+          <div className="section-head">
+            <span className="section-badge">Step 06</span>
+            <h2>モックとテストの壊れやすさ（fragility）</h2>
+          </div>
+          <div className="prose">
+            <h3>モックとスタブの違い</h3>
+            <p>本書では、テストダブル全般を大きく2種類に分けて説明します。</p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-git-compare"></i>モック vs スタブ
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>種類</th>
+                    <th>検証の方向</th>
+                    <th>目的</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>スタブ</strong></td>
+                    <td>状態検証（state verification）</td>
+                    <td>
+                      SUTに「間接的な入力」を与えるための道具。呼ばれ方そのものは検証しない
+                    </td>
+                  </tr>
+                  <tr>
+                    <td><strong>モック</strong></td>
+                    <td>振る舞い検証（behavior verification）</td>
+                    <td>
+                      SUTが協働オブジェクトに対して行った「間接的な出力（＝呼び出し）」を検証するための道具
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              この区別はMartin FowlerがGerard Meszarosの分類を紹介した記事「Mocks Aren&apos;t Stubs」で広く知られるようになりました。ポイントは、<strong>スタブへの呼び出しをテストの中でアサーションしてしまうと、それは事実上モックとして使っていることになる</strong>、という点です。この誤用が、次に説明する「壊れやすさ」の主要な原因になります。
+            </p>
+
+            <h3>observable behavior と implementation detail</h3>
+            <p>
+              テストが実装の詳細（例: 内部でどのプライベートメソッドが何回呼ばれたか）に結合していると、リファクタリングのたびにテストが（振る舞いは変わっていないのに）失敗する「偽陽性」が発生します。本書はこれを避けるために、次のルールを提示しています。
+            </p>
+            <ul>
+              <li>
+                テストは、SUTが外部に公開している<strong>観測可能な振る舞い（observable behavior）</strong>だけを検証する。
+              </li>
+              <li>
+                あるコードが観測可能な振る舞いの一部と言えるのは、次のいずれかを満たす場合である。
+                <ol>
+                  <li>
+                    クライアントの目的達成を助ける「操作（コマンド or クエリ）」を公開している
+                  </li>
+                  <li>
+                    クライアントが目的達成のために依存する「状態」を公開している
+                  </li>
+                  <li>
+                    アプリケーションの境界を越えて外部システムに影響を与える副作用（side effect）を引き起こす
+                  </li>
+                </ol>
+              </li>
+              <li>
+                上記に当てはまらない内部実装（プライベートメソッド、内部でのみ使うヘルパークラスなど）は、テストの対象にしてはいけない。
+              </li>
+            </ul>
+
+            <h3>モックとテスト壊れやすさの関係</h3>
+            <p>
+              モックを多用するほど、テストは実装の「手順」に強く結合します。したがって本書は次の指針を打ち出します。
+            </p>
+
+            <div className="callout plum">
+              <div>
+                <strong>モックは、アプリケーションの境界を越えた「共有された可変な依存（unmanaged dependency）」に対してのみ使う。</strong>
+              </div>
+            </div>
+
+            <p>
+              これはStep 3の classical/London school の対立を統一的に説明する原則でもあります。境界内部の協働オブジェクト（自分のドメインモデルなど）まで律儀にモック化してしまうと、リファクタリング耐性が大きく損なわれます。
+            </p>
+          </div>
+        </section>
         <section className="section" id="step7"></section>
         <section className="section" id="step8"></section>
         <section className="section" id="step9"></section>
