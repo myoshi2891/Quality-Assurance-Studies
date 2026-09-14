@@ -115,10 +115,10 @@ export default function Page() {
             </p>
             <h2>この本について</h2>
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-book-info">
                 <i className="ti ti-info-circle"></i>書誌情報
               </div>
-              <table>
+              <table aria-labelledby="table-title-book-info">
                 <tbody>
                   <tr>
                     <td>
@@ -262,10 +262,10 @@ export default function Page() {
             <p className="mermaid-caption">図: 本書全体の3部構成</p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-structure">
                 <i className="ti ti-list-details"></i>各パートの概要
               </div>
-              <table>
+              <table aria-labelledby="table-title-structure">
                 <thead>
                   <tr>
                     <th>Part</th>
@@ -346,10 +346,10 @@ export default function Page() {
               Part Iを通じて、Kent Beckはテストを通すための3つの異なるアプローチを使い分けます。これは28章「Green Bar Patterns」として後にパターン化されます。
             </p>
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-green-bar">
                 <i className="ti ti-bulb"></i>Green Barパターンの使い分け
               </div>
-              <table>
+              <table aria-labelledby="table-title-green-bar">
                 <thead>
                   <tr>
                     <th>手法</th>
@@ -544,10 +544,10 @@ export default function Page() {
               Part IIIは、Part I・IIで実際に使われた考え方を、再利用可能な「パターン」として整理し直したカタログです。全部で65個のパターンが7つのカテゴリに分類されています。
             </p>
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-pattern-catalog">
                 <i className="ti ti-category"></i>パターン分類一覧
               </div>
-              <table>
+              <table aria-labelledby="table-title-pattern-catalog">
                 <thead>
                   <tr>
                     <th>パターン分類</th>
@@ -751,10 +751,10 @@ export default function Page() {
               testing.」を発端とするものです。
             </p>
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-debate">
                 <i className="ti ti-scale"></i>論争における立場の比較
               </div>
-              <table>
+              <table aria-labelledby="table-title-debate">
                 <thead>
                   <tr>
                     <th>論者</th>
