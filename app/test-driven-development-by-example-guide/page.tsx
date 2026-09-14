@@ -2,6 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import Mermaid from '../../components/Mermaid';
 import NavBar from './NavBar';
+import Checklist from './Checklist';
 import './tdd-guide.css';
 
 export const metadata: Metadata = {
@@ -68,6 +69,16 @@ const DIAGRAMS = {
     R --> AI
     classDef hub fill:#f7ecd2,stroke:#b8860b,color:#2a2118;
     class Guard hub`,
+
+  dgRoadmap: `flowchart TD
+    S1["1. TDDとは何かを理解する 本ガイド前半"] --> S2["2. 得意な言語で税込み価格計算のような小さなお題をTDDで書いてみる"]
+    S2 --> S3["3. 書籍Part Iを読みながら実際に手を動かしてMoneyクラスを実装する"]
+    S3 --> S4["4. Part IIでxUnitの内部構造を追いテストフレームワークの仕組みを理解する"]
+    S4 --> S5["5. Part IIIのパターン集を辞書的に参照しながら語彙を増やす"]
+    S5 --> S6["6. Canon TDDとThree Laws of TDDを読み比べ自分なりのTDD運用ルールを言語化する"]
+    S6 --> S7["7. 実務のコードベースで小さな機能追加からTDDを適用してみる"]
+    classDef done fill:#e1f0e4,stroke:#2f6b45,color:#173a20;
+    class S7 done`,
 };
 
 export default function Page() {
@@ -845,7 +856,184 @@ export default function Page() {
               </p>
             </div>
           </section>
+
+          {/* Section 13: 初学者向けベストプラクティス・チェックリスト */}
+          <section id="checklist" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-checklist"></i>13
+            </p>
+            <h2>初学者向けベストプラクティス・チェックリスト</h2>
+            <p>
+              実際に手を動かすときのステップを、チェックリスト形式でまとめました。タップして進捗を記録できます。
+            </p>
+            <Checklist />
+          </section>
+
+          {/* Section 14: 学習ロードマップ */}
+          <section id="roadmap" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-route"></i>14
+            </p>
+            <h2>学習ロードマップ</h2>
+            <div className="mermaid-wrap" id="dg-roadmap">
+              <Mermaid chart={DIAGRAMS.dgRoadmap} />
+            </div>
+            <p className="mermaid-caption">図: 初学者のための学習ロードマップ</p>
+            <p>
+              初学者は3や4を飛ばさず、<strong>必ず自分の手でコードを書きながら</strong>進めることを強くおすすめします。TDDは読むだけでは体得できない、身体で覚える技術だからです。
+            </p>
+          </section>
+
+          {/* Section 15: まとめ */}
+          <section id="summary" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-notes"></i>15
+            </p>
+            <h2>まとめ</h2>
+            <ul>
+              <li>
+                TDDは「テストを先に書く」という表面的なルールではなく、
+                <strong>
+                  Red → Green → Refactorという規律あるサイクルを通じて、恐怖なく設計を育てていく方法論
+                </strong>
+                である
+              </li>
+              <li>
+                本書はPart I（実例）、Part II（テストフレームワーク自体の実装）、Part III（パターン集）という3部構成を通じて、実践と理論の両面からTDDを教えている
+              </li>
+              <li>
+                Fake It／Triangulate／Obvious Implementationという3つの戦略を状況に応じて使い分けることが、小さなステップの質を左右する
+              </li>
+              <li>
+                TDDには賛否両論があり、DHH・Kent Beck・Martin Fowlerによる「Is TDD Dead?」論争のように、健全な批判と対話の歴史がある
+              </li>
+              <li>
+                2025〜2026年にかけては、AIコーディングエージェントの台頭により、TDDの規律が「人間の設計を守る」だけでなく「AIエージェントの暴走を防ぐ」ためのプラクティスとしても再評価されている
+              </li>
+              <li>
+                20年以上前に書かれた本書の核心的な考え方は、時代が変わった今も色褪せていない
+              </li>
+            </ul>
+          </section>
+
+          {/* Section 16: 参考文献・出典 */}
+          <section id="references" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-link"></i>16
+            </p>
+            <h2>参考文献・出典</h2>
+            <p>
+              本ガイド作成にあたり、以下の情報源を参照しました（2026年9月7日時点で確認）。
+            </p>
+            <ul className="ref-list">
+              <li>
+                <a
+                  href="https://www.oreilly.com/library/view/test-driven-development/0321146530/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Test Driven Development: By Example（O&#39;Reilly掲載ページ）
+                </a>
+                <span className="ref-desc">書誌情報・目次</span>
+              </li>
+              <li>
+                <a
+                  href="https://martinfowler.com/bliki/TestDrivenDevelopment.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Martin Fowler, &quot;bliki: Test Driven Development&quot;
+                </a>
+                <span className="ref-desc">TDDの定義に関する解説</span>
+              </li>
+              <li>
+                <a
+                  href="https://martinfowler.com/articles/is-tdd-dead/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Martin Fowler, &quot;Is TDD Dead?&quot;
+                </a>
+                <span className="ref-desc">Kent Beck・DHHとの対話シリーズ</span>
+              </li>
+              <li>
+                <a
+                  href="https://dhh.dk/2014/tdd-is-dead-long-live-testing.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  David Heinemeier Hansson, &quot;TDD is dead. Long live testing.&quot;（2014年）
+                </a>
+                <span className="ref-desc">論争の発端となった記事</span>
+              </li>
+              <li>
+                <a
+                  href="https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Robert C. Martin（Uncle Bob）, &quot;The Cycles of TDD&quot;
+                </a>
+                <span className="ref-desc">Three Laws of TDDの解説</span>
+              </li>
+              <li>
+                <a
+                  href="https://newsletter.kentbeck.com/p/canon-tdd"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Kent Beck, &quot;Canon TDD&quot;（2023年）
+                </a>
+                <span className="ref-desc">Kent Beckが自身のTDD手順を整理した記事</span>
+              </li>
+              <li>
+                <a
+                  href="https://newsletter.kentbeck.com/p/augmented-coding-beyond-the-vibes"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Kent Beck, &quot;Augmented Coding: Beyond the Vibes&quot;
+                </a>
+                <span className="ref-desc">AI時代のTDDに関する考察</span>
+              </li>
+              <li>
+                <a
+                  href="https://newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  The Pragmatic Engineer, &quot;TDD, AI agents and coding with Kent Beck&quot;
+                </a>
+                <span className="ref-desc">Gergely Oroszによるインタビュー</span>
+              </li>
+              <li>
+                <a
+                  href="https://kentbeck.com/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Kent Beck 公式サイト
+                </a>
+                <span className="ref-desc">近年の活動・Canon TDD講演等の紹介</span>
+              </li>
+            </ul>
+          </section>
         </div>
+
+        <footer className="footer">
+          <p>
+            本ページはKent Beckの著書『Test-Driven Development: By
+            Example』の内容を、初学者向けに要約・再構成した学習補助資料です。書籍本文の逐語的な引用は行っていません。正確な原文とコード例は、必ず
+            <a
+              href="https://www.oreilly.com/library/view/test-driven-development/0321146530/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              原著（O&#39;Reillyページ）
+            </a>
+            をご参照ください。
+          </p>
+        </footer>
       </main>
     </div>
   );
