@@ -417,3 +417,108 @@ describe('Unit Testing Guide - Category 3 (Step 7 - Step 9)', () => {
     expect(listItems?.[2].textContent).toContain('保守コストを増やさずに回帰保護を最大化');
   });
 });
+
+describe('Unit Testing Guide - Category 4 (Step 10 - Step 13)', () => {
+  it('renders section #step10 with managed vs unmanaged table and diagram 6', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step10');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 10');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('統合テスト（Integration Testing）の実践');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(2);
+    expect(rows?.[0].textContent).toContain('Managed dependency');
+    expect(rows?.[1].textContent).toContain('Unmanaged dependency');
+
+    const diag = section?.querySelector('#diag-6');
+    expect(diag).not.toBeNull();
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図7: Managed / Unmanaged dependency の判定フロー');
+
+    const olItems = section?.querySelectorAll('ol li');
+    expect(olItems?.length).toBe(3);
+  });
+
+  it('renders section #step11 with mocking best practices table', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step11');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 11');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('モッキングのベストプラクティス');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].textContent).toContain('モックは unmanaged dependency に対してのみ使う');
+    expect(rows?.[1].textContent).toContain('モックの検証は「アプリケーションの境界」でのみ行う');
+    expect(rows?.[2].textContent).toContain('1つの外部依存に対するモックの数を最小限にする');
+    expect(rows?.[3].textContent).toContain('戻り値のないコマンド呼び出しの検証にモックを使う');
+    expect(rows?.[4].textContent).toContain('モックの設定・検証コードは共通化する');
+  });
+
+  it('renders section #step12 with database testing table and lifecycle points', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step12');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 12');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('データベースのテスト');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(2);
+    expect(rows?.[0].textContent).toContain('トランザクションロールバック方式');
+    expect(rows?.[1].textContent).toContain('クリーンアップ方式');
+
+    expect(section?.textContent).toContain('トランザクション管理');
+    expect(section?.textContent).toContain('テストデータのライフサイクル');
+    expect(section?.textContent).toContain('並列実行時の注意');
+
+    const ulItems = section?.querySelectorAll('ul li');
+    expect(ulItems?.length).toBe(3);
+  });
+
+  it('renders section #step13 with 6 antipatterns table', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step13');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 13');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('よくあるアンチパターンと対処法');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(6);
+    expect(rows?.[0].textContent).toContain('プライベートメソッドを直接テストする');
+    expect(rows?.[1].textContent).toContain('テストのためだけにプライベート状態を公開する');
+    expect(rows?.[2].textContent).toContain('ドメイン知識をテストに漏出させる');
+    expect(rows?.[3].textContent).toContain('コード汚染（production code pollution）');
+    expect(rows?.[4].textContent).toContain('モック対象を「具象クラスかどうか」で決める');
+    expect(rows?.[5].textContent).toContain('時間（現在時刻）の扱い');
+  });
+});
