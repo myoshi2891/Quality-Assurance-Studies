@@ -268,9 +268,13 @@ Next.js App Router 構成:
 - `app/art-of-software-testing-guide/art-of-testing-guide.css` — The Art of Software Testing 実践ガイド固有スタイル
 - `app/art-of-software-testing-guide/page.tsx` — The Art of Software Testing 実践ガイドページ
 - `app/art-of-software-testing-guide/NavBar.tsx` — The Art of Software Testing 実践ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応、モバイルトグル対応）
+- `app/test-driven-development-by-example-guide/tdd-guide.css` — Test-Driven Development: By Example 実践ガイド固有スタイル
+- `app/test-driven-development-by-example-guide/page.tsx` — Test-Driven Development: By Example 実践ガイドページ
+- `app/test-driven-development-by-example-guide/NavBar.tsx` — Test-Driven Development: By Example 実践ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応、モバイルトグル対応）
+- `app/test-driven-development-by-example-guide/Checklist.tsx` — Test-Driven Development: By Example 実践ガイド セクション13用インタラクティブチェックリスト（`'use client'`）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
 - `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。playwright-intermediate-advanced / sonarqube-intermediate / cucumber / cypress / selenium / clean-code-cookbook / the-way-of-the-web-tester / testing-web-apis / software-test-design / secure-by-design / how-google-tests-software / agile-testing-practical の各 NavBar が共用する
-- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 66 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
+- `lib/navigation.ts` — ルートの Single Source of Truth（`NAV_ITEMS` 67 件・`CATEGORY_ORDER` / `CATEGORY_TITLES` / `CATEGORY_CODES` / `groupByCategory` / `matchesQuery`）。Header と index 画面が共用する
 - `scripts/` — 移行支援ツール
   - `html-to-tsx.mjs` — HTML を JSX に変換し、プロジェクト共通のクラス名に置換
   - `extract-css.mjs` — HTML から `<style>` ブロックを抽出し、デザイントークン変数へ置換
@@ -586,17 +590,18 @@ bun test        # ユニットテスト成功
 | `Owasp-zap-beginner-guide.html` | `/owasp-zap-beginner-guide` | ✅ NavBar + aria-current あり (archive/html-archive/tools/) |
 | `Lessons-learned-in-software-testing-guide.html` | `/lessons-learned-in-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Art-of-software-testing-guide.html` | `/art-of-software-testing-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Test-driven-development-by-example-guide.html` | `/test-driven-development-by-example-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 23 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 21 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
 
 | ファイル | 予定ルート | 状態 | 備考 |
 |---|---|---|---|
-| 書籍ガイド系（HTML + Markdown の 10 ペア = 20 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Test-driven-development-by-example-guide.*` / `Testing-computer-software-guide.*` / `Unit-testing-principles-practices-patterns-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
+| 書籍ガイド系（HTML + Markdown の 9 ペア = 18 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Perfect-software-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Unit-testing-principles-practices-patterns-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（2 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
 
@@ -609,8 +614,8 @@ bun test        # ユニットテスト成功
 ```text
 コンテキスト:
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 65 ルート（ガイドライブラリ index + 64 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 25 ファイル（書籍ガイド系の HTML/Markdown 11 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- 合計 67 ルート（ガイドライブラリ index + 66 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 21 ファイル（書籍ガイド系の HTML/Markdown 9 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 
