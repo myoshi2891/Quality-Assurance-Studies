@@ -115,6 +115,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/explore-it-guide', label: 'Explore It! 実践ガイド', description: 'Elisabeth Hendrickson『Explore It!』に基づく探索的テスト実践フィールドガイド。チャーター、観察、ヒューリスティクスを網羅。', category: 'books-practices' },
   { href: '/lessons-learned-in-software-testing-guide', label: 'Lessons Learned 実践ガイド', description: 'Cem Kanerらによるテスト古典『Lessons Learned in Software Testing』に基づくコンテキスト駆動テスト実践ガイド。', category: 'books-practices' },
   { href: '/art-of-software-testing-guide', label: 'The Art of Software Testing 実践ガイド', description: 'Glenford J. Myersの古典的名著から学ぶテストの心理学、7原則、ブラック・ホワイトボックステスト、テストピラミッド、TDD、デバッグ技法。', category: 'books-practices' },
+  { href: '/test-driven-development-by-example-guide', label: 'TDD: By Example 実践ガイド', description: 'Kent Beckの名著に基づくTDD実践ガイド。三つの法則、MoneyとxUnitの実例、パターン集、Canon TDD、AI時代のTDD。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
