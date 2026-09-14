@@ -436,10 +436,12 @@
 }
 
 /* ---------- mermaid ---------- */
+/* 外枠: 大元 HTML の .mermaid-wrap のみとし、1つに統一 */
 .tdd-guide-layout .mermaid-wrap {
   width: 100%;
   display: flex;
   justify-content: safe center;
+  align-items: center;
   overflow-x: auto;
   margin: 1.8rem 0;
   padding: 1.3rem 1rem;
@@ -448,43 +450,193 @@
   border-radius: var(--radius);
 }
 
+/* 内側 .mermaid-wrapper: globals.css の背景・枠線・影・パディング・マージンを完全リセット（2重枠防止） */
 .tdd-guide-layout .mermaid-wrapper {
-  width: 100%;
+  width: 100% !important;
   max-width: 100% !important;
   background: transparent !important;
-  display: flex;
-  justify-content: center;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: visible !important;
 }
 
 .tdd-guide-layout .mermaid-wrapper svg {
-  display: block;
-  margin: 0 auto;
+  display: block !important;
+  margin: 0 auto !important;
   max-width: 100% !important;
   height: auto !important;
+  overflow: visible !important;
+  background: transparent !important;
 }
 
+/* 通常ノード（四角形・角丸・菱形・ポリゴン・円・パス等）:
+   大元 HTML の primaryColor: #e8ebf7, primaryBorderColor: #3c4f91 */
+.tdd-guide-layout .mermaid-wrapper .node rect,
+.tdd-guide-layout .mermaid-wrapper .node circle,
+.tdd-guide-layout .mermaid-wrapper .node ellipse,
+.tdd-guide-layout .mermaid-wrapper .node polygon,
+.tdd-guide-layout .mermaid-wrapper .node path,
+.tdd-guide-layout .mermaid-wrapper .node .basic,
+.tdd-guide-layout .mermaid-wrapper .node .label-container {
+  fill: #e8ebf7 !important;
+  stroke: #3c4f91 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* 通常ノードのテキスト（大元 HTML の primaryTextColor: #2a2118） */
+.tdd-guide-layout .mermaid-wrapper .node .label,
+.tdd-guide-layout .mermaid-wrapper .node .label text,
+.tdd-guide-layout .mermaid-wrapper .node .nodeLabel,
+.tdd-guide-layout .mermaid-wrapper .node .nodeLabel *,
+.tdd-guide-layout .mermaid-wrapper .node text,
+.tdd-guide-layout .mermaid-wrapper .node span,
+.tdd-guide-layout .mermaid-wrapper .node p,
+.tdd-guide-layout .mermaid-wrapper .node div {
+  color: #2a2118 !important;
+  fill: #2a2118 !important;
+  font-family: var(--font-sans), "Noto Sans JP", sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.4 !important;
+}
+
+/* done クラス（Greenフェーズ、完了など）:
+   大元 HTML の classDef done fill:#e1f0e4,stroke:#2f6b45,color:#173a20; */
+.tdd-guide-layout .mermaid-wrapper .node.done rect,
+.tdd-guide-layout .mermaid-wrapper .node.done polygon,
+.tdd-guide-layout .mermaid-wrapper .node.done circle,
+.tdd-guide-layout .mermaid-wrapper .node.done path,
+.tdd-guide-layout .mermaid-wrapper .node[style*="e1f0e4" i] rect,
+.tdd-guide-layout .mermaid-wrapper .node[style*="e1f0e4" i] polygon,
+.tdd-guide-layout .mermaid-wrapper .node[style*="e1f0e4" i] path,
+.tdd-guide-layout .mermaid-wrapper .node:has([style*="e1f0e4" i]) rect,
+.tdd-guide-layout .mermaid-wrapper .node:has([style*="e1f0e4" i]) polygon,
+.tdd-guide-layout .mermaid-wrapper .node:has([fill*="#e1f0e4" i]) rect {
+  fill: #e1f0e4 !important;
+  stroke: #2f6b45 !important;
+  stroke-width: 1.5px !important;
+}
+
+.tdd-guide-layout .mermaid-wrapper .node.done .label,
+.tdd-guide-layout .mermaid-wrapper .node.done .label text,
+.tdd-guide-layout .mermaid-wrapper .node.done .nodeLabel,
+.tdd-guide-layout .mermaid-wrapper .node.done .nodeLabel *,
+.tdd-guide-layout .mermaid-wrapper .node.done text,
+.tdd-guide-layout .mermaid-wrapper .node.done span,
+.tdd-guide-layout .mermaid-wrapper .node.done div,
+.tdd-guide-layout .mermaid-wrapper .node[style*="e1f0e4" i] .nodeLabel,
+.tdd-guide-layout .mermaid-wrapper .node[style*="e1f0e4" i] .nodeLabel *,
+.tdd-guide-layout .mermaid-wrapper .node:has([style*="e1f0e4" i]) .nodeLabel,
+.tdd-guide-layout .mermaid-wrapper .node:has([style*="e1f0e4" i]) .nodeLabel * {
+  color: #173a20 !important;
+  fill: #173a20 !important;
+  font-weight: 600 !important;
+}
+
+/* hub クラス（Part III、TestSuite、Guard など）:
+   大元 HTML の classDef hub fill:#f7ecd2,stroke:#b8860b,color:#2a2118; */
+.tdd-guide-layout .mermaid-wrapper .node.hub rect,
+.tdd-guide-layout .mermaid-wrapper .node.hub polygon,
+.tdd-guide-layout .mermaid-wrapper .node.hub circle,
+.tdd-guide-layout .mermaid-wrapper .node.hub path,
+.tdd-guide-layout .mermaid-wrapper .node[style*="f7ecd2" i] rect,
+.tdd-guide-layout .mermaid-wrapper .node[style*="f7ecd2" i] polygon,
+.tdd-guide-layout .mermaid-wrapper .node[style*="f7ecd2" i] path,
+.tdd-guide-layout .mermaid-wrapper .node:has([style*="f7ecd2" i]) rect,
+.tdd-guide-layout .mermaid-wrapper .node:has([style*="f7ecd2" i]) polygon,
+.tdd-guide-layout .mermaid-wrapper .node:has([fill*="#f7ecd2" i]) rect {
+  fill: #f7ecd2 !important;
+  stroke: #b8860b !important;
+  stroke-width: 1.5px !important;
+}
+
+.tdd-guide-layout .mermaid-wrapper .node.hub .label,
+.tdd-guide-layout .mermaid-wrapper .node.hub .label text,
+.tdd-guide-layout .mermaid-wrapper .node.hub .nodeLabel,
+.tdd-guide-layout .mermaid-wrapper .node.hub .nodeLabel *,
+.tdd-guide-layout .mermaid-wrapper .node.hub text,
+.tdd-guide-layout .mermaid-wrapper .node.hub span,
+.tdd-guide-layout .mermaid-wrapper .node.hub div,
+.tdd-guide-layout .mermaid-wrapper .node[style*="f7ecd2" i] .nodeLabel,
+.tdd-guide-layout .mermaid-wrapper .node[style*="f7ecd2" i] .nodeLabel *,
+.tdd-guide-layout .mermaid-wrapper .node:has([style*="f7ecd2" i]) .nodeLabel,
+.tdd-guide-layout .mermaid-wrapper .node:has([style*="f7ecd2" i]) .nodeLabel * {
+  color: #2a2118 !important;
+  fill: #2a2118 !important;
+  font-weight: 600 !important;
+}
+
+/* サブグラフ（クラスタ）:
+   大元 HTML の secondaryColor: #f1e9d6 */
+.tdd-guide-layout .mermaid-wrapper .cluster rect {
+  fill: #f1e9d6 !important;
+  stroke: #c9b09a !important;
+  stroke-width: 1px !important;
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+.tdd-guide-layout .mermaid-wrapper .cluster .label,
+.tdd-guide-layout .mermaid-wrapper .cluster .label text,
+.tdd-guide-layout .mermaid-wrapper .cluster text,
+.tdd-guide-layout .mermaid-wrapper .cluster span {
+  color: #2a2118 !important;
+  fill: #2a2118 !important;
+  font-family: var(--font-sans), "Noto Sans JP", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+/* エッジ（接続線と矢印マーカー）:
+   大元 HTML の lineColor: #8a7f6a */
+.tdd-guide-layout .mermaid-wrapper .edgePath .path,
+.tdd-guide-layout .mermaid-wrapper .flowchart-link {
+  stroke: #8a7f6a !important;
+  stroke-width: 1.5px !important;
+}
+
+.tdd-guide-layout .mermaid-wrapper .marker,
+.tdd-guide-layout .mermaid-wrapper marker path {
+  fill: #8a7f6a !important;
+  stroke: #8a7f6a !important;
+}
+
+/* エッジラベル（「はい」「いいえ」等）:
+   薄いベージュ背景、ダーク文字色、黒潰れ解消 */
+.tdd-guide-layout .mermaid-wrapper .edgeLabel,
+.tdd-guide-layout .mermaid-wrapper .edgeLabel span,
+.tdd-guide-layout .mermaid-wrapper .edgeLabel p,
+.tdd-guide-layout .mermaid-wrapper .edgeLabel text,
+.tdd-guide-layout .mermaid-wrapper .edgeLabels .label {
+  background-color: #f1e9d6 !important;
+  color: #2a2118 !important;
+  fill: #2a2118 !important;
+  font-family: var(--font-sans), "Noto Sans JP", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 13px !important;
+}
+
+.tdd-guide-layout .mermaid-wrapper .edgeLabels rect,
+.tdd-guide-layout .mermaid-wrapper .edgeLabel rect {
+  fill: #f1e9d6 !important;
+  stroke: #c9b09a !important;
+  stroke-width: 0.5px !important;
+  rx: 4px !important;
+  ry: 4px !important;
+}
+
+/* キャプション */
 .tdd-guide-layout .mermaid-caption {
   text-align: center;
   font-size: 1rem;
   color: var(--ink-soft);
   margin-top: -1.2rem;
   margin-bottom: 1.8rem;
-}
-
-/* Mermaid エッジラベルの黒潰れ防止 */
-.tdd-guide-layout .mermaid-wrapper .edgeLabel,
-.tdd-guide-layout .mermaid-wrapper .edgeLabel span,
-.tdd-guide-layout .mermaid-wrapper .edgeLabel text {
-  background-color: var(--paper-card) !important;
-  color: var(--ink) !important;
-  fill: var(--ink) !important;
-  stroke: none !important;
-  font-weight: 700 !important;
-}
-
-.tdd-guide-layout .mermaid-wrapper .edgeLabels rect {
-  fill: var(--paper-card) !important;
-  stroke: none !important;
 }
 
 /* ---------- code blocks ---------- */
