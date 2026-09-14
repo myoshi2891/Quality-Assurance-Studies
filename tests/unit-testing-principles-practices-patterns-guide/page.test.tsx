@@ -331,3 +331,89 @@ describe('Unit Testing Guide - Category 2 (Step 4 - Step 6)', () => {
     expect(callout?.textContent).toContain('モックは、アプリケーションの境界を越えた「共有された可変な依存（unmanaged dependency）」に対してのみ使う');
   });
 });
+
+describe('Unit Testing Guide - Category 3 (Step 7 - Step 9)', () => {
+  it('renders section #step7 with 5 test doubles table and diagram 3', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step7');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 07');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('テストダブルの分類 ― Dummy / Fake / Stub / Spy / Mock');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].textContent).toContain('Dummy');
+    expect(rows?.[1].textContent).toContain('Fake');
+    expect(rows?.[2].textContent).toContain('Stub');
+    expect(rows?.[3].textContent).toContain('Spy');
+    expect(rows?.[4].textContent).toContain('Mock');
+
+    const diag = section?.querySelector('#diag-3');
+    expect(diag).not.toBeNull();
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図4: テストダブルの選び方 ― 意思決定フロー');
+  });
+
+  it('renders section #step8 with 3 styles table, diagram 4, and forest callout', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step8');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 08');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('3つのテストスタイルと関数型アーキテクチャ');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0].textContent).toContain('Output-based');
+    expect(rows?.[1].textContent).toContain('State-based');
+    expect(rows?.[2].textContent).toContain('Communication-based');
+
+    const diag = section?.querySelector('#diag-4');
+    expect(diag).not.toBeNull();
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図5: Functional Core, Imperative Shell');
+
+    const callout = section?.querySelector('.callout.forest');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('Hexagonal Architecture');
+  });
+
+  it('renders section #step9 with Humble Object pattern and diagram 5', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step9');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 09');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('価値あるテストへのリファクタリング ― Humble Objectパターン');
+
+    const diag = section?.querySelector('#diag-5');
+    expect(diag).not.toBeNull();
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図6: Humble Objectパターンによるリファクタリング');
+
+    const listItems = section?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(listItems?.[0].textContent).toContain('Domain Logic');
+    expect(listItems?.[1].textContent).toContain('Humble Controller');
+    expect(listItems?.[2].textContent).toContain('保守コストを増やさずに回帰保護を最大化');
+  });
+});
