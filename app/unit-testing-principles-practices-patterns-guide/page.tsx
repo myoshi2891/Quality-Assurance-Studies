@@ -137,10 +137,10 @@ export default function Page() {
           </div>
           <div className="prose">
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-premise">
                 <i className="ti ti-info-circle"></i>本ガイドの前提
               </div>
-              <table>
+              <table aria-labelledby="table-title-premise">
                 <thead>
                   <tr>
                     <th>項目</th>
@@ -217,10 +217,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-properties">
                 <i className="ti ti-list-check"></i>ユニットテストの3つの性質
               </div>
-              <table>
+              <table aria-labelledby="table-title-properties">
                 <thead>
                   <tr>
                     <th>性質</th>
@@ -274,10 +274,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-schools">
                 <i className="ti ti-arrows-split"></i>classical school vs London school
               </div>
-              <table>
+              <table aria-labelledby="table-title-schools">
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -405,10 +405,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-pillars">
                 <i className="ti ti-columns"></i>良いユニットテストの4本柱
               </div>
-              <table>
+              <table aria-labelledby="table-title-pillars">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -490,10 +490,10 @@ export default function Page() {
             <p>本書では、テストダブル全般を大きく2種類に分けて説明します。</p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-mock-stub">
                 <i className="ti ti-git-compare"></i>モック vs スタブ
               </div>
-              <table>
+              <table aria-labelledby="table-title-mock-stub">
                 <thead>
                   <tr>
                     <th>種類</th>
@@ -579,10 +579,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-doubles">
                 <i className="ti ti-category"></i>テストダブルの5分類
               </div>
-              <table>
+              <table aria-labelledby="table-title-doubles">
                 <thead>
                   <tr>
                     <th>種類</th>
@@ -658,10 +658,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-styles">
                 <i className="ti ti-adjustments"></i>3つのテストスタイル
               </div>
-              <table>
+              <table aria-labelledby="table-title-styles">
                 <thead>
                   <tr>
                     <th>スタイル</th>
@@ -774,10 +774,10 @@ export default function Page() {
             <p>依存関係を次の2種類に分類するのが最大のポイントです。</p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-dependency">
                 <i className="ti ti-network"></i>Managed dependency vs Unmanaged dependency
               </div>
-              <table>
+              <table aria-labelledby="table-title-dependency">
                 <thead>
                   <tr>
                     <th>依存の種類</th>
@@ -863,10 +863,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-mocking-practices">
                 <i className="ti ti-checklist"></i>モッキングのベストプラクティス
               </div>
-              <table>
+              <table aria-labelledby="table-title-mocking-practices">
                 <thead>
                   <tr>
                     <th>ベストプラクティス</th>
@@ -927,10 +927,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-transaction">
                 <i className="ti ti-database"></i>トランザクション管理の方式
               </div>
-              <table>
+              <table aria-labelledby="table-title-transaction">
                 <thead>
                   <tr>
                     <th>方式</th>
@@ -992,10 +992,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-antipatterns">
                 <i className="ti ti-alert-triangle"></i>6つのアンチパターン
               </div>
-              <table>
+              <table aria-labelledby="table-title-antipatterns">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -1100,10 +1100,10 @@ export default function Page() {
 
             <p>Kent Beckが2019年に示した12の性質は次の通りです。</p>
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-desiderata-2019">
                 <i className="ti ti-list-numbers"></i>Test Desiderata（Kent Beck, 2019）
               </div>
-              <table>
+              <table aria-labelledby="table-title-desiderata-2019">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -1182,10 +1182,10 @@ export default function Page() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">
+              <div className="table-title" id="table-title-desiderata-2025">
                 <i className="ti ti-target-arrow"></i>Test Desiderata 2.0（Emily Bache, 2025）
               </div>
-              <table>
+              <table aria-labelledby="table-title-desiderata-2025">
                 <thead>
                   <tr>
                     <th>メタ目標</th>

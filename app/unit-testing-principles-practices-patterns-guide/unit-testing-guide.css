@@ -61,7 +61,7 @@
   margin-left: var(--sidebar-w);
   max-width: none !important;
   width: calc(100% - var(--sidebar-w)) !important;
-  padding: calc(60px + var(--disclaimer-height, 0px) + 2.5rem) 4.5rem 6rem;
+  padding: calc(60px + 2.5rem) 4.5rem 6rem;
   flex: 1 1 auto;
 }
 

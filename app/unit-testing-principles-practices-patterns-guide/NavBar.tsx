@@ -36,11 +36,12 @@ export default function NavBar() {
 
   useEffect(() => {
     const sections = Array.from(document.querySelectorAll('main.content section[id]'));
-    if (sections.length === 0) return;
+    const firstSection = sections[0];
+    if (!firstSection) return;
 
     const handleScroll = () => {
       const scrollPos = window.scrollY + window.innerHeight * 0.25;
-      let currentId = sections[0].id;
+      let currentId = firstSection.id;
       for (const sec of sections) {
         const el = sec as HTMLElement;
         if (el.offsetTop <= scrollPos) {
@@ -107,6 +108,7 @@ export default function NavBar() {
                   className={`side-link ${isActive ? 'active' : ''}`}
                   href={`#${item.id}`}
                   onClick={handleLinkClick}
+                  aria-current={isActive ? 'location' : undefined}
                 >
                   <span className="side-num">
                     {item.icon ? (
