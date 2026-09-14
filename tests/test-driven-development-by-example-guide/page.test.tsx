@@ -357,3 +357,137 @@ describe('TDD by Example Guide - Category 2 (Ch05-Ch07: Money, xUnit, Patterns)'
     expect(callout?.textContent).toContain('最終章の32章「Mastering TDD」では');
   });
 });
+
+describe('TDD by Example Guide - Category 3 (Ch08-Ch12: Three Laws, Canon, Pitfalls, TDD is Dead, AI Era)', () => {
+  it('renders Section 08: TDDの三原則 (#three-laws) with Mermaid dg-laws', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#three-laws');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('08');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('TDDの三原則（Uncle Bobによる定式化）');
+
+    const diag = sec?.querySelector('#dg-laws');
+    expect(diag).not.toBeNull();
+    const caption = sec?.querySelector('.mermaid-caption');
+    expect(caption?.textContent).toContain('図: Three Laws of TDD（Robert C. Martin）');
+
+    expect(sec?.textContent).toContain('テストコードとプロダクションコードをほぼ1行単位で交互に書かせるほど粒度が細かいことが特徴です');
+  });
+
+  it('renders Section 09: Canon TDD (#canon-tdd) with Mermaid dg-canon and 3 highlights', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#canon-tdd');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('09');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('Canon TDD ─ Kent Beckが自身の手順を整理した記事');
+
+    const diag = sec?.querySelector('#dg-canon');
+    expect(diag).not.toBeNull();
+    const caption = sec?.querySelector('.mermaid-caption');
+    expect(caption?.textContent).toContain('図: Canon TDDの手順');
+
+    const listItems = sec?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(listItems?.[0].textContent).toContain('最初の「テストシナリオのリストを書く」ステップ');
+    expect(listItems?.[1].textContent).toContain('TDDを批判するなら、この手順（Canon TDD）を批判してほしい');
+    expect(listItems?.[2].textContent).toContain('手順どおりにやらなくても、それでうまくいっているなら問題ない');
+  });
+
+  it('renders Section 10: 初学者がつまずきやすいポイントと対策 (#pitfalls) with 5 pitfall cards', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#pitfalls');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('10');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('初学者がつまずきやすいポイントと対策');
+
+    const cards = sec?.querySelectorAll('.pitfall-card');
+    expect(cards?.length).toBe(5);
+
+    expect(cards?.[0].querySelector('.p-q')?.textContent).toContain('ステップが小さすぎて退屈に感じる');
+    expect(cards?.[0].querySelector('.p-a')?.textContent).toContain('本書でも「慣れてきたらステップを大きくしてよい」と明言されています');
+
+    expect(cards?.[1].querySelector('.p-q')?.textContent).toContain('「テストファースト」と「TDD」を混同する');
+    expect(cards?.[1].querySelector('.p-a')?.textContent).toContain('テストを先に書くだけでは不十分です');
+
+    expect(cards?.[2].querySelector('.p-q')?.textContent).toContain('Fake Itが「ズル」に見えて抵抗を感じる');
+    expect(cards?.[2].querySelector('.p-a')?.textContent).toContain('Fake Itは正当な戦略です');
+
+    expect(cards?.[3].querySelector('.p-q')?.textContent).toContain('何でもかんでもテストしようとして疲弊する');
+    expect(cards?.[3].querySelector('.p-a')?.textContent).toContain('32章では「何をテストしなくてよいか」という問いに');
+
+    expect(cards?.[4].querySelector('.p-q')?.textContent).toContain('リファクタリングを省略してしまう');
+    expect(cards?.[4].querySelector('.p-a')?.textContent).toContain('Greenの状態はゴールではなく通過点です');
+  });
+
+  it('renders Section 11: 「TDD is Dead」論争 (#tdd-is-dead) with 3-advocate table and callout', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#tdd-is-dead');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('11');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('「TDD is Dead」論争 ─ 賛否両論を知る');
+
+    const table = sec?.querySelector('table');
+    expect(table).not.toBeNull();
+    const ths = table?.querySelectorAll('thead th');
+    expect(ths?.length).toBe(3);
+    expect(ths?.[0].textContent).toBe('論者');
+    expect(ths?.[1].textContent).toBe('主張の要旨');
+    expect(ths?.[2].textContent).toBe('立場');
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0].textContent).toContain('David Heinemeier Hansson（DHH）');
+    expect(rows?.[0].textContent).toContain('テストファーストへの懐疑・脱原理主義');
+    expect(rows?.[1].textContent).toContain('Kent Beck');
+    expect(rows?.[1].textContent).toContain('TDD提唱者としての立場明確化');
+    expect(rows?.[2].textContent).toContain('Martin Fowler');
+    expect(rows?.[2].textContent).toContain('中立的な整理・橋渡し役');
+
+    const callout = sec?.querySelector('.callout');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('「TDDは万能の銀の弾丸ではない」という前提を最初から持っておくこと');
+  });
+
+  it('renders Section 12: 2025〜2026年の潮流: AIエージェント時代のTDD (#ai-era) with ul, Mermaid dg-ai, and forest callout', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#ai-era');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('12');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('2025〜2026年の潮流: AIエージェント時代のTDD');
+
+    const listItems = sec?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(listItems?.[0].textContent).toContain('AIエージェントは「まずコードを書いて、後から通るテストを書く」という、TDD本来の順序とは逆の振る舞いをしがちである');
+    expect(listItems?.[1].textContent).toContain('失敗しているテストそのものを削除してしまう');
+    expect(listItems?.[2].textContent).toContain('AIエージェントが書くコードの品質を保証する「超能力（superpower）」として、あらためて注目されている');
+
+    const diag = sec?.querySelector('#dg-ai');
+    expect(diag).not.toBeNull();
+    const caption = sec?.querySelector('.mermaid-caption');
+    expect(caption?.textContent).toContain('図: AIエージェント時代のTDDサイクル（人間による安全弁付き）');
+
+    const callout = sec?.querySelector('.callout.forest');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('本書が教える「小さなステップ」「テストリスト」「Red-Green-Refactor」という基本規律そのものの価値は変わっていない');
+  });
+});
