@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `ed752df` |
-| 最新コミット内容 | `chore(archive): move test-driven-development-by-example-guide source files to archive` |
+| 最新 HEAD | `8f2489a` |
+| 最新コミット内容 | `fix(tdd-by-example): fix mermaid design and eliminate double borders` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
