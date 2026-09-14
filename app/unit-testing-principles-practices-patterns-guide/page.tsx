@@ -63,6 +63,13 @@ subgraph After["リファクタリング後"]
 end
 B1 -.->|"責務を分離する"| A1`;
 
+const DIAGRAM_6 = `flowchart TB
+    D["外部依存を洗い出す"] --> Q1{"自チームがスキーマと挙動を<br/>制御できるか？"}
+    Q1 -- "いいえ(他チーム/外部が所有)" --> Unmanaged["Unmanaged Dependency<br/>制御できない、または外部から観測される<br/>境界でモックに置き換える<br/>(例: 決済API, メール送信, 外部公開テーブル)"]
+    Q1 -- "はい(自チームが所有)" --> Q2{"その依存の状態は外部の<br/>第三者から直接観測されるか？"}
+    Q2 -- "はい(外部にも見える/共有)" --> Unmanaged
+    Q2 -- "いいえ(自チームだけが見る)" --> Managed["Managed Dependency<br/>制御でき、かつ外部から観測されない<br/>実物を使ってテストする<br/>(例: 自チーム専用DB)"]`;
+
 export default function Page() {
   return (
     <div className="unit-testing-layout">
@@ -741,10 +748,316 @@ export default function Page() {
             </p>
           </div>
         </section>
-        <section className="section" id="step10"></section>
-        <section className="section" id="step11"></section>
-        <section className="section" id="step12"></section>
-        <section className="section" id="step13"></section>
+        {/* ===== Step 10 ===== */}
+        <section className="section" id="step10">
+          <div className="section-head">
+            <span className="section-badge">Step 10</span>
+            <h2>統合テスト（Integration Testing）の実践</h2>
+          </div>
+          <div className="prose">
+            <h3>なぜ統合テストが必要か</h3>
+            <p>
+              ユニットテストだけでは、実際のデータベースや外部サービスとの接続部分の不具合を検知できません。本書は、<strong>ユニットテストではカバーしきれない「境界」を検証するために統合テストが不可欠</strong>だとしつつ、統合テストをどこまで書くべきかについて明確な指針を示しています。
+            </p>
+
+            <h3>「管理された依存」と「管理されていない依存」</h3>
+            <p>依存関係を次の2種類に分類するのが最大のポイントです。</p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-network"></i>Managed dependency vs Unmanaged dependency
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>依存の種類</th>
+                    <th>定義</th>
+                    <th>例</th>
+                    <th>テストでの扱い</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      <strong>Managed dependency</strong>（管理された依存）
+                    </td>
+                    <td>
+                      自チームが完全にコントロールできる、かつ他システムから直接観測されない依存
+                    </td>
+                    <td>自チーム所有のリレーショナルDB</td>
+                    <td>
+                      <strong>モックにせず、実物（または実物に近いテスト用インスタンス）を使ってテストする</strong>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Unmanaged dependency</strong>（管理されていない依存）
+                    </td>
+                    <td>
+                      外部から観測される、または自チームがスキーマ・挙動を制御できない依存
+                    </td>
+                    <td>
+                      決済API、メール送信サービス、他チームが所有するメッセージキュー
+                    </td>
+                    <td>
+                      <strong>アプリケーションの境界でのみモックに置き換える</strong>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              判定は「制御できるか」と「外部から観測されるか」の2つを<strong>両方</strong>満たすかどうかで行います。Managed dependency は「自チームが制御でき、<strong>かつ</strong>外部から直接観測されない」場合に限られ、いずれか一方でも欠ける（制御できない、<strong>または</strong>外部から観測される）場合は Unmanaged dependency として扱います。
+            </p>
+
+            <div className="mermaid-wrapper" id="diag-6">
+              <Mermaid chart={DIAGRAM_6} />
+            </div>
+            <p className="diagram-caption">
+              図7: Managed / Unmanaged dependency の判定フロー
+            </p>
+
+            <p>
+              この分類により、「DBはモックすべきか？」という初学者が必ずぶつかる疑問に明確な答えが出ます。<strong>自チームが所有し、かつ外部から直接観測されないDBはmanaged dependencyなので、モックせずに実物（テスト用インスタンス）を使う</strong>のが正解です。
+            </p>
+
+            <p>
+              ただし「自チーム所有」であることだけでは判定できません。同じDBでも、他システムが直接参照するテーブルやビュー、外部連携用に公開しているスキーマのように<strong>外部から観測される部分は unmanaged dependency として扱います</strong>。この場合、そのテーブルの構造は外部との契約になり、自由に変更できないためです。所有権ではなく「観測可能性」が境界を決める、と覚えてください。
+            </p>
+
+            <h3>統合テストのベストプラクティス（本書の要点）</h3>
+            <ol>
+              <li>
+                ドメインロジックのすべてのユースケースをユニットテストで網羅し、統合テストは「正常系1本＋主要な異常系少数」に絞る。
+              </li>
+              <li>
+                統合テストの対象は「自分のコードが管理する部分」までとし、サードパーティのライブラリ自体の中身はテストしない。
+              </li>
+              <li>
+                ログ出力のような横断的関心事は、外部から観測可能な重要なログのみを対象にテストし、すべてのログをテストしようとしない。
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        {/* ===== Step 11 ===== */}
+        <section className="section" id="step11">
+          <div className="section-head">
+            <span className="section-badge">Step 11</span>
+            <h2>モッキングのベストプラクティス</h2>
+          </div>
+          <div className="prose">
+            <p>
+              Step 6・Step 10の内容を踏まえ、本書が示すモッキングの実践的なルールを整理します。
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-checklist"></i>モッキングのベストプラクティス
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>ベストプラクティス</th>
+                    <th>理由</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>モックは unmanaged dependency に対してのみ使う</td>
+                    <td>
+                      managed dependencyをモック化すると実装詳細への結合が生まれ、リファクタリング耐性が落ちる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>モックの検証は「アプリケーションの境界」でのみ行う</td>
+                    <td>
+                      境界の内側（ドメインオブジェクト同士のやり取り）まで検証すると壊れやすいテストになる
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>1つの外部依存に対するモックの数を最小限にする</td>
+                    <td>
+                      サードパーティAPIを直接あちこちでモックせず、自作のアダプター（Facade）でラップしてからそのアダプターだけをモックする
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>戻り値のないコマンド呼び出しの検証にモックを使う</td>
+                    <td>
+                      戻り値があるクエリはStub/Fakeで代替できることが多く、モックは副作用の確認に本質的な役割を持つ場合に限定する
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>モックの設定・検証コードは共通化する</td>
+                    <td>
+                      モックのセットアップが各テストにコピペされると保守性が急激に下がる
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Step 12 ===== */}
+        <section className="section" id="step12">
+          <div className="section-head">
+            <span className="section-badge">Step 12</span>
+            <h2>データベースのテスト</h2>
+          </div>
+          <div className="prose">
+            <p>
+              本書はデータベースを含む統合テストについて、次のような具体的な実践方法を紹介しています。
+            </p>
+
+            <h3>トランザクション管理</h3>
+            <p>
+              各テストの実行後にデータベースの状態を確実に元に戻す必要があります。代表的な2つの方式は次の通りです。
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-database"></i>トランザクション管理の方式
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>方式</th>
+                    <th>概要</th>
+                    <th>メリット</th>
+                    <th>デメリット</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>トランザクションロールバック方式</td>
+                    <td>
+                      テスト開始時にトランザクションを開始し、テスト終了時にコミットせずロールバックする
+                    </td>
+                    <td>高速、後始末が確実</td>
+                    <td>
+                      DB製品によっては本番コードのトランザクション制御と干渉することがある
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>クリーンアップ方式</td>
+                    <td>各テスト前後に対象テーブルを明示的に初期化する</td>
+                    <td>トランザクション制御に依存しないため汎用的</td>
+                    <td>ロールバック方式よりやや低速になりがち</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>テストデータのライフサイクル</h3>
+            <ul>
+              <li>
+                テストデータは各テストの Arrange セクション内で明示的に作成し、他のテストと共有しない。
+              </li>
+              <li>
+                「あらかじめ用意された共有フィクスチャ」に依存すると、テスト同士が意図せず結合し、実行順序に依存する不安定なテスト（flaky test）を生む原因になる。
+              </li>
+              <li>
+                共通のセットアップコードは、共有フィクスチャとしてではなく「ヘルパーメソッド／ファクトリ関数」として抽出し、各テストが自分の意思で呼び出す形にする。
+              </li>
+            </ul>
+
+            <h3>並列実行時の注意</h3>
+            <p>
+              複数のテストを並列実行する場合、同じテーブル・同じ行に対する競合が発生しないよう、テストごとに独立したデータ（例: ランダムなIDや専用スキーマ）を使う設計が推奨されます。
+            </p>
+          </div>
+        </section>
+
+        {/* ===== Step 13 ===== */}
+        <section className="section" id="step13">
+          <div className="section-head">
+            <span className="section-badge">Step 13</span>
+            <h2>よくあるアンチパターンと対処法</h2>
+          </div>
+          <div className="prose">
+            <p>
+              本書の最終章では、現場で頻出する6つのアンチパターンが具体的に列挙されています。
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-alert-triangle"></i>6つのアンチパターン
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>アンチパターン</th>
+                    <th>何が問題か</th>
+                    <th>対処法</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>プライベートメソッドを直接テストする</td>
+                    <td>
+                      実装詳細への結合が生まれ、リファクタリング耐性が失われる
+                    </td>
+                    <td>
+                      プライベートメソッドは、それを利用する公開APIを通して間接的にテストする
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>テストのためだけにプライベート状態を公開する</td>
+                    <td>カプセル化が崩れ、本番コードの設計が歪む</td>
+                    <td>
+                      公開すべき状態が「観測可能な振る舞い」の一部なら公開してよいが、テストのためだけの公開は避ける
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>ドメイン知識をテストに漏出させる</td>
+                    <td>
+                      本番コードと同じ計算ロジックをテストコード内に複製してしまい、バグがあっても両方が同じ間違え方をして検知できない
+                    </td>
+                    <td>
+                      テストでは、事前に計算しておいた「決め打ちの期待値」を使う
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>コード汚染（production code pollution）</td>
+                    <td>
+                      テストのためだけの分岐やフラグが本番コードに混入し、可読性・安全性が下がる
+                    </td>
+                    <td>
+                      テスト用の分岐はHumble Objectパターンなどで本番コードの外に追い出す
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>モック対象を「具象クラスかどうか」で決める</td>
+                    <td>
+                      具象クラスをモック化すること自体が誤りなのではなく、アプリケーション内部の実装詳細をモック化してしまうことが問題。逆に「抽象だからモックしてよい」と考えると、内部のインターフェースまでモック化してリファクタリング耐性を失う
+                    </td>
+                    <td>
+                      モック対象は<strong>アプリケーション境界</strong>と<strong>managed / unmanaged の分類</strong>で選ぶ（境界を越える unmanaged dependency のみモック化する）。インターフェースは、実装が複数あるなど本当に抽象として意味がある場合か、上記のモック化に必要な場合にのみ導入し、単一実装のためだけに機械的に作らない
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>時間（現在時刻）の扱い</td>
+                    <td>
+                      <code>Now()</code> を直接コード内で呼び出すと、実行するたびに結果が変わり再現性がなくなる
+                    </td>
+                    <td>
+                      現在時刻を返す「クロック（Clock）」を抽象化して注入し、テストでは固定値を返すFake Clockに差し替える
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
         <section className="section" id="checklist"></section>
         <section className="section" id="update2026"></section>
         <section className="section" id="references"></section>
