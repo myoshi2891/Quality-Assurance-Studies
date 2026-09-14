@@ -47,7 +47,7 @@
     max-width: none !important;
     width: auto !important;
     margin-left: var(--sidebar-width);
-    padding: calc(60px + var(--disclaimer-height, 0px) + 2.5rem) 4rem 6rem;
+    padding: calc(60px + 2.5rem) 4rem 6rem;
 }
 
 /* ---------- Sidebar ---------- */
@@ -199,7 +199,7 @@
     position: fixed;
     inset: 0;
     background: rgba(42, 36, 32, 0.45);
-    z-index: 42;
+    z-index: 39;
 }
 
 /* ---------- Hero ---------- */
@@ -668,6 +668,7 @@
     }
     .art-of-testing-layout .sidebar {
         transform: translateX(-100%);
+        visibility: hidden;
         width: 82vw;
         max-width: 340px;
         top: calc(60px + var(--disclaimer-height, 0px) + 52px);
@@ -676,6 +677,7 @@
     }
     .art-of-testing-layout .sidebar.open {
         transform: translateX(0);
+        visibility: visible;
     }
     .art-of-testing-layout .sidebar-backdrop.open {
         display: block;

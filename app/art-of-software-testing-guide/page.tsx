@@ -189,14 +189,14 @@ export default function ArtOfSoftwareTestingPage() {
             <span className="chip">
               <i className="ti ti-list-check"></i>
             </span>
-            <h2>第2章: ソフトウェアテストの7原則</h2>
+            <h2 id="ch2-title">第2章: ソフトウェアテストの7原則</h2>
           </div>
           <p>
             Myersが説いた「テストとは欠陥を見つけるための破壊的な作業である」という心理学的な視点と、ISTQB（International Software Testing Qualifications Board）が Foundation Level シラバスにまとめた「テストの7原則」は、いずれもソフトウェアテストの土台をなす考え方であり、内容の面で強く響き合っています。ただし ISTQB の7原則が Myers の原則を直接体系化したものであるという公式の説明はなく、両者は同じテスト観を共有する別々の系譜として捉えるのが正確です。以下の7原則は ISTQB のシラバスに基づくもので、初学者はまずこの7つを頭に入れておくと、以降の技法の意味が理解しやすくなります。
           </p>
 
           <div className="table-wrap">
-            <table>
+            <table aria-labelledby="ch2-title">
               <thead>
                 <tr>
                   <th>#</th>
@@ -266,7 +266,7 @@ export default function ArtOfSoftwareTestingPage() {
             <span className="chip">
               <i className="ti ti-stack-2"></i>
             </span>
-            <h2>第3章: テストレベルの全体像</h2>
+            <h2 id="ch3-title">第3章: テストレベルの全体像</h2>
           </div>
           <p>
             Myersは著書の中で、テストを「単体テスト」と「高次テスト（結合・システム・受け入れ・設置テストなど）」に分類しました。この考え方は、現在の開発プロセスにもそのまま受け継がれています。
@@ -283,7 +283,7 @@ export default function ArtOfSoftwareTestingPage() {
 
           <p>各テストレベルの目的を表にまとめます。</p>
           <div className="table-wrap">
-            <table>
+            <table aria-labelledby="ch3-title">
               <thead>
                 <tr>
                   <th>テストレベル</th>
@@ -334,13 +334,13 @@ export default function ArtOfSoftwareTestingPage() {
             ブラックボックステストとは、内部の実装コードを見ずに、入力と出力の関係だけに着目してテストケースを設計する手法です。Myersはこの分野の代表的な技法として「同値分割」と「境界値分析」を紹介しており、これらは今日でも実務で最も使われる技法です。
           </p>
 
-          <h3>4.1 同値分割（Equivalence Partitioning）</h3>
+          <h3 id="ch4-1-title">4.1 同値分割（Equivalence Partitioning）</h3>
           <p>
             入力データを「同じ挙動をするはずのグループ（同値クラス）」に分割し、各グループから代表値を1つずつ選んでテストする技法です。これにより、無限に近い入力パターンを現実的な数のテストケースに絞り込めます。
           </p>
           <p>例: 「年齢18〜65歳のみ会員登録できるサービス」の場合</p>
           <div className="table-wrap">
-            <table>
+            <table aria-labelledby="ch4-1-title">
               <thead>
                 <tr>
                   <th>区分</th>
@@ -368,7 +368,7 @@ export default function ArtOfSoftwareTestingPage() {
             </table>
           </div>
 
-          <h3>4.2 境界値分析（Boundary Value Analysis）</h3>
+          <h3 id="ch4-2-title">4.2 境界値分析（Boundary Value Analysis）</h3>
           <p>
             Myers自身が強調したように、欠陥は範囲の「境界」付近に集中しやすい性質があります（オフバイワンエラーなど）。境界値分析は、同値分割で求めた境界の直前・直後・境界そのものの値を重点的にテストする技法です。
           </p>
@@ -376,7 +376,7 @@ export default function ArtOfSoftwareTestingPage() {
             先ほどの例（18〜65歳）で境界値分析を行うと、以下のようなテストケースになります。
           </p>
           <div className="table-wrap">
-            <table>
+            <table aria-labelledby="ch4-2-title">
               <thead>
                 <tr>
                   <th>テストケース</th>
@@ -429,14 +429,14 @@ export default function ArtOfSoftwareTestingPage() {
             <span className="chip">
               <i className="ti ti-code"></i>
             </span>
-            <h2>第5章: ホワイトボックステスト技法とコードカバレッジ</h2>
+            <h2 id="ch5-title">第5章: ホワイトボックステスト技法とコードカバレッジ</h2>
           </div>
           <p>
             ホワイトボックステストは、内部のソースコード構造（分岐やループ）に着目してテストケースを設計する手法です。Myersは「どれだけコードを通しても、それだけでは正しさを保証できない」と繰り返し警告しており、この考え方はGoogleのテストエンジニアリングチームが公開している「コードカバレッジのベストプラクティス」にも引き継がれています。
           </p>
 
           <div className="table-wrap">
-            <table>
+            <table aria-labelledby="ch5-title">
               <thead>
                 <tr>
                   <th>カバレッジ種別</th>
@@ -480,7 +480,7 @@ export default function ArtOfSoftwareTestingPage() {
             <span className="chip">
               <i className="ti ti-eye"></i>
             </span>
-            <h2>
+            <h2 id="ch6-title">
               第6章: 非実行型テスト — インスペクション・ウォークスルー・デスクチェック
             </h2>
           </div>
@@ -489,7 +489,7 @@ export default function ArtOfSoftwareTestingPage() {
           </p>
 
           <div className="table-wrap">
-            <table>
+            <table aria-labelledby="ch6-title">
               <thead>
                 <tr>
                   <th>手法</th>
@@ -595,14 +595,14 @@ export default function ArtOfSoftwareTestingPage() {
             <span className="chip">
               <i className="ti ti-award"></i>
             </span>
-            <h2>第9章: 良いテストコードを書くためのFIRST原則</h2>
+            <h2 id="ch9-title">第9章: 良いテストコードを書くためのFIRST原則</h2>
           </div>
           <p>
             自動テストが増えてくると、「テストコード自体の品質」が課題になります。Robert C. Martin（通称Uncle Bob）は著書『Clean Code』の中で、良い単体テストが備えるべき性質を「FIRST」という頭字語にまとめました。
           </p>
 
           <div className="table-wrap">
-            <table>
+            <table aria-labelledby="ch9-title">
               <thead>
                 <tr>
                   <th>頭文字</th>
