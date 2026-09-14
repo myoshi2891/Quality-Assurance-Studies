@@ -128,3 +128,108 @@ describe('Unit Testing Guide - Category 0 (Hero, NavBar, Layout, BookCard)', () 
     expect(footer?.textContent).toContain('Classic Software Testing Books companion series');
   });
 });
+
+describe('Unit Testing Guide - Category 1 (About, Step 1 - Step 3)', () => {
+  it('renders section #about with audience table', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#about');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Guide');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('この記事の対象読者と使い方');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(4);
+    expect(rows?.[0].textContent).toContain('対象読者');
+    expect(rows?.[0].textContent).toContain('初〜中級エンジニア');
+    expect(rows?.[1].textContent).toContain('前提知識');
+    expect(rows?.[1].textContent).toContain('xUnit系フレームワーク');
+    expect(rows?.[2].textContent).toContain('使用言語');
+    expect(rows?.[2].textContent).toContain('C#だが');
+    expect(rows?.[3].textContent).toContain('ゴール');
+    expect(rows?.[3].textContent).toContain('「テストの価値」');
+  });
+
+  it('renders section #step1 with sustainable growth and Mermaid diagram 0', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step1');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 01');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('ユニットテストの「本当の目的」を理解する');
+
+    expect(section?.textContent).toContain('ソフトウェアプロジェクトの持続的成長を可能にすること');
+
+    const mermaidWrapper = section?.querySelector('.mermaid-wrapper');
+    expect(mermaidWrapper).not.toBeNull();
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図1: 悪循環（左）と良い循環（右）');
+
+    // Chart text is captured in renderedCharts
+    expect(renderedCharts.some((chart) => chart.includes('持続的に維持される'))).toBe(true);
+  });
+
+  it('renders section #step2 with 3 properties table and callout', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step2');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 02');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('そもそも「ユニットテスト」とは何か');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(3);
+    expect(rows?.[0].textContent).toContain('小さな「振る舞いの単位」を検証する');
+    expect(rows?.[1].textContent).toContain('高速に実行できる');
+    expect(rows?.[2].textContent).toContain('他のテストから隔離されている');
+
+    const callout = section?.querySelector('.callout');
+    expect(callout).not.toBeNull();
+    expect(callout?.textContent).toContain('「1ユニット = 1メソッド」という誤解');
+  });
+
+  it('renders section #step3 with classical vs London school table', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('section#step3');
+    expect(section).not.toBeNull();
+
+    const badge = section?.querySelector('.section-badge');
+    expect(badge?.textContent).toBe('Step 03');
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toBe('二大流派 ― classical school と London school');
+
+    const table = section?.querySelector('table');
+    expect(table).not.toBeNull();
+
+    const headers = table?.querySelectorAll('thead th');
+    expect(headers?.length).toBe(3);
+    expect(headers?.[1].textContent).toContain('classical school');
+    expect(headers?.[2].textContent).toContain('London school');
+
+    const rows = table?.querySelectorAll('tbody tr');
+    expect(rows?.length).toBe(6);
+    expect(rows?.[0].textContent).toContain('「隔離」の対象');
+    expect(rows?.[1].textContent).toContain('テスト対象の粒度');
+    expect(rows?.[2].textContent).toContain('依存への対応');
+    expect(rows?.[3].textContent).toContain('設計への影響');
+    expect(rows?.[4].textContent).toContain('代表的な文献');
+    expect(rows?.[5].textContent).toContain('失敗しやすいテストの特徴');
+  });
+});
