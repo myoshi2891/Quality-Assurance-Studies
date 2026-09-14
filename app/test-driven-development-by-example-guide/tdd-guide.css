@@ -1,0 +1,748 @@
+/* ==========================================================================
+   TDD: By Example ガイド専用スタイルシート
+   .tdd-guide-layout クラスでスコープし、globals.css との干渉を完全遮断
+   ========================================================================== */
+
+.tdd-guide-layout {
+  --paper: #faf6ea;
+  --paper-card: #fffdf8;
+  --paper-card-2: #f1e9d6;
+  --ink: #2a2118;
+  --ink-soft: #6b5f4f;
+  --border: #e4d9bf;
+  --indigo: #3c4f91;
+  --indigo-soft: #e8ebf7;
+  --gold: #b8860b;
+  --gold-soft: #f7ecd2;
+  --forest: #2f6b45;
+  --forest-soft: #e1f0e4;
+  --plum: #6d3fa0;
+  --plum-soft: #f0e6f7;
+  --radius: 14px;
+  --font-display: 'Source Serif 4', 'Noto Serif JP', serif;
+  --font-body: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --sidebar-w: 296px;
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.85;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+}
+
+/* ---------- globals.css 干渉リセット ---------- */
+.tdd-guide-layout section {
+  padding-top: 0 !important;
+}
+
+.tdd-guide-layout .hero {
+  min-height: 0 !important;
+  display: block !important;
+  padding-top: 0 !important;
+}
+
+.tdd-guide-layout .main {
+  margin-left: var(--sidebar-w) !important;
+  padding: 3.2rem 3.5rem 6rem;
+  max-width: none !important;
+  width: auto !important;
+  box-sizing: border-box;
+}
+
+.tdd-guide-layout h1,
+.tdd-guide-layout h2,
+.tdd-guide-layout h3,
+.tdd-guide-layout h4 {
+  font-family: var(--font-display);
+  color: var(--ink);
+  line-height: 1.4;
+  font-weight: 700;
+  margin: 0 0 1rem;
+}
+
+.tdd-guide-layout p {
+  margin: 0 0 1.15rem;
+}
+
+.tdd-guide-layout a {
+  color: var(--indigo);
+}
+
+.tdd-guide-layout ul:not(.checklist):not(.ref-list) {
+  list-style-type: disc !important;
+  padding-left: 1.4rem !important;
+  margin: 0 0 1.15rem;
+}
+
+.tdd-guide-layout ol {
+  list-style-type: decimal !important;
+  padding-left: 1.4rem !important;
+  margin: 0 0 1.15rem;
+}
+
+.tdd-guide-layout li {
+  margin-bottom: 0.45rem;
+}
+
+.tdd-guide-layout strong {
+  color: var(--ink) !important;
+  font-weight: 700;
+}
+
+/* ---------- layout & sidebar ---------- */
+.tdd-guide-layout .layout {
+  display: block;
+}
+
+.tdd-guide-layout .sidebar {
+  position: fixed;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  left: 0;
+  width: var(--sidebar-w);
+  height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+  overflow-y: auto;
+  background: var(--paper-card);
+  border-right: 1px solid var(--border);
+  padding: 2rem 1.15rem 3rem;
+  z-index: 40;
+  transition: transform 0.25s ease;
+  scrollbar-width: thin;
+}
+
+.tdd-guide-layout .sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.tdd-guide-layout .sidebar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.tdd-guide-layout .sidebar::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 3px;
+}
+
+.tdd-guide-layout .sidebar-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.tdd-guide-layout .brand {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0 0.5rem;
+}
+
+.tdd-guide-layout .brand .ti {
+  font-size: 1.6rem;
+  color: var(--indigo);
+}
+
+.tdd-guide-layout .brand-text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.3;
+}
+
+.tdd-guide-layout .brand-text small {
+  display: block;
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--ink-soft);
+  font-size: 1rem;
+}
+
+.tdd-guide-layout .nav-group-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.tdd-guide-layout nav.nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.tdd-guide-layout .nav-a {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 10px;
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tdd-guide-layout .nav-a .ti {
+  font-size: 1.15rem;
+  flex: 0 0 auto;
+  color: var(--ink-soft);
+}
+
+.tdd-guide-layout .nav-a:hover {
+  background: var(--paper-card-2);
+  color: var(--ink);
+}
+
+.tdd-guide-layout .nav-a.active {
+  background: var(--indigo-soft);
+  color: var(--indigo);
+  font-weight: 700;
+}
+
+.tdd-guide-layout .nav-a.active .ti {
+  color: var(--indigo);
+}
+
+/* ---------- mobile bar ---------- */
+.tdd-guide-layout .mobile-bar {
+  display: none;
+  position: sticky;
+  top: calc(60px + var(--disclaimer-height, 0px));
+  left: 0;
+  right: 0;
+  z-index: 39;
+  background: var(--paper-card);
+  border-bottom: 1px solid var(--border);
+  padding: 0.85rem 1.1rem;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 1rem;
+}
+
+.tdd-guide-layout .mobile-bar button {
+  background: var(--indigo-soft);
+  color: var(--indigo);
+  border: none;
+  border-radius: 10px;
+  width: 2.6rem;
+  height: 2.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+
+.tdd-guide-layout .mobile-bar .mobile-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+
+.tdd-guide-layout .sidebar-backdrop {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 15, 8, 0.35);
+  z-index: 39;
+}
+
+@media (max-width: 960px) {
+  .tdd-guide-layout .mobile-bar {
+    display: flex;
+  }
+  .tdd-guide-layout .sidebar {
+    position: fixed;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    transform: translateX(-100%);
+    visibility: hidden;
+    transition: transform 0.25s ease, visibility 0s linear 0.25s;
+    z-index: 50;
+    padding-top: 1.5rem;
+  }
+  .tdd-guide-layout .sidebar.open {
+    transform: translateX(0);
+    visibility: visible;
+    transition: transform 0.25s ease, visibility 0s linear 0s;
+  }
+  .tdd-guide-layout .sidebar-backdrop.open {
+    display: block;
+  }
+  .tdd-guide-layout .main {
+    margin-left: 0 !important;
+    padding: 2rem 1.3rem 4.5rem;
+  }
+}
+
+/* ---------- section ---------- */
+.tdd-guide-layout .section {
+  max-width: none;
+  padding-top: 1.5rem;
+  margin-top: -1.5rem;
+  border-top: 1px solid transparent;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+
+.tdd-guide-layout .section + .section {
+  margin-top: 3.5rem;
+  padding-top: 2.2rem;
+  border-top: 1px solid var(--border);
+}
+
+.tdd-guide-layout .section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--indigo);
+  background: var(--indigo-soft);
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  margin-bottom: 0.9rem;
+}
+
+.tdd-guide-layout .prose,
+.tdd-guide-layout .prose p,
+.tdd-guide-layout .prose li {
+  overflow-wrap: break-word;
+}
+
+/* ---------- hero ---------- */
+.tdd-guide-layout .hero {
+  padding-bottom: 2.5rem;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.5rem;
+}
+
+.tdd-guide-layout .hero-eyebrow {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink-soft);
+  text-transform: uppercase;
+  margin-bottom: 0.9rem;
+}
+
+.tdd-guide-layout .hero h1 {
+  font-size: clamp(2rem, 4.2vw, 3rem);
+  margin-bottom: 0.85rem;
+  background: linear-gradient(90deg, var(--indigo), var(--plum));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: var(--plum);
+  -webkit-text-fill-color: transparent;
+}
+
+.tdd-guide-layout .hero-sub {
+  font-size: 1.25rem;
+  color: var(--ink-soft);
+  margin-bottom: 1.4rem;
+}
+
+.tdd-guide-layout .hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+.tdd-guide-layout .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  background: var(--paper-card-2);
+  color: var(--ink);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.tdd-guide-layout .chip .ti {
+  color: var(--indigo);
+  font-size: 1.05rem;
+}
+
+/* ---------- tables (globals.css 完全リセット) ---------- */
+.tdd-guide-layout .table-wrap {
+  overflow-x: auto;
+  overflow-y: hidden;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin: 1.6rem 0;
+  background: var(--paper-card);
+}
+
+.tdd-guide-layout .table-title {
+  background: var(--indigo-soft);
+  color: var(--indigo);
+  font-weight: 700;
+  padding: 0.75rem 1.1rem;
+  border-bottom: 1px solid var(--border);
+  font-size: 1.05rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.tdd-guide-layout table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 520px;
+  background: var(--paper-card) !important;
+}
+
+.tdd-guide-layout thead th {
+  background: var(--indigo) !important;
+  color: #ffffff !important;
+  text-align: left;
+  padding: 0.7rem 1rem;
+  font-size: 1rem !important;
+  font-weight: 700;
+  white-space: normal !important;
+  border: none !important;
+  border-bottom: 1px solid var(--border) !important;
+}
+
+.tdd-guide-layout tbody td,
+.tdd-guide-layout td {
+  padding: 0.7rem 1rem !important;
+  border-top: 1px solid var(--border) !important;
+  border-bottom: none !important;
+  font-size: 1rem !important;
+  vertical-align: top;
+  color: var(--ink) !important;
+  line-height: 1.75;
+}
+
+.tdd-guide-layout tbody tr:nth-child(even) td {
+  background: var(--paper-card-2) !important;
+}
+
+.tdd-guide-layout tbody tr:hover td {
+  background: var(--paper-card-2) !important;
+}
+
+.tdd-guide-layout td strong {
+  color: var(--ink) !important;
+  font-weight: 700;
+}
+
+/* ---------- mermaid ---------- */
+.tdd-guide-layout .mermaid-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: safe center;
+  overflow-x: auto;
+  margin: 1.8rem 0;
+  padding: 1.3rem 1rem;
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.tdd-guide-layout .mermaid-wrapper {
+  width: 100%;
+  max-width: 100% !important;
+  background: transparent !important;
+  display: flex;
+  justify-content: center;
+}
+
+.tdd-guide-layout .mermaid-wrapper svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100% !important;
+  height: auto !important;
+}
+
+.tdd-guide-layout .mermaid-caption {
+  text-align: center;
+  font-size: 1rem;
+  color: var(--ink-soft);
+  margin-top: -1.2rem;
+  margin-bottom: 1.8rem;
+}
+
+/* Mermaid エッジラベルの黒潰れ防止 */
+.tdd-guide-layout .mermaid-wrapper .edgeLabel,
+.tdd-guide-layout .mermaid-wrapper .edgeLabel span,
+.tdd-guide-layout .mermaid-wrapper .edgeLabel text {
+  background-color: var(--paper-card) !important;
+  color: var(--ink) !important;
+  fill: var(--ink) !important;
+  stroke: none !important;
+  font-weight: 700 !important;
+}
+
+.tdd-guide-layout .mermaid-wrapper .edgeLabels rect {
+  fill: var(--paper-card) !important;
+  stroke: none !important;
+}
+
+/* ---------- code blocks ---------- */
+.tdd-guide-layout .code-block {
+  margin: 1.6rem 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #1e1e1e;
+  border: 1px solid #33302a;
+}
+
+.tdd-guide-layout .code-block .code-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.55rem 1.1rem;
+  background: #26241f;
+  font-size: 1rem;
+  color: #c9c2b3;
+  font-family: var(--font-mono);
+}
+
+.tdd-guide-layout .code-block pre {
+  margin: 0;
+  overflow-x: auto;
+  padding: 1.15rem 1.3rem;
+  background: #1e1e1e;
+}
+
+.tdd-guide-layout .code-block code {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  line-height: 1.75;
+  color: #d4d4d4;
+  display: block;
+}
+
+.tdd-guide-layout .code-line {
+  white-space: pre !important;
+  min-height: 1.5em;
+}
+
+/* Python シンタックスハイライト */
+.tdd-guide-layout .hl-kw { color: #569cd6; font-weight: 600; }
+.tdd-guide-layout .hl-fn { color: #dcdcaa; }
+.tdd-guide-layout .hl-num { color: #b5cea8; }
+.tdd-guide-layout .hl-cm { color: #6a9955; font-style: italic; }
+.tdd-guide-layout .hl-str { color: #ce9178; }
+
+/* ---------- lists / cards ---------- */
+.tdd-guide-layout .card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin: 1.6rem 0;
+}
+
+.tdd-guide-layout .pitfall-card {
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 1.1rem 1.3rem;
+}
+
+.tdd-guide-layout .pitfall-card .p-q {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 0.5rem;
+  font-size: 1.05rem;
+}
+
+.tdd-guide-layout .pitfall-card .p-q .ti {
+  color: var(--gold);
+  font-size: 1.2rem;
+  margin-top: 0.1rem;
+}
+
+.tdd-guide-layout .pitfall-card .p-a {
+  display: flex;
+  gap: 0.55rem;
+  align-items: flex-start;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.tdd-guide-layout .pitfall-card .p-a .ti {
+  color: var(--forest);
+  font-size: 1.2rem;
+  margin-top: 0.15rem;
+  flex: 0 0 auto;
+}
+
+.tdd-guide-layout .callout {
+  display: flex;
+  gap: 0.8rem;
+  background: var(--gold-soft);
+  border: 1px solid #e6cf94;
+  border-left: 5px solid var(--gold);
+  border-radius: 10px;
+  padding: 1rem 1.2rem;
+  margin: 1.6rem 0;
+}
+
+.tdd-guide-layout .callout .ti {
+  font-size: 1.4rem;
+  color: var(--gold);
+  flex: 0 0 auto;
+}
+
+.tdd-guide-layout .callout p:last-child {
+  margin-bottom: 0;
+}
+
+.tdd-guide-layout .callout.plum {
+  background: var(--plum-soft);
+  border-color: #d9c2ec;
+  border-left-color: var(--plum);
+}
+
+.tdd-guide-layout .callout.plum .ti {
+  color: var(--plum);
+}
+
+.tdd-guide-layout .callout.forest {
+  background: var(--forest-soft);
+  border-color: #bfe0c7;
+  border-left-color: var(--forest);
+}
+
+.tdd-guide-layout .callout.forest .ti {
+  color: var(--forest);
+}
+
+/* ---------- checklist ---------- */
+.tdd-guide-layout .checklist-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.tdd-guide-layout .checklist-counter {
+  font-weight: 700;
+  color: var(--indigo);
+  background: var(--indigo-soft);
+  padding: 0.4rem 0.9rem;
+  border-radius: 999px;
+  font-size: 1rem;
+}
+
+.tdd-guide-layout .checklist {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.tdd-guide-layout .checklist li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 0.65rem;
+  background: var(--paper-card);
+}
+
+.tdd-guide-layout .checklist input[type='checkbox'] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 1.4rem;
+  height: 1.4rem;
+  flex: 0 0 auto;
+  border: 2px solid var(--indigo);
+  border-radius: 7px;
+  margin-top: 0.15rem;
+  cursor: pointer;
+  position: relative;
+  font-size: 1rem;
+}
+
+.tdd-guide-layout .checklist input[type='checkbox']:checked {
+  background: var(--indigo);
+}
+
+.tdd-guide-layout .checklist input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid #ffffff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.tdd-guide-layout .checklist label {
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.tdd-guide-layout .checklist .cl-note {
+  display: block;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.tdd-guide-layout .checklist li.done {
+  background: var(--forest-soft);
+  border-color: #bfe0c7;
+}
+
+.tdd-guide-layout .checklist li.done label {
+  text-decoration: line-through;
+  color: var(--ink-soft);
+}
+
+/* ---------- footer & ref-list ---------- */
+.tdd-guide-layout .footer {
+  margin-top: 4rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border);
+  font-size: 1rem;
+  color: var(--ink-soft);
+}
+
+.tdd-guide-layout .ref-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.tdd-guide-layout .ref-list li {
+  background: var(--paper-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.8rem 1.1rem;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+
+.tdd-guide-layout .ref-list a {
+  word-break: break-all;
+  font-weight: 600;
+}
+
+.tdd-guide-layout .ref-list .ref-desc {
+  color: var(--ink-soft);
+  display: block;
+  margin-top: 0.2rem;
+}
