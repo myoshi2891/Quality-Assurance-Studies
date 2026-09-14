@@ -39,6 +39,35 @@ const DIAGRAMS = {
     C --> D["Fixture - setUpとtearDownでテスト前後の状態を整える"]
     classDef hub fill:#f7ecd2,stroke:#b8860b,color:#2a2118;
     class C hub`,
+
+  dgLaws: `flowchart TD
+    L1["第1法則 - 失敗するテストを書くまでプロダクションコードを書いてはならない"] --> L2["第2法則 - コンパイルが通らない、または失敗する以上のテストコードを書いてはならない"]
+    L2 --> L3["第3法則 - 現在失敗しているテストを通す以上のプロダクションコードを書いてはならない"]
+    L3 --> L1`,
+
+  dgCanon: `flowchart TD
+    A["1. カバーしたいテストシナリオのリストを書く"] --> B["2. リストから1件を選び具体的で実行可能なテストにする"]
+    B --> C["3. テストとこれまでの全テストが通るようにコードを変更する"]
+    C --> D["必要であればリファクタリングする"]
+    D --> E{"リストは空になったか"}
+    E -- いいえ --> B
+    E -- はい --> F["完了"]
+    classDef done fill:#e1f0e4,stroke:#2f6b45,color:#173a20;
+    class F done`,
+
+  dgAi: `flowchart TD
+    H["開発者がテストシナリオのリストを与える"] --> AI["AIエージェントが1件のテストを実装する"]
+    AI --> T{"テストは意図どおり失敗するか"}
+    T -- はい --> C["AIまたは開発者が最小限の実装を書く"]
+    C --> G{"全テストが通るか"}
+    G -- はい --> R["リファクタリングして次のテストへ進む"]
+    G -- いいえ --> Guard["失敗テストの削除を許可せず実装を修正させる"]
+    Guard --> C
+    T -- いいえ --> Fix["テストの意図と粒度を見直す"]
+    Fix --> AI
+    R --> AI
+    classDef hub fill:#f7ecd2,stroke:#b8860b,color:#2a2118;
+    class Guard hub`,
 };
 
 export default function Page() {
@@ -579,6 +608,240 @@ export default function Page() {
               <i className="ti ti-target"></i>
               <p>
                 最終章の32章「Mastering TDD」では、「ステップの大きさはどのくらいがよいか」「何をテストしなくてよいか」「良いテストの見分け方」といった、実践者が必ずぶつかる疑問にQ&amp;A形式で答えています。
+              </p>
+            </div>
+          </section>
+
+          {/* Section 08: TDDの三原則 */}
+          <section id="three-laws" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-gavel"></i>08
+            </p>
+            <h2>TDDの三原則（Uncle Bobによる定式化）</h2>
+            <p>
+              本書刊行後、Robert C. Martin（愛称 Uncle Bob）は、Kent
+              Beckから直接学んだ実践を「TDDの三原則（Three Laws of
+              TDD）」として整理し、広めました。これは本書自体のパターンではありませんが、TDDの解説として国際的に非常によく引用される定式化です。
+            </p>
+
+            <div className="mermaid-wrap" id="dg-laws">
+              <Mermaid chart={DIAGRAMS.dgLaws} />
+            </div>
+            <p className="mermaid-caption">図: Three Laws of TDD（Robert C. Martin）</p>
+
+            <p>
+              三原則は、テストコードとプロダクションコードを<strong>ほぼ1行単位で交互に</strong>書かせるほど粒度が細かいことが特徴です。Uncle
+              Bob自身も「最初は簡単そうに見えるが、実際にこの粒度でやってみると驚くほど規律が要求される」と述べています。
+            </p>
+          </section>
+
+          {/* Section 09: Canon TDD */}
+          <section id="canon-tdd" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-list-check"></i>09
+            </p>
+            <h2>Canon TDD ─ Kent Beckが自身の手順を整理した記事</h2>
+            <p>
+              2023年12月11日、Kent Beckは自身のニュースレターで「Canon
+              TDD（規範的TDD）」と題した記事を公開しました。これは、TDDに対する誤解や自己流の&quot;TDDもどき&quot;批判が増えてきたことを受け、
+              <strong>
+                Kent Beck自身が考える手順を、あらためて簡潔に整理・明文化したもの
+              </strong>
+              です。2002年刊行の本書で説明されるTDDそのものの再定義ではなく、また全員が採用すべき標準として提示されたものでもない点に注意してください。
+            </p>
+
+            <div className="mermaid-wrap" id="dg-canon">
+              <Mermaid chart={DIAGRAMS.dgCanon} />
+            </div>
+            <p className="mermaid-caption">図: Canon TDDの手順</p>
+
+            <p>Kent Beck自身がこの記事で強調しているのは、次の点です。</p>
+            <ul>
+              <li>
+                最初の「テストシナリオのリストを書く」ステップは、しばしば省略されて教えられがちだが、
+                <strong>「いつ終わりにするか」を判断するために重要</strong>である
+              </li>
+              <li>
+                TDDを批判するなら、この手順（Canon
+                TDD）を批判してほしい。手順から外れた自己流のやり方を批判して「TDDはダメだ」と結論づけるのは藁人形論法（ストローマン）である
+              </li>
+              <li>
+                手順どおりにやらなくても、それでうまくいっているなら問題ない。ただしそれは「Canon
+                TDD」ではない、というだけのこと
+              </li>
+            </ul>
+            <p>
+              初学者は、まず本書の実例でこのサイクルを体得したうえで、このCanon
+              TDD記事を読むと、Beck自身が要点をどこに置いているかを確認できます。
+            </p>
+          </section>
+
+          {/* Section 10: 初学者がつまずきやすいポイントと対策 */}
+          <section id="pitfalls" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-alert-triangle"></i>10
+            </p>
+            <h2>初学者がつまずきやすいポイントと対策</h2>
+            <div className="card-grid">
+              <div className="pitfall-card">
+                <p className="p-q">
+                  <i className="ti ti-help-circle"></i>ステップが小さすぎて退屈に感じる
+                </p>
+                <p className="p-a">
+                  <i className="ti ti-arrow-right"></i>本書でも「慣れてきたらステップを大きくしてよい」と明言されています。最初は意図的に小さく、習熟に応じて歩幅を広げましょう。
+                </p>
+              </div>
+              <div className="pitfall-card">
+                <p className="p-q">
+                  <i className="ti ti-help-circle"></i>「テストファースト」と「TDD」を混同する
+                </p>
+                <p className="p-a">
+                  <i className="ti ti-arrow-right"></i>テストを先に書くだけでは不十分です。Red（失敗）を確認してからGreen（成功）に進み、必ずRefactorのステップを踏むところまでがTDDです。
+                </p>
+              </div>
+              <div className="pitfall-card">
+                <p className="p-q">
+                  <i className="ti ti-help-circle"></i>Fake Itが「ズル」に見えて抵抗を感じる
+                </p>
+                <p className="p-a">
+                  <i className="ti ti-arrow-right"></i>Fake
+                  Itは正当な戦略です。ベタ書きの実装は、後続のテスト（Triangulate）によって自然に一般化されていきます。焦って最初から一般化しようとしない方が、結果的に安全な設計に到達しやすいというのが本書の主張です。
+                </p>
+              </div>
+              <div className="pitfall-card">
+                <p className="p-q">
+                  <i className="ti ti-help-circle"></i>何でもかんでもテストしようとして疲弊する
+                </p>
+                <p className="p-a">
+                  <i className="ti ti-arrow-right"></i>32章では「何をテストしなくてよいか」という問いに、著者自身が「バグが心配になる箇所だけをテストする」という現実的な指針を示しています。
+                </p>
+              </div>
+              <div className="pitfall-card">
+                <p className="p-q">
+                  <i className="ti ti-help-circle"></i>リファクタリングを省略してしまう
+                </p>
+                <p className="p-a">
+                  <i className="ti ti-arrow-right"></i>Greenの状態はゴールではなく通過点です。リファクタリングを飛ばすと、Fake
+                  Itで書いたベタ書きコードがそのまま積み上がってしまいます。
+                </p>
+              </div>
+            </div>
+          </section>
+
+          {/* Section 11: 「TDD is Dead」論争 */}
+          <section id="tdd-is-dead" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-messages"></i>11
+            </p>
+            <h2>「TDD is Dead」論争 ─ 賛否両論を知る</h2>
+            <p>
+              TDDは称賛される一方で、たびたび激しい議論の的にもなってきました。中でも国際的に最も有名な論争が、2014年にRuby
+              on Railsの作者David Heinemeier Hansson（DHH）が公開した記事「TDD is dead. Long live
+              testing.」を発端とするものです。
+            </p>
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-scale"></i>論争における立場の比較
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>論者</th>
+                    <th>主張の要旨</th>
+                    <th>立場</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>David Heinemeier Hansson（DHH）</td>
+                    <td>
+                      テストファースト原理主義は設計をゆがめる（過剰な間接化・モック依存を生む）。テスト自体は書くが、書く順序にはこだわらない
+                    </td>
+                    <td>テストファーストへの懐疑・脱原理主義</td>
+                  </tr>
+                  <tr>
+                    <td>Kent Beck</td>
+                    <td>
+                      TDDは厳格な宗教ではなく、状況に応じて使う規律・道具である。批判するなら本来の手順（Canon
+                      TDD）を対象にしてほしい
+                    </td>
+                    <td>TDD提唱者としての立場明確化</td>
+                  </tr>
+                  <tr>
+                    <td>Martin Fowler</td>
+                    <td>
+                      DHHとKent Beckの対話を仲介し、TDDの価値と限界を整理する記事・動画シリーズ「Is TDD
+                      Dead?」を公開
+                    </td>
+                    <td>中立的な整理・橋渡し役</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <p>
+              この論争のあと、DHHとKent Beck、Martin Fowlerの3人による対話シリーズ「Is TDD
+              Dead?」が公開され、単なる炎上では終わらず、建設的な意見交換の記録として広く参照されています。Robert C.
+              Martinも自身のブログで「TDDはアーキテクチャを傷つける」という批判に対する反論記事を書くなど、この議論はコミュニティ全体を巻き込む形で発展しました。
+            </p>
+            <div className="callout">
+              <i className="ti ti-bulb"></i>
+              <p>
+                初学者にとって重要なのは、
+                <strong>「TDDは万能の銀の弾丸ではない」という前提を最初から持っておくこと</strong>
+                です。本書自体も32章で「TDDが向かないケース」に言及しており、著者自身が原理主義的な立場を取っていないことがわかります。
+              </p>
+            </div>
+          </section>
+
+          {/* Section 12: 2025〜2026年の潮流: AIエージェント時代のTDD */}
+          <section id="ai-era" className="section prose">
+            <p className="section-eyebrow">
+              <i className="ti ti-robot"></i>12
+            </p>
+            <h2>2025〜2026年の潮流: AIエージェント時代のTDD</h2>
+            <p>
+              本書の出版から20年以上が経った現在、Kent
+              Beck自身がAIコーディングエージェントとTDDの関係について活発に発信しています。これは本書の内容そのものではありませんが、
+              <strong>古典的なTDDの原則が、なぜ今あらためて重要視されているか</strong>
+              を理解するうえで欠かせない文脈です。
+            </p>
+            <p>
+              Kent Beckは2025年のインタビューで、AIエージェントを「望みを叶えてくれるが、しばしば予期せぬ副作用を伴う&quot;ジニー（魔神）&quot;」にたとえ、次のような課題を指摘しています。
+            </p>
+            <ul>
+              <li>
+                AIエージェントは「まずコードを書いて、後から通るテストを書く」という、TDD本来の順序とは逆の振る舞いをしがちである
+              </li>
+              <li>
+                テストを通すために、実装を直す代わりに
+                <strong>失敗しているテストそのものを削除してしまう</strong>ケースが観測されている
+              </li>
+              <li>
+                そのためTDDは、AIエージェントが書くコードの品質を保証する「超能力（superpower）」として、あらためて注目されている
+              </li>
+            </ul>
+
+            <div className="mermaid-wrap" id="dg-ai">
+              <Mermaid chart={DIAGRAMS.dgAi} />
+            </div>
+            <p className="mermaid-caption">図: AIエージェント時代のTDDサイクル（人間による安全弁付き）</p>
+
+            <p>
+              Martin
+              Fowlerも自身のサイトで、多くの実務者が「LLMエージェントにソフトウェアを作らせる際はTDDを使うよう指示する」ことを推奨していると紹介しており、TDDが
+              <strong>人間だけでなくAIエージェントの手綱を締めるための規律</strong>
+              としても再評価されている状況がうかがえます。Kent Beckは2025〜2026年にかけて、CraftConfでの「Canon
+              TDD」講演や、ニュースレター「Tidy First?」での連載を通じて、この「Augmented
+              Coding（拡張されたコーディング）」というテーマを継続的に発信しています。
+            </p>
+            <div className="callout forest">
+              <i className="ti ti-shield-check"></i>
+              <p>
+                初学者にとっての教訓はシンプルです。
+                <strong>
+                  AIツールを使う・使わないにかかわらず、本書が教える「小さなステップ」「テストリスト」「Red-Green-Refactor」という基本規律そのものの価値は変わっていない
+                </strong>
+                、むしろAIエージェントの出力を検証する基準としてその重要性が増している、ということです。
               </p>
             </div>
           </section>
