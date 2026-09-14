@@ -34,6 +34,35 @@ E2E --> E2ERes["回帰への保護◎ / リファクタリング耐性◎<br/>�
 Trivial --> TrivialRes["リファクタリング耐性◎ / 速いフィードバック◎<br/>回帰への保護×"]
 Brittle --> BrittleRes["回帰への保護◎ / 速いフィードバック◎<br/>リファクタリング耐性×"]`;
 
+const DIAGRAM_3 = `flowchart TB
+Q1["このテストで何を確認したいか？"] --> Q2{"外部への副作用そのものが<br/>重要な結果か？<br/>例: メール送信, 決済API呼び出し"}
+Q2 -- "はい(振る舞い検証)" --> Mock["Mock を使う<br/>(呼び出しの有無・内容を検証)"]
+Q2 -- "いいえ(状態検証で十分)" --> Q3{"戻り値を制御したいだけか？"}
+Q3 -- "はい" --> Stub["Stub を使う"]
+Q3 -- "いいえ、呼ばれた記録も見たい" --> Spy["Spy を使う"]`;
+
+const DIAGRAM_4 = `flowchart TB
+subgraph Shell["Imperative Shell(副作用を扱う薄い層)"]
+    In["入力の取得<br/>(DB読み込み・HTTPリクエストなど)"]
+    Out["出力の反映<br/>(DB書き込み・メール送信など)"]
+end
+subgraph Core["Functional Core(純粋な計算ロジック)"]
+    Logic["ビジネスルールの計算<br/>(入力→出力の純粋関数)"]
+end
+In --> Logic
+Logic --> Out`;
+
+const DIAGRAM_5 = `flowchart TB
+subgraph Before["リファクタリング前"]
+    B1["Controller<br/>(ロジック + DB呼び出し + HTTP処理が混在)"]
+end
+subgraph After["リファクタリング後"]
+    A1["Humble Controller<br/>(外部との協調のみ・薄い)"]
+    A2["Domain Logic<br/>(複雑な判断ロジックのみ・純粋)"]
+    A1 --> A2
+end
+B1 -.->|"責務を分離する"| A1`;
+
 export default function Page() {
   return (
     <div className="unit-testing-layout">
@@ -521,9 +550,197 @@ export default function Page() {
             </p>
           </div>
         </section>
-        <section className="section" id="step7"></section>
-        <section className="section" id="step8"></section>
-        <section className="section" id="step9"></section>
+        {/* ===== Step 07 ===== */}
+        <section className="section" id="step7">
+          <div className="section-head">
+            <span className="section-badge">Step 07</span>
+            <h2>テストダブルの分類 ― Dummy / Fake / Stub / Spy / Mock</h2>
+          </div>
+          <div className="prose">
+            <p>
+              テストダブルという用語自体は、Gerard Meszaros が著書『xUnit Test Patterns』で導入し、Martin Fowlerの記事「Mocks Aren&apos;t Stubs」によって広く普及しました。5種類の分類を整理すると次のようになります。
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-category"></i>テストダブルの5分類
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>種類</th>
+                    <th>実際に使われるか</th>
+                    <th>特徴</th>
+                    <th>典型的な用途</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Dummy</strong></td>
+                    <td>使われない</td>
+                    <td>パラメータの穴埋めのためだけに渡される</td>
+                    <td>引数として必須だがテストでは無関係な値</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Fake</strong></td>
+                    <td>使われる（簡易実装）</td>
+                    <td>動作する実装を持つが、本番用途には向かない近道実装</td>
+                    <td>インメモリDB、インメモリキューなど</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Stub</strong></td>
+                    <td>使われる</td>
+                    <td>
+                      あらかじめ決められた回答を返す。呼ばれ方自体は検証しない
+                    </td>
+                    <td>外部APIのレスポンスを固定して与えたいとき</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Spy</strong></td>
+                    <td>使われる</td>
+                    <td>Stubに「呼ばれた記録」を残す機能を足したもの</td>
+                    <td>呼び出し回数や引数を後から確認したいとき</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Mock</strong></td>
+                    <td>使われる</td>
+                    <td>事前に「期待する呼ばれ方」を設定し、それを検証する</td>
+                    <td>
+                      メール送信・決済実行など、副作用の発生自体を確認したいとき
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>どちらを使うべきかの判断フロー</h3>
+            <p>
+              「状態を確認したいのか」「振る舞い（呼び出し）を確認したいのか」で使い分けます。Martin Fowlerが提唱する「state verification（状態検証） vs behavior verification（振る舞い検証）」の考え方を、意思決定フローチャートにすると次のようになります。
+            </p>
+
+            <div className="mermaid-wrapper" id="diag-3">
+              <Mermaid chart={DIAGRAM_3} />
+            </div>
+            <p className="diagram-caption">図4: テストダブルの選び方 ― 意思決定フロー</p>
+
+            <p>
+              Fowler自身も、<strong>状態検証（Stub/Fakeで十分なケース）を優先し、Mockは本当に副作用の発生自体が仕様であるときだけ使う</strong>ことを推奨しています。これはKhorikovの「モックは境界を越えたunmanaged dependencyにのみ使う」という指針と一致します。
+            </p>
+          </div>
+        </section>
+
+        {/* ===== Step 08 ===== */}
+        <section className="section" id="step8">
+          <div className="section-head">
+            <span className="section-badge">Step 08</span>
+            <h2>3つのテストスタイルと関数型アーキテクチャ</h2>
+          </div>
+          <div className="prose">
+            <p>
+              本書は、ユニットテストの書き方を3つのスタイルに分類し、優劣を明確に示しています。
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-adjustments"></i>3つのテストスタイル
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>スタイル</th>
+                    <th>検証方法</th>
+                    <th>モックの必要性</th>
+                    <th>リファクタリング耐性</th>
+                    <th>備考</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Output-based</strong>（出力ベース）</td>
+                    <td>戻り値を検証する</td>
+                    <td>不要（副作用がないため）</td>
+                    <td>最も高い</td>
+                    <td>純粋関数に対してのみ適用できる</td>
+                  </tr>
+                  <tr>
+                    <td><strong>State-based</strong>（状態ベース）</td>
+                    <td>実行後のオブジェクトやDBの状態を検証する</td>
+                    <td>場合による</td>
+                    <td>高い</td>
+                    <td>もっとも一般的に使えるスタイル</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <strong>Communication-based</strong>（コミュニケーションベース）
+                    </td>
+                    <td>協働オブジェクトへの呼び出しをモックで検証する</td>
+                    <td>必須</td>
+                    <td>最も低い</td>
+                    <td>
+                      実装詳細に結合しやすく、乱用すると壊れやすいテストの温床になる
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>関数型アーキテクチャ ― Functional Core, Imperative Shell</h3>
+            <p>
+              Output-basedスタイルを最大限に活用するための設計指針として、本書はGary Bernhardt氏が講演「Boundaries」で提唱した<strong>Functional Core, Imperative Shell</strong>の考え方を紹介しています。ビジネスロジックを副作用のない純粋な計算（Functional Core）として切り出し、DBアクセスや外部APIといった副作用は薄い外殻（Imperative Shell）に押し出す、という設計です。
+            </p>
+
+            <div className="mermaid-wrapper" id="diag-4">
+              <Mermaid chart={DIAGRAM_4} />
+            </div>
+            <p className="diagram-caption">図5: Functional Core, Imperative Shell</p>
+
+            <p>
+              この構造の利点は明確です。Functional Coreの部分は入力と出力だけを見ればよいため、<strong>モックが一切不要なOutput-basedテスト</strong>を大量に書けます。副作用を伴う統合テストはImperative Shellの薄い部分にだけ集中させればよく、テストピラミッド全体の効率が大きく向上します。
+            </p>
+
+            <div className="callout forest">
+              <div>
+                なお、この設計思想は Hexagonal Architecture（Alistair Cockburn）や Ports and Adapters とも本質的に同じ発想であり、複数の著名開発者が独立に「発見」してきた考え方であることも押さえておくとよいでしょう。
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Step 09 ===== */}
+        <section className="section" id="step9">
+          <div className="section-head">
+            <span className="section-badge">Step 09</span>
+            <h2>価値あるテストへのリファクタリング ― Humble Objectパターン</h2>
+          </div>
+          <div className="prose">
+            <p>
+              「テストしにくいコード」の多くは、<strong>複雑なロジック</strong>と<strong>外部依存との協調</strong>が同じクラスの中に同居していることが原因です。本書は、この2つを分離する手法として<strong>Humble Object パターン</strong>を紹介しています。
+            </p>
+
+            <div className="mermaid-wrapper" id="diag-5">
+              <Mermaid chart={DIAGRAM_5} />
+            </div>
+            <p className="diagram-caption">
+              図6: Humble Objectパターンによるリファクタリング
+            </p>
+
+            <p>分離の効果は次の通りです。</p>
+            <ul>
+              <li>
+                <strong>Domain Logic</strong> はFunctional Coreと同様、外部依存を持たないためOutput-basedテストで大量にカバーできる。
+              </li>
+              <li>
+                <strong>Humble Controller</strong> はロジックをほぼ持たず「つなぐだけ」の薄い層になるため、そもそもユニットテストで厳密に検証する必要性が下がる（必要であれば少数の統合テストでカバーする）。
+              </li>
+              <li>
+                結果として、テスト全体の<strong>保守コストを増やさずに回帰保護を最大化</strong>できる。
+              </li>
+            </ul>
+            <p>
+              このパターンは、コントローラー層・UIロジック・バッチ処理の入り口など、「テストが書きにくい」と感じるあらゆる場所に応用できます。
+            </p>
+          </div>
+        </section>
         <section className="section" id="step10"></section>
         <section className="section" id="step11"></section>
         <section className="section" id="step12"></section>
