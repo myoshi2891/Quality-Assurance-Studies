@@ -1,5 +1,6 @@
 import React from 'react';
 import Mermaid from '../../components/Mermaid';
+import Checklist from './Checklist';
 import NavBar from './NavBar';
 import './unit-testing-guide.css';
 
@@ -1058,9 +1059,507 @@ export default function Page() {
             </div>
           </div>
         </section>
-        <section className="section" id="checklist"></section>
-        <section className="section" id="update2026"></section>
-        <section className="section" id="references"></section>
+        {/* ===== Checklist ===== */}
+        <section className="section" id="checklist">
+          <div className="section-head">
+            <span className="section-badge"><i className="ti ti-checkbox"></i></span>
+            <h2>まとめ: 実践チェックリスト</h2>
+          </div>
+          <div className="prose">
+            <p>
+              ここまでの内容を、日々のコードレビューやテスト作成時に使えるチェックリストとして整理します。クリックしてチェックを付けられます。
+            </p>
+            <Checklist />
+          </div>
+        </section>
+
+        {/* ===== 2026 Updates ===== */}
+        <section className="section" id="update2026">
+          <div className="section-head">
+            <span className="section-badge"><i className="ti ti-sparkles"></i></span>
+            <h2>2026年時点の補足: 議論はどう発展したか</h2>
+          </div>
+          <div className="prose">
+            <p>
+              本書が刊行された2020年以降も、著名な国際的開発者たちによって「良いテストとは何か」という議論は活発に続いています。2025年末から2026年にかけての最新動向を補足します。
+            </p>
+
+            <h3>Kent Beckの「Composable Tests」（2025年11月）</h3>
+            <p>
+              Kent Beckは2019年に発表した「Test Desiderata」（良いテストが持つべき12の性質）の続編として、2025年11月に「Composable Tests」という論考を公開しました。ここでは、単に個々のテストを「分離（Isolated）」させるだけでなく、<strong>テストを組み合わせ（Composable）て冗長な検証を削減しながら予測力（Predictive）を落とさない</strong>という考え方が掘り下げられています。重複したテストをただ削除するのではなく、後発のテストから重複部分を取り除いて「合成」することで、同じ検出力をより少ないコードで維持できると説明されています。
+            </p>
+
+            <p>Kent Beckが2019年に示した12の性質は次の通りです。</p>
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-list-numbers"></i>Test Desiderata（Kent Beck, 2019）
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>性質（英語）</th>
+                    <th>内容</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Isolated</td>
+                    <td>他のテストの結果に影響されない</td>
+                  </tr>
+                  <tr>
+                    <td>2</td>
+                    <td>Composable</td>
+                    <td>テストを自由に組み合わせて実行しても結果が変わらない</td>
+                  </tr>
+                  <tr>
+                    <td>3</td>
+                    <td>Fast</td>
+                    <td>高速に実行できる</td>
+                  </tr>
+                  <tr>
+                    <td>4</td>
+                    <td>Inspiring</td>
+                    <td>テストが通ることで自信が持てる</td>
+                  </tr>
+                  <tr>
+                    <td>5</td>
+                    <td>Writable</td>
+                    <td>テスト対象のコストに対して安価に書ける</td>
+                  </tr>
+                  <tr>
+                    <td>6</td>
+                    <td>Readable</td>
+                    <td>読み手にとって理解しやすい</td>
+                  </tr>
+                  <tr>
+                    <td>7</td>
+                    <td>Behavioral</td>
+                    <td>コードの振る舞いが変わればテスト結果も変わる</td>
+                  </tr>
+                  <tr>
+                    <td>8</td>
+                    <td>Structure-insensitive</td>
+                    <td>コードの内部構造が変わってもテスト結果は変わらない</td>
+                  </tr>
+                  <tr>
+                    <td>9</td>
+                    <td>Automated</td>
+                    <td>人手を介さず自動実行できる</td>
+                  </tr>
+                  <tr>
+                    <td>10</td>
+                    <td>Specific</td>
+                    <td>失敗したとき原因が明確にわかる</td>
+                  </tr>
+                  <tr>
+                    <td>11</td>
+                    <td>Deterministic</td>
+                    <td>何も変えなければ結果は常に同じ</td>
+                  </tr>
+                  <tr>
+                    <td>12</td>
+                    <td>Predictive</td>
+                    <td>テストが通れば本番でも成功すると予測できる</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <h3>Emily Bacheによる「Test Desiderata 2.0」（2025年12月）</h3>
+            <p>
+              著名なテストコーチであるEmily Bacheは、2025年12月にBeckの12性質を再整理した「Test Desiderata 2.0」を提案しました。Bacheは、Beckのリストが「個々のテストの性質」と「テストスイート全体の性質」を混在させていた点に着目し、20名以上のテスト専門家（Kent Beck、Kent C. Dodds、Dave Farley、Michael Feathers、Steve Freeman、Kevlin Henneyなど）の知見を分析した上で、次の4つの「メタ目標」の下に各性質を再配置しました。
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">
+                <i className="ti ti-target-arrow"></i>Test Desiderata 2.0（Emily Bache, 2025）
+              </div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>メタ目標</th>
+                    <th>対応する個々の性質（例）</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>本番での成功を予測できるか（Predict success）</td>
+                    <td>Behavioral、実行品質（性能など）</td>
+                  </tr>
+                  <tr>
+                    <td>速いフィードバックが得られるか（Fast feedback）</td>
+                    <td>Isolated、最小限のデータ、並列実行可能性</td>
+                  </tr>
+                  <tr>
+                    <td>継続的な設計変更を支援できるか（Support design change）</td>
+                    <td>Composable、設計への圧力（Design Pressure）</td>
+                  </tr>
+                  <tr>
+                    <td>保有コストを最小化できるか（Minimize cost of ownership）</td>
+                    <td>Readable、Writable、Deterministic、Diagnosable（失敗原因の特定しやすさ）、Structure-insensitive</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p>
+              この再整理は、Khorikovの「4本柱」と非常に近い発想であり、<strong>「予測力」「速さ」「設計変更への耐性（＝リファクタリング耐性）」「保守コスト」</strong>という軸に世界的な議論が収束しつつあることがわかります。
+            </p>
+
+            <h3>テストピラミッドとテスティングトロフィー、そして現在地</h3>
+            <p>
+              Martin Fowlerが提唱した「テストピラミッド」に対し、Kent C. Dodds（React Testing Libraryの作者）は2018年、ツールの進化（Jest、Cypressなど）を背景に「テスティングトロフィー」を提唱しました。これは、ユニットテストの比重を下げ、統合テストの比重を最大化する考え方です。2026年現在も、フロントエンド領域を中心にトロフィーモデルは広く参照されていますが、いずれのモデルも「実装詳細ではなく振る舞いを検証する」という本書の主張と矛盾するものではなく、<strong>「どの粒度のテストに比重を置くか」というチューニングの違い</strong>として理解するのが実務的です。
+            </p>
+
+            <h3>AI生成コードのテスト（2026年の新しい論点）</h3>
+            <p>
+              2026年に入り、AIコーディングアシスタントが生成するコードの割合が急増したことを受け、「AIが書いたコードをどうテストするか」という新しい論点が広がっています。特に強調されているのが以下の点です。
+            </p>
+            <ul>
+              <li>
+                <strong>Verification Paradox（検証のパラドックス）</strong>: コードを書いたAIモデル自身にテストも書かせると、同じ思考の偏り（バイアス）がテストにも継承され、欠陥を見逃しやすい。コード生成とテスト生成は独立した情報源（仕様書・スキーマ・実トレースなど）に基づかせるべきだとされています。
+              </li>
+              <li>
+                <strong>振る舞いカバレッジの重視</strong>: 行カバレッジは「実行されたか」しか示さないため、ミューテーションテスト（意図的にロジックを壊してテストが検知できるか確認する手法）やプロパティベーステストを組み合わせ、「本当に正しさを検証できているか」を確認する動きが広がっています。
+              </li>
+              <li>
+                これらの新しい実践も、根底にあるのは本書の4本柱のうち特に「回帰に対する保護」を強化する取り組みであり、Khorikovが2020年に示した原則が土台として今も通用していることがわかります。
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        {/* ===== References ===== */}
+        <section className="section" id="references">
+          <div className="section-head">
+            <span className="section-badge"><i className="ti ti-link"></i></span>
+            <h2>参考文献・情報源</h2>
+          </div>
+          <div className="prose">
+            <p>
+              本記事の作成にあたり、以下の一次情報・著名開発者の発信を参照しました（2026年9月5日時点で確認）。
+            </p>
+
+            <div className="ref-group">
+              <h3><i className="ti ti-book-2"></i>書籍本体・出版社情報</h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    O&apos;Reilly（書籍ページ・目次）
+                  </a>
+                  <span className="ref-url">https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://www.manning.com/books/unit-testing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Manning Publications（出版社公式ページ）
+                  </a>
+                  <span className="ref-url">https://www.manning.com/books/unit-testing</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    著者Khorikov氏ブログ掲載チャプター抜粋
+                  </a>
+                  <span className="ref-url">https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3><i className="ti ti-microphone-2"></i>著者インタビュー</h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://techleadjournal.dev/episodes/58/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Tech Lead Journal #58 ― Vladimir Khorikov
+                  </a>
+                  <span className="ref-url">https://techleadjournal.dev/episodes/58/</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-user-star"></i>Martin Fowler（著名な国際的ソフトウェアアーキテクト）
+              </h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://martinfowler.com/articles/mocksArentStubs.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Mocks Aren&apos;t Stubs
+                  </a>
+                  <span className="ref-url">https://martinfowler.com/articles/mocksArentStubs.html</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-user-star"></i>Kent Beck（Extreme Programming / TDDの提唱者）
+              </h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Test Desiderata（2019年、原著論考）
+                  </a>
+                  <span className="ref-url">https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://newsletter.kentbeck.com/p/composable-tests"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Composable Tests（2025年11月、続編）
+                  </a>
+                  <span className="ref-url">https://newsletter.kentbeck.com/p/composable-tests</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://kentbeck.github.io/TestDesiderata/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Test Desiderata 公式まとめページ
+                  </a>
+                  <span className="ref-url">https://kentbeck.github.io/TestDesiderata/</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-user-star"></i>Emily Bache（テストコーチ、Test Desiderata 2.0提唱者）
+              </h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Test Desiderata 2.0（2025年12月）
+                  </a>
+                  <span className="ref-url">https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://lidonis.github.io/Test-Desiderata/framework.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Test Desiderata 2.0 フレームワーク解説
+                  </a>
+                  <span className="ref-url">https://lidonis.github.io/Test-Desiderata/framework.html</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-user-star"></i>Kent C. Dodds（React Testing Library作者）
+              </h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://kentcdodds.com/blog/write-tests"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Write tests. Not too many. Mostly integration.
+                  </a>
+                  <span className="ref-url">https://kentcdodds.com/blog/write-tests</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    The Testing Trophy and Testing Classifications
+                  </a>
+                  <span className="ref-url">https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Static vs Unit vs Integration vs E2E Testing
+                  </a>
+                  <span className="ref-url">https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-user-star"></i>Ian Cooper（.NETコミュニティ、ロンドン.NETユーザーグループ創設者）
+              </h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://www.infoq.com/presentations/tdd-original/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    TDD, Where Did It All Go Wrong?（InfoQ）
+                  </a>
+                  <span className="ref-url">https://www.infoq.com/presentations/tdd-original/</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-user-star"></i>Gary Bernhardt（Destroy All Software創設者）
+              </h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://www.destroyallsoftware.com/talks/boundaries"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Boundaries（Functional Core, Imperative Shellの提唱）
+                  </a>
+                  <span className="ref-url">https://www.destroyallsoftware.com/talks/boundaries</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-user-star"></i>Oliver Drotbohm（Spring Data等のメンテナ）
+              </h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Rethinking Spring Application Integration Testing（2025年12月）
+                  </a>
+                  <span className="ref-url">https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3>
+                <i className="ti ti-robot"></i>AI生成コードのテスト（2026年の最新動向）
+              </h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://skyramp.dev/blog/testing-ai-generated-code"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Testing AI-Generated Code: Best Practices for 2026
+                  </a>
+                  <span className="ref-url">https://skyramp.dev/blog/testing-ai-generated-code</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://testdino.com/blog/how-to-test-ai-generated-code"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    How to Test AI-Generated Code: Best Practices &amp; Checklist (2026)
+                  </a>
+                  <span className="ref-url">https://testdino.com/blog/how-to-test-ai-generated-code</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="ref-group">
+              <h3><i className="ti ti-notes"></i>その他、書籍の要点整理</h3>
+              <div className="ref-grid">
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://notesbylex.com/4-pillars-of-good-unit-tests"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    4 Pillars of Good Unit Tests（要点まとめ）
+                  </a>
+                  <span className="ref-url">https://notesbylex.com/4-pillars-of-good-unit-tests</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://olano.dev/blog/unit-testing-principles/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Unit Testing Principles（要点まとめ、2025年1月）
+                  </a>
+                  <span className="ref-url">https://olano.dev/blog/unit-testing-principles/</span>
+                </div>
+                <div className="ref-card">
+                  <a
+                    className="ref-title"
+                    href="https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    テストダブルの実務ガイド（2026年）
+                  </a>
+                  <span className="ref-url">https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained</span>
+                </div>
+              </div>
+            </div>
+
+            <p className="note-final">
+              本記事は上記ソースの内容を要約・再構成した学習ガイドであり、原著書籍の文章を逐語的に引用するものではありません。詳細な実装例やC#による具体的なコードサンプルについては、必ず原著書籍（Manning Publications刊）を参照してください。
+            </p>
+          </div>
+        </section>
 
         <footer className="footer">
           <p>
