@@ -47,7 +47,7 @@
     max-width: none !important;
     width: auto !important;
     margin-left: var(--sidebar-width);
-    padding: 3.5rem 4rem 6rem;
+    padding: calc(60px + var(--disclaimer-height, 0px) + 2.5rem) 4rem 6rem;
 }
 
 /* ---------- Sidebar ---------- */
@@ -435,7 +435,7 @@
     display: flex;
     justify-content: safe center;
     overflow-x: auto;
-    padding: 1.5rem 1rem;
+    padding: 1rem 0;
     background: var(--paper-card);
     border: 1px solid var(--border);
     border-radius: 0.6rem;
@@ -445,6 +445,8 @@
     width: 100%;
     max-width: 100% !important;
     background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
     display: flex;
     justify-content: center;
 }
@@ -455,26 +457,95 @@
     max-width: 100% !important;
     height: auto !important;
     overflow: visible !important;
+    background: transparent !important;
 }
 
-/* Mermaid edge labels & styling */
-.art-of-testing-layout .mermaid-wrapper .edgeLabels rect {
-    fill: var(--paper-card) !important;
+/* ノード（四角形・角丸・菱形・円など）の背景色と枠線: ラベンダーブルー背景、インディゴ枠線 */
+.art-of-testing-layout .mermaid-wrapper .node rect,
+.art-of-testing-layout .mermaid-wrapper .node circle,
+.art-of-testing-layout .mermaid-wrapper .node ellipse,
+.art-of-testing-layout .mermaid-wrapper .node polygon,
+.art-of-testing-layout .mermaid-wrapper .node path,
+.art-of-testing-layout .mermaid-wrapper .node .basic,
+.art-of-testing-layout .mermaid-wrapper .node .label-container {
+    fill: #eef0fb !important;
+    stroke: #3d4a7a !important;
+    stroke-width: 1.5px !important;
+}
+
+/* ノード内のテキスト色・書体（子孫セレクタで改行2行目以降も完全適用） */
+.art-of-testing-layout .mermaid-wrapper .node .label,
+.art-of-testing-layout .mermaid-wrapper .node .label text,
+.art-of-testing-layout .mermaid-wrapper .node .nodeLabel,
+.art-of-testing-layout .mermaid-wrapper .node .nodeLabel *,
+.art-of-testing-layout .mermaid-wrapper .node text,
+.art-of-testing-layout .mermaid-wrapper .node span,
+.art-of-testing-layout .mermaid-wrapper .node p,
+.art-of-testing-layout .mermaid-wrapper .node div {
+    color: #2a2420 !important;
+    fill: #2a2420 !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+}
+
+/* サブグラフ（クラスタ）の背景・枠線・タイトル: 淡いベージュ背景、薄い枠線 */
+.art-of-testing-layout .mermaid-wrapper .cluster rect {
+    fill: #f6ecd9 !important;
+    stroke: #c9b09a !important;
+    stroke-width: 1px !important;
+    rx: 8px !important;
+    ry: 8px !important;
+}
+
+.art-of-testing-layout .mermaid-wrapper .cluster .label,
+.art-of-testing-layout .mermaid-wrapper .cluster .label text,
+.art-of-testing-layout .mermaid-wrapper .cluster text,
+.art-of-testing-layout .mermaid-wrapper .cluster span {
+    color: #2c3557 !important;
+    fill: #2c3557 !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+}
+
+/* エッジ（接続線と矢印マーカー） */
+.art-of-testing-layout .mermaid-wrapper .edgePath .path,
+.art-of-testing-layout .mermaid-wrapper .flowchart-link {
+    stroke: #6b6055 !important;
+    stroke-width: 1.5px !important;
+}
+
+.art-of-testing-layout .mermaid-wrapper .marker,
+.art-of-testing-layout .mermaid-wrapper marker path {
+    fill: #6b6055 !important;
+    stroke: #6b6055 !important;
+}
+
+/* エッジラベル（テキストと背景） */
+.art-of-testing-layout .mermaid-wrapper .edgeLabel,
+.art-of-testing-layout .mermaid-wrapper .edgeLabel span,
+.art-of-testing-layout .mermaid-wrapper .edgeLabel p,
+.art-of-testing-layout .mermaid-wrapper .edgeLabel text,
+.art-of-testing-layout .mermaid-wrapper .edgeLabels .label {
+    background-color: #faf7f0 !important;
+    color: #2a2420 !important;
+    fill: #2a2420 !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
     stroke: none !important;
 }
 
-.art-of-testing-layout .mermaid-wrapper .edgeLabel,
-.art-of-testing-layout .mermaid-wrapper .edgeLabel span,
-.art-of-testing-layout .mermaid-wrapper .edgeLabel text {
-    background-color: var(--paper-card) !important;
-    color: var(--ink) !important;
-    fill: var(--ink) !important;
-    font-weight: 600 !important;
+.art-of-testing-layout .mermaid-wrapper .edgeLabels rect,
+.art-of-testing-layout .mermaid-wrapper .edgeLabel rect {
+    fill: #faf7f0 !important;
+    stroke: none !important;
 }
 
 .art-of-testing-layout .fig-caption {
     font-family: 'Inter', system-ui, sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: var(--ink-soft);
     text-align: center;
     margin-top: 0.65rem;

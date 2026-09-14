@@ -10,7 +10,38 @@ export const metadata: Metadata = {
     'Glenford J. Myersの古典的名著『The Art of Software Testing』の思想を土台に、テストの7原則、テストピラミッド、TDD、デバッグ技法、AI時代のテスト動向までを初学者向けにステップバイステップで解説する実践ガイド。',
 };
 
-const DIAGRAM_CH1 = `flowchart TB
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "background": "#ffffff",
+    "primaryColor": "#eef0fb",
+    "primaryBorderColor": "#3d4a7a",
+    "primaryTextColor": "#2a2420",
+    "lineColor": "#6b6055",
+    "secondaryColor": "#f6ecd9",
+    "secondaryTextColor": "#2a2420",
+    "tertiaryColor": "#faf7f0",
+    "tertiaryTextColor": "#2a2420",
+    "mainBkg": "#eef0fb",
+    "nodeBorder": "#3d4a7a",
+    "nodeTextColor": "#2a2420",
+    "textColor": "#2a2420",
+    "titleColor": "#2c3557",
+    "edgeLabelBackground": "#faf7f0",
+    "clusterBkg": "#f6ecd9",
+    "clusterBorder": "#c9b09a",
+    "fontFamily": "Inter, 'Noto Sans JP', sans-serif",
+    "fontSize": "16px"
+  },
+  "flowchart": {
+    "curve": "basis",
+    "htmlLabels": true,
+    "subGraphTitleMargin": { "top": 10, "bottom": 28 }
+  }
+}}%%`;
+
+const DIAGRAM_CH1 = `${MERMAID_CONFIG}
+flowchart TB
 subgraph OldWay["よくある誤解（避けるべき考え方）"]
 direction TB
 A1["目的: 正しく動くことを証明する"] --> A2["無意識に成功しそうな入力ばかり選ぶ"]
@@ -23,7 +54,8 @@ B2 --> B3["欠陥発見率の高いテストケースが増える"]
 end
 OldWay ~~~ NewWay`;
 
-const DIAGRAM_CH3 = `flowchart TB
+const DIAGRAM_CH3 = `${MERMAID_CONFIG}
+flowchart TB
 Req["要件定義"] --> Design["設計"]
 Design --> Code["実装"]
 Code --> UT["単体テスト<br/>Unit Test"]
@@ -32,16 +64,19 @@ IT --> ST["システムテスト<br/>System Test"]
 ST --> AT["受け入れテスト<br/>Acceptance Test"]
 AT --> Release["リリース判定"]`;
 
-const DIAGRAM_CH7 = `flowchart TB
+const DIAGRAM_CH7 = `${MERMAID_CONFIG}
+flowchart TB
 Unit["単体テスト（数が多い・高速・安定）"] --> Integration["結合テスト（中程度の数・中速）"]
 Integration --> E2E["E2E / UIテスト（数が少ない・低速・壊れやすい）"]`;
 
-const DIAGRAM_CH8 = `flowchart LR
+const DIAGRAM_CH8 = `${MERMAID_CONFIG}
+flowchart LR
 Red["Red<br/>失敗するテストを書く"] --> Green["Green<br/>テストを通す最小限の実装をする"]
 Green --> Refactor["Refactor<br/>重複を排除し設計を整える"]
 Refactor --> Red`;
 
-const DIAGRAM_CH10 = `flowchart TB
+const DIAGRAM_CH10 = `${MERMAID_CONFIG}
+flowchart TB
 Bug["テストで欠陥を発見"] --> Approach{"どのアプローチを取るか"}
 Approach -->|力任せ法| Brute["メモリダンプや大量のログを総当たりで調べる<br/>手軽だが非効率"]
 Approach -->|逆行法| Backtrack["失敗が現れた箇所から実行を逆にたどる<br/>小規模なバグに有効"]
@@ -50,7 +85,8 @@ Brute --> Fix["修正を行い再テストで検証する"]
 Backtrack --> Fix
 Induction --> Fix`;
 
-const DIAGRAM_CH11 = `flowchart TB
+const DIAGRAM_CH11 = `${MERMAID_CONFIG}
+flowchart TB
 Commit["コードをコミット"] --> Pipeline["CIパイプラインを起動"]
 Pipeline --> UnitCI["単体テストを実行"]
 UnitCI --> IntegrationCI["結合テストを実行"]
