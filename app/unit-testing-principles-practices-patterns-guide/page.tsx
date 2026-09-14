@@ -9,7 +9,10 @@ export const metadata = {
   description: 'Vladimir Khorikov著『Unit Testing Principles, Practices, and Patterns』に基づく単体テスト実践ガイド。4本柱、AAAパターン、古典派vsロンドン派、モックの正しい使い方まで。',
 };
 
-const DIAGRAM_0 = `flowchart TB
+const MERMAID_CONFIG = `%%{init: { "theme": "base", "themeVariables": { "fontFamily": "Inter, sans-serif", "fontSize": "16px", "primaryColor": "#eef0fb", "primaryBorderColor": "#34419e", "primaryTextColor": "#2b2318", "lineColor": "#8a8170", "secondaryColor": "#f8ecd3", "tertiaryColor": "#fffdf7", "clusterBkg": "#f3ecd8", "clusterBorder": "#c9b98a", "edgeLabelBackground": "#fffdf7" }, "flowchart": { "htmlLabels": true, "curve": "basis", "subGraphTitleMargin": { "top": 15, "bottom": 70 } } }}%%`;
+
+const DIAGRAM_0 = `${MERMAID_CONFIG}
+flowchart TB
 A["テストがない、または壊れやすい"] --> B["リファクタリングが怖くなる"]
 B --> C["技術的負債が蓄積し、コードが腐敗する"]
 C --> D["変更コストが増大し開発速度が低下する"]
@@ -22,11 +25,13 @@ H --> E
 
 D ~~~ E`;
 
-const DIAGRAM_1 = `flowchart LR
+const DIAGRAM_1 = `${MERMAID_CONFIG}
+flowchart LR
 A["Arrange<br/>テスト対象と入力データを準備する"] --> B["Act<br/>テスト対象のメソッドを実行する"]
 B --> C["Assert<br/>結果を検証する"]`;
 
-const DIAGRAM_2 = `flowchart TB
+const DIAGRAM_2 = `${MERMAID_CONFIG}
+flowchart TB
 Start["あるテストを4本柱で評価する"] --> E2E["End-to-Endテスト"]
 Start --> Trivial["些末(trivial)なテスト<br/>例: 単純なgetter/setterのテスト"]
 Start --> Brittle["壊れやすい(brittle)テスト<br/>例: 実装の内部呼び出し順序を検証するテスト"]
@@ -35,14 +40,16 @@ E2E --> E2ERes["回帰への保護◎ / リファクタリング耐性◎<br/>�
 Trivial --> TrivialRes["リファクタリング耐性◎ / 速いフィードバック◎<br/>回帰への保護×"]
 Brittle --> BrittleRes["回帰への保護◎ / 速いフィードバック◎<br/>リファクタリング耐性×"]`;
 
-const DIAGRAM_3 = `flowchart TB
+const DIAGRAM_3 = `${MERMAID_CONFIG}
+flowchart TB
 Q1["このテストで何を確認したいか？"] --> Q2{"外部への副作用そのものが<br/>重要な結果か？<br/>例: メール送信, 決済API呼び出し"}
 Q2 -- "はい(振る舞い検証)" --> Mock["Mock を使う<br/>(呼び出しの有無・内容を検証)"]
 Q2 -- "いいえ(状態検証で十分)" --> Q3{"戻り値を制御したいだけか？"}
 Q3 -- "はい" --> Stub["Stub を使う"]
 Q3 -- "いいえ、呼ばれた記録も見たい" --> Spy["Spy を使う"]`;
 
-const DIAGRAM_4 = `flowchart TB
+const DIAGRAM_4 = `${MERMAID_CONFIG}
+flowchart TB
 subgraph Shell["Imperative Shell(副作用を扱う薄い層)"]
     In["入力の取得<br/>(DB読み込み・HTTPリクエストなど)"]
     Out["出力の反映<br/>(DB書き込み・メール送信など)"]
@@ -53,23 +60,25 @@ end
 In --> Logic
 Logic --> Out`;
 
-const DIAGRAM_5 = `flowchart TB
+const DIAGRAM_5 = `${MERMAID_CONFIG}
+flowchart TB
 subgraph Before["リファクタリング前"]
-    B1["Controller<br/>(ロジック + DB呼び出し + HTTP処理が混在)"]
+    B1["Controller<br/>（ロジック + DB呼び出し + HTTP処理が混在）"]
 end
 subgraph After["リファクタリング後"]
-    A1["Humble Controller<br/>(外部との協調のみ・薄い)"]
-    A2["Domain Logic<br/>(複雑な判断ロジックのみ・純粋)"]
+    A1["Humble Controller<br/>（外部との協調のみ・薄い）"]
+    A2["Domain Logic<br/>（複雑な判断ロジックのみ・純粋）"]
     A1 --> A2
 end
 B1 -.->|"責務を分離する"| A1`;
 
-const DIAGRAM_6 = `flowchart TB
+const DIAGRAM_6 = `${MERMAID_CONFIG}
+flowchart TB
     D["外部依存を洗い出す"] --> Q1{"自チームがスキーマと挙動を<br/>制御できるか？"}
-    Q1 -- "いいえ(他チーム/外部が所有)" --> Unmanaged["Unmanaged Dependency<br/>制御できない、または外部から観測される<br/>境界でモックに置き換える<br/>(例: 決済API, メール送信, 外部公開テーブル)"]
-    Q1 -- "はい(自チームが所有)" --> Q2{"その依存の状態は外部の<br/>第三者から直接観測されるか？"}
-    Q2 -- "はい(外部にも見える/共有)" --> Unmanaged
-    Q2 -- "いいえ(自チームだけが見る)" --> Managed["Managed Dependency<br/>制御でき、かつ外部から観測されない<br/>実物を使ってテストする<br/>(例: 自チーム専用DB)"]`;
+    Q1 -- "いいえ（他チーム/外部が所有）" --> Unmanaged["Unmanaged Dependency<br/>制御できない、または外部から観測される<br/>境界でモックに置き換える<br/>（例: 決済API, メール送信, 外部公開テーブル）"]
+    Q1 -- "はい（自チームが所有）" --> Q2{"その依存の状態は外部の<br/>第三者から直接観測されるか？"}
+    Q2 -- "はい（外部にも見える/共有）" --> Unmanaged
+    Q2 -- "いいえ（自チームだけが見る）" --> Managed["Managed Dependency<br/>制御でき、かつ外部から観測されない<br/>実物を使ってテストする<br/>（例: 自チーム専用DB）"]`;
 
 export default function Page() {
   return (
@@ -183,7 +192,7 @@ export default function Page() {
               ユニットテストの本当の目的は、<strong>「ソフトウェアプロジェクトの持続的成長を可能にすること」</strong>です。テストが無い、またはテストが壊れやすいプロジェクトでは、次のような悪循環に陥ります。
             </p>
 
-            <div className="mermaid-wrapper" id="diag-0">
+            <div className="mermaid-wrap" id="diag-0">
               <Mermaid chart={DIAGRAM_0} />
             </div>
             <p className="diagram-caption">
@@ -339,7 +348,7 @@ export default function Page() {
               良いユニットテストは、例外なく次の3つのセクションで構成すべきだと本書は説きます。これは<strong>AAAパターン（Arrange-Act-Assert）</strong>と呼ばれ、xUnit系フレームワーク全般で共通する基本構造です。
             </p>
 
-            <div className="mermaid-wrapper" id="diag-1">
+            <div className="mermaid-wrap" id="diag-1">
               <Mermaid chart={DIAGRAM_1} />
             </div>
             <p className="diagram-caption">図2: AAAパターンの流れ</p>
@@ -459,7 +468,7 @@ export default function Page() {
               4本柱を同時に完璧に満たすテストは原理的に作れません。本書は次の3つの「極端な例」を挙げて、トレードオフの構造を説明しています。
             </p>
 
-            <div className="mermaid-wrapper" id="diag-2">
+            <div className="mermaid-wrap" id="diag-2">
               <Mermaid chart={DIAGRAM_2} />
             </div>
             <p className="diagram-caption">図3: 4本柱のトレードオフ ― 3つの極端な例</p>
@@ -626,7 +635,7 @@ export default function Page() {
               「状態を確認したいのか」「振る舞い（呼び出し）を確認したいのか」で使い分けます。Martin Fowlerが提唱する「state verification（状態検証） vs behavior verification（振る舞い検証）」の考え方を、意思決定フローチャートにすると次のようになります。
             </p>
 
-            <div className="mermaid-wrapper" id="diag-3">
+            <div className="mermaid-wrap" id="diag-3">
               <Mermaid chart={DIAGRAM_3} />
             </div>
             <p className="diagram-caption">図4: テストダブルの選び方 ― 意思決定フロー</p>
@@ -697,7 +706,7 @@ export default function Page() {
               Output-basedスタイルを最大限に活用するための設計指針として、本書はGary Bernhardt氏が講演「Boundaries」で提唱した<strong>Functional Core, Imperative Shell</strong>の考え方を紹介しています。ビジネスロジックを副作用のない純粋な計算（Functional Core）として切り出し、DBアクセスや外部APIといった副作用は薄い外殻（Imperative Shell）に押し出す、という設計です。
             </p>
 
-            <div className="mermaid-wrapper" id="diag-4">
+            <div className="mermaid-wrap" id="diag-4">
               <Mermaid chart={DIAGRAM_4} />
             </div>
             <p className="diagram-caption">図5: Functional Core, Imperative Shell</p>
@@ -725,7 +734,7 @@ export default function Page() {
               「テストしにくいコード」の多くは、<strong>複雑なロジック</strong>と<strong>外部依存との協調</strong>が同じクラスの中に同居していることが原因です。本書は、この2つを分離する手法として<strong>Humble Object パターン</strong>を紹介しています。
             </p>
 
-            <div className="mermaid-wrapper" id="diag-5">
+            <div className="mermaid-wrap" id="diag-5">
               <Mermaid chart={DIAGRAM_5} />
             </div>
             <p className="diagram-caption">
@@ -812,7 +821,7 @@ export default function Page() {
               判定は「制御できるか」と「外部から観測されるか」の2つを<strong>両方</strong>満たすかどうかで行います。Managed dependency は「自チームが制御でき、<strong>かつ</strong>外部から直接観測されない」場合に限られ、いずれか一方でも欠ける（制御できない、<strong>または</strong>外部から観測される）場合は Unmanaged dependency として扱います。
             </p>
 
-            <div className="mermaid-wrapper" id="diag-6">
+            <div className="mermaid-wrap" id="diag-6">
               <Mermaid chart={DIAGRAM_6} />
             </div>
             <p className="diagram-caption">

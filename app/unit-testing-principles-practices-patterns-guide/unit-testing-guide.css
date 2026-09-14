@@ -61,7 +61,7 @@
   margin-left: var(--sidebar-w);
   max-width: none !important;
   width: calc(100% - var(--sidebar-w)) !important;
-  padding: 3.5rem 4.5rem 6rem;
+  padding: calc(60px + var(--disclaimer-height, 0px) + 2.5rem) 4.5rem 6rem;
   flex: 1 1 auto;
 }
 
@@ -233,7 +233,7 @@
 /* ===== Sections ===== */
 .unit-testing-layout .section {
   margin-bottom: 4rem;
-  scroll-margin-top: calc(70px + var(--disclaimer-height, 0px));
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 2rem);
 }
 
 .unit-testing-layout .section-head {
@@ -439,41 +439,130 @@
 }
 
 /* ===== Mermaid ===== */
-.unit-testing-layout .mermaid-wrapper {
+/* 外枠コンテナ: 大元 HTML の .mermaid-wrapper と同じカード枠 */
+.unit-testing-layout .mermaid-wrap {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
   overflow-x: auto;
-  padding: 1rem 0.5rem;
+  padding: 0.75rem 0;
   margin: 2rem 0;
   background: var(--paper-card) !important;
   border: 1px solid var(--border) !important;
   border-radius: 14px;
+  box-shadow: none !important;
+}
+
+/* 内側 .mermaid-wrapper: globals.css の背景・枠線・影・マージンを完全リセット（2重枠防止） */
+.unit-testing-layout .mermaid-wrapper {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 1rem !important;
+  margin: 0 !important;
+  max-width: 100% !important;
+  width: auto !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  overflow: visible !important;
 }
 
 .unit-testing-layout .mermaid-wrapper svg {
   max-width: 100% !important;
   height: auto !important;
   flex-shrink: 0;
+  display: block !important;
+  margin: 0 auto !important;
 }
 
+/* ノードスタイル: 淡いラベンダーブルー (#eef0fb) + インディゴ枠線 (#34419e) */
+.unit-testing-layout .mermaid-wrapper .node rect,
+.unit-testing-layout .mermaid-wrapper .node circle,
+.unit-testing-layout .mermaid-wrapper .node ellipse,
+.unit-testing-layout .mermaid-wrapper .node polygon,
+.unit-testing-layout .mermaid-wrapper .node path,
+.unit-testing-layout .mermaid-wrapper .node .basic,
+.unit-testing-layout .mermaid-wrapper .node .label-container {
+  fill: #eef0fb !important;
+  stroke: #34419e !important;
+  stroke-width: 1.5px !important;
+}
+
+/* ノードテキスト: 濃いインク色 (#2b2318) */
+.unit-testing-layout .mermaid-wrapper .node .label,
+.unit-testing-layout .mermaid-wrapper .node .label text,
+.unit-testing-layout .mermaid-wrapper .node .nodeLabel,
+.unit-testing-layout .mermaid-wrapper .node .nodeLabel *,
+.unit-testing-layout .mermaid-wrapper .node text,
+.unit-testing-layout .mermaid-wrapper .node span,
+.unit-testing-layout .mermaid-wrapper .node p,
+.unit-testing-layout .mermaid-wrapper .node div {
+  color: #2b2318 !important;
+  fill: #2b2318 !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  font-weight: 500 !important;
+}
+
+/* サブグラフ (cluster): 淡いベージュ (#f3ecd8) + 枠線 (#c9b98a) */
+.unit-testing-layout .mermaid-wrapper .cluster rect,
+.unit-testing-layout .mermaid-wrapper .cluster path,
+.unit-testing-layout .mermaid-wrapper .cluster polygon {
+  fill: #f3ecd8 !important;
+  stroke: #c9b98a !important;
+  stroke-width: 1.5px !important;
+  rx: 8px !important;
+  ry: 8px !important;
+}
+
+.unit-testing-layout .mermaid-wrapper .cluster text,
+.unit-testing-layout .mermaid-wrapper .cluster .cluster-label,
+.unit-testing-layout .mermaid-wrapper .cluster .cluster-label span,
+.unit-testing-layout .mermaid-wrapper .cluster .nodeLabel {
+  fill: #2b2318 !important;
+  color: #2b2318 !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+/* エッジ（矢印線）: ウォームグレー (#8a8170) */
+.unit-testing-layout .mermaid-wrapper .edgePath .path,
+.unit-testing-layout .mermaid-wrapper .edge-thickness-normal,
+.unit-testing-layout .mermaid-wrapper .flowchart-link {
+  stroke: #8a8170 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* 矢印マーカー（先端） */
+.unit-testing-layout .mermaid-wrapper marker path,
+.unit-testing-layout .mermaid-wrapper .marker {
+  fill: #8a8170 !important;
+  stroke: #8a8170 !important;
+}
+
+/* エッジラベル背景 & テキスト: 白/アイボリー (#fffdf7) + 濃いインク色 */
+.unit-testing-layout .mermaid-wrapper .edgeLabel rect,
 .unit-testing-layout .mermaid-wrapper .edgeLabels rect {
-  fill: var(--paper-card) !important;
+  fill: #fffdf7 !important;
   stroke: none !important;
+  rx: 4px !important;
+  ry: 4px !important;
 }
 
 .unit-testing-layout .mermaid-wrapper .edgeLabel,
 .unit-testing-layout .mermaid-wrapper .edgeLabel span,
+.unit-testing-layout .mermaid-wrapper .edgeLabel p,
 .unit-testing-layout .mermaid-wrapper .edgeLabel text {
-  background-color: var(--paper-card) !important;
-  color: var(--ink) !important;
-  fill: var(--ink) !important;
-  font-weight: 700 !important;
-}
-
-.unit-testing-layout .mermaid-wrapper .node .nodeLabel,
-.unit-testing-layout .mermaid-wrapper .node .nodeLabel * {
-  color: #ffffff !important;
+  background-color: #fffdf7 !important;
+  color: #2b2318 !important;
+  fill: #2b2318 !important;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
 }
 
 .unit-testing-layout .diagram-caption {
