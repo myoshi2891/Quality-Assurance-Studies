@@ -204,7 +204,7 @@ flowchart TD
     b --> d["現状の年間コスト<br/>例：合計900万ドル＋既存ツール費用"]
     e["自動化後の想定<br/>インシデント頻度と損失額"] --> f["自動化後の運用・維持コスト<br/>（人件費含む）"]
     f --> g["将来コストの見積もり"]
-    d --> h["ROI＝現状コスト − 将来コスト"]
+    d --> h["年間コスト削減額＝現状コスト − 将来コスト"]
     g --> h
 ```
 
@@ -299,7 +299,7 @@ flowchart TB
 - 推論（予測）が高速
 - チューニングすべきパラメータが少なく、主に学習率と各決定木の複雑さ程度で済む
 
-実装ライブラリとしては[XGBoost](https://xgboost.readthedocs.io/en/latest/index.html)の利用が勧められています[^8]。
+実装ライブラリとしては<a href="https://xgboost.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener noreferrer">XGBoost</a>の利用が勧められています[^8]。
 
 ```mermaid
 flowchart LR
@@ -312,7 +312,7 @@ flowchart LR
 
 #### ④ モデルの説明可能性：SHAP値
 
-異常を検知できても、「どこが」「どれくらい深刻か」がわからなければ対応しようがありません。書籍が推奨するのは[SHAP（SHapley Additive exPlanations）](https://shap.readthedocs.io/en/latest/index.html)を用いて、各セル（行×列）がモデルの予測にどれだけ寄与したかを算出する方法です[^8]。
+異常を検知できても、「どこが」「どれくらい深刻か」がわからなければ対応しようがありません。書籍が推奨するのは<a href="https://shap.readthedocs.io/en/latest/index.html" target="_blank" rel="noopener noreferrer">SHAP（SHapley Additive exPlanations）</a>を用いて、各セル（行×列）がモデルの予測にどれだけ寄与したかを算出する方法です[^8]。
 
 SHAP値を使うことで、「軽微」から「深刻」までの重大度を可視化し、数千ものデータポイントを横断して「どこを調査すべきか」を一目で把握できるようになります。たとえば、ある値の出現頻度が急に減り、別の値が急増していれば、その部分でラベル付けの誤りが起きている可能性が高い、といった読み解きができます[^8]。
 
