@@ -491,3 +491,128 @@ describe('TDD by Example Guide - Category 3 (Ch08-Ch12: Three Laws, Canon, Pitfa
     expect(callout?.textContent).toContain('本書が教える「小さなステップ」「テストリスト」「Red-Green-Refactor」という基本規律そのものの価値は変わっていない');
   });
 });
+
+describe('TDD by Example Guide - Category 4 (Ch13-Ch16: Checklist, Roadmap, Summary, References, Footer)', () => {
+  it('renders Section 13: 初学者向けベストプラクティス・チェックリスト (#checklist) with 9 items and counter', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#checklist');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('13');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('初学者向けベストプラクティス・チェックリスト');
+
+    const counter = sec?.querySelector('.checklist-counter');
+    expect(counter).not.toBeNull();
+    expect(counter?.textContent).toContain('0 / 9 完了');
+
+    const checkboxes = sec?.querySelectorAll('.checklist input[type="checkbox"]');
+    expect(checkboxes?.length).toBe(9);
+
+    const labels = sec?.querySelectorAll('.checklist label');
+    expect(labels?.[0].textContent).toContain('環境準備');
+    expect(labels?.[1].textContent).toContain('テストリスト作成');
+    expect(labels?.[2].textContent).toContain('最初のテスト');
+    expect(labels?.[3].textContent).toContain('Red確認');
+    expect(labels?.[4].textContent).toContain('最小実装');
+    expect(labels?.[5].textContent).toContain('Green確認');
+    expect(labels?.[6].textContent).toContain('リファクタリング');
+    expect(labels?.[7].textContent).toContain('次のテストへ');
+    expect(labels?.[8].textContent).toContain('振り返り');
+
+    const notes = sec?.querySelectorAll('.cl-note');
+    expect(notes?.length).toBe(9);
+  });
+
+  it('renders Section 14: 学習ロードマップ (#roadmap) with Mermaid dg-roadmap', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#roadmap');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('14');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('学習ロードマップ');
+
+    const diag = sec?.querySelector('#dg-roadmap');
+    expect(diag).not.toBeNull();
+    const caption = sec?.querySelector('.mermaid-caption');
+    expect(caption?.textContent).toContain('図: 初学者のための学習ロードマップ');
+
+    expect(sec?.textContent).toContain('TDDは読むだけでは体得できない、身体で覚える技術だからです');
+  });
+
+  it('renders Section 15: まとめ (#summary) with 6 summary items', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#summary');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('15');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('まとめ');
+
+    const listItems = sec?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(6);
+    expect(listItems?.[0].textContent).toContain('Red → Green → Refactorという規律あるサイクルを通じて');
+    expect(listItems?.[1].textContent).toContain('Part I（実例）、Part II（テストフレームワーク自体の実装）、Part III（パターン集）');
+    expect(listItems?.[2].textContent).toContain('Fake It／Triangulate／Obvious Implementationという3つの戦略');
+    expect(listItems?.[3].textContent).toContain('DHH・Kent Beck・Martin Fowlerによる「Is TDD Dead?」論争');
+    expect(listItems?.[4].textContent).toContain('AIコーディングエージェントの台頭により');
+    expect(listItems?.[5].textContent).toContain('20年以上前に書かれた本書の核心的な考え方は、時代が変わった今も色褪せていない');
+  });
+
+  it('renders Section 16: 参考文献・出典 (#references) with all 9 external references', () => {
+    const { container } = render(<Page />);
+    const sec = container.querySelector('#references');
+    expect(sec).not.toBeNull();
+
+    const eyebrow = sec?.querySelector('.section-eyebrow');
+    expect(eyebrow?.textContent).toContain('16');
+
+    const h2 = sec?.querySelector('h2');
+    expect(h2?.textContent).toBe('参考文献・出典');
+
+    const links = sec?.querySelectorAll('ul.ref-list li a');
+    expect(links?.length).toBe(9);
+
+    const expectedRefs = [
+      { href: 'https://www.oreilly.com/library/view/test-driven-development/0321146530/', title: "Test Driven Development: By Example（O'Reilly掲載ページ）", desc: '書誌情報・目次' },
+      { href: 'https://martinfowler.com/bliki/TestDrivenDevelopment.html', title: 'Martin Fowler, "bliki: Test Driven Development"', desc: 'TDDの定義に関する解説' },
+      { href: 'https://martinfowler.com/articles/is-tdd-dead/', title: 'Martin Fowler, "Is TDD Dead?"', desc: 'Kent Beck・DHHとの対話シリーズ' },
+      { href: 'https://dhh.dk/2014/tdd-is-dead-long-live-testing.html', title: 'David Heinemeier Hansson, "TDD is dead. Long live testing."（2014年）', desc: '論争の発端となった記事' },
+      { href: 'https://blog.cleancoder.com/uncle-bob/2014/12/17/TheCyclesOfTDD.html', title: 'Robert C. Martin（Uncle Bob）, "The Cycles of TDD"', desc: 'Three Laws of TDDの解説' },
+      { href: 'https://newsletter.kentbeck.com/p/canon-tdd', title: 'Kent Beck, "Canon TDD"（2023年）', desc: 'Kent Beckが自身のTDD手順を整理した記事' },
+      { href: 'https://newsletter.kentbeck.com/p/augmented-coding-beyond-the-vibes', title: 'Kent Beck, "Augmented Coding: Beyond the Vibes"', desc: 'AI時代のTDDに関する考察' },
+      { href: 'https://newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent', title: 'The Pragmatic Engineer, "TDD, AI agents and coding with Kent Beck"', desc: 'Gergely Oroszによるインタビュー' },
+      { href: 'https://kentbeck.com/', title: 'Kent Beck 公式サイト', desc: '近年の活動・Canon TDD講演等の紹介' },
+    ];
+
+    expectedRefs.forEach((expected, i) => {
+      const link = links?.[i];
+      expect(link?.getAttribute('href')).toBe(expected.href);
+      expect(link?.getAttribute('target')).toBe('_blank');
+      expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(link?.textContent).toContain(expected.title);
+
+      const desc = link?.parentElement?.querySelector('.ref-desc');
+      expect(desc?.textContent).toBe(expected.desc);
+    });
+  });
+
+  it('renders footer with disclaimer and original book link', () => {
+    const { container } = render(<Page />);
+    const footer = container.querySelector('footer.footer');
+    expect(footer).not.toBeNull();
+    expect(footer?.textContent).toContain('本ページはKent Beckの著書『Test-Driven Development: By Example』の内容を、初学者向けに要約・再構成した学習補助資料です');
+
+    const link = footer?.querySelector('a');
+    expect(link?.getAttribute('href')).toBe('https://www.oreilly.com/library/view/test-driven-development/0321146530/');
+    expect(link?.getAttribute('target')).toBe('_blank');
+    expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
+  });
+});
