@@ -78,7 +78,8 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/explore-it-guide', h1: /Explore It! を読み解く/ },
   { path: '/owasp-zap-beginner-guide', h1: /OWASP ZAP 完全ガイド/ },
   { path: '/lessons-learned-in-software-testing-guide', h1: /Lessons Learned in Software Testing.*実践ガイド/s },
+  { path: '/art-of-software-testing-guide', h1: /The Art of Software Testing.*実践ガイド/s },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 65;
+export const EXPECTED_PAGE_COUNT = 66;
 
