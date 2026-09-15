@@ -414,7 +414,7 @@ Rapid Software Testingの創始者であるJames BachとMichael Boltonは、GenA
 
 ### 2. 「テストにAIを使う」と「AIをテストする」は別のスキルである
 
-国際的なテスト資格認定団体ISTQBは、2026年4月にCertified Tester AI Testing（CT-AI）シラバスのバージョン2.0をリリースしました。このバージョンでは、旧バージョンに含まれていた「テストにAIを活用する」という内容が切り離され、「AIベースのシステムそのものをどうテストするか」（データ品質、モデルの振る舞い、公平性、説明可能性など）に特化した内容へと再編されています。「テストにAIを使う」テーマは、新設のCT-GenAI資格が担うことになりました。本書のタイトルにある「AI-Driven Software Testing」は基本的に前者（AIを使ってテストを行う）を扱っていますが、AI／ML機能そのものを含む製品を開発・テストする立場の人は、後者（AIシステムのテスト）についても別途学ぶ必要があることを意識しておくとよいでしょう。
+国際的なテスト資格認定団体ISTQBは、2026年4月にCertified Tester AI Testing（CT-AI）シラバスのバージョン2.0をリリースしました。このバージョンでは、旧バージョンに含まれていた「テストにAIを活用する」という内容が切り離され、「AIベースのシステムそのものをどうテストするか」（データ品質、モデルの振る舞い、公平性、説明可能性など）に特化した内容へと再編されています。「テストにAIを使う」テーマは、生成AIをテスト工程で活用するための専門資格であるCT-GenAI（Certified Tester Specialist Level: Testing with Generative AI）が担っており、2026年4月には内容を微修正したシラバスv1.1が公開されています[13]。本書のタイトルにある「AI-Driven Software Testing」は基本的に前者（AIを使ってテストを行う）を扱っていますが、AI／ML機能そのものを含む製品を開発・テストする立場の人は、後者（AIシステムのテスト）についても別途学ぶ必要があることを意識しておくとよいでしょう。
 
 ### 3. 成功事例は「参考になる仮説」であって「統計的な証拠」ではない
 
@@ -468,6 +468,7 @@ flowchart TD
 10. DORA「Balancing AI tensions: Moving from AI adoption to effective SDLC use」（検証税の解説）: <a href="https://dora.dev/insights/balancing-ai-tensions/" target="_blank" rel="noopener noreferrer">https://dora.dev/insights/balancing-ai-tensions/</a>
 11. ISTQB「ISTQB Releases Certified Tester AI Testing (CT-AI) Syllabus Version 2.0」: <a href="https://istqb.org/istqb-releases-certified-tester-ai-testing-ct-ai-syllabus-version-2-0/" target="_blank" rel="noopener noreferrer">https://istqb.org/istqb-releases-certified-tester-ai-testing-ct-ai-syllabus-version-2-0/</a>
 12. ISTQB「Certified Tester AI Testing (CT-AI)」公式資格ページ: <a href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/" target="_blank" rel="noopener noreferrer">https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/</a>
+13. ISTQB「Certified Tester Specialist Level – Testing with Generative AI (CT-GenAI)」公式資格ページ: <a href="https://istqb.org/certifications/gen-ai/" target="_blank" rel="noopener noreferrer">https://istqb.org/certifications/gen-ai/</a>
 
 ---
 
