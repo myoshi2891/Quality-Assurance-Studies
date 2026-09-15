@@ -32,7 +32,7 @@ export default function Checklist() {
 
   return (
     <>
-      <div className="checklist-counter">
+      <div className="checklist-counter" role="status">
         <span id="checklistCount">{doneCount}</span> / {CHECKLIST_ITEMS.length} 完了
       </div>
       <ul className="checklist" id="checklistItems">

@@ -115,7 +115,7 @@ export default function Page() {
               <div className="value">978-1-61729-627-7</div>
             </div>
             <div>
-              <div className="label"><i className="ti ti-external-link"></i>出版社ページ</div>
+              <div className="label"><i className="ti ti-external-link"></i>O&apos;Reillyの書籍ページ</div>
               <div className="value">
                 <a
                   href="https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/"
