@@ -936,7 +936,7 @@ export default function ArtOfSoftwareTestingPage() {
                 </div>
               </li>
               <li className="ref-item">
-                <span className="ref-no">8</span>
+                <span className="ref-no">6</span>
                 <div className="ref-body">
                   <span className="ref-title">
                     FIRST Principles as Solid Rules for Tests（Robert C. Martinの提唱を解説）— DZone
@@ -958,7 +958,7 @@ export default function ArtOfSoftwareTestingPage() {
             <h3>公式ブログ・標準化団体</h3>
             <ul className="ref-list">
               <li className="ref-item">
-                <span className="ref-no">6</span>
+                <span className="ref-no">7</span>
                 <div className="ref-body">
                   <span className="ref-title">
                     Code Coverage Best Practices — Google Testing Blog
@@ -974,7 +974,7 @@ export default function ArtOfSoftwareTestingPage() {
                 </div>
               </li>
               <li className="ref-item">
-                <span className="ref-no">7</span>
+                <span className="ref-no">8</span>
                 <div className="ref-body">
                   <span className="ref-title">
                     Flaky Tests at Google and How We Mitigate Them — Google Testing Blog
