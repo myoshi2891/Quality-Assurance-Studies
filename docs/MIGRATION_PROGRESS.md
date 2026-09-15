@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `17cf55b` |
-| 最新コミット内容 | `docs(migration): archive unit-testing guide and sync tracking documents` |
+| 最新 HEAD | `5684249` |
+| 最新コミット内容 | `docs(genai-guide): update ISTQB CT-GenAI reference to v1.1` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -69,11 +69,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/14: 『The Art of Software Testing』実践ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & クラシック・ペーパーテーマ**:
-  - 原著HTML固有のクラシック・ペーパーテーマ（紙の背景 `--paper: #faf7f0`、インク文字 `--ink: #1a1814`、バーガンディ `--burgundy: #7a1f1d`、アンバー `--amber: #8a5a1e`、セージ `--sage: #2d5a3d`、フォント `Source Serif 4`, `Inter`, `Noto Serif JP`）を忠実に復元。
+  - 原著HTML固有のクラシック・ペーパーテーマ（紙の背景 `--paper: #faf7f0`、インク文字 `--ink: #2a2420`、インディゴ `--indigo: #3d4a7a`、ゴールド `--gold: #a97a1f`、フォント `Source Serif 4`, `Inter`, `Noto Serif JP`）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、順序付きリスト `list-style-type: decimal !important`、`.law-box`、`.rule-box`、`.note-box`、`.checklist-item` 等）を完全実装。
   - **サイドバー境界線 & スクロールバートラック透明化**: `sidebar` のスクロールバートラックによって生じていたダークカラー（`#070a14`）の太帯を `::-webkit-scrollbar-track { background: transparent !important; }` で完全に解消し、元HTMLの繊細な境界線に復元。オフセットも `var(--disclaimer-height)` に連動し、各セクションに `scroll-margin-top` を設定。
 - **Mermaid図解の完全移植 & クラシック・ペーパーテーマ復元**:
-  - 全6図解（テストの心理学 `#diag-ch1`、テストの経済性と限界 `#diag-ch2`、現代テストピラミッド `#diag-ch7`、TDDサイクルとフィードバックループ `#diag-ch8`、帰納的・演繹的デバッグプロセス `#diag-ch10`、継続的テストとシフトレフト・シフトライト `#diag-ch11`）を共通 `<Mermaid>` コンポーネントへ移植。
+  - 全6図解（テストの心理学 `#diag-ch1`、要件定義からリリース判定までのテストレベルの流れ `#diag-ch3`、現代テストピラミッド `#diag-ch7`、TDDサイクルとフィードバックループ `#diag-ch8`、帰納的・演繹的デバッグプロセス `#diag-ch10`、継続的テストとシフトレフト・シフトライト `#diag-ch11`）を共通 `<Mermaid>` コンポーネントへ移植。
   - `components/Mermaid.tsx` のグローバル dark テーマ設定との競合を解消するため、CSSで通常ノード、サブグラフ、ハブノード、エッジ線のスタイルを完全定義。元HTMLのデザインを100%忠実に再現。
 - **テーブル & コールアウト & 実践チェックリスト**:
   - 全7テーブル（マイヤーズの三角形テスト14項目、テストの経済性5ルール、同値分割法3原則、境界値分析4ケース設計、コードカバレッジ5基準、非実行型テスト4技法、FIRST原則の現代的実践）を完全移植。
