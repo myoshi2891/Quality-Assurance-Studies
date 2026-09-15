@@ -31,7 +31,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れ（スペース化）を完全に防止。
 - **テーブル & コールアウト & インタラクティブチェックリスト**:
   - 全13テーブル（本ガイドの前提、ユニットテストの3つの性質、classical school vs London school、良いユニットテストの4本柱、モック vs スタブ、テストダブルの5分類、3つのテストスタイル、Managed dependency vs Unmanaged dependency、モッキングのベストプラクティス、トランザクション管理の方式、6つのアンチパターン、Test Desiderata（Kent Beck, 2019）、Test Desiderata 2.0（Emily Bache, 2025））を完全移植。
-  - コールアウト3件（Kent Beckの言葉、古典派 vs ロンドン派の統一原則、Hexagonal Architectureとの関連）を完全移植。
+  - コールアウト3件（「1ユニット = 1メソッド」誤解とIan Cooperの解説、古典派 vs ロンドン派の統一原則、Hexagonal Architectureとの関連）を完全移植。
   - セクション14の実践ステップバイステップ・チェックリスト（`Checklist.tsx`、全10項目動的カウンター・トグル対応）を完全実装。
 - **参考文献 & 外部リンク**:
   - 全21件の参考文献（書籍本体、著者インタビュー、Martin Fowler、Kent Beck、Emily Bache、Kent C. Dodds、Ian Cooper、Gary Bernhardt、Oliver Drotbohm、AI生成コード動向、要点まとめ、計11グループ）を完全移植。
