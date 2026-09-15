@@ -1,0 +1,695 @@
+/* ==========================================================================
+   The Art of Software Testing Guide - Classic Paper Theme
+   ========================================================================== */
+
+.art-of-testing-layout {
+    --paper: #faf7f0;
+    --paper-card: #ffffff;
+    --paper-alt: #f2ede1;
+    --ink: #2a2420;
+    --ink-soft: #6b6055;
+    --indigo: #3d4a7a;
+    --indigo-dark: #2c3557;
+    --indigo-tint: #eef0fb;
+    --gold: #a97a1f;
+    --gold-tint: #f6ecd9;
+    --forest: #3f6b4a;
+    --plum: #6b3f6b;
+    --border: #e3dcc9;
+    --sidebar-width: 300px;
+
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, 'Noto Serif JP', serif;
+    font-size: 1rem;
+    line-height: 1.8;
+    min-height: 100vh;
+    width: 100%;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- Reset globals.css interference ---------- */
+.art-of-testing-layout section {
+    padding-top: 0;
+}
+
+.art-of-testing-layout .hero {
+    min-height: 0;
+    display: block;
+    padding-top: 0;
+    max-width: none;
+}
+
+.art-of-testing-layout .main {
+    flex: 1 1 auto;
+    min-width: 0;
+    max-width: none !important;
+    width: auto !important;
+    margin-left: var(--sidebar-width);
+    padding: calc(60px + 2.5rem) 4rem 6rem;
+}
+
+/* ---------- Sidebar ---------- */
+.art-of-testing-layout .sidebar {
+    position: fixed;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    left: 0;
+    bottom: 0;
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px));
+    width: var(--sidebar-width);
+    background: var(--paper-alt);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 2rem 1.25rem 3rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    z-index: 40;
+    transition: transform 0.25s ease;
+    scrollbar-width: thin;
+}
+
+.art-of-testing-layout .sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.art-of-testing-layout .sidebar::-webkit-scrollbar-track {
+    background: transparent !important;
+}
+
+.art-of-testing-layout .sidebar::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 3px;
+}
+
+.art-of-testing-layout .sidebar .brand {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-family: 'Source Serif 4', 'Noto Serif JP', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--indigo-dark);
+    margin-bottom: 0.35rem;
+}
+
+.art-of-testing-layout .sidebar .brand-icon {
+    font-size: 1.4rem;
+    color: var(--gold);
+}
+
+.art-of-testing-layout .sidebar .brand-sub {
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    margin: 0 0 1.75rem 0;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.art-of-testing-layout .sidebar nav ul {
+    list-style: none !important;
+    margin: 0;
+    padding: 0;
+}
+
+.art-of-testing-layout .sidebar nav li {
+    margin-bottom: 0.15rem;
+}
+
+.art-of-testing-layout .sidebar nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.55rem 0.7rem;
+    border-radius: 0.5rem;
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.88rem;
+    line-height: 1.35;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.art-of-testing-layout .sidebar nav a .nav-icon {
+    font-size: 1.05rem;
+    width: 1.3rem;
+    text-align: center;
+    flex-shrink: 0;
+    color: var(--indigo);
+}
+
+.art-of-testing-layout .sidebar nav a:hover {
+    background: var(--paper-card);
+    color: var(--ink);
+}
+
+.art-of-testing-layout .sidebar nav a.active {
+    background: var(--indigo-tint);
+    color: var(--indigo-dark);
+    font-weight: 600;
+}
+
+.art-of-testing-layout .sidebar nav a.active .nav-icon {
+    color: var(--indigo-dark);
+}
+
+.art-of-testing-layout .sidebar-foot {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--ink-soft);
+}
+
+/* ---------- Mobile bar ---------- */
+.art-of-testing-layout .mobile-bar {
+    display: none;
+    position: sticky;
+    top: calc(60px + var(--disclaimer-height, 0px));
+    left: 0;
+    right: 0;
+    height: 52px;
+    background: var(--paper-alt);
+    border-bottom: 1px solid var(--border);
+    align-items: center;
+    padding: 0 1rem;
+    z-index: 45;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.art-of-testing-layout .mobile-bar button {
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    color: var(--indigo-dark);
+    cursor: pointer;
+    padding: 0.4rem;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.art-of-testing-layout .mobile-bar span {
+    margin-left: 0.5rem;
+    font-weight: 600;
+    color: var(--indigo-dark);
+    font-size: 0.95rem;
+}
+
+.art-of-testing-layout .sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(42, 36, 32, 0.45);
+    z-index: 39;
+}
+
+/* ---------- Hero ---------- */
+.art-of-testing-layout .hero .kicker {
+    font-family: 'Inter', system-ui, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.85rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+
+.art-of-testing-layout .hero h1 {
+    font-size: 2.25rem;
+    line-height: 1.35;
+    margin: 0 0 0.75rem 0;
+    color: var(--indigo-dark);
+    font-family: 'Source Serif 4', 'Noto Serif JP', serif;
+    font-weight: 700;
+}
+
+.art-of-testing-layout .hero .subtitle {
+    font-size: 1.2rem;
+    color: var(--ink-soft);
+    font-style: italic;
+    margin: 0 0 1.75rem 0;
+}
+
+/* ---------- Prose & Typography ---------- */
+.art-of-testing-layout .prose {
+    overflow-wrap: break-word;
+    font-size: 1.05rem;
+    line-height: 1.85;
+}
+
+.art-of-testing-layout .prose p {
+    margin: 0 0 1.25rem 0;
+    color: var(--ink);
+}
+
+.art-of-testing-layout .prose h3 {
+    font-size: 1.3rem;
+    color: var(--indigo-dark);
+    margin: 2rem 0 0.75rem;
+    font-family: 'Source Serif 4', 'Noto Serif JP', serif;
+    font-weight: 700;
+}
+
+.art-of-testing-layout .prose ol {
+    list-style-type: decimal !important;
+    padding-left: 1.6rem;
+    margin: 1rem 0 1.25rem;
+}
+
+.art-of-testing-layout .prose ul {
+    list-style-type: disc !important;
+    padding-left: 1.6rem;
+    margin: 1rem 0 1.25rem;
+}
+
+.art-of-testing-layout .prose li {
+    margin-bottom: 0.5rem;
+    display: list-item !important;
+    color: var(--ink);
+}
+
+.art-of-testing-layout section.chapter {
+    margin-top: 3.5rem;
+    padding-top: 2.5rem;
+    border-top: 1px solid var(--border);
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
+}
+
+.art-of-testing-layout section.chapter:first-of-type {
+    border-top: none;
+}
+
+.art-of-testing-layout .section-head {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+}
+
+.art-of-testing-layout .section-head .chip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 0.65rem;
+    background: var(--indigo-tint);
+    color: var(--indigo-dark);
+    font-size: 1.3rem;
+    flex-shrink: 0;
+}
+
+.art-of-testing-layout .section-head h2 {
+    font-size: 1.55rem;
+    margin: 0;
+    color: var(--indigo-dark);
+    line-height: 1.4;
+    font-family: 'Source Serif 4', 'Noto Serif JP', serif;
+    font-weight: 700;
+}
+
+/* ---------- Callouts ---------- */
+.art-of-testing-layout .callout {
+    border-left: 4px solid var(--indigo);
+    background: var(--indigo-tint);
+    border-radius: 0.35rem;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    line-height: 1.7;
+}
+
+.art-of-testing-layout .callout .callout-title {
+    font-weight: 700;
+    color: var(--indigo-dark);
+    margin-bottom: 0.35rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.art-of-testing-layout .callout.source {
+    border-left-color: var(--gold);
+    background: var(--gold-tint);
+}
+
+.art-of-testing-layout .callout.source .callout-title {
+    color: var(--gold);
+}
+
+.art-of-testing-layout .callout.note {
+    border-left-color: var(--plum);
+    background: #f3ecf3;
+}
+
+.art-of-testing-layout .callout.note .callout-title {
+    color: var(--plum);
+}
+
+.art-of-testing-layout .callout strong {
+    color: var(--indigo-dark) !important;
+}
+
+/* ---------- Tables (Complete globals.css Reset) ---------- */
+.art-of-testing-layout .table-wrap {
+    overflow-x: auto;
+    margin: 1.75rem 0;
+    border: 1px solid var(--border);
+    border-radius: 0.5rem;
+    background: var(--paper-card);
+}
+
+.art-of-testing-layout table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--paper-card) !important;
+    color: var(--ink) !important;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.95rem;
+}
+
+.art-of-testing-layout thead tr {
+    background: var(--indigo-dark) !important;
+    border-bottom: 1px solid var(--border);
+}
+
+.art-of-testing-layout thead th {
+    background: var(--indigo-dark) !important;
+    color: #ffffff !important;
+    text-align: left;
+    padding: 0.75rem 0.9rem !important;
+    white-space: nowrap !important;
+    font-weight: 600 !important;
+    font-size: 0.92rem !important;
+    border: none !important;
+}
+
+.art-of-testing-layout thead th * {
+    color: #ffffff !important;
+}
+
+.art-of-testing-layout tbody td {
+    padding: 0.75rem 0.9rem !important;
+    border-bottom: 1px solid var(--border) !important;
+    vertical-align: top !important;
+    color: var(--ink) !important;
+    font-size: 0.95rem !important;
+    line-height: 1.6 !important;
+    font-family: 'Inter', system-ui, sans-serif;
+}
+
+.art-of-testing-layout tbody td * {
+    color: var(--ink);
+}
+
+.art-of-testing-layout tbody tr {
+    background: var(--paper-card) !important;
+}
+
+.art-of-testing-layout tbody tr:nth-child(even) {
+    background: var(--paper-alt) !important;
+}
+
+.art-of-testing-layout tbody tr:hover,
+.art-of-testing-layout tbody tr:hover td {
+    background: #eef1ea !important;
+}
+
+.art-of-testing-layout tbody tr:last-child td {
+    border-bottom: none !important;
+}
+
+.art-of-testing-layout tbody td strong {
+    color: var(--indigo-dark) !important;
+    font-weight: 700 !important;
+}
+
+/* ---------- Diagrams ---------- */
+.art-of-testing-layout .diagram-fig {
+    margin: 2rem 0;
+}
+
+.art-of-testing-layout .diagram-wrap {
+    width: 100%;
+    display: flex;
+    justify-content: safe center;
+    overflow-x: auto;
+    padding: 1rem 0;
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+}
+
+.art-of-testing-layout .mermaid-wrapper {
+    width: 100%;
+    max-width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: center;
+}
+
+.art-of-testing-layout .mermaid-wrapper svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    background: transparent !important;
+}
+
+/* ノード（四角形・角丸・菱形・円など）の背景色と枠線: ラベンダーブルー背景、インディゴ枠線 */
+.art-of-testing-layout .mermaid-wrapper .node rect,
+.art-of-testing-layout .mermaid-wrapper .node circle,
+.art-of-testing-layout .mermaid-wrapper .node ellipse,
+.art-of-testing-layout .mermaid-wrapper .node polygon,
+.art-of-testing-layout .mermaid-wrapper .node path,
+.art-of-testing-layout .mermaid-wrapper .node .basic,
+.art-of-testing-layout .mermaid-wrapper .node .label-container {
+    fill: #eef0fb !important;
+    stroke: #3d4a7a !important;
+    stroke-width: 1.5px !important;
+}
+
+/* ノード内のテキスト色・書体（子孫セレクタで改行2行目以降も完全適用） */
+.art-of-testing-layout .mermaid-wrapper .node .label,
+.art-of-testing-layout .mermaid-wrapper .node .label text,
+.art-of-testing-layout .mermaid-wrapper .node .nodeLabel,
+.art-of-testing-layout .mermaid-wrapper .node .nodeLabel *,
+.art-of-testing-layout .mermaid-wrapper .node text,
+.art-of-testing-layout .mermaid-wrapper .node span,
+.art-of-testing-layout .mermaid-wrapper .node p,
+.art-of-testing-layout .mermaid-wrapper .node div {
+    color: #2a2420 !important;
+    fill: #2a2420 !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-size: 15px !important;
+    line-height: 1.4 !important;
+}
+
+/* サブグラフ（クラスタ）の背景・枠線・タイトル: 淡いベージュ背景、薄い枠線 */
+.art-of-testing-layout .mermaid-wrapper .cluster rect {
+    fill: #f6ecd9 !important;
+    stroke: #c9b09a !important;
+    stroke-width: 1px !important;
+    rx: 8px !important;
+    ry: 8px !important;
+}
+
+.art-of-testing-layout .mermaid-wrapper .cluster .label,
+.art-of-testing-layout .mermaid-wrapper .cluster .label text,
+.art-of-testing-layout .mermaid-wrapper .cluster text,
+.art-of-testing-layout .mermaid-wrapper .cluster span {
+    color: #2c3557 !important;
+    fill: #2c3557 !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+}
+
+/* エッジ（接続線と矢印マーカー） */
+.art-of-testing-layout .mermaid-wrapper .edgePath .path,
+.art-of-testing-layout .mermaid-wrapper .flowchart-link {
+    stroke: #6b6055 !important;
+    stroke-width: 1.5px !important;
+}
+
+.art-of-testing-layout .mermaid-wrapper .marker,
+.art-of-testing-layout .mermaid-wrapper marker path {
+    fill: #6b6055 !important;
+    stroke: #6b6055 !important;
+}
+
+/* エッジラベル（テキストと背景） */
+.art-of-testing-layout .mermaid-wrapper .edgeLabel,
+.art-of-testing-layout .mermaid-wrapper .edgeLabel span,
+.art-of-testing-layout .mermaid-wrapper .edgeLabel p,
+.art-of-testing-layout .mermaid-wrapper .edgeLabel text,
+.art-of-testing-layout .mermaid-wrapper .edgeLabels .label {
+    background-color: #faf7f0 !important;
+    color: #2a2420 !important;
+    fill: #2a2420 !important;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif !important;
+    font-weight: 600 !important;
+    font-size: 13px !important;
+    stroke: none !important;
+}
+
+.art-of-testing-layout .mermaid-wrapper .edgeLabels rect,
+.art-of-testing-layout .mermaid-wrapper .edgeLabel rect {
+    fill: #faf7f0 !important;
+    stroke: none !important;
+}
+
+.art-of-testing-layout .fig-caption {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    text-align: center;
+    margin-top: 0.65rem;
+}
+
+/* ---------- Step List (Checklist) ---------- */
+.art-of-testing-layout .step-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 1.5rem 0 !important;
+}
+
+.art-of-testing-layout .step-list li {
+    display: flex !important;
+    gap: 1rem;
+    align-items: flex-start;
+    background: var(--paper-card);
+    border: 1px solid var(--border);
+    border-radius: 0.6rem;
+    padding: 0.95rem 1.15rem;
+    margin-bottom: 0.75rem;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.98rem;
+    line-height: 1.65;
+}
+
+.art-of-testing-layout .step-list .num {
+    flex-shrink: 0;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: var(--indigo);
+    color: #ffffff;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.15rem;
+}
+
+/* ---------- References ---------- */
+.art-of-testing-layout .ref-group {
+    margin-bottom: 2rem;
+}
+
+.art-of-testing-layout .ref-group h3 {
+    font-size: 1.15rem;
+    color: var(--indigo-dark);
+    margin: 0 0 0.75rem 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+}
+
+.art-of-testing-layout .ref-list {
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.art-of-testing-layout .ref-item {
+    display: flex !important;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.92rem;
+    line-height: 1.6;
+}
+
+.art-of-testing-layout .ref-item:last-child {
+    border-bottom: none;
+}
+
+.art-of-testing-layout .ref-item .ref-no {
+    color: var(--gold);
+    font-weight: 700;
+    flex-shrink: 0;
+    width: 1.6rem;
+}
+
+.art-of-testing-layout .ref-item .ref-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.art-of-testing-layout .ref-item .ref-title {
+    color: var(--ink);
+    display: block;
+    margin-bottom: 0.15rem;
+    font-weight: 500;
+}
+
+.art-of-testing-layout .ref-url {
+    color: var(--indigo);
+    word-break: break-all;
+    text-decoration: none;
+    font-size: 0.88rem;
+}
+
+.art-of-testing-layout .ref-url:hover {
+    text-decoration: underline;
+}
+
+.art-of-testing-layout footer {
+    margin-top: 4rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 0.9rem;
+    color: var(--ink-soft);
+    line-height: 1.6;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .art-of-testing-layout .mobile-bar {
+        display: flex;
+    }
+    .art-of-testing-layout .sidebar {
+        transform: translateX(-100%);
+        visibility: hidden;
+        width: 82vw;
+        max-width: 340px;
+        top: calc(60px + var(--disclaimer-height, 0px) + 52px);
+        height: calc(100vh - 60px - var(--disclaimer-height, 0px) - 52px);
+        box-shadow: 4px 0 24px rgba(0, 0, 0, 0.15);
+    }
+    .art-of-testing-layout .sidebar.open {
+        transform: translateX(0);
+        visibility: visible;
+    }
+    .art-of-testing-layout .sidebar-backdrop.open {
+        display: block;
+    }
+    .art-of-testing-layout .main {
+        margin-left: 0;
+        padding: 2.5rem 1.25rem 4rem;
+    }
+    .art-of-testing-layout .hero h1 {
+        font-size: 1.7rem;
+    }
+    .art-of-testing-layout .hero .subtitle {
+        font-size: 1.05rem;
+    }
+}
