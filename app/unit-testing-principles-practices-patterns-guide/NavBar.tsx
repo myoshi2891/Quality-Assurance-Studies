@@ -69,6 +69,7 @@ export default function NavBar() {
 
   const handleLinkClick = () => {
     if (typeof window !== 'undefined' && window.innerWidth <= 900) {
+      toggleRef.current?.focus();
       setIsOpen(false);
     }
   };
