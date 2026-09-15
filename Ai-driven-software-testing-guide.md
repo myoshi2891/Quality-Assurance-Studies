@@ -396,7 +396,7 @@ Block社でグローバルVP of Developer Relationsを務め、Test Automation U
 
 ### ThoughtWorks Technology Radar ― 実験から実務への移行
 
-ThoughtWorksのTechnology Radar（2026年4月発行のVol.34を含む）は、AI支援によるテストファースト開発や、Playwright・SeleniumのMCPサーバーを活用したAI駆動UIテストといった技術を継続的に評価しています。同時に、Vol.34では「AIが加速させる複雑さに対抗するため、エンジニアリングの基礎に立ち返る必要がある」という強いメッセージも打ち出されており、ミューテーションテストのような地に足のついた品質保証手法への回帰が指摘されています。AIによる速度の獲得と、品質保証の基礎の再確認は、両輪であるべきだという視点です。
+ThoughtWorksのTechnology Radarは、AI支援によるテストファースト開発（2023年発行のVol.28で初評価）や、Playwright・SeleniumのMCPサーバーを活用したAI駆動UIテスト（2025年4月発行のVol.32で評価）といった技術を、複数の版にわたって継続的に評価してきました。これらとは別に、2026年4月発行のVol.34では「AIが加速させる複雑さに対抗するため、エンジニアリングの基礎に立ち返る必要がある」という強いメッセージが新たに打ち出されており、ミューテーションテストのような地に足のついた品質保証手法への回帰が指摘されています。AIによる速度の獲得と、品質保証の基礎の再確認は、両輪であるべきだという視点です。
 
 ### DORA ― 「検証税」という現実的なブレーキ
 
@@ -461,8 +461,8 @@ flowchart TD
 3. Mark Winteringham『Software Testing with Generative AI』紹介ページ（Manning）: <a href="https://www.manning.com/books/software-testing-with-generative-ai" target="_blank" rel="noopener noreferrer">https://www.manning.com/books/software-testing-with-generative-ai</a>
 4. Mark Winteringham Medium プロフィール: <a href="https://medium.com/@mwinteringham" target="_blank" rel="noopener noreferrer">https://medium.com/@mwinteringham</a>
 5. Sauce Labs「Agentic AI and the Future of Software Testing」（Angie Jonesへのインタビュー）: <a href="https://saucelabs.com/resources/blog/agentic-ai-and-the-future-of-software-testing-a-q-and-a-with-angie-jones" target="_blank" rel="noopener noreferrer">https://saucelabs.com/resources/blog/agentic-ai-and-the-future-of-software-testing-a-q-and-a-with-angie-jones</a>
-6. ThoughtWorks Technology Radar「AI-aided test-first development」: <a href="https://www.thoughtworks.com/en-us/radar/techniques/ai-aided-test-first-development" target="_blank" rel="noopener noreferrer">https://www.thoughtworks.com/en-us/radar/techniques/ai-aided-test-first-development</a>
-7. ThoughtWorks Technology Radar「AI-powered UI testing」: <a href="https://www.thoughtworks.com/en-us/radar/techniques/ai-powered-ui-testing" target="_blank" rel="noopener noreferrer">https://www.thoughtworks.com/en-us/radar/techniques/ai-powered-ui-testing</a>
+6. ThoughtWorks Technology Radar「AI-aided test-first development」（Vol.28、2023年4月発行時に初評価）: <a href="https://www.thoughtworks.com/en-us/radar/techniques/ai-aided-test-first-development" target="_blank" rel="noopener noreferrer">https://www.thoughtworks.com/en-us/radar/techniques/ai-aided-test-first-development</a>
+7. ThoughtWorks Technology Radar「AI-powered UI testing」（Vol.32、2025年4月発行時に評価）: <a href="https://www.thoughtworks.com/en-us/radar/techniques/ai-powered-ui-testing" target="_blank" rel="noopener noreferrer">https://www.thoughtworks.com/en-us/radar/techniques/ai-powered-ui-testing</a>
 8. ThoughtWorks Technology Radar Vol.34 発行に関するニュースリリース: <a href="https://www.thoughtworks.com/about-us/news/2026/combat-ai-cognitive-debt-radar-v34" target="_blank" rel="noopener noreferrer">https://www.thoughtworks.com/about-us/news/2026/combat-ai-cognitive-debt-radar-v34</a>
 9. James Bach / Michael Boltonの GenAI批判的評価チェックリストを紹介する記事（tjmaher.com）: <a href="https://www.tjmaher.com/2026/06/testing-and-ai-workshop-by-james-bach.html" target="_blank" rel="noopener noreferrer">https://www.tjmaher.com/2026/06/testing-and-ai-workshop-by-james-bach.html</a>
 10. DORA「Balancing AI tensions: Moving from AI adoption to effective SDLC use」（検証税の解説）: <a href="https://dora.dev/insights/balancing-ai-tensions/" target="_blank" rel="noopener noreferrer">https://dora.dev/insights/balancing-ai-tensions/</a>
