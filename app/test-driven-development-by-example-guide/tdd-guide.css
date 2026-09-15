@@ -509,7 +509,7 @@
 .tdd-guide-layout .mermaid-wrapper .node div {
   color: #2a2118 !important;
   fill: #2a2118 !important;
-  font-family: var(--font-sans), "Noto Sans JP", sans-serif !important;
+  font-family: var(--font-body) !important;
   font-size: 15px !important;
   line-height: 1.4 !important;
 }
@@ -596,7 +596,7 @@
 .tdd-guide-layout .mermaid-wrapper .cluster span {
   color: #2a2118 !important;
   fill: #2a2118 !important;
-  font-family: var(--font-sans), "Noto Sans JP", sans-serif !important;
+  font-family: var(--font-body) !important;
   font-weight: 700 !important;
   font-size: 15px !important;
 }
@@ -625,7 +625,7 @@
   background-color: #f1e9d6 !important;
   color: #2a2118 !important;
   fill: #2a2118 !important;
-  font-family: var(--font-sans), "Noto Sans JP", sans-serif !important;
+  font-family: var(--font-body) !important;
   font-weight: 700 !important;
   font-size: 13px !important;
 }
