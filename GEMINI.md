@@ -320,7 +320,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 69 ルート（ガイドライブラリ index + 68 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 68 ルート（ガイドライブラリ index + 67 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 19 ファイル（書籍ガイド系の HTML/Markdown 8 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 

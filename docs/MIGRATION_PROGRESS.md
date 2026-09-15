@@ -5,7 +5,7 @@ Updated 2026-09-14
 HTML → Next.js App Router 移行の進行状況。セッション終了前に必ず更新すること。
 更新手順は `.claude/rules/migration-progress-sync.md` を参照。
 
-> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 69 ルート = ガイドライブラリ index + 68 ガイド）。
+> **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 68 ルート = ガイドライブラリ index + 67 ガイド）。
 >
 > **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 19 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
@@ -21,7 +21,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/14: 『Unit Testing Principles, Practices, and Patterns』完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & エディトリアル・ペーパーテーマ**:
-  - 原著HTML固有のエディトリアル・ペーパーテーマ（紙の背景 `--bg: #fdfbf7`、カード `--card-bg: #ffffff`、文字 `--ink: #2b2318`、ネイビー `--navy: #34419e`、オリーブ `--olive: #5d6b2c`、プラム `--plum: #7a3e65`、フォント `Newsreader`, `Noto Serif JP`, `Inter`, `JetBrains Mono`）を忠実に復元。
+  - 原著HTML固有のエディトリアル・ペーパーテーマ（紙の背景 `--paper: #f5f0e3`、カード `--paper-card: #fffdf7`、文字 `--ink: #2b2318`、インディゴ `--indigo: #34419e`、プラム `--plum: #7c3f61`、フォント `Source Serif 4`, `Inter`, `SFMono-Regular`）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、順序付きリスト `list-style-type: decimal !important`、`.book-card`、`.callout`、`.diagram-caption` 等）を完全実装。
   - **サイドバー境界線 & スクロールバートラック透明化**: `sidebar` のスクロールバートラックによって生じていたダークカラーの太帯を `::-webkit-scrollbar-track { background: transparent !important; }` で完全に解消し、元HTMLの繊細な1px境界線に復元。オフセットも `var(--disclaimer-height)` に連動し、各セクションに `scroll-margin-top` を設定。
 - **Mermaid図解の完全移植 & クラシック・ペーパーテーマ復元 (fix-mermaidスキル準拠)**:
@@ -859,7 +859,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 コンテキスト:
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 69 ルート（ガイドライブラリ index + 68 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 68 ルート（ガイドライブラリ index + 67 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 19 ファイル（書籍ガイド系の HTML/Markdown 8 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
