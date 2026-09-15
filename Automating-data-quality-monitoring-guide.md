@@ -33,14 +33,14 @@
 
 | 章 | タイトル（原題） | 内容の要点 |
 | --- | --- | --- |
-| 1 | The Data Factory | データ品質はなぜ・どこで劣化するのか、ビジネスへの影響 |
-| 2 | A Four-Pillar Approach to Data Quality Monitoring | 観測性・検証ルール・主要指標・教師なしMLの4本柱 |
-| 3 | Is Automated Data Quality Monitoring Right for Your Business? | 自動化の投資判断とROIの考え方 |
-| 4 | How to Build a Machine Learning Model for Data Quality Monitoring | 教師なしMLモデルの設計アルゴリズム |
+| 1 | The Data Quality Imperative | データ品質はなぜ・どこで劣化するのか、ビジネスへの影響 |
+| 2 | Data Quality Monitoring Strategies and the Role of Automation | 観測性・検証ルール・主要指標・教師なしMLの4本柱 |
+| 3 | Assessing the Business Impact of Automated Data Quality Monitoring | 自動化の投資判断とROIの考え方 |
+| 4 | Automating Data Quality Monitoring with Machine Learning | 教師なしMLモデルの設計アルゴリズム |
 | 5 | Making Data Quality Monitoring Models Work in the Real World | 季節性・カオスなテーブルなど実データ特有の課題への対処 |
 | 6 | High-Quality Notifications | アラート疲れを避けながら適切な通知を届ける設計 |
-| 7 | Integrations Multiply the Power of Your Tools | データウェアハウスからMLOpsまでの統合ポイント |
-| 8 | Towards a Self-Driving Data Future | 本番展開、ビルド・バイ判断、継続的改善 |
+| 7 | Integrating Monitoring with Data Tools and Systems | データウェアハウスからMLOpsまでの統合ポイント |
+| 8 | Operating Your Solution at Scale | 本番展開、ビルド・バイ判断、継続的改善 |
 | 付録 | Common Data Quality Issues | よくあるデータ品質問題のカタログ |
 
 ---
