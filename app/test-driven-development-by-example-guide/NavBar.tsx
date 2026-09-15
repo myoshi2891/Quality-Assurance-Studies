@@ -111,6 +111,7 @@ export default function NavBar() {
                         key={item.id}
                         className={`nav-a ${isActive ? 'active' : ''}`}
                         href={`#${item.id}`}
+                        aria-current={isActive ? 'location' : undefined}
                         onClick={() => {
                           if (window.innerWidth <= 960) handleClose();
                         }}

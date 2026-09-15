@@ -412,7 +412,9 @@
 }
 
 .tdd-guide-layout tbody td,
-.tdd-guide-layout td {
+.tdd-guide-layout td,
+.tdd-guide-layout tbody th,
+.tdd-guide-layout th[scope='row'] {
   padding: 0.7rem 1rem !important;
   border-top: 1px solid var(--border) !important;
   border-bottom: none !important;
@@ -422,11 +424,18 @@
   line-height: 1.75;
 }
 
-.tdd-guide-layout tbody tr:nth-child(even) td {
+.tdd-guide-layout th[scope='row'] {
+  text-align: left;
+  font-weight: 700;
+}
+
+.tdd-guide-layout tbody tr:nth-child(even) td,
+.tdd-guide-layout tbody tr:nth-child(even) th {
   background: var(--paper-card-2) !important;
 }
 
-.tdd-guide-layout tbody tr:hover td {
+.tdd-guide-layout tbody tr:hover td,
+.tdd-guide-layout tbody tr:hover th {
   background: var(--paper-card-2) !important;
 }
 

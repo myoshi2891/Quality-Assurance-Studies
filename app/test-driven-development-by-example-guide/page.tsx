@@ -121,45 +121,31 @@ export default function Page() {
               <table aria-labelledby="table-title-book-info">
                 <tbody>
                   <tr>
-                    <td>
-                      <strong>書名</strong>
-                    </td>
+                    <th scope="row">書名</th>
                     <td>Test-Driven Development: By Example</td>
                   </tr>
                   <tr>
-                    <td>
-                      <strong>著者</strong>
-                    </td>
+                    <th scope="row">著者</th>
                     <td>Kent Beck</td>
                   </tr>
                   <tr>
-                    <td>
-                      <strong>出版社</strong>
-                    </td>
+                    <th scope="row">出版社</th>
                     <td>Addison-Wesley Professional</td>
                   </tr>
                   <tr>
-                    <td>
-                      <strong>出版年月</strong>
-                    </td>
+                    <th scope="row">出版年月</th>
                     <td>2002年11月</td>
                   </tr>
                   <tr>
-                    <td>
-                      <strong>ページ数</strong>
-                    </td>
+                    <th scope="row">ページ数</th>
                     <td>240ページ</td>
                   </tr>
                   <tr>
-                    <td>
-                      <strong>難易度</strong>
-                    </td>
+                    <th scope="row">難易度</th>
                     <td>中級〜上級（ただし実例は平易）</td>
                   </tr>
                   <tr>
-                    <td>
-                      <strong>主な功績</strong>
-                    </td>
+                    <th scope="row">主な功績</th>
                     <td>テスト駆動開発（TDD）という手法を体系立てて世界に広めた最初期の書籍のひとつ</td>
                   </tr>
                 </tbody>
