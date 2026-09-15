@@ -280,6 +280,9 @@
     margin-left: 0 !important;
     padding: 2rem 1.3rem 4.5rem;
   }
+  .tdd-guide-layout .section {
+    scroll-margin-top: calc(80px + var(--disclaimer-height, 0px) + var(--mobile-bar-height));
+  }
 }
 
 /* ---------- section ---------- */

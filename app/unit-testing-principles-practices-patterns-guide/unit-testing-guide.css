@@ -804,6 +804,10 @@
     font-size: 0.95rem;
   }
 
+  .unit-testing-layout .section {
+    scroll-margin-top: calc(60px + var(--disclaimer-height, 42px) + 2rem + 56px);
+  }
+
   .unit-testing-layout .sidebar {
     top: calc(116px + var(--disclaimer-height, 0px));
     height: calc(100vh - 116px - var(--disclaimer-height, 0px));
