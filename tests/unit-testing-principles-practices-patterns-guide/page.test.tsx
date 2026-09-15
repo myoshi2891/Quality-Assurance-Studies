@@ -115,6 +115,8 @@ describe('Unit Testing Guide - Category 0 (Hero, NavBar, Layout, BookCard)', () 
 
     links?.forEach((link, idx) => {
       const expected = expectedItems[idx];
+      expect(expected).toBeDefined();
+      if (!expected) return;
       expect(link.getAttribute('href')).toBe(expected.href);
       const label = link.querySelectorAll('span')[1];
       expect(label?.textContent).toBe(expected.label);
@@ -628,6 +630,8 @@ describe('Unit Testing Guide - Category 5 (Checklist, 2026 Updates, References)'
 
     cards?.forEach((card, idx) => {
       const expected = expectedRefs[idx];
+      expect(expected).toBeDefined();
+      if (!expected) return;
       const link = card.querySelector('a.ref-title');
       expect(link).not.toBeNull();
       expect(link?.getAttribute('target')).toBe('_blank');
