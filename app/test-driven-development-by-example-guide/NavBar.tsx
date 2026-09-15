@@ -103,7 +103,7 @@ export default function NavBar() {
             return (
               <div key={group}>
                 <div className="nav-group-title">{group}</div>
-                <nav className="nav-list">
+                <nav className="nav-list" aria-label={`${group}セクションのナビゲーション`}>
                   {items.map((item) => {
                     const isActive = activeId === item.id;
                     return (

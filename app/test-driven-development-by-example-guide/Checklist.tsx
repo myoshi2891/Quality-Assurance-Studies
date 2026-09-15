@@ -72,7 +72,7 @@ export default function Checklist() {
   return (
     <>
       <div className="checklist-head">
-        <span className="checklist-counter" id="clCounter">
+        <span className="checklist-counter" id="clCounter" role="status">
           {completedCount} / {totalCount} 完了
         </span>
       </div>
