@@ -324,7 +324,7 @@ UIの見た目やDOM構造が変わるたびにテストが壊れる「フレー
 | 第1世代：ロケータフォールバック型 | ルールベースで代替のセレクタを順に試す | 軽量で高速だが、大きなUI変更には対応しきれない |
 | 第2世代：生成的セルフヒーリング型 | LLMが自然言語による意図の説明から対象要素をゼロから再解決する | UIの大幅な刷新にも対応できる反面、計算コストと誤判定のリスクが増す |
 
-いずれの方式も「壊れたら自動的に直す」万能薬ではなく、修復が発生したこと自体をログとして残し、人間が定期的に見直す運用が推奨されます。テスト自動化コミュニティで長年ビジュアル検証（Visual Validation）を提唱してきたAngie Jones（Test Automation University創設者、現Agentic AI Foundation VP）も、UIの見た目そのものを検証対象に含めることの重要性を繰り返し発信しており、セルフヒーリングの議論は「壊れないこと」だけでなく「見た目が正しいこと」もあわせて検証範囲に含めるべきだという視点を補ってくれます[17]。
+いずれの方式も「壊れたら自動的に直す」万能薬ではなく、修復が発生したこと自体をログとして残し、人間が定期的に見直す運用が推奨されます。テスト自動化コミュニティで長年ビジュアル検証（Visual Validation）を提唱してきたAngie Jones（Test Automation University創設者、現Agentic AI Foundation VP）も、UIの見た目そのものを検証対象に含めることの重要性を繰り返し発信しており、セルフヒーリングの議論は「壊れないこと」だけでなく「見た目が正しいこと」もあわせて検証範囲に含めるべきだという視点を補ってくれます[17], [18]。
 
 ### 6.4 コマンドラインからのAI活用とドキュメント生成
 
@@ -609,7 +609,8 @@ flowchart LR
 - **[14]** DORA, "Balancing AI tensions: Moving from AI adoption to effective SDLC use" — <a href="https://dora.dev/insights/balancing-ai-tensions/" target="_blank" rel="noopener noreferrer">https://dora.dev/insights/balancing-ai-tensions/</a>
 - **[15]** OWASP, "Top 10 for LLM Applications 2025" — <a href="https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf" target="_blank" rel="noopener noreferrer">https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf</a>
 - **[16]** Simon Willison, "Generating documentation from tests using files-to-prompt and LLM" — <a href="https://til.simonwillison.net/llms/docs-from-tests" target="_blank" rel="noopener noreferrer">https://til.simonwillison.net/llms/docs-from-tests</a>
-- **[17]** Angie Jones, testingタグ記事一覧（Test Automation University 創設者） — <a href="https://angiejones.tech/tag/testing/" target="_blank" rel="noopener noreferrer">https://angiejones.tech/tag/testing/</a>
+- **[17]** Angie Jones公式サイト（Test Automation University創設者、現Agentic AI Foundation VP としての経歴を掲載） — <a href="https://angiejones.tech/" target="_blank" rel="noopener noreferrer">https://angiejones.tech/</a>
+- **[18]** "Angie Jones Chats With Kent About Automated Visual Testing" — Chats with Kent Podcast（Kent C. Dodds） — <a href="https://kentcdodds.com/chats/02/08/angie-jones-chats-with-kent-about-automated-visual-testing" target="_blank" rel="noopener noreferrer">https://kentcdodds.com/chats/02/08/angie-jones-chats-with-kent-about-automated-visual-testing</a>
 
 ---
 
