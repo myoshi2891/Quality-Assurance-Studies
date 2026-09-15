@@ -93,28 +93,31 @@ describe('Unit Testing Guide - Category 0 (Hero, NavBar, Layout, BookCard)', () 
     expect(links?.length).toBe(17);
     expect(TOC_ITEMS.length).toBe(17);
 
-    const expectedHrefs = [
-      '#about',
-      '#step1',
-      '#step2',
-      '#step3',
-      '#step4',
-      '#step5',
-      '#step6',
-      '#step7',
-      '#step8',
-      '#step9',
-      '#step10',
-      '#step11',
-      '#step12',
-      '#step13',
-      '#checklist',
-      '#update2026',
-      '#references',
+    const expectedItems = [
+      { label: '対象読者と使い方', href: '#about' },
+      { label: '本当の目的', href: '#step1' },
+      { label: '定義', href: '#step2' },
+      { label: '二大流派', href: '#step3' },
+      { label: 'AAAパターン', href: '#step4' },
+      { label: '4本柱', href: '#step5' },
+      { label: 'モックと壊れやすさ', href: '#step6' },
+      { label: 'テストダブル分類', href: '#step7' },
+      { label: '3つのスタイル', href: '#step8' },
+      { label: 'Humble Object', href: '#step9' },
+      { label: '統合テスト', href: '#step10' },
+      { label: 'モッキング実践', href: '#step11' },
+      { label: 'DBのテスト', href: '#step12' },
+      { label: 'アンチパターン', href: '#step13' },
+      { label: '実践チェックリスト', href: '#checklist' },
+      { label: '2026年の補足', href: '#update2026' },
+      { label: '参考文献・情報源', href: '#references' },
     ];
 
     links?.forEach((link, idx) => {
-      expect(link.getAttribute('href')).toBe(expectedHrefs[idx]);
+      const expected = expectedItems[idx];
+      expect(link.getAttribute('href')).toBe(expected.href);
+      const label = link.querySelectorAll('span')[1];
+      expect(label?.textContent).toBe(expected.label);
     });
 
     const mobileToggle = container.querySelector('#mobileToggle');
@@ -598,12 +601,39 @@ describe('Unit Testing Guide - Category 5 (Checklist, 2026 Updates, References)'
     const cards = section?.querySelectorAll('.ref-card');
     expect(cards?.length).toBe(21);
 
-    // Check card links structure
-    cards?.forEach((card) => {
+    const expectedRefs = [
+      { title: "O'Reilly（書籍ページ・目次）", href: 'https://www.oreilly.com/library/view/unit-testing-principles/9781617296277/' },
+      { title: 'Manning Publications（出版社公式ページ）', href: 'https://www.manning.com/books/unit-testing' },
+      { title: '著者Khorikov氏ブログ掲載チャプター抜粋', href: 'https://enterprisecraftsmanship.com/files/Unit-Testing-Chapter-1-Excerpt.pdf' },
+      { title: 'Tech Lead Journal #58 ― Vladimir Khorikov', href: 'https://techleadjournal.dev/episodes/58/' },
+      { title: "Mocks Aren't Stubs", href: 'https://martinfowler.com/articles/mocksArentStubs.html' },
+      { title: 'Test Desiderata（2019年、原著論考）', href: 'https://medium.com/@kentbeck_7670/test-desiderata-94150638a4b3' },
+      { title: 'Composable Tests（2025年11月、続編）', href: 'https://newsletter.kentbeck.com/p/composable-tests' },
+      { title: 'Test Desiderata 公式まとめページ', href: 'https://kentbeck.github.io/TestDesiderata/' },
+      { title: 'Test Desiderata 2.0（2025年12月）', href: 'https://coding-is-like-cooking.info/2025/12/test-desiderata-2-0/' },
+      { title: 'Test Desiderata 2.0 フレームワーク解説', href: 'https://lidonis.github.io/Test-Desiderata/framework.html' },
+      { title: 'Write tests. Not too many. Mostly integration.', href: 'https://kentcdodds.com/blog/write-tests' },
+      { title: 'The Testing Trophy and Testing Classifications', href: 'https://kentcdodds.com/blog/the-testing-trophy-and-testing-classifications' },
+      { title: 'Static vs Unit vs Integration vs E2E Testing', href: 'https://kentcdodds.com/blog/static-vs-unit-vs-integration-vs-e2e-tests' },
+      { title: 'TDD, Where Did It All Go Wrong?（InfoQ）', href: 'https://www.infoq.com/presentations/tdd-original/' },
+      { title: 'Boundaries（Functional Core, Imperative Shellの提唱）', href: 'https://www.destroyallsoftware.com/talks/boundaries' },
+      { title: 'Rethinking Spring Application Integration Testing（2025年12月）', href: 'https://odrotbohm.de/2025/12/rethinking-spring-application-integration-testing/' },
+      { title: 'Testing AI-Generated Code: Best Practices for 2026', href: 'https://skyramp.dev/blog/testing-ai-generated-code' },
+      { title: 'How to Test AI-Generated Code: Best Practices & Checklist (2026)', href: 'https://testdino.com/blog/how-to-test-ai-generated-code' },
+      { title: '4 Pillars of Good Unit Tests（要点まとめ）', href: 'https://notesbylex.com/4-pillars-of-good-unit-tests' },
+      { title: 'Unit Testing Principles（要点まとめ、2025年1月）', href: 'https://olano.dev/blog/unit-testing-principles/' },
+      { title: 'テストダブルの実務ガイド（2026年）', href: 'https://qaskills.sh/blog/stub-mock-spy-fake-test-doubles-explained' },
+    ];
+    expect(expectedRefs.length).toBe(21);
+
+    cards?.forEach((card, idx) => {
+      const expected = expectedRefs[idx];
       const link = card.querySelector('a.ref-title');
       expect(link).not.toBeNull();
       expect(link?.getAttribute('target')).toBe('_blank');
       expect(link?.getAttribute('rel')).toBe('noopener noreferrer');
+      expect(link?.textContent).toBe(expected.title);
+      expect(link?.getAttribute('href')).toBe(expected.href);
 
       const urlSpan = card.querySelector('.ref-url');
       expect(urlSpan).not.toBeNull();
