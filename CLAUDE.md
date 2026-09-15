@@ -274,7 +274,7 @@ Next.js App Router 構成:
 - `app/test-driven-development-by-example-guide/Checklist.tsx` — Test-Driven Development: By Example 実践ガイド セクション13用インタラクティブチェックリスト（`'use client'`）
 - `app/unit-testing-principles-practices-patterns-guide/unit-testing-guide.css` — Unit Testing Principles, Practices, and Patterns 完全ガイド固有スタイル
 - `app/unit-testing-principles-practices-patterns-guide/page.tsx` — Unit Testing Principles, Practices, and Patterns 完全ガイドページ
-- `app/unit-testing-principles-practices-patterns-guide/NavBar.tsx` — Unit Testing Principles, Practices, and Patterns 完全ガイドページ固有スティッキーナビ（`'use client'`、`IntersectionObserver` でアクティブリンク制御、`aria-current` 対応、モバイルトグル対応）
+- `app/unit-testing-principles-practices-patterns-guide/NavBar.tsx` — Unit Testing Principles, Practices, and Patterns 完全ガイドページ固有スティッキーナビ（`'use client'`、`scroll` イベント + 各セクションの `offsetTop` でアクティブリンク制御、`aria-current` 対応、モバイルトグル対応）
 - `app/unit-testing-principles-practices-patterns-guide/Checklist.tsx` — Unit Testing Principles, Practices, and Patterns 完全ガイド セクション14用インタラクティブチェックリスト（`'use client'`）
 - `components/Header.tsx` — 共有 React コンポーネント（クライアントコンポーネント。現在のパスに応じたアクティブリンク表示をサポート。高さ 60px・`fixed`・`z-50`）。ドロワーは検索 + `<details>` アコーディオン方式（下記「グローバルナビの拡張性」参照）
 - `lib/useScrollSpy.ts` — 目次のアクティブ節を決定する共有フック。スクロール／リサイズのたびに各節と読み取り帯の重なりを実測するため、交差状態を保ったまま可視率が逆転する場合にも追従する（`IntersectionObserver` + `threshold: 0` の `intersectionRatio` 保持では追従できない）。playwright-intermediate-advanced / sonarqube-intermediate / cucumber / cypress / selenium / clean-code-cookbook / the-way-of-the-web-tester / testing-web-apis / software-test-design / secure-by-design / how-google-tests-software / agile-testing-practical の各 NavBar が共用する
@@ -291,7 +291,7 @@ Next.js App Router 構成:
 
 **未移行の静的ドキュメント（Markdown / HTML、プロジェクトルートに残存）:**
 
-プロジェクトルート直下に 25 ファイルが残存している。内訳は本ファイル下部の
+プロジェクトルート直下に 19 ファイルが残存している。内訳は本ファイル下部の
 「移行状況テーブル > 未移行（プロジェクトルートに残存）」を参照（同一の表を
 `docs/MIGRATION_PROGRESS.md` と `GEMINI.md` にも複製している）。
 

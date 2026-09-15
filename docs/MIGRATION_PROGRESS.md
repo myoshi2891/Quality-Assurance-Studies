@@ -30,17 +30,19 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **コードブロック & 改行保持**:
   - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れ（スペース化）を完全に防止。
 - **テーブル & コールアウト & インタラクティブチェックリスト**:
-  - 全13テーブル（テストの価値とコスト、古典派 vs ロンドン派、テストの4本柱、AAAパターン、テストダブルの5分類、テストスタイルの3種類、Functional Core vs Imperative Shell、Managed vs Unmanaged dependency、モッキングのベストプラクティス、トランザクション管理、6つのアンチパターン、Test Desiderata 12性質、Test Desiderata 2.0 4つのメタ目標）を完全移植。
+  - 全13テーブル（本ガイドの前提、ユニットテストの3つの性質、classical school vs London school、良いユニットテストの4本柱、モック vs スタブ、テストダブルの5分類、3つのテストスタイル、Managed dependency vs Unmanaged dependency、モッキングのベストプラクティス、トランザクション管理の方式、6つのアンチパターン、Test Desiderata（Kent Beck, 2019）、Test Desiderata 2.0（Emily Bache, 2025））を完全移植。
   - コールアウト3件（Kent Beckの言葉、古典派 vs ロンドン派の統一原則、Hexagonal Architectureとの関連）を完全移植。
   - セクション14の実践ステップバイステップ・チェックリスト（`Checklist.tsx`、全10項目動的カウンター・トグル対応）を完全実装。
 - **参考文献 & 外部リンク**:
   - 全21件の参考文献（書籍本体、著者インタビュー、Martin Fowler、Kent Beck、Emily Bache、Kent C. Dodds、Ian Cooper、Gary Bernhardt、Oliver Drotbohm、AI生成コード動向、要点まとめ、計11グループ）を完全移植。
-- **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全16セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
+- **共通NavBar**: スクロールスパイ（`scroll` イベント + 各セクションの `offsetTop`）、全17セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/unit-testing-principles-practices-patterns-guide/`: ページコンポーネント、専用スタイル（`.unit-testing-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/unit-testing-principles-practices-patterns-guide` を追加（全68件）。
-- `tests/unit-testing-principles-practices-patterns-guide/page.test.tsx`: TDD 必須サイクルに従い、全16セクション、全7Mermaid図、全13テーブル、全コールアウト、全コードブロック、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（21 pass / 340 expect()）。
+- `tests/unit-testing-principles-practices-patterns-guide/page.test.tsx`: TDD 必須サイクルに従い、全17セクション、全7Mermaid図、全13テーブル、全コールアウト、全コードブロック、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（21 pass / 340 expect()）。
 - `Unit-testing-principles-practices-patterns-guide.html` & `Unit-testing-principles-practices-patterns-guide.md`: `archive/html-archive/books/` および `archive/md-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 68 ページ体制に同期。
+
+## 2026/09/14: 『Test-Driven Development: By Example』実践ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & クラシック・ペーパーテーマ**:
   - 原著HTML固有のクラシック・ペーパーテーマ（背景 `--paper: #fbfbf9`、カード `--paper-card: #f4f3ef`、文字 `--ink: #1a1917`、レッド `--crimson: #c0392b`、グリーン `--green: #27ae60`、ブルー `--blue: #2980b9`、ゴールド `--gold: #d4ac0d`、アンバー `--amber: #b7791f`、フォント `Newsreader`, `Noto Serif JP`, `Inter`, `JetBrains Mono`）を忠実に復元。
