@@ -23,6 +23,7 @@
   --font-body: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
   --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
   --sidebar-w: 296px;
+  --mobile-bar-height: calc(4.3rem + 1px);
 
   background: var(--paper);
   color: var(--ink);
@@ -259,7 +260,8 @@
   }
   .tdd-guide-layout .sidebar {
     position: fixed;
-    top: calc(60px + var(--disclaimer-height, 0px));
+    top: calc(60px + var(--disclaimer-height, 0px) + var(--mobile-bar-height));
+    height: calc(100vh - 60px - var(--disclaimer-height, 0px) - var(--mobile-bar-height));
     transform: translateX(-100%);
     visibility: hidden;
     transition: transform 0.25s ease, visibility 0s linear 0.25s;
