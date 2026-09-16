@@ -330,3 +330,47 @@ describe('Perfect Software Guide - Category 3 (Step 5 - Step 8: Psychology & Inf
     expect(section?.textContent).toContain('取り込み・意味づけ・重要性判断・対応');
   });
 });
+
+describe('Perfect Software Guide - Category 4 (Step 9 - Step 11: Practice, Humanity & Scam Detection)', () => {
+  it('renders Section step9 with incremental design advice and 4 list items', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step9');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 9　システムを育てながらテストを楽にする');
+
+    const listItems = section?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(4);
+    expect(listItems?.[0].textContent).toContain('システムをできる限り小さく保つ');
+    expect(listItems?.[2].textContent).toContain('明確なインターフェースを持つ独立したコンポーネント単位で、段階的に構築する');
+  });
+
+  it('renders Section step10 with testing without machinery and 4 list items', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step10');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 10　機械に頼らないテスト（レビュー・ウォークスルー）を活用する');
+
+    const listItems = section?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(4);
+    expect(listItems?.[0].textContent).toContain('自動化されたテストは、あらかじめ想定した観点しか確認できない');
+    expect(listItems?.[1].textContent).toContain('worst-first review');
+  });
+
+  it('renders Section step11 with Mermaid d7 diagram and scam detection explanation', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step11');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 11　テストにまつわる「詐欺」を見抜く');
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図7　怪しいテストツール営業を見抜くチェックフロー');
+
+    expect(section?.textContent).toContain('無自覚なスキャム');
+  });
+});
