@@ -38,6 +38,27 @@ COTS --> R5["ベンダーサポート終了<br/>(保守停止リスク)"]
 classDef riskStyle fill:#fdecea,stroke:#c0526e,color:#5a1420
 class R1,R2,R3,R4,R5 riskStyle`;
 
+const DIAGRAM_4 = `flowchart BT
+U["単体テスト(Unit)<br/>数量: 非常に多い / 実行: 数ミリ秒"] --> I["統合テスト(Integration)<br/>数量: 中程度 / 実行: 数百ミリ秒〜数秒"]
+I --> CT["コンポーネント/コントラクトテスト<br/>数量: 中程度 / 実行: 数秒"]
+CT --> E["E2Eテスト(End-to-End)<br/>数量: 少ない / 実行: 数十秒〜数分"]
+classDef unitStyle fill:#eafaf1,stroke:#2e9e5b,color:#164a2c
+classDef intStyle fill:#e8f0fe,stroke:#3b6fd6,color:#1a2b4c
+classDef ctStyle fill:#fdf3e0,stroke:#c98a1f,color:#4c3a1a
+classDef e2eStyle fill:#fdecea,stroke:#c0526e,color:#5a1420
+class U unitStyle
+class I intStyle
+class CT ctStyle
+class E e2eStyle`;
+
+const DIAGRAM_5 = `flowchart TD
+subgraph TOPDOWN["トップダウン統合(スタブを使用)"]
+TD1["上位コンポーネント<br/>(実装済み)"] --> TD2["未実装の下位コンポーネント<br/>→ スタブで代替"]
+end
+subgraph BOTTOMUP["ボトムアップ統合(ドライバを使用)"]
+BU1["下位コンポーネント<br/>(実装済み)"] --> BU2["未実装の上位コンポーネント<br/>→ ドライバで代替"]
+end`;
+
 export default function ComponentBasedTestingPage() {
   return (
     <div className="cbss-qa-layout">
@@ -289,6 +310,223 @@ export default function ComponentBasedTestingPage() {
             <strong>コントラクトテスト</strong>
             が解決しようとしている中心的な課題です。
           </p>
+        </section>
+
+        <hr />
+
+        {/* Section 3: 3. テストレベルの全体像とテストピラミッド */}
+        <section>
+          <h2 id="3-テストレベルの全体像とテストピラミッド">
+            3. テストレベルの全体像とテストピラミッド
+          </h2>
+
+          <h3 id="31-テストピラミッドfowler--cohn">3.1 テストピラミッド（Fowler / Cohn）</h3>
+          <p>
+            「どの種類のテストを、どれくらいの比率で書くべきか」という問いに対する古典的な回答が<strong>テストピラミッド</strong>です。この概念はMike Cohnの著書に由来し、Martin Fowlerが自身のbliki（ブログ兼wiki）で広く紹介したことで実務者の間に定着しました[5]。Fowlerは、GUIを介した従来型のテストよりもはるかに多くの自動テストを単体テストレベルで行うべきだと説明しています[5]。
+          </p>
+          <div className="mermaid-wrap">
+            <Mermaid chart={DIAGRAM_4} />
+          </div>
+          <p>
+            ピラミッドの下ほどテストの数が多く、実行が速く、対象範囲が狭い。上に行くほどテストの数は少なく、実行に時間がかかり、対象範囲（ユーザーシナリオ全体）は広くなります。Googleのテストブログも、E2Eテストばかりに頼るとテストスイート全体が遅く壊れやすくなると警告し、下位レイヤーのテストを厚くすることを推奨しています[6]。
+          </p>
+
+          <h3 id="32-googleのsmallmediumlargeモデル">
+            3.2 Googleの「Small/Medium/Large」モデル
+          </h3>
+          <p>
+            Googleは社内で「単体/統合/システム」という分類の代わりに、テストが使うリソース（プロセス数、ネットワーク、時間）に着目した
+            <strong>Small・Medium・Large</strong>
+            という分類を使っています[7][8]。
+          </p>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>サイズ</th>
+                  <th>実行環境</th>
+                  <th>典型的な対応関係</th>
+                  <th>目的</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>Small</td>
+                  <td>単一プロセス内、ネットワークI/O禁止</td>
+                  <td>単体テストに相当</td>
+                  <td>1つの関数・クラスのロジックを検証</td>
+                </tr>
+                <tr className="even">
+                  <td>Medium</td>
+                  <td>単一マシン上の複数バイナリ</td>
+                  <td>統合テストに相当</td>
+                  <td>少数のコンポーネント間の連携を検証</td>
+                </tr>
+                <tr className="odd">
+                  <td>Large</td>
+                  <td>複数マシンにまたがる分散環境</td>
+                  <td>E2E/システムテストに相当</td>
+                  <td>本番に近い環境でユーザーシナリオ全体を検証</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            書籍『Software Engineering at Google』でも、システム全体を1つのバイナリにまとめてしまうと本番トポロジーへの忠実度は下がるが実行は速くなり、逆に複数マシンに分散させるほど忠実度は上がるがテストは遅く不安定（flaky）になりやすいという、忠実度と速度のトレードオフが説明されています[8]。
+          </p>
+
+          <h3 id="33-テストレベル比較表">3.3 テストレベル比較表</h3>
+          <p>
+            ここまでの内容を、実務でよく使われる5つのテストレベルとして整理すると次のようになります。ThoughtWorksのToby Clemsonがマイクロサービス向けにまとめたテスト戦略も、基本的にこの5層構造に沿っています[9]。
+          </p>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>テストレベル</th>
+                  <th>検証すること</th>
+                  <th>依存関係の扱い</th>
+                  <th>実行速度</th>
+                  <th>主な担当者</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>単体テスト</td>
+                  <td>1つの関数/クラスのロジック</td>
+                  <td>すべてモック/スタブ</td>
+                  <td>非常に速い</td>
+                  <td>開発者</td>
+                </tr>
+                <tr className="even">
+                  <td>統合テスト</td>
+                  <td>自コンポーネントと直接の依存先（DB等）</td>
+                  <td>実物 or 軽量な代替（コンテナ等）</td>
+                  <td>速い〜中程度</td>
+                  <td>開発者</td>
+                </tr>
+                <tr className="odd">
+                  <td>コンポーネントテスト</td>
+                  <td>1つのサービス/コンポーネント全体</td>
+                  <td>外部依存はスタブ化</td>
+                  <td>中程度</td>
+                  <td>開発者/QA</td>
+                </tr>
+                <tr className="even">
+                  <td>コントラクトテスト</td>
+                  <td>サービス間のインターフェース契約の整合性</td>
+                  <td>モックプロバイダ/コンシューマー</td>
+                  <td>速い</td>
+                  <td>開発者</td>
+                </tr>
+                <tr className="odd">
+                  <td>E2Eテスト</td>
+                  <td>ユーザーシナリオ全体</td>
+                  <td>すべて実物（本番同等環境）</td>
+                  <td>遅い</td>
+                  <td>QA/開発者</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            なお、Fowler自身も「単体テスト」や「統合テスト」といった用語は業界内でも定義が揺れがちであることを認めており、チームごとに用語の定義をすり合わせておくことが重要だと述べています[10]。
+          </p>
+        </section>
+
+        <hr />
+
+        {/* Section 4: 4. コンポーネントテストと統合テストの実践 */}
+        <section>
+          <h2 id="4-コンポーネントテストと統合テストの実践">
+            4. コンポーネントテストと統合テストの実践
+          </h2>
+
+          <h3 id="41-コンポーネントテストとは">4.1 コンポーネントテストとは</h3>
+          <p>
+            ISTQBの定義では、コンポーネントテストは個々のソフトウェアコンポーネントに焦点を当てたテストレベルとされています[4]。原著の言葉を借りれば、コンポーネントテストの目的は「そのコンポーネント単体が、公開された仕様どおりに振る舞うこと」を、他のコンポーネントと組み合わせる前に確認することです[1]。
+          </p>
+          <p>
+            コンポーネントテストと単体テストの違いは、スコープの粒度にあります。単体テストが「1つの関数・1つのクラス」を対象にするのに対し、コンポーネントテストは「1つのマイクロサービス」や「1つのデプロイ可能な単位」全体を対象にし、外部の依存先だけをスタブ化して検証します。
+          </p>
+
+          <h3 id="42-統合テストトップダウンとボトムアップ">
+            4.2 統合テスト：トップダウンとボトムアップ
+          </h3>
+          <p>
+            複数のコンポーネントを組み合わせていく際、すべてのコンポーネントが同時に完成することはまずありません。そこで、未完成の部分を仮の実装で埋めながら段階的に統合していく2つの伝統的な戦略があります。
+          </p>
+          <div className="mermaid-wrap">
+            <Mermaid chart={DIAGRAM_5} />
+          </div>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>戦略</th>
+                  <th>仮の実装</th>
+                  <th>メリット</th>
+                  <th>デメリット</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>トップダウン</td>
+                  <td>スタブ（下位コンポーネントの代役）</td>
+                  <td>上位の制御ロジックを早期に検証できる</td>
+                  <td>下位コンポーネントの実際の挙動は後回しになる</td>
+                </tr>
+                <tr className="even">
+                  <td>ボトムアップ</td>
+                  <td>ドライバ（上位コンポーネントの代役）</td>
+                  <td>基盤となる部品から確実に固められる</td>
+                  <td>ユーザーに近いシナリオの検証が遅れる</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            実務では、この2つを組み合わせた「サンドイッチ統合」や、後述するTestcontainersのように実物に近い依存関係を使う方法が広く使われています。
+          </p>
+
+          <h3 id="43-テストダブルtest-doubleの使い分け">
+            4.3 テストダブル（Test Double）の使い分け
+          </h3>
+          <p>
+            コンポーネントテストや単体テストでは、外部依存の代わりに「テストダブル」と呼ばれる代役を使います。Fowlerは、外部サービスとの通信のように低速・不安定・チーム管理外な依存関係に対してテストダブルを使うことで、テストの速度と決定性を確保できると説明しています[11]。ただし同時に、テストダブルが実際のサービスの挙動を正しく模倣できているかという新たな課題が生まれる点にも注意が必要です[11]。この課題こそが、次章で扱う「コントラクトテスト」が解決しようとしている問題です。
+          </p>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>種類</th>
+                  <th>役割</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>ダミー（Dummy）</td>
+                  <td>引数を埋めるためだけに存在し、実際には使われない</td>
+                </tr>
+                <tr className="even">
+                  <td>スタブ（Stub）</td>
+                  <td>あらかじめ決められた固定の応答を返す</td>
+                </tr>
+                <tr className="odd">
+                  <td>スパイ（Spy）</td>
+                  <td>呼び出された内容を記録し、後で検証できる</td>
+                </tr>
+                <tr className="even">
+                  <td>モック（Mock）</td>
+                  <td>期待される呼び出しをあらかじめ定義し、それ以外の呼び出しがあれば失敗させる</td>
+                </tr>
+                <tr className="odd">
+                  <td>フェイク（Fake）</td>
+                  <td>簡易だが実際に動作する実装（インメモリDBなど）</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
       </main>
     </div>
