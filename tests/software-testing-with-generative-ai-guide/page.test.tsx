@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/software-testing-with-generative-ai-guide/page';
@@ -309,3 +309,66 @@ describe('Software Testing with Generative AI Guide - Category 4 (Ch9, Ch10, Ch1
     expect(h3_114.id).toBe('114-必要なスキルとチームの変化');
   });
 });
+
+describe('Software Testing with Generative AI Guide - Category 5 (Ch12, Checklist, References, Disclaimer)', () => {
+  it('renders Chapter 12 with 3 subheadings', () => {
+    render(<Page />);
+    const ch12 = screen.getByRole('heading', { level: 2, name: '第12章 まとめとチェックリスト' });
+    expect(ch12.id).toBe('第12章-まとめとチェックリスト');
+
+    const h3_121 = screen.getByRole('heading', { level: 3, name: '12.1 学習の道筋' });
+    expect(h3_121.id).toBe('121-学習の道筋');
+    const h3_122 = screen.getByRole('heading', { level: 3, name: '12.2 実践チェックリスト' });
+    expect(h3_122.id).toBe('122-実践チェックリスト');
+    const h3_123 = screen.getByRole('heading', { level: 3, name: '12.3 最後に' });
+    expect(h3_123.id).toBe('123-最後に');
+  });
+
+  it('renders interactive Checklist with 13 checkboxes and dynamic progress counter', () => {
+    render(<Page />);
+    const progress = screen.getByText('0 / 13 完了');
+    expect(progress).toBeDefined();
+
+    const checkboxes = screen.getAllByRole('checkbox');
+    expect(checkboxes.length).toBe(13);
+
+    // Toggle first checkbox
+    fireEvent.click(checkboxes[0]);
+    expect(screen.getByText('1 / 13 完了')).toBeDefined();
+
+    // Toggle second checkbox
+    fireEvent.click(checkboxes[1]);
+    expect(screen.getByText('2 / 13 完了')).toBeDefined();
+
+    // Uncheck first checkbox
+    fireEvent.click(checkboxes[0]);
+    expect(screen.getByText('1 / 13 完了')).toBeDefined();
+  });
+
+  it('renders all 18 references and disclaimer', () => {
+    render(<Page />);
+    const refHeading = screen.getByRole('heading', { level: 2, name: '参考文献' });
+    expect(refHeading.id).toBe('参考文献');
+
+    // All 18 reference badges [1] through [18]
+    for (let i = 1; i <= 18; i++) {
+      expect(screen.getByText(`[${i}]`)).toBeDefined();
+    }
+
+    // Key authors / titles in references
+    expect(screen.getAllByText(/Mark Winteringham/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/CT-GenAI/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/CT-AI/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/GitHub Copilot/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/Playwright/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/Martin Fowler/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/Kent Beck/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/DORA Report/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/OWASP/).length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText(/Angie Jones/).length).toBeGreaterThanOrEqual(1);
+
+    // Disclaimer
+    expect(screen.getByText(/本ガイドは2026年9月時点で確認できる公開情報に基づいて作成しています/)).toBeDefined();
+  });
+});
+

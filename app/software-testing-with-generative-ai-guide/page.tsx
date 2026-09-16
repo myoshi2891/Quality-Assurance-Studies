@@ -1,5 +1,6 @@
 import React from 'react';
 import Mermaid from '../../components/Mermaid';
+import Checklist from './Checklist';
 import NavBar from './NavBar';
 import './software-testing-with-generative-ai-guide.css';
 
@@ -1026,6 +1027,285 @@ Then 合計金額に割引が反映される
             <h3 id="114-必要なスキルとチームの変化">11.4 必要なスキルとチームの変化</h3>
             <p>
               生成AIの導入に伴い、テスターに求められるスキルセットも変化します[2]。プロンプトエンジニアリングはもちろん、生成物を批判的に評価するリテラシー、そして「どのタスクを人間が担い、どのタスクをAIに任せるか」を判断する設計的思考が重要になります。個人がばらばらに工夫するのではなく、有効なプロンプトやワークフローをチームで共有し、標準化していく文化を育てることが、組織としての成熟度を高める近道です[2]。
+            </p>
+          </section>
+
+          <hr />
+
+          {/* 第12章 まとめとチェックリスト */}
+          <section>
+            <h2 id="第12章-まとめとチェックリスト">第12章 まとめとチェックリスト</h2>
+            <h3 id="121-学習の道筋">12.1 学習の道筋</h3>
+            <p>
+              本ガイドで扱った内容をさらに体系的に学びたい場合、次のような学習パスが考えられます。
+            </p>
+            <ul>
+              <li>
+                実務寄りの入門書として、Mark Winteringham著『Software Testing with Generative AI』[1]
+              </li>
+              <li>
+                生成AIをテストに活用する専門知識を体系的に学べる資格として、ISTQBの「Testing with Generative AI（CT-GenAI）」[2], [3]
+              </li>
+              <li>
+                AI自体（機械学習システム）をテストする視点を深めたい場合は、ISTQBの「AI Testing（CT-AI）」[4]（CT-GenAIとは目的が異なり、AIシステムそのものの品質保証に焦点を当てています）
+              </li>
+            </ul>
+
+            <h3 id="122-実践チェックリスト">12.2 実践チェックリスト</h3>
+            <Checklist />
+
+            <h3 id="123-最後に">12.3 最後に</h3>
+            <p>
+              生成AIは、テスターの仕事を消し去る魔法の杖ではありません。しかし、要件の曖昧さを洗い出し、退屈なテストデータ作成を肩代わりし、探索的テストの壁打ち相手になり、コードの網羅的なテストケースの下書きを高速に用意してくれる、頼れる相棒にはなり得ます。大切なのは、Kent Beckの言う「予測不能なジーニー」[12]と向き合う心構えを持ち、Martin Fowlerが説くように出力を厳密に検証する規律を保ちながら[11]、一歩ずつ実務に取り入れていくことです。
+            </p>
+          </section>
+
+          <hr />
+
+          {/* 参考文献 */}
+          <section>
+            <h2 id="参考文献">参考文献</h2>
+            <div className="ref-grid">
+              <div className="ref-card">
+                <span className="ref-badge">[1]</span>
+                <span className="ref-body">
+                  Mark Winteringham『Software Testing with Generative AI』（Manning Publications、2024年12月刊） —{' '}
+                  <a
+                    href="https://www.oreilly.com/library/view/software-testing-with/9781633437364/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://www.oreilly.com/library/view/software-testing-with/9781633437364/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[2]</span>
+                <span className="ref-body">
+                  ISTQB, &quot;Certified Tester Specialist Level Syllabus – Testing with Generative AI (CT-GenAI) v1.0&quot;（2025年） —{' '}
+                  <a
+                    href="https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[3]</span>
+                <span className="ref-body">
+                  ISTQB, &quot;ISTQB® Certified Tester – Testing with Generative AI (CT-GenAI) Press Release&quot; —{' '}
+                  <a
+                    href="https://istqb.org/istqb-certified-tester-specialist-level-testing-with-generative-ai-ct-genai-press-release/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://istqb.org/istqb-certified-tester-specialist-level-testing-with-generative-ai-ct-genai-press-release/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[4]</span>
+                <span className="ref-body">
+                  ISTQB, &quot;Certified Tester AI Testing (CT-AI) Version 2.0&quot; —{' '}
+                  <a
+                    href="https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://istqb.org/certifications/certified-tester-ai-testing-ct-ai/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[5]</span>
+                <span className="ref-body">
+                  GitHub Blog, &quot;How to generate unit tests with GitHub Copilot: Tips and examples&quot; —{' '}
+                  <a
+                    href="https://github.blog/ai-and-ml/github-copilot/how-to-generate-unit-tests-with-github-copilot-tips-and-examples/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://github.blog/ai-and-ml/github-copilot/how-to-generate-unit-tests-with-github-copilot-tips-and-examples/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[6]</span>
+                <span className="ref-body">
+                  GitHub Docs, &quot;Writing tests with GitHub Copilot&quot; —{' '}
+                  <a
+                    href="https://docs.github.com/en/copilot/tutorials/write-tests"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://docs.github.com/en/copilot/tutorials/write-tests
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[7]</span>
+                <span className="ref-body">
+                  Anthropic, &quot;Evaluate prompts in the developer console&quot; —{' '}
+                  <a
+                    href="https://claude.com/blog/evaluate-prompts"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://claude.com/blog/evaluate-prompts
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[8]</span>
+                <span className="ref-body">
+                  Microsoft for Developers, &quot;The Complete Playwright End-to-End Story, Tools, AI, and Real-World Workflows&quot; —{' '}
+                  <a
+                    href="https://developer.microsoft.com/blog/the-complete-playwright-end-to-end-story-tools-ai-and-real-world-workflows/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://developer.microsoft.com/blog/the-complete-playwright-end-to-end-story-tools-ai-and-real-world-workflows/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[9]</span>
+                <span className="ref-body">
+                  Playwright公式サイト（Microsoft） —{' '}
+                  <a
+                    href="https://playwright.dev/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://playwright.dev/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[10]</span>
+                <span className="ref-body">
+                  The Pragmatic Engineer（Gergely Orosz）, Martin Fowlerへのインタビュー —{' '}
+                  <a
+                    href="https://newsletter.pragmaticengineer.com/p/martin-fowler"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://newsletter.pragmaticengineer.com/p/martin-fowler
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[11]</span>
+                <span className="ref-body">
+                  The New Stack, &quot;Martin Fowler on Preparing for AI&apos;s Nondeterministic Computing&quot; —{' '}
+                  <a
+                    href="https://thenewstack.io/martin-fowler-on-preparing-for-ais-nondeterministic-computing/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://thenewstack.io/martin-fowler-on-preparing-for-ais-nondeterministic-computing/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[12]</span>
+                <span className="ref-body">
+                  The Pragmatic Engineer（Gergely Orosz）, &quot;TDD, AI agents and coding with Kent Beck&quot; —{' '}
+                  <a
+                    href="https://newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://newsletter.pragmaticengineer.com/p/tdd-ai-agents-and-coding-with-kent
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[13]</span>
+                <span className="ref-body">
+                  Google Cloud Blog, &quot;Announcing the 2025 DORA Report&quot; —{' '}
+                  <a
+                    href="https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://cloud.google.com/blog/products/ai-machine-learning/announcing-the-2025-dora-report
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[14]</span>
+                <span className="ref-body">
+                  DORA, &quot;Balancing AI tensions: Moving from AI adoption to effective SDLC use&quot; —{' '}
+                  <a
+                    href="https://dora.dev/insights/balancing-ai-tensions/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://dora.dev/insights/balancing-ai-tensions/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[15]</span>
+                <span className="ref-body">
+                  OWASP, &quot;Top 10 for LLM Applications 2025&quot; —{' '}
+                  <a
+                    href="https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://owasp.org/www-project-top-10-for-large-language-model-applications/assets/PDF/OWASP-Top-10-for-LLMs-v2025.pdf
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[16]</span>
+                <span className="ref-body">
+                  Simon Willison, &quot;Generating documentation from tests using files-to-prompt and LLM&quot; —{' '}
+                  <a
+                    href="https://til.simonwillison.net/llms/docs-from-tests"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://til.simonwillison.net/llms/docs-from-tests
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[17]</span>
+                <span className="ref-body">
+                  Angie Jones公式サイト（Test Automation University創設者、現Agentic AI Foundation VP としての経歴を掲載） —{' '}
+                  <a
+                    href="https://angiejones.tech/"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://angiejones.tech/
+                  </a>
+                </span>
+              </div>
+              <div className="ref-card">
+                <span className="ref-badge">[18]</span>
+                <span className="ref-body">
+                  &quot;Angie Jones Chats With Kent About Automated Visual Testing&quot; — Chats with Kent Podcast（Kent C. Dodds） —{' '}
+                  <a
+                    href="https://kentcdodds.com/chats/02/08/angie-jones-chats-with-kent-about-automated-visual-testing"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    https://kentcdodds.com/chats/02/08/angie-jones-chats-with-kent-about-automated-visual-testing
+                  </a>
+                </span>
+              </div>
+            </div>
+
+            <p className="disclaimer">
+              <em>
+                本ガイドは2026年9月時点で確認できる公開情報に基づいて作成しています。生成AI関連の技術動向や各種資格・規制は変化が速い分野のため、実務で利用する際は各リンク先の最新情報もあわせてご確認ください。
+              </em>
             </p>
           </section>
         </main>
