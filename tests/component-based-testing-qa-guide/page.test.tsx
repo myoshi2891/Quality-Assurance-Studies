@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/component-based-testing-qa-guide/page';
@@ -300,5 +300,53 @@ describe('Component-based Testing QA Guide - Category 1 (Hero, Intro, Sec 1, Sec
     const ths12 = tables[11].querySelectorAll('thead th');
     expect(ths12[0].textContent).toBe('実行タイミング');
     expect(ths12[1].textContent).toBe('含めるべきテスト');
+  });
+
+  it('renders Section 11 (まとめ：品質保証チェックリスト) with interactive Checklist component', () => {
+    const { container } = render(<Page />);
+    const sec11 = document.getElementById('11-まとめ品質保証チェックリスト');
+    expect(sec11).not.toBeNull();
+
+    const checklistCard = container.querySelector('.checklist-card');
+    expect(checklistCard).not.toBeNull();
+
+    const progress = checklistCard?.querySelector('.checklist-progress');
+    expect(progress?.textContent).toBe('0 / 10 完了');
+
+    const checkboxes = checklistCard?.querySelectorAll('input[type="checkbox"]');
+    expect(checkboxes?.length).toBe(10);
+
+    // Click first checkbox
+    if (checkboxes && checkboxes[0]) {
+      fireEvent.click(checkboxes[0]);
+      expect(progress?.textContent).toBe('1 / 10 完了');
+      fireEvent.click(checkboxes[0]);
+      expect(progress?.textContent).toBe('0 / 10 完了');
+    }
+  });
+
+  it('renders Section 12 (参考文献) with 5 category sections, 19 reference cards, and disclaimer', () => {
+    const { container } = render(<Page />);
+    const sec12 = document.getElementById('12-参考文献');
+    expect(sec12).not.toBeNull();
+
+    expect(document.getElementById('学術文献専門書籍')).not.toBeNull();
+    expect(document.getElementById('martin-fowler--thoughtworks')).not.toBeNull();
+    expect(document.getElementById('google')).not.toBeNull();
+    expect(document.getElementById('標準非営利団体')).not.toBeNull();
+    expect(document.getElementById('ツール公式ドキュメント')).not.toBeNull();
+
+    const refCards = container.querySelectorAll('.ref-card');
+    expect(refCards.length).toBe(19);
+
+    // Verify badges 1 to 19 exist
+    const badges = Array.from(refCards).map((card) => card.querySelector('.ref-badge')?.textContent);
+    expect(badges).toContain('1');
+    expect(badges).toContain('19');
+
+    // Disclaimer
+    const disclaimer = container.querySelector('.disclaimer');
+    expect(disclaimer).not.toBeNull();
+    expect(disclaimer?.textContent).toContain('本ガイドは、コンポーネントベースソフトウェアのテストとQA');
   });
 });
