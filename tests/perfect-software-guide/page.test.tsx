@@ -262,3 +262,71 @@ describe('Perfect Software Guide - Category 2 (Step 1 - Step 4: Assumptions & Mi
     expect(section?.textContent).toContain('The Psychology of Computer Programming');
   });
 });
+
+describe('Perfect Software Guide - Category 3 (Step 5 - Step 8: Psychology & Information Processing)', () => {
+  it('renders Section step5 with Mermaid d4 diagram and defense mechanisms explanation', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step5');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 5　悪い知らせへの防衛反応（情報免疫）を認識する');
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図4　悪い知らせへの6つの防衛反応パターン');
+
+    expect(section?.textContent).toContain('情報免疫');
+  });
+
+  it('renders Section step6 with good test criteria and 3 list items', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step6');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 6　「良いテスト」の基準を持つ');
+
+    const listItems = section?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(listItems?.[0].textContent).toContain('テストの「良さ」を統計的にしか見積もれないという前提を持つ');
+    expect(listItems?.[2].textContent).toContain('「バグが見つからなかった」ことは「良いテストだった」ことの証明にはならない');
+  });
+
+  it('renders Section step7 with Mermaid d5 diagram and major fallacies table (5 rows)', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step7');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 7　テストにまつわる5大誤解を手放す');
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図5　5つの誤解とそれに対応する事実');
+
+    const tableWrap = section?.querySelector('.table-wrap');
+    expect(tableWrap?.querySelector('.table-title')?.textContent).toBe('テストにまつわる5大誤解');
+
+    const rows = section?.querySelectorAll('table tbody tr');
+    expect(rows?.length).toBe(5);
+    expect(rows?.[0].querySelectorAll('td')[0].textContent).toBe('テストで品質を作り込める');
+    expect(rows?.[1].querySelectorAll('td')[0].textContent).toBe('バグ0件は合格の証明になる');
+    expect(rows?.[2].querySelectorAll('td')[0].textContent).toBe('テストは多いほど良い');
+    expect(rows?.[3].querySelectorAll('td')[0].textContent).toBe('出荷可否はテスターが決める');
+    expect(rows?.[4].querySelectorAll('td')[0].textContent).toBe('自動化すれば人は不要になる');
+  });
+
+  it('renders Section step8 with Mermaid d6 diagram and Satir communication model explanation', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step8');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 8　情報が意思決定に至るまでの流れを意識する');
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図6　取り込みから対応に至る情報処理サイクル');
+
+    expect(section?.textContent).toContain('バージニア・サティア');
+    expect(section?.textContent).toContain('取り込み・意味づけ・重要性判断・対応');
+  });
+});
