@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `356a6e4` |
-| 最新コミット内容 | `chore(archive): move Component-based-testing-qa-guide to archive and sync tracking docs` |
+| 最新 HEAD | `caa746c` |
+| 最新コミット内容 | `fix(navigation): reclassify component-based-testing guide to books-practices` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
