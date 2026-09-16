@@ -155,6 +155,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 - `app/unit-testing-principles-practices-patterns-guide/page.tsx` (Unit Testing Principles, Practices, and Patterns 完全ガイド、`NavBar.tsx` 付き)
 - `app/component-based-testing-qa-guide/page.tsx` (コンポーネントベースソフトウェアシステムのテストと品質保証完全ガイド、`NavBar.tsx` 付き)
 - `app/perfect-software-guide/page.tsx` (Perfect Software 実践ガイド、`NavBar.tsx` 付き)
+- `app/software-testing-with-generative-ai-guide/page.tsx` (生成AIとソフトウェアテスト実践ガイド、`NavBar.tsx` 付き)
 
 ## HTML → Next.js 移行 注意事項
 
@@ -299,6 +300,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | `Unit-testing-principles-practices-patterns-guide.html` | `/unit-testing-principles-practices-patterns-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Component-based-testing-qa-guide.html` | `/component-based-testing-qa-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 | `Perfect-software-guide.html` | `/perfect-software-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
+| `Software-testing-with-generative-ai-guide.html` | `/software-testing-with-generative-ai-guide` | ✅ NavBar + aria-current あり (archive/html-archive/books/) |
 
 ### 未移行（プロジェクトルートに残存）
 
@@ -312,7 +314,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 | 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（2 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| 新規ガイド系（4 ファイル）: `Ai-driven-software-testing-guide.*`（HTML+Markdown ペア）/ `Automating-data-quality-monitoring-guide.md` / `Software-testing-with-generative-ai-guide.md`（Markdown 単体） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 新規ガイド系（4 ファイル）: `Ai-driven-software-testing-guide.*`（HTML+Markdown ペア）/ `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
 
@@ -325,7 +327,7 @@ This project is a Next.js (App Router) web application designed as a comprehensi
 コンテキスト:
 - 最新 HEAD は `docs/MIGRATION_PROGRESS.md` の「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
-- 合計 69 ルート（ガイドライブラリ index + 68 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
+- 合計 71 ルート（ガイドライブラリ index + 70 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
 - ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 23 ファイル（書籍ガイド系の HTML/Markdown 8 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`、新規ガイド系 4 ファイル）残っています。これらは現時点でルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
