@@ -132,4 +132,59 @@ describe('Component-based Testing QA Guide - Category 1 (Hero, Intro, Sec 1, Sec
     expect(document.getElementById('23-テスト容易性testabilityという設計上の課題')).not.toBeNull();
     expect(document.getElementById('24-バージョンと互換性の問題')).not.toBeNull();
   });
+
+  it('renders Section 3 (テストレベルの全体像とテストピラミッド) with 3 subheadings, 2 tables, and FIG.04 Mermaid', () => {
+    const { container } = render(<Page />);
+    const sec3 = document.getElementById('3-テストレベルの全体像とテストピラミッド');
+    expect(sec3).not.toBeNull();
+
+    expect(document.getElementById('31-テストピラミッドfowler--cohn')).not.toBeNull();
+    expect(document.getElementById('32-googleのsmallmediumlargeモデル')).not.toBeNull();
+    expect(document.getElementById('33-テストレベル比較表')).not.toBeNull();
+
+    // Tables in Sec 3 (tables index 2 and 3)
+    const tables = container.querySelectorAll('.table-scroll table');
+    expect(tables.length).toBeGreaterThanOrEqual(4);
+
+    // Google Small/Medium/Large table
+    const ths3 = tables[2].querySelectorAll('thead th');
+    expect(ths3[0].textContent).toBe('サイズ');
+    expect(ths3[1].textContent).toBe('実行環境');
+    expect(ths3[2].textContent).toBe('典型的な対応関係');
+    expect(ths3[3].textContent).toBe('目的');
+
+    // Test level comparison table
+    const ths4 = tables[3].querySelectorAll('thead th');
+    expect(ths4[0].textContent).toBe('テストレベル');
+    expect(ths4[1].textContent).toBe('検証すること');
+    expect(ths4[2].textContent).toBe('依存関係の扱い');
+    expect(ths4[3].textContent).toBe('実行速度');
+    expect(ths4[4].textContent).toBe('主な担当者');
+  });
+
+  it('renders Section 4 (コンポーネントテストと統合テストの実践) with 3 subheadings, 2 tables, and FIG.05 Mermaid', () => {
+    const { container } = render(<Page />);
+    const sec4 = document.getElementById('4-コンポーネントテストと統合テストの実践');
+    expect(sec4).not.toBeNull();
+
+    expect(document.getElementById('41-コンポーネントテストとは')).not.toBeNull();
+    expect(document.getElementById('42-統合テストトップダウンとボトムアップ')).not.toBeNull();
+    expect(document.getElementById('43-テストダブルtest-doubleの使い分け')).not.toBeNull();
+
+    // Tables in Sec 4 (tables index 4 and 5)
+    const tables = container.querySelectorAll('.table-scroll table');
+    expect(tables.length).toBeGreaterThanOrEqual(6);
+
+    // Topdown vs Bottomup table
+    const ths5 = tables[4].querySelectorAll('thead th');
+    expect(ths5[0].textContent).toBe('戦略');
+    expect(ths5[1].textContent).toBe('仮の実装');
+    expect(ths5[2].textContent).toBe('メリット');
+    expect(ths5[3].textContent).toBe('デメリット');
+
+    // Test Double table
+    const ths6 = tables[5].querySelectorAll('thead th');
+    expect(ths6[0].textContent).toBe('種類');
+    expect(ths6[1].textContent).toBe('役割');
+  });
 });
