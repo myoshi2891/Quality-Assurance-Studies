@@ -59,6 +59,62 @@ subgraph BOTTOMUP["ボトムアップ統合(ドライバを使用)"]
 BU1["下位コンポーネント<br/>(実装済み)"] --> BU2["未実装の上位コンポーネント<br/>→ ドライバで代替"]
 end`;
 
+const DIAGRAM_6 = `sequenceDiagram
+participant ConsumerTest as コンシューマー側テスト
+participant MockProvider as モックプロバイダ
+participant PactFile as 契約ファイル
+participant ProviderTest as プロバイダ側検証テスト
+participant RealProvider as 実際のプロバイダ
+ConsumerTest->>MockProvider: 期待するリクエスト/レスポンスを定義
+MockProvider-->>ConsumerTest: モック応答を返却
+ConsumerTest->>PactFile: やり取りの内容を契約として記録
+PactFile->>ProviderTest: 契約を共有
+ProviderTest->>RealProvider: 契約どおりのリクエストを再生
+RealProvider-->>ProviderTest: 実際の応答を返却
+ProviderTest->>ProviderTest: 契約の期待値と実際の応答を比較検証`;
+
+const DIAGRAM_7 = `flowchart LR
+Con1["コンシューマーA"] -->|契約A| Broker["契約ブローカー<br/>(Pact Broker等)"]
+Con2["コンシューマーB"] -->|契約B| Broker
+Con3["コンシューマーC"] -->|契約C| Broker
+Broker -->|全契約を集約して検証| Provider["プロバイダサービス"]
+classDef conStyle fill:#e8f0fe,stroke:#3b6fd6,color:#1a2b4c
+classDef brokerStyle fill:#fdf3e0,stroke:#c98a1f,color:#4c3a1a
+classDef provStyle fill:#eafaf1,stroke:#2e9e5b,color:#164a2c
+class Con1,Con2,Con3 conStyle
+class Broker brokerStyle
+class Provider provStyle`;
+
+const DIAGRAM_8 = `flowchart LR
+Src["ソースコード/<br/>依存関係マニフェスト"] --> Scan["SCAツールによるスキャン<br/>(例: OWASP Dependency-Check)"]
+Scan --> DB["既知の脆弱性データベース<br/>(NVD等)と照合"]
+DB --> Report["レポート生成 + SBOM出力"]
+Report --> Gate{"重大な脆弱性は<br/>あるか？"}
+Gate -->|あり| Block["ビルドを失敗させる"]
+Gate -->|なし| Pass["パイプラインを継続"]
+classDef stepStyle fill:#e8f0fe,stroke:#3b6fd6,color:#1a2b4c
+classDef gateStyle fill:#fdf3e0,stroke:#c98a1f,color:#4c3a1a
+classDef blockStyle fill:#fdecea,stroke:#c0526e,color:#5a1420
+classDef passStyle fill:#eafaf1,stroke:#2e9e5b,color:#164a2c
+class Src,Scan,DB,Report stepStyle
+class Gate gateStyle
+class Block blockStyle
+class Pass passStyle`;
+
+const DIAGRAM_9 = `flowchart TD
+Test["統合テストプロセス"] --> DB["使い捨てのDBコンテナ<br/>(例: PostgreSQL)"]
+Test --> MQ["使い捨てのメッセージキュー<br/>コンテナ(例: Kafka)"]
+Test --> Cache["使い捨てのキャッシュ<br/>コンテナ(例: Redis)"]
+DB --> Cleanup["テスト終了後に<br/>自動的に破棄"]
+MQ --> Cleanup
+Cache --> Cleanup
+classDef testStyle fill:#e8f0fe,stroke:#3b6fd6,color:#1a2b4c
+classDef infraStyle fill:#fdf3e0,stroke:#c98a1f,color:#4c3a1a
+classDef cleanupStyle fill:#eafaf1,stroke:#2e9e5b,color:#164a2c
+class Test testStyle
+class DB,MQ,Cache infraStyle
+class Cleanup cleanupStyle`;
+
 export default function ComponentBasedTestingPage() {
   return (
     <div className="cbss-qa-layout">
@@ -527,6 +583,215 @@ export default function ComponentBasedTestingPage() {
               </tbody>
             </table>
           </div>
+        </section>
+
+        <hr />
+
+        {/* Section 5: 5. コントラクトテストとコンシューマー駆動契約（CDC） */}
+        <section>
+          <h2 id="5-コントラクトテストとコンシューマー駆動契約cdc">
+            5. コントラクトテストとコンシューマー駆動契約（CDC）
+          </h2>
+
+          <h3 id="51-なぜサービス間の統合テストは壊れやすいのか">
+            5.1 なぜサービス間の統合テストは壊れやすいのか
+          </h3>
+          <p>
+            マイクロサービス間の連携をすべてE2Eテストで確認しようとすると、関係するサービスをすべて起動する必要があり、テストは遅く、環境要因で不安定（flaky）になりがちです。Toby Clemsonのテスト戦略解説でも、統合テストの層は「自分のサービスと直接の依存先との間のやり取りだけ」に絞り、より広い範囲の検証は別の手法に委ねることが推奨されています[9]。
+          </p>
+          <p>
+            その「別の手法」の1つが<strong>コントラクトテスト（契約テスト）</strong>です。コントラクトテストは、サービス間でやり取りされるメッセージが「契約」としてドキュメント化された共通認識に沿っているかどうかを、それぞれのアプリケーションを単独でテストすることによって確認する手法です[12]。Pactプロジェクトの公式ドキュメントは、これを「家に火をつけて火災報知器をテストする必要はなく、ボタンを押してテストすればよい」という比喩で説明しています[12]。
+          </p>
+
+          <h3 id="52-コンシューマー駆動契約cdcとは">
+            5.2 コンシューマー駆動契約（CDC）とは
+          </h3>
+          <p>
+            <strong>コンシューマー駆動契約（Consumer-Driven Contracts, CDC）</strong>
+            は、ThoughtWorksのIan Robinsonが2006年に提唱したパターンで、契約をプロバイダ側ではなく、そのサービスを利用するコンシューマー側が主導して定義するという考え方です[13]。Robinsonは、コンシューマーがそれぞれプロバイダに期待する内容を伝え、それらを組み合わせたものがプロバイダ側の責務になると説明しています[13]。
+          </p>
+          <div className="mermaid-wrap">
+            <Mermaid chart={DIAGRAM_6} />
+          </div>
+          <p>
+            このデファクトスタンダードとなっているオープンソース実装が<strong>Pact</strong>です。Pactの公式ドキュメントによれば、コンシューマー側のテストで発生した各リクエストと期待するレスポンスのペア（インタラクション）が契約ファイルとして記録され、プロバイダ側ではその契約ファイルを再生して実際の応答と比較することで、双方のテストを同期させる仕組みになっています[14]。
+          </p>
+
+          <h3 id="53-複数のコンシューマーを持つプロバイダの契約管理">
+            5.3 複数のコンシューマーを持つプロバイダの契約管理
+          </h3>
+          <p>
+            1つのプロバイダに複数のコンシューマーが存在する場合、それぞれの契約を集約して管理する必要があります。
+          </p>
+          <div className="mermaid-wrap">
+            <Mermaid chart={DIAGRAM_7} />
+          </div>
+          <p>
+            コンシューマー駆動契約の大きな利点は、コンシューマーが実際に使っている部分だけが契約として検証され、使われていない部分はプロバイダが自由に変更できるという点です。つまり、プロバイダを壊すかもしれない変更を、本番デプロイの前に、しかも高速なテストとして検出できます。
+          </p>
+
+          <h3 id="54-コントラクトテストのコード例イメージ">
+            5.4 コントラクトテストのコード例（イメージ）
+          </h3>
+          <p>
+            以下は、注文サービス（コンシューマー）が在庫サービス（プロバイダ）に対して抱く期待を、Pactに似たAPIで表現した例です（学習用の簡略化されたサンプルコードであり、特定の書籍やドキュメントからの引用ではありません）。
+          </p>
+          <div className="code-block">
+            <div className="code-line"><span className="code-comment">// コンシューマー側：注文サービスが在庫サービスに期待する契約を定義する</span></div>
+            <div className="code-line"><span className="code-fn">describe</span>(<span className="code-string">&quot;在庫サービスとの契約&quot;</span>, () =&gt; &#123;</div>
+            <div className="code-line">  <span className="code-fn">it</span>(<span className="code-string">&quot;商品IDを渡すと在庫数を返す&quot;</span>, <span className="code-keyword">async</span> () =&gt; &#123;</div>
+            <div className="code-line">    <span className="code-keyword">await</span> provider.<span className="code-fn">addInteraction</span>(&#123;</div>
+            <div className="code-line">      <span className="code-prop">state</span>: <span className="code-string">&quot;商品1001が5個在庫にある&quot;</span>,</div>
+            <div className="code-line">      <span className="code-prop">uponReceiving</span>: <span className="code-string">&quot;在庫確認リクエスト&quot;</span>,</div>
+            <div className="code-line">      <span className="code-prop">withRequest</span>: &#123; <span className="code-prop">method</span>: <span className="code-string">&quot;GET&quot;</span>, <span className="code-prop">path</span>: <span className="code-string">&quot;/inventory/1001&quot;</span> &#125;,</div>
+            <div className="code-line">      <span className="code-prop">willRespondWith</span>: &#123;</div>
+            <div className="code-line">        <span className="code-prop">status</span>: <span className="code-num">200</span>,</div>
+            <div className="code-line">        <span className="code-prop">body</span>: &#123; <span className="code-prop">productId</span>: <span className="code-num">1001</span>, <span className="code-prop">quantity</span>: <span className="code-num">5</span> &#125;,</div>
+            <div className="code-line">      &#125;,</div>
+            <div className="code-line">    &#125;);</div>
+            <div className="code-line"></div>
+            <div className="code-line">    <span className="code-keyword">const</span> result = <span className="code-keyword">await</span> inventoryClient.<span className="code-fn">getStock</span>(<span className="code-num">1001</span>);</div>
+            <div className="code-line">    <span className="code-fn">expect</span>(result.quantity).<span className="code-fn">toBe</span>(<span className="code-num">5</span>);</div>
+            <div className="code-line">  &#125;);</div>
+            <div className="code-line">&#125;);</div>
+          </div>
+          <p>
+            このテストが成功すると、コンシューマーが期待する内容が契約ファイルとして書き出され、プロバイダ側のパイプラインでその契約を満たしているかどうかが自動的に検証されます。
+          </p>
+        </section>
+
+        <hr />
+
+        {/* Section 6: 6. サードパーティ／COTSコンポーネントの品質保証 */}
+        <section>
+          <h2 id="6-サードパーティcotsコンポーネントの品質保証">
+            6. サードパーティ／COTSコンポーネントの品質保証
+          </h2>
+
+          <h3 id="61-動くかどうかだけでは足りない">6.1 「動くかどうか」だけでは足りない</h3>
+          <p>
+            自社が直接書いていないコンポーネントを組み込む際、機能的な正しさに加えて、セキュリティ・ライセンス・保守性という観点の品質保証が欠かせません。OWASP（Open Web Application Security Project）は、こうした活動を
+            <strong>コンポーネント分析（Component Analysis）</strong>
+            と呼び、サードパーティおよびオープンソースコンポーネントのコードベース内でのリスクを管理する自動化プロセスと位置づけています[15]。
+          </p>
+
+          <h3 id="62-ソフトウェア構成分析scaとsbom">6.2 ソフトウェア構成分析（SCA）とSBOM</h3>
+          <p>
+            サードパーティコンポーネントの中身を1つ1つ人間がレビューすることは現実的ではないため、自動化ツールによる
+            <strong>ソフトウェア構成分析（Software Composition Analysis, SCA）</strong>
+            が使われます。代表的なOSSツールであるOWASP Dependency-Checkは、プロジェクトの依存関係を解析し、既知の脆弱性データベース（NVD等）と突き合わせることで、公開済みの脆弱性を検出します[16]。
+          </p>
+          <div className="mermaid-wrap">
+            <Mermaid chart={DIAGRAM_8} />
+          </div>
+          <p>
+            SCAツールが出力する
+            <strong>SBOM（Software Bill of Materials、ソフトウェア部品表）</strong>
+            は、システムがどのコンポーネントのどのバージョンに依存しているかを一覧化したものです。OWASPは、正確なインベントリ（在庫目録）を持つことがリスク特定の前提であり、SBOMなどの依存関係管理の仕組みがこのインベントリ作成に役立つと説明しています[15]。
+          </p>
+
+          <h3 id="63-サードパーティコンポーネントに対するqaチェック項目">
+            6.3 サードパーティコンポーネントに対するQAチェック項目
+          </h3>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>チェック項目</th>
+                  <th>目的</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>既知の脆弱性（CVE）の有無</td>
+                  <td>セキュリティリスクの早期発見</td>
+                </tr>
+                <tr className="even">
+                  <td>ライセンス条件の確認</td>
+                  <td>法的リスクの回避</td>
+                </tr>
+                <tr className="odd">
+                  <td>最終更新日・メンテナンス状況</td>
+                  <td>保守停止（EOL）リスクの把握</td>
+                </tr>
+                <tr className="even">
+                  <td>バージョン固定（ピン留め）</td>
+                  <td>意図しない自動アップデートによる破壊的変更の防止</td>
+                </tr>
+                <tr className="odd">
+                  <td>インターフェース仕様のテスト（第5章のコントラクトテスト）</td>
+                  <td>期待どおりに動作することの確認</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 id="64-信頼するが検証するという姿勢">6.4 「信頼するが検証する」という姿勢</h3>
+          <p>
+            サードパーティコンポーネントに対しては、ソースコードを読んで完全に理解することよりも、「公開されているインターフェース仕様どおりに動くこと」と「セキュリティ上の既知の問題を持ち込まないこと」を継続的に検証し続ける姿勢が現実的です。これは原著が強調する、コンポーネントベースシステムにおける品質保証が単発のテストではなく継続的なプロセスであるという考え方[1]とも一致します。
+          </p>
+        </section>
+
+        <hr />
+
+        {/* Section 7: 7. 現実的な依存関係を使ったテスト */}
+        <section>
+          <h2 id="7-現実的な依存関係を使ったテスト">7. 現実的な依存関係を使ったテスト</h2>
+
+          <h3 id="71-モックだけでは見えないもの">7.1 モックだけでは見えないもの</h3>
+          <p>
+            単体テストではモックを使って依存関係を切り離すのが定石ですが、モックはあくまで「自分がそう思い込んでいる依存先の振る舞い」を再現しているに過ぎません。実際のデータベースやメッセージキューが持つ細かな挙動の違い（SQLの方言、トランザクションの分離レベルなど）は、モックでは検出できないことがあります。
+          </p>
+
+          <h3 id="72-testcontainersという選択肢">7.2 Testcontainersという選択肢</h3>
+          <p>
+            <strong>Testcontainers</strong>
+            は、Dockerコンテナとして提供される「使い捨て」の実サービス（データベース、メッセージキュー、キャッシュなど）をテストコードから直接起動・破棄できるライブラリです。公式ドキュメントは、Testcontainersを使うことでモックやインメモリサービスに頼らず、本番で使うものと同じ種類のサービスに対してテストを書けると説明しています[17][18]。
+          </p>
+          <div className="mermaid-wrap">
+            <Mermaid chart={DIAGRAM_9} />
+          </div>
+          <p>
+            各テスト（またはテストクラス）の実行に合わせてコンテナのライフサイクルが管理されるため、「前回のテストで残ったゴミデータ」に悩まされることもなく、テスト終了時には確実にクリーンアップされます。
+          </p>
+
+          <h3 id="73-モックと実物どちらを使うべきか">7.3 モックと実物、どちらを使うべきか</h3>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>観点</th>
+                  <th>モック/スタブ</th>
+                  <th>Testcontainers（実物）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>実行速度</td>
+                  <td>非常に速い</td>
+                  <td>やや遅い（コンテナ起動時間）</td>
+                </tr>
+                <tr className="even">
+                  <td>本番との忠実度</td>
+                  <td>低い（思い込みに依存）</td>
+                  <td>高い（実際のミドルウェアと同じ挙動）</td>
+                </tr>
+                <tr className="odd">
+                  <td>セットアップの手間</td>
+                  <td>少ない</td>
+                  <td>Dockerが必要</td>
+                </tr>
+                <tr className="even">
+                  <td>向いているテストレベル</td>
+                  <td>単体テスト</td>
+                  <td>統合テスト・コンポーネントテスト</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            両者は対立するものではなく、テストピラミッドの中で役割分担するのが基本です。単体テストは高速なモックで数を稼ぎ、統合テストではTestcontainersのような実物に近い依存関係を使って忠実度を確保します。
+          </p>
         </section>
       </main>
     </div>
