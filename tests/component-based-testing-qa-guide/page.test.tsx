@@ -187,4 +187,60 @@ describe('Component-based Testing QA Guide - Category 1 (Hero, Intro, Sec 1, Sec
     expect(ths6[0].textContent).toBe('種類');
     expect(ths6[1].textContent).toBe('役割');
   });
+
+  it('renders Section 5 (コントラクトテストとコンシューマー駆動契約cdc) with 4 subheadings, 2 Mermaids (FIG.06, FIG.07), and 1 Code block', () => {
+    const { container } = render(<Page />);
+    const sec5 = document.getElementById('5-コントラクトテストとコンシューマー駆動契約cdc');
+    expect(sec5).not.toBeNull();
+
+    expect(document.getElementById('51-なぜサービス間の統合テストは壊れやすいのか')).not.toBeNull();
+    expect(document.getElementById('52-コンシューマー駆動契約cdcとは')).not.toBeNull();
+    expect(document.getElementById('53-複数のコンシューマーを持つプロバイダの契約管理')).not.toBeNull();
+    expect(document.getElementById('54-コントラクトテストのコード例イメージ')).not.toBeNull();
+
+    // Code block in Sec 5
+    const codeBlock = container.querySelector('.code-block');
+    expect(codeBlock).not.toBeNull();
+    expect(codeBlock?.textContent).toContain('在庫サービスとの契約');
+    expect(codeBlock?.textContent).toContain('addInteraction');
+    expect(codeBlock?.querySelectorAll('.code-line').length).toBeGreaterThanOrEqual(10);
+  });
+
+  it('renders Section 6 (サードパーティ／COTSコンポーネントの品質保証) with 4 subheadings, 1 Mermaid (FIG.08), and 1 Table', () => {
+    const { container } = render(<Page />);
+    const sec6 = document.getElementById('6-サードパーティcotsコンポーネントの品質保証');
+    expect(sec6).not.toBeNull();
+
+    expect(document.getElementById('61-動くかどうかだけでは足りない')).not.toBeNull();
+    expect(document.getElementById('62-ソフトウェア構成分析scaとsbom')).not.toBeNull();
+    expect(document.getElementById('63-サードパーティコンポーネントに対するqaチェック項目')).not.toBeNull();
+    expect(document.getElementById('64-信頼するが検証するという姿勢')).not.toBeNull();
+
+    const tables = container.querySelectorAll('.table-scroll table');
+    expect(tables.length).toBeGreaterThanOrEqual(7);
+
+    // QA Check Table
+    const ths7 = tables[6].querySelectorAll('thead th');
+    expect(ths7[0].textContent).toBe('チェック項目');
+    expect(ths7[1].textContent).toBe('目的');
+  });
+
+  it('renders Section 7 (現実的な依存関係を使ったテスト) with 3 subheadings, 1 Mermaid (FIG.09), and 1 Table', () => {
+    const { container } = render(<Page />);
+    const sec7 = document.getElementById('7-現実的な依存関係を使ったテスト');
+    expect(sec7).not.toBeNull();
+
+    expect(document.getElementById('71-モックだけでは見えないもの')).not.toBeNull();
+    expect(document.getElementById('72-testcontainersという選択肢')).not.toBeNull();
+    expect(document.getElementById('73-モックと実物どちらを使うべきか')).not.toBeNull();
+
+    const tables = container.querySelectorAll('.table-scroll table');
+    expect(tables.length).toBeGreaterThanOrEqual(8);
+
+    // Mock vs Testcontainers table
+    const ths8 = tables[7].querySelectorAll('thead th');
+    expect(ths8[0].textContent).toBe('観点');
+    expect(ths8[1].textContent).toBe('モック/スタブ');
+    expect(ths8[2].textContent).toBe('Testcontainers（実物）');
+  });
 });
