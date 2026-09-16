@@ -83,7 +83,8 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/test-driven-development-by-example-guide', h1: /Test-Driven Development: By Example/ },
   { path: '/unit-testing-principles-practices-patterns-guide', h1: /Unit Testing.*完全ガイド/ },
   { path: '/perfect-software-guide', h1: /Perfect Software/ },
+  { path: '/software-testing-with-generative-ai-guide', h1: /Software Testing with Generative AI.*完全ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 70;
+export const EXPECTED_PAGE_COUNT = 71;
 

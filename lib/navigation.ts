@@ -119,6 +119,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/unit-testing-principles-practices-patterns-guide', label: '単体テストの考え方/使い方 完全ガイド', description: 'Vladimir Khorikovの名著に基づく単体テスト実践ガイド。4本柱、AAA、モック、古典派vsロンドン派。', category: 'books-practices' },
   { href: '/component-based-testing-qa-guide', label: 'コンポーネントテスト/QA 完全ガイド', description: 'Jerry Gaoらの名著に基づくコンポーネントテスト、統合、Pact、SCA、Testcontainers、ミューテーションテスト。', category: 'books-practices' },
   { href: '/perfect-software-guide', label: 'Perfect Software 実践ガイド', description: 'Gerald M. Weinbergの名著に基づくテストの限界、情報収集、心理的防衛反応、実践的ベストプラクティス。', category: 'books-practices' },
+  { href: '/software-testing-with-generative-ai-guide', label: '生成AIとソフトウェアテスト実践ガイド', description: '生成AIとLLMをテスト業務へ体系的かつ安全に取り入れるための実践ガイド。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [

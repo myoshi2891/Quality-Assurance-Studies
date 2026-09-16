@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 70 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 15 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(70);
+  it('contains 71 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 16 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(71);
   });
 
   it('every item has a unique href', () => {
@@ -288,6 +288,11 @@ describe('groupByCategory', () => {
     expect(item?.category).toBe('books-practices');
   });
 
+  it('classifies /software-testing-with-generative-ai-guide as books-practices', () => {
+    const item = NAV_ITEMS.find((i: NavItem) => i.href === '/software-testing-with-generative-ai-guide');
+    expect(item?.category).toBe('books-practices');
+  });
+
   it('places 2 items in the cicd-devops group', () => {
     const cicd = groupByCategory(NAV_ITEMS).find((g) => g.category === 'cicd-devops');
     expect(cicd?.items).toHaveLength(2);
@@ -298,9 +303,9 @@ describe('groupByCategory', () => {
     expect(tools?.items).toHaveLength(7);
   });
 
-  it('places 15 items in the books-practices group', () => {
+  it('places 16 items in the books-practices group', () => {
     const books = groupByCategory(NAV_ITEMS).find((g) => g.category === 'books-practices');
-    expect(books?.items).toHaveLength(15);
+    expect(books?.items).toHaveLength(16);
     expect(books?.title).toBe('名著・実践ガイド');
   });
 
