@@ -1,6 +1,7 @@
 import React from 'react';
 import Mermaid from '../../components/Mermaid';
 import NavBar from './NavBar';
+import Checklist from './Checklist';
 import './component-based-testing-qa-guide.css';
 
 const DIAGRAM_1 = `flowchart TD
@@ -1052,6 +1053,319 @@ export default function ComponentBasedTestingPage() {
           </div>
           <p>
             このように実行タイミングを分けることで、開発者への即時フィードバックの速さと、リリース前の網羅的な品質保証の両方を実現できます。
+          </p>
+        </section>
+
+        <hr />
+
+        {/* Section 11: 11. まとめ：品質保証チェックリスト */}
+        <section>
+          <h2 id="11-まとめ品質保証チェックリスト">11. まとめ：品質保証チェックリスト</h2>
+          <p>
+            コンポーネントベースソフトウェアシステムのテストと品質保証を実践する際のチェックリストです。
+          </p>
+          <Checklist />
+        </section>
+
+        <hr />
+
+        {/* Section 12: 12. 参考文献 */}
+        <section>
+          <h2 id="12-参考文献">12. 参考文献</h2>
+
+          <h3 id="学術文献専門書籍">学術文献・専門書籍</h3>
+          <div className="ref-grid">
+            <div className="ref-card">
+              <div className="ref-badge">1</div>
+              <div className="ref-body">
+                Jerry Gao, H.-S. J. Tsao, Ye Wu,{' '}
+                <em>Testing and Quality Assurance for Component-based Software</em>,
+                Artech House, 2003. Google Books:{' '}
+                <a
+                  href="https://books.google.co.jp/books/about/Testing_and_Quality_Assurance_for_Compon.html?id=oUEwDwAAQBAJ&redir_esc=y"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://books.google.co.jp/books/about/Testing_and_Quality_Assurance_for_Compon.html?id=oUEwDwAAQBAJ&amp;redir_esc=y
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">2</div>
+              <div className="ref-body">
+                Clemens Szyperski,{' '}
+                <em>Component Software: Beyond Object-Oriented Programming</em>,
+                Addison-Wesley, 1998（定義の引用に関する解説）:{' '}
+                <a
+                  href="https://arxiv.org/pdf/0906.1667"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://arxiv.org/pdf/0906.1667
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">3</div>
+              <div className="ref-body">
+                <em>A Practical Guide to Testing Object-Oriented Software</em> —
+                Component Models（Szyperskiの定義をテストの文脈で解説）:{' '}
+                <a
+                  href="https://www.oreilly.com/library/view/a-practical-guide/0201325640/0201325640_ch10lev1sec1.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://www.oreilly.com/library/view/a-practical-guide/0201325640/0201325640_ch10lev1sec1.html
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">4</div>
+              <div className="ref-body">
+                ISTQB Glossary, <em>Component Testing</em> /{' '}
+                <em>Component Integration Testing</em>:{' '}
+                <a
+                  href="https://glossary.istqb.org/en_US/term/component-testing-4-3"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://glossary.istqb.org/en_US/term/component-testing-4-3
+                </a>
+                、
+                <a
+                  href="https://istqb-glossary.page/component-integration-testing/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://istqb-glossary.page/component-integration-testing/
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <h3 id="martin-fowler--thoughtworks">Martin Fowler / ThoughtWorks</h3>
+          <div className="ref-grid">
+            <div className="ref-card">
+              <div className="ref-badge">5</div>
+              <div className="ref-body">
+                Martin Fowler, <em>TestPyramid</em> (bliki):{' '}
+                <a
+                  href="https://martinfowler.com/bliki/TestPyramid.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://martinfowler.com/bliki/TestPyramid.html
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">9</div>
+              <div className="ref-body">
+                Toby Clemson,{' '}
+                <em>Testing Strategies in a Microservice Architecture</em>,
+                martinfowler.com, 2014:{' '}
+                <a
+                  href="https://martinfowler.com/articles/microservice-testing/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://martinfowler.com/articles/microservice-testing/
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">10</div>
+              <div className="ref-body">
+                Martin Fowler, <em>Software Testing Guide</em>:{' '}
+                <a
+                  href="https://martinfowler.com/testing/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://martinfowler.com/testing/
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">11</div>
+              <div className="ref-body">
+                Martin Fowler, <em>TestDouble</em> / <em>IntegrationTest</em> (test
+                categories タグ一覧):{' '}
+                <a
+                  href="https://martinfowler.com/tags/test%20categories.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://martinfowler.com/tags/test%20categories.html
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">13</div>
+              <div className="ref-body">
+                Ian Robinson,{' '}
+                <em>Consumer-Driven Contracts: A Service Evolution Pattern</em>,
+                martinfowler.com, 2006:{' '}
+                <a
+                  href="https://www.martinfowler.com/articles/consumerDrivenContracts.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://www.martinfowler.com/articles/consumerDrivenContracts.html
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <h3 id="google">Google</h3>
+          <div className="ref-grid">
+            <div className="ref-card">
+              <div className="ref-badge">6</div>
+              <div className="ref-body">
+                Google Testing Blog, <em>Just Say No to More End-to-End Tests</em>,
+                2015:{' '}
+                <a
+                  href="https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">7</div>
+              <div className="ref-body">
+                Google Testing Blog, <em>Test Sizes</em>, 2010:{' '}
+                <a
+                  href="https://testing.googleblog.com/2010/12/test-sizes.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://testing.googleblog.com/2010/12/test-sizes.html
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">8</div>
+              <div className="ref-body">
+                <em>Software Engineering at Google</em> — Chapter 14: Larger Testing:{' '}
+                <a
+                  href="https://abseil.io/resources/swe-book/html/ch14.html"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://abseil.io/resources/swe-book/html/ch14.html
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <h3 id="標準非営利団体">標準・非営利団体</h3>
+          <div className="ref-grid">
+            <div className="ref-card">
+              <div className="ref-badge">15</div>
+              <div className="ref-body">
+                OWASP, <em>Component Analysis</em>:{' '}
+                <a
+                  href="https://owasp.org/www-community/Component_Analysis"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://owasp.org/www-community/Component_Analysis
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">16</div>
+              <div className="ref-body">
+                OWASP Dependency-Check:{' '}
+                <a
+                  href="https://owasp.github.io/www-project-dependency-check/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://owasp.github.io/www-project-dependency-check/
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <h3 id="ツール公式ドキュメント">ツール公式ドキュメント</h3>
+          <div className="ref-grid">
+            <div className="ref-card">
+              <div className="ref-badge">12</div>
+              <div className="ref-body">
+                Pact Docs, <em>Introduction</em>:{' '}
+                <a
+                  href="https://docs.pact.io/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://docs.pact.io/
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">14</div>
+              <div className="ref-body">
+                Pact Docs, <em>How Pact Works</em>:{' '}
+                <a
+                  href="https://docs.pact.io/getting_started/how_pact_works"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://docs.pact.io/getting_started/how_pact_works
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">17</div>
+              <div className="ref-body">
+                Testcontainers, <em>Getting Started</em>:{' '}
+                <a
+                  href="https://testcontainers.com/getting-started/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://testcontainers.com/getting-started/
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">18</div>
+              <div className="ref-body">
+                Docker, <em>Testcontainers: Testing with Real Dependencies</em>:{' '}
+                <a
+                  href="https://www.docker.com/blog/testcontainers-testing-with-real-dependencies/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://www.docker.com/blog/testcontainers-testing-with-real-dependencies/
+                </a>
+              </div>
+            </div>
+            <div className="ref-card">
+              <div className="ref-badge">19</div>
+              <div className="ref-body">
+                PIT Mutation Testing, 公式サイト:{' '}
+                <a
+                  href="https://pitest.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  https://pitest.org/
+                </a>
+              </div>
+            </div>
+          </div>
+
+          <hr />
+
+          <p className="disclaimer">
+            <em>
+              本ガイドは、コンポーネントベースソフトウェアのテストとQAを体系的に学ぶための教育目的の資料です。実際のプロジェクトに適用する際は、チームの技術スタックやリスク許容度に応じて、テストレベルの比重やツール選定を調整してください。
+            </em>
           </p>
         </section>
       </main>
