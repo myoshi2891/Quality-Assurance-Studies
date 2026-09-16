@@ -21,6 +21,7 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/e2e-testing-guide', h1: /End-to-End.*Testing/s },
   { path: '/integration-functional-testing-guide', h1: /INTEGRATION.*FUNCTIONAL.*TESTING/s },
   { path: '/integration-system-testing-guide', h1: /Integration.*System Testing/s },
+  { path: '/component-based-testing-qa-guide', h1: /コンポーネントベースソフトウェアシステムのテストと品質保証/ },
   { path: '/istqb-ct-act-complete-guide', h1: /CT-AcT.*Acceptance Testing/s },
   { path: '/istqb-ct-aut-complete-guide', h1: /CT-AuT.*自動車ソフトウェアテスター/s },
   { path: '/istqb-ct-ai-complete-guide', h1: /CT-AI 完全ガイド/ },
@@ -83,5 +84,5 @@ export const PAGES: readonly PageMeta[] = [
   { path: '/unit-testing-principles-practices-patterns-guide', h1: /Unit Testing.*完全ガイド/ },
 ] as const;
 
-export const EXPECTED_PAGE_COUNT = 68;
+export const EXPECTED_PAGE_COUNT = 69;
 

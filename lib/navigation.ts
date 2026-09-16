@@ -52,6 +52,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/e2e-testing-guide', label: 'E2Eテストガイド', description: 'ユーザーシナリオ全体を通した検証と、不安定さを抑える設計指針。', category: 'foundation' },
   { href: '/acceptance-testing-guide', label: '受入テストガイド', description: 'ビジネス価値の合意形成としての受入基準とUATの進め方。', category: 'foundation' },
   { href: '/bdd-testing-guide', label: 'BDDガイド', description: 'Given-When-Then による仕様の共有と、実行可能仕様への落とし込み。', category: 'foundation' },
+  { href: '/component-based-testing-qa-guide', label: 'コンポーネントテストQAガイド', description: 'コンポーネントのテストピラミッド、コントラクトテスト、SCA、CI/CDを網羅。', category: 'foundation' },
 
   { href: '/istqb-ctfl-complete-guide', label: 'ISTQB CTFL v4.0 ガイド', description: 'Foundation Level シラバス v4.0 の全6章を横断する総合ガイド。', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-v4-chapter1-fundamentals', label: 'CTFL v4.0 第1章 テストの基礎', description: 'テストの必要性・7原則・テストプロセス・必要なスキル。', category: 'istqb-foundation-ext' },

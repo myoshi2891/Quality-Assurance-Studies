@@ -10,8 +10,8 @@ import {
 } from '../../lib/navigation';
 
 describe('NAV_ITEMS', () => {
-  it('contains 68 entries (home + 9 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 13 books-practices)', () => {
-    expect(NAV_ITEMS).toHaveLength(68);
+  it('contains 69 entries (home + 10 foundation + 11 fdn-ext + 6 advanced + 14 specialist + 5 expert + 2 cicd-devops + 7 tools-frameworks + 13 books-practices)', () => {
+    expect(NAV_ITEMS).toHaveLength(69);
   });
 
   it('every item has a unique href', () => {
@@ -272,9 +272,14 @@ describe('groupByCategory', () => {
     ]);
   });
 
-  it('places 9 items in the foundation group', () => {
+  it('places 10 items in the foundation group', () => {
     const foundation = groupByCategory(NAV_ITEMS).find((g) => g.category === 'foundation');
-    expect(foundation?.items).toHaveLength(9);
+    expect(foundation?.items).toHaveLength(10);
+  });
+
+  it('classifies /component-based-testing-qa-guide as foundation', () => {
+    const item = NAV_ITEMS.find((i: NavItem) => i.href === '/component-based-testing-qa-guide');
+    expect(item?.category).toBe('foundation');
   });
 
   it('places 2 items in the cicd-devops group', () => {
