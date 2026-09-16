@@ -284,9 +284,20 @@
 
             /* ─────────────────── MAIN WRAPPER ─────────────────── */
             .ctal-ta-guide .container {
-                max-width: 980px;
+                max-width: 1100px;
                 margin: 0 auto;
                 padding: 0 1.5rem 6rem;
+            }
+
+            /* sectionを直接ラッパーとして使用しているため、max-widthをここで制御 */
+            .ctal-ta-guide section:not(.hero) {
+                max-width: 1100px !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                padding-left: 1.5rem;
+                padding-right: 1.5rem;
+                width: 100%;
+                box-sizing: border-box;
             }
 
             /* ─────────────────── SECTION HEADERS ─────────────────── */
@@ -364,7 +375,7 @@
             }
             .ctal-ta-guide p {
                 margin-bottom: 1rem;
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0;
                 font-size: 1rem;
             }
 
@@ -435,7 +446,7 @@
             }
             .ctal-ta-guide .arch-layer-desc {
                 font-size: 1rem;
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0;
             }
 
             /* ─────────────────── PYRAMID ─────────────────── */
@@ -568,7 +579,7 @@
                 gap: 0.85rem;
                 align-items: flex-start;
                 font-size: 1rem;
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0;
             }
             .ctal-ta-guide .step-list li::before {
                 content: counter(steps);
@@ -738,7 +749,7 @@
             .ctal-ta-guide .table-wrap td {
                 padding: 0.65rem 0.9rem;
                 border-bottom: 1px solid rgba(26, 46, 74, 0.5);
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0 !important;
                 vertical-align: top;
             }
             .ctal-ta-guide .table-wrap tr:last-child td {
@@ -985,22 +996,22 @@
             .ctal-ta-guide .alert.green {
                 border-color: var(--color-accent-green, #00ff87);
                 background: rgba(0, 255, 135, 0.05);
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0;
             }
             .ctal-ta-guide .alert.amber {
                 border-color: var(--color-accent-orange, #ffb300);
                 background: rgba(255, 179, 0, 0.05);
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0;
             }
             .ctal-ta-guide .alert.red {
                 border-color: var(--color-accent-red, #ff4560);
                 background: rgba(255, 69, 96, 0.05);
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0;
             }
             .ctal-ta-guide .alert.cyan {
                 border-color: var(--color-accent-cyan, #00d4ff);
                 background: rgba(0, 212, 255, 0.05);
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0;
             }
             .ctal-ta-guide .alert strong {
                 font-family: var(--font-mono);
@@ -1173,7 +1184,7 @@
 
             .ctal-ta-guide ol {
                 padding-left: 1.4rem;
-                color: var(--color-text-secondary, #9cb7d6);
+                color: #c8d8f0;
                 font-size: 1rem;
                 margin-bottom: 1rem;
             }
