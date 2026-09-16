@@ -194,3 +194,71 @@ describe('Perfect Software Guide - Category 1 (Hero, Intro, Book Info, Structure
     expect(rows?.[18].querySelectorAll('td')[1].textContent).toBe('Epilogue');
   });
 });
+
+describe('Perfect Software Guide - Category 2 (Step 1 - Step 4: Assumptions & Mindset Shift)', () => {
+  it('renders Section step1 with information collection definition and 2 list items', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step1');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 1　テストとは「情報収集」であると理解する');
+
+    const listItems = section?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(2);
+    expect(listItems?.[0].textContent).toContain('「テストが遅れているから開発が遅れている」ではなく');
+    expect(listItems?.[1].textContent).toContain('「テストを増やせば品質が上がる」のではなく');
+  });
+
+  it('renders Section step2 with Mermaid d2 diagram and sampling explanation', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step2');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 2　なぜ全数テストは不可能なのかを受け入れる');
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図2　全数テストが不可能な理由とサンプリングへの流れ');
+  });
+
+  it('renders Section step3 with testing vs debugging table (4 rows) and Mermaid d3 diagram', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step3');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 3　テストとデバッグを混同しない');
+
+    const tableWrap = section?.querySelector('.table-wrap');
+    expect(tableWrap?.querySelector('.table-title')?.textContent).toBe('テストとデバッグの違い');
+
+    const rows = section?.querySelectorAll('table tbody tr');
+    expect(rows?.length).toBe(4);
+    expect(rows?.[0].querySelectorAll('td')[0].textContent).toBe('目的');
+    expect(rows?.[0].querySelectorAll('td')[1].textContent).toBe('情報を集めること');
+    expect(rows?.[0].querySelectorAll('td')[2].textContent).toBe('原因を特定し、修正すること');
+    expect(rows?.[2].querySelectorAll('td')[0].textContent).toBe('成果物');
+    expect(rows?.[2].querySelectorAll('td')[1].textContent).toBe('バグレポートという情報');
+    expect(rows?.[2].querySelectorAll('td')[2].textContent).toBe('修正されたコード');
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図3　テストとデバッグ、2つの活動の分岐');
+  });
+
+  it('renders Section step4 with meta-testing concept, 3 list items, and bebugging explanation', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#step4');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('Step 4　テストの「質」を測るメタ情報を持つ');
+
+    const listItems = section?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(3);
+    expect(listItems?.[0].textContent).toContain('そのテストは、本当に意図した機能を検証できているか');
+
+    expect(section?.textContent).toContain('bebugging');
+    expect(section?.textContent).toContain('The Psychology of Computer Programming');
+  });
+});
