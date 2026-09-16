@@ -134,3 +134,71 @@ describe('Software Testing with Generative AI Guide - Category 1 (Hero, Ch1, Ch2
     expect(links?.length).toBe(60);
   });
 });
+
+describe('Software Testing with Generative AI Guide - Category 2 (Ch3, Ch4, Ch5)', () => {
+  it('renders Chapter 3 with 4 subheadings, Table 4, Table 5, Mermaid 3, and 2 prompt examples', () => {
+    render(<Page />);
+    const ch3 = screen.getByRole('heading', { level: 2, name: /第3章 プロンプトエンジニアリング/ });
+    expect(ch3.id).toBe('第3章-プロンプトエンジニアリングの基本とテスト実務への応用');
+
+    const h3_31 = screen.getByRole('heading', { level: 3, name: '3.1 プロンプトの6要素構造' });
+    expect(h3_31.id).toBe('31-プロンプトの6要素構造');
+    const h3_32 = screen.getByRole('heading', { level: 3, name: '3.2 3つの核となるプロンプト技法' });
+    expect(h3_32.id).toBe('32-3つの核となるプロンプト技法');
+    const h3_33 = screen.getByRole('heading', { level: 3, name: '3.3 プロンプトチェイニングの具体例' });
+    expect(h3_33.id).toBe('33-プロンプトチェイニングの具体例');
+    const h3_34 = screen.getByRole('heading', { level: 3, name: '3.4 システムプロンプトとユーザープロンプト' });
+    expect(h3_34.id).toBe('34-システムプロンプトとユーザープロンプト');
+
+    // Table 4 in 3.1
+    expect(screen.getByText('役割（Role）')).toBeDefined();
+    expect(screen.getByText('出力形式（Output format）')).toBeDefined();
+
+    // Table 5 in 3.2
+    expect(screen.getByText('プロンプトチェイニング')).toBeDefined();
+    expect(screen.getByText('フューショットプロンプティング')).toBeDefined();
+    expect(screen.getByText('メタプロンプティング')).toBeDefined();
+
+    // Prompt examples in Ch3
+    expect(screen.getByText(/文脈: 対象はECサイトのクーポン適用機能です。/)).toBeDefined();
+    expect(screen.getByText(/システムプロンプト例:/)).toBeDefined();
+  });
+
+  it('renders Chapter 4 with 4 subheadings, Mermaid 4, Prompt Example 3, and Table 6', () => {
+    render(<Page />);
+    const ch4 = screen.getByRole('heading', { level: 2, name: '第4章 AIによるテスト分析とテストケース生成' });
+    expect(ch4.id).toBe('第4章-aiによるテスト分析とテストケース生成');
+
+    const h3_41 = screen.getByRole('heading', { level: 3, name: '4.1 要件から潜在的な不具合を洗い出す' });
+    expect(h3_41.id).toBe('41-要件から潜在的な不具合を洗い出す');
+    const h3_42 = screen.getByRole('heading', { level: 3, name: '4.2 テスト条件からテストケースへ' });
+    expect(h3_42.id).toBe('42-テスト条件からテストケースへ');
+    const h3_43 = screen.getByRole('heading', { level: 3, name: '4.3 Gherkin形式のテストケース生成' });
+    expect(h3_43.id).toBe('43-gherkin形式のテストケース生成');
+    const h3_44 = screen.getByRole('heading', { level: 3, name: '4.4 生成結果を評価するための指標' });
+    expect(h3_44.id).toBe('44-生成結果を評価するための指標');
+
+    // Gherkin prompt example in 4.3
+    expect(screen.getByText(/Given ログイン済みのユーザーがカート画面を開いている/)).toBeDefined();
+
+    // Table 6 in 4.4
+    expect(screen.getByText('正確性（Accuracy）')).toBeDefined();
+    expect(screen.getByText('適合率（Precision）')).toBeDefined();
+    expect(screen.getByText('再現率（Recall）')).toBeDefined();
+    expect(screen.getByText('多様性（Diversity）')).toBeDefined();
+    expect(screen.getByText('時間効率')).toBeDefined();
+  });
+
+  it('renders Chapter 5 with 3 subheadings and Mermaid 5', () => {
+    render(<Page />);
+    const ch5 = screen.getByRole('heading', { level: 2, name: '第5章 AIによるテストデータ生成' });
+    expect(ch5.id).toBe('第5章-aiによるテストデータ生成');
+
+    const h3_51 = screen.getByRole('heading', { level: 3, name: '5.1 合成テストデータのメリット' });
+    expect(h3_51.id).toBe('51-合成テストデータのメリット');
+    const h3_52 = screen.getByRole('heading', { level: 3, name: '5.2 データ生成のパイプライン' });
+    expect(h3_52.id).toBe('52-データ生成のパイプライン');
+    const h3_53 = screen.getByRole('heading', { level: 3, name: '5.3 プライバシーを意識したデータ生成' });
+    expect(h3_53.id).toBe('53-プライバシーを意識したデータ生成');
+  });
+});
