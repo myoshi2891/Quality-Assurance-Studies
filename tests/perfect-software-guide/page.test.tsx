@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page from '../../app/perfect-software-guide/page';
@@ -372,5 +372,95 @@ describe('Perfect Software Guide - Category 4 (Step 9 - Step 11: Practice, Human
     expect(caption?.textContent).toContain('図7　怪しいテストツール営業を見抜くチェックフロー');
 
     expect(section?.textContent).toContain('無自覚なスキャム');
+  });
+});
+
+describe('Perfect Software Guide - Category 5 (Roadmap, Summary, References, Footer & Checklist)', () => {
+  it('renders Section roadmap with Mermaid d8 diagram and interactive Checklist', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#roadmap');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('初学者向け実践ロードマップ');
+
+    const caption = section?.querySelector('.diagram-caption');
+    expect(caption?.textContent).toContain('図8　初学者向け学習ロードマップ');
+
+    const h3 = section?.querySelector('h3');
+    expect(h3?.textContent).toContain('日々の実務で確認したいチェックリスト');
+
+    const counter = section?.querySelector('#checklistCounter');
+    expect(counter?.textContent).toBe('0 / 7 完了');
+
+    const items = section?.querySelectorAll('.checklist li');
+    expect(items?.length).toBe(7);
+  });
+
+  it('verifies Checklist interactivity by checking and unchecking items', () => {
+    const { container } = render(<Page />);
+    const counter = container.querySelector('#checklistCounter');
+    const checkboxes = container.querySelectorAll<HTMLInputElement>('.checklist input[type="checkbox"]');
+    const items = container.querySelectorAll('.checklist li');
+
+    expect(counter?.textContent).toBe('0 / 7 完了');
+
+    // Check first item
+    fireEvent.click(checkboxes[0]);
+    expect(counter?.textContent).toBe('1 / 7 完了');
+    expect(items[0].classList.contains('done')).toBe(true);
+
+    // Check second item
+    fireEvent.click(checkboxes[1]);
+    expect(counter?.textContent).toBe('2 / 7 完了');
+    expect(items[1].classList.contains('done')).toBe(true);
+
+    // Uncheck first item
+    fireEvent.click(checkboxes[0]);
+    expect(counter?.textContent).toBe('1 / 7 完了');
+    expect(items[0].classList.contains('done')).toBe(false);
+  });
+
+  it('renders Section summary with 7-item recap list', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#summary');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('まとめ');
+
+    const listItems = section?.querySelectorAll('ul li');
+    expect(listItems?.length).toBe(7);
+    expect(listItems?.[0].textContent).toContain('情報収集としてのテストの役割を正しく認識し');
+    expect(listItems?.[6].textContent).toContain('詐欺的な売り込みを見抜く');
+  });
+
+  it('renders Section references with 11 reference cards and correct external links', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#references');
+    expect(section).not.toBeNull();
+
+    const h2 = section?.querySelector('h2');
+    expect(h2?.textContent).toContain('参考文献・出典');
+
+    const cards = section?.querySelectorAll('.ref-card');
+    expect(cards?.length).toBe(11);
+
+    expect(cards?.[0].querySelector('.ref-num')?.textContent).toBe('1');
+    expect(cards?.[0].querySelector('.ref-title')?.textContent).toContain('Gerald M. Weinberg 公式サイト');
+    expect(cards?.[0].querySelector('a.ref-url')?.getAttribute('href')).toBe('https://geraldmweinberg.com/Site/Perfect_Software.html');
+    expect(cards?.[0].querySelector('a.ref-url')?.getAttribute('target')).toBe('_blank');
+
+    expect(cards?.[10].querySelector('.ref-num')?.textContent).toBe('11');
+    expect(cards?.[10].querySelector('.ref-title')?.textContent).toContain('Edsger W. Dijkstra');
+    expect(cards?.[10].querySelector('a.ref-url')?.getAttribute('href')).toBe('https://www.cs.utexas.edu/~EWD/transcriptions/EWD02xx/EWD268.html');
+  });
+
+  it('renders footer with educational disclaimer', () => {
+    const { container } = render(<Page />);
+    const footer = container.querySelector('footer.footer');
+    expect(footer).not.toBeNull();
+    expect(footer?.textContent).toContain('本ガイドは教育目的の要約・解説であり');
+    expect(footer?.textContent).toContain('Perfect Software: And Other Illusions about Testing');
   });
 });
