@@ -35,7 +35,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - 全19件の参考文献（学術文献・専門書籍、Martin Fowler / ThoughtWorks、Google、標準・非営利団体、ツール公式ドキュメント）を完全移植。
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全53アンカー（H2, H3）、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/component-based-testing-qa-guide/`: ページコンポーネント、専用スタイル（`.cbss-qa-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
-- `lib/navigation.ts`: `foundation` カテゴリに `/component-based-testing-qa-guide` を追加（全69件）。
+- `lib/navigation.ts`: `books-practices` カテゴリに `/component-based-testing-qa-guide`（コンポーネントテスト/QA 完全ガイド）を追加（全69件）。
 - `tests/component-based-testing-qa-guide/page.test.tsx`: TDD 必須サイクルに従い、全12セクション、全11Mermaid図、全12テーブル、全コードブロック、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（16 pass / 127 expect()）。
 - `Component-based-testing-qa-guide.html` & `Component-based-testing-qa-guide.md`: `archive/html-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 69 ページ体制に同期。

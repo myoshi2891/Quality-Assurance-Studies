@@ -52,7 +52,6 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/e2e-testing-guide', label: 'E2Eテストガイド', description: 'ユーザーシナリオ全体を通した検証と、不安定さを抑える設計指針。', category: 'foundation' },
   { href: '/acceptance-testing-guide', label: '受入テストガイド', description: 'ビジネス価値の合意形成としての受入基準とUATの進め方。', category: 'foundation' },
   { href: '/bdd-testing-guide', label: 'BDDガイド', description: 'Given-When-Then による仕様の共有と、実行可能仕様への落とし込み。', category: 'foundation' },
-  { href: '/component-based-testing-qa-guide', label: 'コンポーネントテストQAガイド', description: 'コンポーネントのテストピラミッド、コントラクトテスト、SCA、CI/CDを網羅。', category: 'foundation' },
 
   { href: '/istqb-ctfl-complete-guide', label: 'ISTQB CTFL v4.0 ガイド', description: 'Foundation Level シラバス v4.0 の全6章を横断する総合ガイド。', category: 'istqb-foundation-ext' },
   { href: '/istqb-ctfl-v4-chapter1-fundamentals', label: 'CTFL v4.0 第1章 テストの基礎', description: 'テストの必要性・7原則・テストプロセス・必要なスキル。', category: 'istqb-foundation-ext' },
@@ -118,6 +117,7 @@ export const NAV_ITEMS: readonly NavItem[] = [
   { href: '/art-of-software-testing-guide', label: 'The Art of Software Testing 実践ガイド', description: 'Glenford J. Myersの古典的名著から学ぶテストの心理学、7原則、ブラック・ホワイトボックステスト、テストピラミッド、TDD、デバッグ技法。', category: 'books-practices' },
   { href: '/test-driven-development-by-example-guide', label: 'TDD: By Example 実践ガイド', description: 'Kent Beckの名著に基づくTDD実践ガイド。三つの法則、MoneyとxUnitの実例、パターン集、Canon TDD、AI時代のTDD。', category: 'books-practices' },
   { href: '/unit-testing-principles-practices-patterns-guide', label: '単体テストの考え方/使い方 完全ガイド', description: 'Vladimir Khorikovの名著に基づく単体テスト実践ガイド。4本柱、AAA、モック、古典派vsロンドン派。', category: 'books-practices' },
+  { href: '/component-based-testing-qa-guide', label: 'コンポーネントテスト/QA 完全ガイド', description: 'Jerry Gaoらの名著に基づくコンポーネントテスト、統合、Pact、SCA、Testcontainers、ミューテーションテスト。', category: 'books-practices' },
 ];
 
 export const CATEGORY_ORDER: readonly NavCategory[] = [
