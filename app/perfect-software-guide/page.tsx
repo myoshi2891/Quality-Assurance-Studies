@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import React from 'react';
 import Mermaid from '../../components/Mermaid';
+import Checklist from './Checklist';
 import NavBar from './NavBar';
 import './perfect-software-guide.css';
 
@@ -108,6 +109,22 @@ const DIAGRAM_7 = `flowchart TB
     C --> G["契約前に第三者や社内の専門家に相談する"]
     class A hub
     class F,G done`;
+
+const DIAGRAM_8 = `flowchart TB
+    classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
+    classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
+    S0["読み始める前に　テストは品質を作らないと心得る"]
+    S0 --> S1["Step1　テスト=情報収集と理解する"]
+    S1 --> S2["Step2　全数テストは不可能だと受け入れる"]
+    S2 --> S3["Step3　テストとデバッグの役割を分ける"]
+    S3 --> S4["Step4　悪い知らせへの自分の防衛反応に気づく"]
+    S4 --> S5["Step5　5大誤解を同僚と共有し議論する"]
+    S5 --> S6["Step6　取り込みから対応までの流れを実践する"]
+    S6 --> S7["Step7　レビューやウォークスルーを取り入れる"]
+    S7 --> S8["Step8　怪しいツール営業を見抜く目を養う"]
+    S8 --> Goal["ゴール　テストの限界を正しく伝えられる人になる"]
+    class S0 hub
+    class Goal done`;
 
 export default function PerfectSoftwareGuidePage() {
   return (
@@ -779,7 +796,239 @@ export default function PerfectSoftwareGuidePage() {
               初学者であっても、テストツールやテスト自動化サービスの導入検討に関わる機会は増えています。「派手な宣伝文句」と「実際の限界」を切り分けて評価する視点は、キャリアの早い段階から身につけておいて損はありません。
             </p>
           </section>
+
+          {/* Section 16: roadmap */}
+          <section className="section" id="roadmap">
+            <h2>
+              <i className="ti ti-route"></i>初学者向け実践ロードマップ
+            </h2>
+            <p>ここまでの内容を、実際に日々の仕事で使えるステップとしてまとめます。</p>
+
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_8} />
+            </div>
+            <p className="diagram-caption">図8　初学者向け学習ロードマップ</p>
+
+            <h3>日々の実務で確認したいチェックリスト</h3>
+            <Checklist />
+          </section>
+
+          {/* Section 17: summary */}
+          <section className="section" id="summary">
+            <h2>
+              <i className="ti ti-flag-check"></i>まとめ
+            </h2>
+            <p>
+              <em>Perfect Software: And Other Illusions about Testing</em>
+              が一貫して伝えているのは、「テストとは万能の品質保証装置ではなく、意思決定のための情報を集める、限定的だが価値のある活動である」という一点に尽きます。ダイクストラの言葉が示す通り、テストはバグの存在は示せてもその不在は証明できません。この限界を正しく理解した上で、
+            </p>
+            <ul>
+              <li>情報収集としてのテストの役割を正しく認識し</li>
+              <li>サンプリングであるという前提のもとで優先順位をつけ</li>
+              <li>テストとデバッグを混同せず</li>
+              <li>人間の心理的な防衛反応に気づき</li>
+              <li>誤解を手放し</li>
+              <li>機械だけに頼らずレビューも活用し</li>
+              <li>詐欺的な売り込みを見抜く</li>
+            </ul>
+            <p>
+              という一連の姿勢を身につけることが、初学者からベテランまで、テストに関わるすべての人にとっての実践的なベストプラクティスだと言えるでしょう。
+            </p>
+          </section>
+
+          {/* Section 18: references */}
+          <section className="section" id="references">
+            <h2>
+              <i className="ti ti-link"></i>参考文献・出典
+            </h2>
+            <p>
+              本ガイドの作成にあたり、2026年9月時点でウェブ調査を行い、以下のソースを参照しました（可能な限り、著名な国際的テスト専門家・コンサルタントによる発言・記事を優先して参照しています）。
+            </p>
+
+            <ul className="ref-list">
+              <li className="ref-card">
+                <span className="ref-num">1</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Gerald M. Weinberg 公式サイト（書籍紹介ページ／James Bach・Michael Bolton・Pradeep Soundararajan・Fiona Charles の推薦文掲載）
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://geraldmweinberg.com/Site/Perfect_Software.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://geraldmweinberg.com/Site/Perfect_Software.html
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">2</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Markus Gärtner（国際的に知られるアジャイル・テストコンサルタント）によるワインバーグ追悼レビュー連載記事
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://www.shino.de/2022/11/28/remembering-jerry-weinberg-perfect-software-and-other-illusions-about-testing/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.shino.de/2022/11/28/remembering-jerry-weinberg-perfect-software-and-other-illusions-about-testing/
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">3</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Perfect Software 引用集（ダイクストラの引用を含む）— Goodreads
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://www.goodreads.com/work/quotes/4107583-perfect-software-and-other-illusions-about-testing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.goodreads.com/work/quotes/4107583-perfect-software-and-other-illusions-about-testing
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">4</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Perfect Software 各章タイトル・要点抜粋 — Leanpub
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://leanpub.com/perfectsoftware"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://leanpub.com/perfectsoftware
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">5</span>
+                <div className="ref-body">
+                  <div className="ref-title">Dwayne Phillips によるレビュー</div>
+                  <a
+                    className="ref-url"
+                    href="https://dwaynephillips.net/reviews/PerfectSoftware.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://dwaynephillips.net/reviews/PerfectSoftware.html
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">6</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Sunish Chabba による書籍要約記事 — Medium
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://sunishchabba.medium.com/summary-of-the-book-perfect-software-and-other-illusions-about-testing-7ebb2eaa34dd"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://sunishchabba.medium.com/summary-of-the-book-perfect-software-and-other-illusions-about-testing-7ebb2eaa34dd
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">7</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Victoria Markosyan による学びの整理記事 — Medium
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://vicajoy.medium.com/perfect-software-and-other-illusions-about-testing-lessons-learned-from-the-book-by-gerald-m-aa4cbb893266"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://vicajoy.medium.com/perfect-software-and-other-illusions-about-testing-lessons-learned-from-the-book-by-gerald-m-aa4cbb893266
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">8</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Bebugging（バグの埋め込み手法）解説 — Wikipedia
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://en.wikipedia.org/wiki/Bebugging"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://en.wikipedia.org/wiki/Bebugging
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">9</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    James Bach へのインタビュー（推薦図書として本書を紹介）— Hexawise Blog
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://hexawise.com/posts/testing-smarter-with-james-bach"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://hexawise.com/posts/testing-smarter-with-james-bach
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">10</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Software Engineering Radio, Episode 280: Gerald Weinberg on Bugs, Errors and Software Quality
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://se-radio.net/2017/01/se-radio-episode-280-gerald-weinberg-on-bugs-errors-and-software-quality/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://se-radio.net/2017/01/se-radio-episode-280-gerald-weinberg-on-bugs-errors-and-software-quality/
+                  </a>
+                </div>
+              </li>
+              <li className="ref-card">
+                <span className="ref-num">11</span>
+                <div className="ref-body">
+                  <div className="ref-title">
+                    Edsger W. Dijkstra, &ldquo;Structured Programming&rdquo;（1969年8月、EWD 268）— 本文で引用したダイクストラの原典（E.W. Dijkstra Archive 公式トランスクリプション）
+                  </div>
+                  <a
+                    className="ref-url"
+                    href="https://www.cs.utexas.edu/~EWD/transcriptions/EWD02xx/EWD268.html"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    https://www.cs.utexas.edu/~EWD/transcriptions/EWD02xx/EWD268.html
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </section>
         </main>
+
+        <footer className="footer">
+          本ガイドは教育目的の要約・解説であり、原著の文章を逐語的に引用するものではありません。詳細な議論や事例、著者自身の言葉を味わいたい方は、ぜひ原著{' '}
+          <em>Perfect Software: And Other Illusions about Testing</em>{' '}
+          を手に取ってお読みください。
+        </footer>
       </div>
     </div>
   );
