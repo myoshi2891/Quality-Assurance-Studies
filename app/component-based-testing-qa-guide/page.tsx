@@ -115,6 +115,36 @@ class Test testStyle
 class DB,MQ,Cache infraStyle
 class Cleanup cleanupStyle`;
 
+const DIAGRAM_10 = `flowchart TD
+    A["元のソースコード"] --> B["ミューテーションツールが<br/>コードに小さな欠陥を注入"]
+    B --> C["既存のテストスイートを実行"]
+    C --> D{"テストは失敗したか？"}
+    D -->|失敗した| E["ミュータントは Killed<br/>（テストの質は良好）"]
+    D -->|失敗しなかった| F["ミュータントは Survived<br/>（テストの抜け漏れを示唆）"]
+    F --> G["テストケースを追加/強化する"]
+
+    classDef srcStyle fill:#e8f0fe,stroke:#3b6fd6,color:#1a2b4c
+    classDef killedStyle fill:#eafaf1,stroke:#2e9e5b,color:#164a2c
+    classDef survivedStyle fill:#fdecea,stroke:#c0526e,color:#5a1420
+    class A,B,C srcStyle
+    class E killedStyle
+    class F,G survivedStyle`;
+
+const DIAGRAM_11 = `flowchart LR
+    Commit["コードのコミット"] --> Unit["単体テスト<br/>（数秒）"]
+    Unit --> CompT["コンポーネントテスト<br/>（数十秒）"]
+    CompT --> Contract["コントラクトテスト<br/>（数十秒）"]
+    Contract --> Integ["統合テスト<br/>（数分）"]
+    Integ --> E2E["E2Eテスト<br/>（夜間バッチ等）"]
+    E2E --> Deploy["本番デプロイ"]
+
+    classDef fastStyle fill:#eafaf1,stroke:#2e9e5b,color:#164a2c
+    classDef midStyle fill:#e8f0fe,stroke:#3b6fd6,color:#1a2b4c
+    classDef slowStyle fill:#fdf3e0,stroke:#c98a1f,color:#4c3a1a
+    class Unit,CompT fastStyle
+    class Contract,Integ midStyle
+    class E2E slowStyle`;
+
 export default function ComponentBasedTestingPage() {
   return (
     <div className="cbss-qa-layout">
@@ -791,6 +821,237 @@ export default function ComponentBasedTestingPage() {
           </div>
           <p>
             両者は対立するものではなく、テストピラミッドの中で役割分担するのが基本です。単体テストは高速なモックで数を稼ぎ、統合テストではTestcontainersのような実物に近い依存関係を使って忠実度を確保します。
+          </p>
+        </section>
+
+        <hr />
+
+        {/* Section 8: 8. テストの「質」を測る：カバレッジとミューテーションテスト */}
+        <section>
+          <h2 id="8-テストの質を測るカバレッジとミューテーションテスト">
+            8. テストの「質」を測る：カバレッジとミューテーションテスト
+          </h2>
+          <h3 id="81-コードカバレッジの限界">8.1 コードカバレッジの限界</h3>
+          <p>
+            「カバレッジ80%達成」といった目標はよく聞かれますが、カバレッジはあくまで「そのコードがテスト実行中に通過したかどうか」を示すだけで、「そのコードの結果が正しく検証されたかどうか」までは保証しません。アサーションのないテストでも、コードを実行しさえすればカバレッジは上がってしまいます。
+          </p>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>カバレッジの種類</th>
+                  <th>測定対象</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>行カバレッジ（Line Coverage）</td>
+                  <td>実行された行の割合</td>
+                </tr>
+                <tr className="even">
+                  <td>分岐カバレッジ（Branch Coverage）</td>
+                  <td>条件分岐の各方向が実行された割合</td>
+                </tr>
+                <tr className="odd">
+                  <td>パスカバレッジ（Path Coverage）</td>
+                  <td>取りうる実行経路が網羅された割合</td>
+                </tr>
+                <tr className="even">
+                  <td>ミューテーションカバレッジ（後述）</td>
+                  <td>テストが実際にバグを検出できる能力の割合</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 id="82-ミューテーションテストという発想">
+            8.2 ミューテーションテストという発想
+          </h3>
+          <p>
+            <strong>ミューテーションテスト</strong>
+            は、「テストの質そのもの」を測定する手法です。代表的なJVM向けツールPIT（PITest）の公式サイトによれば、まずコードに小さな欠陥（ミュータント）を自動的に埋め込み、その状態でテストスイートを実行し、テストが失敗すればそのミュータントは「Killed（撃退された）」、成功してしまえば「Survived（生き残った）」と判定します[19]。テストの質は、この撃退されたミュータントの割合（ミューテーションスコア）で測ることができます[19]。
+          </p>
+          <div className="mermaid-wrap">
+            <Mermaid chart={DIAGRAM_10} />
+          </div>
+          <p>
+            例えば、コード中の比較演算子<code>&gt;</code>が誤って<code>&gt;=</code>に書き換えられた「ミュータント」に対してテストが何も反応しなければ、そのテストは境界値をきちんと検証できていないということが分かります。ミューテーションテストは実行コストが高いため、コミットのたびに実行するのではなく、定期的なバッチやリリース前のゲートとして使うのが現実的です。
+          </p>
+
+          <h3 id="83-コンポーネント単位での品質メトリクス">
+            8.3 コンポーネント単位での品質メトリクス
+          </h3>
+          <p>
+            原著が強調するもう1つの観点は、品質を「テストの合否」という一点だけでなく、継続的に追跡できるメトリクスとして捉えることです[1]。実務でよく使われる指標を以下にまとめます。
+          </p>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>メトリクス</th>
+                  <th>意味</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>欠陥密度（Defect Density）</td>
+                  <td>コンポーネントの規模あたりに検出された欠陥の数</td>
+                </tr>
+                <tr className="even">
+                  <td>テストカバレッジ</td>
+                  <td>テストが通過したコードの割合</td>
+                </tr>
+                <tr className="odd">
+                  <td>ミューテーションスコア</td>
+                  <td>テストが実際に欠陥を検出できる能力の割合</td>
+                </tr>
+                <tr className="even">
+                  <td>平均故障間隔（MTBF）</td>
+                  <td>障害と障害の間の平均稼働時間</td>
+                </tr>
+                <tr className="odd">
+                  <td>依存関係の脆弱性件数</td>
+                  <td>SCAツールで検出された未対応の既知脆弱性の数</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <hr />
+
+        {/* Section 9: 9. 品質特性と非機能テスト */}
+        <section>
+          <h2 id="9-品質特性と非機能テスト">9. 品質特性と非機能テスト</h2>
+          <h3 id="91-コンポーネントベースシステムにおける品質特性">
+            9.1 コンポーネントベースシステムにおける品質特性
+          </h3>
+          <p>
+            原著は、コンポーネントおよびコンポーネントベースシステムの品質を評価する観点として、機能性・信頼性・性能・保守性・移植性・使用性といった品質特性を体系的に検証することの重要性を説いています[1]。これは現在のISO/IEC
+            25010（旧ISO/IEC 9126）が定める品質特性モデルとも通底する考え方です。
+          </p>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>品質特性</th>
+                  <th>コンポーネントベースシステムにおける具体例</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>機能性</td>
+                  <td>インターフェース仕様どおりの入出力が得られるか</td>
+                </tr>
+                <tr className="even">
+                  <td>信頼性</td>
+                  <td>
+                    依存先コンポーネントの障害時にどう振る舞うか（リトライ、フォールバック）
+                  </td>
+                </tr>
+                <tr className="odd">
+                  <td>性能効率性</td>
+                  <td>コンポーネント間通信のレイテンシ、スループット</td>
+                </tr>
+                <tr className="even">
+                  <td>保守性</td>
+                  <td>コンポーネントの差し替え・バージョンアップの容易さ</td>
+                </tr>
+                <tr className="odd">
+                  <td>移植性</td>
+                  <td>異なる実行環境やクラウド間での可搬性</td>
+                </tr>
+                <tr className="even">
+                  <td>互換性</td>
+                  <td>新旧バージョンの共存、契約の後方互換性</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3 id="92-コンポーネントの性能テスト">9.2 コンポーネントの性能テスト</h3>
+          <p>
+            コンポーネント単体では性能に問題がなくても、複数のコンポーネントを直列・並列に組み合わせたときにボトルネックが発生することがあります。性能テストでは、単一コンポーネントの応答時間だけでなく、コンポーネント間の呼び出し連鎖（コールチェーン）全体のレイテンシやタイムアウト設定の妥当性を検証する必要があります。
+          </p>
+
+          <h3 id="93-検証verificationと妥当性確認validation">
+            9.3 検証（Verification）と妥当性確認（Validation）
+          </h3>
+          <p>
+            品質保証の文脈では、「検証（Verification）」と「妥当性確認（Validation）」はしばしば次のように区別されます。
+          </p>
+          <ul>
+            <li>
+              <strong>検証（Verification）</strong>：「正しく作られているか（Are we
+              building the product
+              right）」を確認する活動。仕様どおりに実装されているかのチェック
+            </li>
+            <li>
+              <strong>妥当性確認（Validation）</strong>：「正しいものを作っているか（Are
+              we building the right
+              product）」を確認する活動。ユーザーの実際のニーズを満たしているかのチェック
+            </li>
+          </ul>
+          <p>
+            コンポーネントベースシステムでは、個々のコンポーネントの検証（契約どおりに動くか）と、システム全体の妥当性確認（ユーザーの業務要件を満たしているか）の両方が必要であり、どちらか一方だけでは品質保証として不十分です。
+          </p>
+        </section>
+
+        <hr />
+
+        {/* Section 10: 10. CI/CDにおける継続的テストパイプライン */}
+        <section>
+          <h2 id="10-cicdにおける継続的テストパイプライン">
+            10. CI/CDにおける継続的テストパイプライン
+          </h2>
+          <h3 id="101-テストピラミッドをパイプラインに落とし込む">
+            10.1 テストピラミッドをパイプラインに落とし込む
+          </h3>
+          <p>
+            ここまでに説明してきた各テストレベルは、実行時間とフィードバック速度が異なります。これをCI/CDパイプラインの中でどう配置するかが、開発チームの生産性を大きく左右します。
+          </p>
+          <div className="mermaid-wrap">
+            <Mermaid chart={DIAGRAM_11} />
+          </div>
+          <p>
+            Googleのテストブログは、E2Eテストへの過度な依存がパイプライン全体を不安定にすると警告しており、コミットのたびに実行する軽量なテスト（単体・コンポーネント・コントラクト）と、定期的にしか実行しない重量級のテスト（E2E）を明確に使い分けることを推奨しています[6]。
+          </p>
+
+          <h3 id="102-速いテストを頻繁に遅いテストをたまにという原則">
+            10.2 「速いテストを頻繁に、遅いテストをたまに」という原則
+          </h3>
+          <div className="table-scroll">
+            <table>
+              <thead>
+                <tr className="header">
+                  <th>実行タイミング</th>
+                  <th>含めるべきテスト</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="odd">
+                  <td>コミットのたび（数分以内）</td>
+                  <td>単体テスト、コンポーネントテスト、コントラクトテスト</td>
+                </tr>
+                <tr className="even">
+                  <td>プルリクエストのマージ前</td>
+                  <td>上記に加えて主要な統合テスト</td>
+                </tr>
+                <tr className="odd">
+                  <td>定期実行（夜間・週次）</td>
+                  <td>
+                    フルのE2Eテスト、性能テスト、ミューテーションテスト、SCAスキャン
+                  </td>
+                </tr>
+                <tr className="even">
+                  <td>リリース前ゲート</td>
+                  <td>セキュリティスキャン、契約の後方互換性チェック</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p>
+            このように実行タイミングを分けることで、開発者への即時フィードバックの速さと、リリース前の網羅的な品質保証の両方を実現できます。
           </p>
         </section>
       </main>
