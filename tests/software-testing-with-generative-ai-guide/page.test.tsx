@@ -255,3 +255,57 @@ describe('Software Testing with Generative AI Guide - Category 3 (Ch6, Ch7, Ch8)
     expect(screen.getByText('半自律エージェント')).toBeDefined();
   });
 });
+
+describe('Software Testing with Generative AI Guide - Category 4 (Ch9, Ch10, Ch11)', () => {
+  it('renders Chapter 9 with 4 subheadings, Mermaid 10, Table 8, and Table 9', () => {
+    render(<Page />);
+    const ch9 = screen.getByRole('heading', { level: 2, name: '第9章 生成AI活用のリスク管理' });
+    expect(ch9.id).toBe('第9章-生成ai活用のリスク管理');
+
+    const h3_91 = screen.getByRole('heading', { level: 3, name: '9.1 ハルシネーション・推論エラー・バイアス' });
+    expect(h3_91.id).toBe('91-ハルシネーション推論エラーバイアス');
+    const h3_92 = screen.getByRole('heading', { level: 3, name: '9.2 データプライバシーとセキュリティのリスク' });
+    expect(h3_92.id).toBe('92-データプライバシーとセキュリティのリスク');
+    const h3_93 = screen.getByRole('heading', { level: 3, name: '9.3 環境負荷という見落とされがちな視点' });
+    expect(h3_93.id).toBe('93-環境負荷という見落とされがちな視点');
+    const h3_94 = screen.getByRole('heading', { level: 3, name: '9.4 規制・標準の全体像' });
+    expect(h3_94.id).toBe('94-規制標準の全体像');
+
+    // Table 8 in 9.2
+    expect(screen.getByText('データの持ち出し')).toBeDefined();
+    expect(screen.getByText('悪意あるコード生成')).toBeDefined();
+
+    // Table 9 in 9.4
+    expect(screen.getByText('ISO/IEC 42001:2023')).toBeDefined();
+    expect(screen.getByText('EU AI Act')).toBeDefined();
+    expect(screen.getByText('NIST AI Risk Management Framework')).toBeDefined();
+  });
+
+  it('renders Chapter 10 with 3 subheadings, Mermaid 11, and Mermaid 12', () => {
+    render(<Page />);
+    const ch10 = screen.getByRole('heading', { level: 2, name: /第10章 コンテキストの拡張/ });
+    expect(ch10.id).toBe('第10章-コンテキストの拡張--ragとファインチューニング');
+
+    const h3_101 = screen.getByRole('heading', { level: 3, name: '10.1 RAG（検索拡張生成）の仕組み' });
+    expect(h3_101.id).toBe('101-rag検索拡張生成の仕組み');
+    const h3_102 = screen.getByRole('heading', { level: 3, name: '10.2 ファインチューニングとの比較' });
+    expect(h3_102.id).toBe('102-ファインチューニングとの比較');
+    const h3_103 = screen.getByRole('heading', { level: 3, name: '10.3 LLMOpsという運用の視点' });
+    expect(h3_103.id).toBe('103-llmopsという運用の視点');
+  });
+
+  it('renders Chapter 11 with 4 subheadings and Mermaid 13', () => {
+    render(<Page />);
+    const ch11 = screen.getByRole('heading', { level: 2, name: '第11章 組織導入とチーム変革' });
+    expect(ch11.id).toBe('第11章-組織導入とチーム変革');
+
+    const h3_111 = screen.getByRole('heading', { level: 3, name: '11.1 Shadow AIのリスク' });
+    expect(h3_111.id).toBe('111-shadow-aiのリスク');
+    const h3_112 = screen.getByRole('heading', { level: 3, name: '11.2 段階的な導入ロードマップ' });
+    expect(h3_112.id).toBe('112-段階的な導入ロードマップ');
+    const h3_113 = screen.getByRole('heading', { level: 3, name: '11.3 DORA 2025レポートが示す教訓' });
+    expect(h3_113.id).toBe('113-dora-2025レポートが示す教訓');
+    const h3_114 = screen.getByRole('heading', { level: 3, name: '11.4 必要なスキルとチームの変化' });
+    expect(h3_114.id).toBe('114-必要なスキルとチームの変化');
+  });
+});
