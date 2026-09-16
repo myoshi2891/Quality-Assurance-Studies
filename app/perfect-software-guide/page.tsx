@@ -10,24 +10,53 @@ export const metadata: Metadata = {
   description: 'Gerald M. Weinberg著『Perfect Software: And Other Illusions about Testing』を初学者向けに解説する実践ガイド。',
 };
 
-const DIAGRAM_1 = `flowchart TB
+const MERMAID_CONFIG = `%%{init: {
+  "theme": "base",
+  "themeVariables": {
+    "fontFamily": "'Noto Sans JP', -apple-system, 'Hiragino Sans', sans-serif",
+    "fontSize": "16px",
+    "primaryColor": "#eae8fb",
+    "primaryTextColor": "#2a241d",
+    "primaryBorderColor": "#413d8f",
+    "lineColor": "#8b8272",
+    "secondaryColor": "#f2ecdd",
+    "tertiaryColor": "#fbf0dc",
+    "background": "#ffffff",
+    "mainBkg": "#eae8fb",
+    "nodeBorder": "#413d8f",
+    "nodeTextColor": "#2a241d",
+    "textColor": "#2a241d",
+    "titleColor": "#221f52",
+    "edgeLabelBackground": "#faf6ee",
+    "clusterBkg": "#f2ecdd",
+    "clusterBorder": "#e0d5bd"
+  },
+  "flowchart": {
+    "htmlLabels": true,
+    "curve": "basis"
+  }
+}}%%`;
+
+const DIAGRAM_1 = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
-    Title["Perfect Software 書籍全体像"]
-    Title --> Part1["Part1 なぜテストするのか"]
-    Title --> Part2["Part2 心理とテストの質"]
-    Title --> Part3["Part3 罠を見抜き実践する"]
-    Part1 --> P1a["Ch1-2 テストは情報収集である"]
-    P1a --> P1b["Ch3-4 全数テスト不可能とデバッグとの違い"]
-    Part2 --> P2a["Ch5-8 メタテストと良いテストの基準"]
-    P2a --> P2b["Ch6-7 情報免疫と防衛反応"]
-    P2b --> P2c["Ch9-14 誤解の解消と情報処理サイクル"]
-    Part3 --> P3a["Ch15-16 テストを楽にする設計とレビュー"]
-    P3a --> P3b["Ch17-18 テストの詐欺を見抜く"]
+    Title["Perfect Software　書籍全体像"]
+    Title --> Part1["Part1　なぜテストするのか"]
+    Title --> Part2["Part2　心理とテストの質"]
+    Title --> Part3["Part3　罠を見抜き実践する"]
+    Part1 --> P1a["Ch1-2　テストは情報収集である"]
+    P1a --> P1b["Ch3-4　全数テスト不可能とデバッグとの違い"]
+    Part2 --> P2a["Ch5-8　メタテストと良いテストの基準"]
+    P2a --> P2b["Ch6-7　情報免疫と防衛反応"]
+    P2b --> P2c["Ch9-14　誤解の解消と情報処理サイクル"]
+    Part3 --> P3a["Ch15-16　テストを楽にする設計とレビュー"]
+    P3a --> P3b["Ch17-18　テストの詐欺を見抜く"]
     class Title hub
     class P1b,P2c,P3b done`;
 
-const DIAGRAM_2 = `flowchart TB
+const DIAGRAM_2 = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     A["理論上のテストケース数は組み合わせにより事実上無限"]
@@ -39,7 +68,8 @@ const DIAGRAM_2 = `flowchart TB
     class A hub
     class F done`;
 
-const DIAGRAM_3 = `flowchart TB
+const DIAGRAM_3 = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     Start["不具合が疑われる事象"]
@@ -54,7 +84,8 @@ const DIAGRAM_3 = `flowchart TB
     class Start hub
     class Note done`;
 
-const DIAGRAM_4 = `flowchart TB
+const DIAGRAM_4 = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     X["受け入れがたいテスト結果"]
@@ -73,7 +104,8 @@ const DIAGRAM_4 = `flowchart TB
     class X hub
     class Y done`;
 
-const DIAGRAM_5 = `flowchart TB
+const DIAGRAM_5 = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     M1["誤解　テストで品質を作り込める"] --> F1["事実　品質を作るのは開発、テストは情報を与えるだけ"]
@@ -83,7 +115,8 @@ const DIAGRAM_5 = `flowchart TB
     M5["誤解　自動化すれば人は不要になる"] --> F5["事実　機械のテストだけでは見えない問題がある"]
     class F1,F2,F3,F4,F5 done`;
 
-const DIAGRAM_6 = `flowchart TB
+const DIAGRAM_6 = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     A["出来事が起こる　例えばあるテストが失敗する"]
@@ -95,7 +128,8 @@ const DIAGRAM_6 = `flowchart TB
     class A hub
     class F done`;
 
-const DIAGRAM_7 = `flowchart TB
+const DIAGRAM_7 = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     A["新しいテストツールや手法を提案された"]
@@ -110,7 +144,8 @@ const DIAGRAM_7 = `flowchart TB
     class A hub
     class F,G done`;
 
-const DIAGRAM_8 = `flowchart TB
+const DIAGRAM_8 = `${MERMAID_CONFIG}
+flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     S0["読み始める前に　テストは品質を作らないと心得る"]

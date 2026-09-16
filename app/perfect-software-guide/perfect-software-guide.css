@@ -598,7 +598,7 @@
   overflow: visible !important;
 }
 
-/* 文字切れ防止: foreignObject とノードラベルの overflow: visible と自動折り返し防止 */
+/* 文字切れ防止: foreignObject とノードラベルの overflow: visible (折り返しは自然に許容) */
 .perfect-software-layout .mermaid-wrapper foreignObject {
   overflow: visible !important;
 }
@@ -608,9 +608,10 @@
 .perfect-software-layout .mermaid-wrapper .label,
 .perfect-software-layout .mermaid-wrapper .node text {
   overflow: visible !important;
-  white-space: nowrap !important;
-  line-height: 1.5 !important;
+  line-height: 1.4 !important;
   font-family: 'Noto Sans JP', -apple-system, 'Hiragino Sans', 'Yu Gothic', sans-serif !important;
+  font-size: 14.5px !important;
+  text-align: center !important;
 }
 
 /* Mermaid Node & Edge Styling */
@@ -665,19 +666,39 @@
   font-weight: 700 !important;
 }
 
-/* Edge Labels */
+/* Edge Labels (はい・いいえ等の分岐テキスト: 背景ベージュ、インク文字色) */
 .perfect-software-layout .mermaid-wrapper .edgeLabel,
 .perfect-software-layout .mermaid-wrapper .edgeLabel span,
-.perfect-software-layout .mermaid-wrapper .edgeLabel text {
+.perfect-software-layout .mermaid-wrapper .edgeLabel p,
+.perfect-software-layout .mermaid-wrapper .edgeLabel text,
+.perfect-software-layout .mermaid-wrapper .edgeLabels .edgeLabel,
+.perfect-software-layout .mermaid-wrapper .edgeLabels .label,
+.perfect-software-layout .mermaid-wrapper .edgeLabels text,
+.perfect-software-layout .mermaid-wrapper .edgeLabels span {
   background-color: var(--paper) !important;
   color: var(--ink) !important;
   fill: var(--ink) !important;
   font-weight: 600 !important;
+  font-size: 13.5px !important;
 }
 
-.perfect-software-layout .mermaid-wrapper .edgeLabels rect {
+.perfect-software-layout .mermaid-wrapper .edgeLabels rect,
+.perfect-software-layout .mermaid-wrapper .edgeLabel rect {
   fill: var(--paper) !important;
   stroke: none !important;
+}
+
+/* Connectors & Arrows (線と矢印マーカー: 落ち着いたブロンズ #8b8272) */
+.perfect-software-layout .mermaid-wrapper .edgePath .path,
+.perfect-software-layout .mermaid-wrapper .flowchart-link {
+  stroke: #8b8272 !important;
+  stroke-width: 1.5px !important;
+}
+
+.perfect-software-layout .mermaid-wrapper .marker,
+.perfect-software-layout .mermaid-wrapper marker path {
+  fill: #8b8272 !important;
+  stroke: #8b8272 !important;
 }
 
 /* 7. Checklist */
