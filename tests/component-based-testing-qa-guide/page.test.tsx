@@ -243,4 +243,62 @@ describe('Component-based Testing QA Guide - Category 1 (Hero, Intro, Sec 1, Sec
     expect(ths8[1].textContent).toBe('モック/スタブ');
     expect(ths8[2].textContent).toBe('Testcontainers（実物）');
   });
+
+  it('renders Section 8 (テストの質を測るカバレッジとミューテーションテスト) with 3 subheadings, 1 Mermaid (FIG.10), and 2 Tables', () => {
+    const { container } = render(<Page />);
+    const sec8 = document.getElementById('8-テストの質を測るカバレッジとミューテーションテスト');
+    expect(sec8).not.toBeNull();
+
+    expect(document.getElementById('81-コードカバレッジの限界')).not.toBeNull();
+    expect(document.getElementById('82-ミューテーションテストという発想')).not.toBeNull();
+    expect(document.getElementById('83-コンポーネント単位での品質メトリクス')).not.toBeNull();
+
+    const tables = container.querySelectorAll('.table-scroll table');
+    expect(tables.length).toBeGreaterThanOrEqual(10);
+
+    // Coverage types table
+    const ths9 = tables[8].querySelectorAll('thead th');
+    expect(ths9[0].textContent).toBe('カバレッジの種類');
+    expect(ths9[1].textContent).toBe('測定対象');
+
+    // Metrics table
+    const ths10 = tables[9].querySelectorAll('thead th');
+    expect(ths10[0].textContent).toBe('メトリクス');
+    expect(ths10[1].textContent).toBe('意味');
+  });
+
+  it('renders Section 9 (品質特性と非機能テスト) with 3 subheadings and 1 Table', () => {
+    const { container } = render(<Page />);
+    const sec9 = document.getElementById('9-品質特性と非機能テスト');
+    expect(sec9).not.toBeNull();
+
+    expect(document.getElementById('91-コンポーネントベースシステムにおける品質特性')).not.toBeNull();
+    expect(document.getElementById('92-コンポーネントの性能テスト')).not.toBeNull();
+    expect(document.getElementById('93-検証verificationと妥当性確認validation')).not.toBeNull();
+
+    const tables = container.querySelectorAll('.table-scroll table');
+    expect(tables.length).toBeGreaterThanOrEqual(11);
+
+    // ISO quality characteristics table
+    const ths11 = tables[10].querySelectorAll('thead th');
+    expect(ths11[0].textContent).toBe('品質特性');
+    expect(ths11[1].textContent).toBe('コンポーネントベースシステムにおける具体例');
+  });
+
+  it('renders Section 10 (CI/CDにおける継続的テストパイプライン) with 2 subheadings, 1 Mermaid (FIG.11), and 1 Table', () => {
+    const { container } = render(<Page />);
+    const sec10 = document.getElementById('10-cicdにおける継続的テストパイプライン');
+    expect(sec10).not.toBeNull();
+
+    expect(document.getElementById('101-テストピラミッドをパイプラインに落とし込む')).not.toBeNull();
+    expect(document.getElementById('102-速いテストを頻繁に遅いテストをたまにという原則')).not.toBeNull();
+
+    const tables = container.querySelectorAll('.table-scroll table');
+    expect(tables.length).toBeGreaterThanOrEqual(12);
+
+    // CI/CD timing table
+    const ths12 = tables[11].querySelectorAll('thead th');
+    expect(ths12[0].textContent).toBe('実行タイミング');
+    expect(ths12[1].textContent).toBe('含めるべきテスト');
+  });
 });
