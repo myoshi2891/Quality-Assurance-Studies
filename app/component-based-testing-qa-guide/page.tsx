@@ -36,7 +36,9 @@ COTS --> R2["ベンダー都合のバージョンアップ<br/>(互換性が崩�
 COTS --> R3["既知の脆弱性<br/>(CVE)の混入"]
 COTS --> R4["ライセンス条件の制約"]
 COTS --> R5["ベンダーサポート終了<br/>(保守停止リスク)"]
+classDef compStyle fill:#1f2430,stroke:#8b9bb4,color:#ffffff
 classDef riskStyle fill:#fdecea,stroke:#c0526e,color:#5a1420
+class COTS compStyle
 class R1,R2,R3,R4,R5 riskStyle`;
 
 const DIAGRAM_4 = `flowchart BT

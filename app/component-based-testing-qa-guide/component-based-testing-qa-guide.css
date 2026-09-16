@@ -395,10 +395,12 @@
 }
 
 /* ---------- Mermaid Diagram Styling ---------- */
+/* 外枠: 大元 HTML の pre.mermaid に準拠。十分な余白と横スクロール */
 .cbss-qa-layout .mermaid-wrap {
   width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: safe center;
+  align-items: center;
   overflow-x: auto;
   background: var(--bg-elev);
   border: 1px solid var(--border);
@@ -407,24 +409,284 @@
   margin: 0 0 28px;
 }
 
+/* 内側 .mermaid-wrapper: globals.css の背景・枠線・影・パディング・マージンを完全リセットし、親幅への縮小を防止 */
 .cbss-qa-layout .mermaid-wrap .mermaid-wrapper {
-  max-width: 100% !important;
-  width: 100%;
-  display: flex;
-  justify-content: center;
+  width: max-content !important;
+  min-width: 100% !important;
+  max-width: none !important;
+  display: flex !important;
+  justify-content: safe center !important;
+  align-items: center !important;
   background: transparent !important;
   border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
   padding: 0 !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
 }
 
+/* SVG: max-width: none で自然な幅を保持（親コンテナ幅への縮小による極小化を防止）し、flex-shrink: 0 で横スクロール可能に */
 .cbss-qa-layout .mermaid-wrap svg {
-  display: block;
-  margin: 0 auto;
-  max-width: 100% !important;
+  display: block !important;
+  margin: 0 auto !important;
+  max-width: none !important;
   height: auto !important;
+  flex-shrink: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
 }
 
-/* Mermaid Edge Labels and Nodes */
+/* 通常ノードのスタイル（大元 HTML の dark theme 準拠） */
+.cbss-qa-layout .mermaid-wrapper .node rect,
+.cbss-qa-layout .mermaid-wrapper .node circle,
+.cbss-qa-layout .mermaid-wrapper .node ellipse,
+.cbss-qa-layout .mermaid-wrapper .node polygon,
+.cbss-qa-layout .mermaid-wrapper .node path,
+.cbss-qa-layout .mermaid-wrapper .node .basic,
+.cbss-qa-layout .mermaid-wrapper .node .label-container {
+  fill: #152238 !important;
+  stroke: #3b5a8c !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node .label,
+.cbss-qa-layout .mermaid-wrapper .node .label text,
+.cbss-qa-layout .mermaid-wrapper .node .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node text,
+.cbss-qa-layout .mermaid-wrapper .node span,
+.cbss-qa-layout .mermaid-wrapper .node p,
+.cbss-qa-layout .mermaid-wrapper .node div {
+  color: #eef2fa !important;
+  fill: #eef2fa !important;
+  font-family: var(--font-sans) !important;
+  font-size: 15px !important;
+  line-height: 1.45 !important;
+}
+
+/* compStyle / COTSノード (大元 HTML のダークサーフェス: #1f2430 / #8b9bb4 / #ffffff) */
+.cbss-qa-layout .mermaid-wrapper .node.compStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.compStyle polygon,
+.cbss-qa-layout .mermaid-wrapper .node.compStyle path,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="1f2430" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="1f2430" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#1f2430" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#1f2430" i]) polygon {
+  fill: #1f2430 !important;
+  stroke: #8b9bb4 !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.compStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.compStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="1f2430" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="1f2430" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="1f2430" i]) .nodeLabel * {
+  color: #ffffff !important;
+  fill: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+/* riskStyle / e2eStyle / blockStyle / survivedStyle (薄赤背景 #fdecea / 濃赤枠線 #c0526e / 濃赤文字 #5a1420) */
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle polygon,
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle path,
+.cbss-qa-layout .mermaid-wrapper .node.e2eStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.blockStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.survivedStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdecea" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdecea" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#fdecea" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#fdecea" i]) polygon {
+  fill: #fdecea !important;
+  stroke: #c0526e !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.riskStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.e2eStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.e2eStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.blockStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.blockStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.survivedStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.survivedStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdecea" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdecea" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdecea" i]) .nodeLabel * {
+  color: #5a1420 !important;
+  fill: #5a1420 !important;
+  font-weight: 600 !important;
+}
+
+/* unitStyle / provStyle / passStyle / cleanupStyle / killedStyle / fastStyle (薄緑背景 #eafaf1 / 濃緑枠線 #2e9e5b / 濃緑文字 #164a2c) */
+.cbss-qa-layout .mermaid-wrapper .node.unitStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.provStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.passStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.cleanupStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.killedStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.fastStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="eafaf1" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="eafaf1" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#eafaf1" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#eafaf1" i]) polygon {
+  fill: #eafaf1 !important;
+  stroke: #2e9e5b !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.unitStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.unitStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.provStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.provStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.passStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.passStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.cleanupStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.cleanupStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.killedStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.killedStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.fastStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.fastStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="eafaf1" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="eafaf1" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="eafaf1" i]) .nodeLabel * {
+  color: #164a2c !important;
+  fill: #164a2c !important;
+  font-weight: 600 !important;
+}
+
+/* intStyle / conStyle / stepStyle / testStyle / srcStyle / midStyle (薄青背景 #e8f0fe / 濃青枠線 #3b6fd6 / 濃青文字 #1a2b4c) */
+.cbss-qa-layout .mermaid-wrapper .node.intStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.conStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.stepStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.testStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.srcStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.midStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="e8f0fe" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="e8f0fe" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#e8f0fe" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#e8f0fe" i]) polygon {
+  fill: #e8f0fe !important;
+  stroke: #3b6fd6 !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.intStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.intStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.conStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.conStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.stepStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.stepStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.testStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.testStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.srcStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.srcStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.midStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.midStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="e8f0fe" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="e8f0fe" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="e8f0fe" i]) .nodeLabel * {
+  color: #1a2b4c !important;
+  fill: #1a2b4c !important;
+  font-weight: 600 !important;
+}
+
+/* ctStyle / brokerStyle / gateStyle / infraStyle / slowStyle (薄黄背景 #fdf3e0 / 濃黄枠線 #c98a1f / 濃茶文字 #4c3a1a) */
+.cbss-qa-layout .mermaid-wrapper .node.ctStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.brokerStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.gateStyle polygon,
+.cbss-qa-layout .mermaid-wrapper .node.infraStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node.slowStyle rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] rect,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] polygon,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] path,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdf3e0" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdf3e0" i]) polygon,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#fdf3e0" i]) rect,
+.cbss-qa-layout .mermaid-wrapper .node:has([fill*="#fdf3e0" i]) polygon {
+  fill: #fdf3e0 !important;
+  stroke: #c98a1f !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .node.ctStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.ctStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.brokerStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.brokerStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.gateStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.gateStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.infraStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.infraStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node.slowStyle .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node.slowStyle .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node[style*="fdf3e0" i] .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdf3e0" i]) .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .node:has([style*="fdf3e0" i]) .nodeLabel * {
+  color: #4c3a1a !important;
+  fill: #4c3a1a !important;
+  font-weight: 600 !important;
+}
+
+/* サブグラフ（クラスタ）スタイル */
+.cbss-qa-layout .mermaid-wrapper .cluster rect {
+  fill: rgba(13, 26, 46, 0.7) !important;
+  stroke: rgba(124, 158, 255, 0.3) !important;
+  stroke-width: 1.5px !important;
+  rx: 8px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .cluster .nodeLabel,
+.cbss-qa-layout .mermaid-wrapper .cluster .nodeLabel *,
+.cbss-qa-layout .mermaid-wrapper .cluster text {
+  color: #eef2fa !important;
+  fill: #eef2fa !important;
+  font-weight: 700 !important;
+  font-size: 15px !important;
+}
+
+/* シーケンス図のアクター・Note スタイル */
+.cbss-qa-layout .mermaid-wrapper .actor {
+  fill: #152238 !important;
+  stroke: #3b5a8c !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper text.actor > tspan {
+  fill: #eef2fa !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .note {
+  fill: #1f2430 !important;
+  stroke: #8b9bb4 !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper text.noteText > tspan {
+  fill: #eef2fa !important;
+  font-size: 13.5px !important;
+}
+
+/* エッジラベルと矢印 */
 .cbss-qa-layout .mermaid-wrapper .edgeLabel,
 .cbss-qa-layout .mermaid-wrapper .edgeLabel span,
 .cbss-qa-layout .mermaid-wrapper .edgeLabel text {
@@ -438,6 +700,15 @@
 .cbss-qa-layout .mermaid-wrapper .edgeLabels rect {
   fill: var(--bg-elev2) !important;
   stroke: var(--accent-border) !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .edgePath .path {
+  stroke: #5f7fb8 !important;
+  stroke-width: 1.5px !important;
+}
+
+.cbss-qa-layout .mermaid-wrapper .arrowheadPath {
+  fill: #5f7fb8 !important;
 }
 
 /* ---------- Code block (Prism / Custom) ---------- */
