@@ -26,6 +26,33 @@ const DIAGRAM_1 = `flowchart TB
     class Title hub
     class P1b,P2c,P3b done`;
 
+const DIAGRAM_2 = `flowchart TB
+    classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
+    classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
+    A["理論上のテストケース数は組み合わせにより事実上無限"]
+    A --> B{"時間と予算は有限"}
+    B --> C["すべてのケースを実行するのは不可能"]
+    C --> D["テストは常にサンプリング行為である"]
+    D --> E["リスクの高い部分から優先してサンプルを選ぶ"]
+    E --> F["得られた情報をもとに残存リスクを判断する"]
+    class A hub
+    class F done`;
+
+const DIAGRAM_3 = `flowchart TB
+    classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
+    classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
+    Start["不具合が疑われる事象"]
+    Start --> T["テスト　情報を集める活動"]
+    Start --> D["デバッグ　原因を特定し修正する活動"]
+    T --> T1["観察する・再現条件を絞り込む・記録する"]
+    T --> T2["成果物　バグレポートという情報"]
+    D --> D1["原因を追跡する・コードを修正する"]
+    D --> D2["成果物　修正されたコード"]
+    T2 --> Note["テスト担当と修正担当は役割として分かれることが多い"]
+    D2 --> Note
+    class Start hub
+    class Note done`;
+
 export default function PerfectSoftwareGuidePage() {
   return (
     <div className="perfect-software-layout">
@@ -366,6 +393,134 @@ export default function PerfectSoftwareGuidePage() {
                 </tbody>
               </table>
             </div>
+          </section>
+
+          {/* Section 05: step1 */}
+          <section className="section" id="step1">
+            <h2>
+              <i className="ti ti-number-1"></i>Step 1　テストとは「情報収集」であると理解する
+            </h2>
+            <p>
+              初学者が最初につまずきやすいのが、「テストは品質を作り込む工程だ」という誤解です。ワインバーグは、テストの本質を「対象について、何らかの目的のために使える情報を集めるプロセス」だと定義しています。品質そのものを生み出すのは設計や実装であり、テストはあくまでその状態を映し出す鏡にすぎません。
+            </p>
+
+            <p>
+              この視点を持つと、次のようなよくある会話のすれ違いが理解できるようになります。
+            </p>
+            <ul>
+              <li>
+                「テストが遅れているから開発が遅れている」ではなく、「バグの修正に時間がかかっているから遅れている」のかもしれない
+              </li>
+              <li>
+                「テストを増やせば品質が上がる」のではなく、「有効な情報を得られるテストを選べば意思決定の質が上がる」
+              </li>
+            </ul>
+
+            <p>
+              テストが提供するのはあくまで情報であり、その情報をもとに出荷するかどうかを決めるのは、ビジネス上の意思決定者（多くの場合マネージャー）の役割だとワインバーグは明確に線を引いています。テスターの仕事は「決めること」ではなく「決めるための材料を渡すこと」です。この役割分担を初学者のうちに理解しておくと、後々「なぜこのバグは直さずに出荷されたのか」といった疑問にも冷静に向き合えるようになります。
+            </p>
+          </section>
+
+          {/* Section 06: step2 */}
+          <section className="section" id="step2">
+            <h2>
+              <i className="ti ti-number-2"></i>Step 2　なぜ全数テストは不可能なのかを受け入れる
+            </h2>
+            <p>
+              「バグがないことを確認するために、すべてのケースをテストすればいいのでは？」という発想は、初学者だけでなく経験の浅いマネージャーもよく口にします。しかし、入力の組み合わせ・実行環境・タイミングなどを掛け合わせると、理論上のテストケース数は事実上無限になります。したがって、時間と予算が有限である以上、テストは必ず「サンプリング」にならざるを得ません。
+            </p>
+
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_2} />
+            </div>
+            <p className="diagram-caption">
+              図2　全数テストが不可能な理由とサンプリングへの流れ
+            </p>
+
+            <p>
+              ここで重要なのは、「サンプリングだから手を抜いてよい」という話ではなく、「限られたテストからいかに価値の高い情報を引き出すか」という設計の問題に意識を切り替えることです。初学者のうちは、闇雲にテストケースを増やすのではなく、「このテストは何を確かめるための、どんな情報を得るためのものか」を自問する癖をつけましょう。
+            </p>
+          </section>
+
+          {/* Section 07: step3 */}
+          <section className="section" id="step3">
+            <h2>
+              <i className="ti ti-number-3"></i>Step 3　テストとデバッグを混同しない
+            </h2>
+            <p>
+              現場でよく混同される2つの活動が「テスト」と「デバッグ」です。ワインバーグはこの2つを明確に区別しています。
+            </p>
+
+            <div className="table-wrap">
+              <div className="table-title">テストとデバッグの違い</div>
+              <table>
+                <thead>
+                  <tr>
+                    <th>観点</th>
+                    <th>テスト（Testing）</th>
+                    <th>デバッグ（Debugging）</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>目的</td>
+                    <td>情報を集めること</td>
+                    <td>原因を特定し、修正すること</td>
+                  </tr>
+                  <tr>
+                    <td>主な問い</td>
+                    <td>「何が起きているか」</td>
+                    <td>「なぜ起きているか」「どう直すか」</td>
+                  </tr>
+                  <tr>
+                    <td>成果物</td>
+                    <td>バグレポートという情報</td>
+                    <td>修正されたコード</td>
+                  </tr>
+                  <tr>
+                    <td>担当が分かれる理由</td>
+                    <td>客観的な観察者としての視点が必要</td>
+                    <td>コードへの深い理解と修正権限が必要</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div className="diagram-wrap">
+              <Mermaid chart={DIAGRAM_3} />
+            </div>
+            <p className="diagram-caption">図3　テストとデバッグ、2つの活動の分岐</p>
+
+            <p>
+              管理者が「テストに時間がかかりすぎる」と嘆くとき、実際にはバグの修正（デバッグ）に時間がかかっているだけ、というケースも少なくありません。この2つのコスト要因を分けて考えるだけで、プロジェクトの状況把握が格段に正確になります。
+            </p>
+          </section>
+
+          {/* Section 08: step4 */}
+          <section className="section" id="step4">
+            <h2>
+              <i className="ti ti-number-4"></i>Step 4　テストの「質」を測るメタ情報を持つ
+            </h2>
+            <p>
+              テストの結果そのものと同じくらい重要なのが、「その結果情報がどれだけ信頼できるか」というメタ情報です。ワインバーグはこれを「メタテスト」と呼びます。たとえば、以下のような問いが該当します。
+            </p>
+            <ul>
+              <li>
+                そのテストは、本当に意図した機能を検証できているか（テスト自体にバグはないか）
+              </li>
+              <li>テスト環境は本番相当か、それとも大きく異なるか</li>
+              <li>テストを実行した担当者の経験や集中度はどうだったか</li>
+            </ul>
+
+            <p>
+              本書では、意図的に既知のバグを紛れ込ませておき、それがどれだけ発見されるかによってテストプロセス自体の実力を見積もる「バグの埋め込み（bebugging）」という手法も紹介されています。これはワインバーグが以前の著作
+              <em>The Psychology of Computer Programming</em>
+              ですでに提唱していた考え方で、既知のバグの発見率から未知のバグの残存数を統計的に推測する狙いがあります。
+            </p>
+
+            <p>
+              初学者にとっての実践的な教訓は、「テスト結果を鵜呑みにしない」ことです。テストがパスしたという結果を見たら、同時に「このテスト自体はどれくらい信頼できるものか」を一度立ち止まって考える習慣をつけましょう。
+            </p>
           </section>
         </main>
       </div>
