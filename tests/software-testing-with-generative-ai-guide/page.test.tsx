@@ -202,3 +202,56 @@ describe('Software Testing with Generative AI Guide - Category 2 (Ch3, Ch4, Ch5)
     expect(h3_53.id).toBe('53-プライバシーを意識したデータ生成');
   });
 });
+
+describe('Software Testing with Generative AI Guide - Category 3 (Ch6, Ch7, Ch8)', () => {
+  it('renders Chapter 6 with 5 subheadings, Mermaid 6, and Table 7', () => {
+    render(<Page />);
+    const ch6 = screen.getByRole('heading', { level: 2, name: /第6章 AIを活用したテスト自動化とセルフヒーリング/ });
+    expect(ch6.id).toBe('第6章-aiを活用したテスト自動化とセルフヒーリング');
+
+    const h3_61 = screen.getByRole('heading', { level: 3, name: '6.1 コード生成による自動化の高速化' });
+    expect(h3_61.id).toBe('61-コード生成による自動化の高速化');
+    const h3_62 = screen.getByRole('heading', { level: 3, name: '6.2 アクセシビリティツリーに基づくブラウザ自動化' });
+    expect(h3_62.id).toBe('62-アクセシビリティツリーに基づくブラウザ自動化');
+    const h3_63 = screen.getByRole('heading', { level: 3, name: '6.3 セルフヒーリング型テスト自動化の2世代' });
+    expect(h3_63.id).toBe('63-セルフヒーリング型テスト自動化の2世代');
+    const h3_64 = screen.getByRole('heading', { level: 3, name: '6.4 コマンドラインからのAI活用とドキュメント生成' });
+    expect(h3_64.id).toBe('64-コマンドラインからのai活用とドキュメント生成');
+    const h3_65 = screen.getByRole('heading', { level: 3, name: '6.5 リグレッションテストへの適用' });
+    expect(h3_65.id).toBe('65-リグレッションテストへの適用');
+
+    // Table 7 in 6.3
+    expect(screen.getByText('第1世代：ロケータフォールバック型')).toBeDefined();
+    expect(screen.getByText('第2世代：生成的セルフヒーリング型')).toBeDefined();
+  });
+
+  it('renders Chapter 7 with 3 subheadings and Mermaid 7', () => {
+    render(<Page />);
+    const ch7 = screen.getByRole('heading', { level: 2, name: '第7章 探索的テストとAIアシスタント' });
+    expect(ch7.id).toBe('第7章-探索的テストとaiアシスタント');
+
+    const h3_71 = screen.getByRole('heading', { level: 3, name: '7.1 チャーターとリスクの洗い出し' });
+    expect(h3_71.id).toBe('71-チャーターとリスクの洗い出し');
+    const h3_72 = screen.getByRole('heading', { level: 3, name: '7.2 セッション中のAI活用ループ' });
+    expect(h3_72.id).toBe('72-セッション中のai活用ループ');
+    const h3_73 = screen.getByRole('heading', { level: 3, name: '7.3 バグ調査の補助' });
+    expect(h3_73.id).toBe('73-バグ調査の補助');
+  });
+
+  it('renders Chapter 8 with 3 subheadings, Mermaid 8, and Mermaid 9', () => {
+    render(<Page />);
+    const ch8 = screen.getByRole('heading', { level: 2, name: '第8章 AIエージェントとMCPによるテスト作業の自動化' });
+    expect(ch8.id).toBe('第8章-aiエージェントとmcpによるテスト作業の自動化');
+
+    const h3_81 = screen.getByRole('heading', { level: 3, name: '8.1 LLM-powered agentとは何か' });
+    expect(h3_81.id).toBe('81-llm-powered-agentとは何か');
+    const h3_82 = screen.getByRole('heading', { level: 3, name: '8.2 ツール呼び出しのループ' });
+    expect(h3_82.id).toBe('82-ツール呼び出しのループ');
+    const h3_83 = screen.getByRole('heading', { level: 3, name: '8.3 Model Context Protocol（MCP）の基本構造' });
+    expect(h3_83.id).toBe('83-model-context-protocolmcpの基本構造');
+
+    // Content check
+    expect(screen.getByText('自律エージェント')).toBeDefined();
+    expect(screen.getByText('半自律エージェント')).toBeDefined();
+  });
+});
