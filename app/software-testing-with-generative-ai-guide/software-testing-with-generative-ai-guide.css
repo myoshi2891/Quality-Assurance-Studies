@@ -15,14 +15,14 @@
   --success: #0f7a52;
   --code-bg: #eef1f7;
   --sidebar-width: 300px;
-  --font-jp: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-jp: var(--font-body), 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: var(--font-mono), 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
 
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-jp);
-  line-height: 1.85;
-  font-size: 16px;
+  background: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: var(--font-jp) !important;
+  line-height: 1.85 !important;
+  font-size: 16px !important;
   min-height: 100vh;
   position: relative;
 }
@@ -64,10 +64,25 @@
   width: var(--sidebar-width);
   height: calc(100vh - 60px - var(--disclaimer-height, 0px));
   overflow-y: auto;
-  background: var(--bg-elevated);
-  border-right: 1px solid var(--border);
+  background: var(--bg-elevated) !important;
+  border-right: 1px solid var(--border) !important;
   padding: 24px 0 60px 0;
   z-index: 40;
+  box-sizing: border-box !important;
+}
+
+/* スクロールバートラックの黒帯を完全に透明化し、元HTMLの繊細な1px境界線を復元 */
+.software-testing-genai-layout .sidebar::-webkit-scrollbar {
+  width: 6px !important;
+}
+
+.software-testing-genai-layout .sidebar::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+
+.software-testing-genai-layout .sidebar::-webkit-scrollbar-thumb {
+  background-color: rgba(47, 86, 200, 0.2) !important;
+  border-radius: 3px !important;
 }
 
 .software-testing-genai-layout .sidebar-title {
@@ -280,45 +295,133 @@
 }
 
 /* ---------- Mermaid Diagrams ---------- */
+/* 外枠コンテナ: 元HTMLの pre.mermaid と100%同一のスタイル。box-shadow は完全排除 */
 .software-testing-genai-layout .mermaid-container {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  margin: 24px 0 32px 0;
-}
-
-.software-testing-genai-layout .mermaid-wrapper {
   width: 100% !important;
   max-width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
   background: var(--bg-elevated) !important;
   border: 1px solid var(--border) !important;
-  border-radius: 12px;
-  padding: 28px 20px;
-  display: flex;
-  justify-content: center;
-  overflow-x: auto;
+  border-radius: 12px !important;
+  padding: 28px 20px !important;
+  margin: 24px 0 32px 0 !important;
+  box-shadow: none !important;
+  overflow-x: auto !important;
+}
+
+/* 内側ラッパーの 2重枠・影・余白の完全リセット */
+.software-testing-genai-layout .mermaid-container .mermaid-wrapper,
+.software-testing-genai-layout .mermaid-wrapper {
+  width: 100% !important;
+  max-width: none !important;
+  display: flex !important;
+  justify-content: center !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
 }
 
 .software-testing-genai-layout .mermaid-wrapper svg {
-  flex-shrink: 0;
-  max-width: 100% !important;
+  flex-shrink: 0 !important;
+  max-width: none !important;
   height: auto !important;
+  display: block !important;
+  margin: 0 auto !important;
+  overflow: visible !important;
+  background: transparent !important;
 }
 
-/* Mermaid エッジラベルの黒潰れ対策 */
-.software-testing-genai-layout .mermaid-wrapper .edgeLabels rect {
-  fill: var(--bg-elevated) !important;
+/* 文字切れ防止: foreignObject とノードラベルの overflow: visible */
+.software-testing-genai-layout .mermaid-wrapper foreignObject {
+  overflow: visible !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper foreignObject > div,
+.software-testing-genai-layout .mermaid-wrapper .nodeLabel,
+.software-testing-genai-layout .mermaid-wrapper .label,
+.software-testing-genai-layout .mermaid-wrapper .node text {
+  overflow: visible !important;
+  line-height: 1.4 !important;
+  font-family: var(--font-jp) !important;
+  font-size: 14.5px !important;
+  text-align: center !important;
+}
+
+/* ノードスタイル（元HTMLテーマ完全復元: 背景 #eaeef6, ボーダー #7e8fc7, 文字色 #16213d） */
+.software-testing-genai-layout .mermaid-wrapper .node rect,
+.software-testing-genai-layout .mermaid-wrapper .node circle,
+.software-testing-genai-layout .mermaid-wrapper .node polygon,
+.software-testing-genai-layout .mermaid-wrapper .node path {
+  fill: #eaeef6 !important;
+  stroke: #7e8fc7 !important;
+  stroke-width: 1.5px !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper .node .nodeLabel,
+.software-testing-genai-layout .mermaid-wrapper .node text,
+.software-testing-genai-layout .mermaid-wrapper .node span,
+.software-testing-genai-layout .mermaid-wrapper .node div {
+  color: #16213d !important;
+  fill: #16213d !important;
+  font-weight: 500 !important;
+  font-family: var(--font-jp) !important;
+}
+
+/* エッジ（線）と矢印マーカー: ブルー #2f56c8 */
+.software-testing-genai-layout .mermaid-wrapper .edgePath .path,
+.software-testing-genai-layout .mermaid-wrapper .flowchart-link,
+.software-testing-genai-layout .mermaid-wrapper path.link {
+  stroke: #2f56c8 !important;
+  stroke-width: 1.5px !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper .marker,
+.software-testing-genai-layout .mermaid-wrapper marker path {
+  fill: #2f56c8 !important;
+  stroke: #2f56c8 !important;
+}
+
+/* エッジラベル（白背景、濃紺文字色） */
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel span,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel p,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel text,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels .edgeLabel,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels .label,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels text,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels span {
+  background-color: #ffffff !important;
+  color: #16213d !important;
+  fill: #16213d !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
+  font-family: var(--font-jp) !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper .edgeLabels rect,
+.software-testing-genai-layout .mermaid-wrapper .edgeLabel rect {
+  fill: #ffffff !important;
   stroke: none !important;
 }
 
-.software-testing-genai-layout .mermaid-wrapper .edgeLabel,
-.software-testing-genai-layout .mermaid-wrapper .edgeLabel span,
-.software-testing-genai-layout .mermaid-wrapper .edgeLabel text {
-  background-color: var(--bg-elevated) !important;
-  color: var(--text) !important;
-  fill: var(--text) !important;
+/* クラスター（サブグラフ） */
+.software-testing-genai-layout .mermaid-wrapper .cluster rect {
+  fill: #f5f7fb !important;
+  stroke: #7e8fc7 !important;
+  stroke-width: 1px !important;
+}
+
+.software-testing-genai-layout .mermaid-wrapper .cluster .nodeLabel,
+.software-testing-genai-layout .mermaid-wrapper .cluster text {
+  fill: #16213d !important;
+  color: #16213d !important;
   font-weight: 700 !important;
-  overflow: visible !important;
+  font-family: var(--font-jp) !important;
 }
 
 /* ---------- Tables ---------- */
