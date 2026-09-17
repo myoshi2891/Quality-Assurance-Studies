@@ -1,8 +1,22 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
-import Page from '../../app/software-testing-with-generative-ai-guide/page';
+import Page, {
+  DIAGRAM_1,
+  DIAGRAM_2,
+  DIAGRAM_3,
+  DIAGRAM_4,
+  DIAGRAM_5,
+  DIAGRAM_6,
+  DIAGRAM_7,
+  DIAGRAM_8,
+  DIAGRAM_9,
+  DIAGRAM_10,
+  DIAGRAM_11,
+  DIAGRAM_12,
+  DIAGRAM_13,
+} from '../../app/software-testing-with-generative-ai-guide/page';
 import NavBar, { TOC_ITEMS } from '../../app/software-testing-with-generative-ai-guide/NavBar';
 
 afterEach(() => cleanup());
@@ -37,6 +51,42 @@ beforeAll(() => {
 afterAll(() => {
   mermaid.render = originalMermaidRender;
   window.IntersectionObserver = originalIntersectionObserver;
+});
+
+describe('Software Testing with Generative AI Guide - Mermaid diagrams', () => {
+  it('actually renders all 13 diagrams, one per .mermaid-container, matching DIAGRAM_1 through DIAGRAM_13', async () => {
+    // Arrange: この検証専用に収集済み chart をリセットする
+    renderedCharts.length = 0;
+
+    // Act
+    const { container } = render(<Page />);
+    const diagramContainers = container.querySelectorAll('.mermaid-container');
+
+    // Assert: コンテナ数とレンダリング完了後の SVG 数を突き合わせてから、
+    // 収集した chart を DIAGRAM_1〜13 と 1 対 1 で照合する
+    expect(diagramContainers.length).toBe(13);
+    await waitFor(() => {
+      const rendered = container.querySelectorAll(
+        '.mermaid-container svg[data-testid="mock-mermaid"]'
+      );
+      expect(rendered.length).toBe(diagramContainers.length);
+    });
+
+    expect(renderedCharts.length).toBe(13);
+    expect(renderedCharts[0]).toBe(DIAGRAM_1);
+    expect(renderedCharts[1]).toBe(DIAGRAM_2);
+    expect(renderedCharts[2]).toBe(DIAGRAM_3);
+    expect(renderedCharts[3]).toBe(DIAGRAM_4);
+    expect(renderedCharts[4]).toBe(DIAGRAM_5);
+    expect(renderedCharts[5]).toBe(DIAGRAM_6);
+    expect(renderedCharts[6]).toBe(DIAGRAM_7);
+    expect(renderedCharts[7]).toBe(DIAGRAM_8);
+    expect(renderedCharts[8]).toBe(DIAGRAM_9);
+    expect(renderedCharts[9]).toBe(DIAGRAM_10);
+    expect(renderedCharts[10]).toBe(DIAGRAM_11);
+    expect(renderedCharts[11]).toBe(DIAGRAM_12);
+    expect(renderedCharts[12]).toBe(DIAGRAM_13);
+  });
 });
 
 describe('Software Testing with Generative AI Guide - Category 1 (Hero, Ch1, Ch2 & NavBar)', () => {

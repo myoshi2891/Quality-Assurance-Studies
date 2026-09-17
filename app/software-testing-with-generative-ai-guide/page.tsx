@@ -4,20 +4,20 @@ import Checklist from './Checklist';
 import NavBar from './NavBar';
 import './software-testing-with-generative-ai-guide.css';
 
-const DIAGRAM_1 = `flowchart LR
+export const DIAGRAM_1 = `flowchart LR
 A["記号的AI<br/>ルールベースの知識表現"] --> B["古典的機械学習<br/>特徴量設計とモデル学習"]
 B --> C["深層学習<br/>ニューラルネットワークによる特徴の自動抽出"]
 C --> D["生成AI<br/>新しいテキストやコードの生成"]
 D --> E["大規模言語モデル LLM"]`;
 
-const DIAGRAM_2 = `flowchart LR
+export const DIAGRAM_2 = `flowchart LR
 A["テスト目的の設定"] --> B["AIへのプロンプト送信"]
 B --> C["AIによる下書き生成"]
 C --> D["人間によるレビューと検証"]
 D -->|"問題あり: 修正指示"| B
 D -->|"承認"| E["テスト成果物として採用"]`;
 
-const DIAGRAM_3 = `flowchart TB
+export const DIAGRAM_3 = `flowchart TB
 A["ユーザーストーリー"] --> B["ステップ1 曖昧な表現の指摘"]
 B --> C["人間による確認と修正"]
 C --> D["ステップ2 テスト容易性の評価"]
@@ -25,27 +25,27 @@ D --> E["人間による確認と修正"]
 E --> F["ステップ3 完全性の評価"]
 F --> G["受け入れ基準の確定"]`;
 
-const DIAGRAM_4 = `flowchart LR
+export const DIAGRAM_4 = `flowchart LR
 A["要件 ユーザーストーリー"] --> B["LLMによる分析"]
 B --> C["テスト条件の生成"]
 C --> D["リスクに基づく優先順位付け"]
 D --> E["テストケースの作成"]
 E --> F["カバレッジ分析"]`;
 
-const DIAGRAM_5 = `flowchart LR
+export const DIAGRAM_5 = `flowchart LR
 A["データ形式とスキーマの定義"] --> B["プロンプトによる生成指示"]
 B --> C["LLMによる合成データ生成"]
 C --> D["妥当性と匿名性の検証"]
 D --> E["テスト環境への投入"]`;
 
-const DIAGRAM_6 = `flowchart LR
+export const DIAGRAM_6 = `flowchart LR
 A["AIエージェント"] --> B["MCPクライアント"]
 B --> C["Playwright MCPサーバー"]
 C --> D["ブラウザのアクセシビリティツリー"]
 D --> E["構造化されたページ情報"]
 E --> A`;
 
-const DIAGRAM_7 = `flowchart LR
+export const DIAGRAM_7 = `flowchart LR
 A["チャーターの設定"] --> B["探索と操作"]
 B --> C["観察結果の記録"]
 C --> D["AIへの質問と壁打ち"]
@@ -53,7 +53,7 @@ D --> E["仮説の更新"]
 E --> B
 E --> F["セッションノートの要約"]`;
 
-const DIAGRAM_8 = `flowchart LR
+export const DIAGRAM_8 = `flowchart LR
 A["目標の受信"] --> B["状況の観察"]
 B --> C["次の行動を計画"]
 C --> D["ツールを呼び出す"]
@@ -61,7 +61,7 @@ D --> E["結果を検証"]
 E -->|"未完了"| B
 E -->|"完了"| F["結果を人間に報告"]`;
 
-const DIAGRAM_9 = `flowchart TB
+export const DIAGRAM_9 = `flowchart TB
 subgraph ホスト
 A["AIエージェント アプリケーション"]
 end
@@ -70,14 +70,14 @@ B --> C["MCPサーバー1 テスト管理ツール"]
 B --> D["MCPサーバー2 ブラウザ自動化"]
 B --> E["MCPサーバー3 課題管理システム"]`;
 
-const DIAGRAM_10 = `flowchart LR
+export const DIAGRAM_10 = `flowchart LR
 A["LLMの出力"] --> B["自動チェック 構文と一貫性"]
 B --> C["人間によるレビュー"]
 C -->|"問題あり"| D["プロンプトの見直し"]
 D --> A
 C -->|"問題なし"| E["成果物として採用"]`;
 
-const DIAGRAM_11 = `flowchart LR
+export const DIAGRAM_11 = `flowchart LR
 A["社内文書 仕様書と過去の不具合票"] --> B["チャンク分割"]
 B --> C["埋め込みベクトル化"]
 C --> D["ベクトルデータベース"]
@@ -86,7 +86,7 @@ F --> D
 D --> G["関連チャンクの検索"]
 G --> H["LLMによる回答生成"]`;
 
-const DIAGRAM_12 = `flowchart LR
+export const DIAGRAM_12 = `flowchart LR
 A["目的の設定"] --> B["学習データの準備"]
 B --> C["前処理とフォーマット変換"]
 C --> D["ファインチューニングの実行"]
@@ -94,7 +94,7 @@ D --> E["結果の評価"]
 E -->|"不十分"| B
 E -->|"十分"| F["業務への展開"]`;
 
-const DIAGRAM_13 = `flowchart LR
+export const DIAGRAM_13 = `flowchart LR
 A["フェーズ1 小規模な試行"] --> B["フェーズ2 効果測定と学習"]
 B --> C["フェーズ3 ガイドラインの整備"]
 C --> D["フェーズ4 チーム全体への展開"]
