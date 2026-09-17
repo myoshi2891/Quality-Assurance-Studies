@@ -500,23 +500,23 @@ flowchart LR
 
 ## 参考文献・出典
 
-1. Testing AI 公式サイト(書籍概要 全21章の構成 読者向けメッセージ) — https://www.testingaibook.com/
-2. Testing AI Knowledge Edition(章ごとの概念解説 194のセクションブリーフ) — https://www.testingaibook.com/knowledge/index.html
-3. 第1章 セクション001「The Next Generation AI Builder Will Measure Uncertainty」 — https://www.testingaibook.com/knowledge/ch001-measure-uncertainty.html
-4. 第5章 セクション028「LLM-as-a-Judge」 — https://www.testingaibook.com/knowledge/ch028-llm-judge.html
-5. 第11章 セクション087「The Confidence Engineer」 — https://www.testingaibook.com/knowledge/ch087-confidence-engineer.html
-6. 第20章 セクション172「Minimum Viable AI Quality System」 — https://www.testingaibook.com/knowledge/ch172-minimum-viable-quality.html
-7. 第21章 セクション174「Six Predictions for the Tokenized Product Future」 — https://www.testingaibook.com/knowledge/ch174-predictions-tokenized-product-future.html
-8. Amazon(Testing AI ペーパーバック Kindle版の書誌情報) — https://www.amazon.com/dp/B0H8J9GCK1
-9. TestGuild Automation Podcast エピソード600 Joe ColantonioによるJason Arbonへのインタビュー — https://testguild.com/podcast/a600-jason/
-10. Tariq King LinkedInプロフィール(本書への言及を含む投稿) — https://www.linkedin.com/in/tariqking/
-11. Jason Arbon LinkedInプロフィール — https://www.linkedin.com/in/jasonarbon
-12. Jason Arbon 個人サイト — https://jarbon.ai/
-13. Testers.ai(Jason Arbonが設立したAIテスト企業) — https://testers.ai/
-14. Jason Arbon Medium(執筆記事一覧) — https://jarbon.medium.com/
-15. How Google Tests Software(Jason Arbon 共著) Amazon書誌情報 — https://www.amazon.com/dp/0321803027
-16. App Quality: Secrets for Agile App Teams(Jason Arbon 著) Amazon書誌情報 — https://www.amazon.com/dp/1499751273
-17. Tariq King プロフィール Perforce Software — https://www.perforce.com/author/tariq-king
-18. King T. M., Arbon J., Santiago D., Adamo D., Chin W., Shanmugam R. 「AI for Testing Today and Tomorrow: Industry Perspectives」 IEEE International Conference on Artificial Intelligence Testing 2019 Semantic Scholar — https://www.semanticscholar.org/paper/AI-for-Testing-Today-and-Tomorrow:-Industry-King-Arbon/d19232f659c0f1681a1a837099be46bf10dae7ae
-19. Arbon J. 「AI for Software Testing」 Semantic Scholar(当初ご共有いただいたリンク) — https://www.semanticscholar.org/paper/AI-for-Software-Testing-Arbon/50f77f76012710ca45ee214145e5e031af67c93b
-20. Introduction to AI Testing: Guide to ISTQB CT-AI Certification(BCS 2025年 比較対象として言及) Amazon書誌情報 — https://www.amazon.com/Introduction-AI-Testing-ISTQB%C2%AE-Certification/dp/1780177186
+1. [Testing AI 公式サイト(書籍概要 全21章の構成 読者向けメッセージ)](https://www.testingaibook.com/)
+2. [Testing AI Knowledge Edition(章ごとの概念解説 194のセクションブリーフ)](https://www.testingaibook.com/knowledge/index.html)
+3. [第1章 セクション001「The Next Generation AI Builder Will Measure Uncertainty」](https://www.testingaibook.com/knowledge/ch001-measure-uncertainty.html)
+4. [第5章 セクション028「LLM-as-a-Judge」](https://www.testingaibook.com/knowledge/ch028-llm-judge.html)
+5. [第11章 セクション087「The Confidence Engineer」](https://www.testingaibook.com/knowledge/ch087-confidence-engineer.html)
+6. [第20章 セクション172「Minimum Viable AI Quality System」](https://www.testingaibook.com/knowledge/ch172-minimum-viable-quality.html)
+7. [第21章 セクション174「Six Predictions for the Tokenized Product Future」](https://www.testingaibook.com/knowledge/ch174-predictions-tokenized-product-future.html)
+8. [Amazon(Testing AI ペーパーバック Kindle版の書誌情報)](https://www.amazon.com/dp/B0H8J9GCK1)
+9. [TestGuild Automation Podcast エピソード600 Joe ColantonioによるJason Arbonへのインタビュー](https://testguild.com/podcast/a600-jason/)
+10. [Tariq King LinkedInプロフィール(本書への言及を含む投稿)](https://www.linkedin.com/in/tariqking/)
+11. [Jason Arbon LinkedInプロフィール](https://www.linkedin.com/in/jasonarbon)
+12. [Jason Arbon 個人サイト](https://jarbon.ai/)
+13. [Testers.ai(Jason Arbonが設立したAIテスト企業)](https://testers.ai/)
+14. [Jason Arbon Medium(執筆記事一覧)](https://jarbon.medium.com/)
+15. [How Google Tests Software(Jason Arbon 共著) Amazon書誌情報](https://www.amazon.com/dp/0321803027)
+16. [App Quality: Secrets for Agile App Teams(Jason Arbon 著) Amazon書誌情報](https://www.amazon.com/dp/1499751273)
+17. [Tariq King プロフィール Perforce Software](https://www.perforce.com/author/tariq-king)
+18. [King T. M., Arbon J., Santiago D., Adamo D., Chin W., Shanmugam R. 「AI for Testing Today and Tomorrow: Industry Perspectives」 IEEE International Conference on Artificial Intelligence Testing 2019 Semantic Scholar](https://www.semanticscholar.org/paper/AI-for-Testing-Today-and-Tomorrow:-Industry-King-Arbon/d19232f659c0f1681a1a837099be46bf10dae7ae)
+19. [Arbon J. 「AI for Software Testing」 Semantic Scholar(当初ご共有いただいたリンク)](https://www.semanticscholar.org/paper/AI-for-Software-Testing-Arbon/50f77f76012710ca45ee214145e5e031af67c93b)
+20. [Introduction to AI Testing: Guide to ISTQB CT-AI Certification(BCS 2025年 比較対象として言及) Amazon書誌情報](https://www.amazon.com/Introduction-AI-Testing-ISTQB%C2%AE-Certification/dp/1780177186)
