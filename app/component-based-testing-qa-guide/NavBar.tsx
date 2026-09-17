@@ -124,6 +124,7 @@ export default function NavBar() {
                 <a
                   className={`${isH2 ? 'nav-h2' : 'nav-h3'} ${isActive ? 'active' : ''}`}
                   href={`#${item.id}`}
+                  aria-current={isActive ? 'location' : undefined}
                   onClick={() => setIsOpen(false)}
                 >
                   {item.text}
