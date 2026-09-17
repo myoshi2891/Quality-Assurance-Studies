@@ -239,8 +239,8 @@ export default function PerfectSoftwareGuidePage() {
             </div>
 
             <div className="table-wrap">
-              <div className="table-title">書籍データ</div>
-              <table className="kv-table">
+              <div className="table-title" id="table-title-book-data">書籍データ</div>
+              <table className="kv-table" aria-labelledby="table-title-book-data">
                 <tbody>
                   <tr>
                     <th>原題</th>
@@ -355,8 +355,8 @@ export default function PerfectSoftwareGuidePage() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">章立て一覧</div>
-              <table>
+              <div className="table-title" id="table-title-chapter-list">章立て一覧</div>
+              <table aria-labelledby="table-title-chapter-list">
                 <thead>
                   <tr>
                     <th>#</th>
@@ -560,8 +560,8 @@ export default function PerfectSoftwareGuidePage() {
             </p>
 
             <div className="table-wrap">
-              <div className="table-title">テストとデバッグの違い</div>
-              <table>
+              <div className="table-title" id="table-title-test-vs-debug">テストとデバッグの違い</div>
+              <table aria-labelledby="table-title-test-vs-debug">
                 <thead>
                   <tr>
                     <th>観点</th>
@@ -690,8 +690,8 @@ export default function PerfectSoftwareGuidePage() {
             <p className="diagram-caption">図5　5つの誤解とそれに対応する事実</p>
 
             <div className="table-wrap">
-              <div className="table-title">テストにまつわる5大誤解</div>
-              <table>
+              <div className="table-title" id="table-title-five-misconceptions">テストにまつわる5大誤解</div>
+              <table aria-labelledby="table-title-five-misconceptions">
                 <thead>
                   <tr>
                     <th>誤解</th>

@@ -661,9 +661,13 @@
     transition: transform 0.25s ease;
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
     z-index: 100;
+    visibility: hidden;
+    pointer-events: none;
   }
   .software-testing-genai-layout .sidebar.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
   }
   .software-testing-genai-layout .sidebar-toggle {
     display: block;

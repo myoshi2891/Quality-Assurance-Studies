@@ -247,7 +247,7 @@ export default function ComponentBasedTestingPage() {
             と呼び、次のような特徴を挙げています[1]。
           </p>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="12-コンポーネントベースソフトウェアシステムcbssの特徴">
               <thead>
                 <tr className="header">
                   <th>特徴</th>
@@ -301,7 +301,7 @@ export default function ComponentBasedTestingPage() {
             2003年の原著が主に念頭に置いていたのはCORBA・COM・EJBといったコンポーネントモデルでしたが、その考え方は形を変えて現在も生き続けています。
           </p>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="14-現代におけるコンポーネントの広がり">
               <thead>
                 <tr className="header">
                   <th>時代</th>
@@ -429,7 +429,7 @@ export default function ComponentBasedTestingPage() {
             という分類を使っています[7][8]。
           </p>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="32-googleのsmallmediumlargeモデル">
               <thead>
                 <tr className="header">
                   <th>サイズ</th>
@@ -469,7 +469,7 @@ export default function ComponentBasedTestingPage() {
             ここまでの内容を、実務でよく使われる5つのテストレベルとして整理すると次のようになります。ThoughtWorksのToby Clemsonがマイクロサービス向けにまとめたテスト戦略も、基本的にこの5層構造に沿っています[9]。
           </p>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="33-テストレベル比較表">
               <thead>
                 <tr className="header">
                   <th>テストレベル</th>
@@ -549,7 +549,7 @@ export default function ComponentBasedTestingPage() {
             <Mermaid chart={DIAGRAM_5} />
           </div>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="42-統合テストトップダウンとボトムアップ">
               <thead>
                 <tr className="header">
                   <th>戦略</th>
@@ -585,7 +585,7 @@ export default function ComponentBasedTestingPage() {
             コンポーネントテストや単体テストでは、外部依存の代わりに「テストダブル」と呼ばれる代役を使います。Fowlerは、外部サービスとの通信のように低速・不安定・チーム管理外な依存関係に対してテストダブルを使うことで、テストの速度と決定性を確保できると説明しています[11]。ただし同時に、テストダブルが実際のサービスの挙動を正しく模倣できているかという新たな課題が生まれる点にも注意が必要です[11]。この課題こそが、次章で扱う「コントラクトテスト」が解決しようとしている問題です。
           </p>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="43-テストダブルtest-doubleの使い分け">
               <thead>
                 <tr className="header">
                   <th>種類</th>
@@ -727,7 +727,7 @@ export default function ComponentBasedTestingPage() {
             6.3 サードパーティコンポーネントに対するQAチェック項目
           </h3>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="63-サードパーティコンポーネントに対するqaチェック項目">
               <thead>
                 <tr className="header">
                   <th>チェック項目</th>
@@ -790,7 +790,7 @@ export default function ComponentBasedTestingPage() {
 
           <h3 id="73-モックと実物どちらを使うべきか">7.3 モックと実物、どちらを使うべきか</h3>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="73-モックと実物どちらを使うべきか">
               <thead>
                 <tr className="header">
                   <th>観点</th>
@@ -839,7 +839,7 @@ export default function ComponentBasedTestingPage() {
             「カバレッジ80%達成」といった目標はよく聞かれますが、カバレッジはあくまで「そのコードがテスト実行中に通過したかどうか」を示すだけで、「そのコードの結果が正しく検証されたかどうか」までは保証しません。アサーションのないテストでも、コードを実行しさえすればカバレッジは上がってしまいます。
           </p>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="81-コードカバレッジの限界">
               <thead>
                 <tr className="header">
                   <th>カバレッジの種類</th>
@@ -888,7 +888,7 @@ export default function ComponentBasedTestingPage() {
             原著が強調するもう1つの観点は、品質を「テストの合否」という一点だけでなく、継続的に追跡できるメトリクスとして捉えることです[1]。実務でよく使われる指標を以下にまとめます。
           </p>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="83-コンポーネント単位での品質メトリクス">
               <thead>
                 <tr className="header">
                   <th>メトリクス</th>
@@ -934,7 +934,7 @@ export default function ComponentBasedTestingPage() {
             25010（旧ISO/IEC 9126）が定める品質特性モデルとも通底する考え方です。
           </p>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="91-コンポーネントベースシステムにおける品質特性">
               <thead>
                 <tr className="header">
                   <th>品質特性</th>
@@ -983,7 +983,7 @@ export default function ComponentBasedTestingPage() {
           <p>
             品質保証の文脈では、「検証（Verification）」と「妥当性確認（Validation）」はしばしば次のように区別されます。
           </p>
-          <ul>
+          <ul className="bullet-list">
             <li>
               <strong>検証（Verification）</strong>：「正しく作られているか（Are we
               building the product
@@ -1024,7 +1024,7 @@ export default function ComponentBasedTestingPage() {
             10.2 「速いテストを頻繁に、遅いテストをたまに」という原則
           </h3>
           <div className="table-scroll">
-            <table>
+            <table aria-labelledby="102-速いテストを頻繁に遅いテストをたまにという原則">
               <thead>
                 <tr className="header">
                   <th>実行タイミング</th>
