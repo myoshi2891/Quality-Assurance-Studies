@@ -247,7 +247,7 @@
   font-weight: 800;
   margin: 56px 0 18px;
   padding-top: 8px;
-  scroll-margin-top: 80px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
   color: var(--text);
 }
 
@@ -259,7 +259,7 @@
   font-size: 19.5px;
   font-weight: 700;
   margin: 38px 0 14px;
-  scroll-margin-top: 80px;
+  scroll-margin-top: calc(80px + var(--disclaimer-height, 0px));
   color: var(--text);
 }
 
@@ -918,11 +918,18 @@
 @media (max-width: 960px) {
   .cbss-qa-layout .sidebar {
     transform: translateX(-100%);
-    transition: transform 0.25s;
+    /* 閉じている間はフォーカス順・支援技術・クリック対象から除外する。
+       visibility の切り替えはスライドアウト完了後に遅延させ、退場アニメを保つ。 */
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.25s, visibility 0s linear 0.25s;
     box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0);
   }
   .cbss-qa-layout .sidebar.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.25s, visibility 0s linear 0s;
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.5);
   }
   .cbss-qa-layout .main {

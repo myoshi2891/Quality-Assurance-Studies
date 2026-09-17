@@ -1,8 +1,20 @@
-import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, fireEvent, cleanup } from '@testing-library/react';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, it, expect, mock } from 'bun:test';
+import { render, screen, fireEvent, cleanup, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
-import Page from '../../app/component-based-testing-qa-guide/page';
+import Page, {
+  DIAGRAM_1,
+  DIAGRAM_2,
+  DIAGRAM_3,
+  DIAGRAM_4,
+  DIAGRAM_5,
+  DIAGRAM_6,
+  DIAGRAM_7,
+  DIAGRAM_8,
+  DIAGRAM_9,
+  DIAGRAM_10,
+  DIAGRAM_11,
+} from '../../app/component-based-testing-qa-guide/page';
 import NavBar, { TOC_ITEMS } from '../../app/component-based-testing-qa-guide/NavBar';
 
 afterEach(() => cleanup());
@@ -11,6 +23,10 @@ let originalMermaidRender: typeof mermaid.render;
 let originalIntersectionObserver: typeof window.IntersectionObserver;
 let mermaidRenderMock: ReturnType<typeof mock>;
 const renderedCharts: string[] = [];
+
+beforeEach(() => {
+  renderedCharts.length = 0;
+});
 
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
@@ -37,6 +53,37 @@ beforeAll(() => {
 afterAll(() => {
   mermaid.render = originalMermaidRender;
   window.IntersectionObserver = originalIntersectionObserver;
+});
+
+describe('Component-based Testing QA Guide - Mermaid diagrams', () => {
+  it('actually renders all 11 diagrams, one per .mermaid-wrap, matching DIAGRAM_1 through DIAGRAM_11', async () => {
+    const { container } = render(<Page />);
+    const diagramContainers = container.querySelectorAll('.mermaid-wrap');
+
+    // 実描画の完了を待ってから件数を突き合わせる。
+    // コンテナの存在確認だけでは、Mermaid.tsx が空の chart で早期 return する経路
+    // （mermaid.render を呼ばず SVG も挿入しない）を見逃す
+    expect(diagramContainers.length).toBe(11);
+    await waitFor(() => {
+      const rendered = container.querySelectorAll('.mermaid-wrap svg[data-testid="mock-mermaid"]');
+      expect(rendered.length).toBe(diagramContainers.length);
+    });
+
+    // renderedCharts の各要素を DIAGRAM_1〜11 と 1 対 1 で照合し、
+    // 図解の欠落・入れ替わり・内容の欠損を検出できるようにする
+    expect(renderedCharts.length).toBe(11);
+    expect(renderedCharts[0]).toBe(DIAGRAM_1);
+    expect(renderedCharts[1]).toBe(DIAGRAM_2);
+    expect(renderedCharts[2]).toBe(DIAGRAM_3);
+    expect(renderedCharts[3]).toBe(DIAGRAM_4);
+    expect(renderedCharts[4]).toBe(DIAGRAM_5);
+    expect(renderedCharts[5]).toBe(DIAGRAM_6);
+    expect(renderedCharts[6]).toBe(DIAGRAM_7);
+    expect(renderedCharts[7]).toBe(DIAGRAM_8);
+    expect(renderedCharts[8]).toBe(DIAGRAM_9);
+    expect(renderedCharts[9]).toBe(DIAGRAM_10);
+    expect(renderedCharts[10]).toBe(DIAGRAM_11);
+  });
 });
 
 describe('Component-based Testing QA Guide - Category 1 (Hero, Intro, Sec 1, Sec 2)', () => {

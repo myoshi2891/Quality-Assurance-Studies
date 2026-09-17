@@ -4,7 +4,7 @@ import NavBar from './NavBar';
 import Checklist from './Checklist';
 import './component-based-testing-qa-guide.css';
 
-const DIAGRAM_1 = `flowchart TD
+export const DIAGRAM_1 = `flowchart TD
 subgraph MONO["モノリシック開発の流れ"]
 M1["要件定義"] --> M2["設計"]
 M2 --> M3["実装"]
@@ -20,7 +20,7 @@ C4 --> C5["コントラクトテスト"]
 C5 --> C6["システム全体テスト"]
 end`;
 
-const DIAGRAM_2 = `sequenceDiagram
+export const DIAGRAM_2 = `sequenceDiagram
 participant Tester as テスト担当者
 participant Iface as 公開インターフェース
 participant Comp as コンポーネント内部(非公開)
@@ -30,7 +30,7 @@ Comp-->>Iface: 処理結果を返却
 Iface-->>Tester: 出力データを受信
 Note over Tester,Comp: 内部のソースコードや構造を見ずに、入出力の対応関係だけで検証する`;
 
-const DIAGRAM_3 = `flowchart TD
+export const DIAGRAM_3 = `flowchart TD
 COTS["サードパーティ/COTSコンポーネント"] --> R1["ソースコード非公開<br/>(内部構造が見えない)"]
 COTS --> R2["ベンダー都合のバージョンアップ<br/>(互換性が崩れる可能性)"]
 COTS --> R3["既知の脆弱性<br/>(CVE)の混入"]
@@ -41,7 +41,7 @@ classDef riskStyle fill:#fdecea,stroke:#c0526e,color:#5a1420
 class COTS compStyle
 class R1,R2,R3,R4,R5 riskStyle`;
 
-const DIAGRAM_4 = `flowchart BT
+export const DIAGRAM_4 = `flowchart BT
 U["単体テスト(Unit)<br/>数量: 非常に多い / 実行: 数ミリ秒"] --> I["統合テスト(Integration)<br/>数量: 中程度 / 実行: 数百ミリ秒〜数秒"]
 I --> CT["コンポーネント/コントラクトテスト<br/>数量: 中程度 / 実行: 数秒"]
 CT --> E["E2Eテスト(End-to-End)<br/>数量: 少ない / 実行: 数十秒〜数分"]
@@ -54,7 +54,7 @@ class I intStyle
 class CT ctStyle
 class E e2eStyle`;
 
-const DIAGRAM_5 = `flowchart TD
+export const DIAGRAM_5 = `flowchart TD
 subgraph TOPDOWN["トップダウン統合(スタブを使用)"]
 TD1["上位コンポーネント<br/>(実装済み)"] --> TD2["未実装の下位コンポーネント<br/>→ スタブで代替"]
 end
@@ -62,7 +62,7 @@ subgraph BOTTOMUP["ボトムアップ統合(ドライバを使用)"]
 BU1["下位コンポーネント<br/>(実装済み)"] --> BU2["未実装の上位コンポーネント<br/>→ ドライバで代替"]
 end`;
 
-const DIAGRAM_6 = `sequenceDiagram
+export const DIAGRAM_6 = `sequenceDiagram
 participant ConsumerTest as コンシューマー側テスト
 participant MockProvider as モックプロバイダ
 participant PactFile as 契約ファイル
@@ -76,7 +76,7 @@ ProviderTest->>RealProvider: 契約どおりのリクエストを再生
 RealProvider-->>ProviderTest: 実際の応答を返却
 ProviderTest->>ProviderTest: 契約の期待値と実際の応答を比較検証`;
 
-const DIAGRAM_7 = `flowchart LR
+export const DIAGRAM_7 = `flowchart LR
 Con1["コンシューマーA"] -->|契約A| Broker["契約ブローカー<br/>(Pact Broker等)"]
 Con2["コンシューマーB"] -->|契約B| Broker
 Con3["コンシューマーC"] -->|契約C| Broker
@@ -88,7 +88,7 @@ class Con1,Con2,Con3 conStyle
 class Broker brokerStyle
 class Provider provStyle`;
 
-const DIAGRAM_8 = `flowchart LR
+export const DIAGRAM_8 = `flowchart LR
 Src["ソースコード/<br/>依存関係マニフェスト"] --> Scan["SCAツールによるスキャン<br/>(例: OWASP Dependency-Check)"]
 Scan --> DB["既知の脆弱性データベース<br/>(NVD等)と照合"]
 DB --> Report["レポート生成 + SBOM出力"]
@@ -104,7 +104,7 @@ class Gate gateStyle
 class Block blockStyle
 class Pass passStyle`;
 
-const DIAGRAM_9 = `flowchart TD
+export const DIAGRAM_9 = `flowchart TD
 Test["統合テストプロセス"] --> DB["使い捨てのDBコンテナ<br/>(例: PostgreSQL)"]
 Test --> MQ["使い捨てのメッセージキュー<br/>コンテナ(例: Kafka)"]
 Test --> Cache["使い捨てのキャッシュ<br/>コンテナ(例: Redis)"]
@@ -118,7 +118,7 @@ class Test testStyle
 class DB,MQ,Cache infraStyle
 class Cleanup cleanupStyle`;
 
-const DIAGRAM_10 = `flowchart TD
+export const DIAGRAM_10 = `flowchart TD
     A["元のソースコード"] --> B["ミューテーションツールが<br/>コードに小さな欠陥を注入"]
     B --> C["既存のテストスイートを実行"]
     C --> D{"テストは失敗したか？"}
@@ -133,7 +133,7 @@ const DIAGRAM_10 = `flowchart TD
     class E killedStyle
     class F,G survivedStyle`;
 
-const DIAGRAM_11 = `flowchart LR
+export const DIAGRAM_11 = `flowchart LR
     Commit["コードのコミット"] --> Unit["単体テスト<br/>（数秒）"]
     Unit --> CompT["コンポーネントテスト<br/>（数十秒）"]
     CompT --> Contract["コントラクトテスト<br/>（数十秒）"]

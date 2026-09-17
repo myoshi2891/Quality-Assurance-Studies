@@ -98,6 +98,8 @@ export default function NavBar() {
         className="sidebar-toggle"
         id="sidebarToggle"
         aria-label="メニューを開閉"
+        aria-expanded={isOpen}
+        aria-controls="sidebar"
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <span />
