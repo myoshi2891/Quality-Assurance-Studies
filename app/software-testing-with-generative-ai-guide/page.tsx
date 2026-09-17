@@ -186,7 +186,7 @@ export default function SoftwareTestingWithGenerativeAiGuidePage() {
             </p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="12-トークン化埋め込みコンテキストウィンドウ">
                 <thead>
                   <tr className="header">
                     <th>用語</th>
@@ -226,7 +226,7 @@ export default function SoftwareTestingWithGenerativeAiGuidePage() {
             </p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="13-foundationinstruction-tunedreasoning-llmの違い">
                 <thead>
                   <tr className="header">
                     <th>種類</th>
@@ -310,7 +310,7 @@ export default function SoftwareTestingWithGenerativeAiGuidePage() {
             </p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="24-生成aiの3つの能力を見極める">
                 <thead>
                   <tr className="header">
                     <th>能力</th>
@@ -376,7 +376,7 @@ export default function SoftwareTestingWithGenerativeAiGuidePage() {
             <p>効果的なプロンプトは、次の6つの要素で構成すると整理しやすくなります[2]。</p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="31-プロンプトの6要素構造">
                 <thead>
                   <tr className="header">
                     <th>要素</th>
@@ -430,7 +430,7 @@ export default function SoftwareTestingWithGenerativeAiGuidePage() {
             </p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="32-3つの核となるプロンプト技法">
                 <thead>
                   <tr className="header">
                     <th>技法</th>
@@ -550,7 +550,7 @@ Then 合計金額に割引が反映される
             </p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="44-生成結果を評価するための指標">
                 <thead>
                   <tr className="header">
                     <th>指標</th>
@@ -678,7 +678,7 @@ Then 合計金額に割引が反映される
             </p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="63-セルフヒーリング型テスト自動化の2世代">
                 <thead>
                   <tr className="header">
                     <th>世代</th>
@@ -851,7 +851,7 @@ Then 合計金額に割引が反映される
             </p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="92-データプライバシーとセキュリティのリスク">
                 <thead>
                   <tr className="header">
                     <th>攻撃ベクトル</th>
@@ -908,7 +908,7 @@ Then 合計金額に割引が反映される
             </p>
 
             <div className="table-scroll">
-              <table>
+              <table aria-labelledby="94-規制標準の全体像">
                 <thead>
                   <tr className="header">
                     <th>名称</th>

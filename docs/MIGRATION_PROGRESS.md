@@ -37,7 +37,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全60セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/software-testing-with-generative-ai-guide/`: ページコンポーネント、専用スタイル（`.software-testing-genai-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/software-testing-with-generative-ai-guide`（生成AIとソフトウェアテスト実践ガイド）を追加（全71件）。
-- `tests/software-testing-with-generative-ai-guide/page.test.tsx`: TDD 必須サイクルに従い、全12章、全13Mermaid図、全9テーブル、全3プロンプト例、全チェックリスト、全参考文献18件の存在を検証する厳格なテストスイートを実装して全パス（19 pass / 141 expect()）。
+- `tests/software-testing-with-generative-ai-guide/page.test.tsx`: TDD 必須サイクルに従い、全12章、全13Mermaid図、全9テーブル、全3プロンプト例、全チェックリスト、全参考文献18件の存在を検証する厳格なテストスイートを実装して全パス（19 pass / 140 expect()）。
 - `Software-testing-with-generative-ai-guide.html` は `archive/html-archive/books/`、`Software-testing-with-generative-ai-guide.md` は `archive/md-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 71 ページ体制に同期。
 

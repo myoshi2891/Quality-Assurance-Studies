@@ -1,5 +1,5 @@
 import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, cleanup, fireEvent, waitFor, within } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
 import Page, {
@@ -17,7 +17,7 @@ import Page, {
   DIAGRAM_12,
   DIAGRAM_13,
 } from '../../app/software-testing-with-generative-ai-guide/page';
-import NavBar, { TOC_ITEMS } from '../../app/software-testing-with-generative-ai-guide/NavBar';
+import { TOC_ITEMS } from '../../app/software-testing-with-generative-ai-guide/NavBar';
 
 afterEach(() => cleanup());
 
@@ -120,7 +120,7 @@ describe('Software Testing with Generative AI Guide - Category 1 (Hero, Ch1, Ch2
   });
 
   it('renders Chapter 1 with 4 subheadings, Mermaid 1, and 2 tables', () => {
-    render(<Page />);
+    const { container } = render(<Page />);
     const ch1 = screen.getByRole('heading', { level: 2, name: '第1章 生成AIとLLMの基礎知識' });
     expect(ch1.id).toBe('第1章-生成aiとllmの基礎知識');
 
@@ -134,19 +134,23 @@ describe('Software Testing with Generative AI Guide - Category 1 (Hero, Ch1, Ch2
     const h3_14 = screen.getByRole('heading', { level: 3, name: '1.4 マルチモーダルLLMとテストへの応用' });
     expect(h3_14.id).toBe('14-マルチモーダルllmとテストへの応用');
 
+    const tables = container.querySelectorAll('table');
+
     // Table 1 in 1.2
-    expect(screen.getByText('トークン化')).toBeDefined();
-    expect(screen.getByText('コンテキストウィンドウ')).toBeDefined();
-    expect(screen.getByText('Transformer')).toBeDefined();
+    const table1 = within(tables[0]);
+    expect(table1.getByText('トークン化')).toBeDefined();
+    expect(table1.getByText('コンテキストウィンドウ')).toBeDefined();
+    expect(table1.getByText('Transformer')).toBeDefined();
 
     // Table 2 in 1.3
-    expect(screen.getByText('Foundation LLM')).toBeDefined();
-    expect(screen.getByText('Instruction-tuned LLM')).toBeDefined();
-    expect(screen.getByText('Reasoning LLM')).toBeDefined();
+    const table2 = within(tables[1]);
+    expect(table2.getByText('Foundation LLM')).toBeDefined();
+    expect(table2.getByText('Instruction-tuned LLM')).toBeDefined();
+    expect(table2.getByText('Reasoning LLM')).toBeDefined();
   });
 
   it('renders Chapter 2 with 6 subheadings, Table 3, and Mermaid 2', () => {
-    render(<Page />);
+    const { container } = render(<Page />);
     const ch2 = screen.getByRole('heading', { level: 2, name: /第2章 マインドセット/ });
     expect(ch2.id).toBe('第2章-マインドセット--人間とaiの協働モデル');
 
@@ -164,30 +168,35 @@ describe('Software Testing with Generative AI Guide - Category 1 (Hero, Ch1, Ch2
     expect(h3_26.id).toBe('26-自動化バイアスへの警戒');
 
     // Table 3 in 2.4
-    expect(screen.getByText('生成（Generation）')).toBeDefined();
-    expect(screen.getByText('変換（Transformation）')).toBeDefined();
-    expect(screen.getByText('強化（Augmentation）')).toBeDefined();
+    const table3 = within(container.querySelectorAll('table')[2]);
+    expect(table3.getByText('生成（Generation）')).toBeDefined();
+    expect(table3.getByText('変換（Transformation）')).toBeDefined();
+    expect(table3.getByText('強化（Augmentation）')).toBeDefined();
   });
 
-  it('verifies TOC_ITEMS contains exactly 60 entries', () => {
+  it('verifies all 60 TOC_ITEMS map 1:1 to sidebar links and page headings', () => {
+    const { container } = render(<Page />);
     expect(TOC_ITEMS).toHaveLength(60);
-    expect(TOC_ITEMS[0].id).toBe('この記事の対象読者');
-    expect(TOC_ITEMS[1].id).toBe('第1章-生成aiとllmの基礎知識');
-    expect(TOC_ITEMS[TOC_ITEMS.length - 1].id).toBe('参考文献');
-  });
 
-  it('renders NavBar component with sidebar element', () => {
-    const { container } = render(<NavBar />);
     const sidebar = container.querySelector('#sidebar');
     expect(sidebar).not.toBeNull();
-    const links = sidebar?.querySelectorAll('a');
-    expect(links?.length).toBe(60);
+    const links = Array.from(sidebar?.querySelectorAll('a') ?? []);
+    expect(links).toHaveLength(60);
+
+    TOC_ITEMS.forEach((item, index) => {
+      const link = links[index];
+      expect(link?.getAttribute('href')).toBe(`#${item.id}`);
+      expect(link?.textContent).toBe(item.label);
+
+      const heading = document.getElementById(item.id);
+      expect(heading).not.toBeNull();
+    });
   });
 });
 
 describe('Software Testing with Generative AI Guide - Category 2 (Ch3, Ch4, Ch5)', () => {
   it('renders Chapter 3 with 4 subheadings, Table 4, Table 5, Mermaid 3, and 2 prompt examples', () => {
-    render(<Page />);
+    const { container } = render(<Page />);
     const ch3 = screen.getByRole('heading', { level: 2, name: /第3章 プロンプトエンジニアリング/ });
     expect(ch3.id).toBe('第3章-プロンプトエンジニアリングの基本とテスト実務への応用');
 
@@ -200,14 +209,18 @@ describe('Software Testing with Generative AI Guide - Category 2 (Ch3, Ch4, Ch5)
     const h3_34 = screen.getByRole('heading', { level: 3, name: '3.4 システムプロンプトとユーザープロンプト' });
     expect(h3_34.id).toBe('34-システムプロンプトとユーザープロンプト');
 
+    const tables = container.querySelectorAll('table');
+
     // Table 4 in 3.1
-    expect(screen.getByText('役割（Role）')).toBeDefined();
-    expect(screen.getByText('出力形式（Output format）')).toBeDefined();
+    const table4 = within(tables[3]);
+    expect(table4.getByText('役割（Role）')).toBeDefined();
+    expect(table4.getByText('出力形式（Output format）')).toBeDefined();
 
     // Table 5 in 3.2
-    expect(screen.getByText('プロンプトチェイニング')).toBeDefined();
-    expect(screen.getByText('フューショットプロンプティング')).toBeDefined();
-    expect(screen.getByText('メタプロンプティング')).toBeDefined();
+    const table5 = within(tables[4]);
+    expect(table5.getByText('プロンプトチェイニング')).toBeDefined();
+    expect(table5.getByText('フューショットプロンプティング')).toBeDefined();
+    expect(table5.getByText('メタプロンプティング')).toBeDefined();
 
     // Prompt examples in Ch3
     expect(screen.getByText(/文脈: 対象はECサイトのクーポン適用機能です。/)).toBeDefined();
@@ -215,7 +228,7 @@ describe('Software Testing with Generative AI Guide - Category 2 (Ch3, Ch4, Ch5)
   });
 
   it('renders Chapter 4 with 4 subheadings, Mermaid 4, Prompt Example 3, and Table 6', () => {
-    render(<Page />);
+    const { container } = render(<Page />);
     const ch4 = screen.getByRole('heading', { level: 2, name: '第4章 AIによるテスト分析とテストケース生成' });
     expect(ch4.id).toBe('第4章-aiによるテスト分析とテストケース生成');
 
@@ -232,11 +245,12 @@ describe('Software Testing with Generative AI Guide - Category 2 (Ch3, Ch4, Ch5)
     expect(screen.getByText(/Given ログイン済みのユーザーがカート画面を開いている/)).toBeDefined();
 
     // Table 6 in 4.4
-    expect(screen.getByText('正確性（Accuracy）')).toBeDefined();
-    expect(screen.getByText('適合率（Precision）')).toBeDefined();
-    expect(screen.getByText('再現率（Recall）')).toBeDefined();
-    expect(screen.getByText('多様性（Diversity）')).toBeDefined();
-    expect(screen.getByText('時間効率')).toBeDefined();
+    const table6 = within(container.querySelectorAll('table')[5]);
+    expect(table6.getByText('正確性（Accuracy）')).toBeDefined();
+    expect(table6.getByText('適合率（Precision）')).toBeDefined();
+    expect(table6.getByText('再現率（Recall）')).toBeDefined();
+    expect(table6.getByText('多様性（Diversity）')).toBeDefined();
+    expect(table6.getByText('時間効率')).toBeDefined();
   });
 
   it('renders Chapter 5 with 3 subheadings and Mermaid 5', () => {
@@ -255,7 +269,7 @@ describe('Software Testing with Generative AI Guide - Category 2 (Ch3, Ch4, Ch5)
 
 describe('Software Testing with Generative AI Guide - Category 3 (Ch6, Ch7, Ch8)', () => {
   it('renders Chapter 6 with 5 subheadings, Mermaid 6, and Table 7', () => {
-    render(<Page />);
+    const { container } = render(<Page />);
     const ch6 = screen.getByRole('heading', { level: 2, name: /第6章 AIを活用したテスト自動化とセルフヒーリング/ });
     expect(ch6.id).toBe('第6章-aiを活用したテスト自動化とセルフヒーリング');
 
@@ -271,8 +285,9 @@ describe('Software Testing with Generative AI Guide - Category 3 (Ch6, Ch7, Ch8)
     expect(h3_65.id).toBe('65-リグレッションテストへの適用');
 
     // Table 7 in 6.3
-    expect(screen.getByText('第1世代：ロケータフォールバック型')).toBeDefined();
-    expect(screen.getByText('第2世代：生成的セルフヒーリング型')).toBeDefined();
+    const table7 = within(container.querySelectorAll('table')[6]);
+    expect(table7.getByText('第1世代：ロケータフォールバック型')).toBeDefined();
+    expect(table7.getByText('第2世代：生成的セルフヒーリング型')).toBeDefined();
   });
 
   it('renders Chapter 7 with 3 subheadings and Mermaid 7', () => {
@@ -308,7 +323,7 @@ describe('Software Testing with Generative AI Guide - Category 3 (Ch6, Ch7, Ch8)
 
 describe('Software Testing with Generative AI Guide - Category 4 (Ch9, Ch10, Ch11)', () => {
   it('renders Chapter 9 with 4 subheadings, Mermaid 10, Table 8, and Table 9', () => {
-    render(<Page />);
+    const { container } = render(<Page />);
     const ch9 = screen.getByRole('heading', { level: 2, name: '第9章 生成AI活用のリスク管理' });
     expect(ch9.id).toBe('第9章-生成ai活用のリスク管理');
 
@@ -321,14 +336,19 @@ describe('Software Testing with Generative AI Guide - Category 4 (Ch9, Ch10, Ch1
     const h3_94 = screen.getByRole('heading', { level: 3, name: '9.4 規制・標準の全体像' });
     expect(h3_94.id).toBe('94-規制標準の全体像');
 
+    const tables = container.querySelectorAll('table');
+    expect(tables).toHaveLength(9);
+
     // Table 8 in 9.2
-    expect(screen.getByText('データの持ち出し')).toBeDefined();
-    expect(screen.getByText('悪意あるコード生成')).toBeDefined();
+    const table8 = within(tables[7]);
+    expect(table8.getByText('データの持ち出し')).toBeDefined();
+    expect(table8.getByText('悪意あるコード生成')).toBeDefined();
 
     // Table 9 in 9.4
-    expect(screen.getByText('ISO/IEC 42001:2023')).toBeDefined();
-    expect(screen.getByText('EU AI Act')).toBeDefined();
-    expect(screen.getByText('NIST AI Risk Management Framework')).toBeDefined();
+    const table9 = within(tables[8]);
+    expect(table9.getByText('ISO/IEC 42001:2023')).toBeDefined();
+    expect(table9.getByText('EU AI Act')).toBeDefined();
+    expect(table9.getByText('NIST AI Risk Management Framework')).toBeDefined();
   });
 
   it('renders Chapter 10 with 3 subheadings, Mermaid 11, and Mermaid 12', () => {

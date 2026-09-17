@@ -203,6 +203,7 @@ export default function NavBar() {
               <a
                 href={`#${group.id}`}
                 className={activeId === group.id ? 'active' : ''}
+                aria-current={activeId === group.id ? 'location' : undefined}
                 onClick={handleLinkClick}
               >
                 {group.label}
@@ -214,6 +215,7 @@ export default function NavBar() {
                       <a
                         href={`#${sub.id}`}
                         className={activeId === sub.id ? 'active' : ''}
+                        aria-current={activeId === sub.id ? 'location' : undefined}
                         onClick={handleLinkClick}
                       >
                         {sub.label}
