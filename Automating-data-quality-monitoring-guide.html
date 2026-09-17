@@ -23,7 +23,7 @@
                 --card: #fffdf8;
                 --ink: #2a2419;
                 --ink-soft: #6b6353;
-                --ink-faint: #948c78;
+                --ink-faint: #736b57;
                 --border: #e6ddc7;
                 --indigo: #41407c;
                 --indigo-dark: #2e2d5c;
@@ -651,11 +651,18 @@
             @media (max-width: 980px) {
                 .sidebar {
                     transform: translateX(-100%);
-                    transition: transform 0.25s ease;
+                    /* 閉じている間はフォーカス順・支援技術・クリック対象から除外する。
+                       visibility の切り替えはスライドアウト完了後に遅延させ、退場アニメを保つ。 */
+                    visibility: hidden;
+                    pointer-events: none;
+                    transition: transform 0.25s ease, visibility 0s linear 0.25s;
                     box-shadow: 0 0 24px rgba(0, 0, 0, 0.15);
                 }
                 .sidebar.open {
                     transform: translateX(0);
+                    visibility: visible;
+                    pointer-events: auto;
+                    transition: transform 0.25s ease, visibility 0s linear 0s;
                 }
                 .main {
                     margin-left: 0;
@@ -745,17 +752,15 @@
 
                         <h2><i class="ti ti-book-2"></i>この記事について</h2>
                         <p>
-                            「データが多すぎて、どのテーブルが壊れているか誰も気づけない」——多くのデータチームが抱えるこの悩みに、正面から答えるのが本ガイドで取り上げる書籍です。世界中の企業が1日に生み出すデータ量は2.5エクサバイト（約250京バイト、2.5×10<sup>18</sup>バイト相当）に達するという2012年時点の推計が広く引用されていますが<sup
-                                ><a href="#ref1">[1]</a></sup
-                            >、その中のどれだけが「良品」なのかを人手だけで確かめるのはもはや不可能です。
+                            「データが多すぎて、どのテーブルが壊れているか誰も気づけない」——多くのデータチームが抱えるこの悩みに、正面から答えるのが本ガイドで取り上げる書籍です。世界中の企業が生み出すデータ量は年々膨れ上がっており、その中のどれだけが「良品」なのかを人手だけで確かめるのはもはや不可能です。
                         </p>
                         <p>
                             本書の著者であるJeremy StanleyとPaige
                             Schwartzは、データ品質モニタリング企業Anomaloの共同創業者兼CTO、および同社のテクニカルライターです。二人は前職のInstacart（米国の食料品配達大手）で、共同創業者のElliot
                             Shmuklerとともに「ルールベースのテストだけでは、企業規模のデータ品質は守れない」という現実に直面した経験からAnomaloを立ち上げました<sup
-                                ><a href="#ref2">[2]</a></sup
+                                ><a href="#ref1">[1]</a></sup
                             >。本書には、元米国チーフ・データサイエンティストのDJ
-                            Patil氏が序文を寄せています<sup><a href="#ref3">[3]</a></sup
+                            Patil氏が序文を寄せています<sup><a href="#ref2">[2]</a></sup
                             >。
                         </p>
                         <p>
@@ -952,7 +957,7 @@
                         </div>
                         <p>
                             多くの組織では「データはだいたい正しい」という前提で意思決定が行われています。しかし、実際にはデータの誤りのほとんどは発見されないまま埋もれており、そのうちのいくつかは深刻な被害を引き起こしています。書籍のChapter
-                            1では、次のような実例が紹介されています<sup><a href="#ref4">[4]</a></sup
+                            1では、次のような実例が紹介されています<sup><a href="#ref3">[3]</a></sup
                             >。
                         </p>
                         <ul>
@@ -969,7 +974,7 @@
                         </ul>
                         <p>
                             これらは「派手な失敗例」ですが、書籍が強調するのは、<strong>むしろ気づかれない小さな品質劣化の方が積み重なると危険</strong>だという点です。AIや分析基盤が組織の隅々まで浸透するほど、汚れたデータが引き起こす被害の範囲は広がります。特に生成AIの学習データのように、非構造化データの品質を評価すること自体が難しい領域では、リスクはさらに大きくなります<sup
-                                ><a href="#ref4">[4]</a></sup
+                                ><a href="#ref3">[3]</a></sup
                             >。
                         </p>
                         <div class="callout tip">
@@ -991,7 +996,7 @@
                         </div>
                         <p>
                             書籍では、データ基盤を「倉庫（warehouse）」ではなく<strong>「データファクトリー（工場）」</strong>という比喩で捉えることを提案しています<sup
-                                ><a href="#ref5">[5]</a></sup
+                                ><a href="#ref4">[4]</a></sup
                             >。倉庫は「保管する場所」というニュアンスが強いですが、現代のデータスタックはETL・変換・オーケストレーションを通じて、原材料（生データ）を製品（分析可能なデータ）へと絶えず「加工」しているからです。
                         </p>
 
@@ -1043,7 +1048,7 @@
                         <h3>工場のどこで品質が壊れるか</h3>
                         <p>
                             データが移動・複製・加工されるたびに、品質が損なわれるリスクが生まれます。書籍が挙げる典型的な原因は次のとおりです<sup
-                                ><a href="#ref5">[5]</a></sup
+                                ><a href="#ref4">[4]</a></sup
                             >。
                         </p>
                         <div class="diagram-wrap" id="dwrap-2">
@@ -1055,14 +1060,14 @@
 
                         <p>
                             さらに、意外に見落とされがちなのが「バグ修正」自体がデータ品質問題を生むケースです。下流のシステムがすでに「バグがある前提」でロジックを組んでいた場合、その修正は下流にとって新たな“ズレ”として現れます<sup
-                                ><a href="#ref5">[5]</a></sup
+                                ><a href="#ref4">[4]</a></sup
                             >。
                         </p>
 
                         <h3>データの「傷」と「ショック」</h3>
                         <p>
                             書籍は品質問題の影響を2種類に分けて説明します<sup
-                                ><a href="#ref5">[5]</a></sup
+                                ><a href="#ref4">[4]</a></sup
                             >。
                         </p>
                         <ul>
@@ -1094,12 +1099,12 @@
                         </div>
                         <p>
                             「大きな問題ならいずれ誰かが気づくだろう」という発見任せの姿勢や、「このカラムはNULLを許さない」といった手作業のルールベース検証だけでは、テーブル数が数十から数百、数千へとスケールした瞬間に破綻します。ルールのコピー＆ペーストとカスタマイズはシーシュポスの岩のような終わりなき作業になり、しかも大半のルールは「過去に起きた既知の問題」を後追いでチェックするだけで、未知の問題には無力です<sup
-                                ><a href="#ref6">[6]</a></sup
+                                ><a href="#ref5">[5]</a></sup
                             >。
                         </p>
                         <p>
                             書籍が提案するのは、単一の万能薬ではなく、<strong>性質の異なる4種類のチェックを組み合わせる「4本柱」アプローチ</strong>です<sup
-                                ><a href="#ref6">[6]</a></sup
+                                ><a href="#ref5">[5]</a></sup
                             >。
                         </p>
                         <div class="diagram-wrap" id="dwrap-4">
@@ -1110,7 +1115,7 @@
                         <h3>4本柱の比較表</h3>
                         <p>
                             書籍で示されている比較表を、初学者向けに整理し直したものが以下です<sup
-                                ><a href="#ref6">[6]</a></sup
+                                ><a href="#ref5">[5]</a></sup
                             >。
                         </p>
                         <div class="table-wrap">
@@ -1202,7 +1207,7 @@
                                 <p>
                                     <strong>注意点</strong
                                     >：世の中には「AI搭載」を謳いながら、実際には定型的な主要指標チェックをしているだけのツールもあります。また教師なしMLにも限界があり、既存の問題や「針の中の一本」的な希少な異常は検知できません。4本柱はあくまで補完関係にあり、どれか一つで完結すると考えないことが重要です<sup
-                                        ><a href="#ref6">[6]</a></sup
+                                        ><a href="#ref5">[5]</a></sup
                                     >。
                                 </p>
                             </div>
@@ -1217,7 +1222,7 @@
                         </div>
                         <p>
                             自動化はいつでも正義とは限りません。書籍は「上級スキーヘルメット」の比喩を使います——毎週上級コースを滑るなら装備投資は賢明ですが、年に数回子どもとソリ遊びをする程度なら過剰投資かもしれません<sup
-                                ><a href="#ref7">[7]</a></sup
+                                ><a href="#ref6">[6]</a></sup
                             >。自社にとって自動データ品質モニタリングが見合う投資かどうかを判断するための観点が、Chapter
                             3で整理されています。
                         </p>
@@ -1226,7 +1231,7 @@
                         <p>
                             IBMが提唱した「ビッグデータの4V（volume, variety, velocity,
                             veracity）」をベースに、書籍はより分かりやすい言葉で判断軸を示しています<sup
-                                ><a href="#ref7">[7]</a></sup
+                                ><a href="#ref6">[6]</a></sup
                             >。
                         </p>
                         <div class="table-wrap">
@@ -1273,19 +1278,19 @@
                             <li>
                                 <strong>業界特性</strong
                                 >：金融・ヘルスケアのような規制産業は品質要求が厳しい。AI/MLを活用する企業はデータ品質の悪さが特徴量のショックや過学習に直結する。データそのものを商品として扱う企業（データプロバイダー）にとっては品質＝製造業でいう品質管理そのもの<sup
-                                    ><a href="#ref7">[7]</a></sup
+                                    ><a href="#ref6">[6]</a></sup
                                 >。
                             </li>
                             <li>
                                 <strong>データ成熟度</strong
                                 >：モダンデータスタック（Snowflake、BigQueryなどのウェアハウスやAirflow、dbtなどの変換ツール）を導入済みの組織ほど自動化の恩恵は大きい<sup
-                                    ><a href="#ref7">[7]</a></sup
+                                    ><a href="#ref6">[6]</a></sup
                                 >。
                             </li>
                             <li>
                                 <strong>ステークホルダー別の便益</strong
                                 >：エンジニアは設定のしやすさとAPI連携を、データチームの管理職は俯瞰的なダッシュボードを、非エンジニアのアナリストは直感的なUIと根本原因分析の可視化を、それぞれ重視する<sup
-                                    ><a href="#ref7">[7]</a></sup
+                                    ><a href="#ref6">[6]</a></sup
                                 >。
                             </li>
                         </ul>
@@ -1293,7 +1298,7 @@
                         <h3>概算ROIの考え方</h3>
                         <p>
                             書籍が示す簡易試算の流れは次のとおりです（書籍61〜62ページにより詳細な計算例あり）<sup
-                                ><a href="#ref7">[7]</a></sup
+                                ><a href="#ref6">[6]</a></sup
                             >。
                         </p>
                         <div class="diagram-wrap" id="dwrap-5">
@@ -1309,7 +1314,7 @@
                             <li>
                                 <strong>リスク</strong
                                 >：新しい運用に対するトレーニング負荷や抵抗感によるモラル低下、セキュリティ上の考慮点、設定を誤った場合のアラート疲れ<sup
-                                    ><a href="#ref7">[7]</a></sup
+                                    ><a href="#ref6">[6]</a></sup
                                 >
                             </li>
                         </ul>
@@ -1327,7 +1332,7 @@
                         <p>
                             ここからが本書の技術的な核心です。Chapter
                             4では、Anomaloが実際に採用している<strong>「今日のデータは“今日”のものだと当てられるか？」</strong>という、一見不思議なアイデアに基づくアルゴリズムが解説されています<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
                         <div class="callout">
@@ -1335,7 +1340,7 @@
                             <div class="callout-body">
                                 <p>
                                     補足：ここで扱うのは生成AI（ChatGPTのような大規模言語モデル）ではありません。テーブルの異常検知に特化した、目的特化型の機械学習モデルの話です<sup
-                                        ><a href="#ref8">[8]</a></sup
+                                        ><a href="#ref7">[7]</a></sup
                                     >。
                                 </p>
                             </div>
@@ -1344,7 +1349,7 @@
                         <h3>モデルに求める4つの性質（ウィッシュリスト）</h3>
                         <p>
                             書籍は、実運用に耐えるモデルの要件を4つに整理しています<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
                         <div class="table-wrap">
@@ -1392,7 +1397,7 @@
 
                         <p>
                             同時に、あえて「モデルに求めないこと（非要件）」を明確にしている点もユニークです<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
                         <div class="table-wrap">
@@ -1446,7 +1451,7 @@
                         <p class="diagram-caption"><b>図6</b>｜教師なしMLモデルの核心アイデア</p>
                         <p>
                             もしモデルが「今日のデータかどうか」を高い確度で当てられるなら、それは今日のデータが過去のパターンと明確に異なっているという意味であり、何らかの異常が疑われます。逆に見分けがつかなければ、構造的な異常はないと判断できます<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
 
@@ -1461,19 +1466,19 @@
                             <li>
                                 <strong>何を</strong
                                 >：本日・昨日・先週の同じ曜日など、複数の過去日からランダムな行を抽出し、今日を「1」、それ以外を「0」とラベル付けする<sup
-                                    ><a href="#ref8">[8]</a></sup
+                                    ><a href="#ref7">[7]</a></sup
                                 >
                             </li>
                             <li>
                                 <strong>どれくらい</strong
                                 >：1万行程度が目安。大規模テーブルでも十分。これは世論調査が約2000人のサンプルで数億人の意見を推定できるのと同じ統計的原理に基づく（ただし真にランダムな抽出であることが前提）<sup
-                                    ><a href="#ref8">[8]</a></sup
+                                    ><a href="#ref7">[7]</a></sup
                                 >
                             </li>
                             <li>
                                 <strong>どうやって</strong
                                 >：ウェアハウスにそのまま「ランダムな1万行」を要求すると、テーブル全体をメモリに読み込んでしまい非効率かつ高コストになる。個々の日付ごとに切り出し、<code>TABLESAMPLE</code>などの機能で必要量より多めに抜き出してから、その中からランダムサンプリングするのが実践的な方法<sup
-                                    ><a href="#ref8">[8]</a></sup
+                                    ><a href="#ref7">[7]</a></sup
                                 >
                             </li>
                         </ul>
@@ -1481,7 +1486,7 @@
                         <h4>② 特徴量エンコーディング</h4>
                         <p>
                             文字列や、ZIPコード・電話番号のように数値の「意味」を持たない値も、機械学習で扱うには数値に変換する必要があります。代表的なエンコード方式は次のとおりです<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
                         <div class="table-wrap">
@@ -1519,7 +1524,7 @@
                         </div>
                         <p>
                             複雑なエンコーダーほど検知できる異常の幅は広がりますが、その分「なぜ異常と判定されたか」の直感的な理解が難しくなるトレードオフがある点には注意が必要です<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
 
@@ -1527,7 +1532,7 @@
                         <p>
                             書籍は数ある機械学習手法の中から<strong
                                 >勾配ブースティング決定木（Gradient-Boosted Decision Trees）</strong
-                            >を推奨しています。理由は次のとおりです<sup><a href="#ref8">[8]</a></sup
+                            >を推奨しています。理由は次のとおりです<sup><a href="#ref7">[7]</a></sup
                             >。
                         </p>
                         <ul>
@@ -1548,7 +1553,7 @@
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 >XGBoost</a
-                            >の利用が勧められています<sup><a href="#ref8">[8]</a></sup
+                            >の利用が勧められています<sup><a href="#ref7">[7]</a></sup
                             >。
                         </p>
                         <div class="diagram-wrap" id="dwrap-8">
@@ -1557,7 +1562,7 @@
                         <p class="diagram-caption"><b>図8</b>｜勾配ブースティング決定木の仕組み</p>
                         <p>
                             線形モデルでは複雑な構造化データのパターンを捉えきれず単純すぎる一方、ニューラルネットワークは要求されるデータ量・計算資源が過大です。勾配ブースティング決定木は、この中間の「ちょうどよい複雑さ」に位置づけられます。理論上は無限に木を追加できてしまうため、どこで学習を打ち切るかの見極めも必要です<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
 
@@ -1569,12 +1574,12 @@
                                 rel="noopener noreferrer"
                                 >SHAP（SHapley Additive exPlanations）</a
                             >を用いて、各セル（行×列）がモデルの予測にどれだけ寄与したかを算出する方法です<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
                         <p>
                             SHAP値を使うことで、「軽微」から「深刻」までの重大度を可視化し、数千ものデータポイントを横断して「どこを調査すべきか」を一目で把握できるようになります。たとえば、ある値の出現頻度が急に減り、別の値が急増していれば、その部分でラベル付けの誤りが起きている可能性が高い、といった読み解きができます<sup
-                                ><a href="#ref8">[8]</a></sup
+                                ><a href="#ref7">[7]</a></sup
                             >。
                         </p>
                     </section>
@@ -1588,7 +1593,7 @@
                         <p>
                             理論上きれいなモデルも、現実のデータにぶつかると簡単には機能しません。Chapter
                             5では、実データ特有の"クセ"とその対処法が具体的に示されています<sup
-                                ><a href="#ref9">[9]</a></sup
+                                ><a href="#ref8">[8]</a></sup
                             >。
                         </p>
 
@@ -1666,7 +1671,7 @@
                             人手でラベル付けされたデータでモデルを評価するのが機械学習の一般的な方法ですが、企業規模でそれをやるのはコストが高く、しかも人間側の誤りが混入するリスクがあります。書籍が勧めるのは、<strong
                                 >意図的に「合成異常（synthetic
                                 chaos）」をデータに注入し、モデルがそれを検知できるかをテストする</strong
-                            >アプローチです<sup><a href="#ref9">[9]</a></sup
+                            >アプローチです<sup><a href="#ref8">[8]</a></sup
                             >。
                         </p>
                         <p>代表的な合成異常の例：</p>
@@ -1678,10 +1683,10 @@
                         </ul>
                         <p>
                             実際の異常の多くも、何らかのコンピュータ処理の結果として発生するため、「合成異常を検知できるモデルは、現実の異常も検知しやすくなる」というのが書籍の基本的な考え方です<sup
-                                ><a href="#ref9">[9]</a></sup
+                                ><a href="#ref8">[8]</a></sup
                             >。ただし、これはあくまで意図的に注入したパターンに対する評価であり、実データに似せた合成異常や履歴データでのバックテストだけで実際の異常の検知能力そのものが証明されるわけではありません。過去インシデントの再現検証など、追加の検証範囲も併せて必要になります。Anomaloは、このような合成異常を体系的に生成する「カオスライブラリ」を社内で保有しており、Databricks
                             Data + AI Summitでの講演でもその仕組みが紹介されています<sup
-                                ><a href="#ref9">[9]</a></sup
+                                ><a href="#ref8">[8]</a></sup
                             >。
                         </p>
 
@@ -1693,7 +1698,7 @@
                             <b>図10</b>｜バックテストと評価指標算出のループ
                         </p>
                         <p>
-                            主な評価指標は次のとおりです<sup><a href="#ref9">[9]</a></sup
+                            主な評価指標は次のとおりです<sup><a href="#ref8">[8]</a></sup
                             >。
                         </p>
                         <div class="table-wrap">
@@ -1751,7 +1756,7 @@
                         <p>
                             どれほど優れたモデルで異常を検知できても、担当者に届かなければ意味がありません。Chapter
                             6は、検知した問題を「人間が対応できる形」に変換するための実践的なノウハウを扱います<sup
-                                ><a href="#ref10">[10]</a></sup
+                                ><a href="#ref9">[9]</a></sup
                             >。
                         </p>
 
@@ -1764,13 +1769,13 @@
                             <li>
                                 <strong>トリアージ</strong
                                 >：「先日の寒波でアイスの売上が落ちた」のように、状況を判断できる文脈が重要。アラートは受け取った人にとって暗黙の“タスク”になるため、簡潔で構造化されている必要がある<sup
-                                    ><a href="#ref10">[10]</a></sup
+                                    ><a href="#ref9">[9]</a></sup
                                 >
                             </li>
                             <li>
                                 <strong>ルーティング</strong
                                 >：ETL起因ならデータエンジニアリングチーム、コード変更起因ならプロダクトエンジニアリングチームなど、組織や部門によって最適な担当は異なる。初期設定には手間がかかるが、迅速な対応につながる投資<sup
-                                    ><a href="#ref10">[10]</a></sup
+                                    ><a href="#ref9">[9]</a></sup
                                 >
                             </li>
                             <li>
@@ -1827,7 +1832,7 @@
                         </div>
                         <p>
                             通知の送り先設計では、<strong>誰に（Audience）・どこに（Channel）・いつ（Timing）</strong>を明確にすることが重要です。関係者が複数部門にまたがる場合は専用チャンネルを作って情報を一元化し、Slack・メールに加えてPagerDuty・OpsGenieのようなオンコール管理ツールや、Jira・ServiceNowのようなチケット管理ツールとの連携も検討します。ルーティング漏れを防ぐデフォルトチャンネルの設置も忘れてはいけません<sup
-                                ><a href="#ref10">[10]</a></sup
+                                ><a href="#ref9">[9]</a></sup
                             >。
                         </p>
 
@@ -1878,7 +1883,7 @@
                         </div>
                         <p>
                             ただし、「予期される変化」を一律に抑制するのは禁物です。マーケティング施策による急上昇であっても、初回だけはアラートを出しておくことで、将来の分析に役立つ文脈情報を残し、本当に想定外の変化を見逃すリスクも避けられます。アラートは「間違っている」ことを意味するのではなく、「普段と違う」ことを知らせるものだという前提を忘れないことが大切です<sup
-                                ><a href="#ref10">[10]</a></sup
+                                ><a href="#ref9">[9]</a></sup
                             >。
                         </p>
                     </section>
@@ -1892,7 +1897,7 @@
                         <p>
                             自動データ品質モニタリングは、単体で動いているだけでは真価を発揮しません。Chapter
                             7では、モニタリングを組織のデータスタック全体に組み込むための5つの統合ポイントが紹介されています<sup
-                                ><a href="#ref11">[11]</a></sup
+                                ><a href="#ref10">[10]</a></sup
                             >。
                         </p>
                         <div class="diagram-wrap" id="dwrap-12">
@@ -1956,7 +1961,7 @@
                         <p>
                             データウェアハウス統合では、SOC
                             2準拠のようなセキュリティ基準を満たしつつ、PIIなど機微情報の扱いに注意する必要があります。また、エージェント型AIがデータとどう対話し、その会話データがどう保存・利用されるかについても、事前に方針を確認しておくべきだと書籍は指摘しています<sup
-                                ><a href="#ref11">[11]</a></sup
+                                ><a href="#ref10">[10]</a></sup
                             >。
                         </p>
                     </section>
@@ -1969,7 +1974,7 @@
                         </div>
                         <p>
                             最終章では、実際に組織へ導入・定着させるための意思決定ポイントが扱われます<sup
-                                ><a href="#ref12">[12]</a></sup
+                                ><a href="#ref11">[11]</a></sup
                             >。
                         </p>
 
@@ -1980,7 +1985,7 @@
                         <p class="diagram-caption"><b>図13</b>｜ビルドかバイかの判断</p>
                         <p>
                             「制御性」や「初期コストの低さ」がビルドの魅力ですが、実際にはライブラリ更新・セキュリティパッチ・新規統合の構築・進化するエージェントAI機能への追随など、継続的な工数がかかります。近年はオンプレ／VPC内完結のデプロイメントを提供するベンダーも増えており、「セキュリティ上の理由で自社構築しかない」という前提は必ずしも成り立たなくなってきています<sup
-                                ><a href="#ref12">[12]</a></sup
+                                ><a href="#ref11">[11]</a></sup
                             >。
                         </p>
 
@@ -2027,7 +2032,7 @@
                         <h3>定着のための継続的な改善</h3>
                         <p>
                             導入して終わりではなく、継続的に運用を磨き込むための実践が示されています<sup
-                                ><a href="#ref12">[12]</a></sup
+                                ><a href="#ref11">[11]</a></sup
                             >。
                         </p>
                         <ul>
@@ -2067,9 +2072,9 @@
                         <h3>Uber：統計モデリングによるData Quality Monitor（DQM）</h3>
                         <p>
                             Uberのエンジニアリングブログでは、1日1400万件規模のトリップデータを抱える同社が、数万テーブルを人手で確認することは不可能だとして、統計モデリングに基づく異常検知の仕組み「DQM」を構築した経緯が説明されています<sup
-                                ><a href="#ref13">[13]</a></sup
+                                ><a href="#ref12">[12]</a></sup
                             >。DQMは主成分分析（PCA）とHolt-Winters時系列モデルによる1期先予測を組み合わせ、予測値と実際の値が乖離した場合にデータを異常とみなします。テーブルレベルのアラートはメトリックレベルのアラートよりもはるかに少なく、アラート疲れの軽減につながっていると報告されています<sup
-                                ><a href="#ref13">[13]</a></sup
+                                ><a href="#ref12">[12]</a></sup
                             >。
                         </p>
 
@@ -2077,11 +2082,11 @@
                         <p>
                             データ観測性プラットフォームMonte Carloの共同創業者兼CEOであるBarr
                             Moses氏は、「データダウンタイム」という概念を提唱し、鮮度（freshness）・ボリューム（volume）・分布（distribution）・スキーマ（schema）・系譜（lineage）という<strong>データ観測性の5本柱</strong>を広めた、この分野で著名な人物の一人です<sup
-                                ><a href="#ref14">[14]</a></sup
+                                ><a href="#ref13">[13]</a></sup
                             >。これは本書の「4本柱」における「①データ観測性」の柱をさらに深掘りする視点として参考になります。Monte
                             Carloも同じくO'Reillyから『Data Quality
                             Fundamentals』という書籍を出版しており、業界全体でデータ品質のベストプラクティスを体系化しようとする動きが並行して進んでいることがわかります<sup
-                                ><a href="#ref14">[14]</a></sup
+                                ><a href="#ref13">[13]</a></sup
                             >。
                         </p>
 
@@ -2089,7 +2094,7 @@
                         <p>
                             データ観測性ツールBigeyeの共同創業者Kyle
                             Kirwan氏（元Uberデータプラットフォームチーム）は、Netflixのデータチームが鮮度・完全性・重複・外れ値・分布シフトなど、複数の観点を組み合わせて品質を監視している事例を紹介しています<sup
-                                ><a href="#ref15">[15]</a></sup
+                                ><a href="#ref14">[14]</a></sup
                             >。これは本書が強調する「単一の手法では不十分で、複数の監視手法を組み合わせる必要がある」という思想と軌を一にしています。
                         </p>
                     </section>
@@ -2128,7 +2133,7 @@
                                             Coreプロジェクトのスチュワードシップを引き継ぐと発表。GX
                                             Coreは引き続きOSSとして開発が続く一方、商用のGX
                                             Cloudは同年6月に提供終了<sup
-                                                ><a href="#ref16">[16]</a></sup
+                                                ><a href="#ref15">[15]</a></sup
                                             >
                                         </td>
                                     </tr>
@@ -2140,7 +2145,7 @@
                                         <td>
                                             dbtプロジェクトへの統合や、データ契約（data
                                             contracts）機能の強化が進む<sup
-                                                ><a href="#ref16">[16]</a></sup
+                                                ><a href="#ref15">[15]</a></sup
                                             >
                                         </td>
                                     </tr>
@@ -2151,7 +2156,7 @@
                                         </td>
                                         <td>
                                             これらdbtの管理対象アセットに検証範囲が限られる制約があり、それ以外の取り込みデータには別のツールを併用する必要がある<sup
-                                                ><a href="#ref16">[16]</a></sup
+                                                ><a href="#ref15">[15]</a></sup
                                             >
                                         </td>
                                     </tr>
@@ -2161,7 +2166,7 @@
                         <p>
                             これらのルールベース・検証系ツールは、本書の4本柱でいう「②検証ルール」に相当します。一方、Anomalo・Monte
                             Carloのような商用データ観測性／教師なしML型プラットフォームは、「①データ観測性」と「④教師なしML」の柱を担うことが多く、<strong>「ルールで既知の問題をブロックしつつ、MLで未知の問題を拾う」という組み合わせ</strong>が2026年時点でも実務上のベストプラクティスとして語られています<sup
-                                ><a href="#ref16">[16]</a></sup
+                                ><a href="#ref15">[15]</a></sup
                             >。書籍のChapter
                             2が主張する「4本柱はどれも単独では不十分」というメッセージは、この2026年のツールランドスケープにもそのまま当てはまります。
                         </p>
@@ -2285,23 +2290,6 @@
                         <h2><i class="ti ti-link"></i>参考文献・出典</h2>
 
                         <div class="ref-group-title">書籍・出版情報</div>
-                        <div class="ref-card" id="ref1">
-                            <div class="ref-num">1</div>
-                            <div class="ref-body">
-                                <div class="ref-title">
-                                    書籍紹介ページ「Automating Data Quality Monitoring: Scaling
-                                    Beyond Rules with Machine Learning」
-                                </div>
-                                <div class="ref-source">Amazon.com</div>
-                                <a
-                                    class="ref-url"
-                                    href="https://www.amazon.com/Automating-Data-Quality-Monitoring-Scale/dp/1098145933"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    >https://www.amazon.com/Automating-Data-Quality-Monitoring-Scale/dp/1098145933</a
-                                >
-                            </div>
-                        </div>
                         <div class="ref-card">
                             <div class="ref-num">✳</div>
                             <div class="ref-body">
@@ -2320,11 +2308,27 @@
                         <div class="ref-group-title">
                             Anomalo公式ブログ（著者らによる章別プレビュー）
                         </div>
+                        <div class="ref-card" id="ref1">
+                            <div class="ref-num">1</div>
+                            <div class="ref-body">
+                                <div class="ref-title">
+                                    An O'Reilly Book for Data Quality in the Age of AI
+                                </div>
+                                <div class="ref-source">Paige Schwartz, Anomalo Blog</div>
+                                <a
+                                    class="ref-url"
+                                    href="https://www.anomalo.com/blog/an-oreilly-book-for-data-quality-in-the-age-of-ai/"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    >https://www.anomalo.com/blog/an-oreilly-book-for-data-quality-in-the-age-of-ai/</a
+                                >
+                            </div>
+                        </div>
                         <div class="ref-card" id="ref2">
                             <div class="ref-num">2</div>
                             <div class="ref-body">
                                 <div class="ref-title">
-                                    An O'Reilly Book for Data Quality in the Age of AI
+                                    同上（DJ Patil氏による序文についての記載を含む）
                                 </div>
                                 <div class="ref-source">Paige Schwartz, Anomalo Blog</div>
                                 <a
@@ -2340,15 +2344,16 @@
                             <div class="ref-num">3</div>
                             <div class="ref-body">
                                 <div class="ref-title">
-                                    同上（DJ Patil氏による序文についての記載を含む）
+                                    Chapter 1: The data factory — How data quality degrades and why
+                                    it matters
                                 </div>
-                                <div class="ref-source">Paige Schwartz, Anomalo Blog</div>
+                                <div class="ref-source">Team Anomalo, Anomalo Blog</div>
                                 <a
                                     class="ref-url"
-                                    href="https://www.anomalo.com/blog/an-oreilly-book-for-data-quality-in-the-age-of-ai/"
+                                    href="https://www.anomalo.com/blog/chapter-1-the-data-factory-how-data-quality-degrades-and-why-it-matters/"
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    >https://www.anomalo.com/blog/an-oreilly-book-for-data-quality-in-the-age-of-ai/</a
+                                    >https://www.anomalo.com/blog/chapter-1-the-data-factory-how-data-quality-degrades-and-why-it-matters/</a
                                 >
                             </div>
                         </div>
@@ -2356,8 +2361,7 @@
                             <div class="ref-num">4</div>
                             <div class="ref-body">
                                 <div class="ref-title">
-                                    Chapter 1: The data factory — How data quality degrades and why
-                                    it matters
+                                    同上（データファクトリー内での品質劣化要因、データ傷とデータショック）
                                 </div>
                                 <div class="ref-source">Team Anomalo, Anomalo Blog</div>
                                 <a
@@ -2373,22 +2377,6 @@
                             <div class="ref-num">5</div>
                             <div class="ref-body">
                                 <div class="ref-title">
-                                    同上（データファクトリー内での品質劣化要因、データ傷とデータショック）
-                                </div>
-                                <div class="ref-source">Team Anomalo, Anomalo Blog</div>
-                                <a
-                                    class="ref-url"
-                                    href="https://www.anomalo.com/blog/chapter-1-the-data-factory-how-data-quality-degrades-and-why-it-matters/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    >https://www.anomalo.com/blog/chapter-1-the-data-factory-how-data-quality-degrades-and-why-it-matters/</a
-                                >
-                            </div>
-                        </div>
-                        <div class="ref-card" id="ref6">
-                            <div class="ref-num">6</div>
-                            <div class="ref-body">
-                                <div class="ref-title">
                                     Chapter 2: A Four-Pillar Approach to Data Quality Monitoring
                                 </div>
                                 <div class="ref-source">Team Anomalo, Anomalo Blog</div>
@@ -2401,8 +2389,8 @@
                                 >
                             </div>
                         </div>
-                        <div class="ref-card" id="ref7">
-                            <div class="ref-num">7</div>
+                        <div class="ref-card" id="ref6">
+                            <div class="ref-num">6</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Chapter 3: Is Automated Data Quality Monitoring Right for Your
@@ -2418,8 +2406,8 @@
                                 >
                             </div>
                         </div>
-                        <div class="ref-card" id="ref8">
-                            <div class="ref-num">8</div>
+                        <div class="ref-card" id="ref7">
+                            <div class="ref-num">7</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Chapter 4: How to Build a Machine Learning Model for Data
@@ -2452,8 +2440,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="ref-card" id="ref9">
-                            <div class="ref-num">9</div>
+                        <div class="ref-card" id="ref8">
+                            <div class="ref-num">8</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Chapter 5: Making Data Quality Monitoring Models Work in the
@@ -2469,8 +2457,8 @@
                                 >
                             </div>
                         </div>
-                        <div class="ref-card" id="ref10">
-                            <div class="ref-num">10</div>
+                        <div class="ref-card" id="ref9">
+                            <div class="ref-num">9</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Chapter 6: High-quality notifications bring the right
@@ -2486,8 +2474,8 @@
                                 >
                             </div>
                         </div>
-                        <div class="ref-card" id="ref11">
-                            <div class="ref-num">11</div>
+                        <div class="ref-card" id="ref10">
+                            <div class="ref-num">10</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Chapter 7: Integrations multiply the power of your autonomous
@@ -2503,8 +2491,8 @@
                                 >
                             </div>
                         </div>
-                        <div class="ref-card" id="ref12">
-                            <div class="ref-num">12</div>
+                        <div class="ref-card" id="ref11">
+                            <div class="ref-num">11</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Chapter 8: Towards a self-driving data future
@@ -2523,8 +2511,8 @@
                         <div class="ref-group-title">
                             国際的なエンジニアリング組織・著名開発者の発信
                         </div>
-                        <div class="ref-card" id="ref13">
-                            <div class="ref-num">13</div>
+                        <div class="ref-card" id="ref12">
+                            <div class="ref-num">12</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Monitoring Data Quality at Scale with Statistical Modeling
@@ -2539,8 +2527,8 @@
                                 >
                             </div>
                         </div>
-                        <div class="ref-card" id="ref14">
-                            <div class="ref-num">14</div>
+                        <div class="ref-card" id="ref13">
+                            <div class="ref-num">13</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Celebrating the New Pioneers of Data Reliability／Monte Carlo's
@@ -2563,8 +2551,8 @@
                                 >
                             </div>
                         </div>
-                        <div class="ref-card" id="ref15">
-                            <div class="ref-num">15</div>
+                        <div class="ref-card" id="ref14">
+                            <div class="ref-num">14</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Data in Practice: Anomaly detection for data quality at Netflix
@@ -2581,8 +2569,8 @@
                         </div>
 
                         <div class="ref-group-title">2026年時点のOSSエコシステム動向</div>
-                        <div class="ref-card" id="ref16">
-                            <div class="ref-num">16</div>
+                        <div class="ref-card" id="ref15">
+                            <div class="ref-num">15</div>
                             <div class="ref-body">
                                 <div class="ref-title">
                                     Data Quality Tooling Compared: Great Expectations, Soda, dbt
