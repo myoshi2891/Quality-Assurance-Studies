@@ -363,6 +363,27 @@ describe('Component-based Testing QA Guide - Category 1 (Hero, Intro, Sec 1, Sec
     const checkboxes = checklistCard?.querySelectorAll('input[type="checkbox"]');
     expect(checkboxes?.length).toBe(10);
 
+    // 10項目のチェックリスト文言を独立定義し、DOM出現順と1対1で照合する
+    const expectedChecklistItems = [
+      '自分たちが依存しているコンポーネントの境界（インターフェース仕様）を明文化している',
+      'テストピラミッドを意識し、単体テストを最も厚く、E2Eテストを最も薄くしている',
+      'サービス間の連携には、E2Eテストだけでなくコントラクトテストを併用している',
+      'サードパーティ／OSSコンポーネントに対してSCAツールによる脆弱性スキャンを自動化している',
+      'SBOM（ソフトウェア部品表）を生成し、依存関係のインベントリを把握している',
+      '統合テストでは、必要に応じてTestcontainers等で実物に近い依存関係を使っている',
+      'コードカバレッジだけでなく、ミューテーションテストでテストの質そのものを定期的に検証している',
+      'コンポーネントの信頼性・性能・保守性といった非機能品質特性を継続的に測定している',
+      'CI/CDパイプラインの中で、テストの実行速度に応じて実行タイミングを分けている',
+      'コンポーネントの脆弱性・バージョン・ライセンス・保守状況を定期的に棚卸ししている',
+    ];
+    expect(expectedChecklistItems).toHaveLength(10);
+
+    const items = Array.from(checklistCard?.querySelectorAll('li') ?? []);
+    expect(items).toHaveLength(10);
+    items.forEach((li, index) => {
+      expect(li.textContent).toBe(expectedChecklistItems[index]);
+    });
+
     // Click first checkbox
     if (checkboxes && checkboxes[0]) {
       fireEvent.click(checkboxes[0]);
@@ -386,10 +407,65 @@ describe('Component-based Testing QA Guide - Category 1 (Hero, Intro, Sec 1, Sec
     const refCards = container.querySelectorAll('.ref-card');
     expect(refCards.length).toBe(19);
 
-    // Verify badges 1 to 19 exist
-    const badges = Array.from(refCards).map((card) => card.querySelector('.ref-badge')?.textContent);
-    expect(badges).toContain('1');
-    expect(badges).toContain('19');
+    // DOM 出現順の badge と各カードの全リンク href を1対1で検証（4件目はリンク2本を持つ）
+    const expectedRefCards: { badge: string; hrefs: string[] }[] = [
+      {
+        badge: '1',
+        hrefs: [
+          'https://books.google.co.jp/books/about/Testing_and_Quality_Assurance_for_Compon.html?id=oUEwDwAAQBAJ&redir_esc=y',
+        ],
+      },
+      { badge: '2', hrefs: ['https://arxiv.org/pdf/0906.1667'] },
+      {
+        badge: '3',
+        hrefs: [
+          'https://www.oreilly.com/library/view/a-practical-guide/0201325640/0201325640_ch10lev1sec1.html',
+        ],
+      },
+      {
+        badge: '4',
+        hrefs: [
+          'https://glossary.istqb.org/en_US/term/component-testing-4-3',
+          'https://istqb-glossary.page/component-integration-testing/',
+        ],
+      },
+      { badge: '5', hrefs: ['https://martinfowler.com/bliki/TestPyramid.html'] },
+      { badge: '9', hrefs: ['https://martinfowler.com/articles/microservice-testing/'] },
+      { badge: '10', hrefs: ['https://martinfowler.com/testing/'] },
+      { badge: '11', hrefs: ['https://martinfowler.com/tags/test%20categories.html'] },
+      {
+        badge: '13',
+        hrefs: ['https://www.martinfowler.com/articles/consumerDrivenContracts.html'],
+      },
+      {
+        badge: '6',
+        hrefs: [
+          'https://testing.googleblog.com/2015/04/just-say-no-to-more-end-to-end-tests.html',
+        ],
+      },
+      { badge: '7', hrefs: ['https://testing.googleblog.com/2010/12/test-sizes.html'] },
+      { badge: '8', hrefs: ['https://abseil.io/resources/swe-book/html/ch14.html'] },
+      { badge: '15', hrefs: ['https://owasp.org/www-community/Component_Analysis'] },
+      { badge: '16', hrefs: ['https://owasp.github.io/www-project-dependency-check/'] },
+      { badge: '12', hrefs: ['https://docs.pact.io/'] },
+      { badge: '14', hrefs: ['https://docs.pact.io/getting_started/how_pact_works'] },
+      { badge: '17', hrefs: ['https://testcontainers.com/getting-started/'] },
+      {
+        badge: '18',
+        hrefs: [
+          'https://www.docker.com/blog/testcontainers-testing-with-real-dependencies/',
+        ],
+      },
+      { badge: '19', hrefs: ['https://pitest.org/'] },
+    ];
+    expect(expectedRefCards).toHaveLength(19);
+
+    expectedRefCards.forEach((expected, index) => {
+      const card = refCards[index];
+      expect(card.querySelector('.ref-badge')?.textContent).toBe(expected.badge);
+      const hrefs = Array.from(card.querySelectorAll('a')).map((a) => a.getAttribute('href'));
+      expect(hrefs).toEqual(expected.hrefs);
+    });
 
     // Disclaimer
     const disclaimer = container.querySelector('.disclaimer');
