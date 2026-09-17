@@ -83,7 +83,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - `app/component-based-testing-qa-guide/`: ページコンポーネント、専用スタイル（`.cbss-qa-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/component-based-testing-qa-guide`（コンポーネントテスト/QA 完全ガイド）を追加（全69件）。
 - `tests/component-based-testing-qa-guide/page.test.tsx`: TDD 必須サイクルに従い、全12セクション、全11Mermaid図、全12テーブル、全コードブロック、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（16 pass / 127 expect()）。
-- `Component-based-testing-qa-guide.html` & `Component-based-testing-qa-guide.md`: `archive/html-archive/books/` へ移動完了。
+- `Component-based-testing-qa-guide.html`: `archive/html-archive/books/` へ、`Component-based-testing-qa-guide.md`: `archive/md-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 69 ページ体制に同期。
 
 ## 2026/09/14: 『Unit Testing Principles, Practices, and Patterns』完全ガイドのNext.js完全移行
