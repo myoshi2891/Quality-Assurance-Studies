@@ -1,9 +1,11 @@
 # ISTQB® CTAL-TA v4.0 第1章
-# テストプロセスにおけるテストアナリストのタスク
+
+## テストプロセスにおけるテストアナリストのタスク
+
 ### The Tasks of the Test Analyst in the Test Process — 初学者向け完全ガイド
 
 > 対象試験: **ISTQB® Certified Tester Advanced Level Test Analyst (CTAL-TA) v4.0**
-> 対象章: **第1章「テストプロセスにおけるテストアナリストのタスク」**(配点時間: 225分、全5章中最大の配点)
+> 対象章: **第1章「テストプロセスにおけるテストアナリストのタスク」**(学習時間: 225分、全5章1215分中)
 > 前提知識: ISTQB Foundation Level (CTFL v4.0.1) 修了者向け
 
 ---
@@ -26,13 +28,13 @@ flowchart LR
     class P1,P2,P3 pillar
 ```
 
-> **出典:** ISTQB® CTAL-TA Syllabus v4.0, Section 1 (Introduction), p.13–14 — https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf
+> **出典:** ISTQB® CTAL-TA Syllabus v4.0, Section 1 (Introduction), p.13–14 — <https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf>
 
 ### 0.1 キーワード(K1レベルで暗記必須)
 
 ハイレベルテストケース、キーワード、キーワード駆動テスト、ローレベルテストケース、ソフトウェア開発ライフサイクル(SDLC)、テスト分析、テストアナリスト、テストケース、テスト条件、テストデータ、テスト設計、テスト環境、テスト実行、テスト実装、テストオラクル、テストスクリプト、テストウェア
 
-> **ベストプラクティス:** これらの用語は ISTQB® Glossary の定義と一言一句違わずに覚えること。K1レベルの用語は学習目標に明記されていなくても出題対象になります。用語の定義は https://glossary.istqb.org/ で検索可能です。
+> **ベストプラクティス:** これらの用語は ISTQB® Glossary の定義と一言一句違わずに覚えること。K1レベルの用語は学習目標に明記されていなくても出題対象になります。用語の定義は <https://glossary.istqb.org/> で検索可能です。
 
 ### 0.2 学習目標(Learning Objectives)と認知レベル
 
@@ -291,8 +293,8 @@ flowchart TD
 | 8 | **完全性 (Completeness)** | 必要な属性(テストデータ含む)と明確な期待結果を含む | 期待結果の記載が無い、または曖昧 | ISO/IEC/IEEE 29119-3 に沿った属性一式+明確な期待結果 |
 | 9 | **簡潔性 (Conciseness)** | 粒度がテスト条件と対応しており、過不足がない | 1つの巨大なテストケースに多数の検証を詰め込む | 小さく焦点を絞ったテストケースに分割(失敗時の原因特定が容易、柔軟に組み合わせ可能) |
 
-> **出典:** ISTQB® CTAL-TA Syllabus v4.0, Section 1.3.2, p.18 — https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf
-
+> **出典:** ISTQB® CTAL-TA Syllabus v4.0, Section 1.3.2, p.18 — <https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf>
+>
 > ✅ **ベストプラクティス:** テストケースの粒度は「小さく・単一目的」に保つ。1つの失敗が他の検証をブロックしない設計にすることで、原因特定と保守が容易になる。
 > ❌ **アンチパターン:** 「効率がいいから」という理由で1つのテストケースに多数の検証項目を詰め込むこと。1箇所の失敗で後続の検証が全滅し、原因の切り分けが困難になる。
 
@@ -376,8 +378,8 @@ flowchart TD
 | 9 | **可用性** | サービス仮想化により、欠落/アクセス不能な外部サービスをシミュレートできる |
 | 10 | **時間的感度・データの経年変化** | 古い/時間依存のデータがシステム挙動に予期せぬ影響を与える可能性がある |
 
-> **出典:** ISTQB® CTAL-TA Syllabus v4.0, Section 1.3.5, p.20–21 — https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf
-
+> **出典:** ISTQB® CTAL-TA Syllabus v4.0, Section 1.3.5, p.20–21 — <https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf>
+>
 > ✅ **ベストプラクティス:** テストロジック(テストケースの手順)とテストデータを分離して管理する。データをテストケース本体にハードコードすると、データ変更のたびに多数のテストケースを修正する必要が生じ、保守コストが跳ね上がる。
 > ❌ **アンチパターン:** 機密データを匿名化・仮名化せずにそのままテスト環境へコピーすること。GDPR/HIPAA等の規制違反リスクを負う。
 
@@ -484,10 +486,10 @@ flowchart TD
 
 | カテゴリ | タイトル | URL |
 |---|---|---|
-| 公式試験ページ | ISTQB® Certified Tester Advanced Level – Test Analyst (CTAL-TA) v4.0 | https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/ |
-| シラバス本体(第1章の一次ソース) | ISTQB® CTAL-TA Syllabus v4.0(PDF、全77ページ) | https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf |
-| 用語集 | ISTQB® Glossary(公式オンライン用語集) | https://glossary.istqb.org/ |
-| よくある質問 | Advanced Level Test Analyst v4.0 — 移行に関するFAQ | https://istqb.org/help/test-analyst/ |
+| 公式試験ページ | ISTQB® Certified Tester Advanced Level – Test Analyst (CTAL-TA) v4.0 | <https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/> |
+| シラバス本体(第1章の一次ソース) | ISTQB® CTAL-TA Syllabus v4.0(PDF、全77ページ) | <https://astqb.org/assets/documents/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf> |
+| 用語集 | ISTQB® Glossary(公式オンライン用語集) | <https://glossary.istqb.org/> |
+| よくある質問 | Advanced Level Test Analyst v4.0 — 移行に関するFAQ | <https://istqb.org/help/test-analyst/> |
 
 ### シラバス内で参照されている規格・関連文書
 

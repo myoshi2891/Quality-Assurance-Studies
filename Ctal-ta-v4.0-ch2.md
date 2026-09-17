@@ -4,7 +4,7 @@
 > **対象範囲**: Chapter 2 “The Tasks of the Test Analyst in Risk-Based Testing”（公式シラバス学習時間目安：**90分** / 全5章1215分中）
 > **前提資格**: ISTQB® Foundation Level (CTFL) v4.0.1 合格が受験の必須条件
 > **想定読者**: ソフトウェアテスト初学者〜中級のQAエンジニア（CTFLの基礎用語は既知として解説します）
-> **本ガイドの立ち位置**: [ISTQB®公式CTAL-TA認定ページ](https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/) と [公式シラバスv4.0 PDF](https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf) の内容を、初学者向けに図解・具体例・ベストプラクティスを加えて再構成した学習補助教材です。試験の正answerは必ず公式シラバスを参照してください。
+> **本ガイドの立ち位置**: [ISTQB®公式CTAL-TA認定ページ](https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/) と [公式シラバスv4.0 PDF](https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf) の内容を、初学者向けに図解・具体例・ベストプラクティスを加えて再構成した学習補助教材です。試験の正答は必ず公式シラバスを参照してください。
 
 ---
 
@@ -208,7 +208,7 @@ TAは通常、システムに関する深い知識に加えて、「過去にど
 
 識別されたリスクについて、**発生可能性（Likelihood）**と**影響度（Impact）**を見積もり、総合的な**リスクレベル**を判定するプロセスです。TAは他のステークホルダーと共同でこの判定に貢献します。
 
-#### リスクレベルを判定するための6つの評価要因
+#### リスクレベルを判定するための5つの評価要因
 
 シラバスでは、リスクレベルを見積もる際に考慮すべき要因として次を挙げています。
 
