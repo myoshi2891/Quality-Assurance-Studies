@@ -1,9 +1,19 @@
-import { afterAll, afterEach, beforeAll, describe, it, expect, mock } from 'bun:test';
-import { render, screen, cleanup, fireEvent } from '@testing-library/react';
+import { afterAll, afterEach, beforeAll, beforeEach, describe, it, expect, mock } from 'bun:test';
+import { render, screen, cleanup, fireEvent, waitFor } from '@testing-library/react';
 import mermaid from 'mermaid';
 import React from 'react';
-import Page from '../../app/perfect-software-guide/page';
+import Page, {
+  DIAGRAM_1,
+  DIAGRAM_2,
+  DIAGRAM_3,
+  DIAGRAM_4,
+  DIAGRAM_5,
+  DIAGRAM_6,
+  DIAGRAM_7,
+  DIAGRAM_8,
+} from '../../app/perfect-software-guide/page';
 import NavBar, { TOC_ITEMS } from '../../app/perfect-software-guide/NavBar';
+import { CHECKLIST_ITEMS } from '../../app/perfect-software-guide/Checklist';
 
 afterEach(() => cleanup());
 
@@ -11,6 +21,10 @@ let originalMermaidRender: typeof mermaid.render;
 let originalIntersectionObserver: typeof window.IntersectionObserver;
 let mermaidRenderMock: ReturnType<typeof mock>;
 const renderedCharts: string[] = [];
+
+beforeEach(() => {
+  renderedCharts.length = 0;
+});
 
 beforeAll(() => {
   originalMermaidRender = mermaid.render;
@@ -37,6 +51,117 @@ beforeAll(() => {
 afterAll(() => {
   mermaid.render = originalMermaidRender;
   window.IntersectionObserver = originalIntersectionObserver;
+});
+
+describe('Perfect Software Guide - Full inventory verification (diagrams, chapters, checklist, references)', () => {
+  it('actually renders all 8 diagrams, one per .diagram-wrap, matching DIAGRAM_1 through DIAGRAM_8 and their captions', async () => {
+    const { container } = render(<Page />);
+    const diagramContainers = container.querySelectorAll('.diagram-wrap');
+
+    // 実描画の完了を待ってから件数を突き合わせる。
+    // コンテナの存在確認だけでは、Mermaid.tsx が空の chart で早期 return する経路
+    // （mermaid.render を呼ばず SVG も挿入しない）を見逃す
+    expect(diagramContainers.length).toBe(8);
+    await waitFor(() => {
+      const rendered = container.querySelectorAll('.diagram-wrap svg[data-testid="mock-mermaid"]');
+      expect(rendered.length).toBe(diagramContainers.length);
+    });
+
+    expect(renderedCharts.length).toBe(8);
+    expect(renderedCharts[0]).toBe(DIAGRAM_1);
+    expect(renderedCharts[1]).toBe(DIAGRAM_2);
+    expect(renderedCharts[2]).toBe(DIAGRAM_3);
+    expect(renderedCharts[3]).toBe(DIAGRAM_4);
+    expect(renderedCharts[4]).toBe(DIAGRAM_5);
+    expect(renderedCharts[5]).toBe(DIAGRAM_6);
+    expect(renderedCharts[6]).toBe(DIAGRAM_7);
+    expect(renderedCharts[7]).toBe(DIAGRAM_8);
+
+    const captions = container.querySelectorAll('.diagram-caption');
+    expect(captions.length).toBe(8);
+    expect(captions[0].textContent).toContain('図1　書籍全体の3部構成マップ');
+    expect(captions[1].textContent).toContain('図2　全数テストが不可能な理由とサンプリングへの流れ');
+    expect(captions[2].textContent).toContain('図3　テストとデバッグ、2つの活動の分岐');
+    expect(captions[3].textContent).toContain('図4　悪い知らせへの6つの防衛反応パターン');
+    expect(captions[4].textContent).toContain('図5　5つの誤解とそれに対応する事実');
+    expect(captions[5].textContent).toContain('図6　取り込みから対応に至る情報処理サイクル');
+    expect(captions[6].textContent).toContain('図7　怪しいテストツール営業を見抜くチェックフロー');
+    expect(captions[7].textContent).toContain('図8　初学者向け学習ロードマップ');
+  });
+
+  it('renders all 19 chapter rows individually with correct number and title', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#chapters');
+    const rows = section?.querySelectorAll('table tbody tr');
+    expect(rows?.length).toBe(19);
+
+    const expectedChapters: Array<[string, string]> = [
+      ['1', 'Why Do We Bother Testing?'],
+      ['2', 'What Testing Cannot Do'],
+      ['3', 'Why Not Just Test Everything?'],
+      ['4', "What's the Difference Between Testing and Debugging?"],
+      ['5', 'Meta-Testing'],
+      ['6', 'Information Immunity'],
+      ['7', 'How to Deal With Defensive Reactions'],
+      ['8', 'What Makes a Good Test?'],
+      ['9', 'Major Fallacies About Testing'],
+      ['10', 'Testing Is More Than Banging Keys'],
+      ['11', 'Information Intake'],
+      ['12', 'Making Meaning'],
+      ['13', 'Determining Significance'],
+      ['14', 'Making a Response'],
+      ['15', 'Preventing Testing from Growing More Difficult'],
+      ['16', 'Testing Without Machinery'],
+      ['17', 'Testing Scams'],
+      ['18', 'Oblivious Scams'],
+      ['—', 'Epilogue'],
+    ];
+
+    expectedChapters.forEach(([num, title], index) => {
+      const cells = rows?.[index].querySelectorAll('td');
+      expect(cells?.[0].textContent).toBe(num);
+      expect(cells?.[1].textContent).toBe(title);
+    });
+  });
+
+  it('renders all 7 checklist items individually, matching CHECKLIST_ITEMS', () => {
+    const { container } = render(<Page />);
+    const items = container.querySelectorAll('.checklist li');
+    expect(items.length).toBe(7);
+    expect(CHECKLIST_ITEMS.length).toBe(7);
+
+    CHECKLIST_ITEMS.forEach((text, index) => {
+      expect(items[index].textContent).toContain(text);
+    });
+  });
+
+  it('renders all 11 reference cards individually with correct title and URL', () => {
+    const { container } = render(<Page />);
+    const section = container.querySelector('#references');
+    const cards = section?.querySelectorAll('.ref-card');
+    expect(cards?.length).toBe(11);
+
+    const expectedRefs: Array<[string, string]> = [
+      ['Gerald M. Weinberg 公式サイト', 'https://geraldmweinberg.com/Site/Perfect_Software.html'],
+      ['Markus Gärtner', 'https://www.shino.de/2022/11/28/remembering-jerry-weinberg-perfect-software-and-other-illusions-about-testing/'],
+      ['Perfect Software 引用集', 'https://www.goodreads.com/work/quotes/4107583-perfect-software-and-other-illusions-about-testing'],
+      ['Perfect Software 各章タイトル・要点抜粋', 'https://leanpub.com/perfectsoftware'],
+      ['Dwayne Phillips によるレビュー', 'https://dwaynephillips.net/reviews/PerfectSoftware.html'],
+      ['Sunish Chabba による書籍要約記事', 'https://sunishchabba.medium.com/summary-of-the-book-perfect-software-and-other-illusions-about-testing-7ebb2eaa34dd'],
+      ['Victoria Markosyan による学びの整理記事', 'https://vicajoy.medium.com/perfect-software-and-other-illusions-about-testing-lessons-learned-from-the-book-by-gerald-m-aa4cbb893266'],
+      ['Bebugging（バグの埋め込み手法）解説', 'https://en.wikipedia.org/wiki/Bebugging'],
+      ['James Bach へのインタビュー', 'https://hexawise.com/posts/testing-smarter-with-james-bach'],
+      ['Software Engineering Radio, Episode 280', 'https://se-radio.net/2017/01/se-radio-episode-280-gerald-weinberg-on-bugs-errors-and-software-quality/'],
+      ['Edsger W. Dijkstra', 'https://www.cs.utexas.edu/~EWD/transcriptions/EWD02xx/EWD268.html'],
+    ];
+
+    expectedRefs.forEach(([titleSubstring, url], index) => {
+      const card = cards?.[index];
+      expect(card?.querySelector('.ref-num')?.textContent).toBe(String(index + 1));
+      expect(card?.querySelector('.ref-title')?.textContent).toContain(titleSubstring);
+      expect(card?.querySelector('a.ref-url')?.getAttribute('href')).toBe(url);
+    });
+  });
 });
 
 describe('Perfect Software Guide - Category 1 (Hero, Intro, Book Info, Structure, Core Message, Chapters)', () => {

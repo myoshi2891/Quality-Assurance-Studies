@@ -37,7 +37,7 @@ const MERMAID_CONFIG = `%%{init: {
   }
 }}%%`;
 
-const DIAGRAM_1 = `${MERMAID_CONFIG}
+export const DIAGRAM_1 = `${MERMAID_CONFIG}
 flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
@@ -55,7 +55,7 @@ flowchart TB
     class Title hub
     class P1b,P2c,P3b done`;
 
-const DIAGRAM_2 = `${MERMAID_CONFIG}
+export const DIAGRAM_2 = `${MERMAID_CONFIG}
 flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
@@ -68,7 +68,7 @@ flowchart TB
     class A hub
     class F done`;
 
-const DIAGRAM_3 = `${MERMAID_CONFIG}
+export const DIAGRAM_3 = `${MERMAID_CONFIG}
 flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
@@ -84,7 +84,7 @@ flowchart TB
     class Start hub
     class Note done`;
 
-const DIAGRAM_4 = `${MERMAID_CONFIG}
+export const DIAGRAM_4 = `${MERMAID_CONFIG}
 flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
@@ -104,7 +104,7 @@ flowchart TB
     class X hub
     class Y done`;
 
-const DIAGRAM_5 = `${MERMAID_CONFIG}
+export const DIAGRAM_5 = `${MERMAID_CONFIG}
 flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
@@ -115,7 +115,7 @@ flowchart TB
     M5["誤解　自動化すれば人は不要になる"] --> F5["事実　機械のテストだけでは見えない問題がある"]
     class F1,F2,F3,F4,F5 done`;
 
-const DIAGRAM_6 = `${MERMAID_CONFIG}
+export const DIAGRAM_6 = `${MERMAID_CONFIG}
 flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
@@ -128,7 +128,7 @@ flowchart TB
     class A hub
     class F done`;
 
-const DIAGRAM_7 = `${MERMAID_CONFIG}
+export const DIAGRAM_7 = `${MERMAID_CONFIG}
 flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
@@ -144,7 +144,7 @@ flowchart TB
     class A hub
     class F,G done`;
 
-const DIAGRAM_8 = `${MERMAID_CONFIG}
+export const DIAGRAM_8 = `${MERMAID_CONFIG}
 flowchart TB
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;

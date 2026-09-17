@@ -280,6 +280,7 @@
 .perfect-software-layout .section {
   padding: 3rem 0;
   border-bottom: 1px solid var(--border);
+  scroll-margin-top: calc(60px + var(--disclaimer-height, 0px));
 }
 
 .perfect-software-layout .section:last-of-type {
@@ -849,13 +850,20 @@
 @media (max-width: 960px) {
   .perfect-software-layout .sidebar {
     transform: translateX(-100%);
-    transition: transform 0.22s ease;
+    /* 閉じている間はフォーカス順・支援技術・クリック対象から除外する。
+       visibility の切り替えはスライドアウト完了後に遅延させ、退場アニメを保つ。 */
+    visibility: hidden;
+    pointer-events: none;
+    transition: transform 0.22s ease, visibility 0s linear 0.22s;
     width: min(84vw, 320px);
     box-shadow: 0 0 24px rgba(0, 0, 0, 0.2);
   }
 
   .perfect-software-layout .sidebar.open {
     transform: translateX(0);
+    visibility: visible;
+    pointer-events: auto;
+    transition: transform 0.22s ease, visibility 0s linear 0s;
   }
 
   .perfect-software-layout .main {
@@ -864,6 +872,11 @@
 
   .perfect-software-layout .mobile-bar {
     display: flex;
+  }
+
+  /* sticky な .mobile-bar の高さ分、アンカー着地位置を下げて見出しが隠れないようにする */
+  .perfect-software-layout .section {
+    scroll-margin-top: calc(60px + 4rem + var(--disclaimer-height, 0px));
   }
 
   .perfect-software-layout .sidebar-scrim.open {
