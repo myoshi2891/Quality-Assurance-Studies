@@ -2,7 +2,7 @@
 
 > **対象試験**: ISTQB® Certified Tester Advanced Level Test Analyst (CTAL-TA) v4.0
 > **対象範囲**: Chapter 2 “The Tasks of the Test Analyst in Risk-Based Testing”（公式シラバス学習時間目安：**90分** / 全5章1215分中）
-> **前提資格**: ISTQB® Foundation Level (CTFL) v4.0.1 合格が受験の必須条件
+> **前提資格**: ISTQB® Foundation Level (CTFL) 認定書の取得が受験の必須条件(バージョンは問わず、CTFL v4.0が推奨・旧バージョンも有効。該当性はISTQB® Member BoardまたはExam Providerに要確認)。ソフトウェア開発/テストの実務経験(目安6か月)や認定トレーニングコースの受講は、証明書取得の代替にはならないが強く推奨される
 > **想定読者**: ソフトウェアテスト初学者〜中級のQAエンジニア（CTFLの基礎用語は既知として解説します）
 > **本ガイドの立ち位置**: [ISTQB®公式CTAL-TA認定ページ](https://istqb.org/certifications/certified-tester-advanced-level-test-analyst/) と [公式シラバスv4.0 PDF](https://istqb.org/wp-content/uploads/sdm-uploads/ISTQB-CTAL-TA-Syllabus-v4.0-EN-4.pdf) の内容を、初学者向けに図解・具体例・ベストプラクティスを加えて再構成した学習補助教材です。試験の正答は必ず公式シラバスを参照してください。
 
