@@ -3,12 +3,6 @@
 > 対象読者:AIを組み込んだソフトウェアの品質保証に関わり始めたばかりのエンジニア、テスター、プロダクトマネージャー
 > 本ガイドのゴール:非決定的(実行するたびに結果が変わりうる)なAIシステムを、どうやって「自信を持って」出荷できる状態にするかという考え方を、初学者でも順番に理解できるようにすること
 
-## お断り:書籍タイトルについて
-
-最初のご依頼では「AI for Testing: A Practical Guide to Smarter Software Quality」というタイトルで、Tariq KingとJason Arbon共著の書籍を想定されていました。しかし、Amazon・Google Books・O'Reilly・Semantic Scholarなど複数の情報源を調査した結果、そのタイトルと著者の組み合わせに一致する書籍は見つかりませんでした。
-
-代わりに、実在が確認できた資料の中から、Jason Arbonが2026年に単著で刊行した『**Testing AI: Engineering Confidence in Non-Deterministic Systems**』を基にガイドを作成することで合意しています。なお、Jason ArbonとTariq Kingは「Artificial Intelligence for Software Testing Association(AISTA)」を共同設立した長年の協業者であり、2019年には共著論文「AI for Testing Today and Tomorrow: Industry Perspectives」も発表しています。Tariq King自身もこの新刊を高く評価する投稿をLinkedInで行っており、両者のつながりは本書の背景としても押さえておく価値があります(詳細は「参考文献・出典」を参照)。
-
 ---
 
 ## 1. この本の位置づけ
