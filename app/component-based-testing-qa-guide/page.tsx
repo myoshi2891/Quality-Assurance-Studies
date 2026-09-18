@@ -5,6 +5,8 @@ import Checklist from './Checklist';
 import './component-based-testing-qa-guide.css';
 
 export const DIAGRAM_1 = `flowchart TD
+accTitle: モノリシック開発とコンポーネントベース開発のテスト工程比較
+accDescr: モノリシック開発の要件定義から結合・システムテストまでの流れと、コンポーネントベース開発の選定からコントラクトテストまでの流れを並べて示す図
 subgraph MONO["モノリシック開発の流れ"]
 M1["要件定義"] --> M2["設計"]
 M2 --> M3["実装"]
@@ -21,6 +23,8 @@ C5 --> C6["システム全体テスト"]
 end`;
 
 export const DIAGRAM_2 = `sequenceDiagram
+accTitle: ブラックボックステストにおけるインターフェース経由の検証シーケンス
+accDescr: テスト担当者が公開インターフェースを通じてのみ入出力をやり取りし、コンポーネント内部の非公開処理を見ずに検証する流れを示すシーケンス図
 participant Tester as テスト担当者
 participant Iface as 公開インターフェース
 participant Comp as コンポーネント内部(非公開)
@@ -31,6 +35,8 @@ Iface-->>Tester: 出力データを受信
 Note over Tester,Comp: 内部のソースコードや構造を見ずに、入出力の対応関係だけで検証する`;
 
 export const DIAGRAM_3 = `flowchart TD
+accTitle: サードパーティ/COTSコンポーネント利用に伴うリスク一覧
+accDescr: COTSコンポーネントの利用によって生じるソースコード非公開・ベンダー都合のバージョンアップ・既知の脆弱性・ライセンス制約・サポート終了という5つのリスクを示す図
 COTS["サードパーティ/COTSコンポーネント"] --> R1["ソースコード非公開<br/>(内部構造が見えない)"]
 COTS --> R2["ベンダー都合のバージョンアップ<br/>(互換性が崩れる可能性)"]
 COTS --> R3["既知の脆弱性<br/>(CVE)の混入"]
@@ -42,6 +48,8 @@ class COTS compStyle
 class R1,R2,R3,R4,R5 riskStyle`;
 
 export const DIAGRAM_4 = `flowchart BT
+accTitle: コンポーネントベース開発におけるテストピラミッド
+accDescr: 単体テストを土台に、統合テスト、コンポーネント/コントラクトテスト、E2Eテストへと積み上がる、実行数と実行時間の関係を示すピラミッド図
 U["単体テスト(Unit)<br/>数量: 非常に多い / 実行: 数ミリ秒"] --> I["統合テスト(Integration)<br/>数量: 中程度 / 実行: 数百ミリ秒〜数秒"]
 I --> CT["コンポーネント/コントラクトテスト<br/>数量: 中程度 / 実行: 数秒"]
 CT --> E["E2Eテスト(End-to-End)<br/>数量: 少ない / 実行: 数十秒〜数分"]
@@ -55,6 +63,8 @@ class CT ctStyle
 class E e2eStyle`;
 
 export const DIAGRAM_5 = `flowchart TD
+accTitle: トップダウン統合とボトムアップ統合の比較
+accDescr: 上位コンポーネントを先に実装し未実装の下位をスタブで代替するトップダウン統合と、下位コンポーネントを先に実装し未実装の上位をドライバで代替するボトムアップ統合を対比する図
 subgraph TOPDOWN["トップダウン統合(スタブを使用)"]
 TD1["上位コンポーネント<br/>(実装済み)"] --> TD2["未実装の下位コンポーネント<br/>→ スタブで代替"]
 end
@@ -63,6 +73,8 @@ BU1["下位コンポーネント<br/>(実装済み)"] --> BU2["未実装の上�
 end`;
 
 export const DIAGRAM_6 = `sequenceDiagram
+accTitle: コンシューマー駆動契約テストの流れ
+accDescr: コンシューマー側テストがモックプロバイダとのやり取りを契約ファイルに記録し、プロバイダ側検証テストが実際のプロバイダに対して契約どおりの応答か再生検証するシーケンス図
 participant ConsumerTest as コンシューマー側テスト
 participant MockProvider as モックプロバイダ
 participant PactFile as 契約ファイル
@@ -77,6 +89,8 @@ RealProvider-->>ProviderTest: 実際の応答を返却
 ProviderTest->>ProviderTest: 契約の期待値と実際の応答を比較検証`;
 
 export const DIAGRAM_7 = `flowchart LR
+accTitle: 契約ブローカーを介した複数コンシューマーの契約集約
+accDescr: 複数のコンシューマーがそれぞれの契約を契約ブローカーへ登録し、ブローカーが全契約を集約してプロバイダサービスを検証する構成図
 Con1["コンシューマーA"] -->|契約A| Broker["契約ブローカー<br/>(Pact Broker等)"]
 Con2["コンシューマーB"] -->|契約B| Broker
 Con3["コンシューマーC"] -->|契約C| Broker
@@ -89,6 +103,8 @@ class Broker brokerStyle
 class Provider provStyle`;
 
 export const DIAGRAM_8 = `flowchart LR
+accTitle: SCAによる依存関係の脆弱性スキャンとビルドゲートの流れ
+accDescr: ソースコードや依存関係マニフェストをSCAツールでスキャンし脆弱性データベースと照合したうえで、重大な脆弱性の有無に応じてビルドを失敗させるかパイプラインを継続するかを判定する図
 Src["ソースコード/<br/>依存関係マニフェスト"] --> Scan["SCAツールによるスキャン<br/>(例: OWASP Dependency-Check)"]
 Scan --> DB["既知の脆弱性データベース<br/>(NVD等)と照合"]
 DB --> Report["レポート生成 + SBOM出力"]
@@ -105,6 +121,8 @@ class Block blockStyle
 class Pass passStyle`;
 
 export const DIAGRAM_9 = `flowchart TD
+accTitle: 使い捨てコンテナを用いた統合テストのインフラ構成
+accDescr: 統合テストプロセスがDB・メッセージキュー・キャッシュそれぞれの使い捨てコンテナを利用し、テスト終了後に自動的に破棄する構成を示す図
 Test["統合テストプロセス"] --> DB["使い捨てのDBコンテナ<br/>(例: PostgreSQL)"]
 Test --> MQ["使い捨てのメッセージキュー<br/>コンテナ(例: Kafka)"]
 Test --> Cache["使い捨てのキャッシュ<br/>コンテナ(例: Redis)"]
@@ -119,6 +137,8 @@ class DB,MQ,Cache infraStyle
 class Cleanup cleanupStyle`;
 
 export const DIAGRAM_10 = `flowchart TD
+    accTitle: ミューテーションテストによるテストスイート品質の評価フロー
+    accDescr: ミューテーションツールがソースコードに欠陥を注入し既存テストスイートを実行、テストが失敗すればミュータントはKilled、失敗しなければSurvivedとしてテストケースの追加を促す流れを示す図
     A["元のソースコード"] --> B["ミューテーションツールが<br/>コードに小さな欠陥を注入"]
     B --> C["既存のテストスイートを実行"]
     C --> D{"テストは失敗したか？"}
@@ -134,6 +154,8 @@ export const DIAGRAM_10 = `flowchart TD
     class F,G survivedStyle`;
 
 export const DIAGRAM_11 = `flowchart LR
+    accTitle: CIパイプラインにおけるテスト段階と実行時間の推移
+    accDescr: コードのコミットから単体テスト・コンポーネントテスト・コントラクトテスト・統合テスト・E2Eテストを経て本番デプロイに至るまで、各段階の実行時間が数秒から夜間バッチへと段階的に長くなる流れを示す図
     Commit["コードのコミット"] --> Unit["単体テスト<br/>（数秒）"]
     Unit --> CompT["コンポーネントテスト<br/>（数十秒）"]
     CompT --> Contract["コントラクトテスト<br/>（数十秒）"]
