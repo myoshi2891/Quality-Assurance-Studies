@@ -56,7 +56,7 @@
 
 /* 1. Layout & globals.css resets */
 .perfect-software-layout section {
-  padding-top: 0 !important;
+  padding-top: 0;
 }
 
 .perfect-software-layout .hero {
