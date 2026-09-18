@@ -13,8 +13,8 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 | フィールド | 値 |
 |---|---|
-| 最新 HEAD | `e132509` |
-| 最新コミット内容 | `chore(nav): register software-testing-with-generative-ai-guide in navigation and e2e` |
+| 最新 HEAD | `762f8fe` |
+| 最新コミット内容 | `docs(genai-guide): update EU AI Act enforcement dates and CT-GenAI syllabus reference to v1.1` |
 | 次の作業 | 残る書籍・ツール系ガイドの移行、またはE2Eテストの拡充 |
 | ビルド状態 | ✅ `bun test`（全テスト pass）成功、`bun run lint` エラーなし（※ サンドボックス環境におけるビルド禁止制約により、本番ビルド検証は除外）。 |
 
@@ -67,11 +67,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/16: 『コンポーネントベースソフトウェアシステムのテストと品質保証』完全ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & Scoped CSS**:
-  - 原著HTML固有のダークテーマ（`--bg: #0b0f19`、`--surface: #121826`、`--surface-hover: #182235`、`--text: #e7edf9`、`--text-muted: #8b9bb4`、`--border: #1f2b42`、`--accent: #3b6fd6`、`--success: #2e9e5b`、`--warning: #c98a1f`、`--danger: #c0526e`）を忠実に復元。
+  - 原著HTML固有のダークテーマ（`--bg: #07111e`、`--bg-elev: #0d1a2e`、`--bg-elev2: #122238`、`--accent: #7c9eff`、`--accent-soft: rgba(124, 158, 255, 0.14)`、`--accent-border: rgba(124, 158, 255, 0.3)`、`--text: #eef2fa`、`--text-dim: #b8c4de`、`--border: rgba(124, 158, 255, 0.16)`）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `var(--text) !important`、セルパディング、Tailwindリストマーカー、`.checklist-card`、`.ref-card`、`.pill` 等）を完全実装。
   - レスポンシブ対応のサイドバーとメイン領域（`.cbss-qa-layout`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
-  - 全11図解（開発プロセスの比較 `#DIAGRAM_1`、ブラックボックステストの課題 `#DIAGRAM_2`、テストピラミッド `#DIAGRAM_3`、統合テストアプローチ比較 `#DIAGRAM_4`、Pactコントラクトテストの基本フロー `#DIAGRAM_5`、Provider側の検証フロー `#DIAGRAM_6`、双方向コントラクトテスト `#DIAGRAM_7`、SCAのパイプライン組み込み `#DIAGRAM_8`、Testcontainersアーキテクチャ `#DIAGRAM_9`、ミューテーションテストの流れ `#DIAGRAM_10`、CI/CD継続的テストパイプライン `#DIAGRAM_11`）を移植。
+  - 全11図解（開発プロセスの比較 `#DIAGRAM_1`、ブラックボックステストの課題 `#DIAGRAM_2`、COTS/サードパーティコンポーネントのリスク `#DIAGRAM_3`、テストピラミッド `#DIAGRAM_4`、統合テストアプローチ比較(トップダウン/ボトムアップ) `#DIAGRAM_5`、Pactコントラクトテストの基本フロー `#DIAGRAM_6`、複数コンシューマーとブローカーによる契約管理 `#DIAGRAM_7`、SCAのパイプライン組み込み `#DIAGRAM_8`、Testcontainersアーキテクチャ `#DIAGRAM_9`、ミューテーションテストの流れ `#DIAGRAM_10`、CI/CD継続的テストパイプライン `#DIAGRAM_11`）を移植。
 - **コードブロック & 改行保持**:
   - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れを完全に防止（Pactテストコード）。
 - **テーブル & インタラクティブチェックリスト**:
@@ -82,7 +82,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全53アンカー（H2, H3）、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/component-based-testing-qa-guide/`: ページコンポーネント、専用スタイル（`.cbss-qa-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/component-based-testing-qa-guide`（コンポーネントテスト/QA 完全ガイド）を追加（全69件）。
-- `tests/component-based-testing-qa-guide/page.test.tsx`: TDD 必須サイクルに従い、全12セクション、全11Mermaid図、全12テーブル、全コードブロック、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（16 pass / 127 expect()）。
+- `tests/component-based-testing-qa-guide/page.test.tsx`: TDD 必須サイクルに従い、全12セクション、全11Mermaid図、全12テーブル、全コードブロック、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス。
 - `Component-based-testing-qa-guide.html`: `archive/html-archive/books/` へ、`Component-based-testing-qa-guide.md`: `archive/md-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts` など）を最新の 69 ページ体制に同期。
 
