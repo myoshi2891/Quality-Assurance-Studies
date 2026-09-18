@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface TocItem {
   id: string;
@@ -67,6 +67,12 @@ export const TOC_ITEMS: readonly TocItem[] = [
 export default function NavBar() {
   const [activeId, setActiveId] = useState<string>('');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+
+  const closeMenu = () => {
+    toggleRef.current?.focus();
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -95,6 +101,7 @@ export default function NavBar() {
   return (
     <>
       <button
+        ref={toggleRef}
         className="sidebar-toggle"
         id="sidebarToggle"
         aria-label="メニューを開閉"
@@ -125,7 +132,7 @@ export default function NavBar() {
                   className={`${isH2 ? 'nav-h2' : 'nav-h3'} ${isActive ? 'active' : ''}`}
                   href={`#${item.id}`}
                   aria-current={isActive ? 'location' : undefined}
-                  onClick={() => setIsOpen(false)}
+                  onClick={closeMenu}
                 >
                   {item.text}
                 </a>

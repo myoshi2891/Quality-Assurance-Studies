@@ -2869,6 +2869,7 @@
             function closeMenu() {
                 sidebar.classList.remove('open');
                 scrim.classList.remove('show');
+                mobileToggle.focus();
             }
             mobileToggle.addEventListener('click', () => {
                 if (sidebar.classList.contains('open')) closeMenu();

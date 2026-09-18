@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 export interface TocItem {
   id: string;
@@ -145,6 +145,7 @@ export const TOC_ITEMS: TocItem[] = TOC_GROUPS.flatMap((group) => [
 export default function NavBar() {
   const [activeId, setActiveId] = useState<string>('この記事の対象読者');
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const toggleRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const ids = TOC_ITEMS.map((item) => item.id);
@@ -173,12 +174,16 @@ export default function NavBar() {
   }, []);
 
   const handleLinkClick = () => {
+    if (isOpen) {
+      toggleRef.current?.focus();
+    }
     setIsOpen(false);
   };
 
   return (
     <>
       <button
+        ref={toggleRef}
         className="sidebar-toggle"
         id="sidebarToggle"
         aria-label={isOpen ? 'メニューを閉じる' : 'メニューを開く'}
