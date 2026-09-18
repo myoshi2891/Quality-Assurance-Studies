@@ -115,6 +115,7 @@ export default function NavBar() {
             className={`nav-a ${activeId === item.id ? 'active' : ''}`}
             href={`#${item.id}`}
             onClick={handleLinkClick}
+            aria-current={activeId === item.id ? 'location' : undefined}
           >
             <span className="n-num">{item.num}</span>
             {item.label}
@@ -128,6 +129,7 @@ export default function NavBar() {
             className={`nav-a ${activeId === item.id ? 'active' : ''}`}
             href={`#${item.id}`}
             onClick={handleLinkClick}
+            aria-current={activeId === item.id ? 'location' : undefined}
           >
             <span className="n-num">{item.num}</span>
             {item.label}
@@ -141,6 +143,7 @@ export default function NavBar() {
             className={`nav-a ${activeId === item.id ? 'active' : ''}`}
             href={`#${item.id}`}
             onClick={handleLinkClick}
+            aria-current={activeId === item.id ? 'location' : undefined}
           >
             <span className="n-num">{item.num}</span>
             {item.label}
@@ -154,6 +157,7 @@ export default function NavBar() {
             className={`nav-a ${activeId === item.id ? 'active' : ''}`}
             href={`#${item.id}`}
             onClick={handleLinkClick}
+            aria-current={activeId === item.id ? 'location' : undefined}
           >
             <span className="n-num">{item.num}</span>
             {item.label}
