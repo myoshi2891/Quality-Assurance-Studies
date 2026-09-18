@@ -13,7 +13,6 @@ import Page, {
   DIAGRAM_8,
 } from '../../app/perfect-software-guide/page';
 import NavBar, { TOC_ITEMS } from '../../app/perfect-software-guide/NavBar';
-import { CHECKLIST_ITEMS } from '../../app/perfect-software-guide/Checklist';
 
 afterEach(() => cleanup());
 
@@ -124,13 +123,21 @@ describe('Perfect Software Guide - Full inventory verification (diagrams, chapte
     });
   });
 
-  it('renders all 7 checklist items individually, matching CHECKLIST_ITEMS', () => {
+  it('renders all 7 checklist items individually', () => {
+    const expectedLabels = [
+      'このテストは「何を確かめるための、どんな情報を得るためのものか」を言語化できているか',
+      '「テストにパスした」ことと「バグがない」ことを混同していないか',
+      'バグ報告の際、「事実」と「自分の解釈」を分けて書けているか',
+      'テスト結果を見て、自分の中に否認・合理化・責任転嫁などの反応が出ていないか気づけているか',
+      'テストとデバッグ、どちらの作業に時間がかかっているのかを区別できているか',
+      '新しいテストツールの提案を、宣伝文句だけで判断していないか',
+      '自動テストで拾えない観点を、レビューやウォークスルーで補っているか',
+    ];
     const { container } = render(<Page />);
     const items = container.querySelectorAll('.checklist li');
-    expect(items.length).toBe(7);
-    expect(CHECKLIST_ITEMS.length).toBe(7);
+    expect(items.length).toBe(expectedLabels.length);
 
-    CHECKLIST_ITEMS.forEach((text, index) => {
+    expectedLabels.forEach((text, index) => {
       expect(items[index].textContent).toContain(text);
     });
   });

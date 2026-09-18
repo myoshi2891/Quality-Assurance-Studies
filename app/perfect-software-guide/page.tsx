@@ -39,6 +39,8 @@ const MERMAID_CONFIG = `%%{init: {
 
 export const DIAGRAM_1 = `${MERMAID_CONFIG}
 flowchart TB
+    accTitle: 『Perfect Software』の全体構成
+    accDescr: 書籍全体をPart1「なぜテストするのか」、Part2「心理とテストの質」、Part3「罠を見抜き実践する」の3部構成に分け、各部を構成する章の範囲を示す図
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     Title["Perfect Software　書籍全体像"]
@@ -57,6 +59,8 @@ flowchart TB
 
 export const DIAGRAM_2 = `${MERMAID_CONFIG}
 flowchart TB
+    accTitle: テストがサンプリング行為である理由を示すフロー
+    accDescr: 組み合わせによりテストケース数が事実上無限になる一方で時間と予算は有限であるため全ケースの実行は不可能であり、テストはリスクの高い部分を優先したサンプリングであることを示す図
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     A["理論上のテストケース数は組み合わせにより事実上無限"]
@@ -70,6 +74,8 @@ flowchart TB
 
 export const DIAGRAM_3 = `${MERMAID_CONFIG}
 flowchart TB
+    accTitle: テストとデバッグという2つの活動の違い
+    accDescr: 不具合が疑われる事象に対し、情報を集める「テスト」と原因を特定し修正する「デバッグ」という異なる活動に分岐し、それぞれ異なる成果物を生みながら役割が分かれることを示す図
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     Start["不具合が疑われる事象"]
@@ -86,6 +92,8 @@ flowchart TB
 
 export const DIAGRAM_4 = `${MERMAID_CONFIG}
 flowchart TB
+    accTitle: 受け入れがたいテスト結果への6つの防衛反応
+    accDescr: 受け入れがたいテスト結果に対して否認・合理化・投影・責任転嫁・過剰補償・強迫的行動という6つの防衛反応が生じ、いずれも問題の放置とテストの効果低下につながることを示す図
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     X["受け入れがたいテスト結果"]
@@ -106,6 +114,8 @@ flowchart TB
 
 export const DIAGRAM_5 = `${MERMAID_CONFIG}
 flowchart TB
+    accTitle: テストにまつわる5つの誤解と事実の対比
+    accDescr: テストで品質を作り込める、バグ0件は合格の証明になるなど5つの誤解それぞれに対応する事実を並べて対比する図
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     M1["誤解　テストで品質を作り込める"] --> F1["事実　品質を作るのは開発、テストは情報を与えるだけ"]
@@ -117,6 +127,8 @@ flowchart TB
 
 export const DIAGRAM_6 = `${MERMAID_CONFIG}
 flowchart TB
+    accTitle: 出来事から意思決定に至る情報処理サイクル
+    accDescr: テスト結果などの出来事が起こってから、取り込み・意味づけ・重要性判断・対応という段階を経て意思決定者による最終判断に至る情報処理の流れを示す図
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     A["出来事が起こる　例えばあるテストが失敗する"]
@@ -130,6 +142,8 @@ flowchart TB
 
 export const DIAGRAM_7 = `${MERMAID_CONFIG}
 flowchart TB
+    accTitle: 新しいテストツールの提案を評価する判定フロー
+    accDescr: 万能さを謳う説明や未検証のデモ、曖昧な価格説明を要注意サインとして判定し、具体的な数値と条件が示された場合のみ導入を前向きに検討するという判断の流れを示す図
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     A["新しいテストツールや手法を提案された"]
@@ -146,6 +160,8 @@ flowchart TB
 
 export const DIAGRAM_8 = `${MERMAID_CONFIG}
 flowchart TB
+    accTitle: 『Perfect Software』を読み進めるための8ステップの学習ロードマップ
+    accDescr: テストは品質を作らないという心得から始まり、テストとデバッグの役割分担、防衛反応への気づき、5大誤解の共有、レビューの導入、ツール営業を見抜く目の育成を経て、テストの限界を正しく伝えられる人になるまでの8段階を示す図
     classDef hub fill:#c9c4ef,stroke:#3f3d8a,color:#221f52,stroke-width:2px;
     classDef done fill:#bfe4d2,stroke:#2f6b4f,color:#123722,stroke-width:2px;
     S0["読み始める前に　テストは品質を作らないと心得る"]
