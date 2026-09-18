@@ -930,7 +930,7 @@ Then 合計金額に割引が反映される
                   <tr className="odd">
                     <td><strong>EU AI Act</strong></td>
                     <td>規制</td>
-                    <td>リスクレベルに応じて義務が異なる。最小リスク・無リスクの用途には原則義務なし、透明性リスクの用途にはユーザーへの開示義務、ハイリスクの用途にはリスク管理・文書化・人間による監督・正確性・バイアス対策などの統制が課され、汎用AI（GPAI）モデルには該当する透明性・モデル関連の義務が課される</td>
+                    <td>リスクレベルに応じて義務が異なり、適用開始時期も段階的。汎用AI（GPAI）モデル関連の義務は2025年8月2日から適用済み。ハイリスクAIシステムの義務（リスク管理・文書化・人間による監督・正確性・バイアス対策など）はAnnex III対象（Chapter III Sections 1–3）が2027年12月2日、Annex I対象が2028年8月2日から適用開始（2026年9月時点では未適用）。最小リスク・無リスクの用途には原則義務なし、透明性リスクの用途にはユーザーへの開示義務が課される</td>
                   </tr>
                   <tr className="even">
                     <td><strong>NIST AI Risk Management Framework</strong></td>
@@ -1082,13 +1082,13 @@ Then 合計金額に割引が反映される
               <div className="ref-card">
                 <span className="ref-badge">[2]</span>
                 <span className="ref-body">
-                  ISTQB, &quot;Certified Tester Specialist Level Syllabus – Testing with Generative AI (CT-GenAI) v1.0&quot;（2025年） —{' '}
+                  ISTQB, &quot;Certified Tester Specialist Level Syllabus – Testing with Generative AI (CT-GenAI) v1.1&quot;（2026年） —{' '}
                   <a
-                    href="https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf"
+                    href="https://astqb.org/assets/documents/ISTQB-CT-GenAI-Syllabus-v1.1.pdf"
                     rel="noopener noreferrer"
                     target="_blank"
                   >
-                    https://astqb.org/assets/documents/CT-GenAI-Syllabus-v1.0.pdf
+                    https://astqb.org/assets/documents/ISTQB-CT-GenAI-Syllabus-v1.1.pdf
                   </a>
                 </span>
               </div>
