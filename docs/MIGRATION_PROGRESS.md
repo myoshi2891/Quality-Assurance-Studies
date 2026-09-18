@@ -48,13 +48,11 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
   - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card`、`.ref-card`、`.pill` 等）を完全実装。
   - レスポンシブ対応のサイドバー（`NavBar.tsx`）とメイン領域（`.perfect-software-layout`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
-  - 全8図解（完璧なソフトウェアという幻想 `#d1`、テストの本当の役割 `#d2`、テストはなぜ終わらないのか `#d3`、情報提供モデル `#d4`、防衛反応のメカニズム `#d5`、観察と推論の分離 `#d6`、テスト技法ツリー `#d7`、ツール導入のアンチパターン `#d8`）を移植。
+  - 全8図解（書籍構成 `DIAGRAM_1`、全数テスト不可能とサンプリング `DIAGRAM_2`、テストとデバッグの違い `DIAGRAM_3`、受け入れがたい結果への防衛反応 `DIAGRAM_4`、テストにまつわる5大誤解 `DIAGRAM_5`、情報処理サイクル `DIAGRAM_6`、ツール営業の判定フロー `DIAGRAM_7`、学習ロードマップ `DIAGRAM_8`）を移植。全図に固有の `accTitle`/`accDescr` を付与。
   - `.perfect-software-layout` スコープ下で `.mermaid-wrapper` に背景 `#fff`、枠線、`.hub`、`.done`、エッジラベル背景などのスタイルを完全定義し、白飛び・黒潰れを防止。
-- **コードブロック & 改行保持**:
-  - `.code-block` 内部に `<div className="code-line">` を配置し、Tailwind preflight による改行文字潰れを完全に防止。
 - **テーブル & インタラクティブチェックリスト**:
-  - 全4テーブル（書籍概要、Step 1: 幻想と現実、Step 2: 7つの理由、Step 10: 役割の分担）を完全移植。
-  - セクション11のチェックリスト（`Checklist.tsx`、全7項目動的カウンター・トグル対応）を完全実装。
+  - 全4テーブル（書籍データ、章立て一覧、テストとデバッグの違い、テストにまつわる5大誤解）を完全移植。
+  - `id="roadmap"` セクションのチェックリスト（`Checklist.tsx`、全7項目動的カウンター・トグル対応）を完全実装。
 - **参考文献 & 外部リンク**:
   - 全11件の参考文献カードを完全移植。
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全19セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
