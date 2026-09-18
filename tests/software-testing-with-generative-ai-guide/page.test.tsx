@@ -341,7 +341,7 @@ describe('Software Testing with Generative AI Guide - Category 4 (Ch9, Ch10, Ch1
 
     // Table 8 in 9.2
     const table8 = within(tables[7]);
-    expect(table8.getByText('データの持ち出し')).toBeDefined();
+    expect(table8.getByText('コンテキスト操作')).toBeDefined();
     expect(table8.getByText('悪意あるコード生成')).toBeDefined();
 
     // Table 9 in 9.4
