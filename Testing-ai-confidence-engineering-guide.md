@@ -90,7 +90,7 @@ flowchart TD
 - 出力が「正解」と一致するかどうかを、完全一致のアサーションでチェックできる
 - テストが1回通れば、その振る舞いは今後も保証される
 
-生成AIやLLMを組み込んだシステムでは、この前提のすべてが崩れます。モデルはサンプリングによってゆらぎのある出力を返し、検索拡張生成(RAG)は取得するコンテキストによって挙動が変わり、エージェントはツールを呼び出しながら多段階で動きます。ここで必要になるのが、著者が「Confidence Engineering(確信のエンジニアリング)」と呼ぶ考え方です。
+生成AIやLLMを組み込んだシステムでは、モデルの出力や確率的なワークフローに関してこの前提が崩れます。モデルはサンプリングによってゆらぎのある出力を返し、検索拡張生成(RAG)は取得するコンテキストによって挙動が変わり、エージェントはツールを呼び出しながら多段階で動きます。一方で、入力バリデーションやAPI契約、ビジネスロジックといった決定的なコンポーネントについては、従来どおり完全一致のアサーション・スキーマ検証・ユニット/コンポーネントテスト・静的解析・決定的なポリシーチェックを使い続けるべきです。ここで必要になるのが、著者が「Confidence Engineering(確信のエンジニアリング)」と呼ぶ考え方です。
 
 ```mermaid
 flowchart LR
@@ -447,7 +447,7 @@ flowchart LR
 本書はまだ2026年に刊行されたばかりですが、テスト業界で国際的に知られる実践者たちからすでに反応が寄せられています。
 
 - **TestGuild Automation Podcast(Joe Colantonio)**:自動化テスト分野で国際的に知られるポッドキャストのエピソード600でJason Arbonを迎え、「コーディングがAIに吸収され、仕様書き作業が薄くなり、プロダクト・開発・テストの役割が1つに収束していく」という本書の議論を紹介しています。番組では、AIが生み出した成果物を見て、出荷してよいかをエビデンスに基づいて判断できる人こそが最後まで残る役割だ、という著者の主張が取り上げられています。
-- **Tariq King(AISTA共同創設者、Jason Arbonの長年の協業者)**:自身のLinkedInで本書を「この分野への大きな貢献」と評し、2026年のPacific Northwest Software Quality Conferenceで開かれるというサイン会にも言及しています。
+- **Tariq King(AISTA共同創設者、Jason Arbonの長年の協業者)**:自身のLinkedInで本書を「この分野への大きな貢献」と評しています。King自身も2026年のPacific Northwest Software Quality Conference(PNSQC)のワークショップデーで「Testing AI and Machine Learning: A Quality Engineering Introduction」と題したワークショップに登壇予定です[21]。
 - **書籍サイトに名を連ねる実務レビュアーたち**:LLM判定者のコスト面での現実性や実務的な評価ツールを助言したSergio Segura、判定者の一貫性やプロフェッショナル向けのトーンについて助言したZoltán Tarkó、ISO/IEC 42001といった規制文脈や初学者向けのSKILL.md解説について助言したJeffery Evansなど、実務者からのフィードバックを取り入れて執筆された経緯が公開されています。
 
 なお、同時期に刊行されたAI品質関連の書籍としては、ISTQBの公式CT-AIシラバスに基づく『Introduction to AI Testing: Guide to ISTQB CT-AI Certification』(BCS、2025年)もあります。こちらは資格試験対策という性格が強く、『Testing AI』が実務者の経験と議論を軸にしているのとは対照的な位置づけです。両者を読み比べると、AI品質という分野が「標準化された資格の枠組み」と「実務者コミュニティの生きた知見」という2つの方向から同時に整備されつつあることがよく分かります。
@@ -516,3 +516,4 @@ flowchart LR
 18. [King T. M., Arbon J., Santiago D., Adamo D., Chin W., Shanmugam R. 「AI for Testing Today and Tomorrow: Industry Perspectives」 IEEE International Conference on Artificial Intelligence Testing 2019 Semantic Scholar](https://www.semanticscholar.org/paper/AI-for-Testing-Today-and-Tomorrow:-Industry-King-Arbon/d19232f659c0f1681a1a837099be46bf10dae7ae)
 19. [Arbon J. 「AI for Software Testing」 Semantic Scholar(当初ご共有いただいたリンク)](https://www.semanticscholar.org/paper/AI-for-Software-Testing-Arbon/50f77f76012710ca45ee214145e5e031af67c93b)
 20. [Introduction to AI Testing: Guide to ISTQB CT-AI Certification(BCS 2025年 比較対象として言及) Amazon書誌情報](https://www.amazon.com/Introduction-AI-Testing-ISTQB%C2%AE-Certification/dp/1780177186)
+21. [Testing AI and Machine Learning: A Quality Engineering Introduction(PNSQC 2026年ワークショップ公式告知 Tariq King登壇)](https://www.pnsqc.org/testing-ai-and-machine-learning-a-quality-engineering-introduction/)
