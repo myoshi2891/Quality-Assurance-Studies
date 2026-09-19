@@ -7,7 +7,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 
 > **✅ 登録済みガイドの移行完了**: 「移行状況テーブル」に掲載した静的 HTML / Markdown の Next.js App Router への移行が完了しました（合計 71 ルート = ガイドライブラリ index + 70 ガイド）。
 >
-> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 21 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
+> **⏸ 残存**: プロジェクトルートには App Router に未登録の静的ドキュメントが 26 ファイル残っています（内訳は「未移行（プロジェクトルートに残存）」節を参照）。現時点ではルート登録対象外の静的ドキュメントとして扱っており、ルート化の可否は未決定です。
 
 ## 現在地
 
@@ -44,12 +44,12 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 ## 2026/09/16: Gerald M. Weinberg『Perfect Software: And Other Illusions about Testing』初学者ガイドのNext.js完全移行
 
 - **デザイン忠実再現 & Scoped CSS**:
-  - 原著HTML固有のエディトリアル・ペーパーテーマ（`--paper: #faf6ee`、`--paper-card: #f3ece0`、`--paper-warm: #ede4d4`、`--ink: #2a241d`、`--ink-muted: #6b6155`、`--ink-faint: #9c9184`、`--border: #dfd5c4`、`--accent: #b84c2a`、`--accent-light: #f5ebe6`、`--terracotta: #c45d3c`、`--sage: #4a7c59`、`--slate: #3d5a80`、`--lavender: #6b5b95`、`--gold: #d4a373`、`--amber: #b45309`）を忠実に復元。
+  - 原著HTML固有のエディトリアル・ペーパーテーマ（`--paper: #faf6ee`、`--paper-card: #ffffff`、`--paper-card-2: #f2ecdd`、`--ink: #2a241d`、`--ink-soft: #5c5344`、`--ink-faint: #726a5c`、`--border: #e0d5bd`、`--indigo: #413d8f`、`--indigo-soft: #eae8fb`、`--indigo-dark: #2c2a63`、`--gold: #8a5f13`、`--gold-soft: #fbf0dc`、`--forest: #2f6b4f`、`--forest-soft: #e7f3ec`、`--plum: #7a3f6b`、`--plum-soft: #f5e9f1`）を忠実に復元。
   - `globals.css` 干渉リセット（テーブル文字色 `var(--ink) !important`、セルパディング、Tailwindリストマーカー `list-style-type: disc !important`、`.checklist-card`、`.ref-card`、`.pill` 等）を完全実装。
   - レスポンシブ対応のサイドバー（`NavBar.tsx`）とメイン領域（`.perfect-software-layout`）。
 - **Mermaid図解の完全移植 (fix-mermaidスキル準拠)**:
   - 全8図解（書籍構成 `DIAGRAM_1`、全数テスト不可能とサンプリング `DIAGRAM_2`、テストとデバッグの違い `DIAGRAM_3`、受け入れがたい結果への防衛反応 `DIAGRAM_4`、テストにまつわる5大誤解 `DIAGRAM_5`、情報処理サイクル `DIAGRAM_6`、ツール営業の判定フロー `DIAGRAM_7`、学習ロードマップ `DIAGRAM_8`）を移植。全図に固有の `accTitle`/`accDescr` を付与。
-  - `.perfect-software-layout` スコープ下で `.mermaid-wrapper` に背景 `#fff`、枠線、`.hub`、`.done`、エッジラベル背景などのスタイルを完全定義し、白飛び・黒潰れを防止。
+  - `.perfect-software-layout` スコープ下で外枠を `.diagram-wrap`（背景 `var(--paper-card)`、枠線、影）に設定し、内側の `.mermaid-wrapper` は透明・枠線なしにリセットして二重外枠を解消。`.hub`、`.done`、エッジラベル背景などのノードスタイルを完全定義し、白飛び・黒潰れを防止。
 - **テーブル & インタラクティブチェックリスト**:
   - 全4テーブル（書籍データ、章立て一覧、テストとデバッグの違い、テストにまつわる5大誤解）を完全移植。
   - `id="roadmap"` セクションのチェックリスト（`Checklist.tsx`、全7項目動的カウンター・トグル対応）を完全実装。
@@ -58,7 +58,7 @@ HTML → Next.js App Router 移行の進行状況。セッション終了前に�
 - **共通NavBar**: スクロールスパイ（`IntersectionObserver`）、全19セクションアンカー、モバイルトグル対応、`aria-current` 対応の `NavBar.tsx` を実装。
 - `app/perfect-software-guide/`: ページコンポーネント、専用スタイル（`.perfect-software-layout` スコープ、globals.css干渉リセット）、NavBar、Checklistを実装。
 - `lib/navigation.ts`: `books-practices` カテゴリに `/perfect-software-guide`（Perfect Software 実践ガイド）を追加（全70件）。
-- `tests/perfect-software-guide/page.test.tsx`: TDD 必須サイクルに従い、全19セクション、全8Mermaid図、全4テーブル、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（24 pass / 163 expect()）。
+- `tests/perfect-software-guide/page.test.tsx`: TDD 必須サイクルに従い、全19セクション、全8Mermaid図、全4テーブル、全チェックリスト、全外部リンクの存在を検証する厳格なテストスイートを実装して全パス（28 pass）。
 - `Perfect-software-guide.html` は `archive/html-archive/books/`、`Perfect-software-guide.md` は `archive/md-archive/books/` へ移動完了。
 - 各種ドキュメント（`CLAUDE.md`、`GEMINI.md`、`e2e/pages.ts`、`lib/navigation.ts`、`docs/coverage-dashboard.html` など）を最新の 70 ページ体制に同期。
 
@@ -906,7 +906,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 
 ### 未移行（プロジェクトルートに残存）
 
-プロジェクトルート直下には App Router に未登録の静的ドキュメントが 21 ファイル残っている。
+プロジェクトルート直下には App Router に未登録の静的ドキュメントが 26 ファイル残っている。
 これらは現時点で**ルート登録対象外**として扱っており、ルート化の可否は未決定。
 この一覧の正は `docs/MIGRATION_PROGRESS.md`。CLAUDE.md / GEMINI.md には同一の表を複製しているため、
 ファイルを追加・削除した場合は 3 ファイルすべてを同時に更新すること。
@@ -916,7 +916,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 | 書籍ガイド系（HTML + Markdown の 7 ペア = 14 ファイル）: `Beautiful-testing-guide.*` / `Beyond-legacy-code-guide.*` / `Quality-is-free-guide.*` / `Software-testing-craftsmans-approach-guide.*` / `Specification-by-example-guide.*` / `Testing-computer-software-guide.*` / `Working-effectively-with-legacy-code-guide.*` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。各ガイドは `.html` と `.md` が対になっている |
 | ツール系（2 ファイル）: `Appium-essentials-guide.html` / `Appium-essentials-guide.md` | 未定 | ⏸ ルート登録対象外 | ルート化候補だが未決定 |
 | `Sonarqube.html` | 未定 | ⏸ ルート登録対象外 | `/sonarqube-intermediate-guide` とは別系統の旧ドキュメント |
-| 新規ガイド系（4 ファイル）: `Ai-driven-software-testing-guide.*`（HTML+Markdown ペア）/ `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア） | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
+| 新規ガイド系（9 ファイル）: `Ai-driven-software-testing-guide.*`（HTML+Markdown ペア）/ `Automating-data-quality-monitoring-guide.*`（HTML+Markdown ペア）/ `Testing-ai-confidence-engineering-guide.*`（HTML+Markdown ペア）/ `Ctal-ta-v4.0-ch1.md` / `Ctal-ta-v4.0-ch2.md` / `Ctal-ta-v4-chapter3-testanalysisanddesign-guide.md` | 未定 | ⏸ ルート登録対象外 | 静的ドキュメントとして残置。ルート化の可否は未定 |
 
 ## 既知の留保事項
 
@@ -930,7 +930,7 @@ HTML 移行とは独立した可視化タスク. プロジェクト自身のテ�
 - 最新 HEAD は本ドキュメント「現在地」テーブルを参照（ここに固定値を書かない）。
 - **移行対象ガイドの移行完了**: 「移行状況テーブル」に掲載した HTML / Markdown の Next.js App Router への移行は完了しています。
 - 合計 71 ルート（ガイドライブラリ index + 70 ガイド）が `lib/navigation.ts` / `e2e/pages.ts` で管理されています。
-- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 21 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`、新規ガイド系 4 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
+- ただしプロジェクトルートには App Router に未登録の静的ドキュメントが 26 ファイル（書籍ガイド系の HTML/Markdown 7 ペア、Appium などのツール系 2 ファイル、`Sonarqube.html`、新規ガイド系 9 ファイル）残っています。これらはルート登録対象外の静的ドキュメントとして扱っており、ルート化するかどうかは未決定です。
 - 各種テスト（ユニット、型チェック、ESLint）はすべて最新の構成に同期され、通過しています。
 
 【指示】
