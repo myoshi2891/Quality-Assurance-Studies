@@ -72,9 +72,9 @@ describe('AI-Driven Software Testing Guide - Comprehensive Test Suite', () => {
 
     const tags = container.querySelectorAll('.hero-tag');
     expect(tags.length).toBe(3);
-    expect(tags[0].textContent).toContain('全3部 全18章');
-    expect(tags[1].textContent).toContain('図解14点 Mermaid');
-    expect(tags[2].textContent).toContain('参考文献12件');
+    expect(tags[0]?.textContent).toContain('全3部 全18章');
+    expect(tags[1]?.textContent).toContain('図解14点 Mermaid');
+    expect(tags[2]?.textContent).toContain('参考文献12件');
   });
 
   it('renders sidebar navigation with all 29 TOC items across 5 groups', () => {
@@ -85,24 +85,24 @@ describe('AI-Driven Software Testing Guide - Comprehensive Test Suite', () => {
     const links = container.querySelectorAll('.sidebar .nav-a');
     expect(links.length).toBe(29);
 
-    expect(links[0].getAttribute('data-target')).toBe('intro');
-    expect(links[0].textContent).toContain('この記事の読み方');
-    expect(links[1].getAttribute('data-target')).toBe('glossary');
-    expect(links[1].textContent).toContain('用語ミニ辞典');
-    expect(links[2].getAttribute('data-target')).toBe('book-info');
-    expect(links[2].textContent).toContain('書籍情報');
-    expect(links[3].getAttribute('data-target')).toBe('structure');
-    expect(links[3].textContent).toContain('全体構成をつかむ');
-    expect(links[28].getAttribute('data-target')).toBe('references');
-    expect(links[28].textContent).toContain('参考文献');
+    expect(links[0]?.getAttribute('data-target')).toBe('intro');
+    expect(links[0]?.textContent).toContain('この記事の読み方');
+    expect(links[1]?.getAttribute('data-target')).toBe('glossary');
+    expect(links[1]?.textContent).toContain('用語ミニ辞典');
+    expect(links[2]?.getAttribute('data-target')).toBe('book-info');
+    expect(links[2]?.textContent).toContain('書籍情報');
+    expect(links[3]?.getAttribute('data-target')).toBe('structure');
+    expect(links[3]?.textContent).toContain('全体構成をつかむ');
+    expect(links[28]?.getAttribute('data-target')).toBe('references');
+    expect(links[28]?.textContent).toContain('参考文献');
 
     const groups = container.querySelectorAll('.sidebar .nav-group-label');
     expect(groups.length).toBe(5);
-    expect(groups[0].textContent).toBe('はじめに');
-    expect(groups[1].textContent).toBe('Part I 基礎編');
-    expect(groups[2].textContent).toBe('Part II 実践編');
-    expect(groups[3].textContent).toBe('Part III 発展編');
-    expect(groups[4].textContent).toBe('まとめと参考情報');
+    expect(groups[0]?.textContent).toBe('はじめに');
+    expect(groups[1]?.textContent).toBe('Part I 基礎編');
+    expect(groups[2]?.textContent).toBe('Part II 実践編');
+    expect(groups[3]?.textContent).toBe('Part III 発展編');
+    expect(groups[4]?.textContent).toBe('まとめと参考情報');
   });
 
   it('renders all 29 section IDs in Page DOM', () => {
@@ -197,7 +197,7 @@ describe('AI-Driven Software Testing Guide - Comprehensive Test Suite', () => {
     const countText = checklist?.querySelector('#checklistCounter');
     expect(countText?.textContent?.trim()).toBe('0 / 10 完了');
 
-    const firstCheckbox = items?.[0].querySelector('input[type="checkbox"]');
+    const firstCheckbox = items?.[0]?.querySelector('input[type="checkbox"]');
     expect(firstCheckbox).not.toBeNull();
     if (firstCheckbox) {
       fireEvent.click(firstCheckbox);
@@ -213,8 +213,8 @@ describe('AI-Driven Software Testing Guide - Comprehensive Test Suite', () => {
     const rows = section?.querySelectorAll('tbody tr');
     expect(rows?.length).toBe(18);
 
-    expect(rows?.[0].textContent).toContain('AIとMLが現代のソフトウェアテストで果たす役割');
-    expect(rows?.[17].textContent).toContain('AI駆動QE実装への次のステップ');
+    expect(rows?.[0]?.textContent).toContain('AIとMLが現代のソフトウェアテストで果たす役割');
+    expect(rows?.[17]?.textContent).toContain('AI駆動QE実装への次のステップ');
   });
 
   it('renders all 12 reference items with external links in section #references', () => {
